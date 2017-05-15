@@ -64,7 +64,10 @@
     <string name="prefs_recommend">推荐给朋友</string>
     <string name="prefs_feedback">反馈</string>
     <string name="prefs_imprint">版本说明</string>
-    <string name="recommend_subject">在您的智能手机上试用 %1$s！</string>
+    <string name="prefs_remember_last_share_location">记住本地共享</string>
+    <string name="prefs_remember_last_upload_location_summary">记住最近的本地共享</string>
+
+	<string name="recommend_subject">在您的智能手机上试用 %1$s！</string>
 	<string name="recommend_text">我想邀请你在智能机上使用%1$s。
 从这里下载：%2$s</string>
 
@@ -291,7 +294,10 @@
     <string name="conflict_use_local_version">本地版本</string>
     <string name="conflict_use_server_version">服务器版本</string>
 
+    <string name="preview_sorry">抱歉</string>
     <string name="preview_image_description">图片预览</string>
+    <string name="preview_image_error_unknown_format">无法显示图像</string>
+
     <string name="error__upload__local_file_not_copied">无法复制 %1$s 到本地目录 %2$s</string>
     <string name="prefs_instant_upload_path_title">实时上传文件夹</string>
     <string name="prefs_folder_sync_local_path_title">本地文件夹</string>
@@ -320,6 +326,8 @@
     <string name="share_link_forbidden_permissions">共享该文件</string>
     <string name="unshare_link_forbidden_permissions">取消共享该文件</string>
     <string name="update_link_forbidden_permissions">更新共享</string>
+    <string name="forbidden_permissions_create">创建此文件</string>
+    <string name="uploader_upload_forbidden_permissions">上传到此文件夹</string>
     <string name="downloader_download_file_not_found">该文件在服务器上不可用</string>
 
     <string name="file_migration_dialog_title">更新存储路径</string>
@@ -329,12 +337,24 @@
     <string name="file_migration_updating_index">更新目录&#8230;</string>
     <string name="file_migration_cleaning">清除&#8230;</string>
     <string name="file_migration_ok_finished">完成</string>
+    <string name="file_migration_failed_not_enough_space">错误：空间不足</string>
+    <string name="file_migration_failed_not_writable">错误：目标文件不可写</string>
+    <string name="file_migration_failed_not_readable">错误：源文件不可读</string>
     <string name="file_migration_failed_dir_already_exists">错误：Nextcloud目录已经存在</string>
+    <string name="file_migration_failed_while_coping">错误：迁移过程中失败</string>
+    <string name="file_migration_failed_while_updating_index">错误：无法更新索引</string>
+
+    <string name="file_migration_directory_already_exists">数据文件夹已经存在。 选择以下选项之一：</string>
+    <string name="file_migration_override_data_folder">代替</string>
+    <string name="file_migration_use_data_folder">使用</string>
+
+    <string name="file_migration_source_not_readable_title">源目录不可读！</string>
     <string name="prefs_category_accounts">账号</string>
     <string name="prefs_add_account">添加账号</string>
     <string name="drawer_manage_accounts">管理账号</string>
     <string name="actionbar_logger">日志</string>
 	<string name="log_send_history_button">发送历史日志</string>
+	<string name="log_send_no_mail_app">没有应用程序发送发送日志。 请安装电子邮件客户端。</string>
 	<string name="log_send_mail_subject">%1$s Android 程序日志</string>
 	<string name="log_progress_dialog_text">加载数据 &#8230;</string>
 
@@ -342,20 +362,27 @@
 	<string name="saml_authentication_wrong_pass">错误密码</string>
 	<string name="actionbar_move">移动</string>
     <string name="actionbar_copy">复制</string>
+	<string name="file_list_empty_moving">这里是空的 您可以添加一个文件夹。</string>
 	<string name="folder_picker_choose_button_text">选择</string>
 
+    <string name="move_file_not_found">无法移动文件。 请检查是否存在</string>
+    <string name="move_file_invalid_into_descendent">将文件夹移动到其自己的底层文件夹中是不可能的</string>
+    <string name="move_file_invalid_overwrite">该文件已存在于目标文件夹中</string>
     <string name="move_file_error">尝试移动该文件或文件夹时发生错误</string>
     <string name="forbidden_permissions_move">移动该文件</string>
 
 
     <string name="copy_file_not_found">无法复制文件。请检查文件是否存在</string>
+    <string name="copy_file_invalid_into_descendent">将文件夹复制到其自己的底层文件夹中是不可能的</string>
+    <string name="copy_file_invalid_overwrite">该文件已存在于目标文件夹中</string>
     <string name="copy_file_error">尝试复制这个文件或文件夹时发生了错误</string>
     <string name="forbidden_permissions_copy">复制这个文件</string>
 
     <string name="prefs_category_instant_uploading">即时上传</string>
     <string name="prefs_category_details">详细信息</string>
 
-	<string name="sync_folder_failed_content"> %1$s同步未完成。</string>
+	<string name="prefs_instant_video_upload_path_title">用于即时上传的视频文件夹</string>
+    <string name="sync_folder_failed_content"> %1$s同步未完成。</string>
 
 	<string name="shared_subject_header">已共享</string>
 	<string name="with_you_subject_header">与你</string>
@@ -396,6 +423,7 @@
     <string name="share_add_user_or_group">添加用户或组</string>
     <string name="share_via_link_section_title">分享链接</string>
     <string name="share_via_link_expiration_date_label">设置过期日期</string>
+    <string name="share_via_link_password_label">用密码保护</string>
     <string name="share_via_link_password_title">安全</string>
     <string name="share_via_link_edit_permission_label">允许编辑</string>
     <string name="share_via_link_hide_file_listing_permission_label">隐藏文件列表</string>
@@ -411,6 +439,7 @@
     <string name="share_email_clarification">%1$s (邮件)</string>
     <string name="share_known_remote_clarification">%1$s ( 在 %2$s )</string>
 
+    <string name="share_sharee_unavailable">升级服务器版本以允许在其客户端之间的用户之间共享。\ n请与您的管理员联系</string>
     <string name="share_privilege_can_share">可共享</string>
     <string name="share_privilege_can_edit">可编辑</string>
     <string name="share_privilege_can_edit_create">创建</string>
@@ -419,7 +448,11 @@
     <string name="edit_share_unshare">停止共享</string>
     <string name="edit_share_done">完成</string>
 
+    <string name="action_retry_uploads">新尝试失败</string>
     <string name="action_clear_failed_uploads">清除失败</string>
+    <string name="action_clear_successful_uploads">清除</string>
+    <string name="action_clear_finished_uploads">清除完成上传</string>
+
     <string name="action_switch_grid_view">网格视图</string>
     <string name="action_switch_list_view">列表视图</string>
 
@@ -427,14 +460,22 @@
     <string name="manage_space_clear_data">清除数据</string>
     <string name="manage_space_error">某些文件无法删除。</string>
 
+    <string name="permission_storage_access">上传和下载文件所需的其他权限。</string>
+    <string name="local_file_not_found_toast">在本地文件系统中找不到文件</string>
     <string name="confirmation_remove_files_alert">你是否真的要删除所选的项目？</string>
     <string name="confirmation_remove_folders_alert">你是否真的要删除所选的项目和它们的内容？</string>
+    <string name="maintenance_mode">服务器处于维护模式</string>
+
+    <string name="uploads_view_upload_status_waiting_for_charging">等待收费</string>
     <string name="actionbar_search">搜索</string>
     <string name="files_drop_not_supported">这是一个Nextcloud的特征，请更新</string>
     <string name="learn_more">学习更多</string>
     <string name="drawer_folder_sync">自动上传</string>
     <string name="drawer_participate">参加</string>
+    <string name="participate_testing_headline">通过测试帮助</string>
+    <string name="participate_testing_bug_text">发现错误？细节？</string>
     <string name="participate_testing_report_text">在GIthub在报告问题</string>
+    <string name="participate_testing_version_text">在帮助里有兴趣通过测试下一个版本？</string>
     <string name="participate_beta_headline">检查这个设备的版本</string>
     <string name="participate_release_candidate_headline">发行候选版本</string>
     <string name="participate_contribute_headline">活跃的候选版</string>
@@ -446,6 +487,7 @@
     <string name="choose_remote_folder">选择文件夹&#8230;</string>
     <string name="folder_sync_loading_folders">加载文件夹&#8230;</string>
     <string name="folder_sync_no_results">没有发现媒体文件夹</string>
+    <string name="folder_sync_preferences">自动上传的首选项</string>
     <string name="folder_sync_settings">设置</string>
     <string name="folder_sync_preferences_folder_path">为%1$s</string>
     <plurals name="items_selected_count">
@@ -459,6 +501,7 @@
     <string name="notifications_no_results_headline">没有提示</string>
     <string name="notifications_no_results_message">请稍后核对</string>
 
+    <string name="upload_file_dialog_title">输入要上传的文件名和文件类型</string>
     <string name="upload_file_dialog_filename">文件名</string>
     <string name="upload_file_dialog_filetype">文件类型</string>
     <string name="upload_file_dialog_filetype_snippet_text">片段文本文件(.txt)</string>
@@ -474,6 +517,8 @@
 
     <!-- Welcome to Nc intro features -->
     <string name="welcome_feature_1_title">给你所有的数据一个安全的家</string>
+    <string name="welcome_feature_1_text">访问，共享和保护您的文件在家里和工作</string>
+
     <string name="welcome_feature_2_title">多用户</string>
     <string name="welcome_feature_2_text">联接你所有的云</string>
 
@@ -487,6 +532,7 @@
 
     <!-- User information -->
     <string name="user_info_full_name">全名</string>
+    <string name="user_info_email">邮件</string>
     <string name="user_info_phone">电话号码</string>
     <string name="user_info_address">地址</string>
     <string name="user_info_website">网站</string>
@@ -499,19 +545,31 @@
     <string name="webview_error">发生错误</string>
     <string name="prefs_category_about">关于</string>
 
+    <string name="actionbar_contacts">备份联系人</string>
+    <string name="actionbar_contacts_restore">恢复联系人</string>
+    <string name="contacts_backup_button">立即备份</string>
     <string name="contacts_restore_button">恢复上次备份</string>
     <string name="contacts_header_restore">恢复</string>
     <string name="contacts_header_backup">备份</string>
     <string name="contacts_automatic_backup">联系人备份</string>
     <string name="contacts_last_backup">上次备份</string>
+    <string name="contacts_read_permission">需要更改阅读列表的权限</string>
+    <string name="contacts_write_permission">需要更改联系人列表的权限</string>
     <string name="contactlist_title">恢复联系人</string>
     <string name="contaclist_restore_selected">恢复选中的联系人</string>
+    <string name="contactlist_account_chooser_title">选择导入帐户</string>
+    <string name="contactlist_no_permission">没有授权，不能进入</string>
     <string name="contacts_preference_choose_date">选择时间</string>
     <string name="contacts_preference_backup_never">永远不</string>
     <string name="contacts_preferences_no_file_found">没有文件被发现</string>
+    <string name="contacts_preferences_something_strange_happened">找不到最后的备份</string>
     <string name="contacts_preferences_backup_scheduled">备份已经排期，稍后将开始</string>
     <string name="contacts_preferences_import_scheduled">导入已经排期，稍后将开始</string>
 
     <!-- Notifications -->
     <string name="new_notification_received">收到新提示</string>
-    </resources>
+    <string name="drawer_logout">退出</string>
+    <string name="privacy">隐私</string>
+
+
+</resources>
