@@ -43,6 +43,7 @@ import android.widget.TextView;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
+import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
@@ -51,6 +52,9 @@ import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.activities.GetRemoteActivitiesOperation;
 import com.owncloud.android.ui.adapter.ActivityListAdapter;
+import com.owncloud.android.ui.interfaces.ActivityListInterface;
+import com.owncloud.android.ui.preview.PreviewImageActivity;
+import com.owncloud.android.ui.preview.PreviewImageFragment;
 import com.owncloud.android.utils.AnalyticsUtils;
 import com.owncloud.android.utils.DisplayUtils;
 
@@ -66,7 +70,7 @@ import butterknife.Unbinder;
 /**
  * Activity displaying all server side stored activity items.
  */
-public class ActivitiesListActivity extends FileActivity {
+public class ActivitiesListActivity extends FileActivity implements ActivityListInterface {
 
     private static final String TAG = ActivitiesListActivity.class.getSimpleName();
     private static final String SCREEN_NAME = "Activities";
@@ -159,7 +163,7 @@ public class ActivitiesListActivity extends FileActivity {
         emptyContentIcon.setImageResource(R.drawable.ic_activity_light_grey);
         setLoadingMessage();
 
-        adapter = new ActivityListAdapter(this);
+        adapter = new ActivityListAdapter(this,this);
         recyclerView.setAdapter(adapter);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
@@ -307,5 +311,19 @@ public class ActivitiesListActivity extends FileActivity {
         super.onResume();
 
         AnalyticsUtils.setCurrentScreenName(this, SCREEN_NAME, TAG);
+    }
+
+
+    @Override
+    public void onActivityClicked() {
+        Intent showDetailsIntent;
+        OCFile ocFile=new OCFile("/alex123.jpg");
+        if(PreviewImageFragment.canBePreviewed(ocFile))
+            showDetailsIntent = new Intent(this, PreviewImageActivity.class);
+        else
+            showDetailsIntent = new Intent(this, FileDisplayActivity.class);
+        showDetailsIntent.putExtra(EXTRA_FILE, ocFile);
+        showDetailsIntent.putExtra(EXTRA_ACCOUNT, getAccount());
+        startActivity(showDetailsIntent);
     }
 }
