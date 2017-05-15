@@ -664,7 +664,6 @@
     <string name="drawer_logout">Logout</string>
     <string name="privacy">Privacy</string>
 
-    <string name="empty" translatable="false"></string>
-
+    <string name="empty" translatable="false"/>
 
 </resources>
