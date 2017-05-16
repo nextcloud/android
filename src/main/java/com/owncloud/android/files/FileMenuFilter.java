@@ -1,7 +1,7 @@
-/**
- * ownCloud Android client application
- *
- * @author David A. Velasco
+/*
+  ownCloud Android client application
+
+  @author David A. Velasco
  * Copyright (C) 2015 ownCloud Inc.
  *
  * This program is free software: you can redistribute it and/or modify
@@ -34,8 +34,8 @@ import com.owncloud.android.ui.activity.ComponentsGetter;
 import com.owncloud.android.utils.MimeTypeUtil;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
@@ -78,7 +78,7 @@ public class FileMenuFilter {
      */
     public FileMenuFilter(OCFile targetFile, Account account, ComponentsGetter cg,
                           Context context) {
-        this(Arrays.asList(targetFile), account, cg, context);
+        this(Collections.singletonList(targetFile), account, cg, context);
     }
 
     /**
@@ -92,8 +92,8 @@ public class FileMenuFilter {
             hideAll(menu);
 
         } else {
-            List<Integer> toShow = new ArrayList<Integer>();
-            List<Integer> toHide = new ArrayList<Integer>();
+            List<Integer> toShow = new ArrayList<>();
+            List<Integer> toHide = new ArrayList<>();
 
             filter(toShow, toHide);
 
