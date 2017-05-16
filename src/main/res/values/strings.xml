@@ -663,6 +663,7 @@
     <string name="new_notification_received">New notification received</string>
     <string name="drawer_logout">Logout</string>
     <string name="privacy">Privacy</string>
+    <string name="file_not_found">File not found!</string>
 
 
 </resources>
