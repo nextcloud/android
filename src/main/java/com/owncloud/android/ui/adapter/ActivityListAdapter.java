@@ -66,20 +66,21 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     public static final int HEADER_TYPE=100;
     public static final int ACTIVITY_TYPE=101;
     private final ActivityListInterface activityListInterface;
-    private final OwnCloudClient mClient;
+    private OwnCloudClient mClient;
 
     private Context context;
     private List<Object> mValues;
 
-    public ActivityListAdapter(Context context, ActivityListInterface activityListInterface,OwnCloudClient client) {
+    public ActivityListAdapter(Context context, ActivityListInterface activityListInterface) {
         this.mValues = new ArrayList<>();
         this.context = context;
         this.activityListInterface=activityListInterface;
-        this.mClient=client;
+
 
     }
 
-    public void setActivityItems(List<Object> activityItems) {
+    public void setActivityItems(List<Object> activityItems,OwnCloudClient client) {
+        this.mClient=client;
         mValues.clear();
         String sTime="";
         for (Object o : activityItems) {
