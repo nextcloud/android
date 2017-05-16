@@ -274,7 +274,7 @@ public abstract class PreferenceManager {
     private static void saveStringPreferenceNow(Context context, String key, String value) {
         SharedPreferences.Editor appPreferences = getDefaultSharedPreferences(context.getApplicationContext()).edit();
         appPreferences.putString(key, value);
-        appPreferences.commit();
+        appPreferences.apply();
     }
 
     private static void saveIntPreference(Context context, String key, int value) {
