@@ -26,7 +26,6 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.SpannableStringBuilder;
 import android.text.TextUtils;
-import android.text.format.DateUtils;
 import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
 import android.text.style.StyleSpan;
@@ -43,7 +42,10 @@ import com.bumptech.glide.load.model.StreamEncoder;
 import com.bumptech.glide.load.resource.file.FileToStreamDecoder;
 import com.caverock.androidsvg.SVG;
 import com.owncloud.android.R;
+import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.resources.activities.models.Activity;
+import com.owncloud.android.lib.resources.activities.models.RichObject;
+import com.owncloud.android.lib.resources.activities.models.RichSubject;
 import com.owncloud.android.ui.interfaces.ActivityListInterface;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.svg.SvgDecoder;
@@ -64,14 +66,17 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     public static final int HEADER_TYPE=100;
     public static final int ACTIVITY_TYPE=101;
     private final ActivityListInterface activityListInterface;
+    private final OwnCloudClient mClient;
 
     private Context context;
     private List<Object> mValues;
 
-    public ActivityListAdapter(Context context, ActivityListInterface activityListInterface) {
+    public ActivityListAdapter(Context context, ActivityListInterface activityListInterface,OwnCloudClient client) {
         this.mValues = new ArrayList<>();
         this.context = context;
         this.activityListInterface=activityListInterface;
+        this.mClient=client;
+
     }
 
     public void setActivityItems(List<Object> activityItems) {
@@ -122,7 +127,7 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
             if (!TextUtils.isEmpty(activity.getSubject())) {
                 activityViewHolder.subject.setMovementMethod(LinkMovementMethod.getInstance());
-                activityViewHolder.subject.setText(addClickablePart("{user} aceptó la compartición remota de {file}"), TextView.BufferType.SPANNABLE);
+                activityViewHolder.subject.setText(addClickablePart(activity.getRichSubject()), TextView.BufferType.SPANNABLE);
                 activityViewHolder.subject.setVisibility(View.VISIBLE);
             } else {
                 activityViewHolder.subject.setVisibility(View.GONE);
@@ -139,17 +144,12 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 downloadIcon(activity.getIcon(), activityViewHolder.activityIcon);
             }
 
-            ArrayList<String> richObjects=new ArrayList<>();
-            richObjects.add("http://static3.businessinsider.com/image/55b675ab2acae7c7018ba34e-1200/milky-way-galaxy.jpg");
-            richObjects.add("http://static3.businessinsider.com/image/55b675ab2acae7c7018ba34e-1200/milky-way-galaxy.jpg");
-            richObjects.add("http://static3.businessinsider.com/image/55b675ab2acae7c7018ba34e-1200/milky-way-galaxy.jpg");
-            richObjects.add("http://static3.businessinsider.com/image/55b675ab2acae7c7018ba34e-1200/milky-way-galaxy.jpg");
-            richObjects.add("http://static3.businessinsider.com/image/55b675ab2acae7c7018ba34e-1200/milky-way-galaxy.jpg");
-
-            RichObjectAdapter richObjectAdapter=new RichObjectAdapter(context,activityListInterface);
-            activityViewHolder.list.setLayoutManager(new GridLayoutManager(context,4));
-            activityViewHolder.list.setAdapter(richObjectAdapter);
-            richObjectAdapter.setValues(richObjects);
+            if(activity.getRichSubject()!=null && activity.richSubject.getRichObjectList().size()>0) {
+                RichObjectAdapter richObjectAdapter = new RichObjectAdapter(context, activityListInterface);
+                activityViewHolder.list.setLayoutManager(new GridLayoutManager(context, 4));
+                activityViewHolder.list.setAdapter(richObjectAdapter);
+                richObjectAdapter.setValues(activity.richSubject.getRichObjectList(),mClient.getBaseUri());
+            }
 
         }else{
             ActivityViewHeaderHolder activityViewHeaderHolder=(ActivityViewHeaderHolder)holder;
@@ -179,31 +179,43 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 .into(itemViewType);
     }
 
-    private SpannableStringBuilder addClickablePart(String str) {
-        SpannableStringBuilder ssb = new SpannableStringBuilder(str);
+    private SpannableStringBuilder addClickablePart(RichSubject richSubject) {
+        String text=richSubject.getRichSubject();
+        SpannableStringBuilder ssb = new SpannableStringBuilder(text);
 
-        int idx1 = str.indexOf("{");
-        int idx2 = 0;
+        int idx1 = text.indexOf("{");
+        int idx2;
         while (idx1 != -1) {
-            idx2 = str.indexOf("}", idx1) + 1;
-
-            String stringFake="alex12345.png";
-            ssb.replace(idx1,idx2,stringFake);
-            str=ssb.toString();
-            idx2=idx1+stringFake.length();
-            final String clickString = str.substring(idx1, idx2);
-            ssb.setSpan(new ClickableSpan() {
-                @Override
-                public void onClick(View widget) {
-                    activityListInterface.onActivityClicked();
-                }
-            }, idx1, idx2, 0);
-            ssb.setSpan(new StyleSpan(android.graphics.Typeface.BOLD),idx1,idx2,0);
-            idx1 = str.indexOf("{", idx2);
+            idx2 = text.indexOf("}", idx1) + 1;
+            final String clickString = text.substring(idx1+1, idx2-1);
+            final RichObject richObject=searchObjectByName(richSubject.getRichObjectList(),clickString);
+            if(richObject!=null) {
+                String name = richObject.getName();
+                ssb.replace(idx1, idx2, name);
+                text = ssb.toString();
+                idx2 = idx1 + name.length();
+                ssb.setSpan(new ClickableSpan() {
+                    @Override
+                    public void onClick(View widget) {
+                        activityListInterface.onActivityClicked(richObject);
+                    }
+                }, idx1, idx2, 0);
+                ssb.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), idx1, idx2, 0);
+            }
+            idx1 = text.indexOf("{", idx2);
         }
 
         return ssb;
     }
+
+    public RichObject searchObjectByName(ArrayList<RichObject> richObjectList,String name){
+        for (RichObject richObject : richObjectList) {
+            if(richObject.getTag().equalsIgnoreCase(name))
+                return richObject;
+        }
+        return null;
+    }
+
 
     @Override
     public int getItemViewType(int position) {
