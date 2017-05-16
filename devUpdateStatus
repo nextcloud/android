@@ -1,6 +1,7 @@
 2017-05-16
 Branches: 7
-[01 / 07] Crash due to non-existing empty string (nextcloud/crashDueToEmptyString) [https://github.com/nextcloud/android/pull/995] CONFLICT
+[00 / 07] Dev branch (nextcloud/dev) [https://github.com/nextcloud/android/tree/dev] was updated successfully
+[01 / 07] Crash due to non-existing empty string (nextcloud/crashDueToEmptyString) [https://github.com/nextcloud/android/pull/995] no update needed
 [02 / 07] Re-use second fragment if available (nextcloud/audioRotationBug) [https://github.com/nextcloud/android/pull/985] no update needed
 [03 / 07] Search inside of text files (nextcloud/bugfix-454) [https://github.com/nextcloud/android/pull/565] CONFLICT
 [04 / 07] Pinch zoom (nextcloud/pinchZoom) [https://github.com/nextcloud/android/pull/143] CONFLICT
