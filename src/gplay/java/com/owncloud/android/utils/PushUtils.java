@@ -202,26 +202,46 @@ public class PushUtils {
 
                 Context context = MainApp.getAppContext();
                 String providerValue;
+                PushConfigurationState accountPushData = null;
                 Gson gson = new Gson();
                 for (Account account : AccountUtils.getAccounts(context)) {
-                    if (!TextUtils.isEmpty(providerValue = arbitraryDataProvider.getValue(account, KEY_PUSH))) {
-                        PushConfigurationState accountPushData = gson.fromJson(providerValue,
+                    providerValue = arbitraryDataProvider.getValue(account, KEY_PUSH);
+                    if (!TextUtils.isEmpty(providerValue)) {
+                        accountPushData = gson.fromJson(providerValue,
                                 PushConfigurationState.class);
-                        if (!accountPushData.getPushToken().equals(token) && !accountPushData.isShouldBeDeleted()) {
-                            try {
-                                OwnCloudAccount ocAccount = new OwnCloudAccount(account, context);
-                                OwnCloudClient mClient = OwnCloudClientManagerFactory.getDefaultSingleton().
-                                        getClientFor(ocAccount, context);
+                    } else {
+                        accountPushData = null;
+                    }
 
-                                RemoteOperation registerAccountDeviceForNotificationsOperation =
-                                        new RegisterAccountDeviceForNotificationsOperation(pushTokenHash,
-                                                publicKey,
-                                                context.getResources().getString(R.string.push_server_url));
+                    if (accountPushData != null && !accountPushData.getPushToken().equals(token) &&
+                            !accountPushData.isShouldBeDeleted() ||
+                            TextUtils.isEmpty(providerValue)) {
+                        try {
+                            OwnCloudAccount ocAccount = new OwnCloudAccount(account, context);
+                            OwnCloudClient mClient = OwnCloudClientManagerFactory.getDefaultSingleton().
+                                    getClientFor(ocAccount, context);
 
-                                RemoteOperationResult remoteOperationResult = registerAccountDeviceForNotificationsOperation.
-                                        execute(mClient);
+                            RemoteOperation registerAccountDeviceForNotificationsOperation =
+                                    new RegisterAccountDeviceForNotificationsOperation(pushTokenHash,
+                                            publicKey,
+                                            context.getResources().getString(R.string.push_server_url));
+
+                            RemoteOperationResult remoteOperationResult = registerAccountDeviceForNotificationsOperation.
+                                    execute(mClient);
+
+                            if (remoteOperationResult.isSuccess()) {
+                                PushResponse pushResponse = remoteOperationResult.getPushResponseData();
+
+                                RemoteOperation registerAccountDeviceForProxyOperation = new
+                                        RegisterAccountDeviceForProxyOperation(
+                                        context.getResources().getString(R.string.push_server_url),
+                                        token, pushResponse.getDeviceIdentifier(), pushResponse.getSignature(),
+                                        pushResponse.getPublicKey());
+
+                                remoteOperationResult = registerAccountDeviceForProxyOperation.execute(mClient);
 
                                 if (remoteOperationResult.isSuccess()) {
+<<<<<<< Updated upstream
                                     PushResponse pushResponse = remoteOperationResult.getPushResponseData();
 
                                     RemoteOperation registerAccountDeviceForProxyOperation = new
@@ -239,19 +259,26 @@ public class PushUtils {
                                         arbitraryDataProvider.storeOrUpdateKeyValue(account, KEY_PUSH,
                                                 gson.toJson(pushArbitraryData));
                                     }
+=======
+                                    PushConfigurationState pushArbitraryData = new PushConfigurationState(token,
+                                            pushResponse.getDeviceIdentifier(), pushResponse.getSignature(),
+                                            pushResponse.getPublicKey(), false);
+                                    arbitraryDataProvider.storeOrUpdateKeyValue(account.name, KEY_PUSH,
+                                            gson.toJson(pushArbitraryData));
+>>>>>>> Stashed changes
                                 }
-                            } catch (com.owncloud.android.lib.common.accounts.AccountUtils.AccountNotFoundException e) {
-                                Log_OC.d(TAG, "Failed to find an account");
-                            } catch (AuthenticatorException e) {
-                                Log_OC.d(TAG, "Failed via AuthenticatorException");
-                            } catch (IOException e) {
-                                Log_OC.d(TAG, "Failed via IOException");
-                            } catch (OperationCanceledException e) {
-                                Log_OC.d(TAG, "Failed via OperationCanceledException");
                             }
-                        } else if (accountPushData.isShouldBeDeleted()) {
-                            deleteRegistrationForAccount(account);
+                        } catch (com.owncloud.android.lib.common.accounts.AccountUtils.AccountNotFoundException e) {
+                            Log_OC.d(TAG, "Failed to find an account");
+                        } catch (AuthenticatorException e) {
+                            Log_OC.d(TAG, "Failed via AuthenticatorException");
+                        } catch (IOException e) {
+                            Log_OC.d(TAG, "Failed via IOException");
+                        } catch (OperationCanceledException e) {
+                            Log_OC.d(TAG, "Failed via OperationCanceledException");
                         }
+                    } else if (accountPushData != null && accountPushData.isShouldBeDeleted()) {
+                        deleteRegistrationForAccount(account);
                     }
                 }
             }
@@ -261,7 +288,7 @@ public class PushUtils {
     public static Key readKeyFromFile(boolean readPublicKey) {
         String keyPath = MainApp.getStoragePath() + File.separator + MainApp.getDataFolder() + File.separator
                 + KEYPAIR_FOLDER;
-        
+
         String privateKeyPath = keyPath + File.separator + KEYPAIR_FILE_NAME + KEYPAIR_PRIV_EXTENSION;
         String publicKeyPath = keyPath + File.separator + KEYPAIR_FILE_NAME + KEYPAIR_PUB_EXTENSION;
 
