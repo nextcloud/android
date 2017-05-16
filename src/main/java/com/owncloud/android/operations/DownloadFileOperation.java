@@ -49,6 +49,7 @@ public class DownloadFileOperation extends RemoteOperation {
 
     private Account mAccount;
     private OCFile mFile;
+    private String mBehaviour;
     private Set<OnDatatransferProgressListener> mDataTransferListeners = new HashSet<OnDatatransferProgressListener>();
     private long mModificationTimestamp = 0;
     private String mEtag = "";
@@ -56,8 +57,8 @@ public class DownloadFileOperation extends RemoteOperation {
     
     private DownloadRemoteFileOperation mDownloadOperation;
 
-    
-    public DownloadFileOperation(Account account, OCFile file) {
+
+    public DownloadFileOperation(Account account, OCFile file, String behaviour) {
         if (account == null) {
             throw new IllegalArgumentException("Illegal null account in DownloadFileOperation " +
                     "creation");
@@ -69,6 +70,7 @@ public class DownloadFileOperation extends RemoteOperation {
         
         mAccount = account;
         mFile = file;
+        mBehaviour = behaviour;
     }
 
 
@@ -78,6 +80,10 @@ public class DownloadFileOperation extends RemoteOperation {
     
     public OCFile getFile() {
         return mFile;
+    }
+
+    public String getBehaviour() {
+        return mBehaviour;
     }
 
     public String getSavePath() {
