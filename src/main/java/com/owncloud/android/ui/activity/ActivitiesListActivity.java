@@ -50,6 +50,7 @@ import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.activities.GetRemoteActivitiesOperation;
 import com.owncloud.android.lib.resources.activities.models.RichObject;
+import com.owncloud.android.lib.resources.files.FileUtils;
 import com.owncloud.android.ui.adapter.ActivityListAdapter;
 import com.owncloud.android.ui.interfaces.ActivityListInterface;
 import com.owncloud.android.ui.preview.PreviewImageActivity;
@@ -137,11 +138,8 @@ public class ActivitiesListActivity extends FileActivity implements ActivityList
             public void onRefresh() {
                 setLoadingMessage();
                 fetchAndSetData();
-
             }
         });
-
-
 
         setupContent();
     }
@@ -167,7 +165,7 @@ public class ActivitiesListActivity extends FileActivity implements ActivityList
         emptyContentIcon.setImageResource(R.drawable.ic_activity_light_grey);
         setLoadingMessage();
 
-        adapter = new ActivityListAdapter(this,this);
+        adapter = new ActivityListAdapter(this, this);
         recyclerView.setAdapter(adapter);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
@@ -197,7 +195,7 @@ public class ActivitiesListActivity extends FileActivity implements ActivityList
                     ocAccount = new OwnCloudAccount(
                             currentAccount,
                             context
-                            );
+                    );
                     final OwnCloudClient mClient = OwnCloudClientManagerFactory.getDefaultSingleton().
                             getClientFor(ocAccount, MainApp.getAppContext());
                     mClient.setOwnCloudVersion(AccountUtils.getServerVersion(currentAccount));
@@ -213,7 +211,7 @@ public class ActivitiesListActivity extends FileActivity implements ActivityList
                             @Override
                             public void run() {
                                 if (activities.size() > 0) {
-                                    populateList(activities,mClient);
+                                    populateList(activities, mClient);
                                     swipeEmptyListRefreshLayout.setVisibility(View.GONE);
                                     swipeListRefreshLayout.setVisibility(View.VISIBLE);
                                 } else {
@@ -263,9 +261,9 @@ public class ActivitiesListActivity extends FileActivity implements ActivityList
         });
     }
 
-    private void populateList(List<Object> activities,OwnCloudClient mClient) {
+    private void populateList(List<Object> activities, OwnCloudClient mClient) {
 
-        adapter.setActivityItems(activities,mClient);
+        adapter.setActivityItems(activities, mClient);
     }
 
     @Override
@@ -318,11 +316,12 @@ public class ActivitiesListActivity extends FileActivity implements ActivityList
     @Override
     public void onActivityClicked(RichObject richObject) {
         Intent showDetailsIntent;
-        OCFile ocFile=new OCFile("/"+richObject.getPath());
-        if(PreviewImageFragment.canBePreviewed(ocFile))
+        OCFile ocFile = new OCFile(FileUtils.PATH_SEPARATOR + richObject.getPath());
+        if (PreviewImageFragment.canBePreviewed(ocFile)) {
             showDetailsIntent = new Intent(this, PreviewImageActivity.class);
-        else
+        } else {
             showDetailsIntent = new Intent(this, FileDisplayActivity.class);
+        }
         showDetailsIntent.putExtra(EXTRA_FILE, ocFile);
         showDetailsIntent.putExtra(EXTRA_ACCOUNT, getAccount());
         startActivity(showDetailsIntent);
