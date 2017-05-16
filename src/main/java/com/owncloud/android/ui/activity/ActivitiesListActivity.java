@@ -30,7 +30,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
@@ -51,6 +50,7 @@ import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.activities.GetRemoteActivitiesOperation;
+import com.owncloud.android.lib.resources.activities.models.RichObject;
 import com.owncloud.android.ui.adapter.ActivityListAdapter;
 import com.owncloud.android.ui.interfaces.ActivityListInterface;
 import com.owncloud.android.ui.preview.PreviewImageActivity;
@@ -105,6 +105,7 @@ public class ActivitiesListActivity extends FileActivity implements ActivityList
 
     private ActivityListAdapter adapter;
     private Unbinder unbinder;
+    private OwnCloudClient mClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -140,6 +141,20 @@ public class ActivitiesListActivity extends FileActivity implements ActivityList
 
             }
         });
+
+        try {
+            OwnCloudAccount ocAccount = new OwnCloudAccount(
+                    AccountUtils.getCurrentOwnCloudAccount( MainApp.getAppContext()),this
+
+            );
+            mClient = OwnCloudClientManagerFactory.getDefaultSingleton().
+                    getClientFor(ocAccount, MainApp.getAppContext());
+
+
+        }catch (Exception e){
+            Log_OC.i(TAG,e.getMessage());
+        }
+
         setupContent();
     }
 
@@ -163,15 +178,12 @@ public class ActivitiesListActivity extends FileActivity implements ActivityList
         emptyContentIcon.setImageResource(R.drawable.ic_activity_light_grey);
         setLoadingMessage();
 
-        adapter = new ActivityListAdapter(this,this);
+        adapter = new ActivityListAdapter(this,this,mClient);
         recyclerView.setAdapter(adapter);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(),
-                layoutManager.getOrientation());
 
         recyclerView.setLayoutManager(layoutManager);
-        //recyclerView.addItemDecoration(dividerItemDecoration);
 
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation_view);
 
@@ -315,9 +327,9 @@ public class ActivitiesListActivity extends FileActivity implements ActivityList
 
 
     @Override
-    public void onActivityClicked() {
+    public void onActivityClicked(RichObject richObject) {
         Intent showDetailsIntent;
-        OCFile ocFile=new OCFile("/alex123.jpg");
+        OCFile ocFile=new OCFile("/"+richObject.getPath());
         if(PreviewImageFragment.canBePreviewed(ocFile))
             showDetailsIntent = new Intent(this, PreviewImageActivity.class);
         else
