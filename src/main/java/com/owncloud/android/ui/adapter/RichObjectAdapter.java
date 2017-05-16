@@ -133,7 +133,7 @@ public class RichObjectAdapter extends RecyclerView.Adapter<RichObjectAdapter.Ri
 
     static class RichObjectViewHolder extends RecyclerView.ViewHolder {
 
-        ImageView image;
+        public ImageView image;
 
         RichObjectViewHolder(View v) {
             super(v);
@@ -141,5 +141,4 @@ public class RichObjectAdapter extends RecyclerView.Adapter<RichObjectAdapter.Ri
         }
 
     }
-
 }
