@@ -1,7 +1,7 @@
-/**
- * Nextcloud Android client application
- *
- * @author Tobias Kaminsky
+/*
+  Nextcloud Android client application
+
+  @author Tobias Kaminsky
  * Copyright (C) 2017 Tobias Kaminsky
  * Copyright (C) 2017 Nextcloud GmbH.
  * <p>
@@ -127,7 +127,7 @@ public class ContactListFragment extends FileFragment {
     @Override
     public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.contactlist_fragment, null);
+        View view = inflater.inflate(R.layout.contactlist_fragment, container, false);
         ButterKnife.bind(this, view);
 
         setHasOptionsMenu(true);
@@ -407,7 +407,12 @@ public class ContactListFragment extends FileFragment {
                     if (grantResults[index] >= 0) {
                         getAccountForImport();
                     } else {
-                        Snackbar.make(getView(), R.string.contactlist_no_permission, Snackbar.LENGTH_LONG).show();
+                        if (getView() != null) {
+                            Snackbar.make(getView(), R.string.contactlist_no_permission, Snackbar.LENGTH_LONG)
+                                    .show();
+                        } else {
+                            Toast.makeText(getContext(), R.string.contactlist_no_permission, Toast.LENGTH_LONG).show();
+                        }
                     }
                     break;
                 }
