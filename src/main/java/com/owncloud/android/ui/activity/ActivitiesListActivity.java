@@ -142,18 +142,7 @@ public class ActivitiesListActivity extends FileActivity implements ActivityList
             }
         });
 
-        try {
-            OwnCloudAccount ocAccount = new OwnCloudAccount(
-                    AccountUtils.getCurrentOwnCloudAccount( MainApp.getAppContext()),this
 
-            );
-            mClient = OwnCloudClientManagerFactory.getDefaultSingleton().
-                    getClientFor(ocAccount, MainApp.getAppContext());
-
-
-        }catch (Exception e){
-            Log_OC.i(TAG,e.getMessage());
-        }
 
         setupContent();
     }
@@ -175,10 +164,11 @@ public class ActivitiesListActivity extends FileActivity implements ActivityList
      * sets up the UI elements and loads all activity items.
      */
     private void setupContent() {
+
         emptyContentIcon.setImageResource(R.drawable.ic_activity_light_grey);
         setLoadingMessage();
 
-        adapter = new ActivityListAdapter(this,this,mClient);
+        adapter = new ActivityListAdapter(this,this);
         recyclerView.setAdapter(adapter);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
@@ -209,7 +199,7 @@ public class ActivitiesListActivity extends FileActivity implements ActivityList
                             currentAccount,
                             context
                             );
-                    OwnCloudClient mClient = OwnCloudClientManagerFactory.getDefaultSingleton().
+                    final OwnCloudClient mClient = OwnCloudClientManagerFactory.getDefaultSingleton().
                             getClientFor(ocAccount, MainApp.getAppContext());
                     mClient.setOwnCloudVersion(AccountUtils.getServerVersion(currentAccount));
 
@@ -224,7 +214,7 @@ public class ActivitiesListActivity extends FileActivity implements ActivityList
                             @Override
                             public void run() {
                                 if (activities.size() > 0) {
-                                    populateList(activities);
+                                    populateList(activities,mClient);
                                     swipeEmptyListRefreshLayout.setVisibility(View.GONE);
                                     swipeListRefreshLayout.setVisibility(View.VISIBLE);
                                 } else {
@@ -274,9 +264,9 @@ public class ActivitiesListActivity extends FileActivity implements ActivityList
         });
     }
 
-    private void populateList(List<Object> activities) {
+    private void populateList(List<Object> activities,OwnCloudClient mClient) {
 
-        adapter.setActivityItems(activities);
+        adapter.setActivityItems(activities,mClient);
     }
 
     @Override
