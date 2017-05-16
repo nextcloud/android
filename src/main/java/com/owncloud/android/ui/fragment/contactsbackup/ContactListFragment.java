@@ -283,7 +283,7 @@ public class ContactListFragment extends FileFragment {
             itemView.setTag(this);
         }
 
-        void setVCardListener(View.OnClickListener onClickListener) {
+        public void setVCardListener(View.OnClickListener onClickListener) {
             itemView.setOnClickListener(onClickListener);
         }
 
@@ -467,7 +467,7 @@ class ContactListAdapter extends RecyclerView.Adapter<ContactListFragment.Contac
         this.checkedVCards = checkedVCards;
     }
 
-    int[] getCheckedIntArray() {
+    public int[] getCheckedIntArray() {
         int[] intArray;
         if (checkedVCards != null && checkedVCards.size() > 0) {
             intArray = new int[checkedVCards.size()];
@@ -566,7 +566,7 @@ class ContactListAdapter extends RecyclerView.Adapter<ContactListFragment.Contac
         return vCards.size();
     }
 
-    void selectAllFiles(boolean select) {
+    public void selectAllFiles(boolean select) {
         checkedVCards = new HashSet<>();
         if (select) {
             for (int i = 0; i < vCards.size(); i++) {
