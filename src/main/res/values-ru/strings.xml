@@ -459,7 +459,7 @@
     <string name="forbidden_permissions_copy">для копирования этого файла</string>
 
     <string name="prefs_category_instant_uploading">Немедленная загрузка</string>
-    <string name="prefs_category_details">Подробно</string>
+    <string name="prefs_category_details">Дополнительные</string>
 
 	<string name="prefs_instant_video_upload_path_title">Каталог для немедленной загрузки видео</string>
     <string name="sync_folder_failed_content">Синхронизация каталога %1$s не может быть завершена</string>
@@ -530,7 +530,7 @@
 
     <string name="action_retry_uploads">Повторить неудавшиеся</string>
     <string name="action_clear_failed_uploads">Очистить неудавшиеся</string>
-    <string name="action_clear_successful_uploads">Очищено</string>
+    <string name="action_clear_successful_uploads">Очистить успешные</string>
     <string name="action_clear_finished_uploads">Очистить завершенные</string>
 
     <string name="action_switch_grid_view">Вид сеткой</string>
