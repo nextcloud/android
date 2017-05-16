@@ -78,7 +78,7 @@ public class FileMenuFilter {
      */
     public FileMenuFilter(OCFile targetFile, Account account, ComponentsGetter cg,
                           Context context) {
-        this(Arrays.asList(new OCFile[]{targetFile}), account, cg, context);
+        this(Arrays.asList(targetFile), account, cg, context);
     }
 
     /**
@@ -259,10 +259,10 @@ public class FileMenuFilter {
 
 
         // SET PICTURE AS
-        if (!isSingleImage()) {
-            toHide.add(R.id.action_set_as_wallpaper);
-        } else {
+        if (isSingleImage() && !MimeTypeUtil.isSVG(mFiles.iterator().next())) {
             toShow.add(R.id.action_set_as_wallpaper);
+        } else {
+            toHide.add(R.id.action_set_as_wallpaper);
         }
     }
 
