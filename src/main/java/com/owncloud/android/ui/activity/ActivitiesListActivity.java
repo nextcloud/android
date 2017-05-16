@@ -19,7 +19,6 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 package com.owncloud.android.ui.activity;
 
 import android.accounts.Account;
@@ -105,7 +104,7 @@ public class ActivitiesListActivity extends FileActivity implements ActivityList
 
     private ActivityListAdapter adapter;
     private Unbinder unbinder;
-    private OwnCloudClient mClient;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

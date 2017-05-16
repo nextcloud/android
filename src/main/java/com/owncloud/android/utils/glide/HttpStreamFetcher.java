@@ -43,8 +43,6 @@ import java.io.InputStream;
 public class HttpStreamFetcher implements DataFetcher<InputStream> {
 
     private static final String TAG = HttpStreamFetcher.class.getName();
-    private OwnCloudClient mClient = null;
-    private Account mAccount = null;
     private final String mURL;
 
     public HttpStreamFetcher(String url) {
@@ -55,10 +53,10 @@ public class HttpStreamFetcher implements DataFetcher<InputStream> {
     @Override
     public InputStream loadData(Priority priority) throws Exception {
 
-        this.mAccount = AccountUtils.getCurrentOwnCloudAccount(MainApp.getAppContext());
+        Account mAccount = AccountUtils.getCurrentOwnCloudAccount(MainApp.getAppContext());
         OwnCloudAccount ocAccount = new OwnCloudAccount(mAccount,
                 MainApp.getAppContext());
-        this.mClient = OwnCloudClientManagerFactory.getDefaultSingleton().
+        OwnCloudClient mClient = OwnCloudClientManagerFactory.getDefaultSingleton().
                 getClientFor(ocAccount, MainApp.getAppContext());
 
         OwnCloudVersion serverOCVersion = AccountUtils.getServerVersion(mAccount);
@@ -88,7 +86,7 @@ public class HttpStreamFetcher implements DataFetcher<InputStream> {
 
     @Override
     public void cleanup() {
-
+        Log_OC.i(TAG,"Cleanup");
     }
 
     @Override
@@ -98,6 +96,6 @@ public class HttpStreamFetcher implements DataFetcher<InputStream> {
 
     @Override
     public void cancel() {
-
+        Log_OC.i(TAG,"Cancel");
     }
 }

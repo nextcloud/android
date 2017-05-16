@@ -32,7 +32,6 @@ import com.bumptech.glide.Glide;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.resources.activities.models.RichObject;
 import com.owncloud.android.ui.interfaces.ActivityListInterface;
 import com.owncloud.android.utils.MimeTypeUtil;
@@ -46,10 +45,8 @@ import java.util.ArrayList;
 
 public class RichObjectAdapter extends RecyclerView.Adapter<RichObjectAdapter.RichObjectViewHolder> {
 
-    private static final String TAG = RichObjectAdapter.class.getName();
     private final Context mContext;
     private final int px;
-    private OwnCloudClient mClient;
     private ArrayList<RichObject> mValues;
     private final ActivityListInterface mActivityListInterface;
     private Uri mBaseUri;
@@ -60,8 +57,6 @@ public class RichObjectAdapter extends RecyclerView.Adapter<RichObjectAdapter.Ri
         this.mValues = new ArrayList<>();
         this.mActivityListInterface = activityListInterface;
         px=getThumbnailDimension();
-
-
     }
 
 
@@ -125,17 +120,6 @@ public class RichObjectAdapter extends RecyclerView.Adapter<RichObjectAdapter.Ri
     }
 
 
-    static class RichObjectViewHolder extends RecyclerView.ViewHolder {
-
-        ImageView image;
-
-        RichObjectViewHolder(View v) {
-            super(v);
-            image = (ImageView) v.findViewById(R.id.image);
-        }
-
-    }
-
     /**
      * Converts size of file icon from dp to pixel
      * @return int
@@ -145,6 +129,17 @@ public class RichObjectAdapter extends RecyclerView.Adapter<RichObjectAdapter.Ri
         Resources r = MainApp.getAppContext().getResources();
         Double d = Math.pow(2,Math.floor(Math.log(r.getDimension(R.dimen.file_icon_size_grid))/Math.log(2)));
         return d.intValue();
+    }
+
+    static class RichObjectViewHolder extends RecyclerView.ViewHolder {
+
+        ImageView image;
+
+        RichObjectViewHolder(View v) {
+            super(v);
+            image = (ImageView) v.findViewById(R.id.image);
+        }
+
     }
 
 }
