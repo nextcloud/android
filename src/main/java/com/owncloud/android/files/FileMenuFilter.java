@@ -1,7 +1,7 @@
 /*
-  ownCloud Android client application
-
-  @author David A. Velasco
+ * ownCloud Android client application
+ *
+ * @author David A. Velasco
  * Copyright (C) 2015 ownCloud Inc.
  *
  * This program is free software: you can redistribute it and/or modify
@@ -60,8 +60,7 @@ public class FileMenuFilter {
      * @param cg                Accessor to app components, needed to access synchronization services
      * @param context           Android {@link Context}, needed to access build setup resources.
      */
-    public FileMenuFilter(Collection<OCFile> targetFiles, Account account, ComponentsGetter cg,
-                          Context context) {
+    public FileMenuFilter(Collection<OCFile> targetFiles, Account account, ComponentsGetter cg, Context context) {
         mFiles = targetFiles;
         mAccount = account;
         mComponentsGetter = cg;
@@ -76,8 +75,7 @@ public class FileMenuFilter {
      * @param cg                Accessor to app components, needed to access synchronization services
      * @param context           Android {@link Context}, needed to access build setup resources.
      */
-    public FileMenuFilter(OCFile targetFile, Account account, ComponentsGetter cg,
-                          Context context) {
+    public FileMenuFilter(OCFile targetFile, Account account, ComponentsGetter cg, Context context) {
         this(Collections.singletonList(targetFile), account, cg, context);
     }
 
@@ -124,7 +122,6 @@ public class FileMenuFilter {
             item.setEnabled(false);
         }
     }
-
 
     /**
      * Performs the real filtering, to be applied in the {@link Menu} by the caller methods.
