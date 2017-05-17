@@ -558,10 +558,6 @@ në 7 ditët e fundit.</string>
     <string name="participate_release_candidate_headline">Lëshimi i kandidatit</string>
     <string name="participate_release_candidate_text">Lëshimi i kandidatit  (RC) është një fragment i lëshimit të ardhshme dhe pritet të jetë i qëndrueshëm. Testimi i setup-it tuaj individuale mund të ndihmojë për ta siguruar këtë. Regjistrohuni për testimin në Play Store ose manualisht  shikoni në seksionin \"versionet\" në F-Droid.</string>
     <string name="participate_contribute_headline">Kontribim aktiv</string>
-    <string name="participate_contribute_irc_text">Bashkohu në bisedat në IRC: &lt;a href=\"%1$s\">#nextcloud-mobile&lt;/a></string>
-    <string name="participate_contribute_forum_text">Ndihmo të tjerët në &lt;a href="%1$s">forum&lt;/a></string>
-    <string name="participate_contribute_translate_text">&lt;a href=\"%1$s\">Përktheni&lt;/a> aplikacionin</string>
-    <string name="participate_contribute_github_text">Kontriboni si një zhvillues, shih&lt;a href=\"https://github.com/nextcloud/android/blob/master/CONTRIBUTING.md\">CONTRIBUTING.md&lt;/a> për detaje</string>
     <string name="move_to">Levizni tek&#8230;</string>
     <string name="copy_to">Kopjojeni tek&#8230;</string>
     <string name="choose_remote_folder">Zgjidh dosjen&#8230;</string>
