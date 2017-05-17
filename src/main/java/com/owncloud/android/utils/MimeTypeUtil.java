@@ -175,6 +175,10 @@ public class MimeTypeUtil {
         return isImage(extractMimeType(file));
     }
 
+    public static boolean isSVG(OCFile file) {
+        return "image/svg+xml".equalsIgnoreCase(file.getMimetype());
+    }
+
     /**
      * @param file the file to be analyzed
      * @return 'True' if the file contains audio

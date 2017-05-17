@@ -156,7 +156,7 @@ public class AccountUtils {
                             .getDefaultSharedPreferences(context).edit();
                     appPrefs.putString("select_oc_account", accountName);
     
-                    appPrefs.commit();
+                    appPrefs.apply();
                     result = true;
                     break;
                 }
