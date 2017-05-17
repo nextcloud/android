@@ -241,31 +241,11 @@ public class PushUtils {
                                 remoteOperationResult = registerAccountDeviceForProxyOperation.execute(mClient);
 
                                 if (remoteOperationResult.isSuccess()) {
-<<<<<<< Updated upstream
-                                    PushResponse pushResponse = remoteOperationResult.getPushResponseData();
-
-                                    RemoteOperation registerAccountDeviceForProxyOperation = new
-                                            RegisterAccountDeviceForProxyOperation(
-                                            context.getResources().getString(R.string.push_server_url),
-                                            token, pushResponse.getDeviceIdentifier(), pushResponse.getSignature(),
-                                            pushResponse.getPublicKey());
-
-                                    remoteOperationResult = registerAccountDeviceForProxyOperation.execute(mClient);
-
-                                    if (remoteOperationResult.isSuccess()) {
-                                        PushConfigurationState pushArbitraryData = new PushConfigurationState(token,
-                                                pushResponse.getDeviceIdentifier(), pushResponse.getSignature(),
-                                                pushResponse.getPublicKey(), false);
-                                        arbitraryDataProvider.storeOrUpdateKeyValue(account, KEY_PUSH,
-                                                gson.toJson(pushArbitraryData));
-                                    }
-=======
                                     PushConfigurationState pushArbitraryData = new PushConfigurationState(token,
                                             pushResponse.getDeviceIdentifier(), pushResponse.getSignature(),
                                             pushResponse.getPublicKey(), false);
-                                    arbitraryDataProvider.storeOrUpdateKeyValue(account.name, KEY_PUSH,
+                                    arbitraryDataProvider.storeOrUpdateKeyValue(account, KEY_PUSH,
                                             gson.toJson(pushArbitraryData));
->>>>>>> Stashed changes
                                 }
                             }
                         } catch (com.owncloud.android.lib.common.accounts.AccountUtils.AccountNotFoundException e) {
