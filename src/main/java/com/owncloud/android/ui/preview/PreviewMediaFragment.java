@@ -580,6 +580,7 @@ public class PreviewMediaFragment extends FileFragment implements
         if (mMediaServiceConnection != null) {
             Log_OC.d(TAG, "Unbinding from MediaService ...");
             if (mMediaServiceBinder != null && mMediaController != null) {
+                mMediaController.stopMediaPlayerMessages();
                 mMediaServiceBinder.unregisterMediaController(mMediaController);
             }
             getActivity().unbindService(mMediaServiceConnection);
