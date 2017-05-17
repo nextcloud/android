@@ -543,6 +543,8 @@
     <string name="local_file_not_found_toast">Filen ble ikke funnet i lokalt filsystem</string>
     <string name="confirmation_remove_files_alert">Vil du virkelig fjerne de valgte elementene?</string>
     <string name="confirmation_remove_folders_alert">Vil du virkelig fjerne de valgte elementene og dets innhold?</string>
+    <string name="maintenance_mode">Tjener i vedlikeholdsmodus</string>
+
     <string name="uploads_view_upload_status_waiting_for_charging">Venter på lading av enhet.</string>
     <string name="actionbar_search">Søk</string>
     <string name="files_drop_not_supported">Dette er en Nextcloud funksjon, vennligst oppdater.</string>
@@ -558,9 +560,6 @@
     <string name="participate_release_candidate_headline">Release candidate</string>
     <string name="participate_release_candidate_text">Release candidate (RC) er en pakke av den kommende utgaven og er forventet å være stabil. Ved å teste denne med ditt oppsett vil kunne hjelpe oss å sikre dette. Meld deg på for testen i Play butikken eller se i versjonsseksjonen i F-Droid.</string>
     <string name="participate_contribute_headline">Bidra aktivt</string>
-    <string name="participate_contribute_irc_text">Delta i chat på IRC: &lt;a href="%1$s">#nextcloud-mobile&lt;/a> </string>
-    <string name="participate_contribute_forum_text">Hjelp andre på &lt;a href="%1$s">forumet&lt;/a></string>
-    <string name="participate_contribute_translate_text">&lt;a href="%1$s">Oversette&lt;/a> app\'en</string>
     <string name="move_to">Flytt til&#8230;</string>
     <string name="copy_to">Kopier til&#8230;</string>
     <string name="choose_remote_folder">Velg mappe&#8230;</string>
@@ -651,4 +650,7 @@
     <!-- Notifications -->
     <string name="new_notification_received">Nytt varsel mottatt</string>
     <string name="drawer_logout">Utlogging</string>
-    </resources>
+    <string name="privacy">Personvern</string>
+
+
+</resources>

@@ -540,9 +540,6 @@
     <string name="participate_release_candidate_headline">Předběžná verze</string>
     <string name="participate_release_candidate_text">Předběžná verze nebo také Release Candidate (RC) je stabilní stav připravované, finální verze. Přihlas se jako tester v Play store nebo si najdi a instaluj hodící se verzi z F-Droid pod \"Verze\".</string>
     <string name="participate_contribute_headline">Aktivně něčím přispět</string>
-    <string name="participate_contribute_irc_text">Diskutovat na IRC: &lt;a href="%1$s">#nextcloud-mobile&lt;/a></string>
-    <string name="participate_contribute_forum_text">Pomozte ostatním na &lt;a href="%1$s">fóru&lt;/a></string>
-    <string name="participate_contribute_translate_text">&lt;a href="%1$s">Přeložte&lt;/a> aplikaci</string>
     <string name="move_to">Přesunout do&#8230;</string>
     <string name="copy_to">Kopírovat do&#8230;</string>
     <string name="choose_remote_folder">Vybrat adresář&#8230;</string>

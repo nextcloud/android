@@ -530,10 +530,6 @@ Smelltu hér til að fá þér einn frá þjónustuaðila.</string>
     <string name="participate_release_candidate_headline">Forútgáfa</string>
     <string name="participate_release_candidate_text">Útgáfukandídat (RC) er stöðutaka á væntanlegri útgáfu og er vænst til að hún sé nokkuð stöðug. Með prófun á uppsetningunni þinni værirðu að hjálpa til við að tryggja þann stöðugleika. Skráðu þig til prófana í Play-safninu eða skoðaðu handvirkt í \"útgáfur\" hlutanum á F-Droid.</string>
     <string name="participate_contribute_headline">Vertu virkur þáttakandi</string>
-    <string name="participate_contribute_irc_text">Taktu þátt í spjalli á IRC: &lt;a href=\"%1$s\">#nextcloud-mobile&lt;/a></string>
-    <string name="participate_contribute_forum_text">Hjálpaðu öðrum á &lt;a href=\"%1$s\">spjallvefnum&lt;/a></string>
-    <string name="participate_contribute_translate_text">&lt;a href=\"%1$s\">Þýða&lt;/a> forritið</string>
-    <string name="participate_contribute_github_text">Yfirfarðu kóða, bættu við og skrifaðu, sjá &lt;a href=\"https://github.com/nextcloud/android/blob/master/CONTRIBUTING.md\">CONTRIBUTING.md&lt;/a> fyrir nánari upplýsingar</string>
     <string name="move_to">Færa í&#8230;</string>
     <string name="copy_to">Afrita í&#8230;</string>
     <string name="choose_remote_folder">Veldu möppu&#8230;</string>

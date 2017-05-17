@@ -544,6 +544,8 @@ Kies er eentje van een provider.</string>
     <string name="local_file_not_found_toast">Het bestand is niet te vinden binnen het lokale bestandssysteem.</string>
     <string name="confirmation_remove_files_alert">Wil je de geselecteerde objecten echt verwijderen?</string>
     <string name="confirmation_remove_folders_alert">Wil je de geselecteerde objecten en hun inhoud echt verwijderen?</string>
+    <string name="maintenance_mode">Server in onderhoudsmodus</string>
+
     <string name="uploads_view_upload_status_waiting_for_charging">Wachten to apparaat wordt opgeladen</string>
     <string name="actionbar_search">Zoeken</string>
     <string name="files_drop_not_supported">Dit is een Nextcloud-optie, gelieve te updaten.</string>
@@ -559,10 +561,12 @@ Kies er eentje van een provider.</string>
     <string name="participate_release_candidate_headline">Release candidate</string>
     <string name="participate_release_candidate_text">De Release Candidate (RC) is een kopie van de komende release en zou stabiel moeten zijn. Testen van jouw installatie kan ons helpen om dit te bevestigen. Meld je aan om te testen op de Play Store of bekijk handmatig de \"versies\"-sectie op F-Droid.</string>
     <string name="participate_contribute_headline">Actief meedoen</string>
-    <string name="participate_contribute_irc_text">Doe mee met de chat op IRC: &lt;a href="%1$s">#nextcloud-mobile&lt;/a></string>
-    <string name="participate_contribute_forum_text">Help andere gebruikers in de &lt;a href="%1$s">forums&lt;/a></string>
-    <string name="participate_contribute_translate_text">&lt;a href="%1$s">Vertaal&lt;/a> de app</string>
-    <string name="participate_contribute_github_text">Review, voeg toe en schrijf code, bekijk &lt;a href=\"https://github.com/nextcloud/android/blob/master/CONTRIBUTING.md\">CONTRIBUTING.md&lt;/a> voor details</string>
+    <string name="participate_contribute_irc_text">Bezoek de IRC chat op IRC: &lt;a href=\"%1$s\">#nextcloud-mobile&lt;/a>
+</string>
+    <string name="participate_contribute_forum_text">Help anderen op het &lt;a href=\"%1$s\">forum&lt;/a>
+</string>
+    <string name="participate_contribute_translate_text">&lt;a href=\"%1$s\">Vertaal&lt;/a> de app</string>
+    <string name="participate_contribute_github_text">Bekijk, schrijf of pas code aan. Kijk in &lt;a href=\"%1$s\">CONTRIBUTING.md&lt;a> voor meer details</string>
     <string name="move_to">Verplaats naar&#160;&#8230;</string>
     <string name="copy_to">Kopieer naar&#160;&#8230;</string>
     <string name="choose_remote_folder">Kies map&#160;&#8230;</string>
@@ -653,4 +657,7 @@ Kies er eentje van een provider.</string>
     <!-- Notifications -->
     <string name="new_notification_received">Nieuwe meldingen ontvangen</string>
     <string name="drawer_logout">Uitloggen</string>
-    </resources>
+    <string name="privacy">Privacy</string>
+
+
+</resources>
