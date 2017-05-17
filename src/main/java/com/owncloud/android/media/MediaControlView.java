@@ -197,6 +197,10 @@ public class MediaControlView extends FrameLayout /* implements OnLayoutChangeLi
         updatePausePlay();
     }
 
+    public void stopMediaPlayerMessages() {
+        mHandler.removeMessages(SHOW_PROGRESS);
+    }
+
 
     private void initControllerView(View v) {
         mPauseButton = (ImageButton) v.findViewById(R.id.playBtn);
