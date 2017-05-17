@@ -150,7 +150,7 @@
     <string name="common_error">Hata</string>
     <string name="common_loading">Yükleniyor&#8230;</string>
     <string name="common_unknown">bilinmiyor</string>
-    <string name="common_error_unknown">Bilinmeyen hata</string>
+    <string name="common_error_unknown">Bilinmeyen sorun</string>
     <string name="common_pending">Bekliyor</string>
     <string name="about_title">Hakkında</string>
     <string name="change_password">Parola değiştir</string>
@@ -173,16 +173,16 @@
     <string name="uploads_view_upload_status_succeeded">Tamamlandı</string>
     <string name="uploads_view_upload_status_cancelled">İptal Edildi</string>
     <string name="uploads_view_upload_status_paused">Duraklatıldı</string>
-    <string name="uploads_view_upload_status_failed_connection_error">Bağlantı hatası</string>
+    <string name="uploads_view_upload_status_failed_connection_error">Bağlantı sorunu</string>
     <string name="uploads_view_upload_status_failed_retry">Yükleme kısa bir süre sonra yeniden denenecek</string>
-    <string name="uploads_view_upload_status_failed_credentials_error">Kimlik bilgileri hatası</string>
-    <string name="uploads_view_upload_status_failed_folder_error">Klasör hatası</string>
-    <string name="uploads_view_upload_status_failed_file_error">Dosya hatası</string>
+    <string name="uploads_view_upload_status_failed_credentials_error">Kimlik bilgileri sorunu</string>
+    <string name="uploads_view_upload_status_failed_folder_error">Klasör sorunu</string>
+    <string name="uploads_view_upload_status_failed_file_error">Dosya sorunu</string>
     <string name="uploads_view_upload_status_failed_localfile_error">Yerel dosya bulunamadı</string>
-    <string name="uploads_view_upload_status_failed_permission_error">İzin hatası</string>
+    <string name="uploads_view_upload_status_failed_permission_error">İzin sorunu</string>
     <string name="uploads_view_upload_status_conflict">Çakışma</string>
     <string name="uploads_view_upload_status_service_interrupted">Uygulama sonlandırıldı</string>
-    <string name="uploads_view_upload_status_unknown_fail">Bilinmeyen hata</string>
+    <string name="uploads_view_upload_status_unknown_fail">Bilinmeyen sorun</string>
     <string name="uploads_view_upload_status_waiting_for_wifi">WiFi bağlantısı bekleniyor</string>
     <string name="uploads_view_later_waiting_to_upload">Yüklenmeyi bekliyor</string>
     <string name="downloader_download_in_progress_ticker">İndiriliyor&#8230;</string>
@@ -219,7 +219,7 @@
     <string name="pass_code_reenter_your_pass_code">Lütfen parolanızı yeniden yazın</string>
     <string name="pass_code_remove_your_pass_code">Parolanızı kaldırın</string>
     <string name="pass_code_mismatch">Parola ile onayı aynı değil</string>
-    <string name="pass_code_wrong">Parola hatalı</string>
+    <string name="pass_code_wrong">Parola yanlış</string>
     <string name="pass_code_removed">Parola kaldırıldı</string>
     <string name="pass_code_stored">Parola depolandı</string>
     
@@ -249,20 +249,20 @@
 	<string name="auth_nossl_plain_ok_title">Güvenli bağlantı kullanılamıyor.</string>
 	<string name="auth_connection_established">Bağlantı kuruldu</string>
 	<string name="auth_testing_connection">Bağlantı sınanıyor</string>
-	<string name="auth_not_configured_title">Sunucu ayarları hatalı</string>
+	<string name="auth_not_configured_title">Sunucu ayarları doğru değil</string>
 	<string name="auth_account_not_new">Aygıt üzerinde aynı kullanıcı adı ve sunucu için bir hesap zaten var</string>
 	<string name="auth_account_not_the_same">Yazdığınız kullanıcı adı bu hesabın kullanıcı adı ile eşleşmiyor</string>
 	<string name="auth_unknown_error_title">Bilinmeyen bir sorun çıktı!</string>
 	<string name="auth_unknown_host_title">Sunucu adı bulunamadı</string>
 	<string name="auth_incorrect_path_title">Sunucu bulunamadı</string>
 	<string name="auth_timeout_title">Sunucu çok geç yanıt veriyor</string>
-	<string name="auth_incorrect_address_title">Sunucu adresi biçimi hatalı</string>
+	<string name="auth_incorrect_address_title">Sunucu adresi biçimi yanlış</string>
 	<string name="auth_ssl_general_error_title">SSL başlatılamadı</string>
 	<string name="auth_ssl_unverified_server_title">SSL sunucusunun kimliği doğrulanamadı</string>
 	<string name="auth_bad_oc_version_title">Sunucu sürümü anlaşılamadı</string>
 	<string name="auth_wrong_connection_title">Bağlantı kurulamadı</string>
 	<string name="auth_secure_connection">Güvenli bağlantı kuruldu</string>
-	<string name="auth_unauthorized">Kullanıcı adı ya da parola hatalı</string>
+	<string name="auth_unauthorized">Kullanıcı adı ya da parola yanlış</string>
 	<string name="auth_oauth_error">Kimlik doğrulanamadı</string>
 	<string name="auth_oauth_error_access_denied">Kimlik doğrulama sunucusu erişime izin vermedi</string>
 	<string name="auth_wtf_reenter_URL">Beklenilmeyen durum; Lütfen sunucu adresini yeniden yazın</string>
@@ -437,7 +437,7 @@
 	<string name="log_progress_dialog_text">Veri yükleniyor&#8230;</string>
 
 	<string name="saml_authentication_required_text">Kimlik doğrulaması gerekli</string>
-	<string name="saml_authentication_wrong_pass">Parola hatalı</string>
+	<string name="saml_authentication_wrong_pass">Parola yanlış</string>
 	<string name="actionbar_move">Taşı</string>
     <string name="actionbar_copy">Kopyala</string>
 	<string name="file_list_empty_moving">Burada bir şey yok. Bir klasör ekleyebilirsiniz!</string>
@@ -556,14 +556,14 @@
     <string name="participate_testing_report_text">Github üzerinden bir sorun bildirin</string>
     <string name="participate_testing_version_text">Sonraki sürümü deneyerek bize yardımcı olmak ister misiniz?</string>
     <string name="participate_beta_headline">Geliştirici sürümünü deneyin</string>
-    <string name="participate_beta_text">Bu sürümde tüm yeni özellikler bulunur ve çok taze olduğundan hata ve sorunlar olabilir. Bir hata ya da soruna rastlarsanız bize iletin.</string>
+    <string name="participate_beta_text">Bu sürümde tüm yeni özellikler bulunur ve çok taze olduğundan eksikleri olabilir. Bir hata ya da soruna rastlarsanız bize iletin.</string>
     <string name="participate_release_candidate_headline">Yayın adayı</string>
     <string name="participate_release_candidate_text">Yayın adayı (Release Candidate, RC) yayınlanacak sürümün bir kopyasıdır ve kararlı olması beklenir. Kişisel olarak kullanmanız kararlı olduğundan emin olmamızı sağlar. Denemek için Play Store üzerinden kayıt olun ya da el ile F-Droid üzerindeki \"sürümler\" bölümüne bakın.</string>
     <string name="participate_contribute_headline">Etkin Katkıda Bulunun</string>
     <string name="participate_contribute_irc_text">IRC sohbetine katılın: &lt;a href=\"%1$s\">#nextcloud-mobile&lt;/a></string>
-    <string name="participate_contribute_forum_text">&lt;a href=\"%1$s\">forum&lt;/a> üzerinde diğer kişilere yardımcı olun</string>
-    <string name="participate_contribute_translate_text">Uygulamayı &lt;a href="%1$s">çevirin&lt;/a> </string>
-    <string name="participate_contribute_github_text">Yazılımcı olarak katkıda bulunun! Ayrıntılı bilgi almak için &lt;a href=\"https://github.com/nextcloud/android/blob/master/CONTRIBUTING.md\">KATKIDA BULUNMA.md&lt;/a> sayfasına bakın</string>
+    <string name="participate_contribute_forum_text">&lt;a href=\"%1$s\">Forumda&lt;/a> diğer kullanıcılara yardımcı olun</string>
+    <string name="participate_contribute_translate_text">Uygulamayı &lt;a href=\"%1$s\">Çevirin&lt;/a></string>
+    <string name="participate_contribute_github_text">Kodu gözden geçirin ve katkıda bulunun. Ayrıntılar için &lt;a href=\"%1$s\">CONTRIBUTING.md&lt;a> dosyasına bakın</string>
     <string name="move_to">Taşı&#8230;</string>
     <string name="copy_to">Kopyala&#8230;</string>
     <string name="choose_remote_folder">Klasör seçin&#8230;</string>

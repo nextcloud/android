@@ -134,6 +134,7 @@ Smelltu hér til að fá þér einn frá þjónustuaðila.</string>
     <string name="filedetails_modified">Breytt:</string>
     <string name="filedetails_download">Niðurhal</string>
     <string name="filedetails_sync_file">Samstilla</string>
+    <string name="filedetails_renamed_in_upload_msg">Skrá endurnefnd sem %1$s við innsendingu</string>
     <string name="action_share">Deila</string>
     <string name="common_yes">Já</string>
     <string name="common_no">Nei</string>
@@ -226,9 +227,13 @@ Smelltu hér til að fá þér einn frá þjónustuaðila.</string>
     <string name="media_err_nothing_to_play">Engin margmiðlunarskrá fannst</string>
     <string name="media_err_no_account">Enginn notandaaðgangur uppgefinn</string>
     <string name="media_err_unsupported">Óstudd margmiðlunarlyklun (codec)</string>
+    <string name="media_err_io">Gat ekki lesið margmiðlunarskrána</string>
+    <string name="media_err_malformed">Margmiðlunarskráin er með ranga kóðun</string>
+    <string name="media_err_timeout">Tilraun til að spila skrá rann út á tíma</string>
     <string name="media_err_invalid_progressive_playback">Ekki tókst að streyma margmiðlunarskrá</string>
     <string name="media_err_security_ex">Öryggissvilla kom upp við að reyna að spila  %1$s</string>
     <string name="media_err_io_ex">Óvænt villa kom upp við að reyna að spila  %1$s</string>
+    <string name="media_err_unexpected">Óvænt villa kom upp við að reyna að spila  %1$s</string>
     <string name="media_rewind_description">Spóla-til-baka hnappur</string>
     <string name="media_play_pause_description">Afspilun-eða-hlé hnappur</string>
     <string name="media_forward_description">Spóla-hratt-áfram hnappur</string>
@@ -245,13 +250,16 @@ Smelltu hér til að fá þér einn frá þjónustuaðila.</string>
 	<string name="auth_unknown_host_title">Gat ekki fundið hýsilvél</string>
 	<string name="auth_incorrect_path_title">Þjónn finnst ekki</string>
 	<string name="auth_timeout_title">Þjónninn var of lengi að svara</string>
+	<string name="auth_incorrect_address_title">Rangt snið á vistfangi þjóns</string>
 	<string name="auth_ssl_general_error_title">Mistókst að frumstilla SSL</string>
+	<string name="auth_ssl_unverified_server_title">Gate ekki sannreynt auðkenni SSL-þjónsins</string>
 	<string name="auth_bad_oc_version_title">Óþekkjanleg útgáfa af þjóni</string>
 	<string name="auth_wrong_connection_title">Gat ekki komið á tengingu</string>
 	<string name="auth_secure_connection">Öruggri tengingu komið á</string>
 	<string name="auth_unauthorized">Rangt notandanafn eða lykilorð</string>
 	<string name="auth_oauth_error">Auðkenning mistókst</string>
 	<string name="auth_oauth_error_access_denied">Aðgangi hafnað af auðkenningarþjóni</string>
+	<string name="auth_wtf_reenter_URL">Óvænt ástand, settu aftur inn vistfang þjónsins</string>
 	<string name="auth_expired_oauth_token_toast">Heimild þín er útrunnin. Skráðu þig aftur inn.</string>
 	<string name="auth_expired_basic_auth_toast">Settu inn núgildandi lykilorð</string>
 	<string name="auth_expired_saml_sso_token_toast">Setan þín er útrunnin. Skráðu þig aftur inn.</string>
@@ -259,6 +267,9 @@ Smelltu hér til að fá þér einn frá þjónustuaðila.</string>
 	<string name="auth_unsupported_auth_method">Þjónninn styður ekki þessa auðkenningaraðferð</string>
 	<string name="auth_unsupported_multiaccount">%1$s styður ekki fjölaðganga</string>
 	<string name="auth_can_not_auth_against_server">Get ekki auðkennt á þessum þjóni</string>
+    <string name="auth_account_does_not_exist">Aðgangur er ekki ennþá til á tækinu</string>
+
+
     <string name="favorite">Stilla sem tiltækt án nettengingar</string>
     <string name="unfavorite">Afstilla sem tiltækt án nettengingar</string>
     <string name="favorite_real">Setja í eftirlæti</string>
@@ -271,6 +282,7 @@ Smelltu hér til að fá þér einn frá þjónustuaðila.</string>
     <string name="remove_success_msg">Fjarlægt</string>
     <string name="remove_fail_msg">Fjarlæging mistókst</string>
     <string name="rename_dialog_title">Settu inn nýtt nafn</string>
+    <string name="rename_server_fail_msg">Gat ekki gefið þjóni nýtt nafn</string>
     <string name="sync_file_fail_msg">Gat ekki athugað fjartengda skrá</string>
     <string name="sync_file_nothing_to_do_msg">Efni skrár er þegar samstillt</string>
     <string name="create_dir_fail_msg">Gat ekki búið til möppu</string>
@@ -279,6 +291,7 @@ Smelltu hér til að fá þér einn frá þjónustuaðila.</string>
     <string name="filename_empty">Skráarheiti má ekki vera tómt</string>
     <string name="wait_a_moment">Bíddu augnablik…</string>
     <string name="wait_checking_credentials">Athuga geymd auðkenni</string>
+    <string name="filedisplay_unexpected_bad_get_content">Óvænt vandamál, veldu skrána úr öðru forriti</string>
     <string name="filedisplay_no_file_selected">Engin skrá valin</string>
     <string name="activity_chooser_title">Senda tengil til &#8230;</string>
     <string name="wait_for_tmp_copy_from_private_storage">Afrita skrá úr einkageymslu</string>
@@ -344,6 +357,7 @@ Smelltu hér til að fá þér einn frá þjónustuaðila.</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Nota undirmöppur</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Geyma í undirmöppum byggðum á ári og mánuðum</string>
 
+	<string name="share_link_no_support_share_api">Deiling er ekki virk á þjóninum þínum. Hafðu samband við kerfisstjóra.</string>
 	<string name="share_link_file_no_exist">Get ekki deilt. Athugaðu hvort skráin sé til</string>
 	<string name="share_link_file_error">Villa kom upp við að reyna að deila þessari skrá eða möppu</string>
 	<string name="unshare_link_file_no_exist">Get ekki hætt deilingu. Athugaðu hvort skráin sé til</string>
@@ -360,6 +374,8 @@ Smelltu hér til að fá þér einn frá þjónustuaðila.</string>
     <string name="clipboard_no_text_to_copy">Fékk engan texta til að afrita á klippispjald</string>
     <string name="clipboard_uxexpected_error">Óvænt villa kom upp við afritun á klippispjald</string>
     <string name="clipboard_label">Texti afritaður úr %1$s</string>
+
+    <string name="error_cant_bind_to_operations_service">Alvarleg villa: Ekki hægt að framkvæma aðgerðir</string>
 
     <string name="network_error_socket_exception">Villa kom upp við að tengjast þjóninum.</string>
     <string name="network_error_socket_timeout_exception">Villa kom upp á meðan beðið var eftir þjóninum. Ekki var hægt að ljúka aðgerðinni</string>
@@ -401,12 +417,14 @@ Smelltu hér til að fá þér einn frá þjónustuaðila.</string>
 	<string name="folder_picker_choose_button_text">Veldu</string>
 
     <string name="move_file_invalid_into_descendent">Ekki er hægt að færa möppu inn í eina af undirmöppum sínum</string>
+    <string name="move_file_invalid_overwrite">Skráin er þegar til í móttökumöppunni</string>
     <string name="move_file_error">Villa kom upp við að reyna að færa þessa skrá eða möppu</string>
     <string name="forbidden_permissions_move">til að færa þessa skrá</string>
 
 
     <string name="copy_file_not_found">Get ekki afritað. Athugaðu hvort skráin sé til</string>
-    <string name="copy_file_invalid_overwrite">Skráin er þegar til í móttökusmöppunni</string>
+    <string name="copy_file_invalid_into_descendent">Ekki er hægt að afrita möppu inn í eina af undirmöppum sínum</string>
+    <string name="copy_file_invalid_overwrite">Skráin er þegar til í móttökumöppunni</string>
     <string name="copy_file_error">Villa kom upp við að reyna að afrita þessa skrá eða möppu</string>
     <string name="forbidden_permissions_copy">til að afrita þessa skrá</string>
 
@@ -482,6 +500,8 @@ Smelltu hér til að fá þér einn frá þjónustuaðila.</string>
     <string name="action_retry_uploads">Ný tilraun mistókst</string>
     <string name="action_clear_failed_uploads">Hreinsun mistókst</string>
     <string name="action_clear_successful_uploads">Hreinsað</string>
+    <string name="action_clear_finished_uploads">Hreinsa innsendingar sem er lokið</string>
+
     <string name="action_switch_grid_view">Reitir</string>
     <string name="action_switch_list_view">Listi</string>
 
@@ -489,6 +509,7 @@ Smelltu hér til að fá þér einn frá þjónustuaðila.</string>
     <string name="manage_space_clear_data">Hreinsa gögn</string>
     <string name="manage_space_error">Ekki tókst að eyða öllum skrám.</string>
 
+    <string name="permission_storage_access">Krafist er viðbótarheimilda til að senda inn og sækja skrár.</string>
     <string name="local_file_not_found_toast">Skrá fannst ekki á staðværu skráakerfi</string>
     <string name="confirmation_remove_files_alert">Ertu viss um að þú viljir fjarlægja valin atriði?</string>
     <string name="confirmation_remove_folders_alert">Ertu viss um að þú viljir fjarlægja valin atriði og innihald þeirra?</string>
@@ -509,10 +530,6 @@ Smelltu hér til að fá þér einn frá þjónustuaðila.</string>
     <string name="participate_release_candidate_headline">Forútgáfa</string>
     <string name="participate_release_candidate_text">Útgáfukandídat (RC) er stöðutaka á væntanlegri útgáfu og er vænst til að hún sé nokkuð stöðug. Með prófun á uppsetningunni þinni værirðu að hjálpa til við að tryggja þann stöðugleika. Skráðu þig til prófana í Play-safninu eða skoðaðu handvirkt í \"útgáfur\" hlutanum á F-Droid.</string>
     <string name="participate_contribute_headline">Vertu virkur þáttakandi</string>
-    <string name="participate_contribute_irc_text">Taktu þátt í spjalli á IRC: &lt;a href=\"%1$s\">#nextcloud-mobile&lt;/a></string>
-    <string name="participate_contribute_forum_text">Hjálpaðu öðrum á &lt;a href=\"%1$s\">spjallvefnum&lt;/a></string>
-    <string name="participate_contribute_translate_text">&lt;a href=\"%1$s\">Þýða&lt;/a> forritið</string>
-    <string name="participate_contribute_github_text">Yfirfarðu kóða, bættu við og skrifaðu, sjá &lt;a href=\"https://github.com/nextcloud/android/blob/master/CONTRIBUTING.md\">CONTRIBUTING.md&lt;/a> fyrir nánari upplýsingar</string>
     <string name="move_to">Færa í&#8230;</string>
     <string name="copy_to">Afrita í&#8230;</string>
     <string name="choose_remote_folder">Veldu möppu&#8230;</string>
@@ -585,8 +602,11 @@ Smelltu hér til að fá þér einn frá þjónustuaðila.</string>
     <string name="contacts_header_backup">Taka öryggisafrit</string>
     <string name="contacts_automatic_backup">Öryggisafrit af tengiliðum</string>
     <string name="contacts_last_backup">Síðasta öryggisafrit</string>
+    <string name="contacts_read_permission">Nauðsynlegt er að hafa heimild til að lesa tengiliðalista</string>
+    <string name="contacts_write_permission">Nauðsynlegt er að hafa heimild til að breyta tengiliðalista</string>
     <string name="contactlist_title">Endurheimta tengiliði</string>
     <string name="contaclist_restore_selected">Endurheimta valda tengiliði</string>
+    <string name="contactlist_account_chooser_title">Veldu aðgang til að flytja inn</string>
     <string name="contacts_preference_choose_date">Veldu dagsetningu</string>
     <string name="contacts_preference_backup_never">aldrei</string>
     <string name="contacts_preferences_no_file_found">Engin skrá fannst</string>

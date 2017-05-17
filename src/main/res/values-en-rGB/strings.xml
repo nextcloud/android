@@ -542,6 +542,8 @@
     <string name="local_file_not_found_toast">File not found in local file system</string>
     <string name="confirmation_remove_files_alert">Do you really want to remove the selected items?</string>
     <string name="confirmation_remove_folders_alert">Do you really want to remove the selected items and their contents?</string>
+    <string name="maintenance_mode">Server in maintenance mode</string>
+
     <string name="uploads_view_upload_status_waiting_for_charging">Awaiting charge</string>
     <string name="actionbar_search">Search</string>
     <string name="files_drop_not_supported">This is a Nextcloud feature, please update.</string>
@@ -557,9 +559,6 @@
     <string name="participate_release_candidate_headline">Release candidate</string>
     <string name="participate_release_candidate_text">The release candidate (RC) is a snapshot of the upcoming release and is expected to be stable. Testing your individual setup could help ensure this. Sign up for testing on the Play store or manually look in the \"versions\" section on F-Droid.</string>
     <string name="participate_contribute_headline">Actively Contribute</string>
-    <string name="participate_contribute_irc_text">Join the chat on IRC: &lt;a href="%1$s">#nextcloud-mobile&lt;/a></string>
-    <string name="participate_contribute_forum_text">Help others on the &lt;a href="%1$s">forum&lt;/a></string>
-    <string name="participate_contribute_translate_text">&lt;a href="%1$s">Translate&lt;/a> the app</string>
     <string name="move_to">Move to&#8230;</string>
     <string name="copy_to">Copy to&#8230;</string>
     <string name="choose_remote_folder">Choose folder&#8230;</string>
@@ -650,4 +649,7 @@
     <!-- Notifications -->
     <string name="new_notification_received">New notification received</string>
     <string name="drawer_logout">Logout</string>
-    </resources>
+    <string name="privacy">Privacy</string>
+
+
+</resources>

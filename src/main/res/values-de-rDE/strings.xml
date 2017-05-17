@@ -108,7 +108,7 @@
     <string name="file_list_empty_headline_server_search">Keine Ergebnisse</string>
     <string name="file_list_empty_favorite_headline">Noch keine Favoriten vorhanden</string>
     <string name="file_list_empty_shared_headline">Noch nichts geteilt</string>
-    <string name="file_list_empty_shared">Von dir geteilte Dateien und Ordner werden hier erscheinen</string>
+    <string name="file_list_empty_shared">Von Ihnen geteilte Dateien und Ordner werden hier erscheinen</string>
     <string name="file_list_empty_headline_server_search_videos">Keine Videos</string>
     <string name="file_list_empty_headline_server_search_photos">Keine Fotos</string>
     <string name="file_list_empty_search">Vielleicht befindet es sich in einem anderen Ordner?</string>
@@ -172,7 +172,7 @@
     <string name="uploads_view_group_finished_uploads">Hochgeladen</string>
     <string name="uploads_view_upload_status_succeeded">Fertiggestellt</string>
     <string name="uploads_view_upload_status_cancelled">Abgebrochen</string>
-    <string name="uploads_view_upload_status_paused">pausiert</string>
+    <string name="uploads_view_upload_status_paused">Pausiert</string>
     <string name="uploads_view_upload_status_failed_connection_error">Verbindungsfehler</string>
     <string name="uploads_view_upload_status_failed_retry">Hochladen wird in Kürze erneut versucht</string>
     <string name="uploads_view_upload_status_failed_credentials_error">Zugangsdaten falsch</string>
@@ -214,7 +214,7 @@
     <string name="upload_query_move_foreign_files">Es steht nicht genügend Speicherplatz zur Verfügung, um die ausgewählten Dateien in das Verzeichnis %1$s zu kopieren. Sollen diese stattdessen verschoben werden?</string>
     <string name="pass_code_enter_pass_code">Bitte geben Sie Ihre PIN ein</string>
     
-    <string name="pass_code_configure_your_pass_code">Bitte PIN eingeben</string>
+    <string name="pass_code_configure_your_pass_code">PIN eingeben</string>
     <string name="pass_code_configure_your_pass_code_explanation">Die PIN wird jedes mal beim Start der App abgefragt</string>
     <string name="pass_code_reenter_your_pass_code">Bitte Ihre PIN nochmals eingeben</string>
     <string name="pass_code_remove_your_pass_code">PIN entfernen</string>
@@ -241,7 +241,7 @@
     <string name="media_err_unexpected">Ein unerwarteter Fehler ist aufgetreten beim Versuch %1$s wiederzugeben</string>
     <string name="media_rewind_description">Rückspulknopf</string>
     <string name="media_play_pause_description">Wiedergabe-/Pause Knopf</string>
-    <string name="media_forward_description">Vorspul Knopf</string>
+    <string name="media_forward_description">Vorspulknopf</string>
 
 	<string name="auth_getting_authorization">Genehmigung erhalten &#8230;</string>
 	<string name="auth_trying_to_login">Der Versuch, sich anzumelden &#8230;</string>
@@ -249,17 +249,17 @@
 	<string name="auth_nossl_plain_ok_title">Sichere Verbindung nicht verfügbar.</string>
 	<string name="auth_connection_established">Verbindung hergestellt</string>
 	<string name="auth_testing_connection">Verbindung testen</string>
-	<string name="auth_not_configured_title">Fehlerhafte Server Konfiguration</string>
+	<string name="auth_not_configured_title">Fehlerhafte Serverkonfiguration</string>
 	<string name="auth_account_not_new">Ein Benutzerkonto für den gleichen Benutzer und Server existiert auf diesem Gerät bereits</string>
 	<string name="auth_account_not_the_same">Der eingegebene Benutzer passt nicht zu dem Benutzer dieses Benutzerkontos</string>
 	<string name="auth_unknown_error_title">Ein unbekannter Fehler ist aufgetreten!</string>
 	<string name="auth_unknown_host_title">Konnte den Host nicht finden</string>
 	<string name="auth_incorrect_path_title">Server nicht gefunden</string>
 	<string name="auth_timeout_title">Der Server braucht zu lange für eine Antwort.</string>
-	<string name="auth_incorrect_address_title">Falsches Adress-Format für den Server</string>
-	<string name="auth_ssl_general_error_title">SSL-Initialisierung fehlgeschlagen.</string>
+	<string name="auth_incorrect_address_title">Falsches Adressformat für den Server</string>
+	<string name="auth_ssl_general_error_title">SSL-Initialisierung fehlgeschlagen</string>
 	<string name="auth_ssl_unverified_server_title">SSL-Server-Identität konnte nicht überprüft werden</string>
-	<string name="auth_bad_oc_version_title">Unbekannte Server-Version</string>
+	<string name="auth_bad_oc_version_title">Unbekannte Serverversion</string>
 	<string name="auth_wrong_connection_title">Verbindung konnte nicht hergestellt werden</string>
 	<string name="auth_secure_connection">Sichere Verbindung hergestellt</string>
 	<string name="auth_unauthorized">Falscher Benutzername oder Passwort</string>
@@ -560,10 +560,10 @@
     <string name="participate_release_candidate_headline">Vorabversion</string>
     <string name="participate_release_candidate_text">Eine Vorabversion, auch Release Candidate (RC) genannt, ist ein stabiler Stand der kommenden, finalen Version. Ein Test in der eigenen Umgebung hilft uns diese Stabilität sicherzustellen. Melden Sie sich als Tester im Play Store an oder suchen und installieren Sie die passende Version bei F-Droid unter „Versionen“.</string>
     <string name="participate_contribute_headline">Aktiv etwas beitragen</string>
-    <string name="participate_contribute_irc_text">An Chats teilnehmen auf IRC: &lt;a href="%1$s">#nextcloud-mobile&lt;/a></string>
-    <string name="participate_contribute_forum_text">Hilf anderen im &lt;a href="%1$s">Forum&lt;/a></string>
-    <string name="participate_contribute_translate_text">Die App &lt;a href="%1$s">Übersetzen&lt;/a></string>
-    <string name="participate_contribute_github_text">Zum Überprüfen, Ändern und Schreiben von Quellcode schaue bitte unter &lt;a href=\"https://github.com/nextcloud/android/blob/master/CONTRIBUTING.md\">CONTRIBUTING.md&lt;/a> für weitere Details.</string>
+    <string name="participate_contribute_irc_text">An Chats auf IRC teil: &lt;a href=\"%1$s\">#nexcloud-mobile&lt;/a></string>
+    <string name="participate_contribute_forum_text">Helfe anderen im &lt;a href=\\"%1$s\\">Forum&lt;/a></string>
+    <string name="participate_contribute_translate_text">&lt;a href=\\"%1$s\\">Übersetze&lt;/a>die App</string>
+    <string name="participate_contribute_github_text">Prüfen, ändern und schreiben Sie Code. Siehe auch  &lt;a href=\"%1$s\">CONTRIBUTING.md&lt;a> für Einzelheiten</string>
     <string name="move_to">Verschieben nach&#8230;</string>
     <string name="copy_to">Kopieren nach&#8230;</string>
     <string name="choose_remote_folder">Wähle Verzeichnis&#8230;</string>

@@ -91,6 +91,7 @@
     <string name="file_list_empty_search">¿Quiciabes tea nuna carpeta diferente?</string>
     <string name="file_list_empty_recently_modified_filter">La to gueta nun devolvió ficheros
         modificaos nos caberos 7 díes.</string>
+    <string name="file_list_empty_recently_added_filter">La to gueta nun devolvió ficheros amestaos apocayá</string>
     <string name="file_list_empty_text_videos_filter">La to gueta nun devolvió vídeos.</string>
     <string name="upload_list_empty_headline">Nun hai xubes disponibles</string>
     <string name="file_list_folder">Carpeta</string>

@@ -557,10 +557,6 @@
     <string name="participate_release_candidate_headline">Release candidate</string>
     <string name="participate_release_candidate_text">Η υποψήφια κυκλοφορία (RC) είναι ένα στιγμιότυπο της επερχόμενης έκδοσης και αναμένεται να είναι σταθερή. Η δοκιμή της μεμονωμένης εγκατάστασής σας θα βοηθήσει στην εξασφάλιση αυτού. Εγγραφείτε για δοκιμές στο Play store ή χειροκίνητα αναζητείστε στο τμήμα \"εκδόσεις\" στο F-Droid.</string>
     <string name="participate_contribute_headline">Ενεργή συνεισφορά</string>
-    <string name="participate_contribute_irc_text">Συμμετέχετε στη συνομιλία στο IRC: &lt;a href=\"%1$s\">#nextcloud-mobile&lt;/a></string>
-    <string name="participate_contribute_forum_text">Βοηθήστε χρήστες στο &lt;a href=\"%1$s\">forum&lt;/a></string>
-    <string name="participate_contribute_translate_text">&lt;a href=\"%1$s\">Μεταφράστε&lt;/a> την εφαρμογή</string>
-    <string name="participate_contribute_github_text">Συνεισφέρετε ως προγραμματιστής, για περισσότερες λεπτομέρειες δείτε &lt;a href=\"https://github.com/nextcloud/android/blob/master/CONTRIBUTING.md\">CONTRIBUTING.md&lt;/a></string>
     <string name="move_to">Μετακίνηση σε&#8230;</string>
     <string name="copy_to">Αντιγραφή σε&#8230;</string>
     <string name="choose_remote_folder">Επιλογή φακέλου&#8230;</string>
