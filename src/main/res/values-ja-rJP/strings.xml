@@ -436,9 +436,6 @@
     <string name="participate_beta_headline">開発バージョンをテスト</string>
     <string name="participate_release_candidate_headline">リリース候補</string>
     <string name="participate_contribute_headline">積極的な貢献</string>
-    <string name="participate_contribute_irc_text">IRCでチャットに参加してください: &lt;a href=\"%1$s\">#nextcloud-モバイル&lt;/a></string>
-    <string name="participate_contribute_forum_text">&lt;a href=\"%1$s\">フォーラム&lt;/a> で他の人を助けてください</string>
-    <string name="participate_contribute_translate_text">アプリを &lt;a href=\"%1$s\">翻訳する&lt;/a></string>
     <string name="move_to">&#8230;に移動</string>
     <string name="copy_to">&#8230;にコピー</string>
     <string name="choose_remote_folder">&#8230; フォルダーを選択</string>

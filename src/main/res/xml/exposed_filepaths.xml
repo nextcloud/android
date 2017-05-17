@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<paths xmlns:android="http://schemas.android.com/apk/res/android">
+<paths>
+    <files-path
+        path="log/"
+        name="log"/>
     <external-path name="external_files" path="."/>
     <root-path name="external_files" path="/storage/" />
     <!-- yes, valid for ALL external storage and not only our app folder, since we can't use @string/data_folder

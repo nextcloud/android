@@ -63,9 +63,11 @@ public class CustomPopup {
     }
 
     public void onCreate() {
+        // not used at the moment
     }
 
     public void onShow() {
+        // not used at the moment
     }
 
     public void preShow() {
