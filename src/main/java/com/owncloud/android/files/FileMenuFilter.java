@@ -1,4 +1,4 @@
-/**
+/*
  * ownCloud Android client application
  *
  * @author David A. Velasco
@@ -31,10 +31,11 @@ import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
 import com.owncloud.android.lib.resources.status.OCCapability;
 import com.owncloud.android.services.OperationsService.OperationsServiceBinder;
 import com.owncloud.android.ui.activity.ComponentsGetter;
+import com.owncloud.android.utils.MimeTypeUtil;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
@@ -59,8 +60,7 @@ public class FileMenuFilter {
      * @param cg                Accessor to app components, needed to access synchronization services
      * @param context           Android {@link Context}, needed to access build setup resources.
      */
-    public FileMenuFilter(Collection<OCFile> targetFiles, Account account, ComponentsGetter cg,
-                          Context context) {
+    public FileMenuFilter(Collection<OCFile> targetFiles, Account account, ComponentsGetter cg, Context context) {
         mFiles = targetFiles;
         mAccount = account;
         mComponentsGetter = cg;
@@ -75,9 +75,8 @@ public class FileMenuFilter {
      * @param cg                Accessor to app components, needed to access synchronization services
      * @param context           Android {@link Context}, needed to access build setup resources.
      */
-    public FileMenuFilter(OCFile targetFile, Account account, ComponentsGetter cg,
-                          Context context) {
-        this(Arrays.asList(new OCFile[]{targetFile}), account, cg, context);
+    public FileMenuFilter(OCFile targetFile, Account account, ComponentsGetter cg, Context context) {
+        this(Collections.singletonList(targetFile), account, cg, context);
     }
 
     /**
@@ -91,8 +90,8 @@ public class FileMenuFilter {
             hideAll(menu);
 
         } else {
-            List<Integer> toShow = new ArrayList<Integer>();
-            List<Integer> toHide = new ArrayList<Integer>();
+            List<Integer> toShow = new ArrayList<>();
+            List<Integer> toHide = new ArrayList<>();
 
             filter(toShow, toHide);
 
@@ -123,7 +122,6 @@ public class FileMenuFilter {
             item.setEnabled(false);
         }
     }
-
 
     /**
      * Performs the real filtering, to be applied in the {@link Menu} by the caller methods.
@@ -257,6 +255,12 @@ public class FileMenuFilter {
         }
 
 
+        // SET PICTURE AS
+        if (isSingleImage() && !MimeTypeUtil.isSVG(mFiles.iterator().next())) {
+            toShow.add(R.id.action_set_as_wallpaper);
+        } else {
+            toHide.add(R.id.action_set_as_wallpaper);
+        }
     }
 
     private boolean anyFileSynchronizing() {
@@ -310,6 +314,10 @@ public class FileMenuFilter {
 
     private boolean isSingleFile() {
         return isSingleSelection() && !mFiles.iterator().next().isFolder();
+    }
+
+    private boolean isSingleImage() {
+        return isSingleSelection() && MimeTypeUtil.isImage(mFiles.iterator().next());
     }
 
     private boolean allFiles() {
