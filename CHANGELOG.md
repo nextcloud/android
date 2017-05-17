@@ -1,3 +1,9 @@
+## 2017-05-17 15:07
+- Crash due to non-existing empty string (nextcloud/crashDueToEmptyString) [https://github.com/nextcloud/android/pull/995] added
+
+- Dev branch (nextcloud/dev) [https://github.com/nextcloud/android/tree/dev] updated
+- Crash due to non-existing empty string (nextcloud/crashDueToEmptyString) [https://github.com/nextcloud/android/pull/995] updated
+
 ## 2017-05-17 00:32
 no new branches added
 
