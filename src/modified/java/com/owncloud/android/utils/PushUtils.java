@@ -76,7 +76,7 @@ public class PushUtils {
 
     private static ArbitraryDataProvider arbitraryDataProvider;
 
-    private static String generateSHA512Hash(String pushToken) {
+    public static String generateSHA512Hash(String pushToken) {
         MessageDigest messageDigest = null;
         try {
             messageDigest = MessageDigest.getInstance("SHA-512");
@@ -88,7 +88,7 @@ public class PushUtils {
         return "";
     }
 
-    private static String bytesToHex(byte[] bytes) {
+    public static String bytesToHex(byte[] bytes) {
         StringBuilder result = new StringBuilder();
         for (byte individualByte : bytes) {
             result.append(Integer.toString((individualByte & 0xff) + 0x100, 16)
