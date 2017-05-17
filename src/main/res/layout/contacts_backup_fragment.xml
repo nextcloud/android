@@ -68,7 +68,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/standard_margin"
                 android:layout_weight="1"
-                android:gravity="right"
+                android:gravity="end"
                 android:text="@string/contacts_preference_backup_never"
                 android:textAppearance="?android:attr/textAppearanceMedium"/>
         </LinearLayout>
@@ -78,7 +78,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/standard_margin"
-            android:onClick="backupContacts"
             android:text="@string/contacts_backup_button"
             android:theme="@style/Button.Primary"/>
 
@@ -98,7 +97,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/standard_margin"
-            android:onClick="openDate"
             android:text="@string/contacts_preference_choose_date"
             android:theme="@style/Button.Primary"/>
 

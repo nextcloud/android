@@ -393,7 +393,4 @@ public class OCUpload implements Parcelable {
     }
 
     enum CanUploadFileNowStatus {NOW, LATER, FILE_GONE, ERROR}
-
-    ;
-
 }

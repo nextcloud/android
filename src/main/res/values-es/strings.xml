@@ -275,7 +275,8 @@
 	<string name="auth_fail_get_user_name">Su servidor no está retornando una identificación de usuario correcta; contacte a un administrador </string>
 	<string name="auth_can_not_auth_against_server">No puede autenticarse a este servidor</string>
     <string name="auth_account_does_not_exist">La cuenta no existe todavía en el dispositivo</string>
-    
+
+
     <string name="favorite">Marcar el modo disponible a desconectado</string>
     <string name="unfavorite">Desmarcar el modo disponible de desconectado</string>
     <string name="favorite_real">Marque como favorito</string>
@@ -557,10 +558,6 @@
     <string name="participate_release_candidate_headline">Versión a ser liberada</string>
     <string name="participate_release_candidate_text">La versión a ser liberada (release candidate - RC) es una instantánea de la próxima versión y se espera que sea estable. Probar su configuración individual podría ayudar a asegurar esto. Regístrate para probarla en Play Store o busca manualmente en la sección \"versiones\" de F-Droid.</string>
     <string name="participate_contribute_headline">Colabore activamente</string>
-    <string name="participate_contribute_irc_text">Únase a la conversación en IRC:  &lt;a href=\"%1$s\">#nextcloud-mobile&lt;/a></string>
-    <string name="participate_contribute_forum_text">Ayude a otros en el foro &lt;a href=\"%1$s\">&lt;/a>.</string>
-    <string name="participate_contribute_translate_text">&lt;a href=\"%1$s\">Traducen&lt;/a> la app</string>
-    <string name="participate_contribute_github_text">Revisa, corrige y escribe código, lee  &lt;a href=\"https://github.com/nextcloud/android/blob/master/CONTRIBUTING.md\">CONTRIBUTING.md&lt;/a> para más detalles</string>
     <string name="move_to">Mover a&#8230;</string>
     <string name="copy_to">Copiar a&#8230;</string>
     <string name="choose_remote_folder">Elija carpeta&#8230;</string>
@@ -651,6 +648,4 @@
     <!-- Notifications -->
     <string name="new_notification_received">Nueva notificación recibida</string>
     <string name="drawer_logout">Desconectar</string>
-
-
-</resources>
+    </resources>

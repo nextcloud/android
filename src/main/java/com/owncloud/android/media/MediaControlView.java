@@ -89,6 +89,7 @@ public class MediaControlView extends FrameLayout /* implements OnLayoutChangeLi
 
     @Override
     public void onFinishInflate() {
+        super.onFinishInflate();
         /*
         if (mRoot != null)
             initControllerView(mRoot);

@@ -514,11 +514,40 @@ public class Preferences extends PreferenceActivity
             getPreferenceScreen().removePreference(mPrefInstantUploadCategory);
         }
 
+        // About category
+        PreferenceCategory preferenceCategoryAbout = (PreferenceCategory) findPreference("about");
+
         /* About App */
         pAboutApp = findPreference("about_app");
         if (pAboutApp != null) {
             pAboutApp.setTitle(String.format(getString(R.string.about_android), getString(R.string.app_name)));
             pAboutApp.setSummary(String.format(getString(R.string.about_version), appVersion));
+        }
+
+        // privacy
+        boolean privacyEnabled = getResources().getBoolean(R.bool.privacy_enabled);
+        Preference privacyPreference = findPreference("privacy");
+        if (privacyPreference != null) {
+            if (privacyEnabled) {
+                privacyPreference.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+                    @Override
+                    public boolean onPreferenceClick(Preference preference) {
+                        String privacyUrl = getString(R.string.privacy_url);
+                        if (privacyUrl.length() > 0) {
+                            Intent externalWebViewIntent = new Intent(getApplicationContext(), ExternalSiteWebView.class);
+                            externalWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_TITLE,
+                                    getResources().getString(R.string.privacy));
+                            externalWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_URL, privacyUrl);
+                            externalWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_SHOW_SIDEBAR, false);
+                            externalWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_MENU_ITEM_ID, -1);
+                            startActivity(externalWebViewIntent);
+                        }
+                        return true;
+                    }
+                });
+            } else {
+                preferenceCategoryAbout.removePreference(privacyPreference);
+            }
         }
 
         loadExternalSettingLinks(preferenceCategoryMore);
@@ -840,7 +869,7 @@ public class Preferences extends PreferenceActivity
         MainApp.setStoragePath(mStoragePath);
         SharedPreferences.Editor editor = appPrefs.edit();
         editor.putString(PreferenceKeys.STORAGE_PATH, mStoragePath);
-        editor.commit();
+        editor.apply();
         String storageDescription = DataStorageProvider.getInstance().getStorageDescriptionByPath(mStoragePath);
         mPrefStoragePath.setSummary(storageDescription);
         mPrefStoragePath.setValue(newStoragePath);
@@ -866,7 +895,7 @@ public class Preferences extends PreferenceActivity
                 PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         SharedPreferences.Editor editor = appPrefs.edit();
         editor.putString(PreferenceKeys.INSTANT_UPLOAD_PATH, mUploadPath);
-        editor.commit();
+        editor.apply();
     }
 
     /**
@@ -887,7 +916,7 @@ public class Preferences extends PreferenceActivity
                 PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         SharedPreferences.Editor editor = appPrefs.edit();
         editor.putString(PreferenceKeys.INSTANT_VIDEO_UPLOAD_PATH, mUploadVideoPath);
-        editor.commit();
+        editor.apply();
     }
 
     @Override
