@@ -20,9 +20,9 @@
 package com.owncloud.android.ui.adapter;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.drawable.PictureDrawable;
 import android.net.Uri;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.SpannableStringBuilder;
 import android.text.TextUtils;
@@ -32,7 +32,9 @@ import android.text.style.StyleSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.GridLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.GenericRequestBuilder;
@@ -41,13 +43,17 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.model.StreamEncoder;
 import com.bumptech.glide.load.resource.file.FileToStreamDecoder;
 import com.caverock.androidsvg.SVG;
+import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
+import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.resources.activities.models.Activity;
+import com.owncloud.android.lib.resources.activities.models.RichElement;
 import com.owncloud.android.lib.resources.activities.models.RichObject;
-import com.owncloud.android.lib.resources.activities.models.RichSubject;
 import com.owncloud.android.ui.interfaces.ActivityListInterface;
 import com.owncloud.android.utils.DisplayUtils;
+import com.owncloud.android.utils.MimeTypeUtil;
+import com.owncloud.android.utils.glide.CustomGlideStreamLoader;
 import com.owncloud.android.utils.svg.SvgDecoder;
 import com.owncloud.android.utils.svg.SvgDrawableTranscoder;
 import com.owncloud.android.utils.svg.SvgSoftwareLayerSetter;
@@ -66,6 +72,7 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     public static final int HEADER_TYPE=100;
     public static final int ACTIVITY_TYPE=101;
     private final ActivityListInterface activityListInterface;
+    private final int px;
     private OwnCloudClient mClient;
 
     private Context context;
@@ -75,8 +82,7 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         this.mValues = new ArrayList<>();
         this.context = context;
         this.activityListInterface=activityListInterface;
-
-
+        px=getThumbnailDimension();
     }
 
     public void setActivityItems(List<Object> activityItems,OwnCloudClient client) {
@@ -128,7 +134,7 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
             if (!TextUtils.isEmpty(activity.getSubject())) {
                 activityViewHolder.subject.setMovementMethod(LinkMovementMethod.getInstance());
-                activityViewHolder.subject.setText(addClickablePart(activity.getRichSubject()), TextView.BufferType.SPANNABLE);
+                activityViewHolder.subject.setText(addClickablePart(activity.getRichElement()), TextView.BufferType.SPANNABLE);
                 activityViewHolder.subject.setVisibility(View.VISIBLE);
             } else {
                 activityViewHolder.subject.setVisibility(View.GONE);
@@ -145,16 +151,63 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 downloadIcon(activity.getIcon(), activityViewHolder.activityIcon);
             }
 
-            if(activity.getRichSubject()!=null && activity.richSubject.getRichObjectList().size()>0) {
-                RichObjectAdapter richObjectAdapter = new RichObjectAdapter(context, activityListInterface);
-                activityViewHolder.list.setLayoutManager(new GridLayoutManager(context, 4));
-                activityViewHolder.list.setAdapter(richObjectAdapter);
-                richObjectAdapter.setValues(activity.richSubject.getRichObjectList(),mClient.getBaseUri());
+            if(activity.getRichElement()!=null && activity.getRichElement().getRichObjectList().size()>0) {
+
+                activityViewHolder.list.removeAllViews();
+                for (RichObject richObject : activity.getRichElement().getRichObjectList()) {
+                    ImageView imageView=createThumbnail(richObject);
+                    activityViewHolder.list.addView(imageView);
+                }
+
             }
 
         }else{
             ActivityViewHeaderHolder activityViewHeaderHolder=(ActivityViewHeaderHolder)holder;
             activityViewHeaderHolder.title.setText((String)mValues.get(position));
+        }
+    }
+
+    public ImageView createThumbnail(final RichObject richObject){
+        OCFile file = new OCFile("/" + richObject.getPath());
+        file.setRemoteId(richObject.getId());
+
+        LinearLayout.LayoutParams params=new LinearLayout.LayoutParams(px,px);
+        params.setMargins(10,10,10,10);
+        ImageView imageView=new ImageView(context);
+        imageView.setLayoutParams(params);
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                activityListInterface.onActivityClicked(richObject);
+            }
+        });
+        setBitmap(file,imageView);
+
+        return imageView;
+    }
+
+    public void setBitmap(OCFile file, ImageView fileIcon) {
+        // No Folder
+        if (!file.isFolder()) {
+            if ((MimeTypeUtil.isImage(file) || MimeTypeUtil.isVideo(file)) ) {
+                String uri = mClient.getBaseUri()+ "" +
+                        "/index.php/apps/files/api/v1/thumbnail/" +
+                        px + "/" + px + Uri.encode(file.getRemotePath(), "/");
+
+                Glide.with(context).using(new CustomGlideStreamLoader()).load(uri).into(fileIcon); //Using custom fetcher
+
+            } else {
+                fileIcon.setImageResource(MimeTypeUtil.getFileTypeIconId(file.getMimetype(),
+                        file.getFileName()));
+            }
+        } else {
+            // Folder
+            fileIcon.setImageResource(
+                    MimeTypeUtil.getFolderTypeIconId(
+                            file.isSharedWithMe() || file.isSharedWithSharee(),
+                            file.isSharedViaLink()
+                    )
+            );
         }
     }
 
@@ -180,8 +233,8 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 .into(itemViewType);
     }
 
-    private SpannableStringBuilder addClickablePart(RichSubject richSubject) {
-        String text=richSubject.getRichSubject();
+    private SpannableStringBuilder addClickablePart(RichElement richElement) {
+        String text=richElement.getRichSubject();
         SpannableStringBuilder ssb = new SpannableStringBuilder(text);
 
         int idx1 = text.indexOf("{");
@@ -189,7 +242,7 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         while (idx1 != -1) {
             idx2 = text.indexOf("}", idx1) + 1;
             final String clickString = text.substring(idx1+1, idx2-1);
-            final RichObject richObject=searchObjectByName(richSubject.getRichObjectList(),clickString);
+            final RichObject richObject=searchObjectByName(richElement.getRichObjectList(),clickString);
             if(richObject!=null) {
                 String name = richObject.getName();
                 ssb.replace(idx1, idx2, name);
@@ -231,13 +284,24 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         return mValues.size();
     }
 
+    /**
+     * Converts size of file icon from dp to pixel
+     * @return int
+     */
+    private int getThumbnailDimension(){
+        // Converts dp to pixel
+        Resources r = MainApp.getAppContext().getResources();
+        Double d = Math.pow(2,Math.floor(Math.log(r.getDimension(R.dimen.file_icon_size_grid))/Math.log(2)));
+        return d.intValue();
+    }
+
     class ActivityViewHolder extends RecyclerView.ViewHolder {
 
         private final ImageView activityIcon;
         private final TextView subject;
         private final TextView message;
         private final TextView dateTime;
-        private final RecyclerView list;
+        private final GridLayout list;
 
         private ActivityViewHolder(View itemView) {
             super(itemView);
@@ -245,7 +309,7 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             subject = (TextView) itemView.findViewById(R.id.activity_subject);
             message = (TextView) itemView.findViewById(R.id.activity_message);
             dateTime = (TextView) itemView.findViewById(R.id.activity_datetime);
-            list = (RecyclerView) itemView.findViewById(R.id.list);
+            list = (GridLayout) itemView.findViewById(R.id.list);
         }
     }
 

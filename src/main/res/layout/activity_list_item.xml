@@ -48,7 +48,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ellipsize="end"
-            android:maxLines="2"
             android:text="@string/placeholder_filename"
             android:textAppearance="?android:attr/textAppearanceListItem"/>
 
@@ -61,10 +60,12 @@
             android:text="@string/placeholder_sentence"
             android:textColor="?android:attr/textColorSecondary"/>
 
-        <android.support.v7.widget.RecyclerView
+        <GridLayout
             android:id="@+id/list"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:columnCount="3" />
 
         <TextView
             android:id="@+id/activity_datetime"
