@@ -562,10 +562,6 @@
     <string name="participate_release_candidate_headline">发行候选版本</string>
     <string name="participate_release_candidate_text">发布候选人（RC）是即将发布的快照，预计将稳定。 测试您的个人设置可以帮助确保这一点。 注册在Play商店进行测试，或手动查看F-Droid上的“版本”部分。</string>
     <string name="participate_contribute_headline">活跃的候选版</string>
-    <string name="participate_contribute_irc_text">在IRC上加入这个会话： &lt;a href="%1$s">#nextcloud-mobile&lt;/a></string>
-    <string name="participate_contribute_forum_text">帮助他人在 &lt;a href="%1$s">论坛&lt;/a></string>
-    <string name="participate_contribute_translate_text">&lt;a href="%1$s">翻译&lt;/a> 应用程序</string>
-    <string name="participate_contribute_github_text">查看，修改和编写代码，有关详细信息，请参阅&lt;a   href=\"https://github.com/nextcloud/android/blob/master/CONTRIBUTING.md\">CONTRIBUTING.md&lt;/a> </string>
     <string name="move_to">转移到&#8230;</string>
     <string name="copy_to">复制到</string>
     <string name="choose_remote_folder">选择文件夹&#8230;</string>
