@@ -106,6 +106,7 @@ public class PreviewMediaFragment extends FileFragment implements
     private MediaServiceConnection mMediaServiceConnection = null;
     private VideoHelper mVideoHelper;
     private boolean mAutoplay;
+    private static boolean mOnResume = false;
     public boolean mPrepared;
 
     private static final String TAG = PreviewMediaFragment.class.getSimpleName();
@@ -220,6 +221,7 @@ public class PreviewMediaFragment extends FileFragment implements
      */
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
+        mOnResume = true;
         super.onActivityCreated(savedInstanceState);
         Log_OC.v(TAG, "onActivityCreated");
 
@@ -556,6 +558,8 @@ public class PreviewMediaFragment extends FileFragment implements
     @Override
     public void onResume() {
         super.onResume();
+        mOnResume = !mOnResume;
+
         if (getActivity() != null) {
             AnalyticsUtils.setCurrentScreenName(getActivity(), SCREEN_NAME, TAG);
         }
@@ -629,7 +633,7 @@ public class PreviewMediaFragment extends FileFragment implements
 
     private void playAudio() {
         OCFile file = getFile();
-        if (!mMediaServiceBinder.isPlaying(file)) {
+        if (!mMediaServiceBinder.isPlaying(file) && !mOnResume) {
             Log_OC.d(TAG, "starting playback of " + file.getStoragePath());
             mMediaServiceBinder.start(mAccount, file, mAutoplay, mSavedPlaybackPosition);
 
@@ -640,6 +644,8 @@ public class PreviewMediaFragment extends FileFragment implements
                 mMediaController.updatePausePlay();
             }
         }
+
+        mOnResume = false;
     }
 
 
