@@ -1,4 +1,4 @@
-/**
+/*
  * Nextcloud Android client application
  *
  * @author Mario Danic
@@ -24,6 +24,7 @@ import android.Manifest;
 import android.accounts.Account;
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -44,7 +45,10 @@ import com.evernote.android.job.JobRequest;
 import com.evernote.android.job.util.support.PersistableBundleCompat;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
+import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.lib.common.operations.RemoteOperationResult;
+import com.owncloud.android.operations.RefreshFolderOperation;
 import com.owncloud.android.services.ContactsBackupJob;
 import com.owncloud.android.ui.activity.ContactsPreferenceActivity;
 import com.owncloud.android.ui.fragment.FileFragment;
@@ -167,21 +171,54 @@ public class ContactsBackupFragment extends FileFragment implements DatePickerDi
             }
         }
 
-        final ContactsPreferenceActivity contactsPreferenceActivity = (ContactsPreferenceActivity) getActivity();
+        ContactsPreferenceActivity contactsPreferenceActivity = (ContactsPreferenceActivity) getActivity();
 
-        String backupFolderString = getResources().getString(R.string.contacts_backup_folder) + OCFile.PATH_SEPARATOR;
-        OCFile backupFolder = contactsPreferenceActivity.getStorageManager().getFileByPath(backupFolderString);
+        String backupFolderPath = getResources().getString(R.string.contacts_backup_folder) + OCFile.PATH_SEPARATOR;
+        refreshBackupFolder(backupFolderPath, contactsPreferenceActivity);
+    }
 
-        Vector<OCFile> backupFiles = contactsPreferenceActivity.getStorageManager().getFolderContent(backupFolder,
-                false);
+    private void refreshBackupFolder(final String backupFolderPath,
+                                     final ContactsPreferenceActivity contactsPreferenceActivity) {
+        AsyncTask<String, Integer, Boolean> task = new AsyncTask<String, Integer, Boolean>() {
+            @Override
+            protected Boolean doInBackground(String... path) {
+                FileDataStorageManager storageManager = new FileDataStorageManager(account,
+                        getActivity().getContentResolver());
 
-        if (backupFiles == null || backupFiles.size() == 0) {
-            contactsRestoreHeader.setVisibility(View.GONE);
-            contactsDatePickerBtn.setVisibility(View.GONE);
-        } else {
-            contactsRestoreHeader.setVisibility(View.VISIBLE);
-            contactsDatePickerBtn.setVisibility(View.VISIBLE);
-        }
+                RemoteOperationResult result = new RemoteOperationResult(RemoteOperationResult.ResultCode.UNKNOWN_ERROR);
+                try {
+                    OCFile folder = storageManager.getFileByPath(path[0]);
+                    RefreshFolderOperation operation = new RefreshFolderOperation(folder, System.currentTimeMillis(),
+                            false, false, false, storageManager, account, getContext());
+
+                    result = operation.execute(account, getContext());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+                return result.isSuccess();
+            }
+
+            @Override
+            protected void onPostExecute(Boolean result) {
+                if (result) {
+                    OCFile backupFolder = contactsPreferenceActivity.getStorageManager().getFileByPath(backupFolderPath);
+
+                    Vector<OCFile> backupFiles = contactsPreferenceActivity.getStorageManager()
+                            .getFolderContent(backupFolder, false);
+
+                    if (backupFiles == null || backupFiles.size() == 0) {
+                        contactsRestoreHeader.setVisibility(View.GONE);
+                        contactsDatePickerBtn.setVisibility(View.GONE);
+                    } else {
+                        contactsRestoreHeader.setVisibility(View.VISIBLE);
+                        contactsDatePickerBtn.setVisibility(View.VISIBLE);
+                    }
+                }
+            }
+        };
+
+        task.execute(backupFolderPath);
     }
 
 
