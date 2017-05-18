@@ -264,7 +264,6 @@
   <string name="network_error_socket_timeout_exception">حدث خطأ أثناء إنتظار الخادم، لم يكن من الممكن القيام بالعملية</string>
   <string name="network_error_connect_timeout_exception">حدث خطأ أثناء إنتظار الخادم، لم يكن من الممكن القيام بالعملية</string>
   <string name="network_host_not_available">تعذر إكمال العملية، الخادم غير متوفر</string>
-  <string name="empty"></string>
   <string name="prefs_category_accounts">حسابات</string>
   <string name="actionbar_logger">سجل</string>
   <string name="saml_authentication_wrong_pass">كلمة مرور خاطئة</string>

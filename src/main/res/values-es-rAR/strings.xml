@@ -220,7 +220,6 @@
   <string name="network_error_socket_timeout_exception">Un error ocurrió mientras se conectaba con el Servidor. La operación no se realizó </string>
   <string name="network_error_connect_timeout_exception">Un error ocurrió esperando al Servidor, la operación no se realizó</string>
   <string name="network_host_not_available">Operación no completada, Servidor no disponible.</string>
-  <string name="empty"></string>
   <string name="forbidden_permissions">Tu no tienes permiso %s</string>
   <string name="forbidden_permissions_rename">para renombrar este archivo</string>
   <string name="forbidden_permissions_delete">para borrar este archivo</string>
