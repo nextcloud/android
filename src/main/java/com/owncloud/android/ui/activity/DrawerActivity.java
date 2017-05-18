@@ -317,21 +317,20 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
             navigationView.getMenu().setGroupVisible(R.id.drawer_menu_accounts, false);
         }
 
-        Account account = AccountUtils.
-                getCurrentOwnCloudAccount(MainApp.getAppContext());
+        Account account = AccountUtils.getCurrentOwnCloudAccount(MainApp.getAppContext());
         boolean searchSupported = AccountUtils.hasSearchSupport(account);
 
-        if ((getResources().getBoolean(R.bool.bottom_toolbar_enabled) || (!searchSupported)) &&
-                (account != null)){
+        if (getResources().getBoolean(R.bool.bottom_toolbar_enabled) && account != null) {
+            navigationView.getMenu().removeItem(R.id.nav_all_files);
+            navigationView.getMenu().removeItem(R.id.nav_settings);
+            navigationView.getMenu().removeItem(R.id.nav_favorites);
             navigationView.getMenu().removeItem(R.id.nav_photos);
-            if (getResources().getBoolean(R.bool.bottom_toolbar_enabled)) {
-                navigationView.getMenu().removeItem(R.id.nav_all_files);
-                navigationView.getMenu().removeItem(R.id.nav_settings);
-                navigationView.getMenu().removeItem(R.id.nav_favorites);
-            }
-            if (!searchSupported) {
-                navigationView.getMenu().removeItem(R.id.nav_videos);
-            }
+        }
+
+        if (!searchSupported && account != null) {
+            navigationView.getMenu().removeItem(R.id.nav_photos);
+            navigationView.getMenu().removeItem(R.id.nav_favorites);
+            navigationView.getMenu().removeItem(R.id.nav_videos);
         }
 
         if (getResources().getBoolean(R.bool.use_home) && navigationView.getMenu().findItem(R.id.nav_all_files) !=
