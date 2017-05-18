@@ -1,23 +1,22 @@
 /**
- *   ownCloud Android client application
+ * ownCloud Android client application
  *
- *   @author masensio
- *   @author David A. Velasco
- *   @author Juan Carlos González Cabrero
- *   Copyright (C) 2015 ownCloud Inc.
- *
- *   This program is free software: you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License version 2,
- *   as published by the Free Software Foundation.
- *
- *   This program is distributed in the hope that it will be useful,
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *   GNU General Public License for more details.
- *
- *   You should have received a copy of the GNU General Public License
- *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
+ * @author masensio
+ * @author David A. Velasco
+ * @author Juan Carlos González Cabrero
+ * Copyright (C) 2015 ownCloud Inc.
+ * <p>
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 2,
+ * as published by the Free Software Foundation.
+ * <p>
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * <p>
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 package com.owncloud.android.ui.helpers;
@@ -29,11 +28,14 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.net.Uri;
+import android.os.Build;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.content.FileProvider;
 import android.webkit.MimeTypeMap;
 import android.widget.Toast;
 
+import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.OCFile;
@@ -53,6 +55,7 @@ import com.owncloud.android.ui.events.FavoriteEvent;
 import org.greenrobot.eventbus.EventBus;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -68,7 +71,7 @@ import java.util.regex.Pattern;
 public class FileOperationsHelper {
 
     private static final String TAG = FileOperationsHelper.class.getSimpleName();
-    
+
     private static final String FTAG_CHOOSER_DIALOG = "CHOOSER_DIALOG";
 
     protected FileActivity mFileActivity = null;
@@ -76,21 +79,21 @@ public class FileOperationsHelper {
     /// Identifier of operation in progress which result shouldn't be lost 
     private long mWaitingForOpId = Long.MAX_VALUE;
 
-	private static final Pattern mPatternUrl = Pattern.compile("^URL=(.+)$");
-	private static final Pattern mPatternString = Pattern.compile("<string>(.+)</string>");
+    private static final Pattern mPatternUrl = Pattern.compile("^URL=(.+)$");
+    private static final Pattern mPatternString = Pattern.compile("<string>(.+)</string>");
 
     public FileOperationsHelper(FileActivity fileActivity) {
         mFileActivity = fileActivity;
     }
 
-	@Nullable
+    @Nullable
     private String getUrlFromFile(String storagePath, Pattern pattern) {
         String url = null;
 
         InputStreamReader fr = null;
         BufferedReader br = null;
         try {
-            fr =  new InputStreamReader(new FileInputStream(storagePath), "UTF8");
+            fr = new InputStreamReader(new FileInputStream(storagePath), "UTF8");
             br = new BufferedReader(fr);
 
             String line;
@@ -102,7 +105,7 @@ public class FileOperationsHelper {
                 }
             }
         } catch (IOException e) {
-			Log_OC.d(TAG, e.getMessage());
+            Log_OC.d(TAG, e.getMessage());
         } finally {
             if (br != null) {
                 try {
@@ -121,20 +124,20 @@ public class FileOperationsHelper {
             }
         }
         return url;
-	}
-	
+    }
+
     @Nullable
     private Intent createIntentFromFile(String storagePath) {
         String url = null;
         int lastIndexOfDot = storagePath.lastIndexOf('.');
         if (lastIndexOfDot >= 0) {
             String fileExt = storagePath.substring(lastIndexOfDot + 1);
-            if (fileExt.equalsIgnoreCase("url") ||fileExt.equalsIgnoreCase("desktop")) {
-				// Windows internet shortcut file .url
-				// Ubuntu internet shortcut file .desktop
+            if (fileExt.equalsIgnoreCase("url") || fileExt.equalsIgnoreCase("desktop")) {
+                // Windows internet shortcut file .url
+                // Ubuntu internet shortcut file .desktop
                 url = getUrlFromFile(storagePath, mPatternUrl);
             } else if (fileExt.equalsIgnoreCase("webloc")) {
-				// mac internet shortcut file .webloc
+                // mac internet shortcut file .webloc
                 url = getUrlFromFile(storagePath, mPatternString);
             }
         }
@@ -162,7 +165,7 @@ public class FileOperationsHelper {
                 }
             }
 
-            if(openFileWithIntent == null) {
+            if (openFileWithIntent == null) {
                 openFileWithIntent = createIntentFromFile(storagePath);
             }
 
@@ -179,7 +182,7 @@ public class FileOperationsHelper {
             List<ResolveInfo> launchables = mFileActivity.getPackageManager().
                     queryIntentActivities(openFileWithIntent, PackageManager.GET_INTENT_FILTERS);
 
-            if(launchables != null && launchables.size() > 0) {
+            if (launchables != null && launchables.size() > 0) {
                 try {
                     mFileActivity.startActivity(
                             Intent.createChooser(
@@ -247,7 +250,7 @@ public class FileOperationsHelper {
         }
     }
 
-    public void getFileWithLink(OCFile file){
+    public void getFileWithLink(OCFile file) {
         if (isSharedSupported()) {
             if (file != null) {
                 mFileActivity.showLoadingDialog(mFileActivity.getApplicationContext().
@@ -284,7 +287,7 @@ public class FileOperationsHelper {
         if (file != null) {
             // TODO check capability?
             mFileActivity.showLoadingDialog(mFileActivity.getApplicationContext().
-                getString(R.string.wait_a_moment));
+                    getString(R.string.wait_a_moment));
 
             Intent service = new Intent(mFileActivity, OperationsService.class);
             service.setAction(OperationsService.ACTION_CREATE_SHARE_WITH_SHAREE);
@@ -332,7 +335,7 @@ public class FileOperationsHelper {
         queueShareIntent(unshareService);
     }
 
-    public void unshareFileWithUserOrGroup(OCFile file, ShareType shareType, String userOrGroup){
+    public void unshareFileWithUserOrGroup(OCFile file, ShareType shareType, String userOrGroup) {
 
         // Unshare the file: Create the intent
         Intent unshareService = new Intent(mFileActivity, OperationsService.class);
@@ -346,7 +349,7 @@ public class FileOperationsHelper {
     }
 
 
-    private void queueShareIntent(Intent shareIntent){
+    private void queueShareIntent(Intent shareIntent) {
         if (isSharedSupported()) {
             // Unshare the file
             mWaitingForOpId = mFileActivity.getOperationsServiceBinder().
@@ -370,7 +373,7 @@ public class FileOperationsHelper {
      *
      * @param file  File to share or unshare.
      */
-    public void showShareFile(OCFile file){
+    public void showShareFile(OCFile file) {
         Intent intent = new Intent(mFileActivity, ShareActivity.class);
         intent.putExtra(FileActivity.EXTRA_FILE, file);
         intent.putExtra(FileActivity.EXTRA_ACCOUNT, mFileActivity.getAccount());
@@ -508,8 +511,8 @@ public class FileOperationsHelper {
             // set MimeType
             sendIntent.setType(file.getMimetype());
             sendIntent.putExtra(
-                Intent.EXTRA_STREAM,
-                file.getExposedFileUri(mFileActivity)
+                    Intent.EXTRA_STREAM,
+                    file.getExposedFileUri(mFileActivity)
             );
             sendIntent.putExtra(Intent.ACTION_SEND, true);      // Send Action
 
@@ -524,8 +527,40 @@ public class FileOperationsHelper {
     }
 
     public void syncFiles(Collection<OCFile> files) {
-        for (OCFile file: files) {
+        for (OCFile file : files) {
             syncFile(file);
+        }
+    }
+
+    public void setPictureAs(OCFile file) {
+        if (file != null) {
+            if (file.isDown()) {
+                Context context = MainApp.getAppContext();
+
+                try {
+                    File externalFile = new File(file.getStoragePath());
+                    Intent intent = new Intent(Intent.ACTION_ATTACH_DATA);
+                    Uri sendUri;
+
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                        intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                        sendUri = FileProvider.getUriForFile(context,
+                                context.getResources().getString(R.string.file_provider_authority), externalFile);
+                    } else {
+                        sendUri = Uri.fromFile(externalFile);
+                    }
+
+                    intent.setDataAndType(sendUri, file.getMimetype());
+                    intent.putExtra("mimeType", file.getMimetype());
+                    mFileActivity.startActivityForResult(Intent.createChooser(intent,
+                            mFileActivity.getString(R.string.set_as)), 200);
+
+                } catch (ActivityNotFoundException exception) {
+                    Toast.makeText(context, R.string.picture_set_as_no_app, Toast.LENGTH_LONG).show();
+                }
+            }
+        } else {
+            Log_OC.wtf(TAG, "Trying to send a NULL OCFile");
         }
     }
 
@@ -535,7 +570,7 @@ public class FileOperationsHelper {
      * @param file          The file or folder to synchronize
      */
     public void syncFile(OCFile file) {
-        if (!file.isFolder()){
+        if (!file.isFolder()) {
             Intent intent = new Intent(mFileActivity, OperationsService.class);
             intent.setAction(OperationsService.ACTION_SYNC_FILE);
             intent.putExtra(OperationsService.EXTRA_ACCOUNT, mFileActivity.getAccount());
@@ -543,8 +578,8 @@ public class FileOperationsHelper {
             intent.putExtra(OperationsService.EXTRA_SYNC_FILE_CONTENTS, true);
             mWaitingForOpId = mFileActivity.getOperationsServiceBinder().queueNewOperation(intent);
             mFileActivity.showLoadingDialog(mFileActivity.getApplicationContext().
-                getString(R.string.wait_a_moment));
-            
+                    getString(R.string.wait_a_moment));
+
         } else {
             Intent intent = new Intent(mFileActivity, OperationsService.class);
             intent.setAction(OperationsService.ACTION_SYNC_FOLDER);
@@ -557,37 +592,37 @@ public class FileOperationsHelper {
 
     public void toggleFavoriteFiles(Collection<OCFile> files, boolean shouldBeFavorite) {
         List<OCFile> alreadyRightStateList = new ArrayList<>();
-        for(OCFile file : files) {
-            if(file.getIsFavorite() == shouldBeFavorite) {
+        for (OCFile file : files) {
+            if (file.getIsFavorite() == shouldBeFavorite) {
                 alreadyRightStateList.add(file);
             }
         }
 
         files.removeAll(alreadyRightStateList);
 
-        for (OCFile file: files) {
+        for (OCFile file : files) {
             toggleFavoriteFile(file, shouldBeFavorite);
         }
     }
 
     public void toggleFavoriteFile(OCFile file, boolean shouldBeFavorite) {
-        if(file.getIsFavorite() != shouldBeFavorite) {
+        if (file.getIsFavorite() != shouldBeFavorite) {
             EventBus.getDefault().post(new FavoriteEvent(file.getRemotePath(), shouldBeFavorite, file.getRemoteId()));
         }
     }
 
 
-    public void toogleOfflineFiles(Collection<OCFile> files, boolean isAvailableOffline){
+    public void toogleOfflineFiles(Collection<OCFile> files, boolean isAvailableOffline) {
         List<OCFile> alreadyRightStateList = new ArrayList<>();
-        for(OCFile file : files) {
-            if(file.isAvailableOffline() == isAvailableOffline) {
+        for (OCFile file : files) {
+            if (file.isAvailableOffline() == isAvailableOffline) {
                 alreadyRightStateList.add(file);
             }
         }
 
         files.removeAll(alreadyRightStateList);
 
-        for (OCFile file: files) {
+        for (OCFile file : files) {
             toggleOfflineFile(file, isAvailableOffline);
         }
     }
@@ -612,7 +647,7 @@ public class FileOperationsHelper {
             }
         }
     }
-    
+
     public void renameFile(OCFile file, String newFilename) {
         // RenameFile
         Intent service = new Intent(mFileActivity, OperationsService.class);
@@ -621,7 +656,7 @@ public class FileOperationsHelper {
         service.putExtra(OperationsService.EXTRA_REMOTE_PATH, file.getRemotePath());
         service.putExtra(OperationsService.EXTRA_NEWNAME, newFilename);
         mWaitingForOpId = mFileActivity.getOperationsServiceBinder().queueNewOperation(service);
-        
+
         mFileActivity.showLoadingDialog(mFileActivity.getString(R.string.wait_a_moment));
     }
 
@@ -643,7 +678,7 @@ public class FileOperationsHelper {
             service.putExtra(OperationsService.EXTRA_REMOVE_ONLY_LOCAL, onlyLocalCopy);
             mWaitingForOpId = mFileActivity.getOperationsServiceBinder().queueNewOperation(service);
         }
-        
+
         mFileActivity.showLoadingDialog(mFileActivity.getString(R.string.wait_a_moment));
     }
 
@@ -655,8 +690,8 @@ public class FileOperationsHelper {
         service.putExtra(OperationsService.EXTRA_ACCOUNT, mFileActivity.getAccount());
         service.putExtra(OperationsService.EXTRA_REMOTE_PATH, remotePath);
         service.putExtra(OperationsService.EXTRA_CREATE_FULL_PATH, createFullPath);
-        mWaitingForOpId =  mFileActivity.getOperationsServiceBinder().queueNewOperation(service);
-        
+        mWaitingForOpId = mFileActivity.getOperationsServiceBinder().queueNewOperation(service);
+
         mFileActivity.showLoadingDialog(mFileActivity.getString(R.string.wait_a_moment));
     }
 
@@ -754,7 +789,7 @@ public class FileOperationsHelper {
         mWaitingForOpId = mFileActivity.getOperationsServiceBinder().queueNewOperation(service);
 
         mFileActivity.showLoadingDialog(
-            mFileActivity.getString(R.string.wait_checking_credentials)
+                mFileActivity.getString(R.string.wait_checking_credentials)
         );
     }
 }
