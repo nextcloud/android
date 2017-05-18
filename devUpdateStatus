@@ -1,9 +1,10 @@
-2017-05-18
-Branches: 7
-[01 / 07] Crash due to non-existing empty string (nextcloud/crashDueToEmptyString) [https://github.com/nextcloud/android/pull/995] merged successfully
-[02 / 07] Re-use second fragment if available (nextcloud/audioRotationBug) [https://github.com/nextcloud/android/pull/985] CONFLICT
-[03 / 07] Search inside of text files (nextcloud/bugfix-454) [https://github.com/nextcloud/android/pull/565] CONFLICT
-[04 / 07] Pinch zoom (nextcloud/pinchZoom) [https://github.com/nextcloud/android/pull/143] CONFLICT
-[05 / 07] Resized images (nextcloud/resizedImages) [https://github.com/nextcloud/android/pull/69] CONFLICT
-[06 / 07] Master (nextcloud/master) [https://github.com/nextcloud/android] no update needed
-[07 / 07] Dev base (nextcloud/dev-base) [https://github.com/nextcloud/android/tree/dev-base] CONFLICT
+2017-05-19
+Branches: 8
+[01 / 08] NPE in contact backups (nextcloud/npeInContactBackups) [https://github.com/nextcloud/android/pull/1019] CONFLICT
+[02 / 08] Crash due to non-existing empty string (nextcloud/crashDueToEmptyString) [https://github.com/nextcloud/android/pull/995] merged successfully
+[03 / 08] Re-use second fragment if available (nextcloud/audioRotationBug) [https://github.com/nextcloud/android/pull/985] CONFLICT
+[04 / 08] Search inside of text files (nextcloud/bugfix-454) [https://github.com/nextcloud/android/pull/565] CONFLICT
+[05 / 08] Pinch zoom (nextcloud/pinchZoom) [https://github.com/nextcloud/android/pull/143] CONFLICT
+[06 / 08] Resized images (nextcloud/resizedImages) [https://github.com/nextcloud/android/pull/69] CONFLICT
+[07 / 08] Master (nextcloud/master) [https://github.com/nextcloud/android] no update needed
+[08 / 08] Dev base (nextcloud/dev-base) [https://github.com/nextcloud/android/tree/dev-base] CONFLICT

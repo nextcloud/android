@@ -1,3 +1,8 @@
+## 2017-05-19 00:31
+no new branches added
+
+- Crash due to non-existing empty string (nextcloud/crashDueToEmptyString) [https://github.com/nextcloud/android/pull/995] updated
+
 ## 2017-05-18 00:30
 no new branches added
 
