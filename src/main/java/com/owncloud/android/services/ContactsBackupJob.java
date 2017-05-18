@@ -1,7 +1,7 @@
-/**
- * Nextcloud Android client application
- *
- * @author Tobias Kaminsky
+/*
+  Nextcloud Android client application
+
+  @author Tobias Kaminsky
  * Copyright (C) 2017 Tobias Kaminsky
  * Copyright (C) 2017 Nextcloud GmbH.
  * <p>
