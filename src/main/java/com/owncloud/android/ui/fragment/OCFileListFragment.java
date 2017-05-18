@@ -120,6 +120,10 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
     public final static String ARG_ALLOW_CONTEXTUAL_ACTIONS = MY_PACKAGE + ".ALLOW_CONTEXTUAL";
     public final static String ARG_HIDE_FAB = MY_PACKAGE + ".HIDE_FAB";
 
+    public static final String DOWNLOAD_BEHAVIOUR = "DOWNLOAD_BEHAVIOUR";
+    public static final String DOWNLOAD_SEND = "DOWNLOAD_SEND";
+    public static final String DOWNLOAD_SET_AS = "DOWNLOAD_SET_AS";
+
     public static final String SEARCH_EVENT = "SEARCH_EVENT";
 
     private static final String KEY_FILE = MY_PACKAGE + ".extra.FILE";
@@ -867,10 +871,18 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
                     // Obtain the file
                     if (!singleFile.isDown()) {  // Download the file
                         Log_OC.d(TAG, singleFile.getRemotePath() + " : File must be downloaded");
-                        ((FileDisplayActivity) mContainerActivity).startDownloadForSending(singleFile);
-
+                        ((FileDisplayActivity) mContainerActivity).startDownloadForSending(singleFile, DOWNLOAD_SEND);
                     } else {
                         mContainerActivity.getFileOperationsHelper().sendDownloadedFile(singleFile);
+                    }
+                    return true;
+                }
+                case R.id.action_set_as_wallpaper: {
+                    if (singleFile.isDown()) {
+                        mContainerActivity.getFileOperationsHelper().setPictureAs(singleFile);
+                    } else {
+                        Log_OC.d(TAG, singleFile.getRemotePath() + " : File must be downloaded");
+                        ((FileDisplayActivity) mContainerActivity).startDownloadForSending(singleFile, DOWNLOAD_SET_AS);
                     }
                     return true;
                 }
