@@ -667,4 +667,5 @@
     <string name="drawer_logout">Logout</string>
     <string name="picture_set_as_no_app">No app found to set a picture with!</string>
     <string name="privacy">Privacy</string>
+    <string name="file_not_found">File not found!</string>
 </resources>
