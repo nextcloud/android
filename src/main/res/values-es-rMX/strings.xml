@@ -651,6 +651,4 @@ en los últimos 7 días. </string>
     <string name="new_notification_received">No se han recibido nuevas notificaciones </string>
     <string name="drawer_logout">Salir de la sesión</string>
     <string name="privacy">Privacidad</string>
-
-
 </resources>
