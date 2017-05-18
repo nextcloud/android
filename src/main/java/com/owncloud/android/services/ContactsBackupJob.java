@@ -173,7 +173,9 @@ public class ContactsBackupJob extends Job {
             cal.add(Calendar.DAY_OF_YEAR, -daysToExpire);
             Long timestampToExpire = cal.getTimeInMillis();
 
-            Log_OC.d(TAG, "expire: " + daysToExpire + " " + backupFolder.getFileName());
+            if (backupFolder != null) {
+                Log_OC.d(TAG, "expire: " + daysToExpire + " " + backupFolder.getFileName());
+            }
 
             Vector<OCFile> backups = storageManager.getFolderContent(backupFolder, false);
 
