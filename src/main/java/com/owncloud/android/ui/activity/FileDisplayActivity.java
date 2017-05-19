@@ -62,6 +62,7 @@ import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.datamodel.VirtualFolderType;
 import com.owncloud.android.db.PreferenceManager;
 import com.owncloud.android.files.services.FileDownloader;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
@@ -255,14 +256,14 @@ public class FileDisplayActivity extends HookActivity
         }
 
         if (getIntent().getParcelableExtra(OCFileListFragment.SEARCH_EVENT) != null) {
-            switchToSearchFragment();
+            switchToSearchFragment(savedInstanceState);
 
             int menuId = getIntent().getIntExtra(DRAWER_MENU_ID, -1);
             if (menuId != -1) {
                 setupDrawer(menuId);
             }
-        } else if (savedInstanceState == null) {
-            createMinFragments();
+        } else {
+            createMinFragments(savedInstanceState);
             refreshList(true);
         }
 
@@ -395,28 +396,36 @@ public class FileDisplayActivity extends HookActivity
         }
     }
 
-    private void switchToSearchFragment() {
-        OCFileListFragment listOfFiles = new OCFileListFragment();
-        Bundle args = new Bundle();
+    private void switchToSearchFragment(Bundle savedInstanceState) {
+        if (savedInstanceState == null) {
+            OCFileListFragment listOfFiles = new OCFileListFragment();
+            Bundle args = new Bundle();
 
-        args.putParcelable(OCFileListFragment.SEARCH_EVENT,
-                getIntent().getParcelableExtra(OCFileListFragment.SEARCH_EVENT));
-        args.putBoolean(OCFileListFragment.ARG_ALLOW_CONTEXTUAL_ACTIONS, true);
+            args.putParcelable(OCFileListFragment.SEARCH_EVENT,
+                    getIntent().getParcelableExtra(OCFileListFragment.SEARCH_EVENT));
+            args.putBoolean(OCFileListFragment.ARG_ALLOW_CONTEXTUAL_ACTIONS, true);
 
-        listOfFiles.setArguments(args);
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.add(R.id.left_fragment_container, listOfFiles, TAG_LIST_OF_FILES);
-        transaction.commit();
+            listOfFiles.setArguments(args);
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            transaction.add(R.id.left_fragment_container, listOfFiles, TAG_LIST_OF_FILES);
+            transaction.commit();
+        } else {
+            getSupportFragmentManager().findFragmentByTag(TAG_LIST_OF_FILES);
+        }
     }
 
-    private void createMinFragments() {
-        OCFileListFragment listOfFiles = new OCFileListFragment();
-        Bundle args = new Bundle();
-        args.putBoolean(OCFileListFragment.ARG_ALLOW_CONTEXTUAL_ACTIONS, true);
-        listOfFiles.setArguments(args);
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.add(R.id.left_fragment_container, listOfFiles, TAG_LIST_OF_FILES);
-        transaction.commit();
+    private void createMinFragments(Bundle savedInstanceState) {
+        if (savedInstanceState == null) {
+            OCFileListFragment listOfFiles = new OCFileListFragment();
+            Bundle args = new Bundle();
+            args.putBoolean(OCFileListFragment.ARG_ALLOW_CONTEXTUAL_ACTIONS, true);
+            listOfFiles.setArguments(args);
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            transaction.add(R.id.left_fragment_container, listOfFiles, TAG_LIST_OF_FILES);
+            transaction.commit();
+        } else {
+            getSupportFragmentManager().findFragmentByTag(TAG_LIST_OF_FILES);
+        }
     }
 
     private void initFragmentsWithFile() {
@@ -573,6 +582,14 @@ public class FileDisplayActivity extends HookActivity
         OCFileListFragment fileListFragment = getListOfFilesFragment();
         if (fileListFragment != null) {
             fileListFragment.listDirectory(MainApp.isOnlyOnDevice(), fromSearch);
+        }
+    }
+
+    public void resetSearchView() {
+        OCFileListFragment fileListFragment = getListOfFilesFragment();
+
+        if (fileListFragment != null) {
+            fileListFragment.setSearchFragment(false);
         }
     }
 
@@ -1927,6 +1944,19 @@ public class FileDisplayActivity extends HookActivity
         Intent showDetailsIntent = new Intent(this, PreviewImageActivity.class);
         showDetailsIntent.putExtra(EXTRA_FILE, file);
         showDetailsIntent.putExtra(EXTRA_ACCOUNT, getAccount());
+        startActivity(showDetailsIntent);
+    }
+
+    /**
+     * Opens the image gallery showing the image {@link OCFile} received as parameter.
+     *
+     * @param file Image {@link OCFile} to show.
+     */
+    public void startImagePreview(OCFile file, VirtualFolderType type) {
+        Intent showDetailsIntent = new Intent(this, PreviewImageActivity.class);
+        showDetailsIntent.putExtra(PreviewImageActivity.EXTRA_FILE, file);
+        showDetailsIntent.putExtra(EXTRA_ACCOUNT, getAccount());
+        showDetailsIntent.putExtra(PreviewImageActivity.EXTRA_VIRTUAL_TYPE, type);
         startActivity(showDetailsIntent);
 
     }
