@@ -1,26 +1,30 @@
 /**
  * ownCloud Android client application
- *
+ * <p>
  * Copyright (C) 2016 ownCloud Inc.
- *
+ * <p>
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2,
  * as published by the Free Software Foundation.
- *
+ * <p>
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * <p>
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 package com.owncloud.android.utils;
 
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.support.v4.content.res.ResourcesCompat;
+import android.support.v4.graphics.drawable.DrawableCompat;
 import android.webkit.MimeTypeMap;
 
+import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
 
@@ -94,14 +98,25 @@ public class MimeTypeUtil {
      * @param isSharedViaLink flag if the folder is publicly shared via link
      * @return Identifier of an image resource.
      */
-    public static int getFolderTypeIconId(boolean isSharedViaUsers, boolean isSharedViaLink) {
+    public static Drawable getFolderTypeIcon(boolean isSharedViaUsers, boolean isSharedViaLink) {
+        int drawableId;
+
         if (isSharedViaLink) {
-            return R.drawable.folder_public;
+            drawableId = R.drawable.folder_public;
         } else if (isSharedViaUsers) {
-            return R.drawable.shared_with_me_folder;
+            drawableId = R.drawable.shared_with_me_folder;
+        } else {
+            drawableId = R.drawable.ic_menu_archive;
         }
 
-        return R.drawable.ic_menu_archive;
+        Drawable drawable = ResourcesCompat.getDrawable(MainApp.getAppContext().getResources(), drawableId, null);
+        drawable = DrawableCompat.wrap(drawable);
+        DrawableCompat.setTint(drawable, MainApp.getAppContext().getResources().getColor(R.color.primary));
+        return drawable;
+    }
+
+    public static Drawable getDefaultFolderIcon() {
+        return getFolderTypeIcon(false, false);
     }
 
     /**
