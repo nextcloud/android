@@ -482,6 +482,9 @@
     <string name="file_list__footer__files">%1$d Dateien</string>
     <string name="file_list__footer__files_and_folder">%1$d Dateien, 1 Ordner</string>
     <string name="file_list__footer__files_and_folders">%1$d Dateien, %2$d Ordner</string>
+    <string name="set_picture_as">Setze Bild als</string>
+    <string name="set_as">Setze als</string>
+
     <string name="prefs_instant_behaviour_dialogTitle">Originaldatei wird&#8230;</string>
     <string name="prefs_instant_behaviour_title">Originaldatei wird&#8230;</string>
     <string name="upload_copy_files">kopiere Datei</string>
@@ -653,5 +656,6 @@
     <!-- Notifications -->
     <string name="new_notification_received">Neue Benachrichtigung erhalten</string>
     <string name="drawer_logout">Abmelden</string>
+    <string name="picture_set_as_no_app">Keine App gefunden, mit der ein Bid gesetzt werden könnte!</string>
     <string name="privacy">Datenschutz</string>
 </resources>
