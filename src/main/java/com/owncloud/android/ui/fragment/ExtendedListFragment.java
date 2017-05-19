@@ -23,6 +23,7 @@ package com.owncloud.android.ui.fragment;
 
 import android.animation.LayoutTransition;
 import android.app.Activity;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -30,6 +31,8 @@ import android.support.annotation.DrawableRes;
 import android.support.annotation.StringRes;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.res.ResourcesCompat;
+import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.SearchView;
@@ -640,7 +643,11 @@ public class ExtendedListFragment extends Fragment
                 if (mEmptyListContainer != null && mEmptyListMessage != null) {
                     mEmptyListHeadline.setText(headline);
                     mEmptyListMessage.setText(message);
-                    mEmptyListIcon.setImageResource(icon);
+
+                    Drawable drawable = ResourcesCompat.getDrawable(MainApp.getAppContext().getResources(), icon, null);
+                    drawable = DrawableCompat.wrap(drawable);
+                    DrawableCompat.setTint(drawable, MainApp.getAppContext().getResources().getColor(R.color.primary));
+                    mEmptyListIcon.setImageDrawable(drawable);
 
                     mEmptyListIcon.setVisibility(View.VISIBLE);
                     mEmptyListProgress.setVisibility(View.GONE);
