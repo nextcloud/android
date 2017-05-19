@@ -245,6 +245,7 @@ Smelltu hér til að fá þér einn frá þjónustuaðila.</string>
 	<string name="auth_connection_established">Tengingu komið á</string>
 	<string name="auth_testing_connection">Prófa tengingu</string>
 	<string name="auth_not_configured_title">Gölluð uppsetning þjóns</string>
+	<string name="auth_account_not_new">Aðgangur fyrir sama notanda og vefþjón er þegar til staðar á tækinu</string>
 	<string name="auth_account_not_the_same">Notandanafnið sem sett var inn samsvarar ekki notanda þessa aðgangs</string>
 	<string name="auth_unknown_error_title">Óþekkt villa kom upp!</string>
 	<string name="auth_unknown_host_title">Gat ekki fundið hýsilvél</string>
@@ -380,6 +381,8 @@ Smelltu hér til að fá þér einn frá þjónustuaðila.</string>
     <string name="network_error_socket_exception">Villa kom upp við að tengjast þjóninum.</string>
     <string name="network_error_socket_timeout_exception">Villa kom upp á meðan beðið var eftir þjóninum. Ekki var hægt að ljúka aðgerðinni</string>
     <string name="network_error_connect_timeout_exception">Villa kom upp á meðan beðið var eftir þjóninum. Ekki var hægt að ljúka aðgerðinni</string>
+    <string name="network_host_not_available">Gat ekki lokið aðgerð. Þjónn ekki tiltækur</string>
+
     <string name="forbidden_permissions">Þú hefur ekki heimild %s</string>
     <string name="forbidden_permissions_rename">til að endurnefna þessa skrá</string>
     <string name="forbidden_permissions_delete">til að eyða þessari skrá</string>
@@ -397,7 +400,9 @@ Smelltu hér til að fá þér einn frá þjónustuaðila.</string>
     <string name="file_migration_updating_index">Uppfæri atriðaskrá&#8230;</string>
     <string name="file_migration_cleaning">Hreinsa&#8230;</string>
     <string name="file_migration_ok_finished">Lokið</string>
+    <string name="file_migration_failed_not_enough_space">VILLA: Ónógt pláss</string>
     <string name="file_migration_failed_dir_already_exists">VILLA: Nextcloud-mappa er þegar til staðar</string>
+    <string name="file_migration_directory_already_exists">Gagnamappa er þegar til staðar. Veldu eitt af eftirtöldu:</string>
     <string name="file_migration_override_data_folder">Skipta út</string>
     <string name="file_migration_use_data_folder">Nota</string>
 
@@ -416,6 +421,7 @@ Smelltu hér til að fá þér einn frá þjónustuaðila.</string>
 	<string name="file_list_empty_moving">Ekkert hér. Þú getur bætt við möppu.</string>
 	<string name="folder_picker_choose_button_text">Veldu</string>
 
+    <string name="move_file_not_found">Get ekki fært skrá. Athugaðu hvort hún sé til</string>
     <string name="move_file_invalid_into_descendent">Ekki er hægt að færa möppu inn í eina af undirmöppum sínum</string>
     <string name="move_file_invalid_overwrite">Skráin er þegar til í móttökumöppunni</string>
     <string name="move_file_error">Villa kom upp við að reyna að færa þessa skrá eða möppu</string>
@@ -454,6 +460,9 @@ Smelltu hér til að fá þér einn frá þjónustuaðila.</string>
     <string name="file_list__footer__files">%1$d skrár</string>
     <string name="file_list__footer__files_and_folder">%1$d skrár, 1 mappa</string>
     <string name="file_list__footer__files_and_folders">%1$d skrár, %2$d möppur</string>
+    <string name="set_picture_as">Setja mynd sem</string>
+    <string name="set_as">Setja sem</string>
+
     <string name="prefs_instant_behaviour_dialogTitle">Upprunaleg skrá verður&#8230;</string>
     <string name="prefs_instant_behaviour_title">Upprunaleg skrá verður&#8230;</string>
     <string name="upload_copy_files">Afrita skrá</string>
@@ -530,6 +539,10 @@ Smelltu hér til að fá þér einn frá þjónustuaðila.</string>
     <string name="participate_release_candidate_headline">Forútgáfa</string>
     <string name="participate_release_candidate_text">Útgáfukandídat (RC) er stöðutaka á væntanlegri útgáfu og er vænst til að hún sé nokkuð stöðug. Með prófun á uppsetningunni þinni værirðu að hjálpa til við að tryggja þann stöðugleika. Skráðu þig til prófana í Play-safninu eða skoðaðu handvirkt í \"útgáfur\" hlutanum á F-Droid.</string>
     <string name="participate_contribute_headline">Vertu virkur þáttakandi</string>
+    <string name="participate_contribute_irc_text">Taktu þátt í spjalli á IRC: &lt;a href=\"%1$s\">#nextcloud-mobile&lt;/a></string>
+    <string name="participate_contribute_forum_text">Hjálpaðu öðrum á &lt;a href=\"%1$s\">spjallvefnum&lt;/a></string>
+    <string name="participate_contribute_translate_text">&lt;a href=\"%1$s\">Þýða&lt;/a> forritið</string>
+    <string name="participate_contribute_github_text">Yfirfarðu, bættu og skrifaðu kóða, skoðaðu &lt;a href=\"%1$s\">CONTRIBUTING.md&lt;a> fyrir nánari upplýsingar</string>
     <string name="move_to">Færa í&#8230;</string>
     <string name="copy_to">Afrita í&#8230;</string>
     <string name="choose_remote_folder">Veldu möppu&#8230;</string>
@@ -607,9 +620,11 @@ Smelltu hér til að fá þér einn frá þjónustuaðila.</string>
     <string name="contactlist_title">Endurheimta tengiliði</string>
     <string name="contaclist_restore_selected">Endurheimta valda tengiliði</string>
     <string name="contactlist_account_chooser_title">Veldu aðgang til að flytja inn</string>
+    <string name="contactlist_no_permission">Engin heimild gefin, ekkert flutt inn!</string>
     <string name="contacts_preference_choose_date">Veldu dagsetningu</string>
     <string name="contacts_preference_backup_never">aldrei</string>
     <string name="contacts_preferences_no_file_found">Engin skrá fannst</string>
+    <string name="contacts_preferences_something_strange_happened">Við finnum ekki síðasta öryggisafritið þitt!</string>
     <string name="contacts_preferences_backup_scheduled">Öryggisafritun er á áætlun og mun hefjast fljótlega</string>
     <string name="contacts_preferences_import_scheduled">Innflutningur er á áætlun og mun hefjast fljótlega</string>
 

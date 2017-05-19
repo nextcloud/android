@@ -482,6 +482,9 @@
     <string name="file_list__footer__files">%1$d dosya</string>
     <string name="file_list__footer__files_and_folder">%1$d dosya, 1 klasör</string>
     <string name="file_list__footer__files_and_folders">%1$d dosya, %2$d klasör</string>
+    <string name="set_picture_as">Farklı görsel ayarla</string>
+    <string name="set_as">Farklı Ayarla</string>
+
     <string name="prefs_instant_behaviour_dialogTitle">Özgün dosya için&#8230;</string>
     <string name="prefs_instant_behaviour_title">Özgün dosya için&#8230;</string>
     <string name="upload_copy_files">Dosyayı kopyala</string>
@@ -654,5 +657,6 @@
     <!-- Notifications -->
     <string name="new_notification_received">Yeni bir bildirim var</string>
     <string name="drawer_logout">Oturumu Kapat</string>
+    <string name="picture_set_as_no_app">Görselin ayarlanabileceği bir uygulama bulunamadı!</string>
     <string name="privacy">Gizlilik</string>
 </resources>
