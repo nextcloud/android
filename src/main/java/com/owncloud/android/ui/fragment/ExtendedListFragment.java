@@ -23,6 +23,7 @@ package com.owncloud.android.ui.fragment;
 
 import android.animation.LayoutTransition;
 import android.app.Activity;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -96,7 +97,10 @@ public class ExtendedListFragment extends Fragment
     private static final String KEY_EMPTY_LIST_MESSAGE = "EMPTY_LIST_MESSAGE";
     private static final String KEY_IS_GRID_VISIBLE = "IS_GRID_VISIBLE";
     public static final float minColumnSize = 2.0f;
-    public static final float maxColumnSize = 10.0f;
+
+    private int maxColumnSize = 6;
+    private int maxColumnSizePortrait = 6;
+    private int maxColumnSizeLandscape = 10;
 
     private ScaleGestureDetector mScaleGestureDetector = null;
     protected SwipeRefreshLayout mRefreshListLayout;
@@ -474,6 +478,8 @@ public class ExtendedListFragment extends Fragment
             setGridViewColumns(detector.getScaleFactor());
 
             PreferenceManager.setGridColumns(getContext(), mScale);
+
+            mAdapter.notifyDataSetChanged();
 
             return true;
         }
@@ -875,4 +881,21 @@ public class ExtendedListFragment extends Fragment
         }
     }
 
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+
+        if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            maxColumnSize = maxColumnSizeLandscape;
+        } else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
+            maxColumnSize = maxColumnSizePortrait;
+        } else {
+            maxColumnSize = maxColumnSizePortrait;
+        }
+
+        if (mGridView.getNumColumns() > maxColumnSize) {
+            mGridView.setNumColumns(maxColumnSize);
+            mGridView.invalidateViews();
+        }
+    }
 }
