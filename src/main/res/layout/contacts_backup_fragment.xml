@@ -73,34 +73,30 @@
                 android:textAppearance="?android:attr/textAppearanceMedium"/>
         </LinearLayout>
 
-        <android.support.v7.widget.AppCompatButton
-            android:id="@+id/contacts_backup_now"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/standard_margin"
-            android:text="@string/contacts_backup_button"
-            android:theme="@style/Button.Primary"/>
-
-        <TextView
-            android:id="@+id/contacts_header_restore"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/standard_margin"
-            android:layout_marginRight="@dimen/standard_margin"
-            android:layout_marginTop="@dimen/standard_margin"
-            android:text="@string/contacts_header_restore"
-            android:textColor="@color/primary"
-            android:textStyle="bold"
-            android:visibility="gone"/>
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
 
-        <android.support.v7.widget.AppCompatButton
-            android:id="@+id/contacts_datepicker"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/standard_margin"
-            android:text="@string/contacts_preference_choose_date"
-            android:theme="@style/Button.Primary"
-            android:visibility="gone"/>
+            <android.support.v7.widget.AppCompatButton
+                android:id="@+id/contacts_backup_now"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/standard_margin"
+                android:layout_weight="1"
+                android:text="@string/contacts_backup_button"
+                android:theme="@style/Button.Primary"/>
+
+            <android.support.v7.widget.AppCompatButton
+                android:id="@+id/contacts_datepicker"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/standard_margin"
+                android:layout_weight="1"
+                android:text="@string/contacts_preference_choose_date"
+                android:theme="@style/Button"
+                android:visibility="gone"/>
+        </LinearLayout>
 
     </LinearLayout>
 

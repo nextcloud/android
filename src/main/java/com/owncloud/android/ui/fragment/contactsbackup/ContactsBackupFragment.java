@@ -74,9 +74,6 @@ public class ContactsBackupFragment extends FileFragment implements DatePickerDi
     @BindView(R.id.contacts_automatic_backup)
     public SwitchCompat backupSwitch;
 
-    @BindView(R.id.contacts_header_restore)
-    public TextView contactsRestoreHeader;
-
     @BindView(R.id.contacts_datepicker)
     public AppCompatButton contactsDatePickerBtn;
 
@@ -202,10 +199,8 @@ public class ContactsBackupFragment extends FileFragment implements DatePickerDi
                             .getFolderContent(backupFolder, false);
 
                     if (backupFiles == null || backupFiles.size() == 0) {
-                        contactsRestoreHeader.setVisibility(View.GONE);
                         contactsDatePickerBtn.setVisibility(View.GONE);
                     } else {
-                        contactsRestoreHeader.setVisibility(View.VISIBLE);
                         contactsDatePickerBtn.setVisibility(View.VISIBLE);
                     }
                 }
