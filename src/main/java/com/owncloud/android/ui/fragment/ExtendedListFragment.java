@@ -23,6 +23,7 @@ package com.owncloud.android.ui.fragment;
 
 import android.animation.LayoutTransition;
 import android.app.Activity;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -35,10 +36,13 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.SearchView;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
+import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.MotionEvent;
+import android.view.ScaleGestureDetector;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
@@ -58,6 +62,7 @@ import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
+import com.owncloud.android.db.PreferenceManager;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.files.SearchOperation;
 import com.owncloud.android.ui.ExtendedListView;
@@ -91,7 +96,13 @@ public class ExtendedListFragment extends Fragment
     private static final String KEY_HEIGHT_CELL = "HEIGHT_CELL";
     private static final String KEY_EMPTY_LIST_MESSAGE = "EMPTY_LIST_MESSAGE";
     private static final String KEY_IS_GRID_VISIBLE = "IS_GRID_VISIBLE";
+    public static final float minColumnSize = 2.0f;
 
+    private int maxColumnSize = 5;
+    private int maxColumnSizePortrait = 5;
+    private int maxColumnSizeLandscape = 10;
+
+    private ScaleGestureDetector mScaleGestureDetector = null;
     protected SwipeRefreshLayout mRefreshListLayout;
     protected SwipeRefreshLayout mRefreshGridLayout;
     protected SwipeRefreshLayout mRefreshEmptyLayout;
@@ -124,6 +135,8 @@ public class ExtendedListFragment extends Fragment
 
     protected SearchView searchView;
     private Handler handler = new Handler();
+
+    private float mScale = -1f;
 
     @Parcel
     public enum SearchType {
@@ -363,10 +376,34 @@ public class ExtendedListFragment extends Fragment
         mListFooterView = inflater.inflate(R.layout.list_footer, null, false);
 
         mGridView = (GridViewWithHeaderAndFooter) (v.findViewById(R.id.grid_root));
-        mGridView.setNumColumns(GridView.AUTO_FIT);
+
+        mScale = PreferenceManager.getGridColumns(getContext());
+        setGridViewColumns(1f);
+
         mGridView.setOnItemClickListener(this);
 
         mGridFooterView = inflater.inflate(R.layout.list_footer, null, false);
+
+        mScaleGestureDetector = new ScaleGestureDetector(MainApp.getAppContext(),new ScaleListener());
+
+        mGridView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                mScaleGestureDetector.onTouchEvent(motionEvent);
+                return false;
+            }
+        });
+
+        if (savedInstanceState != null) {
+            int referencePosition = savedInstanceState.getInt(KEY_SAVED_LIST_POSITION);
+            if (mCurrentListView!= null && mCurrentListView.equals(mListView)) {
+                Log_OC.v(TAG, "Setting and centering around list position " + referencePosition);
+                mListView.setAndCenterSelection(referencePosition);
+            } else {
+                Log_OC.v(TAG, "Setting grid position " + referencePosition);
+                mGridView.setSelection(referencePosition);
+            }
+        }
 
         // Pull-down to refresh layout
         mRefreshListLayout = (SwipeRefreshLayout) v.findViewById(R.id.swipe_containing_list);
@@ -420,6 +457,38 @@ public class ExtendedListFragment extends Fragment
         return v;
     }
 
+    private class SingleTapConfirm extends GestureDetector.SimpleOnGestureListener {
+        @Override
+        public boolean onSingleTapUp(MotionEvent e) {
+            return true;
+        }
+    }
+
+    private class ScaleListener extends ScaleGestureDetector.SimpleOnScaleGestureListener {
+        @Override
+        public boolean onScale(ScaleGestureDetector detector) {
+            setGridViewColumns(detector.getScaleFactor());
+
+            PreferenceManager.setGridColumns(getContext(), mScale);
+
+            mAdapter.notifyDataSetChanged();
+
+            return true;
+        }
+    }
+
+    private void setGridViewColumns(float scaleFactor) {
+        if (mScale == -1f) {
+            mGridView.setNumColumns(GridView.AUTO_FIT);
+            mScale = mGridView.getNumColumns();
+        }
+        mScale *= 1.f - (scaleFactor - 1.f);
+        mScale = Math.max(minColumnSize, Math.min(mScale, maxColumnSize));
+        Integer scaleInt = Math.round(mScale);
+        mGridView.setNumColumns(scaleInt);
+        mGridView.invalidateViews();
+    }
+
     protected void setupEmptyList(View view) {
         mEmptyListContainer = (LinearLayout) view.findViewById(R.id.empty_list_view);
         mEmptyListMessage = (TextView) view.findViewById(R.id.empty_list_view_text);
@@ -448,6 +517,8 @@ public class ExtendedListFragment extends Fragment
             mTops = new ArrayList<>();
             mHeightCell = 0;
         }
+
+        mScale = PreferenceManager.getGridColumns(getContext());
     }
 
 
@@ -462,6 +533,8 @@ public class ExtendedListFragment extends Fragment
         savedInstanceState.putIntegerArrayList(KEY_TOPS, mTops);
         savedInstanceState.putInt(KEY_HEIGHT_CELL, mHeightCell);
         savedInstanceState.putString(KEY_EMPTY_LIST_MESSAGE, getEmptyViewText());
+
+        PreferenceManager.setGridColumns(getContext(), mScale);
     }
 
     /**
@@ -482,6 +555,10 @@ public class ExtendedListFragment extends Fragment
         } else {
             return 0;
         }
+    }
+
+    public int getColumnSize() {
+        return Math.round(mScale);
     }
 
 
@@ -796,4 +873,21 @@ public class ExtendedListFragment extends Fragment
         }
     }
 
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+
+        if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            maxColumnSize = maxColumnSizeLandscape;
+        } else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
+            maxColumnSize = maxColumnSizePortrait;
+        } else {
+            maxColumnSize = maxColumnSizePortrait;
+        }
+
+        if (mGridView.getNumColumns() > maxColumnSize) {
+            mGridView.setNumColumns(maxColumnSize);
+            mGridView.invalidateViews();
+        }
+    }
 }

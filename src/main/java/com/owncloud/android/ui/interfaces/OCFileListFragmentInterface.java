@@ -26,4 +26,6 @@ package com.owncloud.android.ui.interfaces;
 
 public interface OCFileListFragmentInterface {
     void finishedFiltering();
+
+    int getColumnSize();
 }
