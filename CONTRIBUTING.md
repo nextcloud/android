@@ -22,13 +22,13 @@
     1. Types
         1. Stable
         1. Release Candidate
-        1. Beta
+        1. Dev
     1. Version Name and number
     1. Release cycle
     1. Release Process
         1. Stable
         1. Release Candidate
-        1. Development Beta
+        1. Development Dev
 
 
 # Guidelines
@@ -58,7 +58,7 @@ If your issue appears to be a bug, and hasn't been reported, open a new issue.
 # Contributing to Source Code
 Thanks for wanting to contribute source code to Nextcloud. That's great!
 
-New contributions are addded under AGPL version 3.
+New contributions are added under AGPL version 3.
 
 ## Developing process
 We are all about quality while not sacrificing speed so we use a very pragmatic workflow.
@@ -78,6 +78,12 @@ Our formatter setup is rather simple:
 * Line length 120 characters (Settings->Editor->Code Style->Right margin(columns): 120)
 * Auto optimize imports (Settings->Editor->Auto Import->Optimize imports on the fly)
 
+
+### Build variants
+There are three build variants
+* generic: no Google Stuff, used for FDroid
+* gplay: with Google Stuff (Push notification) and Analytics disabled, used for Google Play Store
+* modified: custom, with Google Stuff and Analytics enabled, used for branded releases
 
 ## Contribution process
 * Contribute your code in the branch 'master'. It will give us a better chance to test your code before merging it with stable code.
@@ -128,10 +134,10 @@ _stable beta_ releases done via the Beta program of the Google Play store and f-
 Whenever a PR is reviewed/approved we put it on master.
 Before releasing a new stable version there is at least one release candidate. It is based on the current master and during this phase the master is feature freezed. After ~2 weeks with no error a stable version will be releaded, which is identically to the latest release candidate. 
 
-### Development Beta
+### Dev
 Done as a standalone app that can be installed in parallel to the stable app.
-Any PR which is labelled "ready for beta" will be automatically included in the beta app. This label should only set by the main developers. 
-Same applies for the android-library. This repository also has a branch called beta which includes all upcoming features. The beta branch on this repository must always use the android-library beta branch.
+Any PR which is labelled "ready for dev" will be automatically included in the dev app. This label should only set by the main developers. 
+Same applies for the android-library. This repository also has a branch called dev which includes all upcoming features. The dev branch on this repository must always use the android-library dev branch.
 
 ## Version Name and number
 ### Stable / Release candidate
@@ -151,8 +157,8 @@ Examples for different versions:
 
 beware, that beta releases for an upcoming version will always use the minor and hotfix version of the release they are targeting. So to make sure the version code of the upcoming stable release will always be higher stable releases set the 2 beta digits to '99' as seen above in the examples.
 
-### Development Beta
-For development beta the version name is in format YYYYMMDD. It is mainly as a reference for reporting bugs and is not related to stable/release candidates as it is an independent app.
+### Dev
+For dev the version name is in format YYYYMMDD. It is mainly as a reference for reporting bugs and is not related to stable/release candidates as it is an independent app.
 
 ## Release cycle
 * for each release we choose several PRs that will be included in the next release. Currently there are many open PRs from ownCloud, but after merging them, the intention is to choose the PRs that are ready (reviewed, tested) to get them merged very soon.
@@ -180,7 +186,7 @@ Release Candidate releases are based on the git [master](https://github.com/next
 2. Create a [release/tag](https://github.com/nextcloud/android/releases) in git. Tag name following the naming schema: ```rc-Mayor.Minor.Hotfix-betaIncrement``` (e.g. rc-1.2.0-12) naming the version number following the [semantic versioning schema](http://semver.org/)
 
 
-###Development Beta Release
-Beta releases are based on the git [beta](https://github.com/nextcloud/android/tree/beta) and are done independently from stable releases and integrate open PRs that might not be production ready or heavily tested but being put out there for people willing to test new features and provide valuable feedback on new features to be incorporated before a feature gets released in the stable app.
+### Dev Release
+Dev releases are based on the [dev](https://github.com/nextcloud/android/tree/dev) branch and are done independently from stable releases and integrate open PRs that might not be production ready or heavily tested but being put out there for people willing to test new features and provide valuable feedback on new features to be incorporated before a feature gets released in the stable app.
 
-The deployment/build is done once a day automatically. If code has changed a new apk will be published on https://github.com/nextcloud/android/tree/beta/apks and it will also be available on f-droid.
+The deployment/build is done once a day automatically. If code has changed a new apk will be published [here](https://download.nextcloud.com/android/dev) and it will, with a little delay, be available on f-droid.

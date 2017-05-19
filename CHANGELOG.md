@@ -1,3 +1,13 @@
+## 1.4.2 (March 14, 2017)
+- Auto Upload for newly taken photos/images (Android 6+)
+- Auto Upload improvements and fixes
+- Filtering improvements
+- Fix for Android permissions (removed read phone state permission)
+- Fix re-upload of files
+- Avoid toggling favourite for all selected files
+- Link to providers list in the setup screen
+- further bugfixes and improvements
+
 ## 1.4.1 (January 27, 2017)
 - Share URLs to Nextcloud
 - Improve performance of Auto Upload view
@@ -36,7 +46,7 @@
 - Display quota if configured/available in navigation drawer
 - Resume chunked uploads instead of complete restarts
 - Filter remote and local file lists
-- Simple integration with DAVdroid for calender and contacts sync
+- Simple integration with DAVdroid for calendar and contacts sync
 - Mix folders and files on sort by date
 - Upload when charging option
 - Revamp upload options Move/Copy/Just-Upload
