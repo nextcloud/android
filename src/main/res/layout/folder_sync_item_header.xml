@@ -52,6 +52,7 @@
             android:background="@color/transparent"
             android:clickable="true"
             android:padding="@dimen/standard_half_padding"
+            android:tint="@color/primary"
             android:src="@drawable/ic_cloud_sync_off"/>
 
         <ImageButton
