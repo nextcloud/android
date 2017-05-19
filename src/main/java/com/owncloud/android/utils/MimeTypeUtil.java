@@ -20,13 +20,8 @@ package com.owncloud.android.utils;
 
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
-import android.support.annotation.ColorRes;
-import android.support.annotation.DrawableRes;
-import android.support.v4.content.res.ResourcesCompat;
-import android.support.v4.graphics.drawable.DrawableCompat;
 import android.webkit.MimeTypeMap;
 
-import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
 
@@ -111,22 +106,13 @@ public class MimeTypeUtil {
             drawableId = R.drawable.ic_menu_archive;
         }
 
-        Drawable drawable = ResourcesCompat.getDrawable(MainApp.getAppContext().getResources(), drawableId, null);
-        drawable = DrawableCompat.wrap(drawable);
-        DrawableCompat.setTint(drawable, MainApp.getAppContext().getResources().getColor(R.color.primary));
-        return drawable;
+        return DisplayUtils.tintDrawable(drawableId, R.color.primary);
     }
 
     public static Drawable getDefaultFolderIcon() {
         return getFolderTypeIcon(false, false);
     }
 
-    public static Drawable tintDrawable(@DrawableRes int id, @ColorRes int color) {
-        Drawable drawable = ResourcesCompat.getDrawable(MainApp.getAppContext().getResources(), id, null);
-        drawable = DrawableCompat.wrap(drawable);
-        DrawableCompat.setTint(drawable, MainApp.getAppContext().getResources().getColor(color));
-        return drawable;
-    }
 
     /**
      * Returns a single MIME type of all the possible, by inspection of the file extension, and taking

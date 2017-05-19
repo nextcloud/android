@@ -330,10 +330,11 @@ public class FileListListAdapter extends BaseAdapter {
                     ) {
                 if (parentList.isItemChecked(position)) {
                     view.setBackgroundColor(mContext.getResources().getColor(R.color.selected_item_background));
-                    checkBoxV.setImageDrawable(MimeTypeUtil.tintDrawable(R.drawable.ic_checkbox_marked, R.color.primary));
+                    checkBoxV.setImageDrawable(DisplayUtils.tintDrawable(R.drawable.ic_checkbox_marked,
+                            R.color.primary));
                 } else {
                     view.setBackgroundColor(Color.WHITE);
-                    checkBoxV.setImageDrawable(MimeTypeUtil.tintDrawable(R.drawable.ic_checkbox_blank_outline,
+                    checkBoxV.setImageDrawable(DisplayUtils.tintDrawable(R.drawable.ic_checkbox_blank_outline,
                             R.color.primary));
                 }
                 checkBoxV.setVisibility(View.VISIBLE);

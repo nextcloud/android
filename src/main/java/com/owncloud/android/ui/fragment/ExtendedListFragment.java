@@ -23,7 +23,6 @@ package com.owncloud.android.ui.fragment;
 
 import android.animation.LayoutTransition;
 import android.app.Activity;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -31,8 +30,6 @@ import android.support.annotation.DrawableRes;
 import android.support.annotation.StringRes;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.res.ResourcesCompat;
-import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.SearchView;
@@ -71,6 +68,7 @@ import com.owncloud.android.ui.activity.UploadFilesActivity;
 import com.owncloud.android.ui.adapter.FileListListAdapter;
 import com.owncloud.android.ui.adapter.LocalFileListAdapter;
 import com.owncloud.android.ui.events.SearchEvent;
+import com.owncloud.android.utils.DisplayUtils;
 
 import org.greenrobot.eventbus.EventBus;
 import org.parceler.Parcel;
@@ -644,10 +642,7 @@ public class ExtendedListFragment extends Fragment
                     mEmptyListHeadline.setText(headline);
                     mEmptyListMessage.setText(message);
 
-                    Drawable drawable = ResourcesCompat.getDrawable(MainApp.getAppContext().getResources(), icon, null);
-                    drawable = DrawableCompat.wrap(drawable);
-                    DrawableCompat.setTint(drawable, MainApp.getAppContext().getResources().getColor(R.color.primary));
-                    mEmptyListIcon.setImageDrawable(drawable);
+                    mEmptyListIcon.setImageDrawable(DisplayUtils.tintDrawable(icon, R.color.primary));
 
                     mEmptyListIcon.setVisibility(View.VISIBLE);
                     mEmptyListProgress.setVisibility(View.GONE);
