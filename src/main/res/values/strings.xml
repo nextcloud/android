@@ -648,7 +648,7 @@
     <string name="contacts_restore_button">Restore last backup</string>
     <string name="contacts_header_restore">Restore</string>
     <string name="contacts_header_backup">Backup</string>
-    <string name="contacts_automatic_backup">Contacts backup</string>
+    <string name="contacts_automatic_backup">Automatic backup</string>
     <string name="contacts_last_backup">Last backup</string>
     <string name="contacts_read_permission">Permission to read contact list needed</string>
     <string name="contacts_write_permission">Permission to change contact list needed</string>
