@@ -281,7 +281,7 @@
     <string name="unfavorite">Fjern som tilgjengelig frakoblet</string>
     <string name="favorite_real">Sett som favoritt</string>
     <string name="unset_favorite_real">Fjern favorittmarkering</string>
-    <string name="common_rename">Endre navn</string>
+    <string name="common_rename">Gi nytt navn</string>
     <string name="common_remove">Fjern</string>
     <string name="confirmation_remove_file_alert">Vil du virkelig fjerne %1$s?</string>
     <string name="confirmation_remove_folder_alert">Vil du virkelig fjerne %1$s inkludert innholdet?</string>
@@ -482,6 +482,9 @@
     <string name="file_list__footer__files">%1$d filer</string>
     <string name="file_list__footer__files_and_folder">%1$d filer, 1 mappe</string>
     <string name="file_list__footer__files_and_folders">%1$d filer, %2$d mapper</string>
+    <string name="set_picture_as">Bruk bilde som</string>
+    <string name="set_as">Bruk som</string>
+
     <string name="prefs_instant_behaviour_dialogTitle">Opprinnelig fil vil bli&#8230;</string>
     <string name="prefs_instant_behaviour_title">Opprinnelig fil vil bli&#8230;</string>
     <string name="upload_copy_files">Kopier fil</string>
@@ -519,7 +522,7 @@
 
     <string name="share_sharee_unavailable">Beklager, tjenerversjonen din tillater ikke klienter å dele med brukere. \nKontakt systemadministratoren</string>
     <string name="share_privilege_can_share">kan dele</string>
-    <string name="share_privilege_can_edit">kan endre</string>
+    <string name="share_privilege_can_edit">kan redigere</string>
     <string name="share_privilege_can_edit_create">opprette</string>
     <string name="share_privilege_can_edit_change">endre</string>
     <string name="share_privilege_can_edit_delete">slett</string>
@@ -560,6 +563,9 @@
     <string name="participate_release_candidate_headline">Release candidate</string>
     <string name="participate_release_candidate_text">Release candidate (RC) er en pakke av den kommende utgaven og er forventet å være stabil. Ved å teste denne med ditt oppsett vil kunne hjelpe oss å sikre dette. Meld deg på for testen i Play butikken eller se i versjonsseksjonen i F-Droid.</string>
     <string name="participate_contribute_headline">Bidra aktivt</string>
+    <string name="participate_contribute_irc_text">Sludre med oss på IRC: &lt;a href=\"%1$s\">#nextcloud-mobile&lt;/a></string>
+    <string name="participate_contribute_forum_text">Hjelp andre på vårt &lt;a href=\"%1$s\">forum&lt;/a></string>
+    <string name="participate_contribute_translate_text">&lt;a href=\"%1$s\">Oversett&lt;/a> programmet</string>
     <string name="move_to">Flytt til&#8230;</string>
     <string name="copy_to">Kopier til&#8230;</string>
     <string name="choose_remote_folder">Velg mappe&#8230;</string>
@@ -650,5 +656,6 @@
     <!-- Notifications -->
     <string name="new_notification_received">Nytt varsel mottatt</string>
     <string name="drawer_logout">Utlogging</string>
+    <string name="picture_set_as_no_app">Fant ikke noe program å sette bilder med.</string>
     <string name="privacy">Personvern</string>
 </resources>
