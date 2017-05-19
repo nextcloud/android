@@ -98,8 +98,8 @@ public class ExtendedListFragment extends Fragment
     private static final String KEY_IS_GRID_VISIBLE = "IS_GRID_VISIBLE";
     public static final float minColumnSize = 2.0f;
 
-    private int maxColumnSize = 6;
-    private int maxColumnSizePortrait = 6;
+    private int maxColumnSize = 5;
+    private int maxColumnSizePortrait = 5;
     private int maxColumnSizeLandscape = 10;
 
     private ScaleGestureDetector mScaleGestureDetector = null;
