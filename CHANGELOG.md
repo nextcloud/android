@@ -1,3 +1,11 @@
+## 2017-05-20 00:31
+- Search view wrong files (nextcloud/searchViewWrongFiles) [https://github.com/nextcloud/android/pull/896] added
+- Pinch zoom (nextcloud/pinchZoom) [https://github.com/nextcloud/android/pull/143] added
+
+- Dev branch (nextcloud/dev) [https://github.com/nextcloud/android/tree/dev] updated
+- Search view wrong files (nextcloud/searchViewWrongFiles) [https://github.com/nextcloud/android/pull/896] updated
+- Pinch zoom (nextcloud/pinchZoom) [https://github.com/nextcloud/android/pull/143] updated
+
 ## 2017-05-19 00:31
 no new branches added
 
