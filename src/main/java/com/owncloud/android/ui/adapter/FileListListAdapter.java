@@ -406,8 +406,8 @@ public class FileListListAdapter extends BaseAdapter {
 
             } else {
                 // Folder
-                fileIcon.setImageResource(
-                        MimeTypeUtil.getFolderTypeIconId(
+                fileIcon.setImageDrawable(
+                        MimeTypeUtil.getFolderTypeIcon(
                                 file.isSharedWithMe() || file.isSharedWithSharee(),
                                 file.isSharedViaLink()
                         )
