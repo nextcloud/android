@@ -20,6 +20,8 @@ package com.owncloud.android.utils;
 
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.support.annotation.ColorRes;
+import android.support.annotation.DrawableRes;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.webkit.MimeTypeMap;
@@ -117,6 +119,13 @@ public class MimeTypeUtil {
 
     public static Drawable getDefaultFolderIcon() {
         return getFolderTypeIcon(false, false);
+    }
+
+    public static Drawable tintDrawable(@DrawableRes int id, @ColorRes int color) {
+        Drawable drawable = ResourcesCompat.getDrawable(MainApp.getAppContext().getResources(), id, null);
+        drawable = DrawableCompat.wrap(drawable);
+        DrawableCompat.setTint(drawable, MainApp.getAppContext().getResources().getColor(color));
+        return drawable;
     }
 
     /**
