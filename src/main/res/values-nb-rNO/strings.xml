@@ -566,6 +566,7 @@
     <string name="participate_contribute_irc_text">Sludre med oss på IRC: &lt;a href=\"%1$s\">#nextcloud-mobile&lt;/a></string>
     <string name="participate_contribute_forum_text">Hjelp andre på vårt &lt;a href=\"%1$s\">forum&lt;/a></string>
     <string name="participate_contribute_translate_text">&lt;a href=\"%1$s\">Oversett&lt;/a> programmet</string>
+    <string name="participate_contribute_github_text">Bidra som en utvikler, se &lt;a href=\"%1$s\">CONTRIBUTING.md&lt;/a> for detaljer </string>
     <string name="move_to">Flytt til&#8230;</string>
     <string name="copy_to">Kopier til&#8230;</string>
     <string name="choose_remote_folder">Velg mappe&#8230;</string>
