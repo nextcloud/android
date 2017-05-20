@@ -1,3 +1,8 @@
+## 2017-05-21 00:32
+no new branches added
+
+- Master (nextcloud/master) [https://github.com/nextcloud/android] updated
+
 ## 2017-05-20 00:31
 - Search view wrong files (nextcloud/searchViewWrongFiles) [https://github.com/nextcloud/android/pull/896] added
 - Pinch zoom (nextcloud/pinchZoom) [https://github.com/nextcloud/android/pull/143] added
