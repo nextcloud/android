@@ -45,6 +45,7 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.owncloud.android.MainApp;
@@ -1000,6 +1001,36 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
         }
     }
 
+    public void updateHeaderBackground() {
+        if (getAccount() != null &&
+                getStorageManager().getCapability(getAccount().name).getServerBackground() != null) {
+            String backgroundUrl = getStorageManager().getCapability(getAccount().name).getServerBackground();
+
+            final LinearLayout navigationHeader = (LinearLayout) findNavigationViewChildById(R.id.drawer_header_view);
+
+            SimpleTarget target = new SimpleTarget<Drawable>() {
+                @Override
+                public void onResourceReady(Drawable resource, GlideAnimation glideAnimation) {
+                    if (navigationHeader != null) {
+                        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
+                            navigationHeader.setBackgroundDrawable(resource);
+                        } else {
+                            navigationHeader.setBackground(resource);
+                        }
+                    }
+                }
+            };
+
+            Glide.with(this)
+                    .load(backgroundUrl)
+                    .centerCrop()
+                    .placeholder(R.drawable.background)
+                    .error(R.drawable.background)
+                    .crossFade()
+                    .into(target);
+        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -1058,6 +1089,7 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
         updateAccountList();
         updateExternalLinksInDrawer();
         updateQuotaLink();
+        updateHeaderBackground();
     }
 
     @Override
@@ -1111,7 +1143,13 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
      * @return The view if found or <code>null</code> otherwise.
      */
     private View findNavigationViewChildById(int id) {
-        return ((NavigationView) findViewById(R.id.nav_view)).getHeaderView(0).findViewById(id);
+        NavigationView view = ((NavigationView) findViewById(R.id.nav_view));
+
+        if (view != null) {
+            return view.getHeaderView(0).findViewById(id);
+        } else {
+            return null;
+        }
     }
 
     /**

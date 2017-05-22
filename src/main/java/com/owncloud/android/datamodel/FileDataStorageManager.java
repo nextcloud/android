@@ -1910,6 +1910,7 @@ public class FileDataStorageManager {
         cv.put(ProviderTableMeta.CAPABILITIES_EXTERNAL_LINKS, capability.getExternalLinks().getValue());
         cv.put(ProviderTableMeta.CAPABILITIES_SERVER_NAME, capability.getServerName());
         cv.put(ProviderTableMeta.CAPABILITIES_SERVER_COLOR, capability.getServerColor());
+        cv.put(ProviderTableMeta.CAPABILITIES_SERVER_BACKGROUND_URL, capability.getServerBackground());
 
         if (capabilityExists(mAccount.name)) {
             if (getContentResolver() != null) {
@@ -2051,6 +2052,8 @@ public class FileDataStorageManager {
                     .getColumnIndex(ProviderTableMeta.CAPABILITIES_EXTERNAL_LINKS))));
             capability.setServerName(c.getString(c.getColumnIndex(ProviderTableMeta.CAPABILITIES_SERVER_NAME)));
             capability.setServerColor(c.getString(c.getColumnIndex(ProviderTableMeta.CAPABILITIES_SERVER_COLOR)));
+            capability.setServerBackground(c.getString(c.getColumnIndex(
+                    ProviderTableMeta.CAPABILITIES_SERVER_BACKGROUND_URL)));
         }
         return capability;
     }

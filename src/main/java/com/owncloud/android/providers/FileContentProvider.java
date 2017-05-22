@@ -1019,6 +1019,8 @@ public class FileContentProvider extends ContentProvider {
                             ADD_COLUMN + ProviderTableMeta.CAPABILITIES_SERVER_NAME + " TEXT ");
                     db.execSQL(ALTER_TABLE + ProviderTableMeta.CAPABILITIES_TABLE_NAME +
                             ADD_COLUMN + ProviderTableMeta.CAPABILITIES_SERVER_COLOR + " TEXT ");
+                    db.execSQL(ALTER_TABLE + ProviderTableMeta.CAPABILITIES_TABLE_NAME +
+                            ADD_COLUMN + ProviderTableMeta.CAPABILITIES_SERVER_BACKGROUND_URL + " TEXT ");
                     upgraded = true;
                     db.setTransactionSuccessful();
                 } finally {
@@ -1111,7 +1113,8 @@ public class FileContentProvider extends ContentProvider {
                 + ProviderTableMeta.CAPABILITIES_FILES_DROP + INTEGER  // boolean
                 + ProviderTableMeta.CAPABILITIES_EXTERNAL_LINKS + INTEGER  // boolean
                 + ProviderTableMeta.CAPABILITIES_SERVER_NAME + TEXT
-                + ProviderTableMeta.CAPABILITIES_SERVER_COLOR + " TEXT );");
+                + ProviderTableMeta.CAPABILITIES_SERVER_COLOR + TEXT
+                + ProviderTableMeta.CAPABILITIES_SERVER_BACKGROUND_URL + " TEXT );");
     }
 
     private void createUploadsTable(SQLiteDatabase db) {
