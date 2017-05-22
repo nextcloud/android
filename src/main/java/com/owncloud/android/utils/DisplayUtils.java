@@ -31,6 +31,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
@@ -67,12 +68,14 @@ import com.bumptech.glide.request.target.SimpleTarget;
 import com.caverock.androidsvg.SVG;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
+import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.files.SearchOperation;
+import com.owncloud.android.lib.resources.status.OCCapability;
 import com.owncloud.android.ui.TextDrawable;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.activity.ToolbarActivity;
@@ -682,9 +685,23 @@ public class DisplayUtils {
     }
 
     public static Drawable tintDrawable(@DrawableRes int id, @ColorRes int color) {
+        int colorToUse;
+
+        Account account = AccountUtils.getCurrentOwnCloudAccount(MainApp.getAppContext());
+        Context context = MainApp.getAppContext();
+
+        FileDataStorageManager storageManager = new FileDataStorageManager(account, context.getContentResolver());
+        OCCapability capability = storageManager.getCapability(account.name);
+
+        if (capability.getServerColor().isEmpty()) {
+            colorToUse = MainApp.getAppContext().getResources().getColor(color);
+        } else {
+            colorToUse = Color.parseColor(capability.getServerColor());
+        }
+
         Drawable drawable = ResourcesCompat.getDrawable(MainApp.getAppContext().getResources(), id, null);
         drawable = DrawableCompat.wrap(drawable);
-        DrawableCompat.setTint(drawable, MainApp.getAppContext().getResources().getColor(color));
+        DrawableCompat.setTint(drawable, colorToUse);
         return drawable;
     }
 

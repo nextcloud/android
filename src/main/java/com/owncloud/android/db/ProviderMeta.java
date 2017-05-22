@@ -32,7 +32,7 @@ import com.owncloud.android.MainApp;
 public class ProviderMeta {
 
     public static final String DB_NAME = "filelist";
-    public static final int DB_VERSION = 20;
+    public static final int DB_VERSION = 21;
 
     private ProviderMeta() {
     }
@@ -145,6 +145,8 @@ public class ProviderMeta {
         public static final String CAPABILITIES_FILES_VERSIONING = "files_versioning";
         public static final String CAPABILITIES_FILES_DROP = "files_drop";
         public static final String CAPABILITIES_EXTERNAL_LINKS = "external_links";
+        public static final String CAPABILITIES_SERVER_NAME = "server_name";
+        public static final String CAPABILITIES_SERVER_COLOR = "server_color";
 
         public static final String CAPABILITIES_DEFAULT_SORT_ORDER = CAPABILITIES_ACCOUNT_NAME
                 + " collate nocase asc";
