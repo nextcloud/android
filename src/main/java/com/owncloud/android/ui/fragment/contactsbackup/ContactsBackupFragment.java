@@ -185,17 +185,11 @@ public class ContactsBackupFragment extends FileFragment implements DatePickerDi
                 FileDataStorageManager storageManager = new FileDataStorageManager(account,
                         getActivity().getContentResolver());
 
-                RemoteOperationResult result = new RemoteOperationResult(RemoteOperationResult.ResultCode.UNKNOWN_ERROR);
-                try {
-                    OCFile folder = storageManager.getFileByPath(path[0]);
-                    RefreshFolderOperation operation = new RefreshFolderOperation(folder, System.currentTimeMillis(),
-                            false, false, false, storageManager, account, getContext());
+                OCFile folder = storageManager.getFileByPath(path[0]);
+                RefreshFolderOperation operation = new RefreshFolderOperation(folder, System.currentTimeMillis(),
+                        false, false, false, storageManager, account, getContext());
 
-                    result = operation.execute(account, getContext());
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-
+                RemoteOperationResult result = operation.execute(account, getContext());
                 return result.isSuccess();
             }
 

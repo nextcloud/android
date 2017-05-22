@@ -472,7 +472,7 @@ public class ContactListFragment extends FileFragment {
                 try {
                     contactListAdapter.replaceVCards(Ezvcard.parse(file).all());
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    Log_OC.e(TAG, "IO Exception: " + file.getAbsolutePath());
                 }
             }
         }
