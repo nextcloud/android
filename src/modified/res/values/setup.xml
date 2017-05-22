@@ -57,8 +57,6 @@
     <color name="login_background_color">#FFFFFF</color>
     <color name="login_logo_background_color">#FFFFFF</color>
     <color name="background_color">#FFFFFF</color>
-    <color name="navigation_bar_start_color">#0082c9</color>
-    <color name="navigation_bar_end_color">#0082c9</color>
     <color name="primary_button_background_color">@color/nc_blue_accent</color>
     <color name="primary_button_text_color">@color/white</color>
     <color name="secondary_button_background_color">#D6D7D7</color>
