@@ -21,8 +21,10 @@
 
 package com.owncloud.android.ui.fragment;
 
+import android.accounts.Account;
 import android.animation.LayoutTransition;
 import android.app.Activity;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -58,8 +60,10 @@ import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
+import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.files.SearchOperation;
+import com.owncloud.android.lib.resources.status.OCCapability;
 import com.owncloud.android.ui.ExtendedListView;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.activity.FolderPickerActivity;
@@ -735,8 +739,22 @@ public class ExtendedListFragment extends Fragment
     }
 
     protected void onCreateSwipeToRefresh(SwipeRefreshLayout refreshLayout) {
+        Account account = AccountUtils.getCurrentOwnCloudAccount(MainApp.getAppContext());
+
+        int primaryColor = getResources().getColor(R.color.primary);
+        if (account != null) {
+            FileDataStorageManager storageManager = new FileDataStorageManager(account,
+                    getContext().getContentResolver());
+            OCCapability capability = storageManager.getCapability(account.name);
+
+            if (capability != null && !capability.getServerColor().isEmpty()) {
+                primaryColor = Color.parseColor(capability.getServerColor());
+            }
+        }
+
         // Colors in animations
-        refreshLayout.setColorSchemeResources(R.color.color_accent, R.color.primary, R.color.primary_dark);
+        // TODO change this to use darker and lighter color, again.
+        refreshLayout.setColorSchemeColors(primaryColor, primaryColor, primaryColor);
         refreshLayout.setOnRefreshListener(this);
     }
 
