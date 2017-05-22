@@ -334,8 +334,7 @@ public class FileListListAdapter extends BaseAdapter {
                             R.color.primary));
                 } else {
                     view.setBackgroundColor(Color.WHITE);
-                    checkBoxV.setImageDrawable(DisplayUtils.tintDrawable(R.drawable.ic_checkbox_blank_outline,
-                            R.color.primary));
+                    checkBoxV.setImageResource(R.drawable.ic_checkbox_blank_outline);
                 }
                 checkBoxV.setVisibility(View.VISIBLE);
             }
