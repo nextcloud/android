@@ -51,14 +51,12 @@
     <!-- Colors -->
     <color name="primary">#1E2751</color>
     <color name="primary_dark">#0e1227</color>
-    <color name="color_accent">@color/nc_blue_accent</color>
+    <color name="color_accent">#007CC2</color>
     <color name="login_text_color">@color/white</color>
     <color name="login_text_hint_color">#7fC0E3</color>
     <color name="login_background_color">#FFFFFF</color>
     <color name="login_logo_background_color">#FFFFFF</color>
     <color name="background_color">#FFFFFF</color>
-    <color name="navigation_bar_start_color">#1E2751</color>
-    <color name="navigation_bar_end_color">#1E2751</color>
     <color name="primary_button_background_color">#1E2751</color>
     <color name="primary_button_text_color">@color/white</color>
     <color name="secondary_button_background_color">#D6D7D7</color>
