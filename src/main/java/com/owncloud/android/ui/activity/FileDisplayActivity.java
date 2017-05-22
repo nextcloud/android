@@ -100,8 +100,11 @@ import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.ErrorMessageAdapter;
 import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.PermissionUtil;
+import com.owncloud.android.utils.PushUtils;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 import org.parceler.Parcels;
 
 import java.io.File;
@@ -2064,4 +2067,16 @@ public class FileDisplayActivity extends HookActivity
         super.showFiles(onDeviceOnly);
         getListOfFilesFragment().refreshDirectory();
     }
+
+    @Subscribe(threadMode = ThreadMode.BACKGROUND)
+    public void onMessageEvent(TokenPushEvent event) {
+        PushUtils.pushRegistrationToServer();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        EventBus.getDefault().post(new TokenPushEvent());
+    }
+
 }

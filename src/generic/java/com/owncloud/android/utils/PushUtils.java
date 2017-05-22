@@ -22,4 +22,8 @@ package com.owncloud.android.utils;
 
 public class PushUtils {
     public static final String KEY_PUSH = "push";
+
+    public static void pushRegistrationToServer() {
+        // do nothing
+    }
 }
