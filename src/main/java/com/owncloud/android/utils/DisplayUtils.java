@@ -685,18 +685,19 @@ public class DisplayUtils {
     }
 
     public static Drawable tintDrawable(@DrawableRes int id, @ColorRes int color) {
-        int colorToUse;
+        int colorToUse = MainApp.getAppContext().getResources().getColor(color);
 
         Account account = AccountUtils.getCurrentOwnCloudAccount(MainApp.getAppContext());
-        Context context = MainApp.getAppContext();
 
-        FileDataStorageManager storageManager = new FileDataStorageManager(account, context.getContentResolver());
-        OCCapability capability = storageManager.getCapability(account.name);
+        if (account != null) {
+            Context context = MainApp.getAppContext();
 
-        if (capability.getServerColor().isEmpty()) {
-            colorToUse = MainApp.getAppContext().getResources().getColor(color);
-        } else {
-            colorToUse = Color.parseColor(capability.getServerColor());
+            FileDataStorageManager storageManager = new FileDataStorageManager(account, context.getContentResolver());
+            OCCapability capability = storageManager.getCapability(account.name);
+
+            if (!capability.getServerColor().isEmpty()) {
+                colorToUse = Color.parseColor(capability.getServerColor());
+            }
         }
 
         Drawable drawable = ResourcesCompat.getDrawable(MainApp.getAppContext().getResources(), id, null);
