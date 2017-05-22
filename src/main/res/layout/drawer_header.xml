@@ -19,6 +19,7 @@
   License along with this program. If not, see <http://www.gnu.org/licenses/>.
   -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:id="@+id/drawer_header_view"
               android:layout_width="match_parent"
               android:layout_height="@dimen/nav_drawer_header_height"
               android:background="@drawable/background"
