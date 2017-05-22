@@ -71,6 +71,8 @@ import org.greenrobot.eventbus.ThreadMode;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -150,6 +152,21 @@ public class ContactListFragment extends FileFragment {
             } else {
                 File file = new File(ocFile.getStoragePath());
                 vCards.addAll(Ezvcard.parse(file).all());
+                Collections.sort(vCards, new Comparator<VCard>() {
+                    @Override
+                    public int compare(VCard o1, VCard o2) {
+                        if (o1.getFormattedName() != null && o2.getFormattedName() != null) {
+                            return o1.getFormattedName().getValue().compareTo(o2.getFormattedName().getValue());
+                        } else {
+                            if (o1.getFormattedName() == null) {
+                                return 1; // Send the contact to the end of the list
+                            } else {
+                                return -1;
+                            }
+
+                        }
+                    }
+                });
             }
         } catch (IOException e) {
             Log_OC.e(TAG, "Error processing contacts file!", e);
@@ -251,7 +268,7 @@ public class ContactListFragment extends FileFragment {
 
     private void setSelectAllMenuItem(MenuItem selectAll, boolean checked) {
         selectAll.setChecked(checked);
-        if(checked) {
+        if (checked) {
             selectAll.setIcon(R.drawable.ic_select_none);
         } else {
             selectAll.setIcon(R.drawable.ic_select_all);
@@ -463,7 +480,7 @@ class ContactListAdapter extends RecyclerView.Adapter<ContactListFragment.Contac
         if (checkedVCards != null && checkedVCards.size() > 0) {
             intArray = new int[checkedVCards.size()];
             int i = 0;
-            for (int position: checkedVCards) {
+            for (int position : checkedVCards) {
                 intArray[i] = position;
                 i++;
             }
