@@ -1,3 +1,8 @@
+## 2017-05-24 00:31
+no new branches added
+
+- Dev branch (nextcloud/dev) [https://github.com/nextcloud/android/tree/dev] updated
+
 ## 2017-05-23 00:30
 no new branches added
 
