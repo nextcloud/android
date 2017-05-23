@@ -316,7 +316,7 @@ public class FileDisplayActivity extends HookActivity
                             dialog.dismiss();
                         }
                     })
-                    .setIcon(R.drawable.ic_cloud_upload)
+                    .setIcon(R.drawable.nav_folder_sync)
                     .show();
         }
     }
