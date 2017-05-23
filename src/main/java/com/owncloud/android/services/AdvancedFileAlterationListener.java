@@ -27,8 +27,11 @@ import android.text.TextUtils;
 import com.evernote.android.job.JobRequest;
 import com.evernote.android.job.util.support.PersistableBundleCompat;
 import com.owncloud.android.MainApp;
+import com.owncloud.android.datamodel.ArbitraryDataProvider;
+import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.SyncedFolder;
 import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.ui.activity.FolderSyncActivity;
 import com.owncloud.android.utils.FileStorageUtils;
 
 import org.apache.commons.io.monitor.FileAlterationListener;
@@ -53,16 +56,18 @@ public class AdvancedFileAlterationListener implements FileAlterationListener {
     public static final String TAG = "AdvancedFileAlterationListener";
     public static final int DELAY_INVOCATION_MS = 2500;
     private Context context;
+    private boolean lightVersion;
 
     private SyncedFolder syncedFolder;
 
     private Map<String, Runnable> uploadMap = new HashMap<>();
     private Handler handler = new Handler();
 
-    public AdvancedFileAlterationListener(SyncedFolder syncedFolder) {
+    public AdvancedFileAlterationListener(SyncedFolder syncedFolder, boolean lightVersion) {
         super();
 
         context = MainApp.getAppContext();
+        this.lightVersion = lightVersion;
         this.syncedFolder = syncedFolder;
     }
 
@@ -122,20 +127,55 @@ public class AdvancedFileAlterationListener implements FileAlterationListener {
             Runnable runnable = new Runnable() {
                 @Override
                 public void run() {
+
+                    String remotePath;
+                    boolean subfolderByDate;
+                    boolean chargingOnly;
+                    boolean wifiOnly;
+                    Integer uploadAction;
+                    String accountName = syncedFolder.getAccount();
+
+                    if (lightVersion) {
+                        ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProvider(context
+                                .getContentResolver());
+
+                        remotePath = arbitraryDataProvider.getValue(accountName,
+                                FolderSyncActivity.SYNCED_FOLDER_LIGHT_REMOTE_FOLDER) + OCFile.PATH_SEPARATOR +
+                                new File(syncedFolder.getLocalPath()).getName() + OCFile.PATH_SEPARATOR;
+
+                        subfolderByDate = arbitraryDataProvider.getBooleanValue(accountName,
+                                FolderSyncActivity.SYNCED_FOLDER_LIGHT_USE_SUBFOLDERS);
+
+                        chargingOnly = arbitraryDataProvider.getBooleanValue(accountName,
+                                FolderSyncActivity.SYNCED_FOLDER_LIGHT_UPLOAD_ON_CHARGING);
+
+                        wifiOnly = arbitraryDataProvider.getBooleanValue(accountName,
+                                FolderSyncActivity.SYNCED_FOLDER_LIGHT_UPLOAD_ON_WIFI);
+
+                        uploadAction = arbitraryDataProvider.getIntegerValue(accountName,
+                                FolderSyncActivity.SYNCED_FOLDER_LIGHT_UPLOAD_BEHAVIOUR);
+                    } else {
+                        remotePath = syncedFolder.getRemotePath();
+                        subfolderByDate = syncedFolder.getSubfolderByDate();
+                        chargingOnly = syncedFolder.getChargingOnly();
+                        wifiOnly = syncedFolder.getWifiOnly();
+                        uploadAction = syncedFolder.getUploadAction();
+                    }
+
                     PersistableBundleCompat bundle = new PersistableBundleCompat();
                     bundle.putString(AutoUploadJob.LOCAL_PATH, file.getAbsolutePath());
                     bundle.putString(AutoUploadJob.REMOTE_PATH, FileStorageUtils.getInstantUploadFilePath(
                             currentLocale,
-                            syncedFolder.getRemotePath(), file.getName(),
+                            remotePath, file.getName(),
                             finalLastModificationTime,
-                            syncedFolder.getSubfolderByDate()));
-                    bundle.putString(AutoUploadJob.ACCOUNT, syncedFolder.getAccount());
-                    bundle.putInt(AutoUploadJob.UPLOAD_BEHAVIOUR, syncedFolder.getUploadAction());
+                            subfolderByDate));
+                    bundle.putString(AutoUploadJob.ACCOUNT, accountName);
+                    bundle.putInt(AutoUploadJob.UPLOAD_BEHAVIOUR, uploadAction);
 
                     new JobRequest.Builder(AutoUploadJob.TAG)
                             .setExecutionWindow(30_000L, 80_000L)
-                            .setRequiresCharging(syncedFolder.getChargingOnly())
-                            .setRequiredNetworkType(syncedFolder.getWifiOnly() ? JobRequest.NetworkType.UNMETERED :
+                            .setRequiresCharging(chargingOnly)
+                            .setRequiredNetworkType(wifiOnly ? JobRequest.NetworkType.UNMETERED :
                                     JobRequest.NetworkType.ANY)
                             .setExtras(bundle)
                             .setPersisted(false)

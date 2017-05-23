@@ -161,6 +161,24 @@ public class Preferences extends PreferenceActivity
         // Register context menu for list of preferences.
         registerForContextMenu(getListView());
 
+        PreferenceCategory preferenceCategoryGeneral = (PreferenceCategory) findPreference("general");
+        Preference pSyncedFolder = findPreference("folder_sync");
+        if (pSyncedFolder != null) {
+            if (getResources().getBoolean(R.bool.syncedFolder_light)
+                    && Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                pSyncedFolder.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+                    @Override
+                    public boolean onPreferenceClick(Preference preference) {
+                        Intent folderSyncIntent = new Intent(getApplicationContext(), FolderSyncActivity.class);
+                        startActivity(folderSyncIntent);
+                        return true;
+                    }
+                });
+            } else {
+                preferenceCategoryGeneral.removePreference(pSyncedFolder);
+            }
+        }
+
         PreferenceCategory preferenceCategoryDetails = (PreferenceCategory) findPreference("details");
 
 

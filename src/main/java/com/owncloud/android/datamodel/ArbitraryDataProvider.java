@@ -108,10 +108,42 @@ public class ArbitraryDataProvider {
         }
     }
 
-    public boolean getBooleanValue(Account account, String key) {
-        String value = getValue(account, key);
+    public boolean getBooleanValue(String accountName, String key) {
+        String value = getValue(accountName, key);
 
         return !value.isEmpty() && value.equalsIgnoreCase("true");
+    }
+
+    public boolean getBooleanValue(Account account, String key) {
+        return getBooleanValue(account.name, key);
+    }
+
+    /**
+     * returns integer if found else -1
+     *
+     * @param accountName
+     * @param key
+     * @return
+     */
+    public Integer getIntegerValue(String accountName, String key) {
+        String value = getValue(accountName, key);
+
+        if (value.isEmpty()) {
+            return -1;
+        } else {
+            return Integer.valueOf(value);
+        }
+    }
+
+    /**
+     * returns integer if found else -1
+     *
+     * @param account
+     * @param key
+     * @return
+     */
+    public Integer getIntegerValue(Account account, String key) {
+        return getIntegerValue(account.name, key);
     }
 
     private ArrayList<String> getValues(Account account, String key) {
@@ -146,13 +178,21 @@ public class ArbitraryDataProvider {
         return new ArrayList<>();
     }
 
+    /**
+     * Returns stored value as string or empty string
+     * @return string if value found or empty string
+     */
     public String getValue(Account account, String key) {
+        return getValue(account.name, key);
+    }
+
+    public String getValue(String accountName, String key) {
         Cursor cursor = contentResolver.query(
                 ProviderMeta.ProviderTableMeta.CONTENT_URI_ARBITRARY_DATA,
                 null,
                 ProviderMeta.ProviderTableMeta.ARBITRARY_DATA_CLOUD_ID + " = ? and " +
                         ProviderMeta.ProviderTableMeta.ARBITRARY_DATA_KEY + " = ?",
-                new String[]{account.name, key},
+                new String[]{accountName, key},
                 null
         );
 

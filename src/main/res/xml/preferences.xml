@@ -18,10 +18,16 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
-	<PreferenceCategory android:title="@string/prefs_category_general">
-		<ListPreference
-			android:title="@string/prefs_storage_path"
-			android:key="storage_path" />
+    <PreferenceCategory
+        android:title="@string/prefs_category_general"
+        android:key="general">
+        <ListPreference
+            android:title="@string/prefs_storage_path"
+            android:key="storage_path"/>
+        <Preference
+            android:title="@string/drawer_folder_sync"
+            android:id="@+id/folder_sync"
+            android:key="folder_sync"/>
 	</PreferenceCategory>
 
     <PreferenceCategory android:title="@string/prefs_category_instant_uploading" android:key="instant_uploading_category">
@@ -75,7 +81,7 @@
 		<Preference 		android:key="log_history"
 	                        android:title="@string/prefs_log_title_history"
 	                        android:summary="@string/prefs_log_summary_history"/ -->
-                        
+
     </PreferenceCategory>
 
 	<PreferenceCategory android:title="@string/prefs_category_details" android:key="details">

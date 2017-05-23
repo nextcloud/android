@@ -35,11 +35,14 @@
         <include
             layout="@layout/toolbar_standard"/>
 
-        <FrameLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_above="@+id/bottom_navigation_view"
-            android:layout_below="@+id/appbar">
+            android:layout_below="@+id/appbar"
+            android:orientation="vertical">
+
+            <include layout="@layout/folder_sync_light_layout"/>
 
             <android.support.v7.widget.RecyclerView
                 android:id="@android:id/list"
@@ -86,7 +89,7 @@
                 android:gravity="center"
                 android:text="@string/folder_sync_no_results"
                 android:visibility="gone" />
-        </FrameLayout>
+        </LinearLayout>
 
         <android.support.design.widget.BottomNavigationView
             android:id="@+id/bottom_navigation_view"
