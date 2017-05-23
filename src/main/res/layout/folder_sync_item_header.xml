@@ -51,7 +51,9 @@
             android:layout_height="wrap_content"
             android:background="@color/transparent"
             android:clickable="true"
-            android:padding="@dimen/standard_half_padding"
+            android:paddingTop="@dimen/standard_half_padding"
+            android:paddingBottom="@dimen/standard_half_padding"
+            android:paddingRight="@dimen/standard_padding"
             android:src="@drawable/ic_cloud_sync_off"/>
 
         <ImageButton
@@ -61,7 +63,7 @@
             android:background="@color/transparent"
             android:clickable="true"
             android:paddingBottom="@dimen/standard_half_padding"
-            android:paddingLeft="@dimen/standard_half_padding"
+            android:paddingLeft="0dp"
             android:paddingRight="@dimen/standard_padding"
             android:paddingTop="@dimen/standard_half_padding"
             android:src="@drawable/ic_dots_vertical"/>

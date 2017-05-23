@@ -22,6 +22,7 @@
 package com.owncloud.android.ui.activity;
 
 import android.accounts.Account;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -29,16 +30,19 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
+import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.MediaFolder;
 import com.owncloud.android.datamodel.MediaProvider;
 import com.owncloud.android.datamodel.OCFile;
@@ -72,10 +76,17 @@ public class FolderSyncActivity extends FileActivity implements FolderSyncAdapte
 
     private static final String SYNCED_FOLDER_PREFERENCES_DIALOG_TAG = "SYNCED_FOLDER_PREFERENCES_DIALOG";
     public static final String PRIORITIZED_FOLDER = "Camera";
+    public static final int REQUEST_CODE__SELECT_REMOTE_FOLDER = 0;
 
     private static final String SCREEN_NAME = "Auto upload";
 
     private static final String TAG = FolderSyncActivity.class.getSimpleName();
+
+    public static final String SYNCED_FOLDER_LIGHT_REMOTE_FOLDER = "SYNCED_FOLDER_LIGHT_REMOTE_FOLDER";
+    public static final String SYNCED_FOLDER_LIGHT_UPLOAD_ON_WIFI = "SYNCED_FOLDER_LIGHT_UPLOAD_ON_WIFI";
+    public static final String SYNCED_FOLDER_LIGHT_UPLOAD_ON_CHARGING = "SYNCED_FOLDER_LIGHT_UPLOAD_ON_CHARGING";
+    public static final String SYNCED_FOLDER_LIGHT_USE_SUBFOLDERS = "SYNCED_FOLDER_LIGHT_USE_SUBFOLDERS";
+    public static final String SYNCED_FOLDER_LIGHT_UPLOAD_BEHAVIOUR = "SYNCED_FOLDER_LIGHT_UPLOAD_BEHAVIOUR";
 
     private RecyclerView mRecyclerView;
     private FolderSyncAdapter mAdapter;
@@ -84,12 +95,28 @@ public class FolderSyncActivity extends FileActivity implements FolderSyncAdapte
     private SyncedFolderProvider mSyncedFolderProvider;
     private List<SyncedFolderDisplayItem> syncFolderItems;
     private SyncedFolderPreferencesDialogFragment mSyncedFolderPreferencesDialogFragment;
+    private ArbitraryDataProvider arbitraryDataProvider;
+    private TextView mRemoteFolderSummary;
+    private CheckBox mUploadOnWifiCheckbox;
+    private CheckBox mUploadOnChargingCheckbox;
+    private CheckBox mUploadUseSubfoldersCheckbox;
+    private TextView mUploadBehaviorSummary;
+    private CharSequence[] mUploadBehaviorItemStrings;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        arbitraryDataProvider = new ArbitraryDataProvider(getContentResolver());
+
+
         setContentView(R.layout.folder_sync_layout);
+
+        if (getResources().getBoolean(R.bool.syncedFolder_light)) {
+            setupLightOption();
+        } else {
+            findViewById(R.id.folder_sync_light_linear_layout).setVisibility(View.GONE);
+        }
 
         // setup toolbar
         setupToolbar();
@@ -99,6 +126,154 @@ public class FolderSyncActivity extends FileActivity implements FolderSyncAdapte
         getSupportActionBar().setTitle(getString(R.string.drawer_folder_sync));
 
         setupContent();
+    }
+
+    private void setupLightOption() {
+        // Remote folder
+        mRemoteFolderSummary = (TextView) findViewById(R.id.remote_folder_summary);
+
+        String remoteFolder = arbitraryDataProvider.getValue(getAccount(), SYNCED_FOLDER_LIGHT_REMOTE_FOLDER);
+
+        if (remoteFolder.isEmpty()) {
+            remoteFolder = getString(R.string.instant_upload_path) + "/";
+            saveRemoteFolder(remoteFolder);
+        } else {
+            mRemoteFolderSummary.setText(remoteFolder);
+        }
+
+        findViewById(R.id.remote_folder_container).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent action = new Intent(getBaseContext(), FolderPickerActivity.class);
+                action.putExtra(
+                        FolderPickerActivity.EXTRA_ACTION, getResources().getText(R.string.choose_remote_folder));
+                startActivityForResult(action, REQUEST_CODE__SELECT_REMOTE_FOLDER);
+            }
+        });
+
+        // Upload on WiFi
+        mUploadOnWifiCheckbox = (CheckBox) findViewById(R.id.setting_instant_upload_on_wifi_checkbox);
+        mUploadOnWifiCheckbox.setChecked(
+                arbitraryDataProvider.getBooleanValue(getAccount(), SYNCED_FOLDER_LIGHT_UPLOAD_ON_WIFI));
+
+        findViewById(R.id.setting_instant_upload_on_wifi_container).setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mUploadOnWifiCheckbox.toggle();
+                        arbitraryDataProvider.storeOrUpdateKeyValue(getAccount(), SYNCED_FOLDER_LIGHT_UPLOAD_ON_WIFI,
+                                String.valueOf(mUploadOnWifiCheckbox.isChecked()));
+                    }
+                });
+
+        // Upload on charging
+        mUploadOnChargingCheckbox = (CheckBox) findViewById(R.id.setting_instant_upload_on_charging_checkbox);
+        mUploadOnChargingCheckbox.setChecked(
+                arbitraryDataProvider.getBooleanValue(getAccount(), SYNCED_FOLDER_LIGHT_UPLOAD_ON_CHARGING));
+
+        findViewById(R.id.setting_instant_upload_on_charging_container).setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mUploadOnChargingCheckbox.toggle();
+                        arbitraryDataProvider.storeOrUpdateKeyValue(getAccount(), SYNCED_FOLDER_LIGHT_UPLOAD_ON_CHARGING,
+                                String.valueOf(mUploadOnChargingCheckbox.isChecked()));
+                    }
+                });
+
+        // use subfolders
+        mUploadUseSubfoldersCheckbox = (CheckBox) findViewById(R.id.setting_instant_upload_path_use_subfolders_checkbox);
+        mUploadUseSubfoldersCheckbox.setChecked(
+                arbitraryDataProvider.getBooleanValue(getAccount(), SYNCED_FOLDER_LIGHT_USE_SUBFOLDERS));
+
+        findViewById(R.id.setting_instant_upload_path_use_subfolders_container).setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mUploadUseSubfoldersCheckbox.toggle();
+                        arbitraryDataProvider.storeOrUpdateKeyValue(getAccount(), SYNCED_FOLDER_LIGHT_USE_SUBFOLDERS,
+                                String.valueOf(mUploadUseSubfoldersCheckbox.isChecked()));
+                    }
+                });
+
+        // upload behaviour
+        mUploadBehaviorItemStrings = getResources().getTextArray(R.array.pref_behaviour_entries);
+        mUploadBehaviorSummary = (TextView) findViewById(R.id.setting_instant_behaviour_summary);
+
+        Integer uploadBehaviour = arbitraryDataProvider.getIntegerValue(getAccount(), SYNCED_FOLDER_LIGHT_UPLOAD_BEHAVIOUR);
+
+        if (uploadBehaviour == -1) {
+            uploadBehaviour = FileUploader.LOCAL_BEHAVIOUR_FORGET;
+            arbitraryDataProvider.storeOrUpdateKeyValue(getAccount(), SYNCED_FOLDER_LIGHT_UPLOAD_BEHAVIOUR,
+                    uploadBehaviour.toString());
+        }
+        mUploadBehaviorSummary.setText(mUploadBehaviorItemStrings[uploadBehaviour]);
+
+        findViewById(R.id.setting_instant_behaviour_container).setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Integer behaviourId = arbitraryDataProvider.getIntegerValue(getAccount(),
+                                SYNCED_FOLDER_LIGHT_UPLOAD_BEHAVIOUR);
+
+                        Integer behaviour;
+                        switch (behaviourId) {
+                            case FileUploader.LOCAL_BEHAVIOUR_FORGET:
+                                behaviour = 0;
+                                break;
+                            case FileUploader.LOCAL_BEHAVIOUR_MOVE:
+                                behaviour = 1;
+                                break;
+                            case FileUploader.LOCAL_BEHAVIOUR_DELETE:
+                                behaviour = 2;
+                                break;
+                            default:
+                                behaviour = 0;
+                                break;
+                        }
+
+                        AlertDialog.Builder builder = new AlertDialog.Builder(FolderSyncActivity.this);
+                        builder
+                                .setTitle(R.string.prefs_instant_behaviour_dialogTitle)
+                                .setSingleChoiceItems(getResources().getTextArray(R.array.pref_behaviour_entries),
+                                        behaviour,
+                                        new
+                                                DialogInterface.OnClickListener() {
+                                                    public void onClick(DialogInterface dialog, int which) {
+                                                        saveUploadAction(getResources().getTextArray(
+                                                                R.array.pref_behaviour_entryValues)[which].toString());
+                                                        mUploadBehaviorSummary.setText(mUploadBehaviorItemStrings[which]);
+                                                        dialog.dismiss();
+                                                    }
+                                                });
+                        builder.create().show();
+                    }
+                });
+    }
+
+    private void saveRemoteFolder(String newPath) {
+        arbitraryDataProvider.storeOrUpdateKeyValue(getAccount(), SYNCED_FOLDER_LIGHT_REMOTE_FOLDER, newPath);
+        mRemoteFolderSummary.setText(newPath);
+    }
+
+    private void saveUploadAction(String action) {
+        Integer actionId;
+        switch (action) {
+            case "LOCAL_BEHAVIOUR_FORGET":
+                actionId = FileUploader.LOCAL_BEHAVIOUR_FORGET;
+                break;
+            case "LOCAL_BEHAVIOUR_MOVE":
+                actionId = FileUploader.LOCAL_BEHAVIOUR_MOVE;
+                break;
+            case "LOCAL_BEHAVIOUR_DELETE":
+                actionId = FileUploader.LOCAL_BEHAVIOUR_DELETE;
+                break;
+            default:
+                actionId = FileUploader.LOCAL_BEHAVIOUR_FORGET;
+        }
+
+        arbitraryDataProvider.storeOrUpdateKeyValue(getAccount(), SYNCED_FOLDER_LIGHT_UPLOAD_BEHAVIOUR,
+                actionId.toString());
     }
 
     @Override
@@ -117,7 +292,8 @@ public class FolderSyncActivity extends FileActivity implements FolderSyncAdapte
         mEmpty = (TextView) findViewById(android.R.id.empty);
 
         final int gridWidth = getResources().getInteger(R.integer.media_grid_width);
-        mAdapter = new FolderSyncAdapter(this, gridWidth, this);
+        boolean lightVersion = getResources().getBoolean(R.bool.syncedFolder_light);
+        mAdapter = new FolderSyncAdapter(this, gridWidth, this, lightVersion);
         mSyncedFolderProvider = new SyncedFolderProvider(getContentResolver());
 
         final GridLayoutManager lm = new GridLayoutManager(this, gridWidth);
@@ -327,6 +503,7 @@ public class FolderSyncActivity extends FileActivity implements FolderSyncAdapte
         }
         return result;
     }
+
     /**
      * show/hide recycler view list or the empty message / progress info.
      *
@@ -401,10 +578,14 @@ public class FolderSyncActivity extends FileActivity implements FolderSyncAdapte
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == SyncedFolderPreferencesDialogFragment.REQUEST_CODE__SELECT_REMOTE_FOLDER
-                && resultCode == RESULT_OK && mSyncedFolderPreferencesDialogFragment != null) {
+                && resultCode == RESULT_OK) {
             OCFile chosenFolder = data.getParcelableExtra(FolderPickerActivity.EXTRA_FOLDER);
-            mSyncedFolderPreferencesDialogFragment.setRemoteFolderSummary(chosenFolder.getRemotePath());
 
+            if (mSyncedFolderPreferencesDialogFragment != null) {
+                mSyncedFolderPreferencesDialogFragment.setRemoteFolderSummary(chosenFolder.getRemotePath());
+            } else {
+                saveRemoteFolder(chosenFolder.getRemotePath());
+            }
         } else {
             super.onActivityResult(requestCode, resultCode, data);
         }
@@ -431,7 +612,7 @@ public class FolderSyncActivity extends FileActivity implements FolderSyncAdapte
         }
         mSyncedFolderPreferencesDialogFragment = null;
 
-        if(dirty) {
+        if (dirty) {
             mAdapter.setSyncFolderItem(syncedFolder.getSection(), item);
         }
     }
