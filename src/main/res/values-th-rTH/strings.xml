@@ -298,7 +298,6 @@
     <string name="error_cant_bind_to_operations_service">ข้อผิดพลาด: ไม่สามารถดำเนินการได้</string>
 
     <string name="network_error_socket_exception">เกิดข้อผิดพลาดขณะกำลังเชื่อมต่อกับเซิร์ฟเวอร์</string>
-    <string name="empty" />
 
     <string name="forbidden_permissions">คุณไม่ได้รับสิทธิ์ %s</string>
     <string name="forbidden_permissions_rename">เพื่อเปลี่ยนชื่อไฟล์นี้</string>
