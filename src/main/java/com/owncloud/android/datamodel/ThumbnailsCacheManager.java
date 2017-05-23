@@ -425,12 +425,13 @@ public class ThumbnailsCacheManager {
                         thumbnail = doFileInBackground(mFile);
                     }
                 }
+            } // the app should never break due to a problem with thumbnails
+            catch (OutOfMemoryError t) {
+                Log_OC.e(TAG, "Generation of thumbnail for " + mFile.getAbsolutePath() + " failed", t);
+                System.gc();
             } catch (Throwable t) {
                 // the app should never break due to a problem with thumbnails
                 Log_OC.e(TAG, "Generation of thumbnail for " + mFile.getAbsolutePath() + " failed", t);
-                if (t instanceof OutOfMemoryError) {
-                    System.gc();
-                }
             }
 
             return thumbnail;

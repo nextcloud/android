@@ -295,8 +295,13 @@ public class ExtendedListFragment extends Fragment
     }
 
     public boolean onQueryTextChange(final String query) {
-        performSearch(query, false);
-        return true;
+        if (getFragmentManager() != null && getFragmentManager().
+                findFragmentByTag(FileDisplayActivity.TAG_SECOND_FRAGMENT) instanceof ExtendedListFragment) {
+            performSearch(query, false);
+            return true;
+        } else {
+            return false;
+        }
     }
 
     @Override

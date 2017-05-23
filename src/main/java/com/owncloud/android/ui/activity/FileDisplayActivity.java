@@ -774,7 +774,7 @@ public class FileDisplayActivity extends HookActivity
                             R.drawable.ic_view_list));
                     getListOfFilesFragment().setGridAsPreferred();
                 }
-                return true;
+                break;
             }
             default:
                 retval = super.onOptionsItemSelected(item);
