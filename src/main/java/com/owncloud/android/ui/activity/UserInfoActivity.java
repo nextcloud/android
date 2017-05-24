@@ -32,10 +32,13 @@ import android.app.FragmentManager;
 import android.content.ContentResolver;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.AppBarLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.text.TextUtils;
@@ -48,6 +51,9 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.animation.GlideAnimation;
+import com.bumptech.glide.request.target.SimpleTarget;
 import com.google.gson.Gson;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
@@ -201,6 +207,8 @@ public class UserInfoActivity extends FileActivity {
             setMultiListLoadingMessage();
             fetchAndSetData();
         }
+
+        setHeaderImage();
     }
 
     @Override
@@ -252,6 +260,35 @@ public class UserInfoActivity extends FileActivity {
             emptyContentMessage.setText(message);
 
             multiListProgressBar.setVisibility(View.GONE);
+        }
+    }
+
+    private void setHeaderImage() {
+        if (getStorageManager().getCapability(account.name).getServerBackground() != null) {
+            String backgroundUrl = getStorageManager().getCapability(account.name).getServerBackground();
+
+            final AppBarLayout appBar = (AppBarLayout) findViewById(R.id.appbar);
+
+            SimpleTarget target = new SimpleTarget<Drawable>() {
+                @Override
+                public void onResourceReady(Drawable resource, GlideAnimation glideAnimation) {
+                    if (appBar != null) {
+                        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
+                            appBar.setBackgroundDrawable(resource);
+                        } else {
+                            appBar.setBackground(resource);
+                        }
+                    }
+                }
+            };
+
+            Glide.with(this)
+                    .load(backgroundUrl)
+                    .fitCenter()
+                    .placeholder(R.drawable.background)
+                    .error(R.drawable.background)
+                    .crossFade()
+                    .into(target);
         }
     }
 
