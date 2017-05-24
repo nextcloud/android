@@ -33,6 +33,7 @@ import android.widget.ProgressBar;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.utils.DisplayUtils;
 
 /**
  * Base class providing toolbar registration functionality, see {@link #setupToolbar()}.
@@ -64,7 +65,7 @@ public abstract class ToolbarActivity extends BaseActivity {
      * Updates title bar and home buttons (state and icon).
      */
     protected void updateActionBarTitleAndHomeButton(OCFile chosenFile) {
-        String title = getString(R.string.default_display_name_for_root_folder);    // default
+        String title = DisplayUtils.getDefaultDisplayNameForRootFolder();    // default
         boolean inRoot;
 
         // choose the appropriate title
