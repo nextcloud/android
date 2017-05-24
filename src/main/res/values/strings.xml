@@ -642,9 +642,9 @@
     <string name="webview_error">Error occurred</string>
     <string name="prefs_category_about">About</string>
 
-    <string name="actionbar_contacts">Backup contacts</string>
+    <string name="actionbar_contacts">Back up contacts</string>
     <string name="actionbar_contacts_restore">Restore contacts</string>
-    <string name="contacts_backup_button">Backup now</string>
+    <string name="contacts_backup_button">Back up now</string>
     <string name="contacts_restore_button">Restore last backup</string>
     <string name="contacts_header_restore">Restore</string>
     <string name="contacts_header_backup">Backup</string>

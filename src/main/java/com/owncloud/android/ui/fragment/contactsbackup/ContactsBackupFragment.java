@@ -24,6 +24,7 @@ import android.Manifest;
 import android.accounts.Account;
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -51,6 +52,7 @@ import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.operations.RefreshFolderOperation;
 import com.owncloud.android.services.ContactsBackupJob;
 import com.owncloud.android.ui.activity.ContactsPreferenceActivity;
+import com.owncloud.android.ui.activity.Preferences;
 import com.owncloud.android.ui.fragment.FileFragment;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.PermissionUtil;
@@ -93,6 +95,7 @@ public class ContactsBackupFragment extends FileFragment implements DatePickerDi
     private static final String KEY_CALENDAR_YEAR = "CALENDAR_YEAR";
     private ArbitraryDataProvider arbitraryDataProvider;
     private Account account;
+    private boolean showSidebar = true;
 
 
     @Override
@@ -102,6 +105,10 @@ public class ContactsBackupFragment extends FileFragment implements DatePickerDi
         ButterKnife.bind(this, view);
 
         setHasOptionsMenu(true);
+
+        if (getArguments() != null) {
+            showSidebar = getArguments().getBoolean(ContactsPreferenceActivity.EXTRA_SHOW_SIDEBAR);
+        }
 
         final ContactsPreferenceActivity contactsPreferenceActivity = (ContactsPreferenceActivity) getActivity();
 
@@ -218,10 +225,15 @@ public class ContactsBackupFragment extends FileFragment implements DatePickerDi
         boolean retval;
         switch (item.getItemId()) {
             case android.R.id.home:
-                if (contactsPreferenceActivity.isDrawerOpen()) {
-                    contactsPreferenceActivity.closeDrawer();
+                if (showSidebar) {
+                    if (contactsPreferenceActivity.isDrawerOpen()) {
+                        contactsPreferenceActivity.closeDrawer();
+                    } else {
+                        contactsPreferenceActivity.openDrawer();
+                    }
                 } else {
-                    contactsPreferenceActivity.openDrawer();
+                    Intent settingsIntent = new Intent(getContext(), Preferences.class);
+                    startActivity(settingsIntent);
                 }
                 retval = true;
                 break;

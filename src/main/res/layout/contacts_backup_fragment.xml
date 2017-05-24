@@ -28,17 +28,6 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/contacts_header_backup"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/standard_margin"
-            android:layout_marginRight="@dimen/standard_margin"
-            android:layout_marginTop="@dimen/standard_margin"
-            android:text="@string/contacts_header_backup"
-            android:textColor="@color/primary"
-            android:textStyle="bold"/>
-
         <android.support.v7.widget.SwitchCompat
             android:id="@+id/contacts_automatic_backup"
             android:layout_width="match_parent"
