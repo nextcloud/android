@@ -335,7 +335,7 @@ public class FileListListAdapter extends BaseAdapter {
                 if (parentList.isItemChecked(position)) {
                     view.setBackgroundColor(mContext.getResources().getColor(R.color.selected_item_background));
                     checkBoxV.setImageDrawable(DisplayUtils.tintDrawable(R.drawable.ic_checkbox_marked,
-                            R.color.primary));
+                            DisplayUtils.primaryColor()));
                 } else {
                     view.setBackgroundColor(Color.WHITE);
                     checkBoxV.setImageResource(R.drawable.ic_checkbox_blank_outline);
