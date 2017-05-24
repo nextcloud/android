@@ -419,7 +419,7 @@
     <string name="file_migration_failed_while_coping">ERROR: Failed during migration</string>
     <string name="file_migration_failed_while_updating_index">ERROR: Failed to updating index</string>
 
-    <string name="file_migration_directory_already_exists">Data folder exists already. Choose one of the folowing:</string>
+    <string name="file_migration_directory_already_exists">Data folder exists already. Choose one of the following:</string>
     <string name="file_migration_override_data_folder">Replace</string>
     <string name="file_migration_use_data_folder">Use</string>
 
@@ -667,4 +667,6 @@
     <string name="drawer_logout">Logout</string>
     <string name="picture_set_as_no_app">No app found to set a picture with!</string>
     <string name="privacy">Privacy</string>
+
+  <string name="empty" translatable="false"/>
 </resources>

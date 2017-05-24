@@ -17,7 +17,7 @@
     <string name="menu_item_sort_by_name_a_z">A - Z</string>
     <string name="menu_item_sort_by_name_z_a">Z - A</string>
     <string name="menu_item_sort_by_date_newest_first">Najnowsze najpierw</string>
-    <string name="menu_item_sort_by_date_oldest_first">Najstarsze najpier</string>
+    <string name="menu_item_sort_by_date_oldest_first">Najstarsze najpierw</string>
     <string name="menu_item_sort_by_size_biggest_first">Największe najpierw</string>
     <string name="menu_item_sort_by_size_smallest_first">Najmniejsze najpierw</string>
 
@@ -42,7 +42,7 @@
     <string name="prefs_category_more">Więcej</string>
     <string name="prefs_accounts">Konta</string>
     <string name="prefs_manage_accounts">Zarządzaj kontami</string>
-    <string name="prefs_passcode">Blokada hasłem</string>
+    <string name="prefs_passcode">Blokada kodem PIN</string>
     <string name="prefs_fingerprint">Blokada odciskiem palca</string>
     <string name="prefs_fingerprint_notsetup">Brak skonfigurowanych odcisków palców</string>
     <string name="prefs_show_hidden_files">Pokaż ukryte pliki</string>
@@ -144,7 +144,7 @@
     <string name="common_cancel_sync">Anuluj synchronizację</string>
     <string name="common_cancel">Anuluj</string>
     <string name="common_back">Wróć</string>
-    <string name="common_save">Zapisać</string>
+    <string name="common_save">Zapisz</string>
     <string name="common_save_exit">Zapisz i wyjdź</string>
     <string name="common_error">Błąd</string>
     <string name="common_loading">Wczytuję &#8230;</string>
@@ -211,16 +211,16 @@
     <string name="foreign_files_local_text">Lokalnie: %1$s</string>
     <string name="foreign_files_remote_text">Zdalnie: %1$s</string>
     <string name="upload_query_move_foreign_files">Brak wystarczającego miejsca, aby skopiować wybrane pliki do folderu %1$s. Czy w zamian chcesz je tam przenieść?</string>
-    <string name="pass_code_enter_pass_code">Wymyśl kod PIN.</string>
+    <string name="pass_code_enter_pass_code">Podaj kod PIN</string>
     
-    <string name="pass_code_configure_your_pass_code">Wpisz kod PIN.</string>
-    <string name="pass_code_configure_your_pass_code_explanation">Kod PIN będzie wymagany przy każdym uruchomieniu aplikacji.</string>
-    <string name="pass_code_reenter_your_pass_code">Wpisz kod PIN ponownie.</string>
-    <string name="pass_code_remove_your_pass_code">Usuń swój kod PIN.</string>
-    <string name="pass_code_mismatch">Podane hasła nie są takie same.</string>
-    <string name="pass_code_wrong">Kod PIN nieprawidłowy.</string>
-    <string name="pass_code_removed">Kod PIN został usunięty.</string>
-    <string name="pass_code_stored">Kod PIN został zapisany.</string>
+    <string name="pass_code_configure_your_pass_code">Wymyśl kod PIN</string>
+    <string name="pass_code_configure_your_pass_code_explanation">Kod PIN będzie wymagany przy każdym uruchomieniu aplikacji</string>
+    <string name="pass_code_reenter_your_pass_code">Wpisz kod PIN ponownie</string>
+    <string name="pass_code_remove_your_pass_code">Usuń swój kod PIN</string>
+    <string name="pass_code_mismatch">Podane kody PIN nie są takie same</string>
+    <string name="pass_code_wrong">Kod PIN nieprawidłowy</string>
+    <string name="pass_code_removed">Kod PIN został usunięty</string>
+    <string name="pass_code_stored">Kod PIN został zapisany</string>
     
     <string name="media_notif_ticker">%1$s odtwarzacz muzyki</string>
     <string name="media_state_playing">%1$s (odtwarzany)</string>
@@ -399,7 +399,7 @@
     <string name="uploader_upload_forbidden_permissions">do wysyłania do tego folderu</string>
     <string name="downloader_download_file_not_found">Ten plik nie jest już dostępny na serwerze</string>
 
-    <string name="file_migration_dialog_title">Ścieżka przechowywania aktualizacji</string>
+    <string name="file_migration_dialog_title">Aktualizacja ścieżki przechowywania</string>
     <string name="file_migration_finish_button">Koniec</string>
     <string name="file_migration_preparing">Przygotowywanie migracji&#8230;</string>
     <string name="file_migration_checking_destination">Sprawdzanie docelowe&#8230;</string>
@@ -417,12 +417,11 @@
     <string name="file_migration_failed_while_coping">BŁĄD: Nieudana migracja</string>
     <string name="file_migration_failed_while_updating_index">BŁĄD: Nieudana aktualizacja indeksu</string>
 
-    <string name="file_migration_directory_already_exists">Folder z danymi już istnieje. Wybierz jedną z następujących czynności:</string>
     <string name="file_migration_override_data_folder">Zamień</string>
     <string name="file_migration_use_data_folder">Użyj</string>
 
     <string name="file_migration_source_not_readable_title">Nie można odczytać katalogu źródłowego!</string>
-    <string name="file_migration_source_not_readable">Czy nadal chcesz zmienić ścieżkę do %1$s?\n\nUwaga: Wszystkie dane będą musiały zostać ponownie pobrane.</string>
+    <string name="file_migration_source_not_readable">Czy nadal chcesz zmienić ścieżkę przechowywania na %1$s?\n\nUwaga: Wszystkie dane będą musiały zostać pobrane ponownie.</string>
 
     <string name="prefs_category_accounts">Konta</string>
     <string name="prefs_add_account">Dodaj konto</string>
@@ -608,12 +607,12 @@
     <string name="welcome_feature_1_text">Dostęp do, współdzielenie i ochrona twoich plików w domu i w pracy</string>
 
     <string name="welcome_feature_2_title">Wiele kont</string>
-    <string name="welcome_feature_2_text">Podłączenie się do wszystkich chmur</string>
+    <string name="welcome_feature_2_text">Podłączenie się do wszystkich swoich chmur</string>
 
     <string name="welcome_feature_3_title">Natychmiastowe wysyłanie</string>
     <string name="welcome_feature_3_text">Twoje zdjęcia będą bezpieczne</string>
 
-    <string name="whats_new_skip">Pominąć</string>
+    <string name="whats_new_skip">Pomiń</string>
 
     <string name="fingerprint_scan_finger">Umieść palec na czytniku odcisku palca</string>
     <string name="fingerprint_unknown">Nie rozpoznano odcisku palca</string>
@@ -658,5 +657,7 @@
     <!-- Notifications -->
     <string name="new_notification_received">Otrzymano nowe powiadomienie</string>
     <string name="drawer_logout">Wyloguj</string>
+    <string name="picture_set_as_no_app">Nie znaleziono aplikacji do ustawienia obrazu!</string>
     <string name="privacy">Prywatność</string>
-</resources>
+
+  </resources>

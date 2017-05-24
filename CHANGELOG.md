@@ -1,3 +1,6 @@
+## 1.4.3 (May 22, 2017)
+- Hotfix: ignore oauth header for now and use basic auth to allow new logins for nc12
+
 ## 1.4.2 (March 14, 2017)
 - Auto Upload for newly taken photos/images (Android 6+)
 - Auto Upload improvements and fixes

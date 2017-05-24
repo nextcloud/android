@@ -418,7 +418,6 @@ në 7 ditët e fundit.</string>
     <string name="file_migration_failed_while_coping">GABIM: Gjatë migrimit</string>
     <string name="file_migration_failed_while_updating_index">GABIM: Gjatë përditësimit të indeksit</string>
 
-    <string name="file_migration_directory_already_exists">Folderi i të dhënave ekziston tashmë, cfarë të bëni?</string>
     <string name="file_migration_override_data_folder">Mbishkruaj</string>
     <string name="file_migration_use_data_folder">Përdor ekzistueset</string>
 
@@ -563,6 +562,10 @@ në 7 ditët e fundit.</string>
     <string name="participate_release_candidate_headline">Lëshimi i kandidatit</string>
     <string name="participate_release_candidate_text">Lëshimi i kandidatit  (RC) është një fragment i lëshimit të ardhshme dhe pritet të jetë i qëndrueshëm. Testimi i setup-it tuaj individuale mund të ndihmojë për ta siguruar këtë. Regjistrohuni për testimin në Play Store ose manualisht  shikoni në seksionin \"versionet\" në F-Droid.</string>
     <string name="participate_contribute_headline">Kontribim aktiv</string>
+    <string name="participate_contribute_irc_text">Bashkohu në bisedat në IRC: &lt;a href=\"%1$s\">#nextcloud-mobile&lt;/a></string>
+    <string name="participate_contribute_forum_text">Ndihmo të tjerët në &lt;a href=\"%1$s\">forum&lt;/a></string>
+    <string name="participate_contribute_translate_text">&lt;a href=\"%1$s\">Përktheni&lt;/a> aplikacionin</string>
+    <string name="participate_contribute_github_text">Kontriboni si një zhvillues, shih&lt;a href=\"%1$s\">CONTRIBUTING.md&lt;/a> për detaje</string>
     <string name="move_to">Levizni tek&#8230;</string>
     <string name="copy_to">Kopjojeni tek&#8230;</string>
     <string name="choose_remote_folder">Zgjidh dosjen&#8230;</string>
@@ -655,4 +658,5 @@ në 7 ditët e fundit.</string>
     <string name="drawer_logout">Dilni</string>
     <string name="picture_set_as_no_app">Nuk u gjet aplikacioni me të cilin vendoset foto!</string>
     <string name="privacy">Privatësi</string>
-</resources>
+
+  </resources>

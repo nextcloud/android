@@ -56,6 +56,13 @@ public class InstantUploadBroadcastReceiver extends BroadcastReceiver {
     // http://developer.android.com/reference/android/hardware/Camera.html#ACTION_NEW_VIDEO
     private static final String NEW_VIDEO_ACTION = "android.hardware.action.NEW_VIDEO";
 
+    /**
+     * Because we support NEW_PHOTO_ACTION and NEW_PHOTO_ACTION_UNOFFICIAL it can happen that
+     * handleNewPictureAction is called twice for the same photo. Use this simple static variable to
+     * remember last uploaded photo to filter duplicates. Must not be null!
+     */
+    static String lastUploadedPhotoPath = "";
+
     @Override
     public void onReceive(Context context, Intent intent) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
@@ -74,13 +81,6 @@ public class InstantUploadBroadcastReceiver extends BroadcastReceiver {
             }
         }
     }
-
-    /**
-     * Because we support NEW_PHOTO_ACTION and NEW_PHOTO_ACTION_UNOFFICIAL it can happen that
-     * handleNewPictureAction is called twice for the same photo. Use this simple static variable to
-     * remember last uploaded photo to filter duplicates. Must not be null!
-     */
-    static String lastUploadedPhotoPath = "";
 
     private void handleNewPictureAction(Context context, Intent intent) {
         Cursor c = null;

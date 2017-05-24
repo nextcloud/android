@@ -136,7 +136,8 @@ public class CustomPopup {
                 LayoutParams.WRAP_CONTENT));
         root.measure(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
 
-        int rootW = root.getWidth(), rootH = root.getHeight();
+        int rootW = root.getWidth();
+        int rootH = root.getHeight();
         int screenW = mWManager.getDefaultDisplay().getWidth();
 
         int xpos = ((screenW - rootW) / 2) + x;
