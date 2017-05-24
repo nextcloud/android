@@ -90,7 +90,8 @@
             android:layout_marginTop="@dimen/standard_margin"
             android:text="@string/contacts_header_restore"
             android:textColor="@color/primary"
-            android:textStyle="bold"/>
+            android:textStyle="bold"
+            android:visibility="gone"/>
 
         <android.support.v7.widget.AppCompatButton
             android:id="@+id/contacts_datepicker"
@@ -98,7 +99,8 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/standard_margin"
             android:text="@string/contacts_preference_choose_date"
-            android:theme="@style/Button.Primary"/>
+            android:theme="@style/Button.Primary"
+            android:visibility="gone"/>
 
     </LinearLayout>
 

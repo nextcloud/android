@@ -273,7 +273,6 @@ Allpool on loend kohalikest failidest ning serveris asuvatest failidest %5$s, mi
     <string name="error_cant_bind_to_operations_service">Viga: ei suutnud operatsiooni lõpetada</string>
 
     <string name="network_error_socket_exception">Serveriga ühendumisel tekkis tõrge.</string>
-    <string name="empty" />
 
     <string name="forbidden_permissions">Sul ei ole %s õigusi</string>
     <string name="forbidden_permissions_rename">selle faili ümbernimetamiseks</string>

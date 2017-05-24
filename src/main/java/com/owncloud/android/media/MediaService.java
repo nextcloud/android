@@ -508,7 +508,6 @@ public class MediaService extends Service implements OnCompletionListener, OnPre
             // nobody is bound
             processStopRequest(true);
         }
-        return;
     }
 
 

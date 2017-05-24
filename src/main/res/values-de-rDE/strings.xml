@@ -269,7 +269,7 @@
 	<string name="auth_expired_oauth_token_toast">Die Autorisierung ist abgelaufen. Bitte Autorisierung nochmals durchführen</string>
 	<string name="auth_expired_basic_auth_toast">Bitte gib das aktuelle Passwort ein</string>
 	<string name="auth_expired_saml_sso_token_toast">Ihre Sitzung ist abgelaufen. Bitte erneut verbinden</string>
-	<string name="auth_connecting_auth_server">Verbinden zum Authentifizierungs-Server ...</string>
+	<string name="auth_connecting_auth_server">Verbinden zum Authentifizierungs-Server …</string>
 	<string name="auth_unsupported_auth_method">Der Server unterstützt diese Authentifizierung-Methode nicht</string>
 	<string name="auth_unsupported_multiaccount">%1$s unterstützt nicht mehrere Benutzerkonten</string>
 	<string name="auth_fail_get_user_name">Ihr Server gibt keine korrekte Benutzer-ID zurück, bitte kontaktieren Sie einen Administrator</string>
@@ -297,7 +297,7 @@
     <string name="filename_forbidden_characters">Verbotene Zeichen: / \\ &lt; &gt; : \" | ? *</string>
     <string name="filename_forbidden_charaters_from_server">Der Dateiname enthält mindestens ein ungültiges Zeichen</string>
     <string name="filename_empty">Dateiname darf nicht leer sein</string>
-    <string name="wait_a_moment">Bitte warten...</string>
+    <string name="wait_a_moment">Bitte warten …</string>
     <string name="wait_checking_credentials">Überprüfe gespeicherte Anmeldeinformationen</string>
     <string name="filedisplay_unexpected_bad_get_content">Ein unerwartetes Problem ist aufgetreten. Bitte versuche, die Datei in einer anderen App zu öffnen</string>
     <string name="filedisplay_no_file_selected">Keine Datei gewählt</string>
@@ -305,7 +305,7 @@
     <string name="wait_for_tmp_copy_from_private_storage">Kopiere Datei vom privatem Speicher</string>
     
     <string name="oauth_check_onoff">Anmelden mit oAuth2</string> 
-    <string name="oauth_login_connection">Verbinde mit dem oAuth2-Server...</string>    
+    <string name="oauth_login_connection">Verbinde mit dem OAuth2-Server …</string>    
         
     <string name="ssl_validator_header">Die Identität der Website konnte nicht überprüft werden</string>
     <string name="ssl_validator_reason_cert_not_trusted">- Das Zertifikat des Servers ist nicht vertrauenswürdig</string>
@@ -418,7 +418,6 @@
     <string name="file_migration_failed_while_coping">FEHLER: Migration fehlgeschlagen</string>
     <string name="file_migration_failed_while_updating_index">FEHLER: Während der Aktualisierung des Indexes</string>
 
-    <string name="file_migration_directory_already_exists">Datenordner existiert bereits, was soll geschehen?</string>
     <string name="file_migration_override_data_folder">Überschreiben</string>
     <string name="file_migration_use_data_folder">Verwende bestehenden</string>
 
@@ -659,4 +658,5 @@
     <string name="drawer_logout">Abmelden</string>
     <string name="picture_set_as_no_app">Keine App gefunden, mit der ein Bid gesetzt werden könnte!</string>
     <string name="privacy">Datenschutz</string>
-</resources>
+
+  </resources>
