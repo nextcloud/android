@@ -180,14 +180,13 @@ public class Preferences extends PreferenceActivity
             pUploadOnWifiCheckbox.setChecked(
                     arbitraryDataProvider.getBooleanValue(account, SYNCED_FOLDER_LIGHT_UPLOAD_ON_WIFI));
 
-            pUploadOnWifiCheckbox.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
+            pUploadOnWifiCheckbox.setOnPreferenceClickListener(new OnPreferenceClickListener() {
                 @Override
-                public boolean onPreferenceChange(Preference preference, Object newValue) {
-                    Boolean newBoolean = (Boolean) newValue;
+                public boolean onPreferenceClick(Preference preference) {
                     arbitraryDataProvider.storeOrUpdateKeyValue(account, SYNCED_FOLDER_LIGHT_UPLOAD_ON_WIFI,
-                            String.valueOf(newBoolean));
+                            String.valueOf(pUploadOnWifiCheckbox.isChecked()));
 
-                    return newBoolean;
+                    return true;
                 }
             });
 
