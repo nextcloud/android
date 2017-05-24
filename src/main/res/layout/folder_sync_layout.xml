@@ -42,8 +42,6 @@
             android:layout_below="@+id/appbar"
             android:orientation="vertical">
 
-            <include layout="@layout/folder_sync_light_layout"/>
-
             <android.support.v7.widget.RecyclerView
                 android:id="@android:id/list"
                 android:layout_width="match_parent"

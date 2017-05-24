@@ -669,5 +669,7 @@
     <string name="privacy">Privacy</string>
     <string name="file_not_found">File not found!</string>
 
+    <string name="folder_sync_folders">Configure folders</string>
+
   <string name="empty" translatable="false"/>
 </resources>
