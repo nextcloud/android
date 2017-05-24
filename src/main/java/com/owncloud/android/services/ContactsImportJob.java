@@ -89,10 +89,14 @@ public class ContactsImportJob extends Job {
 
             for (int i = 0; i < intArray.length; i++) {
                 VCard vCard = vCards.get(intArray[i]);
-                if (!ownContactList.containsKey(vCard)) {
-                    operations.insertContact(vCard);
+                if (ContactListFragment.getDisplayName(vCard).length() != 0) {
+                    if (!ownContactList.containsKey(vCard)) {
+                        operations.insertContact(vCard);
+                    } else {
+                        operations.updateContact(vCard, ownContactList.get(vCard));
+                    }
                 } else {
-                    operations.updateContact(vCard, ownContactList.get(vCard));
+                    operations.insertContact(vCard); //Insert All the contacts without name
                 }
             }
         } catch (Exception e) {
