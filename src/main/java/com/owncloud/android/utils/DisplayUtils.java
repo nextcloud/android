@@ -39,7 +39,6 @@ import android.graphics.drawable.PictureDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.support.annotation.ColorInt;
-import android.support.annotation.ColorRes;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -47,6 +46,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.res.ResourcesCompat;
+import android.support.v4.graphics.ColorUtils;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
@@ -697,18 +697,10 @@ public class DisplayUtils {
         }
     }
 
-    public static Drawable tintDrawable(@DrawableRes int id, @ColorRes int color) {
-        int colorToUse = MainApp.getAppContext().getResources().getColor(color);
-
-        OCCapability capability = getCapability();
-
-        if (!capability.getServerColor().isEmpty()) {
-            colorToUse = Color.parseColor(capability.getServerColor());
-        }
-
+    public static Drawable tintDrawable(@DrawableRes int id, int color) {
         Drawable drawable = ResourcesCompat.getDrawable(MainApp.getAppContext().getResources(), id, null);
         drawable = DrawableCompat.wrap(drawable);
-        DrawableCompat.setTint(drawable, colorToUse);
+        DrawableCompat.setTint(drawable, color);
         return drawable;
     }
 
@@ -719,6 +711,35 @@ public class DisplayUtils {
             return MainApp.getAppContext().getResources().getString(R.string.default_display_name_for_root_folder);
         } else {
             return capability.getServerSlogan();
+        }
+    }
+
+    public static int adjustLightness(float lightnessDelta, int color) {
+        float[] hsl = new float[3];
+        ColorUtils.RGBToHSL(Color.red(color), Color.green(color), Color.blue(color), hsl);
+
+        hsl[2] += lightnessDelta;
+
+        return ColorUtils.HSLToColor(hsl);
+    }
+
+    public static int primaryDarkColor() {
+        OCCapability capability = getCapability();
+
+        if (!capability.getServerColor().isEmpty()) {
+            return adjustLightness(-0.2f, Color.parseColor(capability.getServerColor()));
+        } else {
+            return MainApp.getAppContext().getResources().getColor(R.color.primary_dark);
+        }
+    }
+
+    public static int primaryColor() {
+        OCCapability capability = getCapability();
+
+        if (!capability.getServerColor().isEmpty()) {
+            return Color.parseColor(capability.getServerColor());
+        } else {
+            return MainApp.getAppContext().getResources().getColor(R.color.primary);
         }
     }
 
