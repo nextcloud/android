@@ -150,6 +150,7 @@ public class ProviderMeta {
         public static final String CAPABILITIES_SERVER_NAME = "server_name";
         public static final String CAPABILITIES_SERVER_COLOR = "server_color";
         public static final String CAPABILITIES_SERVER_BACKGROUND_URL = "background_url";
+        public static final String CAPABILITIES_SERVER_SLOGAN = "server_slogan";
 
         public static final String CAPABILITIES_DEFAULT_SORT_ORDER = CAPABILITIES_ACCOUNT_NAME
                 + " collate nocase asc";
