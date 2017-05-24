@@ -420,7 +420,6 @@
     <string name="file_migration_failed_while_coping">ОШИБКА: Ошибка при миграции</string>
     <string name="file_migration_failed_while_updating_index">ОШИБКА: Ошибка при обновлении индекса</string>
 
-    <string name="file_migration_directory_already_exists">Каталог с данными уже существует. Выберите одно из действий:</string>
     <string name="file_migration_override_data_folder">Перезаписать</string>
     <string name="file_migration_use_data_folder">Использовать существующий</string>
 
@@ -484,6 +483,9 @@
     <string name="file_list__footer__files">%1$d файлов</string>
     <string name="file_list__footer__files_and_folder">%1$d файлов, 1 каталог</string>
     <string name="file_list__footer__files_and_folders">%1$d файлов, %2$d каталогов</string>
+    <string name="set_picture_as">Установить изображение как</string>
+    <string name="set_as">Установить как</string>
+
     <string name="prefs_instant_behaviour_dialogTitle">Исходный файл будет&#8230;</string>
     <string name="prefs_instant_behaviour_title">Исходный файл будет&#8230;</string>
     <string name="upload_copy_files">Копировать файл</string>
@@ -658,5 +660,7 @@
     <!-- Notifications -->
     <string name="new_notification_received">Получено новое уведомление</string>
     <string name="drawer_logout">Выйти</string>
+    <string name="picture_set_as_no_app">Не надено приложения, с помощью которого можно установить изображение!</string>
     <string name="privacy">Конфиденциальность</string>
-</resources>
+
+  </resources>

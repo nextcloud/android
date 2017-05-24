@@ -418,7 +418,6 @@
     <string name="file_migration_failed_while_coping">HATA: Aktarımda sorun çıktı</string>
     <string name="file_migration_failed_while_updating_index">HATA: Dizin güncellenirken sorun çıktı</string>
 
-    <string name="file_migration_directory_already_exists">Veri klasörü zaten var, yapılacak işlemi seçin:</string>
     <string name="file_migration_override_data_folder">Değiştirilsin</string>
     <string name="file_migration_use_data_folder">Kullanılsın</string>
 
@@ -482,6 +481,9 @@
     <string name="file_list__footer__files">%1$d dosya</string>
     <string name="file_list__footer__files_and_folder">%1$d dosya, 1 klasör</string>
     <string name="file_list__footer__files_and_folders">%1$d dosya, %2$d klasör</string>
+    <string name="set_picture_as">Farklı görsel ayarla</string>
+    <string name="set_as">Farklı Ayarla</string>
+
     <string name="prefs_instant_behaviour_dialogTitle">Özgün dosya için&#8230;</string>
     <string name="prefs_instant_behaviour_title">Özgün dosya için&#8230;</string>
     <string name="upload_copy_files">Dosyayı kopyala</string>
@@ -654,5 +656,7 @@
     <!-- Notifications -->
     <string name="new_notification_received">Yeni bir bildirim var</string>
     <string name="drawer_logout">Oturumu Kapat</string>
+    <string name="picture_set_as_no_app">Görselin ayarlanabileceği bir uygulama bulunamadı!</string>
     <string name="privacy">Gizlilik</string>
-</resources>
+
+  </resources>

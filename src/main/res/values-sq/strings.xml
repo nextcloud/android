@@ -418,7 +418,6 @@ në 7 ditët e fundit.</string>
     <string name="file_migration_failed_while_coping">GABIM: Gjatë migrimit</string>
     <string name="file_migration_failed_while_updating_index">GABIM: Gjatë përditësimit të indeksit</string>
 
-    <string name="file_migration_directory_already_exists">Folderi i të dhënave ekziston tashmë, cfarë të bëni?</string>
     <string name="file_migration_override_data_folder">Mbishkruaj</string>
     <string name="file_migration_use_data_folder">Përdor ekzistueset</string>
 
@@ -482,6 +481,9 @@ në 7 ditët e fundit.</string>
     <string name="file_list__footer__files">%1$d skedar</string>
     <string name="file_list__footer__files_and_folder">%1$d skedare, 1 dosje</string>
     <string name="file_list__footer__files_and_folders">%1$d skedare, %2$d dosje</string>
+    <string name="set_picture_as">Vendos fotografinë</string>
+    <string name="set_as">Vendos Si</string>
+
     <string name="prefs_instant_behaviour_dialogTitle">Skedari origjinal do të jetë&#8230;</string>
     <string name="prefs_instant_behaviour_title">Skedari origjinal do të jetë&#8230;</string>
     <string name="upload_copy_files">Kopjoje kartelën</string>
@@ -543,6 +545,8 @@ në 7 ditët e fundit.</string>
     <string name="local_file_not_found_toast">Skedari s’u gjet te sistemi vendor i skedarëve</string>
     <string name="confirmation_remove_files_alert">Doni vërtetë të hiqni artikujt e zgjedhur?</string>
     <string name="confirmation_remove_folders_alert">Doni vërtet të hiqni artikujt e zgjedhur dhe përmbajtjen e tyre?</string>
+    <string name="maintenance_mode">Shërbyesi në gjëndje mirëmbajtjeje</string>
+
     <string name="uploads_view_upload_status_waiting_for_charging">Duke pritur që pajisja të karikohet</string>
     <string name="actionbar_search">Kërkoni</string>
     <string name="files_drop_not_supported">Ky është një tipar i Nextcloud-it, ju lutemi përditësojeni.</string>
@@ -558,6 +562,10 @@ në 7 ditët e fundit.</string>
     <string name="participate_release_candidate_headline">Lëshimi i kandidatit</string>
     <string name="participate_release_candidate_text">Lëshimi i kandidatit  (RC) është një fragment i lëshimit të ardhshme dhe pritet të jetë i qëndrueshëm. Testimi i setup-it tuaj individuale mund të ndihmojë për ta siguruar këtë. Regjistrohuni për testimin në Play Store ose manualisht  shikoni në seksionin \"versionet\" në F-Droid.</string>
     <string name="participate_contribute_headline">Kontribim aktiv</string>
+    <string name="participate_contribute_irc_text">Bashkohu në bisedat në IRC: &lt;a href=\"%1$s\">#nextcloud-mobile&lt;/a></string>
+    <string name="participate_contribute_forum_text">Ndihmo të tjerët në &lt;a href=\"%1$s\">forum&lt;/a></string>
+    <string name="participate_contribute_translate_text">&lt;a href=\"%1$s\">Përktheni&lt;/a> aplikacionin</string>
+    <string name="participate_contribute_github_text">Kontriboni si një zhvillues, shih&lt;a href=\"%1$s\">CONTRIBUTING.md&lt;/a> për detaje</string>
     <string name="move_to">Levizni tek&#8230;</string>
     <string name="copy_to">Kopjojeni tek&#8230;</string>
     <string name="choose_remote_folder">Zgjidh dosjen&#8230;</string>
@@ -648,5 +656,7 @@ në 7 ditët e fundit.</string>
     <!-- Notifications -->
     <string name="new_notification_received">Morët njoftime të reja</string>
     <string name="drawer_logout">Dilni</string>
+    <string name="picture_set_as_no_app">Nuk u gjet aplikacioni me të cilin vendoset foto!</string>
     <string name="privacy">Privatësi</string>
-</resources>
+
+  </resources>

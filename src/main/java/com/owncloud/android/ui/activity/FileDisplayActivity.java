@@ -100,8 +100,11 @@ import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.ErrorMessageAdapter;
 import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.PermissionUtil;
+import com.owncloud.android.utils.PushUtils;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 import org.parceler.Parcels;
 
 import java.io.File;
@@ -313,7 +316,7 @@ public class FileDisplayActivity extends HookActivity
                             dialog.dismiss();
                         }
                     })
-                    .setIcon(R.drawable.ic_cloud_upload)
+                    .setIcon(R.drawable.nav_folder_sync)
                     .show();
         }
     }
@@ -428,7 +431,12 @@ public class FileDisplayActivity extends HookActivity
 
             /// Second fragment
             OCFile file = getFile();
-            Fragment secondFragment = chooseInitialSecondFragment(file);
+
+            Fragment secondFragment = getSecondFragment();
+            if (secondFragment == null) {
+                secondFragment = chooseInitialSecondFragment(file);
+            }
+
             if (secondFragment != null) {
                 setSecondFragment(secondFragment);
                 updateFragmentsVisibility(true);
@@ -467,13 +475,9 @@ public class FileDisplayActivity extends HookActivity
         Fragment secondFragment = null;
         if (file != null && !file.isFolder()) {
             if (file.isDown() && PreviewMediaFragment.canBePreviewed(file)) {
-                int startPlaybackPosition =
-                        getIntent().getIntExtra(PreviewVideoActivity.EXTRA_START_POSITION, 0);
-                boolean autoplay =
-                        getIntent().getBooleanExtra(PreviewVideoActivity.EXTRA_AUTOPLAY, true);
-                secondFragment = new PreviewMediaFragment(file, getAccount(),
-                        startPlaybackPosition, autoplay);
-
+                int startPlaybackPosition = getIntent().getIntExtra(PreviewVideoActivity.EXTRA_START_POSITION, 0);
+                boolean autoplay = getIntent().getBooleanExtra(PreviewVideoActivity.EXTRA_AUTOPLAY, true);
+                secondFragment = new PreviewMediaFragment(file, getAccount(), startPlaybackPosition, autoplay);
             } else if (file.isDown() && PreviewTextFragment.canBePreviewed(file)) {
                 secondFragment = null;
             } else {
@@ -547,8 +551,7 @@ public class FileDisplayActivity extends HookActivity
     }
 
     public FileFragment getSecondFragment() {
-        Fragment second = getSupportFragmentManager().findFragmentByTag(
-                FileDisplayActivity.TAG_SECOND_FRAGMENT);
+        Fragment second = getSupportFragmentManager().findFragmentByTag(FileDisplayActivity.TAG_SECOND_FRAGMENT);
         if (second != null) {
             return (FileFragment) second;
         }
@@ -754,7 +757,7 @@ public class FileDisplayActivity extends HookActivity
                             R.drawable.ic_view_list));
                     getListOfFilesFragment().setGridAsPreferred();
                 }
-                return true;
+                break;
             }
             default:
                 retval = super.onOptionsItemSelected(item);
@@ -2064,4 +2067,16 @@ public class FileDisplayActivity extends HookActivity
         super.showFiles(onDeviceOnly);
         getListOfFilesFragment().refreshDirectory();
     }
+
+    @Subscribe(threadMode = ThreadMode.BACKGROUND)
+    public void onMessageEvent(TokenPushEvent event) {
+        PushUtils.pushRegistrationToServer();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        EventBus.getDefault().post(new TokenPushEvent());
+    }
+
 }

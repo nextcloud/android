@@ -108,7 +108,6 @@
   <string name="ssl_validator_label_signature_algorithm">நெறிமுறை</string>
   <string name="placeholder_sentence">இது ஒரு placeholder</string>
   <string name="conflict_keep_both">இரண்டையும் வைக்க </string>
-  <string name="empty"></string>
   <string name="prefs_category_accounts">கணக்குகள்</string>
   <string name="folder_picker_choose_button_text">தெரிவுசெய்க </string>
   <string name="prefs_category_details">விவரங்கள்</string>

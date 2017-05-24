@@ -66,6 +66,8 @@ import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.PushUtils;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 import org.parceler.Parcels;
 
 import butterknife.BindString;
@@ -445,5 +447,10 @@ public class UserInfoActivity extends FileActivity {
         if (userInfo != null) {
             outState.putParcelable(KEY_USER_DATA, Parcels.wrap(userInfo));
         }
+    }
+
+    @Subscribe(threadMode = ThreadMode.BACKGROUND)
+    public void onMessageEvent(TokenPushEvent event) {
+        PushUtils.pushRegistrationToServer();
     }
 }
