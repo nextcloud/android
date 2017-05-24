@@ -344,6 +344,7 @@ public class Preferences extends PreferenceActivity
                     @Override
                     public boolean onPreferenceClick(Preference preference) {
                         Intent contactsIntent = new Intent(getApplicationContext(), ContactsPreferenceActivity.class);
+                        contactsIntent.putExtra(ContactsPreferenceActivity.EXTRA_SHOW_SIDEBAR, false);
                         startActivity(contactsIntent);
                         return true;
                     }
