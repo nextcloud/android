@@ -39,7 +39,6 @@ import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.text.TextUtils;
 import android.view.Menu;
@@ -297,7 +296,7 @@ public class UserInfoActivity extends FileActivity {
         DisplayUtils.setAvatar(account, UserInfoActivity.this,
                 mCurrentAccountAvatarRadiusDimension, getResources(), getStorageManager(),avatar);
 
-        int tint = ContextCompat.getColor(this, R.color.primary);
+        int tint = DisplayUtils.primaryColor();
 
         if (userInfo != null) {
             if (!TextUtils.isEmpty(userInfo.getDisplayName())) {

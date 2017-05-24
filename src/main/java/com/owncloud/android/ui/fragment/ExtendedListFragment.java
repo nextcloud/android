@@ -646,7 +646,7 @@ public class ExtendedListFragment extends Fragment
                     mEmptyListHeadline.setText(headline);
                     mEmptyListMessage.setText(message);
 
-                    mEmptyListIcon.setImageDrawable(DisplayUtils.tintDrawable(icon, R.color.primary));
+                    mEmptyListIcon.setImageDrawable(DisplayUtils.tintDrawable(icon, DisplayUtils.primaryColor()));
 
                     mEmptyListIcon.setVisibility(View.VISIBLE);
                     mEmptyListProgress.setVisibility(View.GONE);
