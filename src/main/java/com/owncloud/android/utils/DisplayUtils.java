@@ -684,26 +684,42 @@ public class DisplayUtils {
         return text.toString();
     }
 
-    public static Drawable tintDrawable(@DrawableRes int id, @ColorRes int color) {
-        int colorToUse = MainApp.getAppContext().getResources().getColor(color);
-
+    private static OCCapability getCapability() {
         Account account = AccountUtils.getCurrentOwnCloudAccount(MainApp.getAppContext());
 
         if (account != null) {
             Context context = MainApp.getAppContext();
 
             FileDataStorageManager storageManager = new FileDataStorageManager(account, context.getContentResolver());
-            OCCapability capability = storageManager.getCapability(account.name);
+            return storageManager.getCapability(account.name);
+        } else {
+            return new OCCapability();
+        }
+    }
 
-            if (!capability.getServerColor().isEmpty()) {
-                colorToUse = Color.parseColor(capability.getServerColor());
-            }
+    public static Drawable tintDrawable(@DrawableRes int id, @ColorRes int color) {
+        int colorToUse = MainApp.getAppContext().getResources().getColor(color);
+
+        OCCapability capability = getCapability();
+
+        if (!capability.getServerColor().isEmpty()) {
+            colorToUse = Color.parseColor(capability.getServerColor());
         }
 
         Drawable drawable = ResourcesCompat.getDrawable(MainApp.getAppContext().getResources(), id, null);
         drawable = DrawableCompat.wrap(drawable);
         DrawableCompat.setTint(drawable, colorToUse);
         return drawable;
+    }
+
+    public static String getDefaultDisplayNameForRootFolder() {
+        OCCapability capability = getCapability();
+
+        if (capability.getServerSlogan().isEmpty()) {
+            return MainApp.getAppContext().getResources().getString(R.string.default_display_name_for_root_folder);
+        } else {
+            return capability.getServerSlogan();
+        }
     }
 
 }
