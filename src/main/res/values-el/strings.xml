@@ -417,7 +417,6 @@
     <string name="file_migration_failed_while_coping">ΣΦΑΛΜΑ: Κατά την μεταφορά</string>
     <string name="file_migration_failed_while_updating_index">ΣΦΑΛΜΑ: Κατά την ενημέρωση ευρετηρίου</string>
 
-    <string name="file_migration_directory_already_exists">Ο φάκελος των δεδομένων υπάρχει ήδη, τι να κάνω;</string>
     <string name="file_migration_override_data_folder">Αντικατάσταση</string>
     <string name="file_migration_use_data_folder">Χρήση</string>
 
