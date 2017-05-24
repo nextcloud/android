@@ -1,7 +1,7 @@
 /*
-  Nextcloud Android client application
-
-  @author Tobias Kaminsky
+ * Nextcloud Android client application
+ *
+ * @author Tobias Kaminsky
  * Copyright (C) 2017 Tobias Kaminsky
  * Copyright (C) 2017 Nextcloud GmbH.
  * <p>
@@ -142,8 +142,8 @@ public class ContactListFragment extends FileFragment {
 
         ActionBar actionBar = contactsPreferenceActivity.getSupportActionBar();
         if (actionBar != null) {
-            contactsPreferenceActivity.getSupportActionBar().setTitle(R.string.actionbar_contacts_restore);
-            contactsPreferenceActivity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            actionBar.setTitle(R.string.actionbar_contacts_restore);
+            actionBar.setDisplayHomeAsUpEnabled(true);
         }
         contactsPreferenceActivity.setDrawerIndicatorEnabled(false);
 
