@@ -254,7 +254,6 @@ Descárgueo de aquí: %2$s</string>
   <string name="network_error_socket_timeout_exception">Produciuse un erro mentres agardaba polo servidor, a operación non se puido levar a fin</string>
   <string name="network_error_connect_timeout_exception">Produciuse un erro mentres agardaba polo servidor, a operación non se puido levar a fin</string>
   <string name="network_host_not_available">A operación non se completou, o servidor non está dispoñíbel</string>
-  <string name="empty"></string>
   <string name="forbidden_permissions">Non ten permisos %s</string>
   <string name="forbidden_permissions_rename">para renomear este ficheiro</string>
   <string name="forbidden_permissions_delete">para eliminar este ficheiro</string>

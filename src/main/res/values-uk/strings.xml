@@ -272,7 +272,6 @@
     <string name="network_error_socket_timeout_exception">Під час очікування на сервер виникла помилка, операцію неможливо завершити</string>
     <string name="network_error_connect_timeout_exception">Під час очікування на сервер виникла помилка, операцію неможливо завершити</string>
     <string name="network_host_not_available">Неможливо завершити операцію, сервер недоступний</string>
-    <string name="empty" />
 
     <string name="forbidden_permissions">У вас немає повноважень %s</string>
     <string name="forbidden_permissions_rename">на перейменування цього файла</string>

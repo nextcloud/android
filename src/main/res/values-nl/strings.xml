@@ -419,7 +419,6 @@ Kies er eentje van een provider.</string>
     <string name="file_migration_failed_while_coping">FOUT: Tijdens migratie</string>
     <string name="file_migration_failed_while_updating_index">FOUT: Tijdens bijwerken index</string>
 
-    <string name="file_migration_directory_already_exists">Gegevensmap bestaat al, wat te doen?</string>
     <string name="file_migration_override_data_folder">Vervangen</string>
     <string name="file_migration_use_data_folder">Gebruiken</string>
 
@@ -483,6 +482,9 @@ Kies er eentje van een provider.</string>
     <string name="file_list__footer__files">%1$d bestanden</string>
     <string name="file_list__footer__files_and_folder">%1$d bestanden, 1 map</string>
     <string name="file_list__footer__files_and_folders">%1$d bestanden, %2$d mappen</string>
+    <string name="set_picture_as">Stel afbeelding in als</string>
+    <string name="set_as">Stel in als</string>
+
     <string name="prefs_instant_behaviour_dialogTitle">Origineel bestand zal&#160;&#8230;</string>
     <string name="prefs_instant_behaviour_title">Origineel bestand zal&#160;&#8230;</string>
     <string name="upload_copy_files">Bestand kopiëren</string>
@@ -657,5 +659,7 @@ Kies er eentje van een provider.</string>
     <!-- Notifications -->
     <string name="new_notification_received">Nieuwe meldingen ontvangen</string>
     <string name="drawer_logout">Uitloggen</string>
+    <string name="picture_set_as_no_app">Geen app gevonden om afbeelding in te stellen</string>
     <string name="privacy">Privacy</string>
-</resources>
+
+  </resources>

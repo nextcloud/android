@@ -417,7 +417,6 @@
     <string name="file_migration_failed_while_coping">ERREUR : Echec lors de la migration</string>
     <string name="file_migration_failed_while_updating_index">ERREUR : Echec lors de la mise à jour de l\'index</string>
 
-    <string name="file_migration_directory_already_exists">Le dossier de données existe déjà. Choisissez une des options suivantes :</string>
     <string name="file_migration_override_data_folder">Remplacer</string>
     <string name="file_migration_use_data_folder">Conserver le dossier actuel</string>
 
@@ -481,6 +480,9 @@
     <string name="file_list__footer__files">%1$d fichiers</string>
     <string name="file_list__footer__files_and_folder">%1$d fichiers, 1 dossier</string>
     <string name="file_list__footer__files_and_folders">%1$d fichiers, %2$d dossiers</string>
+    <string name="set_picture_as">Utiliser l\'image comme</string>
+    <string name="set_as">Utiliser comme</string>
+
     <string name="prefs_instant_behaviour_dialogTitle">Le fichier original sera&#8230;</string>
     <string name="prefs_instant_behaviour_title">Le fichier original sera&#8230;</string>
     <string name="upload_copy_files">Copier le fichier</string>
@@ -653,5 +655,7 @@
     <!-- Notifications -->
     <string name="new_notification_received">Nouvelle notification reçue</string>
     <string name="drawer_logout">Se déconnecter</string>
+    <string name="picture_set_as_no_app">Aucune application trouvée pour utiliser cette image !</string>
     <string name="privacy">Vie privée</string>
-</resources>
+
+  </resources>

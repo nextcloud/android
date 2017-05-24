@@ -508,6 +508,7 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
             case Menu.NONE:
                 // account clicked
                 accountClicked(menuItem.getTitle().toString());
+                break;
             default:
                 Log_OC.i(TAG, "Unknown drawer menu item clicked: " + menuItem.getTitle());
         }

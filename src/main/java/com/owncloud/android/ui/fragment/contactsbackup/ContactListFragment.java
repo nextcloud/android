@@ -23,9 +23,11 @@ package com.owncloud.android.ui.fragment.contactsbackup;
 
 import android.Manifest;
 import android.accounts.Account;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -55,6 +57,7 @@ import android.widget.Toast;
 import com.evernote.android.job.JobRequest;
 import com.evernote.android.job.util.support.PersistableBundleCompat;
 import com.owncloud.android.R;
+import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.services.FileDownloader;
 import com.owncloud.android.lib.common.utils.Log_OC;
@@ -73,6 +76,8 @@ import org.greenrobot.eventbus.ThreadMode;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -104,6 +109,7 @@ public class ContactListFragment extends FileFragment {
     public Button restoreContacts;
 
     private ContactListAdapter contactListAdapter;
+    private Account account;
 
     public static ContactListFragment newInstance(OCFile file, Account account) {
         ContactListFragment frag = new ContactListFragment();
@@ -146,20 +152,39 @@ public class ContactListFragment extends FileFragment {
         try {
             OCFile ocFile = getArguments().getParcelable(FILE_NAME);
             setFile(ocFile);
-            Account account = getArguments().getParcelable(ACCOUNT);
+            account = getArguments().getParcelable(ACCOUNT);
 
-            if (ocFile != null) {
-                if (!ocFile.isDown()) {
-                    Intent i = new Intent(getContext(), FileDownloader.class);
-                    i.putExtra(FileDownloader.EXTRA_ACCOUNT, account);
-                    i.putExtra(FileDownloader.EXTRA_FILE, ocFile);
-                    getContext().startService(i);
-                } else {
-                    File file = new File(ocFile.getStoragePath());
-                    vCards.addAll(Ezvcard.parse(file).all());
-                }
+            if (!ocFile.isDown()) {
+                Intent i = new Intent(getContext(), FileDownloader.class);
+                i.putExtra(FileDownloader.EXTRA_ACCOUNT, account);
+                i.putExtra(FileDownloader.EXTRA_FILE, ocFile);
+                getContext().startService(i);
+
+                // Listen for download messages
+                IntentFilter downloadIntentFilter = new IntentFilter(FileDownloader.getDownloadAddedMessage());
+                downloadIntentFilter.addAction(FileDownloader.getDownloadFinishMessage());
+                DownloadFinishReceiver mDownloadFinishReceiver = new DownloadFinishReceiver();
+                getContext().registerReceiver(mDownloadFinishReceiver, downloadIntentFilter);
             } else {
-                Toast.makeText(getContext(), R.string.file_not_found, Toast.LENGTH_SHORT).show();
+                File file = new File(ocFile.getStoragePath());
+
+                Collections.sort(vCards, new Comparator<VCard>() {
+                    @Override
+                    public int compare(VCard o1, VCard o2) {
+                        if (o1.getFormattedName() != null && o2.getFormattedName() != null) {
+                            return o1.getFormattedName().getValue().compareTo(o2.getFormattedName().getValue());
+                        } else {
+                            if (o1.getFormattedName() == null) {
+                                return 1; // Send the contact to the end of the list
+                            } else {
+                                return -1;
+                            }
+
+                        }
+                    }
+                });
+
+                vCards.addAll(Ezvcard.parse(file).all());
             }
         } catch (IOException e) {
             Log_OC.e(TAG, "Error processing contacts file!", e);
@@ -263,7 +288,7 @@ public class ContactListFragment extends FileFragment {
 
     private void setSelectAllMenuItem(MenuItem selectAll, boolean checked) {
         selectAll.setChecked(checked);
-        if(checked) {
+        if (checked) {
             selectAll.setIcon(R.drawable.ic_select_none);
         } else {
             selectAll.setIcon(R.drawable.ic_select_all);
@@ -446,6 +471,27 @@ public class ContactListFragment extends FileFragment {
             return displayName;
         }
     }
+
+    private class DownloadFinishReceiver extends BroadcastReceiver {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (intent.getAction().equalsIgnoreCase(FileDownloader.getDownloadFinishMessage())){
+                String downloadedRemotePath = intent.getStringExtra(FileDownloader.EXTRA_REMOTE_PATH);
+
+                FileDataStorageManager storageManager = new FileDataStorageManager(account,
+                        getContext().getContentResolver());
+                OCFile ocFile = storageManager.getFileByPath(downloadedRemotePath);
+                File file = new File(ocFile.getStoragePath());
+
+                try {
+                    contactListAdapter.replaceVCards(Ezvcard.parse(file).all());
+                } catch (IOException e) {
+                    Log_OC.e(TAG, "IO Exception: " + file.getAbsolutePath());
+                }
+            }
+        }
+    }
 }
 
 class ContactListAdapter extends RecyclerView.Adapter<ContactListFragment.ContactItemViewHolder> {
@@ -467,12 +513,25 @@ class ContactListAdapter extends RecyclerView.Adapter<ContactListFragment.Contac
         this.checkedVCards = checkedVCards;
     }
 
+    public int getCheckedCount() {
+        if (checkedVCards != null) {
+            return checkedVCards.size();
+        } else {
+            return 0;
+        }
+    }
+
+    public void replaceVCards(List<VCard> vCards) {
+        this.vCards = vCards;
+        notifyDataSetChanged();
+    }
+
     public int[] getCheckedIntArray() {
         int[] intArray;
         if (checkedVCards != null && checkedVCards.size() > 0) {
             intArray = new int[checkedVCards.size()];
             int i = 0;
-            for (int position: checkedVCards) {
+            for (int position : checkedVCards) {
                 intArray[i] = position;
                 i++;
             }
