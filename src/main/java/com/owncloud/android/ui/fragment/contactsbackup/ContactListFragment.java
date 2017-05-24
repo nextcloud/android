@@ -31,6 +31,7 @@ import android.content.IntentFilter;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.ContactsContract;
@@ -179,7 +180,6 @@ public class ContactListFragment extends FileFragment {
                             } else {
                                 return -1;
                             }
-
                         }
                     }
                 });
@@ -492,6 +492,23 @@ public class ContactListFragment extends FileFragment {
             }
         }
     }
+
+    public static class VCardComparator implements Comparator<VCard> {
+        @Override
+        public int compare(VCard o1, VCard o2) {
+            if (o1.getFormattedName() != null && o2.getFormattedName() != null) {
+                return o1.getFormattedName().getValue().compareTo(o2.getFormattedName().getValue());
+            } else {
+                if (o1.getFormattedName() == null) {
+                    return 1; // Send the contact to the end of the list
+                } else {
+                    return -1;
+                }
+            }
+        }
+
+    }
+
 }
 
 class ContactListAdapter extends RecyclerView.Adapter<ContactListFragment.ContactItemViewHolder> {
