@@ -53,7 +53,7 @@
     <string name="prefs_log_title">Virkja skráningu í annál</string>
     <string name="prefs_log_summary">Þetta er notað til að skrá vandamál</string>
     <string name="prefs_log_title_history">Ferill annálsskráningar</string>
-    <string name="prefs_log_summary_history">Þetta sýnir skráningar í annála</string>
+    <string name="prefs_log_summary_history">Þetta sýnir skráningar í atvikaskrár</string>
     <string name="prefs_log_delete_history_button">Eyða ferli</string>
     <string name="prefs_calendar_contacts">Samstilla dagatal &amp; tengiliði</string>
     <string name="prefs_calendar_contacts_summary">Setja upp DAVdroid (v1.3.0+) fyrir þennan aðgang</string>
@@ -419,7 +419,6 @@ Smelltu hér til að fá þér einn frá þjónustuaðila.</string>
     <string name="file_migration_failed_while_coping">VILLA: Mistókst við yfirfærslu</string>
     <string name="file_migration_failed_while_updating_index">VILLA: Mistókst að uppfæra skráningarvísi</string>
 
-    <string name="file_migration_directory_already_exists">Gagnamappa er þegar til staðar. Veldu eitt af eftirtöldu:</string>
     <string name="file_migration_override_data_folder">Skipta út</string>
     <string name="file_migration_use_data_folder">Nota</string>
 
@@ -431,10 +430,10 @@ Smelltu hér til að fá þér einn frá þjónustuaðila.</string>
     <string name="drawer_manage_accounts">Sýsla með notandaaðganga</string>
     <string name="auth_redirect_non_secure_connection_title">Öruggri tengingu endurbeint í gegnum óörugga leið.</string>
 
-	<string name="actionbar_logger">Annálar</string>
+	<string name="actionbar_logger">Atvikaskrár</string>
 	<string name="log_send_history_button">Ferill sendinga</string>
 	<string name="log_send_no_mail_app">Ekkert forrit fannst til að senda atvikaskrár. Settu upp tölvupóstforrit.</string>
-	<string name="log_send_mail_subject">%1$s annálar Android-forrita</string>
+	<string name="log_send_mail_subject">%1$s atvikaskrár Android-forrita</string>
 	<string name="log_progress_dialog_text">Hleð inn gögnum &#8230;</string>
 
 	<string name="saml_authentication_required_text">Auðkenningar krafist</string>
@@ -660,4 +659,5 @@ Smelltu hér til að fá þér einn frá þjónustuaðila.</string>
     <string name="drawer_logout">Útskráning</string>
     <string name="picture_set_as_no_app">Engin forrit fundust til að setja mynd!</string>
     <string name="privacy">Gagnaleynd</string>
-</resources>
+
+  </resources>
