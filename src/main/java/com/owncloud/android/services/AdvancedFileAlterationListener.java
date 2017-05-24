@@ -20,6 +20,7 @@
 package com.owncloud.android.services;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.media.ExifInterface;
 import android.os.Handler;
 import android.text.TextUtils;
@@ -27,11 +28,13 @@ import android.text.TextUtils;
 import com.evernote.android.job.JobRequest;
 import com.evernote.android.job.util.support.PersistableBundleCompat;
 import com.owncloud.android.MainApp;
+import com.owncloud.android.R;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.SyncedFolder;
+import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.ui.activity.FolderSyncActivity;
+import com.owncloud.android.ui.activity.Preferences;
 import com.owncloud.android.utils.FileStorageUtils;
 
 import org.apache.commons.io.monitor.FileAlterationListener;
@@ -139,21 +142,16 @@ public class AdvancedFileAlterationListener implements FileAlterationListener {
                         ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProvider(context
                                 .getContentResolver());
 
-                        remotePath = arbitraryDataProvider.getValue(accountName,
-                                FolderSyncActivity.SYNCED_FOLDER_LIGHT_REMOTE_FOLDER) + OCFile.PATH_SEPARATOR +
+                        Resources resources = MainApp.getAppContext().getResources();
+
+                        remotePath = resources.getString(R.string.syncedFolder_remote_folder) + OCFile.PATH_SEPARATOR +
                                 new File(syncedFolder.getLocalPath()).getName() + OCFile.PATH_SEPARATOR;
-
-                        subfolderByDate = arbitraryDataProvider.getBooleanValue(accountName,
-                                FolderSyncActivity.SYNCED_FOLDER_LIGHT_USE_SUBFOLDERS);
-
-                        chargingOnly = arbitraryDataProvider.getBooleanValue(accountName,
-                                FolderSyncActivity.SYNCED_FOLDER_LIGHT_UPLOAD_ON_CHARGING);
-
+                        subfolderByDate = resources.getBoolean(R.bool.syncedFolder_light_use_subfolders);
+                        chargingOnly = resources.getBoolean(R.bool.syncedFolder_light_on_charging);
                         wifiOnly = arbitraryDataProvider.getBooleanValue(accountName,
-                                FolderSyncActivity.SYNCED_FOLDER_LIGHT_UPLOAD_ON_WIFI);
-
-                        uploadAction = arbitraryDataProvider.getIntegerValue(accountName,
-                                FolderSyncActivity.SYNCED_FOLDER_LIGHT_UPLOAD_BEHAVIOUR);
+                                Preferences.SYNCED_FOLDER_LIGHT_UPLOAD_ON_WIFI);
+                        String uploadActionString = resources.getString(R.string.syncedFolder_light_upload_behaviour);
+                        uploadAction = getUploadAction(uploadActionString);
                     } else {
                         remotePath = syncedFolder.getRemotePath();
                         subfolderByDate = syncedFolder.getSubfolderByDate();
@@ -190,6 +188,19 @@ public class AdvancedFileAlterationListener implements FileAlterationListener {
 
             uploadMap.put(file.getAbsolutePath(), runnable);
             handler.postDelayed(runnable, delay);
+        }
+    }
+
+    private Integer getUploadAction(String action) {
+        switch (action) {
+            case "LOCAL_BEHAVIOUR_FORGET":
+                return FileUploader.LOCAL_BEHAVIOUR_FORGET;
+            case "LOCAL_BEHAVIOUR_MOVE":
+                return FileUploader.LOCAL_BEHAVIOUR_MOVE;
+            case "LOCAL_BEHAVIOUR_DELETE":
+                return FileUploader.LOCAL_BEHAVIOUR_DELETE;
+            default:
+                return FileUploader.LOCAL_BEHAVIOUR_FORGET;
         }
     }
 

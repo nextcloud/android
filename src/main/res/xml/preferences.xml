@@ -17,17 +17,25 @@
   You should have received a copy of the GNU General Public License
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+				  android:key="preference_screen">
     <PreferenceCategory
         android:title="@string/prefs_category_general"
         android:key="general">
         <ListPreference
             android:title="@string/prefs_storage_path"
             android:key="storage_path"/>
+	</PreferenceCategory>
+	<PreferenceCategory
+		android:title="@string/drawer_folder_sync"
+		android:key="folder_sync">
+		<android.preference.CheckBoxPreference
+			android:title="@string/auto_upload_on_wifi"
+			android:key="synced_folder_on_wifi"/>
         <Preference
-            android:title="@string/drawer_folder_sync"
-            android:id="@+id/folder_sync"
-            android:key="folder_sync"/>
+			android:title="@string/folder_sync_folders"
+			android:id="@+id/folder_sync_folders"
+			android:key="folder_sync_folders"/>
 	</PreferenceCategory>
 
     <PreferenceCategory android:title="@string/prefs_category_instant_uploading" android:key="instant_uploading_category">
