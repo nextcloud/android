@@ -583,7 +583,7 @@
     <string name="activity_list_loading_activity">Laster inn aktiviteter&#8230;</string>
     <string name="activity_list_no_results">Ingen aktiviteter funnet.</string>
 
-    <string name="notifications_loading_activity">Lsater inn varsler&#8230;</string>
+    <string name="notifications_loading_activity">Laster inn varsler&#8230;</string>
     <string name="notifications_no_results_headline">Ingen varsler</string>
     <string name="notifications_no_results_message">Kom innom senere og ta en titt.</string>
 
