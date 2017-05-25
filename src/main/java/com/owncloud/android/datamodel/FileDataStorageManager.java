@@ -1866,6 +1866,8 @@ public class FileDataStorageManager {
         cv.put(ProviderTableMeta.CAPABILITIES_FILES_VERSIONING, capability.getFilesVersioning().getValue());
         cv.put(ProviderTableMeta.CAPABILITIES_FILES_DROP, capability.getFilesFileDrop().getValue());
         cv.put(ProviderTableMeta.CAPABILITIES_EXTERNAL_LINKS, capability.getExternalLinks().getValue());
+        cv.put(ProviderTableMeta.CAPABILITIES_SERVER_NAME, capability.getServerName());
+        cv.put(ProviderTableMeta.CAPABILITIES_SERVER_COLOR, capability.getServerColor());
 
         if (capabilityExists(mAccount.name)) {
             if (getContentResolver() != null) {
@@ -2004,6 +2006,8 @@ public class FileDataStorageManager {
                     .getColumnIndex(ProviderTableMeta.CAPABILITIES_FILES_DROP))));
             capability.setExternalLinks(CapabilityBooleanType.fromValue(c.getInt(c
                     .getColumnIndex(ProviderTableMeta.CAPABILITIES_EXTERNAL_LINKS))));
+            capability.setServerName(c.getString(c.getColumnIndex(ProviderTableMeta.CAPABILITIES_SERVER_NAME)));
+            capability.setServerColor(c.getString(c.getColumnIndex(ProviderTableMeta.CAPABILITIES_SERVER_COLOR)));
         }
         return capability;
     }
