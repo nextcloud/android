@@ -452,7 +452,7 @@ public class ThumbnailsCacheManager {
                 } else {
                     if (mFile != null) {
                         if (mFile.isDirectory()) {
-                            imageView.setImageResource(R.drawable.ic_menu_archive);
+                            imageView.setImageDrawable(MimeTypeUtil.getDefaultFolderIcon());
                         } else {
                             if (MimeTypeUtil.isVideo(mFile)) {
                                 imageView.setImageBitmap(ThumbnailsCacheManager.mDefaultVideo);

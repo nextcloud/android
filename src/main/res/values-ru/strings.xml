@@ -93,9 +93,9 @@
     <string name="uploader_error_message_source_file_not_found">Файл для загрузки не был найден в положенном месте. Пожалуйста проверьте, существует ли файл.</string>
     <string name="uploader_error_message_source_file_not_copied">Произошла ошибка во время копирования этого файла во временный каталог. Пожалуйста попробуйте отправить его заново.</string>
     <string name="uploader_upload_files_behaviour">Настройка загрузки:</string>
-    <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">Перемещать файл в папку Nextcloud</string>
-    <string name="uploader_upload_files_behaviour_only_upload">Сохранять файл в исходном каталоге</string>
-    <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Удалять файл из исходного каталога</string>
+    <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">Переместить файл в папку Nextcloud</string>
+    <string name="uploader_upload_files_behaviour_only_upload">Сохранить файл в исходном каталоге</string>
+    <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Удалить файл из исходного каталога</string>
     <string name="file_list_seconds_ago">несколько секунд назад</string>
     <string name="file_list_empty_headline">Здесь нет файлов</string>
     <string name="file_list_empty">Загрузите что-нибудь или синхронизируйте со своими устройствами!</string>
