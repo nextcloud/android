@@ -153,7 +153,7 @@ public class PushUtils {
 
             if (remoteOperationResult.getHttpCode() == HttpStatus.SC_ACCEPTED) {
                 String arbitraryValue;
-                if (!TextUtils.isEmpty(arbitraryValue = arbitraryDataProvider.getValue(account.name, KEY_PUSH))) {
+                if (!TextUtils.isEmpty(arbitraryValue = arbitraryDataProvider.getValue(account, KEY_PUSH))) {
                     Gson gson = new Gson();
                     PushConfigurationState pushArbitraryData = gson.fromJson(arbitraryValue,
                             PushConfigurationState.class);
@@ -244,7 +244,7 @@ public class PushUtils {
                                     PushConfigurationState pushArbitraryData = new PushConfigurationState(token,
                                             pushResponse.getDeviceIdentifier(), pushResponse.getSignature(),
                                             pushResponse.getPublicKey(), false);
-                                    arbitraryDataProvider.storeOrUpdateKeyValue(account, KEY_PUSH,
+                                    arbitraryDataProvider.storeOrUpdateKeyValue(account.name, KEY_PUSH,
                                             gson.toJson(pushArbitraryData));
                                 }
                             }
