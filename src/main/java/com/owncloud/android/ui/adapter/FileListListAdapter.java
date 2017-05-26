@@ -324,18 +324,17 @@ public class FileListListAdapter extends BaseAdapter {
             view.setBackgroundColor(Color.WHITE);
 
             AbsListView parentList = (AbsListView) parent;
+
             if (parentList.getChoiceMode() != AbsListView.CHOICE_MODE_NONE &&
                     parentList.getCheckedItemCount() > 0
                     ) {
                 if (parentList.isItemChecked(position)) {
-                    view.setBackgroundColor(mContext.getResources().getColor(
-                            R.color.selected_item_background));
-                    checkBoxV.setImageResource(
-                            R.drawable.ic_checkbox_marked);
+                    view.setBackgroundColor(mContext.getResources().getColor(R.color.selected_item_background));
+                    checkBoxV.setImageDrawable(DisplayUtils.tintDrawable(R.drawable.ic_checkbox_marked,
+                            R.color.primary));
                 } else {
                     view.setBackgroundColor(Color.WHITE);
-                    checkBoxV.setImageResource(
-                            R.drawable.ic_checkbox_blank_outline);
+                    checkBoxV.setImageResource(R.drawable.ic_checkbox_blank_outline);
                 }
                 checkBoxV.setVisibility(View.VISIBLE);
             }
@@ -406,8 +405,8 @@ public class FileListListAdapter extends BaseAdapter {
 
             } else {
                 // Folder
-                fileIcon.setImageResource(
-                        MimeTypeUtil.getFolderTypeIconId(
+                fileIcon.setImageDrawable(
+                        MimeTypeUtil.getFolderTypeIcon(
                                 file.isSharedWithMe() || file.isSharedWithSharee(),
                                 file.isSharedViaLink()
                         )
