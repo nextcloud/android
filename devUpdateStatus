@@ -1,8 +1,9 @@
-2017-05-26
+2017-05-27
 Branches: 6
+[00 / 06] Dev branch (nextcloud/dev) [https://github.com/nextcloud/android/tree/dev] was updated successfully
 [01 / 06] Search view wrong files (nextcloud/searchViewWrongFiles) [https://github.com/nextcloud/android/pull/896] no update needed
 [02 / 06] Search inside of text files (nextcloud/bugfix-454) [https://github.com/nextcloud/android/pull/565] CONFLICT
 [03 / 06] Pinch zoom (nextcloud/pinchZoom) [https://github.com/nextcloud/android/pull/143] no update needed
 [04 / 06] Resized images (nextcloud/resizedImages) [https://github.com/nextcloud/android/pull/69] CONFLICT
-[05 / 06] Master (nextcloud/master) [https://github.com/nextcloud/android] merged successfully
+[05 / 06] Master (nextcloud/master) [https://github.com/nextcloud/android] no update needed
 [06 / 06] Dev base (nextcloud/dev-base) [https://github.com/nextcloud/android/tree/dev-base] CONFLICT
