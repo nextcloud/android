@@ -274,10 +274,10 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
      * setup quota elements of the drawer.
      */
     private void setupQuotaElement() {
-        mQuotaView = (LinearLayout) findViewById(R.id.drawer_quota);
-        mQuotaProgressBar = (ProgressBar) findViewById(R.id.drawer_quota_ProgressBar);
-        mQuotaTextPercentage = (TextView) findViewById(R.id.drawer_quota_percentage);
-        mQuotaTextLink = (TextView) findViewById(R.id.drawer_quota_link);
+        mQuotaView = (LinearLayout) findQuotaViewById(R.id.drawer_quota);
+        mQuotaProgressBar = (ProgressBar) findQuotaViewById(R.id.drawer_quota_ProgressBar);
+        mQuotaTextPercentage = (TextView) findQuotaViewById(R.id.drawer_quota_percentage);
+        mQuotaTextLink = (TextView) findQuotaViewById(R.id.drawer_quota_link);
         DisplayUtils.colorPreLollipopHorizontalProgressBar(mQuotaProgressBar);
     }
 
@@ -1099,6 +1099,22 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
      */
     private View findNavigationViewChildById(int id) {
         return ((NavigationView) findViewById(R.id.nav_view)).getHeaderView(0).findViewById(id);
+    }
+
+    /**
+     * Quota view can be either at navigation bottom or header
+     *
+     * @param id the view's id
+     * @return The view if found or <code>null</code> otherwise.
+     */
+    private View findQuotaViewById(int id) {
+        View v = ((NavigationView) findViewById(R.id.nav_view)).getHeaderView(0).findViewById(id);
+
+        if (v != null) {
+            return v;
+        } else {
+            return findViewById(id);
+        }
     }
 
     /**
