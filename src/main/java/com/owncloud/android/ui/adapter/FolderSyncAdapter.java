@@ -81,6 +81,11 @@ public class FolderSyncAdapter extends SectionedRecyclerViewAdapter<FolderSyncAd
         notifyDataSetChanged();
     }
 
+    public void addSyncFolderItem(SyncedFolderDisplayItem syncFolderItem) {
+        mSyncFolderItems.add(syncFolderItem);
+        notifyDataSetChanged();
+    }
+
     @Override
     public int getSectionCount() {
         return mSyncFolderItems.size();
