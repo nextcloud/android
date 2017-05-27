@@ -468,33 +468,43 @@ public class FolderSyncActivity extends FileActivity implements FolderSyncAdapte
 
     @Override
     public void onSaveSyncedFolderPreference(SyncedFolderParcelable syncedFolder) {
-        SyncedFolderDisplayItem item = syncFolderItems.get(syncedFolder.getSection());
-        boolean dirty = item.isEnabled() != syncedFolder.getEnabled();
-        item = updateSyncedFolderItem(item, syncedFolder.getLocalPath(), syncedFolder.getRemotePath(), syncedFolder
-                .getWifiOnly(), syncedFolder.getChargingOnly(), syncedFolder.getSubfolderByDate(), syncedFolder
-                .getUploadAction(), syncedFolder.getEnabled());
-
-        if (syncedFolder.getId() == UNPERSISTED_ID) {
-            // newly set up folder sync config
-            long storedId = mSyncedFolderProvider.storeFolderSync(item);
+        // custom folders newly created aren't in the list already,
+        // so triggering a refresh
+        if (MediaFolder.CUSTOM.equals(syncedFolder.getType()) && syncedFolder.getId() == UNPERSISTED_ID) {
+            SyncedFolderDisplayItem newCustomFolder = new SyncedFolderDisplayItem(
+                    SyncedFolder.UNPERSISTED_ID, syncedFolder.getLocalPath(), syncedFolder.getRemotePath(),
+                    syncedFolder.getWifiOnly(), syncedFolder.getChargingOnly(), syncedFolder.getSubfolderByDate(),
+                    syncedFolder.getAccount(), syncedFolder.getUploadAction(), syncedFolder.getEnabled(),
+                    new File(syncedFolder.getLocalPath()).getName(), syncedFolder.getType());
+            long storedId = mSyncedFolderProvider.storeFolderSync(newCustomFolder);
             if (storedId != -1) {
-                item.setId(storedId);
+                newCustomFolder.setId(storedId);
             }
-
-            // custom folders newly created aren't in the list already,
-            // so triggering a refresh
-            if (MediaFolder.CUSTOM.equals(item.getType())) {
-                // TODO add item to the list and enforce a refresh
-            }
+            mAdapter.addSyncFolderItem(newCustomFolder);
         } else {
-            // existing synced folder setup to be updated
-            mSyncedFolderProvider.updateSyncFolder(item);
-        }
-        mSyncedFolderPreferencesDialogFragment = null;
+            SyncedFolderDisplayItem item = syncFolderItems.get(syncedFolder.getSection());
+            boolean dirty = item.isEnabled() != syncedFolder.getEnabled();
+            item = updateSyncedFolderItem(item, syncedFolder.getLocalPath(), syncedFolder.getRemotePath(), syncedFolder
+                    .getWifiOnly(), syncedFolder.getChargingOnly(), syncedFolder.getSubfolderByDate(), syncedFolder
+                    .getUploadAction(), syncedFolder.getEnabled());
 
-        if (dirty) {
-            mAdapter.setSyncFolderItem(syncedFolder.getSection(), item);
+            if (syncedFolder.getId() == UNPERSISTED_ID) {
+                // newly set up folder sync config
+                long storedId = mSyncedFolderProvider.storeFolderSync(item);
+                if (storedId != -1) {
+                    item.setId(storedId);
+                }
+            } else {
+                // existing synced folder setup to be updated
+                mSyncedFolderProvider.updateSyncFolder(item);
+            }
+
+            if(dirty) {
+                mAdapter.setSyncFolderItem(syncedFolder.getSection(), item);
+            }
         }
+
+        mSyncedFolderPreferencesDialogFragment = null;
     }
 
     @Override
