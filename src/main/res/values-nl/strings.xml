@@ -419,6 +419,7 @@ Kies er eentje van een provider.</string>
     <string name="file_migration_failed_while_coping">FOUT: Tijdens migratie</string>
     <string name="file_migration_failed_while_updating_index">FOUT: Tijdens bijwerken index</string>
 
+    <string name="file_migration_directory_already_exists">Datamap bestaat al. Kies een van de volgende:</string>
     <string name="file_migration_override_data_folder">Vervangen</string>
     <string name="file_migration_use_data_folder">Gebruiken</string>
 
