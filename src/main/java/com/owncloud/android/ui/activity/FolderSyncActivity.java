@@ -456,8 +456,12 @@ public class FolderSyncActivity extends FileActivity implements FolderSyncAdapte
                 && resultCode == RESULT_OK && mSyncedFolderPreferencesDialogFragment != null) {
             OCFile chosenFolder = data.getParcelableExtra(FolderPickerActivity.EXTRA_FOLDER);
             mSyncedFolderPreferencesDialogFragment.setRemoteFolderSummary(chosenFolder.getRemotePath());
-
-        } else {
+        } if (requestCode == SyncedFolderPreferencesDialogFragment.REQUEST_CODE__SELECT_LOCAL_FOLDER
+                && resultCode == RESULT_OK && mSyncedFolderPreferencesDialogFragment != null) {
+            String localPath = data.getStringExtra(UploadFilesActivity.EXTRA_CHOSEN_FILES);
+            mSyncedFolderPreferencesDialogFragment.setLocalFolderSummary(localPath);
+        }
+        else {
             super.onActivityResult(requestCode, resultCode, data);
         }
     }
