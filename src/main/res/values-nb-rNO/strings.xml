@@ -418,6 +418,7 @@
     <string name="file_migration_failed_while_coping">FEIL: Under migrering</string>
     <string name="file_migration_failed_while_updating_index">FEIL: Under oppdatering av indeks</string>
 
+    <string name="file_migration_directory_already_exists">Datamappen finnes allerede. Velg en av disse:</string>
     <string name="file_migration_override_data_folder">Erstatt</string>
     <string name="file_migration_use_data_folder">Bruk</string>
 
