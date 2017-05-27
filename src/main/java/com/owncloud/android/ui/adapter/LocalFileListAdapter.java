@@ -41,6 +41,7 @@ import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
 
 import java.io.File;
+import java.io.FileFilter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -58,10 +59,12 @@ public class LocalFileListAdapter extends BaseAdapter implements FilterableListA
 
     private Context mContext;
     private File[] mFiles = null;
-    private Vector<File> mFilesAll = new Vector<File>();
+    private Vector<File> mFilesAll = new Vector<>();
+    private boolean mLocalFolderPicker;
 
-    public LocalFileListAdapter(File directory, Context context) {
+    public LocalFileListAdapter(boolean localFolderPickerMode, File directory, Context context) {
         mContext = context;
+        mLocalFolderPicker = localFolderPickerMode;
 
         // Read sorting order, default to sort by name ascending
         FileStorageUtils.mSortOrder = PreferenceManager.getSortOrder(context);
@@ -270,7 +273,11 @@ public class LocalFileListAdapter extends BaseAdapter implements FilterableListA
      * @param directory     New file to adapt. Can be NULL, meaning "no content to adapt".
      */
     public void swapDirectory(final File directory) {
-        mFiles = (directory != null ? directory.listFiles() : null);
+        if(mLocalFolderPicker) {
+            mFiles = (directory != null ? getFolders(directory) : null);
+        } else {
+            mFiles = (directory != null ? directory.listFiles() : null);
+        }
         if (mFiles != null) {
             Arrays.sort(mFiles, new Comparator<File>() {
                 @Override
@@ -286,7 +293,6 @@ public class LocalFileListAdapter extends BaseAdapter implements FilterableListA
                 private int compareNames(File lhs, File rhs) {
                     return lhs.getName().toLowerCase().compareTo(rhs.getName().toLowerCase());                
                 }
-            
             });
 
             mFiles = FileStorageUtils.sortLocalFolder(mFiles);
@@ -313,6 +319,15 @@ public class LocalFileListAdapter extends BaseAdapter implements FilterableListA
 
         mFiles = FileStorageUtils.sortLocalFolder(mFiles);
         notifyDataSetChanged();
+    }
+
+    private File[] getFolders(final File directory) {
+        return directory.listFiles(new FileFilter() {
+            @Override
+            public boolean accept(File file) {
+                return file.isDirectory();
+            }
+        });
     }
 
     public void filter(String text){

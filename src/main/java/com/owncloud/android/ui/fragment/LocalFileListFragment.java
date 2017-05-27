@@ -49,6 +49,11 @@ import java.util.ArrayList;
  */
 public class LocalFileListFragment extends ExtendedListFragment {
     private static final String TAG = LocalFileListFragment.class.getSimpleName();
+
+    private static final String MY_PACKAGE = OCFileListFragment.class.getPackage() != null ?
+            OCFileListFragment.class.getPackage().getName() : "com.owncloud.android.ui.fragment";
+
+    public final static String ARG_LOCAL_FOLDER_PICKER_MODE = MY_PACKAGE + ".LOCAL_FOLDER_PICKER_MODE";
     
     /** Reference to the Activity which this fragment is attached to. For callbacks */
     private LocalFileListFragment.ContainerActivity mContainerActivity;
@@ -58,6 +63,8 @@ public class LocalFileListFragment extends ExtendedListFragment {
     
     /** Adapter to connect the data from the directory with the View object */
     private LocalFileListAdapter mAdapter = null;
+
+    private boolean mLocalFolderPicker;
 
     private static final String SCREEN_NAME = "Local file browser";
 
@@ -97,7 +104,9 @@ public class LocalFileListFragment extends ExtendedListFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Log_OC.i(TAG, "onCreateView() start");
         View v = super.onCreateView(inflater, container, savedInstanceState);
-        setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
+        if(!mLocalFolderPicker) {
+            setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
+        }
         setSwipeEnabled(false); // Disable pull-to-refresh
         setFabEnabled(false); // Disable FAB
         setMessageForEmptyList(R.string.file_list_empty_headline, R.string.local_file_list_empty,
@@ -115,7 +124,10 @@ public class LocalFileListFragment extends ExtendedListFragment {
         Log_OC.i(TAG, "onActivityCreated() start");
         
         super.onActivityCreated(savedInstanceState);
-        mAdapter = new LocalFileListAdapter(mContainerActivity.getInitialDirectory(), getActivity());
+
+        Bundle args = getArguments();
+        mLocalFolderPicker = (args != null) && args.getBoolean(ARG_LOCAL_FOLDER_PICKER_MODE, false);
+        mAdapter = new LocalFileListAdapter(mLocalFolderPicker, mContainerActivity.getInitialDirectory(), getActivity());
         setListAdapter(mAdapter);
         
         Log_OC.i(TAG, "onActivityCreated() stop");
