@@ -481,6 +481,11 @@ public class FolderSyncActivity extends FileActivity implements FolderSyncAdapte
                 item.setId(storedId);
             }
 
+            // custom folders newly created aren't in the list already,
+            // so triggering a refresh
+            if (MediaFolder.CUSTOM.equals(item.getType())) {
+                // TODO add item to the list and enforce a refresh
+            }
         } else {
             // existing synced folder setup to be updated
             mSyncedFolderProvider.updateSyncFolder(item);
