@@ -45,6 +45,7 @@ import com.owncloud.android.datamodel.MediaFolder;
 import com.owncloud.android.datamodel.SyncedFolderDisplayItem;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.activity.FolderPickerActivity;
+import com.owncloud.android.ui.activity.UploadFilesActivity;
 import com.owncloud.android.ui.dialog.parcel.SyncedFolderParcelable;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.ThemeUtils;
@@ -219,6 +220,18 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment {
     }
 
     /**
+     * set (new) local path on activity result of the folder picker activity. The result gets originally propagated
+     * to the underlying activity since the picker is an activity and the result can't get passed to the dialog
+     * fragment directly.
+     *
+     * @param path the remote path to be set
+     */
+    public void setLocalFolderSummary(String path) {
+        mSyncedFolder.setLocalPath(path);
+        mLocalFolderSummary.setText(path);
+    }
+
+    /**
      * setup all listeners.
      *
      * @param view the parent view
@@ -258,8 +271,6 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment {
             @Override
             public void onClick(View v) {
                 Intent action = new Intent(getActivity(), FolderPickerActivity.class);
-                action.putExtra(
-                        FolderPickerActivity.EXTRA_ACTION, getResources().getText(R.string.choose_remote_folder));
                 getActivity().startActivityForResult(action, REQUEST_CODE__SELECT_REMOTE_FOLDER);
             }
         });
@@ -267,9 +278,8 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment {
         view.findViewById(R.id.local_folder_container).setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent action = new Intent(getActivity(), FolderPickerActivity.class);
-                action.putExtra(
-                        FolderPickerActivity.EXTRA_ACTION, getResources().getText(R.string.choose_remote_folder));
+                Intent action = new Intent(getActivity(), UploadFilesActivity.class);
+                action.putExtra(UploadFilesActivity.KEY_LOCAL_FOLDER_PICKER_MODE, true);
                 getActivity().startActivityForResult(action, REQUEST_CODE__SELECT_LOCAL_FOLDER);
             }
         });

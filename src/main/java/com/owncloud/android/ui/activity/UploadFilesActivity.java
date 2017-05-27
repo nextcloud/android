@@ -75,6 +75,7 @@ public class UploadFilesActivity extends FileActivity implements
     private ArrayAdapter<String> mDirectories;
     private File mCurrentDir = null;
     private boolean mSelectAll = false;
+    private boolean mLocalFolderPickerMode = false;
     private LocalFileListFragment mFileListFragment;
     private Button mCancelBtn;
     protected Button mUploadBtn;
@@ -87,6 +88,10 @@ public class UploadFilesActivity extends FileActivity implements
 
     public static final String EXTRA_CHOSEN_FILES =
             UploadFilesActivity.class.getCanonicalName() + ".EXTRA_CHOSEN_FILES";
+
+    public static final String EXTRA_ACTION = UploadFilesActivity.class.getCanonicalName() + ".EXTRA_ACTION";
+    public final static String KEY_LOCAL_FOLDER_PICKER_MODE = UploadFilesActivity.class.getCanonicalName()
+            + ".LOCAL_FOLDER_PICKER_MODE";
 
     public static final int RESULT_OK_AND_MOVE = RESULT_FIRST_USER;
     public static final int RESULT_OK_AND_DO_NOTHING = 2;
@@ -105,6 +110,11 @@ public class UploadFilesActivity extends FileActivity implements
     public void onCreate(Bundle savedInstanceState) {
         Log_OC.d(TAG, "onCreate() start");
         super.onCreate(savedInstanceState);
+
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            mLocalFolderPickerMode = extras.getBoolean(KEY_LOCAL_FOLDER_PICKER_MODE, false);
+        }
 
         if(savedInstanceState != null) {
             mCurrentDir = new File(savedInstanceState.getString(UploadFilesActivity.KEY_DIRECTORY_PATH, Environment
@@ -130,8 +140,13 @@ public class UploadFilesActivity extends FileActivity implements
         // Inflate and set the layout view
         setContentView(R.layout.upload_files_layout);
 
+        if (mLocalFolderPickerMode) {
+            findViewById(R.id.upload_options).setVisibility(View.GONE);
+            ((AppCompatButton) findViewById(R.id.upload_files_btn_upload))
+                    .setText(R.string.uploader_btn_alternative_text);
+        }
+
         mFileListFragment = (LocalFileListFragment) getSupportFragmentManager().findFragmentById(R.id.local_files_list);
-        
         
         // Set input controllers
         mCancelBtn = (Button) findViewById(R.id.upload_files_btn_cancel);
@@ -432,7 +447,17 @@ public class UploadFilesActivity extends FileActivity implements
             finish();
 
         } else if (v.getId() == R.id.upload_files_btn_upload) {
-            new CheckAvailableSpaceTask().execute(mBehaviourSpinner.getSelectedItemPosition()==0);
+            if(mLocalFolderPickerMode) {
+                Intent data = new Intent();
+                if(mCurrentDir != null) {
+                    data.putExtra(EXTRA_CHOSEN_FILES, mCurrentDir.getAbsolutePath());
+                }
+                setResult(RESULT_OK, data);
+
+                finish();
+            } else {
+                new CheckAvailableSpaceTask().execute(mBehaviourSpinner.getSelectedItemPosition() == 0);
+            }
         }
     }
 
