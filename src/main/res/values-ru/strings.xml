@@ -114,7 +114,7 @@
     <string name="file_list_empty_headline_server_search_photos">Фотографии отсутствуют</string>
     <string name="file_list_empty_search">Искать в другом каталоге?</string>
     <string name="file_list_empty_recently_modified">Не найдно файлов, изменённых за последние 7 дней</string>
-    <string name="file_list_empty_recently_modified_filter">По запросу не найдно файлов, 
+    <string name="file_list_empty_recently_modified_filter">По запросу не найдено файлов, 
 изменённых за последние 7 дней!</string>
     <string name="file_list_empty_recently_added">Не найдено файлов, добавленных недавно</string>
     <string name="file_list_empty_recently_added_filter">По запросу не найдено файлов, добавленных недавно!</string>
