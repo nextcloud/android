@@ -1070,20 +1070,22 @@ public class FileDisplayActivity extends HookActivity
 
         if (searchView != null && !TextUtils.isEmpty(searchQuery)) {
             searchView.setQuery(searchQuery, true);
-        } else {
+        } else if (getListOfFilesFragment() != null && !getListOfFilesFragment().getIsSearchFragment()) {
             refreshListOfFilesFragment(false);
         }
 
         // Listen for sync messages
-        IntentFilter syncIntentFilter = new IntentFilter(FileSyncAdapter.EVENT_FULL_SYNC_START);
-        syncIntentFilter.addAction(FileSyncAdapter.EVENT_FULL_SYNC_END);
-        syncIntentFilter.addAction(FileSyncAdapter.EVENT_FULL_SYNC_FOLDER_CONTENTS_SYNCED);
-        syncIntentFilter.addAction(RefreshFolderOperation.EVENT_SINGLE_FOLDER_CONTENTS_SYNCED);
-        syncIntentFilter.addAction(RefreshFolderOperation.EVENT_SINGLE_FOLDER_SHARES_SYNCED);
-        mSyncBroadcastReceiver = new SyncBroadcastReceiver();
-        registerReceiver(mSyncBroadcastReceiver, syncIntentFilter);
-        //LocalBroadcastManager.getInstance(this).registerReceiver(mSyncBroadcastReceiver,
-        // syncIntentFilter);
+        if (getListOfFilesFragment() != null && !getListOfFilesFragment().getIsSearchFragment()) {
+            IntentFilter syncIntentFilter = new IntentFilter(FileSyncAdapter.EVENT_FULL_SYNC_START);
+            syncIntentFilter.addAction(FileSyncAdapter.EVENT_FULL_SYNC_END);
+            syncIntentFilter.addAction(FileSyncAdapter.EVENT_FULL_SYNC_FOLDER_CONTENTS_SYNCED);
+            syncIntentFilter.addAction(RefreshFolderOperation.EVENT_SINGLE_FOLDER_CONTENTS_SYNCED);
+            syncIntentFilter.addAction(RefreshFolderOperation.EVENT_SINGLE_FOLDER_SHARES_SYNCED);
+            mSyncBroadcastReceiver = new SyncBroadcastReceiver();
+            registerReceiver(mSyncBroadcastReceiver, syncIntentFilter);
+            //LocalBroadcastManager.getInstance(this).registerReceiver(mSyncBroadcastReceiver,
+            // syncIntentFilter);
+        }
 
         // Listen for upload messages
         IntentFilter uploadIntentFilter = new IntentFilter(FileUploader.getUploadFinishMessage());
@@ -2062,7 +2064,7 @@ public class FileDisplayActivity extends HookActivity
 
     private void refreshList(boolean ignoreETag) {
         OCFileListFragment listOfFiles = getListOfFilesFragment();
-        if (listOfFiles != null) {
+        if (listOfFiles != null && !listOfFiles.getIsSearchFragment()) {
             OCFile folder = listOfFiles.getCurrentFile();
             if (folder != null) {
                 /*mFile = mContainerActivity.getStorageManager().getFileById(mFile.getFileId());
