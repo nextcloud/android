@@ -1791,7 +1791,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
                 SharedPreferences.Editor editor = PreferenceManager
                         .getDefaultSharedPreferences(this).edit();
                 editor.putString("select_oc_account", accountName);
-                editor.commit();
+                editor.apply();
             }
 
             /// prepare result to return to the Authenticator

@@ -156,7 +156,7 @@ public class AccountUtils {
                             .getDefaultSharedPreferences(context).edit();
                     appPrefs.putString("select_oc_account", accountName);
     
-                    appPrefs.commit();
+                    appPrefs.apply();
                     result = true;
                     break;
                 }
@@ -208,7 +208,10 @@ public class AccountUtils {
             if (currentAccountVersion == null) {
                 Log_OC.i(TAG, "Upgrading accounts to account version #" + ACCOUNT_VERSION);
                 Account[] ocAccounts = accountMgr.getAccountsByType(MainApp.getAccountType());
-                String serverUrl, username, newAccountName, password;
+                String serverUrl;
+                String username;
+                String newAccountName;
+                String password;
                 Account newAccount;
                 for (Account account : ocAccounts) {
                     // build new account name

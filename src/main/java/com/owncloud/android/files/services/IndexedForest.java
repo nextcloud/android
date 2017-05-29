@@ -115,7 +115,8 @@ public class IndexedForest<V> {
             String currentPath = remotePath;
             String parentPath = null;
             String parentKey = null;
-            Node<V> currentNode = valuedNode, parentNode = null;
+            Node<V> currentNode = valuedNode;
+            Node<V> parentNode = null;
             boolean linked = false;
             while (!OCFile.ROOT_PATH.equals(currentPath) && !linked) {
                 parentPath = new File(currentPath).getParent();
