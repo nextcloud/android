@@ -328,7 +328,7 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
         }
 
         searchEvent = Parcels.unwrap(getArguments().getParcelable(OCFileListFragment.SEARCH_EVENT));
-        if (searchEvent != null && searchFragment) {
+        if (searchEvent != null && searchFragment && savedInstanceState == null) {
             onMessageEvent(searchEvent);
         }
     }
@@ -1462,6 +1462,14 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
                         } else {
                             mAdapter.setData(remoteOperationResult.getData(), currentSearchType, storageManager);
                         }
+
+                                final FileDisplayActivity fileDisplayActivity = (FileDisplayActivity) getActivity();
+                                fileDisplayActivity.runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        fileDisplayActivity.setIndeterminate(false);
+                                    }
+                                });
                     }
 
                     return remoteOperationResult.isSuccess();
@@ -1519,5 +1527,9 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
 
     public void setSearchFragment(boolean searchFragment) {
         this.searchFragment = searchFragment;
+    }
+
+    public boolean getIsSearchFragment() {
+        return searchFragment;
     }
 }
