@@ -185,7 +185,6 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
             searchEvent = Parcels.unwrap(savedInstanceState.getParcelable(OCFileListFragment.SEARCH_EVENT));
         }
 
-        setEmptyView(searchEvent);
         searchFragment = currentSearchType != null;
     }
 
