@@ -69,8 +69,8 @@ import java.util.List;
 
 public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    public static final int HEADER_TYPE=100;
-    public static final int ACTIVITY_TYPE=101;
+    public static final int HEADER_TYPE = 100;
+    public static final int ACTIVITY_TYPE = 101;
     private final ActivityListInterface activityListInterface;
     private final int px;
     private OwnCloudClient mClient;
@@ -81,23 +81,23 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     public ActivityListAdapter(Context context, ActivityListInterface activityListInterface) {
         this.mValues = new ArrayList<>();
         this.context = context;
-        this.activityListInterface=activityListInterface;
-        px=getThumbnailDimension();
+        this.activityListInterface = activityListInterface;
+        px = getThumbnailDimension();
     }
 
-    public void setActivityItems(List<Object> activityItems,OwnCloudClient client) {
-        this.mClient=client;
+    public void setActivityItems(List<Object> activityItems, OwnCloudClient client) {
+        this.mClient = client;
         mValues.clear();
-        String sTime="";
+        String sTime = "";
         for (Object o : activityItems) {
             Activity activity = (Activity) o;
-            String time=DisplayUtils.getRelativeTimestamp(context,
+            String time = DisplayUtils.getRelativeTimestamp(context,
                     activity.getDatetime().getTime()).toString();
-            if(sTime.equalsIgnoreCase(time)){
+            if (sTime.equalsIgnoreCase(time)) {
                 mValues.add(activity);
-            }else{
+            } else {
 
-                sTime=time;
+                sTime = time;
                 mValues.add(sTime);
                 mValues.add(activity);
             }
@@ -108,10 +108,10 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        if(viewType==ACTIVITY_TYPE) {
+        if (viewType == ACTIVITY_TYPE) {
             View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_list_item, parent, false);
             return new ActivityViewHolder(v);
-        }else {
+        } else {
             View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_list_item_header, parent, false);
             return new ActivityViewHeaderHolder(v);
         }
@@ -121,8 +121,8 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
 
-        if(holder instanceof ActivityViewHolder) {
-            ActivityViewHolder activityViewHolder=(ActivityViewHolder) holder;
+        if (holder instanceof ActivityViewHolder) {
+            final ActivityViewHolder activityViewHolder = (ActivityViewHolder) holder;
             Activity activity = (Activity) mValues.get(position);
             if (activity.getDatetime() != null) {
                 activityViewHolder.dateTime.setText(DisplayUtils.getRelativeTimestamp(context,
@@ -134,7 +134,8 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
             if (!TextUtils.isEmpty(activity.getSubject())) {
                 activityViewHolder.subject.setMovementMethod(LinkMovementMethod.getInstance());
-                activityViewHolder.subject.setText(addClickablePart(activity.getRichElement()), TextView.BufferType.SPANNABLE);
+                activityViewHolder.subject.setText(addClickablePart(activity.getRichSubjectElement()),
+                        TextView.BufferType.SPANNABLE);
                 activityViewHolder.subject.setVisibility(View.VISIBLE);
             } else {
                 activityViewHolder.subject.setVisibility(View.GONE);
@@ -151,29 +152,46 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 downloadIcon(activity.getIcon(), activityViewHolder.activityIcon);
             }
 
-            if(activity.getRichElement()!=null && activity.getRichElement().getRichObjectList().size()>0) {
+            if (activity.getRichSubjectElement() != null &&
+                    activity.getRichSubjectElement().getRichObjectList().size() > 0) {
 
+                activityViewHolder.list.setVisibility(View.VISIBLE);
                 activityViewHolder.list.removeAllViews();
-                for (RichObject richObject : activity.getRichElement().getRichObjectList()) {
-                    ImageView imageView=createThumbnail(richObject);
+
+                activityViewHolder.list.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        int w = activityViewHolder.list.getMeasuredWidth();
+
+                        int elPxSize = px + 20;
+                        int totalColumnCount = (int) Math.floor(w / elPxSize);
+                        activityViewHolder.list.setColumnCount(totalColumnCount);
+                    }
+                });
+
+
+                for (RichObject richObject : activity.getRichSubjectElement().getRichObjectList()) {
+                    ImageView imageView = createThumbnail(richObject);
                     activityViewHolder.list.addView(imageView);
                 }
 
+            } else {
+                activityViewHolder.list.removeAllViews();
+                activityViewHolder.list.setVisibility(View.GONE);
             }
-
-        }else{
-            ActivityViewHeaderHolder activityViewHeaderHolder=(ActivityViewHeaderHolder)holder;
-            activityViewHeaderHolder.title.setText((String)mValues.get(position));
+        } else {
+            ActivityViewHeaderHolder activityViewHeaderHolder = (ActivityViewHeaderHolder) holder;
+            activityViewHeaderHolder.title.setText((String) mValues.get(position));
         }
     }
 
-    public ImageView createThumbnail(final RichObject richObject){
+    private ImageView createThumbnail(final RichObject richObject) {
         OCFile file = new OCFile("/" + richObject.getPath());
         file.setRemoteId(richObject.getId());
 
-        LinearLayout.LayoutParams params=new LinearLayout.LayoutParams(px,px);
-        params.setMargins(10,10,10,10);
-        ImageView imageView=new ImageView(context);
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(px, px);
+        params.setMargins(10, 10, 10, 10);
+        ImageView imageView = new ImageView(context);
         imageView.setLayoutParams(params);
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -181,16 +199,16 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 activityListInterface.onActivityClicked(richObject);
             }
         });
-        setBitmap(file,imageView);
+        setBitmap(file, imageView);
 
         return imageView;
     }
 
-    public void setBitmap(OCFile file, ImageView fileIcon) {
+    private void setBitmap(OCFile file, ImageView fileIcon) {
         // No Folder
         if (!file.isFolder()) {
-            if ((MimeTypeUtil.isImage(file) || MimeTypeUtil.isVideo(file)) ) {
-                String uri = mClient.getBaseUri()+ "" +
+            if ((MimeTypeUtil.isImage(file) || MimeTypeUtil.isVideo(file))) {
+                String uri = mClient.getBaseUri() + "" +
                         "/index.php/apps/files/api/v1/thumbnail/" +
                         px + "/" + px + Uri.encode(file.getRemotePath(), "/");
 
@@ -234,16 +252,16 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     }
 
     private SpannableStringBuilder addClickablePart(RichElement richElement) {
-        String text=richElement.getRichSubject();
+        String text = richElement.getRichSubject();
         SpannableStringBuilder ssb = new SpannableStringBuilder(text);
 
         int idx1 = text.indexOf("{");
         int idx2;
         while (idx1 != -1) {
             idx2 = text.indexOf("}", idx1) + 1;
-            final String clickString = text.substring(idx1+1, idx2-1);
-            final RichObject richObject=searchObjectByName(richElement.getRichObjectList(),clickString);
-            if(richObject!=null) {
+            final String clickString = text.substring(idx1 + 1, idx2 - 1);
+            final RichObject richObject = searchObjectByName(richElement.getRichObjectList(), clickString);
+            if (richObject != null) {
                 String name = richObject.getName();
                 ssb.replace(idx1, idx2, name);
                 text = ssb.toString();
@@ -262,9 +280,9 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         return ssb;
     }
 
-    public RichObject searchObjectByName(ArrayList<RichObject> richObjectList,String name){
+    public RichObject searchObjectByName(ArrayList<RichObject> richObjectList, String name) {
         for (RichObject richObject : richObjectList) {
-            if(richObject.getTag().equalsIgnoreCase(name))
+            if (richObject.getTag().equalsIgnoreCase(name))
                 return richObject;
         }
         return null;
@@ -273,7 +291,7 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     @Override
     public int getItemViewType(int position) {
-        if(mValues.get(position) instanceof Activity)
+        if (mValues.get(position) instanceof Activity)
             return ACTIVITY_TYPE;
         else
             return HEADER_TYPE;
@@ -286,16 +304,17 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     /**
      * Converts size of file icon from dp to pixel
+     *
      * @return int
      */
-    private int getThumbnailDimension(){
+    private int getThumbnailDimension() {
         // Converts dp to pixel
         Resources r = MainApp.getAppContext().getResources();
-        Double d = Math.pow(2,Math.floor(Math.log(r.getDimension(R.dimen.file_icon_size_grid))/Math.log(2)));
+        Double d = Math.pow(2, Math.floor(Math.log(r.getDimension(R.dimen.file_icon_size_grid)) / Math.log(2))) / 2;
         return d.intValue();
     }
 
-    class ActivityViewHolder extends RecyclerView.ViewHolder {
+    private class ActivityViewHolder extends RecyclerView.ViewHolder {
 
         private final ImageView activityIcon;
         private final TextView subject;
@@ -313,7 +332,7 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         }
     }
 
-    class ActivityViewHeaderHolder extends RecyclerView.ViewHolder {
+    private class ActivityViewHeaderHolder extends RecyclerView.ViewHolder {
 
         private final TextView title;
 
