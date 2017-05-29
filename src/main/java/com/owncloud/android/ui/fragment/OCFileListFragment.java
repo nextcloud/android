@@ -359,6 +359,8 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
             } else if (event.getSearchType().equals(SearchOperation.SearchType.SHARED_SEARCH)) {
                 currentSearchType = SearchType.SHARED_FILTER;
             }
+
+            prepareActionBarItems(event);
         }
     }
 
@@ -858,7 +860,7 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
                     } else {
                         ((FileDisplayActivity) mContainerActivity).startImagePreview(file);
                     }
-                } else if (file.isDown() && MimeTypeUtil.isVCard(file)){
+                } else if (file.isDown() && MimeTypeUtil.isVCard(file)) {
                     ((FileDisplayActivity) mContainerActivity).startContactListFragment(file);
                 } else if (PreviewTextFragment.canBePreviewed(file)) {
                     ((FileDisplayActivity) mContainerActivity).startTextPreview(file);
@@ -1320,6 +1322,31 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
 
     }
 
+    private void prepareActionBarItems(SearchEvent event) {
+        if (event != null) {
+            if (event.getSearchType().equals(SearchOperation.SearchType.CONTENT_TYPE_SEARCH)) {
+                if (event.getSearchQuery().equals("image/%")) {
+                    menuItemAddRemoveValue = MenuItemAddRemove.REMOVE_GRID_AND_SORT;
+                } else if (event.getSearchQuery().equals("video/%")) {
+                    menuItemAddRemoveValue = MenuItemAddRemove.REMOVE_SEARCH;
+                }
+            } else if (event.getSearchType().equals(SearchOperation.SearchType.FAVORITE_SEARCH)) {
+                menuItemAddRemoveValue = MenuItemAddRemove.REMOVE_SORT;
+            } else if (event.getSearchType().equals(SearchOperation.SearchType.RECENTLY_ADDED_SEARCH)) {
+                menuItemAddRemoveValue = MenuItemAddRemove.REMOVE_SORT;
+            } else if (event.getSearchType().equals(SearchOperation.SearchType.RECENTLY_MODIFIED_SEARCH)) {
+                menuItemAddRemoveValue = MenuItemAddRemove.REMOVE_SORT;
+            } else if (event.getSearchType().equals(SearchOperation.SearchType.SHARED_SEARCH)) {
+                menuItemAddRemoveValue = MenuItemAddRemove.REMOVE_SEARCH;
+            }
+
+        }
+
+        if (currentSearchType != null && !currentSearchType.equals(SearchType.FILE_SEARCH) && getActivity() != null) {
+            getActivity().invalidateOptionsMenu();
+        }
+    }
+
     private void setEmptyView(SearchEvent event) {
 
         if (event != null) {
@@ -1328,29 +1355,19 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
             } else if (event.getSearchType().equals(SearchOperation.SearchType.CONTENT_TYPE_SEARCH)) {
                 if (event.getSearchQuery().equals("image/%")) {
                     setEmptyListMessage(SearchType.PHOTO_SEARCH);
-                    menuItemAddRemoveValue = MenuItemAddRemove.REMOVE_GRID_AND_SORT;
                 } else if (event.getSearchQuery().equals("video/%")) {
                     setEmptyListMessage(SearchType.VIDEO_SEARCH);
-                    menuItemAddRemoveValue = MenuItemAddRemove.REMOVE_SEARCH;
                 }
             } else if (event.getSearchType().equals(SearchOperation.SearchType.FAVORITE_SEARCH)) {
                 setEmptyListMessage(SearchType.FAVORITE_SEARCH);
-                menuItemAddRemoveValue = MenuItemAddRemove.REMOVE_SORT;
             } else if (event.getSearchType().equals(SearchOperation.SearchType.RECENTLY_ADDED_SEARCH)) {
                 setEmptyListMessage(SearchType.RECENTLY_ADDED_SEARCH);
-                menuItemAddRemoveValue = MenuItemAddRemove.REMOVE_SORT;
             } else if (event.getSearchType().equals(SearchOperation.SearchType.RECENTLY_MODIFIED_SEARCH)) {
                 setEmptyListMessage(SearchType.RECENTLY_MODIFIED_SEARCH);
-                menuItemAddRemoveValue = MenuItemAddRemove.REMOVE_SORT;
             } else if (event.getSearchType().equals(SearchOperation.SearchType.SHARED_SEARCH)) {
                 setEmptyListMessage(SearchType.SHARED_FILTER);
-                menuItemAddRemoveValue = MenuItemAddRemove.REMOVE_SEARCH;
             }
 
-        }
-
-        if (currentSearchType != null && !currentSearchType.equals(SearchType.FILE_SEARCH) && getActivity() != null) {
-            getActivity().invalidateOptionsMenu();
         }
 
     }
@@ -1485,13 +1502,13 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
                             mAdapter.setData(remoteOperationResult.getData(), currentSearchType, storageManager);
                         }
 
-                                final FileDisplayActivity fileDisplayActivity = (FileDisplayActivity) getActivity();
-                                fileDisplayActivity.runOnUiThread(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        fileDisplayActivity.setIndeterminate(false);
-                                    }
-                                });
+                        final FileDisplayActivity fileDisplayActivity = (FileDisplayActivity) getActivity();
+                        fileDisplayActivity.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                fileDisplayActivity.setIndeterminate(false);
+                            }
+                        });
                     }
 
                     return remoteOperationResult.isSuccess();
