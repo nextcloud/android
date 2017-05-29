@@ -377,10 +377,8 @@ public class FileContentProvider extends ContentProvider {
                             ContentUris.withAppendedId(ProviderTableMeta.CONTENT_URI_FILESYSTEM, filesystedId);
                 } else {
                     throw new SQLException("ERROR " + uri);
-
                 }
                 return insertedFilesystemUri;
-
             default:
                 throw new IllegalArgumentException("Unknown uri id: " + uri);
         }
@@ -1026,7 +1024,23 @@ public class FileContentProvider extends ContentProvider {
             }
 
             if (oldVersion < 21 && newVersion >= 21) {
-                Log_OC.i(SQL, "Entering in the #21 ADD in onUpgrade");
+                Log_OC.i(SQL, "Entering in the #21 Adding virtual table");
+                db.beginTransaction();
+                try {
+                    createVirtualTable(db);
+                    upgraded = true;
+                    db.setTransactionSuccessful();
+                } finally {
+                    db.endTransaction();
+                }
+            }
+
+            if (!upgraded) {
+                Log_OC.i(SQL, String.format(Locale.ENGLISH, UPGRADE_VERSION_MSG, oldVersion, newVersion));
+            }
+
+            if (oldVersion < 22 && newVersion >= 22) {
+                Log_OC.i(SQL, "Entering in the #22 adding type colum for synced folders, Create filesystem table");
                 db.beginTransaction();
                 try {
                     // add type column default being CUSTOM (0)
@@ -1052,38 +1066,6 @@ public class FileContentProvider extends ContentProvider {
                 if (!upgraded) {
                     Log_OC.i(SQL, String.format(Locale.ENGLISH, UPGRADE_VERSION_MSG, oldVersion, newVersion));
                 }
-            }
-
-            if (oldVersion < 20 && newVersion >= 20) {
-                Log_OC.i(SQL, "Entering in the #20 Adding arbitrary data table");
-                db.beginTransaction();
-                try {
-                    createArbitraryData(db);
-                    upgraded = true;
-                    db.setTransactionSuccessful();
-                } finally {
-                    db.endTransaction();
-                }
-            }
-
-            if (!upgraded) {
-                Log_OC.i(SQL, String.format(Locale.ENGLISH, UPGRADE_VERSION_MSG, oldVersion, newVersion));
-            }
-
-            if (oldVersion < 21 && newVersion >= 21) {
-                Log_OC.i(SQL, "Entering in the #21 Adding virtual table");
-                db.beginTransaction();
-                try {
-                    createVirtualTable(db);
-                    upgraded = true;
-                    db.setTransactionSuccessful();
-                } finally {
-                    db.endTransaction();
-                }
-            }
-
-            if (!upgraded) {
-                Log_OC.i(SQL, String.format(Locale.ENGLISH, UPGRADE_VERSION_MSG, oldVersion, newVersion));
             }
 
             if (oldVersion < 22 && newVersion >= 22) {
