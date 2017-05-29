@@ -574,17 +574,9 @@ public class FileListListAdapter extends BaseAdapter {
         ArrayList<ContentValues> contentValues = new ArrayList<>();
 
         for (int i = 0; i < objects.size(); i++) {
-            OCFile ocFile;
-
-            // try to find it in database
-            ocFile = mStorageManager.getFileByPath(((RemoteFile) objects.get(i)).getRemotePath());
-
-            if (ocFile == null) {
-                // new
-                ocFile = FileStorageUtils.fillOCFile((RemoteFile) objects.get(i));
-                searchForLocalFileInDefaultPath(ocFile);
-                ocFile = mStorageManager.saveFileWithParent(ocFile, mContext);
-            }
+            OCFile ocFile = FileStorageUtils.fillOCFile((RemoteFile) objects.get(i));
+            searchForLocalFileInDefaultPath(ocFile);
+            ocFile = mStorageManager.saveFileWithParent(ocFile, mContext);
 
             if (!onlyImages || MimeTypeUtil.isImage(ocFile)) {
                 mFiles.add(ocFile);

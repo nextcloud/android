@@ -39,6 +39,7 @@ import android.content.pm.PackageManager;
 import android.content.res.Resources.NotFoundException;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.IBinder;
 import android.os.Parcelable;
 import android.support.design.widget.BottomNavigationView;
@@ -232,6 +233,7 @@ public class FileDisplayActivity extends HookActivity
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
 
+
         if (!PermissionUtil.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
             // Check if we should show an explanation
             if (PermissionUtil.shouldShowRequestPermissionRationale(this,
@@ -269,8 +271,6 @@ public class FileDisplayActivity extends HookActivity
 
         setIndeterminate(mSyncInProgress);
         // always AFTER setContentView(...) in onCreate(); to work around bug in its implementation
-
-        setBackgroundText();
 
         upgradeNotificationForInstantUpload();
     }
@@ -1274,7 +1274,7 @@ public class FileDisplayActivity extends HookActivity
      * loading or folder is empty
      */
     private void setBackgroundText() {
-        OCFileListFragment ocFileListFragment = getListOfFilesFragment();
+        final OCFileListFragment ocFileListFragment = getListOfFilesFragment();
         if (ocFileListFragment != null) {
             if (!mSyncInProgress) {
                 ocFileListFragment.setEmptyListMessage(ExtendedListFragment.SearchType.NO_SEARCH);
