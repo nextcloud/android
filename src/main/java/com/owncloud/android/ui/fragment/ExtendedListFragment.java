@@ -426,6 +426,10 @@ public class ExtendedListFragment extends Fragment
         return v;
     }
 
+    public void setEmptyListVisible() {
+        mEmptyListContainer.setVisibility(View.VISIBLE);
+    }
+
     protected void setupEmptyList(View view) {
         mEmptyListContainer = (LinearLayout) view.findViewById(R.id.empty_list_view);
         mEmptyListMessage = (TextView) view.findViewById(R.id.empty_list_view_text);
@@ -447,7 +451,6 @@ public class ExtendedListFragment extends Fragment
             mTops = savedInstanceState.getIntegerArrayList(KEY_TOPS);
             mHeightCell = savedInstanceState.getInt(KEY_HEIGHT_CELL);
             setMessageForEmptyList(savedInstanceState.getString(KEY_EMPTY_LIST_MESSAGE));
-
         } else {
             mIndexes = new ArrayList<>();
             mFirstPositions = new ArrayList<>();
@@ -643,6 +646,7 @@ public class ExtendedListFragment extends Fragment
 
                     mEmptyListIcon.setVisibility(View.VISIBLE);
                     mEmptyListProgress.setVisibility(View.GONE);
+                    mEmptyListMessage.setVisibility(View.VISIBLE);
                 }
             }
         });
@@ -653,7 +657,7 @@ public class ExtendedListFragment extends Fragment
             @Override
             public void run() {
 
-                if (searchType == SearchType.NO_SEARCH) {
+                if (searchType == SearchType.NO_SEARCH && mEmptyListProgress.getVisibility() == View.GONE) {
                     setMessageForEmptyList(
                             R.string.file_list_empty_headline,
                             R.string.file_list_empty,
