@@ -33,7 +33,8 @@
         android:layout_width="72dp"
         android:layout_height="72dp"
         android:contentDescription="@string/file_list_folder"
-        android:src="@drawable/ic_list_empty_folder"/>
+        android:src="@drawable/ic_list_empty_folder"
+        android:tint="@color/primary"/>
 
     <ProgressBar
         android:id="@+id/empty_list_progress"
