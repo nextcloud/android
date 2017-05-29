@@ -24,6 +24,7 @@ package com.owncloud.android.ui.adapter;
 
 
 import android.accounts.Account;
+import android.content.ContentValues;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -46,7 +47,9 @@ import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
+import com.owncloud.android.datamodel.VirtualFolderType;
 import com.owncloud.android.db.PreferenceManager;
+import com.owncloud.android.db.ProviderMeta;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
@@ -54,6 +57,7 @@ import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.files.ReadRemoteFileOperation;
 import com.owncloud.android.lib.resources.files.RemoteFile;
 import com.owncloud.android.lib.resources.shares.OCShare;
+import com.owncloud.android.lib.resources.shares.ShareType;
 import com.owncloud.android.services.OperationsService.OperationsServiceBinder;
 import com.owncloud.android.ui.activity.ComponentsGetter;
 import com.owncloud.android.ui.fragment.ExtendedListFragment;
@@ -477,39 +481,18 @@ public class FileListListAdapter extends BaseAdapter {
         }
     }
 
-    public void setData(ArrayList<Object> objects, ExtendedListFragment.SearchType searchType) {
+    public void setData(ArrayList<Object> objects, ExtendedListFragment.SearchType searchType, FileDataStorageManager storageManager) {
+        if (storageManager != null && mStorageManager == null) {
+            mStorageManager = storageManager;
+        }
         mFiles = new Vector<>();
-        if (searchType.equals(ExtendedListFragment.SearchType.SHARED_FILTER)) {
-            ArrayList<OCShare> shares = new ArrayList<>();
-            for (int i = 0; i < objects.size(); i++) {
-                // check type before cast as of long running data fetch it is possible that old result is filled
-                if (objects.get(i) instanceof OCShare) {
-                    OCShare ocShare = (OCShare) objects.get(i);
 
-                    shares.add(ocShare);
-
-                    // get ocFile from Server to have an up-to-date copy
-                    ReadRemoteFileOperation operation = new ReadRemoteFileOperation(ocShare.getPath());
-                    RemoteOperationResult result = operation.execute(mAccount, mContext);
-                    if (result.isSuccess()) {
-                        OCFile file = FileStorageUtils.fillOCFile((RemoteFile) result.getData().get(0));
-
-                        mStorageManager.saveFile(file);
-
-                        if (!mFiles.contains(file)) {
-                            mFiles.add(file);
-                        }
-                    } else {
-                        Log_OC.e(TAG, "Error in getting prop for file: " + ocShare.getPath());
-                    }
-                }
-            }
-            mStorageManager.saveShares(shares);
-        } else {
-            for (int i = 0; i < objects.size(); i++) {
-                OCFile ocFile = FileStorageUtils.fillOCFile((RemoteFile) objects.get(i));
-                searchForLocalFileInDefaultPath(ocFile);
-                mFiles.add(ocFile);
+        // early exit
+        if (objects.size() > 0 && mStorageManager != null) {
+            if (searchType.equals(ExtendedListFragment.SearchType.SHARED_FILTER)) {
+                parseShares(objects);
+            } else {
+                parseVirtuals(objects, searchType);
             }
         }
 
@@ -532,6 +515,81 @@ public class FileListListAdapter extends BaseAdapter {
                 OCFileListFragmentInterface.finishedFiltering();
             }
         });
+    }
+
+    private void parseShares(ArrayList<Object> objects) {
+        ArrayList<OCShare> shares = new ArrayList<>();
+        for (int i = 0; i < objects.size(); i++) {
+            // check type before cast as of long running data fetch it is possible that old result is filled
+            if (objects.get(i) instanceof OCShare) {
+                OCShare ocShare = (OCShare) objects.get(i);
+
+                shares.add(ocShare);
+
+                // get ocFile from Server to have an up-to-date copy
+                ReadRemoteFileOperation operation = new ReadRemoteFileOperation(ocShare.getPath());
+                RemoteOperationResult result = operation.execute(mAccount, mContext);
+                if (result.isSuccess()) {
+                    OCFile file = FileStorageUtils.fillOCFile((RemoteFile) result.getData().get(0));
+
+                    ShareType newShareType = ocShare.getShareType();
+                    if (newShareType == ShareType.PUBLIC_LINK) {
+                        file.setShareViaLink(true);
+                    } else if (newShareType == ShareType.USER || newShareType == ShareType.GROUP ||
+                                    newShareType == ShareType.EMAIL || newShareType == ShareType.FEDERATED) {
+                        file.setShareWithSharee(true);
+                    }
+
+                    mStorageManager.saveFile(file);
+
+                    if (!mFiles.contains(file)) {
+                        mFiles.add(file);
+                    }
+                } else {
+                    Log_OC.e(TAG, "Error in getting prop for file: " + ocShare.getPath());
+                }
+            }
+        }
+        mStorageManager.saveShares(shares);
+    }
+
+    private void parseVirtuals(ArrayList<Object> objects, ExtendedListFragment.SearchType searchType) {
+        VirtualFolderType type;
+        boolean onlyImages = false;
+        switch (searchType) {
+            case FAVORITE_SEARCH:
+                type = VirtualFolderType.FAVORITE;
+                break;
+            case PHOTO_SEARCH:
+                type = VirtualFolderType.PHOTOS;
+                onlyImages = true;
+                break;
+            default:
+                type = VirtualFolderType.NONE;
+                break;
+        }
+
+        mStorageManager.deleteVirtuals(type);
+
+        ArrayList<ContentValues> contentValues = new ArrayList<>();
+
+        for (int i = 0; i < objects.size(); i++) {
+            OCFile ocFile = FileStorageUtils.fillOCFile((RemoteFile) objects.get(i));
+            searchForLocalFileInDefaultPath(ocFile);
+            ocFile = mStorageManager.saveFileWithParent(ocFile, mContext);
+
+            if (!onlyImages || MimeTypeUtil.isImage(ocFile)) {
+                mFiles.add(ocFile);
+            }
+
+            ContentValues cv = new ContentValues();
+            cv.put(ProviderMeta.ProviderTableMeta.VIRTUAL_TYPE, type.toString());
+            cv.put(ProviderMeta.ProviderTableMeta.VIRTUAL_OCFILE_ID, ocFile.getFileId());
+
+            contentValues.add(cv);
+        }
+
+        mStorageManager.saveVirtuals(type, contentValues);
     }
 
     /**
