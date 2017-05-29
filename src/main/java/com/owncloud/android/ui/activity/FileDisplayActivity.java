@@ -39,7 +39,6 @@ import android.content.pm.PackageManager;
 import android.content.res.Resources.NotFoundException;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
 import android.os.IBinder;
 import android.os.Parcelable;
 import android.support.design.widget.BottomNavigationView;
