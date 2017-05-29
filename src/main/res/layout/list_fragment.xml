@@ -33,7 +33,7 @@
         android:layout_height="match_parent"
         android:footerDividersEnabled="false"
         android:visibility="visible" >
-        
+
         <com.owncloud.android.ui.ExtendedListView
             android:id="@+id/list_root"
             android:layout_width="match_parent"
