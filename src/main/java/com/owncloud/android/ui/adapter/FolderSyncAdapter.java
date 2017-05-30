@@ -86,6 +86,11 @@ public class FolderSyncAdapter extends SectionedRecyclerViewAdapter<FolderSyncAd
         notifyDataSetChanged();
     }
 
+    public void removeItem(int section) {
+        mSyncFolderItems.remove(section);
+        notifyDataSetChanged();
+    }
+
     @Override
     public int getSectionCount() {
         return mSyncFolderItems.size();
@@ -132,30 +137,30 @@ public class FolderSyncAdapter extends SectionedRecyclerViewAdapter<FolderSyncAd
             });
             setSyncButtonActiveIcon(holder.syncStatusButton, mSyncFolderItems.get(section).isEnabled());
 
-                    holder.syncStatusButton.setVisibility(View.VISIBLE);
-        holder.syncStatusButton.setTag(section);
-        holder.syncStatusButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mSyncFolderItems.get(section).setEnabled(!mSyncFolderItems.get(section).isEnabled());
-                setSyncButtonActiveIcon(holder.syncStatusButton, mSyncFolderItems.get(section).isEnabled());
-                mListener.onSyncStatusToggleClick(section, mSyncFolderItems.get(section));
-            }
-        });
-        setSyncButtonActiveIcon(holder.syncStatusButton, mSyncFolderItems.get(section).isEnabled());
-
-        if (mLight) {
-            holder.menuButton.setVisibility(View.GONE);
-        } else {
-            holder.menuButton.setVisibility(View.VISIBLE);
-            holder.menuButton.setTag(section);
-            holder.menuButton.setOnClickListener(new View.OnClickListener() {
+            holder.syncStatusButton.setVisibility(View.VISIBLE);
+            holder.syncStatusButton.setTag(section);
+            holder.syncStatusButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    mListener.onSyncFolderSettingsClick(section, mSyncFolderItems.get(section));
+                    mSyncFolderItems.get(section).setEnabled(!mSyncFolderItems.get(section).isEnabled());
+                    setSyncButtonActiveIcon(holder.syncStatusButton, mSyncFolderItems.get(section).isEnabled());
+                    mListener.onSyncStatusToggleClick(section, mSyncFolderItems.get(section));
                 }
             });
-        }
+            setSyncButtonActiveIcon(holder.syncStatusButton, mSyncFolderItems.get(section).isEnabled());
+
+            if (mLight) {
+                holder.menuButton.setVisibility(View.GONE);
+            } else {
+                holder.menuButton.setVisibility(View.VISIBLE);
+                holder.menuButton.setTag(section);
+                holder.menuButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mListener.onSyncFolderSettingsClick(section, mSyncFolderItems.get(section));
+                    }
+                });
+            }
         } else {
             holder.mainHeaderContainer.setVisibility(View.GONE);
             holder.customFolderHeaderContainer.setVisibility(View.VISIBLE);
