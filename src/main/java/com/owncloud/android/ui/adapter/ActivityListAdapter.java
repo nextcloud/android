@@ -132,11 +132,16 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                         new Date().getTime()));
             }
 
-            if (!TextUtils.isEmpty(activity.getSubject())) {
+            if (activity.getRichSubjectElement() != null &&
+                    !TextUtils.isEmpty(activity.getRichSubjectElement().getRichSubject())) {
+                activityViewHolder.subject.setVisibility(View.VISIBLE);
                 activityViewHolder.subject.setMovementMethod(LinkMovementMethod.getInstance());
                 activityViewHolder.subject.setText(addClickablePart(activity.getRichSubjectElement()),
                         TextView.BufferType.SPANNABLE);
                 activityViewHolder.subject.setVisibility(View.VISIBLE);
+            } else if (!TextUtils.isEmpty(activity.getSubject())) {
+                activityViewHolder.subject.setVisibility(View.VISIBLE);
+                activityViewHolder.subject.setText(activity.getSubject());
             } else {
                 activityViewHolder.subject.setVisibility(View.GONE);
             }
