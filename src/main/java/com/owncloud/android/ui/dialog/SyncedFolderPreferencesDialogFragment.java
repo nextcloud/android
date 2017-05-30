@@ -52,6 +52,8 @@ import com.owncloud.android.utils.ThemeUtils;
 
 import java.io.File;
 
+import static com.owncloud.android.datamodel.SyncedFolderDisplayItem.UNPERSISTED_ID;
+
 /**
  * Dialog to show the preferences/configuration of a synced folder allowing the user to change the different parameters.
  */
@@ -139,7 +141,11 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment {
         int accentColor = ThemeUtils.primaryAccentColor();
 
         if (mSyncedFolder.getType() > MediaFolder.CUSTOM) {
+            // hide local folder chooser and delete for non-custom folders
             view.findViewById(R.id.local_folder_container).setVisibility(View.GONE);
+            view.findViewById(R.id.delete).setVisibility(View.GONE);
+        } else if (mSyncedFolder.getId() <= UNPERSISTED_ID) {
+            // Hide delete for unpersisted custom folders
             view.findViewById(R.id.delete).setVisibility(View.GONE);
         }
 
