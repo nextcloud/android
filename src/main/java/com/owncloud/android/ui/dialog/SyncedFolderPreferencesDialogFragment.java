@@ -235,6 +235,7 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment {
     private void setupListeners(View view) {
         mSave.setOnClickListener(new OnSyncedFolderSaveClickListener());
         mCancel.setOnClickListener(new OnSyncedFolderCancelClickListener());
+        view.findViewById(R.id.delete).setOnClickListener(new OnSyncedFolderDeleteClickListener());
 
         view.findViewById(R.id.setting_instant_upload_on_wifi_container).setOnClickListener(
                 new OnClickListener() {
@@ -348,9 +349,19 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment {
         }
     }
 
+    private class OnSyncedFolderDeleteClickListener implements OnClickListener {
+        @Override
+        public void onClick(View v) {
+            dismiss();
+            ((OnSyncedFolderPreferenceListener) getActivity()).onDeleteSyncedFolderPreference(mSyncedFolder);
+        }
+    }
+
     public interface OnSyncedFolderPreferenceListener {
         void onSaveSyncedFolderPreference(SyncedFolderParcelable syncedFolder);
 
         void onCancelSyncedFolderPreference();
+
+        void onDeleteSyncedFolderPreference(SyncedFolderParcelable syncedFolder);
     }
 }
