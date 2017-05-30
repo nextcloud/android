@@ -659,5 +659,4 @@ en los últimos 7 días. </string>
     <string name="drawer_logout">Salir de la sesión</string>
     <string name="picture_set_as_no_app">¡No se encontró una aplicación con la cual establecer una imagen!</string>
     <string name="privacy">Privacidad</string>
-
-  </resources>
+    </resources>

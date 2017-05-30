@@ -659,5 +659,4 @@
     <string name="drawer_logout">Odhlásit se</string>
     <string name="picture_set_as_no_app">Pro tento typ souboru nebyla nalezena aplikace!</string>
     <string name="privacy">Soukromí</string>
-
-  </resources>
+    </resources>

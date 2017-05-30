@@ -663,5 +663,4 @@
     <string name="drawer_logout">Выйти</string>
     <string name="picture_set_as_no_app">Не надено приложения, с помощью которого можно установить изображение!</string>
     <string name="privacy">Конфиденциальность</string>
-
-  </resources>
+    </resources>

@@ -305,7 +305,7 @@
     <string name="wait_for_tmp_copy_from_private_storage">Kopierer fil fra privat lager</string>
     
     <string name="oauth_check_onoff">Logg inn med oAuth2</string> 
-    <string name="oauth_login_connection">Kobler til oAuth2 tjener...</string>    
+    <string name="oauth_login_connection">Kobler til OAuth2-tjener...</string>    
         
     <string name="ssl_validator_header">Identiteten til siden kunne ikke bekreftes</string>
     <string name="ssl_validator_reason_cert_not_trusted">- Tjenerens sertifikat er ikke til å stole på</string>
@@ -659,5 +659,4 @@
     <string name="drawer_logout">Utlogging</string>
     <string name="picture_set_as_no_app">Fant ikke noe program å sette bilder med.</string>
     <string name="privacy">Personvern</string>
-
-  </resources>
+    </resources>

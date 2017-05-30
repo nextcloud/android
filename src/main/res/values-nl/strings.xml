@@ -662,5 +662,4 @@ Kies er eentje van een provider.</string>
     <string name="drawer_logout">Uitloggen</string>
     <string name="picture_set_as_no_app">Geen app gevonden om afbeelding in te stellen</string>
     <string name="privacy">Privacy</string>
-
-  </resources>
+    </resources>

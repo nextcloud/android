@@ -659,5 +659,4 @@
     <string name="drawer_logout">Desconectar</string>
     <string name="picture_set_as_no_app">No se encontró ninguna aplicación para establecer una imagen!</string>
     <string name="privacy">Privacidad</string>
-
-  </resources>
+    </resources>
