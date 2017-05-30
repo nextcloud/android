@@ -140,6 +140,7 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment {
 
         if (mSyncedFolder.getType() > MediaFolder.CUSTOM) {
             view.findViewById(R.id.local_folder_container).setVisibility(View.GONE);
+            view.findViewById(R.id.delete).setVisibility(View.GONE);
         }
 
         // find/saves UI elements
