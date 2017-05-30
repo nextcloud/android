@@ -119,6 +119,10 @@
 		<item name="android:textColor">@color/color_accent</item>
 	</style>
 
+	<style name="Button.Borderless.Destructive" parent="Base.Widget.AppCompat.Button.Borderless">
+		<item name="android:textColor">@color/highlight_textColor_Warning</item>
+	</style>
+
 	<style name="Button.Borderless.Login" parent="Base.Widget.AppCompat.Button.Borderless">
 		<item name="android:textColor">@color/white</item>
 	</style>

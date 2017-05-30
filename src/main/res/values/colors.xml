@@ -39,6 +39,7 @@
     <color name="secondaryTextColor">#a0a0a0</color>
     <color name="listItemHighlighted">#f8f8f8</color>
     <color name="highlightTextColor">#55739a</color>
+    <color name="highlight_textColor_Warning">#e53935</color>
 
     <!-- Colors -->
     <color name="dialog_list_item">#1F1F1F</color>
