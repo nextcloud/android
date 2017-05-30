@@ -392,25 +392,39 @@
 
     </ScrollView>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="right">
+        android:layout_height="wrap_content">
 
         <android.support.v7.widget.AppCompatButton
-            android:id="@+id/cancel"
-            style="@style/Button.Borderless"
+            android:id="@+id/delete"
+            style="@style/Button.Borderless.Destructive"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/common_cancel"/>
+            android:layout_alignParentLeft="true"
+            android:text="delete"/>
 
-        <android.support.v7.widget.AppCompatButton
-            android:id="@+id/save"
-            style="@style/Button.Borderless"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/common_save"/>
+            android:layout_alignParentRight="true">
 
-    </LinearLayout>
+            <android.support.v7.widget.AppCompatButton
+                android:id="@+id/cancel"
+                style="@style/Button.Borderless"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/common_cancel"/>
+
+            <android.support.v7.widget.AppCompatButton
+                android:id="@+id/save"
+                style="@style/Button.Borderless"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/common_save"/>
+
+        </LinearLayout>
+
+    </RelativeLayout>
 
 </LinearLayout>
