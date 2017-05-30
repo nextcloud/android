@@ -280,6 +280,17 @@ public class SyncedFolderProvider extends Observable {
     }
 
     /**
+     * delete record of synchronized folder with the given id.
+     */
+    public int deleteSyncedFolder(long id) {
+        return mContentResolver.delete(
+                ProviderMeta.ProviderTableMeta.CONTENT_URI_SYNCED_FOLDERS,
+                ProviderMeta.ProviderTableMeta._ID + " = ?",
+                new String[]{String.valueOf(id)}
+        );
+    }
+
+    /**
      * update given synced folder.
      *
      * @param syncedFolder the synced folder to be updated.

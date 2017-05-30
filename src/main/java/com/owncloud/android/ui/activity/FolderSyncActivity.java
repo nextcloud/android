@@ -512,6 +512,15 @@ public class FolderSyncActivity extends FileActivity implements FolderSyncAdapte
         mSyncedFolderPreferencesDialogFragment = null;
     }
 
+    @Override
+    public void onDeleteSyncedFolderPreference(SyncedFolderParcelable syncedFolder) {
+        // TODO refresh recycler view
+
+        mSyncedFolderProvider.deleteSyncedFolder(syncedFolder.getId());
+
+        mAdapter.removeItem(syncedFolder.getSection());
+    }
+
     /**
      * update given synced folder with the given values.
      *
