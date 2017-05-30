@@ -660,5 +660,4 @@
     <string name="drawer_logout">退出</string>
     <string name="picture_set_as_no_app">没有应用程序发现设置图片！</string>
     <string name="privacy">隐私</string>
-
-  </resources>
+    </resources>

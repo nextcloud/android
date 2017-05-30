@@ -659,5 +659,4 @@
     <string name="drawer_logout">Oturumu Kapat</string>
     <string name="picture_set_as_no_app">Görselin ayarlanabileceği bir uygulama bulunamadı!</string>
     <string name="privacy">Gizlilik</string>
-
-  </resources>
+    </resources>
