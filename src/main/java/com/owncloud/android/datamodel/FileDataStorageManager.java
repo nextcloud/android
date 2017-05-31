@@ -334,7 +334,8 @@ public class FileDataStorageManager {
         }
 
         // prepare operations to remove files in the given folder
-        String where = ProviderTableMeta.FILE_ACCOUNT_OWNER + AND + ProviderTableMeta.FILE_PATH + "=?";
+        String where = ProviderTableMeta.FILE_ACCOUNT_OWNER + AND +
+                ProviderTableMeta.FILE_PATH + "=?";
         String[] whereArgs = null;
         for (OCFile file : filesToRemove) {
             if (file.getParentId() == folder.getFileId()) {

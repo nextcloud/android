@@ -305,7 +305,6 @@ Kies er eentje van een provider.</string>
     <string name="activity_chooser_title">Verstuur link naar &#8230;</string>
     <string name="wait_for_tmp_copy_from_private_storage">Bestand vanaf privéopslag kopiëren</string>
     
-    <string name="oauth_check_onoff">Inloggen met oAuth2</string> 
     <string name="oauth_login_connection">Verbinden met OAuth 2 server…</string>    
         
     <string name="ssl_validator_header">De identiteit van de site kan niet worden gecontroleerd</string>
@@ -424,8 +423,6 @@ Kies er eentje van een provider.</string>
     <string name="file_migration_use_data_folder">Gebruiken</string>
 
     <string name="file_migration_source_not_readable_title">Bronmap niet leesbaar!</string>
-    <string name="file_migration_source_not_readable">Wil je echt het opslagpad wijzigen naar  %1$s?\n\nLet op: alle gegevens moeten opnieuw worden gedownloaded.</string>
-
     <string name="prefs_category_accounts">Accounts</string>
     <string name="prefs_add_account">Account toevoegen</string>
     <string name="drawer_manage_accounts">Accounts beheren </string>
@@ -662,5 +659,6 @@ Kies er eentje van een provider.</string>
     <string name="drawer_logout">Uitloggen</string>
     <string name="picture_set_as_no_app">Geen app gevonden om afbeelding in te stellen</string>
     <string name="privacy">Privacy</string>
+    <string name="file_not_found">Bestand niet gevonden!</string>
 
-  </resources>
+    </resources>

@@ -43,6 +43,7 @@ import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceManager;
+import android.preference.PreferenceScreen;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
@@ -59,6 +60,7 @@ import com.owncloud.android.BuildConfig;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
+import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.ExternalLinksProvider;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datastorage.DataStorageProvider;
@@ -95,6 +97,8 @@ public class Preferences extends PreferenceActivity
     private static final int ACTION_CONFIRM_PASSCODE = 6;
 
     private static final int ACTION_REQUEST_CODE_DAVDROID_SETUP = 10;
+
+    public static final String SYNCED_FOLDER_LIGHT_UPLOAD_ON_WIFI = "SYNCED_FOLDER_LIGHT_UPLOAD_ON_WIFI";
 
     /**
      * The user's server base uri.
@@ -165,6 +169,50 @@ public class Preferences extends PreferenceActivity
 
         // Register context menu for list of preferences.
         registerForContextMenu(getListView());
+
+        // Synced folders
+        PreferenceCategory preferenceCategoryFolderSync = (PreferenceCategory) findPreference("folder_sync");
+
+        if (!getResources().getBoolean(R.bool.syncedFolder_light)) {
+            PreferenceScreen preferenceScreen = (PreferenceScreen) findPreference("preference_screen");
+            preferenceScreen.removePreference(preferenceCategoryFolderSync);
+        } else {
+            // Upload on WiFi
+            final ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProvider(getContentResolver());
+            final Account account = AccountUtils.getCurrentOwnCloudAccount(getApplicationContext());
+
+            final CheckBoxPreference pUploadOnWifiCheckbox = (CheckBoxPreference) findPreference("synced_folder_on_wifi");
+            pUploadOnWifiCheckbox.setChecked(
+                    arbitraryDataProvider.getBooleanValue(account, SYNCED_FOLDER_LIGHT_UPLOAD_ON_WIFI));
+
+            pUploadOnWifiCheckbox.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+                @Override
+                public boolean onPreferenceClick(Preference preference) {
+                    arbitraryDataProvider.storeOrUpdateKeyValue(account, SYNCED_FOLDER_LIGHT_UPLOAD_ON_WIFI,
+                            String.valueOf(pUploadOnWifiCheckbox.isChecked()));
+
+                    return true;
+                }
+            });
+
+            Preference pSyncedFolder = findPreference("folder_sync_folders");
+            if (pSyncedFolder != null) {
+                if (getResources().getBoolean(R.bool.syncedFolder_light)
+                        && Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    pSyncedFolder.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+                        @Override
+                        public boolean onPreferenceClick(Preference preference) {
+                            Intent folderSyncIntent = new Intent(getApplicationContext(), FolderSyncActivity.class);
+                            folderSyncIntent.putExtra(FolderSyncActivity.EXTRA_SHOW_SIDEBAR, false);
+                            startActivity(folderSyncIntent);
+                            return true;
+                        }
+                    });
+                } else {
+                    preferenceCategoryFolderSync.removePreference(pSyncedFolder);
+                }
+            }
+        }
 
         PreferenceCategory preferenceCategoryDetails = (PreferenceCategory) findPreference("details");
 

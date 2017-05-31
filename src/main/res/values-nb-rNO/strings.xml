@@ -304,8 +304,7 @@
     <string name="activity_chooser_title">Send lenke til &#8230;</string>
     <string name="wait_for_tmp_copy_from_private_storage">Kopierer fil fra privat lager</string>
     
-    <string name="oauth_check_onoff">Logg inn med oAuth2</string> 
-    <string name="oauth_login_connection">Kobler til oAuth2 tjener...</string>    
+    <string name="oauth_login_connection">Kobler til OAuth2-tjener...</string>    
         
     <string name="ssl_validator_header">Identiteten til siden kunne ikke bekreftes</string>
     <string name="ssl_validator_reason_cert_not_trusted">- Tjenerens sertifikat er ikke til å stole på</string>
@@ -423,8 +422,6 @@
     <string name="file_migration_use_data_folder">Bruk</string>
 
     <string name="file_migration_source_not_readable_title">Målmappa er ikke lesbar!</string>
-    <string name="file_migration_source_not_readable">Ønsker du å endre lagringsstien til %1$s\n\nMerk: All data vil måtte lastes ned igjen.</string>
-
     <string name="prefs_category_accounts">Kontoer</string>
     <string name="prefs_add_account">Legg til en konto</string>
     <string name="drawer_manage_accounts">Håndter kontoer</string>
@@ -659,5 +656,4 @@
     <string name="drawer_logout">Utlogging</string>
     <string name="picture_set_as_no_app">Fant ikke noe program å sette bilder med.</string>
     <string name="privacy">Personvern</string>
-
-  </resources>
+    </resources>
