@@ -131,7 +131,7 @@ public class ContactListFragment extends FileFragment {
 
     private ContactListAdapter contactListAdapter;
     private Account account;
-    ArrayList<VCard> vCards = new ArrayList<>();
+    private ArrayList<VCard> vCards = new ArrayList<>();
     private OCFile ocFile;
 
     public static ContactListFragment newInstance(OCFile file, Account account) {
@@ -507,7 +507,7 @@ public class ContactListFragment extends FileFragment {
 
     }
 
-    AsyncTask loadContactsTask = new AsyncTask() {
+    private AsyncTask loadContactsTask = new AsyncTask() {
 
         @Override
         protected void onPreExecute() {
