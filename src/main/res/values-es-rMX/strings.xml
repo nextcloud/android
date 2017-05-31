@@ -304,7 +304,6 @@ en los últimos 7 días. </string>
     <string name="activity_chooser_title">Enviar la liga a &#8230;</string>
     <string name="wait_for_tmp_copy_from_private_storage">Copiando el archivo desde almacenamiento privado</string>
     
-    <string name="oauth_check_onoff">Iniciar sesión con oAuth2</string> 
     <string name="oauth_login_connection">Conectando al servidor OAuth 2...</string>    
         
     <string name="ssl_validator_header">La identidad del sitio no pudo ser verificada</string>
@@ -423,8 +422,6 @@ en los últimos 7 días. </string>
     <string name="file_migration_use_data_folder">Usar</string>
 
     <string name="file_migration_source_not_readable_title">¡El directorio fuente no se puede leer!</string>
-    <string name="file_migration_source_not_readable">¿Aún desea cambiar la ruta de almacenamiento a %1$s?\n\nNota: todos los datos tendrán que ser descargados de nuevo. </string>
-
     <string name="prefs_category_accounts">Cuentas</string>
     <string name="prefs_add_account">Agregar cuenta</string>
     <string name="drawer_manage_accounts">Administrar cuentas</string>
@@ -659,4 +656,6 @@ en los últimos 7 días. </string>
     <string name="drawer_logout">Salir de la sesión</string>
     <string name="picture_set_as_no_app">¡No se encontró una aplicación con la cual establecer una imagen!</string>
     <string name="privacy">Privacidad</string>
+    <string name="file_not_found">¡Archivo no encontrado!</string>
+
     </resources>

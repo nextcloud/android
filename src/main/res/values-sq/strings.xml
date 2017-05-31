@@ -304,7 +304,6 @@ në 7 ditët e fundit.</string>
     <string name="activity_chooser_title">Dërgoni lidhje te &#8230;</string>
     <string name="wait_for_tmp_copy_from_private_storage">Po kopjohet skedar nga depo private</string>
     
-    <string name="oauth_check_onoff">Hyrje me oAuth2</string> 
     <string name="oauth_login_connection">Po lidhet me serverin oAuth2…</string>    
         
     <string name="ssl_validator_header">Identiteti i sajtit s\’u verifikua dot</string>
@@ -422,8 +421,6 @@ në 7 ditët e fundit.</string>
     <string name="file_migration_use_data_folder">Përdor ekzistueset</string>
 
     <string name="file_migration_source_not_readable_title">Direktoria burim nuk është lexueshme!</string>
-    <string name="file_migration_source_not_readable">Doni akoma ta ndryshoni rrugën e kujtesës në %1$s? \n\n Shënim: të gjitha të dhënat duhet të shkarkohen edhe njëherë.</string>
-
     <string name="prefs_category_accounts">Llogari</string>
     <string name="prefs_add_account">Shtoni llogari</string>
     <string name="drawer_manage_accounts">Menaxhoni llogaritë</string>

@@ -303,7 +303,6 @@
     <string name="activity_chooser_title">Odeslat odkaz &#8230;</string>
     <string name="wait_for_tmp_copy_from_private_storage">Kopírování souboru z privátního úložiště</string>
     
-    <string name="oauth_check_onoff">Přihlásit se s oAuth2</string> 
     <string name="oauth_login_connection">Připojuji se k oAuth2 serveru...</string>    
         
     <string name="ssl_validator_header">Identitu stránky nelze ověřit</string>
@@ -422,8 +421,6 @@
     <string name="file_migration_use_data_folder">Použít</string>
 
     <string name="file_migration_source_not_readable_title">Ze zdrojového adresáře nelze číst!</string>
-    <string name="file_migration_source_not_readable">Opravdu chcete změnit adresář úložiště na %1$s?\n\nPoznámka: Všechna data budou stažena znovu.</string>
-
     <string name="prefs_category_accounts">Účty</string>
     <string name="prefs_add_account">Přidat účet</string>
     <string name="drawer_manage_accounts">Spravovat účty</string>
