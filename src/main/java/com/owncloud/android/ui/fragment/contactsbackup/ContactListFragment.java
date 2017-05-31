@@ -31,6 +31,7 @@ import android.content.IntentFilter;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.ContactsContract;
@@ -53,6 +54,9 @@ import android.widget.CheckedTextView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.evernote.android.job.JobRequest;
 import com.evernote.android.job.util.support.PersistableBundleCompat;
@@ -86,7 +90,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import ezvcard.Ezvcard;
 import ezvcard.VCard;
-import ezvcard.property.StructuredName;
+
+import static com.owncloud.android.ui.fragment.contactsbackup.ContactListFragment.getDisplayName;
 
 /**
  * This fragment shows all contacts from a file and allows to import them.
@@ -108,8 +113,26 @@ public class ContactListFragment extends FileFragment {
     @BindView(R.id.contactlist_restore_selected)
     public Button restoreContacts;
 
+    @BindView(R.id.empty_list_view_text)
+    public TextView emptyContentMessage;
+
+    @BindView(R.id.empty_list_view_headline)
+    public TextView emptyContentHeadline;
+
+    @BindView(R.id.empty_list_icon)
+    public ImageView emptyContentIcon;
+
+    @BindView(R.id.empty_list_progress)
+    public ProgressBar emptyContentProgressBar;
+
+    @BindView(R.id.empty_list_container)
+    public RelativeLayout emptyListContainer;
+
+
     private ContactListAdapter contactListAdapter;
     private Account account;
+    private ArrayList<VCard> vCards = new ArrayList<>();
+    private OCFile ocFile;
 
     public static ContactListFragment newInstance(OCFile file, Account account) {
         ContactListFragment frag = new ContactListFragment();
@@ -147,47 +170,41 @@ public class ContactListFragment extends FileFragment {
         }
         contactsPreferenceActivity.setDrawerIndicatorEnabled(false);
 
-        ArrayList<VCard> vCards = new ArrayList<>();
+        recyclerView = (RecyclerView) view.findViewById(R.id.contactlist_recyclerview);
 
-        try {
-            OCFile ocFile = getArguments().getParcelable(FILE_NAME);
-            setFile(ocFile);
-            account = getArguments().getParcelable(ACCOUNT);
-
-            if (!ocFile.isDown()) {
-                Intent i = new Intent(getContext(), FileDownloader.class);
-                i.putExtra(FileDownloader.EXTRA_ACCOUNT, account);
-                i.putExtra(FileDownloader.EXTRA_FILE, ocFile);
-                getContext().startService(i);
-
-                // Listen for download messages
-                IntentFilter downloadIntentFilter = new IntentFilter(FileDownloader.getDownloadAddedMessage());
-                downloadIntentFilter.addAction(FileDownloader.getDownloadFinishMessage());
-                DownloadFinishReceiver mDownloadFinishReceiver = new DownloadFinishReceiver();
-                getContext().registerReceiver(mDownloadFinishReceiver, downloadIntentFilter);
-            } else {
-                File file = new File(ocFile.getStoragePath());
-
-                Collections.sort(vCards, new Comparator<VCard>() {
-                    @Override
-                    public int compare(VCard o1, VCard o2) {
-                        if (o1.getFormattedName() != null && o2.getFormattedName() != null) {
-                            return o1.getFormattedName().getValue().compareTo(o2.getFormattedName().getValue());
-                        } else {
-                            if (o1.getFormattedName() == null) {
-                                return 1; // Send the contact to the end of the list
-                            } else {
-                                return -1;
-                            }
-
-                        }
-                    }
-                });
-
-                vCards.addAll(Ezvcard.parse(file).all());
+        if (savedInstanceState == null) {
+            contactListAdapter = new ContactListAdapter(getContext(), vCards);
+        } else {
+            Set<Integer> checkedItems = new HashSet<>();
+            int[] itemsArray = savedInstanceState.getIntArray(CHECKED_ITEMS_ARRAY_KEY);
+            for (int i = 0; i < itemsArray.length; i++) {
+                checkedItems.add(itemsArray[i]);
             }
-        } catch (IOException e) {
-            Log_OC.e(TAG, "Error processing contacts file!", e);
+            if (checkedItems.size() > 0) {
+                onMessageEvent(new VCardToggleEvent(true));
+            }
+            contactListAdapter = new ContactListAdapter(getContext(), vCards, checkedItems);
+        }
+        recyclerView.setAdapter(contactListAdapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        ocFile = getArguments().getParcelable(FILE_NAME);
+        setFile(ocFile);
+        account = getArguments().getParcelable(ACCOUNT);
+
+        if (!ocFile.isDown()) {
+            Intent i = new Intent(getContext(), FileDownloader.class);
+            i.putExtra(FileDownloader.EXTRA_ACCOUNT, account);
+            i.putExtra(FileDownloader.EXTRA_FILE, ocFile);
+            getContext().startService(i);
+
+            // Listen for download messages
+            IntentFilter downloadIntentFilter = new IntentFilter(FileDownloader.getDownloadAddedMessage());
+            downloadIntentFilter.addAction(FileDownloader.getDownloadFinishMessage());
+            DownloadFinishReceiver mDownloadFinishReceiver = new DownloadFinishReceiver();
+            getContext().registerReceiver(mDownloadFinishReceiver, downloadIntentFilter);
+        } else {
+            loadContactsTask.execute();
         }
 
         restoreContacts.setOnClickListener(new View.OnClickListener() {
@@ -199,26 +216,6 @@ public class ContactListFragment extends FileFragment {
                 }
             }
         });
-
-        recyclerView = (RecyclerView) view.findViewById(R.id.contactlist_recyclerview);
-
-        if (savedInstanceState == null) {
-            contactListAdapter = new ContactListAdapter(getContext(), vCards);
-        } else {
-            Set<Integer> checkedItems = new HashSet<>();
-            int[] itemsArray = savedInstanceState.getIntArray(CHECKED_ITEMS_ARRAY_KEY);
-            if (itemsArray != null) {
-                for (int item : itemsArray) {
-                    checkedItems.add(item);
-                }
-            }
-            if (checkedItems.size() > 0) {
-                onMessageEvent(new VCardToggleEvent(true));
-            }
-            contactListAdapter = new ContactListAdapter(getContext(), vCards, checkedItems);
-        }
-        recyclerView.setAdapter(contactListAdapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         return view;
     }
@@ -260,6 +257,9 @@ public class ContactListFragment extends FileFragment {
     @Override
     public void onStop() {
         EventBus.getDefault().unregister(this);
+        if (loadContactsTask != null) {
+            loadContactsTask.cancel(true);
+        }
         super.onStop();
     }
 
@@ -284,6 +284,14 @@ public class ContactListFragment extends FileFragment {
                 break;
         }
         return retval;
+    }
+
+    private void setLoadingMessage() {
+        emptyContentHeadline.setText(R.string.file_list_loading);
+        emptyContentMessage.setText("");
+
+        emptyContentIcon.setVisibility(View.GONE);
+        emptyContentProgressBar.setVisibility(View.VISIBLE);
     }
 
     private void setSelectAllMenuItem(MenuItem selectAll, boolean checked) {
@@ -476,21 +484,71 @@ public class ContactListFragment extends FileFragment {
 
         @Override
         public void onReceive(Context context, Intent intent) {
-            if (intent.getAction().equalsIgnoreCase(FileDownloader.getDownloadFinishMessage())){
+            if (intent.getAction().equalsIgnoreCase(FileDownloader.getDownloadFinishMessage())) {
                 String downloadedRemotePath = intent.getStringExtra(FileDownloader.EXTRA_REMOTE_PATH);
 
                 FileDataStorageManager storageManager = new FileDataStorageManager(account,
                         getContext().getContentResolver());
-                OCFile ocFile = storageManager.getFileByPath(downloadedRemotePath);
-                File file = new File(ocFile.getStoragePath());
-
-                try {
-                    contactListAdapter.replaceVCards(Ezvcard.parse(file).all());
-                } catch (IOException e) {
-                    Log_OC.e(TAG, "IO Exception: " + file.getAbsolutePath());
-                }
+                ocFile = storageManager.getFileByPath(downloadedRemotePath);
+                loadContactsTask.execute();
             }
         }
+    }
+
+    public static class VCardComparator implements Comparator<VCard> {
+        @Override
+        public int compare(VCard o1, VCard o2) {
+            String contac1 = getDisplayName(o1);
+            String contac2 = getDisplayName(o2);
+
+            return contac1.compareToIgnoreCase(contac2);
+        }
+
+
+    }
+
+    private AsyncTask loadContactsTask = new AsyncTask() {
+
+        @Override
+        protected void onPreExecute() {
+            setLoadingMessage();
+        }
+
+        @Override
+        protected Object doInBackground(Object[] params) {
+            if (!isCancelled()) {
+                File file = new File(ocFile.getStoragePath());
+                try {
+                    vCards.addAll(Ezvcard.parse(file).all());
+                    Collections.sort(vCards, new VCardComparator());
+                } catch (IOException e) {
+                    Log_OC.e(TAG, "IO Exception: " + file.getAbsolutePath());
+                    return false;
+                }
+                return true;
+            }
+            return false;
+        }
+
+        @Override
+        protected void onPostExecute(Object o) {
+            if (!isCancelled()) {
+                emptyListContainer.setVisibility(View.GONE);
+                contactListAdapter.replaceVCards(vCards);
+            }
+        }
+    };
+
+    public static String getDisplayName(VCard vCard) {
+        if (vCard.getFormattedName() != null) {
+            return vCard.getFormattedName().getValue();
+        } else if (vCard.getTelephoneNumbers() != null && vCard.getTelephoneNumbers().size() > 0) {
+            return vCard.getTelephoneNumbers().get(0).getText();
+        } else if (vCard.getEmails() != null && vCard.getEmails().size() > 0) {
+            return vCard.getEmails().get(0).getValue();
+        }
+
+        return "";
     }
 }
 
@@ -561,15 +619,8 @@ class ContactListAdapter extends RecyclerView.Adapter<ContactListFragment.Contac
             } else {
                 holder.getName().setChecked(false);
             }
-            // name
-            StructuredName name = vcard.getStructuredName();
-            if (name != null) {
-                String first = (name.getGiven() == null) ? "" : name.getGiven() + " ";
-                String last = (name.getFamily() == null) ? "" : name.getFamily();
-                holder.getName().setText(String.format("%s%s", first, last));
-            } else {
-                holder.getName().setText("");
-            }
+
+            holder.getName().setText(getDisplayName(vcard));
 
             // photo
             if (vcard.getPhotos().size() > 0) {
@@ -641,4 +692,5 @@ class ContactListAdapter extends RecyclerView.Adapter<ContactListFragment.Contac
 
         notifyDataSetChanged();
     }
+
 }
