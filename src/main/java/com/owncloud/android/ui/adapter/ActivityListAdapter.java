@@ -91,8 +91,17 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         String sTime = "";
         for (Object o : activityItems) {
             Activity activity = (Activity) o;
-            String time = DisplayUtils.getRelativeTimestamp(context,
-                    activity.getDatetime().getTime()).toString();
+            String time = null;
+            if (activity.getDatetime() != null) {
+                time = DisplayUtils.getRelativeTimestamp(context,
+                        activity.getDatetime().getTime()).toString();
+            } else if (activity.getDate() != null) {
+                time = DisplayUtils.getRelativeTimestamp(context,
+                        activity.getDate().getTime()).toString();
+            } else {
+                time = "Unknown";
+            }
+
             if (sTime.equalsIgnoreCase(time)) {
                 mValues.add(activity);
             } else {
