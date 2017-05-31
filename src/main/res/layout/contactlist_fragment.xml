@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   Nextcloud Android client application
 
   Copyright (C) 2017 Tobias Kaminsky
@@ -18,39 +17,53 @@
   You should have received a copy of the GNU Affero General Public
   License along with this program. If not, see <http://www.gnu.org/licenses/>.
 -->
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:animateLayoutChanges="true"
-              android:orientation="vertical">
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/contactlist_recyclerview"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:choiceMode="multipleChoice"/>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:animateLayoutChanges="true"
+    android:orientation="vertical">
 
     <LinearLayout
-        android:id="@+id/contactlist_restore_selected_container"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:orientation="vertical"
-        android:visibility="gone">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <ImageView
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/contactlist_recyclerview"
             android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:src="@drawable/uploader_list_separator"/>
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:choiceMode="multipleChoice" />
 
-        <android.support.v7.widget.AppCompatButton
-            android:id="@+id/contactlist_restore_selected"
-            style="@style/Button.Borderless"
+        <LinearLayout
+            android:id="@+id/contactlist_restore_selected_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/contaclist_restore_selected"/>
+            android:background="@color/white"
+            android:orientation="vertical"
+            android:visibility="gone">
 
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:src="@drawable/uploader_list_separator" />
+
+            <android.support.v7.widget.AppCompatButton
+                android:id="@+id/contactlist_restore_selected"
+                style="@style/Button.Borderless"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/contaclist_restore_selected" />
+
+        </LinearLayout>
     </LinearLayout>
 
-</LinearLayout>
+    <RelativeLayout
+        android:id="@+id/empty_list_container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true">
+
+        <include layout="@layout/empty_list" />
+    </RelativeLayout>
+</RelativeLayout>
