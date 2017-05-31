@@ -30,8 +30,8 @@
 
     <ImageView
         android:id="@+id/activity_icon"
-        android:layout_width="@dimen/user_icon_size"
-        android:layout_height="@dimen/user_icon_size"
+        android:layout_width="@dimen/file_icon_size"
+        android:layout_height="@dimen/file_icon_size"
         android:layout_alignParentTop="true"
         android:layout_marginRight="24dp"
         android:src="@drawable/ic_activity"/>
