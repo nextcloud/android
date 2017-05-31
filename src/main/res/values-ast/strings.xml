@@ -260,7 +260,6 @@
     <string name="activity_chooser_title">Unviar enllaz a&#8230;</string>
     <string name="wait_for_tmp_copy_from_private_storage">Copiando ficheru dende l\'almacenamientu priváu</string>
     
-    <string name="oauth_check_onoff">Aniciar sesión con oAuth2</string> 
     <string name="oauth_login_connection">Coneutando col sirvidor d\'OAuth2</string>    
         
     <string name="ssl_validator_header">La identidá del sitiu nun pue certificase</string>
@@ -372,8 +371,6 @@
     <string name="file_migration_use_data_folder">Usar</string>
 
     <string name="file_migration_source_not_readable_title">¡El direutoriu fonte nun ye lleible!</string>
-    <string name="file_migration_source_not_readable">¿Entá quies camudar el camín d\'almacenamientu a %1$s?\n\nNota: tendrán de baxase de nueves tolos datos.</string>
-
     <string name="prefs_category_accounts">Cuentes</string>
     <string name="prefs_add_account">Amestar cuenta</string>
     <string name="drawer_manage_accounts">Xestionar cuentes</string>

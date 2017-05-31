@@ -303,7 +303,6 @@
     <string name="activity_chooser_title">Αποστολή συνδέσμου σε &#8230;</string>
     <string name="wait_for_tmp_copy_from_private_storage">Γίνεται αντιγραφή αρχείου από ιδιωτικό αποθηκευτικό χώρο</string>
     
-    <string name="oauth_check_onoff">Σύνδεση με oAuth2</string> 
     <string name="oauth_login_connection">Γίνεται σύνδεση στο διακομιστή oAuth2...</string>    
         
     <string name="ssl_validator_header">Η ταυτότητα της σελίδας δεν μπορεί να επληθευτεί</string>
@@ -421,8 +420,6 @@
     <string name="file_migration_use_data_folder">Χρήση</string>
 
     <string name="file_migration_source_not_readable_title">Ο πηγαίος φάκελος δεν ειναι αναγνώσιμος!</string>
-    <string name="file_migration_source_not_readable">Θέλετε ακόμη να αλλάξετε το μονοπάτι αποθήκευσης σε %1$s;\n\nΣημείωση: όλα τα δεδομένα θα πρέπει να κατεβαστούν ξανά. </string>
-
     <string name="prefs_category_accounts">Λογαριασμοί</string>
     <string name="prefs_add_account">Προσθήκη λογαριασμού</string>
     <string name="drawer_manage_accounts">Διαχείριση λογαριασμών</string>

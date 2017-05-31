@@ -304,7 +304,6 @@
     <string name="activity_chooser_title">Enviar o link para &#8230;</string>
     <string name="wait_for_tmp_copy_from_private_storage">Copiando o arquivo da armazenagem privada</string>
     
-    <string name="oauth_check_onoff">Login com oAuth2</string> 
     <string name="oauth_login_connection">Conectando ao servidor OAuth 2...</string>    
         
     <string name="ssl_validator_header">A identidade do site não pôde ser verificada</string>
@@ -423,8 +422,6 @@
     <string name="file_migration_use_data_folder">Usar</string>
 
     <string name="file_migration_source_not_readable_title">Diretório fonte não legível!</string>
-    <string name="file_migration_source_not_readable">Você ainda quer mudar o caminho de armazenagem para %1$s?\n\nImportante: Todos os dados terão de ser baixados novamente.</string>
-
     <string name="prefs_category_accounts">Contas</string>
     <string name="prefs_add_account">Adicionar uma conta</string>
     <string name="drawer_manage_accounts">Gerenciar contas</string>
@@ -659,4 +656,6 @@
     <string name="drawer_logout">Sair</string>
     <string name="picture_set_as_no_app">Nenhum aplicativo encontrado para atribuir uma imagem!</string>
     <string name="privacy">Privacidade</string>
+    <string name="file_not_found">Arquivo não encontrado!</string>
+
     </resources>
