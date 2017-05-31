@@ -30,8 +30,8 @@
 
     <ImageView
         android:id="@+id/activity_icon"
-        android:layout_width="@dimen/user_icon_size"
-        android:layout_height="@dimen/user_icon_size"
+        android:layout_width="@dimen/file_icon_size"
+        android:layout_height="@dimen/file_icon_size"
         android:layout_alignParentTop="true"
         android:layout_marginRight="24dp"
         android:src="@drawable/ic_activity"/>
@@ -48,7 +48,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ellipsize="end"
-            android:maxLines="2"
             android:text="@string/placeholder_filename"
             android:textAppearance="?android:attr/textAppearanceListItem"/>
 
@@ -60,6 +59,13 @@
             android:maxLines="3"
             android:text="@string/placeholder_sentence"
             android:textColor="?android:attr/textColorSecondary"/>
+
+        <GridLayout
+            android:id="@+id/list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:columnCount="3" />
 
         <TextView
             android:id="@+id/activity_datetime"

@@ -67,6 +67,7 @@ import com.bumptech.glide.request.target.SimpleTarget;
 import com.caverock.androidsvg.SVG;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
+import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
@@ -591,6 +592,14 @@ public class DisplayUtils {
                                       int checkedMenuItem) {
 
         Menu menu = view.getMenu();
+
+        Account account = AccountUtils.getCurrentOwnCloudAccount(MainApp.getAppContext());
+        boolean searchSupported = AccountUtils.hasSearchSupport(account);
+
+        if (!searchSupported) {
+            menu.removeItem(R.id.nav_bar_favorites);
+            menu.removeItem(R.id.nav_bar_photos);
+        }
 
         if (resources.getBoolean(R.bool.use_home)) {
             menu.findItem(R.id.nav_bar_files).setTitle(resources.

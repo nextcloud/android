@@ -304,7 +304,6 @@
     <string name="activity_chooser_title">Link senden an &#8230;</string>
     <string name="wait_for_tmp_copy_from_private_storage">Kopiere Datei vom privatem Speicher</string>
     
-    <string name="oauth_check_onoff">Anmelden mit oAuth2</string> 
     <string name="oauth_login_connection">Verbinde mit dem oAuth2-Server...</string>    
         
     <string name="ssl_validator_header">Die Identität der Website konnte nicht überprüft werden</string>
@@ -423,8 +422,6 @@
     <string name="file_migration_use_data_folder">Verwende bestehenden</string>
 
     <string name="file_migration_source_not_readable_title">Quellverzeichnis kann nicht gelesen werden!</string>
-    <string name="file_migration_source_not_readable">Möchtest Du wirklich den Speicherpfad in %1$s ändern?\n\nHinweis: Alle Daten müssen dann erneut heruntergeladen werden.</string>
-
     <string name="prefs_category_accounts">Konten</string>
     <string name="prefs_add_account">Konto hinzufügen</string>
     <string name="drawer_manage_accounts">Konten verwalten</string>
@@ -660,4 +657,6 @@
     <string name="drawer_logout">Abmelden</string>
     <string name="picture_set_as_no_app">Keine App gefunden, mit der ein Bid gesetzt werden könnte!</string>
     <string name="privacy">Datenschutz</string>
+    <string name="file_not_found">Datei nicht gefunden!</string>
+
     </resources>
