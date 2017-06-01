@@ -304,6 +304,7 @@
     <string name="activity_chooser_title">Bağlantıyı gönder&#8230;</string>
     <string name="wait_for_tmp_copy_from_private_storage">Dosya kişisel depolamadan kopyalanıyor</string>
     
+    <string name="oauth_check_onoff">OAuth2 ile Oturum Aç</string> 
     <string name="oauth_login_connection">OAuth2 sunucusuna bağlanılıyor…</string>    
         
     <string name="ssl_validator_header">Sitenin kimliği doğrulanamadı</string>
@@ -347,6 +348,7 @@
     <string name="instant_video_upload_on_charging">Yalnız şarj edilirken yüklensin</string>
     <string name="instant_upload_on_charging">Yalnız şarj edilirken yüklensin</string>
     <string name="instant_upload_path">/AnındaYükle</string>
+    <string name="auto_upload_path">/Otomatik Yükleme</string>
     <string name="conflict_title">Dosya çakışması</string>
     <string name="conflict_message">Hangi dosyaları saklamak istiyorsunuz? Her ikisini de saklamayı seçerseniz yerel dosyanın adına bir sayı eklenecek.</string>
     <string name="conflict_keep_both">İkisini de sakla</string>
@@ -422,6 +424,8 @@
     <string name="file_migration_use_data_folder">Kullanılsın</string>
 
     <string name="file_migration_source_not_readable_title">Kaynak klasör okunabilir değil!</string>
+    <string name="file_migration_source_not_readable">Depolama yolunu gene de %1$s olarak değiştirmek istediğinizden emin misiniz?\n\nNot: Tüm verilerin yeniden indirilmesi gerekecek.</string>
+
     <string name="prefs_category_accounts">Hesaplar</string>
     <string name="prefs_add_account">Hesap ekle</string>
     <string name="drawer_manage_accounts">Hesap yönetimi</string>
@@ -658,4 +662,6 @@
     <string name="privacy">Gizlilik</string>
     <string name="file_not_found">Dosya bulunamadı!</string>
 
-    </resources>
+    <string name="folder_sync_folders">Klasör ayarları</string>
+
+  </resources>
