@@ -304,6 +304,7 @@
     <string name="activity_chooser_title">Enviar enlace a &#8230;</string>
     <string name="wait_for_tmp_copy_from_private_storage">Copiando el archivo desde el almacenamiento privado.</string>
     
+    <string name="oauth_check_onoff">Ingresar con oAuth2</string> 
     <string name="oauth_login_connection">Conectando al servidor oAuth2...</string>    
         
     <string name="ssl_validator_header">La identidad del sitio no puede ser verificada</string>
@@ -347,6 +348,7 @@
     <string name="instant_video_upload_on_charging">Subir solamente al cargar</string>
     <string name="instant_upload_on_charging">Subir solamente al cargar</string>
     <string name="instant_upload_path">/InstantUpload</string>
+    <string name="auto_upload_path">/Carga automática</string>
     <string name="conflict_title">Conflicto con archivo</string>
     <string name="conflict_message">¿Qué archivos desea mantener? Si selecciona ambas versiones, el archivo local tendrá un número añadido a su nombre.</string>
     <string name="conflict_keep_both">Mantener ambos</string>
@@ -422,6 +424,8 @@
     <string name="file_migration_use_data_folder">Usar</string>
 
     <string name="file_migration_source_not_readable_title">¡No se puede leer el directorio de origen!</string>
+    <string name="file_migration_source_not_readable">¿Aún quieres cambiar la ruta de almacenamiento a |%1$s?\n\nNota: habrá que descargar de nuevo todos los datos.</string>
+
     <string name="prefs_category_accounts">Cuentas</string>
     <string name="prefs_add_account">Agregar cuenta</string>
     <string name="drawer_manage_accounts">Administrar cuentas</string>
