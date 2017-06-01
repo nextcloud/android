@@ -304,6 +304,7 @@
     <string name="activity_chooser_title">Send lenke til &#8230;</string>
     <string name="wait_for_tmp_copy_from_private_storage">Kopierer fil fra privat lager</string>
     
+    <string name="oauth_check_onoff">Logg inn med OAuth2</string> 
     <string name="oauth_login_connection">Kobler til OAuth2-tjener...</string>    
         
     <string name="ssl_validator_header">Identiteten til siden kunne ikke bekreftes</string>
@@ -347,6 +348,7 @@
     <string name="instant_video_upload_on_charging">Last kun opp under lading</string>
     <string name="instant_upload_on_charging">Last kun opp under lading</string>
     <string name="instant_upload_path">/Direkteopplasting</string>
+    <string name="auto_upload_path">/Auto-opplasting</string>
     <string name="conflict_title">Filkonflikt</string>
     <string name="conflict_message">Hvilke filer ønsker du å beholder? Hvis du velger begge versjonene, får den lokale filen lagt til et tall i navnet.</string>
     <string name="conflict_keep_both">Behold begge</string>
@@ -422,6 +424,8 @@
     <string name="file_migration_use_data_folder">Bruk</string>
 
     <string name="file_migration_source_not_readable_title">Målmappa er ikke lesbar!</string>
+    <string name="file_migration_source_not_readable">Ønsker du fremdeles å endre lagringssti til %1$s ?\n\nMerk: All data vil måtte lastes ned igjen.</string>
+
     <string name="prefs_category_accounts">Kontoer</string>
     <string name="prefs_add_account">Legg til en konto</string>
     <string name="drawer_manage_accounts">Håndter kontoer</string>
@@ -656,4 +660,8 @@
     <string name="drawer_logout">Utlogging</string>
     <string name="picture_set_as_no_app">Fant ikke noe program å sette bilder med.</string>
     <string name="privacy">Personvern</string>
-    </resources>
+    <string name="file_not_found">Finner ikke filen!</string>
+
+    <string name="folder_sync_folders">Sett opp mapper</string>
+
+  </resources>
