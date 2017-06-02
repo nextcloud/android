@@ -8,7 +8,7 @@
     <string name="actionbar_upload_files">Archivos</string>
     <string name="actionbar_open_with">Abrir con</string>
     <string name="actionbar_mkdir">Nueva carpeta</string>
-    <string name="actionbar_settings">Ajustes</string>
+    <string name="actionbar_settings">Configuraciones</string>
     <string name="actionbar_see_details">Detalles</string>
     <string name="actionbar_send_file">Enviar</string>
     <string name="actionbar_sort">Ordenar</string>
@@ -26,12 +26,12 @@
     <string name="drawer_item_home">Inicio</string>
     <string name="drawer_item_favorites">Favoritos</string>
     <string name="drawer_item_photos">Fotos</string>
-    <string name="drawer_item_on_device">En el dispositivo</string>
+    <string name="drawer_item_on_device">Disponibles sin conexión</string>
     <string name="drawer_item_recently_added">Agregado recientemente</string>
     <string name="drawer_item_recently_modified">Modificado recientemente</string>
     <string name="drawer_item_shared">Compartido</string>
     <string name="drawer_item_videos">Videos</string>
-    <string name="drawer_item_settings">Ajustes</string>
+    <string name="drawer_item_settings">Configuraciones</string>
     <string name="drawer_item_uploads_list">Cargas</string>
     <string name="drawer_item_activities">Actividades</string>
     <string name="drawer_item_notifications">Notificaciones</string>
@@ -539,7 +539,7 @@ en los últimos 7 días. </string>
     <string name="action_switch_list_view">Vista de lista</string>
 
     <string name="manage_space_title">Administrar espacio</string>
-    <string name="manage_space_description">Los ajustes, base de datos y certificados del servior de los datos de %1$s serán borrados permanentemente.\n\nLos archivos descargados se mantendrán sin cambios.\n\nEste proceso puede tomar algo de tiempo. </string>
+    <string name="manage_space_description">Las configuraciones , base de datos y certificados del servior de los datos de %1$s serán borrados permanentemente.\n\nLos archivos descargados se mantendrán sin cambios.\n\nEste proceso puede tomar algo de tiempo. </string>
     <string name="manage_space_clear_data">Borrar datos</string>
     <string name="manage_space_error">No fue posible borrar algunos archivos</string>
 
@@ -574,7 +574,7 @@ en los últimos 7 días. </string>
     <string name="folder_sync_loading_folders">Cargando carpetas&#8230;</string>
     <string name="folder_sync_no_results">No se encontraron carpetas de medios</string>
     <string name="folder_sync_preferences">Preferencias de carga automática</string>
-    <string name="folder_sync_settings">Ajustes</string>
+    <string name="folder_sync_settings">Configuraciones </string>
     <string name="folder_sync_new_info">La carga instantánea ha sido completamente moderinzada. Reconfigure su carga automática desde el menu principal. \n\nDisfrute de las nuevas y extendidas capacidades de la carga automática. </string>
     <string name="folder_sync_preferences_folder_path">Para %1$s</string>
     <plurals name="items_selected_count">
