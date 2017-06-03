@@ -433,7 +433,7 @@ Kies er eentje van een provider.</string>
 
 	<string name="actionbar_logger">Logs</string>
 	<string name="log_send_history_button">Geschiedenis versturen</string>
-	<string name="log_send_no_mail_app">Geen applicatie gevonden voor het versturen van de logs. Installeer een e-mailapplicatie.</string>
+	<string name="log_send_no_mail_app">Geen applicatie gevonden voor het versturen van de logs. Installeer een email client.</string>
 	<string name="log_send_mail_subject">%1$s-Android-app-logs</string>
 	<string name="log_progress_dialog_text">Gegevens laden&#160;&#8230;</string>
 
@@ -622,7 +622,7 @@ Kies er eentje van een provider.</string>
 
     <!-- User information -->
     <string name="user_info_full_name">Volledige naam</string>
-    <string name="user_info_email">E-mailadres</string>
+    <string name="user_info_email">Email</string>
     <string name="user_info_phone">Telefoonnummer</string>
     <string name="user_info_address">Adres</string>
     <string name="user_info_website">Website</string>
@@ -664,4 +664,6 @@ Kies er eentje van een provider.</string>
     <string name="privacy">Privacy</string>
     <string name="file_not_found">Bestand niet gevonden!</string>
 
-    </resources>
+    <string name="folder_sync_folders">Mappen instellen</string>
+
+  </resources>
