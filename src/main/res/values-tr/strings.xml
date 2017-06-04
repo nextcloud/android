@@ -151,7 +151,7 @@
     <string name="common_loading">Yükleniyor&#8230;</string>
     <string name="common_unknown">bilinmiyor</string>
     <string name="common_error_unknown">Bilinmeyen sorun</string>
-    <string name="common_pending">Bekliyor</string>
+    <string name="common_pending">Bekleyen</string>
     <string name="about_title">Hakkında</string>
     <string name="change_password">Parola değiştir</string>
     <string name="delete_account">Hesabı kaldır</string>
@@ -553,7 +553,7 @@
     <string name="actionbar_search">Arama</string>
     <string name="files_drop_not_supported">Bu bir Nextcloud özelliğidir, lütfen güncelleyin.</string>
     <string name="learn_more">Ayrıntılı bilgi alın</string>
-    <string name="drawer_folder_sync">Otomatik yükle</string>
+    <string name="drawer_folder_sync">Otomatik yükleme</string>
     <string name="drawer_participate">Katkıda bulunun</string>
     <string name="participate_testing_headline">Denememize yardımcı olun</string>
     <string name="participate_testing_bug_text">Bir hata mı buldunuz? Bir gariplik mi var?</string>
@@ -578,8 +578,8 @@
     <string name="folder_sync_new_info">Anında yükleme tamamen elden geçirildi. Lütfen ama menüye giderek otomatik yükleme ayarlarınızı yeniden yapın.\n\nYeni ve geliştirilmiş otomatik yükleme özellklerinin tadını çıkarın.</string>
     <string name="folder_sync_preferences_folder_path">%1$s için</string>
     <plurals name="items_selected_count">
-        <item quantity="one">%d seçili</item>
-        <item quantity="other">%d seçili</item>
+        <item quantity="one">%d seçilmiş</item>
+        <item quantity="other">%d seçilmiş</item>
     </plurals>
 
     <string name="activity_list_loading_activity">İşlemler yükleniyor&#8230;</string>
@@ -594,7 +594,7 @@
     <string name="upload_file_dialog_filetype">Dosya türü</string>
     <string name="upload_file_dialog_filetype_snippet_text">Kod parçası metin dosyası(.txt)</string>
     <string name="upload_file_dialog_filetype_internet_shortcut">İnternet kısayol dosya(%s)</string>
-    <string name="upload_file_dialog_filetype_googlemap_shortcut">Google haritalar kısayol dosya(%s)</string>
+    <string name="upload_file_dialog_filetype_googlemap_shortcut">Google haritalar kısayol dosyası(%s)</string>
 
     <string name="storage_description_default">Varsayılan</string>
     <string name="storage_description_sd_no">SD kart  %1$d</string>
