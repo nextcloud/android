@@ -20,14 +20,21 @@
 package com.owncloud.android.ui.adapter;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.drawable.PictureDrawable;
 import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
+import android.text.SpannableStringBuilder;
 import android.text.TextUtils;
+import android.text.method.LinkMovementMethod;
+import android.text.style.ClickableSpan;
+import android.text.style.StyleSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.GridLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.GenericRequestBuilder;
@@ -36,70 +43,203 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.model.StreamEncoder;
 import com.bumptech.glide.load.resource.file.FileToStreamDecoder;
 import com.caverock.androidsvg.SVG;
+import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
+import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.resources.activities.models.Activity;
+import com.owncloud.android.lib.resources.activities.models.RichElement;
+import com.owncloud.android.lib.resources.activities.models.RichObject;
+import com.owncloud.android.ui.interfaces.ActivityListInterface;
 import com.owncloud.android.utils.DisplayUtils;
+import com.owncloud.android.utils.MimeTypeUtil;
+import com.owncloud.android.utils.glide.CustomGlideStreamLoader;
 import com.owncloud.android.utils.svg.SvgDecoder;
 import com.owncloud.android.utils.svg.SvgDrawableTranscoder;
 import com.owncloud.android.utils.svg.SvgSoftwareLayerSetter;
 
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
  * Adapter for the activity view
  */
 
-public class ActivityListAdapter extends RecyclerView.Adapter<ActivityListAdapter.ActivityViewHolder> {
+public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+
+    public static final int HEADER_TYPE = 100;
+    public static final int ACTIVITY_TYPE = 101;
+    private final ActivityListInterface activityListInterface;
+    private final int px;
+    private OwnCloudClient mClient;
 
     private Context context;
     private List<Object> mValues;
 
-    public ActivityListAdapter(Context context) {
+    public ActivityListAdapter(Context context, ActivityListInterface activityListInterface) {
         this.mValues = new ArrayList<>();
         this.context = context;
+        this.activityListInterface = activityListInterface;
+        px = getThumbnailDimension();
     }
 
-    public void setActivityItems(List<Object> activityItems) {
+    public void setActivityItems(List<Object> activityItems, OwnCloudClient client) {
+        this.mClient = client;
         mValues.clear();
-        mValues.addAll(activityItems);
+        String sTime = "";
+        for (Object o : activityItems) {
+            Activity activity = (Activity) o;
+            String time = null;
+            if (activity.getDatetime() != null) {
+                time = DisplayUtils.getRelativeTimestamp(context,
+                        activity.getDatetime().getTime()).toString();
+            } else if (activity.getDate() != null) {
+                time = DisplayUtils.getRelativeTimestamp(context,
+                        activity.getDate().getTime()).toString();
+            } else {
+                time = "Unknown";
+            }
+
+            if (sTime.equalsIgnoreCase(time)) {
+                mValues.add(activity);
+            } else {
+
+                sTime = time;
+                mValues.add(sTime);
+                mValues.add(activity);
+            }
+        }
         notifyDataSetChanged();
+
     }
 
     @Override
-    public ActivityViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_list_item, parent, false);
-        return new ActivityViewHolder(v);
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        if (viewType == ACTIVITY_TYPE) {
+            View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_list_item, parent, false);
+            return new ActivityViewHolder(v);
+        } else {
+            View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_list_item_header, parent, false);
+            return new ActivityViewHeaderHolder(v);
+        }
+
     }
 
     @Override
-    public void onBindViewHolder(ActivityViewHolder holder, int position) {
-        Activity activity = (Activity) mValues.get(position);
-        if (activity.getDatetime() != null) {
-            holder.dateTime.setText(DisplayUtils.getRelativeTimestamp(context,
-                    activity.getDatetime().getTime()));
-        } else {
-            holder.dateTime.setText(DisplayUtils.getRelativeTimestamp(context,
-                    activity.getDate().getTime()));
-        }
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
 
-        if (!TextUtils.isEmpty(activity.getSubject())) {
-            holder.subject.setText(activity.getSubject());
-            holder.subject.setVisibility(View.VISIBLE);
-        } else {
-            holder.subject.setVisibility(View.GONE);
-        }
+        if (holder instanceof ActivityViewHolder) {
+            final ActivityViewHolder activityViewHolder = (ActivityViewHolder) holder;
+            Activity activity = (Activity) mValues.get(position);
+            if (activity.getDatetime() != null) {
+                activityViewHolder.dateTime.setText(DisplayUtils.getRelativeTimestamp(context,
+                        activity.getDatetime().getTime()));
+            } else {
+                activityViewHolder.dateTime.setText(DisplayUtils.getRelativeTimestamp(context,
+                        new Date().getTime()));
+            }
 
-        if (!TextUtils.isEmpty(activity.getMessage())) {
-            holder.message.setText(activity.getMessage());
-            holder.message.setVisibility(View.VISIBLE);
-        } else {
-            holder.message.setVisibility(View.GONE);
-        }
+            if (activity.getRichSubjectElement() != null &&
+                    !TextUtils.isEmpty(activity.getRichSubjectElement().getRichSubject())) {
+                activityViewHolder.subject.setVisibility(View.VISIBLE);
+                activityViewHolder.subject.setMovementMethod(LinkMovementMethod.getInstance());
+                activityViewHolder.subject.setText(addClickablePart(activity.getRichSubjectElement()),
+                        TextView.BufferType.SPANNABLE);
+                activityViewHolder.subject.setVisibility(View.VISIBLE);
+            } else if (!TextUtils.isEmpty(activity.getSubject())) {
+                activityViewHolder.subject.setVisibility(View.VISIBLE);
+                activityViewHolder.subject.setText(activity.getSubject());
+            } else {
+                activityViewHolder.subject.setVisibility(View.GONE);
+            }
 
-        if (!TextUtils.isEmpty(activity.getIcon())) {
-            downloadIcon(activity.getIcon(), holder.activityIcon);
+            if (!TextUtils.isEmpty(activity.getMessage())) {
+                activityViewHolder.message.setText(activity.getMessage());
+                activityViewHolder.message.setVisibility(View.VISIBLE);
+            } else {
+                activityViewHolder.message.setVisibility(View.GONE);
+            }
+
+            if (!TextUtils.isEmpty(activity.getIcon())) {
+                downloadIcon(activity.getIcon(), activityViewHolder.activityIcon);
+            }
+
+            if (activity.getRichSubjectElement() != null &&
+                    activity.getRichSubjectElement().getRichObjectList().size() > 0) {
+
+                activityViewHolder.list.setVisibility(View.VISIBLE);
+                activityViewHolder.list.removeAllViews();
+
+                activityViewHolder.list.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        int w = activityViewHolder.list.getMeasuredWidth();
+
+                        int elPxSize = px + 20;
+                        int totalColumnCount = (int) Math.floor(w / elPxSize);
+                        activityViewHolder.list.setColumnCount(totalColumnCount);
+                    }
+                });
+
+
+                for (RichObject richObject : activity.getRichSubjectElement().getRichObjectList()) {
+                    ImageView imageView = createThumbnail(richObject);
+                    activityViewHolder.list.addView(imageView);
+                }
+
+            } else {
+                activityViewHolder.list.removeAllViews();
+                activityViewHolder.list.setVisibility(View.GONE);
+            }
+        } else {
+            ActivityViewHeaderHolder activityViewHeaderHolder = (ActivityViewHeaderHolder) holder;
+            activityViewHeaderHolder.title.setText((String) mValues.get(position));
+        }
+    }
+
+    private ImageView createThumbnail(final RichObject richObject) {
+        OCFile file = new OCFile("/" + richObject.getPath());
+        file.setRemoteId(richObject.getId());
+
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(px, px);
+        params.setMargins(10, 10, 10, 10);
+        ImageView imageView = new ImageView(context);
+        imageView.setLayoutParams(params);
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                activityListInterface.onActivityClicked(richObject);
+            }
+        });
+        setBitmap(file, imageView);
+
+        return imageView;
+    }
+
+    private void setBitmap(OCFile file, ImageView fileIcon) {
+        // No Folder
+        if (!file.isFolder()) {
+            if ((MimeTypeUtil.isImage(file) || MimeTypeUtil.isVideo(file))) {
+                String uri = mClient.getBaseUri() + "" +
+                        "/index.php/apps/files/api/v1/thumbnail/" +
+                        px + "/" + px + Uri.encode(file.getRemotePath(), "/");
+
+                Glide.with(context).using(new CustomGlideStreamLoader()).load(uri).into(fileIcon); //Using custom fetcher
+
+            } else {
+                fileIcon.setImageResource(MimeTypeUtil.getFileTypeIconId(file.getMimetype(),
+                        file.getFileName()));
+            }
+        } else {
+            // Folder
+            fileIcon.setImageDrawable(
+                    MimeTypeUtil.getFolderTypeIcon(
+                            file.isSharedWithMe() || file.isSharedWithSharee(),
+                            file.isSharedViaLink()
+                    )
+            );
         }
     }
 
@@ -125,17 +265,76 @@ public class ActivityListAdapter extends RecyclerView.Adapter<ActivityListAdapte
                 .into(itemViewType);
     }
 
+    private SpannableStringBuilder addClickablePart(RichElement richElement) {
+        String text = richElement.getRichSubject();
+        SpannableStringBuilder ssb = new SpannableStringBuilder(text);
+
+        int idx1 = text.indexOf("{");
+        int idx2;
+        while (idx1 != -1) {
+            idx2 = text.indexOf("}", idx1) + 1;
+            final String clickString = text.substring(idx1 + 1, idx2 - 1);
+            final RichObject richObject = searchObjectByName(richElement.getRichObjectList(), clickString);
+            if (richObject != null) {
+                String name = richObject.getName();
+                ssb.replace(idx1, idx2, name);
+                text = ssb.toString();
+                idx2 = idx1 + name.length();
+                ssb.setSpan(new ClickableSpan() {
+                    @Override
+                    public void onClick(View widget) {
+                        activityListInterface.onActivityClicked(richObject);
+                    }
+                }, idx1, idx2, 0);
+                ssb.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), idx1, idx2, 0);
+            }
+            idx1 = text.indexOf("{", idx2);
+        }
+
+        return ssb;
+    }
+
+    public RichObject searchObjectByName(ArrayList<RichObject> richObjectList, String name) {
+        for (RichObject richObject : richObjectList) {
+            if (richObject.getTag().equalsIgnoreCase(name))
+                return richObject;
+        }
+        return null;
+    }
+
+
+    @Override
+    public int getItemViewType(int position) {
+        if (mValues.get(position) instanceof Activity)
+            return ACTIVITY_TYPE;
+        else
+            return HEADER_TYPE;
+    }
+
     @Override
     public int getItemCount() {
         return mValues.size();
     }
 
-    class ActivityViewHolder extends RecyclerView.ViewHolder {
+    /**
+     * Converts size of file icon from dp to pixel
+     *
+     * @return int
+     */
+    private int getThumbnailDimension() {
+        // Converts dp to pixel
+        Resources r = MainApp.getAppContext().getResources();
+        Double d = Math.pow(2, Math.floor(Math.log(r.getDimension(R.dimen.file_icon_size_grid)) / Math.log(2))) / 2;
+        return d.intValue();
+    }
+
+    private class ActivityViewHolder extends RecyclerView.ViewHolder {
 
         private final ImageView activityIcon;
         private final TextView subject;
         private final TextView message;
         private final TextView dateTime;
+        private final GridLayout list;
 
         private ActivityViewHolder(View itemView) {
             super(itemView);
@@ -143,6 +342,19 @@ public class ActivityListAdapter extends RecyclerView.Adapter<ActivityListAdapte
             subject = (TextView) itemView.findViewById(R.id.activity_subject);
             message = (TextView) itemView.findViewById(R.id.activity_message);
             dateTime = (TextView) itemView.findViewById(R.id.activity_datetime);
+            list = (GridLayout) itemView.findViewById(R.id.list);
         }
     }
+
+    private class ActivityViewHeaderHolder extends RecyclerView.ViewHolder {
+
+        private final TextView title;
+
+        private ActivityViewHeaderHolder(View itemView) {
+            super(itemView);
+            title = (TextView) itemView.findViewById(R.id.title_header);
+
+        }
+    }
+
 }

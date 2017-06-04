@@ -97,12 +97,14 @@ public class DetectAuthenticationMethodOperation extends RemoteOperation {
 
         // analyze response  
         if (result.getHttpCode() == HttpStatus.SC_UNAUTHORIZED) {
-            String authRequest = ((result.getAuthenticateHeader()).trim()).toLowerCase();
-            if (authRequest.startsWith("basic")) {
-                authMethod = AuthenticationMethod.BASIC_HTTP_AUTH;
-                
-            } else if (authRequest.startsWith("bearer")) {
-                authMethod = AuthenticationMethod.BEARER_TOKEN;
+            ArrayList<String> authHeaders = result.getAuthenticateHeaders();
+
+            for (String header : authHeaders) {
+                // currently we only support basic auth
+                if (header.toLowerCase().startsWith("basic")) {
+                    authMethod = AuthenticationMethod.BASIC_HTTP_AUTH;
+                    break;
+                }
             }
             // else - fall back to UNKNOWN
                     

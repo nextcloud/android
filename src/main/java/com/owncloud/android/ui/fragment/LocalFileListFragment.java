@@ -98,9 +98,8 @@ public class LocalFileListFragment extends ExtendedListFragment {
         setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
         setSwipeEnabled(false); // Disable pull-to-refresh
         setFabEnabled(false); // Disable FAB
-        setMessageForEmptyList(
-                R.string.file_list_empty_headline, R.string.local_file_list_empty, R.drawable.ic_list_empty_folder
-        );
+        setMessageForEmptyList(R.string.file_list_empty_headline, R.string.local_file_list_empty,
+                R.drawable.ic_list_empty_folder);
         Log_OC.i(TAG, "onCreateView() end");
         return v;
     }
@@ -289,7 +288,7 @@ public class LocalFileListFragment extends ExtendedListFragment {
          *  
          * @param directory
          */
-        public void onDirectoryClick(File directory);
+        void onDirectoryClick(File directory);
         
         /**
          * Callback method invoked when a file (non directory)
@@ -297,7 +296,7 @@ public class LocalFileListFragment extends ExtendedListFragment {
          *  
          * @param file
          */
-        public void onFileClick(File file);
+        void onFileClick(File file);
         
         
         /**
@@ -306,7 +305,7 @@ public class LocalFileListFragment extends ExtendedListFragment {
          * 
          * @return  Directory to list firstly. Can be NULL.
          */
-        public File getInitialDirectory();
+        File getInitialDirectory();
 
     }
 

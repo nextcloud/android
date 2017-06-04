@@ -93,9 +93,9 @@
     <string name="uploader_error_message_source_file_not_found">Файл для загрузки не был найден в положенном месте. Пожалуйста проверьте, существует ли файл.</string>
     <string name="uploader_error_message_source_file_not_copied">Произошла ошибка во время копирования этого файла во временный каталог. Пожалуйста попробуйте отправить его заново.</string>
     <string name="uploader_upload_files_behaviour">Настройка загрузки:</string>
-    <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">Перемещать файл в папку Nextcloud</string>
-    <string name="uploader_upload_files_behaviour_only_upload">Сохранять файл в исходном каталоге</string>
-    <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Удалять файл из исходного каталога</string>
+    <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">Переместить файл в папку Nextcloud</string>
+    <string name="uploader_upload_files_behaviour_only_upload">Сохранить файл в исходном каталоге</string>
+    <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Удалить файл из исходного каталога</string>
     <string name="file_list_seconds_ago">несколько секунд назад</string>
     <string name="file_list_empty_headline">Здесь нет файлов</string>
     <string name="file_list_empty">Загрузите что-нибудь или синхронизируйте со своими устройствами!</string>
@@ -114,7 +114,7 @@
     <string name="file_list_empty_headline_server_search_photos">Фотографии отсутствуют</string>
     <string name="file_list_empty_search">Искать в другом каталоге?</string>
     <string name="file_list_empty_recently_modified">Не найдно файлов, изменённых за последние 7 дней</string>
-    <string name="file_list_empty_recently_modified_filter">По запросу не найдно файлов, 
+    <string name="file_list_empty_recently_modified_filter">По запросу не найдено файлов, 
 изменённых за последние 7 дней!</string>
     <string name="file_list_empty_recently_added">Не найдено файлов, добавленных недавно</string>
     <string name="file_list_empty_recently_added_filter">По запросу не найдено файлов, добавленных недавно!</string>
@@ -350,6 +350,7 @@
     <string name="instant_video_upload_on_charging">Загружать только при зарядке</string>
     <string name="instant_upload_on_charging">Загружать только при зарядке</string>
     <string name="instant_upload_path">/Автозагрузка</string>
+    <string name="auto_upload_path">/Автозагрузка</string>
     <string name="conflict_title">Конфликт файлов</string>
     <string name="conflict_message">Какие файлы вы хотите сохранить? Если вы выберете обе версии, локальный файл будет иметь номер, добавленный к его имени.</string>
     <string name="conflict_keep_both">Сохранить оба</string>
@@ -663,4 +664,8 @@
     <string name="drawer_logout">Выйти</string>
     <string name="picture_set_as_no_app">Не надено приложения, с помощью которого можно установить изображение!</string>
     <string name="privacy">Конфиденциальность</string>
-</resources>
+    <string name="file_not_found">Файл не найден!</string>
+
+    <string name="folder_sync_folders">Настроить каталоги</string>
+
+  </resources>

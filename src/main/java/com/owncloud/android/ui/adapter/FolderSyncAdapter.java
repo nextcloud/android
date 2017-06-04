@@ -35,6 +35,7 @@ import com.afollestad.sectionedrecyclerview.SectionedRecyclerViewAdapter;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.SyncedFolderDisplayItem;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
+import com.owncloud.android.utils.DisplayUtils;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -50,13 +51,15 @@ public class FolderSyncAdapter extends SectionedRecyclerViewAdapter<FolderSyncAd
     private final int mGridTotal;
     private final ClickListener mListener;
     private final List<SyncedFolderDisplayItem> mSyncFolderItems;
+    private final boolean mLight;
 
-    public FolderSyncAdapter(Context context, int gridWidth, ClickListener listener) {
+    public FolderSyncAdapter(Context context, int gridWidth, ClickListener listener, boolean light) {
         mContext = context;
         mGridWidth = gridWidth;
         mGridTotal = gridWidth * 2;
         mListener = listener;
         mSyncFolderItems = new ArrayList<>();
+        mLight = light;
     }
 
     public void setSyncFolderItems(List<SyncedFolderDisplayItem> syncFolderItems) {
@@ -99,14 +102,18 @@ public class FolderSyncAdapter extends SectionedRecyclerViewAdapter<FolderSyncAd
         });
         setSyncButtonActiveIcon(holder.syncStatusButton, mSyncFolderItems.get(section).isEnabled());
 
-        holder.menuButton.setVisibility(View.VISIBLE);
-        holder.menuButton.setTag(section);
-        holder.menuButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mListener.onSyncFolderSettingsClick(section, mSyncFolderItems.get(section));
-            }
-        });
+        if (mLight) {
+            holder.menuButton.setVisibility(View.GONE);
+        } else {
+            holder.menuButton.setVisibility(View.VISIBLE);
+            holder.menuButton.setTag(section);
+            holder.menuButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mListener.onSyncFolderSettingsClick(section, mSyncFolderItems.get(section));
+                }
+            });
+        }
     }
 
     @Override
@@ -188,7 +195,7 @@ public class FolderSyncAdapter extends SectionedRecyclerViewAdapter<FolderSyncAd
 
     private void setSyncButtonActiveIcon(ImageButton syncStatusButton, boolean enabled) {
         if(enabled) {
-            syncStatusButton.setImageResource(R.drawable.ic_cloud_sync_on);
+            syncStatusButton.setImageDrawable(DisplayUtils.tintDrawable(R.drawable.ic_cloud_sync_on, R.color.primary));
         } else {
             syncStatusButton.setImageResource(R.drawable.ic_cloud_sync_off);
         }

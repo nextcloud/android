@@ -34,7 +34,7 @@ pipeline:
         # needs gplay
         - sed -i '/com.google.*.gms/s/^.*\/\///g' build.gradle
         - export BRANCH=$(scripts/lint/getBranchName.sh ${GIT_USERNAME} ${GIT_TOKEN} ${DRONE_PULL_REQUEST})
-        - ruby scripts/lint/lint-up.rb ${GIT_USERNAME} ${GIT_TOKEN} $BRANCH
+        - scripts/lint/lint-up-wrapper.sh ${GIT_USERNAME} ${GIT_TOKEN} $BRANCH ${LOG_USERNAME} ${LOG_PASSWORD} ${DRONE_BUILD_NUMBER}
       when:
         matrix:
           FLAVOUR: Modified
