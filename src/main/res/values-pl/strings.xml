@@ -660,4 +660,8 @@
     <string name="drawer_logout">Wyloguj</string>
     <string name="picture_set_as_no_app">Nie znaleziono aplikacji do ustawienia obrazu!</string>
     <string name="privacy">Prywatność</string>
-    </resources>
+    <string name="file_not_found">Nie odnaleziono pliku</string>
+
+    <string name="folder_sync_folders">Skonfiguruj foldery</string>
+
+  </resources>
