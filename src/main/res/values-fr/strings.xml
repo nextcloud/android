@@ -347,6 +347,7 @@
     <string name="instant_video_upload_on_charging">Téléverser les images uniquement si le chargeur est branché</string>
     <string name="instant_upload_on_charging">Téléverser les images uniquement si le chargeur est branché</string>
     <string name="instant_upload_path">/InstantUpload</string>
+    <string name="auto_upload_path">/Téléversement automatique</string>
     <string name="conflict_title">Conflit de fichiers</string>
     <string name="conflict_message">Quels fichiers voulez-vous conserver ? Si vous sélectionnez les deux, un chiffre sera ajouté au nom du fichier local.</string>
     <string name="conflict_keep_both">Conserver les deux</string>
@@ -658,4 +659,8 @@
     <string name="drawer_logout">Se déconnecter</string>
     <string name="picture_set_as_no_app">Aucune application trouvée pour utiliser cette image !</string>
     <string name="privacy">Vie privée</string>
-</resources>
+    <string name="file_not_found">Fichier non trouvé !</string>
+
+    <string name="folder_sync_folders">Configurer les dossiers</string>
+
+  </resources>

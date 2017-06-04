@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="about_android">%1$s Android App</string>
+    <string name="about_android">%1$s Android AppAuto </string>
     <string name="about_version">Version %1$s</string>
     <string name="actionbar_sync">Konto aktualisieren</string>
     <string name="actionbar_upload">Hochladen</string>
@@ -212,9 +212,9 @@
     <string name="foreign_files_local_text">Lokal: %1$s</string>
     <string name="foreign_files_remote_text">Remote: %1$s</string>
     <string name="upload_query_move_foreign_files">Es steht nicht genügend Speicherplatz zur Verfügung, um die ausgewählten Dateien in das Verzeichnis %1$s zu kopieren. Sollen diese stattdessen verschoben werden?</string>
-    <string name="pass_code_enter_pass_code">Bitte gib deine PIN ein</string>
+    <string name="pass_code_enter_pass_code">Bitte gib Deine PIN ein</string>
     
-    <string name="pass_code_configure_your_pass_code">Bitte PIN eingeben</string>
+    <string name="pass_code_configure_your_pass_code">PIN eingeben</string>
     <string name="pass_code_configure_your_pass_code_explanation">Die PIN wird jedes mal beim Start der App abgefragt</string>
     <string name="pass_code_reenter_your_pass_code">Bitte Deine PIN nochmals eingeben</string>
     <string name="pass_code_remove_your_pass_code">PIN entfernen</string>
@@ -269,7 +269,7 @@
 	<string name="auth_expired_oauth_token_toast">Die Autorisierung ist abgelaufen. Bitte Autorisierung nochmals durchführen</string>
 	<string name="auth_expired_basic_auth_toast">Bitte gib das aktuelle Passwort ein</string>
 	<string name="auth_expired_saml_sso_token_toast">Deine Sitzung ist abgelaufen. Bitte erneut verbinden</string>
-	<string name="auth_connecting_auth_server">Verbinden zum Authentifizierungs-Server ...</string>
+	<string name="auth_connecting_auth_server">Verbinden zum Authentifizierungs-Server…</string>
 	<string name="auth_unsupported_auth_method">Der Server unterstützt diese Authentifizierung-Methode nicht</string>
 	<string name="auth_unsupported_multiaccount">%1$s unterstützt nicht mehrere Benutzerkonten</string>
 	<string name="auth_fail_get_user_name">Dein Server gibt keine korrekte Benutzer-ID zurück, bitte kontaktiere einen Administrator</string>
@@ -297,15 +297,15 @@
     <string name="filename_forbidden_characters">Verbotene Zeichen: / \\ &lt; &gt; : \" | ? *</string>
     <string name="filename_forbidden_charaters_from_server">Der Dateiname enthält mindestens ein ungültiges Zeichen</string>
     <string name="filename_empty">Dateiname darf nicht leer sein</string>
-    <string name="wait_a_moment">Bitte warten...</string>
+    <string name="wait_a_moment">Bitte warten…</string>
     <string name="wait_checking_credentials">Überprüfe gespeicherte Anmeldeinformationen</string>
     <string name="filedisplay_unexpected_bad_get_content">Ein unerwartetes Problem ist aufgetreten. Bitte versuche, die Datei in einer anderen App zu öffnen</string>
     <string name="filedisplay_no_file_selected">Keine Datei gewählt</string>
     <string name="activity_chooser_title">Link senden an &#8230;</string>
     <string name="wait_for_tmp_copy_from_private_storage">Kopiere Datei vom privatem Speicher</string>
     
-    <string name="oauth_check_onoff">Anmelden mit oAuth2</string> 
-    <string name="oauth_login_connection">Verbinde mit dem oAuth2-Server...</string>    
+    <string name="oauth_check_onoff">Anmelden mit OAuth2 </string> 
+    <string name="oauth_login_connection">Verbinde mit dem OAuth2-Server…</string>    
         
     <string name="ssl_validator_header">Die Identität der Website konnte nicht überprüft werden</string>
     <string name="ssl_validator_reason_cert_not_trusted">- Das Zertifikat des Servers ist nicht vertrauenswürdig</string>
@@ -348,6 +348,7 @@
     <string name="instant_video_upload_on_charging">Nur während des Ladens hochladen</string>
     <string name="instant_upload_on_charging">Nur während des Ladens hochladen</string>
     <string name="instant_upload_path">/SofortUpload</string>
+    <string name="auto_upload_path">/Auto Upload</string>
     <string name="conflict_title">Dateikonfilikt</string>
     <string name="conflict_message">Welche Datei soll behalten werden? Wenn du beide Versionen wählst, wird der lokalen Datei eine Zahl am Ende des Dateinamens angefügt.</string>
     <string name="conflict_keep_both">Beide behalten</string>
@@ -418,7 +419,7 @@
     <string name="file_migration_failed_while_coping">FEHLER: Migration fehlgeschlagen</string>
     <string name="file_migration_failed_while_updating_index">FEHLER: Während der Aktualisierung des Indexes</string>
 
-    <string name="file_migration_directory_already_exists">Datenordner existiert bereits, was soll geschehen?</string>
+    <string name="file_migration_directory_already_exists">Daten-Verzeichnis existiert bereits. Bitte auswählen:</string>
     <string name="file_migration_override_data_folder">Überschreiben</string>
     <string name="file_migration_use_data_folder">Verwende bestehenden</string>
 
@@ -660,4 +661,8 @@
     <string name="drawer_logout">Abmelden</string>
     <string name="picture_set_as_no_app">Keine App gefunden, mit der ein Bid gesetzt werden könnte!</string>
     <string name="privacy">Datenschutz</string>
-</resources>
+    <string name="file_not_found">Datei nicht gefunden!</string>
+
+    <string name="folder_sync_folders">Ordner auswählen</string>
+
+  </resources>

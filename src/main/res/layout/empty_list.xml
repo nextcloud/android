@@ -18,8 +18,8 @@
   You should have received a copy of the GNU Affero General Public
   License along with this program. If not, see <http://www.gnu.org/licenses/>.
 -->
-<LinearLayout android:id="@+id/empty_list_view"
-              xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:id="@+id/empty_list_view"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
               android:layout_gravity="center"
@@ -33,14 +33,15 @@
         android:layout_width="72dp"
         android:layout_height="72dp"
         android:contentDescription="@string/file_list_folder"
-        android:src="@drawable/ic_list_empty_folder"/>
+        android:src="@drawable/ic_list_empty_folder"
+        android:tint="@color/primary"
+        android:visibility="gone"/>
 
     <ProgressBar
         android:id="@+id/empty_list_progress"
         android:layout_width="72dp"
         android:layout_height="72dp"
-        android:layout_gravity="center_horizontal"
-        android:visibility="gone"/>
+        android:layout_gravity="center_horizontal"/>
 
     <TextView
         android:id="@+id/empty_list_view_headline"
@@ -52,7 +53,7 @@
         android:maxLines="2"
         android:paddingBottom="@dimen/standard_padding"
         android:paddingTop="@dimen/standard_padding"
-        android:text="@string/file_list_empty_headline"
+        android:text="@string/file_list_loading"
         android:textSize="26sp"/>
 
     <TextView
@@ -63,6 +64,7 @@
         android:ellipsize="end"
         android:gravity="center"
         android:maxLines="3"
-        android:text="@string/file_list_empty"/>
+        android:text="@string/file_list_empty"
+        android:visibility="gone"/>
 
 </LinearLayout>

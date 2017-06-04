@@ -348,6 +348,7 @@
     <string name="instant_video_upload_on_charging">Somente enviar quando carregando</string>
     <string name="instant_upload_on_charging">Somente enviar quando carregando</string>
     <string name="instant_upload_path">/Upload automático</string>
+    <string name="auto_upload_path">/Upload automático</string>
     <string name="conflict_title">Conflito de arquivo</string>
     <string name="conflict_message">Quais arquivos você quer manter? Se você selecionar ambos, o arquivo local terá um número adicionado ao seu nome.</string>
     <string name="conflict_keep_both">Manter ambos</string>
@@ -423,7 +424,7 @@
     <string name="file_migration_use_data_folder">Usar</string>
 
     <string name="file_migration_source_not_readable_title">Diretório fonte não legível!</string>
-    <string name="file_migration_source_not_readable">Você ainda quer mudar o caminho de armazenagem para %1$s?\n\nImportante: Todos os dados terão de ser baixados novamente.</string>
+    <string name="file_migration_source_not_readable">Quer realmente mudar o caminho de armazenamento para %1$s?\n\nAtenção: Todos os dados terão que ser baixados novamente.</string>
 
     <string name="prefs_category_accounts">Contas</string>
     <string name="prefs_add_account">Adicionar uma conta</string>
@@ -564,7 +565,7 @@
     <string name="participate_release_candidate_text">O release candidate (RC) é um instantâneo da próxima versão e espera-se que seja estável. Testar sua configuração individual pode ajudar a garantir isso. Inscreva-se para testar na Play Store ou confira a seção \"versões\" no F-Droid.</string>
     <string name="participate_contribute_headline">Contribuir ativamente</string>
     <string name="participate_contribute_irc_text">Junte-se ao chat no IRC:&lt;a href=\"%1$s\">#nextcloud-mobile&lt;/a></string>
-    <string name="participate_contribute_forum_text">Ajude os outros no &lt;a href=\"%1$s\">forum&lt;/a></string>
+    <string name="participate_contribute_forum_text">Ajude os outros no &lt;a href=\"%1$s\">fórum&lt;/a></string>
     <string name="participate_contribute_translate_text">&lt;a href=\"%1$s\">Traduzir&lt;/a> o aplicativo</string>
     <string name="participate_contribute_github_text">Rever, alterar e escrever código, consulte &lt;a href=\"%1$s\">CONTRIBUTING.md&lt;a> para detalhes</string>
     <string name="move_to">Mover para&#8230;</string>
@@ -659,4 +660,8 @@
     <string name="drawer_logout">Sair</string>
     <string name="picture_set_as_no_app">Nenhum aplicativo encontrado para atribuir uma imagem!</string>
     <string name="privacy">Privacidade</string>
-</resources>
+    <string name="file_not_found">Arquivo não encontrado!</string>
+
+    <string name="folder_sync_folders">Configurar pastas</string>
+
+  </resources>

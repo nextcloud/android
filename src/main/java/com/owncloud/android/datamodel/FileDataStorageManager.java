@@ -1,21 +1,20 @@
 /**
- *   ownCloud Android client application
- *
- *   Copyright (C) 2012  Bartek Przybylski
- *   Copyright (C) 2015 ownCloud Inc.
- *
- *   This program is free software: you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License version 2,
- *   as published by the Free Software Foundation.
- *
- *   This program is distributed in the hope that it will be useful,
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *   GNU General Public License for more details.
- *
- *   You should have received a copy of the GNU General Public License
- *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
+ * ownCloud Android client application
+ * <p>
+ * Copyright (C) 2012  Bartek Przybylski
+ * Copyright (C) 2015 ownCloud Inc.
+ * <p>
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 2,
+ * as published by the Free Software Foundation.
+ * <p>
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * <p>
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 package com.owncloud.android.datamodel;
@@ -27,6 +26,7 @@ import android.content.ContentProviderResult;
 import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
 import android.content.OperationApplicationException;
 import android.database.Cursor;
@@ -36,7 +36,10 @@ import android.provider.MediaStore;
 
 import com.owncloud.android.MainApp;
 import com.owncloud.android.db.ProviderMeta.ProviderTableMeta;
+import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.lib.resources.files.ReadRemoteFileOperation;
+import com.owncloud.android.lib.resources.files.RemoteFile;
 import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.lib.resources.shares.ShareType;
 import com.owncloud.android.lib.resources.status.CapabilityBooleanType;
@@ -160,7 +163,7 @@ public class FileDataStorageManager {
             // TODO better implementation, filtering in the access to database instead of here
             Vector<OCFile> tmp = getFolderContent(folder, onlyOnDevice);
             OCFile current = null;
-            for (int i=0; i<tmp.size(); i++) {
+            for (int i = 0; i < tmp.size(); i++) {
                 current = tmp.get(i);
                 if (MimeTypeUtil.isImage(current)) {
                     ret.add(current);
@@ -247,6 +250,36 @@ public class FileDataStorageManager {
         return overriden;
     }
 
+    public OCFile saveFileWithParent(OCFile file, Context context) {
+        if (file.getParentId() == 0 && !file.getRemotePath().equals("/")) {
+            String remotePath = file.getRemotePath();
+            String parentPath = remotePath.substring(0, remotePath.lastIndexOf(file.getFileName()));
+
+            OCFile parentFile = getFileByPath(parentPath);
+
+            OCFile returnFile;
+            if (parentFile == null) {
+                // remote request
+                ReadRemoteFileOperation operation = new ReadRemoteFileOperation(parentPath);
+                RemoteOperationResult result = operation.execute(getAccount(), context);
+                if (result.isSuccess()) {
+                    OCFile remoteFolder = FileStorageUtils.fillOCFile((RemoteFile) result.getData().get(0));
+
+                    returnFile = saveFileWithParent(remoteFolder, context);
+                } else {
+                    returnFile = null;
+                    Log_OC.e(TAG, "Error during saving file with parents: " + file.getRemotePath());
+                }
+            } else {
+                returnFile = saveFileWithParent(parentFile, context);
+            }
+
+            file.setParentId(returnFile.getFileId());
+            saveFile(file);
+        }
+
+        return file;
+    }
 
     public void saveNewFile(OCFile newFile) {
         String remoteParentPath = new File(newFile.getRemotePath()).getParent();
@@ -276,52 +309,21 @@ public class FileDataStorageManager {
             OCFile folder, Collection<OCFile> updatedFiles, Collection<OCFile> filesToRemove
     ) {
 
-        Log_OC.d(TAG,  "Saving folder " + folder.getRemotePath() + " with " + updatedFiles.size()
+        Log_OC.d(TAG, "Saving folder " + folder.getRemotePath() + " with " + updatedFiles.size()
                 + " children and " + filesToRemove.size() + " files to remove");
 
-        ArrayList<ContentProviderOperation> operations =
-                new ArrayList<ContentProviderOperation>(updatedFiles.size());
+        ArrayList<ContentProviderOperation> operations = new ArrayList<>(updatedFiles.size());
 
         // prepare operations to insert or update files to save in the given folder
         for (OCFile file : updatedFiles) {
-            ContentValues cv = new ContentValues();
-            cv.put(ProviderTableMeta.FILE_MODIFIED, file.getModificationTimestamp());
-            cv.put(
-                    ProviderTableMeta.FILE_MODIFIED_AT_LAST_SYNC_FOR_DATA,
-                    file.getModificationTimestampAtLastSyncForData()
-            );
-            cv.put(ProviderTableMeta.FILE_CREATION, file.getCreationTimestamp());
-            cv.put(ProviderTableMeta.FILE_CONTENT_LENGTH, file.getFileLength());
-            cv.put(ProviderTableMeta.FILE_CONTENT_TYPE, file.getMimetype());
-            cv.put(ProviderTableMeta.FILE_NAME, file.getFileName());
-            //cv.put(ProviderTableMeta.FILE_PARENT, file.getParentId());
-            cv.put(ProviderTableMeta.FILE_PARENT, folder.getFileId());
-            cv.put(ProviderTableMeta.FILE_PATH, file.getRemotePath());
-            if (!file.isFolder()) {
-                cv.put(ProviderTableMeta.FILE_STORAGE_PATH, file.getStoragePath());
-            }
-            cv.put(ProviderTableMeta.FILE_ACCOUNT_OWNER, mAccount.name);
-            cv.put(ProviderTableMeta.FILE_LAST_SYNC_DATE, file.getLastSyncDateForProperties());
-            cv.put(ProviderTableMeta.FILE_LAST_SYNC_DATE_FOR_DATA, file.getLastSyncDateForData());
-            cv.put(ProviderTableMeta.FILE_KEEP_IN_SYNC, file.isAvailableOffline() ? 1 : 0);
-            cv.put(ProviderTableMeta.FILE_ETAG, file.getEtag());
-            cv.put(ProviderTableMeta.FILE_SHARED_VIA_LINK, file.isSharedViaLink() ? 1 : 0);
-            cv.put(ProviderTableMeta.FILE_SHARED_WITH_SHAREE, file.isSharedWithSharee() ? 1 : 0);
-            cv.put(ProviderTableMeta.FILE_PUBLIC_LINK, file.getPublicLink());
-            cv.put(ProviderTableMeta.FILE_PERMISSIONS, file.getPermissions());
-            cv.put(ProviderTableMeta.FILE_REMOTE_ID, file.getRemoteId());
-            cv.put(ProviderTableMeta.FILE_UPDATE_THUMBNAIL, file.needsUpdateThumbnail());
-            cv.put(ProviderTableMeta.FILE_IS_DOWNLOADING, file.isDownloading());
-            cv.put(ProviderTableMeta.FILE_ETAG_IN_CONFLICT, file.getEtagInConflict());
-            cv.put(ProviderTableMeta.FILE_FAVORITE, file.getIsFavorite());
+            ContentValues cv = createContentValueForFile(file, folder);
 
             boolean existsByPath = fileExists(file.getRemotePath());
             if (existsByPath || fileExists(file.getFileId())) {
                 // updating an existing file
-                operations.add(ContentProviderOperation.newUpdate(ProviderTableMeta.CONTENT_URI).
-                        withValues(cv).
-                        withSelection(ProviderTableMeta._ID + "=?",
-                                new String[]{String.valueOf(file.getFileId())})
+                operations.add(ContentProviderOperation.newUpdate(ProviderTableMeta.CONTENT_URI)
+                        .withValues(cv)
+                        .withSelection(ProviderTableMeta._ID + "=?", new String[]{String.valueOf(file.getFileId())})
                         .build());
 
             } else {
@@ -334,15 +336,13 @@ public class FileDataStorageManager {
         // prepare operations to remove files in the given folder
         String where = ProviderTableMeta.FILE_ACCOUNT_OWNER + AND +
                 ProviderTableMeta.FILE_PATH + "=?";
-        String [] whereArgs = null;
+        String[] whereArgs = null;
         for (OCFile file : filesToRemove) {
             if (file.getParentId() == folder.getFileId()) {
                 whereArgs = new String[]{mAccount.name, file.getRemotePath()};
                 if (file.isFolder()) {
                     operations.add(ContentProviderOperation.newDelete(
-                            ContentUris.withAppendedId(
-                                    ProviderTableMeta.CONTENT_URI_DIR, file.getFileId()
-                            )
+                            ContentUris.withAppendedId(ProviderTableMeta.CONTENT_URI_DIR, file.getFileId())
                     ).withSelection(where, whereArgs).build());
 
                     File localFolder = new File(FileStorageUtils.getDefaultSavePathFor(mAccount.name, file));
@@ -351,8 +351,7 @@ public class FileDataStorageManager {
                     }
                 } else {
                     operations.add(ContentProviderOperation.newDelete(
-                            ContentUris.withAppendedId(
-                                    ProviderTableMeta.CONTENT_URI_FILE, file.getFileId()
+                            ContentUris.withAppendedId(ProviderTableMeta.CONTENT_URI_FILE, file.getFileId()
                             )
                     ).withSelection(where, whereArgs).build());
 
@@ -366,29 +365,7 @@ public class FileDataStorageManager {
         }
 
         // update metadata of folder
-        ContentValues cv = new ContentValues();
-        cv.put(ProviderTableMeta.FILE_MODIFIED, folder.getModificationTimestamp());
-        cv.put(
-                ProviderTableMeta.FILE_MODIFIED_AT_LAST_SYNC_FOR_DATA,
-                folder.getModificationTimestampAtLastSyncForData()
-        );
-        cv.put(ProviderTableMeta.FILE_CREATION, folder.getCreationTimestamp());
-        cv.put(ProviderTableMeta.FILE_CONTENT_LENGTH, 0);
-        cv.put(ProviderTableMeta.FILE_CONTENT_TYPE, folder.getMimetype());
-        cv.put(ProviderTableMeta.FILE_NAME, folder.getFileName());
-        cv.put(ProviderTableMeta.FILE_PARENT, folder.getParentId());
-        cv.put(ProviderTableMeta.FILE_PATH, folder.getRemotePath());
-        cv.put(ProviderTableMeta.FILE_ACCOUNT_OWNER, mAccount.name);
-        cv.put(ProviderTableMeta.FILE_LAST_SYNC_DATE, folder.getLastSyncDateForProperties());
-        cv.put(ProviderTableMeta.FILE_LAST_SYNC_DATE_FOR_DATA, folder.getLastSyncDateForData());
-        cv.put(ProviderTableMeta.FILE_KEEP_IN_SYNC, folder.isAvailableOffline() ? 1 : 0);
-        cv.put(ProviderTableMeta.FILE_ETAG, folder.getEtag());
-        cv.put(ProviderTableMeta.FILE_SHARED_VIA_LINK, folder.isSharedViaLink() ? 1 : 0);
-        cv.put(ProviderTableMeta.FILE_SHARED_WITH_SHAREE, folder.isSharedWithSharee() ? 1 : 0);
-        cv.put(ProviderTableMeta.FILE_PUBLIC_LINK, folder.getPublicLink());
-        cv.put(ProviderTableMeta.FILE_PERMISSIONS, folder.getPermissions());
-        cv.put(ProviderTableMeta.FILE_REMOTE_ID, folder.getRemoteId());
-        cv.put(ProviderTableMeta.FILE_FAVORITE, folder.getIsFavorite());
+        ContentValues cv = createContentValueForFile(folder);
 
         operations.add(ContentProviderOperation.newUpdate(ProviderTableMeta.CONTENT_URI).
                 withValues(cv).
@@ -431,7 +408,67 @@ public class FileDataStorageManager {
                 }
             }
         }
+    }
 
+    private ContentValues createContentValueForFile(OCFile folder) {
+        ContentValues cv = new ContentValues();
+        cv.put(ProviderTableMeta.FILE_MODIFIED, folder.getModificationTimestamp());
+        cv.put(
+                ProviderTableMeta.FILE_MODIFIED_AT_LAST_SYNC_FOR_DATA,
+                folder.getModificationTimestampAtLastSyncForData()
+        );
+        cv.put(ProviderTableMeta.FILE_CREATION, folder.getCreationTimestamp());
+        cv.put(ProviderTableMeta.FILE_CONTENT_LENGTH, 0);
+        cv.put(ProviderTableMeta.FILE_CONTENT_TYPE, folder.getMimetype());
+        cv.put(ProviderTableMeta.FILE_NAME, folder.getFileName());
+        cv.put(ProviderTableMeta.FILE_PARENT, folder.getParentId());
+        cv.put(ProviderTableMeta.FILE_PATH, folder.getRemotePath());
+        cv.put(ProviderTableMeta.FILE_ACCOUNT_OWNER, mAccount.name);
+        cv.put(ProviderTableMeta.FILE_LAST_SYNC_DATE, folder.getLastSyncDateForProperties());
+        cv.put(ProviderTableMeta.FILE_LAST_SYNC_DATE_FOR_DATA, folder.getLastSyncDateForData());
+        cv.put(ProviderTableMeta.FILE_KEEP_IN_SYNC, folder.isAvailableOffline() ? 1 : 0);
+        cv.put(ProviderTableMeta.FILE_ETAG, folder.getEtag());
+        cv.put(ProviderTableMeta.FILE_SHARED_VIA_LINK, folder.isSharedViaLink() ? 1 : 0);
+        cv.put(ProviderTableMeta.FILE_SHARED_WITH_SHAREE, folder.isSharedWithSharee() ? 1 : 0);
+        cv.put(ProviderTableMeta.FILE_PUBLIC_LINK, folder.getPublicLink());
+        cv.put(ProviderTableMeta.FILE_PERMISSIONS, folder.getPermissions());
+        cv.put(ProviderTableMeta.FILE_REMOTE_ID, folder.getRemoteId());
+        cv.put(ProviderTableMeta.FILE_FAVORITE, folder.getIsFavorite());
+        return cv;
+    }
+
+    private ContentValues createContentValueForFile(OCFile file, OCFile folder) {
+        ContentValues cv = new ContentValues();
+        cv.put(ProviderTableMeta.FILE_MODIFIED, file.getModificationTimestamp());
+        cv.put(
+                ProviderTableMeta.FILE_MODIFIED_AT_LAST_SYNC_FOR_DATA,
+                file.getModificationTimestampAtLastSyncForData()
+        );
+        cv.put(ProviderTableMeta.FILE_CREATION, file.getCreationTimestamp());
+        cv.put(ProviderTableMeta.FILE_CONTENT_LENGTH, file.getFileLength());
+        cv.put(ProviderTableMeta.FILE_CONTENT_TYPE, file.getMimetype());
+        cv.put(ProviderTableMeta.FILE_NAME, file.getFileName());
+        //cv.put(ProviderTableMeta.FILE_PARENT, file.getParentId());
+        cv.put(ProviderTableMeta.FILE_PARENT, folder.getFileId());
+        cv.put(ProviderTableMeta.FILE_PATH, file.getRemotePath());
+        if (!file.isFolder()) {
+            cv.put(ProviderTableMeta.FILE_STORAGE_PATH, file.getStoragePath());
+        }
+        cv.put(ProviderTableMeta.FILE_ACCOUNT_OWNER, mAccount.name);
+        cv.put(ProviderTableMeta.FILE_LAST_SYNC_DATE, file.getLastSyncDateForProperties());
+        cv.put(ProviderTableMeta.FILE_LAST_SYNC_DATE_FOR_DATA, file.getLastSyncDateForData());
+        cv.put(ProviderTableMeta.FILE_KEEP_IN_SYNC, file.isAvailableOffline() ? 1 : 0);
+        cv.put(ProviderTableMeta.FILE_ETAG, file.getEtag());
+        cv.put(ProviderTableMeta.FILE_SHARED_VIA_LINK, file.isSharedViaLink() ? 1 : 0);
+        cv.put(ProviderTableMeta.FILE_SHARED_WITH_SHAREE, file.isSharedWithSharee() ? 1 : 0);
+        cv.put(ProviderTableMeta.FILE_PUBLIC_LINK, file.getPublicLink());
+        cv.put(ProviderTableMeta.FILE_PERMISSIONS, file.getPermissions());
+        cv.put(ProviderTableMeta.FILE_REMOTE_ID, file.getRemoteId());
+        cv.put(ProviderTableMeta.FILE_UPDATE_THUMBNAIL, file.needsUpdateThumbnail());
+        cv.put(ProviderTableMeta.FILE_IS_DOWNLOADING, file.isDownloading());
+        cv.put(ProviderTableMeta.FILE_ETAG_IN_CONFLICT, file.getEtagInConflict());
+        cv.put(ProviderTableMeta.FILE_FAVORITE, file.getIsFavorite());
+        return cv;
     }
 
 
@@ -499,7 +536,7 @@ public class FileDataStorageManager {
         Uri folder_uri = Uri.withAppendedPath(ProviderTableMeta.CONTENT_URI_DIR, "" + folder.getFileId()); // URI
         // for recursive deletion
         String where = ProviderTableMeta.FILE_ACCOUNT_OWNER + AND + ProviderTableMeta.FILE_PATH + "=?";
-        String [] whereArgs = new String[]{mAccount.name, folder.getRemotePath()};
+        String[] whereArgs = new String[]{mAccount.name, folder.getRemotePath()};
         int deleted = 0;
         if (getContentProviderClient() != null) {
             try {
@@ -793,9 +830,9 @@ public class FileDataStorageManager {
         if (c != null && c.moveToFirst()) {
             do {
                 OCFile child = createFileInstance(c);
-                 if (child.isFolder() || !onlyOnDevice || child.isDown()) {
-                     ret.add(child);
-                 }
+                if (child.isFolder() || !onlyOnDevice || child.isDown()) {
+                    ret.add(child);
+                }
             } while (c.moveToNext());
             c.close();
         }
@@ -868,6 +905,15 @@ public class FileDataStorageManager {
         return c;
     }
 
+    private OCFile createFileInstanceFromVirtual(Cursor c) {
+        OCFile file = null;
+        if (c != null) {
+            long fileId = c.getLong(c.getColumnIndex(ProviderTableMeta.VIRTUAL_OCFILE_ID));
+            file = getFileById(fileId);
+        }
+
+        return file;
+    }
 
     private OCFile createFileInstance(Cursor c) {
         OCFile file = null;
@@ -978,7 +1024,7 @@ public class FileDataStorageManager {
      * Retrieves an stored {@link OCShare} given its id.
      *
      * @param id    Identifier.
-     * @return      Stored {@link OCShare} given its id.
+     * @return Stored {@link OCShare} given its id.
      */
     public OCShare getShareById(long id) {
         OCShare share = null;
@@ -1036,7 +1082,7 @@ public class FileDataStorageManager {
                     .query(ProviderTableMeta.CONTENT_URI_SHARE,
                             null,
                             key + AND
-                                + ProviderTableMeta.OCSHARES_ACCOUNT_OWNER + "=?",
+                                    + ProviderTableMeta.OCSHARES_ACCOUNT_OWNER + "=?",
                             new String[]{value, mAccount.name},
                             null
                     );
@@ -1050,13 +1096,12 @@ public class FileDataStorageManager {
                         null
                 );
             } catch (RemoteException e) {
-                Log_OC.w(TAG, "Could not get details, assuming share does not exist: "+ e.getMessage());
+                Log_OC.w(TAG, "Could not get details, assuming share does not exist: " + e.getMessage());
                 c = null;
             }
         }
         return c;
     }
-
 
 
     /**
@@ -1065,7 +1110,7 @@ public class FileDataStorageManager {
      * @param path          Path of the file.
      * @param type          Type of the share to get
      * @param shareWith     Target of the share. Ignored in type is {@link ShareType#PUBLIC_LINK}
-     * @return              First {@link OCShare} instance found in DB bound to the file in 'path'
+     * @return First {@link OCShare} instance found in DB bound to the file in 'path'
      */
     public OCShare getFirstShareByPathAndType(String path, ShareType type, String shareWith) {
         Cursor cursor = null;
@@ -1075,12 +1120,12 @@ public class FileDataStorageManager {
 
         String selection = ProviderTableMeta.OCSHARES_PATH + AND
                 + ProviderTableMeta.OCSHARES_SHARE_TYPE + AND
-                + ProviderTableMeta.OCSHARES_ACCOUNT_OWNER + "=?" ;
+                + ProviderTableMeta.OCSHARES_ACCOUNT_OWNER + "=?";
         if (!ShareType.PUBLIC_LINK.equals(type)) {
             selection += " AND " + ProviderTableMeta.OCSHARES_SHARE_WITH + "=?";
         }
 
-        String [] selectionArgs;
+        String[] selectionArgs;
         if (ShareType.PUBLIC_LINK.equals(type)) {
             selectionArgs = new String[]{
                     path,
@@ -1173,7 +1218,7 @@ public class FileDataStorageManager {
         cv.put(ProviderTableMeta.FILE_SHARED_WITH_SHAREE, false);
         cv.put(ProviderTableMeta.FILE_PUBLIC_LINK, "");
         String where = ProviderTableMeta.FILE_ACCOUNT_OWNER + AND + ProviderTableMeta.FILE_PARENT + "=?";
-        String [] whereArgs = new String[] { mAccount.name , String.valueOf(folder.getFileId()) };
+        String[] whereArgs = new String[]{mAccount.name, String.valueOf(folder.getFileId())};
 
         if (getContentResolver() != null) {
             getContentResolver().update(ProviderTableMeta.CONTENT_URI, cv, where, whereArgs);
@@ -1187,13 +1232,13 @@ public class FileDataStorageManager {
         }
     }
 
-    private void resetShareFlagInAFile(String filePath){
+    private void resetShareFlagInAFile(String filePath) {
         ContentValues cv = new ContentValues();
         cv.put(ProviderTableMeta.FILE_SHARED_VIA_LINK, false);
         cv.put(ProviderTableMeta.FILE_SHARED_WITH_SHAREE, false);
         cv.put(ProviderTableMeta.FILE_PUBLIC_LINK, "");
-        String where = ProviderTableMeta.FILE_ACCOUNT_OWNER + AND + ProviderTableMeta.FILE_PATH+ "=?";
-        String [] whereArgs = new String[] { mAccount.name , filePath };
+        String where = ProviderTableMeta.FILE_ACCOUNT_OWNER + AND + ProviderTableMeta.FILE_PATH + "=?";
+        String[] whereArgs = new String[]{mAccount.name, filePath};
 
         if (getContentResolver() != null) {
             getContentResolver().update(ProviderTableMeta.CONTENT_URI, cv, where, whereArgs);
@@ -1380,7 +1425,7 @@ public class FileDataStorageManager {
         Uri share_uri = ProviderTableMeta.CONTENT_URI_SHARE;
         String where = ProviderTableMeta.OCSHARES_ACCOUNT_OWNER + AND +
                 ProviderTableMeta._ID + "=?";
-        String [] whereArgs = new String[]{mAccount.name, Long.toString(share.getId())};
+        String[] whereArgs = new String[]{mAccount.name, Long.toString(share.getId())};
         if (getContentProviderClient() != null) {
             try {
                 getContentProviderClient().delete(share_uri, where, whereArgs);
@@ -1397,16 +1442,16 @@ public class FileDataStorageManager {
 
         // Reset flags & Remove shares for this files
         String filePath = "";
-        for (OCShare share: shares) {
-            if (filePath != share.getPath()){
+        for (OCShare share : shares) {
+            if (filePath != share.getPath()) {
                 filePath = share.getPath();
                 resetShareFlagInAFile(filePath);
                 operations = prepareRemoveSharesInFile(filePath, operations);
             }
         }
 
-       // Add operations to insert shares
-       operations = prepareInsertShares(shares, operations);
+        // Add operations to insert shares
+        operations = prepareInsertShares(shares, operations);
 
         // apply operations in batch
         if (operations.size() > 0) {
@@ -1547,7 +1592,7 @@ public class FileDataStorageManager {
         if (folder != null) {
             String where = ProviderTableMeta.OCSHARES_PATH + AND
                     + ProviderTableMeta.OCSHARES_ACCOUNT_OWNER + "=?";
-            String [] whereArgs = new String[]{ "", mAccount.name };
+            String[] whereArgs = new String[]{"", mAccount.name};
 
             Vector<OCFile> files = getFolderContent(folder, false);
 
@@ -1581,15 +1626,15 @@ public class FileDataStorageManager {
 
     }
 
-    public ArrayList<OCShare> getSharesWithForAFile(String filePath, String accountName){
+    public ArrayList<OCShare> getSharesWithForAFile(String filePath, String accountName) {
         // Condition
         String where = ProviderTableMeta.OCSHARES_PATH + AND
                 + ProviderTableMeta.OCSHARES_ACCOUNT_OWNER + AND
                 + " (" + ProviderTableMeta.OCSHARES_SHARE_TYPE + "=? OR "
-                + ProviderTableMeta.OCSHARES_SHARE_TYPE +  "=? OR "
-                + ProviderTableMeta.OCSHARES_SHARE_TYPE +  "=? OR "
+                + ProviderTableMeta.OCSHARES_SHARE_TYPE + "=? OR "
+                + ProviderTableMeta.OCSHARES_SHARE_TYPE + "=? OR "
                 + ProviderTableMeta.OCSHARES_SHARE_TYPE + "=? ) ";
-        String [] whereArgs = new String[]{ filePath, accountName ,
+        String[] whereArgs = new String[]{filePath, accountName,
                 Integer.toString(ShareType.USER.getValue()),
                 Integer.toString(ShareType.GROUP.getValue()),
                 Integer.toString(ShareType.EMAIL.getValue()),
@@ -1688,7 +1733,7 @@ public class FileDataStorageManager {
                     ProviderTableMeta.CONTENT_URI_FILE,
                     cv,
                     ProviderTableMeta._ID + "=?",
-                    new String[] { String.valueOf(file.getFileId())}
+                    new String[]{String.valueOf(file.getFileId())}
             );
         } else {
             try {
@@ -1825,7 +1870,7 @@ public class FileDataStorageManager {
 
     }
 
-    public OCCapability saveCapabilities(OCCapability capability){
+    public OCCapability saveCapabilities(OCCapability capability) {
 
         // Prepare capabilities data
         ContentValues cv = new ContentValues();
@@ -1912,7 +1957,7 @@ public class FileDataStorageManager {
         return exists;
     }
 
-    private Cursor getCapabilityCursorForAccount(String accountName){
+    private Cursor getCapabilityCursorForAccount(String accountName) {
         Cursor c = null;
         if (getContentResolver() != null) {
             c = getContentResolver()
@@ -1935,7 +1980,8 @@ public class FileDataStorageManager {
         return c;
 
     }
-    public OCCapability getCapability(String accountName){
+
+    public OCCapability getCapability(String accountName) {
         OCCapability capability = null;
         Cursor c = getCapabilityCursorForAccount(accountName);
 
@@ -2003,6 +2049,104 @@ public class FileDataStorageManager {
                     .getColumnIndex(ProviderTableMeta.CAPABILITIES_EXTERNAL_LINKS))));
         }
         return capability;
+    }
+
+    public void deleteVirtuals(VirtualFolderType type) {
+        if (getContentResolver() != null) {
+            getContentResolver().delete(ProviderTableMeta.CONTENT_URI_VIRTUAL,
+                    ProviderTableMeta.VIRTUAL_TYPE + "=?", new String[]{String.valueOf(type)});
+        } else {
+            try {
+                getContentProviderClient().delete(ProviderTableMeta.CONTENT_URI_VIRTUAL,
+                        ProviderTableMeta.VIRTUAL_TYPE + "=?", new String[]{String.valueOf(type)});
+            } catch (RemoteException e) {
+                Log_OC.e(TAG, FAILED_TO_INSERT_MSG + e.getMessage(), e);
+            }
+        }
+    }
+
+    public void saveVirtuals(VirtualFolderType type, List<ContentValues> values) {
+
+        if (getContentResolver() != null) {
+            getContentResolver().bulkInsert(ProviderTableMeta.CONTENT_URI_VIRTUAL, values.toArray(new ContentValues[values.size()]));
+        } else {
+            try {
+                getContentProviderClient().bulkInsert(ProviderTableMeta.CONTENT_URI_VIRTUAL, values.toArray(new ContentValues[values.size()]));
+            } catch (RemoteException e) {
+                Log_OC.e(TAG, FAILED_TO_INSERT_MSG + e.getMessage(), e);
+            }
+        }
+    }
+
+    public void saveVirtual(VirtualFolderType type, OCFile file) {
+        ContentValues cv = new ContentValues();
+        cv.put(ProviderTableMeta.VIRTUAL_TYPE, type.toString());
+        cv.put(ProviderTableMeta.VIRTUAL_OCFILE_ID, file.getFileId());
+
+        if (getContentResolver() != null) {
+            getContentResolver().insert(ProviderTableMeta.CONTENT_URI_VIRTUAL, cv);
+        } else {
+            try {
+                getContentProviderClient().insert(ProviderTableMeta.CONTENT_URI_VIRTUAL, cv);
+            } catch (RemoteException e) {
+                Log_OC.e(TAG, FAILED_TO_INSERT_MSG + e.getMessage(), e);
+            }
+        }
+    }
+
+    public Vector<OCFile> getVirtualFolderContent(VirtualFolderType type, boolean onlyImages) {
+        Vector<OCFile> ocFiles = new Vector<>();
+        Uri req_uri = ProviderTableMeta.CONTENT_URI_VIRTUAL;
+        Cursor c;
+
+        if (getContentProviderClient() != null) {
+            try {
+                c = getContentProviderClient().query(
+                        req_uri,
+                        null,
+                        ProviderTableMeta.VIRTUAL_TYPE + "=?",
+                        new String[]{String.valueOf(type)},
+                        null
+                );
+            } catch (RemoteException e) {
+                Log_OC.e(TAG, e.getMessage(), e);
+                return ocFiles;
+            }
+        } else {
+            c = getContentResolver().query(
+                    req_uri,
+                    null,
+                    ProviderTableMeta.VIRTUAL_TYPE + "=?",
+                    new String[]{String.valueOf(type)},
+                    null
+            );
+        }
+
+        if (c != null && c.moveToFirst()) {
+            do {
+                OCFile child = createFileInstanceFromVirtual(c);
+                ocFiles.add(child);
+            } while (c.moveToNext());
+            c.close();
+        }
+
+        if (onlyImages) {
+            OCFile current = null;
+            Vector<OCFile> temp = new Vector<>();
+            for (int i=0; i < ocFiles.size(); i++) {
+                current = ocFiles.get(i);
+                if (MimeTypeUtil.isImage(current)) {
+                    temp.add(current);
+                }
+            }
+            ocFiles = temp;
+        }
+
+        if (ocFiles.size() > 0) {
+            Collections.sort(ocFiles);
+        }
+
+        return ocFiles;
     }
 
 }

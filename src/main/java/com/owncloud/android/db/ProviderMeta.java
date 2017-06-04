@@ -32,7 +32,7 @@ import com.owncloud.android.MainApp;
 public class ProviderMeta {
 
     public static final String DB_NAME = "filelist";
-    public static final int DB_VERSION = 20;
+    public static final int DB_VERSION = 21;
 
     private ProviderMeta() {
     }
@@ -45,6 +45,7 @@ public class ProviderMeta {
         public static final String SYNCED_FOLDERS_TABLE_NAME = "synced_folders";
         public static final String EXTERNAL_LINKS_TABLE_NAME = "external_links";
         public static final String ARBITRARY_DATA_TABLE_NAME = "arbitrary_data";
+        public static final String VIRTUAL_TABLE_NAME = "virtual";
 
         private static final String CONTENT_PREFIX = "content://";
 
@@ -66,6 +67,7 @@ public class ProviderMeta {
                 + MainApp.getAuthority() + "/external_links");
         public static final Uri CONTENT_URI_ARBITRARY_DATA = Uri.parse(CONTENT_PREFIX
                 + MainApp.getAuthority() + "/arbitrary_data");
+        public static final Uri CONTENT_URI_VIRTUAL = Uri.parse(CONTENT_PREFIX + MainApp.getAuthority() + "/virtual");
 
         public static final String CONTENT_TYPE = "vnd.android.cursor.dir/vnd.owncloud.file";
         public static final String CONTENT_TYPE_ITEM = "vnd.android.cursor.item/vnd.owncloud.file";
@@ -185,5 +187,9 @@ public class ProviderMeta {
         public static final String ARBITRARY_DATA_CLOUD_ID = "cloud_id";
         public static final String ARBITRARY_DATA_KEY = "key";
         public static final String ARBITRARY_DATA_VALUE = "value";
+
+        // Columns of virtual
+        public static final String VIRTUAL_TYPE = "type";
+        public static final String VIRTUAL_OCFILE_ID = "ocfile_id";
     }
 }

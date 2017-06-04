@@ -38,11 +38,15 @@ import android.graphics.drawable.PictureDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.support.annotation.ColorInt;
+import android.support.annotation.ColorRes;
+import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.content.res.ResourcesCompat;
+import android.support.v4.graphics.drawable.DrawableCompat;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.format.DateUtils;
@@ -63,6 +67,7 @@ import com.bumptech.glide.request.target.SimpleTarget;
 import com.caverock.androidsvg.SVG;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
+import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
@@ -588,6 +593,14 @@ public class DisplayUtils {
 
         Menu menu = view.getMenu();
 
+        Account account = AccountUtils.getCurrentOwnCloudAccount(MainApp.getAppContext());
+        boolean searchSupported = AccountUtils.hasSearchSupport(account);
+
+        if (!searchSupported) {
+            menu.removeItem(R.id.nav_bar_favorites);
+            menu.removeItem(R.id.nav_bar_photos);
+        }
+
         if (resources.getBoolean(R.bool.use_home)) {
             menu.findItem(R.id.nav_bar_files).setTitle(resources.
                     getString(R.string.drawer_item_home));
@@ -675,6 +688,13 @@ public class DisplayUtils {
             Log_OC.e(TAG,e.getMessage());
         }
         return text.toString();
+    }
+
+    public static Drawable tintDrawable(@DrawableRes int id, @ColorRes int color) {
+        Drawable drawable = ResourcesCompat.getDrawable(MainApp.getAppContext().getResources(), id, null);
+        drawable = DrawableCompat.wrap(drawable);
+        DrawableCompat.setTint(drawable, MainApp.getAppContext().getResources().getColor(color));
+        return drawable;
     }
 
 }
