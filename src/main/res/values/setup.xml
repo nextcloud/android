@@ -84,11 +84,16 @@
     <bool name="videos_enabled">false</bool>
     <bool name="show_drawer_logout">false</bool>
 
+    <!-- Various other options -->
+    <bool name="allow_profile_click">true</bool>
+
     <!-- Bottom toolbar -->
     <bool name="bottom_toolbar_enabled">false</bool>
 
     <!-- Help, imprint and feedback, and other things -->
     <bool name="fingerprint_enabled">true</bool>
+    <bool name="passcode_enabled">true</bool>
+    <bool name="show_hidden_files_enabled">true</bool>
     <bool name="davdroid_integration_enabled">true</bool>
     <bool name="help_enabled">true</bool>
     <string name="url_help">https://help.nextcloud.com/c/feature</string>
