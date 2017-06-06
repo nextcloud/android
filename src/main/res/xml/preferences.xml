@@ -29,7 +29,7 @@
 	<PreferenceCategory
 		android:title="@string/drawer_folder_sync"
 		android:key="folder_sync">
-		<android.preference.CheckBoxPreference
+		<android.preference.SwitchPreference
 			android:title="@string/auto_upload_on_wifi"
 			android:key="synced_folder_on_wifi"/>
         <Preference
@@ -93,9 +93,9 @@
     </PreferenceCategory>
 
 	<PreferenceCategory android:title="@string/prefs_category_details" android:key="details">
-		<android.preference.CheckBoxPreference android:title="@string/prefs_passcode" android:key="set_pincode" />
-		<android.preference.CheckBoxPreference android:title="@string/prefs_fingerprint" android:key="use_fingerprint" />
-		<android.preference.CheckBoxPreference android:title="@string/prefs_show_hidden_files" android:key="show_hidden_files" />
+		<android.preference.SwitchPreference android:title="@string/prefs_passcode" android:key="set_pincode" />
+		<android.preference.SwitchPreference android:title="@string/prefs_fingerprint" android:key="use_fingerprint" />
+		<android.preference.SwitchPreference android:title="@string/prefs_show_hidden_files" android:key="show_hidden_files" />
 	</PreferenceCategory>
 
 	<PreferenceCategory android:title="@string/prefs_category_more" android:key="more">
