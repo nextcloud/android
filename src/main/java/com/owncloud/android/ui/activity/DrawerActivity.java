@@ -255,19 +255,25 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
      * initializes and sets up the drawer header.
      */
     private void setupDrawerHeader() {
-        mAccountChooserToggle = (ImageView) findNavigationViewChildById(R.id.drawer_account_chooser_toogle);
-        mAccountChooserToggle.setImageResource(R.drawable.ic_down);
         mIsAccountChooserActive = false;
         mAccountMiddleAccountAvatar = (ImageView) findNavigationViewChildById(R.id.drawer_account_middle);
         mAccountEndAccountAvatar = (ImageView) findNavigationViewChildById(R.id.drawer_account_end);
 
-        findNavigationViewChildById(R.id.drawer_active_user)
-                .setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        toggleAccountList();
-                    }
-                });
+        mAccountChooserToggle = (ImageView) findNavigationViewChildById(R.id.drawer_account_chooser_toogle);
+
+        if (getResources().getBoolean(R.bool.allow_profile_click)) {
+            mAccountChooserToggle.setImageResource(R.drawable.ic_down);
+
+            findNavigationViewChildById(R.id.drawer_active_user)
+                    .setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            toggleAccountList();
+                        }
+                    });
+        } else {
+            mAccountChooserToggle.setVisibility(View.GONE);
+        }
     }
 
     /**
@@ -768,7 +774,9 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
     private void showMenu() {
         if (mNavigationView != null) {
             if (mIsAccountChooserActive) {
-                mAccountChooserToggle.setImageResource(R.drawable.ic_up);
+                if (mAccountChooserToggle != null) {
+                    mAccountChooserToggle.setImageResource(R.drawable.ic_up);
+                }
                 mNavigationView.getMenu().setGroupVisible(R.id.drawer_menu_accounts, true);
 
                 if (!getResources().getBoolean(R.bool.multiaccount_support) &&
@@ -780,7 +788,9 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
                 mNavigationView.getMenu().setGroupVisible(R.id.drawer_menu_external_links, false);
                 mNavigationView.getMenu().setGroupVisible(R.id.drawer_menu_bottom, false);
             } else {
-                mAccountChooserToggle.setImageResource(R.drawable.ic_down);
+                if (mAccountChooserToggle != null) {
+                    mAccountChooserToggle.setImageResource(R.drawable.ic_down);
+                }
                 mNavigationView.getMenu().setGroupVisible(R.id.drawer_menu_accounts, false);
                 mNavigationView.getMenu().setGroupVisible(R.id.drawer_menu_standard, true);
                 mNavigationView.getMenu().setGroupVisible(R.id.drawer_menu_external_links, true);
