@@ -758,8 +758,10 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
      * Toggle between standard menu and account list including saving the state.
      */
     private void toggleAccountList() {
-        mIsAccountChooserActive = !mIsAccountChooserActive;
-        showMenu();
+        if (getResources().getBoolean(R.bool.allow_profile_click)) {
+            mIsAccountChooserActive = !mIsAccountChooserActive;
+            showMenu();
+        }
     }
 
     /**
