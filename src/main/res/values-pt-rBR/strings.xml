@@ -347,8 +347,8 @@
     <string name="instant_video_upload_on_wifi">Somente enviar vídeos por Wi-Fi</string>
     <string name="instant_video_upload_on_charging">Somente enviar quando carregando</string>
     <string name="instant_upload_on_charging">Somente enviar quando carregando</string>
-    <string name="instant_upload_path">/Upload automático</string>
-    <string name="auto_upload_path">/Upload automático</string>
+    <string name="instant_upload_path">/EnvioAutomático</string>
+    <string name="auto_upload_path">/Envio Automático</string>
     <string name="conflict_title">Conflito de arquivo</string>
     <string name="conflict_message">Quais arquivos você quer manter? Se você selecionar ambos, o arquivo local terá um número adicionado ao seu nome.</string>
     <string name="conflict_keep_both">Manter ambos</string>
@@ -492,7 +492,7 @@
     <string name="upload_move_files">Mover o arquivo</string>
     <string name="select_all">Selecionar tudo</string>
 
-    <string name="pref_behaviour_entries_keep_file">mantido na pasta original</string>
+    <string name="pref_behaviour_entries_keep_file">Mantido na pasta original</string>
     <string name="pref_behaviour_entries_move">movido para a pasta aplicativos</string>
     <string name="pref_behaviour_entries_delete_file">excluído</string>
     <string name="prefs_storage_path">Caminho do armazenamento</string>
