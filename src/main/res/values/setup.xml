@@ -5,7 +5,7 @@
 
     <!-- App name  and other strings-->
     <string name="app_name">Nextcloud</string>
-    <string name="account_type">nextcloud</string>	<!-- better if was a domain name; but changing it now would require migrate accounts when the app is updated -->
+    <string name="account_type">nextcloud</string>	<!-- better if was a domain name; but changing it now would requ`ire migrate accounts when the app is updated -->
     <string name="authority">org.nextcloud</string>	<!-- better if was the app package with ".provider" appended ; it identifies the provider -->
     <string name="users_and_groups_search_authority">com.nextcloud.android.providers.UsersAndGroupsSearchProvider</string>
     <string name="users_and_groups_share_with">com.nextcloud.android.providers.UsersAndGroupsSearchProvider.action.SHARE_WITH</string>
@@ -84,11 +84,16 @@
     <bool name="videos_enabled">false</bool>
     <bool name="show_drawer_logout">false</bool>
 
+    <!-- Various other options -->
+    <bool name="allow_profile_click">true</bool>
+
     <!-- Bottom toolbar -->
     <bool name="bottom_toolbar_enabled">false</bool>
 
     <!-- Help, imprint and feedback, and other things -->
     <bool name="fingerprint_enabled">true</bool>
+    <bool name="passcode_enabled">true</bool>
+    <bool name="show_hidden_files_enabled">true</bool>
     <bool name="davdroid_integration_enabled">true</bool>
     <bool name="help_enabled">true</bool>
     <string name="url_help">https://help.nextcloud.com/c/feature</string>
