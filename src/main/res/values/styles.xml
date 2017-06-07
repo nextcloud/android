@@ -116,7 +116,7 @@
 	</style>
 
 	<style name="Button.Borderless" parent="Base.Widget.AppCompat.Button.Borderless">
-		<item name="android:textColor">@color/color_accent</item>
+		<item name="android:textColor">@drawable/borderless_btn</item>
 	</style>
 
 	<style name="Button.Borderless.Destructive" parent="Base.Widget.AppCompat.Button.Borderless">

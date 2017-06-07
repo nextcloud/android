@@ -155,6 +155,9 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment {
             // switch text to create headline
             ((TextView)view.findViewById(R.id.folder_sync_settings_title))
                     .setText(R.string.autoupload_create_new_custom_folder);
+
+            // disable save button
+            view.findViewById(R.id.save).setEnabled(false);
         }
 
         // find/saves UI elements
@@ -234,6 +237,7 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment {
     public void setRemoteFolderSummary(String path) {
         mSyncedFolder.setRemotePath(path);
         mRemoteFolderSummary.setText(path);
+        checkAndUpdateSaveButtonState();
     }
 
     /**
@@ -253,6 +257,15 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment {
                                 mSyncedFolder.getLocalPath()),
                         new File(mSyncedFolder.getLocalPath()).getName(),
                         new StyleSpan(Typeface.BOLD)));
+        checkAndUpdateSaveButtonState();
+    }
+
+    private void checkAndUpdateSaveButtonState() {
+        if(mSyncedFolder.getLocalPath() != null && mSyncedFolder.getRemotePath() != null) {
+            mView.findViewById(R.id.save).setEnabled(true);
+        } else {
+            mView.findViewById(R.id.save).setEnabled(false);
+        }
     }
 
     /**
