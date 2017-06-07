@@ -13,7 +13,7 @@ buildscript {
         }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.4.0-alpha7'
+        classpath 'com.android.tools.build:gradle:2.4+'
         classpath 'com.google.gms:google-services:3.0.0'
     }
 }
@@ -29,7 +29,7 @@ configurations.all {
 }
 
 ext {
-    supportLibraryVersion = '25.0.0'
+    supportLibraryVersion = '25.2.0'
 
     travisBuild = System.getenv("TRAVIS") == "true"
 
@@ -77,14 +77,18 @@ android {
         // adapt structure from Eclipse to Gradle/Android Studio expectations;
         // see http://tools.android.com/tech-docs/new-build-system/user-guide#TOC-Configuring-the-Structure
 
+        flavorDimensions "default"
+
         productFlavors {
             // used for f-droid
             generic {
                 applicationId 'com.nextcloud.client'
+                dimension "default"
             }
 
             gplay {
                 applicationId 'com.nextcloud.client'
+                dimension "default"
             }
 
             modified {
@@ -93,6 +97,7 @@ android {
                 // domain name
                 // .client
                 applicationId 'com.custom.client'
+                dimension "default"
             }
         }
 
@@ -176,7 +181,6 @@ dependencies {
     /// dependencies for app building
     compile name: 'touch-image-view'
     compile 'com.android.support:multidex:1.0.1'
-
     compile 'com.github.nextcloud:android-library:1.0.22'
     compile "com.android.support:support-v4:${supportLibraryVersion}"
     compile "com.android.support:design:${supportLibraryVersion}"
@@ -185,45 +189,35 @@ dependencies {
     compile "com.android.support:cardview-v7:${supportLibraryVersion}"
     compile 'com.github.tobiasKaminsky:android-floating-action-button:1.10.2'
     compile 'com.google.code.findbugs:annotations:2.0.1'
-    compile group: 'commons-io', name: 'commons-io', version: '2.4'
-    compile 'com.github.evernote:android-job:v1.1.10'
-    compile 'com.jakewharton:butterknife:8.4.0'
-    annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
+    compile 'commons-io:commons-io:2.5'
+    compile 'com.github.evernote:android-job:v1.1.11'
+    compile 'com.jakewharton:butterknife:8.5.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
     compile 'org.greenrobot:eventbus:3.0.0'
     compile 'com.googlecode.ez-vcard:ez-vcard:0.10.2'
     compile 'org.lukhnos:nnio:0.2'
-
     // uncomment for gplay, modified
     //compile 'com.google.android.gms:play-services:10.2.4'
-
     compile 'org.parceler:parceler-api:1.1.6'
     annotationProcessor 'org.parceler:parceler:1.1.6'
-
     compile 'com.github.bumptech.glide:glide:3.7.0'
     compile 'com.caverock:androidsvg:1.2.1'
-
     /// dependencies for local unit tests
     testCompile 'junit:junit:4.12'
     testCompile 'org.mockito:mockito-core:1.10.19'
-
     /// dependencies for instrumented tests
     // JUnit4 Rules
     androidTestCompile 'com.android.support.test:rules:0.5'
-
     // Android JUnit Runner
     androidTestCompile 'com.android.support.test:runner:0.5'
-
     // Android Annotation Support
     androidTestCompile "com.android.support:support-annotations:${supportLibraryVersion}"
-
     // Espresso core
     androidTestCompile 'com.android.support.test.espresso:espresso-core:2.2.2'
-
     // UIAutomator - for cross-app UI tests, and to grant screen is turned on in Espresso tests
     //androidTestCompile 'com.android.support.test.uiautomator:uiautomator-v18:2.1.2'
     // fix conflict in dependencies; see http://g.co/androidstudio/app-test-app-conflict for details
     //androidTestCompile "com.android.support:support-annotations:${supportLibraryVersion}"
-
 }
 
 configurations.all {

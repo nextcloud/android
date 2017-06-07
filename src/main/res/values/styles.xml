@@ -302,4 +302,5 @@
 	</style>
 	<style name="NextcloudTextAppearanceSmall" parent="style/TextAppearance.AppCompat.Small">
 	</style>
+	<style name="Test" parent=""/>
 </resources>
