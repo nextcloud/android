@@ -482,7 +482,7 @@ public class FolderSyncActivity extends FileActivity implements FolderSyncAdapte
             }
             mAdapter.addSyncFolderItem(newCustomFolder);
         } else {
-            SyncedFolderDisplayItem item = syncFolderItems.get(syncedFolder.getSection());
+            SyncedFolderDisplayItem item = syncFolderItems.get(syncedFolder.getSection()-1);
             boolean dirty = item.isEnabled() != syncedFolder.getEnabled();
             item = updateSyncedFolderItem(item, syncedFolder.getLocalPath(), syncedFolder.getRemotePath(), syncedFolder
                     .getWifiOnly(), syncedFolder.getChargingOnly(), syncedFolder.getSubfolderByDate(), syncedFolder
