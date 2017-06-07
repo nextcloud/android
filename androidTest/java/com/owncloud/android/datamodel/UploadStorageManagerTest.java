@@ -25,16 +25,15 @@ import java.io.File;
 @SmallTest
 public class UploadStorageManagerTest {
 
-    private ContentResolver contentResolver;
-    private Context instrumentationCtx;
-    private Account [] Accounts;
-    private  UploadsStorageManager uploadsStorageManager;
+    private Account[] Accounts;
+    private UploadsStorageManager uploadsStorageManager;
+
     @Before
-    public void setup() {
-        instrumentationCtx = InstrumentationRegistry.getTargetContext();
-        contentResolver = instrumentationCtx.getContentResolver();
-        uploadsStorageManager = new UploadsStorageManager(contentResolver,instrumentationCtx);
-        Accounts = new Account[]{ new Account("A","A"),new Account("B","B") };
+    public void setUp() {
+        Context instrumentationCtx = InstrumentationRegistry.getTargetContext();
+        ContentResolver contentResolver = instrumentationCtx.getContentResolver();
+        uploadsStorageManager = new UploadsStorageManager(contentResolver, instrumentationCtx);
+        Accounts = new Account[]{new Account("A", "A"), new Account("B", "B")};
     }
 
     @Test
@@ -45,10 +44,10 @@ public class UploadStorageManagerTest {
         }
         int accountRowsA = 3;
         int accountRowsB = 4;
-        insertUploads(Accounts[0],accountRowsA);
-        insertUploads(Accounts[1],accountRowsB);
+        insertUploads(Accounts[0], accountRowsA);
+        insertUploads(Accounts[1], accountRowsB);
 
-        Assert.assertTrue("Expected 4 removed uploads files",uploadsStorageManager.removeAccountUploads(Accounts[1]) == 4 );
+        Assert.assertTrue("Expected 4 removed uploads files", uploadsStorageManager.removeAccountUploads(Accounts[1]) == 4);
     }
 
     private void insertUploads(Account account, int rowsToInsert) {
@@ -59,14 +58,13 @@ public class UploadStorageManagerTest {
     }
 
     private OCUpload createUpload(Account acc) {
-        return new  OCUpload( File.separator + "LocalPath",
+        return new OCUpload(File.separator + "LocalPath",
                 OCFile.PATH_SEPARATOR + "RemotePath",
                 acc.name);
     }
 
     @After
-    public void tearDown()
-    {
+    public void tearDown() {
         for (Account account : Accounts) {
             uploadsStorageManager.removeAccountUploads(account);
         }
