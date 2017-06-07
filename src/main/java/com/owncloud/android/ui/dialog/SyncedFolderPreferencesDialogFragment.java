@@ -145,8 +145,16 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment {
             view.findViewById(R.id.local_folder_container).setVisibility(View.GONE);
             view.findViewById(R.id.delete).setVisibility(View.GONE);
         } else if (mSyncedFolder.getId() <= UNPERSISTED_ID) {
-            // Hide delete for unpersisted custom folders
+            // Hide delete/enabled for unpersisted custom folders
             view.findViewById(R.id.delete).setVisibility(View.GONE);
+            view.findViewById(R.id.sync_enabled).setVisibility(View.GONE);
+
+            // auto set custom folder to enabled
+            mSyncedFolder.setEnabled(true);
+
+            // switch text to create headline
+            ((TextView)view.findViewById(R.id.folder_sync_settings_title))
+                    .setText(R.string.autoupload_create_new_custom_folder);
         }
 
         // find/saves UI elements
