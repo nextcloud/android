@@ -574,7 +574,7 @@ public class FileDisplayActivity extends HookActivity
             tr.commit();
         }
         updateFragmentsVisibility(false);
-        //updateActionBarTitleAndHomeButton(null);
+        updateActionBarTitleAndHomeButton(null);
     }
 
     public void refreshListOfFilesFragment(boolean fromSearch) {
