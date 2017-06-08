@@ -28,9 +28,11 @@ import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
 
+import com.owncloud.android.MainApp;
 import com.owncloud.android.db.PreferenceManager;
 import com.owncloud.android.db.UploadResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.utils.JobUtils;
 
 /**
  * Receives all connectivity action from Android OS at all times and performs
@@ -102,6 +104,9 @@ public class ConnectivityActionReceiver extends BroadcastReceiver {
          * version 1.9.2, similar to the existent until 1.9.1. To be improved.
          */
         if(intent.getAction().equals(WifiManager.NETWORK_STATE_CHANGED_ACTION)) {
+
+            JobUtils.rescheduleJobsWithNetworkRequirements(MainApp.getAppContext());
+
             NetworkInfo networkInfo =
                 intent.getParcelableExtra(WifiManager.EXTRA_NETWORK_INFO);
             WifiInfo wifiInfo =
