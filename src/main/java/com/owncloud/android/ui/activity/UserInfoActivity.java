@@ -360,6 +360,7 @@ public class UserInfoActivity extends FileActivity {
                                     UploadsStorageManager uploadsStorageManager = new UploadsStorageManager(
                                             contentResolver, getActivity());
                                     uploadsStorageManager.cancelPendingAutoUploadJobsForAccount(account);
+                                    uploadsStorageManager.removeAccountUploads(account);
 
                                     // disable daily backup
                                     ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProvider(
