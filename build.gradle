@@ -218,6 +218,7 @@ dependencies {
     //androidTestCompile 'com.android.support.test.uiautomator:uiautomator-v18:2.1.2'
     // fix conflict in dependencies; see http://g.co/androidstudio/app-test-app-conflict for details
     //androidTestCompile "com.android.support:support-annotations:${supportLibraryVersion}"
+    compile 'org.jetbrains:annotations:15.0'
 }
 
 configurations.all {
