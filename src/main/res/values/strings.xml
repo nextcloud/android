@@ -97,6 +97,7 @@
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Delete file from source folder</string>
     <string name="file_list_seconds_ago">seconds ago</string>
     <string name="file_list_empty_headline">No files here</string>
+    <string name="folder_list_empty_headline">No folders here</string>
     <string name="file_list_empty">Upload some content or sync with your devices.</string>
     <string name="file_list_empty_favorites">Favorite some files or sync with your devices.</string>
     <string name="file_list_empty_favorites_filter_list">Files and folders you mark as favorites will show up here</string>
@@ -104,6 +105,7 @@
     <string name="file_list_loading">Loading&#8230;</string>
     <string name="file_list_no_app_for_file_type">No app set up to handle this file type.</string>
     <string name="local_file_list_empty">There are no files in this folder.</string>
+    <string name="local_folder_list_empty">There are no further folders.</string>
     <string name="file_list_empty_headline_search">No results in this folder</string>
     <string name="file_list_empty_headline_server_search">No results</string>
     <string name="file_list_empty_favorite_headline">Nothing favorited yet</string>
