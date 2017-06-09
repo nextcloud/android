@@ -65,7 +65,9 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.File;
+import java.io.FileFilter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -231,7 +233,6 @@ public class FolderSyncActivity extends FileActivity implements FolderSyncAdapte
         Map<String, SyncedFolder> syncedFoldersMap = createSyncedFoldersMap(syncedFolders);
         List<SyncedFolderDisplayItem> result = new ArrayList<>();
 
-
         for (MediaFolder mediaFolder : mediaFolders) {
             if (syncedFoldersMap.containsKey(mediaFolder.absolutePath)) {
                 SyncedFolder syncedFolder = syncedFoldersMap.get(mediaFolder.absolutePath);
@@ -242,6 +243,7 @@ public class FolderSyncActivity extends FileActivity implements FolderSyncAdapte
             }
         }
 
+        // No media folder and thus always a custom folder
         for (SyncedFolder syncedFolder : syncedFoldersMap.values()) {
             SyncedFolderDisplayItem syncedFolderDisplayItem = createSyncedFolderWithoutMediaFolder(syncedFolder);
             result.add(syncedFolderDisplayItem);
@@ -293,6 +295,11 @@ public class FolderSyncActivity extends FileActivity implements FolderSyncAdapte
 
     @NonNull
     private SyncedFolderDisplayItem createSyncedFolderWithoutMediaFolder(@NonNull SyncedFolder syncedFolder) {
+
+        File localFolder = new File(syncedFolder.getLocalPath());
+        File[] files = getFileList(localFolder);
+        List<String> filePaths = getDisplayFilePathList(files);
+
         return new SyncedFolderDisplayItem(
                 syncedFolder.getId(),
                 syncedFolder.getLocalPath(),
@@ -303,7 +310,9 @@ public class FolderSyncActivity extends FileActivity implements FolderSyncAdapte
                 syncedFolder.getAccount(),
                 syncedFolder.getUploadAction(),
                 syncedFolder.isEnabled(),
-                new File(syncedFolder.getLocalPath()).getName(),
+                filePaths,
+                localFolder.getName(),
+                files.length,
                 syncedFolder.getType());
     }
 
@@ -354,6 +363,35 @@ public class FolderSyncActivity extends FileActivity implements FolderSyncAdapte
                 mediaFolder.folderName,
                 mediaFolder.numberOfFiles,
                 mediaFolder.type);
+    }
+
+    private File[] getFileList(File localFolder) {
+        File[] files = localFolder.listFiles(new FileFilter() {
+            @Override
+            public boolean accept(File pathname) {
+                return !pathname.isDirectory();
+            }
+        });
+        Arrays.sort(files, new Comparator<File>(){
+            public int compare(File f1, File f2)
+            {
+                return Long.valueOf(f1.lastModified()).compareTo(f2.lastModified());
+            } });
+
+        return files;
+    }
+
+    private List<String> getDisplayFilePathList(File[] files) {
+        List<String> filePaths = null;
+
+        if (files != null && files.length > 0) {
+            filePaths = new ArrayList<>();
+            for (int i = 0; i < 7 && i < files.length; i++) {
+                filePaths.add(files[i].getAbsolutePath());
+            }
+        }
+
+        return filePaths;
     }
 
     /**
