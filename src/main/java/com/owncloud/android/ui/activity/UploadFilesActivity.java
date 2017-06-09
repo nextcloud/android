@@ -205,10 +205,18 @@ public class UploadFilesActivity extends FileActivity implements
     public boolean onCreateOptionsMenu(Menu menu) {
         mOptionsMenu = menu;
         getMenuInflater().inflate(R.menu.upload_files_picker, menu);
-        MenuItem selectAll = menu.findItem(R.id.action_select_all);
-        setSelectAllMenuItem(selectAll, mSelectAll);
+
+        if(mLocalFolderPickerMode) {
+            menu.removeItem(R.id.action_select_all);
+            menu.removeItem(R.id.action_search);
+        } else {
+            MenuItem selectAll = menu.findItem(R.id.action_select_all);
+            setSelectAllMenuItem(selectAll, mSelectAll);
+        }
+
         MenuItem switchView = menu.findItem(R.id.action_switch_view);
         switchView.setTitle(isGridView() ? R.string.action_switch_list_view : R.string.action_switch_grid_view);
+
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -323,7 +331,9 @@ public class UploadFilesActivity extends FileActivity implements
         }
 
         // invalidate checked state when navigating directories
-        setSelectAllMenuItem(mOptionsMenu.findItem(R.id.action_select_all), false);
+        if(!mLocalFolderPickerMode) {
+            setSelectAllMenuItem(mOptionsMenu.findItem(R.id.action_select_all), false);
+        }
     }
 
     
@@ -409,9 +419,11 @@ public class UploadFilesActivity extends FileActivity implements
      */
     @Override
     public void onDirectoryClick(File directory) {
-        // invalidate checked state when navigating directories
-        MenuItem selectAll = mOptionsMenu.findItem(R.id.action_select_all);
-        setSelectAllMenuItem(selectAll, false);
+        if(!mLocalFolderPickerMode) {
+            // invalidate checked state when navigating directories
+            MenuItem selectAll = mOptionsMenu.findItem(R.id.action_select_all);
+            setSelectAllMenuItem(selectAll, false);
+        }
 
         pushDirname(directory);
         ActionBar actionBar = getSupportActionBar();
@@ -432,6 +444,14 @@ public class UploadFilesActivity extends FileActivity implements
     @Override
     public File getInitialDirectory() {
         return mCurrentDir;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean isFolderPickerMode() {
+        return mLocalFolderPickerMode;
     }
 
     /**

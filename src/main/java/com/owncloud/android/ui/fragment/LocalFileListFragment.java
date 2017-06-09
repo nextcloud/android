@@ -52,8 +52,6 @@ public class LocalFileListFragment extends ExtendedListFragment {
 
     private static final String MY_PACKAGE = OCFileListFragment.class.getPackage() != null ?
             OCFileListFragment.class.getPackage().getName() : "com.owncloud.android.ui.fragment";
-
-    public final static String ARG_LOCAL_FOLDER_PICKER_MODE = MY_PACKAGE + ".LOCAL_FOLDER_PICKER_MODE";
     
     /** Reference to the Activity which this fragment is attached to. For callbacks */
     private LocalFileListFragment.ContainerActivity mContainerActivity;
@@ -63,8 +61,6 @@ public class LocalFileListFragment extends ExtendedListFragment {
     
     /** Adapter to connect the data from the directory with the View object */
     private LocalFileListAdapter mAdapter = null;
-
-    private boolean mLocalFolderPicker;
 
     private static final String SCREEN_NAME = "Local file browser";
 
@@ -96,7 +92,6 @@ public class LocalFileListFragment extends ExtendedListFragment {
         }
     }
     
-    
     /**
      * {@inheritDoc}
      */
@@ -104,13 +99,19 @@ public class LocalFileListFragment extends ExtendedListFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Log_OC.i(TAG, "onCreateView() start");
         View v = super.onCreateView(inflater, container, savedInstanceState);
-        if(!mLocalFolderPicker) {
+
+        if(!mContainerActivity.isFolderPickerMode()) {
             setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
+            setMessageForEmptyList(R.string.file_list_empty_headline, R.string.local_file_list_empty,
+                    R.drawable.ic_list_empty_folder, true);
+        } else {
+            setMessageForEmptyList(R.string.folder_list_empty_headline, R.string.local_folder_list_empty,
+                    R.drawable.ic_list_empty_folder, true);
         }
+
         setSwipeEnabled(false); // Disable pull-to-refresh
         setFabEnabled(false); // Disable FAB
-        setMessageForEmptyList(R.string.file_list_empty_headline, R.string.local_file_list_empty,
-                R.drawable.ic_list_empty_folder, true);
+
         Log_OC.i(TAG, "onCreateView() end");
         return v;
     }
@@ -125,9 +126,11 @@ public class LocalFileListFragment extends ExtendedListFragment {
         
         super.onActivityCreated(savedInstanceState);
 
-        Bundle args = getArguments();
-        mLocalFolderPicker = (args != null) && args.getBoolean(ARG_LOCAL_FOLDER_PICKER_MODE, false);
-        mAdapter = new LocalFileListAdapter(mLocalFolderPicker, mContainerActivity.getInitialDirectory(), getActivity());
+        mAdapter = new LocalFileListAdapter(
+                mContainerActivity.isFolderPickerMode(),
+                mContainerActivity.getInitialDirectory(),
+                getActivity()
+        );
         setListAdapter(mAdapter);
         
         Log_OC.i(TAG, "onActivityCreated() stop");
@@ -315,8 +318,7 @@ public class LocalFileListFragment extends ExtendedListFragment {
          * @param file
          */
         void onFileClick(File file);
-        
-        
+
         /**
          * Callback method invoked when the parent activity
          * is fully created to get the directory to list firstly.
@@ -325,6 +327,13 @@ public class LocalFileListFragment extends ExtendedListFragment {
          */
         File getInitialDirectory();
 
+        /**
+         * config check if the list should behave in
+         * folder picker mode only displaying folders but no files.
+         *
+         * @return true if folder picker mode, else false
+         */
+        boolean isFolderPickerMode();
     }
 
 
