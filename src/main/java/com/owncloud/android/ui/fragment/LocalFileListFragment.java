@@ -51,9 +51,6 @@ import java.util.ArrayList;
  */
 public class LocalFileListFragment extends ExtendedListFragment {
     private static final String TAG = LocalFileListFragment.class.getSimpleName();
-
-    private static final String MY_PACKAGE = OCFileListFragment.class.getPackage() != null ?
-            OCFileListFragment.class.getPackage().getName() : "com.owncloud.android.ui.fragment";
     
     /** Reference to the Activity which this fragment is attached to. For callbacks */
     private LocalFileListFragment.ContainerActivity mContainerActivity;
