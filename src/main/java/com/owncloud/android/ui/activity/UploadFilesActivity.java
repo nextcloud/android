@@ -206,10 +206,7 @@ public class UploadFilesActivity extends FileActivity implements
         mOptionsMenu = menu;
         getMenuInflater().inflate(R.menu.upload_files_picker, menu);
 
-        if(mLocalFolderPickerMode) {
-            menu.removeItem(R.id.action_select_all);
-            menu.removeItem(R.id.action_search);
-        } else {
+        if(!mLocalFolderPickerMode) {
             MenuItem selectAll = menu.findItem(R.id.action_select_all);
             setSelectAllMenuItem(selectAll, mSelectAll);
         }
