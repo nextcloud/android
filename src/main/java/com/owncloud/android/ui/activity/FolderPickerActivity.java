@@ -54,6 +54,7 @@ import com.owncloud.android.ui.fragment.FileFragment;
 import com.owncloud.android.ui.fragment.OCFileListFragment;
 import com.owncloud.android.utils.AnalyticsUtils;
 import com.owncloud.android.utils.DataHolderUtil;
+import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.ErrorMessageAdapter;
 
 import java.util.ArrayList;
@@ -103,7 +104,7 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
         if (getIntent().getStringExtra(EXTRA_ACTION) != null) {
             caption = getIntent().getStringExtra(EXTRA_ACTION);
         } else {
-            caption = getString(R.string.default_display_name_for_root_folder);
+            caption = DisplayUtils.getDefaultDisplayNameForRootFolder();
         }
         getSupportActionBar().setTitle(caption);
 

@@ -1315,7 +1315,7 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
                     setTitle(R.string.drawer_item_shared);
                     break;
                 default:
-                    setTitle(R.string.default_display_name_for_root_folder);
+                    setTitle(DisplayUtils.getDefaultDisplayNameForRootFolder());
                     break;
             }
         }
@@ -1377,7 +1377,7 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
         menuItemAddRemoveValue = MenuItemAddRemove.ADD_GRID_AND_SORT_WITH_SEARCH;
         if (getActivity() != null) {
             getActivity().invalidateOptionsMenu();
-            setTitle(R.string.default_display_name_for_root_folder);
+            setTitle(DisplayUtils.getDefaultDisplayNameForRootFolder());
         }
 
         getActivity().getIntent().removeExtra(OCFileListFragment.SEARCH_EVENT);
@@ -1530,6 +1530,17 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
     }
 
     private void setTitle(@StringRes final int title) {
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if (getActivity() != null && ((FileDisplayActivity) getActivity()).getSupportActionBar() != null) {
+                    ((FileDisplayActivity) getActivity()).getSupportActionBar().setTitle(title);
+                }
+            }
+        });
+    }
+
+    private void setTitle(@StringRes final String title) {
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
