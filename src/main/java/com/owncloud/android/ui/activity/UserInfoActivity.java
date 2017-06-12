@@ -283,7 +283,7 @@ public class UserInfoActivity extends FileActivity {
 
             Glide.with(this)
                     .load(backgroundUrl)
-                    .fitCenter()
+                    .centerCrop()
                     .placeholder(R.drawable.background)
                     .error(R.drawable.background)
                     .crossFade()
