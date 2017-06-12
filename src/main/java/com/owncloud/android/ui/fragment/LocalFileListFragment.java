@@ -99,7 +99,7 @@ public class LocalFileListFragment extends ExtendedListFragment {
         setSwipeEnabled(false); // Disable pull-to-refresh
         setFabEnabled(false); // Disable FAB
         setMessageForEmptyList(R.string.file_list_empty_headline, R.string.local_file_list_empty,
-                R.drawable.ic_list_empty_folder);
+                R.drawable.ic_list_empty_folder, true);
         Log_OC.i(TAG, "onCreateView() end");
         return v;
     }
