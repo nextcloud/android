@@ -5,16 +5,16 @@
  * Copyright (C) 2017 Mario Danic
  * Copyright (C) 2012 Bartek Przybylski
  * Copyright (C) 2012-2016 ownCloud Inc.
- *
+ * <p>
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2,
  * as published by the Free Software Foundation.
- *
+ * <p>
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * <p>
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -98,7 +98,7 @@ public class ExtendedListFragment extends Fragment
     private static final String KEY_IS_GRID_VISIBLE = "IS_GRID_VISIBLE";
 
     protected SwipeRefreshLayout mRefreshListLayout;
-    private SwipeRefreshLayout mRefreshGridLayout;
+    protected SwipeRefreshLayout mRefreshGridLayout;
     protected SwipeRefreshLayout mRefreshEmptyLayout;
     protected LinearLayout mEmptyListContainer;
     protected TextView mEmptyListMessage;
@@ -298,13 +298,8 @@ public class ExtendedListFragment extends Fragment
 
     @Override
     public boolean onQueryTextSubmit(String query) {
-        if (getFragmentManager().findFragmentByTag(FileDisplayActivity.TAG_SECOND_FRAGMENT)
-                instanceof ExtendedListFragment){
-            performSearch(query, true);
-            return true;
-        } else {
-            return false;
-        }
+        performSearch(query, true);
+        return true;
     }
 
     private void performSearch(final String query, boolean isSubmit) {
@@ -349,7 +344,9 @@ public class ExtendedListFragment extends Fragment
             Activity activity;
             if ((activity = getActivity()) != null) {
                 if (activity instanceof FileDisplayActivity) {
-                    ((FileDisplayActivity) activity).refreshListOfFilesFragment(true);
+                    FileDisplayActivity fileDisplayActivity = (FileDisplayActivity) activity;
+                    fileDisplayActivity.resetSearchView();
+                    fileDisplayActivity.refreshListOfFilesFragment(true);
                 } else if (activity instanceof UploadFilesActivity) {
                     LocalFileListAdapter localFileListAdapter = (LocalFileListAdapter) mAdapter;
                     localFileListAdapter.filter(query);
@@ -433,6 +430,10 @@ public class ExtendedListFragment extends Fragment
         return v;
     }
 
+    public void setEmptyListVisible() {
+        mEmptyListContainer.setVisibility(View.VISIBLE);
+    }
+
     protected void setupEmptyList(View view) {
         mEmptyListContainer = (LinearLayout) view.findViewById(R.id.empty_list_view);
         mEmptyListMessage = (TextView) view.findViewById(R.id.empty_list_view_text);
@@ -454,7 +455,6 @@ public class ExtendedListFragment extends Fragment
             mTops = savedInstanceState.getIntegerArrayList(KEY_TOPS);
             mHeightCell = savedInstanceState.getInt(KEY_HEIGHT_CELL);
             setMessageForEmptyList(savedInstanceState.getString(KEY_EMPTY_LIST_MESSAGE));
-
         } else {
             mIndexes = new ArrayList<>();
             mFirstPositions = new ArrayList<>();
@@ -481,7 +481,7 @@ public class ExtendedListFragment extends Fragment
      * Calculates the position of the item that will be used as a reference to
      * reposition the visible items in the list when the device is turned to
      * other position.
-     *
+     * <p>
      * The current policy is take as a reference the visible item in the center
      * of the screen.
      *
@@ -586,9 +586,9 @@ public class ExtendedListFragment extends Fragment
 
     /**
      * Disables swipe gesture.
-     *
+     * <p>
      * Sets the 'enabled' state of the refresh layouts contained in the fragment.
-     *
+     * <p>
      * When 'false' is set, prevents user gestures but keeps the option to refresh programatically,
      *
      * @param enabled Desired state for capturing swipe gesture.
@@ -601,7 +601,7 @@ public class ExtendedListFragment extends Fragment
 
     /**
      * Sets the 'visibility' state of the FAB contained in the fragment.
-     *
+     * <p>
      * When 'false' is set, FAB visibility is set to View.GONE programmatically,
      *
      * @param enabled Desired visibility for the FAB.
@@ -650,6 +650,7 @@ public class ExtendedListFragment extends Fragment
 
                     mEmptyListIcon.setVisibility(View.VISIBLE);
                     mEmptyListProgress.setVisibility(View.GONE);
+                    mEmptyListMessage.setVisibility(View.VISIBLE);
                 }
             }
         });
@@ -660,7 +661,7 @@ public class ExtendedListFragment extends Fragment
             @Override
             public void run() {
 
-                if (searchType == SearchType.NO_SEARCH) {
+                if (searchType == SearchType.NO_SEARCH && mEmptyListProgress.getVisibility() == View.GONE) {
                     setMessageForEmptyList(
                             R.string.file_list_empty_headline,
                             R.string.file_list_empty,

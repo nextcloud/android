@@ -348,6 +348,7 @@
     <string name="instant_video_upload_on_charging">Subir solamente al cargar</string>
     <string name="instant_upload_on_charging">Subir solamente al cargar</string>
     <string name="instant_upload_path">/InstantUpload</string>
+    <string name="auto_upload_path">/Carga automática</string>
     <string name="conflict_title">Conflicto con archivo</string>
     <string name="conflict_message">¿Qué archivos desea mantener? Si selecciona ambas versiones, el archivo local tendrá un número añadido a su nombre.</string>
     <string name="conflict_keep_both">Mantener ambos</string>
@@ -418,6 +419,7 @@
     <string name="file_migration_failed_while_coping">ERROR: Fallo durante la migración</string>
     <string name="file_migration_failed_while_updating_index">ERROR: Fallo al actualizar el índice</string>
 
+    <string name="file_migration_directory_already_exists">La carpeta de datos ya existe. Elige una de las siguientes:</string>
     <string name="file_migration_override_data_folder">Reemplazar</string>
     <string name="file_migration_use_data_folder">Usar</string>
 
@@ -481,6 +483,9 @@
     <string name="file_list__footer__files">%1$d archivos</string>
     <string name="file_list__footer__files_and_folder">%1$d archivos, 1 carpeta</string>
     <string name="file_list__footer__files_and_folders">%1$d archivos, %2$d carpetas</string>
+    <string name="set_picture_as">Establecer imagen como</string>
+    <string name="set_as">Establecer como</string>
+
     <string name="prefs_instant_behaviour_dialogTitle">El archivo original será&#8230;</string>
     <string name="prefs_instant_behaviour_title">El archivo original será&#8230;</string>
     <string name="upload_copy_files">Copiar archivo</string>
@@ -542,6 +547,8 @@
     <string name="local_file_not_found_toast">El archivo no se encuentra en el sistema de archivos local.</string>
     <string name="confirmation_remove_files_alert">¿Está seguro de que quiere eliminar los elementos seleccionados?</string>
     <string name="confirmation_remove_folders_alert">¿Está seguro de que quiere eliminar los elementos seleccionados y sus contenidos?</string>
+    <string name="maintenance_mode">Servidor en modo mantenimiento</string>
+
     <string name="uploads_view_upload_status_waiting_for_charging">Esperando la carga del dispositivo</string>
     <string name="actionbar_search">Buscar</string>
     <string name="files_drop_not_supported">Esta es una característica de Nextcloud. Por favor, actualice.</string>
@@ -651,4 +658,10 @@
     <!-- Notifications -->
     <string name="new_notification_received">Nueva notificación recibida</string>
     <string name="drawer_logout">Desconectar</string>
-    </resources>
+    <string name="picture_set_as_no_app">No se encontró ninguna aplicación para establecer una imagen!</string>
+    <string name="privacy">Privacidad</string>
+    <string name="file_not_found">¡Archivo no encontrado!</string>
+
+    <string name="folder_sync_folders">Configurar carpetas</string>
+
+  </resources>

@@ -422,8 +422,6 @@ në 7 ditët e fundit.</string>
     <string name="file_migration_use_data_folder">Përdor ekzistueset</string>
 
     <string name="file_migration_source_not_readable_title">Direktoria burim nuk është lexueshme!</string>
-    <string name="file_migration_source_not_readable">Doni akoma ta ndryshoni rrugën e kujtesës në %1$s? \n\n Shënim: të gjitha të dhënat duhet të shkarkohen edhe njëherë.</string>
-
     <string name="prefs_category_accounts">Llogari</string>
     <string name="prefs_add_account">Shtoni llogari</string>
     <string name="drawer_manage_accounts">Menaxhoni llogaritë</string>
@@ -658,5 +656,4 @@ në 7 ditët e fundit.</string>
     <string name="drawer_logout">Dilni</string>
     <string name="picture_set_as_no_app">Nuk u gjet aplikacioni me të cilin vendoset foto!</string>
     <string name="privacy">Privatësi</string>
-
-  </resources>
+    </resources>

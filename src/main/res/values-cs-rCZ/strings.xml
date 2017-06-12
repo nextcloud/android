@@ -97,6 +97,9 @@
     <string name="file_list_seconds_ago">před pár sekundami</string>
     <string name="file_list_empty_headline">Nejsou zde žádné soubory</string>
     <string name="file_list_empty">Nahrajte nějaký obsah, nebo synchronizujte s vašimi zařízeními!</string>
+    <string name="file_list_empty_favorites">Označte nějaké soubory jako oblíbené nebo synchronizujte se svými přístroji.</string>
+    <string name="file_list_empty_favorites_filter_list">Zde budou zobrazeny soubory a adresáře označené jako oblíbené</string>
+    <string name="file_list_empty_favorites_filter">Vaše vyhledávání nenalezlo žádné oblíbené soubory</string>
     <string name="file_list_loading">Načítání&#8230;</string>
     <string name="file_list_no_app_for_file_type">Pro tento typ souboru nebyla nalezena aplikace!</string>
     <string name="local_file_list_empty">V tomto adresáři nejsou žádné soubory.</string>
@@ -104,9 +107,18 @@
     <string name="file_list_empty_headline_server_search">Žádné výsledky</string>
     <string name="file_list_empty_favorite_headline">Zatím není nic oblíbeno</string>
     <string name="file_list_empty_shared_headline">Není nic sdílené</string>
+    <string name="file_list_empty_shared">Zde budou zobrazeny vámi sdílené soubory a adresáře</string>
     <string name="file_list_empty_headline_server_search_videos">Žádné video</string>
     <string name="file_list_empty_headline_server_search_photos">Žádná fotka</string>
     <string name="file_list_empty_search">Zkusit hledat v jiné složce?</string>
+    <string name="file_list_empty_recently_modified">Nenalezeny žádné soubory upravené v posledních 7 dnech</string>
+    <string name="file_list_empty_recently_modified_filter">Vaše vyhledávání nenalezlo žádné soubory upravené v posledních 7 dnech</string>
+    <string name="file_list_empty_recently_added">Nenalezeny žádné nedávno přidané soubory</string>
+    <string name="file_list_empty_recently_added_filter">Vaše vyhledávání nenalezlo žádné nedávno přidané soubory.</string>
+    <string name="file_list_empty_text_photos">Nahrajte nějaké fotky nebo aktivujte automatické nahrávání.</string>
+    <string name="file_list_empty_text_photos_filter">Vaše vyhledávání nenalezlo žádné fotky.</string>
+    <string name="file_list_empty_text_videos">Nahrajte nějaká videa nebo aktivujte automatické nahrávání.</string>
+    <string name="file_list_empty_text_videos_filter">Vaše vyhledávání nenalezlo žádná videa.</string>
     <string name="upload_list_empty_headline">Nic k nahrání</string>
     <string name="upload_list_empty_text">Nahrajte nějaký obsah, nebo aktivujte okamžité nahrání!</string>
     <string name="upload_list_empty_text_auto_upload">Nahrajte nějaký obsah nebo aktivujte automatické nahrávání.</string>
@@ -335,6 +347,7 @@
     <string name="instant_video_upload_on_charging">Nahrávat pouze při nabíjení</string>
     <string name="instant_upload_on_charging">Nahrávat pouze při nabíjení</string>
     <string name="instant_upload_path">/InstantUpload</string>
+    <string name="auto_upload_path">/Automatické nahrávání</string>
     <string name="conflict_title">Konflikt souboru</string>
     <string name="conflict_message">Které soubory chcete ponechat? Pokud zvolíte obě verze, zkopírovaný soubor bude mít název doplněný o číslo.</string>
     <string name="conflict_keep_both">Ponechat oba</string>
@@ -399,12 +412,18 @@
     <string name="file_migration_restoring_accounts_configuration">Obnovování konfigurace účtů&#8230;</string>
     <string name="file_migration_ok_finished">Dokončeno</string>
     <string name="file_migration_failed_not_enough_space">CHYBA: Nedostatečné místo</string>
+    <string name="file_migration_failed_not_writable">CHYBA: Do cíle nelze zapisovat</string>
+    <string name="file_migration_failed_not_readable">CHYBA: Soubor nelze číst</string>
     <string name="file_migration_failed_dir_already_exists">CHYBA: Nextcloud adresář již existuje</string>
     <string name="file_migration_failed_while_coping">CHYBA: V průběhu migrace</string>
     <string name="file_migration_failed_while_updating_index">CHYBA: V průběhu aktualizace indexu</string>
 
+    <string name="file_migration_directory_already_exists">Datový adresář již existuje. Vyberte jednu z následujících možností:</string>
     <string name="file_migration_override_data_folder">Nahradit</string>
     <string name="file_migration_use_data_folder">Použít</string>
+
+    <string name="file_migration_source_not_readable_title">Ze zdrojového adresáře nelze číst!</string>
+    <string name="file_migration_source_not_readable">Opravdu chcete změnit adresář úložiště na %1$s?\n\nPoznámka: Všechna data budou stažena znovu.</string>
 
     <string name="prefs_category_accounts">Účty</string>
     <string name="prefs_add_account">Přidat účet</string>
@@ -463,6 +482,9 @@
     <string name="file_list__footer__files">%1$d soubory(ů)</string>
     <string name="file_list__footer__files_and_folder">%1$d soubory(ů), 1 adresář</string>
     <string name="file_list__footer__files_and_folders">%1$d soubory(ů), %2$d adresáře(ů)</string>
+    <string name="set_picture_as">Nastavit obrázek jako</string>
+    <string name="set_as">Nastavit jako</string>
+
     <string name="prefs_instant_behaviour_dialogTitle">Originální soubor bude&#8230;</string>
     <string name="prefs_instant_behaviour_title">Originální soubor bude&#8230;</string>
     <string name="upload_copy_files">Zkopírovat soubor</string>
@@ -524,6 +546,8 @@
     <string name="local_file_not_found_toast">Soubor nebyl nalezen v místním souborovém systému</string>
     <string name="confirmation_remove_files_alert">Opravdu chcete odstranit vybrané položky?</string>
     <string name="confirmation_remove_folders_alert">Opravdu chcete odstranit vybrané položky a jejich obsah?</string>
+    <string name="maintenance_mode">Server je v režimu údržby</string>
+
     <string name="uploads_view_upload_status_waiting_for_charging">Čekání na nabití</string>
     <string name="actionbar_search">Hledat</string>
     <string name="files_drop_not_supported">Toto je Nextcloud funkce, prosím nahrát</string>
@@ -561,6 +585,7 @@
     <string name="activity_list_loading_activity">Načítání aktivit&#8230;</string>
     <string name="activity_list_no_results">Žádné aktivity nebyly nalezeny.</string>
 
+    <string name="notifications_loading_activity">Načítání upozornění&#8230;</string>
     <string name="notifications_no_results_headline">Žádné oznámení</string>
     <string name="notifications_no_results_message">Prosíme, vraťte se později.</string>
 
@@ -633,4 +658,10 @@
     <!-- Notifications -->
     <string name="new_notification_received">Přijato nové upozornění</string>
     <string name="drawer_logout">Odhlásit se</string>
-    </resources>
+    <string name="picture_set_as_no_app">Pro tento typ souboru nebyla nalezena aplikace!</string>
+    <string name="privacy">Soukromí</string>
+    <string name="file_not_found">Soubor nenalezen!</string>
+
+    <string name="folder_sync_folders">Nastavení adresářů</string>
+
+  </resources>

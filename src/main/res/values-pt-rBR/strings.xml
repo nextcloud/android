@@ -347,7 +347,8 @@
     <string name="instant_video_upload_on_wifi">Somente enviar vídeos por Wi-Fi</string>
     <string name="instant_video_upload_on_charging">Somente enviar quando carregando</string>
     <string name="instant_upload_on_charging">Somente enviar quando carregando</string>
-    <string name="instant_upload_path">/Upload automático</string>
+    <string name="instant_upload_path">/EnvioAutomático</string>
+    <string name="auto_upload_path">/Envio Automático</string>
     <string name="conflict_title">Conflito de arquivo</string>
     <string name="conflict_message">Quais arquivos você quer manter? Se você selecionar ambos, o arquivo local terá um número adicionado ao seu nome.</string>
     <string name="conflict_keep_both">Manter ambos</string>
@@ -418,11 +419,12 @@
     <string name="file_migration_failed_while_coping">ERRO: Falha durante a migração</string>
     <string name="file_migration_failed_while_updating_index">ERRO: Falha ao atualizar índice</string>
 
+    <string name="file_migration_directory_already_exists">Pasta Data já existe. Escolha uma das seguintes:</string>
     <string name="file_migration_override_data_folder">Substituir</string>
     <string name="file_migration_use_data_folder">Usar</string>
 
     <string name="file_migration_source_not_readable_title">Diretório fonte não legível!</string>
-    <string name="file_migration_source_not_readable">Você ainda quer mudar o caminho de armazenagem para %1$s?\n\nImportante: Todos os dados terão de ser baixados novamente.</string>
+    <string name="file_migration_source_not_readable">Quer realmente mudar o caminho de armazenamento para %1$s?\n\nAtenção: Todos os dados terão que ser baixados novamente.</string>
 
     <string name="prefs_category_accounts">Contas</string>
     <string name="prefs_add_account">Adicionar uma conta</string>
@@ -490,7 +492,7 @@
     <string name="upload_move_files">Mover o arquivo</string>
     <string name="select_all">Selecionar tudo</string>
 
-    <string name="pref_behaviour_entries_keep_file">mantido na pasta original</string>
+    <string name="pref_behaviour_entries_keep_file">Mantido na pasta original</string>
     <string name="pref_behaviour_entries_move">movido para a pasta aplicativos</string>
     <string name="pref_behaviour_entries_delete_file">excluído</string>
     <string name="prefs_storage_path">Caminho do armazenamento</string>
@@ -658,5 +660,8 @@
     <string name="drawer_logout">Sair</string>
     <string name="picture_set_as_no_app">Nenhum aplicativo encontrado para atribuir uma imagem!</string>
     <string name="privacy">Privacidade</string>
+    <string name="file_not_found">Arquivo não encontrado!</string>
+
+    <string name="folder_sync_folders">Configurar pastas</string>
 
   </resources>

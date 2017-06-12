@@ -29,6 +29,7 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
@@ -72,6 +73,7 @@ public class FolderSyncActivity extends FileActivity implements FolderSyncAdapte
 
     private static final String SYNCED_FOLDER_PREFERENCES_DIALOG_TAG = "SYNCED_FOLDER_PREFERENCES_DIALOG";
     public static final String PRIORITIZED_FOLDER = "Camera";
+    public static final String EXTRA_SHOW_SIDEBAR = "SHOW_SIDEBAR";
 
     private static final String SCREEN_NAME = "Auto upload";
 
@@ -84,10 +86,15 @@ public class FolderSyncActivity extends FileActivity implements FolderSyncAdapte
     private SyncedFolderProvider mSyncedFolderProvider;
     private List<SyncedFolderDisplayItem> syncFolderItems;
     private SyncedFolderPreferencesDialogFragment mSyncedFolderPreferencesDialogFragment;
+    private boolean showSidebar = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        if (getIntent().getExtras() != null) {
+            showSidebar = getIntent().getExtras().getBoolean(EXTRA_SHOW_SIDEBAR);
+        }
 
         setContentView(R.layout.folder_sync_layout);
 
@@ -96,9 +103,16 @@ public class FolderSyncActivity extends FileActivity implements FolderSyncAdapte
 
         // setup drawer
         setupDrawer(R.id.nav_folder_sync);
-        getSupportActionBar().setTitle(getString(R.string.drawer_folder_sync));
+
+        if (!showSidebar) {
+            setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+            mDrawerToggle.setDrawerIndicatorEnabled(false);
+        }
 
         setupContent();
+
+        getSupportActionBar().setTitle(getString(R.string.drawer_folder_sync));
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     @Override
@@ -117,7 +131,8 @@ public class FolderSyncActivity extends FileActivity implements FolderSyncAdapte
         mEmpty = (TextView) findViewById(android.R.id.empty);
 
         final int gridWidth = getResources().getInteger(R.integer.media_grid_width);
-        mAdapter = new FolderSyncAdapter(this, gridWidth, this);
+        boolean lightVersion = getResources().getBoolean(R.bool.syncedFolder_light);
+        mAdapter = new FolderSyncAdapter(this, gridWidth, this, lightVersion);
         mSyncedFolderProvider = new SyncedFolderProvider(getContentResolver());
 
         final GridLayoutManager lm = new GridLayoutManager(this, gridWidth);
@@ -327,6 +342,7 @@ public class FolderSyncActivity extends FileActivity implements FolderSyncAdapte
         }
         return result;
     }
+
     /**
      * show/hide recycler view list or the empty message / progress info.
      *
@@ -345,10 +361,15 @@ public class FolderSyncActivity extends FileActivity implements FolderSyncAdapte
         boolean result = true;
         switch (item.getItemId()) {
             case android.R.id.home: {
-                if (isDrawerOpen()) {
-                    closeDrawer();
+                if (showSidebar) {
+                    if (isDrawerOpen()) {
+                        closeDrawer();
+                    } else {
+                        openDrawer();
+                    }
                 } else {
-                    openDrawer();
+                    Intent settingsIntent = new Intent(getApplicationContext(), Preferences.class);
+                    startActivity(settingsIntent);
                 }
                 break;
             }
@@ -431,7 +452,7 @@ public class FolderSyncActivity extends FileActivity implements FolderSyncAdapte
         }
         mSyncedFolderPreferencesDialogFragment = null;
 
-        if(dirty) {
+        if (dirty) {
             mAdapter.setSyncFolderItem(syncedFolder.getSection(), item);
         }
     }
