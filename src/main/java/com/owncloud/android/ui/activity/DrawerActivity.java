@@ -28,6 +28,7 @@ import android.accounts.AccountManagerFuture;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -40,6 +41,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.webkit.URLUtil;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -1004,30 +1006,37 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
     public void updateHeaderBackground() {
         if (getAccount() != null &&
                 getStorageManager().getCapability(getAccount().name).getServerBackground() != null) {
-            String backgroundUrl = getStorageManager().getCapability(getAccount().name).getServerBackground();
-
             final LinearLayout navigationHeader = (LinearLayout) findNavigationViewChildById(R.id.drawer_header_view);
 
-            SimpleTarget target = new SimpleTarget<Drawable>() {
-                @Override
-                public void onResourceReady(Drawable resource, GlideAnimation glideAnimation) {
-                    if (navigationHeader != null) {
-                        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
-                            navigationHeader.setBackgroundDrawable(resource);
-                        } else {
-                            navigationHeader.setBackground(resource);
-                        }
-                    }
-                }
-            };
+            if (navigationHeader != null) {
+                String background = getStorageManager().getCapability(getAccount().name).getServerBackground();
 
-            Glide.with(this)
-                    .load(backgroundUrl)
-                    .centerCrop()
-                    .placeholder(R.drawable.background)
-                    .error(R.drawable.background)
-                    .crossFade()
-                    .into(target);
+                if (URLUtil.isValidUrl(background)) {
+                    // background image
+                    SimpleTarget target = new SimpleTarget<Drawable>() {
+                        @Override
+                        public void onResourceReady(Drawable resource, GlideAnimation glideAnimation) {
+                            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
+                                navigationHeader.setBackgroundDrawable(resource);
+                            } else {
+                                navigationHeader.setBackground(resource);
+                            }
+                        }
+                    };
+
+                    Glide.with(this)
+                            .load(background)
+                            .centerCrop()
+                            .placeholder(R.drawable.background)
+                            .error(R.drawable.background)
+                            .crossFade()
+                            .into(target);
+                } else {
+                    // plain color
+                    int color = Color.parseColor(background);
+                    navigationHeader.setBackgroundColor(color);
+                }
+            }
         }
     }
 
