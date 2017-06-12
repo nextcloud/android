@@ -305,7 +305,6 @@ Smelltu hér til að fá þér einn frá þjónustuaðila.</string>
     <string name="activity_chooser_title">Senda tengil til &#8230;</string>
     <string name="wait_for_tmp_copy_from_private_storage">Afrita skrá úr einkageymslu</string>
     
-    <string name="oauth_check_onoff">Skrá inn með oAuth2</string> 
     <string name="oauth_login_connection">Tengist við OAuth-auðkenningarþjón …</string>    
         
     <string name="ssl_validator_header">Ekki var hægt að sannreyna auðkenni vefsvæðisins</string>
@@ -419,12 +418,11 @@ Smelltu hér til að fá þér einn frá þjónustuaðila.</string>
     <string name="file_migration_failed_while_coping">VILLA: Mistókst við yfirfærslu</string>
     <string name="file_migration_failed_while_updating_index">VILLA: Mistókst að uppfæra skráningarvísi</string>
 
+    <string name="file_migration_directory_already_exists">Gagnamappa er þegar til. Veldu eitt af eftirfarandi:</string>
     <string name="file_migration_override_data_folder">Skipta út</string>
     <string name="file_migration_use_data_folder">Nota</string>
 
     <string name="file_migration_source_not_readable_title">Upprunamappa er ekki lesanleg!</string>
-    <string name="file_migration_source_not_readable">Viltu enn breyta slóð gagnageymslu í %1$s?\n\nAthugaðu: öll gögn þarf að sækja aftur.</string>
-
     <string name="prefs_category_accounts">Notandaaðgangar</string>
     <string name="prefs_add_account">Bæta við notandaaðgangi</string>
     <string name="drawer_manage_accounts">Sýsla með notandaaðganga</string>
@@ -659,5 +657,4 @@ Smelltu hér til að fá þér einn frá þjónustuaðila.</string>
     <string name="drawer_logout">Útskráning</string>
     <string name="picture_set_as_no_app">Engin forrit fundust til að setja mynd!</string>
     <string name="privacy">Gagnaleynd</string>
-
-  </resources>
+    </resources>

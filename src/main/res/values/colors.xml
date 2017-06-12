@@ -19,8 +19,6 @@
 -->
 <resources>
 
-    <color name="nc_blue">@color/primary</color>
-    <color name="nc_blue_accent">@color/color_accent</color>
     <color name="owncloud_blue_bright">#00ddff</color>
 
     <color name="list_item_lastmod_and_filesize_text">@color/secondaryTextColor</color>

@@ -49,15 +49,15 @@
     <array name="whatsnew_urls"></array>
 
     <!-- Colors -->
-    <color name="primary">#1E2751</color>
-    <color name="primary_dark">#0e1227</color>
+    <color name="primary">#0082c9</color>
+    <color name="primary_dark">#006AA3</color>
     <color name="color_accent">#007CC2</color>
     <color name="login_text_color">@color/white</color>
     <color name="login_text_hint_color">#7fC0E3</color>
     <color name="login_background_color">#FFFFFF</color>
     <color name="login_logo_background_color">#FFFFFF</color>
     <color name="background_color">#FFFFFF</color>
-    <color name="primary_button_background_color">#1E2751</color>
+    <color name="primary_button_background_color">@color/color_accent</color>
     <color name="primary_button_text_color">@color/white</color>
     <color name="secondary_button_background_color">#D6D7D7</color>
     <color name="secondary_button_text_color">@color/black</color>
@@ -84,11 +84,16 @@
     <bool name="videos_enabled">false</bool>
     <bool name="show_drawer_logout">false</bool>
 
+    <!-- Various other options -->
+    <bool name="allow_profile_click">true</bool>
+
     <!-- Bottom toolbar -->
     <bool name="bottom_toolbar_enabled">false</bool>
 
     <!-- Help, imprint and feedback, and other things -->
     <bool name="fingerprint_enabled">true</bool>
+    <bool name="passcode_enabled">true</bool>
+    <bool name="show_hidden_files_enabled">true</bool>
     <bool name="davdroid_integration_enabled">true</bool>
     <bool name="help_enabled">true</bool>
     <string name="url_help">https://help.nextcloud.com/c/feature</string>
@@ -103,6 +108,13 @@
     <string name="mail_feedback">"mailto:android@nextcloud.com"</string>
     <string name="url_app_download">"https://play.google.com/store/apps/details?id=com.nextcloud.client"</string>
     <string name="url_server_install">https://nextcloud.com/install</string>
+
+    <!-- synced folder light; if enabled: move to setting & global upload settings -->
+    <bool name="syncedFolder_light">false</bool>
+    <string name="syncedFolder_remote_folder">@string/auto_upload_path</string>
+    <bool name="syncedFolder_light_on_charging">false</bool>
+    <bool name="syncedFolder_light_use_subfolders">false</bool>
+    <string name="syncedFolder_light_upload_behaviour">FileUploader.LOCAL_BEHAVIOUR_FORGET</string>
 
     <!--Destination mail for sending log files -->
     <string name="mail_logger"></string>

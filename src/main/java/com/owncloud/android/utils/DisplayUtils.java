@@ -595,6 +595,14 @@ public class DisplayUtils {
 
         Menu menu = view.getMenu();
 
+        Account account = AccountUtils.getCurrentOwnCloudAccount(MainApp.getAppContext());
+        boolean searchSupported = AccountUtils.hasSearchSupport(account);
+
+        if (!searchSupported) {
+            menu.removeItem(R.id.nav_bar_favorites);
+            menu.removeItem(R.id.nav_bar_photos);
+        }
+
         if (resources.getBoolean(R.bool.use_home)) {
             menu.findItem(R.id.nav_bar_files).setTitle(resources.
                     getString(R.string.drawer_item_home));

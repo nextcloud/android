@@ -19,7 +19,6 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 package com.owncloud.android.ui.activity;
 
 import android.accounts.Account;
@@ -30,7 +29,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
@@ -43,6 +41,7 @@ import android.widget.TextView;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
+import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
@@ -50,7 +49,12 @@ import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.activities.GetRemoteActivitiesOperation;
+import com.owncloud.android.lib.resources.activities.models.RichObject;
+import com.owncloud.android.lib.resources.files.FileUtils;
 import com.owncloud.android.ui.adapter.ActivityListAdapter;
+import com.owncloud.android.ui.interfaces.ActivityListInterface;
+import com.owncloud.android.ui.preview.PreviewImageActivity;
+import com.owncloud.android.ui.preview.PreviewImageFragment;
 import com.owncloud.android.utils.AnalyticsUtils;
 import com.owncloud.android.utils.DisplayUtils;
 
@@ -66,7 +70,7 @@ import butterknife.Unbinder;
 /**
  * Activity displaying all server side stored activity items.
  */
-public class ActivitiesListActivity extends FileActivity {
+public class ActivitiesListActivity extends FileActivity implements ActivityListInterface {
 
     private static final String TAG = ActivitiesListActivity.class.getSimpleName();
     private static final String SCREEN_NAME = "Activities";
@@ -102,6 +106,7 @@ public class ActivitiesListActivity extends FileActivity {
     private ActivityListAdapter adapter;
     private Unbinder unbinder;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log_OC.v(TAG, "onCreate() start");
@@ -133,9 +138,9 @@ public class ActivitiesListActivity extends FileActivity {
             public void onRefresh() {
                 setLoadingMessage();
                 fetchAndSetData();
-
             }
         });
+
         setupContent();
     }
 
@@ -156,18 +161,16 @@ public class ActivitiesListActivity extends FileActivity {
      * sets up the UI elements and loads all activity items.
      */
     private void setupContent() {
+
         emptyContentIcon.setImageResource(R.drawable.ic_activity_light_grey);
         setLoadingMessage();
 
-        adapter = new ActivityListAdapter(this);
+        adapter = new ActivityListAdapter(this, this);
         recyclerView.setAdapter(adapter);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(),
-                layoutManager.getOrientation());
 
         recyclerView.setLayoutManager(layoutManager);
-        recyclerView.addItemDecoration(dividerItemDecoration);
 
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation_view);
 
@@ -192,8 +195,8 @@ public class ActivitiesListActivity extends FileActivity {
                     ocAccount = new OwnCloudAccount(
                             currentAccount,
                             context
-                            );
-                    OwnCloudClient mClient = OwnCloudClientManagerFactory.getDefaultSingleton().
+                    );
+                    final OwnCloudClient mClient = OwnCloudClientManagerFactory.getDefaultSingleton().
                             getClientFor(ocAccount, MainApp.getAppContext());
                     mClient.setOwnCloudVersion(AccountUtils.getServerVersion(currentAccount));
 
@@ -208,7 +211,7 @@ public class ActivitiesListActivity extends FileActivity {
                             @Override
                             public void run() {
                                 if (activities.size() > 0) {
-                                    populateList(activities);
+                                    populateList(activities, mClient);
                                     swipeEmptyListRefreshLayout.setVisibility(View.GONE);
                                     swipeListRefreshLayout.setVisibility(View.VISIBLE);
                                 } else {
@@ -258,9 +261,9 @@ public class ActivitiesListActivity extends FileActivity {
         });
     }
 
-    private void populateList(List<Object> activities) {
+    private void populateList(List<Object> activities, OwnCloudClient mClient) {
 
-        adapter.setActivityItems(activities);
+        adapter.setActivityItems(activities, mClient);
     }
 
     @Override
@@ -307,5 +310,20 @@ public class ActivitiesListActivity extends FileActivity {
         super.onResume();
 
         AnalyticsUtils.setCurrentScreenName(this, SCREEN_NAME, TAG);
+    }
+
+
+    @Override
+    public void onActivityClicked(RichObject richObject) {
+        Intent showDetailsIntent;
+        OCFile ocFile = new OCFile(FileUtils.PATH_SEPARATOR + richObject.getPath());
+        if (PreviewImageFragment.canBePreviewed(ocFile)) {
+            showDetailsIntent = new Intent(this, PreviewImageActivity.class);
+        } else {
+            showDetailsIntent = new Intent(this, FileDisplayActivity.class);
+        }
+        showDetailsIntent.putExtra(EXTRA_FILE, ocFile);
+        showDetailsIntent.putExtra(EXTRA_ACCOUNT, getAccount());
+        startActivity(showDetailsIntent);
     }
 }
