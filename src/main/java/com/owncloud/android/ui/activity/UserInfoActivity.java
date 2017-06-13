@@ -32,6 +32,7 @@ import android.app.FragmentManager;
 import android.content.ContentResolver;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -45,6 +46,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.webkit.URLUtil;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -264,30 +266,37 @@ public class UserInfoActivity extends FileActivity {
 
     private void setHeaderImage() {
         if (getStorageManager().getCapability(account.name).getServerBackground() != null) {
-            String backgroundUrl = getStorageManager().getCapability(account.name).getServerBackground();
-
             final AppBarLayout appBar = (AppBarLayout) findViewById(R.id.appbar);
 
-            SimpleTarget target = new SimpleTarget<Drawable>() {
-                @Override
-                public void onResourceReady(Drawable resource, GlideAnimation glideAnimation) {
-                    if (appBar != null) {
-                        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
-                            appBar.setBackgroundDrawable(resource);
-                        } else {
-                            appBar.setBackground(resource);
-                        }
-                    }
-                }
-            };
+            if (appBar != null) {
+                String background = getStorageManager().getCapability(account.name).getServerBackground();
 
-            Glide.with(this)
-                    .load(backgroundUrl)
-                    .centerCrop()
-                    .placeholder(R.drawable.background)
-                    .error(R.drawable.background)
-                    .crossFade()
-                    .into(target);
+                if (URLUtil.isValidUrl(background)) {
+                    // background image
+                    SimpleTarget target = new SimpleTarget<Drawable>() {
+                        @Override
+                        public void onResourceReady(Drawable resource, GlideAnimation glideAnimation) {
+                            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
+                                appBar.setBackgroundDrawable(resource);
+                            } else {
+                                appBar.setBackground(resource);
+                            }
+                        }
+                    };
+
+                    Glide.with(this)
+                            .load(background)
+                            .centerCrop()
+                            .placeholder(R.drawable.background)
+                            .error(R.drawable.background)
+                            .crossFade()
+                            .into(target);
+                } else {
+                    // plain color
+                    int color = Color.parseColor(background);
+                    appBar.setBackgroundColor(color);
+                }
+            }
         }
     }
 
