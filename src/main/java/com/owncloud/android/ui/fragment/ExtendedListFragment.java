@@ -390,10 +390,26 @@ public class ExtendedListFragment extends Fragment
         mListView.setEmptyView(mRefreshEmptyLayout);
         mGridView.setEmptyView(mRefreshEmptyLayout);
 
+        int primaryColor = DisplayUtils.primaryColor();
+        int primaryColorDark = DisplayUtils.primaryDarkColor();
+        int fontColor = DisplayUtils.fontColor();
+
         mFabMain = (FloatingActionsMenu) v.findViewById(R.id.fab_main);
+
         mFabUpload = (FloatingActionButton) v.findViewById(R.id.fab_upload);
+        mFabUpload.setColorNormal(primaryColor);
+        mFabUpload.setColorPressed(primaryColorDark);
+        mFabUpload.setIconDrawable(DisplayUtils.tintDrawable(R.drawable.ic_action_upload, fontColor));
+
         mFabMkdir = (FloatingActionButton) v.findViewById(R.id.fab_mkdir);
+        mFabMkdir.setColorNormal(primaryColor);
+        mFabMkdir.setColorPressed(primaryColorDark);
+        mFabMkdir.setIconDrawable(DisplayUtils.tintDrawable(R.drawable.ic_action_create_dir, fontColor));
+
         mFabUploadFromApp = (FloatingActionButton) v.findViewById(R.id.fab_upload_from_app);
+        mFabUploadFromApp.setColorNormal(primaryColor);
+        mFabUploadFromApp.setColorPressed(primaryColorDark);
+        mFabUploadFromApp.setIconDrawable(DisplayUtils.tintDrawable(R.drawable.ic_import, fontColor));
 
         boolean searchSupported = AccountUtils.hasSearchSupport(AccountUtils.
                 getCurrentOwnCloudAccount(MainApp.getAppContext()));
