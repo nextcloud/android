@@ -48,6 +48,8 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v4.graphics.ColorUtils;
 import android.support.v4.graphics.drawable.DrawableCompat;
+import android.support.v7.app.ActionBar;
+import android.text.Html;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.format.DateUtils;
@@ -731,6 +733,35 @@ public class DisplayUtils {
         return ColorUtils.HSLToColor(hsl);
     }
 
+    /**
+     * @return int font color to use
+     * adapted from https://github.com/nextcloud/server/blob/master/apps/theming/lib/Util.php#L90-L102
+     */
+    public static int fontColor() {
+        int primaryColor = primaryColor();
+
+        int red = Color.red(primaryColor);
+        int green = Color.green(primaryColor);
+        int blue = Color.blue(primaryColor);
+
+        if (((0.299 * red + 0.587 * green + 0.114 * blue) / 255) > 0.5) {
+            return Color.BLACK;
+        } else {
+            return Color.WHITE;
+        }
+    }
+
+    public static String fontColorHexString() {
+        switch (fontColor()) {
+            case Color.BLACK:
+                return "#000000";
+            case Color.WHITE:
+                return "#ffffff";
+            default:
+                return "#ffffff";
+        }
+    }
+
     public static int primaryDarkColor() {
         OCCapability capability = getCapability();
 
@@ -749,6 +780,29 @@ public class DisplayUtils {
         } else {
             return MainApp.getAppContext().getResources().getColor(R.color.primary);
         }
+    }
+
+    /**
+     * Set color of title to white/black depending on background color
+     *
+     * @param actionBar actionBar to be used
+     * @param title     title to be shown
+     */
+    public static void setColoredTitle(ActionBar actionBar, String title) {
+        String colorHex = DisplayUtils.fontColorHexString();
+        actionBar.setTitle(Html.fromHtml("<font color='" + colorHex + "'>" + title + "</font>"));
+    }
+
+    /**
+     * Set color of title to white/black depending on background color
+     *
+     * @param actionBar actionBar to be used
+     * @param titleId   title to be shown
+     */
+    public static void setColoredTitle(ActionBar actionBar, int titleId, Context context) {
+        String colorHex = DisplayUtils.fontColorHexString();
+        String title = context.getString(titleId);
+        actionBar.setTitle(Html.fromHtml("<font color='" + colorHex + "'>" + title + "</font>"));
     }
 
 }
