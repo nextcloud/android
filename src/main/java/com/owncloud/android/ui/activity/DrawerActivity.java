@@ -297,11 +297,7 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
      * @param navigationView the drawers navigation view
      */
     protected void setupDrawerMenu(NavigationView navigationView) {
-        // on pre lollipop the light theme adds a black tint to icons with white coloring
-        // ruining the generic avatars, so tinting for icons is deactivated pre lollipop
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-            navigationView.setItemIconTintList(null);
-        }
+        navigationView.setItemIconTintList(null);
 
         // setup actions for drawer menu items
         navigationView.setNavigationItemSelectedListener(
