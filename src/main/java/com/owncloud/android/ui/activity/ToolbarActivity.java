@@ -23,7 +23,6 @@
 package com.owncloud.android.ui.activity;
 
 import android.graphics.PorterDuff;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.ColorInt;
 import android.support.v4.content.ContextCompat;
@@ -59,6 +58,10 @@ public abstract class ToolbarActivity extends BaseActivity {
         if (mProgressBar != null) {
             mProgressBar.setIndeterminateDrawable(
                     ContextCompat.getDrawable(this, R.drawable.actionbar_progress_indeterminate_horizontal));
+        }
+
+        if (toolbar.getOverflowIcon() != null) {
+            DisplayUtils.tintDrawable(toolbar.getOverflowIcon(), DisplayUtils.fontColor());
         }
     }
 
@@ -101,15 +104,14 @@ public abstract class ToolbarActivity extends BaseActivity {
 
         toolbar.setBackgroundColor(DisplayUtils.primaryColor());
 
-        Drawable icon = toolbar.getNavigationIcon();
-        if (icon != null) {
-            icon.setColorFilter(DisplayUtils.fontColor(), PorterDuff.Mode.SRC_ATOP);
-        }
-
         // set home button properties
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setDisplayShowTitleEnabled(true);
+        }
+
+        if (toolbar.getNavigationIcon() != null) {
+            DisplayUtils.tintDrawable(toolbar.getNavigationIcon(), DisplayUtils.fontColor());
         }
     }
 

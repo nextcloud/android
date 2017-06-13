@@ -709,8 +709,14 @@ public class DisplayUtils {
 
     public static Drawable tintDrawable(@DrawableRes int id, int color) {
         Drawable drawable = ResourcesCompat.getDrawable(MainApp.getAppContext().getResources(), id, null);
+
+        return tintDrawable(drawable, color);
+    }
+
+    public static Drawable tintDrawable(Drawable drawable, int color) {
         drawable = DrawableCompat.wrap(drawable);
         DrawableCompat.setTint(drawable, color);
+
         return drawable;
     }
 
@@ -760,6 +766,10 @@ public class DisplayUtils {
             default:
                 return "#ffffff";
         }
+    }
+
+    public static String colorToHexString(int color) {
+        return String.format("#%06X", 0xFFFFFF & color);
     }
 
     public static int primaryDarkColor() {
