@@ -735,6 +735,14 @@ public class DisplayUtils {
         return (0.299 * Color.red(color) + 0.587 * Color.green(color) + 0.114 * Color.blue(color))/255;
     }
 
+    public static @ColorInt int calculateTextColor(@ColorInt int color) {
+        if (calculateLuminance(color) > 0.5) {
+            return Color.BLACK;
+        } else {
+            return Color.WHITE;
+        }
+    }
+
     public static int primaryDarkColor() {
         OCCapability capability = getCapability();
 
