@@ -50,7 +50,7 @@ public abstract class ToolbarActivity extends BaseActivity {
      * Toolbar setup that must be called in implementer's {@link #onCreate} after {@link #setContentView} if they
      * want to use the toolbar.
      */
-    protected void setupToolbar() {
+    protected void setupToolbar(boolean useBackgroundImage) {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -64,7 +64,13 @@ public abstract class ToolbarActivity extends BaseActivity {
             DisplayUtils.tintDrawable(toolbar.getOverflowIcon(), DisplayUtils.fontColor());
         }
 
-        toolbar.setBackgroundColor(DisplayUtils.primaryColor());
+        if (!useBackgroundImage) {
+            toolbar.setBackgroundColor(DisplayUtils.primaryColor());
+        }
+    }
+
+    protected void setupToolbar() {
+        setupToolbar(false);
     }
 
     /**
@@ -104,7 +110,7 @@ public abstract class ToolbarActivity extends BaseActivity {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 
-        toolbar.setBackgroundColor(DisplayUtils.primaryColor());
+//        toolbar.setBackgroundColor(DisplayUtils.primaryColor());
 
         // set home button properties
         if (actionBar != null) {

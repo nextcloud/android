@@ -194,11 +194,15 @@ public class UserInfoActivity extends FileActivity {
         setContentView(R.layout.user_info_layout);
         unbinder = ButterKnife.bind(this);
 
-        setupToolbar();
-        updateActionBarTitleAndHomeButtonByString("");
-
         setAccount(AccountUtils.getCurrentOwnCloudAccount(this));
         onAccountSet(false);
+
+        boolean useBackgroundImage = URLUtil.isValidUrl(
+                getStorageManager().getCapability(account.name).getServerBackground());
+
+        setupToolbar(useBackgroundImage);
+        updateActionBarTitleAndHomeButtonByString("");
+
 
         if (userInfo != null) {
             populateUserInfoUi(userInfo);
@@ -303,9 +307,9 @@ public class UserInfoActivity extends FileActivity {
     private void populateUserInfoUi(UserInfo userInfo) {
         userName.setText(account.name);
         DisplayUtils.setAvatar(account, UserInfoActivity.this,
-                mCurrentAccountAvatarRadiusDimension, getResources(), getStorageManager(),avatar);
+                mCurrentAccountAvatarRadiusDimension, getResources(), getStorageManager(), avatar);
 
-        int tint = DisplayUtils.primaryColor();
+        int tint = Color.parseColor(getStorageManager().getCapability(account.name).getServerColor());
 
         if (userInfo != null) {
             if (!TextUtils.isEmpty(userInfo.getDisplayName())) {
