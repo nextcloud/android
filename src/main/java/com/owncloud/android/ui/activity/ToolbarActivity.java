@@ -23,6 +23,7 @@
 package com.owncloud.android.ui.activity;
 
 import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.ColorInt;
 import android.support.v4.content.ContextCompat;
@@ -92,11 +93,24 @@ public abstract class ToolbarActivity extends BaseActivity {
 
         // set the chosen title
         ActionBar actionBar = getSupportActionBar();
-        actionBar.setTitle(titleToSet);
+
+        // color folder name
+        DisplayUtils.setColoredTitle(actionBar, title);
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+
+        toolbar.setBackgroundColor(DisplayUtils.primaryColor());
+
+        Drawable icon = toolbar.getNavigationIcon();
+        if (icon != null) {
+            icon.setColorFilter(DisplayUtils.fontColor(), PorterDuff.Mode.SRC_ATOP);
+        }
 
         // set home button properties
-        actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setDisplayShowTitleEnabled(true);
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setDisplayShowTitleEnabled(true);
+        }
     }
 
     /**

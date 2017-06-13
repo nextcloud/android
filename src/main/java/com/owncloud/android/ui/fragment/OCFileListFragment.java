@@ -176,7 +176,7 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
         setHasOptionsMenu(true);
         mSystemBarActionModeColor = getResources().getColor(R.color.action_mode_status_bar_background);
         mSystemBarColor = DisplayUtils.primaryDarkColor();
-        mProgressBarActionModeColor = getResources().getColor(R.color.action_mode_background);
+        mProgressBarActionModeColor = DisplayUtils.primaryDarkColor();
         mProgressBarColor = DisplayUtils.primaryColor();
         mMultiChoiceModeListener = new MultiChoiceModeListener();
 
@@ -1534,7 +1534,8 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
             @Override
             public void run() {
                 if (getActivity() != null && ((FileDisplayActivity) getActivity()).getSupportActionBar() != null) {
-                    ((FileDisplayActivity) getActivity()).getSupportActionBar().setTitle(title);
+                    DisplayUtils.setColoredTitle(((FileDisplayActivity) getActivity()).getSupportActionBar(),
+                            title, getContext());
                 }
             }
         });
@@ -1545,7 +1546,7 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
             @Override
             public void run() {
                 if (getActivity() != null && ((FileDisplayActivity) getActivity()).getSupportActionBar() != null) {
-                    ((FileDisplayActivity) getActivity()).getSupportActionBar().setTitle(title);
+                    DisplayUtils.setColoredTitle(((FileDisplayActivity) getActivity()).getSupportActionBar(), title);
                 }
             }
         });

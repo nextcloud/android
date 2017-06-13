@@ -281,8 +281,17 @@ public class ExtendedListFragment extends Fragment
             }
         });
 
+        int fontColor = DisplayUtils.fontColor();
 
         LinearLayout searchBar = (LinearLayout) searchView.findViewById(R.id.search_bar);
+        TextView searchBadge = (TextView) searchView.findViewById(R.id.search_badge);
+
+        searchBadge.setTextColor(fontColor);
+        searchBadge.setHintTextColor(fontColor);
+
+        ImageView searchButton = (ImageView) searchView.findViewById(R.id.search_button);
+        searchButton.setImageDrawable(DisplayUtils.tintDrawable(R.drawable.ic_search, fontColor));
+
         searchBar.setLayoutTransition(new LayoutTransition());
     }
 
