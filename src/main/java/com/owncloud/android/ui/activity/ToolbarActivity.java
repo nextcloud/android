@@ -63,6 +63,8 @@ public abstract class ToolbarActivity extends BaseActivity {
         if (toolbar.getOverflowIcon() != null) {
             DisplayUtils.tintDrawable(toolbar.getOverflowIcon(), DisplayUtils.fontColor());
         }
+
+        toolbar.setBackgroundColor(DisplayUtils.primaryColor());
     }
 
     /**
