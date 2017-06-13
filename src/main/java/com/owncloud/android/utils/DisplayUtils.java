@@ -328,7 +328,12 @@ public class DisplayUtils {
      */
     public static int getRelativeInfoColor(Context context, int relative) {
         if (relative < RELATIVE_THRESHOLD_WARNING) {
-            return context.getResources().getColor(R.color.infolevel_info);
+            if (DisplayUtils.colorToHexString(DisplayUtils.primaryColor()).equalsIgnoreCase(
+                    DisplayUtils.colorToHexString(context.getResources().getColor(R.color.primary)))) {
+                return context.getResources().getColor(R.color.infolevel_info);
+            } else {
+                return Color.GRAY;
+            }
         } else if (relative >= RELATIVE_THRESHOLD_WARNING && relative < RELATIVE_THRESHOLD_CRITICAL) {
             return context.getResources().getColor(R.color.infolevel_warning);
         } else {
@@ -757,17 +762,6 @@ public class DisplayUtils {
         }
     }
 
-    public static String fontColorHexString() {
-        switch (fontColor()) {
-            case Color.BLACK:
-                return "#000000";
-            case Color.WHITE:
-                return "#ffffff";
-            default:
-                return "#ffffff";
-        }
-    }
-
     public static String colorToHexString(int color) {
         return String.format("#%06X", 0xFFFFFF & color);
     }
@@ -799,7 +793,7 @@ public class DisplayUtils {
      * @param title     title to be shown
      */
     public static void setColoredTitle(ActionBar actionBar, String title) {
-        String colorHex = DisplayUtils.fontColorHexString();
+        String colorHex = DisplayUtils.colorToHexString(DisplayUtils.fontColor());
         actionBar.setTitle(Html.fromHtml("<font color='" + colorHex + "'>" + title + "</font>"));
     }
 
@@ -810,7 +804,7 @@ public class DisplayUtils {
      * @param titleId   title to be shown
      */
     public static void setColoredTitle(ActionBar actionBar, int titleId, Context context) {
-        String colorHex = DisplayUtils.fontColorHexString();
+        String colorHex = DisplayUtils.colorToHexString(DisplayUtils.fontColor());
         String title = context.getString(titleId);
         actionBar.setTitle(Html.fromHtml("<font color='" + colorHex + "'>" + title + "</font>"));
     }
