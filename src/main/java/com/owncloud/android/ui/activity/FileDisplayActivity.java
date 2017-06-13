@@ -57,6 +57,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewTreeObserver;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.owncloud.android.MainApp;
@@ -664,6 +666,14 @@ public class FileDisplayActivity extends HookActivity
 
         final MenuItem item = menu.findItem(R.id.action_search);
         searchView = (SearchView) MenuItemCompat.getActionView(item);
+
+        // hacky as no default way is provided
+        int fontColor = DisplayUtils.fontColor();
+        EditText editText = (EditText) searchView.findViewById(android.support.v7.appcompat.R.id.search_src_text);
+        editText.setHintTextColor(fontColor);
+        editText.setTextColor(fontColor);
+        ImageView searchClose = (ImageView) searchView.findViewById(android.support.v7.appcompat.R.id.search_close_btn);
+        searchClose.setColorFilter(DisplayUtils.fontColor());
 
         // populate list of menu items to show/hide when drawer is opened/closed
         mDrawerMenuItemstoShowHideList = new ArrayList<>(4);
