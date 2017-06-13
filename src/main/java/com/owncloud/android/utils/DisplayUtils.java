@@ -719,10 +719,10 @@ public class DisplayUtils {
     }
 
     public static Drawable tintDrawable(Drawable drawable, int color) {
-        drawable = DrawableCompat.wrap(drawable);
-        DrawableCompat.setTint(drawable, color);
+        Drawable wrap = DrawableCompat.wrap(drawable);
+        DrawableCompat.setTint(wrap, color);
 
-        return drawable;
+        return wrap;
     }
 
     public static String getDefaultDisplayNameForRootFolder() {
