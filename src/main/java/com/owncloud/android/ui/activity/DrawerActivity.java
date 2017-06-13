@@ -1017,7 +1017,7 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
             if (navigationHeader != null) {
                 String background = getStorageManager().getCapability(getAccount().name).getServerBackground();
 
-                if (URLUtil.isValidUrl(background)) {
+                if (URLUtil.isValidUrl(background) || background.isEmpty()) {
                     // background image
                     SimpleTarget target = new SimpleTarget<Drawable>() {
                         @Override
