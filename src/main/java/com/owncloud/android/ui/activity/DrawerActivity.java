@@ -264,6 +264,7 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
         mAccountEndAccountAvatar = (ImageView) findNavigationViewChildById(R.id.drawer_account_end);
 
         mAccountChooserToggle = (ImageView) findNavigationViewChildById(R.id.drawer_account_chooser_toogle);
+        mAccountChooserToggle.setColorFilter(DisplayUtils.fontColor());
 
         if (getResources().getBoolean(R.bool.allow_profile_click)) {
             mAccountChooserToggle.setImageResource(R.drawable.ic_down);
@@ -743,9 +744,11 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
             TextView username = (TextView) findNavigationViewChildById(R.id.drawer_username);
             TextView usernameFull = (TextView) findNavigationViewChildById(R.id.drawer_username_full);
             usernameFull.setText(account.name);
+            usernameFull.setTextColor(DisplayUtils.fontColor());
             try {
                 OwnCloudAccount oca = new OwnCloudAccount(account, this);
                 username.setText(oca.getDisplayName());
+                username.setTextColor(DisplayUtils.fontColor());
             } catch (com.owncloud.android.lib.common.accounts.AccountUtils.AccountNotFoundException e) {
                 Log_OC.w(TAG, "Couldn't read display name of account fallback to account name");
                 username.setText(AccountUtils.getAccountUsername(account.name));
