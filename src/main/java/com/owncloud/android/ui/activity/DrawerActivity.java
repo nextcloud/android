@@ -38,6 +38,7 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.text.Html;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -909,9 +910,15 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
      * @param menuItemId the menu item to be highlighted
      */
     protected void setDrawerMenuItemChecked(int menuItemId) {
-        if (mNavigationView != null && mNavigationView.getMenu() != null && mNavigationView.getMenu().findItem
-                (menuItemId) != null) {
-            mNavigationView.getMenu().findItem(menuItemId).setChecked(true);
+        if (mNavigationView != null && mNavigationView.getMenu() != null &&
+                mNavigationView.getMenu().findItem(menuItemId) != null) {
+
+            MenuItem item = mNavigationView.getMenu().findItem(menuItemId);
+            item.setChecked(true);
+            item.setIcon(DisplayUtils.tintDrawable(item.getIcon(), DisplayUtils.primaryColor()));
+            String colorHex = DisplayUtils.colorToHexString(DisplayUtils.primaryColor());
+            item.setTitle(Html.fromHtml("<font color='" + colorHex + "'>" + item.getTitle() + "</font>"));
+
             mCheckedMenuItem = menuItemId;
         } else {
             Log_OC.w(TAG, "setDrawerMenuItemChecked has been called with invalid menu-item-ID");
