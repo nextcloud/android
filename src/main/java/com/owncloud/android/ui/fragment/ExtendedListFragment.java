@@ -55,6 +55,7 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.getbase.floatingactionbutton.AddFloatingActionButton;
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.owncloud.android.MainApp;
@@ -404,6 +405,11 @@ public class ExtendedListFragment extends Fragment
         int fontColor = DisplayUtils.fontColor();
 
         mFabMain = (FloatingActionsMenu) v.findViewById(R.id.fab_main);
+
+        AddFloatingActionButton addButton = mFabMain.getAddButton();
+        addButton.setColorNormal(primaryColor);
+        addButton.setColorPressed(primaryColorDark);
+        addButton.setPlusColor(fontColor);
 
         mFabUpload = (FloatingActionButton) v.findViewById(R.id.fab_upload);
         mFabUpload.setColorNormal(primaryColor);
