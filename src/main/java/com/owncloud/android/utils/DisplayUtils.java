@@ -728,7 +728,7 @@ public class DisplayUtils {
     public static String getDefaultDisplayNameForRootFolder() {
         OCCapability capability = getCapability();
 
-        if (capability.getServerSlogan().isEmpty()) {
+        if (capability.getServerSlogan() == null || capability.getServerSlogan().isEmpty()) {
             return MainApp.getAppContext().getResources().getString(R.string.default_display_name_for_root_folder);
         } else {
             return capability.getServerSlogan();
@@ -769,9 +769,9 @@ public class DisplayUtils {
     public static int primaryDarkColor() {
         OCCapability capability = getCapability();
 
-        if (!capability.getServerColor().isEmpty()) {
+        try {
             return adjustLightness(-0.2f, Color.parseColor(capability.getServerColor()));
-        } else {
+        } catch (Exception e) {
             return MainApp.getAppContext().getResources().getColor(R.color.primary_dark);
         }
     }
