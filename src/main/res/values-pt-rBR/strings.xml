@@ -80,7 +80,7 @@
     <string name="uploader_btn_upload_text">Enviar</string>
     <string name="uploader_top_message">Escolher pasta para envio</string>
     <string name="uploader_wrn_no_account_title">Nenhuma conta encontrada</string>
-    <string name="uploader_wrn_no_account_text">Não existe nenhuma conta %1$s em seu aparelho. Por favor, configure uma conta primeiro.</string>
+    <string name="uploader_wrn_no_account_text">Não existe nenhuma conta %1$s em seu dispositivo. Por favor, configure uma conta primeiro.</string>
     <string name="uploader_wrn_no_account_setup_btn_text">Instalação</string>
     <string name="uploader_wrn_no_account_quit_btn_text">Sair</string>
     <string name="uploader_error_title_no_file_to_upload">Nenhum arquivo para envio</string>
