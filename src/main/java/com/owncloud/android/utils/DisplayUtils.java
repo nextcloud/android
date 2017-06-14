@@ -779,9 +779,9 @@ public class DisplayUtils {
     public static int primaryColor() {
         OCCapability capability = getCapability();
 
-        if (!capability.getServerColor().isEmpty()) {
+        try {
             return Color.parseColor(capability.getServerColor());
-        } else {
+        } catch (Exception e) {
             return MainApp.getAppContext().getResources().getColor(R.color.primary);
         }
     }
