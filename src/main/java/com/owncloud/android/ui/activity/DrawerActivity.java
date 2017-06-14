@@ -253,6 +253,7 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
         // Set the drawer toggle as the DrawerListener
         mDrawerLayout.addDrawerListener(mDrawerToggle);
         mDrawerToggle.setDrawerIndicatorEnabled(true);
+        mDrawerToggle.getDrawerArrowDrawable().setColor(DisplayUtils.fontColor());
     }
 
     /**

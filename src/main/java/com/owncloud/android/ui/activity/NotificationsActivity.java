@@ -119,7 +119,7 @@ public class NotificationsActivity extends FileActivity {
 
         // setup drawer
         setupDrawer(R.id.nav_notifications);
-        getSupportActionBar().setTitle(getString(R.string.drawer_item_notifications));
+        DisplayUtils.setColoredTitle(getSupportActionBar(), getString(R.string.drawer_item_notifications));
 
         swipeListRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override

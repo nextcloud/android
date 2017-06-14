@@ -58,10 +58,18 @@ public abstract class ToolbarActivity extends BaseActivity {
         if (mProgressBar != null) {
             mProgressBar.setIndeterminateDrawable(
                     ContextCompat.getDrawable(this, R.drawable.actionbar_progress_indeterminate_horizontal));
+
+            DisplayUtils.colorToolbarProgressBar(this, DisplayUtils.primaryColor());
         }
+
+        DisplayUtils.colorStatusBar(this, DisplayUtils.primaryDarkColor());
 
         if (toolbar.getOverflowIcon() != null) {
             DisplayUtils.tintDrawable(toolbar.getOverflowIcon(), DisplayUtils.fontColor());
+        }
+
+        if (toolbar.getNavigationIcon() != null) {
+            DisplayUtils.tintDrawable(toolbar.getNavigationIcon(), DisplayUtils.fontColor());
         }
 
         if (!useBackgroundImage) {
@@ -102,15 +110,9 @@ public abstract class ToolbarActivity extends BaseActivity {
             titleToSet = title;
         }
 
-        // set the chosen title
+        // set & color the chosen title
         ActionBar actionBar = getSupportActionBar();
-
-        // color folder name
-        DisplayUtils.setColoredTitle(actionBar, title);
-
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-
-//        toolbar.setBackgroundColor(DisplayUtils.primaryColor());
+        DisplayUtils.setColoredTitle(actionBar, titleToSet);
 
         // set home button properties
         if (actionBar != null) {
@@ -118,6 +120,7 @@ public abstract class ToolbarActivity extends BaseActivity {
             actionBar.setDisplayShowTitleEnabled(true);
         }
 
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         if (toolbar.getNavigationIcon() != null) {
             DisplayUtils.tintDrawable(toolbar.getNavigationIcon(), DisplayUtils.fontColor());
         }
