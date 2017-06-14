@@ -778,8 +778,10 @@ public class ExtendedListFragment extends Fragment
                     getContext().getContentResolver());
             OCCapability capability = storageManager.getCapability(account.name);
 
-            if (capability != null && !capability.getServerColor().isEmpty()) {
+            try {
                 primaryColor = Color.parseColor(capability.getServerColor());
+            } catch (Exception e) {
+                primaryColor = getResources().getColor(R.color.primary);
             }
         }
 
