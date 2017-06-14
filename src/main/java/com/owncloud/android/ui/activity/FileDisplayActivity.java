@@ -50,7 +50,6 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.SearchView;
-import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -383,10 +382,6 @@ public class FileDisplayActivity extends HookActivity
                 setAccountInDrawer(getAccount());
                 setupDrawer();
             }
-
-            // update toolbar
-            Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-            toolbar.setBackgroundColor(DisplayUtils.primaryColor());
 
             if (!stateWasRecovered) {
                 Log_OC.d(TAG, "Initializing Fragments in onAccountChanged..");
