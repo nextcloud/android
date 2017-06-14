@@ -627,13 +627,27 @@ public class ExtendedListFragment extends Fragment
     }
 
     /**
-     * displays an empty list information with a headline, a message and an icon.
+     * displays an empty list information with a headline, a message and a not to be tinted icon.
      *
      * @param headline the headline
      * @param message  the message
      * @param icon     the icon to be shown
      */
-    public void setMessageForEmptyList(@StringRes final int headline, @StringRes final int message, @DrawableRes final int icon) {
+    public void setMessageForEmptyList(@StringRes final int headline, @StringRes final int message,
+                                       @DrawableRes final int icon) {
+        setMessageForEmptyList(headline, message, icon, false);
+    }
+
+    /**
+     * displays an empty list information with a headline, a message and an icon.
+     *
+     * @param headline the headline
+     * @param message  the message
+     * @param icon     the icon to be shown
+     * @param tintIcon flag if the given icon should be tinted with primary color
+     */
+    public void setMessageForEmptyList(@StringRes final int headline, @StringRes final int message,
+                                       @DrawableRes final int icon, final boolean tintIcon) {
         new Handler(Looper.getMainLooper()).post(new Runnable() {
             @Override
             public void run() {
@@ -642,7 +656,9 @@ public class ExtendedListFragment extends Fragment
                     mEmptyListHeadline.setText(headline);
                     mEmptyListMessage.setText(message);
 
-                    mEmptyListIcon.setImageDrawable(DisplayUtils.tintDrawable(icon, R.color.primary));
+                    if (tintIcon) {
+                        mEmptyListIcon.setImageDrawable(DisplayUtils.tintDrawable(icon, R.color.primary));
+                    }
 
                     mEmptyListIcon.setVisibility(View.VISIBLE);
                     mEmptyListProgress.setVisibility(View.GONE);
@@ -661,7 +677,8 @@ public class ExtendedListFragment extends Fragment
                     setMessageForEmptyList(
                             R.string.file_list_empty_headline,
                             R.string.file_list_empty,
-                            R.drawable.ic_list_empty_folder
+                            R.drawable.ic_list_empty_folder,
+                            true
                     );
                 } else if (searchType == SearchType.FILE_SEARCH) {
                     setMessageForEmptyList(R.string.file_list_empty_headline_server_search,
