@@ -657,6 +657,7 @@
     <!-- Notifications -->
     <string name="new_notification_received">Νέα ενημέρωση ελήφθη </string>
     <string name="drawer_logout">Έξοδος</string>
+    <string name="privacy">Ιδιωτικότητα</string>
     <string name="file_not_found">Δεν βρέθηκε το αρχείο!</string>
 
     <string name="folder_sync_folders">Ρύθμιση φακέλων</string>
