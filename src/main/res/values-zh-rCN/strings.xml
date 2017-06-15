@@ -307,6 +307,7 @@
     <string name="activity_chooser_title">发送链接给 &#8230;</string>
     <string name="wait_for_tmp_copy_from_private_storage">从私有存储中拷贝文件</string>
     
+    <string name="oauth_check_onoff">使用oAuth2登录</string> 
     <string name="oauth_login_connection">连接到OAuth 2服务器...</string>    
         
     <string name="ssl_validator_header">站点身份无法验证</string>
@@ -350,6 +351,7 @@
     <string name="instant_video_upload_on_charging">仅在充电时上传</string>
     <string name="instant_upload_on_charging">仅在充电时上传</string>
     <string name="instant_upload_path">/实时上传</string>
+    <string name="auto_upload_path">/自动上传</string>
     <string name="conflict_title">文件冲突</string>
     <string name="conflict_message">你想保留哪些文件？ 如果您选择这两个版本，本地文件将附加一个号码。</string>
     <string name="conflict_keep_both">保留两者</string>
@@ -420,6 +422,7 @@
     <string name="file_migration_failed_while_coping">错误：迁移过程中失败</string>
     <string name="file_migration_failed_while_updating_index">错误：无法更新索引</string>
 
+    <string name="file_migration_directory_already_exists">数据文件夹已经存在。请选择以下选项：</string>
     <string name="file_migration_override_data_folder">代替</string>
     <string name="file_migration_use_data_folder">使用</string>
 
@@ -657,4 +660,8 @@
     <string name="drawer_logout">退出</string>
     <string name="picture_set_as_no_app">没有应用程序发现设置图片！</string>
     <string name="privacy">隐私</string>
-    </resources>
+    <string name="file_not_found">文件未找到</string>
+
+    <string name="folder_sync_folders">配置文件夹</string>
+
+  </resources>
