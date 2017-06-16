@@ -157,6 +157,26 @@ public class AccountAuthenticator extends AbstractAccountAuthenticator {
     public Bundle getAuthToken(AccountAuthenticatorResponse response,
             Account account, String authTokenType, Bundle options)
             throws NetworkErrorException {
+
+        if(authTokenType.equals("NextcloudSSO")) {
+            AccountManager am = AccountManager.get(mContext);
+            final Bundle result = new Bundle();
+
+            String username = account.name.split("@")[0];
+            String server   = account.name.split("@")[1];
+
+            result.putString(AccountManager.KEY_ACCOUNT_NAME,  account.name);
+            result.putString(AccountManager.KEY_ACCOUNT_TYPE,  MainApp.getAccountType());
+            result.putString(AccountManager.KEY_AUTHTOKEN,     "NextcloudSSO");
+            result.putString("username",                       username);
+            result.putString("password",                       am.getPassword(account));
+            result.putString("server_url",                     "https://" + server);
+            result.putBoolean("disable_hostname_verification", false);
+
+            return result;
+        }
+
+
         /// validate parameters
         try {
             validateAccountType(account.type);
