@@ -7,17 +7,17 @@
  * Copyright (C) 2011  Bartek Przybylski
  * Copyright (C) 2015 ownCloud Inc.
  * Copyright (C) 2016 Andy Scherzinger
- *
+ * <p>
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
  * License as published by the Free Software Foundation; either
  * version 3 of the License, or any later version.
- *
+ * <p>
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU AFFERO GENERAL PUBLIC LICENSE for more details.
- *
+ * <p>
  * You should have received a copy of the GNU Affero General Public
  * License along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -29,6 +29,7 @@ import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -49,9 +50,12 @@ import android.support.v4.content.res.ResourcesCompat;
 import android.support.v4.graphics.ColorUtils;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.app.ActionBar;
+import android.support.v7.widget.AppCompatCheckBox;
+import android.support.v7.widget.SwitchCompat;
 import android.text.Html;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
+import android.text.Spanned;
 import android.text.format.DateUtils;
 import android.text.style.StyleSpan;
 import android.view.Menu;
@@ -404,7 +408,7 @@ public class DisplayUtils {
      */
     public static void colorPreLollipopHorizontalProgressBar(ProgressBar progressBar) {
         if (progressBar != null && Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-            colorHorizontalProgressBar(progressBar, progressBar.getResources().getColor(R.color.color_accent));
+            colorHorizontalProgressBar(progressBar, DisplayUtils.primaryAccentColor());
         }
     }
 
@@ -442,7 +446,7 @@ public class DisplayUtils {
             colorPreLollipopHorizontalProgressBar(seekBar);
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                int color = seekBar.getResources().getColor(R.color.color_accent);
+                int color = DisplayUtils.primaryAccentColor();
                 seekBar.getThumb().setColorFilter(color, PorterDuff.Mode.SRC_IN);
                 seekBar.getThumb().setColorFilter(color, PorterDuff.Mode.SRC_IN);
             }
@@ -683,18 +687,18 @@ public class DisplayUtils {
      *
      * @param inputStream        The File InputStream
      */
-    public static String getData(InputStream inputStream){
+    public static String getData(InputStream inputStream) {
 
         BufferedReader buffreader = new BufferedReader(new InputStreamReader(inputStream));
         String line;
         StringBuilder text = new StringBuilder();
         try {
-            while (( line = buffreader.readLine()) != null) {
+            while ((line = buffreader.readLine()) != null) {
                 text.append(line);
                 text.append('\n');
             }
         } catch (IOException e) {
-            Log_OC.e(TAG,e.getMessage());
+            Log_OC.e(TAG, e.getMessage());
         }
         return text.toString();
     }
@@ -712,6 +716,35 @@ public class DisplayUtils {
         }
     }
 
+    public static void tintCheckbox(AppCompatCheckBox checkBox, int color) {
+        checkBox.setSupportButtonTintList(new ColorStateList(
+                new int[][]{
+                        new int[]{-android.R.attr.state_checked},
+                        new int[]{android.R.attr.state_checked},
+                },
+                new int[]{
+                        Color.GRAY,
+                        color
+                }
+        ));
+    }
+
+    public static void tintSwitch(SwitchCompat switchView, int color) {
+        switchView.setTextColor(color);
+
+        int trackColor = Color.argb(77, Color.red(color), Color.green(color), Color.blue(color));
+
+        // setting the thumb color
+        DrawableCompat.setTintList(switchView.getThumbDrawable(), new ColorStateList(
+                new int[][]{new int[]{android.R.attr.state_checked}, new int[]{}},
+                new int[]{color, Color.WHITE}));
+
+        // setting the track color
+        DrawableCompat.setTintList(switchView.getTrackDrawable(), new ColorStateList(
+                new int[][]{new int[]{android.R.attr.state_checked}, new int[]{}},
+                new int[]{trackColor, Color.parseColor("#4D000000")}));
+    }
+
     public static Drawable tintDrawable(@DrawableRes int id, int color) {
         Drawable drawable = ResourcesCompat.getDrawable(MainApp.getAppContext().getResources(), id, null);
 
@@ -720,7 +753,7 @@ public class DisplayUtils {
 
     public static Drawable tintDrawable(Drawable drawable, int color) {
         Drawable wrap = DrawableCompat.wrap(drawable);
-        DrawableCompat.setTint(wrap, color);
+        wrap.setColorFilter(color, PorterDuff.Mode.SRC_ATOP);
 
         return wrap;
     }
@@ -766,6 +799,16 @@ public class DisplayUtils {
         return String.format("#%06X", 0xFFFFFF & color);
     }
 
+    public static int primaryAccentColor() {
+        OCCapability capability = getCapability();
+
+        try {
+            return adjustLightness(+0.1f, Color.parseColor(capability.getServerColor()));
+        } catch (Exception e) {
+            return MainApp.getAppContext().getResources().getColor(R.color.color_accent);
+        }
+    }
+
     public static int primaryDarkColor() {
         OCCapability capability = getCapability();
 
@@ -795,6 +838,11 @@ public class DisplayUtils {
     public static void setColoredTitle(ActionBar actionBar, String title) {
         String colorHex = DisplayUtils.colorToHexString(DisplayUtils.fontColor());
         actionBar.setTitle(Html.fromHtml("<font color='" + colorHex + "'>" + title + "</font>"));
+    }
+
+    public static Spanned getColoredTitle(String title, int color) {
+        String colorHex = DisplayUtils.colorToHexString(color);
+        return Html.fromHtml("<font color='" + colorHex + "'>" + title + "</font>");
     }
 
     /**
