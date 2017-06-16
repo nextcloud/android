@@ -82,8 +82,6 @@ import java.util.ArrayList;
 
 import third_parties.in.srain.cube.GridViewWithHeaderAndFooter;
 
-import static android.content.res.Configuration.ORIENTATION_LANDSCAPE;
-
 public class ExtendedListFragment extends Fragment
         implements OnItemClickListener, OnEnforceableRefreshListener, SearchView.OnQueryTextListener {
 
