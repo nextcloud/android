@@ -26,6 +26,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.Resources.NotFoundException;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.v4.app.Fragment;
@@ -367,6 +368,7 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
         mCancelBtn = (Button) findViewById(R.id.folder_picker_btn_cancel);
         mCancelBtn.setOnClickListener(this);
         mChooseBtn = (Button) findViewById(R.id.folder_picker_btn_choose);
+        mChooseBtn.getBackground().setColorFilter(DisplayUtils.primaryColor(), PorterDuff.Mode.SRC_ATOP);
         mChooseBtn.setOnClickListener(this);
     }
     

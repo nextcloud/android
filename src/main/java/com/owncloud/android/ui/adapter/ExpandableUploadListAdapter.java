@@ -77,7 +77,7 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
     private UploadGroup[] mUploadGroups = null;
 
     interface Refresh {
-        public void refresh();
+        void refresh();
     }
 
     abstract class UploadGroup implements Refresh {
@@ -713,6 +713,7 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
         TextView tv = (TextView) convertView.findViewById(R.id.uploadListGroupName);
         tv.setText(String.format(mParentActivity.getString(R.string.uploads_view_group_header),
                 group.getGroupName(), group.getGroupItemCount()));
+        tv.setTextColor(DisplayUtils.primaryAccentColor());
         return convertView;
     }
 

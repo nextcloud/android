@@ -915,7 +915,17 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
 
             MenuItem item = mNavigationView.getMenu().findItem(menuItemId);
             item.setChecked(true);
-            item.setIcon(DisplayUtils.tintDrawable(item.getIcon(), DisplayUtils.primaryColor()));
+
+            // reset all tinted icons
+            for (int i = 0; i < mNavigationView.getMenu().size(); i++) {
+                MenuItem menuItem = mNavigationView.getMenu().getItem(i);
+                if (menuItem.getIcon() != null) {
+                    menuItem.getIcon().clearColorFilter();
+                }
+            }
+
+            DisplayUtils.tintDrawable(item.getIcon(), DisplayUtils.primaryColor());
+
             String colorHex = DisplayUtils.colorToHexString(DisplayUtils.primaryColor());
             item.setTitle(Html.fromHtml("<font color='" + colorHex + "'>" + item.getTitle() + "</font>"));
 
