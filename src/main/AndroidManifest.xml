@@ -65,6 +65,7 @@
     <uses-permission android:name="android.permission.USE_FINGERPRINT" />
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
 
+    <permission android:name="com.owncloud.android.sso" android:protectionLevel="signature" />
 
     <application
         android:name=".MainApp"
@@ -289,6 +290,15 @@
         <activity android:name=".ui.activity.ManageSpaceActivity"
                   android:label="@string/manage_space_title"
                   android:theme="@style/Theme.ownCloud" />
+
+
+        <service
+            android:name=".services.AccountManagerService"
+            android:enabled="true"
+            android:exported="true"
+            android:permission="com.owncloud.android.sso" >
+        </service>
+
     </application>
 
 </manifest>
