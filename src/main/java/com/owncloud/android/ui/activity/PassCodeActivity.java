@@ -1,4 +1,4 @@
-/**
+/*
  *   ownCloud Android client application
  *
  *   @author Bartek Przybylski
@@ -439,8 +439,8 @@ public class PassCodeActivity extends AppCompatActivity {
      * Sets the input fields to empty strings and puts the focus on the first one.
      */
     protected void clearBoxes(){
-        for (int i=0; i < mPassCodeEditTexts.length; i++) {
-            mPassCodeEditTexts[i].setText("");
+        for (EditText mPassCodeEditText : mPassCodeEditTexts) {
+            mPassCodeEditText.setText("");
         }
         mPassCodeEditTexts[0].requestFocus();
     }
@@ -499,7 +499,7 @@ public class PassCodeActivity extends AppCompatActivity {
          * @param lastOne       'True' means that watcher corresponds to the last position of the
          *                      pass code.
          */
-        public PassCodeDigitTextWatcher(int index, boolean lastOne) {
+        PassCodeDigitTextWatcher(int index, boolean lastOne) {
             mIndex = index;
             mLastOne  = lastOne;
             if (mIndex < 0) {
