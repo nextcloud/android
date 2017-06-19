@@ -77,6 +77,7 @@ import java.util.Vector;
  */
 public class FileListListAdapter extends BaseAdapter {
 
+    public static final int showFilenameColumnThreshold = 4;
     private Context mContext;
     private Vector<OCFile> mFilesAll = new Vector<OCFile>();
     private Vector<OCFile> mFiles = null;
@@ -252,8 +253,14 @@ public class FileListListAdapter extends BaseAdapter {
                 case GRID_ITEM:
                     // filename
                     fileName = (TextView) view.findViewById(R.id.Filename);
+
                     name = file.getFileName();
                     fileName.setText(name);
+
+                    if (OCFileListFragmentInterface.getColumnSize() > showFilenameColumnThreshold
+                            && viewType == ViewType.GRID_ITEM) {
+                        fileName.setVisibility(View.GONE);
+                    }
 
                 case GRID_IMAGE:
                     // sharedIcon
@@ -273,12 +280,9 @@ public class FileListListAdapter extends BaseAdapter {
                     // local state
                     ImageView localStateView = (ImageView) view.findViewById(R.id.localFileIndicator);
                     localStateView.bringToFront();
-                    FileDownloaderBinder downloaderBinder =
-                            mTransferServiceGetter.getFileDownloaderBinder();
-                    FileUploaderBinder uploaderBinder =
-                            mTransferServiceGetter.getFileUploaderBinder();
-                    OperationsServiceBinder opsBinder =
-                            mTransferServiceGetter.getOperationsServiceBinder();
+                    FileDownloaderBinder downloaderBinder = mTransferServiceGetter.getFileDownloaderBinder();
+                    FileUploaderBinder uploaderBinder = mTransferServiceGetter.getFileUploaderBinder();
+                    OperationsServiceBinder opsBinder = mTransferServiceGetter.getOperationsServiceBinder();
 
                     localStateView.setVisibility(View.INVISIBLE);   // default first
 
