@@ -219,7 +219,7 @@ public class ExtendedListFragment extends Fragment
         if ((activity = getActivity()) != null) {
             activity.getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
             int width = displaymetrics.widthPixels;
-            if (getResources().getConfiguration().orientation == ORIENTATION_LANDSCAPE) {
+            if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
                 searchView.setMaxWidth((int) (width * 0.4));
             } else {
                 if (activity instanceof FolderPickerActivity) {
