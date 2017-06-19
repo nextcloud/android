@@ -30,6 +30,8 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.res.Configuration;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -140,7 +142,17 @@ public class Preferences extends PreferenceActivity
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setTitle(R.string.actionbar_settings);
+        DisplayUtils.setColoredTitle(actionBar, getString(R.string.actionbar_settings));
+        actionBar.setBackgroundDrawable(new ColorDrawable(DisplayUtils.primaryColor()));
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            getWindow().setStatusBarColor(DisplayUtils.primaryDarkColor());
+        }
+
+        Drawable backArrow = getResources().getDrawable(R.drawable.ic_arrow_back);
+        actionBar.setHomeAsUpIndicator(DisplayUtils.tintDrawable(backArrow, DisplayUtils.fontColor()));
+
+        int accentColor = DisplayUtils.primaryAccentColor();
 
         // retrieve user's base uri
         setupBaseUri();
@@ -166,8 +178,15 @@ public class Preferences extends PreferenceActivity
         // Register context menu for list of preferences.
         registerForContextMenu(getListView());
 
+        // General
+        PreferenceCategory preferenceCategoryGeneral = (PreferenceCategory) findPreference("general");
+        preferenceCategoryGeneral.setTitle(DisplayUtils.getColoredTitle(getString(R.string.prefs_category_general),
+                accentColor));
+
         // Synced folders
         PreferenceCategory preferenceCategoryFolderSync = (PreferenceCategory) findPreference("folder_sync");
+        preferenceCategoryFolderSync.setTitle(DisplayUtils.getColoredTitle(getString(R.string.drawer_folder_sync),
+                accentColor));
         PreferenceScreen preferenceScreen = (PreferenceScreen) findPreference("preference_screen");
 
         if (!getResources().getBoolean(R.bool.syncedFolder_light)) {
@@ -211,6 +230,8 @@ public class Preferences extends PreferenceActivity
         }
 
         PreferenceCategory preferenceCategoryDetails = (PreferenceCategory) findPreference("details");
+        preferenceCategoryDetails.setTitle(DisplayUtils.getColoredTitle(getString(R.string.prefs_category_details),
+                accentColor));
 
         boolean fPassCodeEnabled = getResources().getBoolean(R.bool.passcode_enabled);
         pCode = (SwitchPreference) findPreference(PassCodeActivity.PREFERENCE_SET_PASSCODE);
@@ -309,6 +330,8 @@ public class Preferences extends PreferenceActivity
         }
 
         PreferenceCategory preferenceCategoryMore = (PreferenceCategory) findPreference("more");
+        preferenceCategoryMore.setTitle(DisplayUtils.getColoredTitle(getString(R.string.prefs_category_more),
+                accentColor));
 
         boolean calendarContactsEnabled = getResources().getBoolean(R.bool.davdroid_integration_enabled);
         Preference pCalendarContacts = findPreference("calendar_contacts");
@@ -578,6 +601,8 @@ public class Preferences extends PreferenceActivity
 
         // About category
         PreferenceCategory preferenceCategoryAbout = (PreferenceCategory) findPreference("about");
+        preferenceCategoryAbout.setTitle(DisplayUtils.getColoredTitle(getString(R.string.prefs_category_about),
+                accentColor));
 
         /* About App */
         pAboutApp = findPreference("about_app");
