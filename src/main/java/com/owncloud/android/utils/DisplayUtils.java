@@ -730,7 +730,13 @@ public class DisplayUtils {
     }
 
     public static void tintSwitch(SwitchCompat switchView, int color) {
-        switchView.setTextColor(color);
+        tintSwitch(switchView, color, false);
+    }
+
+    public static void tintSwitch(SwitchCompat switchView, int color, boolean colorText) {
+        if (colorText) {
+            switchView.setTextColor(color);
+        }
 
         int trackColor = Color.argb(77, Color.red(color), Color.green(color), Color.blue(color));
 

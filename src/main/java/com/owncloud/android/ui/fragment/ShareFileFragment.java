@@ -274,7 +274,7 @@ public class ShareFileFragment extends Fragment implements ShareUserListAdapter.
     private void initShareViaLinkListener(View shareView) {
         mOnShareViaLinkSwitchCheckedChangeListener = new OnShareViaLinkListener();
         SwitchCompat shareViaLinkSwitch = (SwitchCompat) shareView.findViewById(R.id.shareViaLinkSectionSwitch);
-        DisplayUtils.tintSwitch(shareViaLinkSwitch, DisplayUtils.primaryAccentColor());
+        DisplayUtils.tintSwitch(shareViaLinkSwitch, DisplayUtils.primaryAccentColor(), true);
         shareViaLinkSwitch.setOnCheckedChangeListener(mOnShareViaLinkSwitchCheckedChangeListener);
     }
 

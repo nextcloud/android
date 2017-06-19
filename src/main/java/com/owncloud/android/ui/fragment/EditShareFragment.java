@@ -163,7 +163,7 @@ public class EditShareFragment extends Fragment {
             int accentColor = DisplayUtils.primaryAccentColor();
 
             SwitchCompat shareSwitch = (SwitchCompat) editShareView.findViewById(R.id.canShareSwitch);
-            DisplayUtils.tintSwitch(shareSwitch, accentColor);
+            DisplayUtils.tintSwitch(shareSwitch, accentColor, true);
 
             if (isFederated) {
                 shareSwitch.setVisibility(View.INVISIBLE);
@@ -171,7 +171,7 @@ public class EditShareFragment extends Fragment {
             shareSwitch.setChecked((sharePermissions & OCShare.SHARE_PERMISSION_FLAG) > 0);
 
             SwitchCompat switchCompat = (SwitchCompat) editShareView.findViewById(R.id.canEditSwitch);
-            DisplayUtils.tintSwitch(switchCompat, accentColor);
+            DisplayUtils.tintSwitch(switchCompat, accentColor, true);
             int anyUpdatePermission = OCShare.CREATE_PERMISSION_FLAG | OCShare.UPDATE_PERMISSION_FLAG |
                     OCShare.DELETE_PERMISSION_FLAG;
             boolean canEdit = (sharePermissions & anyUpdatePermission) > 0;

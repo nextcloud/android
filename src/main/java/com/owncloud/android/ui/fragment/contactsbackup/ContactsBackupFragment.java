@@ -24,6 +24,7 @@ import android.Manifest;
 import android.accounts.Account;
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
+import android.graphics.PorterDuff;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -77,6 +78,9 @@ public class ContactsBackupFragment extends FileFragment implements DatePickerDi
     @BindView(R.id.contacts_header_restore)
     public TextView contactsRestoreHeader;
 
+    @BindView(R.id.contacts_header_backup)
+    public TextView contactsBackupHeader;
+
     @BindView(R.id.contacts_datepicker)
     public AppCompatButton contactsDatePickerBtn;
 
@@ -115,6 +119,7 @@ public class ContactsBackupFragment extends FileFragment implements DatePickerDi
 
         arbitraryDataProvider = new ArbitraryDataProvider(getContext().getContentResolver());
 
+        DisplayUtils.tintSwitch(backupSwitch, DisplayUtils.primaryAccentColor());
         backupSwitch.setChecked(arbitraryDataProvider.getBooleanValue(account, PREFERENCE_CONTACTS_AUTOMATIC_BACKUP));
 
         onCheckedChangeListener = new CompoundButton.OnCheckedChangeListener() {
@@ -150,6 +155,14 @@ public class ContactsBackupFragment extends FileFragment implements DatePickerDi
             }
             calendarPickerOpen = true;
         }
+
+        int accentColor = DisplayUtils.primaryAccentColor();
+        contactsDatePickerBtn.getBackground().setColorFilter(accentColor, PorterDuff.Mode.SRC_ATOP);
+        view.findViewById(R.id.contacts_backup_now).getBackground()
+                .setColorFilter(accentColor, PorterDuff.Mode.SRC_ATOP);
+
+        contactsRestoreHeader.setTextColor(accentColor);
+        contactsBackupHeader.setTextColor(accentColor);
 
         return view;
     }
@@ -399,6 +412,9 @@ public class ContactsBackupFragment extends FileFragment implements DatePickerDi
             datePickerDialog.getDatePicker().setMaxDate(backupFiles.lastElement().getModificationTimestamp());
             datePickerDialog.getDatePicker().setMinDate(backupFiles.firstElement().getModificationTimestamp());
 
+            int accentColor = DisplayUtils.primaryAccentColor();
+
+
             datePickerDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
                 @Override
                 public void onDismiss(DialogInterface dialog) {
@@ -407,6 +423,9 @@ public class ContactsBackupFragment extends FileFragment implements DatePickerDi
             });
 
             datePickerDialog.show();
+
+            datePickerDialog.getButton(DialogInterface.BUTTON_POSITIVE).setTextColor(accentColor);
+            datePickerDialog.getButton(DialogInterface.BUTTON_NEGATIVE).setTextColor(accentColor);
         } else {
             Toast.makeText(contactsPreferenceActivity, R.string.contacts_preferences_something_strange_happened,
                     Toast.LENGTH_SHORT).show();
