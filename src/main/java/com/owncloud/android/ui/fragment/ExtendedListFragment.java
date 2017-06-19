@@ -82,8 +82,6 @@ import java.util.ArrayList;
 
 import third_parties.in.srain.cube.GridViewWithHeaderAndFooter;
 
-import static android.content.res.Configuration.ORIENTATION_LANDSCAPE;
-
 public class ExtendedListFragment extends Fragment
         implements OnItemClickListener, OnEnforceableRefreshListener, SearchView.OnQueryTextListener {
 
@@ -221,7 +219,7 @@ public class ExtendedListFragment extends Fragment
         if ((activity = getActivity()) != null) {
             activity.getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
             int width = displaymetrics.widthPixels;
-            if (getResources().getConfiguration().orientation == ORIENTATION_LANDSCAPE) {
+            if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
                 searchView.setMaxWidth((int) (width * 0.4));
             } else {
                 if (activity instanceof FolderPickerActivity) {
@@ -396,6 +394,11 @@ public class ExtendedListFragment extends Fragment
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
                 mScaleGestureDetector.onTouchEvent(motionEvent);
+
+                if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
+                    view.performClick();
+                }
+
                 return false;
             }
         });
@@ -463,6 +466,10 @@ public class ExtendedListFragment extends Fragment
         return v;
     }
 
+    public void setEmptyListVisible() {
+        mEmptyListContainer.setVisibility(View.VISIBLE);
+    }
+
     private class SingleTapConfirm extends GestureDetector.SimpleOnGestureListener {
         @Override
         public boolean onSingleTapUp(MotionEvent e) {
@@ -493,10 +500,6 @@ public class ExtendedListFragment extends Fragment
         Integer scaleInt = Math.round(mScale);
         mGridView.setNumColumns(scaleInt);
         mGridView.invalidateViews();
-    }
-
-    public void setEmptyListVisible() {
-        mEmptyListContainer.setVisibility(View.VISIBLE);
     }
 
     protected void setupEmptyList(View view) {
