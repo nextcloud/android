@@ -394,6 +394,11 @@ public class ExtendedListFragment extends Fragment
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
                 mScaleGestureDetector.onTouchEvent(motionEvent);
+
+                if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
+                    view.performClick();
+                }
+
                 return false;
             }
         });
