@@ -105,6 +105,7 @@ public class ContactsBackupFragment extends FileFragment implements DatePickerDi
     @Override
     public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
+        // use grey as fallback for elements where custom theming is not available
         if (DisplayUtils.themingEnabled()) {
             getContext().getTheme().applyStyle(R.style.FallbackThemingTheme, true);
         }

@@ -23,7 +23,6 @@ package com.owncloud.android.ui.dialog;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.text.format.DateUtils;
@@ -31,7 +30,6 @@ import android.widget.DatePicker;
 
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.ui.activity.FileActivity;
-import com.owncloud.android.utils.DisplayUtils;
 
 import java.util.Calendar;
 
@@ -69,17 +67,6 @@ public class ExpirationDatePickerDialogFragment
         ExpirationDatePickerDialogFragment dialog = new ExpirationDatePickerDialogFragment();
         dialog.setArguments(arguments);
         return dialog;
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-
-        int accentColor = DisplayUtils.primaryAccentColor();
-
-        DatePickerDialog dialog = (DatePickerDialog) getDialog();
-        dialog.getButton(DialogInterface.BUTTON_POSITIVE).setTextColor(accentColor);
-        dialog.getButton(DialogInterface.BUTTON_NEGATIVE).setTextColor(accentColor);
     }
 
     /**
