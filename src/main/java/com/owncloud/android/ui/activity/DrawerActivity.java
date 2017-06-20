@@ -412,36 +412,27 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
 
     private void selectNavigationItem(final MenuItem menuItem) {
 
+        setDrawerMenuItemChecked(menuItem.getItemId());
+
         switch (menuItem.getItemId()) {
             case R.id.nav_all_files:
-                menuItem.setChecked(true);
-                mCheckedMenuItem = menuItem.getItemId();
                 showFiles(false);
                 EventBus.getDefault().post(new ChangeMenuEvent());
                 break;
             case R.id.nav_favorites:
-                menuItem.setChecked(true);
-                mCheckedMenuItem = menuItem.getItemId();
-
                 switchToSearchFragment(new SearchEvent("", SearchOperation.SearchType.FAVORITE_SEARCH,
                         SearchEvent.UnsetType.NO_UNSET), menuItem);
                 break;
             case R.id.nav_photos:
-                menuItem.setChecked(true);
-                mCheckedMenuItem = menuItem.getItemId();
-
                 switchToSearchFragment(new SearchEvent("image/%", SearchOperation.SearchType.CONTENT_TYPE_SEARCH,
                         SearchEvent.UnsetType.NO_UNSET), menuItem);
                 break;
             case R.id.nav_on_device:
-                menuItem.setChecked(true);
-                mCheckedMenuItem = menuItem.getItemId();
                 EventBus.getDefault().post(new ChangeMenuEvent());
                 showFiles(true);
                 break;
             case R.id.nav_uploads:
-                Intent uploadListIntent = new Intent(getApplicationContext(),
-                        UploadListActivity.class);
+                Intent uploadListIntent = new Intent(getApplicationContext(), UploadListActivity.class);
                 uploadListIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(uploadListIntent);
                 break;
@@ -467,8 +458,7 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
                 startActivity(settingsIntent);
                 break;
             case R.id.nav_participate:
-                Intent participateIntent = new Intent(getApplicationContext(),
-                        ParticipateActivity.class);
+                Intent participateIntent = new Intent(getApplicationContext(), ParticipateActivity.class);
                 startActivity(participateIntent);
                 break;
             case R.id.nav_logout:
@@ -480,35 +470,22 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
                 createAccount(false);
                 break;
             case R.id.drawer_menu_account_manage:
-                Intent manageAccountsIntent = new Intent(getApplicationContext(),
-                        ManageAccountsActivity.class);
+                Intent manageAccountsIntent = new Intent(getApplicationContext(), ManageAccountsActivity.class);
                 startActivityForResult(manageAccountsIntent, ACTION_MANAGE_ACCOUNTS);
                 break;
             case R.id.nav_recently_added:
-                menuItem.setChecked(true);
-                mCheckedMenuItem = menuItem.getItemId();
-
                 switchToSearchFragment(new SearchEvent("%",SearchOperation.SearchType.CONTENT_TYPE_SEARCH,
                         SearchEvent.UnsetType.UNSET_BOTTOM_NAV_BAR), menuItem);
                 break;
             case R.id.nav_recently_modified:
-                menuItem.setChecked(true);
-                mCheckedMenuItem = menuItem.getItemId();
-
                 switchToSearchFragment(new SearchEvent("", SearchOperation.SearchType.RECENTLY_MODIFIED_SEARCH,
                         SearchEvent.UnsetType.UNSET_BOTTOM_NAV_BAR), menuItem);
                 break;
             case R.id.nav_shared:
-                menuItem.setChecked(true);
-                mCheckedMenuItem = menuItem.getItemId();
-
                 switchToSearchFragment(new SearchEvent("", SearchOperation.SearchType.SHARED_SEARCH,
                         SearchEvent.UnsetType.UNSET_BOTTOM_NAV_BAR), menuItem);
                 break;
             case R.id.nav_videos:
-                menuItem.setChecked(true);
-                mCheckedMenuItem = menuItem.getItemId();
-
                 switchToSearchFragment(new SearchEvent("video/%", SearchOperation.SearchType.CONTENT_TYPE_SEARCH,
                         SearchEvent.UnsetType.UNSET_BOTTOM_NAV_BAR), menuItem);
                 break;
@@ -921,6 +898,7 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
                 MenuItem menuItem = mNavigationView.getMenu().getItem(i);
                 if (menuItem.getIcon() != null) {
                     menuItem.getIcon().clearColorFilter();
+                    menuItem.setTitle(Html.fromHtml("<font color='#000000'>" + menuItem.getTitle() + "</font>"));
                 }
             }
 
