@@ -336,7 +336,7 @@
     <string name="ssl_validator_no_info_about_error">- Nenhuma informação sobre o erro</string>
 
     <string name="placeholder_sentence">Este é um espaço reservado</string>
-    <string name="placeholder_filename">espaçoreservado.txt</string>
+    <string name="placeholder_filename">placeholder.txt</string>
     <string name="placeholder_filetype">Imagem PNG</string>
     <string name="placeholder_filesize">389 KB</string>
     <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
@@ -415,7 +415,7 @@
     <string name="file_migration_failed_not_enough_space">ERRO: Espaço insuficiente</string>
     <string name="file_migration_failed_not_writable">ERRO: Arquivo de destino não gravável</string>
     <string name="file_migration_failed_not_readable">ERRO: Arquivo fonte não legível</string>
-    <string name="file_migration_failed_dir_already_exists">ERRO: Diretório Nexcloud já existe</string>
+    <string name="file_migration_failed_dir_already_exists">ERRO: Diretório Nextcloud já existe</string>
     <string name="file_migration_failed_while_coping">ERRO: Falha durante a migração</string>
     <string name="file_migration_failed_while_updating_index">ERRO: Falha ao atualizar índice</string>
 
@@ -535,7 +535,7 @@
     <string name="action_clear_successful_uploads">Limpo</string>
     <string name="action_clear_finished_uploads">Limpar envios termiandos</string>
 
-    <string name="action_switch_grid_view">Grade de exibição</string>
+    <string name="action_switch_grid_view">Vista da grade</string>
     <string name="action_switch_list_view">Lista de visualização</string>
 
     <string name="manage_space_title">Gerenciar o espaço</string>
@@ -613,7 +613,7 @@
     <string name="welcome_feature_3_title">Envio automático</string>
     <string name="welcome_feature_3_text">Mantenha seguras as suas fotos</string>
 
-    <string name="whats_new_skip">Pular</string>
+    <string name="whats_new_skip">Saltar</string>
 
     <string name="fingerprint_scan_finger">Por favor escaneie sua impressão digital</string>
     <string name="fingerprint_unknown">Impressão digital não reconhecida</string>
