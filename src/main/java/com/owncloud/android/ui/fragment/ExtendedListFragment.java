@@ -1,20 +1,20 @@
-/**
+/*
  * ownCloud Android client application
  *
  * @author Mario Danic
  * Copyright (C) 2017 Mario Danic
  * Copyright (C) 2012 Bartek Przybylski
  * Copyright (C) 2012-2016 ownCloud Inc.
- * <p>
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2,
  * as published by the Free Software Foundation.
- * <p>
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * <p>
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -24,7 +24,6 @@ package com.owncloud.android.ui.fragment;
 import android.accounts.Account;
 import android.animation.LayoutTransition;
 import android.app.Activity;
-import android.graphics.Color;
 import android.content.res.Configuration;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
@@ -66,11 +65,9 @@ import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
-import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.db.PreferenceManager;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.files.SearchOperation;
-import com.owncloud.android.lib.resources.status.OCCapability;
 import com.owncloud.android.ui.ExtendedListView;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.activity.FolderPickerActivity;
@@ -544,6 +541,8 @@ public class ExtendedListFragment extends Fragment
         mEmptyListHeadline = (TextView) view.findViewById(R.id.empty_list_view_headline);
         mEmptyListIcon = (ImageView) view.findViewById(R.id.empty_list_icon);
         mEmptyListProgress = (ProgressBar) view.findViewById(R.id.empty_list_progress);
+        mEmptyListProgress.getIndeterminateDrawable().setColorFilter(DisplayUtils.primaryColor(),
+                PorterDuff.Mode.SRC_IN);
     }
 
     /**
@@ -870,22 +869,13 @@ public class ExtendedListFragment extends Fragment
     protected void onCreateSwipeToRefresh(SwipeRefreshLayout refreshLayout) {
         Account account = AccountUtils.getCurrentOwnCloudAccount(MainApp.getAppContext());
 
-        int primaryColor = getResources().getColor(R.color.primary);
-        if (account != null) {
-            FileDataStorageManager storageManager = new FileDataStorageManager(account,
-                    getContext().getContentResolver());
-            OCCapability capability = storageManager.getCapability(account.name);
-
-            try {
-                primaryColor = Color.parseColor(capability.getServerColor());
-            } catch (Exception e) {
-                primaryColor = getResources().getColor(R.color.primary);
-            }
-        }
+        int primaryColor = DisplayUtils.primaryColor();
+        int darkColor = DisplayUtils.primaryDarkColor();
+        int lightColor = DisplayUtils.primaryAccentColor();
 
         // Colors in animations
         // TODO change this to use darker and lighter color, again.
-        refreshLayout.setColorSchemeColors(primaryColor, primaryColor, primaryColor);
+        refreshLayout.setColorSchemeColors(lightColor, primaryColor, darkColor);
         refreshLayout.setOnRefreshListener(this);
     }
 
