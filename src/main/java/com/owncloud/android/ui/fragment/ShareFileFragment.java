@@ -192,6 +192,11 @@ public class ShareFileFragment extends Fragment implements ShareUserListAdapter.
                              Bundle savedInstanceState) {
         Log_OC.d(TAG, "onCreateView");
 
+        // use grey as fallback for elements where custom theming is not available
+        if (DisplayUtils.themingEnabled()) {
+            getContext().getTheme().applyStyle(R.style.FallbackThemingTheme, true);
+        }
+
         int accentColor = DisplayUtils.primaryAccentColor();
 
         // Inflate the layout for this fragment
@@ -740,7 +745,7 @@ public class ShareFileFragment extends Fragment implements ShareUserListAdapter.
 
             // GetLink button
             AppCompatButton getLinkButton = getGetLinkButton();
-            getLinkButton.getBackground().setColorFilter(DisplayUtils.primaryAccentColor(), PorterDuff.Mode.DST_ATOP);
+            getLinkButton.getBackground().setColorFilter(DisplayUtils.primaryAccentColor(), PorterDuff.Mode.SRC_ATOP);
             getLinkButton.setVisibility(View.VISIBLE);
             getLinkButton.setOnClickListener(new View.OnClickListener() {
                 @Override
