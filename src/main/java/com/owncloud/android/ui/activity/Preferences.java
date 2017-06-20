@@ -135,6 +135,11 @@ public class Preferences extends PreferenceActivity
     @SuppressWarnings("deprecation")
     @Override
     public void onCreate(Bundle savedInstanceState) {
+
+        if (DisplayUtils.themingEnabled()) {
+            setTheme(R.style.FallbackThemingTheme);
+        }
+
         getDelegate().installViewFactory();
         getDelegate().onCreate(savedInstanceState);
         super.onCreate(savedInstanceState);
