@@ -347,6 +347,7 @@
     <string name="instant_video_upload_on_charging">Wysyłaj tylko podczas ładowania</string>
     <string name="instant_upload_on_charging">Wysyłaj tylko podczas ładowania</string>
     <string name="instant_upload_path">/InstantUpload</string>
+    <string name="auto_upload_path">/Automatyczne wysyłanie</string>
     <string name="conflict_title">Konflikt pliku</string>
     <string name="conflict_message">Które pliki chcesz zachować? Jeżeli wybierzesz obie wersje, do nazwy pliku lokalnego zostanie dodana liczba.</string>
     <string name="conflict_keep_both">Zatrzymaj oba</string>
