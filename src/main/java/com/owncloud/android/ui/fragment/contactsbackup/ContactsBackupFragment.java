@@ -105,6 +105,9 @@ public class ContactsBackupFragment extends FileFragment implements DatePickerDi
     @Override
     public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
+        if (DisplayUtils.themingEnabled()) {
+            getContext().getTheme().applyStyle(R.style.FallbackThemingTheme, true);
+        }
         View view = inflater.inflate(R.layout.contacts_backup_fragment, null);
         ButterKnife.bind(this, view);
 
@@ -412,9 +415,6 @@ public class ContactsBackupFragment extends FileFragment implements DatePickerDi
             datePickerDialog.getDatePicker().setMaxDate(backupFiles.lastElement().getModificationTimestamp());
             datePickerDialog.getDatePicker().setMinDate(backupFiles.firstElement().getModificationTimestamp());
 
-            int accentColor = DisplayUtils.primaryAccentColor();
-
-
             datePickerDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
                 @Override
                 public void onDismiss(DialogInterface dialog) {
@@ -423,9 +423,6 @@ public class ContactsBackupFragment extends FileFragment implements DatePickerDi
             });
 
             datePickerDialog.show();
-
-            datePickerDialog.getButton(DialogInterface.BUTTON_POSITIVE).setTextColor(accentColor);
-            datePickerDialog.getButton(DialogInterface.BUTTON_NEGATIVE).setTextColor(accentColor);
         } else {
             Toast.makeText(contactsPreferenceActivity, R.string.contacts_preferences_something_strange_happened,
                     Toast.LENGTH_SHORT).show();
