@@ -55,7 +55,7 @@
     <string name="prefs_log_title_history">Histórico de logins</string>
     <string name="prefs_log_summary_history">Mostra os registros gravados</string>
     <string name="prefs_log_delete_history_button">Eliminar histórico</string>
-    <string name="prefs_calendar_contacts">Configurar a sincronização do calendário e dos contatos</string>
+    <string name="prefs_calendar_contacts">sincronizar calendário &amp; contatos</string>
     <string name="prefs_calendar_contacts_summary">Configurar o DAVdroid (v1.3.0+) para a conta em uso</string>
     <string name="prefs_calendar_contacts_address_resolve_error">O endereço do servidor da conta não pôde ser reconhecido pelo DAVdroid</string>
     <string name="prefs_calendar_contacts_no_store_error">Nem F-droid nem Google Play estão instalados</string>
@@ -146,7 +146,7 @@
     <string name="common_cancel">Cancelar</string>
     <string name="common_back">Voltar</string>
     <string name="common_save">Salvar</string>
-    <string name="common_save_exit">Salvar e sair</string>
+    <string name="common_save_exit">Salvar &amp; sair</string>
     <string name="common_error">Erro</string>
     <string name="common_loading">Carregando &#8230;</string>
     <string name="common_unknown">desconhecido</string>
@@ -255,7 +255,7 @@
 	<string name="auth_unknown_error_title">Ocorreu um erro desconhecido!</string>
 	<string name="auth_unknown_host_title">Não foi possível encontrar o host</string>
 	<string name="auth_incorrect_path_title">Servidor não encontrado</string>
-	<string name="auth_timeout_title">O servidor demorou demais a responder</string>
+	<string name="auth_timeout_title">O servidor demorou demais para responder</string>
 	<string name="auth_incorrect_address_title">O formato de endereço do servidor está errado</string>
 	<string name="auth_ssl_general_error_title">Inicialização SSL falhou</string>
 	<string name="auth_ssl_unverified_server_title">Não foi possível verificar a identidade do servidor SSL</string>
@@ -336,7 +336,7 @@
     <string name="ssl_validator_no_info_about_error">- Nenhuma informação sobre o erro</string>
 
     <string name="placeholder_sentence">Este é um espaço reservado</string>
-    <string name="placeholder_filename">espaçoreservado.txt</string>
+    <string name="placeholder_filename">placeholder.txt</string>
     <string name="placeholder_filetype">Imagem PNG</string>
     <string name="placeholder_filesize">389 KB</string>
     <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
@@ -415,7 +415,7 @@
     <string name="file_migration_failed_not_enough_space">ERRO: Espaço insuficiente</string>
     <string name="file_migration_failed_not_writable">ERRO: Arquivo de destino não gravável</string>
     <string name="file_migration_failed_not_readable">ERRO: Arquivo fonte não legível</string>
-    <string name="file_migration_failed_dir_already_exists">ERRO: Diretório Nexcloud já existe</string>
+    <string name="file_migration_failed_dir_already_exists">ERRO: Diretório Nextcloud já existe</string>
     <string name="file_migration_failed_while_coping">ERRO: Falha durante a migração</string>
     <string name="file_migration_failed_while_updating_index">ERRO: Falha ao atualizar índice</string>
 
@@ -535,7 +535,7 @@
     <string name="action_clear_successful_uploads">Limpo</string>
     <string name="action_clear_finished_uploads">Limpar envios termiandos</string>
 
-    <string name="action_switch_grid_view">Grade de exibição</string>
+    <string name="action_switch_grid_view">Vista da grade</string>
     <string name="action_switch_list_view">Lista de visualização</string>
 
     <string name="manage_space_title">Gerenciar o espaço</string>
@@ -613,7 +613,7 @@
     <string name="welcome_feature_3_title">Envio automático</string>
     <string name="welcome_feature_3_text">Mantenha seguras as suas fotos</string>
 
-    <string name="whats_new_skip">Pular</string>
+    <string name="whats_new_skip">Saltar</string>
 
     <string name="fingerprint_scan_finger">Por favor escaneie sua impressão digital</string>
     <string name="fingerprint_unknown">Impressão digital não reconhecida</string>
@@ -630,7 +630,7 @@
 
     <!-- Activities -->
     <string name="activities_no_results_headline">Nenhuma atividade ainda</string>
-    <string name="activities_no_results_message">O fluxo irá mostrar eventos como\nInclusões, alterações e compartilhamentos</string>
+    <string name="activities_no_results_message">O Stream irá mostrar eventos como\nInclusões, alterações e compartilhamentos</string>
     <string name="webview_error">Um erro ocorreu</string>
     <string name="prefs_category_about">Sobre</string>
 
@@ -642,7 +642,7 @@
     <string name="contacts_header_backup">Backup</string>
     <string name="contacts_automatic_backup">Backup dos contatos</string>
     <string name="contacts_last_backup">Último backup</string>
-    <string name="contacts_read_permission">Permissão para ler contatos é necessária</string>
+    <string name="contacts_read_permission">Permissão para ler lista de contatos é necessária</string>
     <string name="contacts_write_permission">Permissão para alterar a lista de contatos é necessária</string>
     <string name="contactlist_title">Restaurar contatos</string>
     <string name="contaclist_restore_selected">Restaurar contatos selecionados</string>
@@ -652,8 +652,8 @@
     <string name="contacts_preference_backup_never">nunca</string>
     <string name="contacts_preferences_no_file_found">Nenhum arquivo encontrado</string>
     <string name="contacts_preferences_something_strange_happened">Não foi possível encontrar seu último backup!</string>
-    <string name="contacts_preferences_backup_scheduled">Backup agendado e irá iniciar em breve</string>
-    <string name="contacts_preferences_import_scheduled">Backup importado e irá iniciar em breve</string>
+    <string name="contacts_preferences_backup_scheduled">Backup agendado, irá iniciar em breve</string>
+    <string name="contacts_preferences_import_scheduled">Backup importado, irá iniciar em breve</string>
 
     <!-- Notifications -->
     <string name="new_notification_received">Nova notificação recebida</string>
