@@ -776,13 +776,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
             OwnCloudCredentials credentials = null;
             if (BASIC_TOKEN_TYPE.equals(mAuthTokenType)) {
-                String version = savedInstanceState.getString(KEY_OC_VERSION);
-                OwnCloudVersion ocVersion = (version != null) ? new OwnCloudVersion(version) : null;
-                credentials = OwnCloudCredentialsFactory.newBasicCredentials(
-                        username,
-                        password,
-                        (ocVersion != null && ocVersion.isPreemptiveAuthenticationPreferred())
-                );
+                credentials = OwnCloudCredentialsFactory.newBasicCredentials(username, password);
 
             } else if (OAUTH_TOKEN_TYPE.equals(mAuthTokenType)) {
                 credentials = OwnCloudCredentialsFactory.newBearerCredentials(mAuthToken);
@@ -1129,12 +1123,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         dialog.show(getSupportFragmentManager(), WAIT_DIALOG_TAG);
 
         /// validate credentials accessing the root folder
-        OwnCloudCredentials credentials = OwnCloudCredentialsFactory.newBasicCredentials(
-                username,
-                password,
-                (mServerInfo != null && mServerInfo.mVersion != null
-                        && mServerInfo.mVersion.isPreemptiveAuthenticationPreferred())
-        );
+        OwnCloudCredentials credentials = OwnCloudCredentialsFactory.newBasicCredentials(username, password);
         accessRootFolder(credentials);
     }
 
