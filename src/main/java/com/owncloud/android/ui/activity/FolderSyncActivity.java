@@ -376,6 +376,7 @@ public class FolderSyncActivity extends FileActivity implements FolderSyncAdapte
 
             default:
                 result = super.onOptionsItemSelected(item);
+                break;
         }
         return result;
     }

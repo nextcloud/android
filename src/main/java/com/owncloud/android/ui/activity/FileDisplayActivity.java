@@ -777,6 +777,7 @@ public class FileDisplayActivity extends HookActivity
             }
             default:
                 retval = super.onOptionsItemSelected(item);
+                break;
         }
         return retval;
     }
