@@ -776,7 +776,13 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
             OwnCloudCredentials credentials = null;
             if (BASIC_TOKEN_TYPE.equals(mAuthTokenType)) {
-                credentials = OwnCloudCredentialsFactory.newBasicCredentials(username, password);
+                String version = savedInstanceState.getString(KEY_OC_VERSION);
+                OwnCloudVersion ocVersion = (version != null) ? new OwnCloudVersion(version) : null;
+                credentials = OwnCloudCredentialsFactory.newBasicCredentials(
+                        username,
+                        password,
+                        (ocVersion != null && ocVersion.isPreemptiveAuthenticationPreferred())
+                );
 
             } else if (OAUTH_TOKEN_TYPE.equals(mAuthTokenType)) {
                 credentials = OwnCloudCredentialsFactory.newBearerCredentials(mAuthToken);
@@ -1088,12 +1094,10 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             return;
         }
 
-        if (AccountTypeUtils.getAuthTokenTypeAccessToken(MainApp.getAccountType()).
-                equals(mAuthTokenType)) {
-
+        if (AccountTypeUtils.getAuthTokenTypeAccessToken(MainApp.getAccountType()).equals(mAuthTokenType)) {
             startOauthorization();
-        } else if (AccountTypeUtils.getAuthTokenTypeSamlSessionCookie(MainApp.getAccountType()).
-                equals(mAuthTokenType)) {
+        } else if (AccountTypeUtils.getAuthTokenTypeSamlSessionCookie(MainApp.getAccountType())
+                .equals(mAuthTokenType)) {
 
             startSamlBasedFederatedSingleSignOnAuthorization();
         } else {
@@ -1125,8 +1129,12 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         dialog.show(getSupportFragmentManager(), WAIT_DIALOG_TAG);
 
         /// validate credentials accessing the root folder
-        OwnCloudCredentials credentials = OwnCloudCredentialsFactory.newBasicCredentials(username,
-                password);
+        OwnCloudCredentials credentials = OwnCloudCredentialsFactory.newBasicCredentials(
+                username,
+                password,
+                (mServerInfo != null && mServerInfo.mVersion != null
+                        && mServerInfo.mVersion.isPreemptiveAuthenticationPreferred())
+        );
         accessRootFolder(credentials);
     }
 
