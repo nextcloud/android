@@ -340,6 +340,25 @@ public class Preferences extends PreferenceActivity
             }
         }
 
+        boolean contactsBackupEnabled = !getResources().getBoolean(R.bool.show_drawer_contacts_backup)
+                && getResources().getBoolean(R.bool.contacts_backup);
+        Preference pContactsBackup = findPreference("contacts");
+        if (pCalendarContacts != null) {
+            if (contactsBackupEnabled) {
+                pContactsBackup.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+                    @Override
+                    public boolean onPreferenceClick(Preference preference) {
+                        Intent contactsIntent = new Intent(getApplicationContext(), ContactsPreferenceActivity.class);
+                        contactsIntent.putExtra(ContactsPreferenceActivity.EXTRA_SHOW_SIDEBAR, false);
+                        startActivity(contactsIntent);
+                        return true;
+                    }
+                });
+            } else {
+                preferenceCategoryMore.removePreference(pContactsBackup);
+            }
+        }
+
         if (!fShowHiddenFilesEnabled && !fPrintEnabled && !fPassCodeEnabled) {
             preferenceScreen.removePreference(preferenceCategoryDetails);
         }

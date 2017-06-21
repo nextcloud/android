@@ -102,6 +102,10 @@
 		<Preference android:title="@string/prefs_calendar_contacts"
 					android:key="calendar_contacts"
 					android:summary="@string/prefs_calendar_contacts_summary" />
+		<Preference
+			android:title="@string/actionbar_contacts"
+			android:key="contacts"
+			android:summary="Daily backup of your contacts"/>
 		<Preference android:title="@string/prefs_help" android:key="help" />
 		<Preference android:title="@string/prefs_recommend" android:key="recommend" />
 		<Preference android:title="@string/prefs_feedback" android:key="feedback" />
