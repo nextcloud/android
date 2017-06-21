@@ -520,6 +520,7 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
                 break;
             default:
                 Log_OC.i(TAG, "Unknown drawer menu item clicked: " + menuItem.getTitle());
+                break;
         }
     }
 

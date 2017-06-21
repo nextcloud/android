@@ -1460,6 +1460,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             default:
                 mServerStatusText = 0;
                 mServerStatusIcon = 0;
+                break;
         }
     }
 
