@@ -190,11 +190,16 @@ public class ContactsBackupFragment extends FileFragment implements DatePickerDi
                         getActivity().getContentResolver());
 
                 OCFile folder = storageManager.getFileByPath(path[0]);
-                RefreshFolderOperation operation = new RefreshFolderOperation(folder, System.currentTimeMillis(),
-                        false, false, false, storageManager, account, getContext());
 
-                RemoteOperationResult result = operation.execute(account, getContext());
-                return result.isSuccess();
+                if (folder != null) {
+                    RefreshFolderOperation operation = new RefreshFolderOperation(folder, System.currentTimeMillis(),
+                            false, false, false, storageManager, account, getContext());
+
+                    RemoteOperationResult result = operation.execute(account, getContext());
+                    return result.isSuccess();
+                } else {
+                    return false;
+                }
             }
 
             @Override
