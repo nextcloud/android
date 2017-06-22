@@ -105,7 +105,8 @@ public class MainApp extends MultiDexApplication {
         if (isSamlAuth) {
             OwnCloudClientManagerFactory.setDefaultPolicy(Policy.SINGLE_SESSION_PER_ACCOUNT);
         } else {
-            OwnCloudClientManagerFactory.setDefaultPolicy(Policy.ALWAYS_NEW_CLIENT);
+            OwnCloudClientManagerFactory
+                    .setDefaultPolicy(Policy.SINGLE_SESSION_PER_ACCOUNT_IF_SERVER_SUPPORTS_SERVER_MONITORING);
         }
 
         // initialise thumbnails cache on background thread
