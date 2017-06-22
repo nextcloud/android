@@ -448,7 +448,13 @@ public class UploadFileOperation extends SyncOperation {
 
 
             } else if (mLocalBehaviour == FileUploader.LOCAL_BEHAVIOUR_DELETE) {
-                originalFile.delete();
+                try {
+                    if (!originalFile.delete()) {
+                        Log_OC.e(TAG, "Deletion of " + originalFile.getName() + " failed!");
+                    }
+                } catch (Exception e) {
+                    Log_OC.e(TAG, "Deletion of " + originalFile.getName() + " failed with " + e.getMessage());
+                }
                 getStorageManager().deleteFileInMediaScan(originalFile.getAbsolutePath());
                 saveUploadedFile(client);
             } else {
