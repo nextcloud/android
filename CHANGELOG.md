@@ -1,3 +1,9 @@
+## 2017-06-23 00:31
+- Transaction too large (nextcloud/transactionTooLarge) [https://github.com/nextcloud/android/pull/1102] added
+
+- Dev branch (nextcloud/dev) [https://github.com/nextcloud/android/tree/dev] updated
+- Transaction too large (nextcloud/transactionTooLarge) [https://github.com/nextcloud/android/pull/1102] updated
+
 ## 2017-06-22 00:31
 no new branches added
 

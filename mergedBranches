@@ -7,3 +7,4 @@ nextcloud/fix_file_modification_date_on_upload
 nextcloud/master
 nextcloud/pinchZoom
 nextcloud/searchViewWrongFiles
+nextcloud/transactionTooLarge
