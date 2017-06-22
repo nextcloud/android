@@ -290,7 +290,9 @@ public class LogHistoryActivity extends ToolbarActivity {
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
 
-        /// global state
-        outState.putString(KEY_LOG_TEXT, mLogText);
+        if (isChangingConfigurations()) {
+            // global state
+            outState.putString(KEY_LOG_TEXT, mLogText);
+        }
     }
 }
