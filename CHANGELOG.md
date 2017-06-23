@@ -1,3 +1,10 @@
+## 2017-06-24 00:31
+- Sdcard: test if writable before offering it (nextcloud/removedSDcard) [https://github.com/nextcloud/android/pull/1119] added
+- Delete all local files on account removal (nextcloud/deleteFilesOnAccountRemoval) [https://github.com/nextcloud/android/pull/1109] added
+
+- Sdcard: test if writable before offering it (nextcloud/removedSDcard) [https://github.com/nextcloud/android/pull/1119] updated
+- Delete all local files on account removal (nextcloud/deleteFilesOnAccountRemoval) [https://github.com/nextcloud/android/pull/1109] updated
+
 ## 2017-06-23 00:31
 - Transaction too large (nextcloud/transactionTooLarge) [https://github.com/nextcloud/android/pull/1102] added
 
