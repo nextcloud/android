@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ownCloud Android client application
+
+  Copyright (C) 2012  Bartek Przybylski
+  Copyright (C) 2015 ownCloud Inc.
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License version 2,
+  as published by the Free Software Foundation.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+	<style name="Animations" />
+
+	<!-- General ownCloud app style -->
+	<style name="Theme.ownCloud" parent="Theme.AppCompat.Light.DarkActionBar">
+    	<item name="android:actionBarStyle">@style/Theme.ownCloud.Widget.ActionBar</item>
+    	<item name="actionBarStyle">@style/Theme.ownCloud.Widget.ActionBar</item>
+		<item name="actionModeBackground">@color/action_mode_background</item>
+		<item name="actionBarPopupTheme">@style/ThemeOverlay.AppCompat.Light</item>
+		<item name="colorPrimary">@color/primary</item>
+		<item name="colorPrimaryDark">@color/primary_dark</item>
+		<item name="colorAccent">@color/color_accent</item>
+		<item name="android:alertDialogTheme">@style/Theme.ownCloud.Dialog</item>
+		<item name="alertDialogTheme">@style/ownCloud.AlertDialog</item>
+		<item name="android:windowBackground">@color/background_color</item>
+		<item name="searchViewStyle">@style/ownCloud.SearchView</item>
+	</style>
+
+	<!-- seperate action bar style for activities without an action bar -->
+	<style name="Theme.ownCloud.Toolbar" parent="Theme.AppCompat.Light.NoActionBar">
+		<item name="windowNoTitle">true</item>
+		<item name="windowActionBar">false</item>
+		<item name="colorPrimary">@color/primary</item>
+		<item name="colorPrimaryDark">@color/primary_dark</item>
+		<item name="colorAccent">@color/color_accent</item>
+		<item name="android:alertDialogTheme">@style/Theme.ownCloud.Dialog</item>
+		<item name="alertDialogTheme">@style/ownCloud.AlertDialog</item>
+		<item name="android:windowBackground">@color/background_color</item>
+		<item name="searchViewStyle">@style/ownCloud.SearchView</item>
+		<item name="windowActionModeOverlay">true</item>
+    </style>
+
+	<!-- separate style for Drawer activities needed for v21+ theming -->
+	<style name="Theme.ownCloud.Toolbar.Drawer" parent="Theme.ownCloud.Toolbar">
+	</style>
+
+	<style name="Theme.ownCloud.noActionBar.Login" parent="Theme.ownCloud.Toolbar">
+		<item name="android:windowBackground">@color/primary</item>
+		<item name="colorControlNormal">@color/login_text_hint_color</item>
+		<item name="colorControlActivated">@color/white</item>
+		<item name="colorControlHighlight">@color/login_text_hint_color</item>
+		<item name="colorAccent">@color/login_text_hint_color</item>
+		<item name="android:textColorHint">@color/login_text_hint_color</item>
+	</style>
+
+	<style name="ownCloud.AlertDialog" parent="Theme.AppCompat.Light.Dialog.Alert">
+		<item name="colorAccent">@color/color_accent</item>
+		<item name="android:textColorPrimary">@color/primary</item>
+		<item name="searchViewStyle">@style/ownCloud.SearchView</item>
+	</style>
+
+	<style name="ownCloud.Dialog" parent="Theme.AppCompat.Light.Dialog">
+		<item name="colorAccent">@color/color_accent</item>
+		<item name="searchViewStyle">@style/ownCloud.SearchView</item>
+	</style>
+
+	<style name="ProgressDialogTheme" parent="ownCloud.Dialog">
+		<item name="colorAccent">@color/color_accent</item>
+		<item name="android:textColorPrimary">@color/primary</item>
+		<item name="android:windowFrame">@color/transparent</item>
+		<item name="android:windowBackground">@color/transparent</item>
+		<item name="android:windowTitleBackgroundStyle">@drawable/process_dialog_background</item>
+	</style>
+
+	<style name="ownCloud.SearchView" parent="Widget.AppCompat.SearchView">
+		<!-- Close button icon -->
+		<item name="closeIcon">@drawable/ic_close</item>
+		<!-- Search button icon -->
+		<item name="searchIcon">@drawable/ic_search_grey</item>
+		<!-- Layout for query suggestion rows // unused for now, staying with the standard layout -->
+		<!--<item name="suggestionRowLayout">...</item>-->
+	</style>
+
+	<style name="ownCloud.Button" parent="Widget.AppCompat.Button">
+		<item name="colorButtonNormal">@color/primary</item>
+	</style>
+
+	<style name="Button" parent="Base.Widget.AppCompat.Button">
+		<item name="colorButtonNormal">@color/secondary_button_background_color</item>
+		<item name="android:textColor">@color/secondary_button_text_color</item>
+	</style>
+
+	<style name="Button.Primary" parent="Button">
+		<item name="colorButtonNormal">@color/primary_button_background_color</item>
+		<item name="android:textColor">@color/primary_button_text_color</item>
+	</style>
+
+	<style name="Button.Login" parent="Button">
+		<item name="colorButtonNormal">@color/white</item>
+		<item name="android:textColor">@color/primary</item>
+	</style>
+
+	<style name="Button.Borderless" parent="Base.Widget.AppCompat.Button.Borderless">
+		<item name="android:textColor">@color/color_accent</item>
+	</style>
+
+	<style name="Button.Borderless.Login" parent="Base.Widget.AppCompat.Button.Borderless">
+		<item name="android:textColor">@color/white</item>
+	</style>
+
+	<!-- separat translucent action bar style -->
+	<style name="Theme.ownCloud.Overlay" parent="style/Theme.ownCloud">
+		<item name="android:actionBarStyle">@style/Theme.ownCloud.Overlay.ActionBar</item>
+		<item name="android:windowActionBarOverlay">true</item>
+		<item name="android:windowFullscreen">true</item>
+		<!-- Support library compatibility -->
+		<item name="actionBarStyle">@style/Theme.ownCloud.Overlay.ActionBar</item>
+		<item name="windowActionBarOverlay">true</item>
+	</style>
+
+	<!-- ACTION BAR STYLES -->
+	<style name="Theme.ownCloud.Overlay.ActionBar" parent="@style/Widget.AppCompat.ActionBar">
+		<item name="android:background">@color/color_transparent</item>
+		<item name="android:windowActionBarOverlay">true</item>
+		<!-- Support library compatibility -->
+		<item name="background">@color/color_transparent</item>
+		<item name="windowActionBarOverlay">true</item>
+	</style>
+
+	<!-- Progress bar -->
+	<style name="Widget.ownCloud.TopProgressBar" parent="style/Widget.AppCompat.ProgressBar.Horizontal">
+		<item name="android:progressDrawable">@drawable/actionbar_progress_horizontal</item>
+		<item name="android:indeterminateDrawable">@drawable/actionbar_progress_indeterminate_horizontal</item>
+	</style>
+
+	<style name="Theme.ownCloud.Fullscreen" parent="style/Theme.AppCompat">
+        <item name="android:windowFullscreen">true</item>
+		<item name="colorAccent">@color/color_accent</item>
+    </style>
+	
+	
+	<style name="Theme.ownCloud.Widget.ActionBar"
+		parent="style/Widget.AppCompat.Light.ActionBar.Solid.Inverse">
+		<item name="android:background">@color/primary</item>
+		<item name="background">@color/primary</item>
+    	<item name="android:textColor">#ffffff</item>
+    	<item name="android:shadowColor">#222222</item>
+    	<item name="android:shadowRadius">1</item>
+    	<item name="android:shadowDy">1</item>
+    	<item name="android:backgroundSplit">@drawable/split_action_bg</item>
+	</style>
+
+	<!-- Dialogs -->
+	<style name="Theme.ownCloud.Dialog" parent="style/Theme.AppCompat.Light.Dialog.Alert">
+		<item name="windowNoTitle">false</item>
+		<item name="colorAccent">@color/color_accent</item>
+		<item name="buttonBarButtonStyle">@style/Theme.ownCloud.Dialog.ButtonBar.Button</item>
+		<item name="buttonBarStyle">@style/Theme.ownCloud.Dialog.ButtonBar</item>
+	</style>
+
+	<style name="Theme.ownCloud.Dialog.NoTitle" parent="style/Theme.ownCloud.Dialog">
+		<item name="windowNoTitle">true</item>
+		<item name="colorAccent">@color/color_accent</item>
+	</style>
+
+	<style name="Theme.ownCloud.Dialog.NoButtonBarStyle" parent="style/Theme.AppCompat.Light.Dialog.Alert">
+		<item name="windowNoTitle">false</item>
+		<item name="colorAccent">@color/color_accent</item>
+	</style>
+
+	<style name="menu_labels_style">
+		<item name="android:background">@drawable/fab_label_background</item>
+		<item name="android:textColor">@color/fab_white</item>
+	</style>
+
+	<style name="NavigationView_ItemTextAppearance">
+		<item name="android:ellipsize">end</item>
+		<item name="android:listDivider">@color/transparent</item>
+	</style>
+
+	<!-- Button Bar hack due to Lollipop bug:
+		https://code.google.com/p/android/issues/detail?id=78302
+	fix see:
+		http://stackoverflow.com/questions/27187353/dialog-buttons-with-long-text-not-wrapping-squeezed-out-material-theme-on-an
+	 -->
+	<style name="Theme.ownCloud.Dialog.ButtonBar" parent="style/Widget.AppCompat.Button.ButtonBar.AlertDialog">
+		<!-- Making sure, the button bar uses parent width and is not restricted in height -->
+		<item name="android:layout_width">match_parent</item>
+		<item name="android:layout_height">wrap_content</item>
+		<item name="android:height">@null</item>
+		<item name="android:minHeight">@null</item>
+	</style>
+
+	<style name="Theme.ownCloud.Dialog.ButtonBar.Button" parent="style/Widget.AppCompat.Button.Borderless.Colored">
+		<!-- Setting the weight as follows should result in equally wide buttons filling the alert dialog width,
+            but instead they span further out of the dialog, breaking in multiple lines though -->
+		<item name="android:layout_width">0dp</item>
+		<item name="android:layout_weight">1</item>
+		<!-- setting a fixed width as follows results in narrow buttons with line breaks, but of course this is not a solution -->
+		<!-- <item name="android:width">100dp</item> -->
+	</style>
+	
+	<!-- PopDownMenu -->
+	<style name="Animations.PopDownMenu" />
+	
+	<style name="Animations.PopDownMenu.Center">
+		<item name="@android:windowEnterAnimation">@anim/grow_from_top</item>
+		<item name="@android:windowExitAnimation">@anim/shrink_from_bottom</item>
+	</style>
+	
+	<style name="Animations.PopDownMenu.Left">
+		<item name="@android:windowEnterAnimation">@anim/grow_from_topleft_to_bottomright</item>
+		<item name="@android:windowExitAnimation">@anim/shrink_from_bottomright_to_topleft</item>
+	</style>
+	
+	<style name="Animations.PopDownMenu.Right">
+		<item name="@android:windowEnterAnimation">@anim/grow_from_topright_to_bottomleft</item>
+		<item name="@android:windowExitAnimation">@anim/shrink_from_bottomleft_to_topright</item>
+	</style>
+	
+	<style name="Animations.PopDownMenu.Reflect">
+		<item name="@android:windowEnterAnimation">@anim/pump_top</item>
+		<item name="@android:windowExitAnimation">@anim/disappear</item>
+	</style>
+	
+	<!-- PopUpMenu -->
+	<style name="Animations.PopUpMenu" />
+	
+	<style name="Animations.PopUpMenu.Center">
+		<item name="@android:windowEnterAnimation">@anim/grow_from_bottom</item>
+		<item name="@android:windowExitAnimation">@anim/shrink_from_top</item>
+	</style>
+	
+	<style name="Animations.PopUpMenu.Left">
+		<item name="@android:windowEnterAnimation">@anim/grow_from_bottomleft_to_topright</item>
+		<item name="@android:windowExitAnimation">@anim/shrink_from_topright_to_bottomleft</item>
+	</style>
+	
+	<style name="Animations.PopUpMenu.Right">
+		<item name="@android:windowEnterAnimation">@anim/grow_from_bottomright_to_topleft</item>
+		<item name="@android:windowExitAnimation">@anim/shrink_from_topleft_to_bottomright</item>
+	</style>
+	
+	<style name="Animations.PopUpMenu.Reflect">
+		<item name="@android:windowEnterAnimation">@anim/pump_bottom</item>
+		<item name="@android:windowExitAnimation">@anim/disappear</item>
+	</style>
+	
+	<style name="PassCodeStyle">
+        <item name="android:layout_width">50dp</item>
+        <item name="android:layout_height">50dp</item>
+  		<item name="android:gravity">center</item>
+  		<item name="android:layout_margin">10dp</item>
+  		<item name="android:inputType">numberDecimal</item>
+  		<item name="android:numeric">decimal</item>
+		<item name="android:digits">1234567890</item>
+		<item name="android:maxLength">1</item>
+		<item name="android:password">true</item>
+		<item name="android:singleLine">true</item>
+  		    
+    </style>
+	
+	<style name="OAuthDialog" parent="style/Theme.AppCompat.Light.Dialog.Alert">
+		<item name="windowNoTitle">false</item>
+		<item name="colorAccent">@color/color_accent</item>
+	</style>    
+		
+	<color name="setup_text_hint">#777777</color>
+	<color name="setup_text_typed">#000000</color>
+    <style name="Theme.ownCloud.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+    <style name="Theme.ownCloud.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="Theme.ownCloud.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+	<!-- Text styles -->
+	<style name="NextcloudTextAppearanceHeadline" parent="style/TextAppearance.AppCompat.Headline">
+		<item name="android:textSize">26sp</item>
+		<item name="android:textColor">#000000</item>
+	</style>
+	<style name="NextcloudTextAppearanceMedium" parent="style/TextAppearance.AppCompat.Medium">
+	</style>
+	<style name="NextcloudTextAppearanceSmall" parent="style/TextAppearance.AppCompat.Small">
+	</style>
+</resources>

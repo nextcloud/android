@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Nextcloud Android client application
+
+  Copyright (C) 2016 Andy Scherzinger
+  Copyright (C) 2016 Nextcloud
+  Copyright (C) 2016 ownCloud
+
+  This program is free software; you can redistribute it and/or
+  modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
+  License as published by the Free Software Foundation; either
+  version 3 of the License, or any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  GNU AFFERO GENERAL PUBLIC LICENSE for more details.
+
+  You should have received a copy of the GNU Affero General Public
+  License along with this program. If not, see <http://www.gnu.org/licenses/>.
+-->
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/account_item_layout_height"
+    android:orientation="horizontal"
+    android:weightSum="1">
+
+    <FrameLayout
+        android:id="@+id/avatar_container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+        <ImageView
+            android:id="@+id/user_icon"
+            android:layout_width="@dimen/user_icon_size"
+            android:layout_height="@dimen/user_icon_size"
+            android:layout_gravity="top|left"
+            android:layout_marginBottom="1dp"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="1dp"
+            android:layout_marginTop="1dp"
+            android:src="@drawable/ic_menu_archive"/>
+
+        <ImageView
+            android:id="@+id/ticker"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|right"
+            android:background="@drawable/round_bgnd"
+            android:src="@drawable/ic_account_circle_white_18dp"
+            android:tint="@color/primary"/>
+    </FrameLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_toEndOf="@id/avatar_container"
+        android:layout_toRightOf="@id/avatar_container"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/user_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/standard_half_margin"
+            android:layout_marginLeft="@dimen/standard_half_margin"
+            android:layout_marginRight="@dimen/standard_half_margin"
+            android:layout_marginStart="@dimen/standard_margin"
+            android:layout_marginTop="4dp"
+            android:ellipsize="end"
+            android:gravity="bottom"
+            android:maxLines="1"
+            android:text="@string/placeholder_filename"
+            android:textAppearance="?android:attr/textAppearanceListItem"/>
+
+        <TextView
+            android:id="@+id/account"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:layout_marginEnd="@dimen/standard_half_margin"
+            android:layout_marginLeft="@dimen/standard_half_margin"
+            android:layout_marginRight="@dimen/standard_half_margin"
+            android:layout_marginStart="@dimen/standard_margin"
+            android:ellipsize="end"
+            android:gravity="top"
+            android:maxLines="2"
+            android:text="@string/placeholder_sentence"
+            android:textColor="?android:attr/textColorSecondary"/>
+    </LinearLayout>
+
+</RelativeLayout>

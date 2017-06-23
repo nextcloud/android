@@ -89,7 +89,7 @@ public class FileListView {
 	private static String localFileIndicator = 
 			"com.owncloud.android:id/localFileIndicator";
 	private static String favoriteFileIndicator = 
-			"com.owncloud.android:id/favoriteIcon";
+			"com.owncloud.android:id/keptOfflineIcon";
 	private static String sharedElementIndicator = 
 			"com.owncloud.android:id/sharedIcon";
 	

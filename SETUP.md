@@ -16,8 +16,8 @@ The [Android SDK][3] is necessary to build the app. There are different options 
 Open a terminal and type 'android' to start the Android SDK Manager. To build the Nextcloud for Android app you will need to install at least the next SDK packages:
 
 * Android SDK Tools and Android SDK Platform-tools (already installed); upgrade to their last versions is usually a good idea.
-* Android SDK Build-Tools; any version from 23 or later should work fine; avoid preview versions, if any available.
-* Android 6.0 (API 23), SDK Platform; needed to build the nextcloud app.
+* Android SDK Build-Tools 24.0.2.
+* Android 7.0 (API 24), SDK Platform; needed to build the nextcloud app.
 
 Install any other package you consider interesting, such as emulators.
 
@@ -28,7 +28,7 @@ For other software dependencies check the details in the section corresponding t
 
 You will need [git][1] to access to the different versions of the Nextcloud's source code. The source code is hosted in Github and may be read by anybody without needing a Github account. You will need a Github account if you want to contribute to the development of the app with your own code.
 
-Next steps will assume you have a Github account and that you will get the code from your own fork. 
+Next steps will assume you have a Github account and that you will get the code from your own fork.
 
 * In a web browser, go to https://github.com/nextcloud/android, and click the 'Fork' button near the top right corner.
 * Open a terminal and go on with the next steps in it.
@@ -63,11 +63,20 @@ To set up the project in Android Studio follow the next steps:
 * Run the 'clean' and 'build' tasks using the Gradle wrapper provided
     - Windows: ```gradlew.bat clean build```
     - Mac OS/Linux: ```./gradlew clean build```
-	
+
 The first time the Gradle wrapper is called, the correct Gradle version will be downloaded automatically. An Internet connection is needed for it works.
-	
+
 The generated APK file is saved in android/build/outputs/apk as android-debug.apk
 
+### 4. App flavours
+
+The app is currently equipped to be built with two flavours:
+* generic - the regular build, released as a Nextcloud Android app on the Play store
+* custom - a customized build, to be used by people who need features we can't or
+  won't include into the traditional build (like Firebase Analytics)
+
+When building the *generic*, you will *not* get the dependencies imposed by the *custom*
+build.
 
 [0]: https://github.com/nextcloud/android/blob/master/CONTRIBUTING.md
 [1]: https://git-scm.com/

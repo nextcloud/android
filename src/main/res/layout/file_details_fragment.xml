@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ownCloud Android client application
+
+  Copyright (C) 2012  Bartek Przybylski
+  Copyright (C) 2015 ownCloud Inc.
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License version 2,
+  as published by the Free Software Foundation.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+	android:id="@+id/fdScrollView"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:fillViewport="true"
+	>
+
+	<RelativeLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content" >
+
+		<RelativeLayout
+			android:id="@+id/fdFileHeaderContainer"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginLeft="@dimen/standard_margin"
+			android:layout_marginRight="@dimen/standard_margin"
+			android:layout_marginTop="@dimen/standard_margin">
+	
+			<ImageView
+				android:id="@+id/fdIcon"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:src="@drawable/file" />
+				
+			<TextView
+			    android:id="@+id/fdFilename"
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:layout_centerVertical="true"
+			    android:layout_toRightOf="@+id/fdIcon"
+				android:paddingLeft="@dimen/standard_padding"
+			    android:text="@string/placeholder_filename"
+			    android:textAppearance="?android:attr/textAppearanceLarge" />
+			
+		</RelativeLayout>
+	
+		<RelativeLayout
+			android:id="@+id/fdDetailsContainer"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginLeft="@dimen/standard_margin"
+			android:layout_marginRight="@dimen/standard_margin"
+			android:layout_marginTop="@dimen/standard_margin"
+			android:layout_below="@id/fdFileHeaderContainer" >
+		
+			<RelativeLayout
+				android:id="@+id/fdLabelContainer"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_alignParentLeft="true"
+				android:layout_alignParentTop="true" >
+				
+				<TextView
+					android:id="@+id/fdTypeLabel"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="@string/filedetails_type"
+					android:textAppearance="?android:attr/textAppearanceMedium" />
+					
+				<TextView
+					android:id="@+id/fdSizeLabel"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_below="@+id/fdTypeLabel"
+					android:layout_marginTop="@dimen/fragment_margin"
+					android:text="@string/filedetails_size"
+					android:textAppearance="?android:attr/textAppearanceMedium" />
+					
+				<TextView
+					android:id="@+id/fdCreatedLabel"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_below="@+id/fdSizeLabel"
+					android:layout_marginTop="@dimen/fragment_margin"
+					android:text="@string/filedetails_created"
+					android:visibility="gone"
+					android:textAppearance="?android:attr/textAppearanceMedium" />
+					  
+				<TextView
+					android:id="@+id/fdModifiedLabel"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_below="@+id/fdCreatedLabel"
+					android:layout_marginTop="@dimen/fragment_margin"
+					android:text="@string/filedetails_modified"
+					android:textAppearance="?android:attr/textAppearanceMedium" />
+			</RelativeLayout>
+	
+			<RelativeLayout
+				android:id="@+id/fdValueContainer"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_alignParentTop="true"
+				android:layout_marginLeft="@dimen/standard_margin"
+				android:layout_toRightOf="@+id/fdLabelContainer" >
+				
+				<TextView
+					android:id="@+id/fdType"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="@string/placeholder_filetype"
+					android:textAppearance="?android:attr/textAppearanceMedium" />
+					
+				<TextView
+					android:id="@+id/fdSize"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_below="@+id/fdType"
+					android:layout_marginTop="@dimen/fragment_margin"
+					android:text="@string/placeholder_filesize"
+					android:textAppearance="?android:attr/textAppearanceMedium" />
+					
+				<TextView
+					android:id="@+id/fdCreated"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_below="@+id/fdSize"
+					android:layout_marginTop="@dimen/fragment_margin"
+					android:visibility="gone"
+					android:text="@string/placeholder_timestamp"
+					android:textAppearance="?android:attr/textAppearanceMedium" />
+					
+				<TextView
+					android:id="@+id/fdModified"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_below="@+id/fdCreated"
+					android:layout_marginTop="@dimen/fragment_margin"
+					android:text="@string/placeholder_timestamp"
+					android:textAppearance="?android:attr/textAppearanceMedium" />
+		
+			</RelativeLayout>
+	
+		</RelativeLayout>
+	
+		<RelativeLayout
+			android:id="@+id/fdProgressAndControl"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_below="@+id/fdDetailsContainer"
+			android:gravity="center_horizontal" 
+			android:layout_margin="@dimen/standard_margin"
+			>
+			
+			<android.support.v7.widget.AppCompatCheckBox
+				android:id="@+id/fdFavorite"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_centerHorizontal="true"
+				android:text="@string/favorite"
+				android:checked="false" />
+
+			<LinearLayout
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_below="@id/fdFavorite"
+				android:orientation="vertical" >
+				
+    			<TextView 
+    			    android:id="@+id/fdProgressText" 
+    			    android:layout_width="match_parent"
+      				android:layout_height="wrap_content" 
+      				android:text="@string/downloader_download_in_progress_ticker"
+      				/>
+    			
+			    <LinearLayout
+			        android:id="@+id/fdProgressBlock"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:gravity="center"
+					android:layout_marginTop="@dimen/fragment_margin"
+					android:layout_marginBottom="@dimen/fragment_margin"
+					android:orientation="horizontal"
+					>
+				    				
+    				<ProgressBar 
+    				    android:id="@+id/fdProgressBar"
+						android:layout_width="@dimen/zero"
+						android:layout_height="wrap_content"
+						android:layout_weight="1"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:indeterminate="false"
+						android:indeterminateOnly="false" 
+					/>
+				    								
+					<ImageButton
+						android:id="@+id/fdCancelBtn"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:layout_marginLeft="@dimen/fragment_margin"
+						android:src="@drawable/ic_action_cancel_grey"
+						android:background="@android:color/transparent"
+						/>
+						
+				</LinearLayout>
+	
+			</LinearLayout>
+			
+		</RelativeLayout>
+
+	</RelativeLayout>
+	
+</ScrollView>

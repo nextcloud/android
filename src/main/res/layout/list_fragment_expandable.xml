@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 
+This must be a clone of list_fragment.xml 
+
+EXCEPT: ExpandableListView must be used for @+id/swipe_refresh_files_emptyView
+ -->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="@dimen/zero"
+	android:layout_height="match_parent"
+	android:layout_weight="1" >
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_refresh_files"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <ExpandableListView 
+            android:id="@+id/list_root"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+        
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_refresh_files_emptyView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone" >
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+			<include layout="@layout/empty_list" />
+
+        </ScrollView>
+    </android.support.v4.widget.SwipeRefreshLayout>
+</FrameLayout>
