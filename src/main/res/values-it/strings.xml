@@ -332,6 +332,7 @@
 
     <string name="file_migration_dialog_title">Aggiornamento del percorso di archiviazione</string>
     <string name="file_migration_finish_button">Fine</string>
+    <string name="file_migration_preparing">Preparazione della migrazione&#8230;</string>
     <string name="file_migration_checking_destination">Controllo della destinazione&#8230;</string>
     <string name="file_migration_migrating">Spostamento dei dati&#8230;</string>
     <string name="file_migration_updating_index">Aggiornamento dell\'indice&#8230;</string>
@@ -364,11 +365,13 @@
 	<string name="folder_picker_choose_button_text">Scegli</string>
 
     <string name="move_file_not_found">Impossibile spostare il file. Controlla che esista</string>
+    <string name="move_file_invalid_overwrite">Il file è già presente nella cartella di destinazione</string>
     <string name="move_file_error">Si è verificato un errore durante il tentativo di spostare il file o la cartella</string>
     <string name="forbidden_permissions_move">per spostare questo file</string>
 
 
     <string name="copy_file_not_found">Impossibile copiare. Assicurati che il file esista</string>
+    <string name="copy_file_invalid_overwrite">Il file è già presente nella cartella di destinazione</string>
     <string name="copy_file_error">Si è verificato un errore durante il tentativo di copiare il file o la cartella</string>
     <string name="forbidden_permissions_copy">per copiare questo file</string>
 
