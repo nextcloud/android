@@ -28,6 +28,7 @@ import android.webkit.MimeTypeMap;
 
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
+import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.files.RemoteFile;
@@ -577,6 +578,17 @@ public class FileStorageUtils {
         }
 
         return ret;
+    }
+
+    public static void deleteRecursively(File file, FileDataStorageManager storageManager) {
+        if (file.isDirectory()) {
+            for (File child : file.listFiles()) {
+                deleteRecursively(child, storageManager);
+            }
+        }
+
+        storageManager.deleteFileInMediaScan(file.getAbsolutePath());
+        file.delete();
     }
 
 }
