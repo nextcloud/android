@@ -1,3 +1,8 @@
+## 2017-06-25 00:30
+no new branches added
+
+no branches updated
+
 ## 2017-06-24 00:31
 - Sdcard: test if writable before offering it (nextcloud/removedSDcard) [https://github.com/nextcloud/android/pull/1119] added
 - Delete all local files on account removal (nextcloud/deleteFilesOnAccountRemoval) [https://github.com/nextcloud/android/pull/1109] added

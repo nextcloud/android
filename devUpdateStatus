@@ -1,7 +1,7 @@
-2017-06-24
+2017-06-25
 Branches: 9
-[01 / 09] Sdcard: test if writable before offering it (nextcloud/removedSDcard) [https://github.com/nextcloud/android/pull/1119] merged successfully
-[02 / 09] Delete all local files on account removal (nextcloud/deleteFilesOnAccountRemoval) [https://github.com/nextcloud/android/pull/1109] merged successfully
+[01 / 09] Sdcard: test if writable before offering it (nextcloud/removedSDcard) [https://github.com/nextcloud/android/pull/1119] no update needed
+[02 / 09] Delete all local files on account removal (nextcloud/deleteFilesOnAccountRemoval) [https://github.com/nextcloud/android/pull/1109] no update needed
 [03 / 09] Transaction too large (nextcloud/transactionTooLarge) [https://github.com/nextcloud/android/pull/1102] no update needed
 [04 / 09] Bruteforce support: re-use cookie (nextcloud/bruteforce) [https://github.com/nextcloud/android/pull/1099] no update needed
 [05 / 09] Enhance UI\ (nextcloud/contactsBackupUI) [https://github.com/nextcloud/android/pull/1027] no update needed
