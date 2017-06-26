@@ -27,6 +27,7 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.AppCompatButton;
@@ -54,6 +55,7 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment {
 
     private final static String TAG = SyncedFolderPreferencesDialogFragment.class.getSimpleName();
     public static final String SYNCED_FOLDER_PARCELABLE = "SyncedFolderParcelable";
+    private static final String BEHAVIOUR_DIALOG_STATE = "BEHAVIOUR_DIALOG_STATE";
     public static final int REQUEST_CODE__SELECT_REMOTE_FOLDER = 0;
 
     private CharSequence[] mUploadBehaviorItemStrings;
@@ -70,6 +72,8 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment {
     private SyncedFolderParcelable mSyncedFolder;
     private AppCompatButton mCancel;
     private AppCompatButton mSave;
+    private boolean behaviourDialogShown;
+    private AlertDialog behaviourDialog;
 
     public static SyncedFolderPreferencesDialogFragment newInstance(SyncedFolderDisplayItem syncedFolder, int section) {
         SyncedFolderPreferencesDialogFragment dialogFragment = new SyncedFolderPreferencesDialogFragment();
@@ -253,7 +257,13 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment {
                 new OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                        showBehaviourDialog();
+                    }
+                });
+    }
+
+    private void showBehaviourDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                         builder.setTitle(ThemeUtils.getColoredTitle(
                                 getResources().getString(R.string.prefs_instant_behaviour_dialogTitle),
                                 ThemeUtils.primaryAccentColor()))
@@ -270,11 +280,9 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment {
                                                         dialog.dismiss();
                                                     }
                                                 });
-                        Dialog dialog = builder.create();
-                        dialog.show();
-
-                    }
-                });
+        behaviourDialogShown = true;
+        behaviourDialog = builder.create();
+        behaviourDialog.show();
     }
 
     @Override
@@ -291,6 +299,11 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment {
         if (getDialog() != null && getRetainInstance()) {
             getDialog().setDismissMessage(null);
         }
+
+        if (behaviourDialog != null && behaviourDialog.isShowing()) {
+            behaviourDialog.dismiss();
+        }
+
         super.onDestroyView();
     }
 
@@ -314,5 +327,24 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment {
         void onSaveSyncedFolderPreference(SyncedFolderParcelable syncedFolder);
 
         void onCancelSyncedFolderPreference();
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        outState.putBoolean(BEHAVIOUR_DIALOG_STATE, behaviourDialogShown);
+
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
+        behaviourDialogShown = savedInstanceState != null &&
+                savedInstanceState.getBoolean(BEHAVIOUR_DIALOG_STATE, false);
+
+        if (behaviourDialogShown) {
+            showBehaviourDialog();
+        }
+
+        super.onViewStateRestored(savedInstanceState);
     }
 }
