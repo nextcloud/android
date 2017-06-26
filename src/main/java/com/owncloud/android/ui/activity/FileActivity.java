@@ -40,7 +40,6 @@ import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.authentication.AuthenticatorActivity;
-import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.services.FileDownloader;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
@@ -56,6 +55,7 @@ import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
 import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.operations.CreateShareViaLinkOperation;
 import com.owncloud.android.operations.CreateShareWithShareeOperation;
 import com.owncloud.android.operations.GetSharesForFileOperation;
 import com.owncloud.android.operations.SynchronizeFileOperation;
@@ -302,7 +302,7 @@ public abstract class FileActivity extends DrawerActivity
 
         dismissLoadingDialog();
 
-        if (!result.isSuccess() && (
+        if (!result.isSuccess() && ! (operation instanceof CreateShareViaLinkOperation) && (
                 result.getCode() == ResultCode.UNAUTHORIZED ||
                 (result.isException() && result.getException() instanceof AuthenticatorException)
                 )) {

@@ -24,6 +24,7 @@ package com.owncloud.android.ui.dialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -38,7 +39,7 @@ import com.owncloud.android.R;
  */
 public class ConflictsResolveDialog extends DialogFragment {
 
-    public static enum Decision { 
+    public enum Decision {
         CANCEL,
         KEEP_BOTH,
         OVERWRITE,
@@ -57,12 +58,11 @@ public class ConflictsResolveDialog extends DialogFragment {
     }
     
     @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
-        String remotepath = getArguments().getString("remotepath");
+    public @NonNull Dialog onCreateDialog(Bundle savedInstanceState) {
         return new AlertDialog.Builder(getActivity(), R.style.Theme_ownCloud_Dialog)
                    .setIcon(R.drawable.ic_warning)
                    .setTitle(R.string.conflict_title)
-                   .setMessage(String.format(getString(R.string.conflict_message), remotepath))
+                   .setMessage(getString(R.string.conflict_message))
                    .setPositiveButton(R.string.conflict_use_local_version,
                        new DialogInterface.OnClickListener() {
 
