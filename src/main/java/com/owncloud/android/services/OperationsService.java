@@ -117,15 +117,16 @@ public class OperationsService extends Service {
     public static final String ACTION_COPY_FILE = "COPY_FILE";
     public static final String ACTION_CHECK_CURRENT_CREDENTIALS = "CHECK_CURRENT_CREDENTIALS";
 
-    public static final String ACTION_OPERATION_ADDED = OperationsService.class.getName() +
-            ".OPERATION_ADDED";
-    public static final String ACTION_OPERATION_FINISHED = OperationsService.class.getName() +
-            ".OPERATION_FINISHED";
+    public static final String ACTION_OPERATION_ADDED = OperationsService.class.getName() + ".OPERATION_ADDED";
+    public static final String ACTION_OPERATION_FINISHED = OperationsService.class.getName() + ".OPERATION_FINISHED";
 
+    private ServiceHandler mOperationsHandler;
+    private OperationsServiceBinder mOperationsBinder;
+
+    private SyncFolderHandler mSyncFolderHandler;
 
     private ConcurrentMap<Integer, Pair<RemoteOperation, RemoteOperationResult>>
-            mUndispatchedFinishedOperations =
-            new ConcurrentHashMap<Integer, Pair<RemoteOperation, RemoteOperationResult>>();
+            mUndispatchedFinishedOperations = new ConcurrentHashMap<>();
 
     private static class Target {
         public Uri mServerUrl = null;
@@ -138,11 +139,6 @@ public class OperationsService extends Service {
             mCookie = cookie;
         }
     }
-
-    private ServiceHandler mOperationsHandler;
-    private OperationsServiceBinder mOperationsBinder;
-    
-    private SyncFolderHandler mSyncFolderHandler;
     
     /**
      * Service initialization
@@ -164,7 +160,6 @@ public class OperationsService extends Service {
         thread.start();
         mSyncFolderHandler = new SyncFolderHandler(thread.getLooper(), this);
     }
-
 
     /**
      * Entry point to add a new operation to the queue of operations.
@@ -708,7 +703,6 @@ public class OperationsService extends Service {
             return null;
         }
     }
-
 
     /**
      * Notifies the currently subscribed listeners about the end of an operation.

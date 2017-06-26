@@ -7,15 +7,15 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   height="16"
-   width="16"
+   height="17.066668"
+   width="17.066668"
    version="1"
    id="svg2"
-   inkscape:version="0.91 r13725"
-   sodipodi:docname="list_empty_folder_empty.svg"
-   inkscape:export-filename="C:\DEV\src\Android\Nextcloud\designTweaks\res\drawable-mdpi\ic_folder_empty.png"
-   inkscape:export-xdpi="405"
-   inkscape:export-ydpi="405">
+   inkscape:version="0.92.1 r15371"
+   sodipodi:docname="ic_list_empty_folder.svg"
+   inkscape:export-filename="C:\DEV\src\Android\Nextcloud\colorFolderNew\src\main\res\drawable-xxxhdpi\ic_list_empty_folder.png"
+   inkscape:export-xdpi="1620"
+   inkscape:export-ydpi="1620">
   <metadata
      id="metadata10">
     <rdf:RDF>
@@ -43,16 +43,15 @@
      id="namedview6"
      showgrid="false"
      inkscape:zoom="14.75"
-     inkscape:cx="-10.20339"
+     inkscape:cx="1.4237286"
      inkscape:cy="8"
      inkscape:window-x="-9"
      inkscape:window-y="-9"
      inkscape:window-maximized="1"
      inkscape:current-layer="svg2" />
   <path
-     d="M1.457 1.997c-.25 0-.46.21-.46.46v11.08c0 .26.202.46.46.46h13.08c.258 0 .46-.2.46-.46V4.46c0-.25-.21-.463-.46-.463h-6.54l-2-2z"
-     fill-rule="evenodd"
-     fill="#0082c9"
+     d="m 1.5541333,2.1301333 c -0.2666666,0 -0.4906666,0.224 -0.4906666,0.4906667 v 11.818667 c 0,0.277333 0.2154666,0.490666 0.4906666,0.490666 H 15.506133 c 0.2752,0 0.490667,-0.213333 0.490667,-0.490666 V 4.7573333 c 0,-0.2666666 -0.224,-0.4938666 -0.490667,-0.4938666 H 8.5301333 L 6.3968,2.1301333 Z"
      id="path4"
-     style="fill:#99cde9;fill-opacity:1" />
+     style="fill:#0082c9;fill-opacity:1;fill-rule:evenodd;stroke-width:1.06666672;opacity:0.5"
+     inkscape:connector-curvature="0" />
 </svg>

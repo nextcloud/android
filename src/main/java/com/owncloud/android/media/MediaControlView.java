@@ -89,6 +89,7 @@ public class MediaControlView extends FrameLayout /* implements OnLayoutChangeLi
 
     @Override
     public void onFinishInflate() {
+        super.onFinishInflate();
         /*
         if (mRoot != null)
             initControllerView(mRoot);
@@ -194,6 +195,10 @@ public class MediaControlView extends FrameLayout /* implements OnLayoutChangeLi
         mPlayer = player;
         mHandler.sendEmptyMessage(SHOW_PROGRESS);
         updatePausePlay();
+    }
+
+    public void stopMediaPlayerMessages() {
+        mHandler.removeMessages(SHOW_PROGRESS);
     }
 
 

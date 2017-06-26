@@ -164,7 +164,7 @@ public class LocalFileListAdapter extends BaseAdapter implements FilterableListA
             if (!file.isDirectory()) {
                 fileIcon.setImageResource(R.drawable.file);
             } else {
-                fileIcon.setImageResource(R.drawable.ic_menu_archive);
+                fileIcon.setImageDrawable(MimeTypeUtil.getDefaultFolderIcon());
             }
             fileIcon.setTag(file.hashCode());
 

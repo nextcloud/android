@@ -96,7 +96,8 @@ public class AccountUtils {
             int lastAtPos = account.name.lastIndexOf("@");
             String hostAndPort = account.name.substring(lastAtPos + 1);
             String username = account.name.substring(0, lastAtPos);
-            String otherHostAndPort, otherUsername;
+            String otherHostAndPort;
+            String otherUsername;
             Locale currentLocale = context.getResources().getConfiguration().locale;
             for (Account otherAccount : ocAccounts) {
                 lastAtPos = otherAccount.name.lastIndexOf("@");
@@ -155,7 +156,7 @@ public class AccountUtils {
                             .getDefaultSharedPreferences(context).edit();
                     appPrefs.putString("select_oc_account", accountName);
     
-                    appPrefs.commit();
+                    appPrefs.apply();
                     result = true;
                     break;
                 }
@@ -207,7 +208,10 @@ public class AccountUtils {
             if (currentAccountVersion == null) {
                 Log_OC.i(TAG, "Upgrading accounts to account version #" + ACCOUNT_VERSION);
                 Account[] ocAccounts = accountMgr.getAccountsByType(MainApp.getAccountType());
-                String serverUrl, username, newAccountName, password;
+                String serverUrl;
+                String username;
+                String newAccountName;
+                String password;
                 Account newAccount;
                 for (Account account : ocAccounts) {
                     // build new account name

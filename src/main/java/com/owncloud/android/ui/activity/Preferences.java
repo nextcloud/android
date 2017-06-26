@@ -43,6 +43,8 @@ import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceManager;
+import android.preference.PreferenceScreen;
+import android.preference.SwitchPreference;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
@@ -59,6 +61,7 @@ import com.owncloud.android.BuildConfig;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
+import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.ExternalLinksProvider;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datastorage.DataStorageProvider;
@@ -96,14 +99,16 @@ public class Preferences extends PreferenceActivity
 
     private static final int ACTION_REQUEST_CODE_DAVDROID_SETUP = 10;
 
+    public static final String SYNCED_FOLDER_LIGHT_UPLOAD_ON_WIFI = "SYNCED_FOLDER_LIGHT_UPLOAD_ON_WIFI";
+
     /**
      * The user's server base uri.
      */
     private Uri mUri;
 
-    private CheckBoxPreference pCode;
-    private CheckBoxPreference fPrint;
-    private CheckBoxPreference mShowHiddenFiles;
+    private SwitchPreference pCode;
+    private SwitchPreference fPrint;
+    private SwitchPreference mShowHiddenFiles;
     private Preference pAboutApp;
     private AppCompatDelegate mDelegate;
 
@@ -166,11 +171,55 @@ public class Preferences extends PreferenceActivity
         // Register context menu for list of preferences.
         registerForContextMenu(getListView());
 
+        // Synced folders
+        PreferenceCategory preferenceCategoryFolderSync = (PreferenceCategory) findPreference("folder_sync");
+        PreferenceScreen preferenceScreen = (PreferenceScreen) findPreference("preference_screen");
+
+        if (!getResources().getBoolean(R.bool.syncedFolder_light)) {
+            preferenceScreen.removePreference(preferenceCategoryFolderSync);
+        } else {
+            // Upload on WiFi
+            final ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProvider(getContentResolver());
+            final Account account = AccountUtils.getCurrentOwnCloudAccount(getApplicationContext());
+
+            final SwitchPreference pUploadOnWifiCheckbox = (SwitchPreference) findPreference("synced_folder_on_wifi");
+            pUploadOnWifiCheckbox.setChecked(
+                    arbitraryDataProvider.getBooleanValue(account, SYNCED_FOLDER_LIGHT_UPLOAD_ON_WIFI));
+
+            pUploadOnWifiCheckbox.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+                @Override
+                public boolean onPreferenceClick(Preference preference) {
+                    arbitraryDataProvider.storeOrUpdateKeyValue(account, SYNCED_FOLDER_LIGHT_UPLOAD_ON_WIFI,
+                            String.valueOf(pUploadOnWifiCheckbox.isChecked()));
+
+                    return true;
+                }
+            });
+
+            Preference pSyncedFolder = findPreference("folder_sync_folders");
+            if (pSyncedFolder != null) {
+                if (getResources().getBoolean(R.bool.syncedFolder_light)
+                        && Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    pSyncedFolder.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+                        @Override
+                        public boolean onPreferenceClick(Preference preference) {
+                            Intent folderSyncIntent = new Intent(getApplicationContext(), FolderSyncActivity.class);
+                            folderSyncIntent.putExtra(FolderSyncActivity.EXTRA_SHOW_SIDEBAR, false);
+                            startActivity(folderSyncIntent);
+                            return true;
+                        }
+                    });
+                } else {
+                    preferenceCategoryFolderSync.removePreference(pSyncedFolder);
+                }
+            }
+        }
+
         PreferenceCategory preferenceCategoryDetails = (PreferenceCategory) findPreference("details");
 
-
-        pCode = (CheckBoxPreference) findPreference(PassCodeActivity.PREFERENCE_SET_PASSCODE);
-        if (pCode != null) {
+        boolean fPassCodeEnabled = getResources().getBoolean(R.bool.passcode_enabled);
+        pCode = (SwitchPreference) findPreference(PassCodeActivity.PREFERENCE_SET_PASSCODE);
+        if (pCode != null && fPassCodeEnabled) {
             pCode.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
                 @Override
                 public boolean onPreferenceChange(Preference preference, Object newValue) {
@@ -189,63 +238,80 @@ public class Preferences extends PreferenceActivity
                     return false;
                 }
             });
+        } else {
+            preferenceCategoryDetails.removePreference(pCode);
         }
 
         boolean fPrintEnabled = getResources().getBoolean(R.bool.fingerprint_enabled);
-        fPrint = (CheckBoxPreference) findPreference(FingerprintActivity.PREFERENCE_USE_FINGERPRINT);
+        fPrint = (SwitchPreference) findPreference(FingerprintActivity.PREFERENCE_USE_FINGERPRINT);
         if (fPrint != null) {
-            if(FingerprintActivity.isFingerprintCapable(MainApp.getAppContext()) && fPrintEnabled) {
-                fPrint.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
-                    @Override
-                    public boolean onPreferenceChange(Preference preference, Object newValue) {
-                        Boolean incoming = (Boolean) newValue;
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                if (FingerprintActivity.isFingerprintCapable(MainApp.getAppContext()) && fPrintEnabled) {
+                    fPrint.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
+                        @Override
+                        public boolean onPreferenceChange(Preference preference, Object newValue) {
+                            Boolean incoming = (Boolean) newValue;
 
-                        if(FingerprintActivity.isFingerprintReady(MainApp.getAppContext())) {
-                            SharedPreferences appPrefs =
-                                    PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-                            SharedPreferences.Editor editor = appPrefs.edit();
-                            editor.putBoolean("use_fingerprint", incoming);
-                            editor.commit();
-                            return true;
-                        } else {
-                            if(incoming) {
-                                Toast.makeText(
-                                        MainApp.getAppContext(),
-                                        R.string.prefs_fingerprint_notsetup,
-                                        Toast.LENGTH_LONG)
-                                        .show();
-                                fPrint.setChecked(false);
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                                if (FingerprintActivity.isFingerprintReady(MainApp.getAppContext())) {
+                                    SharedPreferences appPrefs =
+                                            PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                                    SharedPreferences.Editor editor = appPrefs.edit();
+                                    editor.putBoolean("use_fingerprint", incoming);
+                                    editor.apply();
+                                    return true;
+                                } else {
+                                    if (incoming) {
+                                        Toast.makeText(
+                                                MainApp.getAppContext(),
+                                                R.string.prefs_fingerprint_notsetup,
+                                                Toast.LENGTH_LONG)
+                                                .show();
+                                        fPrint.setChecked(false);
+                                    }
+                                    SharedPreferences appPrefs =
+                                            PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                                    SharedPreferences.Editor editor = appPrefs.edit();
+                                    editor.putBoolean("use_fingerprint", false);
+                                    editor.apply();
+                                    return false;
+                                }
+                            } else {
+                                return false;
                             }
-                            SharedPreferences appPrefs =
-                                    PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-                            SharedPreferences.Editor editor = appPrefs.edit();
-                            editor.putBoolean("use_fingerprint", false);
-                            editor.commit();
-                            return false;
                         }
+                    });
+                    if (!FingerprintActivity.isFingerprintReady(MainApp.getAppContext())) {
+                        fPrint.setChecked(false);
                     }
-                });
-                if(!FingerprintActivity.isFingerprintReady(MainApp.getAppContext())) {
-                    fPrint.setChecked(false);
-                }
 
+                } else {
+                    preferenceCategoryDetails.removePreference(fPrint);
+                }
             } else {
                 preferenceCategoryDetails.removePreference(fPrint);
             }
         }
 
-        mShowHiddenFiles = (CheckBoxPreference) findPreference("show_hidden_files");
-        mShowHiddenFiles.setOnPreferenceClickListener(new OnPreferenceClickListener() {
-            @Override
-            public boolean onPreferenceClick(Preference preference) {
-                SharedPreferences appPrefs =
-                        PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-                SharedPreferences.Editor editor = appPrefs.edit();
-                editor.putBoolean("show_hidden_files_pref", mShowHiddenFiles.isChecked());
-                editor.apply();
-                return true;
-            }
-        });
+        boolean fShowHiddenFilesEnabled = getResources().getBoolean(R.bool.passcode_enabled);
+        mShowHiddenFiles = (SwitchPreference) findPreference("show_hidden_files");
+
+        if (fShowHiddenFilesEnabled) {
+            mShowHiddenFiles.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+                @Override
+                public boolean onPreferenceClick(Preference preference) {
+                    SharedPreferences appPrefs =
+                            PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                    SharedPreferences.Editor editor = appPrefs.edit();
+                    editor.putBoolean("show_hidden_files_pref", mShowHiddenFiles.isChecked());
+                    editor.apply();
+                    return true;
+                }
+            });
+        } else {
+            preferenceCategoryDetails.removePreference(mShowHiddenFiles);
+
+        }
 
         PreferenceCategory preferenceCategoryMore = (PreferenceCategory) findPreference("more");
 
@@ -272,6 +338,10 @@ public class Preferences extends PreferenceActivity
             } else {
                 preferenceCategoryMore.removePreference(pCalendarContacts);
             }
+        }
+
+        if (!fShowHiddenFilesEnabled && !fPrintEnabled && !fPassCodeEnabled) {
+            preferenceScreen.removePreference(preferenceCategoryDetails);
         }
 
         boolean helpEnabled = getResources().getBoolean(R.bool.help_enabled);
@@ -451,7 +521,7 @@ public class Preferences extends PreferenceActivity
             mPrefInstantPictureUploadOnlyOnCharging = findPreference("instant_upload_on_charging");
             mPrefInstantUpload = findPreference("instant_uploading");
 
-            toggleInstantPictureOptions(((CheckBoxPreference) mPrefInstantUpload).isChecked());
+            toggleInstantPictureOptions(((SwitchPreference) mPrefInstantUpload).isChecked());
 
             mPrefInstantUpload.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
 
@@ -459,7 +529,7 @@ public class Preferences extends PreferenceActivity
                 public boolean onPreferenceChange(Preference preference, Object newValue) {
                     toggleInstantPictureOptions((Boolean) newValue);
                     toggleInstantUploadBehaviour(
-                            ((CheckBoxPreference) mPrefInstantVideoUpload).isChecked(),
+                            ((SwitchPreference) mPrefInstantVideoUpload).isChecked(),
                             (Boolean) newValue);
                     return true;
                 }
@@ -511,11 +581,40 @@ public class Preferences extends PreferenceActivity
             getPreferenceScreen().removePreference(mPrefInstantUploadCategory);
         }
 
+        // About category
+        PreferenceCategory preferenceCategoryAbout = (PreferenceCategory) findPreference("about");
+
         /* About App */
         pAboutApp = findPreference("about_app");
         if (pAboutApp != null) {
             pAboutApp.setTitle(String.format(getString(R.string.about_android), getString(R.string.app_name)));
             pAboutApp.setSummary(String.format(getString(R.string.about_version), appVersion));
+        }
+
+        // privacy
+        boolean privacyEnabled = getResources().getBoolean(R.bool.privacy_enabled);
+        Preference privacyPreference = findPreference("privacy");
+        if (privacyPreference != null) {
+            if (privacyEnabled) {
+                privacyPreference.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+                    @Override
+                    public boolean onPreferenceClick(Preference preference) {
+                        String privacyUrl = getString(R.string.privacy_url);
+                        if (privacyUrl.length() > 0) {
+                            Intent externalWebViewIntent = new Intent(getApplicationContext(), ExternalSiteWebView.class);
+                            externalWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_TITLE,
+                                    getResources().getString(R.string.privacy));
+                            externalWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_URL, privacyUrl);
+                            externalWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_SHOW_SIDEBAR, false);
+                            externalWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_MENU_ITEM_ID, -1);
+                            startActivity(externalWebViewIntent);
+                        }
+                        return true;
+                    }
+                });
+            } else {
+                preferenceCategoryAbout.removePreference(privacyPreference);
+            }
         }
 
         loadExternalSettingLinks(preferenceCategoryMore);
@@ -885,7 +984,7 @@ public class Preferences extends PreferenceActivity
         MainApp.setStoragePath(mStoragePath);
         SharedPreferences.Editor editor = appPrefs.edit();
         editor.putString(PreferenceKeys.STORAGE_PATH, mStoragePath);
-        editor.commit();
+        editor.apply();
         String storageDescription = DataStorageProvider.getInstance().getStorageDescriptionByPath(mStoragePath);
         mPrefStoragePath.setSummary(storageDescription);
         mPrefStoragePath.setValue(newStoragePath);
@@ -911,7 +1010,7 @@ public class Preferences extends PreferenceActivity
                 PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         SharedPreferences.Editor editor = appPrefs.edit();
         editor.putString(PreferenceKeys.INSTANT_UPLOAD_PATH, mUploadPath);
-        editor.commit();
+        editor.apply();
     }
 
     /**
@@ -932,7 +1031,7 @@ public class Preferences extends PreferenceActivity
                 PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         SharedPreferences.Editor editor = appPrefs.edit();
         editor.putString(PreferenceKeys.INSTANT_VIDEO_UPLOAD_PATH, mUploadVideoPath);
-        editor.commit();
+        editor.apply();
     }
 
     @Override

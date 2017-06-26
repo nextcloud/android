@@ -50,6 +50,9 @@ public class PassCodeManager {
 
     public static PassCodeManager mPassCodeManagerInstance = null;
 
+    private Long mTimestamp = 0l;
+    private int mVisibleActivitiesCounter = 0;
+
     public static PassCodeManager getPassCodeManager() {
         if (mPassCodeManagerInstance == null) {
             mPassCodeManagerInstance = new PassCodeManager();
@@ -57,10 +60,7 @@ public class PassCodeManager {
         return mPassCodeManagerInstance;
     }
 
-    private Long mTimestamp = 0l;
-    private int mVisibleActivitiesCounter = 0;
-
-    protected PassCodeManager() {};
+    protected PassCodeManager() {}
 
     public void onActivityCreated(Activity activity) {
         if (passCodeIsEnabled() || fingerprintIsEnabled()) {

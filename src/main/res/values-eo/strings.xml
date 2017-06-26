@@ -207,7 +207,6 @@
   <string name="copy_link">Kopii ligilon</string>
   <string name="clipboard_text_copied">Kopiita en la tondejon</string>
   <string name="network_error_socket_exception">Eraro okazis dum konekto al la servilo.</string>
-  <string name="empty"></string>
   <string name="forbidden_permissions">Vi ne permesatas %s</string>
   <string name="forbidden_permissions_rename">por alinomigi ĉi tiun dosieron</string>
   <string name="forbidden_permissions_delete">por forigi ĉi tiun dosieron</string>

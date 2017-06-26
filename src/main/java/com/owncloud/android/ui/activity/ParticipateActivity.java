@@ -84,13 +84,12 @@ public class ParticipateActivity extends FileActivity {
         TextView contributeTranslationView = (TextView) findViewById(R.id.participate_contribute_translate_text);
         contributeTranslationView.setMovementMethod(LinkMovementMethod.getInstance());
         contributeTranslationView.setText(Html.fromHtml(
-                getString(R.string.participate_contribute_translate_text,
-                        getString(R.string.translation_link)
-                )));
+                getString(R.string.participate_contribute_translate_text, getString(R.string.translation_link))));
 
         TextView contributeGithubView = (TextView) findViewById(R.id.participate_contribute_github_text);
         contributeGithubView.setMovementMethod(LinkMovementMethod.getInstance());
-        contributeGithubView.setText(Html.fromHtml(getString(R.string.participate_contribute_github_text)));
+        contributeGithubView.setText(Html.fromHtml(getString(R.string.participate_contribute_github_text,
+                getString(R.string.contributing_link))));
 
         findViewById(R.id.participate_testing_report).setOnClickListener(new View.OnClickListener() {
             @Override

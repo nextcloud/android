@@ -73,7 +73,6 @@
   <string name="filedisplay_unexpected_bad_get_content">නොසිතු ප්‍රශ්ණයක්; කරුණාකර වෙනත් යෙදුමක් භාවිතා කර ගොනුව තෝරන්න</string>
   <string name="filedisplay_no_file_selected">ගොනුවක් තෝරා නැත</string>
   <string name="ssl_validator_btn_details_hide">සඟවන්න</string>
-  <string name="empty"></string>
   <string name="prefs_category_accounts">ගිණුම්</string>
   <string name="folder_picker_choose_button_text">තෝරන්න</string>
   <string name="auth_host_address">සේවාදායකයේ ලිපිනය</string>

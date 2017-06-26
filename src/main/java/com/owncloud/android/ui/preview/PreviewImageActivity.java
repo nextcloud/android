@@ -40,6 +40,7 @@ import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.datamodel.VirtualFolderType;
 import com.owncloud.android.files.services.FileDownloader;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploader;
@@ -71,6 +72,8 @@ public class PreviewImageActivity extends FileActivity implements
     public static final String KEY_WAITING_TO_PREVIEW = "WAITING_TO_PREVIEW";
     private static final String KEY_WAITING_FOR_BINDER = "WAITING_FOR_BINDER";
     private static final String KEY_SYSTEM_VISIBLE = "TRUE";
+
+    public static final String EXTRA_VIRTUAL_TYPE = "EXTRA_VIRTUAL_TYPE";
 
     private ExtendedViewPager mViewPager;
     private PreviewImagePagerAdapter mPreviewImagePagerAdapter;
@@ -106,7 +109,6 @@ public class PreviewImageActivity extends FileActivity implements
         // to keep our UI controls visibility in line with system bars visibility
         mFullScreenAnchorView.setOnSystemUiVisibilityChangeListener
                 (new View.OnSystemUiVisibilityChangeListener() {
-                    @SuppressLint("InlinedApi")
                     @Override
                     public void onSystemUiVisibilityChange(int flags) {
                         boolean visible = (flags & View.SYSTEM_UI_FLAG_HIDE_NAVIGATION) == 0;
@@ -129,25 +131,36 @@ public class PreviewImageActivity extends FileActivity implements
     }
 
     private void initViewPager() {
-        // get parent from path
-        String parentPath = getFile().getRemotePath().substring(0,
-                getFile().getRemotePath().lastIndexOf(getFile().getFileName()));
-        OCFile parentFolder = getStorageManager().getFileByPath(parentPath);
-        if (parentFolder == null) {
-            // should not be necessary
-            parentFolder = getStorageManager().getFileByPath(OCFile.ROOT_PATH);
+        // virtual folder
+        if (getIntent().getSerializableExtra(EXTRA_VIRTUAL_TYPE) != null) {
+            VirtualFolderType type = (VirtualFolderType) getIntent().getSerializableExtra(EXTRA_VIRTUAL_TYPE);
+
+            mPreviewImagePagerAdapter = new PreviewImagePagerAdapter(getSupportFragmentManager(),
+                    type, getAccount(), getStorageManager());
+        } else {
+            // get parent from path
+            String parentPath = getFile().getRemotePath().substring(0,
+                    getFile().getRemotePath().lastIndexOf(getFile().getFileName()));
+            OCFile parentFolder = getStorageManager().getFileByPath(parentPath);
+
+            if (parentFolder == null) {
+                // should not be necessary
+                parentFolder = getStorageManager().getFileByPath(OCFile.ROOT_PATH);
+            }
+
+            mPreviewImagePagerAdapter = new PreviewImagePagerAdapter(getSupportFragmentManager(),
+                    parentFolder, getAccount(), getStorageManager(), MainApp.isOnlyOnDevice());
         }
 
-        mPreviewImagePagerAdapter = new PreviewImagePagerAdapter(getSupportFragmentManager(),
-                parentFolder, getAccount(), getStorageManager(), MainApp.isOnlyOnDevice());
-
         mViewPager = (ExtendedViewPager) findViewById(R.id.fragmentPager);
-        int position = mHasSavedPosition ? mSavedPosition :
-                mPreviewImagePagerAdapter.getFilePosition(getFile());
+
+        int position = mHasSavedPosition ? mSavedPosition : mPreviewImagePagerAdapter.getFilePosition(getFile());
         position = (position >= 0) ? position : 0;
-        mViewPager.setAdapter(mPreviewImagePagerAdapter); 
+
+        mViewPager.setAdapter(mPreviewImagePagerAdapter);
         mViewPager.setOnPageChangeListener(this);
         mViewPager.setCurrentItem(position);
+
         if (position == 0 && !getFile().isDown()) {
             // this is necessary because mViewPager.setCurrentItem(0) just after setting the
             // adapter does not result in a call to #onPageSelected(0)
@@ -230,9 +243,9 @@ public class PreviewImageActivity extends FileActivity implements
                 mUploaderBinder = null;
             }
         }
-    };    
-    
-    
+    }
+
+
     @Override
     public void onStop() {
         super.onStop();
@@ -359,6 +372,7 @@ public class PreviewImageActivity extends FileActivity implements
      */
     @Override
     public void onPageScrollStateChanged(int state) {
+        // not used at the moment
     }
 
     /**
@@ -368,15 +382,14 @@ public class PreviewImageActivity extends FileActivity implements
      * @param   position                Position index of the first page currently being displayed. 
      *                                  Page position+1 will be visible if positionOffset is
      *                                  nonzero.
-     *                                  
      * @param   positionOffset          Value from [0, 1) indicating the offset from the page
      *                                  at position.
      * @param   positionOffsetPixels    Value in pixels indicating the offset from position. 
      */
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+        // not used at the moment
     }
-    
 
     /**
      * Class waiting for broadcast events from the {@link FileDownloader} service.
@@ -427,9 +440,7 @@ public class PreviewImageActivity extends FileActivity implements
         return true;
     }
 
-    @SuppressLint("InlinedApi")
     public void toggleFullScreen() {
-
         boolean visible = (mFullScreenAnchorView.getSystemUiVisibility()
                 & View.SYSTEM_UI_FLAG_HIDE_NAVIGATION) == 0;
 
@@ -449,7 +460,7 @@ public class PreviewImageActivity extends FileActivity implements
         super.onAccountSet(stateWasRecovered);
         if (getAccount() != null) {
             OCFile file = getFile();
-            /// Validate handled file  (first image to preview)
+            /// Validate handled file (first image to preview)
             if (file == null) {
                 throw new IllegalStateException("Instanced with a NULL OCFile");
             }

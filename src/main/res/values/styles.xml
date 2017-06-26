@@ -106,7 +106,7 @@
 
 	<style name="Button.Login" parent="Button">
 		<item name="colorButtonNormal">@color/white</item>
-		<item name="android:textColor">@color/nc_blue</item>
+		<item name="android:textColor">@color/primary</item>
 	</style>
 
 	<style name="Button.Borderless" parent="Base.Widget.AppCompat.Button.Borderless">
@@ -150,8 +150,8 @@
 	
 	<style name="Theme.ownCloud.Widget.ActionBar"
 		parent="style/Widget.AppCompat.Light.ActionBar.Solid.Inverse">
-		<item name="android:background">@drawable/main_header_bg</item>
-		<item name="background">@drawable/main_header_bg</item>
+		<item name="android:background">@color/primary</item>
+		<item name="background">@color/primary</item>
     	<item name="android:textColor">#ffffff</item>
     	<item name="android:shadowColor">#222222</item>
     	<item name="android:shadowRadius">1</item>
@@ -271,7 +271,7 @@
 	
 	<style name="OAuthDialog" parent="style/Theme.AppCompat.Light.Dialog.Alert">
 		<item name="windowNoTitle">false</item>
-		<item name="colorAccent">@color/nc_blue_accent</item>
+		<item name="colorAccent">@color/color_accent</item>
 	</style>    
 		
 	<color name="setup_text_hint">#777777</color>

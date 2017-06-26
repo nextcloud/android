@@ -141,6 +141,59 @@ public class ContactOperations {
         context.getContentResolver().applyBatch(ContactsContract.AUTHORITY, operations);
     }
 
+    public void updateContact(VCard vcard, Long key) throws RemoteException, OperationApplicationException {
+
+        List<NonEmptyContentValues> contentValues = new ArrayList<NonEmptyContentValues>();
+        convertName(contentValues, vcard);
+        convertNickname(contentValues, vcard);
+        convertPhones(contentValues, vcard);
+        convertEmails(contentValues, vcard);
+        convertAddresses(contentValues, vcard);
+        convertIms(contentValues, vcard);
+
+        // handle Android Custom fields..This is only valid for Android generated Vcards. As the Android would
+        // generate NickName, ContactEvents other than Birthday and RelationShip with this "X-ANDROID-CUSTOM" name
+        convertCustomFields(contentValues, vcard);
+
+        // handle Iphone kinda of group properties. which are grouped together.
+        convertGroupedProperties(contentValues, vcard);
+
+        convertBirthdays(contentValues, vcard);
+
+        convertWebsites(contentValues, vcard);
+        convertNotes(contentValues, vcard);
+        convertPhotos(contentValues, vcard);
+        convertOrganization(contentValues, vcard);
+
+        ArrayList<ContentProviderOperation> operations = new ArrayList<ContentProviderOperation>(contentValues.size());
+        ContentValues cv = account.getContentValues();
+        //ContactsContract.RawContact.CONTENT_URI needed to add account, backReference is also not needed
+        long contactID = key;
+        ContentProviderOperation operation;
+
+        for (NonEmptyContentValues values : contentValues) {
+            cv = values.getContentValues();
+            if (cv.size() == 0) {
+                continue;
+            }
+
+            String mimeType = cv.getAsString("mimetype");
+            cv.remove("mimetype");
+            //@formatter:off
+            operation =
+                    ContentProviderOperation.newUpdate(ContactsContract.Data.CONTENT_URI)
+                            .withSelection(ContactsContract.Data.RAW_CONTACT_ID + " = ? AND " + ContactsContract.Data.MIMETYPE + " = ? ", new String[]{"" + contactID, "" + mimeType})
+                            .withValues(cv)
+                            .build();
+            //@formatter:on
+            operations.add(operation);
+        }
+
+        // Executing all the insert operations as a single database transaction
+        context.getContentResolver().applyBatch(ContactsContract.AUTHORITY, operations);
+
+    }
+
     private void convertName(List<NonEmptyContentValues> contentValues, VCard vcard) {
         NonEmptyContentValues values = new NonEmptyContentValues(ContactsContract.CommonDataKinds.StructuredName.CONTENT_ITEM_TYPE);
 

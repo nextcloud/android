@@ -84,7 +84,7 @@ import java.util.Vector;
  *
  * On next invocation of {@link FileUploader} uploaded files which
  * previously failed will be uploaded again until either upload succeeded or a
- * fatal error occured.
+ * fatal error occurred.
  *
  * Every file passed to this service is uploaded. No filtering is performed.
  * However, Intent keys (e.g., KEY_WIFI_ONLY) are obeyed.
@@ -302,7 +302,8 @@ public class FileUploader extends Service
             UploadsStorageManager uploadsStorageManager = new UploadsStorageManager(context.getContentResolver(), context);
             OCUpload[] failedUploads = uploadsStorageManager.getFailedUploads();
             Account currentAccount = null;
-            boolean resultMatch, accountMatch;
+            boolean resultMatch;
+            boolean accountMatch;
             for ( OCUpload failedUpload: failedUploads) {
                 accountMatch = (account == null || account.name.equals(failedUpload.getAccountName()));
                 resultMatch = (uploadResult == null || uploadResult.equals(failedUpload.getLastResult()));
@@ -434,7 +435,9 @@ public class FileUploader extends Service
                 return Service.START_NOT_STICKY;
             }
 
-            String[] localPaths = null, remotePaths = null, mimeTypes = null;
+            String[] localPaths = null;
+            String[] remotePaths = null;
+            String[] mimeTypes = null;
             OCFile[] files = null;
 
             if (intent.hasExtra(KEY_FILE)) {

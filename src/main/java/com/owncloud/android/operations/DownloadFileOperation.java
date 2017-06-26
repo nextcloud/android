@@ -49,6 +49,7 @@ public class DownloadFileOperation extends RemoteOperation {
 
     private Account mAccount;
     private OCFile mFile;
+    private String mBehaviour;
     private Set<OnDatatransferProgressListener> mDataTransferListeners = new HashSet<OnDatatransferProgressListener>();
     private long mModificationTimestamp = 0;
     private String mEtag = "";
@@ -56,8 +57,8 @@ public class DownloadFileOperation extends RemoteOperation {
     
     private DownloadRemoteFileOperation mDownloadOperation;
 
-    
-    public DownloadFileOperation(Account account, OCFile file) {
+
+    public DownloadFileOperation(Account account, OCFile file, String behaviour) {
         if (account == null) {
             throw new IllegalArgumentException("Illegal null account in DownloadFileOperation " +
                     "creation");
@@ -69,6 +70,7 @@ public class DownloadFileOperation extends RemoteOperation {
         
         mAccount = account;
         mFile = file;
+        mBehaviour = behaviour;
     }
 
 
@@ -80,10 +82,16 @@ public class DownloadFileOperation extends RemoteOperation {
         return mFile;
     }
 
+    public String getBehaviour() {
+        return mBehaviour;
+    }
+
     public String getSavePath() {
-        String path = mFile.getStoragePath();  // re-downloads should be done over the original file
-        if (path != null && path.length() > 0) {
-            return path;
+        if (mFile.getStoragePath() != null) {
+            File path = new File(mFile.getStoragePath());  // re-downloads should be done over the original file
+            if (path.canWrite()) {
+                return path.getAbsolutePath();
+            }
         }
         return FileStorageUtils.getDefaultSavePathFor(mAccount.name, mFile);
     }

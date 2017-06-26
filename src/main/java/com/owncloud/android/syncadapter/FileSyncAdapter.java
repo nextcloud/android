@@ -180,7 +180,7 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
                 
             } else {
                 Log_OC.d(TAG, "Leaving synchronization before synchronizing the root folder " +
-                        "because cancelation request");
+                        "because cancellation request");
             }
             
             
@@ -351,7 +351,7 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
         if (mCancellation && i <files.size()) {
             Log_OC.d(TAG,
                     "Leaving synchronization before synchronizing " + files.get(i).getRemotePath() +
-                            " due to cancelation request");
+                            " due to cancellation request");
         }
     }
 

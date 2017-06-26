@@ -67,7 +67,7 @@ public class UploadListFragment extends ExpandableListFragment {
         getListView().setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
         setMessageForEmptyList(
                 R.string.upload_list_empty_headline, R.string.upload_list_empty_text_auto_upload,
-                R.drawable.ic_list_empty_upload
+                R.drawable.ic_list_empty_upload, true
         );
         setOnRefreshListener(this);
         return v;

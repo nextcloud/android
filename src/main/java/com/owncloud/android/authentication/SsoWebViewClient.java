@@ -55,18 +55,17 @@ import java.security.cert.X509Certificate;
 public class SsoWebViewClient extends WebViewClient {
         
     private static final String TAG = SsoWebViewClient.class.getSimpleName();
-    
-    public interface SsoWebViewClientListener {
-        public void onSsoFinished(String sessionCookie);
-    }
-    
+
     private Context mContext;
     private Handler mListenerHandler;
     private WeakReference<SsoWebViewClientListener> mListenerRef;
     private String mTargetUrl;
     private String mLastReloadedUrlAtError;
-
     
+    public interface SsoWebViewClientListener {
+        public void onSsoFinished(String sessionCookie);
+    }
+
     public SsoWebViewClient (Context context, Handler listenerHandler, SsoWebViewClientListener listener) {
         mContext = context;
         mListenerHandler = listenerHandler;
@@ -191,5 +190,4 @@ public class SsoWebViewClient extends WebViewClient {
 
         ((AuthenticatorActivity)mContext).createAuthenticationDialog(view, handler);
     }
-
 }

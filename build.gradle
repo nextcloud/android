@@ -13,7 +13,7 @@ buildscript {
         }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.3.1'
+        classpath 'com.android.tools.build:gradle:2.3.2'
         classpath 'com.google.gms:google-services:3.0.0'
     }
 }
@@ -51,10 +51,10 @@ repositories {
 
 android {
     lintOptions {
-        abortOnError true
-        lintConfig file("${project.rootDir}/lint.xml")
+        abortOnError false
         htmlReport true
         htmlOutput file("$project.buildDir/reports/lint/lint.html")
+        disable 'MissingTranslation'
     }
 
     dexOptions {
@@ -117,10 +117,6 @@ android {
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_7
         targetCompatibility JavaVersion.VERSION_1_7
-    }
-
-    lintOptions {
-        abortOnError false
     }
 
     packagingOptions {
@@ -203,7 +199,7 @@ dependencies {
     compile name: 'touch-image-view'
     compile 'com.android.support:multidex:1.0.1'
 
-    compile 'com.github.nextcloud:android-library:1.0.15'
+    compile 'com.github.nextcloud:android-library:1.0.21'
     compile "com.android.support:support-v4:${supportLibraryVersion}"
     compile "com.android.support:design:${supportLibraryVersion}"
     compile 'com.jakewharton:disklrucache:2.0.2'
@@ -218,8 +214,8 @@ dependencies {
     compile 'org.greenrobot:eventbus:3.0.0'
     compile 'com.googlecode.ez-vcard:ez-vcard:0.10.2'
 
-// uncomment for gplay, modified
-//    compile 'com.google.android.gms:play-services:10.2.1'
+    // uncomment for gplay, modified
+    //compile 'com.google.android.gms:play-services:10.2.4'
 
     compile 'org.parceler:parceler-api:1.1.6'
     annotationProcessor 'org.parceler:parceler:1.1.6'

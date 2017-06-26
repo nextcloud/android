@@ -41,13 +41,13 @@ import java.util.concurrent.ConcurrentMap;
  */
 public class IndexedForest<V> {
 
-    private ConcurrentMap<String, Node<V>> mMap = new ConcurrentHashMap<String, Node<V>>();
+    private ConcurrentMap<String, Node<V>> mMap = new ConcurrentHashMap<>();
 
     @SuppressWarnings("PMD.ShortClassName")
     private class Node<V> {
         String mKey = null;
         Node<V> mParent = null;
-        Set<Node<V>> mChildren = new HashSet<Node<V>>();    // TODO be careful with hash()
+        Set<Node<V>> mChildren = new HashSet<>();    // TODO be careful with hash()
         V mPayload = null;
 
         // payload is optional
@@ -61,7 +61,7 @@ public class IndexedForest<V> {
 
         public Node<V> getParent() {
             return mParent;
-        };
+        }
 
         public Set<Node<V>> getChildren() {
             return mChildren;
@@ -112,8 +112,11 @@ public class IndexedForest<V> {
 
         } else {
             // value really added
-            String currentPath = remotePath, parentPath = null, parentKey = null;
-            Node<V> currentNode = valuedNode, parentNode = null;
+            String currentPath = remotePath;
+            String parentPath = null;
+            String parentKey = null;
+            Node<V> currentNode = valuedNode;
+            Node<V> parentNode = null;
             boolean linked = false;
             while (!OCFile.ROOT_PATH.equals(currentPath) && !linked) {
                 parentPath = new File(currentPath).getParent();
@@ -141,7 +144,7 @@ public class IndexedForest<V> {
 
             return new Pair<String, String>(targetKey, linkedTo);
         }
-    };
+    }
 
 
     public Pair<V, String> removePayload(String accountName, String remotePath) {

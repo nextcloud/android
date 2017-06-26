@@ -54,6 +54,8 @@ public class RenameFileDialogFragment
 
     private static final String ARG_TARGET_FILE = "TARGET_FILE";
 
+    private OCFile mTargetFile;
+
     /**
      * Public factory method to create new RenameFileDialogFragment instances.
      * 
@@ -69,8 +71,6 @@ public class RenameFileDialogFragment
         
     }
 
-    private OCFile mTargetFile;
-    
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         mTargetFile = getArguments().getParcelable(ARG_TARGET_FILE);

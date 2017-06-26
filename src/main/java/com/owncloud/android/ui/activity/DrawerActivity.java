@@ -255,29 +255,35 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
      * initializes and sets up the drawer header.
      */
     private void setupDrawerHeader() {
-        mAccountChooserToggle = (ImageView) findNavigationViewChildById(R.id.drawer_account_chooser_toogle);
-        mAccountChooserToggle.setImageResource(R.drawable.ic_down);
         mIsAccountChooserActive = false;
         mAccountMiddleAccountAvatar = (ImageView) findNavigationViewChildById(R.id.drawer_account_middle);
         mAccountEndAccountAvatar = (ImageView) findNavigationViewChildById(R.id.drawer_account_end);
 
-        findNavigationViewChildById(R.id.drawer_active_user)
-                .setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        toggleAccountList();
-                    }
-                });
+        mAccountChooserToggle = (ImageView) findNavigationViewChildById(R.id.drawer_account_chooser_toogle);
+
+        if (getResources().getBoolean(R.bool.allow_profile_click)) {
+            mAccountChooserToggle.setImageResource(R.drawable.ic_down);
+
+            findNavigationViewChildById(R.id.drawer_active_user)
+                    .setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            toggleAccountList();
+                        }
+                    });
+        } else {
+            mAccountChooserToggle.setVisibility(View.GONE);
+        }
     }
 
     /**
      * setup quota elements of the drawer.
      */
     private void setupQuotaElement() {
-        mQuotaView = (LinearLayout) findViewById(R.id.drawer_quota);
-        mQuotaProgressBar = (ProgressBar) findViewById(R.id.drawer_quota_ProgressBar);
-        mQuotaTextPercentage = (TextView) findViewById(R.id.drawer_quota_percentage);
-        mQuotaTextLink = (TextView) findViewById(R.id.drawer_quota_link);
+        mQuotaView = (LinearLayout) findQuotaViewById(R.id.drawer_quota);
+        mQuotaProgressBar = (ProgressBar) findQuotaViewById(R.id.drawer_quota_ProgressBar);
+        mQuotaTextPercentage = (TextView) findQuotaViewById(R.id.drawer_quota_percentage);
+        mQuotaTextLink = (TextView) findQuotaViewById(R.id.drawer_quota_link);
         DisplayUtils.colorPreLollipopHorizontalProgressBar(mQuotaProgressBar);
     }
 
@@ -317,21 +323,20 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
             navigationView.getMenu().setGroupVisible(R.id.drawer_menu_accounts, false);
         }
 
-        Account account = AccountUtils.
-                getCurrentOwnCloudAccount(MainApp.getAppContext());
+        Account account = AccountUtils.getCurrentOwnCloudAccount(MainApp.getAppContext());
         boolean searchSupported = AccountUtils.hasSearchSupport(account);
 
-        if ((getResources().getBoolean(R.bool.bottom_toolbar_enabled) || (!searchSupported)) &&
-                (account != null)){
+        if (getResources().getBoolean(R.bool.bottom_toolbar_enabled) && account != null) {
+            navigationView.getMenu().removeItem(R.id.nav_all_files);
+            navigationView.getMenu().removeItem(R.id.nav_settings);
+            navigationView.getMenu().removeItem(R.id.nav_favorites);
             navigationView.getMenu().removeItem(R.id.nav_photos);
-            if (getResources().getBoolean(R.bool.bottom_toolbar_enabled)) {
-                navigationView.getMenu().removeItem(R.id.nav_all_files);
-                navigationView.getMenu().removeItem(R.id.nav_settings);
-                navigationView.getMenu().removeItem(R.id.nav_favorites);
-            }
-            if (!searchSupported) {
-                navigationView.getMenu().removeItem(R.id.nav_videos);
-            }
+        }
+
+        if (!searchSupported && account != null) {
+            navigationView.getMenu().removeItem(R.id.nav_photos);
+            navigationView.getMenu().removeItem(R.id.nav_favorites);
+            navigationView.getMenu().removeItem(R.id.nav_videos);
         }
 
         if (getResources().getBoolean(R.bool.use_home) && navigationView.getMenu().findItem(R.id.nav_all_files) !=
@@ -351,6 +356,10 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
 
         if (!getResources().getBoolean(R.bool.contacts_backup)) {
             navigationView.getMenu().removeItem(R.id.nav_contacts);
+        }
+
+        if (getResources().getBoolean(R.bool.syncedFolder_light)) {
+            navigationView.getMenu().removeItem(R.id.nav_folder_sync);
         }
 
         if (!getResources().getBoolean(R.bool.show_drawer_logout)) {
@@ -425,6 +434,7 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
             case R.id.nav_on_device:
                 menuItem.setChecked(true);
                 mCheckedMenuItem = menuItem.getItemId();
+                EventBus.getDefault().post(new ChangeMenuEvent());
                 showFiles(true);
                 break;
             case R.id.nav_uploads:
@@ -507,6 +517,7 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
             case Menu.NONE:
                 // account clicked
                 accountClicked(menuItem.getTitle().toString());
+                break;
             default:
                 Log_OC.i(TAG, "Unknown drawer menu item clicked: " + menuItem.getTitle());
         }
@@ -763,7 +774,9 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
     private void showMenu() {
         if (mNavigationView != null) {
             if (mIsAccountChooserActive) {
-                mAccountChooserToggle.setImageResource(R.drawable.ic_up);
+                if (mAccountChooserToggle != null) {
+                    mAccountChooserToggle.setImageResource(R.drawable.ic_up);
+                }
                 mNavigationView.getMenu().setGroupVisible(R.id.drawer_menu_accounts, true);
 
                 if (!getResources().getBoolean(R.bool.multiaccount_support) &&
@@ -775,7 +788,9 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
                 mNavigationView.getMenu().setGroupVisible(R.id.drawer_menu_external_links, false);
                 mNavigationView.getMenu().setGroupVisible(R.id.drawer_menu_bottom, false);
             } else {
-                mAccountChooserToggle.setImageResource(R.drawable.ic_down);
+                if (mAccountChooserToggle != null) {
+                    mAccountChooserToggle.setImageResource(R.drawable.ic_down);
+                }
                 mNavigationView.getMenu().setGroupVisible(R.id.drawer_menu_accounts, false);
                 mNavigationView.getMenu().setGroupVisible(R.id.drawer_menu_standard, true);
                 mNavigationView.getMenu().setGroupVisible(R.id.drawer_menu_external_links, true);
@@ -830,56 +845,58 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
     }
 
     private void updateQuotaLink() {
-        if (getBaseContext().getResources().getBoolean(R.bool.show_external_links)) {
-            ArrayList<ExternalLink> quotas = externalLinksProvider.getExternalLink(ExternalLinkType.QUOTA);
+        if (mQuotaTextLink != null) {
+            if (getBaseContext().getResources().getBoolean(R.bool.show_external_links)) {
+                ArrayList<ExternalLink> quotas = externalLinksProvider.getExternalLink(ExternalLinkType.QUOTA);
 
-            float density = getResources().getDisplayMetrics().density;
-            final int size = Math.round(24 * density);
+                float density = getResources().getDisplayMetrics().density;
+                final int size = Math.round(24 * density);
 
-            if (quotas.size() > 0) {
-                final ExternalLink firstQuota = quotas.get(0);
-                mQuotaTextLink.setText(firstQuota.name);
-                mQuotaTextLink.setClickable(true);
-                mQuotaTextLink.setVisibility(View.VISIBLE);
-                mQuotaTextLink.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent externalWebViewIntent = new Intent(getApplicationContext(), ExternalSiteWebView.class);
-                        externalWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_TITLE, firstQuota.name);
-                        externalWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_URL, firstQuota.url);
-                        externalWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_SHOW_SIDEBAR, true);
-                        externalWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_MENU_ITEM_ID, -1);
-                        startActivity(externalWebViewIntent);
-                    }
-                });
+                if (quotas.size() > 0) {
+                    final ExternalLink firstQuota = quotas.get(0);
+                    mQuotaTextLink.setText(firstQuota.name);
+                    mQuotaTextLink.setClickable(true);
+                    mQuotaTextLink.setVisibility(View.VISIBLE);
+                    mQuotaTextLink.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent externalWebViewIntent = new Intent(getApplicationContext(), ExternalSiteWebView.class);
+                            externalWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_TITLE, firstQuota.name);
+                            externalWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_URL, firstQuota.url);
+                            externalWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_SHOW_SIDEBAR, true);
+                            externalWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_MENU_ITEM_ID, -1);
+                            startActivity(externalWebViewIntent);
+                        }
+                    });
 
 
-                SimpleTarget target = new SimpleTarget<Drawable>() {
-                    @Override
-                    public void onResourceReady(Drawable resource, GlideAnimation glideAnimation) {
-                        Drawable test = resource.getCurrent();
-                        test.setBounds(0, 0, size, size);
-                        mQuotaTextLink.setCompoundDrawablesWithIntrinsicBounds(test, null, null, null);
-                    }
+                    SimpleTarget target = new SimpleTarget<Drawable>() {
+                        @Override
+                        public void onResourceReady(Drawable resource, GlideAnimation glideAnimation) {
+                            Drawable test = resource.getCurrent();
+                            test.setBounds(0, 0, size, size);
+                            mQuotaTextLink.setCompoundDrawablesWithIntrinsicBounds(test, null, null, null);
+                        }
 
-                    @Override
-                    public void onLoadFailed(Exception e, Drawable errorDrawable) {
-                        super.onLoadFailed(e, errorDrawable);
+                        @Override
+                        public void onLoadFailed(Exception e, Drawable errorDrawable) {
+                            super.onLoadFailed(e, errorDrawable);
 
-                        Drawable test = errorDrawable.getCurrent();
-                        test.setBounds(0, 0, size, size);
+                            Drawable test = errorDrawable.getCurrent();
+                            test.setBounds(0, 0, size, size);
 
-                        mQuotaTextLink.setCompoundDrawablesWithIntrinsicBounds(test, null, null, null);
-                    }
-                };
+                            mQuotaTextLink.setCompoundDrawablesWithIntrinsicBounds(test, null, null, null);
+                        }
+                    };
 
-                DisplayUtils.downloadIcon(this, firstQuota.iconUrl, target, R.drawable.ic_link_grey, size, size);
+                    DisplayUtils.downloadIcon(this, firstQuota.iconUrl, target, R.drawable.ic_link_grey, size, size);
 
+                } else {
+                    mQuotaTextLink.setVisibility(View.INVISIBLE);
+                }
             } else {
                 mQuotaTextLink.setVisibility(View.INVISIBLE);
             }
-        } else {
-            mQuotaTextLink.setVisibility(View.INVISIBLE);
         }
     }
 
@@ -1098,6 +1115,22 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
     }
 
     /**
+     * Quota view can be either at navigation bottom or header
+     *
+     * @param id the view's id
+     * @return The view if found or <code>null</code> otherwise.
+     */
+    private View findQuotaViewById(int id) {
+        View v = ((NavigationView) findViewById(R.id.nav_view)).getHeaderView(0).findViewById(id);
+
+        if (v != null) {
+            return v;
+        } else {
+            return findViewById(id);
+        }
+    }
+
+    /**
      * restart helper method which is called after a changing the current account.
      */
     protected abstract void restart();
@@ -1197,7 +1230,8 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
 
                     Account account = AccountUtils.getCurrentOwnCloudAccount(DrawerActivity.this);
 
-                    if (account != null && getStorageManager().getCapability(account.name) != null &&
+                    if (account != null && getStorageManager() != null &&
+                            getStorageManager().getCapability(account.name) != null &&
                             getStorageManager().getCapability(account.name).getExternalLinks().isTrue()) {
 
                         int count = sharedPreferences.getInt(EXTERNAL_LINKS_COUNT, -1);

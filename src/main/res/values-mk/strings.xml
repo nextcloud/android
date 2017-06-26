@@ -235,7 +235,6 @@
   <string name="network_error_socket_timeout_exception">Се случи грешка при чекање на на серверот, операцијата не можеше да се изврши</string>
   <string name="network_error_connect_timeout_exception">Се случи грешка при чекање на на серверот, операцијата не можеше да се изврши</string>
   <string name="network_host_not_available">Операцијата не можеше да заврши, серверот не е достапен</string>
-  <string name="empty"></string>
   <string name="forbidden_permissions">Немате дозвола %s</string>
   <string name="forbidden_permissions_rename">да ја преименувате датотеката</string>
   <string name="forbidden_permissions_delete">да ја избришете оваа датотека</string>

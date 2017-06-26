@@ -26,7 +26,6 @@ package com.owncloud.android.ui.activity;
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.accounts.AuthenticatorException;
-import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -609,7 +608,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
 
         @Nullable
         private File createTempFile(String filename, String text) {
-            File file = new File(((ReceiveExternalFilesActivity)getActivity()).getCacheDir(), filename);
+            File file = new File(getActivity().getCacheDir(), filename);
             FileWriter fw = null;
             try {
                 fw = new FileWriter(file);
@@ -727,7 +726,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
         ListView mListView = (ListView) findViewById(android.R.id.list);
 
         String current_dir = mParents.peek();
-        if (current_dir.equals("")) {
+        if ("".equals(current_dir)) {
             actionBar.setTitle(getString(R.string.uploader_top_message));
         } else {
             actionBar.setTitle(current_dir);
@@ -862,7 +861,6 @@ public class ReceiveExternalFilesActivity extends FileActivity
         finish();
     }
 
-    @SuppressLint("NewApi")
     public void uploadFiles() {
 
         UriUploader uploader = new UriUploader(
@@ -955,7 +953,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
 
         String lastPath = PreferenceManager.getLastUploadPath(this);
         // "/" equals root-directory
-        if (lastPath.equals("/")) {
+        if ("/".equals(lastPath)) {
             mParents.add("");
         } else {
             String[] dir_names = lastPath.split("/");
@@ -1139,10 +1137,14 @@ public class ReceiveExternalFilesActivity extends FileActivity
                 }
 
                 @Override
-                public void onNeutral(String callerTag) {}
+                public void onNeutral(String callerTag) {
+                    // not used at the moment
+                }
 
                 @Override
-                public void onCancel(String callerTag) {}
+                public void onCancel(String callerTag) {
+                    // not used at the moment
+                }
             }
         );
         errorDialog.show(getSupportFragmentManager(), FTAG_ERROR_FRAGMENT);

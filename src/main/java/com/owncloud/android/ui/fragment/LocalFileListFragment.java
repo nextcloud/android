@@ -98,9 +98,8 @@ public class LocalFileListFragment extends ExtendedListFragment {
         setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
         setSwipeEnabled(false); // Disable pull-to-refresh
         setFabEnabled(false); // Disable FAB
-        setMessageForEmptyList(
-                R.string.file_list_empty_headline, R.string.local_file_list_empty, R.drawable.ic_list_empty_folder
-        );
+        setMessageForEmptyList(R.string.file_list_empty_headline, R.string.local_file_list_empty,
+                R.drawable.ic_list_empty_folder, true);
         Log_OC.i(TAG, "onCreateView() end");
         return v;
     }
@@ -141,7 +140,7 @@ public class LocalFileListFragment extends ExtendedListFragment {
             } else {    /// Click on a file
                 ImageView checkBoxV = (ImageView) v.findViewById(R.id.custom_checkbox);
                 if (checkBoxV != null) {
-                    if (((AbsListView)getListView()).isItemChecked(position)) {
+                    if (getListView().isItemChecked(position)) {
                         checkBoxV.setImageResource(R.drawable.ic_checkbox_marked);
                     } else {
                         checkBoxV.setImageResource(R.drawable.ic_checkbox_blank_outline);
@@ -222,7 +221,7 @@ public class LocalFileListFragment extends ExtendedListFragment {
         }
 
         // by now, only files in the same directory will be kept as selected
-        ((AbsListView)mCurrentListView).clearChoices();
+        mCurrentListView.clearChoices();
         mAdapter.swapDirectory(directory);
         if (mDirectory == null || !mDirectory.equals(directory)) {
             mCurrentListView.setSelection(0);
@@ -238,7 +237,7 @@ public class LocalFileListFragment extends ExtendedListFragment {
      */
     public String[] getCheckedFilePaths() {
         ArrayList<String> result = new ArrayList<String>();
-        SparseBooleanArray positions = ((AbsListView)mCurrentListView).getCheckedItemPositions();
+        SparseBooleanArray positions = mCurrentListView.getCheckedItemPositions();
         if (positions.size() > 0) {
             for (int i = 0; i < positions.size(); i++) {
                 if (positions.get(positions.keyAt(i)) == true) {
@@ -270,7 +269,7 @@ public class LocalFileListFragment extends ExtendedListFragment {
      * @param select <code>true</code> to select all, <code>false</code> to deselect all
      */
     public void selectAllFiles(boolean select) {
-        AbsListView listView = (AbsListView) getListView();
+        AbsListView listView = getListView();
         for (int position = 0; position < listView.getCount(); position++) {
             File file = (File) mAdapter.getItem(position);
             if (file.isFile()) {
@@ -289,7 +288,7 @@ public class LocalFileListFragment extends ExtendedListFragment {
          *  
          * @param directory
          */
-        public void onDirectoryClick(File directory);
+        void onDirectoryClick(File directory);
         
         /**
          * Callback method invoked when a file (non directory)
@@ -297,7 +296,7 @@ public class LocalFileListFragment extends ExtendedListFragment {
          *  
          * @param file
          */
-        public void onFileClick(File file);
+        void onFileClick(File file);
         
         
         /**
@@ -306,7 +305,7 @@ public class LocalFileListFragment extends ExtendedListFragment {
          * 
          * @return  Directory to list firstly. Can be NULL.
          */
-        public File getInitialDirectory();
+        File getInitialDirectory();
 
     }
 

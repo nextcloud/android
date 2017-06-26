@@ -71,7 +71,6 @@
   <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
   <string name="activity_chooser_send_file_title">Ուղարկել</string>
   <string name="copy_link">Պատճենել հղումը</string>
-  <string name="empty"></string>
   <string name="prefs_category_accounts">Հաշիվներ</string>
   <string name="saml_authentication_wrong_pass">Սխալ գաղտնաբառ</string>
   <string name="folder_picker_choose_button_text">Ընտրել</string>

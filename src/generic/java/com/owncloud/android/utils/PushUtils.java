@@ -18,19 +18,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.owncloud.android.ui.activity;
+package com.owncloud.android.utils;
 
-import com.owncloud.android.ui.events.TokenPushEvent;
-import com.owncloud.android.utils.PushUtils;
+public class PushUtils {
+    public static final String KEY_PUSH = "push";
 
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
-
-public class ModifiedFileDisplayActivity extends FileDisplayActivity {
-
-    @Subscribe(threadMode = ThreadMode.BACKGROUND)
-    public void onMessageEvent(TokenPushEvent event) {
-        PushUtils.pushRegistrationToServer();
+    public static void pushRegistrationToServer() {
+        // do nothing
     }
-
 }

@@ -52,8 +52,8 @@ import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.notifications.GetRemoteNotificationsOperation;
 import com.owncloud.android.lib.resources.notifications.models.Notification;
 import com.owncloud.android.ui.adapter.NotificationListAdapter;
-import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.AnalyticsUtils;
+import com.owncloud.android.utils.DisplayUtils;
 
 import java.io.IOException;
 import java.util.List;
@@ -74,10 +74,8 @@ public class NotificationsActivity extends FileActivity {
     @BindView(R.id.empty_list_view)
     public LinearLayout emptyContentContainer;
 
-    @BindView(R.id.swipe_containing_list)
     public SwipeRefreshLayout swipeListRefreshLayout;
 
-    @BindView(R.id.swipe_containing_empty)
     public SwipeRefreshLayout swipeEmptyListRefreshLayout;
 
     @BindView(R.id.empty_list_view_text)
@@ -115,6 +113,9 @@ public class NotificationsActivity extends FileActivity {
 
         // setup toolbar
         setupToolbar();
+
+        swipeEmptyListRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_containing_empty);
+        swipeListRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_containing_list);
 
         // setup drawer
         setupDrawer(R.id.nav_notifications);
@@ -296,7 +297,7 @@ public class NotificationsActivity extends FileActivity {
     }
 
     @Override
-    public void onResume(){
+    public void onResume() {
         super.onResume();
         AnalyticsUtils.setCurrentScreenName(this, SCREEN_NAME, TAG);
     }

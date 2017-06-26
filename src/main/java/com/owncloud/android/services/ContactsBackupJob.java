@@ -1,20 +1,20 @@
-/**
+/*
  * Nextcloud Android client application
  *
  * @author Tobias Kaminsky
  * Copyright (C) 2017 Tobias Kaminsky
  * Copyright (C) 2017 Nextcloud GmbH.
- * <p>
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * at your option) any later version.
- * <p>
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * <p>
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -26,7 +26,6 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
-import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.IBinder;
@@ -39,9 +38,9 @@ import com.evernote.android.job.util.support.PersistableBundleCompat;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
+import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.db.PreferenceManager;
 import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.operations.UploadFileOperation;
@@ -76,13 +75,15 @@ public class ContactsBackupJob extends Job {
 
         boolean force = bundle.getBoolean(FORCE, false);
 
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
-        Long lastExecution = sharedPreferences.getLong(ContactsPreferenceActivity.PREFERENCE_CONTACTS_LAST_BACKUP, -1);
+        final Account account = AccountUtils.getOwnCloudAccountByName(context, bundle.getString(ACCOUNT, ""));
+
+        ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProvider(getContext().getContentResolver());
+        Long lastExecution = arbitraryDataProvider.getLongValue(account,
+                ContactsPreferenceActivity.PREFERENCE_CONTACTS_LAST_BACKUP);
 
         if (force || (lastExecution + 24 * 60 * 60 * 1000) < Calendar.getInstance().getTimeInMillis()) {
             Log_OC.d(TAG, "start contacts backup job");
 
-            final Account account = AccountUtils.getOwnCloudAccountByName(context, bundle.getString(ACCOUNT, ""));
             String backupFolder = getContext().getResources().getString(R.string.contacts_backup_folder) +
                     OCFile.PATH_SEPARATOR;
             Integer daysToExpire = getContext().getResources().getInteger(R.integer.contacts_backup_expire);
@@ -96,9 +97,9 @@ public class ContactsBackupJob extends Job {
                     OperationsService.BIND_AUTO_CREATE);
 
             // store execution date
-            sharedPreferences.edit().putLong(ContactsPreferenceActivity.PREFERENCE_CONTACTS_LAST_BACKUP,
-                    Calendar.getInstance().getTimeInMillis()).apply();
-
+            arbitraryDataProvider.storeOrUpdateKeyValue(account,
+                    ContactsPreferenceActivity.PREFERENCE_CONTACTS_LAST_BACKUP,
+                    String.valueOf(Calendar.getInstance().getTimeInMillis()));
         } else {
             Log_OC.d(TAG, "last execution less than 24h ago");
         }
@@ -172,7 +173,9 @@ public class ContactsBackupJob extends Job {
             cal.add(Calendar.DAY_OF_YEAR, -daysToExpire);
             Long timestampToExpire = cal.getTimeInMillis();
 
-            Log_OC.d(TAG, "expire: " + daysToExpire + " " + backupFolder.getFileName());
+            if (backupFolder != null) {
+                Log_OC.d(TAG, "expire: " + daysToExpire + " " + backupFolder.getFileName());
+            }
 
             Vector<OCFile> backups = storageManager.getFolderContent(backupFolder, false);
 

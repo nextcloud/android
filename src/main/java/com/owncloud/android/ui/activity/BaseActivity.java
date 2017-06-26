@@ -222,7 +222,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         boolean mMandatoryCreation;
 
         /**
-         * Constuctor
+         * Constructor
          *
          * @param mandatoryCreation     When 'true', if an account was not created, the app is closed.
          */

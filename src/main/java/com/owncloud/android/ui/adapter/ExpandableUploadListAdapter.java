@@ -67,11 +67,14 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 public class ExpandableUploadListAdapter extends BaseExpandableListAdapter implements Observer {
 
     private static final String TAG = ExpandableUploadListAdapter.class.getSimpleName();
+
+    public ProgressListener mProgressListener;
+
     private FileActivity mParentActivity;
 
     private UploadsStorageManager mUploadsStorageManager;
 
-    public ProgressListener mProgressListener;
+    private UploadGroup[] mUploadGroups = null;
 
     interface Refresh {
         public void refresh();
@@ -140,8 +143,6 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
 
         abstract public int getGroupIcon();
     }
-
-    private UploadGroup[] mUploadGroups = null;
 
     public ExpandableUploadListAdapter(FileActivity parentActivity) {
         Log_OC.d(TAG, "ExpandableUploadListAdapter");
@@ -513,6 +514,7 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
      * @return              Text describing the status of the given upload.
      */
     private String getStatusText(OCUpload upload) {
+
         String status;
         switch (upload.getUploadStatus()) {
 
@@ -594,6 +596,9 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
                     case UPLOADED:
                         // should not get here ; status should be UPLOAD_SUCCESS
                         status =  mParentActivity.getString(R.string.uploads_view_upload_status_succeeded);
+                        break;
+                    case MAINTENANCE_MODE:
+                        status = mParentActivity.getString(R.string.maintenance_mode);
                         break;
                     default:
                         status = "Naughty devs added a new fail result but no description for the user";

@@ -126,7 +126,6 @@
   <string name="ssl_validator_not_saved">Klarte ikkje å lagra sertifikatet</string>
   <string name="ssl_validator_btn_details_see">Detaljar</string>
   <string name="activity_chooser_send_file_title">Send</string>
-  <string name="empty"></string>
   <string name="prefs_category_accounts">Kontoar</string>
   <string name="actionbar_logger">Loggar</string>
   <string name="saml_authentication_wrong_pass">Feil passord</string>

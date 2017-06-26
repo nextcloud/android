@@ -38,11 +38,15 @@ import android.graphics.drawable.PictureDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.support.annotation.ColorInt;
+import android.support.annotation.ColorRes;
+import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.content.res.ResourcesCompat;
+import android.support.v4.graphics.drawable.DrawableCompat;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.format.DateUtils;
@@ -63,6 +67,7 @@ import com.bumptech.glide.request.target.SimpleTarget;
 import com.caverock.androidsvg.SVG;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
+import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
@@ -81,7 +86,10 @@ import com.owncloud.android.utils.svg.SvgDrawableTranscoder;
 import org.greenrobot.eventbus.EventBus;
 import org.parceler.Parcels;
 
+import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.math.BigDecimal;
 import java.net.IDN;
 import java.text.DateFormat;
@@ -536,10 +544,14 @@ public class DisplayUtils {
 
     public static void downloadIcon(Context context, String iconUrl, SimpleTarget imageView, int placeholder,
                                     int width, int height) {
-        if (iconUrl.endsWith(".svg")) {
-            downloadSVGIcon(context, iconUrl, imageView, placeholder, width, height);
-        } else {
-            downloadPNGIcon(context, iconUrl, imageView, placeholder);
+        try {
+            if (iconUrl.endsWith(".svg")) {
+                downloadSVGIcon(context, iconUrl, imageView, placeholder, width, height);
+            } else {
+                downloadPNGIcon(context, iconUrl, imageView, placeholder);
+            }
+        } catch (Exception e) {
+            Log_OC.d(TAG, "not setting image as activity is destroyed");
         }
     }
 
@@ -580,6 +592,14 @@ public class DisplayUtils {
                                       int checkedMenuItem) {
 
         Menu menu = view.getMenu();
+
+        Account account = AccountUtils.getCurrentOwnCloudAccount(MainApp.getAppContext());
+        boolean searchSupported = AccountUtils.hasSearchSupport(account);
+
+        if (!searchSupported) {
+            menu.removeItem(R.id.nav_bar_favorites);
+            menu.removeItem(R.id.nav_bar_photos);
+        }
 
         if (resources.getBoolean(R.bool.use_home)) {
             menu.findItem(R.id.nav_bar_files).setTitle(resources.
@@ -647,4 +667,34 @@ public class DisplayUtils {
             activity.startActivity(recentlyAddedIntent);
         }
     }
+
+
+    /**
+     * Get String data from a InputStream
+     *
+     * @param inputStream        The File InputStream
+     */
+    public static String getData(InputStream inputStream){
+
+        BufferedReader buffreader = new BufferedReader(new InputStreamReader(inputStream));
+        String line;
+        StringBuilder text = new StringBuilder();
+        try {
+            while (( line = buffreader.readLine()) != null) {
+                text.append(line);
+                text.append('\n');
+            }
+        } catch (IOException e) {
+            Log_OC.e(TAG,e.getMessage());
+        }
+        return text.toString();
+    }
+
+    public static Drawable tintDrawable(@DrawableRes int id, @ColorRes int color) {
+        Drawable drawable = ResourcesCompat.getDrawable(MainApp.getAppContext().getResources(), id, null);
+        drawable = DrawableCompat.wrap(drawable);
+        DrawableCompat.setTint(drawable, MainApp.getAppContext().getResources().getColor(color));
+        return drawable;
+    }
+
 }

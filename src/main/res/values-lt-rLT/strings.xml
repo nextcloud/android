@@ -256,7 +256,6 @@
     <string name="network_error_socket_timeout_exception">Klaida prisijungiant prie serverio, operacija neįvykdyta</string>
     <string name="network_error_connect_timeout_exception">Klaida prisijungiant prie serverio, operacija neįvykdyta</string>
     <string name="network_host_not_available">Serveris nepasiekiamas, operacija negali būti atlikta</string>
-    <string name="empty" />
 
     <string name="forbidden_permissions">Neturite leidimo %s</string>
     <string name="forbidden_permissions_rename">pervadinti failo</string>

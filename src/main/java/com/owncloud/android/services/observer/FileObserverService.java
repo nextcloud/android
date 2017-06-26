@@ -177,7 +177,7 @@ public class FileObserverService extends Service {
                     (Account) intent.getParcelableExtra(ARG_ACCOUNT));
 
         } else {
-            Log_OC.e(TAG, "Unknown action recieved; ignoring it: " + intent.getAction());
+            Log_OC.e(TAG, "Unknown action received; ignoring it: " + intent.getAction());
         }
 
         return Service.START_STICKY;

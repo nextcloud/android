@@ -118,10 +118,9 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+        super.onActivityCreated(savedInstanceState);
         setHasOptionsMenu(true);
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -241,6 +240,13 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
             item.setEnabled(false);
         }
 
+        // additional restriction for this fragment
+        item = menu.findItem(R.id.action_search);
+        if (item != null) {
+            item.setVisible(false);
+            item.setEnabled(false);
+        }
+
 
         Boolean dualPane = getResources().getBoolean(R.bool.large_land_layout);
 
@@ -301,7 +307,8 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
                 // Obtain the file
                 if (!getFile().isDown()) {  // Download the file                    
                     Log_OC.d(TAG, getFile().getRemotePath() + " : File must be downloaded");
-                    ((FileDisplayActivity) mContainerActivity).startDownloadForSending(getFile());
+                    ((FileDisplayActivity) mContainerActivity).startDownloadForSending(getFile(),
+                            OCFileListFragment.DOWNLOAD_SEND);
                 }
                 else {
                     mContainerActivity.getFileOperationsHelper().sendDownloadedFile(getFile());

@@ -283,7 +283,6 @@
     <string name="error_cant_bind_to_operations_service">Критична грешка: не могу да радим</string>
 
     <string name="network_error_socket_exception">Дошло је до грешке при повезивању са сервером.</string>
-    <string name="empty" />
 
     <string name="forbidden_permissions">Немате дозволу %s</string>
     <string name="forbidden_permissions_rename">да преименујете овај фајл</string>

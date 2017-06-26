@@ -1,6 +1,5 @@
 package com.owncloud.android.ui.preview;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -45,7 +44,6 @@ public class ImageViewCustom extends ImageView {
         super(context, attrs, defStyle);
     }
 
-    @SuppressLint("NewApi")
 	@Override
     protected void onDraw(Canvas canvas) {
         if(IS_ICS_OR_HIGHER && checkIfMaximumBitmapExceed(canvas) || IS_VERSION_BUGGY_ON_RECYCLES ) {
@@ -109,10 +107,8 @@ public class ImageViewCustom extends ImageView {
      * @param canvas        Canvas where the view will be drawn into.
      * @return boolean      True means that the bitmap is too big for the canvas.
      */
-    @SuppressLint("NewApi")
 	private boolean checkIfMaximumBitmapExceed(Canvas canvas) {
-        return mBitmapWidth > canvas.getMaximumBitmapWidth()
-                || mBitmapHeight > canvas.getMaximumBitmapHeight();
+        return mBitmapWidth > canvas.getMaximumBitmapWidth() || mBitmapHeight > canvas.getMaximumBitmapHeight();
 
     }
     

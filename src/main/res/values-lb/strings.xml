@@ -242,7 +242,6 @@
     <string name="network_error_socket_timeout_exception">Beim Waarden op de Server ass e Feeler opgetrueden, d\'Operatioun konnt net duerchgeféiert ginn</string>
     <string name="network_error_connect_timeout_exception">Beim Waarden op de Server ass e Feeler opgetrueden, d\'Operatioun konnt net duerchgeféiert ginn</string>
     <string name="network_host_not_available">D\'Operatioun konnt net ofgeschloss ginn, de Server ass net disponibel</string>
-    <string name="empty" />
 
     <string name="forbidden_permissions">Du hues keng Berechtegung %s</string>
     <string name="forbidden_permissions_rename">fir dëse Fichier ëmzebenennen</string>

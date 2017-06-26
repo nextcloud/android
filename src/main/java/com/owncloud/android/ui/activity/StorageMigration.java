@@ -205,13 +205,41 @@ public class StorageMigration {
             if (succeed) {
                 mProgressDialog.hide();
             } else {
-                mProgressDialog.getButton(ProgressDialog.BUTTON_POSITIVE).setVisibility(View.VISIBLE);
-                mProgressDialog.setIndeterminateDrawable(mContext.getResources().getDrawable(R.drawable.image_fail));
+
+                if (code == R.string.file_migration_failed_not_readable) {
+                    mProgressDialog.hide();
+                    askToStillMove();
+                } else {
+                    mProgressDialog.getButton(ProgressDialog.BUTTON_POSITIVE).setVisibility(View.VISIBLE);
+                    mProgressDialog.setIndeterminateDrawable(mContext.getResources().getDrawable(R.drawable.image_fail));
+                }
             }
 
             if (mListener != null) {
                 mListener.onStorageMigrationFinished(succeed ? mStorageTarget : mStorageSource, succeed);
             }
+        }
+
+        private void askToStillMove() {
+            new AlertDialog.Builder(mContext)
+                    .setTitle(R.string.file_migration_source_not_readable_title)
+                    .setMessage(mContext.getString(R.string.file_migration_source_not_readable, mStorageTarget))
+                    .setNegativeButton(R.string.common_no, new OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            dialogInterface.dismiss();
+                        }
+                    })
+                    .setPositiveButton(R.string.common_yes, new OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            if (mListener != null) {
+                                mListener.onStorageMigrationFinished(mStorageTarget, true);
+                            }
+                        }
+                    })
+                    .create()
+                    .show();
         }
 
         protected boolean[] saveAccountsSyncStatus() {
@@ -268,7 +296,6 @@ public class StorageMigration {
         protected Integer doInBackground(Void... voids) {
             publishProgress(R.string.file_migration_preparing);
 
-            Log_OC.stopLogging();
             boolean[] syncStates = null;
             try {
                 publishProgress(R.string.file_migration_saving_accounts_configuration);
@@ -281,7 +308,6 @@ public class StorageMigration {
                 publishProgress(R.string.file_migration_restoring_accounts_configuration);
                 restoreAccountsSyncStatus(syncStates);
             }
-            Log_OC.startLogging(mStorageTarget);
 
             return 0;
         }
@@ -310,7 +336,6 @@ public class StorageMigration {
         @Override
         protected Integer doInBackground(Void... args) {
             publishProgress(R.string.file_migration_preparing);
-            Log_OC.stopLogging();
 
             boolean[] syncState = null;
 
@@ -344,14 +369,12 @@ public class StorageMigration {
 
             } catch (MigrationException e) {
                 rollback();
-                Log_OC.startLogging(mStorageSource);
                 return e.getResId();
             } finally {
                 publishProgress(R.string.file_migration_restoring_accounts_configuration);
                 restoreAccountsSyncStatus(syncState);
             }
 
-            Log_OC.startLogging(mStorageTarget);
             publishProgress(R.string.file_migration_ok_finished);
 
             return 0;

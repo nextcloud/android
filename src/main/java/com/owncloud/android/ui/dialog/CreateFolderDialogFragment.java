@@ -49,6 +49,8 @@ public class CreateFolderDialogFragment
     
     public static final String CREATE_FOLDER_FRAGMENT = "CREATE_FOLDER_FRAGMENT";
 
+    private OCFile mParentFolder;
+
     /**
      * Public factory method to create new CreateFolderDialogFragment instances.
      *
@@ -63,9 +65,6 @@ public class CreateFolderDialogFragment
         return frag;
         
     }
-
-    private OCFile mParentFolder;
-    
     
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {

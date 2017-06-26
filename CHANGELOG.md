@@ -1,3 +1,6 @@
+## 1.4.3 (May 22, 2017)
+- Hotfix: ignore oauth header for now and use basic auth to allow new logins for nc12
+
 ## 1.4.2 (March 14, 2017)
 - Auto Upload for newly taken photos/images (Android 6+)
 - Auto Upload improvements and fixes
@@ -46,7 +49,7 @@
 - Display quota if configured/available in navigation drawer
 - Resume chunked uploads instead of complete restarts
 - Filter remote and local file lists
-- Simple integration with DAVdroid for calender and contacts sync
+- Simple integration with DAVdroid for calendar and contacts sync
 - Mix folders and files on sort by date
 - Upload when charging option
 - Revamp upload options Move/Copy/Just-Upload

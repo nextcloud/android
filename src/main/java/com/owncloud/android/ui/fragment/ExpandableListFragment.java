@@ -82,8 +82,8 @@ public class ExpandableListFragment extends ExtendedListFragment implements OnCh
 
     @Override
     public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
-        // to be @overriden
-        Log_OC.e(TAG, "onChildClick(). This method should be overriden!");
+        // to be @overridden
+        Log_OC.e(TAG, "onChildClick(). This method should be overridden!");
         return false;
     }
 }

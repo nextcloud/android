@@ -72,6 +72,8 @@ public class FileContentProvider extends ContentProvider {
     private static final int UPLOADS = 6;
     private static final int SYNCED_FOLDERS = 7;
     private static final int EXTERNAL_LINKS = 8;
+    private static final int ARBITRARY_DATA = 9;
+    private static final int VIRTUAL = 10;
 
     private static final String TAG = FileContentProvider.class.getSimpleName();
 
@@ -200,6 +202,12 @@ public class FileContentProvider extends ContentProvider {
                 break;
             case EXTERNAL_LINKS:
                 count = db.delete(ProviderTableMeta.EXTERNAL_LINKS_TABLE_NAME, where, whereArgs);
+                break;
+            case ARBITRARY_DATA:
+                count = db.delete(ProviderTableMeta.ARBITRARY_DATA_TABLE_NAME, where, whereArgs);
+                break;
+            case VIRTUAL:
+                count = db.delete(ProviderTableMeta.VIRTUAL_TABLE_NAME, where, whereArgs);
                 break;
             default:
                 //Log_OC.e(TAG, "Unknown uri " + uri);
@@ -335,6 +343,28 @@ public class FileContentProvider extends ContentProvider {
                 }
                 return insertedExternalLinkUri;
 
+            case ARBITRARY_DATA:
+                Uri insertedArbitraryDataUri = null;
+                long arbitraryDataId = db.insert(ProviderTableMeta.ARBITRARY_DATA_TABLE_NAME, null, values);
+                if (arbitraryDataId > 0) {
+                    insertedArbitraryDataUri =
+                            ContentUris.withAppendedId(ProviderTableMeta.CONTENT_URI_ARBITRARY_DATA, arbitraryDataId);
+                } else {
+                    throw new SQLException("ERROR " + uri);
+
+                }
+                return insertedArbitraryDataUri;
+            case VIRTUAL:
+                Uri insertedVirtualUri;
+                long virtualId = db.insert(ProviderTableMeta.VIRTUAL_TABLE_NAME, null, values);
+
+                if (virtualId > 0) {
+                    insertedVirtualUri = ContentUris.withAppendedId(ProviderTableMeta.CONTENT_URI_VIRTUAL, virtualId);
+                } else {
+                    throw new SQLException("ERROR " + uri);
+                }
+
+                return insertedVirtualUri;
             default:
                 throw new IllegalArgumentException("Unknown uri id: " + uri);
         }
@@ -385,6 +415,8 @@ public class FileContentProvider extends ContentProvider {
         mUriMatcher.addURI(authority, "uploads/#", UPLOADS);
         mUriMatcher.addURI(authority, "synced_folders", SYNCED_FOLDERS);
         mUriMatcher.addURI(authority, "external_links", EXTERNAL_LINKS);
+        mUriMatcher.addURI(authority, "arbitrary_data", ARBITRARY_DATA);
+        mUriMatcher.addURI(authority, "virtual", VIRTUAL);
 
         return true;
     }
@@ -473,6 +505,19 @@ public class FileContentProvider extends ContentProvider {
                             + uri.getPathSegments().get(1));
                 }
                 break;
+            case ARBITRARY_DATA:
+                sqlQuery.setTables(ProviderTableMeta.ARBITRARY_DATA_TABLE_NAME);
+                if (uri.getPathSegments().size() > 1) {
+                    sqlQuery.appendWhere(ProviderTableMeta._ID + "="
+                            + uri.getPathSegments().get(1));
+                }
+                break;
+            case VIRTUAL:
+                sqlQuery.setTables(ProviderTableMeta.VIRTUAL_TABLE_NAME);
+                if (uri.getPathSegments().size() > 1) {
+                    sqlQuery.appendWhere(ProviderTableMeta._ID + "=" + uri.getPathSegments().get(1));
+                }
+                break;
             default:
                 throw new IllegalArgumentException("Unknown uri id: " + uri);
         }
@@ -494,6 +539,12 @@ public class FileContentProvider extends ContentProvider {
                     break;
                 case EXTERNAL_LINKS:
                     order = ProviderTableMeta.EXTERNAL_LINKS_NAME;
+                    break;
+                case ARBITRARY_DATA:
+                    order = ProviderTableMeta.ARBITRARY_DATA_CLOUD_ID;
+                    break;
+                case VIRTUAL:
+                    order = ProviderTableMeta.VIRTUAL_TYPE;
                     break;
                 default: // Files
                     order = ProviderTableMeta.FILE_DEFAULT_SORT_ORDER;
@@ -538,25 +589,19 @@ public class FileContentProvider extends ContentProvider {
             case DIRECTORY:
                 return 0; //updateFolderSize(db, selectionArgs[0]);
             case SHARES:
-                return db.update(
-                        ProviderTableMeta.OCSHARES_TABLE_NAME, values, selection, selectionArgs
-                );
+                return db.update(ProviderTableMeta.OCSHARES_TABLE_NAME, values, selection, selectionArgs);
             case CAPABILITIES:
-                return db.update(
-                        ProviderTableMeta.CAPABILITIES_TABLE_NAME, values, selection, selectionArgs
-                );
+                return db.update(ProviderTableMeta.CAPABILITIES_TABLE_NAME, values, selection, selectionArgs);
             case UPLOADS:
-                int ret = db.update(
-                        ProviderTableMeta.UPLOADS_TABLE_NAME, values, selection, selectionArgs
-                );
+                int ret = db.update(ProviderTableMeta.UPLOADS_TABLE_NAME, values, selection, selectionArgs);
                 trimSuccessfulUploads(db);
                 return ret;
             case SYNCED_FOLDERS:
                 return db.update(ProviderTableMeta.SYNCED_FOLDERS_TABLE_NAME, values, selection, selectionArgs);
+            case ARBITRARY_DATA:
+                return db.update(ProviderTableMeta.ARBITRARY_DATA_TABLE_NAME, values, selection, selectionArgs);
             default:
-                return db.update(
-                        ProviderTableMeta.FILE_TABLE_NAME, values, selection, selectionArgs
-                );
+                return db.update(ProviderTableMeta.FILE_TABLE_NAME, values, selection, selectionArgs);
         }
     }
 
@@ -611,6 +656,12 @@ public class FileContentProvider extends ContentProvider {
 
             // Create external links table
             createExternalLinksTable(db);
+
+            // Create arbitrary data table
+            createArbitraryData(db);
+
+            // Create virtual table
+            createVirtualTable(db);
         }
 
         @Override
@@ -857,7 +908,7 @@ public class FileContentProvider extends ContentProvider {
             }
 
             if (oldVersion < 16 && newVersion >= 16) {
-                Log_OC.i("SQL", "Entering in the #16 ADD synced folders table");
+                Log_OC.i(SQL, "Entering in the #16 ADD synced folders table");
                 db.beginTransaction();
                 try {
                     // Create synced folders table
@@ -874,7 +925,7 @@ public class FileContentProvider extends ContentProvider {
             }
 
             if (oldVersion < 17 && newVersion >= 17) {
-                Log_OC.i(SQL, "Entering in the #4 ADD in onUpgrade");
+                Log_OC.i(SQL, "Entering in the #17 ADD in onUpgrade");
                 db.beginTransaction();
                 try {
                     db.execSQL(ALTER_TABLE + ProviderTableMeta.FILE_TABLE_NAME +
@@ -894,7 +945,7 @@ public class FileContentProvider extends ContentProvider {
             }
 
             if (oldVersion < 18 && newVersion >= 18) {
-                Log_OC.i(SQL, "Adding external link column to capabilities");
+                Log_OC.i(SQL, "Entering in the #18 Adding external link column to capabilities");
                 db.beginTransaction();
                 try {
                     db.execSQL(ALTER_TABLE + ProviderTableMeta.CAPABILITIES_TABLE_NAME +
@@ -913,10 +964,42 @@ public class FileContentProvider extends ContentProvider {
             }
 
             if (oldVersion < 19 && newVersion >= 19) {
-                Log_OC.i(SQL, "Adding external link column to capabilities");
+                Log_OC.i(SQL, "Entering in the #19 Adding external link column to capabilities");
                 db.beginTransaction();
                 try {
                     createExternalLinksTable(db);
+                    upgraded = true;
+                    db.setTransactionSuccessful();
+                } finally {
+                    db.endTransaction();
+                }
+            }
+
+            if (!upgraded) {
+                Log_OC.i(SQL, String.format(Locale.ENGLISH, UPGRADE_VERSION_MSG, oldVersion, newVersion));
+            }
+
+            if (oldVersion < 20 && newVersion >= 20) {
+                Log_OC.i(SQL, "Entering in the #20 Adding arbitrary data table");
+                db.beginTransaction();
+                try {
+                    createArbitraryData(db);
+                    upgraded = true;
+                    db.setTransactionSuccessful();
+                } finally {
+                    db.endTransaction();
+                }
+            }
+
+            if (!upgraded) {
+                Log_OC.i(SQL, String.format(Locale.ENGLISH, UPGRADE_VERSION_MSG, oldVersion, newVersion));
+            }
+
+            if (oldVersion < 21 && newVersion >= 21) {
+                Log_OC.i(SQL, "Entering in the #21 Adding virtual table");
+                db.beginTransaction();
+                try {
+                    createVirtualTable(db);
                     upgraded = true;
                     db.setTransactionSuccessful();
                 } finally {
@@ -1007,7 +1090,7 @@ public class FileContentProvider extends ContentProvider {
                 + ProviderTableMeta.CAPABILITIES_FILES_UNDELETE + INTEGER  // boolean
                 + ProviderTableMeta.CAPABILITIES_FILES_VERSIONING + INTEGER   // boolean
                 + ProviderTableMeta.CAPABILITIES_FILES_DROP + INTEGER  // boolean
-                + ProviderTableMeta.CAPABILITIES_EXTERNAL_LINKS + " INTEGER );" );   // boolean
+                + ProviderTableMeta.CAPABILITIES_EXTERNAL_LINKS + " INTEGER );");   // boolean
     }
 
     private void createUploadsTable(SQLiteDatabase db) {
@@ -1064,6 +1147,23 @@ public class FileContentProvider extends ContentProvider {
         );
     }
 
+    private void createArbitraryData(SQLiteDatabase db) {
+        db.execSQL("CREATE TABLE " + ProviderTableMeta.ARBITRARY_DATA_TABLE_NAME + "("
+                + ProviderTableMeta._ID + " INTEGER PRIMARY KEY, "      // id
+                + ProviderTableMeta.ARBITRARY_DATA_CLOUD_ID + " TEXT, " // cloud id (account name + FQDN)
+                + ProviderTableMeta.ARBITRARY_DATA_KEY + " TEXT, "      // key
+                + ProviderTableMeta.ARBITRARY_DATA_VALUE + " TEXT) "    // value
+        );
+    }
+
+    private void createVirtualTable(SQLiteDatabase db) {
+        db.execSQL("CREATE TABLE " + ProviderTableMeta.VIRTUAL_TABLE_NAME + "("
+                + ProviderTableMeta._ID + " INTEGER PRIMARY KEY, "          // id
+                + ProviderTableMeta.VIRTUAL_TYPE + " TEXT, "                // type
+                + ProviderTableMeta.VIRTUAL_OCFILE_ID + " INTEGER )"        // file id
+        );
+    }
+
     /**
      * Version 10 of database does not modify its scheme. It coincides with the upgrade of the ownCloud account names
      * structure to include in it the path to the server instance. Updating the account names and path to local files
@@ -1071,7 +1171,7 @@ public class FileContentProvider extends ContentProvider {
      *
      * See {@link com.owncloud.android.authentication.AccountUtils#updateAccountVersion(android.content.Context)}
      *
-     * @param db        Database where table of files is included.
+     * @param db Database where table of files is included.
      */
     private void updateAccountName(SQLiteDatabase db) {
         Log_OC.d(SQL, "THREAD:  " + Thread.currentThread().getName());
@@ -1082,7 +1182,11 @@ public class FileContentProvider extends ContentProvider {
             // AccountManager are not synchronous
             Account[] accounts = AccountManager.get(getContext()).getAccountsByType(
                     MainApp.getAccountType());
-            String serverUrl, username, oldAccountName, newAccountName;
+            String serverUrl;
+            String username;
+            String oldAccountName;
+            String newAccountName;
+
             for (Account account : accounts) {
                 // build both old and new account name
                 serverUrl = ama.getUserData(account, AccountUtils.Constants.KEY_OC_BASE_URL);
@@ -1124,9 +1228,9 @@ public class FileContentProvider extends ContentProvider {
      * Rename the local ownCloud folder of one account to match the a rename of the account itself. Updates the
      * table of files in database so that the paths to the local files keep being the same.
      *
-     * @param db                    Database where table of files is included.
-     * @param newAccountName        New name for the target OC account.
-     * @param oldAccountName        Old name of the target OC account.
+     * @param db             Database where table of files is included.
+     * @param newAccountName New name for the target OC account.
+     * @param oldAccountName Old name of the target OC account.
      */
     private void updateDownloadedFiles(SQLiteDatabase db, String newAccountName,
                                        String oldAccountName) {

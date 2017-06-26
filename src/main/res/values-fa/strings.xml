@@ -227,7 +227,6 @@
   <string name="copy_link">کپی کردن لینک</string>
   <string name="clipboard_text_copied">کپی به کلیپ بورد</string>
   <string name="network_host_not_available">تکمیل عملیات امکانپذیر نمی باشد، سرور در دسترس نمی باشد</string>
-  <string name="empty"></string>
   <string name="forbidden_permissions">شما دسترسی %s را ندارید</string>
   <string name="forbidden_permissions_rename">برای تغییر نام این فایل</string>
   <string name="forbidden_permissions_delete">برای حذف این فایل</string>

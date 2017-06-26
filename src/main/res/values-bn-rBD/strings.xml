@@ -205,7 +205,6 @@
   <string name="network_error_socket_timeout_exception">সার্ভারের জন্য অপেক্ষা করার সময় একটি ভ্রান্তি ঘটলো, কাজটি করা যেতনা</string>
   <string name="network_error_connect_timeout_exception">সার্ভারের জন্য অপেক্ষা করার সময় একটি ভ্রান্তি ঘটলো, কাজটি করা যেতনা</string>
   <string name="network_host_not_available">কাজটি সম্পন্ন করা গেলনা, সার্ভার সংযোগ পাওয়া যাচ্ছেনা</string>
-  <string name="empty"></string>
   <string name="forbidden_permissions">আপনার %s অনুমতি নেই </string>
   <string name="forbidden_permissions_rename">ফাইলটি পূনঃনামকরণ করতে</string>
   <string name="forbidden_permissions_delete">ফাইলটি মুছে ফেলতে</string>

@@ -67,7 +67,6 @@
   <string name="placeholder_media_time">12:23:45</string>
   <string name="activity_chooser_send_file_title">發送</string>
   <string name="copy_link">複製連結</string>
-  <string name="empty"></string>
   <string name="prefs_category_accounts">帳號</string>
   <string name="saml_authentication_wrong_pass">密碼錯誤</string>
   <string name="auth_host_address">伺服器地址</string>

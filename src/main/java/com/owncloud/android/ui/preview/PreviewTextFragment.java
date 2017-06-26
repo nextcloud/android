@@ -202,6 +202,7 @@ public class PreviewTextFragment extends FileFragment {
 
         @Override
         protected void onPreExecute() {
+            // not used at the moment
         }
 
         @Override

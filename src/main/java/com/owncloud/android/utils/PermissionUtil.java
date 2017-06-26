@@ -52,36 +52,4 @@ public class PermissionUtil {
                 new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
                 PERMISSIONS_WRITE_EXTERNAL_STORAGE);
     }
-
-    /**
-     * request the read permission for contacts
-     *
-     * @param activity The target activity.
-     */
-    public static void requestReadContactPermission(Activity activity, int permission) {
-        ActivityCompat.requestPermissions(activity,
-                new String[]{Manifest.permission.READ_CONTACTS},
-                permission);
-    }
-
-    /**
-     * request the write permission for contacts
-     *
-     * @param activity The target activity.
-     */
-    public static void requestWriteContactPermission(Activity activity) {
-        ActivityCompat.requestPermissions(activity,
-                new String[]{Manifest.permission.WRITE_CONTACTS},
-                PERMISSIONS_WRITE_CONTACTS);
-    }
-
-    /**
-     * request the write permission for contacts
-     *
-     * @param fragment The target fragment.
-     */
-    public static void requestWriteContactPermission(android.support.v4.app.Fragment fragment) {
-        fragment.requestPermissions(new String[]{Manifest.permission.WRITE_CONTACTS},
-                PERMISSIONS_WRITE_CONTACTS);
-    }
 }

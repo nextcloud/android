@@ -256,7 +256,6 @@ En rason d\'aquesta modificacion, totes los fichièrs mandats amb de versions an
   <string name="network_error_socket_timeout_exception">Una error s\'es produsida pendent l\'espèra del servidor. L\'operacion a pas pogut èsser efectuada</string>
   <string name="network_error_connect_timeout_exception">Una error s\'es produsida pendent l\'espèra del servidor. L\'operacion a pas pogut èsser efectuada</string>
   <string name="network_host_not_available">L\'operacion a pas pogut èsser acabada, lo servidor es pas disponible</string>
-  <string name="empty"></string>
   <string name="forbidden_permissions">Avètz pas la permission %s</string>
   <string name="forbidden_permissions_rename">de renomenar aqueste fichièr</string>
   <string name="forbidden_permissions_delete">d’escafar aqueste fichièr</string>

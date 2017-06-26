@@ -20,6 +20,7 @@
  */
 package com.owncloud.android.datamodel;
 
+import android.accounts.Account;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
@@ -413,6 +414,15 @@ public class UploadsStorageManager extends Observable {
         return list;
     }
 
+    public void cancelPendingAutoUploadJobsForAccount(Account account) {
+        JobManager jobManager = JobManager.create(mContext);
+        for (JobRequest ji: jobManager.getAllJobRequestsForTag(AutoUploadJob.TAG)) {
+            if (ji.getExtras().getString(AutoUploadJob.ACCOUNT, "").equalsIgnoreCase(account.name)) {
+                jobManager.cancel(ji.getJobId());
+            }
+        }
+    }
+
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     public void cancelPendingJob(String accountName, String remotePath){
         JobManager jobManager = JobManager.create(mContext);
@@ -593,6 +603,14 @@ public class UploadsStorageManager extends Observable {
             notifyObserversNow();
         }
         return result;
+    }
+
+    public int removeAccountUploads(Account account) {
+        Log_OC.v(TAG, "Delete all uploads for account " + account.name);
+        return getDB().delete(
+                ProviderTableMeta.CONTENT_URI_UPLOADS,
+                ProviderTableMeta.UPLOADS_ACCOUNT_NAME + "=?",
+                new String[]{account.name});
     }
 
 }

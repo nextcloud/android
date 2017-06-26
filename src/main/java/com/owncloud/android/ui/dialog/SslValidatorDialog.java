@@ -82,7 +82,6 @@ public class SslValidatorDialog extends Dialog {
      * Instances have to be created through static {@link SslValidatorDialog#newInstance}.
      * 
      * @param context       Android context where the dialog will live
-     * @param e             Exception causing the need of prompt the user about the server certificate.
      * @param listener      Object to notice when the server certificate was added to the local certificates store.
      */
     private SslValidatorDialog(Context context, OnSslValidatorListener listener) {

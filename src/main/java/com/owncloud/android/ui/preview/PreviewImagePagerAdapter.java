@@ -27,6 +27,7 @@ import android.view.ViewGroup;
 
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.datamodel.VirtualFolderType;
 import com.owncloud.android.ui.fragment.FileFragment;
 import com.owncloud.android.utils.FileStorageUtils;
 
@@ -87,7 +88,44 @@ public class PreviewImagePagerAdapter extends FragmentStatePagerAdapter {
         //mFragmentManager = fragmentManager;
         mCachedFragments = new HashMap<Integer, FileFragment>();
     }
-    
+
+    /**
+     * Constructor.
+     *
+     * @param fragmentManager {@link FragmentManager} instance that will handle
+     *                        the {@link Fragment}s provided by the adapter.
+     * @param type            Type of virtual folder, e.g. favorite or photos
+     * @param storageManager  Bridge to database.
+     */
+    public PreviewImagePagerAdapter(FragmentManager fragmentManager, VirtualFolderType type,
+                                    Account account, FileDataStorageManager storageManager) {
+        super(fragmentManager);
+
+        if (fragmentManager == null) {
+            throw new IllegalArgumentException("NULL FragmentManager instance");
+        }
+        if (type == null) {
+            throw new IllegalArgumentException("NULL parent folder");
+        }
+        if (storageManager == null) {
+            throw new IllegalArgumentException("NULL storage manager");
+        }
+
+        mAccount = account;
+        mStorageManager = storageManager;
+        mImageFiles = mStorageManager.getVirtualFolderContent(type, true);
+
+        if (type == VirtualFolderType.PHOTOS) {
+            mImageFiles = FileStorageUtils.sortOcFolderDescDateModified(mImageFiles);
+        }
+
+        mObsoleteFragments = new HashSet<Object>();
+        mObsoletePositions = new HashSet<Integer>();
+        mDownloadErrors = new HashSet<Integer>();
+        //mFragmentManager = fragmentManager;
+        mCachedFragments = new HashMap<Integer, FileFragment>();
+    }
+
     /**
      * Returns the image files handled by the adapter.
      * 
@@ -195,7 +233,7 @@ public class PreviewImagePagerAdapter extends FragmentStatePagerAdapter {
     public void resetZoom() {
         Iterator<FileFragment> entries = mCachedFragments.values().iterator();
         while (entries.hasNext()) {
-        FileFragment fileFragment = (FileFragment) entries.next();
+        FileFragment fileFragment = entries.next();
             if (fileFragment instanceof PreviewImageFragment) {
                 ((PreviewImageFragment) fileFragment).getImageView().resetZoom();
             }

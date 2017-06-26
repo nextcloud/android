@@ -27,65 +27,65 @@
         android:checkableBehavior="single">
         <item
             android:id="@+id/nav_all_files"
-            android:icon="@drawable/ic_folder_open"
+            android:icon="@drawable/nav_all_files"
             android:orderInCategory="0"
             android:title="@string/drawer_item_all_files"/>
         <item
             android:id="@+id/nav_activity"
-            android:icon="@drawable/ic_activity"
+            android:icon="@drawable/nav_activity"
             android:title="@string/drawer_item_activities"/>
         <item
             android:id="@+id/nav_favorites"
-            android:icon="@drawable/ic_star"
+            android:icon="@drawable/nav_favorites"
             android:orderInCategory="0"
             android:title="@string/drawer_item_favorites"/>
         <item
             android:id="@+id/nav_photos"
-            android:icon="@drawable/file_image"
+            android:icon="@drawable/nav_photos"
             android:title="@string/drawer_item_photos"
             android:visible="false"/>
         <item
             android:id="@+id/nav_videos"
-            android:icon="@drawable/file_movie"
+            android:icon="@drawable/nav_videos"
             android:orderInCategory="0"
             android:title="@string/drawer_item_videos"
             android:visible="false"/>
         <item
             android:id="@+id/nav_shared"
             android:orderInCategory="0"
-            android:icon="@drawable/ic_shared"
+            android:icon="@drawable/nav_shared"
             android:title="@string/drawer_item_shared"
             android:visible="false"/>
         <item
             android:id="@+id/nav_on_device"
-            android:icon="@drawable/ic_action_available_offline"
+            android:icon="@drawable/nav_on_device"
             android:orderInCategory="0"
             android:title="@string/drawer_item_on_device"/>
         <item
             android:id="@+id/nav_recently_added"
-            android:icon="@drawable/ic_recent"
+            android:icon="@drawable/nav_recently"
             android:orderInCategory="0"
             android:title="@string/drawer_item_recently_added"
             android:visible="false"/>
         <item
             android:id="@+id/nav_recently_modified"
-            android:icon="@drawable/ic_recent"
+            android:icon="@drawable/nav_recently"
             android:orderInCategory="0"
             android:title="@string/drawer_item_recently_modified"
             android:visible="false"/>
         <item
             android:orderInCategory="0"
             android:id="@+id/nav_notifications"
-            android:icon="@drawable/ic_notification"
+            android:icon="@drawable/nav_notifications"
             android:title="@string/drawer_item_notifications"/>
         <item
             android:orderInCategory="0"
             android:id="@+id/nav_folder_sync"
-            android:icon="@drawable/ic_cloud_upload"
+            android:icon="@drawable/nav_folder_sync"
             android:title="@string/drawer_folder_sync"/>
         <item
             android:id="@+id/nav_uploads"
-            android:icon="@drawable/ic_uploads"
+            android:icon="@drawable/nav_uploads"
             android:orderInCategory="2"
             android:title="@string/drawer_item_uploads_list"/>
     </group>
@@ -124,22 +124,22 @@
         android:checkableBehavior="single">
         <item
             android:id="@+id/nav_contacts"
-            android:icon="@drawable/ic_user"
+            android:icon="@drawable/nav_contacts"
             android:orderInCategory="3"
             android:title="@string/actionbar_contacts"/>
         <item
             android:id="@+id/nav_settings"
-            android:icon="@drawable/ic_settings"
+            android:icon="@drawable/nav_settings"
             android:orderInCategory="4"
             android:title="@string/actionbar_settings"/>
         <item
             android:id="@+id/nav_participate"
-            android:icon="@drawable/ic_participate"
+            android:icon="@drawable/nav_participate"
             android:orderInCategory="4"
             android:title="@string/drawer_participate"/>
         <item
             android:id="@+id/nav_logout"
-            android:icon="@drawable/logout"
+            android:icon="@drawable/nav_logout"
             android:orderInCategory="4"
             android:title="@string/drawer_logout"/>
     </group>
