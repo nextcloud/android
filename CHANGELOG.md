@@ -1,3 +1,18 @@
+## 2017-06-27 00:31
+- Prevent NPE when disabling \ (nextcloud/autoUploadWithoutStoragePermission) [https://github.com/nextcloud/android/pull/1140] added
+- Auto upload rotation bug (nextcloud/autoUploadRotationBug) [https://github.com/nextcloud/android/pull/1138] added
+- Opens share by clicking icon in file listing (nextcloud/shareDialog) [https://github.com/nextcloud/android/pull/1135] added
+- Fix settings on android 4.x (nextcloud/settingsOn4x) [https://github.com/nextcloud/android/pull/1133] added
+- 1089 sharing with password rule (nextcloud/1089_sharing_with_password_rule) [https://github.com/nextcloud/android/pull/1110] added
+- Enhance UI\ (nextcloud/contactsBackupUI) [https://github.com/nextcloud/android/pull/1027] added
+
+- Prevent NPE when disabling \ (nextcloud/autoUploadWithoutStoragePermission) [https://github.com/nextcloud/android/pull/1140] updated
+- Auto upload rotation bug (nextcloud/autoUploadRotationBug) [https://github.com/nextcloud/android/pull/1138] updated
+- Opens share by clicking icon in file listing (nextcloud/shareDialog) [https://github.com/nextcloud/android/pull/1135] updated
+- Fix settings on android 4.x (nextcloud/settingsOn4x) [https://github.com/nextcloud/android/pull/1133] updated
+- 1089 sharing with password rule (nextcloud/1089_sharing_with_password_rule) [https://github.com/nextcloud/android/pull/1110] updated
+- Enhance UI\ (nextcloud/contactsBackupUI) [https://github.com/nextcloud/android/pull/1027] updated
+
 ## 2017-06-26 00:31
 no new branches added
 

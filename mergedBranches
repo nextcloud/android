@@ -1,5 +1,9 @@
 Flole998/master
+nextcloud/1089_sharing_with_password_rule
 nextcloud/audioRotationBug
+nextcloud/autoUploadRotationBug
+nextcloud/autoUploadWithoutStoragePermission
+nextcloud/contactsBackupUI
 nextcloud/crashDueToEmptyString
 nextcloud/deleteFilesOnAccountRemoval
 nextcloud/dev
@@ -9,4 +13,6 @@ nextcloud/master
 nextcloud/pinchZoom
 nextcloud/removedSDcard
 nextcloud/searchViewWrongFiles
+nextcloud/settingsOn4x
+nextcloud/shareDialog
 nextcloud/transactionTooLarge
