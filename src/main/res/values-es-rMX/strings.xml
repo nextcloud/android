@@ -386,7 +386,7 @@ en los últimos 7 días. </string>
 
     <string name="error_cant_bind_to_operations_service">Error crítico: No se pueden realizar operaciones</string>
 
-    <string name="network_error_socket_exception">Se presentó un error durante la conexión alel servidor.</string>
+    <string name="network_error_socket_exception">Se presentó un error durante la conexión al servidor.</string>
     <string name="network_error_socket_timeout_exception">Se presentó un error al esperar respuesta del servidor. La operación no pudo ser completada.</string>
     <string name="network_error_connect_timeout_exception">Se presentó un error al esperar respuesta del servidor La operación no pudo ser completada.</string>
     <string name="network_host_not_available">La operación no pudo ser completada. El servidor no está disponible</string>
