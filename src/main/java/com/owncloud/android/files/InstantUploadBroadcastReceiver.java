@@ -105,12 +105,14 @@ public class InstantUploadBroadcastReceiver extends BroadcastReceiver {
         String[] CONTENT_PROJECTION = {
                 Images.Media.DATA, Images.Media.DISPLAY_NAME, Images.Media.MIME_TYPE, Images.Media.SIZE};
 
-        int permissionCheck = ContextCompat.checkSelfPermission(context,
-                Manifest.permission.READ_EXTERNAL_STORAGE);
+        // if < Jelly Bean permission must be accepted during installation
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN) {
+            int permissionCheck = ContextCompat.checkSelfPermission(context, Manifest.permission.READ_EXTERNAL_STORAGE);
 
-        if (android.content.pm.PackageManager.PERMISSION_GRANTED != permissionCheck) {
-            Log_OC.w(TAG, "Read external storage permission isn't granted, aborting");
-            return;
+            if (android.content.pm.PackageManager.PERMISSION_GRANTED != permissionCheck) {
+                Log_OC.w(TAG, "Read external storage permission isn't granted, aborting");
+                return;
+            }
         }
 
         c = context.getContentResolver().query(intent.getData(), CONTENT_PROJECTION, null, null, null);
