@@ -1,3 +1,10 @@
+## 2017-06-28 00:32
+no new branches added
+
+- Dev branch (nextcloud/dev) [https://github.com/nextcloud/android/tree/dev] updated
+- Fix settings on android 4.x (nextcloud/settingsOn4x) [https://github.com/nextcloud/android/pull/1133] updated
+- 1089 sharing with password rule (nextcloud/1089_sharing_with_password_rule) [https://github.com/nextcloud/android/pull/1110] updated
+
 ## 2017-06-27 00:31
 - Prevent NPE when disabling \ (nextcloud/autoUploadWithoutStoragePermission) [https://github.com/nextcloud/android/pull/1140] added
 - Auto upload rotation bug (nextcloud/autoUploadRotationBug) [https://github.com/nextcloud/android/pull/1138] added
