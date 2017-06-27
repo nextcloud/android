@@ -354,7 +354,7 @@ public class ShareActivity extends FileActivity
                     getCapabilities().getFilesSharingPublicEnabled().isUnknown())           ||
                     result.getCode() == RemoteOperationResult.ResultCode.UNAUTHORIZED)   ) {
                     // Was tried without password, but not sure that it's optional.
-                Toast.makeText(this,"Please enter a valid password",Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, R.string.enter_valid_password, Toast.LENGTH_SHORT).show();
                 // Try with password before giving up; see also ShareFileFragment#OnShareViaLinkListener
                 ShareFileFragment shareFileFragment = getShareFileFragment();
                 if (shareFileFragment != null
