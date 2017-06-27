@@ -155,7 +155,7 @@
     <string name="about_title">About</string>
     <string name="change_password">Change password</string>
     <string name="delete_account">Remove account</string>
-    <string name="delete_account_warning">Delete account %s?\n\nDeleting cannot be undone.</string>
+    <string name="delete_account_warning">Delete account %s with all local files?\n\nDeleting cannot be undone.</string>
     <string name="create_account">Create account</string>
     <string name="upload_chooser_title">Upload from &#8230;</string>
     <string name="uploader_info_dirname">Folder name</string>
@@ -376,6 +376,7 @@
     <string name="update_link_file_error">An error occurred while trying to update the share</string>
     <string name="share_link_password_title">Enter a password</string>
     <string name="share_link_empty_password">You must enter a password</string>
+    <string name="share_link_invalid_password">Password does not meet length requirements</string>
 
     <string name="activity_chooser_send_file_title">Send</string>
 
@@ -647,9 +648,6 @@
     <string name="actionbar_contacts">Back up contacts</string>
     <string name="actionbar_contacts_restore">Restore contacts</string>
     <string name="contacts_backup_button">Back up now</string>
-    <string name="contacts_restore_button">Restore last backup</string>
-    <string name="contacts_header_restore">Restore</string>
-    <string name="contacts_header_backup">Backup</string>
     <string name="contacts_automatic_backup">Automatic backup</string>
     <string name="contacts_last_backup">Last backup</string>
     <string name="contacts_read_permission">Permission to read contact list needed</string>

@@ -29,6 +29,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.graphics.drawable.Drawable;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
@@ -53,9 +54,11 @@ import com.owncloud.android.ui.adapter.AccountListItem;
 import com.owncloud.android.ui.helpers.FileOperationsHelper;
 import com.owncloud.android.utils.AnalyticsUtils;
 import com.owncloud.android.utils.DisplayUtils;
+import com.owncloud.android.utils.FileStorageUtils;
 
 import org.parceler.Parcels;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Set;
 
@@ -356,6 +359,30 @@ public class ManageAccountsActivity extends FileActivity
     private void performAccountRemoval(Account account) {
         AccountManager am = (AccountManager) getSystemService(ACCOUNT_SERVICE);
         am.removeAccount(account, this, this.getHandler());
+
+        deleteAccountFiles(account);
+    }
+
+    private void deleteAccountFiles(final Account account) {
+        AsyncTask removalTask = new AsyncTask() {
+            @Override
+            protected Object doInBackground(Object[] params) {
+                FileDataStorageManager storageManager = new FileDataStorageManager(account, getContentResolver());
+
+                File tempDir = new File(FileStorageUtils.getTemporalPath(account.name));
+                File saveDir = new File(FileStorageUtils.getSavePath(account.name));
+
+                FileStorageUtils.deleteRecursively(tempDir, storageManager);
+                FileStorageUtils.deleteRecursively(saveDir, storageManager);
+
+                // delete all database entries
+                storageManager.deleteAllFiles();
+
+                return true;
+            }
+        };
+
+        removalTask.execute();
     }
 
     /**
