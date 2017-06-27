@@ -1,20 +1,20 @@
-/**
+/*
  * ownCloud Android client application
  *
  * @author masensio
  * @author David A. Velasco
  * @author Juan Carlos González Cabrero
  * Copyright (C) 2015 ownCloud Inc.
- * <p/>
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2,
  * as published by the Free Software Foundation.
- * <p/>
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * <p/>
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -354,7 +354,7 @@ public class ShareActivity extends FileActivity
                     getCapabilities().getFilesSharingPublicEnabled().isUnknown())           ||
                     result.getCode() == RemoteOperationResult.ResultCode.UNAUTHORIZED)   ) {
                     // Was tried without password, but not sure that it's optional.
-                Toast.makeText(this,"Please enter a valid password",Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, R.string.enter_valid_password, Toast.LENGTH_SHORT).show();
                 // Try with password before giving up; see also ShareFileFragment#OnShareViaLinkListener
                 ShareFileFragment shareFileFragment = getShareFileFragment();
                 if (shareFileFragment != null
