@@ -15,4 +15,5 @@ nextcloud/removedSDcard
 nextcloud/searchViewWrongFiles
 nextcloud/settingsOn4x
 nextcloud/shareDialog
+nextcloud/stopAsyncTasks
 nextcloud/transactionTooLarge

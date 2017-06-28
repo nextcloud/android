@@ -1,3 +1,8 @@
+## 2017-06-29 00:31
+- Cancel pending thumbnail tasks (nextcloud/stopAsyncTasks) [https://github.com/nextcloud/android/pull/1149] added
+
+- Cancel pending thumbnail tasks (nextcloud/stopAsyncTasks) [https://github.com/nextcloud/android/pull/1149] updated
+
 ## 2017-06-28 00:32
 no new branches added
 
