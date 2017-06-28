@@ -117,6 +117,7 @@ import com.owncloud.android.utils.AnalyticsUtils;
 import com.owncloud.android.utils.DisplayUtils;
 
 import java.security.cert.X509Certificate;
+import java.util.HashMap;
 import java.util.Map;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
@@ -168,6 +169,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     private static final String KEY_USERNAME = "USERNAME";
     private static final String KEY_PASSWORD = "PASSWORD";
     private static final String KEY_ASYNC_TASK_IN_PROGRESS = "AUTH_IN_PROGRESS";
+    private static final String WEB_LOGIN = "/index.php/login/flow";
     public static final String PROTOCOL_SUFFIX = "://";
     public static final String LOGIN_URL_DATA_KEY_VALUE_SEPARATOR = ":";
     public static final String HTTPS_PROTOCOL = "https://";
@@ -317,17 +319,25 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         } else {
             setContentView(R.layout.account_setup_webview);
             mLoginWebView = (WebView) findViewById(R.id.login_webview);
-            initWebViewLogin();
+            initWebViewLogin(null);
         }
 
         initServerPreFragment(savedInstanceState);
     }
 
-    private void initWebViewLogin() {
+    private void initWebViewLogin(String baseURL) {
         mLoginWebView.getSettings().setAllowFileAccess(false);
         mLoginWebView.getSettings().setJavaScriptEnabled(true);
         mLoginWebView.getSettings().setUserAgentString(MainApp.getUserAgent());
-        mLoginWebView.loadUrl(getResources().getString(R.string.webview_login_url));
+
+        if (baseURL != null && !baseURL.isEmpty()){
+            Map<String, String> headers = new HashMap<>();
+            headers.put(RemoteOperation.OCS_API_HEADER, RemoteOperation.OCS_API_HEADER_VALUE);
+            mLoginWebView.loadUrl(baseURL + WEB_LOGIN, headers);
+        } else {
+            mLoginWebView.loadUrl(getResources().getString(R.string.webview_login_url));
+        }
+
         mLoginWebView.setWebViewClient(new WebViewClient() {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
@@ -1282,6 +1292,12 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             //      3. we got the server version
             //      4. we got the authentication method required by the server 
             mServerInfo = (GetServerInfoOperation.ServerInfo) (result.getData().get(0));
+
+            webViewLoginMethod = mServerInfo.mVersion.isWebLoginSupported();
+
+            setContentView(R.layout.account_setup_webview);
+            mLoginWebView = (WebView) findViewById(R.id.login_webview);
+            initWebViewLogin(mServerInfo.mBaseUrl);
 
             if (webViewLoginMethod) {
                 checkBasicAuthorization(webViewUser, webViewPassword);
