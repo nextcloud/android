@@ -32,6 +32,7 @@ import android.graphics.drawable.PictureDrawable;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Process;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.StringRes;
 import android.support.v4.app.FragmentStatePagerAdapter;
@@ -442,6 +443,9 @@ public class PreviewImageFragment extends FileFragment {
 
         @Override
         protected LoadImage doInBackground(OCFile... params) {
+            Process.setThreadPriority(android.os.Process.THREAD_PRIORITY_BACKGROUND +
+                    android.os.Process.THREAD_PRIORITY_MORE_FAVORABLE);
+
             Bitmap bitmapResult = null;
             Drawable drawableResult = null;
 
