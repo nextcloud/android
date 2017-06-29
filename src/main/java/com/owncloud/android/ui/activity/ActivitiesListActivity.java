@@ -1,4 +1,4 @@
-/**
+/*
  * Nextcloud Android client application
  *
  * @author Andy Scherzinger
@@ -37,10 +37,12 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
+import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.OwnCloudClient;
@@ -49,14 +51,18 @@ import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.activities.GetRemoteActivitiesOperation;
+import com.owncloud.android.lib.resources.activities.models.Activity;
 import com.owncloud.android.lib.resources.activities.models.RichObject;
 import com.owncloud.android.lib.resources.files.FileUtils;
+import com.owncloud.android.lib.resources.files.ReadRemoteFileOperation;
+import com.owncloud.android.lib.resources.files.RemoteFile;
 import com.owncloud.android.ui.adapter.ActivityListAdapter;
 import com.owncloud.android.ui.interfaces.ActivityListInterface;
 import com.owncloud.android.ui.preview.PreviewImageActivity;
 import com.owncloud.android.ui.preview.PreviewImageFragment;
 import com.owncloud.android.utils.AnalyticsUtils;
 import com.owncloud.android.utils.DisplayUtils;
+import com.owncloud.android.utils.FileStorageUtils;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -165,7 +171,8 @@ public class ActivitiesListActivity extends FileActivity implements ActivityList
         emptyContentIcon.setImageResource(R.drawable.ic_activity_light_grey);
         setLoadingMessage();
 
-        adapter = new ActivityListAdapter(this, this);
+        FileDataStorageManager storageManager = new FileDataStorageManager(getAccount(), getContentResolver());
+        adapter = new ActivityListAdapter(this, this, storageManager);
         recyclerView.setAdapter(adapter);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
@@ -190,7 +197,7 @@ public class ActivitiesListActivity extends FileActivity implements ActivityList
 
 
             public void run() {
-                OwnCloudAccount ocAccount = null;
+                OwnCloudAccount ocAccount;
                 try {
                     ocAccount = new OwnCloudAccount(
                             currentAccount,
@@ -206,6 +213,32 @@ public class ActivitiesListActivity extends FileActivity implements ActivityList
 
                     if (result.isSuccess() && result.getData() != null) {
                         final ArrayList<Object> activities = result.getData();
+
+                        // update all data
+                        for (Object object : activities) {
+                            Activity activity = (Activity) object;
+
+                            if (!activity.getType().equalsIgnoreCase("file_deleted") &&
+                                    !activity.getType().equalsIgnoreCase("calendar_event")) {
+                                for (RichObject richObject : activity.getRichSubjectElement().getRichObjectList()) {
+                                    String path = FileUtils.PATH_SEPARATOR + richObject.getPath();
+                                    OCFile file = getStorageManager().getFileByPath(path);
+
+                                    if (file == null) {
+                                        file = getStorageManager().getFileByPath(path + FileUtils.PATH_SEPARATOR);
+                                    }
+                                    if (file == null) {
+                                        // remote request
+                                        ReadRemoteFileOperation operation = new ReadRemoteFileOperation(path);
+                                        RemoteOperationResult resultRemoteOp = operation.execute(mClient);
+                                        if (resultRemoteOp.isSuccess()) {
+                                            file = FileStorageUtils.fillOCFile((RemoteFile) resultRemoteOp.getData().get(0));
+                                            getStorageManager().saveFileWithParent(file, context);
+                                        }
+                                    }
+                                }
+                            }
+                        }
 
                         runOnUiThread(new Runnable() {
                             @Override
@@ -316,14 +349,26 @@ public class ActivitiesListActivity extends FileActivity implements ActivityList
     @Override
     public void onActivityClicked(RichObject richObject) {
         Intent showDetailsIntent;
-        OCFile ocFile = new OCFile(FileUtils.PATH_SEPARATOR + richObject.getPath());
-        if (PreviewImageFragment.canBePreviewed(ocFile)) {
-            showDetailsIntent = new Intent(this, PreviewImageActivity.class);
-        } else {
-            showDetailsIntent = new Intent(this, FileDisplayActivity.class);
+
+        // folders do not have a trailing /, so we have to test both cases
+        String path = FileUtils.PATH_SEPARATOR + richObject.getPath();
+        OCFile ocFile = getStorageManager().getFileByPath(path);
+
+        if (ocFile == null) {
+            ocFile = getStorageManager().getFileByPath(path + FileUtils.PATH_SEPARATOR);
         }
-        showDetailsIntent.putExtra(EXTRA_FILE, ocFile);
-        showDetailsIntent.putExtra(EXTRA_ACCOUNT, getAccount());
-        startActivity(showDetailsIntent);
+
+        if (ocFile == null) {
+            Toast.makeText(getBaseContext(), R.string.file_not_found, Toast.LENGTH_LONG).show();
+        } else {
+            if (PreviewImageFragment.canBePreviewed(ocFile)) {
+                showDetailsIntent = new Intent(this, PreviewImageActivity.class);
+            } else {
+                showDetailsIntent = new Intent(this, FileDisplayActivity.class);
+            }
+            showDetailsIntent.putExtra(EXTRA_FILE, ocFile);
+            showDetailsIntent.putExtra(EXTRA_ACCOUNT, getAccount());
+            startActivity(showDetailsIntent);
+        }
     }
 }
