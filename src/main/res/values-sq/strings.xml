@@ -348,6 +348,7 @@ në 7 ditët e fundit.</string>
     <string name="instant_video_upload_on_charging">Ngarkoni vetëm kur jeni duke e karikuar</string>
     <string name="instant_upload_on_charging">Ngarkoni vetëm kur jeni duke e karikuar</string>
     <string name="instant_upload_path">/InstantUpload</string>
+    <string name="auto_upload_path">/Ngarkim Automatik</string>
     <string name="conflict_title">Përplasje skedarësh</string>
     <string name="conflict_message">Cilat kartela doni të mbani? Nëse përzgjidhni të dy versionet, skedarit vendorë do t\’i shtohet një numër te emri.</string>
     <string name="conflict_keep_both">Mbaji të dyja</string>
@@ -366,7 +367,7 @@ në 7 ditët e fundit.</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Ruani në nëndosjet në bazë të vitit dhe muajit</string>
 
 	<string name="share_link_no_support_share_api">Na vjen keq, ndarja nuk është aktivizuar në serverin tuaj. Ju lutemi të kontaktoni administratorin.</string>
-	<string name="share_link_file_no_exist">S\’arrin të ndajë me të tjerët. Ju lutemi, kontrolloni nëse skedari ekziston apo jo</string>
+	<string name="share_link_file_no_exist">S’arrin të ndajë me të tjerët. Ju lutemi, kontrolloni nëse skedari ekziston apo jo</string>
 	<string name="share_link_file_error">Ndodhi një gabim teksa përpiqej të ndahej me të tjerët ky skedar apo dosje</string>
 	<string name="unshare_link_file_no_exist">S\’arrin të zhbëjë ndarjen me të tjerët. Ju lutemi, kontrolloni nëse skedari ekziston</string>
 	<string name="unshare_link_file_error">Ndodhi një gabim teksa përpiqej të zhbëhej ndarja me të tjerët e këtij skedari apo dosjeje</string>
@@ -656,4 +657,6 @@ në 7 ditët e fundit.</string>
     <string name="drawer_logout">Dilni</string>
     <string name="picture_set_as_no_app">Nuk u gjet aplikacioni me të cilin vendoset foto!</string>
     <string name="privacy">Privatësi</string>
+    <string name="file_not_found">Skedari nuk u gjet!</string>
+
     </resources>
