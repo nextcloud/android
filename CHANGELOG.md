@@ -1,3 +1,8 @@
+## 2017-06-30 00:32
+no new branches added
+
+- 1089 sharing with password rule (nextcloud/1089_sharing_with_password_rule) [https://github.com/nextcloud/android/pull/1110] updated
+
 ## 2017-06-29 00:31
 - Cancel pending thumbnail tasks (nextcloud/stopAsyncTasks) [https://github.com/nextcloud/android/pull/1149] added
 
