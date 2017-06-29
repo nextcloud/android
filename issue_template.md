@@ -31,3 +31,4 @@ Insert your webserver log here
 ```
 Insert your Nextcloud log here
 ```
+**NOTE:** Be super sure to remove sensitive data like passwords, note that everybody can look here! You can use the Issue Template application to prefill some of the required information: https://apps.nextcloud.com/apps/issuetemplate

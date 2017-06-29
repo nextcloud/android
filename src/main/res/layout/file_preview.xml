@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ownCloud Android client application
+
+  Copyright (C) 2015 ownCloud Inc.
+  
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License version 2,
+  as published by the Free Software Foundation.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  
+-->
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:id="@+id/top"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                tools:context=".ui.fragment.FilePreviewFragment">
+
+    <RelativeLayout
+        android:id="@+id/file_preview_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="invisible"
+        android:background="@color/black">
+
+        <FrameLayout
+            android:id="@+id/visual_area"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_above="@+id/media_controller"
+            android:layout_alignParentTop="true"
+            >
+
+            <ImageView
+                android:id="@+id/image_preview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/standard_margin"
+                android:contentDescription="@string/preview_image_description"
+                android:src="@drawable/logo"/>
+
+            <VideoView
+                android:id="@+id/video_preview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:visibility="gone"
+                />
+
+        </FrameLayout>
+
+        <com.owncloud.android.media.MediaControlView
+            android:id="@id/media_controller"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_margin="@dimen/standard_margin"
+            />
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/multi_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <include layout="@layout/empty_list"/>
+
+        </ScrollView>
+    </RelativeLayout>
+
+
+</RelativeLayout>

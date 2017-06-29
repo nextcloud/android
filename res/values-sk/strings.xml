@@ -1,8 +1,0 @@
-<?xml version='1.0' encoding='UTF-8'?>
-<resources>
-  <string name="actionbar_settings">Nastavenia</string>
-  <string name="prefs_category_general">Všeobecné</string>
-  <string name="filedetails_download">Stiahnuť</string>
-  <string name="common_cancel">Zrušiť</string>
-  <string name="empty"></string>
-</resources>

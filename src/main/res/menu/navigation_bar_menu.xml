@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/nav_bar_files"
+        android:icon="@drawable/nav_all_files"
+        android:title="@string/drawer_item_all_files"/>
+    <item
+        android:id="@+id/nav_bar_favorites"
+        android:icon="@drawable/nav_favorites"
+        android:title="@string/drawer_item_favorites"/>
+    <item
+        android:id="@+id/nav_bar_photos"
+        android:icon="@drawable/nav_photos"
+        android:title="@string/drawer_item_photos"/>
+    <item
+        android:id="@+id/nav_bar_settings"
+        android:icon="@drawable/nav_settings"
+        android:title="@string/drawer_item_settings"/>
+</menu>
