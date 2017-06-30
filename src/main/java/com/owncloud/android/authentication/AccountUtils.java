@@ -28,10 +28,13 @@ import android.net.Uri;
 import android.preference.PreferenceManager;
 
 import com.owncloud.android.MainApp;
+import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.lib.common.accounts.AccountTypeUtils;
 import com.owncloud.android.lib.common.accounts.AccountUtils.Constants;
+import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.status.OwnCloudVersion;
+import com.owncloud.android.operations.GetCapabilitiesOperarion;
 
 import java.util.Locale;
 
@@ -143,19 +146,33 @@ public class AccountUtils {
         }
         return null;
     }
-    
 
-    public static boolean setCurrentOwnCloudAccount(Context context, String accountName) {
+
+    public static boolean setCurrentOwnCloudAccount(final Context context, String accountName) {
         boolean result = false;
         if (accountName != null) {
             boolean found;
-            for (Account account : getAccounts(context)) {
+            for (final Account account : getAccounts(context)) {
                 found = (account.name.equals(accountName));
                 if (found) {
                     SharedPreferences.Editor appPrefs = PreferenceManager
                             .getDefaultSharedPreferences(context).edit();
                     appPrefs.putString("select_oc_account", accountName);
-    
+
+                    // update credentials
+                    Thread t = new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            FileDataStorageManager storageManager = new FileDataStorageManager(account,
+                                    context.getContentResolver());
+                            GetCapabilitiesOperarion getCapabilities = new GetCapabilitiesOperarion();
+                            RemoteOperationResult updateResult = getCapabilities.execute(storageManager, context);
+                            Log_OC.w(TAG, "Update Capabilities: " + updateResult.isSuccess());
+                        }
+                    });
+
+                    t.start();
+
                     appPrefs.apply();
                     result = true;
                     break;

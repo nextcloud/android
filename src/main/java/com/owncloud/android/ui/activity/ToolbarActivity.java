@@ -33,6 +33,7 @@ import android.widget.ProgressBar;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.utils.DisplayUtils;
 
 /**
  * Base class providing toolbar registration functionality, see {@link #setupToolbar()}.
@@ -49,7 +50,7 @@ public abstract class ToolbarActivity extends BaseActivity {
      * Toolbar setup that must be called in implementer's {@link #onCreate} after {@link #setContentView} if they
      * want to use the toolbar.
      */
-    protected void setupToolbar() {
+    protected void setupToolbar(boolean useBackgroundImage) {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -57,14 +58,34 @@ public abstract class ToolbarActivity extends BaseActivity {
         if (mProgressBar != null) {
             mProgressBar.setIndeterminateDrawable(
                     ContextCompat.getDrawable(this, R.drawable.actionbar_progress_indeterminate_horizontal));
+
+            DisplayUtils.colorToolbarProgressBar(this, DisplayUtils.primaryColor());
         }
+
+        DisplayUtils.colorStatusBar(this, DisplayUtils.primaryDarkColor());
+
+        if (toolbar.getOverflowIcon() != null) {
+            DisplayUtils.tintDrawable(toolbar.getOverflowIcon(), DisplayUtils.fontColor());
+        }
+
+        if (toolbar.getNavigationIcon() != null) {
+            DisplayUtils.tintDrawable(toolbar.getNavigationIcon(), DisplayUtils.fontColor());
+        }
+
+        if (!useBackgroundImage) {
+            toolbar.setBackgroundColor(DisplayUtils.primaryColor());
+        }
+    }
+
+    protected void setupToolbar() {
+        setupToolbar(false);
     }
 
     /**
      * Updates title bar and home buttons (state and icon).
      */
     protected void updateActionBarTitleAndHomeButton(OCFile chosenFile) {
-        String title = getString(R.string.default_display_name_for_root_folder);    // default
+        String title = DisplayUtils.getDefaultDisplayNameForRootFolder();    // default
         boolean inRoot;
 
         // choose the appropriate title
@@ -89,13 +110,20 @@ public abstract class ToolbarActivity extends BaseActivity {
             titleToSet = title;
         }
 
-        // set the chosen title
+        // set & color the chosen title
         ActionBar actionBar = getSupportActionBar();
-        actionBar.setTitle(titleToSet);
+        DisplayUtils.setColoredTitle(actionBar, titleToSet);
 
         // set home button properties
-        actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setDisplayShowTitleEnabled(true);
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setDisplayShowTitleEnabled(true);
+        }
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        if (toolbar.getNavigationIcon() != null) {
+            DisplayUtils.tintDrawable(toolbar.getNavigationIcon(), DisplayUtils.fontColor());
+        }
     }
 
     /**

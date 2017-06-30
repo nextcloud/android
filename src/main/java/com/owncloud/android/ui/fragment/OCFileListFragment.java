@@ -175,9 +175,9 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
         mSystemBarActionModeColor = getResources().getColor(R.color.action_mode_status_bar_background);
-        mSystemBarColor = getResources().getColor(R.color.primary_dark);
-        mProgressBarActionModeColor = getResources().getColor(R.color.action_mode_background);
-        mProgressBarColor = getResources().getColor(R.color.primary);
+        mSystemBarColor = DisplayUtils.primaryDarkColor();
+        mProgressBarActionModeColor = DisplayUtils.primaryDarkColor();
+        mProgressBarColor = DisplayUtils.primaryColor();
         mMultiChoiceModeListener = new MultiChoiceModeListener();
 
         if (savedInstanceState != null) {
@@ -1315,7 +1315,7 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
                     setTitle(R.string.drawer_item_shared);
                     break;
                 default:
-                    setTitle(R.string.default_display_name_for_root_folder);
+                    setTitle(DisplayUtils.getDefaultDisplayNameForRootFolder());
                     break;
             }
         }
@@ -1377,7 +1377,7 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
         menuItemAddRemoveValue = MenuItemAddRemove.ADD_GRID_AND_SORT_WITH_SEARCH;
         if (getActivity() != null) {
             getActivity().invalidateOptionsMenu();
-            setTitle(R.string.default_display_name_for_root_folder);
+            setTitle(DisplayUtils.getDefaultDisplayNameForRootFolder());
         }
 
         getActivity().getIntent().removeExtra(OCFileListFragment.SEARCH_EVENT);
@@ -1534,7 +1534,19 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
             @Override
             public void run() {
                 if (getActivity() != null && ((FileDisplayActivity) getActivity()).getSupportActionBar() != null) {
-                    ((FileDisplayActivity) getActivity()).getSupportActionBar().setTitle(title);
+                    DisplayUtils.setColoredTitle(((FileDisplayActivity) getActivity()).getSupportActionBar(),
+                            title, getContext());
+                }
+            }
+        });
+    }
+
+    private void setTitle(@StringRes final String title) {
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if (getActivity() != null && ((FileDisplayActivity) getActivity()).getSupportActionBar() != null) {
+                    DisplayUtils.setColoredTitle(((FileDisplayActivity) getActivity()).getSupportActionBar(), title);
                 }
             }
         });
