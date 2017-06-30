@@ -56,12 +56,14 @@ import com.owncloud.android.ui.decoration.MediaGridItemDecoration;
 import com.owncloud.android.ui.dialog.SyncedFolderPreferencesDialogFragment;
 import com.owncloud.android.ui.dialog.parcel.SyncedFolderParcelable;
 import com.owncloud.android.ui.events.CustomFolderEvent;
+import com.owncloud.android.ui.events.InitiateSyncedFolder;
 import com.owncloud.android.utils.AnalyticsUtils;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.PermissionUtil;
 import com.owncloud.android.utils.FilesSyncHelper;
 import com.owncloud.android.utils.ThemeUtils;
 
+import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
@@ -478,6 +480,7 @@ public class FolderSyncActivity extends FileActivity implements FolderSyncAdapte
             long storedId = mSyncedFolderProvider.storeFolderSync(syncedFolderDisplayItem);
             if (storedId != -1) {
                 syncedFolderDisplayItem.setId(storedId);
+                EventBus.getDefault().post(new InitiateSyncedFolder(syncedFolderDisplayItem));
             }
         }
     }
@@ -536,6 +539,7 @@ public class FolderSyncActivity extends FileActivity implements FolderSyncAdapte
                 long storedId = mSyncedFolderProvider.storeFolderSync(item);
                 if (storedId != -1) {
                     item.setId(storedId);
+                    EventBus.getDefault().post(new InitiateSyncedFolder(item));
                 }
             } else {
                 // existing synced folder setup to be updated
@@ -625,5 +629,11 @@ public class FolderSyncActivity extends FileActivity implements FolderSyncAdapte
                 FileUploader.LOCAL_BEHAVIOUR_FORGET, false, null, MediaFolder.CUSTOM);
         onSyncFolderSettingsClick(0, emptyCustomFolder);
     };
+
+    @Subscribe(threadMode = ThreadMode.BACKGROUND)
+    public void onMessageEvent(InitiateSyncedFolder event) {
+        FilesSyncHelper.insertAllDBEntriesForSyncedFolder(event.getSyncedFolder());
+    };
+
 
 }
