@@ -26,6 +26,7 @@ import android.accounts.AuthenticatorException;
 import android.accounts.OperationCanceledException;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -57,6 +58,7 @@ import com.owncloud.android.ui.preview.PreviewImageActivity;
 import com.owncloud.android.ui.preview.PreviewImageFragment;
 import com.owncloud.android.utils.AnalyticsUtils;
 import com.owncloud.android.utils.DisplayUtils;
+import com.owncloud.android.utils.ThemeUtils;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -161,8 +163,9 @@ public class ActivitiesListActivity extends FileActivity implements ActivityList
      * sets up the UI elements and loads all activity items.
      */
     private void setupContent() {
-
         emptyContentIcon.setImageResource(R.drawable.ic_activity_light_grey);
+        emptyContentProgressBar.getIndeterminateDrawable().setColorFilter(ThemeUtils.primaryAccentColor(),
+                PorterDuff.Mode.SRC_IN);
         setLoadingMessage();
 
         adapter = new ActivityListAdapter(this, this);

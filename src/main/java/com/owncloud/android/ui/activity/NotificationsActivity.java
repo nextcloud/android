@@ -27,6 +27,7 @@ import android.accounts.AuthenticatorException;
 import android.accounts.OperationCanceledException;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -160,6 +161,8 @@ public class NotificationsActivity extends FileActivity {
      */
     private void setupContent() {
         emptyContentIcon.setImageResource(R.drawable.ic_notification_light_grey);
+        emptyContentProgressBar.getIndeterminateDrawable().setColorFilter(ThemeUtils.primaryAccentColor(),
+                PorterDuff.Mode.SRC_IN);
         setLoadingMessage();
 
         adapter = new NotificationListAdapter(this);
