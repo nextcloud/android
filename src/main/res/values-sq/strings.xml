@@ -419,10 +419,13 @@ në 7 ditët e fundit.</string>
     <string name="file_migration_failed_while_coping">GABIM: Gjatë migrimit</string>
     <string name="file_migration_failed_while_updating_index">GABIM: Gjatë përditësimit të indeksit</string>
 
+    <string name="file_migration_directory_already_exists">Dosja e të dhënave ekziston tashmë. Zgjidhni një nga të mëposhtmet:</string>
     <string name="file_migration_override_data_folder">Mbishkruaj</string>
     <string name="file_migration_use_data_folder">Përdor ekzistueset</string>
 
     <string name="file_migration_source_not_readable_title">Direktoria burim nuk është lexueshme!</string>
+    <string name="file_migration_source_not_readable">Dëshironi akoma të ndryshoni adresën e ruajtjes së %1$s?/n/nNote: Të gjitha të dhënat do të shkarkohen sërish. </string>
+
     <string name="prefs_category_accounts">Llogari</string>
     <string name="prefs_add_account">Shtoni llogari</string>
     <string name="drawer_manage_accounts">Menaxhoni llogaritë</string>
@@ -659,4 +662,6 @@ në 7 ditët e fundit.</string>
     <string name="privacy">Privatësi</string>
     <string name="file_not_found">Skedari nuk u gjet!</string>
 
-    </resources>
+    <string name="folder_sync_folders">Konfiguro dosjet</string>
+
+  </resources>
