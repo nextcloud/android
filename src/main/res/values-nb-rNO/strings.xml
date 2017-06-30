@@ -4,7 +4,7 @@
     <string name="about_version">versjon %1$s</string>
     <string name="actionbar_sync">Oppdater konto</string>
     <string name="actionbar_upload">Last opp</string>
-    <string name="actionbar_upload_from_apps">Innhold fra andre applikasjoner</string>
+    <string name="actionbar_upload_from_apps">Innhold fra andre programmer</string>
     <string name="actionbar_upload_files">Filer</string>
     <string name="actionbar_open_with">Åpne med</string>
     <string name="actionbar_mkdir">Ny mappe</string>
@@ -136,7 +136,7 @@
     <string name="filedetails_sync_file">Synkroniser</string>
     <string name="filedetails_renamed_in_upload_msg">Filnavnet ble endret til  %1$s under opplasting</string>
     <string name="list_layout">Listevisning</string>
-    <string name="action_share">Delt ressurs</string>
+    <string name="action_share">Del med andre</string>
     <string name="common_yes">Ja</string>
     <string name="common_no">Nei</string>
     <string name="common_ok">Ok</string>
