@@ -63,70 +63,73 @@ public class FilesSyncJob extends Job {
                 TAG);
         wakeLock.acquire();
 
-        FilesSyncHelper.restartJobsIfNeeded();
-        FilesSyncHelper.insertAllDBEntries();
+        if (JobManager.instance().getAllJobsForTag(FilesSyncJob.TAG).size() == 1) {
 
-        // Create all the providers we'll need
-        final FilesystemDataProvider filesystemDataProvider = new FilesystemDataProvider(contentResolver);
-        SyncedFolderProvider syncedFolderProvider = new SyncedFolderProvider(contentResolver);
+            FilesSyncHelper.restartJobsIfNeeded();
+            FilesSyncHelper.insertAllDBEntries();
 
-        for (SyncedFolder syncedFolder : syncedFolderProvider.getSyncedFolders()) {
-            if (syncedFolder.isEnabled()) {
-                // ignore custom folders for now
-                if (MediaFolder.CUSTOM != syncedFolder.getType()) {
-                    for (String path : filesystemDataProvider.getFilesForUpload(syncedFolder.getLocalPath(),
-                            Long.toString(syncedFolder.getId()))) {
-                        if (JobManager.instance().getAllJobRequests().size() < 80) {
-                            File file = new File(path);
+            // Create all the providers we'll need
+            final FilesystemDataProvider filesystemDataProvider = new FilesystemDataProvider(contentResolver);
+            SyncedFolderProvider syncedFolderProvider = new SyncedFolderProvider(contentResolver);
 
-                            Long lastModificationTime = file.lastModified();
-                            final Locale currentLocale = context.getResources().getConfiguration().locale;
+            for (SyncedFolder syncedFolder : syncedFolderProvider.getSyncedFolders()) {
+                if (syncedFolder.isEnabled()) {
+                    // ignore custom folders for now
+                    if (MediaFolder.CUSTOM != syncedFolder.getType()) {
+                        for (String path : filesystemDataProvider.getFilesForUpload(syncedFolder.getLocalPath(),
+                                Long.toString(syncedFolder.getId()))) {
+                            if (JobManager.instance().getAllJobRequests().size() < 80) {
+                                File file = new File(path);
 
-                            if (MediaFolder.IMAGE == syncedFolder.getType()) {
-                                String mimetypeString = FileStorageUtils.getMimeTypeFromName(file.getAbsolutePath());
-                                if ("image/jpeg".equalsIgnoreCase(mimetypeString) || "image/tiff".
-                                        equalsIgnoreCase(mimetypeString)) {
-                                    try {
-                                        ExifInterface exifInterface = new ExifInterface(file.getAbsolutePath());
-                                        String exifDate = exifInterface.getAttribute(ExifInterface.TAG_DATETIME);
-                                        if (!TextUtils.isEmpty(exifDate)) {
-                                            ParsePosition pos = new ParsePosition(0);
-                                            SimpleDateFormat sFormatter = new SimpleDateFormat("yyyy:MM:dd HH:mm:ss",
-                                                    currentLocale);
-                                            sFormatter.setTimeZone(TimeZone.getTimeZone(TimeZone.getDefault().getID()));
-                                            Date dateTime = sFormatter.parse(exifDate, pos);
-                                            lastModificationTime = dateTime.getTime();
+                                Long lastModificationTime = file.lastModified();
+                                final Locale currentLocale = context.getResources().getConfiguration().locale;
+
+                                if (MediaFolder.IMAGE == syncedFolder.getType()) {
+                                    String mimetypeString = FileStorageUtils.getMimeTypeFromName(file.getAbsolutePath());
+                                    if ("image/jpeg".equalsIgnoreCase(mimetypeString) || "image/tiff".
+                                            equalsIgnoreCase(mimetypeString)) {
+                                        try {
+                                            ExifInterface exifInterface = new ExifInterface(file.getAbsolutePath());
+                                            String exifDate = exifInterface.getAttribute(ExifInterface.TAG_DATETIME);
+                                            if (!TextUtils.isEmpty(exifDate)) {
+                                                ParsePosition pos = new ParsePosition(0);
+                                                SimpleDateFormat sFormatter = new SimpleDateFormat("yyyy:MM:dd HH:mm:ss",
+                                                        currentLocale);
+                                                sFormatter.setTimeZone(TimeZone.getTimeZone(TimeZone.getDefault().getID()));
+                                                Date dateTime = sFormatter.parse(exifDate, pos);
+                                                lastModificationTime = dateTime.getTime();
+                                            }
+
+                                        } catch (IOException e) {
+                                            Log_OC.d(TAG, "Failed to get the proper time " + e.getLocalizedMessage());
                                         }
-
-                                    } catch (IOException e) {
-                                        Log_OC.d(TAG, "Failed to get the proper time " + e.getLocalizedMessage());
                                     }
                                 }
+
+                                PersistableBundleCompat bundle = new PersistableBundleCompat();
+                                bundle.putString(AutoUploadJob.LOCAL_PATH, file.getAbsolutePath());
+                                bundle.putString(AutoUploadJob.REMOTE_PATH, FileStorageUtils.getInstantUploadFilePath(
+                                        currentLocale,
+                                        syncedFolder.getRemotePath(), file.getName(),
+                                        lastModificationTime,
+                                        syncedFolder.getSubfolderByDate()));
+                                bundle.putString(AutoUploadJob.ACCOUNT, syncedFolder.getAccount());
+                                bundle.putInt(AutoUploadJob.UPLOAD_BEHAVIOUR, syncedFolder.getUploadAction());
+
+                                new JobRequest.Builder(AutoUploadJob.TAG)
+                                        .setExecutionWindow(30_000L, 80_000L)
+                                        .setRequiresCharging(syncedFolder.getChargingOnly())
+                                        .setRequiredNetworkType(syncedFolder.getWifiOnly() ? JobRequest.NetworkType.UNMETERED :
+                                                JobRequest.NetworkType.CONNECTED)
+                                        .setExtras(bundle)
+                                        .setRequirementsEnforced(true)
+                                        .setUpdateCurrent(false)
+                                        .build()
+                                        .schedule();
+
+                                filesystemDataProvider.updateFilesystemFileAsSentForUpload(path,
+                                        Long.toString(syncedFolder.getId()));
                             }
-
-                            PersistableBundleCompat bundle = new PersistableBundleCompat();
-                            bundle.putString(AutoUploadJob.LOCAL_PATH, file.getAbsolutePath());
-                            bundle.putString(AutoUploadJob.REMOTE_PATH, FileStorageUtils.getInstantUploadFilePath(
-                                    currentLocale,
-                                    syncedFolder.getRemotePath(), file.getName(),
-                                    lastModificationTime,
-                                    syncedFolder.getSubfolderByDate()));
-                            bundle.putString(AutoUploadJob.ACCOUNT, syncedFolder.getAccount());
-                            bundle.putInt(AutoUploadJob.UPLOAD_BEHAVIOUR, syncedFolder.getUploadAction());
-
-                            new JobRequest.Builder(AutoUploadJob.TAG)
-                                    .setExecutionWindow(30_000L, 80_000L)
-                                    .setRequiresCharging(syncedFolder.getChargingOnly())
-                                    .setRequiredNetworkType(syncedFolder.getWifiOnly() ? JobRequest.NetworkType.UNMETERED :
-                                            JobRequest.NetworkType.CONNECTED)
-                                    .setExtras(bundle)
-                                    .setRequirementsEnforced(true)
-                                    .setUpdateCurrent(false)
-                                    .build()
-                                    .schedule();
-
-                            filesystemDataProvider.updateFilesystemFileAsSentForUpload(path,
-                                    Long.toString(syncedFolder.getId()));
                         }
                     }
                 }
