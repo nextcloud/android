@@ -9,6 +9,7 @@ nextcloud/deleteFilesOnAccountRemoval
 nextcloud/dev
 nextcloud/externalStorage
 nextcloud/fix_file_modification_date_on_upload
+nextcloud/folderObserver
 nextcloud/master
 nextcloud/pinchZoom
 nextcloud/removedSDcard
