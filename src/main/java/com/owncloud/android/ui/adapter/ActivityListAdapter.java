@@ -24,10 +24,12 @@ import android.content.res.Resources;
 import android.graphics.drawable.PictureDrawable;
 import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
+import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.TextUtils;
 import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
+import android.text.style.ForegroundColorSpan;
 import android.text.style.StyleSpan;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -53,6 +55,7 @@ import com.owncloud.android.lib.resources.activities.models.RichObject;
 import com.owncloud.android.ui.interfaces.ActivityListInterface;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
+import com.owncloud.android.utils.ThemeUtils;
 import com.owncloud.android.utils.glide.CustomGlideStreamLoader;
 import com.owncloud.android.utils.svg.SvgDecoder;
 import com.owncloud.android.utils.svg.SvgDrawableTranscoder;
@@ -287,6 +290,8 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                     }
                 }, idx1, idx2, 0);
                 ssb.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), idx1, idx2, 0);
+                ssb.setSpan(new ForegroundColorSpan(ThemeUtils.primaryAccentColor()), idx1, idx2,
+                        Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             }
             idx1 = text.indexOf("{", idx2);
         }
