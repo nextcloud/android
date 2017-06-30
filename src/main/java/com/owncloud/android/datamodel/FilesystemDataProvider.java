@@ -27,7 +27,6 @@ import android.net.Uri;
 import com.owncloud.android.db.ProviderMeta;
 import com.owncloud.android.lib.common.utils.Log_OC;
 
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -44,21 +43,16 @@ public class FilesystemDataProvider {
         this.contentResolver = contentResolver;
     }
 
-    public void updateFilesInList(Object[] paths, String syncedFolderId) {
+    public void updateFilesystemFileAsSentForUpload(String path, String syncedFolderId) {
         ContentValues cv = new ContentValues();
         cv.put(ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_SENT_FOR_UPLOAD, 1);
-
-        String[] stringPaths = new String[paths.length];
-        for (int i = 0; i < paths.length; i++) {
-            stringPaths[i] = (String) paths[i];
-        }
 
         contentResolver.update(
                 ProviderMeta.ProviderTableMeta.CONTENT_URI_FILESYSTEM,
                 cv,
                 ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_LOCAL_PATH + " IN (?) and " +
                         ProviderMeta.ProviderTableMeta.FILESYSTEM_SYNCED_FOLDER_ID + " = ?",
-                new String[]{Arrays.toString(stringPaths), syncedFolderId}
+                new String[]{path, syncedFolderId}
         );
 
     }
@@ -97,31 +91,6 @@ public class FilesystemDataProvider {
 
         return localPathsToUpload;
 
-    }
-
-    public long countFilesThatNeedUploadInFolder(String localPath) {
-        String likeParam = localPath + "%";
-
-        Cursor cursor = contentResolver.query(
-                ProviderMeta.ProviderTableMeta.CONTENT_URI_FILESYSTEM,
-                new String[]{"count(*)"},
-                ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_LOCAL_PATH + " LIKE ?",
-                new String[]{likeParam},
-                null);
-
-        if (cursor != null) {
-            if (cursor.getCount() == 0) {
-                cursor.close();
-                return 0;
-            } else {
-                cursor.moveToFirst();
-                int result = cursor.getInt(0);
-                cursor.close();
-                return result;
-            }
-        } else {
-            return 0;
-        }
     }
 
     public void storeOrUpdateFileValue(String localPath, long modifiedAt, boolean isFolder, SyncedFolder syncedFolder,
