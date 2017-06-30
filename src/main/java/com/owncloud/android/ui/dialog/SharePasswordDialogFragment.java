@@ -34,7 +34,7 @@ import android.widget.Toast;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.ui.activity.FileActivity;
-import com.owncloud.android.utils.DisplayUtils;
+import com.owncloud.android.utils.ThemeUtils;
 
 /**
  * Dialog to input the password for sharing a file/folder.
@@ -53,8 +53,8 @@ public class SharePasswordDialogFragment extends DialogFragment
         super.onStart();
 
         AlertDialog alertDialog = (AlertDialog) getDialog();
-        alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(DisplayUtils.primaryAccentColor());
-        alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(DisplayUtils.primaryAccentColor());
+        alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(ThemeUtils.primaryAccentColor());
+        alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(ThemeUtils.primaryAccentColor());
     }
 
     public static final String PASSWORD_FRAGMENT = "PASSWORD_FRAGMENT";
@@ -91,7 +91,7 @@ public class SharePasswordDialogFragment extends DialogFragment
 
         // Setup layout
         EditText inputText = ((EditText)v.findViewById(R.id.share_password));
-        inputText.getBackground().setColorFilter(DisplayUtils.primaryAccentColor(), PorterDuff.Mode.SRC_ATOP);
+        inputText.getBackground().setColorFilter(ThemeUtils.primaryAccentColor(), PorterDuff.Mode.SRC_ATOP);
         inputText.setText("");
         inputText.requestFocus();
 

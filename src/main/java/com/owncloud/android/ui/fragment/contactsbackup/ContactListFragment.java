@@ -73,8 +73,8 @@ import com.owncloud.android.ui.activity.ContactsPreferenceActivity;
 import com.owncloud.android.ui.events.VCardToggleEvent;
 import com.owncloud.android.ui.fragment.FileFragment;
 import com.owncloud.android.utils.BitmapUtils;
-import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.PermissionUtil;
+import com.owncloud.android.utils.ThemeUtils;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -220,7 +220,7 @@ public class ContactListFragment extends FileFragment {
             }
         });
 
-        restoreContacts.setTextColor(DisplayUtils.primaryAccentColor());
+        restoreContacts.setTextColor(ThemeUtils.primaryAccentColor());
 
         return view;
     }
@@ -625,7 +625,7 @@ class ContactListAdapter extends RecyclerView.Adapter<ContactListFragment.Contac
 
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
                     holder.getName().getCheckMarkDrawable()
-                            .setColorFilter(DisplayUtils.primaryAccentColor(), PorterDuff.Mode.SRC_ATOP);
+                            .setColorFilter(ThemeUtils.primaryAccentColor(), PorterDuff.Mode.SRC_ATOP);
                 }
             } else {
                 holder.getName().setChecked(false);
@@ -668,7 +668,7 @@ class ContactListAdapter extends RecyclerView.Adapter<ContactListFragment.Contac
                     if (holder.getName().isChecked()) {
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
                             holder.getName().getCheckMarkDrawable()
-                                    .setColorFilter(DisplayUtils.primaryAccentColor(), PorterDuff.Mode.SRC_ATOP);
+                                    .setColorFilter(ThemeUtils.primaryAccentColor(), PorterDuff.Mode.SRC_ATOP);
                         }
 
                         if (!checkedVCards.contains(verifiedPosition)) {

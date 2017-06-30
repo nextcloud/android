@@ -51,7 +51,7 @@ import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.utils.AnalyticsUtils;
-import com.owncloud.android.utils.DisplayUtils;
+import com.owncloud.android.utils.ThemeUtils;
 
 import java.io.IOException;
 import java.security.InvalidAlgorithmParameterException;
@@ -99,12 +99,12 @@ public class FingerprintActivity extends AppCompatActivity {
         setContentView(R.layout.fingerprintlock);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            getWindow().setStatusBarColor(DisplayUtils.primaryDarkColor());
+            getWindow().setStatusBarColor(ThemeUtils.primaryDarkColor());
         }
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitleTextColor(DisplayUtils.fontColor());
-        toolbar.setBackground(new ColorDrawable(DisplayUtils.primaryColor()));
+        toolbar.setTitleTextColor(ThemeUtils.fontColor());
+        toolbar.setBackground(new ColorDrawable(ThemeUtils.primaryColor()));
     }
 
     private void startFingerprint() {
@@ -163,7 +163,7 @@ public class FingerprintActivity extends AppCompatActivity {
         AnalyticsUtils.setCurrentScreenName(this, SCREEN_NAME, TAG);
         startFingerprint();
         ImageView imageView = (ImageView)findViewById(R.id.fingerprinticon);
-        imageView.setImageDrawable(DisplayUtils.tintDrawable(R.drawable.ic_fingerprint, DisplayUtils.primaryColor()));
+        imageView.setImageDrawable(ThemeUtils.tintDrawable(R.drawable.ic_fingerprint, ThemeUtils.primaryColor()));
     }
 
     @Override

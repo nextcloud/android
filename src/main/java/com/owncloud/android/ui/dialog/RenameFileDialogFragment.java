@@ -43,7 +43,7 @@ import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.resources.files.FileUtils;
 import com.owncloud.android.ui.activity.ComponentsGetter;
-import com.owncloud.android.utils.DisplayUtils;
+import com.owncloud.android.utils.ThemeUtils;
 
 
 /**
@@ -77,7 +77,7 @@ public class RenameFileDialogFragment
     public void onStart() {
         super.onStart();
 
-        int color = DisplayUtils.primaryAccentColor();
+        int color = ThemeUtils.primaryAccentColor();
 
         AlertDialog alertDialog = (AlertDialog) getDialog();
 
@@ -87,7 +87,7 @@ public class RenameFileDialogFragment
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        int accentColor = DisplayUtils.primaryAccentColor();
+        int accentColor = ThemeUtils.primaryAccentColor();
         mTargetFile = getArguments().getParcelable(ARG_TARGET_FILE);
 
         // Inflate the layout for the dialog
@@ -114,7 +114,7 @@ public class RenameFileDialogFragment
         builder.setView(v)
                .setPositiveButton(R.string.common_ok, this)
                .setNegativeButton(R.string.common_cancel, this)
-                .setTitle(DisplayUtils.getColoredTitle(getResources().getString(R.string.rename_dialog_title),
+                .setTitle(ThemeUtils.getColoredTitle(getResources().getString(R.string.rename_dialog_title),
                         accentColor));
         Dialog d = builder.create();
         d.getWindow().setSoftInputMode(LayoutParams.SOFT_INPUT_STATE_VISIBLE);

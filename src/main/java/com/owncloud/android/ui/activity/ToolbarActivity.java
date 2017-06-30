@@ -33,7 +33,7 @@ import android.widget.ProgressBar;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.utils.DisplayUtils;
+import com.owncloud.android.utils.ThemeUtils;
 
 /**
  * Base class providing toolbar registration functionality, see {@link #setupToolbar()}.
@@ -59,21 +59,21 @@ public abstract class ToolbarActivity extends BaseActivity {
             mProgressBar.setIndeterminateDrawable(
                     ContextCompat.getDrawable(this, R.drawable.actionbar_progress_indeterminate_horizontal));
 
-            DisplayUtils.colorToolbarProgressBar(this, DisplayUtils.primaryColor());
+            ThemeUtils.colorToolbarProgressBar(this, ThemeUtils.primaryColor());
         }
 
-        DisplayUtils.colorStatusBar(this, DisplayUtils.primaryDarkColor());
+        ThemeUtils.colorStatusBar(this, ThemeUtils.primaryDarkColor());
 
         if (toolbar.getOverflowIcon() != null) {
-            DisplayUtils.tintDrawable(toolbar.getOverflowIcon(), DisplayUtils.fontColor());
+            ThemeUtils.tintDrawable(toolbar.getOverflowIcon(), ThemeUtils.fontColor());
         }
 
         if (toolbar.getNavigationIcon() != null) {
-            DisplayUtils.tintDrawable(toolbar.getNavigationIcon(), DisplayUtils.fontColor());
+            ThemeUtils.tintDrawable(toolbar.getNavigationIcon(), ThemeUtils.fontColor());
         }
 
         if (!useBackgroundImage) {
-            toolbar.setBackgroundColor(DisplayUtils.primaryColor());
+            toolbar.setBackgroundColor(ThemeUtils.primaryColor());
         }
     }
 
@@ -85,7 +85,7 @@ public abstract class ToolbarActivity extends BaseActivity {
      * Updates title bar and home buttons (state and icon).
      */
     protected void updateActionBarTitleAndHomeButton(OCFile chosenFile) {
-        String title = DisplayUtils.getDefaultDisplayNameForRootFolder();    // default
+        String title = ThemeUtils.getDefaultDisplayNameForRootFolder();    // default
         boolean inRoot;
 
         // choose the appropriate title
@@ -112,7 +112,7 @@ public abstract class ToolbarActivity extends BaseActivity {
 
         // set & color the chosen title
         ActionBar actionBar = getSupportActionBar();
-        DisplayUtils.setColoredTitle(actionBar, titleToSet);
+        ThemeUtils.setColoredTitle(actionBar, titleToSet);
 
         // set home button properties
         if (actionBar != null) {
@@ -122,7 +122,7 @@ public abstract class ToolbarActivity extends BaseActivity {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         if (toolbar.getNavigationIcon() != null) {
-            DisplayUtils.tintDrawable(toolbar.getNavigationIcon(), DisplayUtils.fontColor());
+            ThemeUtils.tintDrawable(toolbar.getNavigationIcon(), ThemeUtils.fontColor());
         }
     }
 

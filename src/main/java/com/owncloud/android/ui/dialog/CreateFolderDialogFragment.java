@@ -37,7 +37,7 @@ import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.resources.files.FileUtils;
 import com.owncloud.android.ui.activity.ComponentsGetter;
-import com.owncloud.android.utils.DisplayUtils;
+import com.owncloud.android.utils.ThemeUtils;
 
 /**
  *  Dialog to input the name for a new folder to create.  
@@ -72,7 +72,7 @@ public class CreateFolderDialogFragment
     public void onStart() {
         super.onStart();
 
-        int color = DisplayUtils.primaryAccentColor();
+        int color = ThemeUtils.primaryAccentColor();
 
         AlertDialog alertDialog = (AlertDialog) getDialog();
 
@@ -82,7 +82,7 @@ public class CreateFolderDialogFragment
     
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        int accentColor = DisplayUtils.primaryAccentColor();
+        int accentColor = ThemeUtils.primaryAccentColor();
         mParentFolder = getArguments().getParcelable(ARG_PARENT_FOLDER);
         
         // Inflate the layout for the dialog
@@ -100,7 +100,7 @@ public class CreateFolderDialogFragment
         builder.setView(v)
                .setPositiveButton(R.string.common_ok, this)
                .setNegativeButton(R.string.common_cancel, this)
-                .setTitle(DisplayUtils.getColoredTitle(getResources().getString(R.string.uploader_info_dirname),
+                .setTitle(ThemeUtils.getColoredTitle(getResources().getString(R.string.uploader_info_dirname),
                         accentColor));
         Dialog d = builder.create();
         d.getWindow().setSoftInputMode(LayoutParams.SOFT_INPUT_STATE_VISIBLE);

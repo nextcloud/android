@@ -104,6 +104,7 @@ import com.owncloud.android.utils.ErrorMessageAdapter;
 import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.PermissionUtil;
 import com.owncloud.android.utils.PushUtils;
+import com.owncloud.android.utils.ThemeUtils;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -249,7 +250,7 @@ public class FileDisplayActivity extends HookActivity
                             }
                         });
 
-                DisplayUtils.colorSnackbar(this, snackbar);
+                ThemeUtils.colorSnackbar(this, snackbar);
 
                 snackbar.show();
             } else {
@@ -663,12 +664,12 @@ public class FileDisplayActivity extends HookActivity
         searchView = (SearchView) MenuItemCompat.getActionView(item);
 
         // hacky as no default way is provided
-        int fontColor = DisplayUtils.fontColor();
+        int fontColor = ThemeUtils.fontColor();
         EditText editText = (EditText) searchView.findViewById(android.support.v7.appcompat.R.id.search_src_text);
         editText.setHintTextColor(fontColor);
         editText.setTextColor(fontColor);
         ImageView searchClose = (ImageView) searchView.findViewById(android.support.v7.appcompat.R.id.search_close_btn);
-        searchClose.setColorFilter(DisplayUtils.fontColor());
+        searchClose.setColorFilter(ThemeUtils.fontColor());
 
         // populate list of menu items to show/hide when drawer is opened/closed
         mDrawerMenuItemstoShowHideList = new ArrayList<>(4);

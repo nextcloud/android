@@ -29,7 +29,7 @@ import android.view.KeyEvent;
 import android.widget.ProgressBar;
 
 import com.owncloud.android.R;
-import com.owncloud.android.utils.DisplayUtils;
+import com.owncloud.android.utils.ThemeUtils;
 
 
 public class IndeterminateProgressDialog extends DialogFragment {
@@ -68,7 +68,7 @@ public class IndeterminateProgressDialog extends DialogFragment {
             @Override
             public void onShow(DialogInterface dialog) {
                 ProgressBar v = (ProgressBar) progressDialog.findViewById(android.R.id.progress);
-                v.getIndeterminateDrawable().setColorFilter(DisplayUtils.primaryAccentColor(),
+                v.getIndeterminateDrawable().setColorFilter(ThemeUtils.primaryAccentColor(),
                         android.graphics.PorterDuff.Mode.MULTIPLY);
 
             }

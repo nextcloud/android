@@ -46,7 +46,7 @@ import com.owncloud.android.lib.resources.shares.ShareType;
 import com.owncloud.android.lib.resources.status.OwnCloudVersion;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.utils.AnalyticsUtils;
-import com.owncloud.android.utils.DisplayUtils;
+import com.owncloud.android.utils.ThemeUtils;
 
 public class EditShareFragment extends Fragment {
 
@@ -136,7 +136,7 @@ public class EditShareFragment extends Fragment {
                 getResources().getString(R.string.share_with_edit_title, mShare.getSharedWithDisplayName()));
 
         View headerDivider = view.findViewById(R.id.share_header_divider);
-        headerDivider.getBackground().setColorFilter(DisplayUtils.primaryAccentColor(), PorterDuff.Mode.SRC_ATOP);
+        headerDivider.getBackground().setColorFilter(ThemeUtils.primaryAccentColor(), PorterDuff.Mode.SRC_ATOP);
 
         // Setup layout
         refreshUiFromState(view);
@@ -160,10 +160,10 @@ public class EditShareFragment extends Fragment {
             boolean isNotReshareableFederatedSupported = (serverVersion != null &&
                     serverVersion.isNotReshareableFederatedSupported());
 
-            int accentColor = DisplayUtils.primaryAccentColor();
+            int accentColor = ThemeUtils.primaryAccentColor();
 
             SwitchCompat shareSwitch = (SwitchCompat) editShareView.findViewById(R.id.canShareSwitch);
-            DisplayUtils.tintSwitch(shareSwitch, accentColor, true);
+            ThemeUtils.tintSwitch(shareSwitch, accentColor, true);
 
             if (isFederated) {
                 shareSwitch.setVisibility(View.INVISIBLE);
@@ -171,7 +171,7 @@ public class EditShareFragment extends Fragment {
             shareSwitch.setChecked((sharePermissions & OCShare.SHARE_PERMISSION_FLAG) > 0);
 
             SwitchCompat switchCompat = (SwitchCompat) editShareView.findViewById(R.id.canEditSwitch);
-            DisplayUtils.tintSwitch(switchCompat, accentColor, true);
+            ThemeUtils.tintSwitch(switchCompat, accentColor, true);
             int anyUpdatePermission = OCShare.CREATE_PERMISSION_FLAG | OCShare.UPDATE_PERMISSION_FLAG |
                     OCShare.DELETE_PERMISSION_FLAG;
             boolean canEdit = (sharePermissions & anyUpdatePermission) > 0;
@@ -185,17 +185,17 @@ public class EditShareFragment extends Fragment {
                 AppCompatCheckBox checkBox = (AppCompatCheckBox) editShareView.findViewById(R.id.canEditCreateCheckBox);
                 checkBox.setChecked((sharePermissions & OCShare.CREATE_PERMISSION_FLAG) > 0);
                 checkBox.setVisibility((canEdit) ? View.VISIBLE : View.GONE);
-                DisplayUtils.tintCheckbox(checkBox, accentColor);
+                ThemeUtils.tintCheckbox(checkBox, accentColor);
 
                 checkBox = (AppCompatCheckBox) editShareView.findViewById(R.id.canEditChangeCheckBox);
                 checkBox.setChecked((sharePermissions & OCShare.UPDATE_PERMISSION_FLAG) > 0);
                 checkBox.setVisibility((canEdit) ? View.VISIBLE : View.GONE);
-                DisplayUtils.tintCheckbox(checkBox, accentColor);
+                ThemeUtils.tintCheckbox(checkBox, accentColor);
 
                 checkBox = (AppCompatCheckBox) editShareView.findViewById(R.id.canEditDeleteCheckBox);
                 checkBox.setChecked((sharePermissions & OCShare.DELETE_PERMISSION_FLAG) > 0);
                 checkBox.setVisibility((canEdit) ? View.VISIBLE : View.GONE);
-                DisplayUtils.tintCheckbox(checkBox, accentColor);
+                ThemeUtils.tintCheckbox(checkBox, accentColor);
             }
 
             setPermissionsListening(editShareView, true);

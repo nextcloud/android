@@ -65,6 +65,7 @@ import com.owncloud.android.ui.interfaces.OCFileListFragmentInterface;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
+import com.owncloud.android.utils.ThemeUtils;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -338,8 +339,8 @@ public class FileListListAdapter extends BaseAdapter {
                     ) {
                 if (parentList.isItemChecked(position)) {
                     view.setBackgroundColor(mContext.getResources().getColor(R.color.selected_item_background));
-                    checkBoxV.setImageDrawable(DisplayUtils.tintDrawable(R.drawable.ic_checkbox_marked,
-                            DisplayUtils.primaryColor()));
+                    checkBoxV.setImageDrawable(ThemeUtils.tintDrawable(R.drawable.ic_checkbox_marked,
+                            ThemeUtils.primaryColor()));
                 } else {
                     view.setBackgroundColor(Color.WHITE);
                     checkBoxV.setImageResource(R.drawable.ic_checkbox_blank_outline);
