@@ -525,6 +525,7 @@ public class FolderSyncActivity extends FileActivity implements FolderSyncAdapte
             long storedId = mSyncedFolderProvider.storeFolderSync(newCustomFolder);
             if (storedId != -1) {
                 newCustomFolder.setId(storedId);
+                EventBus.getDefault().post(new InitiateSyncedFolder(newCustomFolder));
             }
             mAdapter.addSyncFolderItem(newCustomFolder);
         } else {
