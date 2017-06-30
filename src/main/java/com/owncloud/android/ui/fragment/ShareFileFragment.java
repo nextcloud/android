@@ -223,6 +223,9 @@ public class ShareFileFragment extends Fragment implements ShareUserListAdapter.
         TextView fileNameHeader = (TextView) view.findViewById(R.id.shareFileName);
         fileNameHeader.setText(getResources().getString(R.string.share_file, mFile.getFileName()));
 
+        View headerDivider = view.findViewById(R.id.share_header_divider);
+        headerDivider.getBackground().setColorFilter(DisplayUtils.primaryAccentColor(), PorterDuff.Mode.SRC_ATOP);
+
         // Size
         TextView size = (TextView) view.findViewById(R.id.shareFileSize);
         if (mFile.isFolder()) {
