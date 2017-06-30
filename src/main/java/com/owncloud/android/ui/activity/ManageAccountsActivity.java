@@ -90,7 +90,7 @@ public class ManageAccountsActivity extends FileActivity
         super.onCreate(savedInstanceState);
 
         mTintedCheck = DrawableCompat.wrap(ContextCompat.getDrawable(this, R.drawable.ic_account_circle_white_18dp));
-        int tint = ContextCompat.getColor(this, R.color.primary);
+        int tint = DisplayUtils.primaryColor();
         DrawableCompat.setTint(mTintedCheck, tint);
 
         setContentView(R.layout.accounts_layout);

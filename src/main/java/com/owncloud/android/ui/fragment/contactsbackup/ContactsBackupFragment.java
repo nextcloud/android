@@ -24,6 +24,7 @@ import android.Manifest;
 import android.accounts.Account;
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
+import android.graphics.PorterDuff;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -77,6 +78,9 @@ public class ContactsBackupFragment extends FileFragment implements DatePickerDi
     @BindView(R.id.contacts_header_restore)
     public TextView contactsRestoreHeader;
 
+    @BindView(R.id.contacts_header_backup)
+    public TextView contactsBackupHeader;
+
     @BindView(R.id.contacts_datepicker)
     public AppCompatButton contactsDatePickerBtn;
 
@@ -101,6 +105,10 @@ public class ContactsBackupFragment extends FileFragment implements DatePickerDi
     @Override
     public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
+        // use grey as fallback for elements where custom theming is not available
+        if (DisplayUtils.themingEnabled()) {
+            getContext().getTheme().applyStyle(R.style.FallbackThemingTheme, true);
+        }
         View view = inflater.inflate(R.layout.contacts_backup_fragment, null);
         ButterKnife.bind(this, view);
 
@@ -115,6 +123,7 @@ public class ContactsBackupFragment extends FileFragment implements DatePickerDi
 
         arbitraryDataProvider = new ArbitraryDataProvider(getContext().getContentResolver());
 
+        DisplayUtils.tintSwitch(backupSwitch, DisplayUtils.primaryAccentColor());
         backupSwitch.setChecked(arbitraryDataProvider.getBooleanValue(account, PREFERENCE_CONTACTS_AUTOMATIC_BACKUP));
 
         onCheckedChangeListener = new CompoundButton.OnCheckedChangeListener() {
@@ -150,6 +159,14 @@ public class ContactsBackupFragment extends FileFragment implements DatePickerDi
             }
             calendarPickerOpen = true;
         }
+
+        int accentColor = DisplayUtils.primaryAccentColor();
+        contactsDatePickerBtn.getBackground().setColorFilter(accentColor, PorterDuff.Mode.SRC_ATOP);
+        view.findViewById(R.id.contacts_backup_now).getBackground()
+                .setColorFilter(accentColor, PorterDuff.Mode.SRC_ATOP);
+
+        contactsRestoreHeader.setTextColor(accentColor);
+        contactsBackupHeader.setTextColor(accentColor);
 
         return view;
     }

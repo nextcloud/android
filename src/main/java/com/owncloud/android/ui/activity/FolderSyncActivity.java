@@ -111,7 +111,7 @@ public class FolderSyncActivity extends FileActivity implements FolderSyncAdapte
 
         setupContent();
 
-        getSupportActionBar().setTitle(getString(R.string.drawer_folder_sync));
+        DisplayUtils.setColoredTitle(getSupportActionBar(), getString(R.string.drawer_folder_sync));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 

@@ -195,7 +195,8 @@ public class FolderSyncAdapter extends SectionedRecyclerViewAdapter<FolderSyncAd
 
     private void setSyncButtonActiveIcon(ImageButton syncStatusButton, boolean enabled) {
         if(enabled) {
-            syncStatusButton.setImageDrawable(DisplayUtils.tintDrawable(R.drawable.ic_cloud_sync_on, R.color.primary));
+            syncStatusButton.setImageDrawable(DisplayUtils.tintDrawable(R.drawable.ic_cloud_sync_on,
+                    DisplayUtils.primaryColor()));
         } else {
             syncStatusButton.setImageResource(R.drawable.ic_cloud_sync_off);
         }

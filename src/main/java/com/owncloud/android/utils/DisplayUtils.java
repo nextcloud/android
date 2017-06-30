@@ -1,4 +1,4 @@
-/**
+/*
  * Nextcloud Android client application
  *
  * @author Andy Scherzinger
@@ -29,8 +29,10 @@ import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
@@ -38,7 +40,6 @@ import android.graphics.drawable.PictureDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.support.annotation.ColorInt;
-import android.support.annotation.ColorRes;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -46,9 +47,15 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.res.ResourcesCompat;
+import android.support.v4.graphics.ColorUtils;
 import android.support.v4.graphics.drawable.DrawableCompat;
+import android.support.v7.app.ActionBar;
+import android.support.v7.widget.AppCompatCheckBox;
+import android.support.v7.widget.SwitchCompat;
+import android.text.Html;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
+import android.text.Spanned;
 import android.text.format.DateUtils;
 import android.text.style.StyleSpan;
 import android.view.Menu;
@@ -74,6 +81,7 @@ import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.files.SearchOperation;
+import com.owncloud.android.lib.resources.status.OCCapability;
 import com.owncloud.android.ui.TextDrawable;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.activity.ToolbarActivity;
@@ -324,7 +332,12 @@ public class DisplayUtils {
      */
     public static int getRelativeInfoColor(Context context, int relative) {
         if (relative < RELATIVE_THRESHOLD_WARNING) {
-            return context.getResources().getColor(R.color.infolevel_info);
+            if (DisplayUtils.colorToHexString(DisplayUtils.primaryColor()).equalsIgnoreCase(
+                    DisplayUtils.colorToHexString(context.getResources().getColor(R.color.primary)))) {
+                return context.getResources().getColor(R.color.infolevel_info);
+            } else {
+                return Color.GRAY;
+            }
         } else if (relative >= RELATIVE_THRESHOLD_WARNING && relative < RELATIVE_THRESHOLD_CRITICAL) {
             return context.getResources().getColor(R.color.infolevel_warning);
         } else {
@@ -395,7 +408,7 @@ public class DisplayUtils {
      */
     public static void colorPreLollipopHorizontalProgressBar(ProgressBar progressBar) {
         if (progressBar != null && Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-            colorHorizontalProgressBar(progressBar, progressBar.getResources().getColor(R.color.color_accent));
+            colorHorizontalProgressBar(progressBar, DisplayUtils.primaryAccentColor());
         }
     }
 
@@ -433,7 +446,7 @@ public class DisplayUtils {
             colorPreLollipopHorizontalProgressBar(seekBar);
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                int color = seekBar.getResources().getColor(R.color.color_accent);
+                int color = DisplayUtils.primaryAccentColor();
                 seekBar.getThumb().setColorFilter(color, PorterDuff.Mode.SRC_IN);
                 seekBar.getThumb().setColorFilter(color, PorterDuff.Mode.SRC_IN);
             }
@@ -674,27 +687,198 @@ public class DisplayUtils {
      *
      * @param inputStream        The File InputStream
      */
-    public static String getData(InputStream inputStream){
+    public static String getData(InputStream inputStream) {
 
         BufferedReader buffreader = new BufferedReader(new InputStreamReader(inputStream));
         String line;
         StringBuilder text = new StringBuilder();
         try {
-            while (( line = buffreader.readLine()) != null) {
+            while ((line = buffreader.readLine()) != null) {
                 text.append(line);
                 text.append('\n');
             }
         } catch (IOException e) {
-            Log_OC.e(TAG,e.getMessage());
+            Log_OC.e(TAG, e.getMessage());
         }
         return text.toString();
     }
 
-    public static Drawable tintDrawable(@DrawableRes int id, @ColorRes int color) {
+    private static OCCapability getCapability() {
+        Account account = AccountUtils.getCurrentOwnCloudAccount(MainApp.getAppContext());
+
+        if (account != null) {
+            Context context = MainApp.getAppContext();
+
+            FileDataStorageManager storageManager = new FileDataStorageManager(account, context.getContentResolver());
+            return storageManager.getCapability(account.name);
+        } else {
+            return new OCCapability();
+        }
+    }
+
+    public static void tintCheckbox(AppCompatCheckBox checkBox, int color) {
+        checkBox.setSupportButtonTintList(new ColorStateList(
+                new int[][]{
+                        new int[]{-android.R.attr.state_checked},
+                        new int[]{android.R.attr.state_checked},
+                },
+                new int[]{
+                        Color.GRAY,
+                        color
+                }
+        ));
+    }
+
+    public static void tintSwitch(SwitchCompat switchView, int color) {
+        tintSwitch(switchView, color, false);
+    }
+
+    public static void tintSwitch(SwitchCompat switchView, int color, boolean colorText) {
+        if (colorText) {
+            switchView.setTextColor(color);
+        }
+
+        int trackColor = Color.argb(77, Color.red(color), Color.green(color), Color.blue(color));
+
+        // setting the thumb color
+        DrawableCompat.setTintList(switchView.getThumbDrawable(), new ColorStateList(
+                new int[][]{new int[]{android.R.attr.state_checked}, new int[]{}},
+                new int[]{color, Color.WHITE}));
+
+        // setting the track color
+        DrawableCompat.setTintList(switchView.getTrackDrawable(), new ColorStateList(
+                new int[][]{new int[]{android.R.attr.state_checked}, new int[]{}},
+                new int[]{trackColor, Color.parseColor("#4D000000")}));
+    }
+
+    public static Drawable tintDrawable(@DrawableRes int id, int color) {
         Drawable drawable = ResourcesCompat.getDrawable(MainApp.getAppContext().getResources(), id, null);
-        drawable = DrawableCompat.wrap(drawable);
-        DrawableCompat.setTint(drawable, MainApp.getAppContext().getResources().getColor(color));
-        return drawable;
+
+        return tintDrawable(drawable, color);
+    }
+
+    public static Drawable tintDrawable(Drawable drawable, int color) {
+        Drawable wrap = DrawableCompat.wrap(drawable);
+        wrap.setColorFilter(color, PorterDuff.Mode.SRC_ATOP);
+
+        return wrap;
+    }
+
+    public static String getDefaultDisplayNameForRootFolder() {
+        OCCapability capability = getCapability();
+
+        if (capability.getServerSlogan() == null || capability.getServerSlogan().isEmpty()) {
+            return MainApp.getAppContext().getResources().getString(R.string.default_display_name_for_root_folder);
+        } else {
+            return capability.getServerSlogan();
+        }
+    }
+
+    public static int adjustLightness(float lightnessDelta, int color) {
+        float[] hsl = new float[3];
+        ColorUtils.RGBToHSL(Color.red(color), Color.green(color), Color.blue(color), hsl);
+
+        hsl[2] += lightnessDelta;
+
+        return ColorUtils.HSLToColor(hsl);
+    }
+
+    /**
+     * @return int font color to use
+     * adapted from https://github.com/nextcloud/server/blob/master/apps/theming/lib/Util.php#L90-L102
+     */
+    public static int fontColor() {
+        if (darkTheme()) {
+            return Color.WHITE;
+        } else {
+            return Color.BLACK;
+        }
+    }
+
+    /**
+     * Tests if dark color is set
+     * @return true if dark theme -> e.g.use light font color, darker accent color
+     */
+    public static boolean darkTheme() {
+        int primaryColor = primaryColor();
+
+        int red = Color.red(primaryColor);
+        int green = Color.green(primaryColor);
+        int blue = Color.blue(primaryColor);
+
+        return ((0.299 * red + 0.587 * green + 0.114 * blue) / 255) <= 0.5;
+    }
+
+    public static String colorToHexString(int color) {
+        return String.format("#%06X", 0xFFFFFF & color);
+    }
+
+    public static int primaryAccentColor() {
+        OCCapability capability = getCapability();
+
+        try {
+            float adjust;
+            if (darkTheme()){
+                adjust = +0.1f;
+            } else {
+                adjust = -0.1f;
+            }
+            return adjustLightness(adjust, Color.parseColor(capability.getServerColor()));
+        } catch (Exception e) {
+            return MainApp.getAppContext().getResources().getColor(R.color.color_accent);
+        }
+    }
+
+    public static int primaryDarkColor() {
+        OCCapability capability = getCapability();
+
+        try {
+            return adjustLightness(-0.2f, Color.parseColor(capability.getServerColor()));
+        } catch (Exception e) {
+            return MainApp.getAppContext().getResources().getColor(R.color.primary_dark);
+        }
+    }
+
+    public static int primaryColor() {
+        OCCapability capability = getCapability();
+
+        try {
+            return Color.parseColor(capability.getServerColor());
+        } catch (Exception e) {
+            return MainApp.getAppContext().getResources().getColor(R.color.primary);
+        }
+    }
+
+    public static boolean themingEnabled() {
+        return getCapability().getServerColor() != null && !getCapability().getServerColor().isEmpty();
+    }
+
+    /**
+     * Set color of title to white/black depending on background color
+     *
+     * @param actionBar actionBar to be used
+     * @param title     title to be shown
+     */
+    public static void setColoredTitle(ActionBar actionBar, String title) {
+        String colorHex = DisplayUtils.colorToHexString(DisplayUtils.fontColor());
+        actionBar.setTitle(Html.fromHtml("<font color='" + colorHex + "'>" + title + "</font>"));
+    }
+
+    public static Spanned getColoredTitle(String title, int color) {
+        String colorHex = DisplayUtils.colorToHexString(color);
+        return Html.fromHtml("<font color='" + colorHex + "'>" + title + "</font>");
+    }
+
+    /**
+     * Set color of title to white/black depending on background color
+     *
+     * @param actionBar actionBar to be used
+     * @param titleId   title to be shown
+     */
+    public static void setColoredTitle(ActionBar actionBar, int titleId, Context context) {
+        String colorHex = DisplayUtils.colorToHexString(DisplayUtils.fontColor());
+        String title = context.getString(titleId);
+        actionBar.setTitle(Html.fromHtml("<font color='" + colorHex + "'>" + title + "</font>"));
     }
 
 }

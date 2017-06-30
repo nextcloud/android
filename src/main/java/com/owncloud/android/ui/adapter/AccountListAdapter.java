@@ -105,7 +105,11 @@ public class AccountListAdapter extends ArrayAdapter<AccountListItem> implements
     private View setupAddAccountListItem(ViewGroup parent) {
         LayoutInflater inflater = mContext.getLayoutInflater();
         View actionView = inflater.inflate(R.layout.account_action, parent, false);
-        ((TextView) actionView.findViewById(R.id.user_name)).setText(R.string.prefs_add_account);
+
+        TextView userName = (TextView) actionView.findViewById(R.id.user_name);
+        userName.setText(R.string.prefs_add_account);
+        userName.setTextColor(DisplayUtils.primaryColor());
+
         ((ImageView) actionView.findViewById(R.id.user_icon)).setImageResource(R.drawable.ic_account_plus);
 
         // bind action listener

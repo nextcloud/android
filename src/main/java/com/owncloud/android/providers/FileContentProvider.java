@@ -1010,6 +1010,29 @@ public class FileContentProvider extends ContentProvider {
             if (!upgraded) {
                 Log_OC.i(SQL, String.format(Locale.ENGLISH, UPGRADE_VERSION_MSG, oldVersion, newVersion));
             }
+
+            if (oldVersion < 22 && newVersion >= 22) {
+                Log_OC.i(SQL, "Entering in the #22 Adding user theming to capabilities table");
+                db.beginTransaction();
+                try {
+                    db.execSQL(ALTER_TABLE + ProviderTableMeta.CAPABILITIES_TABLE_NAME +
+                            ADD_COLUMN + ProviderTableMeta.CAPABILITIES_SERVER_NAME + " TEXT ");
+                    db.execSQL(ALTER_TABLE + ProviderTableMeta.CAPABILITIES_TABLE_NAME +
+                            ADD_COLUMN + ProviderTableMeta.CAPABILITIES_SERVER_COLOR + " TEXT ");
+                    db.execSQL(ALTER_TABLE + ProviderTableMeta.CAPABILITIES_TABLE_NAME +
+                            ADD_COLUMN + ProviderTableMeta.CAPABILITIES_SERVER_BACKGROUND_URL + " TEXT ");
+                    db.execSQL(ALTER_TABLE + ProviderTableMeta.CAPABILITIES_TABLE_NAME +
+                            ADD_COLUMN + ProviderTableMeta.CAPABILITIES_SERVER_SLOGAN + " TEXT ");
+                    upgraded = true;
+                    db.setTransactionSuccessful();
+                } finally {
+                    db.endTransaction();
+                }
+            }
+
+            if (!upgraded) {
+                Log_OC.i(SQL, String.format(Locale.ENGLISH, UPGRADE_VERSION_MSG, oldVersion, newVersion));
+            }
         }
     }
 
@@ -1090,7 +1113,11 @@ public class FileContentProvider extends ContentProvider {
                 + ProviderTableMeta.CAPABILITIES_FILES_UNDELETE + INTEGER  // boolean
                 + ProviderTableMeta.CAPABILITIES_FILES_VERSIONING + INTEGER   // boolean
                 + ProviderTableMeta.CAPABILITIES_FILES_DROP + INTEGER  // boolean
-                + ProviderTableMeta.CAPABILITIES_EXTERNAL_LINKS + " INTEGER );");   // boolean
+                + ProviderTableMeta.CAPABILITIES_EXTERNAL_LINKS + INTEGER  // boolean
+                + ProviderTableMeta.CAPABILITIES_SERVER_NAME + TEXT
+                + ProviderTableMeta.CAPABILITIES_SERVER_COLOR + TEXT
+                + ProviderTableMeta.CAPABILITIES_SERVER_SLOGAN + TEXT
+                + ProviderTableMeta.CAPABILITIES_SERVER_BACKGROUND_URL + " TEXT );");
     }
 
     private void createUploadsTable(SQLiteDatabase db) {
