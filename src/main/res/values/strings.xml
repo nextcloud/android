@@ -170,7 +170,7 @@
     <string name="uploader_upload_failed_credentials_error">Upload failed, you need to log in again</string>
     <string name="uploads_view_title">Uploads</string>
     <string name="uploads_view_group_current_uploads">Current</string>
-    <string name="uploads_view_group_failed_uploads">Failed (tap to retry)</string>
+    <string name="uploads_view_group_failed_uploads">Failed / Pending restart</string>
     <string name="uploads_view_group_finished_uploads">Uploaded</string>
     <string name="uploads_view_upload_status_succeeded">Completed</string>
     <string name="uploads_view_upload_status_cancelled">Cancelled</string>
@@ -535,7 +535,7 @@
 
     <string name="action_retry_uploads">New attempt failed</string>
     <string name="action_clear_failed_uploads">Clear failed</string>
-    <string name="action_clear_successful_uploads">Cleared</string>
+    <string name="action_clear_successful_uploads">Clear successful uploads</string>
     <string name="action_clear_finished_uploads">Clear finished uploads</string>
 
     <string name="action_switch_grid_view">Grid view</string>

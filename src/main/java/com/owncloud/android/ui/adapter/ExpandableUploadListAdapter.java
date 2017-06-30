@@ -1,21 +1,21 @@
 /**
- *  ownCloud Android client application
+ * ownCloud Android client application
  *
- *  @author LukeOwncloud
- *  @author masensio
- *  Copyright (C) 2016 ownCloud Inc.
+ * @author LukeOwncloud
+ * @author masensio
+ * Copyright (C) 2016 ownCloud Inc.
  *
- *  This program is free software: you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License version 2,
- *  as published by the Free Software Foundation.
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 2,
+ * as published by the Free Software Foundation.
  *
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
  *
- *  You should have received a copy of the GNU General Public License
- *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package com.owncloud.android.ui.adapter;
 
@@ -26,7 +26,6 @@ import android.graphics.Bitmap;
 import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.ExpandableListView;
@@ -34,7 +33,6 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
@@ -43,7 +41,6 @@ import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.datamodel.UploadsStorageManager;
 import com.owncloud.android.datamodel.UploadsStorageManager.UploadStatus;
 import com.owncloud.android.db.OCUpload;
-import com.owncloud.android.db.UploadResult;
 import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.lib.common.network.OnDatatransferProgressListener;
 import com.owncloud.android.lib.common.utils.Log_OC;
@@ -102,10 +99,10 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
 
             @Override
             public int compare(OCUpload upload1, OCUpload upload2) {
-                if (upload1 == null){
+                if (upload1 == null) {
                     return -1;
                 }
-                if (upload2 == null){
+                if (upload2 == null) {
                     return 1;
                 }
                 if (UploadStatus.UPLOAD_IN_PROGRESS.equals(upload1.getUploadStatus())) {
@@ -291,33 +288,33 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
                             /// ... unbind the old progress bar, if any; ...
                             if (mProgressListener != null) {
                                 binder.removeDatatransferProgressListener(
-                                    mProgressListener,
-                                    mProgressListener.getUpload()   // the one that was added
+                                        mProgressListener,
+                                        mProgressListener.getUpload()   // the one that was added
                                 );
                             }
                             /// ... then, bind the current progress bar to listen for updates
                             mProgressListener = new ProgressListener(upload, progressBar);
                             binder.addDatatransferProgressListener(
-                                mProgressListener,
-                                upload
+                                    mProgressListener,
+                                    upload
                             );
 
                         } else {
                             /// not really uploading; stop listening progress if view is reused!
                             if (convertView != null &&
                                     mProgressListener != null &&
-                                    mProgressListener.isWrapping(progressBar))  {
+                                    mProgressListener.isWrapping(progressBar)) {
                                 binder.removeDatatransferProgressListener(
-                                    mProgressListener,
-                                    mProgressListener.getUpload()   // the one that was added
+                                        mProgressListener,
+                                        mProgressListener.getUpload()   // the one that was added
                                 );
                                 mProgressListener = null;
                             }
                         }
                     } else {
                         Log_OC.w(
-                            TAG,
-                            "FileUploaderBinder not ready yet for upload " + upload.getRemotePath()
+                                TAG,
+                                "FileUploaderBinder not ready yet for upload " + upload.getRemotePath()
                         );
                     }
                     uploadDateTextView.setVisibility(View.GONE);
@@ -336,12 +333,13 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
             statusTextView.setText(status);
 
             /// bind listeners to perform actions
+            /// bind listeners to perform actions
             ImageButton rightButton = (ImageButton) view.findViewById(R.id.upload_right_button);
             if (upload.getUploadStatus() == UploadStatus.UPLOAD_IN_PROGRESS) {
                 //Cancel
                 rightButton.setImageResource(R.drawable.ic_action_cancel_grey);
                 rightButton.setVisibility(View.VISIBLE);
-                rightButton.setOnClickListener(new OnClickListener() {
+                rightButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         FileUploader.FileUploaderBinder uploaderBinder = mParentActivity.getFileUploaderBinder();
@@ -356,7 +354,7 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
                 //Delete
                 rightButton.setImageResource(R.drawable.ic_action_delete_grey);
                 rightButton.setVisibility(View.VISIBLE);
-                rightButton.setOnClickListener(new OnClickListener() {
+                rightButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         mUploadsStorageManager.removeUpload(upload);
@@ -367,41 +365,8 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
             } else {    // UploadStatus.UPLOAD_SUCCESS
                 rightButton.setVisibility(View.INVISIBLE);
             }
-
-            // retry
-            if (upload.getUploadStatus() == UploadStatus.UPLOAD_FAILED) {
-                if (UploadResult.CREDENTIAL_ERROR.equals(upload.getLastResult())) {
-                    view.setOnClickListener(new OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            mParentActivity.getFileOperationsHelper().checkCurrentCredentials(
-                                upload.getAccount(mParentActivity)
-                            );
-                        }
-                    });
-
-                } else {
-                    // not a credentials error
-                    view.setOnClickListener(new OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                        File file = new File(upload.getLocalPath());
-                        if (file.exists()) {
-                            FileUploader.UploadRequester requester = new FileUploader.UploadRequester();
-                            requester.retry(mParentActivity, upload);
-                            refreshView();
-                        } else {
-                            final String message = String.format(
-                                mParentActivity.getString(R.string.local_file_not_found_toast)
-                            );
-                            Toast.makeText(mParentActivity, message, Toast.LENGTH_SHORT).show();
-                        }
-                        }
-                    });
-                }
-            } else {
-                view.setOnClickListener(null);
-            }
+            
+            view.setOnClickListener(null);
 
             /// Set icon or thumbnail
             ImageView fileIcon = (ImageView) view.findViewById(R.id.thumbnail);
@@ -512,7 +477,7 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
      * the given upload.
      *
      * @param upload        Upload to describe.
-     * @return              Text describing the status of the given upload.
+     * @return Text describing the status of the given upload.
      */
     private String getStatusText(OCUpload upload) {
 
@@ -536,37 +501,37 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
                 switch (upload.getLastResult()) {
                     case CREDENTIAL_ERROR:
                         status = mParentActivity.getString(
-                            R.string.uploads_view_upload_status_failed_credentials_error
+                                R.string.uploads_view_upload_status_failed_credentials_error
                         );
                         break;
                     case FOLDER_ERROR:
                         status = mParentActivity.getString(
-                            R.string.uploads_view_upload_status_failed_folder_error
+                                R.string.uploads_view_upload_status_failed_folder_error
                         );
                         break;
                     case FILE_NOT_FOUND:
                         status = mParentActivity.getString(
-                            R.string.uploads_view_upload_status_failed_localfile_error
+                                R.string.uploads_view_upload_status_failed_localfile_error
                         );
                         break;
                     case FILE_ERROR:
                         status = mParentActivity.getString(
-                            R.string.uploads_view_upload_status_failed_file_error
+                                R.string.uploads_view_upload_status_failed_file_error
                         );
                         break;
                     case PRIVILEDGES_ERROR:
                         status = mParentActivity.getString(
-                            R.string.uploads_view_upload_status_failed_permission_error
+                                R.string.uploads_view_upload_status_failed_permission_error
                         );
                         break;
                     case NETWORK_CONNECTION:
                         status = mParentActivity.getString(
-                            R.string.uploads_view_upload_status_failed_connection_error
+                                R.string.uploads_view_upload_status_failed_connection_error
                         );
                         break;
                     case DELAYED_FOR_WIFI:
                         status = mParentActivity.getString(
-                            R.string.uploads_view_upload_status_waiting_for_wifi
+                                R.string.uploads_view_upload_status_waiting_for_wifi
                         );
                         break;
                     case DELAYED_FOR_CHARGING:
@@ -575,28 +540,28 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
                         break;
                     case CONFLICT_ERROR:
                         status = mParentActivity.getString(
-                            R.string.uploads_view_upload_status_conflict
+                                R.string.uploads_view_upload_status_conflict
                         );
                         break;
                     case SERVICE_INTERRUPTED:
-                        status =  mParentActivity.getString(
-                            R.string.uploads_view_upload_status_service_interrupted
+                        status = mParentActivity.getString(
+                                R.string.uploads_view_upload_status_service_interrupted
                         );
                         break;
                     case UNKNOWN:
                         status = mParentActivity.getString(
-                            R.string.uploads_view_upload_status_unknown_fail
+                                R.string.uploads_view_upload_status_unknown_fail
                         );
                         break;
                     case CANCELLED:
                         // should not get here ; cancelled uploads should be wiped out
                         status = mParentActivity.getString(
-                            R.string.uploads_view_upload_status_cancelled
+                                R.string.uploads_view_upload_status_cancelled
                         );
                         break;
                     case UPLOADED:
                         // should not get here ; status should be UPLOAD_SUCCESS
-                        status =  mParentActivity.getString(R.string.uploads_view_upload_status_succeeded);
+                        status = mParentActivity.getString(R.string.uploads_view_upload_status_succeeded);
                         break;
                     case MAINTENANCE_MODE:
                         status = mParentActivity.getString(R.string.maintenance_mode);
@@ -750,8 +715,8 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
         public boolean isWrapping(ProgressBar progressBar) {
             ProgressBar wrappedProgressBar = mProgressBar.get();
             return (
-                wrappedProgressBar != null &&
-                wrappedProgressBar == progressBar   // on purpose; don't replace with equals
+                    wrappedProgressBar != null &&
+                            wrappedProgressBar == progressBar   // on purpose; don't replace with equals
             );
         }
 
