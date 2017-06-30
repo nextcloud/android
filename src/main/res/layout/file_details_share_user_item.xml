@@ -25,7 +25,7 @@
             android:id="@+id/userIcon"
             android:layout_width="32sp"
             android:layout_height="32sp"
-            android:src="@drawable/ic_account_circle_dark"
+            android:src="@drawable/ic_user"
             android:layout_gravity="center_vertical"/>
 
         <TextView
@@ -37,5 +37,5 @@
             android:layout_margin="12dp"
             android:singleLine="true"
             android:ellipsize="middle"
-            android:textColor="@color/owncloud_blue"/>
+            android:textColor="@color/black"/>
 </LinearLayout>
