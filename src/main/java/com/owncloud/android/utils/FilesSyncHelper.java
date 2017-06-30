@@ -20,27 +20,46 @@
  */
 package com.owncloud.android.utils;
 
+import android.accounts.Account;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.evernote.android.job.JobManager;
 import com.evernote.android.job.JobRequest;
 import com.evernote.android.job.util.Device;
+import com.evernote.android.job.util.support.PersistableBundleCompat;
 import com.owncloud.android.MainApp;
+import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.FilesystemDataProvider;
 import com.owncloud.android.datamodel.MediaFolder;
 import com.owncloud.android.datamodel.SyncedFolder;
 import com.owncloud.android.datamodel.SyncedFolderProvider;
+import com.owncloud.android.datamodel.UploadsStorageManager;
+import com.owncloud.android.db.OCUpload;
 import com.owncloud.android.jobs.AutoUploadJob;
 
+import org.lukhnos.nnio.file.FileVisitResult;
+import org.lukhnos.nnio.file.Files;
+import org.lukhnos.nnio.file.Path;
+import org.lukhnos.nnio.file.Paths;
+import org.lukhnos.nnio.file.SimpleFileVisitor;
+import org.lukhnos.nnio.file.attribute.BasicFileAttributes;
+
 import java.io.File;
+import java.io.IOException;
+import java.io.RandomAccessFile;
+import java.nio.channels.FileChannel;
+import java.nio.channels.FileLock;
+import java.nio.channels.OverlappingFileLockException;
 
 public class FilesSyncHelper {
+    public static final String TAG = "FileSyncHelper";
 
     public static void insertAllDBEntriesForSyncedFolder(SyncedFolder syncedFolder) {
         final Context context = MainApp.getAppContext();
@@ -73,13 +92,50 @@ public class FilesSyncHelper {
             }
 
         } else {
-            // custom folder, do nothing
+            try {
+
+                FilesystemDataProvider filesystemDataProvider = new FilesystemDataProvider(contentResolver);
+                Path path = Paths.get(syncedFolder.getLocalPath());
+
+                Files.walkFileTree(path, new SimpleFileVisitor<Path>() {
+                    @Override
+                    public FileVisitResult visitFile(Path path, BasicFileAttributes attrs) throws IOException {
+
+                        File file = path.toFile();
+                        FileChannel channel = new RandomAccessFile(file, "rw").getChannel();
+                        FileLock lock = channel.lock();
+                        try {
+                            lock = channel.tryLock();
+                            filesystemDataProvider.storeOrUpdateFileValue(path.toAbsolutePath().toString(),
+                                    attrs.lastModifiedTime().toMillis(), file.isDirectory(), syncedFolder, dryRun);
+                        } catch (OverlappingFileLockException e) {
+                            filesystemDataProvider.storeOrUpdateFileValue(path.toAbsolutePath().toString(),
+                                    attrs.lastModifiedTime().toMillis(), file.isDirectory(), syncedFolder, dryRun);
+                        } finally {
+                            lock.release();
+                        }
+
+                        return FileVisitResult.CONTINUE;
+                    }
+
+                    @Override
+                    public FileVisitResult visitFileFailed(Path file, IOException exc) {
+                        return FileVisitResult.CONTINUE;
+                    }
+                });
+
+                if (dryRun) {
+                    arbitraryDataProvider.storeOrUpdateKeyValue("global", syncedFolderInitiatedKey,
+                            "1");
+                }
+
+            } catch (IOException e) {
+                Log.d(TAG, "Something went wrong while indexing files for auto upload");
+            }
         }
     }
 
     public static void insertAllDBEntries() {
-        boolean dryRun;
-
         final Context context = MainApp.getAppContext();
         final ContentResolver contentResolver = context.getContentResolver();
         SyncedFolderProvider syncedFolderProvider = new SyncedFolderProvider(contentResolver);
@@ -157,6 +213,42 @@ public class FilesSyncHelper {
                         Device.getNetworkType(context).equals(JobRequest.NetworkType.UNMETERED)) {
                     jobRequest.cancelAndEdit().build().schedule();
                 }
+            }
+        }
+
+        UploadsStorageManager uploadsStorageManager = new UploadsStorageManager(context.getContentResolver(), context);
+        OCUpload[] failedUploads = uploadsStorageManager.getFailedUploads();
+
+        boolean accountExists = false;
+        for (OCUpload failedUpload: failedUploads) {
+            accountExists = false;
+            uploadsStorageManager.removeUpload(failedUpload);
+
+            // check if accounts still exists
+            for (Account account : AccountUtils.getAccounts(context)) {
+                if (account.name.equals(failedUpload.getAccountName())) {
+                    accountExists = true;
+                    break;
+                }
+            }
+
+            if (accountExists) {
+                PersistableBundleCompat bundle = new PersistableBundleCompat();
+                bundle.putString(AutoUploadJob.LOCAL_PATH, failedUpload.getLocalPath());
+                bundle.putString(AutoUploadJob.REMOTE_PATH, failedUpload.getRemotePath());
+                bundle.putString(AutoUploadJob.ACCOUNT, failedUpload.getAccountName());
+                bundle.putInt(AutoUploadJob.UPLOAD_BEHAVIOUR, failedUpload.getLocalAction());
+
+                new JobRequest.Builder(AutoUploadJob.TAG)
+                        .setExecutionWindow(30_000L, 80_000L)
+                        .setRequiresCharging(failedUpload.isWhileChargingOnly())
+                        .setRequiredNetworkType(failedUpload.isUseWifiOnly() ? JobRequest.NetworkType.UNMETERED :
+                                JobRequest.NetworkType.CONNECTED)
+                        .setExtras(bundle)
+                        .setRequirementsEnforced(true)
+                        .setUpdateCurrent(false)
+                        .build()
+                        .schedule();
             }
         }
     }
