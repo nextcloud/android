@@ -117,7 +117,7 @@ public class ParticipateActivity extends FileActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        boolean retval;
+        boolean retval = true;
         switch (item.getItemId()) {
             case android.R.id.home: {
                 if (isDrawerOpen()) {
@@ -125,10 +125,12 @@ public class ParticipateActivity extends FileActivity {
                 } else {
                     openDrawer();
                 }
+                break;
             }
 
             default:
                 retval = super.onOptionsItemSelected(item);
+                break;
         }
         return retval;
     }

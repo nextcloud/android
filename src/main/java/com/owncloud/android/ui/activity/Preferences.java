@@ -34,7 +34,6 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
-import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
@@ -70,6 +69,7 @@ import com.owncloud.android.lib.common.ExternalLinkType;
 import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
 import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.ui.CheckBoxPreferenceWithLongTitle;
 import com.owncloud.android.utils.AnalyticsUtils;
 import com.owncloud.android.utils.DisplayUtils;
 
@@ -109,13 +109,13 @@ public class Preferences extends PreferenceActivity
 
     private String mUploadPath;
     private PreferenceCategory mPrefInstantUploadCategory;
-    private Preference mPrefInstantUpload;
+    private CheckBoxPreferenceWithLongTitle mPrefInstantUpload;
     private Preference mPrefInstantUploadBehaviour;
     private Preference mPrefInstantUploadPath;
     private Preference mPrefInstantUploadUseSubfolders;
     private Preference mPrefInstantPictureUploadOnlyOnCharging;
     private Preference mPrefInstantUploadPathWiFi;
-    private Preference mPrefInstantVideoUpload;
+    private CheckBoxPreferenceWithLongTitle mPrefInstantVideoUpload;
     private Preference mPrefInstantVideoUploadPath;
     private Preference mPrefInstantVideoUploadUseSubfolders;
     private Preference mPrefInstantVideoUploadPathWiFi;
@@ -335,6 +335,25 @@ public class Preferences extends PreferenceActivity
             }
         }
 
+        boolean contactsBackupEnabled = !getResources().getBoolean(R.bool.show_drawer_contacts_backup)
+                && getResources().getBoolean(R.bool.contacts_backup);
+        Preference pContactsBackup = findPreference("contacts");
+        if (pCalendarContacts != null) {
+            if (contactsBackupEnabled) {
+                pContactsBackup.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+                    @Override
+                    public boolean onPreferenceClick(Preference preference) {
+                        Intent contactsIntent = new Intent(getApplicationContext(), ContactsPreferenceActivity.class);
+                        contactsIntent.putExtra(ContactsPreferenceActivity.EXTRA_SHOW_SIDEBAR, false);
+                        startActivity(contactsIntent);
+                        return true;
+                    }
+                });
+            } else {
+                preferenceCategoryMore.removePreference(pContactsBackup);
+            }
+        }
+
         if (!fShowHiddenFilesEnabled && !fPrintEnabled && !fPassCodeEnabled) {
             preferenceScreen.removePreference(preferenceCategoryDetails);
         }
@@ -514,24 +533,21 @@ public class Preferences extends PreferenceActivity
             mPrefInstantUploadUseSubfolders = findPreference("instant_upload_path_use_subfolders");
             mPrefInstantUploadPathWiFi = findPreference("instant_upload_on_wifi");
             mPrefInstantPictureUploadOnlyOnCharging = findPreference("instant_upload_on_charging");
-            mPrefInstantUpload = findPreference("instant_uploading");
+            mPrefInstantUpload = (CheckBoxPreferenceWithLongTitle) findPreference("instant_uploading");
 
-            toggleInstantPictureOptions(((SwitchPreference) mPrefInstantUpload).isChecked());
+            toggleInstantPictureOptions(mPrefInstantUpload.isChecked());
 
             mPrefInstantUpload.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
-
                 @Override
                 public boolean onPreferenceChange(Preference preference, Object newValue) {
                     toggleInstantPictureOptions((Boolean) newValue);
-                    toggleInstantUploadBehaviour(
-                            ((SwitchPreference) mPrefInstantVideoUpload).isChecked(),
-                            (Boolean) newValue);
+                    toggleInstantUploadBehaviour(mPrefInstantVideoUpload.isChecked(), (Boolean) newValue);
                     return true;
                 }
             });
 
         mPrefInstantVideoUploadPath = findPreference(PreferenceKeys.INSTANT_VIDEO_UPLOAD_PATH);
-        if (mPrefInstantVideoUploadPath != null){
+            if (mPrefInstantVideoUploadPath != null) {
 
                 mPrefInstantVideoUploadPath.setOnPreferenceClickListener(new OnPreferenceClickListener() {
                     @Override
@@ -550,24 +566,24 @@ public class Preferences extends PreferenceActivity
 
             mPrefInstantVideoUploadUseSubfolders = findPreference("instant_video_upload_path_use_subfolders");
             mPrefInstantVideoUploadPathWiFi = findPreference("instant_video_upload_on_wifi");
-            mPrefInstantVideoUpload = findPreference("instant_video_uploading");
+            mPrefInstantVideoUpload = (CheckBoxPreferenceWithLongTitle) findPreference("instant_video_uploading");
             mPrefInstantVideoUploadOnlyOnCharging = findPreference("instant_video_upload_on_charging");
-            toggleInstantVideoOptions(((CheckBoxPreference) mPrefInstantVideoUpload).isChecked());
+            toggleInstantVideoOptions(mPrefInstantVideoUpload.isChecked());
             mPrefInstantVideoUpload.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
                 @Override
                 public boolean onPreferenceChange(Preference preference, Object newValue) {
                     toggleInstantVideoOptions((Boolean) newValue);
                     toggleInstantUploadBehaviour(
                             (Boolean) newValue,
-                            ((CheckBoxPreference) mPrefInstantUpload).isChecked());
+                            mPrefInstantUpload.isChecked());
                     return true;
                 }
             });
 
             mPrefInstantUploadBehaviour = findPreference("prefs_instant_behaviour");
             toggleInstantUploadBehaviour(
-                    ((CheckBoxPreference) mPrefInstantVideoUpload).isChecked(),
-                    ((CheckBoxPreference) mPrefInstantUpload).isChecked());
+                    mPrefInstantVideoUpload.isChecked(),
+                    mPrefInstantUpload.isChecked());
 
             loadInstantUploadPath();
             loadInstantUploadVideoPath();

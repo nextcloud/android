@@ -278,6 +278,14 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
         super.onDetach();
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+        mAdapter.cancelAllPendingTasks();
+    }
+
+
+
     /**
      * {@inheritDoc}
      */

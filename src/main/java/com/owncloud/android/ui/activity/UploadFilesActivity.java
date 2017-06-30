@@ -236,10 +236,10 @@ public class UploadFilesActivity extends FileActivity implements
                     item.setIcon(R.drawable.ic_view_list);
                     mFileListFragment.switchToGridView();
                 }
-                return true;
             }
             default:
                 retval = super.onOptionsItemSelected(item);
+                break;
         }
         return retval;
     }
