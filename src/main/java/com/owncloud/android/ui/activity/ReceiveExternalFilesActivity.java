@@ -88,6 +88,7 @@ import com.owncloud.android.ui.helpers.UriUploader;
 import com.owncloud.android.utils.DataHolderUtil;
 import com.owncloud.android.utils.ErrorMessageAdapter;
 import com.owncloud.android.utils.FileStorageUtils;
+import com.owncloud.android.utils.ThemeUtils;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -294,7 +295,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
 
             mTintedCheck = DrawableCompat.wrap(ContextCompat.getDrawable(parent,
                     R.drawable.ic_account_circle_white_18dp));
-            int tint = ContextCompat.getColor(parent, R.color.primary);
+            int tint = ThemeUtils.primaryColor();
             DrawableCompat.setTint(mTintedCheck, tint);
 
             mAccountListAdapter = new AccountListAdapter(parent, getAccountListItems(parent), mTintedCheck);

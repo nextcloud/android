@@ -53,6 +53,7 @@ import com.owncloud.android.ui.dialog.SyncedFolderPreferencesDialogFragment;
 import com.owncloud.android.ui.dialog.parcel.SyncedFolderParcelable;
 import com.owncloud.android.utils.AnalyticsUtils;
 import com.owncloud.android.utils.DisplayUtils;
+import com.owncloud.android.utils.ThemeUtils;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -111,7 +112,7 @@ public class FolderSyncActivity extends FileActivity implements FolderSyncAdapte
 
         setupContent();
 
-        getSupportActionBar().setTitle(getString(R.string.drawer_folder_sync));
+        ThemeUtils.setColoredTitle(getSupportActionBar(), getString(R.string.drawer_folder_sync));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 

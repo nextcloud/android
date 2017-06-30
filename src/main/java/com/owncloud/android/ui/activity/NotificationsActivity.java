@@ -54,6 +54,7 @@ import com.owncloud.android.lib.resources.notifications.models.Notification;
 import com.owncloud.android.ui.adapter.NotificationListAdapter;
 import com.owncloud.android.utils.AnalyticsUtils;
 import com.owncloud.android.utils.DisplayUtils;
+import com.owncloud.android.utils.ThemeUtils;
 
 import java.io.IOException;
 import java.util.List;
@@ -119,7 +120,7 @@ public class NotificationsActivity extends FileActivity {
 
         // setup drawer
         setupDrawer(R.id.nav_notifications);
-        getSupportActionBar().setTitle(getString(R.string.drawer_item_notifications));
+        ThemeUtils.setColoredTitle(getSupportActionBar(), getString(R.string.drawer_item_notifications));
 
         swipeListRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
