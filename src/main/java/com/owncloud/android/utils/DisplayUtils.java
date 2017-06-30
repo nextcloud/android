@@ -788,8 +788,6 @@ public class DisplayUtils {
      * adapted from https://github.com/nextcloud/server/blob/master/apps/theming/lib/Util.php#L90-L102
      */
     public static int fontColor() {
-        int primaryColor = primaryColor();
-
         if (darkTheme()) {
             return Color.WHITE;
         } else {
