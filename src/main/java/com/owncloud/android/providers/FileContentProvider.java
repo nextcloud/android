@@ -1051,6 +1051,14 @@ public class FileContentProvider extends ContentProvider {
                             ADD_COLUMN + ProviderTableMeta.SYNCED_FOLDER_TYPE +
                             " INTEGER " + " DEFAULT 0");
 
+                    Log_OC.i(SQL, "Add charging and wifi columns to uploads");
+                    db.execSQL(ALTER_TABLE + ProviderTableMeta.UPLOADS_TABLE_NAME +
+                            ADD_COLUMN + ProviderTableMeta.UPLOADS_IS_WIFI_ONLY +
+                            " INTEGER " + " DEFAULT 0");
+
+                    db.execSQL(ALTER_TABLE + ProviderTableMeta.UPLOADS_TABLE_NAME +
+                            ADD_COLUMN + ProviderTableMeta.UPLOADS_IS_WHILE_CHARGING_ONLY +
+                            " INTEGER " + " DEFAULT 0");
 
                     // create Filesystem table
                     Log_OC.i(SQL, "Create filesystem table");
@@ -1194,6 +1202,8 @@ public class FileContentProvider extends ContentProvider {
                 + ProviderTableMeta.UPLOADS_IS_CREATE_REMOTE_FOLDER + INTEGER  // boolean
                 + ProviderTableMeta.UPLOADS_UPLOAD_END_TIMESTAMP + INTEGER
                 + ProviderTableMeta.UPLOADS_LAST_RESULT + INTEGER     // Upload LastResult
+                + ProviderTableMeta.UPLOADS_IS_WHILE_CHARGING_ONLY + INTEGER  // boolean
+                + ProviderTableMeta.UPLOADS_IS_WIFI_ONLY + INTEGER // boolean
                 + ProviderTableMeta.UPLOADS_CREATED_BY + " INTEGER );"    // Upload createdBy
         );
 

@@ -143,12 +143,16 @@ public class FileUploader extends Service
      * Key to signal what is the origin of the upload request
      */
     public static final String KEY_CREATED_BY = "CREATED_BY";
+
+    public static final String KEY_WHILE_ON_WIFI_ONLY = "KEY_ON_WIFI_ONLY";
+
     /**
      * Set to true if upload is to performed only when phone is being charged.
      */
     public static final String KEY_WHILE_CHARGING_ONLY = "KEY_WHILE_CHARGING_ONLY";
 
     public static final String KEY_LOCAL_BEHAVIOUR = "BEHAVIOUR";
+
 
     public static final int LOCAL_BEHAVIOUR_COPY = 0;
     public static final int LOCAL_BEHAVIOUR_MOVE = 1;
@@ -213,7 +217,9 @@ public class FileUploader extends Service
                 String[] mimeTypes,
                 Integer behaviour,
                 Boolean createRemoteFolder,
-                int createdBy
+                int createdBy,
+                boolean requiresWifi,
+                boolean requiresCharging
         ) {
             Intent intent = new Intent(context, FileUploader.class);
 
@@ -224,6 +230,9 @@ public class FileUploader extends Service
             intent.putExtra(FileUploader.KEY_LOCAL_BEHAVIOUR, behaviour);
             intent.putExtra(FileUploader.KEY_CREATE_REMOTE_FOLDER, createRemoteFolder);
             intent.putExtra(FileUploader.KEY_CREATED_BY, createdBy);
+            intent.putExtra(FileUploader.KEY_WHILE_ON_WIFI_ONLY, requiresWifi);
+            intent.putExtra(FileUploader.KEY_WHILE_CHARGING_ONLY, requiresCharging);
+
 
             context.startService(intent);
         }
@@ -232,7 +241,8 @@ public class FileUploader extends Service
          * Call to upload a new single file
          */
         public void uploadNewFile(Context context, Account account, String localPath, String remotePath, int
-                behaviour, String mimeType, boolean createRemoteFile, int createdBy) {
+                behaviour, String mimeType, boolean createRemoteFile, int createdBy, boolean requiresWifi,
+                                  boolean requiresCharging) {
 
             uploadNewFile(
                 context,
@@ -242,7 +252,9 @@ public class FileUploader extends Service
                 new String[]{mimeType},
                 behaviour,
                 createRemoteFile,
-                createdBy
+                createdBy,
+                requiresWifi,
+                requiresCharging
             );
         }
 
@@ -457,6 +469,9 @@ public class FileUploader extends Service
             boolean isCreateRemoteFolder = intent.getBooleanExtra(KEY_CREATE_REMOTE_FOLDER, false);
             int createdBy = intent.getIntExtra(KEY_CREATED_BY, UploadFileOperation.CREATED_BY_USER);
 
+            boolean onWifiOnly = intent.getBooleanExtra(KEY_WHILE_ON_WIFI_ONLY, false);
+            boolean whileChargingOnly = intent.getBooleanExtra(KEY_WHILE_CHARGING_ONLY, false);
+
             if (intent.hasExtra(KEY_FILE) && files == null) {
                 Log_OC.e(TAG, "Incorrect array for OCFiles provided in upload intent");
                 return Service.START_NOT_STICKY;
@@ -502,9 +517,11 @@ public class FileUploader extends Service
                     ocUpload.setCreateRemoteFolder(isCreateRemoteFolder);
                     ocUpload.setCreatedBy(createdBy);
                     ocUpload.setLocalAction(localAction);
-                    /*ocUpload.setUseWifiOnly(isUseWifiOnly);
-                    ocUpload.setWhileChargingOnly(isWhileChargingOnly);*/
+                    ocUpload.setUseWifiOnly(onWifiOnly);
+                    ocUpload.setWhileChargingOnly(whileChargingOnly);
+
                     ocUpload.setUploadStatus(UploadStatus.UPLOAD_IN_PROGRESS);
+
 
                     newUpload = new UploadFileOperation(
                             account,
