@@ -790,15 +790,25 @@ public class DisplayUtils {
     public static int fontColor() {
         int primaryColor = primaryColor();
 
+        if (darkTheme()) {
+            return Color.WHITE;
+        } else {
+            return Color.BLACK;
+        }
+    }
+
+    /**
+     * Tests if dark color is set
+     * @return true if dark theme -> e.g.use light font color, darker accent color
+     */
+    public static boolean darkTheme() {
+        int primaryColor = primaryColor();
+
         int red = Color.red(primaryColor);
         int green = Color.green(primaryColor);
         int blue = Color.blue(primaryColor);
 
-        if (((0.299 * red + 0.587 * green + 0.114 * blue) / 255) > 0.5) {
-            return Color.BLACK;
-        } else {
-            return Color.WHITE;
-        }
+        return ((0.299 * red + 0.587 * green + 0.114 * blue) / 255) <= 0.5;
     }
 
     public static String colorToHexString(int color) {
@@ -809,7 +819,13 @@ public class DisplayUtils {
         OCCapability capability = getCapability();
 
         try {
-            return adjustLightness(+0.1f, Color.parseColor(capability.getServerColor()));
+            float adjust;
+            if (darkTheme()){
+                adjust = +0.1f;
+            } else {
+                adjust = -0.1f;
+            }
+            return adjustLightness(adjust, Color.parseColor(capability.getServerColor()));
         } catch (Exception e) {
             return MainApp.getAppContext().getResources().getColor(R.color.color_accent);
         }
