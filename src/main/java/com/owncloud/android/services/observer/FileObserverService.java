@@ -168,8 +168,8 @@ public class FileObserverService extends Service {
             return Service.START_STICKY;
 
         } else if (ACTION_ADD_OBSERVED_FILE.equals(intent.getAction())) {
-            OCFile file = (OCFile) intent.getParcelableExtra(ARG_FILE);
-            Account account = (Account) intent.getParcelableExtra(ARG_ACCOUNT);
+            OCFile file = intent.getParcelableExtra(ARG_FILE);
+            Account account = intent.getParcelableExtra(ARG_ACCOUNT);
             addObservedFile(file, account);
 
         } else if (ACTION_DEL_OBSERVED_FILE.equals(intent.getAction())) {
@@ -359,7 +359,7 @@ public class FileObserverService extends Service {
                         && downloadedFile.exists()) {
                     // no matter if the download was successful or not; the
                     // file could be down anyway due to a former download or upload
-                    observer.startWatching(downloadedFile.getName());
+//                    observer.startWatching(downloadedFile.getName());
                     Log_OC.d(TAG, "Resuming observance of " + downloadedFile.getAbsolutePath());
 
                 } else if (intent.getAction().equals(FileDownloader.getDownloadAddedMessage())) {
