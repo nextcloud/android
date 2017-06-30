@@ -42,44 +42,51 @@ import java.io.File;
 
 public class FilesSyncHelper {
 
+    public static void insertAllDBEntriesForSyncedFolder(SyncedFolder syncedFolder) {
+        final Context context = MainApp.getAppContext();
+        final ContentResolver contentResolver = context.getContentResolver();
+        ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProvider(contentResolver);
+
+        String syncedFolderInitiatedKey = "syncedFolderIntitiated_" + syncedFolder.getId();
+        boolean dryRun = TextUtils.isEmpty(arbitraryDataProvider.getValue
+                ("global", syncedFolderInitiatedKey));
+
+        if (MediaFolder.IMAGE == syncedFolder.getType()) {
+            FilesSyncHelper.insertContentIntoDB(android.provider.MediaStore.Images.Media.INTERNAL_CONTENT_URI
+                    , dryRun, syncedFolder);
+            FilesSyncHelper.insertContentIntoDB(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, dryRun,
+                    syncedFolder);
+
+            if (dryRun) {
+                arbitraryDataProvider.storeOrUpdateKeyValue("global", syncedFolderInitiatedKey,
+                        "1");
+            }
+        } else if (MediaFolder.VIDEO == syncedFolder.getType()) {
+            FilesSyncHelper.insertContentIntoDB(android.provider.MediaStore.Video.Media.INTERNAL_CONTENT_URI,
+                    dryRun, syncedFolder);
+            FilesSyncHelper.insertContentIntoDB(MediaStore.Video.Media.EXTERNAL_CONTENT_URI, dryRun,
+                    syncedFolder);
+
+            if (dryRun) {
+                arbitraryDataProvider.storeOrUpdateKeyValue("global", syncedFolderInitiatedKey,
+                        "1");
+            }
+
+        } else {
+            // custom folder, do nothing
+        }
+    }
+
     public static void insertAllDBEntries() {
         boolean dryRun;
 
         final Context context = MainApp.getAppContext();
         final ContentResolver contentResolver = context.getContentResolver();
         SyncedFolderProvider syncedFolderProvider = new SyncedFolderProvider(contentResolver);
-        ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProvider(contentResolver);
 
         for (SyncedFolder syncedFolder : syncedFolderProvider.getSyncedFolders()) {
             if (syncedFolder.isEnabled()) {
-                String syncedFolderInitiatedKey = "syncedFolderIntitiated_" + syncedFolder.getId();
-                dryRun = TextUtils.isEmpty(arbitraryDataProvider.getValue
-                        ("global", syncedFolderInitiatedKey));
-
-                if (MediaFolder.IMAGE == syncedFolder.getType()) {
-                    FilesSyncHelper.insertContentIntoDB(android.provider.MediaStore.Images.Media.INTERNAL_CONTENT_URI
-                            , dryRun, syncedFolder);
-                    FilesSyncHelper.insertContentIntoDB(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, dryRun,
-                            syncedFolder);
-
-                    if (dryRun) {
-                        arbitraryDataProvider.storeOrUpdateKeyValue("global", syncedFolderInitiatedKey,
-                                "1");
-                    }
-                } else if (MediaFolder.VIDEO == syncedFolder.getType()) {
-                    FilesSyncHelper.insertContentIntoDB(android.provider.MediaStore.Video.Media.INTERNAL_CONTENT_URI,
-                            dryRun, syncedFolder);
-                    FilesSyncHelper.insertContentIntoDB(MediaStore.Video.Media.EXTERNAL_CONTENT_URI, dryRun,
-                            syncedFolder);
-
-                    if (dryRun) {
-                        arbitraryDataProvider.storeOrUpdateKeyValue("global", syncedFolderInitiatedKey,
-                                "1");
-                    }
-
-                } else {
-                    // custom folder, do nothing
-                }
+                insertAllDBEntriesForSyncedFolder(syncedFolder);
             }
         }
     }
