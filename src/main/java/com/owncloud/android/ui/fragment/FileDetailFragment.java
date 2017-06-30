@@ -314,7 +314,6 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
                     }
                     return true;
                 }
-            }
             default:
                 return super.onOptionsItemSelected(item);
         }

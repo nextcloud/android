@@ -1,4 +1,4 @@
-/**
+/*
  *   ownCloud Android client application
  *
  *   Copyright (C) 2016 Tobias Kaminsky
@@ -17,7 +17,7 @@
  *   License along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.owncloud.android.ui.adapter;
+package com.owncloud.android.providers;
 
 import android.accounts.Account;
 import android.content.ContentProvider;
@@ -42,7 +42,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 public class DiskLruImageCacheFileProvider extends ContentProvider {
-    public static final String AUTHORITY = "com.owncloud.imageCache.provider";
+    public static final String AUTHORITY = "org.nextcloud.imageCache.provider";
 
     @Override
     public boolean onCreate() {

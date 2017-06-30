@@ -28,7 +28,6 @@ import android.view.ViewGroup;
 
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.db.PreferenceManager;
 import com.owncloud.android.datamodel.VirtualFolderType;
 import com.owncloud.android.ui.fragment.FileFragment;
 import com.owncloud.android.utils.FileStorageUtils;
@@ -152,12 +151,7 @@ public class PreviewImagePagerAdapter extends FragmentStatePagerAdapter {
                 ((FileDownloadFragment)fragment).setError(true);
                 mDownloadErrors.remove(i);
             } else {
-                if (PreferenceManager.getPreviewBehaviour(mContext) ==
-                        PreviewImageActivity.PREVIEW_BEHAVIOUR_RESIZED) {
                     fragment = PreviewImageFragment.newInstance(file, mObsoletePositions.contains(i), true);
-                } else {
-                    fragment = FileDownloadFragment.newInstance(file, mAccount, mObsoletePositions.contains(i));
-                }
             }
         }
         mObsoletePositions.remove(i);

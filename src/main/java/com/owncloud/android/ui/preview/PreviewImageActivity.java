@@ -40,7 +40,6 @@ import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.db.PreferenceManager;
 import com.owncloud.android.datamodel.VirtualFolderType;
 import com.owncloud.android.files.services.FileDownloader;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
@@ -74,7 +73,6 @@ public class PreviewImageActivity extends FileActivity implements
     private static final String KEY_WAITING_FOR_BINDER = "WAITING_FOR_BINDER";
     private static final String KEY_SYSTEM_VISIBLE = "TRUE";
 
-    private static final int INITIAL_HIDE_DELAY = 0; // immediate hide
     public static final String EXTRA_VIRTUAL_TYPE = "EXTRA_VIRTUAL_TYPE";
 
     private ExtendedViewPager mViewPager;
@@ -151,7 +149,7 @@ public class PreviewImageActivity extends FileActivity implements
             }
 
             mPreviewImagePagerAdapter = new PreviewImagePagerAdapter(getSupportFragmentManager(),
-                    parentFolder, getAccount(), getStorageManager(), MainApp.isOnlyOnDevice());
+                    parentFolder, getAccount(), getStorageManager(), MainApp.isOnlyOnDevice(), getBaseContext());
         }
 
         mViewPager = (ExtendedViewPager) findViewById(R.id.fragmentPager);
@@ -350,18 +348,10 @@ public class PreviewImageActivity extends FileActivity implements
         mHasSavedPosition = true;
         if (mDownloaderBinder == null) {
             mRequestWaitingForBinder = true;
-            
         } else {
             OCFile currentFile = mPreviewImagePagerAdapter.getFileAt(position); 
             getSupportActionBar().setTitle(currentFile.getFileName());
             setDrawerIndicatorEnabled(false);
-
-            if (!currentFile.isDown()
-                    && !mPreviewImagePagerAdapter.pendingErrorAt(position) &&
-                    !PreferenceManager.getPreviewBehaviour(getBaseContext()).equalsIgnoreCase(
-                    PreviewImageActivity.PREVIEW_BEHAVIOUR_RESIZED)) {
-                requestForDownload(currentFile);
-            }
 
             // Call to reset image zoom to initial state
             ((PreviewImagePagerAdapter) mViewPager.getAdapter()).resetZoom();

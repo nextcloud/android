@@ -38,8 +38,6 @@ import android.widget.Scroller;
 
 import com.owncloud.android.ui.preview.ImageViewCustom;
 
-import com.owncloud.android.lib.common.utils.Log_OC;
-
 /**
  * Extends Android ImageView to include pinch zooming, panning, fling and double tap zoom.
  */
@@ -67,7 +65,7 @@ public class TouchImageViewCustom extends ImageViewCustom {
     //
 	private Matrix matrix, prevMatrix;
 
-    private static enum State { NONE, DRAG, ZOOM, FLING, ANIMATE_ZOOM }
+    private enum State {NONE, DRAG, ZOOM, FLING, ANIMATE_ZOOM}
     private State state;
 
     private float minScale;
@@ -930,54 +928,10 @@ public class TouchImageViewCustom extends ImageViewCustom {
                     .setAction("Yes", new OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            previewImageFragment.downloadFile();
-                            showAlwaysDownloadSnackBar();
+                            // TODO
+                            // previewImageFragment.downloadFile();
                         }
-                    })
-                    .setCallback(new Snackbar.Callback() {
-                        @Override
-                        public void onDismissed(Snackbar snackbar, int event) {
-                            super.onDismissed(snackbar, event);
-                            showNeverDownloadSnackBar();
-                            snackShown = false;
-                        }
-                    })
-                    .show();
-        }
-
-        private void showAlwaysDownloadSnackBar(){
-            Snackbar.make(getRootView(), "Always download full image?", Snackbar.LENGTH_LONG)
-                    .setAction("Yes", new OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            // Todo Set permanent
-                            showSettingsSnackBar();
-                        }
-                    })
-                    .setCallback(new Snackbar.Callback() {
-                        @Override
-                        public void onDismissed(Snackbar snackbar, int event) {
-                            super.onDismissed(snackbar, event);
-                            Log_OC.d("Snack", "always download closed without action");
-                        }
-                    })
-                    .show();
-        }
-
-        private void showNeverDownloadSnackBar(){
-            Snackbar.make(getRootView(), "Never download full image?", Snackbar.LENGTH_LONG)
-                    .setAction("Yes", new OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            // Todo Set permanent
-                            showSettingsSnackBar();
-                        }
-                    })
-                    .show();
-        }
-
-        private void showSettingsSnackBar(){
-            Snackbar.make(getRootView(), "Behaviour can be changed in settings", Snackbar.LENGTH_LONG).show();
+                    }).show();
         }
 
         @Override

@@ -1,18 +1,18 @@
-/**
+/*
  * ownCloud Android client application
  *
  * @author David A. Velasco
  * Copyright (C) 2016 ownCloud Inc.
- * <p/>
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2,
  * as published by the Free Software Foundation.
- * <p/>
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * <p/>
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -22,7 +22,6 @@ package com.owncloud.android.db;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.owncloud.android.ui.preview.PreviewImageActivity;
 import com.owncloud.android.utils.FileStorageUtils;
 
 /**
@@ -168,29 +167,6 @@ public abstract class PreferenceManager {
     public static int getSortOrder(Context context) {
         return getDefaultSharedPreferences(context).getInt(AUTO_PREF__SORT_ORDER, FileStorageUtils.SORT_NAME);
     }
-
-    /**
-     * Gets the preview behaviour.
-     *
-     * @param context Caller {@link Context}, used to access to shared preferences manager.
-     * @return preview behaviour the preview behaviour,
-     * default is {@link PreviewImageActivity#PREVIEW_BEHAVIOUR_FULLSIZE_ONLY} (download full image, but not store it)
-     */
-    public static String getPreviewBehaviour(Context context) {
-        return getDefaultSharedPreferences(context).getString(PREF__PREVIEW_BEHAVIOUR,
-                                                              PreviewImageActivity.PREVIEW_BEHAVIOUR_FULLSIZE_ONLY);
-    }
-
-    /**
-     * Save the preview behaviour.
-     *
-     * @param context Caller {@link Context}, used to access to shared preferences manager.
-     * @return preview behaviour the preview behaviour
-     */
-    public static void setPreviewBehaviour(Context context, String behaviour) {
-        saveStringPreference(context, PREF__PREVIEW_BEHAVIOUR, behaviour);
-    }
-
 
     /**
      * Save the sort order which the user has set last.

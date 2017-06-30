@@ -181,8 +181,8 @@
         </provider>
 
         <provider
-            android:name=".ui.adapter.DiskLruImageCacheFileProvider"
-            android:authorities="com.owncloud.imageCache.provider"
+            android:name=".providers.DiskLruImageCacheFileProvider"
+            android:authorities="org.nextcloud.imageCache.provider"
             android:exported="true">
         </provider>
 
