@@ -50,7 +50,7 @@ public class FilesystemDataProvider {
         contentResolver.update(
                 ProviderMeta.ProviderTableMeta.CONTENT_URI_FILESYSTEM,
                 cv,
-                ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_LOCAL_PATH + " IN (?) and " +
+                ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_LOCAL_PATH + " = ? and " +
                         ProviderMeta.ProviderTableMeta.FILESYSTEM_SYNCED_FOLDER_ID + " = ?",
                 new String[]{path, syncedFolderId}
         );
