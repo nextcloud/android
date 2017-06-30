@@ -125,7 +125,7 @@ public class FilesSyncJob extends Job {
                                     .build()
                                     .schedule();
 
-                            filesystemDataProvider.updateFilesInList(new Object[]{path},
+                            filesystemDataProvider.updateFilesystemFileAsSentForUpload(path,
                                     Long.toString(syncedFolder.getId()));
                         }
                     }
