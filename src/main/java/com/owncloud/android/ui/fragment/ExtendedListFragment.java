@@ -21,7 +21,6 @@
 
 package com.owncloud.android.ui.fragment;
 
-import android.accounts.Account;
 import android.animation.LayoutTransition;
 import android.app.Activity;
 import android.content.res.Configuration;
@@ -867,15 +866,13 @@ public class ExtendedListFragment extends Fragment
     }
 
     protected void onCreateSwipeToRefresh(SwipeRefreshLayout refreshLayout) {
-        Account account = AccountUtils.getCurrentOwnCloudAccount(MainApp.getAppContext());
-
         int primaryColor = DisplayUtils.primaryColor();
         int darkColor = DisplayUtils.primaryDarkColor();
-        int lightColor = DisplayUtils.primaryAccentColor();
+        int accentColor = DisplayUtils.primaryAccentColor();
 
         // Colors in animations
         // TODO change this to use darker and lighter color, again.
-        refreshLayout.setColorSchemeColors(lightColor, primaryColor, darkColor);
+        refreshLayout.setColorSchemeColors(accentColor, primaryColor, darkColor);
         refreshLayout.setOnRefreshListener(this);
     }
 
