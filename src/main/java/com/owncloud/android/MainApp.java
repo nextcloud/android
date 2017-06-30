@@ -48,6 +48,7 @@ import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.activity.Preferences;
 import com.owncloud.android.ui.activity.WhatsNewActivity;
 import com.owncloud.android.utils.AnalyticsUtils;
+import com.owncloud.android.utils.FilesSyncHelper;
 import com.owncloud.android.utils.PermissionUtil;
 
 import java.util.ArrayList;
@@ -127,13 +128,15 @@ public class MainApp extends MultiDexApplication {
             PreferenceManager.setAutoUploadSplitEntries(this, true);
         }
 
-        if (!JobManager.instance().getAllJobRequestsForTag(FilesSyncJob.TAG).isEmpty()) {
+        if (JobManager.instance().getAllJobRequestsForTag(FilesSyncJob.TAG).isEmpty()) {
             new JobRequest.Builder(FilesSyncJob.TAG)
                     .setPeriodic(900000L, 300000L)
                     .setUpdateCurrent(true)
                     .build()
                     .schedule();
         }
+
+        FilesSyncHelper.restartJobsIfNeeded();
 
         // register global protection with pass code
         registerActivityLifecycleCallbacks(new ActivityLifecycleCallbacks() {
