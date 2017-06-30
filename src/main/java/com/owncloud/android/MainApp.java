@@ -40,8 +40,8 @@ import com.owncloud.android.datamodel.SyncedFolder;
 import com.owncloud.android.datamodel.SyncedFolderProvider;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.db.PreferenceManager;
+import com.owncloud.android.jobs.FilesSyncJob;
 import com.owncloud.android.jobs.NCJobCreator;
-import com.owncloud.android.jobs.NewAutoUploadJob;
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory.Policy;
 import com.owncloud.android.lib.common.utils.Log_OC;
@@ -127,11 +127,13 @@ public class MainApp extends MultiDexApplication {
             PreferenceManager.setAutoUploadSplitEntries(this, true);
         }
 
-        new JobRequest.Builder(NewAutoUploadJob.TAG)
-                .setExecutionWindow(3000L, 4000L)
-                .setUpdateCurrent(true)
-                .build()
-                .schedule();
+        if (!JobManager.instance().getAllJobRequestsForTag(FilesSyncJob.TAG).isEmpty()) {
+            new JobRequest.Builder(FilesSyncJob.TAG)
+                    .setPeriodic(900000L, 300000L)
+                    .setUpdateCurrent(true)
+                    .build()
+                    .schedule();
+        }
 
         // register global protection with pass code
         registerActivityLifecycleCallbacks(new ActivityLifecycleCallbacks() {

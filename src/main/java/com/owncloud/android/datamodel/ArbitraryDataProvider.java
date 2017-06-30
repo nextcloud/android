@@ -58,6 +58,18 @@ public class ArbitraryDataProvider {
         return result;
     }
 
+    public int deleteForKeyWhereAccountNotIn(ArrayList<String> accounts, String key) {
+
+        int result = contentResolver.delete(
+                ProviderMeta.ProviderTableMeta.CONTENT_URI_ARBITRARY_DATA,
+                ProviderMeta.ProviderTableMeta.ARBITRARY_DATA_CLOUD_ID + " NOT IN (?) AND " +
+                        ProviderMeta.ProviderTableMeta.ARBITRARY_DATA_KEY + "= ?",
+                new String[]{String.valueOf(accounts), key}
+        );
+
+        return result;
+    }
+
 
     public void storeOrUpdateKeyValue(String accountName, String key, String newValue) {
         ArbitraryDataSet data = getArbitraryDataSet(accountName, key);
