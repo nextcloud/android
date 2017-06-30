@@ -23,45 +23,20 @@ package com.owncloud.android.jobs;
 
 import android.content.ContentResolver;
 import android.content.Context;
-import android.media.ExifInterface;
 import android.os.PowerManager;
 import android.support.annotation.NonNull;
-import android.text.TextUtils;
-import android.util.Log;
 
 import com.evernote.android.job.Job;
-import com.evernote.android.job.JobRequest;
-import com.evernote.android.job.util.support.PersistableBundleCompat;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.FilesystemDataProvider;
 import com.owncloud.android.datamodel.SyncedFolder;
 import com.owncloud.android.datamodel.SyncedFolderProvider;
-import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.utils.FileStorageUtils;
 
-import org.lukhnos.nnio.file.FileVisitResult;
-import org.lukhnos.nnio.file.Files;
-import org.lukhnos.nnio.file.Path;
-import org.lukhnos.nnio.file.Paths;
-import org.lukhnos.nnio.file.SimpleFileVisitor;
-import org.lukhnos.nnio.file.attribute.BasicFileAttributes;
-
-import java.io.File;
-import java.io.IOException;
-import java.io.RandomAccessFile;
-import java.nio.channels.FileChannel;
-import java.nio.channels.FileLock;
-import java.nio.channels.OverlappingFileLockException;
-import java.text.ParsePosition;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Locale;
 import java.util.Set;
-import java.util.TimeZone;
 
 /*
     This job is meant to run periodically every half an hour, and has the following burden on it's shoulders:
@@ -119,7 +94,7 @@ public class NewAutoUploadJob extends Job {
         syncedFolders.removeAll(syncedFoldersToDelete);
 
         // store all files from the filesystem
-        for (int i = 0; i < syncedFolders.size(); i++) {
+        /*for (int i = 0; i < syncedFolders.size(); i++) {
             Path path = Paths.get(syncedFolders.get(i).getLocalPath());
 
             try {
@@ -153,13 +128,13 @@ public class NewAutoUploadJob extends Job {
             } catch (IOException e) {
                 Log.d(TAG, "Something went wrong while indexing files for auto upload");
             }
-        }
+        }*/
 
         Set<String> pathsToSet = new HashSet<>();
 
         // get all files that we want to upload
-        for (SyncedFolder syncedFolder : syncedFoldersOriginalList) {
-            Object[] pathsToUpload = filesystemDataProvider.getFilesToUploadForPath(syncedFolder.getLocalPath());
+        /*for (SyncedFolder syncedFolder : syncedFoldersOriginalList) {
+            Object[] pathsToUpload = filesystemDataProvider.getFilesForUpload(syncedFolder.getLocalPath());
 
             for (Object pathToUpload : pathsToUpload) {
                 File file = new File((String) pathToUpload);
@@ -213,9 +188,9 @@ public class NewAutoUploadJob extends Job {
         }
 
         // set them as sent for upload
-        filesystemDataProvider.updateFilesInList(pathsToSet.toArray());
+        //filesystemDataProvider.updateFilesInList(pathsToSet.toArray());
 
-        wakeLock.release();
+        wakeLock.release();*/
         return Result.SUCCESS;
     }
 }

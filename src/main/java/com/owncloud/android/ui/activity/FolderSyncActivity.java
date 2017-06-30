@@ -59,6 +59,7 @@ import com.owncloud.android.ui.events.CustomFolderEvent;
 import com.owncloud.android.utils.AnalyticsUtils;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.PermissionUtil;
+import com.owncloud.android.utils.FilesSyncHelper;
 import com.owncloud.android.utils.ThemeUtils;
 
 import org.greenrobot.eventbus.Subscribe;
@@ -479,6 +480,9 @@ public class FolderSyncActivity extends FileActivity implements FolderSyncAdapte
                 syncedFolderDisplayItem.setId(storedId);
             }
         }
+
+        FilesSyncHelper.prepareSyncStatusForAccounts();
+
     }
 
     @Override
@@ -521,6 +525,7 @@ public class FolderSyncActivity extends FileActivity implements FolderSyncAdapte
             long storedId = mSyncedFolderProvider.storeFolderSync(newCustomFolder);
             if (storedId != -1) {
                 newCustomFolder.setId(storedId);
+                FilesSyncHelper.prepareSyncStatusForAccounts();
             }
             mAdapter.addSyncFolderItem(newCustomFolder);
         } else {
@@ -535,10 +540,12 @@ public class FolderSyncActivity extends FileActivity implements FolderSyncAdapte
                 long storedId = mSyncedFolderProvider.storeFolderSync(item);
                 if (storedId != -1) {
                     item.setId(storedId);
+                    FilesSyncHelper.prepareSyncStatusForAccounts();
                 }
             } else {
                 // existing synced folder setup to be updated
                 mSyncedFolderProvider.updateSyncFolder(item);
+                FilesSyncHelper.prepareSyncStatusForAccounts();
             }
 
             if(dirty) {
