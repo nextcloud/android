@@ -5,9 +5,9 @@ pipeline:
       # uncomment gplay for Gplay, Modified only
       - sh -c "if [ '$FLAVOUR' != 'Generic' ]; then sed -i '/com.google.*.gms/s/^.*\/\///g' build.gradle; fi"
 
-      - echo no | android create avd --force -n test -t $ANDROID_TARGET --abi $ANDROID_ABI -c 20M
-      - emulator -avd test -no-window &
-      - ./wait_for_emulator.sh
+      # - echo no | android create avd --force -n test -t $ANDROID_TARGET --abi $ANDROID_ABI -c 20M
+      # - emulator -avd test -no-window &
+      # - ./wait_for_emulator.sh
 
       # build app and assemble APK, in debug mode
       - ./gradlew assemble${FLAVOUR}
@@ -16,8 +16,8 @@ pipeline:
       # - ./gradlew connectedDebugAndroidTest --info
 
       # install app, then assemble and install instrumented tests of app module
-      - ./gradlew :install${FLAVOUR}Debug
-      - ./gradlew :install${FLAVOUR}DebugAndroidTest
+      # - ./gradlew :install${FLAVOUR}Debug
+      # - ./gradlew :install${FLAVOUR}DebugAndroidTest
 
       # run sample instrumented unit test
       # TODO fails because test runner is not available
