@@ -21,6 +21,7 @@
 package com.owncloud.android.ui.adapter;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -64,10 +65,10 @@ public class UserListAdapter extends ArrayAdapter {
     }
 
     @Override
-    public View getView(final int position, View convertView, ViewGroup parent) {
-        LayoutInflater inflator = (LayoutInflater) mContext
+    public @NonNull View getView(final int position, View convertView, @NonNull ViewGroup parent) {
+        LayoutInflater inflater = (LayoutInflater) mContext
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View view = inflator.inflate(R.layout.file_details_share_user_item, parent, false);
+        View view = inflater.inflate(R.layout.file_details_share_user_item, parent, false);
 
         if (mShares != null && mShares.size() > position) {
             OCShare share = mShares.get(position);
@@ -77,7 +78,10 @@ public class UserListAdapter extends ArrayAdapter {
             String name = share.getSharedWithDisplayName();
             if (share.getShareType() == ShareType.GROUP) {
                 name = getContext().getString(R.string.share_group_clarification, name);
-                icon.setImageResource(R.drawable.ic_group_dark);
+                icon.setImageResource(R.drawable.ic_group);
+            } else if (share.getShareType() == ShareType.EMAIL) {
+                name = getContext().getString(R.string.share_email_clarification, name);
+                icon.setImageResource(R.drawable.ic_email);
             }
             userName.setText(name);
 
