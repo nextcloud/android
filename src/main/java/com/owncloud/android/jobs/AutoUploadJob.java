@@ -32,18 +32,25 @@ import com.evernote.android.job.util.support.PersistableBundleCompat;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.files.services.FileUploader;
+import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.operations.UploadFileOperation;
 import com.owncloud.android.utils.MimeTypeUtil;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.RandomAccessFile;
+import java.nio.channels.FileChannel;
+import java.nio.channels.FileLock;
+import java.nio.channels.OverlappingFileLockException;
 
 public class AutoUploadJob extends Job {
     public static final String TAG = "AutoUploadJob";
 
-    public static final String LOCAL_PATH = "filePath";
-    public static final String REMOTE_PATH = "remotePath";
+    static final String LOCAL_PATH = "filePath";
+    static final String REMOTE_PATH = "remotePath";
     public static final String ACCOUNT = "account";
-    public static final String UPLOAD_BEHAVIOUR = "uploadBehaviour";
+    static final String UPLOAD_BEHAVIOUR = "uploadBehaviour";
 
     @NonNull
     @Override
@@ -71,20 +78,44 @@ public class AutoUploadJob extends Job {
             final String mimeType = MimeTypeUtil.getBestMimeTypeByFilename(file.getAbsolutePath());
 
             final FileUploader.UploadRequester requester = new FileUploader.UploadRequester();
-            requester.uploadNewFile(
-                    context,
-                    account,
-                    filePath,
-                    remotePath,
-                    uploadBehaviour,
-                    mimeType,
-                    true,           // create parent folder if not existent
-                    UploadFileOperation.CREATED_AS_INSTANT_PICTURE
-            );
+
+            FileChannel channel = null;
+            FileLock lock = null;
+            try {
+                channel = new RandomAccessFile(file, "rw").getChannel();
+                lock = channel.tryLock();
+
+                requester.uploadNewFile(
+                        context,
+                        account,
+                        filePath,
+                        remotePath,
+                        uploadBehaviour,
+                        mimeType,
+                        true,           // create parent folder if not existent
+                        UploadFileOperation.CREATED_BY_USER
+                );
+
+            } catch (FileNotFoundException e) {
+                Log_OC.d(TAG, "Something went wrong while trying to access file");
+            } catch (OverlappingFileLockException e) {
+                Log_OC.d(TAG, "Overlapping file lock exception");
+            } catch (IOException e) {
+                Log_OC.d(TAG, "IO exception");
+            }  finally {
+                if (lock != null) {
+                    try {
+                        lock.release();
+                    } catch (IOException e) {
+                        Log_OC.d(TAG, "Failed to release lock");
+                    }
+                }
+            }
         }
 
 
         wakeLock.release();
         return Result.SUCCESS;
     }
+
 }
