@@ -20,107 +20,120 @@
  */
 package com.owncloud.android.utils;
 
-import android.accounts.Account;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
 import android.provider.MediaStore;
-import android.text.TextUtils;
 
+import com.evernote.android.job.JobManager;
+import com.evernote.android.job.JobRequest;
+import com.evernote.android.job.util.Device;
 import com.owncloud.android.MainApp;
-import com.owncloud.android.authentication.AccountUtils;
-import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.FilesystemDataProvider;
+import com.owncloud.android.datamodel.MediaFolder;
 import com.owncloud.android.datamodel.SyncedFolder;
 import com.owncloud.android.datamodel.SyncedFolderProvider;
+import com.owncloud.android.jobs.AutoUploadJob;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Set;
 
 public class FilesSyncHelper {
 
-    private static final String LAST_AUTOUPLOAD_JOB_RUN = "last_autoupload_job_run";
-
-
-    private static void insertAllDBEntries() {
+    public static void insertAllDBEntries() {
         boolean dryRun = false;
 
         final Context context = MainApp.getAppContext();
         final ContentResolver contentResolver = context.getContentResolver();
-        ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProvider(contentResolver);
-
-        for (Account account : AccountUtils.getAccounts(context)) {
-            if (TextUtils.isEmpty(arbitraryDataProvider.getValue(account.name, LAST_AUTOUPLOAD_JOB_RUN))) {
-                dryRun = true;
-            } else {
-                dryRun = false;
-            }
-
-            FilesSyncHelper.insertContentIntoDB(android.provider.MediaStore.Images.Media.INTERNAL_CONTENT_URI, dryRun,
-                    account.name);
-            FilesSyncHelper.insertContentIntoDB(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, dryRun, account.name);
-            FilesSyncHelper.insertContentIntoDB(android.provider.MediaStore.Video.Media.INTERNAL_CONTENT_URI, dryRun,
-                    account.name);
-            FilesSyncHelper.insertContentIntoDB(MediaStore.Video.Media.EXTERNAL_CONTENT_URI, dryRun, account.name);
-        }
-    }
-
-    public static void prepareSyncStatusForAccounts() {
-        final Context context = MainApp.getAppContext();
-        final ContentResolver contentResolver = context.getContentResolver();
         SyncedFolderProvider syncedFolderProvider = new SyncedFolderProvider(contentResolver);
-        ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProvider(contentResolver);
 
-        Set<String> enabledAccounts = new HashSet<>();
         for (SyncedFolder syncedFolder : syncedFolderProvider.getSyncedFolders()) {
-            enabledAccounts.add(syncedFolder.getAccount());
+            if (syncedFolder.isEnabled()) {
+
+                if (MediaFolder.IMAGE == syncedFolder.getType()) {
+                    FilesSyncHelper.insertContentIntoDB(android.provider.MediaStore.Images.Media.INTERNAL_CONTENT_URI
+                            , dryRun, syncedFolder);
+                    FilesSyncHelper.insertContentIntoDB(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, dryRun,
+                            syncedFolder);
+                } else if (MediaFolder.VIDEO == syncedFolder.getType()) {
+                    FilesSyncHelper.insertContentIntoDB(android.provider.MediaStore.Video.Media.INTERNAL_CONTENT_URI,
+                            dryRun, syncedFolder);
+                    FilesSyncHelper.insertContentIntoDB(MediaStore.Video.Media.EXTERNAL_CONTENT_URI, dryRun,
+                            syncedFolder);
+                } else {
+                    // custom folder, do nothing
+                }
+            }
         }
-
-        for (String enabledAccount : enabledAccounts) {
-            arbitraryDataProvider.storeOrUpdateKeyValue(enabledAccount, LAST_AUTOUPLOAD_JOB_RUN,
-                    Long.toString(System.currentTimeMillis()));
-        }
-
-        ArrayList<String> accountsArrayList = new ArrayList<>();
-        accountsArrayList.addAll(enabledAccounts);
-        arbitraryDataProvider.deleteForKeyWhereAccountNotIn(accountsArrayList, LAST_AUTOUPLOAD_JOB_RUN);
-
-        insertAllDBEntries();
-
     }
 
-    public static void insertContentIntoDB(Uri uri, boolean dryRun, String account) {
+    private static void insertContentIntoDB(Uri uri, boolean dryRun, SyncedFolder syncedFolder) {
         final Context context = MainApp.getAppContext();
         final ContentResolver contentResolver = context.getContentResolver();
 
         Cursor cursor;
-        int column_index_data, column_index_date_modified, column_index_mimetype;
+        int column_index_data, column_index_date_modified;
 
         final FilesystemDataProvider filesystemDataProvider = new FilesystemDataProvider(contentResolver);
 
         String contentPath;
         boolean isFolder;
 
-        String[] projection = {MediaStore.MediaColumns.DATA, MediaStore.MediaColumns.DATE_MODIFIED,
-                MediaStore.MediaColumns.MIME_TYPE};
+        String[] projection = {MediaStore.MediaColumns.DATA, MediaStore.MediaColumns.DATE_MODIFIED};
 
-        cursor = context.getContentResolver().query(uri, projection, null, null, null);
+        String path = syncedFolder.getLocalPath();
+        if (!path.endsWith("/")) {
+            path = path + "/%";
+        } else {
+            path = path + "%";
+        }
+
+        cursor = context.getContentResolver().query(uri, projection, MediaStore.MediaColumns.DATA + " LIKE ?",
+                new String[]{path}, null);
+
         if (cursor != null) {
             column_index_data = cursor.getColumnIndexOrThrow(MediaStore.MediaColumns.DATA);
             column_index_date_modified = cursor.getColumnIndexOrThrow(MediaStore.MediaColumns.DATE_MODIFIED);
-            column_index_mimetype = cursor.getColumnIndexOrThrow(MediaStore.MediaColumns.MIME_TYPE);
             while (cursor.moveToNext()) {
                 contentPath = cursor.getString(column_index_data);
                 isFolder = new File(contentPath).isDirectory();
                 filesystemDataProvider.storeOrUpdateFileValue(cursor.getString(column_index_data),
-                        cursor.getLong(column_index_date_modified), isFolder, account, dryRun,
-                        cursor.getString(column_index_mimetype));
+                        cursor.getLong(column_index_date_modified), isFolder, syncedFolder, dryRun);
             }
             cursor.close();
         }
     }
 
+    public static void restartJobsIfNeeded() {
+        final Context context = MainApp.getAppContext();
+        boolean restartedInCurrentIteration = false;
+
+        for (JobRequest jobRequest : JobManager.instance().getAllJobRequestsForTag(AutoUploadJob.TAG)) {
+            restartedInCurrentIteration = false;
+            // Handle case of charging
+            if (jobRequest.requiresCharging() && Device.isCharging(context)) {
+                if (jobRequest.requiredNetworkType().equals(JobRequest.NetworkType.CONNECTED) &&
+                        !Device.getNetworkType(context).equals(JobRequest.NetworkType.ANY)) {
+                    jobRequest.cancelAndEdit().build().schedule();
+                    restartedInCurrentIteration = true;
+                } else if (jobRequest.requiredNetworkType().equals(JobRequest.NetworkType.UNMETERED) &&
+                        Device.getNetworkType(context).equals(JobRequest.NetworkType.UNMETERED)) {
+                    jobRequest.cancelAndEdit().build().schedule();
+                    restartedInCurrentIteration = true;
+                }
+            }
+
+            // Handle case of wifi
+
+            if (!restartedInCurrentIteration) {
+                if (jobRequest.requiredNetworkType().equals(JobRequest.NetworkType.CONNECTED) &&
+                        !Device.getNetworkType(context).equals(JobRequest.NetworkType.ANY)) {
+                    jobRequest.cancelAndEdit().build().schedule();
+                } else if (jobRequest.requiredNetworkType().equals(JobRequest.NetworkType.UNMETERED) &&
+                        Device.getNetworkType(context).equals(JobRequest.NetworkType.UNMETERED)) {
+                    jobRequest.cancelAndEdit().build().schedule();
+                }
+            }
+        }
+    }
 }

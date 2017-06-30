@@ -27,10 +27,9 @@ import android.net.Uri;
 import com.owncloud.android.db.ProviderMeta;
 import com.owncloud.android.lib.common.utils.Log_OC;
 
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
-
-import javax.annotation.Nullable;
 
 public class FilesystemDataProvider {
 
@@ -45,7 +44,7 @@ public class FilesystemDataProvider {
         this.contentResolver = contentResolver;
     }
 
-    public void updateFilesInList(Object[] paths, String account) {
+    public void updateFilesInList(Object[] paths, String syncedFolderId) {
         ContentValues cv = new ContentValues();
         cv.put(ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_SENT_FOR_UPLOAD, 1);
 
@@ -58,33 +57,26 @@ public class FilesystemDataProvider {
                 ProviderMeta.ProviderTableMeta.CONTENT_URI_FILESYSTEM,
                 cv,
                 ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_LOCAL_PATH + " IN (?) and " +
-                        ProviderMeta.ProviderTableMeta.FILESYSTEM_ACCOUNT + " = ?",
-                stringPaths
+                        ProviderMeta.ProviderTableMeta.FILESYSTEM_SYNCED_FOLDER_ID + " = ?",
+                new String[]{Arrays.toString(stringPaths), syncedFolderId}
         );
 
     }
 
-    public Set<String> getFilesForUpload(String localPath, String account, @Nullable String filetype) {
+    public Set<String> getFilesForUpload(String localPath, String syncedFolderId) {
         Set<String> localPathsToUpload = new HashSet<>();
 
         String likeParam = localPath + "%";
-        String likeFiletypeParam = "";
-        if (filetype != null) {
-            likeFiletypeParam = filetype + "%";
-        } else {
-            likeFiletypeParam = "%";
-        }
 
 
         Cursor cursor = contentResolver.query(
                 ProviderMeta.ProviderTableMeta.CONTENT_URI_FILESYSTEM,
                 null,
                 ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_LOCAL_PATH + " LIKE ? and " +
-                        ProviderMeta.ProviderTableMeta.FILESYSTEM_ACCOUNT + " = ? and " +
-                        ProviderMeta.ProviderTableMeta.FILESYSTEM_MIMETYPE + " LIKE ? and " +
+                        ProviderMeta.ProviderTableMeta.FILESYSTEM_SYNCED_FOLDER_ID + " = ? and " +
                         ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_SENT_FOR_UPLOAD + " = ? and " +
                         ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_IS_FOLDER + " = ?",
-                new String[]{likeParam, account, likeFiletypeParam, "0", "0"},
+                new String[]{likeParam, syncedFolderId, "0", "0"},
                 null);
 
         if (cursor != null && cursor.moveToFirst()) {
@@ -132,9 +124,10 @@ public class FilesystemDataProvider {
         }
     }
 
-    public void storeOrUpdateFileValue(String localPath, long modifiedAt, boolean isFolder, String account,
-                                       boolean dryRun, @Nullable String mimetype) {
-        FileSystemDataSet data = getFilesystemDataSet(localPath, account);
+    public void storeOrUpdateFileValue(String localPath, long modifiedAt, boolean isFolder, SyncedFolder syncedFolder,
+                                       boolean dryRun) {
+
+        FileSystemDataSet data = getFilesystemDataSet(localPath, syncedFolder);
 
         int isFolderValue = 0;
         if (isFolder) {
@@ -151,12 +144,7 @@ public class FilesystemDataProvider {
             cv.put(ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_MODIFIED, modifiedAt);
             cv.put(ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_IS_FOLDER, isFolderValue);
             cv.put(ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_SENT_FOR_UPLOAD, dryRun);
-            cv.put(ProviderMeta.ProviderTableMeta.FILESYSTEM_ACCOUNT, account);
-
-            if (mimetype != null) {
-                cv.put(ProviderMeta.ProviderTableMeta.FILESYSTEM_MIMETYPE, mimetype);
-            }
-
+            cv.put(ProviderMeta.ProviderTableMeta.FILESYSTEM_SYNCED_FOLDER_ID, syncedFolder.getId());
 
             Uri result = contentResolver.insert(ProviderMeta.ProviderTableMeta.CONTENT_URI_FILESYSTEM, cv);
 
@@ -167,10 +155,6 @@ public class FilesystemDataProvider {
 
             if (data.getModifiedAt() != modifiedAt) {
                 cv.put(ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_SENT_FOR_UPLOAD, 0);
-            }
-
-            if (mimetype != null) {
-                cv.put(ProviderMeta.ProviderTableMeta.FILESYSTEM_MIMETYPE, mimetype);
             }
 
 
@@ -187,14 +171,14 @@ public class FilesystemDataProvider {
         }
     }
 
-    private FileSystemDataSet getFilesystemDataSet(String localPathParam, String account) {
+    private FileSystemDataSet getFilesystemDataSet(String localPathParam, SyncedFolder syncedFolder) {
 
         Cursor cursor = contentResolver.query(
                 ProviderMeta.ProviderTableMeta.CONTENT_URI_FILESYSTEM,
                 null,
                 ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_LOCAL_PATH + " = ? and " +
-                        ProviderMeta.ProviderTableMeta.FILESYSTEM_ACCOUNT + " = ?",
-                new String[]{localPathParam, account},
+                        ProviderMeta.ProviderTableMeta.FILESYSTEM_SYNCED_FOLDER_ID + " = ?",
+                new String[]{localPathParam, Long.toString(syncedFolder.getId())},
                 null
         );
 
@@ -224,7 +208,7 @@ public class FilesystemDataProvider {
                     Log_OC.e(TAG, "Arbitrary value could not be created from cursor");
                 } else {
                     dataSet = new FileSystemDataSet(id, localPath, modifiedAt, isFolder, isSentForUpload, foundAt,
-                            account);
+                            syncedFolder.getId());
                 }
             }
             cursor.close();
