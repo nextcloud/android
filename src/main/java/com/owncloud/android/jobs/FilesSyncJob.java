@@ -52,6 +52,16 @@ import java.util.TimeZone;
 public class FilesSyncJob extends Job {
     public static final String TAG = "FilesSyncJob";
 
+    /*
+    Known limitations of the current system:
+        - changed files will be detected and uploaded, but they will get a number suffix instead of updating the
+        existing file
+        - there are cases where we could upload the file twice, like: upload starts and fails. file gets changed,
+        and gets uploaded. we manually restart the failed upload.
+        - we need to handle upload directly in a job rather than via service to properly handle failures etc
+        - no automatic retry
+     */
+
     @NonNull
     @Override
     protected Result onRunJob(Params params) {
