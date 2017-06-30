@@ -208,7 +208,6 @@ public class ProviderMeta {
         public static final String FILESYSTEM_FILE_IS_FOLDER = "is_folder";
         public static final String FILESYSTEM_FILE_FOUND_RECENTLY = "found_at";
         public static final String FILESYSTEM_FILE_SENT_FOR_UPLOAD = "upload_triggered";
-        public static final String FILESYSTEM_ACCOUNT = "account";
-        public static final String FILESYSTEM_MIMETYPE = "mimetype";
+        public static final String FILESYSTEM_SYNCED_FOLDER_ID = "syncedfolder_id";
     }
 }

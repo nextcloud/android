@@ -1258,8 +1258,7 @@ public class FileContentProvider extends ContentProvider {
                 + ProviderTableMeta.FILESYSTEM_FILE_IS_FOLDER + " INTEGER, "
                 + ProviderTableMeta.FILESYSTEM_FILE_FOUND_RECENTLY + " LONG, "
                 + ProviderTableMeta.FILESYSTEM_FILE_SENT_FOR_UPLOAD + " INTEGER, "
-                + ProviderTableMeta.FILESYSTEM_ACCOUNT + " STRING, "
-                + ProviderTableMeta.FILESYSTEM_MIMETYPE + " STRING, "
+                + ProviderTableMeta.FILESYSTEM_SYNCED_FOLDER_ID + " STRING, "
                 + ProviderTableMeta.FILESYSTEM_FILE_MODIFIED + " LONG );"
         );
     }
