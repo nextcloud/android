@@ -427,6 +427,8 @@
     <string name="file_migration_use_data_folder">使用</string>
 
     <string name="file_migration_source_not_readable_title">源目录不可读！</string>
+    <string name="file_migration_source_not_readable">您确认更改存储目录到%1$s吗？注意：此操作后一切数据均需重新下载</string>
+
     <string name="prefs_category_accounts">账号</string>
     <string name="prefs_add_account">添加账号</string>
     <string name="drawer_manage_accounts">管理账号</string>
