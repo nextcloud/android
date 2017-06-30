@@ -18,13 +18,6 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
-
-    <item
-        android:id="@+id/action_retry_uploads"
-        android:title="@string/action_retry_uploads"/>
-    <item
-        android:id="@+id/action_clear_failed_uploads"
-        android:title="@string/action_clear_failed_uploads"/>
     <item
         android:id="@+id/action_clear_successfull_uploads"
         android:title="@string/action_clear_successful_uploads"/>
