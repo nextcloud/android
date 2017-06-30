@@ -93,6 +93,8 @@ public class FileListListAdapter extends BaseAdapter {
     private OCFile currentDirectory;
     private static final String TAG = FileListListAdapter.class.getSimpleName();
 
+    private ArrayList<ThumbnailsCacheManager.ThumbnailGenerationTask> asyncTasks = new ArrayList<>();
+
     public FileListListAdapter(
             boolean justFolders,
             Context context,
@@ -250,7 +252,7 @@ public class FileListListAdapter extends BaseAdapter {
                     fileSizeV.setVisibility(View.VISIBLE);
                     fileSizeV.setText(DisplayUtils.bytesToHumanReadable(file.getFileLength()));
 
-
+                    break;
                 case GRID_ITEM:
                     // filename
                     fileName = (TextView) view.findViewById(R.id.Filename);
@@ -263,6 +265,7 @@ public class FileListListAdapter extends BaseAdapter {
                         fileName.setVisibility(View.GONE);
                     }
 
+                    break;
                 case GRID_IMAGE:
                     // sharedIcon
                     ImageView sharedIconV = (ImageView) view.findViewById(R.id.sharedIcon);
@@ -376,8 +379,7 @@ public class FileListListAdapter extends BaseAdapter {
                             try {
                                 final ThumbnailsCacheManager.ThumbnailGenerationTask task =
                                         new ThumbnailsCacheManager.ThumbnailGenerationTask(
-                                                fileIcon, mStorageManager, mAccount
-                                        );
+                                                fileIcon, mStorageManager, mAccount, asyncTasks);
 
                                 if (thumbnail == null) {
                                     if (MimeTypeUtil.isVideo(file)) {
@@ -393,6 +395,7 @@ public class FileListListAdapter extends BaseAdapter {
                                                 task
                                         );
                                 fileIcon.setImageDrawable(asyncDrawable);
+                                asyncTasks.add(task);
                                 task.execute(file);
                             } catch (IllegalArgumentException e) {
                                 Log_OC.d(TAG, "ThumbnailGenerationTask : " + e.getMessage());
@@ -704,6 +707,20 @@ public class FileListListAdapter extends BaseAdapter {
             }
         }
         return ret;
+    }
+
+    public void cancelAllPendingTasks() {
+        for (ThumbnailsCacheManager.ThumbnailGenerationTask task : asyncTasks) {
+            if (task != null) {
+                task.cancel(true);
+                if (task.getGetMethod() != null) {
+                    Log_OC.d(TAG, "cancel: abort get method directly");
+                    task.getGetMethod().abort();
+                }
+            }
+        }
+
+        asyncTasks.clear();
     }
 
 }

@@ -218,6 +218,7 @@ public class FileDownloadFragment extends FileFragment implements OnClickListene
             }
             default:
                 Log_OC.e(TAG, "Incorrect view clicked!");
+                break;
         }
     }
 

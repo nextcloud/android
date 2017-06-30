@@ -272,6 +272,7 @@ public class PreviewImageActivity extends FileActivity implements
             break;
         default:
         	returnValue = super.onOptionsItemSelected(item);
+            break;
         }
         
         return returnValue;
