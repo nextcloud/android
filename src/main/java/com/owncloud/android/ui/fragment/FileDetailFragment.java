@@ -24,6 +24,7 @@ package com.owncloud.android.ui.fragment;
 import android.accounts.Account;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.support.v7.widget.SwitchCompat;
 import android.support.v7.widget.AppCompatCheckBox;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -32,9 +33,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
+import android.widget.ListAdapter;
+import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.owncloud.android.MainApp;
@@ -47,8 +51,10 @@ import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
 import com.owncloud.android.lib.common.network.OnDatatransferProgressListener;
 import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
+import com.owncloud.android.ui.adapter.UserListAdapter;
 import com.owncloud.android.ui.dialog.RemoveFilesDialogFragment;
 import com.owncloud.android.ui.dialog.RenameFileDialogFragment;
 import com.owncloud.android.utils.AnalyticsUtils;
@@ -57,6 +63,7 @@ import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.ThemeUtils;
 
 import java.lang.ref.WeakReference;
+import java.util.ArrayList;
 
 
 /**
@@ -345,8 +352,8 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
 
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-        Switch favSwitch = (Switch) getView().findViewById(R.id.fdFavorite);
-        mContainerActivity.getFileOperationsHelper().toggleFavorite(getFile(), favSwitch.isChecked());
+        SwitchCompat favSwitch = (SwitchCompat) getView().findViewById(R.id.fdFavorite);
+        mContainerActivity.getFileOperationsHelper().toggleOfflineFile(getFile(), favSwitch.isChecked());
     }
 
     /**
@@ -396,7 +403,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
             setTimeModified(file.getModificationTimestamp());
             
             SwitchCompat favSwitch = (SwitchCompat) getView().findViewById(R.id.fdFavorite);
-            favSwitch.setChecked(file.isFavorite());
+            favSwitch.setChecked(file.isAvailableOffline());
 
             setShareByLinkInfo(file.isSharedViaLink());
 
@@ -465,7 +472,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
             iv.setTag(file.getFileId());
             // Name of the file, to deduce the icon to use in case the MIME type is not precise enough
             String filename = file.getFileName();
-            int resource = MimetypeIconUtil.getFileTypeIconId(mimetype, filename);
+            int resource = MimeTypeUtil.getFileTypeIconId(mimetype, filename);
             iv.setImageResource(resource);
 
             Bitmap thumbnail;
@@ -500,7 +507,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
                     }
                 }
             } else {
-                headerImage.setImageResource(resource);
+                iv.setImageResource(resource);
 			}
         }
     }
