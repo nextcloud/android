@@ -296,10 +296,14 @@ public class ThemeUtils {
     }
 
     public static Drawable tintDrawable(Drawable drawable, int color) {
-        Drawable wrap = DrawableCompat.wrap(drawable);
-        wrap.setColorFilter(color, PorterDuff.Mode.SRC_ATOP);
+        if (drawable != null) {
+            Drawable wrap = DrawableCompat.wrap(drawable);
+            wrap.setColorFilter(color, PorterDuff.Mode.SRC_ATOP);
 
-        return wrap;
+            return wrap;
+        } else {
+            return drawable;
+        }
     }
 
     public static String colorToHexString(int color) {
