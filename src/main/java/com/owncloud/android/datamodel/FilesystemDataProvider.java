@@ -30,6 +30,8 @@ import com.owncloud.android.lib.common.utils.Log_OC;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.annotation.Nullable;
+
 public class FilesystemDataProvider {
 
     static private final String TAG = FilesystemDataProvider.class.getSimpleName();
@@ -43,42 +45,49 @@ public class FilesystemDataProvider {
         this.contentResolver = contentResolver;
     }
 
-    public int updateFilesInList(Object[] paths) {
+    public void updateFilesInList(Object[] paths, String account) {
         ContentValues cv = new ContentValues();
         cv.put(ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_SENT_FOR_UPLOAD, 1);
 
         String[] stringPaths = new String[paths.length];
-        for(int i = 0; i < paths.length; i++) {
+        for (int i = 0; i < paths.length; i++) {
             stringPaths[i] = (String) paths[i];
         }
 
-        int result = contentResolver.update(
+        contentResolver.update(
                 ProviderMeta.ProviderTableMeta.CONTENT_URI_FILESYSTEM,
                 cv,
-                ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_LOCAL_PATH + " IN (?)",
+                ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_LOCAL_PATH + " IN (?) and " +
+                        ProviderMeta.ProviderTableMeta.FILESYSTEM_ACCOUNT + " = ?",
                 stringPaths
         );
 
-        return result;
-
     }
 
-    public Object[] getFilesToUploadForPath(String localPath) {
+    public Set<String> getFilesForUpload(String localPath, String account, @Nullable String filetype) {
         Set<String> localPathsToUpload = new HashSet<>();
 
         String likeParam = localPath + "%";
+        String likeFiletypeParam = "";
+        if (filetype != null) {
+            likeFiletypeParam = filetype + "%";
+        } else {
+            likeFiletypeParam = "%";
+        }
+
 
         Cursor cursor = contentResolver.query(
                 ProviderMeta.ProviderTableMeta.CONTENT_URI_FILESYSTEM,
                 null,
                 ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_LOCAL_PATH + " LIKE ? and " +
-                        ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_BEING_MODIFIED + " = ? and " +
+                        ProviderMeta.ProviderTableMeta.FILESYSTEM_ACCOUNT + " = ? and " +
+                        ProviderMeta.ProviderTableMeta.FILESYSTEM_MIMETYPE + " LIKE ? and " +
                         ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_SENT_FOR_UPLOAD + " = ? and " +
                         ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_IS_FOLDER + " = ?",
-                new String[]{likeParam, "0", "0", "0"},
+                new String[]{likeParam, account, likeFiletypeParam, "0", "0"},
                 null);
 
-        if (cursor.moveToFirst()) {
+        if (cursor != null && cursor.moveToFirst()) {
             do {
                 String value = cursor.getString(cursor.getColumnIndex(
                         ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_LOCAL_PATH));
@@ -88,11 +97,13 @@ public class FilesystemDataProvider {
                     localPathsToUpload.add(value);
                 }
             } while (cursor.moveToNext());
+
+            cursor.close();
+
         }
 
 
-        cursor.close();
-        return localPathsToUpload.toArray();
+        return localPathsToUpload;
 
     }
 
@@ -106,40 +117,45 @@ public class FilesystemDataProvider {
                 new String[]{likeParam},
                 null);
 
-        if (cursor.getCount() == 0) {
-            cursor.close();
-            return 0;
+        if (cursor != null) {
+            if (cursor.getCount() == 0) {
+                cursor.close();
+                return 0;
+            } else {
+                cursor.moveToFirst();
+                int result = cursor.getInt(0);
+                cursor.close();
+                return result;
+            }
         } else {
-            cursor.moveToFirst();
-            int result = cursor.getInt(0);
-            cursor.close();
-            return result;
+            return 0;
         }
     }
 
-    public void storeOrUpdateFileValue(String localPath, long modifiedAt, boolean isFolder, boolean fileBeingModified) {
-        FileSystemDataSet data = getFilesystemDataSet(localPath);
+    public void storeOrUpdateFileValue(String localPath, long modifiedAt, boolean isFolder, String account,
+                                       boolean dryRun, @Nullable String mimetype) {
+        FileSystemDataSet data = getFilesystemDataSet(localPath, account);
 
         int isFolderValue = 0;
         if (isFolder) {
             isFolderValue = 1;
         }
 
-        int isBeingModified = 0;
-        if (fileBeingModified) {
-            isBeingModified = 1;
-        }
 
         ContentValues cv = new ContentValues();
         cv.put(ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_FOUND_RECENTLY, System.currentTimeMillis());
-        cv.put(ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_BEING_MODIFIED, isBeingModified);
 
         if (data == null) {
 
             cv.put(ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_LOCAL_PATH, localPath);
             cv.put(ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_MODIFIED, modifiedAt);
             cv.put(ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_IS_FOLDER, isFolderValue);
-            cv.put(ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_SENT_FOR_UPLOAD, 0);
+            cv.put(ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_SENT_FOR_UPLOAD, dryRun);
+            cv.put(ProviderMeta.ProviderTableMeta.FILESYSTEM_ACCOUNT, account);
+
+            if (mimetype != null) {
+                cv.put(ProviderMeta.ProviderTableMeta.FILESYSTEM_MIMETYPE, mimetype);
+            }
 
 
             Uri result = contentResolver.insert(ProviderMeta.ProviderTableMeta.CONTENT_URI_FILESYSTEM, cv);
@@ -152,6 +168,11 @@ public class FilesystemDataProvider {
             if (data.getModifiedAt() != modifiedAt) {
                 cv.put(ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_SENT_FOR_UPLOAD, 0);
             }
+
+            if (mimetype != null) {
+                cv.put(ProviderMeta.ProviderTableMeta.FILESYSTEM_MIMETYPE, mimetype);
+            }
+
 
             int result = contentResolver.update(
                     ProviderMeta.ProviderTableMeta.CONTENT_URI_FILESYSTEM,
@@ -166,12 +187,14 @@ public class FilesystemDataProvider {
         }
     }
 
-    private FileSystemDataSet getFilesystemDataSet(String localPathParam) {
+    private FileSystemDataSet getFilesystemDataSet(String localPathParam, String account) {
+
         Cursor cursor = contentResolver.query(
                 ProviderMeta.ProviderTableMeta.CONTENT_URI_FILESYSTEM,
                 null,
-                ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_LOCAL_PATH + " = ?",
-                new String[]{localPathParam},
+                ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_LOCAL_PATH + " = ? and " +
+                        ProviderMeta.ProviderTableMeta.FILESYSTEM_ACCOUNT + " = ?",
+                new String[]{localPathParam, account},
                 null
         );
 
@@ -197,18 +220,11 @@ public class FilesystemDataProvider {
                     isSentForUpload = true;
                 }
 
-                boolean isBeingModified = false;
-                if (cursor.getInt(cursor.getColumnIndex(
-                        ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_BEING_MODIFIED)) != 0) {
-                    isBeingModified = true;
-                }
-
-
                 if (id == -1) {
                     Log_OC.e(TAG, "Arbitrary value could not be created from cursor");
                 } else {
                     dataSet = new FileSystemDataSet(id, localPath, modifiedAt, isFolder, isSentForUpload, foundAt,
-                            isBeingModified);
+                            account);
                 }
             }
             cursor.close();

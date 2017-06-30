@@ -625,6 +625,8 @@ public class FileContentProvider extends ContentProvider {
                 return db.update(ProviderTableMeta.SYNCED_FOLDERS_TABLE_NAME, values, selection, selectionArgs);
             case ARBITRARY_DATA:
                 return db.update(ProviderTableMeta.ARBITRARY_DATA_TABLE_NAME, values, selection, selectionArgs);
+            case FILESYSTEM:
+                return db.update(ProviderTableMeta.FILESYSTEM_TABLE_NAME, values, selection, selectionArgs);
             default:
                 return db.update(ProviderTableMeta.FILE_TABLE_NAME, values, selection, selectionArgs);
         }
@@ -1256,7 +1258,8 @@ public class FileContentProvider extends ContentProvider {
                 + ProviderTableMeta.FILESYSTEM_FILE_IS_FOLDER + " INTEGER, "
                 + ProviderTableMeta.FILESYSTEM_FILE_FOUND_RECENTLY + " LONG, "
                 + ProviderTableMeta.FILESYSTEM_FILE_SENT_FOR_UPLOAD + " INTEGER, "
-                + ProviderTableMeta.FILESYSTEM_FILE_BEING_MODIFIED + " INTEGER, "
+                + ProviderTableMeta.FILESYSTEM_ACCOUNT + " STRING, "
+                + ProviderTableMeta.FILESYSTEM_MIMETYPE + " STRING, "
                 + ProviderTableMeta.FILESYSTEM_FILE_MODIFIED + " LONG );"
         );
     }
