@@ -128,13 +128,11 @@ public class MainApp extends MultiDexApplication {
             PreferenceManager.setAutoUploadSplitEntries(this, true);
         }
 
-        if (JobManager.instance().getAllJobRequestsForTag(FilesSyncJob.TAG).isEmpty()) {
-            new JobRequest.Builder(FilesSyncJob.TAG)
-                    .setPeriodic(900000L, 300000L)
-                    .setUpdateCurrent(true)
-                    .build()
-                    .schedule();
-        }
+        new JobRequest.Builder(FilesSyncJob.TAG)
+                .setPeriodic(900000L, 300000L)
+                .setUpdateCurrent(true)
+                .build()
+                .schedule();
 
         FilesSyncHelper.restartJobsIfNeeded();
 
@@ -357,9 +355,7 @@ public class MainApp extends MultiDexApplication {
                 }
             }
 
-            for (Long idValue : syncedFolders.values()) {
-                ids.add(idValue);
-            }
+            ids.addAll(syncedFolders.values());
 
             if (ids.size() > 0) {
                 syncedFolderProvider.deleteSyncedFoldersNotInList(mContext, ids);

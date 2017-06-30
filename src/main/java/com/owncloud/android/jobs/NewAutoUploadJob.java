@@ -188,7 +188,7 @@ public class NewAutoUploadJob extends Job {
         }
 
         // set them as sent for upload
-        //filesystemDataProvider.updateFilesInList(pathsToSet.toArray());
+        //filesystemDataProvider.updateFilesystemFileAsSentForUpload(pathsToSet.toArray());
 
         wakeLock.release();*/
         return Result.SUCCESS;
