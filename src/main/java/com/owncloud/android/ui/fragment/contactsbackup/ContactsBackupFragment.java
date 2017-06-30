@@ -24,6 +24,7 @@ import android.Manifest;
 import android.accounts.Account;
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -51,6 +52,7 @@ import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.operations.RefreshFolderOperation;
 import com.owncloud.android.services.ContactsBackupJob;
 import com.owncloud.android.ui.activity.ContactsPreferenceActivity;
+import com.owncloud.android.ui.activity.Preferences;
 import com.owncloud.android.ui.fragment.FileFragment;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.PermissionUtil;
@@ -74,9 +76,6 @@ public class ContactsBackupFragment extends FileFragment implements DatePickerDi
     @BindView(R.id.contacts_automatic_backup)
     public SwitchCompat backupSwitch;
 
-    @BindView(R.id.contacts_header_restore)
-    public TextView contactsRestoreHeader;
-
     @BindView(R.id.contacts_datepicker)
     public AppCompatButton contactsDatePickerBtn;
 
@@ -96,6 +95,7 @@ public class ContactsBackupFragment extends FileFragment implements DatePickerDi
     private static final String KEY_CALENDAR_YEAR = "CALENDAR_YEAR";
     private ArbitraryDataProvider arbitraryDataProvider;
     private Account account;
+    private boolean showSidebar = true;
 
 
     @Override
@@ -105,6 +105,10 @@ public class ContactsBackupFragment extends FileFragment implements DatePickerDi
         ButterKnife.bind(this, view);
 
         setHasOptionsMenu(true);
+
+        if (getArguments() != null) {
+            showSidebar = getArguments().getBoolean(ContactsPreferenceActivity.EXTRA_SHOW_SIDEBAR);
+        }
 
         final ContactsPreferenceActivity contactsPreferenceActivity = (ContactsPreferenceActivity) getActivity();
 
@@ -186,11 +190,16 @@ public class ContactsBackupFragment extends FileFragment implements DatePickerDi
                         getActivity().getContentResolver());
 
                 OCFile folder = storageManager.getFileByPath(path[0]);
-                RefreshFolderOperation operation = new RefreshFolderOperation(folder, System.currentTimeMillis(),
-                        false, false, false, storageManager, account, getContext());
 
-                RemoteOperationResult result = operation.execute(account, getContext());
-                return result.isSuccess();
+                if (folder != null) {
+                    RefreshFolderOperation operation = new RefreshFolderOperation(folder, System.currentTimeMillis(),
+                            false, false, false, storageManager, account, getContext());
+
+                    RemoteOperationResult result = operation.execute(account, getContext());
+                    return result.isSuccess();
+                } else {
+                    return false;
+                }
             }
 
             @Override
@@ -202,10 +211,8 @@ public class ContactsBackupFragment extends FileFragment implements DatePickerDi
                             .getFolderContent(backupFolder, false);
 
                     if (backupFiles == null || backupFiles.size() == 0) {
-                        contactsRestoreHeader.setVisibility(View.GONE);
                         contactsDatePickerBtn.setVisibility(View.GONE);
                     } else {
-                        contactsRestoreHeader.setVisibility(View.VISIBLE);
                         contactsDatePickerBtn.setVisibility(View.VISIBLE);
                     }
                 }
@@ -223,10 +230,15 @@ public class ContactsBackupFragment extends FileFragment implements DatePickerDi
         boolean retval;
         switch (item.getItemId()) {
             case android.R.id.home:
-                if (contactsPreferenceActivity.isDrawerOpen()) {
-                    contactsPreferenceActivity.closeDrawer();
+                if (showSidebar) {
+                    if (contactsPreferenceActivity.isDrawerOpen()) {
+                        contactsPreferenceActivity.closeDrawer();
+                    } else {
+                        contactsPreferenceActivity.openDrawer();
+                    }
                 } else {
-                    contactsPreferenceActivity.openDrawer();
+                    Intent settingsIntent = new Intent(getContext(), Preferences.class);
+                    startActivity(settingsIntent);
                 }
                 retval = true;
                 break;
