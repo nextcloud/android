@@ -53,8 +53,8 @@ import com.owncloud.android.ui.dialog.SortingOrderDialogFragment;
 import com.owncloud.android.ui.fragment.ExtendedListFragment;
 import com.owncloud.android.ui.fragment.LocalFileListFragment;
 import com.owncloud.android.utils.AnalyticsUtils;
-import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.FileStorageUtils;
+import com.owncloud.android.utils.ThemeUtils;
 
 import java.io.File;
 
@@ -137,7 +137,7 @@ public class UploadFilesActivity extends FileActivity implements
         mCancelBtn = (Button) findViewById(R.id.upload_files_btn_cancel);
         mCancelBtn.setOnClickListener(this);
         mUploadBtn = (AppCompatButton) findViewById(R.id.upload_files_btn_upload);
-        mUploadBtn.getBackground().setColorFilter(DisplayUtils.primaryAccentColor(), PorterDuff.Mode.SRC_ATOP);
+        mUploadBtn.getBackground().setColorFilter(ThemeUtils.primaryAccentColor(), PorterDuff.Mode.SRC_ATOP);
         mUploadBtn.setOnClickListener(this);
 
         int localBehaviour = PreferenceManager.getUploaderBehaviour(this);
@@ -357,7 +357,7 @@ public class UploadFilesActivity extends FileActivity implements
         if(checked) {
             selectAll.setIcon(R.drawable.ic_select_none);
         } else {
-            selectAll.setIcon(DisplayUtils.tintDrawable(R.drawable.ic_select_all, DisplayUtils.primaryColor()));
+            selectAll.setIcon(ThemeUtils.tintDrawable(R.drawable.ic_select_all, ThemeUtils.primaryColor()));
         }
     }
 

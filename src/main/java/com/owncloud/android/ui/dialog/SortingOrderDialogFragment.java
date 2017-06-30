@@ -35,7 +35,7 @@ import android.widget.TextView;
 
 import com.owncloud.android.R;
 import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.utils.DisplayUtils;
+import com.owncloud.android.utils.ThemeUtils;
 
 /**
  * Dialog to show and choose the sorting order for the file listing.
@@ -124,7 +124,7 @@ public class SortingOrderDialogFragment extends DialogFragment {
         mSortBySizeAscendingButton = (ImageButton) view.findViewById(R.id.sortBySizeAscending);
         mSortBySizeDescendingButton = (ImageButton) view.findViewById(R.id.sortBySizeDescending);
         mCancel = (AppCompatButton) view.findViewById(R.id.cancel);
-        mCancel.setTextColor(DisplayUtils.primaryAccentColor());
+        mCancel.setTextColor(ThemeUtils.primaryAccentColor());
 
         mSortByNameAscendingText = (TextView) view.findViewById(R.id.sortByNameAZText);
         mSortByNameDescendingText = (TextView) view.findViewById(R.id.sortByNameZAText);
@@ -200,8 +200,8 @@ public class SortingOrderDialogFragment extends DialogFragment {
      * @param textView    the text view, the text color to be set
      */
     private void colorActiveSortingIconAndText(ImageButton imageButton, TextView textView) {
-        int color = DisplayUtils.primaryAccentColor();
-        DisplayUtils.colorImageButton(imageButton, color);
+        int color = ThemeUtils.primaryAccentColor();
+        ThemeUtils.colorImageButton(imageButton, color);
         textView.setTextColor(color);
         textView.setTypeface(Typeface.DEFAULT_BOLD);
     }

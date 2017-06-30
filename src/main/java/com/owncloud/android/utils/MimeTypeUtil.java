@@ -106,7 +106,7 @@ public class MimeTypeUtil {
             drawableId = R.drawable.ic_menu_archive;
         }
 
-        return DisplayUtils.tintDrawable(drawableId, DisplayUtils.primaryColor());
+        return ThemeUtils.tintDrawable(drawableId, ThemeUtils.primaryColor());
     }
 
     public static Drawable getDefaultFolderIcon() {

@@ -74,6 +74,7 @@ import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.utils.AnalyticsUtils;
 import com.owncloud.android.utils.DisplayUtils;
+import com.owncloud.android.utils.ThemeUtils;
 
 import java.io.IOException;
 
@@ -136,7 +137,7 @@ public class Preferences extends PreferenceActivity
     @Override
     public void onCreate(Bundle savedInstanceState) {
 
-        if (DisplayUtils.themingEnabled()) {
+        if (ThemeUtils.themingEnabled()) {
             setTheme(R.style.FallbackThemingTheme);
         }
 
@@ -147,17 +148,17 @@ public class Preferences extends PreferenceActivity
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
-        DisplayUtils.setColoredTitle(actionBar, getString(R.string.actionbar_settings));
-        actionBar.setBackgroundDrawable(new ColorDrawable(DisplayUtils.primaryColor()));
+        ThemeUtils.setColoredTitle(actionBar, getString(R.string.actionbar_settings));
+        actionBar.setBackgroundDrawable(new ColorDrawable(ThemeUtils.primaryColor()));
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            getWindow().setStatusBarColor(DisplayUtils.primaryDarkColor());
+            getWindow().setStatusBarColor(ThemeUtils.primaryDarkColor());
         }
 
         Drawable backArrow = getResources().getDrawable(R.drawable.ic_arrow_back);
-        actionBar.setHomeAsUpIndicator(DisplayUtils.tintDrawable(backArrow, DisplayUtils.fontColor()));
+        actionBar.setHomeAsUpIndicator(ThemeUtils.tintDrawable(backArrow, ThemeUtils.fontColor()));
 
-        int accentColor = DisplayUtils.primaryAccentColor();
+        int accentColor = ThemeUtils.primaryAccentColor();
 
         // retrieve user's base uri
         setupBaseUri();
@@ -185,12 +186,12 @@ public class Preferences extends PreferenceActivity
 
         // General
         PreferenceCategory preferenceCategoryGeneral = (PreferenceCategory) findPreference("general");
-        preferenceCategoryGeneral.setTitle(DisplayUtils.getColoredTitle(getString(R.string.prefs_category_general),
+        preferenceCategoryGeneral.setTitle(ThemeUtils.getColoredTitle(getString(R.string.prefs_category_general),
                 accentColor));
 
         // Synced folders
         PreferenceCategory preferenceCategoryFolderSync = (PreferenceCategory) findPreference("folder_sync");
-        preferenceCategoryFolderSync.setTitle(DisplayUtils.getColoredTitle(getString(R.string.drawer_folder_sync),
+        preferenceCategoryFolderSync.setTitle(ThemeUtils.getColoredTitle(getString(R.string.drawer_folder_sync),
                 accentColor));
         PreferenceScreen preferenceScreen = (PreferenceScreen) findPreference("preference_screen");
 
@@ -235,7 +236,7 @@ public class Preferences extends PreferenceActivity
         }
 
         PreferenceCategory preferenceCategoryDetails = (PreferenceCategory) findPreference("details");
-        preferenceCategoryDetails.setTitle(DisplayUtils.getColoredTitle(getString(R.string.prefs_category_details),
+        preferenceCategoryDetails.setTitle(ThemeUtils.getColoredTitle(getString(R.string.prefs_category_details),
                 accentColor));
 
         boolean fPassCodeEnabled = getResources().getBoolean(R.bool.passcode_enabled);
@@ -335,7 +336,7 @@ public class Preferences extends PreferenceActivity
         }
 
         PreferenceCategory preferenceCategoryMore = (PreferenceCategory) findPreference("more");
-        preferenceCategoryMore.setTitle(DisplayUtils.getColoredTitle(getString(R.string.prefs_category_more),
+        preferenceCategoryMore.setTitle(ThemeUtils.getColoredTitle(getString(R.string.prefs_category_more),
                 accentColor));
 
         boolean calendarContactsEnabled = getResources().getBoolean(R.bool.davdroid_integration_enabled);
@@ -606,7 +607,7 @@ public class Preferences extends PreferenceActivity
 
         // About category
         PreferenceCategory preferenceCategoryAbout = (PreferenceCategory) findPreference("about");
-        preferenceCategoryAbout.setTitle(DisplayUtils.getColoredTitle(getString(R.string.prefs_category_about),
+        preferenceCategoryAbout.setTitle(ThemeUtils.getColoredTitle(getString(R.string.prefs_category_about),
                 accentColor));
 
         /* About App */

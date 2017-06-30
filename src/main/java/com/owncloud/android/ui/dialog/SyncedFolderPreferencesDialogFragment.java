@@ -45,6 +45,7 @@ import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.activity.FolderPickerActivity;
 import com.owncloud.android.ui.dialog.parcel.SyncedFolderParcelable;
 import com.owncloud.android.utils.DisplayUtils;
+import com.owncloud.android.utils.ThemeUtils;
 
 /**
  * Dialog to show the preferences/configuration of a synced folder allowing the user to change the different parameters.
@@ -125,26 +126,26 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment {
      * @param view the parent view
      */
     private void setupDialogElements(View view) {
-        int accentColor = DisplayUtils.primaryAccentColor();
+        int accentColor = ThemeUtils.primaryAccentColor();
 
         // find/saves UI elements
         mEnabledSwitch = (SwitchCompat) view.findViewById(R.id.sync_enabled);
-        DisplayUtils.tintSwitch(mEnabledSwitch, accentColor);
+        ThemeUtils.tintSwitch(mEnabledSwitch, accentColor);
 
         mLocalFolderPath = (TextView) view.findViewById(R.id.folder_sync_settings_local_folder_path);
 
         mRemoteFolderSummary = (TextView) view.findViewById(R.id.remote_folder_summary);
 
         mUploadOnWifiCheckbox = (AppCompatCheckBox) view.findViewById(R.id.setting_instant_upload_on_wifi_checkbox);
-        DisplayUtils.tintCheckbox(mUploadOnWifiCheckbox, accentColor);
+        ThemeUtils.tintCheckbox(mUploadOnWifiCheckbox, accentColor);
 
         mUploadOnChargingCheckbox = (AppCompatCheckBox) view.findViewById(
                 R.id.setting_instant_upload_on_charging_checkbox);
-        DisplayUtils.tintCheckbox(mUploadOnChargingCheckbox, accentColor);
+        ThemeUtils.tintCheckbox(mUploadOnChargingCheckbox, accentColor);
 
         mUploadUseSubfoldersCheckbox = (AppCompatCheckBox) view.findViewById(
                 R.id.setting_instant_upload_path_use_subfolders_checkbox);
-        DisplayUtils.tintCheckbox(mUploadUseSubfoldersCheckbox, accentColor);
+        ThemeUtils.tintCheckbox(mUploadUseSubfoldersCheckbox, accentColor);
 
         mUploadBehaviorSummary = (TextView) view.findViewById(R.id.setting_instant_behaviour_summary);
 
@@ -253,9 +254,9 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment {
                     @Override
                     public void onClick(View v) {
                         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                        builder.setTitle(DisplayUtils.getColoredTitle(
+                        builder.setTitle(ThemeUtils.getColoredTitle(
                                 getResources().getString(R.string.prefs_instant_behaviour_dialogTitle),
-                                DisplayUtils.primaryAccentColor()))
+                                ThemeUtils.primaryAccentColor()))
                                 .setSingleChoiceItems(getResources().getTextArray(R.array.pref_behaviour_entries),
                                         mSyncedFolder.getUploadActionInteger(),
                                         new

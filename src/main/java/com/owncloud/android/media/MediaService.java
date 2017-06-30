@@ -42,7 +42,7 @@ import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
-import com.owncloud.android.utils.DisplayUtils;
+import com.owncloud.android.utils.ThemeUtils;
 
 import java.io.IOException;
 
@@ -229,7 +229,7 @@ public class MediaService extends Service implements OnCompletionListener, OnPre
 
         mNotificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         mNotificationBuilder = new NotificationCompat.Builder(this);
-        mNotificationBuilder.setColor(DisplayUtils.primaryColor());
+        mNotificationBuilder.setColor(ThemeUtils.primaryColor());
         mAudioManager = (AudioManager) getSystemService(AUDIO_SERVICE);
         mBinder = new MediaServiceBinder(this);
     }

@@ -75,6 +75,7 @@ import com.owncloud.android.ui.events.MenuItemClickEvent;
 import com.owncloud.android.ui.events.SearchEvent;
 import com.owncloud.android.ui.fragment.OCFileListFragment;
 import com.owncloud.android.utils.DisplayUtils;
+import com.owncloud.android.utils.ThemeUtils;
 import com.owncloud.android.utils.svg.MenuSimpleTarget;
 
 import org.greenrobot.eventbus.EventBus;
@@ -253,7 +254,7 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
         // Set the drawer toggle as the DrawerListener
         mDrawerLayout.addDrawerListener(mDrawerToggle);
         mDrawerToggle.setDrawerIndicatorEnabled(true);
-        mDrawerToggle.getDrawerArrowDrawable().setColor(DisplayUtils.fontColor());
+        mDrawerToggle.getDrawerArrowDrawable().setColor(ThemeUtils.fontColor());
     }
 
     /**
@@ -265,7 +266,7 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
         mAccountEndAccountAvatar = (ImageView) findNavigationViewChildById(R.id.drawer_account_end);
 
         mAccountChooserToggle = (ImageView) findNavigationViewChildById(R.id.drawer_account_chooser_toogle);
-        mAccountChooserToggle.setColorFilter(DisplayUtils.fontColor());
+        mAccountChooserToggle.setColorFilter(ThemeUtils.fontColor());
 
         if (getResources().getBoolean(R.bool.allow_profile_click)) {
             mAccountChooserToggle.setImageResource(R.drawable.ic_down);
@@ -290,7 +291,7 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
         mQuotaProgressBar = (ProgressBar) findQuotaViewById(R.id.drawer_quota_ProgressBar);
         mQuotaTextPercentage = (TextView) findQuotaViewById(R.id.drawer_quota_percentage);
         mQuotaTextLink = (TextView) findQuotaViewById(R.id.drawer_quota_link);
-        DisplayUtils.colorPreLollipopHorizontalProgressBar(mQuotaProgressBar);
+        ThemeUtils.colorPreLollipopHorizontalProgressBar(mQuotaProgressBar);
     }
 
     /**
@@ -722,11 +723,11 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
             TextView username = (TextView) findNavigationViewChildById(R.id.drawer_username);
             TextView usernameFull = (TextView) findNavigationViewChildById(R.id.drawer_username_full);
             usernameFull.setText(account.name);
-            usernameFull.setTextColor(DisplayUtils.fontColor());
+            usernameFull.setTextColor(ThemeUtils.fontColor());
             try {
                 OwnCloudAccount oca = new OwnCloudAccount(account, this);
                 username.setText(oca.getDisplayName());
-                username.setTextColor(DisplayUtils.fontColor());
+                username.setTextColor(ThemeUtils.fontColor());
             } catch (com.owncloud.android.lib.common.accounts.AccountUtils.AccountNotFoundException e) {
                 Log_OC.w(TAG, "Couldn't read display name of account fallback to account name");
                 username.setText(AccountUtils.getAccountUsername(account.name));
@@ -802,7 +803,7 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
      */
     private void setQuotaInformation(long usedSpace, long totalSpace, int relative) {
         mQuotaProgressBar.setProgress(relative);
-        DisplayUtils.colorHorizontalProgressBar(mQuotaProgressBar, DisplayUtils.getRelativeInfoColor(this, relative));
+        ThemeUtils.colorHorizontalProgressBar(mQuotaProgressBar, DisplayUtils.getRelativeInfoColor(this, relative));
 
         updateQuotaLink();
 
@@ -902,9 +903,9 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
                 }
             }
 
-            DisplayUtils.tintDrawable(item.getIcon(), DisplayUtils.primaryColor());
+            ThemeUtils.tintDrawable(item.getIcon(), ThemeUtils.primaryColor());
 
-            String colorHex = DisplayUtils.colorToHexString(DisplayUtils.primaryColor());
+            String colorHex = ThemeUtils.colorToHexString(ThemeUtils.primaryColor());
             item.setTitle(Html.fromHtml("<font color='" + colorHex + "'>" + item.getTitle() + "</font>"));
 
             mCheckedMenuItem = menuItemId;

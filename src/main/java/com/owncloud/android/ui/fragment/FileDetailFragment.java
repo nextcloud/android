@@ -53,6 +53,7 @@ import com.owncloud.android.ui.dialog.RenameFileDialogFragment;
 import com.owncloud.android.utils.AnalyticsUtils;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
+import com.owncloud.android.utils.ThemeUtils;
 
 import java.lang.ref.WeakReference;
 
@@ -143,7 +144,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
         if (mLayout == R.layout.file_details_fragment) {
             mView.findViewById(R.id.fdFavorite).setOnClickListener(this);
             ProgressBar progressBar = (ProgressBar)mView.findViewById(R.id.fdProgressBar);
-            DisplayUtils.colorPreLollipopHorizontalProgressBar(progressBar);
+            ThemeUtils.colorPreLollipopHorizontalProgressBar(progressBar);
             mProgressListener = new ProgressListener(progressBar);
             mView.findViewById(R.id.fdCancelBtn).setOnClickListener(this);
         }

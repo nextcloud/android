@@ -76,6 +76,7 @@ import com.owncloud.android.ui.adapter.FileListListAdapter;
 import com.owncloud.android.ui.adapter.LocalFileListAdapter;
 import com.owncloud.android.ui.events.SearchEvent;
 import com.owncloud.android.utils.DisplayUtils;
+import com.owncloud.android.utils.ThemeUtils;
 
 import org.greenrobot.eventbus.EventBus;
 import org.parceler.Parcel;
@@ -290,7 +291,7 @@ public class ExtendedListFragment extends Fragment
             }
         });
 
-        int fontColor = DisplayUtils.fontColor();
+        int fontColor = ThemeUtils.fontColor();
 
         LinearLayout searchBar = (LinearLayout) searchView.findViewById(R.id.search_bar);
         TextView searchBadge = (TextView) searchView.findViewById(R.id.search_badge);
@@ -299,7 +300,7 @@ public class ExtendedListFragment extends Fragment
         searchBadge.setHintTextColor(fontColor);
 
         ImageView searchButton = (ImageView) searchView.findViewById(R.id.search_button);
-        searchButton.setImageDrawable(DisplayUtils.tintDrawable(R.drawable.ic_search, fontColor));
+        searchButton.setImageDrawable(ThemeUtils.tintDrawable(R.drawable.ic_search, fontColor));
 
         searchBar.setLayoutTransition(new LayoutTransition());
     }
@@ -437,9 +438,9 @@ public class ExtendedListFragment extends Fragment
         mListView.setEmptyView(mRefreshEmptyLayout);
         mGridView.setEmptyView(mRefreshEmptyLayout);
 
-        int primaryColor = DisplayUtils.primaryColor();
-        int primaryColorDark = DisplayUtils.primaryDarkColor();
-        int fontColor = DisplayUtils.fontColor();
+        int primaryColor = ThemeUtils.primaryColor();
+        int primaryColorDark = ThemeUtils.primaryDarkColor();
+        int fontColor = ThemeUtils.fontColor();
 
         mFabMain = (FloatingActionsMenu) v.findViewById(R.id.fab_main);
 
@@ -451,17 +452,17 @@ public class ExtendedListFragment extends Fragment
         mFabUpload = (FloatingActionButton) v.findViewById(R.id.fab_upload);
         mFabUpload.setColorNormal(primaryColor);
         mFabUpload.setColorPressed(primaryColorDark);
-        mFabUpload.setIconDrawable(DisplayUtils.tintDrawable(R.drawable.ic_action_upload, fontColor));
+        mFabUpload.setIconDrawable(ThemeUtils.tintDrawable(R.drawable.ic_action_upload, fontColor));
 
         mFabMkdir = (FloatingActionButton) v.findViewById(R.id.fab_mkdir);
         mFabMkdir.setColorNormal(primaryColor);
         mFabMkdir.setColorPressed(primaryColorDark);
-        mFabMkdir.setIconDrawable(DisplayUtils.tintDrawable(R.drawable.ic_action_create_dir, fontColor));
+        mFabMkdir.setIconDrawable(ThemeUtils.tintDrawable(R.drawable.ic_action_create_dir, fontColor));
 
         mFabUploadFromApp = (FloatingActionButton) v.findViewById(R.id.fab_upload_from_app);
         mFabUploadFromApp.setColorNormal(primaryColor);
         mFabUploadFromApp.setColorPressed(primaryColorDark);
-        mFabUploadFromApp.setIconDrawable(DisplayUtils.tintDrawable(R.drawable.ic_import, fontColor));
+        mFabUploadFromApp.setIconDrawable(ThemeUtils.tintDrawable(R.drawable.ic_import, fontColor));
 
         boolean searchSupported = AccountUtils.hasSearchSupport(AccountUtils.
                 getCurrentOwnCloudAccount(MainApp.getAppContext()));
@@ -540,7 +541,7 @@ public class ExtendedListFragment extends Fragment
         mEmptyListHeadline = (TextView) view.findViewById(R.id.empty_list_view_headline);
         mEmptyListIcon = (ImageView) view.findViewById(R.id.empty_list_icon);
         mEmptyListProgress = (ProgressBar) view.findViewById(R.id.empty_list_progress);
-        mEmptyListProgress.getIndeterminateDrawable().setColorFilter(DisplayUtils.primaryColor(),
+        mEmptyListProgress.getIndeterminateDrawable().setColorFilter(ThemeUtils.primaryColor(),
                 PorterDuff.Mode.SRC_IN);
     }
 
@@ -771,7 +772,7 @@ public class ExtendedListFragment extends Fragment
                     mEmptyListMessage.setText(message);
 
                     if (tintIcon) {
-                        mEmptyListIcon.setImageDrawable(DisplayUtils.tintDrawable(icon, DisplayUtils.primaryColor()));
+                        mEmptyListIcon.setImageDrawable(ThemeUtils.tintDrawable(icon, ThemeUtils.primaryColor()));
                     }
 
                     mEmptyListIcon.setVisibility(View.VISIBLE);
@@ -866,9 +867,9 @@ public class ExtendedListFragment extends Fragment
     }
 
     protected void onCreateSwipeToRefresh(SwipeRefreshLayout refreshLayout) {
-        int primaryColor = DisplayUtils.primaryColor();
-        int darkColor = DisplayUtils.primaryDarkColor();
-        int accentColor = DisplayUtils.primaryAccentColor();
+        int primaryColor = ThemeUtils.primaryColor();
+        int darkColor = ThemeUtils.primaryDarkColor();
+        int accentColor = ThemeUtils.primaryAccentColor();
 
         // Colors in animations
         // TODO change this to use darker and lighter color, again.

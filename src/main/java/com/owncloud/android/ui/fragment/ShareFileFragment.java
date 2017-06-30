@@ -60,6 +60,7 @@ import com.owncloud.android.ui.dialog.SharePasswordDialogFragment;
 import com.owncloud.android.utils.AnalyticsUtils;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
+import com.owncloud.android.utils.ThemeUtils;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -193,11 +194,11 @@ public class ShareFileFragment extends Fragment implements ShareUserListAdapter.
         Log_OC.d(TAG, "onCreateView");
 
         // use grey as fallback for elements where custom theming is not available
-        if (DisplayUtils.themingEnabled()) {
+        if (ThemeUtils.themingEnabled()) {
             getContext().getTheme().applyStyle(R.style.FallbackThemingTheme, true);
         }
 
-        int accentColor = DisplayUtils.primaryAccentColor();
+        int accentColor = ThemeUtils.primaryAccentColor();
 
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.share_file_layout, container, false);
@@ -224,7 +225,7 @@ public class ShareFileFragment extends Fragment implements ShareUserListAdapter.
         fileNameHeader.setText(getResources().getString(R.string.share_file, mFile.getFileName()));
 
         View headerDivider = view.findViewById(R.id.share_header_divider);
-        headerDivider.getBackground().setColorFilter(DisplayUtils.primaryAccentColor(), PorterDuff.Mode.SRC_ATOP);
+        headerDivider.getBackground().setColorFilter(ThemeUtils.primaryAccentColor(), PorterDuff.Mode.SRC_ATOP);
 
         // Size
         TextView size = (TextView) view.findViewById(R.id.shareFileSize);
@@ -282,7 +283,7 @@ public class ShareFileFragment extends Fragment implements ShareUserListAdapter.
     private void initShareViaLinkListener(View shareView) {
         mOnShareViaLinkSwitchCheckedChangeListener = new OnShareViaLinkListener();
         SwitchCompat shareViaLinkSwitch = (SwitchCompat) shareView.findViewById(R.id.shareViaLinkSectionSwitch);
-        DisplayUtils.tintSwitch(shareViaLinkSwitch, DisplayUtils.primaryAccentColor(), true);
+        ThemeUtils.tintSwitch(shareViaLinkSwitch, ThemeUtils.primaryAccentColor(), true);
         shareViaLinkSwitch.setOnCheckedChangeListener(mOnShareViaLinkSwitchCheckedChangeListener);
     }
 
@@ -346,7 +347,7 @@ public class ShareFileFragment extends Fragment implements ShareUserListAdapter.
         SwitchCompat expirationSwitch = (SwitchCompat) shareView.findViewById(R.id.shareViaLinkExpirationSwitch);
         expirationSwitch.setOnCheckedChangeListener(mOnExpirationDateInteractionListener);
 
-        DisplayUtils.tintSwitch(expirationSwitch, DisplayUtils.primaryAccentColor());
+        ThemeUtils.tintSwitch(expirationSwitch, ThemeUtils.primaryAccentColor());
 
         shareView.findViewById(R.id.shareViaLinkExpirationLabel).
                 setOnClickListener(mOnExpirationDateInteractionListener);
@@ -425,7 +426,7 @@ public class ShareFileFragment extends Fragment implements ShareUserListAdapter.
 
         SwitchCompat passwordSwitch = (SwitchCompat) shareView.findViewById(R.id.shareViaLinkPasswordSwitch);
         passwordSwitch.setOnCheckedChangeListener(mOnPasswordInteractionListener);
-        DisplayUtils.tintSwitch(passwordSwitch, DisplayUtils.primaryAccentColor());
+        ThemeUtils.tintSwitch(passwordSwitch, ThemeUtils.primaryAccentColor());
 
         shareView.findViewById(R.id.shareViaLinkPasswordLabel).setOnClickListener(mOnPasswordInteractionListener);
 
@@ -490,7 +491,7 @@ public class ShareFileFragment extends Fragment implements ShareUserListAdapter.
 
         SwitchCompat permissionSwitch = (SwitchCompat) shareView.findViewById(R.id.shareViaLinkEditPermissionSwitch);
         permissionSwitch.setOnCheckedChangeListener(mOnEditPermissionInteractionListener);
-        DisplayUtils.tintSwitch(permissionSwitch, DisplayUtils.primaryAccentColor());
+        ThemeUtils.tintSwitch(permissionSwitch, ThemeUtils.primaryAccentColor());
     }
 
     /**
@@ -504,7 +505,7 @@ public class ShareFileFragment extends Fragment implements ShareUserListAdapter.
 
         SwitchCompat permissionSwitch = (SwitchCompat) shareView.findViewById(R.id.shareViaLinkFileListingPermissionSwitch);
         permissionSwitch.setOnCheckedChangeListener(mOnHideFileListingPermissionInteractionListener);
-        DisplayUtils.tintSwitch(permissionSwitch, DisplayUtils.primaryAccentColor());
+        ThemeUtils.tintSwitch(permissionSwitch, ThemeUtils.primaryAccentColor());
     }
 
     /**
@@ -748,7 +749,7 @@ public class ShareFileFragment extends Fragment implements ShareUserListAdapter.
 
             // GetLink button
             AppCompatButton getLinkButton = getGetLinkButton();
-            getLinkButton.getBackground().setColorFilter(DisplayUtils.primaryAccentColor(), PorterDuff.Mode.SRC_ATOP);
+            getLinkButton.getBackground().setColorFilter(ThemeUtils.primaryAccentColor(), PorterDuff.Mode.SRC_ATOP);
             getLinkButton.setVisibility(View.VISIBLE);
             getLinkButton.setOnClickListener(new View.OnClickListener() {
                 @Override

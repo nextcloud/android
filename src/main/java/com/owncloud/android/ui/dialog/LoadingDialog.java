@@ -30,7 +30,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.owncloud.android.R;
-import com.owncloud.android.utils.DisplayUtils;
+import com.owncloud.android.utils.ThemeUtils;
 
 public class LoadingDialog extends DialogFragment {
 
@@ -63,7 +63,7 @@ public class LoadingDialog extends DialogFragment {
         // set progress wheel color
         ProgressBar progressBar  = (ProgressBar) v.findViewById(R.id.loadingBar);
         progressBar.getIndeterminateDrawable().setColorFilter(
-                DisplayUtils.primaryAccentColor(), PorterDuff.Mode.SRC_IN);
+                ThemeUtils.primaryAccentColor(), PorterDuff.Mode.SRC_IN);
         
         return v;
     }
