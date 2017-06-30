@@ -855,7 +855,9 @@ public class ReceiveExternalFilesActivity extends FileActivity
             FileUploader.LOCAL_BEHAVIOUR_COPY,
             null,
             true,
-            UploadFileOperation.CREATED_BY_USER
+            UploadFileOperation.CREATED_BY_USER,
+            false,
+            false
             );
         finish();
     }

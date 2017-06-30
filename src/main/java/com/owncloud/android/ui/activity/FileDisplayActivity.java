@@ -911,7 +911,9 @@ public class FileDisplayActivity extends HookActivity
                     null,           // MIME type will be detected from file name
                     behaviour,
                     false,          // do not create parent folder if not existent
-                    UploadFileOperation.CREATED_BY_USER
+                    UploadFileOperation.CREATED_BY_USER,
+                    false,
+                    false
             );
 
         } else {

@@ -47,10 +47,13 @@ import java.nio.channels.OverlappingFileLockException;
 public class AutoUploadJob extends Job {
     public static final String TAG = "AutoUploadJob";
 
-    static final String LOCAL_PATH = "filePath";
-    static final String REMOTE_PATH = "remotePath";
+    public static final String LOCAL_PATH = "filePath";
+    public static final String REMOTE_PATH = "remotePath";
     public static final String ACCOUNT = "account";
-    static final String UPLOAD_BEHAVIOUR = "uploadBehaviour";
+    public static final String UPLOAD_BEHAVIOUR = "uploadBehaviour";
+    public static final String REQUIRES_WIFI = "requiresWifi";
+    public static final String REQUIRES_CHARGING = "requiresCharging";
+
 
     @NonNull
     @Override
@@ -69,9 +72,10 @@ public class AutoUploadJob extends Job {
         final Account account = AccountUtils.getOwnCloudAccountByName(context, bundle.getString(ACCOUNT, ""));
         final Integer uploadBehaviour = bundle.getInt(UPLOAD_BEHAVIOUR, FileUploader.LOCAL_BEHAVIOUR_FORGET);
 
+        final boolean requiresWifi = bundle.getBoolean(REQUIRES_WIFI, false);
+        final boolean requiresCharging = bundle.getBoolean(REQUIRES_CHARGING, false);
 
         File file = new File(filePath);
-
 
         // File can be deleted between job generation and job execution. If file does not exist, just ignore it
         if (file.exists()) {
@@ -93,8 +97,14 @@ public class AutoUploadJob extends Job {
                         uploadBehaviour,
                         mimeType,
                         true,           // create parent folder if not existent
-                        UploadFileOperation.CREATED_BY_USER
+                        UploadFileOperation.CREATED_BY_USER,
+                        requiresWifi,
+                        requiresCharging
                 );
+
+                lock.release();
+                wakeLock.release();
+                return Result.SUCCESS;
 
             } catch (FileNotFoundException e) {
                 Log_OC.d(TAG, "Something went wrong while trying to access file");
@@ -102,20 +112,10 @@ public class AutoUploadJob extends Job {
                 Log_OC.d(TAG, "Overlapping file lock exception");
             } catch (IOException e) {
                 Log_OC.d(TAG, "IO exception");
-            }  finally {
-                if (lock != null) {
-                    try {
-                        lock.release();
-                    } catch (IOException e) {
-                        Log_OC.d(TAG, "Failed to release lock");
-                    }
-                }
             }
         }
 
-
         wakeLock.release();
-        return Result.SUCCESS;
+        return Result.RESCHEDULE;
     }
-
 }
