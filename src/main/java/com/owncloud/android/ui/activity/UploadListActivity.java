@@ -211,16 +211,6 @@ public class UploadListActivity extends FileActivity implements UploadListFragme
                 } else {
                     openDrawer();
                 }
-            case R.id.action_retry_uploads:
-                FileUploader.UploadRequester requester = new FileUploader.UploadRequester();
-                requester.retryFailedUploads(this, null, null);
-                break;
-
-            case R.id.action_clear_failed_uploads:
-                storageManager = new UploadsStorageManager(getContentResolver(), getApplicationContext());
-                storageManager.clearFailedButNotDelayedUploads();
-                uploadListFragment.updateUploads();
-                break;
 
             case R.id.action_clear_successfull_uploads:
                 storageManager = new UploadsStorageManager(getContentResolver(), getApplicationContext());
