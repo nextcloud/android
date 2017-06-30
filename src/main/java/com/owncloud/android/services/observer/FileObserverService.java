@@ -363,7 +363,7 @@ public class FileObserverService extends Service {
                         && downloadedFile.exists()) {
                     // no matter if the download was successful or not; the
                     // file could be down anyway due to a former download or upload
-                    observer.startWatching(downloadedFile.getName());
+//                    observer.startWatching(downloadedFile.getName());
                     Log_OC.d(TAG, "Resuming observance of " + downloadedFile.getAbsolutePath());
 
                 } else if (intent.getAction().equals(FileDownloader.getDownloadAddedMessage())) {
