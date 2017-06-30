@@ -996,6 +996,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
 
             default:
                 retval = super.onOptionsItemSelected(item);
+                break;
         }
         return retval;
     }

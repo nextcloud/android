@@ -135,6 +135,7 @@ public class LogHistoryActivity extends ToolbarActivity {
                 break;
             default:
                 retval = super.onOptionsItemSelected(item);
+                break;
         }
         return retval;
     }
