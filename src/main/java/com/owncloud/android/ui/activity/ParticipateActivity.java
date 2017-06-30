@@ -34,7 +34,6 @@ import android.widget.TextView;
 
 import com.owncloud.android.R;
 import com.owncloud.android.utils.AnalyticsUtils;
-import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.ThemeUtils;
 
 /**
