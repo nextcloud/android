@@ -238,6 +238,7 @@ public class ManageAccountsActivity extends FileActivity
                 break;
             default:
                 retval = super.onOptionsItemSelected(item);
+                break;
         }
         return retval;
     }

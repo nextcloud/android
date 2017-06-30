@@ -357,7 +357,8 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
             navigationView.getMenu().removeItem(R.id.nav_shared);
         }
 
-        if (!getResources().getBoolean(R.bool.contacts_backup)) {
+        if (!getResources().getBoolean(R.bool.contacts_backup)
+                || !getResources().getBoolean(R.bool.show_drawer_contacts_backup)) {
             navigationView.getMenu().removeItem(R.id.nav_contacts);
         }
 
@@ -500,6 +501,7 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
                 break;
             default:
                 Log_OC.i(TAG, "Unknown drawer menu item clicked: " + menuItem.getTitle());
+                break;
         }
     }
 

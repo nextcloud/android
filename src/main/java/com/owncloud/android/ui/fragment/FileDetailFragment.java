@@ -335,6 +335,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
             }
             default:
                 Log_OC.e(TAG, "Incorrect view clicked!");
+                break;
         }
     }
 
