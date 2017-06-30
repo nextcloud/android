@@ -25,11 +25,13 @@ import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
 import android.provider.MediaStore;
+import android.text.TextUtils;
 
 import com.evernote.android.job.JobManager;
 import com.evernote.android.job.JobRequest;
 import com.evernote.android.job.util.Device;
 import com.owncloud.android.MainApp;
+import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.FilesystemDataProvider;
 import com.owncloud.android.datamodel.MediaFolder;
 import com.owncloud.android.datamodel.SyncedFolder;
@@ -41,25 +43,40 @@ import java.io.File;
 public class FilesSyncHelper {
 
     public static void insertAllDBEntries() {
-        boolean dryRun = false;
+        boolean dryRun;
 
         final Context context = MainApp.getAppContext();
         final ContentResolver contentResolver = context.getContentResolver();
         SyncedFolderProvider syncedFolderProvider = new SyncedFolderProvider(contentResolver);
+        ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProvider(contentResolver);
 
         for (SyncedFolder syncedFolder : syncedFolderProvider.getSyncedFolders()) {
             if (syncedFolder.isEnabled()) {
+                String syncedFolderInitiatedKey = "syncedFolderIntitiated_" + syncedFolder.getId();
+                dryRun = TextUtils.isEmpty(arbitraryDataProvider.getValue
+                        ("global", syncedFolderInitiatedKey));
 
                 if (MediaFolder.IMAGE == syncedFolder.getType()) {
                     FilesSyncHelper.insertContentIntoDB(android.provider.MediaStore.Images.Media.INTERNAL_CONTENT_URI
                             , dryRun, syncedFolder);
                     FilesSyncHelper.insertContentIntoDB(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, dryRun,
                             syncedFolder);
+
+                    if (dryRun) {
+                        arbitraryDataProvider.storeOrUpdateKeyValue("global", syncedFolderInitiatedKey,
+                                "1");
+                    }
                 } else if (MediaFolder.VIDEO == syncedFolder.getType()) {
                     FilesSyncHelper.insertContentIntoDB(android.provider.MediaStore.Video.Media.INTERNAL_CONTENT_URI,
                             dryRun, syncedFolder);
                     FilesSyncHelper.insertContentIntoDB(MediaStore.Video.Media.EXTERNAL_CONTENT_URI, dryRun,
                             syncedFolder);
+
+                    if (dryRun) {
+                        arbitraryDataProvider.storeOrUpdateKeyValue("global", syncedFolderInitiatedKey,
+                                "1");
+                    }
+
                 } else {
                     // custom folder, do nothing
                 }
