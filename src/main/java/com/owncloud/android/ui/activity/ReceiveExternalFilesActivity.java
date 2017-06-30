@@ -34,6 +34,7 @@ import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.Resources.NotFoundException;
+import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Parcelable;
@@ -764,6 +765,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
             mListView.setAdapter(sa);
             Button btnChooseFolder = (Button) findViewById(R.id.uploader_choose_folder);
             btnChooseFolder.setOnClickListener(this);
+            btnChooseFolder.getBackground().setColorFilter(ThemeUtils.primaryColor(), PorterDuff.Mode.SRC_ATOP);
 
             Button btnNewFolder = (Button) findViewById(R.id.uploader_cancel);
             btnNewFolder.setOnClickListener(this);
