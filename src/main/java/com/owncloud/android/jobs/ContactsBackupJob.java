@@ -157,7 +157,9 @@ public class ContactsBackupJob extends Job {
                     FileUploader.LOCAL_BEHAVIOUR_MOVE,
                     null,
                     true,
-                    UploadFileOperation.CREATED_BY_USER
+                    UploadFileOperation.CREATED_BY_USER,
+                    false,
+                    false
             );
 
         } catch (Exception e) {
