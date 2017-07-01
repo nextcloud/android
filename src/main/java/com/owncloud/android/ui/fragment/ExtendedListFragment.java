@@ -956,7 +956,7 @@ public class ExtendedListFragment extends Fragment
             maxColumnSize = maxColumnSizePortrait;
         }
 
-        if (mGridView.getNumColumns() > maxColumnSize) {
+        if (mGridView != null && mGridView.getNumColumns() > maxColumnSize) {
             mGridView.setNumColumns(maxColumnSize);
             mGridView.invalidateViews();
         }
