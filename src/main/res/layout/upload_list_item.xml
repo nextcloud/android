@@ -102,26 +102,4 @@
             android:textSize="@dimen/upload_list_item_text_size_independent"/>
 
     </LinearLayout>
-
-    
-    <FrameLayout
-        android:layout_width="@dimen/min_list_item_size"
-        android:layout_height="@dimen/standard_list_item_size"
-        android:focusable="false"
-        android:focusableInTouchMode="false"
-        android:layout_gravity="center_vertical"
-        android:paddingLeft="@dimen/standard_half_padding"
-     >
-
-        <ImageButton
-            android:id="@+id/upload_right_button"
-            android:layout_width="@dimen/upload_list_item_image_size"
-            android:layout_height="@dimen/upload_list_item_image_size"
-            android:layout_gravity="center"
-            android:background="@android:color/transparent"
-     />
-
-	</FrameLayout>
-    
-    
 </LinearLayout>
