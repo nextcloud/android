@@ -1,3 +1,8 @@
+## 2017-07-02 00:30
+no new branches added
+
+no branches updated
+
 ## 2017-07-01 00:30
 - Comment out adding all new downloaded files to folder observer (nextcloud/folderObserver) [https://github.com/nextcloud/android/pull/1155] added
 

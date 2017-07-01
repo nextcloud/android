@@ -1,8 +1,8 @@
-2017-07-01
+2017-07-02
 Branches: 10
-[01 / 10] Comment out adding all new downloaded files to folder observer (nextcloud/folderObserver) [https://github.com/nextcloud/android/pull/1155] merged successfully
+[01 / 10] Comment out adding all new downloaded files to folder observer (nextcloud/folderObserver) [https://github.com/nextcloud/android/pull/1155] no update needed
 [02 / 10] Auto upload rotation bug (nextcloud/autoUploadRotationBug) [https://github.com/nextcloud/android/pull/1138] no update needed
-[03 / 10] Opens share by clicking icon in file listing (nextcloud/shareDialog) [https://github.com/nextcloud/android/pull/1135] no update needed
+[03 / 10] Opens share by clicking icon in file listing (nextcloud/shareDialog) [https://github.com/nextcloud/android/pull/1135] CONFLICT
 [04 / 10] 1089 sharing with password rule (nextcloud/1089_sharing_with_password_rule) [https://github.com/nextcloud/android/pull/1110] CONFLICT
 [05 / 10] Delete all local files on account removal (nextcloud/deleteFilesOnAccountRemoval) [https://github.com/nextcloud/android/pull/1109] no update needed
 [06 / 10] Bruteforce support: re-use cookie (nextcloud/bruteforce) [https://github.com/nextcloud/android/pull/1099] no update needed
