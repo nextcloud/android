@@ -388,6 +388,11 @@ public class DisplayUtils {
     public static SpannableStringBuilder createTextWithSpan(String text, String spanText, StyleSpan style) {
         SpannableStringBuilder sb = new SpannableStringBuilder(text);
         int start = text.lastIndexOf(spanText);
+
+        if (start < 0) {
+            start++;
+        }
+
         int end = start + spanText.length();
         sb.setSpan(style, start, end, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
         return sb;
