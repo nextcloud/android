@@ -29,7 +29,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.ExpandableListView;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -332,40 +331,6 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
             }
             statusTextView.setText(status);
 
-            /// bind listeners to perform actions
-            /// bind listeners to perform actions
-            ImageButton rightButton = (ImageButton) view.findViewById(R.id.upload_right_button);
-            if (upload.getUploadStatus() == UploadStatus.UPLOAD_IN_PROGRESS) {
-                //Cancel
-                rightButton.setImageResource(R.drawable.ic_action_cancel_grey);
-                rightButton.setVisibility(View.VISIBLE);
-                rightButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        FileUploader.FileUploaderBinder uploaderBinder = mParentActivity.getFileUploaderBinder();
-                        if (uploaderBinder != null) {
-                            uploaderBinder.cancel(upload);
-                            refreshView();
-                        }
-                    }
-                });
-
-            } else if (upload.getUploadStatus() == UploadStatus.UPLOAD_FAILED) {
-                //Delete
-                rightButton.setImageResource(R.drawable.ic_action_delete_grey);
-                rightButton.setVisibility(View.VISIBLE);
-                rightButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        mUploadsStorageManager.removeUpload(upload);
-                        refreshView();
-                    }
-                });
-
-            } else {    // UploadStatus.UPLOAD_SUCCESS
-                rightButton.setVisibility(View.INVISIBLE);
-            }
-            
             view.setOnClickListener(null);
 
             /// Set icon or thumbnail
