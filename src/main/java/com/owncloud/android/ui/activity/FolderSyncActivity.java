@@ -194,8 +194,6 @@ public class FolderSyncActivity extends FileActivity implements FolderSyncAdapte
                 mediaFolders.addAll(MediaProvider.getVideoFolders(getContentResolver(), perFolderMediaItemLimit));
                 Log_OC.w(TAG, "Picture+Video Folders: " + mediaFolders.size());
 
-                //TODO properly merge image and video lists to remove duplicates
-
                 List<SyncedFolder> syncedFolderArrayList = mSyncedFolderProvider.getSyncedFolders();
                 List<SyncedFolder> currentAccountSyncedFoldersList = new ArrayList<>();
                 Account currentAccount = AccountUtils.getCurrentOwnCloudAccount(FolderSyncActivity.this);
@@ -248,11 +246,6 @@ public class FolderSyncActivity extends FileActivity implements FolderSyncAdapte
             } else {
                 result.add(createSyncedFolderFromMediaFolder(mediaFolder));
             }
-        }
-
-        // No media folder and thus always a custom folder
-        for (SyncedFolder syncedFolder : syncedFoldersMap.values()) {
-            result.add(createSyncedFolderWithoutMediaFolder(syncedFolder));
         }
 
         return result;
