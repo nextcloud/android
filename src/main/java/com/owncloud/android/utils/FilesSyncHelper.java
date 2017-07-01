@@ -42,6 +42,7 @@ import com.owncloud.android.datamodel.SyncedFolder;
 import com.owncloud.android.datamodel.SyncedFolderProvider;
 import com.owncloud.android.datamodel.UploadsStorageManager;
 import com.owncloud.android.db.OCUpload;
+import com.owncloud.android.db.UploadResult;
 import com.owncloud.android.jobs.AutoUploadJob;
 
 import org.lukhnos.nnio.file.FileVisitResult;
@@ -219,36 +220,38 @@ public class FilesSyncHelper {
         UploadsStorageManager uploadsStorageManager = new UploadsStorageManager(context.getContentResolver(), context);
         OCUpload[] failedUploads = uploadsStorageManager.getFailedUploads();
 
-        boolean accountExists = false;
+        boolean accountExists;
         for (OCUpload failedUpload: failedUploads) {
             accountExists = false;
-            uploadsStorageManager.removeUpload(failedUpload);
+            if (!failedUpload.getLastResult().equals(UploadResult.UPLOADED)) {
+                uploadsStorageManager.removeUpload(failedUpload);
 
-            // check if accounts still exists
-            for (Account account : AccountUtils.getAccounts(context)) {
-                if (account.name.equals(failedUpload.getAccountName())) {
-                    accountExists = true;
-                    break;
+                // check if accounts still exists
+                for (Account account : AccountUtils.getAccounts(context)) {
+                    if (account.name.equals(failedUpload.getAccountName())) {
+                        accountExists = true;
+                        break;
+                    }
                 }
-            }
 
-            if (accountExists) {
-                PersistableBundleCompat bundle = new PersistableBundleCompat();
-                bundle.putString(AutoUploadJob.LOCAL_PATH, failedUpload.getLocalPath());
-                bundle.putString(AutoUploadJob.REMOTE_PATH, failedUpload.getRemotePath());
-                bundle.putString(AutoUploadJob.ACCOUNT, failedUpload.getAccountName());
-                bundle.putInt(AutoUploadJob.UPLOAD_BEHAVIOUR, failedUpload.getLocalAction());
+                if (accountExists) {
+                    PersistableBundleCompat bundle = new PersistableBundleCompat();
+                    bundle.putString(AutoUploadJob.LOCAL_PATH, failedUpload.getLocalPath());
+                    bundle.putString(AutoUploadJob.REMOTE_PATH, failedUpload.getRemotePath());
+                    bundle.putString(AutoUploadJob.ACCOUNT, failedUpload.getAccountName());
+                    bundle.putInt(AutoUploadJob.UPLOAD_BEHAVIOUR, failedUpload.getLocalAction());
 
-                new JobRequest.Builder(AutoUploadJob.TAG)
-                        .setExecutionWindow(30_000L, 80_000L)
-                        .setRequiresCharging(failedUpload.isWhileChargingOnly())
-                        .setRequiredNetworkType(failedUpload.isUseWifiOnly() ? JobRequest.NetworkType.UNMETERED :
-                                JobRequest.NetworkType.CONNECTED)
-                        .setExtras(bundle)
-                        .setRequirementsEnforced(true)
-                        .setUpdateCurrent(false)
-                        .build()
-                        .schedule();
+                    new JobRequest.Builder(AutoUploadJob.TAG)
+                            .setExecutionWindow(30_000L, 80_000L)
+                            .setRequiresCharging(failedUpload.isWhileChargingOnly())
+                            .setRequiredNetworkType(failedUpload.isUseWifiOnly() ? JobRequest.NetworkType.UNMETERED :
+                                    JobRequest.NetworkType.CONNECTED)
+                            .setExtras(bundle)
+                            .setRequirementsEnforced(true)
+                            .setUpdateCurrent(false)
+                            .build()
+                            .schedule();
+                }
             }
         }
     }
