@@ -40,6 +40,8 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.Nullable;
+
 /**
  * Media queries to gain access to media lists for the device.
  */
@@ -65,36 +67,40 @@ public class MediaProvider {
      * @return list with media folders
      */
     public static List<MediaFolder> getImageFolders(ContentResolver contentResolver, int itemLimit,
-                                                    final Activity activity) {
+                                                    @Nullable final Activity activity) {
         // check permissions
-        if (!PermissionUtil.checkSelfPermission(activity.getApplicationContext(),
-                Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
-            // Check if we should show an explanation
-            if (PermissionUtil.shouldShowRequestPermissionRationale(activity,
+        if (activity != null) {
+            if (!PermissionUtil.checkSelfPermission(activity.getApplicationContext(),
                     Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
-                // Show explanation to the user and then request permission
-                Snackbar snackbar = Snackbar.make(activity.findViewById(R.id.ListLayout),
-                        R.string.permission_storage_access, Snackbar.LENGTH_INDEFINITE)
-                        .setAction(R.string.common_ok, new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                PermissionUtil.requestWriteExternalStoreagePermission(activity);
-                            }
-                        });
+                // Check if we should show an explanation
+                if (PermissionUtil.shouldShowRequestPermissionRationale(activity,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+                    // Show explanation to the user and then request permission
+                    Snackbar snackbar = Snackbar.make(activity.findViewById(R.id.ListLayout),
+                            R.string.permission_storage_access, Snackbar.LENGTH_INDEFINITE)
+                            .setAction(R.string.common_ok, new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    PermissionUtil.requestWriteExternalStoreagePermission(activity);
+                                }
+                            });
 
                 ThemeUtils.colorSnackbar(activity.getApplicationContext(), snackbar);
 
-                snackbar.show();
-            } else {
-                // No explanation needed, request the permission.
-                PermissionUtil.requestWriteExternalStoreagePermission(activity);
+                    snackbar.show();
+                } else {
+                    // No explanation needed, request the permission.
+                    PermissionUtil.requestWriteExternalStoreagePermission(activity);
+                }
             }
         }
 
         // query media/image folders
         Cursor cursorFolders = null;
-        if (PermissionUtil.checkSelfPermission(activity.getApplicationContext(),
+        if (activity != null && PermissionUtil.checkSelfPermission(activity.getApplicationContext(),
                 Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+            cursorFolders = contentResolver.query(IMAGES_MEDIA_URI, IMAGES_FOLDER_PROJECTION, null, null, IMAGES_FOLDER_SORT_ORDER);
+        } else {
             cursorFolders = contentResolver.query(IMAGES_MEDIA_URI, IMAGES_FOLDER_PROJECTION, null, null, IMAGES_FOLDER_SORT_ORDER);
         }
         List<MediaFolder> mediaFolders = new ArrayList<>();
