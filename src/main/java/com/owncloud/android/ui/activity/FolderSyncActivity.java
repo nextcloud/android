@@ -562,11 +562,9 @@ public class FolderSyncActivity extends FileActivity implements FolderSyncAdapte
 
     @Override
     public void onDeleteSyncedFolderPreference(SyncedFolderParcelable syncedFolder) {
-        // TODO refresh recycler view
-
         mSyncedFolderProvider.deleteSyncedFolder(syncedFolder.getId());
-
         mAdapter.removeItem(syncedFolder.getSection());
+        mAdapter.notifyDataSetChanged();
     }
 
     /**
