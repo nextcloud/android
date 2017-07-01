@@ -634,13 +634,7 @@
     <string name="webview_error">Sorun çıktı</string>
     <string name="prefs_category_about">Hakkında</string>
 
-    <string name="actionbar_contacts">Kişileri Yedekle</string>
     <string name="actionbar_contacts_restore">Kişileri Geri Yükle</string>
-    <string name="contacts_backup_button">Yedekle</string>
-    <string name="contacts_restore_button">Son Yedeği Geri Yükle</string>
-    <string name="contacts_header_restore">Geri Yükle</string>
-    <string name="contacts_header_backup">Yedekle</string>
-    <string name="contacts_automatic_backup">Kişileri Yedekle</string>
     <string name="contacts_last_backup">Son Yedek</string>
     <string name="contacts_read_permission">Kişi listesini okuma izni gerekiyor</string>
     <string name="contacts_write_permission">Kişi listesini düzenleme izni gerekiyor</string>

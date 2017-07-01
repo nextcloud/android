@@ -636,13 +636,7 @@
     <string name="webview_error">发生错误</string>
     <string name="prefs_category_about">关于</string>
 
-    <string name="actionbar_contacts">备份联系人</string>
     <string name="actionbar_contacts_restore">恢复联系人</string>
-    <string name="contacts_backup_button">立即备份</string>
-    <string name="contacts_restore_button">恢复上次备份</string>
-    <string name="contacts_header_restore">恢复</string>
-    <string name="contacts_header_backup">备份</string>
-    <string name="contacts_automatic_backup">联系人备份</string>
     <string name="contacts_last_backup">上次备份</string>
     <string name="contacts_read_permission">需要更改阅读列表的权限</string>
     <string name="contacts_write_permission">需要更改联系人列表的权限</string>

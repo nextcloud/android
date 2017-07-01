@@ -637,13 +637,7 @@ Kies er eentje van een provider.</string>
     <string name="webview_error">Er heeft zich een fout voorgedaan</string>
     <string name="prefs_category_about">Over</string>
 
-    <string name="actionbar_contacts">Contactpersonen backup</string>
     <string name="actionbar_contacts_restore">Herstellen contactpersonen</string>
-    <string name="contacts_backup_button">Nu backupppen</string>
-    <string name="contacts_restore_button">Herstel de laatste backup</string>
-    <string name="contacts_header_restore">Herstellen</string>
-    <string name="contacts_header_backup">Backuppen</string>
-    <string name="contacts_automatic_backup">Contactpersonen backup</string>
     <string name="contacts_last_backup">Laatsts backup</string>
     <string name="contacts_read_permission">Leesrechten voor contactpersonen vereist</string>
     <string name="contacts_write_permission">Schrijfrechten voor contactpersonen vereist</string>
