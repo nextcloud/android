@@ -634,13 +634,7 @@ en los últimos 7 días. </string>
     <string name="webview_error">Se presentó un error</string>
     <string name="prefs_category_about">Acerca de</string>
 
-    <string name="actionbar_contacts">Respaldar contactos</string>
     <string name="actionbar_contacts_restore">Restaurar contactos</string>
-    <string name="contacts_backup_button">Respaldar ahora</string>
-    <string name="contacts_restore_button">Restaurar el último respaldo</string>
-    <string name="contacts_header_restore">Restaurar</string>
-    <string name="contacts_header_backup">Respaldar</string>
-    <string name="contacts_automatic_backup">Respaldo de contactos</string>
     <string name="contacts_last_backup">Último respaldo</string>
     <string name="contacts_read_permission">Se requiere el permiso para leer la lista de contactos</string>
     <string name="contacts_write_permission">Se requiere el permiso para cambiar la lista de contactos</string>

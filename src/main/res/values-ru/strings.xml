@@ -638,13 +638,7 @@
     <string name="webview_error">Произошла ошибка</string>
     <string name="prefs_category_about">О программе</string>
 
-    <string name="actionbar_contacts">Резервное копирование контактов</string>
     <string name="actionbar_contacts_restore">Восстановить контакты</string>
-    <string name="contacts_backup_button">Создать резервную копию сейчас</string>
-    <string name="contacts_restore_button">Восстановить из резервной копии</string>
-    <string name="contacts_header_restore">Восстановить</string>
-    <string name="contacts_header_backup">Резервное копирование</string>
-    <string name="contacts_automatic_backup">Резервное копирование контактов</string>
     <string name="contacts_last_backup">Последнее резервное копирование</string>
     <string name="contacts_read_permission">Требуется разрешение на чтение контактов</string>
     <string name="contacts_write_permission">Требуется разрешение на запись контактов</string>

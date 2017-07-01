@@ -634,13 +634,7 @@
     <string name="webview_error">Um erro ocorreu</string>
     <string name="prefs_category_about">Sobre</string>
 
-    <string name="actionbar_contacts">Fazer backup dos contatos</string>
     <string name="actionbar_contacts_restore">Restaurar contatos</string>
-    <string name="contacts_backup_button">Fazer backup agora</string>
-    <string name="contacts_restore_button">Retornar último backup</string>
-    <string name="contacts_header_restore">Retornar</string>
-    <string name="contacts_header_backup">Backup</string>
-    <string name="contacts_automatic_backup">Backup dos contatos</string>
     <string name="contacts_last_backup">Último backup</string>
     <string name="contacts_read_permission">Permissão para ler lista de contatos é necessária</string>
     <string name="contacts_write_permission">Permissão para alterar a lista de contatos é necessária</string>

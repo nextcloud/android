@@ -633,13 +633,7 @@
     <string name="webview_error">Une erreur est survenue</string>
     <string name="prefs_category_about">À propos</string>
 
-    <string name="actionbar_contacts">Copie de sauvegarde des contacts</string>
     <string name="actionbar_contacts_restore">Restaurer les contacts</string>
-    <string name="contacts_backup_button">Sauvegarder maintenant</string>
-    <string name="contacts_restore_button">Restaurer la dernière copie de sauvegarde</string>
-    <string name="contacts_header_restore">Restaurer</string>
-    <string name="contacts_header_backup">Copie de sauvegarde</string>
-    <string name="contacts_automatic_backup">Sauvegarde des contacts</string>
     <string name="contacts_last_backup">Dernière copie de sauvegarde</string>
     <string name="contacts_read_permission">L\'autorisation de lecture des contacts est nécessaire</string>
     <string name="contacts_write_permission">L\'autorisation d\'écriture des contacts est nécessaire</string>
