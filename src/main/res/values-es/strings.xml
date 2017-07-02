@@ -634,7 +634,10 @@
     <string name="webview_error">Ha ocurrido un error</string>
     <string name="prefs_category_about">Acerca de</string>
 
+    <string name="actionbar_contacts">Copia de seguridad de contactos</string>
     <string name="actionbar_contacts_restore">Restaurar los contactos</string>
+    <string name="contacts_backup_button">Hacer copia de seguridad ahora</string>
+    <string name="contacts_automatic_backup">Copia de seguridad automática</string>
     <string name="contacts_last_backup">Última copia de seguridad</string>
     <string name="contacts_read_permission">Se necesita el permiso para leer la lista de contactos</string>
     <string name="contacts_write_permission">Se necesita el permiso para cambiar la lista de contactos</string>

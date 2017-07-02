@@ -635,7 +635,10 @@
     <string name="webview_error">Fehler aufgetreten</string>
     <string name="prefs_category_about">Über</string>
 
+    <string name="actionbar_contacts">Kontakte sichern</string>
     <string name="actionbar_contacts_restore">Adressen wiederherstellen</string>
+    <string name="contacts_backup_button">Jetzt sichern</string>
+    <string name="contacts_automatic_backup">Automatisch sichern</string>
     <string name="contacts_last_backup">Letzte Sicherung</string>
     <string name="contacts_read_permission">Leseberechtigung auf Kontakte erforderlich</string>
     <string name="contacts_write_permission">Schreibberechtigung auf Kontakte erforderlich</string>

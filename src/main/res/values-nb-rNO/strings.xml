@@ -634,7 +634,10 @@
     <string name="webview_error">Feil oppstod</string>
     <string name="prefs_category_about">Om</string>
 
+    <string name="actionbar_contacts">Sikkerhetskopier kontakter</string>
     <string name="actionbar_contacts_restore">Gjenopprett kontakter</string>
+    <string name="contacts_backup_button">Sikerhetskopier nå</string>
+    <string name="contacts_automatic_backup">Automatisk sikkerhetskopiering</string>
     <string name="contacts_last_backup">Siste sikkerhetskopi</string>
     <string name="contacts_read_permission">Lesetilgang til kontaktliste trengs</string>
     <string name="contacts_write_permission">Skrivetilgang til kontaktliste trengs</string>
