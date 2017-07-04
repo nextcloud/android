@@ -532,10 +532,6 @@
     <string name="webview_error">Si è verificato un errore</string>
     <string name="prefs_category_about">Informazioni</string>
 
-    <string name="contacts_restore_button">Ripristina ultimo backup</string>
-    <string name="contacts_header_restore">Ripristino</string>
-    <string name="contacts_header_backup">Backup</string>
-    <string name="contacts_automatic_backup">Backup dei contatti</string>
     <string name="contacts_last_backup">Ultimo backup</string>
     <string name="contacts_read_permission">Permesso di lettura dell\'elenco dei contatti richiesto </string>
     <string name="contacts_write_permission">Permesso di modifica dell\'elenco dei contatti richiesto </string>
