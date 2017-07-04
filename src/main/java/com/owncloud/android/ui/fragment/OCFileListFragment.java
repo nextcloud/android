@@ -177,7 +177,7 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
         setHasOptionsMenu(true);
         mSystemBarActionModeColor = getResources().getColor(R.color.action_mode_status_bar_background);
         mSystemBarColor = ThemeUtils.primaryDarkColor();
-        mProgressBarActionModeColor = ThemeUtils.primaryDarkColor();
+        mProgressBarActionModeColor = getResources().getColor(R.color.action_mode_background);
         mProgressBarColor = ThemeUtils.primaryColor();
         mMultiChoiceModeListener = new MultiChoiceModeListener();
 
