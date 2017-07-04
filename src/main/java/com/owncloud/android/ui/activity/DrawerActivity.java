@@ -905,9 +905,10 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
                 }
             }
 
-            ThemeUtils.tintDrawable(item.getIcon(), ThemeUtils.primaryColor());
+            int darkColor = ThemeUtils.primaryDarkColor();
+            ThemeUtils.tintDrawable(item.getIcon(), darkColor);
 
-            String colorHex = ThemeUtils.colorToHexString(ThemeUtils.primaryColor());
+            String colorHex = ThemeUtils.colorToHexString(darkColor);
             item.setTitle(Html.fromHtml("<font color='" + colorHex + "'>" + item.getTitle() + "</font>"));
 
             mCheckedMenuItem = menuItemId;
