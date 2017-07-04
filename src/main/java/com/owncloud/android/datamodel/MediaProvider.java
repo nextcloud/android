@@ -33,8 +33,8 @@ import android.view.View;
 
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
-import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.PermissionUtil;
+import com.owncloud.android.utils.ThemeUtils;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -79,7 +79,7 @@ public class MediaProvider {
                             }
                         });
 
-                DisplayUtils.colorSnackbar(activity.getApplicationContext(), snackbar);
+                ThemeUtils.colorSnackbar(activity.getApplicationContext(), snackbar);
 
                 snackbar.show();
             } else {

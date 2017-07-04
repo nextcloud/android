@@ -34,6 +34,7 @@ import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.Resources.NotFoundException;
+import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Parcelable;
@@ -88,6 +89,7 @@ import com.owncloud.android.ui.helpers.UriUploader;
 import com.owncloud.android.utils.DataHolderUtil;
 import com.owncloud.android.utils.ErrorMessageAdapter;
 import com.owncloud.android.utils.FileStorageUtils;
+import com.owncloud.android.utils.ThemeUtils;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -294,7 +296,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
 
             mTintedCheck = DrawableCompat.wrap(ContextCompat.getDrawable(parent,
                     R.drawable.ic_account_circle_white_18dp));
-            int tint = ContextCompat.getColor(parent, R.color.primary);
+            int tint = ThemeUtils.primaryColor();
             DrawableCompat.setTint(mTintedCheck, tint);
 
             mAccountListAdapter = new AccountListAdapter(parent, getAccountListItems(parent), mTintedCheck);
@@ -763,6 +765,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
             mListView.setAdapter(sa);
             Button btnChooseFolder = (Button) findViewById(R.id.uploader_choose_folder);
             btnChooseFolder.setOnClickListener(this);
+            btnChooseFolder.getBackground().setColorFilter(ThemeUtils.primaryColor(), PorterDuff.Mode.SRC_ATOP);
 
             Button btnNewFolder = (Button) findViewById(R.id.uploader_cancel);
             btnNewFolder.setOnClickListener(this);
@@ -996,6 +999,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
 
             default:
                 retval = super.onOptionsItemSelected(item);
+                break;
         }
         return retval;
     }

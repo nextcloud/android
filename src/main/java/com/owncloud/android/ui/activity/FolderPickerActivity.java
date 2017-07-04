@@ -26,6 +26,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.Resources.NotFoundException;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.v4.app.Fragment;
@@ -55,6 +56,7 @@ import com.owncloud.android.ui.fragment.OCFileListFragment;
 import com.owncloud.android.utils.AnalyticsUtils;
 import com.owncloud.android.utils.DataHolderUtil;
 import com.owncloud.android.utils.ErrorMessageAdapter;
+import com.owncloud.android.utils.ThemeUtils;
 
 import java.util.ArrayList;
 
@@ -103,7 +105,7 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
         if (getIntent().getStringExtra(EXTRA_ACTION) != null) {
             caption = getIntent().getStringExtra(EXTRA_ACTION);
         } else {
-            caption = getString(R.string.default_display_name_for_root_folder);
+            caption = ThemeUtils.getDefaultDisplayNameForRootFolder();
         }
         getSupportActionBar().setTitle(caption);
 
@@ -298,6 +300,7 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
         }
         default:
             retval = super.onOptionsItemSelected(item);
+            break;
         }
         return retval;
     }
@@ -367,6 +370,7 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
         mCancelBtn = (Button) findViewById(R.id.folder_picker_btn_cancel);
         mCancelBtn.setOnClickListener(this);
         mChooseBtn = (Button) findViewById(R.id.folder_picker_btn_choose);
+        mChooseBtn.getBackground().setColorFilter(ThemeUtils.primaryColor(), PorterDuff.Mode.SRC_ATOP);
         mChooseBtn.setOnClickListener(this);
     }
     

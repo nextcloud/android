@@ -68,6 +68,7 @@ import com.owncloud.android.ui.interfaces.OCFileListFragmentInterface;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
+import com.owncloud.android.utils.ThemeUtils;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -346,8 +347,8 @@ public class FileListListAdapter extends BaseAdapter {
             if (parentList.getChoiceMode() != AbsListView.CHOICE_MODE_NONE && parentList.getCheckedItemCount() > 0) {
                 if (parentList.isItemChecked(position)) {
                     view.setBackgroundColor(mContext.getResources().getColor(R.color.selected_item_background));
-                    checkBoxV.setImageDrawable(
-                            DisplayUtils.tintDrawable(R.drawable.ic_checkbox_marked, R.color.primary));
+                    checkBoxV.setImageDrawable(ThemeUtils.tintDrawable(R.drawable.ic_checkbox_marked,
+                            ThemeUtils.primaryColor()));
                 } else {
                     view.setBackgroundColor(Color.WHITE);
                     checkBoxV.setImageResource(R.drawable.ic_checkbox_blank_outline);
@@ -408,25 +409,19 @@ public class FileListListAdapter extends BaseAdapter {
                     }
 
                     if (file.getMimetype().equalsIgnoreCase("image/png")) {
-                        fileIcon.setBackgroundColor(mContext.getResources()
-                                .getColor(R.color.background_color));
+                        fileIcon.setBackgroundColor(mContext.getResources().getColor(R.color.background_color));
                     }
 
 
                 } else {
-                    fileIcon.setImageResource(MimeTypeUtil.getFileTypeIconId(file.getMimetype(),
-                            file.getFileName()));
+                    fileIcon.setImageResource(MimeTypeUtil.getFileTypeIconId(file.getMimetype(), file.getFileName()));
                 }
 
 
             } else {
                 // Folder
-                fileIcon.setImageDrawable(
-                        MimeTypeUtil.getFolderTypeIcon(
-                                file.isSharedWithMe() || file.isSharedWithSharee(),
-                                file.isSharedViaLink()
-                        )
-                );
+                fileIcon.setImageDrawable(MimeTypeUtil.getFolderTypeIcon(file.isSharedWithMe() ||
+                        file.isSharedWithSharee(), file.isSharedViaLink()));
             }
         }
         return view;

@@ -30,13 +30,14 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.AppCompatButton;
+import android.support.v7.widget.AppCompatCheckBox;
 import android.support.v7.widget.SwitchCompat;
 import android.text.style.StyleSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
 import android.widget.TextView;
 
 import com.owncloud.android.R;
@@ -45,6 +46,7 @@ import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.activity.FolderPickerActivity;
 import com.owncloud.android.ui.dialog.parcel.SyncedFolderParcelable;
 import com.owncloud.android.utils.DisplayUtils;
+import com.owncloud.android.utils.ThemeUtils;
 
 /**
  * Dialog to show the preferences/configuration of a synced folder allowing the user to change the different parameters.
@@ -60,9 +62,9 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment {
 
     protected View mView = null;
     private SwitchCompat mEnabledSwitch;
-    private CheckBox mUploadOnWifiCheckbox;
-    private CheckBox mUploadOnChargingCheckbox;
-    private CheckBox mUploadUseSubfoldersCheckbox;
+    private AppCompatCheckBox mUploadOnWifiCheckbox;
+    private AppCompatCheckBox mUploadOnChargingCheckbox;
+    private AppCompatCheckBox mUploadUseSubfoldersCheckbox;
     private TextView mUploadBehaviorSummary;
     private TextView mLocalFolderPath;
     private TextView mRemoteFolderSummary;
@@ -70,6 +72,8 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment {
     private SyncedFolderParcelable mSyncedFolder;
     private boolean behaviourDialogShown;
     private AlertDialog behaviourDialog;
+    private AppCompatButton mCancel;
+    private AppCompatButton mSave;
 
     public static SyncedFolderPreferencesDialogFragment newInstance(SyncedFolderDisplayItem syncedFolder, int section) {
         SyncedFolderPreferencesDialogFragment dialogFragment = new SyncedFolderPreferencesDialogFragment();
@@ -126,18 +130,34 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment {
      * @param view the parent view
      */
     private void setupDialogElements(View view) {
+        int accentColor = ThemeUtils.primaryAccentColor();
+
         // find/saves UI elements
         mEnabledSwitch = (SwitchCompat) view.findViewById(R.id.sync_enabled);
+        ThemeUtils.tintSwitch(mEnabledSwitch, accentColor);
+
         mLocalFolderPath = (TextView) view.findViewById(R.id.folder_sync_settings_local_folder_path);
 
         mRemoteFolderSummary = (TextView) view.findViewById(R.id.remote_folder_summary);
 
-        mUploadOnWifiCheckbox = (CheckBox) view.findViewById(R.id.setting_instant_upload_on_wifi_checkbox);
-        mUploadOnChargingCheckbox = (CheckBox) view.findViewById(R.id.setting_instant_upload_on_charging_checkbox);
-        mUploadUseSubfoldersCheckbox = (CheckBox) view.findViewById(R.id
-                .setting_instant_upload_path_use_subfolders_checkbox);
+        mUploadOnWifiCheckbox = (AppCompatCheckBox) view.findViewById(R.id.setting_instant_upload_on_wifi_checkbox);
+        ThemeUtils.tintCheckbox(mUploadOnWifiCheckbox, accentColor);
+
+        mUploadOnChargingCheckbox = (AppCompatCheckBox) view.findViewById(
+                R.id.setting_instant_upload_on_charging_checkbox);
+        ThemeUtils.tintCheckbox(mUploadOnChargingCheckbox, accentColor);
+
+        mUploadUseSubfoldersCheckbox = (AppCompatCheckBox) view.findViewById(
+                R.id.setting_instant_upload_path_use_subfolders_checkbox);
+        ThemeUtils.tintCheckbox(mUploadUseSubfoldersCheckbox, accentColor);
 
         mUploadBehaviorSummary = (TextView) view.findViewById(R.id.setting_instant_behaviour_summary);
+
+        mCancel = (AppCompatButton) view.findViewById(R.id.cancel);
+        mCancel.setTextColor(accentColor);
+
+        mSave = (AppCompatButton) view.findViewById(R.id.save);
+        mSave.setTextColor(accentColor);
 
         // Set values
         setEnabled(mSyncedFolder.getEnabled());
@@ -186,8 +206,8 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment {
      * @param view the parent view
      */
     private void setupListeners(View view) {
-        view.findViewById(R.id.save).setOnClickListener(new OnSyncedFolderSaveClickListener());
-        view.findViewById(R.id.cancel).setOnClickListener(new OnSyncedFolderCancelClickListener());
+        mSave.setOnClickListener(new OnSyncedFolderSaveClickListener());
+        mCancel.setOnClickListener(new OnSyncedFolderCancelClickListener());
 
         view.findViewById(R.id.setting_instant_upload_on_wifi_container).setOnClickListener(
                 new OnClickListener() {

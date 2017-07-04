@@ -21,6 +21,7 @@
 package com.owncloud.android.ui.fragment;
 
 import android.app.Activity;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.SparseBooleanArray;
@@ -37,6 +38,7 @@ import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.adapter.LocalFileListAdapter;
 import com.owncloud.android.utils.AnalyticsUtils;
 import com.owncloud.android.utils.FileStorageUtils;
+import com.owncloud.android.utils.ThemeUtils;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -141,8 +143,12 @@ public class LocalFileListFragment extends ExtendedListFragment {
                 ImageView checkBoxV = (ImageView) v.findViewById(R.id.custom_checkbox);
                 if (checkBoxV != null) {
                     if (getListView().isItemChecked(position)) {
-                        checkBoxV.setImageResource(R.drawable.ic_checkbox_marked);
+                        v.setBackgroundColor(getContext().getResources().getColor(R.color.selected_item_background));
+                        checkBoxV.setImageDrawable(ThemeUtils.tintDrawable(R.drawable.ic_checkbox_marked,
+                                ThemeUtils.primaryColor()));
+
                     } else {
+                        v.setBackgroundColor(Color.WHITE);
                         checkBoxV.setImageResource(R.drawable.ic_checkbox_blank_outline);
                     }
                 }

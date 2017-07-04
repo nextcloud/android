@@ -23,6 +23,7 @@ package com.owncloud.android.ui.activity;
 import android.accounts.Account;
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.PorterDuff;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
@@ -31,6 +32,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
+import android.support.v7.widget.AppCompatButton;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -52,6 +54,7 @@ import com.owncloud.android.ui.fragment.ExtendedListFragment;
 import com.owncloud.android.ui.fragment.LocalFileListFragment;
 import com.owncloud.android.utils.AnalyticsUtils;
 import com.owncloud.android.utils.FileStorageUtils;
+import com.owncloud.android.utils.ThemeUtils;
 
 import java.io.File;
 
@@ -133,7 +136,8 @@ public class UploadFilesActivity extends FileActivity implements
         // Set input controllers
         mCancelBtn = (Button) findViewById(R.id.upload_files_btn_cancel);
         mCancelBtn.setOnClickListener(this);
-        mUploadBtn = (Button) findViewById(R.id.upload_files_btn_upload);
+        mUploadBtn = (AppCompatButton) findViewById(R.id.upload_files_btn_upload);
+        mUploadBtn.getBackground().setColorFilter(ThemeUtils.primaryAccentColor(), PorterDuff.Mode.SRC_ATOP);
         mUploadBtn.setOnClickListener(this);
 
         int localBehaviour = PreferenceManager.getUploaderBehaviour(this);
@@ -236,10 +240,10 @@ public class UploadFilesActivity extends FileActivity implements
                     item.setIcon(R.drawable.ic_view_list);
                     mFileListFragment.switchToGridView();
                 }
-                return true;
             }
             default:
                 retval = super.onOptionsItemSelected(item);
+                break;
         }
         return retval;
     }
@@ -353,7 +357,7 @@ public class UploadFilesActivity extends FileActivity implements
         if(checked) {
             selectAll.setIcon(R.drawable.ic_select_none);
         } else {
-            selectAll.setIcon(R.drawable.ic_select_all);
+            selectAll.setIcon(ThemeUtils.tintDrawable(R.drawable.ic_select_all, ThemeUtils.primaryColor()));
         }
     }
 

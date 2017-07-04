@@ -1,4 +1,4 @@
-/**
+/*
  * ownCloud Android client application
  *
  * @author Bartek Przybylski
@@ -56,6 +56,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewTreeObserver;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.owncloud.android.MainApp;
@@ -102,6 +104,7 @@ import com.owncloud.android.utils.ErrorMessageAdapter;
 import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.PermissionUtil;
 import com.owncloud.android.utils.PushUtils;
+import com.owncloud.android.utils.ThemeUtils;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -247,7 +250,7 @@ public class FileDisplayActivity extends HookActivity
                             }
                         });
 
-                DisplayUtils.colorSnackbar(this, snackbar);
+                ThemeUtils.colorSnackbar(this, snackbar);
 
                 snackbar.show();
             } else {
@@ -660,6 +663,14 @@ public class FileDisplayActivity extends HookActivity
         final MenuItem item = menu.findItem(R.id.action_search);
         searchView = (SearchView) MenuItemCompat.getActionView(item);
 
+        // hacky as no default way is provided
+        int fontColor = ThemeUtils.fontColor();
+        EditText editText = (EditText) searchView.findViewById(android.support.v7.appcompat.R.id.search_src_text);
+        editText.setHintTextColor(fontColor);
+        editText.setTextColor(fontColor);
+        ImageView searchClose = (ImageView) searchView.findViewById(android.support.v7.appcompat.R.id.search_close_btn);
+        searchClose.setColorFilter(ThemeUtils.fontColor());
+
         // populate list of menu items to show/hide when drawer is opened/closed
         mDrawerMenuItemstoShowHideList = new ArrayList<>(4);
         mDrawerMenuItemstoShowHideList.add(menu.findItem(R.id.action_sort));
@@ -777,6 +788,7 @@ public class FileDisplayActivity extends HookActivity
             }
             default:
                 retval = super.onOptionsItemSelected(item);
+                break;
         }
         return retval;
     }
@@ -1063,14 +1075,23 @@ public class FileDisplayActivity extends HookActivity
         Log_OC.v(TAG, "onResume() start");
         super.onResume();
 
+        OCFile startFile = null;
+        if (getIntent() != null && getIntent().getParcelableExtra(EXTRA_FILE) != null) {
+            startFile = getIntent().getParcelableExtra(EXTRA_FILE);
+            setFile(startFile);
+        }
 
         revertBottomNavigationBarToAllFiles();
         // refresh list of files
 
         if (searchView != null && !TextUtils.isEmpty(searchQuery)) {
             searchView.setQuery(searchQuery, true);
-        } else if (getListOfFilesFragment() != null && !getListOfFilesFragment().getIsSearchFragment()) {
+        } else if (getListOfFilesFragment() != null && !getListOfFilesFragment().getIsSearchFragment()
+                && startFile == null) {
             refreshListOfFilesFragment(false);
+        } else {
+            getListOfFilesFragment().listDirectory(startFile, false, false);
+            updateActionBarTitleAndHomeButton(startFile);
         }
 
         // Listen for sync messages
@@ -1212,8 +1233,7 @@ public class FileDisplayActivity extends HookActivity
                             if (currentDir.getRemotePath().equals(synchFolderRemotePath)) {
                                 OCFileListFragment fileListFragment = getListOfFilesFragment();
                                 if (fileListFragment != null) {
-                                    fileListFragment.listDirectory(currentDir,
-                                            MainApp.isOnlyOnDevice(), false);
+                                    fileListFragment.listDirectory(currentDir, MainApp.isOnlyOnDevice(), false);
                                 }
                             }
                             setFile(currentFile);
@@ -1552,7 +1572,8 @@ public class FileDisplayActivity extends HookActivity
             // a new chance to get the mDownloadBinder through
             // getFileDownloadBinder() - THIS IS A MESS
             OCFileListFragment listOfFiles = getListOfFilesFragment();
-            if (listOfFiles != null) {
+            if (listOfFiles != null && (getIntent() == null ||
+                    (getIntent() != null && getIntent().getParcelableExtra(EXTRA_FILE) == null))) {
                 listOfFiles.listDirectory(MainApp.isOnlyOnDevice(), false);
             }
             FileFragment secondFragment = getSecondFragment();

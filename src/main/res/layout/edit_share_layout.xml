@@ -64,7 +64,7 @@
             style="?android:attr/listSeparatorTextViewStyle"
             />
 
-        <CheckBox
+        <android.support.v7.widget.AppCompatCheckBox
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/canEditCreateCheckBox"
@@ -72,7 +72,7 @@
             android:visibility="gone"
             />
 
-        <CheckBox
+        <android.support.v7.widget.AppCompatCheckBox
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/canEditChangeCheckBox"
@@ -80,7 +80,7 @@
             android:visibility="gone"
             />
 
-        <CheckBox
+        <android.support.v7.widget.AppCompatCheckBox
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/canEditDeleteCheckBox"

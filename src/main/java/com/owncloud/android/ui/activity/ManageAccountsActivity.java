@@ -54,6 +54,7 @@ import com.owncloud.android.ui.adapter.AccountListItem;
 import com.owncloud.android.ui.helpers.FileOperationsHelper;
 import com.owncloud.android.utils.AnalyticsUtils;
 import com.owncloud.android.utils.DisplayUtils;
+import com.owncloud.android.utils.ThemeUtils;
 import com.owncloud.android.utils.FileStorageUtils;
 
 import org.parceler.Parcels;
@@ -93,7 +94,7 @@ public class ManageAccountsActivity extends FileActivity
         super.onCreate(savedInstanceState);
 
         mTintedCheck = DrawableCompat.wrap(ContextCompat.getDrawable(this, R.drawable.ic_account_circle_white_18dp));
-        int tint = ContextCompat.getColor(this, R.color.primary);
+        int tint = ThemeUtils.primaryColor();
         DrawableCompat.setTint(mTintedCheck, tint);
 
         setContentView(R.layout.accounts_layout);
@@ -240,6 +241,7 @@ public class ManageAccountsActivity extends FileActivity
                 break;
             default:
                 retval = super.onOptionsItemSelected(item);
+                break;
         }
         return retval;
     }

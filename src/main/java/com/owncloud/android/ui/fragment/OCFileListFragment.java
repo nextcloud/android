@@ -94,6 +94,7 @@ import com.owncloud.android.utils.AnalyticsUtils;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
+import com.owncloud.android.utils.ThemeUtils;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -175,9 +176,9 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
         mSystemBarActionModeColor = getResources().getColor(R.color.action_mode_status_bar_background);
-        mSystemBarColor = getResources().getColor(R.color.primary_dark);
+        mSystemBarColor = ThemeUtils.primaryDarkColor();
         mProgressBarActionModeColor = getResources().getColor(R.color.action_mode_background);
-        mProgressBarColor = getResources().getColor(R.color.primary);
+        mProgressBarColor = ThemeUtils.primaryColor();
         mMultiChoiceModeListener = new MultiChoiceModeListener();
 
         if (savedInstanceState != null) {
@@ -601,8 +602,8 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
             mode.invalidate();
 
             //set gray color
-            DisplayUtils.colorStatusBar(getActivity(), mSystemBarActionModeColor);
-            DisplayUtils.colorToolbarProgressBar(getActivity(), mProgressBarActionModeColor);
+            ThemeUtils.colorStatusBar(getActivity(), mSystemBarActionModeColor);
+            ThemeUtils.colorToolbarProgressBar(getActivity(), mProgressBarActionModeColor);
 
             // hide FAB in multi selection mode
             setFabEnabled(false);
@@ -649,8 +650,8 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
             mActiveActionMode = null;
 
             // reset to previous color
-            DisplayUtils.colorStatusBar(getActivity(), mSystemBarColor);
-            DisplayUtils.colorToolbarProgressBar(getActivity(), mProgressBarColor);
+            ThemeUtils.colorStatusBar(getActivity(), mSystemBarColor);
+            ThemeUtils.colorToolbarProgressBar(getActivity(), mProgressBarColor);
 
             // show FAB on multi selection mode exit
             if (!mHideFab && !searchFragment) {
@@ -1323,7 +1324,7 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
                     setTitle(R.string.drawer_item_shared);
                     break;
                 default:
-                    setTitle(R.string.default_display_name_for_root_folder);
+                    setTitle(ThemeUtils.getDefaultDisplayNameForRootFolder());
                     break;
             }
         }
@@ -1385,7 +1386,7 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
         menuItemAddRemoveValue = MenuItemAddRemove.ADD_GRID_AND_SORT_WITH_SEARCH;
         if (getActivity() != null) {
             getActivity().invalidateOptionsMenu();
-            setTitle(R.string.default_display_name_for_root_folder);
+            setTitle(ThemeUtils.getDefaultDisplayNameForRootFolder());
         }
 
         getActivity().getIntent().removeExtra(OCFileListFragment.SEARCH_EVENT);
@@ -1542,7 +1543,19 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
             @Override
             public void run() {
                 if (getActivity() != null && ((FileDisplayActivity) getActivity()).getSupportActionBar() != null) {
-                    ((FileDisplayActivity) getActivity()).getSupportActionBar().setTitle(title);
+                    ThemeUtils.setColoredTitle(((FileDisplayActivity) getActivity()).getSupportActionBar(),
+                            title, getContext());
+                }
+            }
+        });
+    }
+
+    private void setTitle(final String title) {
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if (getActivity() != null && ((FileDisplayActivity) getActivity()).getSupportActionBar() != null) {
+                    ThemeUtils.setColoredTitle(((FileDisplayActivity) getActivity()).getSupportActionBar(), title);
                 }
             }
         });
