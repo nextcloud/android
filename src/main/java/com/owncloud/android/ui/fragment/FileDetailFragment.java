@@ -24,6 +24,7 @@ package com.owncloud.android.ui.fragment;
 import android.accounts.Account;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.support.v7.widget.AppCompatCheckBox;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -147,6 +148,9 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
             ThemeUtils.colorPreLollipopHorizontalProgressBar(progressBar);
             mProgressListener = new ProgressListener(progressBar);
             mView.findViewById(R.id.fdCancelBtn).setOnClickListener(this);
+
+            AppCompatCheckBox favoriteCheckBox = (AppCompatCheckBox) mView.findViewById(R.id.fdFavorite);
+            ThemeUtils.tintCheckbox(favoriteCheckBox, ThemeUtils.primaryAccentColor());
         }
 
         updateFileDetails(false, false);
