@@ -252,7 +252,7 @@ public class FileListListAdapter extends BaseAdapter {
                     fileSizeV.setVisibility(View.VISIBLE);
                     fileSizeV.setText(DisplayUtils.bytesToHumanReadable(file.getFileLength()));
 
-                    break;
+
                 case GRID_ITEM:
                     // filename
                     fileName = (TextView) view.findViewById(R.id.Filename);
@@ -265,7 +265,6 @@ public class FileListListAdapter extends BaseAdapter {
                         fileName.setVisibility(View.GONE);
                     }
 
-                    break;
                 case GRID_IMAGE:
                     // sharedIcon
                     ImageView sharedIconV = (ImageView) view.findViewById(R.id.sharedIcon);

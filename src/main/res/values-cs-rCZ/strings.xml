@@ -634,13 +634,7 @@
     <string name="webview_error">Došlo k chybě</string>
     <string name="prefs_category_about">O aplikaci</string>
 
-    <string name="actionbar_contacts">Záložní kontakty</string>
     <string name="actionbar_contacts_restore">Obnovení kontaktů</string>
-    <string name="contacts_backup_button">Zálohujte nyní</string>
-    <string name="contacts_restore_button">Obnovit poslední zálohu</string>
-    <string name="contacts_header_restore">Obnovit</string>
-    <string name="contacts_header_backup">Záloha</string>
-    <string name="contacts_automatic_backup">Zálohování kontaktů</string>
     <string name="contacts_last_backup">Poslední záloha</string>
     <string name="contacts_read_permission">Je třeba oprávnění ke čtení seznamu kontaktů</string>
     <string name="contacts_write_permission">Povolení změn v seznam kontaktů je vyžadováno</string>

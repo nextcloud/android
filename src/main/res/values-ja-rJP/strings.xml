@@ -498,10 +498,6 @@
     <string name="webview_error">エラーが発生しました</string>
     <string name="prefs_category_about">アプリについて</string>
 
-    <string name="contacts_restore_button">前回のバックアップを復元</string>
-    <string name="contacts_header_restore">復元</string>
-    <string name="contacts_header_backup">バックアップ</string>
-    <string name="contacts_automatic_backup">アドレス帳バックアップ</string>
     <string name="contacts_last_backup">前回のバックアップ</string>
     <string name="contactlist_title">アドレス帳を復元</string>
     <string name="contaclist_restore_selected">選択したアドレス帳を復元</string>

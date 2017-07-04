@@ -524,10 +524,7 @@
     <string name="webview_error">Asocedió un fallu</string>
     <string name="prefs_category_about">Tocante a</string>
 
-    <string name="actionbar_contacts">Respaldar contautos</string>
     <string name="actionbar_contacts_restore">Restaurar contautos</string>
-    <string name="contacts_backup_button">Respaldar agora</string>
-    <string name="contacts_header_restore">Respaldar</string>
     <string name="contacts_preference_backup_never">enxamás</string>
     <!-- Notifications -->
     <string name="new_notification_received">Recibióse un avisu nuevu</string>
