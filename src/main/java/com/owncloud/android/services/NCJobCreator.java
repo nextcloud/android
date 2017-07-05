@@ -37,6 +37,8 @@ public class NCJobCreator implements JobCreator {
                 return new ContactsBackupJob();
             case ContactsImportJob.TAG:
                 return new ContactsImportJob();
+            case AccountRemovalJob.TAG:
+                return new AccountRemovalJob();
             default:
                 return null;
         }

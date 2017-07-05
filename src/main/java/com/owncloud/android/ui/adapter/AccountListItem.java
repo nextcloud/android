@@ -30,6 +30,7 @@ public class AccountListItem {
 
     private Account mAccount;
     private int mType;
+    private boolean mEnabled;
 
     /**
      * creates an account list item containing an {@link Account}.
@@ -39,6 +40,13 @@ public class AccountListItem {
     public AccountListItem(Account account) {
         mAccount = account;
         mType = TYPE_ACCOUNT;
+        mEnabled = true;
+    }
+
+    public AccountListItem(Account account, boolean enabled) {
+        mAccount = account;
+        mType = TYPE_ACCOUNT;
+        mEnabled = enabled;
     }
 
     /**
@@ -54,5 +62,13 @@ public class AccountListItem {
 
     public int getType() {
         return mType;
+    }
+
+    public void setEnabled(boolean bool) {
+        mEnabled = bool;
+    }
+
+    public boolean isEnabled() {
+        return mEnabled;
     }
 }
