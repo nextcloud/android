@@ -538,6 +538,8 @@ public class FileListListAdapter extends BaseAdapter {
                 RemoteOperationResult result = operation.execute(mAccount, mContext);
                 if (result.isSuccess()) {
                     OCFile file = FileStorageUtils.fillOCFile((RemoteFile) result.getData().get(0));
+                    searchForLocalFileInDefaultPath(file);
+                    file = mStorageManager.saveFileWithParent(file, mContext);
 
                     ShareType newShareType = ocShare.getShareType();
                     if (newShareType == ShareType.PUBLIC_LINK) {
