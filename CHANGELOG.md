@@ -1,3 +1,8 @@
+## 2017-07-06 00:30
+- Fix: no shared folders after \ (nextcloud/sharedFolderMissing) [https://github.com/nextcloud/android/pull/1165] added
+
+- Fix: no shared folders after \ (nextcloud/sharedFolderMissing) [https://github.com/nextcloud/android/pull/1165] updated
+
 ## 2017-07-05 00:31
 no new branches added
 
