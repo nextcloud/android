@@ -18,6 +18,7 @@
 
 package com.owncloud.android.utils;
 
+import android.accounts.Account;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.webkit.MimeTypeMap;
@@ -92,10 +93,22 @@ public class MimeTypeUtil {
      * Returns the resource identifier of an image to use as icon associated to a type of folder.
      *
      * @param isSharedViaUsers flag if the folder is shared via the users system
-     * @param isSharedViaLink flag if the folder is publicly shared via link
+     * @param isSharedViaLink  flag if the folder is publicly shared via link
      * @return Identifier of an image resource.
      */
     public static Drawable getFolderTypeIcon(boolean isSharedViaUsers, boolean isSharedViaLink) {
+        return getFolderTypeIcon(isSharedViaUsers, isSharedViaLink, null);
+    }
+
+    /**
+     * Returns the resource identifier of an image to use as icon associated to a type of folder.
+     *
+     * @param isSharedViaUsers flag if the folder is shared via the users system
+     * @param isSharedViaLink flag if the folder is publicly shared via link
+     * @param account account which color should be used
+     * @return Identifier of an image resource.
+     */
+    public static Drawable getFolderTypeIcon(boolean isSharedViaUsers, boolean isSharedViaLink, Account account) {
         int drawableId;
 
         if (isSharedViaLink) {
@@ -106,7 +119,7 @@ public class MimeTypeUtil {
             drawableId = R.drawable.ic_menu_archive;
         }
 
-        return ThemeUtils.tintDrawable(drawableId, ThemeUtils.primaryColor());
+        return ThemeUtils.tintDrawable(drawableId, ThemeUtils.primaryColor(account));
     }
 
     public static Drawable getDefaultFolderIcon() {
