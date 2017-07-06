@@ -71,7 +71,11 @@ public class ThemeUtils {
     }
 
     public static int primaryDarkColor() {
-        OCCapability capability = getCapability();
+        return primaryDarkColor(null);
+    }
+
+    public static int primaryDarkColor(Account account) {
+        OCCapability capability = getCapability(account);
 
         try {
             return adjustLightness(-0.2f, Color.parseColor(capability.getServerColor()));
@@ -81,7 +85,11 @@ public class ThemeUtils {
     }
 
     public static int primaryColor() {
-        OCCapability capability = getCapability();
+        return primaryColor(null);
+    }
+
+    public static int primaryColor(Account account) {
+        OCCapability capability = getCapability(account);
 
         try {
             return Color.parseColor(capability.getServerColor());
@@ -311,7 +319,17 @@ public class ThemeUtils {
     }
 
     private static OCCapability getCapability() {
-        Account account = AccountUtils.getCurrentOwnCloudAccount(MainApp.getAppContext());
+        return getCapability(null);
+    }
+
+    private static OCCapability getCapability(Account acc) {
+        Account account;
+
+        if (acc != null) {
+            account = acc;
+        } else {
+            account = AccountUtils.getCurrentOwnCloudAccount(MainApp.getAppContext());
+        }
 
         if (account != null) {
             Context context = MainApp.getAppContext();
