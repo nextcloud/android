@@ -87,7 +87,9 @@ public class InstantUploadBroadcastReceiver extends BroadcastReceiver {
         String file_path = null;
         String file_name = null;
         String mime_type = null;
-        long date_taken = 0;
+        // comments are polluting the clean code but I temporarily write down comments to explain my changes for sack of facilitating others to review my changes. pls remove it after reviews if feeling uncomfortable.
+        //long date_taken = 0; // deprecated by Angus on 20170425
+        long date_modified = 0; // created by Angus on 20170425 // date_modified as variable identifier is more appropriate
 
         Log_OC.i(TAG, "New photo received");
 
@@ -123,7 +125,11 @@ public class InstantUploadBroadcastReceiver extends BroadcastReceiver {
         file_path = c.getString(c.getColumnIndex(Images.Media.DATA));
         file_name = c.getString(c.getColumnIndex(Images.Media.DISPLAY_NAME));
         mime_type = c.getString(c.getColumnIndex(Images.Media.MIME_TYPE));
-        date_taken = System.currentTimeMillis();
+        // comments are polluting the clean code but I temporarily write down comments to explain my changes for sack of facilitating others to review my changes. pls remove it after reviews if feeling uncomfortable.
+        //date_taken = System.currentTimeMillis(); // deprecated by Angus on 20170425 // date_taken != system current time as of triggering upload
+        date_modified = c.getLong(c.getColumnIndex(Images.Media.DATE_MODIFIED)) * 1000; // created by Angus on 20170425 // date_modified as variable identifier is more appropriate // Images.Media.DATE_MODIFIED is in second, hence should be converted to millisecond by * 1000
+        // there are other viable options of constants (e.g. DATE_MODIFIED, DATE_TAKEN or DATE_ADDED) seemingly better suiting the attribute in terms of "file's datetime timestamp" than using System.currentTimeMillis()
+        
         c.close();
 
         if (file_path.equals(lastUploadedPhotoPath)) {
@@ -147,7 +153,9 @@ public class InstantUploadBroadcastReceiver extends BroadcastReceiver {
                 context,
                 account,
                 file_path,
-                FileStorageUtils.getInstantUploadFilePath(uploadPath, file_name, date_taken, subfolderByDate),
+                // comments are polluting the clean code but I temporarily write down comments to explain my changes for sack of facilitating others to review my changes. pls remove it after reviews if feeling uncomfortable.
+                //FileStorageUtils.getInstantUploadFilePath(uploadPath, file_name, date_taken, subfolderByDate),
+                FileStorageUtils.getInstantUploadFilePath(uploadPath, file_name, date_modified, subfolderByDate), // edited by Angus on 20170425
                 behaviour,
                 mime_type,
                 true,           // create parent folder if not existent
@@ -177,7 +185,9 @@ public class InstantUploadBroadcastReceiver extends BroadcastReceiver {
         String file_path = null;
         String file_name = null;
         String mime_type = null;
-        long date_taken = 0;
+        // comments are polluting the clean code but I temporarily write down comments to explain my changes for sack of facilitating others to review my changes. pls remove it after reviews if feeling uncomfortable.
+        //long date_taken = 0; // deprecated by Angus on 20170425
+        long date_modified = 0; // created by Angus on 20170425 // date_modified as variable identifier is more appropriate
 
         Log_OC.i(TAG, "New video received");
 
@@ -202,8 +212,12 @@ public class InstantUploadBroadcastReceiver extends BroadcastReceiver {
         file_path = c.getString(c.getColumnIndex(Video.Media.DATA));
         file_name = c.getString(c.getColumnIndex(Video.Media.DISPLAY_NAME));
         mime_type = c.getString(c.getColumnIndex(Video.Media.MIME_TYPE));
+        date_modified = c.getLong(c.getColumnIndex(Video.Media.DATE_MODIFIED)) * 1000; // created by Angus on 20170425 // date_modified as variable identifier is more appropriate // Images.Media.DATE_MODIFIED is in second, hence should be converted to millisecond by * 1000
+        // there are other viable options of constants (e.g. DATE_MODIFIED, DATE_TAKEN or DATE_ADDED) seemingly better suiting the attribute in terms of "file's datetime timestamp" than using System.currentTimeMillis()
+        
         c.close();
-        date_taken = System.currentTimeMillis();
+        // comments are polluting the clean code but I temporarily write down comments to explain my changes for sack of facilitating others to review my changes. pls remove it after reviews if feeling uncomfortable.
+        //date_taken = System.currentTimeMillis(); // deprecated by Angus on 20170425 // date_taken != system current time as of triggering upload
         Log_OC.d(TAG, file_path + "");
 
         int behaviour = getUploadBehaviour(context);
@@ -212,7 +226,9 @@ public class InstantUploadBroadcastReceiver extends BroadcastReceiver {
                 context,
                 account,
                 file_path,
-                FileStorageUtils.getInstantVideoUploadFilePath(context, file_name, date_taken),
+                // comments are polluting the clean code but I temporarily write down comments to explain my changes for sack of facilitating others to review my changes. pls remove it after reviews if feeling uncomfortable.
+                //FileStorageUtils.getInstantVideoUploadFilePath(context, file_name, date_taken),
+                FileStorageUtils.getInstantVideoUploadFilePath(context, file_name, date_modified), // edited by Angus on 20170425
                 behaviour,
                 mime_type,
                 true,           // create parent folder if not existent
