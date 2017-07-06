@@ -1,3 +1,9 @@
+## 2017-07-07 00:30
+- Theming Dynamically use server color (nextcloud/userTheming) [https://github.com/nextcloud/android/pull/1031] added
+
+- Theming Dynamically use server color (nextcloud/userTheming) [https://github.com/nextcloud/android/pull/1031] updated
+- Master (nextcloud/master) [https://github.com/nextcloud/android] updated
+
 ## 2017-07-06 00:30
 - Fix: no shared folders after \ (nextcloud/sharedFolderMissing) [https://github.com/nextcloud/android/pull/1165] added
 
