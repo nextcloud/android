@@ -190,7 +190,7 @@ public class FilesSyncHelper {
 
     public static void restartJobsIfNeeded() {
         final Context context = MainApp.getAppContext();
-        boolean restartedInCurrentIteration = false;
+        boolean restartedInCurrentIteration;
 
         FileUploader.UploadRequester uploadRequester = new FileUploader.UploadRequester();
 
@@ -261,12 +261,12 @@ public class FilesSyncHelper {
                                 .build()
                                 .schedule();
                     }
-                }
-            } else {
-                if (accountExists && fileExists) {
-                    uploadRequester.retry(context, failedUpload);
                 } else {
-                    uploadsStorageManager.removeUpload(failedUpload);
+                    if (accountExists && fileExists) {
+                        uploadRequester.retry(context, failedUpload);
+                    } else {
+                        uploadsStorageManager.removeUpload(failedUpload);
+                    }
                 }
             }
         }
