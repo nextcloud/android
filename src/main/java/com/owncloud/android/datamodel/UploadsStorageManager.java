@@ -30,6 +30,7 @@ import android.net.Uri;
 import com.evernote.android.job.JobManager;
 import com.evernote.android.job.JobRequest;
 import com.evernote.android.job.util.support.PersistableBundleCompat;
+import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.db.OCUpload;
 import com.owncloud.android.db.ProviderMeta.ProviderTableMeta;
 import com.owncloud.android.db.UploadResult;
@@ -374,6 +375,24 @@ public class UploadsStorageManager extends Observable {
         return upload;
     }
 
+    public OCUpload[] getCurrentAndPendingUploadsForCurrentAccount() {
+        Account account = AccountUtils.getCurrentOwnCloudAccount(mContext);
+
+        OCUpload[] uploads = getUploads(
+                ProviderTableMeta.UPLOADS_STATUS + "==" + UploadStatus.UPLOAD_IN_PROGRESS.value + " OR " +
+                        ProviderTableMeta.UPLOADS_LAST_RESULT + "==" + UploadResult.DELAYED_FOR_WIFI.getValue() + " OR " +
+                        ProviderTableMeta.UPLOADS_LAST_RESULT + "==" + UploadResult.DELAYED_FOR_CHARGING.getValue() + " AND " +
+                        ProviderTableMeta.UPLOADS_ACCOUNT_NAME + "==" + account.name,
+                null
+        );
+
+        //return uploads;
+
+        List<OCUpload> result = getPendingJobs();
+        Collections.addAll(result, uploads);
+        return result.toArray(uploads);
+    }
+
     /**
      * Get all uploads which are currently being uploaded or waiting in the queue to be uploaded.
      */
@@ -443,12 +462,30 @@ public class UploadsStorageManager extends Observable {
                 ProviderTableMeta.UPLOADS_STATUS + "==" + UploadStatus.UPLOAD_FAILED.value, null);
     }
 
+    public OCUpload[] getFinishedUploadsForCurrentAccount() {
+        Account account = AccountUtils.getCurrentOwnCloudAccount(mContext);
+
+        return getUploads(ProviderTableMeta.UPLOADS_STATUS + "==" + UploadStatus.UPLOAD_SUCCEEDED.value + AND +
+                ProviderTableMeta.UPLOADS_ACCOUNT_NAME + "==" + account.name, null);
+    }
+
     /**
      * Get all uploads which where successfully completed.
      */
     public OCUpload[] getFinishedUploads() {
 
         return getUploads(ProviderTableMeta.UPLOADS_STATUS + "==" + UploadStatus.UPLOAD_SUCCEEDED.value, null);
+    }
+
+    public OCUpload[] getFailedButNotDelayedUploadsForCurrentAccount() {
+        Account account = AccountUtils.getCurrentOwnCloudAccount(mContext);
+
+        return getUploads(ProviderTableMeta.UPLOADS_STATUS + "==" + UploadStatus.UPLOAD_FAILED.value + AND +
+                        ProviderTableMeta.UPLOADS_LAST_RESULT + "<>" + UploadResult.DELAYED_FOR_WIFI.getValue() + AND +
+                        ProviderTableMeta.UPLOADS_LAST_RESULT + "<>" + UploadResult.DELAYED_FOR_CHARGING.getValue() + AND +
+                        ProviderTableMeta.UPLOADS_ACCOUNT_NAME + "==" + account.name,
+                null
+        );
     }
 
     /**
