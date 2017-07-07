@@ -153,7 +153,8 @@ public class FilesSyncHelper {
         final ContentResolver contentResolver = context.getContentResolver();
 
         Cursor cursor;
-        int column_index_data, column_index_date_modified;
+        int column_index_data;
+        int column_index_date_modified;
 
         final FilesystemDataProvider filesystemDataProvider = new FilesystemDataProvider(contentResolver);
 
