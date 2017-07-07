@@ -130,7 +130,7 @@ public class FilesSyncJob extends Job {
                             bundle.putBoolean(AutoUploadJob.REQUIRES_CHARGING, needsCharging);
 
                             new JobRequest.Builder(AutoUploadJob.TAG)
-                                    .setExecutionWindow(30_000L, 80_000L)
+                                    .setExecutionWindow(10_000L, 10_000L)
                                     .setRequiresCharging(needsCharging)
                                     .setRequiredNetworkType(syncedFolder.getWifiOnly() ? JobRequest.NetworkType.UNMETERED :
                                             JobRequest.NetworkType.CONNECTED)

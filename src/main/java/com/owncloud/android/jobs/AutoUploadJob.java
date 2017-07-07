@@ -97,7 +97,7 @@ public class AutoUploadJob extends Job {
                         uploadBehaviour,
                         mimeType,
                         true,           // create parent folder if not existent
-                        UploadFileOperation.CREATED_BY_USER,
+                        UploadFileOperation.CREATED_AS_INSTANT_PICTURE,
                         requiresWifi,
                         requiresCharging
                 );
