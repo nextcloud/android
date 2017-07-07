@@ -39,8 +39,6 @@ public class NCJobCreator implements JobCreator {
                 return new ContactsImportJob();
             case AccountRemovalJob.TAG:
                 return new AccountRemovalJob();
-            case NewAutoUploadJob.TAG:
-                return new NewAutoUploadJob();
             case FilesSyncJob.TAG:
                 return new FilesSyncJob();
             default:
