@@ -43,7 +43,9 @@ import com.owncloud.android.datamodel.SyncedFolderProvider;
 import com.owncloud.android.datamodel.UploadsStorageManager;
 import com.owncloud.android.db.OCUpload;
 import com.owncloud.android.db.UploadResult;
+import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.jobs.AutoUploadJob;
+import com.owncloud.android.operations.UploadFileOperation;
 
 import org.lukhnos.nnio.file.FileVisitResult;
 import org.lukhnos.nnio.file.Files;
@@ -190,6 +192,8 @@ public class FilesSyncHelper {
         final Context context = MainApp.getAppContext();
         boolean restartedInCurrentIteration = false;
 
+        FileUploader.UploadRequester uploadRequester = new FileUploader.UploadRequester();
+
         for (JobRequest jobRequest : JobManager.instance().getAllJobRequestsForTag(AutoUploadJob.TAG)) {
             restartedInCurrentIteration = false;
             // Handle case of charging
@@ -222,36 +226,47 @@ public class FilesSyncHelper {
         OCUpload[] failedUploads = uploadsStorageManager.getFailedUploads();
 
         boolean accountExists;
+        boolean fileExists;
         for (OCUpload failedUpload: failedUploads) {
             accountExists = false;
-            if (!failedUpload.getLastResult().equals(UploadResult.UPLOADED)) {
-                uploadsStorageManager.removeUpload(failedUpload);
+            fileExists = new File(failedUpload.getLocalPath()).exists();
 
-                // check if accounts still exists
-                for (Account account : AccountUtils.getAccounts(context)) {
-                    if (account.name.equals(failedUpload.getAccountName())) {
-                        accountExists = true;
-                        break;
+            // check if accounts still exists
+            for (Account account : AccountUtils.getAccounts(context)) {
+                if (account.name.equals(failedUpload.getAccountName())) {
+                    accountExists = true;
+                    break;
+                }
+            }
+
+            if (!failedUpload.getLastResult().equals(UploadResult.UPLOADED)) {
+                if (failedUpload.getCreadtedBy() == UploadFileOperation.CREATED_AS_INSTANT_PICTURE) {
+                    uploadsStorageManager.removeUpload(failedUpload);
+
+                    if (accountExists && fileExists) {
+                        PersistableBundleCompat bundle = new PersistableBundleCompat();
+                        bundle.putString(AutoUploadJob.LOCAL_PATH, failedUpload.getLocalPath());
+                        bundle.putString(AutoUploadJob.REMOTE_PATH, failedUpload.getRemotePath());
+                        bundle.putString(AutoUploadJob.ACCOUNT, failedUpload.getAccountName());
+                        bundle.putInt(AutoUploadJob.UPLOAD_BEHAVIOUR, failedUpload.getLocalAction());
+
+                        new JobRequest.Builder(AutoUploadJob.TAG)
+                                .setExecutionWindow(10_000L, 10_000L)
+                                .setRequiresCharging(failedUpload.isWhileChargingOnly())
+                                .setRequiredNetworkType(failedUpload.isUseWifiOnly() ? JobRequest.NetworkType.UNMETERED :
+                                        JobRequest.NetworkType.CONNECTED)
+                                .setExtras(bundle)
+                                .setRequirementsEnforced(true)
+                                .setUpdateCurrent(false)
+                                .build()
+                                .schedule();
                     }
                 }
-
-                if (accountExists) {
-                    PersistableBundleCompat bundle = new PersistableBundleCompat();
-                    bundle.putString(AutoUploadJob.LOCAL_PATH, failedUpload.getLocalPath());
-                    bundle.putString(AutoUploadJob.REMOTE_PATH, failedUpload.getRemotePath());
-                    bundle.putString(AutoUploadJob.ACCOUNT, failedUpload.getAccountName());
-                    bundle.putInt(AutoUploadJob.UPLOAD_BEHAVIOUR, failedUpload.getLocalAction());
-
-                    new JobRequest.Builder(AutoUploadJob.TAG)
-                            .setExecutionWindow(30_000L, 80_000L)
-                            .setRequiresCharging(failedUpload.isWhileChargingOnly())
-                            .setRequiredNetworkType(failedUpload.isUseWifiOnly() ? JobRequest.NetworkType.UNMETERED :
-                                    JobRequest.NetworkType.CONNECTED)
-                            .setExtras(bundle)
-                            .setRequirementsEnforced(true)
-                            .setUpdateCurrent(false)
-                            .build()
-                            .schedule();
+            } else {
+                if (accountExists && fileExists) {
+                    uploadRequester.retry(context, failedUpload);
+                } else {
+                    uploadsStorageManager.removeUpload(failedUpload);
                 }
             }
         }
