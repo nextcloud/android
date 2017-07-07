@@ -1,4 +1,4 @@
-/**
+/*
  * ownCloud Android client application
  *
  * @author Bartek Przybylski
@@ -1064,14 +1064,23 @@ public class FileDisplayActivity extends HookActivity
         Log_OC.v(TAG, "onResume() start");
         super.onResume();
 
+        OCFile startFile = null;
+        if (getIntent() != null && getIntent().getParcelableExtra(EXTRA_FILE) != null) {
+            startFile = getIntent().getParcelableExtra(EXTRA_FILE);
+            setFile(startFile);
+        }
 
         revertBottomNavigationBarToAllFiles();
         // refresh list of files
 
         if (searchView != null && !TextUtils.isEmpty(searchQuery)) {
             searchView.setQuery(searchQuery, true);
-        } else if (getListOfFilesFragment() != null && !getListOfFilesFragment().getIsSearchFragment()) {
+        } else if (getListOfFilesFragment() != null && !getListOfFilesFragment().getIsSearchFragment()
+                && startFile == null) {
             refreshListOfFilesFragment(false);
+        } else {
+            getListOfFilesFragment().listDirectory(startFile, false, false);
+            updateActionBarTitleAndHomeButton(startFile);
         }
 
         // Listen for sync messages
@@ -1213,8 +1222,7 @@ public class FileDisplayActivity extends HookActivity
                             if (currentDir.getRemotePath().equals(synchFolderRemotePath)) {
                                 OCFileListFragment fileListFragment = getListOfFilesFragment();
                                 if (fileListFragment != null) {
-                                    fileListFragment.listDirectory(currentDir,
-                                            MainApp.isOnlyOnDevice(), false);
+                                    fileListFragment.listDirectory(currentDir, MainApp.isOnlyOnDevice(), false);
                                 }
                             }
                             setFile(currentFile);
@@ -1553,7 +1561,8 @@ public class FileDisplayActivity extends HookActivity
             // a new chance to get the mDownloadBinder through
             // getFileDownloadBinder() - THIS IS A MESS
             OCFileListFragment listOfFiles = getListOfFilesFragment();
-            if (listOfFiles != null) {
+            if (listOfFiles != null && (getIntent() == null ||
+                    (getIntent() != null && getIntent().getParcelableExtra(EXTRA_FILE) == null))) {
                 listOfFiles.listDirectory(MainApp.isOnlyOnDevice(), false);
             }
             FileFragment secondFragment = getSecondFragment();

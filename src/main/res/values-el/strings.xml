@@ -633,13 +633,7 @@
     <string name="webview_error">Παρουσιάστηκε σφάλμα</string>
     <string name="prefs_category_about">Περί</string>
 
-    <string name="actionbar_contacts">Αντίγραφο ασφαλείας επαφών</string>
     <string name="actionbar_contacts_restore">Ανάκτηση επαφών</string>
-    <string name="contacts_backup_button">Αντίγραφο ασφαλείας τώρα</string>
-    <string name="contacts_restore_button">Επαναφορά τελευταίου αντιγράφου ασφαλείας</string>
-    <string name="contacts_header_restore">Επαναφορά</string>
-    <string name="contacts_header_backup">Αντίγραφο ασφαλείας</string>
-    <string name="contacts_automatic_backup">Αντίγραφο ασφαλείας επαφών</string>
     <string name="contacts_last_backup">Τελευταίο αντίγραφο ασφαλείας</string>
     <string name="contacts_read_permission">Απαιτείτούνται δικαιώματα ανάγνωσης για τις επαφές</string>
     <string name="contacts_write_permission">Απαιτείτούνται δικαιώματα εγγραφής για τις επαφές</string>

@@ -1,4 +1,4 @@
-/**
+/*
  * Nextcloud Android client application
  *
  * @author Andy Scherzinger
@@ -26,6 +26,7 @@ import android.accounts.AuthenticatorException;
 import android.accounts.OperationCanceledException;
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -37,10 +38,12 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
+import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.OwnCloudClient;
@@ -51,12 +54,16 @@ import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.activities.GetRemoteActivitiesOperation;
 import com.owncloud.android.lib.resources.activities.models.RichObject;
 import com.owncloud.android.lib.resources.files.FileUtils;
+import com.owncloud.android.lib.resources.files.ReadRemoteFileOperation;
+import com.owncloud.android.lib.resources.files.RemoteFile;
+import com.owncloud.android.operations.RefreshFolderOperation;
 import com.owncloud.android.ui.adapter.ActivityListAdapter;
 import com.owncloud.android.ui.interfaces.ActivityListInterface;
 import com.owncloud.android.ui.preview.PreviewImageActivity;
 import com.owncloud.android.ui.preview.PreviewImageFragment;
 import com.owncloud.android.utils.AnalyticsUtils;
 import com.owncloud.android.utils.DisplayUtils;
+import com.owncloud.android.utils.FileStorageUtils;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -105,6 +112,8 @@ public class ActivitiesListActivity extends FileActivity implements ActivityList
 
     private ActivityListAdapter adapter;
     private Unbinder unbinder;
+    private OwnCloudClient ownCloudClient;
+    private AsyncTask<String, Object, OCFile> updateTask;
 
 
     @Override
@@ -140,8 +149,6 @@ public class ActivitiesListActivity extends FileActivity implements ActivityList
                 fetchAndSetData();
             }
         });
-
-        setupContent();
     }
 
     public void onDestroy() {
@@ -165,7 +172,8 @@ public class ActivitiesListActivity extends FileActivity implements ActivityList
         emptyContentIcon.setImageResource(R.drawable.ic_activity_light_grey);
         setLoadingMessage();
 
-        adapter = new ActivityListAdapter(this, this);
+        FileDataStorageManager storageManager = new FileDataStorageManager(getAccount(), getContentResolver());
+        adapter = new ActivityListAdapter(this, this, storageManager);
         recyclerView.setAdapter(adapter);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
@@ -190,19 +198,16 @@ public class ActivitiesListActivity extends FileActivity implements ActivityList
 
 
             public void run() {
-                OwnCloudAccount ocAccount = null;
+                OwnCloudAccount ocAccount;
                 try {
-                    ocAccount = new OwnCloudAccount(
-                            currentAccount,
-                            context
-                    );
-                    final OwnCloudClient mClient = OwnCloudClientManagerFactory.getDefaultSingleton().
+                    ocAccount = new OwnCloudAccount(currentAccount, context);
+                    ownCloudClient = OwnCloudClientManagerFactory.getDefaultSingleton().
                             getClientFor(ocAccount, MainApp.getAppContext());
-                    mClient.setOwnCloudVersion(AccountUtils.getServerVersion(currentAccount));
+                    ownCloudClient.setOwnCloudVersion(AccountUtils.getServerVersion(currentAccount));
 
                     RemoteOperation getRemoteNotificationOperation = new GetRemoteActivitiesOperation();
                     Log_OC.d(TAG, "BEFORE getRemoteActivitiesOperation.execute");
-                    final RemoteOperationResult result = getRemoteNotificationOperation.execute(mClient);
+                    final RemoteOperationResult result = getRemoteNotificationOperation.execute(ownCloudClient);
 
                     if (result.isSuccess() && result.getData() != null) {
                         final ArrayList<Object> activities = result.getData();
@@ -211,7 +216,7 @@ public class ActivitiesListActivity extends FileActivity implements ActivityList
                             @Override
                             public void run() {
                                 if (activities.size() > 0) {
-                                    populateList(activities, mClient);
+                                    populateList(activities, ownCloudClient);
                                     swipeEmptyListRefreshLayout.setVisibility(View.GONE);
                                     swipeListRefreshLayout.setVisibility(View.VISIBLE);
                                 } else {
@@ -309,21 +314,88 @@ public class ActivitiesListActivity extends FileActivity implements ActivityList
     protected void onResume() {
         super.onResume();
 
+        setupContent();
+
         AnalyticsUtils.setCurrentScreenName(this, SCREEN_NAME, TAG);
     }
 
+    @Override
+    protected void onStop() {
+        if (updateTask != null) {
+            updateTask.cancel(true);
+        }
+
+        super.onStop();
+    }
 
     @Override
     public void onActivityClicked(RichObject richObject) {
-        Intent showDetailsIntent;
-        OCFile ocFile = new OCFile(FileUtils.PATH_SEPARATOR + richObject.getPath());
-        if (PreviewImageFragment.canBePreviewed(ocFile)) {
-            showDetailsIntent = new Intent(this, PreviewImageActivity.class);
-        } else {
-            showDetailsIntent = new Intent(this, FileDisplayActivity.class);
-        }
-        showDetailsIntent.putExtra(EXTRA_FILE, ocFile);
-        showDetailsIntent.putExtra(EXTRA_ACCOUNT, getAccount());
-        startActivity(showDetailsIntent);
+        String path = FileUtils.PATH_SEPARATOR + richObject.getPath();
+
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                swipeEmptyListRefreshLayout.setVisibility(View.VISIBLE);
+                swipeListRefreshLayout.setVisibility(View.GONE);
+                setLoadingMessage();
+            }
+        });
+
+        updateTask = new AsyncTask<String, Object, OCFile>() {
+            @Override
+            protected OCFile doInBackground(String... path) {
+                OCFile ocFile = null;
+
+                // always update file as it could be an old state saved in database
+                ReadRemoteFileOperation operation = new ReadRemoteFileOperation(path[0]);
+                RemoteOperationResult resultRemoteFileOp = operation.execute(ownCloudClient);
+                if (resultRemoteFileOp.isSuccess()) {
+                    OCFile temp = FileStorageUtils.fillOCFile((RemoteFile) resultRemoteFileOp.getData().get(0));
+
+                    ocFile = getStorageManager().saveFileWithParent(temp, getBaseContext());
+
+                    if (ocFile.isFolder()) {
+                        // perform folder synchronization
+                        RemoteOperation synchFolderOp = new RefreshFolderOperation(ocFile,
+                                System.currentTimeMillis(),
+                                false,
+                                getFileOperationsHelper().isSharedSupported(),
+                                true,
+                                getStorageManager(),
+                                getAccount(),
+                                getApplicationContext());
+                        synchFolderOp.execute(ownCloudClient);
+                    }
+                }
+
+                return ocFile;
+            }
+
+            @Override
+            protected void onPostExecute(OCFile ocFile) {
+                if (!isCancelled()) {
+                    if (ocFile == null) {
+                        Toast.makeText(getBaseContext(), R.string.file_not_found, Toast.LENGTH_LONG).show();
+
+                        swipeEmptyListRefreshLayout.setVisibility(View.GONE);
+                        swipeListRefreshLayout.setVisibility(View.VISIBLE);
+                        dismissLoadingDialog();
+
+                    } else {
+                        Intent showDetailsIntent;
+                        if (PreviewImageFragment.canBePreviewed(ocFile)) {
+                            showDetailsIntent = new Intent(getBaseContext(), PreviewImageActivity.class);
+                        } else {
+                            showDetailsIntent = new Intent(getBaseContext(), FileDisplayActivity.class);
+                        }
+                        showDetailsIntent.putExtra(EXTRA_FILE, ocFile);
+                        showDetailsIntent.putExtra(EXTRA_ACCOUNT, getAccount());
+                        startActivity(showDetailsIntent);
+                    }
+                }
+            }
+        };
+
+        updateTask.execute(path);
     }
 }

@@ -1,33 +1,40 @@
-/**
+/*
  * Nextcloud Android client application
  *
  * @author Andy Scherzinger
  * Copyright (C) 2016 Andy Scherzinger
  * Copyright (C) 2016 Nextcloud
- * <p>
+ *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
  * License as published by the Free Software Foundation; either
  * version 3 of the License, or any later version.
- * <p>
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU AFFERO GENERAL PUBLIC LICENSE for more details.
- * <p>
+ *
  * You should have received a copy of the GNU Affero General Public
  * License along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 package com.owncloud.android.datamodel;
 
+import android.Manifest;
+import android.app.Activity;
 import android.content.ContentResolver;
 import android.database.Cursor;
 import android.net.Uri;
 import android.provider.MediaStore;
+import android.support.design.widget.Snackbar;
 import android.util.Log;
+import android.view.View;
 
 import com.owncloud.android.MainApp;
+import com.owncloud.android.R;
+import com.owncloud.android.utils.DisplayUtils;
+import com.owncloud.android.utils.PermissionUtil;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -54,9 +61,39 @@ public class MediaProvider {
      * @param itemLimit       the number of media items (usually images) to be returned per media folder.
      * @return list with media folders
      */
-    public static List<MediaFolder> getMediaFolders(ContentResolver contentResolver, int itemLimit) {
+    public static List<MediaFolder> getMediaFolders(ContentResolver contentResolver, int itemLimit,
+                                                    final Activity activity) {
+        // check permissions
+        if (!PermissionUtil.checkSelfPermission(activity.getApplicationContext(),
+                Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+            // Check if we should show an explanation
+            if (PermissionUtil.shouldShowRequestPermissionRationale(activity,
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+                // Show explanation to the user and then request permission
+                Snackbar snackbar = Snackbar.make(activity.findViewById(R.id.ListLayout),
+                        R.string.permission_storage_access, Snackbar.LENGTH_INDEFINITE)
+                        .setAction(R.string.common_ok, new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                PermissionUtil.requestWriteExternalStoreagePermission(activity);
+                            }
+                        });
+
+                DisplayUtils.colorSnackbar(activity.getApplicationContext(), snackbar);
+
+                snackbar.show();
+            } else {
+                // No explanation needed, request the permission.
+                PermissionUtil.requestWriteExternalStoreagePermission(activity);
+            }
+        }
+
         // query media/image folders
-        Cursor cursorFolders = contentResolver.query(MEDIA_URI, FOLDER_PROJECTION, null, null, FOLDER_SORT_ORDER);
+        Cursor cursorFolders = null;
+        if (PermissionUtil.checkSelfPermission(activity.getApplicationContext(),
+                Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+            cursorFolders = contentResolver.query(MEDIA_URI, FOLDER_PROJECTION, null, null, FOLDER_SORT_ORDER);
+        }
         List<MediaFolder> mediaFolders = new ArrayList<>();
         String dataPath = MainApp.getStoragePath() + File.separator + MainApp.getDataFolder();
 
