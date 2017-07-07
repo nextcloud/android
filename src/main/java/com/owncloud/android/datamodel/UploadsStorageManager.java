@@ -382,8 +382,8 @@ public class UploadsStorageManager extends Observable {
                 ProviderTableMeta.UPLOADS_STATUS + "==" + UploadStatus.UPLOAD_IN_PROGRESS.value + " OR " +
                         ProviderTableMeta.UPLOADS_LAST_RESULT + "==" + UploadResult.DELAYED_FOR_WIFI.getValue() + " OR " +
                         ProviderTableMeta.UPLOADS_LAST_RESULT + "==" + UploadResult.DELAYED_FOR_CHARGING.getValue() + " AND " +
-                        ProviderTableMeta.UPLOADS_ACCOUNT_NAME + "==" + account.name,
-                null
+                        ProviderTableMeta.UPLOADS_ACCOUNT_NAME + "== ?",
+                new String[]{account.name}
         );
 
         //return uploads;
@@ -466,7 +466,7 @@ public class UploadsStorageManager extends Observable {
         Account account = AccountUtils.getCurrentOwnCloudAccount(mContext);
 
         return getUploads(ProviderTableMeta.UPLOADS_STATUS + "==" + UploadStatus.UPLOAD_SUCCEEDED.value + AND +
-                ProviderTableMeta.UPLOADS_ACCOUNT_NAME + "==" + account.name, null);
+                ProviderTableMeta.UPLOADS_ACCOUNT_NAME + "== ?", new String[]{account.name});
     }
 
     /**
@@ -483,8 +483,8 @@ public class UploadsStorageManager extends Observable {
         return getUploads(ProviderTableMeta.UPLOADS_STATUS + "==" + UploadStatus.UPLOAD_FAILED.value + AND +
                         ProviderTableMeta.UPLOADS_LAST_RESULT + "<>" + UploadResult.DELAYED_FOR_WIFI.getValue() + AND +
                         ProviderTableMeta.UPLOADS_LAST_RESULT + "<>" + UploadResult.DELAYED_FOR_CHARGING.getValue() + AND +
-                        ProviderTableMeta.UPLOADS_ACCOUNT_NAME + "==" + account.name,
-                null
+                        ProviderTableMeta.UPLOADS_ACCOUNT_NAME + "== ?",
+                new String[]{account.name}
         );
     }
 
