@@ -22,7 +22,6 @@
 package com.owncloud.android.ui.activity;
 
 import android.accounts.Account;
-import android.accounts.AccountManager;
 import android.content.ActivityNotFoundException;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
@@ -40,11 +39,9 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.owncloud.android.R;
-import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.UploadsStorageManager;
 import com.owncloud.android.db.OCUpload;
-import com.owncloud.android.db.UploadResult;
 import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
@@ -54,6 +51,7 @@ import com.owncloud.android.operations.CheckCurrentCredentialsOperation;
 import com.owncloud.android.ui.fragment.UploadListFragment;
 import com.owncloud.android.utils.AnalyticsUtils;
 import com.owncloud.android.utils.DisplayUtils;
+import com.owncloud.android.utils.FilesSyncHelper;
 import com.owncloud.android.utils.MimeTypeUtil;
 
 import java.io.File;
@@ -221,17 +219,7 @@ public class UploadListActivity extends FileActivity implements UploadListFragme
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == FileActivity.REQUEST_CODE__UPDATE_CREDENTIALS && resultCode == RESULT_OK) {
-            // Retry uploads of the updated account
-            Account account = AccountUtils.getOwnCloudAccountByName(
-                this,
-                data.getStringExtra(AccountManager.KEY_ACCOUNT_NAME)
-            );
-            FileUploader.UploadRequester requester = new FileUploader.UploadRequester();
-            requester.retryFailedUploads(
-                this,
-                account,
-                UploadResult.CREDENTIAL_ERROR
-            );
+            FilesSyncHelper.restartJobsIfNeeded();
         }
     }
 
@@ -252,8 +240,7 @@ public class UploadListActivity extends FileActivity implements UploadListFragme
 
             } else {
                 // already updated -> just retry!
-                FileUploader.UploadRequester requester = new FileUploader.UploadRequester();
-                requester.retryFailedUploads(this, account, UploadResult.CREDENTIAL_ERROR);
+                FilesSyncHelper.restartJobsIfNeeded();
             }
 
         } else {
