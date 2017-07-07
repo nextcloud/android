@@ -149,7 +149,7 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
         mUploadGroups[0] = new UploadGroup(mParentActivity.getString(R.string.uploads_view_group_current_uploads)) {
             @Override
             public void refresh() {
-                items = mUploadsStorageManager.getCurrentAndPendingUploads();
+                items = mUploadsStorageManager.getCurrentAndPendingUploadsForCurrentAccount();
                 Arrays.sort(items, comparator);
             }
 
@@ -161,7 +161,7 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
         mUploadGroups[1] = new UploadGroup(mParentActivity.getString(R.string.uploads_view_group_failed_uploads)) {
             @Override
             public void refresh() {
-                items = mUploadsStorageManager.getFailedButNotDelayedUploads();
+                items = mUploadsStorageManager.getFailedButNotDelayedUploadsForCurrentAccount();
                 Arrays.sort(items, comparator);
             }
 
@@ -174,7 +174,7 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
         mUploadGroups[2] = new UploadGroup(mParentActivity.getString(R.string.uploads_view_group_finished_uploads)) {
             @Override
             public void refresh() {
-                items = mUploadsStorageManager.getFinishedUploads();
+                items = mUploadsStorageManager.getFinishedUploadsForCurrentAccount();
                 Arrays.sort(items, comparator);
             }
 
