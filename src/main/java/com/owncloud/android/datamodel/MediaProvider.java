@@ -69,30 +69,8 @@ public class MediaProvider {
     public static List<MediaFolder> getImageFolders(ContentResolver contentResolver, int itemLimit,
                                                     @Nullable final Activity activity) {
         // check permissions
-        if (activity != null &&
-                !PermissionUtil.checkSelfPermission(activity.getApplicationContext(),
-                        Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
-            // Check if we should show an explanation
-            if (PermissionUtil.shouldShowRequestPermissionRationale(activity,
-                    Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
-                // Show explanation to the user and then request permission
-                Snackbar snackbar = Snackbar.make(activity.findViewById(R.id.ListLayout),
-                        R.string.permission_storage_access, Snackbar.LENGTH_INDEFINITE)
-                        .setAction(R.string.common_ok, new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                PermissionUtil.requestWriteExternalStoreagePermission(activity);
-                            }
-                        });
+        checkPermissions(activity);
 
-                ThemeUtils.colorSnackbar(activity.getApplicationContext(), snackbar);
-
-                snackbar.show();
-            } else {
-                // No explanation needed, request the permission.
-                PermissionUtil.requestWriteExternalStoreagePermission(activity);
-            }
-        }
 
         // query media/image folders
         Cursor cursorFolders;
@@ -177,6 +155,33 @@ public class MediaProvider {
         }
 
         return mediaFolders;
+    }
+
+    private static void checkPermissions(@Nullable Activity activity) {
+        if (activity != null &&
+                !PermissionUtil.checkSelfPermission(activity.getApplicationContext(),
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+            // Check if we should show an explanation
+            if (PermissionUtil.shouldShowRequestPermissionRationale(activity,
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+                // Show explanation to the user and then request permission
+                Snackbar snackbar = Snackbar.make(activity.findViewById(R.id.ListLayout),
+                        R.string.permission_storage_access, Snackbar.LENGTH_INDEFINITE)
+                        .setAction(R.string.common_ok, new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                PermissionUtil.requestWriteExternalStoreagePermission(activity);
+                            }
+                        });
+
+                ThemeUtils.colorSnackbar(activity.getApplicationContext(), snackbar);
+
+                snackbar.show();
+            } else {
+                // No explanation needed, request the permission.
+                PermissionUtil.requestWriteExternalStoreagePermission(activity);
+            }
+        }
     }
 
     public static List<MediaFolder> getVideoFolders(ContentResolver contentResolver, int itemLimit) {
