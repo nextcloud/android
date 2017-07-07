@@ -531,8 +531,9 @@ public class FolderSyncActivity extends FileActivity implements FolderSyncAdapte
             }
             mAdapter.addSyncFolderItem(newCustomFolder);
         } else {
-            SyncedFolderDisplayItem item = syncFolderItems.get(syncedFolder.getSection()-1);
-            boolean dirty = item.isEnabled() != syncedFolder.getEnabled();
+            SyncedFolderDisplayItem item = syncFolderItems.get(syncedFolder.getSection());
+            Log_OC.e(TAG, "syncedFolder"+ syncedFolder.getLocalPath()+"-"+syncedFolder.getType());
+            Log_OC.e(TAG, "item"+ item.getLocalPath()+"-"+item.getType());
             item = updateSyncedFolderItem(item, syncedFolder.getLocalPath(), syncedFolder.getRemotePath(), syncedFolder
                     .getWifiOnly(), syncedFolder.getChargingOnly(), syncedFolder.getSubfolderByDate(), syncedFolder
                     .getUploadAction(), syncedFolder.getEnabled());
@@ -551,9 +552,7 @@ public class FolderSyncActivity extends FileActivity implements FolderSyncAdapte
                 mSyncedFolderProvider.updateSyncFolder(item);
             }
 
-            if(dirty) {
-                mAdapter.setSyncFolderItem(syncedFolder.getSection(), item);
-            }
+            mAdapter.setSyncFolderItem(syncedFolder.getSection(), item);
         }
 
         mSyncedFolderPreferencesDialogFragment = null;
