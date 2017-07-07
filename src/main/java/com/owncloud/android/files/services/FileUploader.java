@@ -301,34 +301,6 @@ public class FileUploader extends Service
 
 
         /**
-         * Retry a subset of all the stored failed uploads.
-         *
-         * @param context           Caller {@link Context}
-         * @param account           If not null, only failed uploads to this OC account will be retried; otherwise,
-         *                          uploads of all accounts will be retried.
-         * @param uploadResult      If not null, only failed uploads with the result specified will be retried;
-         *                          otherwise, failed uploads due to any result will be retried.
-         */
-        public void retryFailedUploads(Context context, Account account, UploadResult uploadResult) {
-            UploadsStorageManager uploadsStorageManager = new UploadsStorageManager(context.getContentResolver(), context);
-            OCUpload[] failedUploads = uploadsStorageManager.getFailedUploads();
-            Account currentAccount = null;
-            boolean resultMatch;
-            boolean accountMatch;
-            for ( OCUpload failedUpload: failedUploads) {
-                accountMatch = (account == null || account.name.equals(failedUpload.getAccountName()));
-                resultMatch = (uploadResult == null || uploadResult.equals(failedUpload.getLastResult()));
-                if (accountMatch && resultMatch) {
-                    if (currentAccount == null ||
-                            !currentAccount.name.equals(failedUpload.getAccountName())) {
-                        currentAccount = failedUpload.getAccount(context);
-                    }
-                    retry(context, currentAccount, failedUpload);
-                }
-            }
-        }
-
-        /**
          * Private implementation of retry.
          *
          * @param context
