@@ -52,12 +52,12 @@ public class MediaProvider {
     private static final Uri IMAGES_MEDIA_URI = android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
     private static final String[] FILE_PROJECTION = new String[]{MediaStore.MediaColumns.DATA};
     private static final String IMAGES_FILE_SELECTION = MediaStore.Images.Media.BUCKET_ID + "=";
-    private static final String[] IMAGES_FOLDER_PROJECTION = { "Distinct " + MediaStore.Images.Media.BUCKET_ID,
-            MediaStore.Images.Media.BUCKET_DISPLAY_NAME };
+    private static final String[] IMAGES_FOLDER_PROJECTION = {"Distinct " + MediaStore.Images.Media.BUCKET_ID,
+            MediaStore.Images.Media.BUCKET_DISPLAY_NAME};
     private static final String IMAGES_FOLDER_SORT_ORDER = MediaStore.Images.Media.BUCKET_DISPLAY_NAME + " ASC";
 
-    private static final String[] VIDEOS_FOLDER_PROJECTION = { "Distinct " + MediaStore.Video.Media.BUCKET_ID,
-            MediaStore.Video.Media.BUCKET_DISPLAY_NAME };
+    private static final String[] VIDEOS_FOLDER_PROJECTION = {"Distinct " + MediaStore.Video.Media.BUCKET_ID,
+            MediaStore.Video.Media.BUCKET_DISPLAY_NAME};
 
     /**
      * Getting All Images Paths.
@@ -69,39 +69,50 @@ public class MediaProvider {
     public static List<MediaFolder> getImageFolders(ContentResolver contentResolver, int itemLimit,
                                                     @Nullable final Activity activity) {
         // check permissions
-        if (activity != null) {
-            if (!PermissionUtil.checkSelfPermission(activity.getApplicationContext(),
-                    Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
-                // Check if we should show an explanation
-                if (PermissionUtil.shouldShowRequestPermissionRationale(activity,
+        if (activity != null &&
+                !PermissionUtil.checkSelfPermission(activity.getApplicationContext(),
                         Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
-                    // Show explanation to the user and then request permission
-                    Snackbar snackbar = Snackbar.make(activity.findViewById(R.id.ListLayout),
-                            R.string.permission_storage_access, Snackbar.LENGTH_INDEFINITE)
-                            .setAction(R.string.common_ok, new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    PermissionUtil.requestWriteExternalStoreagePermission(activity);
-                                }
-                            });
+            // Check if we should show an explanation
+            if (PermissionUtil.shouldShowRequestPermissionRationale(activity,
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+                // Show explanation to the user and then request permission
+                Snackbar snackbar = Snackbar.make(activity.findViewById(R.id.ListLayout),
+                        R.string.permission_storage_access, Snackbar.LENGTH_INDEFINITE)
+                        .setAction(R.string.common_ok, new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                PermissionUtil.requestWriteExternalStoreagePermission(activity);
+                            }
+                        });
 
                 ThemeUtils.colorSnackbar(activity.getApplicationContext(), snackbar);
 
-                    snackbar.show();
-                } else {
-                    // No explanation needed, request the permission.
-                    PermissionUtil.requestWriteExternalStoreagePermission(activity);
-                }
+                snackbar.show();
+            } else {
+                // No explanation needed, request the permission.
+                PermissionUtil.requestWriteExternalStoreagePermission(activity);
             }
         }
 
         // query media/image folders
-        Cursor cursorFolders = null;
+        Cursor cursorFolders;
         if (activity != null && PermissionUtil.checkSelfPermission(activity.getApplicationContext(),
                 Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
-            cursorFolders = contentResolver.query(IMAGES_MEDIA_URI, IMAGES_FOLDER_PROJECTION, null, null, IMAGES_FOLDER_SORT_ORDER);
+            cursorFolders = contentResolver.query(
+                    IMAGES_MEDIA_URI,
+                    IMAGES_FOLDER_PROJECTION,
+                    null,
+                    null,
+                    IMAGES_FOLDER_SORT_ORDER
+            );
         } else {
-            cursorFolders = contentResolver.query(IMAGES_MEDIA_URI, IMAGES_FOLDER_PROJECTION, null, null, IMAGES_FOLDER_SORT_ORDER);
+            cursorFolders = contentResolver.query(
+                    IMAGES_MEDIA_URI,
+                    IMAGES_FOLDER_PROJECTION,
+                    null,
+                    null,
+                    IMAGES_FOLDER_SORT_ORDER
+            );
         }
         List<MediaFolder> mediaFolders = new ArrayList<>();
         String dataPath = MainApp.getStoragePath() + File.separator + MainApp.getDataFolder();
@@ -123,8 +134,13 @@ public class MediaProvider {
                 mediaFolder.filePaths = new ArrayList<>();
 
                 // query images
-                cursorImages = contentResolver.query(IMAGES_MEDIA_URI, FILE_PROJECTION, IMAGES_FILE_SELECTION + folderId, null,
-                        fileSortOrder);
+                cursorImages = contentResolver.query(
+                        IMAGES_MEDIA_URI,
+                        FILE_PROJECTION,
+                        IMAGES_FILE_SELECTION + folderId,
+                        null,
+                        fileSortOrder
+                );
                 Log.d(TAG, "Reading images for " + mediaFolder.folderName);
 
                 if (cursorImages != null) {
