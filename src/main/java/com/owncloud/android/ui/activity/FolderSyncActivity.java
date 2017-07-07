@@ -237,7 +237,8 @@ public class FolderSyncActivity extends FileActivity implements FolderSyncAdapte
         for (MediaFolder mediaFolder : mediaFolders) {
             if (syncedFoldersMap.containsKey(mediaFolder.absolutePath+"-"+mediaFolder.type)) {
                 SyncedFolder syncedFolder = syncedFoldersMap.get(mediaFolder.absolutePath+"-"+mediaFolder.type);
-                syncedFoldersMap.remove(mediaFolder.absolutePath);
+                syncedFoldersMap.remove(mediaFolder.absolutePath+"-"+mediaFolder.type);
+
                 if (MediaFolder.CUSTOM == syncedFolder.getType()) {
                     result.add(createSyncedFolderWithoutMediaFolder(syncedFolder));
                 } else {
@@ -246,6 +247,10 @@ public class FolderSyncActivity extends FileActivity implements FolderSyncAdapte
             } else {
                 result.add(createSyncedFolderFromMediaFolder(mediaFolder));
             }
+        }
+
+        for (SyncedFolder syncedFolder : syncedFoldersMap.values()) {
+            result.add(createSyncedFolderWithoutMediaFolder(syncedFolder));
         }
 
         return result;
