@@ -32,7 +32,6 @@ import android.util.Log;
 import com.evernote.android.job.JobManager;
 import com.evernote.android.job.JobRequest;
 import com.evernote.android.job.util.Device;
-import com.evernote.android.job.util.support.PersistableBundleCompat;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
@@ -230,6 +229,7 @@ public class FilesSyncHelper {
         for (OCUpload failedUpload: failedUploads) {
             accountExists = false;
             fileExists = new File(failedUpload.getLocalPath()).exists();
+            restartedInCurrentIteration = false;
 
             // check if accounts still exists
             for (Account account : AccountUtils.getAccounts(context)) {
@@ -241,25 +241,34 @@ public class FilesSyncHelper {
 
             if (!failedUpload.getLastResult().equals(UploadResult.UPLOADED)) {
                 if (failedUpload.getCreadtedBy() == UploadFileOperation.CREATED_AS_INSTANT_PICTURE) {
-                    uploadsStorageManager.removeUpload(failedUpload);
-
                     if (accountExists && fileExists) {
-                        PersistableBundleCompat bundle = new PersistableBundleCompat();
-                        bundle.putString(AutoUploadJob.LOCAL_PATH, failedUpload.getLocalPath());
-                        bundle.putString(AutoUploadJob.REMOTE_PATH, failedUpload.getRemotePath());
-                        bundle.putString(AutoUploadJob.ACCOUNT, failedUpload.getAccountName());
-                        bundle.putInt(AutoUploadJob.UPLOAD_BEHAVIOUR, failedUpload.getLocalAction());
+                        // Handle case of charging
 
-                        new JobRequest.Builder(AutoUploadJob.TAG)
-                                .setExecutionWindow(10_000L, 10_000L)
-                                .setRequiresCharging(failedUpload.isWhileChargingOnly())
-                                .setRequiredNetworkType(failedUpload.isUseWifiOnly() ? JobRequest.NetworkType.UNMETERED :
-                                        JobRequest.NetworkType.CONNECTED)
-                                .setExtras(bundle)
-                                .setRequirementsEnforced(true)
-                                .setUpdateCurrent(false)
-                                .build()
-                                .schedule();
+                        if (failedUpload.isWhileChargingOnly() && Device.isCharging(context)) {
+                            if (failedUpload.isUseWifiOnly() &&
+                                    Device.getNetworkType(context).equals(JobRequest.NetworkType.UNMETERED)) {
+                                uploadRequester.retry(context, failedUpload);
+                                restartedInCurrentIteration = true;
+                            } else if (!failedUpload.isUseWifiOnly() &&
+                                    !Device.getNetworkType(context).equals(JobRequest.NetworkType.ANY)) {
+                                uploadRequester.retry(context, failedUpload);
+                                restartedInCurrentIteration = true;
+                            }
+                        }
+
+                        // Handle case of wifi
+
+                        if (!restartedInCurrentIteration) {
+                            if (failedUpload.isUseWifiOnly() &&
+                                    Device.getNetworkType(context).equals(JobRequest.NetworkType.UNMETERED)) {
+                                uploadRequester.retry(context, failedUpload);
+                            } else if (!failedUpload.isUseWifiOnly() &&
+                                    !Device.getNetworkType(context).equals(JobRequest.NetworkType.ANY)) {
+                                uploadRequester.retry(context, failedUpload);
+                            }
+                        }
+                    } else {
+                        uploadsStorageManager.removeUpload(failedUpload);
                     }
                 } else {
                     if (accountExists && fileExists) {
