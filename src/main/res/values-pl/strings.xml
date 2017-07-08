@@ -635,7 +635,10 @@
     <string name="webview_error">Wystąpił błąd</string>
     <string name="prefs_category_about">O aplikacji</string>
 
+    <string name="actionbar_contacts">Zrób kopię kontaktów</string>
     <string name="actionbar_contacts_restore">Przywróć kontakty</string>
+    <string name="contacts_backup_button">Zrób kopię teraz</string>
+    <string name="contacts_automatic_backup">Automatyczna kopia zapasowa</string>
     <string name="contacts_last_backup">Ostatnia kopia zapasowa</string>
     <string name="contacts_read_permission">Potrzebne uprawnienia do odczytu kontaktów</string>
     <string name="contacts_write_permission">Potrzebne uprawnienia do modyfikacji kontaktów</string>
