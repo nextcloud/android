@@ -161,7 +161,7 @@ public class FilesystemDataProvider {
                         ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_MODIFIED));
                 boolean isFolder = false;
                 if (cursor.getInt(cursor.getColumnIndex(
-                        ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_MODIFIED)) != 0) {
+                        ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_IS_FOLDER)) != 0) {
                     isFolder = true;
                 }
                 long foundAt = cursor.getLong(cursor.getColumnIndex(ProviderMeta.
