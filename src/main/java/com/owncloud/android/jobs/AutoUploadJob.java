@@ -89,7 +89,7 @@ public class AutoUploadJob extends Job {
                 channel = new RandomAccessFile(file, "rw").getChannel();
                 lock = channel.tryLock();
 
-                requester.uploadNewFile(
+                requester.uploadFileWithOverwrite(
                         context,
                         account,
                         filePath,
@@ -99,7 +99,8 @@ public class AutoUploadJob extends Job {
                         true,           // create parent folder if not existent
                         UploadFileOperation.CREATED_AS_INSTANT_PICTURE,
                         requiresWifi,
-                        requiresCharging
+                        requiresCharging,
+                        true
                 );
 
                 lock.release();
