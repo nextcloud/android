@@ -206,6 +206,7 @@ public class FileUploader extends Service
      */
     public static class UploadRequester {
 
+
         /**
          * Call to upload several new files
          */
@@ -235,6 +236,57 @@ public class FileUploader extends Service
 
 
             context.startService(intent);
+        }
+
+        public void uploadFileWithOverwrite(
+                Context context,
+                Account account,
+                String[] localPaths,
+                String[] remotePaths,
+                String[] mimeTypes,
+                Integer behaviour,
+                Boolean createRemoteFolder,
+                int createdBy,
+                boolean requiresWifi,
+                boolean requiresCharging,
+                boolean overwrite
+        ) {
+            Intent intent = new Intent(context, FileUploader.class);
+
+            intent.putExtra(FileUploader.KEY_ACCOUNT, account);
+            intent.putExtra(FileUploader.KEY_LOCAL_FILE, localPaths);
+            intent.putExtra(FileUploader.KEY_REMOTE_FILE, remotePaths);
+            intent.putExtra(FileUploader.KEY_MIME_TYPE, mimeTypes);
+            intent.putExtra(FileUploader.KEY_LOCAL_BEHAVIOUR, behaviour);
+            intent.putExtra(FileUploader.KEY_CREATE_REMOTE_FOLDER, createRemoteFolder);
+            intent.putExtra(FileUploader.KEY_CREATED_BY, createdBy);
+            intent.putExtra(FileUploader.KEY_WHILE_ON_WIFI_ONLY, requiresWifi);
+            intent.putExtra(FileUploader.KEY_WHILE_CHARGING_ONLY, requiresCharging);
+            intent.putExtra(FileUploader.KEY_FORCE_OVERWRITE, overwrite);
+
+            context.startService(intent);
+        }
+
+        /**
+         * Call to upload a file
+         */
+        public void uploadFileWithOverwrite(Context context, Account account, String localPath, String remotePath, int
+                behaviour, String mimeType, boolean createRemoteFile, int createdBy, boolean requiresWifi,
+                                  boolean requiresCharging, boolean overwrite) {
+
+            uploadFileWithOverwrite(
+                    context,
+                    account,
+                    new String[]{localPath},
+                    new String[]{remotePath},
+                    new String[]{mimeType},
+                    behaviour,
+                    createRemoteFile,
+                    createdBy,
+                    requiresWifi,
+                    requiresCharging,
+                    overwrite
+            );
         }
 
         /**
