@@ -44,6 +44,9 @@ import android.os.Process;
 import android.support.v4.app.NotificationCompat;
 import android.util.Pair;
 
+import com.evernote.android.job.JobRequest;
+import com.evernote.android.job.util.Device;
+import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.authentication.AuthenticatorActivity;
@@ -461,7 +464,6 @@ public class FileUploader extends Service
             return Service.START_NOT_STICKY;
         }
         OwnCloudVersion ocv = AccountUtils.getServerVersion(account);
-        boolean chunked = ocv.isChunkedUploadSupported();
 
         if (!retry) {
             if (!(intent.hasExtra(KEY_LOCAL_FILE) ||
@@ -495,6 +497,13 @@ public class FileUploader extends Service
 
             boolean onWifiOnly = intent.getBooleanExtra(KEY_WHILE_ON_WIFI_ONLY, false);
             boolean whileChargingOnly = intent.getBooleanExtra(KEY_WHILE_CHARGING_ONLY, false);
+
+            boolean chunked = ocv.isChunkedUploadSupported();
+
+            // temporary hack to speed up upload on wifi
+            if (Device.getNetworkType(MainApp.getAppContext()).equals(JobRequest.NetworkType.UNMETERED)) {
+                chunked = false;
+            }
 
             if (intent.hasExtra(KEY_FILE) && files == null) {
                 Log_OC.e(TAG, "Incorrect array for OCFiles provided in upload intent");
