@@ -193,39 +193,56 @@ public class FilesSyncHelper {
 
         FileUploader.UploadRequester uploadRequester = new FileUploader.UploadRequester();
 
+        boolean accountExists;
+        boolean fileExists;
+
         for (JobRequest jobRequest : JobManager.instance().getAllJobRequestsForTag(AutoUploadJob.TAG)) {
             restartedInCurrentIteration = false;
-            // Handle case of charging
-            if (jobRequest.requiresCharging() && Device.isCharging(context)) {
-                if (jobRequest.requiredNetworkType().equals(JobRequest.NetworkType.CONNECTED) &&
-                        !Device.getNetworkType(context).equals(JobRequest.NetworkType.ANY)) {
-                    jobRequest.cancelAndEdit().build().schedule();
-                    restartedInCurrentIteration = true;
-                } else if (jobRequest.requiredNetworkType().equals(JobRequest.NetworkType.UNMETERED) &&
-                        Device.getNetworkType(context).equals(JobRequest.NetworkType.UNMETERED)) {
-                    jobRequest.cancelAndEdit().build().schedule();
-                    restartedInCurrentIteration = true;
+
+            accountExists = false;
+            fileExists = new File(jobRequest.getExtras().getString(AutoUploadJob.LOCAL_PATH, "")).exists();
+
+            // check if accounts still exists
+            for (Account account : AccountUtils.getAccounts(context)) {
+                if (account.name.equals(jobRequest.getExtras().getString(AutoUploadJob.ACCOUNT, ""))) {
+                    accountExists = true;
+                    break;
                 }
             }
 
-            // Handle case of wifi
-
-            if (!restartedInCurrentIteration) {
-                if (jobRequest.requiredNetworkType().equals(JobRequest.NetworkType.CONNECTED) &&
-                        !Device.getNetworkType(context).equals(JobRequest.NetworkType.ANY)) {
-                    jobRequest.cancelAndEdit().build().schedule();
-                } else if (jobRequest.requiredNetworkType().equals(JobRequest.NetworkType.UNMETERED) &&
-                        Device.getNetworkType(context).equals(JobRequest.NetworkType.UNMETERED)) {
-                    jobRequest.cancelAndEdit().build().schedule();
+            if (accountExists && fileExists) {
+                // Handle case of charging
+                if (jobRequest.requiresCharging() && Device.isCharging(context)) {
+                    if (jobRequest.requiredNetworkType().equals(JobRequest.NetworkType.CONNECTED) &&
+                            !Device.getNetworkType(context).equals(JobRequest.NetworkType.ANY)) {
+                        jobRequest.cancelAndEdit().build().schedule();
+                        restartedInCurrentIteration = true;
+                    } else if (jobRequest.requiredNetworkType().equals(JobRequest.NetworkType.UNMETERED) &&
+                            Device.getNetworkType(context).equals(JobRequest.NetworkType.UNMETERED)) {
+                        jobRequest.cancelAndEdit().build().schedule();
+                        restartedInCurrentIteration = true;
+                    }
                 }
+
+                // Handle case of wifi
+
+                if (!restartedInCurrentIteration) {
+                    if (jobRequest.requiredNetworkType().equals(JobRequest.NetworkType.CONNECTED) &&
+                            !Device.getNetworkType(context).equals(JobRequest.NetworkType.ANY)) {
+                        jobRequest.cancelAndEdit().build().schedule();
+                    } else if (jobRequest.requiredNetworkType().equals(JobRequest.NetworkType.UNMETERED) &&
+                            Device.getNetworkType(context).equals(JobRequest.NetworkType.UNMETERED)) {
+                        jobRequest.cancelAndEdit().build().schedule();
+                    }
+                }
+            } else {
+                JobManager.instance().cancel(jobRequest.getJobId());
             }
         }
 
         UploadsStorageManager uploadsStorageManager = new UploadsStorageManager(context.getContentResolver(), context);
         OCUpload[] failedUploads = uploadsStorageManager.getFailedUploads();
 
-        boolean accountExists;
-        boolean fileExists;
         for (OCUpload failedUpload: failedUploads) {
             accountExists = false;
             fileExists = new File(failedUpload.getLocalPath()).exists();
