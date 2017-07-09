@@ -465,6 +465,13 @@ public class FileUploader extends Service
         }
         OwnCloudVersion ocv = AccountUtils.getServerVersion(account);
 
+        boolean chunked = ocv.isChunkedUploadSupported();
+
+        // temporary hack to speed up upload on wifi
+        if (Device.getNetworkType(MainApp.getAppContext()).equals(JobRequest.NetworkType.UNMETERED)) {
+            chunked = false;
+        }
+
         if (!retry) {
             if (!(intent.hasExtra(KEY_LOCAL_FILE) ||
                     intent.hasExtra(KEY_FILE))) {
@@ -497,13 +504,6 @@ public class FileUploader extends Service
 
             boolean onWifiOnly = intent.getBooleanExtra(KEY_WHILE_ON_WIFI_ONLY, false);
             boolean whileChargingOnly = intent.getBooleanExtra(KEY_WHILE_CHARGING_ONLY, false);
-
-            boolean chunked = ocv.isChunkedUploadSupported();
-
-            // temporary hack to speed up upload on wifi
-            if (Device.getNetworkType(MainApp.getAppContext()).equals(JobRequest.NetworkType.UNMETERED)) {
-                chunked = false;
-            }
 
             if (intent.hasExtra(KEY_FILE) && files == null) {
                 Log_OC.e(TAG, "Incorrect array for OCFiles provided in upload intent");
