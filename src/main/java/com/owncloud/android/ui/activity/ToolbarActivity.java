@@ -121,7 +121,7 @@ public abstract class ToolbarActivity extends BaseActivity {
         }
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        if (toolbar.getNavigationIcon() != null) {
+        if (toolbar != null && toolbar.getNavigationIcon() != null) {
             ThemeUtils.tintDrawable(toolbar.getNavigationIcon(), ThemeUtils.fontColor());
         }
     }
