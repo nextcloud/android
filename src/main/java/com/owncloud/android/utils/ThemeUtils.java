@@ -159,10 +159,10 @@ public class ThemeUtils {
     public static String getDefaultDisplayNameForRootFolder() {
         OCCapability capability = getCapability();
 
-        if (capability.getServerSlogan() == null || capability.getServerSlogan().isEmpty()) {
+        if (capability.getServerName() == null || capability.getServerName().isEmpty()) {
             return MainApp.getAppContext().getResources().getString(R.string.default_display_name_for_root_folder);
         } else {
-            return capability.getServerSlogan();
+            return capability.getServerName();
         }
     }
 
