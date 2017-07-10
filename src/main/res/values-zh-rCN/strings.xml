@@ -115,8 +115,6 @@
     <string name="file_list_empty_headline_server_search_photos">无照片</string>
     <string name="file_list_empty_search">说不定它在另外一个文件夹？</string>
     <string name="file_list_empty_recently_modified">没有找到最近7天修改的文件</string>
-    <string name="file_list_empty_recently_modified_filter">没有搜索到被修改的文件
- 在最近7天。</string>
     <string name="file_list_empty_recently_added">没有找到最近添加的文件</string>
     <string name="file_list_empty_recently_added_filter">您的搜索返回没有最近没有添加的文件。</string>
     <string name="file_list_empty_text_photos">上传一些照片或启用自动上传。</string>
@@ -307,9 +305,6 @@
     <string name="activity_chooser_title">发送链接给 &#8230;</string>
     <string name="wait_for_tmp_copy_from_private_storage">从私有存储中拷贝文件</string>
     
-    <string name="oauth_check_onoff">使用oAuth2登录</string> 
-    <string name="oauth_login_connection">连接到OAuth 2服务器...</string>    
-        
     <string name="ssl_validator_header">站点身份无法验证</string>
     <string name="ssl_validator_reason_cert_not_trusted">- 不受信任的服务器证书</string>
     <string name="ssl_validator_reason_cert_expired">- 服务器证书过期</string>
@@ -351,7 +346,6 @@
     <string name="instant_video_upload_on_charging">仅在充电时上传</string>
     <string name="instant_upload_on_charging">仅在充电时上传</string>
     <string name="instant_upload_path">/实时上传</string>
-    <string name="auto_upload_path">/自动上传</string>
     <string name="conflict_title">文件冲突</string>
     <string name="conflict_message">你想保留哪些文件？ 如果您选择这两个版本，本地文件将附加一个号码。</string>
     <string name="conflict_keep_both">保留两者</string>
@@ -486,7 +480,6 @@
     <string name="file_list__footer__files">%1$d 个文件</string>
     <string name="file_list__footer__files_and_folder">%1$d 个文件，1 个文件夹</string>
     <string name="file_list__footer__files_and_folders">%1$d 个文件，%2$d 个文件夹</string>
-    <string name="set_picture_as">设置图片</string>
     <string name="set_as">设置</string>
 
     <string name="prefs_instant_behaviour_dialogTitle">原始文件将会&#8230;</string>
@@ -565,7 +558,6 @@
     <string name="participate_beta_headline">检查这个设备的版本</string>
     <string name="participate_beta_text">这包括所有即将到来的功能，它处于非常流行的边缘。 可能会发生错误/错误，如果及时，请报告您的发现。</string>
     <string name="participate_release_candidate_headline">发行候选版本</string>
-    <string name="participate_release_candidate_text">发布候选人（RC）是即将发布的快照，预计将稳定。 测试您的个人设置可以帮助确保这一点。 注册在Play商店进行测试，或手动查看F-Droid上的“版本”部分。</string>
     <string name="participate_contribute_headline">活跃的候选版</string>
     <string name="participate_contribute_irc_text">在IRC上加入这个会话： &lt;a href=\"%1$s\">#nextcloud-mobile&lt;/a></string>
     <string name="participate_contribute_forum_text">帮助他人在 &lt;a href=\"%1$s\">论坛&lt;/a></string>
@@ -636,7 +628,10 @@
     <string name="webview_error">发生错误</string>
     <string name="prefs_category_about">关于</string>
 
+    <string name="actionbar_contacts">联系人备份</string>
     <string name="actionbar_contacts_restore">恢复联系人</string>
+    <string name="contacts_backup_button">现在备份</string>
+    <string name="contacts_automatic_backup">自动备份</string>
     <string name="contacts_last_backup">上次备份</string>
     <string name="contacts_read_permission">需要更改阅读列表的权限</string>
     <string name="contacts_write_permission">需要更改联系人列表的权限</string>
