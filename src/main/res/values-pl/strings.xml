@@ -112,7 +112,6 @@
     <string name="file_list_empty_headline_server_search_photos">Brak zdjęć</string>
     <string name="file_list_empty_search">Spróbować szukać w innym folderze?</string>
     <string name="file_list_empty_recently_modified">Nie znaleziono żadnych plików zmodyfikowanych w ciągu ostatnich 7 dni</string>
-    <string name="file_list_empty_recently_modified_filter">Twoje wyszukiwanie nie zwróciło żądnych plików zmodyfikowanych w ciągu ostatnich 7 dni </string>
     <string name="file_list_empty_recently_added">NIe znaleziono żadnych ostatnio dodanych plików</string>
     <string name="file_list_empty_recently_added_filter">Twoje wyszukiwanie nie zwróciło żadnych ostatnio dodanych plików</string>
     <string name="file_list_empty_text_photos">Wyślij zdjęcia lub włącz automatyczne wysyłanie</string>
@@ -303,9 +302,6 @@
     <string name="activity_chooser_title">Wyślij link do &#8230;</string>
     <string name="wait_for_tmp_copy_from_private_storage">Kopiowanie pliku z prywatnego zasobu</string>
     
-    <string name="oauth_check_onoff">Loguj przez oAuth2</string> 
-    <string name="oauth_login_connection">Łączenie z serwerem OAuth 2...</string>    
-        
     <string name="ssl_validator_header">Nie można zweryfikować tożsamości strony</string>
     <string name="ssl_validator_reason_cert_not_trusted">- Certyfikat serwera jest niezaufany</string>
     <string name="ssl_validator_reason_cert_expired">- Certyfikat serwera wygasł</string>
@@ -347,7 +343,6 @@
     <string name="instant_video_upload_on_charging">Wysyłaj tylko podczas ładowania</string>
     <string name="instant_upload_on_charging">Wysyłaj tylko podczas ładowania</string>
     <string name="instant_upload_path">/InstantUpload</string>
-    <string name="auto_upload_path">/Automatyczne wysyłanie</string>
     <string name="conflict_title">Konflikt pliku</string>
     <string name="conflict_message">Które pliki chcesz zachować? Jeżeli wybierzesz obie wersje, do nazwy pliku lokalnego zostanie dodana liczba.</string>
     <string name="conflict_keep_both">Zatrzymaj oba</string>
@@ -482,7 +477,6 @@
     <string name="file_list__footer__files">%1$d plików</string>
     <string name="file_list__footer__files_and_folder">%1$d plików, 1 folder</string>
     <string name="file_list__footer__files_and_folders">%1$d plików, %2$d folderów</string>
-    <string name="set_picture_as">Ustaw obraz jako</string>
     <string name="set_as">Ustaw jako</string>
 
     <string name="prefs_instant_behaviour_dialogTitle">Oryginalny plik zostanie&#8230;</string>
@@ -561,7 +555,6 @@
     <string name="participate_beta_headline">Sprawdź wersję rozwojową</string>
     <string name="participate_beta_text">Zawiera to w sobie wszystkie nadchodzące funkcjonalności i jest bardzo ryzykowne. Mogą się pojawiać błędy. Jeśli będą proszę je do nas zgłosić.</string>
     <string name="participate_release_candidate_headline">Wydanie kandydujące</string>
-    <string name="participate_release_candidate_text">Release Candidate (RC) jest zarysem nadchodzącego wydania i oczekujemy że będzie stabilne. Testowanie indywidualnej konfiguracji może pomóc, aby to zapewnić. Zapisz się do testowania w sklepie Play lub ręcznie szukaj w sekcji \"wersje\" na F-Droid.</string>
     <string name="participate_contribute_headline">Aktywni członkowie projektu</string>
     <string name="participate_contribute_irc_text">Dołącz do rozmowy na IRC: &lt;a href=\"%1$s\">#nextcloud-mobile&lt;/a></string>
     <string name="participate_contribute_forum_text">Pomóż innym na &lt;a href=\"%1$s\">forum&lt;/a></string>
@@ -606,10 +599,10 @@
 
     <!-- Welcome to Nc intro features -->
     <string name="welcome_feature_1_title">Bezpieczny dom dla wszystkich danych</string>
-    <string name="welcome_feature_1_text">Dostęp do, współdzielenie i ochrona twoich plików w domu i w pracy</string>
+    <string name="welcome_feature_1_text">Dostęp, współdzielenie i ochrona Twoich plików w domu i w pracy</string>
 
     <string name="welcome_feature_2_title">Wiele kont</string>
-    <string name="welcome_feature_2_text">Podłączenie się do wszystkich swoich chmur</string>
+    <string name="welcome_feature_2_text">Podłącz się do wszystkich swoich chmur</string>
 
     <string name="welcome_feature_3_title">Natychmiastowe wysyłanie</string>
     <string name="welcome_feature_3_text">Twoje zdjęcia będą bezpieczne</string>
@@ -635,7 +628,10 @@
     <string name="webview_error">Wystąpił błąd</string>
     <string name="prefs_category_about">O aplikacji</string>
 
+    <string name="actionbar_contacts">Zrób kopię kontaktów</string>
     <string name="actionbar_contacts_restore">Przywróć kontakty</string>
+    <string name="contacts_backup_button">Zrób kopię teraz</string>
+    <string name="contacts_automatic_backup">Automatyczna kopia zapasowa</string>
     <string name="contacts_last_backup">Ostatnia kopia zapasowa</string>
     <string name="contacts_read_permission">Potrzebne uprawnienia do odczytu kontaktów</string>
     <string name="contacts_write_permission">Potrzebne uprawnienia do modyfikacji kontaktów</string>
