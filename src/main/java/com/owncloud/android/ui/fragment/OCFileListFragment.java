@@ -6,16 +6,16 @@
  * @author David A. Velasco
  * Copyright (C) 2011  Bartek Przybylski
  * Copyright (C) 2016 ownCloud Inc.
- *
+ * <p>
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2,
  * as published by the Free Software Foundation.
- *
+ * <p>
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * <p>
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -285,7 +285,6 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
         super.onPause();
         mAdapter.cancelAllPendingTasks();
     }
-
 
 
     /**
@@ -1436,20 +1435,13 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
         // and the previous has not finished
         if (isSameEvent(searchEvent, event, remoteOperationAsyncTask)) {
             return;
-
         }
-        setEmptyListLoadingMessage();
-        mAdapter.setData(new Vector<OCFile>(), SearchType.NO_SEARCH);
-
         setFabEnabled(false);
-
         if (event.getUnsetType().equals(SearchEvent.UnsetType.UNSET_BOTTOM_NAV_BAR)) {
             unsetAllMenuItems(false);
         } else if (event.getUnsetType().equals(SearchEvent.UnsetType.UNSET_DRAWER)) {
             unsetAllMenuItems(true);
         }
-
-
         if (bottomNavigationView != null && searchEvent != null) {
             switch (currentSearchType) {
                 case FAVORITE_SEARCH:
@@ -1508,7 +1500,7 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
     private void executeSearchTask(final SearchEvent event, final RemoteOperation remoteOperation) {
         final Account currentAccount = AccountUtils.getCurrentOwnCloudAccount(MainApp.getAppContext());
 
-        remoteOperationAsyncTask = new AsyncTask<Void,Void,Vector<OCFile>>() {
+        remoteOperationAsyncTask = new AsyncTask<Object, Void, Vector<OCFile>>() {
 
             @Override
             protected void onPreExecute() {
@@ -1521,13 +1513,13 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
             }
 
             @Override
-            protected Vector<OCFile> doInBackground(Void ... params) {
+            protected Vector<OCFile> doInBackground(Object... params) {
                 FileDataStorageManager storageManager = null;
                 if (mContainerActivity != null && mContainerActivity.getStorageManager() != null) {
                     storageManager = mContainerActivity.getStorageManager();
                 }
 
-                if (getContext() != null && !isCancelled() && storageManager !=null) {
+                if (getContext() != null && !isCancelled() && storageManager != null) {
                     RemoteOperationResult remoteOperationResult = remoteOperation.execute(currentAccount, getContext());
                     VirtualStorageManager virtualStorageManager = new VirtualStorageManager(storageManager, currentAccount, getSafeContext());
 
@@ -1537,7 +1529,7 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
                     }
                     return null;
                 }
-                return  null;
+                return null;
             }
 
             @Override
@@ -1548,13 +1540,13 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
                     setEmptyView(event);
                 } else {
                     mAdapter.setData(ocFiles, currentSearchType);
-                    finishedFiltering();
                 }
+                finishedFiltering();
                 fileDisplayActivity.setIndeterminate(false);
             }
         };
 
-        remoteOperationAsyncTask.execute(true);
+        remoteOperationAsyncTask.execute();
     }
 
     private void setTitle(@StringRes final int title) {
