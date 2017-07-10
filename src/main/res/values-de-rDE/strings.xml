@@ -113,7 +113,6 @@
     <string name="file_list_empty_headline_server_search_photos">Keine Fotos</string>
     <string name="file_list_empty_search">Vielleicht befindet es sich in einem anderen Ordner?</string>
     <string name="file_list_empty_recently_modified">Keine, innerhalb der letzten 7 Tage, geänderten Dateien gefunden</string>
-    <string name="file_list_empty_recently_modified_filter">Keine Dateien gefunden, die in den letzten 7 Tagen geändert wurden.</string>
     <string name="file_list_empty_recently_added">Keine kürzlich hinzugefügten Dateien gefunden</string>
     <string name="file_list_empty_recently_added_filter">Keine kürzlich hinzu gefügten Dateien gefunden!</string>
     <string name="file_list_empty_text_photos">Laden Sie Fotos hoch oder aktivieren Sie den Sofortupload!</string>
@@ -304,9 +303,6 @@
     <string name="activity_chooser_title">Link senden an &#8230;</string>
     <string name="wait_for_tmp_copy_from_private_storage">Kopiere Datei vom privatem Speicher</string>
     
-    <string name="oauth_check_onoff">Anmelden mit OAuth2 </string> 
-    <string name="oauth_login_connection">Verbinde mit dem OAuth2-Server …</string>    
-        
     <string name="ssl_validator_header">Die Identität der Website konnte nicht überprüft werden</string>
     <string name="ssl_validator_reason_cert_not_trusted">- Das Zertifikat des Servers ist nicht vertrauenswürdig</string>
     <string name="ssl_validator_reason_cert_expired">- Das Zertifikat des Servers ist abgelaufen</string>
@@ -348,7 +344,6 @@
     <string name="instant_video_upload_on_charging">Nur während des Ladens hochladen</string>
     <string name="instant_upload_on_charging">Nur während des Ladens hochladen</string>
     <string name="instant_upload_path">/SofortUpload</string>
-    <string name="auto_upload_path">/Auto Upload</string>
     <string name="conflict_title">Dateikonfilikt</string>
     <string name="conflict_message">Welche Datei soll behalten werden? Wenn Sie beide Versionen wählen, wird der lokalen Datei eine Zahl am Ende des Dateinamens angefügt.</string>
     <string name="conflict_keep_both">Beide behalten</string>
@@ -483,7 +478,6 @@
     <string name="file_list__footer__files">%1$d Dateien</string>
     <string name="file_list__footer__files_and_folder">%1$d Dateien, 1 Ordner</string>
     <string name="file_list__footer__files_and_folders">%1$d Dateien, %2$d Ordner</string>
-    <string name="set_picture_as">Setze Bild als</string>
     <string name="set_as">Setze als</string>
 
     <string name="prefs_instant_behaviour_dialogTitle">Originaldatei wird&#8230;</string>
@@ -562,7 +556,6 @@
     <string name="participate_beta_headline">Teste die Entwicklerversion</string>
     <string name="participate_beta_text">Dies beinhaltet neue Funktionalitäten und ist nicht vollumfänglich qualitätsgesichert. Es können daher Fehler/Bugs auftreten, melde uns diese bitte.</string>
     <string name="participate_release_candidate_headline">Vorabversion</string>
-    <string name="participate_release_candidate_text">Eine Vorabversion, auch Release Candidate (RC) genannt, ist ein stabiler Stand der kommenden, finalen Version. Ein Test in der eigenen Umgebung hilft uns diese Stabilität sicherzustellen. Melden Sie sich als Tester im Play Store an oder suchen und installieren Sie die passende Version bei F-Droid unter „Versionen“.</string>
     <string name="participate_contribute_headline">Aktiv etwas beitragen</string>
     <string name="participate_contribute_irc_text">An Chats auf IRC teil: &lt;a href=\"%1$s\">#nexcloud-mobile&lt;/a></string>
     <string name="participate_contribute_forum_text">Helfe anderen im &lt;a href=\\"%1$s\\">Forum&lt;/a></string>

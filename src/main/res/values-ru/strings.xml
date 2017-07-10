@@ -114,8 +114,6 @@
     <string name="file_list_empty_headline_server_search_photos">Фотографии отсутствуют</string>
     <string name="file_list_empty_search">Искать в другом каталоге?</string>
     <string name="file_list_empty_recently_modified">Не найдно файлов, изменённых за последние 7 дней</string>
-    <string name="file_list_empty_recently_modified_filter">По запросу не найдено файлов, 
-изменённых за последние 7 дней!</string>
     <string name="file_list_empty_recently_added">Не найдено файлов, добавленных недавно</string>
     <string name="file_list_empty_recently_added_filter">По запросу не найдено файлов, добавленных недавно!</string>
     <string name="file_list_empty_text_photos">Загрузите фотографии или включите автоматическую загрузку!</string>
@@ -306,9 +304,6 @@
     <string name="activity_chooser_title">Отправить ссылку &#8230;</string>
     <string name="wait_for_tmp_copy_from_private_storage">Копирование файла из частного хранилища</string>
     
-    <string name="oauth_check_onoff">Войти через oAuth2</string> 
-    <string name="oauth_login_connection">Подключение к серверу OAuth2…</string>    
-        
     <string name="ssl_validator_header">Подлинность сайта не может быть проверена</string>
     <string name="ssl_validator_reason_cert_not_trusted">- Сертификат сервера не является доверенным</string>
     <string name="ssl_validator_reason_cert_expired">- Срок действия сертификата сервера истёк</string>
@@ -350,7 +345,6 @@
     <string name="instant_video_upload_on_charging">Загружать только при зарядке</string>
     <string name="instant_upload_on_charging">Загружать только при зарядке</string>
     <string name="instant_upload_path">/Автозагрузка</string>
-    <string name="auto_upload_path">/Автозагрузка</string>
     <string name="conflict_title">Конфликт файлов</string>
     <string name="conflict_message">Какие файлы вы хотите сохранить? Если вы выберете обе версии, локальный файл будет иметь номер, добавленный к его имени.</string>
     <string name="conflict_keep_both">Сохранить оба</string>
@@ -485,7 +479,6 @@
     <string name="file_list__footer__files">%1$d файлов</string>
     <string name="file_list__footer__files_and_folder">%1$d файлов, 1 каталог</string>
     <string name="file_list__footer__files_and_folders">%1$d файлов, %2$d каталогов</string>
-    <string name="set_picture_as">Установить изображение как</string>
     <string name="set_as">Установить как</string>
 
     <string name="prefs_instant_behaviour_dialogTitle">Исходный файл будет&#8230;</string>
@@ -564,7 +557,6 @@
     <string name="participate_beta_headline">Протестируйте разрабатываемую версию</string>
     <string name="participate_beta_text">Она включает в себя все готовящиеся возможности с самой передовой. Могут появляться баги, в таком случае, напишите о них нам</string>
     <string name="participate_release_candidate_headline">Кандидат в релизы</string>
-    <string name="participate_release_candidate_text">Релиз-кандидат (RC) — это текущее состояние готовящегося выпуска, и, ожидается, что он будет стабильным. Проверка с вашими индивидуальными настройками может помочь убедится в этом. Зарегистрируйтесь для тестирования в Google Play или используйте раздел «версии» в каталоге приложений F-Droid.</string>
     <string name="participate_contribute_headline">Активное участие</string>
     <string name="participate_contribute_irc_text">Присоединяйтесь к IRC-чату: &lt;a href=\"%1$s\">#nextcloud-mobile&lt;/a></string>
     <string name="participate_contribute_forum_text">Помогайте другим на &lt;a href=\"%1$s\">форуме&lt;/a></string>

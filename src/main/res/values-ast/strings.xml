@@ -89,8 +89,6 @@
     <string name="file_list_empty_headline_server_search_videos">Ensín vídeos</string>
     <string name="file_list_empty_headline_server_search_photos">Ensin semeyes</string>
     <string name="file_list_empty_search">¿Quiciabes tea nuna carpeta diferente?</string>
-    <string name="file_list_empty_recently_modified_filter">La to gueta nun devolvió ficheros
-        modificaos nos caberos 7 díes.</string>
     <string name="file_list_empty_recently_added_filter">La to gueta nun devolvió ficheros amestaos apocayá</string>
     <string name="file_list_empty_text_videos_filter">La to gueta nun devolvió vídeos.</string>
     <string name="upload_list_empty_headline">Nun hai xubes disponibles</string>
@@ -260,8 +258,6 @@
     <string name="activity_chooser_title">Unviar enllaz a&#8230;</string>
     <string name="wait_for_tmp_copy_from_private_storage">Copiando ficheru dende l\'almacenamientu priváu</string>
     
-    <string name="oauth_login_connection">Coneutando col sirvidor d\'OAuth2</string>    
-        
     <string name="ssl_validator_header">La identidá del sitiu nun pue certificase</string>
     <string name="ssl_validator_reason_cert_not_trusted">- El certificáu del sirvidor nun ye de confianza</string>
     <string name="ssl_validator_reason_cert_expired">- El certificáu del sirvidor caducó</string>

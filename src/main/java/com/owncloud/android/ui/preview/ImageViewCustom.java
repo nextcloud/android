@@ -5,16 +5,16 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Movie;
 import android.os.Build;
+import android.support.v7.widget.AppCompatImageView;
 import android.util.AttributeSet;
 import android.view.View;
-import android.widget.ImageView;
 
 import com.owncloud.android.lib.common.utils.Log_OC;
 
 import java.io.FileInputStream;
 import java.io.InputStream;
 
-public class ImageViewCustom extends ImageView {
+public class ImageViewCustom extends AppCompatImageView {
 
     private static final String TAG = ImageViewCustom.class.getSimpleName();
 

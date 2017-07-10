@@ -1,4 +1,4 @@
-/**
+/*
  *   Nextcloud Android client application
  *
  *   @author Andy Scherzinger
@@ -121,7 +121,7 @@ public abstract class ToolbarActivity extends BaseActivity {
         }
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        if (toolbar.getNavigationIcon() != null) {
+        if (toolbar != null && toolbar.getNavigationIcon() != null) {
             ThemeUtils.tintDrawable(toolbar.getNavigationIcon(), ThemeUtils.fontColor());
         }
     }
@@ -151,7 +151,6 @@ public abstract class ToolbarActivity extends BaseActivity {
      * a Drawable object or 0 to remove the background.#
      *
      * @param color The identifier of the color.
-     * @attr ref android.R.styleable#View_background
      */
     public void setProgressBarBackgroundColor(@ColorInt int color) {
         mProgressBar.setBackgroundColor(color);
