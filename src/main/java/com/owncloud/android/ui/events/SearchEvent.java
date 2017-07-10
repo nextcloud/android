@@ -63,4 +63,40 @@ public class SearchEvent {
     public SearchOperation.SearchType getSearchType() {
         return searchType;
     }
+
+    @Override
+    public int hashCode() {
+
+        // Start with a non-zero constant. Prime is preferred
+        int result = 17;
+        result = 31 * result + (searchQuery == null ? 1 : searchQuery.hashCode());
+        result = 31 * result + (searchType == null ? 0 : searchType.hashCode());
+        result = 31 * result + (unsetType == null ? 0 : unsetType.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+
+        if (obj == null) return false;
+        if (!(obj instanceof SearchEvent)) return false;
+
+        final SearchEvent that = (SearchEvent) obj;
+
+        if ((this.searchQuery == null) ? that.searchQuery != null : !this.searchQuery.equals(that.searchQuery)) {
+            return false;
+        }
+
+
+        if ((this.searchType == null) ? that.searchType != null : !this.searchType.equals(that.searchType)) {
+            return false;
+        }
+
+        if ((this.unsetType == null) ? that.unsetType != null : !this.unsetType.equals(that.unsetType)) {
+            return false;
+        }
+
+        return true;
+    }
+
 }
