@@ -112,7 +112,6 @@
     <string name="file_list_empty_headline_server_search_photos">Žádná fotka</string>
     <string name="file_list_empty_search">Zkusit hledat v jiné složce?</string>
     <string name="file_list_empty_recently_modified">Nenalezeny žádné soubory upravené v posledních 7 dnech</string>
-    <string name="file_list_empty_recently_modified_filter">Vaše vyhledávání nenalezlo žádné soubory upravené v posledních 7 dnech</string>
     <string name="file_list_empty_recently_added">Nenalezeny žádné nedávno přidané soubory</string>
     <string name="file_list_empty_recently_added_filter">Vaše vyhledávání nenalezlo žádné nedávno přidané soubory.</string>
     <string name="file_list_empty_text_photos">Nahrajte nějaké fotky nebo aktivujte automatické nahrávání.</string>
@@ -303,9 +302,6 @@
     <string name="activity_chooser_title">Odeslat odkaz &#8230;</string>
     <string name="wait_for_tmp_copy_from_private_storage">Kopírování souboru z privátního úložiště</string>
     
-    <string name="oauth_check_onoff">Přihlásit se s oAuth2</string> 
-    <string name="oauth_login_connection">Připojuji se k oAuth2 serveru...</string>    
-        
     <string name="ssl_validator_header">Identitu stránky nelze ověřit</string>
     <string name="ssl_validator_reason_cert_not_trusted">- Certifikát serveru je nedůvěryhodný</string>
     <string name="ssl_validator_reason_cert_expired">- Certifikátu serveru vypršela platnost</string>
@@ -347,7 +343,6 @@
     <string name="instant_video_upload_on_charging">Nahrávat pouze při nabíjení</string>
     <string name="instant_upload_on_charging">Nahrávat pouze při nabíjení</string>
     <string name="instant_upload_path">/InstantUpload</string>
-    <string name="auto_upload_path">/Automatické nahrávání</string>
     <string name="conflict_title">Konflikt souboru</string>
     <string name="conflict_message">Které soubory chcete ponechat? Pokud zvolíte obě verze, zkopírovaný soubor bude mít název doplněný o číslo.</string>
     <string name="conflict_keep_both">Ponechat oba</string>
@@ -482,7 +477,6 @@
     <string name="file_list__footer__files">%1$d soubory(ů)</string>
     <string name="file_list__footer__files_and_folder">%1$d soubory(ů), 1 adresář</string>
     <string name="file_list__footer__files_and_folders">%1$d soubory(ů), %2$d adresáře(ů)</string>
-    <string name="set_picture_as">Nastavit obrázek jako</string>
     <string name="set_as">Nastavit jako</string>
 
     <string name="prefs_instant_behaviour_dialogTitle">Originální soubor bude&#8230;</string>
@@ -561,7 +555,6 @@
     <string name="participate_beta_headline">Testovat noční verzi</string>
     <string name="participate_beta_text">Zahrnuje všechny nadcházející funkce a pohybuje se na hraně stability. Mohou se vyskytnout chyby, a pokud ano, nahlašte nám je prosím.</string>
     <string name="participate_release_candidate_headline">Předběžná verze</string>
-    <string name="participate_release_candidate_text">Předběžná verze nebo také Release Candidate (RC) je stabilní stav připravované, finální verze. Přihlas se jako tester v Play store nebo si najdi a instaluj hodící se verzi z F-Droid pod \"Verze\".</string>
     <string name="participate_contribute_headline">Aktivně něčím přispět</string>
     <string name="participate_contribute_irc_text">Diskutovat na IRC: &lt;a href=\"%1$s\">#nextcloud-mobile&lt;/a></string>
     <string name="participate_contribute_forum_text">Pomozte ostatním na &lt;a href=\"%1$s\">fóru&lt;/a></string>
