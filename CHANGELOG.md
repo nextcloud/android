@@ -1,3 +1,8 @@
+## 2017-07-11 00:30
+no new branches added
+
+- Theming Dynamically use server color (nextcloud/userTheming) [https://github.com/nextcloud/android/pull/1031] updated
+
 ## 2017-07-10 00:31
 no new branches added
 
