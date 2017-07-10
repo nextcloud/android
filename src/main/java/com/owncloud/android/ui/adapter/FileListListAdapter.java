@@ -487,40 +487,23 @@ public class FileListListAdapter extends BaseAdapter {
         }
     }
 
-    public void setData(ArrayList<Object> objects, ExtendedListFragment.SearchType searchType, FileDataStorageManager storageManager) {
-        if (storageManager != null && mStorageManager == null) {
-            mStorageManager = storageManager;
-        }
+    public void setData(Vector<OCFile> newItems, ExtendedListFragment.SearchType searchType) {
+
         mFiles = new Vector<>();
-
-        // early exit
-        if (objects.size() > 0 && mStorageManager != null) {
-            if (searchType.equals(ExtendedListFragment.SearchType.SHARED_FILTER)) {
-                parseShares(objects);
-            } else {
-                parseVirtuals(objects, searchType);
-            }
-        }
-
+        mFiles.clear();
+        mFiles.addAll(newItems);
         if (!searchType.equals(ExtendedListFragment.SearchType.PHOTO_SEARCH) &&
                 !searchType.equals(ExtendedListFragment.SearchType.PHOTOS_SEARCH_FILTER) &&
                 !searchType.equals(ExtendedListFragment.SearchType.RECENTLY_MODIFIED_SEARCH) &&
                 !searchType.equals(ExtendedListFragment.SearchType.RECENTLY_MODIFIED_SEARCH_FILTER)) {
-            mFiles = FileStorageUtils.sortOcFolder(mFiles);
+            mFiles = FileStorageUtils.sortOcFolder(newItems);
         } else {
-            mFiles = FileStorageUtils.sortOcFolderDescDateModified(mFiles);
+            mFiles = FileStorageUtils.sortOcFolderDescDateModified(newItems);
         }
 
         mFilesAll = new Vector<>();
         mFilesAll.addAll(mFiles);
-
-        new Handler(Looper.getMainLooper()).post(new Runnable() {
-            @Override
-            public void run() {
-                notifyDataSetChanged();
-                OCFileListFragmentInterface.finishedFiltering();
-            }
-        });
+        notifyDataSetChanged();
     }
 
     private void parseShares(ArrayList<Object> objects) {
