@@ -112,7 +112,6 @@
     <string name="file_list_empty_headline_server_search_photos">No photos</string>
     <string name="file_list_empty_search">Maybe it is in a different folder?</string>
     <string name="file_list_empty_recently_modified">Found no files modified during the last 7 days</string>
-    <string name="file_list_empty_recently_modified_filter">Your search returned no files modified in the last 7 days.</string>
     <string name="file_list_empty_recently_added">Found no recently added files</string>
     <string name="file_list_empty_recently_added_filter">Your search returned no recently added files.</string>
     <string name="file_list_empty_text_photos">Upload some photos or activate auto upload.</string>
@@ -303,9 +302,6 @@
     <string name="activity_chooser_title">Send link to &#8230;</string>
     <string name="wait_for_tmp_copy_from_private_storage">Copying file from private storage</string>
     
-    <string name="oauth_check_onoff">Log in with OAuth2</string> 
-    <string name="oauth_login_connection">Connecting to OAuth 2 server…</string>    
-        
     <string name="ssl_validator_header">The identity of the site could not be verified</string>
     <string name="ssl_validator_reason_cert_not_trusted">- The server certificate is not trusted</string>
     <string name="ssl_validator_reason_cert_expired">- The server certificate expired</string>
@@ -347,7 +343,6 @@
     <string name="instant_video_upload_on_charging">Only upload when charging</string>
     <string name="instant_upload_on_charging">Only upload when charging</string>
     <string name="instant_upload_path">/InstantUpload</string>
-    <string name="auto_upload_path">/Auto Upload</string>
     <string name="conflict_title">File conflict</string>
     <string name="conflict_message">Which files do you want to keep? If you select both versions, the local file will have a number appended to its name.</string>
     <string name="conflict_keep_both">Keep both</string>
@@ -482,7 +477,6 @@
     <string name="file_list__footer__files">%1$d files</string>
     <string name="file_list__footer__files_and_folder">%1$d files, 1 folder</string>
     <string name="file_list__footer__files_and_folders">%1$d files, %2$d folders</string>
-    <string name="set_picture_as">Set picture as</string>
     <string name="set_as">Set As</string>
 
     <string name="prefs_instant_behaviour_dialogTitle">Original file will be&#8230;</string>
@@ -561,7 +555,6 @@
     <string name="participate_beta_headline">Test the dev version</string>
     <string name="participate_beta_text">This includes all upcoming features and it is on the very bleeding edge. Bugs/errors can occur, if and when they do, please report of your findings.</string>
     <string name="participate_release_candidate_headline">Release candidate</string>
-    <string name="participate_release_candidate_text">The release candidate (RC) is a snapshot of the upcoming release and is expected to be stable. Testing your individual setup could help ensure this. Sign up for testing on the Play store or manually look in the \"versions\" section on F-Droid.</string>
     <string name="participate_contribute_headline">Actively Contribute</string>
     <string name="participate_contribute_irc_text">Join the chat on IRC: &lt;a href=\"%1$s\">#nextcloud-mobile&lt;/a></string>
     <string name="participate_contribute_forum_text">Help others on the &lt;a href=\"%1$s\">forum&lt;/a></string>
