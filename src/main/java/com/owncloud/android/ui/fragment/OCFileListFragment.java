@@ -1430,6 +1430,11 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
     @Subscribe(threadMode = ThreadMode.BACKGROUND)
     public void onMessageEvent(final SearchEvent event) {
         searchFragment = true;
+        // Do not create a new request if is the same event
+        // and the previous has not change
+        if (isSameEvent(searchEvent, event, remoteOperationAsyncTask)) {
+            return;
+        }
         setEmptyListLoadingMessage();
         mAdapter.setData(new ArrayList<>(), SearchType.NO_SEARCH, mContainerActivity.getStorageManager());
 
@@ -1580,5 +1585,13 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
 
     public boolean getIsSearchFragment() {
         return searchFragment;
+    }
+
+    private boolean isSameEvent(SearchEvent lastEvent, SearchEvent newEvent, AsyncTask remoteOperationAsyncTask) {
+        return newEvent.equals(lastEvent) &&
+                remoteOperationAsyncTask != null &&
+                (remoteOperationAsyncTask.getStatus() == AsyncTask.Status.RUNNING ||
+                        remoteOperationAsyncTask.getStatus() == AsyncTask.Status.PENDING);
+
     }
 }
