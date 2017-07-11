@@ -25,7 +25,6 @@ import android.accounts.Account;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.FragmentManager;
@@ -75,7 +74,6 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.TimerTask;
 
 import static com.owncloud.android.datamodel.SyncedFolderDisplayItem.UNPERSISTED_ID;
 
@@ -98,7 +96,6 @@ public class FolderSyncActivity extends FileActivity implements FolderSyncAdapte
     private LinearLayout mProgress;
     private TextView mEmpty;
     private SyncedFolderProvider mSyncedFolderProvider;
-    private List<SyncedFolderDisplayItem> syncFolderItems;
     private SyncedFolderPreferencesDialogFragment mSyncedFolderPreferencesDialogFragment;
     private boolean showSidebar = true;
 
@@ -183,37 +180,25 @@ public class FolderSyncActivity extends FileActivity implements FolderSyncAdapte
             return;
         }
         setListShown(false);
-        final Handler mHandler = new Handler();
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                final List<MediaFolder> mediaFolders = MediaProvider.getImageFolders(getContentResolver(),
-                        perFolderMediaItemLimit, FolderSyncActivity.this);
-                Log_OC.w(TAG, "Picture Folders: " + mediaFolders.size());
-                mediaFolders.addAll(MediaProvider.getVideoFolders(getContentResolver(), perFolderMediaItemLimit));
-                Log_OC.w(TAG, "Picture+Video Folders: " + mediaFolders.size());
+        final List<MediaFolder> mediaFolders = MediaProvider.getImageFolders(getContentResolver(),
+                perFolderMediaItemLimit, FolderSyncActivity.this);
+        mediaFolders.addAll(MediaProvider.getVideoFolders(getContentResolver(), perFolderMediaItemLimit));
 
-                List<SyncedFolder> syncedFolderArrayList = mSyncedFolderProvider.getSyncedFolders();
-                List<SyncedFolder> currentAccountSyncedFoldersList = new ArrayList<>();
-                Account currentAccount = AccountUtils.getCurrentOwnCloudAccount(FolderSyncActivity.this);
-                for (SyncedFolder syncedFolder : syncedFolderArrayList) {
-                    if (syncedFolder.getAccount().equals(currentAccount.name)) {
-                        currentAccountSyncedFoldersList.add(syncedFolder);
-                    }
-                }
-
-                syncFolderItems = sortSyncedFolderItems(mergeFolderData(currentAccountSyncedFoldersList,
-                        mediaFolders));
-
-                mHandler.post(new TimerTask() {
-                    @Override
-                    public void run() {
-                        mAdapter.setSyncFolderItems(syncFolderItems);
-                        setListShown(true);
-                    }
-                });
+        List<SyncedFolder> syncedFolderArrayList = mSyncedFolderProvider.getSyncedFolders();
+        List<SyncedFolder> currentAccountSyncedFoldersList = new ArrayList<>();
+        Account currentAccount = AccountUtils.getCurrentOwnCloudAccount(FolderSyncActivity.this);
+        for (SyncedFolder syncedFolder : syncedFolderArrayList) {
+            if (syncedFolder.getAccount().equals(currentAccount.name)) {
+                currentAccountSyncedFoldersList.add(syncedFolder);
             }
-        }).start();
+        }
+
+        List<SyncedFolderDisplayItem> syncFolderItems = sortSyncedFolderItems(
+                mergeFolderData(currentAccountSyncedFoldersList, mediaFolders));
+
+        mAdapter.setSyncFolderItems(syncFolderItems);
+        mAdapter.notifyDataSetChanged();
+        setListShown(true);
     }
 
     /**
@@ -526,7 +511,7 @@ public class FolderSyncActivity extends FileActivity implements FolderSyncAdapte
             }
             mAdapter.addSyncFolderItem(newCustomFolder);
         } else {
-            SyncedFolderDisplayItem item = syncFolderItems.get(syncedFolder.getSection());
+            SyncedFolderDisplayItem item = mAdapter.get(syncedFolder.getSection());
             Log_OC.e(TAG, "syncedFolder"+ syncedFolder.getLocalPath()+"-"+syncedFolder.getType());
             Log_OC.e(TAG, "item"+ item.getLocalPath()+"-"+item.getType());
             item = updateSyncedFolderItem(item, syncedFolder.getLocalPath(), syncedFolder.getRemotePath(), syncedFolder
