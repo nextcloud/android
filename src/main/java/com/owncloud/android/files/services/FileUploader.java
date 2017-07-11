@@ -472,7 +472,11 @@ public class FileUploader extends Service
             chunked = false;
         }
 
+        boolean onWifiOnly = intent.getBooleanExtra(KEY_WHILE_ON_WIFI_ONLY, false);
+        boolean whileChargingOnly = intent.getBooleanExtra(KEY_WHILE_CHARGING_ONLY, false);
+
         if (!retry) {
+
             if (!(intent.hasExtra(KEY_LOCAL_FILE) ||
                     intent.hasExtra(KEY_FILE))) {
                 Log_OC.e(TAG, "Not enough information provided in intent");
@@ -501,9 +505,6 @@ public class FileUploader extends Service
 
             boolean isCreateRemoteFolder = intent.getBooleanExtra(KEY_CREATE_REMOTE_FOLDER, false);
             int createdBy = intent.getIntExtra(KEY_CREATED_BY, UploadFileOperation.CREATED_BY_USER);
-
-            boolean onWifiOnly = intent.getBooleanExtra(KEY_WHILE_ON_WIFI_ONLY, false);
-            boolean whileChargingOnly = intent.getBooleanExtra(KEY_WHILE_CHARGING_ONLY, false);
 
             if (intent.hasExtra(KEY_FILE) && files == null) {
                 Log_OC.e(TAG, "Incorrect array for OCFiles provided in upload intent");
@@ -563,7 +564,9 @@ public class FileUploader extends Service
                             chunked,
                             forceOverwrite,
                             localAction,
-                            this
+                            this,
+                            onWifiOnly,
+                            whileChargingOnly
                     );
                     newUpload.setCreatedBy(createdBy);
                     if (isCreateRemoteFolder) {
@@ -617,7 +620,9 @@ public class FileUploader extends Service
                     chunked,
                     upload.isForceOverwrite(),  // TODO should be read from DB?
                     upload.getLocalAction(),    // TODO should be read from DB?
-                    this
+                    this,
+                    onWifiOnly,
+                    whileChargingOnly
             );
 
             newUpload.addDatatransferProgressListener(this);
