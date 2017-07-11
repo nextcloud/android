@@ -38,7 +38,6 @@ import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.owncloud.android.MainApp;
@@ -80,7 +79,6 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
 
     // to show share with users/groups info
     private ArrayList<OCShare> mShares;
-    private UserListAdapter mUserGroupsAdapter = null;
 
     private static final String TAG = FileDetailFragment.class.getSimpleName();
     public static final String FTAG_CONFIRMATION = "REMOVE_CONFIRMATION_FRAGMENT";
@@ -476,9 +474,6 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
             iv.setImageResource(resource);
 
             Bitmap thumbnail;
-            RelativeLayout.LayoutParams layoutParams =
-                    new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT,
-                            RelativeLayout.LayoutParams.MATCH_PARENT);
 
             if (MimeTypeUtil.isImage(file)) {
                 String tagId = String.valueOf(file.getRemoteId());
@@ -515,12 +510,12 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
     /**
      * Updates the file size in view
      *
-     * @param filesize in bytes to set
+     * @param fileSize in bytes to set
      */
-    private void setFilesize(long filesize) {
+    private void setFilesize(long fileSize) {
         TextView tv = (TextView) getView().findViewById(R.id.fdSize);
         if (tv != null) {
-            tv.setText(DisplayUtils.bytesToHumanReadable(filesize));
+            tv.setText(DisplayUtils.bytesToHumanReadable(fileSize));
         }
     }
 
@@ -537,20 +532,9 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
     }
 
     /**
-     * Updates the creation time of the file
-     *
-     * @param milliseconds Unix time to set
-     */
-    private void setTimeCreated(long milliseconds) {
-        TextView tv = (TextView) getView().findViewById(R.id.fdCreated);
-        if (tv != null) {
-            tv.setText(DisplayUtils.unixTimeToHumanReadable(milliseconds));
-        }
-    }
-
-    /**
      * Updates Share by link data
-     * @param isShareByLink
+     *
+     * @param isShareByLink flag is share by link is enable
      */
     private void setShareByLinkInfo(boolean isShareByLink) {
         TextView tv = (TextView) getView().findViewById(R.id.fdSharebyLink);
@@ -583,7 +567,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
     private void updateListOfUserGroups() {
         // Update list of users/groups
         // TODO Refactoring: create a new {@link ShareUserListAdapter} instance with every call should not be needed
-        mUserGroupsAdapter = new UserListAdapter(
+        UserListAdapter mUserGroupsAdapter = new UserListAdapter(
                 getActivity().getApplicationContext(),
                 R.layout.share_user_item, mShares
         );
