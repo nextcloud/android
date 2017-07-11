@@ -27,15 +27,15 @@
             android:key="storage_path"/>
 	</PreferenceCategory>
 	<PreferenceCategory
-		android:title="@string/drawer_folder_sync"
-		android:key="folder_sync">
+		android:title="@string/drawer_synced_folders"
+		android:key="synced_folders_category">
 		<com.owncloud.android.ui.ThemeableSwitchPreference
 			android:title="@string/auto_upload_on_wifi"
 			android:key="synced_folder_on_wifi"/>
         <Preference
-			android:title="@string/folder_sync_folders"
-			android:id="@+id/folder_sync_folders"
-			android:key="folder_sync_folders"/>
+			android:title="@string/synced_folders_configure_folders"
+			android:id="@+id/synced_folders_configure_folders"
+			android:key="synced_folders_configure_folders"/>
 	</PreferenceCategory>
 
     <PreferenceCategory android:title="@string/prefs_category_instant_uploading" android:key="instant_uploading_category">
