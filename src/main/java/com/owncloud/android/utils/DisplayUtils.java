@@ -361,7 +361,7 @@ public class DisplayUtils {
         if (path.length() > 1 && path.charAt(path.length() - 1) == OCFile.PATH_SEPARATOR.charAt(0)) {
             return path.substring(0, path.length() - 1);
         }
-        
+
         return path;
     }
 
