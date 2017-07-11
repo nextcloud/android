@@ -47,7 +47,7 @@ import java.util.List;
 /**
  * Adapter to display all auto-synced folders and/or instant upload media folders.
  */
-public class FolderSyncAdapter extends SectionedRecyclerViewAdapter<FolderSyncAdapter.MainViewHolder> {
+public class SyncedFolderAdapter extends SectionedRecyclerViewAdapter<SyncedFolderAdapter.MainViewHolder> {
 
     private final Context mContext;
     private final int mGridWidth;
@@ -56,7 +56,7 @@ public class FolderSyncAdapter extends SectionedRecyclerViewAdapter<FolderSyncAd
     private final List<SyncedFolderDisplayItem> mSyncFolderItems;
     private final boolean mLight;
 
-    public FolderSyncAdapter(Context context, int gridWidth, ClickListener listener, boolean light) {
+    public SyncedFolderAdapter(Context context, int gridWidth, ClickListener listener, boolean light) {
         mContext = context;
         mGridWidth = gridWidth;
         mGridTotal = gridWidth * 2;
@@ -187,7 +187,7 @@ public class FolderSyncAdapter extends SectionedRecyclerViewAdapter<FolderSyncAd
     public MainViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(
                 viewType == VIEW_TYPE_HEADER ?
-                        R.layout.folder_sync_item_header : R.layout.grid_sync_item, parent, false);
+                        R.layout.synced_folders_item_header : R.layout.grid_sync_item, parent, false);
         return new MainViewHolder(v);
     }
 

@@ -287,8 +287,8 @@
     <string name="preview_image_description">Attēla priekšskatījums</string>
     <string name="error__upload__local_file_not_copied">%1$s nevar kopēt uz %2$s lokālo mapi</string>
     <string name="prefs_instant_upload_path_title">Tūlītējas augšupielādes mepe</string>
-    <string name="prefs_folder_sync_local_path_title">Lokāla mape</string>
-    <string name="prefs_folder_sync_remote_path_title">Attālinātā mape</string>
+    <string name="prefs_synced_folders_local_path_title">Lokāla mape</string>
+    <string name="prefs_synced_folders_remote_path_title">Attālinātā mape</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Lietot apakšmapi</string>
     <string name="share_link_file_no_exist">Nevar koplietot. Lūdzu, pārbaudiet, vai fails pastāv</string>
 	<string name="share_link_file_error">Radās kļūda, mēģinot koplietot šo failu vai mapi</string>
@@ -453,7 +453,7 @@
     <string name="uploads_view_upload_status_waiting_for_charging">Gaida ierīces uzlādi</string>
     <string name="actionbar_search">Meklēt</string>
     <string name="learn_more">Uzziniet vairāk</string>
-    <string name="drawer_folder_sync">Automātiska augšupielāde</string>
+    <string name="drawer_synced_folders">Automātiska augšupielāde</string>
     <string name="participate_testing_headline">Palīdziet mums testēšanā</string>
     <string name="participate_testing_report_text">Ziņojiet par problēmu Github</string>
     <string name="participate_contribute_irc_text">Pievienojieties tērzēšanas ar IRC: &lt;a href=\"%1$s\">#nextcloud-mobile&lt;/a></string>
@@ -462,10 +462,10 @@
     <string name="move_to">Pārvietot uz&#8230;</string>
     <string name="copy_to">Kopēt uz&#8230;</string>
     <string name="choose_remote_folder">Izvēlies mapi&#8230;</string>
-    <string name="folder_sync_loading_folders">Ielāde mapes&#8230;</string>
-    <string name="folder_sync_no_results">Nav atrasta multivides mape.</string>
-    <string name="folder_sync_settings">Iestatījumi</string>
-    <string name="folder_sync_preferences_folder_path">%1$s</string>
+    <string name="synced_folders_loading_folders">Ielāde mapes&#8230;</string>
+    <string name="synced_folders_no_results">Nav atrasta multivides mape.</string>
+    <string name="synced_folders_settings">Iestatījumi</string>
+    <string name="synced_folders_preferences_folder_path">%1$s</string>
     <plurals name="items_selected_count">
         <item quantity="zero">%d atlasīts</item>
         <item quantity="one">%d atlasīts</item>

@@ -303,14 +303,14 @@ public class FileDisplayActivity extends HookActivity
 
             // show info pop-up
             new AlertDialog.Builder(this, R.style.Theme_ownCloud_Dialog)
-                    .setTitle(R.string.drawer_folder_sync)
-                    .setMessage(R.string.folder_sync_new_info)
+                    .setTitle(R.string.drawer_synced_folders)
+                    .setMessage(R.string.synced_folders_new_info)
                     .setPositiveButton(R.string.drawer_open, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
                             // show instant upload
-                            Intent folderSyncIntent = new Intent(getApplicationContext(), FolderSyncActivity.class);
+                            Intent syncedFoldersIntent = new Intent(getApplicationContext(), SyncedFoldersActivity.class);
                             dialog.dismiss();
-                            startActivity(folderSyncIntent);
+                            startActivity(syncedFoldersIntent);
                         }
                     })
                     .setNegativeButton(R.string.drawer_close, new DialogInterface.OnClickListener() {
@@ -318,7 +318,7 @@ public class FileDisplayActivity extends HookActivity
                             dialog.dismiss();
                         }
                     })
-                    .setIcon(R.drawable.nav_folder_sync)
+                    .setIcon(R.drawable.nav_synced_folders)
                     .show();
         }
     }
@@ -477,7 +477,7 @@ public class FileDisplayActivity extends HookActivity
         super.onNewIntent(intent);
         if(intent.getAction()!=null && intent.getAction().equalsIgnoreCase(ACTION_DETAILS)){
             setIntent(intent);
-            setFile((OCFile)intent.getParcelableExtra(EXTRA_FILE));
+            setFile(intent.getParcelableExtra(EXTRA_FILE));
         }
     }
 

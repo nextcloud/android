@@ -332,8 +332,8 @@
     <string name="preview_image_description">Previzualizare imagine</string>
     <string name="error__upload__local_file_not_copied">%1$s nu a putut fi copiat in dosarul local %2$s </string>
     <string name="prefs_instant_upload_path_title">Dosar pentru încărcare instantă</string>
-    <string name="prefs_folder_sync_local_path_title">Dosar local</string>
-    <string name="prefs_folder_sync_remote_path_title">Dosar la distanță</string>
+    <string name="prefs_synced_folders_local_path_title">Dosar local</string>
+    <string name="prefs_synced_folders_remote_path_title">Dosar la distanță</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Folosește subdosare</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Stocați in subdosar bazat pe an și lună</string>
 
@@ -515,7 +515,7 @@
     <string name="actionbar_search">Caută</string>
     <string name="files_drop_not_supported">Aceasta este o funcționalitate Nextcloud, vă rugăm să actulizați aplicația.</string>
     <string name="learn_more">Află mai mult</string>
-    <string name="drawer_folder_sync">Încărcare automată</string>
+    <string name="drawer_synced_folders">Încărcare automată</string>
     <string name="drawer_participate">Participă</string>
     <string name="participate_testing_headline">Ajută-ne să testăm</string>
     <string name="participate_testing_bug_text">Ai găsit un bug? Se intamplă ceva ciudat?</string>
@@ -531,12 +531,12 @@
     <string name="move_to">Mută în&#8230;</string>
     <string name="copy_to">Copiază în&#8230;</string>
     <string name="choose_remote_folder">Alege dosar&#8230;</string>
-    <string name="folder_sync_loading_folders">Încărcare dosare&#8230;</string>
-    <string name="folder_sync_no_results">Nu au fost găsite dosare media.</string>
-    <string name="folder_sync_preferences">Preferințe pentru încărcare automată</string>
-    <string name="folder_sync_settings">Setări</string>
-    <string name="folder_sync_new_info">Funcționalitatea de încărcare automată a fost refăcută complet. Vă rugăm să accesați meniul principal și să refaceți setările de încărcare automată. Ne cerem scuze pentru inconveniență.\n\nBucură-te de noile capabilități extinse ale funcției de încărcare automată!</string>
-    <string name="folder_sync_preferences_folder_path">Pentru %1$s</string>
+    <string name="synced_folders_loading_folders">Încărcare dosare&#8230;</string>
+    <string name="synced_folders_no_results">Nu au fost găsite dosare media.</string>
+    <string name="synced_folders_preferences">Preferințe pentru încărcare automată</string>
+    <string name="synced_folders_settings">Setări</string>
+    <string name="synced_folders_new_info">Funcționalitatea de încărcare automată a fost refăcută complet. Vă rugăm să accesați meniul principal și să refaceți setările de încărcare automată. Ne cerem scuze pentru inconveniență.\n\nBucură-te de noile capabilități extinse ale funcției de încărcare automată!</string>
+    <string name="synced_folders_preferences_folder_path">Pentru %1$s</string>
     <plurals name="items_selected_count">
         <item quantity="one">%d selectat</item>
         <item quantity="few">%d selectate</item>

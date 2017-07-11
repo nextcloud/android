@@ -352,8 +352,8 @@
 
     <string name="error__upload__local_file_not_copied">%1$s nem lehet másolni a %2$s helyi mappába</string>
     <string name="prefs_instant_upload_path_title">Azonnali feltöltés mappa</string>
-    <string name="prefs_folder_sync_local_path_title">Helyi mappa</string>
-    <string name="prefs_folder_sync_remote_path_title">Távoli mappa</string>
+    <string name="prefs_synced_folders_local_path_title">Helyi mappa</string>
+    <string name="prefs_synced_folders_remote_path_title">Távoli mappa</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Almappák használata</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Tárolás év és hónap szerinti almappákban</string>
 
@@ -535,7 +535,7 @@
     <string name="actionbar_search">Keresés</string>
     <string name="files_drop_not_supported">Ez egy Nextcloud funkció, kérlek frissíts.</string>
     <string name="learn_more">Tudj meg többet</string>
-    <string name="drawer_folder_sync">Automatikus feltöltés</string>
+    <string name="drawer_synced_folders">Automatikus feltöltés</string>
     <string name="drawer_participate">Részvétel</string>
     <string name="participate_testing_headline">Segíts tesztelni</string>
     <string name="participate_testing_bug_text">Hibát találtál? Valami furcsa?</string>
@@ -551,12 +551,12 @@
     <string name="move_to">Áthelyezés ide...&#8230;</string>
     <string name="copy_to">Másolás ide...&#8230;</string>
     <string name="choose_remote_folder">Mappa választás&#8230;</string>
-    <string name="folder_sync_loading_folders">Mappák betöltése&#8230;</string>
-    <string name="folder_sync_no_results">Nem találhatók média mappák.</string>
-    <string name="folder_sync_preferences">Automatikus feltöltés beállításai</string>
-    <string name="folder_sync_settings">Beállítások</string>
-    <string name="folder_sync_new_info">Az azonnali feltöltés teljesen át lett alakítva. Kérlek a főmenüben állítsd be újra az automatikus feltöltést. Elnézést a kellemetlenségért.\n\nÉlvezd az új és kibővített automatikus feltöltési képességet!</string>
-    <string name="folder_sync_preferences_folder_path">Neki: %1$s</string>
+    <string name="synced_folders_loading_folders">Mappák betöltése&#8230;</string>
+    <string name="synced_folders_no_results">Nem találhatók média mappák.</string>
+    <string name="synced_folders_preferences">Automatikus feltöltés beállításai</string>
+    <string name="synced_folders_settings">Beállítások</string>
+    <string name="synced_folders_new_info">Az azonnali feltöltés teljesen át lett alakítva. Kérlek a főmenüben állítsd be újra az automatikus feltöltést. Elnézést a kellemetlenségért.\n\nÉlvezd az új és kibővített automatikus feltöltési képességet!</string>
+    <string name="synced_folders_preferences_folder_path">Neki: %1$s</string>
     <plurals name="items_selected_count">
         <item quantity="one">%d kiválasztott</item>
         <item quantity="other">%d kiválasztott</item>

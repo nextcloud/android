@@ -120,7 +120,7 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Log_OC.d(TAG, "onCreateView, savedInstanceState is " + savedInstanceState);
 
-        mView = inflater.inflate(R.layout.folder_sync_settings_layout, container, false);
+        mView = inflater.inflate(R.layout.synced_folders_settings_layout, container, false);
 
         setupDialogElements(mView);
         setupListeners(mView);
@@ -149,7 +149,7 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment {
             mSyncedFolder.setEnabled(true);
 
             // switch text to create headline
-            ((TextView)view.findViewById(R.id.folder_sync_settings_title))
+            ((TextView) view.findViewById(R.id.synced_folders_settings_title))
                     .setText(R.string.autoupload_create_new_custom_folder);
 
             // disable save button
@@ -191,7 +191,7 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment {
             mLocalFolderPath.setText(
                     DisplayUtils.createTextWithSpan(
                             String.format(
-                                    getString(R.string.folder_sync_preferences_folder_path),
+                                    getString(R.string.synced_folders_preferences_folder_path),
                                     mSyncedFolder.getLocalPath()),
                             mSyncedFolder.getFolderName(),
                             new StyleSpan(Typeface.BOLD)));
@@ -249,7 +249,7 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment {
         mLocalFolderPath.setText(
                 DisplayUtils.createTextWithSpan(
                         String.format(
-                                getString(R.string.folder_sync_preferences_folder_path),
+                                getString(R.string.synced_folders_preferences_folder_path),
                                 mSyncedFolder.getLocalPath()),
                         new File(mSyncedFolder.getLocalPath()).getName(),
                         new StyleSpan(Typeface.BOLD)));

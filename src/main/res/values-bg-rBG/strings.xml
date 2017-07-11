@@ -308,8 +308,8 @@
     <string name="preview_image_description">Преглед на изображението</string>
     <string name="error__upload__local_file_not_copied">%1$s не може да бъде копиран в локалната папка %2$s</string>
     <string name="prefs_instant_upload_path_title">Папка за незабавно качените</string>
-    <string name="prefs_folder_sync_local_path_title">Локална папка</string>
-    <string name="prefs_folder_sync_remote_path_title">Отдалечена папка</string>
+    <string name="prefs_synced_folders_local_path_title">Локална папка</string>
+    <string name="prefs_synced_folders_remote_path_title">Отдалечена папка</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Ползване на подпапки</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Съхраняване в подпапки, разделени по година и месец</string>
 
@@ -491,7 +491,7 @@
     <string name="actionbar_search">Търсене</string>
     <string name="files_drop_not_supported">Това е функционалност на Nextcloud, моля актуализирайте.</string>
     <string name="learn_more">Научете повече</string>
-    <string name="drawer_folder_sync">Автоматично качване</string>
+    <string name="drawer_synced_folders">Автоматично качване</string>
     <string name="drawer_participate">Участвайте</string>
     <string name="participate_testing_headline">Помогнете с тестване</string>
     <string name="participate_testing_bug_text">Открили сте грешка? Нещо е странно?</string>
@@ -503,11 +503,11 @@
     <string name="move_to">Преместване в&#8230;</string>
     <string name="copy_to">Копиране в&#8230;</string>
     <string name="choose_remote_folder">Избери папка&#8230;</string>
-    <string name="folder_sync_loading_folders">Зареждане на папки&#8230;</string>
-    <string name="folder_sync_no_results">Не са открити медийни папки.</string>
-    <string name="folder_sync_preferences">Предпочитания за автоматично качване</string>
-    <string name="folder_sync_settings">Настройки</string>
-    <string name="folder_sync_preferences_folder_path">За %1$s</string>
+    <string name="synced_folders_loading_folders">Зареждане на папки&#8230;</string>
+    <string name="synced_folders_no_results">Не са открити медийни папки.</string>
+    <string name="synced_folders_preferences">Предпочитания за автоматично качване</string>
+    <string name="synced_folders_settings">Настройки</string>
+    <string name="synced_folders_preferences_folder_path">За %1$s</string>
     <plurals name="items_selected_count">
         <item quantity="one">%d избран</item>
         <item quantity="other">%d избрани</item>

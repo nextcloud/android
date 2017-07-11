@@ -289,8 +289,8 @@
     <string name="preview_image_error_unknown_format">תמונה זו לא ניתנת לצפייה</string>
 
     <string name="error__upload__local_file_not_copied">%1$s לא ניתן להעתקה לתיקייה מקומית %2$s</string>
-    <string name="prefs_folder_sync_local_path_title">תיקייה מקומית</string>
-    <string name="prefs_folder_sync_remote_path_title">תיקייה מרוחקת</string>
+    <string name="prefs_synced_folders_local_path_title">תיקייה מקומית</string>
+    <string name="prefs_synced_folders_remote_path_title">תיקייה מרוחקת</string>
     <string name="share_link_file_no_exist">לא ניתן לשתף. יש לבדוק אם הקובץ קיים</string>
 	<string name="share_link_file_error">שגיאה אירעה בזמן ניסיון לשתף קובץ זה או תיקייה זו</string>
 	<string name="unshare_link_file_no_exist">לא ניתן לבטל שיתוף. יש לבדוק אם הקובץ קיים</string>
@@ -442,8 +442,8 @@
     <string name="copy_to">העתק אל&#8230;
 </string>
     <string name="choose_remote_folder">בחר תיקייה&#8230;</string>
-    <string name="folder_sync_no_results">לא נמצאו תיקיות מדיה</string>
-    <string name="folder_sync_settings">הגדרות</string>
+    <string name="synced_folders_no_results">לא נמצאו תיקיות מדיה</string>
+    <string name="synced_folders_settings">הגדרות</string>
     <string name="upload_file_dialog_filename">שם קובץ</string>
     <string name="upload_file_dialog_filetype">סוג קובץ</string>
     <string name="storage_description_default">ברירת מחדל</string>

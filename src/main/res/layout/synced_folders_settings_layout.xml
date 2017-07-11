@@ -40,14 +40,14 @@
             android:paddingTop="@dimen/standard_padding">
 
             <TextView
-                android:id="@+id/folder_sync_settings_title"
+                android:id="@+id/synced_folders_settings_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/folder_sync_preferences"
+                android:text="@string/synced_folders_preferences"
                 android:textAppearance="@style/TextAppearance.AppCompat.Title"/>
 
             <TextView
-                android:id="@+id/folder_sync_settings_local_folder_path"
+                android:id="@+id/synced_folders_settings_local_folder_path"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ellipsize="middle"
@@ -108,7 +108,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:maxLines="1"
-                        android:text="@string/prefs_folder_sync_local_path_title"
+                        android:text="@string/prefs_synced_folders_local_path_title"
                         android:textAppearance="?attr/textAppearanceListItem"/>
 
                     <TextView
@@ -166,7 +166,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:maxLines="1"
-                        android:text="@string/prefs_folder_sync_remote_path_title"
+                        android:text="@string/prefs_synced_folders_remote_path_title"
                         android:textAppearance="?attr/textAppearanceListItem"/>
 
                     <TextView

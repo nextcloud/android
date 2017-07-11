@@ -319,8 +319,8 @@
     <string name="preview_image_description">Visualització prèvia d\'imatge</string>
     <string name="error__upload__local_file_not_copied">%1$s no s\'ha pogut copiar a la carpeta local %2$s</string>
     <string name="prefs_instant_upload_path_title">Carpeta de pujada instantània</string>
-    <string name="prefs_folder_sync_local_path_title">Carpeta local</string>
-    <string name="prefs_folder_sync_remote_path_title">Carpeta remota</string>
+    <string name="prefs_synced_folders_local_path_title">Carpeta local</string>
+    <string name="prefs_synced_folders_remote_path_title">Carpeta remota</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Feu servir subcarpetes</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Desar a subcarpetes ordenades per any i mes</string>
 
@@ -502,7 +502,7 @@
     <string name="actionbar_search">Cerca</string>
     <string name="files_drop_not_supported">És una característica de Nextcloud. Siusplau actualitzeu.</string>
     <string name="learn_more">Més informació</string>
-    <string name="drawer_folder_sync">Pujada automàtica</string>
+    <string name="drawer_synced_folders">Pujada automàtica</string>
     <string name="drawer_participate">Participa</string>
     <string name="participate_testing_headline">Ajuda\'ns amb les proves</string>
     <string name="participate_testing_bug_text">Heu trobat un error? Alguna cosa estranya?</string>
@@ -518,12 +518,12 @@
     <string name="move_to">Mou a&#8230;</string>
     <string name="copy_to">Copia a&#8230;</string>
     <string name="choose_remote_folder">Tria carpeta&#8230;</string>
-    <string name="folder_sync_loading_folders">Carregant carpetes&#8230;</string>
-    <string name="folder_sync_no_results">No s\'han trobat carpetes amb elements multimèdia.</string>
-    <string name="folder_sync_preferences">Preferències de la pujada automàtica</string>
-    <string name="folder_sync_settings">Configuració</string>
-    <string name="folder_sync_new_info">La pujada instantània s\'ha renovat completament. Mireu el menú principal i torneu a configurar l\'auto pujada. Disculpeu les molèsties.\n\nGaudiu de les noves i ampliades capacitats de l\'auto pujada!</string>
-    <string name="folder_sync_preferences_folder_path">Per %1$s</string>
+    <string name="synced_folders_loading_folders">Carregant carpetes&#8230;</string>
+    <string name="synced_folders_no_results">No s\'han trobat carpetes amb elements multimèdia.</string>
+    <string name="synced_folders_preferences">Preferències de la pujada automàtica</string>
+    <string name="synced_folders_settings">Configuració</string>
+    <string name="synced_folders_new_info">La pujada instantània s\'ha renovat completament. Mireu el menú principal i torneu a configurar l\'auto pujada. Disculpeu les molèsties.\n\nGaudiu de les noves i ampliades capacitats de l\'auto pujada!</string>
+    <string name="synced_folders_preferences_folder_path">Per %1$s</string>
     <plurals name="items_selected_count">
         <item quantity="one">%d seleccionat</item>
         <item quantity="other">%d seleccionats</item>

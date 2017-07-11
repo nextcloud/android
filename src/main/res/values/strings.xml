@@ -364,8 +364,8 @@
 
     <string name="error__upload__local_file_not_copied">%1$s could not be copied to %2$s local folder</string>
     <string name="prefs_instant_upload_path_title">Instant upload folder</string>
-    <string name="prefs_folder_sync_local_path_title">Local folder</string>
-    <string name="prefs_folder_sync_remote_path_title">Remote folder</string>
+    <string name="prefs_synced_folders_local_path_title">Local folder</string>
+    <string name="prefs_synced_folders_remote_path_title">Remote folder</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Use subfolders</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Store in subfolders based on year and month</string>
 
@@ -556,7 +556,7 @@
     <string name="actionbar_search">Search</string>
     <string name="files_drop_not_supported">This is a Nextcloud feature, please update.</string>
     <string name="learn_more">Learn more</string>
-    <string name="drawer_folder_sync">Auto upload</string>
+    <string name="drawer_synced_folders">Auto upload</string>
     <string name="drawer_participate">Participate</string>
     <string name="participate_testing_headline">Help by testing</string>
     <string name="participate_testing_bug_text">Found a bug? Oddments?</string>
@@ -575,12 +575,12 @@
     <string name="copy_to">Copy to&#8230;</string>
     <string name="choose_remote_folder">Choose remote folder&#8230;</string>
     <string name="choose_local_folder">Choose local folder&#8230;</string>
-    <string name="folder_sync_loading_folders">Loading folders&#8230;</string>
-    <string name="folder_sync_no_results">No media folders found.</string>
-    <string name="folder_sync_preferences">Preferences for auto uploading</string>
-    <string name="folder_sync_settings">Settings</string>
-    <string name="folder_sync_new_info">Instant uploading has been revamped completely. Re-configure your auto upload from within the main menu.\n\nEnjoy the new and extended auto uploading.</string>
-    <string name="folder_sync_preferences_folder_path">For %1$s</string>
+    <string name="synced_folders_loading_folders">Loading folders&#8230;</string>
+    <string name="synced_folders_no_results">No media folders found.</string>
+    <string name="synced_folders_preferences">Preferences for auto uploading</string>
+    <string name="synced_folders_settings">Settings</string>
+    <string name="synced_folders_new_info">Instant uploading has been revamped completely. Re-configure your auto upload from within the main menu.\n\nEnjoy the new and extended auto uploading.</string>
+    <string name="synced_folders_preferences_folder_path">For %1$s</string>
     <plurals name="items_selected_count">
         <!--
              As a developer, you should always supply "one" and "other"
@@ -673,7 +673,7 @@
     <!-- Auto upload -->
     <string name="autoupload_custom_folder">Set up a custom folder</string>
     <string name="autoupload_create_new_custom_folder">Create new custom folder setup</string>
-    <string name="folder_sync_folders">Configure folders</string>
+    <string name="synced_folders_configure_folders">Configure folders</string>
 
   <string name="empty" translatable="false"/>
     <string name="test_server_button">Test server connection</string>

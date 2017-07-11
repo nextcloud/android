@@ -358,8 +358,8 @@ inden for de sidste 7 dage!</string>
 
     <string name="error__upload__local_file_not_copied">%1$s kunne ikke kopieres til %2$s lokale mappe</string>
     <string name="prefs_instant_upload_path_title">Øjeblikkelig opload mappe</string>
-    <string name="prefs_folder_sync_local_path_title">Lokal mappe</string>
-    <string name="prefs_folder_sync_remote_path_title">Ekstern mappe</string>
+    <string name="prefs_synced_folders_local_path_title">Lokal mappe</string>
+    <string name="prefs_synced_folders_remote_path_title">Ekstern mappe</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Benyt undermapper</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Lagre i undermapper baseret på år og måned</string>
 
@@ -509,7 +509,7 @@ inden for de sidste 7 dage!</string>
     <string name="actionbar_search">Søg</string>
     <string name="files_drop_not_supported">Dette er en Nextcloud feature, opdater venligst</string>
     <string name="learn_more">Lær mere</string>
-    <string name="drawer_folder_sync">Auto upload</string>
+    <string name="drawer_synced_folders">Auto upload</string>
     <string name="drawer_participate">Deltag</string>
     <string name="participate_testing_headline">Hjælp os med at teste</string>
     <string name="participate_testing_report_text">Rapporter fejl på Github</string>
@@ -518,9 +518,9 @@ inden for de sidste 7 dage!</string>
     <string name="move_to">Flyt til&#8230;</string>
     <string name="copy_to">Kopiér til&#8230;</string>
     <string name="choose_remote_folder">Vælg mappe&#8230;</string>
-    <string name="folder_sync_loading_folders">Henter mapper&#8230;</string>
-    <string name="folder_sync_no_results">Ingen medie mappe fundet</string>
-    <string name="folder_sync_settings">Indstillinger</string>
+    <string name="synced_folders_loading_folders">Henter mapper&#8230;</string>
+    <string name="synced_folders_no_results">Ingen medie mappe fundet</string>
+    <string name="synced_folders_settings">Indstillinger</string>
     <string name="upload_file_dialog_filename">Filnavn</string>
     <string name="upload_file_dialog_filetype">Filtype</string>
     <string name="storage_description_default">Standard</string>

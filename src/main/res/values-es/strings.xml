@@ -360,8 +360,8 @@
 
     <string name="error__upload__local_file_not_copied">%1$s no se ha podido copiar a la carpeta local %2$s</string>
     <string name="prefs_instant_upload_path_title">Carpeta para subida instantánea</string>
-    <string name="prefs_folder_sync_local_path_title">Carpeta local</string>
-    <string name="prefs_folder_sync_remote_path_title">Carpeta en servidor</string>
+    <string name="prefs_synced_folders_local_path_title">Carpeta local</string>
+    <string name="prefs_synced_folders_remote_path_title">Carpeta en servidor</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Usar subcarpetas</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Almacenar en subcarpetas basadas en año y mes.</string>
 
@@ -552,7 +552,7 @@
     <string name="actionbar_search">Buscar</string>
     <string name="files_drop_not_supported">Esta es una característica de Nextcloud. Por favor, actualice.</string>
     <string name="learn_more">Aprender más</string>
-    <string name="drawer_folder_sync">Subida automática</string>
+    <string name="drawer_synced_folders">Subida automática</string>
     <string name="drawer_participate">Participar</string>
     <string name="participate_testing_headline">Ayúdanos a realizar pruebas</string>
     <string name="participate_testing_bug_text">¿Encontraste un error? ¿Algo va mal?</string>
@@ -566,12 +566,12 @@
     <string name="move_to">Mover a&#8230;</string>
     <string name="copy_to">Copiar a&#8230;</string>
     <string name="choose_remote_folder">Elija carpeta&#8230;</string>
-    <string name="folder_sync_loading_folders">Cargando carpetas&#8230;</string>
-    <string name="folder_sync_no_results">No se han encontrado carpetas de medios.</string>
-    <string name="folder_sync_preferences">Preferencias de subida automática</string>
-    <string name="folder_sync_settings">Configuración</string>
-    <string name="folder_sync_new_info">La subida instantánea ha sido completamente renovada. Reconfigura tus subidas instantáneas en el menú principal.\n\n¡Disfruta las nuevas y extendidas capacidades de la subida automática!</string>
-    <string name="folder_sync_preferences_folder_path">Durante %1$s</string>
+    <string name="synced_folders_loading_folders">Cargando carpetas&#8230;</string>
+    <string name="synced_folders_no_results">No se han encontrado carpetas de medios.</string>
+    <string name="synced_folders_preferences">Preferencias de subida automática</string>
+    <string name="synced_folders_settings">Configuración</string>
+    <string name="synced_folders_new_info">La subida instantánea ha sido completamente renovada. Reconfigura tus subidas instantáneas en el menú principal.\n\n¡Disfruta las nuevas y extendidas capacidades de la subida automática!</string>
+    <string name="synced_folders_preferences_folder_path">Durante %1$s</string>
     <plurals name="items_selected_count">
         <item quantity="one">%d seleccionado</item>
         <item quantity="other">%d seleccionados</item>
@@ -654,6 +654,6 @@
     <string name="privacy">Privacidad</string>
     <string name="file_not_found">¡Archivo no encontrado!</string>
 
-    <string name="folder_sync_folders">Configurar carpetas</string>
+    <string name="synced_folders_configure_folders">Configurar carpetas</string>
 
   </resources>

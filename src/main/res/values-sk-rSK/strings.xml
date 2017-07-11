@@ -324,8 +324,8 @@
     <string name="preview_image_description">Ukážka obrazu</string>
     <string name="error__upload__local_file_not_copied">%1$s nemožno skopírovať do lokálneho priečinka %2$s</string>
     <string name="prefs_instant_upload_path_title">Priečinok pre okamžité nahratie</string>
-    <string name="prefs_folder_sync_local_path_title">Miestny priečinok</string>
-    <string name="prefs_folder_sync_remote_path_title">Vzdialený priečinok</string>
+    <string name="prefs_synced_folders_local_path_title">Miestny priečinok</string>
+    <string name="prefs_synced_folders_remote_path_title">Vzdialený priečinok</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Použi podpriečinky</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Ulož v podpriečinkoch podľa roku a mesiaca</string>
 
@@ -506,7 +506,7 @@
     <string name="actionbar_search">Hľadať</string>
     <string name="files_drop_not_supported">Toto je funkcia Nextcloudu, aktualizujte prosím.</string>
     <string name="learn_more">Dozvedieť sa viac</string>
-    <string name="drawer_folder_sync">Automatické nahratie</string>
+    <string name="drawer_synced_folders">Automatické nahratie</string>
     <string name="drawer_participate">Zúčastniť sa</string>
     <string name="participate_testing_headline">Pomôžte nám s testovaním.</string>
     <string name="participate_testing_bug_text">Našli ste chybu? Niečo nefunguje?</string>
@@ -522,12 +522,12 @@
     <string name="move_to">Presunúť do&#8230;</string>
     <string name="copy_to">Kopírovať do&#8230;</string>
     <string name="choose_remote_folder">Vybrať priečinok&#8230;</string>
-    <string name="folder_sync_loading_folders">Načítavanie priečinkov&#8230;</string>
-    <string name="folder_sync_no_results">Neboli nájdené žiadne multimediálne priečinky.</string>
-    <string name="folder_sync_preferences">Nastavenia automatického nahratia</string>
-    <string name="folder_sync_settings">Nastavenia</string>
-    <string name="folder_sync_new_info">Okamžité nahrávanie bolo kompletne prepracované. Prezrite si prosím hlavné menu a znovu nastavte automatické nahrávanie. Ospravedlňujeme sa za vzniknuté problémy.\n\nUžite si nové, rozšírene možnosti automatického nahrávania!</string>
-    <string name="folder_sync_preferences_folder_path">Pre %1$s</string>
+    <string name="synced_folders_loading_folders">Načítavanie priečinkov&#8230;</string>
+    <string name="synced_folders_no_results">Neboli nájdené žiadne multimediálne priečinky.</string>
+    <string name="synced_folders_preferences">Nastavenia automatického nahratia</string>
+    <string name="synced_folders_settings">Nastavenia</string>
+    <string name="synced_folders_new_info">Okamžité nahrávanie bolo kompletne prepracované. Prezrite si prosím hlavné menu a znovu nastavte automatické nahrávanie. Ospravedlňujeme sa za vzniknuté problémy.\n\nUžite si nové, rozšírene možnosti automatického nahrávania!</string>
+    <string name="synced_folders_preferences_folder_path">Pre %1$s</string>
     <plurals name="items_selected_count">
         <item quantity="one">%d vybraný</item>
         <item quantity="few">%d vybraných</item>

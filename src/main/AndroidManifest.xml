@@ -85,7 +85,7 @@
         <activity android:name=".ui.activity.ParticipateActivity" />
         <activity android:name=".ui.activity.ActivitiesListActivity"
                   android:configChanges="orientation|screenSize|keyboardHidden" />
-        <activity android:name=".ui.activity.FolderSyncActivity" />
+        <activity android:name=".ui.activity.SyncedFoldersActivity"/>
         <activity android:name=".ui.activity.UploadFilesActivity" />
         <activity android:name=".ui.activity.ExternalSiteWebView"
                   android:configChanges="orientation|screenSize|keyboardHidden" />

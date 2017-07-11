@@ -315,8 +315,8 @@
     <string name="preview_image_description">Pratilik gambar</string>
     <string name="error__upload__local_file_not_copied">%1$s tidak dapat disalin ke folder lokal %2$s</string>
     <string name="prefs_instant_upload_path_title">Folder unggah cepat</string>
-    <string name="prefs_folder_sync_local_path_title">Folder lokal</string>
-    <string name="prefs_folder_sync_remote_path_title">Folder remote</string>
+    <string name="prefs_synced_folders_local_path_title">Folder lokal</string>
+    <string name="prefs_synced_folders_remote_path_title">Folder remote</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Gunakan subfolder</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Simpan dalam subfolder berdasarkan tahun dan bulan</string>
 
@@ -498,7 +498,7 @@
     <string name="actionbar_search">Cari</string>
     <string name="files_drop_not_supported">Ini adalah fitur Nextcloud, harap perbarui.</string>
     <string name="learn_more">Pelajari lebih lanjut</string>
-    <string name="drawer_folder_sync">Unggah otomatis</string>
+    <string name="drawer_synced_folders">Unggah otomatis</string>
     <string name="drawer_participate">Berpartisipasi</string>
     <string name="participate_testing_headline">Bantu kami menguji</string>
     <string name="participate_testing_bug_text">Menemukan kutu? Sesuatu yang aneh?</string>
@@ -514,12 +514,12 @@
     <string name="move_to">Pindah ke&#8230;</string>
     <string name="copy_to">Salin ke&#8230;</string>
     <string name="choose_remote_folder">Pilih folder&#8230;</string>
-    <string name="folder_sync_loading_folders">Memuat folder&#8230;</string>
-    <string name="folder_sync_no_results">Tidak ada folder media yang ditemukan.</string>
-    <string name="folder_sync_preferences">Preferensi unggah otomatis</string>
-    <string name="folder_sync_settings">Pengaturan</string>
-    <string name="folder_sync_new_info">Unggah instan telah dirubah sepenuhnya. Harap lihat menu utama dan konfigurasi ulang unggah otomatis anda. Maaf untuk gangguannya.\n\nNikmati kemampuan unggah otomatis yang lebih jauh dan baru!</string>
-    <string name="folder_sync_preferences_folder_path">Untuk %1$s</string>
+    <string name="synced_folders_loading_folders">Memuat folder&#8230;</string>
+    <string name="synced_folders_no_results">Tidak ada folder media yang ditemukan.</string>
+    <string name="synced_folders_preferences">Preferensi unggah otomatis</string>
+    <string name="synced_folders_settings">Pengaturan</string>
+    <string name="synced_folders_new_info">Unggah instan telah dirubah sepenuhnya. Harap lihat menu utama dan konfigurasi ulang unggah otomatis anda. Maaf untuk gangguannya.\n\nNikmati kemampuan unggah otomatis yang lebih jauh dan baru!</string>
+    <string name="synced_folders_preferences_folder_path">Untuk %1$s</string>
     <plurals name="items_selected_count">
         <item quantity="other">%d dipilih</item>
     </plurals>

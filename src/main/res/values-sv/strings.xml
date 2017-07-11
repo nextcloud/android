@@ -313,8 +313,8 @@
     <string name="preview_image_description">Förhandsvisa bild</string>
     <string name="error__upload__local_file_not_copied">%1$s kunde inte kopieras till %2$s lokal mapp</string>
     <string name="prefs_instant_upload_path_title">Sökväg för Automatisk uppladdning</string>
-    <string name="prefs_folder_sync_local_path_title">Lokal mapp</string>
-    <string name="prefs_folder_sync_remote_path_title">Extern mapp</string>
+    <string name="prefs_synced_folders_local_path_title">Lokal mapp</string>
+    <string name="prefs_synced_folders_remote_path_title">Extern mapp</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Använd undermappar</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Spara i undermappar baserat på år och månad</string>
 
@@ -496,7 +496,7 @@
     <string name="actionbar_search">Sök</string>
     <string name="files_drop_not_supported">Detta är en Nextcloud funktion, vänligen uppdatera.</string>
     <string name="learn_more">Lär dig mer</string>
-    <string name="drawer_folder_sync">Automatisk uppladdning</string>
+    <string name="drawer_synced_folders">Automatisk uppladdning</string>
     <string name="drawer_participate">Hjälp oss att bli bättre</string>
     <string name="participate_testing_headline">Hjälp oss att testa</string>
     <string name="participate_testing_bug_text">Har du hittat en bugg? Är det något som är fel?</string>
@@ -512,12 +512,12 @@
     <string name="move_to">Fllytta till&#8230;</string>
     <string name="copy_to">Kopiera till&#8230;</string>
     <string name="choose_remote_folder">Välj mapp&#8230;</string>
-    <string name="folder_sync_loading_folders">Laddar mappar&#8230;</string>
-    <string name="folder_sync_no_results">Inga mediamappar hittades</string>
-    <string name="folder_sync_preferences">Aktivera Automatisk uppladdning</string>
-    <string name="folder_sync_settings">Inställningar</string>
-    <string name="folder_sync_new_info">Direktuppladdning heter numera Automatisk uppladdning och har blivit totalt omgjort. Vänligen se huvudmenyn för att konfigurera Automatisk uppladdning igen. Ledsen för besväret.\n\nNjut av de nya och förbättrade uppladdningsmöjligheterna!</string>
-    <string name="folder_sync_preferences_folder_path">Mapp på telefonen: %1$s</string>
+    <string name="synced_folders_loading_folders">Laddar mappar&#8230;</string>
+    <string name="synced_folders_no_results">Inga mediamappar hittades</string>
+    <string name="synced_folders_preferences">Aktivera Automatisk uppladdning</string>
+    <string name="synced_folders_settings">Inställningar</string>
+    <string name="synced_folders_new_info">Direktuppladdning heter numera Automatisk uppladdning och har blivit totalt omgjort. Vänligen se huvudmenyn för att konfigurera Automatisk uppladdning igen. Ledsen för besväret.\n\nNjut av de nya och förbättrade uppladdningsmöjligheterna!</string>
+    <string name="synced_folders_preferences_folder_path">Mapp på telefonen: %1$s</string>
     <plurals name="items_selected_count">
         <item quantity="one">%d vald</item>
         <item quantity="other">%d vald</item>

@@ -362,8 +362,8 @@
 
     <string name="error__upload__local_file_not_copied">%1$s невозможно скопировать в локальный каталог %2$s </string>
     <string name="prefs_instant_upload_path_title">Каталог для немедленной загрузки</string>
-    <string name="prefs_folder_sync_local_path_title">Локальный каталог</string>
-    <string name="prefs_folder_sync_remote_path_title">Каталог на сервере</string>
+    <string name="prefs_synced_folders_local_path_title">Локальный каталог</string>
+    <string name="prefs_synced_folders_remote_path_title">Каталог на сервере</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Использовать подкаталоги</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Хранить в них, учитывая год и месяц</string>
 
@@ -554,7 +554,7 @@
     <string name="actionbar_search">Поиск</string>
     <string name="files_drop_not_supported">Это есть в новой версии Nextcloud, пожалуйста обновитесь</string>
     <string name="learn_more">Узнать больше</string>
-    <string name="drawer_folder_sync">Автоматическая загрузка</string>
+    <string name="drawer_synced_folders">Автоматическая загрузка</string>
     <string name="drawer_participate">Участие</string>
     <string name="participate_testing_headline">Помогите нам в тестировании</string>
     <string name="participate_testing_bug_text">Нашли ошибку? Заметили необычное поведение программы?</string>
@@ -572,12 +572,12 @@
     <string name="move_to">Переместить в&#8230;</string>
     <string name="copy_to">Копировать в&#8230;</string>
     <string name="choose_remote_folder">Выберите каталог &#8230;</string>
-    <string name="folder_sync_loading_folders">Загрузка каталогов &#8230;</string>
-    <string name="folder_sync_no_results">Не найдены каталоги с медиа(файлами).</string>
-    <string name="folder_sync_preferences">Настройки автозагрузки</string>
-    <string name="folder_sync_settings">Настройки</string>
-    <string name="folder_sync_new_info">Моментальная загрузка была полностью переделана. Используйте главное меню для перенастройки автоматической загрузки. Извините за неудобства.\n\nВам понравятся новые расширенные возможности автоматической загрузки!</string>
-    <string name="folder_sync_preferences_folder_path">Для %1$s</string>
+    <string name="synced_folders_loading_folders">Загрузка каталогов &#8230;</string>
+    <string name="synced_folders_no_results">Не найдены каталоги с медиа(файлами).</string>
+    <string name="synced_folders_preferences">Настройки автозагрузки</string>
+    <string name="synced_folders_settings">Настройки</string>
+    <string name="synced_folders_new_info">Моментальная загрузка была полностью переделана. Используйте главное меню для перенастройки автоматической загрузки. Извините за неудобства.\n\nВам понравятся новые расширенные возможности автоматической загрузки!</string>
+    <string name="synced_folders_preferences_folder_path">Для %1$s</string>
     <plurals name="items_selected_count">
         <item quantity="one">%d выбран</item>
         <item quantity="few">%d выбрано</item>
@@ -662,6 +662,6 @@
     <string name="privacy">Конфиденциальность</string>
     <string name="file_not_found">Файл не найден!</string>
 
-    <string name="folder_sync_folders">Настроить каталоги</string>
+    <string name="synced_folders_configure_folders">Настроить каталоги</string>
 
   </resources>
