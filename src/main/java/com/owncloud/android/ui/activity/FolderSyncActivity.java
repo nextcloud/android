@@ -55,12 +55,11 @@ import com.owncloud.android.ui.adapter.FolderSyncAdapter;
 import com.owncloud.android.ui.decoration.MediaGridItemDecoration;
 import com.owncloud.android.ui.dialog.SyncedFolderPreferencesDialogFragment;
 import com.owncloud.android.ui.dialog.parcel.SyncedFolderParcelable;
-import com.owncloud.android.ui.events.CustomFolderEvent;
 import com.owncloud.android.ui.events.InitiateSyncedFolder;
 import com.owncloud.android.utils.AnalyticsUtils;
 import com.owncloud.android.utils.DisplayUtils;
-import com.owncloud.android.utils.PermissionUtil;
 import com.owncloud.android.utils.FilesSyncHelper;
+import com.owncloud.android.utils.PermissionUtil;
 import com.owncloud.android.utils.ThemeUtils;
 
 import org.greenrobot.eventbus.EventBus;
@@ -209,10 +208,6 @@ public class FolderSyncActivity extends FileActivity implements FolderSyncAdapte
                 mHandler.post(new TimerTask() {
                     @Override
                     public void run() {
-                        // strange hack to make everything work as expected
-                        if (syncFolderItems.size() > 0) {
-                            syncFolderItems.add(0, syncFolderItems.get(0));
-                        }
                         mAdapter.setSyncFolderItems(syncFolderItems);
                         setListShown(true);
                     }
@@ -621,20 +616,17 @@ public class FolderSyncActivity extends FileActivity implements FolderSyncAdapte
         }
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onMessageEvent(CustomFolderEvent event) {
-        Log.d(TAG, "Show custom folder magic here");
+    @Subscribe(threadMode = ThreadMode.BACKGROUND)
+    public void onMessageEvent(InitiateSyncedFolder event) {
+        FilesSyncHelper.insertAllDBEntriesForSyncedFolder(event.getSyncedFolder());
+    }
+
+    public void onAddCustomFolderClick(View view) {
+        Log.d(TAG, "Show custom folder dialog");
         SyncedFolderDisplayItem emptyCustomFolder = new SyncedFolderDisplayItem(
                 SyncedFolder.UNPERSISTED_ID, null, null, true, false,
                 false, AccountUtils.getCurrentOwnCloudAccount(this).name,
                 FileUploader.LOCAL_BEHAVIOUR_FORGET, false, null, MediaFolder.CUSTOM);
         onSyncFolderSettingsClick(0, emptyCustomFolder);
-    };
-
-    @Subscribe(threadMode = ThreadMode.BACKGROUND)
-    public void onMessageEvent(InitiateSyncedFolder event) {
-        FilesSyncHelper.insertAllDBEntriesForSyncedFolder(event.getSyncedFolder());
-    };
-
-
+    }
 }
