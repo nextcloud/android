@@ -5,7 +5,7 @@
 
    <TextView
        android:id="@+id/uploadListGroupName"
-       style="?android:attr/listSeparatorTextViewStyle"
+       style="@style/TextAppearance.AppCompat.Body2"
        android:layout_height="wrap_content"
        android:layout_gravity="center_vertical"
        android:divider="@null"

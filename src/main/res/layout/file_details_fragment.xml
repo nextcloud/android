@@ -231,7 +231,7 @@
 
 			<TextView
 				android:id="@+id/fdShareTitle"
-				style="?android:attr/listSeparatorTextViewStyle"
+				style="@style/TextAppearance.AppCompat.Body2"
 				android:textColor="@color/color_accent"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
@@ -262,7 +262,7 @@
 
 			<TextView
 				android:id="@+id/fdShareWithUsersTitle"
-				style="?android:attr/listSeparatorTextViewStyle"
+				style="@style/TextAppearance.AppCompat.Body2"
 				android:textColor="@color/color_accent"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"

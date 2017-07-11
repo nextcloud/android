@@ -92,7 +92,7 @@
 
             <TextView
                 android:id="@+id/shareWithUsersSectionTitle"
-                style="?android:attr/listSeparatorTextViewStyle"
+                style="@style/TextAppearance.AppCompat.Body2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="start"
@@ -140,7 +140,7 @@
 
             <android.support.v7.widget.SwitchCompat
                 android:id="@+id/shareViaLinkSectionSwitch"
-                style="?android:attr/listSeparatorTextViewStyle"
+                style="@style/TextAppearance.AppCompat.Body2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="start"
