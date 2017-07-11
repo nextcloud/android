@@ -50,6 +50,7 @@ import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.OwnCloudClient;
+import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.activities.models.Activity;
 import com.owncloud.android.lib.resources.activities.models.RichElement;
 import com.owncloud.android.lib.resources.activities.models.RichObject;
@@ -78,6 +79,7 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     public static final int ACTIVITY_TYPE = 101;
     private final ActivityListInterface activityListInterface;
     private final int px;
+    private static final String TAG = ActivityListAdapter.class.getSimpleName();
     private OwnCloudClient mClient;
 
     private Context context;
@@ -184,10 +186,14 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                     @Override
                     public void run() {
                         int w = activityViewHolder.list.getMeasuredWidth();
-
                         int elPxSize = px + 20;
                         int totalColumnCount = (int) Math.floor(w / elPxSize);
-                        activityViewHolder.list.setColumnCount(totalColumnCount);
+
+                        try {
+                            activityViewHolder.list.setColumnCount(totalColumnCount);
+                        } catch (IllegalArgumentException e) {
+                            Log_OC.e(TAG, "error setting column count to " + totalColumnCount);
+                        }
                     }
                 });
 
