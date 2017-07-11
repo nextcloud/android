@@ -362,8 +362,8 @@
 
     <string name="error__upload__local_file_not_copied">%1$s no pudo ser copiado a la carpeta local %2$s</string>
     <string name="prefs_instant_upload_path_title">Carpeta de carga automática</string>
-    <string name="prefs_folder_sync_local_path_title">Carpeta local</string>
-    <string name="prefs_folder_sync_remote_path_title">Carpeta remota</string>
+    <string name="prefs_synced_folders_local_path_title">Carpeta local</string>
+    <string name="prefs_synced_folders_remote_path_title">Carpeta remota</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Usar sub carpetas</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Almacenar en sub carpetas con base en el año y mes</string>
 
@@ -558,7 +558,7 @@
     <string name="actionbar_search">Buscar</string>
     <string name="files_drop_not_supported">Esta es una característica de Nextcloud, por favor actualiza.</string>
     <string name="learn_more">Conoce más</string>
-    <string name="drawer_folder_sync">Carga automática</string>
+    <string name="drawer_synced_folders">Carga automática</string>
     <string name="drawer_participate">Participa</string>
     <string name="participate_testing_headline">Ayúdanos probando</string>
     <string name="participate_testing_bug_text">¿Encontraste una falla? ¿Hay algo raro?</string>

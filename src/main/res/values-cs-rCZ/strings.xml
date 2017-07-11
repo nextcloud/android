@@ -362,8 +362,8 @@
 
     <string name="error__upload__local_file_not_copied">%1$s nelze zkopírovat do místního adresáře %2$s</string>
     <string name="prefs_instant_upload_path_title">Adresář pro okamžité nahrání</string>
-    <string name="prefs_folder_sync_local_path_title">Místní adresář</string>
-    <string name="prefs_folder_sync_remote_path_title">Vzdálený adresář</string>
+    <string name="prefs_synced_folders_local_path_title">Místní adresář</string>
+    <string name="prefs_synced_folders_remote_path_title">Vzdálený adresář</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Používat podadresáře</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Ukládat v podadresářích podle roku a měsíce</string>
 
@@ -558,7 +558,7 @@
     <string name="actionbar_search">Hledat</string>
     <string name="files_drop_not_supported">Toto je Nextcloud funkce, prosím nahrát</string>
     <string name="learn_more">Více</string>
-    <string name="drawer_folder_sync">Automatické nahrávání</string>
+    <string name="drawer_synced_folders">Automatické nahrávání</string>
     <string name="drawer_participate">Zúčastnit se</string>
     <string name="participate_testing_headline">Pomoz nám testovat</string>
     <string name="participate_testing_bug_text">Našli jste chybu? Něco podivného?</string>
@@ -578,12 +578,12 @@
     <string name="move_to">Přesunout do&#8230;</string>
     <string name="copy_to">Kopírovat do&#8230;</string>
     <string name="choose_remote_folder">Vybrat adresář&#8230;</string>
-    <string name="folder_sync_loading_folders">Načítání adresářů&#8230;</string>
-    <string name="folder_sync_no_results">Nebyly nalezeny žádné adresáře médií.</string>
-    <string name="folder_sync_preferences">Nastavení automatického nahrávání</string>
-    <string name="folder_sync_settings">Nastavení</string>
-    <string name="folder_sync_new_info">Okamžité nahrávání dat bylo kompletně předěláno. Navštivte hlavní menu a nakonfigurujte automatické nahrávání svých dat. Omlouváme se za nepříjemnosti.\n\nUžívejte si nové a rozšířené možnosti nahrávání dat!</string>
-    <string name="folder_sync_preferences_folder_path">Pro %1$s</string>
+    <string name="synced_folders_loading_folders">Načítání adresářů&#8230;</string>
+    <string name="synced_folders_no_results">Nebyly nalezeny žádné adresáře médií.</string>
+    <string name="synced_folders_preferences">Nastavení automatického nahrávání</string>
+    <string name="synced_folders_settings">Nastavení</string>
+    <string name="synced_folders_new_info">Okamžité nahrávání dat bylo kompletně předěláno. Navštivte hlavní menu a nakonfigurujte automatické nahrávání svých dat. Omlouváme se za nepříjemnosti.\n\nUžívejte si nové a rozšířené možnosti nahrávání dat!</string>
+    <string name="synced_folders_preferences_folder_path">Pro %1$s</string>
     <plurals name="items_selected_count">
         <item quantity="one">vybráno %d</item>
         <item quantity="few">vybráno %d</item>
@@ -667,7 +667,7 @@
     <string name="privacy">Soukromí</string>
     <string name="file_not_found">Soubor nenalezen!</string>
 
-    <string name="folder_sync_folders">Nastavení adresářů</string>
+    <string name="synced_folders_configure_folders">Nastavení adresářů</string>
 
   <string name="test_server_button">Otestovat připojení k serveru</string>
 </resources>
