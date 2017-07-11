@@ -671,7 +671,7 @@
     <string name="file_not_found">File not found!</string>
 
     <!-- Auto upload -->
-    <string name="autoupload_custom_folder">Setup a custom folder</string>
+    <string name="autoupload_custom_folder">Set up a custom folder</string>
     <string name="autoupload_create_new_custom_folder">Create new custom folder setup</string>
     <string name="folder_sync_folders">Configure folders</string>
 
