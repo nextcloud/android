@@ -124,7 +124,7 @@ public class FilesSyncJob extends Job {
                                     .setExecutionWindow(10_000L, 10_000L)
                                     .setRequiresCharging(needsCharging)
                                     .setRequiredNetworkType(syncedFolder.getWifiOnly() ? JobRequest.NetworkType.UNMETERED :
-                                            JobRequest.NetworkType.ANY)
+                                            JobRequest.NetworkType.CONNECTED)
                                     .setExtras(bundle)
                                     .setRequirementsEnforced(true)
                                     .setUpdateCurrent(false)
