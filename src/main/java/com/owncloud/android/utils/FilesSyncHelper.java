@@ -216,7 +216,8 @@ public class FilesSyncHelper {
                 if (countRestartedJobs < 5) {
                     // Handle case of charging
                     if (jobRequest.requiresCharging() && Device.isCharging(context)) {
-                        if (jobRequest.requiredNetworkType().equals(JobRequest.NetworkType.ANY)) {
+                        if (jobRequest.requiredNetworkType().equals(JobRequest.NetworkType.CONNECTED) &&
+                                !Device.getNetworkType(context).equals(JobRequest.NetworkType.ANY)) {
                             jobRequest.cancelAndEdit().build().schedule();
                             countRestartedJobs++;
                             restartedInCurrentIteration = true;
@@ -231,7 +232,8 @@ public class FilesSyncHelper {
                     // Handle case of wifi
 
                     if (!restartedInCurrentIteration) {
-                        if (jobRequest.requiredNetworkType().equals(JobRequest.NetworkType.ANY)) {
+                        if (jobRequest.requiredNetworkType().equals(JobRequest.NetworkType.CONNECTED) &&
+                                !Device.getNetworkType(context).equals(JobRequest.NetworkType.ANY)) {
                             jobRequest.cancelAndEdit().build().schedule();
                             countRestartedJobs++;
                         } else if (jobRequest.requiredNetworkType().equals(JobRequest.NetworkType.UNMETERED) &&
@@ -274,7 +276,8 @@ public class FilesSyncHelper {
                                     uploadRequester.retry(context, failedUpload);
                                     restartedInCurrentIteration = true;
                                     countRestartedJobs++;
-                                } else if (!failedUpload.isUseWifiOnly()) {
+                                } else if (!failedUpload.isUseWifiOnly() &&
+                                        !Device.getNetworkType(context).equals(JobRequest.NetworkType.ANY)) {
                                     uploadRequester.retry(context, failedUpload);
                                     restartedInCurrentIteration = true;
                                     countRestartedJobs++;
@@ -288,7 +291,8 @@ public class FilesSyncHelper {
                                         Device.getNetworkType(context).equals(JobRequest.NetworkType.UNMETERED)) {
                                     uploadRequester.retry(context, failedUpload);
                                     countRestartedJobs++;
-                                } else if (!failedUpload.isUseWifiOnly()) {
+                                } else if (!failedUpload.isUseWifiOnly() &&
+                                        !Device.getNetworkType(context).equals(JobRequest.NetworkType.ANY)) {
                                     uploadRequester.retry(context, failedUpload);
                                     countRestartedJobs++;
                                 }
