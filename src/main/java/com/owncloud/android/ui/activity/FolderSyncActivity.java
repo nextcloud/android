@@ -94,8 +94,6 @@ public class FolderSyncActivity extends FileActivity implements FolderSyncAdapte
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-
         super.onCreate(savedInstanceState);
 
         if (getIntent().getExtras() != null) {
