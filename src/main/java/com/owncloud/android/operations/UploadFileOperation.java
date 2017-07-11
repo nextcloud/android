@@ -24,11 +24,12 @@ import android.accounts.Account;
 import android.content.Context;
 import android.net.Uri;
 
+import com.evernote.android.job.JobRequest;
+import com.evernote.android.job.util.Device;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.db.OCUpload;
-import com.owncloud.android.db.PreferenceManager;
 import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.network.OnDatatransferProgressListener;
@@ -44,7 +45,6 @@ import com.owncloud.android.lib.resources.files.ReadRemoteFileOperation;
 import com.owncloud.android.lib.resources.files.RemoteFile;
 import com.owncloud.android.lib.resources.files.UploadRemoteFileOperation;
 import com.owncloud.android.operations.common.SyncOperation;
-import com.owncloud.android.utils.ConnectivityUtils;
 import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.MimeType;
 import com.owncloud.android.utils.MimeTypeUtil;
@@ -94,6 +94,8 @@ public class UploadFileOperation extends SyncOperation {
     private boolean mForceOverwrite = false;
     private int mLocalBehaviour = FileUploader.LOCAL_BEHAVIOUR_COPY;
     private int mCreatedBy = CREATED_BY_USER;
+    private boolean mOnWifiOnly = false;
+    private boolean mWhileChargingOnly = false;
 
     private boolean mWasRenamed = false;
     private long mOCUploadId = -1;
@@ -147,7 +149,9 @@ public class UploadFileOperation extends SyncOperation {
                                boolean chunked,
                                boolean forceOverwrite,
                                int localBehaviour,
-                               Context context
+                               Context context,
+                               boolean onWifiOnly,
+                               boolean whileChargingOnly
     ) {
         if (account == null) {
             throw new IllegalArgumentException("Illegal NULL account in UploadFileOperation " + "creation");
@@ -171,6 +175,8 @@ public class UploadFileOperation extends SyncOperation {
         } else {
             mFile = file;
         }
+        mOnWifiOnly = onWifiOnly;
+        mWhileChargingOnly = whileChargingOnly;
         mRemotePath = upload.getRemotePath();
         mChunked = chunked;
         mForceOverwrite = forceOverwrite;
@@ -301,13 +307,13 @@ public class UploadFileOperation extends SyncOperation {
         try {
 
             /// Check that connectivity conditions are met and delays the upload otherwise
-            if (delayForWifi()) {
+            if (mOnWifiOnly && !Device.getNetworkType(mContext).equals(JobRequest.NetworkType.UNMETERED)){
                 Log_OC.d(TAG, "Upload delayed until WiFi is available: " + getRemotePath());
                 return new RemoteOperationResult(ResultCode.DELAYED_FOR_WIFI);
             }
 
             // Check if charging conditions are met and delays the upload otherwise
-            if (delayForCharging()){
+            if (mWhileChargingOnly && !Device.isCharging(mContext)){
                 Log_OC.d(TAG, "Upload delayed until the device is charging: " + getRemotePath());
                 return new RemoteOperationResult(ResultCode.DELAYED_FOR_CHARGING);
             }
@@ -477,41 +483,6 @@ public class UploadFileOperation extends SyncOperation {
 
         return result;
     }
-
-
-    /**
-     * Checks origin of current upload and network type to decide if should be delayed, according to
-     * current user preferences.
-     *
-     * @return      'True' if the upload was delayed until WiFi connectivity is available, 'false' otherwise.
-     */
-    private boolean delayForWifi() {
-        boolean delayInstantPicture = (
-            isInstantPicture() &&  PreferenceManager.instantPictureUploadViaWiFiOnly(mContext)
-        );
-        boolean delayInstantVideo = (
-            isInstantVideo() && PreferenceManager.instantVideoUploadViaWiFiOnly(mContext)
-        );
-        return (
-            (delayInstantPicture || delayInstantVideo) &&
-            !ConnectivityUtils.isAppConnectedViaUnmeteredWiFi(mContext)
-        );
-    }
-
-    /**
-     * Check if upload should be delayed due to not charging
-     *
-     * @return      'True' if the upload was delayed until device is charging, 'false' otherwise.
-     */
-    private boolean delayForCharging() {
-        boolean delayInstantPicture = isInstantPicture() &&
-                PreferenceManager.instantPictureUploadWhenChargingOnly(mContext);
-
-        boolean delayInstantVideo = isInstantVideo() && PreferenceManager.instantVideoUploadWhenChargingOnly(mContext);
-
-        return ((delayInstantPicture || delayInstantVideo) && !ConnectivityUtils.isCharging(mContext));
-    }
-
 
     /**
      * Checks the existence of the folder where the current file will be uploaded both
