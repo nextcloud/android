@@ -67,7 +67,6 @@ import android.widget.Toast;
 
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
-import com.owncloud.android.authentication.AccountAuthenticator;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.db.PreferenceManager;
 import com.owncloud.android.files.services.FileUploader;
@@ -254,25 +253,14 @@ public class ReceiveExternalFilesActivity extends FileActivity
             builder.setPositiveButton(R.string.uploader_wrn_no_account_setup_btn_text, new OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    if (android.os.Build.VERSION.SDK_INT >
-                        android.os.Build.VERSION_CODES.ECLAIR_MR1) {
-                        // using string value since in API7 this
-                        // constant is not defined
-                        // in API7 < this constant is defined in
-                        // Settings.ADD_ACCOUNT_SETTINGS
-                        // and Settings.EXTRA_AUTHORITIES
-                        Intent intent = new Intent(android.provider.Settings.ACTION_ADD_ACCOUNT);
-                        intent.putExtra("authorities", new String[]{MainApp.getAuthTokenType()});
-                        startActivityForResult(intent, REQUEST_CODE__SETUP_ACCOUNT);
-                    } else {
-                        // since in API7 there is no direct call for
-                        // account setup, so we need to
-                        // show our own AccountSetupActivity, get
-                        // desired results and setup
-                        // everything for ourselves
-                        Intent intent = new Intent(getActivity().getBaseContext(), AccountAuthenticator.class);
-                        startActivityForResult(intent, REQUEST_CODE__SETUP_ACCOUNT);
-                    }
+                    // using string value since in API7 this
+                    // constant is not defined
+                    // in API7 < this constant is defined in
+                    // Settings.ADD_ACCOUNT_SETTINGS
+                    // and Settings.EXTRA_AUTHORITIES
+                    Intent intent = new Intent(android.provider.Settings.ACTION_ADD_ACCOUNT);
+                    intent.putExtra("authorities", new String[]{MainApp.getAuthTokenType()});
+                    startActivityForResult(intent, REQUEST_CODE__SETUP_ACCOUNT);
                 }
             });
             builder.setNegativeButton(R.string.uploader_wrn_no_account_quit_btn_text, new OnClickListener() {
