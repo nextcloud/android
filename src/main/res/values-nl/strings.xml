@@ -303,6 +303,9 @@ Kies er eentje van een provider.</string>
     <string name="activity_chooser_title">Verstuur link naar &#8230;</string>
     <string name="wait_for_tmp_copy_from_private_storage">Bestand vanaf privéopslag kopiëren</string>
     
+    <string name="oauth_check_onoff">Inloggen met OAuth 2.0</string> 
+    <string name="oauth_login_connection">Verbinden met OAuth 2.0 server…</string>    
+        
     <string name="ssl_validator_header">De identiteit van de site kan niet worden gecontroleerd</string>
     <string name="ssl_validator_reason_cert_not_trusted">- Het servercertificaat wordt niet vertrouwd</string>
     <string name="ssl_validator_reason_cert_expired">- Het servercertificaat is verlopen</string>
@@ -344,6 +347,7 @@ Kies er eentje van een provider.</string>
     <string name="instant_video_upload_on_charging">Alleen uploaden bij opladen</string>
     <string name="instant_upload_on_charging">Alleen uploaden bij opladen</string>
     <string name="instant_upload_path">/InstantUpload</string>
+    <string name="auto_upload_path">/AutomatischUploaden</string>
     <string name="conflict_title">Bestandsconflict</string>
     <string name="conflict_message">Welke bestanden wil je bewaren? Als je beide versies selecteert zal het lokale bestand een volgnummer aan de naam toegevoegd krijgen.</string>
     <string name="conflict_keep_both">Beide bewaren</string>
