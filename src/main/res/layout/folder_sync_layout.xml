@@ -35,10 +35,23 @@
         <include
             layout="@layout/toolbar_standard"/>
 
+        <TextView
+            android:id="@+id/add_custom_folder"
+            android:layout_below="@+id/appbar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:drawableLeft="@drawable/ic_folder_star_18dp"
+            android:drawableStart="@drawable/ic_folder_star_18dp"
+            android:onClick="onAddCustomFolderClick"
+            android:paddingBottom="@dimen/alternate_half_padding"
+            android:paddingTop="@dimen/alternate_half_padding"
+            android:text="@string/autoupload_custom_folder"/>
+
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@+id/appbar"
+            android:layout_below="@+id/add_custom_folder"
             android:layout_above="@+id/bottom_navigation_view"
             android:id="@+id/ListLayout"
             android:orientation="vertical">
@@ -66,18 +79,6 @@
                     android:text="@string/folder_sync_loading_folders"
                     android:textSize="26sp"/>
             </LinearLayout>
-
-            <TextView
-                android:id="@+id/add_custom_folder"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:paddingTop="@dimen/alternate_half_padding"
-                android:paddingBottom="@dimen/alternate_half_padding"
-                android:text="@string/autoupload_custom_folder"
-                android:drawableStart="@drawable/ic_folder_star_18dp"
-                android:drawableLeft="@drawable/ic_folder_star_18dp"
-                android:onClick="onAddCustomFolderClick"/>
 
             <TextView
                 android:id="@android:id/empty"
