@@ -112,6 +112,7 @@
     <string name="file_list_empty_headline_server_search_photos">Žádná fotka</string>
     <string name="file_list_empty_search">Zkusit hledat v jiné složce?</string>
     <string name="file_list_empty_recently_modified">Nenalezeny žádné soubory upravené v posledních 7 dnech</string>
+    <string name="file_list_empty_recently_modified_filter">Vyhledávání nenalezlo žádné změny v posledních 7 dnech.</string>
     <string name="file_list_empty_recently_added">Nenalezeny žádné nedávno přidané soubory</string>
     <string name="file_list_empty_recently_added_filter">Vaše vyhledávání nenalezlo žádné nedávno přidané soubory.</string>
     <string name="file_list_empty_text_photos">Nahrajte nějaké fotky nebo aktivujte automatické nahrávání.</string>
@@ -302,6 +303,9 @@
     <string name="activity_chooser_title">Odeslat odkaz &#8230;</string>
     <string name="wait_for_tmp_copy_from_private_storage">Kopírování souboru z privátního úložiště</string>
     
+    <string name="oauth_check_onoff">Přihlásit se s OAuth 2.0</string> 
+    <string name="oauth_login_connection">Připojuji se k OAuth 2.0 serveru...</string>    
+        
     <string name="ssl_validator_header">Identitu stránky nelze ověřit</string>
     <string name="ssl_validator_reason_cert_not_trusted">- Certifikát serveru je nedůvěryhodný</string>
     <string name="ssl_validator_reason_cert_expired">- Certifikátu serveru vypršela platnost</string>
@@ -343,6 +347,7 @@
     <string name="instant_video_upload_on_charging">Nahrávat pouze při nabíjení</string>
     <string name="instant_upload_on_charging">Nahrávat pouze při nabíjení</string>
     <string name="instant_upload_path">/InstantUpload</string>
+    <string name="auto_upload_path">/AutomatickéNahrávání</string>
     <string name="conflict_title">Konflikt souboru</string>
     <string name="conflict_message">Které soubory chcete ponechat? Pokud zvolíte obě verze, zkopírovaný soubor bude mít název doplněný o číslo.</string>
     <string name="conflict_keep_both">Ponechat oba</string>
@@ -477,6 +482,7 @@
     <string name="file_list__footer__files">%1$d soubory(ů)</string>
     <string name="file_list__footer__files_and_folder">%1$d soubory(ů), 1 adresář</string>
     <string name="file_list__footer__files_and_folders">%1$d soubory(ů), %2$d adresáře(ů)</string>
+    <string name="set_picture_as">Použít obrázek jako</string>
     <string name="set_as">Nastavit jako</string>
 
     <string name="prefs_instant_behaviour_dialogTitle">Originální soubor bude&#8230;</string>
@@ -555,6 +561,7 @@
     <string name="participate_beta_headline">Testovat noční verzi</string>
     <string name="participate_beta_text">Zahrnuje všechny nadcházející funkce a pohybuje se na hraně stability. Mohou se vyskytnout chyby, a pokud ano, nahlašte nám je prosím.</string>
     <string name="participate_release_candidate_headline">Předběžná verze</string>
+    <string name="participate_release_candidate_text">Kandidát na vydání (RC) je snímkem nadcházejícího vydání a očekává se, že bude stabilní. Testování vašeho individuálního nastavení by to mohlo pomoci zajistit. Přihlaste se k testování v Obchodě Play nebo se podívejte do F-Droid v části \"Verze\" a přihlaste se manuálně.</string>
     <string name="participate_contribute_headline">Aktivně něčím přispět</string>
     <string name="participate_contribute_irc_text">Diskutovat na IRC: &lt;a href=\"%1$s\">#nextcloud-mobile&lt;/a></string>
     <string name="participate_contribute_forum_text">Pomozte ostatním na &lt;a href=\"%1$s\">fóru&lt;/a></string>
@@ -627,7 +634,10 @@
     <string name="webview_error">Došlo k chybě</string>
     <string name="prefs_category_about">O aplikaci</string>
 
+    <string name="actionbar_contacts">Zálohování kontaktů</string>
     <string name="actionbar_contacts_restore">Obnovení kontaktů</string>
+    <string name="contacts_backup_button">Zálohovat nyní</string>
+    <string name="contacts_automatic_backup">Automatické zálohování</string>
     <string name="contacts_last_backup">Poslední záloha</string>
     <string name="contacts_read_permission">Je třeba oprávnění ke čtení seznamu kontaktů</string>
     <string name="contacts_write_permission">Povolení změn v seznam kontaktů je vyžadováno</string>
