@@ -55,6 +55,13 @@ If your issue appears to be a bug, and hasn't been reported, open a new issue.
 * PR exists (and then the PR# should be shown in first post)
 
 
+### Bug workflow
+* approved: at least one other is able to reproduce it
+* needs info: something unclear, or not able to reproduce
+  * if no response within 1 months, bug will be closed
+* pr exists: if bug is fixed, link to pr
+
+
 # Contributing to Source Code
 Thanks for wanting to contribute source code to Nextcloud. That's great!
 
