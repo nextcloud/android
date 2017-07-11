@@ -190,13 +190,14 @@ public class Preferences extends PreferenceActivity
                 accentColor));
 
         // Synced folders
-        PreferenceCategory preferenceCategoryFolderSync = (PreferenceCategory) findPreference("folder_sync");
+        PreferenceCategory preferenceCategorySyncedFolders =
+                (PreferenceCategory) findPreference("synced_folders_category");
         preferenceCategoryFolderSync.setTitle(ThemeUtils.getColoredTitle(getString(R.string.drawer_folder_sync),
                 accentColor));
         PreferenceScreen preferenceScreen = (PreferenceScreen) findPreference("preference_screen");
 
         if (!getResources().getBoolean(R.bool.syncedFolder_light)) {
-            preferenceScreen.removePreference(preferenceCategoryFolderSync);
+            preferenceScreen.removePreference(preferenceCategorySyncedFolders);
         } else {
             // Upload on WiFi
             final ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProvider(getContentResolver());
@@ -216,21 +217,21 @@ public class Preferences extends PreferenceActivity
                 }
             });
 
-            Preference pSyncedFolder = findPreference("folder_sync_folders");
+            Preference pSyncedFolder = findPreference("synced_folders_configure_folders");
             if (pSyncedFolder != null) {
                 if (getResources().getBoolean(R.bool.syncedFolder_light)
                         && Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     pSyncedFolder.setOnPreferenceClickListener(new OnPreferenceClickListener() {
                         @Override
                         public boolean onPreferenceClick(Preference preference) {
-                            Intent folderSyncIntent = new Intent(getApplicationContext(), FolderSyncActivity.class);
-                            folderSyncIntent.putExtra(FolderSyncActivity.EXTRA_SHOW_SIDEBAR, false);
-                            startActivity(folderSyncIntent);
+                            Intent syncedFoldersIntent = new Intent(getApplicationContext(), SyncedFoldersActivity.class);
+                            syncedFoldersIntent.putExtra(SyncedFoldersActivity.EXTRA_SHOW_SIDEBAR, false);
+                            startActivity(syncedFoldersIntent);
                             return true;
                         }
                     });
                 } else {
-                    preferenceCategoryFolderSync.removePreference(pSyncedFolder);
+                    preferenceCategorySyncedFolders.removePreference(pSyncedFolder);
                 }
             }
         }
