@@ -7,6 +7,7 @@ nextcloud/contactsBackupUI
 nextcloud/crashDueToEmptyString
 nextcloud/deleteFilesOnAccountRemoval
 nextcloud/dev
+nextcloud/ErrorInActivityListAdapter
 nextcloud/externalStorage
 nextcloud/fix_file_modification_date_on_upload
 nextcloud/folderObserver
