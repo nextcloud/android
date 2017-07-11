@@ -68,6 +68,18 @@
             </LinearLayout>
 
             <TextView
+                android:id="@+id/add_custom_folder"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:paddingTop="@dimen/alternate_half_padding"
+                android:paddingBottom="@dimen/alternate_half_padding"
+                android:text="@string/autoupload_custom_folder"
+                android:drawableStart="@drawable/ic_folder_star_18dp"
+                android:drawableLeft="@drawable/ic_folder_star_18dp"
+                android:onClick="onAddCustomFolderClick"/>
+
+            <TextView
                 android:id="@android:id/empty"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
