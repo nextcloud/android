@@ -66,9 +66,11 @@ public class UserListAdapter extends ArrayAdapter {
 
     @Override
     public @NonNull View getView(final int position, View convertView, @NonNull ViewGroup parent) {
-        LayoutInflater inflater = (LayoutInflater) mContext
-                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View view = inflater.inflate(R.layout.file_details_share_user_item, parent, false);
+        View view = convertView;
+        if (view == null) {
+            LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            view = inflater.inflate(R.layout.file_details_share_user_item, parent, false);
+        }
 
         if (mShares != null && mShares.size() > position) {
             OCShare share = mShares.get(position);
