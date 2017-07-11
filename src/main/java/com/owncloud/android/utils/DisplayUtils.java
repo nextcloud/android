@@ -233,26 +233,22 @@ public class DisplayUtils {
             dots = dots + ".";
         }
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD) {
-            // Find host name after '//' or '@'
-            int hostStart = 0;
-            if (urlNoDots.contains("//")) {
-                hostStart = url.indexOf("//") + "//".length();
-            } else if (url.contains("@")) {
-                hostStart = url.indexOf('@') + "@".length();
-            }
-
-            int hostEnd = url.substring(hostStart).indexOf("/");
-            // Handle URL which doesn't have a path (path is implicitly '/')
-            hostEnd = (hostEnd == -1 ? urlNoDots.length() : hostStart + hostEnd);
-
-            String host = urlNoDots.substring(hostStart, hostEnd);
-            host = (toASCII ? IDN.toASCII(host) : IDN.toUnicode(host));
-
-            return dots + urlNoDots.substring(0, hostStart) + host + urlNoDots.substring(hostEnd);
-        } else {
-            return dots + url;
+        // Find host name after '//' or '@'
+        int hostStart = 0;
+        if (urlNoDots.contains("//")) {
+            hostStart = url.indexOf("//") + "//".length();
+        } else if (url.contains("@")) {
+            hostStart = url.indexOf('@') + "@".length();
         }
+
+        int hostEnd = url.substring(hostStart).indexOf("/");
+        // Handle URL which doesn't have a path (path is implicitly '/')
+        hostEnd = (hostEnd == -1 ? urlNoDots.length() : hostStart + hostEnd);
+
+        String host = urlNoDots.substring(hostStart, hostEnd);
+        host = (toASCII ? IDN.toASCII(host) : IDN.toUnicode(host));
+
+        return dots + urlNoDots.substring(0, hostStart) + host + urlNoDots.substring(hostEnd);
     }
 
     /**
