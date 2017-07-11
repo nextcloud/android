@@ -290,8 +290,8 @@
     <string name="preview_image_error_unknown_format">Kuvan näyttäminen ei onnistunut</string>
 
     <string name="prefs_instant_upload_path_title">Välitön lähetys kansio</string>
-    <string name="prefs_folder_sync_local_path_title">Paikallinen kansio</string>
-    <string name="prefs_folder_sync_remote_path_title">Etäkansio</string>
+    <string name="prefs_synced_folders_local_path_title">Paikallinen kansio</string>
+    <string name="prefs_synced_folders_remote_path_title">Etäkansio</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Käytä alikansioita</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Tallenna alikansioihin vuoden ja kuukauden mukaisesti.</string>
 
@@ -432,16 +432,16 @@
     <string name="actionbar_search">Etsi</string>
     <string name="files_drop_not_supported">Tämä on Nextcloudin ominaisuus, päivitä se.</string>
     <string name="learn_more">Opi lisää</string>
-    <string name="drawer_folder_sync">Automaattinen lähetys</string>
+    <string name="drawer_synced_folders">Automaattinen lähetys</string>
     <string name="drawer_participate">Osallitu</string>
     <string name="participate_release_candidate_headline">Julkaisu ehdokas</string>
     <string name="move_to">Siirrä kohteeseen&#8230;</string>
     <string name="copy_to">Kopio kohteeseen&#8230;</string>
     <string name="choose_remote_folder">Valitse kansio&#8230;</string>
-    <string name="folder_sync_loading_folders">Ladataan kansiot&#8230;</string>
-    <string name="folder_sync_no_results">Media kansioita ei löytynyt.</string>
-    <string name="folder_sync_settings">Asetukset</string>
-    <string name="folder_sync_preferences_folder_path">%1$s varten</string>
+    <string name="synced_folders_loading_folders">Ladataan kansiot&#8230;</string>
+    <string name="synced_folders_no_results">Media kansioita ei löytynyt.</string>
+    <string name="synced_folders_settings">Asetukset</string>
+    <string name="synced_folders_preferences_folder_path">%1$s varten</string>
     <plurals name="items_selected_count">
         <item quantity="one">%d valittu</item>
         <item quantity="other">%d valittu</item>
