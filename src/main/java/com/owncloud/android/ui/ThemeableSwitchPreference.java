@@ -23,7 +23,9 @@ package com.owncloud.android.ui;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
+import android.os.Build;
 import android.preference.SwitchPreference;
+import android.support.annotation.RequiresApi;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.util.AttributeSet;
 import android.view.View;
@@ -55,11 +57,12 @@ public class ThemeableSwitchPreference extends SwitchPreference {
     protected void onBindView(View view) {
         super.onBindView(view);
 
-        if (view instanceof ViewGroup) {
+        if (view instanceof ViewGroup && Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
             findSwitch((ViewGroup) view);
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.JELLY_BEAN)
     private void findSwitch(ViewGroup viewGroup) {
         for (int i = 0; i < viewGroup.getChildCount(); i++) {
             View child = viewGroup.getChildAt(i);
