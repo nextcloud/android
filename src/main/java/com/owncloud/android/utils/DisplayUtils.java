@@ -358,8 +358,9 @@ public class DisplayUtils {
 
         // Remove last slash from path
         if (path.length() > 1 && path.charAt(path.length() - 1) == OCFile.PATH_SEPARATOR.charAt(0)) {
-            path = path.substring(0, path.length() - 1);
+            return path.substring(0, path.length() - 1);
         }
+        
         return path;
     }
 
