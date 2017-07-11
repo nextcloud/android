@@ -112,6 +112,7 @@
     <string name="file_list_empty_headline_server_search_photos">Ingen bilder</string>
     <string name="file_list_empty_search">Vil du prøve i en annen mappe?</string>
     <string name="file_list_empty_recently_modified">Fant ingen filer endret de siste syv dagene</string>
+    <string name="file_list_empty_recently_modified_filter">Spørringen din returnerte ingen filer endret de siste syv dagene.</string>
     <string name="file_list_empty_recently_added">Fant ingen nylig tillagte filer</string>
     <string name="file_list_empty_recently_added_filter">Søket ditt frambragte ingen nylig tillagte filer.</string>
     <string name="file_list_empty_text_photos">Last opp noen bilder eller aktiver automatisk opplasting.</string>
@@ -302,6 +303,9 @@
     <string name="activity_chooser_title">Send lenke til &#8230;</string>
     <string name="wait_for_tmp_copy_from_private_storage">Kopierer fil fra privat lager</string>
     
+    <string name="oauth_check_onoff">Logg inn med OAuth 2.0</string> 
+    <string name="oauth_login_connection">Kobler til OAuth 2.0-tjener...</string>    
+        
     <string name="ssl_validator_header">Identiteten til siden kunne ikke bekreftes</string>
     <string name="ssl_validator_reason_cert_not_trusted">- Tjenerens sertifikat er ikke til å stole på</string>
     <string name="ssl_validator_reason_cert_expired">- Tjenerens sertifikat er utløpt</string>
@@ -343,6 +347,7 @@
     <string name="instant_video_upload_on_charging">Last kun opp under lading</string>
     <string name="instant_upload_on_charging">Last kun opp under lading</string>
     <string name="instant_upload_path">/Direkteopplasting</string>
+    <string name="auto_upload_path">/Auto-opplasting</string>
     <string name="conflict_title">Filkonflikt</string>
     <string name="conflict_message">Hvilke filer ønsker du å beholder? Hvis du velger begge versjonene, får den lokale filen lagt til et tall i navnet.</string>
     <string name="conflict_keep_both">Behold begge</string>
@@ -477,6 +482,7 @@
     <string name="file_list__footer__files">%1$d filer</string>
     <string name="file_list__footer__files_and_folder">%1$d filer, 1 mappe</string>
     <string name="file_list__footer__files_and_folders">%1$d filer, %2$d mapper</string>
+    <string name="set_picture_as">Bruk bilde som</string>
     <string name="set_as">Bruk som</string>
 
     <string name="prefs_instant_behaviour_dialogTitle">Opprinnelig fil vil bli&#8230;</string>
@@ -555,6 +561,7 @@
     <string name="participate_beta_headline">Test utvikler-versjonen</string>
     <string name="participate_beta_text">Dette inkluderer alle kommende funksjoner og er helt på kanten. Feil/feilmeldinger kan oppstå og i sådant fall, meld fra om dem til oss.</string>
     <string name="participate_release_candidate_headline">Slippkandidat</string>
+    <string name="participate_release_candidate_text">Slippkandidat (RC) er en øyeblikkspakke av den kommende utgaven og er forventet å være stabil. Ved å teste denne med ditt oppsett hjelper du til å med dette. Meld deg på testing i Play-butikken, eller se i seksjonen \"Versjon\" for programmet i F-Droid.</string>
     <string name="participate_contribute_headline">Bidra aktivt</string>
     <string name="participate_contribute_irc_text">Sludre med oss på IRC: &lt;a href=\"%1$s\">#nextcloud-mobile&lt;/a></string>
     <string name="participate_contribute_forum_text">Hjelp andre på vårt &lt;a href=\"%1$s\">forum&lt;/a></string>
