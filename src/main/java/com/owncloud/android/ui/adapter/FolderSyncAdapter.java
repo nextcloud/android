@@ -70,7 +70,6 @@ public class FolderSyncAdapter extends SectionedRecyclerViewAdapter<FolderSyncAd
     public void setSyncFolderItems(List<SyncedFolderDisplayItem> syncFolderItems) {
         mSyncFolderItems.clear();
         mSyncFolderItems.addAll(syncFolderItems);
-        notifyDataSetChanged();
     }
 
     public void setSyncFolderItem(int location, SyncedFolderDisplayItem syncFolderItem) {
@@ -100,6 +99,10 @@ public class FolderSyncAdapter extends SectionedRecyclerViewAdapter<FolderSyncAd
         } else {
             return 1;
         }
+    }
+
+    public SyncedFolderDisplayItem get(int section) {
+        return mSyncFolderItems.get(section);
     }
 
     @Override
