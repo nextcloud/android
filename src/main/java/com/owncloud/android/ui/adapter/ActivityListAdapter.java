@@ -79,7 +79,7 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     public static final int ACTIVITY_TYPE = 101;
     private final ActivityListInterface activityListInterface;
     private final int px;
-    private static final String TAG = "ActivityListAdapter";
+    private static final String TAG = ActivityListAdapter.class.getSimpleName();
     private OwnCloudClient mClient;
 
     private Context context;
