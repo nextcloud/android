@@ -1,4 +1,4 @@
-/**
+/*
  * ownCloud Android client application
  *
  * @author Bartek Przybylski
@@ -58,6 +58,7 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
+import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -235,6 +236,8 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     private boolean webViewLoginMethod;
     private String webViewUser;
     private String webViewPassword;
+    private TextInputLayout mUsernameInputLayout;
+    private TextInputLayout mPasswordInputLayout;
 
     /**
      * {@inheritDoc}
@@ -285,6 +288,9 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
             /// initialize general UI elements
             initOverallUi();
+
+            mUsernameInputLayout = (TextInputLayout) findViewById(R.id.input_layout_account_username);
+            mPasswordInputLayout = (TextInputLayout) findViewById(R.id.input_layout_account_password);
 
             mOkButton = findViewById(R.id.buttonOK);
             mOkButton.setOnClickListener(new View.OnClickListener() {
@@ -491,6 +497,10 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         } else {
             instructionsView.setVisibility(View.GONE);
         }
+    }
+
+    public void onTestServerConnectionClick(View v) {
+        checkOcServer();
     }
 
 
@@ -997,10 +1007,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
             Intent getServerInfoIntent = new Intent();
             getServerInfoIntent.setAction(OperationsService.ACTION_GET_SERVER_INFO);
-            getServerInfoIntent.putExtra(
-                    OperationsService.EXTRA_SERVER_URL,
-                    normalizeUrlSuffix(uri)
-            );
+            getServerInfoIntent.putExtra(OperationsService.EXTRA_SERVER_URL, normalizeUrlSuffix(uri));
 
             if (mOperationsServiceBinder != null) {
                 mWaitingForOpId = mOperationsServiceBinder.queueNewOperation(getServerInfoIntent);
@@ -1295,9 +1302,23 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
             webViewLoginMethod = mServerInfo.mVersion.isWebLoginSupported();
 
-            setContentView(R.layout.account_setup_webview);
-            mLoginWebView = (WebView) findViewById(R.id.login_webview);
-            initWebViewLogin(mServerInfo.mBaseUrl);
+            if (webViewLoginMethod) {
+                // hide old login
+                mOkButton.setVisibility(View.GONE);
+                mUsernameInputLayout.setVisibility(View.GONE);
+                mPasswordInputLayout.setVisibility(View.GONE);
+
+                setContentView(R.layout.account_setup_webview);
+                mLoginWebView = (WebView) findViewById(R.id.login_webview);
+                initWebViewLogin(mServerInfo.mBaseUrl);
+
+                // checkBasicAuthorization(webViewUser, webViewPassword);
+            } else {
+                // show old login
+                mOkButton.setVisibility(View.VISIBLE);
+                mUsernameInputLayout.setVisibility(View.VISIBLE);
+                mPasswordInputLayout.setVisibility(View.VISIBLE);
+            }
 
             if (webViewLoginMethod) {
                 checkBasicAuthorization(webViewUser, webViewPassword);
@@ -1325,6 +1346,14 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             showServerStatus();
             mOkButton.setEnabled(mServerIsValid);
         }
+
+        if (!mServerIsValid) {
+            // hide old login
+            mOkButton.setVisibility(View.GONE);
+            mUsernameInputLayout.setVisibility(View.GONE);
+            mPasswordInputLayout.setVisibility(View.GONE);
+        }
+
 
         /// very special case (TODO: move to a common place for all the remote operations)
         if (result.getCode() == ResultCode.SSL_RECOVERABLE_PEER_UNVERIFIED) {
