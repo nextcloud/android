@@ -75,6 +75,7 @@ public class VirtualStorageManager {
         ArrayList<ContentValues> contentValues = new ArrayList<>();
         for (int i = 0; i < objects.size(); i++) {
             OCFile ocFile = FileStorageUtils.fillOCFile((RemoteFile) objects.get(i));
+            searchForLocalFileInDefaultPath(ocFile);
             OCFile temp=mStorageManager.getFileByPath(ocFile.getRemotePath());
             if(temp!=null){
                 ocFile=temp;
