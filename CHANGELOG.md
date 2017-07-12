@@ -1,3 +1,8 @@
+## 2017-07-13 00:31
+no new branches added
+
+- Master (nextcloud/master) [https://github.com/nextcloud/android] updated
+
 ## 2017-07-12 00:31
 - Catch a rare exception while setting activity list adapter (nextcloud/ErrorInActivityListAdapter) [https://github.com/nextcloud/android/pull/1173] added
 
