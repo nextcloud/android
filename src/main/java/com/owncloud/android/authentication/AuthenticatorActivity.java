@@ -1302,7 +1302,10 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
             webViewLoginMethod = mServerInfo.mVersion.isWebLoginSupported();
 
-            if (webViewLoginMethod) {
+            if (webViewUser != null && !webViewUser.isEmpty() &&
+                    webViewPassword != null && !webViewPassword.isEmpty()) {
+                checkBasicAuthorization(webViewUser, webViewPassword);
+            } else if (webViewLoginMethod) {
                 // hide old login
                 mOkButton.setVisibility(View.GONE);
                 mUsernameInputLayout.setVisibility(View.GONE);
@@ -1318,10 +1321,6 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
                 mOkButton.setVisibility(View.VISIBLE);
                 mUsernameInputLayout.setVisibility(View.VISIBLE);
                 mPasswordInputLayout.setVisibility(View.VISIBLE);
-            }
-
-            if (webViewLoginMethod) {
-                checkBasicAuthorization(webViewUser, webViewPassword);
             }
 
             if (!authSupported(mServerInfo.mAuthMethod)) {
