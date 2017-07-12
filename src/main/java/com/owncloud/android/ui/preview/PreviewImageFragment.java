@@ -177,6 +177,7 @@ public class PreviewImageFragment extends FileFragment {
         super.onCreateView(inflater, container, savedInstanceState);
         View view = inflater.inflate(R.layout.preview_image_fragment, container, false);
         mImageView = (TouchImageViewCustom) view.findViewById(R.id.image);
+        mImageView.setPreviewImageFragment(this);
         mImageView.setVisibility(View.GONE);
 
         view.setOnClickListener(new OnClickListener() {
@@ -201,6 +202,14 @@ public class PreviewImageFragment extends FileFragment {
         setMultiListLoadingMessage();
 
         return view;
+    }
+
+    public void switchToFullScreen() {
+        ((PreviewImageActivity) getActivity()).switchToFullScreen();
+    }
+
+    public void downloadFile() {
+        ((PreviewImageActivity) getActivity()).requestForDownload(getFile());
     }
 
     protected void setupMultiView(View view) {

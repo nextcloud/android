@@ -897,16 +897,14 @@ public class TouchImageViewCustom extends ImageViewCustom {
         @Override
         public boolean onScaleBegin(ScaleGestureDetector detector) {
             setState(State.ZOOM);
+
+            previewImageFragment.switchToFullScreen();
             return true;
         }
 
         @Override
         public boolean onScale(ScaleGestureDetector detector) {
         	scaleImage(detector.getScaleFactor(), detector.getFocusX(), detector.getFocusY(), true);
-
-
-//            MainApp.storagePath = appPrefs.getString(Preferences.PreferenceKeys.STORAGE_PATH, Environment.
-//                    getExternalStorageDirectory().getAbsolutePath());
 
             if (!snackShown && getCurrentZoom() > 2 && !previewImageFragment.getFile().isDown()) {
                 showDownloadSnackbar();
@@ -925,11 +923,17 @@ public class TouchImageViewCustom extends ImageViewCustom {
             snackShown = true;
 
             Snackbar.make(getRootView(), "Download full image?", Snackbar.LENGTH_LONG)
+                    .setCallback(new Snackbar.Callback() {
+                        @Override
+                        public void onDismissed(Snackbar snackbar, int event) {
+                            super.onDismissed(snackbar, event);
+                            snackShown = false;
+                        }
+                    })
                     .setAction("Yes", new OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            // TODO
-                            // previewImageFragment.downloadFile();
+                            previewImageFragment.downloadFile();
                         }
                     }).show();
         }

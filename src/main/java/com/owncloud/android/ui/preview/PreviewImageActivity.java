@@ -324,7 +324,7 @@ public class PreviewImageActivity extends FileActivity implements
         finish();
     }
 
-    private void requestForDownload(OCFile file) {
+    public void requestForDownload(OCFile file) {
         if (mDownloaderBinder == null) {
             Log_OC.d(TAG, "requestForDownload called without binder to download service");
             
@@ -448,6 +448,10 @@ public class PreviewImageActivity extends FileActivity implements
             // actionBar.show(); // propagated through
             // OnSystemUiVisibilityChangeListener()
         }
+    }
+
+    public void switchToFullScreen() {
+        hideSystemUI(mFullScreenAnchorView);
     }
 
     @Override
