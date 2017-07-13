@@ -1,16 +1,17 @@
 ## 1.5.0 (2017)
 
-- Account-wide search (NC 12+)
+- Account-wide search (Nc 12+)
 - Auto upload available on Android 4+
 - Separation between Image & Video for Auto upload
 - Ability to define custom folders for Auto upload
 - Simple contacts backup & restore
+- Server-side Theming support
 - Shared files view
 - Notifications view and Push notifications (on Google Play-powered devices)
 - Favorites, Photos and Activities
 - Fingerprint locking
 - SVG preview
-- Set edit permissions in federated shares of folders (NC 10+)
+- Set edit permissions in federated shares of folders (Nc 10+)
 - New sorting dialog
 - User information view
 - Custom external links support
@@ -21,7 +22,7 @@
 - Various bug fixes & improvements
 
 ## 1.4.3 (May 22, 2017)
-- Hotfix: ignore oauth header for now and use basic auth to allow new logins for nc12
+- Hotfix: ignore oauth header for now and use basic auth to allow new logins for Nc12
 
 ## 1.4.2 (March 14, 2017)
 - Auto Upload for newly taken photos/images (Android 6+)
