@@ -497,12 +497,8 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
                             .getColor(R.color.background_color));
                 }
             } else {
-                fileIcon.setImageResource(MimeTypeUtil.getFileTypeIconId(
-                        upload.getMimeType(),
-                        fileName
-                ));
+                fileIcon.setImageDrawable(MimeTypeUtil.getFileTypeIcon(upload.getMimeType(), fileName, account));
             }
-
         }
 
         return view;
