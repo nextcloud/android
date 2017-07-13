@@ -24,7 +24,7 @@ package com.owncloud.android.ui.fragment;
 import android.accounts.Account;
 import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.support.v7.widget.AppCompatCheckBox;
+import android.support.v7.widget.SwitchCompat;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -32,8 +32,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
+import android.widget.ListAdapter;
+import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -47,8 +49,10 @@ import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
 import com.owncloud.android.lib.common.network.OnDatatransferProgressListener;
 import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
+import com.owncloud.android.ui.adapter.UserListAdapter;
 import com.owncloud.android.ui.dialog.RemoveFilesDialogFragment;
 import com.owncloud.android.ui.dialog.RenameFileDialogFragment;
 import com.owncloud.android.utils.AnalyticsUtils;
@@ -57,18 +61,23 @@ import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.ThemeUtils;
 
 import java.lang.ref.WeakReference;
+import java.util.ArrayList;
 
 
 /**
  * This Fragment is used to display the details about a file.
  */
-public class FileDetailFragment extends FileFragment implements OnClickListener {
+public class FileDetailFragment extends FileFragment implements OnClickListener,
+        CompoundButton.OnCheckedChangeListener {
 
     private int mLayout;
     private View mView;
     private Account mAccount;
 
     public ProgressListener mProgressListener;
+
+    // to show share with users/groups info
+    private ArrayList<OCShare> mShares;
 
     private static final String TAG = FileDetailFragment.class.getSimpleName();
     public static final String FTAG_CONFIRMATION = "REMOVE_CONFIRMATION_FRAGMENT";
@@ -143,14 +152,16 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
         mView = inflater.inflate(mLayout, null);
         
         if (mLayout == R.layout.file_details_fragment) {
-            mView.findViewById(R.id.fdFavorite).setOnClickListener(this);
+            int accentColor = ThemeUtils.primaryAccentColor();
+            SwitchCompat favoriteToggle = (SwitchCompat) mView.findViewById(R.id.fdFavorite);
+            favoriteToggle.setOnCheckedChangeListener(this);
+            ThemeUtils.tintSwitch(favoriteToggle, accentColor, false);
             ProgressBar progressBar = (ProgressBar)mView.findViewById(R.id.fdProgressBar);
-            ThemeUtils.colorPreLollipopHorizontalProgressBar(progressBar);
+            ThemeUtils.colorHorizontalProgressBar(progressBar, ThemeUtils.primaryAccentColor());
             mProgressListener = new ProgressListener(progressBar);
             mView.findViewById(R.id.fdCancelBtn).setOnClickListener(this);
-
-            AppCompatCheckBox favoriteCheckBox = (AppCompatCheckBox) mView.findViewById(R.id.fdFavorite);
-            ThemeUtils.tintCheckbox(favoriteCheckBox, ThemeUtils.primaryAccentColor());
+            ((TextView)mView.findViewById(R.id.fdShareTitle)).setTextColor(accentColor);
+            ((TextView)mView.findViewById(R.id.fdShareWithUsersTitle)).setTextColor(accentColor);
         }
 
         updateFileDetails(false, false);
@@ -328,11 +339,6 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.fdFavorite: {
-                CheckBox cb = (CheckBox) getView().findViewById(R.id.fdFavorite);
-                mContainerActivity.getFileOperationsHelper().toggleOfflineFile(getFile(),cb.isChecked());
-                break;
-            }
             case R.id.fdCancelBtn: {
                 ((FileDisplayActivity) mContainerActivity).cancelTransference(getFile());
                 break;
@@ -341,6 +347,12 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
                 Log_OC.e(TAG, "Incorrect view clicked!");
                 break;
         }
+    }
+
+    @Override
+    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+        SwitchCompat favSwitch = (SwitchCompat) getView().findViewById(R.id.fdFavorite);
+        mContainerActivity.getFileOperationsHelper().toggleOfflineFile(getFile(), favSwitch.isChecked());
     }
 
     /**
@@ -389,8 +401,12 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
 
             setTimeModified(file.getModificationTimestamp());
             
-            CheckBox cb = (CheckBox)getView().findViewById(R.id.fdFavorite);
-            cb.setChecked(file.isAvailableOffline());
+            SwitchCompat favSwitch = (SwitchCompat) getView().findViewById(R.id.fdFavorite);
+            favSwitch.setChecked(file.isAvailableOffline());
+
+            setShareByLinkInfo(file.isSharedViaLink());
+
+            setShareWithUserInfo();
 
             // configure UI for depending upon local state of the file
             FileDownloaderBinder downloaderBinder = mContainerActivity.getFileDownloaderBinder();
@@ -452,8 +468,11 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
         ImageView iv = (ImageView) getView().findViewById(R.id.fdIcon);
 
         if (iv != null) {
-            Bitmap thumbnail;
             iv.setTag(file.getFileId());
+            // Name of the file, to deduce the icon to use in case the MIME type is not precise enough
+            iv.setImageDrawable(MimeTypeUtil.getFileTypeIcon(file.getMimetype(), file.getFileName(), mAccount));
+
+            Bitmap thumbnail;
 
             if (MimeTypeUtil.isImage(file)) {
                 String tagId = String.valueOf(file.getRemoteId());
@@ -482,9 +501,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
                     }
                 }
             } else {
-				// Name of the file, to deduce the icon to use in case the MIME type is not precise enough
-				String filename = file.getFileName();
-                iv.setImageResource(MimeTypeUtil.getFileTypeIconId(mimetype, filename));
+                iv.setImageDrawable(MimeTypeUtil.getFileTypeIcon(file.getMimetype(), file.getFileName(), mAccount));
 			}
         }
     }
@@ -492,12 +509,12 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
     /**
      * Updates the file size in view
      *
-     * @param filesize in bytes to set
+     * @param fileSize in bytes to set
      */
-    private void setFilesize(long filesize) {
+    private void setFilesize(long fileSize) {
         TextView tv = (TextView) getView().findViewById(R.id.fdSize);
         if (tv != null) {
-            tv.setText(DisplayUtils.bytesToHumanReadable(filesize));
+            tv.setText(DisplayUtils.bytesToHumanReadable(fileSize));
         }
     }
 
@@ -511,6 +528,88 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
         if (tv != null) {
             tv.setText(DisplayUtils.unixTimeToHumanReadable(milliseconds));
         }
+    }
+
+    /**
+     * Updates Share by link data
+     *
+     * @param isShareByLink flag is share by link is enable
+     */
+    private void setShareByLinkInfo(boolean isShareByLink) {
+        TextView tv = (TextView) getView().findViewById(R.id.fdSharebyLink);
+        if (tv != null) {
+            tv.setText(isShareByLink ? R.string.filedetails_share_link_enable :
+                    R.string.filedetails_share_link_disable);
+        }
+        ImageView linkIcon = (ImageView) getView().findViewById(R.id.fdShareLinkIcon);
+        if (linkIcon != null) {
+            linkIcon.setVisibility(isShareByLink ? View.VISIBLE : View.GONE);
+        }
+    }
+
+    /**
+     * Update Share With data
+     */
+    private void setShareWithUserInfo(){
+        // Get Users and Groups
+        if (((FileActivity) getActivity()).getStorageManager() != null) {
+            FileDataStorageManager fileDataStorageManager = ((FileActivity) getActivity()).getStorageManager();
+            mShares = fileDataStorageManager.getSharesWithForAFile(
+                    getFile().getRemotePath(),mAccount.name
+            );
+
+            // Update list of users/groups
+            updateListOfUserGroups();
+        }
+    }
+
+    private void updateListOfUserGroups() {
+        // Update list of users/groups
+        // TODO Refactoring: create a new {@link ShareUserListAdapter} instance with every call should not be needed
+        UserListAdapter mUserGroupsAdapter = new UserListAdapter(
+                getActivity().getApplicationContext(),
+                R.layout.share_user_item, mShares
+        );
+
+        // Show data
+        ListView usersList = (ListView) getView().findViewById(R.id.fdshareUsersList);
+
+        // No data
+        TextView noList = (TextView) getView().findViewById(R.id.fdShareNoUsers);
+
+        if (mShares.size() > 0) {
+            usersList.setVisibility(View.VISIBLE);
+            usersList.setAdapter(mUserGroupsAdapter);
+            noList.setVisibility(View.GONE);
+            setListViewHeightBasedOnChildren(usersList);
+
+        } else {
+            usersList.setVisibility(View.GONE);
+            noList.setVisibility(View.VISIBLE);
+        }
+    }
+
+    /* Fix scroll in listview when the parent is ac ScrollView */
+    private static void setListViewHeightBasedOnChildren(ListView listView) {
+        ListAdapter listAdapter = listView.getAdapter();
+        if (listAdapter == null) {
+            return;
+        }
+        int desiredWidth = View.MeasureSpec.makeMeasureSpec(listView.getWidth(), View.MeasureSpec.AT_MOST);
+        int totalHeight = 0;
+        View view = null;
+        for (int i = 0; i < listAdapter.getCount(); i++) {
+            view = listAdapter.getView(i, view, listView);
+            if (i == 0) {
+                view.setLayoutParams(new ViewGroup.LayoutParams(desiredWidth, ViewGroup.LayoutParams.WRAP_CONTENT));
+            }
+            view.measure(desiredWidth, View.MeasureSpec.UNSPECIFIED);
+            totalHeight += view.getMeasuredHeight();
+        }
+        ViewGroup.LayoutParams params = listView.getLayoutParams();
+        params.height = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
+        listView.setLayoutParams(params);
+        listView.requestLayout();
     }
 
     /**
