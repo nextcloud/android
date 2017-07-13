@@ -28,6 +28,7 @@ package com.owncloud.android.ui.dialog;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
@@ -42,6 +43,7 @@ import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.resources.files.FileUtils;
 import com.owncloud.android.ui.activity.ComponentsGetter;
+import com.owncloud.android.utils.ThemeUtils;
 
 
 /**
@@ -72,7 +74,20 @@ public class RenameFileDialogFragment
     }
 
     @Override
+    public void onStart() {
+        super.onStart();
+
+        int color = ThemeUtils.primaryAccentColor();
+
+        AlertDialog alertDialog = (AlertDialog) getDialog();
+
+        alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(color);
+        alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(color);
+    }
+
+    @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
+        int accentColor = ThemeUtils.primaryAccentColor();
         mTargetFile = getArguments().getParcelable(ARG_TARGET_FILE);
 
         // Inflate the layout for the dialog
@@ -92,13 +107,15 @@ public class RenameFileDialogFragment
                     Math.max(selectionStart, selectionEnd));
         }
         inputText.requestFocus();
+        inputText.getBackground().setColorFilter(accentColor, PorterDuff.Mode.SRC_ATOP);
         
         // Build the dialog  
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setView(v)
                .setPositiveButton(R.string.common_ok, this)
                .setNegativeButton(R.string.common_cancel, this)
-               .setTitle(R.string.rename_dialog_title);
+                .setTitle(ThemeUtils.getColoredTitle(getResources().getString(R.string.rename_dialog_title),
+                        accentColor));
         Dialog d = builder.create();
         d.getWindow().setSoftInputMode(LayoutParams.SOFT_INPUT_STATE_VISIBLE);
         return d;

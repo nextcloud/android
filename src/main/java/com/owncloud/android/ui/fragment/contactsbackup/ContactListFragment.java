@@ -31,7 +31,9 @@ import android.content.IntentFilter;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.PorterDuff;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.ContactsContract;
@@ -53,10 +55,10 @@ import android.widget.Button;
 import android.widget.CheckedTextView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.evernote.android.job.JobRequest;
 import com.evernote.android.job.util.support.PersistableBundleCompat;
@@ -72,6 +74,7 @@ import com.owncloud.android.ui.events.VCardToggleEvent;
 import com.owncloud.android.ui.fragment.FileFragment;
 import com.owncloud.android.utils.BitmapUtils;
 import com.owncloud.android.utils.PermissionUtil;
+import com.owncloud.android.utils.ThemeUtils;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -217,6 +220,8 @@ public class ContactListFragment extends FileFragment {
             }
         });
 
+        restoreContacts.setTextColor(ThemeUtils.primaryAccentColor());
+
         return view;
     }
 
@@ -312,6 +317,7 @@ public class ContactListFragment extends FileFragment {
 
             badge = (ImageView) itemView.findViewById(R.id.contactlist_item_icon);
             name = (CheckedTextView) itemView.findViewById(R.id.contactlist_item_name);
+
 
             itemView.setTag(this);
         }
@@ -616,8 +622,17 @@ class ContactListAdapter extends RecyclerView.Adapter<ContactListFragment.Contac
 
             if (checkedVCards.contains(position)) {
                 holder.getName().setChecked(true);
+
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                    holder.getName().getCheckMarkDrawable()
+                            .setColorFilter(ThemeUtils.primaryAccentColor(), PorterDuff.Mode.SRC_ATOP);
+                }
             } else {
                 holder.getName().setChecked(false);
+
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                    holder.getName().getCheckMarkDrawable().clearColorFilter();
+                }
             }
 
             holder.getName().setText(getDisplayName(vcard));
@@ -651,6 +666,11 @@ class ContactListAdapter extends RecyclerView.Adapter<ContactListFragment.Contac
                     holder.getName().setChecked(!holder.getName().isChecked());
 
                     if (holder.getName().isChecked()) {
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                            holder.getName().getCheckMarkDrawable()
+                                    .setColorFilter(ThemeUtils.primaryAccentColor(), PorterDuff.Mode.SRC_ATOP);
+                        }
+
                         if (!checkedVCards.contains(verifiedPosition)) {
                             checkedVCards.add(verifiedPosition);
                         }
@@ -658,6 +678,10 @@ class ContactListAdapter extends RecyclerView.Adapter<ContactListFragment.Contac
                             EventBus.getDefault().post(new VCardToggleEvent(true));
                         }
                     } else {
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                            holder.getName().getCheckMarkDrawable().clearColorFilter();
+                        }
+
                         if (checkedVCards.contains(verifiedPosition)) {
                             checkedVCards.remove(verifiedPosition);
                         }
