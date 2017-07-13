@@ -145,7 +145,7 @@ public class PreviewImagePagerAdapter extends FragmentStatePagerAdapter {
         OCFile file = mImageFiles.get(i);
         Fragment fragment = null;
         if (file.isDown()) {
-            fragment = PreviewImageFragment.newInstance(file, mObsoletePositions.contains(i), "PREVIEW_BEHAVIOUR_DOWNLOAD");
+            fragment = PreviewImageFragment.newInstance(file, mObsoletePositions.contains(i), false);
             
         } else {
             if (mDownloadErrors.contains(i)) {
@@ -154,11 +154,11 @@ public class PreviewImagePagerAdapter extends FragmentStatePagerAdapter {
                 mDownloadErrors.remove(i);
             } else {
                 SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(mContext);
-                String behaviour = sharedPreferences.getString("preview_behaviour", "PREVIEW_BEHAVIOUR_PREVIEW");
-                boolean resizedBehaviour = behaviour.equalsIgnoreCase("PREVIEW_BEHAVIOUR_PREVIEW");
+                boolean behaviour = sharedPreferences.getString("preview_behaviour", "PREVIEW_BEHAVIOUR_PREVIEW")
+                        .equalsIgnoreCase("PREVIEW_BEHAVIOUR_PREVIEW");
 
-                if (resizedBehaviour) {
-                    fragment = PreviewImageFragment.newInstance(file, mObsoletePositions.contains(i), behaviour);
+                if (behaviour) {
+                    fragment = PreviewImageFragment.newInstance(file, mObsoletePositions.contains(i), true);
                 } else {
                     fragment = FileDownloadFragment.newInstance(file, mAccount, mObsoletePositions.contains(i));
                 }

@@ -1211,21 +1211,21 @@ public class TouchImageViewCustom extends ImageViewCustom {
         	}
 		}
     }
-    
 
-	private class CompatScroller {
+
+    private class CompatScroller {
     	Scroller scroller;
     	OverScroller overScroller;
     	boolean isPreGingerbread;
-    	
-    	public CompatScroller(Context context) {
+
+        public CompatScroller(Context context) {
 
     			isPreGingerbread = false;
     			overScroller = new OverScroller(context);
 
     	}
-    	
-    	public void fling(int startX, int startY, int velocityX, int velocityY, int minX, int maxX, int minY, int maxY) {
+
+        public void fling(int startX, int startY, int velocityX, int velocityY, int minX, int maxX, int minY, int maxY) {
     		if (isPreGingerbread) {
     			scroller.fling(startX, startY, velocityX, velocityY, minX, maxX, minY, maxY);
     		} else {
