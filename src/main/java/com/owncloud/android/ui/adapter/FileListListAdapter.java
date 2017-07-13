@@ -414,7 +414,9 @@ public class FileListListAdapter extends BaseAdapter {
 
 
                 } else {
-                    fileIcon.setImageResource(MimeTypeUtil.getFileTypeIconId(file.getMimetype(), file.getFileName()));
+                    fileIcon.setImageDrawable(
+                            MimeTypeUtil.getFileTypeIcon(file.getMimetype(), file.getFileName(), mAccount)
+                    );
                 }
 
 

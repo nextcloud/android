@@ -23,6 +23,7 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.webkit.MimeTypeMap;
 
+import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
 
@@ -69,6 +70,36 @@ public class MimeTypeUtil {
         populateFileExtensionMimeTypeMapping();
         populateMimeTypeIconMapping();
         populateMainMimeTypeMapping();
+    }
+
+    /**
+     * Returns the Drawable of an image to use as icon associated to a known MIME type.
+     *
+     * @param mimetype MIME type string; if NULL, the method tries to guess it from the extension in filename
+     * @param filename Name, with extension.
+     * @return Drawable of an image resource.
+     */
+    public static Drawable getFileTypeIcon(String mimetype, String filename) {
+        return getFileTypeIcon(mimetype, filename, null);
+    }
+
+    /**
+     * Returns the Drawable of an image to use as icon associated to a known MIME type.
+     *
+     * @param mimetype MIME type string; if NULL, the method tries to guess it from the extension in filename
+     * @param filename Name, with extension.
+     * @param account account which color should be used
+     * @return Drawable of an image resource.
+     */
+    public static Drawable getFileTypeIcon(String mimetype, String filename, Account account) {
+        int iconId = MimeTypeUtil.getFileTypeIconId(mimetype, filename);
+        Drawable icon = MainApp.getAppContext().getResources().getDrawable(iconId);
+
+        if(R.drawable.file_zip == iconId) {
+            ThemeUtils.tintDrawable(icon, ThemeUtils.primaryColor(account));
+        }
+
+        return icon;
     }
 
     /**
