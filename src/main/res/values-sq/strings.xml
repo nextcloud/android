@@ -112,8 +112,6 @@
     <string name="file_list_empty_headline_server_search_photos">Asnjë foto</string>
     <string name="file_list_empty_search">Përpiquni të shikoni në një dosje tjetër</string>
     <string name="file_list_empty_recently_modified">Nuk u gjetë asnjë skedar i modifikuar 7 ditët e fundit</string>
-    <string name="file_list_empty_recently_modified_filter">Kërkimi juaj nuk ktheu asnjë skedar të modifikuar
-në 7 ditët e fundit.</string>
     <string name="file_list_empty_recently_added">Nuk u gjet asnjë skedar i shtuar së fundmi</string>
     <string name="file_list_empty_recently_added_filter">Kërkimi juaj nuk ktheu ndonjë skedar të kthyer së fundmi.</string>
     <string name="file_list_empty_text_photos">Ngarkoni disa foto ose aktivizoni ngarkimin direkt.</string>
@@ -304,8 +302,8 @@ në 7 ditët e fundit.</string>
     <string name="activity_chooser_title">Dërgoni lidhje te &#8230;</string>
     <string name="wait_for_tmp_copy_from_private_storage">Po kopjohet skedar nga depo private</string>
     
-    <string name="oauth_check_onoff">Hyrje me oAuth2</string> 
-    <string name="oauth_login_connection">Po lidhet me serverin oAuth2…</string>    
+    <string name="oauth_check_onoff">Hyrje me OAuth 2.0</string> 
+    <string name="oauth_login_connection">Po lidhet me serverin OAuth 2.0…</string>    
         
     <string name="ssl_validator_header">Identiteti i sajtit s\’u verifikua dot</string>
     <string name="ssl_validator_reason_cert_not_trusted">- Dëshmia e serverit s\’është e besuar</string>
@@ -348,7 +346,7 @@ në 7 ditët e fundit.</string>
     <string name="instant_video_upload_on_charging">Ngarkoni vetëm kur jeni duke e karikuar</string>
     <string name="instant_upload_on_charging">Ngarkoni vetëm kur jeni duke e karikuar</string>
     <string name="instant_upload_path">/InstantUpload</string>
-    <string name="auto_upload_path">/Ngarkim Automatik</string>
+    <string name="auto_upload_path">/NgarkimAutomatik</string>
     <string name="conflict_title">Përplasje skedarësh</string>
     <string name="conflict_message">Cilat kartela doni të mbani? Nëse përzgjidhni të dy versionet, skedarit vendorë do t\’i shtohet një numër te emri.</string>
     <string name="conflict_keep_both">Mbaji të dyja</string>
@@ -419,10 +417,13 @@ në 7 ditët e fundit.</string>
     <string name="file_migration_failed_while_coping">GABIM: Gjatë migrimit</string>
     <string name="file_migration_failed_while_updating_index">GABIM: Gjatë përditësimit të indeksit</string>
 
+    <string name="file_migration_directory_already_exists">Dosja e të dhënave ekziston tashmë. Zgjidhni një nga të mëposhtmet:</string>
     <string name="file_migration_override_data_folder">Mbishkruaj</string>
     <string name="file_migration_use_data_folder">Përdor ekzistueset</string>
 
     <string name="file_migration_source_not_readable_title">Direktoria burim nuk është lexueshme!</string>
+    <string name="file_migration_source_not_readable">Dëshironi akoma të ndryshoni adresën e ruajtjes së %1$s?/n/nNote: Të gjitha të dhënat do të shkarkohen sërish. </string>
+
     <string name="prefs_category_accounts">Llogari</string>
     <string name="prefs_add_account">Shtoni llogari</string>
     <string name="drawer_manage_accounts">Menaxhoni llogaritë</string>
@@ -480,7 +481,6 @@ në 7 ditët e fundit.</string>
     <string name="file_list__footer__files">%1$d skedar</string>
     <string name="file_list__footer__files_and_folder">%1$d skedare, 1 dosje</string>
     <string name="file_list__footer__files_and_folders">%1$d skedare, %2$d dosje</string>
-    <string name="set_picture_as">Vendos fotografinë</string>
     <string name="set_as">Vendos Si</string>
 
     <string name="prefs_instant_behaviour_dialogTitle">Skedari origjinal do të jetë&#8230;</string>
@@ -559,7 +559,6 @@ në 7 ditët e fundit.</string>
     <string name="participate_beta_headline">Testoni versionin Beta</string>
     <string name="participate_beta_text">Kjo përfshin të gjitha karakteristikat që do të vijnë dhe ky është vetëm fillimi. Buget/gabimet  mund të ndodhin, nëse dhe kur të ndodhin, ju lutemi të raportoni për gjetjet tuaja. </string>
     <string name="participate_release_candidate_headline">Lëshimi i kandidatit</string>
-    <string name="participate_release_candidate_text">Lëshimi i kandidatit  (RC) është një fragment i lëshimit të ardhshme dhe pritet të jetë i qëndrueshëm. Testimi i setup-it tuaj individuale mund të ndihmojë për ta siguruar këtë. Regjistrohuni për testimin në Play Store ose manualisht  shikoni në seksionin \"versionet\" në F-Droid.</string>
     <string name="participate_contribute_headline">Kontribim aktiv</string>
     <string name="participate_contribute_irc_text">Bashkohu në bisedat në IRC: &lt;a href=\"%1$s\">#nextcloud-mobile&lt;/a></string>
     <string name="participate_contribute_forum_text">Ndihmo të tjerët në &lt;a href=\"%1$s\">forum&lt;/a></string>
@@ -631,13 +630,7 @@ në 7 ditët e fundit.</string>
     <string name="webview_error">Ndodhi një gabim</string>
     <string name="prefs_category_about">Rreth </string>
 
-    <string name="actionbar_contacts">Krijo backup të kontakteve</string>
     <string name="actionbar_contacts_restore">Rikthe kontaktet</string>
-    <string name="contacts_backup_button">Backup kontaktet</string>
-    <string name="contacts_restore_button">Rikthe backup-in e fundit</string>
-    <string name="contacts_header_restore">Rikthe</string>
-    <string name="contacts_header_backup">Backup</string>
-    <string name="contacts_automatic_backup">Backup i kontakteve</string>
     <string name="contacts_last_backup">Backup i fundit</string>
     <string name="contacts_read_permission">Kërkohet e drejta për të lexuar listën e kontakteve</string>
     <string name="contacts_write_permission">Kërkohet e drejta për të ndryshuar listën e kontakteve</string>
@@ -659,4 +652,6 @@ në 7 ditët e fundit.</string>
     <string name="privacy">Privatësi</string>
     <string name="file_not_found">Skedari nuk u gjet!</string>
 
-    </resources>
+    <string name="folder_sync_folders">Konfiguro dosjet</string>
+
+  </resources>

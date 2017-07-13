@@ -112,8 +112,7 @@
     <string name="file_list_empty_headline_server_search_photos">Sem fotos</string>
     <string name="file_list_empty_search">Talvez seja uma pasta diferente?</string>
     <string name="file_list_empty_recently_modified">Nenhum arquivo alterado nos últimos 7 dias foi encontrado </string>
-    <string name="file_list_empty_recently_modified_filter">Sua pesquisa não encontrou arquivos alterados
-        nos últimos 7 dias.</string>
+    <string name="file_list_empty_recently_modified_filter">A pesquisa não encontrou arquivos modificados nos últimos 7 dias.</string>
     <string name="file_list_empty_recently_added">Nenhum arquivo recente foi adicionado</string>
     <string name="file_list_empty_recently_added_filter">Sua pesquisa não encontrou arquivos adicionados recentemente.</string>
     <string name="file_list_empty_text_photos">Enviar algumas fotos ou ativar o envio automático.</string>
@@ -304,8 +303,8 @@
     <string name="activity_chooser_title">Enviar o link para &#8230;</string>
     <string name="wait_for_tmp_copy_from_private_storage">Copiando o arquivo da armazenagem privada</string>
     
-    <string name="oauth_check_onoff">Login com oAuth2</string> 
-    <string name="oauth_login_connection">Conectando ao servidor OAuth 2...</string>    
+    <string name="oauth_check_onoff">Entrar com OAuth 2.0</string> 
+    <string name="oauth_login_connection">Conectando ao servidor OAuth 2.0…</string>    
         
     <string name="ssl_validator_header">A identidade do site não pôde ser verificada</string>
     <string name="ssl_validator_reason_cert_not_trusted">- O certificado do servidor não é confiável</string>
@@ -348,7 +347,7 @@
     <string name="instant_video_upload_on_charging">Somente enviar quando carregando</string>
     <string name="instant_upload_on_charging">Somente enviar quando carregando</string>
     <string name="instant_upload_path">/EnvioAutomático</string>
-    <string name="auto_upload_path">/Envio Automático</string>
+    <string name="auto_upload_path">/AutoUpload</string>
     <string name="conflict_title">Conflito de arquivo</string>
     <string name="conflict_message">Quais arquivos você quer manter? Se você selecionar ambos, o arquivo local terá um número adicionado ao seu nome.</string>
     <string name="conflict_keep_both">Manter ambos</string>
@@ -483,7 +482,7 @@
     <string name="file_list__footer__files">%1$d arquivos</string>
     <string name="file_list__footer__files_and_folder">%1$d arquivos, 1 pasta</string>
     <string name="file_list__footer__files_and_folders">%1$d arquivos, %2$d pastas</string>
-    <string name="set_picture_as">Definir imagem como</string>
+    <string name="set_picture_as">Usar imagem como</string>
     <string name="set_as">Definir Como</string>
 
     <string name="prefs_instant_behaviour_dialogTitle">O arquivo original será&#8230;</string>
@@ -562,7 +561,7 @@
     <string name="participate_beta_headline">Teste a versão dev</string>
     <string name="participate_beta_text">Isso inclui todos os recursos futuros e está num limite perigoso. Erros podem ocorrer e acontecendo, por favor reporte-os à nós.</string>
     <string name="participate_release_candidate_headline">Candidato a versão</string>
-    <string name="participate_release_candidate_text">O release candidate (RC) é um instantâneo da próxima versão e espera-se que seja estável. Testar sua configuração individual pode ajudar a garantir isso. Inscreva-se para testar na Play Store ou confira a seção \"versões\" no F-Droid.</string>
+    <string name="participate_release_candidate_text">O release candidate (RC) é uma cópia de uma nova versão e espera-se que seja estável. Testar sua própria configuração pode garantir isso. Assine para testes na Play Store ou manualmente procure no seção \"Versão\" do F-Droid,</string>
     <string name="participate_contribute_headline">Contribuir ativamente</string>
     <string name="participate_contribute_irc_text">Junte-se ao chat no IRC:&lt;a href=\"%1$s\">#nextcloud-mobile&lt;/a></string>
     <string name="participate_contribute_forum_text">Ajude os outros no &lt;a href=\"%1$s\">fórum&lt;/a></string>
@@ -634,13 +633,10 @@
     <string name="webview_error">Um erro ocorreu</string>
     <string name="prefs_category_about">Sobre</string>
 
-    <string name="actionbar_contacts">Fazer backup dos contatos</string>
+    <string name="actionbar_contacts">Fazer cópia dos contatos</string>
     <string name="actionbar_contacts_restore">Restaurar contatos</string>
-    <string name="contacts_backup_button">Fazer backup agora</string>
-    <string name="contacts_restore_button">Retornar último backup</string>
-    <string name="contacts_header_restore">Retornar</string>
-    <string name="contacts_header_backup">Backup</string>
-    <string name="contacts_automatic_backup">Backup dos contatos</string>
+    <string name="contacts_backup_button">Fazer cópia agora</string>
+    <string name="contacts_automatic_backup">Cópia automática</string>
     <string name="contacts_last_backup">Último backup</string>
     <string name="contacts_read_permission">Permissão para ler lista de contatos é necessária</string>
     <string name="contacts_write_permission">Permissão para alterar a lista de contatos é necessária</string>

@@ -62,6 +62,7 @@ import org.apache.commons.httpclient.methods.GetMethod;
 import java.io.File;
 import java.io.InputStream;
 import java.lang.ref.WeakReference;
+import java.util.ArrayList;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -190,13 +191,21 @@ public class ThumbnailsCacheManager {
         private final WeakReference<ImageView> mImageViewReference;
         private WeakReference<ProgressBar> mProgressWheelRef;
         private static Account mAccount;
+        private ArrayList<ThumbnailGenerationTask> mAsyncTasks = null;
         private Object mFile;
         private Boolean mIsThumbnail;
         private String mImageKey = null;
         private FileDataStorageManager mStorageManager;
+        private GetMethod getMethod;
+
+        public ThumbnailGenerationTask(ImageView imageView, FileDataStorageManager storageManager, Account account)
+                throws IllegalArgumentException {
+            this(imageView, storageManager, account, null);
+        }
 
         public ThumbnailGenerationTask(ImageView imageView, FileDataStorageManager storageManager,
-                                       Account account) throws IllegalArgumentException {
+                                       Account account, ArrayList<ThumbnailGenerationTask> asyncTasks)
+                throws IllegalArgumentException {
             // Use a WeakReference to ensure the ImageView can be garbage collected
             mImageViewReference = new WeakReference<ImageView>(imageView);
             if (storageManager == null) {
@@ -204,6 +213,11 @@ public class ThumbnailsCacheManager {
             }
             mStorageManager = storageManager;
             mAccount = account;
+            mAsyncTasks = asyncTasks;
+        }
+
+        public GetMethod getGetMethod() {
+            return getMethod;
         }
 
         public ThumbnailGenerationTask(FileDataStorageManager storageManager, Account account){
@@ -297,6 +311,10 @@ public class ThumbnailsCacheManager {
                         imageView.setImageBitmap(bitmap);
                     }
                 }
+            }
+
+            if (mAsyncTasks != null) {
+                mAsyncTasks.remove(this);
             }
         }
 
@@ -394,26 +412,25 @@ public class ThumbnailsCacheManager {
                     OwnCloudVersion serverOCVersion = AccountUtils.getServerVersion(mAccount);
                     if (mClient != null && serverOCVersion != null) {
                         if (serverOCVersion.supportsRemoteThumbnails()) {
-                            GetMethod get = null;
+                            getMethod = null;
                             try {
-                                if (mIsThumbnail) {
-                                    String uri = mClient.getBaseUri() + "" +
-                                            "/index.php/apps/files/api/v1/thumbnail/" +
-                                            pxW + "/" + pxH + Uri.encode(file.getRemotePath(), "/");
-                                    Log_OC.d("Thumbnail", "URI: " + uri);
-                                    get = new GetMethod(uri);
-                                    get.setRequestHeader("Cookie",
-                                            "nc_sameSiteCookielax=true;nc_sameSiteCookiestrict=true");
-                                    int status = mClient.executeMethod(get);
-                                    if (status == HttpStatus.SC_OK) {
-                                        InputStream inputStream = get.getResponseBodyAsStream();
-                                        Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
-                                        thumbnail = ThumbnailUtils.extractThumbnail(bitmap, pxW, pxH);
+                                if (mIsThumbnail) {String uri = mClient.getBaseUri() + "" +
+                                        "/index.php/apps/files/api/v1/thumbnail/" +
+                                        pxW + "/" + pxH + Uri.encode(file.getRemotePath(), "/");
+                                Log_OC.d("Thumbnail", "URI: " + uri);
+                                getMethod = new GetMethod(uri);
+                                getMethod.setRequestHeader("Cookie",
+                                        "nc_sameSiteCookielax=true;nc_sameSiteCookiestrict=true");
+                                int status = mClient.executeMethod(getMethod);
+                                if (status == HttpStatus.SC_OK) {
+                                    InputStream inputStream = getMethod.getResponseBodyAsStream();
+                                    Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
+                                    thumbnail = ThumbnailUtils.extractThumbnail(bitmap, pxW, pxH);
                                     }
                                 } else {
                                     String uri = mClient.getBaseUri() + "" +
                                             "/index.php/apps/gallery/api/preview/" +
-                                            Integer.parseInt(file.getRemoteId().substring(0,8)) +
+                                            Integer.parseInt(file.getRemoteId().substring(0, 8)) +
                                             "/" + pxW + "/" + pxH;
                                     Log_OC.d("Thumbnail", "FileName: " + file.getFileName() +
                                             " Download URI: " + uri);
@@ -426,23 +443,25 @@ public class ThumbnailsCacheManager {
                                         Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
                                         // Download via gallery app
                                         thumbnail = bitmap;
+
+                                        // Handle PNG
+                                        if (file.getMimetype().equalsIgnoreCase("image/png")) {
+                                            thumbnail = handlePNG(thumbnail, pxW);
+                                        }
+
+                                        // Add thumbnail to cache
+                                        if (thumbnail != null) {
+                                            addBitmapToCache(imageKey, thumbnail);
+                                        }
+                                    } else {
+                                        mClient.exhaustResponse(getMethod.getResponseBodyAsStream());
                                     }
-                                }
-
-                                // Handle PNG
-                                if (file.getMimetype().equalsIgnoreCase("image/png")) {
-                                    thumbnail = handlePNG(thumbnail, pxW);
-                                }
-
-                                // Add thumbnail to cache
-                                if (thumbnail != null) {
-                                    addBitmapToCache(imageKey, thumbnail);
                                 }
                             } catch (Exception e) {
                                 Log_OC.d(TAG, e.getMessage(), e);
                             } finally {
-                                if (get != null) {
-                                    get.releaseConnection();
+                                if (getMethod != null) {
+                                    getMethod.releaseConnection();
                                 }
                             }
                         } else {

@@ -47,7 +47,7 @@
     <string name="prefs_fingerprint_notsetup">Er zijn geen vingerafdrukken ingesteld.</string>
     <string name="prefs_show_hidden_files">Verborgen bestanden weergeven</string>
     <string name="prefs_instant_upload">Directe upload van afbeeldingen</string>
-    <string name="prefs_instant_upload_summary">Direct vanaf camera uploaden van afbeeldingen</string>
+    <string name="prefs_instant_upload_summary">Direct afbeeldingen vanaf camera uploaden</string>
     <string name="prefs_instant_video_upload">Directe upload van video\'s</string>
     <string name="prefs_instant_video_upload_summary">Direct vanaf de camera uploaden video\'s</string>
     <string name="prefs_log_title">Logging inschakelen</string>
@@ -113,8 +113,7 @@ Kies er eentje van een provider.</string>
     <string name="file_list_empty_headline_server_search_photos">Geen foto\'s</string>
     <string name="file_list_empty_search">Misschien staat het in een andere map?</string>
     <string name="file_list_empty_recently_modified">Geen bestanden gevonden die de afgelopen 7 dagen werden gewijzigd</string>
-    <string name="file_list_empty_recently_modified_filter">Je zoekopdracht vond geen bestanden die
- in de laatste 7 dagen werden gewijzigd.</string>
+    <string name="file_list_empty_recently_modified_filter">Geen bestanden gevonden die de afgelopen 7 dagen werden bewerkt</string>
     <string name="file_list_empty_recently_added">Geen recent toegevoegde bestanden gevonden</string>
     <string name="file_list_empty_recently_added_filter">Geen recent toegevoegde bestanden gevonden voor je zoekopdracht!</string>
     <string name="file_list_empty_text_photos">Upload enkele foto\'s of activeer auto-upload.</string>
@@ -305,8 +304,8 @@ Kies er eentje van een provider.</string>
     <string name="activity_chooser_title">Verstuur link naar &#8230;</string>
     <string name="wait_for_tmp_copy_from_private_storage">Bestand vanaf privéopslag kopiëren</string>
     
-    <string name="oauth_check_onoff">Inloggen met oAuth2</string> 
-    <string name="oauth_login_connection">Verbinden met OAuth 2 server…</string>    
+    <string name="oauth_check_onoff">Inloggen met OAuth 2.0</string> 
+    <string name="oauth_login_connection">Verbinden met OAuth 2.0 server…</string>    
         
     <string name="ssl_validator_header">De identiteit van de site kan niet worden gecontroleerd</string>
     <string name="ssl_validator_reason_cert_not_trusted">- Het servercertificaat wordt niet vertrouwd</string>
@@ -349,7 +348,7 @@ Kies er eentje van een provider.</string>
     <string name="instant_video_upload_on_charging">Alleen uploaden bij opladen</string>
     <string name="instant_upload_on_charging">Alleen uploaden bij opladen</string>
     <string name="instant_upload_path">/InstantUpload</string>
-    <string name="auto_upload_path">/Automatisch uploaden</string>
+    <string name="auto_upload_path">/AutomatischUploaden</string>
     <string name="conflict_title">Bestandsconflict</string>
     <string name="conflict_message">Welke bestanden wil je bewaren? Als je beide versies selecteert zal het lokale bestand een volgnummer aan de naam toegevoegd krijgen.</string>
     <string name="conflict_keep_both">Beide bewaren</string>
@@ -484,7 +483,7 @@ Kies er eentje van een provider.</string>
     <string name="file_list__footer__files">%1$d bestanden</string>
     <string name="file_list__footer__files_and_folder">%1$d bestanden, 1 map</string>
     <string name="file_list__footer__files_and_folders">%1$d bestanden, %2$d mappen</string>
-    <string name="set_picture_as">Stel afbeelding in als</string>
+    <string name="set_picture_as">Gebruik afbeelding als</string>
     <string name="set_as">Stel in als</string>
 
     <string name="prefs_instant_behaviour_dialogTitle">Origineel bestand zal&#160;&#8230;</string>
@@ -563,7 +562,7 @@ Kies er eentje van een provider.</string>
     <string name="participate_beta_headline">Test de dev versie</string>
     <string name="participate_beta_text">Dit omvat alle komende opties en is zeer \'bleeding edge\'. Bugs/fouten kunnen voorkomen en in dat geval vragen we je die aan ons te melden.</string>
     <string name="participate_release_candidate_headline">Release candidate</string>
-    <string name="participate_release_candidate_text">De Release Candidate (RC) is een kopie van de komende release en zou stabiel moeten zijn. Testen van jouw installatie kan ons helpen om dit te bevestigen. Meld je aan om te testen op de Play Store of bekijk handmatig de \"versies\"-sectie op F-Droid.</string>
+    <string name="participate_release_candidate_text">De release candidate (RC) is een snapshot van de komende versie en is naar verwachting stabiel. Door een test met je eigen installatie verzeker je hier van. Meld je aan voor het testen in de Play store of kijk handmatig bij sectie \"Versie\" van F-Droid.</string>
     <string name="participate_contribute_headline">Actief meedoen</string>
     <string name="participate_contribute_irc_text">Bezoek de IRC chat op IRC: &lt;a href=\"%1$s\">#nextcloud-mobile&lt;/a>
 </string>
@@ -637,13 +636,10 @@ Kies er eentje van een provider.</string>
     <string name="webview_error">Er heeft zich een fout voorgedaan</string>
     <string name="prefs_category_about">Over</string>
 
-    <string name="actionbar_contacts">Contactpersonen backup</string>
+    <string name="actionbar_contacts">Maak een backup van de contacten</string>
     <string name="actionbar_contacts_restore">Herstellen contactpersonen</string>
-    <string name="contacts_backup_button">Nu backupppen</string>
-    <string name="contacts_restore_button">Herstel de laatste backup</string>
-    <string name="contacts_header_restore">Herstellen</string>
-    <string name="contacts_header_backup">Backuppen</string>
-    <string name="contacts_automatic_backup">Contactpersonen backup</string>
+    <string name="contacts_backup_button">Maak nu een backup</string>
+    <string name="contacts_automatic_backup">Automatische backup</string>
     <string name="contacts_last_backup">Laatsts backup</string>
     <string name="contacts_read_permission">Leesrechten voor contactpersonen vereist</string>
     <string name="contacts_write_permission">Schrijfrechten voor contactpersonen vereist</string>

@@ -303,8 +303,8 @@
     <string name="activity_chooser_title">Envoyer le lien vers &#8230;</string>
     <string name="wait_for_tmp_copy_from_private_storage">Copie du fichier depuis le stockage privé</string>
     
-    <string name="oauth_check_onoff">Connexion avec oAuth2</string> 
-    <string name="oauth_login_connection">Connexion au serveur oAuth2…</string>    
+    <string name="oauth_check_onoff">Connexion avec OAuth 2.0</string> 
+    <string name="oauth_login_connection">Connexion au serveur OAuth 2.0…</string>    
         
     <string name="ssl_validator_header">L\'identité du site ne peut être vérifiée</string>
     <string name="ssl_validator_reason_cert_not_trusted">- Le certificat du serveur n\'est pas sûr</string>
@@ -347,7 +347,7 @@
     <string name="instant_video_upload_on_charging">Téléverser les images uniquement si le chargeur est branché</string>
     <string name="instant_upload_on_charging">Téléverser les images uniquement si le chargeur est branché</string>
     <string name="instant_upload_path">/InstantUpload</string>
-    <string name="auto_upload_path">/Téléversement automatique</string>
+    <string name="auto_upload_path">/TéléversementAutomatique</string>
     <string name="conflict_title">Conflit de fichiers</string>
     <string name="conflict_message">Quels fichiers voulez-vous conserver ? Si vous sélectionnez les deux, un chiffre sera ajouté au nom du fichier local.</string>
     <string name="conflict_keep_both">Conserver les deux</string>
@@ -636,10 +636,7 @@
     <string name="actionbar_contacts">Copie de sauvegarde des contacts</string>
     <string name="actionbar_contacts_restore">Restaurer les contacts</string>
     <string name="contacts_backup_button">Sauvegarder maintenant</string>
-    <string name="contacts_restore_button">Restaurer la dernière copie de sauvegarde</string>
-    <string name="contacts_header_restore">Restaurer</string>
-    <string name="contacts_header_backup">Copie de sauvegarde</string>
-    <string name="contacts_automatic_backup">Sauvegarde des contacts</string>
+    <string name="contacts_automatic_backup">Copie de sauvegarde automatique</string>
     <string name="contacts_last_backup">Dernière copie de sauvegarde</string>
     <string name="contacts_read_permission">L\'autorisation de lecture des contacts est nécessaire</string>
     <string name="contacts_write_permission">L\'autorisation d\'écriture des contacts est nécessaire</string>

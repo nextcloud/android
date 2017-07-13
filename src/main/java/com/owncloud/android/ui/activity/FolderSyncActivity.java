@@ -1,20 +1,20 @@
-/**
+/*
  * Nextcloud Android client application
  *
  * @author Andy Scherzinger
  * Copyright (C) 2016 Andy Scherzinger
  * Copyright (C) 2016 Nextcloud
- * <p>
+ *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
  * License as published by the Free Software Foundation; either
  * version 3 of the License, or any later version.
- * <p>
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU AFFERO GENERAL PUBLIC LICENSE for more details.
- * <p>
+ *
  * You should have received a copy of the GNU Affero General Public
  * License along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -23,6 +23,7 @@ package com.owncloud.android.ui.activity;
 
 import android.accounts.Account;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
@@ -30,6 +31,7 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
@@ -53,6 +55,7 @@ import com.owncloud.android.ui.dialog.SyncedFolderPreferencesDialogFragment;
 import com.owncloud.android.ui.dialog.parcel.SyncedFolderParcelable;
 import com.owncloud.android.utils.AnalyticsUtils;
 import com.owncloud.android.utils.DisplayUtils;
+import com.owncloud.android.utils.PermissionUtil;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -111,8 +114,11 @@ public class FolderSyncActivity extends FileActivity implements FolderSyncAdapte
 
         setupContent();
 
-        getSupportActionBar().setTitle(getString(R.string.drawer_folder_sync));
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setTitle(getString(R.string.drawer_folder_sync));
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
     }
 
     @Override
@@ -149,7 +155,7 @@ public class FolderSyncActivity extends FileActivity implements FolderSyncAdapte
             DisplayUtils.setupBottomBar(bottomNavigationView, getResources(), this, -1);
         }
 
-        load(gridWidth * 2);
+        load(gridWidth * 2, false);
     }
 
     /**
@@ -157,8 +163,8 @@ public class FolderSyncActivity extends FileActivity implements FolderSyncAdapte
      *
      * @param perFolderMediaItemLimit the amount of media items to be loaded/shown per media folder
      */
-    private void load(final int perFolderMediaItemLimit) {
-        if (mAdapter.getItemCount() > 0) {
+    private void load(final int perFolderMediaItemLimit, boolean force) {
+        if (mAdapter.getItemCount() > 0 && !force) {
             return;
         }
         setListShown(false);
@@ -167,9 +173,9 @@ public class FolderSyncActivity extends FileActivity implements FolderSyncAdapte
             @Override
             public void run() {
                 final List<MediaFolder> mediaFolders = MediaProvider.getMediaFolders(getContentResolver(),
-                        perFolderMediaItemLimit);
+                        perFolderMediaItemLimit, FolderSyncActivity.this);
                 List<SyncedFolder> syncedFolderArrayList = mSyncedFolderProvider.getSyncedFolders();
-                List<SyncedFolder> currentAccountSyncedFoldersList = new ArrayList<SyncedFolder>();
+                List<SyncedFolder> currentAccountSyncedFoldersList = new ArrayList<>();
                 Account currentAccount = AccountUtils.getCurrentOwnCloudAccount(FolderSyncActivity.this);
                 for (SyncedFolder syncedFolder : syncedFolderArrayList) {
                     if (syncedFolder.getAccount().equals(currentAccount.name)) {
@@ -376,6 +382,7 @@ public class FolderSyncActivity extends FileActivity implements FolderSyncAdapte
 
             default:
                 result = super.onOptionsItemSelected(item);
+                break;
         }
         return result;
     }
@@ -491,5 +498,26 @@ public class FolderSyncActivity extends FileActivity implements FolderSyncAdapte
         item.setUploadAction(uploadAction);
         item.setEnabled(enabled);
         return item;
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[],
+                                           @NonNull int[] grantResults) {
+        switch (requestCode) {
+            case PermissionUtil.PERMISSIONS_WRITE_EXTERNAL_STORAGE: {
+                // If request is cancelled, result arrays are empty.
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    // permission was granted
+                    int gridWidth = getResources().getInteger(R.integer.media_grid_width);
+                    load(gridWidth * 2, true);
+                } else {
+                    // permission denied --> do nothing
+                    return;
+                }
+                return;
+            }
+            default:
+                super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
     }
 }

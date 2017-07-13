@@ -112,8 +112,6 @@
     <string name="file_list_empty_headline_server_search_photos">No hay fotos</string>
     <string name="file_list_empty_search">¿Tal vez está dentro de una carpeta diferente?</string>
     <string name="file_list_empty_recently_modified">No se encontraron archivos que hayan sido modificado en los últimos 7 días</string>
-    <string name="file_list_empty_recently_modified_filter">Su búsqueda no encontró archivos que hayan sido modificados 
-en los últimos 7 días. </string>
     <string name="file_list_empty_recently_added">No se encontraron archivos agregados recientemente</string>
     <string name="file_list_empty_recently_added_filter">Su búsqueda no encontró archivos recientemente agregados. </string>
     <string name="file_list_empty_text_photos">Cargue algunas fotos o active la carga automática.</string>
@@ -304,9 +302,6 @@ en los últimos 7 días. </string>
     <string name="activity_chooser_title">Enviar el link a &#8230;</string>
     <string name="wait_for_tmp_copy_from_private_storage">Copiando el archivo desde almacenamiento privado</string>
     
-    <string name="oauth_check_onoff">Iniciar sesión con oAuth2</string> 
-    <string name="oauth_login_connection">Conectando al servidor OAuth 2...</string>    
-        
     <string name="ssl_validator_header">La identidad del sitio no pudo ser verificada</string>
     <string name="ssl_validator_reason_cert_not_trusted">- El certificado del servidor no es de confianza</string>
     <string name="ssl_validator_reason_cert_expired">- El certificado del servidor expiró</string>
@@ -348,7 +343,6 @@ en los últimos 7 días. </string>
     <string name="instant_video_upload_on_charging">Cargar archivos sólo con el dispositivo conectado a la toma de corriente</string>
     <string name="instant_upload_on_charging">Cargar archivos sólo con el dispositivo conectado a la toma de corriente</string>
     <string name="instant_upload_path">/CargasInstantáneas</string>
-    <string name="auto_upload_path">/Carga automática</string>
     <string name="conflict_title">Conflicto de archivo</string>
     <string name="conflict_message">¿Qué archivos desea mantener? Si selecciona ambas versiones, se le agregará un número al nombre del archivo local.</string>
     <string name="conflict_keep_both">Mantener ambas</string>
@@ -483,7 +477,6 @@ en los últimos 7 días. </string>
     <string name="file_list__footer__files">%1$d archivos</string>
     <string name="file_list__footer__files_and_folder">%1$d archivos, 1 carpeta</string>
     <string name="file_list__footer__files_and_folders">%1$d archivos, %2$d carpetas</string>
-    <string name="set_picture_as">Establecer imagen como</string>
     <string name="set_as">Establecer Como</string>
 
     <string name="prefs_instant_behaviour_dialogTitle">El archivo original será&#8230;</string>
@@ -562,7 +555,6 @@ en los últimos 7 días. </string>
     <string name="participate_beta_headline">Probar la versión de desarrollo</string>
     <string name="participate_beta_text">Esto incluye todas las últimas funcionalidades y es lo más nuevo. Fallas/errores pueden ocurrir y si es el caso, favor de reportarnoslos. </string>
     <string name="participate_release_candidate_headline">Candidato a lanzamiento</string>
-    <string name="participate_release_candidate_text">El candidato a lanzamiento (CL) es una foto del más próximo lanzamiento y se espera que sea estable. Las pruebas a su configuración individual podrían ayudarnos a asegurar esto. Regístrese para hacer pruebas en la Play Store o consulte directamente la sección de \"versiones\" en F-Droid. </string>
     <string name="participate_contribute_headline">Contribuya activamente</string>
     <string name="participate_contribute_irc_text">Únase a las conversaciones en IRC: &lt;a href=\"%1$s\">#nextcloud-mobile&lt;/a></string>
     <string name="participate_contribute_forum_text">Ayude a los demás en el &lt;a href=\"%1$s\">foro&lt;/a></string>
@@ -634,13 +626,7 @@ en los últimos 7 días. </string>
     <string name="webview_error">Se presentó un error</string>
     <string name="prefs_category_about">Acerca de</string>
 
-    <string name="actionbar_contacts">Respaldar contactos</string>
     <string name="actionbar_contacts_restore">Restaurar contactos</string>
-    <string name="contacts_backup_button">Respaldar ahora</string>
-    <string name="contacts_restore_button">Restaurar el último respaldo</string>
-    <string name="contacts_header_restore">Restaurar</string>
-    <string name="contacts_header_backup">Respaldar</string>
-    <string name="contacts_automatic_backup">Respaldo de contactos</string>
     <string name="contacts_last_backup">Último respaldo</string>
     <string name="contacts_read_permission">Se requiere el permiso para leer la lista de contactos</string>
     <string name="contacts_write_permission">Se requiere el permiso para cambiar la lista de contactos</string>

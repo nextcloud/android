@@ -36,7 +36,7 @@
     <string name="drawer_item_uploads_list">Загрузки</string>
     <string name="drawer_item_activities">События</string>
     <string name="drawer_item_notifications">Уведомления</string>
-    <string name="drawer_quota">%1$s of %2$s использовано</string>
+    <string name="drawer_quota">использовано %1$s из %2$s </string>
 	<string name="drawer_close">Закрыть</string>
     <string name="drawer_open">Открыть</string>
     <string name="prefs_category_general">Основные</string>
@@ -64,7 +64,7 @@
     <string name="prefs_help">Помощь</string>
     <string name="prefs_recommend">Рекомендовать другу</string>
     <string name="prefs_feedback">Обратная связь</string>
-    <string name="prefs_imprint">Штамп</string>
+    <string name="prefs_imprint">Отпечаток</string>
     <string name="prefs_remember_last_share_location">Запомнить расположение общего ресурса</string>
     <string name="prefs_remember_last_upload_location_summary">Запомнить расположение загрузки последней публикации</string>
 
@@ -93,7 +93,7 @@
     <string name="uploader_error_message_source_file_not_found">Файл для загрузки не был найден в положенном месте. Пожалуйста проверьте, существует ли файл.</string>
     <string name="uploader_error_message_source_file_not_copied">Произошла ошибка во время копирования этого файла во временный каталог. Пожалуйста попробуйте отправить его заново.</string>
     <string name="uploader_upload_files_behaviour">Настройка загрузки:</string>
-    <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">Переместить файл в папку Nextcloud</string>
+    <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">Переместить файл в каталог Nextcloud</string>
     <string name="uploader_upload_files_behaviour_only_upload">Сохранить файл в исходном каталоге</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Удалить файл из исходного каталога</string>
     <string name="file_list_seconds_ago">несколько секунд назад</string>
@@ -114,8 +114,7 @@
     <string name="file_list_empty_headline_server_search_photos">Фотографии отсутствуют</string>
     <string name="file_list_empty_search">Искать в другом каталоге?</string>
     <string name="file_list_empty_recently_modified">Не найдно файлов, изменённых за последние 7 дней</string>
-    <string name="file_list_empty_recently_modified_filter">По запросу не найдено файлов, 
-изменённых за последние 7 дней!</string>
+    <string name="file_list_empty_recently_modified_filter">Не найдено ни одного изменённого за последние 7 дней файла.</string>
     <string name="file_list_empty_recently_added">Не найдено файлов, добавленных недавно</string>
     <string name="file_list_empty_recently_added_filter">По запросу не найдено файлов, добавленных недавно!</string>
     <string name="file_list_empty_text_photos">Загрузите фотографии или включите автоматическую загрузку!</string>
@@ -212,7 +211,7 @@
     <string name="foreign_files_success">Все файлы были перемещены</string>
     <string name="foreign_files_fail">Некоторые файлы не могут быть перемещены</string>
     <string name="foreign_files_local_text">Локальные: %1$s</string>
-    <string name="foreign_files_remote_text">«На сервере: %1$s»</string>
+    <string name="foreign_files_remote_text">На сервере: %1$s</string>
     <string name="upload_query_move_foreign_files">Недостаточно места для копирования выбранных файлов в папку %1$s. Вы хотите их переместить?</string>
     <string name="pass_code_enter_pass_code">Введите ваш код</string>
     
@@ -288,11 +287,11 @@
     <string name="confirmation_remove_file_alert">Вы действительно хотите удалить %1$s?</string>
     <string name="confirmation_remove_folder_alert">Вы действительно хотите удалить %1$s и его содержимое?</string>
     <string name="confirmation_remove_local">Только локально</string>
-    <string name="remove_success_msg">«Удалено»</string>
+    <string name="remove_success_msg">Удалено</string>
     <string name="remove_fail_msg">Сбой удаления</string>
     <string name="rename_dialog_title">Введите новое имя</string>
-    <string name="rename_local_fail_msg">«Локальная копия не может быть переименована; попробуйте другое имя»</string>
-    <string name="rename_server_fail_msg">«Не удалось переименовать сервер»</string>
+    <string name="rename_local_fail_msg">Локальная копия не может быть переименована; попробуйте другое имя</string>
+    <string name="rename_server_fail_msg">Не удалось переименовать сервер</string>
     <string name="sync_file_fail_msg">Файл на сервере не может быть проверен</string>
     <string name="sync_file_nothing_to_do_msg">Содержимое файла уже синхронизировано</string>
     <string name="create_dir_fail_msg">Не удалось создать каталог</string>
@@ -301,13 +300,13 @@
     <string name="filename_empty">Имя файла не может быть пустым</string>
     <string name="wait_a_moment">Подождите немного…</string>
     <string name="wait_checking_credentials">Проверка сохранённых реквизитов учётных данных</string>
-    <string name="filedisplay_unexpected_bad_get_content">«Неизвестная ошибка. Выберите этот файл из другого приложения»</string>
+    <string name="filedisplay_unexpected_bad_get_content">Неизвестная ошибка. Выберите этот файл из другого приложения</string>
     <string name="filedisplay_no_file_selected">Файлы не выбраны</string>
     <string name="activity_chooser_title">Отправить ссылку &#8230;</string>
     <string name="wait_for_tmp_copy_from_private_storage">Копирование файла из частного хранилища</string>
     
-    <string name="oauth_check_onoff">Войти через oAuth2</string> 
-    <string name="oauth_login_connection">Подключение к серверу OAuth2…</string>    
+    <string name="oauth_check_onoff">Войти через OAuth 2.0</string> 
+    <string name="oauth_login_connection">Подключение к серверу OAuth 2.0…</string>    
         
     <string name="ssl_validator_header">Подлинность сайта не может быть проверена</string>
     <string name="ssl_validator_reason_cert_not_trusted">- Сертификат сервера не является доверенным</string>
@@ -485,7 +484,7 @@
     <string name="file_list__footer__files">%1$d файлов</string>
     <string name="file_list__footer__files_and_folder">%1$d файлов, 1 каталог</string>
     <string name="file_list__footer__files_and_folders">%1$d файлов, %2$d каталогов</string>
-    <string name="set_picture_as">Установить изображение как</string>
+    <string name="set_picture_as">Использовать изображение</string>
     <string name="set_as">Установить как</string>
 
     <string name="prefs_instant_behaviour_dialogTitle">Исходный файл будет&#8230;</string>
@@ -564,7 +563,7 @@
     <string name="participate_beta_headline">Протестируйте разрабатываемую версию</string>
     <string name="participate_beta_text">Она включает в себя все готовящиеся возможности с самой передовой. Могут появляться баги, в таком случае, напишите о них нам</string>
     <string name="participate_release_candidate_headline">Кандидат в релизы</string>
-    <string name="participate_release_candidate_text">Релиз-кандидат (RC) — это текущее состояние готовящегося выпуска, и, ожидается, что он будет стабильным. Проверка с вашими индивидуальными настройками может помочь убедится в этом. Зарегистрируйтесь для тестирования в Google Play или используйте раздел «версии» в каталоге приложений F-Droid.</string>
+    <string name="participate_release_candidate_text">Релиз-кандидат (RC) — это текущее состояние готовящегося выпуска, и, ожидается, что он будет стабильным. Проверка с вашими индивидуальными настройками может помочь убедится в этом. Зарегистрируйтесь для тестирования в Google Play или загляните в раздел «версии» каталога приложений F-Droid.</string>
     <string name="participate_contribute_headline">Активное участие</string>
     <string name="participate_contribute_irc_text">Присоединяйтесь к IRC-чату: &lt;a href=\"%1$s\">#nextcloud-mobile&lt;/a></string>
     <string name="participate_contribute_forum_text">Помогайте другим на &lt;a href=\"%1$s\">форуме&lt;/a></string>
@@ -641,10 +640,7 @@
     <string name="actionbar_contacts">Резервное копирование контактов</string>
     <string name="actionbar_contacts_restore">Восстановить контакты</string>
     <string name="contacts_backup_button">Создать резервную копию сейчас</string>
-    <string name="contacts_restore_button">Восстановить из резервной копии</string>
-    <string name="contacts_header_restore">Восстановить</string>
-    <string name="contacts_header_backup">Резервное копирование</string>
-    <string name="contacts_automatic_backup">Резервное копирование контактов</string>
+    <string name="contacts_automatic_backup">Автоматически создавать резервные копии</string>
     <string name="contacts_last_backup">Последнее резервное копирование</string>
     <string name="contacts_read_permission">Требуется разрешение на чтение контактов</string>
     <string name="contacts_write_permission">Требуется разрешение на запись контактов</string>

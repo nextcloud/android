@@ -28,6 +28,7 @@ import android.os.Bundle;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.widget.DrawerLayout;
 import android.view.View;
 
 import com.evernote.android.job.JobManager;
@@ -56,6 +57,7 @@ public class ContactsPreferenceActivity extends FileActivity implements FileFrag
     public static final String PREFERENCE_CONTACTS_AUTOMATIC_BACKUP = "PREFERENCE_CONTACTS_AUTOMATIC_BACKUP";
     public static final String PREFERENCE_CONTACTS_LAST_BACKUP = "PREFERENCE_CONTACTS_LAST_BACKUP";
     public static final String BACKUP_TO_LIST = "BACKUP_TO_LIST";
+    public static final String EXTRA_SHOW_SIDEBAR = "SHOW_SIDEBAR";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +71,14 @@ public class ContactsPreferenceActivity extends FileActivity implements FileFrag
         // setup drawer
         setupDrawer(R.id.nav_contacts);
 
+        // show sidebar?
+        boolean showSidebar = getIntent().getBooleanExtra(EXTRA_SHOW_SIDEBAR, true);
+        if (!showSidebar) {
+            setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            mDrawerToggle.setDrawerIndicatorEnabled(false);
+        }
+
         Intent intent = getIntent();
         if (savedInstanceState == null) {
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
@@ -77,6 +87,7 @@ public class ContactsPreferenceActivity extends FileActivity implements FileFrag
                 ContactsBackupFragment fragment = new ContactsBackupFragment();
                 Bundle bundle = new Bundle();
                 bundle.putParcelable(ContactListFragment.ACCOUNT, getAccount());
+                bundle.putBoolean(EXTRA_SHOW_SIDEBAR, showSidebar);
                 fragment.setArguments(bundle);
                 transaction.add(R.id.frame_container, fragment);
             } else {

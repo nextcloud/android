@@ -113,8 +113,6 @@ Smelltu hér til að fá þér einn frá þjónustuaðila.</string>
     <string name="file_list_empty_headline_server_search_photos">Engar ljósmyndir</string>
     <string name="file_list_empty_search">Er þetta kannski í einhverri annarri möppu?</string>
     <string name="file_list_empty_recently_modified">Fann engar skrár sem breytt hefur verið síðustu 7 daga</string>
-    <string name="file_list_empty_recently_modified_filter">Leitin skilaði engum skrám sem breytt
-        hefur verið síðustu 7 daga</string>
     <string name="file_list_empty_recently_added">Fann engar nýlega viðbættar skrár</string>
     <string name="file_list_empty_recently_added_filter">Leitin skilaði engum nýlega viðbættum skrám</string>
     <string name="file_list_empty_text_photos">Sendu inn einhverjar myndir eða virkjaðu sjálfvirka innsendingu.</string>
@@ -305,8 +303,8 @@ Smelltu hér til að fá þér einn frá þjónustuaðila.</string>
     <string name="activity_chooser_title">Senda tengil til &#8230;</string>
     <string name="wait_for_tmp_copy_from_private_storage">Afrita skrá úr einkageymslu</string>
     
-    <string name="oauth_check_onoff">Skrá inn með oAuth2</string> 
-    <string name="oauth_login_connection">Tengist við OAuth-auðkenningarþjón …</string>    
+    <string name="oauth_check_onoff">Skrá inn með OAuth 2.0</string> 
+    <string name="oauth_login_connection">Tengist við OAuth 2.0-auðkenningarþjón …</string>    
         
     <string name="ssl_validator_header">Ekki var hægt að sannreyna auðkenni vefsvæðisins</string>
     <string name="ssl_validator_reason_cert_not_trusted">- Skilríki þjónsins er ekki treyst</string>
@@ -349,7 +347,7 @@ Smelltu hér til að fá þér einn frá þjónustuaðila.</string>
     <string name="instant_video_upload_on_charging">Einungis senda inn þegar verið er að hlaða</string>
     <string name="instant_upload_on_charging">Einungis senda inn þegar verið er að hlaða</string>
     <string name="instant_upload_path">/BeinInnsending</string>
-    <string name="auto_upload_path">/Sjálfvirk innsending</string>
+    <string name="auto_upload_path">/SjálfvirkInnsending</string>
     <string name="conflict_title">Árekstur skráa</string>
     <string name="conflict_message">Hvaða skrám viltu halda? Ef þú velur báðar útgáfur, þá mun verða bætt tölustaf aftan við heiti afrituðu skrárinnar.</string>
     <string name="conflict_keep_both">Halda báðum</string>
@@ -484,7 +482,6 @@ Smelltu hér til að fá þér einn frá þjónustuaðila.</string>
     <string name="file_list__footer__files">%1$d skrár</string>
     <string name="file_list__footer__files_and_folder">%1$d skrár, 1 mappa</string>
     <string name="file_list__footer__files_and_folders">%1$d skrár, %2$d möppur</string>
-    <string name="set_picture_as">Setja mynd sem</string>
     <string name="set_as">Setja sem</string>
 
     <string name="prefs_instant_behaviour_dialogTitle">Upprunaleg skrá verður&#8230;</string>
@@ -563,7 +560,6 @@ Smelltu hér til að fá þér einn frá þjónustuaðila.</string>
     <string name="participate_beta_headline">Prófaðu þróunarútgáfuna</string>
     <string name="participate_beta_text">Þetta inniheldur alla væntanlega eiginleika og er alveg á jaðrinum hvað varðar stöðugleika. Villur geta komið upp, og ef slíkt gerist, endilega tilkynntu um þær.</string>
     <string name="participate_release_candidate_headline">Forútgáfa</string>
-    <string name="participate_release_candidate_text">Útgáfukandídat (RC) er stöðutaka á væntanlegri útgáfu og er vænst til að hún sé nokkuð stöðug. Með prófun á uppsetningunni þinni værirðu að hjálpa til við að tryggja þann stöðugleika. Skráðu þig til prófana í Play-safninu eða skoðaðu handvirkt í \"útgáfur\" hlutanum á F-Droid.</string>
     <string name="participate_contribute_headline">Vertu virkur þáttakandi</string>
     <string name="participate_contribute_irc_text">Taktu þátt í spjalli á IRC: &lt;a href=\"%1$s\">#nextcloud-mobile&lt;/a></string>
     <string name="participate_contribute_forum_text">Hjálpaðu öðrum á &lt;a href=\"%1$s\">spjallvefnum&lt;/a></string>
@@ -635,13 +631,10 @@ Smelltu hér til að fá þér einn frá þjónustuaðila.</string>
     <string name="webview_error">Villa átti sér stað</string>
     <string name="prefs_category_about">Um hugbúnaðinn</string>
 
-    <string name="actionbar_contacts">Taka öryggisafrit af tengiliðum</string>
+    <string name="actionbar_contacts">Taka öryggisafrit af tengiliðum </string>
     <string name="actionbar_contacts_restore">Endurheimta tengiliði</string>
     <string name="contacts_backup_button">Taka öryggisafrit núna</string>
-    <string name="contacts_restore_button">Endurheimta síðasta öryggisafrit</string>
-    <string name="contacts_header_restore">Endurheimta</string>
-    <string name="contacts_header_backup">Taka öryggisafrit</string>
-    <string name="contacts_automatic_backup">Öryggisafrit af tengiliðum</string>
+    <string name="contacts_automatic_backup">Sjálfvirk öryggisafritun</string>
     <string name="contacts_last_backup">Síðasta öryggisafrit</string>
     <string name="contacts_read_permission">Nauðsynlegt er að hafa heimild til að lesa tengiliðalista</string>
     <string name="contacts_write_permission">Nauðsynlegt er að hafa heimild til að breyta tengiliðalista</string>

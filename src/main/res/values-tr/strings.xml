@@ -112,8 +112,7 @@
     <string name="file_list_empty_headline_server_search_photos">Herhangi bir fotoğraf bulunamadı</string>
     <string name="file_list_empty_search">Başka bir klasöre bakılmasını ister misiniz?</string>
     <string name="file_list_empty_recently_modified">Son 7 gün içinde değiştirilmiş herhangi bir dosya bulunamadı</string>
-    <string name="file_list_empty_recently_modified_filter">Arama sonucunda son 7 gün içinde düzenlenmiş
-        bir dosya bulunamadı.</string>
+    <string name="file_list_empty_recently_modified_filter">Arama sonucunda son 7 gün içinde düzenlenmiş bir dosya bulunamadı.</string>
     <string name="file_list_empty_recently_added">Geçenlerde eklenmiş herhangi bir dosya bulunamadı</string>
     <string name="file_list_empty_recently_added_filter">Arama sonucunda geçenlerde eklenmiş bir dosya bulunamadı.</string>
     <string name="file_list_empty_text_photos">Bazı fotoğraflar yükleyin ya da otomatik yüklemeyi etkinleştirin.</string>
@@ -304,8 +303,8 @@
     <string name="activity_chooser_title">Bağlantıyı gönder&#8230;</string>
     <string name="wait_for_tmp_copy_from_private_storage">Dosya kişisel depolamadan kopyalanıyor</string>
     
-    <string name="oauth_check_onoff">OAuth2 ile Oturum Aç</string> 
-    <string name="oauth_login_connection">OAuth2 sunucusuna bağlanılıyor…</string>    
+    <string name="oauth_check_onoff">OAuth 2.0 ile Oturum Aç</string> 
+    <string name="oauth_login_connection">OAuth 2.0 sunucusuna bağlanılıyor…</string>    
         
     <string name="ssl_validator_header">Sitenin kimliği doğrulanamadı</string>
     <string name="ssl_validator_reason_cert_not_trusted">- Sunucu sertifikasına güvenilmiyor</string>
@@ -348,7 +347,7 @@
     <string name="instant_video_upload_on_charging">Yalnız şarj edilirken yüklensin</string>
     <string name="instant_upload_on_charging">Yalnız şarj edilirken yüklensin</string>
     <string name="instant_upload_path">/AnındaYükle</string>
-    <string name="auto_upload_path">/Otomatik Yükleme</string>
+    <string name="auto_upload_path">/OtomatikYükleme</string>
     <string name="conflict_title">Dosya çakışması</string>
     <string name="conflict_message">Hangi dosyaları saklamak istiyorsunuz? Her ikisini de saklamayı seçerseniz yerel dosyanın adına bir sayı eklenecek.</string>
     <string name="conflict_keep_both">İkisini de sakla</string>
@@ -483,7 +482,7 @@
     <string name="file_list__footer__files">%1$d dosya</string>
     <string name="file_list__footer__files_and_folder">%1$d dosya, 1 klasör</string>
     <string name="file_list__footer__files_and_folders">%1$d dosya, %2$d klasör</string>
-    <string name="set_picture_as">Farklı görsel ayarla</string>
+    <string name="set_picture_as">Görseli farklı kullan</string>
     <string name="set_as">Farklı Ayarla</string>
 
     <string name="prefs_instant_behaviour_dialogTitle">Özgün dosya için&#8230;</string>
@@ -562,7 +561,7 @@
     <string name="participate_beta_headline">Geliştirici sürümünü deneyin</string>
     <string name="participate_beta_text">Bu sürümde tüm yeni özellikler bulunur ve çok taze olduğundan eksikleri olabilir. Bir hata ya da soruna rastlarsanız bize iletin.</string>
     <string name="participate_release_candidate_headline">Yayın adayı</string>
-    <string name="participate_release_candidate_text">Yayın adayı (Release Candidate, RC) yayınlanacak sürümün bir kopyasıdır ve kararlı olması beklenir. Kişisel olarak kullanmanız kararlı olduğundan emin olmamızı sağlar. Denemek için Play Store üzerinden kayıt olun ya da el ile F-Droid üzerindeki \"sürümler\" bölümüne bakın.</string>
+    <string name="participate_release_candidate_text">Yayın adayı (Release Candidate, RC) yayınlanacak sürümün bir kopyasıdır ve kararlı olması beklenir. Kendi kurulumunuzda kullanmanız bundan emin olmamızı sağlayabilir. Denemek için Play Store üzerinden kayıt olun ya da el ile F-Droid üzerindeki \"Sürüm\" bölümüne bakın.</string>
     <string name="participate_contribute_headline">Etkin Katkıda Bulunun</string>
     <string name="participate_contribute_irc_text">IRC sohbetine katılın: &lt;a href=\"%1$s\">#nextcloud-mobile&lt;/a></string>
     <string name="participate_contribute_forum_text">&lt;a href=\"%1$s\">Forumda&lt;/a> diğer kullanıcılara yardımcı olun</string>
@@ -634,13 +633,10 @@
     <string name="webview_error">Sorun çıktı</string>
     <string name="prefs_category_about">Hakkında</string>
 
-    <string name="actionbar_contacts">Kişileri Yedekle</string>
+    <string name="actionbar_contacts">Kişileri yedekle</string>
     <string name="actionbar_contacts_restore">Kişileri Geri Yükle</string>
     <string name="contacts_backup_button">Yedekle</string>
-    <string name="contacts_restore_button">Son Yedeği Geri Yükle</string>
-    <string name="contacts_header_restore">Geri Yükle</string>
-    <string name="contacts_header_backup">Yedekle</string>
-    <string name="contacts_automatic_backup">Kişileri Yedekle</string>
+    <string name="contacts_automatic_backup">Otomatik yedekleme</string>
     <string name="contacts_last_backup">Son Yedek</string>
     <string name="contacts_read_permission">Kişi listesini okuma izni gerekiyor</string>
     <string name="contacts_write_permission">Kişi listesini düzenleme izni gerekiyor</string>

@@ -1,4 +1,4 @@
-/**
+/*
  * Nextcloud Android client application
  *
  * @author Alejandro Bautista
@@ -45,11 +45,13 @@ import com.bumptech.glide.load.resource.file.FileToStreamDecoder;
 import com.caverock.androidsvg.SVG;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
+import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.resources.activities.models.Activity;
 import com.owncloud.android.lib.resources.activities.models.RichElement;
 import com.owncloud.android.lib.resources.activities.models.RichObject;
+import com.owncloud.android.lib.resources.files.FileUtils;
 import com.owncloud.android.ui.interfaces.ActivityListInterface;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
@@ -76,12 +78,15 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     private OwnCloudClient mClient;
 
     private Context context;
+    private FileDataStorageManager storageManager;
     private List<Object> mValues;
 
-    public ActivityListAdapter(Context context, ActivityListInterface activityListInterface) {
+    public ActivityListAdapter(Context context, ActivityListInterface activityListInterface,
+                               FileDataStorageManager storageManager) {
         this.mValues = new ArrayList<>();
         this.context = context;
         this.activityListInterface = activityListInterface;
+        this.storageManager = storageManager;
         px = getThumbnailDimension();
     }
 
@@ -200,8 +205,16 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     }
 
     private ImageView createThumbnail(final RichObject richObject) {
-        OCFile file = new OCFile("/" + richObject.getPath());
-        file.setRemoteId(richObject.getId());
+        String path = FileUtils.PATH_SEPARATOR + richObject.getPath();
+        OCFile file = storageManager.getFileByPath(path);
+
+        if (file == null) {
+            file = storageManager.getFileByPath(path + FileUtils.PATH_SEPARATOR);
+        }
+        if (file == null) {
+            file = new OCFile(path);
+            file.setRemoteId(richObject.getId());
+        }
 
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(px, px);
         params.setMargins(10, 10, 10, 10);
