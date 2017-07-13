@@ -180,17 +180,6 @@ public class ThemeUtils {
     }
 
     /**
-     * sets the coloring of the given progress bar to color_accent.
-     *
-     * @param progressBar the progress bar to be colored
-     */
-    public static void colorPreLollipopHorizontalProgressBar(ProgressBar progressBar) {
-        if (progressBar != null && Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-            colorHorizontalProgressBar(progressBar, ThemeUtils.primaryAccentColor());
-        }
-    }
-
-    /**
      * sets the tinting of the given ImageButton's icon to color_accent.
      *
      * @param imageButton the image button who's icon should be colored
@@ -219,15 +208,13 @@ public class ThemeUtils {
      *
      * @param seekBar the seek bar to be colored
      */
-    public static void colorPreLollipopHorizontalSeekBar(SeekBar seekBar) {
-        if (seekBar != null && Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-            colorPreLollipopHorizontalProgressBar(seekBar);
+    public static void colorHorizontalSeekBar(SeekBar seekBar) {
+        int color = ThemeUtils.primaryAccentColor();
+        colorHorizontalProgressBar(seekBar, color);
 
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                int color = ThemeUtils.primaryAccentColor();
-                seekBar.getThumb().setColorFilter(color, PorterDuff.Mode.SRC_IN);
-                seekBar.getThumb().setColorFilter(color, PorterDuff.Mode.SRC_IN);
-            }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+            seekBar.getThumb().setColorFilter(color, PorterDuff.Mode.SRC_IN);
+            seekBar.getThumb().setColorFilter(color, PorterDuff.Mode.SRC_IN);
         }
     }
 
