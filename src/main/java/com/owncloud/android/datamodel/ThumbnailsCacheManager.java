@@ -474,7 +474,7 @@ public class ThumbnailsCacheManager {
                             if (MimeTypeUtil.isVideo(mFile)) {
                                 imageView.setImageBitmap(ThumbnailsCacheManager.mDefaultVideo);
                             } else {
-                                imageView.setImageResource(MimeTypeUtil.getFileTypeIconId(null, mFile.getName()));
+                                imageView.setImageDrawable(MimeTypeUtil.getFileTypeIcon(null, mFile.getName(), null));
                             }
                         }
                     }
