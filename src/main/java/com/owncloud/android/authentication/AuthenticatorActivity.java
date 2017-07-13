@@ -53,6 +53,7 @@ import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.net.http.SslError;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
@@ -73,6 +74,8 @@ import android.view.View;
 import android.view.View.OnFocusChangeListener;
 import android.view.View.OnTouchListener;
 import android.view.inputmethod.EditorInfo;
+import android.webkit.CookieManager;
+import android.webkit.CookieSyncManager;
 import android.webkit.HttpAuthHandler;
 import android.webkit.SslErrorHandler;
 import android.webkit.WebView;
@@ -249,6 +252,15 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         //Log_OC.e(TAG,  "onCreate init");
         super.onCreate(savedInstanceState);
 
+        CookieSyncManager.createInstance(this);
+        CookieManager cookieManager = CookieManager.getInstance();
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            cookieManager.removeAllCookies(null);
+        } else {
+            cookieManager.removeAllCookie();
+        }
+
         // Workaround, for fixing a problem with Android Library Suppor v7 19
         //getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         if (getSupportActionBar() != null) {
@@ -331,10 +343,17 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         initServerPreFragment(savedInstanceState);
     }
 
+    private static String getWebLoginUserAgent() {
+        return android.os.Build.MANUFACTURER.substring(0, 1).toUpperCase() +
+                android.os.Build.MANUFACTURER.substring(1).toLowerCase() + " " + android.os.Build.MODEL;
+    }
+
     private void initWebViewLogin(String baseURL) {
         mLoginWebView.getSettings().setAllowFileAccess(false);
         mLoginWebView.getSettings().setJavaScriptEnabled(true);
-        mLoginWebView.getSettings().setUserAgentString(MainApp.getUserAgent());
+        mLoginWebView.getSettings().setUserAgentString(getWebLoginUserAgent());
+        mLoginWebView.getSettings().setSaveFormData(false);
+        mLoginWebView.getSettings().setSavePassword(false);
 
         if (baseURL != null && !baseURL.isEmpty()){
             Map<String, String> headers = new HashMap<>();
