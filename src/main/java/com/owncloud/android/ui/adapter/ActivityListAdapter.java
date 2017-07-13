@@ -251,8 +251,7 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 Glide.with(context).using(new CustomGlideStreamLoader()).load(uri).into(fileIcon); //Using custom fetcher
 
             } else {
-                fileIcon.setImageResource(MimeTypeUtil.getFileTypeIconId(file.getMimetype(),
-                        file.getFileName()));
+                fileIcon.setImageDrawable(MimeTypeUtil.getFileTypeIcon(file.getMimetype(), file.getFileName(), null));
             }
         } else {
             // Folder
