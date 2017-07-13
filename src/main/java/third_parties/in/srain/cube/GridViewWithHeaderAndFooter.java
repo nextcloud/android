@@ -98,7 +98,7 @@ public class GridViewWithHeaderAndFooter extends GridView {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         ListAdapter adapter = getAdapter();
         if (adapter instanceof HeaderViewGridAdapter) {
-            ((HeaderViewGridAdapter) adapter).setNumColumns(getNumColumnsCompatible());
+            ((HeaderViewGridAdapter) adapter).setNumColumns(super.getNumColumns());
             invalidateRowHeight();
             ((HeaderViewGridAdapter) adapter).setRowHeight(getRowHeight());
         }
@@ -264,24 +264,6 @@ public class GridViewWithHeaderAndFooter extends GridView {
         }
     }
 
-    @TargetApi(11)
-    private int getNumColumnsCompatible() {
-        if (Build.VERSION.SDK_INT >= 11) {
-            return super.getNumColumns();
-        } else {
-            try {
-                Field numColumns = getClass().getSuperclass().getDeclaredField("mNumColumns");
-                numColumns.setAccessible(true);
-                return numColumns.getInt(this);
-            } catch (Exception e) {
-                if (mNumColumns != -1) {
-                    return mNumColumns;
-                }
-                throw new RuntimeException("Can not determine the mNumColumns for this API platform, please call setNumColumns to set it.");
-            }
-        }
-    }
-
     @TargetApi(16)
     private int getColumnWidthCompatible() {
         if (Build.VERSION.SDK_INT >= 16) {
@@ -312,7 +294,7 @@ public class GridViewWithHeaderAndFooter extends GridView {
             return mRowHeight;
         }
         ListAdapter adapter = getAdapter();
-        int numColumns = getNumColumnsCompatible();
+        int numColumns = super.getNumColumns();
 
         // adapter has not been set or has no views in it;
         if (adapter == null || adapter.getCount() <= numColumns * (mHeaderViewInfos.size() + mFooterViewInfos.size())) {
@@ -335,31 +317,21 @@ public class GridViewWithHeaderAndFooter extends GridView {
         return mRowHeight;
     }
 
-    @TargetApi(11)
     public void tryToScrollToBottomSmoothly() {
         int lastPos = getAdapter().getCount() - 1;
-        if (Build.VERSION.SDK_INT >= 11) {
-            smoothScrollToPositionFromTop(lastPos, 0);
-        } else {
-            setSelection(lastPos);
-        }
+        smoothScrollToPositionFromTop(lastPos, 0);
     }
 
-    @TargetApi(11)
     public void tryToScrollToBottomSmoothly(int duration) {
         int lastPos = getAdapter().getCount() - 1;
-        if (Build.VERSION.SDK_INT >= 11) {
-            smoothScrollToPositionFromTop(lastPos, 0, duration);
-        } else {
-            setSelection(lastPos);
-        }
+        smoothScrollToPositionFromTop(lastPos, 0, duration);
     }
 
     @Override
     public void setAdapter(ListAdapter adapter) {
         if (mHeaderViewInfos.size() > 0 || mFooterViewInfos.size() > 0) {
             HeaderViewGridAdapter headerViewGridAdapter = new HeaderViewGridAdapter(mHeaderViewInfos, mFooterViewInfos, adapter);
-            int numColumns = getNumColumnsCompatible();
+            int numColumns = super.getNumColumns();
             if (numColumns > 1) {
                 headerViewGridAdapter.setNumColumns(numColumns);
             }

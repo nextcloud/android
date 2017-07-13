@@ -35,6 +35,7 @@ import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.activity.BaseActivity;
 import com.owncloud.android.utils.DisplayUtils;
+import com.owncloud.android.utils.ThemeUtils;
 
 import java.util.List;
 
@@ -105,7 +106,11 @@ public class AccountListAdapter extends ArrayAdapter<AccountListItem> implements
     private View setupAddAccountListItem(ViewGroup parent) {
         LayoutInflater inflater = mContext.getLayoutInflater();
         View actionView = inflater.inflate(R.layout.account_action, parent, false);
-        ((TextView) actionView.findViewById(R.id.user_name)).setText(R.string.prefs_add_account);
+
+        TextView userName = (TextView) actionView.findViewById(R.id.user_name);
+        userName.setText(R.string.prefs_add_account);
+        userName.setTextColor(ThemeUtils.primaryColor());
+
         ((ImageView) actionView.findViewById(R.id.user_icon)).setImageResource(R.drawable.ic_account_plus);
 
         // bind action listener
