@@ -1,3 +1,10 @@
+## 2017-07-14 00:30
+- revamped details screen (nextcloud/new_details_view_animations) [https://github.com/nextcloud/android/pull/1156] added
+- Resized images (nextcloud/resizedImages) [https://github.com/nextcloud/android/pull/69] added
+
+- revamped details screen (nextcloud/new_details_view_animations) [https://github.com/nextcloud/android/pull/1156] updated
+- Resized images (nextcloud/resizedImages) [https://github.com/nextcloud/android/pull/69] updated
+
 ## 2017-07-13 00:31
 no new branches added
 

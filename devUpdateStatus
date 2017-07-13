@@ -1,15 +1,15 @@
-2017-07-13
+2017-07-14
 Branches: 13
 [01 / 13] Catch a rare exception while setting activity list adapter (nextcloud/ErrorInActivityListAdapter) [https://github.com/nextcloud/android/pull/1173] no update needed
 [02 / 13] Fix: no shared folders after \ (nextcloud/sharedFolderMissing) [https://github.com/nextcloud/android/pull/1165] no update needed
-[03 / 13] Comment out adding all new downloaded files to folder observer (nextcloud/folderObserver) [https://github.com/nextcloud/android/pull/1155] no update needed
-[04 / 13] Auto upload rotation bug (nextcloud/autoUploadRotationBug) [https://github.com/nextcloud/android/pull/1138] no update needed
-[05 / 13] Opens share by clicking icon in file listing (nextcloud/shareDialog) [https://github.com/nextcloud/android/pull/1135] CONFLICT
-[06 / 13] 1089 sharing with password rule (nextcloud/1089_sharing_with_password_rule) [https://github.com/nextcloud/android/pull/1110] CONFLICT
-[07 / 13] Delete all local files on account removal (nextcloud/deleteFilesOnAccountRemoval) [https://github.com/nextcloud/android/pull/1109] CONFLICT
-[08 / 13] Bruteforce support: re-use cookie (nextcloud/bruteforce) [https://github.com/nextcloud/android/pull/1099] no update needed
-[09 / 13] Theming Dynamically use server color (nextcloud/userTheming) [https://github.com/nextcloud/android/pull/1031] no update needed
+[03 / 13] revamped details screen (nextcloud/new_details_view_animations) [https://github.com/nextcloud/android/pull/1156] merged successfully
+[04 / 13] Comment out adding all new downloaded files to folder observer (nextcloud/folderObserver) [https://github.com/nextcloud/android/pull/1155] no update needed
+[05 / 13] Auto upload rotation bug (nextcloud/autoUploadRotationBug) [https://github.com/nextcloud/android/pull/1138] no update needed
+[06 / 13] Opens share by clicking icon in file listing (nextcloud/shareDialog) [https://github.com/nextcloud/android/pull/1135] CONFLICT
+[07 / 13] 1089 sharing with password rule (nextcloud/1089_sharing_with_password_rule) [https://github.com/nextcloud/android/pull/1110] CONFLICT
+[08 / 13] Delete all local files on account removal (nextcloud/deleteFilesOnAccountRemoval) [https://github.com/nextcloud/android/pull/1109] CONFLICT
+[09 / 13] Bruteforce support: re-use cookie (nextcloud/bruteforce) [https://github.com/nextcloud/android/pull/1099] no update needed
 [10 / 13] Search inside of text files (nextcloud/bugfix-454) [https://github.com/nextcloud/android/pull/565] CONFLICT
-[11 / 13] Resized images (nextcloud/resizedImages) [https://github.com/nextcloud/android/pull/69] CONFLICT
-[12 / 13] Master (nextcloud/master) [https://github.com/nextcloud/android] merged successfully
+[11 / 13] Resized images (nextcloud/resizedImages) [https://github.com/nextcloud/android/pull/69] merged successfully
+[12 / 13] Master (nextcloud/master) [https://github.com/nextcloud/android] no update needed
 [13 / 13] Dev base (nextcloud/dev-base) [https://github.com/nextcloud/android/tree/dev-base] CONFLICT
