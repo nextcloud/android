@@ -1,4 +1,4 @@
-/**
+/*
  *   Nextcloud Android client application
  *
  *   @author Andy Scherzinger
@@ -33,6 +33,7 @@ import android.widget.ProgressBar;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.utils.ThemeUtils;
 
 /**
  * Base class providing toolbar registration functionality, see {@link #setupToolbar()}.
@@ -49,7 +50,7 @@ public abstract class ToolbarActivity extends BaseActivity {
      * Toolbar setup that must be called in implementer's {@link #onCreate} after {@link #setContentView} if they
      * want to use the toolbar.
      */
-    protected void setupToolbar() {
+    protected void setupToolbar(boolean useBackgroundImage) {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -57,14 +58,34 @@ public abstract class ToolbarActivity extends BaseActivity {
         if (mProgressBar != null) {
             mProgressBar.setIndeterminateDrawable(
                     ContextCompat.getDrawable(this, R.drawable.actionbar_progress_indeterminate_horizontal));
+
+            ThemeUtils.colorToolbarProgressBar(this, ThemeUtils.primaryColor());
         }
+
+        ThemeUtils.colorStatusBar(this, ThemeUtils.primaryDarkColor());
+
+        if (toolbar.getOverflowIcon() != null) {
+            ThemeUtils.tintDrawable(toolbar.getOverflowIcon(), ThemeUtils.fontColor());
+        }
+
+        if (toolbar.getNavigationIcon() != null) {
+            ThemeUtils.tintDrawable(toolbar.getNavigationIcon(), ThemeUtils.fontColor());
+        }
+
+        if (!useBackgroundImage) {
+            toolbar.setBackgroundColor(ThemeUtils.primaryColor());
+        }
+    }
+
+    protected void setupToolbar() {
+        setupToolbar(false);
     }
 
     /**
      * Updates title bar and home buttons (state and icon).
      */
     protected void updateActionBarTitleAndHomeButton(OCFile chosenFile) {
-        String title = getString(R.string.default_display_name_for_root_folder);    // default
+        String title = ThemeUtils.getDefaultDisplayNameForRootFolder();    // default
         boolean inRoot;
 
         // choose the appropriate title
@@ -89,13 +110,20 @@ public abstract class ToolbarActivity extends BaseActivity {
             titleToSet = title;
         }
 
-        // set the chosen title
+        // set & color the chosen title
         ActionBar actionBar = getSupportActionBar();
-        actionBar.setTitle(titleToSet);
+        ThemeUtils.setColoredTitle(actionBar, titleToSet);
 
         // set home button properties
-        actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setDisplayShowTitleEnabled(true);
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setDisplayShowTitleEnabled(true);
+        }
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        if (toolbar != null && toolbar.getNavigationIcon() != null) {
+            ThemeUtils.tintDrawable(toolbar.getNavigationIcon(), ThemeUtils.fontColor());
+        }
     }
 
     /**
@@ -123,7 +151,6 @@ public abstract class ToolbarActivity extends BaseActivity {
      * a Drawable object or 0 to remove the background.#
      *
      * @param color The identifier of the color.
-     * @attr ref android.R.styleable#View_background
      */
     public void setProgressBarBackgroundColor(@ColorInt int color) {
         mProgressBar.setBackgroundColor(color);
