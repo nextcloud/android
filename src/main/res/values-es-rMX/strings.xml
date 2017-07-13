@@ -43,8 +43,8 @@
     <string name="prefs_accounts">Cuentas</string>
     <string name="prefs_manage_accounts">Administrar cuentas</string>
     <string name="prefs_passcode">Bloqueo con código de seguridad</string>
-    <string name="prefs_fingerprint">Bloqueo por huella digital</string>
-    <string name="prefs_fingerprint_notsetup">No se ha establecido ninguna huella digital. </string>
+    <string name="prefs_fingerprint">Bloqueo cor huella digital</string>
+    <string name="prefs_fingerprint_notsetup">No se ha establecido alguna huella digital. </string>
     <string name="prefs_show_hidden_files">Mostrar archivos ocultos</string>
     <string name="prefs_instant_upload">Carga automática de imágenes</string>
     <string name="prefs_instant_upload_summary">Cargar instantaneamente las fotografías tomadas por la cámara</string>
@@ -63,9 +63,9 @@
     <string name="prefs_help">Ayuda</string>
     <string name="prefs_recommend">Recomendar a un amigo</string>
     <string name="prefs_feedback">Retroalimentación</string>
-    <string name="prefs_imprint">Exención de responsabilidad </string>
+    <string name="prefs_imprint">Excención de responsabilidad </string>
     <string name="prefs_remember_last_share_location">Recordar la ubicación del elemento compartido</string>
-    <string name="prefs_remember_last_upload_location_summary">Recordar la ubicación del elemento compartido más recientemente usado</string>
+    <string name="prefs_remember_last_upload_location_summary">Recordar la ubicación del elemento compartido usado más recientemente </string>
 
 	<string name="recommend_subject">Prueba  %1$s en tu teléfono inteligente!</string>
 	<string name="recommend_text">Quisiera invitarte a usar %1$s en tu teléfono inteligente\nDescargualo aquí: %2$s</string>
@@ -74,13 +74,13 @@
     <string name="auth_host_url">Dirección del servidor https://…</string>
     <string name="auth_username">Usuario</string>
     <string name="auth_password">Contraseña</string>
-    <string name="auth_register">Aún no tiene un servidor? \nHaga click aquí para obtener uno de un proveedor</string>
+    <string name="auth_register">Aún no tienes un servidor? \nHas click aquí para obtener uno de un proveedor</string>
     <string name="sync_string_files">Archivos</string>
     <string name="setup_btn_connect">Conectar</string>
     <string name="uploader_btn_upload_text">Cargar</string>
     <string name="uploader_top_message">Selecciona la carpeta de cargas</string>
     <string name="uploader_wrn_no_account_title">No se encontró la cuenta</string>
-    <string name="uploader_wrn_no_account_text">No existen cuentas  %1$s en su dispositivo. Favor de configurar una cuenta primero.</string>
+    <string name="uploader_wrn_no_account_text">No existen cuentas  %1$s en tu dispositivo. Por favor configura una cuenta primero.</string>
     <string name="uploader_wrn_no_account_setup_btn_text">Ajustes</string>
     <string name="uploader_wrn_no_account_quit_btn_text">Salir</string>
     <string name="uploader_error_title_no_file_to_upload">No hay un archivo a cargar</string>
@@ -116,12 +116,12 @@
     <string name="file_list_empty_recently_added">No se encontraron archivos agregados recientemente</string>
     <string name="file_list_empty_recently_added_filter">Tu búsqueda no encontró archivos recientemente agregados. </string>
     <string name="file_list_empty_text_photos">Cargua algunas fotos o activa la carga automática.</string>
-    <string name="file_list_empty_text_photos_filter">Su búsqueda no encontró fotografías. </string>
-    <string name="file_list_empty_text_videos">Cargue algunos videos o active la carga automática.</string>
-    <string name="file_list_empty_text_videos_filter">Su búsqueda no encontró videos. </string>
+    <string name="file_list_empty_text_photos_filter">Tu búsqueda no encontró fotografías. </string>
+    <string name="file_list_empty_text_videos">Carga algunos videos o activa la carga automática.</string>
+    <string name="file_list_empty_text_videos_filter">Tu búsqueda no encontró videos. </string>
     <string name="upload_list_empty_headline">No hay cargas disponibles</string>
     <string name="upload_list_empty_text">Carga algún contenido o activa la carga automática</string>
-    <string name="upload_list_empty_text_auto_upload">Cargue algún contenido o active la carga automática</string>
+    <string name="upload_list_empty_text_auto_upload">Cargua algún contenido o activa la carga automática</string>
     <string name="file_list_folder">carpeta</string>
     <string name="file_list_folders">carpetas</string>
     <string name="file_list_file">archivo</string>
@@ -450,7 +450,7 @@
     <string name="forbidden_permissions_move">para mover este archivo</string>
 
 
-    <string name="copy_file_not_found">Falla al copiar. Favor de revisar si existe el archivo</string>
+    <string name="copy_file_not_found">Falla al copiar. Por favor revisa si existe el archivo</string>
     <string name="copy_file_invalid_into_descendent">No es posible copiar una carpeta dentro de una de sus sub carpetas</string>
     <string name="copy_file_invalid_overwrite">El archivo ya existe en la carpeta destino</string>
     <string name="copy_file_error">Se presentó un error al intentar copiar este archivo o carpeta</string>
@@ -463,16 +463,16 @@
     <string name="sync_folder_failed_content">La sincronización de %1$s carpeta no se pudo completar</string>
 
 	<string name="shared_subject_header">compartido</string>
-	<string name="with_you_subject_header">con usted</string>
+	<string name="with_you_subject_header">contigo</string>
     
-	<string name="subject_user_shared_with_you">%1$s ha compartido \"%2$s\" con usted</string>
-    <string name="subject_shared_with_you">\"%1$s\" ha sido compartido con usted</string>
+	<string name="subject_user_shared_with_you">%1$s ha compartido \"%2$s\" contigo</string>
+    <string name="subject_shared_with_you">\"%1$s\" ha sido compartido contigo</string>
 
     <string name="auth_refresh_button">Actualizar conexión</string>
     <string name="auth_host_address">Dirección del servidor</string>
     <string name="common_error_out_memory">Memoria insuficiente</string>
 
-    <string name="username">Nombre de usuario</string>
+    <string name="username">Usuario</string>
 
     <string name="file_list__footer__folder">1 carpeta</string>
     <string name="file_list__footer__folders">%1$d carpetas</string>
@@ -544,28 +544,28 @@
 
     <string name="permission_storage_access">Se requieren permisos adicionales para cargar y descargar archivos. </string>
     <string name="local_file_not_found_toast">No se encontró el archivo en sistema de archivos local</string>
-    <string name="confirmation_remove_files_alert">¿Realmente desea eliminar los elementos seleccionados?</string>
-    <string name="confirmation_remove_folders_alert">¿Realmente desea eliminar los elementos seleccionados y su contenido?</string>
+    <string name="confirmation_remove_files_alert">¿Realmente deseas eliminar los elementos seleccionados?</string>
+    <string name="confirmation_remove_folders_alert">¿Realmente deseas eliminar los elementos seleccionados y su contenido?</string>
     <string name="maintenance_mode">El servidor está en modo mantenimiento</string>
 
     <string name="uploads_view_upload_status_waiting_for_charging">Aguardando la regarga del dispositivo </string>
     <string name="actionbar_search">Buscar</string>
-    <string name="files_drop_not_supported">Esta es una característica de Nextcloud, favor de actualizar.</string>
-    <string name="learn_more">Conozca más</string>
+    <string name="files_drop_not_supported">Esta es una característica de Nextcloud, por favor actualiza.</string>
+    <string name="learn_more">Conoce más</string>
     <string name="drawer_folder_sync">Carga automática</string>
-    <string name="drawer_participate">Participe</string>
-    <string name="participate_testing_headline">Ayúdenos probando</string>
-    <string name="participate_testing_bug_text">¿Encontró una falla? ¿Hay algo raro?</string>
-    <string name="participate_testing_report_text">Reportar un tema en Github</string>
-    <string name="participate_testing_version_text">¿Le interesaría ayudarnos a probar la siguiente versión?</string>
+    <string name="drawer_participate">Participa</string>
+    <string name="participate_testing_headline">Ayúdanos probando</string>
+    <string name="participate_testing_bug_text">¿Encontraste una falla? ¿Hay algo raro?</string>
+    <string name="participate_testing_report_text">Reporta un tema en Github</string>
+    <string name="participate_testing_version_text">¿Te interesaría ayudarnos a probar la siguiente versión?</string>
     <string name="participate_beta_headline">Probar la versión de desarrollo</string>
-    <string name="participate_beta_text">Esto incluye todas las últimas funcionalidades y es lo más nuevo. Fallas/errores pueden ocurrir y si es el caso, favor de reportarnoslos. </string>
+    <string name="participate_beta_text">Esto incluye todas las últimas funcionalidades y es lo más nuevo. Fallas/errores pueden ocurrir y si es el caso, por favor repórtanoslo.</string>
     <string name="participate_release_candidate_headline">Candidato a lanzamiento</string>
     <string name="participate_contribute_headline">Contribuye activamente</string>
-    <string name="participate_contribute_irc_text">Únase a las conversaciones en IRC: &lt;a href=\"%1$s\">#nextcloud-mobile&lt;/a></string>
-    <string name="participate_contribute_forum_text">Ayude a los demás en el &lt;a href=\"%1$s\">foro&lt;/a></string>
-    <string name="participate_contribute_translate_text">&lt;a href=\"%1$s\">Traduzca&lt;/a> la aplicación </string>
-    <string name="participate_contribute_github_text">Revise, corrija y escriba código, consulte &lt;a href=\"%1$s\">CONTRIBUIR.md&lt;/a> para más detalles </string>
+    <string name="participate_contribute_irc_text">Únete a las conversaciones en IRC: &lt;a href=\"%1$s\">#nextcloud-mobile&lt;/a></string>
+    <string name="participate_contribute_forum_text">Ayuda a los demás en el &lt;a href=\"%1$s\">foro&lt;/a></string>
+    <string name="participate_contribute_translate_text">&lt;a href=\"%1$s\">Traduce&lt;/a> la aplicación </string>
+    <string name="participate_contribute_github_text">Revisa, corrige y escribe código, consulta &lt;a href=\"%1$s\">CONTRIBUIR.md&lt;/a> para más detalles </string>
     <string name="move_to">Mover a&#8230;</string>
     <string name="copy_to">Copiar a&#8230;</string>
     <string name="choose_remote_folder">Seleccione la carpeta&#8230;</string>
@@ -585,9 +585,9 @@
 
     <string name="notifications_loading_activity">Cargando notificaciones&#8230;</string>
     <string name="notifications_no_results_headline">No hay notificaciones</string>
-    <string name="notifications_no_results_message">Favor de verificar más tarde. </string>
+    <string name="notifications_no_results_message">Por favor verifica más tarde. </string>
 
-    <string name="upload_file_dialog_title">Ingrese el nombre y el tipo del archivo a cargar</string>
+    <string name="upload_file_dialog_title">Ingresa el nombre y el tipo del archivo a cargar</string>
     <string name="upload_file_dialog_filename">Nombre de archivo</string>
     <string name="upload_file_dialog_filetype">Tipo de archivo</string>
     <string name="upload_file_dialog_filetype_snippet_text">Archivo snippet de texto(.txt)</string>
@@ -602,18 +602,18 @@
     <string name="whats_new_title">Qué hay de nuevo en Nextcloud</string>
 
     <!-- Welcome to Nc intro features -->
-    <string name="welcome_feature_1_title">Un lugar seguro para todos sus datos</string>
-    <string name="welcome_feature_1_text">Acceda, comparta y proteja sus archivos en casa y la oficina</string>
+    <string name="welcome_feature_1_title">Un lugar seguro para todos tus datos</string>
+    <string name="welcome_feature_1_text">Accede, comparte y proteje tus archivos en casa y la oficina</string>
 
     <string name="welcome_feature_2_title">Multi cuenta</string>
-    <string name="welcome_feature_2_text">Conéctese a todas sus nubes</string>
+    <string name="welcome_feature_2_text">Conéctate a todas tsus nubes</string>
 
     <string name="welcome_feature_3_title">Carga automática</string>
-    <string name="welcome_feature_3_text">Mantenga sus fotos seguras</string>
+    <string name="welcome_feature_3_text">Manten tus fotos seguras</string>
 
     <string name="whats_new_skip">Saltar</string>
 
-    <string name="fingerprint_scan_finger">Favor de escanear su dedo</string>
+    <string name="fingerprint_scan_finger">Por favor escanea tu dedo</string>
     <string name="fingerprint_unknown">El dedo no ha sido reconocido</string>
 
     <!-- User information -->
@@ -641,7 +641,7 @@
     <string name="contacts_write_permission">Se requiere el permiso para cambiar la lista de contactos</string>
     <string name="contactlist_title">Restaurar contactos</string>
     <string name="contaclist_restore_selected">Restaurar los contactos seleccionados</string>
-    <string name="contactlist_account_chooser_title">Seleccione la cuenta a importar</string>
+    <string name="contactlist_account_chooser_title">Selecciona la cuenta a importar</string>
     <string name="contactlist_no_permission">¡No se otorgaron permisos, nada fue importado!</string>
     <string name="contacts_preference_choose_date">Selecciona una fecha</string>
     <string name="contacts_preference_backup_never">nunca</string>
