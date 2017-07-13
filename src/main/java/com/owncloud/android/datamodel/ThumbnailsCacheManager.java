@@ -229,11 +229,11 @@ public class ThumbnailsCacheManager {
             mImageViewReference = null;
         }
 
-        public ThumbnailGenerationTask(ImageView imageView, FileDataStorageManager storageManager,
-                                       Account account, ProgressBar progressWheel) {
-            this(imageView, storageManager, account);
-            mProgressWheelRef = new WeakReference<ProgressBar>(progressWheel);
-        }
+//        public ThumbnailGenerationTask(ImageView imageView, FileDataStorageManager storageManager,
+//                                       Account account, ProgressBar progressWheel) {
+//            this(imageView, storageManager, account);
+//            mProgressWheelRef = new WeakReference<ProgressBar>(progressWheel);
+//        }
 
         public ThumbnailGenerationTask(ImageView imageView) {
             // Use a WeakReference to ensure the ImageView can be garbage collected
@@ -414,18 +414,19 @@ public class ThumbnailsCacheManager {
                         if (serverOCVersion.supportsRemoteThumbnails()) {
                             getMethod = null;
                             try {
-                                if (mIsThumbnail) {String uri = mClient.getBaseUri() + "" +
-                                        "/index.php/apps/files/api/v1/thumbnail/" +
-                                        pxW + "/" + pxH + Uri.encode(file.getRemotePath(), "/");
-                                Log_OC.d("Thumbnail", "URI: " + uri);
-                                getMethod = new GetMethod(uri);
-                                getMethod.setRequestHeader("Cookie",
-                                        "nc_sameSiteCookielax=true;nc_sameSiteCookiestrict=true");
-                                int status = mClient.executeMethod(getMethod);
-                                if (status == HttpStatus.SC_OK) {
-                                    InputStream inputStream = getMethod.getResponseBodyAsStream();
-                                    Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
-                                    thumbnail = ThumbnailUtils.extractThumbnail(bitmap, pxW, pxH);
+                                if (mIsThumbnail) {
+                                    String uri = mClient.getBaseUri() + "" +
+                                            "/index.php/apps/files/api/v1/thumbnail/" +
+                                            pxW + "/" + pxH + Uri.encode(file.getRemotePath(), "/");
+                                    Log_OC.d("Thumbnail", "URI: " + uri);
+                                    getMethod = new GetMethod(uri);
+                                    getMethod.setRequestHeader("Cookie",
+                                            "nc_sameSiteCookielax=true;nc_sameSiteCookiestrict=true");
+                                    int status = mClient.executeMethod(getMethod);
+                                    if (status == HttpStatus.SC_OK) {
+                                        InputStream inputStream = getMethod.getResponseBodyAsStream();
+                                        Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
+                                        thumbnail = ThumbnailUtils.extractThumbnail(bitmap, pxW, pxH);
                                     }
                                 } else {
                                     String uri = mClient.getBaseUri() + "" +
@@ -434,12 +435,12 @@ public class ThumbnailsCacheManager {
                                             "/" + pxW + "/" + pxH;
                                     Log_OC.d("Thumbnail", "FileName: " + file.getFileName() +
                                             " Download URI: " + uri);
-                                    get = new GetMethod(uri);
-                                    get.setRequestHeader("Cookie",
+                                    getMethod = new GetMethod(uri);
+                                    getMethod.setRequestHeader("Cookie",
                                             "nc_sameSiteCookielax=true;nc_sameSiteCookiestrict=true");
-                                    int status = mClient.executeMethod(get);
+                                    int status = mClient.executeMethod(getMethod);
                                     if (status == HttpStatus.SC_OK) {
-                                        InputStream inputStream = get.getResponseBodyAsStream();
+                                        InputStream inputStream = getMethod.getResponseBodyAsStream();
                                         Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
                                         // Download via gallery app
                                         thumbnail = bitmap;

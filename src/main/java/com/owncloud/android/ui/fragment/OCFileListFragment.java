@@ -21,7 +21,6 @@
  */
 package com.owncloud.android.ui.fragment;
 
-import android.app.Activity;
 import android.accounts.Account;
 import android.accounts.AuthenticatorException;
 import android.accounts.OperationCanceledException;
@@ -94,7 +93,6 @@ import com.owncloud.android.ui.preview.PreviewTextFragment;
 import com.owncloud.android.utils.AnalyticsUtils;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.FileStorageUtils;
-import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.MimeTypeUtil;
 
 import org.greenrobot.eventbus.EventBus;
