@@ -112,6 +112,7 @@
     <string name="file_list_empty_headline_server_search_photos">No hay fotos</string>
     <string name="file_list_empty_search">¿Quizás está en una carpeta diferente?</string>
     <string name="file_list_empty_recently_modified">No se encontraron archivos modificados en los últimos 7 días.</string>
+    <string name="file_list_empty_recently_modified_filter">La búsqueda no ha devuelto archivos modificados en los últimos 7 días.</string>
     <string name="file_list_empty_recently_added">No se encontraron archivos recientemente añadidos</string>
     <string name="file_list_empty_recently_added_filter">Tu búsqueda no encontró archivos recientemente añadidos.</string>
     <string name="file_list_empty_text_photos">Sube algunas imágenes o activa la subida automática.</string>
@@ -481,6 +482,7 @@
     <string name="file_list__footer__files">%1$d archivos</string>
     <string name="file_list__footer__files_and_folder">%1$d archivos, 1 carpeta</string>
     <string name="file_list__footer__files_and_folders">%1$d archivos, %2$d carpetas</string>
+    <string name="set_picture_as">Usar imagen como</string>
     <string name="set_as">Establecer como</string>
 
     <string name="prefs_instant_behaviour_dialogTitle">El archivo original será&#8230;</string>
@@ -559,6 +561,7 @@
     <string name="participate_beta_headline">Probar la versión de desarrollo</string>
     <string name="participate_beta_text">Esto incluye todas las características por llegar y está muy avazado en lo último. Pueden ocurrir fallos y errores. Si y cuando suceden, infórmanos, por favor.</string>
     <string name="participate_release_candidate_headline">Versión candidata</string>
+    <string name="participate_release_candidate_text">La versión candidata (RC) es una instantánea de la próxima versión y se espera que sea estable. Probar tu configuración individual puede ayudar a asegurarlo. Apúntate para probarla en Google Play o búscala manualmente en la sección \"Versiones\" de F-Droid.</string>
     <string name="participate_contribute_headline">Colabora activamente</string>
     <string name="participate_contribute_irc_text">Únete a la conversación en IRC:  &lt;a href=\"%1$s\">#nextcloud-mobile&lt;/a></string>
     <string name="participate_contribute_forum_text">Ayuda a otros en el &lt;a href=\"%1$s\">foro&lt;/a></string>
