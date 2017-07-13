@@ -192,7 +192,7 @@ public class Preferences extends PreferenceActivity
         // Synced folders
         PreferenceCategory preferenceCategorySyncedFolders =
                 (PreferenceCategory) findPreference("synced_folders_category");
-        preferenceCategoryFolderSync.setTitle(ThemeUtils.getColoredTitle(getString(R.string.drawer_folder_sync),
+        preferenceCategorySyncedFolders.setTitle(ThemeUtils.getColoredTitle(getString(R.string.drawer_synced_folders),
                 accentColor));
         PreferenceScreen preferenceScreen = (PreferenceScreen) findPreference("preference_screen");
 
