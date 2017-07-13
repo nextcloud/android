@@ -26,6 +26,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.support.v4.view.ViewPager;
@@ -41,6 +42,7 @@ import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.VirtualFolderType;
+import com.owncloud.android.db.PreferenceManager;
 import com.owncloud.android.files.services.FileDownloader;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploader;
@@ -353,6 +355,14 @@ public class PreviewImageActivity extends FileActivity implements
             OCFile currentFile = mPreviewImagePagerAdapter.getFileAt(position); 
             getSupportActionBar().setTitle(currentFile.getFileName());
             setDrawerIndicatorEnabled(false);
+
+            SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+            String behaviour = sharedPreferences.getString("preview_behaviour", "PREVIEW_BEHAVIOUR_PREVIEW");
+            boolean resizedBehaviour = behaviour.equalsIgnoreCase("PREVIEW_BEHAVIOUR_PREVIEW");
+
+            if (!currentFile.isDown() && !mPreviewImagePagerAdapter.pendingErrorAt(position) && !resizedBehaviour) {
+                requestForDownload(currentFile);
+            }
 
             // Call to reset image zoom to initial state
             ((PreviewImagePagerAdapter) mViewPager.getAdapter()).resetZoom();

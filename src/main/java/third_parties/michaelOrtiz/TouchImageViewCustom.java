@@ -919,7 +919,7 @@ public class TouchImageViewCustom extends ImageViewCustom {
             return true;
         }
 
-        private void showDownloadSnackbar(){
+        private void showDownloadSnackbar() {
             snackShown = true;
 
             Snackbar.make(getRootView(), "Download full image?", Snackbar.LENGTH_LONG)
