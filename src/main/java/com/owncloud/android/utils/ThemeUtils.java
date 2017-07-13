@@ -63,7 +63,7 @@ public class ThemeUtils {
 
         try {
             float adjust;
-            if (darkTheme()){
+            if (darkTheme()) {
                 adjust = +0.1f;
             } else {
                 adjust = -0.1f;
@@ -120,6 +120,7 @@ public class ThemeUtils {
 
     /**
      * Tests if dark color is set
+     *
      * @return true if dark theme -> e.g.use light font color, darker accent color
      */
     public static boolean darkTheme() {
