@@ -25,7 +25,6 @@ import android.accounts.Account;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v7.widget.SwitchCompat;
-import android.support.v7.widget.AppCompatCheckBox;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -153,14 +152,16 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
         mView = inflater.inflate(mLayout, null);
         
         if (mLayout == R.layout.file_details_fragment) {
-            ((SwitchCompat) mView.findViewById(R.id.fdFavorite)).setOnCheckedChangeListener(this);
+            int accentColor = ThemeUtils.primaryAccentColor();
+            SwitchCompat favoriteToggle = (SwitchCompat) mView.findViewById(R.id.fdFavorite);
+            favoriteToggle.setOnCheckedChangeListener(this);
+            ThemeUtils.tintSwitch(favoriteToggle, accentColor, false);
             ProgressBar progressBar = (ProgressBar)mView.findViewById(R.id.fdProgressBar);
-            ThemeUtils.colorPreLollipopHorizontalProgressBar(progressBar);
+            ThemeUtils.colorHorizontalProgressBar(progressBar, ThemeUtils.primaryAccentColor());
             mProgressListener = new ProgressListener(progressBar);
             mView.findViewById(R.id.fdCancelBtn).setOnClickListener(this);
-
-            AppCompatCheckBox favoriteCheckBox = (AppCompatCheckBox) mView.findViewById(R.id.fdFavorite);
-            ThemeUtils.tintCheckbox(favoriteCheckBox, ThemeUtils.primaryAccentColor());
+            ((TextView)mView.findViewById(R.id.fdShareTitle)).setTextColor(accentColor);
+            ((TextView)mView.findViewById(R.id.fdShareWithUsersTitle)).setTextColor(accentColor);
         }
 
         updateFileDetails(false, false);
