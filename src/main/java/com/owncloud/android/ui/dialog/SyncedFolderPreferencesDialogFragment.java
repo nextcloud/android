@@ -164,7 +164,7 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment {
         mEnabledSwitch = (SwitchCompat) view.findViewById(R.id.sync_enabled);
         ThemeUtils.tintSwitch(mEnabledSwitch, accentColor);
 
-        mLocalFolderPath = (TextView) view.findViewById(R.id.folder_sync_settings_local_folder_path);
+        mLocalFolderPath = (TextView) view.findViewById(R.id.synced_folders_settings_local_folder_path);
 
         mLocalFolderSummary = (TextView) view.findViewById(R.id.local_folder_summary);
         mRemoteFolderSummary = (TextView) view.findViewById(R.id.remote_folder_summary);
