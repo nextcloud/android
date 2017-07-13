@@ -661,6 +661,8 @@
     <string name="contacts_preferences_something_strange_happened">We can\'t find your last backup!</string>
     <string name="contacts_preferences_backup_scheduled">Backup scheduled and will start shortly</string>
     <string name="contacts_preferences_import_scheduled">Import scheduled and will start shortly</string>
+    <string name="pref_preview_behaviour_entry_download">full sized version</string>
+    <string name="pref_preview_behaviour_entry_preview">resized version</string>
 
     <!-- Notifications -->
     <string name="new_notification_received">New notification received</string>
@@ -671,5 +673,6 @@
 
     <string name="folder_sync_folders">Configure folders</string>
 
-  <string name="empty" translatable="false"/>
+    <string name="empty" translatable="false"/>
+    <string name="prefs_preview_behaviour">Click on image downloads …</string>
 </resources>

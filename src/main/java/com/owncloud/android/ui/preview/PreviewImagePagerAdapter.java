@@ -21,6 +21,7 @@ package com.owncloud.android.ui.preview;
 
 import android.accounts.Account;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
@@ -29,6 +30,7 @@ import android.view.ViewGroup;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.VirtualFolderType;
+import com.owncloud.android.db.PreferenceManager;
 import com.owncloud.android.ui.fragment.FileFragment;
 import com.owncloud.android.utils.FileStorageUtils;
 
@@ -151,9 +153,18 @@ public class PreviewImagePagerAdapter extends FragmentStatePagerAdapter {
                 ((FileDownloadFragment)fragment).setError(true);
                 mDownloadErrors.remove(i);
             } else {
-                    fragment = PreviewImageFragment.newInstance(file, mObsoletePositions.contains(i), true);
+                SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(mContext);
+                String behaviour = sharedPreferences.getString("preview_behaviour", "PREVIEW_BEHAVIOUR_PREVIEW");
+                boolean resizedBehaviour = behaviour.equalsIgnoreCase("PREVIEW_BEHAVIOUR_PREVIEW");
+
+                if (resizedBehaviour) {
+                    fragment = PreviewImageFragment.newInstance(file, mObsoletePositions.contains(i), resizedBehaviour);
+                } else {
+                    fragment = FileDownloadFragment.newInstance(file, mAccount, mObsoletePositions.contains(i));
+                }
             }
         }
+
         mObsoletePositions.remove(i);
         return fragment;
     }
