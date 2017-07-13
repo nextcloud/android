@@ -281,6 +281,7 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
             String status = getStatusText(upload);
             switch (upload.getUploadStatus()) {
                 case UPLOAD_IN_PROGRESS:
+                    ThemeUtils.colorHorizontalProgressBar(progressBar, ThemeUtils.primaryAccentColor());
                     progressBar.setProgress(0);
                     progressBar.setVisibility(View.VISIBLE);
 
