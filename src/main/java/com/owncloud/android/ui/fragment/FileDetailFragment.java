@@ -470,9 +470,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
         if (iv != null) {
             iv.setTag(file.getFileId());
             // Name of the file, to deduce the icon to use in case the MIME type is not precise enough
-            String filename = file.getFileName();
-            int resource = MimeTypeUtil.getFileTypeIconId(mimetype, filename);
-            iv.setImageResource(resource);
+            iv.setImageDrawable(MimeTypeUtil.getFileTypeIcon(file.getMimetype(), file.getFileName(), mAccount));
 
             Bitmap thumbnail;
 
@@ -503,7 +501,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
                     }
                 }
             } else {
-                iv.setImageResource(resource);
+                iv.setImageDrawable(MimeTypeUtil.getFileTypeIcon(file.getMimetype(), file.getFileName(), mAccount));
 			}
         }
     }
