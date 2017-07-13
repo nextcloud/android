@@ -47,7 +47,7 @@
     <string name="prefs_fingerprint_notsetup">Er zijn geen vingerafdrukken ingesteld.</string>
     <string name="prefs_show_hidden_files">Verborgen bestanden weergeven</string>
     <string name="prefs_instant_upload">Directe upload van afbeeldingen</string>
-    <string name="prefs_instant_upload_summary">Direct vanaf camera uploaden van afbeeldingen</string>
+    <string name="prefs_instant_upload_summary">Direct afbeeldingen vanaf camera uploaden</string>
     <string name="prefs_instant_video_upload">Directe upload van video\'s</string>
     <string name="prefs_instant_video_upload_summary">Direct vanaf de camera uploaden video\'s</string>
     <string name="prefs_log_title">Logging inschakelen</string>
@@ -113,6 +113,7 @@ Kies er eentje van een provider.</string>
     <string name="file_list_empty_headline_server_search_photos">Geen foto\'s</string>
     <string name="file_list_empty_search">Misschien staat het in een andere map?</string>
     <string name="file_list_empty_recently_modified">Geen bestanden gevonden die de afgelopen 7 dagen werden gewijzigd</string>
+    <string name="file_list_empty_recently_modified_filter">Geen bestanden gevonden die de afgelopen 7 dagen werden bewerkt</string>
     <string name="file_list_empty_recently_added">Geen recent toegevoegde bestanden gevonden</string>
     <string name="file_list_empty_recently_added_filter">Geen recent toegevoegde bestanden gevonden voor je zoekopdracht!</string>
     <string name="file_list_empty_text_photos">Upload enkele foto\'s of activeer auto-upload.</string>
@@ -482,6 +483,7 @@ Kies er eentje van een provider.</string>
     <string name="file_list__footer__files">%1$d bestanden</string>
     <string name="file_list__footer__files_and_folder">%1$d bestanden, 1 map</string>
     <string name="file_list__footer__files_and_folders">%1$d bestanden, %2$d mappen</string>
+    <string name="set_picture_as">Gebruik afbeelding als</string>
     <string name="set_as">Stel in als</string>
 
     <string name="prefs_instant_behaviour_dialogTitle">Origineel bestand zal&#160;&#8230;</string>
@@ -560,6 +562,7 @@ Kies er eentje van een provider.</string>
     <string name="participate_beta_headline">Test de dev versie</string>
     <string name="participate_beta_text">Dit omvat alle komende opties en is zeer \'bleeding edge\'. Bugs/fouten kunnen voorkomen en in dat geval vragen we je die aan ons te melden.</string>
     <string name="participate_release_candidate_headline">Release candidate</string>
+    <string name="participate_release_candidate_text">De release candidate (RC) is een snapshot van de komende versie en is naar verwachting stabiel. Door een test met je eigen installatie verzeker je hier van. Meld je aan voor het testen in de Play store of kijk handmatig bij sectie \"Versie\" van F-Droid.</string>
     <string name="participate_contribute_headline">Actief meedoen</string>
     <string name="participate_contribute_irc_text">Bezoek de IRC chat op IRC: &lt;a href=\"%1$s\">#nextcloud-mobile&lt;/a>
 </string>
