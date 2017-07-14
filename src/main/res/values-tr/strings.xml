@@ -563,6 +563,9 @@
     <string name="participate_release_candidate_headline">Yayın adayı</string>
     <string name="participate_release_candidate_text">Yayın adayı (Release Candidate, RC) yayınlanacak sürümün bir kopyasıdır ve kararlı olması beklenir. Kendi kurulumunuzda kullanmanız bundan emin olmamızı sağlayabilir. Denemek için Play Store üzerinden kayıt olun ya da el ile F-Droid üzerindeki \"Sürüm\" bölümüne bakın.</string>
     <string name="participate_contribute_headline">Etkin Katkıda Bulunun</string>
+    <string name="participate_contribute_irc_text">IRC sohbetine katılın: &lt;font color=\"%1$s\">&lt;a href=\"%2$s\">#nextcloud-mobile&lt;/a>&lt;/font></string>
+    <string name="participate_contribute_forum_text">&lt;font color=\"%1$s\">&lt;a href=\"%2$s\">Forumda&lt;/a>&lt;/font> diğer kullanıcılara yardımcı olun</string>
+    <string name="participate_contribute_translate_text">Uygulamayı &lt;font color=\"%1$s\">&lt;a href=\"%2$s\">Çevirin&lt;/a>&lt;/font></string>
     <string name="move_to">Taşı&#8230;</string>
     <string name="copy_to">Kopyala&#8230;</string>
     <string name="choose_remote_folder">Klasör seçin&#8230;</string>
