@@ -111,7 +111,7 @@ public class FileDownloadFragment extends FileFragment implements OnClickListene
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Bundle args = getArguments();
-        setFile(args.getParcelable(ARG_FILE));
+        setFile((OCFile)args.getParcelable(ARG_FILE));
             // TODO better in super, but needs to check ALL the class extending FileFragment; not right now
 
         mIgnoreFirstSavedState = args.getBoolean(ARG_IGNORE_FIRST);
@@ -126,7 +126,7 @@ public class FileDownloadFragment extends FileFragment implements OnClickListene
 
         if (savedInstanceState != null) {
             if (!mIgnoreFirstSavedState) {
-                setFile(savedInstanceState.getParcelable(FileDownloadFragment.EXTRA_FILE));
+                setFile((OCFile) savedInstanceState.getParcelable(FileDownloadFragment.EXTRA_FILE));
                 mAccount = savedInstanceState.getParcelable(FileDownloadFragment.EXTRA_ACCOUNT);
                 mError = savedInstanceState.getBoolean(FileDownloadFragment.EXTRA_ERROR);
             }

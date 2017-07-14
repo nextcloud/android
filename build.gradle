@@ -173,9 +173,6 @@ android {
 
 }
 
-
-
-
 dependencies {
     /// dependencies for app building
     compile name: 'touch-image-view'
