@@ -415,6 +415,7 @@ public class ThumbnailsCacheManager {
                             getMethod = null;
                             try {
                                 if (mIsThumbnail) {
+                                    // thumbnail
                                     String uri = mClient.getBaseUri() + "" +
                                             "/index.php/apps/files/api/v1/thumbnail/" +
                                             pxW + "/" + pxH + Uri.encode(file.getRemotePath(), "/");
@@ -427,8 +428,11 @@ public class ThumbnailsCacheManager {
                                         InputStream inputStream = getMethod.getResponseBodyAsStream();
                                         Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
                                         thumbnail = ThumbnailUtils.extractThumbnail(bitmap, pxW, pxH);
+                                    } else {
+                                        mClient.exhaustResponse(getMethod.getResponseBodyAsStream());
                                     }
                                 } else {
+                                    // resized image via gallery app
                                     String uri = mClient.getBaseUri() + "" +
                                             "/index.php/apps/gallery/api/preview/" +
                                             Integer.parseInt(file.getRemoteId().substring(0, 8)) +
@@ -442,22 +446,24 @@ public class ThumbnailsCacheManager {
                                     if (status == HttpStatus.SC_OK) {
                                         InputStream inputStream = getMethod.getResponseBodyAsStream();
                                         Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
-                                        // Download via gallery app
+
                                         thumbnail = bitmap;
-
-                                        // Handle PNG
-                                        if (file.getMimetype().equalsIgnoreCase("image/png")) {
-                                            thumbnail = handlePNG(thumbnail, pxW);
-                                        }
-
-                                        // Add thumbnail to cache
-                                        if (thumbnail != null) {
-                                            addBitmapToCache(imageKey, thumbnail);
-                                        }
                                     } else {
                                         mClient.exhaustResponse(getMethod.getResponseBodyAsStream());
                                     }
                                 }
+
+                                // Handle PNG
+                                if (file.getMimetype().equalsIgnoreCase("image/png")) {
+                                    thumbnail = handlePNG(thumbnail, pxW);
+                                }
+
+                                // Add thumbnail to cache
+                                if (thumbnail != null) {
+                                    Log_OC.d(TAG, "add thumbnail to cache: " + file.getFileName());
+                                    addBitmapToCache(imageKey, thumbnail);
+                                }
+
                             } catch (Exception e) {
                                 Log_OC.d(TAG, e.getMessage(), e);
                             } finally {
