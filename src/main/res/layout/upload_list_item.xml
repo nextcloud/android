@@ -37,7 +37,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:ellipsize="middle"
-            android:singleLine="true"
+            android:maxLines="1"
             android:textColor="@color/textColor"
             android:text="@string/placeholder_filename"
             android:textSize="@dimen/two_line_primary_text_size" />
@@ -53,7 +53,7 @@
                 android:gravity="left"
                 android:textColor="@color/list_item_lastmod_and_filesize_text"
                 android:ellipsize="middle"
-                android:singleLine="true"
+                android:maxLines="1"
                 android:text="@string/placeholder_filesize"
                 android:textSize="@dimen/upload_list_item_text_size"/>
             <TextView
@@ -87,7 +87,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/list_item_lastmod_and_filesize_text"
-            android:singleLine="true"
+            android:maxLines="1"
             android:text="@string/auth_username"
             android:textSize="@dimen/upload_list_item_text_size_independent"/>
 
@@ -97,7 +97,7 @@
             android:layout_height="wrap_content"
             android:textColor="@color/list_item_lastmod_and_filesize_text"
             android:ellipsize="middle"
-            android:singleLine="true"
+            android:maxLines="1"
             android:text="@string/instant_upload_path"
             android:textSize="@dimen/upload_list_item_text_size_independent"/>
 

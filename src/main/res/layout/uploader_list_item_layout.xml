@@ -46,7 +46,7 @@
             android:layout_marginLeft="@dimen/zero"
             android:layout_marginRight="@dimen/standard_quarter_margin"
             android:ellipsize="middle"
-            android:singleLine="true"
+            android:maxLines="1"
             android:text="TextView"
             android:textColor="@color/textColor"
             android:textSize="@dimen/two_line_primary_text_size" />
