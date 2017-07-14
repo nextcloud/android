@@ -26,6 +26,7 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
+import android.support.v7.widget.AppCompatButton;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,7 +35,7 @@ import android.widget.TextView;
 
 import com.owncloud.android.R;
 import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.utils.DisplayUtils;
+import com.owncloud.android.utils.ThemeUtils;
 
 /**
  * Dialog to show and choose the sorting order for the file listing.
@@ -70,6 +71,7 @@ public class SortingOrderDialogFragment extends DialogFragment {
 
     private int mSortOrder;
     private boolean mSortAscending;
+    private AppCompatButton mCancel;
 
     public static SortingOrderDialogFragment newInstance(int sortOrder, boolean ascending) {
         SortingOrderDialogFragment dialogFragment = new SortingOrderDialogFragment();
@@ -121,6 +123,8 @@ public class SortingOrderDialogFragment extends DialogFragment {
         mSortByModificationDateDescendingButton = (ImageButton) view.findViewById(R.id.sortByModificationDateDescending);
         mSortBySizeAscendingButton = (ImageButton) view.findViewById(R.id.sortBySizeAscending);
         mSortBySizeDescendingButton = (ImageButton) view.findViewById(R.id.sortBySizeDescending);
+        mCancel = (AppCompatButton) view.findViewById(R.id.cancel);
+        mCancel.setTextColor(ThemeUtils.primaryAccentColor());
 
         mSortByNameAscendingText = (TextView) view.findViewById(R.id.sortByNameAZText);
         mSortByNameDescendingText = (TextView) view.findViewById(R.id.sortByNameZAText);
@@ -196,8 +200,8 @@ public class SortingOrderDialogFragment extends DialogFragment {
      * @param textView    the text view, the text color to be set
      */
     private void colorActiveSortingIconAndText(ImageButton imageButton, TextView textView) {
-        int color = getResources().getColor(R.color.color_accent);
-        DisplayUtils.colorImageButton(imageButton, color);
+        int color = ThemeUtils.primaryAccentColor();
+        ThemeUtils.colorImageButton(imageButton, color);
         textView.setTextColor(color);
         textView.setTypeface(Typeface.DEFAULT_BOLD);
     }
@@ -208,7 +212,7 @@ public class SortingOrderDialogFragment extends DialogFragment {
      * @param view the parent view
      */
     private void setupListeners(View view) {
-        view.findViewById(R.id.cancel).setOnClickListener(new View.OnClickListener() {
+        mCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 dismiss();

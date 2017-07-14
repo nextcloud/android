@@ -27,6 +27,7 @@ import android.accounts.AuthenticatorException;
 import android.accounts.OperationCanceledException;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -54,6 +55,7 @@ import com.owncloud.android.lib.resources.notifications.models.Notification;
 import com.owncloud.android.ui.adapter.NotificationListAdapter;
 import com.owncloud.android.utils.AnalyticsUtils;
 import com.owncloud.android.utils.DisplayUtils;
+import com.owncloud.android.utils.ThemeUtils;
 
 import java.io.IOException;
 import java.util.List;
@@ -119,7 +121,7 @@ public class NotificationsActivity extends FileActivity {
 
         // setup drawer
         setupDrawer(R.id.nav_notifications);
-        getSupportActionBar().setTitle(getString(R.string.drawer_item_notifications));
+        ThemeUtils.setColoredTitle(getSupportActionBar(), getString(R.string.drawer_item_notifications));
 
         swipeListRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -159,6 +161,8 @@ public class NotificationsActivity extends FileActivity {
      */
     private void setupContent() {
         emptyContentIcon.setImageResource(R.drawable.ic_notification_light_grey);
+        emptyContentProgressBar.getIndeterminateDrawable().setColorFilter(ThemeUtils.primaryAccentColor(),
+                PorterDuff.Mode.SRC_IN);
         setLoadingMessage();
 
         adapter = new NotificationListAdapter(this);

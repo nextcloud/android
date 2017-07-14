@@ -1181,24 +1181,17 @@ public class TouchImageViewCustom extends ImageViewCustom {
 		}
     }
     
-    @TargetApi(Build.VERSION_CODES.GINGERBREAD)
 	private class CompatScroller {
     	Scroller scroller;
     	OverScroller overScroller;
     	boolean isPreGingerbread;
-    	
-    	public CompatScroller(Context context) {
-    		if (VERSION.SDK_INT < VERSION_CODES.GINGERBREAD) {
-    			isPreGingerbread = true;
-    			scroller = new Scroller(context);
-    			
-    		} else {
-    			isPreGingerbread = false;
-    			overScroller = new OverScroller(context);
-    		}
-    	}
-    	
-    	public void fling(int startX, int startY, int velocityX, int velocityY, int minX, int maxX, int minY, int maxY) {
+
+        public CompatScroller(Context context) {
+            isPreGingerbread = false;
+            overScroller = new OverScroller(context);
+        }
+
+        public void fling(int startX, int startY, int velocityX, int velocityY, int minX, int maxX, int minY, int maxY) {
     		if (isPreGingerbread) {
     			scroller.fling(startX, startY, velocityX, velocityY, minX, maxX, minY, maxY);
     		} else {
