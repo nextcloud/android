@@ -234,6 +234,9 @@ public class FileListListAdapter extends BaseAdapter {
         if (file != null) {
             ImageView fileIcon = (ImageView) view.findViewById(R.id.thumbnail);
             ImageView sharedIconV = (ImageView) view.findViewById(R.id.sharedIcon);
+            if (file.isSharedWithSharee() || file.isSharedWithMe()) {
+                sharedIconV.setImageResource(R.drawable.shared_via_users);
+            }
 
             fileIcon.setTag(file.getFileId());
             TextView fileName;
@@ -255,7 +258,6 @@ public class FileListListAdapter extends BaseAdapter {
                     fileSizeV.setText(DisplayUtils.bytesToHumanReadable(file.getFileLength()));
 
                     // Shared icon clickable
-
                     if (file.isSharedViaLink() || file.isSharedWithSharee()) {
                         final OCFile temp = file;
                         sharedIconV.setOnClickListener(new View.OnClickListener() {
@@ -283,11 +285,9 @@ public class FileListListAdapter extends BaseAdapter {
                 case GRID_IMAGE:
                     // sharedIcon
                     if (file.isSharedViaLink()) {
-                        sharedIconV.setImageResource(R.drawable.shared_via_link);
                         sharedIconV.setVisibility(View.VISIBLE);
                         sharedIconV.bringToFront();
                     } else if (file.isSharedWithSharee() || file.isSharedWithMe()) {
-                        sharedIconV.setImageResource(R.drawable.shared_via_users);
                         sharedIconV.setVisibility(View.VISIBLE);
                         sharedIconV.bringToFront();
                     } else {
