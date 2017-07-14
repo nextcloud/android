@@ -54,7 +54,7 @@
                 android:layout_toEndOf="@+id/shareFileIcon"
                 android:layout_toRightOf="@+id/shareFileIcon"
                 android:ellipsize="middle"
-                android:singleLine="true"
+                android:maxLines="1"
                 android:text="@string/placeholder_filename"
                 android:textColor="@color/black"
                 android:textSize="@dimen/two_line_primary_text_size"/>

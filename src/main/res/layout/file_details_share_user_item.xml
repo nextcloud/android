@@ -35,7 +35,7 @@
             android:text="@string/username"
             android:id="@+id/userOrGroupName"
             android:layout_margin="12dp"
-            android:singleLine="true"
+            android:maxLines="1"
             android:ellipsize="middle"
             android:textColor="@color/black"/>
 </LinearLayout>
