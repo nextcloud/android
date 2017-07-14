@@ -83,6 +83,7 @@ import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 import android.widget.Toast;
@@ -354,6 +355,10 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     }
 
     private void initWebViewLogin(String baseURL) {
+        mLoginWebView.setVisibility(View.GONE);
+
+        final ProgressBar progressBar = (ProgressBar) findViewById(R.id.login_webview_progress_bar);
+
         mLoginWebView.getSettings().setAllowFileAccess(false);
         mLoginWebView.getSettings().setJavaScriptEnabled(true);
         mLoginWebView.getSettings().setUserAgentString(getWebLoginUserAgent());
@@ -378,8 +383,17 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
                 return false;
             }
 
-            public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
+            @Override
+            public void onPageFinished(WebView view, String url) {
+                super.onPageFinished(view, url);
 
+                progressBar.setVisibility(View.GONE);
+                mLoginWebView.setVisibility(View.VISIBLE);
+            }
+
+            public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
+                progressBar.setVisibility(View.GONE);
+                mLoginWebView.setVisibility(View.VISIBLE);
                 mLoginWebView.loadData(DisplayUtils.getData(getResources().openRawResource(R.raw.custom_error)),"text/html; charset=UTF-8", null);
             }
         });
