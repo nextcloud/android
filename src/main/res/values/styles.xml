@@ -271,7 +271,7 @@
 		<item name="android:digits">1234567890</item>
 		<item name="android:maxLength">1</item>
 		<item name="android:password">true</item>
-		<item name="android:singleLine">true</item>
+		<item name="android:maxLines">1</item>
   		    
     </style>
 	
