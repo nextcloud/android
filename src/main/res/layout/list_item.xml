@@ -94,8 +94,8 @@
                 android:layout_marginLeft="@dimen/zero"
                 android:layout_marginRight="@dimen/standard_quarter_margin"
                 android:ellipsize="middle"
-                android:singleLine="true"
-                android:text="TextView"
+                android:maxLines="1"
+                android:text="@string/placeholder_filename"
                 android:textColor="@color/textColor"
                 android:textSize="@dimen/two_line_primary_text_size" />
 

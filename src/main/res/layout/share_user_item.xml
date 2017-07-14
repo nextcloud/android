@@ -44,7 +44,7 @@
             android:layout_marginBottom="@dimen/standard_half_margin"
             android:layout_marginLeft="@dimen/standard_half_margin"
             android:textColor="@color/textColor"
-            android:singleLine="true"
+            android:maxLines="1"
             android:ellipsize="middle"
             android:layout_gravity="center_vertical"/>
 
