@@ -22,6 +22,7 @@ package com.owncloud.android.ui.dialog;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
@@ -36,6 +37,7 @@ import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.resources.files.FileUtils;
 import com.owncloud.android.ui.activity.ComponentsGetter;
+import com.owncloud.android.utils.ThemeUtils;
 
 /**
  *  Dialog to input the name for a new folder to create.  
@@ -65,9 +67,22 @@ public class CreateFolderDialogFragment
         return frag;
         
     }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        int color = ThemeUtils.primaryAccentColor();
+
+        AlertDialog alertDialog = (AlertDialog) getDialog();
+
+        alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(color);
+        alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(color);
+    }
     
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
+        int accentColor = ThemeUtils.primaryAccentColor();
         mParentFolder = getArguments().getParcelable(ARG_PARENT_FOLDER);
         
         // Inflate the layout for the dialog
@@ -78,13 +93,15 @@ public class CreateFolderDialogFragment
         EditText inputText = ((EditText)v.findViewById(R.id.user_input));
         inputText.setText("");
         inputText.requestFocus();
-        
+        inputText.getBackground().setColorFilter(accentColor, PorterDuff.Mode.SRC_ATOP);
+
         // Build the dialog  
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setView(v)
                .setPositiveButton(R.string.common_ok, this)
                .setNegativeButton(R.string.common_cancel, this)
-               .setTitle(R.string.uploader_info_dirname);
+                .setTitle(ThemeUtils.getColoredTitle(getResources().getString(R.string.uploader_info_dirname),
+                        accentColor));
         Dialog d = builder.create();
         d.getWindow().setSoftInputMode(LayoutParams.SOFT_INPUT_STATE_VISIBLE);
         return d;

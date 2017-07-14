@@ -89,7 +89,7 @@
     <string name="uploader_error_title_file_cannot_be_uploaded">Bu dosya yüklenemez</string>
     <string name="uploader_error_message_read_permission_not_granted">%1$s alınan bir dosyayı okumaya yetkili değil</string>
     <string name="uploader_error_message_source_file_not_found">Yüklenmek üzere seçilmiş dosya bulunamadı. Lütfen dosyanın var olup olmadığını denetleyin.</string>
-    <string name="uploader_error_message_source_file_not_copied">Dosya geçici bir klasöre kopyalanırken bir sorun çıktı. Lütfen yeniden göndermeyi deneyin.</string>
+    <string name="uploader_error_message_source_file_not_copied">Dosya geçici bir klasöre kopyalanırken sorun çıktı. Lütfen yeniden göndermeyi deneyin.</string>
     <string name="uploader_upload_files_behaviour">Yükleme seçeneği:</string>
     <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">Dosya Nextcloud klasörüne taşınsın</string>
     <string name="uploader_upload_files_behaviour_only_upload">Dosya kaynak klasörde tutulsun</string>
@@ -112,8 +112,7 @@
     <string name="file_list_empty_headline_server_search_photos">Herhangi bir fotoğraf bulunamadı</string>
     <string name="file_list_empty_search">Başka bir klasöre bakılmasını ister misiniz?</string>
     <string name="file_list_empty_recently_modified">Son 7 gün içinde değiştirilmiş herhangi bir dosya bulunamadı</string>
-    <string name="file_list_empty_recently_modified_filter">Arama sonucunda son 7 gün içinde düzenlenmiş
-        bir dosya bulunamadı.</string>
+    <string name="file_list_empty_recently_modified_filter">Arama sonucunda son 7 gün içinde düzenlenmiş bir dosya bulunamadı.</string>
     <string name="file_list_empty_recently_added">Geçenlerde eklenmiş herhangi bir dosya bulunamadı</string>
     <string name="file_list_empty_recently_added_filter">Arama sonucunda geçenlerde eklenmiş bir dosya bulunamadı.</string>
     <string name="file_list_empty_text_photos">Bazı fotoğraflar yükleyin ya da otomatik yüklemeyi etkinleştirin.</string>
@@ -304,8 +303,8 @@
     <string name="activity_chooser_title">Bağlantıyı gönder&#8230;</string>
     <string name="wait_for_tmp_copy_from_private_storage">Dosya kişisel depolamadan kopyalanıyor</string>
     
-    <string name="oauth_check_onoff">OAuth2 ile Oturum Aç</string> 
-    <string name="oauth_login_connection">OAuth2 sunucusuna bağlanılıyor…</string>    
+    <string name="oauth_check_onoff">OAuth 2.0 ile Oturum Aç</string> 
+    <string name="oauth_login_connection">OAuth 2.0 sunucusuna bağlanılıyor…</string>    
         
     <string name="ssl_validator_header">Sitenin kimliği doğrulanamadı</string>
     <string name="ssl_validator_reason_cert_not_trusted">- Sunucu sertifikasına güvenilmiyor</string>
@@ -348,7 +347,7 @@
     <string name="instant_video_upload_on_charging">Yalnız şarj edilirken yüklensin</string>
     <string name="instant_upload_on_charging">Yalnız şarj edilirken yüklensin</string>
     <string name="instant_upload_path">/AnındaYükle</string>
-    <string name="auto_upload_path">/Otomatik Yükleme</string>
+    <string name="auto_upload_path">/OtomatikYükleme</string>
     <string name="conflict_title">Dosya çakışması</string>
     <string name="conflict_message">Hangi dosyaları saklamak istiyorsunuz? Her ikisini de saklamayı seçerseniz yerel dosyanın adına bir sayı eklenecek.</string>
     <string name="conflict_keep_both">İkisini de sakla</string>
@@ -483,7 +482,7 @@
     <string name="file_list__footer__files">%1$d dosya</string>
     <string name="file_list__footer__files_and_folder">%1$d dosya, 1 klasör</string>
     <string name="file_list__footer__files_and_folders">%1$d dosya, %2$d klasör</string>
-    <string name="set_picture_as">Farklı görsel ayarla</string>
+    <string name="set_picture_as">Görseli farklı kullan</string>
     <string name="set_as">Farklı Ayarla</string>
 
     <string name="prefs_instant_behaviour_dialogTitle">Özgün dosya için&#8230;</string>
@@ -557,17 +556,16 @@
     <string name="drawer_participate">Katkıda bulunun</string>
     <string name="participate_testing_headline">Denememize yardımcı olun</string>
     <string name="participate_testing_bug_text">Bir hata mı buldunuz? Bir gariplik mi var?</string>
-    <string name="participate_testing_report_text">Github üzerinden bir sorun bildirin</string>
+    <string name="participate_testing_report_text">GitHub üzerinden bir sorun bildirin</string>
     <string name="participate_testing_version_text">Sonraki sürümü deneyerek bize yardımcı olmak ister misiniz?</string>
     <string name="participate_beta_headline">Geliştirici sürümünü deneyin</string>
     <string name="participate_beta_text">Bu sürümde tüm yeni özellikler bulunur ve çok taze olduğundan eksikleri olabilir. Bir hata ya da soruna rastlarsanız bize iletin.</string>
     <string name="participate_release_candidate_headline">Yayın adayı</string>
-    <string name="participate_release_candidate_text">Yayın adayı (Release Candidate, RC) yayınlanacak sürümün bir kopyasıdır ve kararlı olması beklenir. Kişisel olarak kullanmanız kararlı olduğundan emin olmamızı sağlar. Denemek için Play Store üzerinden kayıt olun ya da el ile F-Droid üzerindeki \"sürümler\" bölümüne bakın.</string>
+    <string name="participate_release_candidate_text">Yayın adayı (Release Candidate, RC) yayınlanacak sürümün bir kopyasıdır ve kararlı olması beklenir. Kendi kurulumunuzda kullanmanız bundan emin olmamızı sağlayabilir. Denemek için Play Store üzerinden kayıt olun ya da el ile F-Droid üzerindeki \"Sürüm\" bölümüne bakın.</string>
     <string name="participate_contribute_headline">Etkin Katkıda Bulunun</string>
-    <string name="participate_contribute_irc_text">IRC sohbetine katılın: &lt;a href=\"%1$s\">#nextcloud-mobile&lt;/a></string>
-    <string name="participate_contribute_forum_text">&lt;a href=\"%1$s\">Forumda&lt;/a> diğer kullanıcılara yardımcı olun</string>
-    <string name="participate_contribute_translate_text">Uygulamayı &lt;a href=\"%1$s\">Çevirin&lt;/a></string>
-    <string name="participate_contribute_github_text">Kodu gözden geçirin ve katkıda bulunun. Ayrıntılar için &lt;a href=\"%1$s\">CONTRIBUTING.md&lt;a> dosyasına bakın</string>
+    <string name="participate_contribute_irc_text">IRC sohbetine katılın: &lt;font color=\"%1$s\">&lt;a href=\"%2$s\">#nextcloud-mobile&lt;/a>&lt;/font></string>
+    <string name="participate_contribute_forum_text">&lt;font color=\"%1$s\">&lt;a href=\"%2$s\">Forumda&lt;/a>&lt;/font> diğer kullanıcılara yardımcı olun</string>
+    <string name="participate_contribute_translate_text">Uygulamayı &lt;font color=\"%1$s\">&lt;a href=\"%2$s\">Çevirin&lt;/a>&lt;/font></string>
     <string name="move_to">Taşı&#8230;</string>
     <string name="copy_to">Kopyala&#8230;</string>
     <string name="choose_remote_folder">Klasör seçin&#8230;</string>
@@ -643,14 +641,14 @@
     <string name="contacts_write_permission">Kişi listesini düzenleme izni gerekiyor</string>
     <string name="contactlist_title">Kişileri geri yükle</string>
     <string name="contaclist_restore_selected">Seçilmiş kişileri geri yükle</string>
-    <string name="contactlist_account_chooser_title">Alınacak hesabı seçin</string>
-    <string name="contactlist_no_permission">Herhangi bir izin verilmemiş olduğundan hiçbir şey alınamadı!</string>
+    <string name="contactlist_account_chooser_title">İçe aktarılacak hesabı seçin</string>
+    <string name="contactlist_no_permission">Herhangi bir izin verilmemiş olduğundan hiçbir şey içe aktarılamadı!</string>
     <string name="contacts_preference_choose_date">Tarih seçin</string>
     <string name="contacts_preference_backup_never">asla</string>
     <string name="contacts_preferences_no_file_found">Herhangi bir dosya bulunamadı</string>
     <string name="contacts_preferences_something_strange_happened">Son yedeğiniz bulunamadı!</string>
     <string name="contacts_preferences_backup_scheduled">Yedekleme zamanlandı ve kısa süre sonra başlatılacak</string>
-    <string name="contacts_preferences_import_scheduled">Alma işlemi zamanlandı ve kısa süre sonra başlatılacak</string>
+    <string name="contacts_preferences_import_scheduled">İçe aktarma işlemi zamanlandı ve kısa süre sonra başlatılacak</string>
 
     <!-- Notifications -->
     <string name="new_notification_received">Yeni bir bildirim var</string>
