@@ -162,7 +162,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
         super.onCreate(savedInstanceState);
 
         if (mAccountSelected) {
-            setAccount((Account) savedInstanceState.getParcelable(FileActivity.EXTRA_ACCOUNT));
+            setAccount(savedInstanceState.getParcelable(FileActivity.EXTRA_ACCOUNT));
         }
 
         // Listen for sync messages
