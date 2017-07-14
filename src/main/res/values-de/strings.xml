@@ -565,10 +565,6 @@
     <string name="participate_release_candidate_headline">Vorabversion</string>
     <string name="participate_release_candidate_text">Der Release-Kandidat (RC) ist eine Vorschau auf die kommenden Version und sollte stabil sein. Das Testen des RC unter Deiner individuellen Umgebung kann helfen, die Qualität und Stabilität zu sichern. Registriere Dich als Tester im Play-Store oder schaue in die \"Version\"-Sektion auf F-Droid.</string>
     <string name="participate_contribute_headline">Aktiv etwas beitragen</string>
-    <string name="participate_contribute_irc_text">Trete dem Chat auf IRC bei: &lt;a href=\"%1$s\">#nextcloud-mobile&lt;/a></string>
-    <string name="participate_contribute_forum_text">Hilf Anderen im &lt;a href=\"%1$s\">Forum&lt;/a></string>
-    <string name="participate_contribute_translate_text">&lt;a href=\"%1$s\">Übersetze&lt;/a> die App</string>
-    <string name="participate_contribute_github_text">Prüfe, ändere und schreibe Code. Siehe auch &lt;a href=\"%1$s\">CONTRIBUTING.md&lt;a> für Einzelheiten</string>
     <string name="move_to">Verschieben nach&#8230;</string>
     <string name="copy_to">Kopieren nach&#8230;</string>
     <string name="choose_remote_folder">Wähle Verzeichnis&#8230;</string>
