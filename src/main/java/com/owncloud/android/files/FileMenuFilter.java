@@ -47,6 +47,7 @@ public class FileMenuFilter {
 
     private static final int SINGLE_SELECT_ITEMS = 1;
 
+    private int mNumberOfAllFiles;
     private Collection<OCFile> mFiles;
     private ComponentsGetter mComponentsGetter;
     private Account mAccount;
@@ -55,12 +56,14 @@ public class FileMenuFilter {
     /**
      * Constructor
      *
+     * @param numberOfAllFiles  Number of all displayed files
      * @param targetFiles       Collection of {@link OCFile} file targets of the action to filter in the {@link Menu}.
      * @param account           ownCloud {@link Account} holding targetFile.
      * @param cg                Accessor to app components, needed to access synchronization services
      * @param context           Android {@link Context}, needed to access build setup resources.
      */
-    public FileMenuFilter(Collection<OCFile> targetFiles, Account account, ComponentsGetter cg, Context context) {
+    public FileMenuFilter(int numberOfAllFiles, Collection<OCFile> targetFiles, Account account, ComponentsGetter cg, Context context) {
+        mNumberOfAllFiles = numberOfAllFiles;
         mFiles = targetFiles;
         mAccount = account;
         mComponentsGetter = cg;
@@ -76,7 +79,7 @@ public class FileMenuFilter {
      * @param context           Android {@link Context}, needed to access build setup resources.
      */
     public FileMenuFilter(OCFile targetFile, Account account, ComponentsGetter cg, Context context) {
-        this(Collections.singletonList(targetFile), account, cg, context);
+        this(1, Collections.singletonList(targetFile), account, cg, context);
     }
 
     /**
@@ -167,6 +170,22 @@ public class FileMenuFilter {
 
         } else {
             toShow.add(R.id.action_remove_file);
+        }
+
+        // SELECT ALL
+        // Show only if at least one item isn't selected.
+        if (mFiles.size() >= mNumberOfAllFiles) {
+            toHide.add(R.id.action_select_all);
+        } else {
+            toShow.add(R.id.action_select_all);
+        }
+
+        // DESELECT ALL
+        // Show only if at least one item is selected.
+        if (mFiles.isEmpty()) {
+            toHide.add(R.id.action_deselect_all);
+        } else {
+            toShow.add(R.id.action_deselect_all);
         }
 
         // OPEN WITH (different to preview!)
