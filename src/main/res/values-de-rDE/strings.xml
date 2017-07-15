@@ -564,10 +564,10 @@
     <string name="participate_release_candidate_headline">Vorabversion</string>
     <string name="participate_release_candidate_text">Der Release-Kandidat (RC) ist eine Vorschau auf die kommende Version und sollte stabil sein. Das Testen des RC unter Ihrer individuellen Umgebung kann helfen, die Stabilität und Qualität zu sichern. Registrieren Sie sich als Tester im Play-Store oder schauen Sie in die \"Version\"-Sektion auf F-Droid.</string>
     <string name="participate_contribute_headline">Aktiv etwas beitragen</string>
-    <string name="participate_contribute_irc_text">An Chats auf IRC teil: &lt;a href=\"%1$s\">#nexcloud-mobile&lt;/a></string>
-    <string name="participate_contribute_forum_text">Helfe anderen im &lt;a href=\\"%1$s\\">Forum&lt;/a></string>
-    <string name="participate_contribute_translate_text">&lt;a href=\\"%1$s\\">Übersetze&lt;/a>die App</string>
-    <string name="participate_contribute_github_text">Prüfen, ändern und schreiben Sie Code. Siehe auch  &lt;a href=\"%1$s\">CONTRIBUTING.md&lt;a> für Einzelheiten</string>
+    <string name="participate_contribute_irc_text">Treten Sie dem IRC-Chat bei: &lt; font color=\"%1$s\">&lt;a href=\"%2$s\">#nextcloud-mobile&lt;/a>&lt;/font></string>
+    <string name="participate_contribute_forum_text">Helfen Sie anderen im &lt;font color=\"%1$s\">&lt;a href=\"%2$s\">Forum&lt;/a>&lt;/font></string>
+    <string name="participate_contribute_translate_text">&lt;font color=\"%1$s\">&lt;a href=\"%2$s\">Übersetzen Sie&lt;/a>&lt;/font> die App</string>
+    <string name="participate_contribute_github_text">Überprüfen, Ändern und Schreiben von Code, schauen Sie in die &lt; font color=\"%1$s\">&lt; a href=\"%2$s\">CONTRIBUTING.md&lt;/a>&lt;/font> für weitere Details</string>
     <string name="move_to">Verschieben nach&#8230;</string>
     <string name="copy_to">Kopieren nach&#8230;</string>
     <string name="choose_remote_folder">Wähle Verzeichnis&#8230;</string>

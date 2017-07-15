@@ -466,10 +466,6 @@
     <string name="participate_beta_headline">Prova la versione di sviluppo</string>
     <string name="participate_release_candidate_headline">Candidata al rilascio</string>
     <string name="participate_contribute_headline">Contribuisci attivamente</string>
-    <string name="participate_contribute_irc_text">Unisciti alla chat su IRC: &lt;a href=\"%1$s\">#nextcloud-mobile&lt;/a></string>
-    <string name="participate_contribute_forum_text">Aiuta gli altri sul &lt;a href=\"%1$s\">forum&lt;/a></string>
-    <string name="participate_contribute_translate_text">&lt;a href=\"%1$s\">Traduci&lt;/a> l\'applicazione</string>
-    <string name="participate_contribute_github_text">Contribuisci come sviluppatore, vedi &lt;a href=\"%1$s\">CONTRIBUTING.md&lt;/a> per i dettagli</string>
     <string name="move_to">Sposta in&#8230;</string>
     <string name="copy_to">Copia in&#8230;</string>
     <string name="choose_remote_folder">Scegli la cartella&#8230;</string>
