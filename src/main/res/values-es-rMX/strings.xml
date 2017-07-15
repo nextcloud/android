@@ -346,7 +346,7 @@
     <string name="instant_video_upload_on_wifi">Cargar videos sólo a través de Wi-Fi</string>
     <string name="instant_video_upload_on_charging">Cargar archivos sólo con el dispositivo conectado a la toma de corriente</string>
     <string name="instant_upload_on_charging">Cargar archivos sólo con el dispositivo conectado a la toma de corriente</string>
-    <string name="instant_upload_path">/CargasAutomáticas</string>
+    <string name="instant_upload_path">/Cargas Automáticas</string>
     <string name="auto_upload_path">/CargaAutomática</string>
     <string name="conflict_title">Conflicto de archivo</string>
     <string name="conflict_message">¿Qué archivos desesa mantener? Si seleccionas ambas versiones, se le agregará un número al nombre del archivo local.</string>
@@ -563,6 +563,10 @@
     <string name="participate_release_candidate_headline">Candidato a lanzamiento</string>
     <string name="participate_release_candidate_text">El candidato a lanzamiento (RC) es una foto del lanzamiento más próximo y se espera que sea estable. Hacer preubas en tu configuración individual puede ayudarnos a asegurar ésto. Anótate para probar en la Play store o consulta manualmente la sección de \"Versión\" de F-Droid. </string>
     <string name="participate_contribute_headline">Contribuye activamente</string>
+    <string name="participate_contribute_irc_text">Únete al chat en IRC: &lt;font color=\"%1$s\">&lt;a href=\"%2$s\">#nextcloud-mobile&lt;/a>&lt;/font></string>
+    <string name="participate_contribute_forum_text">Ayuda a otros en el &lt;font color=\"%1$s\">&lt;a href=\"%2$s\">foro&lt;/a>&lt;/font></string>
+    <string name="participate_contribute_translate_text">&lt;font color=\"%1$s\">&lt;a href=\"%2$s\">Traduce &lt;/a>&lt;/font> la aplicación</string>
+    <string name="participate_contribute_github_text">Revisa, corrige y genera código, ve &lt;font color=\"%1$s\">&lt;a href=\"%2$s\">CONTRIBUYE.mx&lt;/a>&lt;/font> para más detalles</string>
     <string name="move_to">Mover a&#8230;</string>
     <string name="copy_to">Copiar a&#8230;</string>
     <string name="choose_remote_folder">Seleccione la carpeta&#8230;</string>
