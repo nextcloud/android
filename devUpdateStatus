@@ -1,8 +1,9 @@
-2017-07-15
+2017-07-16
 Branches: 12
+[00 / 12] Dev branch (nextcloud/dev) [https://github.com/nextcloud/android/tree/dev] was updated successfully
 [01 / 12] Catch a rare exception while setting activity list adapter (nextcloud/ErrorInActivityListAdapter) [https://github.com/nextcloud/android/pull/1173] no update needed
 [02 / 12] Fix: no shared folders after \ (nextcloud/sharedFolderMissing) [https://github.com/nextcloud/android/pull/1165] no update needed
-[03 / 12] revamped details screen (nextcloud/new_details_view_animations) [https://github.com/nextcloud/android/pull/1156] CONFLICT
+[03 / 12] revamped details screen (nextcloud/new_details_view_animations) [https://github.com/nextcloud/android/pull/1156] no update needed
 [04 / 12] Comment out adding all new downloaded files to folder observer (nextcloud/folderObserver) [https://github.com/nextcloud/android/pull/1155] no update needed
 [05 / 12] Auto upload rotation bug (nextcloud/autoUploadRotationBug) [https://github.com/nextcloud/android/pull/1138] CONFLICT
 [06 / 12] 1089 sharing with password rule (nextcloud/1089_sharing_with_password_rule) [https://github.com/nextcloud/android/pull/1110] CONFLICT
@@ -10,5 +11,5 @@ Branches: 12
 [08 / 12] Bruteforce support: re-use cookie (nextcloud/bruteforce) [https://github.com/nextcloud/android/pull/1099] no update needed
 [09 / 12] Search inside of text files (nextcloud/bugfix-454) [https://github.com/nextcloud/android/pull/565] CONFLICT
 [10 / 12] Resized images (nextcloud/resizedImages) [https://github.com/nextcloud/android/pull/69] no update needed
-[11 / 12] Master (nextcloud/master) [https://github.com/nextcloud/android] CONFLICT
+[11 / 12] Master (nextcloud/master) [https://github.com/nextcloud/android] no update needed
 [12 / 12] Dev base (nextcloud/dev-base) [https://github.com/nextcloud/android/tree/dev-base] CONFLICT
