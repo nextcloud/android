@@ -543,7 +543,7 @@
     <string name="manage_space_clear_data">Daten löschen</string>
     <string name="manage_space_error">Einige Dateien konnten nicht gelöscht werden.</string>
 
-    <string name="permission_storage_access">Sie haben nicht die erforderlichen Rechte, um Dateien hoch- oder herunterzuladen.</string>
+    <string name="permission_storage_access">Du hast nicht die erforderlichen Rechte, um Dateien hoch- oder herunterzuladen.</string>
     <string name="local_file_not_found_toast">Die Datei wurde im lokalen Dateisystem nicht gefunden</string>
     <string name="confirmation_remove_files_alert">Willst Du die ausgewählten Einträge wirklich löschen?</string>
     <string name="confirmation_remove_folders_alert">Willst Du die ausgewählten Einträge und deren Inhalte wirklich löschen?</string>
@@ -568,6 +568,7 @@
     <string name="participate_contribute_irc_text">Trete dem IRC-Chat bei: &lt;font color=\"%1$s\">&lt;a href=\"%2$s\">#nextcloud-mobile&lt;/a>&lt;/font></string>
     <string name="participate_contribute_forum_text">Helfe anderen im &lt;font color=\"%1$s\">&lt;a href=\"%2$s\">Forum&lt;/a>&lt;/font></string>
     <string name="participate_contribute_translate_text">&lt;font color=\"%1$s\">&lt;a href=\"%2$s\">Übersetze&lt;/a>&lt;/font> die App</string>
+    <string name="participate_contribute_github_text">Überprüfen, Ändern und Schreiben von Code, schau in die &lt; font color=\"%1$s\">&lt; a href=\"%2$s\">CONTRIBUTING.md&lt;/a>&lt;/font> für weitere Details</string>
     <string name="move_to">Verschieben nach&#8230;</string>
     <string name="copy_to">Kopieren nach&#8230;</string>
     <string name="choose_remote_folder">Wähle Verzeichnis&#8230;</string>
