@@ -32,7 +32,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:footerDividersEnabled="false"
-        android:visibility="visible" >
+        android:visibility="visible">
 
         <com.owncloud.android.ui.ExtendedListView
             android:id="@+id/list_root"
@@ -41,7 +41,8 @@
             android:divider="@color/list_divider_background"
             android:dividerHeight="1px"
             android:visibility="visible"
-            android:descendantFocusability="blocksDescendants"/>
+            android:clipToPadding="false"
+            android:paddingTop="?attr/actionBarSize"/>
 
     </android.support.v4.widget.SwipeRefreshLayout>
 
@@ -62,7 +63,9 @@
             android:horizontalSpacing="@dimen/list_fragment_spacing"
             android:stretchMode="columnWidth"
             android:verticalSpacing="@dimen/list_fragment_spacing"
-            android:visibility="visible"/>
+            android:visibility="visible"
+            android:clipToPadding="false"
+            android:paddingTop="?attr/actionBarSize"/>
 
     </android.support.v4.widget.SwipeRefreshLayout>
 
@@ -73,7 +76,7 @@
         android:visibility="gone" >
             <ScrollView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" >
+                android:layout_height="match_parent">
 
                 <include layout="@layout/empty_list" />
 
