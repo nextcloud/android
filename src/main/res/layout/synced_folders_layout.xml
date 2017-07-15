@@ -2,8 +2,8 @@
 <!--
   Nextcloud Android client application
 
-  Copyright (C) 2016 Andy Scherzinger
-  Copyright (C) 2016 Nextcloud.
+  Copyright (C) 2017 Andy Scherzinger
+  Copyright (C) 2017 Nextcloud.
 
   This program is free software; you can redistribute it and/or
   modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
@@ -18,43 +18,74 @@
   You should have received a copy of the GNU Affero General Public
   License along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
-<android.support.v4.widget.DrawerLayout android:id="@+id/drawer_layout"
-                                        xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
                                         xmlns:app="http://schemas.android.com/apk/res-auto"
+                                        xmlns:tools="http://schemas.android.com/tools"
+                                        android:id="@+id/drawer_layout"
                                         android:layout_width="match_parent"
                                         android:layout_height="match_parent"
-                                        android:clickable="true"
-                                        android:fitsSystemWindows="true">
+                                        android:fitsSystemWindows="true"
+                                        tools:openDrawer="start">
 
-    <!-- The main content view -->
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+    <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                                     xmlns:app="http://schemas.android.com/apk/res-auto"
+                                                     xmlns:tools="http://schemas.android.com/tools"
+                                                     android:layout_width="match_parent"
+                                                     android:layout_height="match_parent">
 
-        <include
-            layout="@layout/toolbar_standard"/>
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/app_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/add_custom_folder"
-            android:layout_below="@+id/appbar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:drawableLeft="@drawable/ic_folder_star_18dp"
-            android:drawableStart="@drawable/ic_folder_star_18dp"
-            android:onClick="onAddCustomFolderClick"
-            android:paddingBottom="@dimen/alternate_half_padding"
-            android:paddingTop="@dimen/alternate_half_padding"
-            android:text="@string/autoupload_custom_folder"/>
+            <android.support.design.widget.CollapsingToolbarLayout
+                android:id="@+id/collapsing_toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="110dp"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
+                app:titleEnabled="false">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal|bottom"
+                    android:gravity="center"
+                    android:onClick="onAddCustomFolderClick"
+                    android:padding="@dimen/standard_padding"
+                    app:layout_collapseMode="pin">
+
+                    <ImageView
+                        android:id="@+id/custom_folder_image"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_folder_star_18dp"/>
+
+                    <TextView
+                        android:id="@+id/add_custom_folder"
+                        android:layout_toRightOf="@id/custom_folder_image"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="@dimen/alternate_half_padding"
+                        android:text="@string/autoupload_custom_folder"/>
+
+                </RelativeLayout>
+
+                <android.support.v7.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    android:background="?attr/colorPrimary"
+                    app:layout_collapseMode="pin"/>
+            </android.support.design.widget.CollapsingToolbarLayout>
+        </android.support.design.widget.AppBarLayout>
 
         <FrameLayout
+            android:id="@+id/ListLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@+id/add_custom_folder"
             android:layout_above="@+id/bottom_navigation_view"
-            android:id="@+id/ListLayout"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
             <LinearLayout
                 android:id="@android:id/progress"
@@ -114,11 +145,11 @@
             app:itemTextColor="@color/primary_button_text_color"
             app:menu="@menu/navigation_bar_menu"/>
 
-    </RelativeLayout>
+    </android.support.design.widget.CoordinatorLayout>
 
     <include
         layout="@layout/drawer"
-        android:layout_width="240dp"
+        android:layout_width="@dimen/drawer_width"
         android:layout_height="match_parent"
         android:layout_gravity="start"/>
 
