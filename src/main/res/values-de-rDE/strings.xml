@@ -567,6 +567,7 @@
     <string name="participate_contribute_irc_text">Treten Sie dem IRC-Chat bei: &lt; font color=\"%1$s\">&lt;a href=\"%2$s\">#nextcloud-mobile&lt;/a>&lt;/font></string>
     <string name="participate_contribute_forum_text">Helfen Sie anderen im &lt;font color=\"%1$s\">&lt;a href=\"%2$s\">Forum&lt;/a>&lt;/font></string>
     <string name="participate_contribute_translate_text">&lt;font color=\"%1$s\">&lt;a href=\"%2$s\">Übersetzen Sie&lt;/a>&lt;/font> die App</string>
+    <string name="participate_contribute_github_text">Überprüfen, Ändern und Schreiben von Code, schauen Sie in die &lt; font color=\"%1$s\">&lt; a href=\"%2$s\">CONTRIBUTING.md&lt;/a>&lt;/font> für weitere Details</string>
     <string name="move_to">Verschieben nach&#8230;</string>
     <string name="copy_to">Kopieren nach&#8230;</string>
     <string name="choose_remote_folder">Wähle Verzeichnis&#8230;</string>
