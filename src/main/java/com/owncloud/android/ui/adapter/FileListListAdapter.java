@@ -648,6 +648,10 @@ public class FileListListAdapter extends BaseAdapter {
         return files;
     }
 
+    public Vector<OCFile> getFiles() {
+        return mFiles;
+    }
+
     public Filter getFilter() {
         if (mFilesFilter == null) {
             mFilesFilter = new FilesFilter();

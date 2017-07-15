@@ -625,6 +625,7 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
             );
             mode.setTitle(title);
             FileMenuFilter mf = new FileMenuFilter(
+                    mAdapter.getFiles().size(),
                     checkedFiles,
                     ((FileActivity) getActivity()).getAccount(),
                     mContainerActivity,
@@ -991,12 +992,21 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
                 getActivity().startActivityForResult(action, FileDisplayActivity.REQUEST_CODE__MOVE_FILES);
                 return true;
             }
-            case R.id.action_copy:
+            case R.id.action_copy: {
                 Intent action = new Intent(getActivity(), FolderPickerActivity.class);
                 action.putParcelableArrayListExtra(FolderPickerActivity.EXTRA_FILES, checkedFiles);
                 action.putExtra(FolderPickerActivity.EXTRA_ACTION, getResources().getText(R.string.copy_to));
                 getActivity().startActivityForResult(action, FileDisplayActivity.REQUEST_CODE__COPY_FILES);
                 return true;
+            }
+            case R.id.action_select_all: {
+                selectAllFiles(true);
+                return true;
+            }
+            case R.id.action_deselect_all: {
+                selectAllFiles(false);
+                return true;
+            }
             default:
                 return false;
         }
@@ -1594,4 +1604,17 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
     public boolean getIsSearchFragment() {
         return searchFragment;
     }
+
+    /**
+     * De-/select all elements in the current list view.
+     *
+     * @param select <code>true</code> to select all, <code>false</code> to deselect all
+     */
+    public void selectAllFiles(boolean select) {
+        AbsListView listView = getListView();
+        for (int position = 0; position < listView.getCount(); position++) {
+            listView.setItemChecked(position, select);
+        }
+    }
+
 }
