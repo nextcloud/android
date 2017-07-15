@@ -6,16 +6,16 @@
  * @author David A. Velasco
  * Copyright (C) 2011  Bartek Przybylski
  * Copyright (C) 2016 ownCloud Inc.
- *
+ * <p>
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2,
  * as published by the Free Software Foundation.
- *
+ * <p>
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * <p>
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -86,6 +86,7 @@ import com.owncloud.android.ui.events.DummyDrawerEvent;
 import com.owncloud.android.ui.events.FavoriteEvent;
 import com.owncloud.android.ui.events.SearchEvent;
 import com.owncloud.android.ui.helpers.SparseBooleanArrayParcelable;
+import com.owncloud.android.ui.helpers.VirtualStorageManager;
 import com.owncloud.android.ui.interfaces.OCFileListFragmentInterface;
 import com.owncloud.android.ui.preview.PreviewImageFragment;
 import com.owncloud.android.ui.preview.PreviewMediaFragment;
@@ -105,6 +106,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Vector;
 
 /**
  * A Fragment that lists all files and folders in a given path.
@@ -284,7 +286,6 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
         super.onPause();
         mAdapter.cancelAllPendingTasks();
     }
-
 
 
     /**
@@ -1431,18 +1432,17 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
     @Subscribe(threadMode = ThreadMode.BACKGROUND)
     public void onMessageEvent(final SearchEvent event) {
         searchFragment = true;
-        setEmptyListLoadingMessage();
-        mAdapter.setData(new ArrayList<>(), SearchType.NO_SEARCH, mContainerActivity.getStorageManager());
-
+        // Do not create a new request if is the same event
+        // and the previous has not finished
+        if (isSameEvent(searchEvent, event, remoteOperationAsyncTask)) {
+            return;
+        }
         setFabEnabled(false);
-
         if (event.getUnsetType().equals(SearchEvent.UnsetType.UNSET_BOTTOM_NAV_BAR)) {
             unsetAllMenuItems(false);
         } else if (event.getUnsetType().equals(SearchEvent.UnsetType.UNSET_DRAWER)) {
             unsetAllMenuItems(true);
         }
-
-
         if (bottomNavigationView != null && searchEvent != null) {
             switch (currentSearchType) {
                 case FAVORITE_SEARCH:
@@ -1490,52 +1490,64 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
             remoteOperation = new GetRemoteSharesOperation();
         }
 
+        new Handler(Looper.getMainLooper()).post(new Runnable() {
+            @Override
+            public void run() {
+                executeSearchTask(event, remoteOperation);
+            }
+        });
+    }
+
+    private void executeSearchTask(final SearchEvent event, final RemoteOperation remoteOperation) {
         final Account currentAccount = AccountUtils.getCurrentOwnCloudAccount(MainApp.getAppContext());
 
-        remoteOperationAsyncTask = new AsyncTask() {
-            @Override
-            protected Object doInBackground(Object[] params) {
-                if (getContext() != null && !isCancelled()) {
-                    RemoteOperationResult remoteOperationResult = remoteOperation.execute(currentAccount, getContext());
+        remoteOperationAsyncTask = new AsyncTask<Object, Void, Vector<OCFile>>() {
 
-                    FileDataStorageManager storageManager = null;
-                    if (mContainerActivity != null && mContainerActivity.getStorageManager() != null) {
-                        storageManager = mContainerActivity.getStorageManager();
-                    }
+            @Override
+            protected void onPreExecute() {
+                if (!isCancelled() && getSafeContext() != null) {
+                    final FileDisplayActivity fileDisplayActivity = (FileDisplayActivity) getActivity();
+                    mAdapter.setData(new Vector<OCFile>(), SearchType.NO_SEARCH);
+                    fileDisplayActivity.setIndeterminate(true);
+                    finishedFiltering();
+                }
+            }
+
+            @Override
+            protected Vector<OCFile> doInBackground(Object... params) {
+                FileDataStorageManager storageManager = null;
+                if (mContainerActivity != null && mContainerActivity.getStorageManager() != null) {
+                    storageManager = mContainerActivity.getStorageManager();
+                }
+
+                if (getContext() != null && !isCancelled() && storageManager != null) {
+                    RemoteOperationResult remoteOperationResult = remoteOperation.execute(currentAccount, getContext());
+                    VirtualStorageManager virtualStorageManager = new VirtualStorageManager(storageManager, currentAccount, getSafeContext());
 
                     if (remoteOperationResult.isSuccess() && remoteOperationResult.getData() != null
                             && !isCancelled() && searchFragment) {
-                        if (remoteOperationResult.getData() == null || remoteOperationResult.getData().size() == 0) {
-                            setEmptyView(event);
-                        } else {
-                            mAdapter.setData(remoteOperationResult.getData(), currentSearchType, storageManager);
-                        }
-
-                        final FileDisplayActivity fileDisplayActivity = (FileDisplayActivity) getActivity();
-                        fileDisplayActivity.runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                fileDisplayActivity.setIndeterminate(false);
-                            }
-                        });
+                        return virtualStorageManager.parseRemoteOperation(remoteOperationResult.getData(), currentSearchType);
                     }
-
-                    return remoteOperationResult.isSuccess();
-                } else {
-                    return false;
+                    return null;
                 }
+                return null;
             }
 
             @Override
-            protected void onPostExecute(Object o) {
-                if (!isCancelled()) {
-                    mAdapter.notifyDataSetChanged();
+            protected void onPostExecute(Vector<OCFile> ocFiles) {
+                if (isCancelled() || getSafeContext() == null) return;
+                final FileDisplayActivity fileDisplayActivity = (FileDisplayActivity) getActivity();
+                if (ocFiles == null || ocFiles.isEmpty()) {
+                    setEmptyView(event);
+                } else {
+                    mAdapter.setData(ocFiles, currentSearchType);
                 }
+                finishedFiltering();
+                fileDisplayActivity.setIndeterminate(false);
             }
         };
 
-        remoteOperationAsyncTask.execute(true);
-
+        remoteOperationAsyncTask.execute();
     }
 
     private void setTitle(@StringRes final int title) {
@@ -1593,5 +1605,17 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
 
     public boolean getIsSearchFragment() {
         return searchFragment;
+    }
+
+    private boolean isSameEvent(SearchEvent lastEvent, SearchEvent newEvent, AsyncTask remoteOperationAsyncTask) {
+        return newEvent.equals(lastEvent) &&
+                remoteOperationAsyncTask != null &&
+                (remoteOperationAsyncTask.getStatus() == AsyncTask.Status.RUNNING ||
+                        remoteOperationAsyncTask.getStatus() == AsyncTask.Status.PENDING);
+
+    }
+
+    private Context getSafeContext() {
+        return Build.VERSION.SDK_INT >= 23 ? getContext() : getActivity();
     }
 }
