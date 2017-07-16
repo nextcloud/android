@@ -46,6 +46,7 @@ import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
 import android.preference.SwitchPreference;
 import android.support.annotation.LayoutRes;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatDelegate;
 import android.view.Menu;
@@ -53,7 +54,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.owncloud.android.BuildConfig;
 import com.owncloud.android.MainApp;
@@ -267,11 +267,7 @@ public class Preferences extends PreferenceActivity
                                     return true;
                                 } else {
                                     if (incoming) {
-                                        Toast.makeText(
-                                                MainApp.getAppContext(),
-                                                R.string.prefs_fingerprint_notsetup,
-                                                Toast.LENGTH_LONG)
-                                                .show();
+                                        showSnackMessage(R.string.prefs_fingerprint_notsetup);
                                         fPrint.setChecked(false);
                                     }
                                     SharedPreferences appPrefs =
@@ -351,11 +347,7 @@ public class Preferences extends PreferenceActivity
                             launchDavDroidLogin();
                         } catch (Throwable t) {
                             Log_OC.e(TAG, "Base Uri for account could not be resolved to call DAVdroid!", t);
-                            Toast.makeText(
-                                    MainApp.getAppContext(),
-                                    R.string.prefs_calendar_contacts_address_resolve_error,
-                                    Toast.LENGTH_SHORT)
-                                    .show();
+                            showSnackMessage(R.string.prefs_calendar_contacts_address_resolve_error);
                         }
                         return true;
                     }
@@ -617,11 +609,7 @@ public class Preferences extends PreferenceActivity
                         Uri.parse("https://f-droid.org/repository/browse/?fdid=at.bitfire.davdroid"));
                 startActivity(downloadIntent);
 
-                Toast.makeText(
-                        MainApp.getAppContext(),
-                        R.string.prefs_calendar_contacts_no_store_error,
-                        Toast.LENGTH_SHORT)
-                        .show();
+                showSnackMessage(R.string.prefs_calendar_contacts_no_store_error);
             }
         }
     }
@@ -693,7 +681,7 @@ public class Preferences extends PreferenceActivity
                 }
                 appPrefs.putBoolean(PassCodeActivity.PREFERENCE_SET_PASSCODE, true);
                 appPrefs.apply();
-                Toast.makeText(this, R.string.pass_code_stored, Toast.LENGTH_LONG).show();
+                showSnackMessage(R.string.pass_code_stored);
             }
         } else if (requestCode == ACTION_CONFIRM_PASSCODE && resultCode == RESULT_OK) {
             if (data.getBooleanExtra(PassCodeActivity.KEY_CHECK_RESULT, false)) {
@@ -703,10 +691,10 @@ public class Preferences extends PreferenceActivity
                 appPrefs.putBoolean(PassCodeActivity.PREFERENCE_SET_PASSCODE, false);
                 appPrefs.apply();
 
-                Toast.makeText(this, R.string.pass_code_removed, Toast.LENGTH_LONG).show();
+                showSnackMessage(R.string.pass_code_removed);
             }
         } else if (requestCode == ACTION_REQUEST_CODE_DAVDROID_SETUP && resultCode == RESULT_OK) {
-            Toast.makeText(this, R.string.prefs_calendar_contacts_sync_setup_successful, Toast.LENGTH_LONG).show();
+            showSnackMessage(R.string.prefs_calendar_contacts_sync_setup_successful);
         }
     }
 
@@ -852,5 +840,14 @@ public class Preferences extends PreferenceActivity
     @Override
     public void onCancelMigration() {
         // Migration was canceled so we don't do anything
+    }
+
+    /**
+     * Show a temporary message in a Snackbar bound to the content view
+     *
+     * @param messageResource Message to show.
+     */
+    private void showSnackMessage(int messageResource) {
+        Snackbar.make(findViewById(android.R.id.content), messageResource, Snackbar.LENGTH_LONG).show();
     }
 }

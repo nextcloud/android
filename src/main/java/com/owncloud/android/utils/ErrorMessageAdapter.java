@@ -1,25 +1,29 @@
 /**
- * ownCloud Android client application
+ *   ownCloud Android client application
  *
- * @author masensio
- * Copyright (C) 2014 ownCloud Inc.
+ *   @author masensio
+ *   Copyright (C) 2016 ownCloud GmbH.
  *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License version 2,
- * as published by the Free Software Foundation.
+ *   This program is free software: you can redistribute it and/or modify
+ *   it under the terms of the GNU General Public License version 2,
+ *   as published by the Free Software Foundation.
  *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ *   This program is distributed in the hope that it will be useful,
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *   GNU General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *   You should have received a copy of the GNU General Public License
+ *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
  */
+
 
 package com.owncloud.android.utils;
 
 import android.content.res.Resources;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 import com.owncloud.android.R;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
@@ -47,35 +51,82 @@ import java.net.SocketTimeoutException;
 
 /**
  * Class to choose proper error messages to show to the user depending on the results of operations,
- * always following the same policy.
+ * always following the same policy
  */
 public class ErrorMessageAdapter {
 
-    public static String getErrorCauseMessage(RemoteOperationResult result,
-                                              RemoteOperation operation, Resources res) {
+    public ErrorMessageAdapter() { }
+
+    /**
+     * Return an internationalized user message corresponding to an operation result
+     * and the operation performed.
+     *
+     * @param result        Result of a {@link RemoteOperation} performed.
+     * @param operation     Operation performed.
+     * @param res           Reference to app resources, for i18n.
+     * @return              User message corresponding to 'result' and 'operation'.
+     */
+    @NonNull
+    public static String getErrorCauseMessage(
+            RemoteOperationResult result,
+            RemoteOperation operation,
+            Resources res
+    ) {
+        String message = getSpecificMessageForResultAndOperation(result, operation, res);
+
+        if (message == null || message.length() <= 0) {
+            message = getCommonMessageForResult(result, res);
+        }
+
+        if (message == null || message.length() <= 0) {
+            message = getGenericErrorMessageForOperation(operation, res);
+        }
+
+        if (message == null) {
+            if (result.isSuccess()) {
+                message = res.getString(R.string.common_ok);
+
+            } else {
+                message = res.getString(R.string.common_error_unknown);
+            }
+        }
+
+        return message;
+    }
+
+    /**
+     * Return a user message corresponding to an operation result and specific for the operation
+     * performed.
+     *
+     * @param result        Result of a {@link RemoteOperation} performed.
+     * @param operation     Operation performed.
+     * @param res           Reference to app resources, for i18n.
+     * @return              User message corresponding to 'result' and 'operation', or NULL if there is no
+     *                      specific message for both.
+     */
+    @Nullable
+    private static String getSpecificMessageForResultAndOperation(
+            RemoteOperationResult result,
+            RemoteOperation operation,
+            Resources res
+    ) {
 
         String message = null;
 
-        if (!result.isSuccess() && isCommonError(result.getCode())) {
-            message = getCommonErrorMessage(result, res);
-
-        } else if (operation instanceof UploadFileOperation) {
+        if (operation instanceof UploadFileOperation) {
 
             if (result.isSuccess()) {
                 message = String.format(
                         res.getString(R.string.uploader_upload_succeeded_content_single),
                         ((UploadFileOperation) operation).getFileName());
             } else {
+
                 if (result.getCode() == ResultCode.LOCAL_STORAGE_FULL
                         || result.getCode() == ResultCode.LOCAL_STORAGE_NOT_COPIED) {
                     message = String.format(
                             res.getString(R.string.error__upload__local_file_not_copied),
                             ((UploadFileOperation) operation).getFileName(),
                             res.getString(R.string.app_name));
-                /*
-                } else if (result.getCode() == ResultCode.QUOTA_EXCEEDED) {
-                    message = res.getString(R.string.failed_upload_quota_exceeded_text);
-                    */
 
                 } else if (result.getCode() == ResultCode.FORBIDDEN) {
                     message = String.format(res.getString(R.string.forbidden_permissions),
@@ -84,10 +135,6 @@ public class ErrorMessageAdapter {
                 } else if (result.getCode() == ResultCode.INVALID_CHARACTER_DETECT_IN_SERVER) {
                     message = res.getString(R.string.filename_forbidden_charaters_from_server);
 
-                } else {
-                    message = String.format(
-                            res.getString(R.string.uploader_upload_failed_content_single),
-                            ((UploadFileOperation) operation).getFileName());
                 }
             }
 
@@ -102,10 +149,6 @@ public class ErrorMessageAdapter {
                 if (result.getCode() == ResultCode.FILE_NOT_FOUND) {
                     message = res.getString(R.string.downloader_download_file_not_found);
 
-                } else {
-                    message = String.format(
-                            res.getString(R.string.downloader_download_failed_content), new File(
-                                    ((DownloadFileOperation) operation).getSavePath()).getName());
                 }
             }
 
@@ -118,9 +161,6 @@ public class ErrorMessageAdapter {
                     // Error --> No permissions
                     message = String.format(res.getString(R.string.forbidden_permissions),
                             res.getString(R.string.forbidden_permissions_delete));
-
-                } else {
-                    message = res.getString(R.string.remove_fail_msg);
                 }
             }
 
@@ -139,8 +179,6 @@ public class ErrorMessageAdapter {
             } else if (result.getCode() == ResultCode.INVALID_CHARACTER_DETECT_IN_SERVER) {
                 message = res.getString(R.string.filename_forbidden_charaters_from_server);
 
-            } else {
-                message = res.getString(R.string.rename_server_fail_msg);
             }
 
         } else if (operation instanceof SynchronizeFileOperation) {
@@ -159,8 +197,6 @@ public class ErrorMessageAdapter {
             } else if (result.getCode() == ResultCode.INVALID_CHARACTER_DETECT_IN_SERVER) {
                 message = res.getString(R.string.filename_forbidden_charaters_from_server);
 
-            } else {
-                message = res.getString(R.string.create_dir_fail_msg);
             }
 
         } else if (operation instanceof CreateShareViaLinkOperation ||
@@ -169,7 +205,7 @@ public class ErrorMessageAdapter {
             if (result.getData() != null && result.getData().size() > 0) {
                 message = (String) result.getData().get(0);     // share API sends its own error messages
 
-            } else if (result.getCode() == ResultCode.SHARE_NOT_FOUND) {
+            } else if (result.getCode() == ResultCode.SHARE_NOT_FOUND)  {
                 message = res.getString(R.string.share_link_file_no_exist);
 
             } else if (result.getCode() == ResultCode.SHARE_FORBIDDEN) {
@@ -177,9 +213,6 @@ public class ErrorMessageAdapter {
                 message = String.format(res.getString(R.string.forbidden_permissions),
                         res.getString(R.string.share_link_forbidden_permissions));
 
-            } else {    // Generic error
-                // Show a Message, operation finished without success
-                message = res.getString(R.string.share_link_file_error);
             }
 
         } else if (operation instanceof UnshareOperation) {
@@ -195,9 +228,6 @@ public class ErrorMessageAdapter {
                 message = String.format(res.getString(R.string.forbidden_permissions),
                         res.getString(R.string.unshare_link_forbidden_permissions));
 
-            } else {    // Generic error
-                // Show a Message, operation finished without success
-                message = res.getString(R.string.unshare_link_file_error);
             }
 
         } else if (operation instanceof UpdateShareViaLinkOperation ||
@@ -214,9 +244,6 @@ public class ErrorMessageAdapter {
                 message = String.format(res.getString(R.string.forbidden_permissions),
                         res.getString(R.string.update_link_forbidden_permissions));
 
-            } else {    // Generic error
-                // Show a Message, operation finished without success
-                message = res.getString(R.string.update_link_file_error);
             }
 
         } else if (operation instanceof MoveFileOperation) {
@@ -236,9 +263,6 @@ public class ErrorMessageAdapter {
             } else if (result.getCode() == ResultCode.INVALID_CHARACTER_DETECT_IN_SERVER) {
                 message = res.getString(R.string.filename_forbidden_charaters_from_server);
 
-            } else {    // Generic error
-                // Show a Message, operation finished without success
-                message = res.getString(R.string.move_file_error);
             }
 
         } else if (operation instanceof SynchronizeFolderOperation) {
@@ -247,13 +271,10 @@ public class ErrorMessageAdapter {
                 String folderPathName = new File(
                         ((SynchronizeFolderOperation) operation).getFolderPath()).getName();
                 if (result.getCode() == ResultCode.FILE_NOT_FOUND) {
-                    message = String.format(res.getString(R.string.sync_current_folder_was_removed),
-                            folderPathName);
-
-                } else {    // Generic error
-                    // Show a Message, operation finished without success
-                    message = String.format(res.getString(R.string.sync_folder_failed_content),
-                            folderPathName);
+                    message = String.format(
+                            res.getString(R.string.sync_current_folder_was_removed),
+                            folderPathName
+                    );
                 }
             }
 
@@ -271,21 +292,27 @@ public class ErrorMessageAdapter {
                 message = String.format(res.getString(R.string.forbidden_permissions),
                         res.getString(R.string.forbidden_permissions_copy));
 
-            } else {    // Generic error
-                // Show a Message, operation finished without success
-                message = res.getString(R.string.copy_file_error);
             }
         }
 
         return message;
     }
 
-    private static String getCommonErrorMessage(RemoteOperationResult result, Resources res) {
+
+    /**
+     * Return a user message corresponding to an operation result with no knowledge about the operation
+     * performed.
+     *
+     * @param result        Result of a {@link RemoteOperation} performed.
+     * @param res           Reference to app resources, for i18n.
+     * @return              User message corresponding to 'result'.
+     */
+    @Nullable
+    private static String getCommonMessageForResult(RemoteOperationResult result, Resources res) {
 
         String message = null;
 
         if (!result.isSuccess()) {
-
             if (result.getCode() == ResultCode.WRONG_CONNECTION) {
                 message = res.getString(R.string.network_error_socket_exception);
 
@@ -294,24 +321,89 @@ public class ErrorMessageAdapter {
 
                 if (result.getException() instanceof SocketTimeoutException) {
                     message = res.getString(R.string.network_error_socket_timeout_exception);
+
                 } else if (result.getException() instanceof ConnectTimeoutException) {
                     message = res.getString(R.string.network_error_connect_timeout_exception);
                 }
 
             } else if (result.getCode() == ResultCode.HOST_NOT_AVAILABLE) {
                 message = res.getString(R.string.network_host_not_available);
+
             } else if (result.getCode() == ResultCode.MAINTENANCE_MODE) {
                 message = res.getString(R.string.maintenance_mode);
+
+            } else if (result.getCode() == ResultCode.SSL_RECOVERABLE_PEER_UNVERIFIED) {
+                message = res.getString(
+                        R.string.uploads_view_upload_status_failed_ssl_certificate_not_trusted
+                );
+
+            } else if (result.getHttpPhrase() != null && result.getHttpPhrase().length() > 0) {
+                // last chance: error message from server
+                message = result.getHttpPhrase();
             }
         }
 
         return message;
     }
 
-    private static boolean isCommonError(RemoteOperationResult.ResultCode code) {
-        return code == ResultCode.WRONG_CONNECTION ||
-                code == ResultCode.TIMEOUT ||
-                code == ResultCode.HOST_NOT_AVAILABLE ||
-                code == ResultCode.MAINTENANCE_MODE;
+
+    /**
+     * Return a user message corresponding to a generic error for a given operation.
+     *
+     * @param operation     Operation performed.
+     * @param res           Reference to app resources, for i18n.
+     * @return              User message corresponding to a generic error of 'operation'.
+     */
+    @Nullable
+    private static String getGenericErrorMessageForOperation(RemoteOperation operation, Resources res) {
+        String message = null;
+
+        if (operation instanceof UploadFileOperation) {
+            message = String.format(
+                    res.getString(R.string.uploader_upload_failed_content_single),
+                    ((UploadFileOperation) operation).getFileName());
+
+        } else if (operation instanceof DownloadFileOperation) {
+            message = String.format(
+                    res.getString(R.string.downloader_download_failed_content),
+                    new File(((DownloadFileOperation) operation).getSavePath()).getName()
+            );
+
+        } else if (operation instanceof RemoveFileOperation) {
+            message = res.getString(R.string.remove_fail_msg);
+
+        } else if (operation instanceof RenameFileOperation) {
+            message = res.getString(R.string.rename_server_fail_msg);
+
+        } else if (operation instanceof CreateFolderOperation) {
+            message = res.getString(R.string.create_dir_fail_msg);
+
+        } else if (operation instanceof CreateShareViaLinkOperation ||
+                operation instanceof CreateShareWithShareeOperation
+                ) {
+            message = res.getString(R.string.share_link_file_error);
+
+        } else if (operation instanceof UnshareOperation) {
+            message = res.getString(R.string.unshare_link_file_error);
+
+        } else if (operation instanceof UpdateShareViaLinkOperation ||
+                operation instanceof UpdateSharePermissionsOperation
+                ) {
+            message = res.getString(R.string.update_link_file_error);
+
+        } else if (operation instanceof MoveFileOperation) {
+            message = res.getString(R.string.move_file_error);
+
+        } else if (operation instanceof SynchronizeFolderOperation) {
+            String folderPathName = new File(
+                    ((SynchronizeFolderOperation) operation).getFolderPath()
+            ).getName();
+            message = String.format(res.getString(R.string.sync_folder_failed_content), folderPathName);
+
+        } else if (operation instanceof CopyFileOperation) {
+            message = res.getString(R.string.copy_file_error);
+        }
+
+        return message;
     }
 }
