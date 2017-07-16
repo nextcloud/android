@@ -26,6 +26,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.text.method.ScrollingMovementMethod;
@@ -61,8 +62,7 @@ import java.util.ArrayList;
  * 
  * Shown when the error notification summarizing the list of errors is clicked by the user.
  */
-public class ErrorsWhileCopyingHandlerActivity  extends AppCompatActivity
-        implements OnClickListener {
+public class ErrorsWhileCopyingHandlerActivity  extends AppCompatActivity implements OnClickListener {
 
     private static final String TAG = ErrorsWhileCopyingHandlerActivity.class.getSimpleName();
 
@@ -282,9 +282,12 @@ public class ErrorsWhileCopyingHandlerActivity  extends AppCompatActivity
                 finish();
                 
             } else {
-                Toast t = Toast.makeText(ErrorsWhileCopyingHandlerActivity.this,
-                        getString(R.string.foreign_files_fail), Toast.LENGTH_LONG);
-                t.show();
+                Snackbar snackbar = Snackbar.make(
+                        findViewById(android.R.id.content),
+                        R.string.foreign_files_fail,
+                        Snackbar.LENGTH_LONG
+                );
+                snackbar.show();
             }
         }
     }    
