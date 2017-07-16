@@ -110,7 +110,7 @@
                     android:id="@+id/file_size"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Size MB"
+                    android:text="@string/placeholder_filesize"
                     android:textColor="@color/list_item_lastmod_and_filesize_text"
                     android:textSize="@dimen/two_line_secondary_text_size"/>
 
@@ -119,7 +119,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="right"
-                    android:text=", "
+                    android:text="@string/file_item_metadata_separator"
+                    android:paddingRight="@dimen/standard_quarter_padding"
                     android:textColor="@color/list_item_lastmod_and_filesize_text"
                     android:textSize="@dimen/two_line_secondary_text_size"/>
 
@@ -128,7 +129,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="right"
-                    android:text="Mod Date"
+                    android:text="@string/placeholder_timestamp"
                     android:textColor="@color/list_item_lastmod_and_filesize_text"
                     android:textSize="@dimen/two_line_secondary_text_size"/>
 
@@ -170,6 +171,6 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/list_divider_background"></View>
+        android:background="@color/list_divider_background"/>
 
 </LinearLayout>
