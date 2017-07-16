@@ -190,28 +190,16 @@ public class FileOperationsHelper {
                             )
                     );
                 } catch (ActivityNotFoundException anfe) {
-                    showNoAppForFileTypeToast(mFileActivity.getApplicationContext());
+                    mFileActivity.showSnackMessage(mFileActivity.getString(R.string.file_list_no_app_for_file_type));
                 }
             } else {
-                showNoAppForFileTypeToast(mFileActivity.getApplicationContext());
+                mFileActivity.showSnackMessage(mFileActivity.getString(R.string.file_list_no_app_for_file_type));
             }
 
         } else {
             Log_OC.e(TAG, "Trying to open a NULL OCFile");
         }
     }
-
-    /**
-     * Displays a toast stating that no application could be found to open the file.
-     *
-     * @param context the context to be able to show a toast.
-     */
-    private void showNoAppForFileTypeToast(Context context) {
-        Toast.makeText(context,
-                R.string.file_list_no_app_for_file_type, Toast.LENGTH_SHORT)
-                .show();
-    }
-
 
     /**
      * Helper method to share a file via a public link. Starts a request to do it in {@link OperationsService}
@@ -242,11 +230,7 @@ public class FileOperationsHelper {
 
         } else {
             // Show a Message
-            Toast t = Toast.makeText(
-                    mFileActivity, mFileActivity.getString(R.string.share_link_no_support_share_api),
-                    Toast.LENGTH_LONG
-            );
-            t.show();
+            mFileActivity.showSnackMessage(mFileActivity.getString(R.string.share_link_no_support_share_api));
         }
     }
 
@@ -267,11 +251,7 @@ public class FileOperationsHelper {
             }
         } else {
             // Show a Message
-            Toast t = Toast.makeText(
-                    mFileActivity, mFileActivity.getString(R.string.share_link_no_support_share_api),
-                    Toast.LENGTH_LONG
-            );
-            t.show();
+            mFileActivity.showSnackMessage(mFileActivity.getString(R.string.share_link_no_support_share_api));
         }
     }
 
@@ -360,11 +340,7 @@ public class FileOperationsHelper {
 
         } else {
             // Show a Message
-            Toast t = Toast.makeText(mFileActivity,
-                    mFileActivity.getString(R.string.share_link_no_support_share_api),
-                    Toast.LENGTH_LONG);
-            t.show();
-
+            mFileActivity.showSnackMessage(mFileActivity.getString(R.string.share_link_no_support_share_api));
         }
     }
 
@@ -378,7 +354,6 @@ public class FileOperationsHelper {
         intent.putExtra(FileActivity.EXTRA_FILE, file);
         intent.putExtra(FileActivity.EXTRA_ACCOUNT, mFileActivity.getAccount());
         mFileActivity.startActivity(intent);
-
     }
 
 
