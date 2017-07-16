@@ -350,8 +350,8 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     }
 
     private static String getWebLoginUserAgent() {
-        return android.os.Build.MANUFACTURER.substring(0, 1).toUpperCase() +
-                android.os.Build.MANUFACTURER.substring(1).toLowerCase() + " " + android.os.Build.MODEL;
+        return Build.MANUFACTURER.substring(0, 1).toUpperCase() +
+                Build.MANUFACTURER.substring(1).toLowerCase() + " " + Build.MODEL;
     }
 
     private void initWebViewLogin(String baseURL) {
