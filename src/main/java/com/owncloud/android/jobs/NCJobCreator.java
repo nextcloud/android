@@ -22,6 +22,7 @@ package com.owncloud.android.jobs;
 
 import com.evernote.android.job.Job;
 import com.evernote.android.job.JobCreator;
+import com.owncloud.android.services.AccountRemovalJob;
 
 /**
  * Job creator for android-job
