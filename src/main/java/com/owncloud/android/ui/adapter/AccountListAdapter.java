@@ -20,6 +20,7 @@
 package com.owncloud.android.ui.adapter;
 
 import android.accounts.Account;
+import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
@@ -92,6 +93,17 @@ public class AccountListAdapter extends ArrayAdapter<AccountListItem> implements
                 setUsername(viewHolder, account);
                 setAvatar(viewHolder, account);
                 setCurrentlyActiveState(viewHolder, account);
+
+                TextView usernameView = viewHolder.usernameViewItem;
+                TextView accountView = viewHolder.accountViewItem;
+
+                if (!accountListItem.isEnabled()) {
+                    usernameView.setPaintFlags(usernameView.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+                    accountView.setPaintFlags(accountView.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+                } else {
+                    usernameView.setPaintFlags(usernameView.getPaintFlags() & ~Paint.STRIKE_THRU_TEXT_FLAG);
+                    accountView.setPaintFlags(accountView.getPaintFlags() & ~Paint.STRIKE_THRU_TEXT_FLAG);
+                }
 
             } // create add account action item
             else if (AccountListItem.TYPE_ACTION_ADD == accountListItem.getType() && mListener != null) {
