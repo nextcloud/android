@@ -100,15 +100,15 @@ public class OAuth2GetAccessToken extends RemoteOperation {
                         result = new RemoteOperationResult(ResultCode.OAUTH2_ERROR);
                     
                     } else {
-                        result = new RemoteOperationResult(true, status, postMethod.getResponseHeaders());
-                        ArrayList<Object> data = new ArrayList<Object>();
+                        result = new RemoteOperationResult(true, postMethod);
+                        ArrayList<Object> data = new ArrayList<>();
                         data.add(mResultTokenMap);
                         result.setData(data);
                     }
                     
                 } else {
+                    result = new RemoteOperationResult(false, postMethod);
                     client.exhaustResponse(postMethod.getResponseBodyAsStream());
-                    result = new RemoteOperationResult(false, status, postMethod.getResponseHeaders());
                 }
             }
             
