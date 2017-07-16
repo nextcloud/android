@@ -35,7 +35,8 @@ public enum UploadResult {
     DELAYED_FOR_WIFI(9),
     SERVICE_INTERRUPTED(10),
     DELAYED_FOR_CHARGING(11),
-    MAINTENANCE_MODE(12);
+    MAINTENANCE_MODE(12),
+    SSL_RECOVERABLE_PEER_UNVERIFIED(13);
 
     private final int value;
 
@@ -77,6 +78,8 @@ public enum UploadResult {
                 return DELAYED_FOR_CHARGING;
             case 12:
                 return MAINTENANCE_MODE;
+            case 13:
+                return SSL_RECOVERABLE_PEER_UNVERIFIED;
         }
         return null;
     }
@@ -92,7 +95,6 @@ public enum UploadResult {
             case WRONG_CONNECTION:
             case INCORRECT_ADDRESS:
             case SSL_ERROR:
-            case SSL_RECOVERABLE_PEER_UNVERIFIED:
                 return NETWORK_CONNECTION;
             case ACCOUNT_EXCEPTION:
             case UNAUTHORIZED:
@@ -113,13 +115,15 @@ public enum UploadResult {
                 return DELAYED_FOR_WIFI;
             case DELAYED_FOR_CHARGING:
                 return DELAYED_FOR_CHARGING;
+            case MAINTENANCE_MODE:
+                return MAINTENANCE_MODE;
+            case SSL_RECOVERABLE_PEER_UNVERIFIED:
+                return SSL_RECOVERABLE_PEER_UNVERIFIED;
             case UNKNOWN_ERROR:
                 if (result.getException() instanceof java.io.FileNotFoundException) {
                     return FILE_ERROR;
                 }
                 return UNKNOWN;
-            case MAINTENANCE_MODE:
-                return MAINTENANCE_MODE;
             default:
                 return UNKNOWN;
         }

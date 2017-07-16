@@ -167,6 +167,8 @@
     <string name="uploader_upload_failed_ticker">Upload failed</string>
     <string name="uploader_upload_failed_content_single">Could not upload %1$s</string>
     <string name="uploader_upload_failed_credentials_error">Upload failed, you need to log in again</string>
+    <string name="uploader_upload_failed_ssl_certificate_not_trusted">Server certificate is not trusted</string>
+    <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">Server certificate is not trusted</string>
     <string name="uploads_view_title">Uploads</string>
     <string name="uploads_view_group_current_uploads">Current</string>
     <string name="uploads_view_group_failed_uploads">Failed (tap to retry)</string>
@@ -309,7 +311,7 @@
     <string name="oauth_check_onoff">Log in with OAuth 2.0</string> 
     <string name="oauth_login_connection">Connecting to OAuth 2.0 server…</string>    
         
-    <string name="ssl_validator_header">The identity of the site could not be verified</string>
+    <string name="ssl_validator_header">The identity of the server could not be verified</string>
     <string name="ssl_validator_reason_cert_not_trusted">- The server certificate is not trusted</string>
     <string name="ssl_validator_reason_cert_expired">- The server certificate expired</string>
     <string name="ssl_validator_reason_cert_not_yet_valid">- The server certificate valid dates are in the future</string>

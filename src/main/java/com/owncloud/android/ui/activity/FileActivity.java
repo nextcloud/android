@@ -31,6 +31,7 @@ import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -40,7 +41,6 @@ import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.authentication.AuthenticatorActivity;
-import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.services.FileDownloader;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
@@ -310,10 +310,7 @@ public abstract class FileActivity extends DrawerActivity
             requestCredentialsUpdate(this);
 
             if (result.getCode() == ResultCode.UNAUTHORIZED) {
-                Toast t = Toast.makeText(this, ErrorMessageAdapter.getErrorCauseMessage(result,
-                        operation, getResources()),
-                    Toast.LENGTH_LONG);
-                t.show();
+                showSnackMessage(ErrorMessageAdapter.getErrorCauseMessage(result, operation, getResources()));
             }
 
         } else if (!result.isSuccess() && ResultCode.SSL_RECOVERABLE_PEER_UNVERIFIED.equals(result.getCode())) {
@@ -331,10 +328,7 @@ public abstract class FileActivity extends DrawerActivity
                 updateFileFromDB();
 
             } else if (result.getCode() != ResultCode.CANCELLED) {
-                Toast t = Toast.makeText(this,
-                        ErrorMessageAdapter.getErrorCauseMessage(result, operation, getResources()),
-                        Toast.LENGTH_LONG);
-                t.show();
+                showSnackMessage(ErrorMessageAdapter.getErrorCauseMessage(result, operation, getResources()));
             }
 
         } else if (operation instanceof SynchronizeFileOperation) {
@@ -345,10 +339,7 @@ public abstract class FileActivity extends DrawerActivity
                 updateFileFromDB();
 
             } else {
-                Toast t = Toast.makeText(this,
-                        ErrorMessageAdapter.getErrorCauseMessage(result, operation, getResources()),
-                        Toast.LENGTH_LONG);
-                t.show();
+                showSnackMessage(ErrorMessageAdapter.getErrorCauseMessage(result, operation, getResources()));
             }
         }
     }
@@ -384,8 +375,7 @@ public abstract class FileActivity extends DrawerActivity
             }
             OwnCloudClient client;
             OwnCloudAccount ocAccount = new OwnCloudAccount(account, context);
-            client = (OwnCloudClientManagerFactory.getDefaultSingleton().
-                    removeClientFor(ocAccount));
+            client = (OwnCloudClientManagerFactory.getDefaultSingleton().removeClientFor(ocAccount));
             if (client != null) {
                 OwnCloudCredentials cred = client.getCredentials();
                 if (cred != null) {
@@ -411,7 +401,7 @@ public abstract class FileActivity extends DrawerActivity
             startActivityForResult(updateAccountCredentials, REQUEST_CODE__UPDATE_CREDENTIALS);
 
         } catch (com.owncloud.android.lib.common.accounts.AccountUtils.AccountNotFoundException e) {
-            Toast.makeText(context, R.string.auth_account_does_not_exist, Toast.LENGTH_SHORT).show();
+            showSnackMessage(getString(R.string.auth_account_does_not_exist));
         }
 
     }
@@ -590,4 +580,12 @@ public abstract class FileActivity extends DrawerActivity
         // nothing to do
     }
 
+    /**
+     * Show a temporary message in a Snackbar bound to the content view
+     *
+     * @param message Message to show.
+     */
+    public void showSnackMessage(String message) {
+        Snackbar.make(findViewById(android.R.id.content),message,Snackbar.LENGTH_LONG).show();
+    }
 }

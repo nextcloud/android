@@ -23,6 +23,7 @@ import android.accounts.Account;
 import android.content.Context;
 import android.database.DataSetObserver;
 import android.graphics.Bitmap;
+import android.support.design.widget.Snackbar;
 import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -34,7 +35,6 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
@@ -392,10 +392,11 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
                             requester.retry(mParentActivity, upload);
                             refreshView();
                         } else {
-                            final String message = String.format(
-                                mParentActivity.getString(R.string.local_file_not_found_toast)
-                            );
-                            Toast.makeText(mParentActivity, message, Toast.LENGTH_SHORT).show();
+                            Snackbar.make(
+                                    v.getRootView().findViewById(android.R.id.content),
+                                    mParentActivity.getString(R.string.local_file_not_found_toast),
+                                    Snackbar.LENGTH_LONG
+                            ).show();
                         }
                         }
                     });
@@ -408,9 +409,10 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
             ImageView fileIcon = (ImageView) view.findViewById(R.id.thumbnail);
             fileIcon.setImageResource(R.drawable.file);
 
-            /** Cancellation needs do be checked and done before changing the drawable in fileIcon, or
+            /*
+             * Cancellation needs do be checked and done before changing the drawable in fileIcon, or
              * {@link ThumbnailsCacheManager#cancelPotentialWork} will NEVER cancel any task.
-             **/
+             */
             OCFile fakeFileToCheatThumbnailsCacheManagerInterface = new OCFile(upload.getRemotePath());
             fakeFileToCheatThumbnailsCacheManagerInterface.setStoragePath(upload.getLocalPath());
             fakeFileToCheatThumbnailsCacheManagerInterface.setMimetype(upload.getMimeType());
@@ -580,11 +582,6 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
                             R.string.uploads_view_upload_status_service_interrupted
                         );
                         break;
-                    case UNKNOWN:
-                        status = mParentActivity.getString(
-                            R.string.uploads_view_upload_status_unknown_fail
-                        );
-                        break;
                     case CANCELLED:
                         // should not get here ; cancelled uploads should be wiped out
                         status = mParentActivity.getString(
@@ -598,8 +595,17 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
                     case MAINTENANCE_MODE:
                         status = mParentActivity.getString(R.string.maintenance_mode);
                         break;
+                    case SSL_RECOVERABLE_PEER_UNVERIFIED:
+                        status =
+                                mParentActivity.getString(
+                                        R.string.uploads_view_upload_status_failed_ssl_certificate_not_trusted
+                                );
+                        break;
+                    case UNKNOWN:
+                        status = mParentActivity.getString(R.string.uploads_view_upload_status_unknown_fail);
+                        break;
                     default:
-                        status = "Naughty devs added a new fail result but no description for the user";
+                        status = "New fail result but no description for the user";
                         break;
                 }
                 break;
