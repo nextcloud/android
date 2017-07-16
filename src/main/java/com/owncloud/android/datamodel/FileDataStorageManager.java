@@ -2160,4 +2160,20 @@ public class FileDataStorageManager {
         return ocFiles;
     }
 
+    public void deleteAllFiles() {
+        String where = ProviderTableMeta.FILE_ACCOUNT_OWNER + "=?";
+        String[] whereArgs = new String[]{mAccount.name};
+
+        if (getContentResolver() != null) {
+            getContentResolver().delete(ProviderTableMeta.CONTENT_URI_FILE, where, whereArgs);
+
+        } else {
+            try {
+                getContentProviderClient().delete(ProviderTableMeta.CONTENT_URI_FILE, where, whereArgs);
+            } catch (RemoteException e) {
+                Log_OC.e(TAG, "Exception in deleteAllFiles for account " + mAccount.name + ": " + e.getMessage(), e);
+            }
+        }
+    }
+
 }
