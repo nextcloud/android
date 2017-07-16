@@ -185,6 +185,7 @@
             android:name=".authentication.AuthenticatorActivity"
             android:exported="true"
             android:launchMode="singleTask"
+            android:configChanges="orientation|screenSize|keyboardHidden"
             android:theme="@style/Theme.ownCloud.noActionBar.Login">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
