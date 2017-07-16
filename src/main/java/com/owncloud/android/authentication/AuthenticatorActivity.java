@@ -1088,12 +1088,10 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             return;
         }
 
-        if (AccountTypeUtils.getAuthTokenTypeAccessToken(MainApp.getAccountType()).
-                equals(mAuthTokenType)) {
-
+        if (AccountTypeUtils.getAuthTokenTypeAccessToken(MainApp.getAccountType()).equals(mAuthTokenType)) {
             startOauthorization();
-        } else if (AccountTypeUtils.getAuthTokenTypeSamlSessionCookie(MainApp.getAccountType()).
-                equals(mAuthTokenType)) {
+        } else if (AccountTypeUtils.getAuthTokenTypeSamlSessionCookie(MainApp.getAccountType())
+                .equals(mAuthTokenType)) {
 
             startSamlBasedFederatedSingleSignOnAuthorization();
         } else {
@@ -1125,8 +1123,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         dialog.show(getSupportFragmentManager(), WAIT_DIALOG_TAG);
 
         /// validate credentials accessing the root folder
-        OwnCloudCredentials credentials = OwnCloudCredentialsFactory.newBasicCredentials(username,
-                password);
+        OwnCloudCredentials credentials = OwnCloudCredentialsFactory.newBasicCredentials(username, password);
         accessRootFolder(credentials);
     }
 
