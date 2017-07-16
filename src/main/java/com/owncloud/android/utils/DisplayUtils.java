@@ -81,6 +81,7 @@ import java.io.InputStreamReader;
 import java.math.BigDecimal;
 import java.net.IDN;
 import java.text.DateFormat;
+import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -278,8 +279,8 @@ public class DisplayUtils {
      * @param accountList the account array
      * @return set of account names
      */
-    public static Set<String> toAccountNameSet(Account[] accountList) {
-        Set<String> actualAccounts = new HashSet<>(accountList.length);
+    public static Set<String> toAccountNameSet(Collection<Account> accountList) {
+        Set<String> actualAccounts = new HashSet<>(accountList.size());
         for (Account account : accountList) {
             actualAccounts.add(account.name);
         }

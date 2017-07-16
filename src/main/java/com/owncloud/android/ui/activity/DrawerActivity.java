@@ -54,6 +54,7 @@ import com.bumptech.glide.request.target.SimpleTarget;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
+import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.ExternalLinksProvider;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.ExternalLink;
@@ -69,6 +70,7 @@ import com.owncloud.android.lib.resources.files.SearchOperation;
 import com.owncloud.android.lib.resources.users.GetRemoteUserInfoOperation;
 import com.owncloud.android.operations.GetCapabilitiesOperarion;
 import com.owncloud.android.ui.TextDrawable;
+import com.owncloud.android.ui.events.AccountRemovedEvent;
 import com.owncloud.android.ui.events.ChangeMenuEvent;
 import com.owncloud.android.ui.events.DummyDrawerEvent;
 import com.owncloud.android.ui.events.MenuItemClickEvent;
@@ -182,6 +184,7 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
 
     private ExternalLinksProvider externalLinksProvider;
     private SharedPreferences sharedPreferences;
+    private ArbitraryDataProvider arbitraryDataProvider;
 
     /**
      * Initializes the drawer, its content and highlights the menu item with the given id.
@@ -605,7 +608,7 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
     /**
      * Enable or disable the drawer indicator.
      *
-     * @param enable <code>true</code> to enable, <code>false</code> to disable
+     * @param enable true to enable, false to disable
      */
     public void setDrawerIndicatorEnabled(boolean enable) {
         if (mDrawerToggle != null) {
@@ -618,9 +621,21 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
      */
     public void updateAccountList() {
         Account[] accounts = AccountManager.get(this).getAccountsByType(MainApp.getAccountType());
+
+        ArrayList<Account> persistingAccounts = new ArrayList<>();
+
+        for (Account acc: accounts) {
+            boolean pendingForRemoval = arbitraryDataProvider.getBooleanValue(acc,
+                    ManageAccountsActivity.PENDING_FOR_REMOVAL);
+
+            if (!pendingForRemoval) {
+                persistingAccounts.add(acc);
+            }
+        }
+
         if (mNavigationView != null && mDrawerLayout != null) {
-            if (accounts.length > 0) {
-                repopulateAccountList(accounts);
+            if (persistingAccounts.size() > 0) {
+                repopulateAccountList(persistingAccounts);
                 setAccountInDrawer(AccountUtils.getCurrentOwnCloudAccount(this));
                 populateDrawerOwnCloudAccounts();
 
@@ -655,25 +670,24 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
      *
      * @param accounts list of accounts
      */
-    private void repopulateAccountList(Account[] accounts) {
+    private void repopulateAccountList(ArrayList<Account> accounts) {
         // remove all accounts from list
         mNavigationView.getMenu().removeGroup(R.id.drawer_menu_accounts);
 
         // add all accounts to list
-        for (int i = 0; i < accounts.length; i++) {
+        for (Account account: accounts) {
             try {
-                // show all accounts except the currently active one
-                if (!getAccount().name.equals(accounts[i].name)) {
+                // show all accounts except the currently active one and those pending for removal
+
+                if (!getAccount().name.equals(account.name)) {
                     MenuItem accountMenuItem = mNavigationView.getMenu().add(
                             R.id.drawer_menu_accounts,
                             Menu.NONE,
                             MENU_ORDER_ACCOUNT,
-                            accounts[i].name)
-                            .setIcon(TextDrawable.createAvatar(
-                                    accounts[i].name,
-                                    mMenuAccountAvatarRadiusDimension)
-                            );
-                    DisplayUtils.setAvatar(accounts[i], this, mMenuAccountAvatarRadiusDimension, getResources(), getStorageManager(), accountMenuItem);
+                            account.name)
+                            .setIcon(TextDrawable.createAvatar(account.name, mMenuAccountAvatarRadiusDimension));
+                    DisplayUtils.setAvatar(account, this, mMenuAccountAvatarRadiusDimension, getResources(),
+                            getStorageManager(), accountMenuItem);
                 }
             } catch (Exception e) {
                 Log_OC.e(TAG, "Error calculating RGB value for account menu item.", e);
@@ -681,7 +695,7 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
                         R.id.drawer_menu_accounts,
                         Menu.NONE,
                         MENU_ORDER_ACCOUNT,
-                        accounts[i].name)
+                        account.name)
                         .setIcon(R.drawable.ic_user);
             }
         }
@@ -1056,6 +1070,7 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
                 .getDimension(R.dimen.nav_drawer_menu_avatar_radius);
 
         externalLinksProvider = new ExternalLinksProvider(MainApp.getAppContext().getContentResolver());
+        arbitraryDataProvider = new ArbitraryDataProvider(getContentResolver());
 
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
     }
@@ -1130,13 +1145,13 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
         // update Account list and active account if Manage Account activity replies with
         // - ACCOUNT_LIST_CHANGED = true
         // - RESULT_OK
-        if (requestCode == ACTION_MANAGE_ACCOUNTS
-                && resultCode == RESULT_OK
+        if (requestCode == ACTION_MANAGE_ACCOUNTS && resultCode == RESULT_OK
                 && data.getBooleanExtra(ManageAccountsActivity.KEY_ACCOUNT_LIST_CHANGED, false)) {
 
             // current account has changed
             if (data.getBooleanExtra(ManageAccountsActivity.KEY_CURRENT_ACCOUNT_CHANGED, false)) {
                 setAccount(AccountUtils.getCurrentOwnCloudAccount(this));
+                updateAccountList();
                 restart();
             } else {
                 updateAccountList();
@@ -1194,15 +1209,26 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
      */
     private void populateDrawerOwnCloudAccounts() {
         mAvatars = new Account[3];
-        Account[] accountsAll = AccountManager.get(this).getAccountsByType
-                (MainApp.getAccountType());
+        Account[] accountsAll = AccountManager.get(this).getAccountsByType(MainApp.getAccountType());
+
+        ArrayList<Account> persistingAccounts = new ArrayList<>();
+
+        for (Account acc: accountsAll) {
+            boolean pendingForRemoval = arbitraryDataProvider.getBooleanValue(acc,
+                    ManageAccountsActivity.PENDING_FOR_REMOVAL);
+
+            if (!pendingForRemoval) {
+                persistingAccounts.add(acc);
+            }
+        }
+
         Account currentAccount = AccountUtils.getCurrentOwnCloudAccount(this);
 
         mAvatars[0] = currentAccount;
         int j = 0;
-        for (int i = 1; i <= 2 && i < accountsAll.length && j < accountsAll.length; j++) {
-            if (!currentAccount.equals(accountsAll[j])) {
-                mAvatars[i] = accountsAll[j];
+        for (int i = 1; i <= 2 && i < persistingAccounts.size() && j < persistingAccounts.size(); j++) {
+            if (!currentAccount.equals(persistingAccounts.get(j))) {
+                mAvatars[i] = persistingAccounts.get(j);
                 i++;
             }
         }
@@ -1258,6 +1284,11 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
     protected void onStop() {
         EventBus.getDefault().unregister(this);
         super.onStop();
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onAccountRemovedEvent(AccountRemovedEvent event) {
+        updateAccountList();
     }
 
     /**
