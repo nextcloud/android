@@ -669,4 +669,5 @@
     <string name="folder_sync_folders">Configure folders</string>
 
   <string name="empty" translatable="false"/>
+    <string name="test_server_button">Test server connection</string>
 </resources>
