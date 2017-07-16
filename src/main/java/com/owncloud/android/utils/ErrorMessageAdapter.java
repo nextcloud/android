@@ -409,8 +409,7 @@ public class ErrorMessageAdapter {
         } else if (operation instanceof DownloadFileOperation) {
             message = String.format(
                     res.getString(R.string.downloader_download_failed_content),
-                    new File(((DownloadFileOperation) operation).getSavePath()).getName()
-            );
+                    new File(((DownloadFileOperation) operation).getSavePath()).getName());
 
         } else if (operation instanceof RemoveFileOperation) {
             message = res.getString(R.string.remove_fail_msg);
