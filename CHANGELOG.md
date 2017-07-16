@@ -1,3 +1,10 @@
+## 2017-07-17 00:31
+no new branches added
+
+- Dev branch (nextcloud/dev) [https://github.com/nextcloud/android/tree/dev] updated
+- revamped details screen (nextcloud/new_details_view_animations) [https://github.com/nextcloud/android/pull/1156] updated
+- Comment out adding all new downloaded files to folder observer (nextcloud/folderObserver) [https://github.com/nextcloud/android/pull/1155] updated
+
 ## 2017-07-16 00:31
 no new branches added
 
