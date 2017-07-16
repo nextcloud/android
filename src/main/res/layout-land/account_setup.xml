@@ -109,6 +109,21 @@
                     </android.support.design.widget.TextInputLayout>
 
 					<ImageButton
+						android:id="@+id/testServerButton"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:layout_gravity="center_vertical|right"
+						android:layout_marginRight="@dimen/alternate_half_padding"
+						android:padding="@dimen/zero"
+						android:scaleType="fitCenter"
+						android:src="@drawable/arrow_right"
+						android:tint="@color/white"
+						android:background="@android:color/transparent"
+						android:onClick="onTestServerConnectionClick"
+						android:contentDescription="@string/test_server_button"
+						/>
+
+					<ImageButton
 					    android:id="@+id/embeddedRefreshButton"
 					    android:layout_width="wrap_content"
 					    android:layout_height="wrap_content"
@@ -191,9 +206,10 @@
                 </android.support.design.widget.TextInputLayout>
 
                 <android.support.design.widget.TextInputLayout
-                    android:id="@+id/input_layout_account_username"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+					android:id="@+id/input_layout_account_username"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:visibility="gone">
 
 				<EditText
 					android:id="@+id/account_username"
@@ -209,9 +225,10 @@
                 </android.support.design.widget.TextInputLayout>
 
                 <android.support.design.widget.TextInputLayout
-                    android:id="@+id/input_layout_account_password"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+					android:id="@+id/input_layout_account_password"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:visibility="gone">
 
                     <EditText
                         android:id="@+id/account_password"
@@ -252,16 +269,17 @@
         android:paddingTop="@dimen/standard_half_padding">
         
 		<android.support.v7.widget.AppCompatButton
-		    android:id="@+id/buttonOK"
+			android:id="@+id/buttonOK"
 			android:theme="@style/Button.Login"
 			style="@style/Button.Login"
-		    android:layout_width="wrap_content"
-		    android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
 			android:padding="@dimen/standard_padding"
-		    android:layout_gravity="center_horizontal"
-		    android:enabled="false"
-		    android:text="@string/setup_btn_connect"
-            android:contentDescription="@string/setup_btn_connect"/>
+			android:layout_gravity="center_horizontal"
+			android:enabled="false"
+			android:text="@string/setup_btn_connect"
+			android:contentDescription="@string/setup_btn_connect"
+			android:visibility="gone"/>
 
 		<LinearLayout
 			android:layout_width="match_parent"
