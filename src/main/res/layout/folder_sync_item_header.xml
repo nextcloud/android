@@ -35,7 +35,7 @@
         android:layout_toLeftOf="@+id/buttonBar"
         android:ellipsize="middle"
         android:gravity="start|center_vertical"
-        android:text="Header Text"
+        android:text="@string/placeholder_filename"
         android:textColor="?android:textColorPrimary"
         android:textStyle="bold"/>
 
