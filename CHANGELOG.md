@@ -1,3 +1,8 @@
+## 2017-07-18 00:31
+- Auto upload crash if filepath is null (nextcloud/autoUploadCrashIfFilepathIsNull) [https://github.com/nextcloud/android/pull/1201] added
+
+- Auto upload crash if filepath is null (nextcloud/autoUploadCrashIfFilepathIsNull) [https://github.com/nextcloud/android/pull/1201] updated
+
 ## 2017-07-17 00:31
 no new branches added
 

@@ -1,6 +1,7 @@
 Flole998/master
 nextcloud/1089_sharing_with_password_rule
 nextcloud/audioRotationBug
+nextcloud/autoUploadCrashIfFilepathIsNull
 nextcloud/autoUploadRotationBug
 nextcloud/autoUploadWithoutStoragePermission
 nextcloud/contactsBackupUI
