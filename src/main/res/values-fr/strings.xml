@@ -154,7 +154,6 @@
     <string name="about_title">À propos de</string>
     <string name="change_password">Changer de mot de passe</string>
     <string name="delete_account">Supprimer le compte</string>
-    <string name="delete_account_warning">Supprimer le compte %s ?\n\nCette suppression sera irréversible.</string>
     <string name="create_account">Créer un compte</string>
     <string name="upload_chooser_title">Téléverser depuis&#8230;</string>
     <string name="uploader_info_dirname">Nom du dossier</string>

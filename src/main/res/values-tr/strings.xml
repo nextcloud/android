@@ -154,7 +154,6 @@
     <string name="about_title">Hakkında</string>
     <string name="change_password">Parola değiştir</string>
     <string name="delete_account">Hesabı kaldır</string>
-    <string name="delete_account_warning">%s hesabı silinsin mi?\n\nSilme işlemi geri alınamaz.</string>
     <string name="create_account">Hesap oluştur</string>
     <string name="upload_chooser_title">Şuradan yükle&#8230;</string>
     <string name="uploader_info_dirname">Klasör adı</string>
@@ -566,6 +565,7 @@
     <string name="participate_contribute_irc_text">IRC sohbetine katılın: &lt;font color=\"%1$s\">&lt;a href=\"%2$s\">#nextcloud-mobile&lt;/a>&lt;/font></string>
     <string name="participate_contribute_forum_text">&lt;font color=\"%1$s\">&lt;a href=\"%2$s\">Forumda&lt;/a>&lt;/font> diğer kullanıcılara yardımcı olun</string>
     <string name="participate_contribute_translate_text">Uygulamayı &lt;font color=\"%1$s\">&lt;a href=\"%2$s\">Çevirin&lt;/a>&lt;/font></string>
+    <string name="participate_contribute_github_text">Kodun gözden geçirilmesine ve geliştirilmesine katkıda bulunun. Ayrıntılı bilgi almak için &lt;font color=\"%1$s\">&lt;a href=\"%2$s\">CONTRIBUTING.md&lt;/a>&lt;/font> dosyasına bakın</string>
     <string name="move_to">Taşı&#8230;</string>
     <string name="copy_to">Kopyala&#8230;</string>
     <string name="choose_remote_folder">Klasör seçin&#8230;</string>

@@ -154,7 +154,6 @@
     <string name="about_title">Om</string>
     <string name="change_password">Endre passord</string>
     <string name="delete_account">Fjern konto</string>
-    <string name="delete_account_warning">Vil du slette kontoen %s?\n\nSletting kan ikke angres.</string>
     <string name="create_account">Opprett konto</string>
     <string name="upload_chooser_title">Last opp fra &#8230;</string>
     <string name="uploader_info_dirname">Mappenavn</string>
@@ -566,6 +565,7 @@
     <string name="participate_contribute_irc_text">Sludre på IRC: &lt;font color=\"%1$s\">&lt;a href=\"%2$s\">#nextcloud-mobile&lt;/a>&lt;/font></string>
     <string name="participate_contribute_forum_text">Hjelp andre på &lt;font color=\"%1$s\">&lt;a href=\"%2$s\">forumet&lt;/a>&lt;/font></string>
     <string name="participate_contribute_translate_text">&lt;font color=\"%1$s\">&lt;a href=\"%2$s\">Oversett&lt;/a>&lt;/font> programmet</string>
+    <string name="participate_contribute_github_text">Gjennomse, endre og skriv kode, se &lt;font color=\"%1$s\">&lt;a href=\"%2$s\">CONTRIBUTING.md&lt;/a>&lt;/font> for detaljer.</string>
     <string name="move_to">Flytt til&#8230;</string>
     <string name="copy_to">Kopier til&#8230;</string>
     <string name="choose_remote_folder">Velg mappe&#8230;</string>

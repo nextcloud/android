@@ -155,7 +155,6 @@
     <string name="about_title">Über</string>
     <string name="change_password">Passwort ändern</string>
     <string name="delete_account">Benutzerkonto löschen</string>
-    <string name="delete_account_warning">Das Konto %s löschen?\n\nDas Löschen kann nicht rückgängig gemacht werden.</string>
     <string name="create_account">Benutzerkonto erstellen</string>
     <string name="upload_chooser_title">Dateien hochladen von &#8230;</string>
     <string name="uploader_info_dirname">Ordnername</string>
