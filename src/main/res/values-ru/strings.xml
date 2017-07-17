@@ -156,7 +156,6 @@
     <string name="about_title">О программе</string>
     <string name="change_password">Сменить пароль</string>
     <string name="delete_account">Удалить аккаунт</string>
-    <string name="delete_account_warning">Удалить аккаунт %s?\n\nУдаление не может быть отменено.</string>
     <string name="create_account">Создать аккаунт</string>
     <string name="upload_chooser_title">Загрузить из &#8230;</string>
     <string name="uploader_info_dirname">Имя каталога</string>

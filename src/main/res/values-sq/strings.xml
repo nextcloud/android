@@ -153,7 +153,6 @@
     <string name="about_title">Rreth</string>
     <string name="change_password">Ndryshoni fjalëkalimin</string>
     <string name="delete_account">Hiqe llogarinë</string>
-    <string name="delete_account_warning">Fshij llogarinë %s?\n\nFshirja nuk mund të zhbëhet.</string>
     <string name="create_account">Krijoni llogari</string>
     <string name="upload_chooser_title">Ngarkojeni prej &#8230;</string>
     <string name="uploader_info_dirname">Emër dosjeje</string>
@@ -560,6 +559,10 @@
     <string name="participate_beta_text">Kjo përfshin të gjitha karakteristikat që do të vijnë dhe ky është vetëm fillimi. Buget/gabimet  mund të ndodhin, nëse dhe kur të ndodhin, ju lutemi të raportoni për gjetjet tuaja. </string>
     <string name="participate_release_candidate_headline">Lëshimi i kandidatit</string>
     <string name="participate_contribute_headline">Kontribim aktiv</string>
+    <string name="participate_contribute_irc_text">Bashkohu në bisedat në IRC: &lt;font color=\"%1$s\">&lt;a href=\"%2$s\">#nextcloud-mobile&lt;/a>&lt;/font></string>
+    <string name="participate_contribute_forum_text">Ndihmo të tjerët në &lt;font color=\"%1$s\">&lt;a href=\"%2$s\">forum&lt;/a>&lt;/font></string>
+    <string name="participate_contribute_translate_text">&lt;font color=\"%1$s\">&lt;a href=\"%2$s\">Përktheni&lt;/a>&lt;/font> aplikacionin</string>
+    <string name="participate_contribute_github_text">Kontriboni si një zhvillues, shih &lt;font color=\"%1$s\">&lt;a href=\"%2$s\">CONTRIBUTING.md&lt;/a>&lt;/font> për detaje</string>
     <string name="move_to">Levizni tek&#8230;</string>
     <string name="copy_to">Kopjojeni tek&#8230;</string>
     <string name="choose_remote_folder">Zgjidh dosjen&#8230;</string>
