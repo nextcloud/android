@@ -154,7 +154,6 @@
     <string name="about_title">Acerca de</string>
     <string name="change_password">Cambiar contraseña</string>
     <string name="delete_account">Eliminar cuenta</string>
-    <string name="delete_account_warning">Eliminar cuenta %s?\\n\\nEl borrado no se puede deshacer.</string>
     <string name="create_account">Crear cuenta</string>
     <string name="upload_chooser_title">Cargar desde &#8230;</string>
     <string name="uploader_info_dirname">Nombre de la carpeta</string>

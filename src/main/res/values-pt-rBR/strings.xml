@@ -154,7 +154,6 @@
     <string name="about_title">Sobre</string>
     <string name="change_password">Alterar senha</string>
     <string name="delete_account">Excluir conta</string>
-    <string name="delete_account_warning">Excluir a conta %s?\n\nNão será possível desfazer a exclusão.</string>
     <string name="create_account">Criar conta</string>
     <string name="upload_chooser_title">Enviar de &#8230;</string>
     <string name="uploader_info_dirname">Nome da pasta</string>
