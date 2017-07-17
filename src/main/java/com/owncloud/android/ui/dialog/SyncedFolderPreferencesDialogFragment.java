@@ -264,22 +264,29 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment {
 
     private void showBehaviourDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                        builder.setTitle(ThemeUtils.getColoredTitle(
-                                getResources().getString(R.string.prefs_instant_behaviour_dialogTitle),
-                                ThemeUtils.primaryAccentColor()))
-                                .setSingleChoiceItems(getResources().getTextArray(R.array.pref_behaviour_entries),
-                                        mSyncedFolder.getUploadActionInteger(),
-                                        new
-                                                DialogInterface.OnClickListener() {
-                                                    public void onClick(DialogInterface dialog, int which) {
-                                                        mSyncedFolder.setUploadAction(
-                                                        getResources().getTextArray(
-                                                                R.array.pref_behaviour_entryValues)[which].toString());
-                                                        mUploadBehaviorSummary.setText(SyncedFolderPreferencesDialogFragment
-                                                                .this.mUploadBehaviorItemStrings[which]);
-                                                        dialog.dismiss();
-                                                    }
-                                                });
+        builder.setTitle(ThemeUtils.getColoredTitle(
+                getResources().getString(R.string.prefs_instant_behaviour_dialogTitle),
+                ThemeUtils.primaryAccentColor()))
+                .setSingleChoiceItems(getResources().getTextArray(R.array.pref_behaviour_entries),
+                        mSyncedFolder.getUploadActionInteger(),
+                        new
+                                DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        mSyncedFolder.setUploadAction(
+                                                getResources().getTextArray(
+                                                        R.array.pref_behaviour_entryValues)[which].toString());
+                                        mUploadBehaviorSummary.setText(SyncedFolderPreferencesDialogFragment
+                                                .this.mUploadBehaviorItemStrings[which]);
+                                        behaviourDialogShown = false;
+                                        dialog.dismiss();
+                                    }
+                                })
+                .setOnCancelListener(new DialogInterface.OnCancelListener() {
+                    @Override
+                    public void onCancel(DialogInterface dialog) {
+                        behaviourDialogShown = false;
+                    }
+                });
         behaviourDialogShown = true;
         behaviourDialog = builder.create();
         behaviourDialog.show();
