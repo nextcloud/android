@@ -154,6 +154,7 @@
     <string name="about_title">Acerca de</string>
     <string name="change_password">Cambiar contraseña</string>
     <string name="delete_account">Eliminar cuenta</string>
+    <string name="delete_account_warning">¿Borrar cuenta %s con todos sus archivos locales?\n\nEl borrado no se puede deshacer.</string>
     <string name="create_account">Crear cuenta</string>
     <string name="upload_chooser_title">Subir desde&#8230;</string>
     <string name="uploader_info_dirname">Nombre de la carpeta</string>
@@ -659,4 +660,5 @@
 
     <string name="folder_sync_folders">Configurar carpetas</string>
 
-  </resources>
+  <string name="test_server_button">Probar conexión con servidor</string>
+</resources>

@@ -153,6 +153,7 @@
     <string name="about_title">Rreth</string>
     <string name="change_password">Ndryshoni fjalëkalimin</string>
     <string name="delete_account">Hiqe llogarinë</string>
+    <string name="delete_account_warning">Fshij llogarinë %s?\n\nFshirja nuk mund të zhbëhet.</string>
     <string name="create_account">Krijoni llogari</string>
     <string name="upload_chooser_title">Ngarkojeni prej &#8230;</string>
     <string name="uploader_info_dirname">Emër dosjeje</string>
@@ -480,6 +481,7 @@
     <string name="file_list__footer__files">%1$d skedar</string>
     <string name="file_list__footer__files_and_folder">%1$d skedare, 1 dosje</string>
     <string name="file_list__footer__files_and_folders">%1$d skedare, %2$d dosje</string>
+    <string name="set_picture_as">Vendos fotografinë</string>
     <string name="set_as">Vendos Si</string>
 
     <string name="prefs_instant_behaviour_dialogTitle">Skedari origjinal do të jetë&#8230;</string>
@@ -629,6 +631,7 @@
     <string name="webview_error">Ndodhi një gabim</string>
     <string name="prefs_category_about">Rreth </string>
 
+    <string name="actionbar_contacts">Krijo backup të kontakteve</string>
     <string name="actionbar_contacts_restore">Rikthe kontaktet</string>
     <string name="contacts_last_backup">Backup i fundit</string>
     <string name="contacts_read_permission">Kërkohet e drejta për të lexuar listën e kontakteve</string>
