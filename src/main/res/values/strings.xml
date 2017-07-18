@@ -60,6 +60,7 @@
     <string name="prefs_calendar_contacts_address_resolve_error">Server address for account could not be resolved for DAVdroid</string>
     <string name="prefs_calendar_contacts_no_store_error">Neither F-droid nor Google Play is installed</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Calendar &amp; contacts sync set up</string>
+    <string name="prefs_daily_contacts_sync_summary">Daily backup of your contacts</string>
     <string name="prefs_help">Help</string>
     <string name="prefs_recommend">Recommend to friend</string>
     <string name="prefs_feedback">Feedback</string>
