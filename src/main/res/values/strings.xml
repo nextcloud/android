@@ -522,6 +522,9 @@
     <string name="share_known_remote_clarification">%1$s ( at %2$s )</string>
 
     <string name="share_sharee_unavailable">Upgrade the server version to allow sharing between users from within their clients.\nPlease contact your administrator</string>
+    <string name="filedetails_share_link_enable">Share by link enabled</string>
+    <string name="filedetails_share_link_disable">Share by link disabled</string>
+    <string name="filedetails_share_users_with_access">Users and Groups with access</string>
     <string name="share_privilege_can_share">can share</string>
     <string name="share_privilege_can_edit">can edit</string>
     <string name="share_privilege_can_edit_create">create</string>

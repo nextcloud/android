@@ -34,7 +34,7 @@
             android:text="@string/share_with_edit_title"
             android:textAppearance="@style/TextAppearance.AppCompat.Title"
             android:padding="@dimen/standard_padding"
-            android:singleLine="true"
+            android:maxLines="1"
             android:ellipsize="middle"
             />
 
@@ -61,7 +61,7 @@
             android:layout_marginTop="@dimen/standard_half_margin"
             android:textColor="@color/color_accent"
             android:paddingLeft="@dimen/zero"
-            style="?android:attr/listSeparatorTextViewStyle"
+            style="@style/TextAppearance.AppCompat.Body2"
             />
 
         <android.support.v7.widget.AppCompatCheckBox
@@ -97,7 +97,7 @@
             android:layout_marginTop="@dimen/standard_half_margin"
             android:textColor="@color/color_accent"
             android:paddingLeft="@dimen/zero"
-            style="?android:attr/listSeparatorTextViewStyle"
+            style="@style/TextAppearance.AppCompat.Body2"
             />
     </LinearLayout>
     </LinearLayout>

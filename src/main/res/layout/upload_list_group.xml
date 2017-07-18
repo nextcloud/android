@@ -5,7 +5,8 @@
 
    <TextView
        android:id="@+id/uploadListGroupName"
-       style="?android:attr/listSeparatorTextViewStyle"
+       style="@style/TextAppearance.AppCompat.Body2"
+       android:layout_width="match_parent"
        android:layout_height="wrap_content"
        android:layout_gravity="center_vertical"
        android:divider="@null"
@@ -14,6 +15,8 @@
        android:showDividers="none"
        android:textColor="@color/color_accent"
        android:paddingLeft="@dimen/standard_padding"
+       android:paddingTop="@dimen/standard_padding"
+       android:paddingBottom="@dimen/standard_half_margin"
 	/>
 
 </RelativeLayout>

@@ -33,6 +33,7 @@ import android.content.ContentResolver;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -71,6 +72,7 @@ import com.owncloud.android.lib.resources.users.GetRemoteUserInfoOperation;
 import com.owncloud.android.ui.events.TokenPushEvent;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.PushUtils;
+import com.owncloud.android.utils.ThemeUtils;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -255,6 +257,8 @@ public class UserInfoActivity extends FileActivity {
             emptyContentMessage.setText("");
 
             emptyContentIcon.setVisibility(View.GONE);
+            multiListProgressBar.getIndeterminateDrawable().setColorFilter(ThemeUtils.primaryColor(),
+                    PorterDuff.Mode.SRC_IN);
             multiListProgressBar.setVisibility(View.VISIBLE);
         }
     }
