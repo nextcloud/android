@@ -219,8 +219,9 @@
             android:id="@+id/input_layout_account_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:visibility="gone"
-            app:passwordToggleDrawable="@drawable/password_visibility_selector">
+            android:visibility="visible"
+            app:passwordToggleDrawable="@drawable/password_visibility_selector"
+            app:passwordToggleTint="@color/white">
 
             <EditText
                 android:id="@+id/account_password"
