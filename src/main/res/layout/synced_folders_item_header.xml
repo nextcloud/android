@@ -45,7 +45,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="start|center_vertical"
                 android:paddingRight="@dimen/standard_half_padding"
-                android:src="@drawable/ic_account_plus"/>
+                android:src="@drawable/ic_image_18dp"/>
 
             <TextView
                 android:id="@+id/title"
@@ -53,7 +53,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="start|center_vertical"
                 android:ellipsize="middle"
-                android:text="Header Text"
+                android:text="@string/placeholder_filename"
                 android:textColor="?android:textColorPrimary"
                 android:textStyle="bold"/>
 
@@ -86,33 +86,6 @@
                 android:paddingTop="@dimen/standard_half_padding"
                 android:src="@drawable/ic_dots_vertical"/>
         </LinearLayout>
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/custom_folder"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:minHeight="48dp">
-
-        <ImageView
-            android:id="@+id/custom_folder_iv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_toLeftOf="@+id/custom_folder_tv"
-            android:paddingRight="4dp"
-            android:paddingLeft="4dp"
-            android:clickable="false"
-            android:background="@color/transparent"
-            android:src="@drawable/ic_folder_star_24dp"/>
-
-        <TextView
-            android:id="@+id/custom_folder_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:clickable="false"
-            android:text="@string/autoupload_custom_folder"/>
     </RelativeLayout>
 
 </RelativeLayout>
