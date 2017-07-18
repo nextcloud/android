@@ -37,7 +37,6 @@ import com.owncloud.android.R;
 import com.owncloud.android.datamodel.MediaFolder;
 import com.owncloud.android.datamodel.SyncedFolderDisplayItem;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
-import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.ThemeUtils;
 
 import java.io.File;
@@ -108,7 +107,6 @@ public class SyncedFolderAdapter extends SectionedRecyclerViewAdapter<SyncedFold
     @Override
     public void onBindHeaderViewHolder(final MainViewHolder holder, final int section) {
         holder.mainHeaderContainer.setVisibility(View.VISIBLE);
-        holder.customFolderHeaderContainer.setVisibility(View.GONE);
 
         holder.title.setText(mSyncFolderItems.get(section).getFolderName());
 
@@ -207,12 +205,10 @@ public class SyncedFolderAdapter extends SectionedRecyclerViewAdapter<SyncedFold
         private final ImageView thumbnailDarkener;
 
         private final RelativeLayout mainHeaderContainer;
-        private final RelativeLayout customFolderHeaderContainer;
 
         private MainViewHolder(View itemView) {
             super(itemView);
             mainHeaderContainer = (RelativeLayout) itemView.findViewById(R.id.header_container);
-            customFolderHeaderContainer = (RelativeLayout) itemView.findViewById(R.id.custom_folder);
             image = (ImageView) itemView.findViewById(R.id.thumbnail);
             title = (TextView) itemView.findViewById(R.id.title);
             type = (ImageView) itemView.findViewById(R.id.type);
