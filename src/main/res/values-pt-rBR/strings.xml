@@ -154,6 +154,7 @@
     <string name="about_title">Sobre</string>
     <string name="change_password">Alterar senha</string>
     <string name="delete_account">Excluir conta</string>
+    <string name="delete_account_warning">Excluir a conta %s e todos seus arquivos?\n\nEsta exclusão não pode ser desfeita.</string>
     <string name="create_account">Criar conta</string>
     <string name="upload_chooser_title">Enviar de &#8230;</string>
     <string name="uploader_info_dirname">Nome da pasta</string>
@@ -659,4 +660,5 @@
 
     <string name="folder_sync_folders">Configurar pastas</string>
 
-  </resources>
+  <string name="test_server_button">Teste de conexão ao servidor</string>
+</resources>
