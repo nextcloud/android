@@ -30,6 +30,7 @@ configurations.all {
 
 ext {
     supportLibraryVersion = '25.0.0'
+    googleLibraryVersion = '10.2.4'
 
     travisBuild = System.getenv("TRAVIS") == "true"
 
@@ -194,7 +195,8 @@ dependencies {
     compile 'com.googlecode.ez-vcard:ez-vcard:0.10.2'
 
     // uncomment for gplay, modified
-    //compile 'com.google.android.gms:play-services:10.2.4'
+    // compile "com.google.firebase:firebase-messaging:${googleLibraryVersion}"
+    // compile "com.google.android.gms:play-services-base:${googleLibraryVersion}"
 
     compile 'org.parceler:parceler-api:1.1.6'
     annotationProcessor 'org.parceler:parceler:1.1.6'
@@ -238,4 +240,4 @@ tasks.withType(Test) {
 }
 
 // uncomment for gplay, modified (must be at the bottom)
-//apply plugin: 'com.google.gms.google-services'
+apply plugin: 'com.google.gms.google-services'
