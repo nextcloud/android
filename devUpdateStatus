@@ -1,4 +1,4 @@
-2017-07-19
+2017-07-20
 Branches: 9
 [01 / 09] resolves: #1207 make daily contact backup string translatable (nextcloud/dailyBackupString) [https://github.com/nextcloud/android/pull/1208] CONFLICT
 [02 / 09] On receiving untrusted ssl cert, test if it was previously accepted user (nextcloud/newWebLoginUntrustedCert) [https://github.com/nextcloud/android/pull/1206] CONFLICT
