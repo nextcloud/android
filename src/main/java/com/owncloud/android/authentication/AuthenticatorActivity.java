@@ -408,7 +408,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
                         handler.cancel();
                     }
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    Log_OC.e(TAG, "Cert could not be verified");
                 }
             }
 
