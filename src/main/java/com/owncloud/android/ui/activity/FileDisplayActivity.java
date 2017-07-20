@@ -672,10 +672,10 @@ public class FileDisplayActivity extends HookActivity
 
         // populate list of menu items to show/hide when drawer is opened/closed
         mDrawerMenuItemstoShowHideList = new ArrayList<>(4);
+        mDrawerMenuItemstoShowHideList.add(menu.findItem(R.id.action_search));
         mDrawerMenuItemstoShowHideList.add(menu.findItem(R.id.action_sort));
         mDrawerMenuItemstoShowHideList.add(menu.findItem(R.id.action_sync_account));
         mDrawerMenuItemstoShowHideList.add(menu.findItem(R.id.action_switch_view));
-        mDrawerMenuItemstoShowHideList.add(menu.findItem(R.id.action_search));
 
         //focus the SearchView
         if (!TextUtils.isEmpty(searchQuery)) {
@@ -732,7 +732,7 @@ public class FileDisplayActivity extends HookActivity
             }
         });
 
-        return true;
+        return super.onCreateOptionsMenu(menu);
     }
 
 
@@ -2009,6 +2009,8 @@ public class FileDisplayActivity extends HookActivity
         Bundle args = new Bundle();
         args.putParcelable(EXTRA_FILE, file);
         args.putParcelable(EXTRA_ACCOUNT, getAccount());
+        args.putBoolean(EXTRA_SEARCH, mSearchOpen);
+        args.putString(EXTRA_SEARCH_QUERY, mSearchQuery);
         Fragment textPreviewFragment = Fragment.instantiate(getApplicationContext(),
                 PreviewTextFragment.class.getName(), args);
         setSecondFragment(textPreviewFragment);
