@@ -496,7 +496,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
                                         task
                                 );
                         iv.setImageDrawable(asyncDrawable);
-                        task.execute(file, true);
+                        task.execute(new ThumbnailsCacheManager.ThumbnailGenerationTaskObject(file, file.getRemoteId()));
                     }
                 }
             } else {

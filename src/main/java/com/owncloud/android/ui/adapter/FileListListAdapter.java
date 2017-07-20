@@ -401,7 +401,8 @@ public class FileListListAdapter extends BaseAdapter {
                                         );
                                 fileIcon.setImageDrawable(asyncDrawable);
                                 asyncTasks.add(task);
-                                task.execute(file, true);
+                                task.execute(new ThumbnailsCacheManager.ThumbnailGenerationTaskObject(file,
+                                        file.getRemoteId()));
                             } catch (IllegalArgumentException e) {
                                 Log_OC.d(TAG, "ThumbnailGenerationTask : " + e.getMessage());
                             }

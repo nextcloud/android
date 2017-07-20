@@ -222,7 +222,7 @@ public class LocalFileListAdapter extends BaseAdapter implements FilterableListA
                                             task
                                     );
                             fileIcon.setImageDrawable(asyncDrawable);
-                            task.execute(file, true);
+                            task.execute(new ThumbnailsCacheManager.ThumbnailGenerationTaskObject(file, null));
                             Log_OC.v(TAG, "Executing task to generate a new thumbnail");
 
                         } // else, already being generated, don't restart it
