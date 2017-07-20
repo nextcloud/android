@@ -79,6 +79,8 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Vector;
 
+import javax.annotation.Nullable;
+
 /**
  * Service for uploading files. Invoke using context.startService(...).
  *
@@ -710,7 +712,7 @@ public class FileUploader extends Service
          * @param file    A file in the queue of pending uploads
          */
         public void cancel(Account account, OCFile file) {
-            cancel(account.name, file.getRemotePath());
+            cancel(account.name, file.getRemotePath(), null);
         }
 
         /**
@@ -719,7 +721,7 @@ public class FileUploader extends Service
          * @param storedUpload Upload operation persisted
          */
         public void cancel(OCUpload storedUpload) {
-            cancel(storedUpload.getAccountName(), storedUpload.getRemotePath());
+            cancel(storedUpload.getAccountName(), storedUpload.getRemotePath(), null);
 
         }
 
@@ -728,8 +730,10 @@ public class FileUploader extends Service
          *
          * @param accountName Local name of an ownCloud account where the remote file will be stored.
          * @param remotePath  Remote target of the upload
+         *
+         * Setting result code will pause rather than cancel the job
          */
-        private void cancel(String accountName, String remotePath) {
+        private void cancel(String accountName, String remotePath, @Nullable ResultCode resultCode ) {
             Pair<UploadFileOperation, String> removeResult =
                     mPendingUploads.remove(accountName, remotePath);
             UploadFileOperation upload = removeResult.first;
@@ -740,12 +744,17 @@ public class FileUploader extends Service
 
                 upload = mCurrentUpload;
             }
+
             if (upload != null) {
                 upload.cancel();
                 // need to update now table in mUploadsStorageManager,
                 // since the operation will not get to be run by FileUploader#uploadFile
-                mUploadsStorageManager.updateDatabaseUploadResult(Re, upload);
-                mUploadsStorageManager.removeUpload(accountName, remotePath);
+                if (resultCode != null) {
+                    mUploadsStorageManager.updateDatabaseUploadResult(new RemoteOperationResult(resultCode), upload);
+                    notifyUploadResult(upload, new RemoteOperationResult(resultCode));
+                } else {
+                    mUploadsStorageManager.removeUpload(accountName, remotePath);
+                }
             } else {
                 // try to cancel job in jobScheduler
                 mUploadsStorageManager.cancelPendingJob(accountName, remotePath);
@@ -896,11 +905,16 @@ public class FileUploader extends Service
                 boundListener.onTransferProgress(progressRate, totalTransferredSoFar,
                         totalToTransfer, fileName);
 
-                if (MainApp.getAppContext() != null &&
-                        (mCurrentUpload.getIsWifiRequired() && !Device.getNetworkType(MainApp.getAppContext()).
-                        equals(JobRequest.NetworkType.UNMETERED)) || (mCurrentUpload.getIsChargingRequired() &&
-                        !Device.isCharging(MainApp.getAppContext()))) {
-                    // pause
+                if (MainApp.getAppContext() != null) {
+                    if (mCurrentUpload.getIsWifiRequired() && !Device.getNetworkType(MainApp.getAppContext()).
+                            equals(JobRequest.NetworkType.UNMETERED)) {
+                        cancel(mCurrentUpload.getAccount().name, mCurrentUpload.getFile().getRemotePath()
+                                , ResultCode.DELAYED_FOR_WIFI);
+                    } else if (mCurrentUpload.getIsChargingRequired() &&
+                            !Device.isCharging(MainApp.getAppContext())) {
+                        cancel(mCurrentUpload.getAccount().name, mCurrentUpload.getFile().getRemotePath()
+                                , ResultCode.DELAYED_FOR_CHARGING);
+                    }
                 }
             }
         }
