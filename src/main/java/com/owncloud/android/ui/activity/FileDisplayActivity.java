@@ -169,6 +169,9 @@ public class FileDisplayActivity extends HookActivity
 
     private SearchView searchView;
 
+    private String mSearchQuery = "";
+    private boolean mSearchOpen;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log_OC.v(TAG, "onCreate() start");
@@ -2130,6 +2133,10 @@ public class FileDisplayActivity extends HookActivity
     public void onStart() {
         super.onStart();
         EventBus.getDefault().post(new TokenPushEvent());
+    }
+
+    public void setSearchQuery(String query) {
+        mSearchQuery = query;
     }
 
 }

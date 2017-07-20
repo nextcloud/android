@@ -70,8 +70,6 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment {
     private TextView mRemoteFolderSummary;
 
     private SyncedFolderParcelable mSyncedFolder;
-    private boolean behaviourDialogShown;
-    private AlertDialog behaviourDialog;
     private AppCompatButton mCancel;
     private AppCompatButton mSave;
     private boolean behaviourDialogShown;

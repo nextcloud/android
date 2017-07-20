@@ -23,9 +23,6 @@ import android.accounts.Account;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.SearchView;
 import android.text.Html;
@@ -73,6 +70,14 @@ public class PreviewTextFragment extends FileFragment implements SearchView.OnQu
     private Account mAccount;
     private TextView mTextPreview;
     private TextLoadAsyncTask mTextLoadTask;
+
+    private String mOriginalText;
+
+    private Handler mHandler;
+    private SearchView mSearchView;
+
+    private String mSearchQuery = "";
+    private boolean mSearchOpen;
 
     private RelativeLayout mMultiView;
 
