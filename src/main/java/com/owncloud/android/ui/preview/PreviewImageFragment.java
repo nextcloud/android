@@ -281,15 +281,16 @@ public class PreviewImageFragment extends FileFragment {
                     // generate new resized image
                     if (ThumbnailsCacheManager.cancelPotentialThumbnailWork(getFile(), mImageView) &&
                             mContainerActivity.getStorageManager() != null) {
-                        final ThumbnailsCacheManager.ThumbnailGenerationTask task =
-                                new ThumbnailsCacheManager.ThumbnailGenerationTask(
-                                        mImageView, mContainerActivity.getStorageManager(),
+                        final ThumbnailsCacheManager.ResizedImageGenerationTask task =
+                                new ThumbnailsCacheManager.ResizedImageGenerationTask(
+                                        mImageView,
+                                        mContainerActivity.getStorageManager(),
                                         mContainerActivity.getStorageManager().getAccount());
                         if (resizedImage == null) {
                             resizedImage = thumbnail;
                         }
-                        final ThumbnailsCacheManager.AsyncThumbnailDrawable asyncDrawable =
-                                new ThumbnailsCacheManager.AsyncThumbnailDrawable(
+                        final ThumbnailsCacheManager.AsyncResizedImageDrawable asyncDrawable =
+                                new ThumbnailsCacheManager.AsyncResizedImageDrawable(
                                         MainApp.getAppContext().getResources(),
                                         resizedImage,
                                         task
