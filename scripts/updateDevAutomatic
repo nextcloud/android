@@ -12,6 +12,7 @@ git pull -q || exit
 branches=$(scripts/getBranchesForDev)
 branchesCount=$(echo "$branches" | wc -l)
 count=1
+conflictingBranches=0
 
 date +%F > $statusFile
 echo "Branches: $branchesCount" >> $statusFile
@@ -35,6 +36,7 @@ while read -r branch; do
 
     if [ $? -ne 0 ] ; then
         echo "$branch CONFLICT" >> $statusFile
+        let conflictingBranches++
         git merge --abort
     else
         if [ $(echo $mergeOutput | grep "up-to-date" -c) -eq 0 ] ; then
@@ -55,10 +57,11 @@ cp CHANGELOG.md $tmpFile
 echo "## $(date '+%F %H:%M')" > CHANGELOG.md
 
 ## add new branches
+echo "New branches:"
 if [ $(comm -13 mergedBranches <(cat devUpdateStatus | grep succ | cut -d"(" -f2 | cut -d")" -f1 | sort) | wc -l) -gt 0 ] ; then
     egrep "$(comm -13 mergedBranches <(cat devUpdateStatus | grep succ | cut -d"(" -f2 | cut -d")" -f1 | sort) )" devUpdateStatus | cut -d"]" -f2 | sed s'#$#]#'g | sed s'#^#-#'g | sed s'#$# added#'g >> CHANGELOG.md
 else
-    echo "no new branches added" >> CHANGELOG.md
+    echo "/" >> CHANGELOG.md
 fi
 
 cat devUpdateStatus | grep succ | cut -d"(" -f2 | cut -d")" -f1 >> mergedBranches
@@ -68,10 +71,19 @@ mv mergedBranches_unique mergedBranches
 echo >> CHANGELOG.md
 
 ## add updated branches
+echo "Updated branches:"
 if [ $(cat devUpdateStatus | grep succ -c) -gt 0 ]; then
     cat devUpdateStatus | grep succ | cut -d"]" -f2 | sed s'#$#]#'g | sed s'#^#-#'g | sed s'#$# updated#'g >> CHANGELOG.md
 else
-    echo "no branches updated" >> CHANGELOG.md
+    echo "/" >> CHANGELOG.md
+fi
+
+## add conflicted branches
+echo "Conflicting branches:"
+if [ $(cat devUpdateStatus | grep conflict -c) -gt 0 ]; then
+    cat devUpdateStatus | grep conflict | cut -d"]" -f2 | sed s'#$#]#'g | sed s'#^#-#'g | sed s'#$# updated#'g >> CHANGELOG.md
+else
+    echo "/" >> CHANGELOG.md
 fi
 
 echo >> CHANGELOG.md
@@ -80,3 +92,5 @@ cat $tmpFile >> CHANGELOG.md
 git add .
 git commit -m "update dev $(date +%F)"
 git push
+
+exit $conflictingBranches
