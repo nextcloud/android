@@ -188,6 +188,12 @@ public class UploadFileOperation extends SyncOperation {
         mRemoteFolderToBeCreated = upload.isCreateRemoteFolder();
     }
 
+    public boolean getIsWifiRequired() {
+        return mOnWifiOnly;
+    }
+
+    public boolean getIsChargingRequired() {return mWhileChargingOnly;}
+
     public Account getAccount() {
         return mAccount;
     }
