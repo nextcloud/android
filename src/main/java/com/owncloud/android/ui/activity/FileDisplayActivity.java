@@ -99,7 +99,6 @@ import com.owncloud.android.ui.preview.PreviewMediaFragment;
 import com.owncloud.android.ui.preview.PreviewTextFragment;
 import com.owncloud.android.ui.preview.PreviewVideoActivity;
 import com.owncloud.android.utils.DataHolderUtil;
-import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.ErrorMessageAdapter;
 import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.PermissionUtil;
@@ -1240,11 +1239,9 @@ public class FileDisplayActivity extends HookActivity
                         }
 
                         mSyncInProgress = (!FileSyncAdapter.EVENT_FULL_SYNC_END.equals(event) &&
-                                !RefreshFolderOperation.EVENT_SINGLE_FOLDER_SHARES_SYNCED
-                                        .equals(event));
+                                !RefreshFolderOperation.EVENT_SINGLE_FOLDER_SHARES_SYNCED.equals(event));
 
-                        if (RefreshFolderOperation.EVENT_SINGLE_FOLDER_CONTENTS_SYNCED.
-                                equals(event) &&
+                        if (RefreshFolderOperation.EVENT_SINGLE_FOLDER_CONTENTS_SYNCED.equals(event) &&
                                 synchResult != null && !synchResult.isSuccess()) {
 
                             /// TODO refactor and make common
@@ -1297,10 +1294,10 @@ public class FileDisplayActivity extends HookActivity
     private void setBackgroundText() {
         final OCFileListFragment ocFileListFragment = getListOfFilesFragment();
         if (ocFileListFragment != null) {
-            if (!mSyncInProgress) {
-                ocFileListFragment.setEmptyListMessage(ExtendedListFragment.SearchType.NO_SEARCH);
-            } else {
+            if (mSyncInProgress) {
                 ocFileListFragment.setEmptyListLoadingMessage();
+            } else {
+                ocFileListFragment.setEmptyListMessage(ExtendedListFragment.SearchType.NO_SEARCH);
             }
         } else {
             Log_OC.e(TAG, "OCFileListFragment is null");
