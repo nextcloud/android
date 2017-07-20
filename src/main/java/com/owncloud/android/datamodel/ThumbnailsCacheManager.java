@@ -49,6 +49,7 @@ import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.status.OwnCloudVersion;
 import com.owncloud.android.ui.adapter.DiskLruImageCache;
+import com.owncloud.android.ui.preview.PreviewImageFragment;
 import com.owncloud.android.utils.BitmapUtils;
 import com.owncloud.android.utils.DisplayUtils.AvatarGenerationListener;
 import com.owncloud.android.utils.FileStorageUtils;
@@ -201,17 +202,20 @@ public class ThumbnailsCacheManager {
     }
 
     public static class ResizedImageGenerationTask extends AsyncTask<Object, Void, Bitmap> {
+        private PreviewImageFragment previewImageFragment;
         private FileDataStorageManager storageManager;
         private Account account;
         private WeakReference<ImageView> imageViewReference;
         private OCFile file;
 
 
-        public ResizedImageGenerationTask(ImageView imageView, FileDataStorageManager storageManager, Account account)
+        public ResizedImageGenerationTask(PreviewImageFragment previewImageFragment, ImageView imageView,
+                                          FileDataStorageManager storageManager, Account account)
                 throws IllegalArgumentException {
+            this.previewImageFragment = previewImageFragment;
+            imageViewReference = new WeakReference<>(imageView);
             this.storageManager = storageManager;
             this.account = account;
-            imageViewReference = new WeakReference<>(imageView);
         }
 
         @Override
@@ -328,16 +332,21 @@ public class ThumbnailsCacheManager {
         }
 
         protected void onPostExecute(Bitmap bitmap) {
-            if (bitmap != null && imageViewReference != null) {
+            if (imageViewReference != null) {
                 final ImageView imageView = imageViewReference.get();
-                final ResizedImageGenerationTask bitmapWorkerTask = getResizedImageGenerationWorkerTask(imageView);
 
-                if (this == bitmapWorkerTask) {
-                    String tagId = String.valueOf(file.getFileId());
+                if (bitmap != null) {
+                    final ResizedImageGenerationTask bitmapWorkerTask = getResizedImageGenerationWorkerTask(imageView);
 
-                    if (String.valueOf(imageView.getTag()).equals(tagId)) {
-                        imageView.setImageBitmap(bitmap);
+                    if (this == bitmapWorkerTask) {
+                        String tagId = String.valueOf(file.getFileId());
+
+                        if (String.valueOf(imageView.getTag()).equals(tagId)) {
+                            imageView.setImageBitmap(bitmap);
+                        }
                     }
+                } else {
+                    previewImageFragment.setErrorPreviewMessage();
                 }
             }
         }

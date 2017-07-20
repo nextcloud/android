@@ -35,6 +35,7 @@ import android.os.Bundle;
 import android.os.Process;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.StringRes;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
@@ -282,7 +283,7 @@ public class PreviewImageFragment extends FileFragment {
                     if (ThumbnailsCacheManager.cancelPotentialThumbnailWork(getFile(), mImageView) &&
                             mContainerActivity.getStorageManager() != null) {
                         final ThumbnailsCacheManager.ResizedImageGenerationTask task =
-                                new ThumbnailsCacheManager.ResizedImageGenerationTask(
+                                new ThumbnailsCacheManager.ResizedImageGenerationTask(PreviewImageFragment.this,
                                         mImageView,
                                         mContainerActivity.getStorageManager(),
                                         mContainerActivity.getStorageManager().getAccount());
@@ -722,6 +723,16 @@ public class PreviewImageFragment extends FileFragment {
         }
     }
 
+    public void setErrorPreviewMessage() {
+        Snackbar.make(mMultiView, "No resized image possible. Download full image?", Snackbar.LENGTH_INDEFINITE)
+                .setAction("Yes", new OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        downloadFile();
+                    }
+                }).show();
+    }
+
     /**
      * Helper method to test if an {@link OCFile} can be passed to a {@link PreviewImageFragment}
      * to be previewed.
@@ -748,19 +759,22 @@ public class PreviewImageFragment extends FileFragment {
                 getFile().getMimetype().equalsIgnoreCase("image/svg+xml")) && getActivity() != null
                 && getActivity() instanceof PreviewImageActivity && getResources() != null) {
             PreviewImageActivity previewImageActivity = (PreviewImageActivity) getActivity();
-            LayerDrawable layerDrawable = (LayerDrawable) mImageView.getDrawable();
-            Drawable layerOne;
 
-            if (previewImageActivity.getSystemUIVisible()) {
-                layerOne = getResources().getDrawable(R.color.white);
-            } else {
-                layerOne = getResources().getDrawable(R.drawable.backrepeat);
+            if (mImageView.getDrawable() instanceof LayerDrawable) {
+                LayerDrawable layerDrawable = (LayerDrawable) mImageView.getDrawable();
+                Drawable layerOne;
+
+                if (previewImageActivity.getSystemUIVisible()) {
+                    layerOne = getResources().getDrawable(R.color.white);
+                } else {
+                    layerOne = getResources().getDrawable(R.drawable.backrepeat);
+                }
+
+                layerDrawable.setDrawableByLayerId(layerDrawable.getId(0), layerOne);
+
+                mImageView.setImageDrawable(layerDrawable);
+                mImageView.invalidate();
             }
-
-            layerDrawable.setDrawableByLayerId(layerDrawable.getId(0), layerOne);
-
-            mImageView.setImageDrawable(layerDrawable);
-            mImageView.invalidate();
         }
     }
 
