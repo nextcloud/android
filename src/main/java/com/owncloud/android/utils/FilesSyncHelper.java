@@ -191,8 +191,6 @@ public class FilesSyncHelper {
         final Context context = MainApp.getAppContext();
         boolean restartedInCurrentIteration;
 
-        int countRestartedJobs = 0;
-
         FileUploader.UploadRequester uploadRequester = new FileUploader.UploadRequester();
 
         boolean accountExists;
@@ -213,34 +211,28 @@ public class FilesSyncHelper {
             }
 
             if (accountExists && fileExists) {
-                if (countRestartedJobs < 5) {
-                    // Handle case of charging
-                    if (jobRequest.requiresCharging() && Device.isCharging(context)) {
-                        if (jobRequest.requiredNetworkType().equals(JobRequest.NetworkType.CONNECTED) &&
-                                !Device.getNetworkType(context).equals(JobRequest.NetworkType.ANY)) {
-                            jobRequest.cancelAndEdit().build().schedule();
-                            countRestartedJobs++;
-                            restartedInCurrentIteration = true;
-                        } else if (jobRequest.requiredNetworkType().equals(JobRequest.NetworkType.UNMETERED) &&
-                                Device.getNetworkType(context).equals(JobRequest.NetworkType.UNMETERED)) {
-                            jobRequest.cancelAndEdit().build().schedule();
-                            countRestartedJobs++;
-                            restartedInCurrentIteration = true;
-                        }
+                // Handle case of charging
+                if (jobRequest.requiresCharging() && Device.isCharging(context)) {
+                    if (jobRequest.requiredNetworkType().equals(JobRequest.NetworkType.CONNECTED) &&
+                            !Device.getNetworkType(context).equals(JobRequest.NetworkType.ANY)) {
+                        jobRequest.cancelAndEdit().build().schedule();
+                        restartedInCurrentIteration = true;
+                    } else if (jobRequest.requiredNetworkType().equals(JobRequest.NetworkType.UNMETERED) &&
+                            Device.getNetworkType(context).equals(JobRequest.NetworkType.UNMETERED)) {
+                        jobRequest.cancelAndEdit().build().schedule();
+                        restartedInCurrentIteration = true;
                     }
+                }
 
-                    // Handle case of wifi
+                // Handle case of wifi
 
-                    if (!restartedInCurrentIteration) {
-                        if (jobRequest.requiredNetworkType().equals(JobRequest.NetworkType.CONNECTED) &&
-                                !Device.getNetworkType(context).equals(JobRequest.NetworkType.ANY)) {
-                            jobRequest.cancelAndEdit().build().schedule();
-                            countRestartedJobs++;
-                        } else if (jobRequest.requiredNetworkType().equals(JobRequest.NetworkType.UNMETERED) &&
-                                Device.getNetworkType(context).equals(JobRequest.NetworkType.UNMETERED)) {
-                            jobRequest.cancelAndEdit().build().schedule();
-                            countRestartedJobs++;
-                        }
+                if (!restartedInCurrentIteration) {
+                    if (jobRequest.requiredNetworkType().equals(JobRequest.NetworkType.CONNECTED) &&
+                            !Device.getNetworkType(context).equals(JobRequest.NetworkType.ANY)) {
+                        jobRequest.cancelAndEdit().build().schedule();
+                    } else if (jobRequest.requiredNetworkType().equals(JobRequest.NetworkType.UNMETERED) &&
+                            Device.getNetworkType(context).equals(JobRequest.NetworkType.UNMETERED)) {
+                        jobRequest.cancelAndEdit().build().schedule();
                     }
                 }
             } else {
@@ -251,7 +243,7 @@ public class FilesSyncHelper {
         UploadsStorageManager uploadsStorageManager = new UploadsStorageManager(context.getContentResolver(), context);
         OCUpload[] failedUploads = uploadsStorageManager.getFailedUploads();
 
-        for (OCUpload failedUpload: failedUploads) {
+        for (OCUpload failedUpload : failedUploads) {
             accountExists = false;
             fileExists = new File(failedUpload.getLocalPath()).exists();
             restartedInCurrentIteration = false;
@@ -267,51 +259,43 @@ public class FilesSyncHelper {
             if (!failedUpload.getLastResult().equals(UploadResult.UPLOADED)) {
                 if (failedUpload.getCreadtedBy() == UploadFileOperation.CREATED_AS_INSTANT_PICTURE) {
                     if (accountExists && fileExists) {
-                        if (countRestartedJobs < 5) {
-                            // Handle case of charging
+                        // Handle case of charging
 
-                            if (failedUpload.isWhileChargingOnly() && Device.isCharging(context)) {
-                                if (failedUpload.isUseWifiOnly() &&
-                                        Device.getNetworkType(context).equals(JobRequest.NetworkType.UNMETERED)) {
-                                    uploadRequester.retry(context, failedUpload);
-                                    restartedInCurrentIteration = true;
-                                    countRestartedJobs++;
-                                } else if (!failedUpload.isUseWifiOnly() &&
-                                        !Device.getNetworkType(context).equals(JobRequest.NetworkType.ANY)) {
-                                    uploadRequester.retry(context, failedUpload);
-                                    restartedInCurrentIteration = true;
-                                    countRestartedJobs++;
-                                }
-                            }
-
-                            // Handle case of wifi
-
-                            if (!restartedInCurrentIteration) {
-                                if (failedUpload.isUseWifiOnly() &&
-                                        Device.getNetworkType(context).equals(JobRequest.NetworkType.UNMETERED)) {
-                                    uploadRequester.retry(context, failedUpload);
-                                    countRestartedJobs++;
-                                } else if (!failedUpload.isUseWifiOnly() &&
-                                        !Device.getNetworkType(context).equals(JobRequest.NetworkType.ANY)) {
-                                    uploadRequester.retry(context, failedUpload);
-                                    countRestartedJobs++;
-                                }
+                        if (failedUpload.isWhileChargingOnly() && Device.isCharging(context)) {
+                            if (failedUpload.isUseWifiOnly() &&
+                                    Device.getNetworkType(context).equals(JobRequest.NetworkType.UNMETERED)) {
+                                uploadRequester.retry(context, failedUpload);
+                                restartedInCurrentIteration = true;
+                            } else if (!failedUpload.isUseWifiOnly() &&
+                                    !Device.getNetworkType(context).equals(JobRequest.NetworkType.ANY)) {
+                                uploadRequester.retry(context, failedUpload);
+                                restartedInCurrentIteration = true;
                             }
                         }
-                    } else {
-                        uploadsStorageManager.removeUpload(failedUpload);
+
+                        // Handle case of wifi
+
+                        if (!restartedInCurrentIteration) {
+                            if (failedUpload.isUseWifiOnly() &&
+                                    Device.getNetworkType(context).equals(JobRequest.NetworkType.UNMETERED)) {
+                                uploadRequester.retry(context, failedUpload);
+                            } else if (!failedUpload.isUseWifiOnly() &&
+                                    !Device.getNetworkType(context).equals(JobRequest.NetworkType.ANY)) {
+                                uploadRequester.retry(context, failedUpload);
+                            }
+                        }
                     }
                 } else {
-                    if (accountExists && fileExists) {
-                        if (countRestartedJobs < 5) {
-                            uploadRequester.retry(context, failedUpload);
-                            countRestartedJobs++;
-                        }
-                    } else {
-                        uploadsStorageManager.removeUpload(failedUpload);
-                    }
+                    uploadsStorageManager.removeUpload(failedUpload);
+                }
+            } else {
+                if (accountExists && fileExists) {
+                    uploadRequester.retry(context, failedUpload);
+                } else {
+                    uploadsStorageManager.removeUpload(failedUpload);
                 }
             }
         }
     }
+}
 }
