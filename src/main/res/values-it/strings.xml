@@ -245,10 +245,10 @@
     <string name="filedisplay_no_file_selected">Nessun file selezionato</string>
     <string name="activity_chooser_title">Invia collegamento a &#8230;</string>
     <string name="wait_for_tmp_copy_from_private_storage">Copia file dall\'archiviazione privata</string>
-    
-    <string name="oauth_check_onoff">Accedi con OAuth 2.0</string> 
-    <string name="oauth_login_connection">Connessione al server OAuth 2.0...</string>    
-        
+
+    <string name="oauth_check_onoff">Accedi con OAuth 2.0</string>
+    <string name="oauth_login_connection">Connessione al server OAuth 2.0...</string>
+
     <string name="ssl_validator_header">L\'identità del sito non può essere verificata</string>
     <string name="ssl_validator_reason_cert_not_trusted">- Il certificato del server non è affidabile</string>
     <string name="ssl_validator_reason_cert_expired">- Il certificato del server è scaduto</string>

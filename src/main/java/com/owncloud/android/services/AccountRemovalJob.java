@@ -59,7 +59,7 @@ public class AccountRemovalJob extends Job implements AccountManagerCallback<Boo
         PersistableBundleCompat bundle = params.getExtras();
         Account account = AccountUtils.getOwnCloudAccountByName(context, bundle.getString(ACCOUNT, ""));
 
-        if (account != null ) {
+        if (account != null) {
             AccountManager am = (AccountManager) context.getSystemService(ACCOUNT_SERVICE);
             am.removeAccount(account, this, null);
 
