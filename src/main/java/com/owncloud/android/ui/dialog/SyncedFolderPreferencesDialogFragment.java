@@ -74,6 +74,8 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment {
     private AlertDialog behaviourDialog;
     private AppCompatButton mCancel;
     private AppCompatButton mSave;
+    private boolean behaviourDialogShown;
+    private AlertDialog behaviourDialog;
 
     public static SyncedFolderPreferencesDialogFragment newInstance(SyncedFolderDisplayItem syncedFolder, int section) {
         SyncedFolderPreferencesDialogFragment dialogFragment = new SyncedFolderPreferencesDialogFragment();
@@ -264,7 +266,9 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment {
 
     private void showBehaviourDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setTitle(R.string.prefs_instant_behaviour_dialogTitle)
+        builder.setTitle(ThemeUtils.getColoredTitle(
+                getResources().getString(R.string.prefs_instant_behaviour_dialogTitle),
+                ThemeUtils.primaryAccentColor()))
                 .setSingleChoiceItems(getResources().getTextArray(R.array.pref_behaviour_entries),
                         mSyncedFolder.getUploadActionInteger(),
                         new
@@ -275,10 +279,16 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment {
                                                         R.array.pref_behaviour_entryValues)[which].toString());
                                         mUploadBehaviorSummary.setText(SyncedFolderPreferencesDialogFragment
                                                 .this.mUploadBehaviorItemStrings[which]);
-                                        dialog.dismiss();
                                         behaviourDialogShown = false;
+                                        dialog.dismiss();
                                     }
-                                });
+                                })
+                .setOnCancelListener(new DialogInterface.OnCancelListener() {
+                    @Override
+                    public void onCancel(DialogInterface dialog) {
+                        behaviourDialogShown = false;
+                    }
+                });
         behaviourDialogShown = true;
         behaviourDialog = builder.create();
         behaviourDialog.show();

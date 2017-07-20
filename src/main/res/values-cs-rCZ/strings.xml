@@ -154,6 +154,7 @@
     <string name="about_title">O aplikaci</string>
     <string name="change_password">Změnit heslo</string>
     <string name="delete_account">Odebrat účet</string>
+    <string name="delete_account_warning">Smazat účet %s?\n\nTuto akci nelze vzít zpět.</string>
     <string name="create_account">Vytvořit účet</string>
     <string name="upload_chooser_title">Nahrát z &#8230;</string>
     <string name="uploader_info_dirname">Název adresáře</string>

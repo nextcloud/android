@@ -122,7 +122,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:contentDescription="shareAddUserButton"
+                android:contentDescription="@string/share_add_user_or_group"
                 android:text="@string/share_add_user_or_group"
                 android:theme="@style/Button.Primary"/>
 
@@ -330,7 +330,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:contentDescription="shareGetLinkButton"
+                    android:contentDescription="@string/share_get_public_link_button"
                     android:text="@string/share_get_public_link_button"
                     android:theme="@style/Button.Primary"/>
 
