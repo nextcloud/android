@@ -241,7 +241,11 @@ public class FilesSyncHelper {
                         }
                     }
                 } else {
-                    uploadRequester.retry(context, failedUpload);
+                    if (accountExists && fileExists) {
+                        uploadRequester.retry(context, failedUpload);
+                    } else {
+                        uploadsStorageManager.removeUpload(failedUpload);
+                    }
                 }
             }
         }
