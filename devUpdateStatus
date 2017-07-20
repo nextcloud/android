@@ -1,11 +1,12 @@
 2017-07-20
-Branches: 9
-[01 / 09] resolves: #1207 make daily contact backup string translatable (nextcloud/dailyBackupString) [https://github.com/nextcloud/android/pull/1208] CONFLICT
-[02 / 09] On receiving untrusted ssl cert, test if it was previously accepted user (nextcloud/newWebLoginUntrustedCert) [https://github.com/nextcloud/android/pull/1206] CONFLICT
-[03 / 09] Auto upload crash if filepath is null (nextcloud/autoUploadCrashIfFilepathIsNull) [https://github.com/nextcloud/android/pull/1201] CONFLICT
-[04 / 09] revamped details screen (nextcloud/new_details_view_animations) [https://github.com/nextcloud/android/pull/1156] CONFLICT
-[05 / 09] Comment out adding all new downloaded files to folder observer (nextcloud/folderObserver) [https://github.com/nextcloud/android/pull/1155] CONFLICT
-[06 / 09] Search inside of text files (nextcloud/bugfix-454) [https://github.com/nextcloud/android/pull/565] CONFLICT
-[07 / 09] Resized images (nextcloud/resizedImages) [https://github.com/nextcloud/android/pull/69] no update needed
-[08 / 09] Master (nextcloud/master) [https://github.com/nextcloud/android] CONFLICT
-[09 / 09] Dev base (nextcloud/dev-base) [https://github.com/nextcloud/android/tree/dev-base] CONFLICT
+Branches: 10
+[01 / 10] Show empty message when receiving external files (nextcloud/emptyMessageReceiveExternalFiles) [https://github.com/nextcloud/android/pull/1214] CONFLICT
+[02 / 10] resolves: #1207 make daily contact backup string translatable (nextcloud/dailyBackupString) [https://github.com/nextcloud/android/pull/1208] no update needed
+[03 / 10] On receiving untrusted ssl cert, test if it was previously accepted user (nextcloud/newWebLoginUntrustedCert) [https://github.com/nextcloud/android/pull/1206] no update needed
+[04 / 10] Auto upload crash if filepath is null (nextcloud/autoUploadCrashIfFilepathIsNull) [https://github.com/nextcloud/android/pull/1201] no update needed
+[05 / 10] revamped details screen (nextcloud/new_details_view_animations) [https://github.com/nextcloud/android/pull/1156] no update needed
+[06 / 10] Comment out adding all new downloaded files to folder observer (nextcloud/folderObserver) [https://github.com/nextcloud/android/pull/1155] no update needed
+[07 / 10] Search inside of text files (nextcloud/bugfix-454) [https://github.com/nextcloud/android/pull/565] no update needed
+[08 / 10] Resized images (nextcloud/resizedImages) [https://github.com/nextcloud/android/pull/69] CONFLICT
+[09 / 10] Master (nextcloud/master) [https://github.com/nextcloud/android] CONFLICT
+[10 / 10] Dev base (nextcloud/dev-base) [https://github.com/nextcloud/android/tree/dev-base] no update needed
