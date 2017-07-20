@@ -1,5 +1,6 @@
-2017-07-20
+2017-07-21
 Branches: 10
+[00 / 10] Dev branch (nextcloud/dev) [https://github.com/nextcloud/android/tree/dev] was updated successfully
 [01 / 10] Show empty message when receiving external files (nextcloud/emptyMessageReceiveExternalFiles) [https://github.com/nextcloud/android/pull/1214] CONFLICT
 [02 / 10] resolves: #1207 make daily contact backup string translatable (nextcloud/dailyBackupString) [https://github.com/nextcloud/android/pull/1208] no update needed
 [03 / 10] On receiving untrusted ssl cert, test if it was previously accepted user (nextcloud/newWebLoginUntrustedCert) [https://github.com/nextcloud/android/pull/1206] no update needed
