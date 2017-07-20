@@ -21,6 +21,7 @@
 
 package com.owncloud.android.jobs;
 
+import android.accounts.Account;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.media.ExifInterface;
@@ -30,16 +31,18 @@ import android.text.TextUtils;
 
 import com.evernote.android.job.Job;
 import com.evernote.android.job.JobManager;
-import com.evernote.android.job.JobRequest;
-import com.evernote.android.job.util.support.PersistableBundleCompat;
 import com.owncloud.android.MainApp;
+import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.FilesystemDataProvider;
 import com.owncloud.android.datamodel.MediaFolder;
 import com.owncloud.android.datamodel.SyncedFolder;
 import com.owncloud.android.datamodel.SyncedFolderProvider;
+import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.operations.UploadFileOperation;
 import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.FilesSyncHelper;
+import com.owncloud.android.utils.MimeTypeUtil;
 
 import java.io.File;
 import java.io.IOException;
@@ -59,6 +62,7 @@ public class FilesSyncJob extends Job {
         final ContentResolver contentResolver = context.getContentResolver();
 
         PowerManager powerManager = (PowerManager) context.getSystemService(context.POWER_SERVICE);
+        FileUploader.UploadRequester requester = new FileUploader.UploadRequester();
         PowerManager.WakeLock wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK,
                 TAG);
         wakeLock.acquire();
@@ -104,32 +108,30 @@ public class FilesSyncJob extends Job {
                                 }
                             }
 
-                            PersistableBundleCompat bundle = new PersistableBundleCompat();
-
                             boolean needsCharging = syncedFolder.getChargingOnly();
                             boolean needsWifi = syncedFolder.getWifiOnly();
 
-                            bundle.putString(AutoUploadJob.LOCAL_PATH, file.getAbsolutePath());
-                            bundle.putString(AutoUploadJob.REMOTE_PATH, FileStorageUtils.getInstantUploadFilePath(
-                                    currentLocale,
-                                    syncedFolder.getRemotePath(), file.getName(),
-                                    lastModificationTime,
-                                    syncedFolder.getSubfolderByDate()));
-                            bundle.putString(AutoUploadJob.ACCOUNT, syncedFolder.getAccount());
-                            bundle.putInt(AutoUploadJob.UPLOAD_BEHAVIOUR, syncedFolder.getUploadAction());
-                            bundle.putBoolean(AutoUploadJob.REQUIRES_WIFI, needsWifi);
-                            bundle.putBoolean(AutoUploadJob.REQUIRES_CHARGING, needsCharging);
+                            String mimeType = MimeTypeUtil.getBestMimeTypeByFilename(file.getAbsolutePath());
 
-                            new JobRequest.Builder(AutoUploadJob.TAG)
-                                    .setExecutionWindow(10_000L, 10_000L)
-                                    .setRequiresCharging(needsCharging)
-                                    .setRequiredNetworkType(syncedFolder.getWifiOnly() ? JobRequest.NetworkType.UNMETERED :
-                                            JobRequest.NetworkType.CONNECTED)
-                                    .setExtras(bundle)
-                                    .setRequirementsEnforced(true)
-                                    .setUpdateCurrent(false)
-                                    .build()
-                                    .schedule();
+                            Account account = AccountUtils.getOwnCloudAccountByName(context, syncedFolder.getAccount());
+
+                            requester.uploadFileWithOverwrite(
+                                    context,
+                                    account,
+                                    file.getAbsolutePath(),
+                                    FileStorageUtils.getInstantUploadFilePath(
+                                            currentLocale,
+                                            syncedFolder.getRemotePath(), file.getName(),
+                                            lastModificationTime,
+                                            syncedFolder.getSubfolderByDate()),
+                                    syncedFolder.getUploadAction(),
+                                    mimeType,
+                                    true,           // create parent folder if not existent
+                                    UploadFileOperation.CREATED_AS_INSTANT_PICTURE,
+                                    needsWifi,
+                                    needsCharging,
+                                    true
+                            );
 
                             filesystemDataProvider.updateFilesystemFileAsSentForUpload(path,
                                     Long.toString(syncedFolder.getId()));
