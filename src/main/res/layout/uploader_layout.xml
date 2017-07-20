@@ -38,6 +38,8 @@
 			android:dividerHeight="1dip">
 		</ListView>
 
+		<include layout="@layout/empty_list"/>
+
 	</FrameLayout>
 
 	<LinearLayout
