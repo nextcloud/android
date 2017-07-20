@@ -155,7 +155,7 @@
     <string name="about_title">Über</string>
     <string name="change_password">Passwort ändern</string>
     <string name="delete_account">Benutzerkonto löschen</string>
-    <string name="delete_account_warning">Das Konto %s löschen?\n\nDas Löschen kann nicht rückgängig gemacht werden.</string>
+    <string name="delete_account_warning">Konto %s mit allen lokalen Dateien löschen?\n\nLöschen kann nicht rückgängig gemacht werden.</string>
     <string name="create_account">Benutzerkonto erstellen</string>
     <string name="upload_chooser_title">Dateien hochladen von &#8230;</string>
     <string name="uploader_info_dirname">Ordnername</string>
@@ -543,7 +543,7 @@
     <string name="manage_space_clear_data">Daten löschen</string>
     <string name="manage_space_error">Einige Dateien konnten nicht gelöscht werden.</string>
 
-    <string name="permission_storage_access">Sie haben nicht die erforderlichen Rechte, um Dateien hoch- oder herunterzuladen.</string>
+    <string name="permission_storage_access">Du hast nicht die erforderlichen Rechte, um Dateien hoch- oder herunterzuladen.</string>
     <string name="local_file_not_found_toast">Die Datei wurde im lokalen Dateisystem nicht gefunden</string>
     <string name="confirmation_remove_files_alert">Willst Du die ausgewählten Einträge wirklich löschen?</string>
     <string name="confirmation_remove_folders_alert">Willst Du die ausgewählten Einträge und deren Inhalte wirklich löschen?</string>
@@ -565,10 +565,10 @@
     <string name="participate_release_candidate_headline">Vorabversion</string>
     <string name="participate_release_candidate_text">Der Release-Kandidat (RC) ist eine Vorschau auf die kommenden Version und sollte stabil sein. Das Testen des RC unter Deiner individuellen Umgebung kann helfen, die Qualität und Stabilität zu sichern. Registriere Dich als Tester im Play-Store oder schaue in die \"Version\"-Sektion auf F-Droid.</string>
     <string name="participate_contribute_headline">Aktiv etwas beitragen</string>
-    <string name="participate_contribute_irc_text">Trete dem Chat auf IRC bei: &lt;a href=\"%1$s\">#nextcloud-mobile&lt;/a></string>
-    <string name="participate_contribute_forum_text">Hilf Anderen im &lt;a href=\"%1$s\">Forum&lt;/a></string>
-    <string name="participate_contribute_translate_text">&lt;a href=\"%1$s\">Übersetze&lt;/a> die App</string>
-    <string name="participate_contribute_github_text">Prüfe, ändere und schreibe Code. Siehe auch &lt;a href=\"%1$s\">CONTRIBUTING.md&lt;a> für Einzelheiten</string>
+    <string name="participate_contribute_irc_text">Trete dem IRC-Chat bei: &lt;font color=\"%1$s\">&lt;a href=\"%2$s\">#nextcloud-mobile&lt;/a>&lt;/font></string>
+    <string name="participate_contribute_forum_text">Helfe anderen im &lt;font color=\"%1$s\">&lt;a href=\"%2$s\">Forum&lt;/a>&lt;/font></string>
+    <string name="participate_contribute_translate_text">&lt;font color=\"%1$s\">&lt;a href=\"%2$s\">Übersetze&lt;/a>&lt;/font> die App</string>
+    <string name="participate_contribute_github_text">Überprüfen, Ändern und Schreiben von Code, schau in die &lt; font color=\"%1$s\">&lt; a href=\"%2$s\">CONTRIBUTING.md&lt;/a>&lt;/font> für weitere Details</string>
     <string name="move_to">Verschieben nach&#8230;</string>
     <string name="copy_to">Kopieren nach&#8230;</string>
     <string name="choose_remote_folder">Wähle Verzeichnis&#8230;</string>
@@ -662,4 +662,5 @@
 
     <string name="folder_sync_folders">Ordner auswählen</string>
 
-  </resources>
+  <string name="test_server_button">Prüfe Server-Verbindung</string>
+</resources>

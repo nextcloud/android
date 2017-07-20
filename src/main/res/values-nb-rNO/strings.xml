@@ -154,7 +154,7 @@
     <string name="about_title">Om</string>
     <string name="change_password">Endre passord</string>
     <string name="delete_account">Fjern konto</string>
-    <string name="delete_account_warning">Vil du slette kontoen %s?\n\nSletting kan ikke angres.</string>
+    <string name="delete_account_warning">Slett kontoen %s med alle lokale filer?\n\nSletting kan ikke angres.</string>
     <string name="create_account">Opprett konto</string>
     <string name="upload_chooser_title">Last opp fra &#8230;</string>
     <string name="uploader_info_dirname">Mappenavn</string>
@@ -557,16 +557,16 @@
     <string name="participate_testing_headline">Hjelp oss å teste</string>
     <string name="participate_testing_bug_text">Funnet en feil? Føles noe rart?</string>
     <string name="participate_testing_report_text">Meld en feil på Github</string>
-    <string name="participate_testing_version_text">Er du interessert i å hjelpe oss å teste ned neste versjonen?</string>
-    <string name="participate_beta_headline">Test utvikler-versjonen</string>
-    <string name="participate_beta_text">Dette inkluderer alle kommende funksjoner og er helt på kanten. Feil/feilmeldinger kan oppstå og i sådant fall, meld fra om dem til oss.</string>
+    <string name="participate_testing_version_text">Er du interessert i å hjelpe til ved å teste den neste versjonen?</string>
+    <string name="participate_beta_headline">Test utviklerversjonen</string>
+    <string name="participate_beta_text">Denne inneholder alle kommende funksjoner og er helt på kanten. Feil/feilmeldinger kan oppstå og i sådant fall, meld fra om dem til oss.</string>
     <string name="participate_release_candidate_headline">Slippkandidat</string>
-    <string name="participate_release_candidate_text">Slippkandidat (RC) er en øyeblikkspakke av den kommende utgaven og er forventet å være stabil. Ved å teste denne med ditt oppsett hjelper du til å med dette. Meld deg på testing i Play-butikken, eller se i seksjonen \"Versjon\" for programmet i F-Droid.</string>
+    <string name="participate_release_candidate_text">En Slippkandidat (RC) er en øyeblikkspakke av den kommende utgaven og er forventet å være stabil. Ved å teste denne med ditt oppsett hjelper du til å med dette. Meld deg på testing i Play-butikken, eller se i seksjonen \"Versjon\" for programmet i F-Droid.</string>
     <string name="participate_contribute_headline">Bidra aktivt</string>
-    <string name="participate_contribute_irc_text">Sludre med oss på IRC: &lt;a href=\"%1$s\">#nextcloud-mobile&lt;/a></string>
-    <string name="participate_contribute_forum_text">Hjelp andre på vårt &lt;a href=\"%1$s\">forum&lt;/a></string>
-    <string name="participate_contribute_translate_text">&lt;a href=\"%1$s\">Oversett&lt;/a> programmet</string>
-    <string name="participate_contribute_github_text">Bidra som utvikler, se &lt;a href=\"%1$s\">CONTRIBUTING.md&lt;/a> for detaljer </string>
+    <string name="participate_contribute_irc_text">Sludre på IRC: &lt;font color=\"%1$s\">&lt;a href=\"%2$s\">#nextcloud-mobile&lt;/a>&lt;/font></string>
+    <string name="participate_contribute_forum_text">Hjelp andre på &lt;font color=\"%1$s\">&lt;a href=\"%2$s\">forumet&lt;/a>&lt;/font></string>
+    <string name="participate_contribute_translate_text">&lt;font color=\"%1$s\">&lt;a href=\"%2$s\">Oversett&lt;/a>&lt;/font> programmet</string>
+    <string name="participate_contribute_github_text">Gjennomse, endre og skriv kode, se &lt;font color=\"%1$s\">&lt;a href=\"%2$s\">CONTRIBUTING.md&lt;/a>&lt;/font> for detaljer.</string>
     <string name="move_to">Flytt til&#8230;</string>
     <string name="copy_to">Kopier til&#8230;</string>
     <string name="choose_remote_folder">Velg mappe&#8230;</string>
@@ -660,4 +660,5 @@
 
     <string name="folder_sync_folders">Sett opp mapper</string>
 
-  </resources>
+  <string name="test_server_button">Test tjenertilkobling</string>
+</resources>

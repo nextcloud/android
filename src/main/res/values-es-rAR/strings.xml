@@ -153,7 +153,6 @@
     <string name="about_title">Acerca de</string>
     <string name="change_password">Cambiar contraseña</string>
     <string name="delete_account">Eliminar cuenta</string>
-    <string name="delete_account_warning">Eliminar cuenta %s?\\n\\nEl borrado no se puede deshacer.</string>
     <string name="create_account">Crear cuenta</string>
     <string name="upload_chooser_title">Cargar desde &#8230;</string>
     <string name="uploader_info_dirname">Nombre de la carpeta</string>
@@ -556,10 +555,6 @@
     <string name="participate_beta_text">Esto incluye todas las últimas funcionalidades y es lo más nuevo. Fallas/errores pueden ocurrir y si es el caso, favor de reportarnoslos. </string>
     <string name="participate_release_candidate_headline">Candidato a lanzamiento</string>
     <string name="participate_contribute_headline">Contribuya activamente</string>
-    <string name="participate_contribute_irc_text">Únase a las conversaciones en IRC: &lt;a href=\"%1$s\">#nextcloud-mobile&lt;/a></string>
-    <string name="participate_contribute_forum_text">Ayude a los demás en el &lt;a href=\"%1$s\">foro&lt;/a></string>
-    <string name="participate_contribute_translate_text">&lt;a href=\"%1$s\">Traduzca&lt;/a> la aplicación </string>
-    <string name="participate_contribute_github_text">Revise, corrija y escriba código, consulte &lt;a href=\"%1$s\">CONTRIBUIR.md&lt;/a> para más detalles </string>
     <string name="move_to">Mover a&#8230;</string>
     <string name="copy_to">Copiar a&#8230;</string>
     <string name="choose_remote_folder">Seleccione la carpeta&#8230;</string>

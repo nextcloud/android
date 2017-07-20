@@ -481,6 +481,7 @@
     <string name="file_list__footer__files">%1$d skedar</string>
     <string name="file_list__footer__files_and_folder">%1$d skedare, 1 dosje</string>
     <string name="file_list__footer__files_and_folders">%1$d skedare, %2$d dosje</string>
+    <string name="set_picture_as">Vendos fotografinë</string>
     <string name="set_as">Vendos Si</string>
 
     <string name="prefs_instant_behaviour_dialogTitle">Skedari origjinal do të jetë&#8230;</string>
@@ -560,10 +561,10 @@
     <string name="participate_beta_text">Kjo përfshin të gjitha karakteristikat që do të vijnë dhe ky është vetëm fillimi. Buget/gabimet  mund të ndodhin, nëse dhe kur të ndodhin, ju lutemi të raportoni për gjetjet tuaja. </string>
     <string name="participate_release_candidate_headline">Lëshimi i kandidatit</string>
     <string name="participate_contribute_headline">Kontribim aktiv</string>
-    <string name="participate_contribute_irc_text">Bashkohu në bisedat në IRC: &lt;a href=\"%1$s\">#nextcloud-mobile&lt;/a></string>
-    <string name="participate_contribute_forum_text">Ndihmo të tjerët në &lt;a href=\"%1$s\">forum&lt;/a></string>
-    <string name="participate_contribute_translate_text">&lt;a href=\"%1$s\">Përktheni&lt;/a> aplikacionin</string>
-    <string name="participate_contribute_github_text">Kontriboni si një zhvillues, shih&lt;a href=\"%1$s\">CONTRIBUTING.md&lt;/a> për detaje</string>
+    <string name="participate_contribute_irc_text">Bashkohu në bisedat në IRC: &lt;font color=\"%1$s\">&lt;a href=\"%2$s\">#nextcloud-mobile&lt;/a>&lt;/font></string>
+    <string name="participate_contribute_forum_text">Ndihmo të tjerët në &lt;font color=\"%1$s\">&lt;a href=\"%2$s\">forum&lt;/a>&lt;/font></string>
+    <string name="participate_contribute_translate_text">&lt;font color=\"%1$s\">&lt;a href=\"%2$s\">Përktheni&lt;/a>&lt;/font> aplikacionin</string>
+    <string name="participate_contribute_github_text">Kontriboni si një zhvillues, shih &lt;font color=\"%1$s\">&lt;a href=\"%2$s\">CONTRIBUTING.md&lt;/a>&lt;/font> për detaje</string>
     <string name="move_to">Levizni tek&#8230;</string>
     <string name="copy_to">Kopjojeni tek&#8230;</string>
     <string name="choose_remote_folder">Zgjidh dosjen&#8230;</string>
@@ -630,6 +631,7 @@
     <string name="webview_error">Ndodhi një gabim</string>
     <string name="prefs_category_about">Rreth </string>
 
+    <string name="actionbar_contacts">Krijo backup të kontakteve</string>
     <string name="actionbar_contacts_restore">Rikthe kontaktet</string>
     <string name="contacts_last_backup">Backup i fundit</string>
     <string name="contacts_read_permission">Kërkohet e drejta për të lexuar listën e kontakteve</string>

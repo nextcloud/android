@@ -153,7 +153,6 @@
     <string name="about_title">O aplikacji</string>
     <string name="change_password">Zmień hasło</string>
     <string name="delete_account">Usuń konto</string>
-    <string name="delete_account_warning">Usuń konto %s?\n\nUsunięcie jest nieodwracalne.</string>
     <string name="create_account">Utwórz konto</string>
     <string name="upload_chooser_title">Wyślij plik z &#8230;</string>
     <string name="uploader_info_dirname">Nazwa folderu</string>
@@ -560,10 +559,10 @@
     <string name="participate_beta_text">Zawiera to w sobie wszystkie nadchodzące funkcjonalności i jest bardzo ryzykowne. Mogą się pojawiać błędy. Jeśli będą proszę je do nas zgłosić.</string>
     <string name="participate_release_candidate_headline">Wydanie kandydujące</string>
     <string name="participate_contribute_headline">Aktywni członkowie projektu</string>
-    <string name="participate_contribute_irc_text">Dołącz do rozmowy na IRC: &lt;a href=\"%1$s\">#nextcloud-mobile&lt;/a></string>
-    <string name="participate_contribute_forum_text">Pomóż innym na &lt;a href=\"%1$s\">forum&lt;/a></string>
-    <string name="participate_contribute_translate_text">&lt;a href=\"%1$s\">Przetłumacz&lt;/a> aplikację</string>
-    <string name="participate_contribute_github_text">Przejrzyj, zmień i wpisz kod, zobacz szczegóły: &lt;a href=\"%1$s\">CONTRIBUTING.md&lt;a></string>
+    <string name="participate_contribute_irc_text">Dołącz do rozmowy na IRC: &lt;font color=\"%1$s\">&lt;a href=\"%2$s\">#nextcloud-mobile&lt;/a>&lt;/font></string>
+    <string name="participate_contribute_forum_text">Pomóż innym na &lt;font color=\"%1$s\">&lt;a href=\"%2$s\">forum&lt;/a>&lt;/font></string>
+    <string name="participate_contribute_translate_text">&lt;font color=\"%1$s\">&lt;a href=\"%2$s\">Przetłumacz&lt;/a>&lt;/font> aplikację</string>
+    <string name="participate_contribute_github_text">Przejrzyj, zmień i wpisz kod, zobacz szczegóły &lt;font color=\"%1$s\">&lt;a href=\"%2$s\">CONTRIBUTING.md&lt;/a>&lt;/font></string>
     <string name="move_to">Przenieś do&#8230;</string>
     <string name="copy_to">Skopiuj do&#8230;</string>
     <string name="choose_remote_folder">Wybierz folder&#8230;</string>

@@ -133,7 +133,6 @@
     <string name="about_title">Tietoja</string>
     <string name="change_password">Vaihda salasana</string>
     <string name="delete_account">Poista tili</string>
-    <string name="delete_account_warning">Poista käyttäjä %s?\n\Poistoa ei voi perua</string>
     <string name="create_account">Luo tili</string>
     <string name="upload_chooser_title">Lataus täältä:</string>
     <string name="uploader_info_dirname">Kansion nimi</string>

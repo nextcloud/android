@@ -153,7 +153,6 @@
     <string name="about_title">Περί</string>
     <string name="change_password">Αλλαγή συνθημτικού</string>
     <string name="delete_account">Αφαίρεση λογαριασμού</string>
-    <string name="delete_account_warning">Διαγραφή λογαριασμού %s?\\n\\nΗ διαγραφή λογαριασμού δεν μπορεί να αναιρεθεί.</string>
     <string name="create_account">Δημιουργία λογαριασμού</string>
     <string name="upload_chooser_title">Μεταφόρτωση από &#8230;</string>
     <string name="uploader_info_dirname">Όνομα φακέλου</string>
@@ -559,10 +558,10 @@
     <string name="participate_beta_text">Αυτή περιέχει όλες τις επερχόμενες λειτουργίες και δαθέτει ότι τελευταίο έχει ενσωματωθεί. Σφάλματα/λάθη μπορεί να προκύψουν. Σας παρακαλούμε να μας τα αναφέρετε.</string>
     <string name="participate_release_candidate_headline">Release candidate</string>
     <string name="participate_contribute_headline">Ενεργή συνεισφορά</string>
-    <string name="participate_contribute_irc_text">Συμμετέχετε στη συνομιλία στο IRC: &lt;a href=\"%1$s\">#nextcloud-mobile&lt;/a></string>
-    <string name="participate_contribute_forum_text">Βοηθήστε χρήστες στο &lt;a href=\"%1$s\">forum&lt;/a></string>
-    <string name="participate_contribute_translate_text">&lt;a href=\"%1$s\">Μεταφράστε&lt;/a> την εφαρμογή</string>
-    <string name="participate_contribute_github_text">Συνεισφέρετε ως προγραμματιστής, για περισσότερες λεπτομέρειες δείτε &lt;a href=\"%1$s\">CONTRIBUTING.md&lt;/a></string>
+    <string name="participate_contribute_irc_text">Συμμετέχετε στη συνομιλία στο IRC: &lt;font color=\"%1$s\">&lt;a href=\"%2$s\">#nextcloud-mobile&lt;/a>&lt;/font></string>
+    <string name="participate_contribute_forum_text">Βοηθήστε χρήστες στο &lt;font color=\"%1$s\">&lt;a href=\"%2$s\">forum&lt;/a>&lt;/font></string>
+    <string name="participate_contribute_translate_text">&lt;font color=\"%1$s\">&lt;a href=\"%2$s\">Μεταφράστε&lt;/a>&lt;/font> την εφαρμογή</string>
+    <string name="participate_contribute_github_text">Συνεισφέρετε ως προγραμματιστής, για περισσότερες λεπτομέρειες δείτε &lt;font color=\"%1$s\">&lt;a href=\"%2$s\">CONTRIBUTING.md&lt;/a>&lt;/font></string>
     <string name="move_to">Μετακίνηση σε&#8230;</string>
     <string name="copy_to">Αντιγραφή σε&#8230;</string>
     <string name="choose_remote_folder">Επιλογή φακέλου&#8230;</string>

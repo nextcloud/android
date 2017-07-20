@@ -156,7 +156,6 @@
     <string name="about_title">О программе</string>
     <string name="change_password">Сменить пароль</string>
     <string name="delete_account">Удалить аккаунт</string>
-    <string name="delete_account_warning">Удалить аккаунт %s?\n\nУдаление не может быть отменено.</string>
     <string name="create_account">Создать аккаунт</string>
     <string name="upload_chooser_title">Загрузить из &#8230;</string>
     <string name="uploader_info_dirname">Имя каталога</string>
@@ -565,10 +564,10 @@
     <string name="participate_release_candidate_headline">Кандидат в релизы</string>
     <string name="participate_release_candidate_text">Релиз-кандидат (RC) — это текущее состояние готовящегося выпуска, и, ожидается, что он будет стабильным. Проверка с вашими индивидуальными настройками может помочь убедится в этом. Зарегистрируйтесь для тестирования в Google Play или загляните в раздел «версии» каталога приложений F-Droid.</string>
     <string name="participate_contribute_headline">Активное участие</string>
-    <string name="participate_contribute_irc_text">Присоединяйтесь к IRC-чату: &lt;a href=\"%1$s\">#nextcloud-mobile&lt;/a></string>
-    <string name="participate_contribute_forum_text">Помогайте другим на &lt;a href=\"%1$s\">форуме&lt;/a></string>
-    <string name="participate_contribute_translate_text">&lt;a href=\"%1$s\">Переводите&lt;/a> приложение</string>
-    <string name="participate_contribute_github_text">Рецензируйте, изменяйте и пишите код, подробности по ссылке  &lt;a href=\"%1$s\">CONTRIBUTING.md&lt;a> </string>
+    <string name="participate_contribute_irc_text">Присоединяйтесь к IRC-чату: &lt;font color=\"%1$s\">&lt;a href=\"%2$s\">#nextcloud-mobile&lt;/a>&lt;/font></string>
+    <string name="participate_contribute_forum_text">Помогайте другим на &lt;font color=\"%1$s\">&lt;a href=\"%2$s\">форуме&lt;/a>&lt;/font></string>
+    <string name="participate_contribute_translate_text">&lt;font color=\"%1$s\">&lt;a href=\"%2$s\">Переводите &lt;/a>&lt;/font> приложение</string>
+    <string name="participate_contribute_github_text">Рецензируйте, изменяйте и пишите код. Подробности по ссылке&lt;font color=\"%1$s\">&lt;a href=\"%2$s\">CONTRIBUTING.md&lt;/a>&lt;/font></string>
     <string name="move_to">Переместить в&#8230;</string>
     <string name="copy_to">Копировать в&#8230;</string>
     <string name="choose_remote_folder">Выберите каталог &#8230;</string>

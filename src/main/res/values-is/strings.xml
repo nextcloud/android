@@ -154,7 +154,6 @@ Smelltu hér til að fá þér einn frá þjónustuaðila.</string>
     <string name="about_title">Um hugbúnaðinn</string>
     <string name="change_password">Breyta lykilorði</string>
     <string name="delete_account">Fjarlægja notandaaðgang</string>
-    <string name="delete_account_warning">Eyða aðgangi %s?\n\nEyðing er óafturkræf.</string>
     <string name="create_account">Stofna aðgang</string>
     <string name="upload_chooser_title">Senda inn frá &#8230;</string>
     <string name="uploader_info_dirname">Nafn möppu</string>
@@ -561,10 +560,10 @@ Smelltu hér til að fá þér einn frá þjónustuaðila.</string>
     <string name="participate_beta_text">Þetta inniheldur alla væntanlega eiginleika og er alveg á jaðrinum hvað varðar stöðugleika. Villur geta komið upp, og ef slíkt gerist, endilega tilkynntu um þær.</string>
     <string name="participate_release_candidate_headline">Forútgáfa</string>
     <string name="participate_contribute_headline">Vertu virkur þáttakandi</string>
-    <string name="participate_contribute_irc_text">Taktu þátt í spjalli á IRC: &lt;a href=\"%1$s\">#nextcloud-mobile&lt;/a></string>
-    <string name="participate_contribute_forum_text">Hjálpaðu öðrum á &lt;a href=\"%1$s\">spjallvefnum&lt;/a></string>
-    <string name="participate_contribute_translate_text">&lt;a href=\"%1$s\">Þýddu&lt;/a> forritið</string>
-    <string name="participate_contribute_github_text">Yfirfarðu, bættu og skrifaðu kóða, skoðaðu &lt;a href=\"%1$s\">CONTRIBUTING.md&lt;a> fyrir nánari upplýsingar</string>
+    <string name="participate_contribute_irc_text">Taktu þátt í spjalli á IRC: &lt;font color=\"%1$s\">&lt;a href=\"%2$s\">#nextcloud-mobile&lt;/a>&lt;/font></string>
+    <string name="participate_contribute_forum_text">Hjálpaðu öðrum á &lt;font color=\"%1$s\">&lt;a href=\"%2$s\">spjallvefnum&lt;/a>&lt;/font></string>
+    <string name="participate_contribute_translate_text">&lt;font color=\"%1$s\">&lt;a href=\"%2$s\">Þýddu&lt;/a>&lt;/font> forritið</string>
+    <string name="participate_contribute_github_text">Yfirfarðu, bættu og skrifaðu kóða, skoðaðu &lt;font color=\"%1$s\">&lt;a href=\"%2$s\">CONTRIBUTING.md&lt;/a>&lt;/font> fyrir nánari upplýsingar</string>
     <string name="move_to">Færa í&#8230;</string>
     <string name="copy_to">Afrita í&#8230;</string>
     <string name="choose_remote_folder">Veldu möppu&#8230;</string>

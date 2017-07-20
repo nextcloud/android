@@ -519,7 +519,7 @@ public class FileDataStorageManager {
 
 
     public boolean removeFolder(OCFile folder, boolean removeDBData, boolean removeLocalContent) {
-        boolean success = false;
+        boolean success = true;
         if (folder != null && folder.isFolder()) {
             if (removeDBData && folder.getFileId() != -1) {
                 success = removeFolderInDb(folder);
@@ -527,6 +527,8 @@ public class FileDataStorageManager {
             if (removeLocalContent && success) {
                 success = removeLocalFolder(folder);
             }
+        } else {
+            success = false;
         }
 
         return success;
@@ -2156,6 +2158,22 @@ public class FileDataStorageManager {
         }
 
         return ocFiles;
+    }
+
+    public void deleteAllFiles() {
+        String where = ProviderTableMeta.FILE_ACCOUNT_OWNER + "=?";
+        String[] whereArgs = new String[]{mAccount.name};
+
+        if (getContentResolver() != null) {
+            getContentResolver().delete(ProviderTableMeta.CONTENT_URI_FILE, where, whereArgs);
+
+        } else {
+            try {
+                getContentProviderClient().delete(ProviderTableMeta.CONTENT_URI_FILE, where, whereArgs);
+            } catch (RemoteException e) {
+                Log_OC.e(TAG, "Exception in deleteAllFiles for account " + mAccount.name + ": " + e.getMessage(), e);
+            }
+        }
     }
 
 }
