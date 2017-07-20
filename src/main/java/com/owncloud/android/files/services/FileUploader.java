@@ -744,6 +744,7 @@ public class FileUploader extends Service
                 upload.cancel();
                 // need to update now table in mUploadsStorageManager,
                 // since the operation will not get to be run by FileUploader#uploadFile
+                mUploadsStorageManager.updateDatabaseUploadResult(Re, upload);
                 mUploadsStorageManager.removeUpload(accountName, remotePath);
             } else {
                 // try to cancel job in jobScheduler
@@ -894,6 +895,13 @@ public class FileUploader extends Service
             if (boundListener != null) {
                 boundListener.onTransferProgress(progressRate, totalTransferredSoFar,
                         totalToTransfer, fileName);
+
+                if (MainApp.getAppContext() != null &&
+                        (mCurrentUpload.getIsWifiRequired() && !Device.getNetworkType(MainApp.getAppContext()).
+                        equals(JobRequest.NetworkType.UNMETERED)) || (mCurrentUpload.getIsChargingRequired() &&
+                        !Device.isCharging(MainApp.getAppContext()))) {
+                    // pause
+                }
             }
         }
 
