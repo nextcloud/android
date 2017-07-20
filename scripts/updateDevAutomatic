@@ -57,7 +57,7 @@ cp CHANGELOG.md $tmpFile
 echo "## $(date '+%F %H:%M')" > CHANGELOG.md
 
 ## add new branches
-echo "New branches:"
+echo "New branches:" >> CHANGELOG.md
 if [ $(comm -13 mergedBranches <(cat devUpdateStatus | grep succ | cut -d"(" -f2 | cut -d")" -f1 | sort) | wc -l) -gt 0 ] ; then
     egrep "$(comm -13 mergedBranches <(cat devUpdateStatus | grep succ | cut -d"(" -f2 | cut -d")" -f1 | sort) )" devUpdateStatus | cut -d"]" -f2 | sed s'#$#]#'g | sed s'#^#-#'g | sed s'#$# added#'g >> CHANGELOG.md
 else
@@ -71,15 +71,16 @@ mv mergedBranches_unique mergedBranches
 echo >> CHANGELOG.md
 
 ## add updated branches
-echo "Updated branches:"
+echo "Updated branches:" >> CHANGELOG.md
 if [ $(cat devUpdateStatus | grep succ -c) -gt 0 ]; then
     cat devUpdateStatus | grep succ | cut -d"]" -f2 | sed s'#$#]#'g | sed s'#^#-#'g | sed s'#$# updated#'g >> CHANGELOG.md
 else
     echo "/" >> CHANGELOG.md
 fi
+echo >> CHANGELOG.md
 
 ## add conflicted branches
-echo "Conflicting branches:"
+echo "Conflicting branches:" >> CHANGELOG.md
 if [ $(cat devUpdateStatus | grep conflict -c) -gt 0 ]; then
     cat devUpdateStatus | grep conflict | cut -d"]" -f2 | sed s'#$#]#'g | sed s'#^#-#'g | sed s'#$# updated#'g >> CHANGELOG.md
 else
