@@ -532,6 +532,24 @@ public class FileOperationsHelper {
         }
     }
 
+    public void sendCachedImage(OCFile file) {
+//        // TODO check if already exists in cache, else download resized image first
+//        if (file != null) {
+//            Intent sendIntent = new Intent(Intent.ACTION_SEND);
+//            // set MimeType
+//            sendIntent.setType(file.getMimetype());
+//            sendIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse("content://" + DiskLruImageCacheFileProvider.AUTHORITY + file.getRemotePath()));
+//            sendIntent.putExtra(Intent.ACTION_SEND, true);      // Send Action
+//
+//            // Show dialog, without the own app
+//            String[] packagesToExclude = new String[] { mFileActivity.getPackageName() };
+//            DialogFragment chooserDialog = ShareLinkToDialog.newInstance(sendIntent, packagesToExclude);
+//            chooserDialog.show(mFileActivity.getSupportFragmentManager(), FTAG_CHOOSER_DIALOG);
+//        } else {
+//            Log_OC.wtf(TAG, "Trying to send a NULL OCFile");
+//        }
+    }
+
     public void setPictureAs(OCFile file) {
         if (file != null) {
             if (file.isDown()) {

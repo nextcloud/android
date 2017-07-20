@@ -122,7 +122,7 @@ public class UploaderAdapter extends SimpleAdapter {
                                 task
                         );
                         fileIcon.setImageDrawable(asyncDrawable);
-                        task.execute(file);
+                        task.execute(new ThumbnailsCacheManager.ThumbnailGenerationTaskObject(file, file.getRemoteId()));
                     }
                 }
             } else {

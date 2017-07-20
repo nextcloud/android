@@ -26,6 +26,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.support.v4.view.ViewPager;
@@ -41,6 +42,7 @@ import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.VirtualFolderType;
+import com.owncloud.android.db.PreferenceManager;
 import com.owncloud.android.files.services.FileDownloader;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploader;
@@ -121,13 +123,13 @@ public class PreviewImageActivity extends FileActivity implements
                         }
                     }
                 });
-         
+
         if (savedInstanceState != null) {
             mRequestWaitingForBinder = savedInstanceState.getBoolean(KEY_WAITING_FOR_BINDER);
         } else {
             mRequestWaitingForBinder = false;
         }
-        
+
     }
 
     private void initViewPager() {
@@ -149,7 +151,7 @@ public class PreviewImageActivity extends FileActivity implements
             }
 
             mPreviewImagePagerAdapter = new PreviewImagePagerAdapter(getSupportFragmentManager(),
-                    parentFolder, getAccount(), getStorageManager(), MainApp.isOnlyOnDevice());
+                    parentFolder, getAccount(), getStorageManager(), MainApp.isOnlyOnDevice(), getBaseContext());
         }
 
         mViewPager = (ExtendedViewPager) findViewById(R.id.fragmentPager);
@@ -325,7 +327,7 @@ public class PreviewImageActivity extends FileActivity implements
         finish();
     }
 
-    private void requestForDownload(OCFile file) {
+    public void requestForDownload(OCFile file) {
         if (mDownloaderBinder == null) {
             Log_OC.d(TAG, "requestForDownload called without binder to download service");
             
@@ -349,13 +351,16 @@ public class PreviewImageActivity extends FileActivity implements
         mHasSavedPosition = true;
         if (mDownloaderBinder == null) {
             mRequestWaitingForBinder = true;
-            
         } else {
             OCFile currentFile = mPreviewImagePagerAdapter.getFileAt(position); 
             getSupportActionBar().setTitle(currentFile.getFileName());
             setDrawerIndicatorEnabled(false);
-            if (!currentFile.isDown()
-                    && !mPreviewImagePagerAdapter.pendingErrorAt(position)) {
+
+            SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+            String behaviour = sharedPreferences.getString("preview_behaviour", "PREVIEW_BEHAVIOUR_PREVIEW");
+            boolean resizedBehaviour = behaviour.equalsIgnoreCase("PREVIEW_BEHAVIOUR_PREVIEW");
+
+            if (!currentFile.isDown() && !mPreviewImagePagerAdapter.pendingErrorAt(position) && !resizedBehaviour) {
                 requestForDownload(currentFile);
             }
 
@@ -456,6 +461,10 @@ public class PreviewImageActivity extends FileActivity implements
         }
     }
 
+    public void switchToFullScreen() {
+        hideSystemUI(mFullScreenAnchorView);
+    }
+
     @Override
     protected void onAccountSet(boolean stateWasRecovered) {
         super.onAccountSet(stateWasRecovered);
@@ -473,7 +482,7 @@ public class PreviewImageActivity extends FileActivity implements
             if (file.getFileId() > FileDataStorageManager.ROOT_PARENT_ID) {
                 file = getStorageManager().getFileById(file.getFileId());
             }
-            
+
             if (file != null) {
                 /// Refresh the activity according to the Account and OCFile set
                 setFile(file);  // reset after getting it fresh from storageManager
