@@ -352,7 +352,25 @@ public class ThumbnailsCacheManager {
         }
     }
 
-    public static class ThumbnailGenerationTask extends AsyncTask<Object, Void, Bitmap> {
+    public static class ThumbnailGenerationTaskObject {
+        private Object file;
+        private String imageKey;
+
+        public ThumbnailGenerationTaskObject(Object file, String imageKey) {
+            this.file = file;
+            this.imageKey = imageKey;
+        }
+
+        private Object getFile() {
+            return file;
+        }
+
+        private String getImageKey() {
+            return imageKey;
+        }
+    }
+
+    public static class ThumbnailGenerationTask extends AsyncTask<ThumbnailGenerationTaskObject, Void, Bitmap> {
         private final WeakReference<ImageView> mImageViewReference;
         private static Account mAccount;
         private ArrayList<ThumbnailGenerationTask> mAsyncTasks = null;
@@ -392,12 +410,6 @@ public class ThumbnailsCacheManager {
             mImageViewReference = null;
         }
 
-//        public ThumbnailGenerationTask(ImageView imageView, FileDataStorageManager storageManager,
-//                                       Account account, ProgressBar progressWheel) {
-//            this(imageView, storageManager, account);
-//            mProgressWheelRef = new WeakReference<ProgressBar>(progressWheel);
-//        }
-
         public ThumbnailGenerationTask(ImageView imageView) {
             // Use a WeakReference to ensure the ImageView can be garbage collected
             mImageViewReference = new WeakReference<>(imageView);
@@ -405,7 +417,7 @@ public class ThumbnailsCacheManager {
 
         @SuppressFBWarnings("Dm")
         @Override
-        protected Bitmap doInBackground(Object... params) {
+        protected Bitmap doInBackground(ThumbnailGenerationTaskObject... params) {
             Bitmap thumbnail = null;
 
             try {
@@ -418,11 +430,9 @@ public class ThumbnailsCacheManager {
                             getClientFor(ocAccount, MainApp.getAppContext());
                 }
 
-                mFile = params[0];
-
-                if (params.length == 3){
-                    mImageKey = (String) params[2];
-                }
+                ThumbnailGenerationTaskObject object = params[0];
+                mFile = object.getFile();
+                mImageKey = object.getImageKey();
 
                 if (mFile instanceof OCFile) {
                     thumbnail = doThumbnailFromOCFileInBackground();

@@ -297,7 +297,7 @@ public class PreviewImageFragment extends FileFragment {
                                         task
                                 );
                         mImageView.setImageDrawable(asyncDrawable);
-                        task.execute(getFile(), false);
+                        task.execute(getFile());
                     }
                 }
                 mMultiView.setVisibility(View.GONE);

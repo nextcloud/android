@@ -848,7 +848,7 @@ public class UploadFileOperation extends SyncOperation {
         // generate new Thumbnail
         final ThumbnailsCacheManager.ThumbnailGenerationTask task =
             new ThumbnailsCacheManager.ThumbnailGenerationTask(getStorageManager(), mAccount);
-        task.execute(file);
+        task.execute(new ThumbnailsCacheManager.ThumbnailGenerationTaskObject(file, file.getRemoteId()));
     }
 
     private void updateOCFile(OCFile file, RemoteFile remoteFile) {
