@@ -1,3 +1,13 @@
+## 2017-07-21 10:25
+New branches:
+/
+
+Updated branches:
+- Dev branch (nextcloud/dev) [https://github.com/nextcloud/android/tree/dev] updated
+
+Conflicting branches:
+/
+
 ## 2017-07-21 08:57
 New branches:
 - Show empty message again (nextcloud/showEmptyMessageAgain) [https://github.com/nextcloud/android/pull/1213] added
