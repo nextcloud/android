@@ -411,13 +411,6 @@
     <string name="file_migration_cleaning">Limpando&#8230;</string>
     <string name="file_migration_restoring_accounts_configuration">Restaurando a configuração das contas&#8230;</string>
     <string name="file_migration_ok_finished">Finalizado</string>
-    <string name="file_migration_failed_not_enough_space">ERRO: Espaço insuficiente</string>
-    <string name="file_migration_failed_not_writable">ERRO: Arquivo de destino não gravável</string>
-    <string name="file_migration_failed_not_readable">ERRO: Arquivo fonte não legível</string>
-    <string name="file_migration_failed_dir_already_exists">ERRO: Diretório Nextcloud já existe</string>
-    <string name="file_migration_failed_while_coping">ERRO: Falha durante a migração</string>
-    <string name="file_migration_failed_while_updating_index">ERRO: Falha ao atualizar índice</string>
-
     <string name="file_migration_directory_already_exists">Pasta Data já existe. Escolha uma das seguintes:</string>
     <string name="file_migration_override_data_folder">Substituir</string>
     <string name="file_migration_use_data_folder">Usar</string>
@@ -556,7 +549,6 @@
     <string name="drawer_participate">Participar</string>
     <string name="participate_testing_headline">Ajuda para teste</string>
     <string name="participate_testing_bug_text">Encontrou um erro? Comentários?</string>
-    <string name="participate_testing_report_text">Relate o problema no Github</string>
     <string name="participate_testing_version_text">Interessado em ajudar testando a próxima versão?</string>
     <string name="participate_beta_headline">Teste a versão dev</string>
     <string name="participate_beta_text">Isso inclui todos os recursos futuros e está num limite perigoso. Erros podem ocorrer e acontecendo, por favor reporte-os à nós.</string>

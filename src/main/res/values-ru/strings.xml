@@ -156,6 +156,7 @@
     <string name="about_title">О программе</string>
     <string name="change_password">Сменить пароль</string>
     <string name="delete_account">Удалить аккаунт</string>
+    <string name="delete_account_warning">Удалить аккаунт %s и все связанные с ним файлы?\n\n\Удаление не может быть отменено.</string>
     <string name="create_account">Создать аккаунт</string>
     <string name="upload_chooser_title">Загрузить из &#8230;</string>
     <string name="uploader_info_dirname">Имя каталога</string>
@@ -412,13 +413,6 @@
     <string name="file_migration_cleaning">Очистка&#8230;</string>
     <string name="file_migration_restoring_accounts_configuration">Восстановление настроек пользователя&#8230;</string>
     <string name="file_migration_ok_finished">Завершено</string>
-    <string name="file_migration_failed_not_enough_space">ОШИБКА: Недостаточно места</string>
-    <string name="file_migration_failed_not_writable">ОШИБКА: Файл назначения недоступен для записи</string>
-    <string name="file_migration_failed_not_readable">ОШИБКА: Исходный файл недоступен для чтения</string>
-    <string name="file_migration_failed_dir_already_exists">ОШИБКА: Каталог Nextcloud уже существует</string>
-    <string name="file_migration_failed_while_coping">ОШИБКА: Ошибка при миграции</string>
-    <string name="file_migration_failed_while_updating_index">ОШИБКА: Ошибка при обновлении индекса</string>
-
     <string name="file_migration_directory_already_exists">Каталог с данными уже существует. Выберите одно из действий:</string>
     <string name="file_migration_override_data_folder">Перезаписать</string>
     <string name="file_migration_use_data_folder">Использовать существующий</string>
@@ -557,7 +551,6 @@
     <string name="drawer_participate">Участие</string>
     <string name="participate_testing_headline">Помогите нам в тестировании</string>
     <string name="participate_testing_bug_text">Нашли ошибку? Заметили необычное поведение программы?</string>
-    <string name="participate_testing_report_text">Сообщить о проблеме на Github</string>
     <string name="participate_testing_version_text">Вам интересно участие в тестировании следующих версий?</string>
     <string name="participate_beta_headline">Протестируйте разрабатываемую версию</string>
     <string name="participate_beta_text">Она включает в себя все готовящиеся возможности с самой передовой. Могут появляться баги, в таком случае, напишите о них нам</string>
@@ -663,4 +656,5 @@
 
     <string name="folder_sync_folders">Настроить каталоги</string>
 
-  </resources>
+  <string name="test_server_button">Проверить соединение с сервером</string>
+</resources>

@@ -411,13 +411,6 @@ Kies er eentje van een provider.</string>
     <string name="file_migration_cleaning">Opruimen&#160;&#8230;</string>
     <string name="file_migration_restoring_accounts_configuration">Accountconfiguratie herstellen&#8230;</string>
     <string name="file_migration_ok_finished">Afgerond</string>
-    <string name="file_migration_failed_not_enough_space">FOUT: Niet genoeg ruimte</string>
-    <string name="file_migration_failed_not_writable">FOUT: Doelbestand niet schrijfbaar</string>
-    <string name="file_migration_failed_not_readable">FOUT: Bronbestand niet leesbaar</string>
-    <string name="file_migration_failed_dir_already_exists">FOUT: Nextcloudmap bestaat al</string>
-    <string name="file_migration_failed_while_coping">FOUT: Tijdens migratie</string>
-    <string name="file_migration_failed_while_updating_index">FOUT: Tijdens bijwerken index</string>
-
     <string name="file_migration_directory_already_exists">Datamap bestaat al. Kies een van de volgende:</string>
     <string name="file_migration_override_data_folder">Vervangen</string>
     <string name="file_migration_use_data_folder">Gebruiken</string>
@@ -556,7 +549,6 @@ Kies er eentje van een provider.</string>
     <string name="drawer_participate">Meedoen</string>
     <string name="participate_testing_headline">Help bij testen</string>
     <string name="participate_testing_bug_text">Bug gevonden? Rare dingen?</string>
-    <string name="participate_testing_report_text">Meld het op Github</string>
     <string name="participate_testing_version_text">Geïnteresseerd om ons te helpen de volgende versie te testen?</string>
     <string name="participate_beta_headline">Test de dev versie</string>
     <string name="participate_beta_text">Dit omvat alle komende opties en is zeer \'bleeding edge\'. Bugs/fouten kunnen voorkomen en in dat geval vragen we je die aan ons te melden.</string>

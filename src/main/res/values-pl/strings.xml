@@ -409,13 +409,6 @@
     <string name="file_migration_cleaning">Czyszczenie&#8230;</string>
     <string name="file_migration_restoring_accounts_configuration">Przywracanie konfiguracji konta&#8230;</string>
     <string name="file_migration_ok_finished">Skończone</string>
-    <string name="file_migration_failed_not_enough_space">BŁĄD: Brak miejsca</string>
-    <string name="file_migration_failed_not_writable">BŁĄD: Nie można zapisać pliku docelowego</string>
-    <string name="file_migration_failed_not_readable">BŁĄD: Nie można odczytać pliku źródłowego</string>
-    <string name="file_migration_failed_dir_already_exists">BŁĄD: Katalog Nextcloud już istnieje</string>
-    <string name="file_migration_failed_while_coping">BŁĄD: Nieudana migracja</string>
-    <string name="file_migration_failed_while_updating_index">BŁĄD: Nieudana aktualizacja indeksu</string>
-
     <string name="file_migration_directory_already_exists">Katalog danych już istnieje. Wybierz jeden z poniższych:</string>
     <string name="file_migration_override_data_folder">Zamień</string>
     <string name="file_migration_use_data_folder">Użyj</string>
@@ -553,7 +546,6 @@
     <string name="drawer_participate">Wspieraj</string>
     <string name="participate_testing_headline">Pomóż nam testować</string>
     <string name="participate_testing_bug_text">Znaleziono błąd? Jest coś dziwnego?</string>
-    <string name="participate_testing_report_text">Zgłoś błąd na GitHubie</string>
     <string name="participate_testing_version_text">Chcesz pomóc nam testować następną wersję?</string>
     <string name="participate_beta_headline">Sprawdź wersję rozwojową</string>
     <string name="participate_beta_text">Zawiera to w sobie wszystkie nadchodzące funkcjonalności i jest bardzo ryzykowne. Mogą się pojawiać błędy. Jeśli będą proszę je do nas zgłosić.</string>
