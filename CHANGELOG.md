@@ -1,3 +1,15 @@
+## 2017-07-21 08:57
+New branches:
+- Show empty message again (nextcloud/showEmptyMessageAgain) [https://github.com/nextcloud/android/pull/1213] added
+- Feature request: Select all particularly in search #637 (jsrck/master) [https://github.com/nextcloud/android/pull/1196] added
+
+Updated branches:
+- Show empty message again (nextcloud/showEmptyMessageAgain) [https://github.com/nextcloud/android/pull/1213] updated
+- Feature request: Select all particularly in search #637 (jsrck/master) [https://github.com/nextcloud/android/pull/1196] updated
+
+Conflicting branches:
+/
+
 ## 2017-07-21 07:24
 New branches:
 /

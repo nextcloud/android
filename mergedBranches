@@ -1,4 +1,5 @@
 Flole998/master
+jsrck/master
 nextcloud/1089_sharing_with_password_rule
 nextcloud/audioRotationBug
 nextcloud/autoUploadCrashIfFilepathIsNull
@@ -21,6 +22,7 @@ nextcloud/searchViewWrongFiles
 nextcloud/settingsOn4x
 nextcloud/sharedFolderMissing
 nextcloud/shareDialog
+nextcloud/showEmptyMessageAgain
 nextcloud/stopAsyncTasks
 nextcloud/transactionTooLarge
 nextcloud/userTheming
