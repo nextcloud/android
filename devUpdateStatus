@@ -1,6 +1,5 @@
-2017-07-21
+2017-07-21 10:32:53
 Branches: 13
-[00 / 13] Dev branch (nextcloud/dev) [https://github.com/nextcloud/android/tree/dev] was updated successfully
 [01 / 13] Enhance recommend to a friend #315 (jsrck/315-recommend) [https://github.com/nextcloud/android/pull/1216] CONFLICT
 [02 / 13] Show empty message when receiving external files (nextcloud/emptyMessageReceiveExternalFiles) [https://github.com/nextcloud/android/pull/1214] CONFLICT
 [03 / 13] Show empty message again (nextcloud/showEmptyMessageAgain) [https://github.com/nextcloud/android/pull/1213] no update needed
