@@ -356,13 +356,6 @@
     <string name="file_migration_cleaning">Llimpiando&#8230;</string>
     <string name="file_migration_restoring_accounts_configuration">Restaurando configuración de les cuentes&#8230;</string>
     <string name="file_migration_ok_finished">Finó</string>
-    <string name="file_migration_failed_not_enough_space">FALLU: Espaciu insuficiente</string>
-    <string name="file_migration_failed_not_writable">FALLU: El ficheru de destín nun ye escribible</string>
-    <string name="file_migration_failed_not_readable">FALLU: Nun pue lleese\'l códigu fonte</string>
-    <string name="file_migration_failed_dir_already_exists">FALLU: Yá esiste\'l to direutoriu de Nextcloud</string>
-    <string name="file_migration_failed_while_coping">FALLU: Fallu na migración</string>
-    <string name="file_migration_failed_while_updating_index">FALLU: Falló l\'anovamientu del índiz</string>
-
     <string name="file_migration_override_data_folder">Trocar</string>
     <string name="file_migration_use_data_folder">Usar</string>
 

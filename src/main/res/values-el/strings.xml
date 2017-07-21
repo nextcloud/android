@@ -408,13 +408,6 @@
     <string name="file_migration_cleaning">Γίνεται εκκαθάριση&#8230;</string>
     <string name="file_migration_restoring_accounts_configuration">Γίνεται επαναφορά ρυθμίσεων λογαριασμών&#8230;</string>
     <string name="file_migration_ok_finished">Ολοκληρώθηκε</string>
-    <string name="file_migration_failed_not_enough_space">ΣΦΑΛΜΑ: Ανεπαρκής αποθηκευτικός χώρος</string>
-    <string name="file_migration_failed_not_writable">ΣΦΑΛΜΑ: Το αρχείο προορισμού δεν είναι εγγράψιμο</string>
-    <string name="file_migration_failed_not_readable">Σφάλμα: Το αρχείο προέλευσης δεν είναι αναγνώσιμο</string>
-    <string name="file_migration_failed_dir_already_exists">ΣΦΑΛΜΑ: Υπάρχει ήδη ο κατάλογος Nextcloud</string>
-    <string name="file_migration_failed_while_coping">ΣΦΑΛΜΑ: Κατά την μεταφορά</string>
-    <string name="file_migration_failed_while_updating_index">ΣΦΑΛΜΑ: Κατά την ενημέρωση ευρετηρίου</string>
-
     <string name="file_migration_directory_already_exists">Ο φάκελος δεδομένων υπάρχει ήδη. Επιλέξτε ένα από τα παρακάτω:</string>
     <string name="file_migration_override_data_folder">Αντικατάσταση</string>
     <string name="file_migration_use_data_folder">Χρήση</string>
@@ -552,7 +545,6 @@
     <string name="drawer_participate">Συμμετοχή</string>
     <string name="participate_testing_headline">Βοηθήστε μας στις δοκιμές</string>
     <string name="participate_testing_bug_text">Βρήκατε σφάλμα; Κάτι σας φαίνεται παράξενο;</string>
-    <string name="participate_testing_report_text">Αναφέρετε σφάλμα στο Github</string>
     <string name="participate_testing_version_text">Σας ενδιαφέρει να μας βοηθήσετε να δοκιμάσουμε την επόμενη έκδοση;</string>
     <string name="participate_beta_headline">Δοκιμή της εκδοσης προς ανάπτυξη</string>
     <string name="participate_beta_text">Αυτή περιέχει όλες τις επερχόμενες λειτουργίες και δαθέτει ότι τελευταίο έχει ενσωματωθεί. Σφάλματα/λάθη μπορεί να προκύψουν. Σας παρακαλούμε να μας τα αναφέρετε.</string>

@@ -411,13 +411,6 @@
     <string name="file_migration_cleaning">Rydder&#8230;</string>
     <string name="file_migration_restoring_accounts_configuration">Gjenoppretter kontokonfigurasjon&#8230;</string>
     <string name="file_migration_ok_finished">Fullført</string>
-    <string name="file_migration_failed_not_enough_space">FEIL: Ikke nok plass</string>
-    <string name="file_migration_failed_not_writable">FEIL: Målfila er ikke skrivbar</string>
-    <string name="file_migration_failed_not_readable">FEIL: Kildefila er ikke lesbar</string>
-    <string name="file_migration_failed_dir_already_exists">FEIL: Nextcloudmappen finnes allerede</string>
-    <string name="file_migration_failed_while_coping">FEIL: Under migrering</string>
-    <string name="file_migration_failed_while_updating_index">FEIL: Under oppdatering av indeks</string>
-
     <string name="file_migration_directory_already_exists">Datamappen finnes allerede. Velg en av disse:</string>
     <string name="file_migration_override_data_folder">Erstatt</string>
     <string name="file_migration_use_data_folder">Bruk</string>
@@ -556,7 +549,6 @@
     <string name="drawer_participate">Delta</string>
     <string name="participate_testing_headline">Hjelp oss å teste</string>
     <string name="participate_testing_bug_text">Funnet en feil? Føles noe rart?</string>
-    <string name="participate_testing_report_text">Meld en feil på Github</string>
     <string name="participate_testing_version_text">Er du interessert i å hjelpe til ved å teste den neste versjonen?</string>
     <string name="participate_beta_headline">Test utviklerversjonen</string>
     <string name="participate_beta_text">Denne inneholder alle kommende funksjoner og er helt på kanten. Feil/feilmeldinger kan oppstå og i sådant fall, meld fra om dem til oss.</string>
