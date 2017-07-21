@@ -14,7 +14,7 @@ branchesCount=$(echo "$branches" | wc -l)
 count=1
 conflictingBranches=0
 
-date +%F > $statusFile
+date "+%F %X" > $statusFile
 echo "Branches: $branchesCount" >> $statusFile
 
 if [ $devBranchWasUpdated -eq 0 ]; then
