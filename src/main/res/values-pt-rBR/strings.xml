@@ -660,5 +660,5 @@
 
     <string name="folder_sync_folders">Configurar pastas</string>
 
-  <string name="test_server_button">Teste de conexão ao servidor</string>
+    <string name="test_server_button">Teste de conexão ao servidor</string>
 </resources>

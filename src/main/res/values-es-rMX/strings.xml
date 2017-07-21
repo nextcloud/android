@@ -68,7 +68,7 @@
     <string name="prefs_remember_last_upload_location_summary">Recordar la ubicación del elemento compartido usado más recientemente </string>
 
 	<string name="recommend_subject">Prueba  %1$s en tu teléfono inteligente!</string>
-	<string name="recommend_text">Quisiera invitarte a usar %1$s en tu teléfono inteligente\nDescárgalo aquí: %2$s</string>
+<string name="recommend_text">Quisiera invitarte a usar %1$s en tu teléfono inteligente\nDescárgalo aquí: %2$s</string>
 
     <string name="auth_check_server">Verficar el servidor</string>
     <string name="auth_host_url">Dirección del servidor https://…</string>
@@ -264,14 +264,15 @@
 	<string name="auth_unauthorized">Nombre de usuario o contraseña incorrecto</string>
 	<string name="auth_oauth_error">Autorización no exitosa</string>
 	<string name="auth_oauth_error_access_denied">Acceso denegado por el servidor de autorización</string>
-	<string name="auth_wtf_reenter_URL">Estado inesperado, por favor reingresa la dirección del servidor</string>
+<string name="auth_wtf_reenter_URL">Estado inesperado, por favor reingresa la dirección del servidor</string>
+
     <string name="auth_expired_oauth_token_toast">Tu autorización ha expirado. Por favor vuelve a autorizar</string>
     <string name="auth_expired_basic_auth_toast">Por favor ingresa tu contraseña actual</string>
     <string name="auth_expired_saml_sso_token_toast">Tu sesión ha expirado. Por favor conectate de nuevo</string>
 	<string name="auth_connecting_auth_server">Conectando al servidor de autenticación...</string>
 	<string name="auth_unsupported_auth_method">El servidor no soporta este método de autenticación</string>
 	<string name="auth_unsupported_multiaccount">%1$s no soporta cuentas múltiples</string>
-	<string name="auth_fail_get_user_name">Tu servidor no está regresando un ID de usuario correcto, por favor contacta al adminitrador</string>
+    <string name="auth_fail_get_user_name">Tu servidor no está regresando un ID de usuario correcto, por favor contacta al adminitrador</string>
 	<string name="auth_can_not_auth_against_server">No es posible autenticarse en este servidor</string>
     <string name="auth_account_does_not_exist">La cuenta aún no existe en el dispositivo</string>
 
@@ -365,7 +366,7 @@
     <string name="prefs_instant_upload_path_use_subfolders_title">Usar sub carpetas</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Almacenar en sub carpetas con base en el año y mes</string>
 
-	<string name="share_link_no_support_share_api">No se permite compartir en tu servidor. Por favor contacta a tu adminstrador. </string>
+<string name="share_link_no_support_share_api">No se permite compartir en tu servidor. Por favor contacta a tu adminstrador. </string>
 	<string name="share_link_file_no_exist">No fue posible compartir. Por favor revisa si el archivo existe</string>
 	<string name="share_link_file_error">Se presentó un error al tratar de compartir este archivo o carpeta</string>
 	<string name="unshare_link_file_no_exist">Falla al dejar de compartir. Por favor revisa si existe el archivo</string>
@@ -430,9 +431,9 @@
     <string name="drawer_manage_accounts">Administrar cuentas</string>
     <string name="auth_redirect_non_secure_connection_title">La conexión segura se está redirigiendo a través de una ruta insegura.</string>
 
-	<string name="actionbar_logger">Bitácoras</string>
+    <string name="actionbar_logger">Bitácoras</string>
 	<string name="log_send_history_button">Enviar histórico</string>
-	<string name="log_send_no_mail_app">No se encontró alguna aplicación para el envío de bitácoras. Por favor instala un cliente de correo electrónico. </string>
+    <string name="log_send_no_mail_app">No se encontró alguna aplicación para el envío de bitácoras. Por favor instala un cliente de correo electrónico. </string>
 	<string name="log_send_mail_subject"> %1$s bitácora de aplicación Android</string>
 	<string name="log_progress_dialog_text">Cargando información &#8230;</string>
 
@@ -440,7 +441,7 @@
 	<string name="saml_authentication_wrong_pass">Contraseña incorrecta</string>
 	<string name="actionbar_move">Mover</string>
     <string name="actionbar_copy">Copiar</string>
-	<string name="file_list_empty_moving">No hay nada aquí. Puedes agregar una carpeta.</string>
+    <string name="file_list_empty_moving">No hay nada aquí. Puedes agregar una carpeta.</string>
 	<string name="folder_picker_choose_button_text">Seleccionar</string>
 
     <string name="move_file_not_found">No fue posible mover el archivo. Por favor verifica si existe. </string>
@@ -660,5 +661,5 @@
 
     <string name="folder_sync_folders">Configurar carpetas</string>
 
-  <string name="test_server_button">Probar la conexión del servidor</string>
+    <string name="test_server_button">Probar la conexión del servidor</string>
 </resources>
