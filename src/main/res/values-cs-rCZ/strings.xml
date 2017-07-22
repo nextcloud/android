@@ -411,6 +411,13 @@
     <string name="file_migration_cleaning">Čištění&#8230;</string>
     <string name="file_migration_restoring_accounts_configuration">Obnovování konfigurace účtů&#8230;</string>
     <string name="file_migration_ok_finished">Dokončeno</string>
+    <string name="file_migration_failed_not_enough_space">Chyba: Nedostatek volného místa</string>
+    <string name="file_migration_failed_not_writable">Chyba: Do cíle nelze zapisovat</string>
+    <string name="file_migration_failed_not_readable">Chyba: Soubor nelze číst</string>
+    <string name="file_migration_failed_dir_already_exists">Chyba: Nextcloud adresář již existuje</string>
+    <string name="file_migration_failed_while_coping">Chyba: V průběhu migrace</string>
+    <string name="file_migration_failed_while_updating_index">Chyba: Nepodařilo se aktualizovat index</string>
+
     <string name="file_migration_directory_already_exists">Datový adresář již existuje. Vyberte jednu z následujících možností:</string>
     <string name="file_migration_override_data_folder">Nahradit</string>
     <string name="file_migration_use_data_folder">Použít</string>
@@ -549,6 +556,7 @@
     <string name="drawer_participate">Zúčastnit se</string>
     <string name="participate_testing_headline">Pomoz nám testovat</string>
     <string name="participate_testing_bug_text">Našli jste chybu? Něco podivného?</string>
+    <string name="participate_testing_report_text">Nahlásit chybu na Github</string>
     <string name="participate_testing_version_text">Chceš nám pomoci testovat další verzi?</string>
     <string name="participate_beta_headline">Testovat noční verzi</string>
     <string name="participate_beta_text">Zahrnuje všechny nadcházející funkce a pohybuje se na hraně stability. Mohou se vyskytnout chyby, a pokud ano, nahlašte nám je prosím.</string>
