@@ -35,15 +35,12 @@ import com.owncloud.android.db.OCUpload;
 import com.owncloud.android.db.ProviderMeta.ProviderTableMeta;
 import com.owncloud.android.db.UploadResult;
 import com.owncloud.android.files.services.FileUploader;
+import com.owncloud.android.jobs.AutoUploadJob;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.operations.UploadFileOperation;
-import com.owncloud.android.jobs.AutoUploadJob;
 
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collections;
-import java.util.List;
 import java.util.Observable;
 import java.util.Set;
 
@@ -386,48 +383,8 @@ public class UploadsStorageManager extends Observable {
                 new String[]{account.name}
         );
 
-        //return uploads;
+        return uploads;
 
-        List<OCUpload> result = getPendingJobs();
-        Collections.addAll(result, uploads);
-        return result.toArray(uploads);
-    }
-
-    /**
-     * Get all uploads which are currently being uploaded or waiting in the queue to be uploaded.
-     */
-    public OCUpload[] getCurrentAndPendingUploads() {
-
-
-        OCUpload[] uploads = getUploads(
-            ProviderTableMeta.UPLOADS_STATUS + "==" + UploadStatus.UPLOAD_IN_PROGRESS.value + " OR " +
-            ProviderTableMeta.UPLOADS_LAST_RESULT + "==" + UploadResult.DELAYED_FOR_WIFI.getValue() + " OR " +
-            ProviderTableMeta.UPLOADS_LAST_RESULT + "==" + UploadResult.DELAYED_FOR_CHARGING.getValue(),
-            null
-        );
-
-        //return uploads;
-
-        List<OCUpload> result = getPendingJobs();
-        Collections.addAll(result, uploads);
-        return result.toArray(uploads);
-    }
-
-    private List<OCUpload> getPendingJobs() {
-        Set<JobRequest> jobRequests = JobManager.create(mContext).getAllJobRequestsForTag(AutoUploadJob.TAG);
-
-        ArrayList<OCUpload> list = new ArrayList<>();
-
-        for (JobRequest ji : jobRequests) {
-            PersistableBundleCompat extras = ji.getExtras();
-            OCUpload upload = new OCUpload(extras.getString("filePath", ""),
-                    extras.getString("remotePath", ""),
-                    extras.getString("account", ""));
-
-            list.add(upload);
-        }
-
-        return list;
     }
 
     public void cancelPendingAutoUploadJobsForAccount(Account account) {
