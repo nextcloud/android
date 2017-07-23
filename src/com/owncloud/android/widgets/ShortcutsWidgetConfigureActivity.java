@@ -42,10 +42,6 @@ public class ShortcutsWidgetConfigureActivity extends Activity
     private static final String PREFS_NAME = "com.owncloud.android.widgets.ShortcutsWidget";
     private static final String PREF_PREFIX_KEY = "appwidget_";
 
-    public ShortcutsWidgetConfigureActivity() {
-        super();
-    }
-
     @Override
     public void onCreate(Bundle icicle) {
         super.onCreate(icicle);
@@ -77,12 +73,11 @@ public class ShortcutsWidgetConfigureActivity extends Activity
         if (fr == null) {
             accountsDialogFragment.show(getFragmentManager(), AccountsDialogFragment.TAG);
         }
-
     }
 
 
     // Write the prefix to the SharedPreferences object for this widget
-    static void saveAccountPref(Context context, int appWidgetId, String text) {
+    private static void saveAccountPref(Context context, int appWidgetId, String text) {
         SharedPreferences.Editor prefs = context.getSharedPreferences(PREFS_NAME, 0).edit();
         prefs.putString(PREF_PREFIX_KEY + appWidgetId, text);
         prefs.commit();
@@ -90,7 +85,7 @@ public class ShortcutsWidgetConfigureActivity extends Activity
 
     // Read the prefix from the SharedPreferences object for this widget.
     // If there is no preference saved, get the default from a resource
-    static String loadAccountPref(Context context, int appWidgetId) {
+    private static String loadAccountPref(Context context, int appWidgetId) {
         SharedPreferences prefs = context.getSharedPreferences(PREFS_NAME, 0);
         String userValue = prefs.getString(PREF_PREFIX_KEY + appWidgetId, null);
         if (userValue != null) {
@@ -100,7 +95,7 @@ public class ShortcutsWidgetConfigureActivity extends Activity
         }
     }
 
-    static void deleteAccountPref(Context context, int appWidgetId) {
+    private static void deleteAccountPref(Context context, int appWidgetId) {
         SharedPreferences.Editor prefs = context.getSharedPreferences(PREFS_NAME, 0).edit();
         prefs.remove(PREF_PREFIX_KEY + appWidgetId);
         prefs.commit();

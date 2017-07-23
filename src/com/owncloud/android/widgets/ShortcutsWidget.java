@@ -72,8 +72,7 @@ public class ShortcutsWidget extends AppWidgetProvider {
         // Enter relevant functionality for when the last widget is disabled
     }
 
-    static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
-                                int appWidgetId) {
+    private static void updateAppWidget(Context context, AppWidgetManager appWidgetManager, int appWidgetId) {
 
         CharSequence widgetAccount =
                 ShortcutsWidgetConfigureActivity.loadAccountPref(context, appWidgetId);
