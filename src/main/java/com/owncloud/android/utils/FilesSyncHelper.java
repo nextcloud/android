@@ -29,8 +29,6 @@ import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.evernote.android.job.JobRequest;
-import com.evernote.android.job.util.Device;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
@@ -40,9 +38,7 @@ import com.owncloud.android.datamodel.SyncedFolder;
 import com.owncloud.android.datamodel.SyncedFolderProvider;
 import com.owncloud.android.datamodel.UploadsStorageManager;
 import com.owncloud.android.db.OCUpload;
-import com.owncloud.android.db.UploadResult;
 import com.owncloud.android.files.services.FileUploader;
-import com.owncloud.android.operations.UploadFileOperation;
 
 import org.lukhnos.nnio.file.FileVisitResult;
 import org.lukhnos.nnio.file.Files;
@@ -187,7 +183,6 @@ public class FilesSyncHelper {
 
     public static void restartJobsIfNeeded() {
         final Context context = MainApp.getAppContext();
-        boolean restartedInCurrentIteration;
 
         FileUploader.UploadRequester uploadRequester = new FileUploader.UploadRequester();
 
@@ -201,7 +196,6 @@ public class FilesSyncHelper {
         for (OCUpload failedUpload : failedUploads) {
             accountExists = false;
             fileExists = new File(failedUpload.getLocalPath()).exists();
-            restartedInCurrentIteration = false;
 
             // check if accounts still exists
             for (Account account : AccountUtils.getAccounts(context)) {
@@ -211,44 +205,16 @@ public class FilesSyncHelper {
                 }
             }
 
-            if (!failedUpload.getLastResult().equals(UploadResult.UPLOADED)) {
-                if (failedUpload.getCreadtedBy() == UploadFileOperation.CREATED_AS_INSTANT_PICTURE) {
-                    if (accountExists && fileExists) {
-                        // Handle case of charging
-
-                        if (failedUpload.isWhileChargingOnly() && Device.isCharging(context)) {
-                            if (failedUpload.isUseWifiOnly() &&
-                                    Device.getNetworkType(context).equals(JobRequest.NetworkType.UNMETERED)) {
-                                uploadRequester.retry(context, failedUpload);
-                                restartedInCurrentIteration = true;
-                            } else if (!failedUpload.isUseWifiOnly() &&
-                                    !Device.getNetworkType(context).equals(JobRequest.NetworkType.ANY)) {
-                                uploadRequester.retry(context, failedUpload);
-                                restartedInCurrentIteration = true;
-                            }
-                        }
-
-                        // Handle case of wifi
-
-                        if (!restartedInCurrentIteration) {
-                            if (failedUpload.isUseWifiOnly() &&
-                                    Device.getNetworkType(context).equals(JobRequest.NetworkType.UNMETERED)) {
-                                uploadRequester.retry(context, failedUpload);
-                            } else if (!failedUpload.isUseWifiOnly() &&
-                                    !Device.getNetworkType(context).equals(JobRequest.NetworkType.ANY)) {
-                                uploadRequester.retry(context, failedUpload);
-                            }
-                        }
-                    }
-                } else {
-                    if (accountExists && fileExists) {
-                        uploadRequester.retry(context, failedUpload);
-                    } else {
-                        uploadsStorageManager.removeUpload(failedUpload);
-                    }
-                }
+            if (!accountExists || !fileExists) {
+                uploadsStorageManager.removeUpload(failedUpload);
             }
         }
+
+        uploadRequester.retryFailedUploads(
+                context,
+                null,
+                null
+        );
     }
 }
 
