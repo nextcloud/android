@@ -54,9 +54,6 @@ import java.net.SocketTimeoutException;
  * always following the same policy
  */
 public class ErrorMessageAdapter {
-
-    public ErrorMessageAdapter() { }
-
     /**
      * Return an internationalized user message corresponding to an operation result
      * and the operation performed.
@@ -114,72 +111,16 @@ public class ErrorMessageAdapter {
         String message = null;
 
         if (operation instanceof UploadFileOperation) {
-
-            if (result.isSuccess()) {
-                message = String.format(
-                        res.getString(R.string.uploader_upload_succeeded_content_single),
-                        ((UploadFileOperation) operation).getFileName());
-            } else {
-
-                if (result.getCode() == ResultCode.LOCAL_STORAGE_FULL
-                        || result.getCode() == ResultCode.LOCAL_STORAGE_NOT_COPIED) {
-                    message = String.format(
-                            res.getString(R.string.error__upload__local_file_not_copied),
-                            ((UploadFileOperation) operation).getFileName(),
-                            res.getString(R.string.app_name));
-
-                } else if (result.getCode() == ResultCode.FORBIDDEN) {
-                    message = String.format(res.getString(R.string.forbidden_permissions),
-                            res.getString(R.string.uploader_upload_forbidden_permissions));
-
-                } else if (result.getCode() == ResultCode.INVALID_CHARACTER_DETECT_IN_SERVER) {
-                    message = res.getString(R.string.filename_forbidden_charaters_from_server);
-
-                }
-            }
+            message = getMessageForUploadFileOperation(result, (UploadFileOperation) operation, res);
 
         } else if (operation instanceof DownloadFileOperation) {
-
-            if (result.isSuccess()) {
-                message = String.format(
-                        res.getString(R.string.downloader_download_succeeded_content),
-                        new File(((DownloadFileOperation) operation).getSavePath()).getName());
-
-            } else {
-                if (result.getCode() == ResultCode.FILE_NOT_FOUND) {
-                    message = res.getString(R.string.downloader_download_file_not_found);
-
-                }
-            }
+            message = getMessageForDownloadFileOperation(result, (DownloadFileOperation) operation, res);
 
         } else if (operation instanceof RemoveFileOperation) {
-            if (result.isSuccess()) {
-                message = res.getString(R.string.remove_success_msg);
-
-            } else {
-                if (result.getCode().equals(ResultCode.FORBIDDEN)) {
-                    // Error --> No permissions
-                    message = String.format(res.getString(R.string.forbidden_permissions),
-                            res.getString(R.string.forbidden_permissions_delete));
-                }
-            }
+            message = getMessageForRemoveFileOperation(result, res);
 
         } else if (operation instanceof RenameFileOperation) {
-            if (result.getCode().equals(ResultCode.INVALID_LOCAL_FILE_NAME)) {
-                message = res.getString(R.string.rename_local_fail_msg);
-
-            } else if (result.getCode().equals(ResultCode.FORBIDDEN)) {
-                // Error --> No permissions
-                message = String.format(res.getString(R.string.forbidden_permissions),
-                        res.getString(R.string.forbidden_permissions_rename));
-
-            } else if (result.getCode().equals(ResultCode.INVALID_CHARACTER_IN_NAME)) {
-                message = res.getString(R.string.filename_forbidden_characters);
-
-            } else if (result.getCode() == ResultCode.INVALID_CHARACTER_DETECT_IN_SERVER) {
-                message = res.getString(R.string.filename_forbidden_charaters_from_server);
-
-            }
+            message = getMessageForRenameFileOperation(result, res);
 
         } else if (operation instanceof SynchronizeFileOperation) {
             if (!((SynchronizeFileOperation) operation).transferWasRequested()) {
@@ -187,115 +128,235 @@ public class ErrorMessageAdapter {
             }
 
         } else if (operation instanceof CreateFolderOperation) {
-            if (result.getCode() == ResultCode.INVALID_CHARACTER_IN_NAME) {
-                message = res.getString(R.string.filename_forbidden_characters);
-
-            } else if (result.getCode().equals(ResultCode.FORBIDDEN)) {
-                message = String.format(res.getString(R.string.forbidden_permissions),
-                        res.getString(R.string.forbidden_permissions_create));
-
-            } else if (result.getCode() == ResultCode.INVALID_CHARACTER_DETECT_IN_SERVER) {
-                message = res.getString(R.string.filename_forbidden_charaters_from_server);
-
-            }
+            message = getMessageForCreateFolderOperation(result, res);
 
         } else if (operation instanceof CreateShareViaLinkOperation ||
                 operation instanceof CreateShareWithShareeOperation) {
 
-            if (result.getData() != null && result.getData().size() > 0) {
-                message = (String) result.getData().get(0);     // share API sends its own error messages
-
-            } else if (result.getCode() == ResultCode.SHARE_NOT_FOUND)  {
-                message = res.getString(R.string.share_link_file_no_exist);
-
-            } else if (result.getCode() == ResultCode.SHARE_FORBIDDEN) {
-                // Error --> No permissions
-                message = String.format(res.getString(R.string.forbidden_permissions),
-                        res.getString(R.string.share_link_forbidden_permissions));
-
-            }
+            message = getMessageForCreateShareOperations(result, res);
 
         } else if (operation instanceof UnshareOperation) {
 
-            if (result.getData() != null && result.getData().size() > 0) {
-                message = (String) result.getData().get(0);     // share API sends its own error messages
-
-            } else if (result.getCode() == ResultCode.SHARE_NOT_FOUND) {
-                message = res.getString(R.string.unshare_link_file_no_exist);
-
-            } else if (result.getCode() == ResultCode.SHARE_FORBIDDEN) {
-                // Error --> No permissions
-                message = String.format(res.getString(R.string.forbidden_permissions),
-                        res.getString(R.string.unshare_link_forbidden_permissions));
-
-            }
+            message = getMessageForUnshareOperation(result, res);
 
         } else if (operation instanceof UpdateShareViaLinkOperation ||
                 operation instanceof UpdateSharePermissionsOperation) {
 
-            if (result.getData() != null && result.getData().size() > 0) {
-                message = (String) result.getData().get(0);     // share API sends its own error messages
-
-            } else if (result.getCode() == ResultCode.SHARE_NOT_FOUND) {
-                message = res.getString(R.string.update_link_file_no_exist);
-
-            } else if (result.getCode() == ResultCode.SHARE_FORBIDDEN) {
-                // Error --> No permissions
-                message = String.format(res.getString(R.string.forbidden_permissions),
-                        res.getString(R.string.update_link_forbidden_permissions));
-
-            }
+            message = getMessageForUpdateShareOperations(result, res);
 
         } else if (operation instanceof MoveFileOperation) {
 
-            if (result.getCode() == ResultCode.FILE_NOT_FOUND) {
-                message = res.getString(R.string.move_file_not_found);
-            } else if (result.getCode() == ResultCode.INVALID_MOVE_INTO_DESCENDANT) {
-                message = res.getString(R.string.move_file_invalid_into_descendent);
-
-            } else if (result.getCode() == ResultCode.INVALID_OVERWRITE) {
-                message = res.getString(R.string.move_file_invalid_overwrite);
-
-            } else if (result.getCode() == ResultCode.FORBIDDEN) {
-                message = String.format(res.getString(R.string.forbidden_permissions),
-                        res.getString(R.string.forbidden_permissions_move));
-
-            } else if (result.getCode() == ResultCode.INVALID_CHARACTER_DETECT_IN_SERVER) {
-                message = res.getString(R.string.filename_forbidden_charaters_from_server);
-
-            }
+            message = getMessageForMoveFileOperation(result, res);
 
         } else if (operation instanceof SynchronizeFolderOperation) {
 
-            if (!result.isSuccess()) {
-                String folderPathName = new File(
-                        ((SynchronizeFolderOperation) operation).getFolderPath()).getName();
-                if (result.getCode() == ResultCode.FILE_NOT_FOUND) {
-                    message = String.format(
-                            res.getString(R.string.sync_current_folder_was_removed),
-                            folderPathName
-                    );
-                }
-            }
+            message = getMessageForSynchronizeFolderOperation(result, (SynchronizeFolderOperation) operation, res);
 
         } else if (operation instanceof CopyFileOperation) {
+            message = getMessageForCopyFileOperation(result, res);
+        }
+
+        return message;
+    }
+
+    private static String getMessageForSynchronizeFolderOperation(
+            RemoteOperationResult result,
+            SynchronizeFolderOperation operation,
+            Resources res
+    ) {
+        if (!result.isSuccess() && result.getCode() == ResultCode.FILE_NOT_FOUND) {
+            return String.format(
+                    res.getString(R.string.sync_current_folder_was_removed),
+                    new File(operation.getFolderPath()).getName()
+            );
+        }
+        return
+                null;
+    }
+
+    private static String getMessageForMoveFileOperation(RemoteOperationResult result, Resources res) {
+        if (result.getCode() == ResultCode.FILE_NOT_FOUND) {
+            return res.getString(R.string.move_file_not_found);
+        } else if (result.getCode() == ResultCode.INVALID_MOVE_INTO_DESCENDANT) {
+            return res.getString(R.string.move_file_invalid_into_descendent);
+
+        } else if (result.getCode() == ResultCode.INVALID_OVERWRITE) {
+            return res.getString(R.string.move_file_invalid_overwrite);
+
+        } else if (result.getCode() == ResultCode.FORBIDDEN) {
+            return String.format(res.getString(R.string.forbidden_permissions),
+                    res.getString(R.string.forbidden_permissions_move));
+
+        } else if (result.getCode() == ResultCode.INVALID_CHARACTER_DETECT_IN_SERVER) {
+            return res.getString(R.string.filename_forbidden_charaters_from_server);
+        }
+        return null;
+    }
+
+    private static String getMessageForUpdateShareOperations(RemoteOperationResult result, Resources res) {
+        if (result.getData() != null && result.getData().size() > 0) {
+            return (String) result.getData().get(0);     // share API sends its own error messages
+
+        } else if (result.getCode() == ResultCode.SHARE_NOT_FOUND) {
+            return res.getString(R.string.update_link_file_no_exist);
+
+        } else if (result.getCode() == ResultCode.SHARE_FORBIDDEN) {
+            // Error --> No permissions
+            return String.format(res.getString(R.string.forbidden_permissions),
+                    res.getString(R.string.update_link_forbidden_permissions));
+
+        }
+        return null;
+    }
+
+    private static String getMessageForUnshareOperation(RemoteOperationResult result, Resources res) {
+        if (result.getData() != null && result.getData().size() > 0) {
+            return (String) result.getData().get(0);     // share API sends its own error messages
+
+        } else if (result.getCode() == ResultCode.SHARE_NOT_FOUND) {
+            return res.getString(R.string.unshare_link_file_no_exist);
+
+        } else if (result.getCode() == ResultCode.SHARE_FORBIDDEN) {
+            // Error --> No permissions
+            return String.format(res.getString(R.string.forbidden_permissions),
+                    res.getString(R.string.unshare_link_forbidden_permissions));
+
+        }
+        return null;
+    }
+
+    private static String getMessageForCopyFileOperation(RemoteOperationResult result, Resources res) {
+        if (result.getCode() == ResultCode.FILE_NOT_FOUND) {
+            return res.getString(R.string.copy_file_not_found);
+
+        } else if (result.getCode() == ResultCode.INVALID_COPY_INTO_DESCENDANT) {
+            return res.getString(R.string.copy_file_invalid_into_descendent);
+
+        } else if (result.getCode() == ResultCode.INVALID_OVERWRITE) {
+            return res.getString(R.string.copy_file_invalid_overwrite);
+
+        } else if (result.getCode() == ResultCode.FORBIDDEN) {
+            return String.format(res.getString(R.string.forbidden_permissions),
+                    res.getString(R.string.forbidden_permissions_copy));
+
+        }
+        return null;
+    }
+
+    private static String getMessageForCreateShareOperations(RemoteOperationResult result, Resources res) {
+        if (result.getData() != null && result.getData().size() > 0) {
+            return (String) result.getData().get(0);     // share API sends its own error messages
+
+        } else if (result.getCode() == ResultCode.SHARE_NOT_FOUND)  {
+            return res.getString(R.string.share_link_file_no_exist);
+
+        } else if (result.getCode() == ResultCode.SHARE_FORBIDDEN) {
+            // Error --> No permissions
+            return String.format(res.getString(R.string.forbidden_permissions),
+                    res.getString(R.string.share_link_forbidden_permissions));
+
+        }
+        return null;
+    }
+
+    private static String getMessageForCreateFolderOperation(RemoteOperationResult result, Resources res) {
+        if (result.getCode() == ResultCode.INVALID_CHARACTER_IN_NAME) {
+            return res.getString(R.string.filename_forbidden_characters);
+
+        } else if (result.getCode().equals(ResultCode.FORBIDDEN)) {
+            return String.format(res.getString(R.string.forbidden_permissions),
+                    res.getString(R.string.forbidden_permissions_create));
+
+        } else if (result.getCode() == ResultCode.INVALID_CHARACTER_DETECT_IN_SERVER) {
+            return res.getString(R.string.filename_forbidden_charaters_from_server);
+
+        }
+        return null;
+    }
+
+    private static String getMessageForRenameFileOperation(RemoteOperationResult result, Resources res) {
+        if (result.getCode().equals(ResultCode.INVALID_LOCAL_FILE_NAME)) {
+            return res.getString(R.string.rename_local_fail_msg);
+
+        } else if (result.getCode().equals(ResultCode.FORBIDDEN)) {
+            // Error --> No permissions
+            return String.format(res.getString(R.string.forbidden_permissions),
+                    res.getString(R.string.forbidden_permissions_rename));
+
+        } else if (result.getCode().equals(ResultCode.INVALID_CHARACTER_IN_NAME)) {
+            return res.getString(R.string.filename_forbidden_characters);
+
+        } else if (result.getCode() == ResultCode.INVALID_CHARACTER_DETECT_IN_SERVER) {
+            return res.getString(R.string.filename_forbidden_charaters_from_server);
+
+        }
+
+        return null;
+    }
+
+    private static String getMessageForRemoveFileOperation(RemoteOperationResult result, Resources res) {
+        if (result.isSuccess()) {
+            return res.getString(R.string.remove_success_msg);
+
+        } else {
+            if (result.getCode().equals(ResultCode.FORBIDDEN)) {
+                // Error --> No permissions
+                return String.format(res.getString(R.string.forbidden_permissions),
+                        res.getString(R.string.forbidden_permissions_delete));
+            }
+        }
+
+        return null;
+    }
+
+    private static String getMessageForDownloadFileOperation(
+            RemoteOperationResult result,
+            DownloadFileOperation operation,
+            Resources res
+    ) {
+        if (result.isSuccess()) {
+            return String.format(
+                    res.getString(R.string.downloader_download_succeeded_content),
+                    new File(operation.getSavePath()).getName());
+
+        } else {
             if (result.getCode() == ResultCode.FILE_NOT_FOUND) {
-                message = res.getString(R.string.copy_file_not_found);
+                return res.getString(R.string.downloader_download_file_not_found);
 
-            } else if (result.getCode() == ResultCode.INVALID_COPY_INTO_DESCENDANT) {
-                message = res.getString(R.string.copy_file_invalid_into_descendent);
+            }
+        }
+        return null;
+    }
 
-            } else if (result.getCode() == ResultCode.INVALID_OVERWRITE) {
-                message = res.getString(R.string.copy_file_invalid_overwrite);
+    private static String getMessageForUploadFileOperation(
+            RemoteOperationResult result,
+            UploadFileOperation operation,
+            Resources res
+    ) {
+        if (result.isSuccess()) {
+            return String.format(
+                    res.getString(R.string.uploader_upload_succeeded_content_single),
+                    operation.getFileName());
+        } else {
+
+            if (result.getCode() == ResultCode.LOCAL_STORAGE_FULL
+                    || result.getCode() == ResultCode.LOCAL_STORAGE_NOT_COPIED) {
+                return String.format(
+                        res.getString(R.string.error__upload__local_file_not_copied),
+                        operation.getFileName(),
+                        res.getString(R.string.app_name));
 
             } else if (result.getCode() == ResultCode.FORBIDDEN) {
-                message = String.format(res.getString(R.string.forbidden_permissions),
-                        res.getString(R.string.forbidden_permissions_copy));
+                return String.format(res.getString(R.string.forbidden_permissions),
+                        res.getString(R.string.uploader_upload_forbidden_permissions));
+
+            } else if (result.getCode() == ResultCode.INVALID_CHARACTER_DETECT_IN_SERVER) {
+                return res.getString(R.string.filename_forbidden_charaters_from_server);
 
             }
         }
 
-        return message;
+        return null;
     }
 
 
@@ -409,7 +470,8 @@ public class ErrorMessageAdapter {
         } else if (operation instanceof DownloadFileOperation) {
             message = String.format(
                     res.getString(R.string.downloader_download_failed_content),
-                    new File(((DownloadFileOperation) operation).getSavePath()).getName());
+                    new File(((DownloadFileOperation) operation).getSavePath()).getName()
+            );
 
         } else if (operation instanceof RemoveFileOperation) {
             message = res.getString(R.string.remove_fail_msg);
