@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Nextcloud Android client application
+
+  Copyright (C) 2017 Andy Scherzinger
+
+  This program is free software; you can redistribute it and/or
+  modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
+  License as published by the Free Software Foundation; either
+  version 3 of the License, or any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  GNU AFFERO GENERAL PUBLIC LICENSE for more details.
+
+  You should have received a copy of the GNU Affero General Public
+  License along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/info_box"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal|bottom"
+                android:background="@color/filelist_icon_backgorund"
+                android:gravity="center"
+                android:padding="@dimen/standard_half_padding"
+                android:visibility="gone">
+
+    <ImageView
+        android:id="@+id/info_box_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:src="@drawable/ic_information_outline_18dp"/>
+
+    <TextView
+        android:id="@+id/info_box_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_toEndOf="@+id/info_box_icon"
+        android:layout_toRightOf="@id/info_box_icon"
+        android:paddingEnd="@dimen/standard_half_margin"
+        android:paddingLeft="@dimen/standard_half_padding"
+        android:paddingRight="@dimen/standard_half_padding"
+        android:paddingStart="@dimen/standard_half_margin"
+        android:paddingTop="@dimen/zero"
+        android:paddingBottom="@dimen/zero"
+        android:text="@string/offline_mode"
+        android:textColor="@color/standard_gray"/>
+
+</RelativeLayout>
