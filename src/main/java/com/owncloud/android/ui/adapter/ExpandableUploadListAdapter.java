@@ -528,6 +528,9 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
                     case MAINTENANCE_MODE:
                         status = mParentActivity.getString(R.string.maintenance_mode);
                         break;
+                    case LOCK_FAILED:
+                        status = mParentActivity.getString(R.string.lock_failed);
+                        break;
                     default:
                         status = "Naughty devs added a new fail result but no description for the user";
                         break;
