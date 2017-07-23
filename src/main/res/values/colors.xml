@@ -32,6 +32,7 @@
     <color name="transparent">#00000000</color>
     <color name="secondaryTextColor">#a0a0a0</color>
     <color name="highlight_textColor_Warning">#e53935</color>
+    <color name="standard_gray">#757575</color>
 
     <!-- Colors -->
     <color name="standard_grey">#757575</color>
