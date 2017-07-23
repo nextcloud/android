@@ -1727,17 +1727,12 @@ public class FileDisplayActivity extends HookActivity
 
     public void setMediaServiceConnection() {
         mMediaServiceConnection = newMediaConnection();// mediaServiceConnection;
-        if (mMediaServiceConnection != null) {
-            bindService(new Intent(this, MediaService.class), mMediaServiceConnection,
-                    Context.BIND_AUTO_CREATE);
-        }
+        bindService(new Intent(this, MediaService.class), mMediaServiceConnection, Context.BIND_AUTO_CREATE);
     }
 
-    private void tryStopPlaying(OCFile file){
-        if (mMediaServiceConnection != null && MimeTypeUtil.isAudio(file)){
-            if (mMediaServiceBinder.isPlaying(file)){
-                mMediaServiceBinder.pause();
-            }
+    private void tryStopPlaying(OCFile file) {
+        if (mMediaServiceConnection != null && MimeTypeUtil.isAudio(file) && mMediaServiceBinder.isPlaying(file)) {
+            mMediaServiceBinder.pause();
         }
     }
 
