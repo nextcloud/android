@@ -187,8 +187,6 @@ public class FilesSyncHelper {
         FileUploader.UploadRequester uploadRequester = new FileUploader.UploadRequester();
 
         boolean accountExists;
-        boolean fileExists;
-
 
         UploadsStorageManager uploadsStorageManager = new UploadsStorageManager(context.getContentResolver(), context);
         OCUpload[] failedUploads = uploadsStorageManager.getFailedUploads();
