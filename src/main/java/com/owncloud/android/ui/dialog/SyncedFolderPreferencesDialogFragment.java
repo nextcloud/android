@@ -158,6 +158,8 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment {
 
             // disable save button
             view.findViewById(R.id.save).setEnabled(false);
+        } else {
+            view.findViewById(R.id.local_folder_container).setVisibility(View.GONE);
         }
 
         // find/saves UI elements
