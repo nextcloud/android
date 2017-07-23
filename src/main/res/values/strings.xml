@@ -547,6 +547,10 @@
     <string name="participate_beta_text">This includes all upcoming features and it is on the very bleeding edge. Bugs/errors can occur, if and when they do, please report of your findings.</string>
     <string name="participate_release_candidate_headline">Release candidate</string>
     <string name="participate_release_candidate_text">The release candidate (RC) is a snapshot of the upcoming release and is expected to be stable. Testing your individual setup could help ensure this. Sign up for testing on the Play store or manually look in the \"Version\" section of F-Droid.</string>
+    <string name="participate_get_RC_on_GPlay">Get RC on Google Play</string>
+    <string name="participate_get_RC_on_FDroid">Get RC on F-Droid</string>
+    <string name="participate_get_Dev_APK">Download Dev version APK</string>
+    <string name="participate_get_Dev_on_FDroid">Get Dev version on F-Droid</string>
     <string name="participate_contribute_headline">Actively Contribute</string>
     <string name="participate_contribute_irc_text">Join the chat on IRC:</string>
     <string name="participate_contribute_irc_text_link" translatable="false"> &lt;font color=\"%1$s\">&lt;a href=\"%2$s\">#nextcloud-mobile&lt;/a>&lt;/font></string>
