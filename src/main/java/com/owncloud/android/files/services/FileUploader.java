@@ -784,9 +784,6 @@ public class FileUploader extends Service
                 } else {
                     mUploadsStorageManager.removeUpload(accountName, remotePath);
                 }
-            } else {
-                // try to cancel job in jobScheduler
-                mUploadsStorageManager.cancelPendingJob(accountName, remotePath);
             }
         }
 

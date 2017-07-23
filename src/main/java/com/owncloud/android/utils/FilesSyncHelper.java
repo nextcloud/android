@@ -195,7 +195,6 @@ public class FilesSyncHelper {
 
         for (OCUpload failedUpload : failedUploads) {
             accountExists = false;
-            fileExists = new File(failedUpload.getLocalPath()).exists();
 
             // check if accounts still exists
             for (Account account : AccountUtils.getAccounts(context)) {
@@ -205,7 +204,7 @@ public class FilesSyncHelper {
                 }
             }
 
-            if (!accountExists || !fileExists) {
+            if (!accountExists) {
                 uploadsStorageManager.removeUpload(failedUpload);
             }
         }
