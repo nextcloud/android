@@ -427,10 +427,10 @@ public class UploadFileOperation extends SyncOperation {
 
         } catch (FileNotFoundException e) {
             Log_OC.d(TAG, mOriginalStoragePath + " not exists anymore");
-            return new RemoteOperationResult(ResultCode.LOCAL_FILE_NOT_FOUND);
+            result = new RemoteOperationResult(ResultCode.LOCAL_FILE_NOT_FOUND);
         } catch (OverlappingFileLockException e) {
             Log_OC.d(TAG, "Overlapping file lock exception");
-            return new RemoteOperationResult(ResultCode.LOCK_FAILED);
+            result = new RemoteOperationResult(ResultCode.LOCK_FAILED);
         } catch (Exception e) {
             result = new RemoteOperationResult(e);
 
