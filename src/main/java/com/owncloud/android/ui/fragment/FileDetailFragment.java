@@ -589,7 +589,9 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
         }
     }
 
-    /* Fix scroll in listview when the parent is ac ScrollView */
+    /**
+     * Fix scroll in listview when the parent is a ScrollView
+     */
     private static void setListViewHeightBasedOnChildren(ListView listView) {
         ListAdapter listAdapter = listView.getAdapter();
         if (listAdapter == null) {
