@@ -35,7 +35,8 @@ public enum UploadResult {
     DELAYED_FOR_WIFI(9),
     SERVICE_INTERRUPTED(10),
     DELAYED_FOR_CHARGING(11),
-    MAINTENANCE_MODE(12);
+    MAINTENANCE_MODE(12),
+    LOCK_FAILED(13);
 
     private final int value;
 
@@ -77,6 +78,8 @@ public enum UploadResult {
                 return DELAYED_FOR_CHARGING;
             case 12:
                 return MAINTENANCE_MODE;
+            case 13:
+                return LOCK_FAILED;
         }
         return null;
     }
@@ -120,6 +123,8 @@ public enum UploadResult {
                 return UNKNOWN;
             case MAINTENANCE_MODE:
                 return MAINTENANCE_MODE;
+            case LOCK_FAILED:
+                return LOCK_FAILED;
             default:
                 return UNKNOWN;
         }
