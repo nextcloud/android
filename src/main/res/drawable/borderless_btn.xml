@@ -21,7 +21,7 @@
 
     <item
         android:state_enabled="false"
-        android:color="@color/half_black" />
+        android:color="@color/disabled_text" />
 
     <item
         android:color="@color/color_accent"/>
