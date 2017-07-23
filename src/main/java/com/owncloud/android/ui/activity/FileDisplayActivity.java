@@ -786,6 +786,10 @@ public class FileDisplayActivity extends HookActivity
                 }
                 break;
             }
+            case R.id.action_select_all: {
+                getListOfFilesFragment().selectAllFiles(true);
+                break;
+            }
             default:
                 retval = super.onOptionsItemSelected(item);
                 break;

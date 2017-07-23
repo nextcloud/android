@@ -86,6 +86,20 @@
         android:showAsAction="never"
         android:orderInCategory="1" />
     <item
+        android:id="@+id/action_select_all"
+        android:title="@string/select_all"
+        android:icon="@drawable/ic_select_all"
+        app:showAsAction="never"
+        android:showAsAction="never"
+        android:orderInCategory="1" />
+    <item
+        android:id="@+id/action_deselect_all"
+        android:title="@string/deselect_all"
+        android:icon="@drawable/ic_select_all"
+        app:showAsAction="never"
+        android:showAsAction="never"
+        android:orderInCategory="1" />
+    <item
         android:id="@+id/action_send_file"
         android:title="@string/actionbar_send_file"
         android:icon="@drawable/ic_send"
