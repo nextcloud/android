@@ -83,24 +83,6 @@ public class ShortcutsWidgetConfigureActivity extends Activity
         prefs.commit();
     }
 
-    // Read the prefix from the SharedPreferences object for this widget.
-    // If there is no preference saved, get the default from a resource
-    private static String loadAccountPref(Context context, int appWidgetId) {
-        SharedPreferences prefs = context.getSharedPreferences(PREFS_NAME, 0);
-        String userValue = prefs.getString(PREF_PREFIX_KEY + appWidgetId, null);
-        if (userValue != null) {
-            return userValue;
-        } else {
-            return context.getString(R.string.username);
-        }
-    }
-
-    private static void deleteAccountPref(Context context, int appWidgetId) {
-        SharedPreferences.Editor prefs = context.getSharedPreferences(PREFS_NAME, 0).edit();
-        prefs.remove(PREF_PREFIX_KEY + appWidgetId);
-        prefs.commit();
-    }
-
     private void configureResult(){
 
         Context context = ShortcutsWidgetConfigureActivity.this;
