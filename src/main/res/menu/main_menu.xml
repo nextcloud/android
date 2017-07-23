@@ -54,6 +54,13 @@
         app:showAsAction="never"
         android:title="@string/actionbar_sort"
         android:contentDescription="@string/actionbar_sort"/>
+    <item
+        android:id="@+id/action_select_all"
+        android:icon="@drawable/ic_select_all"
+        android:orderInCategory="1"
+        app:showAsAction="never"
+        android:title="@string/select_all"
+        android:contentDescription="@string/select_all"/>
 
     <!-- <item android:id="@+id/search"
     android:title="@string/actionbar_search"
