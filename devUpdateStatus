@@ -1,15 +1,14 @@
-2017-07-23 00:30:53
-Branches: 13
-[01 / 13] Enhance recommend to a friend #315 (jsrck/315-recommend) [https://github.com/nextcloud/android/pull/1216] no update needed
-[02 / 13] Show empty message when receiving external files (nextcloud/emptyMessageReceiveExternalFiles) [https://github.com/nextcloud/android/pull/1214] no update needed
-[03 / 13] Show empty message again (nextcloud/showEmptyMessageAgain) [https://github.com/nextcloud/android/pull/1213] no update needed
-[04 / 13] resolves: #1207 make daily contact backup string translatable (nextcloud/dailyBackupString) [https://github.com/nextcloud/android/pull/1208] no update needed
-[05 / 13] On receiving untrusted ssl cert, test if it was previously accepted user (nextcloud/newWebLoginUntrustedCert) [https://github.com/nextcloud/android/pull/1206] no update needed
-[06 / 13] Auto upload crash if filepath is null (nextcloud/autoUploadCrashIfFilepathIsNull) [https://github.com/nextcloud/android/pull/1201] no update needed
-[07 / 13] Feature request: Select all particularly in search #637 (jsrck/master) [https://github.com/nextcloud/android/pull/1196] no update needed
-[08 / 13] revamped details screen (nextcloud/new_details_view_animations) [https://github.com/nextcloud/android/pull/1156] no update needed
-[09 / 13] Comment out adding all new downloaded files to folder observer (nextcloud/folderObserver) [https://github.com/nextcloud/android/pull/1155] no update needed
-[10 / 13] Search inside of text files (nextcloud/bugfix-454) [https://github.com/nextcloud/android/pull/565] no update needed
-[11 / 13] Resized images (nextcloud/resizedImages) [https://github.com/nextcloud/android/pull/69] no update needed
-[12 / 13] Master (nextcloud/master) [https://github.com/nextcloud/android] merged successfully
-[13 / 13] Dev base (nextcloud/dev-base) [https://github.com/nextcloud/android/tree/dev-base] no update needed
+2017-07-24 00:31:06
+Branches: 11
+[00 / 11] Dev branch (nextcloud/dev) [https://github.com/nextcloud/android/tree/dev] was updated successfully
+[01 / 11] Show empty message when receiving external files (nextcloud/emptyMessageReceiveExternalFiles) [https://github.com/nextcloud/android/pull/1214] CONFLICT
+[02 / 11] Show empty message again (nextcloud/showEmptyMessageAgain) [https://github.com/nextcloud/android/pull/1213] CONFLICT
+[03 / 11] resolves: #1207 make daily contact backup string translatable (nextcloud/dailyBackupString) [https://github.com/nextcloud/android/pull/1208] CONFLICT
+[04 / 11] On receiving untrusted ssl cert, test if it was previously accepted user (nextcloud/newWebLoginUntrustedCert) [https://github.com/nextcloud/android/pull/1206] no update needed
+[05 / 11] Auto upload crash if filepath is null (nextcloud/autoUploadCrashIfFilepathIsNull) [https://github.com/nextcloud/android/pull/1201] CONFLICT
+[06 / 11] revamped details screen (nextcloud/new_details_view_animations) [https://github.com/nextcloud/android/pull/1156] CONFLICT
+[07 / 11] Comment out adding all new downloaded files to folder observer (nextcloud/folderObserver) [https://github.com/nextcloud/android/pull/1155] CONFLICT
+[08 / 11] Search inside of text files (nextcloud/bugfix-454) [https://github.com/nextcloud/android/pull/565] no update needed
+[09 / 11] Resized images (nextcloud/resizedImages) [https://github.com/nextcloud/android/pull/69] no update needed
+[10 / 11] Master (nextcloud/master) [https://github.com/nextcloud/android] no update needed
+[11 / 11] Dev base (nextcloud/dev-base) [https://github.com/nextcloud/android/tree/dev-base] no update needed
