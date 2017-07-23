@@ -113,7 +113,7 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
         // setup toolbar
         setupToolbar();
         ((CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar)).setTitle(this.getString(R.string.drawer_synced_folders));
-        findViewById(R.id.app_bar).setBackgroundColor(this.getResources().getColor(R.color.listItemHighlighted));
+        findViewById(R.id.app_bar).setBackgroundColor(this.getResources().getColor(R.color.filelist_icon_backgorund));
 
         // setup drawer
         setupDrawer(R.id.nav_synced_folders);
