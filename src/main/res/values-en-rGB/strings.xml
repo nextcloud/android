@@ -69,7 +69,6 @@
 
 	<string name="recommend_subject">Try %1$s on your smartphone!</string>
 	<string name="recommend_text">I want to invite you to use %1$s on your smartphone.\nDownload here: %2$s</string>
-
     <string name="auth_check_server">Check server</string>
     <string name="auth_host_url">Server address https://…</string>
     <string name="auth_username">Username</string>
@@ -490,7 +489,6 @@
     <string name="upload_copy_files">Copy file</string>
     <string name="upload_move_files">Move file</string>
     <string name="select_all">Select all</string>
-
     <string name="pref_behaviour_entries_keep_file">kept in original folder</string>
     <string name="pref_behaviour_entries_move">moved to app folder</string>
     <string name="pref_behaviour_entries_delete_file">deleted</string>

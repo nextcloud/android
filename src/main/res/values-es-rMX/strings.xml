@@ -69,7 +69,6 @@
 
 	<string name="recommend_subject">Prueba  %1$s en tu teléfono inteligente!</string>
 	<string name="recommend_text">Quisiera invitarte a usar %1$s en tu teléfono inteligente\nDescárgalo aquí: %2$s</string>
-
     <string name="auth_check_server">Verficar el servidor</string>
     <string name="auth_host_url">Dirección del servidor https://…</string>
     <string name="auth_username">Usuario</string>
@@ -483,7 +482,6 @@
     <string name="upload_copy_files">Copiar archivo</string>
     <string name="upload_move_files">Mover archivo</string>
     <string name="select_all">Seleccionar todo</string>
-
     <string name="pref_behaviour_entries_keep_file">mantenido en la carpeta original</string>
     <string name="pref_behaviour_entries_move">movido a la capreta de la aplicación</string>
     <string name="pref_behaviour_entries_delete_file">Borrado</string>

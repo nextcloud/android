@@ -69,7 +69,6 @@
 
 	<string name="recommend_subject">スマートフォンで %1$s を試してください！</string>
 	<string name="recommend_text">スマートフォンで %1$s を利用してみませんか。\nここからダウンロードしてください: %2$s</string>
-
     <string name="auth_check_server">サーバーのチェック</string>
     <string name="auth_host_url">サーバーアドレス https://…</string>
     <string name="auth_username">ユーザー名</string>
@@ -378,7 +377,6 @@
     <string name="upload_copy_files">ファイルをコピー</string>
     <string name="upload_move_files">ファイルを移動</string>
     <string name="select_all">すべて選択</string>
-
     <string name="pref_behaviour_entries_keep_file">元のフォルダに保持</string>
     <string name="pref_behaviour_entries_move">アプリフォルダに移動</string>
     <string name="pref_behaviour_entries_delete_file">削除されました</string>

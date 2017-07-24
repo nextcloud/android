@@ -69,7 +69,6 @@
 
 	<string name="recommend_subject">Provojeni %1$s te telefoni juaj!</string>
 	<string name="recommend_text">Dua t’ju ftoj të përdorni %1$s në telefonin tuaj!\nShkarkojeni këtu: %2$s</string>
-
     <string name="auth_check_server">Kontrollo serverin</string>
     <string name="auth_host_url">Adresa e serverit https://… </string>
     <string name="auth_username">Emër përdoruesi</string>
@@ -482,7 +481,6 @@
     <string name="upload_copy_files">Kopjoje kartelën</string>
     <string name="upload_move_files">Lëvize kartelën</string>
     <string name="select_all">Zgjidhi të gjitha</string>
-
     <string name="pref_behaviour_entries_keep_file">mbajtur në dosjen origjinale</string>
     <string name="pref_behaviour_entries_move">u kalua te dosja e aplikacionit</string>
     <string name="pref_behaviour_entries_delete_file">të fshira</string>

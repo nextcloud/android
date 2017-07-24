@@ -59,7 +59,6 @@
     <string name="prefs_feedback">Mensaxes de retroalimentación</string>
     <string name="recommend_subject">¡Prueba %1$s nel to teléfonu intelixente!</string>
 	<string name="recommend_text">Quiero convidate a usar %1$s nel to teléfonu intelixente.\nBáxalu d\'equí: %2$s</string>
-
     <string name="auth_check_server">Comprobar servidor</string>
     <string name="auth_host_url">Direición del sirvidor https://...</string>
     <string name="auth_username">Nome d\'usuariu</string>
@@ -418,7 +417,6 @@
     <string name="upload_copy_files">Copiar ficheru</string>
     <string name="upload_move_files">Mover ficheru</string>
     <string name="select_all">Esbillar too</string>
-
     <string name="pref_behaviour_entries_keep_file">guardáu en carpeta orixinal</string>
     <string name="pref_behaviour_entries_move">movíu a la carpeta d\'aplicaciones</string>
     <string name="prefs_storage_path">Camín d\'almacenamientu</string>
