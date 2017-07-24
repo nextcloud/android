@@ -1,3 +1,34 @@
+## 2017-07-24 00:31
+New branches:
+/
+
+Updated branches:
+- Dev branch (nextcloud/dev) [https://github.com/nextcloud/android/tree/dev] updated
+
+Conflicting branches:
+/
+
+## 2017-07-23 00:31
+New branches:
+/
+
+Updated branches:
+- Master (nextcloud/master) [https://github.com/nextcloud/android] updated
+
+Conflicting branches:
+/
+
+## 2017-07-22 00:32
+New branches:
+/
+
+Updated branches:
+- Dev branch (nextcloud/dev) [https://github.com/nextcloud/android/tree/dev] updated
+- Feature request: Select all particularly in search #637 (jsrck/master) [https://github.com/nextcloud/android/pull/1196] updated
+
+Conflicting branches:
+/
+
 ## 2017-07-21 10:33
 New branches:
 /

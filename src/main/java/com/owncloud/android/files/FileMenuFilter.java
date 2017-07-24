@@ -62,7 +62,8 @@ public class FileMenuFilter {
      * @param cg                Accessor to app components, needed to access synchronization services
      * @param context           Android {@link Context}, needed to access build setup resources.
      */
-    public FileMenuFilter(int numberOfAllFiles, Collection<OCFile> targetFiles, Account account, ComponentsGetter cg, Context context) {
+    public FileMenuFilter(int numberOfAllFiles, Collection<OCFile> targetFiles, Account account,
+                          ComponentsGetter cg, Context context) {
         mNumberOfAllFiles = numberOfAllFiles;
         mFiles = targetFiles;
         mAccount = account;
