@@ -375,7 +375,7 @@ public class FileUploader extends Service
             for ( OCUpload failedUpload: failedUploads) {
                 accountMatch = (account == null || account.name.equals(failedUpload.getAccountName()));
                 resultMatch = ((uploadResult == null || uploadResult.equals(failedUpload.getLastResult())) &&
-                        !uploadResult.equals(UploadResult.FILE_NOT_FOUND));
+                        !failedUpload.getLastResult().equals(UploadResult.FILE_NOT_FOUND));
                 if (accountMatch && resultMatch) {
                     if (currentAccount == null ||
                             !currentAccount.name.equals(failedUpload.getAccountName())) {
