@@ -1,7 +1,7 @@
 Flole998/master
+jsrck/983_hide-folders
 jsrck/master
 nextcloud/1089_sharing_with_password_rule
-nextcloud/ErrorInActivityListAdapter
 nextcloud/audioRotationBug
 nextcloud/autoUploadCrashIfFilepathIsNull
 nextcloud/autoUploadRotationBug
@@ -10,6 +10,7 @@ nextcloud/contactsBackupUI
 nextcloud/crashDueToEmptyString
 nextcloud/deleteFilesOnAccountRemoval
 nextcloud/dev
+nextcloud/ErrorInActivityListAdapter
 nextcloud/externalStorage
 nextcloud/fix_file_modification_date_on_upload
 nextcloud/folderObserver
@@ -20,8 +21,8 @@ nextcloud/removedSDcard
 nextcloud/resizedImages
 nextcloud/searchViewWrongFiles
 nextcloud/settingsOn4x
-nextcloud/shareDialog
 nextcloud/sharedFolderMissing
+nextcloud/shareDialog
 nextcloud/showEmptyMessageAgain
 nextcloud/stopAsyncTasks
 nextcloud/transactionTooLarge
