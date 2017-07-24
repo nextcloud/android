@@ -70,7 +70,6 @@
 	<string name="recommend_subject">在您的智能手机上试用 %1$s！</string>
 	<string name="recommend_text">我想邀请你在智能机上使用%1$s。
 从这里下载：%2$s</string>
-
     <string name="auth_check_server">检查服务器</string>
     <string name="auth_host_url">服务器地址 https://...</string>
     <string name="auth_username">用户名</string>
@@ -493,7 +492,6 @@
     <string name="upload_copy_files">复制文件</string>
     <string name="upload_move_files">移动文件</string>
     <string name="select_all">选择全部</string>
-
     <string name="pref_behaviour_entries_keep_file">保留在原始文件夹</string>
     <string name="pref_behaviour_entries_move">移动到应用文件夹</string>
     <string name="pref_behaviour_entries_delete_file">删除</string>

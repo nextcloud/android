@@ -69,7 +69,6 @@
 
 	<string name="recommend_subject">Prófaðu %1$s á snjallsímanum þínum!</string>
 	<string name="recommend_text">Mig langar til að bjóða þér að nota %1$s á snjallsímanum þínum.\nHægt að sækja það hér: %2$s</string>
-
     <string name="auth_check_server">Athuga með þjón</string>
     <string name="auth_host_url">Vistfang þjóns https://…</string>
     <string name="auth_username">Notandanafn</string>
@@ -481,7 +480,6 @@ Smelltu hér til að fá þér einn frá þjónustuaðila.</string>
     <string name="upload_copy_files">Afrita skrá</string>
     <string name="upload_move_files">Færa skrá</string>
     <string name="select_all">Velja allt</string>
-
     <string name="pref_behaviour_entries_keep_file">áfram í upprunalegri möppu</string>
     <string name="pref_behaviour_entries_move">færð í forritsmöppu</string>
     <string name="pref_behaviour_entries_delete_file">eytt</string>

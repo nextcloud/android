@@ -69,7 +69,6 @@
 
 	<string name="recommend_subject">Probeer %1$s op je smartphone!</string>
 	<string name="recommend_text">Ik wil je uitnodigen om %1$s op je smartphone te gebruiken.\nDownload hier: %2$s</string>
-
     <string name="auth_check_server">Controleer server</string>
     <string name="auth_host_url">Serveradres https://…</string>
     <string name="auth_username">Gebruikersnaam</string>
@@ -491,7 +490,6 @@ Kies er eentje van een provider.</string>
     <string name="upload_copy_files">Bestand kopiëren</string>
     <string name="upload_move_files">Bestand verplaatsen</string>
     <string name="select_all">Alles selecteren</string>
-
     <string name="pref_behaviour_entries_keep_file">bewaard worden in originele map</string>
     <string name="pref_behaviour_entries_move">verplaatst worden naar app-map</string>
     <string name="pref_behaviour_entries_delete_file">verwijderd worden</string>
