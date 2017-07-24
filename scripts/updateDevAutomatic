@@ -81,8 +81,8 @@ echo >> CHANGELOG.md
 
 ## add conflicted branches
 echo "Conflicting branches:" >> CHANGELOG.md
-if [ $(cat devUpdateStatus | grep conflict -c) -gt 0 ]; then
-    cat devUpdateStatus | grep conflict | cut -d"]" -f2 | sed s'#$#]#'g | sed s'#^#-#'g | sed s'#$# conflict#'g >> CHANGELOG.md
+if [ $(cat devUpdateStatus | grep conflict -ci) -gt 0 ]; then
+    cat devUpdateStatus | grep -i conflict | cut -d"]" -f2 | sed s'#$#]#'g | sed s'#^#-#'g | sed s'#$# conflicting#'g >> CHANGELOG.md
 else
     echo "/" >> CHANGELOG.md
 fi
