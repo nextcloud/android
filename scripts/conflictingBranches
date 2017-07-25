@@ -1,5 +1,6 @@
 #!/bin/bash
 
+currentCommit=$(git rev-parse HEAD)
 statusFile="devUpdateStatus"
 touch mergedBranches
 
@@ -33,5 +34,8 @@ while read -r branch; do
 done <<< "$branches"
 
 if [ $conflictingBranches -gt 0 ] ; then
-    $1
+    grep -i conflict $statusFile | mail -s "[Nextcloud-Dev] $(date '+%F %X') Conflicting branches!" $1
 fi
+
+# reset to previous commit, delete all inbetween commits
+git reset --hard $currentCommit
