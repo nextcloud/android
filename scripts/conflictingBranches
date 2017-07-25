@@ -32,4 +32,6 @@ while read -r branch; do
     let count++
 done <<< "$branches"
 
-exit $conflictingBranches
+if [ $conflictingBranches -gt 0 ] ; then
+    $1
+fi
