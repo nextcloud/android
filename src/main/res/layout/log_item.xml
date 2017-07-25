@@ -25,8 +25,6 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:gravity="center_vertical"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentBottom="true"
         android:textStyle="bold"
         android:textSize="@dimen/log_item_text_size"
         android:textColor="#000000"

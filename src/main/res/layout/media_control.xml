@@ -74,11 +74,7 @@
             android:layout_width="@dimen/zero"
             android:layout_weight="1"
             android:layout_height="@dimen/seek_bar_height"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentEnd="true"
             android:progressDrawable="@color/white"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentRight="true"
             android:splitTrack="false"/>
 
         <TextView android:id="@+id/totalTimeText"
