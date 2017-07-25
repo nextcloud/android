@@ -42,17 +42,11 @@ Easy starting points are also reviewing [pull requests](https://github.com/nextc
 - get root access via "su"
 - enter "logcat -d -f /sdcard/logcatOutput.txt"
 
-**Note:** Your device needs to be rooted for this approach.
+or 
 
-#### On device (without root)
-- enable developer options
-  - open about in settings
-  - click _build number_ 7 times
-  - go back to settings
-- enter developer options
-- click _take bug report_
-- select _interactive_ to take a screenshot, or _full_ to get more detail
-- report will be shown in notification bar and can be shared
+- use [CatLog](https://play.google.com/store/apps/details?id=com.nolanlawson.logcat) or [aLogcat](https://play.google.com/store/apps/details?id=org.jtb.alogcat)
+
+**Note:** Your device needs to be rooted for this approach.
 
 **Dev version:** [direct download](https://download.nextcloud.com/android/dev/latest.apk) or via [Fdroid](https://f-droid.org/repository/browse/?fdfilter=nextcloud&fdid=com.nextcloud.android.beta)
 
