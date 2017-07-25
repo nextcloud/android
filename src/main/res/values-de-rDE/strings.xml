@@ -69,7 +69,6 @@
 
 	<string name="recommend_subject">Probieren Sie %1$s auf Ihrem Smartphone!</string>
 	<string name="recommend_text">Ich empfehle Ihnen die Nutzung von %1$s auf Ihrem Smartphone!\nLaden Sie es hier herunter: %2$s</string>
-
     <string name="auth_check_server">Server überprüfen</string>
     <string name="auth_host_url">Server-Adresse https://…</string>
     <string name="auth_username">Benutzername</string>
@@ -115,7 +114,7 @@
     <string name="file_list_empty_recently_modified">Keine, innerhalb der letzten 7 Tage, geänderten Dateien gefunden</string>
     <string name="file_list_empty_recently_modified_filter">Es wurden keine Dateien gefunden die in den letzten 7 Tagen geändert wurden.</string>
     <string name="file_list_empty_recently_added">Keine kürzlich hinzugefügten Dateien gefunden</string>
-    <string name="file_list_empty_recently_added_filter">Keine kürzlich hinzu gefügten Dateien gefunden!</string>
+    <string name="file_list_empty_recently_added_filter">Keine kürzlich hinzugefügten Dateien gefunden!</string>
     <string name="file_list_empty_text_photos">Laden Sie Fotos hoch oder aktivieren Sie den Sofortupload!</string>
     <string name="file_list_empty_text_photos_filter">Keine Fotos gefunden.</string>
     <string name="file_list_empty_text_videos">Laden Sie einige Videos hoch oder aktivieren Sie den Sofortupload.</string>
@@ -491,8 +490,6 @@
     <string name="upload_copy_files">kopiere Datei</string>
     <string name="upload_move_files">verschiebe Datei</string>
     <string name="select_all">Alle auswählen</string>
-    <string name="deselect_all">Auswahl aufheben</string>
-
     <string name="pref_behaviour_entries_keep_file">im Originalordner behalten</string>
     <string name="pref_behaviour_entries_move">in den App-Ordner verschoben</string>
     <string name="pref_behaviour_entries_delete_file">gelöscht</string>

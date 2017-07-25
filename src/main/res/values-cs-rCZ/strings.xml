@@ -69,7 +69,6 @@
 
 	<string name="recommend_subject">Zkuste %1$s na svém chytrém telefonu!</string>
 	<string name="recommend_text">Chtěl bych vás pozvat k používání %1$s na vašem chytrém telefonu!\nKe stažení zde: %2$s</string>
-
     <string name="auth_check_server">Ověřit server</string>
     <string name="auth_host_url">Adresa serveru https://...</string>
     <string name="auth_username">Uživatelské jméno</string>
@@ -490,7 +489,6 @@
     <string name="upload_copy_files">Zkopírovat soubor</string>
     <string name="upload_move_files">Přesunout soubor</string>
     <string name="select_all">Vybrat vše</string>
-
     <string name="pref_behaviour_entries_keep_file">ponechán ve výchozím adresáři</string>
     <string name="pref_behaviour_entries_move">přesunut do adresáře aplikace</string>
     <string name="pref_behaviour_entries_delete_file">smazáno</string>

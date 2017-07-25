@@ -71,7 +71,6 @@
 	<string name="recommend_subject">Попробуйте %1$s на вашем смартфоне!</string>
 	<string name="recommend_text">Хочу предложить вам использовать %1$s на смартфоне!\nЗагрузить можно здесь: %2$s
 	</string>
-
     <string name="auth_check_server">Проверить сервер</string>
     <string name="auth_host_url">Адрес сервера https://...</string>
     <string name="auth_username">Имя пользователя</string>
@@ -492,7 +491,6 @@
     <string name="upload_copy_files">Копировать файл</string>
     <string name="upload_move_files">Переместить файл</string>
     <string name="select_all">Выделить всё</string>
-
     <string name="pref_behaviour_entries_keep_file">оставлен в исходном каталоге</string>
     <string name="pref_behaviour_entries_move">перемещен в каталог приложения</string>
     <string name="pref_behaviour_entries_delete_file">удалён</string>
