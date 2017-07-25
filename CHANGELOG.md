@@ -1,3 +1,14 @@
+## 2017-07-26 00:31
+New branches:
+- Show empty message when receiving external files (nextcloud/emptyMessageReceiveExternalFiles) [https://github.com/nextcloud/android/pull/1214] added
+
+Updated branches:
+- Dev branch (nextcloud/dev) [https://github.com/nextcloud/android/tree/dev] updated
+- Show empty message when receiving external files (nextcloud/emptyMessageReceiveExternalFiles) [https://github.com/nextcloud/android/pull/1214] updated
+
+Conflicting branches:
+/
+
 ## 2017-07-25 00:32
 New branches:
 - On device: show only folders containing downloaded files #983 (jsrck/983_hide-folders) [https://github.com/nextcloud/android/pull/1220] added
