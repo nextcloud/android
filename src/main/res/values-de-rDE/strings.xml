@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="about_android">%1$s Android App</string>
+    <string name="about_android">%1$s Android Appiew</string>
     <string name="about_version">Version %1$s</string>
     <string name="actionbar_sync">Konto aktualisieren</string>
     <string name="actionbar_upload">Hochladen</string>
@@ -69,6 +69,8 @@
 
 	<string name="recommend_subject">Probieren Sie %1$s auf Ihrem Smartphone!</string>
 	<string name="recommend_text">Ich empfehle Ihnen die Nutzung von %1$s auf Ihrem Smartphone!\nLaden Sie es hier herunter: %2$s</string>
+    <string name="recommend_urls">%1$s oder %2$s</string>
+
     <string name="auth_check_server">Server überprüfen</string>
     <string name="auth_host_url">Server-Adresse https://…</string>
     <string name="auth_username">Benutzername</string>
@@ -490,6 +492,8 @@
     <string name="upload_copy_files">kopiere Datei</string>
     <string name="upload_move_files">verschiebe Datei</string>
     <string name="select_all">Alle auswählen</string>
+    <string name="deselect_all">Auswahl aufheben</string>
+
     <string name="pref_behaviour_entries_keep_file">im Originalordner behalten</string>
     <string name="pref_behaviour_entries_move">in den App-Ordner verschoben</string>
     <string name="pref_behaviour_entries_delete_file">gelöscht</string>
@@ -562,10 +566,10 @@
     <string name="participate_release_candidate_headline">Vorabversion</string>
     <string name="participate_release_candidate_text">Der Release-Kandidat (RC) ist eine Vorschau auf die kommende Version und sollte stabil sein. Das Testen des RC unter Ihrer individuellen Umgebung kann helfen, die Stabilität und Qualität zu sichern. Registrieren Sie sich als Tester im Play-Store oder schauen Sie in die \"Version\"-Sektion auf F-Droid.</string>
     <string name="participate_contribute_headline">Aktiv etwas beitragen</string>
-    <string name="participate_contribute_irc_text">Treten Sie dem IRC-Chat bei: &lt; font color=\"%1$s\">&lt;a href=\"%2$s\">#nextcloud-mobile&lt;/a>&lt;/font></string>
+    <string name="participate_contribute_irc_text">Treten Sie dem IRC-Chat bei: &lt;font color=\"%1$s\">&lt;a href=\"%2$s\">#nextcloud-mobile&lt;/a>&lt;/font></string>
     <string name="participate_contribute_forum_text">Helfen Sie anderen im &lt;font color=\"%1$s\">&lt;a href=\"%2$s\">Forum&lt;/a>&lt;/font></string>
     <string name="participate_contribute_translate_text">&lt;font color=\"%1$s\">&lt;a href=\"%2$s\">Übersetzen Sie&lt;/a>&lt;/font> die App</string>
-    <string name="participate_contribute_github_text">Überprüfen, Ändern und Schreiben von Code, schauen Sie in die &lt; font color=\"%1$s\">&lt; a href=\"%2$s\">CONTRIBUTING.md&lt;/a>&lt;/font> für weitere Details</string>
+    <string name="participate_contribute_github_text">Überprüfen, Ändern und Schreiben von Code, schauen Sie in die &lt;font color=\"%1$s\">&lt;a href=\"%2$s\">CONTRIBUTING.md&lt;/a>&lt;/font> für weitere Details</string>
     <string name="move_to">Verschieben nach&#8230;</string>
     <string name="copy_to">Kopieren nach&#8230;</string>
     <string name="choose_remote_folder">Wähle Verzeichnis&#8230;</string>

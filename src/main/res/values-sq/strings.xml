@@ -409,6 +409,10 @@
     <string name="file_migration_cleaning">Duke pastruar&#8230;</string>
     <string name="file_migration_restoring_accounts_configuration">Rikthimi i konfigurimit&#8230; të llogarive</string>
     <string name="file_migration_ok_finished">Përfundoi</string>
+    <string name="file_migration_failed_not_enough_space">Gabim: Hapësirë e pamjaftueshme</string>
+    <string name="file_migration_failed_not_writable">Gabim: Skadari destinacion jo i shkruajtshëm</string>
+    <string name="file_migration_failed_not_readable">Gabim: Skedari burim jo i lexueshëm</string>
+    <string name="file_migration_failed_dir_already_exists">Gabim: Direktoria Nextcloud ekziston tashme</string>
     <string name="file_migration_directory_already_exists">Dosja e të dhënave ekziston tashmë. Zgjidhni një nga të mëposhtmet:</string>
     <string name="file_migration_override_data_folder">Mbishkruaj</string>
     <string name="file_migration_use_data_folder">Përdor ekzistueset</string>
@@ -623,6 +627,8 @@
 
     <string name="actionbar_contacts">Krijo backup të kontakteve</string>
     <string name="actionbar_contacts_restore">Rikthe kontaktet</string>
+    <string name="contacts_backup_button">Back up tani</string>
+    <string name="contacts_automatic_backup">Back up automatik</string>
     <string name="contacts_last_backup">Backup i fundit</string>
     <string name="contacts_read_permission">Kërkohet e drejta për të lexuar listën e kontakteve</string>
     <string name="contacts_write_permission">Kërkohet e drejta për të ndryshuar listën e kontakteve</string>
@@ -646,4 +652,5 @@
 
     <string name="folder_sync_folders">Konfiguro dosjet</string>
 
+<string name="test_server_button">Testo lidhjen e serverit</string>
 </resources>

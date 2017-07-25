@@ -242,11 +242,11 @@ public class LocalFileListFragment extends ExtendedListFragment {
      * @return      File paths to the files checked by the user.
      */
     public String[] getCheckedFilePaths() {
-        ArrayList<String> result = new ArrayList<String>();
+        ArrayList<String> result = new ArrayList<>();
         SparseBooleanArray positions = mCurrentListView.getCheckedItemPositions();
         if (positions.size() > 0) {
             for (int i = 0; i < positions.size(); i++) {
-                if (positions.get(positions.keyAt(i)) == true) {
+                if (positions.get(positions.keyAt(i))) {
                     result.add(((File) mCurrentListView.getItemAtPosition(
                             positions.keyAt(i))).getAbsolutePath());
                 }
