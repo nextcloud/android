@@ -69,6 +69,8 @@
 
 	<string name="recommend_subject">Δοκιμή %1$s στο κινητό σας!</string>
 	<string name="recommend_text">Θα ήθελα να σε προσκαλέσω να χρησιμοποιήσεις το %1$s στο κινητό σου!\nΛήψη από εδώ: %2$s</string>
+    <string name="recommend_urls">%1$s ή %2$s</string>
+
     <string name="auth_check_server">Έλεγχος διακομιστή</string>
     <string name="auth_host_url">Διεύθυνση διακομιστή https://…</string>
     <string name="auth_username">Όνομα χρήστη</string>
@@ -489,6 +491,8 @@
     <string name="upload_copy_files">Αντιγραφή αρχείου</string>
     <string name="upload_move_files">Μετακίνηση αρχείου</string>
     <string name="select_all">Επιλογή όλων</string>
+    <string name="deselect_all">Αναστροφή επιλογής όλων</string>
+
     <string name="pref_behaviour_entries_keep_file">διατήρηση στον αρχικό φάκελο</string>
     <string name="pref_behaviour_entries_move">μετακινήθηκε στον φάκελο εφαρμογών</string>
     <string name="pref_behaviour_entries_delete_file">διαγράφηκε</string>
