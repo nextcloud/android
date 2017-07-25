@@ -99,7 +99,6 @@ import com.owncloud.android.ui.preview.PreviewMediaFragment;
 import com.owncloud.android.ui.preview.PreviewTextFragment;
 import com.owncloud.android.ui.preview.PreviewVideoActivity;
 import com.owncloud.android.utils.DataHolderUtil;
-import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.ErrorMessageAdapter;
 import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.PermissionUtil;
@@ -1036,6 +1035,7 @@ public class FileDisplayActivity extends HookActivity
             //if PreviewImageActivity called this activity and mDualPane==false  then calls PreviewImageActivity again
             if((getIntent().getAction()!=null && getIntent().getAction().equalsIgnoreCase(ACTION_DETAILS)) && !mDualPane){
                     getIntent().setAction(null);
+                    getIntent().putExtra(EXTRA_FILE, (OCFile) null);
                     startImagePreview(getFile());
             }
 
