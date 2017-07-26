@@ -412,12 +412,12 @@
     <string name="file_migration_cleaning">Γίνεται εκκαθάριση&#8230;</string>
     <string name="file_migration_restoring_accounts_configuration">Γίνεται επαναφορά ρυθμίσεων λογαριασμών&#8230;</string>
     <string name="file_migration_ok_finished">Ολοκληρώθηκε</string>
-    <string name="file_migration_failed_not_enough_space">Λάθος: Μη επαρκής χώρος</string>
+    <string name="file_migration_failed_not_enough_space">Σφάλμα: Μη επαρκής χώρος</string>
     <string name="file_migration_failed_not_writable">Λάθος: Αρχείο προορισμού μη εγγράψιμο</string>
     <string name="file_migration_failed_not_readable">Λάθος: Αδυναμία ανάγνωσης πηγαίου αρχείου </string>
     <string name="file_migration_failed_dir_already_exists">Λάθος: Ο φάκελος Nextcloud υπάρχει ήδη</string>
     <string name="file_migration_failed_while_coping">Λάθος: Αποτυχία κατά την μετάβαση</string>
-    <string name="file_migration_failed_while_updating_index">Λάθος: Αποτυχία ενημέρωσης ευρετηρίου</string>
+    <string name="file_migration_failed_while_updating_index">Σφάλμα: Αποτυχία ενημέρωσης ευρετηρίου</string>
 
     <string name="file_migration_directory_already_exists">Ο φάκελος δεδομένων υπάρχει ήδη. Επιλέξτε ένα από τα παρακάτω:</string>
     <string name="file_migration_override_data_folder">Αντικατάσταση</string>
@@ -491,7 +491,7 @@
     <string name="upload_copy_files">Αντιγραφή αρχείου</string>
     <string name="upload_move_files">Μετακίνηση αρχείου</string>
     <string name="select_all">Επιλογή όλων</string>
-    <string name="deselect_all">Αναστροφή επιλογής όλων</string>
+    <string name="deselect_all">Αναίρεση επιλογής όλων</string>
 
     <string name="pref_behaviour_entries_keep_file">διατήρηση στον αρχικό φάκελο</string>
     <string name="pref_behaviour_entries_move">μετακινήθηκε στον φάκελο εφαρμογών</string>
