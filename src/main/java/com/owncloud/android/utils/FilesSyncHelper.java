@@ -174,7 +174,7 @@ public class FilesSyncHelper {
             while (cursor.moveToNext()) {
                 contentPath = cursor.getString(column_index_data);
                 isFolder = new File(contentPath).isDirectory();
-                filesystemDataProvider.storeOrUpdateFileValue(cursor.getString(column_index_data),
+                filesystemDataProvider.storeOrUpdateFileValue(contentPath,
                         cursor.getLong(column_index_date_modified), isFolder, syncedFolder, dryRun);
             }
             cursor.close();
