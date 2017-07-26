@@ -458,11 +458,15 @@ public class UploadsStorageManager extends Observable {
     }
 
     public long clearSuccessfulUploads() {
+        Account account = AccountUtils.getCurrentOwnCloudAccount(mContext);
 
         long result = getDB().delete(
                 ProviderTableMeta.CONTENT_URI_UPLOADS,
-                ProviderTableMeta.UPLOADS_STATUS + "==" + UploadStatus.UPLOAD_SUCCEEDED.value, null
+                ProviderTableMeta.UPLOADS_STATUS + "==" + UploadStatus.UPLOAD_SUCCEEDED.value  + AND +
+                ProviderTableMeta.UPLOADS_ACCOUNT_NAME + "== ?", new String[]{account.name}
+
         );
+
         Log_OC.d(TAG, "delete all successful uploads");
         if (result > 0) {
             notifyObserversNow();
@@ -471,16 +475,19 @@ public class UploadsStorageManager extends Observable {
     }
 
     public long clearAllFinishedButNotDelayedUploads() {
+        Account account = AccountUtils.getCurrentOwnCloudAccount(mContext);
 
-        String[] whereArgs = new String[2];
+        String[] whereArgs = new String[3];
         whereArgs[0] = String.valueOf(UploadStatus.UPLOAD_SUCCEEDED.value);
         whereArgs[1] = String.valueOf(UploadStatus.UPLOAD_FAILED.value);
+        whereArgs[2] = account.name;
         long result = getDB().delete(
                 ProviderTableMeta.CONTENT_URI_UPLOADS,
                 ProviderTableMeta.UPLOADS_STATUS + "=? OR " + ProviderTableMeta.UPLOADS_STATUS + "=? AND " +
                         ProviderTableMeta.UPLOADS_LAST_RESULT + "<>" + UploadResult.LOCK_FAILED.getValue() + AND +
                         ProviderTableMeta.UPLOADS_LAST_RESULT + "<>" + UploadResult.DELAYED_FOR_WIFI.getValue() + AND +
-                        ProviderTableMeta.UPLOADS_LAST_RESULT + "<>" + UploadResult.DELAYED_FOR_CHARGING.getValue(),
+                        ProviderTableMeta.UPLOADS_LAST_RESULT + "<>" + UploadResult.DELAYED_FOR_CHARGING.getValue() + AND +
+                        ProviderTableMeta.UPLOADS_ACCOUNT_NAME + "== ?",
                 whereArgs
         );
         Log_OC.d(TAG, "delete all finished uploads");
@@ -575,13 +582,4 @@ public class UploadsStorageManager extends Observable {
         }
         return result;
     }
-
-    public int removeAccountUploads(Account account) {
-        Log_OC.v(TAG, "Delete all uploads for account " + account.name);
-        return getDB().delete(
-                ProviderTableMeta.CONTENT_URI_UPLOADS,
-                ProviderTableMeta.UPLOADS_ACCOUNT_NAME + "=?",
-                new String[]{account.name});
-    }
-
 }
