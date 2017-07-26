@@ -34,6 +34,8 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.FragmentTransaction;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
@@ -208,11 +210,30 @@ public class UploadListActivity extends FileActivity implements UploadListFragme
                     openDrawer();
                 }
 
+            case R.id.action_clear_successfull_uploads:
+                storageManager = new UploadsStorageManager(getContentResolver(), getApplicationContext());
+                storageManager.clearSuccessfulUploads();
+                uploadListFragment.updateUploads();
+                break;
+
+            case R.id.action_clear_finished_uploads:
+                storageManager = new UploadsStorageManager(getContentResolver(), getApplicationContext());
+                storageManager.clearAllFinishedButNotDelayedUploads();
+                uploadListFragment.updateUploads();
+                break;
+
             default:
                 retval = super.onOptionsItemSelected(item);
         }
 
         return retval;
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.upload_list_menu, menu);
+        return true;
     }
 
     @Override
