@@ -1,3 +1,17 @@
+## 2017-07-27 00:31
+New branches:
+/
+
+Updated branches:
+- Show empty message again (nextcloud/showEmptyMessageAgain) [https://github.com/nextcloud/android/pull/1213] updated
+
+Conflicting branches:
+- resolves: #1207 make daily contact backup string translatable (nextcloud/dailyBackupString) [https://github.com/nextcloud/android/pull/1208] conflicting
+- Auto upload crash if filepath is null (nextcloud/autoUploadCrashIfFilepathIsNull) [https://github.com/nextcloud/android/pull/1201] conflicting
+- revamped details screen (nextcloud/new_details_view_animations) [https://github.com/nextcloud/android/pull/1156] conflicting
+- Comment out adding all new downloaded files to folder observer (nextcloud/folderObserver) [https://github.com/nextcloud/android/pull/1155] conflicting
+- Master (nextcloud/master) [https://github.com/nextcloud/android] conflicting
+
 ## 2017-07-26 00:31
 New branches:
 - Show empty message when receiving external files (nextcloud/emptyMessageReceiveExternalFiles) [https://github.com/nextcloud/android/pull/1214] added
