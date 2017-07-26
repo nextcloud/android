@@ -414,8 +414,28 @@ public class UploadFileOperation extends SyncOperation {
                 throw new OperationCancelledException();
             }
 
-            FileChannel channel = new RandomAccessFile(mFile.getStoragePath(), "rw").getChannel();
-            fileLock = channel.tryLock();
+            FileChannel channel = null;
+            try {
+                channel = new RandomAccessFile(mFile.getStoragePath(), "rw").getChannel();
+                fileLock = channel.tryLock();
+            } catch (FileNotFoundException e) {
+                if (temporalFile == null) {
+                    String temporalPath = FileStorageUtils.getTemporalPath(mAccount.name) + mFile.getRemotePath();
+                    mFile.setStoragePath(temporalPath);
+                    temporalFile = new File(temporalPath);
+
+                    result = copy(originalFile, temporalFile);
+                    if (result != null) {
+                        return result;
+                    } else {
+                        channel = new RandomAccessFile(temporalFile.getAbsolutePath(), "rw").getChannel();
+                        fileLock = channel.tryLock();
+                    }
+                } else {
+                    channel = new RandomAccessFile(temporalFile.getAbsolutePath(), "rw").getChannel();
+                    fileLock = channel.tryLock();
+                }
+            }
 
             result = mUploadOperation.execute(client);
 
