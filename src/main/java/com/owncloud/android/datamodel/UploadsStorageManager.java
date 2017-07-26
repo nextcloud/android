@@ -438,14 +438,18 @@ public class UploadsStorageManager extends Observable {
     }
 
     public long clearFailedButNotDelayedUploads() {
+        Account account = AccountUtils.getCurrentOwnCloudAccount(mContext);
+
         long result = getDB().delete(
                 ProviderTableMeta.CONTENT_URI_UPLOADS,
                 ProviderTableMeta.UPLOADS_STATUS + "==" + UploadStatus.UPLOAD_FAILED.value + AND +
                         ProviderTableMeta.UPLOADS_LAST_RESULT + "<>" + UploadResult.LOCK_FAILED.getValue() + AND +
                         ProviderTableMeta.UPLOADS_LAST_RESULT + "<>" + UploadResult.DELAYED_FOR_WIFI.getValue() + AND +
-                        ProviderTableMeta.UPLOADS_LAST_RESULT + "<>" + UploadResult.DELAYED_FOR_CHARGING.getValue(),
-                null
+                        ProviderTableMeta.UPLOADS_LAST_RESULT + "<>" + UploadResult.DELAYED_FOR_CHARGING.getValue() + AND +
+                        ProviderTableMeta.UPLOADS_ACCOUNT_NAME + "== ?",
+                new String[]{account.name}
         );
+
         Log_OC.d(TAG, "delete all failed uploads but those delayed for Wifi");
         if (result > 0) {
             notifyObserversNow();
