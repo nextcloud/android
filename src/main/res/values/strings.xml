@@ -539,8 +539,8 @@
     <string name="edit_share_unshare">Stop sharing</string>
     <string name="edit_share_done">done</string>
 
-    <string name="action_retry_uploads">New attempt failed</string>
-    <string name="action_clear_failed_uploads">Clear failed</string>
+    <string name="action_retry_uploads">Retry failed uploads</string>
+    <string name="action_clear_failed_uploads">Clear failed uploads</string>
     <string name="action_clear_successful_uploads">Clear successful uploads</string>
     <string name="action_clear_finished_uploads">Clear finished uploads</string>
 
