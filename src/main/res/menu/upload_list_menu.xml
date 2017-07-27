@@ -17,18 +17,31 @@
   You should have received a copy of the GNU General Public License
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
-<menu xmlns:android="http://schemas.android.com/apk/res/android" >
-    <item
-        android:id="@+id/action_retry_uploads"
-        android:title="@string/action_retry_uploads"/>
-    <item
-        android:id="@+id/action_clear_failed_uploads"
-        android:title="@string/action_clear_failed_uploads"/>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group
+        android:id="@+id/upload_list_actions"
+        android:checkableBehavior="none">
 
-    <item
-        android:id="@+id/action_clear_successfull_uploads"
-        android:title="@string/action_clear_successful_uploads"/>
-    <item
-        android:id="@+id/action_clear_finished_uploads"
-        android:title="@string/action_clear_finished_uploads"/>
+        <item
+            android:id="@+id/action_retry_uploads"
+            android:title="@string/action_retry_uploads"/>
+        <item
+            android:id="@+id/action_clear_failed_uploads"
+            android:title="@string/action_clear_failed_uploads"/>
+
+        <item
+            android:id="@+id/action_clear_successfull_uploads"
+            android:title="@string/action_clear_successful_uploads"/>
+        <item
+            android:id="@+id/action_clear_finished_uploads"
+            android:title="@string/action_clear_finished_uploads"/>
+    </group>
+    <group
+        android:id="@+id/upload_list_force_scan"
+        android:checkableBehavior="none">
+
+        <item
+            android:id="@+id/action_force_rescan"
+            android:title="@string/action_force_rescan"/>
+    </group>
 </menu>
