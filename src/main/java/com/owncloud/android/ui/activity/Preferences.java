@@ -107,6 +107,7 @@ public class Preferences extends PreferenceActivity
     private SwitchPreference pCode;
     private SwitchPreference fPrint;
     private SwitchPreference mShowHiddenFiles;
+    private SwitchPreference mExpertMode;
     private Preference pAboutApp;
     private AppCompatDelegate mDelegate;
 
@@ -333,8 +334,20 @@ public class Preferences extends PreferenceActivity
             });
         } else {
             preferenceCategoryDetails.removePreference(mShowHiddenFiles);
-
         }
+
+        mExpertMode = (SwitchPreference) findPreference("expert_mode");
+        mExpertMode.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+            @Override
+            public boolean onPreferenceClick(Preference preference) {
+                SharedPreferences appPrefs =
+                        PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                SharedPreferences.Editor editor = appPrefs.edit();
+                editor.putBoolean("expert_mode", mExpertMode.isChecked());
+                editor.apply();
+                return true;
+            }
+        });
 
         PreferenceCategory preferenceCategoryMore = (PreferenceCategory) findPreference("more");
         preferenceCategoryMore.setTitle(ThemeUtils.getColoredTitle(getString(R.string.prefs_category_more),
@@ -469,7 +482,11 @@ public class Preferences extends PreferenceActivity
             }
         }
 
-        boolean loggerEnabled = getResources().getBoolean(R.bool.logger_enabled) || BuildConfig.DEBUG;
+        SharedPreferences appPrefs =
+                PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+
+        boolean loggerEnabled = getResources().getBoolean(R.bool.logger_enabled) || BuildConfig.DEBUG ||
+                appPrefs.getBoolean("expert_mode", false);
         Preference pLogger = findPreference("logger");
         if (pLogger != null) {
             if (loggerEnabled) {

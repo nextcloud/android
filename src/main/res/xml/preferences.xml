@@ -102,6 +102,9 @@
 		<com.owncloud.android.ui.ThemeableSwitchPreference
 			android:title="@string/prefs_show_hidden_files"
 			android:key="show_hidden_files"/>
+		<com.owncloud.android.ui.ThemeableSwitchPreference
+			android:title="@string/prefs_expert_mode"
+			android:key="expert_mode"/>
 	</PreferenceCategory>
 
 	<PreferenceCategory android:title="@string/prefs_category_more" android:key="more">

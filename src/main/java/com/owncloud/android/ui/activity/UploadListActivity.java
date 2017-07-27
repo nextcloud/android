@@ -29,9 +29,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.preference.PreferenceManager;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.FragmentTransaction;
 import android.view.Menu;
@@ -40,12 +42,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.evernote.android.job.JobRequest;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.UploadsStorageManager;
 import com.owncloud.android.db.OCUpload;
 import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
+import com.owncloud.android.jobs.FilesSyncJob;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
@@ -234,6 +238,14 @@ public class UploadListActivity extends FileActivity implements UploadListFragme
                 uploadListFragment.updateUploads();
                 break;
 
+            case R.id.action_force_rescan:
+                new JobRequest.Builder(FilesSyncJob.TAG)
+                        .setExact(1_000L)
+                        .setUpdateCurrent(false)
+                        .build()
+                        .schedule();
+                break;
+
             default:
                 retval = super.onOptionsItemSelected(item);
         }
@@ -243,8 +255,12 @@ public class UploadListActivity extends FileActivity implements UploadListFragme
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.upload_list_menu, menu);
+        SharedPreferences appPrefs =
+                PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        if (appPrefs.getBoolean("expert_mode", false)) {
+            MenuInflater inflater = getMenuInflater();
+            inflater.inflate(R.menu.upload_list_menu, menu);
+        }
         return true;
     }
 
