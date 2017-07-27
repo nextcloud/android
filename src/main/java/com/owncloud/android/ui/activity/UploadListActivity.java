@@ -78,6 +78,8 @@ public class UploadListActivity extends FileActivity implements UploadListFragme
 
     private UploadMessagesReceiver mUploadMessagesReceiver;
 
+    private Menu mMenu;
+
     @Override
     public void showFiles(boolean onDeviceOnly) {
         super.showFiles(onDeviceOnly);
@@ -218,6 +220,9 @@ public class UploadListActivity extends FileActivity implements UploadListFragme
             case R.id.action_retry_uploads:
                 FileUploader.UploadRequester requester = new FileUploader.UploadRequester();
                 requester.retryFailedUploads(this, null, null);
+                if (mMenu != null) {
+                    mMenu.removeItem(R.id.action_retry_uploads);
+                }
                 break;
 
             case R.id.action_clear_failed_uploads:
@@ -244,6 +249,11 @@ public class UploadListActivity extends FileActivity implements UploadListFragme
                         .setUpdateCurrent(false)
                         .build()
                         .schedule();
+                
+                if (mMenu != null) {
+                    mMenu.removeItem(R.id.action_force_rescan);
+                }
+
                 break;
 
             default:
@@ -260,7 +270,9 @@ public class UploadListActivity extends FileActivity implements UploadListFragme
         if (appPrefs.getBoolean("expert_mode", false)) {
             MenuInflater inflater = getMenuInflater();
             inflater.inflate(R.menu.upload_list_menu, menu);
+            mMenu = menu;
         }
+
         return true;
     }
 
