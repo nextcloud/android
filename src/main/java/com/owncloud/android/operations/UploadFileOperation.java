@@ -51,6 +51,8 @@ import com.owncloud.android.utils.UriUtils;
 
 import org.apache.commons.httpclient.HttpStatus;
 import org.apache.commons.httpclient.methods.RequestEntity;
+import org.lukhnos.nnio.file.Files;
+import org.lukhnos.nnio.file.Paths;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -425,11 +427,27 @@ public class UploadFileOperation extends SyncOperation {
                     temporalFile = new File(temporalPath);
 
                     result = copy(originalFile, temporalFile);
+
                     if (result != null) {
                         return result;
                     } else {
-                        channel = new RandomAccessFile(temporalFile.getAbsolutePath(), "rw").getChannel();
-                        fileLock = channel.tryLock();
+                        if (temporalFile.length() == originalFile.length()) {
+                            channel = new RandomAccessFile(temporalFile.getAbsolutePath(), "rw").getChannel();
+                            fileLock = channel.tryLock();
+                        } else {
+                            while (temporalFile.length() != originalFile.length()) {
+                                Files.deleteIfExists(Paths.get(temporalPath));
+                                result = copy(originalFile, temporalFile);
+
+                                if (result != null) {
+                                    return result;
+                                } else {
+                                    channel = new RandomAccessFile(temporalFile.getAbsolutePath(), "rw").
+                                            getChannel();
+                                    fileLock = channel.tryLock();
+                                }
+                            }
+                        }
                     }
                 } else {
                     channel = new RandomAccessFile(temporalFile.getAbsolutePath(), "rw").getChannel();
