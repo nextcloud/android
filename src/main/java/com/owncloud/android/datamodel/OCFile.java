@@ -234,6 +234,15 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
      * @return true if it is
      */
     public boolean isDown() {
+        return !isFolder() && existsOnDevice();
+    }
+
+    /**
+     * Use this to check if this file or folder is available locally
+     *
+     * @return true if it is
+     */
+    public boolean existsOnDevice() {
         if (mLocalPath != null && mLocalPath.length() > 0) {
             File file = new File(mLocalPath);
             return (file.exists());
