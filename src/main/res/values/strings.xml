@@ -45,6 +45,7 @@
     <string name="prefs_passcode">Passcode lock</string>
     <string name="prefs_fingerprint">Fingerprint lock</string>
     <string name="prefs_fingerprint_notsetup">No fingerprints have been set up.</string>
+    <string name="prefs_expert_mode">Expert mode</string>
     <string name="prefs_show_hidden_files">Show hidden files</string>
     <string name="prefs_instant_upload">Instant uploading of pictures</string>
     <string name="prefs_instant_upload_summary">Upload pictures taken by camera instantly</string>
@@ -543,6 +544,7 @@
     <string name="action_clear_failed_uploads">Clear failed uploads</string>
     <string name="action_clear_successful_uploads">Clear successful uploads</string>
     <string name="action_clear_finished_uploads">Clear finished uploads</string>
+    <string name="action_force_rescan">Force rescan</string>
 
     <string name="action_switch_grid_view">Grid view</string>
     <string name="action_switch_list_view">List view</string>
