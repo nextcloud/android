@@ -47,6 +47,10 @@ public class SharePasswordDialogFragment extends DialogFragment
 
     private static final String ARG_FILE = "FILE";
     private static final String ARG_CREATE_SHARE = "CREATE_SHARE";
+    public static final String PASSWORD_FRAGMENT = "PASSWORD_FRAGMENT";
+
+    private OCFile mFile;
+    private boolean mCreateShare;
 
     @Override
     public void onStart() {
@@ -56,11 +60,6 @@ public class SharePasswordDialogFragment extends DialogFragment
         alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(ThemeUtils.primaryAccentColor());
         alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(ThemeUtils.primaryAccentColor());
     }
-
-    public static final String PASSWORD_FRAGMENT = "PASSWORD_FRAGMENT";
-
-    private OCFile mFile;
-    private boolean mCreateShare;
 
     /**
      * Public factory method to create new SharePasswordDialogFragment instances.
