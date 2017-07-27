@@ -228,7 +228,9 @@ public class LocalFileListAdapter extends BaseAdapter implements FilterableListA
                         } // else, already being generated, don't restart it
                     }
                 } else {
-                    fileIcon.setImageResource(MimeTypeUtil.getFileTypeIconId(null, file.getName()));
+                    fileIcon.setImageDrawable(
+                            MimeTypeUtil.getFileTypeIcon(null, file.getName(), null)
+                    );
                 }  
 
             } else {

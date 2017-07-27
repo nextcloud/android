@@ -50,7 +50,7 @@
             android:layout_gravity="center_vertical"
             android:textAppearance="?android:attr/textAppearanceLargePopupMenu"
             android:duplicateParentState="true"
-            android:singleLine="true"
+			android:maxLines="1"
             android:ellipsize="marquee"
             android:fadingEdge="horizontal" />
 
