@@ -39,7 +39,6 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
@@ -54,8 +53,8 @@ import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.operations.CheckCurrentCredentialsOperation;
 import com.owncloud.android.ui.fragment.UploadListFragment;
-import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.AnalyticsUtils;
+import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
 
 import java.io.File;
@@ -162,8 +161,7 @@ public class UploadListActivity extends FileActivity implements UploadListFragme
         /// TODO is this path still active?
         File f = new File(file.getLocalPath());
         if(!f.exists()) {
-            Toast.makeText(this, "Cannot open. Local file does not exist.",
-                    Toast.LENGTH_SHORT).show();
+            showSnackMessage(getString(R.string.local_file_not_found_toast));
         } else {
             openFileWithDefault(file.getLocalPath());
         }
@@ -184,9 +182,8 @@ public class UploadListActivity extends FileActivity implements UploadListFragme
         try {
             startActivity(myIntent);
         } catch (ActivityNotFoundException e) {
-            Toast.makeText(this, "Found no app to open this file.", Toast.LENGTH_LONG).show();
+            showSnackMessage(getString(R.string.file_list_no_app_for_file_type));
             Log_OC.i(TAG, "Could not find app for sending log history.");
-
         }        
     }
     
