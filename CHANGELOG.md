@@ -1,3 +1,18 @@
+## 2017-07-29 00:31
+New branches:
+- On receiving untrusted ssl cert, test if it was previously accepted user (nextcloud/newWebLoginUntrustedCert) [https://github.com/nextcloud/android/pull/1206] added
+
+Updated branches:
+- Dev branch (nextcloud/dev) [https://github.com/nextcloud/android/tree/dev] updated
+- Show empty message when receiving external files (nextcloud/emptyMessageReceiveExternalFiles) [https://github.com/nextcloud/android/pull/1214] updated
+- Show empty message again (nextcloud/showEmptyMessageAgain) [https://github.com/nextcloud/android/pull/1213] updated
+- On receiving untrusted ssl cert, test if it was previously accepted user (nextcloud/newWebLoginUntrustedCert) [https://github.com/nextcloud/android/pull/1206] updated
+- Comment out adding all new downloaded files to folder observer (nextcloud/folderObserver) [https://github.com/nextcloud/android/pull/1155] updated
+- Master (nextcloud/master) [https://github.com/nextcloud/android] updated
+
+Conflicting branches:
+- Error feedback improvement (nextcloud/errorFeedback) [https://github.com/nextcloud/android/pull/1198] conflicting
+
 ## 2017-07-28 00:30
 New branches:
 /

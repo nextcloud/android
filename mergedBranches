@@ -17,6 +17,7 @@ nextcloud/fix_file_modification_date_on_upload
 nextcloud/folderObserver
 nextcloud/master
 nextcloud/new_details_view_animations
+nextcloud/newWebLoginUntrustedCert
 nextcloud/pinchZoom
 nextcloud/removedSDcard
 nextcloud/resizedImages
