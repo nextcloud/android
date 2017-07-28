@@ -123,7 +123,7 @@ public class MediaProvider {
 
                 if (cursorImages != null) {
                     String filePath;
-                    int failedImages = 0;
+
                     while (cursorImages.moveToNext()) {
                         filePath = cursorImages.getString(cursorImages.getColumnIndexOrThrow(
                                 MediaStore.MediaColumns.DATA));
@@ -131,8 +131,6 @@ public class MediaProvider {
                         if (filePath != null) {
                             mediaFolder.filePaths.add(filePath);
                             mediaFolder.absolutePath = filePath.substring(0, filePath.lastIndexOf("/"));
-                        } else {
-                            failedImages++;
                         }
                     }
                     cursorImages.close();
@@ -243,7 +241,7 @@ public class MediaProvider {
                                 null);
 
                         if (count != null) {
-                            mediaFolder.numberOfFiles = count.getCount() - failedImages;
+                            mediaFolder.numberOfFiles = count.getCount();
                             count.close();
                         }
 
