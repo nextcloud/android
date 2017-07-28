@@ -25,6 +25,8 @@ import android.accounts.Account;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v7.widget.SwitchCompat;
+import android.support.design.widget.Snackbar;
+import android.support.v7.widget.AppCompatCheckBox;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -293,7 +295,12 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_share_file: {
-                mContainerActivity.getFileOperationsHelper().showShareFile(getFile());
+                if(getFile().isSharedWithMe()
+                        && (mContainerActivity.getStorageManager().getCapability(mContainerActivity.getStorageManager().getAccount().name).getFilesSharingResharing().isFalse() || !getFile().canReshare())){
+                    Snackbar.make(mView, R.string.resharing_is_not_allowed, Snackbar.LENGTH_LONG).show();
+                } else {
+                    mContainerActivity.getFileOperationsHelper().showShareFile(getFile());
+                }
                 return true;
             }
             case R.id.action_open_file_with: {
