@@ -1,21 +1,21 @@
-/**
+/*
  * Nextcloud Android client application
  *
  * @author Andy Scherzinger
  * @author Tobias Kaminsky
  * Copyright (C) 2016 Andy Scherzinger
  * Copyright (C) 2016 Nextcloud
- * <p/>
+ *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
  * License as published by the Free Software Foundation; either
  * version 3 of the License, or any later version.
- * <p/>
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU AFFERO GENERAL PUBLIC LICENSE for more details.
- * <p/>
+ *
  * You should have received a copy of the GNU Affero General Public
  * License along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -76,31 +76,34 @@ public class ParticipateActivity extends FileActivity {
 
         TextView contributeIrcView = (TextView) findViewById(R.id.participate_contribute_irc_text);
         contributeIrcView.setMovementMethod(LinkMovementMethod.getInstance());
-        contributeIrcView.setText(Html.fromHtml(
-                getString(R.string.participate_contribute_irc_text,
+        contributeIrcView.setText(Html.fromHtml(getString(R.string.participate_contribute_irc_text) + " " +
+                getString(R.string.participate_contribute_irc_text_link,
                         ThemeUtils.colorToHexString(ThemeUtils.primaryColor()),
                         getString(R.string.irc_weblink))));
 
         TextView contributeForumView = (TextView) findViewById(R.id.participate_contribute_forum_text);
         contributeForumView.setMovementMethod(LinkMovementMethod.getInstance());
-        contributeForumView.setText(Html.fromHtml(
-                getString(R.string.participate_contribute_forum_text,
+        contributeForumView.setText(Html.fromHtml(getString(R.string.participate_contribute_irc_text) + " " +
+                getString(R.string.participate_contribute_forum_text_link,
                         ThemeUtils.colorToHexString(ThemeUtils.primaryColor()),
-                        getString(R.string.help_link))));
+                        getString(R.string.help_link), getString(R.string.participate_contribute_forum_forum))));
 
         TextView contributeTranslationView = (TextView) findViewById(R.id.participate_contribute_translate_text);
         contributeTranslationView.setMovementMethod(LinkMovementMethod.getInstance());
         contributeTranslationView.setText(Html.fromHtml(
-                getString(R.string.participate_contribute_translate_text,
+                getString(R.string.participate_contribute_translate_link,
                         ThemeUtils.colorToHexString(ThemeUtils.primaryColor()),
-                        getString(R.string.translation_link))));
+                        getString(R.string.translation_link),
+                        getString(R.string.participate_contribute_translate_translate)) + " " +
+                        getString(R.string.participate_contribute_translate_text)));
 
         TextView contributeGithubView = (TextView) findViewById(R.id.participate_contribute_github_text);
         contributeGithubView.setMovementMethod(LinkMovementMethod.getInstance());
         contributeGithubView.setText(Html.fromHtml(
                 getString(R.string.participate_contribute_github_text,
-                        ThemeUtils.colorToHexString(ThemeUtils.primaryColor()),
-                getString(R.string.contributing_link))));
+                        getString(R.string.participate_contribute_github_text_link,
+                                ThemeUtils.colorToHexString(ThemeUtils.primaryColor()),
+                                getString(R.string.contributing_link)))));
 
         AppCompatButton reportButton = (AppCompatButton) findViewById(R.id.participate_testing_report);
         reportButton.getBackground().setColorFilter(ThemeUtils.primaryColor(), PorterDuff.Mode.SRC_ATOP);
