@@ -37,6 +37,7 @@ import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.support.design.widget.BottomNavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.SparseBooleanArray;
@@ -912,7 +913,12 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
             OCFile singleFile = checkedFiles.get(0);
             switch (menuId) {
                 case R.id.action_share_file: {
-                    mContainerActivity.getFileOperationsHelper().showShareFile(singleFile);
+                    if(singleFile.isSharedWithMe()
+                            && (mContainerActivity.getStorageManager().getCapability(mContainerActivity.getStorageManager().getAccount().name).getFilesSharingResharing().isFalse() || !singleFile.canReshare())){
+                        Snackbar.make(getView(), R.string.resharing_is_not_allowed, Snackbar.LENGTH_LONG).show();
+                    } else {
+                        mContainerActivity.getFileOperationsHelper().showShareFile(singleFile);
+                    }
                     return true;
                 }
                 case R.id.action_open_file_with: {

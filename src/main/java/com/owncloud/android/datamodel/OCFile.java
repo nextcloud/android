@@ -56,6 +56,7 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
     };
 
     private final static String PERMISSION_SHARED_WITH_ME = "S";    // TODO move to better location
+    private final static String PERMISSION_CAN_RESHARE = "R";
 
     public static final String PATH_SEPARATOR = "/";
     public static final String ROOT_PATH = PATH_SEPARATOR;
@@ -685,6 +686,11 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
     public boolean isSharedWithMe() {
         String permissions = getPermissions();
         return (permissions != null && permissions.contains(PERMISSION_SHARED_WITH_ME));
+    }
+
+    public boolean canReshare(){
+        String permissions = getPermissions();
+        return permissions != null && permissions.contains(PERMISSION_CAN_RESHARE);
     }
 
 }

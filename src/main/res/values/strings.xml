@@ -697,4 +697,5 @@
     <string name="empty" translatable="false"/>
     <string name="test_server_button">Test server connection</string>
     <string name="info_separator" translatable="false">,</string>
+    <string name="resharing_is_not_allowed">Resharing is not allowed</string>
 </resources>
