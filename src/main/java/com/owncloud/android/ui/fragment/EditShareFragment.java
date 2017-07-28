@@ -43,6 +43,7 @@ import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.lib.resources.shares.SharePermissionsBuilder;
 import com.owncloud.android.lib.resources.shares.ShareType;
+import com.owncloud.android.lib.resources.status.OCCapability;
 import com.owncloud.android.lib.resources.status.OwnCloudVersion;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.utils.AnalyticsUtils;
@@ -74,6 +75,11 @@ public class EditShareFragment extends Fragment {
 
     /** Account of the shared file, received as a parameter in construction time */
     private Account mAccount;
+
+    /**
+     * Capabilities of the server.
+     */
+    private OCCapability mCapabilities;
 
     /** Listener for changes on privilege checkboxes */
     private CompoundButton.OnCheckedChangeListener mOnPrivilegeChangeListener;
@@ -109,6 +115,8 @@ public class EditShareFragment extends Fragment {
             /* OC account holding the shared file, received as a parameter in construction time */
             mAccount = getArguments().getParcelable(ARG_ACCOUNT);
         }
+
+        refreshCapabilitiesFromDB();
     }
 
 
@@ -144,6 +152,20 @@ public class EditShareFragment extends Fragment {
         return view;
     }
 
+    /**
+     * Get known server capabilities from DB
+     * <p/>
+     * Depends on the parent Activity provides a {@link com.owncloud.android.datamodel.FileDataStorageManager}
+     * instance ready to use. If not ready, does nothing.
+     */
+    public void refreshCapabilitiesFromDB() {
+        if(getActivity() instanceof FileActivity){
+            FileActivity fileActivity = ((FileActivity)getActivity());
+            if(fileActivity.getStorageManager() != null){
+                mCapabilities = fileActivity.getStorageManager().getCapability(mAccount.name);
+            }
+        }
+    }
 
     /**
      * Updates the UI with the current permissions in the edited {@OCShare}
@@ -167,7 +189,10 @@ public class EditShareFragment extends Fragment {
 
             if (isFederated) {
                 shareSwitch.setVisibility(View.INVISIBLE);
+            } else if(mCapabilities != null && mCapabilities.getFilesSharingResharing().isFalse()){
+                shareSwitch.setVisibility(View.GONE);
             }
+
             shareSwitch.setChecked((sharePermissions & OCShare.SHARE_PERMISSION_FLAG) > 0);
 
             SwitchCompat switchCompat = (SwitchCompat) editShareView.findViewById(R.id.canEditSwitch);
