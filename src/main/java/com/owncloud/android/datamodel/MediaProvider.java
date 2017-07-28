@@ -131,6 +131,8 @@ public class MediaProvider {
                         if (filePath != null) {
                             mediaFolder.filePaths.add(filePath);
                             mediaFolder.absolutePath = filePath.substring(0, filePath.lastIndexOf("/"));
+                        } else {
+                            failedImages++;
                         }
                     }
                     cursorImages.close();
