@@ -523,6 +523,8 @@
     <string name="share_known_remote_clarification">%1$s ( στο %2$s )</string>
 
     <string name="share_sharee_unavailable">Δεν επιτρέπεται ο διαμοιρασμός μεταξύ χρηστών μέσω πελατών, σε αυτή την έκδοση διακομιστή. \nΕπικοινωνήστε με το διαχειριστή</string>
+    <string name="filedetails_share_link_enable">Ο διαμοιρασμός με link ενεργοποιήθηκε</string>
+    <string name="filedetails_share_link_disable">Μη διαμοιρασμένο με link</string>
     <string name="share_privilege_can_share">δυνατότητα διαμοιρασμού</string>
     <string name="share_privilege_can_edit">δυνατότητα επεξεργασίας</string>
     <string name="share_privilege_can_edit_create">δημιουργία</string>
@@ -565,10 +567,6 @@
     <string name="participate_release_candidate_headline">Release candidate</string>
     <string name="participate_release_candidate_text">Η υποψήφια έκδοση (RC) είναι ένα στιγμιότυπο της επερχόμενης έκδοσης και να αναμένεται να είναι σταθερή. Δοκιμάζοντας τις προσωπικές σας ρυθμίσεις μπορεί να βοηθήσει στην διασφάλιση της έκδοσης. Δηλώστε υποψηφιότητα δοκιμής στο Play store ή αναζητήστε χειροκίνητα στον τομέα \"εκδόσεων\" στο F-Droid.</string>
     <string name="participate_contribute_headline">Ενεργή συνεισφορά</string>
-    <string name="participate_contribute_irc_text">Συμμετέχετε στη συνομιλία στο IRC: &lt;font color=\"%1$s\">&lt;a href=\"%2$s\">#nextcloud-mobile&lt;/a>&lt;/font></string>
-    <string name="participate_contribute_forum_text">Βοηθήστε χρήστες στο &lt;font color=\"%1$s\">&lt;a href=\"%2$s\">forum&lt;/a>&lt;/font></string>
-    <string name="participate_contribute_translate_text">&lt;font color=\"%1$s\">&lt;a href=\"%2$s\">Μεταφράστε&lt;/a>&lt;/font> την εφαρμογή</string>
-    <string name="participate_contribute_github_text">Συνεισφέρετε ως προγραμματιστής, για περισσότερες λεπτομέρειες δείτε &lt;font color=\"%1$s\">&lt;a href=\"%2$s\">CONTRIBUTING.md&lt;/a>&lt;/font></string>
     <string name="move_to">Μετακίνηση σε&#8230;</string>
     <string name="copy_to">Αντιγραφή σε&#8230;</string>
     <string name="choose_remote_folder">Επιλογή φακέλου&#8230;</string>

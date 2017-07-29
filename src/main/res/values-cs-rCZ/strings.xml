@@ -561,10 +561,6 @@
     <string name="participate_release_candidate_headline">Předběžná verze</string>
     <string name="participate_release_candidate_text">Kandidát na vydání (RC) je snímkem nadcházejícího vydání a očekává se, že bude stabilní. Testování vašeho individuálního nastavení by to mohlo pomoci zajistit. Přihlaste se k testování v Obchodě Play nebo se podívejte do F-Droid v části \"Verze\" a přihlaste se manuálně.</string>
     <string name="participate_contribute_headline">Aktivně něčím přispět</string>
-    <string name="participate_contribute_irc_text">Diskutovat na IRC: &lt;font color=\"%1$s\">&lt;a href=\"%2$s\">#nextcloud-mobile&lt;/a>&lt;/font></string>
-    <string name="participate_contribute_forum_text">Pomozte ostatním na &lt;font color=\"%1$s\">&lt;a href=\"%2$s\">fóru&lt;/a>&lt;/font></string>
-    <string name="participate_contribute_translate_text">&lt;font color=\"%1$s\">&lt;a href=\"%2$s\">Přeložte&lt;/a>&lt;/font> aplikaci</string>
-    <string name="participate_contribute_github_text">Přispět jako vývojář, detaily pod &lt;font color=\"%1$s\">&lt;a href=\"%2$s\">CONTRIBUTING.md&lt;/a>&lt;/font></string>
     <string name="move_to">Přesunout do&#8230;</string>
     <string name="copy_to">Kopírovat do&#8230;</string>
     <string name="choose_remote_folder">Vybrat adresář&#8230;</string>
