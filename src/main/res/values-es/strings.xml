@@ -523,6 +523,8 @@
     <string name="share_known_remote_clarification">%1$s ( en %2$s )</string>
 
     <string name="share_sharee_unavailable">Actualiza la versión del servidor para permitir compartir entre usuarios desde sus clientes.\nPor favor, contacta con tu administrador</string>
+    <string name="filedetails_share_link_enable">Compartir por enlace activado</string>
+    <string name="filedetails_share_link_disable">No compartido por enlace</string>
     <string name="share_privilege_can_share">puede compartir</string>
     <string name="share_privilege_can_edit">puede editar</string>
     <string name="share_privilege_can_edit_create">crear</string>
@@ -565,10 +567,6 @@
     <string name="participate_release_candidate_headline">Versión candidata</string>
     <string name="participate_release_candidate_text">La versión candidata (RC) es una instantánea de la próxima versión y se espera que sea estable. Probar tu configuración individual puede ayudar a asegurarlo. Apúntate para probarla en Google Play o búscala manualmente en la sección \"Versiones\" de F-Droid.</string>
     <string name="participate_contribute_headline">Colabora activamente</string>
-    <string name="participate_contribute_irc_text">Únete a la conversación en IRC: &lt;font color=\"%1$s\">&lt;a href=\"%2$s\">#nextcloud-mobile&lt;/a>&lt;/font></string>
-    <string name="participate_contribute_forum_text">Ayuda a otros en el &lt;font color=\"%1$s\">&lt;a href=\"%2$s\">foro&lt;/a>&lt;/font></string>
-    <string name="participate_contribute_translate_text">&lt;font color=\"%1$s\">&lt;a href=\"%2$s\">Traduce&lt;/a>&lt;/font> la app</string>
-    <string name="participate_contribute_github_text">Revisa, corrige y escribe código, lee &lt;font color=\"%1$s\">&lt;a href=\"%2$s\">CONTRIBUTING.md&lt;/a>&lt;/font> para más detalles</string>
     <string name="move_to">Mover a&#8230;</string>
     <string name="copy_to">Copiar a&#8230;</string>
     <string name="choose_remote_folder">Elija carpeta&#8230;</string>
