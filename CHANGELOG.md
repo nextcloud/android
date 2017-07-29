@@ -1,3 +1,13 @@
+## 2017-07-30 00:31
+New branches:
+/
+
+Updated branches:
+- Master (nextcloud/master) [https://github.com/nextcloud/android] updated
+
+Conflicting branches:
+- Error feedback improvement (nextcloud/errorFeedback) [https://github.com/nextcloud/android/pull/1198] conflicting
+
 ## 2017-07-29 00:31
 New branches:
 - On receiving untrusted ssl cert, test if it was previously accepted user (nextcloud/newWebLoginUntrustedCert) [https://github.com/nextcloud/android/pull/1206] added
