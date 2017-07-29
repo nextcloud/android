@@ -523,6 +523,8 @@
     <string name="share_known_remote_clarification">%1$s ( hos %2$s )</string>
 
     <string name="share_sharee_unavailable">Beklager, tjenerversjonen din tillater ikke klienter å dele med brukere. \nKontakt systemadministratoren</string>
+    <string name="filedetails_share_link_enable">Deling med lenke påskrudd</string>
+    <string name="filedetails_share_link_disable">Ikke delt med lenke</string>
     <string name="share_privilege_can_share">kan dele</string>
     <string name="share_privilege_can_edit">kan redigere</string>
     <string name="share_privilege_can_edit_create">opprette</string>
@@ -565,10 +567,6 @@
     <string name="participate_release_candidate_headline">Slippkandidat</string>
     <string name="participate_release_candidate_text">En Slippkandidat (RC) er en øyeblikkspakke av den kommende utgaven og er forventet å være stabil. Ved å teste denne med ditt oppsett hjelper du til å med dette. Meld deg på testing i Play-butikken, eller se i seksjonen \"Versjon\" for programmet i F-Droid.</string>
     <string name="participate_contribute_headline">Bidra aktivt</string>
-    <string name="participate_contribute_irc_text">Sludre på IRC: &lt;font color=\"%1$s\">&lt;a href=\"%2$s\">#nextcloud-mobile&lt;/a>&lt;/font></string>
-    <string name="participate_contribute_forum_text">Hjelp andre på &lt;font color=\"%1$s\">&lt;a href=\"%2$s\">forumet&lt;/a>&lt;/font></string>
-    <string name="participate_contribute_translate_text">&lt;font color=\"%1$s\">&lt;a href=\"%2$s\">Oversett&lt;/a>&lt;/font> programmet</string>
-    <string name="participate_contribute_github_text">Gjennomse, endre og skriv kode, se &lt;font color=\"%1$s\">&lt;a href=\"%2$s\">CONTRIBUTING.md&lt;/a>&lt;/font> for detaljer.</string>
     <string name="move_to">Flytt til&#8230;</string>
     <string name="copy_to">Kopier til&#8230;</string>
     <string name="choose_remote_folder">Velg mappe&#8230;</string>

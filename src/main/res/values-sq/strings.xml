@@ -69,6 +69,8 @@
 
 	<string name="recommend_subject">Provojeni %1$s te telefoni juaj!</string>
 	<string name="recommend_text">Dua t’ju ftoj të përdorni %1$s në telefonin tuaj!\nShkarkojeni këtu: %2$s</string>
+    <string name="recommend_urls">%1$s ose %2$s</string>
+
     <string name="auth_check_server">Kontrollo serverin</string>
     <string name="auth_host_url">Adresa e serverit https://… </string>
     <string name="auth_username">Emër përdoruesi</string>
@@ -485,6 +487,8 @@
     <string name="upload_copy_files">Kopjoje kartelën</string>
     <string name="upload_move_files">Lëvize kartelën</string>
     <string name="select_all">Zgjidhi të gjitha</string>
+    <string name="deselect_all">Hiqi të gjithë</string>
+
     <string name="pref_behaviour_entries_keep_file">mbajtur në dosjen origjinale</string>
     <string name="pref_behaviour_entries_move">u kalua te dosja e aplikacionit</string>
     <string name="pref_behaviour_entries_delete_file">të fshira</string>
@@ -515,6 +519,8 @@
     <string name="share_known_remote_clarification">%1$s ( te %2$s )</string>
 
     <string name="share_sharee_unavailable">Na vjen keq, versioni i server-it tuaj nuk lejon ndarjen me përdoruesit mes klientëve.\nJu lutemi kontaktoni administratorin</string>
+    <string name="filedetails_share_link_enable">Shpërnda nga lidhja e aktivizuar</string>
+    <string name="filedetails_share_link_disable">Jo e shpërndarë nga lidhja</string>
     <string name="share_privilege_can_share">mund të ndajë</string>
     <string name="share_privilege_can_edit">mund të përpunojnë</string>
     <string name="share_privilege_can_edit_create">krijoje</string>
@@ -550,15 +556,12 @@
     <string name="drawer_participate">Merni pjesë</string>
     <string name="participate_testing_headline">Na ndihmoni me testimin</string>
     <string name="participate_testing_bug_text">Gjetet një defekt? Diçka është e çuditshme?</string>
+    <string name="participate_testing_report_text">Raporto një problem në GitHub</string>
     <string name="participate_testing_version_text">Jeni të interesuar për të na ndihmuar në testimin e versionit të ardhshëm?</string>
     <string name="participate_beta_headline">Testoni versionin Beta</string>
     <string name="participate_beta_text">Kjo përfshin të gjitha karakteristikat që do të vijnë dhe ky është vetëm fillimi. Buget/gabimet  mund të ndodhin, nëse dhe kur të ndodhin, ju lutemi të raportoni për gjetjet tuaja. </string>
     <string name="participate_release_candidate_headline">Lëshimi i kandidatit</string>
     <string name="participate_contribute_headline">Kontribim aktiv</string>
-    <string name="participate_contribute_irc_text">Bashkohu në bisedat në IRC: &lt;font color=\"%1$s\">&lt;a href=\"%2$s\">#nextcloud-mobile&lt;/a>&lt;/font></string>
-    <string name="participate_contribute_forum_text">Ndihmo të tjerët në &lt;font color=\"%1$s\">&lt;a href=\"%2$s\">forum&lt;/a>&lt;/font></string>
-    <string name="participate_contribute_translate_text">&lt;font color=\"%1$s\">&lt;a href=\"%2$s\">Përktheni&lt;/a>&lt;/font> aplikacionin</string>
-    <string name="participate_contribute_github_text">Kontriboni si një zhvillues, shih &lt;font color=\"%1$s\">&lt;a href=\"%2$s\">CONTRIBUTING.md&lt;/a>&lt;/font> për detaje</string>
     <string name="move_to">Levizni tek&#8230;</string>
     <string name="copy_to">Kopjojeni tek&#8230;</string>
     <string name="choose_remote_folder">Zgjidh dosjen&#8230;</string>

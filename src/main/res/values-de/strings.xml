@@ -524,6 +524,8 @@
     <string name="share_known_remote_clarification">%1$s ( at %2$s )</string>
 
     <string name="share_sharee_unavailable">Entschuldigung, deine Serverversion erlaubt das Teilen mit Nutzern innerhalb der Clients nicht. \nBitte kontaktiere deinen Administrator</string>
+    <string name="filedetails_share_link_enable">Über einen Link geteilt aktiviert</string>
+    <string name="filedetails_share_link_disable">Nicht über einen Link geteilt</string>
     <string name="share_privilege_can_share">kann teilen</string>
     <string name="share_privilege_can_edit">kann bearbeiten</string>
     <string name="share_privilege_can_edit_create">erstellen</string>
@@ -567,10 +569,6 @@
     <string name="participate_release_candidate_headline">Vorabversion</string>
     <string name="participate_release_candidate_text">Der Release-Kandidat (RC) ist eine Vorschau auf die kommenden Version und sollte stabil sein. Das Testen des RC unter Deiner individuellen Umgebung kann helfen, die Qualität und Stabilität zu sichern. Registriere Dich als Tester im Play-Store oder schaue in die \"Version\"-Sektion auf F-Droid.</string>
     <string name="participate_contribute_headline">Aktiv etwas beitragen</string>
-    <string name="participate_contribute_irc_text">Trete dem IRC-Chat bei: &lt;font color=\"%1$s\">&lt;a href=\"%2$s\">#nextcloud-mobile&lt;/a>&lt;/font></string>
-    <string name="participate_contribute_forum_text">Helfe anderen im &lt;font color=\"%1$s\">&lt;a href=\"%2$s\">Forum&lt;/a>&lt;/font></string>
-    <string name="participate_contribute_translate_text">&lt;font color=\"%1$s\">&lt;a href=\"%2$s\">Übersetze&lt;/a>&lt;/font> die App</string>
-    <string name="participate_contribute_github_text">Überprüfen, Ändern und Schreiben von Code, schau in die &lt;font color=\"%1$s\">&lt;a href=\"%2$s\">CONTRIBUTING.md&lt;/a>&lt;/font> für weitere Details</string>
     <string name="move_to">Verschieben nach&#8230;</string>
     <string name="copy_to">Kopieren nach&#8230;</string>
     <string name="choose_remote_folder">Wähle Verzeichnis&#8230;</string>

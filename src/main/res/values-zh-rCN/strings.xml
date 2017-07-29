@@ -526,6 +526,8 @@
     <string name="share_known_remote_clarification">%1$s ( 在 %2$s )</string>
 
     <string name="share_sharee_unavailable">升级服务器版本以允许在其客户端之间的用户之间共享。\ n请与您的管理员联系</string>
+    <string name="filedetails_share_link_enable">共享链接已启用</string>
+    <string name="filedetails_share_link_disable">链接不共享</string>
     <string name="share_privilege_can_share">可共享</string>
     <string name="share_privilege_can_edit">可编辑</string>
     <string name="share_privilege_can_edit_create">创建</string>
@@ -568,10 +570,6 @@
     <string name="participate_release_candidate_headline">发行候选版本</string>
     <string name="participate_release_candidate_text">候选发行版（RC）是指即将正式发布的版本，理论上说是稳定的。该测试有您的参加将确保正式版本的稳定。您可在Google Play应用商店参与测试或在F-Droid（F-Droid是一个Android应用程序的软件资源库或应用商店，类似于Google Play商店，但只包含自由及开放源代码软件）手动查看应用资源库的“版本”部分</string>
     <string name="participate_contribute_headline">活跃的候选版</string>
-    <string name="participate_contribute_irc_text">在IRC上加入这个会话: &lt;font color=\"%1$s\">&lt;a href=\"%2$s\">#nextcloud-mobile&lt;/a>&lt;/font></string>
-    <string name="participate_contribute_forum_text">帮助他人在 &lt;font color=\"%1$s\">&lt;a href=\"%2$s\">论坛&lt;/a>&lt;/font></string>
-    <string name="participate_contribute_translate_text">&lt;font color=\"%1$s\">&lt;a href=\"%2$s\">翻译&lt;/a>&lt;/font> 应用程序</string>
-    <string name="participate_contribute_github_text">查看，修改和编写代码，有关详细信息，请参阅 &lt;font color=\"%1$s\">&lt;a href=\"%2$s\">CONTRIBUTING.md&lt;/a>&lt;/font></string>
     <string name="move_to">转移到&#8230;</string>
     <string name="copy_to">复制到</string>
     <string name="choose_remote_folder">选择文件夹&#8230;</string>
