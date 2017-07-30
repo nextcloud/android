@@ -27,6 +27,7 @@ import android.os.Build;
 import android.support.annotation.RequiresApi;
 
 import com.evernote.android.job.JobRequest;
+import com.evernote.android.job.util.support.PersistableBundleCompat;
 import com.owncloud.android.utils.FilesSyncHelper;
 
 import java.util.concurrent.TimeUnit;
@@ -40,6 +41,10 @@ public class M1ContentObserverJob extends JobService {
             if (params.getJobId() == FilesSyncHelper.ContentSyncJobId) {
                 if (params.getTriggeredContentAuthorities() != null && params.getTriggeredContentUris() != null
                         && params.getTriggeredContentUris().length > 0) {
+
+                    PersistableBundleCompat persistableBundleCompat = new PersistableBundleCompat();
+                    persistableBundleCompat.putBoolean(FilesSyncJob.SKIP_CUSTOM, true);
+
                     new JobRequest.Builder(FilesSyncJob.TAG)
                             .setExecutionWindow(1, TimeUnit.SECONDS.toMillis(2))
                             .setBackoffCriteria(TimeUnit.SECONDS.toMillis(5), JobRequest.BackoffPolicy.LINEAR)
