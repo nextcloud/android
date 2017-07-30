@@ -457,6 +457,7 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
         if (syncedFolderDisplayItem.getId() > UNPERSISTED_ID) {
             mSyncedFolderProvider.updateSyncedFolderEnabled(syncedFolderDisplayItem.getId(),
                     syncedFolderDisplayItem.isEnabled());
+            FilesSyncHelper.scheduleM1Jobs();
         } else {
             long storedId = mSyncedFolderProvider.storeSyncedFolder(syncedFolderDisplayItem);
             if (storedId != -1) {
@@ -533,6 +534,7 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
             } else {
                 // existing synced folder setup to be updated
                 mSyncedFolderProvider.updateSyncFolder(item);
+                FilesSyncHelper.scheduleM1Jobs();
             }
 
             mAdapter.setSyncFolderItem(syncedFolder.getSection(), item);
@@ -607,6 +609,7 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
     @Subscribe(threadMode = ThreadMode.BACKGROUND)
     public void onMessageEvent(InitiateSyncedFolder event) {
         FilesSyncHelper.insertAllDBEntriesForSyncedFolder(event.getSyncedFolder());
+        FilesSyncHelper.scheduleM1Jobs();
     }
 
     public void onAddCustomFolderClick(View view) {
