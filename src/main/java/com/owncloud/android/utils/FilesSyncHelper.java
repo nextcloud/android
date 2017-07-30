@@ -252,14 +252,14 @@ public class FilesSyncHelper {
             }
         }
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             if (hasImageFolders || hasVideoFolders) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                    scheduleJobOnM1(hasImageFolders, hasVideoFolders);
+                    scheduleJobOnN(hasImageFolders, hasVideoFolders);
                 }
             } else {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                    cancelJobOnM1();
+                    cancelJobOnN();
                 }
             }
         }
@@ -277,7 +277,7 @@ public class FilesSyncHelper {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
-    private static void cancelJobOnM1() {
+    private static void cancelJobOnN() {
         JobScheduler jobScheduler = MainApp.getAppContext().getSystemService(JobScheduler.class);
         if (isContentObserverJobScheduled()) {
             jobScheduler.cancel(ContentSyncJobId);
@@ -285,10 +285,10 @@ public class FilesSyncHelper {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
-    private static void scheduleJobOnM1(boolean hasImageFolders, boolean hasVideoFolders) {
+    private static void scheduleJobOnN(boolean hasImageFolders, boolean hasVideoFolders) {
         JobScheduler jobScheduler = MainApp.getAppContext().getSystemService(JobScheduler.class);
 
-        if ((android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1) && (hasImageFolders || hasVideoFolders)) {
+        if ((android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) && (hasImageFolders || hasVideoFolders)) {
             if (!isContentObserverJobScheduled()) {
                 JobInfo.Builder builder = new JobInfo.Builder(ContentSyncJobId, new ComponentName(MainApp.getAppContext(),
                         M1ContentObserverJob.class.getName()));
