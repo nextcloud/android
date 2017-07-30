@@ -60,6 +60,7 @@
     <string name="prefs_calendar_contacts_address_resolve_error">Adresa e serverit për llogari nuk mund të zgjidhet për DAVdroid</string>
     <string name="prefs_calendar_contacts_no_store_error">Nuk ka asnjë aplikacion të Google Play Store apo F-Droid të instaluar</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Sinkronizimi i kalendarit &amp; kontakteve u vendos me sukses</string>
+    <string name="prefs_daily_contacts_sync_summary">Ruajtja e përditshme e kontakteve tuaja</string>
     <string name="prefs_help">Ndihmë</string>
     <string name="prefs_recommend">Këshillojani një shoku</string>
     <string name="prefs_feedback">Përshtypje</string>
@@ -113,6 +114,7 @@
     <string name="file_list_empty_headline_server_search_photos">Asnjë foto</string>
     <string name="file_list_empty_search">Përpiquni të shikoni në një dosje tjetër</string>
     <string name="file_list_empty_recently_modified">Nuk u gjetë asnjë skedar i modifikuar 7 ditët e fundit</string>
+    <string name="file_list_empty_recently_modified_filter">Kërkimi nuk ktheu asnjë skedar të modifikuar në 7 ditët e fundit.</string>
     <string name="file_list_empty_recently_added">Nuk u gjet asnjë skedar i shtuar së fundmi</string>
     <string name="file_list_empty_recently_added_filter">Kërkimi juaj nuk ktheu ndonjë skedar të kthyer së fundmi.</string>
     <string name="file_list_empty_text_photos">Ngarkoni disa foto ose aktivizoni ngarkimin direkt.</string>
@@ -257,7 +259,7 @@
 	<string name="auth_timeout_title">Serverit iu desh shumë kohë për përgjigje</string>
 	<string name="auth_incorrect_address_title">Format i gabuar i adresës së serverit</string>
 	<string name="auth_ssl_general_error_title">Fillimi i SSL-së dështoi</string>
-	<string name="auth_ssl_unverified_server_title">S\’u verifikua dot identiteti i serverit SSL</string>
+	<string name="auth_ssl_unverified_server_title">S’u verifikua dot identiteti i serverit SSL</string>
 	<string name="auth_bad_oc_version_title">Version i papranuar serveri</string>
 	<string name="auth_wrong_connection_title">S\’u vendos dot lidhja</string>
 	<string name="auth_secure_connection">U vendos lidhje e sigurt</string>
@@ -415,6 +417,9 @@
     <string name="file_migration_failed_not_writable">Gabim: Skadari destinacion jo i shkruajtshëm</string>
     <string name="file_migration_failed_not_readable">Gabim: Skedari burim jo i lexueshëm</string>
     <string name="file_migration_failed_dir_already_exists">Gabim: Direktoria Nextcloud ekziston tashme</string>
+    <string name="file_migration_failed_while_coping">Gabim: Dështoi gjatë migrimit</string>
+    <string name="file_migration_failed_while_updating_index">Gabim: Dështoi në përditësimin e indeksit</string>
+
     <string name="file_migration_directory_already_exists">Dosja e të dhënave ekziston tashmë. Zgjidhni një nga të mëposhtmet:</string>
     <string name="file_migration_override_data_folder">Mbishkruaj</string>
     <string name="file_migration_use_data_folder">Përdor ekzistueset</string>
@@ -521,6 +526,7 @@
     <string name="share_sharee_unavailable">Na vjen keq, versioni i server-it tuaj nuk lejon ndarjen me përdoruesit mes klientëve.\nJu lutemi kontaktoni administratorin</string>
     <string name="filedetails_share_link_enable">Shpërnda nga lidhja e aktivizuar</string>
     <string name="filedetails_share_link_disable">Jo e shpërndarë nga lidhja</string>
+    <string name="filedetails_share_users_with_access">Përdoruesit dhe grupet me akses</string>
     <string name="share_privilege_can_share">mund të ndajë</string>
     <string name="share_privilege_can_edit">mund të përpunojnë</string>
     <string name="share_privilege_can_edit_create">krijoje</string>
@@ -561,7 +567,14 @@
     <string name="participate_beta_headline">Testoni versionin Beta</string>
     <string name="participate_beta_text">Kjo përfshin të gjitha karakteristikat që do të vijnë dhe ky është vetëm fillimi. Buget/gabimet  mund të ndodhin, nëse dhe kur të ndodhin, ju lutemi të raportoni për gjetjet tuaja. </string>
     <string name="participate_release_candidate_headline">Lëshimi i kandidatit</string>
+    <string name="participate_release_candidate_text">Kandidati për lirim (RC) është një fotografi e lirimit të ardhshëm dhe pritet të jetë i qëndrueshëm. Testimi i konfigurimit tuaj individual mund të ndihmojë në sigurimin e kësaj. Regjistrohuni për testim në Play Store ose shikoni manualisht në seksionin \"Version\" të F-Droid.</string>
     <string name="participate_contribute_headline">Kontribim aktiv</string>
+    <string name="participate_contribute_irc_text">Bashkohu bisedës në IRC:</string>
+    <string name="participate_contribute_forum_text">Ndihmo të tjerët në</string>
+    <string name="participate_contribute_forum_forum">forum</string>
+    <string name="participate_contribute_translate_translate">Përkthe</string>
+    <string name="participate_contribute_translate_text">aplikacioni</string>
+    <string name="participate_contribute_github_text">Rishiko, ndrysho dhe shkruaj kod, shi %1$s për detaje</string>
     <string name="move_to">Levizni tek&#8230;</string>
     <string name="copy_to">Kopjojeni tek&#8230;</string>
     <string name="choose_remote_folder">Zgjidh dosjen&#8230;</string>

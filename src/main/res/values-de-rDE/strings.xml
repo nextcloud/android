@@ -60,6 +60,7 @@
     <string name="prefs_calendar_contacts_address_resolve_error">Serveradresse des Kontos für die DAVdroid-Nutzung konnte nicht ermittelt werden</string>
     <string name="prefs_calendar_contacts_no_store_error">Weder F-Droid noch Google-Play sind installiert</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Kalender- &amp; Adress-Synchronisation konfigurieren</string>
+    <string name="prefs_daily_contacts_sync_summary">Tägliche Sicherung Ihrer Kontakte</string>
     <string name="prefs_help">Hilfe</string>
     <string name="prefs_recommend">Einem Freund empfehlen</string>
     <string name="prefs_feedback">Rückmeldungen</string>
@@ -526,6 +527,7 @@
     <string name="share_sharee_unavailable">Entschuldigung, Ihre Serverversion erlaubt das Teilen mit Nutzern innerhalb der Clients nicht. \nBitte kontaktieren Sie Ihren Administrator</string>
     <string name="filedetails_share_link_enable">Über einen Link geteilt aktiviert</string>
     <string name="filedetails_share_link_disable">Nicht über einen Link geteilt</string>
+    <string name="filedetails_share_users_with_access">Nutzer und Gruppen mit Zugriff</string>
     <string name="share_privilege_can_share">kann teilen</string>
     <string name="share_privilege_can_edit">kann bearbeiten</string>
     <string name="share_privilege_can_edit_create">erstellen</string>
@@ -568,6 +570,12 @@
     <string name="participate_release_candidate_headline">Vorabversion</string>
     <string name="participate_release_candidate_text">Der Release-Kandidat (RC) ist eine Vorschau auf die kommende Version und sollte stabil sein. Das Testen des RC unter Ihrer individuellen Umgebung kann helfen, die Stabilität und Qualität zu sichern. Registrieren Sie sich als Tester im Play-Store oder schauen Sie in die \"Version\"-Sektion auf F-Droid.</string>
     <string name="participate_contribute_headline">Aktiv etwas beitragen</string>
+    <string name="participate_contribute_irc_text">Dem Chat im IRC beitreten: </string>
+    <string name="participate_contribute_forum_text">Helfen Sie anderen </string>
+    <string name="participate_contribute_forum_forum">im Forum</string>
+    <string name="participate_contribute_translate_translate">beim Übersetzen</string>
+    <string name="participate_contribute_translate_text">mit der App</string>
+    <string name="participate_contribute_github_text">Überprüfen, Ändern und Schreiben von Code, schauen Sie in die %1$s für weitere Details</string>
     <string name="move_to">Verschieben nach&#8230;</string>
     <string name="copy_to">Kopieren nach&#8230;</string>
     <string name="choose_remote_folder">Wähle Verzeichnis&#8230;</string>
