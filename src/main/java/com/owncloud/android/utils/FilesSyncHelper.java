@@ -57,10 +57,6 @@ import org.lukhnos.nnio.file.attribute.BasicFileAttributes;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.RandomAccessFile;
-import java.nio.channels.FileChannel;
-import java.nio.channels.FileLock;
-import java.nio.channels.OverlappingFileLockException;
 import java.util.List;
 
 public class FilesSyncHelper {
@@ -109,18 +105,9 @@ public class FilesSyncHelper {
                     public FileVisitResult visitFile(Path path, BasicFileAttributes attrs) throws IOException {
 
                         File file = path.toFile();
-                        FileChannel channel = new RandomAccessFile(file, "rw").getChannel();
-                        FileLock lock = channel.lock();
-                        try {
-                            lock = channel.tryLock();
-                            filesystemDataProvider.storeOrUpdateFileValue(path.toAbsolutePath().toString(),
-                                    attrs.lastModifiedTime().toMillis(), file.isDirectory(), syncedFolder, dryRun);
-                        } catch (OverlappingFileLockException e) {
-                            filesystemDataProvider.storeOrUpdateFileValue(path.toAbsolutePath().toString(),
-                                    attrs.lastModifiedTime().toMillis(), file.isDirectory(), syncedFolder, dryRun);
-                        } finally {
-                            lock.release();
-                        }
+                        filesystemDataProvider.storeOrUpdateFileValue(path.toAbsolutePath().toString(),
+                                attrs.lastModifiedTime().toMillis(), file.isDirectory(), syncedFolder, dryRun);
+
 
                         return FileVisitResult.CONTINUE;
                     }
@@ -150,7 +137,7 @@ public class FilesSyncHelper {
         for (SyncedFolder syncedFolder : syncedFolderProvider.getSyncedFolders()) {
             if (syncedFolder.isEnabled()) {
                 if (!skipCustom || MediaFolder.CUSTOM != syncedFolder.getType())
-                insertAllDBEntriesForSyncedFolder(syncedFolder);
+                    insertAllDBEntriesForSyncedFolder(syncedFolder);
             }
         }
     }
