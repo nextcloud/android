@@ -305,7 +305,7 @@ public class FilesSyncHelper {
                         Video.Media.EXTERNAL_CONTENT_URI,
                         JobInfo.TriggerContentUri.FLAG_NOTIFY_FOR_DESCENDANTS));
                 builder.setPersisted(true);
-                builder.setTriggerContentMaxDelay(2000);
+                builder.setTriggerContentMaxDelay(500);
                 jobScheduler.schedule(builder.build());
             }
         }
