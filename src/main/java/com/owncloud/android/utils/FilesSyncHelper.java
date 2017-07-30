@@ -142,13 +142,14 @@ public class FilesSyncHelper {
         }
     }
 
-    public static void insertAllDBEntries() {
+    public static void insertAllDBEntries(boolean skipCustom) {
         final Context context = MainApp.getAppContext();
         final ContentResolver contentResolver = context.getContentResolver();
         SyncedFolderProvider syncedFolderProvider = new SyncedFolderProvider(contentResolver);
 
         for (SyncedFolder syncedFolder : syncedFolderProvider.getSyncedFolders()) {
             if (syncedFolder.isEnabled()) {
+                if (!skipCustom || MediaFolder.CUSTOM != syncedFolder.getType())
                 insertAllDBEntriesForSyncedFolder(syncedFolder);
             }
         }
