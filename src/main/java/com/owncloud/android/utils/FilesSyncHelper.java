@@ -213,7 +213,7 @@ public class FilesSyncHelper {
         );
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.M)
+    @RequiresApi(api = Build.VERSION_CODES.N)
     public static boolean isContentObserverJobScheduled() {
         JobScheduler js = MainApp.getAppContext().getSystemService(JobScheduler.class);
         List<JobInfo> jobs = js.getAllPendingJobs();
@@ -231,7 +231,7 @@ public class FilesSyncHelper {
         return false;
     }
 
-    public static void scheduleM1Jobs() {
+    public static void scheduleNJobs() {
         SyncedFolderProvider syncedFolderProvider = new SyncedFolderProvider(MainApp.getAppContext().
                 getContentResolver());
 
@@ -273,7 +273,7 @@ public class FilesSyncHelper {
                 .build()
                 .schedule();
 
-        scheduleM1Jobs();
+        scheduleNJobs();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
