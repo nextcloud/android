@@ -244,7 +244,7 @@ public class FilesSyncHelper {
         return false;
     }
 
-    public static void scheduleFilesSyncIfNeeded() {
+    public static void scheduleM1Jobs() {
         SyncedFolderProvider syncedFolderProvider = new SyncedFolderProvider(MainApp.getAppContext().
                 getContentResolver());
 
@@ -265,12 +265,6 @@ public class FilesSyncHelper {
             }
         }
 
-        new JobRequest.Builder(FilesSyncJob.TAG)
-                .setPeriodic(900000L, 300000L)
-                .setUpdateCurrent(true)
-                .build()
-                .schedule();
-
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1) {
             if (hasImageFolders || hasVideoFolders) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
@@ -278,14 +272,25 @@ public class FilesSyncHelper {
                 }
             } else {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                    cancelJobsOnM1();
+                    cancelJobOnM1();
                 }
             }
         }
     }
 
+    public static void scheduleFilesSyncIfNeeded() {
+        // always run this because it also allows us to perform retries of manual uploads
+        new JobRequest.Builder(FilesSyncJob.TAG)
+                .setPeriodic(900000L, 300000L)
+                .setUpdateCurrent(true)
+                .build()
+                .schedule();
+
+        scheduleM1Jobs();
+    }
+
     @RequiresApi(api = Build.VERSION_CODES.N)
-    private static void cancelJobsOnM1() {
+    private static void cancelJobOnM1() {
         JobScheduler jobScheduler = MainApp.getAppContext().getSystemService(JobScheduler.class);
         if (isContentObserverJobScheduled()) {
             jobScheduler.cancel(ContentSyncJobId);
