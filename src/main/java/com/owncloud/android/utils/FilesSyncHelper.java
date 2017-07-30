@@ -21,14 +21,20 @@
 package com.owncloud.android.utils;
 
 import android.accounts.Account;
+import android.app.job.JobInfo;
+import android.app.job.JobScheduler;
+import android.content.ComponentName;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.Build;
 import android.provider.MediaStore;
+import android.support.annotation.RequiresApi;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.evernote.android.job.JobRequest;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
@@ -39,6 +45,8 @@ import com.owncloud.android.datamodel.SyncedFolderProvider;
 import com.owncloud.android.datamodel.UploadsStorageManager;
 import com.owncloud.android.db.OCUpload;
 import com.owncloud.android.files.services.FileUploader;
+import com.owncloud.android.jobs.FilesSyncJob;
+import com.owncloud.android.jobs.M1ContentObserverJob;
 
 import org.lukhnos.nnio.file.FileVisitResult;
 import org.lukhnos.nnio.file.Files;
@@ -53,9 +61,12 @@ import java.io.RandomAccessFile;
 import java.nio.channels.FileChannel;
 import java.nio.channels.FileLock;
 import java.nio.channels.OverlappingFileLockException;
+import java.util.List;
 
 public class FilesSyncHelper {
     public static final String TAG = "FileSyncHelper";
+
+    public static int ContentSyncJobId = 315;
 
     public static void insertAllDBEntriesForSyncedFolder(SyncedFolder syncedFolder) {
         final Context context = MainApp.getAppContext();
@@ -212,6 +223,100 @@ public class FilesSyncHelper {
                 null,
                 null
         );
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    public static boolean isContentObserverJobScheduled() {
+        JobScheduler js = MainApp.getAppContext().getSystemService(JobScheduler.class);
+        List<JobInfo> jobs = js.getAllPendingJobs();
+
+        if (jobs == null || jobs.size() == 0) {
+            return false;
+        }
+
+        for (int i = 0; i < jobs.size(); i++) {
+            if (jobs.get(i).getId() == ContentSyncJobId) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public static void scheduleFilesSyncIfNeeded() {
+        SyncedFolderProvider syncedFolderProvider = new SyncedFolderProvider(MainApp.getAppContext().
+                getContentResolver());
+
+
+        boolean hasCustomFolders = false;
+        boolean hasVideoFolders = false;
+        boolean hasImageFolders = false;
+
+        if (syncedFolderProvider.getSyncedFolders() != null) {
+            for (SyncedFolder syncedFolder : syncedFolderProvider.getSyncedFolders()) {
+                if (MediaFolder.CUSTOM == syncedFolder.getType()) {
+                    hasCustomFolders = true;
+                } else if (MediaFolder.VIDEO == syncedFolder.getType()) {
+                    hasVideoFolders = true;
+                } else if (MediaFolder.IMAGE == syncedFolder.getType()) {
+                    hasImageFolders = true;
+                }
+            }
+        }
+
+        new JobRequest.Builder(FilesSyncJob.TAG)
+                .setPeriodic(900000L, 300000L)
+                .setUpdateCurrent(true)
+                .build()
+                .schedule();
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1) {
+            if (hasImageFolders || hasVideoFolders) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                    scheduleJobOnM1(hasImageFolders, hasVideoFolders);
+                }
+            } else {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                    cancelJobsOnM1();
+                }
+            }
+        }
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    private static void cancelJobsOnM1() {
+        JobScheduler jobScheduler = MainApp.getAppContext().getSystemService(JobScheduler.class);
+        if (isContentObserverJobScheduled()) {
+            jobScheduler.cancel(ContentSyncJobId);
+        }
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    private static void scheduleJobOnM1(boolean hasImageFolders, boolean hasVideoFolders) {
+        JobScheduler jobScheduler = MainApp.getAppContext().getSystemService(JobScheduler.class);
+
+        if ((android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1) && (hasImageFolders || hasVideoFolders)) {
+            if (!isContentObserverJobScheduled()) {
+                JobInfo.Builder builder = new JobInfo.Builder(ContentSyncJobId, new ComponentName(MainApp.getAppContext(),
+                        M1ContentObserverJob.class.getName()));
+                builder.addTriggerContentUri(new JobInfo.TriggerContentUri(android.provider.MediaStore.
+                        Images.Media.INTERNAL_CONTENT_URI,
+                        JobInfo.TriggerContentUri.FLAG_NOTIFY_FOR_DESCENDANTS));
+                builder.addTriggerContentUri(new JobInfo.TriggerContentUri(MediaStore.
+                        Images.Media.EXTERNAL_CONTENT_URI,
+                        JobInfo.TriggerContentUri.FLAG_NOTIFY_FOR_DESCENDANTS));
+                builder.addTriggerContentUri(new JobInfo.TriggerContentUri(android.provider.MediaStore.
+                        Video.Media.INTERNAL_CONTENT_URI,
+                        JobInfo.TriggerContentUri.FLAG_NOTIFY_FOR_DESCENDANTS));
+                builder.addTriggerContentUri(new JobInfo.TriggerContentUri(MediaStore.
+                        Video.Media.EXTERNAL_CONTENT_URI,
+                        JobInfo.TriggerContentUri.FLAG_NOTIFY_FOR_DESCENDANTS));
+                builder.setPersisted(true);
+                builder.setTriggerContentMaxDelay(2000);
+                jobScheduler.schedule(builder.build());
+            }
+        }
+
     }
 }
 
