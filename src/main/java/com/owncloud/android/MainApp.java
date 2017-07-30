@@ -32,7 +32,6 @@ import android.support.multidex.MultiDexApplication;
 import android.support.v4.util.Pair;
 
 import com.evernote.android.job.JobManager;
-import com.evernote.android.job.JobRequest;
 import com.owncloud.android.authentication.PassCodeManager;
 import com.owncloud.android.datamodel.MediaFolder;
 import com.owncloud.android.datamodel.MediaProvider;
@@ -40,7 +39,6 @@ import com.owncloud.android.datamodel.SyncedFolder;
 import com.owncloud.android.datamodel.SyncedFolderProvider;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.db.PreferenceManager;
-import com.owncloud.android.jobs.FilesSyncJob;
 import com.owncloud.android.jobs.NCJobCreator;
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory.Policy;
@@ -130,12 +128,7 @@ public class MainApp extends MultiDexApplication {
 
         initiateExistingAutoUploadEntries();
 
-        new JobRequest.Builder(FilesSyncJob.TAG)
-                .setPeriodic(900000L, 300000L)
-                .setUpdateCurrent(true)
-                .build()
-                .schedule();
-
+        FilesSyncHelper.scheduleFilesSyncIfNeeded();
         FilesSyncHelper.restartJobsIfNeeded();
 
         // register global protection with pass code
