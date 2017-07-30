@@ -27,33 +27,14 @@ import android.os.Build;
 import android.support.annotation.RequiresApi;
 
 import com.evernote.android.job.JobRequest;
-import com.owncloud.android.MainApp;
-import com.owncloud.android.datamodel.MediaFolder;
-import com.owncloud.android.datamodel.SyncedFolder;
-import com.owncloud.android.datamodel.SyncedFolderProvider;
 import com.owncloud.android.utils.FilesSyncHelper;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
 public class M1ContentObserverJob extends JobService {
     @Override
     public boolean onStartJob(JobParameters params) {
-        SyncedFolderProvider syncedFolderProvider = new SyncedFolderProvider(MainApp.getAppContext().
-                getContentResolver());
-
-        List<SyncedFolder> syncedFolderListImages = new ArrayList<>();
-        List<SyncedFolder> syncedFolderListVideos = new ArrayList<>();
-
-        for (SyncedFolder syncedFolder : syncedFolderProvider.getSyncedFolders()) {
-            if (MediaFolder.IMAGE == syncedFolder.getType()) {
-                syncedFolderListImages.add(syncedFolder);
-            } else if (MediaFolder.VIDEO == syncedFolder.getType()) {
-                syncedFolderListVideos.add(syncedFolder);
-            }
-        }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             if (params.getJobId() == FilesSyncHelper.ContentSyncJobId) {
