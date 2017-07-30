@@ -497,11 +497,6 @@ public class FileUploader extends Service
 
         boolean chunked = ocv.isChunkedUploadSupported();
 
-        // temporary hack to speed up upload on wifi
-        if (Device.getNetworkType(MainApp.getAppContext()).equals(JobRequest.NetworkType.UNMETERED)) {
-            chunked = false;
-        }
-
         boolean onWifiOnly = intent.getBooleanExtra(KEY_WHILE_ON_WIFI_ONLY, false);
         boolean whileChargingOnly = intent.getBooleanExtra(KEY_WHILE_CHARGING_ONLY, false);
 
