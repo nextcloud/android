@@ -23,6 +23,8 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -31,6 +33,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.support.multidex.MultiDexApplication;
 import android.support.v4.util.Pair;
+import android.support.v7.app.AlertDialog;
 
 import com.evernote.android.job.JobManager;
 import com.owncloud.android.authentication.PassCodeManager;
@@ -45,6 +48,7 @@ import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory.Policy;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.activity.Preferences;
+import com.owncloud.android.ui.activity.SyncedFoldersActivity;
 import com.owncloud.android.ui.activity.WhatsNewActivity;
 import com.owncloud.android.utils.AnalyticsUtils;
 import com.owncloud.android.utils.FilesSyncHelper;
@@ -119,6 +123,7 @@ public class MainApp extends MultiDexApplication {
             Log_OC.d("Debug", "start logging");
         }
 
+        updateToAutoUpload();
         cleanOldEntries();
         updateAutoUploadEntries();
 
@@ -277,6 +282,48 @@ public class MainApp extends MultiDexApplication {
         String userAgent = String.format(appString, version);
 
         return userAgent;
+    }
+
+    private void updateToAutoUpload() {
+            if (PreferenceManager.instantPictureUploadEnabled(this) ||
+                            PreferenceManager.instantPictureUploadEnabled(this)) {
+
+                // remove legacy shared preferences
+                SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(this).edit();
+                editor.remove("instant_uploading")
+                        .remove("instant_video_uploading")
+                        .remove("instant_upload_path")
+                        .remove("instant_upload_path_use_subfolders")
+                        .remove("instant_upload_on_wifi")
+                        .remove("instant_upload_on_charging")
+                        .remove("instant_video_upload_path")
+                        .remove("instant_video_upload_path_use_subfolders")
+                        .remove("instant_video_upload_on_wifi")
+                        .remove("instant_video_uploading")
+                        .remove("instant_video_upload_on_charging")
+                        .remove("prefs_instant_behaviour").apply();
+
+                // show info pop-up
+                new AlertDialog.Builder(this, R.style.Theme_ownCloud_Dialog)
+                        .setTitle(R.string.drawer_synced_folders)
+                        .setMessage(R.string.folder_sync_new_info)
+                        .setPositiveButton(R.string.drawer_open, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                // show Auto Upload
+                                Intent folderSyncIntent = new Intent(getApplicationContext(),
+                                        SyncedFoldersActivity.class);
+                                dialog.dismiss();
+                                startActivity(folderSyncIntent);
+                            }
+                        })
+                        .setNegativeButton(R.string.drawer_close, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        })
+                        .setIcon(R.drawable.nav_synced_folders)
+                        .show();
+            }
     }
 
     private void updateAutoUploadEntries() {
