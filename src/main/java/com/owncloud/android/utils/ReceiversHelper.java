@@ -41,7 +41,7 @@ public class ReceiversHelper {
         BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
-                if (!Device.getNetworkType(context).equals(JobRequest.NetworkType.ANY)) {
+                if (Device.getNetworkType(context).equals(JobRequest.NetworkType.UNMETERED)) {
                     FilesSyncHelper.restartJobsIfNeeded();
                 }
             }
@@ -60,7 +60,9 @@ public class ReceiversHelper {
         BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
-                FilesSyncHelper.restartJobsIfNeeded();
+                if (intent.getAction().equals(Intent.ACTION_POWER_CONNECTED)) {
+                    FilesSyncHelper.restartJobsIfNeeded();
+                }
             }
         };
 
