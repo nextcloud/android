@@ -38,21 +38,19 @@ public class NContentObserverJob extends JobService {
     public boolean onStartJob(JobParameters params) {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            if (params.getJobId() == FilesSyncHelper.ContentSyncJobId) {
+            if (params.getJobId() == FilesSyncHelper.ContentSyncJobId && params.getTriggeredContentAuthorities()
+                    != null && params.getTriggeredContentUris() != null
+                    && params.getTriggeredContentUris().length > 0) {
 
-                if (params.getTriggeredContentAuthorities() != null && params.getTriggeredContentUris() != null
-                        && params.getTriggeredContentUris().length > 0) {
+                PersistableBundleCompat persistableBundleCompat = new PersistableBundleCompat();
+                persistableBundleCompat.putBoolean(FilesSyncJob.SKIP_CUSTOM, true);
 
-                    PersistableBundleCompat persistableBundleCompat = new PersistableBundleCompat();
-                    persistableBundleCompat.putBoolean(FilesSyncJob.SKIP_CUSTOM, true);
-
-                    new JobRequest.Builder(FilesSyncJob.TAG)
-                            .setExecutionWindow(1, TimeUnit.SECONDS.toMillis(2))
-                            .setBackoffCriteria(TimeUnit.SECONDS.toMillis(5), JobRequest.BackoffPolicy.LINEAR)
-                            .setUpdateCurrent(false)
-                            .build()
-                            .schedule();
-                }
+                new JobRequest.Builder(FilesSyncJob.TAG)
+                        .setExecutionWindow(1, TimeUnit.SECONDS.toMillis(2))
+                        .setBackoffCriteria(TimeUnit.SECONDS.toMillis(5), JobRequest.BackoffPolicy.LINEAR)
+                        .setUpdateCurrent(false)
+                        .build()
+                        .schedule();
             }
 
             FilesSyncHelper.scheduleNJobs(true);
