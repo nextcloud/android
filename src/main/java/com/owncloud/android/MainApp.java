@@ -26,6 +26,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.multidex.MultiDexApplication;
@@ -48,6 +49,7 @@ import com.owncloud.android.ui.activity.WhatsNewActivity;
 import com.owncloud.android.utils.AnalyticsUtils;
 import com.owncloud.android.utils.FilesSyncHelper;
 import com.owncloud.android.utils.PermissionUtil;
+import com.owncloud.android.utils.ReceiversHelper;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -130,6 +132,12 @@ public class MainApp extends MultiDexApplication {
 
         FilesSyncHelper.scheduleFilesSyncIfNeeded();
         FilesSyncHelper.restartJobsIfNeeded();
+
+        ReceiversHelper.registerNetworkChangeReceiver();
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            ReceiversHelper.registerPowerChangeReceiver();
+        }
 
         // register global protection with pass code
         registerActivityLifecycleCallbacks(new ActivityLifecycleCallbacks() {
