@@ -43,6 +43,7 @@ import android.widget.TextView;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
+import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.MediaFolder;
 import com.owncloud.android.datamodel.MediaProvider;
 import com.owncloud.android.datamodel.OCFile;
@@ -55,16 +56,11 @@ import com.owncloud.android.ui.adapter.SyncedFolderAdapter;
 import com.owncloud.android.ui.decoration.MediaGridItemDecoration;
 import com.owncloud.android.ui.dialog.SyncedFolderPreferencesDialogFragment;
 import com.owncloud.android.ui.dialog.parcel.SyncedFolderParcelable;
-import com.owncloud.android.ui.events.InitiateSyncedFolder;
 import com.owncloud.android.utils.AnalyticsUtils;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.FilesSyncHelper;
 import com.owncloud.android.utils.PermissionUtil;
 import com.owncloud.android.utils.ThemeUtils;
-
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.File;
 import java.io.FileFilter;
@@ -454,19 +450,27 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
 
     @Override
     public void onSyncStatusToggleClick(int section, SyncedFolderDisplayItem syncedFolderDisplayItem) {
+        ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProvider(MainApp.getAppContext().
+                getContentResolver());
+
         if (syncedFolderDisplayItem.getId() > UNPERSISTED_ID) {
             mSyncedFolderProvider.updateSyncedFolderEnabled(syncedFolderDisplayItem.getId(),
                     syncedFolderDisplayItem.isEnabled());
-            FilesSyncHelper.scheduleNJobs(false);
         } else {
             long storedId = mSyncedFolderProvider.storeSyncedFolder(syncedFolderDisplayItem);
             if (storedId != -1) {
                 syncedFolderDisplayItem.setId(storedId);
-                if (syncedFolderDisplayItem.isEnabled()) {
-                    EventBus.getDefault().post(new InitiateSyncedFolder(syncedFolderDisplayItem));
-                }
             }
         }
+
+        if (syncedFolderDisplayItem.isEnabled()) {
+            FilesSyncHelper.insertAllDBEntriesForSyncedFolder(syncedFolderDisplayItem);
+        } else {
+            String syncedFolderInitiatedKey = "syncedFolderIntitiated_" + syncedFolderDisplayItem.getId();
+            arbitraryDataProvider.deleteKeyForAccount("global", syncedFolderInitiatedKey);
+        }
+        FilesSyncHelper.scheduleNJobs(false);
+
     }
 
     @Override
@@ -498,6 +502,9 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
 
     @Override
     public void onSaveSyncedFolderPreference(SyncedFolderParcelable syncedFolder) {
+        ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProvider(MainApp.getAppContext().
+                getContentResolver());
+
         // custom folders newly created aren't in the list already,
         // so triggering a refresh
         if (MediaFolder.CUSTOM.equals(syncedFolder.getType()) && syncedFolder.getId() == UNPERSISTED_ID) {
@@ -510,8 +517,12 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
             if (storedId != -1) {
                 newCustomFolder.setId(storedId);
                 if (newCustomFolder.isEnabled()) {
-                    EventBus.getDefault().post(new InitiateSyncedFolder(newCustomFolder));
+                    FilesSyncHelper.insertAllDBEntriesForSyncedFolder(newCustomFolder);
+                } else {
+                    String syncedFolderInitiatedKey = "syncedFolderIntitiated_" + newCustomFolder.getId();
+                    arbitraryDataProvider.deleteKeyForAccount("global", syncedFolderInitiatedKey);
                 }
+                FilesSyncHelper.scheduleNJobs(false);
             }
             mAdapter.addSyncFolderItem(newCustomFolder);
         } else {
@@ -528,12 +539,22 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
                 if (storedId != -1) {
                     item.setId(storedId);
                     if (item.isEnabled()) {
-                        EventBus.getDefault().post(new InitiateSyncedFolder(item));
+                        FilesSyncHelper.insertAllDBEntriesForSyncedFolder(item);
+                    } else {
+                        String syncedFolderInitiatedKey = "syncedFolderIntitiated_" + item.getId();
+                        arbitraryDataProvider.deleteKeyForAccount("global", syncedFolderInitiatedKey);
                     }
+                    FilesSyncHelper.scheduleNJobs(false);
                 }
             } else {
                 // existing synced folder setup to be updated
                 mSyncedFolderProvider.updateSyncFolder(item);
+                if (item.isEnabled()) {
+                    FilesSyncHelper.insertAllDBEntriesForSyncedFolder(item);
+                } else {
+                    String syncedFolderInitiatedKey = "syncedFolderIntitiated_" + item.getId();
+                    arbitraryDataProvider.deleteKeyForAccount("global", syncedFolderInitiatedKey);
+                }
                 FilesSyncHelper.scheduleNJobs(false);
             }
 
@@ -604,12 +625,6 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
             default:
                 super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         }
-    }
-
-    @Subscribe(threadMode = ThreadMode.BACKGROUND)
-    public void onMessageEvent(InitiateSyncedFolder event) {
-        FilesSyncHelper.insertAllDBEntriesForSyncedFolder(event.getSyncedFolder());
-        FilesSyncHelper.scheduleNJobs(false);
     }
 
     public void onAddCustomFolderClick(View view) {
