@@ -121,7 +121,7 @@
             android:theme="@style/Theme.ownCloud.Fullscreen" />
 
         <service
-            android:name=".jobs.M1ContentObserverJob"
+            android:name=".jobs.NContentObserverJob"
             android:permission="android.permission.BIND_JOB_SERVICE" >
 
         </service>
