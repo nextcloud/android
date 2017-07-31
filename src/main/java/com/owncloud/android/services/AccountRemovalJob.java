@@ -76,7 +76,7 @@ public class AccountRemovalJob extends Job implements AccountManagerCallback<Boo
 
             // remove pending account removal
             ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProvider(context.getContentResolver());
-            arbitraryDataProvider.deleteKeyForAccount(account, PENDING_FOR_REMOVAL);
+            arbitraryDataProvider.deleteKeyForAccount(account.name, PENDING_FOR_REMOVAL);
 
             return Result.SUCCESS;
         } else {
