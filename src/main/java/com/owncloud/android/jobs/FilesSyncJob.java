@@ -72,7 +72,7 @@ public class FilesSyncJob extends Job {
 
         PersistableBundleCompat bundle = params.getExtras();
         final boolean skipCustom = bundle.getBoolean(SKIP_CUSTOM, false);
-        
+
         FilesSyncHelper.restartJobsIfNeeded();
         FilesSyncHelper.insertAllDBEntries(skipCustom);
 
@@ -81,66 +81,64 @@ public class FilesSyncJob extends Job {
         SyncedFolderProvider syncedFolderProvider = new SyncedFolderProvider(contentResolver);
 
         for (SyncedFolder syncedFolder : syncedFolderProvider.getSyncedFolders()) {
-            if (syncedFolder.isEnabled()) {
-                if (!skipCustom || MediaFolder.CUSTOM != syncedFolder.getType()) {
-                    for (String path : filesystemDataProvider.getFilesForUpload(syncedFolder.getLocalPath(),
-                            Long.toString(syncedFolder.getId()))) {
-                        if (JobManager.instance().getAllJobRequests().size() < 80) {
-                            File file = new File(path);
+            if ((syncedFolder.isEnabled()) && (!skipCustom || MediaFolder.CUSTOM != syncedFolder.getType())) {
+                for (String path : filesystemDataProvider.getFilesForUpload(syncedFolder.getLocalPath(),
+                        Long.toString(syncedFolder.getId()))) {
+                    if (JobManager.instance().getAllJobRequests().size() < 80) {
+                        File file = new File(path);
 
-                            Long lastModificationTime = file.lastModified();
-                            final Locale currentLocale = context.getResources().getConfiguration().locale;
+                        Long lastModificationTime = file.lastModified();
+                        final Locale currentLocale = context.getResources().getConfiguration().locale;
 
-                            if (MediaFolder.IMAGE == syncedFolder.getType()) {
-                                String mimetypeString = FileStorageUtils.getMimeTypeFromName(file.getAbsolutePath());
-                                if ("image/jpeg".equalsIgnoreCase(mimetypeString) || "image/tiff".
-                                        equalsIgnoreCase(mimetypeString)) {
-                                    try {
-                                        ExifInterface exifInterface = new ExifInterface(file.getAbsolutePath());
-                                        String exifDate = exifInterface.getAttribute(ExifInterface.TAG_DATETIME);
-                                        if (!TextUtils.isEmpty(exifDate)) {
-                                            ParsePosition pos = new ParsePosition(0);
-                                            SimpleDateFormat sFormatter = new SimpleDateFormat("yyyy:MM:dd HH:mm:ss",
-                                                    currentLocale);
-                                            sFormatter.setTimeZone(TimeZone.getTimeZone(TimeZone.getDefault().getID()));
-                                            Date dateTime = sFormatter.parse(exifDate, pos);
-                                            lastModificationTime = dateTime.getTime();
-                                        }
-
-                                    } catch (IOException e) {
-                                        Log_OC.d(TAG, "Failed to get the proper time " + e.getLocalizedMessage());
+                        if (MediaFolder.IMAGE == syncedFolder.getType()) {
+                            String mimetypeString = FileStorageUtils.getMimeTypeFromName(file.getAbsolutePath());
+                            if ("image/jpeg".equalsIgnoreCase(mimetypeString) || "image/tiff".
+                                    equalsIgnoreCase(mimetypeString)) {
+                                try {
+                                    ExifInterface exifInterface = new ExifInterface(file.getAbsolutePath());
+                                    String exifDate = exifInterface.getAttribute(ExifInterface.TAG_DATETIME);
+                                    if (!TextUtils.isEmpty(exifDate)) {
+                                        ParsePosition pos = new ParsePosition(0);
+                                        SimpleDateFormat sFormatter = new SimpleDateFormat("yyyy:MM:dd HH:mm:ss",
+                                                currentLocale);
+                                        sFormatter.setTimeZone(TimeZone.getTimeZone(TimeZone.getDefault().getID()));
+                                        Date dateTime = sFormatter.parse(exifDate, pos);
+                                        lastModificationTime = dateTime.getTime();
                                     }
+
+                                } catch (IOException e) {
+                                    Log_OC.d(TAG, "Failed to get the proper time " + e.getLocalizedMessage());
                                 }
                             }
-
-                            boolean needsCharging = syncedFolder.getChargingOnly();
-                            boolean needsWifi = syncedFolder.getWifiOnly();
-
-                            String mimeType = MimeTypeUtil.getBestMimeTypeByFilename(file.getAbsolutePath());
-
-                            Account account = AccountUtils.getOwnCloudAccountByName(context, syncedFolder.getAccount());
-
-                            requester.uploadFileWithOverwrite(
-                                    context,
-                                    account,
-                                    file.getAbsolutePath(),
-                                    FileStorageUtils.getInstantUploadFilePath(
-                                            currentLocale,
-                                            syncedFolder.getRemotePath(), file.getName(),
-                                            lastModificationTime,
-                                            syncedFolder.getSubfolderByDate()),
-                                    syncedFolder.getUploadAction(),
-                                    mimeType,
-                                    true,           // create parent folder if not existent
-                                    UploadFileOperation.CREATED_AS_INSTANT_PICTURE,
-                                    needsWifi,
-                                    needsCharging,
-                                    true
-                            );
-
-                            filesystemDataProvider.updateFilesystemFileAsSentForUpload(path,
-                                    Long.toString(syncedFolder.getId()));
                         }
+
+                        boolean needsCharging = syncedFolder.getChargingOnly();
+                        boolean needsWifi = syncedFolder.getWifiOnly();
+
+                        String mimeType = MimeTypeUtil.getBestMimeTypeByFilename(file.getAbsolutePath());
+
+                        Account account = AccountUtils.getOwnCloudAccountByName(context, syncedFolder.getAccount());
+
+                        requester.uploadFileWithOverwrite(
+                                context,
+                                account,
+                                file.getAbsolutePath(),
+                                FileStorageUtils.getInstantUploadFilePath(
+                                        currentLocale,
+                                        syncedFolder.getRemotePath(), file.getName(),
+                                        lastModificationTime,
+                                        syncedFolder.getSubfolderByDate()),
+                                syncedFolder.getUploadAction(),
+                                mimeType,
+                                true,           // create parent folder if not existent
+                                UploadFileOperation.CREATED_AS_INSTANT_PICTURE,
+                                needsWifi,
+                                needsCharging,
+                                true
+                        );
+
+                        filesystemDataProvider.updateFilesystemFileAsSentForUpload(path,
+                                Long.toString(syncedFolder.getId()));
                     }
                 }
             }
