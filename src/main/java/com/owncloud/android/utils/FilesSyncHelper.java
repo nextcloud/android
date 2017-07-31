@@ -46,7 +46,7 @@ import com.owncloud.android.datamodel.UploadsStorageManager;
 import com.owncloud.android.db.OCUpload;
 import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.jobs.FilesSyncJob;
-import com.owncloud.android.jobs.M1ContentObserverJob;
+import com.owncloud.android.jobs.NContentObserverJob;
 
 import org.lukhnos.nnio.file.FileVisitResult;
 import org.lukhnos.nnio.file.Files;
@@ -231,7 +231,7 @@ public class FilesSyncHelper {
         return false;
     }
 
-    public static void scheduleNJobs() {
+    public static void scheduleNJobs(boolean force) {
         SyncedFolderProvider syncedFolderProvider = new SyncedFolderProvider(MainApp.getAppContext().
                 getContentResolver());
 
@@ -255,7 +255,7 @@ public class FilesSyncHelper {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             if (hasImageFolders || hasVideoFolders) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                    scheduleJobOnN(hasImageFolders, hasVideoFolders);
+                    scheduleJobOnN(hasImageFolders, hasVideoFolders, force);
                 }
             } else {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
@@ -273,7 +273,7 @@ public class FilesSyncHelper {
                 .build()
                 .schedule();
 
-        scheduleNJobs();
+        scheduleNJobs(false);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -285,13 +285,14 @@ public class FilesSyncHelper {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
-    private static void scheduleJobOnN(boolean hasImageFolders, boolean hasVideoFolders) {
+    private static void scheduleJobOnN(boolean hasImageFolders, boolean hasVideoFolders,
+                                       boolean force) {
         JobScheduler jobScheduler = MainApp.getAppContext().getSystemService(JobScheduler.class);
 
         if ((android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) && (hasImageFolders || hasVideoFolders)) {
-            if (!isContentObserverJobScheduled()) {
+            if (!isContentObserverJobScheduled() || force) {
                 JobInfo.Builder builder = new JobInfo.Builder(ContentSyncJobId, new ComponentName(MainApp.getAppContext(),
-                        M1ContentObserverJob.class.getName()));
+                        NContentObserverJob.class.getName()));
                 builder.addTriggerContentUri(new JobInfo.TriggerContentUri(android.provider.MediaStore.
                         Images.Media.INTERNAL_CONTENT_URI,
                         JobInfo.TriggerContentUri.FLAG_NOTIFY_FOR_DESCENDANTS));

@@ -25,6 +25,7 @@ import android.app.job.JobParameters;
 import android.app.job.JobService;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
+import android.util.Log;
 
 import com.evernote.android.job.JobRequest;
 import com.evernote.android.job.util.support.PersistableBundleCompat;
@@ -33,12 +34,13 @@ import com.owncloud.android.utils.FilesSyncHelper;
 import java.util.concurrent.TimeUnit;
 
 @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-public class M1ContentObserverJob extends JobService {
+public class NContentObserverJob extends JobService {
     @Override
     public boolean onStartJob(JobParameters params) {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             if (params.getJobId() == FilesSyncHelper.ContentSyncJobId) {
+
                 if (params.getTriggeredContentAuthorities() != null && params.getTriggeredContentUris() != null
                         && params.getTriggeredContentUris().length > 0) {
 
@@ -53,6 +55,8 @@ public class M1ContentObserverJob extends JobService {
                             .schedule();
                 }
             }
+
+            FilesSyncHelper.scheduleNJobs(true);
         }
 
         return true;
@@ -60,6 +64,6 @@ public class M1ContentObserverJob extends JobService {
 
     @Override
     public boolean onStopJob(JobParameters params) {
-        return true;
+        return false;
     }
 }
