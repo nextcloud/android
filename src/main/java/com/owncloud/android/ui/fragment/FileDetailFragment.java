@@ -285,6 +285,15 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
             item.setVisible(false);
             item.setEnabled(false);
         }
+
+        if(getFile().isSharedWithMe() && !getFile().canReshare()){
+            // additional restriction for this fragment
+            item = menu.findItem(R.id.action_share_file);
+            if(item != null){
+                item.setVisible(false);
+                item.setEnabled(false);
+            }
+        }
     }
 
 
@@ -295,12 +304,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_share_file: {
-                if(getFile().isSharedWithMe()
-                        && (mContainerActivity.getStorageManager().getCapability(mContainerActivity.getStorageManager().getAccount().name).getFilesSharingResharing().isFalse() || !getFile().canReshare())){
-                    Snackbar.make(mView, R.string.resharing_is_not_allowed, Snackbar.LENGTH_LONG).show();
-                } else {
-                    mContainerActivity.getFileOperationsHelper().showShareFile(getFile());
-                }
+                mContainerActivity.getFileOperationsHelper().showShareFile(getFile());
                 return true;
             }
             case R.id.action_open_file_with: {

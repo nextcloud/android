@@ -913,8 +913,7 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
             OCFile singleFile = checkedFiles.get(0);
             switch (menuId) {
                 case R.id.action_share_file: {
-                    if(singleFile.isSharedWithMe()
-                            && (mContainerActivity.getStorageManager().getCapability(mContainerActivity.getStorageManager().getAccount().name).getFilesSharingResharing().isFalse() || !singleFile.canReshare())){
+                    if(singleFile.isSharedWithMe() && !singleFile.canReshare()){
                         Snackbar.make(getView(), R.string.resharing_is_not_allowed, Snackbar.LENGTH_LONG).show();
                     } else {
                         mContainerActivity.getFileOperationsHelper().showShareFile(singleFile);
