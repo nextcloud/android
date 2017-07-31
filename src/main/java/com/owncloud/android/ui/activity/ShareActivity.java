@@ -29,6 +29,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.widget.Toast;
 
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;

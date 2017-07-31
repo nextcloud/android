@@ -62,7 +62,7 @@ import java.util.ArrayList;
  * 
  * Shown when the error notification summarizing the list of errors is clicked by the user.
  */
-public class ErrorsWhileCopyingHandlerActivity  extends AppCompatActivity implements OnClickListener {
+public class ErrorsWhileCopyingHandlerActivity extends AppCompatActivity implements OnClickListener {
 
     private static final String TAG = ErrorsWhileCopyingHandlerActivity.class.getSimpleName();
 

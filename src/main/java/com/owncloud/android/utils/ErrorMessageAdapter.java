@@ -58,10 +58,10 @@ public class ErrorMessageAdapter {
      * Return an internationalized user message corresponding to an operation result
      * and the operation performed.
      *
-     * @param result        Result of a {@link RemoteOperation} performed.
-     * @param operation     Operation performed.
-     * @param res           Reference to app resources, for i18n.
-     * @return              User message corresponding to 'result' and 'operation'.
+     * @param result    Result of a {@link RemoteOperation} performed.
+     * @param operation Operation performed.
+     * @param res       Reference to app resources, for i18n.
+     * @return User message corresponding to 'result' and 'operation'.
      */
     @NonNull
     public static String getErrorCauseMessage(
@@ -98,7 +98,7 @@ public class ErrorMessageAdapter {
      * @param result        Result of a {@link RemoteOperation} performed.
      * @param operation     Operation performed.
      * @param res           Reference to app resources, for i18n.
-     * @return              User message corresponding to 'result' and 'operation', or NULL if there is no
+     * @return User message corresponding to 'result' and 'operation', or NULL if there is no
      *                      specific message for both.
      */
     @Nullable
@@ -247,7 +247,7 @@ public class ErrorMessageAdapter {
         if (result.getData() != null && result.getData().size() > 0) {
             return (String) result.getData().get(0);     // share API sends its own error messages
 
-        } else if (result.getCode() == ResultCode.SHARE_NOT_FOUND)  {
+        } else if (result.getCode() == ResultCode.SHARE_NOT_FOUND) {
             return res.getString(R.string.share_link_file_no_exist);
 
         } else if (result.getCode() == ResultCode.SHARE_FORBIDDEN) {
@@ -366,7 +366,7 @@ public class ErrorMessageAdapter {
      *
      * @param result        Result of a {@link RemoteOperation} performed.
      * @param res           Reference to app resources, for i18n.
-     * @return              User message corresponding to 'result'.
+     * @return User message corresponding to 'result'.
      */
     @Nullable
     private static String getCommonMessageForResult(RemoteOperationResult result, Resources res) {
@@ -439,9 +439,7 @@ public class ErrorMessageAdapter {
                 message = res.getString(
                         R.string.auth_account_not_the_same
                 );
-            }
-
-            else if (result.getHttpPhrase() != null && result.getHttpPhrase().length() > 0) {
+            } else if (result.getHttpPhrase() != null && result.getHttpPhrase().length() > 0) {
                 // last chance: error message from server
                 message = result.getHttpPhrase();
             }
@@ -456,7 +454,7 @@ public class ErrorMessageAdapter {
      *
      * @param operation     Operation performed.
      * @param res           Reference to app resources, for i18n.
-     * @return              User message corresponding to a generic error of 'operation'.
+     * @return User message corresponding to a generic error of 'operation'.
      */
     @Nullable
     private static String getGenericErrorMessageForOperation(RemoteOperation operation, Resources res) {

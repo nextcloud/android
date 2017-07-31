@@ -187,7 +187,7 @@ public class LogHistoryActivity extends ToolbarActivity {
         try {
             startActivity(intent);
         } catch (ActivityNotFoundException e) {
-            Snackbar.make(findViewById(android.R.id.content),R.string.log_send_no_mail_app,Snackbar.LENGTH_LONG).show();
+            Snackbar.make(findViewById(android.R.id.content), R.string.log_send_no_mail_app, Snackbar.LENGTH_LONG).show();
             Log_OC.i(TAG, "Could not find app for sending log history.");
         }
 
