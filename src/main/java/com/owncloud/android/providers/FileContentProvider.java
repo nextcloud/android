@@ -316,7 +316,6 @@ public class FileContentProvider extends ContentProvider {
                 if (uploadId > 0) {
                     insertedUploadUri =
                             ContentUris.withAppendedId(ProviderTableMeta.CONTENT_URI_UPLOADS, uploadId);
-                    trimSuccessfulUploads(db);
                 } else {
                     throw new SQLException(ERROR + uri);
 
@@ -619,7 +618,6 @@ public class FileContentProvider extends ContentProvider {
                 return db.update(ProviderTableMeta.CAPABILITIES_TABLE_NAME, values, selection, selectionArgs);
             case UPLOADS:
                 int ret = db.update(ProviderTableMeta.UPLOADS_TABLE_NAME, values, selection, selectionArgs);
-                trimSuccessfulUploads(db);
                 return ret;
             case SYNCED_FOLDERS:
                 return db.update(ProviderTableMeta.SYNCED_FOLDERS_TABLE_NAME, values, selection, selectionArgs);
