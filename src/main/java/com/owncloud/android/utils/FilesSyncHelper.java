@@ -95,7 +95,7 @@ public class FilesSyncHelper {
                         currentTimeString);
             } else {
                 FilesSyncHelper.insertContentIntoDB(android.provider.MediaStore.Video.Media.INTERNAL_CONTENT_URI,
-                         syncedFolder);
+                        syncedFolder);
                 FilesSyncHelper.insertContentIntoDB(MediaStore.Video.Media.EXTERNAL_CONTENT_URI,
                         syncedFolder);
             }
@@ -146,8 +146,7 @@ public class FilesSyncHelper {
         SyncedFolderProvider syncedFolderProvider = new SyncedFolderProvider(contentResolver);
 
         for (SyncedFolder syncedFolder : syncedFolderProvider.getSyncedFolders()) {
-            if (syncedFolder.isEnabled()) {
-                if (!skipCustom || MediaFolder.CUSTOM != syncedFolder.getType())
+            if ((syncedFolder.isEnabled()) && ((MediaFolder.CUSTOM != syncedFolder.getType()) || !skipCustom)) {
                     insertAllDBEntriesForSyncedFolder(syncedFolder);
             }
         }
@@ -253,15 +252,12 @@ public class FilesSyncHelper {
                 getContentResolver());
 
 
-        boolean hasCustomFolders = false;
         boolean hasVideoFolders = false;
         boolean hasImageFolders = false;
 
         if (syncedFolderProvider.getSyncedFolders() != null) {
             for (SyncedFolder syncedFolder : syncedFolderProvider.getSyncedFolders()) {
-                if (MediaFolder.CUSTOM == syncedFolder.getType()) {
-                    hasCustomFolders = true;
-                } else if (MediaFolder.VIDEO == syncedFolder.getType()) {
+                if (MediaFolder.VIDEO == syncedFolder.getType()) {
                     hasVideoFolders = true;
                 } else if (MediaFolder.IMAGE == syncedFolder.getType()) {
                     hasImageFolders = true;
@@ -306,27 +302,25 @@ public class FilesSyncHelper {
                                        boolean force) {
         JobScheduler jobScheduler = MainApp.getAppContext().getSystemService(JobScheduler.class);
 
-        if ((android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) && (hasImageFolders || hasVideoFolders)) {
-            if (!isContentObserverJobScheduled() || force) {
-                JobInfo.Builder builder = new JobInfo.Builder(ContentSyncJobId, new ComponentName(MainApp.getAppContext(),
-                        NContentObserverJob.class.getName()));
-                builder.addTriggerContentUri(new JobInfo.TriggerContentUri(android.provider.MediaStore.
-                        Images.Media.INTERNAL_CONTENT_URI,
-                        JobInfo.TriggerContentUri.FLAG_NOTIFY_FOR_DESCENDANTS));
-                builder.addTriggerContentUri(new JobInfo.TriggerContentUri(MediaStore.
-                        Images.Media.EXTERNAL_CONTENT_URI,
-                        JobInfo.TriggerContentUri.FLAG_NOTIFY_FOR_DESCENDANTS));
-                builder.addTriggerContentUri(new JobInfo.TriggerContentUri(android.provider.MediaStore.
-                        Video.Media.INTERNAL_CONTENT_URI,
-                        JobInfo.TriggerContentUri.FLAG_NOTIFY_FOR_DESCENDANTS));
-                builder.addTriggerContentUri(new JobInfo.TriggerContentUri(MediaStore.
-                        Video.Media.EXTERNAL_CONTENT_URI,
-                        JobInfo.TriggerContentUri.FLAG_NOTIFY_FOR_DESCENDANTS));
-                builder.setTriggerContentMaxDelay(1500);
-                jobScheduler.schedule(builder.build());
-            }
+        if (((android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) && (hasImageFolders || hasVideoFolders)) &&
+                (!isContentObserverJobScheduled() || force)) {
+            JobInfo.Builder builder = new JobInfo.Builder(ContentSyncJobId, new ComponentName(MainApp.getAppContext(),
+                    NContentObserverJob.class.getName()));
+            builder.addTriggerContentUri(new JobInfo.TriggerContentUri(android.provider.MediaStore.
+                    Images.Media.INTERNAL_CONTENT_URI,
+                    JobInfo.TriggerContentUri.FLAG_NOTIFY_FOR_DESCENDANTS));
+            builder.addTriggerContentUri(new JobInfo.TriggerContentUri(MediaStore.
+                    Images.Media.EXTERNAL_CONTENT_URI,
+                    JobInfo.TriggerContentUri.FLAG_NOTIFY_FOR_DESCENDANTS));
+            builder.addTriggerContentUri(new JobInfo.TriggerContentUri(android.provider.MediaStore.
+                    Video.Media.INTERNAL_CONTENT_URI,
+                    JobInfo.TriggerContentUri.FLAG_NOTIFY_FOR_DESCENDANTS));
+            builder.addTriggerContentUri(new JobInfo.TriggerContentUri(MediaStore.
+                    Video.Media.EXTERNAL_CONTENT_URI,
+                    JobInfo.TriggerContentUri.FLAG_NOTIFY_FOR_DESCENDANTS));
+            builder.setTriggerContentMaxDelay(1500);
+            jobScheduler.schedule(builder.build());
         }
-
     }
 }
 
