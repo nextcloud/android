@@ -25,6 +25,7 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -93,7 +94,7 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment {
         Bundle args = new Bundle();
         args.putParcelable(SYNCED_FOLDER_PARCELABLE, new SyncedFolderParcelable(syncedFolder, section));
         dialogFragment.setArguments(args);
-        dialogFragment.setStyle(STYLE_NORMAL,R.style.Theme_ownCloud_Dialog);
+        dialogFragment.setStyle(STYLE_NORMAL, R.style.Theme_ownCloud_Dialog);
 
         return dialogFragment;
     }
@@ -174,9 +175,15 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment {
         mUploadOnWifiCheckbox = (AppCompatCheckBox) view.findViewById(R.id.setting_instant_upload_on_wifi_checkbox);
         ThemeUtils.tintCheckbox(mUploadOnWifiCheckbox, accentColor);
 
-        mUploadOnChargingCheckbox = (AppCompatCheckBox) view.findViewById(
-                R.id.setting_instant_upload_on_charging_checkbox);
-        ThemeUtils.tintCheckbox(mUploadOnChargingCheckbox, accentColor);
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            view.findViewById(R.id.setting_instant_upload_on_charging_container).setVisibility(View.GONE);
+        } else {
+            view.findViewById(R.id.setting_instant_upload_on_charging_container).setVisibility(View.VISIBLE);
+
+            mUploadOnChargingCheckbox = (AppCompatCheckBox) view.findViewById(
+                    R.id.setting_instant_upload_on_charging_checkbox);
+            ThemeUtils.tintCheckbox(mUploadOnChargingCheckbox, accentColor);
+        }
 
         mUploadUseSubfoldersCheckbox = (AppCompatCheckBox) view.findViewById(
                 R.id.setting_instant_upload_path_use_subfolders_checkbox);
@@ -193,7 +200,7 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment {
         // Set values
         setEnabled(mSyncedFolder.getEnabled());
 
-        if(mSyncedFolder.getLocalPath() != null && mSyncedFolder.getLocalPath().length() > 0) {
+        if (mSyncedFolder.getLocalPath() != null && mSyncedFolder.getLocalPath().length() > 0) {
             mLocalFolderPath.setText(
                     DisplayUtils.createTextWithSpan(
                             String.format(
@@ -206,14 +213,16 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment {
             mLocalFolderSummary.setText(R.string.choose_local_folder);
         }
 
-        if(mSyncedFolder.getLocalPath() != null && mSyncedFolder.getLocalPath().length() > 0) {
+        if (mSyncedFolder.getLocalPath() != null && mSyncedFolder.getLocalPath().length() > 0) {
             mRemoteFolderSummary.setText(mSyncedFolder.getRemotePath());
         } else {
             mRemoteFolderSummary.setText(R.string.choose_remote_folder);
         }
 
         mUploadOnWifiCheckbox.setChecked(mSyncedFolder.getWifiOnly());
-        mUploadOnChargingCheckbox.setChecked(mSyncedFolder.getChargingOnly());
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            mUploadOnChargingCheckbox.setChecked(mSyncedFolder.getChargingOnly());
+        }
         mUploadUseSubfoldersCheckbox.setChecked(mSyncedFolder.getSubfolderByDate());
 
         mUploadBehaviorSummary.setText(mUploadBehaviorItemStrings[mSyncedFolder.getUploadActionInteger()]);
@@ -263,7 +272,7 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment {
     }
 
     private void checkAndUpdateSaveButtonState() {
-        if(mSyncedFolder.getLocalPath() != null && mSyncedFolder.getRemotePath() != null) {
+        if (mSyncedFolder.getLocalPath() != null && mSyncedFolder.getRemotePath() != null) {
             mView.findViewById(R.id.save).setEnabled(true);
         } else {
             mView.findViewById(R.id.save).setEnabled(false);
@@ -289,14 +298,17 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment {
                     }
                 });
 
-        view.findViewById(R.id.setting_instant_upload_on_charging_container).setOnClickListener(
-                new OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        mSyncedFolder.setChargingOnly(!mSyncedFolder.getChargingOnly());
-                        mUploadOnChargingCheckbox.toggle();
-                    }
-                });
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+
+            view.findViewById(R.id.setting_instant_upload_on_charging_container).setOnClickListener(
+                    new OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            mSyncedFolder.setChargingOnly(!mSyncedFolder.getChargingOnly());
+                            mUploadOnChargingCheckbox.toggle();
+                        }
+                    });
+        }
 
         view.findViewById(R.id.setting_instant_upload_path_use_subfolders_container).setOnClickListener(
                 new OnClickListener() {
