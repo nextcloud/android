@@ -47,12 +47,12 @@ public class ArbitraryDataProvider {
         this.contentResolver = contentResolver;
     }
 
-    public int deleteKeyForAccount(Account account, String key) {
+    public int deleteKeyForAccount(String account, String key) {
         int result = contentResolver.delete(
                 ProviderMeta.ProviderTableMeta.CONTENT_URI_ARBITRARY_DATA,
                 ProviderMeta.ProviderTableMeta.ARBITRARY_DATA_CLOUD_ID + " = ? AND " +
                         ProviderMeta.ProviderTableMeta.ARBITRARY_DATA_KEY + "= ?",
-                new String[]{account.name, key}
+                new String[]{account, key}
         );
 
         return result;
