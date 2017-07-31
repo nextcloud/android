@@ -25,7 +25,6 @@ import android.app.job.JobParameters;
 import android.app.job.JobService;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
-import android.util.Log;
 
 import com.evernote.android.job.JobRequest;
 import com.evernote.android.job.util.support.PersistableBundleCompat;

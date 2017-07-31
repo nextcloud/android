@@ -69,58 +69,69 @@ public class FilesSyncHelper {
         final ContentResolver contentResolver = context.getContentResolver();
         ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProvider(contentResolver);
 
+        Long currentTime = System.currentTimeMillis();
+        double currentTimeInSeconds = currentTime / 1000.0;
+        String currentTimeString = Long.toString((long) currentTimeInSeconds);
+
         String syncedFolderInitiatedKey = "syncedFolderIntitiated_" + syncedFolder.getId();
         boolean dryRun = TextUtils.isEmpty(arbitraryDataProvider.getValue
                 ("global", syncedFolderInitiatedKey));
 
         if (MediaFolder.IMAGE == syncedFolder.getType()) {
-            FilesSyncHelper.insertContentIntoDB(android.provider.MediaStore.Images.Media.INTERNAL_CONTENT_URI
-                    , dryRun, syncedFolder);
-            FilesSyncHelper.insertContentIntoDB(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, dryRun,
-                    syncedFolder);
-
             if (dryRun) {
                 arbitraryDataProvider.storeOrUpdateKeyValue("global", syncedFolderInitiatedKey,
-                        "1");
+                        currentTimeString);
+            } else {
+                FilesSyncHelper.insertContentIntoDB(android.provider.MediaStore.Images.Media.INTERNAL_CONTENT_URI
+                        , syncedFolder);
+                FilesSyncHelper.insertContentIntoDB(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+                        syncedFolder);
             }
+
         } else if (MediaFolder.VIDEO == syncedFolder.getType()) {
-            FilesSyncHelper.insertContentIntoDB(android.provider.MediaStore.Video.Media.INTERNAL_CONTENT_URI,
-                    dryRun, syncedFolder);
-            FilesSyncHelper.insertContentIntoDB(MediaStore.Video.Media.EXTERNAL_CONTENT_URI, dryRun,
-                    syncedFolder);
 
             if (dryRun) {
                 arbitraryDataProvider.storeOrUpdateKeyValue("global", syncedFolderInitiatedKey,
-                        "1");
+                        currentTimeString);
+            } else {
+                FilesSyncHelper.insertContentIntoDB(android.provider.MediaStore.Video.Media.INTERNAL_CONTENT_URI,
+                         syncedFolder);
+                FilesSyncHelper.insertContentIntoDB(MediaStore.Video.Media.EXTERNAL_CONTENT_URI,
+                        syncedFolder);
             }
 
         } else {
             try {
 
-                FilesystemDataProvider filesystemDataProvider = new FilesystemDataProvider(contentResolver);
-                Path path = Paths.get(syncedFolder.getLocalPath());
-
-                Files.walkFileTree(path, new SimpleFileVisitor<Path>() {
-                    @Override
-                    public FileVisitResult visitFile(Path path, BasicFileAttributes attrs) throws IOException {
-
-                        File file = path.toFile();
-                        filesystemDataProvider.storeOrUpdateFileValue(path.toAbsolutePath().toString(),
-                                attrs.lastModifiedTime().toMillis(), file.isDirectory(), syncedFolder, dryRun);
-
-
-                        return FileVisitResult.CONTINUE;
-                    }
-
-                    @Override
-                    public FileVisitResult visitFileFailed(Path file, IOException exc) {
-                        return FileVisitResult.CONTINUE;
-                    }
-                });
-
                 if (dryRun) {
                     arbitraryDataProvider.storeOrUpdateKeyValue("global", syncedFolderInitiatedKey,
-                            "1");
+                            currentTimeString);
+                } else {
+                    FilesystemDataProvider filesystemDataProvider = new FilesystemDataProvider(contentResolver);
+                    Path path = Paths.get(syncedFolder.getLocalPath());
+
+                    String dateInitiated = arbitraryDataProvider.getValue("global",
+                            syncedFolderInitiatedKey);
+
+                    Files.walkFileTree(path, new SimpleFileVisitor<Path>() {
+                        @Override
+                        public FileVisitResult visitFile(Path path, BasicFileAttributes attrs) throws IOException {
+
+                            File file = path.toFile();
+                            if (attrs.lastModifiedTime().toMillis() >= Long.parseLong(dateInitiated) * 1000) {
+                                filesystemDataProvider.storeOrUpdateFileValue(path.toAbsolutePath().toString(),
+                                        attrs.lastModifiedTime().toMillis(), file.isDirectory(), syncedFolder);
+                            }
+
+                            return FileVisitResult.CONTINUE;
+                        }
+
+                        @Override
+                        public FileVisitResult visitFileFailed(Path file, IOException exc) {
+                            return FileVisitResult.CONTINUE;
+                        }
+                    });
+
                 }
 
             } catch (IOException e) {
@@ -142,9 +153,10 @@ public class FilesSyncHelper {
         }
     }
 
-    private static void insertContentIntoDB(Uri uri, boolean dryRun, SyncedFolder syncedFolder) {
+    private static void insertContentIntoDB(Uri uri, SyncedFolder syncedFolder) {
         final Context context = MainApp.getAppContext();
         final ContentResolver contentResolver = context.getContentResolver();
+        ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProvider(contentResolver);
 
         Cursor cursor;
         int column_index_data;
@@ -164,6 +176,9 @@ public class FilesSyncHelper {
             path = path + "%";
         }
 
+        String syncedFolderInitiatedKey = "syncedFolderIntitiated_" + syncedFolder.getId();
+        String dateInitiated = arbitraryDataProvider.getValue("global", syncedFolderInitiatedKey);
+
         cursor = context.getContentResolver().query(uri, projection, MediaStore.MediaColumns.DATA + " LIKE ?",
                 new String[]{path}, null);
 
@@ -173,8 +188,10 @@ public class FilesSyncHelper {
             while (cursor.moveToNext()) {
                 contentPath = cursor.getString(column_index_data);
                 isFolder = new File(contentPath).isDirectory();
-                filesystemDataProvider.storeOrUpdateFileValue(contentPath,
-                        cursor.getLong(column_index_date_modified), isFolder, syncedFolder, dryRun);
+                if (cursor.getLong(column_index_date_modified) >= Long.parseLong(dateInitiated)) {
+                    filesystemDataProvider.storeOrUpdateFileValue(contentPath,
+                            cursor.getLong(column_index_date_modified), isFolder, syncedFolder);
+                }
             }
             cursor.close();
         }
