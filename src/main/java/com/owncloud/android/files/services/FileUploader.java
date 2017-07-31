@@ -398,6 +398,7 @@ public class FileUploader extends Service
                 i.putExtra(FileUploader.KEY_RETRY, true);
                 i.putExtra(FileUploader.KEY_ACCOUNT, account);
                 i.putExtra(FileUploader.KEY_RETRY_UPLOAD, upload);
+
                 context.startService(i);
             }
         }
@@ -637,6 +638,9 @@ public class FileUploader extends Service
                 return START_NOT_STICKY;
             }
             OCUpload upload = intent.getParcelableExtra(KEY_RETRY_UPLOAD);
+
+            onWifiOnly = upload.isUseWifiOnly();
+            whileChargingOnly = upload.isWhileChargingOnly();
 
             UploadFileOperation newUpload = new UploadFileOperation(
                     account,
