@@ -1,9 +1,10 @@
-2017-07-31 00:30:29
+2017-08-01 00:30:33
 Branches: 9
+[00 / 09] Dev branch (nextcloud/dev) [https://github.com/nextcloud/android/tree/dev] was updated successfully
 [01 / 09] Show empty message when receiving external files (nextcloud/emptyMessageReceiveExternalFiles) [https://github.com/nextcloud/android/pull/1214] no update needed
 [02 / 09] Show empty message again (nextcloud/showEmptyMessageAgain) [https://github.com/nextcloud/android/pull/1213] no update needed
 [03 / 09] On receiving untrusted ssl cert, test if it was previously accepted user (nextcloud/newWebLoginUntrustedCert) [https://github.com/nextcloud/android/pull/1206] no update needed
-[04 / 09] Error feedback improvement (nextcloud/errorFeedback) [https://github.com/nextcloud/android/pull/1198] CONFLICT
+[04 / 09] Error feedback improvement (nextcloud/errorFeedback) [https://github.com/nextcloud/android/pull/1198] no update needed
 [05 / 09] Comment out adding all new downloaded files to folder observer (nextcloud/folderObserver) [https://github.com/nextcloud/android/pull/1155] no update needed
 [06 / 09] Search inside of text files (nextcloud/bugfix-454) [https://github.com/nextcloud/android/pull/565] no update needed
 [07 / 09] Resized images (nextcloud/resizedImages) [https://github.com/nextcloud/android/pull/69] no update needed
