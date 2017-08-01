@@ -23,9 +23,13 @@ package com.owncloud.android.ui.activity;
 
 import android.accounts.Account;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.content.res.Resources;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
+import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.FragmentManager;
@@ -38,6 +42,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.owncloud.android.MainApp;
@@ -72,6 +77,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static android.support.design.widget.AppBarLayout.LayoutParams.SCROLL_FLAG_ENTER_ALWAYS;
 import static com.owncloud.android.datamodel.SyncedFolderDisplayItem.UNPERSISTED_ID;
 
 /**
@@ -95,6 +101,7 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
     private SyncedFolderProvider mSyncedFolderProvider;
     private SyncedFolderPreferencesDialogFragment mSyncedFolderPreferencesDialogFragment;
     private boolean showSidebar = true;
+    private RelativeLayout mCustomFolderRelativeLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,8 +115,31 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
 
         // setup toolbar
         setupToolbar();
-        ((CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar)).setTitle(this.getString(R.string.drawer_synced_folders));
-        findViewById(R.id.app_bar).setBackgroundColor(this.getResources().getColor(R.color.filelist_icon_backgorund));
+        CollapsingToolbarLayout mCollapsingToolbarLayout = ((CollapsingToolbarLayout)
+                findViewById(R.id.collapsing_toolbar));
+        mCollapsingToolbarLayout.setTitle(this.getString(R.string.drawer_synced_folders));
+
+        mCustomFolderRelativeLayout = (RelativeLayout) findViewById(R.id.custom_folder_toolbar);
+
+        SharedPreferences appPrefs =
+                PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+
+
+        findViewById(R.id.toolbar).post(() -> {
+            if (!appPrefs.getBoolean("expert_mode", false)) {
+                Resources r = getResources();
+                findViewById(R.id.app_bar).getLayoutParams().height = findViewById(R.id.toolbar).getHeight();
+
+                AppBarLayout.LayoutParams p = (AppBarLayout.LayoutParams) mCollapsingToolbarLayout.getLayoutParams();
+                p.setScrollFlags(SCROLL_FLAG_ENTER_ALWAYS);
+                mCollapsingToolbarLayout.setLayoutParams(p);
+                mCustomFolderRelativeLayout.setVisibility(View.GONE);
+            } else {
+                mCustomFolderRelativeLayout.setVisibility(View.VISIBLE);
+                findViewById(R.id.app_bar).setBackgroundColor(getResources().getColor(R.color.filelist_icon_backgorund));
+            }
+        });
+
 
         // setup drawer
         setupDrawer(R.id.nav_synced_folders);
