@@ -659,42 +659,6 @@ public class Preferences extends PreferenceActivity
         t.start();
     }
 
-    private void toggleInstantPictureOptions(Boolean value) {
-        if (value) {
-            mPrefInstantUploadCategory.addPreference(mPrefInstantUploadPathWiFi);
-            mPrefInstantUploadCategory.addPreference(mPrefInstantUploadPath);
-            mPrefInstantUploadCategory.addPreference(mPrefInstantUploadUseSubfolders);
-            mPrefInstantUploadCategory.addPreference(mPrefInstantPictureUploadOnlyOnCharging);
-        } else {
-            mPrefInstantUploadCategory.removePreference(mPrefInstantUploadPathWiFi);
-            mPrefInstantUploadCategory.removePreference(mPrefInstantUploadPath);
-            mPrefInstantUploadCategory.removePreference(mPrefInstantUploadUseSubfolders);
-            mPrefInstantUploadCategory.removePreference(mPrefInstantPictureUploadOnlyOnCharging);
-        }
-    }
-
-    private void toggleInstantVideoOptions(Boolean value) {
-        if (value) {
-            mPrefInstantUploadCategory.addPreference(mPrefInstantVideoUploadPathWiFi);
-            mPrefInstantUploadCategory.addPreference(mPrefInstantVideoUploadPath);
-            mPrefInstantUploadCategory.addPreference(mPrefInstantVideoUploadUseSubfolders);
-            mPrefInstantUploadCategory.addPreference(mPrefInstantVideoUploadOnlyOnCharging);
-        } else {
-            mPrefInstantUploadCategory.removePreference(mPrefInstantVideoUploadPathWiFi);
-            mPrefInstantUploadCategory.removePreference(mPrefInstantVideoUploadPath);
-            mPrefInstantUploadCategory.removePreference(mPrefInstantVideoUploadUseSubfolders);
-            mPrefInstantUploadCategory.removePreference(mPrefInstantVideoUploadOnlyOnCharging);
-        }
-    }
-
-    private void toggleInstantUploadBehaviour(Boolean video, Boolean picture) {
-        if (picture || video) {
-            mPrefInstantUploadCategory.addPreference(mPrefInstantUploadBehaviour);
-        } else {
-            mPrefInstantUploadCategory.removePreference(mPrefInstantUploadBehaviour);
-        }
-    }
-
     @Override
     protected void onResume() {
         super.onResume();
