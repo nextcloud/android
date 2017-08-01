@@ -371,6 +371,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
         mLoginWebView.getSettings().setAllowFileAccess(false);
         mLoginWebView.getSettings().setJavaScriptEnabled(true);
+        mLoginWebView.getSettings().setDomStorageEnabled(true);
         mLoginWebView.getSettings().setUserAgentString(getWebLoginUserAgent());
         mLoginWebView.getSettings().setSaveFormData(false);
         mLoginWebView.getSettings().setSavePassword(false);

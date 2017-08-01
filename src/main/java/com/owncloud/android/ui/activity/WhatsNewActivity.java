@@ -271,6 +271,7 @@ public class WhatsNewActivity extends FragmentActivity implements ViewPager.OnPa
 
             WebView webView = (WebView) v.findViewById(R.id.whatsNewWebView);
             webView.getSettings().setJavaScriptEnabled(true);
+            webView.getSettings().setDomStorageEnabled(true);
             webView.getSettings().setAllowFileAccess(false);
             webView.setWebViewClient(new WebViewClient());
             webView.loadUrl(mWebUrl);

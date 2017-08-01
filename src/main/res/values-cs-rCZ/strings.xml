@@ -60,6 +60,7 @@
     <string name="prefs_calendar_contacts_address_resolve_error">Počítačová adresa konta pro DAVdroid nebyla nalezena</string>
     <string name="prefs_calendar_contacts_no_store_error">Nenainstalován Google Play store nebo F-Droid app</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Synchronizace kalendáře &amp; kontaktů úspěšně dokončena</string>
+    <string name="prefs_daily_contacts_sync_summary">Denní záloha vašich kontaktů</string>
     <string name="prefs_help">Nápověda</string>
     <string name="prefs_recommend">Doporučit přátelům</string>
     <string name="prefs_feedback">Odezva</string>
@@ -69,6 +70,8 @@
 
 	<string name="recommend_subject">Zkuste %1$s na svém chytrém telefonu!</string>
 	<string name="recommend_text">Chtěl bych vás pozvat k používání %1$s na vašem chytrém telefonu!\nKe stažení zde: %2$s</string>
+    <string name="recommend_urls">%1$s nebo %2$s</string>
+
     <string name="auth_check_server">Ověřit server</string>
     <string name="auth_host_url">Adresa serveru https://...</string>
     <string name="auth_username">Uživatelské jméno</string>
@@ -489,6 +492,8 @@
     <string name="upload_copy_files">Zkopírovat soubor</string>
     <string name="upload_move_files">Přesunout soubor</string>
     <string name="select_all">Vybrat vše</string>
+    <string name="deselect_all">Odznačit vše</string>
+
     <string name="pref_behaviour_entries_keep_file">ponechán ve výchozím adresáři</string>
     <string name="pref_behaviour_entries_move">přesunut do adresáře aplikace</string>
     <string name="pref_behaviour_entries_delete_file">smazáno</string>
@@ -519,6 +524,9 @@
     <string name="share_known_remote_clarification">%1$s ( v %2$s )</string>
 
     <string name="share_sharee_unavailable">Omlouváme se, verze vašeho serveru neumožňuje v klientské aplikaci sdílení dat mezi uživateli. \nKontaktujte prosím svého administrátora</string>
+    <string name="filedetails_share_link_enable">Sdílení odkazem povoleno</string>
+    <string name="filedetails_share_link_disable">Není sdílen odkazem</string>
+    <string name="filedetails_share_users_with_access">Uživatelé a skupiny s přístupem</string>
     <string name="share_privilege_can_share">může sdílet</string>
     <string name="share_privilege_can_edit">lze upravovat</string>
     <string name="share_privilege_can_edit_create">vytvořit</string>
@@ -561,6 +569,12 @@
     <string name="participate_release_candidate_headline">Předběžná verze</string>
     <string name="participate_release_candidate_text">Kandidát na vydání (RC) je snímkem nadcházejícího vydání a očekává se, že bude stabilní. Testování vašeho individuálního nastavení by to mohlo pomoci zajistit. Přihlaste se k testování v Obchodě Play nebo se podívejte do F-Droid v části \"Verze\" a přihlaste se manuálně.</string>
     <string name="participate_contribute_headline">Aktivně něčím přispět</string>
+    <string name="participate_contribute_irc_text">Připojte se k IRC chatu:</string>
+    <string name="participate_contribute_forum_text">Pomozte ostatním na</string>
+    <string name="participate_contribute_forum_forum">Fórum</string>
+    <string name="participate_contribute_translate_translate">Překládat</string>
+    <string name="participate_contribute_translate_text">Aplikace</string>
+    <string name="participate_contribute_github_text">Kontrolujte, vylepšujte a pište kód, víc informací naleznete na %1$s</string>
     <string name="move_to">Přesunout do&#8230;</string>
     <string name="copy_to">Kopírovat do&#8230;</string>
     <string name="choose_remote_folder">Vybrat adresář&#8230;</string>
