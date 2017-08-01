@@ -20,8 +20,6 @@
 package com.owncloud.android.ui.activity;
 
 import android.Manifest;
-import android.annotation.SuppressLint;
-import android.annotation.TargetApi;
 import android.app.KeyguardManager;
 import android.content.Context;
 import android.content.Intent;
@@ -71,7 +69,7 @@ import javax.crypto.SecretKey;
 /**
  * Activity to handle access to the app based on the fingerprint.
  */
-@TargetApi(Build.VERSION_CODES.M)
+@RequiresApi(Build.VERSION_CODES.M)
 public class FingerprintActivity extends AppCompatActivity {
 
     private static final String TAG = FingerprintActivity.class.getSimpleName();
@@ -274,28 +272,21 @@ public class FingerprintActivity extends AppCompatActivity {
         return false;
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.M)
     static public boolean isFingerprintReady(Context context) {
         try {
             FingerprintManager fingerprintManager =
                     (FingerprintManager) context.getSystemService(Context.FINGERPRINT_SERVICE);
 
-            if (ActivityCompat.checkSelfPermission(context, Manifest.permission.USE_FINGERPRINT)
-                    != PackageManager.PERMISSION_GRANTED) {
-                return false;
-            }
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                return fingerprintManager.isHardwareDetected() && fingerprintManager.hasEnrolledFingerprints();
-            }
+            return ActivityCompat.checkSelfPermission(context, Manifest.permission.USE_FINGERPRINT) ==
+                    PackageManager.PERMISSION_GRANTED && fingerprintManager.isHardwareDetected() &&
+                    fingerprintManager.hasEnrolledFingerprints();
         } catch (Exception e) {
             return false;
         }
-
-        return false;
     }
 }
 
-@SuppressLint("NewApi")
+@RequiresApi(Build.VERSION_CODES.M)
 class FingerprintHandler extends FingerprintManager.AuthenticationCallback {
 
     private TextView text;
