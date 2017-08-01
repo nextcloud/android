@@ -1643,7 +1643,7 @@ public class FileDisplayActivity extends HookActivity
                     showDetails(file);
                 }
             }
-            invalidateOptionsMenu();
+            supportInvalidateOptionsMenu();
         }
     }
 
@@ -1671,7 +1671,7 @@ public class FileDisplayActivity extends HookActivity
             if (getStorageManager().getFileById(removedFile.getParentId()).equals(getCurrentDir())) {
                 refreshListOfFilesFragment(false);
             }
-            invalidateOptionsMenu();
+            supportInvalidateOptionsMenu();
         } else {
             if (result.isSslRecoverableException()) {
                 mLastSslUntrustedServerResult = result;
@@ -1780,7 +1780,7 @@ public class FileDisplayActivity extends HookActivity
         if (result.isSuccess() && operation.transferWasRequested()) {
             OCFile syncedFile = operation.getLocalFile();
             onTransferStateChanged(syncedFile, true, true);
-            invalidateOptionsMenu();
+            supportInvalidateOptionsMenu();
             refreshShowDetails();
         }
     }

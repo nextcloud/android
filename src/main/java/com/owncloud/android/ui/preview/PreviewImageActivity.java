@@ -197,7 +197,7 @@ public class PreviewImageActivity extends FileActivity implements
     private void onSynchronizeFileOperationFinish(SynchronizeFileOperation operation,
                                                   RemoteOperationResult result) {
         if (result.isSuccess()) {
-            invalidateOptionsMenu();
+            supportInvalidateOptionsMenu();
         }
 
     }

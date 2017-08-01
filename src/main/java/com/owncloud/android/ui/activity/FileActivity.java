@@ -441,7 +441,7 @@ public abstract class FileActivity extends DrawerActivity
                         operation, getResources()), Toast.LENGTH_LONG);
                 msg.show();
             }
-            invalidateOptionsMenu();
+            supportInvalidateOptionsMenu();
         }
     }
 
