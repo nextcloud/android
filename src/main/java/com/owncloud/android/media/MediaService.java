@@ -499,7 +499,7 @@ public class MediaService extends Service implements OnCompletionListener, OnPre
 
     /** Called when media player is done playing current song. */
     public void onCompletion(MediaPlayer player) {
-        Toast.makeText(this, String.format(getString(R.string.media_event_done, mFile.getFileName())), Toast.LENGTH_LONG).show();
+        Toast.makeText(this, String.format(getString(R.string.media_event_done), mFile.getFileName()), Toast.LENGTH_LONG).show();
         if (mMediaController != null) {
             // somebody is still bound to the service
             player.seekTo(0);
