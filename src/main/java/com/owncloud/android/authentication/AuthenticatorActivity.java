@@ -562,7 +562,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         /// step 2 - set properties of UI elements (text, visibility, enabled...)
         Button welcomeLink = (Button) findViewById(R.id.welcome_link);
         welcomeLink.setVisibility(isWelcomeLinkVisible ? View.VISIBLE : View.GONE);
-        welcomeLink.setText(String.format(getString(R.string.auth_register), getString(R.string.app_name)));
+        welcomeLink.setText(getString(R.string.auth_register));
 
         TextView instructionsView = (TextView) findViewById(R.id.instructions_message);
         if (instructionsMessageText != null) {
