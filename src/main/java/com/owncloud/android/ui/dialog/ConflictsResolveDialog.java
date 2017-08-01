@@ -1,4 +1,4 @@
-/**
+/*
  *   ownCloud Android client application
  *
  *   @author Bartek Przybylski
@@ -24,6 +24,7 @@ package com.owncloud.android.ui.dialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -46,35 +47,32 @@ public class ConflictsResolveDialog extends DialogFragment {
     }
     
     OnConflictDecisionMadeListener mListener;
-    
-    public static ConflictsResolveDialog newInstance(String path, OnConflictDecisionMadeListener listener) {
+
+    public static ConflictsResolveDialog newInstance(OnConflictDecisionMadeListener listener) {
         ConflictsResolveDialog f = new ConflictsResolveDialog();
-        Bundle args = new Bundle();
-        args.putString("remotepath", path);
-        f.setArguments(args);
         f.mListener = listener;
         return f;
     }
-    
+
+    @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        String remotepath = getArguments().getString("remotepath");
         return new AlertDialog.Builder(getActivity(), R.style.Theme_ownCloud_Dialog)
-                   .setIcon(R.drawable.ic_warning)
-                   .setTitle(R.string.conflict_title)
+                .setIcon(R.drawable.ic_warning)
+                .setTitle(R.string.conflict_title)
                 .setMessage(getString(R.string.conflict_message))
-                   .setPositiveButton(R.string.conflict_use_local_version,
-                       new DialogInterface.OnClickListener() {
+                .setPositiveButton(R.string.conflict_use_local_version,
+                        new DialogInterface.OnClickListener() {
 
-                           @Override
-                           public void onClick(DialogInterface dialog, int which) {
-                               if (mListener != null) {
-                                   mListener.conflictDecisionMade(Decision.OVERWRITE);
-                               }
-                           }
-                       })
-                   .setNeutralButton(R.string.conflict_keep_both,
-                       new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                if (mListener != null) {
+                                    mListener.conflictDecisionMade(Decision.OVERWRITE);
+                                }
+                            }
+                        })
+                .setNeutralButton(R.string.conflict_keep_both,
+                        new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 if (mListener != null) {
@@ -82,16 +80,16 @@ public class ConflictsResolveDialog extends DialogFragment {
                                 }
                             }
                         })
-                   .setNegativeButton(R.string.conflict_use_server_version,
-                       new DialogInterface.OnClickListener() {
-                           @Override
-                           public void onClick(DialogInterface dialog, int which) {
-                               if (mListener != null) {
-                                   mListener.conflictDecisionMade(Decision.SERVER);
+                .setNegativeButton(R.string.conflict_use_server_version,
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                if (mListener != null) {
+                                    mListener.conflictDecisionMade(Decision.SERVER);
                                 }
-                           }
-                   })
-                   .create();
+                            }
+                        })
+                .create();
     }
     
     public void showDialog(AppCompatActivity activity) {
