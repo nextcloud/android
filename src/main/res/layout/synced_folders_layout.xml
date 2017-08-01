@@ -46,6 +46,7 @@
                 app:titleEnabled="false">
 
                 <RelativeLayout
+                    android:id="@+id/custom_folder_toolbar"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal|bottom"
@@ -62,9 +63,9 @@
 
                     <TextView
                         android:id="@+id/add_custom_folder"
-                        android:layout_toRightOf="@id/custom_folder_image"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_toRightOf="@id/custom_folder_image"
                         android:paddingLeft="@dimen/alternate_half_padding"
                         android:text="@string/autoupload_custom_folder"/>
 
