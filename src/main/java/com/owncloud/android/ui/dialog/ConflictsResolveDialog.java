@@ -38,7 +38,7 @@ import com.owncloud.android.R;
  */
 public class ConflictsResolveDialog extends DialogFragment {
 
-    public static enum Decision { 
+    public enum Decision {
         CANCEL,
         KEEP_BOTH,
         OVERWRITE,
@@ -62,7 +62,7 @@ public class ConflictsResolveDialog extends DialogFragment {
         return new AlertDialog.Builder(getActivity(), R.style.Theme_ownCloud_Dialog)
                    .setIcon(R.drawable.ic_warning)
                    .setTitle(R.string.conflict_title)
-                   .setMessage(String.format(getString(R.string.conflict_message), remotepath))
+                .setMessage(getString(R.string.conflict_message))
                    .setPositiveButton(R.string.conflict_use_local_version,
                        new DialogInterface.OnClickListener() {
 
@@ -120,6 +120,6 @@ public class ConflictsResolveDialog extends DialogFragment {
     }
     
     public interface OnConflictDecisionMadeListener {
-        public void conflictDecisionMade(Decision decision);
+        void conflictDecisionMade(Decision decision);
     }
 }
