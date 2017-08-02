@@ -56,7 +56,7 @@ public class ConflictsResolveDialog extends DialogFragment {
 
     @NonNull
     @Override
-    public @NonNull Dialog onCreateDialog(Bundle savedInstanceState) {
+    public Dialog onCreateDialog(Bundle savedInstanceState) {
         return new AlertDialog.Builder(getActivity(), R.style.Theme_ownCloud_Dialog)
                 .setIcon(R.drawable.ic_warning)
                 .setTitle(R.string.conflict_title)
