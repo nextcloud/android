@@ -25,7 +25,6 @@ import android.accounts.Account;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
@@ -127,7 +126,6 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
 
         findViewById(R.id.toolbar).post(() -> {
             if (!appPrefs.getBoolean("expert_mode", false)) {
-                Resources r = getResources();
                 findViewById(R.id.app_bar).getLayoutParams().height = findViewById(R.id.toolbar).getHeight();
 
                 AppBarLayout.LayoutParams p = (AppBarLayout.LayoutParams) mCollapsingToolbarLayout.getLayoutParams();
