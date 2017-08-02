@@ -734,7 +734,11 @@ public class PreviewImageFragment extends FileFragment {
     }
 
     public void setNoConnectionErrorMessage() {
-        Snackbar.make(mMultiView, R.string.auth_no_net_conn_title, Snackbar.LENGTH_LONG).show();
+        try {
+            Snackbar.make(getView(), R.string.auth_no_net_conn_title, Snackbar.LENGTH_LONG).show();
+        } catch (NullPointerException npe) {
+
+        }
     }
 
     /**

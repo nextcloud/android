@@ -534,7 +534,6 @@ public class FileOperationsHelper {
     }
 
     public void sendCachedImage(OCFile file) {
-//        // TODO check if already exists in cache, else download resized image first
         if (file != null) {
             Intent sendIntent = new Intent(Intent.ACTION_SEND);
             // set MimeType

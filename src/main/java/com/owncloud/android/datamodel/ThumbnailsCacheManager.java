@@ -347,7 +347,7 @@ public class ThumbnailsCacheManager {
                         }
                     }
                 } else {
-                    if (ConnectivityUtils.isAppConnected(previewImageFragment.getContext())) {
+                    if (ConnectivityUtils.isAppConnected(MainApp.getAppContext())) {
                         previewImageFragment.setErrorPreviewMessage();
                     } else {
                         previewImageFragment.setNoConnectionErrorMessage();
