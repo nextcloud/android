@@ -1,3 +1,14 @@
+## 2017-08-02 09:58
+New branches:
+/
+
+Updated branches:
+- Resized images (nextcloud/resizedImages) [https://github.com/nextcloud/android/pull/69] updated
+- Master (nextcloud/master) [https://github.com/nextcloud/android] updated
+
+Conflicting branches:
+/
+
 ## 2017-08-02 00:30
 New branches:
 /
