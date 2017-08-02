@@ -60,6 +60,7 @@
     <string name="prefs_calendar_contacts_address_resolve_error">Tjeneradressen for kontoen ble ikke funnet for DAVdroid</string>
     <string name="prefs_calendar_contacts_no_store_error">Hverken F-droid eller Google play er installert</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Kalender &amp; kontaktsynkronisering ble satt opp</string>
+    <string name="prefs_daily_contacts_sync_summary">Daglig sikkerhetskopiering av dine kontakter</string>
     <string name="prefs_help">Hjelp</string>
     <string name="prefs_recommend">Anbefal til en venn</string>
     <string name="prefs_feedback">Tilbakemelding</string>
@@ -567,6 +568,11 @@
     <string name="participate_release_candidate_headline">Slippkandidat</string>
     <string name="participate_release_candidate_text">En Slippkandidat (RC) er en øyeblikkspakke av den kommende utgaven og er forventet å være stabil. Ved å teste denne med ditt oppsett hjelper du til å med dette. Meld deg på testing i Play-butikken, eller se i seksjonen \"Versjon\" for programmet i F-Droid.</string>
     <string name="participate_contribute_headline">Bidra aktivt</string>
+    <string name="participate_contribute_irc_text">Sludre på IRC:</string>
+    <string name="participate_contribute_forum_text">Hjelp andre på</string>
+    <string name="participate_contribute_forum_forum">forumet</string>
+    <string name="participate_contribute_translate_translate">Oversett</string>
+    <string name="participate_contribute_translate_text">programmet</string>
     <string name="move_to">Flytt til&#8230;</string>
     <string name="copy_to">Kopier til&#8230;</string>
     <string name="choose_remote_folder">Velg mappe&#8230;</string>
