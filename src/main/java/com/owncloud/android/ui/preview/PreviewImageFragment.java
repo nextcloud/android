@@ -724,13 +724,17 @@ public class PreviewImageFragment extends FileFragment {
     }
 
     public void setErrorPreviewMessage() {
-        Snackbar.make(mMultiView, "No resized image possible. Download full image?", Snackbar.LENGTH_INDEFINITE)
-                .setAction("Yes", new OnClickListener() {
+        Snackbar.make(mMultiView, R.string.resized_image_not_possible, Snackbar.LENGTH_INDEFINITE)
+                .setAction(R.string.common_yes, new OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         downloadFile();
                     }
                 }).show();
+    }
+
+    public void setNoConnectionErrorMessage() {
+        Snackbar.make(mMultiView, R.string.auth_no_net_conn_title, Snackbar.LENGTH_LONG).show();
     }
 
     /**

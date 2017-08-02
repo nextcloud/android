@@ -51,6 +51,7 @@ import com.owncloud.android.lib.resources.status.OwnCloudVersion;
 import com.owncloud.android.ui.adapter.DiskLruImageCache;
 import com.owncloud.android.ui.preview.PreviewImageFragment;
 import com.owncloud.android.utils.BitmapUtils;
+import com.owncloud.android.utils.ConnectivityUtils;
 import com.owncloud.android.utils.DisplayUtils.AvatarGenerationListener;
 import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
@@ -346,7 +347,11 @@ public class ThumbnailsCacheManager {
                         }
                     }
                 } else {
-                    previewImageFragment.setErrorPreviewMessage();
+                    if (ConnectivityUtils.isAppConnected(previewImageFragment.getContext())) {
+                        previewImageFragment.setErrorPreviewMessage();
+                    } else {
+                        previewImageFragment.setNoConnectionErrorMessage();
+                    }
                 }
             }
         }
