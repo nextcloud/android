@@ -1,6 +1,5 @@
-2017-08-02 10:04:46
+2017-08-03 00:30:30
 Branches: 10
-[00 / 10] Dev branch (nextcloud/dev) [https://github.com/nextcloud/android/tree/dev] was updated successfully
 [01 / 10] Enabling dom storage api (nextcloud/domAPI) [https://github.com/nextcloud/android/pull/1253] no update needed
 [02 / 10] Reduce lint errors (nextcloud/reduceLintErrors) [https://github.com/nextcloud/android/pull/1252] no update needed
 [03 / 10] Show empty message when receiving external files (nextcloud/emptyMessageReceiveExternalFiles) [https://github.com/nextcloud/android/pull/1214] no update needed
@@ -8,6 +7,6 @@ Branches: 10
 [05 / 10] Error feedback improvement (nextcloud/errorFeedback) [https://github.com/nextcloud/android/pull/1198] no update needed
 [06 / 10] Comment out adding all new downloaded files to folder observer (nextcloud/folderObserver) [https://github.com/nextcloud/android/pull/1155] no update needed
 [07 / 10] Search inside of text files (nextcloud/bugfix-454) [https://github.com/nextcloud/android/pull/565] no update needed
-[08 / 10] Resized images (nextcloud/resizedImages) [https://github.com/nextcloud/android/pull/69] no update needed
+[08 / 10] Resized images (nextcloud/resizedImages) [https://github.com/nextcloud/android/pull/69] merged successfully
 [09 / 10] Master (nextcloud/master) [https://github.com/nextcloud/android] no update needed
 [10 / 10] Dev base (nextcloud/dev-base) [https://github.com/nextcloud/android/tree/dev-base] no update needed
