@@ -45,6 +45,7 @@ import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.lib.resources.shares.ShareType;
 import com.owncloud.android.lib.resources.status.OwnCloudVersion;
+import com.owncloud.android.providers.DiskLruImageCacheFileProvider;
 import com.owncloud.android.services.OperationsService;
 import com.owncloud.android.services.observer.FileObserverService;
 import com.owncloud.android.ui.activity.FileActivity;
@@ -534,20 +535,18 @@ public class FileOperationsHelper {
 
     public void sendCachedImage(OCFile file) {
 //        // TODO check if already exists in cache, else download resized image first
-//        if (file != null) {
-//            Intent sendIntent = new Intent(Intent.ACTION_SEND);
-//            // set MimeType
-//            sendIntent.setType(file.getMimetype());
-//            sendIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse("content://" + DiskLruImageCacheFileProvider.AUTHORITY + file.getRemotePath()));
-//            sendIntent.putExtra(Intent.ACTION_SEND, true);      // Send Action
-//
-//            // Show dialog, without the own app
-//            String[] packagesToExclude = new String[] { mFileActivity.getPackageName() };
-//            DialogFragment chooserDialog = ShareLinkToDialog.newInstance(sendIntent, packagesToExclude);
-//            chooserDialog.show(mFileActivity.getSupportFragmentManager(), FTAG_CHOOSER_DIALOG);
-//        } else {
-//            Log_OC.wtf(TAG, "Trying to send a NULL OCFile");
-//        }
+        if (file != null) {
+            Intent sendIntent = new Intent(Intent.ACTION_SEND);
+            // set MimeType
+            sendIntent.setType(file.getMimetype());
+            sendIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse("content://" + DiskLruImageCacheFileProvider.AUTHORITY +
+                    file.getRemotePath()));
+            sendIntent.putExtra(Intent.ACTION_SEND, true);      // Send Action
+
+            mFileActivity.startActivity(Intent.createChooser(sendIntent, "Send"));
+        } else {
+            Log_OC.wtf(TAG, "Trying to send a NULL OCFile");
+        }
     }
 
     public void setPictureAs(OCFile file) {
