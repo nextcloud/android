@@ -138,6 +138,7 @@ public class SamlWebViewDialog extends DialogFragment {
             
             WebSettings webSettings = mSsoWebView.getSettings();
             webSettings.setJavaScriptEnabled(true);
+            webSettings.setDomStorageEnabled(true);
             webSettings.setSavePassword(false);
             webSettings.setUserAgentString(MainApp.getUserAgent());
             webSettings.setSaveFormData(false);
@@ -184,8 +185,8 @@ public class SamlWebViewDialog extends DialogFragment {
     @Override
     public void onDestroyView() {
         Log_OC.v(TAG, "onDestroyView");
-        
-        if ((ViewGroup)mSsoWebView.getParent() != null) {
+
+        if (mSsoWebView.getParent() != null) {
             ((ViewGroup)mSsoWebView.getParent()).removeView(mSsoWebView);
         }
         
