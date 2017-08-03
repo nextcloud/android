@@ -574,6 +574,7 @@
     <string name="participate_contribute_forum_forum">forum</string>
     <string name="participate_contribute_translate_translate">Traduire</string>
     <string name="participate_contribute_translate_text">l\'application</string>
+    <string name="participate_contribute_github_text">Vérifier, corriger et écrire du code, voir %1$s pour plus de détails</string>
     <string name="move_to">Déplacer vers&#8230;</string>
     <string name="copy_to">Copier vers&#8230;</string>
     <string name="choose_remote_folder">Sélectionner le dossier&#8230;</string>
