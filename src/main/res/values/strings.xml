@@ -20,7 +20,6 @@
     <string name="menu_item_sort_by_date_oldest_first">Oldest first</string>
     <string name="menu_item_sort_by_size_biggest_first">Biggest first</string>
     <string name="menu_item_sort_by_size_smallest_first">Smallest first</string>
-
     <string name="drawer_item_all_files">All files</string>
     <string name="drawer_item_files">Files</string>
     <string name="drawer_item_home">Home</string>
@@ -305,9 +304,9 @@
     <string name="filedisplay_no_file_selected">No file selected</string>
     <string name="activity_chooser_title">Send link to &#8230;</string>
     <string name="wait_for_tmp_copy_from_private_storage">Copying file from private storage</string>
-    
-    <string name="oauth_check_onoff">Log in with OAuth 2.0</string> 
-    <string name="oauth_login_connection">Connecting to OAuth 2.0 server…</string>    
+
+    <string name="oauth_check_onoff">Log in with OAuth 2.0</string>
+    <string name="oauth_login_connection">Connecting to OAuth 2.0 server…</string>
         
     <string name="ssl_validator_header">The identity of the site could not be verified</string>
     <string name="ssl_validator_reason_cert_not_trusted">- The server certificate is not trusted</string>
@@ -670,6 +669,8 @@
     <string name="contacts_preferences_something_strange_happened">We can\'t find your last backup!</string>
     <string name="contacts_preferences_backup_scheduled">Backup scheduled and will start shortly</string>
     <string name="contacts_preferences_import_scheduled">Import scheduled and will start shortly</string>
+    <string name="pref_preview_behaviour_entry_download">full sized version</string>
+    <string name="pref_preview_behaviour_entry_preview">resized version</string>
 
     <!-- Notifications -->
     <string name="new_notification_received">New notification received</string>
@@ -680,6 +681,8 @@
 
     <string name="folder_sync_folders">Configure folders</string>
 
-  <string name="empty" translatable="false"/>
+    <string name="empty" translatable="false"/>
+    <string name="prefs_preview_behaviour">Click on image downloads …</string>
     <string name="test_server_button">Test server connection</string>
+    <string name="resized_image_not_possible">No resized image possible. Download full image?</string>
 </resources>

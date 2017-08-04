@@ -304,10 +304,9 @@
     <string name="filedisplay_no_file_selected">S’u përzgjodh skedar</string>
     <string name="activity_chooser_title">Dërgoni lidhje te &#8230;</string>
     <string name="wait_for_tmp_copy_from_private_storage">Po kopjohet skedar nga depo private</string>
-    
-    <string name="oauth_check_onoff">Hyrje me OAuth 2.0</string> 
-    <string name="oauth_login_connection">Duke u lidhur me serverin OAuth 2.0…</string>    
-        
+
+    <string name="oauth_check_onoff">Hyrje me OAuth 2.0</string>
+    <string name="oauth_login_connection">Duke u lidhur me serverin OAuth 2.0…</string>
     <string name="ssl_validator_header">Identiteti i sajtit s\’u verifikua dot</string>
     <string name="ssl_validator_reason_cert_not_trusted">- Dëshmia e serverit s\’është e besuar</string>
     <string name="ssl_validator_reason_cert_expired">- Dëshmia e serverit skadoi</string>
@@ -668,5 +667,5 @@
 
     <string name="folder_sync_folders">Konfiguro dosjet</string>
 
-  <string name="test_server_button">Testo lidhjen e serverit</string>
+<string name="test_server_button">Testo lidhjen e serverit</string>
 </resources>

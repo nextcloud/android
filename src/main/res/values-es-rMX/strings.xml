@@ -69,7 +69,7 @@
     <string name="prefs_remember_last_upload_location_summary">Recordar la ubicación del elemento compartido usado más recientemente </string>
 
 	<string name="recommend_subject">Prueba  %1$s en tu teléfono inteligente!</string>
-	<string name="recommend_text">Quisiera invitarte a usar %1$s en tu teléfono inteligente\nDescárgalo aquí: %2$s</string>
+    <string name="recommend_text">Quisiera invitarte a usar %1$s en tu teléfono inteligente\nDescárgalo aquí: %2$s</string>
     <string name="recommend_urls">%1$s o %2$s</string>
 
     <string name="auth_check_server">Verficar el servidor</string>
@@ -214,7 +214,6 @@
     <string name="foreign_files_remote_text">Remoto: %1$s</string>
     <string name="upload_query_move_foreign_files">El espacio insuficiente evita que se copien los archivos seleccionados dentro de la carpeta %1$s. ¿Te gustaría moverlos ahí en su lugar?</string>
     <string name="pass_code_enter_pass_code">Por favor ingresa tu código de seguridad</string>
-    
     <string name="pass_code_configure_your_pass_code">Ingresa tu código de seguridad</string>
     <string name="pass_code_configure_your_pass_code_explanation">El código de seguridad será solicitado cada vez que inicie la aplicación</string>
     <string name="pass_code_reenter_your_pass_code">Por favor reingresa el código de seguridad</string>
@@ -266,14 +265,14 @@
 	<string name="auth_unauthorized">Nombre de usuario o contraseña incorrecto</string>
 	<string name="auth_oauth_error">Autorización no exitosa</string>
 	<string name="auth_oauth_error_access_denied">Acceso denegado por el servidor de autorización</string>
-	<string name="auth_wtf_reenter_URL">Estado inesperado, por favor reingresa la dirección del servidor</string>
-	<string name="auth_expired_oauth_token_toast">Tu autorización ha expirado. Por favor vuelve a autorizar</string>
-	<string name="auth_expired_basic_auth_toast">Por favor ingresa tu contraseña actual</string>
-	<string name="auth_expired_saml_sso_token_toast">Tu sesión ha expirado. Por favor conectate de nuevo</string>
+    <string name="auth_wtf_reenter_URL">Estado inesperado, por favor reingresa la dirección del servidor</string>
+    <string name="auth_expired_oauth_token_toast">Tu autorización ha expirado. Por favor vuelve a autorizar</string>
+    <string name="auth_expired_basic_auth_toast">Por favor ingresa tu contraseña actual</string>
+    <string name="auth_expired_saml_sso_token_toast">Tu sesión ha expirado. Por favor conectate de nuevo</string>
 	<string name="auth_connecting_auth_server">Conectando al servidor de autenticación...</string>
 	<string name="auth_unsupported_auth_method">El servidor no soporta este método de autenticación</string>
 	<string name="auth_unsupported_multiaccount">%1$s no soporta cuentas múltiples</string>
-	<string name="auth_fail_get_user_name">Tu servidor no está regresando un ID de usuario correcto, por favor contacta al adminitrador</string>
+    <string name="auth_fail_get_user_name">Tu servidor no está regresando un ID de usuario correcto, por favor contacta al adminitrador</string>
 	<string name="auth_can_not_auth_against_server">No es posible autenticarse en este servidor</string>
     <string name="auth_account_does_not_exist">La cuenta aún no existe en el dispositivo</string>
 
@@ -304,10 +303,10 @@
     <string name="filedisplay_no_file_selected">No se ha seleccionado algún archivo</string>
     <string name="activity_chooser_title">Enviar la liga a &#8230;</string>
     <string name="wait_for_tmp_copy_from_private_storage">Copiando el archivo desde almacenamiento privado</string>
-    
-    <string name="oauth_check_onoff">Iniciar sesión con OAuth 2.0</string> 
-    <string name="oauth_login_connection">Conectando al servidor OAuth 2.0...</string>    
-        
+
+    <string name="oauth_check_onoff">Iniciar sesión con OAuth 2.0</string>
+    <string name="oauth_login_connection">Conectando al servidor OAuth 2.0...</string>
+
     <string name="ssl_validator_header">La identidad del sitio no pudo ser verificada</string>
     <string name="ssl_validator_reason_cert_not_trusted">- El certificado del servidor no es de confianza</string>
     <string name="ssl_validator_reason_cert_expired">- El certificado del servidor expiró</string>
@@ -367,10 +366,10 @@
     <string name="prefs_instant_upload_path_use_subfolders_title">Usar sub carpetas</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Almacenar en sub carpetas con base en el año y mes</string>
 
-	<string name="share_link_no_support_share_api">No se permite compartir en tu servidor. Por favor contacta a tu adminstrador. </string>
-	<string name="share_link_file_no_exist">No fue posible compartir. Por favor revisa si el archivo existe</string>
-	<string name="share_link_file_error">Se presentó un error al tratar de compartir este archivo o carpeta</string>
-	<string name="unshare_link_file_no_exist">Falla al dejar de compartir. Por favor revisa si existe el archivo</string>
+    <string name="share_link_no_support_share_api">No se permite compartir en tu servidor. Por favor contacta a tu adminstrador. </string>
+    <string name="share_link_file_no_exist">No fue posible compartir. Por favor revisa si el archivo existe</string>
+    <string name="share_link_file_error">Se presentó un error al tratar de compartir este archivo o carpeta</string>
+    <string name="unshare_link_file_no_exist">Falla al dejar de compartir. Por favor revisa si existe el archivo</string>
 	<string name="unshare_link_file_error">Se presentó un error al tratar de dejar de compartir este archivo o carpeta</string>
     <string name="update_link_file_no_exist">Falla al actualizar. Favor de verificar si el archivo existe</string>
     <string name="update_link_file_error">Se presentó un error al tratar de actualizar el recurso compartido</string>
@@ -432,9 +431,9 @@
     <string name="drawer_manage_accounts">Administrar cuentas</string>
     <string name="auth_redirect_non_secure_connection_title">La conexión segura se está redirigiendo a través de una ruta insegura.</string>
 
-	<string name="actionbar_logger">Bitácoras</string>
+    <string name="actionbar_logger">Bitácoras</string>
 	<string name="log_send_history_button">Enviar histórico</string>
-	<string name="log_send_no_mail_app">No se encontró alguna aplicación para el envío de bitácoras. Por favor instala un cliente de correo electrónico. </string>
+    <string name="log_send_no_mail_app">No se encontró alguna aplicación para el envío de bitácoras. Por favor instala un cliente de correo electrónico. </string>
 	<string name="log_send_mail_subject"> %1$s bitácora de aplicación Android</string>
 	<string name="log_progress_dialog_text">Cargando información &#8230;</string>
 
@@ -442,7 +441,7 @@
 	<string name="saml_authentication_wrong_pass">Contraseña incorrecta</string>
 	<string name="actionbar_move">Mover</string>
     <string name="actionbar_copy">Copiar</string>
-	<string name="file_list_empty_moving">No hay nada aquí. Puedes agregar una carpeta.</string>
+    <string name="file_list_empty_moving">No hay nada aquí. Puedes agregar una carpeta.</string>
 	<string name="folder_picker_choose_button_text">Seleccionar</string>
 
     <string name="move_file_not_found">No fue posible mover el archivo. Por favor verifica si existe. </string>
@@ -465,9 +464,9 @@
     <string name="sync_folder_failed_content">La sincronización de %1$s carpeta no se pudo completar</string>
 
 	<string name="shared_subject_header">compartido</string>
-	<string name="with_you_subject_header">contigo</string>
-    
-	<string name="subject_user_shared_with_you">%1$s ha compartido \"%2$s\" contigo</string>
+    <string name="with_you_subject_header">contigo</string>
+
+    <string name="subject_user_shared_with_you">%1$s ha compartido \"%2$s\" contigo</string>
     <string name="subject_shared_with_you">\"%1$s\" ha sido compartido contigo</string>
 
     <string name="auth_refresh_button">Actualizar conexión</string>
@@ -668,5 +667,5 @@
 
     <string name="folder_sync_folders">Configurar carpetas</string>
 
-  <string name="test_server_button">Probar la conexión del servidor</string>
+    <string name="test_server_button">Probar la conexión del servidor</string>
 </resources>

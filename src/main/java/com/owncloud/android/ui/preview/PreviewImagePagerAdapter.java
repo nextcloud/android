@@ -20,6 +20,8 @@
 package com.owncloud.android.ui.preview;
 
 import android.accounts.Account;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
@@ -28,6 +30,7 @@ import android.view.ViewGroup;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.VirtualFolderType;
+import com.owncloud.android.db.PreferenceManager;
 import com.owncloud.android.ui.fragment.FileFragment;
 import com.owncloud.android.utils.FileStorageUtils;
 
@@ -50,7 +53,8 @@ public class PreviewImagePagerAdapter extends FragmentStatePagerAdapter {
     private Set<Integer> mObsoletePositions;
     private Set<Integer> mDownloadErrors;
     private FileDataStorageManager mStorageManager;
-    
+    private Context mContext;
+
     private Map<Integer, FileFragment> mCachedFragments;
 
     /**
@@ -63,7 +67,7 @@ public class PreviewImagePagerAdapter extends FragmentStatePagerAdapter {
      */
     public PreviewImagePagerAdapter(FragmentManager fragmentManager, OCFile parentFolder,
                                     Account account, FileDataStorageManager storageManager,
-                                    boolean onlyOnDevice) {
+                                    boolean onlyOnDevice, Context context) {
         super(fragmentManager);
         
         if (fragmentManager == null) {
@@ -76,6 +80,7 @@ public class PreviewImagePagerAdapter extends FragmentStatePagerAdapter {
             throw new IllegalArgumentException("NULL storage manager");
         }
 
+        mContext = context;
         mAccount = account;
         mStorageManager = storageManager;
         mImageFiles = mStorageManager.getFolderImages(parentFolder, onlyOnDevice);
@@ -140,20 +145,27 @@ public class PreviewImagePagerAdapter extends FragmentStatePagerAdapter {
         OCFile file = mImageFiles.get(i);
         Fragment fragment = null;
         if (file.isDown()) {
-            fragment = PreviewImageFragment.newInstance(file,
-                    mObsoletePositions.contains(Integer.valueOf(i)));
-            
-        } else if (mDownloadErrors.contains(Integer.valueOf(i))) {
-            fragment = FileDownloadFragment.newInstance(file, mAccount, true);
-            ((FileDownloadFragment)fragment).setError(true);
-            mDownloadErrors.remove(Integer.valueOf(i));
+            fragment = PreviewImageFragment.newInstance(file, mObsoletePositions.contains(i), false);
             
         } else {
-            fragment = FileDownloadFragment.newInstance(
-                    file, mAccount, mObsoletePositions.contains(Integer.valueOf(i))
-            );
+            if (mDownloadErrors.contains(i)) {
+                fragment = FileDownloadFragment.newInstance(file, mAccount, true);
+                ((FileDownloadFragment)fragment).setError(true);
+                mDownloadErrors.remove(i);
+            } else {
+                SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(mContext);
+                boolean behaviour = sharedPreferences.getString("preview_behaviour", "PREVIEW_BEHAVIOUR_PREVIEW")
+                        .equalsIgnoreCase("PREVIEW_BEHAVIOUR_PREVIEW");
+
+                if (behaviour) {
+                    fragment = PreviewImageFragment.newInstance(file, mObsoletePositions.contains(i), true);
+                } else {
+                    fragment = FileDownloadFragment.newInstance(file, mAccount, mObsoletePositions.contains(i));
+                }
+            }
         }
-        mObsoletePositions.remove(Integer.valueOf(i));
+
+        mObsoletePositions.remove(i);
         return fragment;
     }
 

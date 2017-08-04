@@ -68,7 +68,7 @@
     <string name="prefs_remember_last_upload_location_summary">Muista jaon sijainti eniten käytetyissä</string>
 
 	<string name="recommend_subject">Kokeile %1$sia älypuhelimellasi!</string>
-	<string name="auth_check_server">Tarkista palvelin</string>
+    <string name="auth_check_server">Tarkista palvelin</string>
     <string name="auth_host_url">Palvelinosoite https://…</string>
     <string name="auth_username">Käyttäjätunnus</string>
     <string name="auth_password">Salasana</string>
@@ -208,11 +208,11 @@
 	<string name="auth_not_configured_title">Väärin tehdyt palvelin-asetukset</string>
 	<string name="auth_account_not_the_same">Syötetty käyttäjä ei täsmää tämän tilin käyttäjän kanssa</string>
 	<string name="auth_unknown_error_title">Tuntematon virhe</string>
-	<string name="auth_incorrect_path_title">Palvelinta ei löytynyt</string>
+    <string name="auth_incorrect_path_title">Palvelinta ei löytynyt</string>
 	<string name="auth_timeout_title">Palvelimen vastaus viipyy liian kauan</string>
 	<string name="auth_ssl_general_error_title">SSL:n alustus epäonnistui</string>
 	<string name="auth_bad_oc_version_title">Tuntematon palvelimen versio</string>
-	<string name="auth_wrong_connection_title">Yhteyden muodostaminen ei onnistunut</string>
+    <string name="auth_wrong_connection_title">Yhteyden muodostaminen ei onnistunut</string>
 	<string name="auth_secure_connection">Salattu yhteys muodostettu</string>
 	<string name="auth_unauthorized">Väärä käyttäjätunnus tai salasana</string>
 	<string name="auth_oauth_error">Epäonnistunut valtuutus</string>
@@ -353,7 +353,7 @@
     <string name="prefs_category_instant_uploading">Välittömät lähetykset</string>
     <string name="prefs_category_details">Tiedot</string>
 
-	<string name="sync_folder_failed_content">Kansion %1$s synkronointia ei voitu suorittaa kokonaan</string>
+    <string name="sync_folder_failed_content">Kansion %1$s synkronointia ei voitu suorittaa kokonaan</string>
 
 	<string name="shared_subject_header">jaettu</string>
 	<string name="with_you_subject_header">kanssasi</string>
@@ -500,4 +500,4 @@
     <string name="privacy">Yksityisyys</string>
     <string name="file_not_found">Tiedostoa ei löytynyt!</string>
 
-    </resources>
+</resources>

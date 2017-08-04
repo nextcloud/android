@@ -1,4 +1,4 @@
-/**
+/*
  *   ownCloud Android client application
  *
  *   @author Bartek Przybylski
