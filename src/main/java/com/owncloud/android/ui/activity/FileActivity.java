@@ -40,7 +40,6 @@ import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.authentication.AuthenticatorActivity;
-import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.services.FileDownloader;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
@@ -157,8 +156,14 @@ public abstract class FileActivity extends DrawerActivity
                     false);
         }
 
-        AccountUtils.updateAccountVersion(this); // best place, before any access to AccountManager
-                                                 // or database
+        Thread t = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                // best place, before any access to AccountManager or database
+                AccountUtils.updateAccountVersion(getApplicationContext());
+            }
+        });
+        t.start();
 
         setAccount(account, savedInstanceState != null);
 
