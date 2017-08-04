@@ -34,15 +34,16 @@ import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
+import com.owncloud.android.lib.common.utils.Log_OC;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.IOException;
 
 public class DiskLruImageCacheFileProvider extends ContentProvider {
     public static final String AUTHORITY = "org.nextcloud.imageCache.provider";
+    public static final String TAG = DiskLruImageCacheFileProvider.class.getSimpleName();
 
     @Override
     public boolean onCreate() {
@@ -68,6 +69,11 @@ public class DiskLruImageCacheFileProvider extends ContentProvider {
             thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(String.valueOf("t" + ocFile.getRemoteId()));
         }
 
+        // fallback to default image
+        if (thumbnail == null) {
+            thumbnail = ThumbnailsCacheManager.mDefaultImg;
+        }
+
         // create a file to write bitmap data
         File f = new File(MainApp.getAppContext().getCacheDir(), ocFile.getFileName());
         try {
@@ -76,7 +82,7 @@ public class DiskLruImageCacheFileProvider extends ContentProvider {
             //Convert bitmap to byte array
             ByteArrayOutputStream bos = new ByteArrayOutputStream();
             thumbnail.compress(Bitmap.CompressFormat.JPEG, 90, bos);
-            byte[] bitmapdata = bos.toByteArray();
+            byte[] bitmapData = bos.toByteArray();
 
             //write the bytes in file
             FileOutputStream fos = null;
@@ -85,12 +91,12 @@ public class DiskLruImageCacheFileProvider extends ContentProvider {
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
-            fos.write(bitmapdata);
+            fos.write(bitmapData);
             fos.flush();
             fos.close();
 
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+            Log_OC.e(TAG, "Error opening file: " + e.getMessage());
         }
 
         return ParcelFileDescriptor.open(f, ParcelFileDescriptor.MODE_READ_ONLY);
