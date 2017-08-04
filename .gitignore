@@ -18,7 +18,6 @@ target/
 # Local configuration files (sdk path, etc)
 local.properties
 tests/local.properties
-lint.xml
 
 # Mac .DS_Store files
 .DS_Store
