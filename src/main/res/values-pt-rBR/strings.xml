@@ -60,6 +60,7 @@
     <string name="prefs_calendar_contacts_address_resolve_error">O endereço do servidor da conta não pôde ser reconhecido pelo DAVdroid</string>
     <string name="prefs_calendar_contacts_no_store_error">Nem F-droid nem Google Play estão instalados</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Configuração da sincronização de calendário &amp; contatos</string>
+    <string name="prefs_daily_contacts_sync_summary">Backup diário de seus contatos</string>
     <string name="prefs_help">Ajuda</string>
     <string name="prefs_recommend">Recomendar a um amigo</string>
     <string name="prefs_feedback">Feedback</string>
@@ -69,6 +70,7 @@
 
 	<string name="recommend_subject">Tentar %1$s em seu smartfone!</string>
 	<string name="recommend_text">Quero convidar você a usar %1$s em seu smartphone.\nBaixe daqui: %2$s</string>
+    <string name="recommend_urls">%1$s ou %2$s</string>
 
     <string name="auth_check_server">Verificar servidor</string>
     <string name="auth_host_url">Endereço do servidor https://...</string>
@@ -411,12 +413,12 @@
     <string name="file_migration_cleaning">Limpando&#8230;</string>
     <string name="file_migration_restoring_accounts_configuration">Restaurando a configuração das contas&#8230;</string>
     <string name="file_migration_ok_finished">Finalizado</string>
-    <string name="file_migration_failed_not_enough_space">ERRO: Espaço insuficiente</string>
-    <string name="file_migration_failed_not_writable">ERRO: Arquivo de destino não gravável</string>
-    <string name="file_migration_failed_not_readable">ERRO: Arquivo fonte não legível</string>
-    <string name="file_migration_failed_dir_already_exists">ERRO: Diretório Nextcloud já existe</string>
-    <string name="file_migration_failed_while_coping">ERRO: Falha durante a migração</string>
-    <string name="file_migration_failed_while_updating_index">ERRO: Falha ao atualizar índice</string>
+    <string name="file_migration_failed_not_enough_space">Erro: Espaço insuficiente</string>
+    <string name="file_migration_failed_not_writable">Erro: Arquivo destino não gravável</string>
+    <string name="file_migration_failed_not_readable">Erro: Arquivo fonte ilegível</string>
+    <string name="file_migration_failed_dir_already_exists">Erro: Diretório Nextcloud já existe</string>
+    <string name="file_migration_failed_while_coping">Erro: Falha durante a migração</string>
+    <string name="file_migration_failed_while_updating_index">Erro: Falha ao atualizar o índice</string>
 
     <string name="file_migration_directory_already_exists">Pasta Data já existe. Escolha uma das seguintes:</string>
     <string name="file_migration_override_data_folder">Substituir</string>
@@ -490,6 +492,7 @@
     <string name="upload_copy_files">Copiar o arquivo</string>
     <string name="upload_move_files">Mover o arquivo</string>
     <string name="select_all">Selecionar tudo</string>
+    <string name="deselect_all">Desmarcar todos</string>
 
     <string name="pref_behaviour_entries_keep_file">Mantido na pasta original</string>
     <string name="pref_behaviour_entries_move">movido para a pasta aplicativos</string>
@@ -521,6 +524,9 @@
     <string name="share_known_remote_clarification">%1$s ( em %2$s )</string>
 
     <string name="share_sharee_unavailable">Atualize a versão do servidor para permitir compartilhamento entre usuários de dentro de seus clientes.\nPor favor, contacte o administrador</string>
+    <string name="filedetails_share_link_enable">Compartilhamento por link ativado</string>
+    <string name="filedetails_share_link_disable">Não compartilhado por link</string>
+    <string name="filedetails_share_users_with_access">Usuários e grupos com acesso</string>
     <string name="share_privilege_can_share">pode compartilhar</string>
     <string name="share_privilege_can_edit">pode editar</string>
     <string name="share_privilege_can_edit_create">criar</string>
@@ -556,17 +562,19 @@
     <string name="drawer_participate">Participar</string>
     <string name="participate_testing_headline">Ajuda para teste</string>
     <string name="participate_testing_bug_text">Encontrou um erro? Comentários?</string>
-    <string name="participate_testing_report_text">Relate o problema no Github</string>
+    <string name="participate_testing_report_text">Relate um problema no GitHub</string>
     <string name="participate_testing_version_text">Interessado em ajudar testando a próxima versão?</string>
     <string name="participate_beta_headline">Teste a versão dev</string>
     <string name="participate_beta_text">Isso inclui todos os recursos futuros e está num limite perigoso. Erros podem ocorrer e acontecendo, por favor reporte-os à nós.</string>
     <string name="participate_release_candidate_headline">Candidato a versão</string>
     <string name="participate_release_candidate_text">O release candidate (RC) é uma cópia de uma nova versão e espera-se que seja estável. Testar sua própria configuração pode garantir isso. Assine para testes na Play Store ou manualmente procure no seção \"Versão\" do F-Droid,</string>
     <string name="participate_contribute_headline">Contribuir ativamente</string>
-    <string name="participate_contribute_irc_text">Junte-se ao chat no IRC: &lt;font color=\"%1$s\">&lt;a href=\"%2$s\">#nextcloud-mobile&lt;/a>&lt;/font></string>
-    <string name="participate_contribute_forum_text">Ajude outros no &lt;font color=\"%1$s\">&lt;a href=\"%2$s\">fórum&lt;/a>&lt;/font></string>
-    <string name="participate_contribute_translate_text">&lt;font color=\"%1$s\">&lt;a href=\"%2$s\">Traduza&lt;/a>&lt;/font> o aplicativo</string>
-    <string name="participate_contribute_github_text">Revise, altere e escreva o código. Veja mais detalhes em &lt;font color=\"%1$s\">&lt;a href=\"%2$s\">CONTRIBUTING.md&lt;/a>&lt;/font> </string>
+    <string name="participate_contribute_irc_text">Junte-se ao chat no IRC:</string>
+    <string name="participate_contribute_forum_text">Ajude outros em</string>
+    <string name="participate_contribute_forum_forum">forum</string>
+    <string name="participate_contribute_translate_translate">Traduzir</string>
+    <string name="participate_contribute_translate_text">o aplicativo</string>
+    <string name="participate_contribute_github_text">Revise, modifique e escreva código, veja detalhes em%1$s</string>
     <string name="move_to">Mover para&#8230;</string>
     <string name="copy_to">Copiar para&#8230;</string>
     <string name="choose_remote_folder">Escolha a pasta&#8230;</string>

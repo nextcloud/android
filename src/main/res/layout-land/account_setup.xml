@@ -19,6 +19,7 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
 	android:padding="@dimen/standard_padding"
@@ -175,7 +176,7 @@
                         android:ems="10"
                         android:enabled="false"
                         android:inputType="textUri"
-                        android:singleLine="true"
+						android:maxLines="1"
                         android:text="@string/oauth2_url_endpoint_auth"
                         android:textColor="@color/login_text_color"
                         android:textColorHint="@color/login_text_hint_color"
@@ -195,7 +196,7 @@
 					android:ems="10"
 					android:enabled="false"
 					android:text="@string/oauth2_url_endpoint_access"
-					android:singleLine="true"
+					android:maxLines="1"
 					android:inputType="textUri"
 					android:textColor="@color/login_text_color"
 					android:textColorHint="@color/login_text_hint_color"
@@ -228,7 +229,9 @@
                     android:id="@+id/input_layout_account_password"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:visibility="gone">
+                    android:visibility="gone"
+					app:passwordToggleDrawable="@drawable/password_visibility_selector"
+					app:passwordToggleTint="@color/white">
 
                     <EditText
                         android:id="@+id/account_password"

@@ -69,7 +69,6 @@
 
 	<string name="recommend_subject">Wypróbuj %1$s na swoim smartfonie!</string>
 	<string name="recommend_text">Zapraszam do użycia %1$s na swoim smartfonie!\nŚciągnij tutaj: %2$s</string>
-
     <string name="auth_check_server">Sprawdź serwer</string>
     <string name="auth_host_url">Adres serwera https://...</string>
     <string name="auth_username">Nazwa użytkownika</string>
@@ -409,13 +408,6 @@
     <string name="file_migration_cleaning">Czyszczenie&#8230;</string>
     <string name="file_migration_restoring_accounts_configuration">Przywracanie konfiguracji konta&#8230;</string>
     <string name="file_migration_ok_finished">Skończone</string>
-    <string name="file_migration_failed_not_enough_space">BŁĄD: Brak miejsca</string>
-    <string name="file_migration_failed_not_writable">BŁĄD: Nie można zapisać pliku docelowego</string>
-    <string name="file_migration_failed_not_readable">BŁĄD: Nie można odczytać pliku źródłowego</string>
-    <string name="file_migration_failed_dir_already_exists">BŁĄD: Katalog Nextcloud już istnieje</string>
-    <string name="file_migration_failed_while_coping">BŁĄD: Nieudana migracja</string>
-    <string name="file_migration_failed_while_updating_index">BŁĄD: Nieudana aktualizacja indeksu</string>
-
     <string name="file_migration_directory_already_exists">Katalog danych już istnieje. Wybierz jeden z poniższych:</string>
     <string name="file_migration_override_data_folder">Zamień</string>
     <string name="file_migration_use_data_folder">Użyj</string>
@@ -487,7 +479,6 @@
     <string name="upload_copy_files">Kopiuj plik</string>
     <string name="upload_move_files">Przenieś plik</string>
     <string name="select_all">Wybierz wszystko</string>
-
     <string name="pref_behaviour_entries_keep_file">zachowany w oryginalnym folderze</string>
     <string name="pref_behaviour_entries_move">przeniesiony do folderu aplikacji</string>
     <string name="pref_behaviour_entries_delete_file">usunięty</string>
@@ -553,16 +544,11 @@
     <string name="drawer_participate">Wspieraj</string>
     <string name="participate_testing_headline">Pomóż nam testować</string>
     <string name="participate_testing_bug_text">Znaleziono błąd? Jest coś dziwnego?</string>
-    <string name="participate_testing_report_text">Zgłoś błąd na GitHubie</string>
     <string name="participate_testing_version_text">Chcesz pomóc nam testować następną wersję?</string>
     <string name="participate_beta_headline">Sprawdź wersję rozwojową</string>
     <string name="participate_beta_text">Zawiera to w sobie wszystkie nadchodzące funkcjonalności i jest bardzo ryzykowne. Mogą się pojawiać błędy. Jeśli będą proszę je do nas zgłosić.</string>
     <string name="participate_release_candidate_headline">Wydanie kandydujące</string>
     <string name="participate_contribute_headline">Aktywni członkowie projektu</string>
-    <string name="participate_contribute_irc_text">Dołącz do rozmowy na IRC: &lt;font color=\"%1$s\">&lt;a href=\"%2$s\">#nextcloud-mobile&lt;/a>&lt;/font></string>
-    <string name="participate_contribute_forum_text">Pomóż innym na &lt;font color=\"%1$s\">&lt;a href=\"%2$s\">forum&lt;/a>&lt;/font></string>
-    <string name="participate_contribute_translate_text">&lt;font color=\"%1$s\">&lt;a href=\"%2$s\">Przetłumacz&lt;/a>&lt;/font> aplikację</string>
-    <string name="participate_contribute_github_text">Przejrzyj, zmień i wpisz kod, zobacz szczegóły &lt;font color=\"%1$s\">&lt;a href=\"%2$s\">CONTRIBUTING.md&lt;/a>&lt;/font></string>
     <string name="move_to">Przenieś do&#8230;</string>
     <string name="copy_to">Skopiuj do&#8230;</string>
     <string name="choose_remote_folder">Wybierz folder&#8230;</string>

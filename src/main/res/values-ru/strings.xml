@@ -61,6 +61,7 @@
     <string name="prefs_calendar_contacts_address_resolve_error">Не удается определить адрес сервера для DAVdroid</string>
     <string name="prefs_calendar_contacts_no_store_error">Не установлен магазин Google Play  или приложение F-Droid</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Настройка синхронизации календаря &amp; контактов выполнена успешно.</string>
+    <string name="prefs_daily_contacts_sync_summary">Ежедневное сохранение ваших контактов</string>
     <string name="prefs_help">Помощь</string>
     <string name="prefs_recommend">Рекомендовать другу</string>
     <string name="prefs_feedback">Обратная связь</string>
@@ -71,6 +72,7 @@
 	<string name="recommend_subject">Попробуйте %1$s на вашем смартфоне!</string>
 	<string name="recommend_text">Хочу предложить вам использовать %1$s на смартфоне!\nЗагрузить можно здесь: %2$s
 	</string>
+    <string name="recommend_urls">%1$s или %2$s</string>
 
     <string name="auth_check_server">Проверить сервер</string>
     <string name="auth_host_url">Адрес сервера https://...</string>
@@ -156,6 +158,7 @@
     <string name="about_title">О программе</string>
     <string name="change_password">Сменить пароль</string>
     <string name="delete_account">Удалить аккаунт</string>
+    <string name="delete_account_warning">Удалить аккаунт %s и все связанные с ним файлы?\n\n\Удаление не может быть отменено.</string>
     <string name="create_account">Создать аккаунт</string>
     <string name="upload_chooser_title">Загрузить из &#8230;</string>
     <string name="uploader_info_dirname">Имя каталога</string>
@@ -412,12 +415,12 @@
     <string name="file_migration_cleaning">Очистка&#8230;</string>
     <string name="file_migration_restoring_accounts_configuration">Восстановление настроек пользователя&#8230;</string>
     <string name="file_migration_ok_finished">Завершено</string>
-    <string name="file_migration_failed_not_enough_space">ОШИБКА: Недостаточно места</string>
-    <string name="file_migration_failed_not_writable">ОШИБКА: Файл назначения недоступен для записи</string>
-    <string name="file_migration_failed_not_readable">ОШИБКА: Исходный файл недоступен для чтения</string>
-    <string name="file_migration_failed_dir_already_exists">ОШИБКА: Каталог Nextcloud уже существует</string>
-    <string name="file_migration_failed_while_coping">ОШИБКА: Ошибка при миграции</string>
-    <string name="file_migration_failed_while_updating_index">ОШИБКА: Ошибка при обновлении индекса</string>
+    <string name="file_migration_failed_not_enough_space">Ошибка: недостаточно места</string>
+    <string name="file_migration_failed_not_writable">Ошибка: файл назначения недоступен для записи</string>
+    <string name="file_migration_failed_not_readable">ОШИБКА: исходный файл недоступен для чтения</string>
+    <string name="file_migration_failed_dir_already_exists">Ошибка: каталог Nextcloud уже существует</string>
+    <string name="file_migration_failed_while_coping">Ошибка: не удалось выполнить перенос</string>
+    <string name="file_migration_failed_while_updating_index">Ошибка: не удалось обновить индекс</string>
 
     <string name="file_migration_directory_already_exists">Каталог с данными уже существует. Выберите одно из действий:</string>
     <string name="file_migration_override_data_folder">Перезаписать</string>
@@ -491,6 +494,7 @@
     <string name="upload_copy_files">Копировать файл</string>
     <string name="upload_move_files">Переместить файл</string>
     <string name="select_all">Выделить всё</string>
+    <string name="deselect_all">Снять выбор со всех</string>
 
     <string name="pref_behaviour_entries_keep_file">оставлен в исходном каталоге</string>
     <string name="pref_behaviour_entries_move">перемещен в каталог приложения</string>
@@ -522,6 +526,9 @@
     <string name="share_known_remote_clarification">%1$s ( в %2$s )</string>
 
     <string name="share_sharee_unavailable">Извините, версия вашего сервера не позволяет поделиться с пользователями через клиент. \nПожалуйста обратитесь к администратору</string>
+    <string name="filedetails_share_link_enable">Включена возможность поделиться ссылкой</string>
+    <string name="filedetails_share_link_disable">Не раздаётся ссылкой</string>
+    <string name="filedetails_share_users_with_access">Пользователи и группы с доступом</string>
     <string name="share_privilege_can_share">может делиться с другими</string>
     <string name="share_privilege_can_edit">может редактировать</string>
     <string name="share_privilege_can_edit_create">создать</string>
@@ -557,17 +564,19 @@
     <string name="drawer_participate">Участие</string>
     <string name="participate_testing_headline">Помогите нам в тестировании</string>
     <string name="participate_testing_bug_text">Нашли ошибку? Заметили необычное поведение программы?</string>
-    <string name="participate_testing_report_text">Сообщить о проблеме на Github</string>
+    <string name="participate_testing_report_text">Сообщить о проблеме на GitHub</string>
     <string name="participate_testing_version_text">Вам интересно участие в тестировании следующих версий?</string>
     <string name="participate_beta_headline">Протестируйте разрабатываемую версию</string>
     <string name="participate_beta_text">Она включает в себя все готовящиеся возможности с самой передовой. Могут появляться баги, в таком случае, напишите о них нам</string>
     <string name="participate_release_candidate_headline">Кандидат в релизы</string>
     <string name="participate_release_candidate_text">Релиз-кандидат (RC) — это текущее состояние готовящегося выпуска, и, ожидается, что он будет стабильным. Проверка с вашими индивидуальными настройками может помочь убедится в этом. Зарегистрируйтесь для тестирования в Google Play или загляните в раздел «версии» каталога приложений F-Droid.</string>
     <string name="participate_contribute_headline">Активное участие</string>
-    <string name="participate_contribute_irc_text">Присоединяйтесь к IRC-чату: &lt;font color=\"%1$s\">&lt;a href=\"%2$s\">#nextcloud-mobile&lt;/a>&lt;/font></string>
-    <string name="participate_contribute_forum_text">Помогайте другим на &lt;font color=\"%1$s\">&lt;a href=\"%2$s\">форуме&lt;/a>&lt;/font></string>
-    <string name="participate_contribute_translate_text">&lt;font color=\"%1$s\">&lt;a href=\"%2$s\">Переводите &lt;/a>&lt;/font> приложение</string>
-    <string name="participate_contribute_github_text">Рецензируйте, изменяйте и пишите код. Подробности по ссылке&lt;font color=\"%1$s\">&lt;a href=\"%2$s\">CONTRIBUTING.md&lt;/a>&lt;/font></string>
+    <string name="participate_contribute_irc_text">Присоединиться к беседе на канале IRC:</string>
+    <string name="participate_contribute_forum_text">Помогите другим на</string>
+    <string name="participate_contribute_forum_forum">форум</string>
+    <string name="participate_contribute_translate_translate">Перевод</string>
+    <string name="participate_contribute_translate_text">приложение</string>
+    <string name="participate_contribute_github_text">Просмотрите, измените и напишите код, для подробностей смотреть %1$s</string>
     <string name="move_to">Переместить в&#8230;</string>
     <string name="copy_to">Копировать в&#8230;</string>
     <string name="choose_remote_folder">Выберите каталог &#8230;</string>
@@ -663,4 +672,5 @@
 
     <string name="folder_sync_folders">Настроить каталоги</string>
 
-  </resources>
+  <string name="test_server_button">Проверить соединение с сервером</string>
+</resources>

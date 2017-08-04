@@ -69,7 +69,6 @@
 
 	<string name="recommend_subject">スマートフォンで %1$s を試してください！</string>
 	<string name="recommend_text">スマートフォンで %1$s を利用してみませんか。\nここからダウンロードしてください: %2$s</string>
-
     <string name="auth_check_server">サーバーのチェック</string>
     <string name="auth_host_url">サーバーアドレス https://…</string>
     <string name="auth_username">ユーザー名</string>
@@ -326,7 +325,6 @@
     <string name="file_migration_updating_index">インデックスの更新中&#8230;</string>
     <string name="file_migration_cleaning">クリーニング中&#8230;</string>
     <string name="file_migration_ok_finished">完了</string>
-    <string name="file_migration_failed_dir_already_exists">Nextcloudのディレクトリはすでに存在します。</string>
     <string name="prefs_category_accounts">アカウント</string>
     <string name="prefs_add_account">アカウントを追加</string>
     <string name="drawer_manage_accounts">アカウント管理</string>
@@ -379,7 +377,6 @@
     <string name="upload_copy_files">ファイルをコピー</string>
     <string name="upload_move_files">ファイルを移動</string>
     <string name="select_all">すべて選択</string>
-
     <string name="pref_behaviour_entries_keep_file">元のフォルダに保持</string>
     <string name="pref_behaviour_entries_move">アプリフォルダに移動</string>
     <string name="pref_behaviour_entries_delete_file">削除されました</string>
@@ -431,7 +428,6 @@
     <string name="learn_more">もっと見る</string>
     <string name="drawer_folder_sync">自動アップロード</string>
     <string name="drawer_participate">参加する</string>
-    <string name="participate_testing_report_text">Githubでエラーを報告する</string>
     <string name="participate_beta_headline">開発バージョンをテスト</string>
     <string name="participate_release_candidate_headline">リリース候補</string>
     <string name="participate_contribute_headline">積極的な貢献</string>

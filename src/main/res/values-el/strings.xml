@@ -60,6 +60,7 @@
     <string name="prefs_calendar_contacts_address_resolve_error">Η διεύθυνση του διακομιστή για τον λογαριασμό δεν μπορεί να καθοριστεί για το DAVdroid</string>
     <string name="prefs_calendar_contacts_no_store_error">Δεν είναι εγκατεστημένο το F-droid αλλά ούτε και το Google Play</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Επιτυχής ρύθμιση συγχρονισμού ημερολογίου &amp; επαφών</string>
+    <string name="prefs_daily_contacts_sync_summary">Ημερήσιο αντίγραφο ασφαλείας των επαφών σας </string>
     <string name="prefs_help">Βοήθεια</string>
     <string name="prefs_recommend">Προτείνετε σε φίλο</string>
     <string name="prefs_feedback">Aνάδραση</string>
@@ -69,6 +70,7 @@
 
 	<string name="recommend_subject">Δοκιμή %1$s στο κινητό σας!</string>
 	<string name="recommend_text">Θα ήθελα να σε προσκαλέσω να χρησιμοποιήσεις το %1$s στο κινητό σου!\nΛήψη από εδώ: %2$s</string>
+    <string name="recommend_urls">%1$s ή %2$s</string>
 
     <string name="auth_check_server">Έλεγχος διακομιστή</string>
     <string name="auth_host_url">Διεύθυνση διακομιστή https://…</string>
@@ -112,6 +114,7 @@
     <string name="file_list_empty_headline_server_search_photos">Καμιά φωτογραφία</string>
     <string name="file_list_empty_search">Θα δοκιμάστε αναζήτηση και σε άλλο φάκελο;</string>
     <string name="file_list_empty_recently_modified">Δεν βρέθηκαν αρχεία που να έχουν τροποποιηθεί τις τελευταίες 7 ημέρες</string>
+    <string name="file_list_empty_recently_modified_filter">Η αναζήτηση δεν βρήκε κάποιο τροποποιημένο αρχείο στην περίοδο των τελευταίων 7 ημερών.</string>
     <string name="file_list_empty_recently_added">Δεν βρέθηκαν πρόσφατα προστεθημένα αρχεία</string>
     <string name="file_list_empty_recently_added_filter">Δεν βρέθηκαν πρόσφατα προστεθημένα αρχεία για το αίτημά σας.</string>
     <string name="file_list_empty_text_photos">Μεταφόρτωση μερικών φωτογραφιών ή ενεργοποιήστε την αυτόματη μεταφόρτωση.</string>
@@ -153,6 +156,7 @@
     <string name="about_title">Περί</string>
     <string name="change_password">Αλλαγή συνθημτικού</string>
     <string name="delete_account">Αφαίρεση λογαριασμού</string>
+    <string name="delete_account_warning">Διαγραφή λογαριασμού %s με όλα τα τοπικά αρχεία?\n\n\Διαγράφοντας τα δεν θα υπάρξει επαναφορά.</string>
     <string name="create_account">Δημιουργία λογαριασμού</string>
     <string name="upload_chooser_title">Μεταφόρτωση από &#8230;</string>
     <string name="uploader_info_dirname">Όνομα φακέλου</string>
@@ -345,6 +349,7 @@
     <string name="instant_video_upload_on_charging">Μεταφόρτωση μόνο κατά τη διάρκεια φόρτισης</string>
     <string name="instant_upload_on_charging">Μεταφόρτωση μόνο κατά τη διάρκεια φόρτισης</string>
     <string name="instant_upload_path">/InstantUpload</string>
+    <string name="auto_upload_path">/ΑυτόματηΜεταφόρτωση</string>
     <string name="conflict_title">Διένεξη αρχείων</string>
     <string name="conflict_message">Ποια αρχεία θέλετε να διατηρήσετε; Αν επιλέξετε και τις δύο εκδόσεις, θα προστεθεί ένας αριθμός στο όνομα του τοπικού αρχείου.</string>
     <string name="conflict_keep_both">Διατήρηση και των δύο</string>
@@ -408,12 +413,12 @@
     <string name="file_migration_cleaning">Γίνεται εκκαθάριση&#8230;</string>
     <string name="file_migration_restoring_accounts_configuration">Γίνεται επαναφορά ρυθμίσεων λογαριασμών&#8230;</string>
     <string name="file_migration_ok_finished">Ολοκληρώθηκε</string>
-    <string name="file_migration_failed_not_enough_space">ΣΦΑΛΜΑ: Ανεπαρκής αποθηκευτικός χώρος</string>
-    <string name="file_migration_failed_not_writable">ΣΦΑΛΜΑ: Το αρχείο προορισμού δεν είναι εγγράψιμο</string>
-    <string name="file_migration_failed_not_readable">Σφάλμα: Το αρχείο προέλευσης δεν είναι αναγνώσιμο</string>
-    <string name="file_migration_failed_dir_already_exists">ΣΦΑΛΜΑ: Υπάρχει ήδη ο κατάλογος Nextcloud</string>
-    <string name="file_migration_failed_while_coping">ΣΦΑΛΜΑ: Κατά την μεταφορά</string>
-    <string name="file_migration_failed_while_updating_index">ΣΦΑΛΜΑ: Κατά την ενημέρωση ευρετηρίου</string>
+    <string name="file_migration_failed_not_enough_space">Σφάλμα: Μη επαρκής χώρος</string>
+    <string name="file_migration_failed_not_writable">Λάθος: Αρχείο προορισμού μη εγγράψιμο</string>
+    <string name="file_migration_failed_not_readable">Λάθος: Αδυναμία ανάγνωσης πηγαίου αρχείου </string>
+    <string name="file_migration_failed_dir_already_exists">Λάθος: Ο φάκελος Nextcloud υπάρχει ήδη</string>
+    <string name="file_migration_failed_while_coping">Λάθος: Αποτυχία κατά την μετάβαση</string>
+    <string name="file_migration_failed_while_updating_index">Σφάλμα: Αποτυχία ενημέρωσης ευρετηρίου</string>
 
     <string name="file_migration_directory_already_exists">Ο φάκελος δεδομένων υπάρχει ήδη. Επιλέξτε ένα από τα παρακάτω:</string>
     <string name="file_migration_override_data_folder">Αντικατάσταση</string>
@@ -479,6 +484,7 @@
     <string name="file_list__footer__files">%1$d αρχεία</string>
     <string name="file_list__footer__files_and_folder">%1$d αρχεία, 1 φάκελος</string>
     <string name="file_list__footer__files_and_folders">%1$d αρχεία, %2$d φάκελοι</string>
+    <string name="set_picture_as">Χρησιμοποίησε την εικόνα ως</string>
     <string name="set_as">Ορισμός ως</string>
 
     <string name="prefs_instant_behaviour_dialogTitle">Το πρωτότυπο αρχείο θα είναι&#8230;</string>
@@ -486,6 +492,7 @@
     <string name="upload_copy_files">Αντιγραφή αρχείου</string>
     <string name="upload_move_files">Μετακίνηση αρχείου</string>
     <string name="select_all">Επιλογή όλων</string>
+    <string name="deselect_all">Αναίρεση επιλογής όλων</string>
 
     <string name="pref_behaviour_entries_keep_file">διατήρηση στον αρχικό φάκελο</string>
     <string name="pref_behaviour_entries_move">μετακινήθηκε στον φάκελο εφαρμογών</string>
@@ -517,6 +524,9 @@
     <string name="share_known_remote_clarification">%1$s ( στο %2$s )</string>
 
     <string name="share_sharee_unavailable">Δεν επιτρέπεται ο διαμοιρασμός μεταξύ χρηστών μέσω πελατών, σε αυτή την έκδοση διακομιστή. \nΕπικοινωνήστε με το διαχειριστή</string>
+    <string name="filedetails_share_link_enable">Ο διαμοιρασμός με link ενεργοποιήθηκε</string>
+    <string name="filedetails_share_link_disable">Μη διαμοιρασμένο με link</string>
+    <string name="filedetails_share_users_with_access">Χρήστες και ομάδες με δικαιώματα πρόσβασης</string>
     <string name="share_privilege_can_share">δυνατότητα διαμοιρασμού</string>
     <string name="share_privilege_can_edit">δυνατότητα επεξεργασίας</string>
     <string name="share_privilege_can_edit_create">δημιουργία</string>
@@ -552,16 +562,18 @@
     <string name="drawer_participate">Συμμετοχή</string>
     <string name="participate_testing_headline">Βοηθήστε μας στις δοκιμές</string>
     <string name="participate_testing_bug_text">Βρήκατε σφάλμα; Κάτι σας φαίνεται παράξενο;</string>
-    <string name="participate_testing_report_text">Αναφέρετε σφάλμα στο Github</string>
+    <string name="participate_testing_report_text">Αναφορά προβλήματος στο GitHub</string>
     <string name="participate_testing_version_text">Σας ενδιαφέρει να μας βοηθήσετε να δοκιμάσουμε την επόμενη έκδοση;</string>
     <string name="participate_beta_headline">Δοκιμή της εκδοσης προς ανάπτυξη</string>
     <string name="participate_beta_text">Αυτή περιέχει όλες τις επερχόμενες λειτουργίες και δαθέτει ότι τελευταίο έχει ενσωματωθεί. Σφάλματα/λάθη μπορεί να προκύψουν. Σας παρακαλούμε να μας τα αναφέρετε.</string>
     <string name="participate_release_candidate_headline">Release candidate</string>
+    <string name="participate_release_candidate_text">Η υποψήφια έκδοση (RC) είναι ένα στιγμιότυπο της επερχόμενης έκδοσης και να αναμένεται να είναι σταθερή. Δοκιμάζοντας τις προσωπικές σας ρυθμίσεις μπορεί να βοηθήσει στην διασφάλιση της έκδοσης. Δηλώστε υποψηφιότητα δοκιμής στο Play store ή αναζητήστε χειροκίνητα στον τομέα \"εκδόσεων\" στο F-Droid.</string>
     <string name="participate_contribute_headline">Ενεργή συνεισφορά</string>
-    <string name="participate_contribute_irc_text">Συμμετέχετε στη συνομιλία στο IRC: &lt;font color=\"%1$s\">&lt;a href=\"%2$s\">#nextcloud-mobile&lt;/a>&lt;/font></string>
-    <string name="participate_contribute_forum_text">Βοηθήστε χρήστες στο &lt;font color=\"%1$s\">&lt;a href=\"%2$s\">forum&lt;/a>&lt;/font></string>
-    <string name="participate_contribute_translate_text">&lt;font color=\"%1$s\">&lt;a href=\"%2$s\">Μεταφράστε&lt;/a>&lt;/font> την εφαρμογή</string>
-    <string name="participate_contribute_github_text">Συνεισφέρετε ως προγραμματιστής, για περισσότερες λεπτομέρειες δείτε &lt;font color=\"%1$s\">&lt;a href=\"%2$s\">CONTRIBUTING.md&lt;/a>&lt;/font></string>
+    <string name="participate_contribute_irc_text">Μπείτε για chat στο IRC:</string>
+    <string name="participate_contribute_forum_text">Βοηθήστε τους άλλους σε</string>
+    <string name="participate_contribute_forum_forum">forum</string>
+    <string name="participate_contribute_translate_translate">Μετάφραση</string>
+    <string name="participate_contribute_translate_text">η εφαρμογή</string>
     <string name="move_to">Μετακίνηση σε&#8230;</string>
     <string name="copy_to">Αντιγραφή σε&#8230;</string>
     <string name="choose_remote_folder">Επιλογή φακέλου&#8230;</string>
@@ -628,7 +640,10 @@
     <string name="webview_error">Παρουσιάστηκε σφάλμα</string>
     <string name="prefs_category_about">Περί</string>
 
+    <string name="actionbar_contacts">Εφεδρικό αντίγραφο επαφών</string>
     <string name="actionbar_contacts_restore">Ανάκτηση επαφών</string>
+    <string name="contacts_backup_button">Εφεδρικό αντίγραφο τώρα</string>
+    <string name="contacts_automatic_backup">Αυτόματο εφεδρικό αντίγραφο</string>
     <string name="contacts_last_backup">Τελευταίο αντίγραφο ασφαλείας</string>
     <string name="contacts_read_permission">Απαιτείτούνται δικαιώματα ανάγνωσης για τις επαφές</string>
     <string name="contacts_write_permission">Απαιτείτούνται δικαιώματα εγγραφής για τις επαφές</string>
@@ -646,9 +661,11 @@
     <!-- Notifications -->
     <string name="new_notification_received">Νέα ενημέρωση ελήφθη </string>
     <string name="drawer_logout">Έξοδος</string>
+    <string name="picture_set_as_no_app">Δεν εντοπίστηκε εφαρμογή για συσχετισμό εικόνας!</string>
     <string name="privacy">Ιδιωτικότητα</string>
     <string name="file_not_found">Δεν βρέθηκε το αρχείο!</string>
 
     <string name="folder_sync_folders">Ρύθμιση φακέλων</string>
 
-  </resources>
+  <string name="test_server_button">Δοκιμή σύνδεσης με διακομιστή</string>
+</resources>

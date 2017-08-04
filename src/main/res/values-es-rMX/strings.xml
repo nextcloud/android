@@ -60,6 +60,7 @@
     <string name="prefs_calendar_contacts_address_resolve_error">La dirección del servidor para la cuenta no se pudo resolver para DAVdroid</string>
     <string name="prefs_calendar_contacts_no_store_error">No ha sido instalado F-Droid o Google Play </string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Configuración de la sincronizacion del calendario &amp; contactos </string>
+    <string name="prefs_daily_contacts_sync_summary">Respaldo diario de tus contactos</string>
     <string name="prefs_help">Ayuda</string>
     <string name="prefs_recommend">Recomendar a un amigo</string>
     <string name="prefs_feedback">Retroalimentación</string>
@@ -69,12 +70,13 @@
 
 	<string name="recommend_subject">Prueba  %1$s en tu teléfono inteligente!</string>
     <string name="recommend_text">Quisiera invitarte a usar %1$s en tu teléfono inteligente\nDescárgalo aquí: %2$s</string>
+    <string name="recommend_urls">%1$s o %2$s</string>
 
     <string name="auth_check_server">Verficar el servidor</string>
     <string name="auth_host_url">Dirección del servidor https://…</string>
     <string name="auth_username">Usuario</string>
     <string name="auth_password">Contraseña</string>
-    <string name="auth_register">Aún no tienes un servidor? \nHas click aquí para obtener uno de un proveedor</string>
+    <string name="auth_register">Aún no tienes un servidor? \nHaz click aquí para obtener uno de un proveedor</string>
     <string name="sync_string_files">Archivos</string>
     <string name="setup_btn_connect">Conectar</string>
     <string name="uploader_btn_upload_text">Cargar</string>
@@ -410,12 +412,12 @@
     <string name="file_migration_cleaning">Limpiando&#8230;</string>
     <string name="file_migration_restoring_accounts_configuration">Restaurando la configuración de las cuentas&#8230;</string>
     <string name="file_migration_ok_finished">Terminado</string>
-    <string name="file_migration_failed_not_enough_space">ERROR: Espacio insuficiente</string>
-    <string name="file_migration_failed_not_writable">ERROR: El archivo destino no se puede escribir</string>
-    <string name="file_migration_failed_not_readable">ERROR: El archivo fuente no se puede leer</string>
-    <string name="file_migration_failed_dir_already_exists">ERROR: El directorio de Nextcloud ya existe</string>
-    <string name="file_migration_failed_while_coping">ERROR: Falla durante la migración</string>
-    <string name="file_migration_failed_while_updating_index">ERROR: Falla durante la actualización del índice</string>
+    <string name="file_migration_failed_not_enough_space">Error: Espacio insuficiente</string>
+    <string name="file_migration_failed_not_writable">Error: El archivo destino no puede ser escrito</string>
+    <string name="file_migration_failed_not_readable">Error: El archivo fuente no se puede leer</string>
+    <string name="file_migration_failed_dir_already_exists">Error: El directorio de Nextcloud ya existe</string>
+    <string name="file_migration_failed_while_coping">Error: Falla durante la migración</string>
+    <string name="file_migration_failed_while_updating_index">Error: Falla al actualizar el índice</string>
 
     <string name="file_migration_directory_already_exists">La carpeta de datos ya existe. Selecciona una de las siguientes opciones:</string>
     <string name="file_migration_override_data_folder">Remplazar</string>
@@ -489,6 +491,7 @@
     <string name="upload_copy_files">Copiar archivo</string>
     <string name="upload_move_files">Mover archivo</string>
     <string name="select_all">Seleccionar todo</string>
+    <string name="deselect_all">Deseleccionar todo</string>
 
     <string name="pref_behaviour_entries_keep_file">mantenido en la carpeta original</string>
     <string name="pref_behaviour_entries_move">movido a la capreta de la aplicación</string>
@@ -520,6 +523,9 @@
     <string name="share_known_remote_clarification">%1$s ( a las %2$s )</string>
 
     <string name="share_sharee_unavailable"> Actualiza la versión del servidor para permitir compartir entre usuarios desde dentro de sus clientes.\nPor favor contacta a tu adminsitrador</string>
+    <string name="filedetails_share_link_enable">Compartir por liga habilitado</string>
+    <string name="filedetails_share_link_disable">No compartido por liga</string>
+    <string name="filedetails_share_users_with_access">Usuarios y grupos con accesos</string>
     <string name="share_privilege_can_share">puede compartir</string>
     <string name="share_privilege_can_edit">puede editar</string>
     <string name="share_privilege_can_edit_create">crear</string>
@@ -555,17 +561,19 @@
     <string name="drawer_participate">Participa</string>
     <string name="participate_testing_headline">Ayúdanos probando</string>
     <string name="participate_testing_bug_text">¿Encontraste una falla? ¿Hay algo raro?</string>
-    <string name="participate_testing_report_text">Reporta un tema en Github</string>
+    <string name="participate_testing_report_text">Reporta un tema en GitHub</string>
     <string name="participate_testing_version_text">¿Te interesaría ayudarnos a probar la siguiente versión?</string>
     <string name="participate_beta_headline">Probar la versión de desarrollo</string>
     <string name="participate_beta_text">Esto incluye todas las últimas funcionalidades y es lo más nuevo. Fallas/errores pueden ocurrir y si es el caso, por favor repórtanoslo.</string>
     <string name="participate_release_candidate_headline">Candidato a lanzamiento</string>
     <string name="participate_release_candidate_text">El candidato a lanzamiento (RC) es una foto del lanzamiento más próximo y se espera que sea estable. Hacer preubas en tu configuración individual puede ayudarnos a asegurar ésto. Anótate para probar en la Play store o consulta manualmente la sección de \"Versión\" de F-Droid. </string>
     <string name="participate_contribute_headline">Contribuye activamente</string>
-    <string name="participate_contribute_irc_text">Únete al chat en IRC: &lt;font color=\"%1$s\">&lt;a href=\"%2$s\">#nextcloud-mobile&lt;/a>&lt;/font></string>
-    <string name="participate_contribute_forum_text">Ayuda a otros en el &lt;font color=\"%1$s\">&lt;a href=\"%2$s\">foro&lt;/a>&lt;/font></string>
-    <string name="participate_contribute_translate_text">&lt;font color=\"%1$s\">&lt;a href=\"%2$s\">Traduce &lt;/a>&lt;/font> la aplicación</string>
-    <string name="participate_contribute_github_text">Revisa, corrige y genera código, ve &lt;font color=\"%1$s\">&lt;a href=\"%2$s\">CONTRIBUYE.mx&lt;/a>&lt;/font> para más detalles</string>
+    <string name="participate_contribute_irc_text">Únete al chat en IRC:</string>
+    <string name="participate_contribute_forum_text">Ayuda a otros en</string>
+    <string name="participate_contribute_forum_forum">foro</string>
+    <string name="participate_contribute_translate_translate">Traducir</string>
+    <string name="participate_contribute_translate_text">la aplicación</string>
+    <string name="participate_contribute_github_text">Revisa, corrige y escribe código, ve %1$s para más detalles</string>
     <string name="move_to">Mover a&#8230;</string>
     <string name="copy_to">Copiar a&#8230;</string>
     <string name="choose_remote_folder">Seleccione la carpeta&#8230;</string>

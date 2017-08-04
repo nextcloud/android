@@ -60,6 +60,7 @@
     <string name="prefs_calendar_contacts_address_resolve_error">Server address for account could not be resolved for DAVdroid</string>
     <string name="prefs_calendar_contacts_no_store_error">Neither F-droid nor Google Play is installed</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Calendar &amp; contacts sync set up</string>
+    <string name="prefs_daily_contacts_sync_summary">Daily backup of your contacts</string>
     <string name="prefs_help">Help</string>
     <string name="prefs_recommend">Recommend to friend</string>
     <string name="prefs_feedback">Feedback</string>
@@ -69,6 +70,7 @@
 
 	<string name="recommend_subject">Try %1$s on your smartphone!</string>
 	<string name="recommend_text">I want to invite you to use %1$s on your smartphone.\nDownload here: %2$s</string>
+    <string name="recommend_urls">%1$s or %2$s</string>
 
     <string name="auth_check_server">Check server</string>
     <string name="auth_host_url">Server address https://…</string>
@@ -411,12 +413,12 @@
     <string name="file_migration_cleaning">Cleaning&#8230;</string>
     <string name="file_migration_restoring_accounts_configuration">Restoring configuration of accounts&#8230;</string>
     <string name="file_migration_ok_finished">Finished</string>
-    <string name="file_migration_failed_not_enough_space">ERROR: Insufficient space</string>
-    <string name="file_migration_failed_not_writable">ERROR: Destination file not writable</string>
-    <string name="file_migration_failed_not_readable">ERROR: Source file not readable</string>
-    <string name="file_migration_failed_dir_already_exists">ERROR: Nextcloud directory already exists</string>
-    <string name="file_migration_failed_while_coping">ERROR: Failed during migration</string>
-    <string name="file_migration_failed_while_updating_index">ERROR: Failed to updating index</string>
+    <string name="file_migration_failed_not_enough_space">Error: Insufficient space</string>
+    <string name="file_migration_failed_not_writable">Error: Destination file not writable</string>
+    <string name="file_migration_failed_not_readable">Error: Source file not readable</string>
+    <string name="file_migration_failed_dir_already_exists">Error: Nextcloud directory already exists</string>
+    <string name="file_migration_failed_while_coping">Error: Failed during migration</string>
+    <string name="file_migration_failed_while_updating_index">Error: Failed to updating index</string>
 
     <string name="file_migration_directory_already_exists">Data folder exists already. Choose one of the following:</string>
     <string name="file_migration_override_data_folder">Replace</string>
@@ -490,6 +492,7 @@
     <string name="upload_copy_files">Copy file</string>
     <string name="upload_move_files">Move file</string>
     <string name="select_all">Select all</string>
+    <string name="deselect_all">Deselect all</string>
 
     <string name="pref_behaviour_entries_keep_file">kept in original folder</string>
     <string name="pref_behaviour_entries_move">moved to app folder</string>
@@ -521,6 +524,9 @@
     <string name="share_known_remote_clarification">%1$s ( at %2$s )</string>
 
     <string name="share_sharee_unavailable">Upgrade the server version to allow sharing between users from within their clients.\nPlease contact your administrator</string>
+    <string name="filedetails_share_link_enable">Share by link enabled</string>
+    <string name="filedetails_share_link_disable">Not shared by link</string>
+    <string name="filedetails_share_users_with_access">Users and groups with access</string>
     <string name="share_privilege_can_share">can share</string>
     <string name="share_privilege_can_edit">can edit</string>
     <string name="share_privilege_can_edit_create">create</string>
@@ -556,17 +562,19 @@
     <string name="drawer_participate">Participate</string>
     <string name="participate_testing_headline">Help by testing</string>
     <string name="participate_testing_bug_text">Found a bug? Oddments?</string>
-    <string name="participate_testing_report_text">Report an issue on Github</string>
+    <string name="participate_testing_report_text">Report an issue on GitHub</string>
     <string name="participate_testing_version_text">Interested in helping out by testing the next version?</string>
     <string name="participate_beta_headline">Test the dev version</string>
     <string name="participate_beta_text">This includes all upcoming features and it is on the very bleeding edge. Bugs/errors can occur, if and when they do, please report of your findings.</string>
     <string name="participate_release_candidate_headline">Release candidate</string>
     <string name="participate_release_candidate_text">The release candidate (RC) is a snapshot of the upcoming release and is expected to be stable. Testing your individual setup could help ensure this. Sign up for testing on the Play store or manually look in the \"Version\" section of F-Droid.</string>
     <string name="participate_contribute_headline">Actively Contribute</string>
-    <string name="participate_contribute_irc_text">Join the chat on IRC: &lt;font color=\"%1$s\">&lt;a href=\"%2$s\">#nextcloud-mobile&lt;/a>&lt;/font></string>
-    <string name="participate_contribute_forum_text">Help others on the &lt;font color=\"%1$s\">&lt;a href=\"%2$s\">forum&lt;/a>&lt;/font></string>
-    <string name="participate_contribute_translate_text">&lt;font color=\"%1$s\">&lt;a href=\"%2$s\">Translate&lt;/a>&lt;/font> the app</string>
-    <string name="participate_contribute_github_text">Review, amend and write code, see &lt;font color=\"%1$s\">&lt;a href=\"%2$s\">CONTRIBUTING.md&lt;/a>&lt;/font> for details</string>
+    <string name="participate_contribute_irc_text">Join the chat on IRC:</string>
+    <string name="participate_contribute_forum_text">Help others on the</string>
+    <string name="participate_contribute_forum_forum">forum</string>
+    <string name="participate_contribute_translate_translate">Translate</string>
+    <string name="participate_contribute_translate_text">the app</string>
+    <string name="participate_contribute_github_text">Review, amend and write code, see %1$s for details</string>
     <string name="move_to">Move to&#8230;</string>
     <string name="copy_to">Copy to&#8230;</string>
     <string name="choose_remote_folder">Choose folder&#8230;</string>

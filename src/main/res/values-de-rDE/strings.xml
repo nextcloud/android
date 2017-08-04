@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="about_android">%1$s Android App</string>
+    <string name="about_android">%1$s Android Appiew</string>
     <string name="about_version">Version %1$s</string>
     <string name="actionbar_sync">Konto aktualisieren</string>
     <string name="actionbar_upload">Hochladen</string>
@@ -60,6 +60,7 @@
     <string name="prefs_calendar_contacts_address_resolve_error">Serveradresse des Kontos für die DAVdroid-Nutzung konnte nicht ermittelt werden</string>
     <string name="prefs_calendar_contacts_no_store_error">Weder F-Droid noch Google-Play sind installiert</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Kalender- &amp; Adress-Synchronisation konfigurieren</string>
+    <string name="prefs_daily_contacts_sync_summary">Tägliche Sicherung Ihrer Kontakte</string>
     <string name="prefs_help">Hilfe</string>
     <string name="prefs_recommend">Einem Freund empfehlen</string>
     <string name="prefs_feedback">Rückmeldungen</string>
@@ -69,6 +70,7 @@
 
 	<string name="recommend_subject">Probieren Sie %1$s auf Ihrem Smartphone!</string>
 	<string name="recommend_text">Ich empfehle Ihnen die Nutzung von %1$s auf Ihrem Smartphone!\nLaden Sie es hier herunter: %2$s</string>
+    <string name="recommend_urls">%1$s oder %2$s</string>
 
     <string name="auth_check_server">Server überprüfen</string>
     <string name="auth_host_url">Server-Adresse https://…</string>
@@ -115,7 +117,7 @@
     <string name="file_list_empty_recently_modified">Keine, innerhalb der letzten 7 Tage, geänderten Dateien gefunden</string>
     <string name="file_list_empty_recently_modified_filter">Es wurden keine Dateien gefunden die in den letzten 7 Tagen geändert wurden.</string>
     <string name="file_list_empty_recently_added">Keine kürzlich hinzugefügten Dateien gefunden</string>
-    <string name="file_list_empty_recently_added_filter">Keine kürzlich hinzu gefügten Dateien gefunden!</string>
+    <string name="file_list_empty_recently_added_filter">Keine kürzlich hinzugefügten Dateien gefunden!</string>
     <string name="file_list_empty_text_photos">Laden Sie Fotos hoch oder aktivieren Sie den Sofortupload!</string>
     <string name="file_list_empty_text_photos_filter">Keine Fotos gefunden.</string>
     <string name="file_list_empty_text_videos">Laden Sie einige Videos hoch oder aktivieren Sie den Sofortupload.</string>
@@ -412,12 +414,12 @@
     <string name="file_migration_cleaning">Aufräumen&#8230;</string>
     <string name="file_migration_restoring_accounts_configuration">Konfiguration der Konten wiederherstellen&#8230;</string>
     <string name="file_migration_ok_finished">Abgeschlossen</string>
-    <string name="file_migration_failed_not_enough_space">FEHLER: zu wenig Platz</string>
-    <string name="file_migration_failed_not_writable">FEHLER: Zieldatei kann nicht geschrieben werden</string>
-    <string name="file_migration_failed_not_readable">FEHLER: Quelldatei kann nicht gelesen werden</string>
-    <string name="file_migration_failed_dir_already_exists">FEHLER: Nextcloud Ordner existiert bereits</string>
-    <string name="file_migration_failed_while_coping">FEHLER: Migration fehlgeschlagen</string>
-    <string name="file_migration_failed_while_updating_index">FEHLER: Während der Aktualisierung des Indexes</string>
+    <string name="file_migration_failed_not_enough_space">Fehler: Nicht ausreichender Speicherplatz</string>
+    <string name="file_migration_failed_not_writable">Fehler: Für das Ziel existieren keine Schreibrechte</string>
+    <string name="file_migration_failed_not_readable">Fehler: Quelldatei kann nicht gelesen werden</string>
+    <string name="file_migration_failed_dir_already_exists">Fehler: Nextcloud-Verzeichnis existiert bereits</string>
+    <string name="file_migration_failed_while_coping">Fehler: Fehler bei der Migration</string>
+    <string name="file_migration_failed_while_updating_index">Fehler: Aktualisierung des Index fehlgeschlagen</string>
 
     <string name="file_migration_directory_already_exists">Daten-Verzeichnis existiert bereits. Bitte auswählen:</string>
     <string name="file_migration_override_data_folder">Überschreiben</string>
@@ -491,6 +493,7 @@
     <string name="upload_copy_files">kopiere Datei</string>
     <string name="upload_move_files">verschiebe Datei</string>
     <string name="select_all">Alle auswählen</string>
+    <string name="deselect_all">Auswahl aufheben</string>
 
     <string name="pref_behaviour_entries_keep_file">im Originalordner behalten</string>
     <string name="pref_behaviour_entries_move">in den App-Ordner verschoben</string>
@@ -522,6 +525,9 @@
     <string name="share_known_remote_clarification">%1$s ( at %2$s )</string>
 
     <string name="share_sharee_unavailable">Entschuldigung, Ihre Serverversion erlaubt das Teilen mit Nutzern innerhalb der Clients nicht. \nBitte kontaktieren Sie Ihren Administrator</string>
+    <string name="filedetails_share_link_enable">Über einen Link geteilt aktiviert</string>
+    <string name="filedetails_share_link_disable">Nicht über einen Link geteilt</string>
+    <string name="filedetails_share_users_with_access">Nutzer und Gruppen mit Zugriff</string>
     <string name="share_privilege_can_share">kann teilen</string>
     <string name="share_privilege_can_edit">kann bearbeiten</string>
     <string name="share_privilege_can_edit_create">erstellen</string>
@@ -557,17 +563,19 @@
     <string name="drawer_participate">Mitmachen</string>
     <string name="participate_testing_headline">Hilf uns Testen</string>
     <string name="participate_testing_bug_text">Fehler gefunden? Komisches Verhalten?</string>
-    <string name="participate_testing_report_text">Fehler melden auf Github</string>
+    <string name="participate_testing_report_text">Fehlerbericht GitHub senden</string>
     <string name="participate_testing_version_text">Interessiert uns beim Test der nächsten Version zu unterstützen?</string>
     <string name="participate_beta_headline">Teste die Entwicklerversion</string>
     <string name="participate_beta_text">Dies beinhaltet neue Funktionalitäten und ist nicht vollumfänglich qualitätsgesichert. Es können daher Fehler/Bugs auftreten, melde uns diese bitte.</string>
     <string name="participate_release_candidate_headline">Vorabversion</string>
     <string name="participate_release_candidate_text">Der Release-Kandidat (RC) ist eine Vorschau auf die kommende Version und sollte stabil sein. Das Testen des RC unter Ihrer individuellen Umgebung kann helfen, die Stabilität und Qualität zu sichern. Registrieren Sie sich als Tester im Play-Store oder schauen Sie in die \"Version\"-Sektion auf F-Droid.</string>
     <string name="participate_contribute_headline">Aktiv etwas beitragen</string>
-    <string name="participate_contribute_irc_text">Treten Sie dem IRC-Chat bei: &lt; font color=\"%1$s\">&lt;a href=\"%2$s\">#nextcloud-mobile&lt;/a>&lt;/font></string>
-    <string name="participate_contribute_forum_text">Helfen Sie anderen im &lt;font color=\"%1$s\">&lt;a href=\"%2$s\">Forum&lt;/a>&lt;/font></string>
-    <string name="participate_contribute_translate_text">&lt;font color=\"%1$s\">&lt;a href=\"%2$s\">Übersetzen Sie&lt;/a>&lt;/font> die App</string>
-    <string name="participate_contribute_github_text">Überprüfen, Ändern und Schreiben von Code, schauen Sie in die &lt; font color=\"%1$s\">&lt; a href=\"%2$s\">CONTRIBUTING.md&lt;/a>&lt;/font> für weitere Details</string>
+    <string name="participate_contribute_irc_text">Dem Chat im IRC beitreten: </string>
+    <string name="participate_contribute_forum_text">Helfen Sie anderen </string>
+    <string name="participate_contribute_forum_forum">im Forum</string>
+    <string name="participate_contribute_translate_translate">beim Übersetzen</string>
+    <string name="participate_contribute_translate_text">mit der App</string>
+    <string name="participate_contribute_github_text">Überprüfen, Ändern und Schreiben von Code, schauen Sie in die %1$s für weitere Details</string>
     <string name="move_to">Verschieben nach&#8230;</string>
     <string name="copy_to">Kopieren nach&#8230;</string>
     <string name="choose_remote_folder">Wähle Verzeichnis&#8230;</string>

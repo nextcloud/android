@@ -832,7 +832,7 @@ public class FileDataStorageManager {
         if (c != null && c.moveToFirst()) {
             do {
                 OCFile child = createFileInstance(c);
-                if (child.isFolder() || !onlyOnDevice || child.isDown()) {
+                if (!onlyOnDevice || child.existsOnDevice()) {
                     ret.add(child);
                 }
             } while (c.moveToNext());
@@ -924,17 +924,15 @@ public class FileDataStorageManager {
             file.setFileId(c.getLong(c.getColumnIndex(ProviderTableMeta._ID)));
             file.setParentId(c.getLong(c.getColumnIndex(ProviderTableMeta.FILE_PARENT)));
             file.setMimetype(c.getString(c.getColumnIndex(ProviderTableMeta.FILE_CONTENT_TYPE)));
-            if (!file.isFolder()) {
-                file.setStoragePath(c.getString(c.getColumnIndex(ProviderTableMeta.FILE_STORAGE_PATH)));
-                if (file.getStoragePath() == null) {
-                    // try to find existing file and bind it with current account; 
-                    // with the current update of SynchronizeFolderOperation, this won't be 
-                    // necessary anymore after a full synchronization of the account
-                    File f = new File(FileStorageUtils.getDefaultSavePathFor(mAccount.name, file));
-                    if (f.exists()) {
-                        file.setStoragePath(f.getAbsolutePath());
-                        file.setLastSyncDateForData(f.lastModified());
-                    }
+            file.setStoragePath(c.getString(c.getColumnIndex(ProviderTableMeta.FILE_STORAGE_PATH)));
+            if (file.getStoragePath() == null) {
+                // try to find existing file and bind it with current account;
+                // with the current update of SynchronizeFolderOperation, this won't be
+                // necessary anymore after a full synchronization of the account
+                File f = new File(FileStorageUtils.getDefaultSavePathFor(mAccount.name, file));
+                if (f.exists()) {
+                    file.setStoragePath(f.getAbsolutePath());
+                    file.setLastSyncDateForData(f.lastModified());
                 }
             }
             file.setFileLength(c.getLong(c

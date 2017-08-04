@@ -337,13 +337,6 @@
     <string name="file_migration_updating_index">Aggiornamento dell\'indice&#8230;</string>
     <string name="file_migration_cleaning">Pulizia&#8230;</string>
     <string name="file_migration_ok_finished">Fine</string>
-    <string name="file_migration_failed_not_enough_space">ERRORE: spazio insufficiente</string>
-    <string name="file_migration_failed_not_writable">ERRORE: file di destinazione non scrivibile</string>
-    <string name="file_migration_failed_not_readable">ERRORE: file sorgente non leggibile</string>
-    <string name="file_migration_failed_dir_already_exists">ERRORE: la cartella di Nextcloud esiste già</string>
-    <string name="file_migration_failed_while_coping">ERRORE: problema durante la migrazione</string>
-    <string name="file_migration_failed_while_updating_index">ERRORE: aggiornamento dell\'indice non riuscito</string>
-
     <string name="file_migration_override_data_folder">Sostituisci</string>
     <string name="file_migration_use_data_folder">Usa</string>
 
@@ -407,7 +400,6 @@
     <string name="upload_copy_files">Copia file</string>
     <string name="upload_move_files">Sposta file</string>
     <string name="select_all">Seleziona tutto</string>
-
     <string name="pref_behaviour_entries_keep_file">lasciato nella cartella originale</string>
     <string name="pref_behaviour_entries_move">spostato nella cartella dell\'applicazione</string>
     <string name="pref_behaviour_entries_delete_file">eliminato</string>
@@ -464,7 +456,6 @@
     <string name="learn_more">Scopri altro</string>
     <string name="drawer_folder_sync">Carica automaticamente</string>
     <string name="drawer_participate">Partecipa</string>
-    <string name="participate_testing_report_text">Segnala un problema su GitHub</string>
     <string name="participate_beta_headline">Prova la versione di sviluppo</string>
     <string name="participate_release_candidate_headline">Candidata al rilascio</string>
     <string name="participate_contribute_headline">Contribuisci attivamente</string>

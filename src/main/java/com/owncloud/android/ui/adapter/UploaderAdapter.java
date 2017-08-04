@@ -126,8 +126,8 @@ public class UploaderAdapter extends SimpleAdapter {
                     }
                 }
             } else {
-                fileIcon.setImageResource(
-                        MimeTypeUtil.getFileTypeIconId(file.getMimetype(), file.getFileName())
+                fileIcon.setImageDrawable(
+                        MimeTypeUtil.getFileTypeIcon(file.getMimetype(), file.getFileName(), mAccount)
                 );
             }
         }

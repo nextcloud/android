@@ -70,6 +70,7 @@
 	<string name="recommend_subject">在您的智能手机上试用 %1$s！</string>
 	<string name="recommend_text">我想邀请你在智能机上使用%1$s。
 从这里下载：%2$s</string>
+    <string name="recommend_urls">%1$s 或 %2$s</string>
 
     <string name="auth_check_server">检查服务器</string>
     <string name="auth_host_url">服务器地址 https://...</string>
@@ -115,6 +116,7 @@
     <string name="file_list_empty_headline_server_search_photos">无照片</string>
     <string name="file_list_empty_search">说不定它在另外一个文件夹？</string>
     <string name="file_list_empty_recently_modified">没有找到最近7天修改的文件</string>
+    <string name="file_list_empty_recently_modified_filter">经搜索无7天内修改的文件</string>
     <string name="file_list_empty_recently_added">没有找到最近添加的文件</string>
     <string name="file_list_empty_recently_added_filter">您的搜索返回没有最近没有添加的文件。</string>
     <string name="file_list_empty_text_photos">上传一些照片或启用自动上传。</string>
@@ -156,6 +158,7 @@
     <string name="about_title">关于</string>
     <string name="change_password">修改密码</string>
     <string name="delete_account">删除账号</string>
+    <string name="delete_account_warning">是否删除该账户 %s 并且删除所有文件?\n\n一经删除无法撤销该操作</string>
     <string name="create_account">创建账号</string>
     <string name="upload_chooser_title">上传自 &#8230;</string>
     <string name="uploader_info_dirname">文件夹名称</string>
@@ -413,10 +416,10 @@
     <string name="file_migration_restoring_accounts_configuration">恢复帐户配置1&#8230;</string>
     <string name="file_migration_ok_finished">完成</string>
     <string name="file_migration_failed_not_enough_space">错误：空间不足</string>
-    <string name="file_migration_failed_not_writable">错误：目标文件不可写</string>
-    <string name="file_migration_failed_not_readable">错误：源文件不可读</string>
-    <string name="file_migration_failed_dir_already_exists">错误：Nextcloud目录已经存在</string>
-    <string name="file_migration_failed_while_coping">错误：迁移过程中失败</string>
+    <string name="file_migration_failed_not_writable">错误：目标文件不可写入</string>
+    <string name="file_migration_failed_not_readable">错误：无法读取源文件</string>
+    <string name="file_migration_failed_dir_already_exists">错误：Nextcloud目录已存在</string>
+    <string name="file_migration_failed_while_coping">错误：迁移失败</string>
     <string name="file_migration_failed_while_updating_index">错误：无法更新索引</string>
 
     <string name="file_migration_directory_already_exists">数据文件夹已经存在。请选择以下选项：</string>
@@ -491,6 +494,7 @@
     <string name="upload_copy_files">复制文件</string>
     <string name="upload_move_files">移动文件</string>
     <string name="select_all">选择全部</string>
+    <string name="deselect_all">全部取消选择</string>
 
     <string name="pref_behaviour_entries_keep_file">保留在原始文件夹</string>
     <string name="pref_behaviour_entries_move">移动到应用文件夹</string>
@@ -522,6 +526,8 @@
     <string name="share_known_remote_clarification">%1$s ( 在 %2$s )</string>
 
     <string name="share_sharee_unavailable">升级服务器版本以允许在其客户端之间的用户之间共享。\ n请与您的管理员联系</string>
+    <string name="filedetails_share_link_enable">共享链接已启用</string>
+    <string name="filedetails_share_link_disable">链接不共享</string>
     <string name="share_privilege_can_share">可共享</string>
     <string name="share_privilege_can_edit">可编辑</string>
     <string name="share_privilege_can_edit_create">创建</string>
@@ -557,16 +563,13 @@
     <string name="drawer_participate">参加</string>
     <string name="participate_testing_headline">通过测试帮助</string>
     <string name="participate_testing_bug_text">发现错误？细节？</string>
-    <string name="participate_testing_report_text">在GIthub在报告问题</string>
+    <string name="participate_testing_report_text">在Github报告问题 OR 通过Github提交问题（issue）</string>
     <string name="participate_testing_version_text">在帮助里有兴趣通过测试下一个版本？</string>
     <string name="participate_beta_headline">检查这个设备的版本</string>
     <string name="participate_beta_text">这包括所有即将到来的功能，它处于非常流行的边缘。 可能会发生错误/错误，如果及时，请报告您的发现。</string>
     <string name="participate_release_candidate_headline">发行候选版本</string>
+    <string name="participate_release_candidate_text">候选发行版（RC）是指即将正式发布的版本，理论上说是稳定的。该测试有您的参加将确保正式版本的稳定。您可在Google Play应用商店参与测试或在F-Droid（F-Droid是一个Android应用程序的软件资源库或应用商店，类似于Google Play商店，但只包含自由及开放源代码软件）手动查看应用资源库的“版本”部分</string>
     <string name="participate_contribute_headline">活跃的候选版</string>
-    <string name="participate_contribute_irc_text">在IRC上加入这个会话: &lt;font color=\"%1$s\">&lt;a href=\"%2$s\">#nextcloud-mobile&lt;/a>&lt;/font></string>
-    <string name="participate_contribute_forum_text">帮助他人在 &lt;font color=\"%1$s\">&lt;a href=\"%2$s\">论坛&lt;/a>&lt;/font></string>
-    <string name="participate_contribute_translate_text">&lt;font color=\"%1$s\">&lt;a href=\"%2$s\">翻译&lt;/a>&lt;/font> 应用程序</string>
-    <string name="participate_contribute_github_text">查看，修改和编写代码，有关详细信息，请参阅 &lt;font color=\"%1$s\">&lt;a href=\"%2$s\">CONTRIBUTING.md&lt;/a>&lt;/font></string>
     <string name="move_to">转移到&#8230;</string>
     <string name="copy_to">复制到</string>
     <string name="choose_remote_folder">选择文件夹&#8230;</string>
@@ -659,4 +662,5 @@
 
     <string name="folder_sync_folders">配置文件夹</string>
 
-  </resources>
+  <string name="test_server_button">测试服务连接</string>
+</resources>

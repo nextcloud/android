@@ -416,7 +416,9 @@ public class FileListListAdapter extends BaseAdapter {
 
 
                 } else {
-                    fileIcon.setImageResource(MimeTypeUtil.getFileTypeIconId(file.getMimetype(), file.getFileName()));
+                    fileIcon.setImageDrawable(
+                            MimeTypeUtil.getFileTypeIcon(file.getMimetype(), file.getFileName(), mAccount)
+                    );
                 }
 
 
@@ -648,6 +650,10 @@ public class FileListListAdapter extends BaseAdapter {
             }
         }
         return files;
+    }
+
+    public Vector<OCFile> getFiles() {
+        return mFiles;
     }
 
     public Filter getFilter() {

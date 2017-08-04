@@ -69,6 +69,7 @@
 
 	<string name="recommend_subject">Probeer %1$s op je smartphone!</string>
 	<string name="recommend_text">Ik wil je uitnodigen om %1$s op je smartphone te gebruiken.\nDownload hier: %2$s</string>
+    <string name="recommend_urls">%1$s or %2$s</string>
 
     <string name="auth_check_server">Controleer server</string>
     <string name="auth_host_url">Serveradres https://…</string>
@@ -155,6 +156,7 @@ Kies er eentje van een provider.</string>
     <string name="about_title">Over</string>
     <string name="change_password">Wachtwoord wijzigen</string>
     <string name="delete_account">Account verwijderen</string>
+    <string name="delete_account_warning">Verwijder account %s met alle lokale bestanden? Het verwijderen kan niet worden teruggedraaid.</string>
     <string name="create_account">Account aanmaken</string>
     <string name="upload_chooser_title">Upload van &#8230;</string>
     <string name="uploader_info_dirname">Mapnaam</string>
@@ -411,12 +413,12 @@ Kies er eentje van een provider.</string>
     <string name="file_migration_cleaning">Opruimen&#160;&#8230;</string>
     <string name="file_migration_restoring_accounts_configuration">Accountconfiguratie herstellen&#8230;</string>
     <string name="file_migration_ok_finished">Afgerond</string>
-    <string name="file_migration_failed_not_enough_space">FOUT: Niet genoeg ruimte</string>
-    <string name="file_migration_failed_not_writable">FOUT: Doelbestand niet schrijfbaar</string>
-    <string name="file_migration_failed_not_readable">FOUT: Bronbestand niet leesbaar</string>
-    <string name="file_migration_failed_dir_already_exists">FOUT: Nextcloudmap bestaat al</string>
-    <string name="file_migration_failed_while_coping">FOUT: Tijdens migratie</string>
-    <string name="file_migration_failed_while_updating_index">FOUT: Tijdens bijwerken index</string>
+    <string name="file_migration_failed_not_enough_space">Fout: Onvoldoende ruimte</string>
+    <string name="file_migration_failed_not_writable">Fout: Niet schrijfbaar bronbestand</string>
+    <string name="file_migration_failed_not_readable">Fout: Niet leesbaar bronbestand</string>
+    <string name="file_migration_failed_dir_already_exists">Fout: Nextcloud folder bestaat al</string>
+    <string name="file_migration_failed_while_coping">Fout: Migratie is mislukt</string>
+    <string name="file_migration_failed_while_updating_index">Fout: Index bijwerken is mislukt</string>
 
     <string name="file_migration_directory_already_exists">Datamap bestaat al. Kies een van de volgende:</string>
     <string name="file_migration_override_data_folder">Vervangen</string>
@@ -490,6 +492,7 @@ Kies er eentje van een provider.</string>
     <string name="upload_copy_files">Bestand kopiëren</string>
     <string name="upload_move_files">Bestand verplaatsen</string>
     <string name="select_all">Alles selecteren</string>
+    <string name="deselect_all">Deselecteer alles</string>
 
     <string name="pref_behaviour_entries_keep_file">bewaard worden in originele map</string>
     <string name="pref_behaviour_entries_move">verplaatst worden naar app-map</string>
@@ -556,17 +559,16 @@ Kies er eentje van een provider.</string>
     <string name="drawer_participate">Meedoen</string>
     <string name="participate_testing_headline">Help bij testen</string>
     <string name="participate_testing_bug_text">Bug gevonden? Rare dingen?</string>
-    <string name="participate_testing_report_text">Meld het op Github</string>
+    <string name="participate_testing_report_text">Meld een probleem op GitHub</string>
     <string name="participate_testing_version_text">Geïnteresseerd om ons te helpen de volgende versie te testen?</string>
     <string name="participate_beta_headline">Test de dev versie</string>
     <string name="participate_beta_text">Dit omvat alle komende opties en is zeer \'bleeding edge\'. Bugs/fouten kunnen voorkomen en in dat geval vragen we je die aan ons te melden.</string>
     <string name="participate_release_candidate_headline">Release candidate</string>
     <string name="participate_release_candidate_text">De release candidate (RC) is een snapshot van de komende versie en is naar verwachting stabiel. Door een test met je eigen installatie verzeker je hier van. Meld je aan voor het testen in de Play store of kijk handmatig bij sectie \"Versie\" van F-Droid.</string>
     <string name="participate_contribute_headline">Actief meedoen</string>
-    <string name="participate_contribute_irc_text">Bezoek de IRC chat op IRC: &lt;font color=\"%1$s\">&lt;a href=\"%2$s\">#nextcloud-mobile&lt;/a>&lt;/font></string>
-    <string name="participate_contribute_forum_text">Help anderen op het &lt;font color=\"%1$s\">&lt;a href=\"%2$s\">forum&lt;/a>&lt;/font></string>
-    <string name="participate_contribute_translate_text">&lt;font color=\"%1$s\">&lt;a href=\"%2$s\">Vertaal&lt;/a>&lt;/font> de app</string>
-    <string name="participate_contribute_github_text">Bekijk, schrijf of pas code aan. Kijk in &lt;font color=\"%1$s\">&lt;a href=\"%2$s\">CONTRIBUTING.md&lt;/a>&lt;/font> voor meer details</string>
+    <string name="participate_contribute_forum_forum">forum</string>
+    <string name="participate_contribute_translate_translate">Vertalen</string>
+    <string name="participate_contribute_translate_text">de app</string>
     <string name="move_to">Verplaats naar&#160;&#8230;</string>
     <string name="copy_to">Kopieer naar&#160;&#8230;</string>
     <string name="choose_remote_folder">Kies map&#160;&#8230;</string>
@@ -660,4 +662,5 @@ Kies er eentje van een provider.</string>
 
     <string name="folder_sync_folders">Mappen instellen</string>
 
-  </resources>
+  <string name="test_server_button">Test server verbinding</string>
+</resources>

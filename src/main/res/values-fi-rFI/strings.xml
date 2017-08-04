@@ -325,7 +325,6 @@
     <string name="file_migration_updating_index">Päivitetään indeksiä&#8230;</string>
     <string name="file_migration_cleaning">Siivotaan&#8230;</string>
     <string name="file_migration_ok_finished">Valmistunut</string>
-    <string name="file_migration_failed_dir_already_exists">VIRHE: Nextcloudin hakemusta on jo olemassa</string>
     <string name="file_migration_override_data_folder">Korvaa</string>
     <string name="file_migration_use_data_folder">Käytä</string>
 
@@ -381,7 +380,6 @@
     <string name="upload_copy_files">Kopioi tiedosto</string>
     <string name="upload_move_files">Siirrä tiedosto</string>
     <string name="select_all">Valitse kaikki</string>
-
     <string name="pref_behaviour_entries_keep_file">pidetään alkuperäisessä kansiossa</string>
     <string name="pref_behaviour_entries_move">siirretään sovelluskansioon</string>
     <string name="pref_behaviour_entries_delete_file">poistettu</string>
@@ -436,7 +434,6 @@
     <string name="learn_more">Opi lisää</string>
     <string name="drawer_folder_sync">Automaattinen lähetys</string>
     <string name="drawer_participate">Osallitu</string>
-    <string name="participate_testing_report_text">Raportoi virheestä Githubiin</string>
     <string name="participate_release_candidate_headline">Julkaisu ehdokas</string>
     <string name="move_to">Siirrä kohteeseen&#8230;</string>
     <string name="copy_to">Kopio kohteeseen&#8230;</string>

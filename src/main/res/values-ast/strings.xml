@@ -59,7 +59,6 @@
     <string name="prefs_feedback">Mensaxes de retroalimentación</string>
     <string name="recommend_subject">¡Prueba %1$s nel to teléfonu intelixente!</string>
 	<string name="recommend_text">Quiero convidate a usar %1$s nel to teléfonu intelixente.\nBáxalu d\'equí: %2$s</string>
-
     <string name="auth_check_server">Comprobar servidor</string>
     <string name="auth_host_url">Direición del sirvidor https://...</string>
     <string name="auth_username">Nome d\'usuariu</string>
@@ -356,13 +355,6 @@
     <string name="file_migration_cleaning">Llimpiando&#8230;</string>
     <string name="file_migration_restoring_accounts_configuration">Restaurando configuración de les cuentes&#8230;</string>
     <string name="file_migration_ok_finished">Finó</string>
-    <string name="file_migration_failed_not_enough_space">FALLU: Espaciu insuficiente</string>
-    <string name="file_migration_failed_not_writable">FALLU: El ficheru de destín nun ye escribible</string>
-    <string name="file_migration_failed_not_readable">FALLU: Nun pue lleese\'l códigu fonte</string>
-    <string name="file_migration_failed_dir_already_exists">FALLU: Yá esiste\'l to direutoriu de Nextcloud</string>
-    <string name="file_migration_failed_while_coping">FALLU: Fallu na migración</string>
-    <string name="file_migration_failed_while_updating_index">FALLU: Falló l\'anovamientu del índiz</string>
-
     <string name="file_migration_override_data_folder">Trocar</string>
     <string name="file_migration_use_data_folder">Usar</string>
 
@@ -425,7 +417,6 @@
     <string name="upload_copy_files">Copiar ficheru</string>
     <string name="upload_move_files">Mover ficheru</string>
     <string name="select_all">Esbillar too</string>
-
     <string name="pref_behaviour_entries_keep_file">guardáu en carpeta orixinal</string>
     <string name="pref_behaviour_entries_move">movíu a la carpeta d\'aplicaciones</string>
     <string name="prefs_storage_path">Camín d\'almacenamientu</string>

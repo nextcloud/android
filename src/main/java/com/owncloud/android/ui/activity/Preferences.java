@@ -416,16 +416,19 @@ public class Preferences extends PreferenceActivity
                     @Override
                     public boolean onPreferenceClick(Preference preference) {
 
-                        Intent intent = new Intent(Intent.ACTION_SENDTO);
+                        Intent intent = new Intent(Intent.ACTION_SEND);
                         intent.setType("text/plain");
-                        intent.setData(Uri.parse(getString(R.string.mail_recommend)));
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
                         String appName = getString(R.string.app_name);
-                        String downloadUrl = getString(R.string.url_app_download);
+                        String downloadUrlGooglePlayStore = getString(R.string.url_app_download);
+                        String downloadUrlFDroid = getString(R.string.fdroid_link);
+                        String downloadUrls = String.format(getString(R.string.recommend_urls),
+                                downloadUrlGooglePlayStore, downloadUrlFDroid);
 
                         String recommendSubject = String.format(getString(R.string.recommend_subject), appName);
-                        String recommendText = String.format(getString(R.string.recommend_text), appName, downloadUrl);
+                        String recommendText = String.format(getString(R.string.recommend_text),
+                                appName, downloadUrls);
 
                         intent.putExtra(Intent.EXTRA_SUBJECT, recommendSubject);
                         intent.putExtra(Intent.EXTRA_TEXT, recommendText);

@@ -60,6 +60,7 @@
     <string name="prefs_calendar_contacts_address_resolve_error">Hesabın sunucu adresi DAVdroid tarafından çözümlenemedi</string>
     <string name="prefs_calendar_contacts_no_store_error">F-droid ya da Google Play kurulmamış</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Takvim ve kişi eşitlemesi ayarları</string>
+    <string name="prefs_daily_contacts_sync_summary">Kişilerinizin günlük yedeği</string>
     <string name="prefs_help">Yardım</string>
     <string name="prefs_recommend">Arkadaşına öner</string>
     <string name="prefs_feedback">Geri bildirim</string>
@@ -69,6 +70,7 @@
 
 	<string name="recommend_subject">%1$s uygulamasını akıllı telefonunuzda deneyin!</string>
 	<string name="recommend_text">Akıllı telefonunda %1$s kullanmanı öneriyorum!\nBuradan indirebilirsin: %2$s</string>
+    <string name="recommend_urls">%1$s ya da %2$s</string>
 
     <string name="auth_check_server">Sunucuyu denetle</string>
     <string name="auth_host_url">Sunucu adresi https://…</string>
@@ -411,12 +413,12 @@
     <string name="file_migration_cleaning">Temizleniyor&#8230;</string>
     <string name="file_migration_restoring_accounts_configuration">Hesap ayarları geri yükleniyor&#8230;</string>
     <string name="file_migration_ok_finished">Tamamlandı</string>
-    <string name="file_migration_failed_not_enough_space">HATA: Depolama alanı yetersiz</string>
-    <string name="file_migration_failed_not_writable">HATA: Hedef dosya yazılabilir değil</string>
-    <string name="file_migration_failed_not_readable">HATA: Kaynak dosya okunabilir değil</string>
-    <string name="file_migration_failed_dir_already_exists">HATA: Nextcloud klasörü zaten var</string>
-    <string name="file_migration_failed_while_coping">HATA: Aktarımda sorun çıktı</string>
-    <string name="file_migration_failed_while_updating_index">HATA: Dizin güncellenirken sorun çıktı</string>
+    <string name="file_migration_failed_not_enough_space">Hata: Disk alanı yetersiz</string>
+    <string name="file_migration_failed_not_writable">Hata: Hedef dosya yazılabilir değil</string>
+    <string name="file_migration_failed_not_readable">Hata: Kaynak dosya okunabilir değil</string>
+    <string name="file_migration_failed_dir_already_exists">Hata: Nextcloud klasörü zaten var</string>
+    <string name="file_migration_failed_while_coping">Hata: Aktarım sırasında sorun çıktı</string>
+    <string name="file_migration_failed_while_updating_index">Hata: Dizin güncellenirken sorun çıktı</string>
 
     <string name="file_migration_directory_already_exists">Veri klasörü zaten var. Şunlardan birini seçin:</string>
     <string name="file_migration_override_data_folder">Değiştirilsin</string>
@@ -490,6 +492,7 @@
     <string name="upload_copy_files">Dosyayı kopyala</string>
     <string name="upload_move_files">Dosyayı taşı</string>
     <string name="select_all">Tümünü seç</string>
+    <string name="deselect_all">Tümünü bırak</string>
 
     <string name="pref_behaviour_entries_keep_file">özgün klasöründe korundu</string>
     <string name="pref_behaviour_entries_move">app klasörüne taşındı</string>
@@ -521,6 +524,9 @@
     <string name="share_known_remote_clarification">%1$s (%2$s üzerinde)</string>
 
     <string name="share_sharee_unavailable">Kullanıcıların istemcileri içinden paylaşım yapabilmesini sağlamak için sunucu sürümünüzü yükseltin.\nLütfen yöneticinizle görüşün</string>
+    <string name="filedetails_share_link_enable">Bağlantı ile paylaşım etkin</string>
+    <string name="filedetails_share_link_disable">Bağlantı ile paylaşılmamış</string>
+    <string name="filedetails_share_users_with_access">Erişim izni olan kullanıcı ve gruplar</string>
     <string name="share_privilege_can_share">paylaşabilir</string>
     <string name="share_privilege_can_edit">düzenleyebilir</string>
     <string name="share_privilege_can_edit_create">oluştur</string>
@@ -556,17 +562,19 @@
     <string name="drawer_participate">Katkıda bulunun</string>
     <string name="participate_testing_headline">Denememize yardımcı olun</string>
     <string name="participate_testing_bug_text">Bir hata mı buldunuz? Bir gariplik mi var?</string>
-    <string name="participate_testing_report_text">GitHub üzerinden bir sorun bildirin</string>
+    <string name="participate_testing_report_text">GitHub üzerinde sorun bildirin</string>
     <string name="participate_testing_version_text">Sonraki sürümü deneyerek bize yardımcı olmak ister misiniz?</string>
     <string name="participate_beta_headline">Geliştirici sürümünü deneyin</string>
     <string name="participate_beta_text">Bu sürümde tüm yeni özellikler bulunur ve çok taze olduğundan eksikleri olabilir. Bir hata ya da soruna rastlarsanız bize iletin.</string>
     <string name="participate_release_candidate_headline">Yayın adayı</string>
     <string name="participate_release_candidate_text">Yayın adayı (Release Candidate, RC) yayınlanacak sürümün bir kopyasıdır ve kararlı olması beklenir. Kendi kurulumunuzda kullanmanız bundan emin olmamızı sağlayabilir. Denemek için Play Store üzerinden kayıt olun ya da el ile F-Droid üzerindeki \"Sürüm\" bölümüne bakın.</string>
     <string name="participate_contribute_headline">Etkin Katkıda Bulunun</string>
-    <string name="participate_contribute_irc_text">IRC sohbetine katılın: &lt;font color=\"%1$s\">&lt;a href=\"%2$s\">#nextcloud-mobile&lt;/a>&lt;/font></string>
-    <string name="participate_contribute_forum_text">&lt;font color=\"%1$s\">&lt;a href=\"%2$s\">Forumda&lt;/a>&lt;/font> diğer kullanıcılara yardımcı olun</string>
-    <string name="participate_contribute_translate_text">Uygulamayı &lt;font color=\"%1$s\">&lt;a href=\"%2$s\">Çevirin&lt;/a>&lt;/font></string>
-    <string name="participate_contribute_github_text">Kodun gözden geçirilmesine ve geliştirilmesine katkıda bulunun. Ayrıntılı bilgi almak için &lt;font color=\"%1$s\">&lt;a href=\"%2$s\">CONTRIBUTING.md&lt;/a>&lt;/font> dosyasına bakın</string>
+    <string name="participate_contribute_irc_text">IRC sohbetine katılın:</string>
+    <string name="participate_contribute_forum_text">Diğer kullanıcılara şurada yardımcı olun:</string>
+    <string name="participate_contribute_forum_forum">forum</string>
+    <string name="participate_contribute_translate_translate">Çevirin</string>
+    <string name="participate_contribute_translate_text">uygulamayı</string>
+    <string name="participate_contribute_github_text">Kodun gözden geçirilmesine ve geliştirilmesine katkıda bulunun. Ayrıntılı bilgi almak için %1$s dosyasına bakın</string>
     <string name="move_to">Taşı&#8230;</string>
     <string name="copy_to">Kopyala&#8230;</string>
     <string name="choose_remote_folder">Klasör seçin&#8230;</string>

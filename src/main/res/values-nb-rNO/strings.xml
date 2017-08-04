@@ -60,6 +60,7 @@
     <string name="prefs_calendar_contacts_address_resolve_error">Tjeneradressen for kontoen ble ikke funnet for DAVdroid</string>
     <string name="prefs_calendar_contacts_no_store_error">Hverken F-droid eller Google play er installert</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Kalender &amp; kontaktsynkronisering ble satt opp</string>
+    <string name="prefs_daily_contacts_sync_summary">Daglig sikkerhetskopiering av dine kontakter</string>
     <string name="prefs_help">Hjelp</string>
     <string name="prefs_recommend">Anbefal til en venn</string>
     <string name="prefs_feedback">Tilbakemelding</string>
@@ -69,6 +70,7 @@
 
 	<string name="recommend_subject">Prøv %1$s på smarttelefonen din!</string>
 	<string name="recommend_text">Jeg ønsker å invitere deg til å bruke %1$s på smarttelefonen din!\nLast ned her: %2$s</string>
+    <string name="recommend_urls">%1$s eller %2$s</string>
 
     <string name="auth_check_server">Sjekk tjener</string>
     <string name="auth_host_url">Tjeneradresse https://...</string>
@@ -411,12 +413,12 @@
     <string name="file_migration_cleaning">Rydder&#8230;</string>
     <string name="file_migration_restoring_accounts_configuration">Gjenoppretter kontokonfigurasjon&#8230;</string>
     <string name="file_migration_ok_finished">Fullført</string>
-    <string name="file_migration_failed_not_enough_space">FEIL: Ikke nok plass</string>
-    <string name="file_migration_failed_not_writable">FEIL: Målfila er ikke skrivbar</string>
-    <string name="file_migration_failed_not_readable">FEIL: Kildefila er ikke lesbar</string>
-    <string name="file_migration_failed_dir_already_exists">FEIL: Nextcloudmappen finnes allerede</string>
-    <string name="file_migration_failed_while_coping">FEIL: Under migrering</string>
-    <string name="file_migration_failed_while_updating_index">FEIL: Under oppdatering av indeks</string>
+    <string name="file_migration_failed_not_enough_space">Feil: Mangler plass</string>
+    <string name="file_migration_failed_not_writable">Feil: Målfil ikke skrivbar</string>
+    <string name="file_migration_failed_not_readable">Feil: Målfil ikke lesbar</string>
+    <string name="file_migration_failed_dir_already_exists">Feil: Nextcloud-mappen finnes allerede</string>
+    <string name="file_migration_failed_while_coping">Feil: Mislyktes under flytting</string>
+    <string name="file_migration_failed_while_updating_index">Feil: Klarte ikke å oppdatere indeks</string>
 
     <string name="file_migration_directory_already_exists">Datamappen finnes allerede. Velg en av disse:</string>
     <string name="file_migration_override_data_folder">Erstatt</string>
@@ -490,6 +492,7 @@
     <string name="upload_copy_files">Kopier fil</string>
     <string name="upload_move_files">Flytt fil</string>
     <string name="select_all">Velg alle</string>
+    <string name="deselect_all">Fjern all markering</string>
 
     <string name="pref_behaviour_entries_keep_file">beholdt i opprinnelig mappe</string>
     <string name="pref_behaviour_entries_move">flyttet til program-mappe</string>
@@ -521,6 +524,8 @@
     <string name="share_known_remote_clarification">%1$s ( hos %2$s )</string>
 
     <string name="share_sharee_unavailable">Beklager, tjenerversjonen din tillater ikke klienter å dele med brukere. \nKontakt systemadministratoren</string>
+    <string name="filedetails_share_link_enable">Deling med lenke påskrudd</string>
+    <string name="filedetails_share_link_disable">Ikke delt med lenke</string>
     <string name="share_privilege_can_share">kan dele</string>
     <string name="share_privilege_can_edit">kan redigere</string>
     <string name="share_privilege_can_edit_create">opprette</string>
@@ -556,17 +561,18 @@
     <string name="drawer_participate">Delta</string>
     <string name="participate_testing_headline">Hjelp oss å teste</string>
     <string name="participate_testing_bug_text">Funnet en feil? Føles noe rart?</string>
-    <string name="participate_testing_report_text">Meld en feil på Github</string>
+    <string name="participate_testing_report_text">Rapporter en feil på GitHub</string>
     <string name="participate_testing_version_text">Er du interessert i å hjelpe til ved å teste den neste versjonen?</string>
     <string name="participate_beta_headline">Test utviklerversjonen</string>
     <string name="participate_beta_text">Denne inneholder alle kommende funksjoner og er helt på kanten. Feil/feilmeldinger kan oppstå og i sådant fall, meld fra om dem til oss.</string>
     <string name="participate_release_candidate_headline">Slippkandidat</string>
     <string name="participate_release_candidate_text">En Slippkandidat (RC) er en øyeblikkspakke av den kommende utgaven og er forventet å være stabil. Ved å teste denne med ditt oppsett hjelper du til å med dette. Meld deg på testing i Play-butikken, eller se i seksjonen \"Versjon\" for programmet i F-Droid.</string>
     <string name="participate_contribute_headline">Bidra aktivt</string>
-    <string name="participate_contribute_irc_text">Sludre på IRC: &lt;font color=\"%1$s\">&lt;a href=\"%2$s\">#nextcloud-mobile&lt;/a>&lt;/font></string>
-    <string name="participate_contribute_forum_text">Hjelp andre på &lt;font color=\"%1$s\">&lt;a href=\"%2$s\">forumet&lt;/a>&lt;/font></string>
-    <string name="participate_contribute_translate_text">&lt;font color=\"%1$s\">&lt;a href=\"%2$s\">Oversett&lt;/a>&lt;/font> programmet</string>
-    <string name="participate_contribute_github_text">Gjennomse, endre og skriv kode, se &lt;font color=\"%1$s\">&lt;a href=\"%2$s\">CONTRIBUTING.md&lt;/a>&lt;/font> for detaljer.</string>
+    <string name="participate_contribute_irc_text">Sludre på IRC:</string>
+    <string name="participate_contribute_forum_text">Hjelp andre på</string>
+    <string name="participate_contribute_forum_forum">forumet</string>
+    <string name="participate_contribute_translate_translate">Oversett</string>
+    <string name="participate_contribute_translate_text">programmet</string>
     <string name="move_to">Flytt til&#8230;</string>
     <string name="copy_to">Kopier til&#8230;</string>
     <string name="choose_remote_folder">Velg mappe&#8230;</string>
