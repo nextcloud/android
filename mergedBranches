@@ -6,6 +6,7 @@ nextcloud/audioRotationBug
 nextcloud/autoUploadCrashIfFilepathIsNull
 nextcloud/autoUploadRotationBug
 nextcloud/autoUploadWithoutStoragePermission
+nextcloud/clearSuccessfulUploads
 nextcloud/contactsBackupUI
 nextcloud/crashDueToEmptyString
 nextcloud/deleteFilesOnAccountRemoval
