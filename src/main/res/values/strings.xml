@@ -538,7 +538,7 @@
 
     <string name="action_retry_uploads">New attempt failed</string>
     <string name="action_clear_failed_uploads">Clear failed</string>
-    <string name="action_clear_successful_uploads">Cleared</string>
+    <string name="action_clear_successful_uploads">Clear successful uploads</string>
     <string name="action_clear_finished_uploads">Clear finished uploads</string>
 
     <string name="action_switch_grid_view">Grid view</string>
