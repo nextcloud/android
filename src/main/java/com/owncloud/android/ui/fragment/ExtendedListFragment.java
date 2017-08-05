@@ -300,6 +300,7 @@ public class ExtendedListFragment extends Fragment
             }
 
             if (adapter instanceof OCFileListAdapter) {
+                final int finalDelay = delay;
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
@@ -312,7 +313,7 @@ public class ExtendedListFragment extends Fragment
                             fileListListAdapter.getFilter().filter(query);
                         }
                     }
-                }, delay);
+                }, finalDelay);
             } else if (adapter instanceof LocalFileListAdapter) {
                 handler.postDelayed(new Runnable() {
                     @Override
@@ -366,7 +367,7 @@ public class ExtendedListFragment extends Fragment
         mScale = PreferenceManager.getGridColumns(getContext());
         setGridViewColumns(1f);
 
-        mScaleGestureDetector = new ScaleGestureDetector(MainApp.getAppContext(),new ScaleListener());
+        mScaleGestureDetector = new ScaleGestureDetector(MainApp.getAppContext(), new ScaleListener());
 
         getRecyclerView().setOnTouchListener((view, motionEvent) -> {
             mScaleGestureDetector.onTouchEvent(motionEvent);
@@ -553,12 +554,14 @@ public class ExtendedListFragment extends Fragment
     public void onRefresh() {
 
         if (searchView != null) {
-            searchView.onActionViewCollapsed();
+            if (TextUtils.isEmpty(searchView.getQuery())) {
+                searchView.onActionViewCollapsed();
 
-            Activity activity;
-            if ((activity = getActivity()) != null && activity instanceof FileDisplayActivity) {
-                FileDisplayActivity fileDisplayActivity = (FileDisplayActivity) activity;
-                fileDisplayActivity.setDrawerIndicatorEnabled(fileDisplayActivity.isDrawerIndicatorAvailable());
+                Activity activity;
+                if ((activity = getActivity()) != null && activity instanceof FileDisplayActivity) {
+                    FileDisplayActivity fileDisplayActivity = (FileDisplayActivity) activity;
+                    fileDisplayActivity.setDrawerIndicatorEnabled(fileDisplayActivity.isDrawerIndicatorAvailable());
+                }
             }
         }
 
