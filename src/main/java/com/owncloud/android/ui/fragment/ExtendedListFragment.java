@@ -553,7 +553,7 @@ public class ExtendedListFragment extends Fragment
     @Override
     public void onRefresh() {
 
-        if (searchView != null) {
+        if (searchView != null && TextUtils.isEmpty(searchView.getQuery())) {
             if (TextUtils.isEmpty(searchView.getQuery())) {
                 searchView.onActionViewCollapsed();
 
