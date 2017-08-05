@@ -13,7 +13,7 @@ buildscript {
         }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.5+'
+        classpath 'com.android.tools.build:gradle:3.0.0-alpha9'
         classpath 'com.google.gms:google-services:3.0.0'
     }
 }
@@ -63,7 +63,7 @@ android {
     }
 
     compileSdkVersion 25
-    buildToolsVersion '25.0.0'
+    buildToolsVersion '25.0.2'
 
     defaultConfig {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
