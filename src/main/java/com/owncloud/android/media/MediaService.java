@@ -224,7 +224,7 @@ public class MediaService extends Service implements OnCompletionListener, OnPre
         super.onCreate();
         Log_OC.d(TAG, "Creating ownCloud media service");
 
-        mWifiLock = ((WifiManager) getSystemService(Context.WIFI_SERVICE)).
+        mWifiLock = ((WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE)).
                 createWifiLock(WifiManager.WIFI_MODE_FULL, MEDIA_WIFI_LOCK_TAG);
 
         mNotificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
@@ -499,7 +499,7 @@ public class MediaService extends Service implements OnCompletionListener, OnPre
 
     /** Called when media player is done playing current song. */
     public void onCompletion(MediaPlayer player) {
-        Toast.makeText(this, String.format(getString(R.string.media_event_done, mFile.getFileName())), Toast.LENGTH_LONG).show();
+        Toast.makeText(this, String.format(getString(R.string.media_event_done), mFile.getFileName()), Toast.LENGTH_LONG).show();
         if (mMediaController != null) {
             // somebody is still bound to the service
             player.seekTo(0);
