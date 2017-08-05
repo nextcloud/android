@@ -1,3 +1,16 @@
+## 2017-08-06 00:30
+New branches:
+/
+
+Updated branches:
+- Revert description for clear successful uploads (nextcloud/clearSuccessfulUploads) [https://github.com/nextcloud/android/pull/1262] updated
+
+Conflicting branches:
+- Update user name with correct id found by user ocs call (nextcloud/ldap) [https://github.com/nextcloud/android/pull/1265] conflicting
+- Revert description for clear successful uploads (nextcloud/clearSuccessfulUploads) [https://github.com/nextcloud/android/pull/1262] conflicting
+- Resized images (nextcloud/resizedImages) [https://github.com/nextcloud/android/pull/69] conflicting
+- Master (nextcloud/master) [https://github.com/nextcloud/android] conflicting
+
 ## 2017-08-05 00:32
 New branches:
 - Revert description for clear successful uploads (nextcloud/clearSuccessfulUploads) [https://github.com/nextcloud/android/pull/1262] added
