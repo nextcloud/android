@@ -1,4 +1,4 @@
-2017-08-06 00:30:23
+2017-08-07 00:30:36
 Branches: 8
 [01 / 08] Update user name with correct id found by user ocs call (nextcloud/ldap) [https://github.com/nextcloud/android/pull/1265] CONFLICT
 [02 / 08] Revert description for clear successful uploads (nextcloud/clearSuccessfulUploads) [https://github.com/nextcloud/android/pull/1262] CONFLICT
