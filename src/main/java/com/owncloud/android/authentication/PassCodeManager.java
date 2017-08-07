@@ -23,6 +23,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.PowerManager;
 import android.preference.PreferenceManager;
 import android.view.WindowManager;
@@ -71,26 +72,22 @@ public class PassCodeManager {
     }
 
     public void onActivityStarted(Activity activity) {
-        if (!sExemptOfPasscodeActivites.contains(activity.getClass()) &&
-                passCodeShouldBeRequested()
-                ){
+        if (!sExemptOfPasscodeActivites.contains(activity.getClass()) && passCodeShouldBeRequested()) {
 
             Intent i = new Intent(MainApp.getAppContext(), PassCodeActivity.class);
             i.setAction(PassCodeActivity.ACTION_CHECK);
             i.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
             activity.startActivity(i);
-
         }
 
         if (!sExemptOfPasscodeActivites.contains(activity.getClass()) &&
-                fingerprintShouldBeRequested() && FingerprintActivity.isFingerprintReady(MainApp.getAppContext())
-                ){
+                Build.VERSION.SDK_INT >= Build.VERSION_CODES.M &&
+                fingerprintShouldBeRequested() && FingerprintActivity.isFingerprintReady(MainApp.getAppContext())) {
 
             Intent i = new Intent(MainApp.getAppContext(), FingerprintActivity.class);
             i.setAction(PassCodeActivity.ACTION_CHECK);
             i.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
             activity.startActivity(i);
-
         }
 
         mVisibleActivitiesCounter++;    // keep it AFTER passCodeShouldBeRequested was checked

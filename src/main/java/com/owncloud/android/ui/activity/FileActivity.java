@@ -40,7 +40,6 @@ import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.authentication.AuthenticatorActivity;
-import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.services.FileDownloader;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
@@ -448,7 +447,7 @@ public abstract class FileActivity extends DrawerActivity
                         operation, getResources()), Toast.LENGTH_LONG);
                 msg.show();
             }
-            invalidateOptionsMenu();
+            supportInvalidateOptionsMenu();
         }
     }
 
