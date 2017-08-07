@@ -39,7 +39,7 @@ import com.owncloud.android.MainApp;
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.FilesystemDataProvider;
-import com.owncloud.android.datamodel.MediaFolder;
+import com.owncloud.android.datamodel.MediaFolderType;
 import com.owncloud.android.datamodel.SyncedFolder;
 import com.owncloud.android.datamodel.SyncedFolderProvider;
 import com.owncloud.android.datamodel.UploadsStorageManager;
@@ -83,7 +83,7 @@ public class FilesSyncHelper {
         boolean dryRun = TextUtils.isEmpty(arbitraryDataProvider.getValue
                 (GLOBAL, syncedFolderInitiatedKey));
 
-        if (MediaFolder.IMAGE == syncedFolder.getType()) {
+        if (MediaFolderType.IMAGE == syncedFolder.getType()) {
             if (dryRun) {
                 arbitraryDataProvider.storeOrUpdateKeyValue(GLOBAL, syncedFolderInitiatedKey,
                         currentTimeString);
@@ -94,7 +94,7 @@ public class FilesSyncHelper {
                         syncedFolder);
             }
 
-        } else if (MediaFolder.VIDEO == syncedFolder.getType()) {
+        } else if (MediaFolderType.VIDEO == syncedFolder.getType()) {
 
             if (dryRun) {
                 arbitraryDataProvider.storeOrUpdateKeyValue(GLOBAL, syncedFolderInitiatedKey,
@@ -152,7 +152,7 @@ public class FilesSyncHelper {
         SyncedFolderProvider syncedFolderProvider = new SyncedFolderProvider(contentResolver);
 
         for (SyncedFolder syncedFolder : syncedFolderProvider.getSyncedFolders()) {
-            if ((syncedFolder.isEnabled()) && ((MediaFolder.CUSTOM != syncedFolder.getType()) || !skipCustom)) {
+            if ((syncedFolder.isEnabled()) && ((MediaFolderType.CUSTOM != syncedFolder.getType()) || !skipCustom)) {
                     insertAllDBEntriesForSyncedFolder(syncedFolder);
             }
         }
@@ -263,9 +263,9 @@ public class FilesSyncHelper {
 
         if (syncedFolderProvider.getSyncedFolders() != null) {
             for (SyncedFolder syncedFolder : syncedFolderProvider.getSyncedFolders()) {
-                if (MediaFolder.VIDEO == syncedFolder.getType()) {
+                if (MediaFolderType.VIDEO == syncedFolder.getType()) {
                     hasVideoFolders = true;
-                } else if (MediaFolder.IMAGE == syncedFolder.getType()) {
+                } else if (MediaFolderType.IMAGE == syncedFolder.getType()) {
                     hasImageFolders = true;
                 }
             }
