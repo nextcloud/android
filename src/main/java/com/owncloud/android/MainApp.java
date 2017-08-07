@@ -306,7 +306,7 @@ public class MainApp extends MultiDexApplication {
                 // show info pop-up
                 new AlertDialog.Builder(this, R.style.Theme_ownCloud_Dialog)
                         .setTitle(R.string.drawer_synced_folders)
-                        .setMessage(R.string.folder_sync_new_info)
+                        .setMessage(R.string.synced_folders_new_info)
                         .setPositiveButton(R.string.drawer_open, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
                                 // show Auto Upload
