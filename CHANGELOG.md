@@ -1,3 +1,14 @@
+## 2017-08-08 00:31
+New branches:
+/
+
+Updated branches:
+- Dev branch (nextcloud/dev) [https://github.com/nextcloud/android/tree/dev] updated
+- Master (nextcloud/master) [https://github.com/nextcloud/android] updated
+
+Conflicting branches:
+- Add further media types to auto upload (nextcloud/mediaStoreAutoUpload) [https://github.com/nextcloud/android/pull/797] conflicting
+
 ## 2017-08-07 00:30
 New branches:
 /
