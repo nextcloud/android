@@ -95,7 +95,7 @@ public class ConflictsResolveActivity extends FileActivity implements OnConflict
                 // current Account
                 if (file != null) {
                     setFile(file);
-                    ConflictsResolveDialog d = ConflictsResolveDialog.newInstance(file.getRemotePath(), this);
+                    ConflictsResolveDialog d = ConflictsResolveDialog.newInstance(this);
                     d.showDialog(this);
 
                 } else {
