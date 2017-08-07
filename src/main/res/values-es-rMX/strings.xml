@@ -577,7 +577,6 @@
     <string name="move_to">Mover a&#8230;</string>
     <string name="copy_to">Copiar a&#8230;</string>
     <string name="choose_remote_folder">Seleccione la carpeta&#8230;</string>
-    <string name="folder_sync_new_info">La carga automática ha sido completamente moderinzada. Reconfigura tu carga automática desde el menu principal. \n\nDisfruta de las nuevas y extendidas capacidades de la carga automática. </string>
     <plurals name="items_selected_count">
         <item quantity="one">%d seleccionado</item>
         <item quantity="other">%d seleccionado</item>
