@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <!--
   ownCloud Android client application
   Copyright (C) 2015 ownCloud Inc.
@@ -94,7 +93,7 @@
         android:layout_marginRight="@dimen/standard_quarter_margin"
         android:ellipsize="middle"
         android:gravity="center_horizontal"
-        android:maxLines="1"
+        android:singleLine="true"
         android:text="@string/placeholder_filename"
         android:textColor="@color/textColor"
         android:textSize="@dimen/grid_item_text_size" />
