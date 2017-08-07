@@ -25,7 +25,7 @@ if [ $? != 0 ] ; then
 	exit 1
 fi
 
-mv build/outputs/apk/android-generic-release.apk ~/apks/nextcloud-dev-$date.apk
+mv build/outputs/apk/android-release.apk ~/apks/nextcloud-dev-$date.apk
 ln -s nextcloud-dev-$date.apk latest.apk
 mv latest.apk ~/apks/
 

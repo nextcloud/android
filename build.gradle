@@ -94,7 +94,7 @@ android {
             }
 
             gplay {
-                applicationId 'com.nextcloud.client'
+                applicationId 'com.nextcloud.android.beta'
                 dimension "default"
             }
 

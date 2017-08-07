@@ -311,9 +311,11 @@
     <string name="filedisplay_no_file_selected">No file selected</string>
     <string name="activity_chooser_title">Send link to &#8230;</string>
     <string name="wait_for_tmp_copy_from_private_storage">Copying file from private storage</string>
+    
 
     <string name="oauth_check_onoff">Log in with OAuth 2.0</string>
     <string name="oauth_login_connection">Connecting to OAuth 2.0 server…</string>
+
 
     <string name="ssl_validator_header">The identity of the server could not be verified</string>
     <string name="ssl_validator_reason_cert_not_trusted">- The server certificate is not trusted</string>
