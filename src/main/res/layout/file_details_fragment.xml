@@ -167,7 +167,10 @@
 				android:layout_height="wrap_content"
 				android:layout_gravity="start"
 				android:text="@string/favorite"
-				android:textSize="16sp"/>
+				android:textSize="16sp"
+				android:layout_alignParentTop="true"
+				android:layout_alignParentLeft="true"
+				android:layout_alignParentStart="true"/>
 
 			<LinearLayout
 				android:layout_width="match_parent"
@@ -206,7 +209,8 @@
 						android:layout_height="wrap_content"
 						android:layout_marginLeft="@dimen/standard_half_margin"
 						android:background="@android:color/transparent"
-						android:src="@drawable/ic_cancel"/>
+						android:src="@drawable/ic_cancel"
+						android:contentDescription="@string/common_cancel"/>
 
 				</LinearLayout>
 

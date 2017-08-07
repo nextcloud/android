@@ -42,27 +42,25 @@
 		android:gravity="center"
 		android:layout_marginTop="@dimen/fragment_margin"
 		android:layout_marginBottom="@dimen/alternate_fragment_margin"
-		android:orientation="horizontal"
-		>
+		android:orientation="horizontal">
 	    				
 		<ProgressBar android:id="@+id/progressBar"
-			android:layout_width="@dimen/zero"
+			android:layout_width="0dp"
 			android:layout_height="wrap_content"
 			android:layout_weight="1"
 			style="?android:attr/progressBarStyleHorizontal"
 			android:indeterminate="false"
-			android:indeterminateOnly="false"
-
-			/>
+			android:indeterminateOnly="false"/>
 
 		<ImageButton
 			android:id="@+id/cancelBtn"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:layout_marginLeft="@dimen/fragment_margin"
+			android:layout_marginStart="@dimen/fragment_margin"
 			android:src="@drawable/ic_action_cancel_grey"
 			android:background="@android:color/transparent"
-		/>
+			android:contentDescription="@string/common_cancel"/>
 
 	</LinearLayout>
 			
