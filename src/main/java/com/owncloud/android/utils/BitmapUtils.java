@@ -1,4 +1,4 @@
-/**
+/*
  * ownCloud Android client application
  *
  * @author David A. Velasco
@@ -23,7 +23,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.BitmapFactory.Options;
 import android.graphics.Matrix;
-import android.media.ExifInterface;
+import android.support.media.ExifInterface;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 
@@ -48,7 +48,7 @@ public class BitmapUtils {
      * @param srcPath       Absolute path to the file containing the image.
      * @param reqWidth      Width of the surface where the Bitmap will be drawn on, in pixels.
      * @param reqHeight     Height of the surface where the Bitmap will be drawn on, in pixels.
-     * @return
+     * @return decoded bitmap
      */
     public static Bitmap decodeSampledBitmapFromFile(String srcPath, int reqWidth, int reqHeight) {
 
@@ -189,7 +189,7 @@ public class BitmapUtils {
      *  @param h Hue is specified as degrees in the range 0 - 360.
      *  @param s Saturation is specified as a percentage in the range 1 - 100.
      *  @param l Lumanance is specified as a percentage in the range 1 - 100.
-     *  @paran alpha  the alpha value between 0 - 1
+     *  @param alpha  the alpha value between 0 - 1
      *  adapted from https://svn.codehaus.org/griffon/builders/gfxbuilder/tags/GFXBUILDER_0.2/
      *  gfxbuilder-core/src/main/com/camick/awt/HSLColor.java
      */
@@ -217,7 +217,7 @@ public class BitmapUtils {
         s /= 100f;
         l /= 100f;
 
-        float q = 0;
+        float q;
 
         if (l < 0.5) {
             q = l * (1 + s);
