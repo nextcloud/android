@@ -30,6 +30,9 @@ import com.owncloud.android.lib.common.utils.Log_OC;
 import java.util.HashSet;
 import java.util.Set;
 
+/*
+    Provider for stored filesystem data
+ */
 public class FilesystemDataProvider {
 
     static private final String TAG = FilesystemDataProvider.class.getSimpleName();

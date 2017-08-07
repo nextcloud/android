@@ -479,7 +479,7 @@ public class UploadFileOperation extends SyncOperation {
                 try {
                     fileLock.release();
                 } catch (IOException e) {
-                    Log_OC.d(TAG, "Failed to unlock file with path " + mOriginalStoragePath);
+                    Log_OC.e(TAG, "Failed to unlock file with path " + mOriginalStoragePath);
                 }
             }
 
