@@ -105,7 +105,7 @@ public class SortingOrderDialogFragment extends DialogFragment {
         mView = inflater.inflate(R.layout.sorting_order_fragment, container, false);
 
         setupDialogElements(mView);
-        setupListeners(mView);
+        setupListeners();
 
         return mView;
     }
@@ -208,10 +208,8 @@ public class SortingOrderDialogFragment extends DialogFragment {
 
     /**
      * setup all listeners.
-     *
-     * @param view the parent view
      */
-    private void setupListeners(View view) {
+    private void setupListeners() {
         mCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
