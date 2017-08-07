@@ -92,7 +92,6 @@ android {
                 applicationId 'com.nextcloud.android.beta'
             }
 
-
             modified {
                 // structure is:
                 // domain tld
