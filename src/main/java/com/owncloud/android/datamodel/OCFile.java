@@ -243,7 +243,7 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
      *
      * @return true if it is
      */
-    public boolean existsOnDevice() {
+    private boolean existsOnDevice() {
         if (mLocalPath != null && mLocalPath.length() > 0) {
             File file = new File(mLocalPath);
             return (file.exists());
@@ -510,15 +510,6 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
         return (parentPath.endsWith("/")) ? parentPath : (parentPath + "/");
     }
 
-    /**
-     * Check, if this file needs updating
-     *
-     * @return
-     */
-    public boolean needsUpdatingWhileSaving() {
-        return mNeedsUpdating;
-    }
-
     public boolean needsUpdateThumbnail() {
         return mNeedsUpdateThumbnail;
     }
@@ -688,7 +679,7 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
         return (permissions != null && permissions.contains(PERMISSION_SHARED_WITH_ME));
     }
 
-    public boolean canReshare(){
+    public boolean canReshare() {
         String permissions = getPermissions();
         return permissions != null && permissions.contains(PERMISSION_CAN_RESHARE);
     }
