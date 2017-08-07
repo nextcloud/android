@@ -24,9 +24,9 @@ package com.owncloud.android.jobs;
 import android.accounts.Account;
 import android.content.ContentResolver;
 import android.content.Context;
-import android.support.media.ExifInterface;
 import android.os.PowerManager;
 import android.support.annotation.NonNull;
+import android.support.media.ExifInterface;
 import android.text.TextUtils;
 
 import com.evernote.android.job.Job;
@@ -34,7 +34,7 @@ import com.evernote.android.job.util.support.PersistableBundleCompat;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.FilesystemDataProvider;
-import com.owncloud.android.datamodel.MediaFolder;
+import com.owncloud.android.datamodel.MediaFolderType;
 import com.owncloud.android.datamodel.SyncedFolder;
 import com.owncloud.android.datamodel.SyncedFolderProvider;
 import com.owncloud.android.files.services.FileUploader;
@@ -86,7 +86,7 @@ public class FilesSyncJob extends Job {
         SyncedFolderProvider syncedFolderProvider = new SyncedFolderProvider(contentResolver);
 
         for (SyncedFolder syncedFolder : syncedFolderProvider.getSyncedFolders()) {
-            if ((syncedFolder.isEnabled()) && (!skipCustom || MediaFolder.CUSTOM != syncedFolder.getType())) {
+            if ((syncedFolder.isEnabled()) && (!skipCustom || MediaFolderType.CUSTOM != syncedFolder.getType())) {
                 for (String path : filesystemDataProvider.getFilesForUpload(syncedFolder.getLocalPath(),
                         Long.toString(syncedFolder.getId()))) {
                     File file = new File(path);
@@ -94,7 +94,7 @@ public class FilesSyncJob extends Job {
                     Long lastModificationTime = file.lastModified();
                     final Locale currentLocale = context.getResources().getConfiguration().locale;
 
-                    if (MediaFolder.IMAGE == syncedFolder.getType()) {
+                    if (MediaFolderType.IMAGE == syncedFolder.getType()) {
                         String mimetypeString = FileStorageUtils.getMimeTypeFromName(file.getAbsolutePath());
                         if ("image/jpeg".equalsIgnoreCase(mimetypeString) || "image/tiff".
                                 equalsIgnoreCase(mimetypeString)) {
