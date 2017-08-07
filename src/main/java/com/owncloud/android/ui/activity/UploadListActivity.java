@@ -76,6 +76,8 @@ public class UploadListActivity extends FileActivity implements UploadListFragme
 
     private static final String SCREEN_NAME = "Uploads";
 
+    private static final String EXPERT_MODE = "expert_mode";
+
     private UploadMessagesReceiver mUploadMessagesReceiver;
 
     private Menu mMenu;
@@ -267,7 +269,7 @@ public class UploadListActivity extends FileActivity implements UploadListFragme
     public boolean onCreateOptionsMenu(Menu menu) {
         SharedPreferences appPrefs =
                 PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        if (appPrefs.getBoolean("expert_mode", false)) {
+        if (appPrefs.getBoolean(EXPERT_MODE, false)) {
             MenuInflater inflater = getMenuInflater();
             inflater.inflate(R.menu.upload_list_menu, menu);
             mMenu = menu;

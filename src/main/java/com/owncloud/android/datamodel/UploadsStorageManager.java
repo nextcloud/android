@@ -371,11 +371,12 @@ public class UploadsStorageManager extends Observable {
         Account account = AccountUtils.getCurrentOwnCloudAccount(mContext);
 
         OCUpload[] uploads = getUploads(
-                ProviderTableMeta.UPLOADS_STATUS + "==" + UploadStatus.UPLOAD_IN_PROGRESS.value + " OR " +
-                        ProviderTableMeta.UPLOADS_LAST_RESULT + "==" + UploadResult.DELAYED_FOR_WIFI.getValue() + " OR " +
-                        ProviderTableMeta.UPLOADS_LAST_RESULT + "==" + UploadResult.LOCK_FAILED.getValue() + " OR " +
-                        ProviderTableMeta.UPLOADS_LAST_RESULT + "==" + UploadResult.DELAYED_FOR_CHARGING.getValue() + " AND " +
-                        ProviderTableMeta.UPLOADS_ACCOUNT_NAME + "== ?",
+                ProviderTableMeta.UPLOADS_STATUS + "==" + UploadStatus.UPLOAD_IN_PROGRESS.value +
+                        " OR " + ProviderTableMeta.UPLOADS_LAST_RESULT + "==" + UploadResult.DELAYED_FOR_WIFI.getValue() +
+                        " OR " + ProviderTableMeta.UPLOADS_LAST_RESULT + "==" + UploadResult.LOCK_FAILED.getValue() +
+                        " OR " + ProviderTableMeta.UPLOADS_LAST_RESULT +
+                        "==" + UploadResult.DELAYED_FOR_CHARGING.getValue() +
+                        " AND " + ProviderTableMeta.UPLOADS_ACCOUNT_NAME + "== ?",
                 new String[]{account.name}
         );
 

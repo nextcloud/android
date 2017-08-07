@@ -383,11 +383,16 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
                 return !pathname.isDirectory();
             }
         });
-        Arrays.sort(files, new Comparator<File>(){
-            public int compare(File f1, File f2)
-            {
-                return Long.valueOf(f1.lastModified()).compareTo(f2.lastModified());
-            } });
+
+        if (files != null) {
+            Arrays.sort(files, new Comparator<File>() {
+                public int compare(File f1, File f2) {
+                    return Long.valueOf(f1.lastModified()).compareTo(f2.lastModified());
+                }
+            });
+        } else {
+            files = new File[]{};
+        }
 
         return files;
     }
