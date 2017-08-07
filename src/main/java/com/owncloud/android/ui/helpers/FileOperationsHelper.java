@@ -23,18 +23,14 @@ package com.owncloud.android.ui.helpers;
 
 import android.accounts.Account;
 import android.content.ActivityNotFoundException;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.LabeledIntent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.net.Uri;
 import android.os.Build;
-import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v4.content.FileProvider;
-import android.util.Log;
 import android.webkit.MimeTypeMap;
 import android.widget.Toast;
 
@@ -516,44 +512,9 @@ public class FileOperationsHelper {
             );
             sendIntent.putExtra(Intent.ACTION_SEND, true);      // Send Action
 
-            // do magic
-
-            List<ResolveInfo> resInfo = mFileActivity.getPackageManager().queryIntentActivities(sendIntent, 0);
-            List<Intent> targetedShareIntents = new ArrayList<>();
-
-            if (!resInfo.isEmpty()) {
-                for (ResolveInfo info : resInfo) {
-                    Intent intent = new Intent();
-                    if (!(info.activityInfo.packageName).equals(MainApp.getAppContext().getPackageName())) {
-                        String packageName = info.activityInfo.packageName;
-
-
-                        intent.setComponent(new ComponentName(packageName, info.activityInfo.name));
-                        intent.setType(file.getMimetype());
-                        intent.putExtra(
-                                Intent.EXTRA_STREAM,
-                                file.getExposedFileUri(mFileActivity)
-                        );
-                        intent.putExtra(Intent.ACTION_SEND, true);      // Send Action
-                        intent.setPackage(packageName);
-
-                        CharSequence label = info.loadLabel(mFileActivity.getPackageManager());
-                        Intent labeledIntent = new LabeledIntent(intent, info.activityInfo.packageName, label,
-                                info.icon);
-
-                        targetedShareIntents.add(labeledIntent);
-                    }
-                }
-
-                final String sendTitle = mFileActivity.getString(R.string.activity_chooser_send_file_title);
-                Intent chooserIntent = Intent.createChooser(targetedShareIntents.remove(0),
-                        sendTitle);
-                chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS,
-                        targetedShareIntents.toArray(new Parcelable[targetedShareIntents.size()]));
-                mFileActivity.startActivity(chooserIntent);
-            } else {
-                Log_OC.d(TAG, "Cannot find any apps that accept sharing");
-            }
+            // Show dialog
+            final String sendTitle = mFileActivity.getString(R.string.activity_chooser_send_file_title);
+            mFileActivity.startActivity(Intent.createChooser(sendIntent, sendTitle));
         } else {
             Log_OC.e(TAG, "Trying to send a NULL OCFile");
         }
