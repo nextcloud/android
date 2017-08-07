@@ -273,7 +273,9 @@ public class GridViewWithHeaderAndFooter extends GridView {
                 Field numColumns = getClass().getSuperclass().getDeclaredField("mColumnWidth");
                 numColumns.setAccessible(true);
                 return numColumns.getInt(this);
-            } catch (NoSuchFieldException | IllegalAccessException e) {
+            } catch (NoSuchFieldException e) {
+                throw new RuntimeException(e);
+            } catch (IllegalAccessException e) {
                 throw new RuntimeException(e);
             }
         }

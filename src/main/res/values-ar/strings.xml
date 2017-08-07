@@ -262,8 +262,6 @@
     <string name="preview_sorry">نعتذر عن ذلك !</string>
     <string name="preview_image_description">معاينة الصورة</string>
     <string name="error__upload__local_file_not_copied">%1$s تعذر نسخه %2$s للمجلد المحلي</string>
-    <string name="prefs_folder_sync_local_path_title">المجلد المحلي</string>
-    <string name="prefs_folder_sync_remote_path_title">مجلد عن بعد</string>
     <string name="share_link_file_error">حدث خطأ ما أثناء محاولة مشاركة هذا الملف أو المجلد</string>
 	<string name="unshare_link_file_error">حدث خطأ ما أثناء محاولة إلغاء مشاركة هذا الملف أو المجلد</string>
     <string name="share_link_password_title">إدخِل كلمة السر</string>
@@ -340,10 +338,8 @@
     <string name="confirmation_remove_files_alert">هل ترغب فعلاً في حذف العناصر المحددة ؟</string>
     <string name="actionbar_search">بحث</string>
     <string name="learn_more">تعلم المزيد</string>
-    <string name="drawer_folder_sync">رفع تلقائي</string>
     <string name="drawer_participate">شارك معنا</string>
     <string name="participate_contribute_headline">ساهم بفعالية</string>
-    <string name="folder_sync_settings">الإعدادات</string>
     <string name="notifications_no_results_headline">لا توجد هناك إخطارات</string>
     <string name="upload_file_dialog_filename">اسم الملف</string>
     <string name="upload_file_dialog_filetype">نوع الملف</string>
@@ -384,8 +380,6 @@
     <string name="picture_set_as_no_app">ﻻ يوجد تطبيق لتعيين الصور !</string>
     <string name="privacy">الخصوصية</string>
     <string name="file_not_found">المجلد غير موجود !</string>
-
-    <string name="folder_sync_folders">تهيئة المجلدات</string>
 
   <string name="test_server_button">أفحص أتصال الخادم</string>
 </resources>
