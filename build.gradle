@@ -11,6 +11,7 @@ buildscript {
         maven {
             url 'https://oss.sonatype.org/content/repositories/snapshots/'
         }
+        google()
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.0.0-alpha9'
@@ -44,7 +45,8 @@ repositories {
     maven {
         url 'https://oss.sonatype.org/content/repositories/snapshots/'
     }
-
+    google()
+    
     flatDir {
         dirs 'libs'
     }
