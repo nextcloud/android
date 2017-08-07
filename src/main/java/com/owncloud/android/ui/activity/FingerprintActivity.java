@@ -20,7 +20,6 @@
 package com.owncloud.android.ui.activity;
 
 import android.Manifest;
-import android.annotation.TargetApi;
 import android.app.KeyguardManager;
 import android.content.Context;
 import android.content.Intent;
