@@ -577,12 +577,7 @@
     <string name="move_to">Mover a&#8230;</string>
     <string name="copy_to">Copiar a&#8230;</string>
     <string name="choose_remote_folder">Seleccione la carpeta&#8230;</string>
-    <string name="folder_sync_loading_folders">Cargando carpetas&#8230;</string>
-    <string name="folder_sync_no_results">No se encontraron carpetas de medios</string>
-    <string name="folder_sync_preferences">Preferencias de carga automática</string>
-    <string name="folder_sync_settings">Configuraciones </string>
     <string name="folder_sync_new_info">La carga automática ha sido completamente moderinzada. Reconfigura tu carga automática desde el menu principal. \n\nDisfruta de las nuevas y extendidas capacidades de la carga automática. </string>
-    <string name="folder_sync_preferences_folder_path">Para %1$s</string>
     <plurals name="items_selected_count">
         <item quantity="one">%d seleccionado</item>
         <item quantity="other">%d seleccionado</item>
@@ -664,8 +659,6 @@
     <string name="picture_set_as_no_app">¡No se encontró una aplicación con la cual establecer una imagen!</string>
     <string name="privacy">Privacidad</string>
     <string name="file_not_found">¡Archivo no encontrado!</string>
-
-    <string name="folder_sync_folders">Configurar carpetas</string>
 
   <string name="test_server_button">Probar la conexión del servidor</string>
 </resources>

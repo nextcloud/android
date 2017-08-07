@@ -637,9 +637,6 @@ nos últimos 7 días.</string>
     <string name="actionbar_contacts">Copia de seguridade dos contactos</string>
     <string name="actionbar_contacts_restore">Restaurar os contactos</string>
     <string name="contacts_backup_button">Facer agora a copia de seguridade</string>
-    <string name="contacts_restore_button">Restaurar a última copia de seguridade</string>
-    <string name="contacts_header_restore">Restaurar</string>
-    <string name="contacts_header_backup">Copia de seguridade</string>
     <string name="contacts_automatic_backup">Copia de seguridade dos contactos</string>
     <string name="contacts_last_backup">Última copia de seguridade</string>
     <string name="contacts_read_permission">Necesitase permiso para ler a lista de contactos</string>
