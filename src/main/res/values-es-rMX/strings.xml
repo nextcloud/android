@@ -69,7 +69,7 @@
     <string name="prefs_remember_last_upload_location_summary">Recordar la ubicación del elemento compartido usado más recientemente </string>
 
 	<string name="recommend_subject">Prueba  %1$s en tu teléfono inteligente!</string>
-<string name="recommend_text">Quisiera invitarte a usar %1$s en tu teléfono inteligente\nDescárgalo aquí: %2$s</string>
+    <string name="recommend_text">Quisiera invitarte a usar %1$s en tu teléfono inteligente\nDescárgalo aquí: %2$s</string>
     <string name="recommend_urls">%1$s o %2$s</string>
 
     <string name="auth_check_server">Verficar el servidor</string>
