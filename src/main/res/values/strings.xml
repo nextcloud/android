@@ -163,6 +163,8 @@
     <string name="delete_account">Remove account</string>
     <string name="delete_account_warning">Delete account %s with all local files?\n\nDeleting cannot be undone.</string>
     <string name="create_account">Create account</string>
+    <string name="avatar">Avatar</string>
+    <string name="active_user">Active user</string>
     <string name="upload_chooser_title">Upload from &#8230;</string>
     <string name="uploader_info_dirname">Folder name</string>
     <string name="uploader_upload_in_progress_ticker">Uploading &#8230;</string>
