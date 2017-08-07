@@ -32,6 +32,9 @@ import com.owncloud.android.utils.FilesSyncHelper;
 
 import java.util.concurrent.TimeUnit;
 
+/*
+    Job that triggers new FilesSyncJob in case new photo or video were detected
+ */
 @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
 public class NContentObserverJob extends JobService {
     @Override
