@@ -167,7 +167,7 @@ public class PushUtils {
                     remoteOperationResult = unregisterAccountDeviceForProxyOperation.execute(mClient);
 
                     if (remoteOperationResult.isSuccess()) {
-                        arbitraryDataProvider.deleteKeyForAccount(account, KEY_PUSH);
+                        arbitraryDataProvider.deleteKeyForAccount(account.name, KEY_PUSH);
                     }
                 }
             }
