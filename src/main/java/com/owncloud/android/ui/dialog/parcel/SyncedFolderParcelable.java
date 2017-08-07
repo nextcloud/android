@@ -38,6 +38,7 @@ public class SyncedFolderParcelable implements Parcelable {
     private Boolean mEnabled = false;
     private Boolean mSubfolderByDate = false;
     private Integer mUploadAction;
+    private int mType;
     private long mId;
     private String mAccount;
     private int mSection;
@@ -54,6 +55,7 @@ public class SyncedFolderParcelable implements Parcelable {
         mChargingOnly = syncedFolderDisplayItem.getChargingOnly();
         mEnabled = syncedFolderDisplayItem.isEnabled();
         mSubfolderByDate = syncedFolderDisplayItem.getSubfolderByDate();
+        mType = syncedFolderDisplayItem.getType();
         mAccount = syncedFolderDisplayItem.getAccount();
         mUploadAction = syncedFolderDisplayItem.getUploadAction();
         mSection = section;
@@ -68,6 +70,7 @@ public class SyncedFolderParcelable implements Parcelable {
         mChargingOnly = read.readInt() != 0;
         mEnabled = read.readInt() != 0;
         mSubfolderByDate = read.readInt() != 0;
+        mType = read.readInt();
         mAccount = read.readString();
         mUploadAction = read.readInt();
         mSection = read.readInt();
@@ -83,6 +86,7 @@ public class SyncedFolderParcelable implements Parcelable {
         dest.writeInt(mChargingOnly ? 1 : 0);
         dest.writeInt(mEnabled ? 1 : 0);
         dest.writeInt(mSubfolderByDate ? 1 : 0);
+        dest.writeInt(mType);
         dest.writeString(mAccount);
         dest.writeInt(mUploadAction);
         dest.writeInt(mSection);
@@ -161,6 +165,14 @@ public class SyncedFolderParcelable implements Parcelable {
 
     public void setSubfolderByDate(Boolean mSubfolderByDate) {
         this.mSubfolderByDate = mSubfolderByDate;
+    }
+
+    public int getType() {
+        return mType;
+    }
+
+    public void setType(int mType) {
+        this.mType = mType;
     }
 
     public Integer getUploadAction() {

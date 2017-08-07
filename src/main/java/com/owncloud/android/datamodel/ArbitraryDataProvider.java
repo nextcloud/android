@@ -47,36 +47,48 @@ public class ArbitraryDataProvider {
         this.contentResolver = contentResolver;
     }
 
-    public int deleteKeyForAccount(Account account, String key) {
+    public int deleteKeyForAccount(String account, String key) {
         int result = contentResolver.delete(
                 ProviderMeta.ProviderTableMeta.CONTENT_URI_ARBITRARY_DATA,
                 ProviderMeta.ProviderTableMeta.ARBITRARY_DATA_CLOUD_ID + " = ? AND " +
                         ProviderMeta.ProviderTableMeta.ARBITRARY_DATA_KEY + "= ?",
-                new String[]{account.name, key}
+                new String[]{account, key}
+        );
+
+        return result;
+    }
+
+    public int deleteForKeyWhereAccountNotIn(ArrayList<String> accounts, String key) {
+
+        int result = contentResolver.delete(
+                ProviderMeta.ProviderTableMeta.CONTENT_URI_ARBITRARY_DATA,
+                ProviderMeta.ProviderTableMeta.ARBITRARY_DATA_CLOUD_ID + " NOT IN (?) AND " +
+                        ProviderMeta.ProviderTableMeta.ARBITRARY_DATA_KEY + "= ?",
+                new String[]{String.valueOf(accounts), key}
         );
 
         return result;
     }
 
 
-    public void storeOrUpdateKeyValue(Account account, String key, String newValue) {
-        ArbitraryDataSet data = getArbitraryDataSet(account, key);
+    public void storeOrUpdateKeyValue(String accountName, String key, String newValue) {
+        ArbitraryDataSet data = getArbitraryDataSet(accountName, key);
         if (data == null) {
-            Log_OC.v(TAG, "Adding arbitrary data with cloud id: " + account.name + " key: " + key
+            Log_OC.v(TAG, "Adding arbitrary data with cloud id: " + accountName + " key: " + key
                     + " value: " + newValue);
             ContentValues cv = new ContentValues();
-            cv.put(ProviderMeta.ProviderTableMeta.ARBITRARY_DATA_CLOUD_ID, account.name);
+            cv.put(ProviderMeta.ProviderTableMeta.ARBITRARY_DATA_CLOUD_ID, accountName);
             cv.put(ProviderMeta.ProviderTableMeta.ARBITRARY_DATA_KEY, key);
             cv.put(ProviderMeta.ProviderTableMeta.ARBITRARY_DATA_VALUE, newValue);
 
             Uri result = contentResolver.insert(ProviderMeta.ProviderTableMeta.CONTENT_URI_ARBITRARY_DATA, cv);
 
             if (result == null) {
-                Log_OC.v(TAG, "Failed to store arbitrary data with cloud id: " + account.name + " key: " + key
+                Log_OC.v(TAG, "Failed to store arbitrary data with cloud id: " + accountName + " key: " + key
                         + " value: " + newValue);
             }
         } else {
-            Log_OC.v(TAG, "Updating arbitrary data with cloud id: " + account.name + " key: " + key
+            Log_OC.v(TAG, "Updating arbitrary data with cloud id: " + accountName + " key: " + key
                     + " value: " + newValue);
             ContentValues cv = new ContentValues();
             cv.put(ProviderMeta.ProviderTableMeta.ARBITRARY_DATA_CLOUD_ID, data.getCloudId());
@@ -91,7 +103,7 @@ public class ArbitraryDataProvider {
             );
 
             if (result == 0) {
-                Log_OC.v(TAG, "Failed to update arbitrary data with cloud id: " + account.name + " key: " + key
+                Log_OC.v(TAG, "Failed to update arbitrary data with cloud id: " + accountName + " key: " + key
                         + " value: " + newValue);
             }
         }
@@ -215,13 +227,13 @@ public class ArbitraryDataProvider {
         return "";
     }
 
-    private ArbitraryDataSet getArbitraryDataSet(Account account, String key) {
+    private ArbitraryDataSet getArbitraryDataSet(String accountName, String key) {
         Cursor cursor = contentResolver.query(
                 ProviderMeta.ProviderTableMeta.CONTENT_URI_ARBITRARY_DATA,
                 null,
                 ProviderMeta.ProviderTableMeta.ARBITRARY_DATA_CLOUD_ID + " = ? and " +
                         ProviderMeta.ProviderTableMeta.ARBITRARY_DATA_KEY + " = ?",
-                new String[]{account.name, key},
+                new String[]{accountName, key},
                 null
         );
 

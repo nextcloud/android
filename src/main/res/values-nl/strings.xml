@@ -362,8 +362,8 @@ Kies er eentje van een provider.</string>
 
     <string name="error__upload__local_file_not_copied">%1$s kon niet worden gekopieerd naar de lokale map %2$s</string>
     <string name="prefs_instant_upload_path_title">Directe-uploadmap</string>
-    <string name="prefs_folder_sync_local_path_title">Lokale map</string>
-    <string name="prefs_folder_sync_remote_path_title">Externe map</string>
+    <string name="prefs_synced_folders_local_path_title">Lokale map</string>
+    <string name="prefs_synced_folders_remote_path_title">Externe map</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Gebruik submappen</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Opslaan in submappen, gebaseerd op jaar en maand</string>
 
@@ -555,7 +555,7 @@ Kies er eentje van een provider.</string>
     <string name="actionbar_search">Zoeken</string>
     <string name="files_drop_not_supported">Dit is een Nextcloud-optie, gelieve te updaten.</string>
     <string name="learn_more">Meer weten</string>
-    <string name="drawer_folder_sync">Automatisch uploaden</string>
+    <string name="drawer_synced_folders">Automatisch uploaden</string>
     <string name="drawer_participate">Meedoen</string>
     <string name="participate_testing_headline">Help bij testen</string>
     <string name="participate_testing_bug_text">Bug gevonden? Rare dingen?</string>
@@ -572,12 +572,12 @@ Kies er eentje van een provider.</string>
     <string name="move_to">Verplaats naar&#160;&#8230;</string>
     <string name="copy_to">Kopieer naar&#160;&#8230;</string>
     <string name="choose_remote_folder">Kies map&#160;&#8230;</string>
-    <string name="folder_sync_loading_folders">Mappen laden&#160;&#8230;</string>
-    <string name="folder_sync_no_results">Geen mediamappen gevonden.</string>
-    <string name="folder_sync_preferences">Voorkeuren voor automatisch uploaden</string>
-    <string name="folder_sync_settings">Instellingen</string>
-    <string name="folder_sync_new_info">Direct uploaden is helemaal herzien. Bekijk het hoofdmenu en herconfigureer je auto-uploadfunctie. Onze excuses voor het ongemak.\n\nVeel plezier met de nieuwe en meer uitgebreide auto-upload-mogelijkheden!</string>
-    <string name="folder_sync_preferences_folder_path">Voor %1$s</string>
+    <string name="synced_folders_loading_folders">Mappen laden&#160;&#8230;</string>
+    <string name="synced_folders_no_results">Geen mediamappen gevonden.</string>
+    <string name="synced_folders_preferences">Voorkeuren voor automatisch uploaden</string>
+    <string name="synced_folders_settings">Instellingen</string>
+    <string name="synced_folders_new_info">Direct uploaden is helemaal herzien. Bekijk het hoofdmenu en herconfigureer je auto-uploadfunctie. Onze excuses voor het ongemak.\n\nVeel plezier met de nieuwe en meer uitgebreide auto-upload-mogelijkheden!</string>
+    <string name="synced_folders_preferences_folder_path">Voor %1$s</string>
     <plurals name="items_selected_count">
         <item quantity="one">%d geselecteerd</item>
         <item quantity="other">%d geselecteerd</item>
@@ -660,7 +660,7 @@ Kies er eentje van een provider.</string>
     <string name="privacy">Privacy</string>
     <string name="file_not_found">Bestand niet gevonden!</string>
 
-    <string name="folder_sync_folders">Mappen instellen</string>
+    <string name="synced_folders_configure_folders">Mappen instellen</string>
 
   <string name="test_server_button">Test server verbinding</string>
 </resources>

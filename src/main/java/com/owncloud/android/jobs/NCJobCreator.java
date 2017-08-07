@@ -18,10 +18,11 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.owncloud.android.services;
+package com.owncloud.android.jobs;
 
 import com.evernote.android.job.Job;
 import com.evernote.android.job.JobCreator;
+import com.owncloud.android.services.AccountRemovalJob;
 
 /**
  * Job creator for android-job
@@ -39,6 +40,8 @@ public class NCJobCreator implements JobCreator {
                 return new ContactsImportJob();
             case AccountRemovalJob.TAG:
                 return new AccountRemovalJob();
+            case FilesSyncJob.TAG:
+                return new FilesSyncJob();
             default:
                 return null;
         }

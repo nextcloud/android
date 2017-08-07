@@ -20,6 +20,7 @@
 package com.owncloud.android.ui.activity;
 
 import android.Manifest;
+import android.annotation.TargetApi;
 import android.app.KeyguardManager;
 import android.content.Context;
 import android.content.Intent;
@@ -286,7 +287,7 @@ public class FingerprintActivity extends AppCompatActivity {
     }
 }
 
-@RequiresApi(Build.VERSION_CODES.M)
+@RequiresApi(api = Build.VERSION_CODES.M)
 class FingerprintHandler extends FingerprintManager.AuthenticationCallback {
 
     private TextView text;

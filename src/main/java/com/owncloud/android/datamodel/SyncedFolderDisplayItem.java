@@ -47,11 +47,12 @@ public class SyncedFolderDisplayItem extends SyncedFolder {
      * @param filePaths       the UI info for the file path
      * @param folderName      the UI info for the folder's name
      * @param numberOfFiles   the UI info for number of files within the folder
+     * @param type            the type of the folder
      */
     public SyncedFolderDisplayItem(long id, String localPath, String remotePath, Boolean wifiOnly, Boolean chargingOnly,
                                    Boolean subfolderByDate, String account, Integer uploadAction, Boolean enabled,
-                                   List<String> filePaths, String folderName, long numberOfFiles) {
-        super(id, localPath, remotePath, wifiOnly, chargingOnly, subfolderByDate, account, uploadAction, enabled);
+                                   List<String> filePaths, String folderName, long numberOfFiles, Integer type) {
+        super(id, localPath, remotePath, wifiOnly, chargingOnly, subfolderByDate, account, uploadAction, enabled, type);
         this.filePaths = filePaths;
         this.folderName = folderName;
         this.numberOfFiles = numberOfFiles;
@@ -59,11 +60,10 @@ public class SyncedFolderDisplayItem extends SyncedFolder {
 
     public SyncedFolderDisplayItem(long id, String localPath, String remotePath, Boolean wifiOnly, Boolean chargingOnly,
                                    Boolean subfolderByDate, String account, Integer uploadAction, Boolean enabled,
-                                   String folderName) {
-        super(id, localPath, remotePath, wifiOnly, chargingOnly, subfolderByDate, account, uploadAction, enabled);
+                                   String folderName, Integer type) {
+        super(id, localPath, remotePath, wifiOnly, chargingOnly, subfolderByDate, account, uploadAction, enabled, type);
         this.folderName = folderName;
     }
-
 
     public List<String> getFilePaths() {
         return filePaths;

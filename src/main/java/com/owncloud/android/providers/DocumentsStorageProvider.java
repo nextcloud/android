@@ -18,7 +18,7 @@
  *
  */
 
-package org.nextcloud.providers;
+package com.owncloud.android.providers;
 
 import android.accounts.Account;
 import android.annotation.TargetApi;

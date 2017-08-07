@@ -100,8 +100,18 @@ public class OCUpload implements Parcelable {
      */
     private long mUploadEndTimeStamp;
 
-
     /**
+     * Upload only via wifi?
+     */
+    private boolean mIsUseWifiOnly;
+    /**
+     * Upload only if phone being charged?
+     */
+    private boolean mIsWhileChargingOnly;
+    /**
+
+
+     /**
      * Main constructor
      *
      * @param localPath         Absolute path in the local file system to the file to be uploaded.
@@ -151,6 +161,8 @@ public class OCUpload implements Parcelable {
         mUploadStatus = UploadStatus.UPLOAD_IN_PROGRESS;
         mLastResult = UploadResult.UNKNOWN;
         mCreatedBy = UploadFileOperation.CREATED_BY_USER;
+        mIsUseWifiOnly = true;
+        mIsWhileChargingOnly = false;
     }
 
     // Getters & Setters
@@ -341,6 +353,28 @@ public class OCUpload implements Parcelable {
     };
 
     /**
+     * @return the isUseWifiOnly
+     */
+    public boolean isUseWifiOnly() {
+        return mIsUseWifiOnly;
+    }
+
+    /**
+     * @param isUseWifiOnly the isUseWifiOnly to set
+     */
+    public void setUseWifiOnly(boolean isUseWifiOnly) {
+        this.mIsUseWifiOnly = isUseWifiOnly;
+    }
+
+    public void setWhileChargingOnly(boolean isWhileChargingOnly) {
+        this.mIsWhileChargingOnly = isWhileChargingOnly;
+    }
+
+    public boolean isWhileChargingOnly() {
+        return mIsWhileChargingOnly;
+    }
+
+    /**
      * Reconstruct from parcel
      *
      * @param source The source parcel
@@ -369,6 +403,8 @@ public class OCUpload implements Parcelable {
             mLastResult = UploadResult.UNKNOWN;
         }
         mCreatedBy = source.readInt();
+        mIsUseWifiOnly = (source.readInt() == 1);
+        mIsWhileChargingOnly = (source.readInt() == 1);
     }
 
 
@@ -390,6 +426,8 @@ public class OCUpload implements Parcelable {
         dest.writeLong(mUploadEndTimeStamp);
         dest.writeString(((mLastResult == null) ? "" : mLastResult.name()));
         dest.writeInt(mCreatedBy);
+        dest.writeInt(mIsUseWifiOnly ? 1 : 0);
+        dest.writeInt(mIsWhileChargingOnly ? 1 : 0);
     }
 
     enum CanUploadFileNowStatus {NOW, LATER, FILE_GONE, ERROR}

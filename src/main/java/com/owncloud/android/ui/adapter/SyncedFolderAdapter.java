@@ -1,22 +1,22 @@
 /**
  *   Nextcloud Android client application
  *
- *   @author Andy Scherzinger
- *   Copyright (C) 2016 Andy Scherzinger
- *   Copyright (C) 2016 Nextcloud
- *
- *   This program is free software; you can redistribute it and/or
- *   modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
- *   License as published by the Free Software Foundation; either
- *   version 3 of the License, or any later version.
- *
- *   This program is distributed in the hope that it will be useful,
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *   GNU AFFERO GENERAL PUBLIC LICENSE for more details.
- *
- *   You should have received a copy of the GNU Affero General Public
- *   License along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * @author Andy Scherzinger
+ * Copyright (C) 2016 Andy Scherzinger
+ * Copyright (C) 2016 Nextcloud
+ * <p>
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or any later version.
+ * <p>
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU AFFERO GENERAL PUBLIC LICENSE for more details.
+ * <p>
+ * You should have received a copy of the GNU Affero General Public
+ * License along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 package com.owncloud.android.ui.adapter;
@@ -29,10 +29,12 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.afollestad.sectionedrecyclerview.SectionedRecyclerViewAdapter;
 import com.owncloud.android.R;
+import com.owncloud.android.datamodel.MediaFolder;
 import com.owncloud.android.datamodel.SyncedFolderDisplayItem;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.utils.ThemeUtils;
@@ -44,7 +46,7 @@ import java.util.List;
 /**
  * Adapter to display all auto-synced folders and/or instant upload media folders.
  */
-public class FolderSyncAdapter extends SectionedRecyclerViewAdapter<FolderSyncAdapter.MainViewHolder> {
+public class SyncedFolderAdapter extends SectionedRecyclerViewAdapter<SyncedFolderAdapter.MainViewHolder> {
 
     private final Context mContext;
     private final int mGridWidth;
@@ -53,23 +55,34 @@ public class FolderSyncAdapter extends SectionedRecyclerViewAdapter<FolderSyncAd
     private final List<SyncedFolderDisplayItem> mSyncFolderItems;
     private final boolean mLight;
 
-    public FolderSyncAdapter(Context context, int gridWidth, ClickListener listener, boolean light) {
+    public SyncedFolderAdapter(Context context, int gridWidth, ClickListener listener, boolean light) {
         mContext = context;
         mGridWidth = gridWidth;
         mGridTotal = gridWidth * 2;
         mListener = listener;
         mSyncFolderItems = new ArrayList<>();
         mLight = light;
+
+        shouldShowHeadersForEmptySections(true);
     }
 
     public void setSyncFolderItems(List<SyncedFolderDisplayItem> syncFolderItems) {
         mSyncFolderItems.clear();
         mSyncFolderItems.addAll(syncFolderItems);
-        notifyDataSetChanged();
     }
 
     public void setSyncFolderItem(int location, SyncedFolderDisplayItem syncFolderItem) {
         mSyncFolderItems.set(location, syncFolderItem);
+        notifyDataSetChanged();
+    }
+
+    public void addSyncFolderItem(SyncedFolderDisplayItem syncFolderItem) {
+        mSyncFolderItems.add(syncFolderItem);
+        notifyDataSetChanged();
+    }
+
+    public void removeItem(int section) {
+        mSyncFolderItems.remove(section);
         notifyDataSetChanged();
     }
 
@@ -87,18 +100,39 @@ public class FolderSyncAdapter extends SectionedRecyclerViewAdapter<FolderSyncAd
         }
     }
 
+    public SyncedFolderDisplayItem get(int section) {
+        return mSyncFolderItems.get(section);
+    }
+
     @Override
     public void onBindHeaderViewHolder(final MainViewHolder holder, final int section) {
+        holder.mainHeaderContainer.setVisibility(View.VISIBLE);
+
         holder.title.setText(mSyncFolderItems.get(section).getFolderName());
+
+        if (MediaFolder.VIDEO == mSyncFolderItems.get(section).getType()) {
+            holder.type.setImageResource(R.drawable.ic_video_18dp);
+        } else if (MediaFolder.IMAGE == mSyncFolderItems.get(section).getType()) {
+            holder.type.setImageResource(R.drawable.ic_image_18dp);
+        } else {
+            holder.type.setImageResource(R.drawable.ic_folder_star_18dp);
+        }
+
         holder.syncStatusButton.setVisibility(View.VISIBLE);
         holder.syncStatusButton.setTag(section);
-        holder.syncStatusButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mSyncFolderItems.get(section).setEnabled(!mSyncFolderItems.get(section).isEnabled());
-                setSyncButtonActiveIcon(holder.syncStatusButton, mSyncFolderItems.get(section).isEnabled());
-                mListener.onSyncStatusToggleClick(section, mSyncFolderItems.get(section));
-            }
+        holder.syncStatusButton.setOnClickListener(v -> {
+            mSyncFolderItems.get(section).setEnabled(!mSyncFolderItems.get(section).isEnabled());
+            setSyncButtonActiveIcon(holder.syncStatusButton, mSyncFolderItems.get(section).isEnabled());
+            mListener.onSyncStatusToggleClick(section, mSyncFolderItems.get(section));
+        });
+        setSyncButtonActiveIcon(holder.syncStatusButton, mSyncFolderItems.get(section).isEnabled());
+
+        holder.syncStatusButton.setVisibility(View.VISIBLE);
+        holder.syncStatusButton.setTag(section);
+        holder.syncStatusButton.setOnClickListener(v -> {
+            mSyncFolderItems.get(section).setEnabled(!mSyncFolderItems.get(section).isEnabled());
+            setSyncButtonActiveIcon(holder.syncStatusButton, mSyncFolderItems.get(section).isEnabled());
+            mListener.onSyncStatusToggleClick(section, mSyncFolderItems.get(section));
         });
         setSyncButtonActiveIcon(holder.syncStatusButton, mSyncFolderItems.get(section).isEnabled());
 
@@ -107,18 +141,14 @@ public class FolderSyncAdapter extends SectionedRecyclerViewAdapter<FolderSyncAd
         } else {
             holder.menuButton.setVisibility(View.VISIBLE);
             holder.menuButton.setTag(section);
-            holder.menuButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    mListener.onSyncFolderSettingsClick(section, mSyncFolderItems.get(section));
-                }
-            });
+            holder.menuButton.setOnClickListener(v -> mListener.onSyncFolderSettingsClick(section,
+                    mSyncFolderItems.get(section)));
         }
     }
 
+
     @Override
     public void onBindViewHolder(MainViewHolder holder, int section, int relativePosition, int absolutePosition) {
-
         if (mSyncFolderItems.get(section).getFilePaths() != null) {
             File file = new File(mSyncFolderItems.get(section).getFilePaths().get(relativePosition));
 
@@ -148,14 +178,6 @@ public class FolderSyncAdapter extends SectionedRecyclerViewAdapter<FolderSyncAd
                 holder.counterBar.setVisibility(View.GONE);
                 holder.thumbnailDarkener.setVisibility(View.GONE);
             }
-
-            //holder.itemView.setTag(String.format(Locale.getDefault(), "%d:%d:%d", section, relativePos, absolutePos));
-            //holder.itemView.setOnClickListener(this);
-        } else {
-            holder.itemView.setTag(relativePosition % mGridWidth);
-            holder.counterValue.setText(Long.toString(0));
-            holder.counterBar.setVisibility(View.VISIBLE);
-            holder.thumbnailDarkener.setVisibility(View.VISIBLE);
         }
     }
 
@@ -163,7 +185,7 @@ public class FolderSyncAdapter extends SectionedRecyclerViewAdapter<FolderSyncAd
     public MainViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(
                 viewType == VIEW_TYPE_HEADER ?
-                        R.layout.folder_sync_item_header : R.layout.grid_sync_item, parent, false);
+                        R.layout.synced_folders_item_header : R.layout.grid_sync_item, parent, false);
         return new MainViewHolder(v);
     }
 
@@ -175,16 +197,21 @@ public class FolderSyncAdapter extends SectionedRecyclerViewAdapter<FolderSyncAd
     static class MainViewHolder extends RecyclerView.ViewHolder {
         private final ImageView image;
         private final TextView title;
+        private final ImageView type;
         private final ImageButton menuButton;
         private final ImageButton syncStatusButton;
         private final LinearLayout counterBar;
         private final TextView counterValue;
         private final ImageView thumbnailDarkener;
 
+        private final RelativeLayout mainHeaderContainer;
+
         private MainViewHolder(View itemView) {
             super(itemView);
+            mainHeaderContainer = (RelativeLayout) itemView.findViewById(R.id.header_container);
             image = (ImageView) itemView.findViewById(R.id.thumbnail);
             title = (TextView) itemView.findViewById(R.id.title);
+            type = (ImageView) itemView.findViewById(R.id.type);
             menuButton = (ImageButton) itemView.findViewById(R.id.settingsButton);
             syncStatusButton = (ImageButton) itemView.findViewById(R.id.syncStatusButton);
             counterBar = (LinearLayout) itemView.findViewById(R.id.counterLayout);
@@ -194,7 +221,7 @@ public class FolderSyncAdapter extends SectionedRecyclerViewAdapter<FolderSyncAd
     }
 
     private void setSyncButtonActiveIcon(ImageButton syncStatusButton, boolean enabled) {
-        if(enabled) {
+        if (enabled) {
             syncStatusButton.setImageDrawable(ThemeUtils.tintDrawable(R.drawable.ic_cloud_sync_on,
                     ThemeUtils.primaryColor()));
         } else {
