@@ -60,6 +60,7 @@
     <string name="prefs_calendar_contacts_address_resolve_error">Serveradresse des Kontos für die DAVdroid-Nutzung konnte nicht ermittelt werden</string>
     <string name="prefs_calendar_contacts_no_store_error">Weder F-Droid noch Google-Play sind installiert</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Kalender- &amp; Adress-Synchronisation konfigurieren</string>
+    <string name="prefs_daily_contacts_sync_summary">Tägliche Sicherung deiner Kontakte</string>
     <string name="prefs_help">Hilfe</string>
     <string name="prefs_recommend">Einem Freund empfehlen</string>
     <string name="prefs_feedback">Rückmeldungen</string>
@@ -69,6 +70,7 @@
 
 	<string name="recommend_subject">Probiere %1$s auf Deinem Smartphone!</string>
 	<string name="recommend_text">"Ich empfehle Dir die Nutzung von %1$s auf Deinem Smartphone!\nLade es hier herunter: %2$s"</string>
+    <string name="recommend_urls">%1$s oder %2$s</string>
 
     <string name="auth_check_server">Server überprüfen</string>
     <string name="auth_host_url">Server-Adresse https://…</string>
@@ -112,17 +114,17 @@
     <string name="file_list_empty_headline_server_search_videos">Keine Videos</string>
     <string name="file_list_empty_headline_server_search_photos">Keine Fotos</string>
     <string name="file_list_empty_search">Vielleicht befindet es sich in einem anderen Ordner?</string>
-    <string name="file_list_empty_recently_modified">Keine, innerhalb der letzten 7 Tage, geänderten Dateien gefunden</string>
-    <string name="file_list_empty_recently_modified_filter">Keine Dateien gefunden, die in den letzten 7 Tagen geändert wurden.</string>
+    <string name="file_list_empty_recently_modified">Keine geänderten Dateien innerhalb der letzten 7 Tage gefunden</string>
+    <string name="file_list_empty_recently_modified_filter">Es wurden keine Dateien gefunden die in den letzten 7 Tagen geändert wurden.</string>
     <string name="file_list_empty_recently_added">Keine kürzlich hinzugefügten Dateien gefunden</string>
-    <string name="file_list_empty_recently_added_filter">Keine kürzlich hinzu gefügten Dateien gefunden!</string>
-    <string name="file_list_empty_text_photos">Lade Fotos hoch oder aktiviere den Sofortupload!</string>
+    <string name="file_list_empty_recently_added_filter">Keine kürzlich hinzugefügten Dateien gefunden.</string>
+    <string name="file_list_empty_text_photos">Lade Fotos hoch oder aktiviere den Sofortupload.</string>
     <string name="file_list_empty_text_photos_filter">Keine Fotos gefunden.</string>
     <string name="file_list_empty_text_videos">Lade einige Videos hoch oder aktiviere den Sofortupload.</string>
     <string name="file_list_empty_text_videos_filter">Keine Videos gefunden.</string>
     <string name="upload_list_empty_headline">Keine Uploads verfügbar</string>
     <string name="upload_list_empty_text">Lade Inhalte hoch oder aktiviere den Sofortupload.</string>
-    <string name="upload_list_empty_text_auto_upload">Lade Inhalte hoch oder aktiviere den Auto Upload!</string>
+    <string name="upload_list_empty_text_auto_upload">Lade Inhalte hoch oder aktiviere den Sofortupload.</string>
     <string name="file_list_folder">Ordner</string>
     <string name="file_list_folders">Ordner</string>
     <string name="file_list_file">Datei</string>
@@ -155,7 +157,7 @@
     <string name="about_title">Über</string>
     <string name="change_password">Passwort ändern</string>
     <string name="delete_account">Benutzerkonto löschen</string>
-    <string name="delete_account_warning">Das Konto %s löschen?\n\nDas Löschen kann nicht rückgängig gemacht werden.</string>
+    <string name="delete_account_warning">Konto %s mit allen lokalen Dateien löschen?\n\nLöschen kann nicht rückgängig gemacht werden.</string>
     <string name="create_account">Benutzerkonto erstellen</string>
     <string name="upload_chooser_title">Dateien hochladen von &#8230;</string>
     <string name="uploader_info_dirname">Ordnername</string>
@@ -304,8 +306,8 @@
     <string name="activity_chooser_title">Link senden an &#8230;</string>
     <string name="wait_for_tmp_copy_from_private_storage">Kopiere Datei vom privatem Speicher</string>
     
-    <string name="oauth_check_onoff">Anmelden mit OAuth2 </string> 
-    <string name="oauth_login_connection">Verbinde mit dem OAuth2-Server…</string>    
+    <string name="oauth_check_onoff">Anmelden mit OAuth 2.0</string> 
+    <string name="oauth_login_connection">Verbinde mit dem OAuth 2.0-Server…</string>    
         
     <string name="ssl_validator_header">Die Identität der Website konnte nicht überprüft werden</string>
     <string name="ssl_validator_reason_cert_not_trusted">- Das Zertifikat des Servers ist nicht vertrauenswürdig</string>
@@ -348,7 +350,7 @@
     <string name="instant_video_upload_on_charging">Nur während des Ladens hochladen</string>
     <string name="instant_upload_on_charging">Nur während des Ladens hochladen</string>
     <string name="instant_upload_path">/SofortUpload</string>
-    <string name="auto_upload_path">/Auto Upload</string>
+    <string name="auto_upload_path">/AutoUpload</string>
     <string name="conflict_title">Dateikonfilikt</string>
     <string name="conflict_message">Welche Datei soll behalten werden? Wenn du beide Versionen wählst, wird der lokalen Datei eine Zahl am Ende des Dateinamens angefügt.</string>
     <string name="conflict_keep_both">Beide behalten</string>
@@ -412,12 +414,12 @@
     <string name="file_migration_cleaning">Aufräumen&#8230;</string>
     <string name="file_migration_restoring_accounts_configuration">Konfiguration der Konten wiederherstellen&#8230;</string>
     <string name="file_migration_ok_finished">Abgeschlossen</string>
-    <string name="file_migration_failed_not_enough_space">FEHLER: zu wenig Platz</string>
-    <string name="file_migration_failed_not_writable">FEHLER: Zieldatei kann nicht geschrieben werden</string>
-    <string name="file_migration_failed_not_readable">FEHLER: Quelldatei kann nicht gelesen werden</string>
-    <string name="file_migration_failed_dir_already_exists">FEHLER: Nextcloud Ordner existiert bereits</string>
-    <string name="file_migration_failed_while_coping">FEHLER: Migration fehlgeschlagen</string>
-    <string name="file_migration_failed_while_updating_index">FEHLER: Während der Aktualisierung des Indexes</string>
+    <string name="file_migration_failed_not_enough_space">Fehler: Nicht ausreichender Speicherplatz</string>
+    <string name="file_migration_failed_not_writable">Fehler: Für das Ziel existieren keine Schreibrechte</string>
+    <string name="file_migration_failed_not_readable">Fehler: Quelldatei kann nicht gelesen werden</string>
+    <string name="file_migration_failed_dir_already_exists">Fehler: Nextcloud-Verzeichnis existiert bereits</string>
+    <string name="file_migration_failed_while_coping">Fehler: Fehler bei der Migration</string>
+    <string name="file_migration_failed_while_updating_index">Fehler: Aktualisierung des Index fehlgeschlagen</string>
 
     <string name="file_migration_directory_already_exists">Daten-Verzeichnis existiert bereits. Bitte auswählen:</string>
     <string name="file_migration_override_data_folder">Überschreiben</string>
@@ -483,7 +485,7 @@
     <string name="file_list__footer__files">%1$d Dateien</string>
     <string name="file_list__footer__files_and_folder">%1$d Dateien, 1 Ordner</string>
     <string name="file_list__footer__files_and_folders">%1$d Dateien, %2$d Ordner</string>
-    <string name="set_picture_as">Setze Bild als</string>
+    <string name="set_picture_as">Bild verwenden als</string>
     <string name="set_as">Setze als</string>
 
     <string name="prefs_instant_behaviour_dialogTitle">Originaldatei wird&#8230;</string>
@@ -491,6 +493,7 @@
     <string name="upload_copy_files">kopiere Datei</string>
     <string name="upload_move_files">verschiebe Datei</string>
     <string name="select_all">Alle auswählen</string>
+    <string name="deselect_all">Auswahl aufheben</string>
 
     <string name="pref_behaviour_entries_keep_file">im Originalordner behalten</string>
     <string name="pref_behaviour_entries_move">in den App-Ordner verschoben</string>
@@ -522,6 +525,9 @@
     <string name="share_known_remote_clarification">%1$s ( at %2$s )</string>
 
     <string name="share_sharee_unavailable">Entschuldigung, deine Serverversion erlaubt das Teilen mit Nutzern innerhalb der Clients nicht. \nBitte kontaktiere deinen Administrator</string>
+    <string name="filedetails_share_link_enable">Über einen Link geteilt aktiviert</string>
+    <string name="filedetails_share_link_disable">Nicht über einen Link geteilt</string>
+    <string name="filedetails_share_users_with_access">Nutzer und Gruppen mit Zugriff</string>
     <string name="share_privilege_can_share">kann teilen</string>
     <string name="share_privilege_can_edit">kann bearbeiten</string>
     <string name="share_privilege_can_edit_create">erstellen</string>
@@ -543,7 +549,7 @@
     <string name="manage_space_clear_data">Daten löschen</string>
     <string name="manage_space_error">Einige Dateien konnten nicht gelöscht werden.</string>
 
-    <string name="permission_storage_access">Sie haben nicht die erforderlichen Rechte, um Dateien hoch- oder herunterzuladen.</string>
+    <string name="permission_storage_access">Du hast nicht die erforderlichen Rechte, um Dateien hoch- oder herunterzuladen.</string>
     <string name="local_file_not_found_toast">Die Datei wurde im lokalen Dateisystem nicht gefunden</string>
     <string name="confirmation_remove_files_alert">Willst Du die ausgewählten Einträge wirklich löschen?</string>
     <string name="confirmation_remove_folders_alert">Willst Du die ausgewählten Einträge und deren Inhalte wirklich löschen?</string>
@@ -558,17 +564,19 @@
     <string name="drawer_participate">Mitmachen</string>
     <string name="participate_testing_headline">Hilf uns Testen</string>
     <string name="participate_testing_bug_text">Fehler gefunden? Komisches Verhalten?</string>
-    <string name="participate_testing_report_text">Fehler melden auf Github</string>
+    <string name="participate_testing_report_text">Fehlerbericht GitHub senden</string>
     <string name="participate_testing_version_text">Interessiert uns beim Test der nächsten Version zu unterstützen?</string>
     <string name="participate_beta_headline">Teste die Entwicklerversion</string>
     <string name="participate_beta_text">Dies beinhaltet neue Funktionalitäten und ist nicht vollumfänglich qualitätsgesichert. Es können daher Fehler/Bugs auftreten, melde uns diese bitte.</string>
     <string name="participate_release_candidate_headline">Vorabversion</string>
-    <string name="participate_release_candidate_text">Eine Vorabversion, auch Release Candidate (RC) genannt, ist ein stabiler Stand der kommenden, finalen Version. Ein Test in der eigenen Umgebung hilft uns diese Stabilität sicherzustellen. Melden Sie sich als Tester im Play Store an oder suchen und installieren Sie die passende Version bei F-Droid unter „Versionen“.</string>
+    <string name="participate_release_candidate_text">Der Release-Kandidat (RC) ist eine Vorschau auf die kommenden Version und sollte stabil sein. Das Testen des RC unter Deiner individuellen Umgebung kann helfen, die Qualität und Stabilität zu sichern. Registriere Dich als Tester im Play-Store oder schaue in die \"Version\"-Sektion auf F-Droid.</string>
     <string name="participate_contribute_headline">Aktiv etwas beitragen</string>
-    <string name="participate_contribute_irc_text">Trete dem Chat auf IRC bei: &lt;a href=\"%1$s\">#nextcloud-mobile&lt;/a></string>
-    <string name="participate_contribute_forum_text">Hilf Anderen im &lt;a href=\"%1$s\">Forum&lt;/a></string>
-    <string name="participate_contribute_translate_text">&lt;a href=\"%1$s\">Übersetze&lt;/a> die App</string>
-    <string name="participate_contribute_github_text">Prüfe, ändere und schreibe Code. Siehe auch &lt;a href=\"%1$s\">CONTRIBUTING.md&lt;a> für Einzelheiten</string>
+    <string name="participate_contribute_irc_text">Dem Chat im IRC beitreten: </string>
+    <string name="participate_contribute_forum_text">Hilf anderen </string>
+    <string name="participate_contribute_forum_forum">im Forum</string>
+    <string name="participate_contribute_translate_translate">beim Übersetzen</string>
+    <string name="participate_contribute_translate_text">mit der App</string>
+    <string name="participate_contribute_github_text">Überprüfen, Ändern und Schreiben von Code, schau in die %1$s für weitere Details</string>
     <string name="move_to">Verschieben nach&#8230;</string>
     <string name="copy_to">Kopieren nach&#8230;</string>
     <string name="choose_remote_folder">Wähle Verzeichnis&#8230;</string>
@@ -635,13 +643,10 @@
     <string name="webview_error">Fehler aufgetreten</string>
     <string name="prefs_category_about">Über</string>
 
-    <string name="actionbar_contacts">Kontakte-Sicherung</string>
+    <string name="actionbar_contacts">Kontakte sichern</string>
     <string name="actionbar_contacts_restore">Adressen wiederherstellen</string>
-    <string name="contacts_backup_button">Sicherung jetzt starten</string>
-    <string name="contacts_restore_button">Letztes Backup wiederherstellen</string>
-    <string name="contacts_header_restore">Wiederherstellen</string>
-    <string name="contacts_header_backup">Sicherung</string>
-    <string name="contacts_automatic_backup">Adressen-Sicherung</string>
+    <string name="contacts_backup_button">Jetzt sichern</string>
+    <string name="contacts_automatic_backup">Automatisch sichern</string>
     <string name="contacts_last_backup">Letzte Sicherung</string>
     <string name="contacts_read_permission">Leseberechtigung auf Kontakte erforderlich</string>
     <string name="contacts_write_permission">Schreibberechtigung auf Kontakte erforderlich</string>
@@ -665,4 +670,5 @@
 
     <string name="folder_sync_folders">Ordner auswählen</string>
 
-  </resources>
+  <string name="test_server_button">Prüfe Server-Verbindung</string>
+</resources>

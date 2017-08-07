@@ -94,6 +94,7 @@ import com.owncloud.android.utils.AnalyticsUtils;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
+import com.owncloud.android.utils.ThemeUtils;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -175,9 +176,9 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
         mSystemBarActionModeColor = getResources().getColor(R.color.action_mode_status_bar_background);
-        mSystemBarColor = getResources().getColor(R.color.primary_dark);
+        mSystemBarColor = ThemeUtils.primaryDarkColor();
         mProgressBarActionModeColor = getResources().getColor(R.color.action_mode_background);
-        mProgressBarColor = getResources().getColor(R.color.primary);
+        mProgressBarColor = ThemeUtils.primaryColor();
         mMultiChoiceModeListener = new MultiChoiceModeListener();
 
         if (savedInstanceState != null) {
@@ -277,6 +278,14 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
         }
         super.onDetach();
     }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        mAdapter.cancelAllPendingTasks();
+    }
+
+
 
     /**
      * {@inheritDoc}
@@ -593,8 +602,8 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
             mode.invalidate();
 
             //set gray color
-            DisplayUtils.colorStatusBar(getActivity(), mSystemBarActionModeColor);
-            DisplayUtils.colorToolbarProgressBar(getActivity(), mProgressBarActionModeColor);
+            ThemeUtils.colorStatusBar(getActivity(), mSystemBarActionModeColor);
+            ThemeUtils.colorToolbarProgressBar(getActivity(), mProgressBarActionModeColor);
 
             // hide FAB in multi selection mode
             setFabEnabled(false);
@@ -616,6 +625,7 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
             );
             mode.setTitle(title);
             FileMenuFilter mf = new FileMenuFilter(
+                    mAdapter.getFiles().size(),
                     checkedFiles,
                     ((FileActivity) getActivity()).getAccount(),
                     mContainerActivity,
@@ -641,8 +651,8 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
             mActiveActionMode = null;
 
             // reset to previous color
-            DisplayUtils.colorStatusBar(getActivity(), mSystemBarColor);
-            DisplayUtils.colorToolbarProgressBar(getActivity(), mProgressBarColor);
+            ThemeUtils.colorStatusBar(getActivity(), mSystemBarColor);
+            ThemeUtils.colorToolbarProgressBar(getActivity(), mProgressBarColor);
 
             // show FAB on multi selection mode exit
             if (!mHideFab && !searchFragment) {
@@ -982,12 +992,21 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
                 getActivity().startActivityForResult(action, FileDisplayActivity.REQUEST_CODE__MOVE_FILES);
                 return true;
             }
-            case R.id.action_copy:
+            case R.id.action_copy: {
                 Intent action = new Intent(getActivity(), FolderPickerActivity.class);
                 action.putParcelableArrayListExtra(FolderPickerActivity.EXTRA_FILES, checkedFiles);
                 action.putExtra(FolderPickerActivity.EXTRA_ACTION, getResources().getText(R.string.copy_to));
                 getActivity().startActivityForResult(action, FileDisplayActivity.REQUEST_CODE__COPY_FILES);
                 return true;
+            }
+            case R.id.action_select_all: {
+                selectAllFiles(true);
+                return true;
+            }
+            case R.id.action_deselect_all: {
+                selectAllFiles(false);
+                return true;
+            }
             default:
                 return false;
         }
@@ -1315,7 +1334,7 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
                     setTitle(R.string.drawer_item_shared);
                     break;
                 default:
-                    setTitle(R.string.default_display_name_for_root_folder);
+                    setTitle(ThemeUtils.getDefaultDisplayNameForRootFolder());
                     break;
             }
         }
@@ -1377,7 +1396,7 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
         menuItemAddRemoveValue = MenuItemAddRemove.ADD_GRID_AND_SORT_WITH_SEARCH;
         if (getActivity() != null) {
             getActivity().invalidateOptionsMenu();
-            setTitle(R.string.default_display_name_for_root_folder);
+            setTitle(ThemeUtils.getDefaultDisplayNameForRootFolder());
         }
 
         getActivity().getIntent().removeExtra(OCFileListFragment.SEARCH_EVENT);
@@ -1534,7 +1553,19 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
             @Override
             public void run() {
                 if (getActivity() != null && ((FileDisplayActivity) getActivity()).getSupportActionBar() != null) {
-                    ((FileDisplayActivity) getActivity()).getSupportActionBar().setTitle(title);
+                    ThemeUtils.setColoredTitle(((FileDisplayActivity) getActivity()).getSupportActionBar(),
+                            title, getContext());
+                }
+            }
+        });
+    }
+
+    private void setTitle(final String title) {
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if (getActivity() != null && ((FileDisplayActivity) getActivity()).getSupportActionBar() != null) {
+                    ThemeUtils.setColoredTitle(((FileDisplayActivity) getActivity()).getSupportActionBar(), title);
                 }
             }
         });
@@ -1573,4 +1604,17 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
     public boolean getIsSearchFragment() {
         return searchFragment;
     }
+
+    /**
+     * De-/select all elements in the current list view.
+     *
+     * @param select <code>true</code> to select all, <code>false</code> to deselect all
+     */
+    public void selectAllFiles(boolean select) {
+        AbsListView listView = getListView();
+        for (int position = 0; position < listView.getCount(); position++) {
+            listView.setItemChecked(position, select);
+        }
+    }
+
 }

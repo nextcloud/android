@@ -55,6 +55,13 @@ If your issue appears to be a bug, and hasn't been reported, open a new issue.
 * PR exists (and then the PR# should be shown in first post)
 
 
+### Bug workflow
+* approved: at least one other is able to reproduce it
+* needs info: something unclear, or not able to reproduce
+  * if no response within 1 months, bug will be closed
+* pr exists: if bug is fixed, link to pr
+
+
 # Contributing to Source Code
 Thanks for wanting to contribute source code to Nextcloud. That's great!
 
@@ -189,4 +196,4 @@ Release Candidate releases are based on the git [master](https://github.com/next
 ### Dev Release
 Dev releases are based on the [dev](https://github.com/nextcloud/android/tree/dev) branch and are done independently from stable releases and integrate open PRs that might not be production ready or heavily tested but being put out there for people willing to test new features and provide valuable feedback on new features to be incorporated before a feature gets released in the stable app.
 
-The deployment/build is done once a day automatically. If code has changed a new apk will be published [here](https://download.nextcloud.com/android/dev) and it will, with a little delay, be available on f-droid.
+The deployment/build is done once a day automatically. If code has changed a new apk will be published [here](https://download.nextcloud.com/android/dev) and it will, with a little delay, be available on [Fdroid](https://f-droid.org/repository/browse/?fdfilter=nextcloud&fdid=com.nextcloud.android.beta).

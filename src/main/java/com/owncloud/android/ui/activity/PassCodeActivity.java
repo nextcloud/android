@@ -1,4 +1,4 @@
-/**
+/*
  *   ownCloud Android client application
  *
  *   @author Bartek Przybylski
@@ -24,6 +24,7 @@ package com.owncloud.android.ui.activity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
@@ -41,6 +42,7 @@ import android.widget.Toast;
 import com.owncloud.android.R;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.utils.AnalyticsUtils;
+import com.owncloud.android.utils.ThemeUtils;
 
 import java.util.Arrays;
 
@@ -92,15 +94,29 @@ public class PassCodeActivity extends AppCompatActivity {
         setContentView(R.layout.passcodelock);
         
         mBCancel = (Button) findViewById(R.id.cancel);
+        mBCancel.getBackground().setColorFilter(ThemeUtils.primaryColor(), PorterDuff.Mode.SRC_ATOP);
+
         mPassCodeHdr = (TextView) findViewById(R.id.header);
         mPassCodeHdrExplanation = (TextView) findViewById(R.id.explanation);
+
         mPassCodeEditTexts[0] = (EditText) findViewById(R.id.txt0);
+        mPassCodeEditTexts[0].setTextColor(ThemeUtils.primaryColor());
+        mPassCodeEditTexts[0].getBackground().setColorFilter(ThemeUtils.primaryColor(), PorterDuff.Mode.SRC_ATOP);
         mPassCodeEditTexts[0].requestFocus();
         getWindow().setSoftInputMode(
                 android.view.WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+
         mPassCodeEditTexts[1] = (EditText) findViewById(R.id.txt1);
+        mPassCodeEditTexts[1].setTextColor(ThemeUtils.primaryColor());
+        mPassCodeEditTexts[1].getBackground().setColorFilter(ThemeUtils.primaryColor(), PorterDuff.Mode.SRC_ATOP);
+
         mPassCodeEditTexts[2] = (EditText) findViewById(R.id.txt2);
+        mPassCodeEditTexts[2].setTextColor(ThemeUtils.primaryColor());
+        mPassCodeEditTexts[2].getBackground().setColorFilter(ThemeUtils.primaryColor(), PorterDuff.Mode.SRC_ATOP);
+
         mPassCodeEditTexts[3] = (EditText) findViewById(R.id.txt3);
+        mPassCodeEditTexts[3].setTextColor(ThemeUtils.primaryColor());
+        mPassCodeEditTexts[3].getBackground().setColorFilter(ThemeUtils.primaryColor(), PorterDuff.Mode.SRC_ATOP);
 
         if (ACTION_CHECK.equals(getIntent().getAction())) {
             /// this is a pass code request; the user has to input the right value
@@ -423,8 +439,8 @@ public class PassCodeActivity extends AppCompatActivity {
      * Sets the input fields to empty strings and puts the focus on the first one.
      */
     protected void clearBoxes(){
-        for (int i=0; i < mPassCodeEditTexts.length; i++) {
-            mPassCodeEditTexts[i].setText("");
+        for (EditText mPassCodeEditText : mPassCodeEditTexts) {
+            mPassCodeEditText.setText("");
         }
         mPassCodeEditTexts[0].requestFocus();
     }
@@ -483,7 +499,7 @@ public class PassCodeActivity extends AppCompatActivity {
          * @param lastOne       'True' means that watcher corresponds to the last position of the
          *                      pass code.
          */
-        public PassCodeDigitTextWatcher(int index, boolean lastOne) {
+        PassCodeDigitTextWatcher(int index, boolean lastOne) {
             mIndex = index;
             mLastOne  = lastOne;
             if (mIndex < 0) {

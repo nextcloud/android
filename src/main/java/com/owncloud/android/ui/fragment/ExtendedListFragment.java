@@ -1,20 +1,20 @@
-/**
+/*
  * ownCloud Android client application
  *
  * @author Mario Danic
  * Copyright (C) 2017 Mario Danic
  * Copyright (C) 2012 Bartek Przybylski
  * Copyright (C) 2012-2016 ownCloud Inc.
- * <p>
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2,
  * as published by the Free Software Foundation.
- * <p>
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * <p>
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -24,6 +24,7 @@ package com.owncloud.android.ui.fragment;
 import android.animation.LayoutTransition;
 import android.app.Activity;
 import android.content.res.Configuration;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -57,6 +58,7 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.getbase.floatingactionbutton.AddFloatingActionButton;
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.owncloud.android.MainApp;
@@ -73,7 +75,7 @@ import com.owncloud.android.ui.activity.UploadFilesActivity;
 import com.owncloud.android.ui.adapter.FileListListAdapter;
 import com.owncloud.android.ui.adapter.LocalFileListAdapter;
 import com.owncloud.android.ui.events.SearchEvent;
-import com.owncloud.android.utils.DisplayUtils;
+import com.owncloud.android.utils.ThemeUtils;
 
 import org.greenrobot.eventbus.EventBus;
 import org.parceler.Parcel;
@@ -288,8 +290,17 @@ public class ExtendedListFragment extends Fragment
             }
         });
 
+        int fontColor = ThemeUtils.fontColor();
 
         LinearLayout searchBar = (LinearLayout) searchView.findViewById(R.id.search_bar);
+        TextView searchBadge = (TextView) searchView.findViewById(R.id.search_badge);
+
+        searchBadge.setTextColor(fontColor);
+        searchBadge.setHintTextColor(fontColor);
+
+        ImageView searchButton = (ImageView) searchView.findViewById(R.id.search_button);
+        searchButton.setImageDrawable(ThemeUtils.tintDrawable(R.drawable.ic_search, fontColor));
+
         searchBar.setLayoutTransition(new LayoutTransition());
     }
 
@@ -426,10 +437,31 @@ public class ExtendedListFragment extends Fragment
         mListView.setEmptyView(mRefreshEmptyLayout);
         mGridView.setEmptyView(mRefreshEmptyLayout);
 
+        int primaryColor = ThemeUtils.primaryColor();
+        int primaryColorDark = ThemeUtils.primaryDarkColor();
+        int fontColor = ThemeUtils.fontColor();
+
         mFabMain = (FloatingActionsMenu) v.findViewById(R.id.fab_main);
+
+        AddFloatingActionButton addButton = mFabMain.getAddButton();
+        addButton.setColorNormal(primaryColor);
+        addButton.setColorPressed(primaryColorDark);
+        addButton.setPlusColor(fontColor);
+
         mFabUpload = (FloatingActionButton) v.findViewById(R.id.fab_upload);
+        mFabUpload.setColorNormal(primaryColor);
+        mFabUpload.setColorPressed(primaryColorDark);
+        mFabUpload.setIconDrawable(ThemeUtils.tintDrawable(R.drawable.ic_action_upload, fontColor));
+
         mFabMkdir = (FloatingActionButton) v.findViewById(R.id.fab_mkdir);
+        mFabMkdir.setColorNormal(primaryColor);
+        mFabMkdir.setColorPressed(primaryColorDark);
+        mFabMkdir.setIconDrawable(ThemeUtils.tintDrawable(R.drawable.ic_action_create_dir, fontColor));
+
         mFabUploadFromApp = (FloatingActionButton) v.findViewById(R.id.fab_upload_from_app);
+        mFabUploadFromApp.setColorNormal(primaryColor);
+        mFabUploadFromApp.setColorPressed(primaryColorDark);
+        mFabUploadFromApp.setIconDrawable(ThemeUtils.tintDrawable(R.drawable.ic_import, fontColor));
 
         boolean searchSupported = AccountUtils.hasSearchSupport(AccountUtils.
                 getCurrentOwnCloudAccount(MainApp.getAppContext()));
@@ -508,6 +540,8 @@ public class ExtendedListFragment extends Fragment
         mEmptyListHeadline = (TextView) view.findViewById(R.id.empty_list_view_headline);
         mEmptyListIcon = (ImageView) view.findViewById(R.id.empty_list_icon);
         mEmptyListProgress = (ProgressBar) view.findViewById(R.id.empty_list_progress);
+        mEmptyListProgress.getIndeterminateDrawable().setColorFilter(ThemeUtils.primaryColor(),
+                PorterDuff.Mode.SRC_IN);
     }
 
     /**
@@ -737,7 +771,7 @@ public class ExtendedListFragment extends Fragment
                     mEmptyListMessage.setText(message);
 
                     if (tintIcon) {
-                        mEmptyListIcon.setImageDrawable(DisplayUtils.tintDrawable(icon, R.color.primary));
+                        mEmptyListIcon.setImageDrawable(ThemeUtils.tintDrawable(icon, ThemeUtils.primaryColor()));
                     }
 
                     mEmptyListIcon.setVisibility(View.VISIBLE);
@@ -753,7 +787,7 @@ public class ExtendedListFragment extends Fragment
             @Override
             public void run() {
 
-                if (searchType == SearchType.NO_SEARCH && mEmptyListProgress.getVisibility() == View.GONE) {
+                if (searchType == SearchType.NO_SEARCH) {
                     setMessageForEmptyList(
                             R.string.file_list_empty_headline,
                             R.string.file_list_empty,
@@ -832,8 +866,13 @@ public class ExtendedListFragment extends Fragment
     }
 
     protected void onCreateSwipeToRefresh(SwipeRefreshLayout refreshLayout) {
+        int primaryColor = ThemeUtils.primaryColor();
+        int darkColor = ThemeUtils.primaryDarkColor();
+        int accentColor = ThemeUtils.primaryAccentColor();
+
         // Colors in animations
-        refreshLayout.setColorSchemeResources(R.color.color_accent, R.color.primary, R.color.primary_dark);
+        // TODO change this to use darker and lighter color, again.
+        refreshLayout.setColorSchemeColors(accentColor, primaryColor, darkColor);
         refreshLayout.setOnRefreshListener(this);
     }
 

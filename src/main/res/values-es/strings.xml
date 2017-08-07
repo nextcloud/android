@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="about_android">Aplicación  Android %1$s</string>
+    <string name="about_android">Aplicación Android %1$s</string>
     <string name="about_version">versión %1$s</string>
     <string name="actionbar_sync">Actualizar cuenta</string>
     <string name="actionbar_upload">Subir</string>
@@ -60,6 +60,7 @@
     <string name="prefs_calendar_contacts_address_resolve_error">DAVdroid no ha podido resolver la dirección del servidor para tu cuenta</string>
     <string name="prefs_calendar_contacts_no_store_error">Ni F-Droid ni Google Play están instalados</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Sincronización de calendario y contactos configurada</string>
+    <string name="prefs_daily_contacts_sync_summary">Copia de seguridad diaria de tus contactos</string>
     <string name="prefs_help">Ayuda</string>
     <string name="prefs_recommend">Recomendar a un amigo</string>
     <string name="prefs_feedback">Observaciones</string>
@@ -69,6 +70,7 @@
 
 	<string name="recommend_subject">¡Prueba  %1$s en tu smarthphone!</string>
 	<string name="recommend_text">Quiero invitarte a usar %1$s en tu móvil.\nDescárgalo aquí: %2$s</string>
+    <string name="recommend_urls">%1$s o %2$s</string>
 
     <string name="auth_check_server">Verificar servidor</string>
     <string name="auth_host_url">Dirección del servidor https://…</string>
@@ -112,8 +114,7 @@
     <string name="file_list_empty_headline_server_search_photos">No hay fotos</string>
     <string name="file_list_empty_search">¿Quizás está en una carpeta diferente?</string>
     <string name="file_list_empty_recently_modified">No se encontraron archivos modificados en los últimos 7 días.</string>
-    <string name="file_list_empty_recently_modified_filter">Tu búsqueda no encontró archivos modificados
-      en los últimos 7 días.</string>
+    <string name="file_list_empty_recently_modified_filter">La búsqueda no ha devuelto archivos modificados en los últimos 7 días.</string>
     <string name="file_list_empty_recently_added">No se encontraron archivos recientemente añadidos</string>
     <string name="file_list_empty_recently_added_filter">Tu búsqueda no encontró archivos recientemente añadidos.</string>
     <string name="file_list_empty_text_photos">Sube algunas imágenes o activa la subida automática.</string>
@@ -155,7 +156,7 @@
     <string name="about_title">Acerca de</string>
     <string name="change_password">Cambiar contraseña</string>
     <string name="delete_account">Eliminar cuenta</string>
-    <string name="delete_account_warning">¿Borrar cuenta %s?\n\n Esta acción no se puede deshacer.</string>
+    <string name="delete_account_warning">¿Borrar cuenta %s con todos sus archivos locales?\n\nEl borrado no se puede deshacer.</string>
     <string name="create_account">Crear cuenta</string>
     <string name="upload_chooser_title">Subir desde&#8230;</string>
     <string name="uploader_info_dirname">Nombre de la carpeta</string>
@@ -304,8 +305,8 @@
     <string name="activity_chooser_title">Enviar enlace a &#8230;</string>
     <string name="wait_for_tmp_copy_from_private_storage">Copiando el archivo desde el almacenamiento privado.</string>
     
-    <string name="oauth_check_onoff">Ingresar con oAuth2</string> 
-    <string name="oauth_login_connection">Conectando al servidor oAuth2...</string>    
+    <string name="oauth_check_onoff">Ingresar con OAuth 2.0</string> 
+    <string name="oauth_login_connection">Conectando al servidor OAuth 2.0...</string>    
         
     <string name="ssl_validator_header">No se ha podido verificar la ia identidad del sitio</string>
     <string name="ssl_validator_reason_cert_not_trusted">- El certificado del servidor no es de confianza</string>
@@ -348,7 +349,7 @@
     <string name="instant_video_upload_on_charging">Subir solamente al cargar</string>
     <string name="instant_upload_on_charging">Subir solamente al cargar</string>
     <string name="instant_upload_path">/SubidaInstantánea</string>
-    <string name="auto_upload_path">/Carga automática</string>
+    <string name="auto_upload_path">/CargaAutomática</string>
     <string name="conflict_title">Conflicto con archivo</string>
     <string name="conflict_message">¿Qué archivos desea mantener? Si selecciona ambas versiones, el archivo local tendrá un número añadido a su nombre.</string>
     <string name="conflict_keep_both">Mantener ambos</string>
@@ -412,12 +413,12 @@
     <string name="file_migration_cleaning">Limpiando&#8230;</string>
     <string name="file_migration_restoring_accounts_configuration">Restaurando configuración de cuentas&#8230;</string>
     <string name="file_migration_ok_finished">Finalizado</string>
-    <string name="file_migration_failed_not_enough_space">ERROR: no hay espacio suficiente</string>
-    <string name="file_migration_failed_not_writable">ERROR: No se puede escribir el archivo de destino</string>
-    <string name="file_migration_failed_not_readable">ERROR: No se puede leer el archivo de origen</string>
-    <string name="file_migration_failed_dir_already_exists">ERROR: El directorio de Nextcloud ya existe</string>
-    <string name="file_migration_failed_while_coping">ERROR: Fallo durante la migración</string>
-    <string name="file_migration_failed_while_updating_index">ERROR: Fallo al actualizar el índice</string>
+    <string name="file_migration_failed_not_enough_space">Error: Espacio insuficiente</string>
+    <string name="file_migration_failed_not_writable">Error: No se puede escribir el archivo de destino</string>
+    <string name="file_migration_failed_not_readable">Error: No se puede leer el archivo de origen</string>
+    <string name="file_migration_failed_dir_already_exists">Error: El directorio de Nextcloud ya existe</string>
+    <string name="file_migration_failed_while_coping">Error: Fallo durante la migración</string>
+    <string name="file_migration_failed_while_updating_index">Error: Fallo al actualizar el índice</string>
 
     <string name="file_migration_directory_already_exists">La carpeta de datos ya existe. Elige una de las siguientes:</string>
     <string name="file_migration_override_data_folder">Reemplazar</string>
@@ -483,7 +484,7 @@
     <string name="file_list__footer__files">%1$d archivos</string>
     <string name="file_list__footer__files_and_folder">%1$d archivos, 1 carpeta</string>
     <string name="file_list__footer__files_and_folders">%1$d archivos, %2$d carpetas</string>
-    <string name="set_picture_as">Establecer imagen como</string>
+    <string name="set_picture_as">Usar imagen como</string>
     <string name="set_as">Establecer como</string>
 
     <string name="prefs_instant_behaviour_dialogTitle">El archivo original será&#8230;</string>
@@ -491,6 +492,7 @@
     <string name="upload_copy_files">Copiar archivo</string>
     <string name="upload_move_files">Mover archivo</string>
     <string name="select_all">Seleccionar todo</string>
+    <string name="deselect_all">Desmarcar todos</string>
 
     <string name="pref_behaviour_entries_keep_file">dejado en la carpeta original</string>
     <string name="pref_behaviour_entries_move">movido a la carpeta de la app</string>
@@ -522,6 +524,9 @@
     <string name="share_known_remote_clarification">%1$s ( en %2$s )</string>
 
     <string name="share_sharee_unavailable">Actualiza la versión del servidor para permitir compartir entre usuarios desde sus clientes.\nPor favor, contacta con tu administrador</string>
+    <string name="filedetails_share_link_enable">Compartir por enlace activado</string>
+    <string name="filedetails_share_link_disable">No compartido por enlace</string>
+    <string name="filedetails_share_users_with_access">Usuarios y grupos con acceso</string>
     <string name="share_privilege_can_share">puede compartir</string>
     <string name="share_privilege_can_edit">puede editar</string>
     <string name="share_privilege_can_edit_create">crear</string>
@@ -557,17 +562,19 @@
     <string name="drawer_participate">Participar</string>
     <string name="participate_testing_headline">Ayúdanos a realizar pruebas</string>
     <string name="participate_testing_bug_text">¿Encontraste un error? ¿Algo va mal?</string>
-    <string name="participate_testing_report_text">Informar de un problema en Github</string>
+    <string name="participate_testing_report_text">Informar de un problema en GitHub</string>
     <string name="participate_testing_version_text">¿Estás interesado en ayudarnos a probar la próxima versión?</string>
     <string name="participate_beta_headline">Probar la versión de desarrollo</string>
     <string name="participate_beta_text">Esto incluye todas las características por llegar y está muy avazado en lo último. Pueden ocurrir fallos y errores. Si y cuando suceden, infórmanos, por favor.</string>
     <string name="participate_release_candidate_headline">Versión candidata</string>
-    <string name="participate_release_candidate_text">La versión candidata (release candidate - RC) es una instantánea de la próxima versión y se espera que sea estable. Probar su configuración individual podría ayudar a asegurar esto. Regístrate para probarla en Play Store o busca manualmente en la sección \"versiones\" de F-Droid.</string>
+    <string name="participate_release_candidate_text">La versión candidata (RC) es una instantánea de la próxima versión y se espera que sea estable. Probar tu configuración individual puede ayudar a asegurarlo. Apúntate para probarla en Google Play o búscala manualmente en la sección \"Versiones\" de F-Droid.</string>
     <string name="participate_contribute_headline">Colabora activamente</string>
-    <string name="participate_contribute_irc_text">Únete a la conversación en IRC:  &lt;a href=\"%1$s\">#nextcloud-mobile&lt;/a></string>
-    <string name="participate_contribute_forum_text">Ayuda a otros en el &lt;a href=\"%1$s\">foro&lt;/a></string>
-    <string name="participate_contribute_translate_text">&lt;a href=\"%1$s\">Traduce&lt;/a> la app</string>
-    <string name="participate_contribute_github_text">Revisa, corrige y escribe código, lee  &lt;a href=\"%1$s\">CONTRIBUTING.md&lt;/a> para más detalles</string>
+    <string name="participate_contribute_irc_text">Únete a la conversación en IRC:</string>
+    <string name="participate_contribute_forum_text">Ayuda a otros en el</string>
+    <string name="participate_contribute_forum_forum">foro</string>
+    <string name="participate_contribute_translate_translate">Traduce</string>
+    <string name="participate_contribute_translate_text">la app</string>
+    <string name="participate_contribute_github_text">Revisa, corrige y escribe código. Ve %1$s para más detalles</string>
     <string name="move_to">Mover a&#8230;</string>
     <string name="copy_to">Copiar a&#8230;</string>
     <string name="choose_remote_folder">Elija carpeta&#8230;</string>
@@ -634,13 +641,10 @@
     <string name="webview_error">Ha ocurrido un error</string>
     <string name="prefs_category_about">Acerca de</string>
 
-    <string name="actionbar_contacts">Copia de seguridad de los contactos</string>
+    <string name="actionbar_contacts">Copia de seguridad de contactos</string>
     <string name="actionbar_contacts_restore">Restaurar los contactos</string>
-    <string name="contacts_backup_button">Realizar la copia de seguridad ahora</string>
-    <string name="contacts_restore_button">Restaurar la última copia de seguridad</string>
-    <string name="contacts_header_restore">Restaurar</string>
-    <string name="contacts_header_backup">Copia de seguridad</string>
-    <string name="contacts_automatic_backup">Copia de seguridad de los contactos</string>
+    <string name="contacts_backup_button">Hacer copia de seguridad ahora</string>
+    <string name="contacts_automatic_backup">Copia de seguridad automática</string>
     <string name="contacts_last_backup">Última copia de seguridad</string>
     <string name="contacts_read_permission">Se necesita el permiso para leer la lista de contactos</string>
     <string name="contacts_write_permission">Se necesita el permiso para cambiar la lista de contactos</string>
@@ -664,4 +668,5 @@
 
     <string name="folder_sync_folders">Configurar carpetas</string>
 
-  </resources>
+  <string name="test_server_button">Probar conexión con servidor</string>
+</resources>

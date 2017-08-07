@@ -1,4 +1,4 @@
-/**
+/*
  *   ownCloud Android client application
  *
  *   Copyright (C) 2015 ownCloud Inc.
@@ -21,6 +21,7 @@ package com.owncloud.android.ui.activity;
 
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
+import android.graphics.PorterDuff;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -40,6 +41,7 @@ import com.owncloud.android.R;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.dialog.LoadingDialog;
 import com.owncloud.android.utils.AnalyticsUtils;
+import com.owncloud.android.utils.ThemeUtils;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -76,9 +78,12 @@ public class LogHistoryActivity extends ToolbarActivity {
         setupToolbar();
 
         setTitle(getText(R.string.actionbar_logger));
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
         Button deleteHistoryButton = (Button) findViewById(R.id.deleteLogHistoryButton);
         Button sendHistoryButton = (Button) findViewById(R.id.sendLogHistoryButton);
+        sendHistoryButton.getBackground().setColorFilter(ThemeUtils.primaryAccentColor(), PorterDuff.Mode.SRC_ATOP);
         TextView logTV = (TextView) findViewById(R.id.logTV);
 
         deleteHistoryButton.setOnClickListener(new OnClickListener() {
@@ -133,6 +138,7 @@ public class LogHistoryActivity extends ToolbarActivity {
                 break;
             default:
                 retval = super.onOptionsItemSelected(item);
+                break;
         }
         return retval;
     }
@@ -195,7 +201,7 @@ public class LogHistoryActivity extends ToolbarActivity {
     private class LoadingLogTask extends AsyncTask<String, Void, String> {
         private final WeakReference<TextView> textViewReference;
 
-        public LoadingLogTask(TextView logTV){
+        LoadingLogTask(TextView logTV) {
             // Use of a WeakReference to ensure the TextView can be garbage collected
             textViewReference  = new WeakReference<>(logTV);
         }
@@ -290,7 +296,9 @@ public class LogHistoryActivity extends ToolbarActivity {
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
 
-        /// global state
-        outState.putString(KEY_LOG_TEXT, mLogText);
+        if (isChangingConfigurations()) {
+            // global state
+            outState.putString(KEY_LOG_TEXT, mLogText);
+        }
     }
 }

@@ -35,7 +35,7 @@ import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.network.OnDatatransferProgressListener;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.fragment.FileFragment;
-import com.owncloud.android.utils.DisplayUtils;
+import com.owncloud.android.utils.ThemeUtils;
 
 import java.lang.ref.WeakReference;
 
@@ -138,7 +138,7 @@ public class FileDownloadFragment extends FileFragment implements OnClickListene
         mView = inflater.inflate(R.layout.file_download_fragment, container, false);
         
         ProgressBar progressBar = (ProgressBar)mView.findViewById(R.id.progressBar);
-        DisplayUtils.colorPreLollipopHorizontalProgressBar(progressBar);
+        ThemeUtils.colorHorizontalProgressBar(progressBar, ThemeUtils.primaryAccentColor());
         mProgressListener = new ProgressListener(progressBar);
 
         (mView.findViewById(R.id.cancelBtn)).setOnClickListener(this);
@@ -218,6 +218,7 @@ public class FileDownloadFragment extends FileFragment implements OnClickListene
             }
             default:
                 Log_OC.e(TAG, "Incorrect view clicked!");
+                break;
         }
     }
 

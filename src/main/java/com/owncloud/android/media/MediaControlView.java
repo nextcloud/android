@@ -39,7 +39,7 @@ import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
 
 import com.owncloud.android.R;
-import com.owncloud.android.utils.DisplayUtils;
+import com.owncloud.android.utils.ThemeUtils;
 
 import java.util.Formatter;
 import java.util.Locale;
@@ -223,10 +223,10 @@ public class MediaControlView extends FrameLayout /* implements OnLayoutChangeLi
         if (mProgress != null) {
             if (mProgress instanceof SeekBar) {
                 SeekBar seeker = (SeekBar) mProgress;
-                DisplayUtils.colorPreLollipopHorizontalSeekBar(seeker);
+                ThemeUtils.colorHorizontalSeekBar(seeker);
                 seeker.setOnSeekBarChangeListener(this);
             } else {
-                DisplayUtils.colorPreLollipopHorizontalProgressBar(mProgress);
+                ThemeUtils.colorHorizontalProgressBar(mProgress, ThemeUtils.primaryAccentColor());
             }
             mProgress.setMax(1000);
         }

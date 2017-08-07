@@ -1,4 +1,4 @@
-/**
+/*
  * Nextcloud Android client application
  *
  * @author Alejandro Bautista
@@ -24,10 +24,12 @@ import android.content.res.Resources;
 import android.graphics.drawable.PictureDrawable;
 import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
+import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.TextUtils;
 import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
+import android.text.style.ForegroundColorSpan;
 import android.text.style.StyleSpan;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -45,14 +47,18 @@ import com.bumptech.glide.load.resource.file.FileToStreamDecoder;
 import com.caverock.androidsvg.SVG;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
+import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.OwnCloudClient;
+import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.activities.models.Activity;
 import com.owncloud.android.lib.resources.activities.models.RichElement;
 import com.owncloud.android.lib.resources.activities.models.RichObject;
+import com.owncloud.android.lib.resources.files.FileUtils;
 import com.owncloud.android.ui.interfaces.ActivityListInterface;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
+import com.owncloud.android.utils.ThemeUtils;
 import com.owncloud.android.utils.glide.CustomGlideStreamLoader;
 import com.owncloud.android.utils.svg.SvgDecoder;
 import com.owncloud.android.utils.svg.SvgDrawableTranscoder;
@@ -73,15 +79,19 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     public static final int ACTIVITY_TYPE = 101;
     private final ActivityListInterface activityListInterface;
     private final int px;
+    private static final String TAG = ActivityListAdapter.class.getSimpleName();
     private OwnCloudClient mClient;
 
     private Context context;
+    private FileDataStorageManager storageManager;
     private List<Object> mValues;
 
-    public ActivityListAdapter(Context context, ActivityListInterface activityListInterface) {
+    public ActivityListAdapter(Context context, ActivityListInterface activityListInterface,
+                               FileDataStorageManager storageManager) {
         this.mValues = new ArrayList<>();
         this.context = context;
         this.activityListInterface = activityListInterface;
+        this.storageManager = storageManager;
         px = getThumbnailDimension();
     }
 
@@ -176,10 +186,14 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                     @Override
                     public void run() {
                         int w = activityViewHolder.list.getMeasuredWidth();
-
                         int elPxSize = px + 20;
                         int totalColumnCount = (int) Math.floor(w / elPxSize);
-                        activityViewHolder.list.setColumnCount(totalColumnCount);
+
+                        try {
+                            activityViewHolder.list.setColumnCount(totalColumnCount);
+                        } catch (IllegalArgumentException e) {
+                            Log_OC.e(TAG, "error setting column count to " + totalColumnCount);
+                        }
                     }
                 });
 
@@ -200,8 +214,16 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     }
 
     private ImageView createThumbnail(final RichObject richObject) {
-        OCFile file = new OCFile("/" + richObject.getPath());
-        file.setRemoteId(richObject.getId());
+        String path = FileUtils.PATH_SEPARATOR + richObject.getPath();
+        OCFile file = storageManager.getFileByPath(path);
+
+        if (file == null) {
+            file = storageManager.getFileByPath(path + FileUtils.PATH_SEPARATOR);
+        }
+        if (file == null) {
+            file = new OCFile(path);
+            file.setRemoteId(richObject.getId());
+        }
 
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(px, px);
         params.setMargins(10, 10, 10, 10);
@@ -229,8 +251,7 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 Glide.with(context).using(new CustomGlideStreamLoader()).load(uri).into(fileIcon); //Using custom fetcher
 
             } else {
-                fileIcon.setImageResource(MimeTypeUtil.getFileTypeIconId(file.getMimetype(),
-                        file.getFileName()));
+                fileIcon.setImageDrawable(MimeTypeUtil.getFileTypeIcon(file.getMimetype(), file.getFileName(), null));
             }
         } else {
             // Folder
@@ -287,6 +308,8 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                     }
                 }, idx1, idx2, 0);
                 ssb.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), idx1, idx2, 0);
+                ssb.setSpan(new ForegroundColorSpan(ThemeUtils.primaryAccentColor()), idx1, idx2,
+                        Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             }
             idx1 = text.indexOf("{", idx2);
         }

@@ -519,7 +519,7 @@ public class FileDataStorageManager {
 
 
     public boolean removeFolder(OCFile folder, boolean removeDBData, boolean removeLocalContent) {
-        boolean success = false;
+        boolean success = true;
         if (folder != null && folder.isFolder()) {
             if (removeDBData && folder.getFileId() != -1) {
                 success = removeFolderInDb(folder);
@@ -527,6 +527,8 @@ public class FileDataStorageManager {
             if (removeLocalContent && success) {
                 success = removeLocalFolder(folder);
             }
+        } else {
+            success = false;
         }
 
         return success;
@@ -830,7 +832,7 @@ public class FileDataStorageManager {
         if (c != null && c.moveToFirst()) {
             do {
                 OCFile child = createFileInstance(c);
-                if (child.isFolder() || !onlyOnDevice || child.isDown()) {
+                if (!onlyOnDevice || child.existsOnDevice()) {
                     ret.add(child);
                 }
             } while (c.moveToNext());
@@ -922,17 +924,15 @@ public class FileDataStorageManager {
             file.setFileId(c.getLong(c.getColumnIndex(ProviderTableMeta._ID)));
             file.setParentId(c.getLong(c.getColumnIndex(ProviderTableMeta.FILE_PARENT)));
             file.setMimetype(c.getString(c.getColumnIndex(ProviderTableMeta.FILE_CONTENT_TYPE)));
-            if (!file.isFolder()) {
-                file.setStoragePath(c.getString(c.getColumnIndex(ProviderTableMeta.FILE_STORAGE_PATH)));
-                if (file.getStoragePath() == null) {
-                    // try to find existing file and bind it with current account; 
-                    // with the current update of SynchronizeFolderOperation, this won't be 
-                    // necessary anymore after a full synchronization of the account
-                    File f = new File(FileStorageUtils.getDefaultSavePathFor(mAccount.name, file));
-                    if (f.exists()) {
-                        file.setStoragePath(f.getAbsolutePath());
-                        file.setLastSyncDateForData(f.lastModified());
-                    }
+            file.setStoragePath(c.getString(c.getColumnIndex(ProviderTableMeta.FILE_STORAGE_PATH)));
+            if (file.getStoragePath() == null) {
+                // try to find existing file and bind it with current account;
+                // with the current update of SynchronizeFolderOperation, this won't be
+                // necessary anymore after a full synchronization of the account
+                File f = new File(FileStorageUtils.getDefaultSavePathFor(mAccount.name, file));
+                if (f.exists()) {
+                    file.setStoragePath(f.getAbsolutePath());
+                    file.setLastSyncDateForData(f.lastModified());
                 }
             }
             file.setFileLength(c.getLong(c
@@ -1908,6 +1908,10 @@ public class FileDataStorageManager {
         cv.put(ProviderTableMeta.CAPABILITIES_FILES_VERSIONING, capability.getFilesVersioning().getValue());
         cv.put(ProviderTableMeta.CAPABILITIES_FILES_DROP, capability.getFilesFileDrop().getValue());
         cv.put(ProviderTableMeta.CAPABILITIES_EXTERNAL_LINKS, capability.getExternalLinks().getValue());
+        cv.put(ProviderTableMeta.CAPABILITIES_SERVER_NAME, capability.getServerName());
+        cv.put(ProviderTableMeta.CAPABILITIES_SERVER_COLOR, capability.getServerColor());
+        cv.put(ProviderTableMeta.CAPABILITIES_SERVER_BACKGROUND_URL, capability.getServerBackground());
+        cv.put(ProviderTableMeta.CAPABILITIES_SERVER_SLOGAN, capability.getServerSlogan());
 
         if (capabilityExists(mAccount.name)) {
             if (getContentResolver() != null) {
@@ -2047,6 +2051,11 @@ public class FileDataStorageManager {
                     .getColumnIndex(ProviderTableMeta.CAPABILITIES_FILES_DROP))));
             capability.setExternalLinks(CapabilityBooleanType.fromValue(c.getInt(c
                     .getColumnIndex(ProviderTableMeta.CAPABILITIES_EXTERNAL_LINKS))));
+            capability.setServerName(c.getString(c.getColumnIndex(ProviderTableMeta.CAPABILITIES_SERVER_NAME)));
+            capability.setServerColor(c.getString(c.getColumnIndex(ProviderTableMeta.CAPABILITIES_SERVER_COLOR)));
+            capability.setServerBackground(c.getString(c.getColumnIndex(
+                    ProviderTableMeta.CAPABILITIES_SERVER_BACKGROUND_URL)));
+            capability.setServerSlogan(c.getString(c.getColumnIndex(ProviderTableMeta.CAPABILITIES_SERVER_SLOGAN)));
         }
         return capability;
     }
@@ -2147,6 +2156,22 @@ public class FileDataStorageManager {
         }
 
         return ocFiles;
+    }
+
+    public void deleteAllFiles() {
+        String where = ProviderTableMeta.FILE_ACCOUNT_OWNER + "=?";
+        String[] whereArgs = new String[]{mAccount.name};
+
+        if (getContentResolver() != null) {
+            getContentResolver().delete(ProviderTableMeta.CONTENT_URI_FILE, where, whereArgs);
+
+        } else {
+            try {
+                getContentProviderClient().delete(ProviderTableMeta.CONTENT_URI_FILE, where, whereArgs);
+            } catch (RemoteException e) {
+                Log_OC.e(TAG, "Exception in deleteAllFiles for account " + mAccount.name + ": " + e.getMessage(), e);
+            }
+        }
     }
 
 }

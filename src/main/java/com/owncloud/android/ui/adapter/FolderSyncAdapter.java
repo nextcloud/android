@@ -35,7 +35,7 @@ import com.afollestad.sectionedrecyclerview.SectionedRecyclerViewAdapter;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.SyncedFolderDisplayItem;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
-import com.owncloud.android.utils.DisplayUtils;
+import com.owncloud.android.utils.ThemeUtils;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -195,7 +195,8 @@ public class FolderSyncAdapter extends SectionedRecyclerViewAdapter<FolderSyncAd
 
     private void setSyncButtonActiveIcon(ImageButton syncStatusButton, boolean enabled) {
         if(enabled) {
-            syncStatusButton.setImageDrawable(DisplayUtils.tintDrawable(R.drawable.ic_cloud_sync_on, R.color.primary));
+            syncStatusButton.setImageDrawable(ThemeUtils.tintDrawable(R.drawable.ic_cloud_sync_on,
+                    ThemeUtils.primaryColor()));
         } else {
             syncStatusButton.setImageResource(R.drawable.ic_cloud_sync_off);
         }

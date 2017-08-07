@@ -195,7 +195,7 @@ public class PreviewImageActivity extends FileActivity implements
     private void onSynchronizeFileOperationFinish(SynchronizeFileOperation operation,
                                                   RemoteOperationResult result) {
         if (result.isSuccess()) {
-            invalidateOptionsMenu();
+            supportInvalidateOptionsMenu();
         }
 
     }
@@ -272,6 +272,7 @@ public class PreviewImageActivity extends FileActivity implements
             break;
         default:
         	returnValue = super.onOptionsItemSelected(item);
+            break;
         }
         
         return returnValue;

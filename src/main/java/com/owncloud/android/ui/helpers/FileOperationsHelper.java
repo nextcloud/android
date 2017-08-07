@@ -30,7 +30,6 @@ import android.content.pm.ResolveInfo;
 import android.net.Uri;
 import android.os.Build;
 import android.support.annotation.Nullable;
-import android.support.v4.app.DialogFragment;
 import android.support.v4.content.FileProvider;
 import android.webkit.MimeTypeMap;
 import android.widget.Toast;
@@ -49,7 +48,6 @@ import com.owncloud.android.services.OperationsService;
 import com.owncloud.android.services.observer.FileObserverService;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.ShareActivity;
-import com.owncloud.android.ui.dialog.ShareLinkToDialog;
 import com.owncloud.android.ui.events.FavoriteEvent;
 
 import org.greenrobot.eventbus.EventBus;
@@ -72,9 +70,7 @@ public class FileOperationsHelper {
 
     private static final String TAG = FileOperationsHelper.class.getSimpleName();
 
-    private static final String FTAG_CHOOSER_DIALOG = "CHOOSER_DIALOG";
-
-    protected FileActivity mFileActivity = null;
+    private FileActivity mFileActivity = null;
 
     /// Identifier of operation in progress which result shouldn't be lost 
     private long mWaitingForOpId = Long.MAX_VALUE;
@@ -369,7 +365,7 @@ public class FileOperationsHelper {
     }
 
     /**
-     * Show an instance of {@link ShareType} for sharing or unsharing the {@OCFile} received as parameter.
+     * Show an instance of {@link ShareType} for sharing or unsharing the {@link OCFile} received as parameter.
      *
      * @param file  File to share or unshare.
      */
@@ -516,11 +512,9 @@ public class FileOperationsHelper {
             );
             sendIntent.putExtra(Intent.ACTION_SEND, true);      // Send Action
 
-            // Show dialog, without the own app
-            String[] packagesToExclude = new String[]{mFileActivity.getPackageName()};
-            DialogFragment chooserDialog = ShareLinkToDialog.newInstance(sendIntent, packagesToExclude);
-            chooserDialog.show(mFileActivity.getSupportFragmentManager(), FTAG_CHOOSER_DIALOG);
-
+            // Show dialog
+            final String sendTitle = mFileActivity.getString(R.string.activity_chooser_send_file_title);
+            mFileActivity.startActivity(Intent.createChooser(sendIntent, sendTitle));
         } else {
             Log_OC.e(TAG, "Trying to send a NULL OCFile");
         }
@@ -605,7 +599,7 @@ public class FileOperationsHelper {
         }
     }
 
-    public void toggleFavoriteFile(OCFile file, boolean shouldBeFavorite) {
+    private void toggleFavoriteFile(OCFile file, boolean shouldBeFavorite) {
         if (file.getIsFavorite() != shouldBeFavorite) {
             EventBus.getDefault().post(new FavoriteEvent(file.getRemotePath(), shouldBeFavorite, file.getRemoteId()));
         }

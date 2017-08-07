@@ -20,6 +20,7 @@ package com.owncloud.android.ui.dialog;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
@@ -33,6 +34,7 @@ import android.widget.Toast;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.ui.activity.FileActivity;
+import com.owncloud.android.utils.ThemeUtils;
 
 /**
  * Dialog to input the password for sharing a file/folder.
@@ -45,11 +47,19 @@ public class SharePasswordDialogFragment extends DialogFragment
 
     private static final String ARG_FILE = "FILE";
     private static final String ARG_CREATE_SHARE = "CREATE_SHARE";
-
     public static final String PASSWORD_FRAGMENT = "PASSWORD_FRAGMENT";
 
     private OCFile mFile;
     private boolean mCreateShare;
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        AlertDialog alertDialog = (AlertDialog) getDialog();
+        alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(ThemeUtils.primaryAccentColor());
+        alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(ThemeUtils.primaryAccentColor());
+    }
 
     /**
      * Public factory method to create new SharePasswordDialogFragment instances.
@@ -80,6 +90,7 @@ public class SharePasswordDialogFragment extends DialogFragment
 
         // Setup layout
         EditText inputText = ((EditText)v.findViewById(R.id.share_password));
+        inputText.getBackground().setColorFilter(ThemeUtils.primaryAccentColor(), PorterDuff.Mode.SRC_ATOP);
         inputText.setText("");
         inputText.requestFocus();
 

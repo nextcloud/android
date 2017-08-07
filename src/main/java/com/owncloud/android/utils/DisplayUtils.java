@@ -1,4 +1,4 @@
-/**
+/*
  * Nextcloud Android client application
  *
  * @author Andy Scherzinger
@@ -31,22 +31,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.graphics.Point;
-import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.PictureDrawable;
 import android.net.Uri;
 import android.os.Build;
-import android.support.annotation.ColorInt;
-import android.support.annotation.ColorRes;
-import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.content.res.ResourcesCompat;
-import android.support.v4.graphics.drawable.DrawableCompat;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.format.DateUtils;
@@ -54,9 +46,6 @@ import android.text.style.StyleSpan;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageButton;
-import android.widget.ProgressBar;
-import android.widget.SeekBar;
 
 import com.bumptech.glide.GenericRequestBuilder;
 import com.bumptech.glide.Glide;
@@ -76,7 +65,6 @@ import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.files.SearchOperation;
 import com.owncloud.android.ui.TextDrawable;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
-import com.owncloud.android.ui.activity.ToolbarActivity;
 import com.owncloud.android.ui.events.MenuItemClickEvent;
 import com.owncloud.android.ui.events.SearchEvent;
 import com.owncloud.android.ui.fragment.OCFileListFragment;
@@ -93,6 +81,7 @@ import java.io.InputStreamReader;
 import java.math.BigDecimal;
 import java.net.IDN;
 import java.text.DateFormat;
+import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -245,26 +234,22 @@ public class DisplayUtils {
             dots = dots + ".";
         }
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD) {
-            // Find host name after '//' or '@'
-            int hostStart = 0;
-            if (urlNoDots.contains("//")) {
-                hostStart = url.indexOf("//") + "//".length();
-            } else if (url.contains("@")) {
-                hostStart = url.indexOf('@') + "@".length();
-            }
-
-            int hostEnd = url.substring(hostStart).indexOf("/");
-            // Handle URL which doesn't have a path (path is implicitly '/')
-            hostEnd = (hostEnd == -1 ? urlNoDots.length() : hostStart + hostEnd);
-
-            String host = urlNoDots.substring(hostStart, hostEnd);
-            host = (toASCII ? IDN.toASCII(host) : IDN.toUnicode(host));
-
-            return dots + urlNoDots.substring(0, hostStart) + host + urlNoDots.substring(hostEnd);
-        } else {
-            return dots + url;
+        // Find host name after '//' or '@'
+        int hostStart = 0;
+        if (urlNoDots.contains("//")) {
+            hostStart = url.indexOf("//") + "//".length();
+        } else if (url.contains("@")) {
+            hostStart = url.indexOf('@') + "@".length();
         }
+
+        int hostEnd = url.substring(hostStart).indexOf("/");
+        // Handle URL which doesn't have a path (path is implicitly '/')
+        hostEnd = (hostEnd == -1 ? urlNoDots.length() : hostStart + hostEnd);
+
+        String host = urlNoDots.substring(hostStart, hostEnd);
+        host = (toASCII ? IDN.toASCII(host) : IDN.toUnicode(host));
+
+        return dots + urlNoDots.substring(0, hostStart) + host + urlNoDots.substring(hostEnd);
     }
 
     /**
@@ -294,8 +279,8 @@ public class DisplayUtils {
      * @param accountList the account array
      * @return set of account names
      */
-    public static Set<String> toAccountNameSet(Account[] accountList) {
-        Set<String> actualAccounts = new HashSet<>(accountList.length);
+    public static Set<String> toAccountNameSet(Collection<Account> accountList) {
+        Set<String> actualAccounts = new HashSet<>(accountList.size());
         for (Account account : accountList) {
             actualAccounts.add(account.name);
         }
@@ -324,7 +309,12 @@ public class DisplayUtils {
      */
     public static int getRelativeInfoColor(Context context, int relative) {
         if (relative < RELATIVE_THRESHOLD_WARNING) {
-            return context.getResources().getColor(R.color.infolevel_info);
+            if (ThemeUtils.colorToHexString(ThemeUtils.primaryColor()).equalsIgnoreCase(
+                    ThemeUtils.colorToHexString(context.getResources().getColor(R.color.primary)))) {
+                return context.getResources().getColor(R.color.infolevel_info);
+            } else {
+                return Color.GRAY;
+            }
         } else if (relative >= RELATIVE_THRESHOLD_WARNING && relative < RELATIVE_THRESHOLD_CRITICAL) {
             return context.getResources().getColor(R.color.infolevel_warning);
         } else {
@@ -369,8 +359,9 @@ public class DisplayUtils {
 
         // Remove last slash from path
         if (path.length() > 1 && path.charAt(path.length() - 1) == OCFile.PATH_SEPARATOR.charAt(0)) {
-            path = path.substring(0, path.length() - 1);
+            return path.substring(0, path.length() - 1);
         }
+
         return path;
     }
 
@@ -389,81 +380,6 @@ public class DisplayUtils {
     }
 
     /**
-     * sets the coloring of the given progress bar to color_accent.
-     *
-     * @param progressBar the progress bar to be colored
-     */
-    public static void colorPreLollipopHorizontalProgressBar(ProgressBar progressBar) {
-        if (progressBar != null && Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-            colorHorizontalProgressBar(progressBar, progressBar.getResources().getColor(R.color.color_accent));
-        }
-    }
-
-    /**
-     * sets the tinting of the given ImageButton's icon to color_accent.
-     *
-     * @param imageButton the image button who's icon should be colored
-     */
-    public static void colorImageButton(ImageButton imageButton, @ColorInt int color) {
-        if (imageButton != null) {
-            imageButton.setColorFilter(color, PorterDuff.Mode.SRC_ATOP);
-        }
-    }
-
-    /**
-     * sets the coloring of the given progress bar to color_accent.
-     *
-     * @param progressBar the progress bar to be colored
-     * @param color       the color to be used
-     */
-    public static void colorHorizontalProgressBar(ProgressBar progressBar, @ColorInt int color) {
-        if (progressBar != null) {
-            progressBar.getIndeterminateDrawable().setColorFilter(color, PorterDuff.Mode.SRC_IN);
-            progressBar.getProgressDrawable().setColorFilter(color, PorterDuff.Mode.SRC_IN);
-        }
-    }
-
-    /**
-     * sets the coloring of the given seek bar to color_accent.
-     *
-     * @param seekBar the seek bar to be colored
-     */
-    public static void colorPreLollipopHorizontalSeekBar(SeekBar seekBar) {
-        if (seekBar != null && Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-            colorPreLollipopHorizontalProgressBar(seekBar);
-
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                int color = seekBar.getResources().getColor(R.color.color_accent);
-                seekBar.getThumb().setColorFilter(color, PorterDuff.Mode.SRC_IN);
-                seekBar.getThumb().setColorFilter(color, PorterDuff.Mode.SRC_IN);
-            }
-        }
-    }
-
-    /**
-     * set the Nextcloud standard colors for the snackbar.
-     *
-     * @param context  the context relevant for setting the color according to the context's theme
-     * @param snackbar the snackbar to be colored
-     */
-    public static void colorSnackbar(Context context, Snackbar snackbar) {
-        // Changing action button text color
-        snackbar.setActionTextColor(ContextCompat.getColor(context, R.color.white));
-    }
-
-    /**
-     * Sets the color of the status bar to {@code color} on devices with OS version lollipop or higher.
-     *
-     * @param fragmentActivity fragment activity
-     * @param color            the color
-     */
-    public static void colorStatusBar(FragmentActivity fragmentActivity, @ColorInt int color) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            fragmentActivity.getWindow().setStatusBarColor(color);
-        }
-    }
-
-    /**
      * styling of given spanText within a given text.
      *
      * @param text     the non styled complete text
@@ -476,18 +392,6 @@ public class DisplayUtils {
         int end = start + spanText.length();
         sb.setSpan(style, start, end, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
         return sb;
-    }
-
-    /**
-     * Sets the color of the progressbar to {@code color} within the given toolbar.
-     *
-     * @param activity         the toolbar activity instance
-     * @param progressBarColor the color to be used for the toolbar's progress bar
-     */
-    public static void colorToolbarProgressBar(FragmentActivity activity, int progressBarColor) {
-        if (activity instanceof ToolbarActivity) {
-            ((ToolbarActivity) activity).setProgressBarBackgroundColor(progressBarColor);
-        }
     }
 
     public interface AvatarGenerationListener {
@@ -674,27 +578,19 @@ public class DisplayUtils {
      *
      * @param inputStream        The File InputStream
      */
-    public static String getData(InputStream inputStream){
+    public static String getData(InputStream inputStream) {
 
         BufferedReader buffreader = new BufferedReader(new InputStreamReader(inputStream));
         String line;
         StringBuilder text = new StringBuilder();
         try {
-            while (( line = buffreader.readLine()) != null) {
+            while ((line = buffreader.readLine()) != null) {
                 text.append(line);
                 text.append('\n');
             }
         } catch (IOException e) {
-            Log_OC.e(TAG,e.getMessage());
+            Log_OC.e(TAG, e.getMessage());
         }
         return text.toString();
     }
-
-    public static Drawable tintDrawable(@DrawableRes int id, @ColorRes int color) {
-        Drawable drawable = ResourcesCompat.getDrawable(MainApp.getAppContext().getResources(), id, null);
-        drawable = DrawableCompat.wrap(drawable);
-        DrawableCompat.setTint(drawable, MainApp.getAppContext().getResources().getColor(color));
-        return drawable;
-    }
-
 }

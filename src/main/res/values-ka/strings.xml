@@ -1,8 +1,0 @@
-<?xml version='1.0' encoding='UTF-8'?>
-<resources>
-  <string name="actionbar_upload_files">ფაილები</string>
-  <string name="prefs_help">შველა</string>
-  <string name="auth_password">პაროლი</string>
-  <string name="sync_string_files">ფაილები</string>
-  <string name="filedetails_download">გადმოწერა</string>
-</resources>

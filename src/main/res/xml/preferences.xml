@@ -29,7 +29,7 @@
 	<PreferenceCategory
 		android:title="@string/drawer_folder_sync"
 		android:key="folder_sync">
-		<android.preference.SwitchPreference
+		<com.owncloud.android.ui.ThemeableSwitchPreference
 			android:title="@string/auto_upload_on_wifi"
 			android:key="synced_folder_on_wifi"/>
         <Preference
@@ -93,15 +93,25 @@
     </PreferenceCategory>
 
 	<PreferenceCategory android:title="@string/prefs_category_details" android:key="details">
-		<android.preference.SwitchPreference android:title="@string/prefs_passcode" android:key="set_pincode" />
-		<android.preference.SwitchPreference android:title="@string/prefs_fingerprint" android:key="use_fingerprint" />
-		<android.preference.SwitchPreference android:title="@string/prefs_show_hidden_files" android:key="show_hidden_files" />
+		<com.owncloud.android.ui.ThemeableSwitchPreference
+			android:title="@string/prefs_passcode"
+			android:key="set_pincode"/>
+		<com.owncloud.android.ui.ThemeableSwitchPreference
+			android:title="@string/prefs_fingerprint"
+			android:key="use_fingerprint"/>
+		<com.owncloud.android.ui.ThemeableSwitchPreference
+			android:title="@string/prefs_show_hidden_files"
+			android:key="show_hidden_files"/>
 	</PreferenceCategory>
 
 	<PreferenceCategory android:title="@string/prefs_category_more" android:key="more">
 		<Preference android:title="@string/prefs_calendar_contacts"
 					android:key="calendar_contacts"
 					android:summary="@string/prefs_calendar_contacts_summary" />
+		<Preference
+			android:title="@string/actionbar_contacts"
+			android:key="contacts"
+			android:summary="@string/prefs_daily_contacts_sync_summary"/>
 		<Preference android:title="@string/prefs_help" android:key="help" />
 		<Preference android:title="@string/prefs_recommend" android:key="recommend" />
 		<Preference android:title="@string/prefs_feedback" android:key="feedback" />

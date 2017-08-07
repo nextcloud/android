@@ -60,6 +60,7 @@
     <string name="prefs_calendar_contacts_address_resolve_error">Počítačová adresa konta pro DAVdroid nebyla nalezena</string>
     <string name="prefs_calendar_contacts_no_store_error">Nenainstalován Google Play store nebo F-Droid app</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Synchronizace kalendáře &amp; kontaktů úspěšně dokončena</string>
+    <string name="prefs_daily_contacts_sync_summary">Denní záloha vašich kontaktů</string>
     <string name="prefs_help">Nápověda</string>
     <string name="prefs_recommend">Doporučit přátelům</string>
     <string name="prefs_feedback">Odezva</string>
@@ -69,6 +70,7 @@
 
 	<string name="recommend_subject">Zkuste %1$s na svém chytrém telefonu!</string>
 	<string name="recommend_text">Chtěl bych vás pozvat k používání %1$s na vašem chytrém telefonu!\nKe stažení zde: %2$s</string>
+    <string name="recommend_urls">%1$s nebo %2$s</string>
 
     <string name="auth_check_server">Ověřit server</string>
     <string name="auth_host_url">Adresa serveru https://...</string>
@@ -112,7 +114,7 @@
     <string name="file_list_empty_headline_server_search_photos">Žádná fotka</string>
     <string name="file_list_empty_search">Zkusit hledat v jiné složce?</string>
     <string name="file_list_empty_recently_modified">Nenalezeny žádné soubory upravené v posledních 7 dnech</string>
-    <string name="file_list_empty_recently_modified_filter">Vaše vyhledávání nenalezlo žádné soubory upravené v posledních 7 dnech</string>
+    <string name="file_list_empty_recently_modified_filter">Vyhledávání nenalezlo žádné změny v posledních 7 dnech.</string>
     <string name="file_list_empty_recently_added">Nenalezeny žádné nedávno přidané soubory</string>
     <string name="file_list_empty_recently_added_filter">Vaše vyhledávání nenalezlo žádné nedávno přidané soubory.</string>
     <string name="file_list_empty_text_photos">Nahrajte nějaké fotky nebo aktivujte automatické nahrávání.</string>
@@ -303,8 +305,8 @@
     <string name="activity_chooser_title">Odeslat odkaz &#8230;</string>
     <string name="wait_for_tmp_copy_from_private_storage">Kopírování souboru z privátního úložiště</string>
     
-    <string name="oauth_check_onoff">Přihlásit se s oAuth2</string> 
-    <string name="oauth_login_connection">Připojuji se k oAuth2 serveru...</string>    
+    <string name="oauth_check_onoff">Přihlásit se s OAuth 2.0</string> 
+    <string name="oauth_login_connection">Připojuji se k OAuth 2.0 serveru...</string>    
         
     <string name="ssl_validator_header">Identitu stránky nelze ověřit</string>
     <string name="ssl_validator_reason_cert_not_trusted">- Certifikát serveru je nedůvěryhodný</string>
@@ -347,7 +349,7 @@
     <string name="instant_video_upload_on_charging">Nahrávat pouze při nabíjení</string>
     <string name="instant_upload_on_charging">Nahrávat pouze při nabíjení</string>
     <string name="instant_upload_path">/InstantUpload</string>
-    <string name="auto_upload_path">/Automatické nahrávání</string>
+    <string name="auto_upload_path">/AutomatickéNahrávání</string>
     <string name="conflict_title">Konflikt souboru</string>
     <string name="conflict_message">Které soubory chcete ponechat? Pokud zvolíte obě verze, zkopírovaný soubor bude mít název doplněný o číslo.</string>
     <string name="conflict_keep_both">Ponechat oba</string>
@@ -411,12 +413,12 @@
     <string name="file_migration_cleaning">Čištění&#8230;</string>
     <string name="file_migration_restoring_accounts_configuration">Obnovování konfigurace účtů&#8230;</string>
     <string name="file_migration_ok_finished">Dokončeno</string>
-    <string name="file_migration_failed_not_enough_space">CHYBA: Nedostatečné místo</string>
-    <string name="file_migration_failed_not_writable">CHYBA: Do cíle nelze zapisovat</string>
-    <string name="file_migration_failed_not_readable">CHYBA: Soubor nelze číst</string>
-    <string name="file_migration_failed_dir_already_exists">CHYBA: Nextcloud adresář již existuje</string>
-    <string name="file_migration_failed_while_coping">CHYBA: V průběhu migrace</string>
-    <string name="file_migration_failed_while_updating_index">CHYBA: V průběhu aktualizace indexu</string>
+    <string name="file_migration_failed_not_enough_space">Chyba: Nedostatek volného místa</string>
+    <string name="file_migration_failed_not_writable">Chyba: Do cíle nelze zapisovat</string>
+    <string name="file_migration_failed_not_readable">Chyba: Soubor nelze číst</string>
+    <string name="file_migration_failed_dir_already_exists">Chyba: Nextcloud adresář již existuje</string>
+    <string name="file_migration_failed_while_coping">Chyba: V průběhu migrace</string>
+    <string name="file_migration_failed_while_updating_index">Chyba: Nepodařilo se aktualizovat index</string>
 
     <string name="file_migration_directory_already_exists">Datový adresář již existuje. Vyberte jednu z následujících možností:</string>
     <string name="file_migration_override_data_folder">Nahradit</string>
@@ -482,7 +484,7 @@
     <string name="file_list__footer__files">%1$d soubory(ů)</string>
     <string name="file_list__footer__files_and_folder">%1$d soubory(ů), 1 adresář</string>
     <string name="file_list__footer__files_and_folders">%1$d soubory(ů), %2$d adresáře(ů)</string>
-    <string name="set_picture_as">Nastavit obrázek jako</string>
+    <string name="set_picture_as">Použít obrázek jako</string>
     <string name="set_as">Nastavit jako</string>
 
     <string name="prefs_instant_behaviour_dialogTitle">Originální soubor bude&#8230;</string>
@@ -490,6 +492,7 @@
     <string name="upload_copy_files">Zkopírovat soubor</string>
     <string name="upload_move_files">Přesunout soubor</string>
     <string name="select_all">Vybrat vše</string>
+    <string name="deselect_all">Odznačit vše</string>
 
     <string name="pref_behaviour_entries_keep_file">ponechán ve výchozím adresáři</string>
     <string name="pref_behaviour_entries_move">přesunut do adresáře aplikace</string>
@@ -521,6 +524,9 @@
     <string name="share_known_remote_clarification">%1$s ( v %2$s )</string>
 
     <string name="share_sharee_unavailable">Omlouváme se, verze vašeho serveru neumožňuje v klientské aplikaci sdílení dat mezi uživateli. \nKontaktujte prosím svého administrátora</string>
+    <string name="filedetails_share_link_enable">Sdílení odkazem povoleno</string>
+    <string name="filedetails_share_link_disable">Není sdílen odkazem</string>
+    <string name="filedetails_share_users_with_access">Uživatelé a skupiny s přístupem</string>
     <string name="share_privilege_can_share">může sdílet</string>
     <string name="share_privilege_can_edit">lze upravovat</string>
     <string name="share_privilege_can_edit_create">vytvořit</string>
@@ -561,12 +567,14 @@
     <string name="participate_beta_headline">Testovat noční verzi</string>
     <string name="participate_beta_text">Zahrnuje všechny nadcházející funkce a pohybuje se na hraně stability. Mohou se vyskytnout chyby, a pokud ano, nahlašte nám je prosím.</string>
     <string name="participate_release_candidate_headline">Předběžná verze</string>
-    <string name="participate_release_candidate_text">Předběžná verze nebo také Release Candidate (RC) je stabilní stav připravované, finální verze. Přihlas se jako tester v Play store nebo si najdi a instaluj hodící se verzi z F-Droid pod \"Verze\".</string>
+    <string name="participate_release_candidate_text">Kandidát na vydání (RC) je snímkem nadcházejícího vydání a očekává se, že bude stabilní. Testování vašeho individuálního nastavení by to mohlo pomoci zajistit. Přihlaste se k testování v Obchodě Play nebo se podívejte do F-Droid v části \"Verze\" a přihlaste se manuálně.</string>
     <string name="participate_contribute_headline">Aktivně něčím přispět</string>
-    <string name="participate_contribute_irc_text">Diskutovat na IRC: &lt;a href=\"%1$s\">#nextcloud-mobile&lt;/a></string>
-    <string name="participate_contribute_forum_text">Pomozte ostatním na &lt;a href=\"%1$s\">fóru&lt;/a></string>
-    <string name="participate_contribute_translate_text">&lt;a href=\"%1$s\">Přeložte&lt;/a> aplikaci</string>
-    <string name="participate_contribute_github_text">Přispět jako vývojář, detaily pod &lt;a href=\"%1$s\">CONTRIBUTING.md&lt;/a></string>
+    <string name="participate_contribute_irc_text">Připojte se k IRC chatu:</string>
+    <string name="participate_contribute_forum_text">Pomozte ostatním na</string>
+    <string name="participate_contribute_forum_forum">Fórum</string>
+    <string name="participate_contribute_translate_translate">Překládat</string>
+    <string name="participate_contribute_translate_text">Aplikace</string>
+    <string name="participate_contribute_github_text">Kontrolujte, vylepšujte a pište kód, víc informací naleznete na %1$s</string>
     <string name="move_to">Přesunout do&#8230;</string>
     <string name="copy_to">Kopírovat do&#8230;</string>
     <string name="choose_remote_folder">Vybrat adresář&#8230;</string>
@@ -634,13 +642,10 @@
     <string name="webview_error">Došlo k chybě</string>
     <string name="prefs_category_about">O aplikaci</string>
 
-    <string name="actionbar_contacts">Záložní kontakty</string>
+    <string name="actionbar_contacts">Zálohování kontaktů</string>
     <string name="actionbar_contacts_restore">Obnovení kontaktů</string>
-    <string name="contacts_backup_button">Zálohujte nyní</string>
-    <string name="contacts_restore_button">Obnovit poslední zálohu</string>
-    <string name="contacts_header_restore">Obnovit</string>
-    <string name="contacts_header_backup">Záloha</string>
-    <string name="contacts_automatic_backup">Zálohování kontaktů</string>
+    <string name="contacts_backup_button">Zálohovat nyní</string>
+    <string name="contacts_automatic_backup">Automatické zálohování</string>
     <string name="contacts_last_backup">Poslední záloha</string>
     <string name="contacts_read_permission">Je třeba oprávnění ke čtení seznamu kontaktů</string>
     <string name="contacts_write_permission">Povolení změn v seznam kontaktů je vyžadováno</string>
@@ -664,4 +669,5 @@
 
     <string name="folder_sync_folders">Nastavení adresářů</string>
 
-  </resources>
+  <string name="test_server_button">Otestovat připojení k serveru</string>
+</resources>

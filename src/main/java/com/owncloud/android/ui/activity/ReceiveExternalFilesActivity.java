@@ -34,11 +34,17 @@ import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.Resources.NotFoundException;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.os.Parcelable;
+import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.StringRes;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
@@ -58,14 +64,16 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
-import com.owncloud.android.authentication.AccountAuthenticator;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.db.PreferenceManager;
 import com.owncloud.android.files.services.FileUploader;
@@ -88,6 +96,7 @@ import com.owncloud.android.ui.helpers.UriUploader;
 import com.owncloud.android.utils.DataHolderUtil;
 import com.owncloud.android.utils.ErrorMessageAdapter;
 import com.owncloud.android.utils.FileStorageUtils;
+import com.owncloud.android.utils.ThemeUtils;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -140,6 +149,12 @@ public class ReceiveExternalFilesActivity extends FileActivity
     private String mExtraText;
 
     private final static String FILENAME_ENCODING = "UTF-8";
+
+    private LinearLayout mEmptyListContainer;
+    private TextView mEmptyListMessage;
+    private TextView mEmptyListHeadline;
+    private ImageView mEmptyListIcon;
+    private ProgressBar mEmptyListProgress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -251,25 +266,14 @@ public class ReceiveExternalFilesActivity extends FileActivity
             builder.setPositiveButton(R.string.uploader_wrn_no_account_setup_btn_text, new OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    if (android.os.Build.VERSION.SDK_INT >
-                        android.os.Build.VERSION_CODES.ECLAIR_MR1) {
-                        // using string value since in API7 this
-                        // constant is not defined
-                        // in API7 < this constant is defined in
-                        // Settings.ADD_ACCOUNT_SETTINGS
-                        // and Settings.EXTRA_AUTHORITIES
-                        Intent intent = new Intent(android.provider.Settings.ACTION_ADD_ACCOUNT);
-                        intent.putExtra("authorities", new String[]{MainApp.getAuthTokenType()});
-                        startActivityForResult(intent, REQUEST_CODE__SETUP_ACCOUNT);
-                    } else {
-                        // since in API7 there is no direct call for
-                        // account setup, so we need to
-                        // show our own AccountSetupActivity, get
-                        // desired results and setup
-                        // everything for ourselves
-                        Intent intent = new Intent(getActivity().getBaseContext(), AccountAuthenticator.class);
-                        startActivityForResult(intent, REQUEST_CODE__SETUP_ACCOUNT);
-                    }
+                    // using string value since in API7 this
+                    // constant is not defined
+                    // in API7 < this constant is defined in
+                    // Settings.ADD_ACCOUNT_SETTINGS
+                    // and Settings.EXTRA_AUTHORITIES
+                    Intent intent = new Intent(android.provider.Settings.ACTION_ADD_ACCOUNT);
+                    intent.putExtra("authorities", new String[]{MainApp.getAuthTokenType()});
+                    startActivityForResult(intent, REQUEST_CODE__SETUP_ACCOUNT);
                 }
             });
             builder.setNegativeButton(R.string.uploader_wrn_no_account_quit_btn_text, new OnClickListener() {
@@ -294,7 +298,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
 
             mTintedCheck = DrawableCompat.wrap(ContextCompat.getDrawable(parent,
                     R.drawable.ic_account_circle_white_18dp));
-            int tint = ContextCompat.getColor(parent, R.color.primary);
+            int tint = ThemeUtils.primaryColor();
             DrawableCompat.setTint(mTintedCheck, tint);
 
             mAccountListAdapter = new AccountListAdapter(parent, getAccountListItems(parent), mTintedCheck);
@@ -720,6 +724,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
 
     private void populateDirectoryList() {
         setContentView(R.layout.uploader_layout);
+        setupEmptyList();
         setupToolbar();
         ActionBar actionBar = getSupportActionBar();
 
@@ -744,31 +749,83 @@ public class ReceiveExternalFilesActivity extends FileActivity
         mFile = getStorageManager().getFileByPath(full_path);
         if (mFile != null) {
             Vector<OCFile> files = getStorageManager().getFolderContent(mFile, false);
-            sortFileList(files);
 
-            List<HashMap<String, Object>> data = new LinkedList<>();
-            for (OCFile f : files) {
-                HashMap<String, Object> h = new HashMap<>();
-                h.put("dirname", f);
-                data.add(h);
+            if (files.size() == 0) {
+                setMessageForEmptyList(
+                        R.string.file_list_empty_headline,
+                        R.string.empty,
+                        R.drawable.ic_list_empty_upload,
+                        true
+                );
+            } else {
+                mEmptyListContainer.setVisibility(View.GONE);
+
+                sortFileList(files);
+
+                List<HashMap<String, Object>> data = new LinkedList<>();
+                for (OCFile f : files) {
+                    HashMap<String, Object> h = new HashMap<>();
+                    h.put("dirname", f);
+                    data.add(h);
+                }
+
+                UploaderAdapter sa = new UploaderAdapter(this,
+                        data,
+                        R.layout.uploader_list_item_layout,
+                        new String[]{"dirname"},
+                        new int[]{R.id.filename},
+                        getStorageManager(), getAccount());
+
+                mListView.setAdapter(sa);
+                Button btnChooseFolder = (Button) findViewById(R.id.uploader_choose_folder);
+                btnChooseFolder.setOnClickListener(this);
+                btnChooseFolder.getBackground().setColorFilter(ThemeUtils.primaryColor(getAccount()),
+                        PorterDuff.Mode.SRC_ATOP);
+
+                getSupportActionBar().setBackgroundDrawable(new ColorDrawable(ThemeUtils.primaryColor(getAccount())));
+
+                ThemeUtils.colorStatusBar(this, ThemeUtils.primaryDarkColor(getAccount()));
+
+                ThemeUtils.colorToolbarProgressBar(this, ThemeUtils.primaryColor(getAccount()));
+
+                Button btnNewFolder = (Button) findViewById(R.id.uploader_cancel);
+                btnNewFolder.setOnClickListener(this);
+
+                mListView.setOnItemClickListener(this);
             }
-
-            UploaderAdapter sa = new UploaderAdapter(this,
-                                                data,
-                                                R.layout.uploader_list_item_layout,
-                                                new String[] {"dirname"},
-                                                new int[] {R.id.filename},
-                                                getStorageManager(), getAccount());
-
-            mListView.setAdapter(sa);
-            Button btnChooseFolder = (Button) findViewById(R.id.uploader_choose_folder);
-            btnChooseFolder.setOnClickListener(this);
-
-            Button btnNewFolder = (Button) findViewById(R.id.uploader_cancel);
-            btnNewFolder.setOnClickListener(this);
-
-            mListView.setOnItemClickListener(this);
         }
+    }
+
+    protected void setupEmptyList() {
+        mEmptyListContainer = (LinearLayout) findViewById(R.id.empty_list_view);
+        mEmptyListMessage = (TextView) findViewById(R.id.empty_list_view_text);
+        mEmptyListHeadline = (TextView) findViewById(R.id.empty_list_view_headline);
+        mEmptyListIcon = (ImageView) findViewById(R.id.empty_list_icon);
+        mEmptyListProgress = (ProgressBar) findViewById(R.id.empty_list_progress);
+        mEmptyListProgress.getIndeterminateDrawable().setColorFilter(ThemeUtils.primaryColor(),
+                PorterDuff.Mode.SRC_IN);
+    }
+
+    public void setMessageForEmptyList(@StringRes final int headline, @StringRes final int message,
+                                       @DrawableRes final int icon, final boolean tintIcon) {
+        new Handler(Looper.getMainLooper()).post(new Runnable() {
+            @Override
+            public void run() {
+
+                if (mEmptyListContainer != null && mEmptyListMessage != null) {
+                    mEmptyListHeadline.setText(headline);
+                    mEmptyListMessage.setText(message);
+
+                    if (tintIcon) {
+                        mEmptyListIcon.setImageDrawable(ThemeUtils.tintDrawable(icon, ThemeUtils.primaryColor()));
+                    }
+
+                    mEmptyListIcon.setVisibility(View.VISIBLE);
+                    mEmptyListProgress.setVisibility(View.GONE);
+                    mEmptyListMessage.setVisibility(View.VISIBLE);
+                }
+            }
+        });
     }
 
     @Override
@@ -996,6 +1053,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
 
             default:
                 retval = super.onOptionsItemSelected(item);
+                break;
         }
         return retval;
     }

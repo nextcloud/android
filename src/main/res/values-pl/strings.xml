@@ -69,7 +69,6 @@
 
 	<string name="recommend_subject">Wypróbuj %1$s na swoim smartfonie!</string>
 	<string name="recommend_text">Zapraszam do użycia %1$s na swoim smartfonie!\nŚciągnij tutaj: %2$s</string>
-
     <string name="auth_check_server">Sprawdź serwer</string>
     <string name="auth_host_url">Adres serwera https://...</string>
     <string name="auth_username">Nazwa użytkownika</string>
@@ -112,7 +111,6 @@
     <string name="file_list_empty_headline_server_search_photos">Brak zdjęć</string>
     <string name="file_list_empty_search">Spróbować szukać w innym folderze?</string>
     <string name="file_list_empty_recently_modified">Nie znaleziono żadnych plików zmodyfikowanych w ciągu ostatnich 7 dni</string>
-    <string name="file_list_empty_recently_modified_filter">Twoje wyszukiwanie nie zwróciło żądnych plików zmodyfikowanych w ciągu ostatnich 7 dni </string>
     <string name="file_list_empty_recently_added">NIe znaleziono żadnych ostatnio dodanych plików</string>
     <string name="file_list_empty_recently_added_filter">Twoje wyszukiwanie nie zwróciło żadnych ostatnio dodanych plików</string>
     <string name="file_list_empty_text_photos">Wyślij zdjęcia lub włącz automatyczne wysyłanie</string>
@@ -154,7 +152,6 @@
     <string name="about_title">O aplikacji</string>
     <string name="change_password">Zmień hasło</string>
     <string name="delete_account">Usuń konto</string>
-    <string name="delete_account_warning">Usuń konto %s?\n\nUsunięcie jest nieodwracalne.</string>
     <string name="create_account">Utwórz konto</string>
     <string name="upload_chooser_title">Wyślij plik z &#8230;</string>
     <string name="uploader_info_dirname">Nazwa folderu</string>
@@ -303,8 +300,8 @@
     <string name="activity_chooser_title">Wyślij link do &#8230;</string>
     <string name="wait_for_tmp_copy_from_private_storage">Kopiowanie pliku z prywatnego zasobu</string>
     
-    <string name="oauth_check_onoff">Loguj przez oAuth2</string> 
-    <string name="oauth_login_connection">Łączenie z serwerem OAuth 2...</string>    
+    <string name="oauth_check_onoff">Loguj przez OAuth 2.0</string> 
+    <string name="oauth_login_connection">Łączenie z serwerem OAuth 2.0...</string>    
         
     <string name="ssl_validator_header">Nie można zweryfikować tożsamości strony</string>
     <string name="ssl_validator_reason_cert_not_trusted">- Certyfikat serwera jest niezaufany</string>
@@ -347,7 +344,7 @@
     <string name="instant_video_upload_on_charging">Wysyłaj tylko podczas ładowania</string>
     <string name="instant_upload_on_charging">Wysyłaj tylko podczas ładowania</string>
     <string name="instant_upload_path">/InstantUpload</string>
-    <string name="auto_upload_path">/Automatyczne wysyłanie</string>
+    <string name="auto_upload_path">/AutomatyczneWysyłanie</string>
     <string name="conflict_title">Konflikt pliku</string>
     <string name="conflict_message">Które pliki chcesz zachować? Jeżeli wybierzesz obie wersje, do nazwy pliku lokalnego zostanie dodana liczba.</string>
     <string name="conflict_keep_both">Zatrzymaj oba</string>
@@ -411,13 +408,6 @@
     <string name="file_migration_cleaning">Czyszczenie&#8230;</string>
     <string name="file_migration_restoring_accounts_configuration">Przywracanie konfiguracji konta&#8230;</string>
     <string name="file_migration_ok_finished">Skończone</string>
-    <string name="file_migration_failed_not_enough_space">BŁĄD: Brak miejsca</string>
-    <string name="file_migration_failed_not_writable">BŁĄD: Nie można zapisać pliku docelowego</string>
-    <string name="file_migration_failed_not_readable">BŁĄD: Nie można odczytać pliku źródłowego</string>
-    <string name="file_migration_failed_dir_already_exists">BŁĄD: Katalog Nextcloud już istnieje</string>
-    <string name="file_migration_failed_while_coping">BŁĄD: Nieudana migracja</string>
-    <string name="file_migration_failed_while_updating_index">BŁĄD: Nieudana aktualizacja indeksu</string>
-
     <string name="file_migration_directory_already_exists">Katalog danych już istnieje. Wybierz jeden z poniższych:</string>
     <string name="file_migration_override_data_folder">Zamień</string>
     <string name="file_migration_use_data_folder">Użyj</string>
@@ -482,7 +472,6 @@
     <string name="file_list__footer__files">%1$d plików</string>
     <string name="file_list__footer__files_and_folder">%1$d plików, 1 folder</string>
     <string name="file_list__footer__files_and_folders">%1$d plików, %2$d folderów</string>
-    <string name="set_picture_as">Ustaw obraz jako</string>
     <string name="set_as">Ustaw jako</string>
 
     <string name="prefs_instant_behaviour_dialogTitle">Oryginalny plik zostanie&#8230;</string>
@@ -490,7 +479,6 @@
     <string name="upload_copy_files">Kopiuj plik</string>
     <string name="upload_move_files">Przenieś plik</string>
     <string name="select_all">Wybierz wszystko</string>
-
     <string name="pref_behaviour_entries_keep_file">zachowany w oryginalnym folderze</string>
     <string name="pref_behaviour_entries_move">przeniesiony do folderu aplikacji</string>
     <string name="pref_behaviour_entries_delete_file">usunięty</string>
@@ -556,17 +544,11 @@
     <string name="drawer_participate">Wspieraj</string>
     <string name="participate_testing_headline">Pomóż nam testować</string>
     <string name="participate_testing_bug_text">Znaleziono błąd? Jest coś dziwnego?</string>
-    <string name="participate_testing_report_text">Zgłoś błąd na GitHubie</string>
     <string name="participate_testing_version_text">Chcesz pomóc nam testować następną wersję?</string>
     <string name="participate_beta_headline">Sprawdź wersję rozwojową</string>
     <string name="participate_beta_text">Zawiera to w sobie wszystkie nadchodzące funkcjonalności i jest bardzo ryzykowne. Mogą się pojawiać błędy. Jeśli będą proszę je do nas zgłosić.</string>
     <string name="participate_release_candidate_headline">Wydanie kandydujące</string>
-    <string name="participate_release_candidate_text">Release Candidate (RC) jest zarysem nadchodzącego wydania i oczekujemy że będzie stabilne. Testowanie indywidualnej konfiguracji może pomóc, aby to zapewnić. Zapisz się do testowania w sklepie Play lub ręcznie szukaj w sekcji \"wersje\" na F-Droid.</string>
     <string name="participate_contribute_headline">Aktywni członkowie projektu</string>
-    <string name="participate_contribute_irc_text">Dołącz do rozmowy na IRC: &lt;a href=\"%1$s\">#nextcloud-mobile&lt;/a></string>
-    <string name="participate_contribute_forum_text">Pomóż innym na &lt;a href=\"%1$s\">forum&lt;/a></string>
-    <string name="participate_contribute_translate_text">&lt;a href=\"%1$s\">Przetłumacz&lt;/a> aplikację</string>
-    <string name="participate_contribute_github_text">Przejrzyj, zmień i wpisz kod, zobacz szczegóły: &lt;a href=\"%1$s\">CONTRIBUTING.md&lt;a></string>
     <string name="move_to">Przenieś do&#8230;</string>
     <string name="copy_to">Skopiuj do&#8230;</string>
     <string name="choose_remote_folder">Wybierz folder&#8230;</string>
@@ -606,10 +588,10 @@
 
     <!-- Welcome to Nc intro features -->
     <string name="welcome_feature_1_title">Bezpieczny dom dla wszystkich danych</string>
-    <string name="welcome_feature_1_text">Dostęp do, współdzielenie i ochrona twoich plików w domu i w pracy</string>
+    <string name="welcome_feature_1_text">Dostęp, współdzielenie i ochrona Twoich plików w domu i w pracy</string>
 
     <string name="welcome_feature_2_title">Wiele kont</string>
-    <string name="welcome_feature_2_text">Podłączenie się do wszystkich swoich chmur</string>
+    <string name="welcome_feature_2_text">Podłącz się do wszystkich swoich chmur</string>
 
     <string name="welcome_feature_3_title">Natychmiastowe wysyłanie</string>
     <string name="welcome_feature_3_text">Twoje zdjęcia będą bezpieczne</string>
@@ -635,13 +617,10 @@
     <string name="webview_error">Wystąpił błąd</string>
     <string name="prefs_category_about">O aplikacji</string>
 
-    <string name="actionbar_contacts">Utwórz kopię zapasową kontaktów</string>
+    <string name="actionbar_contacts">Zrób kopię kontaktów</string>
     <string name="actionbar_contacts_restore">Przywróć kontakty</string>
-    <string name="contacts_backup_button">Utwórz kopię zapasową</string>
-    <string name="contacts_restore_button">Przywróć ostatnią kopię zapasową</string>
-    <string name="contacts_header_restore">Przywróć</string>
-    <string name="contacts_header_backup">Kopia zapasowa</string>
-    <string name="contacts_automatic_backup">Kopia zapasowa kontaktów</string>
+    <string name="contacts_backup_button">Zrób kopię teraz</string>
+    <string name="contacts_automatic_backup">Automatyczna kopia zapasowa</string>
     <string name="contacts_last_backup">Ostatnia kopia zapasowa</string>
     <string name="contacts_read_permission">Potrzebne uprawnienia do odczytu kontaktów</string>
     <string name="contacts_write_permission">Potrzebne uprawnienia do modyfikacji kontaktów</string>

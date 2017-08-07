@@ -60,6 +60,7 @@
     <string name="prefs_calendar_contacts_address_resolve_error">Ekki var hægt að leysa vistfang þjóns fyrir aðganginn í DAVdroid</string>
     <string name="prefs_calendar_contacts_no_store_error">Hvorki F-droid né Google Play eru uppsett</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Samstillingar dagatals 1&amp; tengiliða eru uppsettar</string>
+    <string name="prefs_daily_contacts_sync_summary">Daglegt öryggisafrit af tengiliðum</string>
     <string name="prefs_help">Hjálp</string>
     <string name="prefs_recommend">Mæla með við vin</string>
     <string name="prefs_feedback">Umsögn</string>
@@ -69,6 +70,7 @@
 
 	<string name="recommend_subject">Prófaðu %1$s á snjallsímanum þínum!</string>
 	<string name="recommend_text">Mig langar til að bjóða þér að nota %1$s á snjallsímanum þínum.\nHægt að sækja það hér: %2$s</string>
+    <string name="recommend_urls">%1$s eða %2$s</string>
 
     <string name="auth_check_server">Athuga með þjón</string>
     <string name="auth_host_url">Vistfang þjóns https://…</string>
@@ -113,8 +115,7 @@ Smelltu hér til að fá þér einn frá þjónustuaðila.</string>
     <string name="file_list_empty_headline_server_search_photos">Engar ljósmyndir</string>
     <string name="file_list_empty_search">Er þetta kannski í einhverri annarri möppu?</string>
     <string name="file_list_empty_recently_modified">Fann engar skrár sem breytt hefur verið síðustu 7 daga</string>
-    <string name="file_list_empty_recently_modified_filter">Leitin skilaði engum skrám sem breytt
-        hefur verið síðustu 7 daga</string>
+    <string name="file_list_empty_recently_modified_filter">Fann engar skrár sem breytt hefur verið síðustu 7 daga.</string>
     <string name="file_list_empty_recently_added">Fann engar nýlega viðbættar skrár</string>
     <string name="file_list_empty_recently_added_filter">Leitin skilaði engum nýlega viðbættum skrám</string>
     <string name="file_list_empty_text_photos">Sendu inn einhverjar myndir eða virkjaðu sjálfvirka innsendingu.</string>
@@ -156,7 +157,7 @@ Smelltu hér til að fá þér einn frá þjónustuaðila.</string>
     <string name="about_title">Um hugbúnaðinn</string>
     <string name="change_password">Breyta lykilorði</string>
     <string name="delete_account">Fjarlægja notandaaðgang</string>
-    <string name="delete_account_warning">Eyða aðgangi %s?\n\nEyðing er óafturkræf.</string>
+    <string name="delete_account_warning">Eyða aðgangnum %s ásamt öllum tilheyrandi skrám á tölvunni?\n\nEyðingu er ekki hægt að afturkalla.</string>
     <string name="create_account">Stofna aðgang</string>
     <string name="upload_chooser_title">Senda inn frá &#8230;</string>
     <string name="uploader_info_dirname">Nafn möppu</string>
@@ -305,8 +306,8 @@ Smelltu hér til að fá þér einn frá þjónustuaðila.</string>
     <string name="activity_chooser_title">Senda tengil til &#8230;</string>
     <string name="wait_for_tmp_copy_from_private_storage">Afrita skrá úr einkageymslu</string>
     
-    <string name="oauth_check_onoff">Skrá inn með oAuth2</string> 
-    <string name="oauth_login_connection">Tengist við OAuth-auðkenningarþjón …</string>    
+    <string name="oauth_check_onoff">Skrá inn með OAuth 2.0</string> 
+    <string name="oauth_login_connection">Tengist við OAuth 2.0-auðkenningarþjón …</string>    
         
     <string name="ssl_validator_header">Ekki var hægt að sannreyna auðkenni vefsvæðisins</string>
     <string name="ssl_validator_reason_cert_not_trusted">- Skilríki þjónsins er ekki treyst</string>
@@ -349,7 +350,7 @@ Smelltu hér til að fá þér einn frá þjónustuaðila.</string>
     <string name="instant_video_upload_on_charging">Einungis senda inn þegar verið er að hlaða</string>
     <string name="instant_upload_on_charging">Einungis senda inn þegar verið er að hlaða</string>
     <string name="instant_upload_path">/BeinInnsending</string>
-    <string name="auto_upload_path">/Sjálfvirk innsending</string>
+    <string name="auto_upload_path">/SjálfvirkInnsending</string>
     <string name="conflict_title">Árekstur skráa</string>
     <string name="conflict_message">Hvaða skrám viltu halda? Ef þú velur báðar útgáfur, þá mun verða bætt tölustaf aftan við heiti afrituðu skrárinnar.</string>
     <string name="conflict_keep_both">Halda báðum</string>
@@ -413,12 +414,12 @@ Smelltu hér til að fá þér einn frá þjónustuaðila.</string>
     <string name="file_migration_cleaning">Hreinsa&#8230;</string>
     <string name="file_migration_restoring_accounts_configuration">Endurheimti aðgangsuppsetningar&#8230;</string>
     <string name="file_migration_ok_finished">Lokið</string>
-    <string name="file_migration_failed_not_enough_space">VILLA: Ónógt pláss</string>
-    <string name="file_migration_failed_not_writable">VILLA: Móttökuskráin er ekki skrifanleg</string>
-    <string name="file_migration_failed_not_readable">VILLA: Upprunaskráin er ekki lesanleg</string>
-    <string name="file_migration_failed_dir_already_exists">VILLA: Nextcloud-mappa er þegar til staðar</string>
-    <string name="file_migration_failed_while_coping">VILLA: Mistókst við yfirfærslu</string>
-    <string name="file_migration_failed_while_updating_index">VILLA: Mistókst að uppfæra skráningarvísi</string>
+    <string name="file_migration_failed_not_enough_space">Villa: ekki nægilegt pláss</string>
+    <string name="file_migration_failed_not_writable">Villa: úttaksskrá ekki skrifanleg</string>
+    <string name="file_migration_failed_not_readable">Villa: upprunaskrá ekki lesanleg</string>
+    <string name="file_migration_failed_dir_already_exists">Villa: Nextcloud-mappan er þegar til</string>
+    <string name="file_migration_failed_while_coping">Villa: mistök við yfirfærslu</string>
+    <string name="file_migration_failed_while_updating_index">Villa: villa við að uppfæra vísi</string>
 
     <string name="file_migration_directory_already_exists">Gagnamappa er þegar til. Veldu eitt af eftirfarandi:</string>
     <string name="file_migration_override_data_folder">Skipta út</string>
@@ -484,7 +485,7 @@ Smelltu hér til að fá þér einn frá þjónustuaðila.</string>
     <string name="file_list__footer__files">%1$d skrár</string>
     <string name="file_list__footer__files_and_folder">%1$d skrár, 1 mappa</string>
     <string name="file_list__footer__files_and_folders">%1$d skrár, %2$d möppur</string>
-    <string name="set_picture_as">Setja mynd sem</string>
+    <string name="set_picture_as">Nota mynd sem</string>
     <string name="set_as">Setja sem</string>
 
     <string name="prefs_instant_behaviour_dialogTitle">Upprunaleg skrá verður&#8230;</string>
@@ -492,6 +493,7 @@ Smelltu hér til að fá þér einn frá þjónustuaðila.</string>
     <string name="upload_copy_files">Afrita skrá</string>
     <string name="upload_move_files">Færa skrá</string>
     <string name="select_all">Velja allt</string>
+    <string name="deselect_all">Afvelja allt</string>
 
     <string name="pref_behaviour_entries_keep_file">áfram í upprunalegri möppu</string>
     <string name="pref_behaviour_entries_move">færð í forritsmöppu</string>
@@ -523,6 +525,9 @@ Smelltu hér til að fá þér einn frá þjónustuaðila.</string>
     <string name="share_known_remote_clarification">%1$s ( á %2$s )</string>
 
     <string name="share_sharee_unavailable">Uppfærðu vefþjóninn til að leyfa deilingu milli notenda innan úr biðlaraforritum þeirra.\nHafðu samband við kerfisstjórann þinn</string>
+    <string name="filedetails_share_link_enable">Deiling með tengli er virk</string>
+    <string name="filedetails_share_link_disable">Ekki deilt með tengli</string>
+    <string name="filedetails_share_users_with_access">Notendur og hópar með aðgang</string>
     <string name="share_privilege_can_share">getur deilt</string>
     <string name="share_privilege_can_edit">getur breytt</string>
     <string name="share_privilege_can_edit_create">búið til</string>
@@ -558,17 +563,19 @@ Smelltu hér til að fá þér einn frá þjónustuaðila.</string>
     <string name="drawer_participate">Taka þátt</string>
     <string name="participate_testing_headline">Hjálpaðu til við prófanir</string>
     <string name="participate_testing_bug_text">Fannstu villu? Skringilegheit?</string>
-    <string name="participate_testing_report_text">Tilkynna um vandamál á Github</string>
+    <string name="participate_testing_report_text">Tilkynntu um vandamál á GitHub</string>
     <string name="participate_testing_version_text">Hefurðu áhuga á að hjálpa til við að prófa næstu útgáfu?</string>
     <string name="participate_beta_headline">Prófaðu þróunarútgáfuna</string>
     <string name="participate_beta_text">Þetta inniheldur alla væntanlega eiginleika og er alveg á jaðrinum hvað varðar stöðugleika. Villur geta komið upp, og ef slíkt gerist, endilega tilkynntu um þær.</string>
     <string name="participate_release_candidate_headline">Forútgáfa</string>
-    <string name="participate_release_candidate_text">Útgáfukandídat (RC) er stöðutaka á væntanlegri útgáfu og er vænst til að hún sé nokkuð stöðug. Með prófun á uppsetningunni þinni værirðu að hjálpa til við að tryggja þann stöðugleika. Skráðu þig til prófana í Play-safninu eða skoðaðu handvirkt í \"útgáfur\" hlutanum á F-Droid.</string>
+    <string name="participate_release_candidate_text">Prófunarútgáfan (RC) er skyndisamsetning verðandi útgáfu en er þó vænst að sé tiltölulega stöðug. Það að þú prófir uppsetninguna þína ætti að hjálpa til við að ná því markmiði. Skráðu þig til prófana í Play hugbúnaðarsafninu eða gerðu það handvirkt með því að fara í \"Útgáfa\"-hlutann í F-Droid.</string>
     <string name="participate_contribute_headline">Vertu virkur þáttakandi</string>
-    <string name="participate_contribute_irc_text">Taktu þátt í spjalli á IRC: &lt;a href=\"%1$s\">#nextcloud-mobile&lt;/a></string>
-    <string name="participate_contribute_forum_text">Hjálpaðu öðrum á &lt;a href=\"%1$s\">spjallvefnum&lt;/a></string>
-    <string name="participate_contribute_translate_text">&lt;a href=\"%1$s\">Þýddu&lt;/a> forritið</string>
-    <string name="participate_contribute_github_text">Yfirfarðu, bættu og skrifaðu kóða, skoðaðu &lt;a href=\"%1$s\">CONTRIBUTING.md&lt;a> fyrir nánari upplýsingar</string>
+    <string name="participate_contribute_irc_text">Taktu þátt í umræðum á IRC:</string>
+    <string name="participate_contribute_forum_text">Hjálpaðu öðrum á</string>
+    <string name="participate_contribute_forum_forum">vefspjallinu</string>
+    <string name="participate_contribute_translate_translate">Þýddu</string>
+    <string name="participate_contribute_translate_text">forritið</string>
+    <string name="participate_contribute_github_text">Yfirfarðu, bættu og skrifaðu kóða, skoðaðu %1$s fyrir nánari upplýsingar</string>
     <string name="move_to">Færa í&#8230;</string>
     <string name="copy_to">Afrita í&#8230;</string>
     <string name="choose_remote_folder">Veldu möppu&#8230;</string>
@@ -635,13 +642,10 @@ Smelltu hér til að fá þér einn frá þjónustuaðila.</string>
     <string name="webview_error">Villa átti sér stað</string>
     <string name="prefs_category_about">Um hugbúnaðinn</string>
 
-    <string name="actionbar_contacts">Taka öryggisafrit af tengiliðum</string>
+    <string name="actionbar_contacts">Taka öryggisafrit af tengiliðum </string>
     <string name="actionbar_contacts_restore">Endurheimta tengiliði</string>
     <string name="contacts_backup_button">Taka öryggisafrit núna</string>
-    <string name="contacts_restore_button">Endurheimta síðasta öryggisafrit</string>
-    <string name="contacts_header_restore">Endurheimta</string>
-    <string name="contacts_header_backup">Taka öryggisafrit</string>
-    <string name="contacts_automatic_backup">Öryggisafrit af tengiliðum</string>
+    <string name="contacts_automatic_backup">Sjálfvirk öryggisafritun</string>
     <string name="contacts_last_backup">Síðasta öryggisafrit</string>
     <string name="contacts_read_permission">Nauðsynlegt er að hafa heimild til að lesa tengiliðalista</string>
     <string name="contacts_write_permission">Nauðsynlegt er að hafa heimild til að breyta tengiliðalista</string>
@@ -665,4 +669,5 @@ Smelltu hér til að fá þér einn frá þjónustuaðila.</string>
 
     <string name="folder_sync_folders">Stilla möppur</string>
 
-  </resources>
+  <string name="test_server_button">Prófa tengingu þjóns</string>
+</resources>

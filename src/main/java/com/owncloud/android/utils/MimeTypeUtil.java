@@ -18,10 +18,12 @@
 
 package com.owncloud.android.utils;
 
+import android.accounts.Account;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.webkit.MimeTypeMap;
 
+import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
 
@@ -71,6 +73,36 @@ public class MimeTypeUtil {
     }
 
     /**
+     * Returns the Drawable of an image to use as icon associated to a known MIME type.
+     *
+     * @param mimetype MIME type string; if NULL, the method tries to guess it from the extension in filename
+     * @param filename Name, with extension.
+     * @return Drawable of an image resource.
+     */
+    public static Drawable getFileTypeIcon(String mimetype, String filename) {
+        return getFileTypeIcon(mimetype, filename, null);
+    }
+
+    /**
+     * Returns the Drawable of an image to use as icon associated to a known MIME type.
+     *
+     * @param mimetype MIME type string; if NULL, the method tries to guess it from the extension in filename
+     * @param filename Name, with extension.
+     * @param account account which color should be used
+     * @return Drawable of an image resource.
+     */
+    public static Drawable getFileTypeIcon(String mimetype, String filename, Account account) {
+        int iconId = MimeTypeUtil.getFileTypeIconId(mimetype, filename);
+        Drawable icon = MainApp.getAppContext().getResources().getDrawable(iconId);
+
+        if(R.drawable.file_zip == iconId) {
+            ThemeUtils.tintDrawable(icon, ThemeUtils.primaryColor(account));
+        }
+
+        return icon;
+    }
+
+    /**
      * Returns the resource identifier of an image to use as icon associated to a known MIME type.
      *
      * @param mimetype MIME type string; if NULL, the method tries to guess it from the extension in filename
@@ -92,10 +124,22 @@ public class MimeTypeUtil {
      * Returns the resource identifier of an image to use as icon associated to a type of folder.
      *
      * @param isSharedViaUsers flag if the folder is shared via the users system
-     * @param isSharedViaLink flag if the folder is publicly shared via link
+     * @param isSharedViaLink  flag if the folder is publicly shared via link
      * @return Identifier of an image resource.
      */
     public static Drawable getFolderTypeIcon(boolean isSharedViaUsers, boolean isSharedViaLink) {
+        return getFolderTypeIcon(isSharedViaUsers, isSharedViaLink, null);
+    }
+
+    /**
+     * Returns the resource identifier of an image to use as icon associated to a type of folder.
+     *
+     * @param isSharedViaUsers flag if the folder is shared via the users system
+     * @param isSharedViaLink flag if the folder is publicly shared via link
+     * @param account account which color should be used
+     * @return Identifier of an image resource.
+     */
+    public static Drawable getFolderTypeIcon(boolean isSharedViaUsers, boolean isSharedViaLink, Account account) {
         int drawableId;
 
         if (isSharedViaLink) {
@@ -106,7 +150,7 @@ public class MimeTypeUtil {
             drawableId = R.drawable.ic_menu_archive;
         }
 
-        return DisplayUtils.tintDrawable(drawableId, R.color.primary);
+        return ThemeUtils.tintDrawable(drawableId, ThemeUtils.primaryColor(account));
     }
 
     public static Drawable getDefaultFolderIcon() {

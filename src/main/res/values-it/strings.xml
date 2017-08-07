@@ -122,7 +122,6 @@
     <string name="about_title">Informazioni</string>
     <string name="change_password">Modifica la password</string>
     <string name="delete_account">Rimuovi account</string>
-    <string name="delete_account_warning">Vuoi eliminare l\'account %s?\n\nL\'eliminazione non può essere annullata.</string>
     <string name="create_account">Crea account</string>
     <string name="upload_chooser_title">Carica file da &#8230;</string>
     <string name="uploader_info_dirname">Nome della cartella</string>
@@ -247,8 +246,8 @@
     <string name="activity_chooser_title">Invia collegamento a &#8230;</string>
     <string name="wait_for_tmp_copy_from_private_storage">Copia file dall\'archiviazione privata</string>
     
-    <string name="oauth_check_onoff">Accedi con OAuth2</string> 
-    <string name="oauth_login_connection">Connessione al server OAuth2...</string>    
+    <string name="oauth_check_onoff">Accedi con OAuth 2.0</string> 
+    <string name="oauth_login_connection">Connessione al server OAuth 2.0...</string>    
         
     <string name="ssl_validator_header">L\'identità del sito non può essere verificata</string>
     <string name="ssl_validator_reason_cert_not_trusted">- Il certificato del server non è affidabile</string>
@@ -338,13 +337,6 @@
     <string name="file_migration_updating_index">Aggiornamento dell\'indice&#8230;</string>
     <string name="file_migration_cleaning">Pulizia&#8230;</string>
     <string name="file_migration_ok_finished">Fine</string>
-    <string name="file_migration_failed_not_enough_space">ERRORE: spazio insufficiente</string>
-    <string name="file_migration_failed_not_writable">ERRORE: file di destinazione non scrivibile</string>
-    <string name="file_migration_failed_not_readable">ERRORE: file sorgente non leggibile</string>
-    <string name="file_migration_failed_dir_already_exists">ERRORE: la cartella di Nextcloud esiste già</string>
-    <string name="file_migration_failed_while_coping">ERRORE: problema durante la migrazione</string>
-    <string name="file_migration_failed_while_updating_index">ERRORE: aggiornamento dell\'indice non riuscito</string>
-
     <string name="file_migration_override_data_folder">Sostituisci</string>
     <string name="file_migration_use_data_folder">Usa</string>
 
@@ -401,7 +393,6 @@
     <string name="file_list__footer__files">%1$d file</string>
     <string name="file_list__footer__files_and_folder">%1$d file, 1 cartella</string>
     <string name="file_list__footer__files_and_folders">%1$d file, %2$d cartelle</string>
-    <string name="set_picture_as">Imposta immagine come</string>
     <string name="set_as">Imposta come</string>
 
     <string name="prefs_instant_behaviour_dialogTitle">Il file originale sarà&#8230;</string>
@@ -409,7 +400,6 @@
     <string name="upload_copy_files">Copia file</string>
     <string name="upload_move_files">Sposta file</string>
     <string name="select_all">Seleziona tutto</string>
-
     <string name="pref_behaviour_entries_keep_file">lasciato nella cartella originale</string>
     <string name="pref_behaviour_entries_move">spostato nella cartella dell\'applicazione</string>
     <string name="pref_behaviour_entries_delete_file">eliminato</string>
@@ -466,14 +456,9 @@
     <string name="learn_more">Scopri altro</string>
     <string name="drawer_folder_sync">Carica automaticamente</string>
     <string name="drawer_participate">Partecipa</string>
-    <string name="participate_testing_report_text">Segnala un problema su GitHub</string>
     <string name="participate_beta_headline">Prova la versione di sviluppo</string>
     <string name="participate_release_candidate_headline">Candidata al rilascio</string>
     <string name="participate_contribute_headline">Contribuisci attivamente</string>
-    <string name="participate_contribute_irc_text">Unisciti alla chat su IRC: &lt;a href=\"%1$s\">#nextcloud-mobile&lt;/a></string>
-    <string name="participate_contribute_forum_text">Aiuta gli altri sul &lt;a href=\"%1$s\">forum&lt;/a></string>
-    <string name="participate_contribute_translate_text">&lt;a href=\"%1$s\">Traduci&lt;/a> l\'applicazione</string>
-    <string name="participate_contribute_github_text">Contribuisci come sviluppatore, vedi &lt;a href=\"%1$s\">CONTRIBUTING.md&lt;/a> per i dettagli</string>
     <string name="move_to">Sposta in&#8230;</string>
     <string name="copy_to">Copia in&#8230;</string>
     <string name="choose_remote_folder">Scegli la cartella&#8230;</string>
@@ -532,10 +517,6 @@
     <string name="webview_error">Si è verificato un errore</string>
     <string name="prefs_category_about">Informazioni</string>
 
-    <string name="contacts_restore_button">Ripristina ultimo backup</string>
-    <string name="contacts_header_restore">Ripristino</string>
-    <string name="contacts_header_backup">Backup</string>
-    <string name="contacts_automatic_backup">Backup dei contatti</string>
     <string name="contacts_last_backup">Ultimo backup</string>
     <string name="contacts_read_permission">Permesso di lettura dell\'elenco dei contatti richiesto </string>
     <string name="contacts_write_permission">Permesso di modifica dell\'elenco dei contatti richiesto </string>

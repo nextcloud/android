@@ -50,6 +50,7 @@ import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
+import com.owncloud.android.utils.ThemeUtils;
 
 import java.io.File;
 import java.lang.ref.WeakReference;
@@ -77,7 +78,7 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
     private UploadGroup[] mUploadGroups = null;
 
     interface Refresh {
-        public void refresh();
+        void refresh();
     }
 
     abstract class UploadGroup implements Refresh {
@@ -280,6 +281,7 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
             String status = getStatusText(upload);
             switch (upload.getUploadStatus()) {
                 case UPLOAD_IN_PROGRESS:
+                    ThemeUtils.colorHorizontalProgressBar(progressBar, ThemeUtils.primaryAccentColor());
                     progressBar.setProgress(0);
                     progressBar.setVisibility(View.VISIBLE);
 
@@ -495,12 +497,8 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
                             .getColor(R.color.background_color));
                 }
             } else {
-                fileIcon.setImageResource(MimeTypeUtil.getFileTypeIconId(
-                        upload.getMimeType(),
-                        fileName
-                ));
+                fileIcon.setImageDrawable(MimeTypeUtil.getFileTypeIcon(upload.getMimeType(), fileName, account));
             }
-
         }
 
         return view;
@@ -713,6 +711,7 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
         TextView tv = (TextView) convertView.findViewById(R.id.uploadListGroupName);
         tv.setText(String.format(mParentActivity.getString(R.string.uploads_view_group_header),
                 group.getGroupName(), group.getGroupItemCount()));
+        tv.setTextColor(ThemeUtils.primaryAccentColor());
         return convertView;
     }
 

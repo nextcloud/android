@@ -60,6 +60,7 @@
     <string name="prefs_calendar_contacts_address_resolve_error">Hesabın sunucu adresi DAVdroid tarafından çözümlenemedi</string>
     <string name="prefs_calendar_contacts_no_store_error">F-droid ya da Google Play kurulmamış</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Takvim ve kişi eşitlemesi ayarları</string>
+    <string name="prefs_daily_contacts_sync_summary">Kişilerinizin günlük yedeği</string>
     <string name="prefs_help">Yardım</string>
     <string name="prefs_recommend">Arkadaşına öner</string>
     <string name="prefs_feedback">Geri bildirim</string>
@@ -69,6 +70,7 @@
 
 	<string name="recommend_subject">%1$s uygulamasını akıllı telefonunuzda deneyin!</string>
 	<string name="recommend_text">Akıllı telefonunda %1$s kullanmanı öneriyorum!\nBuradan indirebilirsin: %2$s</string>
+    <string name="recommend_urls">%1$s ya da %2$s</string>
 
     <string name="auth_check_server">Sunucuyu denetle</string>
     <string name="auth_host_url">Sunucu adresi https://…</string>
@@ -89,7 +91,7 @@
     <string name="uploader_error_title_file_cannot_be_uploaded">Bu dosya yüklenemez</string>
     <string name="uploader_error_message_read_permission_not_granted">%1$s alınan bir dosyayı okumaya yetkili değil</string>
     <string name="uploader_error_message_source_file_not_found">Yüklenmek üzere seçilmiş dosya bulunamadı. Lütfen dosyanın var olup olmadığını denetleyin.</string>
-    <string name="uploader_error_message_source_file_not_copied">Dosya geçici bir klasöre kopyalanırken bir sorun çıktı. Lütfen yeniden göndermeyi deneyin.</string>
+    <string name="uploader_error_message_source_file_not_copied">Dosya geçici bir klasöre kopyalanırken sorun çıktı. Lütfen yeniden göndermeyi deneyin.</string>
     <string name="uploader_upload_files_behaviour">Yükleme seçeneği:</string>
     <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">Dosya Nextcloud klasörüne taşınsın</string>
     <string name="uploader_upload_files_behaviour_only_upload">Dosya kaynak klasörde tutulsun</string>
@@ -112,8 +114,7 @@
     <string name="file_list_empty_headline_server_search_photos">Herhangi bir fotoğraf bulunamadı</string>
     <string name="file_list_empty_search">Başka bir klasöre bakılmasını ister misiniz?</string>
     <string name="file_list_empty_recently_modified">Son 7 gün içinde değiştirilmiş herhangi bir dosya bulunamadı</string>
-    <string name="file_list_empty_recently_modified_filter">Arama sonucunda son 7 gün içinde düzenlenmiş
-        bir dosya bulunamadı.</string>
+    <string name="file_list_empty_recently_modified_filter">Arama sonucunda son 7 gün içinde düzenlenmiş bir dosya bulunamadı.</string>
     <string name="file_list_empty_recently_added">Geçenlerde eklenmiş herhangi bir dosya bulunamadı</string>
     <string name="file_list_empty_recently_added_filter">Arama sonucunda geçenlerde eklenmiş bir dosya bulunamadı.</string>
     <string name="file_list_empty_text_photos">Bazı fotoğraflar yükleyin ya da otomatik yüklemeyi etkinleştirin.</string>
@@ -155,7 +156,7 @@
     <string name="about_title">Hakkında</string>
     <string name="change_password">Parola değiştir</string>
     <string name="delete_account">Hesabı kaldır</string>
-    <string name="delete_account_warning">%s hesabı silinsin mi?\n\nSilme işlemi geri alınamaz.</string>
+    <string name="delete_account_warning">%s hesabı tüm yerel dosyaları ile silinsin mi?\n\nSilme işlemi geri alınamaz.</string>
     <string name="create_account">Hesap oluştur</string>
     <string name="upload_chooser_title">Şuradan yükle&#8230;</string>
     <string name="uploader_info_dirname">Klasör adı</string>
@@ -304,8 +305,8 @@
     <string name="activity_chooser_title">Bağlantıyı gönder&#8230;</string>
     <string name="wait_for_tmp_copy_from_private_storage">Dosya kişisel depolamadan kopyalanıyor</string>
     
-    <string name="oauth_check_onoff">OAuth2 ile Oturum Aç</string> 
-    <string name="oauth_login_connection">OAuth2 sunucusuna bağlanılıyor…</string>    
+    <string name="oauth_check_onoff">OAuth 2.0 ile Oturum Aç</string> 
+    <string name="oauth_login_connection">OAuth 2.0 sunucusuna bağlanılıyor…</string>    
         
     <string name="ssl_validator_header">Sitenin kimliği doğrulanamadı</string>
     <string name="ssl_validator_reason_cert_not_trusted">- Sunucu sertifikasına güvenilmiyor</string>
@@ -348,7 +349,7 @@
     <string name="instant_video_upload_on_charging">Yalnız şarj edilirken yüklensin</string>
     <string name="instant_upload_on_charging">Yalnız şarj edilirken yüklensin</string>
     <string name="instant_upload_path">/AnındaYükle</string>
-    <string name="auto_upload_path">/Otomatik Yükleme</string>
+    <string name="auto_upload_path">/OtomatikYükleme</string>
     <string name="conflict_title">Dosya çakışması</string>
     <string name="conflict_message">Hangi dosyaları saklamak istiyorsunuz? Her ikisini de saklamayı seçerseniz yerel dosyanın adına bir sayı eklenecek.</string>
     <string name="conflict_keep_both">İkisini de sakla</string>
@@ -412,12 +413,12 @@
     <string name="file_migration_cleaning">Temizleniyor&#8230;</string>
     <string name="file_migration_restoring_accounts_configuration">Hesap ayarları geri yükleniyor&#8230;</string>
     <string name="file_migration_ok_finished">Tamamlandı</string>
-    <string name="file_migration_failed_not_enough_space">HATA: Depolama alanı yetersiz</string>
-    <string name="file_migration_failed_not_writable">HATA: Hedef dosya yazılabilir değil</string>
-    <string name="file_migration_failed_not_readable">HATA: Kaynak dosya okunabilir değil</string>
-    <string name="file_migration_failed_dir_already_exists">HATA: Nextcloud klasörü zaten var</string>
-    <string name="file_migration_failed_while_coping">HATA: Aktarımda sorun çıktı</string>
-    <string name="file_migration_failed_while_updating_index">HATA: Dizin güncellenirken sorun çıktı</string>
+    <string name="file_migration_failed_not_enough_space">Hata: Disk alanı yetersiz</string>
+    <string name="file_migration_failed_not_writable">Hata: Hedef dosya yazılabilir değil</string>
+    <string name="file_migration_failed_not_readable">Hata: Kaynak dosya okunabilir değil</string>
+    <string name="file_migration_failed_dir_already_exists">Hata: Nextcloud klasörü zaten var</string>
+    <string name="file_migration_failed_while_coping">Hata: Aktarım sırasında sorun çıktı</string>
+    <string name="file_migration_failed_while_updating_index">Hata: Dizin güncellenirken sorun çıktı</string>
 
     <string name="file_migration_directory_already_exists">Veri klasörü zaten var. Şunlardan birini seçin:</string>
     <string name="file_migration_override_data_folder">Değiştirilsin</string>
@@ -483,7 +484,7 @@
     <string name="file_list__footer__files">%1$d dosya</string>
     <string name="file_list__footer__files_and_folder">%1$d dosya, 1 klasör</string>
     <string name="file_list__footer__files_and_folders">%1$d dosya, %2$d klasör</string>
-    <string name="set_picture_as">Farklı görsel ayarla</string>
+    <string name="set_picture_as">Görseli farklı kullan</string>
     <string name="set_as">Farklı Ayarla</string>
 
     <string name="prefs_instant_behaviour_dialogTitle">Özgün dosya için&#8230;</string>
@@ -491,6 +492,7 @@
     <string name="upload_copy_files">Dosyayı kopyala</string>
     <string name="upload_move_files">Dosyayı taşı</string>
     <string name="select_all">Tümünü seç</string>
+    <string name="deselect_all">Tümünü bırak</string>
 
     <string name="pref_behaviour_entries_keep_file">özgün klasöründe korundu</string>
     <string name="pref_behaviour_entries_move">app klasörüne taşındı</string>
@@ -522,6 +524,9 @@
     <string name="share_known_remote_clarification">%1$s (%2$s üzerinde)</string>
 
     <string name="share_sharee_unavailable">Kullanıcıların istemcileri içinden paylaşım yapabilmesini sağlamak için sunucu sürümünüzü yükseltin.\nLütfen yöneticinizle görüşün</string>
+    <string name="filedetails_share_link_enable">Bağlantı ile paylaşım etkin</string>
+    <string name="filedetails_share_link_disable">Bağlantı ile paylaşılmamış</string>
+    <string name="filedetails_share_users_with_access">Erişim izni olan kullanıcı ve gruplar</string>
     <string name="share_privilege_can_share">paylaşabilir</string>
     <string name="share_privilege_can_edit">düzenleyebilir</string>
     <string name="share_privilege_can_edit_create">oluştur</string>
@@ -557,17 +562,19 @@
     <string name="drawer_participate">Katkıda bulunun</string>
     <string name="participate_testing_headline">Denememize yardımcı olun</string>
     <string name="participate_testing_bug_text">Bir hata mı buldunuz? Bir gariplik mi var?</string>
-    <string name="participate_testing_report_text">Github üzerinden bir sorun bildirin</string>
+    <string name="participate_testing_report_text">GitHub üzerinde sorun bildirin</string>
     <string name="participate_testing_version_text">Sonraki sürümü deneyerek bize yardımcı olmak ister misiniz?</string>
     <string name="participate_beta_headline">Geliştirici sürümünü deneyin</string>
     <string name="participate_beta_text">Bu sürümde tüm yeni özellikler bulunur ve çok taze olduğundan eksikleri olabilir. Bir hata ya da soruna rastlarsanız bize iletin.</string>
     <string name="participate_release_candidate_headline">Yayın adayı</string>
-    <string name="participate_release_candidate_text">Yayın adayı (Release Candidate, RC) yayınlanacak sürümün bir kopyasıdır ve kararlı olması beklenir. Kişisel olarak kullanmanız kararlı olduğundan emin olmamızı sağlar. Denemek için Play Store üzerinden kayıt olun ya da el ile F-Droid üzerindeki \"sürümler\" bölümüne bakın.</string>
+    <string name="participate_release_candidate_text">Yayın adayı (Release Candidate, RC) yayınlanacak sürümün bir kopyasıdır ve kararlı olması beklenir. Kendi kurulumunuzda kullanmanız bundan emin olmamızı sağlayabilir. Denemek için Play Store üzerinden kayıt olun ya da el ile F-Droid üzerindeki \"Sürüm\" bölümüne bakın.</string>
     <string name="participate_contribute_headline">Etkin Katkıda Bulunun</string>
-    <string name="participate_contribute_irc_text">IRC sohbetine katılın: &lt;a href=\"%1$s\">#nextcloud-mobile&lt;/a></string>
-    <string name="participate_contribute_forum_text">&lt;a href=\"%1$s\">Forumda&lt;/a> diğer kullanıcılara yardımcı olun</string>
-    <string name="participate_contribute_translate_text">Uygulamayı &lt;a href=\"%1$s\">Çevirin&lt;/a></string>
-    <string name="participate_contribute_github_text">Kodu gözden geçirin ve katkıda bulunun. Ayrıntılar için &lt;a href=\"%1$s\">CONTRIBUTING.md&lt;a> dosyasına bakın</string>
+    <string name="participate_contribute_irc_text">IRC sohbetine katılın:</string>
+    <string name="participate_contribute_forum_text">Diğer kullanıcılara şurada yardımcı olun:</string>
+    <string name="participate_contribute_forum_forum">forum</string>
+    <string name="participate_contribute_translate_translate">Çevirin</string>
+    <string name="participate_contribute_translate_text">uygulamayı</string>
+    <string name="participate_contribute_github_text">Kodun gözden geçirilmesine ve geliştirilmesine katkıda bulunun. Ayrıntılı bilgi almak için %1$s dosyasına bakın</string>
     <string name="move_to">Taşı&#8230;</string>
     <string name="copy_to">Kopyala&#8230;</string>
     <string name="choose_remote_folder">Klasör seçin&#8230;</string>
@@ -634,26 +641,23 @@
     <string name="webview_error">Sorun çıktı</string>
     <string name="prefs_category_about">Hakkında</string>
 
-    <string name="actionbar_contacts">Kişileri Yedekle</string>
+    <string name="actionbar_contacts">Kişileri yedekle</string>
     <string name="actionbar_contacts_restore">Kişileri Geri Yükle</string>
     <string name="contacts_backup_button">Yedekle</string>
-    <string name="contacts_restore_button">Son Yedeği Geri Yükle</string>
-    <string name="contacts_header_restore">Geri Yükle</string>
-    <string name="contacts_header_backup">Yedekle</string>
-    <string name="contacts_automatic_backup">Kişileri Yedekle</string>
+    <string name="contacts_automatic_backup">Otomatik yedekleme</string>
     <string name="contacts_last_backup">Son Yedek</string>
     <string name="contacts_read_permission">Kişi listesini okuma izni gerekiyor</string>
     <string name="contacts_write_permission">Kişi listesini düzenleme izni gerekiyor</string>
     <string name="contactlist_title">Kişileri geri yükle</string>
     <string name="contaclist_restore_selected">Seçilmiş kişileri geri yükle</string>
-    <string name="contactlist_account_chooser_title">Alınacak hesabı seçin</string>
-    <string name="contactlist_no_permission">Herhangi bir izin verilmemiş olduğundan hiçbir şey alınamadı!</string>
+    <string name="contactlist_account_chooser_title">İçe aktarılacak hesabı seçin</string>
+    <string name="contactlist_no_permission">Herhangi bir izin verilmemiş olduğundan hiçbir şey içe aktarılamadı!</string>
     <string name="contacts_preference_choose_date">Tarih seçin</string>
     <string name="contacts_preference_backup_never">asla</string>
     <string name="contacts_preferences_no_file_found">Herhangi bir dosya bulunamadı</string>
     <string name="contacts_preferences_something_strange_happened">Son yedeğiniz bulunamadı!</string>
     <string name="contacts_preferences_backup_scheduled">Yedekleme zamanlandı ve kısa süre sonra başlatılacak</string>
-    <string name="contacts_preferences_import_scheduled">Alma işlemi zamanlandı ve kısa süre sonra başlatılacak</string>
+    <string name="contacts_preferences_import_scheduled">İçe aktarma işlemi zamanlandı ve kısa süre sonra başlatılacak</string>
 
     <!-- Notifications -->
     <string name="new_notification_received">Yeni bir bildirim var</string>
@@ -664,4 +668,5 @@
 
     <string name="folder_sync_folders">Klasör ayarları</string>
 
-  </resources>
+  <string name="test_server_button">Sunucu bağlantısını sına</string>
+</resources>

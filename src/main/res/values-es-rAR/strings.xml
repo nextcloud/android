@@ -69,7 +69,6 @@
 
 	<string name="recommend_subject">Prueba  %1$s en tu teléfono inteligente!</string>
 	<string name="recommend_text">Quisiera invitarlo a usar %1$s en su teléfono inteligente\nDescargue aquí: %2$s</string>
-
     <string name="auth_check_server">Verficar el servidor</string>
     <string name="auth_host_url">Dirección del servidor https://…</string>
     <string name="auth_username">Nombre de usuario</string>
@@ -112,8 +111,6 @@
     <string name="file_list_empty_headline_server_search_photos">No hay fotos</string>
     <string name="file_list_empty_search">¿Tal vez está dentro de una carpeta diferente?</string>
     <string name="file_list_empty_recently_modified">No se encontraron archivos que hayan sido modificado en los últimos 7 días</string>
-    <string name="file_list_empty_recently_modified_filter">Su búsqueda no encontró archivos que hayan sido modificados 
-en los últimos 7 días. </string>
     <string name="file_list_empty_recently_added">No se encontraron archivos agregados recientemente</string>
     <string name="file_list_empty_recently_added_filter">Su búsqueda no encontró archivos recientemente agregados. </string>
     <string name="file_list_empty_text_photos">Cargue algunas fotos o active la carga automática.</string>
@@ -155,7 +152,6 @@ en los últimos 7 días. </string>
     <string name="about_title">Acerca de</string>
     <string name="change_password">Cambiar contraseña</string>
     <string name="delete_account">Eliminar cuenta</string>
-    <string name="delete_account_warning">Eliminar cuenta %s?\\n\\nEl borrado no se puede deshacer.</string>
     <string name="create_account">Crear cuenta</string>
     <string name="upload_chooser_title">Cargar desde &#8230;</string>
     <string name="uploader_info_dirname">Nombre de la carpeta</string>
@@ -304,9 +300,6 @@ en los últimos 7 días. </string>
     <string name="activity_chooser_title">Enviar el link a &#8230;</string>
     <string name="wait_for_tmp_copy_from_private_storage">Copiando el archivo desde almacenamiento privado</string>
     
-    <string name="oauth_check_onoff">Iniciar sesión con oAuth2</string> 
-    <string name="oauth_login_connection">Conectando al servidor OAuth 2...</string>    
-        
     <string name="ssl_validator_header">La identidad del sitio no pudo ser verificada</string>
     <string name="ssl_validator_reason_cert_not_trusted">- El certificado del servidor no es de confianza</string>
     <string name="ssl_validator_reason_cert_expired">- El certificado del servidor expiró</string>
@@ -348,7 +341,6 @@ en los últimos 7 días. </string>
     <string name="instant_video_upload_on_charging">Cargar archivos sólo con el dispositivo conectado a la toma de corriente</string>
     <string name="instant_upload_on_charging">Cargar archivos sólo con el dispositivo conectado a la toma de corriente</string>
     <string name="instant_upload_path">/CargasInstantáneas</string>
-    <string name="auto_upload_path">/Carga automática</string>
     <string name="conflict_title">Conflicto de archivo</string>
     <string name="conflict_message">¿Qué archivos desea mantener? Si selecciona ambas versiones, se le agregará un número al nombre del archivo local.</string>
     <string name="conflict_keep_both">Mantener ambas</string>
@@ -412,13 +404,6 @@ en los últimos 7 días. </string>
     <string name="file_migration_cleaning">Limpiando&#8230;</string>
     <string name="file_migration_restoring_accounts_configuration">Guardando la configuración de las cuentas&#8230;</string>
     <string name="file_migration_ok_finished">Terminado</string>
-    <string name="file_migration_failed_not_enough_space">ERROR: Espacio insuficiente</string>
-    <string name="file_migration_failed_not_writable">ERROR: El archivo destino no se puede escribir</string>
-    <string name="file_migration_failed_not_readable">ERROR: El archivo fuente no se puede leer</string>
-    <string name="file_migration_failed_dir_already_exists">ERROR: El directorio de Nextcloud ya existe</string>
-    <string name="file_migration_failed_while_coping">ERROR: Falla durante la migración</string>
-    <string name="file_migration_failed_while_updating_index">ERROR: Falla durante la actualización del índice</string>
-
     <string name="file_migration_directory_already_exists">La carpeta de datos ya existe. Seleccione una de las siguientes opciones:</string>
     <string name="file_migration_override_data_folder">Remplazar</string>
     <string name="file_migration_use_data_folder">Usar</string>
@@ -483,7 +468,6 @@ en los últimos 7 días. </string>
     <string name="file_list__footer__files">%1$d archivos</string>
     <string name="file_list__footer__files_and_folder">%1$d archivos, 1 carpeta</string>
     <string name="file_list__footer__files_and_folders">%1$d archivos, %2$d carpetas</string>
-    <string name="set_picture_as">Establecer imagen como</string>
     <string name="set_as">Establecer Como</string>
 
     <string name="prefs_instant_behaviour_dialogTitle">El archivo original será&#8230;</string>
@@ -491,7 +475,6 @@ en los últimos 7 días. </string>
     <string name="upload_copy_files">Copiar archivo</string>
     <string name="upload_move_files">Mover archivo</string>
     <string name="select_all">Seleccionar todo</string>
-
     <string name="pref_behaviour_entries_keep_file">mantenido en la carpeta original</string>
     <string name="pref_behaviour_entries_move">movido a la capreta de la aplicación</string>
     <string name="pref_behaviour_entries_delete_file">Borrado</string>
@@ -557,17 +540,11 @@ en los últimos 7 días. </string>
     <string name="drawer_participate">Participe</string>
     <string name="participate_testing_headline">Ayúdenos probando</string>
     <string name="participate_testing_bug_text">¿Encontró una falla? ¿Hay algo raro?</string>
-    <string name="participate_testing_report_text">Reportar un tema en Github</string>
     <string name="participate_testing_version_text">¿Le interesaría ayudarnos a probar la siguiente versión?</string>
     <string name="participate_beta_headline">Probar la versión de desarrollo</string>
     <string name="participate_beta_text">Esto incluye todas las últimas funcionalidades y es lo más nuevo. Fallas/errores pueden ocurrir y si es el caso, favor de reportarnoslos. </string>
     <string name="participate_release_candidate_headline">Candidato a lanzamiento</string>
-    <string name="participate_release_candidate_text">El candidato a lanzamiento (CL) es una foto del más próximo lanzamiento y se espera que sea estable. Las pruebas a su configuración individual podrían ayudarnos a asegurar esto. Regístrese para hacer pruebas en la Play Store o consulte directamente la sección de \"versiones\" en F-Droid. </string>
     <string name="participate_contribute_headline">Contribuya activamente</string>
-    <string name="participate_contribute_irc_text">Únase a las conversaciones en IRC: &lt;a href=\"%1$s\">#nextcloud-mobile&lt;/a></string>
-    <string name="participate_contribute_forum_text">Ayude a los demás en el &lt;a href=\"%1$s\">foro&lt;/a></string>
-    <string name="participate_contribute_translate_text">&lt;a href=\"%1$s\">Traduzca&lt;/a> la aplicación </string>
-    <string name="participate_contribute_github_text">Revise, corrija y escriba código, consulte &lt;a href=\"%1$s\">CONTRIBUIR.md&lt;/a> para más detalles </string>
     <string name="move_to">Mover a&#8230;</string>
     <string name="copy_to">Copiar a&#8230;</string>
     <string name="choose_remote_folder">Seleccione la carpeta&#8230;</string>
@@ -634,13 +611,7 @@ en los últimos 7 días. </string>
     <string name="webview_error">Se presentó un error</string>
     <string name="prefs_category_about">Acerca de</string>
 
-    <string name="actionbar_contacts">Respaldar contactos</string>
     <string name="actionbar_contacts_restore">Restaurar contactos</string>
-    <string name="contacts_backup_button">Respaldar ahora</string>
-    <string name="contacts_restore_button">Restaurar el último respaldo</string>
-    <string name="contacts_header_restore">Restaurar</string>
-    <string name="contacts_header_backup">Respaldar</string>
-    <string name="contacts_automatic_backup">Respaldo de contactos</string>
     <string name="contacts_last_backup">Último respaldo</string>
     <string name="contacts_read_permission">Se requiere el permiso para leer la lista de contactos</string>
     <string name="contacts_write_permission">Se requiere el permiso para cambiar la lista de contactos</string>
