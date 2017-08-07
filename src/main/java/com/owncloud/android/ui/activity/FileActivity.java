@@ -156,8 +156,14 @@ public abstract class FileActivity extends DrawerActivity
                     false);
         }
 
-        AccountUtils.updateAccountVersion(this); // best place, before any access to AccountManager
-                                                 // or database
+        Thread t = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                // best place, before any access to AccountManager or database
+                AccountUtils.updateAccountVersion(getApplicationContext());
+            }
+        });
+        t.start();
 
         setAccount(account, savedInstanceState != null);
 
