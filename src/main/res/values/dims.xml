@@ -68,14 +68,11 @@
     <dimen name="drawer_header_text">14sp</dimen>
     <dimen name="drawer_header_subtext">12sp</dimen>
     <dimen name="edit_share_layout_view_height">2dp</dimen>
-    <dimen name="file_actions_view_height">2dp</dimen>
     <dimen name="fragment_margin">12dp</dimen>
     <dimen name="file_download_fragment_layout_padding">20dp</dimen>
     <dimen name="alternate_fragment_margin">15dp</dimen>
     <dimen name="file_download_fragment_display_text_margin">40dp</dimen>
     <dimen name="drawer_width">240dp</dimen>
-    <dimen name="favorite_icon_size">15dp</dimen>
-    <dimen name="elevation">30dp</dimen>
     <dimen name="grid_item_text_size">16dip</dimen>
     <dimen name="list_fragment_column_width">100dp</dimen>
     <dimen name="list_fragment_spacing">2dp</dimen>
