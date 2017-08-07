@@ -61,6 +61,7 @@
     <string name="prefs_calendar_contacts_address_resolve_error">Не удается определить адрес сервера для DAVdroid</string>
     <string name="prefs_calendar_contacts_no_store_error">Не установлен магазин Google Play  или приложение F-Droid</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Настройка синхронизации календаря &amp; контактов выполнена успешно.</string>
+    <string name="prefs_daily_contacts_sync_summary">Ежедневное сохранение ваших контактов</string>
     <string name="prefs_help">Помощь</string>
     <string name="prefs_recommend">Рекомендовать другу</string>
     <string name="prefs_feedback">Обратная связь</string>
@@ -71,6 +72,8 @@
 	<string name="recommend_subject">Попробуйте %1$s на вашем смартфоне!</string>
 	<string name="recommend_text">Хочу предложить вам использовать %1$s на смартфоне!\nЗагрузить можно здесь: %2$s
 	</string>
+    <string name="recommend_urls">%1$s или %2$s</string>
+
     <string name="auth_check_server">Проверить сервер</string>
     <string name="auth_host_url">Адрес сервера https://...</string>
     <string name="auth_username">Имя пользователя</string>
@@ -491,6 +494,8 @@
     <string name="upload_copy_files">Копировать файл</string>
     <string name="upload_move_files">Переместить файл</string>
     <string name="select_all">Выделить всё</string>
+    <string name="deselect_all">Снять выбор со всех</string>
+
     <string name="pref_behaviour_entries_keep_file">оставлен в исходном каталоге</string>
     <string name="pref_behaviour_entries_move">перемещен в каталог приложения</string>
     <string name="pref_behaviour_entries_delete_file">удалён</string>
@@ -521,6 +526,9 @@
     <string name="share_known_remote_clarification">%1$s ( в %2$s )</string>
 
     <string name="share_sharee_unavailable">Извините, версия вашего сервера не позволяет поделиться с пользователями через клиент. \nПожалуйста обратитесь к администратору</string>
+    <string name="filedetails_share_link_enable">Включена возможность поделиться ссылкой</string>
+    <string name="filedetails_share_link_disable">Не раздаётся ссылкой</string>
+    <string name="filedetails_share_users_with_access">Пользователи и группы с доступом</string>
     <string name="share_privilege_can_share">может делиться с другими</string>
     <string name="share_privilege_can_edit">может редактировать</string>
     <string name="share_privilege_can_edit_create">создать</string>
@@ -563,6 +571,12 @@
     <string name="participate_release_candidate_headline">Кандидат в релизы</string>
     <string name="participate_release_candidate_text">Релиз-кандидат (RC) — это текущее состояние готовящегося выпуска, и, ожидается, что он будет стабильным. Проверка с вашими индивидуальными настройками может помочь убедится в этом. Зарегистрируйтесь для тестирования в Google Play или загляните в раздел «версии» каталога приложений F-Droid.</string>
     <string name="participate_contribute_headline">Активное участие</string>
+    <string name="participate_contribute_irc_text">Присоединиться к беседе на канале IRC:</string>
+    <string name="participate_contribute_forum_text">Помогите другим на</string>
+    <string name="participate_contribute_forum_forum">форум</string>
+    <string name="participate_contribute_translate_translate">Перевод</string>
+    <string name="participate_contribute_translate_text">приложение</string>
+    <string name="participate_contribute_github_text">Просмотрите, измените и напишите код, для подробностей смотреть %1$s</string>
     <string name="move_to">Переместить в&#8230;</string>
     <string name="copy_to">Копировать в&#8230;</string>
     <string name="choose_remote_folder">Выберите каталог &#8230;</string>

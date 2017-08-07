@@ -52,6 +52,7 @@ import android.content.pm.ActivityInfo;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.net.http.SslCertificate;
 import android.net.http.SslError;
 import android.os.Build;
 import android.os.Bundle;
@@ -100,6 +101,7 @@ import com.owncloud.android.lib.common.accounts.AccountTypeUtils;
 import com.owncloud.android.lib.common.accounts.AccountUtils.AccountNotFoundException;
 import com.owncloud.android.lib.common.accounts.AccountUtils.Constants;
 import com.owncloud.android.lib.common.network.CertificateCombinedException;
+import com.owncloud.android.lib.common.network.NetworkUtils;
 import com.owncloud.android.lib.common.operations.OnRemoteOperationListener;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
@@ -121,6 +123,10 @@ import com.owncloud.android.ui.dialog.SslUntrustedCertDialog.OnSslUntrustedCertL
 import com.owncloud.android.utils.AnalyticsUtils;
 import com.owncloud.android.utils.DisplayUtils;
 
+import java.io.ByteArrayInputStream;
+import java.security.cert.Certificate;
+import java.security.cert.CertificateException;
+import java.security.cert.CertificateFactory;
 import java.security.cert.X509Certificate;
 import java.util.HashMap;
 import java.util.Map;
@@ -361,6 +367,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
         mLoginWebView.getSettings().setAllowFileAccess(false);
         mLoginWebView.getSettings().setJavaScriptEnabled(true);
+        mLoginWebView.getSettings().setDomStorageEnabled(true);
         mLoginWebView.getSettings().setUserAgentString(getWebLoginUserAgent());
         mLoginWebView.getSettings().setSaveFormData(false);
         mLoginWebView.getSettings().setSavePassword(false);
@@ -391,12 +398,42 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
                 mLoginWebView.setVisibility(View.VISIBLE);
             }
 
+            @Override
+            public void onReceivedSslError(WebView view, SslErrorHandler handler, SslError error) {
+                Certificate cert = getX509Certificate(error.getCertificate());
+
+                try {
+                    if (cert != null && NetworkUtils.isCertInKnownServersStore(cert, getApplicationContext())) {
+                        handler.proceed();
+                    } else {
+                        handler.cancel();
+                    }
+                } catch (Exception e) {
+                    Log_OC.e(TAG, "Cert could not be verified");
+                }
+            }
+
             public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
                 progressBar.setVisibility(View.GONE);
                 mLoginWebView.setVisibility(View.VISIBLE);
                 mLoginWebView.loadData(DisplayUtils.getData(getResources().openRawResource(R.raw.custom_error)),"text/html; charset=UTF-8", null);
             }
         });
+    }
+
+    private Certificate getX509Certificate(SslCertificate sslCertificate) {
+        Bundle bundle = SslCertificate.saveState(sslCertificate);
+        byte[] bytes = bundle.getByteArray("x509-certificate");
+        if (bytes == null) {
+            return null;
+        } else {
+            try {
+                CertificateFactory certFactory = CertificateFactory.getInstance("X.509");
+                return certFactory.generateCertificate(new ByteArrayInputStream(bytes));
+            } catch (CertificateException e) {
+                return null;
+            }
+        }
     }
 
     private void parseAndLoginFromWebView(String dataString) {
@@ -526,7 +563,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         /// step 2 - set properties of UI elements (text, visibility, enabled...)
         Button welcomeLink = (Button) findViewById(R.id.welcome_link);
         welcomeLink.setVisibility(isWelcomeLinkVisible ? View.VISIBLE : View.GONE);
-        welcomeLink.setText(String.format(getString(R.string.auth_register), getString(R.string.app_name)));
+        welcomeLink.setText(getString(R.string.auth_register));
 
         TextView instructionsView = (TextView) findViewById(R.id.instructions_message);
         if (instructionsMessageText != null) {

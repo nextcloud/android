@@ -110,7 +110,8 @@ public class ExternalSiteWebView extends FileActivity {
         webSettings.setAllowFileAccess(false);
 
         // enable javascript
-        webview.getSettings().setJavaScriptEnabled(true);
+        webSettings.setJavaScriptEnabled(true);
+        webSettings.setDomStorageEnabled(true);
 
         final Activity activity = this;
         final ProgressBar progressBar = (ProgressBar) findViewById(R.id.progressBar);

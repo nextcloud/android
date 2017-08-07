@@ -237,7 +237,7 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
                 if (mIsAccountChooserActive) {
                     toggleAccountList();
                 }
-                invalidateOptionsMenu();
+                supportInvalidateOptionsMenu();
                 mDrawerToggle.setDrawerIndicatorEnabled(isDrawerIndicatorAvailable());
 
                 if (pendingRunnable != null) {
@@ -250,7 +250,7 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
             public void onDrawerOpened(View drawerView) {
                 super.onDrawerOpened(drawerView);
                 mDrawerToggle.setDrawerIndicatorEnabled(true);
-                invalidateOptionsMenu();
+                supportInvalidateOptionsMenu();
             }
         };
 

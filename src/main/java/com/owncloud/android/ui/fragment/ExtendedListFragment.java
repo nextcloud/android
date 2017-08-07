@@ -75,7 +75,6 @@ import com.owncloud.android.ui.activity.UploadFilesActivity;
 import com.owncloud.android.ui.adapter.FileListListAdapter;
 import com.owncloud.android.ui.adapter.LocalFileListAdapter;
 import com.owncloud.android.ui.events.SearchEvent;
-import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.ThemeUtils;
 
 import org.greenrobot.eventbus.EventBus;
@@ -788,7 +787,7 @@ public class ExtendedListFragment extends Fragment
             @Override
             public void run() {
 
-                if (searchType == SearchType.NO_SEARCH && mEmptyListProgress.getVisibility() == View.GONE) {
+                if (searchType == SearchType.NO_SEARCH) {
                     setMessageForEmptyList(
                             R.string.file_list_empty_headline,
                             R.string.file_list_empty,

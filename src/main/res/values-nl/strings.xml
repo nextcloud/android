@@ -566,6 +566,9 @@ Kies er eentje van een provider.</string>
     <string name="participate_release_candidate_headline">Release candidate</string>
     <string name="participate_release_candidate_text">De release candidate (RC) is een snapshot van de komende versie en is naar verwachting stabiel. Door een test met je eigen installatie verzeker je hier van. Meld je aan voor het testen in de Play store of kijk handmatig bij sectie \"Versie\" van F-Droid.</string>
     <string name="participate_contribute_headline">Actief meedoen</string>
+    <string name="participate_contribute_forum_forum">forum</string>
+    <string name="participate_contribute_translate_translate">Vertalen</string>
+    <string name="participate_contribute_translate_text">de app</string>
     <string name="move_to">Verplaats naar&#160;&#8230;</string>
     <string name="copy_to">Kopieer naar&#160;&#8230;</string>
     <string name="choose_remote_folder">Kies map&#160;&#8230;</string>
