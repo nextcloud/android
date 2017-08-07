@@ -38,7 +38,7 @@ public class SyncedFolder implements Serializable, Cloneable {
     private String account;
     private Integer uploadAction;
     private boolean enabled;
-    private Integer type;
+    private MediaFolderType type;
 
     /**
      * constructor for already persisted entity.
@@ -55,7 +55,8 @@ public class SyncedFolder implements Serializable, Cloneable {
      * @param type            the type of the folder
      */
     public SyncedFolder(long id, String localPath, String remotePath, Boolean wifiOnly, Boolean chargingOnly,
-                        Boolean subfolderByDate, String account, Integer uploadAction, Boolean enabled, Integer type) {
+                        Boolean subfolderByDate, String account, Integer uploadAction, Boolean enabled,
+                        MediaFolderType type) {
         this.id = id;
         this.localPath = localPath;
         this.remotePath = remotePath;
@@ -82,7 +83,8 @@ public class SyncedFolder implements Serializable, Cloneable {
      * @param type            the type of the folder
      */
     public SyncedFolder(String localPath, String remotePath, Boolean wifiOnly, Boolean chargingOnly,
-                        Boolean subfolderByDate, String account, Integer uploadAction, Boolean enabled, Integer type) {
+                        Boolean subfolderByDate, String account, Integer uploadAction, Boolean enabled,
+                        MediaFolderType type) {
         this.localPath = localPath;
         this.remotePath = remotePath;
         this.wifiOnly = wifiOnly;
@@ -175,11 +177,11 @@ public class SyncedFolder implements Serializable, Cloneable {
         this.enabled = enabled;
     }
 
-    public int getType() {
+    public MediaFolderType getType() {
         return type;
     }
 
-    public void setType(int type) {
+    public void setType(MediaFolderType type) {
         this.type = type;
     }
 }

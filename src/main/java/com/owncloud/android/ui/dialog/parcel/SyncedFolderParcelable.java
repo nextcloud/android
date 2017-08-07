@@ -23,6 +23,7 @@ package com.owncloud.android.ui.dialog.parcel;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.owncloud.android.datamodel.MediaFolderType;
 import com.owncloud.android.datamodel.SyncedFolderDisplayItem;
 import com.owncloud.android.files.services.FileUploader;
 
@@ -38,7 +39,7 @@ public class SyncedFolderParcelable implements Parcelable {
     private Boolean mEnabled = false;
     private Boolean mSubfolderByDate = false;
     private Integer mUploadAction;
-    private int mType;
+    private MediaFolderType mType;
     private long mId;
     private String mAccount;
     private int mSection;
@@ -70,7 +71,7 @@ public class SyncedFolderParcelable implements Parcelable {
         mChargingOnly = read.readInt() != 0;
         mEnabled = read.readInt() != 0;
         mSubfolderByDate = read.readInt() != 0;
-        mType = read.readInt();
+        mType = MediaFolderType.getById(read.readInt());
         mAccount = read.readString();
         mUploadAction = read.readInt();
         mSection = read.readInt();
@@ -86,7 +87,7 @@ public class SyncedFolderParcelable implements Parcelable {
         dest.writeInt(mChargingOnly ? 1 : 0);
         dest.writeInt(mEnabled ? 1 : 0);
         dest.writeInt(mSubfolderByDate ? 1 : 0);
-        dest.writeInt(mType);
+        dest.writeInt(mType.getId());
         dest.writeString(mAccount);
         dest.writeInt(mUploadAction);
         dest.writeInt(mSection);
@@ -167,11 +168,11 @@ public class SyncedFolderParcelable implements Parcelable {
         this.mSubfolderByDate = mSubfolderByDate;
     }
 
-    public int getType() {
+    public MediaFolderType getType() {
         return mType;
     }
 
-    public void setType(int mType) {
+    public void setType(MediaFolderType mType) {
         this.mType = mType;
     }
 

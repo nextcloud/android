@@ -27,10 +27,6 @@ import java.util.List;
  * Business object representing a media folder with all information that are gathered via media queries.
  */
 public class MediaFolder {
-    public static final Integer CUSTOM = 0;
-    public static final Integer IMAGE = 1;
-    public static final Integer VIDEO = 2;
-
     /** name of the folder. */
     public String folderName;
 
@@ -43,5 +39,6 @@ public class MediaFolder {
     /** total number of files in the media folder. */
     public long numberOfFiles;
 
-    public int type;
+    /** type of media folder. */
+    public MediaFolderType type;
 }
