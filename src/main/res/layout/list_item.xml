@@ -44,7 +44,7 @@
                 android:layout_height="@dimen/file_icon_size"
                 android:layout_centerInParent="true"
                 android:layout_marginLeft="8dp"
-                android:src="@drawable/ic_menu_archive" />
+                android:src="@drawable/folder" />
 
             <ImageView
                 android:id="@+id/favorite_action"
