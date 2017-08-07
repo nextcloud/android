@@ -22,7 +22,6 @@ package com.owncloud.android.jobs;
 
 import com.evernote.android.job.Job;
 import com.evernote.android.job.JobCreator;
-import com.owncloud.android.services.AccountRemovalJob;
 
 /**
  * Job creator for android-job
@@ -32,8 +31,6 @@ public class NCJobCreator implements JobCreator {
     @Override
     public Job create(String tag) {
         switch (tag) {
-            case AutoUploadJob.TAG:
-                return new AutoUploadJob();
             case ContactsBackupJob.TAG:
                 return new ContactsBackupJob();
             case ContactsImportJob.TAG:
