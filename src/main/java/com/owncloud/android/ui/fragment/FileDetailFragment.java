@@ -25,8 +25,6 @@ import android.accounts.Account;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v7.widget.SwitchCompat;
-import android.support.design.widget.Snackbar;
-import android.support.v7.widget.AppCompatCheckBox;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
