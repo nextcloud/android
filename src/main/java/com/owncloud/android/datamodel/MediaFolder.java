@@ -38,4 +38,7 @@ public class MediaFolder {
 
     /** total number of files in the media folder. */
     public long numberOfFiles;
+
+    /** type of media folder. */
+    public MediaFolderType type;
 }

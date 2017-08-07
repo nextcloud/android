@@ -77,7 +77,6 @@ public class FingerprintActivity extends AppCompatActivity {
 
     public final static String KEY_CHECK_RESULT = "KEY_CHECK_RESULT";
 
-    public final static String PREFERENCE_USE_FINGERPRINT = "use_fingerprint";
     public static final String ANDROID_KEY_STORE = "AndroidKeyStore";
 
     private KeyStore keyStore;
@@ -286,7 +285,7 @@ public class FingerprintActivity extends AppCompatActivity {
     }
 }
 
-@RequiresApi(Build.VERSION_CODES.M)
+@RequiresApi(api = Build.VERSION_CODES.M)
 class FingerprintHandler extends FingerprintManager.AuthenticationCallback {
 
     private TextView text;

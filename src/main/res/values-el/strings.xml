@@ -362,8 +362,8 @@
 
     <string name="error__upload__local_file_not_copied">Το %1$s δεν μπόρεσε να αντιγραφεί στον τοπικό φάκελο %2$s</string>
     <string name="prefs_instant_upload_path_title">Φάκελος άμεσης μεταφόρτωσης</string>
-    <string name="prefs_folder_sync_local_path_title">Τοπικός φάκελος</string>
-    <string name="prefs_folder_sync_remote_path_title">Μετονομασία φακέλου</string>
+    <string name="prefs_synced_folders_local_path_title">Τοπικός φάκελος</string>
+    <string name="prefs_synced_folders_remote_path_title">Μετονομασία φακέλου</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Χρήση υποφακέλων</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Αποθήκευση σε υποφακέλους με βάση το χρόνο και μήνα</string>
 
@@ -558,7 +558,7 @@
     <string name="actionbar_search">Αναζήτηση</string>
     <string name="files_drop_not_supported">Αυτό είναι χαρακτηριστικό του Nextcloud, παρακαλούμε ενημερώστε.</string>
     <string name="learn_more">Μάθετε περισσότερα</string>
-    <string name="drawer_folder_sync">Αυτόματη μεταφόρτωση</string>
+    <string name="drawer_synced_folders">Αυτόματη μεταφόρτωση</string>
     <string name="drawer_participate">Συμμετοχή</string>
     <string name="participate_testing_headline">Βοηθήστε μας στις δοκιμές</string>
     <string name="participate_testing_bug_text">Βρήκατε σφάλμα; Κάτι σας φαίνεται παράξενο;</string>
@@ -577,12 +577,12 @@
     <string name="move_to">Μετακίνηση σε&#8230;</string>
     <string name="copy_to">Αντιγραφή σε&#8230;</string>
     <string name="choose_remote_folder">Επιλογή φακέλου&#8230;</string>
-    <string name="folder_sync_loading_folders">Φόρτωση φακέλων&#8230;</string>
-    <string name="folder_sync_no_results">Δεν βρέθηκαν φάκελοι πολυμέσων.</string>
-    <string name="folder_sync_preferences">Προτιμήσεις αυτόματης μεταφόρτωσης</string>
-    <string name="folder_sync_settings">Ρυθμίσεις</string>
-    <string name="folder_sync_new_info">Η άμεση μεταφόρτωση έχει ανανεωθεί τελείως. Παρακαλούμε δείτε το κυρίως μενού και ρυθμίστε ξανά την αυτόματη μεταφόρτωση. Σας ζητούμε συγγνώμη για την ενόχληση\n\nΑπολαύστε τις νέες και εκτεταμένες δυνατότητες της αυτόματης μεταφόρτωσης!</string>
-    <string name="folder_sync_preferences_folder_path">Για %1$s</string>
+    <string name="synced_folders_loading_folders">Φόρτωση φακέλων&#8230;</string>
+    <string name="synced_folders_no_results">Δεν βρέθηκαν φάκελοι πολυμέσων.</string>
+    <string name="synced_folders_preferences">Προτιμήσεις αυτόματης μεταφόρτωσης</string>
+    <string name="synced_folders_settings">Ρυθμίσεις</string>
+    <string name="synced_folders_new_info">Η άμεση μεταφόρτωση έχει ανανεωθεί τελείως. Παρακαλούμε δείτε το κυρίως μενού και ρυθμίστε ξανά την αυτόματη μεταφόρτωση. Σας ζητούμε συγγνώμη για την ενόχληση\n\nΑπολαύστε τις νέες και εκτεταμένες δυνατότητες της αυτόματης μεταφόρτωσης!</string>
+    <string name="synced_folders_preferences_folder_path">Για %1$s</string>
     <plurals name="items_selected_count">
         <item quantity="one">%d επιλέχθηκε</item>
         <item quantity="other">%d επιλέχθηκαν</item>
@@ -665,7 +665,7 @@
     <string name="privacy">Ιδιωτικότητα</string>
     <string name="file_not_found">Δεν βρέθηκε το αρχείο!</string>
 
-    <string name="folder_sync_folders">Ρύθμιση φακέλων</string>
+    <string name="synced_folders_configure_folders">Ρύθμιση φακέλων</string>
 
   <string name="test_server_button">Δοκιμή σύνδεσης με διακομιστή</string>
 </resources>

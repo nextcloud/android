@@ -1,21 +1,21 @@
 /**
- *   Nextcloud Android client application
+ * Nextcloud Android client application
  *
- *   Copyright (C) 2016 Andy Scherzinger
- *   Copyright (C) 2016 Nextcloud.
+ * Copyright (C) 2016 Andy Scherzinger
+ * Copyright (C) 2016 Nextcloud.
  *
- *   This program is free software; you can redistribute it and/or
- *   modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
- *   License as published by the Free Software Foundation; either
- *   version 3 of the License, or any later version.
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or any later version.
  *
- *   This program is distributed in the hope that it will be useful,
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *   GNU AFFERO GENERAL PUBLIC LICENSE for more details.
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU AFFERO GENERAL PUBLIC LICENSE for more details.
  *
- *   You should have received a copy of the GNU Affero General Public
- *   License along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * You should have received a copy of the GNU Affero General Public
+ * License along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package com.owncloud.android.datamodel;
 
@@ -27,7 +27,6 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 
-import com.owncloud.android.MainApp;
 import com.owncloud.android.db.PreferenceManager;
 import com.owncloud.android.db.ProviderMeta;
 import com.owncloud.android.lib.common.utils.Log_OC;
@@ -58,12 +57,12 @@ public class SyncedFolderProvider extends Observable {
     }
 
     /**
-     * Stores an media folder sync object in database.
+     * Stores a synced folder object in database.
      *
      * @param syncedFolder synced folder to store
      * @return synced folder id, -1 if the insert process fails.
      */
-    public long storeFolderSync(SyncedFolder syncedFolder) {
+    public long storeSyncedFolder(SyncedFolder syncedFolder) {
         Log_OC.v(TAG, "Inserting " + syncedFolder.getLocalPath() + " with enabled=" + syncedFolder.isEnabled());
 
         ContentValues cv = createContentValuesFromSyncedFolder(syncedFolder);
@@ -71,7 +70,6 @@ public class SyncedFolderProvider extends Observable {
         Uri result = mContentResolver.insert(ProviderMeta.ProviderTableMeta.CONTENT_URI_SYNCED_FOLDERS, cv);
 
         if (result != null) {
-            notifyFolderSyncObservers(syncedFolder);
             return Long.parseLong(result.getPathSegments().get(1));
         } else {
             Log_OC.e(TAG, "Failed to insert item " + syncedFolder.getLocalPath() + " into folder sync db.");
@@ -118,12 +116,12 @@ public class SyncedFolderProvider extends Observable {
     /**
      * Update upload status of file uniquely referenced by id.
      *
-     * @param id      folder sync id.
+     * @param id      synced folder id.
      * @param enabled new status.
      * @return the number of rows updated.
      */
-    public int updateFolderSyncEnabled(long id, Boolean enabled) {
-        Log_OC.v(TAG, "Storing sync folder id" + id + " with enabled=" + enabled);
+    public int updateSyncedFolderEnabled(long id, Boolean enabled) {
+        Log_OC.v(TAG, "Storing synced folder id" + id + " with enabled=" + enabled);
 
         int result = 0;
         Cursor cursor = mContentResolver.query(
@@ -187,7 +185,6 @@ public class SyncedFolderProvider extends Observable {
         }
 
         return result;
-
     }
 
     /**
@@ -211,15 +208,12 @@ public class SyncedFolderProvider extends Observable {
      *
      * @param id for the synced folder.
      */
-
     private int deleteSyncFolderWithId(long id) {
-        int result = mContentResolver.delete(
+        return mContentResolver.delete(
                 ProviderMeta.ProviderTableMeta.CONTENT_URI_SYNCED_FOLDERS,
                 ProviderMeta.ProviderTableMeta._ID + " = ?",
                 new String[]{String.valueOf(id)}
         );
-
-        return result;
     }
 
 
@@ -275,6 +269,28 @@ public class SyncedFolderProvider extends Observable {
     }
 
     /**
+     * delete any records of synchronized folders that are withing the given list of ids.
+     */
+    public int deleteSyncedFoldersInList(ArrayList<Long> ids) {
+        return mContentResolver.delete(
+                ProviderMeta.ProviderTableMeta.CONTENT_URI_SYNCED_FOLDERS,
+                ProviderMeta.ProviderTableMeta._ID + " IN (?)",
+                new String[]{String.valueOf(ids)}
+        );
+    }
+
+    /**
+     * delete record of synchronized folder with the given id.
+     */
+    public int deleteSyncedFolder(long id) {
+        return mContentResolver.delete(
+                ProviderMeta.ProviderTableMeta.CONTENT_URI_SYNCED_FOLDERS,
+                ProviderMeta.ProviderTableMeta._ID + " = ?",
+                new String[]{String.valueOf(id)}
+        );
+    }
+
+    /**
      * update given synced folder.
      *
      * @param syncedFolder the synced folder to be updated.
@@ -291,10 +307,6 @@ public class SyncedFolderProvider extends Observable {
                 ProviderMeta.ProviderTableMeta._ID + "=?",
                 new String[]{String.valueOf(syncedFolder.getId())}
         );
-
-        if (result > 0) {
-            notifyFolderSyncObservers(syncedFolder);
-        }
 
         return result;
     }
@@ -325,9 +337,11 @@ public class SyncedFolderProvider extends Observable {
                     ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_UPLOAD_ACTION));
             Boolean enabled = cursor.getInt(cursor.getColumnIndex(
                     ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_ENABLED)) == 1;
+            MediaFolderType type = MediaFolderType.getById(cursor.getInt(cursor.getColumnIndex(
+                    ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_TYPE)));
 
             syncedFolder = new SyncedFolder(id, localPath, remotePath, wifiOnly, chargingOnly, subfolderByDate,
-                    accountName, uploadAction, enabled);
+                    accountName, uploadAction, enabled, type);
         }
         return syncedFolder;
     }
@@ -349,18 +363,8 @@ public class SyncedFolderProvider extends Observable {
         cv.put(ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_SUBFOLDER_BY_DATE, syncedFolder.getSubfolderByDate());
         cv.put(ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_ACCOUNT, syncedFolder.getAccount());
         cv.put(ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_UPLOAD_ACTION, syncedFolder.getUploadAction());
-        return cv;
-    }
+        cv.put(ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_TYPE, syncedFolder.getType().getId());
 
-    /**
-     * Inform all observers about data change.
-     *
-     * @param syncedFolder changed, synchronized folder
-     */
-    private void notifyFolderSyncObservers(SyncedFolder syncedFolder) {
-        if (syncedFolder != null) {
-            MainApp.getSyncedFolderObserverService().restartObserver(syncedFolder);
-            Log_OC.d(TAG, "notifying folder sync data observers for changed/added: " + syncedFolder.getLocalPath());
-        }
+        return cv;
     }
 }

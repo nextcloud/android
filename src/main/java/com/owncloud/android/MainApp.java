@@ -19,34 +19,42 @@
  */
 package com.owncloud.android;
 
+import android.Manifest;
 import android.app.Activity;
-import android.content.ComponentName;
+import android.content.ContentResolver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
-import android.os.IBinder;
 import android.support.multidex.MultiDexApplication;
 import android.support.v4.util.Pair;
+import android.support.v7.app.AlertDialog;
 
 import com.evernote.android.job.JobManager;
 import com.owncloud.android.authentication.PassCodeManager;
+import com.owncloud.android.datamodel.MediaFolder;
+import com.owncloud.android.datamodel.MediaFolderType;
+import com.owncloud.android.datamodel.MediaProvider;
 import com.owncloud.android.datamodel.SyncedFolder;
 import com.owncloud.android.datamodel.SyncedFolderProvider;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.db.PreferenceManager;
+import com.owncloud.android.jobs.NCJobCreator;
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory.Policy;
 import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.services.NCJobCreator;
-import com.owncloud.android.services.observer.SyncedFolderObserverService;
 import com.owncloud.android.ui.activity.Preferences;
+import com.owncloud.android.ui.activity.SyncedFoldersActivity;
 import com.owncloud.android.ui.activity.WhatsNewActivity;
 import com.owncloud.android.utils.AnalyticsUtils;
+import com.owncloud.android.utils.FilesSyncHelper;
+import com.owncloud.android.utils.PermissionUtil;
+import com.owncloud.android.utils.ReceiversHelper;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -78,8 +86,6 @@ public class MainApp extends MultiDexApplication {
     private static String storagePath;
 
     private static boolean mOnlyOnDevice = false;
-
-    private static SyncedFolderObserverService mObserverService;
 
     @SuppressWarnings("unused")
     private boolean mBound;
@@ -118,14 +124,26 @@ public class MainApp extends MultiDexApplication {
             Log_OC.d("Debug", "start logging");
         }
 
+        updateToAutoUpload();
         cleanOldEntries();
         updateAutoUploadEntries();
 
-        Log_OC.d("SyncedFolderObserverService", "Start service SyncedFolderObserverService");
-        Intent i = new Intent(this, SyncedFolderObserverService.class);
-        startService(i);
-        bindService(i, syncedFolderObserverServiceConnection, Context.BIND_AUTO_CREATE);
+        if (PermissionUtil.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+            splitOutAutoUploadEntries();
+        } else {
+            PreferenceManager.setAutoUploadSplitEntries(this, true);
+        }
 
+        initiateExistingAutoUploadEntries();
+
+        FilesSyncHelper.scheduleFilesSyncIfNeeded();
+        FilesSyncHelper.restartJobsIfNeeded();
+
+        ReceiversHelper.registerNetworkChangeReceiver();
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            ReceiversHelper.registerPowerChangeReceiver();
+        }
 
         // register global protection with pass code
         registerActivityLifecycleCallbacks(new ActivityLifecycleCallbacks() {
@@ -245,10 +263,6 @@ public class MainApp extends MultiDexApplication {
         return mOnlyOnDevice;
     }
 
-    public static SyncedFolderObserverService getSyncedFolderObserverService() {
-        return mObserverService;
-    }
-
     // user agent
     public static String getUserAgent() {
         String appString = getAppContext().getResources().getString(R.string.user_agent);
@@ -271,6 +285,48 @@ public class MainApp extends MultiDexApplication {
         return userAgent;
     }
 
+    private void updateToAutoUpload() {
+            if (PreferenceManager.instantPictureUploadEnabled(this) ||
+                            PreferenceManager.instantPictureUploadEnabled(this)) {
+
+                // remove legacy shared preferences
+                SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(this).edit();
+                editor.remove("instant_uploading")
+                        .remove("instant_video_uploading")
+                        .remove("instant_upload_path")
+                        .remove("instant_upload_path_use_subfolders")
+                        .remove("instant_upload_on_wifi")
+                        .remove("instant_upload_on_charging")
+                        .remove("instant_video_upload_path")
+                        .remove("instant_video_upload_path_use_subfolders")
+                        .remove("instant_video_upload_on_wifi")
+                        .remove("instant_video_uploading")
+                        .remove("instant_video_upload_on_charging")
+                        .remove("prefs_instant_behaviour").apply();
+
+                // show info pop-up
+                new AlertDialog.Builder(this, R.style.Theme_ownCloud_Dialog)
+                        .setTitle(R.string.drawer_synced_folders)
+                        .setMessage(R.string.synced_folders_new_info)
+                        .setPositiveButton(R.string.drawer_open, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                // show Auto Upload
+                                Intent folderSyncIntent = new Intent(getApplicationContext(),
+                                        SyncedFoldersActivity.class);
+                                dialog.dismiss();
+                                startActivity(folderSyncIntent);
+                            }
+                        })
+                        .setNegativeButton(R.string.drawer_close, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        })
+                        .setIcon(R.drawable.nav_synced_folders)
+                        .show();
+            }
+    }
+
     private void updateAutoUploadEntries() {
         // updates entries to reflect their true paths
         if (!PreferenceManager.getAutoUploadPathsUpdate(this)) {
@@ -278,6 +334,72 @@ public class MainApp extends MultiDexApplication {
                     new SyncedFolderProvider(MainApp.getAppContext().getContentResolver());
             syncedFolderProvider.updateAutoUploadPaths(mContext);
         }
+    }
+
+    private void splitOutAutoUploadEntries() {
+        if (!PreferenceManager.getAutoUploadSplitEntries(this)) {
+            // magic to split out existing synced folders in two when needed
+            // otherwise, we migrate them to their proper type (image or video)
+            Log_OC.i(TAG, "Migrate synced_folders records for image/video split");
+            ContentResolver contentResolver = this.getContentResolver();
+
+            SyncedFolderProvider syncedFolderProvider = new SyncedFolderProvider(contentResolver);
+
+            final List<MediaFolder> imageMediaFolders = MediaProvider.getImageFolders(contentResolver, 1, null);
+            final List<MediaFolder> videoMediaFolders = MediaProvider.getVideoFolders(contentResolver, 1);
+
+            ArrayList<Long> idsToDelete = new ArrayList<>();
+            List<SyncedFolder> syncedFolders = syncedFolderProvider.getSyncedFolders();
+            long primaryKey;
+            SyncedFolder newSyncedFolder;
+            for (SyncedFolder syncedFolder : syncedFolders) {
+                idsToDelete.add(syncedFolder.getId());
+                for (int i = 0; i < imageMediaFolders.size(); i++) {
+                    if (imageMediaFolders.get(i).absolutePath.equals(syncedFolder.getLocalPath())) {
+                        newSyncedFolder = (SyncedFolder) syncedFolder.clone();
+                        newSyncedFolder.setType(MediaFolderType.IMAGE);
+                        primaryKey = syncedFolderProvider.storeSyncedFolder(newSyncedFolder);
+                        Log_OC.i(TAG, "Migrated image synced_folders record: "
+                                + primaryKey + " - " + newSyncedFolder.getLocalPath());
+                        break;
+                    }
+                }
+
+                for (int j = 0; j < videoMediaFolders.size(); j++) {
+                    if (videoMediaFolders.get(j).absolutePath.equals(syncedFolder.getLocalPath())) {
+                        newSyncedFolder = (SyncedFolder) syncedFolder.clone();
+                        newSyncedFolder.setType(MediaFolderType.VIDEO);
+                        primaryKey = syncedFolderProvider.storeSyncedFolder(newSyncedFolder);
+                        Log_OC.i(TAG, "Migrated video synced_folders record: "
+                                + primaryKey + " - " + newSyncedFolder.getLocalPath());
+                        break;
+                    }
+                }
+            }
+
+            syncedFolderProvider.deleteSyncedFoldersInList(idsToDelete);
+
+            PreferenceManager.setAutoUploadSplitEntries(this, true);
+
+        }
+    }
+
+    private void initiateExistingAutoUploadEntries() {
+        new Thread(() -> {
+            if (!PreferenceManager.getAutoUploadInit(getAppContext())) {
+                SyncedFolderProvider syncedFolderProvider =
+                        new SyncedFolderProvider(MainApp.getAppContext().getContentResolver());
+
+                for (SyncedFolder syncedFolder : syncedFolderProvider.getSyncedFolders()) {
+                    if (syncedFolder.isEnabled()) {
+                        FilesSyncHelper.insertAllDBEntriesForSyncedFolder(syncedFolder);
+                    }
+                }
+
+                PreferenceManager.setAutoUploadInit(getAppContext(), true);
+            }
+
+        }).start();
     }
 
     private void cleanOldEntries() {
@@ -302,9 +424,7 @@ public class MainApp extends MultiDexApplication {
                 }
             }
 
-            for (Long idValue : syncedFolders.values()) {
-                ids.add(idValue);
-            }
+            ids.addAll(syncedFolders.values());
 
             if (ids.size() > 0) {
                 syncedFolderProvider.deleteSyncedFoldersNotInList(mContext, ids);
@@ -313,24 +433,4 @@ public class MainApp extends MultiDexApplication {
             }
         }
     }
-
-    /**
-     * Defines callbacks for service binding, passed to bindService()
-     */
-    private ServiceConnection syncedFolderObserverServiceConnection = new ServiceConnection() {
-
-        @Override
-        public void onServiceConnected(ComponentName className, IBinder service) {
-            SyncedFolderObserverService.SyncedFolderObserverBinder binder =
-                    (SyncedFolderObserverService.SyncedFolderObserverBinder) service;
-            mObserverService = binder.getService();
-            mBound = true;
-        }
-
-        @Override
-        public void onServiceDisconnected(ComponentName arg0) {
-            mBound = false;
-        }
-    };
-
 }

@@ -353,8 +353,8 @@
 
     <string name="error__upload__local_file_not_copied">%1$s no pudo ser copiado a la carpeta local %2$s</string>
     <string name="prefs_instant_upload_path_title">Carpeta de carga instantánea</string>
-    <string name="prefs_folder_sync_local_path_title">Carpeta local</string>
-    <string name="prefs_folder_sync_remote_path_title">Carpeta remota</string>
+    <string name="prefs_synced_folders_local_path_title">Carpeta local</string>
+    <string name="prefs_synced_folders_remote_path_title">Carpeta remota</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Usar sub carpetas</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Almacenar en sub carpetas con base en el año y mes</string>
 
@@ -536,7 +536,7 @@
     <string name="actionbar_search">Buscar</string>
     <string name="files_drop_not_supported">Esta es una característica de Nextcloud, favor de actualizar.</string>
     <string name="learn_more">Conozca más</string>
-    <string name="drawer_folder_sync">Carga automática</string>
+    <string name="drawer_synced_folders">Carga automática</string>
     <string name="drawer_participate">Participe</string>
     <string name="participate_testing_headline">Ayúdenos probando</string>
     <string name="participate_testing_bug_text">¿Encontró una falla? ¿Hay algo raro?</string>
@@ -548,12 +548,12 @@
     <string name="move_to">Mover a&#8230;</string>
     <string name="copy_to">Copiar a&#8230;</string>
     <string name="choose_remote_folder">Seleccione la carpeta&#8230;</string>
-    <string name="folder_sync_loading_folders">Cargando carpetas&#8230;</string>
-    <string name="folder_sync_no_results">No se encontraron carpetas de medios</string>
-    <string name="folder_sync_preferences">Preferencias de carga automática</string>
-    <string name="folder_sync_settings">Configuraciones </string>
-    <string name="folder_sync_new_info">La carga instantánea ha sido completamente moderinzada. Reconfigure su carga automática desde el menu principal. \n\nDisfrute de las nuevas y extendidas capacidades de la carga automática. </string>
-    <string name="folder_sync_preferences_folder_path">Para %1$s</string>
+    <string name="synced_folders_loading_folders">Cargando carpetas&#8230;</string>
+    <string name="synced_folders_no_results">No se encontraron carpetas de medios</string>
+    <string name="synced_folders_preferences">Preferencias de carga automática</string>
+    <string name="synced_folders_settings">Configuraciones </string>
+    <string name="synced_folders_new_info">La carga instantánea ha sido completamente moderinzada. Reconfigure su carga automática desde el menu principal. \n\nDisfrute de las nuevas y extendidas capacidades de la carga automática. </string>
+    <string name="synced_folders_preferences_folder_path">Para %1$s</string>
     <plurals name="items_selected_count">
         <item quantity="one">%d seleccionado</item>
         <item quantity="other">%d seleccionado</item>
@@ -633,6 +633,6 @@
     <string name="privacy">Privacidad</string>
     <string name="file_not_found">¡Archivo no encontrado!</string>
 
-    <string name="folder_sync_folders">Configurar careptas</string>
+    <string name="synced_folders_configure_folders">Configurar careptas</string>
 
   </resources>

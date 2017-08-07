@@ -48,6 +48,8 @@ public abstract class PreferenceManager {
     private static final String PREF__LEGACY_CLEAN = "legacyClean";
     private static final String PREF__AUTO_UPLOAD_UPDATE_PATH = "autoUploadPathUpdate";
     private static final String PREF__PUSH_TOKEN = "pushToken";
+    private static final String PREF__AUTO_UPLOAD_SPLIT_OUT = "autoUploadEntriesSplitOut";
+    private static final String PREF__AUTO_UPLOAD_INIT = "autoUploadInit";
 
     public static void setPushToken(Context context, String pushToken) {
         saveStringPreferenceNow(context, PREF__PUSH_TOKEN, pushToken);
@@ -198,6 +200,10 @@ public abstract class PreferenceManager {
         saveBooleanPreference(context, AUTO_PREF__SORT_ASCENDING, ascending);
     }
 
+    public static boolean getAutoUploadInit(Context context) {
+        return getDefaultSharedPreferences(context).getBoolean(PREF__AUTO_UPLOAD_INIT, false);
+    }
+
     /**
      * Gets the legacy cleaning flag last set.
      *
@@ -218,6 +224,16 @@ public abstract class PreferenceManager {
         return getDefaultSharedPreferences(context).getBoolean(PREF__AUTO_UPLOAD_UPDATE_PATH, false);
     }
 
+    /**
+     * Gets the auto upload split out flag last set.
+     *
+     * @param context Caller {@link Context}, used to access to shared preferences manager.
+     * @return ascending order     the legacy cleaning flag, default is false
+     */
+    public static boolean getAutoUploadSplitEntries(Context context) {
+        return getDefaultSharedPreferences(context).getBoolean(PREF__AUTO_UPLOAD_SPLIT_OUT, false);
+    }
+
 
     /**
      * Saves the legacy cleaning flag which the user has set last.
@@ -229,6 +245,10 @@ public abstract class PreferenceManager {
         saveBooleanPreference(context, PREF__LEGACY_CLEAN, legacyClean);
     }
 
+    public static void setAutoUploadInit(Context context, boolean autoUploadInit) {
+        saveBooleanPreference(context, PREF__AUTO_UPLOAD_INIT, autoUploadInit);
+    }
+
     /**
      * Saves the legacy cleaning flag which the user has set last.
      *
@@ -238,6 +258,17 @@ public abstract class PreferenceManager {
     public static void setAutoUploadPathsUpdate(Context context, boolean pathUpdate) {
         saveBooleanPreference(context, PREF__AUTO_UPLOAD_UPDATE_PATH, pathUpdate);
     }
+
+    /**
+     * Saves the flag for split entries magic
+     *
+     * @param context    Caller {@link Context}, used to access to shared preferences manager.
+     * @param splitOut flag if it is a auto upload path update
+     */
+    public static void setAutoUploadSplitEntries(Context context, boolean splitOut) {
+        saveBooleanPreference(context, PREF__AUTO_UPLOAD_SPLIT_OUT, splitOut);
+    }
+
 
 
     /**

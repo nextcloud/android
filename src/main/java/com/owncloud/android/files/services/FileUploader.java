@@ -34,7 +34,6 @@ import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Binder;
-import android.os.Build;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.IBinder;
@@ -45,6 +44,9 @@ import android.os.Process;
 import android.support.v4.app.NotificationCompat;
 import android.util.Pair;
 
+import com.evernote.android.job.JobRequest;
+import com.evernote.android.job.util.Device;
+import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.authentication.AuthenticatorActivity;
@@ -76,6 +78,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Vector;
+
+import javax.annotation.Nullable;
 
 /**
  * Service for uploading files. Invoke using context.startService(...).
@@ -144,12 +148,16 @@ public class FileUploader extends Service
      * Key to signal what is the origin of the upload request
      */
     public static final String KEY_CREATED_BY = "CREATED_BY";
+
+    public static final String KEY_WHILE_ON_WIFI_ONLY = "KEY_ON_WIFI_ONLY";
+
     /**
      * Set to true if upload is to performed only when phone is being charged.
      */
     public static final String KEY_WHILE_CHARGING_ONLY = "KEY_WHILE_CHARGING_ONLY";
 
     public static final String KEY_LOCAL_BEHAVIOUR = "BEHAVIOUR";
+
 
     public static final int LOCAL_BEHAVIOUR_COPY = 0;
     public static final int LOCAL_BEHAVIOUR_MOVE = 1;
@@ -203,6 +211,7 @@ public class FileUploader extends Service
      */
     public static class UploadRequester {
 
+
         /**
          * Call to upload several new files
          */
@@ -214,7 +223,9 @@ public class FileUploader extends Service
                 String[] mimeTypes,
                 Integer behaviour,
                 Boolean createRemoteFolder,
-                int createdBy
+                int createdBy,
+                boolean requiresWifi,
+                boolean requiresCharging
         ) {
             Intent intent = new Intent(context, FileUploader.class);
 
@@ -225,15 +236,70 @@ public class FileUploader extends Service
             intent.putExtra(FileUploader.KEY_LOCAL_BEHAVIOUR, behaviour);
             intent.putExtra(FileUploader.KEY_CREATE_REMOTE_FOLDER, createRemoteFolder);
             intent.putExtra(FileUploader.KEY_CREATED_BY, createdBy);
+            intent.putExtra(FileUploader.KEY_WHILE_ON_WIFI_ONLY, requiresWifi);
+            intent.putExtra(FileUploader.KEY_WHILE_CHARGING_ONLY, requiresCharging);
+
 
             context.startService(intent);
+        }
+
+        public void uploadFileWithOverwrite(
+                Context context,
+                Account account,
+                String[] localPaths,
+                String[] remotePaths,
+                String[] mimeTypes,
+                Integer behaviour,
+                Boolean createRemoteFolder,
+                int createdBy,
+                boolean requiresWifi,
+                boolean requiresCharging,
+                boolean overwrite
+        ) {
+            Intent intent = new Intent(context, FileUploader.class);
+
+            intent.putExtra(FileUploader.KEY_ACCOUNT, account);
+            intent.putExtra(FileUploader.KEY_LOCAL_FILE, localPaths);
+            intent.putExtra(FileUploader.KEY_REMOTE_FILE, remotePaths);
+            intent.putExtra(FileUploader.KEY_MIME_TYPE, mimeTypes);
+            intent.putExtra(FileUploader.KEY_LOCAL_BEHAVIOUR, behaviour);
+            intent.putExtra(FileUploader.KEY_CREATE_REMOTE_FOLDER, createRemoteFolder);
+            intent.putExtra(FileUploader.KEY_CREATED_BY, createdBy);
+            intent.putExtra(FileUploader.KEY_WHILE_ON_WIFI_ONLY, requiresWifi);
+            intent.putExtra(FileUploader.KEY_WHILE_CHARGING_ONLY, requiresCharging);
+            intent.putExtra(FileUploader.KEY_FORCE_OVERWRITE, overwrite);
+
+            context.startService(intent);
+        }
+
+        /**
+         * Call to upload a file
+         */
+        public void uploadFileWithOverwrite(Context context, Account account, String localPath, String remotePath, int
+                behaviour, String mimeType, boolean createRemoteFile, int createdBy, boolean requiresWifi,
+                                  boolean requiresCharging, boolean overwrite) {
+
+            uploadFileWithOverwrite(
+                    context,
+                    account,
+                    new String[]{localPath},
+                    new String[]{remotePath},
+                    new String[]{mimeType},
+                    behaviour,
+                    createRemoteFile,
+                    createdBy,
+                    requiresWifi,
+                    requiresCharging,
+                    overwrite
+            );
         }
 
         /**
          * Call to upload a new single file
          */
         public void uploadNewFile(Context context, Account account, String localPath, String remotePath, int
-                behaviour, String mimeType, boolean createRemoteFile, int createdBy) {
+                behaviour, String mimeType, boolean createRemoteFile, int createdBy, boolean requiresWifi,
+                                  boolean requiresCharging) {
 
             uploadNewFile(
                 context,
@@ -243,7 +309,9 @@ public class FileUploader extends Service
                 new String[]{mimeType},
                 behaviour,
                 createRemoteFile,
-                createdBy
+                createdBy,
+                requiresWifi,
+                requiresCharging
             );
         }
 
@@ -306,7 +374,7 @@ public class FileUploader extends Service
             boolean accountMatch;
             for ( OCUpload failedUpload: failedUploads) {
                 accountMatch = (account == null || account.name.equals(failedUpload.getAccountName()));
-                resultMatch = (uploadResult == null || uploadResult.equals(failedUpload.getLastResult()));
+                resultMatch = ((uploadResult == null || uploadResult.equals(failedUpload.getLastResult())));
                 if (accountMatch && resultMatch) {
                     if (currentAccount == null ||
                             !currentAccount.name.equals(failedUpload.getAccountName())) {
@@ -330,6 +398,7 @@ public class FileUploader extends Service
                 i.putExtra(FileUploader.KEY_RETRY, true);
                 i.putExtra(FileUploader.KEY_ACCOUNT, account);
                 i.putExtra(FileUploader.KEY_RETRY_UPLOAD, upload);
+
                 context.startService(i);
             }
         }
@@ -426,9 +495,14 @@ public class FileUploader extends Service
             return Service.START_NOT_STICKY;
         }
         OwnCloudVersion ocv = AccountUtils.getServerVersion(account);
+
         boolean chunked = ocv.isChunkedUploadSupported();
 
+        boolean onWifiOnly = intent.getBooleanExtra(KEY_WHILE_ON_WIFI_ONLY, false);
+        boolean whileChargingOnly = intent.getBooleanExtra(KEY_WHILE_CHARGING_ONLY, false);
+
         if (!retry) {
+
             if (!(intent.hasExtra(KEY_LOCAL_FILE) ||
                     intent.hasExtra(KEY_FILE))) {
                 Log_OC.e(TAG, "Not enough information provided in intent");
@@ -503,9 +577,11 @@ public class FileUploader extends Service
                     ocUpload.setCreateRemoteFolder(isCreateRemoteFolder);
                     ocUpload.setCreatedBy(createdBy);
                     ocUpload.setLocalAction(localAction);
-                    /*ocUpload.setUseWifiOnly(isUseWifiOnly);
-                    ocUpload.setWhileChargingOnly(isWhileChargingOnly);*/
+                    ocUpload.setUseWifiOnly(onWifiOnly);
+                    ocUpload.setWhileChargingOnly(whileChargingOnly);
+
                     ocUpload.setUploadStatus(UploadStatus.UPLOAD_IN_PROGRESS);
+
 
                     newUpload = new UploadFileOperation(
                             account,
@@ -514,7 +590,9 @@ public class FileUploader extends Service
                             chunked,
                             forceOverwrite,
                             localAction,
-                            this
+                            this,
+                            onWifiOnly,
+                            whileChargingOnly
                     );
                     newUpload.setCreatedBy(createdBy);
                     if (isCreateRemoteFolder) {
@@ -561,6 +639,9 @@ public class FileUploader extends Service
             }
             OCUpload upload = intent.getParcelableExtra(KEY_RETRY_UPLOAD);
 
+            onWifiOnly = upload.isUseWifiOnly();
+            whileChargingOnly = upload.isWhileChargingOnly();
+
             UploadFileOperation newUpload = new UploadFileOperation(
                     account,
                     null,
@@ -568,7 +649,9 @@ public class FileUploader extends Service
                     chunked,
                     upload.isForceOverwrite(),  // TODO should be read from DB?
                     upload.getLocalAction(),    // TODO should be read from DB?
-                    this
+                    this,
+                    onWifiOnly,
+                    whileChargingOnly
             );
 
             newUpload.addDatatransferProgressListener(this);
@@ -656,7 +739,7 @@ public class FileUploader extends Service
          * @param file    A file in the queue of pending uploads
          */
         public void cancel(Account account, OCFile file) {
-            cancel(account.name, file.getRemotePath());
+            cancel(account.name, file.getRemotePath(), null);
         }
 
         /**
@@ -665,7 +748,7 @@ public class FileUploader extends Service
          * @param storedUpload Upload operation persisted
          */
         public void cancel(OCUpload storedUpload) {
-            cancel(storedUpload.getAccountName(), storedUpload.getRemotePath());
+            cancel(storedUpload.getAccountName(), storedUpload.getRemotePath(), null);
 
         }
 
@@ -674,8 +757,10 @@ public class FileUploader extends Service
          *
          * @param accountName Local name of an ownCloud account where the remote file will be stored.
          * @param remotePath  Remote target of the upload
+         *
+         * Setting result code will pause rather than cancel the job
          */
-        private void cancel(String accountName, String remotePath) {
+        private void cancel(String accountName, String remotePath, @Nullable ResultCode resultCode ) {
             Pair<UploadFileOperation, String> removeResult =
                     mPendingUploads.remove(accountName, remotePath);
             UploadFileOperation upload = removeResult.first;
@@ -686,14 +771,17 @@ public class FileUploader extends Service
 
                 upload = mCurrentUpload;
             }
+
             if (upload != null) {
                 upload.cancel();
                 // need to update now table in mUploadsStorageManager,
                 // since the operation will not get to be run by FileUploader#uploadFile
-                mUploadsStorageManager.removeUpload(accountName, remotePath);
-            } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                // try to cancel job in jobScheduler
-                mUploadsStorageManager.cancelPendingJob(accountName, remotePath);
+                if (resultCode != null) {
+                    mUploadsStorageManager.updateDatabaseUploadResult(new RemoteOperationResult(resultCode), upload);
+                    notifyUploadResult(upload, new RemoteOperationResult(resultCode));
+                } else {
+                    mUploadsStorageManager.removeUpload(accountName, remotePath);
+                }
             }
         }
 
@@ -840,6 +928,18 @@ public class FileUploader extends Service
             if (boundListener != null) {
                 boundListener.onTransferProgress(progressRate, totalTransferredSoFar,
                         totalToTransfer, fileName);
+
+                if (MainApp.getAppContext() != null) {
+                    if (mCurrentUpload.getIsWifiRequired() && !Device.getNetworkType(MainApp.getAppContext()).
+                            equals(JobRequest.NetworkType.UNMETERED)) {
+                        cancel(mCurrentUpload.getAccount().name, mCurrentUpload.getFile().getRemotePath()
+                                , ResultCode.DELAYED_FOR_WIFI);
+                    } else if (mCurrentUpload.getIsChargingRequired() &&
+                            !Device.isCharging(MainApp.getAppContext())) {
+                        cancel(mCurrentUpload.getAccount().name, mCurrentUpload.getFile().getRemotePath()
+                                , ResultCode.DELAYED_FOR_CHARGING);
+                    }
+                }
             }
         }
 
@@ -1058,7 +1158,8 @@ public class FileUploader extends Service
         if (!uploadResult.isCancelled() &&
             !ResultCode.LOCAL_FILE_NOT_FOUND.equals(uploadResult.getCode()) &&
             !uploadResult.getCode().equals(ResultCode.DELAYED_FOR_WIFI) &&
-            !uploadResult.getCode().equals(ResultCode.DELAYED_FOR_CHARGING)) {
+            !uploadResult.getCode().equals(ResultCode.DELAYED_FOR_CHARGING) &&
+            !uploadResult.getCode().equals(ResultCode.LOCK_FAILED)    ) {
 
             int tickerId = (uploadResult.isSuccess()) ? R.string.uploader_upload_succeeded_ticker :
                     R.string.uploader_upload_failed_ticker;

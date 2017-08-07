@@ -32,17 +32,20 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:layout_marginLeft="@dimen/list_item_avatar_icon_margin"
-        android:src="@drawable/ic_account_plus"/>
+        android:layout_marginStart="@dimen/list_item_avatar_text_margin"
+        android:src="@drawable/ic_account_plus"
+        android:contentDescription="@string/prefs_add_account"/>
 
     <TextView
         android:id="@+id/user_name"
-        android:layout_width="@dimen/zero"
+        android:layout_width="0dp"
         android:layout_height="fill_parent"
-        android:layout_marginLeft="@dimen/list_item_avatar_text_margin"
+
         android:layout_weight="1"
         android:gravity="center_vertical"
         android:paddingRight="@dimen/standard_padding"
-        android:text="@string/placeholder_sentence"
+        android:paddingLeft="@dimen/standard_padding"
+        android:text="@string/prefs_add_account"
         android:textColor="@color/primary"
         android:textSize="@dimen/two_line_primary_text_size"/>
 
