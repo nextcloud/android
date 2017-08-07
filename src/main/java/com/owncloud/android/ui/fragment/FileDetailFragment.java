@@ -137,11 +137,11 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
 
-        setFile((OCFile) getArguments().getParcelable(ARG_FILE));
+        setFile(getArguments().getParcelable(ARG_FILE));
         mAccount = getArguments().getParcelable(ARG_ACCOUNT);
 
         if (savedInstanceState != null) {
-            setFile((OCFile) savedInstanceState.getParcelable(FileActivity.EXTRA_FILE));
+            setFile(savedInstanceState.getParcelable(FileActivity.EXTRA_FILE));
             mAccount = savedInstanceState.getParcelable(FileActivity.EXTRA_ACCOUNT);
         }
 
