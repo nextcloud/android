@@ -34,7 +34,7 @@
             android:layout_width="@dimen/standard_list_item_size"
             android:layout_height="@dimen/standard_list_item_size"
             android:layout_gravity="center"
-            android:src="@drawable/ic_menu_archive"/>
+            android:src="@drawable/folder"/>
 
         <ImageView
             android:id="@+id/favorite_action"
