@@ -43,7 +43,7 @@
             android:layout_marginLeft="12dp"
             android:layout_marginRight="1dp"
             android:layout_marginTop="1dp"
-            android:src="@drawable/ic_menu_archive"/>
+            android:src="@drawable/folder"/>
 
         <ImageView
             android:id="@+id/ticker"
