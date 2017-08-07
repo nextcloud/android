@@ -24,7 +24,7 @@ package com.owncloud.android.jobs;
 import android.accounts.Account;
 import android.content.ContentResolver;
 import android.content.Context;
-import android.media.ExifInterface;
+import android.support.media.ExifInterface;
 import android.os.PowerManager;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
@@ -69,7 +69,7 @@ public class FilesSyncJob extends Job {
         final Context context = MainApp.getAppContext();
         final ContentResolver contentResolver = context.getContentResolver();
 
-        PowerManager powerManager = (PowerManager) context.getSystemService(context.POWER_SERVICE);
+        PowerManager powerManager = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
         FileUploader.UploadRequester requester = new FileUploader.UploadRequester();
         PowerManager.WakeLock wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK,
                 TAG);
