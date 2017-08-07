@@ -737,7 +737,7 @@ public class ThumbnailsCacheManager {
                         int max = Math.max(width, height);
                         if (max > px) {
                             thumbnail = BitmapUtils.scaleBitmap(thumbnail, px, width, height, max);
-                            thumbnail = addThumbnailToCache(imageKey, thumbnail, file.getPath(), px);
+                            thumbnail = addThumbnailToCache(imageKey, thumbnail, file.getPath(), width, height);
                         }
                     }
                 }
