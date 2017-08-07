@@ -237,9 +237,6 @@ public class UploadFilesActivity extends FileActivity implements
                 break;
             }
             case R.id.action_sort: {
-                // Read sorting order, default to sort by name ascending
-                Integer sortOrder = PreferenceManager.getSortOrder(this);
-
                 FragmentManager fm = getSupportFragmentManager();
                 FragmentTransaction ft = fm.beginTransaction();
                 ft.addToBackStack(null);
