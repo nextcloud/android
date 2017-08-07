@@ -18,9 +18,6 @@
 -->
 <resources>
     <!-- Default screen margins, per the Android Design guidelines. -->
-    <dimen name="activity_horizontal_margin">@dimen/standard_padding</dimen>
-    <dimen name="activity_vertical_margin">@dimen/standard_padding</dimen>
-    <dimen name="nav_drawer_width">260dp</dimen>
     <dimen name="nav_drawer_header_height">140dp</dimen>
     <dimen name="nav_drawer_header_avatar">56dp</dimen>
     <!-- avatar radius needs to 1/2 of the avatar dp value -->
