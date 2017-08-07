@@ -593,7 +593,6 @@ public class FileDataStorageManager {
                 if (localFile.isDirectory()) {
                     success &= removeLocalFolder(localFile);
                 } else {
-                    String path = localFile.getAbsolutePath();
                     success &= localFile.delete();
                 }
             }
