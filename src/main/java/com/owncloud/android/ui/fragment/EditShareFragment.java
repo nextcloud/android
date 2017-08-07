@@ -153,7 +153,6 @@ public class EditShareFragment extends Fragment {
     }
 
     /**
-     * <p>
      * Get known server capabilities from DB
      * <p/>
      * Depends on the parent Activity provides a {@link com.owncloud.android.datamodel.FileDataStorageManager}
@@ -169,7 +168,7 @@ public class EditShareFragment extends Fragment {
     }
 
     /**
-     * Updates the UI with the current permissions in the edited {@link OCShare}
+     * Updates the UI with the current permissions in the edited {@OCShare}
      *
      * @param editShareView     Root view in the fragment.
      */
