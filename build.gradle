@@ -183,7 +183,7 @@ android {
 dependencies {
     /// dependencies for app building
     compile name: 'touch-image-view'
-    compile 'com.android.support:multidex:1.0.1'
+    compile 'com.android.support:multidex:1.0.2'
     compile 'com.github.nextcloud:android-library:1.0.23'
     compile "com.android.support:support-v4:${supportLibraryVersion}"
     compile "com.android.support:design:${supportLibraryVersion}"
