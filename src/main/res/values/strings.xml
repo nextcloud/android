@@ -157,6 +157,7 @@
     <string name="common_unknown">unknown</string>
     <string name="common_error_unknown">Unknown error</string>
     <string name="common_pending">Pending</string>
+    <string name="common_delete">Delete</string>
     <string name="about_title">About</string>
     <string name="change_password">Change password</string>
     <string name="delete_account">Remove account</string>
@@ -596,6 +597,7 @@
     <string name="synced_folders_settings">Settings</string>
     <string name="synced_folders_new_info">Instant uploading has been revamped completely. Re-configure your auto upload from within the main menu.\n\nEnjoy the new and extended auto uploading.</string>
     <string name="synced_folders_preferences_folder_path">For %1$s</string>
+    <string name="synced_folders_plus" translatable="false">+</string>
     <plurals name="items_selected_count">
         <!--
              As a developer, you should always supply "one" and "other"
@@ -690,6 +692,7 @@
     <string name="autoupload_create_new_custom_folder">Create new custom folder setup</string>
     <string name="synced_folders_configure_folders">Configure folders</string>
 
-  <string name="empty" translatable="false"/>
+    <string name="empty" translatable="false"/>
     <string name="test_server_button">Test server connection</string>
+    <string name="info_separator" translatable="false">,</string>
 </resources>
