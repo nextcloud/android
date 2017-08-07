@@ -49,13 +49,13 @@ import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.MediaFolder;
+import com.owncloud.android.datamodel.MediaFolderType;
 import com.owncloud.android.datamodel.MediaProvider;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.SyncedFolder;
 import com.owncloud.android.datamodel.SyncedFolderDisplayItem;
 import com.owncloud.android.datamodel.SyncedFolderProvider;
 import com.owncloud.android.files.services.FileUploader;
-import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.adapter.SyncedFolderAdapter;
 import com.owncloud.android.ui.decoration.MediaGridItemDecoration;
 import com.owncloud.android.ui.dialog.SyncedFolderPreferencesDialogFragment;
@@ -246,7 +246,7 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
                 SyncedFolder syncedFolder = syncedFoldersMap.get(mediaFolder.absolutePath+"-"+mediaFolder.type);
                 syncedFoldersMap.remove(mediaFolder.absolutePath+"-"+mediaFolder.type);
 
-                if (MediaFolder.CUSTOM == syncedFolder.getType()) {
+                if (MediaFolderType.CUSTOM == syncedFolder.getType()) {
                     result.add(createSyncedFolderWithoutMediaFolder(syncedFolder));
                 } else {
                     result.add(createSyncedFolder(syncedFolder, mediaFolder));
@@ -540,7 +540,7 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
 
         // custom folders newly created aren't in the list already,
         // so triggering a refresh
-        if (MediaFolder.CUSTOM.equals(syncedFolder.getType()) && syncedFolder.getId() == UNPERSISTED_ID) {
+        if (MediaFolderType.CUSTOM.equals(syncedFolder.getType()) && syncedFolder.getId() == UNPERSISTED_ID) {
             SyncedFolderDisplayItem newCustomFolder = new SyncedFolderDisplayItem(
                     SyncedFolder.UNPERSISTED_ID, syncedFolder.getLocalPath(), syncedFolder.getRemotePath(),
                     syncedFolder.getWifiOnly(), syncedFolder.getChargingOnly(), syncedFolder.getSubfolderByDate(),
@@ -560,8 +560,6 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
             mAdapter.addSyncFolderItem(newCustomFolder);
         } else {
             SyncedFolderDisplayItem item = mAdapter.get(syncedFolder.getSection());
-            Log_OC.e(TAG, "syncedFolder"+ syncedFolder.getLocalPath()+"-"+syncedFolder.getType());
-            Log_OC.e(TAG, "item"+ item.getLocalPath()+"-"+item.getType());
             item = updateSyncedFolderItem(item, syncedFolder.getLocalPath(), syncedFolder.getRemotePath(), syncedFolder
                     .getWifiOnly(), syncedFolder.getChargingOnly(), syncedFolder.getSubfolderByDate(), syncedFolder
                     .getUploadAction(), syncedFolder.getEnabled());
@@ -665,7 +663,7 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
         SyncedFolderDisplayItem emptyCustomFolder = new SyncedFolderDisplayItem(
                 SyncedFolder.UNPERSISTED_ID, null, null, true, false,
                 false, AccountUtils.getCurrentOwnCloudAccount(this).name,
-                FileUploader.LOCAL_BEHAVIOUR_FORGET, false, null, MediaFolder.CUSTOM);
+                FileUploader.LOCAL_BEHAVIOUR_FORGET, false, null, MediaFolderType.CUSTOM);
         onSyncFolderSettingsClick(0, emptyCustomFolder);
     }
 }
