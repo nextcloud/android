@@ -157,6 +157,7 @@ Smelltu hér til að fá þér einn frá þjónustuaðila.</string>
     <string name="about_title">Um hugbúnaðinn</string>
     <string name="change_password">Breyta lykilorði</string>
     <string name="delete_account">Fjarlægja notandaaðgang</string>
+    <string name="delete_account_warning">Eyða aðgangnum %s ásamt öllum tilheyrandi skrám á tölvunni?\n\nEyðingu er ekki hægt að afturkalla.</string>
     <string name="create_account">Stofna aðgang</string>
     <string name="upload_chooser_title">Senda inn frá &#8230;</string>
     <string name="uploader_info_dirname">Nafn möppu</string>
@@ -567,6 +568,7 @@ Smelltu hér til að fá þér einn frá þjónustuaðila.</string>
     <string name="participate_beta_headline">Prófaðu þróunarútgáfuna</string>
     <string name="participate_beta_text">Þetta inniheldur alla væntanlega eiginleika og er alveg á jaðrinum hvað varðar stöðugleika. Villur geta komið upp, og ef slíkt gerist, endilega tilkynntu um þær.</string>
     <string name="participate_release_candidate_headline">Forútgáfa</string>
+    <string name="participate_release_candidate_text">Prófunarútgáfan (RC) er skyndisamsetning verðandi útgáfu en er þó vænst að sé tiltölulega stöðug. Það að þú prófir uppsetninguna þína ætti að hjálpa til við að ná því markmiði. Skráðu þig til prófana í Play hugbúnaðarsafninu eða gerðu það handvirkt með því að fara í \"Útgáfa\"-hlutann í F-Droid.</string>
     <string name="participate_contribute_headline">Vertu virkur þáttakandi</string>
     <string name="participate_contribute_irc_text">Taktu þátt í umræðum á IRC:</string>
     <string name="participate_contribute_forum_text">Hjálpaðu öðrum á</string>
