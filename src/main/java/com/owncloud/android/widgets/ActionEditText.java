@@ -74,7 +74,7 @@ public class ActionEditText extends AppCompatEditText {
         getDrawingRect(mButtonRect);
         mButtonRect.top += 10;
         mButtonRect.bottom -= 10;
-        mButtonRect.left = getWidth() - mTextBounds.width() - 18;
+        mButtonRect.left = (int) (getWidth() - mTextBounds.width() - 18);
         mButtonRect.right = getWidth() - 10;
         btn_rect = mButtonRect;
 

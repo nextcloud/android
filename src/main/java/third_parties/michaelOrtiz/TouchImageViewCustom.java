@@ -64,7 +64,7 @@ public class TouchImageViewCustom extends ImageViewCustom {
     //
 	private Matrix matrix, prevMatrix;
 
-    private enum State { NONE, DRAG, ZOOM, FLING, ANIMATE_ZOOM }
+    private static enum State { NONE, DRAG, ZOOM, FLING, ANIMATE_ZOOM }
     private State state;
 
     private float minScale;
@@ -808,7 +808,7 @@ public class TouchImageViewCustom extends ImageViewCustom {
     }
     
     public interface OnTouchImageViewListener {
-    	void onMove();
+    	public void onMove();
     }
     
     /**
@@ -1137,7 +1137,7 @@ public class TouchImageViewCustom extends ImageViewCustom {
     			minY = maxY = startY;
     		}
     		
-    		scroller.fling(startX, startY, velocityX, velocityY, minX,
+    		scroller.fling(startX, startY, (int) velocityX, (int) velocityY, minX,
                     maxX, minY, maxY);
     		currX = startX;
     		currY = startY;
