@@ -123,7 +123,6 @@
         <service
             android:name=".jobs.NContentObserverJob"
             android:permission="android.permission.BIND_JOB_SERVICE" >
-
         </service>
 
         <service

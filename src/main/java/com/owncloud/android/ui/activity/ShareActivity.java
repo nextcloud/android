@@ -55,9 +55,8 @@ import com.owncloud.android.utils.GetShareWithUsersAsyncTask;
 import java.util.ArrayList;
 
 /**
- * Activity for sharing files
+ * Activity for sharing files.
  */
-
 public class ShareActivity extends FileActivity implements ShareFragmentListener {
 
     private static final String TAG = ShareActivity.class.getSimpleName();
@@ -84,7 +83,6 @@ public class ShareActivity extends FileActivity implements ShareFragmentListener
             ft.replace(R.id.share_fragment_container, fragment, TAG_SHARE_FRAGMENT);
             ft.commit();
         }
-
     }
 
     protected void onAccountSet(boolean stateWasRecovered) {
@@ -140,7 +138,6 @@ public class ShareActivity extends FileActivity implements ShareFragmentListener
                 getAppropiatePermissions(shareType)
         );
     }
-
 
     private int getAppropiatePermissions(ShareType shareType) {
 
@@ -242,9 +239,8 @@ public class ShareActivity extends FileActivity implements ShareFragmentListener
 
     }
 
-
     /**
-     * Updates the view, reading data from {@link com.owncloud.android.datamodel.FileDataStorageManager}
+     * Updates the view, reading data from {@link com.owncloud.android.datamodel.FileDataStorageManager}.
      */
     private void refreshSharesFromStorageManager() {
 
@@ -267,7 +263,6 @@ public class ShareActivity extends FileActivity implements ShareFragmentListener
                 editShareFragment.isAdded()) {
             editShareFragment.refreshUiFromDB();
         }
-
     }
 
     /**
@@ -296,7 +291,6 @@ public class ShareActivity extends FileActivity implements ShareFragmentListener
     private EditShareFragment getEditShareFragment() {
         return (EditShareFragment) getSupportFragmentManager().findFragmentByTag(TAG_EDIT_SHARE_FRAGMENT);
     }
-
 
     private void onCreateShareViaLinkOperationFinish(CreateShareViaLinkOperation operation,
                                                      RemoteOperationResult result) {
@@ -366,8 +360,5 @@ public class ShareActivity extends FileActivity implements ShareFragmentListener
                 t.show();
             }
         }
-
     }
-
-
 }
