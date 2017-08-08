@@ -234,7 +234,6 @@ public abstract class PreferenceManager {
         return getDefaultSharedPreferences(context).getBoolean(PREF__AUTO_UPLOAD_SPLIT_OUT, false);
     }
 
-
     /**
      * Saves the legacy cleaning flag which the user has set last.
      *
@@ -268,8 +267,6 @@ public abstract class PreferenceManager {
     public static void setAutoUploadSplitEntries(Context context, boolean splitOut) {
         saveBooleanPreference(context, PREF__AUTO_UPLOAD_SPLIT_OUT, splitOut);
     }
-
-
 
     /**
      * Gets the uploader behavior which the user has set last.

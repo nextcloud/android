@@ -40,7 +40,6 @@ import java.io.File;
 /**
  * Stores all information in order to start upload operations. PersistentUploadObject can
  * be stored persistently by {@link UploadsStorageManager}.
- *
  */
 public class OCUpload implements Parcelable {
 
@@ -49,7 +48,7 @@ public class OCUpload implements Parcelable {
     private long mId;
 
     /**
-     * Absolute path in the local file system to the file to be uploaded
+     * Absolute path in the local file system to the file to be uploaded.
      */
     private String mLocalPath;
 
@@ -64,7 +63,7 @@ public class OCUpload implements Parcelable {
     private String mAccountName;
 
     /**
-     * File size
+     * File size.
      */
     private long mFileSize;
 
@@ -77,14 +76,17 @@ public class OCUpload implements Parcelable {
      * Overwrite destination file?
      */
     private boolean mForceOverwrite;
+
     /**
      * Create destination folder?
      */
     private boolean mIsCreateRemoteFolder;
+
     /**
      * Status of upload (later, in_progress, ...).
      */
     private UploadStatus mUploadStatus;
+
     /**
      * Result from last upload operation. Can be null.
      */
@@ -95,7 +97,7 @@ public class OCUpload implements Parcelable {
      */
     private int mCreatedBy;
 
-    /*
+    /**
      * When the upload ended
      */
     private long mUploadEndTimeStamp;
@@ -104,15 +106,14 @@ public class OCUpload implements Parcelable {
      * Upload only via wifi?
      */
     private boolean mIsUseWifiOnly;
+
     /**
      * Upload only if phone being charged?
      */
     private boolean mIsWhileChargingOnly;
-    /**
-
 
      /**
-     * Main constructor
+     * Main constructor.
      *
      * @param localPath         Absolute path in the local file system to the file to be uploaded.
      * @param remotePath        Absolute path in the remote account to set to the uploaded file.
@@ -134,9 +135,8 @@ public class OCUpload implements Parcelable {
         mAccountName = accountName;
     }
 
-
     /**
-     * Convenience constructor to reupload already existing {@link OCFile}s
+     * Convenience constructor to reupload already existing {@link OCFile}s.
      *
      * @param  ocFile           {@link OCFile} instance to update in the remote server.
      * @param  account          ownCloud {@link Account} where ocFile is contained.
@@ -144,7 +144,6 @@ public class OCUpload implements Parcelable {
     public OCUpload(OCFile ocFile, Account account) {
         this(ocFile.getStoragePath(), ocFile.getRemotePath(), account.name);
     }
-
 
     /**
      * Reset all the fields to default values.
@@ -241,7 +240,6 @@ public class OCUpload implements Parcelable {
     public void setFileSize(long fileSize) {
         mFileSize = fileSize;
     }
-
 
     /**
      * @return the mimeType
@@ -406,7 +404,6 @@ public class OCUpload implements Parcelable {
         mIsUseWifiOnly = (source.readInt() == 1);
         mIsWhileChargingOnly = (source.readInt() == 1);
     }
-
 
     @Override
     public int describeContents() {
