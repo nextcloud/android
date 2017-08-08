@@ -80,9 +80,9 @@
             android:title="@string/drawer_item_notifications"/>
         <item
             android:orderInCategory="0"
-            android:id="@+id/nav_folder_sync"
-            android:icon="@drawable/nav_folder_sync"
-            android:title="@string/drawer_folder_sync"/>
+            android:id="@+id/nav_synced_folders"
+            android:icon="@drawable/nav_synced_folders"
+            android:title="@string/drawer_synced_folders"/>
         <item
             android:id="@+id/nav_uploads"
             android:icon="@drawable/nav_uploads"

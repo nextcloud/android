@@ -334,9 +334,6 @@
     <string name="move_to">Перемістити до&#8230;</string>
     <string name="copy_to">Копіювати до&#8230;</string>
     <string name="choose_remote_folder">Оберіть каталог&#8230;</string>
-    <string name="folder_sync_loading_folders">Завантаження каталогів&#8230;</string>
-    <string name="folder_sync_settings">Налаштування</string>
-    <string name="folder_sync_preferences_folder_path">Для %1$s</string>
     <plurals name="items_selected_count">
         <item quantity="one">%d обрано</item>
         <item quantity="few">%d обрано</item>
