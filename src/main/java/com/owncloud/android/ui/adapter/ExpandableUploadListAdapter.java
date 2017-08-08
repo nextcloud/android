@@ -42,6 +42,7 @@ import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.datamodel.UploadsStorageManager;
 import com.owncloud.android.datamodel.UploadsStorageManager.UploadStatus;
 import com.owncloud.android.db.OCUpload;
+import com.owncloud.android.db.UploadResult;
 import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.lib.common.network.OnDatatransferProgressListener;
 import com.owncloud.android.lib.common.utils.Log_OC;
@@ -373,7 +374,7 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
             // retry
             if (upload.getUploadStatus() == UploadStatus.UPLOAD_FAILED) {
                 if (UploadResult.CREDENTIAL_ERROR.equals(upload.getLastResult())) {
-                    view.setOnClickListener(new OnClickListener() {
+                    view.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
                             mParentActivity.getFileOperationsHelper().checkCurrentCredentials(
@@ -384,7 +385,7 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
 
                 } else {
                     // not a credentials error
-                    view.setOnClickListener(new OnClickListener() {
+                    view.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
                         File file = new File(upload.getLocalPath());
