@@ -18,7 +18,7 @@ sed -i s"#versionName .*#versionName \"$date\"#" build.gradle
 # sed -e 's#\@string/app_name#Nextcloud dev#' -e 's#\@string/copy_link#Copy link#' -e 's#\@string/share_dialog_title#Sharing#' -e 's#\@string/manage_space_title#Manage space#' src/main/AndroidManifest.xml -i
 
 # build signed apk
-gradle assembleGenericRelease >> /tmp/dev.log 2>&1
+./gradlew assembleGenericRelease >> /tmp/dev.log 2>&1
 
 if [ $? != 0 ] ; then 
 	echo "Build error!"
