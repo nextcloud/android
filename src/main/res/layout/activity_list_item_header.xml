@@ -9,9 +9,8 @@
         android:layout_height="wrap_content"
         android:textSize="20sp"
         android:layout_marginLeft="10dp"
+        android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
-        android:text="@string/placeholder_filename"
-
-        />
+        android:text="@string/placeholder_filename"/>
 
 </LinearLayout>
