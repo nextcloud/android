@@ -273,9 +273,7 @@ public class LogHistoryActivity extends ToolbarActivity {
      */
     public void showLoadingDialog() {
         // Construct dialog
-        LoadingDialog loading = new LoadingDialog(
-                getResources().getString(R.string.log_progress_dialog_text)
-        );
+        LoadingDialog loading = LoadingDialog.newInstance(getResources().getString(R.string.log_progress_dialog_text));
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
         loading.show(ft, DIALOG_WAIT_TAG);
