@@ -536,7 +536,6 @@
 
     <string name="action_retry_uploads">Nytt forsøk mislyktes</string>
     <string name="action_clear_failed_uploads">Sletting mislyktes</string>
-    <string name="action_clear_successful_uploads">Sletting vellykket</string>
     <string name="action_clear_finished_uploads">Slett alle ferdige</string>
 
     <string name="action_switch_grid_view">Rutenett-visning</string>

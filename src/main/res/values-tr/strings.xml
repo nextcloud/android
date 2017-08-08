@@ -537,7 +537,6 @@
 
     <string name="action_retry_uploads">Yeni girişim başarısız oldu</string>
     <string name="action_clear_failed_uploads">Temizlenemedi</string>
-    <string name="action_clear_successful_uploads">Temizlendi</string>
     <string name="action_clear_finished_uploads">Tamamlanmış yüklemeleri temizle</string>
 
     <string name="action_switch_grid_view">Tablo görünümü</string>
