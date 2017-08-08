@@ -23,9 +23,7 @@ import android.accounts.Account;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
+
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.SearchView;
 import android.text.Html;
@@ -52,7 +50,6 @@ import com.owncloud.android.ui.fragment.FileFragment;
 import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.StringUtils;
 import com.owncloud.android.utils.AnalyticsUtils;
-import com.owncloud.android.utils.MimeTypeUtil;
 
 import java.io.BufferedWriter;
 import java.io.FileInputStream;
