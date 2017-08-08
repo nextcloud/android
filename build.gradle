@@ -204,7 +204,7 @@ if (project.hasProperty('RELEASE_STORE_FILE')) {
 dependencies {
     /// dependencies for app building
     compile name: 'touch-image-view'
-    compile 'com.android.support:multidex:1.0.1'
+    compile 'com.android.support:multidex:1.0.2'
 
     compile 'com.github.nextcloud:android-library:dev-SNAPSHOT'
     compile "com.android.support:support-v4:${supportLibraryVersion}"
@@ -212,6 +212,7 @@ dependencies {
     compile 'com.jakewharton:disklrucache:2.0.2'
     compile "com.android.support:appcompat-v7:${supportLibraryVersion}"
     compile "com.android.support:cardview-v7:${supportLibraryVersion}"
+    compile "com.android.support:exifinterface:${supportLibraryVersion}"
     compile 'com.github.tobiasKaminsky:android-floating-action-button:1.10.2'
     compile 'com.google.code.findbugs:annotations:2.0.1'
     compile 'commons-io:commons-io:2.5'

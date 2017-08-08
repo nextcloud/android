@@ -38,6 +38,7 @@ import android.support.v7.app.AlertDialog;
 import com.evernote.android.job.JobManager;
 import com.owncloud.android.authentication.PassCodeManager;
 import com.owncloud.android.datamodel.MediaFolder;
+import com.owncloud.android.datamodel.MediaFolderType;
 import com.owncloud.android.datamodel.MediaProvider;
 import com.owncloud.android.datamodel.SyncedFolder;
 import com.owncloud.android.datamodel.SyncedFolderProvider;
@@ -304,7 +305,7 @@ public class MainApp extends MultiDexApplication {
                 // show info pop-up
                 new AlertDialog.Builder(this, R.style.Theme_ownCloud_Dialog)
                         .setTitle(R.string.drawer_synced_folders)
-                        .setMessage(R.string.folder_sync_new_info)
+                        .setMessage(R.string.synced_folders_new_info)
                         .setPositiveButton(R.string.drawer_open, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
                                 // show Auto Upload
@@ -354,7 +355,7 @@ public class MainApp extends MultiDexApplication {
                 for (int i = 0; i < imageMediaFolders.size(); i++) {
                     if (imageMediaFolders.get(i).absolutePath.equals(syncedFolder.getLocalPath())) {
                         newSyncedFolder = (SyncedFolder) syncedFolder.clone();
-                        newSyncedFolder.setType(MediaFolder.IMAGE);
+                        newSyncedFolder.setType(MediaFolderType.IMAGE);
                         primaryKey = syncedFolderProvider.storeSyncedFolder(newSyncedFolder);
                         Log_OC.i(TAG, "Migrated image synced_folders record: "
                                 + primaryKey + " - " + newSyncedFolder.getLocalPath());
@@ -365,7 +366,7 @@ public class MainApp extends MultiDexApplication {
                 for (int j = 0; j < videoMediaFolders.size(); j++) {
                     if (videoMediaFolders.get(j).absolutePath.equals(syncedFolder.getLocalPath())) {
                         newSyncedFolder = (SyncedFolder) syncedFolder.clone();
-                        newSyncedFolder.setType(MediaFolder.VIDEO);
+                        newSyncedFolder.setType(MediaFolderType.VIDEO);
                         primaryKey = syncedFolderProvider.storeSyncedFolder(newSyncedFolder);
                         Log_OC.i(TAG, "Migrated video synced_folders record: "
                                 + primaryKey + " - " + newSyncedFolder.getLocalPath());

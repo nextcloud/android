@@ -42,6 +42,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.owncloud.android.R;
+import com.owncloud.android.datamodel.MediaFolderType;
 import com.owncloud.android.datamodel.MediaFolder;
 import com.owncloud.android.datamodel.SyncedFolderDisplayItem;
 import com.owncloud.android.lib.common.utils.Log_OC;
@@ -141,7 +142,7 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment {
     private void setupDialogElements(View view) {
         int accentColor = ThemeUtils.primaryAccentColor();
 
-        if (mSyncedFolder.getType() > MediaFolder.CUSTOM) {
+        if (mSyncedFolder.getType().getId() > MediaFolderType.CUSTOM.getId()) {
             // hide local folder chooser and delete for non-custom folders
             view.findViewById(R.id.local_folder_container).setVisibility(View.GONE);
             view.findViewById(R.id.delete).setVisibility(View.GONE);

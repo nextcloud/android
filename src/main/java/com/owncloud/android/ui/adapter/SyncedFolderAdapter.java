@@ -34,6 +34,7 @@ import android.widget.TextView;
 
 import com.afollestad.sectionedrecyclerview.SectionedRecyclerViewAdapter;
 import com.owncloud.android.R;
+import com.owncloud.android.datamodel.MediaFolderType;
 import com.owncloud.android.datamodel.MediaFolder;
 import com.owncloud.android.datamodel.SyncedFolderDisplayItem;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
@@ -110,9 +111,9 @@ public class SyncedFolderAdapter extends SectionedRecyclerViewAdapter<SyncedFold
 
         holder.title.setText(mSyncFolderItems.get(section).getFolderName());
 
-        if (MediaFolder.VIDEO == mSyncFolderItems.get(section).getType()) {
+        if (MediaFolderType.VIDEO == mSyncFolderItems.get(section).getType()) {
             holder.type.setImageResource(R.drawable.ic_video_18dp);
-        } else if (MediaFolder.IMAGE == mSyncFolderItems.get(section).getType()) {
+        } else if (MediaFolderType.IMAGE == mSyncFolderItems.get(section).getType()) {
             holder.type.setImageResource(R.drawable.ic_image_18dp);
         } else {
             holder.type.setImageResource(R.drawable.ic_folder_star_18dp);

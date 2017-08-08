@@ -29,6 +29,9 @@ import com.evernote.android.job.JobRequest;
 import com.evernote.android.job.util.Device;
 import com.owncloud.android.MainApp;
 
+/*
+    Helper for setting up network and power receivers
+ */
 public class ReceiversHelper {
 
     public static void registerNetworkChangeReceiver() {

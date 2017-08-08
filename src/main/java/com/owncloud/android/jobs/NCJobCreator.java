@@ -32,8 +32,6 @@ public class NCJobCreator implements JobCreator {
     @Override
     public Job create(String tag) {
         switch (tag) {
-            case AutoUploadJob.TAG:
-                return new AutoUploadJob();
             case ContactsBackupJob.TAG:
                 return new ContactsBackupJob();
             case ContactsImportJob.TAG:

@@ -24,18 +24,17 @@ package com.owncloud.android.jobs;
 import android.accounts.Account;
 import android.content.ContentResolver;
 import android.content.Context;
-import android.media.ExifInterface;
 import android.os.PowerManager;
 import android.support.annotation.NonNull;
+import android.support.media.ExifInterface;
 import android.text.TextUtils;
 
 import com.evernote.android.job.Job;
-import com.evernote.android.job.JobManager;
 import com.evernote.android.job.util.support.PersistableBundleCompat;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.FilesystemDataProvider;
-import com.owncloud.android.datamodel.MediaFolder;
+import com.owncloud.android.datamodel.MediaFolderType;
 import com.owncloud.android.datamodel.SyncedFolder;
 import com.owncloud.android.datamodel.SyncedFolderProvider;
 import com.owncloud.android.files.services.FileUploader;
@@ -53,10 +52,16 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
 
+/*
+    Job that:
+        - restarts existing jobs if required
+        - finds new and modified files since we last run this
+        - creates upload tasks
+ */
 public class FilesSyncJob extends Job {
     public static final String TAG = "FilesSyncJob";
 
-    public static String SKIP_CUSTOM = "skipCustom";
+    public static final String SKIP_CUSTOM = "skipCustom";
 
     @NonNull
     @Override
@@ -64,7 +69,7 @@ public class FilesSyncJob extends Job {
         final Context context = MainApp.getAppContext();
         final ContentResolver contentResolver = context.getContentResolver();
 
-        PowerManager powerManager = (PowerManager) context.getSystemService(context.POWER_SERVICE);
+        PowerManager powerManager = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
         FileUploader.UploadRequester requester = new FileUploader.UploadRequester();
         PowerManager.WakeLock wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK,
                 TAG);
@@ -81,65 +86,63 @@ public class FilesSyncJob extends Job {
         SyncedFolderProvider syncedFolderProvider = new SyncedFolderProvider(contentResolver);
 
         for (SyncedFolder syncedFolder : syncedFolderProvider.getSyncedFolders()) {
-            if ((syncedFolder.isEnabled()) && (!skipCustom || MediaFolder.CUSTOM != syncedFolder.getType())) {
+            if ((syncedFolder.isEnabled()) && (!skipCustom || MediaFolderType.CUSTOM != syncedFolder.getType())) {
                 for (String path : filesystemDataProvider.getFilesForUpload(syncedFolder.getLocalPath(),
                         Long.toString(syncedFolder.getId()))) {
-                    if (JobManager.instance().getAllJobRequests().size() < 80) {
-                        File file = new File(path);
+                    File file = new File(path);
 
-                        Long lastModificationTime = file.lastModified();
-                        final Locale currentLocale = context.getResources().getConfiguration().locale;
+                    Long lastModificationTime = file.lastModified();
+                    final Locale currentLocale = context.getResources().getConfiguration().locale;
 
-                        if (MediaFolder.IMAGE == syncedFolder.getType()) {
-                            String mimetypeString = FileStorageUtils.getMimeTypeFromName(file.getAbsolutePath());
-                            if ("image/jpeg".equalsIgnoreCase(mimetypeString) || "image/tiff".
-                                    equalsIgnoreCase(mimetypeString)) {
-                                try {
-                                    ExifInterface exifInterface = new ExifInterface(file.getAbsolutePath());
-                                    String exifDate = exifInterface.getAttribute(ExifInterface.TAG_DATETIME);
-                                    if (!TextUtils.isEmpty(exifDate)) {
-                                        ParsePosition pos = new ParsePosition(0);
-                                        SimpleDateFormat sFormatter = new SimpleDateFormat("yyyy:MM:dd HH:mm:ss",
-                                                currentLocale);
-                                        sFormatter.setTimeZone(TimeZone.getTimeZone(TimeZone.getDefault().getID()));
-                                        Date dateTime = sFormatter.parse(exifDate, pos);
-                                        lastModificationTime = dateTime.getTime();
-                                    }
-
-                                } catch (IOException e) {
-                                    Log_OC.d(TAG, "Failed to get the proper time " + e.getLocalizedMessage());
+                    if (MediaFolderType.IMAGE == syncedFolder.getType()) {
+                        String mimetypeString = FileStorageUtils.getMimeTypeFromName(file.getAbsolutePath());
+                        if ("image/jpeg".equalsIgnoreCase(mimetypeString) || "image/tiff".
+                                equalsIgnoreCase(mimetypeString)) {
+                            try {
+                                ExifInterface exifInterface = new ExifInterface(file.getAbsolutePath());
+                                String exifDate = exifInterface.getAttribute(ExifInterface.TAG_DATETIME);
+                                if (!TextUtils.isEmpty(exifDate)) {
+                                    ParsePosition pos = new ParsePosition(0);
+                                    SimpleDateFormat sFormatter = new SimpleDateFormat("yyyy:MM:dd HH:mm:ss",
+                                            currentLocale);
+                                    sFormatter.setTimeZone(TimeZone.getTimeZone(TimeZone.getDefault().getID()));
+                                    Date dateTime = sFormatter.parse(exifDate, pos);
+                                    lastModificationTime = dateTime.getTime();
                                 }
+
+                            } catch (IOException e) {
+                                Log_OC.d(TAG, "Failed to get the proper time " + e.getLocalizedMessage());
                             }
                         }
-
-                        boolean needsCharging = syncedFolder.getChargingOnly();
-                        boolean needsWifi = syncedFolder.getWifiOnly();
-
-                        String mimeType = MimeTypeUtil.getBestMimeTypeByFilename(file.getAbsolutePath());
-
-                        Account account = AccountUtils.getOwnCloudAccountByName(context, syncedFolder.getAccount());
-
-                        requester.uploadFileWithOverwrite(
-                                context,
-                                account,
-                                file.getAbsolutePath(),
-                                FileStorageUtils.getInstantUploadFilePath(
-                                        currentLocale,
-                                        syncedFolder.getRemotePath(), file.getName(),
-                                        lastModificationTime,
-                                        syncedFolder.getSubfolderByDate()),
-                                syncedFolder.getUploadAction(),
-                                mimeType,
-                                true,           // create parent folder if not existent
-                                UploadFileOperation.CREATED_AS_INSTANT_PICTURE,
-                                needsWifi,
-                                needsCharging,
-                                true
-                        );
-
-                        filesystemDataProvider.updateFilesystemFileAsSentForUpload(path,
-                                Long.toString(syncedFolder.getId()));
                     }
+
+                    boolean needsCharging = syncedFolder.getChargingOnly();
+                    boolean needsWifi = syncedFolder.getWifiOnly();
+
+                    String mimeType = MimeTypeUtil.getBestMimeTypeByFilename(file.getAbsolutePath());
+
+                    Account account = AccountUtils.getOwnCloudAccountByName(context, syncedFolder.getAccount());
+
+                    requester.uploadFileWithOverwrite(
+                            context,
+                            account,
+                            file.getAbsolutePath(),
+                            FileStorageUtils.getInstantUploadFilePath(
+                                    currentLocale,
+                                    syncedFolder.getRemotePath(), file.getName(),
+                                    lastModificationTime,
+                                    syncedFolder.getSubfolderByDate()),
+                            syncedFolder.getUploadAction(),
+                            mimeType,
+                            true,           // create parent folder if not existent
+                            UploadFileOperation.CREATED_AS_INSTANT_PICTURE,
+                            needsWifi,
+                            needsCharging,
+                            true
+                    );
+
+                    filesystemDataProvider.updateFilesystemFileAsSentForUpload(path,
+                            Long.toString(syncedFolder.getId()));
                 }
             }
         }

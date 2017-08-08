@@ -107,7 +107,7 @@ public class MediaProvider {
                 MediaFolder mediaFolder = new MediaFolder();
                 folderName = cursorFolders.getString(cursorFolders.getColumnIndex(
                         MediaStore.Images.Media.BUCKET_DISPLAY_NAME));
-                mediaFolder.type = MediaFolder.IMAGE;
+                mediaFolder.type = MediaFolderType.IMAGE;
                 mediaFolder.folderName = folderName;
                 mediaFolder.filePaths = new ArrayList<>();
 
@@ -206,7 +206,7 @@ public class MediaProvider {
                 MediaFolder mediaFolder = new MediaFolder();
                 folderName = cursorFolders.getString(cursorFolders.getColumnIndex(
                         MediaStore.Video.Media.BUCKET_DISPLAY_NAME));
-                mediaFolder.type = MediaFolder.VIDEO;
+                mediaFolder.type = MediaFolderType.VIDEO;
                 mediaFolder.folderName = folderName;
                 mediaFolder.filePaths = new ArrayList<>();
 

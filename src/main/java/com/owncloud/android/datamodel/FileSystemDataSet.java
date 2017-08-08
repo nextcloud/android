@@ -20,7 +20,9 @@
  */
 package com.owncloud.android.datamodel;
 
-
+/*
+    Model for filesystem data from the database
+ */
 public class FileSystemDataSet {
 
     private int id;

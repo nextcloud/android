@@ -42,7 +42,6 @@ import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.datamodel.UploadsStorageManager;
 import com.owncloud.android.datamodel.UploadsStorageManager.UploadStatus;
 import com.owncloud.android.db.OCUpload;
-import com.owncloud.android.db.UploadResult;
 import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.lib.common.network.OnDatatransferProgressListener;
 import com.owncloud.android.lib.common.utils.Log_OC;
@@ -369,41 +368,7 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
                 rightButton.setVisibility(View.INVISIBLE);
             }
 
-            // retry
-            if (upload.getUploadStatus() == UploadStatus.UPLOAD_FAILED) {
-                if (UploadResult.CREDENTIAL_ERROR.equals(upload.getLastResult())) {
-                    view.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            mParentActivity.getFileOperationsHelper().checkCurrentCredentials(
-                                upload.getAccount(mParentActivity)
-                            );
-                        }
-                    });
-
-                } else {
-                    // not a credentials error
-                    view.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                        File file = new File(upload.getLocalPath());
-                        if (file.exists()) {
-                            FileUploader.UploadRequester requester = new FileUploader.UploadRequester();
-                            requester.retry(mParentActivity, upload);
-                            refreshView();
-                        } else {
-                            Snackbar.make(
-                                    v.getRootView().findViewById(android.R.id.content),
-                                    mParentActivity.getString(R.string.local_file_not_found_toast),
-                                    Snackbar.LENGTH_LONG
-                            ).show();
-                        }
-                        }
-                    });
-                }
-            } else {
-                view.setOnClickListener(null);
-            }
+            view.setOnClickListener(null);
 
             /// Set icon or thumbnail
             ImageView fileIcon = (ImageView) view.findViewById(R.id.thumbnail);
@@ -595,6 +560,9 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
                         break;
                     case MAINTENANCE_MODE:
                         status = mParentActivity.getString(R.string.maintenance_mode);
+                        break;
+                    case LOCK_FAILED:
+                        status = mParentActivity.getString(R.string.lock_failed);
                         break;
                     case LOCK_FAILED:
                         status = mParentActivity.getString(R.string.lock_failed);

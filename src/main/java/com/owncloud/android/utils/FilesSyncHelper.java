@@ -39,7 +39,7 @@ import com.owncloud.android.MainApp;
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.FilesystemDataProvider;
-import com.owncloud.android.datamodel.MediaFolder;
+import com.owncloud.android.datamodel.MediaFolderType;
 import com.owncloud.android.datamodel.SyncedFolder;
 import com.owncloud.android.datamodel.SyncedFolderProvider;
 import com.owncloud.android.datamodel.UploadsStorageManager;
@@ -59,8 +59,14 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
+/*
+    Various utilities that make auto upload tick
+ */
 public class FilesSyncHelper {
     public static final String TAG = "FileSyncHelper";
+
+    public static final String GLOBAL = "global";
+    public static final String SYNCEDFOLDERINITIATED = "syncedFolderIntitiated_";
 
     public static int ContentSyncJobId = 315;
 
@@ -73,13 +79,13 @@ public class FilesSyncHelper {
         double currentTimeInSeconds = currentTime / 1000.0;
         String currentTimeString = Long.toString((long) currentTimeInSeconds);
 
-        String syncedFolderInitiatedKey = "syncedFolderIntitiated_" + syncedFolder.getId();
+        String syncedFolderInitiatedKey = SYNCEDFOLDERINITIATED + syncedFolder.getId();
         boolean dryRun = TextUtils.isEmpty(arbitraryDataProvider.getValue
-                ("global", syncedFolderInitiatedKey));
+                (GLOBAL, syncedFolderInitiatedKey));
 
-        if (MediaFolder.IMAGE == syncedFolder.getType()) {
+        if (MediaFolderType.IMAGE == syncedFolder.getType()) {
             if (dryRun) {
-                arbitraryDataProvider.storeOrUpdateKeyValue("global", syncedFolderInitiatedKey,
+                arbitraryDataProvider.storeOrUpdateKeyValue(GLOBAL, syncedFolderInitiatedKey,
                         currentTimeString);
             } else {
                 FilesSyncHelper.insertContentIntoDB(android.provider.MediaStore.Images.Media.INTERNAL_CONTENT_URI
@@ -88,10 +94,10 @@ public class FilesSyncHelper {
                         syncedFolder);
             }
 
-        } else if (MediaFolder.VIDEO == syncedFolder.getType()) {
+        } else if (MediaFolderType.VIDEO == syncedFolder.getType()) {
 
             if (dryRun) {
-                arbitraryDataProvider.storeOrUpdateKeyValue("global", syncedFolderInitiatedKey,
+                arbitraryDataProvider.storeOrUpdateKeyValue(GLOBAL, syncedFolderInitiatedKey,
                         currentTimeString);
             } else {
                 FilesSyncHelper.insertContentIntoDB(android.provider.MediaStore.Video.Media.INTERNAL_CONTENT_URI,
@@ -104,13 +110,13 @@ public class FilesSyncHelper {
             try {
 
                 if (dryRun) {
-                    arbitraryDataProvider.storeOrUpdateKeyValue("global", syncedFolderInitiatedKey,
+                    arbitraryDataProvider.storeOrUpdateKeyValue(GLOBAL, syncedFolderInitiatedKey,
                             currentTimeString);
                 } else {
                     FilesystemDataProvider filesystemDataProvider = new FilesystemDataProvider(contentResolver);
                     Path path = Paths.get(syncedFolder.getLocalPath());
 
-                    String dateInitiated = arbitraryDataProvider.getValue("global",
+                    String dateInitiated = arbitraryDataProvider.getValue(GLOBAL,
                             syncedFolderInitiatedKey);
 
                     Files.walkFileTree(path, new SimpleFileVisitor<Path>() {
@@ -135,7 +141,7 @@ public class FilesSyncHelper {
                 }
 
             } catch (IOException e) {
-                Log.d(TAG, "Something went wrong while indexing files for auto upload");
+                Log.e(TAG, "Something went wrong while indexing files for auto upload " + e.getLocalizedMessage());
             }
         }
     }
@@ -146,7 +152,7 @@ public class FilesSyncHelper {
         SyncedFolderProvider syncedFolderProvider = new SyncedFolderProvider(contentResolver);
 
         for (SyncedFolder syncedFolder : syncedFolderProvider.getSyncedFolders()) {
-            if ((syncedFolder.isEnabled()) && ((MediaFolder.CUSTOM != syncedFolder.getType()) || !skipCustom)) {
+            if ((syncedFolder.isEnabled()) && ((MediaFolderType.CUSTOM != syncedFolder.getType()) || !skipCustom)) {
                     insertAllDBEntriesForSyncedFolder(syncedFolder);
             }
         }
@@ -175,8 +181,8 @@ public class FilesSyncHelper {
             path = path + "%";
         }
 
-        String syncedFolderInitiatedKey = "syncedFolderIntitiated_" + syncedFolder.getId();
-        String dateInitiated = arbitraryDataProvider.getValue("global", syncedFolderInitiatedKey);
+        String syncedFolderInitiatedKey = SYNCEDFOLDERINITIATED + syncedFolder.getId();
+        String dateInitiated = arbitraryDataProvider.getValue(GLOBAL, syncedFolderInitiatedKey);
 
         cursor = context.getContentResolver().query(uri, projection, MediaStore.MediaColumns.DATA + " LIKE ?",
                 new String[]{path}, null);
@@ -257,15 +263,14 @@ public class FilesSyncHelper {
 
         if (syncedFolderProvider.getSyncedFolders() != null) {
             for (SyncedFolder syncedFolder : syncedFolderProvider.getSyncedFolders()) {
-                if (MediaFolder.VIDEO == syncedFolder.getType()) {
+                if (MediaFolderType.VIDEO == syncedFolder.getType()) {
                     hasVideoFolders = true;
-                } else if (MediaFolder.IMAGE == syncedFolder.getType()) {
+                } else if (MediaFolderType.IMAGE == syncedFolder.getType()) {
                     hasImageFolders = true;
                 }
             }
         }
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             if (hasImageFolders || hasVideoFolders) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                     scheduleJobOnN(hasImageFolders, hasVideoFolders, force);
@@ -275,7 +280,6 @@ public class FilesSyncHelper {
                     cancelJobOnN();
                 }
             }
-        }
     }
 
     public static void scheduleFilesSyncIfNeeded() {
@@ -302,8 +306,7 @@ public class FilesSyncHelper {
                                        boolean force) {
         JobScheduler jobScheduler = MainApp.getAppContext().getSystemService(JobScheduler.class);
 
-        if (((android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) && (hasImageFolders || hasVideoFolders)) &&
-                (!isContentObserverJobScheduled() || force)) {
+        if ((hasImageFolders || hasVideoFolders) && (!isContentObserverJobScheduled() || force)) {
             JobInfo.Builder builder = new JobInfo.Builder(ContentSyncJobId, new ComponentName(MainApp.getAppContext(),
                     NContentObserverJob.class.getName()));
             builder.addTriggerContentUri(new JobInfo.TriggerContentUri(android.provider.MediaStore.

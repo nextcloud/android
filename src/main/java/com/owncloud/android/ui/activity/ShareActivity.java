@@ -59,8 +59,7 @@ import java.util.ArrayList;
  * Activity for sharing files
  */
 
-public class ShareActivity extends FileActivity
-        implements ShareFragmentListener {
+public class ShareActivity extends FileActivity implements ShareFragmentListener {
 
     private static final String TAG = ShareActivity.class.getSimpleName();
 
@@ -71,8 +70,6 @@ public class ShareActivity extends FileActivity
 
     /// Tags for dialog fragments
     private static final String FTAG_CHOOSER_DIALOG = "CHOOSER_DIALOG";
-    private static final String FTAG_SHARE_PASSWORD_DIALOG = "SHARE_PASSWORD_DIALOG";
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -148,7 +145,7 @@ public class ShareActivity extends FileActivity
 
     private int getAppropiatePermissions(ShareType shareType) {
 
-        // check if the Share is FERERATED
+        // check if the Share is FEDERATED
         boolean isFederated = ShareType.FEDERATED.equals(shareType);
 
         if (getFile().isSharedWithMe()) {

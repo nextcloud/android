@@ -94,6 +94,8 @@ public class Preferences extends PreferenceActivity
 
     private static final String TAG = Preferences.class.getSimpleName();
 
+    public final static String PREFERENCE_USE_FINGERPRINT = "use_fingerprint";
+
     private static final String SCREEN_NAME = "Settings";
 
     private static final int ACTION_SELECT_UPLOAD_PATH = 1;
@@ -273,7 +275,7 @@ public class Preferences extends PreferenceActivity
         }
 
         boolean fPrintEnabled = getResources().getBoolean(R.bool.fingerprint_enabled);
-        fPrint = (SwitchPreference) findPreference(FingerprintActivity.PREFERENCE_USE_FINGERPRINT);
+        fPrint = (SwitchPreference) findPreference(PREFERENCE_USE_FINGERPRINT);
         if (fPrint != null) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 if (FingerprintActivity.isFingerprintCapable(MainApp.getAppContext()) && fPrintEnabled) {

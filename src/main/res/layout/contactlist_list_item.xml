@@ -39,7 +39,7 @@
         android:checkMark="?android:attr/listChoiceIndicatorMultiple"
         android:ellipsize="marquee"
         android:gravity="center_vertical"
-        android:maxLines="1"
+        android:singleLine="true"
         android:textAppearance="?android:attr/textAppearanceListItem"/>
 
 </LinearLayout>
