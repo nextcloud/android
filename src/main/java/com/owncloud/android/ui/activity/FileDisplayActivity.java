@@ -282,9 +282,8 @@ public class FileDisplayActivity extends HookActivity
      */
     private void upgradeNotificationForInstantUpload() {
         // check for Android 6+ if legacy instant upload is activated --> disable + show info
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M &&
-                (PreferenceManager.instantPictureUploadEnabled(this) ||
-                        PreferenceManager.instantPictureUploadEnabled(this))) {
+        if (PreferenceManager.instantPictureUploadEnabled(this) ||
+                        PreferenceManager.instantPictureUploadEnabled(this)) {
 
             // remove legacy shared preferences
             SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(this).edit();
@@ -303,14 +302,14 @@ public class FileDisplayActivity extends HookActivity
 
             // show info pop-up
             new AlertDialog.Builder(this, R.style.Theme_ownCloud_Dialog)
-                    .setTitle(R.string.drawer_folder_sync)
-                    .setMessage(R.string.folder_sync_new_info)
+                    .setTitle(R.string.drawer_synced_folders)
+                    .setMessage(R.string.synced_folders_new_info)
                     .setPositiveButton(R.string.drawer_open, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
                             // show instant upload
-                            Intent folderSyncIntent = new Intent(getApplicationContext(), FolderSyncActivity.class);
+                            Intent syncedFoldersIntent = new Intent(getApplicationContext(), SyncedFoldersActivity.class);
                             dialog.dismiss();
-                            startActivity(folderSyncIntent);
+                            startActivity(syncedFoldersIntent);
                         }
                     })
                     .setNegativeButton(R.string.drawer_close, new DialogInterface.OnClickListener() {
@@ -318,7 +317,7 @@ public class FileDisplayActivity extends HookActivity
                             dialog.dismiss();
                         }
                     })
-                    .setIcon(R.drawable.nav_folder_sync)
+                    .setIcon(R.drawable.nav_synced_folders)
                     .show();
         }
     }
@@ -477,7 +476,7 @@ public class FileDisplayActivity extends HookActivity
         super.onNewIntent(intent);
         if(intent.getAction()!=null && intent.getAction().equalsIgnoreCase(ACTION_DETAILS)){
             setIntent(intent);
-            setFile((OCFile)intent.getParcelableExtra(EXTRA_FILE));
+            setFile(intent.getParcelableExtra(EXTRA_FILE));
         }
     }
 
@@ -915,7 +914,9 @@ public class FileDisplayActivity extends HookActivity
                     null,           // MIME type will be detected from file name
                     behaviour,
                     false,          // do not create parent folder if not existent
-                    UploadFileOperation.CREATED_BY_USER
+                    UploadFileOperation.CREATED_BY_USER,
+                    false,
+                    false
             );
 
         } else {
@@ -1035,6 +1036,7 @@ public class FileDisplayActivity extends HookActivity
             //if PreviewImageActivity called this activity and mDualPane==false  then calls PreviewImageActivity again
             if((getIntent().getAction()!=null && getIntent().getAction().equalsIgnoreCase(ACTION_DETAILS)) && !mDualPane){
                     getIntent().setAction(null);
+                    getIntent().putExtra(EXTRA_FILE, (OCFile) null);
                     startImagePreview(getFile());
             }
 
@@ -1243,11 +1245,9 @@ public class FileDisplayActivity extends HookActivity
                         }
 
                         mSyncInProgress = (!FileSyncAdapter.EVENT_FULL_SYNC_END.equals(event) &&
-                                !RefreshFolderOperation.EVENT_SINGLE_FOLDER_SHARES_SYNCED
-                                        .equals(event));
+                                !RefreshFolderOperation.EVENT_SINGLE_FOLDER_SHARES_SYNCED.equals(event));
 
-                        if (RefreshFolderOperation.EVENT_SINGLE_FOLDER_CONTENTS_SYNCED.
-                                equals(event) &&
+                        if (RefreshFolderOperation.EVENT_SINGLE_FOLDER_CONTENTS_SYNCED.equals(event) &&
                                 synchResult != null && !synchResult.isSuccess()) {
 
                             /// TODO refactor and make common
@@ -1300,10 +1300,10 @@ public class FileDisplayActivity extends HookActivity
     private void setBackgroundText() {
         final OCFileListFragment ocFileListFragment = getListOfFilesFragment();
         if (ocFileListFragment != null) {
-            if (!mSyncInProgress) {
-                ocFileListFragment.setEmptyListMessage(ExtendedListFragment.SearchType.NO_SEARCH);
-            } else {
+            if (mSyncInProgress) {
                 ocFileListFragment.setEmptyListLoadingMessage();
+            } else {
+                ocFileListFragment.setEmptyListMessage(ExtendedListFragment.SearchType.NO_SEARCH);
             }
         } else {
             Log_OC.e(TAG, "OCFileListFragment is null");
@@ -1649,7 +1649,7 @@ public class FileDisplayActivity extends HookActivity
                     showDetails(file);
                 }
             }
-            invalidateOptionsMenu();
+            supportInvalidateOptionsMenu();
         }
     }
 
@@ -1680,7 +1680,7 @@ public class FileDisplayActivity extends HookActivity
             if (getStorageManager().getFileById(removedFile.getParentId()).equals(getCurrentDir())) {
                 refreshListOfFilesFragment(false);
             }
-            invalidateOptionsMenu();
+            supportInvalidateOptionsMenu();
         } else {
             if (result.isSslRecoverableException()) {
                 mLastSslUntrustedServerResult = result;
@@ -1798,7 +1798,7 @@ public class FileDisplayActivity extends HookActivity
         if (result.isSuccess() && operation.transferWasRequested()) {
             OCFile syncedFile = operation.getLocalFile();
             onTransferStateChanged(syncedFile, true, true);
-            invalidateOptionsMenu();
+            supportInvalidateOptionsMenu();
             refreshShowDetails();
         }
     }

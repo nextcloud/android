@@ -85,8 +85,10 @@ import java.io.IOException;
  */
 public class Preferences extends PreferenceActivity
         implements StorageMigration.StorageMigrationProgressListener {
-    
+
     private static final String TAG = Preferences.class.getSimpleName();
+
+    public final static String PREFERENCE_USE_FINGERPRINT = "use_fingerprint";
 
     private static final String SCREEN_NAME = "Settings";
 
@@ -107,6 +109,7 @@ public class Preferences extends PreferenceActivity
     private SwitchPreference pCode;
     private SwitchPreference fPrint;
     private SwitchPreference mShowHiddenFiles;
+    private SwitchPreference mExpertMode;
     private Preference pAboutApp;
     private AppCompatDelegate mDelegate;
 
@@ -190,13 +193,14 @@ public class Preferences extends PreferenceActivity
                 accentColor));
 
         // Synced folders
-        PreferenceCategory preferenceCategoryFolderSync = (PreferenceCategory) findPreference("folder_sync");
-        preferenceCategoryFolderSync.setTitle(ThemeUtils.getColoredTitle(getString(R.string.drawer_folder_sync),
+        PreferenceCategory preferenceCategorySyncedFolders =
+                (PreferenceCategory) findPreference("synced_folders_category");
+        preferenceCategorySyncedFolders.setTitle(ThemeUtils.getColoredTitle(getString(R.string.drawer_synced_folders),
                 accentColor));
         PreferenceScreen preferenceScreen = (PreferenceScreen) findPreference("preference_screen");
 
         if (!getResources().getBoolean(R.bool.syncedFolder_light)) {
-            preferenceScreen.removePreference(preferenceCategoryFolderSync);
+            preferenceScreen.removePreference(preferenceCategorySyncedFolders);
         } else {
             // Upload on WiFi
             final ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProvider(getContentResolver());
@@ -209,28 +213,28 @@ public class Preferences extends PreferenceActivity
             pUploadOnWifiCheckbox.setOnPreferenceClickListener(new OnPreferenceClickListener() {
                 @Override
                 public boolean onPreferenceClick(Preference preference) {
-                    arbitraryDataProvider.storeOrUpdateKeyValue(account, SYNCED_FOLDER_LIGHT_UPLOAD_ON_WIFI,
+                    arbitraryDataProvider.storeOrUpdateKeyValue(account.name, SYNCED_FOLDER_LIGHT_UPLOAD_ON_WIFI,
                             String.valueOf(pUploadOnWifiCheckbox.isChecked()));
 
                     return true;
                 }
             });
 
-            Preference pSyncedFolder = findPreference("folder_sync_folders");
+            Preference pSyncedFolder = findPreference("synced_folders_configure_folders");
             if (pSyncedFolder != null) {
                 if (getResources().getBoolean(R.bool.syncedFolder_light)
                         && Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     pSyncedFolder.setOnPreferenceClickListener(new OnPreferenceClickListener() {
                         @Override
                         public boolean onPreferenceClick(Preference preference) {
-                            Intent folderSyncIntent = new Intent(getApplicationContext(), FolderSyncActivity.class);
-                            folderSyncIntent.putExtra(FolderSyncActivity.EXTRA_SHOW_SIDEBAR, false);
-                            startActivity(folderSyncIntent);
+                            Intent syncedFoldersIntent = new Intent(getApplicationContext(), SyncedFoldersActivity.class);
+                            syncedFoldersIntent.putExtra(SyncedFoldersActivity.EXTRA_SHOW_SIDEBAR, false);
+                            startActivity(syncedFoldersIntent);
                             return true;
                         }
                     });
                 } else {
-                    preferenceCategoryFolderSync.removePreference(pSyncedFolder);
+                    preferenceCategorySyncedFolders.removePreference(pSyncedFolder);
                 }
             }
         }
@@ -265,7 +269,7 @@ public class Preferences extends PreferenceActivity
         }
 
         boolean fPrintEnabled = getResources().getBoolean(R.bool.fingerprint_enabled);
-        fPrint = (SwitchPreference) findPreference(FingerprintActivity.PREFERENCE_USE_FINGERPRINT);
+        fPrint = (SwitchPreference) findPreference(PREFERENCE_USE_FINGERPRINT);
         if (fPrint != null) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 if (FingerprintActivity.isFingerprintCapable(MainApp.getAppContext()) && fPrintEnabled) {
@@ -332,8 +336,20 @@ public class Preferences extends PreferenceActivity
             });
         } else {
             preferenceCategoryDetails.removePreference(mShowHiddenFiles);
-
         }
+
+        mExpertMode = (SwitchPreference) findPreference("expert_mode");
+        mExpertMode.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+            @Override
+            public boolean onPreferenceClick(Preference preference) {
+                SharedPreferences appPrefs =
+                        PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                SharedPreferences.Editor editor = appPrefs.edit();
+                editor.putBoolean("expert_mode", mExpertMode.isChecked());
+                editor.apply();
+                return true;
+            }
+        });
 
         PreferenceCategory preferenceCategoryMore = (PreferenceCategory) findPreference("more");
         preferenceCategoryMore.setTitle(ThemeUtils.getColoredTitle(getString(R.string.prefs_category_more),
@@ -468,7 +484,11 @@ public class Preferences extends PreferenceActivity
             }
         }
 
-        boolean loggerEnabled = getResources().getBoolean(R.bool.logger_enabled) || BuildConfig.DEBUG;
+        SharedPreferences appPrefs =
+                PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+
+        boolean loggerEnabled = getResources().getBoolean(R.bool.logger_enabled) || BuildConfig.DEBUG ||
+                appPrefs.getBoolean("expert_mode", false);
         Preference pLogger = findPreference("logger");
         if (pLogger != null) {
             if (loggerEnabled) {
@@ -521,12 +541,12 @@ public class Preferences extends PreferenceActivity
             mPrefStoragePath.setEntryValues(values);
 
             mPrefStoragePath.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
-                    @Override
-                    public boolean onPreferenceChange(Preference preference, Object newValue) {
-                        String newPath = (String) newValue;
-                        if (mStoragePath.equals(newPath)) {
-                            return true;
-                        }
+                @Override
+                public boolean onPreferenceChange(Preference preference, Object newValue) {
+                    String newPath = (String) newValue;
+                    if (mStoragePath.equals(newPath)) {
+                        return true;
+                    }
 
                     StorageMigration storageMigration = new StorageMigration(Preferences.this, mStoragePath, newPath);
 
@@ -540,89 +560,7 @@ public class Preferences extends PreferenceActivity
         }
 
         mPrefInstantUploadCategory = (PreferenceCategory) findPreference("instant_uploading_category");
-
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
-            // Instant upload via preferences on pre Android Marshmallow
-            mPrefInstantUploadPath = findPreference("instant_upload_path");
-            if (mPrefInstantUploadPath != null) {
-
-                mPrefInstantUploadPath.setOnPreferenceClickListener(new OnPreferenceClickListener() {
-                    @Override
-                    public boolean onPreferenceClick(Preference preference) {
-                        if (!mUploadPath.endsWith(OCFile.PATH_SEPARATOR)) {
-                            mUploadPath += OCFile.PATH_SEPARATOR;
-                        }
-                        Intent intent = new Intent(Preferences.this, UploadPathActivity.class);
-                        intent.putExtra(UploadPathActivity.KEY_INSTANT_UPLOAD_PATH, mUploadPath);
-                        startActivityForResult(intent, ACTION_SELECT_UPLOAD_PATH);
-                        return true;
-                    }
-                });
-            }
-
-        mPrefInstantUploadCategory = (PreferenceCategory) findPreference("instant_uploading_category");
-
-            mPrefInstantUploadUseSubfolders = findPreference("instant_upload_path_use_subfolders");
-            mPrefInstantUploadPathWiFi = findPreference("instant_upload_on_wifi");
-            mPrefInstantPictureUploadOnlyOnCharging = findPreference("instant_upload_on_charging");
-            mPrefInstantUpload = (CheckBoxPreferenceWithLongTitle) findPreference("instant_uploading");
-
-            toggleInstantPictureOptions(mPrefInstantUpload.isChecked());
-
-            mPrefInstantUpload.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
-                @Override
-                public boolean onPreferenceChange(Preference preference, Object newValue) {
-                    toggleInstantPictureOptions((Boolean) newValue);
-                    toggleInstantUploadBehaviour(mPrefInstantVideoUpload.isChecked(), (Boolean) newValue);
-                    return true;
-                }
-            });
-
-        mPrefInstantVideoUploadPath = findPreference(PreferenceKeys.INSTANT_VIDEO_UPLOAD_PATH);
-            if (mPrefInstantVideoUploadPath != null) {
-
-                mPrefInstantVideoUploadPath.setOnPreferenceClickListener(new OnPreferenceClickListener() {
-                    @Override
-                    public boolean onPreferenceClick(Preference preference) {
-                        if (!mUploadVideoPath.endsWith(OCFile.PATH_SEPARATOR)) {
-                            mUploadVideoPath += OCFile.PATH_SEPARATOR;
-                        }
-                        Intent intent = new Intent(Preferences.this, UploadPathActivity.class);
-                        intent.putExtra(UploadPathActivity.KEY_INSTANT_UPLOAD_PATH,
-                                mUploadVideoPath);
-                        startActivityForResult(intent, ACTION_SELECT_UPLOAD_VIDEO_PATH);
-                        return true;
-                    }
-                });
-            }
-
-            mPrefInstantVideoUploadUseSubfolders = findPreference("instant_video_upload_path_use_subfolders");
-            mPrefInstantVideoUploadPathWiFi = findPreference("instant_video_upload_on_wifi");
-            mPrefInstantVideoUpload = (CheckBoxPreferenceWithLongTitle) findPreference("instant_video_uploading");
-            mPrefInstantVideoUploadOnlyOnCharging = findPreference("instant_video_upload_on_charging");
-            toggleInstantVideoOptions(mPrefInstantVideoUpload.isChecked());
-            mPrefInstantVideoUpload.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
-                @Override
-                public boolean onPreferenceChange(Preference preference, Object newValue) {
-                    toggleInstantVideoOptions((Boolean) newValue);
-                    toggleInstantUploadBehaviour(
-                            (Boolean) newValue,
-                            mPrefInstantUpload.isChecked());
-                    return true;
-                }
-            });
-
-            mPrefInstantUploadBehaviour = findPreference("prefs_instant_behaviour");
-            toggleInstantUploadBehaviour(
-                    mPrefInstantVideoUpload.isChecked(),
-                    mPrefInstantUpload.isChecked());
-
-            loadInstantUploadPath();
-            loadInstantUploadVideoPath();
-        } else {
-            // Instant upload is handled via synced folders on Android Lollipop and up
-            getPreferenceScreen().removePreference(mPrefInstantUploadCategory);
-        }
+        getPreferenceScreen().removePreference(mPrefInstantUploadCategory);
 
         // About category
         PreferenceCategory preferenceCategoryAbout = (PreferenceCategory) findPreference("about");
@@ -716,47 +654,11 @@ public class Preferences extends PreferenceActivity
                     mUri = OwnCloudClientManagerFactory.getDefaultSingleton().
                             getClientFor(ocAccount, getApplicationContext()).getBaseUri();
                 } catch (Throwable t) {
-                    Log_OC.e(TAG,"Error retrieving user's base URI", t);
+                    Log_OC.e(TAG, "Error retrieving user's base URI", t);
                 }
             }
         });
         t.start();
-    }
-    
-    private void toggleInstantPictureOptions(Boolean value){
-        if (value) {
-            mPrefInstantUploadCategory.addPreference(mPrefInstantUploadPathWiFi);
-            mPrefInstantUploadCategory.addPreference(mPrefInstantUploadPath);
-            mPrefInstantUploadCategory.addPreference(mPrefInstantUploadUseSubfolders);
-            mPrefInstantUploadCategory.addPreference(mPrefInstantPictureUploadOnlyOnCharging);
-        } else {
-            mPrefInstantUploadCategory.removePreference(mPrefInstantUploadPathWiFi);
-            mPrefInstantUploadCategory.removePreference(mPrefInstantUploadPath);
-            mPrefInstantUploadCategory.removePreference(mPrefInstantUploadUseSubfolders);
-            mPrefInstantUploadCategory.removePreference(mPrefInstantPictureUploadOnlyOnCharging);
-        }
-    }
-
-    private void toggleInstantVideoOptions(Boolean value){
-        if (value) {
-            mPrefInstantUploadCategory.addPreference(mPrefInstantVideoUploadPathWiFi);
-            mPrefInstantUploadCategory.addPreference(mPrefInstantVideoUploadPath);
-            mPrefInstantUploadCategory.addPreference(mPrefInstantVideoUploadUseSubfolders);
-            mPrefInstantUploadCategory.addPreference(mPrefInstantVideoUploadOnlyOnCharging);
-        } else {
-            mPrefInstantUploadCategory.removePreference(mPrefInstantVideoUploadPathWiFi);
-            mPrefInstantUploadCategory.removePreference(mPrefInstantVideoUploadPath);
-            mPrefInstantUploadCategory.removePreference(mPrefInstantVideoUploadUseSubfolders);
-            mPrefInstantUploadCategory.removePreference(mPrefInstantVideoUploadOnlyOnCharging);
-        }
-    }
-
-    private void toggleInstantUploadBehaviour(Boolean video, Boolean picture){
-        if (picture || video) {
-            mPrefInstantUploadCategory.addPreference(mPrefInstantUploadBehaviour);
-        } else {
-            mPrefInstantUploadCategory.removePreference(mPrefInstantUploadBehaviour);
-        }
     }
 
     @Override
@@ -782,14 +684,14 @@ public class Preferences extends PreferenceActivity
         Intent intent;
 
         switch (item.getItemId()) {
-        case android.R.id.home:
-            intent = new Intent(getBaseContext(), FileDisplayActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(intent);
-            break;
-        default:
-            Log_OC.w(TAG, "Unknown menu item triggered");
-            return false;
+            case android.R.id.home:
+                intent = new Intent(getBaseContext(), FileDisplayActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+                break;
+            default:
+                Log_OC.w(TAG, "Unknown menu item triggered");
+                return false;
         }
         return true;
     }
@@ -800,7 +702,7 @@ public class Preferences extends PreferenceActivity
 
         if (requestCode == ACTION_SELECT_UPLOAD_PATH && resultCode == RESULT_OK) {
 
-            OCFile folderToUpload =  data.getParcelableExtra(UploadPathActivity.EXTRA_FOLDER);
+            OCFile folderToUpload = data.getParcelableExtra(UploadPathActivity.EXTRA_FOLDER);
 
             mUploadPath = folderToUpload.getRemotePath();
 
@@ -830,7 +732,7 @@ public class Preferences extends PreferenceActivity
                         .getDefaultSharedPreferences(getApplicationContext()).edit();
 
                 for (int i = 1; i <= 4; ++i) {
-                    appPrefs.putString(PassCodeActivity.PREFERENCE_PASSCODE_D + i, passcode.substring(i-1, i));
+                    appPrefs.putString(PassCodeActivity.PREFERENCE_PASSCODE_D + i, passcode.substring(i - 1, i));
                 }
                 appPrefs.putBoolean(PassCodeActivity.PREFERENCE_SET_PASSCODE, true);
                 appPrefs.apply();
@@ -868,10 +770,12 @@ public class Preferences extends PreferenceActivity
     public void setContentView(@LayoutRes int layoutResID) {
         getDelegate().setContentView(layoutResID);
     }
+
     @Override
     public void setContentView(View view) {
         getDelegate().setContentView(view);
     }
+
     @Override
     public void setContentView(View view, ViewGroup.LayoutParams params) {
         getDelegate().setContentView(view, params);
@@ -994,7 +898,7 @@ public class Preferences extends PreferenceActivity
         SharedPreferences appPrefs =
                 PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         mStoragePath = appPrefs.getString(PreferenceKeys.STORAGE_PATH, Environment.getExternalStorageDirectory()
-                                                         .getAbsolutePath());
+                .getAbsolutePath());
         String storageDescription = DataStorageProvider.getInstance().getStorageDescriptionByPath(mStoragePath);
         mPrefStoragePath.setSummary(storageDescription);
     }

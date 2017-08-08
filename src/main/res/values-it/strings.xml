@@ -296,8 +296,8 @@
 
     <string name="error__upload__local_file_not_copied">%1$s non può essere copiato nella cartella locale %2$s</string>
     <string name="prefs_instant_upload_path_title">Cartella caricamenti istantanei</string>
-    <string name="prefs_folder_sync_local_path_title">Cartella locale</string>
-    <string name="prefs_folder_sync_remote_path_title">Cartella remota</string>
+    <string name="prefs_synced_folders_local_path_title">Cartella locale</string>
+    <string name="prefs_synced_folders_remote_path_title">Cartella remota</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Usa sottocartelle</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Archivia in sottocartelle in base a anno e mese</string>
 
@@ -454,7 +454,7 @@
     <string name="actionbar_search">Cerca</string>
     <string name="files_drop_not_supported">Questa è una funzionalità di Nextcloud, aggiorna.</string>
     <string name="learn_more">Scopri altro</string>
-    <string name="drawer_folder_sync">Carica automaticamente</string>
+    <string name="drawer_synced_folders">Carica automaticamente</string>
     <string name="drawer_participate">Partecipa</string>
     <string name="participate_beta_headline">Prova la versione di sviluppo</string>
     <string name="participate_release_candidate_headline">Candidata al rilascio</string>
@@ -462,10 +462,10 @@
     <string name="move_to">Sposta in&#8230;</string>
     <string name="copy_to">Copia in&#8230;</string>
     <string name="choose_remote_folder">Scegli la cartella&#8230;</string>
-    <string name="folder_sync_loading_folders">Caricamento cartelle&#8230;</string>
-    <string name="folder_sync_no_results">Nessuna cartella di file multimediali trovata.</string>
-    <string name="folder_sync_settings">Impostazioni</string>
-    <string name="folder_sync_preferences_folder_path">Per %1$s</string>
+    <string name="synced_folders_loading_folders">Caricamento cartelle&#8230;</string>
+    <string name="synced_folders_no_results">Nessuna cartella di file multimediali trovata.</string>
+    <string name="synced_folders_settings">Impostazioni</string>
+    <string name="synced_folders_preferences_folder_path">Per %1$s</string>
     <plurals name="items_selected_count">
         <item quantity="one">%d selezionato</item>
         <item quantity="other">%d selezionati</item>
@@ -536,6 +536,6 @@
     <string name="privacy">Riservatezza</string>
     <string name="file_not_found">File non trovato!</string>
 
-    <string name="folder_sync_folders">Configura cartelle</string>
+    <string name="synced_folders_configure_folders">Configura cartelle</string>
 
   </resources>

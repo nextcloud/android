@@ -47,36 +47,43 @@ public class ArbitraryDataProvider {
         this.contentResolver = contentResolver;
     }
 
-    public int deleteKeyForAccount(Account account, String key) {
-        int result = contentResolver.delete(
+    public int deleteKeyForAccount(String account, String key) {
+        return contentResolver.delete(
                 ProviderMeta.ProviderTableMeta.CONTENT_URI_ARBITRARY_DATA,
                 ProviderMeta.ProviderTableMeta.ARBITRARY_DATA_CLOUD_ID + " = ? AND " +
                         ProviderMeta.ProviderTableMeta.ARBITRARY_DATA_KEY + "= ?",
-                new String[]{account.name, key}
+                new String[]{account, key}
         );
+    }
 
-        return result;
+    public int deleteForKeyWhereAccountNotIn(ArrayList<String> accounts, String key) {
+        return contentResolver.delete(
+                ProviderMeta.ProviderTableMeta.CONTENT_URI_ARBITRARY_DATA,
+                ProviderMeta.ProviderTableMeta.ARBITRARY_DATA_CLOUD_ID + " NOT IN (?) AND " +
+                        ProviderMeta.ProviderTableMeta.ARBITRARY_DATA_KEY + "= ?",
+                new String[]{String.valueOf(accounts), key}
+        );
     }
 
 
-    public void storeOrUpdateKeyValue(Account account, String key, String newValue) {
-        ArbitraryDataSet data = getArbitraryDataSet(account, key);
+    public void storeOrUpdateKeyValue(String accountName, String key, String newValue) {
+        ArbitraryDataSet data = getArbitraryDataSet(accountName, key);
         if (data == null) {
-            Log_OC.v(TAG, "Adding arbitrary data with cloud id: " + account.name + " key: " + key
+            Log_OC.v(TAG, "Adding arbitrary data with cloud id: " + accountName + " key: " + key
                     + " value: " + newValue);
             ContentValues cv = new ContentValues();
-            cv.put(ProviderMeta.ProviderTableMeta.ARBITRARY_DATA_CLOUD_ID, account.name);
+            cv.put(ProviderMeta.ProviderTableMeta.ARBITRARY_DATA_CLOUD_ID, accountName);
             cv.put(ProviderMeta.ProviderTableMeta.ARBITRARY_DATA_KEY, key);
             cv.put(ProviderMeta.ProviderTableMeta.ARBITRARY_DATA_VALUE, newValue);
 
             Uri result = contentResolver.insert(ProviderMeta.ProviderTableMeta.CONTENT_URI_ARBITRARY_DATA, cv);
 
             if (result == null) {
-                Log_OC.v(TAG, "Failed to store arbitrary data with cloud id: " + account.name + " key: " + key
+                Log_OC.v(TAG, "Failed to store arbitrary data with cloud id: " + accountName + " key: " + key
                         + " value: " + newValue);
             }
         } else {
-            Log_OC.v(TAG, "Updating arbitrary data with cloud id: " + account.name + " key: " + key
+            Log_OC.v(TAG, "Updating arbitrary data with cloud id: " + accountName + " key: " + key
                     + " value: " + newValue);
             ContentValues cv = new ContentValues();
             cv.put(ProviderMeta.ProviderTableMeta.ARBITRARY_DATA_CLOUD_ID, data.getCloudId());
@@ -91,7 +98,7 @@ public class ArbitraryDataProvider {
             );
 
             if (result == 0) {
-                Log_OC.v(TAG, "Failed to update arbitrary data with cloud id: " + account.name + " key: " + key
+                Log_OC.v(TAG, "Failed to update arbitrary data with cloud id: " + accountName + " key: " + key
                         + " value: " + newValue);
             }
         }
@@ -146,38 +153,6 @@ public class ArbitraryDataProvider {
         return getIntegerValue(account.name, key);
     }
 
-    private ArrayList<String> getValues(Account account, String key) {
-        Cursor cursor = contentResolver.query(
-                ProviderMeta.ProviderTableMeta.CONTENT_URI_ARBITRARY_DATA,
-                null,
-                ProviderMeta.ProviderTableMeta.ARBITRARY_DATA_CLOUD_ID + " = ? and " +
-                        ProviderMeta.ProviderTableMeta.ARBITRARY_DATA_KEY + " = ?",
-                new String[]{account.name, key},
-                null
-        );
-
-        if (cursor != null) {
-            ArrayList<String> list = new ArrayList<>();
-            if (cursor.moveToFirst()) {
-                do {
-                    String value = cursor.getString(cursor.getColumnIndex(
-                            ProviderMeta.ProviderTableMeta.ARBITRARY_DATA_VALUE));
-                    if (value == null) {
-                        Log_OC.e(TAG, "Arbitrary value could not be created from cursor");
-                    } else {
-                        list.add(value);
-                    }
-                } while (cursor.moveToNext());
-            }
-            cursor.close();
-            return list;
-        } else {
-            Log_OC.e(TAG, "DB error restoring arbitrary values.");
-        }
-
-        return new ArrayList<>();
-    }
-
     /**
      * Returns stored value as string or empty string
      * @return string if value found or empty string
@@ -215,13 +190,13 @@ public class ArbitraryDataProvider {
         return "";
     }
 
-    private ArbitraryDataSet getArbitraryDataSet(Account account, String key) {
+    private ArbitraryDataSet getArbitraryDataSet(String accountName, String key) {
         Cursor cursor = contentResolver.query(
                 ProviderMeta.ProviderTableMeta.CONTENT_URI_ARBITRARY_DATA,
                 null,
                 ProviderMeta.ProviderTableMeta.ARBITRARY_DATA_CLOUD_ID + " = ? and " +
                         ProviderMeta.ProviderTableMeta.ARBITRARY_DATA_KEY + " = ?",
-                new String[]{account.name, key},
+                new String[]{accountName, key},
                 null
         );
 

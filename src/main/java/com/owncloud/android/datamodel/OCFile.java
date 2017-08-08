@@ -1,4 +1,4 @@
-/**
+/*
  *   ownCloud Android client application
  *
  *   @author Bartek Przybylski
@@ -56,6 +56,7 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
     };
 
     private final static String PERMISSION_SHARED_WITH_ME = "S";    // TODO move to better location
+    private final static String PERMISSION_CAN_RESHARE = "R";
 
     public static final String PATH_SEPARATOR = "/";
     public static final String ROOT_PATH = PATH_SEPARATOR;
@@ -103,7 +104,7 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
 
     /**
      * Exportable URI to the local path of the file contents, if stored in the device.
-     *
+     * <p>
      * Cached after first call, until changed.
      */
     private Uri mExposedFileUri;
@@ -111,7 +112,7 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
 
     /**
      * Create new {@link OCFile} with given path.
-     * <p/>
+     * <p>
      * The path received must be URL-decoded. Path separator must be OCFile.PATH_SEPARATOR, and it must be the first character in 'path'.
      *
      * @param path The remote path of the file.
@@ -285,15 +286,15 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
                 // TODO - use FileProvider with any Android version, with deeper testing -> 2.2.0
                 mExposedFileUri = Uri.parse(
-                    ContentResolver.SCHEME_FILE + "://" + WebdavUtils.encodePath(mLocalPath)
+                        ContentResolver.SCHEME_FILE + "://" + WebdavUtils.encodePath(mLocalPath)
                 );
             } else {
                 // Use the FileProvider to get a content URI
                 try {
                     mExposedFileUri = FileProvider.getUriForFile(
-                        context,
-                        context.getString(R.string.file_provider_authority),
-                        new File(mLocalPath)
+                            context,
+                            context.getString(R.string.file_provider_authority),
+                            new File(mLocalPath)
                     );
                 } catch (IllegalArgumentException e) {
                     Log_OC.e(TAG, "File can't be exported");
@@ -502,6 +503,7 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
 
     /**
      * get remote path of parent file
+     *
      * @return remote path
      */
     public String getParentRemotePath() {
@@ -685,6 +687,11 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
     public boolean isSharedWithMe() {
         String permissions = getPermissions();
         return (permissions != null && permissions.contains(PERMISSION_SHARED_WITH_ME));
+    }
+
+    public boolean canReshare() {
+        String permissions = getPermissions();
+        return permissions != null && permissions.contains(PERMISSION_CAN_RESHARE);
     }
 
 }

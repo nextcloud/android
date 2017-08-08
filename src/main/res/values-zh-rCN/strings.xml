@@ -60,6 +60,7 @@
     <string name="prefs_calendar_contacts_address_resolve_error">用户目前的服务器地址对于DAVdroid不能被解析</string>
     <string name="prefs_calendar_contacts_no_store_error">F-droid或谷歌商店都没有装</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">日历&amp;联系人同步设置</string>
+    <string name="prefs_daily_contacts_sync_summary">联系人每日备份</string>
     <string name="prefs_help">帮助</string>
     <string name="prefs_recommend">推荐给朋友</string>
     <string name="prefs_feedback">反馈</string>
@@ -364,8 +365,8 @@
 
     <string name="error__upload__local_file_not_copied">无法复制 %1$s 到本地目录 %2$s</string>
     <string name="prefs_instant_upload_path_title">实时上传文件夹</string>
-    <string name="prefs_folder_sync_local_path_title">本地文件夹</string>
-    <string name="prefs_folder_sync_remote_path_title">远端文件夹</string>
+    <string name="prefs_synced_folders_local_path_title">本地文件夹</string>
+    <string name="prefs_synced_folders_remote_path_title">远端文件夹</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">使用子文件夹</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">基于年和月存于子文件夹</string>
 
@@ -528,6 +529,7 @@
     <string name="share_sharee_unavailable">升级服务器版本以允许在其客户端之间的用户之间共享。\ n请与您的管理员联系</string>
     <string name="filedetails_share_link_enable">共享链接已启用</string>
     <string name="filedetails_share_link_disable">链接不共享</string>
+    <string name="filedetails_share_users_with_access">有权访问的用户和组</string>
     <string name="share_privilege_can_share">可共享</string>
     <string name="share_privilege_can_edit">可编辑</string>
     <string name="share_privilege_can_edit_create">创建</string>
@@ -538,7 +540,6 @@
 
     <string name="action_retry_uploads">新尝试失败</string>
     <string name="action_clear_failed_uploads">清除失败</string>
-    <string name="action_clear_successful_uploads">清除</string>
     <string name="action_clear_finished_uploads">清除完成上传</string>
 
     <string name="action_switch_grid_view">网格视图</string>
@@ -559,7 +560,7 @@
     <string name="actionbar_search">搜索</string>
     <string name="files_drop_not_supported">这是一个Nextcloud的特征，请更新</string>
     <string name="learn_more">学习更多</string>
-    <string name="drawer_folder_sync">自动上传</string>
+    <string name="drawer_synced_folders">自动上传</string>
     <string name="drawer_participate">参加</string>
     <string name="participate_testing_headline">通过测试帮助</string>
     <string name="participate_testing_bug_text">发现错误？细节？</string>
@@ -570,15 +571,21 @@
     <string name="participate_release_candidate_headline">发行候选版本</string>
     <string name="participate_release_candidate_text">候选发行版（RC）是指即将正式发布的版本，理论上说是稳定的。该测试有您的参加将确保正式版本的稳定。您可在Google Play应用商店参与测试或在F-Droid（F-Droid是一个Android应用程序的软件资源库或应用商店，类似于Google Play商店，但只包含自由及开放源代码软件）手动查看应用资源库的“版本”部分</string>
     <string name="participate_contribute_headline">活跃的候选版</string>
+    <string name="participate_contribute_irc_text">在 IRC 上加入此聊天</string>
+    <string name="participate_contribute_forum_text">帮助他人在</string>
+    <string name="participate_contribute_forum_forum">论坛</string>
+    <string name="participate_contribute_translate_translate">翻译</string>
+    <string name="participate_contribute_translate_text">此应用</string>
+    <string name="participate_contribute_github_text">查看，修改和编写代码，有关详细信息，请参阅%1$s</string>
     <string name="move_to">转移到&#8230;</string>
     <string name="copy_to">复制到</string>
     <string name="choose_remote_folder">选择文件夹&#8230;</string>
-    <string name="folder_sync_loading_folders">加载文件夹&#8230;</string>
-    <string name="folder_sync_no_results">没有发现媒体文件夹</string>
-    <string name="folder_sync_preferences">自动上传的首选项</string>
-    <string name="folder_sync_settings">设置</string>
-    <string name="folder_sync_new_info">即时上传已完全重新整理。 从主菜单重新配置您的自动上传。\ n \ n请使用新的的和扩展的自动上传。</string>
-    <string name="folder_sync_preferences_folder_path">为%1$s</string>
+    <string name="synced_folders_loading_folders">加载文件夹&#8230;</string>
+    <string name="synced_folders_no_results">没有发现媒体文件夹</string>
+    <string name="synced_folders_preferences">自动上传的首选项</string>
+    <string name="synced_folders_settings">设置</string>
+    <string name="synced_folders_new_info">即时上传已完全重新整理。 从主菜单重新配置您的自动上传。\ n \ n请使用新的的和扩展的自动上传。</string>
+    <string name="synced_folders_preferences_folder_path">为%1$s</string>
     <plurals name="items_selected_count">
         <item quantity="other">%d被选择</item>
     </plurals>
@@ -660,7 +667,7 @@
     <string name="privacy">隐私</string>
     <string name="file_not_found">文件未找到</string>
 
-    <string name="folder_sync_folders">配置文件夹</string>
+    <string name="synced_folders_configure_folders">配置文件夹</string>
 
   <string name="test_server_button">测试服务连接</string>
 </resources>

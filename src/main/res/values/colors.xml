@@ -27,11 +27,13 @@
     <color name="fab_white">#fafafa</color>
     <color name="black_semi_transparent">#B2000000</color>
     <color name="textColor">@color/black</color>
+    <color name="disabled_text">#ff888888</color>
     <color name="list_divider_background">#eee</color>
     <color name="filelist_icon_backgorund">#DDDDDD</color>
     <color name="dark_background_text_color">#EEEEEE</color>
     <color name="transparent">#00000000</color>
     <color name="secondaryTextColor">#a0a0a0</color>
+    <color name="highlight_textColor_Warning">#e53935</color>
 
     <!-- Colors -->
     <color name="standard_grey">#757575</color>

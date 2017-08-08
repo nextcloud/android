@@ -183,7 +183,7 @@ public class PreviewTextFragment extends FileFragment {
     }
 
     private void loadAndShowTextPreview() {
-        mTextLoadTask = new TextLoadAsyncTask(new WeakReference<TextView>(mTextPreview));
+        mTextLoadTask = new TextLoadAsyncTask(new WeakReference<>(mTextPreview));
         mTextLoadTask.execute(getFile().getStoragePath());
     }
 
@@ -192,13 +192,11 @@ public class PreviewTextFragment extends FileFragment {
      * Reads the file to preview and shows its contents. Too critical to be anonymous.
      */
     private class TextLoadAsyncTask extends AsyncTask<Object, Void, StringWriter> {
-        private static final String DIALOG_WAIT_TAG = "DIALOG_WAIT";
         private final WeakReference<TextView> mTextViewReference;
 
         private TextLoadAsyncTask(WeakReference<TextView> textView) {
             mTextViewReference = textView;
         }
-
 
         @Override
         protected void onPreExecute() {
@@ -353,6 +351,15 @@ public class PreviewTextFragment extends FileFragment {
             item.setEnabled(false);
         }
 
+        if(getFile().isSharedWithMe() && !getFile().canReshare()){
+            // additional restriction for this fragment
+            item = menu.findItem(R.id.action_share_file);
+            if(item != null){
+                item.setVisible(false);
+                item.setEnabled(false);
+            }
+        }
+
     }
 
     /**
@@ -454,7 +461,7 @@ public class PreviewTextFragment extends FileFragment {
      * @return 'True' if the file can be handled by the fragment.
      */
     public static boolean canBePreviewed(OCFile file) {
-        final List<String> unsupportedTypes = new LinkedList<String>();
+        final List<String> unsupportedTypes = new LinkedList<>();
         unsupportedTypes.add("text/richtext");
         unsupportedTypes.add("text/rtf");
         unsupportedTypes.add("text/vnd.abc");

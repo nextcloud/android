@@ -157,6 +157,7 @@ Smelltu hér til að fá þér einn frá þjónustuaðila.</string>
     <string name="about_title">Um hugbúnaðinn</string>
     <string name="change_password">Breyta lykilorði</string>
     <string name="delete_account">Fjarlægja notandaaðgang</string>
+    <string name="delete_account_warning">Eyða aðgangnum %s ásamt öllum tilheyrandi skrám á tölvunni?\n\nEyðingu er ekki hægt að afturkalla.</string>
     <string name="create_account">Stofna aðgang</string>
     <string name="upload_chooser_title">Senda inn frá &#8230;</string>
     <string name="uploader_info_dirname">Nafn möppu</string>
@@ -362,8 +363,8 @@ Smelltu hér til að fá þér einn frá þjónustuaðila.</string>
 
     <string name="error__upload__local_file_not_copied">%1$s var ekki hægt að afrita í staðværu %2$s möppuna</string>
     <string name="prefs_instant_upload_path_title">Mappa fyrir beinar innsendingar</string>
-    <string name="prefs_folder_sync_local_path_title">Staðvær mappa</string>
-    <string name="prefs_folder_sync_remote_path_title">Fjartengd mappa</string>
+    <string name="prefs_synced_folders_local_path_title">Staðvær mappa</string>
+    <string name="prefs_synced_folders_remote_path_title">Fjartengd mappa</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Nota undirmöppur</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Geyma í undirmöppum byggðum á ári og mánuðum</string>
 
@@ -537,7 +538,6 @@ Smelltu hér til að fá þér einn frá þjónustuaðila.</string>
 
     <string name="action_retry_uploads">Ný tilraun mistókst</string>
     <string name="action_clear_failed_uploads">Hreinsun mistókst</string>
-    <string name="action_clear_successful_uploads">Hreinsað</string>
     <string name="action_clear_finished_uploads">Hreinsa innsendingar sem er lokið</string>
 
     <string name="action_switch_grid_view">Reitir</string>
@@ -558,7 +558,7 @@ Smelltu hér til að fá þér einn frá þjónustuaðila.</string>
     <string name="actionbar_search">Leita</string>
     <string name="files_drop_not_supported">Þetta er Nextcloud-eiginleiki, endilega uppfærðu.</string>
     <string name="learn_more">Læra meira</string>
-    <string name="drawer_folder_sync">Sjálfvirk innsending</string>
+    <string name="drawer_synced_folders">Sjálfvirk innsending</string>
     <string name="drawer_participate">Taka þátt</string>
     <string name="participate_testing_headline">Hjálpaðu til við prófanir</string>
     <string name="participate_testing_bug_text">Fannstu villu? Skringilegheit?</string>
@@ -567,6 +567,7 @@ Smelltu hér til að fá þér einn frá þjónustuaðila.</string>
     <string name="participate_beta_headline">Prófaðu þróunarútgáfuna</string>
     <string name="participate_beta_text">Þetta inniheldur alla væntanlega eiginleika og er alveg á jaðrinum hvað varðar stöðugleika. Villur geta komið upp, og ef slíkt gerist, endilega tilkynntu um þær.</string>
     <string name="participate_release_candidate_headline">Forútgáfa</string>
+    <string name="participate_release_candidate_text">Prófunarútgáfan (RC) er skyndisamsetning verðandi útgáfu en er þó vænst að sé tiltölulega stöðug. Það að þú prófir uppsetninguna þína ætti að hjálpa til við að ná því markmiði. Skráðu þig til prófana í Play hugbúnaðarsafninu eða gerðu það handvirkt með því að fara í \"Útgáfa\"-hlutann í F-Droid.</string>
     <string name="participate_contribute_headline">Vertu virkur þáttakandi</string>
     <string name="participate_contribute_irc_text">Taktu þátt í umræðum á IRC:</string>
     <string name="participate_contribute_forum_text">Hjálpaðu öðrum á</string>
@@ -577,12 +578,12 @@ Smelltu hér til að fá þér einn frá þjónustuaðila.</string>
     <string name="move_to">Færa í&#8230;</string>
     <string name="copy_to">Afrita í&#8230;</string>
     <string name="choose_remote_folder">Veldu möppu&#8230;</string>
-    <string name="folder_sync_loading_folders">Hleð inn möppum&#8230;</string>
-    <string name="folder_sync_no_results">Engar margmiðlunarmöppur fundust</string>
-    <string name="folder_sync_preferences">Kjörstillingar fyrir sjálfvirkar innsendingar</string>
-    <string name="folder_sync_settings">Stillingar</string>
-    <string name="folder_sync_new_info">Beinar innsendingar hafa verið algerlega endurhannaðar. Endurstilltu sjálfvirkar innsendingar beint í aðalvalmyndinni\n\nNjóttu góðs af nýju og ítarlegu viðmóti sjálfvirkra innsendinga.</string>
-    <string name="folder_sync_preferences_folder_path">Fyrir %1$s</string>
+    <string name="synced_folders_loading_folders">Hleð inn möppum&#8230;</string>
+    <string name="synced_folders_no_results">Engar margmiðlunarmöppur fundust</string>
+    <string name="synced_folders_preferences">Kjörstillingar fyrir sjálfvirkar innsendingar</string>
+    <string name="synced_folders_settings">Stillingar</string>
+    <string name="synced_folders_new_info">Beinar innsendingar hafa verið algerlega endurhannaðar. Endurstilltu sjálfvirkar innsendingar beint í aðalvalmyndinni\n\nNjóttu góðs af nýju og ítarlegu viðmóti sjálfvirkra innsendinga.</string>
+    <string name="synced_folders_preferences_folder_path">Fyrir %1$s</string>
     <plurals name="items_selected_count">
         <item quantity="one">%d valið</item>
         <item quantity="other">%d valið</item>
@@ -665,7 +666,7 @@ Smelltu hér til að fá þér einn frá þjónustuaðila.</string>
     <string name="privacy">Gagnaleynd</string>
     <string name="file_not_found">Skrá finnst ekki!</string>
 
-    <string name="folder_sync_folders">Stilla möppur</string>
+    <string name="synced_folders_configure_folders">Stilla möppur</string>
 
   <string name="test_server_button">Prófa tengingu þjóns</string>
 </resources>

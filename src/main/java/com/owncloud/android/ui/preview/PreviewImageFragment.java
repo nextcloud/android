@@ -397,6 +397,15 @@ public class PreviewImageFragment extends FileFragment {
             item.setEnabled(false);
         }
 
+        if(getFile().isSharedWithMe() && !getFile().canReshare()){
+            // additional restriction for this fragment
+            item = menu.findItem(R.id.action_share_file);
+            if(item != null){
+                item.setVisible(false);
+                item.setEnabled(false);
+            }
+        }
+
     }
 
 

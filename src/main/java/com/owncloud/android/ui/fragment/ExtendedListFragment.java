@@ -787,7 +787,7 @@ public class ExtendedListFragment extends Fragment
             @Override
             public void run() {
 
-                if (searchType == SearchType.NO_SEARCH && mEmptyListProgress.getVisibility() == View.GONE) {
+                if (searchType == SearchType.NO_SEARCH) {
                     setMessageForEmptyList(
                             R.string.file_list_empty_headline,
                             R.string.file_list_empty,
@@ -955,7 +955,7 @@ public class ExtendedListFragment extends Fragment
             maxColumnSize = maxColumnSizePortrait;
         }
 
-        if (mGridView.getNumColumns() > maxColumnSize) {
+        if (mGridView != null && mGridView.getNumColumns() > maxColumnSize) {
             mGridView.setNumColumns(maxColumnSize);
             mGridView.invalidateViews();
         }

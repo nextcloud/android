@@ -23,6 +23,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.PowerManager;
 import android.preference.PreferenceManager;
 import android.view.WindowManager;
@@ -30,6 +31,7 @@ import android.view.WindowManager;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.ui.activity.FingerprintActivity;
 import com.owncloud.android.ui.activity.PassCodeActivity;
+import com.owncloud.android.ui.activity.Preferences;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -71,26 +73,22 @@ public class PassCodeManager {
     }
 
     public void onActivityStarted(Activity activity) {
-        if (!sExemptOfPasscodeActivites.contains(activity.getClass()) &&
-                passCodeShouldBeRequested()
-                ){
+        if (!sExemptOfPasscodeActivites.contains(activity.getClass()) && passCodeShouldBeRequested()) {
 
             Intent i = new Intent(MainApp.getAppContext(), PassCodeActivity.class);
             i.setAction(PassCodeActivity.ACTION_CHECK);
             i.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
             activity.startActivity(i);
-
         }
 
         if (!sExemptOfPasscodeActivites.contains(activity.getClass()) &&
-                fingerprintShouldBeRequested() && FingerprintActivity.isFingerprintReady(MainApp.getAppContext())
-                ){
+                Build.VERSION.SDK_INT >= Build.VERSION_CODES.M &&
+                fingerprintShouldBeRequested() && FingerprintActivity.isFingerprintReady(MainApp.getAppContext())) {
 
             Intent i = new Intent(MainApp.getAppContext(), FingerprintActivity.class);
             i.setAction(PassCodeActivity.ACTION_CHECK);
             i.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
             activity.startActivity(i);
-
         }
 
         mVisibleActivitiesCounter++;    // keep it AFTER passCodeShouldBeRequested was checked
@@ -134,6 +132,7 @@ public class PassCodeManager {
 
     private boolean fingerprintIsEnabled() {
         SharedPreferences appPrefs = PreferenceManager.getDefaultSharedPreferences(MainApp.getAppContext());
-        return (appPrefs.getBoolean(FingerprintActivity.PREFERENCE_USE_FINGERPRINT, false));
+        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.M &&
+                appPrefs.getBoolean(Preferences.PREFERENCE_USE_FINGERPRINT, false);
     }
 }

@@ -32,6 +32,7 @@ import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.media.MediaMetadataRetriever;
 import android.media.ThumbnailUtils;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -621,6 +622,7 @@ public class ThumbnailsCacheManager {
     }
 
     public static class MediaThumbnailGenerationTask extends AsyncTask<Object, Void, Bitmap> {
+        private enum Type {IMAGE, VIDEO}
         private final WeakReference<ImageView> mImageViewReference;
         private File mFile;
         private String mImageKey = null;
@@ -642,7 +644,9 @@ public class ThumbnailsCacheManager {
                     }
 
                     if (MimeTypeUtil.isImage(mFile)) {
-                        thumbnail = doFileInBackground(mFile);
+                        thumbnail = doFileInBackground(mFile, Type.IMAGE);
+                    } else if (MimeTypeUtil.isVideo(mFile)) {
+                        thumbnail = doFileInBackground(mFile, Type.VIDEO);
                     }
                 }
             } // the app should never break due to a problem with thumbnails
@@ -685,7 +689,7 @@ public class ThumbnailsCacheManager {
             }
         }
 
-        private Bitmap doFileInBackground(File file) {
+        private Bitmap doFileInBackground(File file, Type type) {
             final String imageKey;
 
             if (mImageKey != null) {
@@ -700,14 +704,45 @@ public class ThumbnailsCacheManager {
             // Not found in disk cache
             if (thumbnail == null) {
 
-                int px = getThumbnailDimension();
+                if (Type.IMAGE.equals(type)) {
+                    int px = getThumbnailDimension();
 
-                Bitmap bitmap = BitmapUtils.decodeSampledBitmapFromFile(file.getAbsolutePath(), px, px);
+                    Bitmap bitmap = BitmapUtils.decodeSampledBitmapFromFile(file.getAbsolutePath(), px, px);
 
-                if (bitmap != null) {
-                    thumbnail = addThumbnailToCache(imageKey, bitmap, file.getPath(), px, px);
+                    if (bitmap != null) {
+                        thumbnail = addThumbnailToCache(imageKey, bitmap, file.getPath(), px, px);
+                    }
+                } else if (Type.VIDEO.equals(type)) {
+                    MediaMetadataRetriever retriever = new MediaMetadataRetriever();
+                    try {
+                        retriever.setDataSource(file.getAbsolutePath());
+                        thumbnail = retriever.getFrameAtTime(-1);
+                    } catch (Exception ex) {
+                        // can't create a bitmap
+                        Log_OC.w(TAG, "Failed to create bitmap from video " + file.getAbsolutePath());
+                    } finally {
+                        try {
+                            retriever.release();
+                        } catch (RuntimeException ex) {
+                            // Ignore failure at this point.
+                            Log_OC.w(TAG, "Failed release MediaMetadataRetriever for " + file.getAbsolutePath());
+                        }
+                    }
+
+                    if (thumbnail != null) {
+                        // Scale down bitmap if too large.
+                        int px = getThumbnailDimension();
+                        int width = thumbnail.getWidth();
+                        int height = thumbnail.getHeight();
+                        int max = Math.max(width, height);
+                        if (max > px) {
+                            thumbnail = BitmapUtils.scaleBitmap(thumbnail, px, width, height, max);
+                            thumbnail = addThumbnailToCache(imageKey, thumbnail, file.getPath(), px, px);
+                        }
+                    }
                 }
             }
+
             return thumbnail;
         }
     }

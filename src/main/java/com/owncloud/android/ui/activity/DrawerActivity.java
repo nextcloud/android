@@ -211,12 +211,6 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
             setupDrawerMenu(mNavigationView);
 
             setupQuotaElement();
-
-            // show folder sync menu item only for Android 6+
-            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M &&
-                    mNavigationView.getMenu().findItem(R.id.nav_folder_sync) != null) {
-                mNavigationView.getMenu().removeItem(R.id.nav_folder_sync);
-            }
         }
 
         setupDrawerToggle();
@@ -237,7 +231,7 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
                 if (mIsAccountChooserActive) {
                     toggleAccountList();
                 }
-                invalidateOptionsMenu();
+                supportInvalidateOptionsMenu();
                 mDrawerToggle.setDrawerIndicatorEnabled(isDrawerIndicatorAvailable());
 
                 if (pendingRunnable != null) {
@@ -250,7 +244,7 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
             public void onDrawerOpened(View drawerView) {
                 super.onDrawerOpened(drawerView);
                 mDrawerToggle.setDrawerIndicatorEnabled(true);
-                invalidateOptionsMenu();
+                supportInvalidateOptionsMenu();
             }
         };
 
@@ -366,7 +360,7 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
         }
 
         if (getResources().getBoolean(R.bool.syncedFolder_light)) {
-            navigationView.getMenu().removeItem(R.id.nav_folder_sync);
+            navigationView.getMenu().removeItem(R.id.nav_synced_folders);
         }
 
         if (!getResources().getBoolean(R.bool.show_drawer_logout)) {
@@ -450,9 +444,9 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
                 Intent notificationsIntent = new Intent(getApplicationContext(), NotificationsActivity.class);
                 startActivity(notificationsIntent);
                 break;
-            case R.id.nav_folder_sync:
-                Intent folderSyncIntent = new Intent(getApplicationContext(), FolderSyncActivity.class);
-                startActivity(folderSyncIntent);
+            case R.id.nav_synced_folders:
+                Intent syncedFoldersIntent = new Intent(getApplicationContext(), SyncedFoldersActivity.class);
+                startActivity(syncedFoldersIntent);
                 break;
             case R.id.nav_contacts:
                 Intent contactsIntent = new Intent(getApplicationContext(), ContactsPreferenceActivity.class);
