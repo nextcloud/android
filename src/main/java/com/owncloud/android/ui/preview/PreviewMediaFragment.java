@@ -168,7 +168,7 @@ public class PreviewMediaFragment extends FileFragment implements
 
         Bundle bundle = getArguments();
 
-        setFile(bundle.getParcelable(FILE));
+        setFile((OCFile) bundle.getParcelable(FILE));
         mAccount = bundle.getParcelable(ACCOUNT);
         mSavedPlaybackPosition = bundle.getInt(PLAYBACK_POSITION);
         mAutoplay = bundle.getBoolean(AUTOPLAY);
