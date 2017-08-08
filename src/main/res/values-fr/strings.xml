@@ -537,6 +537,7 @@
 
     <string name="action_retry_uploads">Réessayer les téléversements échoués</string>
     <string name="action_clear_failed_uploads">Effacer les échoués</string>
+    <string name="action_clear_successful_uploads">Effacer les envois réussis</string>
     <string name="action_clear_finished_uploads">Effacer tous les téléversements terminés</string>
 
     <string name="action_switch_grid_view">Affichage mosaïque</string>
