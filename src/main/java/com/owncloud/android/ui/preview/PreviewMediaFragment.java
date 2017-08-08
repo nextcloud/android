@@ -113,10 +113,10 @@ public class PreviewMediaFragment extends FileFragment implements
 
     private static final String SCREEN_NAME = "Audio/Video Preview";
 
-    private static final String FILE = "file";
-    private static final String ACCOUNT = "account";
-    private static final String PLAYBACK_POSITION = "playbackposition";
-    private static final String AUTOPLAY = "autoplay";
+    private static final String FILE = "FILE";
+    private static final String ACCOUNT = "ACCOUNT";
+    private static final String PLAYBACK_POSITION = "PLAYBACK_POSITION";
+    private static final String AUTOPLAY = "AUTOPLAY";
 
     /**
      * Creates a fragment to preview a file.
