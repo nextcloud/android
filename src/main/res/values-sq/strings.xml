@@ -536,7 +536,6 @@
 
     <string name="action_retry_uploads">Riprovimi dështoi</string>
     <string name="action_clear_failed_uploads">Pastrimi dështoi</string>
-    <string name="action_clear_successful_uploads">U pastrua</string>
     <string name="action_clear_finished_uploads">Pastro të gjithë të përfunduarit</string>
 
     <string name="action_switch_grid_view">Pamje galeri</string>

@@ -519,7 +519,6 @@
 
     <string name="action_retry_uploads">Próba nieudana</string>
     <string name="action_clear_failed_uploads">Wyczyść nieudane</string>
-    <string name="action_clear_successful_uploads">Wyczyszczono</string>
     <string name="action_clear_finished_uploads">Wyczyść zakończone wysyłania</string>
 
     <string name="action_switch_grid_view">Widok siatki</string>

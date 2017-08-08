@@ -537,7 +537,6 @@
 
     <string name="action_retry_uploads">Nova tentativa falhou</string>
     <string name="action_clear_failed_uploads">Limpeza falhou</string>
-    <string name="action_clear_successful_uploads">Limpo</string>
     <string name="action_clear_finished_uploads">Limpar envios termiandos</string>
 
     <string name="action_switch_grid_view">Vista da grade</string>

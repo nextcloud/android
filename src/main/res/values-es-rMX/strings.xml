@@ -538,7 +538,6 @@
 
     <string name="action_retry_uploads">Reintentar fallidos</string>
     <string name="action_clear_failed_uploads">Eliminar fallidos</string>
-    <string name="action_clear_successful_uploads">Eliminar exitosos</string>
     <string name="action_clear_finished_uploads">Eliminar todos</string>
 
     <string name="action_switch_grid_view">Vista de cuadrícula</string>

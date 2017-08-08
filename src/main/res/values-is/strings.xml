@@ -538,7 +538,6 @@ Smelltu hér til að fá þér einn frá þjónustuaðila.</string>
 
     <string name="action_retry_uploads">Ný tilraun mistókst</string>
     <string name="action_clear_failed_uploads">Hreinsun mistókst</string>
-    <string name="action_clear_successful_uploads">Hreinsað</string>
     <string name="action_clear_finished_uploads">Hreinsa innsendingar sem er lokið</string>
 
     <string name="action_switch_grid_view">Reitir</string>

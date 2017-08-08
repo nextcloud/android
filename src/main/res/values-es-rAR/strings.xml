@@ -515,7 +515,6 @@
 
     <string name="action_retry_uploads">El reintento falló</string>
     <string name="action_clear_failed_uploads">Borrar fallidos</string>
-    <string name="action_clear_successful_uploads">Borrados</string>
     <string name="action_clear_finished_uploads">Borrar cargas terminadas</string>
 
     <string name="action_switch_grid_view">Vista de cuadrícula</string>
