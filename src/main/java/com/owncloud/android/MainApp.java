@@ -354,6 +354,9 @@ public class MainApp extends MultiDexApplication {
             SyncedFolder newSyncedFolder;
             for (SyncedFolder syncedFolder : syncedFolders) {
                 idsToDelete.add(syncedFolder.getId());
+                Log_OC.i(TAG, "Migration check for synced_folders record: "
+                        + syncedFolder.getId() + " - " + syncedFolder.getLocalPath());
+
                 for (int i = 0; i < imageMediaFolders.size(); i++) {
                     if (imageMediaFolders.get(i).absolutePath.equals(syncedFolder.getLocalPath())) {
                         newSyncedFolder = (SyncedFolder) syncedFolder.clone();
@@ -377,7 +380,10 @@ public class MainApp extends MultiDexApplication {
                 }
             }
 
-            syncedFolderProvider.deleteSyncedFoldersInList(idsToDelete);
+            for (long id : idsToDelete) {
+                Log_OC.i(TAG, "Removing legacy synced_folders record: " + id);
+                syncedFolderProvider.deleteSyncedFolder(id);
+            }
 
             PreferenceManager.setAutoUploadSplitEntries(this, true);
         }
