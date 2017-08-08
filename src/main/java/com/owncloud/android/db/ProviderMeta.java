@@ -32,7 +32,7 @@ import com.owncloud.android.MainApp;
 public class ProviderMeta {
 
     public static final String DB_NAME = "filelist";
-    public static final int DB_VERSION = 22;
+    public static final int DB_VERSION = 23;
 
     private ProviderMeta() {
     }
@@ -46,6 +46,7 @@ public class ProviderMeta {
         public static final String EXTERNAL_LINKS_TABLE_NAME = "external_links";
         public static final String ARBITRARY_DATA_TABLE_NAME = "arbitrary_data";
         public static final String VIRTUAL_TABLE_NAME = "virtual";
+        public static final String FILESYSTEM_TABLE_NAME = "filesystem";
 
         private static final String CONTENT_PREFIX = "content://";
 
@@ -68,6 +69,9 @@ public class ProviderMeta {
         public static final Uri CONTENT_URI_ARBITRARY_DATA = Uri.parse(CONTENT_PREFIX
                 + MainApp.getAuthority() + "/arbitrary_data");
         public static final Uri CONTENT_URI_VIRTUAL = Uri.parse(CONTENT_PREFIX + MainApp.getAuthority() + "/virtual");
+        public static final Uri CONTENT_URI_FILESYSTEM = Uri.parse(CONTENT_PREFIX
+                + MainApp.getAuthority() + "/filesystem");
+
 
         public static final String CONTENT_TYPE = "vnd.android.cursor.dir/vnd.owncloud.file";
         public static final String CONTENT_TYPE_ITEM = "vnd.android.cursor.item/vnd.owncloud.file";
@@ -169,6 +173,8 @@ public class ProviderMeta {
         public static final String UPLOADS_LAST_RESULT = "last_result";
         public static final String UPLOADS_CREATED_BY = "created_by";
         public static final String UPLOADS_DEFAULT_SORT_ORDER = ProviderTableMeta._ID + " collate nocase desc";
+        public static final String UPLOADS_IS_WHILE_CHARGING_ONLY = "is_while_charging_only";
+        public static final String UPLOADS_IS_WIFI_ONLY = "is_wifi_only";
 
         // Columns of synced folder table
         public static final String SYNCED_FOLDER_LOCAL_PATH = "local_path";
@@ -176,6 +182,7 @@ public class ProviderMeta {
         public static final String SYNCED_FOLDER_WIFI_ONLY = "wifi_only";
         public static final String SYNCED_FOLDER_CHARGING_ONLY = "charging_only";
         public static final String SYNCED_FOLDER_ENABLED = "enabled";
+        public static final String SYNCED_FOLDER_TYPE = "type";
         public static final String SYNCED_FOLDER_SUBFOLDER_BY_DATE = "subfolder_by_date";
         public static final String SYNCED_FOLDER_ACCOUNT = "account";
         public static final String SYNCED_FOLDER_UPLOAD_ACTION = "upload_option";
@@ -192,8 +199,17 @@ public class ProviderMeta {
         public static final String ARBITRARY_DATA_KEY = "key";
         public static final String ARBITRARY_DATA_VALUE = "value";
 
+
         // Columns of virtual
         public static final String VIRTUAL_TYPE = "type";
         public static final String VIRTUAL_OCFILE_ID = "ocfile_id";
+
+        // Columns of filesystem data table
+        public static final String FILESYSTEM_FILE_LOCAL_PATH = "local_path";
+        public static final String FILESYSTEM_FILE_MODIFIED = "modified_at";
+        public static final String FILESYSTEM_FILE_IS_FOLDER = "is_folder";
+        public static final String FILESYSTEM_FILE_FOUND_RECENTLY = "found_at";
+        public static final String FILESYSTEM_FILE_SENT_FOR_UPLOAD = "upload_triggered";
+        public static final String FILESYSTEM_SYNCED_FOLDER_ID = "syncedfolder_id";
     }
 }

@@ -40,7 +40,6 @@ import java.io.File;
 /**
  * Stores all information in order to start upload operations. PersistentUploadObject can
  * be stored persistently by {@link UploadsStorageManager}.
- *
  */
 public class OCUpload implements Parcelable {
 
@@ -49,7 +48,7 @@ public class OCUpload implements Parcelable {
     private long mId;
 
     /**
-     * Absolute path in the local file system to the file to be uploaded
+     * Absolute path in the local file system to the file to be uploaded.
      */
     private String mLocalPath;
 
@@ -64,7 +63,7 @@ public class OCUpload implements Parcelable {
     private String mAccountName;
 
     /**
-     * File size
+     * File size.
      */
     private long mFileSize;
 
@@ -77,14 +76,17 @@ public class OCUpload implements Parcelable {
      * Overwrite destination file?
      */
     private boolean mForceOverwrite;
+
     /**
      * Create destination folder?
      */
     private boolean mIsCreateRemoteFolder;
+
     /**
      * Status of upload (later, in_progress, ...).
      */
     private UploadStatus mUploadStatus;
+
     /**
      * Result from last upload operation. Can be null.
      */
@@ -95,14 +97,23 @@ public class OCUpload implements Parcelable {
      */
     private int mCreatedBy;
 
-    /*
+    /**
      * When the upload ended
      */
     private long mUploadEndTimeStamp;
 
+    /**
+     * Upload only via wifi?
+     */
+    private boolean mIsUseWifiOnly;
 
     /**
-     * Main constructor
+     * Upload only if phone being charged?
+     */
+    private boolean mIsWhileChargingOnly;
+
+     /**
+     * Main constructor.
      *
      * @param localPath         Absolute path in the local file system to the file to be uploaded.
      * @param remotePath        Absolute path in the remote account to set to the uploaded file.
@@ -124,9 +135,8 @@ public class OCUpload implements Parcelable {
         mAccountName = accountName;
     }
 
-
     /**
-     * Convenience constructor to reupload already existing {@link OCFile}s
+     * Convenience constructor to reupload already existing {@link OCFile}s.
      *
      * @param  ocFile           {@link OCFile} instance to update in the remote server.
      * @param  account          ownCloud {@link Account} where ocFile is contained.
@@ -134,7 +144,6 @@ public class OCUpload implements Parcelable {
     public OCUpload(OCFile ocFile, Account account) {
         this(ocFile.getStoragePath(), ocFile.getRemotePath(), account.name);
     }
-
 
     /**
      * Reset all the fields to default values.
@@ -151,6 +160,8 @@ public class OCUpload implements Parcelable {
         mUploadStatus = UploadStatus.UPLOAD_IN_PROGRESS;
         mLastResult = UploadResult.UNKNOWN;
         mCreatedBy = UploadFileOperation.CREATED_BY_USER;
+        mIsUseWifiOnly = true;
+        mIsWhileChargingOnly = false;
     }
 
     // Getters & Setters
@@ -229,7 +240,6 @@ public class OCUpload implements Parcelable {
     public void setFileSize(long fileSize) {
         mFileSize = fileSize;
     }
-
 
     /**
      * @return the mimeType
@@ -341,6 +351,28 @@ public class OCUpload implements Parcelable {
     };
 
     /**
+     * @return the isUseWifiOnly
+     */
+    public boolean isUseWifiOnly() {
+        return mIsUseWifiOnly;
+    }
+
+    /**
+     * @param isUseWifiOnly the isUseWifiOnly to set
+     */
+    public void setUseWifiOnly(boolean isUseWifiOnly) {
+        this.mIsUseWifiOnly = isUseWifiOnly;
+    }
+
+    public void setWhileChargingOnly(boolean isWhileChargingOnly) {
+        this.mIsWhileChargingOnly = isWhileChargingOnly;
+    }
+
+    public boolean isWhileChargingOnly() {
+        return mIsWhileChargingOnly;
+    }
+
+    /**
      * Reconstruct from parcel
      *
      * @param source The source parcel
@@ -369,8 +401,9 @@ public class OCUpload implements Parcelable {
             mLastResult = UploadResult.UNKNOWN;
         }
         mCreatedBy = source.readInt();
+        mIsUseWifiOnly = (source.readInt() == 1);
+        mIsWhileChargingOnly = (source.readInt() == 1);
     }
-
 
     @Override
     public int describeContents() {
@@ -390,6 +423,8 @@ public class OCUpload implements Parcelable {
         dest.writeLong(mUploadEndTimeStamp);
         dest.writeString(((mLastResult == null) ? "" : mLastResult.name()));
         dest.writeInt(mCreatedBy);
+        dest.writeInt(mIsUseWifiOnly ? 1 : 0);
+        dest.writeInt(mIsWhileChargingOnly ? 1 : 0);
     }
 
     enum CanUploadFileNowStatus {NOW, LATER, FILE_GONE, ERROR}

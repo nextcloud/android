@@ -469,19 +469,6 @@ public class SynchronizeFolderOperation extends SyncOperation {
         }
     }
 
-    
-    /**
-     * Creates and populates a new {@link com.owncloud.android.datamodel.OCFile}
-     * object with the data read from the server.
-     *
-     * @param remote    remote file read from the server (remote file or folder).
-     * @return          New OCFile instance representing the remote resource described by we.
-     */
-    private OCFile fillOCFile(RemoteFile remote) {
-        return FileStorageUtils.fillOCFile(remote);
-    }
-
-
     /**
      * Scans the default location for saving local copies of files searching for
      * a 'lost' file with the same full name as the {@link com.owncloud.android.datamodel.OCFile}

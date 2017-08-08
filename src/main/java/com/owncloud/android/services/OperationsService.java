@@ -678,7 +678,7 @@ public class OperationsService extends Service {
                     // Move file/folder
                     String remotePath = operationIntent.getStringExtra(EXTRA_REMOTE_PATH);
                     String newParentPath = operationIntent.getStringExtra(EXTRA_NEW_PARENT_PATH);
-                    operation = new MoveFileOperation(remotePath, newParentPath, account);
+                    operation = new MoveFileOperation(remotePath, newParentPath);
 
                 } else if (action.equals(ACTION_COPY_FILE)) {
                     // Copy file/folder
