@@ -2,6 +2,6 @@
 <lint>
     <issue id="InvalidPackage">
         <ignore path="**/freemarker-2.3.23.jar"/>
-		<ignore path="**/nnio-0.2.jar"/>
+        <ignore path="**/nnio-0.2.jar"/>
     </issue>
 </lint>
