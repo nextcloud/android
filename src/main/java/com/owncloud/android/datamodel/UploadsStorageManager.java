@@ -424,7 +424,8 @@ public class UploadsStorageManager extends Observable {
     }
 
     /**
-     * Get all failed uploads, except for those that were not performed due to lack of Wifi connection
+     * Get all failed uploads, except for those that were not performed due to lack of Wifi connection.
+     *
      * @return Array of failed uploads, except for those that were not performed due to lack of Wifi connection.
      */
     public OCUpload[] getFailedButNotDelayedUploads() {
@@ -472,7 +473,6 @@ public class UploadsStorageManager extends Observable {
                 ProviderTableMeta.CONTENT_URI_UPLOADS,
                 ProviderTableMeta.UPLOADS_STATUS + "==" + UploadStatus.UPLOAD_SUCCEEDED.value  + AND +
                 ProviderTableMeta.UPLOADS_ACCOUNT_NAME + "== ?", new String[]{account.name}
-
         );
 
         Log_OC.d(TAG, "delete all successful uploads");
@@ -502,10 +502,12 @@ public class UploadsStorageManager extends Observable {
                         ProviderTableMeta.UPLOADS_ACCOUNT_NAME + "== ?",
                 whereArgs
         );
+
         Log_OC.d(TAG, "delete all finished uploads");
         if (result > 0) {
             notifyObserversNow();
         }
+
         return result;
     }
 
@@ -592,6 +594,7 @@ public class UploadsStorageManager extends Observable {
             Log_OC.w(TAG, Integer.toString(result) + " uploads where abruptly interrupted");
             notifyObserversNow();
         }
+
         return result;
     }
 }

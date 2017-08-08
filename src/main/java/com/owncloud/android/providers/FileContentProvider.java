@@ -1063,7 +1063,7 @@ public class FileContentProvider extends ContentProvider {
             }
 
             if (oldVersion < 23 && newVersion >= 23) {
-                Log_OC.i(SQL, "Entering in the #22 adding type colum for synced folders, Create filesystem table");
+                Log_OC.i(SQL, "Entering in the #23 adding type column for synced folders, Create filesystem table");
                 db.beginTransaction();
                 try {
                     // add type column default being CUSTOM (0)

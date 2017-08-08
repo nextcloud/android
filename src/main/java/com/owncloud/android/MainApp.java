@@ -380,7 +380,6 @@ public class MainApp extends MultiDexApplication {
             syncedFolderProvider.deleteSyncedFoldersInList(idsToDelete);
 
             PreferenceManager.setAutoUploadSplitEntries(this, true);
-
         }
     }
 

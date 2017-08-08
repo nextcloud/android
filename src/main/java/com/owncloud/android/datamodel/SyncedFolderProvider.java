@@ -1,6 +1,7 @@
 /**
  * Nextcloud Android client application
  *
+ * @author Andy Scherzinger
  * Copyright (C) 2016 Andy Scherzinger
  * Copyright (C) 2016 Nextcloud.
  *

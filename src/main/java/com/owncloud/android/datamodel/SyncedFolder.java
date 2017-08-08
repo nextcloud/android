@@ -99,11 +99,10 @@ public class SyncedFolder implements Serializable, Cloneable {
     public Object clone() {
         try {
             return super.clone();
-        } catch( CloneNotSupportedException e) {
+        } catch (CloneNotSupportedException e) {
             return null;
         }
     }
-
 
     public long getId() {
         return id;

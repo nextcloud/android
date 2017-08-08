@@ -30,8 +30,8 @@ import com.owncloud.android.lib.common.utils.Log_OC;
 import java.util.HashSet;
 import java.util.Set;
 
-/*
-    Provider for stored filesystem data
+/**
+ * Provider for stored filesystem data.
  */
 public class FilesystemDataProvider {
 
@@ -57,14 +57,12 @@ public class FilesystemDataProvider {
                         ProviderMeta.ProviderTableMeta.FILESYSTEM_SYNCED_FOLDER_ID + " = ?",
                 new String[]{path, syncedFolderId}
         );
-
     }
 
     public Set<String> getFilesForUpload(String localPath, String syncedFolderId) {
         Set<String> localPathsToUpload = new HashSet<>();
 
         String likeParam = localPath + "%";
-
 
         Cursor cursor = contentResolver.query(
                 ProviderMeta.ProviderTableMeta.CONTENT_URI_FILESYSTEM,
@@ -88,12 +86,9 @@ public class FilesystemDataProvider {
             } while (cursor.moveToNext());
 
             cursor.close();
-
         }
 
-
         return localPathsToUpload;
-
     }
 
     public void storeOrUpdateFileValue(String localPath, long modifiedAt, boolean isFolder, SyncedFolder syncedFolder) {
@@ -104,7 +99,6 @@ public class FilesystemDataProvider {
         if (isFolder) {
             isFolderValue = 1;
         }
-
 
         ContentValues cv = new ContentValues();
         cv.put(ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_FOUND_RECENTLY, System.currentTimeMillis());

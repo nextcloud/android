@@ -158,7 +158,6 @@ public class FileUploader extends Service
 
     public static final String KEY_LOCAL_BEHAVIOUR = "BEHAVIOUR";
 
-
     public static final int LOCAL_BEHAVIOUR_COPY = 0;
     public static final int LOCAL_BEHAVIOUR_MOVE = 1;
     public static final int LOCAL_BEHAVIOUR_FORGET = 2;
@@ -202,7 +201,6 @@ public class FileUploader extends Service
         sendBroadcastUploadStarted(mCurrentUpload);
     }
 
-
     /**
      * Helper class providing methods to ease requesting commands to {@link FileUploader} .
      *
@@ -210,7 +208,6 @@ public class FileUploader extends Service
      * in the {@link Intent} to pass to {@link Context#startService(Intent)}.
      */
     public static class UploadRequester {
-
 
         /**
          * Call to upload several new files
@@ -238,7 +235,6 @@ public class FileUploader extends Service
             intent.putExtra(FileUploader.KEY_CREATED_BY, createdBy);
             intent.putExtra(FileUploader.KEY_WHILE_ON_WIFI_ONLY, requiresWifi);
             intent.putExtra(FileUploader.KEY_WHILE_CHARGING_ONLY, requiresCharging);
-
 
             context.startService(intent);
         }
@@ -356,7 +352,6 @@ public class FileUploader extends Service
             }
         }
 
-
         /**
          * Retry a subset of all the stored failed uploads.
          *
@@ -402,9 +397,7 @@ public class FileUploader extends Service
                 context.startService(i);
             }
         }
-
     }
-
 
     /**
      * Service initialization
@@ -439,7 +432,6 @@ public class FileUploader extends Service
         am.addOnAccountsUpdatedListener(this, null, false);
     }
 
-
     /**
      * Service clean-up when restarted after being killed
      */
@@ -447,7 +439,6 @@ public class FileUploader extends Service
         // remove stucked notification
         mNotificationManager.cancel(R.string.uploader_upload_in_progress_ticker);
     }
-
 
     /**
      * Service clean up
@@ -467,7 +458,6 @@ public class FileUploader extends Service
 
         super.onDestroy();
     }
-
 
     /**
      * Entry point to add one or several files to the queue of uploads.
@@ -524,7 +514,6 @@ public class FileUploader extends Service
                 remotePaths = intent.getStringArrayExtra(KEY_REMOTE_FILE);
                 mimeTypes = intent.getStringArrayExtra(KEY_MIME_TYPE);
             }
-
 
             boolean forceOverwrite = intent.getBooleanExtra(KEY_FORCE_OVERWRITE, false);
             int localAction = intent.getIntExtra(KEY_LOCAL_BEHAVIOUR, LOCAL_BEHAVIOUR_FORGET);
@@ -717,9 +706,8 @@ public class FileUploader extends Service
     }
 
     /**
-     * Binder to let client components to perform operations on the queue of
-     * uploads.
-     * <p/>
+     * Binder to let client components to perform operations on the queue of uploads.
+     *
      * It provides by itself the available operations.
      */
     public class FileUploaderBinder extends Binder implements OnDatatransferProgressListener {
@@ -728,9 +716,7 @@ public class FileUploader extends Service
          * Map of listeners that will be reported about progress of uploads from a
          * {@link FileUploaderBinder} instance
          */
-        private Map<String, OnDatatransferProgressListener> mBoundListeners =
-                new HashMap<String, OnDatatransferProgressListener>();
-
+        private Map<String, OnDatatransferProgressListener> mBoundListeners = new HashMap<>();
 
         /**
          * Cancels a pending or current upload of a remote file.
@@ -828,7 +814,6 @@ public class FileUploader extends Service
             return (mPendingUploads.contains(account.name, file.getRemotePath()));
         }
 
-
         public boolean isUploadingNow(OCUpload upload) {
             return (
                 upload != null  &&
@@ -838,7 +823,6 @@ public class FileUploader extends Service
                 upload.getRemotePath().equals(mCurrentUpload.getRemotePath())
             );
         }
-
 
         /**
          * Adds a listener interested in the progress of the upload for a concrete file.
@@ -859,7 +843,6 @@ public class FileUploader extends Service
             mBoundListeners.put(targetKey, listener);
         }
 
-
         /**
          * Adds a listener interested in the progress of the upload for a concrete file.
          *
@@ -876,7 +859,6 @@ public class FileUploader extends Service
             String targetKey = buildRemoteName(ocUpload.getAccountName(), ocUpload.getRemotePath());
             mBoundListeners.put(targetKey, listener);
         }
-
 
         /**
          * Removes a listener interested in the progress of the upload for a concrete file.
@@ -898,7 +880,6 @@ public class FileUploader extends Service
                 mBoundListeners.remove(targetKey);
             }
         }
-
 
         /**
          * Removes a listener interested in the progress of the upload for a concrete file.
@@ -918,7 +899,6 @@ public class FileUploader extends Service
                 mBoundListeners.remove(targetKey);
             }
         }
-
 
         @Override
         public void onTransferProgress(long progressRate, long totalTransferredSoFar,
@@ -945,7 +925,7 @@ public class FileUploader extends Service
 
         /**
          * Builds a key for the map of listeners.
-         * <p/>
+         *
          * TODO use method in IndexedForest, or refactor both to a common place
          * add to local database) to better policy (add to local database, then upload)
          *
@@ -963,7 +943,7 @@ public class FileUploader extends Service
     /**
      * Upload worker. Performs the pending uploads in the order they were
      * requested.
-     * <p/>
+     *
      * Created with the Looper of a new thread, started in
      * {@link FileUploader#onCreate()}.
      */
@@ -1058,7 +1038,7 @@ public class FileUploader extends Service
                             mCurrentAccount.name,
                             mCurrentUpload.getOldFile().getRemotePath()
                     );
-                    /** TODO: grant that name is also updated for mCurrentUpload.getOCUploadId */
+                    // TODO: grant that name is also updated for mCurrentUpload.getOCUploadId
 
                 } else {
                     removeResult = mPendingUploads.removePayload(
@@ -1073,7 +1053,6 @@ public class FileUploader extends Service
                 notifyUploadResult(mCurrentUpload, uploadResult);
 
                 sendBroadcastUploadFinished(mCurrentUpload, uploadResult, removeResult.second);
-
             }
 
             // generate new Thumbnail
@@ -1097,8 +1076,7 @@ public class FileUploader extends Service
     private void notifyUploadStart(UploadFileOperation upload) {
         // / create status notification with a progress bar
         mLastPercent = 0;
-        mNotificationBuilder =
-                NotificationUtils.newNotificationBuilder(this);
+        mNotificationBuilder = NotificationUtils.newNotificationBuilder(this);
         mNotificationBuilder
                 .setOngoing(true)
                 .setSmallIcon(R.drawable.notification_icon)
@@ -1122,7 +1100,6 @@ public class FileUploader extends Service
         }   // else wait until the upload really start (onTransferProgress is called), so that if it's discarded
         // due to lack of Wifi, no notification is shown
         // TODO generalize for automated uploads
-
     }
 
     /**
@@ -1178,9 +1155,7 @@ public class FileUploader extends Service
                     .setOngoing(false)
                     .setProgress(0, 0, false);
 
-            content = ErrorMessageAdapter.getErrorCauseMessage(
-                    uploadResult, upload, getResources()
-            );
+            content = ErrorMessageAdapter.getErrorCauseMessage(uploadResult, upload, getResources());
 
             if (needsToUpdateCredentials) {
                 // let the user update credentials with one click
@@ -1231,7 +1206,6 @@ public class FileUploader extends Service
         }
     }
 
-
     /**
      * Sends a broadcast in order to the interested activities can update their
      * view
@@ -1244,7 +1218,6 @@ public class FileUploader extends Service
         start.setPackage(getPackageName());
         sendStickyBroadcast(start);
     }
-
 
     /**
      * Sends a broadcast in order to the interested activities can update their
@@ -1309,5 +1282,4 @@ public class FileUploader extends Service
         mPendingUploads.remove(account.name);
         mUploadsStorageManager.removeUploads(account.name);
     }
-
 }
