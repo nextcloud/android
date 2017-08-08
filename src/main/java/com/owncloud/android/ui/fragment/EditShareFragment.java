@@ -1,22 +1,21 @@
-/**
- *   ownCloud Android client application
+/*
+ * ownCloud Android client application
  *
- *   @author masensio
- *   @author David A. Velasco
- *   Copyright (C) 2015 ownCloud Inc.
+ * @author masensio
+ * @author David A. Velasco
+ * Copyright (C) 2015 ownCloud Inc.
  *
- *   This program is free software: you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License version 2,
- *   as published by the Free Software Foundation.
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 2,
+ * as published by the Free Software Foundation.
  *
- *   This program is distributed in the hope that it will be useful,
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *   GNU General Public License for more details.
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
  *
- *   You should have received a copy of the GNU General Public License
- *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 package com.owncloud.android.ui.fragment;
@@ -43,6 +42,7 @@ import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.lib.resources.shares.SharePermissionsBuilder;
 import com.owncloud.android.lib.resources.shares.ShareType;
+import com.owncloud.android.lib.resources.status.OCCapability;
 import com.owncloud.android.lib.resources.status.OwnCloudVersion;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.utils.AnalyticsUtils;
@@ -75,9 +75,14 @@ public class EditShareFragment extends Fragment {
     /** Account of the shared file, received as a parameter in construction time */
     private Account mAccount;
 
+    /**
+     * Capabilities of the server.
+     */
+    private OCCapability mCapabilities;
+
     /** Listener for changes on privilege checkboxes */
     private CompoundButton.OnCheckedChangeListener mOnPrivilegeChangeListener;
-    
+
     /**
      * Public factory method to create new EditShareFragment instances.
      *
@@ -109,6 +114,9 @@ public class EditShareFragment extends Fragment {
             /* OC account holding the shared file, received as a parameter in construction time */
             mAccount = getArguments().getParcelable(ARG_ACCOUNT);
         }
+
+        FileDataStorageManager storageManager = new FileDataStorageManager(mAccount, getContext().getContentResolver());
+        mCapabilities = storageManager.getCapability(mAccount.name);
     }
 
 
@@ -132,7 +140,7 @@ public class EditShareFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.edit_share_layout, container, false);
 
-        ((TextView)view.findViewById(R.id.editShareTitle)).setText(
+        ((TextView) view.findViewById(R.id.editShareTitle)).setText(
                 getResources().getString(R.string.share_with_edit_title, mShare.getSharedWithDisplayName()));
 
         View headerDivider = view.findViewById(R.id.share_header_divider);
@@ -144,6 +152,20 @@ public class EditShareFragment extends Fragment {
         return view;
     }
 
+    /**
+     * Get known server capabilities from DB
+     * <p/>
+     * Depends on the parent Activity provides a {@link com.owncloud.android.datamodel.FileDataStorageManager}
+     * instance ready to use. If not ready, does nothing.
+     */
+    public void refreshCapabilitiesFromDB() {
+        if (getActivity() instanceof FileActivity) {
+            FileActivity fileActivity = ((FileActivity) getActivity());
+            if (fileActivity.getStorageManager() != null) {
+                mCapabilities = fileActivity.getStorageManager().getCapability(mAccount.name);
+            }
+        }
+    }
 
     /**
      * Updates the UI with the current permissions in the edited {@OCShare}
@@ -167,7 +189,10 @@ public class EditShareFragment extends Fragment {
 
             if (isFederated) {
                 shareSwitch.setVisibility(View.INVISIBLE);
+            } else if (mCapabilities != null && mCapabilities.getFilesSharingResharing().isFalse()) {
+                shareSwitch.setVisibility(View.GONE);
             }
+
             shareSwitch.setChecked((sharePermissions & OCShare.SHARE_PERMISSION_FLAG) > 0);
 
             SwitchCompat switchCompat = (SwitchCompat) editShareView.findViewById(R.id.canEditSwitch);
@@ -260,7 +285,7 @@ public class EditShareFragment extends Fragment {
             /// else, getView() cannot be NULL
 
             CompoundButton subordinate;
-            switch(compound.getId()) {
+            switch (compound.getId()) {
                 case R.id.canShareSwitch:
                     Log_OC.v(TAG, "canShareCheckBox toggled to " + isChecked);
                     updatePermissionsToShare();
@@ -279,7 +304,7 @@ public class EditShareFragment extends Fragment {
                                     subordinate = (CompoundButton) getView().findViewById(sSubordinateCheckBoxIds[i]);
                                     subordinate.setVisibility(View.VISIBLE);
                                     if (!subordinate.isChecked() &&
-                                        !mFile.isSharedWithMe()) {          // see (1)
+                                            !mFile.isSharedWithMe()) {          // see (1)
                                         toggleDisablingListener(subordinate);
                                     }
                                 }
@@ -304,8 +329,8 @@ public class EditShareFragment extends Fragment {
                         }
                     }
 
-                    if(!(mFile.isFolder() && isChecked && mFile.isSharedWithMe())       // see (1)
-                        || isFederated ) {
+                    if (!(mFile.isFolder() && isChecked && mFile.isSharedWithMe())       // see (1)
+                            || isFederated) {
                         updatePermissionsToShare();
                     }
 
@@ -356,7 +381,7 @@ public class EditShareFragment extends Fragment {
                 }
             } else {
                 boolean allDisabled = true;
-                for (int i=0; allDisabled && i<sSubordinateCheckBoxIds.length; i++) {
+                for (int i = 0; allDisabled && i < sSubordinateCheckBoxIds.length; i++) {
                     allDisabled &=
                             sSubordinateCheckBoxIds[i] == subordinateCheckBoxView.getId() ||
                                     !((CheckBox) getView().findViewById(sSubordinateCheckBoxIds[i])).isChecked()
@@ -364,7 +389,7 @@ public class EditShareFragment extends Fragment {
                 }
                 if (canEditCompound.isChecked() && allDisabled) {
                     toggleDisablingListener(canEditCompound);
-                    for (int i=0; i<sSubordinateCheckBoxIds.length; i++) {
+                    for (int i = 0; i < sSubordinateCheckBoxIds.length; i++) {
                         getView().findViewById(sSubordinateCheckBoxIds[i]).setVisibility(View.GONE);
                     }
                 }
