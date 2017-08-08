@@ -55,9 +55,6 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewTreeObserver;
-import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.owncloud.android.MainApp;
@@ -115,7 +112,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import static com.owncloud.android.db.PreferenceManager.getSortAscending;
-import static com.owncloud.android.R.drawable.file;
 import static com.owncloud.android.db.PreferenceManager.getSortOrder;
 
 /**
@@ -138,7 +134,6 @@ public class FileDisplayActivity extends HookActivity
     private static final String KEY_WAITING_TO_PREVIEW = "WAITING_TO_PREVIEW";
     private static final String KEY_SYNC_IN_PROGRESS = "SYNC_IN_PROGRESS";
     private static final String KEY_WAITING_TO_SEND = "WAITING_TO_SEND";
-    private static final String KEY_SEARCH_QUERY = "KEY_SEARCH_QUERY";
 
     private static final String SORT_ORDER_DIALOG_TAG = "SORT_ORDER_DIALOG";
 
@@ -192,7 +187,7 @@ public class FileDisplayActivity extends HookActivity
             mWaitingToPreview = savedInstanceState.getParcelable(FileDisplayActivity.KEY_WAITING_TO_PREVIEW);
             mSyncInProgress = savedInstanceState.getBoolean(KEY_SYNC_IN_PROGRESS);
             mWaitingToSend = savedInstanceState.getParcelable(FileDisplayActivity.KEY_WAITING_TO_SEND);
-            searchQuery = savedInstanceState.getString(KEY_SEARCH_QUERY);
+            mSearchQuery = savedInstanceState.getString(KEY_SEARCH_QUERY);
             mSearchOpen = savedInstanceState.getBoolean(FileDisplayActivity.KEY_IS_SEARCH_OPEN, false);
             mSearchQuery = savedInstanceState.getString(FileDisplayActivity.KEY_SEARCH_QUERY);
         } else {
@@ -392,7 +387,7 @@ public class FileDisplayActivity extends HookActivity
             if (!stateWasRecovered) {
                 Log_OC.d(TAG, "Initializing Fragments in onAccountChanged..");
                 initFragmentsWithFile();
-                if (file.isFolder() && TextUtils.isEmpty(searchQuery)) {
+                if (file.isFolder() && TextUtils.isEmpty(mSearchQuery)) {
                     startSyncFolderOperation(file, false);
                 }
 
@@ -439,7 +434,7 @@ public class FileDisplayActivity extends HookActivity
         if (getAccount() != null && getFile() != null) {
             /// First fragment
             OCFileListFragment listOfFiles = getListOfFilesFragment();
-            if (listOfFiles != null && TextUtils.isEmpty(searchQuery)) {
+            if (listOfFiles != null && TextUtils.isEmpty(mSearchQuery)) {
                 listOfFiles.listDirectory(getCurrentDir(), MainApp.isOnlyOnDevice(), false);
             } else {
                 Log_OC.e(TAG, "Still have a chance to lose the initializacion of list fragment >(");
@@ -513,11 +508,11 @@ public class FileDisplayActivity extends HookActivity
      * @param fragment New second Fragment to set.
      */
     private void setSecondFragment(Fragment fragment) {
-        if (searchView != null) {
-            searchView.post(new Runnable() {
+        if (mSearchView != null) {
+            mSearchView.post(new Runnable() {
                 @Override
                 public void run() {
-                    searchView.setQuery("", true);
+                    mSearchView.setQuery("", true);
                 }
             });
         }
@@ -932,7 +927,7 @@ public class FileDisplayActivity extends HookActivity
     }
 
     private boolean isSearchOpen() {
-        final View mSearchEditFrame = searchView.findViewById(android.support.v7.appcompat.R.id.search_edit_frame);
+        final View mSearchEditFrame = mSearchView.findViewById(android.support.v7.appcompat.R.id.search_edit_frame);
         return (mSearchEditFrame != null && mSearchEditFrame.getVisibility() == View.VISIBLE);
     }
 
@@ -960,9 +955,9 @@ public class FileDisplayActivity extends HookActivity
          *    4. navigate up (only if drawer and FAB aren't open)
          */
 
-        if (isSearchOpen && searchView != null) {
-            searchView.setQuery("", true);
-            searchView.onActionViewCollapsed();
+        if (isSearchOpen && mSearchView != null) {
+            mSearchView.setQuery("", true);
+            mSearchView.onActionViewCollapsed();
             setDrawerIndicatorEnabled(isDrawerIndicatorAvailable());
         } else if (isDrawerOpen && isFabOpen) {
             // close drawer first
@@ -1034,8 +1029,8 @@ public class FileDisplayActivity extends HookActivity
         revertBottomNavigationBarToAllFiles();
         // refresh list of files
 
-        if (searchView != null && !TextUtils.isEmpty(searchQuery)) {
-            searchView.setQuery(searchQuery, true);
+        if (mSearchView != null && !TextUtils.isEmpty(mSearchQuery)) {
+            mSearchView.setQuery(mSearchQuery, true);
         } else if (getListOfFilesFragment() != null && !getListOfFilesFragment().getIsSearchFragment()
                 && startFile == null) {
             refreshListOfFilesFragment(false);
@@ -1834,7 +1829,7 @@ public class FileDisplayActivity extends HookActivity
 
         // the execution is slightly delayed to allow the activity get the window focus if it's being started
         // or if the method is called from a dialog that is being dismissed
-        if (TextUtils.isEmpty(searchQuery)) {
+        if (TextUtils.isEmpty(mSearchQuery)) {
             getHandler().postDelayed(
                     new Runnable() {
                         @Override
