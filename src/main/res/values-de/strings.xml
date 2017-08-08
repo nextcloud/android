@@ -538,6 +538,7 @@
 
     <string name="action_retry_uploads">Fehlgeschlagene erneut versuchen</string>
     <string name="action_clear_failed_uploads">Entferne Fehlversuche</string>
+    <string name="action_clear_successful_uploads">Lösche erfolgreich hochgeladene Dateien</string>
     <string name="action_clear_finished_uploads">Alles aufräumen</string>
 
     <string name="action_switch_grid_view">Rasteransicht</string>
