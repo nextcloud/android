@@ -270,17 +270,6 @@ public class SyncedFolderProvider extends Observable {
     }
 
     /**
-     * delete any records of synchronized folders that are withing the given list of ids.
-     */
-    public int deleteSyncedFoldersInList(ArrayList<Long> ids) {
-        return mContentResolver.delete(
-                ProviderMeta.ProviderTableMeta.CONTENT_URI_SYNCED_FOLDERS,
-                ProviderMeta.ProviderTableMeta._ID + " IN (?)",
-                new String[]{String.valueOf(ids)}
-        );
-    }
-
-    /**
      * delete record of synchronized folder with the given id.
      */
     public int deleteSyncedFolder(long id) {
