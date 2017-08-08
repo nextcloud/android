@@ -1,6 +1,5 @@
-2017-08-08 09:02:10
+2017-08-08 09:25:49
 Branches: 7
-Dev branch was updated successfully
 [01 / 07] Error feedback improvement (nextcloud/errorFeedback) [https://github.com/nextcloud/android/pull/1198] no update needed
 [02 / 07] Comment out adding all new downloaded files to folder observer (nextcloud/folderObserver) [https://github.com/nextcloud/android/pull/1155] no update needed
 [03 / 07] Add further media types to auto upload (nextcloud/mediaStoreAutoUpload) [https://github.com/nextcloud/android/pull/797] no update needed
