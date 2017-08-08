@@ -308,7 +308,7 @@ public abstract class PreferenceManager {
         saveFloatPreference(context, AUTO_PREF__GRID_COLUMNS, gridColumns);
     }
 
-    public static void saveBooleanPreference(Context context, String key, boolean value) {
+    private static void saveBooleanPreference(Context context, String key, boolean value) {
         SharedPreferences.Editor appPreferences = getDefaultSharedPreferences(context.getApplicationContext()).edit();
         appPreferences.putBoolean(key, value).apply();
     }
@@ -329,15 +329,9 @@ public abstract class PreferenceManager {
         appPreferences.putInt(key, value).apply();
     }
 
-    public static void saveFloatPreference(Context context, String key, float value) {
+    private static void saveFloatPreference(Context context, String key, float value) {
         SharedPreferences.Editor appPreferences = getDefaultSharedPreferences(context.getApplicationContext()).edit();
         appPreferences.putFloat(key, value).apply();
-    }
-
-    private static void saveLongPreference(Context context, String key, long value) {
-        SharedPreferences.Editor appPreferences = getDefaultSharedPreferences(context.getApplicationContext()).edit();
-        appPreferences.putLong(key, value);
-        appPreferences.apply();
     }
 
     public static SharedPreferences getDefaultSharedPreferences(Context context) {
