@@ -141,7 +141,7 @@ public class WhatsNewActivity extends FragmentActivity implements ViewPager.OnPa
         } else if (isFirstRun()) {
             tv.setText(R.string.empty);
         } else {
-            tv.setText(R.string.whats_new_title);
+            tv.setText(String.format(getString(R.string.whats_new_title),  MainApp.getVersionName()));
         }
 
         updateNextButtonIfNeeded();
