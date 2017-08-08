@@ -47,8 +47,10 @@ public class LoadingDialog extends DialogFragment {
         setCancelable(false);
     }
 
-    public LoadingDialog(String message) {
-        this.mMessage = message;
+    public static LoadingDialog newInstance(String message) {
+        LoadingDialog loadingDialog = new LoadingDialog();
+        loadingDialog.mMessage = message;
+        return loadingDialog;
     }
 
     @Override

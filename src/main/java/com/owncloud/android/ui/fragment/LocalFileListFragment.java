@@ -26,6 +26,8 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
@@ -89,7 +91,6 @@ public class LocalFileListFragment extends ExtendedListFragment {
         }
     }
     
-    
     /**
      * {@inheritDoc}
      */
@@ -97,11 +98,19 @@ public class LocalFileListFragment extends ExtendedListFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Log_OC.i(TAG, "onCreateView() start");
         View v = super.onCreateView(inflater, container, savedInstanceState);
-        setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
+
+        if(!mContainerActivity.isFolderPickerMode()) {
+            setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
+            setMessageForEmptyList(R.string.file_list_empty_headline, R.string.local_file_list_empty,
+                    R.drawable.ic_list_empty_folder, true);
+        } else {
+            setMessageForEmptyList(R.string.folder_list_empty_headline, R.string.local_folder_list_empty,
+                    R.drawable.ic_list_empty_folder, true);
+        }
+
         setSwipeEnabled(false); // Disable pull-to-refresh
         setFabEnabled(false); // Disable FAB
-        setMessageForEmptyList(R.string.file_list_empty_headline, R.string.local_file_list_empty,
-                R.drawable.ic_list_empty_folder, true);
+
         Log_OC.i(TAG, "onCreateView() end");
         return v;
     }
@@ -115,10 +124,28 @@ public class LocalFileListFragment extends ExtendedListFragment {
         Log_OC.i(TAG, "onActivityCreated() start");
         
         super.onActivityCreated(savedInstanceState);
-        mAdapter = new LocalFileListAdapter(mContainerActivity.getInitialDirectory(), getActivity());
+
+        mAdapter = new LocalFileListAdapter(
+                mContainerActivity.isFolderPickerMode(),
+                mContainerActivity.getInitialDirectory(),
+                getActivity()
+        );
         setListAdapter(mAdapter);
         
         Log_OC.i(TAG, "onActivityCreated() stop");
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        if (mContainerActivity.isFolderPickerMode()) {
+            menu.removeItem(R.id.action_select_all);
+            menu.removeItem(R.id.action_search);
+        } else {
+            super.onCreateOptionsMenu(menu, inflater);
+        }
     }
     
     /**
@@ -303,8 +330,7 @@ public class LocalFileListFragment extends ExtendedListFragment {
          * @param file
          */
         void onFileClick(File file);
-        
-        
+
         /**
          * Callback method invoked when the parent activity
          * is fully created to get the directory to list firstly.
@@ -313,6 +339,13 @@ public class LocalFileListFragment extends ExtendedListFragment {
          */
         File getInitialDirectory();
 
+        /**
+         * config check if the list should behave in
+         * folder picker mode only displaying folders but no files.
+         *
+         * @return true if folder picker mode, else false
+         */
+        boolean isFolderPickerMode();
     }
 
 

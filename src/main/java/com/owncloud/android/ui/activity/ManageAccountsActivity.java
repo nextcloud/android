@@ -50,8 +50,7 @@ import com.owncloud.android.files.services.FileDownloader;
 import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.services.AccountRemovalJob;
-import com.owncloud.android.services.AutoUploadJob;
+import com.owncloud.android.jobs.AccountRemovalJob;
 import com.owncloud.android.services.OperationsService;
 import com.owncloud.android.ui.adapter.AccountListAdapter;
 import com.owncloud.android.ui.adapter.AccountListItem;
@@ -407,7 +406,7 @@ public class ManageAccountsActivity extends FileActivity
 
         // store pending account removal
         ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProvider(getContentResolver());
-        arbitraryDataProvider.storeOrUpdateKeyValue(account, PENDING_FOR_REMOVAL, String.valueOf(true));
+        arbitraryDataProvider.storeOrUpdateKeyValue(account.name, PENDING_FOR_REMOVAL, String.valueOf(true));
 
         // Cancel transfers
         if (mUploaderBinder != null) {
@@ -419,7 +418,7 @@ public class ManageAccountsActivity extends FileActivity
 
         // schedule job
         PersistableBundleCompat bundle = new PersistableBundleCompat();
-        bundle.putString(AutoUploadJob.ACCOUNT, account.name);
+        bundle.putString(AccountRemovalJob.ACCOUNT, account.name);
 
         new JobRequest.Builder(AccountRemovalJob.TAG)
                 .setExecutionWindow(1_000L, 10_000L)

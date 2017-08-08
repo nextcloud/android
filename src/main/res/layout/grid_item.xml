@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <!--
   ownCloud Android client application
   Copyright (C) 2015 ownCloud Inc.
@@ -35,7 +34,7 @@
             android:layout_width="@dimen/standard_list_item_size"
             android:layout_height="@dimen/standard_list_item_size"
             android:layout_gravity="center"
-            android:src="@drawable/ic_menu_archive"/>
+            android:src="@drawable/folder"/>
 
         <ImageView
             android:id="@+id/favorite_action"
@@ -94,7 +93,7 @@
         android:layout_marginRight="@dimen/standard_quarter_margin"
         android:ellipsize="middle"
         android:gravity="center_horizontal"
-        android:maxLines="1"
+        android:singleLine="true"
         android:text="@string/placeholder_filename"
         android:textColor="@color/textColor"
         android:textSize="@dimen/grid_item_text_size" />
