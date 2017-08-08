@@ -537,7 +537,6 @@
 
     <string name="action_retry_uploads">Nuevo intento fallido</string>
     <string name="action_clear_failed_uploads">Limpieza fallida</string>
-    <string name="action_clear_successful_uploads">Limpieza exitosa</string>
     <string name="action_clear_finished_uploads">Limpiar subidas finalizadas</string>
 
     <string name="action_switch_grid_view">Vista en cuadrícula</string>

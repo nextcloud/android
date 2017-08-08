@@ -534,7 +534,6 @@ Kies er eentje van een provider.</string>
 
     <string name="action_retry_uploads">Mislukte opnieuw proberen</string>
     <string name="action_clear_failed_uploads">Mislukte opschonen</string>
-    <string name="action_clear_successful_uploads">Gelukte opschonen</string>
     <string name="action_clear_finished_uploads">Alle voltoooide opschonen</string>
 
     <string name="action_switch_grid_view">Rasterindeling </string>

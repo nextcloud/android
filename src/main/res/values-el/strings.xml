@@ -537,7 +537,6 @@
 
     <string name="action_retry_uploads">Αποτυχία επανάληψης</string>
     <string name="action_clear_failed_uploads">Αποτυχία εκκαθάρισης</string>
-    <string name="action_clear_successful_uploads">Επιτυχία εκκαθάρισης</string>
     <string name="action_clear_finished_uploads">Ολοκλήρωση εκκαθάρισης όλων</string>
 
     <string name="action_switch_grid_view">Προβολή πλέγματος</string>
@@ -574,6 +573,7 @@
     <string name="participate_contribute_forum_forum">forum</string>
     <string name="participate_contribute_translate_translate">Μετάφραση</string>
     <string name="participate_contribute_translate_text">η εφαρμογή</string>
+    <string name="participate_contribute_github_text">Επιθεωρήστε, τροποποιήστε και γράψτε κώδικα, δείτε %1$s για λεπτομέρειες</string>
     <string name="move_to">Μετακίνηση σε&#8230;</string>
     <string name="copy_to">Αντιγραφή σε&#8230;</string>
     <string name="choose_remote_folder">Επιλογή φακέλου&#8230;</string>
