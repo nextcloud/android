@@ -22,7 +22,6 @@
 package com.owncloud.android.ui.activity;
 
 import android.accounts.Account;
-import android.accounts.AccountManager;
 import android.content.ActivityNotFoundException;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
@@ -30,9 +29,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.preference.PreferenceManager;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.FragmentTransaction;
 import android.view.Menu;
@@ -41,21 +42,22 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.evernote.android.job.JobRequest;
 import com.owncloud.android.R;
-import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.UploadsStorageManager;
 import com.owncloud.android.db.OCUpload;
-import com.owncloud.android.db.UploadResult;
 import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
+import com.owncloud.android.jobs.FilesSyncJob;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.operations.CheckCurrentCredentialsOperation;
 import com.owncloud.android.ui.fragment.UploadListFragment;
-import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.AnalyticsUtils;
+import com.owncloud.android.utils.DisplayUtils;
+import com.owncloud.android.utils.FilesSyncHelper;
 import com.owncloud.android.utils.MimeTypeUtil;
 
 import java.io.File;
@@ -74,7 +76,11 @@ public class UploadListActivity extends FileActivity implements UploadListFragme
 
     private static final String SCREEN_NAME = "Uploads";
 
+    private static final String EXPERT_MODE = "expert_mode";
+
     private UploadMessagesReceiver mUploadMessagesReceiver;
+
+    private Menu mMenu;
 
     @Override
     public void showFiles(boolean onDeviceOnly) {
@@ -211,9 +217,14 @@ public class UploadListActivity extends FileActivity implements UploadListFragme
                 } else {
                     openDrawer();
                 }
+                break;
+
             case R.id.action_retry_uploads:
                 FileUploader.UploadRequester requester = new FileUploader.UploadRequester();
                 requester.retryFailedUploads(this, null, null);
+                if (mMenu != null) {
+                    mMenu.removeItem(R.id.action_retry_uploads);
+                }
                 break;
 
             case R.id.action_clear_failed_uploads:
@@ -234,6 +245,19 @@ public class UploadListActivity extends FileActivity implements UploadListFragme
                 uploadListFragment.updateUploads();
                 break;
 
+            case R.id.action_force_rescan:
+                new JobRequest.Builder(FilesSyncJob.TAG)
+                        .setExact(1_000L)
+                        .setUpdateCurrent(false)
+                        .build()
+                        .schedule();
+                
+                if (mMenu != null) {
+                    mMenu.removeItem(R.id.action_force_rescan);
+                }
+
+                break;
+
             default:
                 retval = super.onOptionsItemSelected(item);
         }
@@ -243,8 +267,14 @@ public class UploadListActivity extends FileActivity implements UploadListFragme
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.upload_list_menu, menu);
+        SharedPreferences appPrefs =
+                PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        if (appPrefs.getBoolean(EXPERT_MODE, false)) {
+            MenuInflater inflater = getMenuInflater();
+            inflater.inflate(R.menu.upload_list_menu, menu);
+            mMenu = menu;
+        }
+
         return true;
     }
 
@@ -252,17 +282,7 @@ public class UploadListActivity extends FileActivity implements UploadListFragme
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == FileActivity.REQUEST_CODE__UPDATE_CREDENTIALS && resultCode == RESULT_OK) {
-            // Retry uploads of the updated account
-            Account account = AccountUtils.getOwnCloudAccountByName(
-                this,
-                data.getStringExtra(AccountManager.KEY_ACCOUNT_NAME)
-            );
-            FileUploader.UploadRequester requester = new FileUploader.UploadRequester();
-            requester.retryFailedUploads(
-                this,
-                account,
-                UploadResult.CREDENTIAL_ERROR
-            );
+            FilesSyncHelper.restartJobsIfNeeded();
         }
     }
 
@@ -283,8 +303,7 @@ public class UploadListActivity extends FileActivity implements UploadListFragme
 
             } else {
                 // already updated -> just retry!
-                FileUploader.UploadRequester requester = new FileUploader.UploadRequester();
-                requester.retryFailedUploads(this, account, UploadResult.CREDENTIAL_ERROR);
+                FilesSyncHelper.restartJobsIfNeeded();
             }
 
         } else {

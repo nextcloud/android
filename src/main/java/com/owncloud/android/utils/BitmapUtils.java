@@ -1,4 +1,4 @@
-/**
+/*
  * ownCloud Android client application
  *
  * @author David A. Velasco
@@ -23,7 +23,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.BitmapFactory.Options;
 import android.graphics.Matrix;
-import android.media.ExifInterface;
+import android.support.media.ExifInterface;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 
@@ -48,7 +48,7 @@ public class BitmapUtils {
      * @param srcPath       Absolute path to the file containing the image.
      * @param reqWidth      Width of the surface where the Bitmap will be drawn on, in pixels.
      * @param reqHeight     Height of the surface where the Bitmap will be drawn on, in pixels.
-     * @return
+     * @return decoded bitmap
      */
     public static Bitmap decodeSampledBitmapFromFile(String srcPath, int reqWidth, int reqHeight) {
 
@@ -106,6 +106,23 @@ public class BitmapUtils {
         return inSampleSize;
     }
 
+    /**
+     * scales a given bitmap depending on the given size parameters.
+     *
+     * @param bitmap the bitmap to be scaled
+     * @param px     the target pixel size
+     * @param width  the width
+     * @param height the height
+     * @param max    the max(height, width)
+     * @return the scaled bitmap
+     */
+    public static Bitmap scaleBitmap(Bitmap bitmap, float px, int width, int height, int max) {
+        float scale = px / max;
+        int w = Math.round(scale * width);
+        int h = Math.round(scale * height);
+        return Bitmap.createScaledBitmap(bitmap, w, h, true);
+    }
+    
     /**
      * Rotate bitmap according to EXIF orientation. 
      * Cf. http://www.daveperrett.com/articles/2012/07/28/exif-orientation-handling-is-a-ghetto/ 
@@ -172,7 +189,7 @@ public class BitmapUtils {
      *  @param h Hue is specified as degrees in the range 0 - 360.
      *  @param s Saturation is specified as a percentage in the range 1 - 100.
      *  @param l Lumanance is specified as a percentage in the range 1 - 100.
-     *  @paran alpha  the alpha value between 0 - 1
+     *  @param alpha  the alpha value between 0 - 1
      *  adapted from https://svn.codehaus.org/griffon/builders/gfxbuilder/tags/GFXBUILDER_0.2/
      *  gfxbuilder-core/src/main/com/camick/awt/HSLColor.java
      */
@@ -200,7 +217,7 @@ public class BitmapUtils {
         s /= 100f;
         l /= 100f;
 
-        float q = 0;
+        float q;
 
         if (l < 0.5) {
             q = l * (1 + s);

@@ -26,7 +26,7 @@ import java.io.Serializable;
 /**
  * Synced folder entity containing all information per synced folder.
  */
-public class SyncedFolder implements Serializable {
+public class SyncedFolder implements Serializable, Cloneable {
     public static final long UNPERSISTED_ID = Long.MIN_VALUE;
     private static final long serialVersionUID = -793476118299906429L;
     private long id = UNPERSISTED_ID;
@@ -38,6 +38,7 @@ public class SyncedFolder implements Serializable {
     private String account;
     private Integer uploadAction;
     private boolean enabled;
+    private MediaFolderType type;
 
     /**
      * constructor for already persisted entity.
@@ -51,9 +52,11 @@ public class SyncedFolder implements Serializable {
      * @param account         the account owning the synced folder
      * @param uploadAction    the action to be done after the upload
      * @param enabled         flag if synced folder config is active
+     * @param type            the type of the folder
      */
     public SyncedFolder(long id, String localPath, String remotePath, Boolean wifiOnly, Boolean chargingOnly,
-                        Boolean subfolderByDate, String account, Integer uploadAction, Boolean enabled) {
+                        Boolean subfolderByDate, String account, Integer uploadAction, Boolean enabled,
+                        MediaFolderType type) {
         this.id = id;
         this.localPath = localPath;
         this.remotePath = remotePath;
@@ -63,6 +66,7 @@ public class SyncedFolder implements Serializable {
         this.account = account;
         this.uploadAction = uploadAction;
         this.enabled = enabled;
+        this.type = type;
     }
 
     /**
@@ -76,9 +80,11 @@ public class SyncedFolder implements Serializable {
      * @param account         the account owning the synced folder
      * @param uploadAction    the action to be done after the upload
      * @param enabled         flag if synced folder config is active
+     * @param type            the type of the folder
      */
     public SyncedFolder(String localPath, String remotePath, Boolean wifiOnly, Boolean chargingOnly,
-                        Boolean subfolderByDate, String account, Integer uploadAction, Boolean enabled) {
+                        Boolean subfolderByDate, String account, Integer uploadAction, Boolean enabled,
+                        MediaFolderType type) {
         this.localPath = localPath;
         this.remotePath = remotePath;
         this.wifiOnly = wifiOnly;
@@ -87,6 +93,15 @@ public class SyncedFolder implements Serializable {
         this.account = account;
         this.uploadAction = uploadAction;
         this.enabled = enabled;
+        this.type = type;
+    }
+
+    public Object clone() {
+        try {
+            return super.clone();
+        } catch (CloneNotSupportedException e) {
+            return null;
+        }
     }
 
     public long getId() {
@@ -159,5 +174,13 @@ public class SyncedFolder implements Serializable {
 
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
+    }
+
+    public MediaFolderType getType() {
+        return type;
+    }
+
+    public void setType(MediaFolderType type) {
+        this.type = type;
     }
 }

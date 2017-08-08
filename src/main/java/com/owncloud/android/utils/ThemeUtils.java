@@ -37,6 +37,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v4.graphics.ColorUtils;
 import android.support.v4.graphics.drawable.DrawableCompat;
+import android.support.v4.widget.CompoundButtonCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.AppCompatCheckBox;
 import android.support.v7.widget.SwitchCompat;
@@ -254,7 +255,7 @@ public class ThemeUtils {
     }
 
     public static void tintCheckbox(AppCompatCheckBox checkBox, int color) {
-        checkBox.setSupportButtonTintList(new ColorStateList(
+        CompoundButtonCompat.setButtonTintList(checkBox, new ColorStateList(
                 new int[][]{
                         new int[]{-android.R.attr.state_checked},
                         new int[]{android.R.attr.state_checked},

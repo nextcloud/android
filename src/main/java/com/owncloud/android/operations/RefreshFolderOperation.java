@@ -203,7 +203,7 @@ public class RefreshFolderOperation extends RemoteOperation {
 
             if (result.isSuccess()) {
                 // request for the synchronization of KEPT-IN-SYNC file contents
-                startContentSynchronizations(mFilesToSyncContents, client);
+                startContentSynchronizations(mFilesToSyncContents);
             }
         }
         
@@ -453,12 +453,9 @@ public class RefreshFolderOperation extends RemoteOperation {
      * on.
      * 
      * @param filesToSyncContents       Synchronization operations to execute.
-     * @param client                    Interface to the remote ownCloud server.
      */
-    private void startContentSynchronizations(
-            List<SynchronizeFileOperation> filesToSyncContents, OwnCloudClient client
-        ) {
-        RemoteOperationResult contentsResult = null;
+    private void startContentSynchronizations(List<SynchronizeFileOperation> filesToSyncContents) {
+        RemoteOperationResult contentsResult;
         for (SynchronizeFileOperation op: filesToSyncContents) {
             contentsResult = op.execute(mStorageManager, mContext);   // async
             if (!contentsResult.isSuccess()) {
@@ -487,7 +484,7 @@ public class RefreshFolderOperation extends RemoteOperation {
      *                  the operation.
      */
     private RemoteOperationResult refreshSharesForFolder(OwnCloudClient client) {
-        RemoteOperationResult result = null;
+        RemoteOperationResult result;
         
         // remote request 
         GetRemoteSharesForFileOperation operation = 

@@ -55,11 +55,9 @@ import com.owncloud.android.utils.GetShareWithUsersAsyncTask;
 import java.util.ArrayList;
 
 /**
- * Activity for sharing files
+ * Activity for sharing files.
  */
-
-public class ShareActivity extends FileActivity
-        implements ShareFragmentListener {
+public class ShareActivity extends FileActivity implements ShareFragmentListener {
 
     private static final String TAG = ShareActivity.class.getSimpleName();
 
@@ -70,8 +68,6 @@ public class ShareActivity extends FileActivity
 
     /// Tags for dialog fragments
     private static final String FTAG_CHOOSER_DIALOG = "CHOOSER_DIALOG";
-    private static final String FTAG_SHARE_PASSWORD_DIALOG = "SHARE_PASSWORD_DIALOG";
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,7 +83,6 @@ public class ShareActivity extends FileActivity
             ft.replace(R.id.share_fragment_container, fragment, TAG_SHARE_FRAGMENT);
             ft.commit();
         }
-
     }
 
     protected void onAccountSet(boolean stateWasRecovered) {
@@ -144,10 +139,9 @@ public class ShareActivity extends FileActivity
         );
     }
 
-
     private int getAppropiatePermissions(ShareType shareType) {
 
-        // check if the Share is FERERATED
+        // check if the Share is FEDERATED
         boolean isFederated = ShareType.FEDERATED.equals(shareType);
 
         if (getFile().isSharedWithMe()) {
@@ -245,9 +239,8 @@ public class ShareActivity extends FileActivity
 
     }
 
-
     /**
-     * Updates the view, reading data from {@link com.owncloud.android.datamodel.FileDataStorageManager}
+     * Updates the view, reading data from {@link com.owncloud.android.datamodel.FileDataStorageManager}.
      */
     private void refreshSharesFromStorageManager() {
 
@@ -270,7 +263,6 @@ public class ShareActivity extends FileActivity
                 editShareFragment.isAdded()) {
             editShareFragment.refreshUiFromDB();
         }
-
     }
 
     /**
@@ -299,7 +291,6 @@ public class ShareActivity extends FileActivity
     private EditShareFragment getEditShareFragment() {
         return (EditShareFragment) getSupportFragmentManager().findFragmentByTag(TAG_EDIT_SHARE_FRAGMENT);
     }
-
 
     private void onCreateShareViaLinkOperationFinish(CreateShareViaLinkOperation operation,
                                                      RemoteOperationResult result) {
@@ -369,8 +360,5 @@ public class ShareActivity extends FileActivity
                 t.show();
             }
         }
-
     }
-
-
 }

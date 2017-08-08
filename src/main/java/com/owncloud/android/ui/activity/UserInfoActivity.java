@@ -63,7 +63,6 @@ import com.owncloud.android.authentication.AuthenticatorActivity;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.PushConfigurationState;
 import com.owncloud.android.datamodel.SyncedFolderProvider;
-import com.owncloud.android.datamodel.UploadsStorageManager;
 import com.owncloud.android.lib.common.UserInfo;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
@@ -410,16 +409,11 @@ public class UserInfoActivity extends FileActivity {
                                             contentResolver);
                                     syncedFolderProvider.deleteSyncFoldersForAccount(account);
 
-                                    UploadsStorageManager uploadsStorageManager = new UploadsStorageManager(
-                                            contentResolver, getActivity());
-                                    uploadsStorageManager.cancelPendingAutoUploadJobsForAccount(account);
-                                    uploadsStorageManager.removeAccountUploads(account);
-
                                     // disable daily backup
                                     ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProvider(
                                             contentResolver);
 
-                                    arbitraryDataProvider.storeOrUpdateKeyValue(account,
+                                    arbitraryDataProvider.storeOrUpdateKeyValue(account.name,
                                             ContactsPreferenceActivity.PREFERENCE_CONTACTS_AUTOMATIC_BACKUP,
                                             "false");
 
@@ -433,7 +427,7 @@ public class UserInfoActivity extends FileActivity {
                                         PushConfigurationState pushArbitraryData = gson.fromJson(arbitraryDataPushString,
                                                 PushConfigurationState.class);
                                         pushArbitraryData.setShouldBeDeleted(true);
-                                        arbitraryDataProvider.storeOrUpdateKeyValue(account, PushUtils.KEY_PUSH,
+                                        arbitraryDataProvider.storeOrUpdateKeyValue(account.name, PushUtils.KEY_PUSH,
                                                 gson.toJson(pushArbitraryData));
                                         EventBus.getDefault().post(new TokenPushEvent());
                                     }

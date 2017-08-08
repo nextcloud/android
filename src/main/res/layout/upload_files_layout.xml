@@ -45,11 +45,12 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/upload_options"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="@dimen/standard_half_padding"
-        android:paddingBottom="@dimen/standard_padding"
+        android:paddingBottom="0dp"
         android:paddingLeft="@dimen/standard_padding"
         android:paddingRight="@dimen/standard_padding">
 
@@ -73,9 +74,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:orientation="horizontal"
-        android:paddingLeft="@dimen/standard_padding"
-        android:paddingRight="@dimen/standard_padding"
-        android:paddingBottom="@dimen/standard_padding">
+        android:padding="@dimen/standard_padding">
 
         <android.support.v7.widget.AppCompatButton
             android:id="@+id/upload_files_btn_cancel"

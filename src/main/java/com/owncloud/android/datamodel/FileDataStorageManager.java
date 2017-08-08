@@ -593,7 +593,6 @@ public class FileDataStorageManager {
                 if (localFile.isDirectory()) {
                     success &= removeLocalFolder(localFile);
                 } else {
-                    String path = localFile.getAbsolutePath();
                     success &= localFile.delete();
                 }
             }
@@ -601,7 +600,6 @@ public class FileDataStorageManager {
         success &= localFolder.delete();
         return success;
     }
-
 
     /**
      * Updates database and file system for a file or folder that was moved to a different location.
