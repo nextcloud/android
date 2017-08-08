@@ -1,4 +1,4 @@
-/**
+/*
  *   ownCloud Android client application
  *
  *   @author David A. Velasco
@@ -113,6 +113,11 @@ public class PreviewMediaFragment extends FileFragment implements
 
     private static final String SCREEN_NAME = "Audio/Video Preview";
 
+    private static final String FILE = "file";
+    private static final String ACCOUNT = "account";
+    private static final String PLAYBACK_POSITION = "playbackposition";
+    private static final String AUTOPLAY = "autoplay";
+
     /**
      * Creates a fragment to preview a file.
      * <p/>
@@ -121,16 +126,19 @@ public class PreviewMediaFragment extends FileFragment implements
      * @param fileToDetail An {@link OCFile} to preview in the fragment
      * @param ocAccount    An ownCloud account; needed to start downloads
      */
-    public PreviewMediaFragment(
-            OCFile fileToDetail,
-            Account ocAccount,
-            int startPlaybackPosition,
-            boolean autoplay) {
+    public static PreviewMediaFragment newInstance(OCFile fileToDetail, Account ocAccount, int startPlaybackPosition,
+                                                   boolean autoplay) {
+        PreviewMediaFragment previewMediaFragment = new PreviewMediaFragment();
 
-        super(fileToDetail);
-        mAccount = ocAccount;
-        mSavedPlaybackPosition = startPlaybackPosition;
-        mAutoplay = autoplay;
+        Bundle bundle = new Bundle();
+        bundle.putParcelable(FILE, fileToDetail);
+        bundle.putParcelable(ACCOUNT, ocAccount);
+        bundle.putInt(PLAYBACK_POSITION, startPlaybackPosition);
+        bundle.putBoolean(AUTOPLAY, autoplay);
+
+        previewMediaFragment.setArguments(bundle);
+
+        return previewMediaFragment;
     }
 
     /**
@@ -157,6 +165,13 @@ public class PreviewMediaFragment extends FileFragment implements
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
+
+        Bundle bundle = getArguments();
+
+        setFile(bundle.getParcelable(FILE));
+        mAccount = bundle.getParcelable(ACCOUNT);
+        mSavedPlaybackPosition = bundle.getInt(PLAYBACK_POSITION);
+        mAutoplay = bundle.getBoolean(AUTOPLAY);
     }
 
 
