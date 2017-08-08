@@ -219,6 +219,17 @@ public class MainApp extends MultiDexApplication {
         }
     }
 
+    // Non gradle build systems do not provide BuildConfig.VERSION_CODE
+    // so we must fallback to this method :(
+    public static String getVersionName() {
+        try {
+            String thisPackageName = getAppContext().getPackageName();
+            return getAppContext().getPackageManager().getPackageInfo(thisPackageName, 0).versionName;
+        } catch (PackageManager.NameNotFoundException e) {
+            return "";
+        }
+    }
+
     //  From AccountAuthenticator 
     //  public static final String AUTHORITY = "org.owncloud";
     public static String getAuthority() {

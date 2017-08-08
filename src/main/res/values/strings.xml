@@ -623,7 +623,7 @@
     <string name="storage_description_unknown">Unknown</string>
 
     <!-- What's new feature and texts to show -->
-    <string name="whats_new_title">What\'s new in Nextcloud</string>
+    <string name="whats_new_title">What\'s new in %1$s</string>
 
     <!-- Welcome to Nc intro features -->
     <string name="welcome_feature_1_title">A safe home for all your data</string>
@@ -632,8 +632,11 @@
     <string name="welcome_feature_2_title">Multi account</string>
     <string name="welcome_feature_2_text">Connect to all your clouds</string>
 
-    <string name="welcome_feature_3_title">Instant upload</string>
+    <string name="welcome_feature_3_title">Auto upload</string>
     <string name="welcome_feature_3_text">Keep your photos safe</string>
+
+    <string name="whats_new_auto_upload_title">Enhanced auto upload</string>
+    <string name="whats_new_auto_upload_content">\u2022 for all android versions\n\u2022 less battery consumption\n\u2022 more reliable, but not instant</string>
 
     <string name="whats_new_skip">Skip</string>
 

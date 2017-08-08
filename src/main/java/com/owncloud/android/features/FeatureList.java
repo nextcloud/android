@@ -38,8 +38,10 @@ import java.util.regex.Pattern;
  */
 public class FeatureList {
     private static final boolean SHOW_ON_FIRST_RUN = true;
+    private static final boolean SHOW_ON_UPGRADE = false;
 
     private static final String VERSION_1_0_0 = "1.0.0";
+    private static final String VERSION_1_5_0 = "1.5.0";
     private static final String BETA_VERSION_0 = "0";
 
     static final private FeatureItem featuresList[] = {
@@ -54,6 +56,9 @@ public class FeatureList {
                     R.string.welcome_feature_3_title, R.string.welcome_feature_3_text,
                     VERSION_1_0_0, BETA_VERSION_0, SHOW_ON_FIRST_RUN),
             // Features introduced in certain point in time
+            new FeatureItem(R.drawable.what_new_instant_upload,
+                    R.string.whats_new_auto_upload_title, R.string.whats_new_auto_upload_content,
+                    VERSION_1_5_0, BETA_VERSION_0, SHOW_ON_UPGRADE)
     };
 
     static public FeatureItem[] get() {
@@ -156,7 +161,7 @@ public class FeatureList {
             return 0;
         }
         return Integer.parseInt(v[0])*(int)(10e6) +
-                Integer.parseInt(v[1])*(int)(10e4) +
+                Integer.parseInt(v[1])*(int)(10e3) +
                 Integer.parseInt(v[2])*100;
     }
 }
