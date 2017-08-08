@@ -23,7 +23,6 @@ import android.accounts.Account;
 import android.content.Context;
 import android.database.DataSetObserver;
 import android.graphics.Bitmap;
-import android.support.design.widget.Snackbar;
 import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -560,9 +559,6 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
                         break;
                     case MAINTENANCE_MODE:
                         status = mParentActivity.getString(R.string.maintenance_mode);
-                        break;
-                    case LOCK_FAILED:
-                        status = mParentActivity.getString(R.string.lock_failed);
                         break;
                     case LOCK_FAILED:
                         status = mParentActivity.getString(R.string.lock_failed);
