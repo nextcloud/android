@@ -169,7 +169,6 @@
     <string name="uploader_upload_failed_credentials_error">上傳失敗，請重新登入</string>
     <string name="uploads_view_title">上傳</string>
     <string name="uploads_view_group_current_uploads">目前</string>
-    <string name="uploads_view_group_failed_uploads">失敗（點擊以重試）</string>
     <string name="uploads_view_group_finished_uploads">已上傳</string>
     <string name="uploads_view_upload_status_succeeded">完成</string>
     <string name="uploads_view_upload_status_cancelled">已取消</string>
@@ -534,10 +533,7 @@
     <string name="edit_share_unshare">停止分享</string>
     <string name="edit_share_done">完成</string>
 
-    <string name="action_retry_uploads">再度嘗試失敗</string>
-    <string name="action_clear_failed_uploads">清除失敗</string>
     <string name="action_clear_finished_uploads">清除已上傳項目</string>
-
     <string name="action_switch_grid_view">網格檢視</string>
     <string name="action_switch_list_view">清單檢視</string>
 
@@ -551,7 +547,6 @@
     <string name="confirmation_remove_files_alert">確認移除已選項目？</string>
     <string name="confirmation_remove_folders_alert">確認移除已選項目及內容？</string>
     <string name="maintenance_mode">伺服器正處於維護模式。</string>
-
     <string name="uploads_view_upload_status_waiting_for_charging">等待充電</string>
     <string name="actionbar_search">搜尋</string>
     <string name="files_drop_not_supported">這是 Nextcloud 的功能，請更新</string>
@@ -577,4 +572,4 @@
     <string name="contacts_backup_button">立刻備份</string>
     <string name="drawer_logout">登出</string>
     <string name="test_server_button">測試伺服器連線</string>
-</resources>
+    </resources>

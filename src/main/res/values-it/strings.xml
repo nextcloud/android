@@ -134,7 +134,6 @@
     <string name="uploader_upload_failed_credentials_error">Caricamento non riuscito, devi effettuare nuovamente l\'accesso</string>
     <string name="uploads_view_title">Caricamenti</string>
     <string name="uploads_view_group_current_uploads">Attuale</string>
-    <string name="uploads_view_group_failed_uploads">Non riuscito (tocca per riprovare)</string>
     <string name="uploads_view_group_finished_uploads">Caricati</string>
     <string name="uploads_view_upload_status_succeeded">Completati</string>
     <string name="uploads_view_upload_status_cancelled">Annullati</string>
@@ -296,8 +295,6 @@
 
     <string name="error__upload__local_file_not_copied">%1$s non può essere copiato nella cartella locale %2$s</string>
     <string name="prefs_instant_upload_path_title">Cartella caricamenti istantanei</string>
-    <string name="prefs_synced_folders_local_path_title">Cartella locale</string>
-    <string name="prefs_synced_folders_remote_path_title">Cartella remota</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Usa sottocartelle</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Archivia in sottocartelle in base a anno e mese</string>
 
@@ -437,8 +434,6 @@
     <string name="edit_share_unshare">Interrompi la condivisione</string>
     <string name="edit_share_done">completato</string>
 
-    <string name="action_retry_uploads">Nuovo tentativo non riuscito</string>
-    <string name="action_clear_failed_uploads">Cancella i caricamenti non riusciti</string>
     <string name="action_switch_grid_view">Vista Griglia</string>
     <string name="action_switch_list_view">Vista Elenco</string>
 
@@ -450,22 +445,15 @@
     <string name="confirmation_remove_files_alert">Vuoi davvero rimuovere gli elementi selezionati?</string>
     <string name="confirmation_remove_folders_alert">Vuoi davvero rimuovere gli elementi selezionati e il loro contenuto?</string>
     <string name="maintenance_mode">Server in manutenzione</string>
-
     <string name="actionbar_search">Cerca</string>
     <string name="files_drop_not_supported">Questa è una funzionalità di Nextcloud, aggiorna.</string>
     <string name="learn_more">Scopri altro</string>
-    <string name="drawer_synced_folders">Carica automaticamente</string>
     <string name="drawer_participate">Partecipa</string>
     <string name="participate_beta_headline">Prova la versione di sviluppo</string>
     <string name="participate_release_candidate_headline">Candidata al rilascio</string>
     <string name="participate_contribute_headline">Contribuisci attivamente</string>
     <string name="move_to">Sposta in&#8230;</string>
     <string name="copy_to">Copia in&#8230;</string>
-    <string name="choose_remote_folder">Scegli la cartella&#8230;</string>
-    <string name="synced_folders_loading_folders">Caricamento cartelle&#8230;</string>
-    <string name="synced_folders_no_results">Nessuna cartella di file multimediali trovata.</string>
-    <string name="synced_folders_settings">Impostazioni</string>
-    <string name="synced_folders_preferences_folder_path">Per %1$s</string>
     <plurals name="items_selected_count">
         <item quantity="one">%d selezionato</item>
         <item quantity="other">%d selezionati</item>
@@ -536,6 +524,4 @@
     <string name="privacy">Riservatezza</string>
     <string name="file_not_found">File non trovato!</string>
 
-    <string name="synced_folders_configure_folders">Configura cartelle</string>
-
-  </resources>
+    </resources>

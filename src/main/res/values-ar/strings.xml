@@ -126,7 +126,6 @@
     <string name="uploader_upload_failed_credentials_error">فشل التحميل ، تحتاج للدخول مرة أخرى</string>
     <string name="uploads_view_title">التحميلات</string>
     <string name="uploads_view_group_current_uploads">الحالي</string>
-    <string name="uploads_view_group_failed_uploads">فشل (إلمس لإعادة المحاولة)</string>
     <string name="uploads_view_group_finished_uploads">تم رفعه</string>
     <string name="uploads_view_upload_status_succeeded">مكتمل</string>
     <string name="uploads_view_upload_status_cancelled">ملغي</string>
@@ -381,5 +380,5 @@
     <string name="privacy">الخصوصية</string>
     <string name="file_not_found">المجلد غير موجود !</string>
 
-  <string name="test_server_button">أفحص أتصال الخادم</string>
-</resources>
+    <string name="test_server_button">أفحص أتصال الخادم</string>
+    </resources>

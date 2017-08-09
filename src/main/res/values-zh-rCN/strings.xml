@@ -172,7 +172,6 @@
     <string name="uploader_upload_failed_credentials_error">上传失败，你需要重新登录</string>
     <string name="uploads_view_title">上传</string>
     <string name="uploads_view_group_current_uploads">当前</string>
-    <string name="uploads_view_group_failed_uploads">失败。(轻按以重试)</string>
     <string name="uploads_view_group_finished_uploads">已上传</string>
     <string name="uploads_view_upload_status_succeeded">完成</string>
     <string name="uploads_view_upload_status_cancelled">已取消</string>
@@ -365,8 +364,6 @@
 
     <string name="error__upload__local_file_not_copied">无法复制 %1$s 到本地目录 %2$s</string>
     <string name="prefs_instant_upload_path_title">实时上传文件夹</string>
-    <string name="prefs_synced_folders_local_path_title">本地文件夹</string>
-    <string name="prefs_synced_folders_remote_path_title">远端文件夹</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">使用子文件夹</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">基于年和月存于子文件夹</string>
 
@@ -538,10 +535,7 @@
     <string name="edit_share_unshare">停止共享</string>
     <string name="edit_share_done">完成</string>
 
-    <string name="action_retry_uploads">新尝试失败</string>
-    <string name="action_clear_failed_uploads">清除失败</string>
     <string name="action_clear_finished_uploads">清除完成上传</string>
-
     <string name="action_switch_grid_view">网格视图</string>
     <string name="action_switch_list_view">列表视图</string>
 
@@ -555,12 +549,10 @@
     <string name="confirmation_remove_files_alert">你是否真的要删除所选的项目？</string>
     <string name="confirmation_remove_folders_alert">你是否真的要删除所选的项目和它们的内容？</string>
     <string name="maintenance_mode">服务器处于维护模式</string>
-
     <string name="uploads_view_upload_status_waiting_for_charging">等待收费</string>
     <string name="actionbar_search">搜索</string>
     <string name="files_drop_not_supported">这是一个Nextcloud的特征，请更新</string>
     <string name="learn_more">学习更多</string>
-    <string name="drawer_synced_folders">自动上传</string>
     <string name="drawer_participate">参加</string>
     <string name="participate_testing_headline">通过测试帮助</string>
     <string name="participate_testing_bug_text">发现错误？细节？</string>
@@ -579,13 +571,6 @@
     <string name="participate_contribute_github_text">查看，修改和编写代码，有关详细信息，请参阅%1$s</string>
     <string name="move_to">转移到&#8230;</string>
     <string name="copy_to">复制到</string>
-    <string name="choose_remote_folder">选择文件夹&#8230;</string>
-    <string name="synced_folders_loading_folders">加载文件夹&#8230;</string>
-    <string name="synced_folders_no_results">没有发现媒体文件夹</string>
-    <string name="synced_folders_preferences">自动上传的首选项</string>
-    <string name="synced_folders_settings">设置</string>
-    <string name="synced_folders_new_info">即时上传已完全重新整理。 从主菜单重新配置您的自动上传。\ n \ n请使用新的的和扩展的自动上传。</string>
-    <string name="synced_folders_preferences_folder_path">为%1$s</string>
     <plurals name="items_selected_count">
         <item quantity="other">%d被选择</item>
     </plurals>
@@ -667,7 +652,5 @@
     <string name="privacy">隐私</string>
     <string name="file_not_found">文件未找到</string>
 
-    <string name="synced_folders_configure_folders">配置文件夹</string>
-
-  <string name="test_server_button">测试服务连接</string>
-</resources>
+    <string name="test_server_button">测试服务连接</string>
+    </resources>

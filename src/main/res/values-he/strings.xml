@@ -91,7 +91,6 @@
     <string name="uploader_upload_failed_credentials_error">העלאה נכשלה, יש להתחבר מחדש</string>
     <string name="uploads_view_title">העלאות</string>
     <string name="uploads_view_group_current_uploads">נוכחי</string>
-    <string name="uploads_view_group_failed_uploads">נכשל (יש להקיש לניסיון נוסף)</string>
     <string name="uploads_view_group_finished_uploads">הועלה</string>
     <string name="uploads_view_upload_status_succeeded">הושלם</string>
     <string name="uploads_view_upload_status_cancelled">בוטל</string>
@@ -223,8 +222,6 @@
 
     <string name="preview_image_description">תצוגה מקדימה לתמונה</string>
     <string name="error__upload__local_file_not_copied">%1$s לא ניתן להעתקה לתיקייה מקומית %2$s</string>
-    <string name="prefs_synced_folders_local_path_title">תיקייה מקומית</string>
-    <string name="prefs_synced_folders_remote_path_title">תיקייה מרוחקת</string>
     <string name="share_link_file_no_exist">לא ניתן לשתף. יש לבדוק אם הקובץ קיים</string>
 	<string name="share_link_file_error">שגיאה אירעה בזמן ניסיון לשתף קובץ זה או תיקייה זו</string>
 	<string name="unshare_link_file_no_exist">לא ניתן לבטל שיתוף. יש לבדוק אם הקובץ קיים</string>
@@ -335,7 +332,6 @@
     <string name="edit_share_unshare">הפסקת שיתוף</string>
     <string name="edit_share_done">הסתיים</string>
 
-    <string name="action_clear_failed_uploads">ניקוי נכשל</string>
     <string name="action_switch_grid_view">תצוגת טבלה</string>
     <string name="action_switch_list_view">תצוגת רשימה</string>
 
@@ -349,9 +345,6 @@
 </string>
     <string name="copy_to">העתק אל&#8230;
 </string>
-    <string name="choose_remote_folder">בחר תיקייה&#8230;</string>
-    <string name="synced_folders_no_results">לא נמצאו תיקיות מדיה</string>
-    <string name="synced_folders_settings">הגדרות</string>
     <string name="upload_file_dialog_filename">שם קובץ</string>
     <string name="upload_file_dialog_filetype">סוג קובץ</string>
     <string name="storage_description_default">ברירת מחדל</string>

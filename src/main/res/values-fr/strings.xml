@@ -169,7 +169,6 @@
     <string name="uploader_upload_failed_credentials_error">Le téléversement a échoué, vous devez vous reconnecter</string>
     <string name="uploads_view_title">Historique des envois</string>
     <string name="uploads_view_group_current_uploads">Actuellement</string>
-    <string name="uploads_view_group_failed_uploads">Échoué (appuyer pour réessayer)</string>
     <string name="uploads_view_group_finished_uploads">Envoyé</string>
     <string name="uploads_view_upload_status_succeeded">Terminé</string>
     <string name="uploads_view_upload_status_cancelled">Annulé</string>
@@ -362,8 +361,6 @@
 
     <string name="error__upload__local_file_not_copied">%1$s n\'a pas pu être copié dans le dossier local %2$s</string>
     <string name="prefs_instant_upload_path_title">Téléversement immédiat du dossier</string>
-    <string name="prefs_synced_folders_local_path_title">Dossier local</string>
-    <string name="prefs_synced_folders_remote_path_title">Dossier distant</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Utiliser des sous-dossiers</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Stocker dans des sous-dossiers basés sur années et mois</string>
 
@@ -535,11 +532,8 @@
     <string name="edit_share_unshare">Terminer le partage</string>
     <string name="edit_share_done">Terminé</string>
 
-    <string name="action_retry_uploads">Réessayer les téléversements échoués</string>
-    <string name="action_clear_failed_uploads">Effacer les échoués</string>
     <string name="action_clear_successful_uploads">Effacer les envois réussis</string>
     <string name="action_clear_finished_uploads">Effacer tous les téléversements terminés</string>
-
     <string name="action_switch_grid_view">Affichage mosaïque</string>
     <string name="action_switch_list_view">Affichage liste</string>
 
@@ -553,12 +547,10 @@
     <string name="confirmation_remove_files_alert">Voulez-vous vraiment supprimer les éléments sélectionnés ?</string>
     <string name="confirmation_remove_folders_alert">Voulez-vous vraiment supprimer les éléments sélectionnés et leurs contenus ?</string>
     <string name="maintenance_mode">Serveur en mode de maintenance</string>
-
     <string name="uploads_view_upload_status_waiting_for_charging">En attente de recharge de l\'appareil</string>
     <string name="actionbar_search">Rechercher</string>
     <string name="files_drop_not_supported">Il s\'agit d\'une fonctionnalité de Nextcloud ; veuillez mettre à jour..</string>
     <string name="learn_more">En apprendre plus</string>
-    <string name="drawer_synced_folders">Téléversement automatique</string>
     <string name="drawer_participate">Participer</string>
     <string name="participate_testing_headline">Aidez nous en le testant</string>
     <string name="participate_testing_bug_text">Vous avez trouvé un bug ? Quelque chose vous semble étrange ?</string>
@@ -577,13 +569,6 @@
     <string name="participate_contribute_github_text">Vérifier, corriger et écrire du code, voir %1$s pour plus de détails</string>
     <string name="move_to">Déplacer vers&#8230;</string>
     <string name="copy_to">Copier vers&#8230;</string>
-    <string name="choose_remote_folder">Sélectionner le dossier&#8230;</string>
-    <string name="synced_folders_loading_folders">Chargement des dossiers&#8230;</string>
-    <string name="synced_folders_no_results">Aucun dossier média trouvé.</string>
-    <string name="synced_folders_preferences">Préférences pour le téléversement automatique</string>
-    <string name="synced_folders_settings">Paramètres</string>
-    <string name="synced_folders_new_info">Le téléversement immédiat a été complètement réorganisé. Merci de bien vouloir accéder au menu principal et de reconfigurer votre téléversement automatique.\n\nProfitez des nouvelles capacités étendues du téléversement automatique.</string>
-    <string name="synced_folders_preferences_folder_path">Pour %1$s</string>
     <plurals name="items_selected_count">
         <item quantity="one">%d sélectionné</item>
         <item quantity="other">%d sélectionnés</item>
@@ -666,7 +651,5 @@
     <string name="privacy">Vie privée</string>
     <string name="file_not_found">Fichier non trouvé !</string>
 
-    <string name="synced_folders_configure_folders">Configurer les dossiers</string>
-
-  <string name="test_server_button">Tester la connexion du serveur</string>
-</resources>
+    <string name="test_server_button">Tester la connexion du serveur</string>
+    </resources>

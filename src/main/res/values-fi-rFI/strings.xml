@@ -144,7 +144,6 @@
     <string name="uploader_upload_failed_credentials_error">Lähetys epäonnistui, kirjaudu sisään uudelleen</string>
     <string name="uploads_view_title">Lataukset</string>
     <string name="uploads_view_group_current_uploads">Nykyiset</string>
-    <string name="uploads_view_group_failed_uploads">Epäonnistui (napauta yrittääksesi uudelleen)</string>
     <string name="uploads_view_group_finished_uploads">Lähetetty</string>
     <string name="uploads_view_upload_status_succeeded">Valmiina</string>
     <string name="uploads_view_upload_status_cancelled">Peruttu</string>
@@ -290,8 +289,6 @@
     <string name="preview_image_error_unknown_format">Kuvan näyttäminen ei onnistunut</string>
 
     <string name="prefs_instant_upload_path_title">Välitön lähetys kansio</string>
-    <string name="prefs_synced_folders_local_path_title">Paikallinen kansio</string>
-    <string name="prefs_synced_folders_remote_path_title">Etäkansio</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Käytä alikansioita</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Tallenna alikansioihin vuoden ja kuukauden mukaisesti.</string>
 
@@ -415,8 +412,6 @@
     <string name="edit_share_unshare">Lopeta jakaminen</string>
     <string name="edit_share_done">valmis</string>
 
-    <string name="action_retry_uploads">Uusi yritys epäonnistui</string>
-    <string name="action_clear_failed_uploads">Tyhjennä epäonnistuneet</string>
     <string name="action_switch_grid_view">Ruudukkonäkymä</string>
     <string name="action_switch_list_view">Luettelonäkymä</string>
 
@@ -428,20 +423,13 @@
     <string name="confirmation_remove_files_alert">Haluatko todella poistaa valitut?</string>
     <string name="confirmation_remove_folders_alert">Haluatko todella poistaa valitut ja niiden sisällön?</string>
     <string name="maintenance_mode">Palvelin on huoltotilassa</string>
-
     <string name="actionbar_search">Etsi</string>
     <string name="files_drop_not_supported">Tämä on Nextcloudin ominaisuus, päivitä se.</string>
     <string name="learn_more">Opi lisää</string>
-    <string name="drawer_synced_folders">Automaattinen lähetys</string>
     <string name="drawer_participate">Osallitu</string>
     <string name="participate_release_candidate_headline">Julkaisu ehdokas</string>
     <string name="move_to">Siirrä kohteeseen&#8230;</string>
     <string name="copy_to">Kopio kohteeseen&#8230;</string>
-    <string name="choose_remote_folder">Valitse kansio&#8230;</string>
-    <string name="synced_folders_loading_folders">Ladataan kansiot&#8230;</string>
-    <string name="synced_folders_no_results">Media kansioita ei löytynyt.</string>
-    <string name="synced_folders_settings">Asetukset</string>
-    <string name="synced_folders_preferences_folder_path">%1$s varten</string>
     <plurals name="items_selected_count">
         <item quantity="one">%d valittu</item>
         <item quantity="other">%d valittu</item>

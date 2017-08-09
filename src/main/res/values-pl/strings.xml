@@ -164,7 +164,6 @@
     <string name="uploader_upload_failed_credentials_error">Błąd przy wysyłaniu zaloguj się ponownie</string>
     <string name="uploads_view_title">Wysłane</string>
     <string name="uploads_view_group_current_uploads">Obecny</string>
-    <string name="uploads_view_group_failed_uploads">Błąd (kliknij, by ponowić)</string>
     <string name="uploads_view_group_finished_uploads">Wysłane</string>
     <string name="uploads_view_upload_status_succeeded">Ukończono</string>
     <string name="uploads_view_upload_status_cancelled">Przerwano</string>
@@ -357,8 +356,6 @@
 
     <string name="error__upload__local_file_not_copied">%1$s nie może zostać skopiowany do lokalnego folderu %2$s</string>
     <string name="prefs_instant_upload_path_title">Folder natychmiastowego wysyłania</string>
-    <string name="prefs_synced_folders_local_path_title">Folder lokalny</string>
-    <string name="prefs_synced_folders_remote_path_title">Folder zdalny</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Używaj podfolderów</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Zapisz w podfolderach opartych na roku oraz miesiącu</string>
 
@@ -517,10 +514,7 @@
     <string name="edit_share_unshare">Cofnij udostępnianie</string>
     <string name="edit_share_done">zakończono</string>
 
-    <string name="action_retry_uploads">Próba nieudana</string>
-    <string name="action_clear_failed_uploads">Wyczyść nieudane</string>
     <string name="action_clear_finished_uploads">Wyczyść zakończone wysyłania</string>
-
     <string name="action_switch_grid_view">Widok siatki</string>
     <string name="action_switch_list_view">Widok listy</string>
 
@@ -534,12 +528,10 @@
     <string name="confirmation_remove_files_alert">Czy naprawdę chcesz usunąć zaznaczone elementy?</string>
     <string name="confirmation_remove_folders_alert">Czy naprawdę chcesz usunąć zaznaczone elementy oraz ich zawartość?</string>
     <string name="maintenance_mode">Serwer w trybie konserwacji</string>
-
     <string name="uploads_view_upload_status_waiting_for_charging">Oczekiwanie na ładowanie urządzenia</string>
     <string name="actionbar_search">Wyszukaj</string>
     <string name="files_drop_not_supported">Ta funkcja jest dostępna w Nextcloud, prosimy wykonać aktualizację</string>
     <string name="learn_more">Dowiedz się więcej</string>
-    <string name="drawer_synced_folders">Automatyczne przesyłanie</string>
     <string name="drawer_participate">Wspieraj</string>
     <string name="participate_testing_headline">Pomóż nam testować</string>
     <string name="participate_testing_bug_text">Znaleziono błąd? Jest coś dziwnego?</string>
@@ -550,13 +542,6 @@
     <string name="participate_contribute_headline">Aktywni członkowie projektu</string>
     <string name="move_to">Przenieś do&#8230;</string>
     <string name="copy_to">Skopiuj do&#8230;</string>
-    <string name="choose_remote_folder">Wybierz folder&#8230;</string>
-    <string name="synced_folders_loading_folders">Ładowanie folderów&#8230;</string>
-    <string name="synced_folders_no_results">Nie znaleziono folderów multimedialnych.</string>
-    <string name="synced_folders_preferences">Preferencje automatycznego wysyłania</string>
-    <string name="synced_folders_settings">Ustawienia</string>
-    <string name="synced_folders_new_info">Natychmiastowe wysyłanie zostało kompletnie zmienione. Proszę sprawdzić główne menu i zrekonfigurować automatyczne wysyłanie. Przepraszamy za niedogodności.\n\nCiesz się z nowych i rozbudowanych możliwości automatycznego wysyłania!</string>
-    <string name="synced_folders_preferences_folder_path">Dla %1$s</string>
     <plurals name="items_selected_count">
         <item quantity="one">%d zaznaczony</item>
         <item quantity="few">%d zaznaczone</item>
@@ -641,6 +626,4 @@
     <string name="privacy">Prywatność</string>
     <string name="file_not_found">Nie odnaleziono pliku</string>
 
-    <string name="synced_folders_configure_folders">Skonfiguruj foldery</string>
-
-  </resources>
+    </resources>
