@@ -684,7 +684,7 @@ public class OperationsService extends Service {
                     // Copy file/folder
                     String remotePath = operationIntent.getStringExtra(EXTRA_REMOTE_PATH);
                     String newParentPath = operationIntent.getStringExtra(EXTRA_NEW_PARENT_PATH);
-                    operation = new CopyFileOperation(remotePath, newParentPath, account);
+                    operation = new CopyFileOperation(remotePath, newParentPath);
 
                 } else if (action.equals(ACTION_CHECK_CURRENT_CREDENTIALS)) {
                     // Check validity of currently stored credentials for a given account
