@@ -65,8 +65,6 @@
     <string name="prefs_recommend">Rekomandojani një miku </string>
     <string name="prefs_feedback">Përshtypje</string>
     <string name="prefs_imprint">Imprint</string>
-    <string name="prefs_remember_last_share_location">Mbaj mend vendin e shpërndarjes</string>
-    <string name="prefs_remember_last_upload_location_summary">Mbaj mend vendin e shpërndarjes së përdorur së fundmi</string>
 
 	<string name="recommend_subject">Provojeni %1$s te telefoni juaj!</string>
 	<string name="recommend_text">Dua t’ju ftoj të përdorni %1$s në telefonin tuaj!\nShkarko këtu: %2$s</string>

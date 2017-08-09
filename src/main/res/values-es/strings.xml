@@ -65,8 +65,6 @@
     <string name="prefs_recommend">Recomendar a un amigo</string>
     <string name="prefs_feedback">Observaciones</string>
     <string name="prefs_imprint">Pie de imprenta</string>
-    <string name="prefs_remember_last_share_location">Recordar la localización del compartido</string>
-    <string name="prefs_remember_last_upload_location_summary">Recordar la localización del compartido más recientemente usado</string>
 
 	<string name="recommend_subject">¡Prueba  %1$s en tu smarthphone!</string>
 	<string name="recommend_text">Quiero invitarte a usar %1$s en tu móvil.\nDescárgalo aquí: %2$s</string>

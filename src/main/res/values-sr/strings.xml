@@ -64,8 +64,6 @@
     <string name="prefs_recommend">Препоручите пријатељу</string>
     <string name="prefs_feedback">Ваше мишљење</string>
     <string name="prefs_imprint">Жиг</string>
-    <string name="prefs_remember_last_share_location">Запамти локацију дељења</string>
-    <string name="prefs_remember_last_upload_location_summary">Запамти локацију скорашњег дељења</string>
 
 	<string name="recommend_subject">Пробајте %1$s на вашем телефону!</string>
 	<string name="recommend_text">Позивам те да користиш%1$s на твом телефону.\nПреузмите овде:%2$s</string>

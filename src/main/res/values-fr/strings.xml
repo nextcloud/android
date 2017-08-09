@@ -66,8 +66,6 @@
     <string name="prefs_recommend">Recommander à un ami</string>
     <string name="prefs_feedback">Nous contacter par mail</string>
     <string name="prefs_imprint">Mentions</string>
-    <string name="prefs_remember_last_share_location">Mémoriser l\'emplacement de partage</string>
-    <string name="prefs_remember_last_upload_location_summary">Mémoriser le dernier emplacement de téléversement</string>
 
 	<string name="recommend_subject">Essayez %1$s sur votre smartphone !</string>
 	<string name="recommend_text">J\'aimerais vous inviter à utiliser %1$s sur votre smartphone.\nTéléchargez-la ici : %2$s.</string>

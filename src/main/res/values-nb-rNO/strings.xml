@@ -65,8 +65,6 @@
     <string name="prefs_recommend">Anbefal til en venn</string>
     <string name="prefs_feedback">Tilbakemelding</string>
     <string name="prefs_imprint">Avtrykk</string>
-    <string name="prefs_remember_last_share_location">Husk delt plassering</string>
-    <string name="prefs_remember_last_upload_location_summary">Husk sist delt plassering for opplasting</string>
 
 	<string name="recommend_subject">Prøv %1$s på smarttelefonen din!</string>
 	<string name="recommend_text">Jeg ønsker å invitere deg til å bruke %1$s på smarttelefonen din!\nLast ned her: %2$s</string>

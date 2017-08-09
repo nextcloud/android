@@ -64,8 +64,6 @@
     <string name="prefs_recommend">Poleć znajomemu</string>
     <string name="prefs_feedback">Opinie</string>
     <string name="prefs_imprint">Stopka</string>
-    <string name="prefs_remember_last_share_location">Zapamiętaj położenie udostępnienia</string>
-    <string name="prefs_remember_last_upload_location_summary">Zapamiętaj ostatnią lokalizację wysyłania</string>
 
 	<string name="recommend_subject">Wypróbuj %1$s na swoim smartfonie!</string>
 	<string name="recommend_text">Zapraszam do użycia %1$s na swoim smartfonie!\nŚciągnij tutaj: %2$s</string>

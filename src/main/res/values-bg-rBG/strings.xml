@@ -63,8 +63,6 @@
     <string name="prefs_recommend">Препоръчай на приятел</string>
     <string name="prefs_feedback">Обратна връзка</string>
     <string name="prefs_imprint">Отпечатък</string>
-    <string name="prefs_remember_last_share_location">Запомни локацията за споделяне</string>
-    <string name="prefs_remember_last_upload_location_summary">Запомни последната локация за споделяне</string>
 
 	<string name="recommend_subject">Пробвайте %1$s на смартфона си!</string>
 	<string name="recommend_text">Искам да ви поканя да използвате %1$s на вашия смартфон.\nСвалете тук: %2$s</string>

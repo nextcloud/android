@@ -65,8 +65,6 @@
     <string name="prefs_recommend">向朋友推薦</string>
     <string name="prefs_feedback">回饋</string>
     <string name="prefs_imprint">法律聲明</string>
-    <string name="prefs_remember_last_share_location">記住分享位置</string>
-    <string name="prefs_remember_last_upload_location_summary">記住最近的分享位置</string>
 
 	<string name="recommend_subject">在您的手機中試用 %1$s ！</string>
 	<string name="recommend_text">我想邀請您在您的手機上使用%1$s！可以由這兒下載：%2$s</string>

@@ -60,8 +60,6 @@
     <string name="prefs_recommend">친구에게 추천하기</string>
     <string name="prefs_feedback">피드백</string>
     <string name="prefs_imprint">법적 고지</string>
-    <string name="prefs_remember_last_share_location">공유 위치 기억하기</string>
-    <string name="prefs_remember_last_upload_location_summary">가장 최근 사용된 공유 위치 기억하기</string>
 
 	<string name="recommend_subject">%1$s을(를) 스마트폰에서 사용해 보세요!</string>
 	<string name="auth_check_server">서버 확인</string>
