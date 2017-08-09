@@ -76,17 +76,17 @@ lint_report = String.new(lint_reports[0])
 # find error/warning count string in HTML report
 error_warning_string = ""
 File.open lint_report do |file|
-  error_warning_string = file.find { |line| line =~ /[0-9]* errors and [0-9]* warnings/ }
+  error_warning_string = file.find { |line| line =~ /[0-9]* error[s]? and [0-9]* warning[s]?/ }
 end
 
 # find number of errors
-error_string = error_warning_string.match(/[0-9]* errors/)[0]
+error_string = error_warning_string.match(/[0-9]* error[s]?/)[0]
 current_error_count = error_string.match(/[0-9]*/)[0].to_i
 puts "found errors: " + current_error_count.to_s
 
 # find number of warnings
 if CHECK_WARNINGS == true
-    warning_string = error_warning_string.match(/[0-9]* warnings/)[0]
+    warning_string = error_warning_string.match(/[0-9]* warning[s]?/)[0]
     current_warning_count = warning_string.match(/[0-9]*/)[0].to_i
     puts "found warnings: " + current_warning_count.to_s
 end
