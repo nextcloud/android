@@ -65,8 +65,6 @@
     <string name="prefs_recommend">Προτείνετε σε φίλο</string>
     <string name="prefs_feedback">Aνάδραση</string>
     <string name="prefs_imprint">Αποτύπωμα</string>
-    <string name="prefs_remember_last_share_location">Απομνημόνευση θέσης διαμοιρασμού</string>
-    <string name="prefs_remember_last_upload_location_summary">Απομνημόνευση τελευταιας τοποθεσίας διαμοιρασμού μεταφορτώσεων</string>
 
 	<string name="recommend_subject">Δοκιμή %1$s στο κινητό σας!</string>
 	<string name="recommend_text">Θα ήθελα να σε προσκαλέσω να χρησιμοποιήσεις το %1$s στο κινητό σου!\nΛήψη από εδώ: %2$s</string>

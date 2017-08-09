@@ -64,8 +64,6 @@
     <string name="prefs_recommend">Recomendar a un amigo</string>
     <string name="prefs_feedback">Retroalimentación</string>
     <string name="prefs_imprint">Exención de responsabilidad </string>
-    <string name="prefs_remember_last_share_location">Recordar la ubicación del elemento compartido</string>
-    <string name="prefs_remember_last_upload_location_summary">Recordar la ubicación del elemento compartido más recientemente usado</string>
 
 	<string name="recommend_subject">Prueba  %1$s en tu teléfono inteligente!</string>
 	<string name="recommend_text">Quisiera invitarlo a usar %1$s en su teléfono inteligente\nDescargue aquí: %2$s</string>

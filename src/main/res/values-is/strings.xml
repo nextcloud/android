@@ -65,8 +65,6 @@
     <string name="prefs_recommend">Mæla með við vin</string>
     <string name="prefs_feedback">Umsögn</string>
     <string name="prefs_imprint">Prenta</string>
-    <string name="prefs_remember_last_share_location">Muna staðsetningu sameignar</string>
-    <string name="prefs_remember_last_upload_location_summary">Muna staðsetningu síðast notuðu sameignar</string>
 
 	<string name="recommend_subject">Prófaðu %1$s á snjallsímanum þínum!</string>
 	<string name="recommend_text">Mig langar til að bjóða þér að nota %1$s á snjallsímanum þínum.\nHægt að sækja það hér: %2$s</string>

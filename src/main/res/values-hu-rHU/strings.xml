@@ -64,8 +64,6 @@
     <string name="prefs_recommend">Ajánlás egy barátnak</string>
     <string name="prefs_feedback">Visszajelzés</string>
     <string name="prefs_imprint">Impresszum</string>
-    <string name="prefs_remember_last_share_location">Emlékezzen a megosztás helyére</string>
-    <string name="prefs_remember_last_upload_location_summary">Emlékezzen a legutoljára használt megosztás helyére</string>
 
 	<string name="recommend_subject">Próbáld ki a %1$s-ot az okostelefonodon!</string>
 	<string name="recommend_text">Szeretnélek meghívni, hogy használd a %1$s-et az okostelefonodon.\nLetöltés itt:ˇ%2$s</string>

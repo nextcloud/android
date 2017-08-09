@@ -64,8 +64,6 @@
     <string name="prefs_recommend">友達に推奨</string>
     <string name="prefs_feedback">フィードバック</string>
     <string name="prefs_imprint">インプリント</string>
-    <string name="prefs_remember_last_share_location">共有場所を記憶する</string>
-    <string name="prefs_remember_last_upload_location_summary">最後に使用した共有場所を記憶する</string>
 
 	<string name="recommend_subject">スマートフォンで %1$s を試してください！</string>
 	<string name="recommend_text">スマートフォンで %1$s を利用してみませんか。\nここからダウンロードしてください: %2$s</string>

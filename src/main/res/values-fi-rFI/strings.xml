@@ -64,8 +64,6 @@
     <string name="prefs_recommend">Suosittele kaverille</string>
     <string name="prefs_feedback">Palaute</string>
     <string name="prefs_imprint">Tiedot</string>
-    <string name="prefs_remember_last_share_location">Muista jaon sijainti</string>
-    <string name="prefs_remember_last_upload_location_summary">Muista jaon sijainti eniten käytetyissä</string>
 
 	<string name="recommend_subject">Kokeile %1$sia älypuhelimellasi!</string>
 	<string name="auth_check_server">Tarkista palvelin</string>

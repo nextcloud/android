@@ -65,8 +65,6 @@
     <string name="prefs_recommend">推荐给朋友</string>
     <string name="prefs_feedback">反馈</string>
     <string name="prefs_imprint">版本说明</string>
-    <string name="prefs_remember_last_share_location">记住本地共享</string>
-    <string name="prefs_remember_last_upload_location_summary">记住最近的本地共享</string>
 
 	<string name="recommend_subject">在您的智能手机上试用 %1$s！</string>
 	<string name="recommend_text">我想邀请你在智能机上使用%1$s。

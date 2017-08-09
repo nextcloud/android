@@ -66,8 +66,6 @@
     <string name="prefs_recommend">Рекомендовать другу</string>
     <string name="prefs_feedback">Обратная связь</string>
     <string name="prefs_imprint">Отпечаток</string>
-    <string name="prefs_remember_last_share_location">Запомнить расположение общего ресурса</string>
-    <string name="prefs_remember_last_upload_location_summary">Запомнить расположение загрузки последней публикации</string>
 
 	<string name="recommend_subject">Попробуйте %1$s на вашем смартфоне!</string>
 	<string name="recommend_text">Хочу предложить вам использовать %1$s на смартфоне!\nЗагрузить можно здесь: %2$s

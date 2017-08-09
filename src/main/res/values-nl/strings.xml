@@ -64,8 +64,6 @@
     <string name="prefs_recommend">Aanbevelen bij vriend</string>
     <string name="prefs_feedback">Feedback</string>
     <string name="prefs_imprint">afdruk</string>
-    <string name="prefs_remember_last_share_location">Onthoud de share locatie</string>
-    <string name="prefs_remember_last_upload_location_summary">Onthoud de laatst gebruikte share locatie</string>
 
 	<string name="recommend_subject">Probeer %1$s op je smartphone!</string>
 	<string name="recommend_text">Ik wil je uitnodigen om %1$s op je smartphone te gebruiken.\nDownload hier: %2$s</string>

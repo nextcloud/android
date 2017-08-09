@@ -65,8 +65,6 @@
     <string name="prefs_recommend">Arkadaşına öner</string>
     <string name="prefs_feedback">Geri bildirim</string>
     <string name="prefs_imprint">İzlenim</string>
-    <string name="prefs_remember_last_share_location">Paylaşılacak konum hatırlansın</string>
-    <string name="prefs_remember_last_upload_location_summary">Son kullanılan konumlar paylaşılmak üzere hatırlanır</string>
 
 	<string name="recommend_subject">%1$s uygulamasını akıllı telefonunuzda deneyin!</string>
 	<string name="recommend_text">Akıllı telefonunda %1$s kullanmanı öneriyorum!\nBuradan indirebilirsin: %2$s</string>
