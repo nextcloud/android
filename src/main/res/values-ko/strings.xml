@@ -12,7 +12,6 @@
     <string name="actionbar_see_details">자세한 정보</string>
     <string name="actionbar_send_file">보내기</string>
     <string name="actionbar_sort">정렬</string>
-    <string name="actionbar_sort_title">정렬 순서</string>
     <string name="sort_by">정렬</string>
     <string name="menu_item_sort_by_name_a_z">A - Z</string>
     <string name="menu_item_sort_by_name_z_a">Z - A</string>

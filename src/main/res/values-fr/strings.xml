@@ -12,7 +12,6 @@
     <string name="actionbar_see_details">Propriétés</string>
     <string name="actionbar_send_file">Exporter</string>
     <string name="actionbar_sort">Trier</string>
-    <string name="actionbar_sort_title">Trier par</string>
     <string name="sort_by">Trier par</string>
     <string name="menu_item_sort_by_name_a_z">De A à Z</string>
     <string name="menu_item_sort_by_name_z_a"> De Z à A</string>

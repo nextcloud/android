@@ -13,7 +13,6 @@
     <string name="actionbar_see_details">Подробно</string>
     <string name="actionbar_send_file">Отправить</string>
     <string name="actionbar_sort">Сортировка</string>
-    <string name="actionbar_sort_title">Сортировать по</string>
     <string name="sort_by">Порядок сортировки</string>
     <string name="menu_item_sort_by_name_a_z">А–Я</string>
     <string name="menu_item_sort_by_name_z_a">Я–A</string>

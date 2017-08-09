@@ -12,7 +12,6 @@
     <string name="actionbar_see_details">Λεπτομέρειες</string>
     <string name="actionbar_send_file">Αποστολή</string>
     <string name="actionbar_sort">Ταξινόμηση</string>
-    <string name="actionbar_sort_title">Ταξινόμηση κατά</string>
     <string name="sort_by">Ταξινόμηση κατά</string>
     <string name="menu_item_sort_by_name_a_z">Α - Ω</string>
     <string name="menu_item_sort_by_name_z_a">Ω - Α</string>
