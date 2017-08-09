@@ -46,14 +46,6 @@
     <string name="prefs_fingerprint_notsetup">Aucune empreinte digitale n\'a été installée.</string>
     <string name="prefs_expert_mode">Mode Expert</string>
     <string name="prefs_show_hidden_files">Afficher les fichiers masqués</string>
-    <string name="prefs_instant_upload">Téléversements immédiats de photos</string>
-    <string name="prefs_instant_upload_summary">Téléverser immédiatement les photos prises par l\'appareil photo</string>
-    <string name="prefs_instant_video_upload">Téléversements immédiats de vidéos</string>
-    <string name="prefs_instant_video_upload_summary">Téléverser immédiatement les vidéos prises par l\'appareil photo</string>
-    <string name="prefs_log_title">Activer la journalisation</string>
-    <string name="prefs_log_summary">Cela est utilisé pour la journalisation des problèmes</string>
-    <string name="prefs_log_title_history">Historique de la journalisation</string>
-    <string name="prefs_log_summary_history">Cela affiche les logs enregistrés</string>
     <string name="prefs_log_delete_history_button">Effacer le journal</string>
     <string name="prefs_calendar_contacts">Configurer la synchronisation de l\'agenda et des contacts</string>
     <string name="prefs_calendar_contacts_summary">Configurer DAVdroid (v1.3.0+) pour le compte actuel</string>

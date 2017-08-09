@@ -44,14 +44,6 @@
     <string name="prefs_fingerprint">Blocco con impronta digitale</string>
     <string name="prefs_fingerprint_notsetup">Non è stata impostata alcuna impronta digitale</string>
     <string name="prefs_show_hidden_files">Mostra i file nascosti</string>
-    <string name="prefs_instant_upload">Caricamenti istantanei delle immagini</string>
-    <string name="prefs_instant_upload_summary">Carica immediatamente le immagini scattate dalla fotocamera</string>
-    <string name="prefs_instant_video_upload">Caricamenti istantanei dei video</string>
-    <string name="prefs_instant_video_upload_summary">Carica immediatamente i video registrati dalla fotocamera</string>
-    <string name="prefs_log_title">Abilita la registrazione</string>
-    <string name="prefs_log_summary">Usato per registrare i problemi nei log</string>
-    <string name="prefs_log_title_history">Cronologia di registrazione</string>
-    <string name="prefs_log_summary_history">Mostra i log registrati</string>
     <string name="prefs_log_delete_history_button">Elimina cronologia</string>
     <string name="prefs_calendar_contacts">Sincronizza calendario e contatti</string>
     <string name="prefs_calendar_contacts_summary">Configura DAVdroid (v1.3.0+) per l\'account corrente</string>
