@@ -1,6 +1,9 @@
 ## Script from https://github.com/tir38/android-lint-entropy-reducer at 07.05.2017
 # adapts to drone, use git username / token as parameter
 
+Encoding.default_external = Encoding::UTF_8
+Encoding.default_internal = Encoding::UTF_8
+
 puts "=================== starting Android Lint Entropy Reducer ===================="
 
 # get args
