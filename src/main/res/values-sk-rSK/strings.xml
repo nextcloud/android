@@ -29,14 +29,9 @@
     <string name="drawer_open">Otvoriť</string>
     <string name="prefs_category_general">Všeobecné</string>
     <string name="prefs_category_more">Viac</string>
-    <string name="prefs_accounts">Účty</string>
     <string name="prefs_manage_accounts">Správa účtov</string>
     <string name="prefs_passcode">Heslo</string>
     <string name="prefs_show_hidden_files">Zobraziť skryté súbory</string>
-    <string name="prefs_log_title">Povoliť logovanie</string>
-    <string name="prefs_log_summary">Toto je použité pre logovanie problémov</string>
-    <string name="prefs_log_title_history">História logovania</string>
-    <string name="prefs_log_summary_history">Toto zobrazuje zaznamenané logy</string>
     <string name="prefs_log_delete_history_button">Vymazať históriu</string>
     <string name="prefs_calendar_contacts">Synchronizovať kalendár a kontakty</string>
     <string name="prefs_calendar_contacts_summary">Nastaviť DAVdroid (v1.3.0+) pre tento účet</string>

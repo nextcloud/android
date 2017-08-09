@@ -39,7 +39,6 @@
     <string name="drawer_open">Hape</string>
     <string name="prefs_category_general">Të përgjithshme</string>
     <string name="prefs_category_more">Më tepër</string>
-    <string name="prefs_accounts">Llogaritë</string>
     <string name="prefs_manage_accounts">Administroni llogaritë</string>
     <string name="prefs_passcode">Kyçje kodkalimi</string>
     <string name="prefs_fingerprint">Kyçuni me shenjat e gishtave</string>

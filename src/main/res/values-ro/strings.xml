@@ -38,14 +38,9 @@
     <string name="drawer_open">Deschide</string>
     <string name="prefs_category_general">General</string>
     <string name="prefs_category_more">Mai mult</string>
-    <string name="prefs_accounts">Conturi</string>
     <string name="prefs_manage_accounts">Administrare conturi</string>
     <string name="prefs_passcode">Parolă blocare</string>
     <string name="prefs_show_hidden_files">Arată fișierele ascunse</string>
-    <string name="prefs_log_title">Activează înregistrarea / jurnalizarea activităților</string>
-    <string name="prefs_log_summary">Acesta este folosit pentru a înregistra problemele</string>
-    <string name="prefs_log_title_history">Istoric activități jurnalizate</string>
-    <string name="prefs_log_summary_history">Asta arată înregistrările salvate</string>
     <string name="prefs_log_delete_history_button">Șterge istoricul</string>
     <string name="prefs_calendar_contacts">Sincronizați calendarul și contactele</string>
     <string name="prefs_calendar_contacts_summary">Setează DAVdroid (v1.3.0+) pentru acest cont</string>

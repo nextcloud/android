@@ -39,7 +39,6 @@
     <string name="drawer_open">Öffnen</string>
     <string name="prefs_category_general">Allgemein</string>
     <string name="prefs_category_more">Mehr</string>
-    <string name="prefs_accounts">Konten</string>
     <string name="prefs_manage_accounts">Konten verwalten</string>
     <string name="prefs_passcode">PIN gesperrt</string>
     <string name="prefs_fingerprint">Fingerabdruck-Sperre</string>

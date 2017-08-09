@@ -39,7 +39,6 @@
     <string name="drawer_open">Otwórz</string>
     <string name="prefs_category_general">Ogólne</string>
     <string name="prefs_category_more">Więcej</string>
-    <string name="prefs_accounts">Konta</string>
     <string name="prefs_manage_accounts">Zarządzaj kontami</string>
     <string name="prefs_passcode">Blokada kodem PIN</string>
     <string name="prefs_fingerprint">Blokada odciskiem palca</string>

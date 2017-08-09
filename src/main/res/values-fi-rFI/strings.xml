@@ -39,7 +39,6 @@
     <string name="drawer_open">Avaa</string>
     <string name="prefs_category_general">Yleiset</string>
     <string name="prefs_category_more">Enemmän</string>
-    <string name="prefs_accounts">Tilit</string>
     <string name="prefs_manage_accounts">Tilien hallinta</string>
     <string name="prefs_passcode">Suojakoodilukitus</string>
     <string name="prefs_fingerprint">Sormenjälkilukitus</string>

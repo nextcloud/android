@@ -39,7 +39,6 @@
     <string name="drawer_open">Aç</string>
     <string name="prefs_category_general">Genel</string>
     <string name="prefs_category_more">Daha fazla</string>
-    <string name="prefs_accounts">Hesaplar</string>
     <string name="prefs_manage_accounts">Hesap yönetimi</string>
     <string name="prefs_passcode">Parola kod kilidi</string>
     <string name="prefs_fingerprint">Parmak izi kilidi</string>

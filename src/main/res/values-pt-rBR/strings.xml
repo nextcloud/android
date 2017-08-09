@@ -39,7 +39,6 @@
     <string name="drawer_open">Abrir</string>
     <string name="prefs_category_general">Geral</string>
     <string name="prefs_category_more">Mais</string>
-    <string name="prefs_accounts">Contas</string>
     <string name="prefs_manage_accounts">Gerenciar contas</string>
     <string name="prefs_passcode">Bloqueio de código de acesso</string>
     <string name="prefs_fingerprint">Bloqueio por impressão digital</string>

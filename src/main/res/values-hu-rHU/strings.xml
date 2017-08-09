@@ -39,7 +39,6 @@
     <string name="drawer_open">Megnyitás</string>
     <string name="prefs_category_general">Általános</string>
     <string name="prefs_category_more">Több</string>
-    <string name="prefs_accounts">Fiókok</string>
     <string name="prefs_manage_accounts">Fiókok kezelése</string>
     <string name="prefs_passcode">Számkódos lezárás</string>
     <string name="prefs_fingerprint">Lezárás Újjlenyomattal</string>

@@ -39,7 +39,6 @@
     <string name="drawer_open">開く</string>
     <string name="prefs_category_general">一般</string>
     <string name="prefs_category_more">もっと見る</string>
-    <string name="prefs_accounts">アカウント</string>
     <string name="prefs_manage_accounts">アカウント管理</string>
     <string name="prefs_passcode">パスコードロック</string>
     <string name="prefs_fingerprint">指紋ロック</string>

@@ -38,7 +38,6 @@
     <string name="drawer_open">Apri</string>
     <string name="prefs_category_general">Generale</string>
     <string name="prefs_category_more">Altro</string>
-    <string name="prefs_accounts">Account</string>
     <string name="prefs_manage_accounts">Gestisci account</string>
     <string name="prefs_passcode">Blocco con codice di sicurezza</string>
     <string name="prefs_fingerprint">Blocco con impronta digitale</string>

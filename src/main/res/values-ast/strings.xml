@@ -39,7 +39,6 @@
     <string name="drawer_open">Abrir</string>
     <string name="prefs_category_general">Xeneral</string>
     <string name="prefs_category_more">Más</string>
-    <string name="prefs_accounts">Cuentes</string>
     <string name="prefs_manage_accounts">Xestionar cuentes</string>
     <string name="prefs_fingerprint_notsetup">Nun se configuraron buelgues.</string>
     <string name="prefs_show_hidden_files">Amosar ficheros anubríos</string>

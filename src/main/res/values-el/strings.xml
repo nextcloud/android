@@ -39,7 +39,6 @@
     <string name="drawer_open">Άνοιγμα</string>
     <string name="prefs_category_general">Γενικά</string>
     <string name="prefs_category_more">Περισσότερα</string>
-    <string name="prefs_accounts">Λογαριασμοί</string>
     <string name="prefs_manage_accounts">Διαχείριση λογαριασμών</string>
     <string name="prefs_passcode">Κλείδωμα με κωδικό πρόσβασης</string>
     <string name="prefs_fingerprint">Κλείδωμα με αποτύπωμα</string>

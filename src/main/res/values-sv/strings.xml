@@ -29,7 +29,6 @@
     <string name="drawer_open">Öppna</string>
     <string name="prefs_category_general">Allmänt</string>
     <string name="prefs_category_more">Mer</string>
-    <string name="prefs_accounts">Konton</string>
     <string name="prefs_manage_accounts">Hantera konton</string>
     <string name="prefs_passcode">Lösenordslås</string>
     <string name="prefs_show_hidden_files">Visa dolda filer</string>
