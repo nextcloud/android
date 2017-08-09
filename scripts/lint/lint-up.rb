@@ -82,7 +82,7 @@ end
 # find number of errors
 error_string = error_warning_string.match(/[0-9]* error[s]?/)
 
-if (error_string == nil)
+if (error_string.nil?)
     current_error_count = 0
 else
     current_error_count = error_string[0].match(/[0-9]*/)[0].to_i
