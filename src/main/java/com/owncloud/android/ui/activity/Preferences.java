@@ -319,7 +319,7 @@ public class Preferences extends PreferenceActivity
             }
         }
 
-        boolean fShowHiddenFilesEnabled = getResources().getBoolean(R.bool.passcode_enabled);
+        boolean fShowHiddenFilesEnabled = getResources().getBoolean(R.bool.show_hidden_files_enabled);
         mShowHiddenFiles = (SwitchPreference) findPreference("show_hidden_files");
 
         if (fShowHiddenFilesEnabled) {

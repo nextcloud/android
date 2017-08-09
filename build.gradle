@@ -201,8 +201,8 @@ dependencies {
     implementation 'com.googlecode.ez-vcard:ez-vcard:0.10.2'
     implementation 'org.lukhnos:nnio:0.2'
     // uncomment for gplay, modified
-    // implementation "com.google.firebase:firebase-messaging:${googleLibraryVersion}"
-    // implementation "com.google.android.gms:play-services-base:${googleLibraryVersion}"
+ implementation "com.google.firebase:firebase-messaging:${googleLibraryVersion}"
+ implementation "com.google.android.gms:play-services-base:${googleLibraryVersion}"
     implementation 'org.parceler:parceler-api:1.1.6'
     annotationProcessor 'org.parceler:parceler:1.1.6'
     implementation 'com.github.bumptech.glide:glide:3.7.0'
@@ -238,4 +238,4 @@ tasks.withType(Test) {
 }
 
 // uncomment for gplay, modified (must be at the bottom)
-//apply plugin: 'com.google.gms.google-services'
+apply plugin: 'com.google.gms.google-services'
