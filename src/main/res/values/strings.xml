@@ -9,9 +9,6 @@
     <string name="actionbar_open_with">Open with</string>
     <string name="actionbar_mkdir">New folder</string>
     <string name="actionbar_settings">Settings</string>
-    <string name="actionbar_see_details">Details</string>
-    <string name="actionbar_send_file">Send</string>
-    <string name="actionbar_sort">Sort</string>
     <string name="sort_by">Sort by</string>
     <string name="menu_item_sort_by_name_a_z">A - Z</string>
     <string name="menu_item_sort_by_name_z_a">Z - A</string>
