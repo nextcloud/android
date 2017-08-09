@@ -127,7 +127,6 @@
     <string name="uploader_upload_failed_credentials_error">Вивантаження не вдалося, ви маєте зайти у систему знову.</string>
     <string name="uploads_view_title">Завантаженнь</string>
     <string name="uploads_view_group_current_uploads">Поточний</string>
-    <string name="uploads_view_group_failed_uploads">Не вдалося (торкніться щоб повторити спробу)</string>
     <string name="uploads_view_group_finished_uploads">Вивантажено</string>
     <string name="uploads_view_upload_status_succeeded">Завершені</string>
     <string name="uploads_view_upload_status_cancelled">Відмінено</string>
@@ -333,7 +332,6 @@
     <string name="participate_release_candidate_headline">Реліз-кандидат</string>
     <string name="move_to">Перемістити до&#8230;</string>
     <string name="copy_to">Копіювати до&#8230;</string>
-    <string name="choose_remote_folder">Оберіть каталог&#8230;</string>
     <plurals name="items_selected_count">
         <item quantity="one">%d обрано</item>
         <item quantity="few">%d обрано</item>

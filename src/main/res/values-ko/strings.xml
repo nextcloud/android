@@ -136,7 +136,6 @@
     <string name="uploader_upload_failed_credentials_error">업로드 실패, 다시 로그인 해야 합니다</string>
     <string name="uploads_view_title">업로드</string>
     <string name="uploads_view_group_current_uploads">현재</string>
-    <string name="uploads_view_group_failed_uploads">실패 (탭 다시 시도)</string>
     <string name="uploads_view_group_finished_uploads">업로드됨</string>
     <string name="uploads_view_upload_status_succeeded">완료됨</string>
     <string name="uploads_view_upload_status_cancelled">실패함</string>
@@ -387,7 +386,6 @@
     <string name="edit_share_unshare">공유 중지</string>
     <string name="edit_share_done">완료</string>
 
-    <string name="action_clear_failed_uploads">실패항목 지우기</string>
     <string name="action_switch_grid_view">바둑판 보기</string>
     <string name="action_switch_list_view">목록 보기</string>
 

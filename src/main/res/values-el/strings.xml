@@ -169,7 +169,6 @@
     <string name="uploader_upload_failed_credentials_error">Η μεταφόρτωση απέτυχε, πρέπει να επανασυνδεθείτε</string>
     <string name="uploads_view_title">Μεταφορτώσεις</string>
     <string name="uploads_view_group_current_uploads">Τρέχουσα</string>
-    <string name="uploads_view_group_failed_uploads">Απέτυχε (αγγίξτε για επανάληψη)</string>
     <string name="uploads_view_group_finished_uploads">Μεταφορτώθηκε</string>
     <string name="uploads_view_upload_status_succeeded">Ολοκληρωμένες</string>
     <string name="uploads_view_upload_status_cancelled">Ακυρώθηκαν</string>
@@ -362,8 +361,6 @@
 
     <string name="error__upload__local_file_not_copied">Το %1$s δεν μπόρεσε να αντιγραφεί στον τοπικό φάκελο %2$s</string>
     <string name="prefs_instant_upload_path_title">Φάκελος άμεσης μεταφόρτωσης</string>
-    <string name="prefs_synced_folders_local_path_title">Τοπικός φάκελος</string>
-    <string name="prefs_synced_folders_remote_path_title">Μετονομασία φακέλου</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Χρήση υποφακέλων</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Αποθήκευση σε υποφακέλους με βάση το χρόνο και μήνα</string>
 
@@ -535,10 +532,7 @@
     <string name="edit_share_unshare">Διακοπή διαμοιρασμού</string>
     <string name="edit_share_done">ολοκληρώθηκε</string>
 
-    <string name="action_retry_uploads">Αποτυχία επανάληψης</string>
-    <string name="action_clear_failed_uploads">Αποτυχία εκκαθάρισης</string>
     <string name="action_clear_finished_uploads">Ολοκλήρωση εκκαθάρισης όλων</string>
-
     <string name="action_switch_grid_view">Προβολή πλέγματος</string>
     <string name="action_switch_list_view">Προβολή λίστας</string>
 
@@ -552,12 +546,10 @@
     <string name="confirmation_remove_files_alert">Θέλετε να αφαιρέσετε τα επιλεγμένα αντικείμενα;</string>
     <string name="confirmation_remove_folders_alert">Θέλετε να αφαιρέσετε τα επιλεγμένα αντικείμενα με τα περιεχόμενά τους;</string>
     <string name="maintenance_mode">Ο διακομιστής είναι σε κατάσταση συντήρησης</string>
-
     <string name="uploads_view_upload_status_waiting_for_charging">Αναμονή για φόρτιση συσκευής</string>
     <string name="actionbar_search">Αναζήτηση</string>
     <string name="files_drop_not_supported">Αυτό είναι χαρακτηριστικό του Nextcloud, παρακαλούμε ενημερώστε.</string>
     <string name="learn_more">Μάθετε περισσότερα</string>
-    <string name="drawer_synced_folders">Αυτόματη μεταφόρτωση</string>
     <string name="drawer_participate">Συμμετοχή</string>
     <string name="participate_testing_headline">Βοηθήστε μας στις δοκιμές</string>
     <string name="participate_testing_bug_text">Βρήκατε σφάλμα; Κάτι σας φαίνεται παράξενο;</string>
@@ -576,13 +568,6 @@
     <string name="participate_contribute_github_text">Επιθεωρήστε, τροποποιήστε και γράψτε κώδικα, δείτε %1$s για λεπτομέρειες</string>
     <string name="move_to">Μετακίνηση σε&#8230;</string>
     <string name="copy_to">Αντιγραφή σε&#8230;</string>
-    <string name="choose_remote_folder">Επιλογή φακέλου&#8230;</string>
-    <string name="synced_folders_loading_folders">Φόρτωση φακέλων&#8230;</string>
-    <string name="synced_folders_no_results">Δεν βρέθηκαν φάκελοι πολυμέσων.</string>
-    <string name="synced_folders_preferences">Προτιμήσεις αυτόματης μεταφόρτωσης</string>
-    <string name="synced_folders_settings">Ρυθμίσεις</string>
-    <string name="synced_folders_new_info">Η άμεση μεταφόρτωση έχει ανανεωθεί τελείως. Παρακαλούμε δείτε το κυρίως μενού και ρυθμίστε ξανά την αυτόματη μεταφόρτωση. Σας ζητούμε συγγνώμη για την ενόχληση\n\nΑπολαύστε τις νέες και εκτεταμένες δυνατότητες της αυτόματης μεταφόρτωσης!</string>
-    <string name="synced_folders_preferences_folder_path">Για %1$s</string>
     <plurals name="items_selected_count">
         <item quantity="one">%d επιλέχθηκε</item>
         <item quantity="other">%d επιλέχθηκαν</item>
@@ -665,7 +650,5 @@
     <string name="privacy">Ιδιωτικότητα</string>
     <string name="file_not_found">Δεν βρέθηκε το αρχείο!</string>
 
-    <string name="synced_folders_configure_folders">Ρύθμιση φακέλων</string>
-
-  <string name="test_server_button">Δοκιμή σύνδεσης με διακομιστή</string>
-</resources>
+    <string name="test_server_button">Δοκιμή σύνδεσης με διακομιστή</string>
+    </resources>

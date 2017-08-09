@@ -151,7 +151,6 @@
     <string name="uploader_upload_failed_credentials_error">アップロードに失敗しました,ログインし直す必要があります</string>
     <string name="uploads_view_title">アップロード</string>
     <string name="uploads_view_group_current_uploads">現在</string>
-    <string name="uploads_view_group_failed_uploads">失敗(タップして再試行)</string>
     <string name="uploads_view_group_finished_uploads">アップロード済み</string>
     <string name="uploads_view_upload_status_succeeded">完了</string>
     <string name="uploads_view_upload_status_cancelled">キャンセル済</string>
@@ -290,8 +289,6 @@
     <string name="preview_image_description">イメージプレビュー</string>
     <string name="error__upload__local_file_not_copied">%1$s は、ローカルフォルダー %2$s  にコピーできませんでした。</string>
     <string name="prefs_instant_upload_path_title">自動アップロードフォルダー</string>
-    <string name="prefs_synced_folders_local_path_title">ローカルフォルダー</string>
-    <string name="prefs_synced_folders_remote_path_title">リモートフォルダー</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">サブフォルダーを利用</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">年と月を元にしたサブフォルダーに保存</string>
 
@@ -413,7 +410,6 @@
     <string name="edit_share_unshare">共有の停止</string>
     <string name="edit_share_done">完了</string>
 
-    <string name="action_clear_failed_uploads">クリアに失敗</string>
     <string name="action_switch_grid_view">グリッド表示</string>
     <string name="action_switch_list_view">リスト表示</string>
 
@@ -426,18 +422,12 @@
     <string name="actionbar_search">検索</string>
     <string name="files_drop_not_supported">これはNextCloudの機能です。更新してください。</string>
     <string name="learn_more">もっと見る</string>
-    <string name="drawer_synced_folders">自動アップロード</string>
     <string name="drawer_participate">参加する</string>
     <string name="participate_beta_headline">開発バージョンをテスト</string>
     <string name="participate_release_candidate_headline">リリース候補</string>
     <string name="participate_contribute_headline">積極的な貢献</string>
     <string name="move_to">&#8230;に移動</string>
     <string name="copy_to">&#8230;にコピー</string>
-    <string name="choose_remote_folder">&#8230; フォルダーを選択</string>
-    <string name="synced_folders_loading_folders">&#8230; フォルダを読み込み中</string>
-    <string name="synced_folders_no_results">メディアフォルダが見つかりませんでした</string>
-    <string name="synced_folders_settings">設定</string>
-    <string name="synced_folders_preferences_folder_path">%1$s の</string>
     <plurals name="items_selected_count">
         <item quantity="other">%d選択されています。</item>
     </plurals>

@@ -169,7 +169,6 @@
     <string name="uploader_upload_failed_credentials_error">Falha no envio, você precisa reautenticar-se</string>
     <string name="uploads_view_title">Envios</string>
     <string name="uploads_view_group_current_uploads">Atual</string>
-    <string name="uploads_view_group_failed_uploads">Falha (toque para tentar novamente)</string>
     <string name="uploads_view_group_finished_uploads">Enviado</string>
     <string name="uploads_view_upload_status_succeeded">Concluído</string>
     <string name="uploads_view_upload_status_cancelled">Cancelado</string>
@@ -362,8 +361,6 @@
 
     <string name="error__upload__local_file_not_copied">%1$s não pôde ser copiado para pasta local %2$s</string>
     <string name="prefs_instant_upload_path_title">Pasta de envio automático</string>
-    <string name="prefs_synced_folders_local_path_title">Pasta local</string>
-    <string name="prefs_synced_folders_remote_path_title">Pasta remota</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Usar subpastas</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Armazena em subpastas baseado no ano e mês</string>
 
@@ -535,11 +532,8 @@
     <string name="edit_share_unshare">Parar compartilhamento</string>
     <string name="edit_share_done">finalizado</string>
 
-    <string name="action_retry_uploads">Nova tentativa falhou</string>
-    <string name="action_clear_failed_uploads">Limpeza falhou</string>
     <string name="action_clear_successful_uploads">Limpar envios concluídos</string>
     <string name="action_clear_finished_uploads">Limpar envios termiandos</string>
-
     <string name="action_switch_grid_view">Vista da grade</string>
     <string name="action_switch_list_view">Lista de visualização</string>
 
@@ -553,12 +547,10 @@
     <string name="confirmation_remove_files_alert">Deseja realmente excluir os itens selecionados?</string>
     <string name="confirmation_remove_folders_alert">Deseja realmente excluir os itens selecionados e seus conteúdos?</string>
     <string name="maintenance_mode">O servidor está em modo de manutenção</string>
-
     <string name="uploads_view_upload_status_waiting_for_charging">Esperando carregar</string>
     <string name="actionbar_search">Pesquisar</string>
     <string name="files_drop_not_supported">Este é um recurso do Nextcloud. Por favor, atualize.</string>
     <string name="learn_more">Saiba mais</string>
-    <string name="drawer_synced_folders">Envio automático</string>
     <string name="drawer_participate">Participar</string>
     <string name="participate_testing_headline">Ajuda para teste</string>
     <string name="participate_testing_bug_text">Encontrou um erro? Comentários?</string>
@@ -577,13 +569,6 @@
     <string name="participate_contribute_github_text">Revise, modifique e escreva código, veja detalhes em%1$s</string>
     <string name="move_to">Mover para&#8230;</string>
     <string name="copy_to">Copiar para&#8230;</string>
-    <string name="choose_remote_folder">Escolha a pasta&#8230;</string>
-    <string name="synced_folders_loading_folders">Carregando pastas&#8230;</string>
-    <string name="synced_folders_no_results">Nenhuma pasta de mídia encontrada.</string>
-    <string name="synced_folders_preferences">Preferências do auto envio</string>
-    <string name="synced_folders_settings">Configurações</string>
-    <string name="synced_folders_new_info">O envio automático foi completamente renovado. Reconfigure-o dentro do menu principal.\n\nCurta o novo e estendido envio automático.</string>
-    <string name="synced_folders_preferences_folder_path">Para %1$s</string>
     <plurals name="items_selected_count">
         <item quantity="one">%d selecionado</item>
         <item quantity="other">%d selecionados</item>
@@ -666,7 +651,5 @@
     <string name="privacy">Privacidade</string>
     <string name="file_not_found">Arquivo não encontrado!</string>
 
-    <string name="synced_folders_configure_folders">Configurar pastas</string>
-
-  <string name="test_server_button">Teste de conexão ao servidor</string>
-</resources>
+    <string name="test_server_button">Teste de conexão ao servidor</string>
+    </resources>
