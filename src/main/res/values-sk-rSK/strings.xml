@@ -12,7 +12,6 @@
     <string name="actionbar_see_details">Podrobnosti</string>
     <string name="actionbar_send_file">Odoslať</string>
     <string name="actionbar_sort">Zoradiť</string>
-    <string name="actionbar_sort_title">Zoradiť podľa</string>
     <string name="sort_by">Zoradiť podľa</string>
     <string name="menu_item_sort_by_name_a_z">A - Z</string>
     <string name="menu_item_sort_by_name_z_a">Z - A</string>
