@@ -61,7 +61,7 @@
     <string name="recommend_urls">"%1$s or %2$s"</string>
 
     <string name="auth_check_server">Check server</string>
-    <string name="auth_host_url">Server address https://…</string>
+    <string name="auth_host_url">Server address https://&#8230;</string>
     <string name="auth_username">Username</string>
     <string name="auth_password">Password</string>
     <string name="auth_register">Do you not have a server yet?\nClick here to get one from a provider</string>
@@ -265,7 +265,7 @@
 	<string name="auth_expired_oauth_token_toast">Your authorization expired. Please, authorize again</string>
 	<string name="auth_expired_basic_auth_toast">Please enter the current password</string>
 	<string name="auth_expired_saml_sso_token_toast">Your session expired. Please connect again</string>
-	<string name="auth_connecting_auth_server">Connecting to authentication server…</string>
+	<string name="auth_connecting_auth_server">Connecting to authentication server&#8230;</string>
 	<string name="auth_unsupported_auth_method">The server does not support this authentication method</string>
 	<string name="auth_unsupported_multiaccount">%1$s does not support multiple accounts</string>
 	<string name="auth_fail_get_user_name">Your server is not returning a correct user ID, please contact an administrator</string>
@@ -293,7 +293,7 @@
     <string name="filename_forbidden_characters">Forbidden characters: / \\ &lt; &gt; : " | ? *</string>
     <string name="filename_forbidden_charaters_from_server">File name contains at least one invalid character</string>
     <string name="filename_empty">File name cannot be empty</string>
-    <string name="wait_a_moment">Wait a moment…</string>
+    <string name="wait_a_moment">Wait a moment&#8230;</string>
     <string name="wait_checking_credentials">Checking stored credentials</string>
     <string name="filedisplay_unexpected_bad_get_content">"Unexpected problem, please select the file from a different app"</string>
     <string name="filedisplay_no_file_selected">No file selected</string>
@@ -301,7 +301,7 @@
     <string name="wait_for_tmp_copy_from_private_storage">Copying file from private storage</string>
     
     <string name="oauth_check_onoff">Log in with OAuth 2.0</string> 
-    <string name="oauth_login_connection">Connecting to OAuth 2.0 server…</string>    
+    <string name="oauth_login_connection">Connecting to OAuth 2.0 server&#8230;</string>
         
     <string name="ssl_validator_header">The identity of the site could not be verified</string>
     <string name="ssl_validator_reason_cert_not_trusted">- The server certificate is not trusted</string>
