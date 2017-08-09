@@ -33,12 +33,6 @@
     <string name="prefs_manage_accounts">Hantera konton</string>
     <string name="prefs_passcode">Lösenordslås</string>
     <string name="prefs_show_hidden_files">Visa dolda filer</string>
-    <string name="prefs_instant_upload">Automatisk uppladdning av bilder</string>
-    <string name="prefs_instant_video_upload">Automatisk uppladdning av video</string>
-    <string name="prefs_log_title">Aktivera loggning</string>
-    <string name="prefs_log_summary">Används för att logga problem</string>
-    <string name="prefs_log_title_history">Logghistorik</string>
-    <string name="prefs_log_summary_history">Visar sparade loggar</string>
     <string name="prefs_log_delete_history_button">Radera historik</string>
     <string name="prefs_calendar_contacts">Synkronisera kalender &amp; kontakter</string>
     <string name="prefs_calendar_contacts_summary">Sätt upp DAVdroid (v1.3.0+) för nuvarande konto</string>

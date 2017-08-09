@@ -45,14 +45,6 @@
     <string name="prefs_fingerprint">Fingeravtrykkslås</string>
     <string name="prefs_fingerprint_notsetup">Det har ikke blitt satt opp noen fingeravtrykk.</string>
     <string name="prefs_show_hidden_files">Vis skjulte filer</string>
-    <string name="prefs_instant_upload">Umiddelbar opplasting av bilder</string>
-    <string name="prefs_instant_upload_summary">Last opp bilder tatt med kameraet med én gang</string>
-    <string name="prefs_instant_video_upload">Umiddelbar opplasting av video</string>
-    <string name="prefs_instant_video_upload_summary">Last opp videoer tatt med kameraet med én gang</string>
-    <string name="prefs_log_title">Aktiver loggføring</string>
-    <string name="prefs_log_summary">Denne er brukt til å loggføre problemer</string>
-    <string name="prefs_log_title_history">Loggføringshistorikk</string>
-    <string name="prefs_log_summary_history">Denne viser de lagrede loggene</string>
     <string name="prefs_log_delete_history_button">Slett historikk</string>
     <string name="prefs_calendar_contacts">Synkroniser kalender &amp; kontakter</string>
     <string name="prefs_calendar_contacts_summary">Sett opp DAVdroid (v1.3.0+) for nåværende konto</string>

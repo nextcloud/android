@@ -45,14 +45,6 @@
     <string name="prefs_fingerprint">指紋ロック</string>
     <string name="prefs_fingerprint_notsetup">指紋は設定されていません。</string>
     <string name="prefs_show_hidden_files">隠しファイルを表示</string>
-    <string name="prefs_instant_upload">写真の自動アップロード</string>
-    <string name="prefs_instant_upload_summary">カメラで撮影した写真を自動アップロードします</string>
-    <string name="prefs_instant_video_upload">ビデオの自動アップロード</string>
-    <string name="prefs_instant_video_upload_summary">カメラで撮影したビデオを自動アップロードします</string>
-    <string name="prefs_log_title">ログの有効化</string>
-    <string name="prefs_log_summary">これは問題をログに記録するのに使用します。</string>
-    <string name="prefs_log_title_history">ログの履歴</string>
-    <string name="prefs_log_summary_history">これは記録されたログを表示します</string>
     <string name="prefs_log_delete_history_button">履歴の削除</string>
     <string name="prefs_calendar_contacts">コンタクト &amp; カレンダーを同期</string>
     <string name="prefs_calendar_contacts_summary">DAVdroid (v1.3.0以上) を現在のアカウントで使う</string>

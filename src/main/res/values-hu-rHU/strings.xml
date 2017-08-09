@@ -45,14 +45,6 @@
     <string name="prefs_fingerprint">Lezárás Újjlenyomattal</string>
     <string name="prefs_fingerprint_notsetup">Nincs újjlenyomat beállítva.</string>
     <string name="prefs_show_hidden_files">Rejtett fájlok megjelenítése</string>
-    <string name="prefs_instant_upload">Képek azonnali feltöltése</string>
-    <string name="prefs_instant_upload_summary">Kamerával rögzített képek azonnali feltöltése</string>
-    <string name="prefs_instant_video_upload">Videó azonnali feltöltése</string>
-    <string name="prefs_instant_video_upload_summary">Kamerával rögzített videók azonnali feltöltése</string>
-    <string name="prefs_log_title">Naplózás engedélyezése</string>
-    <string name="prefs_log_summary">Ez használható a problémák naplózásához</string>
-    <string name="prefs_log_title_history">Naplózás előzménye</string>
-    <string name="prefs_log_summary_history">Ez megjeleníti a rögzített eseményeket</string>
     <string name="prefs_log_delete_history_button">Előzmények törlése</string>
     <string name="prefs_calendar_contacts">Naptár és Névjegyek szinkronizálása</string>
     <string name="prefs_calendar_contacts_summary">DAVdroid (v1.3.0+) beállítása a fiókhoz</string>

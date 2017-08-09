@@ -45,14 +45,6 @@
     <string name="prefs_fingerprint">지문 잠금</string>
     <string name="prefs_fingerprint_notsetup">설정된 지문이 없습니다.</string>
     <string name="prefs_show_hidden_files">숨겨진 파일보기</string>
-    <string name="prefs_instant_upload">사진 즉시 업로드</string>
-    <string name="prefs_instant_upload_summary">카메라로 촬영된 사진 즉시 업로드</string>
-    <string name="prefs_instant_video_upload">비디오 즉시 업로드</string>
-    <string name="prefs_instant_video_upload_summary">카메라로 녹화된 비디오 즉시 업로드</string>
-    <string name="prefs_log_title">로깅 사용</string>
-    <string name="prefs_log_summary">문제점을 기록하는 데 사용됩니다</string>
-    <string name="prefs_log_title_history">로깅 내역</string>
-    <string name="prefs_log_summary_history">여기서 기록된 로그를 보여줍니다</string>
     <string name="prefs_log_delete_history_button">내역 삭제</string>
     <string name="prefs_calendar_contacts_no_store_error">F-droid 나 Google Play 가 설치되어 있지 않습니다.</string>
     <string name="prefs_help">도움말</string>

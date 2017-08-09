@@ -46,14 +46,6 @@
     <string name="prefs_fingerprint_notsetup">Nenhuma impressão digital foi configurada.</string>
     <string name="prefs_expert_mode">Modo avançado</string>
     <string name="prefs_show_hidden_files">Mostrar arquivos ocultos</string>
-    <string name="prefs_instant_upload">Envio automático de imagens</string>
-    <string name="prefs_instant_upload_summary">Enviar automaticamente as imagens tiradas pela câmera</string>
-    <string name="prefs_instant_video_upload">Envio automático de vídeos.</string>
-    <string name="prefs_instant_video_upload_summary">Enviar automaticamente os vídeos gravados pela câmera</string>
-    <string name="prefs_log_title">Habilitar login</string>
-    <string name="prefs_log_summary">Usado para registrar problemas</string>
-    <string name="prefs_log_title_history">Histórico de logins</string>
-    <string name="prefs_log_summary_history">Mostra os registros gravados</string>
     <string name="prefs_log_delete_history_button">Eliminar histórico</string>
     <string name="prefs_calendar_contacts">sincronizar calendário &amp; contatos</string>
     <string name="prefs_calendar_contacts_summary">Configurar o DAVdroid (v1.3.0+) para a conta em uso</string>

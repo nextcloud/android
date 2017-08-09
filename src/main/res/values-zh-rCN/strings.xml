@@ -45,14 +45,6 @@
     <string name="prefs_fingerprint">指纹锁</string>
     <string name="prefs_fingerprint_notsetup">指纹锁没有设置</string>
     <string name="prefs_show_hidden_files">显示隐藏文件</string>
-    <string name="prefs_instant_upload">立刻上传图片</string>
-    <string name="prefs_instant_upload_summary">立刻上传摄像头拍摄的图片</string>
-    <string name="prefs_instant_video_upload">立刻上传视频</string>
-    <string name="prefs_instant_video_upload_summary">立刻上传摄像头拍摄的视频</string>
-    <string name="prefs_log_title">开启日志</string>
-    <string name="prefs_log_summary">用于记录问题</string>
-    <string name="prefs_log_title_history">历史日志</string>
-    <string name="prefs_log_summary_history">这显示已经保存的日志</string>
     <string name="prefs_log_delete_history_button">删除历史</string>
     <string name="prefs_calendar_contacts">同步日历和通讯录</string>
     <string name="prefs_calendar_contacts_summary">为现在的用户设置DAVdroid(v1.3.0+)</string>

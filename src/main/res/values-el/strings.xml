@@ -45,14 +45,6 @@
     <string name="prefs_fingerprint">Κλείδωμα με αποτύπωμα</string>
     <string name="prefs_fingerprint_notsetup">Δεν έχει οριστεί αποτύπωμα</string>
     <string name="prefs_show_hidden_files">Εμφάνιση κρυφών αρχείων</string>
-    <string name="prefs_instant_upload">Άμεσες μεταφορτώσεις φωτογραφιών</string>
-    <string name="prefs_instant_upload_summary">Άμεση μεταφόρτωση φωτογραφιών που λήφθησαν από την φωτογραφική μηχανή</string>
-    <string name="prefs_instant_video_upload">Άμεση μεταφόρτωση βίντεο</string>
-    <string name="prefs_instant_video_upload_summary">Άμεση μεταφόρτωση βίντεο που λήφθησαν από την φωτογραφική μηχανή</string>
-    <string name="prefs_log_title">Ενεργοποίηση καταγραφής ιστορικού</string>
-    <string name="prefs_log_summary">Χρησιμοποιείται για την καταγραφή προβλημάτων</string>
-    <string name="prefs_log_title_history">Καταγραφή ιστορικού</string>
-    <string name="prefs_log_summary_history">Εμφάνιση του καταγεγραμμένου ιστορικού</string>
     <string name="prefs_log_delete_history_button">Διαγραφή ιστορικού</string>
     <string name="prefs_calendar_contacts">Συγχρονισμός ημερολογίου &amp; επαφών</string>
     <string name="prefs_calendar_contacts_summary">Ρυθμίστε το DAVdroid (v1.3.0+) για τον τρέχον λογαριασμό</string>
