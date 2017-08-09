@@ -39,7 +39,6 @@
     <string name="drawer_open">Opna</string>
     <string name="prefs_category_general">Almennt</string>
     <string name="prefs_category_more">Meira</string>
-    <string name="prefs_accounts">Notandaaðgangar</string>
     <string name="prefs_manage_accounts">Sýsla með notandaaðganga</string>
     <string name="prefs_passcode">Læsing með lykilkóða</string>
     <string name="prefs_fingerprint">Fingrafaralás</string>

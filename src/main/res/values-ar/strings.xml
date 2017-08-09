@@ -39,7 +39,6 @@
     <string name="drawer_open">افتح</string>
     <string name="prefs_category_general">عام</string>
     <string name="prefs_category_more">المزيد</string>
-    <string name="prefs_accounts">حسابات</string>
     <string name="prefs_manage_accounts">إدارة الحسابات</string>
     <string name="prefs_passcode">الرقم السري</string>
     <string name="prefs_fingerprint">قفل بصمه الاصبع</string>

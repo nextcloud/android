@@ -40,7 +40,6 @@
     <string name="drawer_open">Открыть</string>
     <string name="prefs_category_general">Основные</string>
     <string name="prefs_category_more">Больше</string>
-    <string name="prefs_accounts">Аккаунты</string>
     <string name="prefs_manage_accounts">Управление аккаунтами</string>
     <string name="prefs_passcode">Блокировка кодом</string>
     <string name="prefs_fingerprint">Блокировка отпечатком пальца</string>

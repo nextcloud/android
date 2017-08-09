@@ -39,7 +39,6 @@
     <string name="drawer_open">開啟</string>
     <string name="prefs_category_general">一般</string>
     <string name="prefs_category_more">更多</string>
-    <string name="prefs_accounts">帳戶</string>
     <string name="prefs_manage_accounts">管理帳戶</string>
     <string name="prefs_passcode">密碼鎖</string>
     <string name="prefs_fingerprint">指紋上鎖</string>

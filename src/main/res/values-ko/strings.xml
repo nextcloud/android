@@ -39,7 +39,6 @@
     <string name="drawer_open">열기</string>
     <string name="prefs_category_general">일반</string>
     <string name="prefs_category_more">더 보기</string>
-    <string name="prefs_accounts">계정</string>
     <string name="prefs_manage_accounts">계정 관리</string>
     <string name="prefs_passcode">암호 잠금</string>
     <string name="prefs_fingerprint">지문 잠금</string>

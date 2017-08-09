@@ -39,7 +39,6 @@
     <string name="drawer_open">Отвори</string>
     <string name="prefs_category_general">Опште</string>
     <string name="prefs_category_more">Остало</string>
-    <string name="prefs_accounts">Налози</string>
     <string name="prefs_manage_accounts">Управљање налозима</string>
     <string name="prefs_passcode">Закључавање кодом</string>
     <string name="prefs_fingerprint">Закључавање отиском прста</string>

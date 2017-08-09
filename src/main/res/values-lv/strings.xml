@@ -39,7 +39,6 @@
     <string name="drawer_open">Atvērt</string>
     <string name="prefs_category_general">Vispārīgi</string>
     <string name="prefs_category_more">Vairāk</string>
-    <string name="prefs_accounts">Konti</string>
     <string name="prefs_manage_accounts">Pārvaldīt kontus</string>
     <string name="prefs_passcode">Kods bloķēts</string>
     <string name="prefs_fingerprint">Pirkstu nospiedoma aizslēģšana</string>
