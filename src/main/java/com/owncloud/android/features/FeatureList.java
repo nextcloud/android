@@ -66,9 +66,6 @@ public class FeatureList {
                     R.string.whats_new_notification_content, VERSION_2_0_0, BETA_VERSION_0, SHOW_ON_UPGRADE, false),
             new FeatureItem(R.drawable.whats_new_fingerprint, R.string.whats_new_fingerprint_title,
                     R.string.whats_new_fingerprint_content, VERSION_2_0_0, BETA_VERSION_0, SHOW_ON_UPGRADE, false)
-            new FeatureItem(R.drawable.what_new_instant_upload,
-                    R.string.whats_new_auto_upload_title, R.string.whats_new_auto_upload_content,
-                    VERSION_1_5_0, BETA_VERSION_0, SHOW_ON_UPGRADE)
     };
 
     static public FeatureItem[] get() {
