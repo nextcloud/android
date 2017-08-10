@@ -111,18 +111,18 @@ else
 
     previous_error_warning_string = ""
     File.open previous_lint_report do |file|
-      previous_error_warning_string = file.find { |line| line =~ /[0-9]* errors and [0-9]* warnings/ }
+      previous_error_warning_string = file.find { |line| line =~ /([0-9]* error[s]? and )?[0-9]* warning[s]?/ }
     end
 
     unless previous_error_warning_string.nil?
         previous_results = true
 
-        previous_error_string = previous_error_warning_string.match(/[0-9]* errors/)[0]
+        previous_error_string = previous_error_warning_string.match(/[0-9]* error[s]?/)[0]
         previous_error_count = previous_error_string.match(/[0-9]*/)[0].to_i
         puts "previous errors: " + previous_error_count.to_s
 
         if CHECK_WARNINGS == true
-            previous_warning_string = previous_error_warning_string.match(/[0-9]* warnings/)[0]
+            previous_warning_string = previous_error_warning_string.match(/[0-9]* warning[s]?/)[0]
             previous_warning_count = previous_warning_string.match(/[0-9]*/)[0].to_i
             puts "previous warnings: " + previous_warning_count.to_s
         end
