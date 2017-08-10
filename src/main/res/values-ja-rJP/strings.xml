@@ -39,20 +39,11 @@
     <string name="drawer_open">開く</string>
     <string name="prefs_category_general">一般</string>
     <string name="prefs_category_more">もっと見る</string>
-    <string name="prefs_accounts">アカウント</string>
     <string name="prefs_manage_accounts">アカウント管理</string>
     <string name="prefs_passcode">パスコードロック</string>
     <string name="prefs_fingerprint">指紋ロック</string>
     <string name="prefs_fingerprint_notsetup">指紋は設定されていません。</string>
     <string name="prefs_show_hidden_files">隠しファイルを表示</string>
-    <string name="prefs_instant_upload">写真の自動アップロード</string>
-    <string name="prefs_instant_upload_summary">カメラで撮影した写真を自動アップロードします</string>
-    <string name="prefs_instant_video_upload">ビデオの自動アップロード</string>
-    <string name="prefs_instant_video_upload_summary">カメラで撮影したビデオを自動アップロードします</string>
-    <string name="prefs_log_title">ログの有効化</string>
-    <string name="prefs_log_summary">これは問題をログに記録するのに使用します。</string>
-    <string name="prefs_log_title_history">ログの履歴</string>
-    <string name="prefs_log_summary_history">これは記録されたログを表示します</string>
     <string name="prefs_log_delete_history_button">履歴の削除</string>
     <string name="prefs_calendar_contacts">コンタクト &amp; カレンダーを同期</string>
     <string name="prefs_calendar_contacts_summary">DAVdroid (v1.3.0以上) を現在のアカウントで使う</string>
@@ -63,8 +54,6 @@
     <string name="prefs_recommend">友達に推奨</string>
     <string name="prefs_feedback">フィードバック</string>
     <string name="prefs_imprint">インプリント</string>
-    <string name="prefs_remember_last_share_location">共有場所を記憶する</string>
-    <string name="prefs_remember_last_upload_location_summary">最後に使用した共有場所を記憶する</string>
 
 	<string name="recommend_subject">スマートフォンで %1$s を試してください！</string>
 	<string name="recommend_text">スマートフォンで %1$s を利用してみませんか。\nここからダウンロードしてください: %2$s</string>

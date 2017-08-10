@@ -39,20 +39,11 @@
     <string name="drawer_open">Отвори</string>
     <string name="prefs_category_general">Общи</string>
     <string name="prefs_category_more">Още</string>
-    <string name="prefs_accounts">Профили</string>
     <string name="prefs_manage_accounts">Управление на профилите</string>
     <string name="prefs_passcode">Код за достъп</string>
     <string name="prefs_fingerprint">Заключване с отпечатък</string>
     <string name="prefs_fingerprint_notsetup">Пръстови отпечатъци не са зададени.</string>
     <string name="prefs_show_hidden_files">Показване и на скрити файлове</string>
-    <string name="prefs_instant_upload">Незабавно качване на снимки</string>
-    <string name="prefs_instant_upload_summary">Качвай снимки направени чрез камерата незабавно</string>
-    <string name="prefs_instant_video_upload">Незабавно качване на видео</string>
-    <string name="prefs_instant_video_upload_summary">Качвай видеа, записани с камерата, незабавно.</string>
-    <string name="prefs_log_title">Включи логовете</string>
-    <string name="prefs_log_summary">Използва се за проследяване на проблеми</string>
-    <string name="prefs_log_title_history">История на логове</string>
-    <string name="prefs_log_summary_history">Показва записаните логове</string>
     <string name="prefs_log_delete_history_button">Изтрий истрията</string>
     <string name="prefs_calendar_contacts">Синхронизиране на календар и контакти</string>
     <string name="prefs_calendar_contacts_summary">Настройване на DAVdroid (v1.3.0+) за текущия профил</string>
@@ -62,8 +53,6 @@
     <string name="prefs_recommend">Препоръчай на приятел</string>
     <string name="prefs_feedback">Обратна връзка</string>
     <string name="prefs_imprint">Отпечатък</string>
-    <string name="prefs_remember_last_share_location">Запомни локацията за споделяне</string>
-    <string name="prefs_remember_last_upload_location_summary">Запомни последната локация за споделяне</string>
 
 	<string name="recommend_subject">Пробвайте %1$s на смартфона си!</string>
 	<string name="recommend_text">Искам да ви поканя да използвате %1$s на вашия смартфон.\nСвалете тук: %2$s</string>

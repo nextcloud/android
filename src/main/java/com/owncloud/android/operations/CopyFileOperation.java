@@ -1,4 +1,4 @@
-/* ownCloud Android client application
+    /* ownCloud Android client application
  *   Copyright (C) 2012-2014 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
@@ -16,8 +16,6 @@
  */
 
 package com.owncloud.android.operations;
-
-import android.accounts.Account;
 
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.OwnCloudClient;
@@ -47,9 +45,8 @@ public class CopyFileOperation extends SyncOperation {
      *
      * @param srcPath          Remote path of the {@link OCFile} to move.
      * @param targetParentPath Path to the folder where the file will be copied into.
-     * @param account          OwnCloud account containing both the file and the target folder
      */
-    public CopyFileOperation(String srcPath, String targetParentPath, Account account) {
+    public CopyFileOperation(String srcPath, String targetParentPath) {
         mSrcPath = srcPath;
         mTargetParentPath = targetParentPath;
         if (!mTargetParentPath.endsWith(OCFile.PATH_SEPARATOR)) {

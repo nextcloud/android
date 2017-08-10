@@ -1,4 +1,4 @@
-/**
+/*
  * ownCloud Android client application
  *
  * @author Bartek Przybylski
@@ -6,16 +6,16 @@
  * @author masensio
  * Copyright (C) 2011  Bartek Przybylski
  * Copyright (C) 2016 ownCloud Inc.
- * <p>
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2,
  * as published by the Free Software Foundation.
- * <p>
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * <p>
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -1387,47 +1387,5 @@ public class FileContentProvider extends ContentProvider {
         } finally {
             c.close();
         }
-
     }
-
-    /**
-     * Grants that total count of successful uploads stored is not greater than MAX_SUCCESSFUL_UPLOADS.
-     *
-     * Removes older uploads if needed.
-     */
-    private void trimSuccessfulUploads(SQLiteDatabase db) {
-        Cursor c = null;
-        try {
-            String MAX_SUCCESSFUL_UPLOADS = "30";
-            c = db.rawQuery(
-                    "delete from " + ProviderTableMeta.UPLOADS_TABLE_NAME +
-                            " where " + ProviderTableMeta.UPLOADS_STATUS + " == "
-                            + UploadsStorageManager.UploadStatus.UPLOAD_SUCCEEDED.getValue() +
-                            " and " + ProviderTableMeta._ID +
-                            " not in (select " + ProviderTableMeta._ID +
-                            " from " + ProviderTableMeta.UPLOADS_TABLE_NAME +
-                            " where " + ProviderTableMeta.UPLOADS_STATUS + " == "
-                            + UploadsStorageManager.UploadStatus.UPLOAD_SUCCEEDED.getValue() +
-                            " order by " + ProviderTableMeta.UPLOADS_UPLOAD_END_TIMESTAMP +
-                            " desc limit " + MAX_SUCCESSFUL_UPLOADS +
-                            ")",
-                    null
-            );
-            c.moveToFirst(); // do something with the cursor, or deletion doesn't happen; true story
-
-        } catch (Exception e) {
-            Log_OC.e(
-                    TAG,
-                    "Something wrong trimming successful uploads, database could grow more than expected",
-                    e
-            );
-
-        } finally {
-            if (c != null) {
-                c.close();
-            }
-        }
-    }
-
-
 }

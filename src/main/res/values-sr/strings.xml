@@ -39,20 +39,11 @@
     <string name="drawer_open">Отвори</string>
     <string name="prefs_category_general">Опште</string>
     <string name="prefs_category_more">Остало</string>
-    <string name="prefs_accounts">Налози</string>
     <string name="prefs_manage_accounts">Управљање налозима</string>
     <string name="prefs_passcode">Закључавање кодом</string>
     <string name="prefs_fingerprint">Закључавање отиском прста</string>
     <string name="prefs_fingerprint_notsetup">Отисак прста није подешен.</string>
     <string name="prefs_show_hidden_files">Покажи скривене датотеке</string>
-    <string name="prefs_instant_upload">Тренутно отпремање фотографија</string>
-    <string name="prefs_instant_upload_summary">Тренутно отпремај фотографије усликане камером</string>
-    <string name="prefs_instant_video_upload">Тренутно отпремање видеа</string>
-    <string name="prefs_instant_video_upload_summary">Тренутно отпремај видео снимљен камером</string>
-    <string name="prefs_log_title">Укључи бележење</string>
-    <string name="prefs_log_summary">користи се за бележење проблема</string>
-    <string name="prefs_log_title_history">Историјат бележења</string>
-    <string name="prefs_log_summary_history">Ово приказује сачуване записнике</string>
     <string name="prefs_log_delete_history_button">Обриши историјат</string>
     <string name="prefs_calendar_contacts">Синхронизуј календар &amp; контакте</string>
     <string name="prefs_calendar_contacts_summary">Подеси DAVdroid (v1.3.0+) за тренутни налог</string>
@@ -63,8 +54,6 @@
     <string name="prefs_recommend">Препоручите пријатељу</string>
     <string name="prefs_feedback">Ваше мишљење</string>
     <string name="prefs_imprint">Жиг</string>
-    <string name="prefs_remember_last_share_location">Запамти локацију дељења</string>
-    <string name="prefs_remember_last_upload_location_summary">Запамти локацију скорашњег дељења</string>
 
 	<string name="recommend_subject">Пробајте %1$s на вашем телефону!</string>
 	<string name="recommend_text">Позивам те да користиш%1$s на твом телефону.\nПреузмите овде:%2$s</string>

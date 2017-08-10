@@ -21,14 +21,9 @@
     <string name="drawer_open">Abrir</string>
     <string name="prefs_category_general">Geral</string>
     <string name="prefs_category_more">Mais</string>
-    <string name="prefs_accounts">Contas</string>
     <string name="prefs_manage_accounts">Gerir contas</string>
     <string name="prefs_passcode">Proteção por código</string>
     <string name="prefs_show_hidden_files">Mostrar ficheiros escondidos</string>
-    <string name="prefs_log_title">Ativar registo de alterações</string>
-    <string name="prefs_log_summary">É utilizado para registar problemas</string>
-    <string name="prefs_log_title_history">Histórico de registos de alterações</string>
-    <string name="prefs_log_summary_history">Isto mostra os registos de alterações guardados</string>
     <string name="prefs_log_delete_history_button">Eliminar histórico</string>
     <string name="prefs_calendar_contacts">Sincronizar calendário e contacots</string>
     <string name="prefs_calendar_contacts_summary">Preparar DAVdroid (v1.3.0+) para a conta actual</string>

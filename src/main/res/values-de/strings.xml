@@ -39,21 +39,12 @@
     <string name="drawer_open">Öffnen</string>
     <string name="prefs_category_general">Allgemein</string>
     <string name="prefs_category_more">Mehr</string>
-    <string name="prefs_accounts">Konten</string>
     <string name="prefs_manage_accounts">Konten verwalten</string>
     <string name="prefs_passcode">PIN gesperrt</string>
     <string name="prefs_fingerprint">Fingerabdruck-Sperre</string>
     <string name="prefs_fingerprint_notsetup">Keine Fingerabdrücke eingerichtet.</string>
     <string name="prefs_expert_mode">Expertenmodus</string>
     <string name="prefs_show_hidden_files">Versteckte Dateien anzeigen</string>
-    <string name="prefs_instant_upload">Sofortiges Hochladen von Bildern</string>
-    <string name="prefs_instant_upload_summary">Lade mit der Kamera gemachte Fotos sofort hoch</string>
-    <string name="prefs_instant_video_upload">Sofortiges Hochladen von Videos</string>
-    <string name="prefs_instant_video_upload_summary">Lade mit der Kamera gemachte Videos sofort hoch</string>
-    <string name="prefs_log_title">Protokollierung aktivieren</string>
-    <string name="prefs_log_summary">Dies wird zur Protokollierung von Problemen genutzt</string>
-    <string name="prefs_log_title_history">Protokollierungs-Historie</string>
-    <string name="prefs_log_summary_history">Dies zeigt die gespeicherten Protokollierungen</string>
     <string name="prefs_log_delete_history_button">Verlauf löschen</string>
     <string name="prefs_calendar_contacts">Kalender &amp; Kontakte synchronisieren</string>
     <string name="prefs_calendar_contacts_summary">DAVdroid (v1.3.0+) für aktuelles Konto einrichten</string>
@@ -65,8 +56,6 @@
     <string name="prefs_recommend">Einem Freund empfehlen</string>
     <string name="prefs_feedback">Rückmeldungen</string>
     <string name="prefs_imprint">Impressum</string>
-    <string name="prefs_remember_last_share_location">Geteilten Speicherort merken</string>
-    <string name="prefs_remember_last_upload_location_summary">Zuletzt verwendeten, geteilten Upload-Speicherort merken</string>
 
 	<string name="recommend_subject">Probiere %1$s auf Deinem Smartphone!</string>
 	<string name="recommend_text">"Ich empfehle Dir die Nutzung von %1$s auf Deinem Smartphone!\nLade es hier herunter: %2$s"</string>

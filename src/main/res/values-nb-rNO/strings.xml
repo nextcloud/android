@@ -39,20 +39,11 @@
     <string name="drawer_open">Åpne</string>
     <string name="prefs_category_general">Generelt</string>
     <string name="prefs_category_more">Mer</string>
-    <string name="prefs_accounts">Kontoer</string>
     <string name="prefs_manage_accounts">Håndter kontoer</string>
     <string name="prefs_passcode">Passordlås</string>
     <string name="prefs_fingerprint">Fingeravtrykkslås</string>
     <string name="prefs_fingerprint_notsetup">Det har ikke blitt satt opp noen fingeravtrykk.</string>
     <string name="prefs_show_hidden_files">Vis skjulte filer</string>
-    <string name="prefs_instant_upload">Umiddelbar opplasting av bilder</string>
-    <string name="prefs_instant_upload_summary">Last opp bilder tatt med kameraet med én gang</string>
-    <string name="prefs_instant_video_upload">Umiddelbar opplasting av video</string>
-    <string name="prefs_instant_video_upload_summary">Last opp videoer tatt med kameraet med én gang</string>
-    <string name="prefs_log_title">Aktiver loggføring</string>
-    <string name="prefs_log_summary">Denne er brukt til å loggføre problemer</string>
-    <string name="prefs_log_title_history">Loggføringshistorikk</string>
-    <string name="prefs_log_summary_history">Denne viser de lagrede loggene</string>
     <string name="prefs_log_delete_history_button">Slett historikk</string>
     <string name="prefs_calendar_contacts">Synkroniser kalender &amp; kontakter</string>
     <string name="prefs_calendar_contacts_summary">Sett opp DAVdroid (v1.3.0+) for nåværende konto</string>
@@ -64,8 +55,6 @@
     <string name="prefs_recommend">Anbefal til en venn</string>
     <string name="prefs_feedback">Tilbakemelding</string>
     <string name="prefs_imprint">Avtrykk</string>
-    <string name="prefs_remember_last_share_location">Husk delt plassering</string>
-    <string name="prefs_remember_last_upload_location_summary">Husk sist delt plassering for opplasting</string>
 
 	<string name="recommend_subject">Prøv %1$s på smarttelefonen din!</string>
 	<string name="recommend_text">Jeg ønsker å invitere deg til å bruke %1$s på smarttelefonen din!\nLast ned her: %2$s</string>

@@ -40,20 +40,11 @@
     <string name="drawer_open">Открыть</string>
     <string name="prefs_category_general">Основные</string>
     <string name="prefs_category_more">Больше</string>
-    <string name="prefs_accounts">Аккаунты</string>
     <string name="prefs_manage_accounts">Управление аккаунтами</string>
     <string name="prefs_passcode">Блокировка кодом</string>
     <string name="prefs_fingerprint">Блокировка отпечатком пальца</string>
     <string name="prefs_fingerprint_notsetup">Отпечатки не были настроены.</string>
     <string name="prefs_show_hidden_files">Показывать скрытые файлы</string>
-    <string name="prefs_instant_upload">Моментальная загрузка изображений</string>
-    <string name="prefs_instant_upload_summary">Немедленно загружать изображения, сделанные камерой</string>
-    <string name="prefs_instant_video_upload">Моментальная загрузка видео</string>
-    <string name="prefs_instant_video_upload_summary">Немедленно загружать видео, сделанные камерой</string>
-    <string name="prefs_log_title">Включить журналирование</string>
-    <string name="prefs_log_summary">Используется для регистрации ошибок</string>
-    <string name="prefs_log_title_history">История журналирования</string>
-    <string name="prefs_log_summary_history">Здесь показаны записи в журнал</string>
     <string name="prefs_log_delete_history_button">Удалить историю</string>
     <string name="prefs_calendar_contacts">Синхронизировать календарь и контакты</string>
     <string name="prefs_calendar_contacts_summary">Настроить DAVdroid (v1.3.0+) для текущего аккаунта</string>
@@ -65,8 +56,6 @@
     <string name="prefs_recommend">Рекомендовать другу</string>
     <string name="prefs_feedback">Обратная связь</string>
     <string name="prefs_imprint">Отпечаток</string>
-    <string name="prefs_remember_last_share_location">Запомнить расположение общего ресурса</string>
-    <string name="prefs_remember_last_upload_location_summary">Запомнить расположение загрузки последней публикации</string>
 
 	<string name="recommend_subject">Попробуйте %1$s на вашем смартфоне!</string>
 	<string name="recommend_text">Хочу предложить вам использовать %1$s на смартфоне!\nЗагрузить можно здесь: %2$s
