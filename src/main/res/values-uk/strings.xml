@@ -12,7 +12,6 @@
     <string name="actionbar_see_details">Деталі</string>
     <string name="actionbar_send_file">Надіслати</string>
     <string name="actionbar_sort">Сортувати</string>
-    <string name="actionbar_sort_title">Сортувати за</string>
     <string name="sort_by">Сортувати по</string>
     <string name="menu_item_sort_by_name_a_z">А - Я</string>
     <string name="menu_item_sort_by_name_z_a">Я - А</string>
