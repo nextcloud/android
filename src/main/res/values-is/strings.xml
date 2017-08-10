@@ -12,7 +12,6 @@
     <string name="actionbar_see_details">Nánar</string>
     <string name="actionbar_send_file">Senda</string>
     <string name="actionbar_sort">Raða</string>
-    <string name="actionbar_sort_title">Raða sem</string>
     <string name="sort_by">Raða eftir</string>
     <string name="menu_item_sort_by_name_a_z">A - Ö</string>
     <string name="menu_item_sort_by_name_z_a">Ö - A</string>

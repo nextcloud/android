@@ -12,7 +12,6 @@
     <string name="actionbar_see_details">Dettagli</string>
     <string name="actionbar_send_file">Invia</string>
     <string name="actionbar_sort">Ordina</string>
-    <string name="actionbar_sort_title">Ordina per</string>
     <string name="sort_by">Ordina per</string>
     <string name="menu_item_sort_by_name_a_z">A - Z</string>
     <string name="menu_item_sort_by_name_z_a">Z - A</string>
