@@ -339,17 +339,23 @@ public class Preferences extends PreferenceActivity
         }
 
         mExpertMode = (SwitchPreference) findPreference("expert_mode");
-        mExpertMode.setOnPreferenceClickListener(new OnPreferenceClickListener() {
-            @Override
-            public boolean onPreferenceClick(Preference preference) {
-                SharedPreferences appPrefs =
-                        PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-                SharedPreferences.Editor editor = appPrefs.edit();
-                editor.putBoolean("expert_mode", mExpertMode.isChecked());
-                editor.apply();
-                return true;
-            }
-        });
+
+        if (getResources().getBoolean(R.bool.syncedFolder_light)) {
+            preferenceCategoryDetails.removePreference(mExpertMode);
+        } else {
+            mExpertMode = (SwitchPreference) findPreference("expert_mode");
+            mExpertMode.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+                @Override
+                public boolean onPreferenceClick(Preference preference) {
+                    SharedPreferences appPrefs =
+                            PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                    SharedPreferences.Editor editor = appPrefs.edit();
+                    editor.putBoolean("expert_mode", mExpertMode.isChecked());
+                    editor.apply();
+                    return true;
+                }
+            });
+        }
 
         PreferenceCategory preferenceCategoryMore = (PreferenceCategory) findPreference("more");
         preferenceCategoryMore.setTitle(ThemeUtils.getColoredTitle(getString(R.string.prefs_category_more),
