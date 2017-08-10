@@ -12,7 +12,6 @@
     <string name="actionbar_see_details">Rincian</string>
     <string name="actionbar_send_file">Kirim</string>
     <string name="actionbar_sort">Urutkan</string>
-    <string name="actionbar_sort_title">Urutan</string>
     <string name="drawer_item_all_files">Semua berkas</string>
     <string name="drawer_item_on_device">Dalam perangkat</string>
     <string name="drawer_item_settings">Pengaturan</string>
