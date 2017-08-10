@@ -53,9 +53,9 @@
     <string name="prefs_recommend">Ieteikt draugam</string>
     <string name="prefs_feedback">Atsauksmes</string>
     <string name="prefs_imprint">Importēt</string>
-    <string name="recommend_subject">Izmēģini %1$s uz savu viedtālruni!</string>
+
+	<string name="recommend_subject">Izmēģini %1$s uz savu viedtālruni!</string>
 	<string name="auth_check_server">Pārbaudīt serveri</string>
-    <string name="auth_host_url">Servera adrese https://…</string>
     <string name="auth_username">Lietotājvārds</string>
     <string name="auth_password">Parole</string>
     <string name="sync_string_files">Datnes</string>

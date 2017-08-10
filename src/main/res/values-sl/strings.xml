@@ -43,6 +43,7 @@
     <string name="prefs_passcode">Zakleni dostop s kodo PIN</string>
     <string name="prefs_fingerprint">Ključavnica na prstni odtis</string>
     <string name="prefs_fingerprint_notsetup">Prstni odtis ni nasavljen.</string>
+    <string name="prefs_expert_mode">Napredni način</string>
     <string name="prefs_show_hidden_files">Prikaži skrite datoteke</string>
     <string name="prefs_log_delete_history_button">Izbriši zgodovino</string>
     <string name="prefs_calendar_contacts">Nastavi sinhronizacijo koledarja in kontaktov</string>
@@ -54,11 +55,11 @@
     <string name="prefs_recommend">Priporoči prijatelju</string>
     <string name="prefs_feedback">Pošlji sporočilo razvijalcem programa</string>
     <string name="prefs_imprint">Natis</string>
-    <string name="recommend_subject">Preizkusi %1$s na pametnem telefonu!</string>
+
+	<string name="recommend_subject">Preizkusi %1$s na pametnem telefonu!</string>
 	<string name="recommend_urls">%1$s ali %2$s</string>
 
     <string name="auth_check_server">Preveri strežnik</string>
-    <string name="auth_host_url">Naslov strežnika https://…</string>
     <string name="auth_username">Uporabniško ime</string>
     <string name="auth_password">Geslo</string>
     <string name="auth_register">Še nimaš strežnika?\nKlikni tukaj, da dobiš enega.</string>

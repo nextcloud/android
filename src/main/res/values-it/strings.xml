@@ -51,9 +51,9 @@
     <string name="prefs_recommend">Consiglia a un amico</string>
     <string name="prefs_feedback">Segnalazioni</string>
     <string name="prefs_imprint">Imprint</string>
-    <string name="recommend_subject">Prova %1$s sul tuo smartphone!</string>
+
+	<string name="recommend_subject">Prova %1$s sul tuo smartphone!</string>
 	<string name="auth_check_server">Controlla server</string>
-    <string name="auth_host_url">Indirizzo server https://...</string>
     <string name="auth_username">Nome utente</string>
     <string name="auth_password">Password</string>
     <string name="sync_string_files">File</string>
@@ -210,7 +210,6 @@
 	<string name="auth_expired_oauth_token_toast">Autorizzazione scaduta. Richiedi l\'autorizzazione</string>
 	<string name="auth_expired_basic_auth_toast">Digita la password attuale</string>
 	<string name="auth_expired_saml_sso_token_toast">Sessione scaduta. Riconnettiti</string>
-	<string name="auth_connecting_auth_server">Connessione al server di autenticazione...</string>
 	<string name="auth_unsupported_auth_method">Il server non supporta questo metodo di autenticazione</string>
 	<string name="auth_unsupported_multiaccount">%1$s non supporta account multipli</string>
 	<string name="auth_can_not_auth_against_server">Impossibile autenticarsi a questo server</string>
@@ -229,15 +228,12 @@
     <string name="filename_forbidden_characters">Caratteri proibiti: / \\ &lt; &gt; : \" | ? *</string>
     <string name="filename_forbidden_charaters_from_server">Il nome del file contiene almeno un carattere non valido</string>
     <string name="filename_empty">Il nome del file non può essere vuoto</string>
-    <string name="wait_a_moment">Attendi...</string>
     <string name="wait_checking_credentials">Controllo delle credenziali memorizzate</string>
     <string name="filedisplay_no_file_selected">Nessun file selezionato</string>
     <string name="activity_chooser_title">Invia collegamento a &#8230;</string>
     <string name="wait_for_tmp_copy_from_private_storage">Copia file dall\'archiviazione privata</string>
     
     <string name="oauth_check_onoff">Accedi con OAuth 2.0</string> 
-    <string name="oauth_login_connection">Connessione al server OAuth 2.0...</string>    
-        
     <string name="ssl_validator_header">L\'identità del sito non può essere verificata</string>
     <string name="ssl_validator_reason_cert_not_trusted">- Il certificato del server non è affidabile</string>
     <string name="ssl_validator_reason_cert_expired">- Il certificato del server è scaduto</string>

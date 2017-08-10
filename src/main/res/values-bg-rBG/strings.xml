@@ -57,7 +57,6 @@
 	<string name="recommend_subject">Пробвайте %1$s на смартфона си!</string>
 	<string name="recommend_text">Искам да ви поканя да използвате %1$s на вашия смартфон.\nСвалете тук: %2$s</string>
     <string name="auth_check_server">Проверяване на сървъра</string>
-    <string name="auth_host_url">Адрес на сървъра https://…</string>
     <string name="auth_username">Потребител</string>
     <string name="auth_password">Парола</string>
     <string name="auth_register">Все още нямате сървър?\nНатиснете тук, за да вземете от доставчик</string>

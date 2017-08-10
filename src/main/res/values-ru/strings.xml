@@ -63,7 +63,6 @@
     <string name="recommend_urls">%1$s или %2$s</string>
 
     <string name="auth_check_server">Проверить сервер</string>
-    <string name="auth_host_url">Адрес сервера https://...</string>
     <string name="auth_username">Имя пользователя</string>
     <string name="auth_password">Пароль</string>
     <string name="auth_register">Нет сервера?\nНажмите здесь чтобы получить от провайдера</string>
@@ -259,7 +258,6 @@
 	<string name="auth_expired_oauth_token_toast">Время авторизации истекло. Пожалуйста, авторизуйтесь снова</string>
 	<string name="auth_expired_basic_auth_toast">Введите текущий пароль</string>
 	<string name="auth_expired_saml_sso_token_toast">Время сессии истекло. Пожалуйста, подключитесь снова</string>
-	<string name="auth_connecting_auth_server">Подключение к серверу аутентификации…</string>
 	<string name="auth_unsupported_auth_method">Сервер не поддерживает выбранный метод аутентификации</string>
 	<string name="auth_unsupported_multiaccount">%1$s не поддерживает множественные аккаунты</string>
 	<string name="auth_fail_get_user_name">Сервер не вернул верный пользовательский идентификатор. Пожалуйста, свяжитесь с вашим администратором</string>
@@ -287,7 +285,6 @@
     <string name="filename_forbidden_characters">Недопустимые символы: / \\ &lt; &gt; : \" | ? *</string>
     <string name="filename_forbidden_charaters_from_server">Имя файла содержит по крайней мере один некорректный символ</string>
     <string name="filename_empty">Имя файла не может быть пустым</string>
-    <string name="wait_a_moment">Подождите немного…</string>
     <string name="wait_checking_credentials">Проверка сохранённых реквизитов учётных данных</string>
     <string name="filedisplay_unexpected_bad_get_content">Неизвестная ошибка. Выберите этот файл из другого приложения</string>
     <string name="filedisplay_no_file_selected">Файлы не выбраны</string>
@@ -295,8 +292,6 @@
     <string name="wait_for_tmp_copy_from_private_storage">Копирование файла из частного хранилища</string>
     
     <string name="oauth_check_onoff">Войти через OAuth 2.0</string> 
-    <string name="oauth_login_connection">Подключение к серверу OAuth 2.0…</string>    
-        
     <string name="ssl_validator_header">Подлинность сайта не может быть проверена</string>
     <string name="ssl_validator_reason_cert_not_trusted">- Сертификат сервера не является доверенным</string>
     <string name="ssl_validator_reason_cert_expired">- Срок действия сертификата сервера истёк</string>

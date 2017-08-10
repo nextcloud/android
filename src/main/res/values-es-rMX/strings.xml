@@ -62,7 +62,6 @@
     <string name="recommend_urls">%1$s o %2$s</string>
 
     <string name="auth_check_server">Verficar el servidor</string>
-    <string name="auth_host_url">Dirección del servidor https://…</string>
     <string name="auth_username">Usuario</string>
     <string name="auth_password">Contraseña</string>
     <string name="auth_register">Aún no tienes un servidor? \nHaz click aquí para obtener uno de un proveedor</string>
@@ -265,7 +264,6 @@
 	<string name="auth_expired_oauth_token_toast">Tu autorización ha expirado. Por favor vuelve a autorizar</string>
 	<string name="auth_expired_basic_auth_toast">Por favor ingresa tu contraseña actual</string>
 	<string name="auth_expired_saml_sso_token_toast">Tu sesión ha expirado. Por favor conectate de nuevo</string>
-	<string name="auth_connecting_auth_server">Conectando al servidor de autenticación...</string>
 	<string name="auth_unsupported_auth_method">El servidor no soporta este método de autenticación</string>
 	<string name="auth_unsupported_multiaccount">%1$s no soporta cuentas múltiples</string>
 	<string name="auth_fail_get_user_name">Tu servidor no está regresando un ID de usuario correcto, por favor contacta al adminitrador</string>
@@ -293,7 +291,6 @@
     <string name="filename_forbidden_characters">Caracteres inválidos: / \\ &lt; &gt; : \" | ? *</string>
     <string name="filename_forbidden_charaters_from_server">El nombre del archivo contiene al menos un caracter inválido.</string>
     <string name="filename_empty">El nombre del archivo no puede estar vacío</string>
-    <string name="wait_a_moment">Espera un momento...</string>
     <string name="wait_checking_credentials">Verificando credenciales almacenadas</string>
     <string name="filedisplay_unexpected_bad_get_content">Problema inesperado, por favor selecciona el archivo desde una aplicación diferente</string>
     <string name="filedisplay_no_file_selected">No se ha seleccionado algún archivo</string>
@@ -301,8 +298,6 @@
     <string name="wait_for_tmp_copy_from_private_storage">Copiando el archivo desde almacenamiento privado</string>
     
     <string name="oauth_check_onoff">Iniciar sesión con OAuth 2.0</string> 
-    <string name="oauth_login_connection">Conectando al servidor OAuth 2.0...</string>    
-        
     <string name="ssl_validator_header">La identidad del sitio no pudo ser verificada</string>
     <string name="ssl_validator_reason_cert_not_trusted">- El certificado del servidor no es de confianza</string>
     <string name="ssl_validator_reason_cert_expired">- El certificado del servidor expiró</string>

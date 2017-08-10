@@ -58,7 +58,6 @@
 	<string name="recommend_subject">Prueba  %1$s en tu teléfono inteligente!</string>
 	<string name="recommend_text">Quisiera invitarlo a usar %1$s en su teléfono inteligente\nDescargue aquí: %2$s</string>
     <string name="auth_check_server">Verficar el servidor</string>
-    <string name="auth_host_url">Dirección del servidor https://…</string>
     <string name="auth_username">Nombre de usuario</string>
     <string name="auth_password">Contraseña</string>
     <string name="auth_register">Aún no tiene un servidor? \nHaga click aquí para obtener uno de un proveedor</string>
@@ -252,7 +251,6 @@
 	<string name="auth_expired_oauth_token_toast">Su autorización ha expirado. Favor de volver a autorizar</string>
 	<string name="auth_expired_basic_auth_toast">Por favor ingrese su contraseña actual</string>
 	<string name="auth_expired_saml_sso_token_toast">Su sesión ha expirado. Favor de conectarse de nuevo</string>
-	<string name="auth_connecting_auth_server">Conectando al servidor de autenticación...</string>
 	<string name="auth_unsupported_auth_method">El servidor no soporta este método de autenticación</string>
 	<string name="auth_unsupported_multiaccount">%1$s no soporta cuentas múltiples</string>
 	<string name="auth_fail_get_user_name">Su servidor no está regresando un ID de usuario correcto, favor de contactar al adminitrador</string>
@@ -280,7 +278,6 @@
     <string name="filename_forbidden_characters">Caracteres inválidos: / \\ &lt; &gt; : \" | ? *</string>
     <string name="filename_forbidden_charaters_from_server">El nombre del archivo contiene al menos un caracter inválido.</string>
     <string name="filename_empty">El nombre del archivo no puede estar vacío</string>
-    <string name="wait_a_moment">Espere un momento...</string>
     <string name="wait_checking_credentials">Verificando credenciales almacenadas</string>
     <string name="filedisplay_unexpected_bad_get_content">Problema inesperado, favor de seleccionar el archivo desde una aplicación diferente</string>
     <string name="filedisplay_no_file_selected">No se ha seleccionado algún archivo</string>

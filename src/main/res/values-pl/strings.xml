@@ -58,7 +58,6 @@
 	<string name="recommend_subject">Wypróbuj %1$s na swoim smartfonie!</string>
 	<string name="recommend_text">Zapraszam do użycia %1$s na swoim smartfonie!\nŚciągnij tutaj: %2$s</string>
     <string name="auth_check_server">Sprawdź serwer</string>
-    <string name="auth_host_url">Adres serwera https://...</string>
     <string name="auth_username">Nazwa użytkownika</string>
     <string name="auth_password">Hasło</string>
     <string name="auth_register">Nie masz jeszcze serwera?\nKliknij tu i zdobądź go od dostawcy</string>
@@ -252,7 +251,6 @@
 	<string name="auth_expired_oauth_token_toast">Twoja sesja wygasła. Proszę zaloguj się ponownie</string>
 	<string name="auth_expired_basic_auth_toast">Podaj aktualne hasło</string>
 	<string name="auth_expired_saml_sso_token_toast">Twoja sesja wygasła. Proszę zaloguj się ponownie</string>
-	<string name="auth_connecting_auth_server">Łączenie z serwerem uwierzytelniania...</string>
 	<string name="auth_unsupported_auth_method">Serwer nie obsługuje tej metody autoryzacji</string>
 	<string name="auth_unsupported_multiaccount">%1$s nie wspiera wielu kont</string>
 	<string name="auth_fail_get_user_name">Twój serwer nie zwraca poprawnego identyfikatora użytkownika. Proszę skontaktuj się z administratorem.</string>
@@ -280,7 +278,6 @@
     <string name="filename_forbidden_characters">Znaki zabronione: / \\ &lt; &gt; : \" | ? *</string>
     <string name="filename_forbidden_charaters_from_server">Nazwa pliku zawiera co najmniej jeden nieprawidłowy znak</string>
     <string name="filename_empty">Nazwa pliku nie może być pusta.</string>
-    <string name="wait_a_moment">Proszę czekać...</string>
     <string name="wait_checking_credentials">Sprawdzanie danych</string>
     <string name="filedisplay_unexpected_bad_get_content">Nieoczekiwany błąd, prosze wybrać plik z innej aplikacji</string>
     <string name="filedisplay_no_file_selected">Nie wybrano żadnego pliku</string>
@@ -288,8 +285,6 @@
     <string name="wait_for_tmp_copy_from_private_storage">Kopiowanie pliku z prywatnego zasobu</string>
     
     <string name="oauth_check_onoff">Loguj przez OAuth 2.0</string> 
-    <string name="oauth_login_connection">Łączenie z serwerem OAuth 2.0...</string>    
-        
     <string name="ssl_validator_header">Nie można zweryfikować tożsamości strony</string>
     <string name="ssl_validator_reason_cert_not_trusted">- Certyfikat serwera jest niezaufany</string>
     <string name="ssl_validator_reason_cert_expired">- Certyfikat serwera wygasł</string>

@@ -54,9 +54,9 @@
     <string name="prefs_recommend">Recomana a un amic</string>
     <string name="prefs_feedback">Comentaris</string>
     <string name="prefs_imprint">Peu d\'imprenta</string>
-    <string name="recommend_subject">Proveu %1$s al telèfon intel·ligent!</string>
+
+	<string name="recommend_subject">Proveu %1$s al telèfon intel·ligent!</string>
 	<string name="auth_check_server">Comprova el funcionament del servidor</string>
-    <string name="auth_host_url">Adreça del servidor https://…</string>
     <string name="auth_username">Nom d\'usuari</string>
     <string name="auth_password">Contrasenya</string>
     <string name="sync_string_files">Fitxers</string>
@@ -217,7 +217,6 @@
     <string name="filename_forbidden_characters">Caràcters no permesos: / \\ &lt; &gt; : \" | ? *</string>
     <string name="filename_forbidden_charaters_from_server">El nom del fitxer conté al menys un caràcter invàlid</string>
     <string name="filename_empty">El nom del fitxer no pot estar buit</string>
-    <string name="wait_a_moment">Espera un moment...</string>
     <string name="wait_checking_credentials">Comprovant les credencials emmagatzemades</string>
     <string name="filedisplay_no_file_selected">Cap fitxer escollit</string>
     <string name="activity_chooser_title">Envia l\'enllaç a&#8230;</string>

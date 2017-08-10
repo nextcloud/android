@@ -58,7 +58,6 @@
 	<string name="recommend_subject">Пробајте %1$s на вашем телефону!</string>
 	<string name="recommend_text">Позивам те да користиш%1$s на твом телефону.\nПреузмите овде:%2$s</string>
     <string name="auth_check_server">Провери сервер</string>
-    <string name="auth_host_url">Адреса сервера https://…</string>
     <string name="auth_username">Корисничко име</string>
     <string name="auth_password">Лозинка</string>
     <string name="auth_register">Још увек немате сервер?\nПритисините овде да добијете један од провадера.</string>

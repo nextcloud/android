@@ -53,11 +53,11 @@
     <string name="prefs_recommend">يوصي لصديق</string>
     <string name="prefs_feedback">ملاحظات</string>
     <string name="prefs_imprint">الدمغة.</string>
-    <string name="recommend_subject">جرب %1$s على جهازك الذكي</string>
+
+	<string name="recommend_subject">جرب %1$s على جهازك الذكي</string>
 	<string name="recommend_urls">%1$s أو %2$s</string>
 
     <string name="auth_check_server">فحص الخادم</string>
-    <string name="auth_host_url">عنوان الخادم https://…</string>
     <string name="auth_username">إسم المستخدم</string>
     <string name="auth_password">كلمة السر</string>
     <string name="sync_string_files">الملفات</string>
@@ -208,7 +208,6 @@
     <string name="filename_forbidden_characters">رموز ممنوعة: / \\ &lt; &gt; : \" | ? *</string>
     <string name="filename_forbidden_charaters_from_server">اسم الملف به ، على الأقل ، حرف غير صالح</string>
     <string name="filename_empty">إسم الملف لا يمكن أن يكون فارغاً</string>
-    <string name="wait_a_moment">انتظر لحظة...</string>
     <string name="activity_chooser_title">ارسل الرابط الى ...</string>
     <string name="ssl_validator_header">لا يمكن التحقق من هوية الموقع</string>
     <string name="ssl_validator_reason_cert_not_trusted">شهادة الخادم غير موثوقة</string>

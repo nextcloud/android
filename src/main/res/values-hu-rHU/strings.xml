@@ -60,7 +60,6 @@
     <string name="recommend_urls"> %1$s vagy %2$s </string>
 
     <string name="auth_check_server">Szerver ellenörzés</string>
-    <string name="auth_host_url">Szerver címe https://...</string>
     <string name="auth_username">Felhasználónév</string>
     <string name="auth_password">Jelszó</string>
     <string name="auth_register">Nincs még saját szervere?\nKattintson ide a beszerzéshez az egyik szolgáltatótól</string>

@@ -48,9 +48,9 @@
     <string name="prefs_help">Ajutor</string>
     <string name="prefs_feedback">Feedback</string>
     <string name="prefs_imprint">Imprint</string>
-    <string name="recommend_subject">Încearcă %1$s pe smartphone-ul tău!</string>
+
+	<string name="recommend_subject">Încearcă %1$s pe smartphone-ul tău!</string>
 	<string name="auth_check_server">Verifică serverul</string>
-    <string name="auth_host_url">Adresa serverului https://...</string>
     <string name="auth_username">Nume utilizator</string>
     <string name="auth_password">Parolă</string>
     <string name="sync_string_files">Fișiere</string>

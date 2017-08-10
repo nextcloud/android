@@ -60,7 +60,6 @@
     <string name="recommend_urls">%1$s or %2$s</string>
 
     <string name="auth_check_server">Controleer server</string>
-    <string name="auth_host_url">Serveradres https://…</string>
     <string name="auth_username">Gebruikersnaam</string>
     <string name="auth_password">Wachtwoord</string>
     <string name="auth_register">Heb je nog geen server?\n
@@ -257,7 +256,6 @@ Kies er eentje van een provider.</string>
 	<string name="auth_expired_oauth_token_toast">Je autorisatie is verstreken. Autoriseer opnieuw</string>
 	<string name="auth_expired_basic_auth_toast">Voer het huidige wachtwoord in</string>
 	<string name="auth_expired_saml_sso_token_toast">Je sessie is verstreken. Verbind opnieuw</string>
-	<string name="auth_connecting_auth_server">Verbinden met authenticatieserver...</string>
 	<string name="auth_unsupported_auth_method">De server ondersteunt deze authenticatiemethode niet</string>
 	<string name="auth_unsupported_multiaccount">%1$s ondersteunt het gebruik van meerdere accounts niet</string>
 	<string name="auth_fail_get_user_name">Je server geeft geen goede userid terug, neem contact op met je beheerder</string>
@@ -285,7 +283,6 @@ Kies er eentje van een provider.</string>
     <string name="filename_forbidden_characters">Verboden tekens: / \\ &lt; &gt; : " | ? *</string>
     <string name="filename_forbidden_charaters_from_server">De bestandsnaam bevat ten minste één ongeldig teken</string>
     <string name="filename_empty">Bestandsnaam mag niet leeg zijn</string>
-    <string name="wait_a_moment">Even geduld...</string>
     <string name="wait_checking_credentials">Opgeslagen inloggegevens nakijken</string>
     <string name="filedisplay_unexpected_bad_get_content">Onverwacht probleem; probeer het bestand met een andere app te selecteren</string>
     <string name="filedisplay_no_file_selected">Geen bestand geselecteerd</string>
@@ -293,8 +290,6 @@ Kies er eentje van een provider.</string>
     <string name="wait_for_tmp_copy_from_private_storage">Bestand vanaf privéopslag kopiëren</string>
     
     <string name="oauth_check_onoff">Inloggen met OAuth 2.0</string> 
-    <string name="oauth_login_connection">Verbinden met OAuth 2.0 server…</string>    
-        
     <string name="ssl_validator_header">De identiteit van de site kan niet worden gecontroleerd</string>
     <string name="ssl_validator_reason_cert_not_trusted">- Het servercertificaat wordt niet vertrouwd</string>
     <string name="ssl_validator_reason_cert_expired">- Het servercertificaat is verlopen</string>
