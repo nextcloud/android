@@ -12,7 +12,6 @@
     <string name="actionbar_see_details">详细信息</string>
     <string name="actionbar_send_file">发送</string>
     <string name="actionbar_sort">排序</string>
-    <string name="actionbar_sort_title">排序方式</string>
     <string name="sort_by">排序方式</string>
     <string name="menu_item_sort_by_name_a_z">按名称顺序</string>
     <string name="menu_item_sort_by_name_z_a">按名称倒序</string>
