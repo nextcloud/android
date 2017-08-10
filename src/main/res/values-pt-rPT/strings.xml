@@ -12,7 +12,6 @@
     <string name="actionbar_see_details">Detalhes</string>
     <string name="actionbar_send_file">Enviar</string>
     <string name="actionbar_sort">Ordenar</string>
-    <string name="actionbar_sort_title">Ordenar por</string>
     <string name="drawer_item_all_files">Todos os ficheiros</string>
     <string name="drawer_item_on_device">No dispositivo</string>
     <string name="drawer_item_settings">Definições</string>

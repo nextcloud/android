@@ -12,7 +12,6 @@
     <string name="actionbar_see_details">Detaljer</string>
     <string name="actionbar_send_file">Skicka</string>
     <string name="actionbar_sort">Sortera</string>
-    <string name="actionbar_sort_title">Sortera efter</string>
     <string name="sort_by">Sortera efter</string>
     <string name="menu_item_sort_by_name_a_z">A - Ö</string>
     <string name="menu_item_sort_by_name_z_a">Ö - A</string>
