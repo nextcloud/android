@@ -130,10 +130,6 @@ android {
         release
     }
 
-    signingConfigs {
-        release
-    }
-
     task checkstyle(type: Checkstyle) {
         configFile = file("${rootProject.projectDir}/checkstyle.xml")
         configProperties.checkstyleSuppressionsPath = file("${project.rootDir}/config/quality/checkstyle/suppressions.xml").absolutePath
