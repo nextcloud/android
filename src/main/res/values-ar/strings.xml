@@ -12,7 +12,6 @@
     <string name="actionbar_see_details">تفاصيل</string>
     <string name="actionbar_send_file">أرسل</string>
     <string name="actionbar_sort">ترتيب</string>
-    <string name="actionbar_sort_title">ترتيب بـ</string>
     <string name="sort_by">ترتيب</string>
     <string name="menu_item_sort_by_name_a_z">أ - ى</string>
     <string name="menu_item_sort_by_name_z_a">ى -أ</string>

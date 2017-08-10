@@ -1,6 +1,9 @@
 ## Script from https://github.com/tir38/android-lint-entropy-reducer at 07.05.2017
 # adapts to drone, use git username / token as parameter
 
+Encoding.default_external = Encoding::UTF_8
+Encoding.default_internal = Encoding::UTF_8
+
 puts "=================== starting Android Lint Entropy Reducer ===================="
 
 # get args
@@ -73,17 +76,23 @@ lint_report = String.new(lint_reports[0])
 # find error/warning count string in HTML report
 error_warning_string = ""
 File.open lint_report do |file|
-  error_warning_string = file.find { |line| line =~ /[0-9]* errors and [0-9]* warnings/ }
+  error_warning_string = file.find { |line| line =~ /([0-9]* error[s]? and )?[0-9]* warning[s]?/ }
 end
 
 # find number of errors
-error_string = error_warning_string.match(/[0-9]* errors/)[0]
-current_error_count = error_string.match(/[0-9]*/)[0].to_i
+error_string = error_warning_string.match(/[0-9]* error[s]?/)
+
+if (error_string.nil?)
+    current_error_count = 0
+else
+    current_error_count = error_string[0].match(/[0-9]*/)[0].to_i
+end
+
 puts "found errors: " + current_error_count.to_s
 
 # find number of warnings
 if CHECK_WARNINGS == true
-    warning_string = error_warning_string.match(/[0-9]* warnings/)[0]
+    warning_string = error_warning_string.match(/[0-9]* warning[s]?/)[0]
     current_warning_count = warning_string.match(/[0-9]*/)[0].to_i
     puts "found warnings: " + current_warning_count.to_s
 end

@@ -12,7 +12,6 @@
     <string name="actionbar_see_details">Детаљи</string>
     <string name="actionbar_send_file">Пошаљи</string>
     <string name="actionbar_sort">Сортирање по</string>
-    <string name="actionbar_sort_title">Сортирање</string>
     <string name="sort_by">Сортирај по</string>
     <string name="menu_item_sort_by_name_a_z">А - Ш</string>
     <string name="menu_item_sort_by_name_z_a">Ш - А</string>

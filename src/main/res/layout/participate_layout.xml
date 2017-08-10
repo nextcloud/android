@@ -101,7 +101,8 @@
                         android:background="@color/white"
                         android:onClick="onGetRCPlayStoreClick"
                         android:padding="@dimen/zero"
-                        android:src="@drawable/playstore"/>
+                        android:src="@drawable/playstore"
+                        android:contentDescription="@string/participate_rc_play_store"/>
 
                     <ImageButton
                         android:id="@+id/participate_release_candidate_fdroid"
@@ -110,7 +111,8 @@
                         android:background="@color/white"
                         android:onClick="onGetRCFDroidClick"
                         android:padding="@dimen/zero"
-                        android:src="@drawable/fdroid"/>
+                        android:src="@drawable/fdroid"
+                        android:contentDescription="@string/participate_rc_fdroid"/>
 
                 </LinearLayout>
 
@@ -139,7 +141,8 @@
                     android:background="@color/white"
                     android:onClick="onGetBetaFDroidClick"
                     android:padding="@dimen/zero"
-                    android:src="@drawable/fdroid"/>
+                    android:src="@drawable/fdroid"
+                    android:contentDescription="@string/participate_dev_fdroid"/>
 
                 <ImageButton
                     android:id="@+id/participate_beta_apk"
@@ -148,7 +151,8 @@
                     android:background="@color/white"
                     android:onClick="onGetBetaApkClick"
                     android:padding="@dimen/zero"
-                    android:src="@drawable/apk"/>
+                    android:src="@drawable/apk"
+                    android:contentDescription="@string/participate_dev_direct_download"/>
 
                 </LinearLayout>
 
