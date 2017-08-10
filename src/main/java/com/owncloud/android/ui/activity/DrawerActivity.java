@@ -618,7 +618,7 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
 
         ArrayList<Account> persistingAccounts = new ArrayList<>();
 
-        for (Account acc: accounts) {
+        for (Account acc : accounts) {
             boolean pendingForRemoval = arbitraryDataProvider.getBooleanValue(acc,
                     ManageAccountsActivity.PENDING_FOR_REMOVAL);
 
@@ -669,7 +669,7 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
         mNavigationView.getMenu().removeGroup(R.id.drawer_menu_accounts);
 
         // add all accounts to list
-        for (Account account: accounts) {
+        for (Account account : accounts) {
             try {
                 // show all accounts except the currently active one and those pending for removal
 
@@ -1207,7 +1207,7 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
 
         ArrayList<Account> persistingAccounts = new ArrayList<>();
 
-        for (Account acc: accountsAll) {
+        for (Account acc : accountsAll) {
             boolean pendingForRemoval = arbitraryDataProvider.getBooleanValue(acc,
                     ManageAccountsActivity.PENDING_FOR_REMOVAL);
 
