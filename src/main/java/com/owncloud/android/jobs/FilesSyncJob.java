@@ -1,4 +1,4 @@
-/**
+/*
  * Nextcloud Android client application
  *
  * @author Mario Danic
@@ -24,6 +24,7 @@ package com.owncloud.android.jobs;
 import android.accounts.Account;
 import android.content.ContentResolver;
 import android.content.Context;
+import android.content.res.Resources;
 import android.os.PowerManager;
 import android.support.annotation.NonNull;
 import android.support.media.ExifInterface;
@@ -32,7 +33,9 @@ import android.text.TextUtils;
 import com.evernote.android.job.Job;
 import com.evernote.android.job.util.support.PersistableBundleCompat;
 import com.owncloud.android.MainApp;
+import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
+import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.FilesystemDataProvider;
 import com.owncloud.android.datamodel.MediaFolderType;
 import com.owncloud.android.datamodel.SyncedFolder;
@@ -40,6 +43,7 @@ import com.owncloud.android.datamodel.SyncedFolderProvider;
 import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.operations.UploadFileOperation;
+import com.owncloud.android.ui.activity.Preferences;
 import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.FilesSyncHelper;
 import com.owncloud.android.utils.MimeTypeUtil;
@@ -78,6 +82,9 @@ public class FilesSyncJob extends Job {
         PersistableBundleCompat bundle = params.getExtras();
         final boolean skipCustom = bundle.getBoolean(SKIP_CUSTOM, false);
 
+        Resources resources = MainApp.getAppContext().getResources();
+        boolean lightVersion = resources.getBoolean(R.bool.syncedFolder_light);
+
         FilesSyncHelper.restartJobsIfNeeded();
         FilesSyncHelper.insertAllDBEntries(skipCustom);
 
@@ -95,9 +102,9 @@ public class FilesSyncJob extends Job {
                     final Locale currentLocale = context.getResources().getConfiguration().locale;
 
                     if (MediaFolderType.IMAGE == syncedFolder.getType()) {
-                        String mimetypeString = FileStorageUtils.getMimeTypeFromName(file.getAbsolutePath());
-                        if ("image/jpeg".equalsIgnoreCase(mimetypeString) || "image/tiff".
-                                equalsIgnoreCase(mimetypeString)) {
+                        String mimeTypeString = FileStorageUtils.getMimeTypeFromName(file.getAbsolutePath());
+                        if ("image/jpeg".equalsIgnoreCase(mimeTypeString) || "image/tiff".
+                                equalsIgnoreCase(mimeTypeString)) {
                             try {
                                 ExifInterface exifInterface = new ExifInterface(file.getAbsolutePath());
                                 String exifDate = exifInterface.getAttribute(ExifInterface.TAG_DATETIME);
@@ -116,12 +123,36 @@ public class FilesSyncJob extends Job {
                         }
                     }
 
-                    boolean needsCharging = syncedFolder.getChargingOnly();
-                    boolean needsWifi = syncedFolder.getWifiOnly();
-
                     String mimeType = MimeTypeUtil.getBestMimeTypeByFilename(file.getAbsolutePath());
 
                     Account account = AccountUtils.getOwnCloudAccountByName(context, syncedFolder.getAccount());
+
+                    String remotePath;
+                    boolean subfolderByDate;
+                    Integer uploadAction;
+                    boolean needsCharging;
+                    boolean needsWifi;
+
+                    if (lightVersion) {
+                        ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProvider(
+                                context.getContentResolver());
+
+                        needsCharging = resources.getBoolean(R.bool.syncedFolder_light_on_charging);
+                        needsWifi = account == null || arbitraryDataProvider.getBooleanValue(account.name,
+                                Preferences.SYNCED_FOLDER_LIGHT_UPLOAD_ON_WIFI);
+                        String uploadActionString = resources.getString(R.string.syncedFolder_light_upload_behaviour);
+                        uploadAction = getUploadAction(uploadActionString);
+
+                        subfolderByDate = resources.getBoolean(R.bool.syncedFolder_light_use_subfolders);
+
+                        remotePath = resources.getString(R.string.syncedFolder_remote_folder);
+                    } else {
+                        needsCharging = syncedFolder.getChargingOnly();
+                        needsWifi = syncedFolder.getWifiOnly();
+                        uploadAction = syncedFolder.getUploadAction();
+                        subfolderByDate = syncedFolder.getSubfolderByDate();
+                        remotePath = syncedFolder.getRemotePath();
+                    }
 
                     requester.uploadFileWithOverwrite(
                             context,
@@ -129,10 +160,9 @@ public class FilesSyncJob extends Job {
                             file.getAbsolutePath(),
                             FileStorageUtils.getInstantUploadFilePath(
                                     currentLocale,
-                                    syncedFolder.getRemotePath(), file.getName(),
-                                    lastModificationTime,
-                                    syncedFolder.getSubfolderByDate()),
-                            syncedFolder.getUploadAction(),
+                                    remotePath, file.getName(),
+                                    lastModificationTime, subfolderByDate),
+                            uploadAction,
                             mimeType,
                             true,           // create parent folder if not existent
                             UploadFileOperation.CREATED_AS_INSTANT_PICTURE,
@@ -149,5 +179,18 @@ public class FilesSyncJob extends Job {
 
         wakeLock.release();
         return Result.SUCCESS;
+    }
+
+    private Integer getUploadAction(String action) {
+        switch (action) {
+            case "LOCAL_BEHAVIOUR_FORGET":
+                return FileUploader.LOCAL_BEHAVIOUR_FORGET;
+            case "LOCAL_BEHAVIOUR_MOVE":
+                return FileUploader.LOCAL_BEHAVIOUR_MOVE;
+            case "LOCAL_BEHAVIOUR_DELETE":
+                return FileUploader.LOCAL_BEHAVIOUR_DELETE;
+            default:
+                return FileUploader.LOCAL_BEHAVIOUR_FORGET;
+        }
     }
 }
