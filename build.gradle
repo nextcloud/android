@@ -14,7 +14,7 @@ buildscript {
         google()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.0.0-alpha9'
+        classpath 'com.android.tools.build:gradle:3.0.0-beta1'
         classpath 'com.google.gms:google-services:3.0.0'
     }
 }
@@ -30,7 +30,7 @@ configurations.all {
 }
 
 ext {
-    supportLibraryVersion = '25.2.0'
+    supportLibraryVersion = '25.4.0'
     googleLibraryVersion = '10.2.4'
 
     travisBuild = System.getenv("TRAVIS") == "true"
@@ -184,7 +184,7 @@ dependencies {
     /// dependencies for app building
     implementation name: 'touch-image-view'
     implementation 'com.android.support:multidex:1.0.2'
-    implementation 'com.github.nextcloud:android-library:1.0.23'
+    implementation 'com.github.nextcloud:android-library:1.0.24'
     implementation "com.android.support:support-v4:${supportLibraryVersion}"
     implementation "com.android.support:design:${supportLibraryVersion}"
     implementation 'com.jakewharton:disklrucache:2.0.2'
@@ -212,13 +212,13 @@ dependencies {
     testImplementation 'org.mockito:mockito-core:1.10.19'
     /// dependencies for instrumented tests
     // JUnit4 Rules
-    androidTestImplementation 'com.android.support.test:rules:0.5'
+    androidTestImplementation 'com.android.support.test:rules:1.0.0'
     // Android JUnit Runner
-    androidTestImplementation 'com.android.support.test:runner:0.5'
+    androidTestImplementation 'com.android.support.test:runner:1.0.0'
     // Android Annotation Support
     androidTestImplementation "com.android.support:support-annotations:${supportLibraryVersion}"
     // Espresso core
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:2.2.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.0'
     // UIAutomator - for cross-app UI tests, and to grant screen is turned on in Espresso tests
     //androidTestImplementation 'com.android.support.test.uiautomator:uiautomator-v18:2.1.2'
     // fix conflict in dependencies; see http://g.co/androidstudio/app-test-app-conflict for details
