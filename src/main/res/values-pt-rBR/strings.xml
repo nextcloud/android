@@ -45,6 +45,7 @@
     <string name="prefs_passcode">Bloqueio de código de acesso</string>
     <string name="prefs_fingerprint">Bloqueio por impressão digital</string>
     <string name="prefs_fingerprint_notsetup">Nenhuma impressão digital foi configurada.</string>
+    <string name="prefs_expert_mode">Modo avançado</string>
     <string name="prefs_show_hidden_files">Mostrar arquivos ocultos</string>
     <string name="prefs_instant_upload">Envio automático de imagens</string>
     <string name="prefs_instant_upload_summary">Enviar automaticamente as imagens tiradas pela câmera</string>
@@ -80,6 +81,7 @@
     <string name="sync_string_files">Arquivos</string>
     <string name="setup_btn_connect">Conectar</string>
     <string name="uploader_btn_upload_text">Enviar</string>
+    <string name="uploader_btn_alternative_text">Escolher</string>
     <string name="uploader_top_message">Escolher pasta para envio</string>
     <string name="uploader_wrn_no_account_title">Nenhuma conta encontrada</string>
     <string name="uploader_wrn_no_account_text">Não existe nenhuma conta %1$s em seu dispositivo. Por favor, configure uma conta primeiro.</string>
@@ -98,6 +100,7 @@
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Excluir o arquivo da pasta de origem</string>
     <string name="file_list_seconds_ago">segundos atrás</string>
     <string name="file_list_empty_headline">Nenhum arquivo aqui</string>
+    <string name="folder_list_empty_headline">Sem pastas aqui</string>
     <string name="file_list_empty">Enviar um conteúdo ou sincronizar com seus dispositivos.</string>
     <string name="file_list_empty_favorites">Favoritar algum arquivo ou sincronizar com seus dispositivos.</string>
     <string name="file_list_empty_favorites_filter_list">Arquivos e pastas favoritas serão mostradas aqui</string>
@@ -105,6 +108,7 @@
     <string name="file_list_loading">Carregando&#8230;</string>
     <string name="file_list_no_app_for_file_type">Nenhuma aplicação definida para manipular este tipo de arquivo.</string>
     <string name="local_file_list_empty">Não existe nenhum arquivo nesta pasta.</string>
+    <string name="local_folder_list_empty">Não há outras pastas.</string>
     <string name="file_list_empty_headline_search">Nenhum resultado nesta pasta</string>
     <string name="file_list_empty_headline_server_search">Sem resultados</string>
     <string name="file_list_empty_favorite_headline">Nenhum favorito ainda</string>
@@ -153,11 +157,14 @@
     <string name="common_unknown">desconhecido</string>
     <string name="common_error_unknown">Erro desconhecido</string>
     <string name="common_pending">Pendente</string>
+    <string name="common_delete">Excluir</string>
     <string name="about_title">Sobre</string>
     <string name="change_password">Alterar senha</string>
     <string name="delete_account">Excluir conta</string>
     <string name="delete_account_warning">Excluir a conta %s e todos seus arquivos?\n\nEsta exclusão não pode ser desfeita.</string>
     <string name="create_account">Criar conta</string>
+    <string name="avatar">Avatar</string>
+    <string name="active_user">Ativar usuário</string>
     <string name="upload_chooser_title">Enviar de &#8230;</string>
     <string name="uploader_info_dirname">Nome da pasta</string>
     <string name="uploader_upload_in_progress_ticker">Enviando &#8230;</string>
@@ -169,6 +176,7 @@
     <string name="uploader_upload_failed_credentials_error">Falha no envio, você precisa reautenticar-se</string>
     <string name="uploads_view_title">Envios</string>
     <string name="uploads_view_group_current_uploads">Atual</string>
+    <string name="uploads_view_group_failed_uploads">Falhou / Reinício pendente</string>
     <string name="uploads_view_group_finished_uploads">Enviado</string>
     <string name="uploads_view_upload_status_succeeded">Concluído</string>
     <string name="uploads_view_upload_status_cancelled">Cancelado</string>
@@ -361,6 +369,8 @@
 
     <string name="error__upload__local_file_not_copied">%1$s não pôde ser copiado para pasta local %2$s</string>
     <string name="prefs_instant_upload_path_title">Pasta de envio automático</string>
+    <string name="prefs_synced_folders_local_path_title">Pasta local</string>
+    <string name="prefs_synced_folders_remote_path_title">Pasta remota</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Usar subpastas</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Armazena em subpastas baseado no ano e mês</string>
 
@@ -532,8 +542,12 @@
     <string name="edit_share_unshare">Parar compartilhamento</string>
     <string name="edit_share_done">finalizado</string>
 
+    <string name="action_retry_uploads">Retentar envios falhados</string>
+    <string name="action_clear_failed_uploads">Limpar envios falhados</string>
     <string name="action_clear_successful_uploads">Limpar envios concluídos</string>
     <string name="action_clear_finished_uploads">Limpar envios termiandos</string>
+    <string name="action_force_rescan">Forçar verificação</string>
+
     <string name="action_switch_grid_view">Vista da grade</string>
     <string name="action_switch_list_view">Lista de visualização</string>
 
@@ -547,10 +561,13 @@
     <string name="confirmation_remove_files_alert">Deseja realmente excluir os itens selecionados?</string>
     <string name="confirmation_remove_folders_alert">Deseja realmente excluir os itens selecionados e seus conteúdos?</string>
     <string name="maintenance_mode">O servidor está em modo de manutenção</string>
+    <string name="lock_failed">Falha ao bloquear o arquivo</string>
+
     <string name="uploads_view_upload_status_waiting_for_charging">Esperando carregar</string>
     <string name="actionbar_search">Pesquisar</string>
     <string name="files_drop_not_supported">Este é um recurso do Nextcloud. Por favor, atualize.</string>
     <string name="learn_more">Saiba mais</string>
+    <string name="drawer_synced_folders">Auto envio</string>
     <string name="drawer_participate">Participar</string>
     <string name="participate_testing_headline">Ajuda para teste</string>
     <string name="participate_testing_bug_text">Encontrou um erro? Comentários?</string>
@@ -569,6 +586,14 @@
     <string name="participate_contribute_github_text">Revise, modifique e escreva código, veja detalhes em%1$s</string>
     <string name="move_to">Mover para&#8230;</string>
     <string name="copy_to">Copiar para&#8230;</string>
+    <string name="choose_remote_folder">Escolher pasta remota&#8230;</string>
+    <string name="choose_local_folder">Escolher pasta local&#8230;</string>
+    <string name="synced_folders_loading_folders">Carregando pastas&#8230;</string>
+    <string name="synced_folders_no_results">Nenhuma pasta de mídia encontrada.</string>
+    <string name="synced_folders_preferences">Preferências do auto envio</string>
+    <string name="synced_folders_settings">Configurações</string>
+    <string name="synced_folders_new_info">O envio instantâneo foi completamente renovado. Reconfigure seu auto envio no menu principal.\n\nDesfrute do novo envio automático e estendido.</string>
+    <string name="synced_folders_preferences_folder_path">Para %1$s</string>
     <plurals name="items_selected_count">
         <item quantity="one">%d selecionado</item>
         <item quantity="other">%d selecionados</item>
@@ -651,5 +676,11 @@
     <string name="privacy">Privacidade</string>
     <string name="file_not_found">Arquivo não encontrado!</string>
 
+    <!-- Auto upload -->
+    <string name="autoupload_custom_folder">Configurar uma pasta personalizada</string>
+    <string name="autoupload_create_new_custom_folder">Criar nova configuração de pasta personalizada</string>
+    <string name="synced_folders_configure_folders">Configurar pastas</string>
+
     <string name="test_server_button">Teste de conexão ao servidor</string>
-    </resources>
+    <string name="resharing_is_not_allowed">Recompartilhamento não é permitido</string>
+</resources>
