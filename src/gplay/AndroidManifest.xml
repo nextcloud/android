@@ -20,7 +20,7 @@
           xmlns:tools="http://schemas.android.com/tools"
           package="com.owncloud.android"
           android:versionCode="20000001"
-          android:versionName="2.0.0 RC1">
+          android:versionName="2.0.0RC1">
 
     <application
         android:name=".MainApp"

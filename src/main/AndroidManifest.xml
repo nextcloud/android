@@ -21,7 +21,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.owncloud.android"
           android:versionCode="20000001"
-          android:versionName="2.0.0 RC1">
+          android:versionName="2.0.0RC1">
 
     <uses-sdk
         android:minSdkVersion="14"
