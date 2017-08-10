@@ -577,6 +577,10 @@
     <string name="participate_contribute_translate_link" translatable="false">&lt;font color=\"%1$s\">&lt;a href=\"%2$s\">%3$s&lt;/a>&lt;/font></string>
     <string name="participate_contribute_github_text">Review, amend and write code, see %1$s for details</string>
     <string name="participate_contribute_github_text_link" translatable="false">&lt;font color=\"%1$s\">&lt;a href=\"%2$s\">CONTRIBUTING.md&lt;/a>&lt;/font></string>
+    <string name="participate_rc_play_store">Get release candidate via Google Play store</string>
+    <string name="participate_rc_fdroid">Get release candidate via f-droid app store</string>
+    <string name="participate_dev_fdroid">Get development release via f-droid app store</string>
+    <string name="participate_dev_direct_download">Get development release via direct download</string>
     <string name="move_to">Move to&#8230;</string>
     <string name="copy_to">Copy to&#8230;</string>
     <string name="choose_remote_folder">Choose remote folder&#8230;</string>
