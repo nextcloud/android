@@ -338,7 +338,11 @@ public class Preferences extends PreferenceActivity
             preferenceCategoryDetails.removePreference(mShowHiddenFiles);
         }
 
-        if (!getResources().getBoolean(R.bool.syncedFolder_light)) {
+        mExpertMode = (SwitchPreference) findPreference("expert_mode");
+
+        if (getResources().getBoolean(R.bool.syncedFolder_light)) {
+            preferenceCategoryDetails.removePreference(mExpertMode);
+        } else {
             mExpertMode = (SwitchPreference) findPreference("expert_mode");
             mExpertMode.setOnPreferenceClickListener(new OnPreferenceClickListener() {
                 @Override
