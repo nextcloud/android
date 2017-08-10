@@ -61,7 +61,6 @@
     <string name="recommend_urls">%1$s或%2$s</string>
 
     <string name="auth_check_server">檢查伺服器</string>
-    <string name="auth_host_url">伺服器位址 https://...</string>
     <string name="auth_username">使用者名稱</string>
     <string name="auth_password">密碼</string>
     <string name="auth_register">還沒有伺服器嗎？\n點這裡可以從供應商取得一個。</string>
@@ -257,7 +256,6 @@
 	<string name="auth_expired_oauth_token_toast">你的登入授權已過期，請再次登入</string>
 	<string name="auth_expired_basic_auth_toast">請輸入目前的密碼</string>
 	<string name="auth_expired_saml_sso_token_toast">您的工作階段已失效，請重新連線</string>
-	<string name="auth_connecting_auth_server">正在連線認證伺服器...</string>
 	<string name="auth_unsupported_auth_method">伺服器不支援這種認證方式</string>
 	<string name="auth_unsupported_multiaccount">%1$s 不支援多個賬戶</string>
 	<string name="auth_fail_get_user_name">你的伺服器並未回應正確的使用者ID，請聯繫管理人員。</string>
@@ -285,7 +283,6 @@
     <string name="filename_forbidden_characters">禁止使用的字元： / \\ &lt; &gt; : \" | ? *</string>
     <string name="filename_forbidden_charaters_from_server">檔案名稱含有不合法的字元</string>
     <string name="filename_empty">檔名不能為空</string>
-    <string name="wait_a_moment">請稍候</string>
     <string name="wait_checking_credentials">檢查儲存的帳號密碼</string>
     <string name="filedisplay_unexpected_bad_get_content">未知的問題,請透過不同應用程式選擇檔案</string>
     <string name="filedisplay_no_file_selected">未選擇任何檔案</string>
@@ -293,8 +290,6 @@
     <string name="wait_for_tmp_copy_from_private_storage">由私有儲存空間複製檔案中</string>
     
     <string name="oauth_check_onoff">透過OAuth 2.0登入</string> 
-    <string name="oauth_login_connection">連線至OAuth 2.0伺服器...</string>    
-        
     <string name="ssl_validator_header">這個網站的憑證無法被驗證</string>
     <string name="ssl_validator_reason_cert_not_trusted">- 伺服器使用未被信任的憑證</string>
     <string name="ssl_validator_reason_cert_expired">- 伺服器憑證已過期</string>

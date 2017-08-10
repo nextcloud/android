@@ -50,7 +50,6 @@
     <string name="recommend_subject">¡Prueba %1$s nel to teléfonu intelixente!</string>
 	<string name="recommend_text">Quiero convidate a usar %1$s nel to teléfonu intelixente.\nBáxalu d\'equí: %2$s</string>
     <string name="auth_check_server">Comprobar servidor</string>
-    <string name="auth_host_url">Direición del sirvidor https://...</string>
     <string name="auth_username">Nome d\'usuariu</string>
     <string name="auth_password">Contraseña</string>
     <string name="auth_register">¿Entá nun tienes un sirvidor?\nPrimi equí pa consiguir ún d\'un fornidor</string>
@@ -215,7 +214,6 @@
 	<string name="auth_expired_oauth_token_toast">La to autorización finó. Por favor, autorízala otra vegada</string>
 	<string name="auth_expired_basic_auth_toast">Por favor, introduzca la contraseña actual</string>
 	<string name="auth_expired_saml_sso_token_toast">La so sesión finó. Por favor conéutate otra vegada</string>
-	<string name="auth_connecting_auth_server">Coneutando col sirvidor d\'autenticación...</string>
 	<string name="auth_unsupported_auth_method">El sirvidor nun sofita esti métodu/triba d\'autentificación</string>
 	<string name="auth_unsupported_multiaccount">%1$s nun permite cuentes múltiples</string>
 	<string name="auth_fail_get_user_name">El to sirvidor nun ta devolviendo una ID correuta d\'usuariu, por favor contauta con un alministrador</string>
@@ -239,7 +237,6 @@
     <string name="filename_forbidden_characters">Caráuteres prohibíos: / \\ &lt; &gt; : \" | ? *</string>
     <string name="filename_forbidden_charaters_from_server">El nome del ficheru contién polo menos un carácter non válidu</string>
     <string name="filename_empty">El nome de ficheru nun pue tar baleru</string>
-    <string name="wait_a_moment">Espera un momentu...</string>
     <string name="wait_checking_credentials">Comprobación de credenciales almacenaes</string>
     <string name="filedisplay_unexpected_bad_get_content">Problema inesperáu, por favor esbilla\'l ficheru dende una aplicación diferente</string>
     <string name="filedisplay_no_file_selected">Nun s\'esbillaron ficheros</string>

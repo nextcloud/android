@@ -39,9 +39,9 @@
     <string name="prefs_help">Hjälp</string>
     <string name="prefs_feedback">Feedback</string>
     <string name="prefs_imprint">Imprint</string>
-    <string name="recommend_subject">Prova %1$s på din smartphone!</string>
+
+	<string name="recommend_subject">Prova %1$s på din smartphone!</string>
 	<string name="auth_check_server">Testa servern</string>
-    <string name="auth_host_url">Serveradress https://...</string>
     <string name="auth_username">Användarnamn</string>
     <string name="auth_password">Lösenord</string>
     <string name="sync_string_files">Filer</string>

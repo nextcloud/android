@@ -61,7 +61,6 @@
     <string name="recommend_urls">%1$s eller %2$s</string>
 
     <string name="auth_check_server">Sjekk tjener</string>
-    <string name="auth_host_url">Tjeneradresse https://...</string>
     <string name="auth_username">Brukernavn</string>
     <string name="auth_password">Passord</string>
     <string name="auth_register">Har du ingen tjener enda?\nKlikk her for å opprette en hos en tilbyder</string>
@@ -257,7 +256,6 @@
 	<string name="auth_expired_oauth_token_toast">Autorisasjonen din har gått ut. Autoriser igjen</string>
 	<string name="auth_expired_basic_auth_toast">Legg inn nåværende passord</string>
 	<string name="auth_expired_saml_sso_token_toast">Økta di har gått ut. Koble til igjen</string>
-	<string name="auth_connecting_auth_server">Kobler til autentiseringstjener...</string>
 	<string name="auth_unsupported_auth_method">Tjeneren støtter ikke denne autorisasjonsmetoden</string>
 	<string name="auth_unsupported_multiaccount">%1$s støtter ikke flere kontoer</string>
 	<string name="auth_fail_get_user_name">Tjeneren din svarer ikke med korrekt bruker-ID, ta kontakt med en administrator </string>
@@ -285,7 +283,6 @@
     <string name="filename_forbidden_characters">Forbudte tegn: / \\ &lt; &gt; : \" | ? *</string>
     <string name="filename_forbidden_charaters_from_server">Filnavnet inneholder minst ett ulovlig tegn</string>
     <string name="filename_empty">Filnavn kan ikke være tomt</string>
-    <string name="wait_a_moment">Vent et øyeblikk…</string>
     <string name="wait_checking_credentials">Sjekker lagrede påloggingsdetaljer</string>
     <string name="filedisplay_unexpected_bad_get_content">Uventet problem; velg filen fra et annet program</string>
     <string name="filedisplay_no_file_selected">Ingen fil ble valgt</string>
@@ -293,8 +290,6 @@
     <string name="wait_for_tmp_copy_from_private_storage">Kopierer fil fra privat lager</string>
     
     <string name="oauth_check_onoff">Logg inn med OAuth 2.0</string> 
-    <string name="oauth_login_connection">Kobler til OAuth 2.0-tjener...</string>    
-        
     <string name="ssl_validator_header">Identiteten til siden kunne ikke bekreftes</string>
     <string name="ssl_validator_reason_cert_not_trusted">- Tjenerens sertifikat er ikke til å stole på</string>
     <string name="ssl_validator_reason_cert_expired">- Tjenerens sertifikat er utløpt</string>

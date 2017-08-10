@@ -39,9 +39,9 @@
     <string name="prefs_help">Pomoc</string>
     <string name="prefs_feedback">Spätná väzba</string>
     <string name="prefs_imprint">Podmienky používania</string>
-    <string name="recommend_subject">Skúste %1$s na vašom telefóne!</string>
+
+	<string name="recommend_subject">Skúste %1$s na vašom telefóne!</string>
 	<string name="auth_check_server">Skontrolovať server</string>
-    <string name="auth_host_url">Adresa servera https://...</string>
     <string name="auth_username">Používateľské meno</string>
     <string name="auth_password">Heslo</string>
     <string name="sync_string_files">Súbory</string>

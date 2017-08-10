@@ -31,9 +31,9 @@
     <string name="prefs_help">Bantuan</string>
     <string name="prefs_feedback">Umpan balik</string>
     <string name="prefs_imprint">Jejak</string>
-    <string name="recommend_subject">Cobalah %1$s pada ponsel cerdas Anda!</string>
+
+	<string name="recommend_subject">Cobalah %1$s pada ponsel cerdas Anda!</string>
 	<string name="auth_check_server">Periksa peladen</string>
-    <string name="auth_host_url">Alamat server https://…</string>
     <string name="auth_username">Nama Pengguna</string>
     <string name="auth_password">Sandi</string>
     <string name="sync_string_files">Berkas</string>

@@ -53,7 +53,6 @@
 
 	<string name="recommend_subject">%1$s을(를) 스마트폰에서 사용해 보세요!</string>
 	<string name="auth_check_server">서버 확인</string>
-    <string name="auth_host_url">서버 주소 https://…</string>
     <string name="auth_username">사용자 이름</string>
     <string name="auth_password">암호</string>
     <string name="auth_register">아직 서버를 가지고 있지 않나요?
@@ -215,7 +214,6 @@
     <string name="filename_forbidden_characters">사용할 수 없는 문자: / \\ &lt; &gt; : \" | ? *</string>
     <string name="filename_forbidden_charaters_from_server">파일 이름에 하나 이상의 사용할 수 없는 문자가 포함되어 있음</string>
     <string name="filename_empty">파일 이름이 비어 있을 수 없음</string>
-    <string name="wait_a_moment">잠시 기다려 주세요...</string>
     <string name="wait_checking_credentials">저장된 인증 확인</string>
     <string name="filedisplay_unexpected_bad_get_content">예상하지 못한 오류, 다른 앱에서 파일을 선택하세요</string>
     <string name="activity_chooser_title">다음으로 링크 보내기&#8230;</string>

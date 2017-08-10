@@ -26,9 +26,9 @@
     <string name="prefs_help">עזרה</string>
     <string name="prefs_feedback">משוב</string>
     <string name="prefs_imprint">חותמת</string>
-    <string name="recommend_subject">לבדיקה %1$s בטלפון החכם שלך!</string>
+
+	<string name="recommend_subject">לבדיקה %1$s בטלפון החכם שלך!</string>
 	<string name="auth_check_server">בדיקת שרת</string>
-    <string name="auth_host_url">כתובת שרת https://…</string>
     <string name="auth_username">שם משתמש</string>
     <string name="auth_password">ססמה</string>
     <string name="sync_string_files">קבצים</string>

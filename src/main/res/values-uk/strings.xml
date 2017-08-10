@@ -51,9 +51,9 @@
     <string name="prefs_help">Допомога</string>
     <string name="prefs_feedback">Зворотній зв\'язок</string>
     <string name="prefs_imprint">Відбиток</string>
-    <string name="recommend_subject">Спробуйте %1$s на своєму смартфоні!</string>
+
+	<string name="recommend_subject">Спробуйте %1$s на своєму смартфоні!</string>
 	<string name="auth_check_server">Перевірити сервер</string>
-    <string name="auth_host_url">Адреса серверу https://…</string>
     <string name="auth_username">Ім\'я користувача</string>
     <string name="auth_password">Пароль</string>
     <string name="sync_string_files">Файли</string>
@@ -195,7 +195,6 @@
 	<string name="auth_expired_oauth_token_toast">Час авторизації минув. Будь ласка, увійдіть знову</string>
 	<string name="auth_expired_basic_auth_toast">Будь ласка, введіть поточний пароль</string>
 	<string name="auth_expired_saml_sso_token_toast">Час сесії минув. Будь ласка, підключіться знов</string>
-	<string name="auth_connecting_auth_server">Йде підключення до серверу автентикації...</string>
 	<string name="auth_unsupported_auth_method">Сервер не підтримує обраний метод аутентифікації</string>
 	<string name="auth_unsupported_multiaccount">%1$s не підтримує одночасно декілька облікових записів</string>
 	<string name="common_rename">Перейменувати</string>
