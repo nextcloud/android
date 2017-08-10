@@ -12,7 +12,6 @@
     <string name="actionbar_see_details">Podrobnosti</string>
     <string name="actionbar_send_file">Pošlji</string>
     <string name="actionbar_sort">Razvrsti</string>
-    <string name="actionbar_sort_title">Razvrsti ...</string>
     <string name="sort_by">Razvrsti po</string>
     <string name="menu_item_sort_by_name_a_z">A - Ž</string>
     <string name="menu_item_sort_by_name_z_a">Ž - A</string>
