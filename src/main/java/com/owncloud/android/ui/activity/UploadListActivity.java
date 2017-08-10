@@ -44,7 +44,6 @@ import android.widget.Toast;
 
 import com.evernote.android.job.JobRequest;
 import com.owncloud.android.R;
-import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.UploadsStorageManager;
 import com.owncloud.android.db.OCUpload;
 import com.owncloud.android.files.services.FileUploader;
@@ -194,14 +193,6 @@ public class UploadListActivity extends FileActivity implements UploadListFragme
             Log_OC.i(TAG, "Could not find app for sending log history.");
 
         }        
-    }
-    
-    /**
-     * Same as openFileWithDefault() but user cannot save default app.
-     * @param ocFile
-     */
-    private void openFileWithDefaultNoDefault(OCFile ocFile) {
-        getFileOperationsHelper().openFile(ocFile);
     }
 
     @Override

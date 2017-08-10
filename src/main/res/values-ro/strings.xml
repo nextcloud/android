@@ -12,7 +12,6 @@
     <string name="actionbar_see_details">Detalii</string>
     <string name="actionbar_send_file">Expediază</string>
     <string name="actionbar_sort">Sortează</string>
-    <string name="actionbar_sort_title">Sortare după</string>
     <string name="sort_by">Sortare după</string>
     <string name="menu_item_sort_by_name_a_z">A - Z</string>
     <string name="menu_item_sort_by_name_z_a">Z - A</string>
@@ -39,14 +38,9 @@
     <string name="drawer_open">Deschide</string>
     <string name="prefs_category_general">General</string>
     <string name="prefs_category_more">Mai mult</string>
-    <string name="prefs_accounts">Conturi</string>
     <string name="prefs_manage_accounts">Administrare conturi</string>
     <string name="prefs_passcode">Parolă blocare</string>
     <string name="prefs_show_hidden_files">Arată fișierele ascunse</string>
-    <string name="prefs_log_title">Activează înregistrarea / jurnalizarea activităților</string>
-    <string name="prefs_log_summary">Acesta este folosit pentru a înregistra problemele</string>
-    <string name="prefs_log_title_history">Istoric activități jurnalizate</string>
-    <string name="prefs_log_summary_history">Asta arată înregistrările salvate</string>
     <string name="prefs_log_delete_history_button">Șterge istoricul</string>
     <string name="prefs_calendar_contacts">Sincronizați calendarul și contactele</string>
     <string name="prefs_calendar_contacts_summary">Setează DAVdroid (v1.3.0+) pentru acest cont</string>
@@ -54,9 +48,9 @@
     <string name="prefs_help">Ajutor</string>
     <string name="prefs_feedback">Feedback</string>
     <string name="prefs_imprint">Imprint</string>
-    <string name="recommend_subject">Încearcă %1$s pe smartphone-ul tău!</string>
+
+	<string name="recommend_subject">Încearcă %1$s pe smartphone-ul tău!</string>
 	<string name="auth_check_server">Verifică serverul</string>
-    <string name="auth_host_url">Adresa serverului https://...</string>
     <string name="auth_username">Nume utilizator</string>
     <string name="auth_password">Parolă</string>
     <string name="sync_string_files">Fișiere</string>
@@ -119,7 +113,6 @@
     <string name="uploader_upload_failed_credentials_error">Incarcarea a eșuat, trebuie să te autentifici din nou</string>
     <string name="uploads_view_title">Încărcări</string>
     <string name="uploads_view_group_current_uploads">Curent</string>
-    <string name="uploads_view_group_failed_uploads">Eșuat (apasă pentru reîncercare)</string>
     <string name="uploads_view_group_finished_uploads">Încărcat</string>
     <string name="uploads_view_upload_status_succeeded">Terminat</string>
     <string name="uploads_view_upload_status_cancelled">Anulat</string>
@@ -256,8 +249,6 @@
     <string name="preview_image_description">Previzualizare imagine</string>
     <string name="error__upload__local_file_not_copied">%1$s nu a putut fi copiat in dosarul local %2$s </string>
     <string name="prefs_instant_upload_path_title">Dosar pentru încărcare instantă</string>
-    <string name="prefs_synced_folders_local_path_title">Dosar local</string>
-    <string name="prefs_synced_folders_remote_path_title">Dosar la distanță</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Folosește subdosare</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Stocați in subdosar bazat pe an și lună</string>
 
@@ -379,7 +370,6 @@
     <string name="edit_share_unshare">Oprește partajarea</string>
     <string name="edit_share_done">finalizat</string>
 
-    <string name="action_clear_failed_uploads">Eliminare eșuată</string>
     <string name="action_switch_grid_view">Afișare în grilă</string>
     <string name="action_switch_list_view">Afișare în listă</string>
 
@@ -392,19 +382,11 @@
     <string name="actionbar_search">Caută</string>
     <string name="files_drop_not_supported">Aceasta este o funcționalitate Nextcloud, vă rugăm să actulizați aplicația.</string>
     <string name="learn_more">Află mai mult</string>
-    <string name="drawer_synced_folders">Încărcare automată</string>
     <string name="drawer_participate">Participă</string>
     <string name="participate_release_candidate_headline">Candidatul pentru lansare</string>
     <string name="participate_contribute_headline">Contribuie în mod activ</string>
     <string name="move_to">Mută în&#8230;</string>
     <string name="copy_to">Copiază în&#8230;</string>
-    <string name="choose_remote_folder">Alege dosar&#8230;</string>
-    <string name="synced_folders_loading_folders">Încărcare dosare&#8230;</string>
-    <string name="synced_folders_no_results">Nu au fost găsite dosare media.</string>
-    <string name="synced_folders_preferences">Preferințe pentru încărcare automată</string>
-    <string name="synced_folders_settings">Setări</string>
-    <string name="synced_folders_new_info">Funcționalitatea de încărcare automată a fost refăcută complet. Vă rugăm să accesați meniul principal și să refaceți setările de încărcare automată. Ne cerem scuze pentru inconveniență.\n\nBucură-te de noile capabilități extinse ale funcției de încărcare automată!</string>
-    <string name="synced_folders_preferences_folder_path">Pentru %1$s</string>
     <plurals name="items_selected_count">
         <item quantity="one">%d selectat</item>
         <item quantity="few">%d selectate</item>

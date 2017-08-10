@@ -12,8 +12,9 @@
     <string name="actionbar_see_details">Podrobnosti</string>
     <string name="actionbar_send_file">Pošlji</string>
     <string name="actionbar_sort">Razvrsti</string>
-    <string name="actionbar_sort_title">Razvrsti ...</string>
     <string name="sort_by">Razvrsti po</string>
+    <string name="menu_item_sort_by_name_a_z">A - Ž</string>
+    <string name="menu_item_sort_by_name_z_a">Ž - A</string>
     <string name="menu_item_sort_by_date_newest_first">Najnovejše</string>
     <string name="menu_item_sort_by_date_oldest_first">Najstarejše</string>
     <string name="menu_item_sort_by_size_biggest_first">Največje</string>
@@ -38,29 +39,30 @@
     <string name="drawer_open">Odpri</string>
     <string name="prefs_category_general">Splošno</string>
     <string name="prefs_category_more">Več</string>
-    <string name="prefs_accounts">Računi</string>
     <string name="prefs_manage_accounts">Upravljanje z računi</string>
     <string name="prefs_passcode">Zakleni dostop s kodo PIN</string>
     <string name="prefs_fingerprint">Ključavnica na prstni odtis</string>
     <string name="prefs_fingerprint_notsetup">Prstni odtis ni nasavljen.</string>
+    <string name="prefs_expert_mode">Napredni način</string>
     <string name="prefs_show_hidden_files">Prikaži skrite datoteke</string>
-    <string name="prefs_log_title">Omogoči beleženje</string>
-    <string name="prefs_log_summary">Uporablja se za beleženje težav in napak</string>
-    <string name="prefs_log_title_history">Zgodovina beleženja</string>
-    <string name="prefs_log_summary_history">Pokaže shranjene dnevnike</string>
     <string name="prefs_log_delete_history_button">Izbriši zgodovino</string>
     <string name="prefs_calendar_contacts">Nastavi sinhronizacijo koledarja in kontaktov</string>
     <string name="prefs_calendar_contacts_summary">Nastavi DAVdroid (v1.3.0+) za trenutno uporabljen račun</string>
     <string name="prefs_calendar_contacts_address_resolve_error">Naslov strežnika za račun ne more biti razrešena za DAVdroid</string>
+    <string name="prefs_calendar_contacts_no_store_error">Niti F-droid niti Google Play nista naložena</string>
+    <string name="prefs_daily_contacts_sync_summary">Dnevno shranjevanje stikov</string>
     <string name="prefs_help">Pomoč</string>
     <string name="prefs_recommend">Priporoči prijatelju</string>
     <string name="prefs_feedback">Pošlji sporočilo razvijalcem programa</string>
     <string name="prefs_imprint">Natis</string>
-    <string name="recommend_subject">Preizkusi %1$s na pametnem telefonu!</string>
-	<string name="auth_check_server">Preveri strežnik</string>
-    <string name="auth_host_url">Naslov strežnika https://…</string>
+
+	<string name="recommend_subject">Preizkusi %1$s na pametnem telefonu!</string>
+	<string name="recommend_urls">%1$s ali %2$s</string>
+
+    <string name="auth_check_server">Preveri strežnik</string>
     <string name="auth_username">Uporabniško ime</string>
     <string name="auth_password">Geslo</string>
+    <string name="auth_register">Še nimaš strežnika?\nKlikni tukaj, da dobiš enega.</string>
     <string name="sync_string_files">Datoteke</string>
     <string name="setup_btn_connect">Poveži</string>
     <string name="uploader_btn_upload_text">Pošlji</string>
@@ -125,7 +127,6 @@
     <string name="uploader_upload_failed_credentials_error">Pošiljanje je spodletelo. Zahtevana je ponovna prijava.</string>
     <string name="uploads_view_title">Poslano</string>
     <string name="uploads_view_group_current_uploads">Trenutno</string>
-    <string name="uploads_view_group_failed_uploads">Spodletelo (kliknite za ponovni poskus)</string>
     <string name="uploads_view_group_finished_uploads">Poslano</string>
     <string name="uploads_view_upload_status_succeeded">Končano</string>
     <string name="uploads_view_upload_status_cancelled">Preklicano</string>
@@ -370,7 +371,6 @@
     <string name="edit_share_unshare">Prekini souporabo</string>
     <string name="edit_share_done">končano</string>
 
-    <string name="action_clear_failed_uploads">Počiščenje je spodletelo</string>
     <string name="action_switch_grid_view">Mrežni pogled</string>
     <string name="action_switch_list_view">Seznamski pogled</string>
 

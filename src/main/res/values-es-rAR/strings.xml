@@ -12,7 +12,6 @@
     <string name="actionbar_see_details">Detalles</string>
     <string name="actionbar_send_file">Enviar</string>
     <string name="actionbar_sort">Ordenar</string>
-    <string name="actionbar_sort_title">Ordenar por</string>
     <string name="sort_by">Ordenar por</string>
     <string name="menu_item_sort_by_name_a_z">A - Z</string>
     <string name="menu_item_sort_by_name_z_a">Z - A</string>
@@ -40,20 +39,11 @@
     <string name="drawer_open">Abrir</string>
     <string name="prefs_category_general">General</string>
     <string name="prefs_category_more">Más</string>
-    <string name="prefs_accounts">Cuentas</string>
     <string name="prefs_manage_accounts">Administrar cuentas</string>
     <string name="prefs_passcode">Bloqueo con código de seguridad</string>
     <string name="prefs_fingerprint">Bloqueo por huella digital</string>
     <string name="prefs_fingerprint_notsetup">No se ha establecido ninguna huella digital. </string>
     <string name="prefs_show_hidden_files">Mostrar archivos ocultos</string>
-    <string name="prefs_instant_upload">Carga instantánea de imágenes</string>
-    <string name="prefs_instant_upload_summary">Cargar instantaneamente las fotografías tomadas por la cámara</string>
-    <string name="prefs_instant_video_upload">Carga instantánea de video</string>
-    <string name="prefs_instant_video_upload_summary">Cargar instantáneamente los videos grabados por la cámara</string>
-    <string name="prefs_log_title">Habilitar registro</string>
-    <string name="prefs_log_summary">Esto se usa para registrar problemas</string>
-    <string name="prefs_log_title_history">Histórico del registro</string>
-    <string name="prefs_log_summary_history">Esto muestra los registros guardados</string>
     <string name="prefs_log_delete_history_button">Borrar historial</string>
     <string name="prefs_calendar_contacts">Sincronizar calendario  &amp; contactos</string>
     <string name="prefs_calendar_contacts_summary">Configurar DAVdroid (v1.3.0+) para la cuenta actual</string>
@@ -64,13 +54,10 @@
     <string name="prefs_recommend">Recomendar a un amigo</string>
     <string name="prefs_feedback">Retroalimentación</string>
     <string name="prefs_imprint">Exención de responsabilidad </string>
-    <string name="prefs_remember_last_share_location">Recordar la ubicación del elemento compartido</string>
-    <string name="prefs_remember_last_upload_location_summary">Recordar la ubicación del elemento compartido más recientemente usado</string>
 
 	<string name="recommend_subject">Prueba  %1$s en tu teléfono inteligente!</string>
 	<string name="recommend_text">Quisiera invitarlo a usar %1$s en su teléfono inteligente\nDescargue aquí: %2$s</string>
     <string name="auth_check_server">Verficar el servidor</string>
-    <string name="auth_host_url">Dirección del servidor https://…</string>
     <string name="auth_username">Nombre de usuario</string>
     <string name="auth_password">Contraseña</string>
     <string name="auth_register">Aún no tiene un servidor? \nHaga click aquí para obtener uno de un proveedor</string>
@@ -164,7 +151,6 @@
     <string name="uploader_upload_failed_credentials_error">Falla en la carga, necesita autenticarse de nuevo</string>
     <string name="uploads_view_title">Cargas</string>
     <string name="uploads_view_group_current_uploads">Actual</string>
-    <string name="uploads_view_group_failed_uploads">Se presentó una falla (pulse para reintentar)</string>
     <string name="uploads_view_group_finished_uploads">Cargado</string>
     <string name="uploads_view_upload_status_succeeded">Completado</string>
     <string name="uploads_view_upload_status_cancelled">Cancelado</string>
@@ -265,7 +251,6 @@
 	<string name="auth_expired_oauth_token_toast">Su autorización ha expirado. Favor de volver a autorizar</string>
 	<string name="auth_expired_basic_auth_toast">Por favor ingrese su contraseña actual</string>
 	<string name="auth_expired_saml_sso_token_toast">Su sesión ha expirado. Favor de conectarse de nuevo</string>
-	<string name="auth_connecting_auth_server">Conectando al servidor de autenticación...</string>
 	<string name="auth_unsupported_auth_method">El servidor no soporta este método de autenticación</string>
 	<string name="auth_unsupported_multiaccount">%1$s no soporta cuentas múltiples</string>
 	<string name="auth_fail_get_user_name">Su servidor no está regresando un ID de usuario correcto, favor de contactar al adminitrador</string>
@@ -293,7 +278,6 @@
     <string name="filename_forbidden_characters">Caracteres inválidos: / \\ &lt; &gt; : \" | ? *</string>
     <string name="filename_forbidden_charaters_from_server">El nombre del archivo contiene al menos un caracter inválido.</string>
     <string name="filename_empty">El nombre del archivo no puede estar vacío</string>
-    <string name="wait_a_moment">Espere un momento...</string>
     <string name="wait_checking_credentials">Verificando credenciales almacenadas</string>
     <string name="filedisplay_unexpected_bad_get_content">Problema inesperado, favor de seleccionar el archivo desde una aplicación diferente</string>
     <string name="filedisplay_no_file_selected">No se ha seleccionado algún archivo</string>
@@ -353,8 +337,6 @@
 
     <string name="error__upload__local_file_not_copied">%1$s no pudo ser copiado a la carpeta local %2$s</string>
     <string name="prefs_instant_upload_path_title">Carpeta de carga instantánea</string>
-    <string name="prefs_synced_folders_local_path_title">Carpeta local</string>
-    <string name="prefs_synced_folders_remote_path_title">Carpeta remota</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Usar sub carpetas</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Almacenar en sub carpetas con base en el año y mes</string>
 
@@ -513,10 +495,7 @@
     <string name="edit_share_unshare">Dejar de compartir</string>
     <string name="edit_share_done">terminado</string>
 
-    <string name="action_retry_uploads">El reintento falló</string>
-    <string name="action_clear_failed_uploads">Borrar fallidos</string>
     <string name="action_clear_finished_uploads">Borrar cargas terminadas</string>
-
     <string name="action_switch_grid_view">Vista de cuadrícula</string>
     <string name="action_switch_list_view">Vista de lista</string>
 
@@ -530,12 +509,10 @@
     <string name="confirmation_remove_files_alert">¿Realmente desea eliminar los elementos seleccionados?</string>
     <string name="confirmation_remove_folders_alert">¿Realmente desea eliminar los elementos seleccionados y su contenido?</string>
     <string name="maintenance_mode">El servidor se encuentra en modo mantenimiento</string>
-
     <string name="uploads_view_upload_status_waiting_for_charging">Aguardando la regarga del dispositivo </string>
     <string name="actionbar_search">Buscar</string>
     <string name="files_drop_not_supported">Esta es una característica de Nextcloud, favor de actualizar.</string>
     <string name="learn_more">Conozca más</string>
-    <string name="drawer_synced_folders">Carga automática</string>
     <string name="drawer_participate">Participe</string>
     <string name="participate_testing_headline">Ayúdenos probando</string>
     <string name="participate_testing_bug_text">¿Encontró una falla? ¿Hay algo raro?</string>
@@ -546,13 +523,6 @@
     <string name="participate_contribute_headline">Contribuya activamente</string>
     <string name="move_to">Mover a&#8230;</string>
     <string name="copy_to">Copiar a&#8230;</string>
-    <string name="choose_remote_folder">Seleccione la carpeta&#8230;</string>
-    <string name="synced_folders_loading_folders">Cargando carpetas&#8230;</string>
-    <string name="synced_folders_no_results">No se encontraron carpetas de medios</string>
-    <string name="synced_folders_preferences">Preferencias de carga automática</string>
-    <string name="synced_folders_settings">Configuraciones </string>
-    <string name="synced_folders_new_info">La carga instantánea ha sido completamente moderinzada. Reconfigure su carga automática desde el menu principal. \n\nDisfrute de las nuevas y extendidas capacidades de la carga automática. </string>
-    <string name="synced_folders_preferences_folder_path">Para %1$s</string>
     <plurals name="items_selected_count">
         <item quantity="one">%d seleccionado</item>
         <item quantity="other">%d seleccionado</item>
@@ -632,6 +602,4 @@
     <string name="privacy">Privacidad</string>
     <string name="file_not_found">¡Archivo no encontrado!</string>
 
-    <string name="synced_folders_configure_folders">Configurar careptas</string>
-
-  </resources>
+    </resources>

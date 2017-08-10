@@ -12,7 +12,6 @@
     <string name="actionbar_see_details">Szczegóły</string>
     <string name="actionbar_send_file">Wyślij</string>
     <string name="actionbar_sort">Sortuj</string>
-    <string name="actionbar_sort_title">Sortuj według</string>
     <string name="sort_by">Sortuj po</string>
     <string name="menu_item_sort_by_name_a_z">A - Z</string>
     <string name="menu_item_sort_by_name_z_a">Z - A</string>
@@ -40,20 +39,11 @@
     <string name="drawer_open">Otwórz</string>
     <string name="prefs_category_general">Ogólne</string>
     <string name="prefs_category_more">Więcej</string>
-    <string name="prefs_accounts">Konta</string>
     <string name="prefs_manage_accounts">Zarządzaj kontami</string>
     <string name="prefs_passcode">Blokada kodem PIN</string>
     <string name="prefs_fingerprint">Blokada odciskiem palca</string>
     <string name="prefs_fingerprint_notsetup">Brak skonfigurowanych odcisków palców</string>
     <string name="prefs_show_hidden_files">Pokaż ukryte pliki</string>
-    <string name="prefs_instant_upload">Natychmiastowe wysyłanie zdjęć</string>
-    <string name="prefs_instant_upload_summary">Wyślij zdjęcia z aparatu</string>
-    <string name="prefs_instant_video_upload">Natychmiastowe wysyłanie wideo</string>
-    <string name="prefs_instant_video_upload_summary">Wyślij filmy nagrane aparatem</string>
-    <string name="prefs_log_title">Włącz logowanie</string>
-    <string name="prefs_log_summary">To jest używane do logowania problemów</string>
-    <string name="prefs_log_title_history">Historia logowania</string>
-    <string name="prefs_log_summary_history">To pokazuje zapisane logi</string>
     <string name="prefs_log_delete_history_button">Wyczyść historię</string>
     <string name="prefs_calendar_contacts">Synchronizuj kalendarz i kontakty</string>
     <string name="prefs_calendar_contacts_summary">Skonfiguruj DAVdroid (v1.3.0+) dla obecnego konta</string>
@@ -64,13 +54,10 @@
     <string name="prefs_recommend">Poleć znajomemu</string>
     <string name="prefs_feedback">Opinie</string>
     <string name="prefs_imprint">Stopka</string>
-    <string name="prefs_remember_last_share_location">Zapamiętaj położenie udostępnienia</string>
-    <string name="prefs_remember_last_upload_location_summary">Zapamiętaj ostatnią lokalizację wysyłania</string>
 
 	<string name="recommend_subject">Wypróbuj %1$s na swoim smartfonie!</string>
 	<string name="recommend_text">Zapraszam do użycia %1$s na swoim smartfonie!\nŚciągnij tutaj: %2$s</string>
     <string name="auth_check_server">Sprawdź serwer</string>
-    <string name="auth_host_url">Adres serwera https://...</string>
     <string name="auth_username">Nazwa użytkownika</string>
     <string name="auth_password">Hasło</string>
     <string name="auth_register">Nie masz jeszcze serwera?\nKliknij tu i zdobądź go od dostawcy</string>
@@ -164,7 +151,6 @@
     <string name="uploader_upload_failed_credentials_error">Błąd przy wysyłaniu zaloguj się ponownie</string>
     <string name="uploads_view_title">Wysłane</string>
     <string name="uploads_view_group_current_uploads">Obecny</string>
-    <string name="uploads_view_group_failed_uploads">Błąd (kliknij, by ponowić)</string>
     <string name="uploads_view_group_finished_uploads">Wysłane</string>
     <string name="uploads_view_upload_status_succeeded">Ukończono</string>
     <string name="uploads_view_upload_status_cancelled">Przerwano</string>
@@ -265,7 +251,6 @@
 	<string name="auth_expired_oauth_token_toast">Twoja sesja wygasła. Proszę zaloguj się ponownie</string>
 	<string name="auth_expired_basic_auth_toast">Podaj aktualne hasło</string>
 	<string name="auth_expired_saml_sso_token_toast">Twoja sesja wygasła. Proszę zaloguj się ponownie</string>
-	<string name="auth_connecting_auth_server">Łączenie z serwerem uwierzytelniania...</string>
 	<string name="auth_unsupported_auth_method">Serwer nie obsługuje tej metody autoryzacji</string>
 	<string name="auth_unsupported_multiaccount">%1$s nie wspiera wielu kont</string>
 	<string name="auth_fail_get_user_name">Twój serwer nie zwraca poprawnego identyfikatora użytkownika. Proszę skontaktuj się z administratorem.</string>
@@ -293,16 +278,13 @@
     <string name="filename_forbidden_characters">Znaki zabronione: / \\ &lt; &gt; : \" | ? *</string>
     <string name="filename_forbidden_charaters_from_server">Nazwa pliku zawiera co najmniej jeden nieprawidłowy znak</string>
     <string name="filename_empty">Nazwa pliku nie może być pusta.</string>
-    <string name="wait_a_moment">Proszę czekać...</string>
     <string name="wait_checking_credentials">Sprawdzanie danych</string>
     <string name="filedisplay_unexpected_bad_get_content">Nieoczekiwany błąd, prosze wybrać plik z innej aplikacji</string>
     <string name="filedisplay_no_file_selected">Nie wybrano żadnego pliku</string>
     <string name="activity_chooser_title">Wyślij link do &#8230;</string>
     <string name="wait_for_tmp_copy_from_private_storage">Kopiowanie pliku z prywatnego zasobu</string>
-
-    <string name="oauth_check_onoff">Loguj przez OAuth 2.0</string>
-    <string name="oauth_login_connection">Łączenie z serwerem OAuth 2.0...</string>
-
+    
+    <string name="oauth_check_onoff">Loguj przez OAuth 2.0</string> 
     <string name="ssl_validator_header">Nie można zweryfikować tożsamości strony</string>
     <string name="ssl_validator_reason_cert_not_trusted">- Certyfikat serwera jest niezaufany</string>
     <string name="ssl_validator_reason_cert_expired">- Certyfikat serwera wygasł</string>
@@ -357,8 +339,6 @@
 
     <string name="error__upload__local_file_not_copied">%1$s nie może zostać skopiowany do lokalnego folderu %2$s</string>
     <string name="prefs_instant_upload_path_title">Folder natychmiastowego wysyłania</string>
-    <string name="prefs_synced_folders_local_path_title">Folder lokalny</string>
-    <string name="prefs_synced_folders_remote_path_title">Folder zdalny</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Używaj podfolderów</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Zapisz w podfolderach opartych na roku oraz miesiącu</string>
 
@@ -517,10 +497,7 @@
     <string name="edit_share_unshare">Cofnij udostępnianie</string>
     <string name="edit_share_done">zakończono</string>
 
-    <string name="action_retry_uploads">Próba nieudana</string>
-    <string name="action_clear_failed_uploads">Wyczyść nieudane</string>
     <string name="action_clear_finished_uploads">Wyczyść zakończone wysyłania</string>
-
     <string name="action_switch_grid_view">Widok siatki</string>
     <string name="action_switch_list_view">Widok listy</string>
 
@@ -534,12 +511,10 @@
     <string name="confirmation_remove_files_alert">Czy naprawdę chcesz usunąć zaznaczone elementy?</string>
     <string name="confirmation_remove_folders_alert">Czy naprawdę chcesz usunąć zaznaczone elementy oraz ich zawartość?</string>
     <string name="maintenance_mode">Serwer w trybie konserwacji</string>
-
     <string name="uploads_view_upload_status_waiting_for_charging">Oczekiwanie na ładowanie urządzenia</string>
     <string name="actionbar_search">Wyszukaj</string>
     <string name="files_drop_not_supported">Ta funkcja jest dostępna w Nextcloud, prosimy wykonać aktualizację</string>
     <string name="learn_more">Dowiedz się więcej</string>
-    <string name="drawer_synced_folders">Automatyczne przesyłanie</string>
     <string name="drawer_participate">Wspieraj</string>
     <string name="participate_testing_headline">Pomóż nam testować</string>
     <string name="participate_testing_bug_text">Znaleziono błąd? Jest coś dziwnego?</string>
@@ -550,13 +525,6 @@
     <string name="participate_contribute_headline">Aktywni członkowie projektu</string>
     <string name="move_to">Przenieś do&#8230;</string>
     <string name="copy_to">Skopiuj do&#8230;</string>
-    <string name="choose_remote_folder">Wybierz folder&#8230;</string>
-    <string name="synced_folders_loading_folders">Ładowanie folderów&#8230;</string>
-    <string name="synced_folders_no_results">Nie znaleziono folderów multimedialnych.</string>
-    <string name="synced_folders_preferences">Preferencje automatycznego wysyłania</string>
-    <string name="synced_folders_settings">Ustawienia</string>
-    <string name="synced_folders_new_info">Natychmiastowe wysyłanie zostało kompletnie zmienione. Proszę sprawdzić główne menu i zrekonfigurować automatyczne wysyłanie. Przepraszamy za niedogodności.\n\nCiesz się z nowych i rozbudowanych możliwości automatycznego wysyłania!</string>
-    <string name="synced_folders_preferences_folder_path">Dla %1$s</string>
     <plurals name="items_selected_count">
         <item quantity="one">%d zaznaczony</item>
         <item quantity="few">%d zaznaczone</item>
@@ -641,6 +609,4 @@
     <string name="privacy">Prywatność</string>
     <string name="file_not_found">Nie odnaleziono pliku</string>
 
-    <string name="synced_folders_configure_folders">Skonfiguruj foldery</string>
-
-  </resources>
+    </resources>

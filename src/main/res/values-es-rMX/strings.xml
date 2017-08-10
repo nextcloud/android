@@ -12,7 +12,6 @@
     <string name="actionbar_see_details">Detalles</string>
     <string name="actionbar_send_file">Enviar</string>
     <string name="actionbar_sort">Ordenar</string>
-    <string name="actionbar_sort_title">Ordenar por</string>
     <string name="sort_by">Ordenar por</string>
     <string name="menu_item_sort_by_name_a_z">A - Z</string>
     <string name="menu_item_sort_by_name_z_a">Z - A</string>
@@ -40,20 +39,12 @@
     <string name="drawer_open">Abrir</string>
     <string name="prefs_category_general">General</string>
     <string name="prefs_category_more">Más</string>
-    <string name="prefs_accounts">Cuentas</string>
     <string name="prefs_manage_accounts">Administrar cuentas</string>
     <string name="prefs_passcode">Bloqueo con código de seguridad</string>
     <string name="prefs_fingerprint">Bloqueo cor huella digital</string>
     <string name="prefs_fingerprint_notsetup">No se ha establecido alguna huella digital. </string>
+    <string name="prefs_expert_mode">Modo experto</string>
     <string name="prefs_show_hidden_files">Mostrar archivos ocultos</string>
-    <string name="prefs_instant_upload">Carga automática de imágenes</string>
-    <string name="prefs_instant_upload_summary">Cargar instantaneamente las fotografías tomadas por la cámara</string>
-    <string name="prefs_instant_video_upload">Carga automática de video</string>
-    <string name="prefs_instant_video_upload_summary">Cargar instantáneamente los videos grabados por la cámara</string>
-    <string name="prefs_log_title">Habilitar registro</string>
-    <string name="prefs_log_summary">Esto se usa para registrar problemas</string>
-    <string name="prefs_log_title_history">Histórico del registro</string>
-    <string name="prefs_log_summary_history">Esto muestra los registros guardados</string>
     <string name="prefs_log_delete_history_button">Borrar historial</string>
     <string name="prefs_calendar_contacts">Sincronizar calendario  &amp; contactos</string>
     <string name="prefs_calendar_contacts_summary">Configurar DAVdroid (v1.3.0+) para la cuenta actual</string>
@@ -65,21 +56,19 @@
     <string name="prefs_recommend">Recomendar a un amigo</string>
     <string name="prefs_feedback">Retroalimentación</string>
     <string name="prefs_imprint">Excención de responsabilidad </string>
-    <string name="prefs_remember_last_share_location">Recordar la ubicación del elemento compartido</string>
-    <string name="prefs_remember_last_upload_location_summary">Recordar la ubicación del elemento compartido usado más recientemente </string>
 
 	<string name="recommend_subject">Prueba  %1$s en tu teléfono inteligente!</string>
-    <string name="recommend_text">Quisiera invitarte a usar %1$s en tu teléfono inteligente\nDescárgalo aquí: %2$s</string>
+	<string name="recommend_text">Quisiera invitarte a usar %1$s en tu teléfono inteligente\nDescárgalo aquí: %2$s</string>
     <string name="recommend_urls">%1$s o %2$s</string>
 
     <string name="auth_check_server">Verficar el servidor</string>
-    <string name="auth_host_url">Dirección del servidor https://…</string>
     <string name="auth_username">Usuario</string>
     <string name="auth_password">Contraseña</string>
     <string name="auth_register">Aún no tienes un servidor? \nHaz click aquí para obtener uno de un proveedor</string>
     <string name="sync_string_files">Archivos</string>
     <string name="setup_btn_connect">Conectar</string>
     <string name="uploader_btn_upload_text">Cargar</string>
+    <string name="uploader_btn_alternative_text">Seleccionar</string>
     <string name="uploader_top_message">Selecciona la carpeta de cargas</string>
     <string name="uploader_wrn_no_account_title">No se encontró la cuenta</string>
     <string name="uploader_wrn_no_account_text">No existen cuentas  %1$s en tu dispositivo. Por favor configura una cuenta primero.</string>
@@ -98,6 +87,7 @@
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Borrar el archivo de la carpeta de origen</string>
     <string name="file_list_seconds_ago">hace algunos segundos</string>
     <string name="file_list_empty_headline">No hay archivos aquí</string>
+    <string name="folder_list_empty_headline">No hay carpetas aqui</string>
     <string name="file_list_empty">Carga algún contenido o sincroniza con tus dispositivos.</string>
     <string name="file_list_empty_favorites">Marca algunos archivos como favoritos o sincroniza con tus dispositivos.</string>
     <string name="file_list_empty_favorites_filter_list">Los archivos y carpetas que marques como favoritos se mostrarán aquí</string>
@@ -105,6 +95,7 @@
     <string name="file_list_loading">Cargando&#8230;</string>
     <string name="file_list_no_app_for_file_type">No se cuenta con una aplicación que maneje este tipo de achivo. </string>
     <string name="local_file_list_empty">No hay archivos en esta carpeta</string>
+    <string name="local_folder_list_empty">No hay más carpetas.</string>
     <string name="file_list_empty_headline_search">No hay resultados en esta carpeta</string>
     <string name="file_list_empty_headline_server_search">No hay resultados</string>
     <string name="file_list_empty_favorite_headline">Aún no hay nada marcado como favorito</string>
@@ -153,11 +144,14 @@
     <string name="common_unknown">desconocido</string>
     <string name="common_error_unknown">Error desconocido</string>
     <string name="common_pending">Pendiente</string>
+    <string name="common_delete">Borrar</string>
     <string name="about_title">Acerca de</string>
     <string name="change_password">Cambiar contraseña</string>
     <string name="delete_account">Cerrar sesión</string>
     <string name="delete_account_warning">¿Borrar la cuenta %s con todos los archivos locales?\n\nEl borrado no se puede deshacer.</string>
     <string name="create_account">Crear cuenta</string>
+    <string name="avatar">Avatar</string>
+    <string name="active_user">Usuario activo</string>
     <string name="upload_chooser_title">Cargar desde &#8230;</string>
     <string name="uploader_info_dirname">Nombre de la carpeta</string>
     <string name="uploader_upload_in_progress_ticker">Cargando &#8230;</string>
@@ -169,7 +163,7 @@
     <string name="uploader_upload_failed_credentials_error">Falla en la carga, necesitas autenticarte de nuevo</string>
     <string name="uploads_view_title">Cargas</string>
     <string name="uploads_view_group_current_uploads">Actual</string>
-    <string name="uploads_view_group_failed_uploads">Se presentó una falla (pulsa para reintentar)</string>
+    <string name="uploads_view_group_failed_uploads">Fallidos / Pendientes por reiniciar</string>
     <string name="uploads_view_group_finished_uploads">Cargado</string>
     <string name="uploads_view_upload_status_succeeded">Completado</string>
     <string name="uploads_view_upload_status_cancelled">Cancelado</string>
@@ -214,6 +208,7 @@
     <string name="foreign_files_remote_text">Remoto: %1$s</string>
     <string name="upload_query_move_foreign_files">El espacio insuficiente evita que se copien los archivos seleccionados dentro de la carpeta %1$s. ¿Te gustaría moverlos ahí en su lugar?</string>
     <string name="pass_code_enter_pass_code">Por favor ingresa tu código de seguridad</string>
+    
     <string name="pass_code_configure_your_pass_code">Ingresa tu código de seguridad</string>
     <string name="pass_code_configure_your_pass_code_explanation">El código de seguridad será solicitado cada vez que inicie la aplicación</string>
     <string name="pass_code_reenter_your_pass_code">Por favor reingresa el código de seguridad</string>
@@ -265,14 +260,13 @@
 	<string name="auth_unauthorized">Nombre de usuario o contraseña incorrecto</string>
 	<string name="auth_oauth_error">Autorización no exitosa</string>
 	<string name="auth_oauth_error_access_denied">Acceso denegado por el servidor de autorización</string>
-    <string name="auth_wtf_reenter_URL">Estado inesperado, por favor reingresa la dirección del servidor</string>
-    <string name="auth_expired_oauth_token_toast">Tu autorización ha expirado. Por favor vuelve a autorizar</string>
-    <string name="auth_expired_basic_auth_toast">Por favor ingresa tu contraseña actual</string>
-    <string name="auth_expired_saml_sso_token_toast">Tu sesión ha expirado. Por favor conectate de nuevo</string>
-	<string name="auth_connecting_auth_server">Conectando al servidor de autenticación...</string>
+	<string name="auth_wtf_reenter_URL">Estado inesperado, por favor reingresa la dirección del servidor</string>
+	<string name="auth_expired_oauth_token_toast">Tu autorización ha expirado. Por favor vuelve a autorizar</string>
+	<string name="auth_expired_basic_auth_toast">Por favor ingresa tu contraseña actual</string>
+	<string name="auth_expired_saml_sso_token_toast">Tu sesión ha expirado. Por favor conectate de nuevo</string>
 	<string name="auth_unsupported_auth_method">El servidor no soporta este método de autenticación</string>
 	<string name="auth_unsupported_multiaccount">%1$s no soporta cuentas múltiples</string>
-    <string name="auth_fail_get_user_name">Tu servidor no está regresando un ID de usuario correcto, por favor contacta al adminitrador</string>
+	<string name="auth_fail_get_user_name">Tu servidor no está regresando un ID de usuario correcto, por favor contacta al adminitrador</string>
 	<string name="auth_can_not_auth_against_server">No es posible autenticarse en este servidor</string>
     <string name="auth_account_does_not_exist">La cuenta aún no existe en el dispositivo</string>
 
@@ -297,16 +291,13 @@
     <string name="filename_forbidden_characters">Caracteres inválidos: / \\ &lt; &gt; : \" | ? *</string>
     <string name="filename_forbidden_charaters_from_server">El nombre del archivo contiene al menos un caracter inválido.</string>
     <string name="filename_empty">El nombre del archivo no puede estar vacío</string>
-    <string name="wait_a_moment">Espera un momento...</string>
     <string name="wait_checking_credentials">Verificando credenciales almacenadas</string>
     <string name="filedisplay_unexpected_bad_get_content">Problema inesperado, por favor selecciona el archivo desde una aplicación diferente</string>
     <string name="filedisplay_no_file_selected">No se ha seleccionado algún archivo</string>
     <string name="activity_chooser_title">Enviar la liga a &#8230;</string>
     <string name="wait_for_tmp_copy_from_private_storage">Copiando el archivo desde almacenamiento privado</string>
-
-    <string name="oauth_check_onoff">Iniciar sesión con OAuth 2.0</string>
-    <string name="oauth_login_connection">Conectando al servidor OAuth 2.0...</string>
-
+    
+    <string name="oauth_check_onoff">Iniciar sesión con OAuth 2.0</string> 
     <string name="ssl_validator_header">La identidad del sitio no pudo ser verificada</string>
     <string name="ssl_validator_reason_cert_not_trusted">- El certificado del servidor no es de confianza</string>
     <string name="ssl_validator_reason_cert_expired">- El certificado del servidor expiró</string>
@@ -366,10 +357,10 @@
     <string name="prefs_instant_upload_path_use_subfolders_title">Usar sub carpetas</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Almacenar en sub carpetas con base en el año y mes</string>
 
-    <string name="share_link_no_support_share_api">No se permite compartir en tu servidor. Por favor contacta a tu adminstrador. </string>
-    <string name="share_link_file_no_exist">No fue posible compartir. Por favor revisa si el archivo existe</string>
-    <string name="share_link_file_error">Se presentó un error al tratar de compartir este archivo o carpeta</string>
-    <string name="unshare_link_file_no_exist">Falla al dejar de compartir. Por favor revisa si existe el archivo</string>
+	<string name="share_link_no_support_share_api">No se permite compartir en tu servidor. Por favor contacta a tu adminstrador. </string>
+	<string name="share_link_file_no_exist">No fue posible compartir. Por favor revisa si el archivo existe</string>
+	<string name="share_link_file_error">Se presentó un error al tratar de compartir este archivo o carpeta</string>
+	<string name="unshare_link_file_no_exist">Falla al dejar de compartir. Por favor revisa si existe el archivo</string>
 	<string name="unshare_link_file_error">Se presentó un error al tratar de dejar de compartir este archivo o carpeta</string>
     <string name="update_link_file_no_exist">Falla al actualizar. Favor de verificar si el archivo existe</string>
     <string name="update_link_file_error">Se presentó un error al tratar de actualizar el recurso compartido</string>
@@ -431,9 +422,9 @@
     <string name="drawer_manage_accounts">Administrar cuentas</string>
     <string name="auth_redirect_non_secure_connection_title">La conexión segura se está redirigiendo a través de una ruta insegura.</string>
 
-    <string name="actionbar_logger">Bitácoras</string>
+	<string name="actionbar_logger">Bitácoras</string>
 	<string name="log_send_history_button">Enviar histórico</string>
-    <string name="log_send_no_mail_app">No se encontró alguna aplicación para el envío de bitácoras. Por favor instala un cliente de correo electrónico. </string>
+	<string name="log_send_no_mail_app">No se encontró alguna aplicación para el envío de bitácoras. Por favor instala un cliente de correo electrónico. </string>
 	<string name="log_send_mail_subject"> %1$s bitácora de aplicación Android</string>
 	<string name="log_progress_dialog_text">Cargando información &#8230;</string>
 
@@ -441,7 +432,7 @@
 	<string name="saml_authentication_wrong_pass">Contraseña incorrecta</string>
 	<string name="actionbar_move">Mover</string>
     <string name="actionbar_copy">Copiar</string>
-    <string name="file_list_empty_moving">No hay nada aquí. Puedes agregar una carpeta.</string>
+	<string name="file_list_empty_moving">No hay nada aquí. Puedes agregar una carpeta.</string>
 	<string name="folder_picker_choose_button_text">Seleccionar</string>
 
     <string name="move_file_not_found">No fue posible mover el archivo. Por favor verifica si existe. </string>
@@ -464,9 +455,9 @@
     <string name="sync_folder_failed_content">La sincronización de %1$s carpeta no se pudo completar</string>
 
 	<string name="shared_subject_header">compartido</string>
-    <string name="with_you_subject_header">contigo</string>
-
-    <string name="subject_user_shared_with_you">%1$s ha compartido \"%2$s\" contigo</string>
+	<string name="with_you_subject_header">contigo</string>
+    
+	<string name="subject_user_shared_with_you">%1$s ha compartido \"%2$s\" contigo</string>
     <string name="subject_shared_with_you">\"%1$s\" ha sido compartido contigo</string>
 
     <string name="auth_refresh_button">Actualizar conexión</string>
@@ -534,9 +525,11 @@
     <string name="edit_share_unshare">Dejar de compartir</string>
     <string name="edit_share_done">terminado</string>
 
-    <string name="action_retry_uploads">Reintentar fallidos</string>
-    <string name="action_clear_failed_uploads">Eliminar fallidos</string>
+    <string name="action_retry_uploads">Reintentar cargas fallidas</string>
+    <string name="action_clear_failed_uploads">Borrar cargas fallidas</string>
+    <string name="action_clear_successful_uploads">Borrar cargas exitosas</string>
     <string name="action_clear_finished_uploads">Eliminar todos</string>
+    <string name="action_force_rescan">Forzar rescaneo</string>
 
     <string name="action_switch_grid_view">Vista de cuadrícula</string>
     <string name="action_switch_list_view">Vista de lista</string>
@@ -551,6 +544,7 @@
     <string name="confirmation_remove_files_alert">¿Realmente deseas eliminar los elementos seleccionados?</string>
     <string name="confirmation_remove_folders_alert">¿Realmente deseas eliminar los elementos seleccionados y su contenido?</string>
     <string name="maintenance_mode">El servidor está en modo mantenimiento</string>
+    <string name="lock_failed">Se presentó una falla al bloquear el archivo</string>
 
     <string name="uploads_view_upload_status_waiting_for_charging">Aguardando la regarga del dispositivo </string>
     <string name="actionbar_search">Buscar</string>
@@ -575,7 +569,14 @@
     <string name="participate_contribute_github_text">Revisa, corrige y escribe código, ve %1$s para más detalles</string>
     <string name="move_to">Mover a&#8230;</string>
     <string name="copy_to">Copiar a&#8230;</string>
-    <string name="choose_remote_folder">Seleccione la carpeta&#8230;</string>
+    <string name="choose_remote_folder">Selecciona la carpeta remota &#8230;</string>
+    <string name="choose_local_folder">Selecciona la carpeta local &#8230;</string>
+    <string name="synced_folders_loading_folders">Cargando carpetas &#8230;</string>
+    <string name="synced_folders_no_results">No se encontraron carpetas de medios. </string>
+    <string name="synced_folders_preferences">Preferencias para cargas automáticas</string>
+    <string name="synced_folders_settings">Configuraciones</string>
+    <string name="synced_folders_new_info">Las cargas instantaneas se han mejorado por completo. Re-configura tu carga automática desde el menú principal.\n\nDisfruta la nueva y mejorada carga automática. </string>
+    <string name="synced_folders_preferences_folder_path">Para %1$s</string>
     <plurals name="items_selected_count">
         <item quantity="one">%d seleccionado</item>
         <item quantity="other">%d seleccionado</item>
@@ -658,5 +659,11 @@
     <string name="privacy">Privacidad</string>
     <string name="file_not_found">¡Archivo no encontrado!</string>
 
+    <!-- Auto upload -->
+    <string name="autoupload_custom_folder">Configurar una carpeta personalizada</string>
+    <string name="autoupload_create_new_custom_folder">Crear nueva configuración de carpeta personalizada</string>
+    <string name="synced_folders_configure_folders">Configurar carpetas</string>
+
     <string name="test_server_button">Probar la conexión del servidor</string>
+    <string name="resharing_is_not_allowed">No está permitido recompartir</string>
 </resources>

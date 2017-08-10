@@ -12,7 +12,6 @@
     <string name="actionbar_see_details">Детайли</string>
     <string name="actionbar_send_file">Изпращане</string>
     <string name="actionbar_sort">Сортирай</string>
-    <string name="actionbar_sort_title">Сортиране по</string>
     <string name="sort_by">Сортиране по</string>
     <string name="menu_item_sort_by_name_a_z">А - Я</string>
     <string name="menu_item_sort_by_name_z_a">Я - А</string>
@@ -40,20 +39,11 @@
     <string name="drawer_open">Отвори</string>
     <string name="prefs_category_general">Общи</string>
     <string name="prefs_category_more">Още</string>
-    <string name="prefs_accounts">Профили</string>
     <string name="prefs_manage_accounts">Управление на профилите</string>
     <string name="prefs_passcode">Код за достъп</string>
     <string name="prefs_fingerprint">Заключване с отпечатък</string>
     <string name="prefs_fingerprint_notsetup">Пръстови отпечатъци не са зададени.</string>
     <string name="prefs_show_hidden_files">Показване и на скрити файлове</string>
-    <string name="prefs_instant_upload">Незабавно качване на снимки</string>
-    <string name="prefs_instant_upload_summary">Качвай снимки направени чрез камерата незабавно</string>
-    <string name="prefs_instant_video_upload">Незабавно качване на видео</string>
-    <string name="prefs_instant_video_upload_summary">Качвай видеа, записани с камерата, незабавно.</string>
-    <string name="prefs_log_title">Включи логовете</string>
-    <string name="prefs_log_summary">Използва се за проследяване на проблеми</string>
-    <string name="prefs_log_title_history">История на логове</string>
-    <string name="prefs_log_summary_history">Показва записаните логове</string>
     <string name="prefs_log_delete_history_button">Изтрий истрията</string>
     <string name="prefs_calendar_contacts">Синхронизиране на календар и контакти</string>
     <string name="prefs_calendar_contacts_summary">Настройване на DAVdroid (v1.3.0+) за текущия профил</string>
@@ -63,13 +53,10 @@
     <string name="prefs_recommend">Препоръчай на приятел</string>
     <string name="prefs_feedback">Обратна връзка</string>
     <string name="prefs_imprint">Отпечатък</string>
-    <string name="prefs_remember_last_share_location">Запомни локацията за споделяне</string>
-    <string name="prefs_remember_last_upload_location_summary">Запомни последната локация за споделяне</string>
 
 	<string name="recommend_subject">Пробвайте %1$s на смартфона си!</string>
 	<string name="recommend_text">Искам да ви поканя да използвате %1$s на вашия смартфон.\nСвалете тук: %2$s</string>
     <string name="auth_check_server">Проверяване на сървъра</string>
-    <string name="auth_host_url">Адрес на сървъра https://…</string>
     <string name="auth_username">Потребител</string>
     <string name="auth_password">Парола</string>
     <string name="auth_register">Все още нямате сървър?\nНатиснете тук, за да вземете от доставчик</string>
@@ -143,7 +130,6 @@
     <string name="uploader_upload_failed_credentials_error">Неуспешно качване, нужно е да се впишете отново</string>
     <string name="uploads_view_title">Качени</string>
     <string name="uploads_view_group_current_uploads">Текущ</string>
-    <string name="uploads_view_group_failed_uploads">Некачени (докоснете за нов опит)</string>
     <string name="uploads_view_group_finished_uploads">Качени</string>
     <string name="uploads_view_upload_status_succeeded">Завършено</string>
     <string name="uploads_view_upload_status_cancelled">Отказано</string>
@@ -281,8 +267,6 @@
     <string name="preview_image_description">Преглед на изображението</string>
     <string name="error__upload__local_file_not_copied">%1$s не може да бъде копиран в локалната папка %2$s</string>
     <string name="prefs_instant_upload_path_title">Папка за незабавно качените</string>
-    <string name="prefs_synced_folders_local_path_title">Локална папка</string>
-    <string name="prefs_synced_folders_remote_path_title">Отдалечена папка</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Ползване на подпапки</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Съхраняване в подпапки, разделени по година и месец</string>
 
@@ -403,7 +387,6 @@
     <string name="edit_share_unshare">Спри споделянето</string>
     <string name="edit_share_done">готово</string>
 
-    <string name="action_clear_failed_uploads">Изчисти провалените</string>
     <string name="action_switch_grid_view">Решетъчен изглед</string>
     <string name="action_switch_list_view">Списъчен изглед</string>
 
@@ -416,18 +399,11 @@
     <string name="actionbar_search">Търсене</string>
     <string name="files_drop_not_supported">Това е функционалност на Nextcloud, моля актуализирайте.</string>
     <string name="learn_more">Научете повече</string>
-    <string name="drawer_synced_folders">Автоматично качване</string>
     <string name="drawer_participate">Участвайте</string>
     <string name="participate_testing_headline">Помогни с тестването</string>
     <string name="participate_testing_version_text">Интересувате ли се да ни помогнете с тестването на следващата версия?</string>
     <string name="move_to">Преместване в&#8230;</string>
     <string name="copy_to">Копиране в&#8230;</string>
-    <string name="choose_remote_folder">Избери папка&#8230;</string>
-    <string name="synced_folders_loading_folders">Зареждане на папки&#8230;</string>
-    <string name="synced_folders_no_results">Не са открити медийни папки.</string>
-    <string name="synced_folders_preferences">Предпочитания за автоматично качване</string>
-    <string name="synced_folders_settings">Настройки</string>
-    <string name="synced_folders_preferences_folder_path">За %1$s</string>
     <plurals name="items_selected_count">
         <item quantity="one">%d избран</item>
         <item quantity="other">%d избрани</item>

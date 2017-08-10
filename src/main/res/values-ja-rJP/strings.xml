@@ -12,7 +12,6 @@
     <string name="actionbar_see_details">詳細</string>
     <string name="actionbar_send_file">送信</string>
     <string name="actionbar_sort">ソート</string>
-    <string name="actionbar_sort_title">ソート: </string>
     <string name="sort_by">ソート</string>
     <string name="menu_item_sort_by_name_a_z">A - Z</string>
     <string name="menu_item_sort_by_name_z_a">Z - A</string>
@@ -40,20 +39,11 @@
     <string name="drawer_open">開く</string>
     <string name="prefs_category_general">一般</string>
     <string name="prefs_category_more">もっと見る</string>
-    <string name="prefs_accounts">アカウント</string>
     <string name="prefs_manage_accounts">アカウント管理</string>
     <string name="prefs_passcode">パスコードロック</string>
     <string name="prefs_fingerprint">指紋ロック</string>
     <string name="prefs_fingerprint_notsetup">指紋は設定されていません。</string>
     <string name="prefs_show_hidden_files">隠しファイルを表示</string>
-    <string name="prefs_instant_upload">写真の自動アップロード</string>
-    <string name="prefs_instant_upload_summary">カメラで撮影した写真を自動アップロードします</string>
-    <string name="prefs_instant_video_upload">ビデオの自動アップロード</string>
-    <string name="prefs_instant_video_upload_summary">カメラで撮影したビデオを自動アップロードします</string>
-    <string name="prefs_log_title">ログの有効化</string>
-    <string name="prefs_log_summary">これは問題をログに記録するのに使用します。</string>
-    <string name="prefs_log_title_history">ログの履歴</string>
-    <string name="prefs_log_summary_history">これは記録されたログを表示します</string>
     <string name="prefs_log_delete_history_button">履歴の削除</string>
     <string name="prefs_calendar_contacts">コンタクト &amp; カレンダーを同期</string>
     <string name="prefs_calendar_contacts_summary">DAVdroid (v1.3.0以上) を現在のアカウントで使う</string>
@@ -64,13 +54,10 @@
     <string name="prefs_recommend">友達に推奨</string>
     <string name="prefs_feedback">フィードバック</string>
     <string name="prefs_imprint">インプリント</string>
-    <string name="prefs_remember_last_share_location">共有場所を記憶する</string>
-    <string name="prefs_remember_last_upload_location_summary">最後に使用した共有場所を記憶する</string>
 
 	<string name="recommend_subject">スマートフォンで %1$s を試してください！</string>
 	<string name="recommend_text">スマートフォンで %1$s を利用してみませんか。\nここからダウンロードしてください: %2$s</string>
     <string name="auth_check_server">サーバーのチェック</string>
-    <string name="auth_host_url">サーバーアドレス https://…</string>
     <string name="auth_username">ユーザー名</string>
     <string name="auth_password">パスワード</string>
     <string name="auth_register">まだサーバーがありませんか？\nここをクリックして、プロバイダーから取得してください</string>
@@ -151,7 +138,6 @@
     <string name="uploader_upload_failed_credentials_error">アップロードに失敗しました,ログインし直す必要があります</string>
     <string name="uploads_view_title">アップロード</string>
     <string name="uploads_view_group_current_uploads">現在</string>
-    <string name="uploads_view_group_failed_uploads">失敗(タップして再試行)</string>
     <string name="uploads_view_group_finished_uploads">アップロード済み</string>
     <string name="uploads_view_upload_status_succeeded">完了</string>
     <string name="uploads_view_upload_status_cancelled">キャンセル済</string>
@@ -290,8 +276,6 @@
     <string name="preview_image_description">イメージプレビュー</string>
     <string name="error__upload__local_file_not_copied">%1$s は、ローカルフォルダー %2$s  にコピーできませんでした。</string>
     <string name="prefs_instant_upload_path_title">自動アップロードフォルダー</string>
-    <string name="prefs_synced_folders_local_path_title">ローカルフォルダー</string>
-    <string name="prefs_synced_folders_remote_path_title">リモートフォルダー</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">サブフォルダーを利用</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">年と月を元にしたサブフォルダーに保存</string>
 
@@ -413,7 +397,6 @@
     <string name="edit_share_unshare">共有の停止</string>
     <string name="edit_share_done">完了</string>
 
-    <string name="action_clear_failed_uploads">クリアに失敗</string>
     <string name="action_switch_grid_view">グリッド表示</string>
     <string name="action_switch_list_view">リスト表示</string>
 
@@ -426,18 +409,12 @@
     <string name="actionbar_search">検索</string>
     <string name="files_drop_not_supported">これはNextCloudの機能です。更新してください。</string>
     <string name="learn_more">もっと見る</string>
-    <string name="drawer_synced_folders">自動アップロード</string>
     <string name="drawer_participate">参加する</string>
     <string name="participate_beta_headline">開発バージョンをテスト</string>
     <string name="participate_release_candidate_headline">リリース候補</string>
     <string name="participate_contribute_headline">積極的な貢献</string>
     <string name="move_to">&#8230;に移動</string>
     <string name="copy_to">&#8230;にコピー</string>
-    <string name="choose_remote_folder">&#8230; フォルダーを選択</string>
-    <string name="synced_folders_loading_folders">&#8230; フォルダを読み込み中</string>
-    <string name="synced_folders_no_results">メディアフォルダが見つかりませんでした</string>
-    <string name="synced_folders_settings">設定</string>
-    <string name="synced_folders_preferences_folder_path">%1$s の</string>
     <plurals name="items_selected_count">
         <item quantity="other">%d選択されています。</item>
     </plurals>

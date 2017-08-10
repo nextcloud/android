@@ -12,7 +12,6 @@
     <string name="actionbar_see_details">Dettagli</string>
     <string name="actionbar_send_file">Invia</string>
     <string name="actionbar_sort">Ordina</string>
-    <string name="actionbar_sort_title">Ordina per</string>
     <string name="sort_by">Ordina per</string>
     <string name="menu_item_sort_by_name_a_z">A - Z</string>
     <string name="menu_item_sort_by_name_z_a">Z - A</string>
@@ -39,20 +38,11 @@
     <string name="drawer_open">Apri</string>
     <string name="prefs_category_general">Generale</string>
     <string name="prefs_category_more">Altro</string>
-    <string name="prefs_accounts">Account</string>
     <string name="prefs_manage_accounts">Gestisci account</string>
     <string name="prefs_passcode">Blocco con codice di sicurezza</string>
     <string name="prefs_fingerprint">Blocco con impronta digitale</string>
     <string name="prefs_fingerprint_notsetup">Non è stata impostata alcuna impronta digitale</string>
     <string name="prefs_show_hidden_files">Mostra i file nascosti</string>
-    <string name="prefs_instant_upload">Caricamenti istantanei delle immagini</string>
-    <string name="prefs_instant_upload_summary">Carica immediatamente le immagini scattate dalla fotocamera</string>
-    <string name="prefs_instant_video_upload">Caricamenti istantanei dei video</string>
-    <string name="prefs_instant_video_upload_summary">Carica immediatamente i video registrati dalla fotocamera</string>
-    <string name="prefs_log_title">Abilita la registrazione</string>
-    <string name="prefs_log_summary">Usato per registrare i problemi nei log</string>
-    <string name="prefs_log_title_history">Cronologia di registrazione</string>
-    <string name="prefs_log_summary_history">Mostra i log registrati</string>
     <string name="prefs_log_delete_history_button">Elimina cronologia</string>
     <string name="prefs_calendar_contacts">Sincronizza calendario e contatti</string>
     <string name="prefs_calendar_contacts_summary">Configura DAVdroid (v1.3.0+) per l\'account corrente</string>
@@ -61,9 +51,9 @@
     <string name="prefs_recommend">Consiglia a un amico</string>
     <string name="prefs_feedback">Segnalazioni</string>
     <string name="prefs_imprint">Imprint</string>
-    <string name="recommend_subject">Prova %1$s sul tuo smartphone!</string>
+
+	<string name="recommend_subject">Prova %1$s sul tuo smartphone!</string>
 	<string name="auth_check_server">Controlla server</string>
-    <string name="auth_host_url">Indirizzo server https://...</string>
     <string name="auth_username">Nome utente</string>
     <string name="auth_password">Password</string>
     <string name="sync_string_files">File</string>
@@ -134,7 +124,6 @@
     <string name="uploader_upload_failed_credentials_error">Caricamento non riuscito, devi effettuare nuovamente l\'accesso</string>
     <string name="uploads_view_title">Caricamenti</string>
     <string name="uploads_view_group_current_uploads">Attuale</string>
-    <string name="uploads_view_group_failed_uploads">Non riuscito (tocca per riprovare)</string>
     <string name="uploads_view_group_finished_uploads">Caricati</string>
     <string name="uploads_view_upload_status_succeeded">Completati</string>
     <string name="uploads_view_upload_status_cancelled">Annullati</string>
@@ -221,7 +210,6 @@
 	<string name="auth_expired_oauth_token_toast">Autorizzazione scaduta. Richiedi l\'autorizzazione</string>
 	<string name="auth_expired_basic_auth_toast">Digita la password attuale</string>
 	<string name="auth_expired_saml_sso_token_toast">Sessione scaduta. Riconnettiti</string>
-	<string name="auth_connecting_auth_server">Connessione al server di autenticazione...</string>
 	<string name="auth_unsupported_auth_method">Il server non supporta questo metodo di autenticazione</string>
 	<string name="auth_unsupported_multiaccount">%1$s non supporta account multipli</string>
 	<string name="auth_can_not_auth_against_server">Impossibile autenticarsi a questo server</string>
@@ -240,15 +228,12 @@
     <string name="filename_forbidden_characters">Caratteri proibiti: / \\ &lt; &gt; : \" | ? *</string>
     <string name="filename_forbidden_charaters_from_server">Il nome del file contiene almeno un carattere non valido</string>
     <string name="filename_empty">Il nome del file non può essere vuoto</string>
-    <string name="wait_a_moment">Attendi...</string>
     <string name="wait_checking_credentials">Controllo delle credenziali memorizzate</string>
     <string name="filedisplay_no_file_selected">Nessun file selezionato</string>
     <string name="activity_chooser_title">Invia collegamento a &#8230;</string>
     <string name="wait_for_tmp_copy_from_private_storage">Copia file dall\'archiviazione privata</string>
-
-    <string name="oauth_check_onoff">Accedi con OAuth 2.0</string>
-    <string name="oauth_login_connection">Connessione al server OAuth 2.0...</string>
-
+    
+    <string name="oauth_check_onoff">Accedi con OAuth 2.0</string> 
     <string name="ssl_validator_header">L\'identità del sito non può essere verificata</string>
     <string name="ssl_validator_reason_cert_not_trusted">- Il certificato del server non è affidabile</string>
     <string name="ssl_validator_reason_cert_expired">- Il certificato del server è scaduto</string>
@@ -296,8 +281,6 @@
 
     <string name="error__upload__local_file_not_copied">%1$s non può essere copiato nella cartella locale %2$s</string>
     <string name="prefs_instant_upload_path_title">Cartella caricamenti istantanei</string>
-    <string name="prefs_synced_folders_local_path_title">Cartella locale</string>
-    <string name="prefs_synced_folders_remote_path_title">Cartella remota</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Usa sottocartelle</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Archivia in sottocartelle in base a anno e mese</string>
 
@@ -437,8 +420,6 @@
     <string name="edit_share_unshare">Interrompi la condivisione</string>
     <string name="edit_share_done">completato</string>
 
-    <string name="action_retry_uploads">Nuovo tentativo non riuscito</string>
-    <string name="action_clear_failed_uploads">Cancella i caricamenti non riusciti</string>
     <string name="action_switch_grid_view">Vista Griglia</string>
     <string name="action_switch_list_view">Vista Elenco</string>
 
@@ -450,22 +431,15 @@
     <string name="confirmation_remove_files_alert">Vuoi davvero rimuovere gli elementi selezionati?</string>
     <string name="confirmation_remove_folders_alert">Vuoi davvero rimuovere gli elementi selezionati e il loro contenuto?</string>
     <string name="maintenance_mode">Server in manutenzione</string>
-
     <string name="actionbar_search">Cerca</string>
     <string name="files_drop_not_supported">Questa è una funzionalità di Nextcloud, aggiorna.</string>
     <string name="learn_more">Scopri altro</string>
-    <string name="drawer_synced_folders">Carica automaticamente</string>
     <string name="drawer_participate">Partecipa</string>
     <string name="participate_beta_headline">Prova la versione di sviluppo</string>
     <string name="participate_release_candidate_headline">Candidata al rilascio</string>
     <string name="participate_contribute_headline">Contribuisci attivamente</string>
     <string name="move_to">Sposta in&#8230;</string>
     <string name="copy_to">Copia in&#8230;</string>
-    <string name="choose_remote_folder">Scegli la cartella&#8230;</string>
-    <string name="synced_folders_loading_folders">Caricamento cartelle&#8230;</string>
-    <string name="synced_folders_no_results">Nessuna cartella di file multimediali trovata.</string>
-    <string name="synced_folders_settings">Impostazioni</string>
-    <string name="synced_folders_preferences_folder_path">Per %1$s</string>
     <plurals name="items_selected_count">
         <item quantity="one">%d selezionato</item>
         <item quantity="other">%d selezionati</item>
@@ -536,6 +510,4 @@
     <string name="privacy">Riservatezza</string>
     <string name="file_not_found">File non trovato!</string>
 
-    <string name="synced_folders_configure_folders">Configura cartelle</string>
-
-  </resources>
+    </resources>

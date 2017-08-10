@@ -12,7 +12,6 @@
     <string name="actionbar_see_details">Деталі</string>
     <string name="actionbar_send_file">Надіслати</string>
     <string name="actionbar_sort">Сортувати</string>
-    <string name="actionbar_sort_title">Сортувати за</string>
     <string name="sort_by">Сортувати по</string>
     <string name="menu_item_sort_by_name_a_z">А - Я</string>
     <string name="menu_item_sort_by_name_z_a">Я - А</string>
@@ -40,16 +39,11 @@
     <string name="drawer_open">Відкрити</string>
     <string name="prefs_category_general">Основне</string>
     <string name="prefs_category_more">Більше</string>
-    <string name="prefs_accounts">Облікові записи</string>
     <string name="prefs_manage_accounts">Управління обліковими записами</string>
     <string name="prefs_passcode">Захистити паролем</string>
     <string name="prefs_fingerprint">Захист даних відбитком пальця</string>
     <string name="prefs_fingerprint_notsetup">Жодного відбитку у базі</string>
     <string name="prefs_show_hidden_files">Відобразити сховані файли</string>
-    <string name="prefs_log_title">Ввімкнути логування</string>
-    <string name="prefs_log_summary">Використовується для реєстрації помилок</string>
-    <string name="prefs_log_title_history">Історія логування</string>
-    <string name="prefs_log_summary_history">Тут показані записи журналу</string>
     <string name="prefs_log_delete_history_button">Видалити історію</string>
     <string name="prefs_calendar_contacts">Синхронізувати календар та контакти</string>
     <string name="prefs_calendar_contacts_summary">Налаштувати DAVdroid (v1.3.0+) для поточного користувача</string>
@@ -57,9 +51,9 @@
     <string name="prefs_help">Допомога</string>
     <string name="prefs_feedback">Зворотній зв\'язок</string>
     <string name="prefs_imprint">Відбиток</string>
-    <string name="recommend_subject">Спробуйте %1$s на своєму смартфоні!</string>
+
+	<string name="recommend_subject">Спробуйте %1$s на своєму смартфоні!</string>
 	<string name="auth_check_server">Перевірити сервер</string>
-    <string name="auth_host_url">Адреса серверу https://…</string>
     <string name="auth_username">Ім\'я користувача</string>
     <string name="auth_password">Пароль</string>
     <string name="sync_string_files">Файли</string>
@@ -127,7 +121,6 @@
     <string name="uploader_upload_failed_credentials_error">Вивантаження не вдалося, ви маєте зайти у систему знову.</string>
     <string name="uploads_view_title">Завантаженнь</string>
     <string name="uploads_view_group_current_uploads">Поточний</string>
-    <string name="uploads_view_group_failed_uploads">Не вдалося (торкніться щоб повторити спробу)</string>
     <string name="uploads_view_group_finished_uploads">Вивантажено</string>
     <string name="uploads_view_upload_status_succeeded">Завершені</string>
     <string name="uploads_view_upload_status_cancelled">Відмінено</string>
@@ -202,7 +195,6 @@
 	<string name="auth_expired_oauth_token_toast">Час авторизації минув. Будь ласка, увійдіть знову</string>
 	<string name="auth_expired_basic_auth_toast">Будь ласка, введіть поточний пароль</string>
 	<string name="auth_expired_saml_sso_token_toast">Час сесії минув. Будь ласка, підключіться знов</string>
-	<string name="auth_connecting_auth_server">Йде підключення до серверу автентикації...</string>
 	<string name="auth_unsupported_auth_method">Сервер не підтримує обраний метод аутентифікації</string>
 	<string name="auth_unsupported_multiaccount">%1$s не підтримує одночасно декілька облікових записів</string>
 	<string name="common_rename">Перейменувати</string>
@@ -333,7 +325,6 @@
     <string name="participate_release_candidate_headline">Реліз-кандидат</string>
     <string name="move_to">Перемістити до&#8230;</string>
     <string name="copy_to">Копіювати до&#8230;</string>
-    <string name="choose_remote_folder">Оберіть каталог&#8230;</string>
     <plurals name="items_selected_count">
         <item quantity="one">%d обрано</item>
         <item quantity="few">%d обрано</item>

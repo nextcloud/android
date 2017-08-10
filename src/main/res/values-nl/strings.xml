@@ -12,7 +12,6 @@
     <string name="actionbar_see_details">Details</string>
     <string name="actionbar_send_file">Versturen</string>
     <string name="actionbar_sort">Sorteren</string>
-    <string name="actionbar_sort_title">Sorteer op</string>
     <string name="sort_by">Sorteer op</string>
     <string name="menu_item_sort_by_name_a_z">A - Z</string>
     <string name="menu_item_sort_by_name_z_a">Z - A</string>
@@ -40,20 +39,11 @@
     <string name="drawer_open">Openen</string>
     <string name="prefs_category_general">Algemeen</string>
     <string name="prefs_category_more">Meer</string>
-    <string name="prefs_accounts">Accounts</string>
     <string name="prefs_manage_accounts">Accounts beheren</string>
     <string name="prefs_passcode">Toegangscode</string>
     <string name="prefs_fingerprint">Vingerafdrukbeveiliging</string>
     <string name="prefs_fingerprint_notsetup">Er zijn geen vingerafdrukken ingesteld.</string>
     <string name="prefs_show_hidden_files">Verborgen bestanden weergeven</string>
-    <string name="prefs_instant_upload">Directe upload van afbeeldingen</string>
-    <string name="prefs_instant_upload_summary">Direct afbeeldingen vanaf camera uploaden</string>
-    <string name="prefs_instant_video_upload">Directe upload van video\'s</string>
-    <string name="prefs_instant_video_upload_summary">Direct vanaf de camera uploaden video\'s</string>
-    <string name="prefs_log_title">Logging inschakelen</string>
-    <string name="prefs_log_summary">Dit wordt gebruikt om problemen te loggen.</string>
-    <string name="prefs_log_title_history">Logging-geschiedenis</string>
-    <string name="prefs_log_summary_history">Dit toont de bijgehouden logs</string>
     <string name="prefs_log_delete_history_button">Verwijder geschiedenis</string>
     <string name="prefs_calendar_contacts">Synchroniseren agenda &amp; contactpersonen</string>
     <string name="prefs_calendar_contacts_summary">DAVdroid (v1.3.0+) voor huidige account instellen</string>
@@ -64,15 +54,12 @@
     <string name="prefs_recommend">Aanbevelen bij vriend</string>
     <string name="prefs_feedback">Feedback</string>
     <string name="prefs_imprint">afdruk</string>
-    <string name="prefs_remember_last_share_location">Onthoud de share locatie</string>
-    <string name="prefs_remember_last_upload_location_summary">Onthoud de laatst gebruikte share locatie</string>
 
 	<string name="recommend_subject">Probeer %1$s op je smartphone!</string>
 	<string name="recommend_text">Ik wil je uitnodigen om %1$s op je smartphone te gebruiken.\nDownload hier: %2$s</string>
     <string name="recommend_urls">%1$s or %2$s</string>
 
     <string name="auth_check_server">Controleer server</string>
-    <string name="auth_host_url">Serveradres https://…</string>
     <string name="auth_username">Gebruikersnaam</string>
     <string name="auth_password">Wachtwoord</string>
     <string name="auth_register">Heb je nog geen server?\n
@@ -169,7 +156,6 @@ Kies er eentje van een provider.</string>
     <string name="uploader_upload_failed_credentials_error">Uploaden mislukt, je moet opnieuw inloggen</string>
     <string name="uploads_view_title">Uploads</string>
     <string name="uploads_view_group_current_uploads">Huidige</string>
-    <string name="uploads_view_group_failed_uploads">Mislukt (tik om opnieuw te proberen)</string>
     <string name="uploads_view_group_finished_uploads">Geüpload</string>
     <string name="uploads_view_upload_status_succeeded">Voltooid</string>
     <string name="uploads_view_upload_status_cancelled">Geannuleerd</string>
@@ -270,7 +256,6 @@ Kies er eentje van een provider.</string>
 	<string name="auth_expired_oauth_token_toast">Je autorisatie is verstreken. Autoriseer opnieuw</string>
 	<string name="auth_expired_basic_auth_toast">Voer het huidige wachtwoord in</string>
 	<string name="auth_expired_saml_sso_token_toast">Je sessie is verstreken. Verbind opnieuw</string>
-	<string name="auth_connecting_auth_server">Verbinden met authenticatieserver...</string>
 	<string name="auth_unsupported_auth_method">De server ondersteunt deze authenticatiemethode niet</string>
 	<string name="auth_unsupported_multiaccount">%1$s ondersteunt het gebruik van meerdere accounts niet</string>
 	<string name="auth_fail_get_user_name">Je server geeft geen goede userid terug, neem contact op met je beheerder</string>
@@ -298,16 +283,13 @@ Kies er eentje van een provider.</string>
     <string name="filename_forbidden_characters">Verboden tekens: / \\ &lt; &gt; : " | ? *</string>
     <string name="filename_forbidden_charaters_from_server">De bestandsnaam bevat ten minste één ongeldig teken</string>
     <string name="filename_empty">Bestandsnaam mag niet leeg zijn</string>
-    <string name="wait_a_moment">Even geduld...</string>
     <string name="wait_checking_credentials">Opgeslagen inloggegevens nakijken</string>
     <string name="filedisplay_unexpected_bad_get_content">Onverwacht probleem; probeer het bestand met een andere app te selecteren</string>
     <string name="filedisplay_no_file_selected">Geen bestand geselecteerd</string>
     <string name="activity_chooser_title">Verstuur link naar &#8230;</string>
     <string name="wait_for_tmp_copy_from_private_storage">Bestand vanaf privéopslag kopiëren</string>
-
-    <string name="oauth_check_onoff">Inloggen met OAuth 2.0</string>
-    <string name="oauth_login_connection">Verbinden met OAuth 2.0 server…</string>
-
+    
+    <string name="oauth_check_onoff">Inloggen met OAuth 2.0</string> 
     <string name="ssl_validator_header">De identiteit van de site kan niet worden gecontroleerd</string>
     <string name="ssl_validator_reason_cert_not_trusted">- Het servercertificaat wordt niet vertrouwd</string>
     <string name="ssl_validator_reason_cert_expired">- Het servercertificaat is verlopen</string>
@@ -362,8 +344,6 @@ Kies er eentje van een provider.</string>
 
     <string name="error__upload__local_file_not_copied">%1$s kon niet worden gekopieerd naar de lokale map %2$s</string>
     <string name="prefs_instant_upload_path_title">Directe-uploadmap</string>
-    <string name="prefs_synced_folders_local_path_title">Lokale map</string>
-    <string name="prefs_synced_folders_remote_path_title">Externe map</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Gebruik submappen</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Opslaan in submappen, gebaseerd op jaar en maand</string>
 
@@ -532,10 +512,7 @@ Kies er eentje van een provider.</string>
     <string name="edit_share_unshare">Stop met delen</string>
     <string name="edit_share_done">gedaan</string>
 
-    <string name="action_retry_uploads">Mislukte opnieuw proberen</string>
-    <string name="action_clear_failed_uploads">Mislukte opschonen</string>
     <string name="action_clear_finished_uploads">Alle voltoooide opschonen</string>
-
     <string name="action_switch_grid_view">Rasterindeling </string>
     <string name="action_switch_list_view">Lijstindeling</string>
 
@@ -549,12 +526,10 @@ Kies er eentje van een provider.</string>
     <string name="confirmation_remove_files_alert">Wil je de geselecteerde objecten echt verwijderen?</string>
     <string name="confirmation_remove_folders_alert">Wil je de geselecteerde objecten en hun inhoud echt verwijderen?</string>
     <string name="maintenance_mode">Server in onderhoudsmodus</string>
-
     <string name="uploads_view_upload_status_waiting_for_charging">Wachten to apparaat wordt opgeladen</string>
     <string name="actionbar_search">Zoeken</string>
     <string name="files_drop_not_supported">Dit is een Nextcloud-optie, gelieve te updaten.</string>
     <string name="learn_more">Meer weten</string>
-    <string name="drawer_synced_folders">Automatisch uploaden</string>
     <string name="drawer_participate">Meedoen</string>
     <string name="participate_testing_headline">Help bij testen</string>
     <string name="participate_testing_bug_text">Bug gevonden? Rare dingen?</string>
@@ -570,13 +545,6 @@ Kies er eentje van een provider.</string>
     <string name="participate_contribute_translate_text">de app</string>
     <string name="move_to">Verplaats naar&#160;&#8230;</string>
     <string name="copy_to">Kopieer naar&#160;&#8230;</string>
-    <string name="choose_remote_folder">Kies map&#160;&#8230;</string>
-    <string name="synced_folders_loading_folders">Mappen laden&#160;&#8230;</string>
-    <string name="synced_folders_no_results">Geen mediamappen gevonden.</string>
-    <string name="synced_folders_preferences">Voorkeuren voor automatisch uploaden</string>
-    <string name="synced_folders_settings">Instellingen</string>
-    <string name="synced_folders_new_info">Direct uploaden is helemaal herzien. Bekijk het hoofdmenu en herconfigureer je auto-uploadfunctie. Onze excuses voor het ongemak.\n\nVeel plezier met de nieuwe en meer uitgebreide auto-upload-mogelijkheden!</string>
-    <string name="synced_folders_preferences_folder_path">Voor %1$s</string>
     <plurals name="items_selected_count">
         <item quantity="one">%d geselecteerd</item>
         <item quantity="other">%d geselecteerd</item>
@@ -659,7 +627,5 @@ Kies er eentje van een provider.</string>
     <string name="privacy">Privacy</string>
     <string name="file_not_found">Bestand niet gevonden!</string>
 
-    <string name="synced_folders_configure_folders">Mappen instellen</string>
-
-  <string name="test_server_button">Test server verbinding</string>
-</resources>
+    <string name="test_server_button">Test server verbinding</string>
+    </resources>

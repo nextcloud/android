@@ -12,7 +12,6 @@
     <string name="actionbar_see_details">Detaljer</string>
     <string name="actionbar_send_file">Send</string>
     <string name="actionbar_sort">Sorter</string>
-    <string name="actionbar_sort_title">Sorter etter</string>
     <string name="sort_by">Sorter etter</string>
     <string name="menu_item_sort_by_name_a_z">A - Z</string>
     <string name="menu_item_sort_by_name_z_a">Z - A</string>
@@ -40,20 +39,11 @@
     <string name="drawer_open">Åpne</string>
     <string name="prefs_category_general">Generelt</string>
     <string name="prefs_category_more">Mer</string>
-    <string name="prefs_accounts">Kontoer</string>
     <string name="prefs_manage_accounts">Håndter kontoer</string>
     <string name="prefs_passcode">Passordlås</string>
     <string name="prefs_fingerprint">Fingeravtrykkslås</string>
     <string name="prefs_fingerprint_notsetup">Det har ikke blitt satt opp noen fingeravtrykk.</string>
     <string name="prefs_show_hidden_files">Vis skjulte filer</string>
-    <string name="prefs_instant_upload">Umiddelbar opplasting av bilder</string>
-    <string name="prefs_instant_upload_summary">Last opp bilder tatt med kameraet med én gang</string>
-    <string name="prefs_instant_video_upload">Umiddelbar opplasting av video</string>
-    <string name="prefs_instant_video_upload_summary">Last opp videoer tatt med kameraet med én gang</string>
-    <string name="prefs_log_title">Aktiver loggføring</string>
-    <string name="prefs_log_summary">Denne er brukt til å loggføre problemer</string>
-    <string name="prefs_log_title_history">Loggføringshistorikk</string>
-    <string name="prefs_log_summary_history">Denne viser de lagrede loggene</string>
     <string name="prefs_log_delete_history_button">Slett historikk</string>
     <string name="prefs_calendar_contacts">Synkroniser kalender &amp; kontakter</string>
     <string name="prefs_calendar_contacts_summary">Sett opp DAVdroid (v1.3.0+) for nåværende konto</string>
@@ -65,15 +55,12 @@
     <string name="prefs_recommend">Anbefal til en venn</string>
     <string name="prefs_feedback">Tilbakemelding</string>
     <string name="prefs_imprint">Avtrykk</string>
-    <string name="prefs_remember_last_share_location">Husk delt plassering</string>
-    <string name="prefs_remember_last_upload_location_summary">Husk sist delt plassering for opplasting</string>
 
 	<string name="recommend_subject">Prøv %1$s på smarttelefonen din!</string>
 	<string name="recommend_text">Jeg ønsker å invitere deg til å bruke %1$s på smarttelefonen din!\nLast ned her: %2$s</string>
     <string name="recommend_urls">%1$s eller %2$s</string>
 
     <string name="auth_check_server">Sjekk tjener</string>
-    <string name="auth_host_url">Tjeneradresse https://...</string>
     <string name="auth_username">Brukernavn</string>
     <string name="auth_password">Passord</string>
     <string name="auth_register">Har du ingen tjener enda?\nKlikk her for å opprette en hos en tilbyder</string>
@@ -169,7 +156,6 @@
     <string name="uploader_upload_failed_credentials_error">Opplasting mislyktes, du må logge inn på nytt</string>
     <string name="uploads_view_title">Opplastinger</string>
     <string name="uploads_view_group_current_uploads">Nåværende</string>
-    <string name="uploads_view_group_failed_uploads">Mislyktes (trykk for å prøve igjen)</string>
     <string name="uploads_view_group_finished_uploads">Opplastet</string>
     <string name="uploads_view_upload_status_succeeded">Ferdig</string>
     <string name="uploads_view_upload_status_cancelled">Avbrutt</string>
@@ -270,10 +256,9 @@
 	<string name="auth_expired_oauth_token_toast">Autorisasjonen din har gått ut. Autoriser igjen</string>
 	<string name="auth_expired_basic_auth_toast">Legg inn nåværende passord</string>
 	<string name="auth_expired_saml_sso_token_toast">Økta di har gått ut. Koble til igjen</string>
-	<string name="auth_connecting_auth_server">Kobler til autentiseringstjener...</string>
 	<string name="auth_unsupported_auth_method">Tjeneren støtter ikke denne autorisasjonsmetoden</string>
 	<string name="auth_unsupported_multiaccount">%1$s støtter ikke flere kontoer</string>
-    <string name="auth_fail_get_user_name">Tjeneren din svarer ikke med korrekt bruker-ID, ta kontakt med en administrator </string>
+	<string name="auth_fail_get_user_name">Tjeneren din svarer ikke med korrekt bruker-ID, ta kontakt med en administrator </string>
 	<string name="auth_can_not_auth_against_server">Kan ikke autentisere mot denne tjeneren</string>
     <string name="auth_account_does_not_exist">Kontoen eksisterer ikke på enheten enda</string>
 
@@ -298,16 +283,13 @@
     <string name="filename_forbidden_characters">Forbudte tegn: / \\ &lt; &gt; : \" | ? *</string>
     <string name="filename_forbidden_charaters_from_server">Filnavnet inneholder minst ett ulovlig tegn</string>
     <string name="filename_empty">Filnavn kan ikke være tomt</string>
-    <string name="wait_a_moment">Vent et øyeblikk…</string>
     <string name="wait_checking_credentials">Sjekker lagrede påloggingsdetaljer</string>
     <string name="filedisplay_unexpected_bad_get_content">Uventet problem; velg filen fra et annet program</string>
     <string name="filedisplay_no_file_selected">Ingen fil ble valgt</string>
     <string name="activity_chooser_title">Send lenke til &#8230;</string>
     <string name="wait_for_tmp_copy_from_private_storage">Kopierer fil fra privat lager</string>
-
-    <string name="oauth_check_onoff">Logg inn med OAuth 2.0</string>
-    <string name="oauth_login_connection">Kobler til OAuth 2.0-tjener...</string>
-
+    
+    <string name="oauth_check_onoff">Logg inn med OAuth 2.0</string> 
     <string name="ssl_validator_header">Identiteten til siden kunne ikke bekreftes</string>
     <string name="ssl_validator_reason_cert_not_trusted">- Tjenerens sertifikat er ikke til å stole på</string>
     <string name="ssl_validator_reason_cert_expired">- Tjenerens sertifikat er utløpt</string>
@@ -362,8 +344,6 @@
 
     <string name="error__upload__local_file_not_copied">%1$s kunne ikke kopieres til lokal mappe %2$s</string>
     <string name="prefs_instant_upload_path_title">Mappe for umiddelbar opplasting</string>
-    <string name="prefs_synced_folders_local_path_title">Lokal mappe</string>
-    <string name="prefs_synced_folders_remote_path_title">Ekstern mappe</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Bruk undermapper</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Lagre filer i undermapper basert på år og måned</string>
 
@@ -435,7 +415,7 @@
 	<string name="actionbar_logger">Logger</string>
 	<string name="log_send_history_button">Send historikk </string>
 	<string name="log_send_no_mail_app">Fant inget program til forsendelse av logger. Installer e-post-program.</string>
-    <string name="log_send_mail_subject">%1$s Android program-logger</string>
+	<string name="log_send_mail_subject">%1$s Android program-logger</string>
 	<string name="log_progress_dialog_text">Laster data &#8230;</string>
 
 	<string name="saml_authentication_required_text">Autentisering kreves</string>
@@ -534,10 +514,7 @@
     <string name="edit_share_unshare">Avslutt deling</string>
     <string name="edit_share_done">ferdig</string>
 
-    <string name="action_retry_uploads">Nytt forsøk mislyktes</string>
-    <string name="action_clear_failed_uploads">Sletting mislyktes</string>
     <string name="action_clear_finished_uploads">Slett alle ferdige</string>
-
     <string name="action_switch_grid_view">Rutenett-visning</string>
     <string name="action_switch_list_view">Listevisning</string>
 
@@ -551,12 +528,10 @@
     <string name="confirmation_remove_files_alert">Vil du virkelig fjerne de valgte elementene?</string>
     <string name="confirmation_remove_folders_alert">Vil du virkelig fjerne de valgte elementene og dets innhold?</string>
     <string name="maintenance_mode">Tjener i vedlikeholdsmodus</string>
-
     <string name="uploads_view_upload_status_waiting_for_charging">Venter på lading av enhet.</string>
     <string name="actionbar_search">Søk</string>
     <string name="files_drop_not_supported">Dette er en Nextcloud funksjon, oppdater.</string>
     <string name="learn_more">Lær mer</string>
-    <string name="drawer_synced_folders">Auto-opplasting</string>
     <string name="drawer_participate">Delta</string>
     <string name="participate_testing_headline">Hjelp oss å teste</string>
     <string name="participate_testing_bug_text">Funnet en feil? Føles noe rart?</string>
@@ -574,13 +549,6 @@
     <string name="participate_contribute_translate_text">programmet</string>
     <string name="move_to">Flytt til&#8230;</string>
     <string name="copy_to">Kopier til&#8230;</string>
-    <string name="choose_remote_folder">Velg mappe&#8230;</string>
-    <string name="synced_folders_loading_folders">Laster inn mapper&#8230;</string>
-    <string name="synced_folders_no_results">Ingen mediamapper funnet.</string>
-    <string name="synced_folders_preferences">Innstillinger for auto-opplasting</string>
-    <string name="synced_folders_settings">Innstillinger</string>
-    <string name="synced_folders_new_info">Umiddelbar opplasting er fullstendig omarbeidet. Se hovedmenyen og konfigurer auto-opplasting på nytt. Beklager uleiligheten.\n\nTa i bruk de nye og utvidede mulighetene i auto-opplasting.</string>
-    <string name="synced_folders_preferences_folder_path">For %1$s</string>
     <plurals name="items_selected_count">
         <item quantity="one">%d valgt</item>
         <item quantity="other">%d valgte</item>
@@ -663,7 +631,5 @@
     <string name="privacy">Personvern</string>
     <string name="file_not_found">Finner ikke filen!</string>
 
-    <string name="synced_folders_configure_folders">Sett opp mapper</string>
-
     <string name="test_server_button">Test tjenertilkobling</string>
-</resources>
+    </resources>

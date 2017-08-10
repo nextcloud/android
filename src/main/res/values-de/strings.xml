@@ -12,7 +12,6 @@
     <string name="actionbar_see_details">Details</string>
     <string name="actionbar_send_file">Senden</string>
     <string name="actionbar_sort">Sortieren</string>
-    <string name="actionbar_sort_title">Sortieren nach</string>
     <string name="sort_by">Sortieren nach</string>
     <string name="menu_item_sort_by_name_a_z">A - Z</string>
     <string name="menu_item_sort_by_name_z_a">Z - A</string>
@@ -40,20 +39,12 @@
     <string name="drawer_open">Öffnen</string>
     <string name="prefs_category_general">Allgemein</string>
     <string name="prefs_category_more">Mehr</string>
-    <string name="prefs_accounts">Konten</string>
     <string name="prefs_manage_accounts">Konten verwalten</string>
     <string name="prefs_passcode">PIN gesperrt</string>
     <string name="prefs_fingerprint">Fingerabdruck-Sperre</string>
     <string name="prefs_fingerprint_notsetup">Keine Fingerabdrücke eingerichtet.</string>
+    <string name="prefs_expert_mode">Expertenmodus</string>
     <string name="prefs_show_hidden_files">Versteckte Dateien anzeigen</string>
-    <string name="prefs_instant_upload">Sofortiges Hochladen von Bildern</string>
-    <string name="prefs_instant_upload_summary">Lade mit der Kamera gemachte Fotos sofort hoch</string>
-    <string name="prefs_instant_video_upload">Sofortiges Hochladen von Videos</string>
-    <string name="prefs_instant_video_upload_summary">Lade mit der Kamera gemachte Videos sofort hoch</string>
-    <string name="prefs_log_title">Protokollierung aktivieren</string>
-    <string name="prefs_log_summary">Dies wird zur Protokollierung von Problemen genutzt</string>
-    <string name="prefs_log_title_history">Protokollierungs-Historie</string>
-    <string name="prefs_log_summary_history">Dies zeigt die gespeicherten Protokollierungen</string>
     <string name="prefs_log_delete_history_button">Verlauf löschen</string>
     <string name="prefs_calendar_contacts">Kalender &amp; Kontakte synchronisieren</string>
     <string name="prefs_calendar_contacts_summary">DAVdroid (v1.3.0+) für aktuelles Konto einrichten</string>
@@ -65,21 +56,19 @@
     <string name="prefs_recommend">Einem Freund empfehlen</string>
     <string name="prefs_feedback">Rückmeldungen</string>
     <string name="prefs_imprint">Impressum</string>
-    <string name="prefs_remember_last_share_location">Geteilten Speicherort merken</string>
-    <string name="prefs_remember_last_upload_location_summary">Zuletzt verwendeten, geteilten Upload-Speicherort merken</string>
 
 	<string name="recommend_subject">Probiere %1$s auf Deinem Smartphone!</string>
 	<string name="recommend_text">"Ich empfehle Dir die Nutzung von %1$s auf Deinem Smartphone!\nLade es hier herunter: %2$s"</string>
     <string name="recommend_urls">%1$s oder %2$s</string>
 
     <string name="auth_check_server">Server überprüfen</string>
-    <string name="auth_host_url">Server-Adresse https://…</string>
     <string name="auth_username">Benutzername</string>
     <string name="auth_password">Passwort</string>
     <string name="auth_register">Du hast noch keinen Server?\nKlicke hier um Server-Anbieter zu finden</string>
     <string name="sync_string_files">Dateien</string>
     <string name="setup_btn_connect">Verbinden</string>
     <string name="uploader_btn_upload_text">Hochladen</string>
+    <string name="uploader_btn_alternative_text">Auswählen</string>
     <string name="uploader_top_message">Hochladeordner auswählen</string>
     <string name="uploader_wrn_no_account_title">Kein Konto gefunden</string>
     <string name="uploader_wrn_no_account_text">Es sind keine %1$s Konten auf deinem Gerät eingerichtet. Bitte erstelle zuerst ein Konto.</string>
@@ -99,6 +88,7 @@
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Hochladen und Datei im Quellordner löschen</string>
     <string name="file_list_seconds_ago">Gerade eben</string>
     <string name="file_list_empty_headline"> Keine Dateien vorhanden </string>
+    <string name="folder_list_empty_headline">Keine Ordner vorhanden</string>
     <string name="file_list_empty">Lade Inhalt hoch oder synchronisiere mit Deinen Geräten.</string>
     <string name="file_list_empty_favorites">Favorisiere einige Dateien oder synchronisiere deine Geräte.</string>
     <string name="file_list_empty_favorites_filter_list">Dateien und Ordner, die als Favoriten markiert werden, erscheinen hier</string>
@@ -106,6 +96,7 @@
     <string name="file_list_loading">Lade&#8230;</string>
     <string name="file_list_no_app_for_file_type">Es wurde keine App für diesen Dateityp gefunden!</string>
     <string name="local_file_list_empty">Es befinden sich keine Dateien in diesem Ordner.</string>
+    <string name="local_folder_list_empty">Hier gibt es keine weiteren Ordner.</string>
     <string name="file_list_empty_headline_search">Keine Ergebnisse in diesem Ordner</string>
     <string name="file_list_empty_headline_server_search">Keine Ergebnisse</string>
     <string name="file_list_empty_favorite_headline">Noch keine Favoriten vorhanden</string>
@@ -154,11 +145,14 @@
     <string name="common_unknown">unbekannt</string>
     <string name="common_error_unknown">Unbekannter Fehler</string>
     <string name="common_pending">Ausstehend</string>
+    <string name="common_delete">Löschen</string>
     <string name="about_title">Über</string>
     <string name="change_password">Passwort ändern</string>
     <string name="delete_account">Benutzerkonto löschen</string>
     <string name="delete_account_warning">Konto %s mit allen lokalen Dateien löschen?\n\nLöschen kann nicht rückgängig gemacht werden.</string>
     <string name="create_account">Benutzerkonto erstellen</string>
+    <string name="avatar">Avatar</string>
+    <string name="active_user">Aktiver Nutzer</string>
     <string name="upload_chooser_title">Dateien hochladen von &#8230;</string>
     <string name="uploader_info_dirname">Ordnername</string>
     <string name="uploader_upload_in_progress_ticker">Hochladen &#8230;</string>
@@ -170,7 +164,7 @@
     <string name="uploader_upload_failed_credentials_error">Hochladen fehlgeschlagen, erneute Anmeldung erforderlich</string>
     <string name="uploads_view_title">Uploads</string>
     <string name="uploads_view_group_current_uploads">Aktuell</string>
-    <string name="uploads_view_group_failed_uploads">Fehlgeschlagen (Tippen zum Wiederholen)</string>
+    <string name="uploads_view_group_failed_uploads">Neustart gescheitert / nicht abgeschlossen.</string>
     <string name="uploads_view_group_finished_uploads">Hochgeladen</string>
     <string name="uploads_view_upload_status_succeeded">Fertiggestellt</string>
     <string name="uploads_view_upload_status_cancelled">abgebrochen</string>
@@ -271,7 +265,6 @@
 	<string name="auth_expired_oauth_token_toast">Die Autorisierung ist abgelaufen. Bitte Autorisierung nochmals durchführen</string>
 	<string name="auth_expired_basic_auth_toast">Bitte gib das aktuelle Passwort ein</string>
 	<string name="auth_expired_saml_sso_token_toast">Deine Sitzung ist abgelaufen. Bitte erneut verbinden</string>
-	<string name="auth_connecting_auth_server">Verbinden zum Authentifizierungs-Server…</string>
 	<string name="auth_unsupported_auth_method">Der Server unterstützt diese Authentifizierung-Methode nicht</string>
 	<string name="auth_unsupported_multiaccount">%1$s unterstützt nicht mehrere Benutzerkonten</string>
 	<string name="auth_fail_get_user_name">Dein Server gibt keine korrekte Benutzer-ID zurück, bitte kontaktiere einen Administrator</string>
@@ -299,16 +292,13 @@
     <string name="filename_forbidden_characters">Verbotene Zeichen: / \\ &lt; &gt; : \" | ? *</string>
     <string name="filename_forbidden_charaters_from_server">Der Dateiname enthält mindestens ein ungültiges Zeichen</string>
     <string name="filename_empty">Dateiname darf nicht leer sein</string>
-    <string name="wait_a_moment">Bitte warten…</string>
     <string name="wait_checking_credentials">Überprüfe gespeicherte Anmeldeinformationen</string>
     <string name="filedisplay_unexpected_bad_get_content">Ein unerwartetes Problem ist aufgetreten. Bitte versuche, die Datei in einer anderen App zu öffnen</string>
     <string name="filedisplay_no_file_selected">Keine Datei gewählt</string>
     <string name="activity_chooser_title">Link senden an &#8230;</string>
     <string name="wait_for_tmp_copy_from_private_storage">Kopiere Datei vom privatem Speicher</string>
-
-    <string name="oauth_check_onoff">Anmelden mit OAuth 2.0</string>
-    <string name="oauth_login_connection">Verbinde mit dem OAuth 2.0-Server…</string>
-
+    
+    <string name="oauth_check_onoff">Anmelden mit OAuth 2.0</string> 
     <string name="ssl_validator_header">Die Identität der Website konnte nicht überprüft werden</string>
     <string name="ssl_validator_reason_cert_not_trusted">- Das Zertifikat des Servers ist nicht vertrauenswürdig</string>
     <string name="ssl_validator_reason_cert_expired">- Das Zertifikat des Servers ist abgelaufen</string>
@@ -363,8 +353,8 @@
 
     <string name="error__upload__local_file_not_copied">%1$s konnte nicht in den lokalen %2$s Ordner kopiert werden</string>
     <string name="prefs_instant_upload_path_title">Sofort-Upload-Ordner</string>
-    <string name="prefs_synced_folders_local_path_title">Lokales Verzeichnis</string>
-    <string name="prefs_synced_folders_remote_path_title">Entferntes Verzeichnis</string>
+    <string name="prefs_synced_folders_local_path_title">Lokaler Ordner</string>
+    <string name="prefs_synced_folders_remote_path_title">Remote-Ordner</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Unterordner benutzen</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">In Unterordnern speichern, basierend auf Jahr und Monat</string>
 
@@ -536,10 +526,11 @@
     <string name="edit_share_unshare">Freigabe löschen</string>
     <string name="edit_share_done">Erledigt</string>
 
-    <string name="action_retry_uploads">Fehlgeschlagene erneut versuchen</string>
-    <string name="action_clear_failed_uploads">Entferne Fehlversuche</string>
+    <string name="action_retry_uploads">Gescheiterte Uploads neu starten</string>
+    <string name="action_clear_failed_uploads">Gescheiterte Uploads entfernen</string>
     <string name="action_clear_successful_uploads">Lösche erfolgreich hochgeladene Dateien</string>
     <string name="action_clear_finished_uploads">Alles aufräumen</string>
+    <string name="action_force_rescan">Neuen Scan erzwingen</string>
 
     <string name="action_switch_grid_view">Rasteransicht</string>
     <string name="action_switch_list_view">Listenansicht</string>
@@ -555,6 +546,7 @@
     <string name="confirmation_remove_folders_alert">Willst Du die ausgewählten Einträge und deren Inhalte wirklich löschen?</string>
     <string name="maintenance_mode">Der Server ist im Wartungsmodus
 </string>
+    <string name="lock_failed">Datei konnte nicht gesperrt werden.</string>
 
     <string name="uploads_view_upload_status_waiting_for_charging">Warte auf das Aufladen des Gerätes</string>
     <string name="actionbar_search">Suche</string>
@@ -579,12 +571,13 @@
     <string name="participate_contribute_github_text">Überprüfen, Ändern und Schreiben von Code, schau in die %1$s für weitere Details</string>
     <string name="move_to">Verschieben nach&#8230;</string>
     <string name="copy_to">Kopieren nach&#8230;</string>
-    <string name="choose_remote_folder">Wähle Verzeichnis&#8230;</string>
-    <string name="synced_folders_loading_folders">Lade Verzeichnisse&#8230;</string>
-    <string name="synced_folders_no_results">Keine Medienverzeichnisse gefunden.</string>
-    <string name="synced_folders_preferences">Einstellungen Auto-Hochladen</string>
+    <string name="choose_remote_folder">Wähle einen Remote-Ordner &#8230;</string>
+    <string name="choose_local_folder">Wähle einen lokalen Ordner&#8230;</string>
+    <string name="synced_folders_loading_folders">Lade Ordner&#8230;</string>
+    <string name="synced_folders_no_results">Keine Medien-Ordner gefunden.</string>
+    <string name="synced_folders_preferences">Einstellungen für automatisches Hochladen</string>
     <string name="synced_folders_settings">Einstellungen</string>
-    <string name="synced_folders_new_info">Sofortiger Upload wurde vollständig überarbeitet. Bitte über das Hauptmenü zum Auto Upload gehen und neu configurieren. Bitte entschuldige die Unannehmlichkeiten.\n\nViel Vergnügen mit den neuen und erweiterten Möglichkeiten des Auto Uploads.</string>
+    <string name="synced_folders_new_info">Die Sofort-Uploads wurden vollständig überarbeitet. Konfiguriere deinen automatischen Uploader im Hauptmenü.\n\nGenieße den verbesserten Auto-Upload.</string>
     <string name="synced_folders_preferences_folder_path">Für %1$s</string>
     <plurals name="items_selected_count">
         <item quantity="one">%d ausgewählt</item>
@@ -668,7 +661,11 @@
     <string name="privacy">Datenschutz</string>
     <string name="file_not_found">Datei nicht gefunden!</string>
 
-    <string name="synced_folders_configure_folders">Ordner auswählen</string>
+    <!-- Auto upload -->
+    <string name="autoupload_custom_folder">Erstelle einen eigenen Ordner</string>
+    <string name="autoupload_create_new_custom_folder">Erstelle ein Setup für den eigenen Ordner</string>
+    <string name="synced_folders_configure_folders">Ordner konfigurieren</string>
 
     <string name="test_server_button">Prüfe Server-Verbindung</string>
+    <string name="resharing_is_not_allowed">Resharing/Wiederteilen ist nicht erlaubt.</string>
 </resources>
