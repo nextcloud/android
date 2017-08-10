@@ -3,7 +3,7 @@ pipeline:
     image: nextcloudci/android:android-18
     commands:
       # uncomment gplay for Gplay, Modified only
-      - sh -c "if [ '$FLAVOUR' != 'Generic' ]; then sed -i '/com.google.*/g' build.gradle; fi"
+      - sh -c "if [ '$FLAVOUR' != 'Generic' ]; then sed -i '/com.google.*/s/^.*\\/\\///g' build.gradle; fi"
 
       # - echo no | android create avd --force -n test -t $ANDROID_TARGET --abi $ANDROID_ABI -c 20M
       # - emulator -avd test -no-window &
