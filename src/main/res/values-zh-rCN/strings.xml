@@ -12,7 +12,6 @@
     <string name="actionbar_see_details">详细信息</string>
     <string name="actionbar_send_file">发送</string>
     <string name="actionbar_sort">排序</string>
-    <string name="actionbar_sort_title">排序方式</string>
     <string name="sort_by">排序方式</string>
     <string name="menu_item_sort_by_name_a_z">按名称顺序</string>
     <string name="menu_item_sort_by_name_z_a">按名称倒序</string>
@@ -40,20 +39,11 @@
     <string name="drawer_open">打开</string>
     <string name="prefs_category_general">常规</string>
     <string name="prefs_category_more">更多</string>
-    <string name="prefs_accounts">账号</string>
     <string name="prefs_manage_accounts">管理账号</string>
     <string name="prefs_passcode">密码锁</string>
     <string name="prefs_fingerprint">指纹锁</string>
     <string name="prefs_fingerprint_notsetup">指纹锁没有设置</string>
     <string name="prefs_show_hidden_files">显示隐藏文件</string>
-    <string name="prefs_instant_upload">立刻上传图片</string>
-    <string name="prefs_instant_upload_summary">立刻上传摄像头拍摄的图片</string>
-    <string name="prefs_instant_video_upload">立刻上传视频</string>
-    <string name="prefs_instant_video_upload_summary">立刻上传摄像头拍摄的视频</string>
-    <string name="prefs_log_title">开启日志</string>
-    <string name="prefs_log_summary">用于记录问题</string>
-    <string name="prefs_log_title_history">历史日志</string>
-    <string name="prefs_log_summary_history">这显示已经保存的日志</string>
     <string name="prefs_log_delete_history_button">删除历史</string>
     <string name="prefs_calendar_contacts">同步日历和通讯录</string>
     <string name="prefs_calendar_contacts_summary">为现在的用户设置DAVdroid(v1.3.0+)</string>
@@ -65,8 +55,6 @@
     <string name="prefs_recommend">推荐给朋友</string>
     <string name="prefs_feedback">反馈</string>
     <string name="prefs_imprint">版本说明</string>
-    <string name="prefs_remember_last_share_location">记住本地共享</string>
-    <string name="prefs_remember_last_upload_location_summary">记住最近的本地共享</string>
 
 	<string name="recommend_subject">在您的智能手机上试用 %1$s！</string>
 	<string name="recommend_text">我想邀请你在智能机上使用%1$s。

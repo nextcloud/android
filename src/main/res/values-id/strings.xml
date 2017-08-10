@@ -12,7 +12,6 @@
     <string name="actionbar_see_details">Rincian</string>
     <string name="actionbar_send_file">Kirim</string>
     <string name="actionbar_sort">Urutkan</string>
-    <string name="actionbar_sort_title">Urutan</string>
     <string name="drawer_item_all_files">Semua berkas</string>
     <string name="drawer_item_on_device">Dalam perangkat</string>
     <string name="drawer_item_settings">Pengaturan</string>
@@ -22,14 +21,9 @@
     <string name="drawer_open">Buka</string>
     <string name="prefs_category_general">Umum</string>
     <string name="prefs_category_more">Lainnya</string>
-    <string name="prefs_accounts">Akun</string>
     <string name="prefs_manage_accounts">Kelola akun</string>
     <string name="prefs_passcode">Kunci kode sandi</string>
     <string name="prefs_show_hidden_files">Lihat berkas tersembunyi</string>
-    <string name="prefs_log_title">Aktifkan pencatatan</string>
-    <string name="prefs_log_summary">Ini digunakan untuk mencatat masalah</string>
-    <string name="prefs_log_title_history">Sejarah pencatatan</string>
-    <string name="prefs_log_summary_history">Ini menampilkan catatan yang disimpan</string>
     <string name="prefs_log_delete_history_button">Hapus riwayat</string>
     <string name="prefs_calendar_contacts">Sinkronkan kalender &amp; kontak</string>
     <string name="prefs_calendar_contacts_summary">Atur DAVdroid (v1.3.0+) untuk akun saat ini</string>
