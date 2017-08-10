@@ -1,3 +1,16 @@
+## 2017-08-10 08:48
+New branches:
+/
+
+Updated branches:
+-Dev branch was updated successfully] updated
+
+Conflicting branches:
+- Error feedback improvement (nextcloud/errorFeedback) [https://github.com/nextcloud/android/pull/1198] conflicting
+- Comment out adding all new downloaded files to folder observer (nextcloud/folderObserver) [https://github.com/nextcloud/android/pull/1155] conflicting
+- Resized images (nextcloud/resizedImages) [https://github.com/nextcloud/android/pull/69] conflicting
+- Master (nextcloud/master) [https://github.com/nextcloud/android] conflicting
+
 ## 2017-08-10 08:38
 New branches:
 /
