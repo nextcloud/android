@@ -12,7 +12,6 @@
     <string name="actionbar_see_details">Hollësi</string>
     <string name="actionbar_send_file">Dërgojeni</string>
     <string name="actionbar_sort">Renditni</string>
-    <string name="actionbar_sort_title">Renditni sipas</string>
     <string name="sort_by">Rendit sipas</string>
     <string name="menu_item_sort_by_name_a_z">A - Z</string>
     <string name="menu_item_sort_by_name_z_a">Z - A</string>
