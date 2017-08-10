@@ -40,6 +40,7 @@
     <dimen name="standard_double_margin">32dp</dimen>
     <dimen name="standard_half_margin">8dp</dimen>
     <dimen name="standard_quarter_margin">4dp</dimen>
+    <dimen name="standard_eighth_margin">2dp</dimen>
     <dimen name="standard_eighth_margin_negative">-2dp</dimen>
     <dimen name="min_list_item_size">56dp</dimen>
     <dimen name="standard_list_item_size">72dp</dimen>
