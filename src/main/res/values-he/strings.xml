@@ -12,7 +12,6 @@
     <string name="actionbar_see_details">פרטים</string>
     <string name="actionbar_send_file">שליחה</string>
     <string name="actionbar_sort">מיון</string>
-    <string name="actionbar_sort_title">מיון על בסיס</string>
     <string name="drawer_item_all_files">כל הקבצים</string>
     <string name="drawer_item_settings">הגדרות</string>
     <string name="drawer_item_uploads_list">העלאות</string>
@@ -20,14 +19,9 @@
     <string name="drawer_open">פתיחה</string>
     <string name="prefs_category_general">כללי</string>
     <string name="prefs_category_more">יותר</string>
-    <string name="prefs_accounts">חשבונות</string>
     <string name="prefs_manage_accounts">ניהול חשבונות</string>
     <string name="prefs_passcode">נעילת סיסמא</string>
     <string name="prefs_show_hidden_files">הצגת קבצים נסתרים</string>
-    <string name="prefs_log_title">מאפשר התחברות</string>
-    <string name="prefs_log_summary">משמש לתיעוד בעיות</string>
-    <string name="prefs_log_title_history">הסטורית התחברות</string>
-    <string name="prefs_log_summary_history">מראה את יומני התעוד</string>
     <string name="prefs_log_delete_history_button">מחיקת הסטוריה</string>
     <string name="prefs_help">עזרה</string>
     <string name="prefs_feedback">משוב</string>

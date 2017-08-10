@@ -12,7 +12,6 @@
     <string name="actionbar_see_details">Podrobnosti</string>
     <string name="actionbar_send_file">Odeslat</string>
     <string name="actionbar_sort">Seřadit</string>
-    <string name="actionbar_sort_title">Seřadit podle</string>
     <string name="sort_by">Řadit podle</string>
     <string name="menu_item_sort_by_name_a_z">A - Z</string>
     <string name="menu_item_sort_by_name_z_a">Z - A</string>
@@ -40,20 +39,11 @@
     <string name="drawer_open">Otevřít</string>
     <string name="prefs_category_general">Obecné</string>
     <string name="prefs_category_more">Více</string>
-    <string name="prefs_accounts">Účty</string>
     <string name="prefs_manage_accounts">Spravovat účty</string>
     <string name="prefs_passcode">Zámek bezpečnostního kódu</string>
     <string name="prefs_fingerprint">Zámek otiskemprstu</string>
     <string name="prefs_fingerprint_notsetup">Nebyly nastaveny žádné otisky prstů.</string>
     <string name="prefs_show_hidden_files">Zobrazit skryté soubory</string>
-    <string name="prefs_instant_upload">Okamžité nahrávání obrázků</string>
-    <string name="prefs_instant_upload_summary">Okamžitě nahrávat vytvořené fotografie</string>
-    <string name="prefs_instant_video_upload">Okamžité nahrávání videa</string>
-    <string name="prefs_instant_video_upload_summary">Okamžitě odesílat nahrané video</string>
-    <string name="prefs_log_title">Povolit logování</string>
-    <string name="prefs_log_summary">Použito k zaznamenávání problémů</string>
-    <string name="prefs_log_title_history">Historie logu</string>
-    <string name="prefs_log_summary_history">Zobrazuje zaznamenané logy</string>
     <string name="prefs_log_delete_history_button">Smazat historii</string>
     <string name="prefs_calendar_contacts">Synchronizovat kalendář &amp; kontakty</string>
     <string name="prefs_calendar_contacts_summary">Nastavit DAVdroid (v1.3.0+) pro aktuální účet</string>
@@ -65,8 +55,6 @@
     <string name="prefs_recommend">Doporučit přátelům</string>
     <string name="prefs_feedback">Odezva</string>
     <string name="prefs_imprint">Imprint</string>
-    <string name="prefs_remember_last_share_location">Zapamatovat umístění sdílení</string>
-    <string name="prefs_remember_last_upload_location_summary">Zapamatovat poslední umístění pro nahrání sdílených souborů</string>
 
 	<string name="recommend_subject">Zkuste %1$s na svém chytrém telefonu!</string>
 	<string name="recommend_text">Chtěl bych vás pozvat k používání %1$s na vašem chytrém telefonu!\nKe stažení zde: %2$s</string>

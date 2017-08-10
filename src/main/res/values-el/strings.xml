@@ -12,7 +12,6 @@
     <string name="actionbar_see_details">Λεπτομέρειες</string>
     <string name="actionbar_send_file">Αποστολή</string>
     <string name="actionbar_sort">Ταξινόμηση</string>
-    <string name="actionbar_sort_title">Ταξινόμηση κατά</string>
     <string name="sort_by">Ταξινόμηση κατά</string>
     <string name="menu_item_sort_by_name_a_z">Α - Ω</string>
     <string name="menu_item_sort_by_name_z_a">Ω - Α</string>
@@ -40,20 +39,11 @@
     <string name="drawer_open">Άνοιγμα</string>
     <string name="prefs_category_general">Γενικά</string>
     <string name="prefs_category_more">Περισσότερα</string>
-    <string name="prefs_accounts">Λογαριασμοί</string>
     <string name="prefs_manage_accounts">Διαχείριση λογαριασμών</string>
     <string name="prefs_passcode">Κλείδωμα με κωδικό πρόσβασης</string>
     <string name="prefs_fingerprint">Κλείδωμα με αποτύπωμα</string>
     <string name="prefs_fingerprint_notsetup">Δεν έχει οριστεί αποτύπωμα</string>
     <string name="prefs_show_hidden_files">Εμφάνιση κρυφών αρχείων</string>
-    <string name="prefs_instant_upload">Άμεσες μεταφορτώσεις φωτογραφιών</string>
-    <string name="prefs_instant_upload_summary">Άμεση μεταφόρτωση φωτογραφιών που λήφθησαν από την φωτογραφική μηχανή</string>
-    <string name="prefs_instant_video_upload">Άμεση μεταφόρτωση βίντεο</string>
-    <string name="prefs_instant_video_upload_summary">Άμεση μεταφόρτωση βίντεο που λήφθησαν από την φωτογραφική μηχανή</string>
-    <string name="prefs_log_title">Ενεργοποίηση καταγραφής ιστορικού</string>
-    <string name="prefs_log_summary">Χρησιμοποιείται για την καταγραφή προβλημάτων</string>
-    <string name="prefs_log_title_history">Καταγραφή ιστορικού</string>
-    <string name="prefs_log_summary_history">Εμφάνιση του καταγεγραμμένου ιστορικού</string>
     <string name="prefs_log_delete_history_button">Διαγραφή ιστορικού</string>
     <string name="prefs_calendar_contacts">Συγχρονισμός ημερολογίου &amp; επαφών</string>
     <string name="prefs_calendar_contacts_summary">Ρυθμίστε το DAVdroid (v1.3.0+) για τον τρέχον λογαριασμό</string>
@@ -65,8 +55,6 @@
     <string name="prefs_recommend">Προτείνετε σε φίλο</string>
     <string name="prefs_feedback">Aνάδραση</string>
     <string name="prefs_imprint">Αποτύπωμα</string>
-    <string name="prefs_remember_last_share_location">Απομνημόνευση θέσης διαμοιρασμού</string>
-    <string name="prefs_remember_last_upload_location_summary">Απομνημόνευση τελευταιας τοποθεσίας διαμοιρασμού μεταφορτώσεων</string>
 
 	<string name="recommend_subject">Δοκιμή %1$s στο κινητό σας!</string>
 	<string name="recommend_text">Θα ήθελα να σε προσκαλέσω να χρησιμοποιήσεις το %1$s στο κινητό σου!\nΛήψη από εδώ: %2$s</string>

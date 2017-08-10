@@ -12,7 +12,6 @@
     <string name="actionbar_see_details">Podrobnosti</string>
     <string name="actionbar_send_file">Odoslať</string>
     <string name="actionbar_sort">Zoradiť</string>
-    <string name="actionbar_sort_title">Zoradiť podľa</string>
     <string name="sort_by">Zoradiť podľa</string>
     <string name="menu_item_sort_by_name_a_z">A - Z</string>
     <string name="menu_item_sort_by_name_z_a">Z - A</string>
@@ -30,14 +29,9 @@
     <string name="drawer_open">Otvoriť</string>
     <string name="prefs_category_general">Všeobecné</string>
     <string name="prefs_category_more">Viac</string>
-    <string name="prefs_accounts">Účty</string>
     <string name="prefs_manage_accounts">Správa účtov</string>
     <string name="prefs_passcode">Heslo</string>
     <string name="prefs_show_hidden_files">Zobraziť skryté súbory</string>
-    <string name="prefs_log_title">Povoliť logovanie</string>
-    <string name="prefs_log_summary">Toto je použité pre logovanie problémov</string>
-    <string name="prefs_log_title_history">História logovania</string>
-    <string name="prefs_log_summary_history">Toto zobrazuje zaznamenané logy</string>
     <string name="prefs_log_delete_history_button">Vymazať históriu</string>
     <string name="prefs_calendar_contacts">Synchronizovať kalendár a kontakty</string>
     <string name="prefs_calendar_contacts_summary">Nastaviť DAVdroid (v1.3.0+) pre tento účet</string>

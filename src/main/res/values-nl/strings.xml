@@ -12,7 +12,6 @@
     <string name="actionbar_see_details">Details</string>
     <string name="actionbar_send_file">Versturen</string>
     <string name="actionbar_sort">Sorteren</string>
-    <string name="actionbar_sort_title">Sorteer op</string>
     <string name="sort_by">Sorteer op</string>
     <string name="menu_item_sort_by_name_a_z">A - Z</string>
     <string name="menu_item_sort_by_name_z_a">Z - A</string>
@@ -40,20 +39,11 @@
     <string name="drawer_open">Openen</string>
     <string name="prefs_category_general">Algemeen</string>
     <string name="prefs_category_more">Meer</string>
-    <string name="prefs_accounts">Accounts</string>
     <string name="prefs_manage_accounts">Accounts beheren</string>
     <string name="prefs_passcode">Toegangscode</string>
     <string name="prefs_fingerprint">Vingerafdrukbeveiliging</string>
     <string name="prefs_fingerprint_notsetup">Er zijn geen vingerafdrukken ingesteld.</string>
     <string name="prefs_show_hidden_files">Verborgen bestanden weergeven</string>
-    <string name="prefs_instant_upload">Directe upload van afbeeldingen</string>
-    <string name="prefs_instant_upload_summary">Direct afbeeldingen vanaf camera uploaden</string>
-    <string name="prefs_instant_video_upload">Directe upload van video\'s</string>
-    <string name="prefs_instant_video_upload_summary">Direct vanaf de camera uploaden video\'s</string>
-    <string name="prefs_log_title">Logging inschakelen</string>
-    <string name="prefs_log_summary">Dit wordt gebruikt om problemen te loggen.</string>
-    <string name="prefs_log_title_history">Logging-geschiedenis</string>
-    <string name="prefs_log_summary_history">Dit toont de bijgehouden logs</string>
     <string name="prefs_log_delete_history_button">Verwijder geschiedenis</string>
     <string name="prefs_calendar_contacts">Synchroniseren agenda &amp; contactpersonen</string>
     <string name="prefs_calendar_contacts_summary">DAVdroid (v1.3.0+) voor huidige account instellen</string>
@@ -64,8 +54,6 @@
     <string name="prefs_recommend">Aanbevelen bij vriend</string>
     <string name="prefs_feedback">Feedback</string>
     <string name="prefs_imprint">afdruk</string>
-    <string name="prefs_remember_last_share_location">Onthoud de share locatie</string>
-    <string name="prefs_remember_last_upload_location_summary">Onthoud de laatst gebruikte share locatie</string>
 
 	<string name="recommend_subject">Probeer %1$s op je smartphone!</string>
 	<string name="recommend_text">Ik wil je uitnodigen om %1$s op je smartphone te gebruiken.\nDownload hier: %2$s</string>
