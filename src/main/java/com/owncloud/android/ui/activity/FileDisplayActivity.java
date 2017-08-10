@@ -486,7 +486,7 @@ public class FileDisplayActivity extends HookActivity
             if (file.isDown() && PreviewMediaFragment.canBePreviewed(file)) {
                 int startPlaybackPosition = getIntent().getIntExtra(PreviewVideoActivity.EXTRA_START_POSITION, 0);
                 boolean autoplay = getIntent().getBooleanExtra(PreviewVideoActivity.EXTRA_AUTOPLAY, true);
-                secondFragment = new PreviewMediaFragment(file, getAccount(), startPlaybackPosition, autoplay);
+                secondFragment = PreviewMediaFragment.newInstance(file, getAccount(), startPlaybackPosition, autoplay);
             } else if (file.isDown() && PreviewTextFragment.canBePreviewed(file)) {
                 secondFragment = null;
             } else {
@@ -1996,8 +1996,7 @@ public class FileDisplayActivity extends HookActivity
      *                              interactions.
      */
     public void startMediaPreview(OCFile file, int startPlaybackPosition, boolean autoplay) {
-        Fragment mediaFragment = new PreviewMediaFragment(file, getAccount(), startPlaybackPosition,
-                autoplay);
+        Fragment mediaFragment = PreviewMediaFragment.newInstance(file, getAccount(), startPlaybackPosition, autoplay);
         setSecondFragment(mediaFragment);
         updateFragmentsVisibility(true);
         updateActionBarTitleAndHomeButton(file);
