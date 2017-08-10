@@ -25,7 +25,7 @@ fi
 mkdir -p ~/apks
 echo $date > ~/apks/latest
 
-mv build/outputs/apk/generic/release/android-release.apk ~/apks/nextcloud-dev-$date.apk
+mv build/outputs/apk/generic/release/android-generic-release.apk ~/apks/nextcloud-dev-$date.apk
 ln -s nextcloud-dev-$date.apk latest.apk
 mv latest.apk ~/apks/
 
