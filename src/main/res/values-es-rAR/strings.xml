@@ -39,20 +39,11 @@
     <string name="drawer_open">Abrir</string>
     <string name="prefs_category_general">General</string>
     <string name="prefs_category_more">Más</string>
-    <string name="prefs_accounts">Cuentas</string>
     <string name="prefs_manage_accounts">Administrar cuentas</string>
     <string name="prefs_passcode">Bloqueo con código de seguridad</string>
     <string name="prefs_fingerprint">Bloqueo por huella digital</string>
     <string name="prefs_fingerprint_notsetup">No se ha establecido ninguna huella digital. </string>
     <string name="prefs_show_hidden_files">Mostrar archivos ocultos</string>
-    <string name="prefs_instant_upload">Carga instantánea de imágenes</string>
-    <string name="prefs_instant_upload_summary">Cargar instantaneamente las fotografías tomadas por la cámara</string>
-    <string name="prefs_instant_video_upload">Carga instantánea de video</string>
-    <string name="prefs_instant_video_upload_summary">Cargar instantáneamente los videos grabados por la cámara</string>
-    <string name="prefs_log_title">Habilitar registro</string>
-    <string name="prefs_log_summary">Esto se usa para registrar problemas</string>
-    <string name="prefs_log_title_history">Histórico del registro</string>
-    <string name="prefs_log_summary_history">Esto muestra los registros guardados</string>
     <string name="prefs_log_delete_history_button">Borrar historial</string>
     <string name="prefs_calendar_contacts">Sincronizar calendario  &amp; contactos</string>
     <string name="prefs_calendar_contacts_summary">Configurar DAVdroid (v1.3.0+) para la cuenta actual</string>
@@ -63,8 +54,6 @@
     <string name="prefs_recommend">Recomendar a un amigo</string>
     <string name="prefs_feedback">Retroalimentación</string>
     <string name="prefs_imprint">Exención de responsabilidad </string>
-    <string name="prefs_remember_last_share_location">Recordar la ubicación del elemento compartido</string>
-    <string name="prefs_remember_last_upload_location_summary">Recordar la ubicación del elemento compartido más recientemente usado</string>
 
 	<string name="recommend_subject">Prueba  %1$s en tu teléfono inteligente!</string>
 	<string name="recommend_text">Quisiera invitarlo a usar %1$s en su teléfono inteligente\nDescargue aquí: %2$s</string>

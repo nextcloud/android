@@ -39,20 +39,11 @@
     <string name="drawer_open">Otwórz</string>
     <string name="prefs_category_general">Ogólne</string>
     <string name="prefs_category_more">Więcej</string>
-    <string name="prefs_accounts">Konta</string>
     <string name="prefs_manage_accounts">Zarządzaj kontami</string>
     <string name="prefs_passcode">Blokada kodem PIN</string>
     <string name="prefs_fingerprint">Blokada odciskiem palca</string>
     <string name="prefs_fingerprint_notsetup">Brak skonfigurowanych odcisków palców</string>
     <string name="prefs_show_hidden_files">Pokaż ukryte pliki</string>
-    <string name="prefs_instant_upload">Natychmiastowe wysyłanie zdjęć</string>
-    <string name="prefs_instant_upload_summary">Wyślij zdjęcia z aparatu</string>
-    <string name="prefs_instant_video_upload">Natychmiastowe wysyłanie wideo</string>
-    <string name="prefs_instant_video_upload_summary">Wyślij filmy nagrane aparatem</string>
-    <string name="prefs_log_title">Włącz logowanie</string>
-    <string name="prefs_log_summary">To jest używane do logowania problemów</string>
-    <string name="prefs_log_title_history">Historia logowania</string>
-    <string name="prefs_log_summary_history">To pokazuje zapisane logi</string>
     <string name="prefs_log_delete_history_button">Wyczyść historię</string>
     <string name="prefs_calendar_contacts">Synchronizuj kalendarz i kontakty</string>
     <string name="prefs_calendar_contacts_summary">Skonfiguruj DAVdroid (v1.3.0+) dla obecnego konta</string>
@@ -63,8 +54,6 @@
     <string name="prefs_recommend">Poleć znajomemu</string>
     <string name="prefs_feedback">Opinie</string>
     <string name="prefs_imprint">Stopka</string>
-    <string name="prefs_remember_last_share_location">Zapamiętaj położenie udostępnienia</string>
-    <string name="prefs_remember_last_upload_location_summary">Zapamiętaj ostatnią lokalizację wysyłania</string>
 
 	<string name="recommend_subject">Wypróbuj %1$s na swoim smartfonie!</string>
 	<string name="recommend_text">Zapraszam do użycia %1$s na swoim smartfonie!\nŚciągnij tutaj: %2$s</string>

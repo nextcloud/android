@@ -39,20 +39,11 @@
     <string name="drawer_open">Hape</string>
     <string name="prefs_category_general">Të përgjithshme</string>
     <string name="prefs_category_more">Më tepër</string>
-    <string name="prefs_accounts">Llogaritë</string>
     <string name="prefs_manage_accounts">Administroni llogaritë</string>
     <string name="prefs_passcode">Kyçje kodkalimi</string>
     <string name="prefs_fingerprint">Kyçuni me shenjat e gishtave</string>
     <string name="prefs_fingerprint_notsetup">Shenjat e gishtave nuk janë vendosur</string>
     <string name="prefs_show_hidden_files">Trego skedarët e fshehur</string>
-    <string name="prefs_instant_upload">Ngarkim i menjëhershëm i fotove</string>
-    <string name="prefs_instant_upload_summary">Ngarkoni menjëherë fotot e bëra nga aparati </string>
-    <string name="prefs_instant_video_upload">Ngarkim i menjëhershëm videoje</string>
-    <string name="prefs_instant_video_upload_summary">Ngarkoni video të sapo bëra nga aparati</string>
-    <string name="prefs_log_title">Aktivizoni regjistrimet</string>
-    <string name="prefs_log_summary">Kjo përdoret për të regjistruar probleme</string>
-    <string name="prefs_log_title_history">Historiku i regjistrimeve</string>
-    <string name="prefs_log_summary_history">Kjo shfaq regjistrimet e bëra</string>
     <string name="prefs_log_delete_history_button">Fshini historikun</string>
     <string name="prefs_calendar_contacts">Sinkronizoni kalendarin &amp; kontaktet</string>
     <string name="prefs_calendar_contacts_summary">Vendos DAVdroid (v1.3.0+)  për llogarinë aktuale</string>
@@ -64,8 +55,6 @@
     <string name="prefs_recommend">Rekomandojani një miku </string>
     <string name="prefs_feedback">Përshtypje</string>
     <string name="prefs_imprint">Imprint</string>
-    <string name="prefs_remember_last_share_location">Mbaj mend vendin e shpërndarjes</string>
-    <string name="prefs_remember_last_upload_location_summary">Mbaj mend vendin e shpërndarjes së përdorur së fundmi</string>
 
 	<string name="recommend_subject">Provojeni %1$s te telefoni juaj!</string>
 	<string name="recommend_text">Dua t’ju ftoj të përdorni %1$s në telefonin tuaj!\nShkarko këtu: %2$s</string>

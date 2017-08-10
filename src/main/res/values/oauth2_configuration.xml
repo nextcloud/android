@@ -13,6 +13,4 @@
     
     <!-- values that should be pre-agreed between app and authorization server, but can be loaded without rebuilding the app -->
     <string name="oauth2_client_id">com.owncloud.android</string>	<!-- preferable that client decides this -->
-    <string name="oauth2_client_secret"></string>					<!-- preferable that client decides this -->
-    
 </resources>

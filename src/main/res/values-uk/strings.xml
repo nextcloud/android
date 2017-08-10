@@ -39,16 +39,11 @@
     <string name="drawer_open">Відкрити</string>
     <string name="prefs_category_general">Основне</string>
     <string name="prefs_category_more">Більше</string>
-    <string name="prefs_accounts">Облікові записи</string>
     <string name="prefs_manage_accounts">Управління обліковими записами</string>
     <string name="prefs_passcode">Захистити паролем</string>
     <string name="prefs_fingerprint">Захист даних відбитком пальця</string>
     <string name="prefs_fingerprint_notsetup">Жодного відбитку у базі</string>
     <string name="prefs_show_hidden_files">Відобразити сховані файли</string>
-    <string name="prefs_log_title">Ввімкнути логування</string>
-    <string name="prefs_log_summary">Використовується для реєстрації помилок</string>
-    <string name="prefs_log_title_history">Історія логування</string>
-    <string name="prefs_log_summary_history">Тут показані записи журналу</string>
     <string name="prefs_log_delete_history_button">Видалити історію</string>
     <string name="prefs_calendar_contacts">Синхронізувати календар та контакти</string>
     <string name="prefs_calendar_contacts_summary">Налаштувати DAVdroid (v1.3.0+) для поточного користувача</string>
