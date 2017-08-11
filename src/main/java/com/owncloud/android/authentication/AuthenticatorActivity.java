@@ -2076,9 +2076,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             }
 
         } else if (actionId == EditorInfo.IME_ACTION_NEXT && inputField != null &&
-                inputField.equals(mHostUrlInput) &&
-                AccountTypeUtils.getAuthTokenTypeSamlSessionCookie(MainApp.getAccountType()).
-                        equals(mAuthTokenType)) {
+                inputField.equals(mHostUrlInput)) {
             checkOcServer();
         }
         return false;   // always return false to grant that the software keyboard is hidden anyway
