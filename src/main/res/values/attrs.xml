@@ -21,6 +21,16 @@
 		<item>LOCAL_BEHAVIOUR_DELETE</item>
 	</string-array>
 
+	<string-array name="pref_preview_behaviour_entries" translatable="false">
+		<item>@string/pref_preview_behaviour_entry_download</item>
+		<item>@string/pref_preview_behaviour_entry_preview</item>
+	</string-array>
+
+	<string-array name="pref_preview_behaviour_entryValues" translatable="false">
+		<item>PREVIEW_BEHAVIOUR_DOWNLOAD</item>
+		<item>PREVIEW_BEHAVIOUR_PREVIEW</item>
+	</string-array>
+
 	<string-array name="upload_files_behaviour" translatable="false">
 		<item>@string/uploader_upload_files_behaviour_move_to_nextcloud_folder</item>
 		<item>@string/uploader_upload_files_behaviour_only_upload</item>
