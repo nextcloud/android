@@ -62,6 +62,7 @@
     <string name="recommend_urls">%1$s ou %2$s</string>
 
     <string name="auth_check_server">Vérifier le serveur</string>
+    <string name="auth_host_url">Adresse du serveur https://&#8230;</string>
     <string name="auth_username">Nom d\'utilisateur</string>
     <string name="auth_password">Mot de passe</string>
     <string name="auth_register">Vous n\'avez pas encore un serveur ?\nCliquez ici pour en obtenir un d\'un fournisseur</string>
@@ -264,6 +265,7 @@
 	<string name="auth_expired_oauth_token_toast">Votre autorisation a expiré. Merci de vous authentifier à nouveau</string>
 	<string name="auth_expired_basic_auth_toast">Veuillez saisir le mot de passe actuel</string>
 	<string name="auth_expired_saml_sso_token_toast">Votre session a expiré. Merci de vous reconnecter</string>
+	<string name="auth_connecting_auth_server">Connexion au serveur d\'authentification&#8230;</string>
 	<string name="auth_unsupported_auth_method">Le serveur ne prend pas en charge cette méthode d\'authentification</string>
 	<string name="auth_unsupported_multiaccount">%1$s ne prend pas en charge les comptes multiples</string>
 	<string name="auth_fail_get_user_name">Votre serveur a retourné un identifiant d\'utilisateur incorrect. Veuillez contacter un administrateur</string>
@@ -291,6 +293,7 @@
     <string name="filename_forbidden_characters">Caractères interdits : / \\ &lt; &gt; : \" | ? *</string>
     <string name="filename_forbidden_charaters_from_server">Le nom de fichier contient au moins un caractère invalide</string>
     <string name="filename_empty">Le nom du fichier ne peut pas être vide</string>
+    <string name="wait_a_moment">Veuillez patienter&#8230;</string>
     <string name="wait_checking_credentials">Vérification des identifiants enregistrés</string>
     <string name="filedisplay_unexpected_bad_get_content">Problème inattendu ; veuillez sélectionner le fichier depuis une autre application</string>
     <string name="filedisplay_no_file_selected">Aucun fichier sélectionné</string>
@@ -298,6 +301,8 @@
     <string name="wait_for_tmp_copy_from_private_storage">Copie du fichier depuis le stockage privé</string>
     
     <string name="oauth_check_onoff">Connexion avec OAuth 2.0</string> 
+    <string name="oauth_login_connection">Connexion au serveur OAuth 2.0&#8230;</string>
+        
     <string name="ssl_validator_header">L\'identité du site ne peut être vérifiée</string>
     <string name="ssl_validator_reason_cert_not_trusted">- Le certificat du serveur n\'est pas sûr</string>
     <string name="ssl_validator_reason_cert_expired">- Le certificat du serveur a expiré</string>

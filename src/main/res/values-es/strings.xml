@@ -61,6 +61,7 @@
     <string name="recommend_urls">%1$s o %2$s</string>
 
     <string name="auth_check_server">Verificar servidor</string>
+    <string name="auth_host_url">Dirección del servidor https://&#8230;</string>
     <string name="auth_username">Nombre de usuario</string>
     <string name="auth_password">Contraseña</string>
     <string name="auth_register">¿No tienes todavía un servidor?\Pulsa aquí para conseguir uno de un proveedor</string>
@@ -256,6 +257,7 @@
 	<string name="auth_expired_oauth_token_toast">Tu autorización ha expirado. Por favor, autoriza de nuevo</string>
 	<string name="auth_expired_basic_auth_toast">Por favor, introduce tu contraseña actual</string>
 	<string name="auth_expired_saml_sso_token_toast">Tu sesión ha expirado. Por favor, conéctate de nuevo</string>
+	<string name="auth_connecting_auth_server">Conectando al servidor de autentificación&#8230;</string>
 	<string name="auth_unsupported_auth_method">El servidor no soporta este método de autenticación</string>
 	<string name="auth_unsupported_multiaccount">%1$s no soporta cuentas múltiples</string>
 	<string name="auth_fail_get_user_name">Su servidor no está retornando una identificación de usuario correcta; contacte a un administrador </string>
@@ -283,6 +285,7 @@
     <string name="filename_forbidden_characters">Caracteres prohibidos: / \\ &lt; &gt; : \" | ? *</string>
     <string name="filename_forbidden_charaters_from_server">El nombre de archivo contiene al menos un carácter no válido</string>
     <string name="filename_empty">El nombre de archivo no puede estar vacío</string>
+    <string name="wait_a_moment">Espere un momento&#8230;</string>
     <string name="wait_checking_credentials">Comprobando las credenciales guardadas</string>
     <string name="filedisplay_unexpected_bad_get_content">Problema inesperado; por favor, selecciona el archivo en una app diferente</string>
     <string name="filedisplay_no_file_selected">No hay archivos seleccionados</string>
@@ -290,6 +293,8 @@
     <string name="wait_for_tmp_copy_from_private_storage">Copiando el archivo desde el almacenamiento privado.</string>
     
     <string name="oauth_check_onoff">Ingresar con OAuth 2.0</string> 
+    <string name="oauth_login_connection">Conectando al servidor OAuth 2.0&#8230;</string>
+        
     <string name="ssl_validator_header">No se ha podido verificar la ia identidad del sitio</string>
     <string name="ssl_validator_reason_cert_not_trusted">- El certificado del servidor no es de confianza</string>
     <string name="ssl_validator_reason_cert_expired">- El certificado del servidor ha expirado</string>
