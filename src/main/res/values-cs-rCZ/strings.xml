@@ -61,6 +61,7 @@
     <string name="recommend_urls">%1$s nebo %2$s</string>
 
     <string name="auth_check_server">Ověřit server</string>
+    <string name="auth_host_url">Adresa serveru https://&#8230;</string>
     <string name="auth_username">Uživatelské jméno</string>
     <string name="auth_password">Heslo</string>
     <string name="auth_register">Ještě nemáte server?\nKlikněte sem a získejte ho od poskytovatele</string>
@@ -256,6 +257,7 @@
 	<string name="auth_expired_oauth_token_toast">Vaše přihlášení vypršelo. Přihlaste se prosím znovu</string>
 	<string name="auth_expired_basic_auth_toast">Zadejte prosím aktuální heslo</string>
 	<string name="auth_expired_saml_sso_token_toast">Vaše přihlášení vypršelo. Přihlaste se prosím znovu</string>
+	<string name="auth_connecting_auth_server">Připojování k ověřovacímu serveru&#8230;</string>
 	<string name="auth_unsupported_auth_method">Server nepodporuje tuto přihlašovací metodu</string>
 	<string name="auth_unsupported_multiaccount">%1$s nepodporuje více účtů</string>
 	<string name="auth_fail_get_user_name">Váš server nevrací správné přihlašovací ID, kontaktujte prosím svého správce systému</string>
@@ -283,6 +285,7 @@
     <string name="filename_forbidden_characters">Zakázané znaky: / \\ &lt; &gt; : \" | ? *</string>
     <string name="filename_forbidden_charaters_from_server">Jméno souboru obsahuje aelspoň jeden neplatný znak</string>
     <string name="filename_empty">Název nemůže být prázdný</string>
+    <string name="wait_a_moment">Počkejte chvíli&#8230;</string>
     <string name="wait_checking_credentials">Ověřování uložených přihlašovacích údajů</string>
     <string name="filedisplay_unexpected_bad_get_content">Neočekávaný problém - zkuste zvolit soubor jinou aplikací</string>
     <string name="filedisplay_no_file_selected">Žádný soubor nebyl vybrán</string>
@@ -290,6 +293,8 @@
     <string name="wait_for_tmp_copy_from_private_storage">Kopírování souboru z privátního úložiště</string>
     
     <string name="oauth_check_onoff">Přihlásit se s OAuth 2.0</string> 
+    <string name="oauth_login_connection">Připojuji se k OAuth 2.0 serveru&#8230;</string>
+        
     <string name="ssl_validator_header">Identitu stránky nelze ověřit</string>
     <string name="ssl_validator_reason_cert_not_trusted">- Certifikát serveru je nedůvěryhodný</string>
     <string name="ssl_validator_reason_cert_expired">- Certifikátu serveru vypršela platnost</string>
