@@ -61,6 +61,7 @@ import org.apache.commons.httpclient.HttpStatus;
 import org.apache.commons.httpclient.methods.GetMethod;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -118,10 +119,10 @@ public class ThumbnailsCacheManager {
                             mThumbnailCache = new DiskLruImageCache(diskCacheDir, DISK_CACHE_SIZE, mCompressFormat,
                                     mCompressQuality);
                         } else {
-                            throw new Exception();
+                            throw new FileNotFoundException("Thumbnail cache could not be opened");
                         }
-                    } catch (Exception e) {
-                        Log_OC.d(TAG, "Thumbnail cache could not be opened ", e);
+                    } catch (java.io.IOException e) {
+                        Log_OC.d(TAG, e.getMessage());
                         mThumbnailCache = null;
                     }
                 }
