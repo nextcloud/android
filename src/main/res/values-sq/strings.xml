@@ -61,6 +61,7 @@
     <string name="recommend_urls">%1$s ose %2$s</string>
 
     <string name="auth_check_server">Kontrollo serverin</string>
+    <string name="auth_host_url">Adresa e serverit https://&#8230;</string>
     <string name="auth_username">Emër përdoruesi</string>
     <string name="auth_password">Fjalëkalim</string>
     <string name="auth_register">Nuk keni akoma një server?\nKliko këtu për të marrë një nga ofruesit</string>
@@ -256,6 +257,7 @@
 	<string name="auth_expired_oauth_token_toast">Autorizimi juaj skadoi. Ju lutemi, autorizohuni sërisht</string>
 	<string name="auth_expired_basic_auth_toast">Ju lutem, jepni fjalëkalimin e tanishëm</string>
 	<string name="auth_expired_saml_sso_token_toast">Sesioni juaj skadoi. Ju lutemi, rilidhuni</string>
+	<string name="auth_connecting_auth_server">Po lidhet te serveri i identifikimit&#8230;</string>
 	<string name="auth_unsupported_auth_method">Serveri s’e mbulon këtë metodë identifikimi</string>
 	<string name="auth_unsupported_multiaccount">%1$s s\’mbulon llogari të shumëfishta</string>
 	<string name="auth_fail_get_user_name">Serveri juaj nuk është duke kthyer një  id përdoruesi të saktë, ju lutem kontaktoni një administrator</string>
@@ -283,6 +285,7 @@
     <string name="filename_forbidden_characters">Shenja të ndaluara: / \\ &lt; &gt; : \" | ? *</string>
     <string name="filename_forbidden_charaters_from_server">Emri i skedarit përmban të paktën një shenjë të pavlefshme</string>
     <string name="filename_empty">Emri i skedarit s’mund të jetë i zbrazët</string>
+    <string name="wait_a_moment">Prisni një çast&#8230;</string>
     <string name="wait_checking_credentials">Po kontrollohen kredenciale të depozituara</string>
     <string name="filedisplay_unexpected_bad_get_content">Problem i papritur; ju lutemi, përzgjidhni një skedar nga një aplikacion tjetër</string>
     <string name="filedisplay_no_file_selected">S’u përzgjodh skedar</string>
@@ -290,6 +293,8 @@
     <string name="wait_for_tmp_copy_from_private_storage">Po kopjohet skedar nga depo private</string>
     
     <string name="oauth_check_onoff">Hyrje me OAuth 2.0</string> 
+    <string name="oauth_login_connection">Duke u lidhur me serverin OAuth 2.0&#8230;</string>
+        
     <string name="ssl_validator_header">Identiteti i sajtit s\’u verifikua dot</string>
     <string name="ssl_validator_reason_cert_not_trusted">- Dëshmia e serverit s\’është e besuar</string>
     <string name="ssl_validator_reason_cert_expired">- Dëshmia e serverit skadoi</string>

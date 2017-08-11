@@ -62,6 +62,7 @@
     <string name="recommend_urls">%1$s oder %2$s</string>
 
     <string name="auth_check_server">Server überprüfen</string>
+    <string name="auth_host_url">Server-Adresse https://&#8230;</string>
     <string name="auth_username">Benutzername</string>
     <string name="auth_password">Passwort</string>
     <string name="auth_register">Sie haben noch keinen Server?\nKlicke hier um Server-Anbieter zu finden</string>
@@ -265,6 +266,7 @@
 	<string name="auth_expired_oauth_token_toast">Die Autorisierung ist abgelaufen. Bitte Autorisierung nochmals durchführen</string>
 	<string name="auth_expired_basic_auth_toast">Bitte gib das aktuelle Passwort ein</string>
 	<string name="auth_expired_saml_sso_token_toast">Ihre Sitzung ist abgelaufen. Bitte erneut verbinden</string>
+	<string name="auth_connecting_auth_server">Verbinden zum Authentifizierungs-Server&#8230;</string>
 	<string name="auth_unsupported_auth_method">Der Server unterstützt diese Authentifizierung-Methode nicht</string>
 	<string name="auth_unsupported_multiaccount">%1$s unterstützt nicht mehrere Benutzerkonten</string>
 	<string name="auth_fail_get_user_name">Ihr Server gibt keine korrekte Benutzer-ID zurück, bitte kontaktieren Sie einen Administrator</string>
@@ -292,6 +294,7 @@
     <string name="filename_forbidden_characters">Verbotene Zeichen: / \\ &lt; &gt; : \" | ? *</string>
     <string name="filename_forbidden_charaters_from_server">Der Dateiname enthält mindestens ein ungültiges Zeichen</string>
     <string name="filename_empty">Dateiname darf nicht leer sein</string>
+    <string name="wait_a_moment">Bitte warten&#8230;</string>
     <string name="wait_checking_credentials">Überprüfe gespeicherte Anmeldeinformationen</string>
     <string name="filedisplay_unexpected_bad_get_content">Ein unerwartetes Problem ist aufgetreten. Bitte versuche, die Datei in einer anderen App zu öffnen</string>
     <string name="filedisplay_no_file_selected">Keine Datei gewählt</string>
@@ -299,6 +302,8 @@
     <string name="wait_for_tmp_copy_from_private_storage">Kopiere Datei vom privatem Speicher</string>
     
     <string name="oauth_check_onoff">Anmelden mit OAuth 2.0</string> 
+    <string name="oauth_login_connection">Verbinde mit dem OAuth 2.0-Server&#8230;</string>
+        
     <string name="ssl_validator_header">Die Identität der Website konnte nicht überprüft werden</string>
     <string name="ssl_validator_reason_cert_not_trusted">- Das Zertifikat des Servers ist nicht vertrauenswürdig</string>
     <string name="ssl_validator_reason_cert_expired">- Das Zertifikat des Servers ist abgelaufen</string>
