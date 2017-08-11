@@ -125,12 +125,9 @@ public class ThemeUtils {
      */
     public static boolean darkTheme() {
         int primaryColor = primaryColor();
+        float[] hsl = colorToHSL(primaryColor);
 
-        int red = Color.red(primaryColor);
-        int green = Color.green(primaryColor);
-        int blue = Color.blue(primaryColor);
-
-        return ((0.299 * red + 0.587 * green + 0.114 * blue) / 255) <= 0.5;
+        return (hsl[2] / 100) <= 0.5;
     }
 
     /**
@@ -172,12 +169,18 @@ public class ThemeUtils {
     }
 
     public static int adjustLightness(float lightnessDelta, int color) {
-        float[] hsl = new float[3];
-        ColorUtils.RGBToHSL(Color.red(color), Color.green(color), Color.blue(color), hsl);
+        float[] hsl = colorToHSL(color);
 
         hsl[2] += lightnessDelta;
 
         return ColorUtils.HSLToColor(hsl);
+    }
+
+    private static float[] colorToHSL(int color) {
+        float[] hsl = new float[3];
+        ColorUtils.RGBToHSL(Color.red(color), Color.green(color), Color.blue(color), hsl);
+
+        return hsl;
     }
 
     /**
