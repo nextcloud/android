@@ -636,7 +636,7 @@
     <string name="welcome_feature_3_text">Keep your photos safe</string>
 
     <string name="whats_new_auto_upload_title">Enhanced auto upload</string>
-    <string name="whats_new_auto_upload_content">\u2022 for all android versions\n\u2022 less battery consumption\n\u2022 more reliable, but not instant\n\u2022 separation between image &amp; video</string>
+    <string name="whats_new_auto_upload_content">\u2022 for all android versions\n\u2022 less battery consumption\n\u2022 more reliable, but not instant\n\u2022 separation of images &amp; videos</string>
 
     <string name="whats_new_search_title">Full server search</string>
     <string name="whats_new_search_content">\u2022 Not only in current folder\n\u2022 Returns results from complete server\n\u2022 Directly open files/folders\n\u2022 Supported in NC12 and above</string>
@@ -645,7 +645,7 @@
     <string name="whats_new_theming_content">If enabled on server app will show\n\u2022 background image\n\u2022 server name\n\u2022 use color to distinguish accounts</string>
 
     <string name="whats_new_notification_title">Notification support</string>
-    <string name="whats_new_notification_content">Get notifications like\n\u2022 new remote share\n\u2022 mentioned in a comment\n\u2022 announcements posted by an admin</string>
+    <string name="whats_new_notification_content">Get notifications like\n\u2022 new remote share\n\u2022 comment mentions\n\u2022 admin announcements</string>
 
     <string name="whats_new_skip">Skip</string>
 
