@@ -44,6 +44,7 @@
     <string name="prefs_passcode">Блокировка кодом</string>
     <string name="prefs_fingerprint">Блокировка отпечатком пальца</string>
     <string name="prefs_fingerprint_notsetup">Отпечатки не были настроены.</string>
+    <string name="prefs_expert_mode">Экспертный режим</string>
     <string name="prefs_show_hidden_files">Показывать скрытые файлы</string>
     <string name="prefs_log_delete_history_button">Удалить историю</string>
     <string name="prefs_calendar_contacts">Синхронизировать календарь и контакты</string>
@@ -63,12 +64,14 @@
     <string name="recommend_urls">%1$s или %2$s</string>
 
     <string name="auth_check_server">Проверить сервер</string>
+    <string name="auth_host_url">Адрес сервера https://&#8230;</string>
     <string name="auth_username">Имя пользователя</string>
     <string name="auth_password">Пароль</string>
     <string name="auth_register">Нет сервера?\nНажмите здесь чтобы получить от провайдера</string>
     <string name="sync_string_files">Файлы</string>
     <string name="setup_btn_connect">Подключиться</string>
     <string name="uploader_btn_upload_text">Загрузить</string>
+    <string name="uploader_btn_alternative_text">Выберите</string>
     <string name="uploader_top_message">Выбрать каталог для загрузки</string>
     <string name="uploader_wrn_no_account_title">Аккаунт не найден</string>
     <string name="uploader_wrn_no_account_text">На вашем устройстве нет аккаунтов %1$s. Пожалуйста выполните настройку аккаунта.</string>
@@ -87,6 +90,7 @@
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Удалить файл из исходного каталога</string>
     <string name="file_list_seconds_ago">несколько секунд назад</string>
     <string name="file_list_empty_headline">Здесь нет файлов</string>
+    <string name="folder_list_empty_headline">Здесь нет каталогов</string>
     <string name="file_list_empty">Загрузите что-нибудь или синхронизируйте со своими устройствами!</string>
     <string name="file_list_empty_favorites">Добавьте файлы в избранное или синхронизируйте со своими устройствами!</string>
     <string name="file_list_empty_favorites_filter_list">Здесь появятся файлы и каталоги, отмеченные как избранные</string>
@@ -142,11 +146,14 @@
     <string name="common_unknown">неизвестно</string>
     <string name="common_error_unknown">Неизвестная ошибка</string>
     <string name="common_pending">В очереди</string>
+    <string name="common_delete">Удалить</string>
     <string name="about_title">О программе</string>
     <string name="change_password">Сменить пароль</string>
     <string name="delete_account">Удалить аккаунт</string>
     <string name="delete_account_warning">Удалить аккаунт %s и все связанные с ним файлы?\n\n\Удаление не может быть отменено.</string>
     <string name="create_account">Создать аккаунт</string>
+    <string name="avatar">Аватар</string>
+    <string name="active_user">Активный пользователь</string>
     <string name="upload_chooser_title">Загрузить из &#8230;</string>
     <string name="uploader_info_dirname">Имя каталога</string>
     <string name="uploader_upload_in_progress_ticker">Загружается &#8230;</string>
@@ -158,6 +165,7 @@
     <string name="uploader_upload_failed_credentials_error">Загрузка не удалась, вам необходимо войти повторно.</string>
     <string name="uploads_view_title">Загрузки</string>
     <string name="uploads_view_group_current_uploads">Текущие</string>
+    <string name="uploads_view_group_failed_uploads">Перезапуск ожидающих / с ошибками</string>
     <string name="uploads_view_group_finished_uploads">Загружено</string>
     <string name="uploads_view_upload_status_succeeded">Завершено</string>
     <string name="uploads_view_upload_status_cancelled">Отменено</string>
@@ -173,7 +181,7 @@
     <string name="uploads_view_upload_status_service_interrupted">Работа приложения была прекращена</string>
     <string name="uploads_view_upload_status_unknown_fail">Неизвестная ошибка</string>
     <string name="uploads_view_upload_status_waiting_for_wifi">Ожидание подключения Wi-Fi</string>
-    <string name="uploads_view_later_waiting_to_upload">Ожидание загрузки</string>
+    <string name="uploads_view_later_waiting_to_upload">Ожидание выгрузки</string>
     <string name="downloader_download_in_progress_ticker">Скачивается &#8230;</string>
     <string name="downloader_download_in_progress_content">%1$d%% Скачивается %2$s</string>
     <string name="downloader_download_succeeded_ticker">Скачивание завершено</string>
@@ -258,6 +266,7 @@
 	<string name="auth_expired_oauth_token_toast">Время авторизации истекло. Пожалуйста, авторизуйтесь снова</string>
 	<string name="auth_expired_basic_auth_toast">Введите текущий пароль</string>
 	<string name="auth_expired_saml_sso_token_toast">Время сессии истекло. Пожалуйста, подключитесь снова</string>
+	<string name="auth_connecting_auth_server">Подключение к серверу аутентификации &#8230;</string>
 	<string name="auth_unsupported_auth_method">Сервер не поддерживает выбранный метод аутентификации</string>
 	<string name="auth_unsupported_multiaccount">%1$s не поддерживает множественные аккаунты</string>
 	<string name="auth_fail_get_user_name">Сервер не вернул верный пользовательский идентификатор. Пожалуйста, свяжитесь с вашим администратором</string>
@@ -285,6 +294,7 @@
     <string name="filename_forbidden_characters">Недопустимые символы: / \\ &lt; &gt; : \" | ? *</string>
     <string name="filename_forbidden_charaters_from_server">Имя файла содержит по крайней мере один некорректный символ</string>
     <string name="filename_empty">Имя файла не может быть пустым</string>
+    <string name="wait_a_moment">Подождите немного &#8230;</string>
     <string name="wait_checking_credentials">Проверка сохранённых реквизитов учётных данных</string>
     <string name="filedisplay_unexpected_bad_get_content">Неизвестная ошибка. Выберите этот файл из другого приложения</string>
     <string name="filedisplay_no_file_selected">Файлы не выбраны</string>
@@ -292,6 +302,8 @@
     <string name="wait_for_tmp_copy_from_private_storage">Копирование файла из частного хранилища</string>
     
     <string name="oauth_check_onoff">Войти через OAuth 2.0</string> 
+    <string name="oauth_login_connection">Подключение к серверу OAuth 2.0&#8230;</string>
+        
     <string name="ssl_validator_header">Подлинность сайта не может быть проверена</string>
     <string name="ssl_validator_reason_cert_not_trusted">- Сертификат сервера не является доверенным</string>
     <string name="ssl_validator_reason_cert_expired">- Срок действия сертификата сервера истёк</string>
@@ -346,6 +358,8 @@
 
     <string name="error__upload__local_file_not_copied">%1$s невозможно скопировать в локальный каталог %2$s </string>
     <string name="prefs_instant_upload_path_title">Каталог для немедленной загрузки</string>
+    <string name="prefs_synced_folders_local_path_title">Локальный каталог</string>
+    <string name="prefs_synced_folders_remote_path_title">Каталог на сервере</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Использовать подкаталоги</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Хранить в них, учитывая год и месяц</string>
 
@@ -517,7 +531,12 @@
     <string name="edit_share_unshare">Закрыть общий доступ</string>
     <string name="edit_share_done">готово</string>
 
+    <string name="action_retry_uploads">Повторить неудавшиеся</string>
+    <string name="action_clear_failed_uploads">Убрать неудавишиеся</string>
+    <string name="action_clear_successful_uploads">Убрать завершенные</string>
     <string name="action_clear_finished_uploads">Очистить завершенные</string>
+    <string name="action_force_rescan">Сканировать принудительно</string>
+
     <string name="action_switch_grid_view">Вид сеткой</string>
     <string name="action_switch_list_view">Вид списком</string>
 
@@ -531,10 +550,13 @@
     <string name="confirmation_remove_files_alert">Вы действительно хотите удалить выбранные элементы?</string>
     <string name="confirmation_remove_folders_alert">Вы действительно хотите удалить выбранные элементы и их содержимое?</string>
     <string name="maintenance_mode">Сервер находится в режиме обслуживания</string>
+    <string name="lock_failed">Не удалось заблокировать файл</string>
+
     <string name="uploads_view_upload_status_waiting_for_charging">Ожидание зарядки устройства</string>
     <string name="actionbar_search">Поиск</string>
     <string name="files_drop_not_supported">Это есть в новой версии Nextcloud, пожалуйста обновитесь</string>
     <string name="learn_more">Узнать больше</string>
+    <string name="drawer_synced_folders">Автоматическая загрузка</string>
     <string name="drawer_participate">Участие</string>
     <string name="participate_testing_headline">Помогите нам в тестировании</string>
     <string name="participate_testing_bug_text">Нашли ошибку? Заметили необычное поведение программы?</string>
@@ -551,8 +573,20 @@
     <string name="participate_contribute_translate_translate">Перевод</string>
     <string name="participate_contribute_translate_text">приложение</string>
     <string name="participate_contribute_github_text">Просмотрите, измените и напишите код, для подробностей смотреть %1$s</string>
+    <string name="participate_rc_play_store">Скачать релиз-кандидат в Google Play</string>
+    <string name="participate_rc_fdroid">Скачать релиз-кандидат в магазине приложений f-droid</string>
+    <string name="participate_dev_fdroid">Скачать разрабатываемую версию в магазине приложений f-droid</string>
+    <string name="participate_dev_direct_download">Скачать разрабатываемую версию по ссылке</string>
     <string name="move_to">Переместить в&#8230;</string>
     <string name="copy_to">Копировать в&#8230;</string>
+    <string name="choose_remote_folder">Выберите каталог на сервере &#8230;</string>
+    <string name="choose_local_folder">Выберите локальный каталог &#8230;</string>
+    <string name="synced_folders_loading_folders">Загрузка каталогов &#8230;</string>
+    <string name="synced_folders_no_results">Не найдены каталоги с медиа(файлами).</string>
+    <string name="synced_folders_preferences">Настройки автозагрузки</string>
+    <string name="synced_folders_settings">Настройки</string>
+    <string name="synced_folders_new_info">Моментальная загрузка была полностью переделана. Используйте главное меню для перенастройки автоматической загрузки. Извините за неудобства.\n\nВам понравятся новые расширенные возможности автоматической загрузки!</string>
+    <string name="synced_folders_preferences_folder_path">Для %1$s</string>
     <plurals name="items_selected_count">
         <item quantity="one">%d выбран</item>
         <item quantity="few">%d выбрано</item>
@@ -637,5 +671,10 @@
     <string name="privacy">Конфиденциальность</string>
     <string name="file_not_found">Файл не найден!</string>
 
+    <!-- Auto upload -->
+    <string name="autoupload_custom_folder">Задать пользовательский каталог</string>
+    <string name="synced_folders_configure_folders">Настроить каталоги</string>
+
     <string name="test_server_button">Проверить соединение с сервером</string>
-    </resources>
+    <string name="resharing_is_not_allowed">Повторное открытие доступа запрещено</string>
+</resources>
