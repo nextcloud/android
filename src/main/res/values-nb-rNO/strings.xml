@@ -553,6 +553,7 @@
     <string name="participate_contribute_translate_text">programmet</string>
     <string name="move_to">Flytt til&#8230;</string>
     <string name="copy_to">Kopier til&#8230;</string>
+    <string name="synced_folders_settings">Innstillinger</string>
     <plurals name="items_selected_count">
         <item quantity="one">%d valgt</item>
         <item quantity="other">%d valgte</item>
