@@ -56,7 +56,8 @@
     <string name="prefs_imprint">Imprint</string>
 
 	<string name="recommend_subject">Prova %1$s sul tuo smartphone!</string>
-	<string name="recommend_urls">%1$s o %2$s</string>
+	<string name="recommend_text">Vorrei invitarti a utilizzare %1$s sul tuo smartphone.\nScaricalo qui:%2$s</string>
+    <string name="recommend_urls">%1$s o %2$s</string>
 
     <string name="auth_check_server">Controlla server</string>
     <string name="auth_host_url">Indirizzo server https://&#8230;</string>
@@ -85,11 +86,15 @@
     <string name="folder_list_empty_headline">Qui non c\'è alcuna cartella</string>
     <string name="file_list_loading">Caricamento in corso&#8230;</string>
     <string name="local_file_list_empty">Non ci sono file in questa cartella.</string>
+    <string name="local_folder_list_empty">Non ci sono ulteriori cartelle.</string>
     <string name="file_list_empty_headline_search">Nessun risultato in questa cartella</string>
     <string name="file_list_empty_headline_server_search">Nessun risultato</string>
     <string name="file_list_empty_shared_headline">Ancora nessuna condivisione</string>
     <string name="file_list_empty_headline_server_search_videos">Nessun video</string>
     <string name="file_list_empty_headline_server_search_photos">Nessuna foto</string>
+    <string name="file_list_empty_search">Forse è in una cartella diversa?</string>
+    <string name="file_list_empty_text_photos_filter">La tua ricerca non ha restituito alcuna foto.</string>
+    <string name="file_list_empty_text_videos_filter">La tua ricerca non ha restituito alcun video.</string>
     <string name="upload_list_empty_headline">Nessun caricamento disponibile</string>
     <string name="file_list_folder">cartella</string>
     <string name="file_list_folders">cartelle</string>
@@ -107,6 +112,7 @@
     <string name="common_no">No</string>
     <string name="common_ok">OK</string>
     <string name="common_remove_upload">Rimuovi caricamento</string>
+    <string name="common_retry_upload">Riprova il caricamento</string>
     <string name="common_cancel_sync">Annulla sincronizzazione</string>
     <string name="common_cancel">Annulla</string>
     <string name="common_back">Indietro</string>
@@ -230,6 +236,7 @@
     <string name="favorite">Imposta come disponibile non in linea</string>
     <string name="unfavorite">Rimuovi come disponibile non in linea</string>
     <string name="favorite_real">Imposta come preferito</string>
+    <string name="unset_favorite_real">Rimuovi preferito</string>
     <string name="common_rename">Rinomina</string>
     <string name="common_remove">Rimuovi</string>
     <string name="confirmation_remove_file_alert">Vuoi davvero rimuovere %1$s?</string>
@@ -237,6 +244,7 @@
     <string name="remove_success_msg">Rimossi</string>
     <string name="remove_fail_msg">La rimozione non può essere completata</string>
     <string name="rename_dialog_title">Digita un nuovo nome</string>
+    <string name="sync_file_fail_msg">Impossibile controllare il file remoto</string>
     <string name="sync_file_nothing_to_do_msg">Contenuti del file già sincronizzati</string>
     <string name="create_dir_fail_msg">Impossibile creare la cartella</string>
     <string name="filename_forbidden_characters">Caratteri proibiti: / \\ &lt; &gt; : \" | ? *</string>
@@ -322,6 +330,8 @@
     <string name="clipboard_uxexpected_error">Errore inatteso durante la copia negli appunti</string>
     <string name="clipboard_label">Testo copiato da %1$s</string>
 
+    <string name="error_cant_bind_to_operations_service">Errore grave: impossibile eseguire operazioni</string>
+
     <string name="network_error_socket_exception">Si è verificato un errore durante la connessione al server.</string>
     <string name="network_host_not_available">Impossibile completare l\'operazione. Server non disponibile</string>
 
@@ -347,6 +357,8 @@
     <string name="file_migration_restoring_accounts_configuration">Ripristino della configurazione degli account&#8230;</string>
     <string name="file_migration_ok_finished">Fine</string>
     <string name="file_migration_failed_not_enough_space">Errore: spazio insufficiente</string>
+    <string name="file_migration_failed_not_readable">Errore: file sorgente non leggibile</string>
+    <string name="file_migration_failed_dir_already_exists">Errore: la cartella di Nextcloud esiste già</string>
     <string name="file_migration_override_data_folder">Sostituisci</string>
     <string name="file_migration_use_data_folder">Usa</string>
 
@@ -442,6 +454,8 @@
     <string name="share_email_clarification">%1$s (email)</string>
     <string name="share_known_remote_clarification">%1$s ( su %2$s )</string>
 
+    <string name="filedetails_share_link_enable">Condivisi tramite collegamento abilitata</string>
+    <string name="filedetails_share_users_with_access">Utenti e gruppi con accesso</string>
     <string name="share_privilege_can_share">può condividere</string>
     <string name="share_privilege_can_edit">può modificare</string>
     <string name="share_privilege_can_edit_create">crea</string>
@@ -468,6 +482,7 @@
     <string name="learn_more">Scopri altro</string>
     <string name="drawer_synced_folders">Caricamento automatico</string>
     <string name="drawer_participate">Partecipa</string>
+    <string name="participate_testing_bug_text">Trovato un bug? Stranezze?</string>
     <string name="participate_testing_report_text">Segnala un problema su GitHub</string>
     <string name="participate_beta_headline">Prova la versione di sviluppo</string>
     <string name="participate_release_candidate_headline">Candidata al rilascio</string>
@@ -495,6 +510,8 @@
 
     <string name="notifications_loading_activity">Caricamento notifiche in corso&#8230;</string>
     <string name="notifications_no_results_headline">Nessuna notifica</string>
+    <string name="notifications_no_results_message">Controlla nuovamente più tardi.</string>
+
     <string name="upload_file_dialog_filename">Nome file</string>
     <string name="upload_file_dialog_filetype">Tipo file</string>
     <string name="upload_file_dialog_filetype_snippet_text">File dl frammento di testo(.txt)</string>

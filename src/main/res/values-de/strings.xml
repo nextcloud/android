@@ -573,7 +573,7 @@
     <string name="participate_contribute_forum_forum">im Forum</string>
     <string name="participate_contribute_translate_translate">beim Übersetzen</string>
     <string name="participate_contribute_translate_text">mit der App</string>
-    <string name="participate_contribute_github_text">Überprüfen, Ändern und Schreiben von Code, schau in die %1$s für weitere Details</string>
+    <string name="participate_contribute_github_text">Überprüfen, ändern und schreiben von Code, schau hier %1$s für weitere Details</string>
     <string name="participate_rc_play_store">Release Candidate über den Google Play Store beziehen</string>
     <string name="participate_rc_fdroid">Release Candidate über den f-droid Store beziehen</string>
     <string name="participate_dev_fdroid">Entwicklungsversion über den f-droid Store beziehen</string>
