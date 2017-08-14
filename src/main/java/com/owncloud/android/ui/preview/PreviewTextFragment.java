@@ -1,4 +1,4 @@
-/**
+/*
  *   ownCloud Android client application
  *
  *   Copyright (C) 2016 ownCloud Inc.
@@ -80,7 +80,7 @@ public class PreviewTextFragment extends FileFragment {
     /**
      * Creates an empty fragment for previews.
      * <p/>
-     * MUST BE KEPT: the system uses it when tries to reinstantiate a fragment automatically
+     * MUST BE KEPT: the system uses it when tries to re-instantiate a fragment automatically
      * (for instance, when the device is turned a aside).
      * <p/>
      * DO NOT CALL IT: an {@link OCFile} and {@link Account} must be provided for a successful
@@ -218,7 +218,7 @@ public class PreviewTextFragment extends FileFragment {
             Reader reader = null;
 
             try {
-                File file = new java.io.File(location);
+                File file = new File(location);
                 reader = ReaderFactory.createReaderFromFile(file);
                 scanner = new Scanner(reader);
 
