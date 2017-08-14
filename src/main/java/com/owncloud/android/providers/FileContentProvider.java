@@ -43,7 +43,6 @@ import android.text.TextUtils;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.datamodel.UploadsStorageManager;
 import com.owncloud.android.db.ProviderMeta;
 import com.owncloud.android.db.ProviderMeta.ProviderTableMeta;
 import com.owncloud.android.lib.common.accounts.AccountUtils;
@@ -1067,19 +1066,34 @@ public class FileContentProvider extends ContentProvider {
                 db.beginTransaction();
                 try {
                     // add type column default being CUSTOM (0)
-                    Log_OC.i(SQL, "Add type column and default value 0 (CUSTOM) to synced_folders table");
-                    db.execSQL(ALTER_TABLE + ProviderTableMeta.SYNCED_FOLDERS_TABLE_NAME +
-                            ADD_COLUMN + ProviderTableMeta.SYNCED_FOLDER_TYPE +
-                            " INTEGER " + " DEFAULT 0");
+                    if (!checkIfColumnExists(db, ProviderTableMeta.SYNCED_FOLDERS_TABLE_NAME,
+                            ProviderTableMeta.SYNCED_FOLDER_TYPE)) {
+                        Log_OC.i(SQL, "Add type column and default value 0 (CUSTOM) to synced_folders table");
+                        db.execSQL(ALTER_TABLE + ProviderTableMeta.SYNCED_FOLDERS_TABLE_NAME +
+                                ADD_COLUMN + ProviderTableMeta.SYNCED_FOLDER_TYPE +
+                                " INTEGER " + " DEFAULT 0");
+                    } else {
+                        Log_OC.i(SQL, "Type column of synced_folders table already exists");
+                    }
 
-                    Log_OC.i(SQL, "Add charging and wifi columns to uploads");
-                    db.execSQL(ALTER_TABLE + ProviderTableMeta.UPLOADS_TABLE_NAME +
-                            ADD_COLUMN + ProviderTableMeta.UPLOADS_IS_WIFI_ONLY +
-                            " INTEGER " + " DEFAULT 0");
+                    if (!checkIfColumnExists(db, ProviderTableMeta.SYNCED_FOLDERS_TABLE_NAME,
+                            ProviderTableMeta.UPLOADS_IS_WIFI_ONLY)) {
+                        Log_OC.i(SQL, "Add charging and wifi columns to uploads");
+                        db.execSQL(ALTER_TABLE + ProviderTableMeta.UPLOADS_TABLE_NAME +
+                                ADD_COLUMN + ProviderTableMeta.UPLOADS_IS_WIFI_ONLY +
+                                " INTEGER " + " DEFAULT 0");
+                    } else {
+                        Log_OC.i(SQL, "Wifi column of synced_folders table already exists");
+                    }
 
-                    db.execSQL(ALTER_TABLE + ProviderTableMeta.UPLOADS_TABLE_NAME +
-                            ADD_COLUMN + ProviderTableMeta.UPLOADS_IS_WHILE_CHARGING_ONLY +
-                            " INTEGER " + " DEFAULT 0");
+                    if (!checkIfColumnExists(db, ProviderTableMeta.SYNCED_FOLDERS_TABLE_NAME,
+                            ProviderTableMeta.UPLOADS_IS_WHILE_CHARGING_ONLY)) {
+                        db.execSQL(ALTER_TABLE + ProviderTableMeta.UPLOADS_TABLE_NAME +
+                                ADD_COLUMN + ProviderTableMeta.UPLOADS_IS_WHILE_CHARGING_ONLY +
+                                " INTEGER " + " DEFAULT 0");
+                    } else {
+                        Log_OC.i(SQL, "Charging column of synced_folders table already exists");
+                    }
 
                     // create Filesystem table
                     Log_OC.i(SQL, "Create filesystem table");
@@ -1099,6 +1113,15 @@ public class FileContentProvider extends ContentProvider {
                 }
             }
         }
+    }
+
+    private boolean checkIfColumnExists(SQLiteDatabase database, String table, String column) {
+        Cursor cursor = database.rawQuery("SELECT * FROM " + table + " LIMIT 0", null);
+        boolean exists = cursor.getColumnIndex(column) != -1;
+
+        cursor.close();
+
+        return exists;
     }
 
     private void createFilesTable(SQLiteDatabase db) {
