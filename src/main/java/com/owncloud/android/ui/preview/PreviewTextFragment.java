@@ -45,10 +45,12 @@ import com.owncloud.android.ui.fragment.FileFragment;
 import com.owncloud.android.utils.AnalyticsUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
 
+import org.mozilla.universalchardet.ReaderFactory;
+
 import java.io.BufferedWriter;
-import java.io.FileInputStream;
+import java.io.File;
 import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.Reader;
 import java.io.StringWriter;
 import java.lang.ref.WeakReference;
 import java.util.LinkedList;
@@ -208,23 +210,26 @@ public class PreviewTextFragment extends FileFragment {
             if (params.length != 1) {
                 throw new IllegalArgumentException("The parameter to " + TextLoadAsyncTask.class.getName() + " must be (1) the file location");
             }
-            final String location = (String) params[0];
+            String location = (String) params[0];
 
-            InputStreamReader inputStream = null;
-            Scanner sc = null;
+            Scanner scanner = null;
             StringWriter source = new StringWriter();
             BufferedWriter bufferedWriter = new BufferedWriter(source);
+            Reader reader = null;
+
             try {
-                inputStream = new InputStreamReader(new FileInputStream(location), "UTF8");
-                sc = new Scanner(inputStream);
-                while (sc.hasNextLine()) {
-                    bufferedWriter.append(sc.nextLine());
-                    if (sc.hasNextLine()) {
+                File file = new java.io.File(location);
+                reader = ReaderFactory.createReaderFromFile(file);
+                scanner = new Scanner(reader);
+
+                while (scanner.hasNextLine()) {
+                    bufferedWriter.append(scanner.nextLine());
+                    if (scanner.hasNextLine()) {
                         bufferedWriter.append("\n");
                     }
                 }
                 bufferedWriter.close();
-                IOException exc = sc.ioException();
+                IOException exc = scanner.ioException();
                 if (exc != null) {
                     throw exc;
                 }
@@ -232,16 +237,16 @@ public class PreviewTextFragment extends FileFragment {
                 Log_OC.e(TAG, e.getMessage(), e);
                 finish();
             } finally {
-                if (inputStream != null) {
+                if (reader != null) {
                     try {
-                        inputStream.close();
+                        reader.close();
                     } catch (IOException e) {
                         Log_OC.e(TAG, e.getMessage(), e);
                         finish();
                     }
                 }
-                if (sc != null) {
-                    sc.close();
+                if (scanner != null) {
+                    scanner.close();
                 }
             }
             return source;
