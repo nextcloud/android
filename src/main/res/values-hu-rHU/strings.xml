@@ -43,6 +43,7 @@
     <string name="prefs_passcode">Számkódos lezárás</string>
     <string name="prefs_fingerprint">Lezárás Újjlenyomattal</string>
     <string name="prefs_fingerprint_notsetup">Nincs újjlenyomat beállítva.</string>
+    <string name="prefs_expert_mode">Szakértő mód</string>
     <string name="prefs_show_hidden_files">Rejtett fájlok megjelenítése</string>
     <string name="prefs_log_delete_history_button">Előzmények törlése</string>
     <string name="prefs_calendar_contacts">Naptár és Névjegyek szinkronizálása</string>
@@ -50,6 +51,7 @@
     <string name="prefs_calendar_contacts_address_resolve_error">A fiók szerver címe nem feloldható a DAVdroid számára</string>
     <string name="prefs_calendar_contacts_no_store_error">Sem F-Droid, sem Google Play nincs telepítve</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Szinkronizálás beállítva a &amp; naptárhoz</string>
+    <string name="prefs_daily_contacts_sync_summary">Névjegyek napi mentése</string>
     <string name="prefs_help">Súgó</string>
     <string name="prefs_recommend">Ajánlás egy barátnak</string>
     <string name="prefs_feedback">Visszajelzés</string>
@@ -60,12 +62,14 @@
     <string name="recommend_urls"> %1$s vagy %2$s </string>
 
     <string name="auth_check_server">Szerver ellenörzés</string>
+    <string name="auth_host_url">Kiszolgáló cím https://&#8230;</string>
     <string name="auth_username">Felhasználónév</string>
     <string name="auth_password">Jelszó</string>
     <string name="auth_register">Nincs még saját szervere?\nKattintson ide a beszerzéshez az egyik szolgáltatótól</string>
     <string name="sync_string_files">Fájlok</string>
     <string name="setup_btn_connect">Kapcsolódás</string>
     <string name="uploader_btn_upload_text">Feltöltés</string>
+    <string name="uploader_btn_alternative_text">Válassz</string>
     <string name="uploader_top_message">Válassz feltöltési mappát</string>
     <string name="uploader_wrn_no_account_title">Nincs ilyen felhasználói fiók</string>
     <string name="uploader_wrn_no_account_text">Nem található %1$s fiók az eszközén. Kérem állítson be egy fiókot előszőr.</string>
@@ -84,6 +88,7 @@
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">A fájl törlése az eredeti mappábó</string>
     <string name="file_list_seconds_ago">pár másodperce</string>
     <string name="file_list_empty_headline">Nem találhatók fájlok itt</string>
+    <string name="folder_list_empty_headline">Itt nincsenek mappák</string>
     <string name="file_list_empty">Töltsön fel új tartalmat vagy szinkronizáljon az eszközeivel</string>
     <string name="file_list_empty_favorites">Jelölj meg néhány fájl kedvencként vagy szinkronizálj az eszközeiddel.</string>
     <string name="file_list_empty_favorites_filter_list">Azok a fájlok és mappák, amiket kedvenceknek jelöl meg itt fognak megjelenni.</string>
@@ -91,6 +96,7 @@
     <string name="file_list_loading">Betöltés&#8230;</string>
     <string name="file_list_no_app_for_file_type">Nincs beállított applikáció ehhez a fájltípushoz.</string>
     <string name="local_file_list_empty">Nincs fájl ebben a mappában.</string>
+    <string name="local_folder_list_empty">Nincs több mappa.</string>
     <string name="file_list_empty_headline_search">Nincsenek eredmények ebben a mappában</string>
     <string name="file_list_empty_headline_server_search">Nincsenek eredmények</string>
     <string name="file_list_empty_favorite_headline">Nincsenek kedvencek még</string>
@@ -102,7 +108,14 @@
     <string name="file_list_empty_recently_modified">Nem található 7 napon belül módosított fájl.</string>
     <string name="file_list_empty_recently_modified_filter">A keresés nem talált 7 napon belül módosított fájlt.</string>
     <string name="file_list_empty_recently_added">Nem talált mostanában hozzáadott fájlt.</string>
+    <string name="file_list_empty_recently_added_filter">A keresés nem hozott mostanában hozzáadott fájlokat.</string>
+    <string name="file_list_empty_text_photos">Az automatikus feltöltés aktiválásához tölts fel néhány képet.</string>
+    <string name="file_list_empty_text_photos_filter">A keresés nem nem talált fényképeket.</string>
+    <string name="file_list_empty_text_videos">Az automatikus feltöltés aktiválásához tölts fel néhány videót.</string>
+    <string name="file_list_empty_text_videos_filter">A keresés nem nem talált videókat.</string>
     <string name="upload_list_empty_headline">Nincsenek feltöltések</string>
+    <string name="upload_list_empty_text">Tölts fel néhány tartalmat, vagy aktiváld az azonnali feltöltést.</string>
+    <string name="upload_list_empty_text_auto_upload">Az automatikus feltöltés aktiválásához tölts fel valami tartalmat.</string>
     <string name="file_list_folder">mappa</string>
     <string name="file_list_folders">mappák</string>
     <string name="file_list_file">fájl</string>
@@ -114,11 +127,13 @@
     <string name="filedetails_modified">Módosítva:</string>
     <string name="filedetails_download">Letöltés</string>
     <string name="filedetails_sync_file">Szinkronizálás</string>
+    <string name="filedetails_renamed_in_upload_msg">A fájl feltöltés közben átnevezve erre: %1$s</string>
     <string name="action_share">Megosztás</string>
     <string name="common_yes">Igen</string>
     <string name="common_no">Nem</string>
     <string name="common_ok">OK</string>
     <string name="common_remove_upload">Feltöltés eltávolítása</string>
+    <string name="common_retry_upload">Feltöltés újrapróbálása</string>
     <string name="common_cancel_sync">Szinkronizálás megszakítása</string>
     <string name="common_cancel">Mégsem</string>
     <string name="common_back">Vissza</string>
@@ -129,14 +144,17 @@
     <string name="common_unknown">ismeretlen</string>
     <string name="common_error_unknown">Ismeretlen hiba</string>
     <string name="common_pending">Folyamatban</string>
+    <string name="common_delete">Törlés</string>
     <string name="about_title">Névjegy</string>
     <string name="change_password">A jelszó megváltoztatása</string>
     <string name="delete_account">Fiók eltávolítása</string>
     <string name="create_account">Fiók létrehozása</string>
+    <string name="active_user">Aktív felhasználó</string>
     <string name="upload_chooser_title">Feltöltés innen &#8230;</string>
     <string name="uploader_info_dirname">Mappa neve</string>
     <string name="uploader_upload_in_progress_ticker">Feltöltés &#8230;</string>
     <string name="uploader_upload_in_progress_content">%1$d%% Feltöltés %2$s</string>
+    <string name="uploader_upload_succeeded_ticker">Feltöltve</string>
     <string name="uploader_upload_succeeded_content_single">%1$s feltöltve</string>
     <string name="uploader_upload_failed_ticker">A feltöltés nem sikerült</string>
     <string name="uploader_upload_failed_credentials_error">Feltöltés sikertelen, újra be kell jelentkeznie.</string>

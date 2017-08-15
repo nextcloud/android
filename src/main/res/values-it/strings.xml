@@ -159,6 +159,7 @@
     <string name="uploader_upload_failed_credentials_error">Caricamento non riuscito, devi effettuare nuovamente l\'accesso</string>
     <string name="uploads_view_title">Caricamenti</string>
     <string name="uploads_view_group_current_uploads">Attuale</string>
+    <string name="uploads_view_group_failed_uploads">Riavvio non riuscito / in corso</string>
     <string name="uploads_view_group_finished_uploads">Caricati</string>
     <string name="uploads_view_upload_status_succeeded">Completati</string>
     <string name="uploads_view_upload_status_cancelled">Annullati</string>
@@ -222,6 +223,7 @@
     <string name="media_err_unsupported">Codificatore multimediale non supportato</string>
     <string name="media_err_io">Impossibile leggere il file multimediale</string>
     <string name="media_err_malformed">Il file multimediale ha una codifica non corretta</string>
+    <string name="media_err_timeout">Il tentativo di riprodurre il file è scaduto</string>
     <string name="media_err_invalid_progressive_playback">Il file multimediale non può essere trasmesso</string>
     <string name="media_err_security_ex">Riscontrato un errore di sicurezza tentando di riprodurre %1$s</string>
     <string name="media_err_io_ex">Errore di input durante la riproduzione di %1$s</string>
@@ -276,6 +278,7 @@
     <string name="remove_fail_msg">La rimozione non può essere completata</string>
     <string name="rename_dialog_title">Digita un nuovo nome</string>
     <string name="rename_local_fail_msg">La copia locale non può essere rinominata, prova un nome diverso</string>
+    <string name="rename_server_fail_msg">Impossibile assegnare un nuovo nome al server</string>
     <string name="sync_file_fail_msg">Impossibile controllare il file remoto</string>
     <string name="sync_file_nothing_to_do_msg">Contenuti del file già sincronizzati</string>
     <string name="create_dir_fail_msg">Impossibile creare la cartella</string>
@@ -333,6 +336,7 @@
     <string name="instant_video_upload_on_charging">Carica solo durante la ricarica</string>
     <string name="instant_upload_on_charging">Carica solo durante la ricarica</string>
     <string name="instant_upload_path">/InstantUpload</string>
+    <string name="auto_upload_path">/AutoUpload</string>
     <string name="conflict_title">File in conflitto</string>
     <string name="conflict_keep_both">Mantieni entrambi</string>
     <string name="conflict_use_local_version">Versione locale</string>
@@ -370,6 +374,8 @@
     <string name="error_cant_bind_to_operations_service">Errore grave: impossibile eseguire operazioni</string>
 
     <string name="network_error_socket_exception">Si è verificato un errore durante la connessione al server.</string>
+    <string name="network_error_socket_timeout_exception">Si è verificato un errore in attesa della risposta del server. Impossibile completare l\'operazione.</string>
+    <string name="network_error_connect_timeout_exception">Si è verificato un errore in attesa della risposta del server. Impossibile completare l\'operazione.</string>
     <string name="network_host_not_available">Impossibile completare l\'operazione. Server non disponibile</string>
 
     <string name="forbidden_permissions">Non ti è consentito %s</string>
@@ -511,7 +517,10 @@
 
     <string name="action_retry_uploads">Riprova caricamenti non riusciti</string>
     <string name="action_clear_failed_uploads">Cancella caricamenti non riusciti</string>
+    <string name="action_clear_successful_uploads">Cancella i caricamenti completati</string>
     <string name="action_clear_finished_uploads">Cancella caricamenti completati</string>
+    <string name="action_force_rescan">Forza nuova scansione</string>
+
     <string name="action_switch_grid_view">Vista Griglia</string>
     <string name="action_switch_list_view">Vista Elenco</string>
 
@@ -526,11 +535,13 @@
     <string name="maintenance_mode">Server in manutenzione</string>
     <string name="lock_failed">Blocco del file non riuscito</string>
 
+    <string name="uploads_view_upload_status_waiting_for_charging">In attesa della carica</string>
     <string name="actionbar_search">Cerca</string>
     <string name="files_drop_not_supported">Questa è una funzionalità di Nextcloud, aggiorna.</string>
     <string name="learn_more">Scopri altro</string>
     <string name="drawer_synced_folders">Caricamento automatico</string>
     <string name="drawer_participate">Partecipa</string>
+    <string name="participate_testing_headline">Aiutaci nella fase di test</string>
     <string name="participate_testing_bug_text">Trovato un bug? Stranezze?</string>
     <string name="participate_testing_report_text">Segnala un problema su GitHub</string>
     <string name="participate_beta_headline">Prova la versione di sviluppo</string>
