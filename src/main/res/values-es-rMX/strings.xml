@@ -572,6 +572,10 @@
     <string name="participate_contribute_translate_translate">Traducir</string>
     <string name="participate_contribute_translate_text">la aplicación</string>
     <string name="participate_contribute_github_text">Revisa, corrige y escribe código, ve %1$s para más detalles</string>
+    <string name="participate_rc_play_store">Obten el candidato a liberación vía la tienda de Google Play</string>
+    <string name="participate_rc_fdroid">Obten el candidato a liberación vía la tienda de aplicaciones f-droid</string>
+    <string name="participate_dev_fdroid">Obten la liberación de desarrollo vía la tienda de aplicaciones f-droid</string>
+    <string name="participate_dev_direct_download">Obten la liberación de desarrollo vía descarga directa</string>
     <string name="move_to">Mover a&#8230;</string>
     <string name="copy_to">Copiar a&#8230;</string>
     <string name="choose_remote_folder">Selecciona la carpeta remota &#8230;</string>
