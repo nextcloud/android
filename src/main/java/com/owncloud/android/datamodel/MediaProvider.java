@@ -136,7 +136,7 @@ public class MediaProvider {
                     cursorImages.close();
 
                     // only do further work if folder is not within the Nextcloud app itself
-                    if (!mediaFolder.absolutePath.startsWith(dataPath)) {
+                    if (mediaFolder.absolutePath != null && !mediaFolder.absolutePath.startsWith(dataPath)) {
 
                         // count images
                         Cursor count = contentResolver.query(
