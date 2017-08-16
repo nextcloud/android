@@ -1,0 +1,5 @@
+Die Nextcloud App erlaubt Dir Zugriff auf alle Dateien in Deiner Nextcloud.
+
+Die ist die Dev-Version der offiziellen Nextcloud App und enthält neue Features, die noch nicht ausgiebig getestet wurden. Dies kann zu Datenverlust oder Instabilität führen. Die App ist nur zum Testen der neuen Funktionen, melden von Fehlern und nicht für den alltäglichen Einsatz vorgesehen. 
+
+Die Dev-Version kann parallel zu der offiziellen Nextcloud-App installiert werden.
