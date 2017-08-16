@@ -42,7 +42,6 @@ import com.owncloud.android.datamodel.UploadsStorageManager;
 import com.owncloud.android.datamodel.UploadsStorageManager.UploadStatus;
 import com.owncloud.android.db.OCUpload;
 import com.owncloud.android.files.services.FileUploader;
-import com.owncloud.android.lib.common.network.OnDatatransferProgressListener;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.utils.DisplayUtils;
@@ -50,7 +49,6 @@ import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.ThemeUtils;
 
 import java.io.File;
-import java.lang.ref.WeakReference;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Observable;
@@ -686,44 +684,6 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
     @Override
     public boolean isChildSelectable(int groupPosition, int childPosition) {
         return true;
-    }
-
-    public class ProgressListener implements OnDatatransferProgressListener {
-        int mLastPercent = 0;
-        OCUpload mUpload = null;
-        WeakReference<ProgressBar> mProgressBar = null;
-
-        public ProgressListener(OCUpload upload, ProgressBar progressBar) {
-            mUpload = upload;
-            mProgressBar = new WeakReference<ProgressBar>(progressBar);
-        }
-
-        @Override
-        public void onTransferProgress(long progressRate, long totalTransferredSoFar, long totalToTransfer, String
-                filename) {
-            int percent = (int) (100.0 * ((double) totalTransferredSoFar) / ((double) totalToTransfer));
-            if (percent != mLastPercent) {
-                ProgressBar pb = mProgressBar.get();
-                if (pb != null) {
-                    pb.setProgress(percent);
-                    pb.postInvalidate();
-                }
-            }
-            mLastPercent = percent;
-        }
-
-        public boolean isWrapping(ProgressBar progressBar) {
-            ProgressBar wrappedProgressBar = mProgressBar.get();
-            return (
-                    wrappedProgressBar != null &&
-                            wrappedProgressBar == progressBar   // on purpose; don't replace with equals
-            );
-        }
-
-        public OCUpload getUpload() {
-            return mUpload;
-        }
-
     }
 
     public void addBinder() {
