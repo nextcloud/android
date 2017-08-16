@@ -153,11 +153,13 @@ public class ShareLinkToDialog  extends DialogFragment {
         
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-            if (convertView == null) {
-                convertView = newView(parent);
+            View view = convertView;
+
+            if (view == null) {
+                view = newView(parent);
             }
-            bindView(position, convertView);
-            return convertView;
+            bindView(position, view);
+            return view;
         }
         
         private View newView(ViewGroup parent) {
