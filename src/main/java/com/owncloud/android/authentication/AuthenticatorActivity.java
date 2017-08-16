@@ -441,12 +441,11 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         LoginUrlInfo loginUrlInfo = parseLoginDataUrl(prefix, dataString);
 
         if (loginUrlInfo != null) {
-            mServerInfo.mBaseUrl = normalizeUrlSuffix(loginUrlInfo.serverAddress);
+            mServerInfo.mBaseUrl = AuthenticatorUrlUtils.normalizeUrlSuffix(loginUrlInfo.serverAddress);
             webViewUser = loginUrlInfo.username;
             webViewPassword = loginUrlInfo.password;
             checkOcServer();
         }
-
     }
 
     private void populateLoginFields(String dataString) throws IllegalArgumentException {
@@ -651,7 +650,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
                 public void afterTextChanged(Editable s) {
                     if (mOkButton.isEnabled() &&
                             !mServerInfo.mBaseUrl.equals(
-                                    normalizeUrl(s.toString(), mServerInfo.mIsSslConn))) {
+                                    AuthenticatorUrlUtils.normalizeUrl(s.toString(), mServerInfo.mIsSslConn))) {
                         mOkButton.setEnabled(false);
                     }
                 }
@@ -1038,7 +1037,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
      */
     private void onUrlInputFocusLost() {
         if (!mServerInfo.mBaseUrl.equals(
-                normalizeUrl(mHostUrlInput.getText().toString(), mServerInfo.mIsSslConn))) {
+                AuthenticatorUrlUtils.normalizeUrl(mHostUrlInput.getText().toString(), mServerInfo.mIsSslConn))) {
             // check server again only if the user changed something in the field
             checkOcServer();
         } else {
@@ -1064,7 +1063,8 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
         if (uri.length() != 0) {
             if (mHostUrlInput != null) {
-                uri = stripIndexPhpOrAppsFiles(uri, mHostUrlInput);
+                uri = AuthenticatorUrlUtils.stripIndexPhpOrAppsFiles(uri);
+                mHostUrlInput.setText(uri);
             }
 
             // Handle internationalized domain names
@@ -1082,7 +1082,8 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
             Intent getServerInfoIntent = new Intent();
             getServerInfoIntent.setAction(OperationsService.ACTION_GET_SERVER_INFO);
-            getServerInfoIntent.putExtra(OperationsService.EXTRA_SERVER_URL, normalizeUrlSuffix(uri));
+            getServerInfoIntent.putExtra(OperationsService.EXTRA_SERVER_URL,
+                    AuthenticatorUrlUtils.normalizeUrlSuffix(uri));
 
             if (mOperationsServiceBinder != null) {
                 mWaitingForOpId = mOperationsServiceBinder.queueNewOperation(getServerInfoIntent);
@@ -1270,7 +1271,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
         /// Show SAML-based SSO web dialog
         String targetUrl = mServerInfo.mBaseUrl
-                + AccountUtils.getWebdavPath(mServerInfo.mVersion, mAuthTokenType);
+                + AuthenticatorUrlUtils.getWebdavPath(mServerInfo.mVersion, mAuthTokenType);
         SamlWebViewDialog dialog = SamlWebViewDialog.newInstance(targetUrl, targetUrl);
         dialog.show(getSupportFragmentManager(), SAML_DIALOG_TAG);
     }
@@ -1443,56 +1444,6 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
                         AuthenticationMethod.SAML_WEB_SSO.equals(authMethod))
         );
     }
-
-
-    // TODO remove, if possible
-    private String normalizeUrl(String url, boolean sslWhenUnprefixed) {
-
-        if (url != null && url.length() > 0) {
-            url = url.trim();
-            if (!url.toLowerCase().startsWith(HTTP_PROTOCOL) &&
-                    !url.toLowerCase().startsWith(HTTP_PROTOCOL)) {
-                if (sslWhenUnprefixed) {
-                    url = HTTPS_PROTOCOL + url;
-                } else {
-                    url = HTTP_PROTOCOL + url;
-                }
-            }
-
-            url = normalizeUrlSuffix(url);
-        }
-        return (url != null ? url : "");
-    }
-
-
-    private String normalizeUrlSuffix(String url) {
-        if (url.endsWith("/")) {
-            url = url.substring(0, url.length() - 1);
-        }
-        url = trimUrlWebdav(url);
-        return url;
-    }
-
-    private String stripIndexPhpOrAppsFiles(String url, EditText mHostUrlInput) {
-        if (url.endsWith("/index.php")) {
-            url = url.substring(0, url.lastIndexOf("/index.php"));
-            mHostUrlInput.setText(url);
-        } else if (url.contains("/index.php/apps/")) {
-            url = url.substring(0, url.lastIndexOf("/index.php/apps/"));
-            mHostUrlInput.setText(url);
-        }
-
-        return url;
-    }
-
-    // TODO remove, if possible
-    private String trimUrlWebdav(String url) {
-        if (url.toLowerCase().endsWith(AccountUtils.WEBDAV_PATH_4_0_AND_LATER)) {
-            url = url.substring(0, url.length() - AccountUtils.WEBDAV_PATH_4_0_AND_LATER.length());
-        }
-        return url;
-    }
-
 
     /**
      * Chooses the right icon and text to show to the user for the received operation result.
@@ -1867,7 +1818,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
         String lastPermanentLocation = authResult.getLastPermanentLocation();
         if (lastPermanentLocation != null) {
-            mServerInfo.mBaseUrl = AccountUtils.trimWebdavSuffix(lastPermanentLocation);
+            mServerInfo.mBaseUrl = AuthenticatorUrlUtils.trimWebdavSuffix(lastPermanentLocation);
         }
 
         Uri uri = Uri.parse(mServerInfo.mBaseUrl);

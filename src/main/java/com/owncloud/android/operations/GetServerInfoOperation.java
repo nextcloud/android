@@ -23,7 +23,7 @@ package com.owncloud.android.operations;
 
 import android.content.Context;
 
-import com.owncloud.android.authentication.AccountUtils;
+import com.owncloud.android.authentication.AuthenticatorUrlUtils;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
@@ -109,20 +109,22 @@ public class GetServerInfoOperation extends RemoteOperation {
                 new DetectAuthenticationMethodOperation(mContext);
         return operation.execute(client);
     }
-    
+
 
     private String trimWebdavSuffix(String url) {
-        if (url == null) {
-            url = "";
+	    String trimmedUrl = url;
+        if (trimmedUrl == null) {
+            trimmedUrl = "";
         } else {
-            if (url.endsWith("/")) {
-                url = url.substring(0, url.length() - 1);
+            if (trimmedUrl.endsWith("/")) {
+                trimmedUrl = trimmedUrl.substring(0, trimmedUrl.length() - 1);
             }
-            if(url.toLowerCase().endsWith(AccountUtils.WEBDAV_PATH_4_0_AND_LATER)){
-                url = url.substring(0, url.length() - AccountUtils.WEBDAV_PATH_4_0_AND_LATER.length());
+            if(trimmedUrl.toLowerCase().endsWith(AuthenticatorUrlUtils.WEBDAV_PATH_4_0_AND_LATER)){
+                trimmedUrl = trimmedUrl.substring(0,
+                        trimmedUrl.length() - AuthenticatorUrlUtils.WEBDAV_PATH_4_0_AND_LATER.length());
             }
         }
-        return url;
+        return trimmedUrl;
     }
 
     

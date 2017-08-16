@@ -24,7 +24,6 @@ import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.content.Context;
 
-import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.accounts.AccountUtils.Constants;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
@@ -46,6 +45,8 @@ public class UpdateOCVersionOperation extends RemoteOperation {
 
     private static final String TAG = UpdateOCVersionOperation.class.getSimpleName();
 
+    private static final String STATUS_PATH = "/status.php";
+
     private Account mAccount;
     private Context mContext;
     private OwnCloudVersion mOwnCloudVersion;
@@ -62,7 +63,7 @@ public class UpdateOCVersionOperation extends RemoteOperation {
     protected RemoteOperationResult run(OwnCloudClient client) {
         AccountManager accountMngr = AccountManager.get(mContext); 
         String statUrl = accountMngr.getUserData(mAccount, Constants.KEY_OC_BASE_URL);
-        statUrl += AccountUtils.STATUS_PATH;
+        statUrl += STATUS_PATH;
         RemoteOperationResult result = null;
         GetMethod get = null;
 
