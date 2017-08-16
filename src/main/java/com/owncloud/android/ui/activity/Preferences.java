@@ -55,6 +55,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.owncloud.android.BuildConfig;
 import com.owncloud.android.MainApp;
