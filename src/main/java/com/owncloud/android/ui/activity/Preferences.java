@@ -593,7 +593,7 @@ public class Preferences extends PreferenceActivity
 
         // Dev category
         PreferenceCategory preferenceCategoryDev = (PreferenceCategory) findPreference("dev_category");
-        preferenceCategoryAbout.setTitle(ThemeUtils.getColoredTitle(getString(R.string.prefs_category_dev),
+        preferenceCategoryDev.setTitle(ThemeUtils.getColoredTitle(getString(R.string.prefs_category_dev),
                 accentColor));
 
         /* Link to dev apks */

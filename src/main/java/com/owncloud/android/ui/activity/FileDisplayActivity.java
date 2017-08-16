@@ -476,7 +476,7 @@ public class FileDisplayActivity extends HookActivity
         super.onNewIntent(intent);
         if(intent.getAction()!=null && intent.getAction().equalsIgnoreCase(ACTION_DETAILS)){
             setIntent(intent);
-            setFile(intent.getParcelableExtra(EXTRA_FILE));
+            setFile((OCFile)intent.getParcelableExtra(EXTRA_FILE));
         }
     }
 
