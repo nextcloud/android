@@ -112,10 +112,6 @@ public class MediaService extends Service implements OnCompletionListener, OnPre
     /** Current focus state */
     private AudioFocus mAudioFocus = AudioFocus.NO_FOCUS;
 
-
-    /** 'True' when the current song is streaming from the network */
-    private boolean mIsStreaming = false;
-
     /** Wifi lock kept to prevents the device from shutting off the radio when streaming a file. */
     private WifiLock mWifiLock;
 
@@ -447,13 +443,13 @@ public class MediaService extends Service implements OnCompletionListener, OnPre
             createMediaPlayerIfNeeded();
             mPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
             String url = mFile.getStoragePath();
+            boolean mIsStreaming = false;
             /* Streaming is not possible right now
             if (url == null || url.length() <= 0) {
                 url = AccountUtils.constructFullURLForAccount(this, mAccount) + mFile.getRemotePath();
             }
             mIsStreaming = url.startsWith("http:") || url.startsWith("https:");
             */
-            mIsStreaming = false;
 
             mPlayer.setDataSource(url);
 
@@ -464,9 +460,12 @@ public class MediaService extends Service implements OnCompletionListener, OnPre
             mPlayer.prepareAsync();
 
             // prevent the Wifi from going to sleep when streaming
+            /*
             if (mIsStreaming) {
                 mWifiLock.acquire();
-            } else if (mWifiLock.isHeld()) {
+            } else
+            */
+            if (mWifiLock.isHeld()) {
                 mWifiLock.release();
             }
 

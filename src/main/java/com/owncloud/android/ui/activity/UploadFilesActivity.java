@@ -79,7 +79,6 @@ public class UploadFilesActivity extends FileActivity implements
     private boolean mSelectAll = false;
     private boolean mLocalFolderPickerMode = false;
     private LocalFileListFragment mFileListFragment;
-    private Button mCancelBtn;
     protected Button mUploadBtn;
     private Spinner mBehaviourSpinner;
     private Account mAccountOnCreation;
@@ -151,7 +150,7 @@ public class UploadFilesActivity extends FileActivity implements
         mFileListFragment = (LocalFileListFragment) getSupportFragmentManager().findFragmentById(R.id.local_files_list);
         
         // Set input controllers
-        mCancelBtn = (Button) findViewById(R.id.upload_files_btn_cancel);
+        Button mCancelBtn = (Button) findViewById(R.id.upload_files_btn_cancel);
         mCancelBtn.setOnClickListener(this);
         mUploadBtn = (AppCompatButton) findViewById(R.id.upload_files_btn_upload);
         mUploadBtn.getBackground().setColorFilter(ThemeUtils.primaryAccentColor(), PorterDuff.Mode.SRC_ATOP);
