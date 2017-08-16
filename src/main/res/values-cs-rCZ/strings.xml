@@ -12,7 +12,6 @@
     <string name="actionbar_see_details">Podrobnosti</string>
     <string name="actionbar_send_file">Odeslat</string>
     <string name="actionbar_sort">Seřadit</string>
-    <string name="actionbar_sort_title">Seřadit podle</string>
     <string name="sort_by">Řadit podle</string>
     <string name="menu_item_sort_by_name_a_z">A - Z</string>
     <string name="menu_item_sort_by_name_z_a">Z - A</string>
@@ -40,20 +39,11 @@
     <string name="drawer_open">Otevřít</string>
     <string name="prefs_category_general">Obecné</string>
     <string name="prefs_category_more">Více</string>
-    <string name="prefs_accounts">Účty</string>
     <string name="prefs_manage_accounts">Spravovat účty</string>
     <string name="prefs_passcode">Zámek bezpečnostního kódu</string>
     <string name="prefs_fingerprint">Zámek otiskemprstu</string>
     <string name="prefs_fingerprint_notsetup">Nebyly nastaveny žádné otisky prstů.</string>
     <string name="prefs_show_hidden_files">Zobrazit skryté soubory</string>
-    <string name="prefs_instant_upload">Okamžité nahrávání obrázků</string>
-    <string name="prefs_instant_upload_summary">Okamžitě nahrávat vytvořené fotografie</string>
-    <string name="prefs_instant_video_upload">Okamžité nahrávání videa</string>
-    <string name="prefs_instant_video_upload_summary">Okamžitě odesílat nahrané video</string>
-    <string name="prefs_log_title">Povolit logování</string>
-    <string name="prefs_log_summary">Použito k zaznamenávání problémů</string>
-    <string name="prefs_log_title_history">Historie logu</string>
-    <string name="prefs_log_summary_history">Zobrazuje zaznamenané logy</string>
     <string name="prefs_log_delete_history_button">Smazat historii</string>
     <string name="prefs_calendar_contacts">Synchronizovat kalendář &amp; kontakty</string>
     <string name="prefs_calendar_contacts_summary">Nastavit DAVdroid (v1.3.0+) pro aktuální účet</string>
@@ -65,15 +55,13 @@
     <string name="prefs_recommend">Doporučit přátelům</string>
     <string name="prefs_feedback">Odezva</string>
     <string name="prefs_imprint">Imprint</string>
-    <string name="prefs_remember_last_share_location">Zapamatovat umístění sdílení</string>
-    <string name="prefs_remember_last_upload_location_summary">Zapamatovat poslední umístění pro nahrání sdílených souborů</string>
 
 	<string name="recommend_subject">Zkuste %1$s na svém chytrém telefonu!</string>
 	<string name="recommend_text">Chtěl bych vás pozvat k používání %1$s na vašem chytrém telefonu!\nKe stažení zde: %2$s</string>
     <string name="recommend_urls">%1$s nebo %2$s</string>
 
     <string name="auth_check_server">Ověřit server</string>
-    <string name="auth_host_url">Adresa serveru https://...</string>
+    <string name="auth_host_url">Adresa serveru https://&#8230;</string>
     <string name="auth_username">Uživatelské jméno</string>
     <string name="auth_password">Heslo</string>
     <string name="auth_register">Ještě nemáte server?\nKlikněte sem a získejte ho od poskytovatele</string>
@@ -169,7 +157,6 @@
     <string name="uploader_upload_failed_credentials_error">Nahrání selhalo, je třeba se znovu přihlásit</string>
     <string name="uploads_view_title">Nahrání</string>
     <string name="uploads_view_group_current_uploads">Aktuální</string>
-    <string name="uploads_view_group_failed_uploads">Selhalo (dotykem opakovat)</string>
     <string name="uploads_view_group_finished_uploads">Odesláno</string>
     <string name="uploads_view_upload_status_succeeded">Dokončeno</string>
     <string name="uploads_view_upload_status_cancelled">Zrušeno</string>
@@ -270,7 +257,7 @@
 	<string name="auth_expired_oauth_token_toast">Vaše přihlášení vypršelo. Přihlaste se prosím znovu</string>
 	<string name="auth_expired_basic_auth_toast">Zadejte prosím aktuální heslo</string>
 	<string name="auth_expired_saml_sso_token_toast">Vaše přihlášení vypršelo. Přihlaste se prosím znovu</string>
-	<string name="auth_connecting_auth_server">Připojování k ověřovacímu serveru ...</string>
+	<string name="auth_connecting_auth_server">Připojování k ověřovacímu serveru&#8230;</string>
 	<string name="auth_unsupported_auth_method">Server nepodporuje tuto přihlašovací metodu</string>
 	<string name="auth_unsupported_multiaccount">%1$s nepodporuje více účtů</string>
 	<string name="auth_fail_get_user_name">Váš server nevrací správné přihlašovací ID, kontaktujte prosím svého správce systému</string>
@@ -298,7 +285,7 @@
     <string name="filename_forbidden_characters">Zakázané znaky: / \\ &lt; &gt; : \" | ? *</string>
     <string name="filename_forbidden_charaters_from_server">Jméno souboru obsahuje aelspoň jeden neplatný znak</string>
     <string name="filename_empty">Název nemůže být prázdný</string>
-    <string name="wait_a_moment">Počkejte chvíli</string>
+    <string name="wait_a_moment">Počkejte chvíli&#8230;</string>
     <string name="wait_checking_credentials">Ověřování uložených přihlašovacích údajů</string>
     <string name="filedisplay_unexpected_bad_get_content">Neočekávaný problém - zkuste zvolit soubor jinou aplikací</string>
     <string name="filedisplay_no_file_selected">Žádný soubor nebyl vybrán</string>
@@ -306,7 +293,7 @@
     <string name="wait_for_tmp_copy_from_private_storage">Kopírování souboru z privátního úložiště</string>
     
     <string name="oauth_check_onoff">Přihlásit se s OAuth 2.0</string> 
-    <string name="oauth_login_connection">Připojuji se k OAuth 2.0 serveru...</string>    
+    <string name="oauth_login_connection">Připojuji se k OAuth 2.0 serveru&#8230;</string>
         
     <string name="ssl_validator_header">Identitu stránky nelze ověřit</string>
     <string name="ssl_validator_reason_cert_not_trusted">- Certifikát serveru je nedůvěryhodný</string>
@@ -362,8 +349,6 @@
 
     <string name="error__upload__local_file_not_copied">%1$s nelze zkopírovat do místního adresáře %2$s</string>
     <string name="prefs_instant_upload_path_title">Adresář pro okamžité nahrání</string>
-    <string name="prefs_folder_sync_local_path_title">Místní adresář</string>
-    <string name="prefs_folder_sync_remote_path_title">Vzdálený adresář</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Používat podadresáře</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Ukládat v podadresářích podle roku a měsíce</string>
 
@@ -535,11 +520,7 @@
     <string name="edit_share_unshare">Ukončit sdílení</string>
     <string name="edit_share_done">dokončeno</string>
 
-    <string name="action_retry_uploads">Opakování selhalo</string>
-    <string name="action_clear_failed_uploads">Vyčištění selhalo</string>
-    <string name="action_clear_successful_uploads">Vyčištěno</string>
     <string name="action_clear_finished_uploads">Vyčistit dokončená nahrávání</string>
-
     <string name="action_switch_grid_view">Zobrazení v mřížce</string>
     <string name="action_switch_list_view">Zobrazení v seznamu</string>
 
@@ -553,12 +534,10 @@
     <string name="confirmation_remove_files_alert">Opravdu chcete odstranit vybrané položky?</string>
     <string name="confirmation_remove_folders_alert">Opravdu chcete odstranit vybrané položky a jejich obsah?</string>
     <string name="maintenance_mode">Server je v režimu údržby</string>
-
     <string name="uploads_view_upload_status_waiting_for_charging">Čekání na nabití</string>
     <string name="actionbar_search">Hledat</string>
     <string name="files_drop_not_supported">Toto je Nextcloud funkce, prosím nahrát</string>
     <string name="learn_more">Více</string>
-    <string name="drawer_folder_sync">Automatické nahrávání</string>
     <string name="drawer_participate">Zúčastnit se</string>
     <string name="participate_testing_headline">Pomoz nám testovat</string>
     <string name="participate_testing_bug_text">Našli jste chybu? Něco podivného?</string>
@@ -577,13 +556,6 @@
     <string name="participate_contribute_github_text">Kontrolujte, vylepšujte a pište kód, víc informací naleznete na %1$s</string>
     <string name="move_to">Přesunout do&#8230;</string>
     <string name="copy_to">Kopírovat do&#8230;</string>
-    <string name="choose_remote_folder">Vybrat adresář&#8230;</string>
-    <string name="folder_sync_loading_folders">Načítání adresářů&#8230;</string>
-    <string name="folder_sync_no_results">Nebyly nalezeny žádné adresáře médií.</string>
-    <string name="folder_sync_preferences">Nastavení automatického nahrávání</string>
-    <string name="folder_sync_settings">Nastavení</string>
-    <string name="folder_sync_new_info">Okamžité nahrávání dat bylo kompletně předěláno. Navštivte hlavní menu a nakonfigurujte automatické nahrávání svých dat. Omlouváme se za nepříjemnosti.\n\nUžívejte si nové a rozšířené možnosti nahrávání dat!</string>
-    <string name="folder_sync_preferences_folder_path">Pro %1$s</string>
     <plurals name="items_selected_count">
         <item quantity="one">vybráno %d</item>
         <item quantity="few">vybráno %d</item>
@@ -667,7 +639,5 @@
     <string name="privacy">Soukromí</string>
     <string name="file_not_found">Soubor nenalezen!</string>
 
-    <string name="folder_sync_folders">Nastavení adresářů</string>
-
-  <string name="test_server_button">Otestovat připojení k serveru</string>
-</resources>
+    <string name="test_server_button">Otestovat připojení k serveru</string>
+    </resources>

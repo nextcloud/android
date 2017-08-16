@@ -147,7 +147,7 @@ public class MimeTypeUtil {
         } else if (isSharedViaUsers) {
             drawableId = R.drawable.shared_with_me_folder;
         } else {
-            drawableId = R.drawable.ic_menu_archive;
+            drawableId = R.drawable.folder;
         }
 
         return ThemeUtils.tintDrawable(drawableId, ThemeUtils.primaryColor(account));
@@ -442,7 +442,7 @@ public class MimeTypeUtil {
         MIMETYPE_TO_ICON_MAPPING.put("application/yaml", R.drawable.file_code);
         MIMETYPE_TO_ICON_MAPPING.put("application/zip", R.drawable.file_zip);
         MIMETYPE_TO_ICON_MAPPING.put("database", R.drawable.file);
-        MIMETYPE_TO_ICON_MAPPING.put("httpd/unix-directory", R.drawable.ic_menu_archive);
+        MIMETYPE_TO_ICON_MAPPING.put("httpd/unix-directory", R.drawable.folder);
         MIMETYPE_TO_ICON_MAPPING.put("image/svg+xml", R.drawable.file_image);
         MIMETYPE_TO_ICON_MAPPING.put("image/vector", R.drawable.file_image);
         MIMETYPE_TO_ICON_MAPPING.put("text/calendar", R.drawable.file_calendar);
@@ -456,7 +456,7 @@ public class MimeTypeUtil {
         MIMETYPE_TO_ICON_MAPPING.put("text/x-python", R.drawable.file_code);
         MIMETYPE_TO_ICON_MAPPING.put("text/x-shellscript", R.drawable.file_code);
         MIMETYPE_TO_ICON_MAPPING.put("web", R.drawable.file_code);
-        MIMETYPE_TO_ICON_MAPPING.put(MimeType.DIRECTORY, R.drawable.ic_menu_archive);
+        MIMETYPE_TO_ICON_MAPPING.put(MimeType.DIRECTORY, R.drawable.folder);
     }
 
     /**

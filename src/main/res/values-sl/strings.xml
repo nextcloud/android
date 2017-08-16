@@ -12,8 +12,9 @@
     <string name="actionbar_see_details">Podrobnosti</string>
     <string name="actionbar_send_file">Pošlji</string>
     <string name="actionbar_sort">Razvrsti</string>
-    <string name="actionbar_sort_title">Razvrsti ...</string>
     <string name="sort_by">Razvrsti po</string>
+    <string name="menu_item_sort_by_name_a_z">A - Ž</string>
+    <string name="menu_item_sort_by_name_z_a">Ž - A</string>
     <string name="menu_item_sort_by_date_newest_first">Najnovejše</string>
     <string name="menu_item_sort_by_date_oldest_first">Najstarejše</string>
     <string name="menu_item_sort_by_size_biggest_first">Največje</string>
@@ -38,32 +39,37 @@
     <string name="drawer_open">Odpri</string>
     <string name="prefs_category_general">Splošno</string>
     <string name="prefs_category_more">Več</string>
-    <string name="prefs_accounts">Računi</string>
     <string name="prefs_manage_accounts">Upravljanje z računi</string>
     <string name="prefs_passcode">Zakleni dostop s kodo PIN</string>
     <string name="prefs_fingerprint">Ključavnica na prstni odtis</string>
     <string name="prefs_fingerprint_notsetup">Prstni odtis ni nasavljen.</string>
+    <string name="prefs_expert_mode">Napredni način</string>
     <string name="prefs_show_hidden_files">Prikaži skrite datoteke</string>
-    <string name="prefs_log_title">Omogoči beleženje</string>
-    <string name="prefs_log_summary">Uporablja se za beleženje težav in napak</string>
-    <string name="prefs_log_title_history">Zgodovina beleženja</string>
-    <string name="prefs_log_summary_history">Pokaže shranjene dnevnike</string>
     <string name="prefs_log_delete_history_button">Izbriši zgodovino</string>
     <string name="prefs_calendar_contacts">Nastavi sinhronizacijo koledarja in kontaktov</string>
     <string name="prefs_calendar_contacts_summary">Nastavi DAVdroid (v1.3.0+) za trenutno uporabljen račun</string>
     <string name="prefs_calendar_contacts_address_resolve_error">Naslov strežnika za račun ne more biti razrešena za DAVdroid</string>
+    <string name="prefs_calendar_contacts_no_store_error">Niti F-droid niti Google Play nista naložena</string>
+    <string name="prefs_calendar_contacts_sync_setup_successful">Nastavitev sinhronizacije koledarja&amp; stikov</string>
+    <string name="prefs_daily_contacts_sync_summary">Dnevno shranjevanje stikov</string>
     <string name="prefs_help">Pomoč</string>
     <string name="prefs_recommend">Priporoči prijatelju</string>
     <string name="prefs_feedback">Pošlji sporočilo razvijalcem programa</string>
     <string name="prefs_imprint">Natis</string>
-    <string name="recommend_subject">Preizkusi %1$s na pametnem telefonu!</string>
-	<string name="auth_check_server">Preveri strežnik</string>
-    <string name="auth_host_url">Naslov strežnika https://…</string>
+
+	<string name="recommend_subject">Preizkusi %1$s na pametnem telefonu!</string>
+	<string name="recommend_text">Želim ti predstaviti %1$s na pametnem telefonu!\nPrejmeš ga lahko na: %2$s</string>
+    <string name="recommend_urls">%1$s ali %2$s</string>
+
+    <string name="auth_check_server">Preveri strežnik</string>
+    <string name="auth_host_url">Naslov strežnika https://&#8230;</string>
     <string name="auth_username">Uporabniško ime</string>
     <string name="auth_password">Geslo</string>
+    <string name="auth_register">Še nimaš strežnika?\nKlikni tukaj, da dobiš enega.</string>
     <string name="sync_string_files">Datoteke</string>
     <string name="setup_btn_connect">Poveži</string>
     <string name="uploader_btn_upload_text">Pošlji</string>
+    <string name="uploader_btn_alternative_text">Izberi</string>
     <string name="uploader_top_message">Izberi mapo za nalaganje</string>
     <string name="uploader_wrn_no_account_title">Uporabniškega računa ni mogoče najti</string>
     <string name="uploader_wrn_no_account_text">Za %1$s ni določenega računa. Pred nadaljevanjem ga je treba ustvariti.</string>
@@ -74,16 +80,29 @@
     <string name="uploader_error_message_no_file_to_upload">Prejeti podatki ne vključujejo nobene veljavne datoteke.</string>
     <string name="uploader_error_title_file_cannot_be_uploaded">Te datoteke ni mogoče naložiti</string>
     <string name="uploader_error_message_read_permission_not_granted">%1$s nima ustreznih dovoljen za prejemanje datoteke</string>
+    <string name="uploader_error_message_source_file_not_found">Datoteke določene za nalaganje ne najdem. Prosim preveri, če sploh obstaja.</string>
+    <string name="uploader_error_message_source_file_not_copied">Prišlo je do napake med kopiranjem datoteke v začasno mapo. Poskusi znova poslati kasneje.</string>
     <string name="uploader_upload_files_behaviour">Nastavitev nalaganja:</string>
     <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">Premakni datoteko v mapo Nextcloud</string>
     <string name="uploader_upload_files_behaviour_only_upload">Ohrani datoteko v izvorni mapi</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Pobriši datoteko iz izvorne mape</string>
     <string name="file_list_seconds_ago">pred nekaj sekundami</string>
     <string name="file_list_empty_headline">Ni datotek tukaj</string>
+    <string name="folder_list_empty_headline">Tukaj ni map</string>
+    <string name="file_list_empty">Naloži vsebino ali sinhroniziraj s svojo napravo.</string>
     <string name="file_list_loading">Poteka nalaganje&#8230;</string>
     <string name="local_file_list_empty">V tej mapi ni datotek.</string>
+    <string name="local_folder_list_empty">Ni drugih map.</string>
+    <string name="file_list_empty_headline_search">V tej mapi ni rezultatov</string>
+    <string name="file_list_empty_headline_server_search">Ni rezultatov</string>
     <string name="file_list_empty_headline_server_search_videos">Ni video posnetkov</string>
     <string name="file_list_empty_headline_server_search_photos">Ni fotografij</string>
+    <string name="file_list_empty_search">Mogoče v drugi mapi?</string>
+    <string name="file_list_empty_text_photos">Naloži kakšno sliko ali vključi samodejno nalaganje.</string>
+    <string name="file_list_empty_text_videos">Naloži kakšen video ali vključi samodejno nalaganje.</string>
+    <string name="upload_list_empty_headline">Nič ni pripravljeno za nalaganje</string>
+    <string name="upload_list_empty_text">Naloži kakšno vsebino ali vključi hipno nalaganje.</string>
+    <string name="upload_list_empty_text_auto_upload">Naloži kakšno vsebino ali vključi samodejno nalaganje.</string>
     <string name="file_list_folder">mapa</string>
     <string name="file_list_folders">mape</string>
     <string name="file_list_file">datoteka</string>
@@ -95,6 +114,7 @@
     <string name="filedetails_modified">Spremenjeno:</string>
     <string name="filedetails_download">Prejmi</string>
     <string name="filedetails_sync_file">Uskladi</string>
+    <string name="filedetails_renamed_in_upload_msg">Datoteka je bila preimenovana v %1$s med nalaganjem</string>
     <string name="action_share">Souporaba</string>
     <string name="common_yes">Da</string>
     <string name="common_no">Ne</string>
@@ -111,10 +131,12 @@
     <string name="common_unknown">neznano</string>
     <string name="common_error_unknown">Neznana napaka</string>
     <string name="common_pending">V teku</string>
+    <string name="common_delete">Pobriši</string>
     <string name="about_title">O oblaku %1$s</string>
     <string name="change_password">Spremeni geslo</string>
     <string name="delete_account">Odstrani račun</string>
     <string name="create_account">Ustvari račun</string>
+    <string name="active_user">Aktivni uporabnik</string>
     <string name="upload_chooser_title">Pošlji datoteko iz &#8230;</string>
     <string name="uploader_info_dirname">Ime mape</string>
     <string name="uploader_upload_in_progress_ticker">Pošiljanje &#8230;</string>
@@ -122,10 +144,11 @@
     <string name="uploader_upload_succeeded_ticker">Poslano</string>
     <string name="uploader_upload_succeeded_content_single">%1$s: poslano v oblak</string>
     <string name="uploader_upload_failed_ticker">Pošiljanje je spodletelo</string>
+    <string name="uploader_upload_failed_content_single">Ne morem naložiti %1$s</string>
     <string name="uploader_upload_failed_credentials_error">Pošiljanje je spodletelo. Zahtevana je ponovna prijava.</string>
     <string name="uploads_view_title">Poslano</string>
     <string name="uploads_view_group_current_uploads">Trenutno</string>
-    <string name="uploads_view_group_failed_uploads">Spodletelo (kliknite za ponovni poskus)</string>
+    <string name="uploads_view_group_failed_uploads">Ponovni zagon neuspel ali v teku</string>
     <string name="uploads_view_group_finished_uploads">Poslano</string>
     <string name="uploads_view_upload_status_succeeded">Končano</string>
     <string name="uploads_view_upload_status_cancelled">Preklicano</string>
@@ -138,7 +161,9 @@
     <string name="uploads_view_upload_status_failed_localfile_error">Krajevne datoteke ni mogoče najti</string>
     <string name="uploads_view_upload_status_failed_permission_error">Napaka dovoljenj</string>
     <string name="uploads_view_upload_status_conflict">Spor</string>
+    <string name="uploads_view_upload_status_service_interrupted">Aplikacija ukinjena</string>
     <string name="uploads_view_upload_status_unknown_fail">Neznana napaka</string>
+    <string name="uploads_view_upload_status_waiting_for_wifi">Čakam WiFi zvezo</string>
     <string name="uploads_view_later_waiting_to_upload">Čakanje na pošiljanje</string>
     <string name="downloader_download_in_progress_ticker">Prejemanje &#8230;</string>
     <string name="downloader_download_in_progress_content">%1$d%% Prejemanje %2$s</string>
@@ -149,17 +174,22 @@
     <string name="downloader_download_failed_credentials_error">Prejemanje je spodletelo. Zahtevana je ponovna prijava.</string>
     <string name="common_choose_account">Izbor računa</string>
     <string name="sync_fail_ticker">Usklajevanje je spodletelo</string>
+    <string name="sync_fail_ticker_unauthorized">Sinhronizacija ni uspela, moraš se ponovno prijaviti</string>
+    <string name="sync_fail_content_unauthorized">Napačno geslo za %1$s</string>
     <string name="sync_conflicts_in_favourites_ticker">Zaznani spori</string>
     <string name="sync_conflicts_in_favourites_content">%1$d stalno usklajenih datotek ni bilo mogoče uskladiti</string>
     <string name="sync_fail_in_favourites_ticker">Posodobitev stalno usklajenih datotek je spodletelo</string>
     <string name="sync_fail_in_favourites_content">Vsebine %1$d datotek ni bilo mogoče uskladiti (zaznanih je %2$d sporov)</string>
     <string name="sync_foreign_files_forgotten_ticker">Nekatere krajevne datoteke so spregledane</string>
     <string name="sync_foreign_files_forgotten_content">Skupno %1$d datotek iz mape %2$s ni mogoče kopirati v</string>
+    <string name="sync_foreign_files_forgotten_explanation">Od različice 1.3.16 so datoteke, poslane iz te naprave, varnostno kopirane v krajevno mapo %1$s. S tem je preprečena možnost izgube podatkov, ko se ena datoteka usklajuje z več računi.\n\nZaradi te spremembe so vse datoteke, ki so bile kopirane v prejšnjih različicah, kopirane v mapo %2$s. Zaradi napake ni mogoče končati usklajevanja. Datoteke lahko ali pustiš kjer so, in odstraniš povezavo na %3$s ali pa premakneš datoteke v mapo %1$s in ohraniš povezavo do %4$s.\n\nSpodaj so izpisane krajevne datoteke in oddaljene povezane datoteke v mapi %5$s.</string>
+    <string name="sync_current_folder_was_removed">Mapa %1$s ne obstaja več</string>
     <string name="foreign_files_move">Premakni vse</string>
     <string name="foreign_files_success">Vse datoteke so uspešno premaknjene na novo mesto</string>
     <string name="foreign_files_fail">Nekaterih datotek ni mogoče premakniti</string>
     <string name="foreign_files_local_text">Krajevno: %1$s</string>
     <string name="foreign_files_remote_text">Oddaljeno: %1$s</string>
+    <string name="upload_query_move_foreign_files">Ni dovolj prostora za kopiranje izbranih datotek v mapo %1$s. Ali želiš datoteke premakniti na novo mesto?</string>
     <string name="pass_code_enter_pass_code">Vnesite kodo PIN</string>
     
     <string name="pass_code_configure_your_pass_code">Vnesite kodo PIN programa</string>
@@ -177,7 +207,16 @@
     <string name="media_event_done">Predvajanje %1$s je končano</string>
     <string name="media_err_nothing_to_play">Predstavnih datotek ni mogoče najti</string>
     <string name="media_err_no_account">Ni navedenega računa</string>
+    <string name="media_err_not_in_owncloud">Dokument ni shranjen v veljavnem računu.</string>
     <string name="media_err_unsupported">Nepodprt predstavni kodek</string>
+    <string name="media_err_io">Predstavne datoteke ni mogoče prebrati.</string>
+    <string name="media_err_malformed">Predstavna datoteka ni pravilno kodirana.</string>
+    <string name="media_err_timeout">Poskus predvajanja je časovno potekel</string>
+    <string name="media_err_invalid_progressive_playback">Predstavne datoteke ni mogoče prikazati v pretoku</string>
+    <string name="media_err_unknown">Predstavne datoteke ni mogoče predvajati s sistemsko privzetim predvajalnikom</string>
+    <string name="media_err_security_ex">Prišlo je do varnostne napake med predvajanjem %1$s</string>
+    <string name="media_err_io_ex">Prišlo je do napake vhoda med predvajanjem %1$s</string>
+    <string name="media_err_unexpected">Prišlo je do nepričakovane napake med predvajanjem %1$s</string>
     <string name="media_rewind_description">Vrni nazaj</string>
     <string name="media_play_pause_description">Gumb za predvajanje in premor</string>
     <string name="media_forward_description">Gumb za hitro predvajanje naprej</string>
@@ -189,43 +228,71 @@
 	<string name="auth_connection_established">Povezava je vzpostavljena</string>
 	<string name="auth_testing_connection">Preizkusna povezava</string>
 	<string name="auth_not_configured_title">Napačno oblikovane nastavitve strežnika</string>
+	<string name="auth_account_not_new">Na napravi račun za istega uporabnika in strežnik že obstaja</string>
 	<string name="auth_account_not_the_same">Vpisan uporabnik ni lastnik tega računa</string>
 	<string name="auth_unknown_error_title">Prišlo je do neznane napake!</string>
+	<string name="auth_unknown_host_title">Gostitelja ni mogoče najti</string>
+	<string name="auth_incorrect_path_title">Strežnika ni mogoče najti</string>
 	<string name="auth_timeout_title">Odziv s strežnika je časovno pretekel</string>
+	<string name="auth_incorrect_address_title">Napačen zapis naslova strežnika</string>
 	<string name="auth_ssl_general_error_title">Začenjanje SSL je spodletelo</string>
+	<string name="auth_ssl_unverified_server_title">Ni mogoče overiti istovetnosti strežnika SSL</string>
 	<string name="auth_bad_oc_version_title">Nepoznana različica strežnika</string>
+	<string name="auth_wrong_connection_title">Ni mogoče vzpostaviti povezave</string>
 	<string name="auth_secure_connection">Varna povezava je vzpostavljena</string>
 	<string name="auth_unauthorized">Napačno uporabniško ime ali geslo</string>
 	<string name="auth_oauth_error">Overitev ni uspešno končana</string>
 	<string name="auth_oauth_error_access_denied">Dostop je zavrnjen s strani overitvenega strežnika</string>
+	<string name="auth_wtf_reenter_URL">Nepričakovano stanje. Znova vpiši podatke strežnika.</string>
 	<string name="auth_expired_oauth_token_toast">Overitev računa je potekla. Pred nadaljevanjem je treba prijavo ponovno overiti.</string>
 	<string name="auth_expired_basic_auth_toast">Vpišite trenutno geslo</string>
 	<string name="auth_expired_saml_sso_token_toast">Seja je potekla. Ponovno je treba vzpostaviti povezavo.</string>
+	<string name="auth_connecting_auth_server">Povezovanje s overitvenim strežnikom&#8230;</string>
 	<string name="auth_unsupported_auth_method">Strežnik ne podpira tega načina overitve</string>
 	<string name="auth_unsupported_multiaccount">%1$s ne omogoča podpore več računom</string>
+	<string name="auth_fail_get_user_name">Strežnik ne vrača ustreznega ID uporabnika. Stopi v stik s skrbnikom sistema.
+	</string>
 	<string name="auth_can_not_auth_against_server">Povezave s strežnikom ni mogoče overiti</string>
+    <string name="auth_account_does_not_exist">Račun na napravi še ne obstaja</string>
+
+
     <string name="favorite">Nastavi dosegljivost brez povezave</string>
     <string name="unfavorite">Odstrani dosegljivost brez povezave</string>
+    <string name="favorite_real">Nastavi kot priljubljeno</string>
+    <string name="unset_favorite_real">Ni več priljubljeno</string>
     <string name="common_rename">Preimenuj</string>
     <string name="common_remove">Odstrani</string>
     <string name="confirmation_remove_file_alert">Ali resnično želiš odstraniti %1$s?</string>
+    <string name="confirmation_remove_folder_alert">Ali res želiš odstraniti %1$s skupaj z vsebino?</string>
     <string name="confirmation_remove_local">Le krajevno</string>
+    <string name="remove_success_msg">Odstranjeno</string>
     <string name="remove_fail_msg">Odstranjevanje je spodletelo</string>
     <string name="rename_dialog_title">Vnesite novo ime</string>
+    <string name="rename_local_fail_msg">Krajevne datoteke ni mogoče preimenovati; poskusi z drugačnim novim imenom</string>
+    <string name="rename_server_fail_msg">Preimenovanja strežnika ni možno dokončati</string>
+    <string name="sync_file_fail_msg">Oddaljene datoteke ni mogoče preveriti</string>
     <string name="sync_file_nothing_to_do_msg">Vsebina datoteke je že usklajena</string>
+    <string name="create_dir_fail_msg">Ne morem ustvariti mape</string>
     <string name="filename_forbidden_characters">Nedovoljeni znaki: characters: / \\ &lt; &gt; : \" | ? *</string>
     <string name="filename_forbidden_charaters_from_server">Ime datoteke vsebuje vsaj en neveljaven znak.</string>
     <string name="filename_empty">Ime datoteke ne sme biti prazno</string>
+    <string name="wait_a_moment">Počakaj trenutek&#8230;</string>
     <string name="wait_checking_credentials">Poteka preverjanje shranjenih poveril</string>
+    <string name="filedisplay_unexpected_bad_get_content">Prišlo je do nepričakovane napake. Poskusi datoteko izbrati z drugim programom.</string>
+    <string name="filedisplay_no_file_selected">Ni izbranih datotek</string>
     <string name="activity_chooser_title">Pošlji povezavo &#8230;</string>
     <string name="wait_for_tmp_copy_from_private_storage">Kopiranje datoteke iz zasebne shrambe</string>
     
+    <string name="oauth_check_onoff">Prijava  z oAuth2</string> 
+    <string name="oauth_login_connection">Poteka povezovanje s strežnikom OAuth 2.0&#8230;</string>
+        
     <string name="ssl_validator_header">Istovetnosti strani ni mogoče preveriti</string>
     <string name="ssl_validator_reason_cert_not_trusted">- potrdilo strežnika ni vredno zaupanja</string>
     <string name="ssl_validator_reason_cert_expired">- potrdilo strežnika je poteklo</string>
     <string name="ssl_validator_reason_cert_not_yet_valid">- potrdilo strežnika je v uporabi</string>
     <string name="ssl_validator_reason_hostname_not_verified">- naslov URL ni skladen z imenom gostitelja potrdila</string>
     <string name="ssl_validator_question">Ali vseeno želite zaupati potrdilu?</string>
+    <string name="ssl_validator_not_saved">Ne morem shraniti certifikata</string>
     <string name="ssl_validator_btn_details_see">Podrobnosti</string>
     <string name="ssl_validator_btn_details_hide">Skrij</string>
     <string name="ssl_validator_label_subject">Izdano za:</string>
@@ -249,26 +316,41 @@
 
     <string name="placeholder_sentence">To je vsebnik predmetov</string>
     <string name="placeholder_filename">vsebnik.txt</string>
+    <string name="placeholder_filetype">PNG slika</string>
     <string name="placeholder_filesize">389 KB</string>
     <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
     <string name="placeholder_media_time">12:23:45</string>
 
-    <string name="instant_upload_path">/Poslano</string>
+    <string name="auto_upload_on_wifi">Nalagaj samo na WiFi-ju</string>
+    <string name="instant_upload_on_wifi">Naloži samo slike na WiFi-ju</string>
+    <string name="instant_video_upload_on_wifi">Naloži samo posnetke na WiFi-ju</string>
+    <string name="instant_video_upload_on_charging">Nalagaj samo med polnjenjem</string>
+    <string name="instant_upload_on_charging">Nalagaj samo med polnjenjem</string>
+    <string name="instant_upload_path">/Hipno nalaganje</string>
+    <string name="auto_upload_path">/SamodejnoNalaganje</string>
     <string name="conflict_title">Neskladje datotek</string>
+    <string name="conflict_message">Katere datoteke želiš ohraniti? Če izbereš obe različici, bo lokalni datoteki dodatna k imenu še številka.</string>
     <string name="conflict_keep_both">Ohrani obe</string>
     <string name="conflict_use_local_version">krajevna različica</string>
     <string name="conflict_use_server_version">različica strežnika</string>
 
+    <string name="preview_sorry">Žal.</string>
     <string name="preview_image_description">Predogled slike</string>
+    <string name="preview_image_error_unknown_format">Te slike ni mogoče prikazati</string>
+
     <string name="error__upload__local_file_not_copied">Datoteke %1$s ni mogoče kopirati v krajevno mapo %2$s</string>
     <string name="prefs_instant_upload_path_title">Mapa za hipno nalaganje</string>
+    <string name="prefs_synced_folders_local_path_title">Lokalna mapa</string>
+    <string name="prefs_synced_folders_remote_path_title">Mapa na strežniku</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Uporabi podmape</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Shrani v podmape kot leto in mesec</string>
 
+	<string name="share_link_no_support_share_api">Souporaba na strežniku ni omogočena. Kontaktiraj upravnika.</string>
 	<string name="share_link_file_no_exist">Souporaba ni mogoča. Preverite, ali datoteka obstaja.</string>
 	<string name="share_link_file_error">Prišlo je do napake med poskusom omogočanja souporabe te datoteke ali mape</string>
 	<string name="unshare_link_file_no_exist">Ni mogoče prekiniti souporabe. Preverite, ali datoteka obstaja.</string>
 	<string name="unshare_link_file_error">Prišlo je do napake med poskusom odstranjevanja souporabe te datoteke ali mape</string>
+    <string name="update_link_file_no_exist">Posodobitev ni mogoča. Preveri, ali datoteka obstaja.</string>
     <string name="update_link_file_error">Prišlo je do napake med posodabljanjem mesta souporabe</string>
     <string name="share_link_password_title">Vpis gesla</string>
     <string name="share_link_empty_password">Vpisati je treba geslo.</string>
@@ -277,15 +359,51 @@
 
     <string name="copy_link">Kopiraj povezavo</string>
     <string name="clipboard_text_copied">Kopirano v odložišče</string>
+    <string name="clipboard_no_text_to_copy">Ni prejetega besedila za kopiranje v odložišče</string>
     <string name="clipboard_uxexpected_error">Prišlo je do napake med kopiranjem v odložišče</string>
     <string name="clipboard_label">Besedilo je kopirano iz %1$s</string>
 
+    <string name="error_cant_bind_to_operations_service">Kritična napaka: Opravil ni možno izvesti</string>
+
+    <string name="network_error_socket_exception">Med povezovanjem s strežnikom je prišlo do napake.</string>
+    <string name="network_error_socket_timeout_exception">Med čakanjem na vzpostavitev povezave s strežnikom je prišlo do napake. Zahtevanega dejanja ni mogoče izvesti.</string>
+    <string name="network_error_connect_timeout_exception">Med čakanjem na vzpostavitev povezave s strežnikom je prišlo do napake. Zahtevanega dejanja ni bilo mogoče končati.</string>
+    <string name="network_host_not_available">Zahtevanega dejanja ni bilo mogoče končati. Strežnik ni dosegljiv</string>
+
+    <string name="forbidden_permissions">Ni ustreznega dovoljenja %s</string>
     <string name="forbidden_permissions_rename">za preimenovanje datoteke.</string>
     <string name="forbidden_permissions_delete">za izbris datoteke.</string>
     <string name="share_link_forbidden_permissions">za omogočanje souporabe datoteke.</string>
     <string name="unshare_link_forbidden_permissions">za preklic souporabe datoteke.</string>
     <string name="update_link_forbidden_permissions">za posodobitev mesta souporabe</string>
+    <string name="forbidden_permissions_create">za ustvarjanje datoteke</string>
+    <string name="uploader_upload_forbidden_permissions">za nalaganje te mape</string>
     <string name="downloader_download_file_not_found">Datoteka na strežniku ni več na voljo.</string>
+
+    <string name="file_migration_dialog_title">Posodabljam mesto shrambe</string>
+    <string name="file_migration_finish_button">Zaključek</string>
+    <string name="file_migration_preparing">Priprava na migracijo&#8230;</string>
+    <string name="file_migration_checking_destination">Preverjam cilj&#8230;</string>
+    <string name="file_migration_saving_accounts_configuration">Shranjujem nastavitve računov&#8230;</string>
+    <string name="file_migration_waiting_for_unfinished_sync">Čakam, da se vse sinhronizacije zaključijo&#8230;</string>
+    <string name="file_migration_migrating">Premikam podatke&#8230;</string>
+    <string name="file_migration_updating_index">Posodabljam indekse&#8230;</string>
+    <string name="file_migration_cleaning">Čistim&#8230;</string>
+    <string name="file_migration_restoring_accounts_configuration">Obnavljam nastavitve računov&#8230;</string>
+    <string name="file_migration_ok_finished">Zaključeno</string>
+    <string name="file_migration_failed_not_enough_space">Napaka: premalo prostora</string>
+    <string name="file_migration_failed_not_writable">Napaka: Cilj ne dovoljuje zapisovanja</string>
+    <string name="file_migration_failed_not_readable">Napaka: Izvor ni berljiv</string>
+    <string name="file_migration_failed_dir_already_exists">Napaka: Nextcloud mapa že obstaja</string>
+    <string name="file_migration_failed_while_coping">Napaka: Izpad med migracijo</string>
+    <string name="file_migration_failed_while_updating_index">Napaka: Izpad med posodabljanjem indeksov</string>
+
+    <string name="file_migration_directory_already_exists">Mapa že obstaja. Izberi možnost:</string>
+    <string name="file_migration_override_data_folder">Zamenjaj</string>
+    <string name="file_migration_use_data_folder">Uporabi</string>
+
+    <string name="file_migration_source_not_readable_title">Izvorna mapa ni berljiva!</string>
+    <string name="file_migration_source_not_readable">Ali še vedno želiš spremeniti mesto shrambe na %1$s?\n\nVedi: Vse podatke moram prebrati ponovno.</string>
 
     <string name="prefs_category_accounts">Računi</string>
     <string name="prefs_add_account">Dodaj račun</string>
@@ -298,20 +416,28 @@
 	<string name="saml_authentication_required_text">Zahtevana je overitev</string>
 	<string name="saml_authentication_wrong_pass">Napačno geslo</string>
 	<string name="actionbar_move">Premakni</string>
-    <string name="folder_picker_choose_button_text">Izbor</string>
+    <string name="actionbar_copy">Kopiraj</string>
+	<string name="file_list_empty_moving">Ni vsebine. Lahko ustvariš na primer mapo.</string>
+	<string name="folder_picker_choose_button_text">Izbor</string>
 
+    <string name="move_file_not_found">Ni mogoče premakniti datoteke. Preveri, ali obstaja.</string>
+    <string name="move_file_invalid_into_descendent">Ni mogoče premakniti mape v podrejeno mapo</string>
+    <string name="move_file_invalid_overwrite">Datoteka v ciljni mapi že obstaja</string>
     <string name="move_file_error">Prišlo je do napake med premikanjem datoteke v mapo</string>
     <string name="forbidden_permissions_move">med premikanjem datoteke</string>
 
 
     <string name="copy_file_not_found">Kopiranje ni mogoče. Preverite, ali datoteka obstaja.</string>
+    <string name="copy_file_invalid_into_descendent">Ni mogoče kopirati mape v podrejeno mapo</string>
+    <string name="copy_file_invalid_overwrite">Datoteka v ciljni mapi že obstaja</string>
     <string name="copy_file_error">Prišlo je do napake med kopiranjem datoteke v mapo</string>
     <string name="forbidden_permissions_copy">za kopiranje te datoteke</string>
 
     <string name="prefs_category_instant_uploading">Hipno pošiljanje</string>
     <string name="prefs_category_details">Podrobnosti</string>
 
-	<string name="sync_folder_failed_content">Usklajevanja mape %1$s ni mogoče zaključiti</string>
+	<string name="prefs_instant_video_upload_path_title">Mapa s posnetki za hipno nalaganje</string>
+    <string name="sync_folder_failed_content">Usklajevanja mape %1$s ni mogoče zaključiti</string>
 
 	<string name="shared_subject_header">v souporabi</string>
 	<string name="with_you_subject_header">z vami</string>
@@ -333,6 +459,9 @@
     <string name="file_list__footer__files">%1$d datotek</string>
     <string name="file_list__footer__files_and_folder">%1$d datotek, 1 mapa</string>
     <string name="file_list__footer__files_and_folders">%1$d datotek, %2$d map</string>
+    <string name="set_picture_as">Uporabi sliko kot</string>
+    <string name="set_as">Nastavi kot</string>
+
     <string name="prefs_instant_behaviour_dialogTitle">Izvorno datoteko&#8230;</string>
     <string name="prefs_instant_behaviour_title">Izvorno datoteko&#8230;</string>
     <string name="upload_copy_files">Kopiraj datoteko</string>
@@ -341,6 +470,9 @@
     <string name="pref_behaviour_entries_keep_file">ohrani v izvorni mapi</string>
     <string name="pref_behaviour_entries_move">premakni v mapo programa</string>
     <string name="pref_behaviour_entries_delete_file">pobrisano</string>
+    <string name="prefs_storage_path">Mesto shrambe</string>
+    <string name="prefs_common">Splošno</string>
+
     <string name="share_dialog_title">Souporaba</string>
     <string name="share_file">Omogoči souporabo %1$s</string>
     <string name="share_with_user_section_title">Omogoči souporabo s skupino ali z uporabnikom</string>
@@ -348,6 +480,7 @@
     <string name="share_add_user_or_group">Dodaj uporabnika ali skupino</string>
     <string name="share_via_link_section_title">Omogoči souporabo prek povezave</string>
     <string name="share_via_link_expiration_date_label">Nastavi datum preteka</string>
+    <string name="share_via_link_password_label">Zaščiti z geslom</string>
     <string name="share_via_link_password_title">Varovano</string>
     <string name="share_via_link_edit_permission_label">Dovoli urejanje</string>
     <string name="share_via_link_hide_file_listing_permission_label">Skrij spisek datotek</string>
@@ -360,8 +493,12 @@
     <string name="search_users_and_groups_hint">Iskanje uporabnikov in skupin</string>
     <string name="share_group_clarification">%1$s (skupina)</string>
     <string name="share_remote_clarification">%1$s (oddaljeno)</string>
+    <string name="share_email_clarification">%1$s (e-pošta)</string>
     <string name="share_known_remote_clarification">%1$s ( pri %2$s )</string>
 
+    <string name="filedetails_share_link_enable">Deljenje s povezavo omogočeno</string>
+    <string name="filedetails_share_link_disable">Ni deljeno s povezavo</string>
+    <string name="filedetails_share_users_with_access">Uporabniki in skupine z dostopom</string>
     <string name="share_privilege_can_share">lahko omogoči souporabo</string>
     <string name="share_privilege_can_edit">lahko ureja</string>
     <string name="share_privilege_can_edit_create">ustvari</string>
@@ -370,7 +507,12 @@
     <string name="edit_share_unshare">Prekini souporabo</string>
     <string name="edit_share_done">končano</string>
 
-    <string name="action_clear_failed_uploads">Počiščenje je spodletelo</string>
+    <string name="action_retry_uploads">Ponovi neuspela nalaganja</string>
+    <string name="action_clear_failed_uploads">Pobriši neuspela nalaganja</string>
+    <string name="action_clear_successful_uploads">Pobriši uspela nalaganja</string>
+    <string name="action_clear_finished_uploads">Pobriši končana nalaganja</string>
+    <string name="action_force_rescan">Vsili osvežitev</string>
+
     <string name="action_switch_grid_view">Mrežni pogled</string>
     <string name="action_switch_list_view">Seznamski pogled</string>
 
@@ -378,14 +520,33 @@
     <string name="manage_space_clear_data">Počisti podatke</string>
     <string name="manage_space_error">Nekaterih datotek ni mogoče izbrisati.</string>
 
+    <string name="permission_storage_access">Za prejemanje oziroma pošiljanje datotek v oblak so zahtevana dodatna dovoljenja.</string>
+    <string name="local_file_not_found_toast">Datoteke ni mogoče najti na krajevnem sistemu</string>
     <string name="confirmation_remove_files_alert">Ali resnično želiš odstraniti izbrane elemente?</string>
     <string name="confirmation_remove_folders_alert">Ali resnično želiš odstraniti izbrane elemente in njihovo vsebino?</string>
+    <string name="maintenance_mode">Strežnik je v načinu vzdrževanja</string>
+    <string name="lock_failed">Ne morem zakleniti daoteke</string>
+
+    <string name="uploads_view_upload_status_waiting_for_charging">Čakam polnjenje</string>
     <string name="actionbar_search">Iskanje</string>
     <string name="files_drop_not_supported">To je Nexcloud funkcija, prosim posodobi.</string>
     <string name="learn_more">Prikaži več</string>
+    <string name="drawer_synced_folders">Samodejno nalaganje</string>
     <string name="drawer_participate">Sodeluj</string>
+    <string name="participate_testing_headline">Pomagaj s testiranjem</string>
     <string name="participate_release_candidate_headline">Kandidat za objavo</string>
     <string name="participate_contribute_headline">Aktivni prispevek</string>
+    <string name="participate_contribute_translate_translate">Prevedi</string>
+    <string name="participate_contribute_translate_text">aplikacijo</string>
+    <string name="move_to">Premakni v&#8230;</string>
+    <string name="copy_to">Kopiraj v&#8230;</string>
+    <string name="choose_remote_folder">Izberi mapo n astrežniku&#8230;</string>
+    <string name="choose_local_folder">Izberi lokalno mapo&#8230;</string>
+    <string name="synced_folders_loading_folders">Berem mape&#8230;</string>
+    <string name="synced_folders_preferences">Nastavitve za samodejno nalaganje</string>
+    <string name="synced_folders_settings">Nastavitve</string>
+    <string name="synced_folders_new_info">Hipno nalaganje je bilo v celoti prenovljeno. Ponovno nastavi samodejno nalaganje iz glavnega menuja..\n\nUživaj v ovem in razširjenem samodejnem nalaganju.</string>
+    <string name="synced_folders_preferences_folder_path">Za %1$s</string>
     <plurals name="items_selected_count">
         <item quantity="one">%d izbran</item>
         <item quantity="two">%d izbrana</item>
@@ -393,4 +554,9 @@
         <item quantity="other">%d izbranih</item>
     </plurals>
 
+    <string name="upload_file_dialog_title">Vnesi ime in zvrst datoteke za nalaganje</string>
+    <string name="storage_description_unknown">Neznano</string>
+
+    <string name="welcome_feature_3_title">Hipno nalaganje</string>
+    <string name="contacts_automatic_backup">Samodejno shranjevanje</string>
     </resources>

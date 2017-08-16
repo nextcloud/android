@@ -12,7 +12,6 @@
     <string name="actionbar_see_details">Ayrıntılar</string>
     <string name="actionbar_send_file">Gönder</string>
     <string name="actionbar_sort">Sırala</string>
-    <string name="actionbar_sort_title">Şuna göre sırala</string>
     <string name="sort_by">Sıralama</string>
     <string name="menu_item_sort_by_name_a_z">A - Z</string>
     <string name="menu_item_sort_by_name_z_a">Z - A</string>
@@ -40,20 +39,12 @@
     <string name="drawer_open">Aç</string>
     <string name="prefs_category_general">Genel</string>
     <string name="prefs_category_more">Daha fazla</string>
-    <string name="prefs_accounts">Hesaplar</string>
     <string name="prefs_manage_accounts">Hesap yönetimi</string>
     <string name="prefs_passcode">Parola kod kilidi</string>
     <string name="prefs_fingerprint">Parmak izi kilidi</string>
     <string name="prefs_fingerprint_notsetup">Henüz bir parmak izi ayarlanmamış.</string>
+    <string name="prefs_expert_mode">Uzman kipi</string>
     <string name="prefs_show_hidden_files">Gizli dosyaları görüntüle</string>
-    <string name="prefs_instant_upload">Anında fotoğraf yükleme</string>
-    <string name="prefs_instant_upload_summary">Kamera ile çekilen fotoğraflar anında yüklenir</string>
-    <string name="prefs_instant_video_upload">Anında görüntü yükleme</string>
-    <string name="prefs_instant_video_upload_summary">Kamera ile çekilen görüntüler anında yüklenir</string>
-    <string name="prefs_log_title">Günlük kullanılsın</string>
-    <string name="prefs_log_summary">Etkinleştirildiğinde sorunlar günlük dosyasına kaydedilir</string>
-    <string name="prefs_log_title_history">Günlük geçmişi</string>
-    <string name="prefs_log_summary_history">Günlük kayıtlarını görüntüler</string>
     <string name="prefs_log_delete_history_button">Geçmişi sil</string>
     <string name="prefs_calendar_contacts">Takvim ve kişiler eşitlensin</string>
     <string name="prefs_calendar_contacts_summary">Geçerli hesap için DAVdroid (v1.3.0+) kurulumu</string>
@@ -65,21 +56,20 @@
     <string name="prefs_recommend">Arkadaşına öner</string>
     <string name="prefs_feedback">Geri bildirim</string>
     <string name="prefs_imprint">İzlenim</string>
-    <string name="prefs_remember_last_share_location">Paylaşılacak konum hatırlansın</string>
-    <string name="prefs_remember_last_upload_location_summary">Son kullanılan konumlar paylaşılmak üzere hatırlanır</string>
 
 	<string name="recommend_subject">%1$s uygulamasını akıllı telefonunuzda deneyin!</string>
 	<string name="recommend_text">Akıllı telefonunda %1$s kullanmanı öneriyorum!\nBuradan indirebilirsin: %2$s</string>
     <string name="recommend_urls">%1$s ya da %2$s</string>
 
     <string name="auth_check_server">Sunucuyu denetle</string>
-    <string name="auth_host_url">Sunucu adresi https://…</string>
+    <string name="auth_host_url">Sunucu adresi https://&#8230;</string>
     <string name="auth_username">Kullanıcı Adı</string>
     <string name="auth_password">Parola</string>
     <string name="auth_register">Henüz bir sunucunuz yok mu?\Hizmet sağlayıcılardan yararlanabilirsiniz</string>
     <string name="sync_string_files">Dosyalar</string>
     <string name="setup_btn_connect">Bağlan</string>
     <string name="uploader_btn_upload_text">Yükle</string>
+    <string name="uploader_btn_alternative_text">Seçin</string>
     <string name="uploader_top_message">Yüklenecek klasörü seçin</string>
     <string name="uploader_wrn_no_account_title">Herhangi bir hesap bulunamadı</string>
     <string name="uploader_wrn_no_account_text">Aygıtınızda herhangi bir %1$s hesabı yok. Lütfen önce bir hesap kurun.</string>
@@ -98,6 +88,7 @@
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Dosya kaynak klasörden silinsin</string>
     <string name="file_list_seconds_ago">saniye önce</string>
     <string name="file_list_empty_headline">Burada herhangi bir dosya yok</string>
+    <string name="folder_list_empty_headline">Burada herhangi bir klasör yok</string>
     <string name="file_list_empty">Bazı içerikler yükleyin ya da aygıtlarınızla eşitleyin.</string>
     <string name="file_list_empty_favorites">Bazı dosyaları sık kullanılanlara ekleyin ya da aygıtlarınızla paylaşın.</string>
     <string name="file_list_empty_favorites_filter_list">Sık kullanılanlara eklediğiniz dosya ve klasörler burada görüntülenir</string>
@@ -105,6 +96,7 @@
     <string name="file_list_loading">Yükleniyor&#8230;</string>
     <string name="file_list_no_app_for_file_type">Bu dosya türü için uygulama bulunamadı.</string>
     <string name="local_file_list_empty">Bu klasörde herhangi bir dosya yok.</string>
+    <string name="local_folder_list_empty">Bu klasörde başka bir klasör yok.</string>
     <string name="file_list_empty_headline_search">Bu klasörde herhangi bir sonuç yok</string>
     <string name="file_list_empty_headline_server_search">Herhangi bir sonuç bulunamadı</string>
     <string name="file_list_empty_favorite_headline">Henüz sık kullanılan bir öge yok</string>
@@ -153,11 +145,14 @@
     <string name="common_unknown">bilinmiyor</string>
     <string name="common_error_unknown">Bilinmeyen sorun</string>
     <string name="common_pending">Bekleyen</string>
+    <string name="common_delete">Sil</string>
     <string name="about_title">Hakkında</string>
     <string name="change_password">Parola değiştir</string>
     <string name="delete_account">Hesabı kaldır</string>
     <string name="delete_account_warning">%s hesabı tüm yerel dosyaları ile silinsin mi?\n\nSilme işlemi geri alınamaz.</string>
     <string name="create_account">Hesap oluştur</string>
+    <string name="avatar">Avatar</string>
+    <string name="active_user">Etkin kullanıcı</string>
     <string name="upload_chooser_title">Şuradan yükle&#8230;</string>
     <string name="uploader_info_dirname">Klasör adı</string>
     <string name="uploader_upload_in_progress_ticker">Yükleniyor&#8230;</string>
@@ -169,7 +164,7 @@
     <string name="uploader_upload_failed_credentials_error">Yüklenemedi, yeniden oturum açmalısınız</string>
     <string name="uploads_view_title">Yüklemeler</string>
     <string name="uploads_view_group_current_uploads">Geçerli</string>
-    <string name="uploads_view_group_failed_uploads">Başarısız (yeniden denemek için dokunun)</string>
+    <string name="uploads_view_group_failed_uploads">Tamamlanamadı / Yeniden Başlatma Bekleniyor</string>
     <string name="uploads_view_group_finished_uploads">Yüklendi</string>
     <string name="uploads_view_upload_status_succeeded">Tamamlandı</string>
     <string name="uploads_view_upload_status_cancelled">İptal Edildi</string>
@@ -270,7 +265,7 @@
 	<string name="auth_expired_oauth_token_toast">Kimlik doğrulama süresi doldu. Lütfen kimliğinizi yeniden doğrulayın</string>
 	<string name="auth_expired_basic_auth_toast">Lütfen geçerli parolanızı yazın</string>
 	<string name="auth_expired_saml_sso_token_toast">Oturumuzun süresi dolmuş. Lütfen yeniden bağlanın</string>
-	<string name="auth_connecting_auth_server">Kimlik doğrulama sunucusuna bağlanılıyor…</string>
+	<string name="auth_connecting_auth_server">Kimlik doğrulama sunucusuna bağlanılıyor&#8230;</string>
 	<string name="auth_unsupported_auth_method">Sunucu bu kimlik doğrulama yöntemini desteklemiyor</string>
 	<string name="auth_unsupported_multiaccount">%1$s birden çok hesabı desteklemiyor</string>
 	<string name="auth_fail_get_user_name">Sunucunuz doğru bir kullanıcı kodu döndürmüyor, lütfen bir yönetici ile görüşün</string>
@@ -298,7 +293,7 @@
     <string name="filename_forbidden_characters">İzin verilmeyen karakterler: / \\ &lt; &gt; : \" | ? *</string>
     <string name="filename_forbidden_charaters_from_server">Dosya adında en az bir geçersiz karakter var</string>
     <string name="filename_empty">Dosya adı boş olamaz</string>
-    <string name="wait_a_moment">Biraz bekleyin...</string>
+    <string name="wait_a_moment">Biraz bekleyin&#8230;</string>
     <string name="wait_checking_credentials">Kayıtlı kimlik bilgileri denetleniyor</string>
     <string name="filedisplay_unexpected_bad_get_content">Beklenmedik bir sorun çıktı, lütfen başka bir uygulamadan dosya seçin</string>
     <string name="filedisplay_no_file_selected">Herhangi bir dosya seçilmemiş</string>
@@ -306,7 +301,7 @@
     <string name="wait_for_tmp_copy_from_private_storage">Dosya kişisel depolamadan kopyalanıyor</string>
     
     <string name="oauth_check_onoff">OAuth 2.0 ile Oturum Aç</string> 
-    <string name="oauth_login_connection">OAuth 2.0 sunucusuna bağlanılıyor…</string>    
+    <string name="oauth_login_connection">OAuth 2.0 sunucusuna bağlanılıyor&#8230;</string>
         
     <string name="ssl_validator_header">Sitenin kimliği doğrulanamadı</string>
     <string name="ssl_validator_reason_cert_not_trusted">- Sunucu sertifikasına güvenilmiyor</string>
@@ -362,8 +357,8 @@
 
     <string name="error__upload__local_file_not_copied">%1$s, %2$s yerel klasörüne kopyalanamadı</string>
     <string name="prefs_instant_upload_path_title">Anında yükleme klasörü</string>
-    <string name="prefs_folder_sync_local_path_title">Yerel klasör</string>
-    <string name="prefs_folder_sync_remote_path_title">Uzak klasör</string>
+    <string name="prefs_synced_folders_local_path_title">Yerel klasöre</string>
+    <string name="prefs_synced_folders_remote_path_title">Uzak klasör</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Alt klasörler kullanılsın</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Yıla ve aya göre alt klasörlere kaydedilsin</string>
 
@@ -535,10 +530,11 @@
     <string name="edit_share_unshare">Paylaşımı durdur</string>
     <string name="edit_share_done">bitti</string>
 
-    <string name="action_retry_uploads">Yeni girişim başarısız oldu</string>
-    <string name="action_clear_failed_uploads">Temizlenemedi</string>
-    <string name="action_clear_successful_uploads">Temizlendi</string>
+    <string name="action_retry_uploads">Tamamlanamayan yüklemeler yinelensin</string>
+    <string name="action_clear_failed_uploads">Tamamlanamayan yüklemeler silinsin</string>
+    <string name="action_clear_successful_uploads">Sorunsuz yüklemeler temizlensin</string>
     <string name="action_clear_finished_uploads">Tamamlanmış yüklemeleri temizle</string>
+    <string name="action_force_rescan">Yeniden tarama dayatılsın</string>
 
     <string name="action_switch_grid_view">Tablo görünümü</string>
     <string name="action_switch_list_view">Liste görünümü</string>
@@ -553,12 +549,13 @@
     <string name="confirmation_remove_files_alert">Seçilen ögeleri gerçekten silmek istiyor musunuz?</string>
     <string name="confirmation_remove_folders_alert">Seçilen ögeleri ve içeriklerini gerçekten silmek istiyor musunuz?</string>
     <string name="maintenance_mode">Sunucu bakım kipinde</string>
+    <string name="lock_failed">Dosya kilitlenemedi</string>
 
     <string name="uploads_view_upload_status_waiting_for_charging">Aygıtın şarj olması bekleniyor</string>
     <string name="actionbar_search">Arama</string>
     <string name="files_drop_not_supported">Bu bir Nextcloud özelliğidir, lütfen güncelleyin.</string>
     <string name="learn_more">Ayrıntılı bilgi alın</string>
-    <string name="drawer_folder_sync">Otomatik yükleme</string>
+    <string name="drawer_synced_folders">Otomatik yükleme</string>
     <string name="drawer_participate">Katkıda bulunun</string>
     <string name="participate_testing_headline">Denememize yardımcı olun</string>
     <string name="participate_testing_bug_text">Bir hata mı buldunuz? Bir gariplik mi var?</string>
@@ -575,15 +572,20 @@
     <string name="participate_contribute_translate_translate">Çevirin</string>
     <string name="participate_contribute_translate_text">uygulamayı</string>
     <string name="participate_contribute_github_text">Kodun gözden geçirilmesine ve geliştirilmesine katkıda bulunun. Ayrıntılı bilgi almak için %1$s dosyasına bakın</string>
+    <string name="participate_rc_play_store">Yayın adayını Google Play mağazasından alın</string>
+    <string name="participate_rc_fdroid">Yayın adayını f-droid uygulama mağazasından alın</string>
+    <string name="participate_dev_fdroid">Geliştirme sürümünü f-droid uygulama mağazasından alın</string>
+    <string name="participate_dev_direct_download">Geliştirme sürümünü doğrudan indirerek alın</string>
     <string name="move_to">Taşı&#8230;</string>
     <string name="copy_to">Kopyala&#8230;</string>
-    <string name="choose_remote_folder">Klasör seçin&#8230;</string>
-    <string name="folder_sync_loading_folders">Klasörler yükleniyor&#8230;</string>
-    <string name="folder_sync_no_results">Herhangi bir ortam klasörü bulunamadı.</string>
-    <string name="folder_sync_preferences">Otomatik yükleme ayarları</string>
-    <string name="folder_sync_settings">Ayarlar</string>
-    <string name="folder_sync_new_info">Anında yükleme tamamen elden geçirildi. Lütfen ama menüye giderek otomatik yükleme ayarlarınızı yeniden yapın.\n\nYeni ve geliştirilmiş otomatik yükleme özellklerinin tadını çıkarın.</string>
-    <string name="folder_sync_preferences_folder_path">%1$s için</string>
+    <string name="choose_remote_folder">Uzak klasörü seçin&#8230;</string>
+    <string name="choose_local_folder">Yerel klasörü seçin&#8230;</string>
+    <string name="synced_folders_loading_folders">Klasörler yükleniyor&#8230;</string>
+    <string name="synced_folders_no_results">Herhangi bir ortam klasörü bulunamadı.</string>
+    <string name="synced_folders_preferences">Otomatik yükleme ayarları</string>
+    <string name="synced_folders_settings">Ayarlar</string>
+    <string name="synced_folders_new_info">Anında yükleme tamamen elden geçirildi. Lütfen ama menüye giderek otomatik yükleme ayarlarınızı yeniden yapın.\n\nYeni ve geliştirilmiş otomatik yükleme özelliklerinin tadını çıkarın.</string>
+    <string name="synced_folders_preferences_folder_path">%1$s için</string>
     <plurals name="items_selected_count">
         <item quantity="one">%d seçilmiş</item>
         <item quantity="other">%d seçilmiş</item>
@@ -666,7 +668,11 @@
     <string name="privacy">Gizlilik</string>
     <string name="file_not_found">Dosya bulunamadı!</string>
 
-    <string name="folder_sync_folders">Klasör ayarları</string>
+    <!-- Auto upload -->
+    <string name="autoupload_custom_folder">Bir özel klasör kurun</string>
+    <string name="autoupload_create_new_custom_folder">Yeni özel klasör kurulumu ekleyin</string>
+    <string name="synced_folders_configure_folders">Klasör ayarları</string>
 
-  <string name="test_server_button">Sunucu bağlantısını sına</string>
+    <string name="test_server_button">Sunucu bağlantısını sına</string>
+    <string name="resharing_is_not_allowed">Yeniden paylaşıma izin verilmiyor</string>
 </resources>

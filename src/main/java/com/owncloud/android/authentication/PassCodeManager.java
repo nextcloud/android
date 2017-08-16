@@ -31,6 +31,7 @@ import android.view.WindowManager;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.ui.activity.FingerprintActivity;
 import com.owncloud.android.ui.activity.PassCodeActivity;
+import com.owncloud.android.ui.activity.Preferences;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -131,6 +132,7 @@ public class PassCodeManager {
 
     private boolean fingerprintIsEnabled() {
         SharedPreferences appPrefs = PreferenceManager.getDefaultSharedPreferences(MainApp.getAppContext());
-        return (appPrefs.getBoolean(FingerprintActivity.PREFERENCE_USE_FINGERPRINT, false));
+        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.M &&
+                appPrefs.getBoolean(Preferences.PREFERENCE_USE_FINGERPRINT, false);
     }
 }

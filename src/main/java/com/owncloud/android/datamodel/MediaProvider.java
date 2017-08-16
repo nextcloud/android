@@ -40,6 +40,8 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.Nullable;
+
 /**
  * Media queries to gain access to media lists for the device.
  */
@@ -47,12 +49,15 @@ public class MediaProvider {
     private static final String TAG = MediaProvider.class.getSimpleName();
 
     // fixed query parameters
-    private static final Uri MEDIA_URI = android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
+    private static final Uri IMAGES_MEDIA_URI = android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
     private static final String[] FILE_PROJECTION = new String[]{MediaStore.MediaColumns.DATA};
-    private static final String FILE_SELECTION = MediaStore.Images.Media.BUCKET_ID + "=";
-    private static final String[] FOLDER_PROJECTION = { "Distinct " + MediaStore.Images.Media.BUCKET_ID,
-            MediaStore.Images.Media.BUCKET_DISPLAY_NAME };
-    private static final String FOLDER_SORT_ORDER = MediaStore.Images.Media.BUCKET_DISPLAY_NAME + " ASC";
+    private static final String IMAGES_FILE_SELECTION = MediaStore.Images.Media.BUCKET_ID + "=";
+    private static final String[] IMAGES_FOLDER_PROJECTION = {"Distinct " + MediaStore.Images.Media.BUCKET_ID,
+            MediaStore.Images.Media.BUCKET_DISPLAY_NAME};
+    private static final String IMAGES_FOLDER_SORT_ORDER = MediaStore.Images.Media.BUCKET_DISPLAY_NAME + " ASC";
+
+    private static final String[] VIDEOS_FOLDER_PROJECTION = {"Distinct " + MediaStore.Video.Media.BUCKET_ID,
+            MediaStore.Video.Media.BUCKET_DISPLAY_NAME};
 
     /**
      * Getting All Images Paths.
@@ -61,11 +66,105 @@ public class MediaProvider {
      * @param itemLimit       the number of media items (usually images) to be returned per media folder.
      * @return list with media folders
      */
-    public static List<MediaFolder> getMediaFolders(ContentResolver contentResolver, int itemLimit,
-                                                    final Activity activity) {
+    public static List<MediaFolder> getImageFolders(ContentResolver contentResolver, int itemLimit,
+                                                    @Nullable final Activity activity) {
         // check permissions
-        if (!PermissionUtil.checkSelfPermission(activity.getApplicationContext(),
+        checkPermissions(activity);
+
+
+        // query media/image folders
+        Cursor cursorFolders;
+        if (activity != null && PermissionUtil.checkSelfPermission(activity.getApplicationContext(),
                 Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+            cursorFolders = contentResolver.query(
+                    IMAGES_MEDIA_URI,
+                    IMAGES_FOLDER_PROJECTION,
+                    null,
+                    null,
+                    IMAGES_FOLDER_SORT_ORDER
+            );
+        } else {
+            cursorFolders = contentResolver.query(
+                    IMAGES_MEDIA_URI,
+                    IMAGES_FOLDER_PROJECTION,
+                    null,
+                    null,
+                    IMAGES_FOLDER_SORT_ORDER
+            );
+        }
+        List<MediaFolder> mediaFolders = new ArrayList<>();
+        String dataPath = MainApp.getStoragePath() + File.separator + MainApp.getDataFolder();
+
+        if (cursorFolders != null) {
+            String folderName;
+            String fileSortOrder = MediaStore.Images.Media.DATE_TAKEN + " DESC LIMIT " + itemLimit;
+            Cursor cursorImages;
+
+            while (cursorFolders.moveToNext()) {
+                String folderId = cursorFolders.getString(cursorFolders.getColumnIndex(MediaStore.Images.Media
+                        .BUCKET_ID));
+
+                MediaFolder mediaFolder = new MediaFolder();
+                folderName = cursorFolders.getString(cursorFolders.getColumnIndex(
+                        MediaStore.Images.Media.BUCKET_DISPLAY_NAME));
+                mediaFolder.type = MediaFolderType.IMAGE;
+                mediaFolder.folderName = folderName;
+                mediaFolder.filePaths = new ArrayList<>();
+
+                // query images
+                cursorImages = contentResolver.query(
+                        IMAGES_MEDIA_URI,
+                        FILE_PROJECTION,
+                        IMAGES_FILE_SELECTION + folderId,
+                        null,
+                        fileSortOrder
+                );
+                Log.d(TAG, "Reading images for " + mediaFolder.folderName);
+
+                if (cursorImages != null) {
+                    String filePath;
+
+                    while (cursorImages.moveToNext()) {
+                        filePath = cursorImages.getString(cursorImages.getColumnIndexOrThrow(
+                                MediaStore.MediaColumns.DATA));
+
+                        if (filePath != null) {
+                            mediaFolder.filePaths.add(filePath);
+                            mediaFolder.absolutePath = filePath.substring(0, filePath.lastIndexOf("/"));
+                        }
+                    }
+                    cursorImages.close();
+
+                    // only do further work if folder is not within the Nextcloud app itself
+                    if (!mediaFolder.absolutePath.startsWith(dataPath)) {
+
+                        // count images
+                        Cursor count = contentResolver.query(
+                                IMAGES_MEDIA_URI,
+                                FILE_PROJECTION,
+                                IMAGES_FILE_SELECTION + folderId,
+                                null,
+                                null);
+
+                        if (count != null) {
+                            mediaFolder.numberOfFiles = count.getCount();
+                            count.close();
+                        }
+
+                        mediaFolders.add(mediaFolder);
+                    }
+                }
+            }
+            cursorFolders.close();
+        }
+
+        return mediaFolders;
+    }
+
+    private static void checkPermissions(@Nullable Activity activity) {
+        if (activity != null &&
+                !PermissionUtil.checkSelfPermission(activity.getApplicationContext(),
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
             // Check if we should show an explanation
             if (PermissionUtil.shouldShowRequestPermissionRationale(activity,
                     Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
@@ -87,49 +186,46 @@ public class MediaProvider {
                 PermissionUtil.requestWriteExternalStoreagePermission(activity);
             }
         }
+    }
 
-        // query media/image folders
-        Cursor cursorFolders = null;
-        if (PermissionUtil.checkSelfPermission(activity.getApplicationContext(),
-                Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
-            cursorFolders = contentResolver.query(MEDIA_URI, FOLDER_PROJECTION, null, null, FOLDER_SORT_ORDER);
-        }
+    public static List<MediaFolder> getVideoFolders(ContentResolver contentResolver, int itemLimit) {
+        Cursor cursorFolders = contentResolver.query(MediaStore.Video.Media.EXTERNAL_CONTENT_URI,
+                VIDEOS_FOLDER_PROJECTION, null, null, null);
         List<MediaFolder> mediaFolders = new ArrayList<>();
         String dataPath = MainApp.getStoragePath() + File.separator + MainApp.getDataFolder();
 
         if (cursorFolders != null) {
             String folderName;
-            String fileSortOrder = MediaStore.Images.Media.DATE_TAKEN + " DESC LIMIT " + itemLimit;
+            String fileSortOrder = MediaStore.Video.Media.DATE_TAKEN + " DESC LIMIT " + itemLimit;
             Cursor cursorImages;
 
             while (cursorFolders.moveToNext()) {
-                String folderId = cursorFolders.getString(cursorFolders.getColumnIndex(MediaStore.Images.Media
+                String folderId = cursorFolders.getString(cursorFolders.getColumnIndex(MediaStore.Video.Media
                         .BUCKET_ID));
 
                 MediaFolder mediaFolder = new MediaFolder();
                 folderName = cursorFolders.getString(cursorFolders.getColumnIndex(
-                        MediaStore.Images.Media.BUCKET_DISPLAY_NAME));
+                        MediaStore.Video.Media.BUCKET_DISPLAY_NAME));
+                mediaFolder.type = MediaFolderType.VIDEO;
                 mediaFolder.folderName = folderName;
                 mediaFolder.filePaths = new ArrayList<>();
 
                 // query images
-                cursorImages = contentResolver.query(MEDIA_URI, FILE_PROJECTION, FILE_SELECTION + folderId, null,
+                cursorImages = contentResolver.query(
+                        MediaStore.Video.Media.EXTERNAL_CONTENT_URI,
+                        FILE_PROJECTION,
+                        MediaStore.Video.Media.BUCKET_ID + "=" + folderId,
+                        null,
                         fileSortOrder);
-                Log.d(TAG, "Reading images for " + mediaFolder.folderName);
+                Log.d(TAG, "Reading videos for " + mediaFolder.folderName);
 
                 if (cursorImages != null) {
                     String filePath;
-                    int failedImages = 0;
                     while (cursorImages.moveToNext()) {
                         filePath = cursorImages.getString(cursorImages.getColumnIndexOrThrow(
                                 MediaStore.MediaColumns.DATA));
-
-                        if (filePath != null) {
-                            mediaFolder.filePaths.add(filePath);
-                            mediaFolder.absolutePath = filePath.substring(0, filePath.lastIndexOf("/"));
-                        } else {
-                            failedImages++;
-                        }
+                        mediaFolder.filePaths.add(filePath);
+                        mediaFolder.absolutePath = filePath.substring(0, filePath.lastIndexOf("/"));
                     }
                     cursorImages.close();
 
@@ -138,14 +234,14 @@ public class MediaProvider {
 
                         // count images
                         Cursor count = contentResolver.query(
-                                MEDIA_URI,
+                                MediaStore.Video.Media.EXTERNAL_CONTENT_URI,
                                 FILE_PROJECTION,
-                                FILE_SELECTION + folderId,
+                                MediaStore.Video.Media.BUCKET_ID + "=" + folderId,
                                 null,
                                 null);
 
                         if (count != null) {
-                            mediaFolder.numberOfFiles = count.getCount() - failedImages;
+                            mediaFolder.numberOfFiles = count.getCount();
                             count.close();
                         }
 

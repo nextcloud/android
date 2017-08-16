@@ -12,7 +12,6 @@
     <string name="actionbar_see_details">詳細</string>
     <string name="actionbar_send_file">送信</string>
     <string name="actionbar_sort">ソート</string>
-    <string name="actionbar_sort_title">ソート: </string>
     <string name="sort_by">ソート</string>
     <string name="menu_item_sort_by_name_a_z">A - Z</string>
     <string name="menu_item_sort_by_name_z_a">Z - A</string>
@@ -40,20 +39,12 @@
     <string name="drawer_open">開く</string>
     <string name="prefs_category_general">一般</string>
     <string name="prefs_category_more">もっと見る</string>
-    <string name="prefs_accounts">アカウント</string>
     <string name="prefs_manage_accounts">アカウント管理</string>
     <string name="prefs_passcode">パスコードロック</string>
     <string name="prefs_fingerprint">指紋ロック</string>
     <string name="prefs_fingerprint_notsetup">指紋は設定されていません。</string>
+    <string name="prefs_expert_mode">エキスパートモード</string>
     <string name="prefs_show_hidden_files">隠しファイルを表示</string>
-    <string name="prefs_instant_upload">写真の自動アップロード</string>
-    <string name="prefs_instant_upload_summary">カメラで撮影した写真を自動アップロードします</string>
-    <string name="prefs_instant_video_upload">ビデオの自動アップロード</string>
-    <string name="prefs_instant_video_upload_summary">カメラで撮影したビデオを自動アップロードします</string>
-    <string name="prefs_log_title">ログの有効化</string>
-    <string name="prefs_log_summary">これは問題をログに記録するのに使用します。</string>
-    <string name="prefs_log_title_history">ログの履歴</string>
-    <string name="prefs_log_summary_history">これは記録されたログを表示します</string>
     <string name="prefs_log_delete_history_button">履歴の削除</string>
     <string name="prefs_calendar_contacts">コンタクト &amp; カレンダーを同期</string>
     <string name="prefs_calendar_contacts_summary">DAVdroid (v1.3.0以上) を現在のアカウントで使う</string>
@@ -64,19 +55,19 @@
     <string name="prefs_recommend">友達に推奨</string>
     <string name="prefs_feedback">フィードバック</string>
     <string name="prefs_imprint">インプリント</string>
-    <string name="prefs_remember_last_share_location">共有場所を記憶する</string>
-    <string name="prefs_remember_last_upload_location_summary">最後に使用した共有場所を記憶する</string>
 
 	<string name="recommend_subject">スマートフォンで %1$s を試してください！</string>
 	<string name="recommend_text">スマートフォンで %1$s を利用してみませんか。\nここからダウンロードしてください: %2$s</string>
+    <string name="recommend_urls">%1$sまたは%2$s</string>
+
     <string name="auth_check_server">サーバーのチェック</string>
-    <string name="auth_host_url">サーバーアドレス https://…</string>
     <string name="auth_username">ユーザー名</string>
     <string name="auth_password">パスワード</string>
     <string name="auth_register">まだサーバーがありませんか？\nここをクリックして、プロバイダーから取得してください</string>
     <string name="sync_string_files">ファイル</string>
     <string name="setup_btn_connect">接続</string>
     <string name="uploader_btn_upload_text">アップロード</string>
+    <string name="uploader_btn_alternative_text">選択</string>
     <string name="uploader_top_message">アップロードフォルダーを選択</string>
     <string name="uploader_wrn_no_account_title">アカウントが見つかりません</string>
     <string name="uploader_wrn_no_account_text">端末に %1$s のアカウントがありません。まずアカウントを登録してください。</string>
@@ -95,6 +86,7 @@
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">ファイルをソースフォルダから削除する</string>
     <string name="file_list_seconds_ago">数秒前</string>
     <string name="file_list_empty_headline">ここにファイルはありません</string>
+    <string name="folder_list_empty_headline">フォルダーがありません</string>
     <string name="file_list_empty">コンテンツをアップロードするか、デバイスと同期してください。</string>
     <string name="file_list_empty_favorites">ファイルをお気に入りに登録するか、デバイスと同期してください。</string>
     <string name="file_list_empty_favorites_filter_list">お気に入りに登録されたファイルやフォルダーがここに表示されます</string>
@@ -102,6 +94,7 @@
     <string name="file_list_loading">読込中&#8230;</string>
     <string name="file_list_no_app_for_file_type">このファイル形式に設定されたアプリがありません。</string>
     <string name="local_file_list_empty">このフォルダーにはファイルがありません。</string>
+    <string name="local_folder_list_empty">これ以上フォルダーがありません。</string>
     <string name="file_list_empty_headline_search">このフォルダーの結果はありません</string>
     <string name="file_list_empty_headline_server_search">結果なし</string>
     <string name="file_list_empty_favorite_headline">まだお気に入りに登録されていません</string>
@@ -111,7 +104,15 @@
     <string name="file_list_empty_headline_server_search_photos">写真なし</string>
     <string name="file_list_empty_search">別のフォルダーにありませんか？</string>
     <string name="file_list_empty_recently_modified">過去 7 日間に更新されたファイルは見つかりません</string>
+    <string name="file_list_empty_recently_added">最近追加されたファイルはありません</string>
+    <string name="file_list_empty_recently_added_filter">検索条件に該当する、最近追加されたファイルが見つかりませんでした。</string>
+    <string name="file_list_empty_text_photos">写真をアップロードするか、自動アップロードを有効にしてください。</string>
+    <string name="file_list_empty_text_photos_filter">検索条件に該当する写真が見つかりませんでした。</string>
+    <string name="file_list_empty_text_videos">動画をアップロードするか、自動アップロードを有効にしてください。</string>
+    <string name="file_list_empty_text_videos_filter">検索条件に該当する動画が見つかりませんでした。</string>
     <string name="upload_list_empty_headline">アップロードは利用できません</string>
+    <string name="upload_list_empty_text">コンテンツをアップロードするか、インスタントアップロードを有効にしてください。</string>
+    <string name="upload_list_empty_text_auto_upload">何かコンテンツをアップロードするか、自動アップロードを有効にしてください。</string>
     <string name="file_list_folder">フォルダー</string>
     <string name="file_list_folders">フォルダー</string>
     <string name="file_list_file">ファイル</string>
@@ -123,11 +124,13 @@
     <string name="filedetails_modified">更新:</string>
     <string name="filedetails_download">ダウンロード</string>
     <string name="filedetails_sync_file">ファイルを同期</string>
+    <string name="list_layout">リスト表示</string>
     <string name="action_share">共有</string>
     <string name="common_yes">はい</string>
     <string name="common_no">いいえ</string>
     <string name="common_ok">OK</string>
     <string name="common_remove_upload">アップロードを削除</string>
+    <string name="common_retry_upload">再度アップロードを試行する</string>
     <string name="common_cancel_sync">同期のキャンセル</string>
     <string name="common_cancel">キャンセル</string>
     <string name="common_back">戻る</string>
@@ -138,20 +141,25 @@
     <string name="common_unknown">不明</string>
     <string name="common_error_unknown">不明なエラー</string>
     <string name="common_pending">保留中</string>
+    <string name="common_delete">削除</string>
     <string name="about_title">について</string>
     <string name="change_password">パスワードを変更</string>
     <string name="delete_account">アカウント削除</string>
+    <string name="delete_account_warning">アカウント%sに紐づく全てのローカルファイルを削除しますか？\n\nこの作業は取り消すことができません。</string>
     <string name="create_account">アカウントを作成</string>
+    <string name="avatar">アバター</string>
+    <string name="active_user">アクティブなユーザー</string>
     <string name="upload_chooser_title">アップロード &#8230;</string>
     <string name="uploader_info_dirname">フォルダー名</string>
     <string name="uploader_upload_in_progress_ticker">アップロード中&#8230;</string>
     <string name="uploader_upload_in_progress_content">%1$d%% アップロード中 %2$s</string>
+    <string name="uploader_upload_succeeded_ticker">アップロード済</string>
     <string name="uploader_upload_succeeded_content_single">%1$s は正常にアップロードされました</string>
     <string name="uploader_upload_failed_ticker">アップロードに失敗</string>
+    <string name="uploader_upload_failed_content_single">%1$sをアップロードできませんでした</string>
     <string name="uploader_upload_failed_credentials_error">アップロードに失敗しました,ログインし直す必要があります</string>
     <string name="uploads_view_title">アップロード</string>
     <string name="uploads_view_group_current_uploads">現在</string>
-    <string name="uploads_view_group_failed_uploads">失敗(タップして再試行)</string>
     <string name="uploads_view_group_finished_uploads">アップロード済み</string>
     <string name="uploads_view_upload_status_succeeded">完了</string>
     <string name="uploads_view_upload_status_cancelled">キャンセル済</string>
@@ -165,15 +173,21 @@
     <string name="uploads_view_upload_status_failed_permission_error">権限エラー</string>
     <string name="uploads_view_upload_status_conflict">競合</string>
     <string name="uploads_view_upload_status_unknown_fail">不明なエラー</string>
+    <string name="uploads_view_upload_status_waiting_for_wifi">Wi-Fiが接続状態になるのを待っています</string>
     <string name="uploads_view_later_waiting_to_upload">アップロード待ち</string>
     <string name="downloader_download_in_progress_ticker">ダウンロード中 &#8230;</string>
     <string name="downloader_download_in_progress_content">%1$d%% ダウンロード中 %2$s</string>
+    <string name="downloader_download_succeeded_ticker">ダウンロード済</string>
     <string name="downloader_download_succeeded_content">%1$s は正常にダウンロードされました</string>
     <string name="downloader_download_failed_ticker">ダウンロードに失敗</string>
+    <string name="downloader_download_failed_content">%1$sをダウンロードできませんでした</string>
     <string name="downloader_not_downloaded_yet">未ダウンロード</string>
     <string name="downloader_download_failed_credentials_error">ダウンロードに失敗しました,ログインし直す必要があります</string>
     <string name="common_choose_account">アカウントを選択</string>
     <string name="sync_fail_ticker">同期の失敗</string>
+    <string name="sync_fail_ticker_unauthorized">同期に失敗しました。再度ログインし直す必要があります。</string>
+    <string name="sync_fail_content">%1$sの同期が完了できませんでした</string>
+    <string name="sync_fail_content_unauthorized">%1$sのパスワードが間違っています</string>
     <string name="sync_conflicts_in_favourites_ticker">競合が見つかりました</string>
     <string name="sync_conflicts_in_favourites_content">%1$d 同期ファイルを同期できませんでした</string>
     <string name="sync_fail_in_favourites_ticker">ファイルの同期に失敗しました</string>
@@ -181,6 +195,7 @@
     <string name="sync_foreign_files_forgotten_ticker">一部のローカルファイルが忘れられています</string>
     <string name="sync_foreign_files_forgotten_content"> %2$s フォルダー内の %1$d ファイルはコピーできませんでした。</string>
     <string name="sync_foreign_files_forgotten_explanation">バージョン 1.3.16以降、このデバイスからアップロードされたファイルは、単独のファイルが複数のアカウントと同期する際にデータの損失を防ぐため、ローカルの%1$sフォルダーにコピーされます。 この変更により、このアプリの以前のバージョンでアップロードされたすべてのファイルは%2$sフォルダーにコピーされます。しかしながら、アカウント同期中にはエラーが発生してこの操作が完了しないようになっています。ファイルをこのままにして%3$sへのリンクを削除するか、あるいは%1$sフォルダーにファイルを移動して%4$sへのリンクを維持することができます。 以下のリストにあるのは、ローカルのファイル及びそれらにリンクしている %5$s内のリモートファイルです。</string>
+    <string name="sync_current_folder_was_removed">フォルダー%1$sはもう存在しません</string>
     <string name="foreign_files_move">すべて移動</string>
     <string name="foreign_files_success">すべてのファイルを移動しました</string>
     <string name="foreign_files_fail">一部のファイルは移動できませんでした</string>
@@ -290,8 +305,6 @@
     <string name="preview_image_description">イメージプレビュー</string>
     <string name="error__upload__local_file_not_copied">%1$s は、ローカルフォルダー %2$s  にコピーできませんでした。</string>
     <string name="prefs_instant_upload_path_title">自動アップロードフォルダー</string>
-    <string name="prefs_folder_sync_local_path_title">ローカルフォルダー</string>
-    <string name="prefs_folder_sync_remote_path_title">リモートフォルダー</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">サブフォルダーを利用</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">年と月を元にしたサブフォルダーに保存</string>
 
@@ -413,7 +426,6 @@
     <string name="edit_share_unshare">共有の停止</string>
     <string name="edit_share_done">完了</string>
 
-    <string name="action_clear_failed_uploads">クリアに失敗</string>
     <string name="action_switch_grid_view">グリッド表示</string>
     <string name="action_switch_list_view">リスト表示</string>
 
@@ -426,18 +438,12 @@
     <string name="actionbar_search">検索</string>
     <string name="files_drop_not_supported">これはNextCloudの機能です。更新してください。</string>
     <string name="learn_more">もっと見る</string>
-    <string name="drawer_folder_sync">自動アップロード</string>
     <string name="drawer_participate">参加する</string>
     <string name="participate_beta_headline">開発バージョンをテスト</string>
     <string name="participate_release_candidate_headline">リリース候補</string>
     <string name="participate_contribute_headline">積極的な貢献</string>
     <string name="move_to">&#8230;に移動</string>
     <string name="copy_to">&#8230;にコピー</string>
-    <string name="choose_remote_folder">&#8230; フォルダーを選択</string>
-    <string name="folder_sync_loading_folders">&#8230; フォルダを読み込み中</string>
-    <string name="folder_sync_no_results">メディアフォルダが見つかりませんでした</string>
-    <string name="folder_sync_settings">設定</string>
-    <string name="folder_sync_preferences_folder_path">%1$s の</string>
     <plurals name="items_selected_count">
         <item quantity="other">%d選択されています。</item>
     </plurals>

@@ -12,7 +12,6 @@
     <string name="actionbar_see_details">Nánar</string>
     <string name="actionbar_send_file">Senda</string>
     <string name="actionbar_sort">Raða</string>
-    <string name="actionbar_sort_title">Raða sem</string>
     <string name="sort_by">Raða eftir</string>
     <string name="menu_item_sort_by_name_a_z">A - Ö</string>
     <string name="menu_item_sort_by_name_z_a">Ö - A</string>
@@ -40,20 +39,11 @@
     <string name="drawer_open">Opna</string>
     <string name="prefs_category_general">Almennt</string>
     <string name="prefs_category_more">Meira</string>
-    <string name="prefs_accounts">Notandaaðgangar</string>
     <string name="prefs_manage_accounts">Sýsla með notandaaðganga</string>
     <string name="prefs_passcode">Læsing með lykilkóða</string>
     <string name="prefs_fingerprint">Fingrafaralás</string>
     <string name="prefs_fingerprint_notsetup">Engin fingraför hafa verið sett inn.</string>
     <string name="prefs_show_hidden_files">Sýna faldar skrár</string>
-    <string name="prefs_instant_upload">Bein innsending á myndum</string>
-    <string name="prefs_instant_upload_summary">Senda beint inn myndir sem teknar eru með myndavél</string>
-    <string name="prefs_instant_video_upload">Bein innsending á myndskeiðum</string>
-    <string name="prefs_instant_video_upload_summary">Senda beint inn myndskeið sem tekin eru með myndavél</string>
-    <string name="prefs_log_title">Virkja skráningu í annál</string>
-    <string name="prefs_log_summary">Þetta er notað til að skrá vandamál</string>
-    <string name="prefs_log_title_history">Ferill annálsskráningar</string>
-    <string name="prefs_log_summary_history">Þetta sýnir skráningar í atvikaskrár</string>
     <string name="prefs_log_delete_history_button">Eyða ferli</string>
     <string name="prefs_calendar_contacts">Samstilla dagatal &amp; tengiliði</string>
     <string name="prefs_calendar_contacts_summary">Setja upp DAVdroid (v1.3.0+) fyrir þennan aðgang</string>
@@ -65,15 +55,13 @@
     <string name="prefs_recommend">Mæla með við vin</string>
     <string name="prefs_feedback">Umsögn</string>
     <string name="prefs_imprint">Prenta</string>
-    <string name="prefs_remember_last_share_location">Muna staðsetningu sameignar</string>
-    <string name="prefs_remember_last_upload_location_summary">Muna staðsetningu síðast notuðu sameignar</string>
 
 	<string name="recommend_subject">Prófaðu %1$s á snjallsímanum þínum!</string>
 	<string name="recommend_text">Mig langar til að bjóða þér að nota %1$s á snjallsímanum þínum.\nHægt að sækja það hér: %2$s</string>
     <string name="recommend_urls">%1$s eða %2$s</string>
 
     <string name="auth_check_server">Athuga með þjón</string>
-    <string name="auth_host_url">Vistfang þjóns https://…</string>
+    <string name="auth_host_url">Vistfang þjóns https://&#8230;</string>
     <string name="auth_username">Notandanafn</string>
     <string name="auth_password">Lykilorð</string>
     <string name="auth_register">Ertu ekki enn með skýjaþjón?
@@ -170,7 +158,6 @@ Smelltu hér til að fá þér einn frá þjónustuaðila.</string>
     <string name="uploader_upload_failed_credentials_error">Innsending mistókst, þú verður að skrá þig inn aftur</string>
     <string name="uploads_view_title">Innsendingar</string>
     <string name="uploads_view_group_current_uploads">Núverandi</string>
-    <string name="uploads_view_group_failed_uploads">Mistókst (bankaðu til að reyna aftur)</string>
     <string name="uploads_view_group_finished_uploads">Hlaðið inn</string>
     <string name="uploads_view_upload_status_succeeded">Lokið</string>
     <string name="uploads_view_upload_status_cancelled">Hætt við</string>
@@ -271,7 +258,7 @@ Smelltu hér til að fá þér einn frá þjónustuaðila.</string>
 	<string name="auth_expired_oauth_token_toast">Heimild þín er útrunnin. Skráðu þig aftur inn.</string>
 	<string name="auth_expired_basic_auth_toast">Settu inn núgildandi lykilorð</string>
 	<string name="auth_expired_saml_sso_token_toast">Setan þín er útrunnin. Skráðu þig aftur inn.</string>
-	<string name="auth_connecting_auth_server">Tengist við auðkenningarþjón …</string>
+	<string name="auth_connecting_auth_server">Tengist við auðkenningarþjón&#8230;</string>
 	<string name="auth_unsupported_auth_method">Þjónninn styður ekki þessa auðkenningaraðferð</string>
 	<string name="auth_unsupported_multiaccount">%1$s styður ekki fjölaðganga</string>
 	<string name="auth_fail_get_user_name">Vefþjónninn þinn er ekki að svara með réttu notandaauðkenni, hafðu samband við kerfisstjóra.</string>
@@ -299,7 +286,6 @@ Smelltu hér til að fá þér einn frá þjónustuaðila.</string>
     <string name="filename_forbidden_characters">Óleyfilegir stafir: / \\ &lt; &gt; : \" | ? *</string>
     <string name="filename_forbidden_charaters_from_server">Skráarheitið inniheldur að minnsta kosti einn ógildan staf</string>
     <string name="filename_empty">Skráarheiti má ekki vera tómt</string>
-    <string name="wait_a_moment">Bíddu augnablik…</string>
     <string name="wait_checking_credentials">Athuga geymd auðkenni</string>
     <string name="filedisplay_unexpected_bad_get_content">Óvænt vandamál, veldu skrána úr öðru forriti</string>
     <string name="filedisplay_no_file_selected">Engin skrá valin</string>
@@ -307,7 +293,7 @@ Smelltu hér til að fá þér einn frá þjónustuaðila.</string>
     <string name="wait_for_tmp_copy_from_private_storage">Afrita skrá úr einkageymslu</string>
     
     <string name="oauth_check_onoff">Skrá inn með OAuth 2.0</string> 
-    <string name="oauth_login_connection">Tengist við OAuth 2.0-auðkenningarþjón …</string>    
+    <string name="oauth_login_connection">Tengist við OAuth 2.0-auðkenningarþjón&#8230;</string>
         
     <string name="ssl_validator_header">Ekki var hægt að sannreyna auðkenni vefsvæðisins</string>
     <string name="ssl_validator_reason_cert_not_trusted">- Skilríki þjónsins er ekki treyst</string>
@@ -363,8 +349,6 @@ Smelltu hér til að fá þér einn frá þjónustuaðila.</string>
 
     <string name="error__upload__local_file_not_copied">%1$s var ekki hægt að afrita í staðværu %2$s möppuna</string>
     <string name="prefs_instant_upload_path_title">Mappa fyrir beinar innsendingar</string>
-    <string name="prefs_folder_sync_local_path_title">Staðvær mappa</string>
-    <string name="prefs_folder_sync_remote_path_title">Fjartengd mappa</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Nota undirmöppur</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Geyma í undirmöppum byggðum á ári og mánuðum</string>
 
@@ -536,11 +520,7 @@ Smelltu hér til að fá þér einn frá þjónustuaðila.</string>
     <string name="edit_share_unshare">Hætta deilingu</string>
     <string name="edit_share_done">lokið</string>
 
-    <string name="action_retry_uploads">Ný tilraun mistókst</string>
-    <string name="action_clear_failed_uploads">Hreinsun mistókst</string>
-    <string name="action_clear_successful_uploads">Hreinsað</string>
     <string name="action_clear_finished_uploads">Hreinsa innsendingar sem er lokið</string>
-
     <string name="action_switch_grid_view">Reitir</string>
     <string name="action_switch_list_view">Listi</string>
 
@@ -554,12 +534,10 @@ Smelltu hér til að fá þér einn frá þjónustuaðila.</string>
     <string name="confirmation_remove_files_alert">Ertu viss um að þú viljir fjarlægja valin atriði?</string>
     <string name="confirmation_remove_folders_alert">Ertu viss um að þú viljir fjarlægja valin atriði og innihald þeirra?</string>
     <string name="maintenance_mode">Þjónn í viðhaldsham</string>
-
     <string name="uploads_view_upload_status_waiting_for_charging">Bíð eftir hleðslu</string>
     <string name="actionbar_search">Leita</string>
     <string name="files_drop_not_supported">Þetta er Nextcloud-eiginleiki, endilega uppfærðu.</string>
     <string name="learn_more">Læra meira</string>
-    <string name="drawer_folder_sync">Sjálfvirk innsending</string>
     <string name="drawer_participate">Taka þátt</string>
     <string name="participate_testing_headline">Hjálpaðu til við prófanir</string>
     <string name="participate_testing_bug_text">Fannstu villu? Skringilegheit?</string>
@@ -578,13 +556,6 @@ Smelltu hér til að fá þér einn frá þjónustuaðila.</string>
     <string name="participate_contribute_github_text">Yfirfarðu, bættu og skrifaðu kóða, skoðaðu %1$s fyrir nánari upplýsingar</string>
     <string name="move_to">Færa í&#8230;</string>
     <string name="copy_to">Afrita í&#8230;</string>
-    <string name="choose_remote_folder">Veldu möppu&#8230;</string>
-    <string name="folder_sync_loading_folders">Hleð inn möppum&#8230;</string>
-    <string name="folder_sync_no_results">Engar margmiðlunarmöppur fundust</string>
-    <string name="folder_sync_preferences">Kjörstillingar fyrir sjálfvirkar innsendingar</string>
-    <string name="folder_sync_settings">Stillingar</string>
-    <string name="folder_sync_new_info">Beinar innsendingar hafa verið algerlega endurhannaðar. Endurstilltu sjálfvirkar innsendingar beint í aðalvalmyndinni\n\nNjóttu góðs af nýju og ítarlegu viðmóti sjálfvirkra innsendinga.</string>
-    <string name="folder_sync_preferences_folder_path">Fyrir %1$s</string>
     <plurals name="items_selected_count">
         <item quantity="one">%d valið</item>
         <item quantity="other">%d valið</item>
@@ -667,7 +638,5 @@ Smelltu hér til að fá þér einn frá þjónustuaðila.</string>
     <string name="privacy">Gagnaleynd</string>
     <string name="file_not_found">Skrá finnst ekki!</string>
 
-    <string name="folder_sync_folders">Stilla möppur</string>
-
-  <string name="test_server_button">Prófa tengingu þjóns</string>
-</resources>
+    <string name="test_server_button">Prófa tengingu þjóns</string>
+    </resources>

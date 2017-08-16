@@ -1,4 +1,4 @@
-/**
+/*
  *   ownCloud Android client application
  *
  *   @author David A. Velasco
@@ -113,6 +113,11 @@ public class PreviewMediaFragment extends FileFragment implements
 
     private static final String SCREEN_NAME = "Audio/Video Preview";
 
+    private static final String FILE = "FILE";
+    private static final String ACCOUNT = "ACCOUNT";
+    private static final String PLAYBACK_POSITION = "PLAYBACK_POSITION";
+    private static final String AUTOPLAY = "AUTOPLAY";
+
     /**
      * Creates a fragment to preview a file.
      * <p/>
@@ -121,16 +126,19 @@ public class PreviewMediaFragment extends FileFragment implements
      * @param fileToDetail An {@link OCFile} to preview in the fragment
      * @param ocAccount    An ownCloud account; needed to start downloads
      */
-    public PreviewMediaFragment(
-            OCFile fileToDetail,
-            Account ocAccount,
-            int startPlaybackPosition,
-            boolean autoplay) {
+    public static PreviewMediaFragment newInstance(OCFile fileToDetail, Account ocAccount, int startPlaybackPosition,
+                                                   boolean autoplay) {
+        PreviewMediaFragment previewMediaFragment = new PreviewMediaFragment();
 
-        super(fileToDetail);
-        mAccount = ocAccount;
-        mSavedPlaybackPosition = startPlaybackPosition;
-        mAutoplay = autoplay;
+        Bundle bundle = new Bundle();
+        bundle.putParcelable(FILE, fileToDetail);
+        bundle.putParcelable(ACCOUNT, ocAccount);
+        bundle.putInt(PLAYBACK_POSITION, startPlaybackPosition);
+        bundle.putBoolean(AUTOPLAY, autoplay);
+
+        previewMediaFragment.setArguments(bundle);
+
+        return previewMediaFragment;
     }
 
     /**
@@ -157,6 +165,13 @@ public class PreviewMediaFragment extends FileFragment implements
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
+
+        Bundle bundle = getArguments();
+
+        setFile((OCFile) bundle.getParcelable(FILE));
+        mAccount = bundle.getParcelable(ACCOUNT);
+        mSavedPlaybackPosition = bundle.getInt(PLAYBACK_POSITION);
+        mAutoplay = bundle.getBoolean(AUTOPLAY);
     }
 
 
@@ -399,6 +414,15 @@ public class PreviewMediaFragment extends FileFragment implements
         if (item != null) {
             item.setVisible(false);
             item.setEnabled(false);
+        }
+
+        if(getFile().isSharedWithMe() && !getFile().canReshare()){
+            // additional restriction for this fragment
+            item = menu.findItem(R.id.action_share_file);
+            if(item != null){
+                item.setVisible(false);
+                item.setEnabled(false);
+            }
         }
 
     }

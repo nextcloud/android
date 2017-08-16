@@ -12,7 +12,6 @@
     <string name="actionbar_see_details">Podrobnosti</string>
     <string name="actionbar_send_file">Odoslať</string>
     <string name="actionbar_sort">Zoradiť</string>
-    <string name="actionbar_sort_title">Zoradiť podľa</string>
     <string name="sort_by">Zoradiť podľa</string>
     <string name="menu_item_sort_by_name_a_z">A - Z</string>
     <string name="menu_item_sort_by_name_z_a">Z - A</string>
@@ -30,14 +29,9 @@
     <string name="drawer_open">Otvoriť</string>
     <string name="prefs_category_general">Všeobecné</string>
     <string name="prefs_category_more">Viac</string>
-    <string name="prefs_accounts">Účty</string>
     <string name="prefs_manage_accounts">Správa účtov</string>
     <string name="prefs_passcode">Heslo</string>
     <string name="prefs_show_hidden_files">Zobraziť skryté súbory</string>
-    <string name="prefs_log_title">Povoliť logovanie</string>
-    <string name="prefs_log_summary">Toto je použité pre logovanie problémov</string>
-    <string name="prefs_log_title_history">História logovania</string>
-    <string name="prefs_log_summary_history">Toto zobrazuje zaznamenané logy</string>
     <string name="prefs_log_delete_history_button">Vymazať históriu</string>
     <string name="prefs_calendar_contacts">Synchronizovať kalendár a kontakty</string>
     <string name="prefs_calendar_contacts_summary">Nastaviť DAVdroid (v1.3.0+) pre tento účet</string>
@@ -45,9 +39,9 @@
     <string name="prefs_help">Pomoc</string>
     <string name="prefs_feedback">Spätná väzba</string>
     <string name="prefs_imprint">Podmienky používania</string>
-    <string name="recommend_subject">Skúste %1$s na vašom telefóne!</string>
+
+	<string name="recommend_subject">Skúste %1$s na vašom telefóne!</string>
 	<string name="auth_check_server">Skontrolovať server</string>
-    <string name="auth_host_url">Adresa servera https://...</string>
     <string name="auth_username">Používateľské meno</string>
     <string name="auth_password">Heslo</string>
     <string name="sync_string_files">Súbory</string>
@@ -110,7 +104,6 @@
     <string name="uploader_upload_failed_credentials_error">Odoslanie neúspešné, je potrebné sa znovu prihlásiť</string>
     <string name="uploads_view_title">Nahranie</string>
     <string name="uploads_view_group_current_uploads">Aktuálne</string>
-    <string name="uploads_view_group_failed_uploads">Zlyhalo (ťuknutím zopakujete)</string>
     <string name="uploads_view_group_finished_uploads">Odoslané</string>
     <string name="uploads_view_upload_status_succeeded">Dokončené</string>
     <string name="uploads_view_upload_status_cancelled">Zrušené</string>
@@ -247,8 +240,6 @@
     <string name="preview_image_description">Ukážka obrazu</string>
     <string name="error__upload__local_file_not_copied">%1$s nemožno skopírovať do lokálneho priečinka %2$s</string>
     <string name="prefs_instant_upload_path_title">Priečinok pre okamžité nahratie</string>
-    <string name="prefs_folder_sync_local_path_title">Miestny priečinok</string>
-    <string name="prefs_folder_sync_remote_path_title">Vzdialený priečinok</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Použi podpriečinky</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Ulož v podpriečinkoch podľa roku a mesiaca</string>
 
@@ -370,7 +361,6 @@
     <string name="edit_share_unshare">Ukončiť sprístupnenie</string>
     <string name="edit_share_done">hotovo</string>
 
-    <string name="action_clear_failed_uploads">Vyčistiť zlyhané</string>
     <string name="action_switch_grid_view">Zobrazenie mriežky</string>
     <string name="action_switch_list_view">Zobrazenie zoznamu</string>
 
@@ -383,17 +373,11 @@
     <string name="actionbar_search">Hľadať</string>
     <string name="files_drop_not_supported">Toto je funkcia Nextcloudu, aktualizujte prosím.</string>
     <string name="learn_more">Dozvedieť sa viac</string>
-    <string name="drawer_folder_sync">Automatické nahratie</string>
     <string name="drawer_participate">Zúčastniť sa</string>
     <string name="participate_release_candidate_headline">Release candidate</string>
     <string name="participate_contribute_headline">Aktívne prispievať</string>
     <string name="move_to">Presunúť do&#8230;</string>
     <string name="copy_to">Kopírovať do&#8230;</string>
-    <string name="choose_remote_folder">Vybrať priečinok&#8230;</string>
-    <string name="folder_sync_loading_folders">Načítavanie priečinkov&#8230;</string>
-    <string name="folder_sync_no_results">Neboli nájdené žiadne multimediálne priečinky.</string>
-    <string name="folder_sync_settings">Nastavenia</string>
-    <string name="folder_sync_preferences_folder_path">Pre %1$s</string>
     <plurals name="items_selected_count">
         <item quantity="one">%d vybraný</item>
         <item quantity="few">%d vybraných</item>

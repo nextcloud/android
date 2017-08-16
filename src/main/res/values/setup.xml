@@ -26,7 +26,6 @@
     <string name="server_input_type">regular</string>
     <bool name="show_welcome_link">true</bool>
 	<string name="welcome_link_url">"https://nextcloud.com/providers"</string>
-	<string name="share_api_link"></string>
 
     <!-- Flags to setup the authentication methods available in the app -->
     <string name="auth_method_oauth2">off</string>
@@ -54,8 +53,6 @@
     <color name="color_accent">#007CC2</color>
     <color name="login_text_color">@color/white</color>
     <color name="login_text_hint_color">#7fC0E3</color>
-    <color name="login_background_color">#FFFFFF</color>
-    <color name="login_logo_background_color">#FFFFFF</color>
     <color name="background_color">#FFFFFF</color>
     <color name="primary_button_background_color">@color/color_accent</color>
     <color name="primary_button_text_color">@color/white</color>
@@ -65,9 +62,6 @@
     <!-- special transparent action bar colors for image preview -->
     <color name="color_transparent">#201D2D44</color>
     <color name="color_dark_transparent">#40162233</color>
-
-    <!-- Button -->
-    <color name="button_text_color">#000000</color>
 
     <!-- Multiselect backgrounds -->
     <color name="action_mode_background">#757575</color>

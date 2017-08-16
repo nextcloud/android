@@ -12,7 +12,6 @@
     <string name="actionbar_see_details">Detaļas</string>
     <string name="actionbar_send_file">Sūtīt</string>
     <string name="actionbar_sort">Kārtot</string>
-    <string name="actionbar_sort_title">Kārtot pēc</string>
     <string name="sort_by">Kārtot pēc</string>
     <string name="menu_item_sort_by_name_a_z">A - Z</string>
     <string name="menu_item_sort_by_name_z_a">Z - A</string>
@@ -40,20 +39,11 @@
     <string name="drawer_open">Atvērt</string>
     <string name="prefs_category_general">Vispārīgi</string>
     <string name="prefs_category_more">Vairāk</string>
-    <string name="prefs_accounts">Konti</string>
     <string name="prefs_manage_accounts">Pārvaldīt kontus</string>
     <string name="prefs_passcode">Kods bloķēts</string>
     <string name="prefs_fingerprint">Pirkstu nospiedoma aizslēģšana</string>
     <string name="prefs_fingerprint_notsetup">Nav uzstādīti pirkstu nospiedumi</string>
     <string name="prefs_show_hidden_files">Rādīt slēptās datnes</string>
-    <string name="prefs_instant_upload">Tūlītēja attēlu augšupielāde</string>
-    <string name="prefs_instant_upload_summary">Augšupielādēd attēlus no kameras tūlītēji</string>
-    <string name="prefs_instant_video_upload">Tūlītēja video augšupielāde</string>
-    <string name="prefs_instant_video_upload_summary">Augšupielādēd video no kameras tūlītēji</string>
-    <string name="prefs_log_title">Iespējot žurnālu</string>
-    <string name="prefs_log_summary">Šo lieto lai ierakstītu informāciju par problēmām</string>
-    <string name="prefs_log_title_history">Žurnāla vēsture</string>
-    <string name="prefs_log_summary_history">Šis parāda ierakstu žurnālu</string>
     <string name="prefs_log_delete_history_button">Dzēst vēsturi</string>
     <string name="prefs_calendar_contacts">Sinhronizēt kalendāra &amp; kontaktus</string>
     <string name="prefs_calendar_contacts_summary">Kontam iestatīt DAVdroid (v1.3.0+)</string>
@@ -63,9 +53,9 @@
     <string name="prefs_recommend">Ieteikt draugam</string>
     <string name="prefs_feedback">Atsauksmes</string>
     <string name="prefs_imprint">Importēt</string>
-    <string name="recommend_subject">Izmēģini %1$s uz savu viedtālruni!</string>
+
+	<string name="recommend_subject">Izmēģini %1$s uz savu viedtālruni!</string>
 	<string name="auth_check_server">Pārbaudīt serveri</string>
-    <string name="auth_host_url">Servera adrese https://…</string>
     <string name="auth_username">Lietotājvārds</string>
     <string name="auth_password">Parole</string>
     <string name="sync_string_files">Datnes</string>
@@ -125,7 +115,6 @@
     <string name="uploader_upload_failed_credentials_error">Augšupielāde nesekmīga, jums atkārtoti jāpierakstās</string>
     <string name="uploads_view_title">Augšupielādes</string>
     <string name="uploads_view_group_current_uploads">Pašreizējais</string>
-    <string name="uploads_view_group_failed_uploads">Nesekmīgi (uzsit lai atkārtotu)</string>
     <string name="uploads_view_group_finished_uploads">Augšupielādēts</string>
     <string name="uploads_view_upload_status_succeeded">Pabeigts</string>
     <string name="uploads_view_upload_status_cancelled">Atcelts</string>
@@ -252,8 +241,6 @@
     <string name="preview_image_description">Attēla priekšskatījums</string>
     <string name="error__upload__local_file_not_copied">%1$s nevar kopēt uz %2$s lokālo mapi</string>
     <string name="prefs_instant_upload_path_title">Tūlītējas augšupielādes mepe</string>
-    <string name="prefs_folder_sync_local_path_title">Lokāla mape</string>
-    <string name="prefs_folder_sync_remote_path_title">Attālinātā mape</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Lietot apakšmapi</string>
     <string name="share_link_file_no_exist">Nevar koplietot. Lūdzu, pārbaudiet, vai fails pastāv</string>
 	<string name="share_link_file_error">Radās kļūda, mēģinot koplietot šo failu vai mapi</string>
@@ -365,7 +352,6 @@
     <string name="edit_share_unshare">Beigt koplietošanu</string>
     <string name="edit_share_done">pabeigts</string>
 
-    <string name="action_clear_failed_uploads">Notīrīšana neizdevās</string>
     <string name="action_switch_grid_view">Režģa izkārtojums</string>
     <string name="action_switch_list_view">Saraksta izkārtojums</string>
 
@@ -377,14 +363,8 @@
     <string name="confirmation_remove_folders_alert">Vai tiešām vēlies noņemt izvēlētos un to saturu?</string>
     <string name="actionbar_search">Meklēt</string>
     <string name="learn_more">Uzziniet vairāk</string>
-    <string name="drawer_folder_sync">Automātiska augšupielāde</string>
     <string name="move_to">Pārvietot uz&#8230;</string>
     <string name="copy_to">Kopēt uz&#8230;</string>
-    <string name="choose_remote_folder">Izvēlies mapi&#8230;</string>
-    <string name="folder_sync_loading_folders">Ielāde mapes&#8230;</string>
-    <string name="folder_sync_no_results">Nav atrasta multivides mape.</string>
-    <string name="folder_sync_settings">Iestatījumi</string>
-    <string name="folder_sync_preferences_folder_path">%1$s</string>
     <plurals name="items_selected_count">
         <item quantity="zero">%d atlasīts</item>
         <item quantity="one">%d atlasīts</item>

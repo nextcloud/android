@@ -12,7 +12,6 @@
     <string name="actionbar_see_details">Detalhes</string>
     <string name="actionbar_send_file">Enviar</string>
     <string name="actionbar_sort">Ordenar</string>
-    <string name="actionbar_sort_title">Ordenar por</string>
     <string name="drawer_item_all_files">Todos os ficheiros</string>
     <string name="drawer_item_on_device">No dispositivo</string>
     <string name="drawer_item_settings">Definições</string>
@@ -22,14 +21,9 @@
     <string name="drawer_open">Abrir</string>
     <string name="prefs_category_general">Geral</string>
     <string name="prefs_category_more">Mais</string>
-    <string name="prefs_accounts">Contas</string>
     <string name="prefs_manage_accounts">Gerir contas</string>
     <string name="prefs_passcode">Proteção por código</string>
     <string name="prefs_show_hidden_files">Mostrar ficheiros escondidos</string>
-    <string name="prefs_log_title">Ativar registo de alterações</string>
-    <string name="prefs_log_summary">É utilizado para registar problemas</string>
-    <string name="prefs_log_title_history">Histórico de registos de alterações</string>
-    <string name="prefs_log_summary_history">Isto mostra os registos de alterações guardados</string>
     <string name="prefs_log_delete_history_button">Eliminar histórico</string>
     <string name="prefs_calendar_contacts">Sincronizar calendário e contacots</string>
     <string name="prefs_calendar_contacts_summary">Preparar DAVdroid (v1.3.0+) para a conta actual</string>
@@ -37,9 +31,9 @@
     <string name="prefs_help">Ajuda</string>
     <string name="prefs_feedback">Opinião</string>
     <string name="prefs_imprint">Marca</string>
-    <string name="recommend_subject">Experimente %1$s no seu telemóvel!</string>
+
+	<string name="recommend_subject">Experimente %1$s no seu telemóvel!</string>
 	<string name="auth_check_server">Verificar servidor</string>
-    <string name="auth_host_url">Endereço do servidor https://..</string>
     <string name="auth_username">Nome de Utilizador</string>
     <string name="auth_password">Palavra-passe</string>
     <string name="sync_string_files">Ficheiros</string>
@@ -101,7 +95,6 @@
     <string name="uploader_upload_failed_credentials_error">Falha no carregamento, precisa de iniciar a sessão novamente</string>
     <string name="uploads_view_title">Carregamentos</string>
     <string name="uploads_view_group_current_uploads">Atual</string>
-    <string name="uploads_view_group_failed_uploads">Falhou (toque para repetir)</string>
     <string name="uploads_view_group_finished_uploads">Carregado</string>
     <string name="uploads_view_upload_status_succeeded">Concluído</string>
     <string name="uploads_view_upload_status_cancelled">Cancelado</string>
@@ -336,7 +329,6 @@
     <string name="edit_share_unshare">Parar partilha</string>
     <string name="edit_share_done">feito</string>
 
-    <string name="action_clear_failed_uploads">Limpar os que falharam</string>
     <string name="action_switch_grid_view">Vista em grelha</string>
     <string name="action_switch_list_view">Vista em lista</string>
 
@@ -348,10 +340,7 @@
     <string name="confirmation_remove_folders_alert">Quer realmente remover os itens selecionados e os seus conteúdos?</string>
     <string name="actionbar_search">Procura</string>
     <string name="learn_more">Conheça melhor</string>
-    <string name="drawer_folder_sync">Carregar automaticamente</string>
     <string name="drawer_participate">Participe</string>
-    <string name="folder_sync_no_results">Dossiês multimédia não encontrados</string>
-    <string name="folder_sync_settings">Parametros</string>
     <string name="upload_file_dialog_filename">Nome do ficheiro</string>
     <string name="upload_file_dialog_filetype">Tipo de ficheiro</string>
     <string name="upload_file_dialog_filetype_internet_shortcut">Atalhos(%s) de Internet</string>

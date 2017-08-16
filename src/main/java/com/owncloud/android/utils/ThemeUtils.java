@@ -37,6 +37,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v4.graphics.ColorUtils;
 import android.support.v4.graphics.drawable.DrawableCompat;
+import android.support.v4.widget.CompoundButtonCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.AppCompatCheckBox;
 import android.support.v7.widget.SwitchCompat;
@@ -124,12 +125,9 @@ public class ThemeUtils {
      */
     public static boolean darkTheme() {
         int primaryColor = primaryColor();
+        float[] hsl = colorToHSL(primaryColor);
 
-        int red = Color.red(primaryColor);
-        int green = Color.green(primaryColor);
-        int blue = Color.blue(primaryColor);
-
-        return ((0.299 * red + 0.587 * green + 0.114 * blue) / 255) <= 0.5;
+        return (hsl[2] / 100) <= 0.5;
     }
 
     /**
@@ -171,12 +169,18 @@ public class ThemeUtils {
     }
 
     public static int adjustLightness(float lightnessDelta, int color) {
-        float[] hsl = new float[3];
-        ColorUtils.RGBToHSL(Color.red(color), Color.green(color), Color.blue(color), hsl);
+        float[] hsl = colorToHSL(color);
 
         hsl[2] += lightnessDelta;
 
         return ColorUtils.HSLToColor(hsl);
+    }
+
+    private static float[] colorToHSL(int color) {
+        float[] hsl = new float[3];
+        ColorUtils.RGBToHSL(Color.red(color), Color.green(color), Color.blue(color), hsl);
+
+        return hsl;
     }
 
     /**
@@ -254,7 +258,7 @@ public class ThemeUtils {
     }
 
     public static void tintCheckbox(AppCompatCheckBox checkBox, int color) {
-        checkBox.setSupportButtonTintList(new ColorStateList(
+        CompoundButtonCompat.setButtonTintList(checkBox, new ColorStateList(
                 new int[][]{
                         new int[]{-android.R.attr.state_checked},
                         new int[]{android.R.attr.state_checked},

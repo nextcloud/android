@@ -241,28 +241,8 @@ public class FileDownloadFragment extends FileFragment implements OnClickListene
     }
 
     /**
-     * Enables or disables buttons for a file locally available
-     */
-    private void setButtonsForDown() {
-        getView().findViewById(R.id.cancelBtn).setVisibility(View.GONE);
-
-        // hides the progress bar
-        getView().findViewById(R.id.progressBar).setVisibility(View.GONE);
-
-        // updates the text message
-        TextView progressText = (TextView) getView().findViewById(R.id.progressText);
-        progressText.setText(R.string.common_loading);
-        progressText.setVisibility(View.VISIBLE);
-
-        // hides the error icon
-        getView().findViewById(R.id.errorText).setVisibility(View.GONE);
-        getView().findViewById(R.id.error_image).setVisibility(View.GONE);
-    }
-
-
-    /**
      * Enables or disables buttons for a file not locally available
-     * <p/>
+     *
      * Currently, this is only used when a download was failed
      */
     private void setButtonsForRemote() {
@@ -307,7 +287,7 @@ public class FileDownloadFragment extends FileFragment implements OnClickListene
         WeakReference<ProgressBar> mProgressBar = null;
 
         ProgressListener(ProgressBar progressBar) {
-            mProgressBar = new WeakReference<ProgressBar>(progressBar);
+            mProgressBar = new WeakReference<>(progressBar);
         }
 
         @Override

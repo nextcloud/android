@@ -12,7 +12,6 @@
     <string name="actionbar_see_details">פרטים</string>
     <string name="actionbar_send_file">שליחה</string>
     <string name="actionbar_sort">מיון</string>
-    <string name="actionbar_sort_title">מיון על בסיס</string>
     <string name="drawer_item_all_files">כל הקבצים</string>
     <string name="drawer_item_settings">הגדרות</string>
     <string name="drawer_item_uploads_list">העלאות</string>
@@ -20,21 +19,16 @@
     <string name="drawer_open">פתיחה</string>
     <string name="prefs_category_general">כללי</string>
     <string name="prefs_category_more">יותר</string>
-    <string name="prefs_accounts">חשבונות</string>
     <string name="prefs_manage_accounts">ניהול חשבונות</string>
     <string name="prefs_passcode">נעילת סיסמא</string>
     <string name="prefs_show_hidden_files">הצגת קבצים נסתרים</string>
-    <string name="prefs_log_title">מאפשר התחברות</string>
-    <string name="prefs_log_summary">משמש לתיעוד בעיות</string>
-    <string name="prefs_log_title_history">הסטורית התחברות</string>
-    <string name="prefs_log_summary_history">מראה את יומני התעוד</string>
     <string name="prefs_log_delete_history_button">מחיקת הסטוריה</string>
     <string name="prefs_help">עזרה</string>
     <string name="prefs_feedback">משוב</string>
     <string name="prefs_imprint">חותמת</string>
-    <string name="recommend_subject">לבדיקה %1$s בטלפון החכם שלך!</string>
+
+	<string name="recommend_subject">לבדיקה %1$s בטלפון החכם שלך!</string>
 	<string name="auth_check_server">בדיקת שרת</string>
-    <string name="auth_host_url">כתובת שרת https://…</string>
     <string name="auth_username">שם משתמש</string>
     <string name="auth_password">ססמה</string>
     <string name="sync_string_files">קבצים</string>
@@ -91,7 +85,6 @@
     <string name="uploader_upload_failed_credentials_error">העלאה נכשלה, יש להתחבר מחדש</string>
     <string name="uploads_view_title">העלאות</string>
     <string name="uploads_view_group_current_uploads">נוכחי</string>
-    <string name="uploads_view_group_failed_uploads">נכשל (יש להקיש לניסיון נוסף)</string>
     <string name="uploads_view_group_finished_uploads">הועלה</string>
     <string name="uploads_view_upload_status_succeeded">הושלם</string>
     <string name="uploads_view_upload_status_cancelled">בוטל</string>
@@ -223,8 +216,6 @@
 
     <string name="preview_image_description">תצוגה מקדימה לתמונה</string>
     <string name="error__upload__local_file_not_copied">%1$s לא ניתן להעתקה לתיקייה מקומית %2$s</string>
-    <string name="prefs_folder_sync_local_path_title">תיקייה מקומית</string>
-    <string name="prefs_folder_sync_remote_path_title">תיקייה מרוחקת</string>
     <string name="share_link_file_no_exist">לא ניתן לשתף. יש לבדוק אם הקובץ קיים</string>
 	<string name="share_link_file_error">שגיאה אירעה בזמן ניסיון לשתף קובץ זה או תיקייה זו</string>
 	<string name="unshare_link_file_no_exist">לא ניתן לבטל שיתוף. יש לבדוק אם הקובץ קיים</string>
@@ -335,7 +326,6 @@
     <string name="edit_share_unshare">הפסקת שיתוף</string>
     <string name="edit_share_done">הסתיים</string>
 
-    <string name="action_clear_failed_uploads">ניקוי נכשל</string>
     <string name="action_switch_grid_view">תצוגת טבלה</string>
     <string name="action_switch_list_view">תצוגת רשימה</string>
 
@@ -349,9 +339,6 @@
 </string>
     <string name="copy_to">העתק אל&#8230;
 </string>
-    <string name="choose_remote_folder">בחר תיקייה&#8230;</string>
-    <string name="folder_sync_no_results">לא נמצאו תיקיות מדיה</string>
-    <string name="folder_sync_settings">הגדרות</string>
     <string name="upload_file_dialog_filename">שם קובץ</string>
     <string name="upload_file_dialog_filetype">סוג קובץ</string>
     <string name="storage_description_default">ברירת מחדל</string>

@@ -23,6 +23,7 @@ package com.owncloud.android.ui.dialog.parcel;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.owncloud.android.datamodel.MediaFolderType;
 import com.owncloud.android.datamodel.SyncedFolderDisplayItem;
 import com.owncloud.android.files.services.FileUploader;
 
@@ -38,6 +39,7 @@ public class SyncedFolderParcelable implements Parcelable {
     private Boolean mEnabled = false;
     private Boolean mSubfolderByDate = false;
     private Integer mUploadAction;
+    private MediaFolderType mType;
     private long mId;
     private String mAccount;
     private int mSection;
@@ -54,6 +56,7 @@ public class SyncedFolderParcelable implements Parcelable {
         mChargingOnly = syncedFolderDisplayItem.getChargingOnly();
         mEnabled = syncedFolderDisplayItem.isEnabled();
         mSubfolderByDate = syncedFolderDisplayItem.getSubfolderByDate();
+        mType = syncedFolderDisplayItem.getType();
         mAccount = syncedFolderDisplayItem.getAccount();
         mUploadAction = syncedFolderDisplayItem.getUploadAction();
         mSection = section;
@@ -68,6 +71,7 @@ public class SyncedFolderParcelable implements Parcelable {
         mChargingOnly = read.readInt() != 0;
         mEnabled = read.readInt() != 0;
         mSubfolderByDate = read.readInt() != 0;
+        mType = MediaFolderType.getById(read.readInt());
         mAccount = read.readString();
         mUploadAction = read.readInt();
         mSection = read.readInt();
@@ -83,6 +87,7 @@ public class SyncedFolderParcelable implements Parcelable {
         dest.writeInt(mChargingOnly ? 1 : 0);
         dest.writeInt(mEnabled ? 1 : 0);
         dest.writeInt(mSubfolderByDate ? 1 : 0);
+        dest.writeInt(mType.getId());
         dest.writeString(mAccount);
         dest.writeInt(mUploadAction);
         dest.writeInt(mSection);
@@ -161,6 +166,14 @@ public class SyncedFolderParcelable implements Parcelable {
 
     public void setSubfolderByDate(Boolean mSubfolderByDate) {
         this.mSubfolderByDate = mSubfolderByDate;
+    }
+
+    public MediaFolderType getType() {
+        return mType;
+    }
+
+    public void setType(MediaFolderType mType) {
+        this.mType = mType;
     }
 
     public Integer getUploadAction() {

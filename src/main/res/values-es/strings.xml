@@ -12,7 +12,6 @@
     <string name="actionbar_see_details">Detalles</string>
     <string name="actionbar_send_file">Enviar</string>
     <string name="actionbar_sort">Ordenar</string>
-    <string name="actionbar_sort_title">Ordenar por</string>
     <string name="sort_by">Ordenar por</string>
     <string name="menu_item_sort_by_name_a_z">A - Z</string>
     <string name="menu_item_sort_by_name_z_a">Z - A</string>
@@ -40,20 +39,11 @@
     <string name="drawer_open">Abrir</string>
     <string name="prefs_category_general">General</string>
     <string name="prefs_category_more">Más</string>
-    <string name="prefs_accounts">Cuentas</string>
     <string name="prefs_manage_accounts">Gestionar cuentas</string>
     <string name="prefs_passcode">Bloqueo con contraseña</string>
     <string name="prefs_fingerprint">Bloqueo con huella dactilar</string>
     <string name="prefs_fingerprint_notsetup">No se han configurado huellas dactilares</string>
     <string name="prefs_show_hidden_files">Mostrar archivos ocultos</string>
-    <string name="prefs_instant_upload">Subida instantánea de imágenes</string>
-    <string name="prefs_instant_upload_summary">Subir instantáneamente imágenes de la cámara</string>
-    <string name="prefs_instant_video_upload">Subida instantánea de vídeo</string>
-    <string name="prefs_instant_video_upload_summary">Subir instantáneamente vídeos grabados con la cámara</string>
-    <string name="prefs_log_title">Habilitar registro</string>
-    <string name="prefs_log_summary">Esto se usa para registrar problemas</string>
-    <string name="prefs_log_title_history">Historial del registro</string>
-    <string name="prefs_log_summary_history">Esto muestra los registros grabados</string>
     <string name="prefs_log_delete_history_button">Eliminar historial</string>
     <string name="prefs_calendar_contacts">Sincronizar calendario y contactos</string>
     <string name="prefs_calendar_contacts_summary">Configurar DAVdroid (v1.3.0 +) para la cuenta actual</string>
@@ -65,15 +55,13 @@
     <string name="prefs_recommend">Recomendar a un amigo</string>
     <string name="prefs_feedback">Observaciones</string>
     <string name="prefs_imprint">Pie de imprenta</string>
-    <string name="prefs_remember_last_share_location">Recordar la localización del compartido</string>
-    <string name="prefs_remember_last_upload_location_summary">Recordar la localización del compartido más recientemente usado</string>
 
 	<string name="recommend_subject">¡Prueba  %1$s en tu smarthphone!</string>
 	<string name="recommend_text">Quiero invitarte a usar %1$s en tu móvil.\nDescárgalo aquí: %2$s</string>
     <string name="recommend_urls">%1$s o %2$s</string>
 
     <string name="auth_check_server">Verificar servidor</string>
-    <string name="auth_host_url">Dirección del servidor https://…</string>
+    <string name="auth_host_url">Dirección del servidor https://&#8230;</string>
     <string name="auth_username">Nombre de usuario</string>
     <string name="auth_password">Contraseña</string>
     <string name="auth_register">¿No tienes todavía un servidor?\Pulsa aquí para conseguir uno de un proveedor</string>
@@ -169,7 +157,6 @@
     <string name="uploader_upload_failed_credentials_error">Subida fallida, tienes que volver a iniciar sesión</string>
     <string name="uploads_view_title">Subidas</string>
     <string name="uploads_view_group_current_uploads">Actual</string>
-    <string name="uploads_view_group_failed_uploads">Fallido (presiona para reintentarlo)</string>
     <string name="uploads_view_group_finished_uploads">Subidos</string>
     <string name="uploads_view_upload_status_succeeded">Completado</string>
     <string name="uploads_view_upload_status_cancelled">Cancelado</string>
@@ -270,7 +257,7 @@
 	<string name="auth_expired_oauth_token_toast">Tu autorización ha expirado. Por favor, autoriza de nuevo</string>
 	<string name="auth_expired_basic_auth_toast">Por favor, introduce tu contraseña actual</string>
 	<string name="auth_expired_saml_sso_token_toast">Tu sesión ha expirado. Por favor, conéctate de nuevo</string>
-	<string name="auth_connecting_auth_server">Conectando al servidor de autentificación...</string>
+	<string name="auth_connecting_auth_server">Conectando al servidor de autentificación&#8230;</string>
 	<string name="auth_unsupported_auth_method">El servidor no soporta este método de autenticación</string>
 	<string name="auth_unsupported_multiaccount">%1$s no soporta cuentas múltiples</string>
 	<string name="auth_fail_get_user_name">Su servidor no está retornando una identificación de usuario correcta; contacte a un administrador </string>
@@ -298,7 +285,7 @@
     <string name="filename_forbidden_characters">Caracteres prohibidos: / \\ &lt; &gt; : \" | ? *</string>
     <string name="filename_forbidden_charaters_from_server">El nombre de archivo contiene al menos un carácter no válido</string>
     <string name="filename_empty">El nombre de archivo no puede estar vacío</string>
-    <string name="wait_a_moment">Espere un momento...</string>
+    <string name="wait_a_moment">Espere un momento&#8230;</string>
     <string name="wait_checking_credentials">Comprobando las credenciales guardadas</string>
     <string name="filedisplay_unexpected_bad_get_content">Problema inesperado; por favor, selecciona el archivo en una app diferente</string>
     <string name="filedisplay_no_file_selected">No hay archivos seleccionados</string>
@@ -306,7 +293,7 @@
     <string name="wait_for_tmp_copy_from_private_storage">Copiando el archivo desde el almacenamiento privado.</string>
     
     <string name="oauth_check_onoff">Ingresar con OAuth 2.0</string> 
-    <string name="oauth_login_connection">Conectando al servidor OAuth 2.0...</string>    
+    <string name="oauth_login_connection">Conectando al servidor OAuth 2.0&#8230;</string>
         
     <string name="ssl_validator_header">No se ha podido verificar la ia identidad del sitio</string>
     <string name="ssl_validator_reason_cert_not_trusted">- El certificado del servidor no es de confianza</string>
@@ -362,8 +349,6 @@
 
     <string name="error__upload__local_file_not_copied">%1$s no se ha podido copiar a la carpeta local %2$s</string>
     <string name="prefs_instant_upload_path_title">Carpeta para subida instantánea</string>
-    <string name="prefs_folder_sync_local_path_title">Carpeta local</string>
-    <string name="prefs_folder_sync_remote_path_title">Carpeta en servidor</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Usar subcarpetas</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Almacenar en subcarpetas basadas en año y mes.</string>
 
@@ -535,11 +520,8 @@
     <string name="edit_share_unshare">Dejar de compatir</string>
     <string name="edit_share_done">hecho</string>
 
-    <string name="action_retry_uploads">Nuevo intento fallido</string>
-    <string name="action_clear_failed_uploads">Limpieza fallida</string>
-    <string name="action_clear_successful_uploads">Limpieza exitosa</string>
+    <string name="action_clear_successful_uploads">Limpiar subidas exitosas</string>
     <string name="action_clear_finished_uploads">Limpiar subidas finalizadas</string>
-
     <string name="action_switch_grid_view">Vista en cuadrícula</string>
     <string name="action_switch_list_view">Vista de lista</string>
 
@@ -553,12 +535,10 @@
     <string name="confirmation_remove_files_alert">¿Está seguro de que quiere eliminar los elementos seleccionados?</string>
     <string name="confirmation_remove_folders_alert">¿Está seguro de que quiere eliminar los elementos seleccionados y sus contenidos?</string>
     <string name="maintenance_mode">Servidor en modo mantenimiento</string>
-
     <string name="uploads_view_upload_status_waiting_for_charging">Esperando la carga del dispositivo</string>
     <string name="actionbar_search">Buscar</string>
     <string name="files_drop_not_supported">Esta es una característica de Nextcloud. Por favor, actualice.</string>
     <string name="learn_more">Aprender más</string>
-    <string name="drawer_folder_sync">Subida automática</string>
     <string name="drawer_participate">Participar</string>
     <string name="participate_testing_headline">Ayúdanos a realizar pruebas</string>
     <string name="participate_testing_bug_text">¿Encontraste un error? ¿Algo va mal?</string>
@@ -577,13 +557,6 @@
     <string name="participate_contribute_github_text">Revisa, corrige y escribe código. Ve %1$s para más detalles</string>
     <string name="move_to">Mover a&#8230;</string>
     <string name="copy_to">Copiar a&#8230;</string>
-    <string name="choose_remote_folder">Elija carpeta&#8230;</string>
-    <string name="folder_sync_loading_folders">Cargando carpetas&#8230;</string>
-    <string name="folder_sync_no_results">No se han encontrado carpetas de medios.</string>
-    <string name="folder_sync_preferences">Preferencias de subida automática</string>
-    <string name="folder_sync_settings">Configuración</string>
-    <string name="folder_sync_new_info">La subida instantánea ha sido completamente renovada. Reconfigura tus subidas instantáneas en el menú principal.\n\n¡Disfruta las nuevas y extendidas capacidades de la subida automática!</string>
-    <string name="folder_sync_preferences_folder_path">Durante %1$s</string>
     <plurals name="items_selected_count">
         <item quantity="one">%d seleccionado</item>
         <item quantity="other">%d seleccionados</item>
@@ -666,7 +639,5 @@
     <string name="privacy">Privacidad</string>
     <string name="file_not_found">¡Archivo no encontrado!</string>
 
-    <string name="folder_sync_folders">Configurar carpetas</string>
-
-  <string name="test_server_button">Probar conexión con servidor</string>
-</resources>
+    <string name="test_server_button">Probar conexión con servidor</string>
+    </resources>

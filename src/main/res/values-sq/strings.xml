@@ -12,7 +12,6 @@
     <string name="actionbar_see_details">Hollësi</string>
     <string name="actionbar_send_file">Dërgojeni</string>
     <string name="actionbar_sort">Renditni</string>
-    <string name="actionbar_sort_title">Renditni sipas</string>
     <string name="sort_by">Rendit sipas</string>
     <string name="menu_item_sort_by_name_a_z">A - Z</string>
     <string name="menu_item_sort_by_name_z_a">Z - A</string>
@@ -40,20 +39,12 @@
     <string name="drawer_open">Hape</string>
     <string name="prefs_category_general">Të përgjithshme</string>
     <string name="prefs_category_more">Më tepër</string>
-    <string name="prefs_accounts">Llogaritë</string>
     <string name="prefs_manage_accounts">Administroni llogaritë</string>
     <string name="prefs_passcode">Kyçje kodkalimi</string>
-    <string name="prefs_fingerprint">Kyçuni me shenjë gishtash</string>
+    <string name="prefs_fingerprint">Kyçuni me shenjat e gishtave</string>
     <string name="prefs_fingerprint_notsetup">Shenjat e gishtave nuk janë vendosur</string>
+    <string name="prefs_expert_mode">Mënyra eksperte</string>
     <string name="prefs_show_hidden_files">Trego skedarët e fshehur</string>
-    <string name="prefs_instant_upload">Ngarkim i menjëhershëm fotosh</string>
-    <string name="prefs_instant_upload_summary">Ngarkoni menjëherë fotot të bëra nga aparati </string>
-    <string name="prefs_instant_video_upload">Ngarkim i menjëhershëm videoje</string>
-    <string name="prefs_instant_video_upload_summary">Ngarkoni video të sapo bëra nga aparati</string>
-    <string name="prefs_log_title">Aktivizoni regjistrimet</string>
-    <string name="prefs_log_summary">Kjo përdoret për të regjistruar probleme</string>
-    <string name="prefs_log_title_history">Historiku i regjistrimeve</string>
-    <string name="prefs_log_summary_history">Kjo shfaq regjistrimet e bëra</string>
     <string name="prefs_log_delete_history_button">Fshini historikun</string>
     <string name="prefs_calendar_contacts">Sinkronizoni kalendarin &amp; kontaktet</string>
     <string name="prefs_calendar_contacts_summary">Vendos DAVdroid (v1.3.0+)  për llogarinë aktuale</string>
@@ -65,21 +56,20 @@
     <string name="prefs_recommend">Rekomandojani një miku </string>
     <string name="prefs_feedback">Përshtypje</string>
     <string name="prefs_imprint">Imprint</string>
-    <string name="prefs_remember_last_share_location">Mbaj mend vendin e shpërndarjes</string>
-    <string name="prefs_remember_last_upload_location_summary">Mbaj mend vendin e shpërndarjes së përdorur së fundmi</string>
 
 	<string name="recommend_subject">Provojeni %1$s te telefoni juaj!</string>
 	<string name="recommend_text">Dua t’ju ftoj të përdorni %1$s në telefonin tuaj!\nShkarko këtu: %2$s</string>
     <string name="recommend_urls">%1$s ose %2$s</string>
 
     <string name="auth_check_server">Kontrollo serverin</string>
-    <string name="auth_host_url">Adresa e serverit https://… </string>
+    <string name="auth_host_url">Adresa e serverit https://&#8230;</string>
     <string name="auth_username">Emër përdoruesi</string>
     <string name="auth_password">Fjalëkalim</string>
     <string name="auth_register">Nuk keni akoma një server?\nKliko këtu për të marrë një nga ofruesit</string>
     <string name="sync_string_files">Kartela</string>
     <string name="setup_btn_connect">Lidhuni</string>
     <string name="uploader_btn_upload_text">Ngarkoni</string>
+    <string name="uploader_btn_alternative_text">Zgjidhni</string>
     <string name="uploader_top_message">Zgjidhni një dosje ngarkimi</string>
     <string name="uploader_wrn_no_account_title">S’u gjet llogari</string>
     <string name="uploader_wrn_no_account_text">S’ka llogari %1$s te pajisja juaj. Ju lutemi, së pari krijoni një llogari.</string>
@@ -98,13 +88,15 @@
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Fshij kartelën nga dosja burim</string>
     <string name="file_list_seconds_ago">sekonda më parë</string>
     <string name="file_list_empty_headline">Këtu nuk ka asnjë skedar</string>
+    <string name="folder_list_empty_headline">Këtu nuk ka dosje</string>
     <string name="file_list_empty">Ngarko disa të dhëna ose sinkronizo me pajisjet e tua!</string>
-    <string name="file_list_empty_favorites">Shto disa skedar të preferuar ose sinkronizo me pajisjet e tua</string>
+    <string name="file_list_empty_favorites">Shto disa skedarë të preferuar ose sinkronizoji me pajisjet e tua</string>
     <string name="file_list_empty_favorites_filter_list">Skedarët dhe direktoritë që i shënoni si të preferuara do të shfaqen këtu</string>
     <string name="file_list_empty_favorites_filter">Kërkimi juaj nuk gjeti asnjë skedar të preferuar</string>
     <string name="file_list_loading">Po ngarkohet&#8230;</string>
     <string name="file_list_no_app_for_file_type">Nuk ka asnjë konfigurim për të trajtuar këtë tip skedari</string>
     <string name="local_file_list_empty">Në këtë dosje s’ka skedar.</string>
+    <string name="local_folder_list_empty">Nuk ka më dosje më tej.</string>
     <string name="file_list_empty_headline_search">Nuk ka rezultate në këtë dosje</string>
     <string name="file_list_empty_headline_server_search">Asnjë rezultat</string>
     <string name="file_list_empty_favorite_headline">Asgjë e preferuar akoma</string>
@@ -153,11 +145,14 @@
     <string name="common_unknown">panjohur</string>
     <string name="common_error_unknown">Gabim i panjohur</string>
     <string name="common_pending">Në pritje</string>
+    <string name="common_delete">Fshije</string>
     <string name="about_title">Rreth</string>
     <string name="change_password">Ndryshoni fjalëkalimin</string>
     <string name="delete_account">Hiqe llogarinë</string>
     <string name="delete_account_warning">Fshij llogarinë %s me të gjithë skedarët lokalë?\n\nFshirja nuk mund të zhbëhet.</string>
     <string name="create_account">Krijoni llogari</string>
+    <string name="avatar">Avatari</string>
+    <string name="active_user">Përdorues aktiv</string>
     <string name="upload_chooser_title">Ngarkojeni prej &#8230;</string>
     <string name="uploader_info_dirname">Emër dosjeje</string>
     <string name="uploader_upload_in_progress_ticker">Po ngarkohet &#8230;</string>
@@ -169,7 +164,7 @@
     <string name="uploader_upload_failed_credentials_error">Ngarkimi dështoi, lypset të bëni hyrjen sërish</string>
     <string name="uploads_view_title">Ngarkime</string>
     <string name="uploads_view_group_current_uploads">Të tanishëm</string>
-    <string name="uploads_view_group_failed_uploads">Dështoi (prekeni që të riprovohet)</string>
+    <string name="uploads_view_group_failed_uploads">Dështoi / Rindezja në pritje</string>
     <string name="uploads_view_group_finished_uploads">U ngarkua</string>
     <string name="uploads_view_upload_status_succeeded">Të plotësuara</string>
     <string name="uploads_view_upload_status_cancelled">U anulua</string>
@@ -270,7 +265,7 @@
 	<string name="auth_expired_oauth_token_toast">Autorizimi juaj skadoi. Ju lutemi, autorizohuni sërisht</string>
 	<string name="auth_expired_basic_auth_toast">Ju lutem, jepni fjalëkalimin e tanishëm</string>
 	<string name="auth_expired_saml_sso_token_toast">Sesioni juaj skadoi. Ju lutemi, rilidhuni</string>
-	<string name="auth_connecting_auth_server">Po lidhet te serveri i identifikimit …</string>
+	<string name="auth_connecting_auth_server">Po lidhet te serveri i identifikimit&#8230;</string>
 	<string name="auth_unsupported_auth_method">Serveri s’e mbulon këtë metodë identifikimi</string>
 	<string name="auth_unsupported_multiaccount">%1$s s\’mbulon llogari të shumëfishta</string>
 	<string name="auth_fail_get_user_name">Serveri juaj nuk është duke kthyer një  id përdoruesi të saktë, ju lutem kontaktoni një administrator</string>
@@ -298,7 +293,7 @@
     <string name="filename_forbidden_characters">Shenja të ndaluara: / \\ &lt; &gt; : \" | ? *</string>
     <string name="filename_forbidden_charaters_from_server">Emri i skedarit përmban të paktën një shenjë të pavlefshme</string>
     <string name="filename_empty">Emri i skedarit s’mund të jetë i zbrazët</string>
-    <string name="wait_a_moment">Prisni një çast</string>
+    <string name="wait_a_moment">Prisni një çast&#8230;</string>
     <string name="wait_checking_credentials">Po kontrollohen kredenciale të depozituara</string>
     <string name="filedisplay_unexpected_bad_get_content">Problem i papritur; ju lutemi, përzgjidhni një skedar nga një aplikacion tjetër</string>
     <string name="filedisplay_no_file_selected">S’u përzgjodh skedar</string>
@@ -306,7 +301,7 @@
     <string name="wait_for_tmp_copy_from_private_storage">Po kopjohet skedar nga depo private</string>
     
     <string name="oauth_check_onoff">Hyrje me OAuth 2.0</string> 
-    <string name="oauth_login_connection">Duke u lidhur me serverin OAuth 2.0…</string>    
+    <string name="oauth_login_connection">Duke u lidhur me serverin OAuth 2.0&#8230;</string>
         
     <string name="ssl_validator_header">Identiteti i sajtit s\’u verifikua dot</string>
     <string name="ssl_validator_reason_cert_not_trusted">- Dëshmia e serverit s\’është e besuar</string>
@@ -362,8 +357,8 @@
 
     <string name="error__upload__local_file_not_copied">%1$s s\’u kopjua dot te dosja vendore %2$s</string>
     <string name="prefs_instant_upload_path_title">Dosja e ngarkimit të çastit </string>
-    <string name="prefs_folder_sync_local_path_title">Dosje vendore</string>
-    <string name="prefs_folder_sync_remote_path_title">Dosje e largët</string>
+    <string name="prefs_synced_folders_local_path_title">Dosje lokale</string>
+    <string name="prefs_synced_folders_remote_path_title">Dosje remote</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Përdorni nëndosjet</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Ruani në nëndosjet në bazë të vitit dhe muajit</string>
 
@@ -535,10 +530,11 @@
     <string name="edit_share_unshare">Resht së ndari</string>
     <string name="edit_share_done">u bë</string>
 
-    <string name="action_retry_uploads">Riprovimi dështoi</string>
-    <string name="action_clear_failed_uploads">Pastrimi dështoi</string>
-    <string name="action_clear_successful_uploads">U pastrua</string>
+    <string name="action_retry_uploads">Riprovoni ngarkimet e dështuara</string>
+    <string name="action_clear_failed_uploads">Pastroni ngarkimet e dështuara</string>
+    <string name="action_clear_successful_uploads">Fshi ngarkimet e suksesshme</string>
     <string name="action_clear_finished_uploads">Pastro të gjithë të përfunduarit</string>
+    <string name="action_force_rescan">Riskanim i detyruar</string>
 
     <string name="action_switch_grid_view">Pamje galeri</string>
     <string name="action_switch_list_view">Pamje listë</string>
@@ -553,12 +549,13 @@
     <string name="confirmation_remove_files_alert">Doni vërtetë të hiqni artikujt e zgjedhur?</string>
     <string name="confirmation_remove_folders_alert">Doni vërtet të hiqni artikujt e zgjedhur dhe përmbajtjen e tyre?</string>
     <string name="maintenance_mode">Shërbyesi në gjëndje mirëmbajtjeje</string>
+    <string name="lock_failed">Kyçja e skedarit dështoi</string>
 
     <string name="uploads_view_upload_status_waiting_for_charging">Duke pritur që pajisja të karikohet</string>
     <string name="actionbar_search">Kërkoni</string>
     <string name="files_drop_not_supported">Ky është një tipar i Nextcloud-it, ju lutemi përditësojeni.</string>
     <string name="learn_more">Mësoni më shumë</string>
-    <string name="drawer_folder_sync">Ngarkim automatik</string>
+    <string name="drawer_synced_folders">Ngarkim automatik</string>
     <string name="drawer_participate">Merni pjesë</string>
     <string name="participate_testing_headline">Ndihmo duke testuar</string>
     <string name="participate_testing_bug_text">Gjetet një defekt? Diçka është e çuditshme?</string>
@@ -575,15 +572,20 @@
     <string name="participate_contribute_translate_translate">Përkthe</string>
     <string name="participate_contribute_translate_text">aplikacioni</string>
     <string name="participate_contribute_github_text">Rishiko, ndrysho dhe shkruaj kod, shi %1$s për detaje</string>
+    <string name="participate_rc_play_store">Merni lirimin kandidat nga dyqani Google Play</string>
+    <string name="participate_rc_fdroid">Merni lirimin kandidat nga dyqani f-droid app</string>
+    <string name="participate_dev_fdroid">Merni lirimin e zhvillimit nga dyqani i f-droid</string>
+    <string name="participate_dev_direct_download">Merni lirimin e zhvillimit nga shkarkimi direkt</string>
     <string name="move_to">Levizni tek&#8230;</string>
     <string name="copy_to">Kopjojeni tek&#8230;</string>
-    <string name="choose_remote_folder">Zgjidh dosjen&#8230;</string>
-    <string name="folder_sync_loading_folders">Duke ngarkuar dosjet&#8230;</string>
-    <string name="folder_sync_no_results">Nuk u gjetën dosje media</string>
-    <string name="folder_sync_preferences">Preferencat për ngarkimin automatik</string>
-    <string name="folder_sync_settings">Konfigurimet</string>
-    <string name="folder_sync_new_info">Ngarkimi i menjëhershëm është ngritur plotësisht. Ju lutemi shikoni menun kryesore dhe ri-konfiguroni ngarkimet tuaja automatike. Ju kërkojmë ndjes për shqetësimin.\n\nShijojini aftësitë e reja dhe të zgjeruara të ngarkimit automatik.</string>
-    <string name="folder_sync_preferences_folder_path">Për %1$s</string>
+    <string name="choose_remote_folder">Zhgjidhni dosjen remote &#8230;</string>
+    <string name="choose_local_folder">Zgjidhni dosjen lokale &#8230;</string>
+    <string name="synced_folders_loading_folders">Po ngarkohen dosjet &#8230;</string>
+    <string name="synced_folders_no_results">Nuk u gjet asnjë dosje.</string>
+    <string name="synced_folders_preferences">Parapëlqimet për ngarkimin automatik</string>
+    <string name="synced_folders_settings">Rregullime</string>
+    <string name="synced_folders_new_info">Ngarkimi i menjëhershëm është ngritur plotësisht. Rii-konfiguroni ngarkimet tuaja automatike  brenda menusë kryesore.\n\nShijoni aftësitë e reja dhe të zgjeruara të ngarkimit automatik.</string>
+    <string name="synced_folders_preferences_folder_path">Për %1$s</string>
     <plurals name="items_selected_count">
         <item quantity="one">%d të përzgjedhura</item>
         <item quantity="other">%d të përzgjedhura</item>
@@ -637,13 +639,13 @@
 
     <!-- Activities -->
     <string name="activities_no_results_headline">Akoma asnjë aktivitet</string>
-    <string name="activities_no_results_message">Ky burim do tregoj eventet si\nshtimet, ndryshimet dhe ndarjet</string>
+    <string name="activities_no_results_message">Ky burim do të tregoj eventet si\nshtimet, ndryshimet dhe ndarjet</string>
     <string name="webview_error">Ndodhi një gabim</string>
     <string name="prefs_category_about">Rreth </string>
 
     <string name="actionbar_contacts">Krijo backup të kontakteve</string>
     <string name="actionbar_contacts_restore">Rikthe kontaktet</string>
-    <string name="contacts_backup_button">Back up tani</string>
+    <string name="contacts_backup_button">Bëje tani back up</string>
     <string name="contacts_automatic_backup">Back up automatik</string>
     <string name="contacts_last_backup">Backup i fundit</string>
     <string name="contacts_read_permission">Kërkohet e drejta për të lexuar listën e kontakteve</string>
@@ -666,7 +668,11 @@
     <string name="privacy">Privatësi</string>
     <string name="file_not_found">Skedari nuk u gjet!</string>
 
-    <string name="folder_sync_folders">Konfiguro dosjet</string>
+    <!-- Auto upload -->
+    <string name="autoupload_custom_folder">Ndërtoni një dosje me porosi</string>
+    <string name="autoupload_create_new_custom_folder">Krijoni një dosje të re me porosi</string>
+    <string name="synced_folders_configure_folders">Konfiguroni dosjet</string>
 
-  <string name="test_server_button">Testo lidhjen e serverit</string>
+    <string name="test_server_button">Testo lidhjen e serverit</string>
+    <string name="resharing_is_not_allowed">Ri-shpërndarja nuk lejohet</string>
 </resources>

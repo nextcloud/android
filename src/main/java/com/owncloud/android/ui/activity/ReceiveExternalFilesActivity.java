@@ -777,12 +777,16 @@ public class ReceiveExternalFilesActivity extends FileActivity
                         getStorageManager(), getAccount());
 
                 mListView.setAdapter(sa);
+            }
                 Button btnChooseFolder = (Button) findViewById(R.id.uploader_choose_folder);
                 btnChooseFolder.setOnClickListener(this);
                 btnChooseFolder.getBackground().setColorFilter(ThemeUtils.primaryColor(getAccount()),
                         PorterDuff.Mode.SRC_ATOP);
 
-                getSupportActionBar().setBackgroundDrawable(new ColorDrawable(ThemeUtils.primaryColor(getAccount())));
+            if (getSupportActionBar() != null) {
+                getSupportActionBar().setBackgroundDrawable(new ColorDrawable(
+                        ThemeUtils.primaryColor(getAccount())));
+            }
 
                 ThemeUtils.colorStatusBar(this, ThemeUtils.primaryDarkColor(getAccount()));
 
@@ -794,7 +798,6 @@ public class ReceiveExternalFilesActivity extends FileActivity
                 mListView.setOnItemClickListener(this);
             }
         }
-    }
 
     protected void setupEmptyList() {
         mEmptyListContainer = (LinearLayout) findViewById(R.id.empty_list_view);
@@ -913,7 +916,9 @@ public class ReceiveExternalFilesActivity extends FileActivity
             FileUploader.LOCAL_BEHAVIOUR_COPY,
             null,
             true,
-            UploadFileOperation.CREATED_BY_USER
+            UploadFileOperation.CREATED_BY_USER,
+            false,
+            false
             );
         finish();
     }
