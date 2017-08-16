@@ -120,11 +120,6 @@ public class ShareFileFragment extends Fragment implements ShareUserListAdapter.
     private OCCapability mCapabilities;
 
     /**
-     * Adapter to show private shares.
-     */
-    private ShareUserListAdapter mUserGroupsAdapter = null;
-
-    /**
      * Public share bound to the file.
      */
     private OCShare mPublicShare;
@@ -649,7 +644,7 @@ public class ShareFileFragment extends Fragment implements ShareUserListAdapter.
     private void updateListOfUserGroups() {
         // Update list of users/groups
         // TODO Refactoring: create a new {@link ShareUserListAdapter} instance with every call should not be needed
-        mUserGroupsAdapter = new ShareUserListAdapter(
+        ShareUserListAdapter mUserGroupsAdapter = new ShareUserListAdapter(
                 getActivity(),
                 R.layout.share_user_item,
                 mPrivateShares,
