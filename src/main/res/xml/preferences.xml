@@ -25,6 +25,13 @@
         <ListPreference
             android:title="@string/prefs_storage_path"
             android:key="storage_path"/>
+		<ListPreference
+			android:title="@string/prefs_preview_behaviour"
+			android:entries="@array/pref_preview_behaviour_entries"
+			android:entryValues="@array/pref_preview_behaviour_entryValues"
+			android:defaultValue="PREVIEW_BEHAVIOUR_PREVIEW"
+			android:key="preview_behaviour"
+			android:summary="%s"/>
 	</PreferenceCategory>
 	<PreferenceCategory
 		android:title="@string/drawer_synced_folders"

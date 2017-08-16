@@ -432,7 +432,7 @@ public class ManageAccountsActivity extends FileActivity
         Account[] accounts = AccountManager.get(this).getAccountsByType(MainApp.getAccountType());
 
         String newAccountName = "";
-        for (Account acc: accounts) {
+        for (Account acc : accounts) {
             if (!account.name.equalsIgnoreCase(acc.name)) {
                 newAccountName = acc.name;
                 break;
