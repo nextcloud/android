@@ -1,3 +1,17 @@
+## 2017-08-16 14:36
+New branches:
+- Check if columns exists prior adding them (nextcloud/errorDuringDbUpgrade) [https://github.com/nextcloud/android/pull/1342] added
+- Search inside of text files (nextcloud/bugfix-454) [https://github.com/nextcloud/android/pull/565] added
+- Dev base (nextcloud/dev-base) [https://github.com/nextcloud/android/tree/dev-base] added
+
+Updated branches:
+- Check if columns exists prior adding them (nextcloud/errorDuringDbUpgrade) [https://github.com/nextcloud/android/pull/1342] updated
+- Search inside of text files (nextcloud/bugfix-454) [https://github.com/nextcloud/android/pull/565] updated
+- Dev base (nextcloud/dev-base) [https://github.com/nextcloud/android/tree/dev-base] updated
+
+Conflicting branches:
+- Error feedback improvement (nextcloud/errorFeedback) [https://github.com/nextcloud/android/pull/1198] conflicting
+
 ## 2017-08-16 08:48
 New branches:
 /
