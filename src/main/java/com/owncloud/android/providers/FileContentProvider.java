@@ -1111,6 +1111,45 @@ public class FileContentProvider extends ContentProvider {
                 if (!upgraded) {
                     Log_OC.i(SQL, String.format(Locale.ENGLISH, UPGRADE_VERSION_MSG, oldVersion, newVersion));
                 }
+
+                if (oldVersion < 24 && newVersion >= 24) {
+                    Log_OC.i(SQL, "Entering in the #24 Re-adding user theming to capabilities table");
+                    db.beginTransaction();
+                    try {
+                        if (!checkIfColumnExists(db, ProviderTableMeta.CAPABILITIES_TABLE_NAME,
+                                ProviderTableMeta.CAPABILITIES_SERVER_NAME)) {
+                            db.execSQL(ALTER_TABLE + ProviderTableMeta.CAPABILITIES_TABLE_NAME +
+                                    ADD_COLUMN + ProviderTableMeta.CAPABILITIES_SERVER_NAME + " TEXT ");
+                        }
+
+                        if (!checkIfColumnExists(db, ProviderTableMeta.CAPABILITIES_TABLE_NAME,
+                                ProviderTableMeta.CAPABILITIES_SERVER_COLOR)) {
+                            db.execSQL(ALTER_TABLE + ProviderTableMeta.CAPABILITIES_TABLE_NAME +
+                                    ADD_COLUMN + ProviderTableMeta.CAPABILITIES_SERVER_COLOR + " TEXT ");
+                        }
+
+                        if (!checkIfColumnExists(db, ProviderTableMeta.CAPABILITIES_TABLE_NAME,
+                                ProviderTableMeta.CAPABILITIES_SERVER_BACKGROUND_URL)) {
+                            db.execSQL(ALTER_TABLE + ProviderTableMeta.CAPABILITIES_TABLE_NAME +
+                                    ADD_COLUMN + ProviderTableMeta.CAPABILITIES_SERVER_BACKGROUND_URL + " TEXT ");
+                        }
+
+                        if (!checkIfColumnExists(db, ProviderTableMeta.CAPABILITIES_TABLE_NAME,
+                                ProviderTableMeta.CAPABILITIES_SERVER_SLOGAN)) {
+                            db.execSQL(ALTER_TABLE + ProviderTableMeta.CAPABILITIES_TABLE_NAME +
+                                    ADD_COLUMN + ProviderTableMeta.CAPABILITIES_SERVER_SLOGAN + " TEXT ");
+                        }
+
+                        upgraded = true;
+                        db.setTransactionSuccessful();
+                    } finally {
+                        db.endTransaction();
+                    }
+                }
+
+                if (!upgraded) {
+                    Log_OC.i(SQL, String.format(Locale.ENGLISH, UPGRADE_VERSION_MSG, oldVersion, newVersion));
+                }
             }
         }
     }
