@@ -62,10 +62,11 @@ public abstract class AuthenticatorUrlUtils {
     }
 
     public static String normalizeUrlSuffix(String url) {
-        if (url.endsWith("/")) {
-            url = url.substring(0, url.length() - 1);
+        String normalizedUrl = url;
+        if (normalizedUrl.endsWith("/")) {
+            normalizedUrl = normalizedUrl.substring(0, normalizedUrl.length() - 1);
         }
-        return trimUrlWebdav(url);
+        return trimUrlWebdav(normalizedUrl);
     }
 
     public static String normalizeUrl(String url, boolean sslWhenUnprefixed) {
