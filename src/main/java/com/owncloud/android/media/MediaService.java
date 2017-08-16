@@ -443,14 +443,14 @@ public class MediaService extends Service implements OnCompletionListener, OnPre
             createMediaPlayerIfNeeded();
             mPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
             String url = mFile.getStoragePath();
-            boolean mIsStreaming = false;
+
             /* Streaming is not possible right now
             if (url == null || url.length() <= 0) {
                 url = AccountUtils.constructFullURLForAccount(this, mAccount) + mFile.getRemotePath();
             }
             mIsStreaming = url.startsWith("http:") || url.startsWith("https:");
             */
-
+            //mIsStreaming = false;
             mPlayer.setDataSource(url);
 
             mState = State.PREPARING;
