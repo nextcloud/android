@@ -79,8 +79,8 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
     }
 
     abstract class UploadGroup implements Refresh {
-        OCUpload[] items;
-        String name;
+        private OCUpload[] items;
+        private String name;
 
         public UploadGroup(String groupName) {
             this.name = groupName;
@@ -89,6 +89,14 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
 
         public String getGroupName() {
             return name;
+        }
+
+        public OCUpload[] getItems() {
+            return items;
+        }
+
+        public void setItems(OCUpload[] items) {
+            this.items = items;
         }
 
         public int getGroupItemCount() {
@@ -145,30 +153,32 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
         mParentActivity = parentActivity;
         mUploadsStorageManager = new UploadsStorageManager(mParentActivity.getContentResolver(), parentActivity.getApplicationContext());
         mUploadGroups = new UploadGroup[3];
+
         mUploadGroups[0] = new UploadGroup(mParentActivity.getString(R.string.uploads_view_group_current_uploads)) {
             @Override
             public void refresh() {
-                items = mUploadsStorageManager.getCurrentAndPendingUploadsForCurrentAccount();
-                Arrays.sort(items, comparator);
+                setItems(mUploadsStorageManager.getCurrentAndPendingUploadsForCurrentAccount());
+                Arrays.sort(getItems(), comparator);
             }
         };
+
         mUploadGroups[1] = new UploadGroup(mParentActivity.getString(R.string.uploads_view_group_failed_uploads)) {
             @Override
             public void refresh() {
-                items = mUploadsStorageManager.getFailedButNotDelayedUploadsForCurrentAccount();
-                Arrays.sort(items, comparator);
+                setItems(mUploadsStorageManager.getFailedButNotDelayedUploadsForCurrentAccount());
+                Arrays.sort(getItems(), comparator);
             }
         };
+
         mUploadGroups[2] = new UploadGroup(mParentActivity.getString(R.string.uploads_view_group_finished_uploads)) {
             @Override
             public void refresh() {
-                items = mUploadsStorageManager.getFinishedUploadsForCurrentAccount();
-                Arrays.sort(items, comparator);
+                setItems(mUploadsStorageManager.getFinishedUploadsForCurrentAccount());
+                Arrays.sort(getItems(), comparator);
             }
         };
         loadUploadItemsFromDb();
     }
-
 
     @Override
     public void registerDataSetObserver(DataSetObserver observer) {
