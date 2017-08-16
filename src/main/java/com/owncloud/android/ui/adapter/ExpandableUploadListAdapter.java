@@ -42,7 +42,6 @@ import com.owncloud.android.datamodel.UploadsStorageManager;
 import com.owncloud.android.datamodel.UploadsStorageManager.UploadStatus;
 import com.owncloud.android.db.OCUpload;
 import com.owncloud.android.files.services.FileUploader;
-import com.owncloud.android.lib.common.network.OnDatatransferProgressListener;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.utils.DisplayUtils;
@@ -50,7 +49,6 @@ import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.ThemeUtils;
 
 import java.io.File;
-import java.lang.ref.WeakReference;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Observable;
@@ -79,8 +77,8 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
     }
 
     abstract class UploadGroup implements Refresh {
-        OCUpload[] items;
-        String name;
+        private OCUpload[] items;
+        private String name;
 
         public UploadGroup(String groupName) {
             this.name = groupName;
@@ -89,6 +87,14 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
 
         public String getGroupName() {
             return name;
+        }
+
+        public OCUpload[] getItems() {
+            return items;
+        }
+
+        public void setItems(OCUpload[] items) {
+            this.items = items;
         }
 
         public int getGroupItemCount() {
@@ -138,8 +144,6 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
                 return Long.valueOf(upload2.getUploadEndTimestamp()).compareTo(upload1.getUploadEndTimestamp());
             }
         };
-
-        abstract public int getGroupIcon();
     }
 
     public ExpandableUploadListAdapter(FileActivity parentActivity) {
@@ -147,47 +151,32 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
         mParentActivity = parentActivity;
         mUploadsStorageManager = new UploadsStorageManager(mParentActivity.getContentResolver(), parentActivity.getApplicationContext());
         mUploadGroups = new UploadGroup[3];
+
         mUploadGroups[0] = new UploadGroup(mParentActivity.getString(R.string.uploads_view_group_current_uploads)) {
             @Override
             public void refresh() {
-                items = mUploadsStorageManager.getCurrentAndPendingUploadsForCurrentAccount();
-                Arrays.sort(items, comparator);
-            }
-
-            @Override
-            public int getGroupIcon() {
-                return R.drawable.upload_in_progress;
+                setItems(mUploadsStorageManager.getCurrentAndPendingUploadsForCurrentAccount());
+                Arrays.sort(getItems(), comparator);
             }
         };
+
         mUploadGroups[1] = new UploadGroup(mParentActivity.getString(R.string.uploads_view_group_failed_uploads)) {
             @Override
             public void refresh() {
-                items = mUploadsStorageManager.getFailedButNotDelayedUploadsForCurrentAccount();
-                Arrays.sort(items, comparator);
+                setItems(mUploadsStorageManager.getFailedButNotDelayedUploadsForCurrentAccount());
+                Arrays.sort(getItems(), comparator);
             }
-
-            @Override
-            public int getGroupIcon() {
-                return R.drawable.upload_failed;
-            }
-
         };
+
         mUploadGroups[2] = new UploadGroup(mParentActivity.getString(R.string.uploads_view_group_finished_uploads)) {
             @Override
             public void refresh() {
-                items = mUploadsStorageManager.getFinishedUploadsForCurrentAccount();
-                Arrays.sort(items, comparator);
+                setItems(mUploadsStorageManager.getFinishedUploadsForCurrentAccount());
+                Arrays.sort(getItems(), comparator);
             }
-
-            @Override
-            public int getGroupIcon() {
-                return R.drawable.upload_finished;
-            }
-
         };
         loadUploadItemsFromDb();
     }
-
 
     @Override
     public void registerDataSetObserver(DataSetObserver observer) {
@@ -686,44 +675,6 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
     @Override
     public boolean isChildSelectable(int groupPosition, int childPosition) {
         return true;
-    }
-
-    public class ProgressListener implements OnDatatransferProgressListener {
-        int mLastPercent = 0;
-        OCUpload mUpload = null;
-        WeakReference<ProgressBar> mProgressBar = null;
-
-        public ProgressListener(OCUpload upload, ProgressBar progressBar) {
-            mUpload = upload;
-            mProgressBar = new WeakReference<ProgressBar>(progressBar);
-        }
-
-        @Override
-        public void onTransferProgress(long progressRate, long totalTransferredSoFar, long totalToTransfer, String
-                filename) {
-            int percent = (int) (100.0 * ((double) totalTransferredSoFar) / ((double) totalToTransfer));
-            if (percent != mLastPercent) {
-                ProgressBar pb = mProgressBar.get();
-                if (pb != null) {
-                    pb.setProgress(percent);
-                    pb.postInvalidate();
-                }
-            }
-            mLastPercent = percent;
-        }
-
-        public boolean isWrapping(ProgressBar progressBar) {
-            ProgressBar wrappedProgressBar = mProgressBar.get();
-            return (
-                    wrappedProgressBar != null &&
-                            wrappedProgressBar == progressBar   // on purpose; don't replace with equals
-            );
-        }
-
-        public OCUpload getUpload() {
-            return mUpload;
-        }
-
     }
 
     public void addBinder() {

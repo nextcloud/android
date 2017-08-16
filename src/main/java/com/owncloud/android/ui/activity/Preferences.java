@@ -92,6 +92,8 @@ public class Preferences extends PreferenceActivity
 
     private static final int ACTION_REQUEST_CODE_DAVDROID_SETUP = 10;
 
+    private static final String DAV_PATH = "/remote.php/dav";
+
     public static final String SYNCED_FOLDER_LIGHT_UPLOAD_ON_WIFI = "SYNCED_FOLDER_LIGHT_UPLOAD_ON_WIFI";
 
     /**
@@ -599,7 +601,7 @@ public class Preferences extends PreferenceActivity
         if (getPackageManager().resolveActivity(davDroidLoginIntent, 0) != null) {
             // arguments
             if (mUri != null) {
-                davDroidLoginIntent.putExtra("url", mUri.toString() + AccountUtils.DAV_PATH);
+                davDroidLoginIntent.putExtra("url", mUri.toString() + DAV_PATH);
             }
             davDroidLoginIntent.putExtra("username", AccountUtils.getAccountUsername(account.name));
             //loginIntent.putExtra("password", "...");
