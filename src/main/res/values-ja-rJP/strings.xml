@@ -43,6 +43,7 @@
     <string name="prefs_passcode">パスコードロック</string>
     <string name="prefs_fingerprint">指紋ロック</string>
     <string name="prefs_fingerprint_notsetup">指紋は設定されていません。</string>
+    <string name="prefs_expert_mode">エキスパートモード</string>
     <string name="prefs_show_hidden_files">隠しファイルを表示</string>
     <string name="prefs_log_delete_history_button">履歴の削除</string>
     <string name="prefs_calendar_contacts">コンタクト &amp; カレンダーを同期</string>
@@ -57,6 +58,8 @@
 
 	<string name="recommend_subject">スマートフォンで %1$s を試してください！</string>
 	<string name="recommend_text">スマートフォンで %1$s を利用してみませんか。\nここからダウンロードしてください: %2$s</string>
+    <string name="recommend_urls">%1$sまたは%2$s</string>
+
     <string name="auth_check_server">サーバーのチェック</string>
     <string name="auth_username">ユーザー名</string>
     <string name="auth_password">パスワード</string>
@@ -64,6 +67,7 @@
     <string name="sync_string_files">ファイル</string>
     <string name="setup_btn_connect">接続</string>
     <string name="uploader_btn_upload_text">アップロード</string>
+    <string name="uploader_btn_alternative_text">選択</string>
     <string name="uploader_top_message">アップロードフォルダーを選択</string>
     <string name="uploader_wrn_no_account_title">アカウントが見つかりません</string>
     <string name="uploader_wrn_no_account_text">端末に %1$s のアカウントがありません。まずアカウントを登録してください。</string>
@@ -82,6 +86,7 @@
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">ファイルをソースフォルダから削除する</string>
     <string name="file_list_seconds_ago">数秒前</string>
     <string name="file_list_empty_headline">ここにファイルはありません</string>
+    <string name="folder_list_empty_headline">フォルダーがありません</string>
     <string name="file_list_empty">コンテンツをアップロードするか、デバイスと同期してください。</string>
     <string name="file_list_empty_favorites">ファイルをお気に入りに登録するか、デバイスと同期してください。</string>
     <string name="file_list_empty_favorites_filter_list">お気に入りに登録されたファイルやフォルダーがここに表示されます</string>
@@ -89,6 +94,7 @@
     <string name="file_list_loading">読込中&#8230;</string>
     <string name="file_list_no_app_for_file_type">このファイル形式に設定されたアプリがありません。</string>
     <string name="local_file_list_empty">このフォルダーにはファイルがありません。</string>
+    <string name="local_folder_list_empty">これ以上フォルダーがありません。</string>
     <string name="file_list_empty_headline_search">このフォルダーの結果はありません</string>
     <string name="file_list_empty_headline_server_search">結果なし</string>
     <string name="file_list_empty_favorite_headline">まだお気に入りに登録されていません</string>
@@ -98,7 +104,15 @@
     <string name="file_list_empty_headline_server_search_photos">写真なし</string>
     <string name="file_list_empty_search">別のフォルダーにありませんか？</string>
     <string name="file_list_empty_recently_modified">過去 7 日間に更新されたファイルは見つかりません</string>
+    <string name="file_list_empty_recently_added">最近追加されたファイルはありません</string>
+    <string name="file_list_empty_recently_added_filter">検索条件に該当する、最近追加されたファイルが見つかりませんでした。</string>
+    <string name="file_list_empty_text_photos">写真をアップロードするか、自動アップロードを有効にしてください。</string>
+    <string name="file_list_empty_text_photos_filter">検索条件に該当する写真が見つかりませんでした。</string>
+    <string name="file_list_empty_text_videos">動画をアップロードするか、自動アップロードを有効にしてください。</string>
+    <string name="file_list_empty_text_videos_filter">検索条件に該当する動画が見つかりませんでした。</string>
     <string name="upload_list_empty_headline">アップロードは利用できません</string>
+    <string name="upload_list_empty_text">コンテンツをアップロードするか、インスタントアップロードを有効にしてください。</string>
+    <string name="upload_list_empty_text_auto_upload">何かコンテンツをアップロードするか、自動アップロードを有効にしてください。</string>
     <string name="file_list_folder">フォルダー</string>
     <string name="file_list_folders">フォルダー</string>
     <string name="file_list_file">ファイル</string>
@@ -110,11 +124,13 @@
     <string name="filedetails_modified">更新:</string>
     <string name="filedetails_download">ダウンロード</string>
     <string name="filedetails_sync_file">ファイルを同期</string>
+    <string name="list_layout">リスト表示</string>
     <string name="action_share">共有</string>
     <string name="common_yes">はい</string>
     <string name="common_no">いいえ</string>
     <string name="common_ok">OK</string>
     <string name="common_remove_upload">アップロードを削除</string>
+    <string name="common_retry_upload">再度アップロードを試行する</string>
     <string name="common_cancel_sync">同期のキャンセル</string>
     <string name="common_cancel">キャンセル</string>
     <string name="common_back">戻る</string>
@@ -125,16 +141,22 @@
     <string name="common_unknown">不明</string>
     <string name="common_error_unknown">不明なエラー</string>
     <string name="common_pending">保留中</string>
+    <string name="common_delete">削除</string>
     <string name="about_title">について</string>
     <string name="change_password">パスワードを変更</string>
     <string name="delete_account">アカウント削除</string>
+    <string name="delete_account_warning">アカウント%sに紐づく全てのローカルファイルを削除しますか？\n\nこの作業は取り消すことができません。</string>
     <string name="create_account">アカウントを作成</string>
+    <string name="avatar">アバター</string>
+    <string name="active_user">アクティブなユーザー</string>
     <string name="upload_chooser_title">アップロード &#8230;</string>
     <string name="uploader_info_dirname">フォルダー名</string>
     <string name="uploader_upload_in_progress_ticker">アップロード中&#8230;</string>
     <string name="uploader_upload_in_progress_content">%1$d%% アップロード中 %2$s</string>
+    <string name="uploader_upload_succeeded_ticker">アップロード済</string>
     <string name="uploader_upload_succeeded_content_single">%1$s は正常にアップロードされました</string>
     <string name="uploader_upload_failed_ticker">アップロードに失敗</string>
+    <string name="uploader_upload_failed_content_single">%1$sをアップロードできませんでした</string>
     <string name="uploader_upload_failed_credentials_error">アップロードに失敗しました,ログインし直す必要があります</string>
     <string name="uploads_view_title">アップロード</string>
     <string name="uploads_view_group_current_uploads">現在</string>
@@ -151,15 +173,21 @@
     <string name="uploads_view_upload_status_failed_permission_error">権限エラー</string>
     <string name="uploads_view_upload_status_conflict">競合</string>
     <string name="uploads_view_upload_status_unknown_fail">不明なエラー</string>
+    <string name="uploads_view_upload_status_waiting_for_wifi">Wi-Fiが接続状態になるのを待っています</string>
     <string name="uploads_view_later_waiting_to_upload">アップロード待ち</string>
     <string name="downloader_download_in_progress_ticker">ダウンロード中 &#8230;</string>
     <string name="downloader_download_in_progress_content">%1$d%% ダウンロード中 %2$s</string>
+    <string name="downloader_download_succeeded_ticker">ダウンロード済</string>
     <string name="downloader_download_succeeded_content">%1$s は正常にダウンロードされました</string>
     <string name="downloader_download_failed_ticker">ダウンロードに失敗</string>
+    <string name="downloader_download_failed_content">%1$sをダウンロードできませんでした</string>
     <string name="downloader_not_downloaded_yet">未ダウンロード</string>
     <string name="downloader_download_failed_credentials_error">ダウンロードに失敗しました,ログインし直す必要があります</string>
     <string name="common_choose_account">アカウントを選択</string>
     <string name="sync_fail_ticker">同期の失敗</string>
+    <string name="sync_fail_ticker_unauthorized">同期に失敗しました。再度ログインし直す必要があります。</string>
+    <string name="sync_fail_content">%1$sの同期が完了できませんでした</string>
+    <string name="sync_fail_content_unauthorized">%1$sのパスワードが間違っています</string>
     <string name="sync_conflicts_in_favourites_ticker">競合が見つかりました</string>
     <string name="sync_conflicts_in_favourites_content">%1$d 同期ファイルを同期できませんでした</string>
     <string name="sync_fail_in_favourites_ticker">ファイルの同期に失敗しました</string>
@@ -167,6 +195,7 @@
     <string name="sync_foreign_files_forgotten_ticker">一部のローカルファイルが忘れられています</string>
     <string name="sync_foreign_files_forgotten_content"> %2$s フォルダー内の %1$d ファイルはコピーできませんでした。</string>
     <string name="sync_foreign_files_forgotten_explanation">バージョン 1.3.16以降、このデバイスからアップロードされたファイルは、単独のファイルが複数のアカウントと同期する際にデータの損失を防ぐため、ローカルの%1$sフォルダーにコピーされます。 この変更により、このアプリの以前のバージョンでアップロードされたすべてのファイルは%2$sフォルダーにコピーされます。しかしながら、アカウント同期中にはエラーが発生してこの操作が完了しないようになっています。ファイルをこのままにして%3$sへのリンクを削除するか、あるいは%1$sフォルダーにファイルを移動して%4$sへのリンクを維持することができます。 以下のリストにあるのは、ローカルのファイル及びそれらにリンクしている %5$s内のリモートファイルです。</string>
+    <string name="sync_current_folder_was_removed">フォルダー%1$sはもう存在しません</string>
     <string name="foreign_files_move">すべて移動</string>
     <string name="foreign_files_success">すべてのファイルを移動しました</string>
     <string name="foreign_files_fail">一部のファイルは移動できませんでした</string>
