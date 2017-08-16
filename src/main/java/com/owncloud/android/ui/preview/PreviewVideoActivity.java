@@ -81,6 +81,7 @@ public class PreviewVideoActivity extends FileActivity implements OnCompletionLi
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         Log_OC.v(TAG, "onCreate");
         
         setContentView(R.layout.video_layout);
