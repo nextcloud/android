@@ -1,3 +1,14 @@
+## 2017-08-17 00:31
+New branches:
+- Further Codacy fixes (nextcloud/codacyFixes) [https://github.com/nextcloud/android/pull/1357] added
+
+Updated branches:
+- Further Codacy fixes (nextcloud/codacyFixes) [https://github.com/nextcloud/android/pull/1357] updated
+- Check if columns exists prior adding them (nextcloud/errorDuringDbUpgrade) [https://github.com/nextcloud/android/pull/1342] updated
+
+Conflicting branches:
+- Error feedback improvement (nextcloud/errorFeedback) [https://github.com/nextcloud/android/pull/1198] conflicting
+
 ## 2017-08-16 14:36
 New branches:
 - Check if columns exists prior adding them (nextcloud/errorDuringDbUpgrade) [https://github.com/nextcloud/android/pull/1342] added
