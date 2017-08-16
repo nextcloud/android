@@ -224,13 +224,16 @@ public class MediaProvider {
                     while (cursorImages.moveToNext()) {
                         filePath = cursorImages.getString(cursorImages.getColumnIndexOrThrow(
                                 MediaStore.MediaColumns.DATA));
-                        mediaFolder.filePaths.add(filePath);
-                        mediaFolder.absolutePath = filePath.substring(0, filePath.lastIndexOf("/"));
+
+                        if (filePath != null) {
+                            mediaFolder.filePaths.add(filePath);
+                            mediaFolder.absolutePath = filePath.substring(0, filePath.lastIndexOf("/"));
+                        }
                     }
                     cursorImages.close();
 
                     // only do further work if folder is not within the Nextcloud app itself
-                    if (!mediaFolder.absolutePath.startsWith(dataPath)) {
+                    if (mediaFolder.absolutePath != null && !mediaFolder.absolutePath.startsWith(dataPath)) {
 
                         // count images
                         Cursor count = contentResolver.query(
