@@ -1,0 +1,8 @@
+2017-08-16 08:48:07
+Branches: 6
+[01 / 06] Error feedback improvement (nextcloud/errorFeedback) [https://github.com/nextcloud/android/pull/1198] no update needed
+[02 / 06] Comment out adding all new downloaded files to folder observer (nextcloud/folderObserver) [https://github.com/nextcloud/android/pull/1155] no update needed
+[03 / 06] Search inside of text files (nextcloud/bugfix-454) [https://github.com/nextcloud/android/pull/565] no update needed
+[04 / 06] Resized images (nextcloud/resizedImages) [https://github.com/nextcloud/android/pull/69] no update needed
+[05 / 06] Master (nextcloud/master) [https://github.com/nextcloud/android] no update needed
+[06 / 06] Dev base (nextcloud/dev-base) [https://github.com/nextcloud/android/tree/dev-base] no update needed
