@@ -1,3 +1,48 @@
+## 2017-08-17 11:17
+New branches:
+- Fix rare case: ssl cert is ok for checkServer, but not for webview (nextcloud/untrustedCerts) [https://github.com/nextcloud/android/pull/1361] added
+
+Updated branches:
+- Fix rare case: ssl cert is ok for checkServer, but not for webview (nextcloud/untrustedCerts) [https://github.com/nextcloud/android/pull/1361] updated
+
+Conflicting branches:
+- Further Codacy fixes (nextcloud/codacyFixes) [https://github.com/nextcloud/android/pull/1357] conflicting
+- Error feedback improvement (nextcloud/errorFeedback) [https://github.com/nextcloud/android/pull/1198] conflicting
+
+## 2017-08-17 00:31
+New branches:
+- Further Codacy fixes (nextcloud/codacyFixes) [https://github.com/nextcloud/android/pull/1357] added
+
+Updated branches:
+- Further Codacy fixes (nextcloud/codacyFixes) [https://github.com/nextcloud/android/pull/1357] updated
+- Check if columns exists prior adding them (nextcloud/errorDuringDbUpgrade) [https://github.com/nextcloud/android/pull/1342] updated
+
+Conflicting branches:
+- Error feedback improvement (nextcloud/errorFeedback) [https://github.com/nextcloud/android/pull/1198] conflicting
+
+## 2017-08-16 14:36
+New branches:
+- Check if columns exists prior adding them (nextcloud/errorDuringDbUpgrade) [https://github.com/nextcloud/android/pull/1342] added
+- Search inside of text files (nextcloud/bugfix-454) [https://github.com/nextcloud/android/pull/565] added
+- Dev base (nextcloud/dev-base) [https://github.com/nextcloud/android/tree/dev-base] added
+
+Updated branches:
+- Check if columns exists prior adding them (nextcloud/errorDuringDbUpgrade) [https://github.com/nextcloud/android/pull/1342] updated
+- Search inside of text files (nextcloud/bugfix-454) [https://github.com/nextcloud/android/pull/565] updated
+- Dev base (nextcloud/dev-base) [https://github.com/nextcloud/android/tree/dev-base] updated
+
+Conflicting branches:
+- Error feedback improvement (nextcloud/errorFeedback) [https://github.com/nextcloud/android/pull/1198] conflicting
+
+## 2017-08-16 08:48
+New branches:
+/
+
+Updated branches:
+
+Conflicting branches:
+/
+
 ## 1.4.3 (May 22, 2017)
 - Hotfix: ignore oauth header for now and use basic auth to allow new logins for nc12
 
