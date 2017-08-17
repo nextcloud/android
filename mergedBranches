@@ -2,3 +2,4 @@ nextcloud/bugfix-454
 nextcloud/codacyFixes
 nextcloud/dev-base
 nextcloud/errorDuringDbUpgrade
+nextcloud/untrustedCerts

@@ -1,3 +1,14 @@
+## 2017-08-17 11:17
+New branches:
+- Fix rare case: ssl cert is ok for checkServer, but not for webview (nextcloud/untrustedCerts) [https://github.com/nextcloud/android/pull/1361] added
+
+Updated branches:
+- Fix rare case: ssl cert is ok for checkServer, but not for webview (nextcloud/untrustedCerts) [https://github.com/nextcloud/android/pull/1361] updated
+
+Conflicting branches:
+- Further Codacy fixes (nextcloud/codacyFixes) [https://github.com/nextcloud/android/pull/1357] conflicting
+- Error feedback improvement (nextcloud/errorFeedback) [https://github.com/nextcloud/android/pull/1198] conflicting
+
 ## 2017-08-17 00:31
 New branches:
 - Further Codacy fixes (nextcloud/codacyFixes) [https://github.com/nextcloud/android/pull/1357] added
