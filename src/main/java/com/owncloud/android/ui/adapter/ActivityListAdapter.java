@@ -199,8 +199,10 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
 
                 for (RichObject richObject : activity.getRichSubjectElement().getRichObjectList()) {
-                    ImageView imageView = createThumbnail(richObject);
-                    activityViewHolder.list.addView(imageView);
+                    if (richObject.getPath() != null) {
+                        ImageView imageView = createThumbnail(richObject);
+                        activityViewHolder.list.addView(imageView);
+                    }
                 }
 
             } else {
