@@ -2,7 +2,6 @@
 
 currentCommit=$(git rev-parse HEAD)
 statusFile="devUpdateStatus"
-touch mergedBranches
 
 # check if branch was changed
 git pull -q || exit
@@ -13,6 +12,7 @@ count=1
 conflictingBranches=0
 
 date "+%F %X" > $statusFile
+touch mergedBranches
 
 while read -r branch; do
     branchName=$(echo $branch | cut -d"(" -f2 | cut -d")" -f1 | tr ":" "/")
