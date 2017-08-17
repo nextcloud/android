@@ -63,7 +63,7 @@ public class SsoWebViewClient extends WebViewClient {
     private String mLastReloadedUrlAtError;
     
     public interface SsoWebViewClientListener {
-        public void onSsoFinished(String sessionCookie);
+        void onSsoFinished(String sessionCookie);
     }
 
     public SsoWebViewClient (Context context, Handler listenerHandler, SsoWebViewClientListener listener) {
@@ -148,7 +148,7 @@ public class SsoWebViewClient extends WebViewClient {
         
         if (x509Certificate != null) {
             try {
-                isKnownServer = NetworkUtils.isCertInKnownServersStore((Certificate) x509Certificate, mContext);
+                isKnownServer = NetworkUtils.isCertInKnownServersStore(x509Certificate, mContext);
             } catch (Exception e) {
                 Log_OC.e(TAG, "Exception: " + e.getMessage());
             }
@@ -166,7 +166,7 @@ public class SsoWebViewClient extends WebViewClient {
      * @param   error     SslError
      * @return  X509Certificate from error
      */
-    public X509Certificate getX509CertificateFromError (SslError error) {
+    public static X509Certificate getX509CertificateFromError(SslError error) {
         Bundle bundle = SslCertificate.saveState(error.getCertificate());
         X509Certificate x509Certificate;
         byte[] bytes = bundle.getByteArray("x509-certificate");

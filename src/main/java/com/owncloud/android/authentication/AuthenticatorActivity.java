@@ -52,7 +52,6 @@ import android.content.pm.ActivityInfo;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
-import android.net.http.SslCertificate;
 import android.net.http.SslError;
 import android.os.Build;
 import android.os.Bundle;
@@ -123,10 +122,6 @@ import com.owncloud.android.ui.dialog.SslUntrustedCertDialog.OnSslUntrustedCertL
 import com.owncloud.android.utils.AnalyticsUtils;
 import com.owncloud.android.utils.DisplayUtils;
 
-import java.io.ByteArrayInputStream;
-import java.security.cert.Certificate;
-import java.security.cert.CertificateException;
-import java.security.cert.CertificateFactory;
 import java.security.cert.X509Certificate;
 import java.util.HashMap;
 import java.util.Map;
@@ -400,13 +395,13 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
             @Override
             public void onReceivedSslError(WebView view, SslErrorHandler handler, SslError error) {
-                Certificate cert = getX509Certificate(error.getCertificate());
+                X509Certificate cert = SsoWebViewClient.getX509CertificateFromError(error);
 
                 try {
                     if (cert != null && NetworkUtils.isCertInKnownServersStore(cert, getApplicationContext())) {
                         handler.proceed();
                     } else {
-                        handler.cancel();
+                        showUntrustedCertDialog(cert, error, handler);
                     }
                 } catch (Exception e) {
                     Log_OC.e(TAG, "Cert could not be verified");
@@ -421,20 +416,20 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         });
     }
 
-    private Certificate getX509Certificate(SslCertificate sslCertificate) {
-        Bundle bundle = SslCertificate.saveState(sslCertificate);
-        byte[] bytes = bundle.getByteArray("x509-certificate");
-        if (bytes == null) {
-            return null;
-        } else {
-            try {
-                CertificateFactory certFactory = CertificateFactory.getInstance("X.509");
-                return certFactory.generateCertificate(new ByteArrayInputStream(bytes));
-            } catch (CertificateException e) {
-                return null;
-            }
-        }
-    }
+//    private Certificate getX509Certificate(SslCertificate sslCertificate) {
+//        Bundle bundle = SslCertificate.saveState(sslCertificate);
+//        byte[] bytes = bundle.getByteArray("x509-certificate");
+//        if (bytes == null) {
+//            return null;
+//        } else {
+//            try {
+//                CertificateFactory certFactory = CertificateFactory.getInstance("X.509");
+//                return certFactory.generateCertificate(new ByteArrayInputStream(bytes));
+//            } catch (CertificateException e) {
+//                return null;
+//            }
+//        }
+//    }
 
     private void parseAndLoginFromWebView(String dataString) {
         String prefix = getString(R.string.login_data_own_scheme) + PROTOCOL_SUFFIX + "login/";
