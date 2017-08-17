@@ -1,3 +1,17 @@
+## 2017-08-18 00:31
+New branches:
+-Dev branch was updated successfully] added
+
+Updated branches:
+-Dev branch was updated successfully] updated
+
+Conflicting branches:
+- Handle foreign broadcast (nextcloud/handleForeignBroadcast) [https://github.com/nextcloud/android/pull/1362] conflicting
+- Fix rare case: ssl cert is ok for checkServer, but not for webview (nextcloud/untrustedCerts) [https://github.com/nextcloud/android/pull/1361] conflicting
+- Further Codacy fixes (nextcloud/codacyFixes) [https://github.com/nextcloud/android/pull/1357] conflicting
+- Error feedback improvement (nextcloud/errorFeedback) [https://github.com/nextcloud/android/pull/1198] conflicting
+- Search inside of text files (nextcloud/bugfix-454) [https://github.com/nextcloud/android/pull/565] conflicting
+
 ## 2017-08-17 11:17
 New branches:
 - Fix rare case: ssl cert is ok for checkServer, but not for webview (nextcloud/untrustedCerts) [https://github.com/nextcloud/android/pull/1361] added
