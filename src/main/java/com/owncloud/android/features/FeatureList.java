@@ -40,9 +40,9 @@ public class FeatureList {
     private static final boolean SHOW_ON_FIRST_RUN = true;
     private static final boolean SHOW_ON_UPGRADE = false;
 
-    private static final String VERSION_1_0_0 = "1.0.0";
-    private static final String VERSION_2_0_0 = "2.0.0";
-    private static final String BETA_VERSION_0 = "0";
+    private static final int VERSION_1_0_0 = 10000099;
+    private static final int VERSION_2_0_0 = 20000099;
+    private static final int BETA_VERSION_0 = 0;
 
     static final private FeatureItem featuresList[] = {
             // Basic features showed on first install
@@ -76,7 +76,7 @@ public class FeatureList {
         List<FeatureItem> features = new LinkedList<>();
 
         for (FeatureItem item : get()) {
-            final int itemVersionCode = isBeta ? item.getBetaVersionNumber() : item.getVersionNumber();
+            final int itemVersionCode = isBeta ? item.getBetaVersionNumber() : item.getVersionCode();
             if (isFirstRun && item.shouldShowOnFirstRun()) {
                 features.add(item);
             } else if (!isFirstRun && !item.shouldShowOnFirstRun() &&
@@ -93,27 +93,27 @@ public class FeatureList {
         private int image;
         private int titleText;
         private int contentText;
-        private int versionNumber;
+        private int versionCode;
         private int betaVersion;
         private boolean showOnInitialRun;
         private boolean contentCentered;
 
-        public FeatureItem(int image, int titleText, int contentText, String version, String betaVersion) {
+        public FeatureItem(int image, int titleText, int contentText, int version, int betaVersion) {
             this(image, titleText, contentText, version, betaVersion, false, true);
         }
 
-        public FeatureItem(int image, int titleText, int contentText, String version, String betaVersion,
+        public FeatureItem(int image, int titleText, int contentText, int version, int betaVersion,
                            boolean showOnInitialRun) {
             this(image, titleText, contentText, version, betaVersion, showOnInitialRun, true);
         }
 
-        public FeatureItem(int image, int titleText, int contentText, String version, String betaVersion,
+        public FeatureItem(int image, int titleText, int contentText, int versionCode, int betaVersion,
                            boolean showOnInitialRun, boolean contentCentered) {
             this.image = image;
             this.titleText = titleText;
             this.contentText = contentText;
-            this.versionNumber = versionCodeFromString(version);
-            this.betaVersion = Integer.parseInt(betaVersion);
+            this.versionCode = versionCode;
+            this.betaVersion = betaVersion;
             this.showOnInitialRun = showOnInitialRun;
             this.contentCentered = contentCentered;
         }
@@ -127,7 +127,9 @@ public class FeatureList {
         public boolean shouldShowContentText() { return contentText != DO_NOT_SHOW; }
         public int getContentText() { return contentText; }
 
-        public int getVersionNumber() { return versionNumber; }
+        public int getVersionCode() {
+            return versionCode;
+        }
         public int getBetaVersionNumber() { return betaVersion; }
         public boolean shouldShowOnFirstRun() { return showOnInitialRun; }
 
@@ -145,7 +147,7 @@ public class FeatureList {
             dest.writeInt(image);
             dest.writeInt(titleText);
             dest.writeInt(contentText);
-            dest.writeInt(versionNumber);
+            dest.writeInt(versionCode);
             dest.writeInt(betaVersion);
             dest.writeByte((byte) (showOnInitialRun ? 1 : 0));
             dest.writeByte((byte) (contentCentered ? 1 : 0));
@@ -155,7 +157,7 @@ public class FeatureList {
             image = p.readInt();
             titleText = p.readInt();
             contentText = p.readInt();
-            versionNumber = p.readInt();
+            versionCode = p.readInt();
             betaVersion = p.readInt();
             showOnInitialRun = p.readByte() == 1;
             contentCentered = p.readByte() == 1;
