@@ -21,7 +21,6 @@
     <string name="menu_item_sort_by_size_smallest_first">Nejprve nejmenší</string>
 
     <string name="drawer_item_all_files">Všechny soubory</string>
-    <string name="drawer_item_files">Soubor</string>
     <string name="drawer_item_home">Domů</string>
     <string name="drawer_item_favorites">Oblíbené</string>
     <string name="drawer_item_photos">Fotky</string>
@@ -86,7 +85,6 @@
     <string name="file_list_seconds_ago">před pár sekundami</string>
     <string name="file_list_empty_headline">Nejsou zde žádné soubory</string>
     <string name="file_list_empty">Nahrajte nějaký obsah, nebo synchronizujte s vašimi zařízeními!</string>
-    <string name="file_list_empty_favorites">Označte nějaké soubory jako oblíbené nebo synchronizujte se svými přístroji.</string>
     <string name="file_list_empty_favorites_filter_list">Zde budou zobrazeny soubory a adresáře označené jako oblíbené</string>
     <string name="file_list_empty_favorites_filter">Vaše vyhledávání nenalezlo žádné oblíbené soubory</string>
     <string name="file_list_loading">Načítání&#8230;</string>
@@ -112,9 +110,6 @@
     <string name="upload_list_empty_text">Nahrajte nějaký obsah, nebo aktivujte okamžité nahrání!</string>
     <string name="upload_list_empty_text_auto_upload">Nahrajte nějaký obsah nebo aktivujte automatické nahrávání.</string>
     <string name="file_list_folder">adresář</string>
-    <string name="file_list_folders">adresářů</string>
-    <string name="file_list_file">soubor</string>
-    <string name="file_list_files">souborů</string>
     <string name="filedetails_select_file">Více informací získáte klepnutím na soubor.</string>
     <string name="filedetails_size">Velikost:</string>
     <string name="filedetails_type">Typ:</string>
@@ -134,7 +129,6 @@
     <string name="common_cancel">Zrušit</string>
     <string name="common_back">Zpět</string>
     <string name="common_save">Uložit</string>
-    <string name="common_save_exit">Uložit &amp; ukončit</string>
     <string name="common_error">Chyba</string>
     <string name="common_loading">Načítání &#8230;</string>
     <string name="common_unknown">neznámý</string>
@@ -144,7 +138,6 @@
     <string name="change_password">Změnit heslo</string>
     <string name="delete_account">Odebrat účet</string>
     <string name="delete_account_warning">Smazat účet %s?\n\nTuto akci nelze vzít zpět.</string>
-    <string name="create_account">Vytvořit účet</string>
     <string name="upload_chooser_title">Nahrát z &#8230;</string>
     <string name="uploader_info_dirname">Název adresáře</string>
     <string name="uploader_upload_in_progress_ticker">Odesílám &#8230;</string>
@@ -330,7 +323,6 @@
     <string name="placeholder_media_time">12:23:45</string>
 
     <string name="auto_upload_on_wifi">Nahrávat pouze přes wifi</string>
-    <string name="instant_upload_on_wifi">Nahrávat obrázky pouze na Wi-Fi</string>
     <string name="instant_video_upload_on_wifi">Nahrávat videa pouze přes wifi</string>
     <string name="instant_video_upload_on_charging">Nahrávat pouze při nabíjení</string>
     <string name="instant_upload_on_charging">Nahrávat pouze při nabíjení</string>
@@ -411,7 +403,6 @@
     <string name="file_migration_source_not_readable_title">Ze zdrojového adresáře nelze číst!</string>
     <string name="file_migration_source_not_readable">Opravdu chcete změnit adresář úložiště na %1$s?\n\nPoznámka: Všechna data budou stažena znovu.</string>
 
-    <string name="prefs_category_accounts">Účty</string>
     <string name="prefs_add_account">Přidat účet</string>
     <string name="drawer_manage_accounts">Spravovat účty</string>
     <string name="auth_redirect_non_secure_connection_title">Zabezpečené spojení je přesměrováváno nezabezpečenou trasou.</string>
