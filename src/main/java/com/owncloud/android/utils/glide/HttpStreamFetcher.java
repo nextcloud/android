@@ -28,6 +28,7 @@ import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
+import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.status.OwnCloudVersion;
 
@@ -65,12 +66,11 @@ public class HttpStreamFetcher implements DataFetcher<InputStream> {
                 GetMethod get = null;
                 try {
                     get = new GetMethod(mURL);
-                    get.setRequestHeader("Cookie",
-                            "nc_sameSiteCookielax=true;nc_sameSiteCookiestrict=true");
+                    get.setRequestHeader("Cookie", "nc_sameSiteCookielax=true;nc_sameSiteCookiestrict=true");
+                    get.setRequestHeader(RemoteOperation.OCS_API_HEADER, RemoteOperation.OCS_API_HEADER_VALUE);
                     int status = mClient.executeMethod(get);
                     if (status == HttpStatus.SC_OK) {
-                        InputStream inputStream = get.getResponseBodyAsStream();
-                        return inputStream;
+                        return get.getResponseBodyAsStream();
                     } else {
                         mClient.exhaustResponse(get.getResponseBodyAsStream());
                     }
