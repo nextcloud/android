@@ -21,7 +21,6 @@
     <string name="menu_item_sort_by_size_smallest_first">文件从小到大排序</string>
 
     <string name="drawer_item_all_files">全部文件</string>
-    <string name="drawer_item_files">文件</string>
     <string name="drawer_item_home">首页</string>
     <string name="drawer_item_favorites">收藏</string>
     <string name="drawer_item_photos">照片</string>
@@ -88,7 +87,6 @@
     <string name="file_list_empty_headline">这里没有文件
 </string>
     <string name="file_list_empty">上传一些内容或与您的设备同步。</string>
-    <string name="file_list_empty_favorites">把一些文件设为“我喜欢的”或者从设备同步</string>
     <string name="file_list_empty_favorites_filter_list">你标记为“我喜欢的”文件和文件夹会显示在这里</string>
     <string name="file_list_empty_favorites_filter">没有找到您搜索的“我喜欢的”。</string>
     <string name="file_list_loading">加载中&#8230;</string>
@@ -114,9 +112,6 @@
     <string name="upload_list_empty_text">上传一些内容或启用即时上传。</string>
     <string name="upload_list_empty_text_auto_upload">上传一些内容或启用自动上传。</string>
     <string name="file_list_folder">文件夹</string>
-    <string name="file_list_folders">文件夹</string>
-    <string name="file_list_file">文件</string>
-    <string name="file_list_files">文件</string>
     <string name="filedetails_select_file">点击一个文件可以显示额外的信息。</string>
     <string name="filedetails_size">大小：</string>
     <string name="filedetails_type">类型：</string>
@@ -136,7 +131,6 @@
     <string name="common_cancel">取消</string>
     <string name="common_back">返回</string>
     <string name="common_save">保存</string>
-    <string name="common_save_exit">保存并退出</string>
     <string name="common_error">错误</string>
     <string name="common_loading">加载中 &#8230;</string>
     <string name="common_unknown">未知</string>
@@ -146,7 +140,6 @@
     <string name="change_password">修改密码</string>
     <string name="delete_account">删除账号</string>
     <string name="delete_account_warning">是否删除该账户 %s 并且删除所有文件?\n\n一经删除无法撤销该操作</string>
-    <string name="create_account">创建账号</string>
     <string name="upload_chooser_title">上传自 &#8230;</string>
     <string name="uploader_info_dirname">文件夹名称</string>
     <string name="uploader_upload_in_progress_ticker">上传 &#8230;</string>
@@ -328,7 +321,6 @@
     <string name="placeholder_media_time">12:23:45</string>
 
     <string name="auto_upload_on_wifi">仅在Wi-Fi下上传</string>
-    <string name="instant_upload_on_wifi">仅在Wi-Fi下上传图片</string>
     <string name="instant_video_upload_on_wifi">仅在Wi-Fi下上传视频</string>
     <string name="instant_video_upload_on_charging">仅在充电时上传</string>
     <string name="instant_upload_on_charging">仅在充电时上传</string>
@@ -409,7 +401,6 @@
     <string name="file_migration_source_not_readable_title">源目录不可读！</string>
     <string name="file_migration_source_not_readable">您确认更改存储目录到%1$s吗？注意：此操作后一切数据均需重新下载</string>
 
-    <string name="prefs_category_accounts">账号</string>
     <string name="prefs_add_account">添加账号</string>
     <string name="drawer_manage_accounts">管理账号</string>
     <string name="auth_redirect_non_secure_connection_title">安全连接通过不安全的路由重定向。</string>

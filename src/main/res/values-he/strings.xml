@@ -46,9 +46,6 @@
     <string name="file_list_loading">בטעינה …</string>
     <string name="local_file_list_empty">אין קבצים בתיקייה זו:</string>
     <string name="file_list_folder">תקיה</string>
-    <string name="file_list_folders">תקיות</string>
-    <string name="file_list_file">קובץ</string>
-    <string name="file_list_files">קובץ</string>
     <string name="filedetails_select_file">יש לגעת בקובץ כדי להציג פרטים נוספים.</string>
     <string name="filedetails_size">גודל:</string>
     <string name="filedetails_type">סוג:</string>
@@ -65,7 +62,6 @@
     <string name="common_cancel">ביטול</string>
     <string name="common_back">אחורה</string>
     <string name="common_save">שמירה</string>
-    <string name="common_save_exit">שמירה ויציאה</string>
     <string name="common_error">שגיאה</string>
     <string name="common_loading">בטעינה …</string>
     <string name="common_unknown">לא ידוע</string>
@@ -74,7 +70,6 @@
     <string name="about_title">על אודות</string>
     <string name="change_password">שינוי ססמה</string>
     <string name="delete_account">הסרת חשבון</string>
-    <string name="create_account">יצירת חשבון</string>
     <string name="upload_chooser_title">העלאה מהמיקום …</string>
     <string name="uploader_info_dirname">שם התיקייה</string>
     <string name="uploader_upload_in_progress_ticker">מתבצעת העלאה …</string>
@@ -239,7 +234,6 @@
 
     <string name="file_migration_finish_button">סיים</string>
     <string name="file_migration_ok_finished">הסתיים</string>
-    <string name="prefs_category_accounts">חשבונות</string>
     <string name="prefs_add_account">הוספת חשבון</string>
     <string name="drawer_manage_accounts">ניהול חשבונות</string>
     <string name="actionbar_logger">לוגים</string>

@@ -21,7 +21,6 @@
     <string name="menu_item_sort_by_size_smallest_first">Pienin ensin</string>
 
     <string name="drawer_item_all_files">Kaikki tiedostot</string>
-    <string name="drawer_item_files">Tiedostot</string>
     <string name="drawer_item_home">Koti</string>
     <string name="drawer_item_favorites">Suosikit</string>
     <string name="drawer_item_photos">Kuvat</string>
@@ -78,7 +77,6 @@
     <string name="file_list_seconds_ago">sekuntia sitten</string>
     <string name="file_list_empty_headline">Ei tiedostoja</string>
     <string name="file_list_empty">Lähetä sisältöä tai synkronisoi laitteidesi kanssa</string>
-    <string name="file_list_empty_favorites">Lisää tiedostoja suosikeiksi tai synkronoi laitteidesi kanssa.</string>
     <string name="file_list_loading">Ladataan…</string>
     <string name="local_file_list_empty">Tässä kansiossa ei ole tiedostoja</string>
     <string name="file_list_empty_headline_search">Ei kohteita tässä kansiossa</string>
@@ -91,9 +89,6 @@
     <string name="file_list_empty_recently_added">Äskettäin lisättyja tiedostoja ei löytynyt</string>
     <string name="upload_list_empty_headline">Ei lähetettäviä saatavilla</string>
     <string name="file_list_folder">kansio</string>
-    <string name="file_list_folders">kansiot</string>
-    <string name="file_list_file">tiedosto</string>
-    <string name="file_list_files">Tiedostot</string>
     <string name="filedetails_select_file">Napauta tiedostoa nähdäksesi lisätietoja.</string>
     <string name="filedetails_size">Koko:</string>
     <string name="filedetails_type">Tyyppi:</string>
@@ -110,7 +105,6 @@
     <string name="common_cancel">Peru</string>
     <string name="common_back">Takaisin</string>
     <string name="common_save">Tallenna</string>
-    <string name="common_save_exit">Tallenna &amp; poistu</string>
     <string name="common_error">Virhe</string>
     <string name="common_loading">Ladataan…</string>
     <string name="common_unknown">tuntematon</string>
@@ -119,7 +113,6 @@
     <string name="about_title">Tietoja</string>
     <string name="change_password">Vaihda salasana</string>
     <string name="delete_account">Poista tili</string>
-    <string name="create_account">Luo tili</string>
     <string name="upload_chooser_title">Lataus täältä:</string>
     <string name="uploader_info_dirname">Kansion nimi</string>
     <string name="uploader_upload_in_progress_ticker">Lähetetään...</string>
@@ -259,7 +252,6 @@
     <string name="placeholder_media_time">12:23:45</string>
 
     <string name="auto_upload_on_wifi">Lähetä vain Wi-Fi-yhteydellä</string>
-    <string name="instant_upload_on_wifi">Lähetä kuvia vain Wi-Fi-yhteydellä</string>
     <string name="instant_video_upload_on_wifi">Lähetä videoita vain Wi-Fi-yhteydellä</string>
     <string name="instant_video_upload_on_charging">Lähetä vain ladattaessa virtaa</string>
     <string name="instant_upload_on_charging">Lähetä vain ladattaessa virtaa</string>
@@ -310,7 +302,6 @@
     <string name="file_migration_override_data_folder">Korvaa</string>
     <string name="file_migration_use_data_folder">Käytä</string>
 
-    <string name="prefs_category_accounts">Tilit</string>
     <string name="prefs_add_account">Lisää tili</string>
     <string name="drawer_manage_accounts">Tilien hallinta</string>
     <string name="actionbar_logger">Lokit</string>

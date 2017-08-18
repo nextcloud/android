@@ -21,7 +21,6 @@
     <string name="menu_item_sort_by_size_smallest_first">작은 것 먼저</string>
 
     <string name="drawer_item_all_files">모든 파일</string>
-    <string name="drawer_item_files">파일</string>
     <string name="drawer_item_home">홈</string>
     <string name="drawer_item_favorites">즐겨찾기</string>
     <string name="drawer_item_photos">사진</string>
@@ -76,15 +75,11 @@
     <string name="file_list_seconds_ago">초 지남</string>
     <string name="file_list_empty_headline">여기에 파일이 없음</string>
     <string name="file_list_empty">콘텐츠를 업로드 하거나 기기와 동기화 하세요.</string>
-    <string name="file_list_empty_favorites">몇몇 파일을 즐겨찾기 하거나 기기와 동기화 하세요.</string>
     <string name="file_list_empty_favorites_filter_list">즐겨찾기 표시한 파일과 폴더가 여기에 나타납니다</string>
     <string name="file_list_loading">불러오는 중&#8230;</string>
     <string name="local_file_list_empty">이 폴더에 파일이 없습니다.</string>
     <string name="file_list_empty_text_photos">몇몇 사진을 업로드 하거나 자동 업로드를 켜세요.</string>
     <string name="file_list_folder">폴더</string>
-    <string name="file_list_folders">폴더</string>
-    <string name="file_list_file">파일</string>
-    <string name="file_list_files">파일</string>
     <string name="filedetails_select_file">파일을 누르면 추가 정보가 표시됩니다.</string>
     <string name="filedetails_size">크기:</string>
     <string name="filedetails_type">종류:</string>
@@ -102,7 +97,6 @@
     <string name="common_cancel">취소</string>
     <string name="common_back">뒤로</string>
     <string name="common_save">저장</string>
-    <string name="common_save_exit">저장 &amp; 종료</string>
     <string name="common_error">오류</string>
     <string name="common_loading">불러오는 중&#8230;</string>
     <string name="common_unknown">알 수 없음</string>
@@ -111,7 +105,6 @@
     <string name="about_title">정보</string>
     <string name="change_password">암호 변경</string>
     <string name="delete_account">계정 삭제</string>
-    <string name="create_account">계정 만들기</string>
     <string name="upload_chooser_title">다음에서 업로드&#8230;</string>
     <string name="uploader_info_dirname">폴더 이름</string>
     <string name="uploader_upload_in_progress_ticker">업로드 중&#8230;</string>
@@ -288,7 +281,6 @@
     <string name="update_link_forbidden_permissions">이 공유를 업데이트할</string>
     <string name="downloader_download_file_not_found">이 파일을 서버에서 더 이상 사용할 수 없습니다</string>
 
-    <string name="prefs_category_accounts">계정</string>
     <string name="prefs_add_account">계정 추가</string>
     <string name="drawer_manage_accounts">계정 관리</string>
     <string name="actionbar_logger">로그</string>

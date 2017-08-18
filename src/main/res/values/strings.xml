@@ -21,7 +21,6 @@
     <string name="menu_item_sort_by_size_smallest_first">Smallest first</string>
 
     <string name="drawer_item_all_files">All files</string>
-    <string name="drawer_item_files">Files</string>
     <string name="drawer_item_home">Home</string>
     <string name="drawer_item_favorites">Favorites</string>
     <string name="drawer_item_photos">Photos</string>
@@ -89,7 +88,6 @@
     <string name="file_list_empty_headline">No files here</string>
     <string name="folder_list_empty_headline">No folders here</string>
     <string name="file_list_empty">Upload some content or sync with your devices.</string>
-    <string name="file_list_empty_favorites">Favorite some files or sync with your devices.</string>
     <string name="file_list_empty_favorites_filter_list">Files and folders you mark as favorites will show up here</string>
     <string name="file_list_empty_favorites_filter">Your search returned no favorited files.</string>
     <string name="file_list_loading">Loading&#8230;</string>
@@ -116,9 +114,6 @@
     <string name="upload_list_empty_text">Upload some content or activate instant uploading.</string>
     <string name="upload_list_empty_text_auto_upload">Upload some content or activate auto upload.</string>
     <string name="file_list_folder">folder</string>
-    <string name="file_list_folders">folders</string>
-    <string name="file_list_file">file</string>
-    <string name="file_list_files">files</string>
     <string name="filedetails_select_file">Tap on a file to display additional information.</string>
     <string name="filedetails_size">Size:</string>
     <string name="filedetails_type">Type:</string>
@@ -138,7 +133,6 @@
     <string name="common_cancel">Cancel</string>
     <string name="common_back">Back</string>
     <string name="common_save">Save</string>
-    <string name="common_save_exit">Save &amp; exit</string>
     <string name="common_error">Error</string>
     <string name="common_loading">Loading &#8230;</string>
     <string name="common_unknown">unknown</string>
@@ -149,7 +143,6 @@
     <string name="change_password">Change password</string>
     <string name="delete_account">Remove account</string>
     <string name="delete_account_warning">Delete account %s with all local files?\n\nDeleting cannot be undone.</string>
-    <string name="create_account">Create account</string>
     <string name="avatar">Avatar</string>
     <string name="active_user">Active user</string>
     <string name="upload_chooser_title">Upload from &#8230;</string>
@@ -339,7 +332,6 @@
     <string name="placeholder_media_time">12:23:45</string>
 
     <string name="auto_upload_on_wifi">Only upload on Wi-Fi</string>
-    <string name="instant_upload_on_wifi">Only upload pictures on Wi-Fi</string>
     <string name="instant_video_upload_on_wifi">Only upload videos on Wi-Fi</string>
     <string name="instant_video_upload_on_charging">Only upload when charging</string>
     <string name="instant_upload_on_charging">Only upload when charging</string>
@@ -422,7 +414,6 @@
     <string name="file_migration_source_not_readable_title">Source directory not readable!</string>
     <string name="file_migration_source_not_readable">Do you still want to change the storage path to %1$s?\n\nNote: All data will have to be downloaded again.</string>
 
-    <string name="prefs_category_accounts">Accounts</string>
     <string name="prefs_add_account">Add account</string>
     <string name="drawer_manage_accounts">Manage accounts</string>
     <string name="auth_redirect_non_secure_connection_title">Secure connection redirected through an unsecured route.</string>

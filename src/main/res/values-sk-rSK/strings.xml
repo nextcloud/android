@@ -65,9 +65,6 @@
     <string name="file_list_empty_headline_search">Žiadne výsledky v tomto priečinku</string>
     <string name="upload_list_empty_headline">Žiadne súbory na nahratie nie sú dostupné</string>
     <string name="file_list_folder">priečinok</string>
-    <string name="file_list_folders">priečinky</string>
-    <string name="file_list_file">súbor</string>
-    <string name="file_list_files">súbor</string>
     <string name="filedetails_select_file">Viac informácií získate kliknutím na súbor.</string>
     <string name="filedetails_size">Veľkosť:</string>
     <string name="filedetails_type">Typ:</string>
@@ -84,7 +81,6 @@
     <string name="common_cancel">Zrušiť</string>
     <string name="common_back">Späť</string>
     <string name="common_save">Uložiť</string>
-    <string name="common_save_exit">Uložiť a ukončiť</string>
     <string name="common_error">Chyba</string>
     <string name="common_loading">Načítavam...</string>
     <string name="common_unknown">neznámy</string>
@@ -93,7 +89,6 @@
     <string name="about_title">O</string>
     <string name="change_password">Zmeniť heslo</string>
     <string name="delete_account">Odstrániť účet</string>
-    <string name="create_account">Vytvoriť účet</string>
     <string name="upload_chooser_title">Odoslať z ...</string>
     <string name="uploader_info_dirname">Názov priečinka</string>
     <string name="uploader_upload_in_progress_ticker">Odosielam ...</string>
@@ -272,7 +267,6 @@
     <string name="file_migration_updating_index">Aktualizujem zoznam&#8230;</string>
     <string name="file_migration_cleaning">Čistenie&#8230;</string>
     <string name="file_migration_ok_finished">Hotovo</string>
-    <string name="prefs_category_accounts">Účty</string>
     <string name="prefs_add_account">Pridať účet</string>
     <string name="drawer_manage_accounts">Správa účtov</string>
     <string name="actionbar_logger">Logy</string>

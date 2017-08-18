@@ -21,7 +21,6 @@
     <string name="menu_item_sort_by_size_smallest_first">Më i vogli në fillim</string>
 
     <string name="drawer_item_all_files">Të gjithë skedarët</string>
-    <string name="drawer_item_files">Skedarët</string>
     <string name="drawer_item_home">Kryefaqja</string>
     <string name="drawer_item_favorites">Të preferuarat</string>
     <string name="drawer_item_photos">Fotot</string>
@@ -89,7 +88,6 @@
     <string name="file_list_empty_headline">Këtu nuk ka asnjë skedar</string>
     <string name="folder_list_empty_headline">Këtu nuk ka dosje</string>
     <string name="file_list_empty">Ngarko disa të dhëna ose sinkronizo me pajisjet e tua!</string>
-    <string name="file_list_empty_favorites">Shto disa skedarë të preferuar ose sinkronizoji me pajisjet e tua</string>
     <string name="file_list_empty_favorites_filter_list">Skedarët dhe direktoritë që i shënoni si të preferuara do të shfaqen këtu</string>
     <string name="file_list_empty_favorites_filter">Kërkimi juaj nuk gjeti asnjë skedar të preferuar</string>
     <string name="file_list_loading">Po ngarkohet&#8230;</string>
@@ -116,9 +114,6 @@
     <string name="upload_list_empty_text">Ngarko disa të dhëna ose aktivizo ngarkimin e menjëhershëm.</string>
     <string name="upload_list_empty_text_auto_upload">Ngarko disa përmbajtje ose aktivizo ngarkimin direkt. </string>
     <string name="file_list_folder">dosje</string>
-    <string name="file_list_folders">dosje</string>
-    <string name="file_list_file">Skedar</string>
-    <string name="file_list_files">Skedar</string>
     <string name="filedetails_select_file">Prekni mbi një kartelë që të shfaqen të dhëna shtesë.</string>
     <string name="filedetails_size">Madhësi:</string>
     <string name="filedetails_type">Lloj:</string>
@@ -138,7 +133,6 @@
     <string name="common_cancel">Anuloje</string>
     <string name="common_back">Mbrapsht</string>
     <string name="common_save">Ruaj</string>
-    <string name="common_save_exit">Ruaje &amp; dil</string>
     <string name="common_error">Gabim</string>
     <string name="common_loading">Po ngarkohet &#8230;</string>
     <string name="common_unknown">panjohur</string>
@@ -149,7 +143,6 @@
     <string name="change_password">Ndryshoni fjalëkalimin</string>
     <string name="delete_account">Hiqe llogarinë</string>
     <string name="delete_account_warning">Fshij llogarinë %s me të gjithë skedarët lokalë?\n\nFshirja nuk mund të zhbëhet.</string>
-    <string name="create_account">Krijoni llogari</string>
     <string name="avatar">Avatari</string>
     <string name="active_user">Përdorues aktiv</string>
     <string name="upload_chooser_title">Ngarkojeni prej &#8230;</string>
@@ -338,7 +331,6 @@
     <string name="placeholder_media_time">12:23:45</string>
 
     <string name="auto_upload_on_wifi">Ngarko vetëm nëpërmjet WiFi</string>
-    <string name="instant_upload_on_wifi">Fotot ngarkoji vetëm përmes wifi-it</string>
     <string name="instant_video_upload_on_wifi">Videot ngarkoji vetëm përmes wifi-it</string>
     <string name="instant_video_upload_on_charging">Ngarkoni vetëm kur jeni duke e karikuar</string>
     <string name="instant_upload_on_charging">Ngarkoni vetëm kur jeni duke e karikuar</string>
@@ -421,7 +413,6 @@
     <string name="file_migration_source_not_readable_title">Direktoria burim nuk është lexueshme!</string>
     <string name="file_migration_source_not_readable">Dëshironi akoma të ndryshoni adresën e ruajtjes së %1$s?/n/nNote: Të gjitha të dhënat do të shkarkohen sërish. </string>
 
-    <string name="prefs_category_accounts">Llogari</string>
     <string name="prefs_add_account">Shtoni llogari</string>
     <string name="drawer_manage_accounts">Menaxhoni llogaritë</string>
     <string name="auth_redirect_non_secure_connection_title">Lidhja e sigurt është ridrejtuar përmes një rruge të pasigurt.</string>
