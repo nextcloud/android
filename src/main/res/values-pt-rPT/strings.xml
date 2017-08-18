@@ -350,15 +350,11 @@
     <string name="storage_description_sd_no">Cartão SD %1$d</string>
     <string name="storage_description_unknown">Desconhecido</string>
 
-    <!-- What's new feature and texts to show -->
-    <string name="whats_new_title">O que há de novo da Nextcloud</string>
-
     <!-- Welcome to Nc intro features -->
     <string name="welcome_feature_1_title">Um lugar seguro para todos os seus dados</string>
     <string name="welcome_feature_2_title">Conta multipla</string>
     <string name="welcome_feature_2_text">Ligar-se a todas as suas contas cloud</string>
 
-    <string name="welcome_feature_3_title">Carregamento instantâneo </string>
     <string name="whats_new_skip">Passar à frente</string>
 
     </resources>

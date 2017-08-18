@@ -334,13 +334,9 @@
     <string name="storage_description_default">افتراضي</string>
     <string name="storage_description_unknown">غير معروف</string>
 
-    <!-- What's new feature and texts to show -->
-    <string name="whats_new_title">ما الجديد في ناكست كلاود ؟</string>
-
     <!-- Welcome to Nc intro features -->
     <string name="welcome_feature_1_title">المكان الآمن لجميع بياناتك</string>
     <string name="welcome_feature_2_title"> متعدد الحسابات</string>
-    <string name="welcome_feature_3_title">تحميل فوري</string>
     <string name="whats_new_skip">تخطى</string>
 
     <!-- User information -->

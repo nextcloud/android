@@ -383,15 +383,11 @@
     <string name="storage_description_sd_no">Kartu SD %1$d</string>
     <string name="storage_description_unknown">Tidak diketahui</string>
 
-    <!-- What's new feature and texts to show -->
-    <string name="whats_new_title">Apa yang baru di Nextcloud</string>
-
     <!-- Welcome to Nc intro features -->
     <string name="welcome_feature_1_title">Tempat yang aman untuk semua data anda</string>
     <string name="welcome_feature_2_title">Multi akun</string>
     <string name="welcome_feature_2_text">Sambung ke semua cloud anda</string>
 
-    <string name="welcome_feature_3_title">Unggah Instan</string>
     <string name="welcome_feature_3_text">Jaga foto anda tetap aman</string>
 
     <string name="whats_new_skip">Lewat</string>

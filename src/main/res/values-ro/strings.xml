@@ -403,15 +403,11 @@
     <string name="storage_description_sd_no">Card SD %1$d</string>
     <string name="storage_description_unknown">Necunoscut</string>
 
-    <!-- What's new feature and texts to show -->
-    <string name="whats_new_title">Ce este nou în Nextcloud</string>
-
     <!-- Welcome to Nc intro features -->
     <string name="welcome_feature_1_title">O casă sigură pentru toate datele tale</string>
     <string name="welcome_feature_2_title">Conturi multiple</string>
     <string name="welcome_feature_2_text">Conectează-te la toate cloud-urile tale</string>
 
-    <string name="welcome_feature_3_title">Încărcare instantă</string>
     <string name="welcome_feature_3_text">Păstrează-ți fotografiile în siguranță</string>
 
     <string name="whats_new_skip">Sari peste</string>
