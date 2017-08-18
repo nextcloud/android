@@ -569,6 +569,9 @@ Smelltu hér til að fá þér einn frá þjónustuaðila.</string>
     <string name="storage_description_sd_no">SD-minniskort %1$d</string>
     <string name="storage_description_unknown">Óþekkt</string>
 
+    <!-- What's new feature and texts to show -->
+    <string name="whats_new_title">Hvað er nýtt í %1$s</string>
+
     <!-- Welcome to Nc intro features -->
     <string name="welcome_feature_1_title">Öruggur staður fyrir öll gögnin þín</string>
     <string name="welcome_feature_1_text">Haltu utan um, deildu og verndaðu skrárnar þínar, hvort sem er heima eða á vinnustað</string>

@@ -132,8 +132,8 @@
     <string name="media_play_pause_description">לחצן ניגון או השהייה</string>
     <string name="media_forward_description">לחצן הרצה קדימה</string>
 
-	<string name="auth_getting_authorization">מקבל אימות...</string>
-	<string name="auth_trying_to_login">מנסה להתחבר...</string>
+	<string name="auth_getting_authorization">מקבל אימות &#8230;</string>
+	<string name="auth_trying_to_login">מנסה להתחבר &#8230;</string>
 	<string name="auth_no_net_conn_title">אין חיבור לאינטרנט</string>
 	<string name="auth_nossl_plain_ok_title">אין חיבור מוצפן זמין.</string>
 	<string name="auth_connection_established">החיבור נוצר</string>
@@ -166,7 +166,7 @@
     <string name="filename_forbidden_charaters_from_server">שם קובץ כולל לפחות תו אחד לא חוקי</string>
     <string name="filename_empty">שם קובץ לא יכול להיות ריק</string>
     <string name="wait_checking_credentials">בודק אישורים שמורים</string>
-    <string name="activity_chooser_title">שליחת קישור אל ...</string>
+    <string name="activity_chooser_title">שליחת קישור אל &#8230;</string>
     <string name="wait_for_tmp_copy_from_private_storage">מעתיק קובץ מאחסון פרטי</string>
     
     <string name="ssl_validator_header">לא ניתן לאמת את זהות האתר</string>
@@ -239,7 +239,7 @@
     <string name="actionbar_logger">לוגים</string>
 	<string name="log_send_history_button">הסטורית שליחה</string>
 	<string name="log_send_mail_subject">%1$s לוגים של יישום אנדרואיד</string>
-	<string name="log_progress_dialog_text">טעינת מידע...</string>
+	<string name="log_progress_dialog_text">טעינת מידע &#8230;</string>
 
 	<string name="saml_authentication_required_text">נדרש אימות</string>
 	<string name="saml_authentication_wrong_pass">סיסמא שגוייה</string>
@@ -301,7 +301,7 @@
     <string name="share_via_link_password_title">מאובטח</string>
     <string name="share_via_link_edit_permission_label">אישור עריכה</string>
     <string name="share_get_public_link_button">קבלת קישור</string>
-    <string name="share_with_title">שיתף עם...</string>
+    <string name="share_with_title">שיתף עם &#8230;</string>
     <string name="share_with_edit_title">שיתף עם %1$s</string>
 
     <string name="share_search">חיפוש</string>

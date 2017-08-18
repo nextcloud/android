@@ -61,6 +61,7 @@
     <string name="recommend_urls">%1$s 或 %2$s</string>
 
     <string name="auth_check_server">检查服务器</string>
+    <string name="auth_host_url">服务器地址 https://&#8230;</string>
     <string name="auth_username">用户名</string>
     <string name="auth_password">密码</string>
     <string name="auth_register">你是不是还没有服务器？
@@ -166,7 +167,7 @@
     <string name="uploads_view_upload_status_service_interrupted">应用程式已终止</string>
     <string name="uploads_view_upload_status_unknown_fail">未知错误</string>
     <string name="uploads_view_upload_status_waiting_for_wifi">等待Wi-Fi连接</string>
-    <string name="uploads_view_later_waiting_to_upload">等待上传...</string>
+    <string name="uploads_view_later_waiting_to_upload">等待上传</string>
     <string name="downloader_download_in_progress_ticker">下载中 &#8230;</string>
     <string name="downloader_download_in_progress_content">%1$d%% 下载中 %2$s</string>
     <string name="downloader_download_succeeded_ticker">下载</string>
@@ -251,6 +252,7 @@
 	<string name="auth_expired_oauth_token_toast">你的授权已经过期。请重新授权。</string>
 	<string name="auth_expired_basic_auth_toast">请输入当前的密码</string>
 	<string name="auth_expired_saml_sso_token_toast">您的会话超时了，请重新连接</string>
+	<string name="auth_connecting_auth_server">连接到身份验证服务器&#8230;</string>
 	<string name="auth_unsupported_auth_method">服务器不支持这种验证方式</string>
 	<string name="auth_unsupported_multiaccount">%1$s不支持多个账户</string>
 	<string name="auth_fail_get_user_name">您的服务器没有返回正确的用户ID，请与管理员联系</string>
@@ -278,6 +280,7 @@
     <string name="filename_forbidden_characters">禁用字符: / \\ &lt; &gt; : \" | ? *</string>
     <string name="filename_forbidden_charaters_from_server">文件名中存在至少一个非法字符</string>
     <string name="filename_empty">文件名不能为空</string>
+    <string name="wait_a_moment">稍等&#8230;</string>
     <string name="wait_checking_credentials">检查保存的证书</string>
     <string name="filedisplay_unexpected_bad_get_content">意外的问题，请从不同的应用程序选择文件</string>
     <string name="filedisplay_no_file_selected">没有选择文件</string>
@@ -285,6 +288,8 @@
     <string name="wait_for_tmp_copy_from_private_storage">从私有存储中拷贝文件</string>
     
     <string name="oauth_check_onoff">使用OAuth 2.0登录</string> 
+    <string name="oauth_login_connection">连接到OAuth 2.0服务器&#8230;</string>
+        
     <string name="ssl_validator_header">站点身份无法验证</string>
     <string name="ssl_validator_reason_cert_not_trusted">- 不受信任的服务器证书</string>
     <string name="ssl_validator_reason_cert_expired">- 服务器证书过期</string>
@@ -565,6 +570,9 @@
     <string name="storage_description_default">默认</string>
     <string name="storage_description_sd_no">SD卡%1$d</string>
     <string name="storage_description_unknown">不知道</string>
+
+    <!-- What's new feature and texts to show -->
+    <string name="whats_new_title">有什么新东西在%1$s里</string>
 
     <!-- Welcome to Nc intro features -->
     <string name="welcome_feature_1_title">给你所有的数据一个安全的家</string>

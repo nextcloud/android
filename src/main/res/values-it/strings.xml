@@ -599,6 +599,9 @@
     <string name="storage_description_sd_no">Scheda SD %1$d</string>
     <string name="storage_description_unknown">Sconosciuto</string>
 
+    <!-- What's new feature and texts to show -->
+    <string name="whats_new_title">Cosa c\'è di nuovo in %1$s</string>
+
     <!-- Welcome to Nc intro features -->
     <string name="welcome_feature_1_title">Un posto sicuro per tutti i tuoi dati</string>
     <string name="welcome_feature_1_text">Accedi, condividi e proteggi i tuoi file a casa e al lavoro</string>
@@ -606,7 +609,16 @@
     <string name="welcome_feature_2_title">Account multipli</string>
     <string name="welcome_feature_2_text">Collega tutti i tuoi cloud</string>
 
+    <string name="welcome_feature_3_title">Caricamento automatico</string>
     <string name="welcome_feature_3_text">Tieni al sicuro le tue foto</string>
+
+    <string name="whats_new_auto_upload_title">Caricamento automatico migliorato</string>
+    <string name="whats_new_auto_upload_content">\u2022 per tutte le versioni di android\n\u2022 minor consumo della batteria\n\u2022 maggiore affidabilità\n\u2022 separazione di immagini &amp; video</string>
+
+    <string name="whats_new_search_title">Ricerca completa sul server</string>
+    <string name="whats_new_theming_title">Supporto dei temi</string>
+    <string name="whats_new_notification_title">Supporto delle notifiche</string>
+    <string name="whats_new_notification_content">Otteni notifiche come\n\u2022 nuova condivisione remota\n\u2022 menzioni dei commenti\n\u2022 annunci amministrativi</string>
 
     <string name="whats_new_skip">Salta</string>
 
@@ -661,4 +673,6 @@
 
     <string name="test_server_button">Prova di connessione al server</string>
     <string name="resharing_is_not_allowed">La ri-condivisione non è consentita</string>
-    </resources>
+    <string name="whats_new_fingerprint_title">Sblocco con impronta digitale</string>
+    <string name="whats_new_fingerprint_content">Usa la tua impronta digitale per sbloccare l\'applicazione</string>
+</resources>
