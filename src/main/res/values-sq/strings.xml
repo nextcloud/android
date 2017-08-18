@@ -609,9 +609,6 @@
     <string name="storage_description_sd_no">Kart SD %1$d</string>
     <string name="storage_description_unknown">E panjohur</string>
 
-    <!-- What's new feature and texts to show -->
-    <string name="whats_new_title">Çfarë është e re në Nextcloud</string>
-
     <!-- Welcome to Nc intro features -->
     <string name="welcome_feature_1_title">Një shtëpi e sigurt për të gjitha të dhënat tuaja</string>
     <string name="welcome_feature_1_text">Akseso, ndaj dhe mbro skedarët e tuaja në shtëpinë dhe organizatën tuaj.</string>
@@ -619,7 +616,6 @@
     <string name="welcome_feature_2_title">Llogari e shumfishtë</string>
     <string name="welcome_feature_2_text">Lidhuni me të gjitha shërbimet cloud</string>
 
-    <string name="welcome_feature_3_title">Ngarkim i menjëhershëm</string>
     <string name="welcome_feature_3_text">Mbajini fotot të sigurta</string>
 
     <string name="whats_new_skip">Kalo</string>
@@ -675,4 +671,4 @@
 
     <string name="test_server_button">Testo lidhjen e serverit</string>
     <string name="resharing_is_not_allowed">Ri-shpërndarja nuk lejohet</string>
-</resources>
+    </resources>

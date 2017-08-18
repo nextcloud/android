@@ -431,15 +431,11 @@
     <string name="storage_description_sd_no">SD kortti %1$d</string>
     <string name="storage_description_unknown">Tuntematon</string>
 
-    <!-- What's new feature and texts to show -->
-    <string name="whats_new_title">Mitä uutta Nextcloudissa</string>
-
     <!-- Welcome to Nc intro features -->
     <string name="welcome_feature_1_title">Turvallinen koti kaikille tiedostoillesi</string>
     <string name="welcome_feature_2_title">Useita käyttäjätilejä</string>
     <string name="welcome_feature_2_text">Yhdistä kaikkiin pilviisi</string>
 
-    <string name="welcome_feature_3_title">Välitön lähetys</string>
     <string name="welcome_feature_3_text">Pidä kuvasi tallessa</string>
 
     <string name="whats_new_skip">Skippaa</string>

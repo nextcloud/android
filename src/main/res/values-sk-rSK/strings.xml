@@ -393,15 +393,11 @@
     <string name="storage_description_sd_no">SD karta %1$d</string>
     <string name="storage_description_unknown">Neznámy</string>
 
-    <!-- What's new feature and texts to show -->
-    <string name="whats_new_title">Čo je nové v Nextcloud</string>
-
     <!-- Welcome to Nc intro features -->
     <string name="welcome_feature_1_title">Bezpečný domov pre všetky vaše dáta</string>
     <string name="welcome_feature_2_title">Viac účtov</string>
     <string name="welcome_feature_2_text">Pripojte sa k všetkým vaším cloudovým službám</string>
 
-    <string name="welcome_feature_3_title">Okamžité nahratie</string>
     <string name="welcome_feature_3_text">Udržujte svoje fotografie v bezpečí</string>
 
     <string name="whats_new_skip">Preskočiť</string>

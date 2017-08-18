@@ -609,9 +609,6 @@
     <string name="storage_description_sd_no">Tarjeta SD %1$d</string>
     <string name="storage_description_unknown">Desconocido</string>
 
-    <!-- What's new feature and texts to show -->
-    <string name="whats_new_title">Qué hay de nuevo en Nextcloud</string>
-
     <!-- Welcome to Nc intro features -->
     <string name="welcome_feature_1_title">Un lugar seguro para tus datos</string>
     <string name="welcome_feature_1_text">Accede, comparte y protege tus archivos en casa y en el trabajo</string>
@@ -619,7 +616,6 @@
     <string name="welcome_feature_2_title">Múltiples cuentas</string>
     <string name="welcome_feature_2_text">Conecta con todas tus nubes</string>
 
-    <string name="welcome_feature_3_title">Subida instantánea</string>
     <string name="welcome_feature_3_text">Mantén seguras tus fotos</string>
 
     <string name="whats_new_skip">Omitir</string>
@@ -675,4 +671,4 @@
 
     <string name="test_server_button">Probar conexión con servidor</string>
     <string name="resharing_is_not_allowed">No se permite compartir de nuevo</string>
-</resources>
+    </resources>

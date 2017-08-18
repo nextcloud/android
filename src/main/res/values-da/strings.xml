@@ -387,9 +387,6 @@
     <string name="storage_description_sd_no">SD-kort %1$d</string>
     <string name="storage_description_unknown">Ukendt</string>
 
-    <!-- What's new feature and texts to show -->
-    <string name="whats_new_title">Hvad er nyt i Nextcloud</string>
-
     <!-- Welcome to Nc intro features -->
     <string name="welcome_feature_1_title">Et sikket hjem til alt dit data</string>
     <string name="whats_new_skip">Spring over</string>
