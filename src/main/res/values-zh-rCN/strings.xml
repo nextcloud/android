@@ -576,9 +576,6 @@
     <string name="storage_description_sd_no">SD卡%1$d</string>
     <string name="storage_description_unknown">不知道</string>
 
-    <!-- What's new feature and texts to show -->
-    <string name="whats_new_title">有什么新东西在%1$s里</string>
-
     <!-- Welcome to Nc intro features -->
     <string name="welcome_feature_1_title">给你所有的数据一个安全的家</string>
     <string name="welcome_feature_1_text">访问，共享和保护您的文件在家里和工作</string>
@@ -586,7 +583,6 @@
     <string name="welcome_feature_2_title">多用户</string>
     <string name="welcome_feature_2_text">联接你所有的云</string>
 
-    <string name="welcome_feature_3_title">即时上传</string>
     <string name="welcome_feature_3_text">保护你的照片安全</string>
 
     <string name="whats_new_skip">跳过</string>

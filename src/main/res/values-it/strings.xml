@@ -540,6 +540,7 @@
     <string name="action_switch_list_view">Vista Elenco</string>
 
     <string name="manage_space_title">Gestisci lo spazio</string>
+    <string name="manage_space_description">Impostazioni, database e certificati del server dai dati di %1$s saranno eliminati definitivamente.\n\ni file scaricati non saranno interessati.\n\nQuesto processo può richiedere del tempo.</string>
     <string name="manage_space_clear_data">Cancella i dati</string>
     <string name="manage_space_error">Alcuni file non possono essere eliminati.</string>
 
@@ -561,7 +562,9 @@
     <string name="participate_testing_report_text">Segnala un problema su GitHub</string>
     <string name="participate_testing_version_text">Sei interessato ad aiutarci provando la prossima versione?</string>
     <string name="participate_beta_headline">Prova la versione di sviluppo</string>
+    <string name="participate_beta_text">Ciò include tutte le funzionalità di prossima introduzione e potrebbe presentare seri problemi di stabilità. Bug/errori possono verificars. Se e quando li riscontrerai, segnalaci le tue scoperte.</string>
     <string name="participate_release_candidate_headline">Candidata al rilascio</string>
+    <string name="participate_release_candidate_text">La candidata al rilascio (RC) è un\'istantanea della versione successiva e dovrebbe essere stabile. Effettuando dei test sulla tua configurazione, puoi aiutarci a esserene sicuri. Registrati per la fase test su Google Play o controlla manualmente nella sezione \"Versione\" di F-Droid.</string>
     <string name="participate_contribute_headline">Contribuisci attivamente</string>
     <string name="participate_contribute_irc_text">Entra in chat su IRC:</string>
     <string name="participate_contribute_forum_text">Aiuta gli altri sul</string>
@@ -606,9 +609,6 @@
     <string name="storage_description_sd_no">Scheda SD %1$d</string>
     <string name="storage_description_unknown">Sconosciuto</string>
 
-    <!-- What's new feature and texts to show -->
-    <string name="whats_new_title">Cosa c\'è di nuovo in Nextcloud</string>
-
     <!-- Welcome to Nc intro features -->
     <string name="welcome_feature_1_title">Un posto sicuro per tutti i tuoi dati</string>
     <string name="welcome_feature_1_text">Accedi, condividi e proteggi i tuoi file a casa e al lavoro</string>
@@ -616,7 +616,6 @@
     <string name="welcome_feature_2_title">Account multipli</string>
     <string name="welcome_feature_2_text">Collega tutti i tuoi cloud</string>
 
-    <string name="welcome_feature_3_title">Caricamento istantaneo</string>
     <string name="welcome_feature_3_text">Tieni al sicuro le tue foto</string>
 
     <string name="whats_new_skip">Salta</string>
@@ -672,4 +671,4 @@
 
     <string name="test_server_button">Prova di connessione al server</string>
     <string name="resharing_is_not_allowed">La ri-condivisione non è consentita</string>
-</resources>
+    </resources>

@@ -460,14 +460,10 @@
     <string name="storage_description_sd_no">Tarxeta SD %1$d</string>
     <string name="storage_description_unknown">Desconozse</string>
 
-    <!-- What's new feature and texts to show -->
-    <string name="whats_new_title">Qué hai nuevo en Nextcloud</string>
-
     <!-- Welcome to Nc intro features -->
     <string name="welcome_feature_1_title">Un llar seguru pa tolos tos datos</string>
     <string name="welcome_feature_1_text">Accedu, comparti y protexi los tos ficheros en casa y nel trabayu</string>
 
-    <string name="welcome_feature_3_title">Xuba nel intre</string>
     <string name="whats_new_skip">Saltar</string>
 
     <string name="fingerprint_scan_finger">Escania\'l to deu, por favor</string>

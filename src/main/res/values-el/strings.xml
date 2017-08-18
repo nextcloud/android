@@ -574,9 +574,6 @@
     <string name="storage_description_sd_no">Κάρτα SD %1$d</string>
     <string name="storage_description_unknown">Άγνωστο</string>
 
-    <!-- What's new feature and texts to show -->
-    <string name="whats_new_title">Τι νέο υπάρχει στο Nextcloud</string>
-
     <!-- Welcome to Nc intro features -->
     <string name="welcome_feature_1_title">Μια ασφαλής τοποθεσία για όλα σας τα δεδομένα</string>
     <string name="welcome_feature_1_text">Πρόσβαση, διαμοιρασμός και προστασία των αρχείων σας στο σπίτι και στην εταιρία σας</string>
@@ -584,7 +581,6 @@
     <string name="welcome_feature_2_title">Πολλαπλός λογαριασμός</string>
     <string name="welcome_feature_2_text">Σύνδεση με όλα τα clouds σας</string>
 
-    <string name="welcome_feature_3_title">Άμεση μεταφόρτωση</string>
     <string name="welcome_feature_3_text">Διατήρηση των φωτογραφιών σας με ασφάλεια</string>
 
     <string name="whats_new_skip">Παράλειψη</string>

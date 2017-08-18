@@ -609,9 +609,6 @@
     <string name="storage_description_sd_no">SD-kort %1$d</string>
     <string name="storage_description_unknown">Ukjent</string>
 
-    <!-- What's new feature and texts to show -->
-    <string name="whats_new_title">Hva er nytt i Nextcloud</string>
-
     <!-- Welcome to Nc intro features -->
     <string name="welcome_feature_1_title">Et trygt hjem for alle dine data</string>
     <string name="welcome_feature_1_text">Benytt, del og beskytt filene dine hjemme og i din bedrift</string>
@@ -619,7 +616,6 @@
     <string name="welcome_feature_2_title">Multi-konto</string>
     <string name="welcome_feature_2_text">Foren alle skyene dine</string>
 
-    <string name="welcome_feature_3_title">Umiddelbar opplasting</string>
     <string name="welcome_feature_3_text">Hold bildene dine trygge</string>
 
     <string name="whats_new_skip">Hopp over</string>
@@ -675,4 +671,4 @@
 
     <string name="test_server_button">Test tjenertilkobling</string>
     <string name="resharing_is_not_allowed">Videredeling er ikke tillatt</string>
-</resources>
+    </resources>
