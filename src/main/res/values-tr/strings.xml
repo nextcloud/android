@@ -21,7 +21,6 @@
     <string name="menu_item_sort_by_size_smallest_first">Küçükten Büyüğe</string>
 
     <string name="drawer_item_all_files">Tüm dosyalar</string>
-    <string name="drawer_item_files">Dosyalar</string>
     <string name="drawer_item_home">Giriş</string>
     <string name="drawer_item_favorites">Sık Kullanılanlar</string>
     <string name="drawer_item_photos">Fotoğraflar</string>
@@ -89,7 +88,6 @@
     <string name="file_list_empty_headline">Burada herhangi bir dosya yok</string>
     <string name="folder_list_empty_headline">Burada herhangi bir klasör yok</string>
     <string name="file_list_empty">Bazı içerikler yükleyin ya da aygıtlarınızla eşitleyin.</string>
-    <string name="file_list_empty_favorites">Bazı dosyaları sık kullanılanlara ekleyin ya da aygıtlarınızla paylaşın.</string>
     <string name="file_list_empty_favorites_filter_list">Sık kullanılanlara eklediğiniz dosya ve klasörler burada görüntülenir</string>
     <string name="file_list_empty_favorites_filter">Arama sonucunda sık kullanılan bir dosya bulunamadı.</string>
     <string name="file_list_loading">Yükleniyor&#8230;</string>
@@ -116,9 +114,6 @@
     <string name="upload_list_empty_text">Bazı içerikler yükleyin ya da anında yüklemeyi etkinleştirin.</string>
     <string name="upload_list_empty_text_auto_upload">Bazı içerikler yükleyin ya da otomatik yüklemeyi etkinleştirin.</string>
     <string name="file_list_folder">klasör</string>
-    <string name="file_list_folders">klasör</string>
-    <string name="file_list_file">dosya</string>
-    <string name="file_list_files">dosya</string>
     <string name="filedetails_select_file">Ek bilgileri görmek için dosyaya dokunun.</string>
     <string name="filedetails_size">Boyut:</string>
     <string name="filedetails_type">Tür:</string>
@@ -138,7 +133,6 @@
     <string name="common_cancel">İptal</string>
     <string name="common_back">Geri</string>
     <string name="common_save">Kaydet</string>
-    <string name="common_save_exit">Kaydet ve Çık</string>
     <string name="common_error">Hata</string>
     <string name="common_loading">Yükleniyor&#8230;</string>
     <string name="common_unknown">bilinmiyor</string>
@@ -149,7 +143,6 @@
     <string name="change_password">Parola değiştir</string>
     <string name="delete_account">Hesabı kaldır</string>
     <string name="delete_account_warning">%s hesabı tüm yerel dosyaları ile silinsin mi?\n\nSilme işlemi geri alınamaz.</string>
-    <string name="create_account">Hesap oluştur</string>
     <string name="avatar">Avatar</string>
     <string name="active_user">Etkin kullanıcı</string>
     <string name="upload_chooser_title">Şuradan yükle&#8230;</string>
@@ -338,7 +331,6 @@
     <string name="placeholder_media_time">12:23:45</string>
 
     <string name="auto_upload_on_wifi">Yalnız kablosuz ağ üzerinden yüklensin</string>
-    <string name="instant_upload_on_wifi">Fotoğraflar yalnız kablosuz ağ üzerinden yüklensin</string>
     <string name="instant_video_upload_on_wifi">Görüntüler yalnız kablosuz ağ üzerinden yüklensin</string>
     <string name="instant_video_upload_on_charging">Yalnız şarj edilirken yüklensin</string>
     <string name="instant_upload_on_charging">Yalnız şarj edilirken yüklensin</string>
@@ -421,7 +413,6 @@
     <string name="file_migration_source_not_readable_title">Kaynak klasör okunabilir değil!</string>
     <string name="file_migration_source_not_readable">Depolama yolunu gene de %1$s olarak değiştirmek istediğinizden emin misiniz?\n\nNot: Tüm verilerin yeniden indirilmesi gerekecek.</string>
 
-    <string name="prefs_category_accounts">Hesaplar</string>
     <string name="prefs_add_account">Hesap ekle</string>
     <string name="drawer_manage_accounts">Hesap yönetimi</string>
     <string name="auth_redirect_non_secure_connection_title">Güvenli bağlantı, güvenli olmayan bir hedefe yönlendiriliyor.</string>

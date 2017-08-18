@@ -21,7 +21,6 @@
     <string name="menu_item_sort_by_size_smallest_first">Μικρότερο πρώτα</string>
 
     <string name="drawer_item_all_files">Όλα τα αρχεία</string>
-    <string name="drawer_item_files">Αρχεία</string>
     <string name="drawer_item_home">Αρχική</string>
     <string name="drawer_item_favorites">Αγαπημένα</string>
     <string name="drawer_item_photos">Φωτογραφίες</string>
@@ -85,7 +84,6 @@
     <string name="file_list_seconds_ago">δευτερόλεπτα πριν</string>
     <string name="file_list_empty_headline">Δεν υπάρχουν αρχεία</string>
     <string name="file_list_empty">Μεταφόρτωση περιεχομένου ή συγχρονισμός με τις συσκευές σας.</string>
-    <string name="file_list_empty_favorites">Σημειώστε ως αγαπημένα ορισμένα αρχεία ή συγχρονίστε τα με τις συσκευές σας.</string>
     <string name="file_list_empty_favorites_filter_list">Τα αρχεία ή οι φάκελοι που σημειώσατε ως αγαπημένα θα εμφανιστούν εδώ</string>
     <string name="file_list_empty_favorites_filter">Δεν βρέθηκαν αρχεία σημειωμένα ως αγαπημένα για το ερώτημά σας.</string>
     <string name="file_list_loading">Φόρτωση&#8230;</string>
@@ -111,9 +109,6 @@
     <string name="upload_list_empty_text">Μεταφορτώστε περιεχόμενο ή ενεργοποιήστε την άμεση μεταφόρτωση.</string>
     <string name="upload_list_empty_text_auto_upload">Μεταφορτώστε περιεχόμενο ή ενεργοποιήστε την αυτόματη μεταφόρτωση.</string>
     <string name="file_list_folder">φάκελος</string>
-    <string name="file_list_folders">φάκελοι</string>
-    <string name="file_list_file">αρχείο</string>
-    <string name="file_list_files">αρχεία</string>
     <string name="filedetails_select_file">Αγγίξτε κάποιο αρχείο για να προβάλετε περισσότερες πληροφορίες.</string>
     <string name="filedetails_size">Μέγεθος:</string>
     <string name="filedetails_type">Τύπος:</string>
@@ -133,7 +128,6 @@
     <string name="common_cancel">Ακύρωση</string>
     <string name="common_back">Επιστροφή</string>
     <string name="common_save">Αποθήκευση</string>
-    <string name="common_save_exit">Αποθήκευση &amp; έξοδος</string>
     <string name="common_error">Σφάλμα</string>
     <string name="common_loading">Φόρτωση &#8230;</string>
     <string name="common_unknown">άγνωστο</string>
@@ -143,7 +137,6 @@
     <string name="change_password">Αλλαγή συνθημτικού</string>
     <string name="delete_account">Αφαίρεση λογαριασμού</string>
     <string name="delete_account_warning">Διαγραφή λογαριασμού %s με όλα τα τοπικά αρχεία?\n\n\Διαγράφοντας τα δεν θα υπάρξει επαναφορά.</string>
-    <string name="create_account">Δημιουργία λογαριασμού</string>
     <string name="upload_chooser_title">Μεταφόρτωση από &#8230;</string>
     <string name="uploader_info_dirname">Όνομα φακέλου</string>
     <string name="uploader_upload_in_progress_ticker">Μεταφόρτωση &#8230;</string>
@@ -325,7 +318,6 @@
     <string name="placeholder_media_time">12:23:45</string>
 
     <string name="auto_upload_on_wifi">Μεταφόρτωση μόνο μέσω wifi</string>
-    <string name="instant_upload_on_wifi">Μεταφόρτωση φωτογραφιών μόνο μέσω wifi</string>
     <string name="instant_video_upload_on_wifi">Μεταφόρτωση βίντεο μόνο μέσω wifi</string>
     <string name="instant_video_upload_on_charging">Μεταφόρτωση μόνο κατά τη διάρκεια φόρτισης</string>
     <string name="instant_upload_on_charging">Μεταφόρτωση μόνο κατά τη διάρκεια φόρτισης</string>
@@ -406,7 +398,6 @@
     <string name="file_migration_source_not_readable_title">Ο πηγαίος φάκελος δεν ειναι αναγνώσιμος!</string>
     <string name="file_migration_source_not_readable">Θέλετε ακόμη να αλλάξετε το μονοπάτι αποθήκευσης σε %1$s;\n\nΣημείωση: όλα τα δεδομένα θα πρέπει να κατεβαστούν ξανά. </string>
 
-    <string name="prefs_category_accounts">Λογαριασμοί</string>
     <string name="prefs_add_account">Προσθήκη λογαριασμού</string>
     <string name="drawer_manage_accounts">Διαχείριση λογαριασμών</string>
     <string name="auth_redirect_non_secure_connection_title">Η ασφαλής σύνδεση ανακατευθύνεται μέσω μιας μη ασφαλούς διαδρομής.</string>

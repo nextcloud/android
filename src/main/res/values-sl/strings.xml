@@ -21,7 +21,6 @@
     <string name="menu_item_sort_by_size_smallest_first">Najmanjše</string>
 
     <string name="drawer_item_all_files">Vse datoteke</string>
-    <string name="drawer_item_files">Datoteke</string>
     <string name="drawer_item_home">Domov</string>
     <string name="drawer_item_favorites">Priljubljene</string>
     <string name="drawer_item_photos">Slike</string>
@@ -103,9 +102,6 @@
     <string name="upload_list_empty_text">Naloži kakšno vsebino ali vključi hipno nalaganje.</string>
     <string name="upload_list_empty_text_auto_upload">Naloži kakšno vsebino ali vključi samodejno nalaganje.</string>
     <string name="file_list_folder">mapa</string>
-    <string name="file_list_folders">mape</string>
-    <string name="file_list_file">datoteka</string>
-    <string name="file_list_files">datoteke</string>
     <string name="filedetails_select_file">Pritisnite na datoteko za prikaz dodatnih podrobnosti.</string>
     <string name="filedetails_size">Velikost:</string>
     <string name="filedetails_type">Vrsta:</string>
@@ -124,7 +120,6 @@
     <string name="common_cancel">Prekliči</string>
     <string name="common_back">Nazaj</string>
     <string name="common_save">Shrani</string>
-    <string name="common_save_exit">Shrani in končaj</string>
     <string name="common_error">Napaka</string>
     <string name="common_loading">Nalaganje &#8230;</string>
     <string name="common_unknown">neznano</string>
@@ -134,7 +129,6 @@
     <string name="about_title">O oblaku %1$s</string>
     <string name="change_password">Spremeni geslo</string>
     <string name="delete_account">Odstrani račun</string>
-    <string name="create_account">Ustvari račun</string>
     <string name="active_user">Aktivni uporabnik</string>
     <string name="upload_chooser_title">Pošlji datoteko iz &#8230;</string>
     <string name="uploader_info_dirname">Ime mape</string>
@@ -321,7 +315,6 @@
     <string name="placeholder_media_time">12:23:45</string>
 
     <string name="auto_upload_on_wifi">Nalagaj samo na WiFi-ju</string>
-    <string name="instant_upload_on_wifi">Naloži samo slike na WiFi-ju</string>
     <string name="instant_video_upload_on_wifi">Naloži samo posnetke na WiFi-ju</string>
     <string name="instant_video_upload_on_charging">Nalagaj samo med polnjenjem</string>
     <string name="instant_upload_on_charging">Nalagaj samo med polnjenjem</string>
@@ -404,7 +397,6 @@
     <string name="file_migration_source_not_readable_title">Izvorna mapa ni berljiva!</string>
     <string name="file_migration_source_not_readable">Ali še vedno želiš spremeniti mesto shrambe na %1$s?\n\nVedi: Vse podatke moram prebrati ponovno.</string>
 
-    <string name="prefs_category_accounts">Računi</string>
     <string name="prefs_add_account">Dodaj račun</string>
     <string name="drawer_manage_accounts">Uredi račune</string>
     <string name="actionbar_logger">Dnevnik</string>

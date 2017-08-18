@@ -21,7 +21,6 @@
     <string name="menu_item_sort_by_size_smallest_first">Le plus petit en premier</string>
 
     <string name="drawer_item_all_files">Tous les fichiers</string>
-    <string name="drawer_item_files">Fichiers</string>
     <string name="drawer_item_home">Accueil</string>
     <string name="drawer_item_favorites">Favoris</string>
     <string name="drawer_item_photos">Photos</string>
@@ -89,7 +88,6 @@
     <string name="file_list_empty_headline">Aucun fichier ici</string>
     <string name="folder_list_empty_headline">Aucun fichier ici</string>
     <string name="file_list_empty">Déposez du contenu ou synchronisez vos appareils.</string>
-    <string name="file_list_empty_favorites">Mettez certains fichiers en favoris ou synchronisez vos appareils.</string>
     <string name="file_list_empty_favorites_filter_list">Les fichiers et dossiers ajoutés à vos favoris apparaîtront ici</string>
     <string name="file_list_empty_favorites_filter">Auncun fichier mis en favori trouvé qui correspond à votre requête.</string>
     <string name="file_list_loading">Chargement&#8230;</string>
@@ -116,9 +114,6 @@
     <string name="upload_list_empty_text">Téléversez du contenu ou activez le téléversement instantané.</string>
     <string name="upload_list_empty_text_auto_upload">Téléversez du contenu ou activez le téléversement automatique.</string>
     <string name="file_list_folder">dossier</string>
-    <string name="file_list_folders">dossiers</string>
-    <string name="file_list_file">fichier</string>
-    <string name="file_list_files">fichiers</string>
     <string name="filedetails_select_file">Appuyez sur un fichier pour afficher des informations supplémentaires.</string>
     <string name="filedetails_size">Taille :</string>
     <string name="filedetails_type">Type :</string>
@@ -138,7 +133,6 @@
     <string name="common_cancel">Annuler</string>
     <string name="common_back">Retour</string>
     <string name="common_save">Sauvegarder</string>
-    <string name="common_save_exit">Enregistrer &amp; quitter</string>
     <string name="common_error">Erreur</string>
     <string name="common_loading">Chargement&#8230;</string>
     <string name="common_unknown">Inconnu</string>
@@ -149,7 +143,6 @@
     <string name="change_password">Changer de mot de passe</string>
     <string name="delete_account">Supprimer le compte</string>
     <string name="delete_account_warning">Supprimer le compte %s ?\n\nCette suppression sera irréversible.</string>
-    <string name="create_account">Créer un compte</string>
     <string name="avatar">Avatar</string>
     <string name="active_user">Utilisateur actif</string>
     <string name="upload_chooser_title">Téléverser depuis&#8230;</string>
@@ -338,7 +331,6 @@
     <string name="placeholder_media_time">12:23:45</string>
 
     <string name="auto_upload_on_wifi">Téléverser par wifi uniquement</string>
-    <string name="instant_upload_on_wifi">Téléverser les images via une connexion WiFi uniquement</string>
     <string name="instant_video_upload_on_wifi">Téléverser les images via une connexion WiFi uniquement</string>
     <string name="instant_video_upload_on_charging">Téléverser les images uniquement si le chargeur est branché</string>
     <string name="instant_upload_on_charging">Téléverser les images uniquement si le chargeur est branché</string>
@@ -421,7 +413,6 @@
     <string name="file_migration_source_not_readable_title">Le dossier n\'est pas lisible !</string>
     <string name="file_migration_source_not_readable">Souhaitez-vous modifier le chemin de stockage pour %1$s ?\n\nNote : toutes les données devront être à nouveau téléchargées.</string>
 
-    <string name="prefs_category_accounts">Comptes</string>
     <string name="prefs_add_account">Ajouter un compte</string>
     <string name="drawer_manage_accounts">Gérer les comptes</string>
     <string name="auth_redirect_non_secure_connection_title">Le connexion sécurisée est redirigée vers une route non-sécurisée.</string>
