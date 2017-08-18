@@ -76,7 +76,6 @@
     <string name="uploader_wrn_no_account_setup_btn_text">Oppsett</string>
     <string name="uploader_wrn_no_account_quit_btn_text">Avslutt</string>
     <string name="uploader_error_title_no_file_to_upload">Ingen fil å laste opp</string>
-    <string name="uploader_error_message_received_piece_of_text">%1$s kan ikke laste opp tekst som en fil.</string>
     <string name="uploader_error_message_no_file_to_upload">Mottatte data inneholder ingen gyldig fil.</string>
     <string name="uploader_error_title_file_cannot_be_uploaded">Denne filen kan ikke lastes opp</string>
     <string name="uploader_error_message_read_permission_not_granted">%1$s er har ikke tilgang til å se mottatt fil</string>
@@ -609,6 +608,9 @@
     <string name="storage_description_sd_no">SD-kort %1$d</string>
     <string name="storage_description_unknown">Ukjent</string>
 
+    <!-- What's new feature and texts to show -->
+    <string name="whats_new_title">Hva er nytt i %1$s</string>
+
     <!-- Welcome to Nc intro features -->
     <string name="welcome_feature_1_title">Et trygt hjem for alle dine data</string>
     <string name="welcome_feature_1_text">Benytt, del og beskytt filene dine hjemme og i din bedrift</string>
@@ -616,8 +618,12 @@
     <string name="welcome_feature_2_title">Multi-konto</string>
     <string name="welcome_feature_2_text">Foren alle skyene dine</string>
 
+    <string name="welcome_feature_3_title">Auto-opplasting</string>
     <string name="welcome_feature_3_text">Hold bildene dine trygge</string>
 
+    <string name="whats_new_auto_upload_title">Utvidet auto-opplasting</string>
+    <string name="whats_new_search_title">Fullt serversøk</string>
+    <string name="whats_new_theming_title">Temastøtte</string>
     <string name="whats_new_skip">Hopp over</string>
 
     <string name="fingerprint_scan_finger">Skann fingeren din</string>
@@ -671,4 +677,6 @@
 
     <string name="test_server_button">Test tjenertilkobling</string>
     <string name="resharing_is_not_allowed">Videredeling er ikke tillatt</string>
-    </resources>
+    <string name="whats_new_fingerprint_title">Lås opp med fingeravtrykk</string>
+    <string name="whats_new_fingerprint_content">Bruk fingeravtrykk for å låse opp appen</string>
+</resources>

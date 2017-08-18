@@ -75,7 +75,6 @@ Smelltu hér til að fá þér einn frá þjónustuaðila.</string>
     <string name="uploader_wrn_no_account_setup_btn_text">Uppsetning</string>
     <string name="uploader_wrn_no_account_quit_btn_text">Hætta</string>
     <string name="uploader_error_title_no_file_to_upload">Engin skrá til að senda inn</string>
-    <string name="uploader_error_message_received_piece_of_text">%1$s getur ekki sent inn textabút sem skrá.</string>
     <string name="uploader_error_message_no_file_to_upload">Móttekin gögn innihéldu ekki gilda skrá.</string>
     <string name="uploader_error_title_file_cannot_be_uploaded">Ekki er hægt að senda þessa skrá inn</string>
     <string name="uploader_error_message_read_permission_not_granted">%1$s hefur ekki heimild til að lesa móttekna skrá</string>

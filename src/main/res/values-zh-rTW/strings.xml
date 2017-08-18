@@ -73,7 +73,6 @@
     <string name="uploader_wrn_no_account_setup_btn_text">設定</string>
     <string name="uploader_wrn_no_account_quit_btn_text">離開</string>
     <string name="uploader_error_title_no_file_to_upload">沒有要上傳的檔案</string>
-    <string name="uploader_error_message_received_piece_of_text">%1$s 上傳一段文字儲存為檔案</string>
     <string name="uploader_error_message_no_file_to_upload">接收的資料不包含任何有效的檔案</string>
     <string name="uploader_error_title_file_cannot_be_uploaded">無法上傳檔案</string>
     <string name="uploader_error_message_read_permission_not_granted">%1$s 不允許讀取接收的檔案</string>

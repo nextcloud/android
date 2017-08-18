@@ -76,7 +76,6 @@
     <string name="uploader_wrn_no_account_setup_btn_text">Einrichten</string>
     <string name="uploader_wrn_no_account_quit_btn_text">Beenden</string>
     <string name="uploader_error_title_no_file_to_upload">Keine Datei zum Hochladen</string>
-    <string name="uploader_error_message_received_piece_of_text">%1$s kann einen Textteil als Datei hochladen</string>
     <string name="uploader_error_message_no_file_to_upload">Empfangene Daten enthalten keine gültige Datei.</string>
     <string name="uploader_error_title_file_cannot_be_uploaded">Diese Datei kan nicht hochgeladen werden</string>
     <string name="uploader_error_message_read_permission_not_granted">%1$s darf eine empfangene Datei nicht lesen</string>
@@ -611,6 +610,9 @@
     <string name="storage_description_sd_no">SD Karte %1$d</string>
     <string name="storage_description_unknown">Unbekannt</string>
 
+    <!-- What's new feature and texts to show -->
+    <string name="whats_new_title">Neues in %1$s</string>
+
     <!-- Welcome to Nc intro features -->
     <string name="welcome_feature_1_title">Ein sicheres Zuhause für alle Deine Daten</string>
     <string name="welcome_feature_1_text">Zugriff, Freigabe &amp; Schutz deiner Dateien zu Hause und in deinem Unternehmen.</string>
@@ -618,7 +620,20 @@
     <string name="welcome_feature_2_title">Mehrfachkonto</string>
     <string name="welcome_feature_2_text">Verbinde dich mit all deinen Clouds</string>
 
+    <string name="welcome_feature_3_title">Automatisches Hochladen</string>
     <string name="welcome_feature_3_text">Schütze deine Fotos</string>
+
+    <string name="whats_new_auto_upload_title">Erweitertes automatisches Hochladen</string>
+    <string name="whats_new_auto_upload_content">\u2022 für alle Android-Versionen\n\u2022 Weniger Batterieverbracuh\n\u2022 zuverlässiger, aber nicht sofort\n\u2022 Trennung von Bildern &amp; Videos</string>
+
+    <string name="whats_new_search_title">Vollständige Server-Suche</string>
+    <string name="whats_new_search_content">\u2022 Nicht nur im aktuellen Ordner\n\u2022 Suchergebnisse des gesamten Servers\n\u2022 Ordner/Dateien direkt öffnen\n\u2022 Unterstützt ab NC12</string>
+
+    <string name="whats_new_theming_title">Themen verwenden</string>
+    <string name="whats_new_theming_content">Wenn in der Server-App aktiviert werden das \n\u2022 Hintergund Bild\n\u2022 Der Server-Name\n\u2022 und die eingestellten Farben angezeigt</string>
+
+    <string name="whats_new_notification_title">Benachrichtigungen</string>
+    <string name="whats_new_notification_content">Erhalten Sie Benachrichtigungen wie z.B.\n\u2022 Neie Freigaben\n\u2022 Kommentar-Erwähnungen\n\u2022 Adminstratoren-Ankündigungen</string>
 
     <string name="whats_new_skip">Überspringen</string>
 
@@ -673,4 +688,6 @@
 
     <string name="test_server_button">Prüfe Server-Verbindung</string>
     <string name="resharing_is_not_allowed">Resharing/Wiederteilen ist nicht erlaubt.</string>
-    </resources>
+    <string name="whats_new_fingerprint_title">Entsperren mit Fingerabdruck</string>
+    <string name="whats_new_fingerprint_content">Entsperre die App mit Deinem Fingerabdruck</string>
+</resources>

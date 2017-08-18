@@ -53,7 +53,6 @@
     <string name="uploader_wrn_no_account_setup_btn_text">Skapa</string>
     <string name="uploader_wrn_no_account_quit_btn_text">Avsluta</string>
     <string name="uploader_error_title_no_file_to_upload">Ingen fil att ladda upp</string>
-    <string name="uploader_error_message_received_piece_of_text">%1$s kan inte ladda upp text som en fil.</string>
     <string name="uploader_error_message_no_file_to_upload">Mottagen data innehåller ingen giltig fil.</string>
     <string name="uploader_error_message_read_permission_not_granted">%1$s har inte tillåtelse att läsa en mottagen fil</string>
     <string name="uploader_upload_files_behaviour">Uppladdningsalternativ:</string>

@@ -53,7 +53,6 @@
     <string name="uploader_wrn_no_account_setup_btn_text">Nastavenie</string>
     <string name="uploader_wrn_no_account_quit_btn_text">Koniec</string>
     <string name="uploader_error_title_no_file_to_upload">Žiadny súbor pre nahratie</string>
-    <string name="uploader_error_message_received_piece_of_text">%1$s nie je možné nahrať text ako súbor.</string>
     <string name="uploader_error_message_no_file_to_upload">Prijaté dáta neobsahujú žiadny platný súbor.</string>
     <string name="uploader_error_message_read_permission_not_granted">%1$s nie je oprávnený čítať prijatý súbor</string>
     <string name="uploader_upload_files_behaviour">Možnosti nahratia</string>

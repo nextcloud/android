@@ -40,7 +40,6 @@
     <string name="uploader_wrn_no_account_setup_btn_text">הגדרות</string>
     <string name="uploader_wrn_no_account_quit_btn_text">יציאה</string>
     <string name="uploader_error_title_no_file_to_upload">אין קובץ להעלאה</string>
-    <string name="uploader_error_message_received_piece_of_text">%1$s לא ניתן להעלות מחרוזת טקסט כקובץ.</string>
     <string name="uploader_error_message_read_permission_not_granted">ל- %1$s אסור לקרוא קובץ מתקבל</string>
     <string name="uploader_upload_files_behaviour">אפשרויות העלאה:</string>
     <string name="file_list_seconds_ago">שניות</string>

@@ -62,7 +62,6 @@
     <string name="uploader_wrn_no_account_setup_btn_text">Configuración</string>
     <string name="uploader_wrn_no_account_quit_btn_text">Colar</string>
     <string name="uploader_error_title_no_file_to_upload">Ensin ficheru pa xubir</string>
-    <string name="uploader_error_message_received_piece_of_text">%1$s nun puede xubir un cachu de testu como un ficheru.</string>
     <string name="uploader_error_message_read_permission_not_granted">%1$s nun ta permitíu lleer un ficheru recibíu</string>
     <string name="uploader_error_message_source_file_not_copied">Nun pudo copiase\'l ficheru a una carpeta temporal. Prueba a reunvialu.</string>
     <string name="uploader_upload_files_behaviour_only_upload">Caltener ficheru na carpeta fonte</string>

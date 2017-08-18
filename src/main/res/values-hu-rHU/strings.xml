@@ -76,7 +76,6 @@
     <string name="uploader_wrn_no_account_setup_btn_text">Beállítás</string>
     <string name="uploader_wrn_no_account_quit_btn_text">Kilépés</string>
     <string name="uploader_error_title_no_file_to_upload">Nincs feltölthető fájl</string>
-    <string name="uploader_error_message_received_piece_of_text">%1$s nem tudja feltölteni a szövegrészt fájlként.</string>
     <string name="uploader_error_message_no_file_to_upload">A letöltött adat nem tartalmazott érvényes fájlt.</string>
     <string name="uploader_error_title_file_cannot_be_uploaded">Ezt a fájlt nem lehet feltölteni</string>
     <string name="uploader_error_message_read_permission_not_granted">%1$s nem olvashatja a fogadott fáljt</string>

@@ -78,7 +78,6 @@
     <string name="uploader_wrn_no_account_setup_btn_text">Настройка</string>
     <string name="uploader_wrn_no_account_quit_btn_text">Выход</string>
     <string name="uploader_error_title_no_file_to_upload">Нет файла для выгрузки</string>
-    <string name="uploader_error_message_received_piece_of_text">%1$s не удается выгрузить часть текста как файл.</string>
     <string name="uploader_error_message_no_file_to_upload">Принятые данные не содержат исправный файл.</string>
     <string name="uploader_error_title_file_cannot_be_uploaded">Этот файл не может быть выгружен</string>
     <string name="uploader_error_message_read_permission_not_granted">%1$s не позволено читать принятый файл</string>
@@ -412,7 +411,7 @@
     <string name="file_migration_ok_finished">Завершено</string>
     <string name="file_migration_failed_not_enough_space">Ошибка: недостаточно места</string>
     <string name="file_migration_failed_not_writable">Ошибка: файл назначения недоступен для записи</string>
-    <string name="file_migration_failed_not_readable">ОШИБКА: исходный файл недоступен для чтения</string>
+    <string name="file_migration_failed_not_readable">Ошибка: исходный файл недоступен для чтения</string>
     <string name="file_migration_failed_dir_already_exists">Ошибка: каталог Nextcloud уже существует</string>
     <string name="file_migration_failed_while_coping">Ошибка: не удалось выполнить перенос</string>
     <string name="file_migration_failed_while_updating_index">Ошибка: не удалось обновить индекс</string>
@@ -613,6 +612,9 @@
     <string name="storage_description_sd_no">SD карта %1$d</string>
     <string name="storage_description_unknown">Неизвестно</string>
 
+    <!-- What's new feature and texts to show -->
+    <string name="whats_new_title">Что нового в %1$s</string>
+
     <!-- Welcome to Nc intro features -->
     <string name="welcome_feature_1_title">Надежный дом для всех ваших данных</string>
     <string name="welcome_feature_1_text">Доступ, общий доступ и защита ваших файлов для дома и предприятия</string>
@@ -620,7 +622,20 @@
     <string name="welcome_feature_2_title">Работа с несколькими аккаунтами</string>
     <string name="welcome_feature_2_text">Доступ ко всем вашим облакам</string>
 
+    <string name="welcome_feature_3_title">Автоматическая выгрузка</string>
     <string name="welcome_feature_3_text">Держите ваши фотографии в безопасности</string>
+
+    <string name="whats_new_auto_upload_title">Улучшенная автоматическая выгрузка</string>
+    <string name="whats_new_auto_upload_content">\u2022 для всех версий платформы Android\n\u2022 уменьшенный расход батареи\n\u2022 более гибкое, но не мгновенное\n\u2022 разделение изображений &amp; и видеофайлов</string>
+
+    <string name="whats_new_search_title">Поиск по всему серверу</string>
+    <string name="whats_new_search_content">\u2022 а не только в текущем каталоге\n\i2022 Показываются результаты поиска по всему серверу\n\u2022 Непосредственный переход к файлам или каталогам\n\u2022 Поддерживается начиная с версии Nextcloud Server 12</string>
+
+    <string name="whats_new_theming_title">Поддержка тем оформления</string>
+    <string name="whats_new_theming_content">При включении тем оформления на сервере будут использованы указанные\n\u2022 фоновое изображение\n\u имя сервера\n\u2022 разные аккаунты отображаются разными цветами</string>
+
+    <string name="whats_new_notification_title">Поддержка уведомлений</string>
+    <string name="whats_new_notification_content">Получение уведомлений, таких как\n\u2022 получение общего доступа\n\u2022 упоминание в комментариях\n\u2022 системные уведомления</string>
 
     <string name="whats_new_skip">Пропустить</string>
 
@@ -675,4 +690,6 @@
 
     <string name="test_server_button">Проверить соединение с сервером</string>
     <string name="resharing_is_not_allowed">Повторное открытие доступа запрещено</string>
-    </resources>
+    <string name="whats_new_fingerprint_title">Разблокирование отпечатком пальца</string>
+    <string name="whats_new_fingerprint_content">Используйте отпечаток пальца для разблокирования приложения</string>
+</resources>

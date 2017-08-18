@@ -68,7 +68,6 @@
     <string name="uploader_wrn_no_account_setup_btn_text">Configura</string>
     <string name="uploader_wrn_no_account_quit_btn_text">Surt</string>
     <string name="uploader_error_title_no_file_to_upload">No hi ha fitxers per carregar</string>
-    <string name="uploader_error_message_received_piece_of_text">%1$s no pot carregar un fragment de text com si fos un fitxer.</string>
     <string name="uploader_error_message_no_file_to_upload">Les dades rebudes no incloïen un fitxer vàlid</string>
     <string name="uploader_error_message_read_permission_not_granted">%1$s no té permissos per llegir un dels fitxers rebuts</string>
     <string name="uploader_upload_files_behaviour">Opció de pujada:</string>
