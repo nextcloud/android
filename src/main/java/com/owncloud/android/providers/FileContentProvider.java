@@ -1076,23 +1076,23 @@ public class FileContentProvider extends ContentProvider {
                         Log_OC.i(SQL, "Type column of synced_folders table already exists");
                     }
 
-                    if (!checkIfColumnExists(db, ProviderTableMeta.SYNCED_FOLDERS_TABLE_NAME,
+                    if (!checkIfColumnExists(db, ProviderTableMeta.UPLOADS_TABLE_NAME,
                             ProviderTableMeta.UPLOADS_IS_WIFI_ONLY)) {
                         Log_OC.i(SQL, "Add charging and wifi columns to uploads");
                         db.execSQL(ALTER_TABLE + ProviderTableMeta.UPLOADS_TABLE_NAME +
                                 ADD_COLUMN + ProviderTableMeta.UPLOADS_IS_WIFI_ONLY +
                                 " INTEGER " + " DEFAULT 0");
                     } else {
-                        Log_OC.i(SQL, "Wifi column of synced_folders table already exists");
+                        Log_OC.i(SQL, "Wifi column of uploads table already exists");
                     }
 
-                    if (!checkIfColumnExists(db, ProviderTableMeta.SYNCED_FOLDERS_TABLE_NAME,
+                    if (!checkIfColumnExists(db, ProviderTableMeta.UPLOADS_TABLE_NAME,
                             ProviderTableMeta.UPLOADS_IS_WHILE_CHARGING_ONLY)) {
                         db.execSQL(ALTER_TABLE + ProviderTableMeta.UPLOADS_TABLE_NAME +
                                 ADD_COLUMN + ProviderTableMeta.UPLOADS_IS_WHILE_CHARGING_ONLY +
                                 " INTEGER " + " DEFAULT 0");
                     } else {
-                        Log_OC.i(SQL, "Charging column of synced_folders table already exists");
+                        Log_OC.i(SQL, "Charging column of uploads table already exists");
                     }
 
                     // create Filesystem table
@@ -1322,7 +1322,7 @@ public class FileContentProvider extends ContentProvider {
     }
 
     private void createFileSystemTable(SQLiteDatabase db) {
-        db.execSQL("CREATE TABLE " + ProviderTableMeta.FILESYSTEM_TABLE_NAME + "("
+        db.execSQL("CREATE TABLE IF NOT EXISTS " + ProviderTableMeta.FILESYSTEM_TABLE_NAME + "("
                 + ProviderTableMeta._ID + " INTEGER PRIMARY KEY, "      // id
                 + ProviderTableMeta.FILESYSTEM_FILE_LOCAL_PATH + " TEXT, "
                 + ProviderTableMeta.FILESYSTEM_FILE_IS_FOLDER + " INTEGER, "
