@@ -465,15 +465,11 @@
     <string name="storage_description_sd_no">SD カード %1$d</string>
     <string name="storage_description_unknown">不明</string>
 
-    <!-- What's new feature and texts to show -->
-    <string name="whats_new_title">Nextcloudの新しい点:</string>
-
     <!-- Welcome to Nc intro features -->
     <string name="welcome_feature_1_title">すべてのデータの安全なホーム</string>
     <string name="welcome_feature_2_title">マルチアカウント</string>
     <string name="welcome_feature_2_text">すべてのクラウドへ接続する</string>
 
-    <string name="welcome_feature_3_title">自動アップロード</string>
     <string name="welcome_feature_3_text">あなたの写真を安全に保つ</string>
 
     <string name="whats_new_skip">スキップ</string>

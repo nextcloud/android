@@ -609,9 +609,6 @@
     <string name="storage_description_sd_no">SD kart  %1$d</string>
     <string name="storage_description_unknown">Bilinmiyor</string>
 
-    <!-- What's new feature and texts to show -->
-    <string name="whats_new_title">Nextcloud yenilikleri</string>
-
     <!-- Welcome to Nc intro features -->
     <string name="welcome_feature_1_title">Verileriniz için güvenli bir yer!</string>
     <string name="welcome_feature_1_text">Ev ya da iş yerinizdeki dosyalarınıza erişin, paylaşın ve koruyun</string>
@@ -619,7 +616,6 @@
     <string name="welcome_feature_2_title">Birden çok hesap</string>
     <string name="welcome_feature_2_text">Tüm bulut hesaplarınıza bağlanın</string>
 
-    <string name="welcome_feature_3_title">Anında yükleme</string>
     <string name="welcome_feature_3_text">Fotoğraflarınızı koruyun</string>
 
     <string name="whats_new_skip">Atla</string>
@@ -675,4 +671,4 @@
 
     <string name="test_server_button">Sunucu bağlantısını sına</string>
     <string name="resharing_is_not_allowed">Yeniden paylaşıma izin verilmiyor</string>
-</resources>
+    </resources>
