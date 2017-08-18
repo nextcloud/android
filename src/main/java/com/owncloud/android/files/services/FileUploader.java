@@ -1059,11 +1059,10 @@ public class FileUploader extends Service
             final ThumbnailsCacheManager.ThumbnailGenerationTask task =
                     new ThumbnailsCacheManager.ThumbnailGenerationTask(mStorageManager, mCurrentAccount);
 
-            Object[] params = new Object[2];
-            params[0] = new File(mCurrentUpload.getOriginalStoragePath());
-            params[1] = mCurrentUpload.getFile().getRemoteId();
+            File file = new File(mCurrentUpload.getOriginalStoragePath());
+            String remoteId = mCurrentUpload.getFile().getRemoteId();
 
-            task.execute(params);
+            task.execute(new ThumbnailsCacheManager.ThumbnailGenerationTaskObject(file, remoteId));
         }
     }
 

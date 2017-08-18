@@ -329,17 +329,16 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
                 return true;
             }
             case R.id.action_send_file: {
-                // Obtain the file
-                if (!getFile().isDown()) {  // Download the file                    
-                    Log_OC.d(TAG, getFile().getRemotePath() + " : File must be downloaded");
-                    ((FileDisplayActivity) mContainerActivity).startDownloadForSending(getFile(),
-                            OCFileListFragment.DOWNLOAD_SEND);
+                    // Obtain the file
+                    if (!getFile().isDown()) {  // Download the file
+                        Log_OC.d(TAG, getFile().getRemotePath() + " : File must be downloaded");
+                        ((FileDisplayActivity) mContainerActivity).startDownloadForSending(getFile(),
+                                OCFileListFragment.DOWNLOAD_SEND);
+                    } else {
+                        mContainerActivity.getFileOperationsHelper().sendDownloadedFile(getFile());
+                    }
+                    return true;
                 }
-                else {
-                    mContainerActivity.getFileOperationsHelper().sendDownloadedFile(getFile());
-                }
-                return true;
-            }
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -506,7 +505,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
                                         task
                                 );
                         iv.setImageDrawable(asyncDrawable);
-                        task.execute(file);
+                        task.execute(new ThumbnailsCacheManager.ThumbnailGenerationTaskObject(file, file.getRemoteId()));
                     }
                 }
             } else {
