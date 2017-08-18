@@ -579,9 +579,6 @@ Smelltu hér til að fá þér einn frá þjónustuaðila.</string>
     <string name="storage_description_sd_no">SD-minniskort %1$d</string>
     <string name="storage_description_unknown">Óþekkt</string>
 
-    <!-- What's new feature and texts to show -->
-    <string name="whats_new_title">Hvað er nýtt í Nextcloud</string>
-
     <!-- Welcome to Nc intro features -->
     <string name="welcome_feature_1_title">Öruggur staður fyrir öll gögnin þín</string>
     <string name="welcome_feature_1_text">Haltu utan um, deildu og verndaðu skrárnar þínar, hvort sem er heima eða á vinnustað</string>
@@ -589,7 +586,6 @@ Smelltu hér til að fá þér einn frá þjónustuaðila.</string>
     <string name="welcome_feature_2_title">Margir aðgangar</string>
     <string name="welcome_feature_2_text">Tengdu öll gagnaskýin þín</string>
 
-    <string name="welcome_feature_3_title">Bein innsending</string>
     <string name="welcome_feature_3_text">Haltu ljósmyndunum þínum öruggum</string>
 
     <string name="whats_new_skip">Sleppa</string>

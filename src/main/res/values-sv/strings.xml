@@ -393,15 +393,11 @@
     <string name="storage_description_sd_no">SD kort %1$d</string>
     <string name="storage_description_unknown">Okänd</string>
 
-    <!-- What's new feature and texts to show -->
-    <string name="whats_new_title">Vad är nytt i Nextcloud</string>
-
     <!-- Welcome to Nc intro features -->
     <string name="welcome_feature_1_title">En säker plats för all din data</string>
     <string name="welcome_feature_2_title">Multikonto</string>
     <string name="welcome_feature_2_text">Anslut alla dina moln</string>
 
-    <string name="welcome_feature_3_title">Automatisk uppladdning</string>
     <string name="welcome_feature_3_text">Lagra dina foton på ett säkert ställe</string>
 
     <string name="whats_new_skip">Hoppa över</string>
