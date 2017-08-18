@@ -21,7 +21,6 @@
     <string name="menu_item_sort_by_size_smallest_first">Kleinste eerst</string>
 
     <string name="drawer_item_all_files">Alle bestanden</string>
-    <string name="drawer_item_files">Bestanden</string>
     <string name="drawer_item_home">Thuis</string>
     <string name="drawer_item_favorites">Favorieten</string>
     <string name="drawer_item_photos">Foto\'s</string>
@@ -90,7 +89,6 @@ Kies er eentje van een provider.</string>
     <string name="file_list_empty_headline">Hier geen bestanden</string>
     <string name="folder_list_empty_headline">Hier zijn geen bestanden</string>
     <string name="file_list_empty">Upload je inhoud of synchroniseer met je apparaten.</string>
-    <string name="file_list_empty_favorites">Maak enkele bestanden favoriet of synchroniseer met je apparaten!</string>
     <string name="file_list_empty_favorites_filter_list">Bestanden en mappen gemarkeerd als favoriet worden hier getoond</string>
     <string name="file_list_empty_favorites_filter">Geen favoriete bestanden gevonden voor je zoekopdracht!</string>
     <string name="file_list_loading">Laden&#8230;</string>
@@ -117,9 +115,6 @@ Kies er eentje van een provider.</string>
     <string name="upload_list_empty_text">Upload enkele gegevens of activeer directe upload.</string>
     <string name="upload_list_empty_text_auto_upload">Upload enkele gegevens of activeer auto-upload.</string>
     <string name="file_list_folder">map</string>
-    <string name="file_list_folders">mappen</string>
-    <string name="file_list_file">bestand</string>
-    <string name="file_list_files">bestanden</string>
     <string name="filedetails_select_file">Druk op een bestand om extra informatie weer te geven</string>
     <string name="filedetails_size">Grootte:</string>
     <string name="filedetails_type">Type:</string>
@@ -139,7 +134,6 @@ Kies er eentje van een provider.</string>
     <string name="common_cancel">Annuleren</string>
     <string name="common_back">Terug</string>
     <string name="common_save">Bewaren</string>
-    <string name="common_save_exit">Opslaan &amp; verlaten</string>
     <string name="common_error">Fout</string>
     <string name="common_loading">Laden&#160;&#8230;</string>
     <string name="common_unknown">onbekend</string>
@@ -150,7 +144,6 @@ Kies er eentje van een provider.</string>
     <string name="change_password">Wachtwoord wijzigen</string>
     <string name="delete_account">Account verwijderen</string>
     <string name="delete_account_warning">Verwijder account %s met alle lokale bestanden? Het verwijderen kan niet worden teruggedraaid.</string>
-    <string name="create_account">Account aanmaken</string>
     <string name="avatar">Avatar</string>
     <string name="active_user">Actieve gebruiker</string>
     <string name="upload_chooser_title">Upload van &#8230;</string>
@@ -339,7 +332,6 @@ Kies er eentje van een provider.</string>
     <string name="placeholder_media_time">12:23:45</string>
 
     <string name="auto_upload_on_wifi">Alleen uploaden via Wi-Fi</string>
-    <string name="instant_upload_on_wifi">Alleen afbeeldingen uploaden via Wi-Fi</string>
     <string name="instant_video_upload_on_wifi">Alleen video\'s uploaden via Wi-Fi</string>
     <string name="instant_video_upload_on_charging">Alleen uploaden bij opladen</string>
     <string name="instant_upload_on_charging">Alleen uploaden bij opladen</string>
@@ -422,7 +414,6 @@ Kies er eentje van een provider.</string>
     <string name="file_migration_source_not_readable_title">Bronmap niet leesbaar!</string>
     <string name="file_migration_source_not_readable">Wil je echt het opslagpad wijzigen naar  %1$s?\n\nLet op: alle gegevens moeten opnieuw worden gedownloaded.</string>
 
-    <string name="prefs_category_accounts">Accounts</string>
     <string name="prefs_add_account">Account toevoegen</string>
     <string name="drawer_manage_accounts">Accounts beheren </string>
     <string name="auth_redirect_non_secure_connection_title">De beveiligde verbinding is omgeleid via een onveilige route.</string>

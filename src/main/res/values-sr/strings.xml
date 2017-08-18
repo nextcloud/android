@@ -21,7 +21,6 @@
     <string name="menu_item_sort_by_size_smallest_first">Најмање прво</string>
 
     <string name="drawer_item_all_files">Све датотеке</string>
-    <string name="drawer_item_files">Датотеке</string>
     <string name="drawer_item_home">Почетак</string>
     <string name="drawer_item_favorites">Фаворити</string>
     <string name="drawer_item_photos">Слике</string>
@@ -83,9 +82,6 @@
     <string name="file_list_loading">Учитавам&#8230;</string>
     <string name="local_file_list_empty">Нема датотека у овом директоријуму.</string>
     <string name="file_list_folder">директоријум</string>
-    <string name="file_list_folders">директоријуми</string>
-    <string name="file_list_file">датотека</string>
-    <string name="file_list_files">датетеке</string>
     <string name="filedetails_select_file">Кликните на датотеку ради приказа додатних информација.</string>
     <string name="filedetails_size">Величина:</string>
     <string name="filedetails_type">Врста:</string>
@@ -100,14 +96,12 @@
     <string name="common_cancel_sync">Откажи синхронизацију</string>
     <string name="common_cancel">Откажи</string>
     <string name="common_back">Назад</string>
-    <string name="common_save_exit">Сачувај и изађи</string>
     <string name="common_error">Грешка</string>
     <string name="common_loading">Учитавам &#8230;</string>
     <string name="common_error_unknown">Непозната грешка</string>
     <string name="about_title">О програму</string>
     <string name="change_password">Измени лозинку</string>
     <string name="delete_account">Уклони налог</string>
-    <string name="create_account">Креирај налог</string>
     <string name="upload_chooser_title">Отпреми из…</string>
     <string name="uploader_info_dirname">Назив директоријума</string>
     <string name="uploader_upload_in_progress_ticker">Отпремам &#8230;</string>
@@ -257,7 +251,6 @@
     <string name="update_link_forbidden_permissions">да ажурирате овај фајл</string>
     <string name="downloader_download_file_not_found">Фајл није више доступан на серверу</string>
 
-    <string name="prefs_category_accounts">Налози</string>
     <string name="prefs_add_account">Додај налог</string>
     <string name="actionbar_logger">Записници</string>
 	<string name="log_send_history_button">Пошаљи историјат</string>

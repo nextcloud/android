@@ -21,7 +21,6 @@
     <string name="menu_item_sort_by_size_smallest_first">Lo más pequeño</string>
 
     <string name="drawer_item_all_files">Tolos ficheros</string>
-    <string name="drawer_item_files">Ficheros</string>
     <string name="drawer_item_home">Aniciu</string>
     <string name="drawer_item_favorites">Favoritos</string>
     <string name="drawer_item_photos">Semeyes</string>
@@ -80,9 +79,6 @@
     <string name="file_list_empty_text_videos_filter">La to gueta nun devolvió vídeos.</string>
     <string name="upload_list_empty_headline">Nun hai xubes disponibles</string>
     <string name="file_list_folder">Carpeta</string>
-    <string name="file_list_folders">Carpetes</string>
-    <string name="file_list_file">Ficheru</string>
-    <string name="file_list_files">Ficheros</string>
     <string name="filedetails_select_file">Calca nun ficheru p\'amosar información adicional</string>
     <string name="filedetails_size">Tamañu:</string>
     <string name="filedetails_type">Triba:</string>
@@ -100,7 +96,6 @@
     <string name="common_cancel_sync">Encaboxar sincronización</string>
     <string name="common_cancel">Encaboxar</string>
     <string name="common_back">Atrás</string>
-    <string name="common_save_exit">Guardar y colar</string>
     <string name="common_error">Fallu</string>
     <string name="common_loading">Cargando&#8230;</string>
     <string name="common_unknown">desconocí­u</string>
@@ -108,7 +103,6 @@
     <string name="about_title">Tocante</string>
     <string name="change_password">Camudar contraseña</string>
     <string name="delete_account">Desaniciar cuenta</string>
-    <string name="create_account">Crear cuenta</string>
     <string name="upload_chooser_title">Xubir dende&#8230;</string>
     <string name="uploader_info_dirname">Nome de la carpeta</string>
     <string name="uploader_upload_in_progress_ticker">Xubiendo&#8230;</string>
@@ -278,7 +272,6 @@
     <string name="placeholder_media_time">12:23:45</string>
 
     <string name="auto_upload_on_wifi">Xubir namái na Wi-Fi</string>
-    <string name="instant_upload_on_wifi">Xubir namái semeyes na Wi-Fi</string>
     <string name="instant_video_upload_on_wifi">Xubir namái vídeos na Wi-Fi</string>
     <string name="instant_video_upload_on_charging">Namái xubir al cargar</string>
     <string name="instant_upload_on_charging">Namái xubir al cargar</string>
@@ -342,7 +335,6 @@
     <string name="file_migration_use_data_folder">Usar</string>
 
     <string name="file_migration_source_not_readable_title">¡El direutoriu fonte nun ye lleible!</string>
-    <string name="prefs_category_accounts">Cuentes</string>
     <string name="prefs_add_account">Amestar cuenta</string>
     <string name="drawer_manage_accounts">Xestionar cuentes</string>
     <string name="auth_redirect_non_secure_connection_title">Conexón segura redirixida pente una ruta insegura.</string>

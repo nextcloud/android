@@ -56,9 +56,6 @@
     <string name="local_file_list_empty">Não existem ficheiros nesta pasta.</string>
     <string name="upload_list_empty_headline">Não há carregamentos disponíveis.</string>
     <string name="file_list_folder">pasta</string>
-    <string name="file_list_folders">pastas</string>
-    <string name="file_list_file">ficheiro</string>
-    <string name="file_list_files">ficheiros</string>
     <string name="filedetails_select_file">Toque num ficheiro para visualizar a informação adicional.</string>
     <string name="filedetails_size">Tamanho:</string>
     <string name="filedetails_type">Tipo:</string>
@@ -75,7 +72,6 @@
     <string name="common_cancel">Cancelar</string>
     <string name="common_back">Voltar</string>
     <string name="common_save">Guardar</string>
-    <string name="common_save_exit">Guardar e sair</string>
     <string name="common_error">Erro</string>
     <string name="common_loading">A carregar&#8230;</string>
     <string name="common_unknown">desconhecido</string>
@@ -84,7 +80,6 @@
     <string name="about_title">Sobre</string>
     <string name="change_password">Alterar palavra-passe</string>
     <string name="delete_account">Remover conta</string>
-    <string name="create_account">Criar conta</string>
     <string name="upload_chooser_title">Carregar a partir de&#8230;</string>
     <string name="uploader_info_dirname">Nome da pasta</string>
     <string name="uploader_upload_in_progress_ticker">A carregar&#8230;</string>
@@ -249,7 +244,6 @@
     <string name="update_link_forbidden_permissions">para atualizar esta partilha</string>
     <string name="downloader_download_file_not_found">O ficheiro não está mais disponível no servidor</string>
 
-    <string name="prefs_category_accounts">Contas</string>
     <string name="prefs_add_account">Adicionar conta</string>
     <string name="actionbar_logger">Registos de Alterações</string>
 	<string name="log_send_history_button">Histórico de envio</string>

@@ -21,7 +21,6 @@
     <string name="menu_item_sort_by_size_smallest_first">Najmniejsze najpierw</string>
 
     <string name="drawer_item_all_files">Wszystkie pliki</string>
-    <string name="drawer_item_files">Pliki</string>
     <string name="drawer_item_home">Start</string>
     <string name="drawer_item_favorites">Ulubione</string>
     <string name="drawer_item_photos">Zdjęcia</string>
@@ -82,7 +81,6 @@
     <string name="file_list_seconds_ago">sekund temu</string>
     <string name="file_list_empty_headline">Brak plików</string>
     <string name="file_list_empty">Wyślij zawartość lub synchronizuj ją ze swoimi urządzeniami</string>
-    <string name="file_list_empty_favorites">Dodaj pliki do ulubionych lub synchronizuj je ze swoimi urządzeniami</string>
     <string name="file_list_empty_favorites_filter_list">Tutaj znajdziesz pliki i foldery oznaczone jako ulubione</string>
     <string name="file_list_empty_favorites_filter">Twoje wyszukiwanie nie zwróciło żadnych ulubionych plików</string>
     <string name="file_list_loading">Wczytywanie&#8230;</string>
@@ -107,9 +105,6 @@
     <string name="upload_list_empty_text">Wyślij zawartość lub włącz wysyłanie natychmiastowe.</string>
     <string name="upload_list_empty_text_auto_upload">Wyślij zawartość lub włącz wysyłanie automatyczne.</string>
     <string name="file_list_folder">folder</string>
-    <string name="file_list_folders">foldery</string>
-    <string name="file_list_file">plik</string>
-    <string name="file_list_files">pliki</string>
     <string name="filedetails_select_file">Dotknij plik aby wyświetlić dodatkowe informacje</string>
     <string name="filedetails_size">Rozmiar:</string>
     <string name="filedetails_type">Typ:</string>
@@ -129,7 +124,6 @@
     <string name="common_cancel">Anuluj</string>
     <string name="common_back">Wróć</string>
     <string name="common_save">Zapisz</string>
-    <string name="common_save_exit">Zapisz i wyjdź</string>
     <string name="common_error">Błąd</string>
     <string name="common_loading">Wczytuję &#8230;</string>
     <string name="common_unknown">nieznane</string>
@@ -138,7 +132,6 @@
     <string name="about_title">O aplikacji</string>
     <string name="change_password">Zmień hasło</string>
     <string name="delete_account">Usuń konto</string>
-    <string name="create_account">Utwórz konto</string>
     <string name="upload_chooser_title">Wyślij plik z &#8230;</string>
     <string name="uploader_info_dirname">Nazwa folderu</string>
     <string name="uploader_upload_in_progress_ticker">Wysyłam &#8230;</string>
@@ -320,7 +313,6 @@
     <string name="placeholder_media_time">12:23:45</string>
 
     <string name="auto_upload_on_wifi">Wysyłaj tylko przez Wi-Fi</string>
-    <string name="instant_upload_on_wifi">Wysyłaj zdjęcia tylko przez Wi-Fi</string>
     <string name="instant_video_upload_on_wifi">Wysyłaj pliki wideo tylko przez Wi-Fi</string>
     <string name="instant_video_upload_on_charging">Wysyłaj tylko podczas ładowania</string>
     <string name="instant_upload_on_charging">Wysyłaj tylko podczas ładowania</string>
@@ -394,7 +386,6 @@
     <string name="file_migration_source_not_readable_title">Nie można odczytać katalogu źródłowego!</string>
     <string name="file_migration_source_not_readable">Czy nadal chcesz zmienić ścieżkę przechowywania na %1$s?\n\nUwaga: Wszystkie dane będą musiały zostać pobrane ponownie.</string>
 
-    <string name="prefs_category_accounts">Konta</string>
     <string name="prefs_add_account">Dodaj konto</string>
     <string name="drawer_manage_accounts">Zarządzaj kontami</string>
     <string name="auth_redirect_non_secure_connection_title">Bezpieczne połączenie jest przekierowywane przez niezabezpieczone trasy.</string>

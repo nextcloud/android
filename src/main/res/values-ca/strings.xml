@@ -21,7 +21,6 @@
     <string name="menu_item_sort_by_size_smallest_first">Més petit primer</string>
 
     <string name="drawer_item_all_files">Tots els fitxers</string>
-    <string name="drawer_item_files">Fitxers</string>
     <string name="drawer_item_home">Casa</string>
     <string name="drawer_item_favorites">Favorites</string>
     <string name="drawer_item_photos">Fotos</string>
@@ -84,9 +83,6 @@
     <string name="file_list_empty_headline_server_search_photos">No hi ha imatges</string>
     <string name="upload_list_empty_headline">No hi ha pujades disponibles</string>
     <string name="file_list_folder">carpeta</string>
-    <string name="file_list_folders">carpetes</string>
-    <string name="file_list_file">fitxer</string>
-    <string name="file_list_files">fitxers</string>
     <string name="filedetails_select_file">Feu clic en un fitxer per mostrar informació addicional.</string>
     <string name="filedetails_size">Mida:</string>
     <string name="filedetails_type">Tipus:</string>
@@ -103,7 +99,6 @@
     <string name="common_cancel">Cancel·la</string>
     <string name="common_back">Enrera</string>
     <string name="common_save">Deseu</string>
-    <string name="common_save_exit">Desa i surt</string>
     <string name="common_error">Error</string>
     <string name="common_loading">Carregant&#8230;</string>
     <string name="common_unknown">desconegut</string>
@@ -112,7 +107,6 @@
     <string name="about_title">Quant a</string>
     <string name="change_password">Canvia la contrasenya</string>
     <string name="delete_account">Elimina el compte</string>
-    <string name="create_account">Crea un compte</string>
     <string name="upload_chooser_title">Puja fitxer des de&#8230;</string>
     <string name="uploader_info_dirname">Nom de la carpeta</string>
     <string name="uploader_upload_in_progress_ticker">S\'està pujant&#8230;</string>
@@ -302,7 +296,6 @@
     <string name="file_migration_override_data_folder">Reemplaça</string>
     <string name="file_migration_use_data_folder">Utilitza</string>
 
-    <string name="prefs_category_accounts">Comptes</string>
     <string name="prefs_add_account">Afegeix compte</string>
     <string name="drawer_manage_accounts">Gestió de comptes</string>
     <string name="actionbar_logger">Registres</string>

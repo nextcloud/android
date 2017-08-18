@@ -21,7 +21,6 @@
     <string name="menu_item_sort_by_size_smallest_first">Prima i più piccoli</string>
 
     <string name="drawer_item_all_files">Tutti i file</string>
-    <string name="drawer_item_files">File</string>
     <string name="drawer_item_home">Home</string>
     <string name="drawer_item_favorites">Preferiti</string>
     <string name="drawer_item_photos">Foto</string>
@@ -89,7 +88,6 @@
     <string name="file_list_empty_headline">Qui non c\'è alcun file</string>
     <string name="folder_list_empty_headline">Qui non c\'è alcuna cartella</string>
     <string name="file_list_empty">Carica alcuni contenuti o sincronizza con i tuoi dispositivi.</string>
-    <string name="file_list_empty_favorites">Rendi preferiti alcuni file o sincronizza con i tuoi dispositivi.</string>
     <string name="file_list_empty_favorites_filter_list">I file e le cartelle che marchi come preferiti saranno mostrati qui</string>
     <string name="file_list_empty_favorites_filter">La tua ricerca non ha restituito alcun file preferito.</string>
     <string name="file_list_loading">Caricamento in corso&#8230;</string>
@@ -116,9 +114,6 @@
     <string name="upload_list_empty_text">Carica alcuni contenuti o attiva il caricamento istantaneo.</string>
     <string name="upload_list_empty_text_auto_upload">Carica alcuni contenuti o attiva il caricamento automatico.</string>
     <string name="file_list_folder">cartella</string>
-    <string name="file_list_folders">cartelle</string>
-    <string name="file_list_file">file</string>
-    <string name="file_list_files">file</string>
     <string name="filedetails_select_file">Tocca un file per visualizzare informazioni aggiuntive.</string>
     <string name="filedetails_size">Dimensione:</string>
     <string name="filedetails_type">Tipo:</string>
@@ -138,7 +133,6 @@
     <string name="common_cancel">Annulla</string>
     <string name="common_back">Indietro</string>
     <string name="common_save">Salva</string>
-    <string name="common_save_exit">Salva ed esci</string>
     <string name="common_error">Errore</string>
     <string name="common_loading">Caricamento in corso &#8230;</string>
     <string name="common_unknown">sconosciuto</string>
@@ -149,7 +143,6 @@
     <string name="change_password">Modifica la password</string>
     <string name="delete_account">Rimuovi account</string>
     <string name="delete_account_warning">Vuoi eliminare l\'account %s con tutti i file locali?\n\nL\'eliminazione non può essere annullata.</string>
-    <string name="create_account">Crea account</string>
     <string name="avatar">Avatar</string>
     <string name="active_user">Utente attivo</string>
     <string name="upload_chooser_title">Carica file da &#8230;</string>
@@ -338,7 +331,6 @@
     <string name="placeholder_media_time">12:23:45</string>
 
     <string name="auto_upload_on_wifi">Carica solo su Wi-Fi</string>
-    <string name="instant_upload_on_wifi">Carica immagini solo in Wi-Fi</string>
     <string name="instant_video_upload_on_wifi">Carica video solo in Wi-Fi</string>
     <string name="instant_video_upload_on_charging">Carica solo durante la ricarica</string>
     <string name="instant_upload_on_charging">Carica solo durante la ricarica</string>
@@ -421,7 +413,6 @@
     <string name="file_migration_source_not_readable_title">Cartella sorgente non leggibile!</string>
     <string name="file_migration_source_not_readable">Vuoi davvero cambiare il percorso di archiviazione a %1$s?\n\nNota: tutti i dati dovranno essere scaricati nuovamente.</string>
 
-    <string name="prefs_category_accounts">Account</string>
     <string name="prefs_add_account">Aggiungi account</string>
     <string name="drawer_manage_accounts">Gestisci account</string>
     <string name="auth_redirect_non_secure_connection_title">Connessione sicura rediretta su un percorso non sicuro.</string>
