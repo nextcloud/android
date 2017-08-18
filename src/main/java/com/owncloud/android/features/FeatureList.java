@@ -38,9 +38,11 @@ import java.util.regex.Pattern;
  */
 public class FeatureList {
     private static final boolean SHOW_ON_FIRST_RUN = true;
+    private static final boolean SHOW_ON_UPGRADE = false;
 
-    private static final String VERSION_1_0_0 = "1.0.0";
-    private static final String BETA_VERSION_0 = "0";
+    private static final int VERSION_1_0_0 = 10000099;
+    private static final int VERSION_2_0_0 = 20000099;
+    private static final int BETA_VERSION_0 = 0;
 
     static final private FeatureItem featuresList[] = {
             // Basic features showed on first install
@@ -50,10 +52,20 @@ public class FeatureList {
             new FeatureItem(R.drawable.whats_new_accounts,
                     R.string.welcome_feature_2_title, R.string.welcome_feature_2_text,
                     VERSION_1_0_0, BETA_VERSION_0, SHOW_ON_FIRST_RUN),
-            new FeatureItem(R.drawable.what_new_instant_upload,
+            new FeatureItem(R.drawable.whats_new_auto_upload,
                     R.string.welcome_feature_3_title, R.string.welcome_feature_3_text,
                     VERSION_1_0_0, BETA_VERSION_0, SHOW_ON_FIRST_RUN),
-            // Features introduced in certain point in time
+            // 2.0.0
+            new FeatureItem(R.drawable.whats_new_auto_upload, R.string.whats_new_auto_upload_title,
+                    R.string.whats_new_auto_upload_content, VERSION_2_0_0, BETA_VERSION_0, SHOW_ON_UPGRADE, false),
+            new FeatureItem(R.drawable.whats_new_search, R.string.whats_new_search_title,
+                    R.string.whats_new_search_content, VERSION_2_0_0, BETA_VERSION_0, SHOW_ON_UPGRADE, false),
+            new FeatureItem(R.drawable.whats_new_theming, R.string.whats_new_theming_title,
+                    R.string.whats_new_theming_content, VERSION_2_0_0, BETA_VERSION_0, SHOW_ON_UPGRADE, false),
+            new FeatureItem(R.drawable.whats_new_notification, R.string.whats_new_notification_title,
+                    R.string.whats_new_notification_content, VERSION_2_0_0, BETA_VERSION_0, SHOW_ON_UPGRADE, false),
+            new FeatureItem(R.drawable.whats_new_fingerprint, R.string.whats_new_fingerprint_title,
+                    R.string.whats_new_fingerprint_content, VERSION_2_0_0, BETA_VERSION_0, SHOW_ON_UPGRADE, false)
     };
 
     static public FeatureItem[] get() {
@@ -64,7 +76,7 @@ public class FeatureList {
         List<FeatureItem> features = new LinkedList<>();
 
         for (FeatureItem item : get()) {
-            final int itemVersionCode = isBeta ? item.getBetaVersionNumber() : item.getVersionNumber();
+            final int itemVersionCode = isBeta ? item.getBetaVersionNumber() : item.getVersionCode();
             if (isFirstRun && item.shouldShowOnFirstRun()) {
                 features.add(item);
             } else if (!isFirstRun && !item.shouldShowOnFirstRun() &&
@@ -81,21 +93,29 @@ public class FeatureList {
         private int image;
         private int titleText;
         private int contentText;
-        private int versionNumber;
+        private int versionCode;
         private int betaVersion;
         private boolean showOnInitialRun;
+        private boolean contentCentered;
 
-        public FeatureItem(int image, int titleText, int contentText, String version, String betaVersion) {
-            this(image, titleText, contentText, version, betaVersion, false);
+        public FeatureItem(int image, int titleText, int contentText, int version, int betaVersion) {
+            this(image, titleText, contentText, version, betaVersion, false, true);
         }
 
-        public FeatureItem(int image, int titleText, int contentText, String version, String betaVersion, boolean showOnInitialRun) {
+        public FeatureItem(int image, int titleText, int contentText, int version, int betaVersion,
+                           boolean showOnInitialRun) {
+            this(image, titleText, contentText, version, betaVersion, showOnInitialRun, true);
+        }
+
+        public FeatureItem(int image, int titleText, int contentText, int versionCode, int betaVersion,
+                           boolean showOnInitialRun, boolean contentCentered) {
             this.image = image;
             this.titleText = titleText;
             this.contentText = contentText;
-            this.versionNumber = versionCodeFromString(version);
-            this.betaVersion = Integer.parseInt(betaVersion);
+            this.versionCode = versionCode;
+            this.betaVersion = betaVersion;
             this.showOnInitialRun = showOnInitialRun;
+            this.contentCentered = contentCentered;
         }
 
         public boolean shouldShowImage() { return image != DO_NOT_SHOW; }
@@ -107,9 +127,15 @@ public class FeatureList {
         public boolean shouldShowContentText() { return contentText != DO_NOT_SHOW; }
         public int getContentText() { return contentText; }
 
-        public int getVersionNumber() { return versionNumber; }
+        public int getVersionCode() {
+            return versionCode;
+        }
         public int getBetaVersionNumber() { return betaVersion; }
         public boolean shouldShowOnFirstRun() { return showOnInitialRun; }
+
+        public boolean shouldContentCentered() {
+            return contentCentered;
+        }
 
         @Override
         public int describeContents() {
@@ -121,18 +147,20 @@ public class FeatureList {
             dest.writeInt(image);
             dest.writeInt(titleText);
             dest.writeInt(contentText);
-            dest.writeInt(versionNumber);
+            dest.writeInt(versionCode);
             dest.writeInt(betaVersion);
             dest.writeByte((byte) (showOnInitialRun ? 1 : 0));
+            dest.writeByte((byte) (contentCentered ? 1 : 0));
         }
 
         private FeatureItem(Parcel p) {
             image = p.readInt();
             titleText = p.readInt();
             contentText = p.readInt();
-            versionNumber = p.readInt();
+            versionCode = p.readInt();
             betaVersion = p.readInt();
             showOnInitialRun = p.readByte() == 1;
+            contentCentered = p.readByte() == 1;
         }
         public static final Parcelable.Creator CREATOR =
                 new Parcelable.Creator() {
@@ -156,7 +184,7 @@ public class FeatureList {
             return 0;
         }
         return Integer.parseInt(v[0])*(int)(10e6) +
-                Integer.parseInt(v[1])*(int)(10e4) +
+                Integer.parseInt(v[1])*(int)(10e3) +
                 Integer.parseInt(v[2])*100;
     }
 }

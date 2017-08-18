@@ -613,9 +613,6 @@
     <string name="storage_description_sd_no">SD карта %1$d</string>
     <string name="storage_description_unknown">Неизвестно</string>
 
-    <!-- What's new feature and texts to show -->
-    <string name="whats_new_title">Что нового в Nextcloud</string>
-
     <!-- Welcome to Nc intro features -->
     <string name="welcome_feature_1_title">Надежный дом для всех ваших данных</string>
     <string name="welcome_feature_1_text">Доступ, общий доступ и защита ваших файлов для дома и предприятия</string>
@@ -623,7 +620,6 @@
     <string name="welcome_feature_2_title">Работа с несколькими аккаунтами</string>
     <string name="welcome_feature_2_text">Доступ ко всем вашим облакам</string>
 
-    <string name="welcome_feature_3_title">Немедленная выгрузка</string>
     <string name="welcome_feature_3_text">Держите ваши фотографии в безопасности</string>
 
     <string name="whats_new_skip">Пропустить</string>
@@ -679,4 +675,4 @@
 
     <string name="test_server_button">Проверить соединение с сервером</string>
     <string name="resharing_is_not_allowed">Повторное открытие доступа запрещено</string>
-</resources>
+    </resources>

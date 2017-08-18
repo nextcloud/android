@@ -68,6 +68,7 @@ import android.text.Editable;
 import android.text.InputType;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.AndroidRuntimeException;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
@@ -340,13 +341,17 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     }
 
     private void deleteCookies() {
-        CookieSyncManager.createInstance(this);
-        CookieManager cookieManager = CookieManager.getInstance();
+        try {
+            CookieSyncManager.createInstance(this);
+            CookieManager cookieManager = CookieManager.getInstance();
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            cookieManager.removeAllCookies(null);
-        } else {
-            cookieManager.removeAllCookie();
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                cookieManager.removeAllCookies(null);
+            } else {
+                cookieManager.removeAllCookie();
+            }
+        } catch (AndroidRuntimeException e) {
+            Log_OC.e(TAG, e.getMessage());
         }
     }
 
