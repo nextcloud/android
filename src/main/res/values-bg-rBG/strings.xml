@@ -420,14 +420,10 @@
     <string name="storage_description_sd_no">SD карта %1$d</string>
     <string name="storage_description_unknown">Неизвестно</string>
 
-    <!-- What's new feature and texts to show -->
-    <string name="whats_new_title">Kакво ново в Nextcloud</string>
-
     <!-- Welcome to Nc intro features -->
     <string name="welcome_feature_1_title">Безопасен дом за всички ваши данни</string>
     <string name="welcome_feature_2_text">Свържи се към облаците си</string>
 
-    <string name="welcome_feature_3_title">Незабавни качвания</string>
     <string name="welcome_feature_3_text">Съхранявайте вашите снимки безопасно</string>
 
     <string name="whats_new_skip">Пропусни</string>

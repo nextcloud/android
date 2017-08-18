@@ -43,6 +43,7 @@
     <string name="prefs_passcode">Toegangscode</string>
     <string name="prefs_fingerprint">Vingerafdrukbeveiliging</string>
     <string name="prefs_fingerprint_notsetup">Er zijn geen vingerafdrukken ingesteld.</string>
+    <string name="prefs_expert_mode">Expertmodus</string>
     <string name="prefs_show_hidden_files">Verborgen bestanden weergeven</string>
     <string name="prefs_log_delete_history_button">Verwijder geschiedenis</string>
     <string name="prefs_calendar_contacts">Synchroniseren agenda &amp; contactpersonen</string>
@@ -50,6 +51,7 @@
     <string name="prefs_calendar_contacts_address_resolve_error">Serveradres voor dit account kon niet worden gevonden voor DAVdroid</string>
     <string name="prefs_calendar_contacts_no_store_error">Noch F-droid, noch Google Play is geïnstalleerd</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Agenda &amp; contactpersonen sync instellingen</string>
+    <string name="prefs_daily_contacts_sync_summary">Dagelijkse back-up van je contactpersonen</string>
     <string name="prefs_help">Help</string>
     <string name="prefs_recommend">Aanbevelen bij vriend</string>
     <string name="prefs_feedback">Feedback</string>
@@ -60,6 +62,7 @@
     <string name="recommend_urls">%1$s or %2$s</string>
 
     <string name="auth_check_server">Controleer server</string>
+    <string name="auth_host_url">Serveradres https://&#8230;</string>
     <string name="auth_username">Gebruikersnaam</string>
     <string name="auth_password">Wachtwoord</string>
     <string name="auth_register">Heb je nog geen server?\n
@@ -67,6 +70,7 @@ Kies er eentje van een provider.</string>
     <string name="sync_string_files">Bestanden</string>
     <string name="setup_btn_connect">Verbinden</string>
     <string name="uploader_btn_upload_text">Uploaden</string>
+    <string name="uploader_btn_alternative_text">Kies</string>
     <string name="uploader_top_message">Kies een uploadmap</string>
     <string name="uploader_wrn_no_account_title">Geen account gevonden</string>
     <string name="uploader_wrn_no_account_text">Er zijn geen %1$s-accounts op dit apparaat. Stel eerst een account in.</string>
@@ -85,6 +89,7 @@ Kies er eentje van een provider.</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Verwijder bestand uit bronmap</string>
     <string name="file_list_seconds_ago">seconden geleden</string>
     <string name="file_list_empty_headline">Hier geen bestanden</string>
+    <string name="folder_list_empty_headline">Hier zijn geen bestanden</string>
     <string name="file_list_empty">Upload je inhoud of synchroniseer met je apparaten.</string>
     <string name="file_list_empty_favorites">Maak enkele bestanden favoriet of synchroniseer met je apparaten!</string>
     <string name="file_list_empty_favorites_filter_list">Bestanden en mappen gemarkeerd als favoriet worden hier getoond</string>
@@ -92,6 +97,7 @@ Kies er eentje van een provider.</string>
     <string name="file_list_loading">Laden&#8230;</string>
     <string name="file_list_no_app_for_file_type">Er is geen app ingesteld om dit bestandformaat te behandelen.</string>
     <string name="local_file_list_empty">Er staan geen bestanden in deze map.</string>
+    <string name="local_folder_list_empty">Er zijn niet meer mappen.</string>
     <string name="file_list_empty_headline_search">Geen resultaten in deze map</string>
     <string name="file_list_empty_headline_server_search">Geen resultaten</string>
     <string name="file_list_empty_favorite_headline">Nog niets als favoriet gemarkeerd</string>
@@ -140,11 +146,14 @@ Kies er eentje van een provider.</string>
     <string name="common_unknown">onbekend</string>
     <string name="common_error_unknown">Onbekende fout</string>
     <string name="common_pending">In behandeling</string>
+    <string name="common_delete">Verwijderen</string>
     <string name="about_title">Over</string>
     <string name="change_password">Wachtwoord wijzigen</string>
     <string name="delete_account">Account verwijderen</string>
     <string name="delete_account_warning">Verwijder account %s met alle lokale bestanden? Het verwijderen kan niet worden teruggedraaid.</string>
     <string name="create_account">Account aanmaken</string>
+    <string name="avatar">Avatar</string>
+    <string name="active_user">Actieve gebruiker</string>
     <string name="upload_chooser_title">Upload van &#8230;</string>
     <string name="uploader_info_dirname">Mapnaam</string>
     <string name="uploader_upload_in_progress_ticker">Uploaden&#160;&#8230;</string>
@@ -156,6 +165,7 @@ Kies er eentje van een provider.</string>
     <string name="uploader_upload_failed_credentials_error">Uploaden mislukt, je moet opnieuw inloggen</string>
     <string name="uploads_view_title">Uploads</string>
     <string name="uploads_view_group_current_uploads">Huidige</string>
+    <string name="uploads_view_group_failed_uploads">Mislukt / Wacht op herstart</string>
     <string name="uploads_view_group_finished_uploads">Geüpload</string>
     <string name="uploads_view_upload_status_succeeded">Voltooid</string>
     <string name="uploads_view_upload_status_cancelled">Geannuleerd</string>
@@ -256,6 +266,7 @@ Kies er eentje van een provider.</string>
 	<string name="auth_expired_oauth_token_toast">Je autorisatie is verstreken. Autoriseer opnieuw</string>
 	<string name="auth_expired_basic_auth_toast">Voer het huidige wachtwoord in</string>
 	<string name="auth_expired_saml_sso_token_toast">Je sessie is verstreken. Verbind opnieuw</string>
+	<string name="auth_connecting_auth_server">Verbinden met authenticatie server&#8230;</string>
 	<string name="auth_unsupported_auth_method">De server ondersteunt deze authenticatiemethode niet</string>
 	<string name="auth_unsupported_multiaccount">%1$s ondersteunt het gebruik van meerdere accounts niet</string>
 	<string name="auth_fail_get_user_name">Je server geeft geen goede userid terug, neem contact op met je beheerder</string>
@@ -283,6 +294,7 @@ Kies er eentje van een provider.</string>
     <string name="filename_forbidden_characters">Verboden tekens: / \\ &lt; &gt; : " | ? *</string>
     <string name="filename_forbidden_charaters_from_server">De bestandsnaam bevat ten minste één ongeldig teken</string>
     <string name="filename_empty">Bestandsnaam mag niet leeg zijn</string>
+    <string name="wait_a_moment">Even geduld&#8230;</string>
     <string name="wait_checking_credentials">Opgeslagen inloggegevens nakijken</string>
     <string name="filedisplay_unexpected_bad_get_content">Onverwacht probleem; probeer het bestand met een andere app te selecteren</string>
     <string name="filedisplay_no_file_selected">Geen bestand geselecteerd</string>
@@ -290,6 +302,8 @@ Kies er eentje van een provider.</string>
     <string name="wait_for_tmp_copy_from_private_storage">Bestand vanaf privéopslag kopiëren</string>
     
     <string name="oauth_check_onoff">Inloggen met OAuth 2.0</string> 
+    <string name="oauth_login_connection">Verbinden met OAuth 2.0 server&#8230;</string>
+        
     <string name="ssl_validator_header">De identiteit van de site kan niet worden gecontroleerd</string>
     <string name="ssl_validator_reason_cert_not_trusted">- Het servercertificaat wordt niet vertrouwd</string>
     <string name="ssl_validator_reason_cert_expired">- Het servercertificaat is verlopen</string>
@@ -344,6 +358,8 @@ Kies er eentje van een provider.</string>
 
     <string name="error__upload__local_file_not_copied">%1$s kon niet worden gekopieerd naar de lokale map %2$s</string>
     <string name="prefs_instant_upload_path_title">Directe-uploadmap</string>
+    <string name="prefs_synced_folders_local_path_title">Lokale map</string>
+    <string name="prefs_synced_folders_remote_path_title">Externe map</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Gebruik submappen</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Opslaan in submappen, gebaseerd op jaar en maand</string>
 
@@ -504,6 +520,9 @@ Kies er eentje van een provider.</string>
     <string name="share_known_remote_clarification">%1$s ( op %2$s )</string>
 
     <string name="share_sharee_unavailable">Helaas, je serverversie staat niet toe om binnen clients te delen met gebruikers.\nNeem contact op met je beheerder</string>
+    <string name="filedetails_share_link_enable">Delen via een link ingeschakeld</string>
+    <string name="filedetails_share_link_disable">Niet gedeeld met een link</string>
+    <string name="filedetails_share_users_with_access">Gebruikers en groepen met toegang</string>
     <string name="share_privilege_can_share">kan delen</string>
     <string name="share_privilege_can_edit">kan bewerken</string>
     <string name="share_privilege_can_edit_create">creëer</string>
@@ -512,7 +531,12 @@ Kies er eentje van een provider.</string>
     <string name="edit_share_unshare">Stop met delen</string>
     <string name="edit_share_done">gedaan</string>
 
+    <string name="action_retry_uploads">Probeer mislukte uploads opnieuw</string>
+    <string name="action_clear_failed_uploads">Wis mislukte uploads</string>
+    <string name="action_clear_successful_uploads">Wis gelukte uploads</string>
     <string name="action_clear_finished_uploads">Alle voltoooide opschonen</string>
+    <string name="action_force_rescan">Indexering forceren</string>
+
     <string name="action_switch_grid_view">Rasterindeling </string>
     <string name="action_switch_list_view">Lijstindeling</string>
 
@@ -526,10 +550,13 @@ Kies er eentje van een provider.</string>
     <string name="confirmation_remove_files_alert">Wil je de geselecteerde objecten echt verwijderen?</string>
     <string name="confirmation_remove_folders_alert">Wil je de geselecteerde objecten en hun inhoud echt verwijderen?</string>
     <string name="maintenance_mode">Server in onderhoudsmodus</string>
+    <string name="lock_failed">Kan bestand niet vergrendelen</string>
+
     <string name="uploads_view_upload_status_waiting_for_charging">Wachten to apparaat wordt opgeladen</string>
     <string name="actionbar_search">Zoeken</string>
     <string name="files_drop_not_supported">Dit is een Nextcloud-optie, gelieve te updaten.</string>
     <string name="learn_more">Meer weten</string>
+    <string name="drawer_synced_folders">Automatisch uploaden</string>
     <string name="drawer_participate">Meedoen</string>
     <string name="participate_testing_headline">Help bij testen</string>
     <string name="participate_testing_bug_text">Bug gevonden? Rare dingen?</string>
@@ -540,11 +567,26 @@ Kies er eentje van een provider.</string>
     <string name="participate_release_candidate_headline">Release candidate</string>
     <string name="participate_release_candidate_text">De release candidate (RC) is een snapshot van de komende versie en is naar verwachting stabiel. Door een test met je eigen installatie verzeker je hier van. Meld je aan voor het testen in de Play store of kijk handmatig bij sectie \"Versie\" van F-Droid.</string>
     <string name="participate_contribute_headline">Actief meedoen</string>
+    <string name="participate_contribute_irc_text">Join de chat op IRC:</string>
+    <string name="participate_contribute_forum_text">Help anderen met het</string>
     <string name="participate_contribute_forum_forum">forum</string>
     <string name="participate_contribute_translate_translate">Vertalen</string>
     <string name="participate_contribute_translate_text">de app</string>
+    <string name="participate_contribute_github_text">Bekijk, wijzig en schrijf code, zie %1$s voor details</string>
+    <string name="participate_rc_play_store">Ontvang release candidate via Google Play store</string>
+    <string name="participate_rc_fdroid">Ontvang release candidate via f-droid app store</string>
+    <string name="participate_dev_fdroid">Ontvang development release via f-droid app store</string>
+    <string name="participate_dev_direct_download">Ontvang development release via directe download</string>
     <string name="move_to">Verplaats naar&#160;&#8230;</string>
     <string name="copy_to">Kopieer naar&#160;&#8230;</string>
+    <string name="choose_remote_folder">Kies externe map&#8230;</string>
+    <string name="choose_local_folder">Kies lokale map&#8230;</string>
+    <string name="synced_folders_loading_folders">Mappen laden&#8230;</string>
+    <string name="synced_folders_no_results">Geen mediamappen gevonden.</string>
+    <string name="synced_folders_preferences">Voorkeuren voor automatisch uploaden</string>
+    <string name="synced_folders_settings">Instellingen</string>
+    <string name="synced_folders_new_info">Automatisch uploaden is helemaal herzien. Herconfigureer je auto-uploadfunctie in het hoofdmenu.\n\nVeel plezier met de nieuwe en meer uitgebreide auto-upload.</string>
+    <string name="synced_folders_preferences_folder_path">Voor %1$s</string>
     <plurals name="items_selected_count">
         <item quantity="one">%d geselecteerd</item>
         <item quantity="other">%d geselecteerd</item>
@@ -568,9 +610,6 @@ Kies er eentje van een provider.</string>
     <string name="storage_description_sd_no">SD-kaart %1$d</string>
     <string name="storage_description_unknown">Onbekend</string>
 
-    <!-- What's new feature and texts to show -->
-    <string name="whats_new_title">Nieuw in Nextcloud</string>
-
     <!-- Welcome to Nc intro features -->
     <string name="welcome_feature_1_title">Een veilige plek voor al je gegevens</string>
     <string name="welcome_feature_1_text">Benader, deel &amp; beveilig je gegevens thuis en binnen je organisatie</string>
@@ -578,7 +617,6 @@ Kies er eentje van een provider.</string>
     <string name="welcome_feature_2_title">Meerdere accounts</string>
     <string name="welcome_feature_2_text">Verbind met al je clouds</string>
 
-    <string name="welcome_feature_3_title">Direct uploaden</string>
     <string name="welcome_feature_3_text">Hou je foto\'s veilig</string>
 
     <string name="whats_new_skip">Overslaan</string>
@@ -627,5 +665,11 @@ Kies er eentje van een provider.</string>
     <string name="privacy">Privacy</string>
     <string name="file_not_found">Bestand niet gevonden!</string>
 
+    <!-- Auto upload -->
+    <string name="autoupload_custom_folder">Instellen aangepaste map</string>
+    <string name="autoupload_create_new_custom_folder">Maak aangepaste nieuwe map aan</string>
+    <string name="synced_folders_configure_folders">Mappen instellen</string>
+
     <string name="test_server_button">Test server verbinding</string>
+    <string name="resharing_is_not_allowed">Verder delen is niet toegestaan</string>
     </resources>

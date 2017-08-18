@@ -557,6 +557,5 @@
     <string name="upload_file_dialog_title">Vnesi ime in zvrst datoteke za nalaganje</string>
     <string name="storage_description_unknown">Neznano</string>
 
-    <string name="welcome_feature_3_title">Hipno nalaganje</string>
     <string name="contacts_automatic_backup">Samodejno shranjevanje</string>
     </resources>
