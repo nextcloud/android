@@ -21,7 +21,6 @@
     <string name="menu_item_sort_by_size_smallest_first">Minnsta fyrst</string>
 
     <string name="drawer_item_all_files">Allar skrár</string>
-    <string name="drawer_item_files">Skrár</string>
     <string name="drawer_item_home">Heim</string>
     <string name="drawer_item_favorites">Eftirlæti</string>
     <string name="drawer_item_photos">Ljósmyndir</string>
@@ -87,7 +86,6 @@ Smelltu hér til að fá þér einn frá þjónustuaðila.</string>
     <string name="file_list_seconds_ago">sek. síðan</string>
     <string name="file_list_empty_headline">Engar skrár hér</string>
     <string name="file_list_empty">Sendu inn eitthvað efni eða samstilltu við tækin þín.</string>
-    <string name="file_list_empty_favorites">Gerðu eitthvað efni að uppáhaldi eða samstilltu við tækin þín.</string>
     <string name="file_list_empty_favorites_filter_list">Skrár og möppur sem þú merkir sem eftirlæti birtast hér</string>
     <string name="file_list_empty_favorites_filter">Leitin skilaði engum eftirlætisskrám</string>
     <string name="file_list_loading">Hleð inn&#8230;</string>
@@ -113,9 +111,6 @@ Smelltu hér til að fá þér einn frá þjónustuaðila.</string>
     <string name="upload_list_empty_text">Sendu inn eitthvað efni eða virkjaðu beina innsendingu.</string>
     <string name="upload_list_empty_text_auto_upload">Sendu inn einhverjar myndir eða virkjaðu sjálfvirka innsendingu.</string>
     <string name="file_list_folder">mappa</string>
-    <string name="file_list_folders">möppur</string>
-    <string name="file_list_file">skrá</string>
-    <string name="file_list_files">skrár</string>
     <string name="filedetails_select_file">Bankaðu á skrá til að sjá ítarlegri upplýsingar.</string>
     <string name="filedetails_size">Stærð:</string>
     <string name="filedetails_type">Tegund:</string>
@@ -135,7 +130,6 @@ Smelltu hér til að fá þér einn frá þjónustuaðila.</string>
     <string name="common_cancel">Hætta við</string>
     <string name="common_back">Til baka</string>
     <string name="common_save">Vista</string>
-    <string name="common_save_exit">Vista &amp; fara út</string>
     <string name="common_error"><strong>Villa</strong></string>
     <string name="common_loading">Hleð inn &#8230;</string>
     <string name="common_unknown">óþekkt</string>
@@ -145,7 +139,6 @@ Smelltu hér til að fá þér einn frá þjónustuaðila.</string>
     <string name="change_password">Breyta lykilorði</string>
     <string name="delete_account">Fjarlægja notandaaðgang</string>
     <string name="delete_account_warning">Eyða aðgangnum %s ásamt öllum tilheyrandi skrám á tölvunni?\n\nEyðingu er ekki hægt að afturkalla.</string>
-    <string name="create_account">Stofna aðgang</string>
     <string name="upload_chooser_title">Senda inn frá &#8230;</string>
     <string name="uploader_info_dirname">Nafn möppu</string>
     <string name="uploader_upload_in_progress_ticker">Sendi inn &#8230;</string>
@@ -330,7 +323,6 @@ Smelltu hér til að fá þér einn frá þjónustuaðila.</string>
     <string name="placeholder_media_time">12:23:45</string>
 
     <string name="auto_upload_on_wifi">Aðeins senda inn á þráðlausu WiFi-neti</string>
-    <string name="instant_upload_on_wifi">Aðeins senda inn myndir á þráðlausu WiFi-neti</string>
     <string name="instant_video_upload_on_wifi">Aðeins senda inn myndskeið á þráðlausu WiFi-neti</string>
     <string name="instant_video_upload_on_charging">Einungis senda inn þegar verið er að hlaða</string>
     <string name="instant_upload_on_charging">Einungis senda inn þegar verið er að hlaða</string>
@@ -411,7 +403,6 @@ Smelltu hér til að fá þér einn frá þjónustuaðila.</string>
     <string name="file_migration_source_not_readable_title">Upprunamappa er ekki lesanleg!</string>
     <string name="file_migration_source_not_readable">Viltu breyta slóð á geymslurými yfir í %1$s?\n\nAthugaðu: Sækja þarf öll gögn aftur.</string>
 
-    <string name="prefs_category_accounts">Notandaaðgangar</string>
     <string name="prefs_add_account">Bæta við notandaaðgangi</string>
     <string name="drawer_manage_accounts">Sýsla með notandaaðganga</string>
     <string name="auth_redirect_non_secure_connection_title">Öruggri tengingu endurbeint í gegnum óörugga leið.</string>

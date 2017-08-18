@@ -21,7 +21,6 @@
     <string name="menu_item_sort_by_size_smallest_first">Kisebbek elöl</string>
 
     <string name="drawer_item_all_files">Összes fájl</string>
-    <string name="drawer_item_files">Fájlok</string>
     <string name="drawer_item_home">Saját mappa</string>
     <string name="drawer_item_favorites">Kedvencek</string>
     <string name="drawer_item_photos">Fényképek</string>
@@ -89,7 +88,6 @@
     <string name="file_list_empty_headline">Nem találhatók fájlok itt</string>
     <string name="folder_list_empty_headline">Itt nincsenek mappák</string>
     <string name="file_list_empty">Töltsön fel új tartalmat vagy szinkronizáljon az eszközeivel</string>
-    <string name="file_list_empty_favorites">Jelölj meg néhány fájl kedvencként vagy szinkronizálj az eszközeiddel.</string>
     <string name="file_list_empty_favorites_filter_list">Azok a fájlok és mappák, amiket kedvenceknek jelöl meg itt fognak megjelenni.</string>
     <string name="file_list_empty_favorites_filter">A keresés nem talált kedvenc fájlokat.</string>
     <string name="file_list_loading">Betöltés&#8230;</string>
@@ -116,9 +114,6 @@
     <string name="upload_list_empty_text">Tölts fel néhány tartalmat, vagy aktiváld az azonnali feltöltést.</string>
     <string name="upload_list_empty_text_auto_upload">Az automatikus feltöltés aktiválásához tölts fel valami tartalmat.</string>
     <string name="file_list_folder">mappa</string>
-    <string name="file_list_folders">mappák</string>
-    <string name="file_list_file">fájl</string>
-    <string name="file_list_files">fájl</string>
     <string name="filedetails_select_file">Érintsen meg egy fájlt a további információkért.</string>
     <string name="filedetails_size">Méret:</string>
     <string name="filedetails_type">Tipus:</string>
@@ -137,7 +132,6 @@
     <string name="common_cancel">Mégsem</string>
     <string name="common_back">Vissza</string>
     <string name="common_save">Mentés</string>
-    <string name="common_save_exit">Mentés és kilépés</string>
     <string name="common_error">Hiba</string>
     <string name="common_loading">Betöltés &#8230;</string>
     <string name="common_unknown">ismeretlen</string>
@@ -147,7 +141,6 @@
     <string name="about_title">Névjegy</string>
     <string name="change_password">A jelszó megváltoztatása</string>
     <string name="delete_account">Fiók eltávolítása</string>
-    <string name="create_account">Fiók létrehozása</string>
     <string name="active_user">Aktív felhasználó</string>
     <string name="upload_chooser_title">Feltöltés innen &#8230;</string>
     <string name="uploader_info_dirname">Mappa neve</string>
@@ -334,7 +327,6 @@
     <string name="file_migration_cleaning">Tisztítás&#8230;</string>
     <string name="file_migration_ok_finished">Kész</string>
     <string name="file_migration_override_data_folder">Csere</string>
-    <string name="prefs_category_accounts">Fiókok</string>
     <string name="prefs_add_account">Fiók hozzáadása</string>
     <string name="drawer_manage_accounts">Fiókok kezelése</string>
     <string name="actionbar_logger">Naplók</string>

@@ -21,7 +21,6 @@
     <string name="menu_item_sort_by_size_smallest_first">Mindste først</string>
 
     <string name="drawer_item_all_files">Alle filer</string>
-    <string name="drawer_item_files">Filer</string>
     <string name="drawer_item_home">Hjem</string>
     <string name="drawer_item_favorites">Favoritter</string>
     <string name="drawer_item_photos">Fotos</string>
@@ -85,9 +84,6 @@
     <string name="file_list_empty_headline_server_search_photos">Ingen fotos</string>
     <string name="upload_list_empty_headline">Ingen uploads tilgængelige</string>
     <string name="file_list_folder">mappe</string>
-    <string name="file_list_folders">mapper</string>
-    <string name="file_list_file">fil</string>
-    <string name="file_list_files">fil</string>
     <string name="filedetails_select_file">Tryk på en fil for at vise yderligere information.</string>
     <string name="filedetails_size">Størelse:</string>
     <string name="filedetails_type">Type:</string>
@@ -104,7 +100,6 @@
     <string name="common_cancel">Annuller</string>
     <string name="common_back">Tilbage</string>
     <string name="common_save">Gem</string>
-    <string name="common_save_exit">Gem og luk</string>
     <string name="common_error">Fejl</string>
     <string name="common_loading">Indlæser...</string>
     <string name="common_unknown">ukendt</string>
@@ -113,7 +108,6 @@
     <string name="about_title">Om</string>
     <string name="change_password">Skift kodeord</string>
     <string name="delete_account">Fjern konto</string>
-    <string name="create_account">Opret konto</string>
     <string name="upload_chooser_title">Upload fra ...</string>
     <string name="uploader_info_dirname">Mappenavn</string>
     <string name="uploader_upload_in_progress_ticker">Uploader ...</string>
@@ -291,7 +285,6 @@
     <string name="file_migration_updating_index">Opdaterer index&#8230;</string>
     <string name="file_migration_cleaning">Oprydning&#8230;</string>
     <string name="file_migration_ok_finished">Færdiggjort</string>
-    <string name="prefs_category_accounts">Konti</string>
     <string name="prefs_add_account">Tilføj konto</string>
     <string name="drawer_manage_accounts">Administrer konti</string>
     <string name="actionbar_logger">Logge</string>
