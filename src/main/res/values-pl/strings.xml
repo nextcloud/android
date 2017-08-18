@@ -550,9 +550,6 @@
     <string name="storage_description_sd_no">karta SD %1$d</string>
     <string name="storage_description_unknown">Nieznany</string>
 
-    <!-- What's new feature and texts to show -->
-    <string name="whats_new_title">Co nowego w Nextcloud</string>
-
     <!-- Welcome to Nc intro features -->
     <string name="welcome_feature_1_title">Bezpieczny dom dla wszystkich danych</string>
     <string name="welcome_feature_1_text">Dostęp, współdzielenie i ochrona Twoich plików w domu i w pracy</string>
@@ -560,7 +557,6 @@
     <string name="welcome_feature_2_title">Wiele kont</string>
     <string name="welcome_feature_2_text">Podłącz się do wszystkich swoich chmur</string>
 
-    <string name="welcome_feature_3_title">Natychmiastowe wysyłanie</string>
     <string name="welcome_feature_3_text">Twoje zdjęcia będą bezpieczne</string>
 
     <string name="whats_new_skip">Pomiń</string>

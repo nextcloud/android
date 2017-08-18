@@ -43,6 +43,7 @@
     <string name="prefs_passcode">Passordlås</string>
     <string name="prefs_fingerprint">Fingeravtrykkslås</string>
     <string name="prefs_fingerprint_notsetup">Det har ikke blitt satt opp noen fingeravtrykk.</string>
+    <string name="prefs_expert_mode">Ekspertmodus</string>
     <string name="prefs_show_hidden_files">Vis skjulte filer</string>
     <string name="prefs_log_delete_history_button">Slett historikk</string>
     <string name="prefs_calendar_contacts">Synkroniser kalender &amp; kontakter</string>
@@ -68,6 +69,7 @@
     <string name="sync_string_files">Filer</string>
     <string name="setup_btn_connect">Koble til</string>
     <string name="uploader_btn_upload_text">Last opp</string>
+    <string name="uploader_btn_alternative_text">Velg</string>
     <string name="uploader_top_message">Velg opplastingsmappe</string>
     <string name="uploader_wrn_no_account_title">Ingen konto funnet</string>
     <string name="uploader_wrn_no_account_text">Det finnes ingen %1$s-kontoer på enheten din. Sett opp en konto først.</string>
@@ -86,6 +88,7 @@
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Slett filen fra kildemappen</string>
     <string name="file_list_seconds_ago">for få sekunder siden</string>
     <string name="file_list_empty_headline">Ingen filer her</string>
+    <string name="folder_list_empty_headline">Ingen mapper her</string>
     <string name="file_list_empty">Last opp innhold eller synkroniser med enhetene dine.</string>
     <string name="file_list_empty_favorites">Marker noen filer som favoritter eller synkroniser enhetene dine.</string>
     <string name="file_list_empty_favorites_filter_list">Filer og mapper du markerer som favoritter vil vises her</string>
@@ -93,6 +96,7 @@
     <string name="file_list_loading">Laster&#8230;</string>
     <string name="file_list_no_app_for_file_type">Inget program funnet for filtypen.</string>
     <string name="local_file_list_empty">Det er ingen filer i denne mappen.</string>
+    <string name="local_folder_list_empty">Det er ingen flere mapper.</string>
     <string name="file_list_empty_headline_search">Ingen resultater i denne mappen</string>
     <string name="file_list_empty_headline_server_search">Ingen resultater</string>
     <string name="file_list_empty_favorite_headline">Ingen favoritter ennå</string>
@@ -141,11 +145,14 @@
     <string name="common_unknown">ukjent</string>
     <string name="common_error_unknown">Ukjent feil</string>
     <string name="common_pending">Venter</string>
+    <string name="common_delete">Slett</string>
     <string name="about_title">Om</string>
     <string name="change_password">Endre passord</string>
     <string name="delete_account">Fjern konto</string>
     <string name="delete_account_warning">Slett kontoen %s med alle lokale filer?\n\nSletting kan ikke angres.</string>
     <string name="create_account">Opprett konto</string>
+    <string name="avatar">Avatar</string>
+    <string name="active_user">Aktiv bruker</string>
     <string name="upload_chooser_title">Last opp fra &#8230;</string>
     <string name="uploader_info_dirname">Mappenavn</string>
     <string name="uploader_upload_in_progress_ticker">Laster opp &#8230;</string>
@@ -157,6 +164,7 @@
     <string name="uploader_upload_failed_credentials_error">Opplasting mislyktes, du må logge inn på nytt</string>
     <string name="uploads_view_title">Opplastinger</string>
     <string name="uploads_view_group_current_uploads">Nåværende</string>
+    <string name="uploads_view_group_failed_uploads">Feilet / Venter på omstart</string>
     <string name="uploads_view_group_finished_uploads">Opplastet</string>
     <string name="uploads_view_upload_status_succeeded">Ferdig</string>
     <string name="uploads_view_upload_status_cancelled">Avbrutt</string>
@@ -285,6 +293,7 @@
     <string name="filename_forbidden_characters">Forbudte tegn: / \\ &lt; &gt; : \" | ? *</string>
     <string name="filename_forbidden_charaters_from_server">Filnavnet inneholder minst ett ulovlig tegn</string>
     <string name="filename_empty">Filnavn kan ikke være tomt</string>
+    <string name="wait_a_moment">Vent et øyeblikk&#8230;</string>
     <string name="wait_checking_credentials">Sjekker lagrede påloggingsdetaljer</string>
     <string name="filedisplay_unexpected_bad_get_content">Uventet problem; velg filen fra et annet program</string>
     <string name="filedisplay_no_file_selected">Ingen fil ble valgt</string>
@@ -348,6 +357,8 @@
 
     <string name="error__upload__local_file_not_copied">%1$s kunne ikke kopieres til lokal mappe %2$s</string>
     <string name="prefs_instant_upload_path_title">Mappe for umiddelbar opplasting</string>
+    <string name="prefs_synced_folders_local_path_title">Lokal mappe</string>
+    <string name="prefs_synced_folders_remote_path_title">Mappe annensteds hen</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Bruk undermapper</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Lagre filer i undermapper basert på år og måned</string>
 
@@ -510,6 +521,7 @@
     <string name="share_sharee_unavailable">Beklager, tjenerversjonen din tillater ikke klienter å dele med brukere. \nKontakt systemadministratoren</string>
     <string name="filedetails_share_link_enable">Deling med lenke påskrudd</string>
     <string name="filedetails_share_link_disable">Ikke delt med lenke</string>
+    <string name="filedetails_share_users_with_access">Brukere og grupper med tilgang</string>
     <string name="share_privilege_can_share">kan dele</string>
     <string name="share_privilege_can_edit">kan redigere</string>
     <string name="share_privilege_can_edit_create">opprette</string>
@@ -518,7 +530,12 @@
     <string name="edit_share_unshare">Avslutt deling</string>
     <string name="edit_share_done">ferdig</string>
 
+    <string name="action_retry_uploads">Prøv å laste opp igjen.</string>
+    <string name="action_clear_failed_uploads">Fjern feilede opplastinger</string>
+    <string name="action_clear_successful_uploads">Fjern fullførte opplastinger</string>
     <string name="action_clear_finished_uploads">Slett alle ferdige</string>
+    <string name="action_force_rescan">Tving reskanning</string>
+
     <string name="action_switch_grid_view">Rutenett-visning</string>
     <string name="action_switch_list_view">Listevisning</string>
 
@@ -532,10 +549,13 @@
     <string name="confirmation_remove_files_alert">Vil du virkelig fjerne de valgte elementene?</string>
     <string name="confirmation_remove_folders_alert">Vil du virkelig fjerne de valgte elementene og dets innhold?</string>
     <string name="maintenance_mode">Tjener i vedlikeholdsmodus</string>
+    <string name="lock_failed">Kunne ikke låse filen</string>
+
     <string name="uploads_view_upload_status_waiting_for_charging">Venter på lading av enhet.</string>
     <string name="actionbar_search">Søk</string>
     <string name="files_drop_not_supported">Dette er en Nextcloud funksjon, oppdater.</string>
     <string name="learn_more">Lær mer</string>
+    <string name="drawer_synced_folders">Auto-opplasting</string>
     <string name="drawer_participate">Delta</string>
     <string name="participate_testing_headline">Hjelp oss å teste</string>
     <string name="participate_testing_bug_text">Funnet en feil? Føles noe rart?</string>
@@ -551,9 +571,21 @@
     <string name="participate_contribute_forum_forum">forumet</string>
     <string name="participate_contribute_translate_translate">Oversett</string>
     <string name="participate_contribute_translate_text">programmet</string>
+    <string name="participate_contribute_github_text">Gjennomse, endre og skriv kode, se %1$s for detaljer</string>
+    <string name="participate_rc_play_store">Få lanseringskandidaten via Google Play butikken</string>
+    <string name="participate_rc_fdroid">Få lanseringskandidaten via f-droid app butikk</string>
+    <string name="participate_dev_fdroid">Få utviklingsversjonen via f-droid app butikk</string>
+    <string name="participate_dev_direct_download">Få utviklingsversjonen via direkte nedlasting</string>
     <string name="move_to">Flytt til&#8230;</string>
     <string name="copy_to">Kopier til&#8230;</string>
+    <string name="choose_remote_folder">Velg fjernmappe&#8230;</string>
+    <string name="choose_local_folder">Velg lokal mappe&#8230;</string>
+    <string name="synced_folders_loading_folders">Laster mapper&#8230;</string>
+    <string name="synced_folders_no_results">Ingen mediamapper funnet.</string>
+    <string name="synced_folders_preferences">Alternativer for auto-opplasting</string>
     <string name="synced_folders_settings">Innstillinger</string>
+    <string name="synced_folders_new_info">Umiddelbar opplasting er fullstendig omarbeidet. Du må sette opp auto-opplasting på nytt fra hovedmenyen.\n\nKos deg med den nye og utvidede auto-opplastingen.</string>
+    <string name="synced_folders_preferences_folder_path">For %1$s</string>
     <plurals name="items_selected_count">
         <item quantity="one">%d valgt</item>
         <item quantity="other">%d valgte</item>
@@ -577,9 +609,6 @@
     <string name="storage_description_sd_no">SD-kort %1$d</string>
     <string name="storage_description_unknown">Ukjent</string>
 
-    <!-- What's new feature and texts to show -->
-    <string name="whats_new_title">Hva er nytt i Nextcloud</string>
-
     <!-- Welcome to Nc intro features -->
     <string name="welcome_feature_1_title">Et trygt hjem for alle dine data</string>
     <string name="welcome_feature_1_text">Benytt, del og beskytt filene dine hjemme og i din bedrift</string>
@@ -587,7 +616,6 @@
     <string name="welcome_feature_2_title">Multi-konto</string>
     <string name="welcome_feature_2_text">Foren alle skyene dine</string>
 
-    <string name="welcome_feature_3_title">Umiddelbar opplasting</string>
     <string name="welcome_feature_3_text">Hold bildene dine trygge</string>
 
     <string name="whats_new_skip">Hopp over</string>
@@ -636,5 +664,11 @@
     <string name="privacy">Personvern</string>
     <string name="file_not_found">Finner ikke filen!</string>
 
+    <!-- Auto upload -->
+    <string name="autoupload_custom_folder">Sett opp en tilpasset mappe</string>
+    <string name="autoupload_create_new_custom_folder">Lag ny tilpasset mappe oppsett</string>
+    <string name="synced_folders_configure_folders">Sett opp mapper</string>
+
     <string name="test_server_button">Test tjenertilkobling</string>
+    <string name="resharing_is_not_allowed">Videredeling er ikke tillatt</string>
     </resources>

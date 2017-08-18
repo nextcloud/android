@@ -337,15 +337,11 @@
     <string name="storage_description_sd_no">SD картка %1$d</string>
     <string name="storage_description_unknown">Невідомо</string>
 
-    <!-- What's new feature and texts to show -->
-    <string name="whats_new_title">Що нового у Nextcloud</string>
-
     <!-- Welcome to Nc intro features -->
     <string name="welcome_feature_1_title">Безпечний дім для Ваших даних</string>
     <string name="welcome_feature_2_title">Декілька облікових записів</string>
     <string name="welcome_feature_2_text">З\'єднайтеся з всіма Вашими хмарами</string>
 
-    <string name="welcome_feature_3_title">Миттєве вивантаження</string>
     <string name="welcome_feature_3_text">Тримайте свої фото у безпеці</string>
 
     <string name="whats_new_skip">Пропустити</string>

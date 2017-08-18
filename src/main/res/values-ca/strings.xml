@@ -423,15 +423,11 @@
     <string name="storage_description_sd_no">Targeta SD %1$d</string>
     <string name="storage_description_unknown">Desconegut</string>
 
-    <!-- What's new feature and texts to show -->
-    <string name="whats_new_title">Novetats en Nextcloud</string>
-
     <!-- Welcome to Nc intro features -->
     <string name="welcome_feature_1_title">Un lloc segur per totes les vostres dades</string>
     <string name="welcome_feature_2_title">Multi compte</string>
     <string name="welcome_feature_2_text">Connecteu amb tots els vostres núvols</string>
 
-    <string name="welcome_feature_3_title">Pujada instantània</string>
     <string name="welcome_feature_3_text">Mantingueu les vostres fotos segures</string>
 
     <string name="whats_new_skip">Omet</string>

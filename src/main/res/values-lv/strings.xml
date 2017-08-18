@@ -381,15 +381,11 @@
     <string name="storage_description_sd_no">SD karte %1$d</string>
     <string name="storage_description_unknown">Nezināms</string>
 
-    <!-- What's new feature and texts to show -->
-    <string name="whats_new_title">Kas jauns Nextcloud</string>
-
     <!-- Welcome to Nc intro features -->
     <string name="welcome_feature_1_title">Droša vieta visiem jūsu datiem</string>
     <string name="welcome_feature_2_title">Multi konts</string>
     <string name="welcome_feature_2_text">Savienoties ar visiem mākoņiem</string>
 
-    <string name="welcome_feature_3_title">Tūlītēja augšupielāde</string>
     <string name="welcome_feature_3_text">Glabājiet savus fotoattēlus drošībā</string>
 
     <string name="whats_new_skip">Izlaist</string>
