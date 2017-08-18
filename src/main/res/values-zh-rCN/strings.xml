@@ -577,7 +577,7 @@
     <string name="storage_description_unknown">不知道</string>
 
     <!-- What's new feature and texts to show -->
-    <string name="whats_new_title">有什么新东西在Nextcloud里</string>
+    <string name="whats_new_title">有什么新东西在%1$s里</string>
 
     <!-- Welcome to Nc intro features -->
     <string name="welcome_feature_1_title">给你所有的数据一个安全的家</string>
