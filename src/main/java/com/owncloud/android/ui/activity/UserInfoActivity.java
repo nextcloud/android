@@ -298,7 +298,7 @@ public class UserInfoActivity extends FileActivity {
                             .error(R.drawable.background)
                             .crossFade()
                             .into(target);
-                } else {
+                } else if (!background.isEmpty()) {
                     // plain color
                     int color = Color.parseColor(background);
                     appBar.setBackgroundColor(color);
