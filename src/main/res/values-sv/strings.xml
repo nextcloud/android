@@ -65,9 +65,6 @@
     <string name="file_list_empty_headline_search">Tomt i denna mapp</string>
     <string name="upload_list_empty_headline">Inga nerladdningar tillgängliga</string>
     <string name="file_list_folder">mapp</string>
-    <string name="file_list_folders">mappar</string>
-    <string name="file_list_file">fil</string>
-    <string name="file_list_files">filer</string>
     <string name="filedetails_select_file">Peka på en fil för att visa mer information.</string>
     <string name="filedetails_size">Storlek:</string>
     <string name="filedetails_type">Typ:</string>
@@ -84,7 +81,6 @@
     <string name="common_cancel">Avbryt</string>
     <string name="common_back">Tillbaka</string>
     <string name="common_save">Spara</string>
-    <string name="common_save_exit">Spara &amp; avsluta</string>
     <string name="common_error">Fel</string>
     <string name="common_loading">Laddar &#8230;</string>
     <string name="common_unknown">okänt</string>
@@ -93,7 +89,6 @@
     <string name="about_title">Om</string>
     <string name="change_password">Ändra lösenord</string>
     <string name="delete_account">Radera konto</string>
-    <string name="create_account">Skapa konto</string>
     <string name="upload_chooser_title">Ladda upp från &#8230;</string>
     <string name="uploader_info_dirname">Mappnamn</string>
     <string name="uploader_upload_in_progress_ticker">Laddar upp &#8230;</string>
@@ -271,7 +266,6 @@
     <string name="file_migration_updating_index">Uppdaterar index&#8230;</string>
     <string name="file_migration_cleaning">Rensar upp&#8230;</string>
     <string name="file_migration_ok_finished">Slutförd</string>
-    <string name="prefs_category_accounts">Konton</string>
     <string name="prefs_add_account">Lägg till konto</string>
     <string name="drawer_manage_accounts">Hantera konton</string>
     <string name="actionbar_logger">Loggar</string>

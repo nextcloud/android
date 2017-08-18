@@ -22,7 +22,6 @@
     <string name="menu_item_sort_by_size_smallest_first">Маленькие–большие</string>
 
     <string name="drawer_item_all_files">Все файлы</string>
-    <string name="drawer_item_files">Файлы</string>
     <string name="drawer_item_home">Главная</string>
     <string name="drawer_item_favorites">Избранное</string>
     <string name="drawer_item_photos">Фотографии</string>
@@ -91,7 +90,6 @@
     <string name="file_list_empty_headline">Здесь нет файлов</string>
     <string name="folder_list_empty_headline">Здесь нет каталогов</string>
     <string name="file_list_empty">Выгрузите что-нибудь или синхронизируйте со своими устройствами!</string>
-    <string name="file_list_empty_favorites">Добавьте файлы в избранное или синхронизируйте со своими устройствами!</string>
     <string name="file_list_empty_favorites_filter_list">Здесь появятся файлы и каталоги, отмеченные как избранные</string>
     <string name="file_list_empty_favorites_filter">По запросу избранных файлов не найдено.</string>
     <string name="file_list_loading">Загружается&#8230;</string>
@@ -118,9 +116,6 @@
     <string name="upload_list_empty_text">Выгрузите что-нибудь или включите моментальную загрузку!</string>
     <string name="upload_list_empty_text_auto_upload">Выгрузите что-нибудь или включите автоматическую выгрузку!</string>
     <string name="file_list_folder">каталог</string>
-    <string name="file_list_folders">каталоги</string>
-    <string name="file_list_file">файл</string>
-    <string name="file_list_files">файлы</string>
     <string name="filedetails_select_file">Нажмите на файл для отображения дополнительной информации.</string>
     <string name="filedetails_size">Размер:</string>
     <string name="filedetails_type">Тип:</string>
@@ -140,7 +135,6 @@
     <string name="common_cancel">Отменить</string>
     <string name="common_back">Назад</string>
     <string name="common_save">Сохранить</string>
-    <string name="common_save_exit">Сохранить и выйти</string>
     <string name="common_error">Ошибка</string>
     <string name="common_loading">Загружаю &#8230;</string>
     <string name="common_unknown">неизвестно</string>
@@ -151,7 +145,6 @@
     <string name="change_password">Сменить пароль</string>
     <string name="delete_account">Удалить аккаунт</string>
     <string name="delete_account_warning">Удалить аккаунт %s и все связанные с ним файлы?\n\n\Удаление не может быть отменено.</string>
-    <string name="create_account">Создать аккаунт</string>
     <string name="avatar">Аватар</string>
     <string name="active_user">Активный пользователь</string>
     <string name="upload_chooser_title">Выгрузить из &#8230;</string>
@@ -340,7 +333,6 @@
     <string name="placeholder_media_time">12:23:45</string>
 
     <string name="auto_upload_on_wifi">Выгружать только через Wi-Fi</string>
-    <string name="instant_upload_on_wifi">Выгружать изображения только через Wi-Fi</string>
     <string name="instant_video_upload_on_wifi">Выгружать видео только через Wi-Fi</string>
     <string name="instant_video_upload_on_charging">Выгружать только при зарядке</string>
     <string name="instant_upload_on_charging">Выгружать только при зарядке</string>
@@ -423,7 +415,6 @@
     <string name="file_migration_source_not_readable_title">Исходный каталог недоступен для чтения!</string>
     <string name="file_migration_source_not_readable">Вы действительно хотите изменить расположение хранилища на %1$s?\n\nВнимание: придётся заново скачать все данные.</string>
 
-    <string name="prefs_category_accounts">Аккаунты</string>
     <string name="prefs_add_account">Добавить аккаунт</string>
     <string name="drawer_manage_accounts">Управление аккаунтами</string>
     <string name="auth_redirect_non_secure_connection_title">Безопасное соединение перенаправлено через небезопасный маршрут.</string>

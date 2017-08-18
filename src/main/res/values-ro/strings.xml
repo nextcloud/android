@@ -21,7 +21,6 @@
     <string name="menu_item_sort_by_size_smallest_first">Cel mai mic mai întâi</string>
 
     <string name="drawer_item_all_files">Toate fișierele</string>
-    <string name="drawer_item_files">Fișiere</string>
     <string name="drawer_item_home">Acasă</string>
     <string name="drawer_item_favorites">Favorite</string>
     <string name="drawer_item_photos">Poze</string>
@@ -74,9 +73,6 @@
     <string name="file_list_empty_headline_search">Niciun element găsit în acest director</string>
     <string name="upload_list_empty_headline">Nu există încărcări disponibile</string>
     <string name="file_list_folder">director</string>
-    <string name="file_list_folders">directoare</string>
-    <string name="file_list_file">fișier</string>
-    <string name="file_list_files">fișier</string>
     <string name="filedetails_select_file">Selectați un fișier pentru a afișa informația adițională.</string>
     <string name="filedetails_size">Mărime:</string>
     <string name="filedetails_type">Tip:</string>
@@ -93,7 +89,6 @@
     <string name="common_cancel">Anulează</string>
     <string name="common_back">Înapoi</string>
     <string name="common_save">Salvează</string>
-    <string name="common_save_exit">Salvează &amp; ieși</string>
     <string name="common_error">Eroare</string>
     <string name="common_loading">Se încarcă...</string>
     <string name="common_unknown">necunoscut</string>
@@ -102,7 +97,6 @@
     <string name="about_title">Despre</string>
     <string name="change_password">Schimbă parola</string>
     <string name="delete_account">Sterge contul</string>
-    <string name="create_account">Crează cont</string>
     <string name="upload_chooser_title">Încarcă din...</string>
     <string name="uploader_info_dirname">Nume director</string>
     <string name="uploader_upload_in_progress_ticker">Se încărcarcă...</string>
@@ -281,7 +275,6 @@
     <string name="file_migration_updating_index">Indexul se actualizează&#8230;</string>
     <string name="file_migration_cleaning">Curățare&#8230;</string>
     <string name="file_migration_ok_finished">Finalizat</string>
-    <string name="prefs_category_accounts">Conturi</string>
     <string name="prefs_add_account">Adaugă cont</string>
     <string name="drawer_manage_accounts">Administrare conturi</string>
     <string name="actionbar_logger">Înregistrări</string>

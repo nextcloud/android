@@ -21,7 +21,6 @@
     <string name="menu_item_sort_by_size_smallest_first">小さいものが最初</string>
 
     <string name="drawer_item_all_files">すべてのファイル</string>
-    <string name="drawer_item_files">ファイル</string>
     <string name="drawer_item_home">ホーム</string>
     <string name="drawer_item_favorites">お気に入り</string>
     <string name="drawer_item_photos">写真</string>
@@ -87,7 +86,6 @@
     <string name="file_list_empty_headline">ここにファイルはありません</string>
     <string name="folder_list_empty_headline">フォルダーがありません</string>
     <string name="file_list_empty">コンテンツをアップロードするか、デバイスと同期してください。</string>
-    <string name="file_list_empty_favorites">ファイルをお気に入りに登録するか、デバイスと同期してください。</string>
     <string name="file_list_empty_favorites_filter_list">お気に入りに登録されたファイルやフォルダーがここに表示されます</string>
     <string name="file_list_empty_favorites_filter">お気に入りのファイルが見つかりませんでした。</string>
     <string name="file_list_loading">読込中&#8230;</string>
@@ -113,9 +111,6 @@
     <string name="upload_list_empty_text">コンテンツをアップロードするか、インスタントアップロードを有効にしてください。</string>
     <string name="upload_list_empty_text_auto_upload">何かコンテンツをアップロードするか、自動アップロードを有効にしてください。</string>
     <string name="file_list_folder">フォルダー</string>
-    <string name="file_list_folders">フォルダー</string>
-    <string name="file_list_file">ファイル</string>
-    <string name="file_list_files">ファイル</string>
     <string name="filedetails_select_file">ファイルをタップすると追加情報が表示されます。</string>
     <string name="filedetails_size">サイズ:</string>
     <string name="filedetails_type">タイプ:</string>
@@ -134,7 +129,6 @@
     <string name="common_cancel">キャンセル</string>
     <string name="common_back">戻る</string>
     <string name="common_save">保存</string>
-    <string name="common_save_exit">保存 &amp; 終了</string>
     <string name="common_error">エラー</string>
     <string name="common_loading">読込中&#8230;</string>
     <string name="common_unknown">不明</string>
@@ -145,7 +139,6 @@
     <string name="change_password">パスワードを変更</string>
     <string name="delete_account">アカウント削除</string>
     <string name="delete_account_warning">アカウント%sに紐づく全てのローカルファイルを削除しますか？\n\nこの作業は取り消すことができません。</string>
-    <string name="create_account">アカウントを作成</string>
     <string name="avatar">アバター</string>
     <string name="active_user">アクティブなユーザー</string>
     <string name="upload_chooser_title">アップロード &#8230;</string>
@@ -337,7 +330,6 @@
     <string name="file_migration_updating_index">インデックスの更新中&#8230;</string>
     <string name="file_migration_cleaning">クリーニング中&#8230;</string>
     <string name="file_migration_ok_finished">完了</string>
-    <string name="prefs_category_accounts">アカウント</string>
     <string name="prefs_add_account">アカウントを追加</string>
     <string name="drawer_manage_accounts">アカウント管理</string>
     <string name="actionbar_logger">ログ</string>

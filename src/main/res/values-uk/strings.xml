@@ -21,7 +21,6 @@
     <string name="menu_item_sort_by_size_smallest_first">Менші попереду</string>
 
     <string name="drawer_item_all_files">Усі файли</string>
-    <string name="drawer_item_files">Файли</string>
     <string name="drawer_item_home">Старт</string>
     <string name="drawer_item_favorites">Улюблені</string>
     <string name="drawer_item_photos">Фото</string>
@@ -82,9 +81,6 @@
     <string name="file_list_empty_headline_server_search_photos">Жодного фото</string>
     <string name="upload_list_empty_headline">Немає доступних вивантажень.</string>
     <string name="file_list_folder">тека</string>
-    <string name="file_list_folders">теки</string>
-    <string name="file_list_file">файл</string>
-    <string name="file_list_files">файл</string>
     <string name="filedetails_select_file">Натисніть на файлі для відображення додаткової інформації</string>
     <string name="filedetails_size">Розмір:</string>
     <string name="filedetails_type">Тип:</string>
@@ -101,7 +97,6 @@
     <string name="common_cancel">Відмінити</string>
     <string name="common_back">Назад</string>
     <string name="common_save">Зберегти</string>
-    <string name="common_save_exit">Зберегти та вийти</string>
     <string name="common_error">Помилка</string>
     <string name="common_loading">Завантаження...</string>
     <string name="common_unknown">невідомо</string>
@@ -110,7 +105,6 @@
     <string name="about_title">Про</string>
     <string name="change_password">Змінити пароль</string>
     <string name="delete_account">Видалити обліковий запис</string>
-    <string name="create_account">Створити запис</string>
     <string name="upload_chooser_title">Завантажити з …</string>
     <string name="uploader_info_dirname">Ім\'я теки</string>
     <string name="uploader_upload_in_progress_ticker">Завантаження …</string>
@@ -263,7 +257,6 @@
     <string name="unshare_link_forbidden_permissions">для закриття доступу до файла</string>
     <string name="downloader_download_file_not_found">Файл більше не доступний на сервері</string>
 
-    <string name="prefs_category_accounts">Облікові записи</string>
     <string name="prefs_add_account">Додати обліковий запис</string>
     <string name="actionbar_logger">Журнали</string>
 	<string name="log_send_history_button">Надіслати історію</string>

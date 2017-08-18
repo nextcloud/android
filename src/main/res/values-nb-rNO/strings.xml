@@ -21,7 +21,6 @@
     <string name="menu_item_sort_by_size_smallest_first">Minste først</string>
 
     <string name="drawer_item_all_files">Alle filer</string>
-    <string name="drawer_item_files">Filer</string>
     <string name="drawer_item_home">Hjem</string>
     <string name="drawer_item_favorites">Favoritter</string>
     <string name="drawer_item_photos">Bilder</string>
@@ -89,7 +88,6 @@
     <string name="file_list_empty_headline">Ingen filer her</string>
     <string name="folder_list_empty_headline">Ingen mapper her</string>
     <string name="file_list_empty">Last opp innhold eller synkroniser med enhetene dine.</string>
-    <string name="file_list_empty_favorites">Marker noen filer som favoritter eller synkroniser enhetene dine.</string>
     <string name="file_list_empty_favorites_filter_list">Filer og mapper du markerer som favoritter vil vises her</string>
     <string name="file_list_empty_favorites_filter">Din spørring returnerte ingen filer markert som favoritter.</string>
     <string name="file_list_loading">Laster&#8230;</string>
@@ -116,9 +114,6 @@
     <string name="upload_list_empty_text">Last opp innhold eller aktiver umiddelbar opplasting.</string>
     <string name="upload_list_empty_text_auto_upload">Last opp noe innhold eller aktiver automatisk opplasting!</string>
     <string name="file_list_folder">mappe</string>
-    <string name="file_list_folders">mapper</string>
-    <string name="file_list_file">fil</string>
-    <string name="file_list_files">fil</string>
     <string name="filedetails_select_file">Trykk på en fil for å vise ekstra informasjon.</string>
     <string name="filedetails_size">Størrelse:</string>
     <string name="filedetails_type">Type:</string>
@@ -138,7 +133,6 @@
     <string name="common_cancel">Avbryt</string>
     <string name="common_back">Tilbake</string>
     <string name="common_save">Lagre</string>
-    <string name="common_save_exit">Lagre &amp; avslutt</string>
     <string name="common_error">Feil</string>
     <string name="common_loading">Laster &#8230;</string>
     <string name="common_unknown">ukjent</string>
@@ -149,7 +143,6 @@
     <string name="change_password">Endre passord</string>
     <string name="delete_account">Fjern konto</string>
     <string name="delete_account_warning">Slett kontoen %s med alle lokale filer?\n\nSletting kan ikke angres.</string>
-    <string name="create_account">Opprett konto</string>
     <string name="avatar">Avatar</string>
     <string name="active_user">Aktiv bruker</string>
     <string name="upload_chooser_title">Last opp fra &#8230;</string>
@@ -338,7 +331,6 @@
     <string name="placeholder_media_time">12:23:45</string>
 
     <string name="auto_upload_on_wifi">Bare last opp på Wi-Fi</string>
-    <string name="instant_upload_on_wifi">Bare last opp bilder på Wi-Fi</string>
     <string name="instant_video_upload_on_wifi">Last kun opp filmer via Wi-Fi</string>
     <string name="instant_video_upload_on_charging">Last kun opp under lading</string>
     <string name="instant_upload_on_charging">Last kun opp under lading</string>
@@ -421,7 +413,6 @@
     <string name="file_migration_source_not_readable_title">Målmappa er ikke lesbar!</string>
     <string name="file_migration_source_not_readable">Ønsker du fremdeles å endre lagringssti til %1$s ?\n\nMerk: All data vil måtte lastes ned igjen.</string>
 
-    <string name="prefs_category_accounts">Kontoer</string>
     <string name="prefs_add_account">Legg til en konto</string>
     <string name="drawer_manage_accounts">Håndter kontoer</string>
     <string name="auth_redirect_non_secure_connection_title">Sikker tilkobling videresendes gjennom en usikker rute.</string>
