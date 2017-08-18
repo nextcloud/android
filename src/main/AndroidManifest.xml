@@ -19,7 +19,6 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          xmlns:tools="http://schemas.android.com/tools"
           package="com.owncloud.android"
           android:versionCode="20000002"
           android:versionName="2.0.0RC2">
@@ -241,10 +240,6 @@
 
 
         <service android:name=".services.observer.FileObserverService" />
-
-        <service
-            android:name="com.evernote.android.job.gcm.PlatformGcmService"
-            tools:node="remove"/>
 
         <activity
             android:name=".ui.activity.CopyToClipboardActivity"
