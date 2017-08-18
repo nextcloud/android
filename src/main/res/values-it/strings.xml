@@ -90,6 +90,7 @@
     <string name="file_list_empty_headline">Qui non c\'è alcun file</string>
     <string name="folder_list_empty_headline">Qui non c\'è alcuna cartella</string>
     <string name="file_list_empty">Carica alcuni contenuti o sincronizza con i tuoi dispositivi.</string>
+    <string name="file_list_empty_favorites">Rendi preferiti alcuni file o sincronizza con i tuoi dispositivi.</string>
     <string name="file_list_empty_favorites_filter_list">I file e le cartelle che marchi come preferiti saranno mostrati qui</string>
     <string name="file_list_empty_favorites_filter">La tua ricerca non ha restituito alcun file preferito.</string>
     <string name="file_list_loading">Caricamento in corso&#8230;</string>
@@ -127,6 +128,7 @@
     <string name="filedetails_download">Scarica</string>
     <string name="filedetails_sync_file">Sincronizza</string>
     <string name="filedetails_renamed_in_upload_msg">File rinominato in %1$s durante il caricamento</string>
+    <string name="list_layout">Struttura a elenco</string>
     <string name="action_share">Condividi</string>
     <string name="common_yes">Sì</string>
     <string name="common_no">No</string>
@@ -516,6 +518,7 @@
     <string name="share_email_clarification">%1$s (email)</string>
     <string name="share_known_remote_clarification">%1$s ( su %2$s )</string>
 
+    <string name="share_sharee_unavailable">Aggiorna la versione del server per consentire la condivisione tra utenti dai loro client.\nContatta il tuo amministratore</string>
     <string name="filedetails_share_link_enable">Condivisi tramite collegamento abilitata</string>
     <string name="filedetails_share_link_disable">Non condivisi tramite collegamento</string>
     <string name="filedetails_share_users_with_access">Utenti e gruppi con accesso</string>
@@ -565,6 +568,7 @@
     <string name="participate_contribute_forum_forum">forum</string>
     <string name="participate_contribute_translate_translate">Traduci</string>
     <string name="participate_contribute_translate_text">l\'applicazione</string>
+    <string name="participate_contribute_github_text">Esamina, correggi e scrivi codice, vedi %1$s per i dettagli</string>
     <string name="participate_rc_play_store">Ottieni la candidata al rilascio tramite Google Play</string>
     <string name="participate_rc_fdroid">Ottieni la candidata al rilascio tramite F-Droid</string>
     <string name="participate_dev_fdroid">Ottieni la versione di sviluppo tramite F-Droid</string>
@@ -577,6 +581,7 @@
     <string name="synced_folders_no_results">Nessuna cartella di file multimediali trovata.</string>
     <string name="synced_folders_preferences">Preferenze per il caricamento automatico</string>
     <string name="synced_folders_settings">Impostazioni</string>
+    <string name="synced_folders_new_info">Il caricamento istantaneo è stato riscritto completamente. Riconfigura il caricamento automatico dal menu principale.\n\nGoditi il nuovo ed esteso caricamento automatico.</string>
     <string name="synced_folders_preferences_folder_path">Per %1$s</string>
     <plurals name="items_selected_count">
         <item quantity="one">%d selezionato</item>
@@ -631,6 +636,7 @@
 
     <!-- Activities -->
     <string name="activities_no_results_headline">Ancora nessuna attività</string>
+    <string name="activities_no_results_message">Questo flusso mostrerà eventi come\naggiunte, modifiche e condivisioni</string>
     <string name="webview_error">Si è verificato un errore</string>
     <string name="prefs_category_about">Informazioni</string>
 
@@ -665,4 +671,5 @@
     <string name="synced_folders_configure_folders">Configura cartelle</string>
 
     <string name="test_server_button">Prova di connessione al server</string>
-    </resources>
+    <string name="resharing_is_not_allowed">La ri-condivisione non è consentita</string>
+</resources>
