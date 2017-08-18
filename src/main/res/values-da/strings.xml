@@ -74,7 +74,7 @@
     <string name="uploader_upload_files_behaviour_only_upload">Behold filen i source-mappen</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Slet filen fra source-mappen</string>
     <string name="file_list_seconds_ago">sekunder siden</string>
-    <string name="file_list_loading">Indlæser...</string>
+    <string name="file_list_loading">Indlæser&#8230;</string>
     <string name="local_file_list_empty">Der er ingen filer i denne mappe.</string>
     <string name="file_list_empty_headline_search">Intet resultat for denne mappe</string>
     <string name="file_list_empty_headline_server_search">Ingen resultater</string>
@@ -101,16 +101,16 @@
     <string name="common_back">Tilbage</string>
     <string name="common_save">Gem</string>
     <string name="common_error">Fejl</string>
-    <string name="common_loading">Indlæser...</string>
+    <string name="common_loading">Indlæser &#8230;</string>
     <string name="common_unknown">ukendt</string>
     <string name="common_error_unknown">Ukendt fejl</string>
     <string name="common_pending">afventende</string>
     <string name="about_title">Om</string>
     <string name="change_password">Skift kodeord</string>
     <string name="delete_account">Fjern konto</string>
-    <string name="upload_chooser_title">Upload fra ...</string>
+    <string name="upload_chooser_title">Upload fra &#8230;</string>
     <string name="uploader_info_dirname">Mappenavn</string>
-    <string name="uploader_upload_in_progress_ticker">Uploader ...</string>
+    <string name="uploader_upload_in_progress_ticker">Uploader &#8230;</string>
     <string name="uploader_upload_in_progress_content">%1$d%% Uploader %2$s</string>
     <string name="uploader_upload_succeeded_content_single">%1$s uploaded</string>
     <string name="uploader_upload_failed_ticker">Upload fejlede</string>
@@ -131,7 +131,7 @@
     <string name="uploads_view_upload_status_conflict">Konflikt</string>
     <string name="uploads_view_upload_status_unknown_fail">Ukendt fejl</string>
     <string name="uploads_view_later_waiting_to_upload">Venter med upload</string>
-    <string name="downloader_download_in_progress_ticker">Downloader ...</string>
+    <string name="downloader_download_in_progress_ticker">Downloader &#8230;</string>
     <string name="downloader_download_in_progress_content">%1$d%% Downloader %2$s</string>
     <string name="downloader_download_succeeded_content">%1$s downloaded</string>
     <string name="downloader_download_failed_ticker">Download fejlede</string>

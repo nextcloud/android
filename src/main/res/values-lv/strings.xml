@@ -123,7 +123,7 @@
     <string name="uploads_view_upload_status_conflict">Konflikts</string>
     <string name="uploads_view_upload_status_unknown_fail">Nezināma kļūda</string>
     <string name="uploads_view_later_waiting_to_upload">Gaida augšupielādi</string>
-    <string name="downloader_download_in_progress_ticker">Lejupielādē ...</string>
+    <string name="downloader_download_in_progress_ticker">Lejupielādē &#8230;</string>
     <string name="downloader_download_in_progress_content">%1$d%% lejupielādē %2$s</string>
     <string name="downloader_download_succeeded_content">%1$s lejupielādēts</string>
     <string name="downloader_download_failed_ticker">Neizdevās lejupielādēt</string>

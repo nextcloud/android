@@ -389,7 +389,7 @@
 
     <string name="share_dialog_title">Megosztás</string>
     <string name="share_file">%1$s megosztása</string>
-    <string name="share_with_user_section_title">Megosztás felhasználókkal és csoportokkal...</string>
+    <string name="share_with_user_section_title">Megosztás felhasználókkal és csoportokkal</string>
     <string name="share_no_users">Nincs még semmi megosztva a felhasználókkal</string>
     <string name="share_add_user_or_group">Felhasználó vagy csoport hozzáadás</string>
     <string name="share_via_link_section_title">Megosztás hivatkozással</string>
@@ -435,8 +435,8 @@
     <string name="participate_contribute_headline">Aktívan hozzájárul</string>
     <string name="participate_contribute_forum_forum">fórum</string>
     <string name="participate_contribute_translate_translate">Fordítás</string>
-    <string name="move_to">Áthelyezés ide...&#8230;</string>
-    <string name="copy_to">Másolás ide...&#8230;</string>
+    <string name="move_to">Áthelyezés ide&#8230;</string>
+    <string name="copy_to">Másolás ide&#8230;</string>
     <string name="synced_folders_settings">Beállítások</string>
     <plurals name="items_selected_count">
         <item quantity="one">%d kiválasztott</item>

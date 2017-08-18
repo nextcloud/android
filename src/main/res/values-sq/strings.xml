@@ -599,6 +599,9 @@
     <string name="storage_description_sd_no">Kart SD %1$d</string>
     <string name="storage_description_unknown">E panjohur</string>
 
+    <!-- What's new feature and texts to show -->
+    <string name="whats_new_title">Çfarë është e re në %1$s</string>
+
     <!-- Welcome to Nc intro features -->
     <string name="welcome_feature_1_title">Një shtëpi e sigurt për të gjitha të dhënat tuaja</string>
     <string name="welcome_feature_1_text">Akseso, ndaj dhe mbro skedarët e tuaja në shtëpinë dhe organizatën tuaj.</string>

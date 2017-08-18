@@ -60,6 +60,7 @@
     <string name="recommend_urls">%1$s ή %2$s</string>
 
     <string name="auth_check_server">Έλεγχος διακομιστή</string>
+    <string name="auth_host_url">Διεύθυνση διακομιστή https://&#8230;</string>
     <string name="auth_username">Όνομα χρήστη</string>
     <string name="auth_password">Συνθηματικό</string>
     <string name="auth_register">Δεν έχετε ακόμα διακομιστή;\nΚάντε κλικ εδώ για να πάρετε έναν από ένα πάροχο</string>
@@ -248,6 +249,7 @@
 	<string name="auth_expired_oauth_token_toast">Η πιστοποιίησή σας έληξε. Παρακαλούμε εξουσιοδοτήστε ξανά</string>
 	<string name="auth_expired_basic_auth_toast">Παρακαλούμε εισάγετε το τρέχον συνθηματικό</string>
 	<string name="auth_expired_saml_sso_token_toast">Η συνεδρία σας έληξε. Παρακαλούμε συνδεθείτε ξανά</string>
+	<string name="auth_connecting_auth_server">Σύνδεση με το διακομιστή πιστοποίησης&#8230;</string>
 	<string name="auth_unsupported_auth_method">Ο διακομιστής δεν υποστηρίζει αυτή τη μέθοδο πιστοποίησης</string>
 	<string name="auth_unsupported_multiaccount">Ο %1$s  δεν υποστηρίζει πολλαπλούς λογαριασμούς</string>
 	<string name="auth_fail_get_user_name">Ο διακομιστής σας δεν επιστρέφει το σωστό αναγνωριστικό χρήστη, παρακαλούμε επικοινωνήστε τον διαχειριστή</string>
@@ -275,6 +277,7 @@
     <string name="filename_forbidden_characters">Απαγορευμένοι χαρακτήρες: / \\ &lt; &gt; : \" | ? *</string>
     <string name="filename_forbidden_charaters_from_server">Το όνομα αρχείου περιέχει έναν τουλάχιστον μη έγκυρο χαρακτήρα</string>
     <string name="filename_empty">Το όνομα αρχείου δεν μπορεί να είναι κενό</string>
+    <string name="wait_a_moment">Παρακαλούμε περιμένετε&#8230;</string>
     <string name="wait_checking_credentials">Γίνεται έλεγχος αποθηκευμένων διαπιστευτηρίων</string>
     <string name="filedisplay_unexpected_bad_get_content">Μη αναμενόμενο πρόβλημα, παρακαλώ ελέγξτε το αρχείο από διαφορετική εφαρμογή</string>
     <string name="filedisplay_no_file_selected">Δεν επιλέχθηκε αρχείο</string>
@@ -282,6 +285,8 @@
     <string name="wait_for_tmp_copy_from_private_storage">Γίνεται αντιγραφή αρχείου από ιδιωτικό αποθηκευτικό χώρο</string>
     
     <string name="oauth_check_onoff">Σύνδεση με OAuth 2.0</string> 
+    <string name="oauth_login_connection">Γίνεται σύνδεση στο διακομιστή OAuth 2.0&#8230;</string>
+        
     <string name="ssl_validator_header">Η ταυτότητα της σελίδας δεν μπορεί να επληθευτεί</string>
     <string name="ssl_validator_reason_cert_not_trusted">- Το πιστοποιητικό του διακομιστή δεν είναι έμπιστο</string>
     <string name="ssl_validator_reason_cert_expired">- Το πιστοποιητικό του διακομιστή έχει λήξει</string>
@@ -563,6 +568,9 @@
     <string name="storage_description_default">Προεπιλογή</string>
     <string name="storage_description_sd_no">Κάρτα SD %1$d</string>
     <string name="storage_description_unknown">Άγνωστο</string>
+
+    <!-- What's new feature and texts to show -->
+    <string name="whats_new_title">Τι νέο υπάρχει στο %1$s</string>
 
     <!-- Welcome to Nc intro features -->
     <string name="welcome_feature_1_title">Μια ασφαλής τοποθεσία για όλα σας τα δεδομένα</string>

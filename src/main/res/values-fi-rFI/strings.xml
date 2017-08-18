@@ -42,6 +42,7 @@
     <string name="prefs_passcode">Suojakoodilukitus</string>
     <string name="prefs_fingerprint">Sormenjälkilukitus</string>
     <string name="prefs_fingerprint_notsetup">Sormenjälkiä ei ole asetettu</string>
+    <string name="prefs_expert_mode">Asiantuntijatila</string>
     <string name="prefs_show_hidden_files">Näytä piilotetut tiedostot</string>
     <string name="prefs_log_delete_history_button">Poista historia</string>
     <string name="prefs_calendar_contacts">Synkronoi kalenteri &amp; kontaktit</string>
@@ -55,12 +56,16 @@
     <string name="prefs_imprint">Tiedot</string>
 
 	<string name="recommend_subject">Kokeile %1$sia älypuhelimellasi!</string>
-	<string name="auth_check_server">Tarkista palvelin</string>
+	<string name="recommend_urls">%1$s tai %2$s</string>
+
+    <string name="auth_check_server">Tarkista palvelin</string>
+    <string name="auth_host_url">Palvelimen osoite https://&#8230;</string>
     <string name="auth_username">Käyttäjätunnus</string>
     <string name="auth_password">Salasana</string>
     <string name="sync_string_files">Tiedostot</string>
     <string name="setup_btn_connect">Yhdistä</string>
     <string name="uploader_btn_upload_text">Lähetä</string>
+    <string name="uploader_btn_alternative_text">Valitse</string>
     <string name="uploader_top_message">Valitse lähetyskansio</string>
     <string name="uploader_wrn_no_account_title">Tiliä ei löytynyt</string>
     <string name="uploader_wrn_no_account_text">Laitteellasi ei ole %1$s-tilejä. Määritä tilin asetukset ensin.</string>
@@ -76,17 +81,22 @@
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Poista tiedosto lähdekansiosta</string>
     <string name="file_list_seconds_ago">sekuntia sitten</string>
     <string name="file_list_empty_headline">Ei tiedostoja</string>
+    <string name="folder_list_empty_headline">Ei kansioita täällä</string>
     <string name="file_list_empty">Lähetä sisältöä tai synkronisoi laitteidesi kanssa</string>
+    <string name="file_list_empty_favorites_filter_list">Tiedostot ja kansiot, jotka merkitset suosikeiksesi, ilmestyvät tänne</string>
     <string name="file_list_loading">Ladataan…</string>
     <string name="local_file_list_empty">Tässä kansiossa ei ole tiedostoja</string>
     <string name="file_list_empty_headline_search">Ei kohteita tässä kansiossa</string>
     <string name="file_list_empty_headline_server_search">Ei tuloksia</string>
     <string name="file_list_empty_favorite_headline">Ei vielä suosikkeja</string>
     <string name="file_list_empty_shared_headline">Ei mitään jaettua</string>
+    <string name="file_list_empty_shared">Tiedostot ja kansiot, jotka jaat, ilmestyvät tänne</string>
     <string name="file_list_empty_headline_server_search_videos">Ei videoita</string>
     <string name="file_list_empty_headline_server_search_photos">Ei kuvia</string>
     <string name="file_list_empty_search">Ehkä se on toisessa kansiossa?</string>
     <string name="file_list_empty_recently_added">Äskettäin lisättyja tiedostoja ei löytynyt</string>
+    <string name="file_list_empty_text_photos_filter">Ei hakuasi vastaavia kuvia.</string>
+    <string name="file_list_empty_text_videos_filter">Ei hakuasi vastaavia videoita.</string>
     <string name="upload_list_empty_headline">Ei lähetettäviä saatavilla</string>
     <string name="file_list_folder">kansio</string>
     <string name="filedetails_select_file">Napauta tiedostoa nähdäksesi lisätietoja.</string>
@@ -110,12 +120,13 @@
     <string name="common_unknown">tuntematon</string>
     <string name="common_error_unknown">Tuntematon virhe</string>
     <string name="common_pending">Odottaa</string>
+    <string name="common_delete">Poista</string>
     <string name="about_title">Tietoja</string>
     <string name="change_password">Vaihda salasana</string>
     <string name="delete_account">Poista tili</string>
     <string name="upload_chooser_title">Lataus täältä:</string>
     <string name="uploader_info_dirname">Kansion nimi</string>
-    <string name="uploader_upload_in_progress_ticker">Lähetetään...</string>
+    <string name="uploader_upload_in_progress_ticker">Lähetetään &#8230;</string>
     <string name="uploader_upload_in_progress_content">%1$d%% Lähetetään palvelimelle %2$s</string>
     <string name="uploader_upload_succeeded_ticker">Lähetetty</string>
     <string name="uploader_upload_succeeded_content_single">%1$s lähetetty</string>
@@ -136,21 +147,25 @@
     <string name="uploads_view_upload_status_failed_permission_error">Oikeusvirhe</string>
     <string name="uploads_view_upload_status_conflict">Ristiriita</string>
     <string name="uploads_view_upload_status_unknown_fail">Tuntematon virhe</string>
+    <string name="uploads_view_upload_status_waiting_for_wifi">Odotetaan wifi-yhteyttä</string>
     <string name="uploads_view_later_waiting_to_upload">Odottaa siirtoa</string>
-    <string name="downloader_download_in_progress_ticker">Ladataan...</string>
+    <string name="downloader_download_in_progress_ticker">Ladataan &#8230;</string>
     <string name="downloader_download_in_progress_content">%1$d%% ladataan palvelimelta %2$s</string>
+    <string name="downloader_download_succeeded_ticker">Ladattu</string>
     <string name="downloader_download_succeeded_content">%1$s ladattu</string>
     <string name="downloader_download_failed_ticker">Lataus epäonnistui</string>
     <string name="downloader_not_downloaded_yet">Ei vielä ladattu</string>
     <string name="downloader_download_failed_credentials_error">Lataus epäonnistui, kirjaudu sisään uudelleen</string>
     <string name="common_choose_account">Valitse tili</string>
     <string name="sync_fail_ticker">Synkronointi epäonnistui</string>
+    <string name="sync_fail_ticker_unauthorized">Synkronointi epäonnistui. Kirjaudu sisään uudelleen</string>
     <string name="sync_conflicts_in_favourites_ticker">Ristiriitoja löytynyt</string>
     <string name="sync_conflicts_in_favourites_content">%1$d \"pidä synkronoituna\" tiedostoja ei voitu synkronoida</string>
     <string name="sync_fail_in_favourites_ticker">\"Pidä synkronoituna\" epäonnistui</string>
     <string name="sync_fail_in_favourites_content">Hakemiston %1$d tiedostoja ei voitu synkronoida (%2$d konfliktia)</string>
     <string name="sync_foreign_files_forgotten_ticker">Jotkin paikalliset tiedostot unohtuivat</string>
     <string name="sync_foreign_files_forgotten_content">%1$d / %2$s tiedostoa ei voitu kopioida</string>
+    <string name="sync_current_folder_was_removed">Kansiota %1$s ei ole enää olemassa</string>
     <string name="foreign_files_move">Siirrä kaikki</string>
     <string name="foreign_files_success">Kaikki tiedostot siirrettiin</string>
     <string name="foreign_files_fail">Joidenkin tiedostojen siirtäminen epäonnistui</string>
@@ -172,6 +187,7 @@
     <string name="media_state_loading">%1$s (ladataan)</string>
     <string name="media_err_nothing_to_play">Mediatiedostoa ei löytynyt</string>
     <string name="media_err_no_account">Tiliä ei määritetty</string>
+    <string name="media_err_not_in_owncloud">Tiedosto ei ole kelvollinen tili</string>
     <string name="media_err_unsupported">Mediakoodekki ei ole tuettu</string>
     <string name="media_rewind_description">Taaksepäin kelaus -painike</string>
     <string name="media_play_pause_description">Toisto tai keskeytys -painike</string>
@@ -201,6 +217,9 @@
 	<string name="auth_unsupported_auth_method">Palvelin ei tue tätä tunnistautumistapaa</string>
 	<string name="auth_unsupported_multiaccount">%1$s ei tue useita tilejä</string>
 	<string name="auth_can_not_auth_against_server">Tälle palvelimelle ei voi tunnistautua</string>
+    <string name="auth_account_does_not_exist">Tiliä ei ole vielä olemassa laitteella</string>
+
+
     <string name="favorite">Aseta saatavaksi offline tilassa</string>
     <string name="favorite_real">Aseta suosikiksi</string>
     <string name="unset_favorite_real">Poista suosikeista</string>
@@ -210,6 +229,8 @@
     <string name="remove_success_msg">Poistettu</string>
     <string name="remove_fail_msg">Poistamista ei voitu suorittaa loppuun asti</string>
     <string name="rename_dialog_title">Anna uusi nimi</string>
+    <string name="rename_local_fail_msg">Paikallisen kopion nimeä ei voitu muuttaa, yritä eri nimeä</string>
+    <string name="rename_server_fail_msg">Ei voitu antaa palvelimelle uutta nimeä</string>
     <string name="sync_file_nothing_to_do_msg">Tiedoston sisältö on jo synkronoitu</string>
     <string name="create_dir_fail_msg">Kansion luominen ei onnistunut</string>
     <string name="filename_forbidden_characters">Kielletyt merkit: / \\ &lt; &gt; : \" | ? *</string>
@@ -220,6 +241,9 @@
     <string name="activity_chooser_title">Lähetä linkki…</string>
     <string name="wait_for_tmp_copy_from_private_storage">Kopioidaan tiedostoa yksityisestä tallennustilasta</string>
     
+    <string name="oauth_check_onoff">Kirjaudu käyttäen OAuth 2.0:ta</string> 
+    <string name="oauth_login_connection">Yhdistetään OAuth 2.0 -palvelimeen &#8230;</string>
+        
     <string name="ssl_validator_header">Sivuston identiteetin vahvistaminen ei onnistunut</string>
     <string name="ssl_validator_reason_cert_not_trusted">- Palvelimen varmenteeseen ei luoteta</string>
     <string name="ssl_validator_reason_cert_expired">- Palvelimen varmenne on vanhentunut</string>
@@ -266,6 +290,8 @@
     <string name="preview_image_error_unknown_format">Kuvan näyttäminen ei onnistunut</string>
 
     <string name="prefs_instant_upload_path_title">Välitön lähetys kansio</string>
+    <string name="prefs_synced_folders_local_path_title">Paikallinen kansio</string>
+    <string name="prefs_synced_folders_remote_path_title">Etäkansio</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Käytä alikansioita</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Tallenna alikansioihin vuoden ja kuukauden mukaisesti.</string>
 
@@ -285,6 +311,9 @@
     <string name="clipboard_uxexpected_error">Odottamaton virhe kopioitaessa leikepöydälle</string>
     <string name="clipboard_label">Teksti kopioitu %1$s</string>
 
+    <string name="error_cant_bind_to_operations_service">Kriittinen virhe: toimenpiteiden suorittaminen ei onnistu</string>
+
+    <string name="network_error_socket_exception">Palvelimeen yhdistäessä tapahtui virhe.</string>
     <string name="forbidden_permissions_rename">nimetä tiedostoa uudelleen</string>
     <string name="forbidden_permissions_delete">poistaa tiedostoa</string>
     <string name="share_link_forbidden_permissions">jakaa tiedostoa</string>
@@ -299,6 +328,8 @@
     <string name="file_migration_updating_index">Päivitetään indeksiä&#8230;</string>
     <string name="file_migration_cleaning">Siivotaan&#8230;</string>
     <string name="file_migration_ok_finished">Valmistunut</string>
+    <string name="file_migration_failed_not_enough_space">Virhe: tallennustila ei riitä</string>
+    <string name="file_migration_failed_not_readable">Virhe: lähdetiedosto ei ole luettavissa</string>
     <string name="file_migration_override_data_folder">Korvaa</string>
     <string name="file_migration_use_data_folder">Käytä</string>
 
@@ -313,8 +344,10 @@
 	<string name="saml_authentication_wrong_pass">Väärä salasana</string>
 	<string name="actionbar_move">Siirrä</string>
     <string name="actionbar_copy">Kopioi</string>
+	<string name="file_list_empty_moving">Täällä ei ole mitään. Voit lisätä kansion.</string>
 	<string name="folder_picker_choose_button_text">Valitse</string>
 
+    <string name="move_file_not_found">Tiedoston siirtäminen ei onnistu. Varmista että tiedosto on olemassa</string>
     <string name="move_file_error">Tämän tiedoston tai kansion siirtoa yrittäessä tapahtui virhe</string>
     <string name="forbidden_permissions_move">siirtää tämä tiedosto</string>
 
@@ -399,13 +432,25 @@
     <string name="confirmation_remove_files_alert">Haluatko todella poistaa valitut?</string>
     <string name="confirmation_remove_folders_alert">Haluatko todella poistaa valitut ja niiden sisällön?</string>
     <string name="maintenance_mode">Palvelin on huoltotilassa</string>
+    <string name="lock_failed">Tiedoston lukitseminen epäonnistui</string>
+
+    <string name="uploads_view_upload_status_waiting_for_charging">Odoteatan latausta</string>
     <string name="actionbar_search">Etsi</string>
     <string name="files_drop_not_supported">Tämä on Nextcloudin ominaisuus, päivitä se.</string>
     <string name="learn_more">Opi lisää</string>
     <string name="drawer_participate">Osallitu</string>
+    <string name="participate_testing_headline">Auta testaamalla</string>
+    <string name="participate_testing_report_text">Ilmoita ongelmasta GitHubissa</string>
+    <string name="participate_testing_version_text">Oletko kiinnostunut auttamaan testaamalla seuraavaa versiota?</string>
+    <string name="participate_beta_headline">Testaa kehitysversiota</string>
     <string name="participate_release_candidate_headline">Julkaisu ehdokas</string>
+    <string name="participate_contribute_irc_text">Liity keskusteluun IRC:ssä:</string>
+    <string name="participate_contribute_translate_translate">Käännä</string>
+    <string name="participate_contribute_translate_text">sovellus</string>
     <string name="move_to">Siirrä kohteeseen&#8230;</string>
     <string name="copy_to">Kopio kohteeseen&#8230;</string>
+    <string name="choose_remote_folder">Valitse etäkansio&#8230;</string>
+    <string name="synced_folders_no_results">Mediakansioita ei löytynyt.</string>
     <plurals name="items_selected_count">
         <item quantity="one">%d valittu</item>
         <item quantity="other">%d valittu</item>
@@ -428,6 +473,7 @@
 
     <string name="welcome_feature_3_text">Pidä kuvasi tallessa</string>
 
+    <string name="whats_new_notification_title">Ilmoitustuki</string>
     <string name="whats_new_skip">Skippaa</string>
 
     <string name="fingerprint_unknown">Sormea ei tunnistettu</string>
@@ -453,11 +499,17 @@
     <string name="contacts_automatic_backup">Automaattinen varmuuskopio</string>
     <string name="contacts_last_backup">Edellinen varmuuskopio</string>
     <string name="contactlist_title">Palauta yhteystiedot</string>
+    <string name="contactlist_account_chooser_title">Valitse tuotava tili</string>
     <string name="contacts_preference_choose_date">Valitse päiväys</string>
     <string name="contacts_preference_backup_never">ei koskaan</string>
     <string name="contacts_preferences_no_file_found">Tiedostoa ei löytynyt</string>
+    <!-- Notifications -->
+    <string name="new_notification_received">Uusi ilmoitus vastaanotettu</string>
     <string name="drawer_logout">Kirjaudu ulos</string>
     <string name="privacy">Yksityisyys</string>
     <string name="file_not_found">Tiedostoa ei löytynyt!</string>
 
-    </resources>
+    <string name="test_server_button">Testaa palvelinyhteys</string>
+    <string name="whats_new_fingerprint_title">Avaa lukitus sormenjäljellä</string>
+    <string name="whats_new_fingerprint_content">Käytä sormenjälkeäsi sovelluksen lukituksen avaamiseen</string>
+</resources>
