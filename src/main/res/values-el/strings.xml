@@ -21,7 +21,6 @@
     <string name="menu_item_sort_by_size_smallest_first">Μικρότερο πρώτα</string>
 
     <string name="drawer_item_all_files">Όλα τα αρχεία</string>
-    <string name="drawer_item_files">Αρχεία</string>
     <string name="drawer_item_home">Αρχική</string>
     <string name="drawer_item_favorites">Αγαπημένα</string>
     <string name="drawer_item_photos">Φωτογραφίες</string>
@@ -61,6 +60,7 @@
     <string name="recommend_urls">%1$s ή %2$s</string>
 
     <string name="auth_check_server">Έλεγχος διακομιστή</string>
+    <string name="auth_host_url">Διεύθυνση διακομιστή https://&#8230;</string>
     <string name="auth_username">Όνομα χρήστη</string>
     <string name="auth_password">Συνθηματικό</string>
     <string name="auth_register">Δεν έχετε ακόμα διακομιστή;\nΚάντε κλικ εδώ για να πάρετε έναν από ένα πάροχο</string>
@@ -73,7 +73,6 @@
     <string name="uploader_wrn_no_account_setup_btn_text">Ρύθμιση</string>
     <string name="uploader_wrn_no_account_quit_btn_text">Έξοδος</string>
     <string name="uploader_error_title_no_file_to_upload">Κανένα αρχείο για μεταφόρτωση</string>
-    <string name="uploader_error_message_received_piece_of_text">Ο %1$s δεν μπορεί να μεταφορτώσει ένα κομμάτι κειμένου ως αρχείο.</string>
     <string name="uploader_error_message_no_file_to_upload">Τα ληφθέντα δεδομένα δεν περιλαμβάνουν έγκυρο αρχείο.</string>
     <string name="uploader_error_title_file_cannot_be_uploaded">Το αρχείο δεν μπορεί να μεταφορτωθεί</string>
     <string name="uploader_error_message_read_permission_not_granted">Ο %1$s δεν επιτρέπεται να αναγνώσει ένα ληφθέν αρχείο</string>
@@ -86,7 +85,6 @@
     <string name="file_list_seconds_ago">δευτερόλεπτα πριν</string>
     <string name="file_list_empty_headline">Δεν υπάρχουν αρχεία</string>
     <string name="file_list_empty">Μεταφόρτωση περιεχομένου ή συγχρονισμός με τις συσκευές σας.</string>
-    <string name="file_list_empty_favorites">Σημειώστε ως αγαπημένα ορισμένα αρχεία ή συγχρονίστε τα με τις συσκευές σας.</string>
     <string name="file_list_empty_favorites_filter_list">Τα αρχεία ή οι φάκελοι που σημειώσατε ως αγαπημένα θα εμφανιστούν εδώ</string>
     <string name="file_list_empty_favorites_filter">Δεν βρέθηκαν αρχεία σημειωμένα ως αγαπημένα για το ερώτημά σας.</string>
     <string name="file_list_loading">Φόρτωση&#8230;</string>
@@ -112,9 +110,6 @@
     <string name="upload_list_empty_text">Μεταφορτώστε περιεχόμενο ή ενεργοποιήστε την άμεση μεταφόρτωση.</string>
     <string name="upload_list_empty_text_auto_upload">Μεταφορτώστε περιεχόμενο ή ενεργοποιήστε την αυτόματη μεταφόρτωση.</string>
     <string name="file_list_folder">φάκελος</string>
-    <string name="file_list_folders">φάκελοι</string>
-    <string name="file_list_file">αρχείο</string>
-    <string name="file_list_files">αρχεία</string>
     <string name="filedetails_select_file">Αγγίξτε κάποιο αρχείο για να προβάλετε περισσότερες πληροφορίες.</string>
     <string name="filedetails_size">Μέγεθος:</string>
     <string name="filedetails_type">Τύπος:</string>
@@ -134,7 +129,6 @@
     <string name="common_cancel">Ακύρωση</string>
     <string name="common_back">Επιστροφή</string>
     <string name="common_save">Αποθήκευση</string>
-    <string name="common_save_exit">Αποθήκευση &amp; έξοδος</string>
     <string name="common_error">Σφάλμα</string>
     <string name="common_loading">Φόρτωση &#8230;</string>
     <string name="common_unknown">άγνωστο</string>
@@ -144,7 +138,6 @@
     <string name="change_password">Αλλαγή συνθημτικού</string>
     <string name="delete_account">Αφαίρεση λογαριασμού</string>
     <string name="delete_account_warning">Διαγραφή λογαριασμού %s με όλα τα τοπικά αρχεία?\n\n\Διαγράφοντας τα δεν θα υπάρξει επαναφορά.</string>
-    <string name="create_account">Δημιουργία λογαριασμού</string>
     <string name="upload_chooser_title">Μεταφόρτωση από &#8230;</string>
     <string name="uploader_info_dirname">Όνομα φακέλου</string>
     <string name="uploader_upload_in_progress_ticker">Μεταφόρτωση &#8230;</string>
@@ -256,6 +249,7 @@
 	<string name="auth_expired_oauth_token_toast">Η πιστοποιίησή σας έληξε. Παρακαλούμε εξουσιοδοτήστε ξανά</string>
 	<string name="auth_expired_basic_auth_toast">Παρακαλούμε εισάγετε το τρέχον συνθηματικό</string>
 	<string name="auth_expired_saml_sso_token_toast">Η συνεδρία σας έληξε. Παρακαλούμε συνδεθείτε ξανά</string>
+	<string name="auth_connecting_auth_server">Σύνδεση με το διακομιστή πιστοποίησης&#8230;</string>
 	<string name="auth_unsupported_auth_method">Ο διακομιστής δεν υποστηρίζει αυτή τη μέθοδο πιστοποίησης</string>
 	<string name="auth_unsupported_multiaccount">Ο %1$s  δεν υποστηρίζει πολλαπλούς λογαριασμούς</string>
 	<string name="auth_fail_get_user_name">Ο διακομιστής σας δεν επιστρέφει το σωστό αναγνωριστικό χρήστη, παρακαλούμε επικοινωνήστε τον διαχειριστή</string>
@@ -283,6 +277,7 @@
     <string name="filename_forbidden_characters">Απαγορευμένοι χαρακτήρες: / \\ &lt; &gt; : \" | ? *</string>
     <string name="filename_forbidden_charaters_from_server">Το όνομα αρχείου περιέχει έναν τουλάχιστον μη έγκυρο χαρακτήρα</string>
     <string name="filename_empty">Το όνομα αρχείου δεν μπορεί να είναι κενό</string>
+    <string name="wait_a_moment">Παρακαλούμε περιμένετε&#8230;</string>
     <string name="wait_checking_credentials">Γίνεται έλεγχος αποθηκευμένων διαπιστευτηρίων</string>
     <string name="filedisplay_unexpected_bad_get_content">Μη αναμενόμενο πρόβλημα, παρακαλώ ελέγξτε το αρχείο από διαφορετική εφαρμογή</string>
     <string name="filedisplay_no_file_selected">Δεν επιλέχθηκε αρχείο</string>
@@ -290,6 +285,8 @@
     <string name="wait_for_tmp_copy_from_private_storage">Γίνεται αντιγραφή αρχείου από ιδιωτικό αποθηκευτικό χώρο</string>
     
     <string name="oauth_check_onoff">Σύνδεση με OAuth 2.0</string> 
+    <string name="oauth_login_connection">Γίνεται σύνδεση στο διακομιστή OAuth 2.0&#8230;</string>
+        
     <string name="ssl_validator_header">Η ταυτότητα της σελίδας δεν μπορεί να επληθευτεί</string>
     <string name="ssl_validator_reason_cert_not_trusted">- Το πιστοποιητικό του διακομιστή δεν είναι έμπιστο</string>
     <string name="ssl_validator_reason_cert_expired">- Το πιστοποιητικό του διακομιστή έχει λήξει</string>
@@ -326,7 +323,6 @@
     <string name="placeholder_media_time">12:23:45</string>
 
     <string name="auto_upload_on_wifi">Μεταφόρτωση μόνο μέσω wifi</string>
-    <string name="instant_upload_on_wifi">Μεταφόρτωση φωτογραφιών μόνο μέσω wifi</string>
     <string name="instant_video_upload_on_wifi">Μεταφόρτωση βίντεο μόνο μέσω wifi</string>
     <string name="instant_video_upload_on_charging">Μεταφόρτωση μόνο κατά τη διάρκεια φόρτισης</string>
     <string name="instant_upload_on_charging">Μεταφόρτωση μόνο κατά τη διάρκεια φόρτισης</string>
@@ -407,7 +403,6 @@
     <string name="file_migration_source_not_readable_title">Ο πηγαίος φάκελος δεν ειναι αναγνώσιμος!</string>
     <string name="file_migration_source_not_readable">Θέλετε ακόμη να αλλάξετε το μονοπάτι αποθήκευσης σε %1$s;\n\nΣημείωση: όλα τα δεδομένα θα πρέπει να κατεβαστούν ξανά. </string>
 
-    <string name="prefs_category_accounts">Λογαριασμοί</string>
     <string name="prefs_add_account">Προσθήκη λογαριασμού</string>
     <string name="drawer_manage_accounts">Διαχείριση λογαριασμών</string>
     <string name="auth_redirect_non_secure_connection_title">Η ασφαλής σύνδεση ανακατευθύνεται μέσω μιας μη ασφαλούς διαδρομής.</string>
@@ -575,7 +570,7 @@
     <string name="storage_description_unknown">Άγνωστο</string>
 
     <!-- What's new feature and texts to show -->
-    <string name="whats_new_title">Τι νέο υπάρχει στο Nextcloud</string>
+    <string name="whats_new_title">Τι νέο υπάρχει στο %1$s</string>
 
     <!-- Welcome to Nc intro features -->
     <string name="welcome_feature_1_title">Μια ασφαλής τοποθεσία για όλα σας τα δεδομένα</string>
@@ -584,7 +579,6 @@
     <string name="welcome_feature_2_title">Πολλαπλός λογαριασμός</string>
     <string name="welcome_feature_2_text">Σύνδεση με όλα τα clouds σας</string>
 
-    <string name="welcome_feature_3_title">Άμεση μεταφόρτωση</string>
     <string name="welcome_feature_3_text">Διατήρηση των φωτογραφιών σας με ασφάλεια</string>
 
     <string name="whats_new_skip">Παράλειψη</string>

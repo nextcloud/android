@@ -21,7 +21,6 @@
     <string name="menu_item_sort_by_size_smallest_first">Mindste først</string>
 
     <string name="drawer_item_all_files">Alle filer</string>
-    <string name="drawer_item_files">Filer</string>
     <string name="drawer_item_home">Hjem</string>
     <string name="drawer_item_favorites">Favoritter</string>
     <string name="drawer_item_photos">Fotos</string>
@@ -68,7 +67,6 @@
     <string name="uploader_wrn_no_account_setup_btn_text">Opsætning</string>
     <string name="uploader_wrn_no_account_quit_btn_text">Afslut</string>
     <string name="uploader_error_title_no_file_to_upload">Ingen filer til upload</string>
-    <string name="uploader_error_message_received_piece_of_text">%1$s kan ikke uploade et tekststykke som en fil.</string>
     <string name="uploader_error_message_no_file_to_upload">Modtagne data indeholdt ikke en gyldig fil.</string>
     <string name="uploader_error_message_read_permission_not_granted">%1$s har ikke tilladelse til at læse en modtaget fil</string>
     <string name="uploader_upload_files_behaviour">Upload muligheder</string>
@@ -76,7 +74,7 @@
     <string name="uploader_upload_files_behaviour_only_upload">Behold filen i source-mappen</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Slet filen fra source-mappen</string>
     <string name="file_list_seconds_ago">sekunder siden</string>
-    <string name="file_list_loading">Indlæser...</string>
+    <string name="file_list_loading">Indlæser&#8230;</string>
     <string name="local_file_list_empty">Der er ingen filer i denne mappe.</string>
     <string name="file_list_empty_headline_search">Intet resultat for denne mappe</string>
     <string name="file_list_empty_headline_server_search">Ingen resultater</string>
@@ -86,9 +84,6 @@
     <string name="file_list_empty_headline_server_search_photos">Ingen fotos</string>
     <string name="upload_list_empty_headline">Ingen uploads tilgængelige</string>
     <string name="file_list_folder">mappe</string>
-    <string name="file_list_folders">mapper</string>
-    <string name="file_list_file">fil</string>
-    <string name="file_list_files">fil</string>
     <string name="filedetails_select_file">Tryk på en fil for at vise yderligere information.</string>
     <string name="filedetails_size">Størelse:</string>
     <string name="filedetails_type">Type:</string>
@@ -105,19 +100,17 @@
     <string name="common_cancel">Annuller</string>
     <string name="common_back">Tilbage</string>
     <string name="common_save">Gem</string>
-    <string name="common_save_exit">Gem og luk</string>
     <string name="common_error">Fejl</string>
-    <string name="common_loading">Indlæser...</string>
+    <string name="common_loading">Indlæser &#8230;</string>
     <string name="common_unknown">ukendt</string>
     <string name="common_error_unknown">Ukendt fejl</string>
     <string name="common_pending">afventende</string>
     <string name="about_title">Om</string>
     <string name="change_password">Skift kodeord</string>
     <string name="delete_account">Fjern konto</string>
-    <string name="create_account">Opret konto</string>
-    <string name="upload_chooser_title">Upload fra ...</string>
+    <string name="upload_chooser_title">Upload fra &#8230;</string>
     <string name="uploader_info_dirname">Mappenavn</string>
-    <string name="uploader_upload_in_progress_ticker">Uploader ...</string>
+    <string name="uploader_upload_in_progress_ticker">Uploader &#8230;</string>
     <string name="uploader_upload_in_progress_content">%1$d%% Uploader %2$s</string>
     <string name="uploader_upload_succeeded_content_single">%1$s uploaded</string>
     <string name="uploader_upload_failed_ticker">Upload fejlede</string>
@@ -138,7 +131,7 @@
     <string name="uploads_view_upload_status_conflict">Konflikt</string>
     <string name="uploads_view_upload_status_unknown_fail">Ukendt fejl</string>
     <string name="uploads_view_later_waiting_to_upload">Venter med upload</string>
-    <string name="downloader_download_in_progress_ticker">Downloader ...</string>
+    <string name="downloader_download_in_progress_ticker">Downloader &#8230;</string>
     <string name="downloader_download_in_progress_content">%1$d%% Downloader %2$s</string>
     <string name="downloader_download_succeeded_content">%1$s downloaded</string>
     <string name="downloader_download_failed_ticker">Download fejlede</string>
@@ -292,7 +285,6 @@
     <string name="file_migration_updating_index">Opdaterer index&#8230;</string>
     <string name="file_migration_cleaning">Oprydning&#8230;</string>
     <string name="file_migration_ok_finished">Færdiggjort</string>
-    <string name="prefs_category_accounts">Konti</string>
     <string name="prefs_add_account">Tilføj konto</string>
     <string name="drawer_manage_accounts">Administrer konti</string>
     <string name="actionbar_logger">Logge</string>
@@ -386,9 +378,6 @@
     <string name="storage_description_default">Standard</string>
     <string name="storage_description_sd_no">SD-kort %1$d</string>
     <string name="storage_description_unknown">Ukendt</string>
-
-    <!-- What's new feature and texts to show -->
-    <string name="whats_new_title">Hvad er nyt i Nextcloud</string>
 
     <!-- Welcome to Nc intro features -->
     <string name="welcome_feature_1_title">Et sikket hjem til alt dit data</string>

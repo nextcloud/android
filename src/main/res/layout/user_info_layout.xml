@@ -75,7 +75,8 @@
                                 android:layout_marginLeft="@dimen/standard_icon_list_horizontal_margin"
                                 android:layout_marginRight="@dimen/standard_icon_list_horizontal_margin"
                                 android:layout_marginTop="@dimen/standard_margin"
-                                android:src="@drawable/ic_phone"/>
+                                android:src="@drawable/ic_phone"
+                                android:contentDescription="@string/user_info_phone"/>
 
                             <TextView
                                 android:id="@+id/phone_number"
@@ -111,7 +112,8 @@
                                 android:layout_marginLeft="@dimen/standard_icon_list_horizontal_margin"
                                 android:layout_marginRight="@dimen/standard_icon_list_horizontal_margin"
                                 android:layout_marginTop="@dimen/standard_margin"
-                                android:src="@drawable/ic_email"/>
+                                android:src="@drawable/ic_email"
+                                android:contentDescription="@string/user_info_email"/>
 
                             <TextView
                                 android:id="@+id/email_address"
@@ -147,7 +149,8 @@
                                 android:layout_marginLeft="@dimen/standard_icon_list_horizontal_margin"
                                 android:layout_marginRight="@dimen/standard_icon_list_horizontal_margin"
                                 android:layout_marginTop="@dimen/standard_margin"
-                                android:src="@drawable/ic_map_marker"/>
+                                android:src="@drawable/ic_map_marker"
+                                android:contentDescription="@string/user_info_address"/>
 
                             <TextView
                                 android:id="@+id/address"
@@ -183,7 +186,8 @@
                                 android:layout_marginBottom="@dimen/standard_margin"
                                 android:layout_marginLeft="@dimen/standard_icon_list_horizontal_margin"
                                 android:layout_marginRight="@dimen/standard_icon_list_horizontal_margin"
-                                android:layout_marginTop="@dimen/standard_margin"/>
+                                android:layout_marginTop="@dimen/standard_margin"
+                                android:contentDescription="@string/user_info_website"/>
 
                             <TextView
                                 android:id="@+id/website_address"
@@ -220,7 +224,8 @@
                                 android:layout_marginLeft="@dimen/standard_icon_list_horizontal_margin"
                                 android:layout_marginRight="@dimen/standard_icon_list_horizontal_margin"
                                 android:layout_marginTop="@dimen/standard_margin"
-                                android:src="@drawable/ic_twitter"/>
+                                android:src="@drawable/ic_twitter"
+                                android:contentDescription="@string/user_info_twitter"/>
 
                             <TextView
                                 android:id="@+id/twitter_handle"

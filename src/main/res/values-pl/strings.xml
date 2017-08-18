@@ -21,7 +21,6 @@
     <string name="menu_item_sort_by_size_smallest_first">Najmniejsze najpierw</string>
 
     <string name="drawer_item_all_files">Wszystkie pliki</string>
-    <string name="drawer_item_files">Pliki</string>
     <string name="drawer_item_home">Start</string>
     <string name="drawer_item_favorites">Ulubione</string>
     <string name="drawer_item_photos">Zdjęcia</string>
@@ -58,6 +57,7 @@
 	<string name="recommend_subject">Wypróbuj %1$s na swoim smartfonie!</string>
 	<string name="recommend_text">Zapraszam do użycia %1$s na swoim smartfonie!\nŚciągnij tutaj: %2$s</string>
     <string name="auth_check_server">Sprawdź serwer</string>
+    <string name="auth_host_url">Adres serwera https://&#8230;</string>
     <string name="auth_username">Nazwa użytkownika</string>
     <string name="auth_password">Hasło</string>
     <string name="auth_register">Nie masz jeszcze serwera?\nKliknij tu i zdobądź go od dostawcy</string>
@@ -70,7 +70,6 @@
     <string name="uploader_wrn_no_account_setup_btn_text">Ustawienia</string>
     <string name="uploader_wrn_no_account_quit_btn_text">Wyjdź</string>
     <string name="uploader_error_title_no_file_to_upload">Brak plików do przesłania</string>
-    <string name="uploader_error_message_received_piece_of_text">%1$s nie można przesłać części tekstu jako pliku.</string>
     <string name="uploader_error_message_no_file_to_upload">Odebrane dane nie zawierają prawidłowego pliku.</string>
     <string name="uploader_error_title_file_cannot_be_uploaded">Ten plik nie może być wysłany</string>
     <string name="uploader_error_message_read_permission_not_granted">%1$s nie jest autoryzowany do odczytu odebranego pliku</string>
@@ -83,7 +82,6 @@
     <string name="file_list_seconds_ago">sekund temu</string>
     <string name="file_list_empty_headline">Brak plików</string>
     <string name="file_list_empty">Wyślij zawartość lub synchronizuj ją ze swoimi urządzeniami</string>
-    <string name="file_list_empty_favorites">Dodaj pliki do ulubionych lub synchronizuj je ze swoimi urządzeniami</string>
     <string name="file_list_empty_favorites_filter_list">Tutaj znajdziesz pliki i foldery oznaczone jako ulubione</string>
     <string name="file_list_empty_favorites_filter">Twoje wyszukiwanie nie zwróciło żadnych ulubionych plików</string>
     <string name="file_list_loading">Wczytywanie&#8230;</string>
@@ -108,9 +106,6 @@
     <string name="upload_list_empty_text">Wyślij zawartość lub włącz wysyłanie natychmiastowe.</string>
     <string name="upload_list_empty_text_auto_upload">Wyślij zawartość lub włącz wysyłanie automatyczne.</string>
     <string name="file_list_folder">folder</string>
-    <string name="file_list_folders">foldery</string>
-    <string name="file_list_file">plik</string>
-    <string name="file_list_files">pliki</string>
     <string name="filedetails_select_file">Dotknij plik aby wyświetlić dodatkowe informacje</string>
     <string name="filedetails_size">Rozmiar:</string>
     <string name="filedetails_type">Typ:</string>
@@ -130,7 +125,6 @@
     <string name="common_cancel">Anuluj</string>
     <string name="common_back">Wróć</string>
     <string name="common_save">Zapisz</string>
-    <string name="common_save_exit">Zapisz i wyjdź</string>
     <string name="common_error">Błąd</string>
     <string name="common_loading">Wczytuję &#8230;</string>
     <string name="common_unknown">nieznane</string>
@@ -139,7 +133,6 @@
     <string name="about_title">O aplikacji</string>
     <string name="change_password">Zmień hasło</string>
     <string name="delete_account">Usuń konto</string>
-    <string name="create_account">Utwórz konto</string>
     <string name="upload_chooser_title">Wyślij plik z &#8230;</string>
     <string name="uploader_info_dirname">Nazwa folderu</string>
     <string name="uploader_upload_in_progress_ticker">Wysyłam &#8230;</string>
@@ -251,6 +244,7 @@
 	<string name="auth_expired_oauth_token_toast">Twoja sesja wygasła. Proszę zaloguj się ponownie</string>
 	<string name="auth_expired_basic_auth_toast">Podaj aktualne hasło</string>
 	<string name="auth_expired_saml_sso_token_toast">Twoja sesja wygasła. Proszę zaloguj się ponownie</string>
+	<string name="auth_connecting_auth_server">Łączenie z serwerem uwierzytelniania&#8230;</string>
 	<string name="auth_unsupported_auth_method">Serwer nie obsługuje tej metody autoryzacji</string>
 	<string name="auth_unsupported_multiaccount">%1$s nie wspiera wielu kont</string>
 	<string name="auth_fail_get_user_name">Twój serwer nie zwraca poprawnego identyfikatora użytkownika. Proszę skontaktuj się z administratorem.</string>
@@ -278,6 +272,7 @@
     <string name="filename_forbidden_characters">Znaki zabronione: / \\ &lt; &gt; : \" | ? *</string>
     <string name="filename_forbidden_charaters_from_server">Nazwa pliku zawiera co najmniej jeden nieprawidłowy znak</string>
     <string name="filename_empty">Nazwa pliku nie może być pusta.</string>
+    <string name="wait_a_moment">Proszę czekać&#8230;</string>
     <string name="wait_checking_credentials">Sprawdzanie danych</string>
     <string name="filedisplay_unexpected_bad_get_content">Nieoczekiwany błąd, prosze wybrać plik z innej aplikacji</string>
     <string name="filedisplay_no_file_selected">Nie wybrano żadnego pliku</string>
@@ -285,6 +280,8 @@
     <string name="wait_for_tmp_copy_from_private_storage">Kopiowanie pliku z prywatnego zasobu</string>
     
     <string name="oauth_check_onoff">Loguj przez OAuth 2.0</string> 
+    <string name="oauth_login_connection">Łączenie z serwerem OAuth 2.0&#8230;</string>
+        
     <string name="ssl_validator_header">Nie można zweryfikować tożsamości strony</string>
     <string name="ssl_validator_reason_cert_not_trusted">- Certyfikat serwera jest niezaufany</string>
     <string name="ssl_validator_reason_cert_expired">- Certyfikat serwera wygasł</string>
@@ -321,7 +318,6 @@
     <string name="placeholder_media_time">12:23:45</string>
 
     <string name="auto_upload_on_wifi">Wysyłaj tylko przez Wi-Fi</string>
-    <string name="instant_upload_on_wifi">Wysyłaj zdjęcia tylko przez Wi-Fi</string>
     <string name="instant_video_upload_on_wifi">Wysyłaj pliki wideo tylko przez Wi-Fi</string>
     <string name="instant_video_upload_on_charging">Wysyłaj tylko podczas ładowania</string>
     <string name="instant_upload_on_charging">Wysyłaj tylko podczas ładowania</string>
@@ -395,7 +391,6 @@
     <string name="file_migration_source_not_readable_title">Nie można odczytać katalogu źródłowego!</string>
     <string name="file_migration_source_not_readable">Czy nadal chcesz zmienić ścieżkę przechowywania na %1$s?\n\nUwaga: Wszystkie dane będą musiały zostać pobrane ponownie.</string>
 
-    <string name="prefs_category_accounts">Konta</string>
     <string name="prefs_add_account">Dodaj konto</string>
     <string name="drawer_manage_accounts">Zarządzaj kontami</string>
     <string name="auth_redirect_non_secure_connection_title">Bezpieczne połączenie jest przekierowywane przez niezabezpieczone trasy.</string>
@@ -551,7 +546,7 @@
     <string name="storage_description_unknown">Nieznany</string>
 
     <!-- What's new feature and texts to show -->
-    <string name="whats_new_title">Co nowego w Nextcloud</string>
+    <string name="whats_new_title">Co nowego w %1$s</string>
 
     <!-- Welcome to Nc intro features -->
     <string name="welcome_feature_1_title">Bezpieczny dom dla wszystkich danych</string>
@@ -560,7 +555,6 @@
     <string name="welcome_feature_2_title">Wiele kont</string>
     <string name="welcome_feature_2_text">Podłącz się do wszystkich swoich chmur</string>
 
-    <string name="welcome_feature_3_title">Natychmiastowe wysyłanie</string>
     <string name="welcome_feature_3_text">Twoje zdjęcia będą bezpieczne</string>
 
     <string name="whats_new_skip">Pomiń</string>

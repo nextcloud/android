@@ -21,7 +21,6 @@
     <string name="menu_item_sort_by_size_smallest_first">El más pequeño primero</string>
 
     <string name="drawer_item_all_files">Todos los archivos</string>
-    <string name="drawer_item_files">Archivos</string>
     <string name="drawer_item_home">Inicio</string>
     <string name="drawer_item_favorites">Favoritos</string>
     <string name="drawer_item_photos">Fotos</string>
@@ -43,6 +42,7 @@
     <string name="prefs_passcode">Bloqueo con contraseña</string>
     <string name="prefs_fingerprint">Bloqueo con huella dactilar</string>
     <string name="prefs_fingerprint_notsetup">No se han configurado huellas dactilares</string>
+    <string name="prefs_expert_mode">Modo experto</string>
     <string name="prefs_show_hidden_files">Mostrar archivos ocultos</string>
     <string name="prefs_log_delete_history_button">Eliminar historial</string>
     <string name="prefs_calendar_contacts">Sincronizar calendario y contactos</string>
@@ -68,13 +68,13 @@
     <string name="sync_string_files">Archivos</string>
     <string name="setup_btn_connect">Conectar</string>
     <string name="uploader_btn_upload_text">Subir</string>
+    <string name="uploader_btn_alternative_text">Selecciona</string>
     <string name="uploader_top_message">Elegir carpeta de subida</string>
     <string name="uploader_wrn_no_account_title">No se encontró ninguna cuenta</string>
     <string name="uploader_wrn_no_account_text">No hay cuentas %1$s en tu dispositivo. Por favor, añade primero una cuenta.</string>
     <string name="uploader_wrn_no_account_setup_btn_text">Configuración</string>
     <string name="uploader_wrn_no_account_quit_btn_text">Salir</string>
     <string name="uploader_error_title_no_file_to_upload">Ningún archivo para subir</string>
-    <string name="uploader_error_message_received_piece_of_text">%1$s  no puede subir un fragmento de  texto como si fuera un archivo.</string>
     <string name="uploader_error_message_no_file_to_upload">Los datos recibidos no incluyen un archivo válido.</string>
     <string name="uploader_error_title_file_cannot_be_uploaded">No se puede subir este archivo</string>
     <string name="uploader_error_message_read_permission_not_granted">%1$s no está autorizado a leer un archivo recibido</string>
@@ -86,13 +86,14 @@
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Borrar archivo de la carpeta original</string>
     <string name="file_list_seconds_ago">hace segundos</string>
     <string name="file_list_empty_headline">No hay archivos aquí</string>
+    <string name="folder_list_empty_headline">No hay carpetas aquí</string>
     <string name="file_list_empty">Sube algún contenido o sincroniza con tus dispositivos.</string>
-    <string name="file_list_empty_favorites">Marca como favoritos algunos archivos o sincronízalos con tus dispositivos.</string>
     <string name="file_list_empty_favorites_filter_list">Los archivos y carpetas que marques como favoritos aparecerán aquí</string>
     <string name="file_list_empty_favorites_filter">Tu búsqueda no encontró ningún archivo favorito.</string>
     <string name="file_list_loading">Cargando&#8230;</string>
     <string name="file_list_no_app_for_file_type">No hay una app configurada para manejar este tipo de archivos.</string>
     <string name="local_file_list_empty">No hay archivos en esta carpeta.</string>
+    <string name="local_folder_list_empty">No hay mas carpetas</string>
     <string name="file_list_empty_headline_search">No hay resultados en esta carpeta</string>
     <string name="file_list_empty_headline_server_search">No hay resultados</string>
     <string name="file_list_empty_favorite_headline">Aún no hay nada marcado como favorito</string>
@@ -113,9 +114,6 @@
     <string name="upload_list_empty_text">Sube algún contenido o activa la subida instantánea.</string>
     <string name="upload_list_empty_text_auto_upload">Sube algún contenido o active la subida automática.</string>
     <string name="file_list_folder">carpeta</string>
-    <string name="file_list_folders">carpetas</string>
-    <string name="file_list_file">archivo</string>
-    <string name="file_list_files">archivos</string>
     <string name="filedetails_select_file">Pulsa sobre un archivo para mostrar información adicional.</string>
     <string name="filedetails_size">Tamaño:</string>
     <string name="filedetails_type">Tipo:</string>
@@ -135,17 +133,18 @@
     <string name="common_cancel">Cancelar</string>
     <string name="common_back">Volver</string>
     <string name="common_save">Guardar</string>
-    <string name="common_save_exit">Guardar y salir</string>
     <string name="common_error">Error</string>
     <string name="common_loading">Cargando &#8230;</string>
     <string name="common_unknown">desconocido</string>
     <string name="common_error_unknown">Error desconocido</string>
     <string name="common_pending">Pendiente</string>
+    <string name="common_delete">Borrar</string>
     <string name="about_title">Acerca de</string>
     <string name="change_password">Cambiar contraseña</string>
     <string name="delete_account">Eliminar cuenta</string>
     <string name="delete_account_warning">¿Borrar cuenta %s con todos sus archivos locales?\n\nEl borrado no se puede deshacer.</string>
-    <string name="create_account">Crear cuenta</string>
+    <string name="avatar">Avatar</string>
+    <string name="active_user">Usuario activo</string>
     <string name="upload_chooser_title">Subir desde&#8230;</string>
     <string name="uploader_info_dirname">Nombre de la carpeta</string>
     <string name="uploader_upload_in_progress_ticker">Subiendo &#8230;</string>
@@ -157,6 +156,7 @@
     <string name="uploader_upload_failed_credentials_error">Subida fallida, tienes que volver a iniciar sesión</string>
     <string name="uploads_view_title">Subidas</string>
     <string name="uploads_view_group_current_uploads">Actual</string>
+    <string name="uploads_view_group_failed_uploads">Fallo / reinicio pendiente</string>
     <string name="uploads_view_group_finished_uploads">Subidos</string>
     <string name="uploads_view_upload_status_succeeded">Completado</string>
     <string name="uploads_view_upload_status_cancelled">Cancelado</string>
@@ -331,7 +331,6 @@
     <string name="placeholder_media_time">12:23:45</string>
 
     <string name="auto_upload_on_wifi">Subir solamente por Wi-Fi</string>
-    <string name="instant_upload_on_wifi">Subir fotos solamente por Wi-Fi</string>
     <string name="instant_video_upload_on_wifi">Subir vídeos solamente por Wi-Fi</string>
     <string name="instant_video_upload_on_charging">Subir solamente al cargar</string>
     <string name="instant_upload_on_charging">Subir solamente al cargar</string>
@@ -349,6 +348,8 @@
 
     <string name="error__upload__local_file_not_copied">%1$s no se ha podido copiar a la carpeta local %2$s</string>
     <string name="prefs_instant_upload_path_title">Carpeta para subida instantánea</string>
+    <string name="prefs_synced_folders_local_path_title">Carpeta local</string>
+    <string name="prefs_synced_folders_remote_path_title">Carpeta remota</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Usar subcarpetas</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Almacenar en subcarpetas basadas en año y mes.</string>
 
@@ -412,7 +413,6 @@
     <string name="file_migration_source_not_readable_title">¡No se puede leer el directorio de origen!</string>
     <string name="file_migration_source_not_readable">¿Aún quieres cambiar la ruta de almacenamiento a |%1$s?\n\nNota: habrá que descargar de nuevo todos los datos.</string>
 
-    <string name="prefs_category_accounts">Cuentas</string>
     <string name="prefs_add_account">Agregar cuenta</string>
     <string name="drawer_manage_accounts">Administrar cuentas</string>
     <string name="auth_redirect_non_secure_connection_title">La conexión segura está siendo redirigida a través de una ruta insegura.</string>
@@ -520,8 +520,12 @@
     <string name="edit_share_unshare">Dejar de compatir</string>
     <string name="edit_share_done">hecho</string>
 
+    <string name="action_retry_uploads">Reintentar cargas fallidas</string>
+    <string name="action_clear_failed_uploads">Borrar cargas fallidas</string>
     <string name="action_clear_successful_uploads">Limpiar subidas exitosas</string>
     <string name="action_clear_finished_uploads">Limpiar subidas finalizadas</string>
+    <string name="action_force_rescan">Forzar reescaneo</string>
+
     <string name="action_switch_grid_view">Vista en cuadrícula</string>
     <string name="action_switch_list_view">Vista de lista</string>
 
@@ -535,10 +539,13 @@
     <string name="confirmation_remove_files_alert">¿Está seguro de que quiere eliminar los elementos seleccionados?</string>
     <string name="confirmation_remove_folders_alert">¿Está seguro de que quiere eliminar los elementos seleccionados y sus contenidos?</string>
     <string name="maintenance_mode">Servidor en modo mantenimiento</string>
+    <string name="lock_failed">Fallo el bloquear el archivo</string>
+
     <string name="uploads_view_upload_status_waiting_for_charging">Esperando la carga del dispositivo</string>
     <string name="actionbar_search">Buscar</string>
     <string name="files_drop_not_supported">Esta es una característica de Nextcloud. Por favor, actualice.</string>
     <string name="learn_more">Aprender más</string>
+    <string name="drawer_synced_folders">Carga automática</string>
     <string name="drawer_participate">Participar</string>
     <string name="participate_testing_headline">Ayúdanos a realizar pruebas</string>
     <string name="participate_testing_bug_text">¿Encontraste un error? ¿Algo va mal?</string>
@@ -555,8 +562,20 @@
     <string name="participate_contribute_translate_translate">Traduce</string>
     <string name="participate_contribute_translate_text">la app</string>
     <string name="participate_contribute_github_text">Revisa, corrige y escribe código. Ve %1$s para más detalles</string>
+    <string name="participate_rc_play_store">Obtener candidato a liberar desde la tienda de Google Play</string>
+    <string name="participate_rc_fdroid">Obtener candidato a liberar desde la tienda f-droid app</string>
+    <string name="participate_dev_fdroid">Obtener versión de desarrollo vía la tienda f-droid app</string>
+    <string name="participate_dev_direct_download">Obtener versión de desarrollo a travez de una descarga directa</string>
     <string name="move_to">Mover a&#8230;</string>
     <string name="copy_to">Copiar a&#8230;</string>
+    <string name="choose_remote_folder">Seleccione carpeta remota &#8230;</string>
+    <string name="choose_local_folder">Seleccione carpeta local&#8230;</string>
+    <string name="synced_folders_loading_folders">Cargando carpetas &#8230;</string>
+    <string name="synced_folders_no_results">Ningún archivo multimedia encontrado.</string>
+    <string name="synced_folders_preferences">Preferencias de subida automática</string>
+    <string name="synced_folders_settings">Ajustes</string>
+    <string name="synced_folders_new_info">Carga instantánea ha sido modificado por completo. Re-configura tu carga automática desde el menú principal. \n\nDisfruta la nueva y extendida carga automática.</string>
+    <string name="synced_folders_preferences_folder_path">Para %1$s</string>
     <plurals name="items_selected_count">
         <item quantity="one">%d seleccionado</item>
         <item quantity="other">%d seleccionados</item>
@@ -581,7 +600,7 @@
     <string name="storage_description_unknown">Desconocido</string>
 
     <!-- What's new feature and texts to show -->
-    <string name="whats_new_title">Qué hay de nuevo en Nextcloud</string>
+    <string name="whats_new_title">Qué hay de nuevo en %1$s</string>
 
     <!-- Welcome to Nc intro features -->
     <string name="welcome_feature_1_title">Un lugar seguro para tus datos</string>
@@ -590,7 +609,6 @@
     <string name="welcome_feature_2_title">Múltiples cuentas</string>
     <string name="welcome_feature_2_text">Conecta con todas tus nubes</string>
 
-    <string name="welcome_feature_3_title">Subida instantánea</string>
     <string name="welcome_feature_3_text">Mantén seguras tus fotos</string>
 
     <string name="whats_new_skip">Omitir</string>
@@ -639,5 +657,11 @@
     <string name="privacy">Privacidad</string>
     <string name="file_not_found">¡Archivo no encontrado!</string>
 
+    <!-- Auto upload -->
+    <string name="autoupload_custom_folder">Configure una carpeta especifica </string>
+    <string name="autoupload_create_new_custom_folder">Crear nueva configuración de una carpeta especifica </string>
+    <string name="synced_folders_configure_folders">Configurar carpetas</string>
+
     <string name="test_server_button">Probar conexión con servidor</string>
+    <string name="resharing_is_not_allowed">No se permite compartir de nuevo</string>
     </resources>

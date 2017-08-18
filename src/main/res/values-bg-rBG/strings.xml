@@ -21,7 +21,6 @@
     <string name="menu_item_sort_by_size_smallest_first">Най-малък</string>
 
     <string name="drawer_item_all_files">Всички файлове</string>
-    <string name="drawer_item_files">Файлове</string>
     <string name="drawer_item_home">Начало</string>
     <string name="drawer_item_favorites">Любими</string>
     <string name="drawer_item_photos">Снимки</string>
@@ -69,7 +68,6 @@
     <string name="uploader_wrn_no_account_setup_btn_text">Настройка</string>
     <string name="uploader_wrn_no_account_quit_btn_text">Изход</string>
     <string name="uploader_error_title_no_file_to_upload">Няма файл за качване</string>
-    <string name="uploader_error_message_received_piece_of_text">%1$s не може да качите част от текст като файл.</string>
     <string name="uploader_error_message_no_file_to_upload">Получените данни не включват валиден файл.</string>
     <string name="uploader_error_message_read_permission_not_granted">%1$s нямате право да четете получения фаил</string>
     <string name="uploader_error_message_source_file_not_found">Селектирания за качване файл не е намерен. Моля проверете дали файлът съществува.</string>
@@ -92,9 +90,6 @@
     <string name="file_list_empty_headline_server_search_photos">Няма снимки</string>
     <string name="file_list_empty_search">Вероятно е в друга директория</string>
     <string name="file_list_folder">папка</string>
-    <string name="file_list_folders">папки</string>
-    <string name="file_list_file">файл</string>
-    <string name="file_list_files">файлове</string>
     <string name="filedetails_select_file">Натиснете върху файл, за да видите допълнителна информация.</string>
     <string name="filedetails_size">Размер:</string>
     <string name="filedetails_type">Тип:</string>
@@ -111,7 +106,6 @@
     <string name="common_cancel">Отказ</string>
     <string name="common_back">Назад</string>
     <string name="common_save">Запазване</string>
-    <string name="common_save_exit">Запис и излизане</string>
     <string name="common_error">Грешка</string>
     <string name="common_loading">Зареждане &#8230;</string>
     <string name="common_unknown">неясна</string>
@@ -120,7 +114,6 @@
     <string name="about_title">Относно</string>
     <string name="change_password">Промяна на парола</string>
     <string name="delete_account">Изтриване</string>
-    <string name="create_account">Създаване на профил</string>
     <string name="upload_chooser_title">Качване от &#8230;</string>
     <string name="uploader_info_dirname">Име на папката</string>
     <string name="uploader_upload_in_progress_ticker">Качване &#8230;</string>
@@ -299,7 +292,6 @@
     <string name="file_migration_updating_index">Обновяване на индекс&#8230;</string>
     <string name="file_migration_cleaning">Почистване&#8230;</string>
     <string name="file_migration_ok_finished">Завършен</string>
-    <string name="prefs_category_accounts">Профили</string>
     <string name="prefs_add_account">Добавяне на профил</string>
     <string name="drawer_manage_accounts">Управление на профилите</string>
     <string name="actionbar_logger">Журнали</string>
@@ -420,14 +412,10 @@
     <string name="storage_description_sd_no">SD карта %1$d</string>
     <string name="storage_description_unknown">Неизвестно</string>
 
-    <!-- What's new feature and texts to show -->
-    <string name="whats_new_title">Kакво ново в Nextcloud</string>
-
     <!-- Welcome to Nc intro features -->
     <string name="welcome_feature_1_title">Безопасен дом за всички ваши данни</string>
     <string name="welcome_feature_2_text">Свържи се към облаците си</string>
 
-    <string name="welcome_feature_3_title">Незабавни качвания</string>
     <string name="welcome_feature_3_text">Съхранявайте вашите снимки безопасно</string>
 
     <string name="whats_new_skip">Пропусни</string>

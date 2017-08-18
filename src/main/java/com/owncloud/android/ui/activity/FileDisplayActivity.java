@@ -1282,7 +1282,12 @@ public class FileDisplayActivity extends HookActivity
                 // avoid app crashes after changing the serial id of RemoteOperationResult
                 // in owncloud library with broadcast notifications pending to process
                 removeStickyBroadcast(intent);
-                DataHolderUtil.getInstance().delete(intent.getStringExtra(FileSyncAdapter.EXTRA_RESULT));
+
+                try {
+                    DataHolderUtil.getInstance().delete(intent.getStringExtra(FileSyncAdapter.EXTRA_RESULT));
+                } catch (RuntimeException re) {
+                    // we did not send this intent, so ignoring
+                }
             }
         }
     }

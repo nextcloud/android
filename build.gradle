@@ -184,7 +184,7 @@ dependencies {
     /// dependencies for app building
     implementation name: 'touch-image-view'
     implementation 'com.android.support:multidex:1.0.2'
-    implementation 'com.github.nextcloud:android-library:1.0.24'
+    implementation 'com.github.nextcloud:android-library:1.0.25'
     implementation "com.android.support:support-v4:${supportLibraryVersion}"
     implementation "com.android.support:design:${supportLibraryVersion}"
     implementation 'com.jakewharton:disklrucache:2.0.2'
@@ -203,6 +203,7 @@ dependencies {
     // uncomment for gplay, modified
     // implementation "com.google.firebase:firebase-messaging:${googleLibraryVersion}"
     // implementation "com.google.android.gms:play-services-base:${googleLibraryVersion}"
+    // implementation "com.google.android.gms:play-services-gcm:${googleLibraryVersion}"
     // implementation "com.google.firebase:firebase-core:${googleLibraryVersion}"
     implementation 'org.parceler:parceler-api:1.1.6'
     annotationProcessor 'org.parceler:parceler:1.1.6'

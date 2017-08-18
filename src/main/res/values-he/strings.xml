@@ -40,16 +40,12 @@
     <string name="uploader_wrn_no_account_setup_btn_text">הגדרות</string>
     <string name="uploader_wrn_no_account_quit_btn_text">יציאה</string>
     <string name="uploader_error_title_no_file_to_upload">אין קובץ להעלאה</string>
-    <string name="uploader_error_message_received_piece_of_text">%1$s לא ניתן להעלות מחרוזת טקסט כקובץ.</string>
     <string name="uploader_error_message_read_permission_not_granted">ל- %1$s אסור לקרוא קובץ מתקבל</string>
     <string name="uploader_upload_files_behaviour">אפשרויות העלאה:</string>
     <string name="file_list_seconds_ago">שניות</string>
     <string name="file_list_loading">בטעינה …</string>
     <string name="local_file_list_empty">אין קבצים בתיקייה זו:</string>
     <string name="file_list_folder">תקיה</string>
-    <string name="file_list_folders">תקיות</string>
-    <string name="file_list_file">קובץ</string>
-    <string name="file_list_files">קובץ</string>
     <string name="filedetails_select_file">יש לגעת בקובץ כדי להציג פרטים נוספים.</string>
     <string name="filedetails_size">גודל:</string>
     <string name="filedetails_type">סוג:</string>
@@ -66,7 +62,6 @@
     <string name="common_cancel">ביטול</string>
     <string name="common_back">אחורה</string>
     <string name="common_save">שמירה</string>
-    <string name="common_save_exit">שמירה ויציאה</string>
     <string name="common_error">שגיאה</string>
     <string name="common_loading">בטעינה …</string>
     <string name="common_unknown">לא ידוע</string>
@@ -75,7 +70,6 @@
     <string name="about_title">על אודות</string>
     <string name="change_password">שינוי ססמה</string>
     <string name="delete_account">הסרת חשבון</string>
-    <string name="create_account">יצירת חשבון</string>
     <string name="upload_chooser_title">העלאה מהמיקום …</string>
     <string name="uploader_info_dirname">שם התיקייה</string>
     <string name="uploader_upload_in_progress_ticker">מתבצעת העלאה …</string>
@@ -138,8 +132,8 @@
     <string name="media_play_pause_description">לחצן ניגון או השהייה</string>
     <string name="media_forward_description">לחצן הרצה קדימה</string>
 
-	<string name="auth_getting_authorization">מקבל אימות...</string>
-	<string name="auth_trying_to_login">מנסה להתחבר...</string>
+	<string name="auth_getting_authorization">מקבל אימות &#8230;</string>
+	<string name="auth_trying_to_login">מנסה להתחבר &#8230;</string>
 	<string name="auth_no_net_conn_title">אין חיבור לאינטרנט</string>
 	<string name="auth_nossl_plain_ok_title">אין חיבור מוצפן זמין.</string>
 	<string name="auth_connection_established">החיבור נוצר</string>
@@ -172,7 +166,7 @@
     <string name="filename_forbidden_charaters_from_server">שם קובץ כולל לפחות תו אחד לא חוקי</string>
     <string name="filename_empty">שם קובץ לא יכול להיות ריק</string>
     <string name="wait_checking_credentials">בודק אישורים שמורים</string>
-    <string name="activity_chooser_title">שליחת קישור אל ...</string>
+    <string name="activity_chooser_title">שליחת קישור אל &#8230;</string>
     <string name="wait_for_tmp_copy_from_private_storage">מעתיק קובץ מאחסון פרטי</string>
     
     <string name="ssl_validator_header">לא ניתן לאמת את זהות האתר</string>
@@ -240,13 +234,12 @@
 
     <string name="file_migration_finish_button">סיים</string>
     <string name="file_migration_ok_finished">הסתיים</string>
-    <string name="prefs_category_accounts">חשבונות</string>
     <string name="prefs_add_account">הוספת חשבון</string>
     <string name="drawer_manage_accounts">ניהול חשבונות</string>
     <string name="actionbar_logger">לוגים</string>
 	<string name="log_send_history_button">הסטורית שליחה</string>
 	<string name="log_send_mail_subject">%1$s לוגים של יישום אנדרואיד</string>
-	<string name="log_progress_dialog_text">טעינת מידע...</string>
+	<string name="log_progress_dialog_text">טעינת מידע &#8230;</string>
 
 	<string name="saml_authentication_required_text">נדרש אימות</string>
 	<string name="saml_authentication_wrong_pass">סיסמא שגוייה</string>
@@ -308,7 +301,7 @@
     <string name="share_via_link_password_title">מאובטח</string>
     <string name="share_via_link_edit_permission_label">אישור עריכה</string>
     <string name="share_get_public_link_button">קבלת קישור</string>
-    <string name="share_with_title">שיתף עם...</string>
+    <string name="share_with_title">שיתף עם &#8230;</string>
     <string name="share_with_edit_title">שיתף עם %1$s</string>
 
     <string name="share_search">חיפוש</string>
