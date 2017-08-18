@@ -75,7 +75,6 @@
     <string name="uploader_wrn_no_account_setup_btn_text">设置</string>
     <string name="uploader_wrn_no_account_quit_btn_text">退出</string>
     <string name="uploader_error_title_no_file_to_upload">文件没有上传</string>
-    <string name="uploader_error_message_received_piece_of_text">%1$s不能把一段文字做为文件上传</string>
     <string name="uploader_error_message_no_file_to_upload">得到的数据没有包括有效文件</string>
     <string name="uploader_error_title_file_cannot_be_uploaded">不能上传这个文件</string>
     <string name="uploader_error_message_read_permission_not_granted">%1$s 不让读取已经获得的文件</string>

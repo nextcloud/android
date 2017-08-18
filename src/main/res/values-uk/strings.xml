@@ -65,7 +65,6 @@
     <string name="uploader_wrn_no_account_setup_btn_text">Налаштування</string>
     <string name="uploader_wrn_no_account_quit_btn_text">Вийти</string>
     <string name="uploader_error_title_no_file_to_upload">Відсутні файли для вивантаження</string>
-    <string name="uploader_error_message_received_piece_of_text">%1$s не можу завантажити шмат тексту як файл.</string>
     <string name="uploader_error_message_no_file_to_upload">Отримані дані не містили вірного файлу.</string>
     <string name="uploader_error_message_read_permission_not_granted">%1$s не дозволено читати отриманий файл</string>
     <string name="uploader_upload_files_behaviour">Параметри завантаження:</string>

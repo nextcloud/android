@@ -76,7 +76,6 @@
     <string name="uploader_wrn_no_account_setup_btn_text">Configurazione</string>
     <string name="uploader_wrn_no_account_quit_btn_text">Esci</string>
     <string name="uploader_error_title_no_file_to_upload">Nessun file da caricare</string>
-    <string name="uploader_error_message_received_piece_of_text">%1$s non può  caricare un pezzo di testo come un file.</string>
     <string name="uploader_error_message_no_file_to_upload">I dati ricevuti non includono alcun file valido.</string>
     <string name="uploader_error_title_file_cannot_be_uploaded">Questo file non può essere caricato</string>
     <string name="uploader_error_message_read_permission_not_granted">%1$s non ha il permesso di leggere un file ricevuto</string>

@@ -45,7 +45,6 @@
     <string name="uploader_wrn_no_account_setup_btn_text">Pengaturan</string>
     <string name="uploader_wrn_no_account_quit_btn_text">Keluar</string>
     <string name="uploader_error_title_no_file_to_upload">Tidak ada berkas untuk diunggah</string>
-    <string name="uploader_error_message_received_piece_of_text">%1$s tidak dapat mengunggah teks sebagai berkas.</string>
     <string name="uploader_error_message_no_file_to_upload">Data yang diterima tidak mengandung berkas yang valid.</string>
     <string name="uploader_error_message_read_permission_not_granted">%1$s tidak diizinkan untuk membaca berkas yang diterima</string>
     <string name="uploader_upload_files_behaviour">Pilihan unggah:</string>

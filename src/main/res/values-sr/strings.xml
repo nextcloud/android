@@ -70,7 +70,6 @@
     <string name="uploader_wrn_no_account_setup_btn_text">Подеси</string>
     <string name="uploader_wrn_no_account_quit_btn_text">Напусти</string>
     <string name="uploader_error_title_no_file_to_upload">Нема датотеке за учитавање</string>
-    <string name="uploader_error_message_received_piece_of_text">%1$s не може се учитати део датотеке.</string>
     <string name="uploader_error_message_no_file_to_upload">Примљјени подаци нису садржали исправну датотеку.</string>
     <string name="uploader_error_title_file_cannot_be_uploaded">Датотека не може бити отпремљена.</string>
     <string name="uploader_error_message_read_permission_not_granted">%1$s није дозвљено читати примљену датотеку</string>

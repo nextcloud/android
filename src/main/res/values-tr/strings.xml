@@ -76,7 +76,6 @@
     <string name="uploader_wrn_no_account_setup_btn_text">Kurulum</string>
     <string name="uploader_wrn_no_account_quit_btn_text">Çıkış</string>
     <string name="uploader_error_title_no_file_to_upload">Yüklenecek bir dosya yok</string>
-    <string name="uploader_error_message_received_piece_of_text">%1$s bir metin parçasını dosya olarak yükleyemez.</string>
     <string name="uploader_error_message_no_file_to_upload">Alınan verilerde geçerli bir dosya bulunamadı.</string>
     <string name="uploader_error_title_file_cannot_be_uploaded">Bu dosya yüklenemez</string>
     <string name="uploader_error_message_read_permission_not_granted">%1$s alınan bir dosyayı okumaya yetkili değil</string>
@@ -609,6 +608,9 @@
     <string name="storage_description_sd_no">SD kart  %1$d</string>
     <string name="storage_description_unknown">Bilinmiyor</string>
 
+    <!-- What's new feature and texts to show -->
+    <string name="whats_new_title">%1$s yenilikleri</string>
+
     <!-- Welcome to Nc intro features -->
     <string name="welcome_feature_1_title">Verileriniz için güvenli bir yer!</string>
     <string name="welcome_feature_1_text">Ev ya da iş yerinizdeki dosyalarınıza erişin, paylaşın ve koruyun</string>
@@ -616,7 +618,20 @@
     <string name="welcome_feature_2_title">Birden çok hesap</string>
     <string name="welcome_feature_2_text">Tüm bulut hesaplarınıza bağlanın</string>
 
+    <string name="welcome_feature_3_title">Otomatik yükleme</string>
     <string name="welcome_feature_3_text">Fotoğraflarınızı koruyun</string>
+
+    <string name="whats_new_auto_upload_title">Genişletilmiş otomatik yükleme</string>
+    <string name="whats_new_auto_upload_content">\u2022 tüm android sürümleri için\n\u2022 daha az pil harcaması\n\u2022 daha güvenli, ancak görseller\n\u2022 &amp; görüntüler anında ayrılmıyor</string>
+
+    <string name="whats_new_search_title">Tam sunucu araması</string>
+    <string name="whats_new_search_content">\u2022 Yalnız geçerli klasörde değil\n\u2022 Tüm sunucudaki sonuçları verir\n\u2022 Doğrudan dosya/klasör açma\n\u2022 NC12 ve üzerindeki sürümlerde desteklenir</string>
+
+    <string name="whats_new_theming_title">Tema desteği</string>
+    <string name="whats_new_theming_content">Sunucu uygulamasında etkinleştirilmiş ise\n\u2022 art alan görseli\n\u2022 sunucu adı\n\u2022 hesapları ayırt etmek için farklı renk kullanımı</string>
+
+    <string name="whats_new_notification_title">Bildirim desteği</string>
+    <string name="whats_new_notification_content">Yeni bildirimler\n\u2022 yeni uzak paylaşım\n\u2022 yorumda anma\n\u2022 yönetici duyuruları</string>
 
     <string name="whats_new_skip">Atla</string>
 
@@ -671,4 +686,6 @@
 
     <string name="test_server_button">Sunucu bağlantısını sına</string>
     <string name="resharing_is_not_allowed">Yeniden paylaşıma izin verilmiyor</string>
-    </resources>
+    <string name="whats_new_fingerprint_title">Parmak izi ile kilit açma</string>
+    <string name="whats_new_fingerprint_content">Uygulama kilidini açmak için parmak izi kullanımı</string>
+</resources>

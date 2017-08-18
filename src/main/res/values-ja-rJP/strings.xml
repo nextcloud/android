@@ -74,7 +74,6 @@
     <string name="uploader_wrn_no_account_setup_btn_text">設定</string>
     <string name="uploader_wrn_no_account_quit_btn_text">終了</string>
     <string name="uploader_error_title_no_file_to_upload">アップロードするファイルはありません</string>
-    <string name="uploader_error_message_received_piece_of_text">%1$s でテキストをファイルとしてアップロードできませんでした。</string>
     <string name="uploader_error_message_no_file_to_upload">受信したデータには有効なファイルが含まれませんでした。</string>
     <string name="uploader_error_title_file_cannot_be_uploaded">このファイルはアップロードできません</string>
     <string name="uploader_error_message_read_permission_not_granted">%1$s で受信ファイルを読み込む権限がありません</string>

@@ -45,7 +45,6 @@
     <string name="uploader_wrn_no_account_setup_btn_text">Configurar</string>
     <string name="uploader_wrn_no_account_quit_btn_text">Sair</string>
     <string name="uploader_error_title_no_file_to_upload">Nenhum ficheiro para carregar</string>
-    <string name="uploader_error_message_received_piece_of_text">%1$s não pode carregar uma parte de texto como um ficheiro.</string>
     <string name="uploader_error_message_no_file_to_upload">Os dados recebidos não incluíam um ficheiro válido.</string>
     <string name="uploader_error_message_read_permission_not_granted">%1$s não está autorizado a ler ficheiros recebidos</string>
     <string name="uploader_upload_files_behaviour">Opção de envio:</string>

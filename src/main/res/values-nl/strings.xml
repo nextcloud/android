@@ -77,7 +77,6 @@ Kies er eentje van een provider.</string>
     <string name="uploader_wrn_no_account_setup_btn_text">Configureren</string>
     <string name="uploader_wrn_no_account_quit_btn_text">Afsluiten</string>
     <string name="uploader_error_title_no_file_to_upload">Niets te uploaden</string>
-    <string name="uploader_error_message_received_piece_of_text">%1$s kan niet een stuk tekst als bestand uploaden.</string>
     <string name="uploader_error_message_no_file_to_upload">Ontvangen gegevens bevatten geen geldig bestand.</string>
     <string name="uploader_error_title_file_cannot_be_uploaded">Dit bestand kan niet worden geüpload</string>
     <string name="uploader_error_message_read_permission_not_granted">%1$s heeft geen toestemming om een ontvangen bestand te lezen</string>

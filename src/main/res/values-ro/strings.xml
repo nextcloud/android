@@ -62,7 +62,6 @@
     <string name="uploader_wrn_no_account_setup_btn_text">Configurare</string>
     <string name="uploader_wrn_no_account_quit_btn_text">Renunță</string>
     <string name="uploader_error_title_no_file_to_upload">Niciun fișier disponibil pentru încărcare</string>
-    <string name="uploader_error_message_received_piece_of_text">%1$s nu poate încărca o bucată de text ca un fișier.</string>
     <string name="uploader_error_message_no_file_to_upload">Datele primite nu includ un fișier valid</string>
     <string name="uploader_error_message_read_permission_not_granted">%1$s nu are permisiunea de a citi un fișier primit</string>
     <string name="uploader_upload_files_behaviour">Opțiune pentru încărcare:</string>

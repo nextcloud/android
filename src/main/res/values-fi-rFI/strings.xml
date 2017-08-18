@@ -68,7 +68,6 @@
     <string name="uploader_wrn_no_account_setup_btn_text">Asetukset</string>
     <string name="uploader_wrn_no_account_quit_btn_text">Lopeta</string>
     <string name="uploader_error_title_no_file_to_upload">Ei lähetettävää tiedostoa</string>
-    <string name="uploader_error_message_received_piece_of_text">%1$s ei voi lähettää tekstiotetta tiedostona.</string>
     <string name="uploader_error_message_no_file_to_upload">Vastaanotettu data ei sisällä kelvollista tiedostoa.</string>
     <string name="uploader_error_title_file_cannot_be_uploaded">Tätä tiedostoa ei voida lähettää</string>
     <string name="uploader_error_message_read_permission_not_granted">%1$s ei saa lukea vastaanotettua tiedostoa</string>

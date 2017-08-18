@@ -76,7 +76,6 @@
     <string name="uploader_wrn_no_account_setup_btn_text">Rregullim</string>
     <string name="uploader_wrn_no_account_quit_btn_text">Dilni</string>
     <string name="uploader_error_title_no_file_to_upload">Pa kartelë për ngarkim</string>
-    <string name="uploader_error_message_received_piece_of_text">%1$s s’mund të ngarkojë një copë teksti si të ish një kartelë.</string>
     <string name="uploader_error_message_no_file_to_upload">Të dhënat e marra nuk përfshijnë ndonjë kartelë të vlefshme.</string>
     <string name="uploader_error_title_file_cannot_be_uploaded">Ky skendar nuk mund të ngarkohet</string>
     <string name="uploader_error_message_read_permission_not_granted">%1$s s’është lejuar të lexojë një kartelë të marrë</string>
