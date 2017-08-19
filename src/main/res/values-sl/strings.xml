@@ -546,7 +546,57 @@
     </plurals>
 
     <string name="upload_file_dialog_title">Vnesi ime in zvrst datoteke za nalaganje</string>
+    <string name="upload_file_dialog_filename">Ime datoteke</string>
+    <string name="upload_file_dialog_filetype">Vrsta datoteke</string>
+    <string name="storage_description_default">Privzeto</string>
+    <string name="storage_description_sd_no">SD kartica %1$d</string>
     <string name="storage_description_unknown">Neznano</string>
 
+    <!-- What's new feature and texts to show -->
+    <string name="whats_new_title">Kaj je novega v %1$s</string>
+
+    <!-- Welcome to Nc intro features -->
+    <string name="welcome_feature_1_title">Varen dom za vaše podatke</string>
+    <string name="welcome_feature_2_title">Več računov</string>
+    <string name="welcome_feature_2_text">Poveži se z vsemi tvojimi oblaki</string>
+
+    <string name="welcome_feature_3_title">Samodejno nalaganje</string>
+    <string name="whats_new_auto_upload_title">Napredno samodejno nalaganje</string>
+    <string name="whats_new_theming_title">Podpora temam</string>
+    <string name="whats_new_notification_title">Podpora obveščanju</string>
+    <string name="whats_new_skip">Preskoči</string>
+
+    <!-- User information -->
+    <string name="user_info_full_name">Polno ime</string>
+    <string name="user_info_email">E-pošta</string>
+    <string name="user_info_phone">Telefonska številka</string>
+    <string name="user_info_address">naslov</string>
+    <string name="user_info_website">Spletna stran</string>
+    <string name="user_info_twitter">Twitter</string>
+
+    <string name="user_information_description">Podatki uporabnika</string>
+
+    <!-- Activities -->
+    <string name="activities_no_results_headline">Ni še aktivnosti</string>
+    <string name="webview_error">Zgodila se je napaka</string>
+    <string name="prefs_category_about">O</string>
+
+    <string name="actionbar_contacts">Shrani stike</string>
+    <string name="actionbar_contacts_restore">Obnovi stike</string>
+    <string name="contacts_backup_button">Shrani zdaj</string>
     <string name="contacts_automatic_backup">Samodejno shranjevanje</string>
+    <string name="contacts_last_backup">Zadnje shranjevanje</string>
+    <string name="contactlist_title">Obnovi stike</string>
+    <string name="contaclist_restore_selected">Obnovi izbrane stike</string>
+    <string name="contactlist_account_chooser_title">Izberi račun za uvoz</string>
+    <string name="contacts_preference_choose_date">Izberi datum</string>
+    <string name="contacts_preference_backup_never">nikoli</string>
+    <string name="contacts_preferences_no_file_found">Ne najdem datoteke</string>
+    <string name="drawer_logout">Odjava</string>
+    <string name="privacy">Zasebnost</string>
+    <string name="file_not_found">Datoteke ne najdem!</string>
+
+    <string name="synced_folders_configure_folders">Nastavi mape</string>
+
+    <string name="test_server_button">Preizkusi povezavo s strežnikom</string>
     </resources>

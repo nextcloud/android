@@ -173,7 +173,7 @@
     <string name="uploads_view_upload_status_unknown_fail">Erreur inconnue </string>
     <string name="uploads_view_upload_status_waiting_for_wifi">En attente d\'une connexion WiFi</string>
     <string name="uploads_view_later_waiting_to_upload">En attente de téléversement</string>
-    <string name="downloader_download_in_progress_ticker">Téléchargement en cours&#8230;</string>
+    <string name="downloader_download_in_progress_ticker">Réception de &#8230;</string>
     <string name="downloader_download_in_progress_content">Téléchargement de %2$s : %1$d%% effectués</string>
     <string name="downloader_download_succeeded_ticker">Téléchargé</string>
     <string name="downloader_download_succeeded_content">%1$s téléchargé</string>
