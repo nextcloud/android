@@ -38,12 +38,13 @@ pipeline:
       secrets: [ GIT_USERNAME, GIT_TOKEN, LOG_USERNAME, LOG_PASSWORD ]
       when:
         matrix:
-          FLAVOUR: Modified
+          FLAVOUR: Lint
 
 matrix:
   FLAVOUR:
     - Generic
     - Gplay
     - Modified
+    - Lint
 
 branches: master
