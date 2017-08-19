@@ -609,8 +609,13 @@
     <string name="welcome_feature_2_title">Multi cuenta</string>
     <string name="welcome_feature_2_text">Conéctate a todas tsus nubes</string>
 
+    <string name="welcome_feature_3_title">Carga automática</string>
     <string name="welcome_feature_3_text">Manten tus fotos seguras</string>
 
+    <string name="whats_new_auto_upload_title">Carga automática mejorada</string>
+    <string name="whats_new_search_title">Búsqueda completa en el servidor</string>
+    <string name="whats_new_theming_title">Soporte a personalización</string>
+    <string name="whats_new_notification_title">Soporte a notificaciones</string>
     <string name="whats_new_skip">Saltar</string>
 
     <string name="fingerprint_scan_finger">Por favor escanea tu dedo</string>
