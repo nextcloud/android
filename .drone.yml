@@ -22,6 +22,9 @@ pipeline:
       # run sample instrumented unit test
       # TODO fails because test runner is not available
       #- adb shell am instrument -w -e debug false -e class com.owncloud.android.datamodel.OCFileUnitTest com.owncloud.android.test/android.support.test.runner.AndroidJUnitRunner
+      when:
+        matrix:
+          FLAVOUR: Generic, Gplay, Modified
 
     environment:
       - ANDROID_TARGET=android-24
