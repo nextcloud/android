@@ -615,6 +615,7 @@
     <string name="whats_new_auto_upload_title">Utvidet auto-opplasting</string>
     <string name="whats_new_search_title">Fullt serversøk</string>
     <string name="whats_new_theming_title">Temastøtte</string>
+    <string name="whats_new_notification_title">Varselstøtte</string>
     <string name="whats_new_skip">Hopp over</string>
 
     <string name="fingerprint_scan_finger">Skann fingeren din</string>
