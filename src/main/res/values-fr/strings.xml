@@ -613,14 +613,10 @@
     <string name="welcome_feature_3_text">Conservez vos photos en toute sécurité</string>
 
     <string name="whats_new_auto_upload_title">Améliorer le téléversement automatique</string>
-    <string name="whats_new_auto_upload_content">\u2022 pour toutes les version Android \n\u2022 une plus faible consommation d\'énergie \n\u2022 plus fiable, mais pas immédiat \n\u2022 séparation des images &amp; vidéos</string>
-
     <string name="whats_new_search_title">Recherche sur tout le serveur</string>
     <string name="whats_new_search_content">\u2022 Pas seulement dans le dossier actuel \n\u2022 Retourne les résultats de tout le serveur \n\u2022 Ouvre directement les fichiers/dossiers \n\u2022 Compatible avec NC12 et plus </string>
 
     <string name="whats_new_theming_title">Assistance personnalisation</string>
-    <string name="whats_new_theming_content">Si activé sur l\'application du serveur, montrera \n\u2022 l\'image d\'arrière-plan \n\u2022 le nom du serveur \n\u2022 utiliser de la couleur pour distinguer les comptes</string>
-
     <string name="whats_new_notification_title">Assistance notification</string>
     <string name="whats_new_notification_content">Recevoir des notifications, par exemple \n\u2022 nouveau partage distant \n\u2022 nouveaux commentaires \n\u2022 annonces de l\'administrateur</string>
 
