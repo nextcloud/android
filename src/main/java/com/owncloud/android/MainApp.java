@@ -193,6 +193,10 @@ public class MainApp extends MultiDexApplication {
         return MainApp.mContext;
     }
 
+    public static void setAppContext(Context context) {
+        MainApp.mContext = context;
+    }
+
     public static String getStoragePath() {
         return MainApp.storagePath;
     }
