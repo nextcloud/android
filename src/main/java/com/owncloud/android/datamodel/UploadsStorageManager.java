@@ -363,6 +363,9 @@ public class UploadsStorageManager extends Observable {
             upload.setLastResult(UploadResult.fromValue(
                     c.getInt(c.getColumnIndex(ProviderTableMeta.UPLOADS_LAST_RESULT))));
             upload.setCreatedBy(c.getInt(c.getColumnIndex(ProviderTableMeta.UPLOADS_CREATED_BY)));
+            upload.setUseWifiOnly(c.getInt(c.getColumnIndex(ProviderTableMeta.UPLOADS_IS_WIFI_ONLY)) == 1);
+            upload.setWhileChargingOnly(c.getInt(c.getColumnIndex(ProviderTableMeta.UPLOADS_IS_WHILE_CHARGING_ONLY))
+                    == 1);
         }
         return upload;
     }

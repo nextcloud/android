@@ -21,7 +21,6 @@
     <string name="menu_item_sort_by_size_smallest_first">Kleinste zuerst</string>
 
     <string name="drawer_item_all_files">Alle Dateien</string>
-    <string name="drawer_item_files">Dateien</string>
     <string name="drawer_item_home">Home</string>
     <string name="drawer_item_favorites">Favoriten</string>
     <string name="drawer_item_photos">Fotos</string>
@@ -76,7 +75,6 @@
     <string name="uploader_wrn_no_account_setup_btn_text">Einrichten</string>
     <string name="uploader_wrn_no_account_quit_btn_text">Beenden</string>
     <string name="uploader_error_title_no_file_to_upload">Keine Datei zum Hochladen</string>
-    <string name="uploader_error_message_received_piece_of_text">%1$s kann einen Textteil als Datei hochladen</string>
     <string name="uploader_error_message_no_file_to_upload">Empfangene Daten enthalten keine gültige Datei.</string>
     <string name="uploader_error_title_file_cannot_be_uploaded">Diese Datei kan nicht hochgeladen werden</string>
     <string name="uploader_error_message_read_permission_not_granted">%1$s darf eine empfangene Datei nicht lesen</string>
@@ -91,7 +89,6 @@
     <string name="file_list_empty_headline"> Keine Dateien vorhanden </string>
     <string name="folder_list_empty_headline">Keine Ordner vorhanden</string>
     <string name="file_list_empty">Lade Inhalt hoch oder synchronisiere mit Deinen Geräten.</string>
-    <string name="file_list_empty_favorites">Favorisiere einige Dateien oder synchronisiere deine Geräte.</string>
     <string name="file_list_empty_favorites_filter_list">Dateien und Ordner, die als Favoriten markiert werden, erscheinen hier</string>
     <string name="file_list_empty_favorites_filter">Keine favorisierten Dateien in deinem Verlauf gefunden.</string>
     <string name="file_list_loading">Lade&#8230;</string>
@@ -118,9 +115,6 @@
     <string name="upload_list_empty_text">Lade Inhalte hoch oder aktiviere den Sofortupload.</string>
     <string name="upload_list_empty_text_auto_upload">Lade Inhalte hoch oder aktiviere den Sofortupload.</string>
     <string name="file_list_folder">Ordner</string>
-    <string name="file_list_folders">Ordner</string>
-    <string name="file_list_file">Datei</string>
-    <string name="file_list_files">Dateien</string>
     <string name="filedetails_select_file">Klicke auf eine Datei für weitere Informationen.</string>
     <string name="filedetails_size">Größe:</string>
     <string name="filedetails_type">Art:</string>
@@ -140,7 +134,6 @@
     <string name="common_cancel">Abbrechen</string>
     <string name="common_back">Zurück</string>
     <string name="common_save">Speichern</string>
-    <string name="common_save_exit">Speichern &amp; verlassen</string>
     <string name="common_error">Fehler</string>
     <string name="common_loading">Lade &#8230;</string>
     <string name="common_unknown">unbekannt</string>
@@ -151,7 +144,6 @@
     <string name="change_password">Passwort ändern</string>
     <string name="delete_account">Benutzerkonto löschen</string>
     <string name="delete_account_warning">Konto %s mit allen lokalen Dateien löschen?\n\nLöschen kann nicht rückgängig gemacht werden.</string>
-    <string name="create_account">Benutzerkonto erstellen</string>
     <string name="avatar">Avatar</string>
     <string name="active_user">Aktiver Nutzer</string>
     <string name="upload_chooser_title">Dateien hochladen von &#8230;</string>
@@ -340,7 +332,6 @@
     <string name="placeholder_media_time">12:23:45</string>
 
     <string name="auto_upload_on_wifi">Nur über W-Lan hochladen</string>
-    <string name="instant_upload_on_wifi">Bilder nur über W-Lan hochladen</string>
     <string name="instant_video_upload_on_wifi">Videos nur über W-Lan hochladen</string>
     <string name="instant_video_upload_on_charging">Nur während des Ladens hochladen</string>
     <string name="instant_upload_on_charging">Nur während des Ladens hochladen</string>
@@ -423,7 +414,6 @@
     <string name="file_migration_source_not_readable_title">Quellverzeichnis kann nicht gelesen werden!</string>
     <string name="file_migration_source_not_readable">Möchtest Du wirklich den Speicherpfad in %1$s ändern?\n\nHinweis: Alle Daten müssen dann erneut heruntergeladen werden.</string>
 
-    <string name="prefs_category_accounts">Konten</string>
     <string name="prefs_add_account">Konto hinzufügen</string>
     <string name="drawer_manage_accounts">Konten verwalten</string>
     <string name="auth_redirect_non_secure_connection_title">Die gesicherte Verbindung wird durch eine ungesicherte Route geleitet.</string>
@@ -612,7 +602,7 @@
     <string name="storage_description_unknown">Unbekannt</string>
 
     <!-- What's new feature and texts to show -->
-    <string name="whats_new_title">Neues in Nextcloud</string>
+    <string name="whats_new_title">Neues in %1$s</string>
 
     <!-- Welcome to Nc intro features -->
     <string name="welcome_feature_1_title">Ein sicheres Zuhause für alle Deine Daten</string>
@@ -621,8 +611,20 @@
     <string name="welcome_feature_2_title">Mehrfachkonto</string>
     <string name="welcome_feature_2_text">Verbinde dich mit all deinen Clouds</string>
 
-    <string name="welcome_feature_3_title">Sofortiges Hochladen</string>
+    <string name="welcome_feature_3_title">Automatisches Hochladen</string>
     <string name="welcome_feature_3_text">Schütze deine Fotos</string>
+
+    <string name="whats_new_auto_upload_title">Erweitertes automatisches Hochladen</string>
+    <string name="whats_new_auto_upload_content">\u2022 für alle Android-Versionen\n\u2022 Weniger Batterieverbrauch\n\u2022 zuverlässiger, aber nicht sofort\n\u2022 Trennung von Bildern &amp; Videos</string>
+
+    <string name="whats_new_search_title">Vollständige Server-Suche</string>
+    <string name="whats_new_search_content">\u2022 Nicht nur im aktuellen Ordner\n\u2022 Suchergebnisse des gesamten Servers\n\u2022 Ordner/Dateien direkt öffnen\n\u2022 Unterstützt ab NC12</string>
+
+    <string name="whats_new_theming_title">Themen verwenden</string>
+    <string name="whats_new_theming_content">Wenn in der Server-App aktiviert, werden \n\u2022 das Hintergrund Bild\n\u2022 der Server-Name\n\u2022 und die eingestellten Farben angezeigt</string>
+
+    <string name="whats_new_notification_title">Benachrichtigungen</string>
+    <string name="whats_new_notification_content">Erhalten Sie Benachrichtigungen wie z.B.\n\u2022 Neie Freigaben\n\u2022 Kommentar-Erwähnungen\n\u2022 Adminstratoren-Ankündigungen</string>
 
     <string name="whats_new_skip">Überspringen</string>
 
@@ -677,4 +679,6 @@
 
     <string name="test_server_button">Prüfe Server-Verbindung</string>
     <string name="resharing_is_not_allowed">Resharing/Wiederteilen ist nicht erlaubt.</string>
+    <string name="whats_new_fingerprint_title">Entsperren mit Fingerabdruck</string>
+    <string name="whats_new_fingerprint_content">Entsperre die App mit Deinem Fingerabdruck</string>
 </resources>

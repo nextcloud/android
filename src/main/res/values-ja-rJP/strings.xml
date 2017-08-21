@@ -21,7 +21,6 @@
     <string name="menu_item_sort_by_size_smallest_first">小さいものが最初</string>
 
     <string name="drawer_item_all_files">すべてのファイル</string>
-    <string name="drawer_item_files">ファイル</string>
     <string name="drawer_item_home">ホーム</string>
     <string name="drawer_item_favorites">お気に入り</string>
     <string name="drawer_item_photos">写真</string>
@@ -74,7 +73,6 @@
     <string name="uploader_wrn_no_account_setup_btn_text">設定</string>
     <string name="uploader_wrn_no_account_quit_btn_text">終了</string>
     <string name="uploader_error_title_no_file_to_upload">アップロードするファイルはありません</string>
-    <string name="uploader_error_message_received_piece_of_text">%1$s でテキストをファイルとしてアップロードできませんでした。</string>
     <string name="uploader_error_message_no_file_to_upload">受信したデータには有効なファイルが含まれませんでした。</string>
     <string name="uploader_error_title_file_cannot_be_uploaded">このファイルはアップロードできません</string>
     <string name="uploader_error_message_read_permission_not_granted">%1$s で受信ファイルを読み込む権限がありません</string>
@@ -88,7 +86,6 @@
     <string name="file_list_empty_headline">ここにファイルはありません</string>
     <string name="folder_list_empty_headline">フォルダーがありません</string>
     <string name="file_list_empty">コンテンツをアップロードするか、デバイスと同期してください。</string>
-    <string name="file_list_empty_favorites">ファイルをお気に入りに登録するか、デバイスと同期してください。</string>
     <string name="file_list_empty_favorites_filter_list">お気に入りに登録されたファイルやフォルダーがここに表示されます</string>
     <string name="file_list_empty_favorites_filter">お気に入りのファイルが見つかりませんでした。</string>
     <string name="file_list_loading">読込中&#8230;</string>
@@ -114,9 +111,6 @@
     <string name="upload_list_empty_text">コンテンツをアップロードするか、インスタントアップロードを有効にしてください。</string>
     <string name="upload_list_empty_text_auto_upload">何かコンテンツをアップロードするか、自動アップロードを有効にしてください。</string>
     <string name="file_list_folder">フォルダー</string>
-    <string name="file_list_folders">フォルダー</string>
-    <string name="file_list_file">ファイル</string>
-    <string name="file_list_files">ファイル</string>
     <string name="filedetails_select_file">ファイルをタップすると追加情報が表示されます。</string>
     <string name="filedetails_size">サイズ:</string>
     <string name="filedetails_type">タイプ:</string>
@@ -135,7 +129,6 @@
     <string name="common_cancel">キャンセル</string>
     <string name="common_back">戻る</string>
     <string name="common_save">保存</string>
-    <string name="common_save_exit">保存 &amp; 終了</string>
     <string name="common_error">エラー</string>
     <string name="common_loading">読込中&#8230;</string>
     <string name="common_unknown">不明</string>
@@ -146,7 +139,6 @@
     <string name="change_password">パスワードを変更</string>
     <string name="delete_account">アカウント削除</string>
     <string name="delete_account_warning">アカウント%sに紐づく全てのローカルファイルを削除しますか？\n\nこの作業は取り消すことができません。</string>
-    <string name="create_account">アカウントを作成</string>
     <string name="avatar">アバター</string>
     <string name="active_user">アクティブなユーザー</string>
     <string name="upload_chooser_title">アップロード &#8230;</string>
@@ -338,7 +330,6 @@
     <string name="file_migration_updating_index">インデックスの更新中&#8230;</string>
     <string name="file_migration_cleaning">クリーニング中&#8230;</string>
     <string name="file_migration_ok_finished">完了</string>
-    <string name="prefs_category_accounts">アカウント</string>
     <string name="prefs_add_account">アカウントを追加</string>
     <string name="drawer_manage_accounts">アカウント管理</string>
     <string name="actionbar_logger">ログ</string>
@@ -465,15 +456,11 @@
     <string name="storage_description_sd_no">SD カード %1$d</string>
     <string name="storage_description_unknown">不明</string>
 
-    <!-- What's new feature and texts to show -->
-    <string name="whats_new_title">Nextcloudの新しい点:</string>
-
     <!-- Welcome to Nc intro features -->
     <string name="welcome_feature_1_title">すべてのデータの安全なホーム</string>
     <string name="welcome_feature_2_title">マルチアカウント</string>
     <string name="welcome_feature_2_text">すべてのクラウドへ接続する</string>
 
-    <string name="welcome_feature_3_title">自動アップロード</string>
     <string name="welcome_feature_3_text">あなたの写真を安全に保つ</string>
 
     <string name="whats_new_skip">スキップ</string>

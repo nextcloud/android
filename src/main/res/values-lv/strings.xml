@@ -21,7 +21,6 @@
     <string name="menu_item_sort_by_size_smallest_first">Mazākie pirms</string>
 
     <string name="drawer_item_all_files">Visas datnes</string>
-    <string name="drawer_item_files">Faili</string>
     <string name="drawer_item_home">Mājas</string>
     <string name="drawer_item_favorites">Iecienītie</string>
     <string name="drawer_item_photos">Bildes</string>
@@ -78,9 +77,6 @@
     <string name="local_file_list_empty">Šajā mapē nav datņu</string>
     <string name="upload_list_empty_headline">Augšupielādes nav pieejamas.</string>
     <string name="file_list_folder">mape</string>
-    <string name="file_list_folders">mapes</string>
-    <string name="file_list_file">datne</string>
-    <string name="file_list_files">datnes</string>
     <string name="filedetails_select_file">Uzsit uz datnes, lai redzētu papildinformāciju.</string>
     <string name="filedetails_size">Izmērs:</string>
     <string name="filedetails_type">Tips:</string>
@@ -97,7 +93,6 @@
     <string name="common_cancel">Atcelt</string>
     <string name="common_back">Atpakaļ</string>
     <string name="common_save">Saglabāt</string>
-    <string name="common_save_exit">Saglabāt &amp; iziet</string>
     <string name="common_error">Kļūda</string>
     <string name="common_loading">Ielādē &#8230;</string>
     <string name="common_unknown">nezināms</string>
@@ -105,7 +100,6 @@
     <string name="about_title">Par</string>
     <string name="change_password">Mainīt paroli</string>
     <string name="delete_account">Noņemt kontu</string>
-    <string name="create_account">Izveidot kontu</string>
     <string name="upload_chooser_title">Augšupielādēt no &#8230;</string>
     <string name="uploader_info_dirname">Mapes nosaukums</string>
     <string name="uploader_upload_in_progress_ticker">Augšupielādē &#8230;</string>
@@ -129,7 +123,7 @@
     <string name="uploads_view_upload_status_conflict">Konflikts</string>
     <string name="uploads_view_upload_status_unknown_fail">Nezināma kļūda</string>
     <string name="uploads_view_later_waiting_to_upload">Gaida augšupielādi</string>
-    <string name="downloader_download_in_progress_ticker">Lejupielādē ...</string>
+    <string name="downloader_download_in_progress_ticker">Lejupielādē &#8230;</string>
     <string name="downloader_download_in_progress_content">%1$d%% lejupielādē %2$s</string>
     <string name="downloader_download_succeeded_content">%1$s lejupielādēts</string>
     <string name="downloader_download_failed_ticker">Neizdevās lejupielādēt</string>
@@ -269,7 +263,6 @@
     <string name="file_migration_updating_index">Indeksa atjaunināšana&#8230;</string>
     <string name="file_migration_cleaning">Tīrīšana&#8230;</string>
     <string name="file_migration_ok_finished">Pabeigts</string>
-    <string name="prefs_category_accounts">Konti</string>
     <string name="prefs_add_account">Pievienot kontu</string>
     <string name="drawer_manage_accounts">Pārvaldīt kontus</string>
     <string name="actionbar_logger">Žurnāl faili</string>
@@ -381,15 +374,11 @@
     <string name="storage_description_sd_no">SD karte %1$d</string>
     <string name="storage_description_unknown">Nezināms</string>
 
-    <!-- What's new feature and texts to show -->
-    <string name="whats_new_title">Kas jauns Nextcloud</string>
-
     <!-- Welcome to Nc intro features -->
     <string name="welcome_feature_1_title">Droša vieta visiem jūsu datiem</string>
     <string name="welcome_feature_2_title">Multi konts</string>
     <string name="welcome_feature_2_text">Savienoties ar visiem mākoņiem</string>
 
-    <string name="welcome_feature_3_title">Tūlītēja augšupielāde</string>
     <string name="welcome_feature_3_text">Glabājiet savus fotoattēlus drošībā</string>
 
     <string name="whats_new_skip">Izlaist</string>

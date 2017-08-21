@@ -173,8 +173,8 @@ public class FileObserverService extends Service {
             addObservedFile(file, account);
 
         } else if (ACTION_DEL_OBSERVED_FILE.equals(intent.getAction())) {
-            removeObservedFile((OCFile) intent.getParcelableExtra(ARG_FILE),
-                    (Account) intent.getParcelableExtra(ARG_ACCOUNT));
+            removeObservedFile(intent.getParcelableExtra(ARG_FILE),
+                    intent.getParcelableExtra(ARG_ACCOUNT));
 
         } else {
             Log_OC.e(TAG, "Unknown action received; ignoring it: " + intent.getAction());
@@ -192,6 +192,10 @@ public class FileObserverService extends Service {
      */
     private void startObservation() {
         Log_OC.d(TAG, "Loading all kept-in-sync files from database to start watching them");
+
+        if (MainApp.getAppContext() == null) {
+            MainApp.setAppContext(getApplicationContext());
+        }
 
         // query for any favorite file in any OC account
         Cursor cursorOnKeptInSync = getContentResolver().query(

@@ -21,7 +21,6 @@
     <string name="menu_item_sort_by_size_smallest_first">El más pequeño primero</string>
 
     <string name="drawer_item_all_files">Todos los archivos</string>
-    <string name="drawer_item_files">Archivos</string>
     <string name="drawer_item_home">Inicio</string>
     <string name="drawer_item_favorites">Favoritos</string>
     <string name="drawer_item_photos">Fotos</string>
@@ -76,7 +75,6 @@
     <string name="uploader_wrn_no_account_setup_btn_text">Configuración</string>
     <string name="uploader_wrn_no_account_quit_btn_text">Salir</string>
     <string name="uploader_error_title_no_file_to_upload">Ningún archivo para subir</string>
-    <string name="uploader_error_message_received_piece_of_text">%1$s  no puede subir un fragmento de  texto como si fuera un archivo.</string>
     <string name="uploader_error_message_no_file_to_upload">Los datos recibidos no incluyen un archivo válido.</string>
     <string name="uploader_error_title_file_cannot_be_uploaded">No se puede subir este archivo</string>
     <string name="uploader_error_message_read_permission_not_granted">%1$s no está autorizado a leer un archivo recibido</string>
@@ -90,7 +88,6 @@
     <string name="file_list_empty_headline">No hay archivos aquí</string>
     <string name="folder_list_empty_headline">No hay carpetas aquí</string>
     <string name="file_list_empty">Sube algún contenido o sincroniza con tus dispositivos.</string>
-    <string name="file_list_empty_favorites">Marca como favoritos algunos archivos o sincronízalos con tus dispositivos.</string>
     <string name="file_list_empty_favorites_filter_list">Los archivos y carpetas que marques como favoritos aparecerán aquí</string>
     <string name="file_list_empty_favorites_filter">Tu búsqueda no encontró ningún archivo favorito.</string>
     <string name="file_list_loading">Cargando&#8230;</string>
@@ -117,9 +114,6 @@
     <string name="upload_list_empty_text">Sube algún contenido o activa la subida instantánea.</string>
     <string name="upload_list_empty_text_auto_upload">Sube algún contenido o active la subida automática.</string>
     <string name="file_list_folder">carpeta</string>
-    <string name="file_list_folders">carpetas</string>
-    <string name="file_list_file">archivo</string>
-    <string name="file_list_files">archivos</string>
     <string name="filedetails_select_file">Pulsa sobre un archivo para mostrar información adicional.</string>
     <string name="filedetails_size">Tamaño:</string>
     <string name="filedetails_type">Tipo:</string>
@@ -139,7 +133,6 @@
     <string name="common_cancel">Cancelar</string>
     <string name="common_back">Volver</string>
     <string name="common_save">Guardar</string>
-    <string name="common_save_exit">Guardar y salir</string>
     <string name="common_error">Error</string>
     <string name="common_loading">Cargando &#8230;</string>
     <string name="common_unknown">desconocido</string>
@@ -150,7 +143,6 @@
     <string name="change_password">Cambiar contraseña</string>
     <string name="delete_account">Eliminar cuenta</string>
     <string name="delete_account_warning">¿Borrar cuenta %s con todos sus archivos locales?\n\nEl borrado no se puede deshacer.</string>
-    <string name="create_account">Crear cuenta</string>
     <string name="avatar">Avatar</string>
     <string name="active_user">Usuario activo</string>
     <string name="upload_chooser_title">Subir desde&#8230;</string>
@@ -339,7 +331,6 @@
     <string name="placeholder_media_time">12:23:45</string>
 
     <string name="auto_upload_on_wifi">Subir solamente por Wi-Fi</string>
-    <string name="instant_upload_on_wifi">Subir fotos solamente por Wi-Fi</string>
     <string name="instant_video_upload_on_wifi">Subir vídeos solamente por Wi-Fi</string>
     <string name="instant_video_upload_on_charging">Subir solamente al cargar</string>
     <string name="instant_upload_on_charging">Subir solamente al cargar</string>
@@ -422,7 +413,6 @@
     <string name="file_migration_source_not_readable_title">¡No se puede leer el directorio de origen!</string>
     <string name="file_migration_source_not_readable">¿Aún quieres cambiar la ruta de almacenamiento a |%1$s?\n\nNota: habrá que descargar de nuevo todos los datos.</string>
 
-    <string name="prefs_category_accounts">Cuentas</string>
     <string name="prefs_add_account">Agregar cuenta</string>
     <string name="drawer_manage_accounts">Administrar cuentas</string>
     <string name="auth_redirect_non_secure_connection_title">La conexión segura está siendo redirigida a través de una ruta insegura.</string>
@@ -610,7 +600,7 @@
     <string name="storage_description_unknown">Desconocido</string>
 
     <!-- What's new feature and texts to show -->
-    <string name="whats_new_title">Qué hay de nuevo en Nextcloud</string>
+    <string name="whats_new_title">Qué hay de nuevo en %1$s</string>
 
     <!-- Welcome to Nc intro features -->
     <string name="welcome_feature_1_title">Un lugar seguro para tus datos</string>
@@ -619,7 +609,6 @@
     <string name="welcome_feature_2_title">Múltiples cuentas</string>
     <string name="welcome_feature_2_text">Conecta con todas tus nubes</string>
 
-    <string name="welcome_feature_3_title">Subida instantánea</string>
     <string name="welcome_feature_3_text">Mantén seguras tus fotos</string>
 
     <string name="whats_new_skip">Omitir</string>
@@ -675,4 +664,4 @@
 
     <string name="test_server_button">Probar conexión con servidor</string>
     <string name="resharing_is_not_allowed">No se permite compartir de nuevo</string>
-</resources>
+    </resources>

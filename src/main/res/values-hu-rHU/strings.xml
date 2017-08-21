@@ -21,7 +21,6 @@
     <string name="menu_item_sort_by_size_smallest_first">Kisebbek elöl</string>
 
     <string name="drawer_item_all_files">Összes fájl</string>
-    <string name="drawer_item_files">Fájlok</string>
     <string name="drawer_item_home">Saját mappa</string>
     <string name="drawer_item_favorites">Kedvencek</string>
     <string name="drawer_item_photos">Fényképek</string>
@@ -76,7 +75,6 @@
     <string name="uploader_wrn_no_account_setup_btn_text">Beállítás</string>
     <string name="uploader_wrn_no_account_quit_btn_text">Kilépés</string>
     <string name="uploader_error_title_no_file_to_upload">Nincs feltölthető fájl</string>
-    <string name="uploader_error_message_received_piece_of_text">%1$s nem tudja feltölteni a szövegrészt fájlként.</string>
     <string name="uploader_error_message_no_file_to_upload">A letöltött adat nem tartalmazott érvényes fájlt.</string>
     <string name="uploader_error_title_file_cannot_be_uploaded">Ezt a fájlt nem lehet feltölteni</string>
     <string name="uploader_error_message_read_permission_not_granted">%1$s nem olvashatja a fogadott fáljt</string>
@@ -90,7 +88,6 @@
     <string name="file_list_empty_headline">Nem találhatók fájlok itt</string>
     <string name="folder_list_empty_headline">Itt nincsenek mappák</string>
     <string name="file_list_empty">Töltsön fel új tartalmat vagy szinkronizáljon az eszközeivel</string>
-    <string name="file_list_empty_favorites">Jelölj meg néhány fájl kedvencként vagy szinkronizálj az eszközeiddel.</string>
     <string name="file_list_empty_favorites_filter_list">Azok a fájlok és mappák, amiket kedvenceknek jelöl meg itt fognak megjelenni.</string>
     <string name="file_list_empty_favorites_filter">A keresés nem talált kedvenc fájlokat.</string>
     <string name="file_list_loading">Betöltés&#8230;</string>
@@ -117,9 +114,6 @@
     <string name="upload_list_empty_text">Tölts fel néhány tartalmat, vagy aktiváld az azonnali feltöltést.</string>
     <string name="upload_list_empty_text_auto_upload">Az automatikus feltöltés aktiválásához tölts fel valami tartalmat.</string>
     <string name="file_list_folder">mappa</string>
-    <string name="file_list_folders">mappák</string>
-    <string name="file_list_file">fájl</string>
-    <string name="file_list_files">fájl</string>
     <string name="filedetails_select_file">Érintsen meg egy fájlt a további információkért.</string>
     <string name="filedetails_size">Méret:</string>
     <string name="filedetails_type">Tipus:</string>
@@ -138,7 +132,6 @@
     <string name="common_cancel">Mégsem</string>
     <string name="common_back">Vissza</string>
     <string name="common_save">Mentés</string>
-    <string name="common_save_exit">Mentés és kilépés</string>
     <string name="common_error">Hiba</string>
     <string name="common_loading">Betöltés &#8230;</string>
     <string name="common_unknown">ismeretlen</string>
@@ -148,7 +141,6 @@
     <string name="about_title">Névjegy</string>
     <string name="change_password">A jelszó megváltoztatása</string>
     <string name="delete_account">Fiók eltávolítása</string>
-    <string name="create_account">Fiók létrehozása</string>
     <string name="active_user">Aktív felhasználó</string>
     <string name="upload_chooser_title">Feltöltés innen &#8230;</string>
     <string name="uploader_info_dirname">Mappa neve</string>
@@ -335,7 +327,6 @@
     <string name="file_migration_cleaning">Tisztítás&#8230;</string>
     <string name="file_migration_ok_finished">Kész</string>
     <string name="file_migration_override_data_folder">Csere</string>
-    <string name="prefs_category_accounts">Fiókok</string>
     <string name="prefs_add_account">Fiók hozzáadása</string>
     <string name="drawer_manage_accounts">Fiókok kezelése</string>
     <string name="actionbar_logger">Naplók</string>
@@ -398,7 +389,7 @@
 
     <string name="share_dialog_title">Megosztás</string>
     <string name="share_file">%1$s megosztása</string>
-    <string name="share_with_user_section_title">Megosztás felhasználókkal és csoportokkal...</string>
+    <string name="share_with_user_section_title">Megosztás felhasználókkal és csoportokkal</string>
     <string name="share_no_users">Nincs még semmi megosztva a felhasználókkal</string>
     <string name="share_add_user_or_group">Felhasználó vagy csoport hozzáadás</string>
     <string name="share_via_link_section_title">Megosztás hivatkozással</string>
@@ -444,8 +435,8 @@
     <string name="participate_contribute_headline">Aktívan hozzájárul</string>
     <string name="participate_contribute_forum_forum">fórum</string>
     <string name="participate_contribute_translate_translate">Fordítás</string>
-    <string name="move_to">Áthelyezés ide...&#8230;</string>
-    <string name="copy_to">Másolás ide...&#8230;</string>
+    <string name="move_to">Áthelyezés ide&#8230;</string>
+    <string name="copy_to">Másolás ide&#8230;</string>
     <string name="synced_folders_settings">Beállítások</string>
     <plurals name="items_selected_count">
         <item quantity="one">%d kiválasztott</item>
@@ -466,15 +457,11 @@
     <string name="storage_description_sd_no">SD kártya %1$d</string>
     <string name="storage_description_unknown">Ismeretlen</string>
 
-    <!-- What's new feature and texts to show -->
-    <string name="whats_new_title">Nextcloud hírek</string>
-
     <!-- Welcome to Nc intro features -->
     <string name="welcome_feature_1_title">Egy biztonságos hely az adataidnak</string>
     <string name="welcome_feature_2_title">Többszörös fiók</string>
     <string name="welcome_feature_2_text">Csatlakozás az összes felhődhöz</string>
 
-    <string name="welcome_feature_3_title">Azonnali feltöltés</string>
     <string name="welcome_feature_3_text">Tartsd biztonságban a fotóidat</string>
 
     <string name="whats_new_skip">Kihagy</string>

@@ -21,7 +21,6 @@
     <string name="menu_item_sort_by_size_smallest_first">Najmanjše</string>
 
     <string name="drawer_item_all_files">Vse datoteke</string>
-    <string name="drawer_item_files">Datoteke</string>
     <string name="drawer_item_home">Domov</string>
     <string name="drawer_item_favorites">Priljubljene</string>
     <string name="drawer_item_photos">Slike</string>
@@ -76,7 +75,6 @@
     <string name="uploader_wrn_no_account_setup_btn_text">Nastavi</string>
     <string name="uploader_wrn_no_account_quit_btn_text">Končaj</string>
     <string name="uploader_error_title_no_file_to_upload">Ni izbrane datoteke za pošiljanje</string>
-    <string name="uploader_error_message_received_piece_of_text">%1$s nima ustreznih dovoljenj za pošiljanje dela besedila kot datoteko.</string>
     <string name="uploader_error_message_no_file_to_upload">Prejeti podatki ne vključujejo nobene veljavne datoteke.</string>
     <string name="uploader_error_title_file_cannot_be_uploaded">Te datoteke ni mogoče naložiti</string>
     <string name="uploader_error_message_read_permission_not_granted">%1$s nima ustreznih dovoljen za prejemanje datoteke</string>
@@ -104,9 +102,6 @@
     <string name="upload_list_empty_text">Naloži kakšno vsebino ali vključi hipno nalaganje.</string>
     <string name="upload_list_empty_text_auto_upload">Naloži kakšno vsebino ali vključi samodejno nalaganje.</string>
     <string name="file_list_folder">mapa</string>
-    <string name="file_list_folders">mape</string>
-    <string name="file_list_file">datoteka</string>
-    <string name="file_list_files">datoteke</string>
     <string name="filedetails_select_file">Pritisnite na datoteko za prikaz dodatnih podrobnosti.</string>
     <string name="filedetails_size">Velikost:</string>
     <string name="filedetails_type">Vrsta:</string>
@@ -125,7 +120,6 @@
     <string name="common_cancel">Prekliči</string>
     <string name="common_back">Nazaj</string>
     <string name="common_save">Shrani</string>
-    <string name="common_save_exit">Shrani in končaj</string>
     <string name="common_error">Napaka</string>
     <string name="common_loading">Nalaganje &#8230;</string>
     <string name="common_unknown">neznano</string>
@@ -135,7 +129,6 @@
     <string name="about_title">O oblaku %1$s</string>
     <string name="change_password">Spremeni geslo</string>
     <string name="delete_account">Odstrani račun</string>
-    <string name="create_account">Ustvari račun</string>
     <string name="active_user">Aktivni uporabnik</string>
     <string name="upload_chooser_title">Pošlji datoteko iz &#8230;</string>
     <string name="uploader_info_dirname">Ime mape</string>
@@ -322,7 +315,6 @@
     <string name="placeholder_media_time">12:23:45</string>
 
     <string name="auto_upload_on_wifi">Nalagaj samo na WiFi-ju</string>
-    <string name="instant_upload_on_wifi">Naloži samo slike na WiFi-ju</string>
     <string name="instant_video_upload_on_wifi">Naloži samo posnetke na WiFi-ju</string>
     <string name="instant_video_upload_on_charging">Nalagaj samo med polnjenjem</string>
     <string name="instant_upload_on_charging">Nalagaj samo med polnjenjem</string>
@@ -405,7 +397,6 @@
     <string name="file_migration_source_not_readable_title">Izvorna mapa ni berljiva!</string>
     <string name="file_migration_source_not_readable">Ali še vedno želiš spremeniti mesto shrambe na %1$s?\n\nVedi: Vse podatke moram prebrati ponovno.</string>
 
-    <string name="prefs_category_accounts">Računi</string>
     <string name="prefs_add_account">Dodaj račun</string>
     <string name="drawer_manage_accounts">Uredi račune</string>
     <string name="actionbar_logger">Dnevnik</string>
@@ -555,8 +546,57 @@
     </plurals>
 
     <string name="upload_file_dialog_title">Vnesi ime in zvrst datoteke za nalaganje</string>
+    <string name="upload_file_dialog_filename">Ime datoteke</string>
+    <string name="upload_file_dialog_filetype">Vrsta datoteke</string>
+    <string name="storage_description_default">Privzeto</string>
+    <string name="storage_description_sd_no">SD kartica %1$d</string>
     <string name="storage_description_unknown">Neznano</string>
 
-    <string name="welcome_feature_3_title">Hipno nalaganje</string>
+    <!-- What's new feature and texts to show -->
+    <string name="whats_new_title">Kaj je novega v %1$s</string>
+
+    <!-- Welcome to Nc intro features -->
+    <string name="welcome_feature_1_title">Varen dom za vaše podatke</string>
+    <string name="welcome_feature_2_title">Več računov</string>
+    <string name="welcome_feature_2_text">Poveži se z vsemi tvojimi oblaki</string>
+
+    <string name="welcome_feature_3_title">Samodejno nalaganje</string>
+    <string name="whats_new_auto_upload_title">Napredno samodejno nalaganje</string>
+    <string name="whats_new_theming_title">Podpora temam</string>
+    <string name="whats_new_notification_title">Podpora obveščanju</string>
+    <string name="whats_new_skip">Preskoči</string>
+
+    <!-- User information -->
+    <string name="user_info_full_name">Polno ime</string>
+    <string name="user_info_email">E-pošta</string>
+    <string name="user_info_phone">Telefonska številka</string>
+    <string name="user_info_address">naslov</string>
+    <string name="user_info_website">Spletna stran</string>
+    <string name="user_info_twitter">Twitter</string>
+
+    <string name="user_information_description">Podatki uporabnika</string>
+
+    <!-- Activities -->
+    <string name="activities_no_results_headline">Ni še aktivnosti</string>
+    <string name="webview_error">Zgodila se je napaka</string>
+    <string name="prefs_category_about">O</string>
+
+    <string name="actionbar_contacts">Shrani stike</string>
+    <string name="actionbar_contacts_restore">Obnovi stike</string>
+    <string name="contacts_backup_button">Shrani zdaj</string>
     <string name="contacts_automatic_backup">Samodejno shranjevanje</string>
+    <string name="contacts_last_backup">Zadnje shranjevanje</string>
+    <string name="contactlist_title">Obnovi stike</string>
+    <string name="contaclist_restore_selected">Obnovi izbrane stike</string>
+    <string name="contactlist_account_chooser_title">Izberi račun za uvoz</string>
+    <string name="contacts_preference_choose_date">Izberi datum</string>
+    <string name="contacts_preference_backup_never">nikoli</string>
+    <string name="contacts_preferences_no_file_found">Ne najdem datoteke</string>
+    <string name="drawer_logout">Odjava</string>
+    <string name="privacy">Zasebnost</string>
+    <string name="file_not_found">Datoteke ne najdem!</string>
+
+    <string name="synced_folders_configure_folders">Nastavi mape</string>
+
+    <string name="test_server_button">Preizkusi povezavo s strežnikom</string>
     </resources>

@@ -20,7 +20,6 @@
     <string name="menu_item_sort_by_size_biggest_first">Biggest first</string>
     <string name="menu_item_sort_by_size_smallest_first">Smallest first</string>
     <string name="drawer_item_all_files">All files</string>
-    <string name="drawer_item_files">Files</string>
     <string name="drawer_item_home">Home</string>
     <string name="drawer_item_favorites">Favorites</string>
     <string name="drawer_item_photos">Photos</string>
@@ -75,7 +74,6 @@
     <string name="uploader_wrn_no_account_setup_btn_text">Setup</string>
     <string name="uploader_wrn_no_account_quit_btn_text">Quit</string>
     <string name="uploader_error_title_no_file_to_upload">No file to upload</string>
-    <string name="uploader_error_message_received_piece_of_text">%1$s cannot upload a piece of text as a file.</string>
     <string name="uploader_error_message_no_file_to_upload">Received data did not include a valid file.</string>
     <string name="uploader_error_title_file_cannot_be_uploaded">This file can not be uploaded</string>
     <string name="uploader_error_message_read_permission_not_granted">%1$s is not allowed to read a received file</string>
@@ -89,7 +87,6 @@
     <string name="file_list_empty_headline">No files here</string>
     <string name="folder_list_empty_headline">No folders here</string>
     <string name="file_list_empty">Upload some content or sync with your devices.</string>
-    <string name="file_list_empty_favorites">Favorite some files or sync with your devices.</string>
     <string name="file_list_empty_favorites_filter_list">Files and folders you mark as favorites will show up here</string>
     <string name="file_list_empty_favorites_filter">Your search returned no favorited files.</string>
     <string name="file_list_loading">Loading&#8230;</string>
@@ -117,9 +114,6 @@
     <string name="upload_list_empty_text">Upload some content or activate instant uploading.</string>
     <string name="upload_list_empty_text_auto_upload">Upload some content or activate auto upload.</string>
     <string name="file_list_folder">folder</string>
-    <string name="file_list_folders">folders</string>
-    <string name="file_list_file">file</string>
-    <string name="file_list_files">files</string>
     <string name="filedetails_select_file">Tap on a file to display additional information.</string>
     <string name="filedetails_size">Size:</string>
     <string name="filedetails_type">Type:</string>
@@ -139,7 +133,6 @@
     <string name="common_cancel">Cancel</string>
     <string name="common_back">Back</string>
     <string name="common_save">Save</string>
-    <string name="common_save_exit">Save &amp; exit</string>
     <string name="common_error">Error</string>
     <string name="common_loading">Loading &#8230;</string>
     <string name="common_unknown">unknown</string>
@@ -150,7 +143,6 @@
     <string name="change_password">Change password</string>
     <string name="delete_account">Remove account</string>
     <string name="delete_account_warning">Delete account %s with all local files?\n\nDeleting cannot be undone.</string>
-    <string name="create_account">Create account</string>
     <string name="avatar">Avatar</string>
     <string name="active_user">Active user</string>
     <string name="upload_chooser_title">Upload from &#8230;</string>
@@ -342,7 +334,6 @@
     <string name="placeholder_media_time">12:23:45</string>
 
     <string name="auto_upload_on_wifi">Only upload on Wi-Fi</string>
-    <string name="instant_upload_on_wifi">Only upload pictures on Wi-Fi</string>
     <string name="instant_video_upload_on_wifi">Only upload videos on Wi-Fi</string>
     <string name="instant_video_upload_on_charging">Only upload when charging</string>
     <string name="instant_upload_on_charging">Only upload when charging</string>
@@ -425,7 +416,6 @@
     <string name="file_migration_source_not_readable_title">Source directory not readable!</string>
     <string name="file_migration_source_not_readable">Do you still want to change the storage path to %1$s?\n\nNote: All data will have to be downloaded again.</string>
 
-    <string name="prefs_category_accounts">Accounts</string>
     <string name="prefs_add_account">Add account</string>
     <string name="drawer_manage_accounts">Manage accounts</string>
     <string name="auth_redirect_non_secure_connection_title">Secure connection redirected through an unsecured route.</string>
@@ -625,7 +615,7 @@
     <string name="storage_description_unknown">Unknown</string>
 
     <!-- What's new feature and texts to show -->
-    <string name="whats_new_title">What\'s new in Nextcloud</string>
+    <string name="whats_new_title">What\'s new in %1$s</string>
 
     <!-- Welcome to Nc intro features -->
     <string name="welcome_feature_1_title">A safe home for all your data</string>
@@ -634,8 +624,20 @@
     <string name="welcome_feature_2_title">Multi account</string>
     <string name="welcome_feature_2_text">Connect to all your clouds</string>
 
-    <string name="welcome_feature_3_title">Instant upload</string>
+    <string name="welcome_feature_3_title">Auto upload</string>
     <string name="welcome_feature_3_text">Keep your photos safe</string>
+
+    <string name="whats_new_auto_upload_title">Enhanced auto upload</string>
+    <string name="whats_new_auto_upload_content">\u2022 for all Android versions\n\u2022 less battery consumption\n\u2022 more reliable, but not instant\n\u2022 separation of images &amp; videos</string>
+
+    <string name="whats_new_search_title">Full server search</string>
+    <string name="whats_new_search_content">\u2022 Not only in current folder\n\u2022 Returns results from complete server\n\u2022 Directly open files/folders\n\u2022 Supported in NC12 and above</string>
+
+    <string name="whats_new_theming_title">Theming support</string>
+    <string name="whats_new_theming_content">If enabled on server, app will show\n\u2022 background image\n\u2022 server name\n\u2022 use color to distinguish accounts</string>
+
+    <string name="whats_new_notification_title">Notification support</string>
+    <string name="whats_new_notification_content">Get notifications like\n\u2022 new remote share\n\u2022 comment mentions\n\u2022 admin announcements</string>
 
     <string name="whats_new_skip">Skip</string>
 
@@ -697,4 +699,6 @@
     <string name="info_separator" translatable="false">,</string>
     <string name="resharing_is_not_allowed">Resharing is not allowed</string>
     <string name="resized_image_not_possible">No resized image possible. Download full image?</string>
+    <string name="whats_new_fingerprint_title">Unlock with fingerprint</string>
+    <string name="whats_new_fingerprint_content">Use your fingerprint to unlock the app</string>
 </resources>

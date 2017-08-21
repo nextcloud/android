@@ -45,7 +45,6 @@
     <string name="uploader_wrn_no_account_setup_btn_text">Pengaturan</string>
     <string name="uploader_wrn_no_account_quit_btn_text">Keluar</string>
     <string name="uploader_error_title_no_file_to_upload">Tidak ada berkas untuk diunggah</string>
-    <string name="uploader_error_message_received_piece_of_text">%1$s tidak dapat mengunggah teks sebagai berkas.</string>
     <string name="uploader_error_message_no_file_to_upload">Data yang diterima tidak mengandung berkas yang valid.</string>
     <string name="uploader_error_message_read_permission_not_granted">%1$s tidak diizinkan untuk membaca berkas yang diterima</string>
     <string name="uploader_upload_files_behaviour">Pilihan unggah:</string>
@@ -58,9 +57,6 @@
     <string name="file_list_empty_headline_search">Tidak ada hasil di folder ini</string>
     <string name="upload_list_empty_headline">Tidak ada unggahan yang tersedia</string>
     <string name="file_list_folder">folder</string>
-    <string name="file_list_folders">folder</string>
-    <string name="file_list_file">berkas</string>
-    <string name="file_list_files">berkas</string>
     <string name="filedetails_select_file">Sentuh pada berkas untuk menampilkan informasi tambahan</string>
     <string name="filedetails_size">Ukuran:</string>
     <string name="filedetails_type">Tipe:</string>
@@ -77,7 +73,6 @@
     <string name="common_cancel">Batal</string>
     <string name="common_back">Kembali</string>
     <string name="common_save">Simpan</string>
-    <string name="common_save_exit">Simpan &amp; keluar</string>
     <string name="common_error">Kesalahan</string>
     <string name="common_loading">Memuat &#8230;</string>
     <string name="common_unknown">tidak diketahui</string>
@@ -86,7 +81,6 @@
     <string name="about_title">Tentang</string>
     <string name="change_password">Ubah sandi</string>
     <string name="delete_account">Hapus akun</string>
-    <string name="create_account">Buat akun</string>
     <string name="upload_chooser_title">Unggah dari &#8230;</string>
     <string name="uploader_info_dirname">Nama folder</string>
     <string name="uploader_upload_in_progress_ticker">Mengungggah &#8230;</string>
@@ -264,7 +258,6 @@
     <string name="file_migration_updating_index">Memperbarui indeks&#8230;</string>
     <string name="file_migration_cleaning">Membersihkan&#8230;</string>
     <string name="file_migration_ok_finished">Selesai</string>
-    <string name="prefs_category_accounts">Akun</string>
     <string name="prefs_add_account">Tambah akun</string>
     <string name="drawer_manage_accounts">Kelola akun</string>
     <string name="actionbar_logger">Log</string>
@@ -383,15 +376,11 @@
     <string name="storage_description_sd_no">Kartu SD %1$d</string>
     <string name="storage_description_unknown">Tidak diketahui</string>
 
-    <!-- What's new feature and texts to show -->
-    <string name="whats_new_title">Apa yang baru di Nextcloud</string>
-
     <!-- Welcome to Nc intro features -->
     <string name="welcome_feature_1_title">Tempat yang aman untuk semua data anda</string>
     <string name="welcome_feature_2_title">Multi akun</string>
     <string name="welcome_feature_2_text">Sambung ke semua cloud anda</string>
 
-    <string name="welcome_feature_3_title">Unggah Instan</string>
     <string name="welcome_feature_3_text">Jaga foto anda tetap aman</string>
 
     <string name="whats_new_skip">Lewat</string>

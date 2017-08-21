@@ -21,7 +21,6 @@
     <string name="menu_item_sort_by_size_smallest_first">Küçükten Büyüğe</string>
 
     <string name="drawer_item_all_files">Tüm dosyalar</string>
-    <string name="drawer_item_files">Dosyalar</string>
     <string name="drawer_item_home">Giriş</string>
     <string name="drawer_item_favorites">Sık Kullanılanlar</string>
     <string name="drawer_item_photos">Fotoğraflar</string>
@@ -76,7 +75,6 @@
     <string name="uploader_wrn_no_account_setup_btn_text">Kurulum</string>
     <string name="uploader_wrn_no_account_quit_btn_text">Çıkış</string>
     <string name="uploader_error_title_no_file_to_upload">Yüklenecek bir dosya yok</string>
-    <string name="uploader_error_message_received_piece_of_text">%1$s bir metin parçasını dosya olarak yükleyemez.</string>
     <string name="uploader_error_message_no_file_to_upload">Alınan verilerde geçerli bir dosya bulunamadı.</string>
     <string name="uploader_error_title_file_cannot_be_uploaded">Bu dosya yüklenemez</string>
     <string name="uploader_error_message_read_permission_not_granted">%1$s alınan bir dosyayı okumaya yetkili değil</string>
@@ -90,7 +88,6 @@
     <string name="file_list_empty_headline">Burada herhangi bir dosya yok</string>
     <string name="folder_list_empty_headline">Burada herhangi bir klasör yok</string>
     <string name="file_list_empty">Bazı içerikler yükleyin ya da aygıtlarınızla eşitleyin.</string>
-    <string name="file_list_empty_favorites">Bazı dosyaları sık kullanılanlara ekleyin ya da aygıtlarınızla paylaşın.</string>
     <string name="file_list_empty_favorites_filter_list">Sık kullanılanlara eklediğiniz dosya ve klasörler burada görüntülenir</string>
     <string name="file_list_empty_favorites_filter">Arama sonucunda sık kullanılan bir dosya bulunamadı.</string>
     <string name="file_list_loading">Yükleniyor&#8230;</string>
@@ -117,9 +114,6 @@
     <string name="upload_list_empty_text">Bazı içerikler yükleyin ya da anında yüklemeyi etkinleştirin.</string>
     <string name="upload_list_empty_text_auto_upload">Bazı içerikler yükleyin ya da otomatik yüklemeyi etkinleştirin.</string>
     <string name="file_list_folder">klasör</string>
-    <string name="file_list_folders">klasör</string>
-    <string name="file_list_file">dosya</string>
-    <string name="file_list_files">dosya</string>
     <string name="filedetails_select_file">Ek bilgileri görmek için dosyaya dokunun.</string>
     <string name="filedetails_size">Boyut:</string>
     <string name="filedetails_type">Tür:</string>
@@ -139,7 +133,6 @@
     <string name="common_cancel">İptal</string>
     <string name="common_back">Geri</string>
     <string name="common_save">Kaydet</string>
-    <string name="common_save_exit">Kaydet ve Çık</string>
     <string name="common_error">Hata</string>
     <string name="common_loading">Yükleniyor&#8230;</string>
     <string name="common_unknown">bilinmiyor</string>
@@ -150,7 +143,6 @@
     <string name="change_password">Parola değiştir</string>
     <string name="delete_account">Hesabı kaldır</string>
     <string name="delete_account_warning">%s hesabı tüm yerel dosyaları ile silinsin mi?\n\nSilme işlemi geri alınamaz.</string>
-    <string name="create_account">Hesap oluştur</string>
     <string name="avatar">Avatar</string>
     <string name="active_user">Etkin kullanıcı</string>
     <string name="upload_chooser_title">Şuradan yükle&#8230;</string>
@@ -339,7 +331,6 @@
     <string name="placeholder_media_time">12:23:45</string>
 
     <string name="auto_upload_on_wifi">Yalnız kablosuz ağ üzerinden yüklensin</string>
-    <string name="instant_upload_on_wifi">Fotoğraflar yalnız kablosuz ağ üzerinden yüklensin</string>
     <string name="instant_video_upload_on_wifi">Görüntüler yalnız kablosuz ağ üzerinden yüklensin</string>
     <string name="instant_video_upload_on_charging">Yalnız şarj edilirken yüklensin</string>
     <string name="instant_upload_on_charging">Yalnız şarj edilirken yüklensin</string>
@@ -422,7 +413,6 @@
     <string name="file_migration_source_not_readable_title">Kaynak klasör okunabilir değil!</string>
     <string name="file_migration_source_not_readable">Depolama yolunu gene de %1$s olarak değiştirmek istediğinizden emin misiniz?\n\nNot: Tüm verilerin yeniden indirilmesi gerekecek.</string>
 
-    <string name="prefs_category_accounts">Hesaplar</string>
     <string name="prefs_add_account">Hesap ekle</string>
     <string name="drawer_manage_accounts">Hesap yönetimi</string>
     <string name="auth_redirect_non_secure_connection_title">Güvenli bağlantı, güvenli olmayan bir hedefe yönlendiriliyor.</string>
@@ -610,7 +600,7 @@
     <string name="storage_description_unknown">Bilinmiyor</string>
 
     <!-- What's new feature and texts to show -->
-    <string name="whats_new_title">Nextcloud yenilikleri</string>
+    <string name="whats_new_title">%1$s yenilikleri</string>
 
     <!-- Welcome to Nc intro features -->
     <string name="welcome_feature_1_title">Verileriniz için güvenli bir yer!</string>
@@ -619,8 +609,20 @@
     <string name="welcome_feature_2_title">Birden çok hesap</string>
     <string name="welcome_feature_2_text">Tüm bulut hesaplarınıza bağlanın</string>
 
-    <string name="welcome_feature_3_title">Anında yükleme</string>
+    <string name="welcome_feature_3_title">Otomatik yükleme</string>
     <string name="welcome_feature_3_text">Fotoğraflarınızı koruyun</string>
+
+    <string name="whats_new_auto_upload_title">Genişletilmiş otomatik yükleme</string>
+    <string name="whats_new_auto_upload_content">\u2022 tüm Android sürümleri için\n\u2022 daha az pil harcaması\n\u2022 daha güvenli, ancak görseller\n\u2022 &amp; görüntüler anında ayrılmıyor</string>
+
+    <string name="whats_new_search_title">Tam sunucu araması</string>
+    <string name="whats_new_search_content">\u2022 Yalnız geçerli klasörde değil\n\u2022 Tüm sunucudaki sonuçları verir\n\u2022 Doğrudan dosya/klasör açma\n\u2022 NC12 ve üzerindeki sürümlerde desteklenir</string>
+
+    <string name="whats_new_theming_title">Tema desteği</string>
+    <string name="whats_new_theming_content">Sunucu uygulamasında etkinleştirilmiş ise\n\u2022 art alan görseli\n\u2022 sunucu adı\n\u2022 hesapları ayırt etmek için farklı renk kullanımı</string>
+
+    <string name="whats_new_notification_title">Bildirim desteği</string>
+    <string name="whats_new_notification_content">Yeni bildirimler\n\u2022 yeni uzak paylaşım\n\u2022 yorumda anma\n\u2022 yönetici duyuruları</string>
 
     <string name="whats_new_skip">Atla</string>
 
@@ -675,4 +677,6 @@
 
     <string name="test_server_button">Sunucu bağlantısını sına</string>
     <string name="resharing_is_not_allowed">Yeniden paylaşıma izin verilmiyor</string>
+    <string name="whats_new_fingerprint_title">Parmak izi ile kilit açma</string>
+    <string name="whats_new_fingerprint_content">Uygulama kilidini açmak için parmak izi kullanımı</string>
 </resources>

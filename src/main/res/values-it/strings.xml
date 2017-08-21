@@ -21,7 +21,6 @@
     <string name="menu_item_sort_by_size_smallest_first">Prima i più piccoli</string>
 
     <string name="drawer_item_all_files">Tutti i file</string>
-    <string name="drawer_item_files">File</string>
     <string name="drawer_item_home">Home</string>
     <string name="drawer_item_favorites">Preferiti</string>
     <string name="drawer_item_photos">Foto</string>
@@ -76,7 +75,6 @@
     <string name="uploader_wrn_no_account_setup_btn_text">Configurazione</string>
     <string name="uploader_wrn_no_account_quit_btn_text">Esci</string>
     <string name="uploader_error_title_no_file_to_upload">Nessun file da caricare</string>
-    <string name="uploader_error_message_received_piece_of_text">%1$s non può  caricare un pezzo di testo come un file.</string>
     <string name="uploader_error_message_no_file_to_upload">I dati ricevuti non includono alcun file valido.</string>
     <string name="uploader_error_title_file_cannot_be_uploaded">Questo file non può essere caricato</string>
     <string name="uploader_error_message_read_permission_not_granted">%1$s non ha il permesso di leggere un file ricevuto</string>
@@ -116,9 +114,6 @@
     <string name="upload_list_empty_text">Carica alcuni contenuti o attiva il caricamento istantaneo.</string>
     <string name="upload_list_empty_text_auto_upload">Carica alcuni contenuti o attiva il caricamento automatico.</string>
     <string name="file_list_folder">cartella</string>
-    <string name="file_list_folders">cartelle</string>
-    <string name="file_list_file">file</string>
-    <string name="file_list_files">file</string>
     <string name="filedetails_select_file">Tocca un file per visualizzare informazioni aggiuntive.</string>
     <string name="filedetails_size">Dimensione:</string>
     <string name="filedetails_type">Tipo:</string>
@@ -127,6 +122,7 @@
     <string name="filedetails_download">Scarica</string>
     <string name="filedetails_sync_file">Sincronizza</string>
     <string name="filedetails_renamed_in_upload_msg">File rinominato in %1$s durante il caricamento</string>
+    <string name="list_layout">Struttura a elenco</string>
     <string name="action_share">Condividi</string>
     <string name="common_yes">Sì</string>
     <string name="common_no">No</string>
@@ -137,7 +133,6 @@
     <string name="common_cancel">Annulla</string>
     <string name="common_back">Indietro</string>
     <string name="common_save">Salva</string>
-    <string name="common_save_exit">Salva ed esci</string>
     <string name="common_error">Errore</string>
     <string name="common_loading">Caricamento in corso &#8230;</string>
     <string name="common_unknown">sconosciuto</string>
@@ -148,7 +143,6 @@
     <string name="change_password">Modifica la password</string>
     <string name="delete_account">Rimuovi account</string>
     <string name="delete_account_warning">Vuoi eliminare l\'account %s con tutti i file locali?\n\nL\'eliminazione non può essere annullata.</string>
-    <string name="create_account">Crea account</string>
     <string name="avatar">Avatar</string>
     <string name="active_user">Utente attivo</string>
     <string name="upload_chooser_title">Carica file da &#8230;</string>
@@ -337,7 +331,6 @@
     <string name="placeholder_media_time">12:23:45</string>
 
     <string name="auto_upload_on_wifi">Carica solo su Wi-Fi</string>
-    <string name="instant_upload_on_wifi">Carica immagini solo in Wi-Fi</string>
     <string name="instant_video_upload_on_wifi">Carica video solo in Wi-Fi</string>
     <string name="instant_video_upload_on_charging">Carica solo durante la ricarica</string>
     <string name="instant_upload_on_charging">Carica solo durante la ricarica</string>
@@ -420,7 +413,6 @@
     <string name="file_migration_source_not_readable_title">Cartella sorgente non leggibile!</string>
     <string name="file_migration_source_not_readable">Vuoi davvero cambiare il percorso di archiviazione a %1$s?\n\nNota: tutti i dati dovranno essere scaricati nuovamente.</string>
 
-    <string name="prefs_category_accounts">Account</string>
     <string name="prefs_add_account">Aggiungi account</string>
     <string name="drawer_manage_accounts">Gestisci account</string>
     <string name="auth_redirect_non_secure_connection_title">Connessione sicura rediretta su un percorso non sicuro.</string>
@@ -516,6 +508,7 @@
     <string name="share_email_clarification">%1$s (email)</string>
     <string name="share_known_remote_clarification">%1$s ( su %2$s )</string>
 
+    <string name="share_sharee_unavailable">Aggiorna la versione del server per consentire la condivisione tra utenti dai loro client.\nContatta il tuo amministratore</string>
     <string name="filedetails_share_link_enable">Condivisi tramite collegamento abilitata</string>
     <string name="filedetails_share_link_disable">Non condivisi tramite collegamento</string>
     <string name="filedetails_share_users_with_access">Utenti e gruppi con accesso</string>
@@ -537,6 +530,7 @@
     <string name="action_switch_list_view">Vista Elenco</string>
 
     <string name="manage_space_title">Gestisci lo spazio</string>
+    <string name="manage_space_description">Impostazioni, database e certificati del server dai dati di %1$s saranno eliminati definitivamente.\n\ni file scaricati non saranno interessati.\n\nQuesto processo può richiedere del tempo.</string>
     <string name="manage_space_clear_data">Cancella i dati</string>
     <string name="manage_space_error">Alcuni file non possono essere eliminati.</string>
 
@@ -558,13 +552,16 @@
     <string name="participate_testing_report_text">Segnala un problema su GitHub</string>
     <string name="participate_testing_version_text">Sei interessato ad aiutarci provando la prossima versione?</string>
     <string name="participate_beta_headline">Prova la versione di sviluppo</string>
+    <string name="participate_beta_text">Ciò include tutte le funzionalità di prossima introduzione e potrebbe presentare seri problemi di stabilità. Bug/errori possono verificars. Se e quando li riscontrerai, segnalaci le tue scoperte.</string>
     <string name="participate_release_candidate_headline">Candidata al rilascio</string>
+    <string name="participate_release_candidate_text">La candidata al rilascio (RC) è un\'istantanea della versione successiva e dovrebbe essere stabile. Effettuando dei test sulla tua configurazione, puoi aiutarci a esserene sicuri. Registrati per la fase test su Google Play o controlla manualmente nella sezione \"Versione\" di F-Droid.</string>
     <string name="participate_contribute_headline">Contribuisci attivamente</string>
     <string name="participate_contribute_irc_text">Entra in chat su IRC:</string>
     <string name="participate_contribute_forum_text">Aiuta gli altri sul</string>
     <string name="participate_contribute_forum_forum">forum</string>
     <string name="participate_contribute_translate_translate">Traduci</string>
     <string name="participate_contribute_translate_text">l\'applicazione</string>
+    <string name="participate_contribute_github_text">Esamina, correggi e scrivi codice, vedi %1$s per i dettagli</string>
     <string name="participate_rc_play_store">Ottieni la candidata al rilascio tramite Google Play</string>
     <string name="participate_rc_fdroid">Ottieni la candidata al rilascio tramite F-Droid</string>
     <string name="participate_dev_fdroid">Ottieni la versione di sviluppo tramite F-Droid</string>
@@ -577,6 +574,7 @@
     <string name="synced_folders_no_results">Nessuna cartella di file multimediali trovata.</string>
     <string name="synced_folders_preferences">Preferenze per il caricamento automatico</string>
     <string name="synced_folders_settings">Impostazioni</string>
+    <string name="synced_folders_new_info">Il caricamento istantaneo è stato riscritto completamente. Riconfigura il caricamento automatico dal menu principale.\n\nGoditi il nuovo ed esteso caricamento automatico.</string>
     <string name="synced_folders_preferences_folder_path">Per %1$s</string>
     <plurals name="items_selected_count">
         <item quantity="one">%d selezionato</item>
@@ -602,7 +600,7 @@
     <string name="storage_description_unknown">Sconosciuto</string>
 
     <!-- What's new feature and texts to show -->
-    <string name="whats_new_title">Cosa c\'è di nuovo in Nextcloud</string>
+    <string name="whats_new_title">Cosa c\'è di nuovo in %1$s</string>
 
     <!-- Welcome to Nc intro features -->
     <string name="welcome_feature_1_title">Un posto sicuro per tutti i tuoi dati</string>
@@ -611,8 +609,20 @@
     <string name="welcome_feature_2_title">Account multipli</string>
     <string name="welcome_feature_2_text">Collega tutti i tuoi cloud</string>
 
-    <string name="welcome_feature_3_title">Caricamento istantaneo</string>
+    <string name="welcome_feature_3_title">Caricamento automatico</string>
     <string name="welcome_feature_3_text">Tieni al sicuro le tue foto</string>
+
+    <string name="whats_new_auto_upload_title">Caricamento automatico migliorato</string>
+    <string name="whats_new_auto_upload_content">\u2022 per tutte le versioni di Android\n\u2022 minor consumo della batteria\n\u2022 maggiore affidabilità\n\u2022 separazione di immagini &amp; video</string>
+
+    <string name="whats_new_search_title">Ricerca completa sul server</string>
+    <string name="whats_new_search_content">\u2022 Non solo nella cartella attuale\n\u2022 Restituisce i risultati dall\'intero server\n\u2022 Apre direttamente file/cartellle\n\u2022 Supportate in NC12 e superiori</string>
+
+    <string name="whats_new_theming_title">Supporto dei temi</string>
+    <string name="whats_new_theming_content">Se abilitata sul server, mostrerà\n\u2022 l\'immagine di sfondo\n\u2022 il nome del server\n\u2022 utilizzo dei colori per distinguere gli account</string>
+
+    <string name="whats_new_notification_title">Supporto delle notifiche</string>
+    <string name="whats_new_notification_content">Otteni notifiche come\n\u2022 nuova condivisione remota\n\u2022 menzioni dei commenti\n\u2022 annunci amministrativi</string>
 
     <string name="whats_new_skip">Salta</string>
 
@@ -631,6 +641,7 @@
 
     <!-- Activities -->
     <string name="activities_no_results_headline">Ancora nessuna attività</string>
+    <string name="activities_no_results_message">Questo flusso mostrerà eventi come\naggiunte, modifiche e condivisioni</string>
     <string name="webview_error">Si è verificato un errore</string>
     <string name="prefs_category_about">Informazioni</string>
 
@@ -665,4 +676,7 @@
     <string name="synced_folders_configure_folders">Configura cartelle</string>
 
     <string name="test_server_button">Prova di connessione al server</string>
-    </resources>
+    <string name="resharing_is_not_allowed">La ri-condivisione non è consentita</string>
+    <string name="whats_new_fingerprint_title">Sblocco con impronta digitale</string>
+    <string name="whats_new_fingerprint_content">Usa la tua impronta digitale per sbloccare l\'applicazione</string>
+</resources>

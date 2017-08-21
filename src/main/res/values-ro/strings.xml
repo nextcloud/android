@@ -21,7 +21,6 @@
     <string name="menu_item_sort_by_size_smallest_first">Cel mai mic mai întâi</string>
 
     <string name="drawer_item_all_files">Toate fișierele</string>
-    <string name="drawer_item_files">Fișiere</string>
     <string name="drawer_item_home">Acasă</string>
     <string name="drawer_item_favorites">Favorite</string>
     <string name="drawer_item_photos">Poze</string>
@@ -62,7 +61,6 @@
     <string name="uploader_wrn_no_account_setup_btn_text">Configurare</string>
     <string name="uploader_wrn_no_account_quit_btn_text">Renunță</string>
     <string name="uploader_error_title_no_file_to_upload">Niciun fișier disponibil pentru încărcare</string>
-    <string name="uploader_error_message_received_piece_of_text">%1$s nu poate încărca o bucată de text ca un fișier.</string>
     <string name="uploader_error_message_no_file_to_upload">Datele primite nu includ un fișier valid</string>
     <string name="uploader_error_message_read_permission_not_granted">%1$s nu are permisiunea de a citi un fișier primit</string>
     <string name="uploader_upload_files_behaviour">Opțiune pentru încărcare:</string>
@@ -70,14 +68,11 @@
     <string name="uploader_upload_files_behaviour_only_upload">Păstrați fișierul in dosarul sursă</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Ștergeți fișierul din dosarul sursă</string>
     <string name="file_list_seconds_ago">secunde în urmă</string>
-    <string name="file_list_loading">Se încarcă...</string>
+    <string name="file_list_loading">Se încarcă&#8230;</string>
     <string name="local_file_list_empty">În acest folder nu sunt fișiere.</string>
     <string name="file_list_empty_headline_search">Niciun element găsit în acest director</string>
     <string name="upload_list_empty_headline">Nu există încărcări disponibile</string>
     <string name="file_list_folder">director</string>
-    <string name="file_list_folders">directoare</string>
-    <string name="file_list_file">fișier</string>
-    <string name="file_list_files">fișier</string>
     <string name="filedetails_select_file">Selectați un fișier pentru a afișa informația adițională.</string>
     <string name="filedetails_size">Mărime:</string>
     <string name="filedetails_type">Tip:</string>
@@ -94,19 +89,17 @@
     <string name="common_cancel">Anulează</string>
     <string name="common_back">Înapoi</string>
     <string name="common_save">Salvează</string>
-    <string name="common_save_exit">Salvează &amp; ieși</string>
     <string name="common_error">Eroare</string>
-    <string name="common_loading">Se încarcă...</string>
+    <string name="common_loading">Se încarcă &#8230;</string>
     <string name="common_unknown">necunoscut</string>
     <string name="common_error_unknown">Eroare necunoscută</string>
     <string name="common_pending">În așteptare</string>
     <string name="about_title">Despre</string>
     <string name="change_password">Schimbă parola</string>
     <string name="delete_account">Sterge contul</string>
-    <string name="create_account">Crează cont</string>
-    <string name="upload_chooser_title">Încarcă din...</string>
+    <string name="upload_chooser_title">Încarcă din &#8230;</string>
     <string name="uploader_info_dirname">Nume director</string>
-    <string name="uploader_upload_in_progress_ticker">Se încărcarcă...</string>
+    <string name="uploader_upload_in_progress_ticker">Se încărcarcă &#8230;</string>
     <string name="uploader_upload_in_progress_content">%1$d%% Se încarcă %2$s</string>
     <string name="uploader_upload_succeeded_content_single">%1$s incarcat</string>
     <string name="uploader_upload_failed_ticker">Încărcarea a eșuat</string>
@@ -127,7 +120,7 @@
     <string name="uploads_view_upload_status_conflict">Conflict</string>
     <string name="uploads_view_upload_status_unknown_fail">Eroare necunoscută</string>
     <string name="uploads_view_later_waiting_to_upload">Se așteaptă încărcarea</string>
-    <string name="downloader_download_in_progress_ticker">Se descarcă...</string>
+    <string name="downloader_download_in_progress_ticker">Se descarcă &#8230;</string>
     <string name="downloader_download_in_progress_content">%1$d%% Se descarcă %2$s</string>
     <string name="downloader_download_succeeded_content">%1$s descarcat</string>
     <string name="downloader_download_failed_ticker">Descărcarea a eșuat</string>
@@ -204,7 +197,7 @@
     <string name="filename_forbidden_charaters_from_server">Numele fișierului conține măcar un caracter invalid</string>
     <string name="filename_empty">Numele fișierului nu poate fi gol.</string>
     <string name="wait_checking_credentials">Se verifică datele de autentificare stocate</string>
-    <string name="activity_chooser_title">Trimite link la ...</string>
+    <string name="activity_chooser_title">Trimite link la &#8230;</string>
     <string name="wait_for_tmp_copy_from_private_storage">Copiere fișier din stocare privată</string>
     
     <string name="ssl_validator_header">Nu s-a putut verifica identitatea site-ului</string>
@@ -282,7 +275,6 @@
     <string name="file_migration_updating_index">Indexul se actualizează&#8230;</string>
     <string name="file_migration_cleaning">Curățare&#8230;</string>
     <string name="file_migration_ok_finished">Finalizat</string>
-    <string name="prefs_category_accounts">Conturi</string>
     <string name="prefs_add_account">Adaugă cont</string>
     <string name="drawer_manage_accounts">Administrare conturi</string>
     <string name="actionbar_logger">Înregistrări</string>
@@ -403,15 +395,11 @@
     <string name="storage_description_sd_no">Card SD %1$d</string>
     <string name="storage_description_unknown">Necunoscut</string>
 
-    <!-- What's new feature and texts to show -->
-    <string name="whats_new_title">Ce este nou în Nextcloud</string>
-
     <!-- Welcome to Nc intro features -->
     <string name="welcome_feature_1_title">O casă sigură pentru toate datele tale</string>
     <string name="welcome_feature_2_title">Conturi multiple</string>
     <string name="welcome_feature_2_text">Conectează-te la toate cloud-urile tale</string>
 
-    <string name="welcome_feature_3_title">Încărcare instantă</string>
     <string name="welcome_feature_3_text">Păstrează-ți fotografiile în siguranță</string>
 
     <string name="whats_new_skip">Sari peste</string>

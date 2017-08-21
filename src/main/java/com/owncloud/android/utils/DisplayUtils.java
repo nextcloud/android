@@ -387,11 +387,19 @@ public class DisplayUtils {
      * @param style    the style to be applied
      */
     public static SpannableStringBuilder createTextWithSpan(String text, String spanText, StyleSpan style) {
+        if (text == null) {
+            return null;
+        }
+
         SpannableStringBuilder sb = new SpannableStringBuilder(text);
+        if(spanText == null) {
+            return sb;
+        }
+
         int start = text.lastIndexOf(spanText);
 
         if (start < 0) {
-            start++;
+            return sb;
         }
 
         int end = start + spanText.length();

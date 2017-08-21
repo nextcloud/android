@@ -21,7 +21,6 @@
     <string name="menu_item_sort_by_size_smallest_first">Menores primeiro</string>
 
     <string name="drawer_item_all_files">Todos os arquivos</string>
-    <string name="drawer_item_files">Arquivos</string>
     <string name="drawer_item_home">Início</string>
     <string name="drawer_item_favorites">Favoritos</string>
     <string name="drawer_item_photos">Fotos</string>
@@ -76,7 +75,6 @@
     <string name="uploader_wrn_no_account_setup_btn_text">Instalação</string>
     <string name="uploader_wrn_no_account_quit_btn_text">Sair</string>
     <string name="uploader_error_title_no_file_to_upload">Nenhum arquivo para envio</string>
-    <string name="uploader_error_message_received_piece_of_text">%1$s não pôde enviar um pedaço de texto como um arquivo.</string>
     <string name="uploader_error_message_no_file_to_upload">Os dados recebidos não incluem um arquivo válido.</string>
     <string name="uploader_error_title_file_cannot_be_uploaded">Este arquivo não pôde ser enviado</string>
     <string name="uploader_error_message_read_permission_not_granted">%1$s não tem permissão para ler um arquivo recebido</string>
@@ -90,7 +88,6 @@
     <string name="file_list_empty_headline">Nenhum arquivo aqui</string>
     <string name="folder_list_empty_headline">Sem pastas aqui</string>
     <string name="file_list_empty">Enviar um conteúdo ou sincronizar com seus dispositivos.</string>
-    <string name="file_list_empty_favorites">Favoritar algum arquivo ou sincronizar com seus dispositivos.</string>
     <string name="file_list_empty_favorites_filter_list">Arquivos e pastas favoritas serão mostradas aqui</string>
     <string name="file_list_empty_favorites_filter">Sua pesquisa não retornou nenhum arquivo favorito.</string>
     <string name="file_list_loading">Carregando&#8230;</string>
@@ -117,9 +114,6 @@
     <string name="upload_list_empty_text">Enviar algum conteúdo ou ativar o envio automático.</string>
     <string name="upload_list_empty_text_auto_upload">Enviar algum conteúdo ou ativar o envio automático.</string>
     <string name="file_list_folder">pasta</string>
-    <string name="file_list_folders">pastas</string>
-    <string name="file_list_file">arquivo</string>
-    <string name="file_list_files">arquivos</string>
     <string name="filedetails_select_file">Toque em um arquivo para mostrar informações adicionais.</string>
     <string name="filedetails_size">Tamanho:</string>
     <string name="filedetails_type">Tipo:</string>
@@ -139,7 +133,6 @@
     <string name="common_cancel">Cancelar</string>
     <string name="common_back">Voltar</string>
     <string name="common_save">Salvar</string>
-    <string name="common_save_exit">Salvar &amp; sair</string>
     <string name="common_error">Erro</string>
     <string name="common_loading">Carregando &#8230;</string>
     <string name="common_unknown">desconhecido</string>
@@ -150,7 +143,6 @@
     <string name="change_password">Alterar senha</string>
     <string name="delete_account">Excluir conta</string>
     <string name="delete_account_warning">Excluir a conta %s e todos seus arquivos?\n\nEsta exclusão não pode ser desfeita.</string>
-    <string name="create_account">Criar conta</string>
     <string name="avatar">Avatar</string>
     <string name="active_user">Ativar usuário</string>
     <string name="upload_chooser_title">Enviar de &#8230;</string>
@@ -244,7 +236,7 @@
 	<string name="auth_no_net_conn_title">Sem conexão de rede</string>
 	<string name="auth_nossl_plain_ok_title">Conexão segura indisponível.</string>
 	<string name="auth_connection_established">Conexão estabelecida</string>
-	<string name="auth_testing_connection">Testando conexão...</string>
+	<string name="auth_testing_connection">Testando conexão</string>
 	<string name="auth_not_configured_title">Configuração do servidor inválida</string>
 	<string name="auth_account_not_new">Uma conta para o mesmo usuário e servidor já existe no dispositivo</string>
 	<string name="auth_account_not_the_same">As informações que o usuário digitou não correspondem ao usuário da conta</string>
@@ -339,7 +331,6 @@
     <string name="placeholder_media_time">12:23:45</string>
 
     <string name="auto_upload_on_wifi">Somente enviar por Wi-Fi</string>
-    <string name="instant_upload_on_wifi">Somente enviar imagens por Wi-Fi</string>
     <string name="instant_video_upload_on_wifi">Somente enviar vídeos por Wi-Fi</string>
     <string name="instant_video_upload_on_charging">Somente enviar quando carregando</string>
     <string name="instant_upload_on_charging">Somente enviar quando carregando</string>
@@ -422,7 +413,6 @@
     <string name="file_migration_source_not_readable_title">Diretório fonte não legível!</string>
     <string name="file_migration_source_not_readable">Quer realmente mudar o caminho de armazenamento para %1$s?\n\nAtenção: Todos os dados terão que ser baixados novamente.</string>
 
-    <string name="prefs_category_accounts">Contas</string>
     <string name="prefs_add_account">Adicionar uma conta</string>
     <string name="drawer_manage_accounts">Gerenciar contas</string>
     <string name="auth_redirect_non_secure_connection_title">A conexão segura foi redirecionada através de uma rota insegura.</string>
@@ -610,7 +600,7 @@
     <string name="storage_description_unknown">Desconhecido</string>
 
     <!-- What's new feature and texts to show -->
-    <string name="whats_new_title">O que há de novo no Nextcloud</string>
+    <string name="whats_new_title">O que é novo em %1$s</string>
 
     <!-- Welcome to Nc intro features -->
     <string name="welcome_feature_1_title">Um local seguro para seus dados</string>
@@ -619,8 +609,20 @@
     <string name="welcome_feature_2_title">Multi contas</string>
     <string name="welcome_feature_2_text">Conectar em todas as suas Nuvens</string>
 
-    <string name="welcome_feature_3_title">Envio automático</string>
+    <string name="welcome_feature_3_title">Auto envio</string>
     <string name="welcome_feature_3_text">Mantenha seguras as suas fotos</string>
+
+    <string name="whats_new_auto_upload_title">Auto envio avançado</string>
+    <string name="whats_new_auto_upload_content">\u2022 para todas as versões de Android\n\u2022 menor consumo de bateria\n\u2022 mais confiável mas não instantâneo\n\u2022 separação de imagens &amp; vídeos</string>
+
+    <string name="whats_new_search_title">Pesquisa completa no servidor</string>
+    <string name="whats_new_search_content">\u2022 Não somente na pasta atual\n\u2022 Returna resultados do servidor inteiro\n\u2022 Abrir arquivos/pastas diretamente\n\u2022 Suportado na NC12 e acima</string>
+
+    <string name="whats_new_theming_title">Suporte a temas</string>
+    <string name="whats_new_theming_content">Se ativado no aplicativo do servidor irá mostrar\n\u2022 imagem de fundo\n\u2022 nome do servidor\n\u2022 usar cores para diferenciar contas</string>
+
+    <string name="whats_new_notification_title">Suporte a notificações</string>
+    <string name="whats_new_notification_content">Obter notificações como\n\u2022 novo compartilhamento remoto\n\u2022 menções em comentários\n\u2022 anúncios administrativos</string>
 
     <string name="whats_new_skip">Saltar</string>
 
@@ -675,4 +677,6 @@
 
     <string name="test_server_button">Teste de conexão ao servidor</string>
     <string name="resharing_is_not_allowed">Recompartilhamento não é permitido</string>
+    <string name="whats_new_fingerprint_title">Desbloquear com as digitais</string>
+    <string name="whats_new_fingerprint_content">Usar as digitais para desbloquear o aplicativo</string>
 </resources>

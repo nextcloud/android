@@ -21,7 +21,6 @@
     <string name="menu_item_sort_by_size_smallest_first">Más pequeño primero</string>
 
     <string name="drawer_item_all_files">Todos los archivos</string>
-    <string name="drawer_item_files">Archivos</string>
     <string name="drawer_item_home">Inicio</string>
     <string name="drawer_item_favorites">Favoritos</string>
     <string name="drawer_item_photos">Fotos</string>
@@ -76,7 +75,6 @@
     <string name="uploader_wrn_no_account_setup_btn_text">Ajustes</string>
     <string name="uploader_wrn_no_account_quit_btn_text">Salir</string>
     <string name="uploader_error_title_no_file_to_upload">No hay un archivo a cargar</string>
-    <string name="uploader_error_message_received_piece_of_text">%1$s no puede cargar una fragmento de texto como un archivo.</string>
     <string name="uploader_error_message_no_file_to_upload">La información recibida no contiene un archivo válido.</string>
     <string name="uploader_error_title_file_cannot_be_uploaded">Este archivo no puede ser cargado</string>
     <string name="uploader_error_message_read_permission_not_granted">%1$s no tiene permitido leer un archivo recibido</string>
@@ -90,7 +88,6 @@
     <string name="file_list_empty_headline">No hay archivos aquí</string>
     <string name="folder_list_empty_headline">No hay carpetas aquí</string>
     <string name="file_list_empty">Carga algún contenido o sincroniza con tus dispositivos.</string>
-    <string name="file_list_empty_favorites">Marca algunos archivos como favoritos o sincroniza con tus dispositivos.</string>
     <string name="file_list_empty_favorites_filter_list">Los archivos y carpetas que marques como favoritos se mostrarán aquí</string>
     <string name="file_list_empty_favorites_filter">Tu búsqueda no regresó archivos marcados como favoritos. </string>
     <string name="file_list_loading">Cargando&#8230;</string>
@@ -117,9 +114,6 @@
     <string name="upload_list_empty_text">Carga algún contenido o activa la carga automática</string>
     <string name="upload_list_empty_text_auto_upload">Carga algún contenido o activa la carga automática</string>
     <string name="file_list_folder">carpeta</string>
-    <string name="file_list_folders">carpetas</string>
-    <string name="file_list_file">archivo</string>
-    <string name="file_list_files">archivos</string>
     <string name="filedetails_select_file">Pulsa un archivo para mostrar información adicional.</string>
     <string name="filedetails_size">Tamaño:</string>
     <string name="filedetails_type">Tipo:</string>
@@ -139,7 +133,6 @@
     <string name="common_cancel">Cancelar</string>
     <string name="common_back">Atrás</string>
     <string name="common_save">Guardar</string>
-    <string name="common_save_exit">Guardar &amp; salir</string>
     <string name="common_error">Error</string>
     <string name="common_loading">Cargando  &#8230;</string>
     <string name="common_unknown">desconocido</string>
@@ -150,7 +143,6 @@
     <string name="change_password">Cambiar contraseña</string>
     <string name="delete_account">Cerrar sesión</string>
     <string name="delete_account_warning">¿Borrar la cuenta %s con todos los archivos locales?\n\nEl borrado no se puede deshacer.</string>
-    <string name="create_account">Crear cuenta</string>
     <string name="avatar">Avatar</string>
     <string name="active_user">Usuario activo</string>
     <string name="upload_chooser_title">Cargar desde &#8230;</string>
@@ -339,7 +331,6 @@
     <string name="placeholder_media_time">12:23:45</string>
 
     <string name="auto_upload_on_wifi">Cargar sólo mediante Wi-Fi</string>
-    <string name="instant_upload_on_wifi">Cargar imágenes sólo a través de Wi-Fi</string>
     <string name="instant_video_upload_on_wifi">Cargar videos sólo a través de Wi-Fi</string>
     <string name="instant_video_upload_on_charging">Cargar archivos sólo con el dispositivo conectado a la toma de corriente</string>
     <string name="instant_upload_on_charging">Cargar archivos sólo con el dispositivo conectado a la toma de corriente</string>
@@ -422,7 +413,6 @@
     <string name="file_migration_source_not_readable_title">¡No se puede leer el directorio fuente!</string>
     <string name="file_migration_source_not_readable">¿Aún deseas cambiar la ruta de almacenamiento a %1$s?\n\nNota: todos los datos tendrán que ser descargados de nuevo. </string>
 
-    <string name="prefs_category_accounts">Cuentas</string>
     <string name="prefs_add_account">Agregar cuenta</string>
     <string name="drawer_manage_accounts">Administrar cuentas</string>
     <string name="auth_redirect_non_secure_connection_title">La conexión segura se está redirigiendo a través de una ruta insegura.</string>
@@ -610,7 +600,7 @@
     <string name="storage_description_unknown">Desconocido</string>
 
     <!-- What's new feature and texts to show -->
-    <string name="whats_new_title">Qué hay de nuevo en Nextcloud</string>
+    <string name="whats_new_title">Qué hay de nuevo en %1$s</string>
 
     <!-- Welcome to Nc intro features -->
     <string name="welcome_feature_1_title">Un lugar seguro para todos tus datos</string>
@@ -622,6 +612,10 @@
     <string name="welcome_feature_3_title">Carga automática</string>
     <string name="welcome_feature_3_text">Manten tus fotos seguras</string>
 
+    <string name="whats_new_auto_upload_title">Carga automática mejorada</string>
+    <string name="whats_new_search_title">Búsqueda completa en el servidor</string>
+    <string name="whats_new_theming_title">Soporte a personalización</string>
+    <string name="whats_new_notification_title">Soporte a notificaciones</string>
     <string name="whats_new_skip">Saltar</string>
 
     <string name="fingerprint_scan_finger">Por favor escanea tu dedo</string>
@@ -675,4 +669,6 @@
 
     <string name="test_server_button">Probar la conexión del servidor</string>
     <string name="resharing_is_not_allowed">No está permitido recompartir</string>
+    <string name="whats_new_fingerprint_title">Desbloquear con tu huella digital</string>
+    <string name="whats_new_fingerprint_content">Usa tu huella digital para desbloquear la aplicación</string>
 </resources>

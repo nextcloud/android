@@ -193,6 +193,10 @@ public class MainApp extends MultiDexApplication {
         return MainApp.mContext;
     }
 
+    public static void setAppContext(Context context) {
+        MainApp.mContext = context;
+    }
+
     public static String getStoragePath() {
         return MainApp.storagePath;
     }
@@ -216,6 +220,17 @@ public class MainApp extends MultiDexApplication {
             return getAppContext().getPackageManager().getPackageInfo(thisPackageName, 0).versionCode;
         } catch (PackageManager.NameNotFoundException e) {
             return 0;
+        }
+    }
+
+    // Non gradle build systems do not provide BuildConfig.VERSION_CODE
+    // so we must fallback to this method :(
+    public static String getVersionName() {
+        try {
+            String thisPackageName = getAppContext().getPackageName();
+            return getAppContext().getPackageManager().getPackageInfo(thisPackageName, 0).versionName;
+        } catch (PackageManager.NameNotFoundException e) {
+            return "";
         }
     }
 

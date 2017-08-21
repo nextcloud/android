@@ -298,7 +298,7 @@ public class UserInfoActivity extends FileActivity {
                             .error(R.drawable.background)
                             .crossFade()
                             .into(target);
-                } else {
+                } else if (!background.isEmpty()) {
                     // plain color
                     int color = Color.parseColor(background);
                     appBar.setBackgroundColor(color);
@@ -312,7 +312,7 @@ public class UserInfoActivity extends FileActivity {
         DisplayUtils.setAvatar(account, UserInfoActivity.this,
                 mCurrentAccountAvatarRadiusDimension, getResources(), getStorageManager(), avatar);
 
-        int tint = Color.parseColor(getStorageManager().getCapability(account.name).getServerColor());
+        int tint = ThemeUtils.primaryColor(account);
 
         if (userInfo != null) {
             if (!TextUtils.isEmpty(userInfo.getDisplayName())) {
