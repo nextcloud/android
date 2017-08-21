@@ -42,6 +42,7 @@
     <string name="prefs_passcode">Læsing með lykilkóða</string>
     <string name="prefs_fingerprint">Fingrafaralás</string>
     <string name="prefs_fingerprint_notsetup">Engin fingraför hafa verið sett inn.</string>
+    <string name="prefs_expert_mode">Sérfræðingahamur</string>
     <string name="prefs_show_hidden_files">Sýna faldar skrár</string>
     <string name="prefs_log_delete_history_button">Eyða ferli</string>
     <string name="prefs_calendar_contacts">Samstilla dagatal &amp; tengiliði</string>
@@ -68,6 +69,7 @@ Smelltu hér til að fá þér einn frá þjónustuaðila.</string>
     <string name="sync_string_files">Skrár</string>
     <string name="setup_btn_connect">Tengjast</string>
     <string name="uploader_btn_upload_text">Senda inn</string>
+    <string name="uploader_btn_alternative_text">Veldu</string>
     <string name="uploader_top_message">Veldu innsendingarmöppu</string>
     <string name="uploader_wrn_no_account_title">Enginn notandaaðgangur fannst</string>
     <string name="uploader_wrn_no_account_text">Það eru engir %1$s aðgangar á tækinu þínu. Settu fyrst upp notandaaðgang.</string>
@@ -85,12 +87,14 @@ Smelltu hér til að fá þér einn frá þjónustuaðila.</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Eyða skrá úr upprunamöppu</string>
     <string name="file_list_seconds_ago">sek. síðan</string>
     <string name="file_list_empty_headline">Engar skrár hér</string>
+    <string name="folder_list_empty_headline">Engar möppur hér</string>
     <string name="file_list_empty">Sendu inn eitthvað efni eða samstilltu við tækin þín.</string>
     <string name="file_list_empty_favorites_filter_list">Skrár og möppur sem þú merkir sem eftirlæti birtast hér</string>
     <string name="file_list_empty_favorites_filter">Leitin skilaði engum eftirlætisskrám</string>
     <string name="file_list_loading">Hleð inn&#8230;</string>
     <string name="file_list_no_app_for_file_type">Ekkert forrit er uppsett til að meðhöndla þessa tegund skráa.</string>
     <string name="local_file_list_empty">Það eru engar skrár í þessari möppu.</string>
+    <string name="local_folder_list_empty">Það eru engar fleiri möppur.</string>
     <string name="file_list_empty_headline_search">Engar niðurstöður í þessari möppu</string>
     <string name="file_list_empty_headline_server_search">Engar niðurstöður</string>
     <string name="file_list_empty_favorite_headline">Ekkert er eftirlæti ennþá</string>
@@ -135,10 +139,13 @@ Smelltu hér til að fá þér einn frá þjónustuaðila.</string>
     <string name="common_unknown">óþekkt</string>
     <string name="common_error_unknown">Óþekkt villa</string>
     <string name="common_pending">Í bið</string>
+    <string name="common_delete">Eyða</string>
     <string name="about_title">Um hugbúnaðinn</string>
     <string name="change_password">Breyta lykilorði</string>
     <string name="delete_account">Fjarlægja notandaaðgang</string>
     <string name="delete_account_warning">Eyða aðgangnum %s ásamt öllum tilheyrandi skrám á tölvunni?\n\nEyðingu er ekki hægt að afturkalla.</string>
+    <string name="avatar">Persónutákn</string>
+    <string name="active_user">Virkur notandi</string>
     <string name="upload_chooser_title">Senda inn frá &#8230;</string>
     <string name="uploader_info_dirname">Nafn möppu</string>
     <string name="uploader_upload_in_progress_ticker">Sendi inn &#8230;</string>
@@ -150,6 +157,7 @@ Smelltu hér til að fá þér einn frá þjónustuaðila.</string>
     <string name="uploader_upload_failed_credentials_error">Innsending mistókst, þú verður að skrá þig inn aftur</string>
     <string name="uploads_view_title">Innsendingar</string>
     <string name="uploads_view_group_current_uploads">Núverandi</string>
+    <string name="uploads_view_group_failed_uploads">Mistókst / Bíður endurræsingar</string>
     <string name="uploads_view_group_finished_uploads">Hlaðið inn</string>
     <string name="uploads_view_upload_status_succeeded">Lokið</string>
     <string name="uploads_view_upload_status_cancelled">Hætt við</string>
@@ -278,6 +286,7 @@ Smelltu hér til að fá þér einn frá þjónustuaðila.</string>
     <string name="filename_forbidden_characters">Óleyfilegir stafir: / \\ &lt; &gt; : \" | ? *</string>
     <string name="filename_forbidden_charaters_from_server">Skráarheitið inniheldur að minnsta kosti einn ógildan staf</string>
     <string name="filename_empty">Skráarheiti má ekki vera tómt</string>
+    <string name="wait_a_moment">Bíddu aðeins&#8230;</string>
     <string name="wait_checking_credentials">Athuga geymd auðkenni</string>
     <string name="filedisplay_unexpected_bad_get_content">Óvænt vandamál, veldu skrána úr öðru forriti</string>
     <string name="filedisplay_no_file_selected">Engin skrá valin</string>
@@ -340,6 +349,8 @@ Smelltu hér til að fá þér einn frá þjónustuaðila.</string>
 
     <string name="error__upload__local_file_not_copied">%1$s var ekki hægt að afrita í staðværu %2$s möppuna</string>
     <string name="prefs_instant_upload_path_title">Mappa fyrir beinar innsendingar</string>
+    <string name="prefs_synced_folders_local_path_title">Staðvær mappa</string>
+    <string name="prefs_synced_folders_remote_path_title">Fjartengd mappa</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Nota undirmöppur</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Geyma í undirmöppum byggðum á ári og mánuðum</string>
 
@@ -510,7 +521,12 @@ Smelltu hér til að fá þér einn frá þjónustuaðila.</string>
     <string name="edit_share_unshare">Hætta deilingu</string>
     <string name="edit_share_done">lokið</string>
 
+    <string name="action_retry_uploads">Prófa aftur innsendingar sem mistókust</string>
+    <string name="action_clear_failed_uploads">Hreinsa lista yfir innsendingar sem mistókust</string>
+    <string name="action_clear_successful_uploads">Hreinsa lista yfir innsendingar sem tókust</string>
     <string name="action_clear_finished_uploads">Hreinsa innsendingar sem er lokið</string>
+    <string name="action_force_rescan">Þvinga endurskönnun</string>
+
     <string name="action_switch_grid_view">Reitir</string>
     <string name="action_switch_list_view">Listi</string>
 
@@ -524,10 +540,13 @@ Smelltu hér til að fá þér einn frá þjónustuaðila.</string>
     <string name="confirmation_remove_files_alert">Ertu viss um að þú viljir fjarlægja valin atriði?</string>
     <string name="confirmation_remove_folders_alert">Ertu viss um að þú viljir fjarlægja valin atriði og innihald þeirra?</string>
     <string name="maintenance_mode">Þjónn í viðhaldsham</string>
+    <string name="lock_failed">Mistókst að læsa skránni</string>
+
     <string name="uploads_view_upload_status_waiting_for_charging">Bíð eftir hleðslu</string>
     <string name="actionbar_search">Leita</string>
     <string name="files_drop_not_supported">Þetta er Nextcloud-eiginleiki, endilega uppfærðu.</string>
     <string name="learn_more">Læra meira</string>
+    <string name="drawer_synced_folders">Sjálfvirk innsending</string>
     <string name="drawer_participate">Taka þátt</string>
     <string name="participate_testing_headline">Hjálpaðu til við prófanir</string>
     <string name="participate_testing_bug_text">Fannstu villu? Skringilegheit?</string>
@@ -544,8 +563,20 @@ Smelltu hér til að fá þér einn frá þjónustuaðila.</string>
     <string name="participate_contribute_translate_translate">Þýddu</string>
     <string name="participate_contribute_translate_text">forritið</string>
     <string name="participate_contribute_github_text">Yfirfarðu, bættu og skrifaðu kóða, skoðaðu %1$s fyrir nánari upplýsingar</string>
+    <string name="participate_rc_play_store">Náðu í forútgáfu í Google Play safninu</string>
+    <string name="participate_rc_fdroid">Náðu í forútgáfu í f-droid forritasafninu</string>
+    <string name="participate_dev_fdroid">Náðu í þróunarútgáfu í f-droid forritasafninu</string>
+    <string name="participate_dev_direct_download">Náðu í þróunarútgáfu sem beint niðurhal</string>
     <string name="move_to">Færa í&#8230;</string>
     <string name="copy_to">Afrita í&#8230;</string>
+    <string name="choose_remote_folder">Veldu fjartengda möppu &#8230;</string>
+    <string name="choose_local_folder">Veldu staðværa möppu &#8230;</string>
+    <string name="synced_folders_loading_folders">Hleð inn möppum&#8230;</string>
+    <string name="synced_folders_no_results">Engar margmiðlunarmöppur fundust.</string>
+    <string name="synced_folders_preferences">Kjörstillingar fyrir sjálfvirkar innsendingar</string>
+    <string name="synced_folders_settings">Stillingar</string>
+    <string name="synced_folders_new_info">Beinar innsendingar hafa verið algerlega endurhannaðar. Endurstilltu sjálfvirkar innsendingar beint í aðalvalmyndinni\n\nNjóttu góðs af nýju og ítarlegu viðmóti sjálfvirkra innsendinga.</string>
+    <string name="synced_folders_preferences_folder_path">Fyrir %1$s</string>
     <plurals name="items_selected_count">
         <item quantity="one">%d valið</item>
         <item quantity="other">%d valið</item>
@@ -579,7 +610,20 @@ Smelltu hér til að fá þér einn frá þjónustuaðila.</string>
     <string name="welcome_feature_2_title">Margir aðgangar</string>
     <string name="welcome_feature_2_text">Tengdu öll gagnaskýin þín</string>
 
+    <string name="welcome_feature_3_title">Sjálfvirk innsending</string>
     <string name="welcome_feature_3_text">Haltu ljósmyndunum þínum öruggum</string>
+
+    <string name="whats_new_auto_upload_title">Bættar sjálfvirkar innsendingar</string>
+    <string name="whats_new_auto_upload_content">\u2022 fyrir allar útgáfur android\n\u2022 minni eyðsla á rafhlöðum\n\u2022 áreiðanlegra, en ekki jafn snöggt\n\u2022 aðskilnaður mynda &amp; myndskeiða</string>
+
+    <string name="whats_new_search_title">Fullkomin leit á þjóni</string>
+    <string name="whats_new_search_content">\u2022 Ekki aðeins í núverandi möppu\n\u2022 Skilar niðurstöðum allstaðar frá þjóninum\n\u2022 Opnar beint skrár/möppur\n\u2022 Stutt í NC12 og nýrri</string>
+
+    <string name="whats_new_theming_title">Stuðningur við þemu</string>
+    <string name="whats_new_theming_content">Ef þetta er virkjað á þjóninum mun forritið birta\n\u2022 bakgrunnsmynd\n\u2022 heiti þjóns\n\u2022 nota liti til að aðgreina notendaaðganga</string>
+
+    <string name="whats_new_notification_title">Stuðningur við tilkynningar</string>
+    <string name="whats_new_notification_content">Fáðu tilkynningar á borð við\n\u2022 nýjar fjartengdar sameignir\n\u2022 umsagnir um athugasemdir\n\u2022 tilkynningar kerfisstjóra</string>
 
     <string name="whats_new_skip">Sleppa</string>
 
@@ -627,5 +671,13 @@ Smelltu hér til að fá þér einn frá þjónustuaðila.</string>
     <string name="privacy">Gagnaleynd</string>
     <string name="file_not_found">Skrá finnst ekki!</string>
 
+    <!-- Auto upload -->
+    <string name="autoupload_custom_folder">Settu upp sérsniðna möppu</string>
+    <string name="autoupload_create_new_custom_folder">Búa til nýja nýja sérsniðna uppsetningu á möppum</string>
+    <string name="synced_folders_configure_folders">Stilla möppur</string>
+
     <string name="test_server_button">Prófa tengingu þjóns</string>
-    </resources>
+    <string name="resharing_is_not_allowed">Endurdeiling er ekki leyfð</string>
+    <string name="whats_new_fingerprint_title">Aflæsa með fingrafari</string>
+    <string name="whats_new_fingerprint_content">Notaðu fingrafarið þitt til að aflæsa forritinu</string>
+</resources>
