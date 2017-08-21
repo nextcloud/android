@@ -50,6 +50,7 @@
     <string name="prefs_calendar_contacts_address_resolve_error">Käyttäjän palvelin osoitetta ei voitu selvittää DAVdroidille</string>
     <string name="prefs_calendar_contacts_no_store_error">Google Play kauppaa tai F-Droid sovellusta ei ole asennettu</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Kalenterin &amp; yhteystieto synkronointi asetettu</string>
+    <string name="prefs_daily_contacts_sync_summary">Päivittäinen varmuuskopio yhteystiedoistasi</string>
     <string name="prefs_help">Ohje</string>
     <string name="prefs_recommend">Suosittele kaverille</string>
     <string name="prefs_feedback">Palaute</string>

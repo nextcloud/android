@@ -564,9 +564,9 @@
     <string name="participate_contribute_translate_text">La app</string>
     <string name="participate_contribute_github_text">Revisar, modificar y escribir código, vea %1$s para detalles</string>
     <string name="participate_rc_play_store">Obtenga candidato de lanzamiento en Google Play store</string>
-    <string name="participate_rc_fdroid">Obtenga candidato de lanzamiento via f-droid store</string>
-    <string name="participate_dev_fdroid">Obtenga la versión de desarrollo via f-droid store</string>
-    <string name="participate_dev_direct_download">Obtenga la versión de desarrollo via descarga directa</string>
+    <string name="participate_rc_fdroid">Obtenga candidato de lanzamiento vía f-droid store</string>
+    <string name="participate_dev_fdroid">Obtenga la versión de desarrollo vía f-droid store</string>
+    <string name="participate_dev_direct_download">Obtenga la versión de desarrollo vía descarga directa</string>
     <string name="move_to">Mover a&#8230;</string>
     <string name="copy_to">Copiar a&#8230;</string>
     <string name="choose_remote_folder">Seleccione carpeta remota &#8230;</string>

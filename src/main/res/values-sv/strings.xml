@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="about_android">%1$s Android-appxt</string>
+    <string name="about_android">%1$s Android-app</string>
     <string name="about_version">version %1$s</string>
     <string name="actionbar_sync">Uppdatera konto</string>
     <string name="actionbar_upload">Ladda upp</string>
@@ -106,7 +106,7 @@
     <string name="file_list_empty_recently_modified_filter">Sökningen gav inga modifierade filer från de senaste 7 dagarna.</string>
     <string name="file_list_empty_recently_added">Hittade inga nyligen tillagda filer</string>
     <string name="file_list_empty_recently_added_filter">Din sökning gav inga nyligen tillagda filer.</string>
-    <string name="file_list_empty_text_photos">Ladda upp några bilder eller aktivera automatisk uppladdni</string>
+    <string name="file_list_empty_text_photos">Ladda upp några bilder eller aktivera automatisk uppladdning.</string>
     <string name="file_list_empty_text_photos_filter">Din sökning gav inga bilder.</string>
     <string name="file_list_empty_text_videos">Ladda upp några videor eller aktivera automatisk uppladdning.</string>
     <string name="file_list_empty_text_videos_filter">Din sökning gav inga videor.</string>
