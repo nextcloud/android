@@ -4,7 +4,7 @@
     <string name="about_version">version %1$s</string>
     <string name="actionbar_sync">Uppdatera konto</string>
     <string name="actionbar_upload">Ladda upp</string>
-    <string name="actionbar_upload_from_apps">Innehåll från andra programinstant</string>
+    <string name="actionbar_upload_from_apps">Innehåll från andra tillägg</string>
     <string name="actionbar_upload_files">Filer</string>
     <string name="actionbar_open_with">Öppna med</string>
     <string name="actionbar_mkdir">Ny mapp</string>

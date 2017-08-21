@@ -612,6 +612,18 @@
     <string name="welcome_feature_3_title">Ngarkim i menjëhershëm</string>
     <string name="welcome_feature_3_text">Mbajini fotot të sigurta</string>
 
+    <string name="whats_new_auto_upload_title">Ngarkimi automatik i rritur</string>
+    <string name="whats_new_auto_upload_content">\u2022 për të gjitha versionet Android \n\u2022 më pak konsumim i baterisë \ n \ u2022 më i besueshëm, por jo i çastit \n\u2022 ndarja e imazheve 1&amp; të videove</string>
+
+    <string name="whats_new_search_title">Kërkimi i plotë i serverit</string>
+    <string name="whats_new_search_content">\u2022 Jo vetëm në dosjen e tanishme\n\u2022 Kthen rezultatet nga serveri i plotë \ n \ u2022 Hap direkt skedarë /dosje\n\u2022Mbështetur në NC12 dhe më lart</string>
+
+    <string name="whats_new_theming_title">Asistencë për temën grafike</string>
+    <string name="whats_new_theming_content">Nëse aktivizohet në server, aplikacioni do të shfaqë\n\u2022 imazhin e sfondit\n\u2022 emri i serverit\n\u2022 përdor ngjyra për të dalluar llogaritë</string>
+
+    <string name="whats_new_notification_title">Asitenca e njoftimit</string>
+    <string name="whats_new_notification_content">Merr njoftime si\n\u2022 ndarje e re në distancë\n\u2022 komente përmend\n\u2022 njoftimet e administratorit</string>
+
     <string name="whats_new_skip">Kalo</string>
 
     <string name="fingerprint_scan_finger">Ju lutemi skanoni gishtin tuaj</string>
@@ -665,4 +677,6 @@
 
     <string name="test_server_button">Testo lidhjen e serverit</string>
     <string name="resharing_is_not_allowed">Ri-shpërndarja nuk lejohet</string>
-    </resources>
+    <string name="whats_new_fingerprint_title">Zhbllokoje me gjurmët e gishtave</string>
+    <string name="whats_new_fingerprint_content">Përdorni gjurmët e gishtave tuaj për të zhbllokuar aplikacionin</string>
+</resources>
