@@ -1,3 +1,17 @@
+## 2017-08-22 00:33
+New branches:
+- Comment out adding all new downloaded files to folder observer (nextcloud/folderObserver) [https://github.com/nextcloud/android/pull/1155] added
+
+Updated branches:
+-Dev branch was updated successfully] updated
+- Comment out adding all new downloaded files to folder observer (nextcloud/folderObserver) [https://github.com/nextcloud/android/pull/1155] updated
+- Search inside of text files (nextcloud/bugfix-454) [https://github.com/nextcloud/android/pull/565] updated
+
+Conflicting branches:
+- Further Codacy fixes (nextcloud/codacyFixes) [https://github.com/nextcloud/android/pull/1357] conflicting
+- Error feedback improvement (nextcloud/errorFeedback) [https://github.com/nextcloud/android/pull/1198] conflicting
+- Resized images (nextcloud/resizedImages) [https://github.com/nextcloud/android/pull/69] conflicting
+
 ## 2017-08-21 00:31
 New branches:
 /
