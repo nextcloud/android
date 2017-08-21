@@ -614,6 +614,8 @@ Kies er eentje van een provider.</string>
     <string name="welcome_feature_3_text">Hou je foto\'s veilig</string>
 
     <string name="whats_new_auto_upload_title">Geavanceerde auto-upload</string>
+    <string name="whats_new_auto_upload_content">\u2022 voor alle Android versies\n\u2022 minder batterij verbruik\n\u2022 betrouwbaarder, maar niet onmiddelijk\n\u2022 splitsen van fotos &amp; videos</string>
+
     <string name="whats_new_search_title">Doorzoek alles op server</string>
     <string name="whats_new_search_content">\u2022 Niet alleen in huidige map\n\u2022 Geeft resultaten van gehele server\n\u2022 Open bestanden/mappen rechtstreeks\n\u2022 Werkt in NC12 en daarboven</string>
 
