@@ -7,7 +7,7 @@ pipeline:
       - ./gradlew assemble${FLAVOUR}
     when:
       matrix:
-        FLAVOUR: Generic
+        FLAVOUR: Generic, Gplay
 
     environment:
       - ANDROID_TARGET=android-24
