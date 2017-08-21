@@ -45,10 +45,10 @@ public class IndexedForest<V> {
 
     @SuppressWarnings("PMD.ShortClassName")
     private class Node<V> {
-        String mKey = null;
-        Node<V> mParent = null;
-        Set<Node<V>> mChildren = new HashSet<>();    // TODO be careful with hash()
-        V mPayload = null;
+        private String mKey = null;
+        private Node<V> mParent = null;
+        private Set<Node<V>> mChildren = new HashSet<>();    // TODO be careful with hash()
+        private V mPayload = null;
 
         // payload is optional
         public Node(String key, V payload) {
