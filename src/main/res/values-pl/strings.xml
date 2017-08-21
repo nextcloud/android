@@ -42,6 +42,7 @@
     <string name="prefs_passcode">Blokada kodem PIN</string>
     <string name="prefs_fingerprint">Blokada odciskiem palca</string>
     <string name="prefs_fingerprint_notsetup">Brak skonfigurowanych odcisków palców</string>
+    <string name="prefs_expert_mode">Tryb eksperta</string>
     <string name="prefs_show_hidden_files">Pokaż ukryte pliki</string>
     <string name="prefs_log_delete_history_button">Wyczyść historię</string>
     <string name="prefs_calendar_contacts">Synchronizuj kalendarz i kontakty</string>
@@ -49,6 +50,7 @@
     <string name="prefs_calendar_contacts_address_resolve_error">Adres serwera dla konta nie mógł został przekonwertowany do DAVdroid</string>
     <string name="prefs_calendar_contacts_no_store_error">F-droid i Google Play nie są zainstalowane</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Synchronizacja kontaktów &amp; kalendarza została skonfigurowana pomyślnie</string>
+    <string name="prefs_daily_contacts_sync_summary">Codzienna kopia zapasowa Twoich kontaktów</string>
     <string name="prefs_help">Pomoc</string>
     <string name="prefs_recommend">Poleć znajomemu</string>
     <string name="prefs_feedback">Opinie</string>
@@ -64,6 +66,7 @@
     <string name="sync_string_files">Pliki</string>
     <string name="setup_btn_connect">Połącz</string>
     <string name="uploader_btn_upload_text">Wyślij</string>
+    <string name="uploader_btn_alternative_text">Wybierz</string>
     <string name="uploader_top_message">Wybierz folder do przesyłania plików</string>
     <string name="uploader_wrn_no_account_title">Nie znaleziono konta</string>
     <string name="uploader_wrn_no_account_text">Brak %1$s kont na Twoim urządzeniu. Załóż konto.</string>
@@ -81,6 +84,7 @@
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Skasuj plik z katalogu źródłowego</string>
     <string name="file_list_seconds_ago">sekund temu</string>
     <string name="file_list_empty_headline">Brak plików</string>
+    <string name="folder_list_empty_headline">Brak katalogów</string>
     <string name="file_list_empty">Wyślij zawartość lub synchronizuj ją ze swoimi urządzeniami</string>
     <string name="file_list_empty_favorites_filter_list">Tutaj znajdziesz pliki i foldery oznaczone jako ulubione</string>
     <string name="file_list_empty_favorites_filter">Twoje wyszukiwanie nie zwróciło żadnych ulubionych plików</string>
@@ -96,6 +100,7 @@
     <string name="file_list_empty_headline_server_search_photos">Brak zdjęć</string>
     <string name="file_list_empty_search">Spróbować szukać w innym folderze?</string>
     <string name="file_list_empty_recently_modified">Nie znaleziono żadnych plików zmodyfikowanych w ciągu ostatnich 7 dni</string>
+    <string name="file_list_empty_recently_modified_filter">Wyszukiwanie nie znalazło plików zmodyfikowanych w ciągu ostatnich 7 dni.</string>
     <string name="file_list_empty_recently_added">NIe znaleziono żadnych ostatnio dodanych plików</string>
     <string name="file_list_empty_recently_added_filter">Twoje wyszukiwanie nie zwróciło żadnych ostatnio dodanych plików</string>
     <string name="file_list_empty_text_photos">Wyślij zdjęcia lub włącz automatyczne wysyłanie</string>
@@ -130,9 +135,12 @@
     <string name="common_unknown">nieznane</string>
     <string name="common_error_unknown">Nieznany błąd</string>
     <string name="common_pending">Oczekujące</string>
+    <string name="common_delete">Usuń</string>
     <string name="about_title">O aplikacji</string>
     <string name="change_password">Zmień hasło</string>
     <string name="delete_account">Usuń konto</string>
+    <string name="avatar">Avatar</string>
+    <string name="active_user">Aktywny użytkownik</string>
     <string name="upload_chooser_title">Wyślij plik z &#8230;</string>
     <string name="uploader_info_dirname">Nazwa folderu</string>
     <string name="uploader_upload_in_progress_ticker">Wysyłam &#8230;</string>
@@ -335,6 +343,8 @@
 
     <string name="error__upload__local_file_not_copied">%1$s nie może zostać skopiowany do lokalnego folderu %2$s</string>
     <string name="prefs_instant_upload_path_title">Folder natychmiastowego wysyłania</string>
+    <string name="prefs_synced_folders_local_path_title">Katalog lokalny</string>
+    <string name="prefs_synced_folders_remote_path_title">Katalog zdalny</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Używaj podfolderów</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Zapisz w podfolderach opartych na roku oraz miesiącu</string>
 
@@ -384,6 +394,11 @@
     <string name="file_migration_cleaning">Czyszczenie&#8230;</string>
     <string name="file_migration_restoring_accounts_configuration">Przywracanie konfiguracji konta&#8230;</string>
     <string name="file_migration_ok_finished">Skończone</string>
+    <string name="file_migration_failed_not_enough_space">Błąd: Brak miejsca</string>
+    <string name="file_migration_failed_not_writable">Błąd: Plik docelowy bez możliwości zapisu</string>
+    <string name="file_migration_failed_not_readable">Błąd: Plik źródłowy bez możliwości odczytu</string>
+    <string name="file_migration_failed_dir_already_exists">Błąd: Katalog Nextcloud już istnieje</string>
+    <string name="file_migration_failed_while_coping">Błąd: Błąd podczas przenoszenia</string>
     <string name="file_migration_directory_already_exists">Katalog danych już istnieje. Wybierz jeden z poniższych:</string>
     <string name="file_migration_override_data_folder">Zamień</string>
     <string name="file_migration_use_data_folder">Użyj</string>
@@ -447,6 +462,7 @@
     <string name="file_list__footer__files">%1$d plików</string>
     <string name="file_list__footer__files_and_folder">%1$d plików, 1 folder</string>
     <string name="file_list__footer__files_and_folders">%1$d plików, %2$d folderów</string>
+    <string name="set_picture_as">Użyj obrazu jako</string>
     <string name="set_as">Ustaw jako</string>
 
     <string name="prefs_instant_behaviour_dialogTitle">Oryginalny plik zostanie&#8230;</string>
@@ -454,6 +470,8 @@
     <string name="upload_copy_files">Kopiuj plik</string>
     <string name="upload_move_files">Przenieś plik</string>
     <string name="select_all">Wybierz wszystko</string>
+    <string name="deselect_all">Odznacz wszystkie</string>
+
     <string name="pref_behaviour_entries_keep_file">zachowany w oryginalnym folderze</string>
     <string name="pref_behaviour_entries_move">przeniesiony do folderu aplikacji</string>
     <string name="pref_behaviour_entries_delete_file">usunięty</string>
@@ -484,6 +502,9 @@
     <string name="share_known_remote_clarification">%1$s ( w %2$s )</string>
 
     <string name="share_sharee_unavailable">Przepraszam, ale wersja twojego serwera nie pozwala na współdzielenie z użytkownikami poprzez klienta. \nProszę skontaktuj się z administratorem.</string>
+    <string name="filedetails_share_link_enable">Udostępnianie linkiem włączone</string>
+    <string name="filedetails_share_link_disable">Nie udostępniane linkiem</string>
+    <string name="filedetails_share_users_with_access">Użytkownicy i grupy z dostępem</string>
     <string name="share_privilege_can_share">może współdzielić</string>
     <string name="share_privilege_can_edit">może edytować</string>
     <string name="share_privilege_can_edit_create">utwórz</string>
@@ -492,7 +513,12 @@
     <string name="edit_share_unshare">Cofnij udostępnianie</string>
     <string name="edit_share_done">zakończono</string>
 
+    <string name="action_retry_uploads">Ponów nieudane wysyłanie</string>
+    <string name="action_clear_failed_uploads">Wyczyść nieudane wysyłanie</string>
+    <string name="action_clear_successful_uploads">Wyczyść udane wysyłanie</string>
     <string name="action_clear_finished_uploads">Wyczyść zakończone wysyłania</string>
+    <string name="action_force_rescan">Wymuś indeksowanie</string>
+
     <string name="action_switch_grid_view">Widok siatki</string>
     <string name="action_switch_list_view">Widok listy</string>
 
@@ -506,20 +532,31 @@
     <string name="confirmation_remove_files_alert">Czy naprawdę chcesz usunąć zaznaczone elementy?</string>
     <string name="confirmation_remove_folders_alert">Czy naprawdę chcesz usunąć zaznaczone elementy oraz ich zawartość?</string>
     <string name="maintenance_mode">Serwer w trybie konserwacji</string>
+    <string name="lock_failed">Nie udało się zablokować pliku</string>
+
     <string name="uploads_view_upload_status_waiting_for_charging">Oczekiwanie na ładowanie urządzenia</string>
     <string name="actionbar_search">Wyszukaj</string>
     <string name="files_drop_not_supported">Ta funkcja jest dostępna w Nextcloud, prosimy wykonać aktualizację</string>
     <string name="learn_more">Dowiedz się więcej</string>
+    <string name="drawer_synced_folders">Automatyczne przesyłanie</string>
     <string name="drawer_participate">Wspieraj</string>
     <string name="participate_testing_headline">Pomóż nam testować</string>
     <string name="participate_testing_bug_text">Znaleziono błąd? Jest coś dziwnego?</string>
+    <string name="participate_testing_report_text">Zgłoś problem na GitHub</string>
     <string name="participate_testing_version_text">Chcesz pomóc nam testować następną wersję?</string>
     <string name="participate_beta_headline">Sprawdź wersję rozwojową</string>
     <string name="participate_beta_text">Zawiera to w sobie wszystkie nadchodzące funkcjonalności i jest bardzo ryzykowne. Mogą się pojawiać błędy. Jeśli będą proszę je do nas zgłosić.</string>
     <string name="participate_release_candidate_headline">Wydanie kandydujące</string>
     <string name="participate_contribute_headline">Aktywni członkowie projektu</string>
+    <string name="participate_contribute_irc_text">Dołącz do kanału na IRC:</string>
+    <string name="participate_contribute_forum_text">Pomóż innym w</string>
+    <string name="participate_contribute_forum_forum">forum</string>
+    <string name="participate_contribute_translate_translate">Tłumacz</string>
+    <string name="participate_contribute_translate_text">aplikacja</string>
     <string name="move_to">Przenieś do&#8230;</string>
     <string name="copy_to">Skopiuj do&#8230;</string>
+    <string name="synced_folders_no_results">Nie znaleziono folderów multimedialnych</string>
+    <string name="synced_folders_settings">Ustawienia</string>
     <plurals name="items_selected_count">
         <item quantity="one">%d zaznaczony</item>
         <item quantity="few">%d zaznaczone</item>
@@ -603,4 +640,13 @@
     <string name="privacy">Prywatność</string>
     <string name="file_not_found">Nie odnaleziono pliku</string>
 
-    </resources>
+    <!-- Auto upload -->
+    <string name="autoupload_custom_folder">Ustaw własny katalog</string>
+    <string name="autoupload_create_new_custom_folder">Stwórz nowy własny katalog</string>
+    <string name="synced_folders_configure_folders">Skonfiguruj foldery</string>
+
+    <string name="test_server_button">Sprawdź połączenie z serwerem</string>
+    <string name="resharing_is_not_allowed">Udostępnianie dalej nie jest dozwolone</string>
+    <string name="whats_new_fingerprint_title">Odblokuj odciskiem palca</string>
+    <string name="whats_new_fingerprint_content">Odblokuj aplikację odciskiem palca</string>
+</resources>
