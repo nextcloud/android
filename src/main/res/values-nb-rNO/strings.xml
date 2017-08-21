@@ -613,10 +613,14 @@
     <string name="welcome_feature_3_text">Hold bildene dine trygge</string>
 
     <string name="whats_new_auto_upload_title">Utvidet auto-opplasting</string>
+    <string name="whats_new_auto_upload_content">\u2022 for alle Android-versjoner\n\u2022 mindre batteribruk\n\u2022 mer pålitelig, men ikke umiddelbar \n\u2022 inndeling av bilder &amp; videoer</string>
+
     <string name="whats_new_search_title">Fullt serversøk</string>
     <string name="whats_new_search_content">\u2022 Ikke bare i gjeldende mappe\n\u2022 Gir svarresultater fra fullverdig tjener\n\u2022 Åpne filer og mapper direkte\n\u2022 Støttet i NC12 og høyere</string>
 
     <string name="whats_new_theming_title">Temastøtte</string>
+    <string name="whats_new_theming_content">Hvis påskrudd på tjener vil programmet vise\n\u2022 bakgrunnsbilde\n\u2022 tjenernavn\n\u2022 bruk farge for å skille mellom kontoer</string>
+
     <string name="whats_new_notification_title">Varselstøtte</string>
     <string name="whats_new_notification_content">Få varslinger som\n\u2022 ny ekstern ressurs\n\u2022 nevnt i kommentar\n\u2022 administratorkunngjøringer</string>
 

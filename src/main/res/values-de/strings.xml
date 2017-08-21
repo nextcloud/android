@@ -615,10 +615,14 @@
     <string name="welcome_feature_3_text">Schütze deine Fotos</string>
 
     <string name="whats_new_auto_upload_title">Erweitertes automatisches Hochladen</string>
+    <string name="whats_new_auto_upload_content">\u2022 für alle Android-Versionen\n\u2022 Weniger Batterieverbrauch\n\u2022 zuverlässiger, aber nicht sofort\n\u2022 Trennung von Bildern &amp; Videos</string>
+
     <string name="whats_new_search_title">Vollständige Server-Suche</string>
     <string name="whats_new_search_content">\u2022 Nicht nur im aktuellen Ordner\n\u2022 Suchergebnisse des gesamten Servers\n\u2022 Ordner/Dateien direkt öffnen\n\u2022 Unterstützt ab NC12</string>
 
     <string name="whats_new_theming_title">Themen verwenden</string>
+    <string name="whats_new_theming_content">Wenn in der Server-App aktiviert, werden \n\u2022 das Hintergrund Bild\n\u2022 der Server-Name\n\u2022 und die eingestellten Farben angezeigt</string>
+
     <string name="whats_new_notification_title">Benachrichtigungen</string>
     <string name="whats_new_notification_content">Erhalten Sie Benachrichtigungen wie z.B.\n\u2022 Neie Freigaben\n\u2022 Kommentar-Erwähnungen\n\u2022 Adminstratoren-Ankündigungen</string>
 

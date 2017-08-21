@@ -613,10 +613,14 @@
     <string name="welcome_feature_3_text">Fotoğraflarınızı koruyun</string>
 
     <string name="whats_new_auto_upload_title">Genişletilmiş otomatik yükleme</string>
+    <string name="whats_new_auto_upload_content">\u2022 tüm Android sürümleri için\n\u2022 daha az pil harcaması\n\u2022 daha güvenli, ancak görseller\n\u2022 &amp; görüntüler anında ayrılmıyor</string>
+
     <string name="whats_new_search_title">Tam sunucu araması</string>
     <string name="whats_new_search_content">\u2022 Yalnız geçerli klasörde değil\n\u2022 Tüm sunucudaki sonuçları verir\n\u2022 Doğrudan dosya/klasör açma\n\u2022 NC12 ve üzerindeki sürümlerde desteklenir</string>
 
     <string name="whats_new_theming_title">Tema desteği</string>
+    <string name="whats_new_theming_content">Sunucu uygulamasında etkinleştirilmiş ise\n\u2022 art alan görseli\n\u2022 sunucu adı\n\u2022 hesapları ayırt etmek için farklı renk kullanımı</string>
+
     <string name="whats_new_notification_title">Bildirim desteği</string>
     <string name="whats_new_notification_content">Yeni bildirimler\n\u2022 yeni uzak paylaşım\n\u2022 yorumda anma\n\u2022 yönetici duyuruları</string>
 
