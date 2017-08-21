@@ -613,14 +613,10 @@
     <string name="welcome_feature_3_text">Tieni al sicuro le tue foto</string>
 
     <string name="whats_new_auto_upload_title">Caricamento automatico migliorato</string>
-    <string name="whats_new_auto_upload_content">\u2022 per tutte le versioni di android\n\u2022 minor consumo della batteria\n\u2022 maggiore affidabilità\n\u2022 separazione di immagini &amp; video</string>
-
     <string name="whats_new_search_title">Ricerca completa sul server</string>
     <string name="whats_new_search_content">\u2022 Non solo nella cartella attuale\n\u2022 Restituisce i risultati dall\'intero server\n\u2022 Apre direttamente file/cartellle\n\u2022 Supportate in NC12 e superiori</string>
 
     <string name="whats_new_theming_title">Supporto dei temi</string>
-    <string name="whats_new_theming_content">Se abilitata sul server, mostrerà\n\u2022 l\'immagine di sfondo\n\u2022 il nome del server\n\u2022 utilizzo dei colori per distinguere gli account</string>
-
     <string name="whats_new_notification_title">Supporto delle notifiche</string>
     <string name="whats_new_notification_content">Otteni notifiche come\n\u2022 nuova condivisione remota\n\u2022 menzioni dei commenti\n\u2022 annunci amministrativi</string>
 
