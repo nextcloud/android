@@ -8,6 +8,7 @@ pipeline:
     when:
       matrix:
         FLAVOUR: Generic
+        FLAVOUR: Gplay
 
     environment:
       - ANDROID_TARGET=android-24
