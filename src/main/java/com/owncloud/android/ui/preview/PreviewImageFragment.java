@@ -35,6 +35,7 @@ import android.os.Bundle;
 import android.os.Process;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.StringRes;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
@@ -52,8 +53,10 @@ import android.widget.TextView;
 
 import com.caverock.androidsvg.SVG;
 import com.caverock.androidsvg.SVGParseException;
+import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.files.FileMenuFilter;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment;
@@ -87,7 +90,7 @@ public class PreviewImageFragment extends FileFragment {
 
     private static final String ARG_FILE = "FILE";
     private static final String ARG_IGNORE_FIRST = "IGNORE_FIRST";
-
+    private static final String ARG_SHOW_RESIZED_IMAGE = "SHOW_RESIZED_IMAGE";
     private static final String SCREEN_NAME = "Image Preview";
 
     private TouchImageViewCustom mImageView;
@@ -98,6 +101,8 @@ public class PreviewImageFragment extends FileFragment {
     protected TextView mMultiListHeadline;
     protected ImageView mMultiListIcon;
     protected ProgressBar mMultiListProgress;
+
+    private Boolean mShowResizedImage = false;
 
     public Bitmap mBitmap = null;
 
@@ -121,11 +126,14 @@ public class PreviewImageFragment extends FileFragment {
      *                              {@link FragmentStatePagerAdapter}
      *                              ; TODO better solution
      */
-    public static PreviewImageFragment newInstance(OCFile imageFile, boolean ignoreFirstSavedState) {
+    public static PreviewImageFragment newInstance(OCFile imageFile, boolean ignoreFirstSavedState,
+                                                   boolean showResizedImage) {
         PreviewImageFragment frag = new PreviewImageFragment();
+        frag.mShowResizedImage = showResizedImage;
         Bundle args = new Bundle();
         args.putParcelable(ARG_FILE, imageFile);
         args.putBoolean(ARG_IGNORE_FIRST, ignoreFirstSavedState);
+        args.putBoolean(ARG_SHOW_RESIZED_IMAGE, showResizedImage);
         frag.setArguments(args);
         return frag;
     }
@@ -157,6 +165,7 @@ public class PreviewImageFragment extends FileFragment {
         // not right now
 
         mIgnoreFirstSavedState = args.getBoolean(ARG_IGNORE_FIRST);
+        mShowResizedImage = args.getBoolean(ARG_SHOW_RESIZED_IMAGE);
         setHasOptionsMenu(true);
     }
 
@@ -170,6 +179,7 @@ public class PreviewImageFragment extends FileFragment {
         super.onCreateView(inflater, container, savedInstanceState);
         View view = inflater.inflate(R.layout.preview_image_fragment, container, false);
         mImageView = (TouchImageViewCustom) view.findViewById(R.id.image);
+        mImageView.setPreviewImageFragment(this);
         mImageView.setVisibility(View.GONE);
 
         view.setOnClickListener(new OnClickListener() {
@@ -194,6 +204,14 @@ public class PreviewImageFragment extends FileFragment {
         setMultiListLoadingMessage();
 
         return view;
+    }
+
+    public void switchToFullScreen() {
+        ((PreviewImageActivity) getActivity()).switchToFullScreen();
+    }
+
+    public void downloadFile() {
+        ((PreviewImageActivity) getActivity()).requestForDownload(getFile());
     }
 
     protected void setupMultiView(View view) {
@@ -221,9 +239,6 @@ public class PreviewImageFragment extends FileFragment {
         if (getFile() == null) {
             throw new IllegalStateException("Instanced with a NULL OCFile");
         }
-        if (!getFile().isDown()) {
-            throw new IllegalStateException("There is no local file to preview");
-        }
     }
 
 
@@ -241,10 +256,60 @@ public class PreviewImageFragment extends FileFragment {
     public void onStart() {
         super.onStart();
         if (getFile() != null) {
-            mLoadBitmapTask = new LoadBitmapTask(mImageView);
-            //mLoadBitmapTask.execute(new String[]{getFile().getStoragePath()});
-//            mLoadBitmapTask.execute(getFile().getStoragePath());
-            mLoadBitmapTask.execute(getFile());
+            mImageView.setTag(getFile().getFileId());
+
+            if (mShowResizedImage) {
+                Bitmap resizedImage = ThumbnailsCacheManager.getBitmapFromDiskCache(
+                        String.valueOf("r" + getFile().getRemoteId()));
+
+                if (resizedImage != null && !getFile().needsUpdateThumbnail()) {
+                    mImageView.setImageBitmap(resizedImage);
+                    mImageView.setVisibility(View.VISIBLE);
+                    mBitmap = resizedImage;
+                } else {
+                    // show thumbnail while loading resized image
+                    Bitmap thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(
+                            String.valueOf("t" + getFile().getRemoteId()));
+
+                    if (thumbnail != null) {
+                        mImageView.setImageBitmap(thumbnail);
+                        mImageView.setVisibility(View.VISIBLE);
+                        mBitmap = thumbnail;
+                    } else {
+                        thumbnail = ThumbnailsCacheManager.mDefaultImg;
+                    }
+
+                    // generate new resized image
+                    if (ThumbnailsCacheManager.cancelPotentialThumbnailWork(getFile(), mImageView) &&
+                            mContainerActivity.getStorageManager() != null) {
+                        final ThumbnailsCacheManager.ResizedImageGenerationTask task =
+                                new ThumbnailsCacheManager.ResizedImageGenerationTask(PreviewImageFragment.this,
+                                        mImageView,
+                                        mContainerActivity.getStorageManager(),
+                                        mContainerActivity.getStorageManager().getAccount());
+                        if (resizedImage == null) {
+                            resizedImage = thumbnail;
+                        }
+                        final ThumbnailsCacheManager.AsyncResizedImageDrawable asyncDrawable =
+                                new ThumbnailsCacheManager.AsyncResizedImageDrawable(
+                                        MainApp.getAppContext().getResources(),
+                                        resizedImage,
+                                        task
+                                );
+                        mImageView.setImageDrawable(asyncDrawable);
+                        task.execute(getFile());
+                    }
+                }
+                mMultiView.setVisibility(View.GONE);
+                if (getResources() != null) {
+                    mImageView.setBackgroundColor(getResources().getColor(R.color.black));
+                }
+                mImageView.setVisibility(View.VISIBLE);
+
+            } else {
+                mLoadBitmapTask = new LoadBitmapTask(mImageView);
+                mLoadBitmapTask.execute(getFile());
+            }
         }
     }
 
@@ -368,9 +433,15 @@ public class PreviewImageFragment extends FileFragment {
                 return true;
 
             case R.id.action_send_file:
-                mContainerActivity.getFileOperationsHelper().sendDownloadedFile(getFile());
-                return true;
+                if (MimeTypeUtil.isImage(getFile()) && !getFile().isDown()) {
+                    mContainerActivity.getFileOperationsHelper().sendCachedImage(getFile());
+                    return true;
+                } else {
+                    mContainerActivity.getFileOperationsHelper().sendDownloadedFile(getFile());
+                    return true;
+                }
 
+            case R.id.action_download_file:
             case R.id.action_sync_file:
                 mContainerActivity.getFileOperationsHelper().syncFile(getFile());
                 return true;
@@ -661,6 +732,24 @@ public class PreviewImageFragment extends FileFragment {
         }
     }
 
+    public void setErrorPreviewMessage() {
+        Snackbar.make(mMultiView, R.string.resized_image_not_possible, Snackbar.LENGTH_INDEFINITE)
+                .setAction(R.string.common_yes, new OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        downloadFile();
+                    }
+                }).show();
+    }
+
+    public void setNoConnectionErrorMessage() {
+        try {
+            Snackbar.make(getView(), R.string.auth_no_net_conn_title, Snackbar.LENGTH_LONG).show();
+        } catch (NullPointerException npe) {
+
+        }
+    }
+
     /**
      * Helper method to test if an {@link OCFile} can be passed to a {@link PreviewImageFragment}
      * to be previewed.
@@ -687,19 +776,22 @@ public class PreviewImageFragment extends FileFragment {
                 getFile().getMimetype().equalsIgnoreCase("image/svg+xml")) && getActivity() != null
                 && getActivity() instanceof PreviewImageActivity && getResources() != null) {
             PreviewImageActivity previewImageActivity = (PreviewImageActivity) getActivity();
-            LayerDrawable layerDrawable = (LayerDrawable) mImageView.getDrawable();
-            Drawable layerOne;
 
-            if (previewImageActivity.getSystemUIVisible()) {
-                layerOne = getResources().getDrawable(R.color.white);
-            } else {
-                layerOne = getResources().getDrawable(R.drawable.backrepeat);
+            if (mImageView.getDrawable() instanceof LayerDrawable) {
+                LayerDrawable layerDrawable = (LayerDrawable) mImageView.getDrawable();
+                Drawable layerOne;
+
+                if (previewImageActivity.getSystemUIVisible()) {
+                    layerOne = getResources().getDrawable(R.color.white);
+                } else {
+                    layerOne = getResources().getDrawable(R.drawable.backrepeat);
+                }
+
+                layerDrawable.setDrawableByLayerId(layerDrawable.getId(0), layerOne);
+
+                mImageView.setImageDrawable(layerDrawable);
+                mImageView.invalidate();
             }
-
-            layerDrawable.setDrawableByLayerId(layerDrawable.getId(0), layerOne);
-
-            mImageView.setImageDrawable(layerDrawable);
-            mImageView.invalidate();
         }
     }
 

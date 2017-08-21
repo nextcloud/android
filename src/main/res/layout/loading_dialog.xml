@@ -38,6 +38,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:layout_marginLeft="@dimen/standard_margin"
-        android:text="@string/common_loading" />
+        android:text="@string/common_loading"/>
 
 </LinearLayout>
