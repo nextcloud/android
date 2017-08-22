@@ -42,6 +42,7 @@
     <string name="prefs_passcode">密码锁</string>
     <string name="prefs_fingerprint">指纹锁</string>
     <string name="prefs_fingerprint_notsetup">指纹锁没有设置</string>
+    <string name="prefs_expert_mode">专家模式</string>
     <string name="prefs_show_hidden_files">显示隐藏文件</string>
     <string name="prefs_log_delete_history_button">删除历史</string>
     <string name="prefs_calendar_contacts">同步日历和通讯录</string>
@@ -87,12 +88,14 @@
     <string name="file_list_seconds_ago">几秒前</string>
     <string name="file_list_empty_headline">这里没有文件
 </string>
+    <string name="folder_list_empty_headline">无文件</string>
     <string name="file_list_empty">上传一些内容或与您的设备同步。</string>
     <string name="file_list_empty_favorites_filter_list">你标记为“我喜欢的”文件和文件夹会显示在这里</string>
     <string name="file_list_empty_favorites_filter">没有找到您搜索的“我喜欢的”。</string>
     <string name="file_list_loading">加载中&#8230;</string>
     <string name="file_list_no_app_for_file_type">没有设置应用程序来处理这种类型的文件</string>
     <string name="local_file_list_empty">在该文件夹中不存在文件。</string>
+    <string name="local_folder_list_empty">无其他文件夹</string>
     <string name="file_list_empty_headline_search">此文件夹无结果</string>
     <string name="file_list_empty_headline_server_search">没有结果</string>
     <string name="file_list_empty_favorite_headline">还没有“我喜欢的”</string>
@@ -137,10 +140,12 @@
     <string name="common_unknown">未知</string>
     <string name="common_error_unknown">未知错误</string>
     <string name="common_pending">等待</string>
+    <string name="common_delete">删除</string>
     <string name="about_title">关于</string>
     <string name="change_password">修改密码</string>
     <string name="delete_account">删除账号</string>
     <string name="delete_account_warning">是否删除该账户 %s 并且删除所有文件?\n\n一经删除无法撤销该操作</string>
+    <string name="active_user">活跃用户</string>
     <string name="upload_chooser_title">上传自 &#8230;</string>
     <string name="uploader_info_dirname">文件夹名称</string>
     <string name="uploader_upload_in_progress_ticker">上传 &#8230;</string>
@@ -152,6 +157,7 @@
     <string name="uploader_upload_failed_credentials_error">上传失败，你需要重新登录</string>
     <string name="uploads_view_title">上传</string>
     <string name="uploads_view_group_current_uploads">当前</string>
+    <string name="uploads_view_group_failed_uploads">加载失败，等待重启</string>
     <string name="uploads_view_group_finished_uploads">已上传</string>
     <string name="uploads_view_upload_status_succeeded">完成</string>
     <string name="uploads_view_upload_status_cancelled">已取消</string>
@@ -343,6 +349,8 @@
 
     <string name="error__upload__local_file_not_copied">无法复制 %1$s 到本地目录 %2$s</string>
     <string name="prefs_instant_upload_path_title">实时上传文件夹</string>
+    <string name="prefs_synced_folders_local_path_title">本地文件夹</string>
+    <string name="prefs_synced_folders_remote_path_title">远端文件夹</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">使用子文件夹</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">基于年和月存于子文件夹</string>
 
@@ -513,7 +521,12 @@
     <string name="edit_share_unshare">停止共享</string>
     <string name="edit_share_done">完成</string>
 
+    <string name="action_retry_uploads">重试失败上传任务</string>
+    <string name="action_clear_failed_uploads">清除失败上传任务</string>
+    <string name="action_clear_successful_uploads">清除成功上传任务</string>
     <string name="action_clear_finished_uploads">清除完成上传</string>
+    <string name="action_force_rescan">强制重新扫描</string>
+
     <string name="action_switch_grid_view">网格视图</string>
     <string name="action_switch_list_view">列表视图</string>
 
@@ -527,10 +540,13 @@
     <string name="confirmation_remove_files_alert">你是否真的要删除所选的项目？</string>
     <string name="confirmation_remove_folders_alert">你是否真的要删除所选的项目和它们的内容？</string>
     <string name="maintenance_mode">服务器处于维护模式</string>
+    <string name="lock_failed">锁定文件失败</string>
+
     <string name="uploads_view_upload_status_waiting_for_charging">等待收费</string>
     <string name="actionbar_search">搜索</string>
     <string name="files_drop_not_supported">这是一个Nextcloud的特征，请更新</string>
     <string name="learn_more">学习更多</string>
+    <string name="drawer_synced_folders">自动上传</string>
     <string name="drawer_participate">参加</string>
     <string name="participate_testing_headline">通过测试帮助</string>
     <string name="participate_testing_bug_text">发现错误？细节？</string>
@@ -549,6 +565,12 @@
     <string name="participate_contribute_github_text">查看，修改和编写代码，有关详细信息，请参阅%1$s</string>
     <string name="move_to">转移到&#8230;</string>
     <string name="copy_to">复制到</string>
+    <string name="choose_remote_folder">选择远端文件夹&#8230;</string>
+    <string name="choose_local_folder">选择本地文件夹&#8230;</string>
+    <string name="synced_folders_loading_folders">正在载入文件夹&#8230;</string>
+    <string name="synced_folders_no_results">没有发现媒体文件夹</string>
+    <string name="synced_folders_preferences">自动上传的首选项</string>
+    <string name="synced_folders_settings">设置</string>
     <plurals name="items_selected_count">
         <item quantity="other">%d被选择</item>
     </plurals>
@@ -581,8 +603,11 @@
     <string name="welcome_feature_2_title">多用户</string>
     <string name="welcome_feature_2_text">联接你所有的云</string>
 
+    <string name="welcome_feature_3_title">自动上传</string>
     <string name="welcome_feature_3_text">保护你的照片安全</string>
 
+    <string name="whats_new_search_title">全服务器搜索</string>
+    <string name="whats_new_theming_title">主题支持</string>
     <string name="whats_new_skip">跳过</string>
 
     <string name="fingerprint_scan_finger">请扫描你的手指</string>
@@ -629,5 +654,13 @@
     <string name="privacy">隐私</string>
     <string name="file_not_found">文件未找到</string>
 
+    <!-- Auto upload -->
+    <string name="autoupload_custom_folder">设置一个自定义文件夹</string>
+    <string name="autoupload_create_new_custom_folder">创建新的自定义文件夹设定</string>
+    <string name="synced_folders_configure_folders">配置文件夹</string>
+
     <string name="test_server_button">测试服务连接</string>
-    </resources>
+    <string name="resharing_is_not_allowed">不允许二次共享</string>
+    <string name="whats_new_fingerprint_title">指纹解锁</string>
+    <string name="whats_new_fingerprint_content">请用指纹解锁</string>
+</resources>

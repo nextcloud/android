@@ -14,7 +14,7 @@
     <string name="actionbar_sort">Trier</string>
     <string name="sort_by">Trier par</string>
     <string name="menu_item_sort_by_name_a_z">De A à Z</string>
-    <string name="menu_item_sort_by_name_z_a"> De Z à A</string>
+    <string name="menu_item_sort_by_name_z_a">De Z à A</string>
     <string name="menu_item_sort_by_date_newest_first">Le plus récent en premier</string>
     <string name="menu_item_sort_by_date_oldest_first">Le plus ancien en premier</string>
     <string name="menu_item_sort_by_size_biggest_first">Le plus grand en premier</string>
