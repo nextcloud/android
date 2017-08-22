@@ -1,10 +1,9 @@
-2017-08-22 00:32:35
+2017-08-23 00:30:49
 Branches: 7
-Dev branch was updated successfully
 [01 / 07] Further Codacy fixes (nextcloud/codacyFixes) [https://github.com/nextcloud/android/pull/1357] CONFLICT
 [02 / 07] Error feedback improvement (nextcloud/errorFeedback) [https://github.com/nextcloud/android/pull/1198] CONFLICT
-[03 / 07] Comment out adding all new downloaded files to folder observer (nextcloud/folderObserver) [https://github.com/nextcloud/android/pull/1155] merged successfully
-[04 / 07] Search inside of text files (nextcloud/bugfix-454) [https://github.com/nextcloud/android/pull/565] merged successfully
+[03 / 07] Comment out adding all new downloaded files to folder observer (nextcloud/folderObserver) [https://github.com/nextcloud/android/pull/1155] no update needed
+[04 / 07] Search inside of text files (nextcloud/bugfix-454) [https://github.com/nextcloud/android/pull/565] no update needed
 [05 / 07] Resized images (nextcloud/resizedImages) [https://github.com/nextcloud/android/pull/69] CONFLICT
-[06 / 07] Master (nextcloud/master) [https://github.com/nextcloud/android] no update needed
+[06 / 07] Master (nextcloud/master) [https://github.com/nextcloud/android] merged successfully
 [07 / 07] Dev base (nextcloud/dev-base) [https://github.com/nextcloud/android/tree/dev-base] no update needed

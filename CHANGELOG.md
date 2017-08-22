@@ -1,3 +1,15 @@
+## 2017-08-23 00:31
+New branches:
+- Master (nextcloud/master) [https://github.com/nextcloud/android] added
+
+Updated branches:
+- Master (nextcloud/master) [https://github.com/nextcloud/android] updated
+
+Conflicting branches:
+- Further Codacy fixes (nextcloud/codacyFixes) [https://github.com/nextcloud/android/pull/1357] conflicting
+- Error feedback improvement (nextcloud/errorFeedback) [https://github.com/nextcloud/android/pull/1198] conflicting
+- Resized images (nextcloud/resizedImages) [https://github.com/nextcloud/android/pull/69] conflicting
+
 ## 2017-08-22 00:33
 New branches:
 - Comment out adding all new downloaded files to folder observer (nextcloud/folderObserver) [https://github.com/nextcloud/android/pull/1155] added

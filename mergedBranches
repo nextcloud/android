@@ -4,4 +4,5 @@ nextcloud/codacyFixes
 nextcloud/dev-base
 nextcloud/errorDuringDbUpgrade
 nextcloud/folderObserver
+nextcloud/master
 nextcloud/untrustedCerts
