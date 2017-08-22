@@ -4,10 +4,7 @@ pipeline:
     commands:
       # uncomment gplay for Gplay, Modified only
       - sh -c "if [ '$FLAVOUR' != 'Generic' ]; then sed -i '/.*com.google.*/s/^.*\\/\\///g' build.gradle; fi"
-      - ./gradlew assemble${FLAVOUR}
-    when:
-      matrix:
-        FLAVOUR: [Generic, Gplay]
+      - sh -c "if [ '$FLAVOUR' != 'Lint' ]; then ./gradlew assemble${FLAVOUR}; fi"
 
     environment:
       - ANDROID_TARGET=android-24
