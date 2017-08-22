@@ -614,14 +614,10 @@ Smelltu hér til að fá þér einn frá þjónustuaðila.</string>
     <string name="welcome_feature_3_text">Haltu ljósmyndunum þínum öruggum</string>
 
     <string name="whats_new_auto_upload_title">Bættar sjálfvirkar innsendingar</string>
-    <string name="whats_new_auto_upload_content">\u2022 fyrir allar útgáfur android\n\u2022 minni eyðsla á rafhlöðum\n\u2022 áreiðanlegra, en ekki jafn snöggt\n\u2022 aðskilnaður mynda &amp; myndskeiða</string>
-
     <string name="whats_new_search_title">Fullkomin leit á þjóni</string>
     <string name="whats_new_search_content">\u2022 Ekki aðeins í núverandi möppu\n\u2022 Skilar niðurstöðum allstaðar frá þjóninum\n\u2022 Opnar beint skrár/möppur\n\u2022 Stutt í NC12 og nýrri</string>
 
     <string name="whats_new_theming_title">Stuðningur við þemu</string>
-    <string name="whats_new_theming_content">Ef þetta er virkjað á þjóninum mun forritið birta\n\u2022 bakgrunnsmynd\n\u2022 heiti þjóns\n\u2022 nota liti til að aðgreina notendaaðganga</string>
-
     <string name="whats_new_notification_title">Stuðningur við tilkynningar</string>
     <string name="whats_new_notification_content">Fáðu tilkynningar á borð við\n\u2022 nýjar fjartengdar sameignir\n\u2022 umsagnir um athugasemdir\n\u2022 tilkynningar kerfisstjóra</string>
 

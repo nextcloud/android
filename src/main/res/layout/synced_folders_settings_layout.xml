@@ -119,7 +119,7 @@
                         android:layout_below="@id/local_folder_title"
                         android:ellipsize="middle"
                         android:maxLines="2"
-                        android:text="@string/choose_remote_folder"
+                        android:text="@string/choose_local_folder"
                         android:textColor="?android:attr/textColorSecondary"/>
 
                 </RelativeLayout>
