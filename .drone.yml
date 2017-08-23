@@ -1,6 +1,6 @@
 pipeline:
   test:
-    image: nextcloudci/android:android-18
+    image: nextcloudci/android:android-22
     commands:
       # uncomment gplay for Gplay, Modified only
       - sh -c "if [ '$FLAVOUR' != 'Generic' ]; then sed -i '/.*com.google.*/s/^.*\\/\\///g' build.gradle; fi"
@@ -10,7 +10,7 @@ pipeline:
       # - ./wait_for_emulator.sh
 
       # build app and assemble APK, in debug mode
-      - ./gradlew assemble${FLAVOUR}
+      - sh -c "if [ '$FLAVOUR' != 'Lint' ]; then ./gradlew assemble${FLAVOUR}; fi"
 
       # run all the instrumented tests of app module - DISABLED until we get an stable setup for Espresso in Travis
       # - ./gradlew connectedDebugAndroidTest --info
@@ -29,21 +29,22 @@ pipeline:
       - LD_LIBRARY_PATH=/usr/lib/x86_64-linux-gnu/:/opt/android-sdk-linux/tools/lib64/gles_mesa/
 
   lint:
-      image: nextcloudci/android:android-18
-      commands:
-        # needs gplay
-        - sed -i '/com.google.*.gms/s/^.*\\/\\///g' build.gradle
-        - export BRANCH=$(scripts/lint/getBranchName.sh $GIT_USERNAME $GIT_TOKEN $DRONE_PULL_REQUEST)
-        - scripts/lint/lint-up-wrapper.sh $GIT_USERNAME $GIT_TOKEN $BRANCH $LOG_USERNAME $LOG_PASSWORD $DRONE_BUILD_NUMBER
-      secrets: [ GIT_USERNAME, GIT_TOKEN, LOG_USERNAME, LOG_PASSWORD ]
-      when:
-        matrix:
-          FLAVOUR: Modified
+    image: nextcloudci/android:android-22
+    commands:
+      # needs gplay
+      - sed -i '/.*com.google.*/s/^.*\\/\\///g' build.gradle
+      - export BRANCH=$(scripts/lint/getBranchName.sh $GIT_USERNAME $GIT_TOKEN $DRONE_PULL_REQUEST)
+      - scripts/lint/lint-up-wrapper.sh $GIT_USERNAME $GIT_TOKEN $BRANCH $LOG_USERNAME $LOG_PASSWORD $DRONE_BUILD_NUMBER
+    secrets: [ GIT_USERNAME, GIT_TOKEN, LOG_USERNAME, LOG_PASSWORD ]
+    when:
+      matrix:
+        FLAVOUR: Lint
 
 matrix:
   FLAVOUR:
     - Generic
     - Gplay
     - Modified
+    - Lint
 
 branches: master
