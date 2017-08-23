@@ -120,7 +120,7 @@ public class OCFileUnitTest {
         );
         assertThat(fileReadFromParcel.getLastSyncDateForProperties(), is(LAST_SYNC_DATE_FOR_PROPERTIES));
         assertThat(fileReadFromParcel.getLastSyncDateForData(), is(LAST_SYNC_DATE_FOR_DATA));
-        assertThat(fileReadFromParcel.setAvailableOffline(), is(true));
+        assertThat(fileReadFromParcel.isAvailableOffline(), is(true));
         assertThat(fileReadFromParcel.getEtag(), is(ETAG));
         assertThat(fileReadFromParcel.isSharedViaLink(), is(true));
         assertThat(fileReadFromParcel.isSharedWithSharee(), is(true));

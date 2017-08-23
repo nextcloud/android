@@ -693,4 +693,17 @@
     <string name="push_notifications_not_implemented">Push Benachrichtigungen deaktiviert aufgrund der Abhängigkeiten zu proprietären Google Play Diensten.</string>
     <string name="push_notifications_old_login">Keine Push Benachrichtigungen aufgrund veralteter Benutzersitzung. Bitte erwäge das erneute Hinzufügen deines Kontos.</string>
     <string name="push_notifications_temp_error">Push Benachrichtigungen aktuell nicht verfügbar.</string>
+
+    <string name="end_to_end_encryption_folder_not_empty">Verzeichnis nicht leer!</string>
+    <string name="end_to_end_encryption_wrong_password">Fehler beim entschlüsseln. Falsches Passwort??</string>
+    <string name="end_to_end_encryption_decrypting">Entschlüsseln…</string>
+    <string name="end_to_end_encryption_retrieving_keys">Hole Schlüssel…</string>
+    <string name="end_to_end_encryption_enter_password">Zum entschlüsseln des privaten Schlüssels bitte Passwort eingeben!</string>
+    <string name="end_to_end_encryption_generating_keys">Erstelle neue Schlüssel…</string>
+    <string name="end_to_end_encryption_keywords_description">Dieser 12 Worte Satz ist wie ein starkes Passwort: Es emöglicht Zugang zu den verschlüsselten Dateien. Bitte notieren Sie sich den Satz und bewahren ihn sicher auf.</string>
+    <string name="end_to_end_encryption_title">Verschlüsselung einrichten</string>
+    <string name="end_to_end_encryption_passphrase_title">Notieren Sie sich den Verschlüsselungssatz.</string>
+    <string name="end_to_end_encryption_not_supported">Verschlüsselung erst ab KitKat unterstützt.</string>
+    <string name="end_to_end_encryption_confirm_button">Verschlüsselung einrichten</string>
+    <string name="end_to_end_encryption_password">Passwort…</string>
 </resources>

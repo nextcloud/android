@@ -184,7 +184,7 @@ dependencies {
     /// dependencies for app building
     implementation name: 'touch-image-view'
     implementation 'com.android.support:multidex:1.0.2'
-    compile 'com.github.nextcloud:android-library:1.0.31'
+    compile 'com.github.nextcloud:android-library:e2e-SNAPSHOT'
     implementation "com.android.support:support-v4:${supportLibraryVersion}"
     implementation "com.android.support:design:${supportLibraryVersion}"
     implementation 'com.jakewharton:disklrucache:2.0.2'
@@ -200,6 +200,9 @@ dependencies {
     implementation 'org.greenrobot:eventbus:3.0.0'
     implementation 'com.googlecode.ez-vcard:ez-vcard:0.10.2'
     implementation 'org.lukhnos:nnio:0.2'
+
+    compile 'com.madgag.spongycastle:pkix:1.54.0.0'
+
     // uncomment for gplay, modified
     // implementation "com.google.firebase:firebase-messaging:${googleLibraryVersion}"
     // implementation "com.google.android.gms:play-services-base:${googleLibraryVersion}"
@@ -223,7 +226,7 @@ dependencies {
     // Espresso core
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.0'
     // UIAutomator - for cross-app UI tests, and to grant screen is turned on in Espresso tests
-    //androidTestImplementation 'com.android.support.test.uiautomator:uiautomator-v18:2.1.2'
+    androidTestImplementation 'com.android.support.test.uiautomator:uiautomator-v18:2.1.2'
     // fix conflict in dependencies; see http://g.co/androidstudio/app-test-app-conflict for details
     //androidTestImplementation "com.android.support:support-annotations:${supportLibraryVersion}"
     implementation 'org.jetbrains:annotations:15.0'

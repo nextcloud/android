@@ -270,6 +270,8 @@
     <string name="unfavorite">Unset as available offline</string>
     <string name="favorite_real">Set as favorite</string>
     <string name="unset_favorite_real">Unset favorite</string>
+    <string name="encrypted">Set as encrypted</string>
+    <string name="unset_encrypted">Unset encryption</string>
     <string name="common_rename">Rename</string>
     <string name="common_remove">Remove</string>
     <string name="confirmation_remove_file_alert">"Do you really want to remove %1$s?"</string>
@@ -709,4 +711,16 @@
     <string name="push_notifications_not_implemented">Push notifications disabled due to dependencies on proprietary Google Play services.</string>
     <string name="push_notifications_old_login">No push notifications due to outdated login session. Please consider re-adding your account.</string>
     <string name="push_notifications_temp_error">Push notifications currently not available.</string>
+    <string name="end_to_end_encryption_folder_not_empty">Folder not empty!</string>
+    <string name="end_to_end_encryption_wrong_password">Error while decrypting. Wrong password?</string>
+    <string name="end_to_end_encryption_decrypting">Decrypting…</string>
+    <string name="end_to_end_encryption_retrieving_keys">Retrieving keys…</string>
+    <string name="end_to_end_encryption_enter_password">Please enter password to decrypt private key!</string>
+    <string name="end_to_end_encryption_generating_keys">Generating new keys…</string>
+    <string name="end_to_end_encryption_keywords_description">This 12 word phrase is like a very strong password: It provides full access to view and use your encrypted files. Please write it down and keep it somewhere safe.</string>
+    <string name="end_to_end_encryption_title">Set up encryption</string>
+    <string name="end_to_end_encryption_passphrase_title">Note your encryption passphrase</string>
+    <string name="end_to_end_encryption_not_supported">Encryption not supported before KitKat.</string>
+    <string name="end_to_end_encryption_confirm_button">Set up encryption</string>
+    <string name="end_to_end_encryption_password">Password…</string>
 </resources>

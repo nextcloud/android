@@ -87,6 +87,7 @@ public class FileContentProvider extends ContentProvider {
     private static final String TEXT = " TEXT, ";
     private static final String ALTER_TABLE = "ALTER TABLE ";
     private static final String ADD_COLUMN = " ADD COLUMN ";
+    private static final String REMOVE_COLUMN = " REMOVE COLUMN ";
     private static final String UPGRADE_VERSION_MSG = "OUT of the ADD in onUpgrade; oldVersion == %d, newVersion == %d";
 
     @Override
@@ -1156,6 +1157,39 @@ public class FileContentProvider extends ContentProvider {
             if (!upgraded) {
                 Log_OC.i(SQL, String.format(Locale.ENGLISH, UPGRADE_VERSION_MSG, oldVersion, newVersion));
             }
+
+            if (oldVersion < 25 && newVersion >= 25) {
+                    Log_OC.i(SQL, "Entering in the #25 Adding encryption flag to file");
+                    db.beginTransaction();
+                    try {
+                        db.execSQL(ALTER_TABLE + ProviderTableMeta.FILE_TABLE_NAME +
+                                ADD_COLUMN + ProviderTableMeta.FILE_IS_ENCRYPTED + " INTEGER ");
+                        db.execSQL(ALTER_TABLE + ProviderTableMeta.FILE_TABLE_NAME +
+                                ADD_COLUMN + ProviderTableMeta.FILE_ENCRYPTED_NAME + " TEXT ");
+                        db.execSQL(ALTER_TABLE + ProviderTableMeta.CAPABILITIES_TABLE_NAME +
+                                ADD_COLUMN + ProviderTableMeta.CAPABILITIES_END_TO_END_ENCRYPTION + " INTEGER ");
+                        upgraded = true;
+                        db.setTransactionSuccessful();
+                    } finally {
+                        db.endTransaction();
+                    }
+            }
+
+            if (!upgraded) {
+                Log_OC.i(SQL, String.format(Locale.ENGLISH, UPGRADE_VERSION_MSG, oldVersion, newVersion));
+            }
+        }
+
+        @Override
+        public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+            if (oldVersion == 25 && newVersion == 24) {
+                db.execSQL(ALTER_TABLE + ProviderTableMeta.FILE_TABLE_NAME +
+                        REMOVE_COLUMN + ProviderTableMeta.FILE_IS_ENCRYPTED);
+                db.execSQL(ALTER_TABLE + ProviderTableMeta.FILE_TABLE_NAME +
+                        REMOVE_COLUMN + ProviderTableMeta.FILE_ENCRYPTED_NAME);
+                db.execSQL(ALTER_TABLE + ProviderTableMeta.CAPABILITIES_TABLE_NAME +
+                        REMOVE_COLUMN + ProviderTableMeta.CAPABILITIES_END_TO_END_ENCRYPTION);
+            }
         }
     }
 
@@ -1173,6 +1207,7 @@ public class FileContentProvider extends ContentProvider {
         db.execSQL("CREATE TABLE " + ProviderTableMeta.FILE_TABLE_NAME + "("
                 + ProviderTableMeta._ID + " INTEGER PRIMARY KEY, "
                 + ProviderTableMeta.FILE_NAME + TEXT
+                + ProviderTableMeta.FILE_ENCRYPTED_NAME + TEXT
                 + ProviderTableMeta.FILE_PATH + TEXT
                 + ProviderTableMeta.FILE_PARENT + INTEGER
                 + ProviderTableMeta.FILE_CREATION + INTEGER
@@ -1193,6 +1228,7 @@ public class FileContentProvider extends ContentProvider {
                 + ProviderTableMeta.FILE_UPDATE_THUMBNAIL + INTEGER //boolean
                 + ProviderTableMeta.FILE_IS_DOWNLOADING + INTEGER //boolean
                 + ProviderTableMeta.FILE_FAVORITE + INTEGER // boolean
+                + ProviderTableMeta.FILE_IS_ENCRYPTED + INTEGER // boolean
                 + ProviderTableMeta.FILE_ETAG_IN_CONFLICT + TEXT
                 + ProviderTableMeta.FILE_SHARED_WITH_SHAREE + " INTEGER);"
         );
@@ -1249,7 +1285,8 @@ public class FileContentProvider extends ContentProvider {
                 + ProviderTableMeta.CAPABILITIES_SERVER_NAME + TEXT
                 + ProviderTableMeta.CAPABILITIES_SERVER_COLOR + TEXT
                 + ProviderTableMeta.CAPABILITIES_SERVER_SLOGAN + TEXT
-                + ProviderTableMeta.CAPABILITIES_SERVER_BACKGROUND_URL + " TEXT );");
+                + ProviderTableMeta.CAPABILITIES_SERVER_BACKGROUND_URL + TEXT
+                + ProviderTableMeta.CAPABILITIES_END_TO_END_ENCRYPTION + " INTEGER );");
     }
 
     private void createUploadsTable(SQLiteDatabase db) {

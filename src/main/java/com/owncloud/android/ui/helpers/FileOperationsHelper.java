@@ -48,6 +48,7 @@ import com.owncloud.android.services.OperationsService;
 import com.owncloud.android.services.observer.FileObserverService;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.ShareActivity;
+import com.owncloud.android.ui.events.EncryptionEvent;
 import com.owncloud.android.ui.events.FavoriteEvent;
 
 import org.greenrobot.eventbus.EventBus;
@@ -605,6 +606,12 @@ public class FileOperationsHelper {
         }
     }
 
+    public void toggleEncryption(OCFile file, boolean shouldBeEncrypted) {
+        if (file.isEncrypted() != shouldBeEncrypted) {
+            EventBus.getDefault().post(new EncryptionEvent(file.getLocalId(), file.getRemoteId(), file.getRemotePath(),
+                    shouldBeEncrypted));
+        }
+    }
 
     public void toogleOfflineFiles(Collection<OCFile> files, boolean isAvailableOffline) {
         List<OCFile> alreadyRightStateList = new ArrayList<>();

@@ -56,13 +56,19 @@ import com.owncloud.android.utils.AnalyticsUtils;
 import com.owncloud.android.utils.FilesSyncHelper;
 import com.owncloud.android.utils.PermissionUtil;
 import com.owncloud.android.utils.ReceiversHelper;
+import com.owncloud.android.utils.EncryptionUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.crypto.Cipher;
+
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
+import static com.owncloud.android.utils.EncryptionUtils.generateIV;
+import static com.owncloud.android.utils.EncryptionUtils.generateKey;
 
 
 /**
@@ -241,7 +247,7 @@ public class MainApp extends MultiDexApplication {
         }
     }
 
-    //  From AccountAuthenticator 
+    //  From AccountAuthenticator
     //  public static final String AUTHORITY = "org.owncloud";
     public static String getAuthority() {
         return getAppContext().getResources().getString(R.string.authority);

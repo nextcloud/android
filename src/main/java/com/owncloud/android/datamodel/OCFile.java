@@ -95,6 +95,8 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
 
     private boolean mIsFavorite;
 
+    private boolean mIsEncrypted;
+
     /**
      * URI to the local path of the file contents, if stored in the device; cached after first call
      * to {@link #getStorageUri()}
@@ -108,6 +110,7 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
      * Cached after first call, until changed.
      */
     private Uri mExposedFileUri;
+    private String mEncryptedFileName;
 
 
     /**
@@ -155,6 +158,8 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
         mEtagInConflict = source.readString();
         mShareWithSharee = source.readInt() == 1;
         mIsFavorite = source.readInt() == 1;
+        mIsEncrypted = source.readInt() == 1;
+        mEncryptedFileName = source.readString();
     }
 
     @Override
@@ -182,6 +187,8 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
         dest.writeString(mEtagInConflict);
         dest.writeInt(mShareWithSharee ? 1 : 0);
         dest.writeInt(mIsFavorite ? 1 : 0);
+        dest.writeInt(mIsEncrypted ? 1 : 0);
+        dest.writeString(mEncryptedFileName);
     }
 
     public boolean getIsFavorite() {
@@ -192,13 +199,24 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
         this.mIsFavorite = mIsFavorite;
     }
 
+    public boolean isEncrypted() {
+        return mIsEncrypted;
+    }
+
+    public void setEncrypted(boolean mIsEncrypted) {
+        this.mIsEncrypted = mIsEncrypted;
+    }
     /**
-     * Gets the ID of the file
+     * Gets the android internal ID of the file
      *
-     * @return the file ID
+     * @return the android internal file ID
      */
     public long getFileId() {
         return mId;
+    }
+
+    public String getDecryptedRemotePath() {
+        return mRemotePath;
     }
 
     /**
@@ -207,7 +225,29 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
      * @return The remote path to the file
      */
     public String getRemotePath() {
-        return mRemotePath;
+        if (isEncrypted() && !isFolder()) {
+            String parentPath = new File(mRemotePath).getParent();
+
+            if (parentPath.endsWith("/")) {
+                return parentPath + getEncryptedFileName();
+            } else {
+                return parentPath + "/" + getEncryptedFileName();
+            }
+        } else {
+            if (isFolder()) {
+                if (mRemotePath.endsWith("/")) {
+                    return mRemotePath;
+                } else {
+                    return mRemotePath + "/";
+                }
+            } else {
+                return mRemotePath;
+            }
+        }
+    }
+
+    public void setRemotePath(String path) {
+        mRemotePath = path;
     }
 
     /**
@@ -385,7 +425,7 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
      * @return The name of the file
      */
     public String getFileName() {
-        File f = new File(getRemotePath());
+        File f = new File(mRemotePath);
         return f.getName().length() == 0 ? ROOT_PATH : f.getName();
     }
 
@@ -407,6 +447,14 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
             }
             Log_OC.d(TAG, "OCFile name changed to " + mRemotePath);
         }
+    }
+
+    public void setEncryptedFileName(String name) {
+        mEncryptedFileName = name;
+    }
+
+    public String getEncryptedFileName() {
+        return mEncryptedFileName;
     }
 
     /**
@@ -648,8 +696,22 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
         this.mPermissions = permissions;
     }
 
+    /**
+     * The fileid namespaced by the instance id, globally unique
+     *
+     * @return globally unique file id: file id + instance id
+     */
     public String getRemoteId() {
         return mRemoteId;
+    }
+
+    /**
+     * The unique id for the file within the instance
+     *
+     * @return file id, unique within the instance
+     */
+    public String getLocalId() {
+        return getRemoteId().substring(0, 8).replaceAll("^0*", "");
     }
 
     public void setRemoteId(String remoteId) {
