@@ -22,6 +22,7 @@ package com.owncloud.android.ui.preview;
 import android.accounts.Account;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -382,8 +383,16 @@ public class PreviewTextFragment extends FileFragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_send_share_file: {
-                mContainerActivity.getFileOperationsHelper().sendShareFile(getFile(),
+                if(getFile().isSharedWithMe() && !getFile().canReshare()){
+                    Snackbar.make(getView(),
+                            R.string.resharing_is_not_allowed,
+                            Snackbar.LENGTH_LONG
+                    )
+                            .show();
+                } else {
+                    mContainerActivity.getFileOperationsHelper().sendShareFile(getFile(),
                         (FileDisplayActivity) mContainerActivity);
+                }
                 return true;
             }
             case R.id.action_open_file_with: {
