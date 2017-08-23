@@ -1055,8 +1055,19 @@ public class FileUploader extends Service
                 mUploadClient = OwnCloudClientManagerFactory.getDefaultSingleton().
                         getClientFor(ocAccount, this);
 
-                /// perform the upload
-                uploadResult = mCurrentUpload.execute(mUploadClient, mStorageManager);
+
+//                // If parent folder is encrypted, upload file encrypted
+//                OCFile parent = mStorageManager.getFileByPath(mCurrentUpload.getFile().getParentRemotePath());
+
+//                if (parent.isEncrypted()) {
+//                    UploadEncryptedFileOperation uploadEncryptedFileOperation =
+//                            new UploadEncryptedFileOperation(parent, mCurrentUpload);
+//
+//                    uploadResult = uploadEncryptedFileOperation.execute(mUploadClient, mStorageManager);
+//                } else {
+                    /// perform the regular upload
+                    uploadResult = mCurrentUpload.execute(mUploadClient, mStorageManager);
+//                }
 
 
             } catch (Exception e) {
@@ -1073,10 +1084,8 @@ public class FileUploader extends Service
                     // TODO: grant that name is also updated for mCurrentUpload.getOCUploadId
 
                 } else {
-                    removeResult = mPendingUploads.removePayload(
-                            mCurrentAccount.name,
-                            mCurrentUpload.getRemotePath()
-                    );
+                    removeResult = mPendingUploads.removePayload(mCurrentAccount.name,
+                            mCurrentUpload.getDecryptedRemotePath());
                 }
 
                 mUploadsStorageManager.updateDatabaseUploadResult(uploadResult, mCurrentUpload);

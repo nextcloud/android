@@ -1,0 +1,26 @@
+{
+  "metadata":{
+    "encrypted":"L01QcEZlcnBGbGJYZk0zQVRpME5venpiMlorZkVKNEo0YXFyV0Vla25Ed0kzOWtFYUg3V0Y3RVRKdDYrOWc0Y095bmhJU1hCRDlVVWkvdFJTa2swa1NTcXlPTEFiRmhVUDZFSzRzUXhiYWkrRkRPQ3VuNk1PakVxNDlBSUhWYUZucUJIZWhyeWNQZzF2d1d0VHh0cFhud3FacE55TmZOaFRRaVA2Zz09",
+    "initializationVector":"kahzfT4u86Knc+e3",
+    "sharing":{
+      "recipient":{
+        "blah@schiessle.org":"PUBLIC KEY",
+        "bjoern@schiessle.org":"PUBLIC KEY"
+      },
+      "signature":"HMACOFRECIPIENTANDNEWESTMETADATAKEY"
+    },
+    "version":1
+  },
+  "files":{
+    "ia7OEEEyXMoRa1QWQk8r":{
+      "encrypted":"a2xMcFI0cERHa2lCM3U1ajR5UXdnLzNmN0dCK2xnSmk5ck93bHhYTTI2ZmdQQlNaLzkxOTRJK3pHTlJzSjhoTTNjdlBhb2VVaEhHdGtBd0MvVUJlbWd1VFlvZDFKM2hLSkNmZWhoNlhIclBJaGU3ZllQY3lnMHprV1M1QUpIOCs2aUE5Tno2ZkZtRHpYMExabXRZcUpyZnk5Y2hyUTEyL2M4RDE1VmliR1ltbUxqKzBTUlJyc2ZCdTRwenZiR1hCVjk5OTA5UDVjb0llUCtPcjhVM1VBL1ZUNkpPaDYvSlpSaHlHTkVDbEpDRT0\\u003d",
+      "metadataKey":0,
+      "initializationVector":"+mHu52HyZq+pAAIN"
+    },
+    "n9WXAIXO2wRY4R8nXwmo":{
+      "encrypted":"VncyZU4yZStaRmFqeXJEQkpZNlNZa09yL3FIbVNNVW1wVDFWTENJN0pnSVBkdzIySUlrRnFDMGdzcTMwdHZneFlweEJjeGt5Z0crSVlUUkdGVk5iUzlBczJaejFlNTZzeEQrTUVHVldjRGQ4VDVIN0p6ZFFlRWsvRkN4M2FoQXlFOHpXOHQ5TnhXQUYycmpvNE5xNVowUStPTGZPc0hqaVdpUUR3dm9TV0hPS3JSaVd5c1YwSEhOYmVzZkZQaEF4Mk0rLzdDU05jK2dmNmdqb2ZndzIwOC91YXNlQUlPb2FnV3k0dWd0SFAvYz0\\u003d",
+      "metadataKey":0,
+      "initializationVector":"sOFd17hCKWIv0gyB"
+    }
+  }
+}

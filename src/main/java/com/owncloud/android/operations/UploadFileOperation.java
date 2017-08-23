@@ -22,9 +22,15 @@ package com.owncloud.android.operations;
 import android.accounts.Account;
 import android.content.Context;
 import android.net.Uri;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 
 import com.evernote.android.job.JobRequest;
 import com.evernote.android.job.util.Device;
+import com.google.gson.reflect.TypeToken;
+import com.owncloud.android.datamodel.ArbitraryDataProvider;
+import com.owncloud.android.datamodel.DecryptedFolderMetadata;
+import com.owncloud.android.datamodel.EncryptedFolderMetadata;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
@@ -41,11 +47,17 @@ import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCo
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.files.ChunkedUploadRemoteFileOperation;
 import com.owncloud.android.lib.resources.files.ExistenceCheckRemoteOperation;
+import com.owncloud.android.lib.resources.files.GetMetadataOperation;
+import com.owncloud.android.lib.resources.files.LockFileOperation;
 import com.owncloud.android.lib.resources.files.ReadRemoteFileOperation;
 import com.owncloud.android.lib.resources.files.RemoteFile;
+import com.owncloud.android.lib.resources.files.StoreMetadataOperation;
+import com.owncloud.android.lib.resources.files.UnlockFileOperation;
+import com.owncloud.android.lib.resources.files.UpdateMetadataOperation;
 import com.owncloud.android.lib.resources.files.UploadRemoteFileOperation;
 import com.owncloud.android.operations.common.SyncOperation;
 import com.owncloud.android.utils.ConnectivityUtils;
+import com.owncloud.android.utils.EncryptionUtils;
 import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.MimeType;
 import com.owncloud.android.utils.MimeTypeUtil;
@@ -68,10 +80,14 @@ import java.io.RandomAccessFile;
 import java.nio.channels.FileChannel;
 import java.nio.channels.FileLock;
 import java.nio.channels.OverlappingFileLockException;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
+import java.util.UUID;
 import java.util.concurrent.atomic.AtomicBoolean;
+
+import static com.owncloud.android.utils.EncryptionUtils.encodeStringToBase64Bytes;
 
 
 /**
@@ -125,6 +141,7 @@ public class UploadFileOperation extends SyncOperation {
     protected RequestEntity mEntity = null;
 
     private Account mAccount;
+    private UploadsStorageManager uploadsStorageManager;
 
     public static OCFile obtainNewOCFileToUpload(String remotePath, String localPath, String mimeType) {
 
@@ -241,6 +258,10 @@ public class UploadFileOperation extends SyncOperation {
         return mFile.getRemotePath();
     }
 
+    public String getDecryptedRemotePath() {
+        return mFile.getDecryptedRemotePath();
+    }
+
     public String getMimeType() {
         return mFile.getMimetype();
     }
@@ -316,29 +337,74 @@ public class UploadFileOperation extends SyncOperation {
         mRenameUploadListener = listener;
     }
 
+    public boolean isChunkedUploadSupported() {
+        return mChunked;
+    }
+
+    public Context getContext() {
+        return mContext;
+    }
+
     @Override
     @SuppressWarnings("PMD.AvoidDuplicateLiterals")
     protected RemoteOperationResult run(OwnCloudClient client) {
         mCancellationRequested.set(false);
         mUploadStarted.set(true);
+
+        uploadsStorageManager = new UploadsStorageManager(mContext.getContentResolver(),
+                mContext);
+
+        for (OCUpload ocUpload : uploadsStorageManager.getAllStoredUploads()) {
+            if (ocUpload.getUploadId() == getOCUploadId()) {
+                ocUpload.setFileSize(0);
+                uploadsStorageManager.updateUpload(ocUpload);
+                break;
+            }
+        }
+
+        /// check the existence of the parent folder for the file to upload
+        String remoteParentPath = new File(getRemotePath()).getParent();
+        remoteParentPath = remoteParentPath.endsWith(OCFile.PATH_SEPARATOR) ?
+                remoteParentPath : remoteParentPath + OCFile.PATH_SEPARATOR;
+        RemoteOperationResult result = grantFolderExistence(remoteParentPath, client);
+
+        if (!result.isSuccess()) {
+            return result;
+        }
+
+        OCFile parent = getStorageManager().getFileByPath(remoteParentPath);
+        mFile.setParentId(parent.getFileId());
+
+        if (parent.isEncrypted()) {
+            Log_OC.d(TAG, "encrypted upload");
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                return encryptedUpload(client, parent);
+            } else {
+                Log_OC.e(TAG, "Encrypted upload on old Android API");
+                return new RemoteOperationResult(ResultCode.OLD_ANDROID_API);
+            }
+        } else {
+            Log_OC.d(TAG, "normal upload");
+            return normalUpload(client);
+        }
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+    private RemoteOperationResult encryptedUpload(OwnCloudClient client, OCFile parentFile) {
         RemoteOperationResult result = null;
         File temporalFile = null;
         File originalFile = new File(mOriginalStoragePath);
         File expectedFile = null;
         FileLock fileLock = null;
-
-        UploadsStorageManager uploadsStorageManager = new UploadsStorageManager(mContext.getContentResolver(),
-                mContext);
-
         long size = 0;
 
-        for (OCUpload ocUpload : uploadsStorageManager.getAllStoredUploads()) {
-            if (ocUpload.getUploadId() == getOCUploadId()) {
-                ocUpload.setFileSize(size);
-                uploadsStorageManager.updateUpload(ocUpload);
-                break;
-            }
-        }
+        boolean metadataExists = false;
+        String token = null;
+
+        ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProvider(getContext().getContentResolver());
+
+        String privateKey = arbitraryDataProvider.getValue(getAccount().name, EncryptionUtils.PRIVATE_KEY);
+        String publicKey = arbitraryDataProvider.getValue(getAccount().name, EncryptionUtils.PUBLIC_KEY);
 
         try {
 
@@ -372,25 +438,382 @@ public class UploadFileOperation extends SyncOperation {
                 return new RemoteOperationResult(ResultCode.LOCAL_FILE_NOT_FOUND);
             }
 
-            /// check the existence of the parent folder for the file to upload
-            String remoteParentPath = new File(getRemotePath()).getParent();
-            remoteParentPath = remoteParentPath.endsWith(OCFile.PATH_SEPARATOR) ?
-                    remoteParentPath : remoteParentPath + OCFile.PATH_SEPARATOR;
-            result = grantFolderExistence(remoteParentPath, client);
+            // Lock folder
+            LockFileOperation lockFileOperation = new LockFileOperation(parentFile.getLocalId());
+            RemoteOperationResult lockFileOperationResult = lockFileOperation.execute(client);
 
-            if (!result.isSuccess()) {
-
-                return result;
+            if (lockFileOperationResult.isSuccess()) {
+                token = (String) lockFileOperationResult.getData().get(0);
+            } else if (lockFileOperationResult.getHttpCode() == HttpStatus.SC_FORBIDDEN) {
+                throw new Exception("Forbidden! Please try again later.)");
+            } else {
+                throw new Exception("Unknown error!");
             }
 
-            /// set parent local id in uploading file
-            OCFile parent = getStorageManager().getFileByPath(remoteParentPath);
-            mFile.setParentId(parent.getFileId());
+            // Update metadata
+            GetMetadataOperation getMetadataOperation = new GetMetadataOperation(parentFile.getLocalId());
+            RemoteOperationResult getMetadataOperationResult = getMetadataOperation.execute(client);
+
+            DecryptedFolderMetadata metadata;
+
+            if (getMetadataOperationResult.isSuccess()) {
+                metadataExists = true;
+
+                // decrypt metadata
+                String serializedEncryptedMetadata = (String) getMetadataOperationResult.getData().get(0);
+
+
+                EncryptedFolderMetadata encryptedFolderMetadata = EncryptionUtils.deserializeJSON(
+                        serializedEncryptedMetadata, new TypeToken<EncryptedFolderMetadata>() {
+                        });
+
+                metadata = EncryptionUtils.decryptFolderMetaData(encryptedFolderMetadata, privateKey);
+
+            } else if (getMetadataOperationResult.getHttpCode() == HttpStatus.SC_NOT_FOUND) {
+                // new metadata
+                metadata = new DecryptedFolderMetadata();
+                metadata.metadata = new DecryptedFolderMetadata.Metadata();
+                metadata.metadata.metadataKeys = new HashMap<>();
+                String metadataKey = EncryptionUtils.encodeBytesToBase64String(EncryptionUtils.generateKey());
+                String encryptedMetadataKey = EncryptionUtils.encryptStringAsymmetric(metadataKey, publicKey);
+                metadata.metadata.metadataKeys.put(0, encryptedMetadataKey);
+            } else {
+                // TODO error
+                throw new Exception("something wrong");
+            }
 
             /// automatic rename of file to upload in case of name collision in server
             Log_OC.d(TAG, "Checking name collision in server");
             if (!mForceOverwrite) {
-                String remotePath = getAvailableRemotePath(client, mRemotePath);
+                String remotePath = getAvailableRemotePath(client, mRemotePath, metadata, true);
+                mWasRenamed = !remotePath.equals(mRemotePath);
+                if (mWasRenamed) {
+                    createNewOCFile(remotePath);
+                    Log_OC.d(TAG, "File renamed as " + remotePath);
+                }
+                mRemotePath = remotePath;
+                mRenameUploadListener.onRenameUpload();
+            }
+
+            if (mCancellationRequested.get()) {
+                throw new OperationCancelledException();
+            }
+
+            String expectedPath = FileStorageUtils.getDefaultSavePathFor(mAccount.name, mFile);
+            expectedFile = new File(expectedPath);
+
+            /// copy the file locally before uploading
+            if (mLocalBehaviour == FileUploader.LOCAL_BEHAVIOUR_COPY &&
+                    !mOriginalStoragePath.equals(expectedPath)) {
+
+                String temporalPath = FileStorageUtils.getTemporalPath(mAccount.name) + mFile.getRemotePath();
+                mFile.setStoragePath(temporalPath);
+                temporalFile = new File(temporalPath);
+
+                result = copy(originalFile, temporalFile);
+                if (result != null) {
+                    return result;
+                }
+            }
+
+            if (mCancellationRequested.get()) {
+                throw new OperationCancelledException();
+            }
+
+            // Get the last modification date of the file from the file system
+            Long timeStampLong = originalFile.lastModified() / 1000;
+            String timeStamp = timeStampLong.toString();
+
+
+            // Key
+            byte[] key = null;
+
+            try {
+                // TODO change key if file has changed, e.g. when file is updated
+                key = encodeStringToBase64Bytes(metadata.files.get(mFile.getFileName()).encrypted.key);
+            } catch (Exception e) {
+                // no key found
+            }
+
+            if (key == null || key.length == 0) {
+                key = EncryptionUtils.generateKey();
+            }
+
+            // IV
+            byte[] iv = null;
+
+            try {
+                iv = encodeStringToBase64Bytes(metadata.files.get(mFile.getFileName()).initializationVector);
+            } catch (Exception e) {
+                // no iv found
+            }
+
+            if (iv == null || iv.length == 0) {
+                iv = EncryptionUtils.generateIV();
+            }
+
+
+            EncryptionUtils.EncryptedFile encryptedFile = EncryptionUtils.encryptFile(mFile, key, iv);
+
+            // new random file name, check if it exists in metadata
+            String encryptedFileName = UUID.randomUUID().toString().replaceAll("-", "");
+
+            while (metadata.files.get(encryptedFileName) != null) {
+                encryptedFileName = UUID.randomUUID().toString().replaceAll("-", "");
+            }
+
+            mFile.setEncryptedFileName(encryptedFileName);
+
+            File encryptedTempFile = File.createTempFile("encFile", encryptedFileName);
+            FileOutputStream fileOutputStream = new FileOutputStream(encryptedTempFile);
+            fileOutputStream.write(encryptedFile.encryptedBytes);
+            fileOutputStream.close();
+
+            /// perform the upload
+            if (mChunked &&
+                    (new File(mFile.getStoragePath())).length() >
+                            ChunkedUploadRemoteFileOperation.CHUNK_SIZE) {
+                mUploadOperation = new ChunkedUploadRemoteFileOperation(mContext, encryptedTempFile.getAbsolutePath(),
+                        mFile.getParentRemotePath() + encryptedFileName, mFile.getMimetype(),
+                        mFile.getEtagInConflict(), timeStamp);
+            } else {
+                mUploadOperation = new UploadRemoteFileOperation(encryptedTempFile.getAbsolutePath(),
+                        mFile.getParentRemotePath() + encryptedFileName, mFile.getMimetype(),
+                        mFile.getEtagInConflict(), timeStamp);
+            }
+
+            Iterator<OnDatatransferProgressListener> listener = mDataTransferListeners.iterator();
+            while (listener.hasNext()) {
+                mUploadOperation.addDatatransferProgressListener(listener.next());
+            }
+
+            if (mCancellationRequested.get()) {
+                throw new OperationCancelledException();
+            }
+
+//            FileChannel channel = null;
+//            try {
+//                channel = new RandomAccessFile(ocFile.getStoragePath(), "rw").getChannel();
+//                fileLock = channel.tryLock();
+//            } catch (FileNotFoundException e) {
+//                if (temporalFile == null) {
+//                    String temporalPath = FileStorageUtils.getTemporalPath(account.name) + ocFile.getRemotePath();
+//                    ocFile.setStoragePath(temporalPath);
+//                    temporalFile = new File(temporalPath);
+//
+//                    result = copy(originalFile, temporalFile);
+//
+//                    if (result != null) {
+//                        return result;
+//                    } else {
+//                        if (temporalFile.length() == originalFile.length()) {
+//                            channel = new RandomAccessFile(temporalFile.getAbsolutePath(), "rw").getChannel();
+//                            fileLock = channel.tryLock();
+//                        } else {
+//                            while (temporalFile.length() != originalFile.length()) {
+//                                Files.deleteIfExists(Paths.get(temporalPath));
+//                                result = copy(originalFile, temporalFile);
+//
+//                                if (result != null) {
+//                                    return result;
+//                                } else {
+//                                    channel = new RandomAccessFile(temporalFile.getAbsolutePath(), "rw").
+//                                            getChannel();
+//                                    fileLock = channel.tryLock();
+//                                }
+//                            }
+//                        }
+//                    }
+//                } else {
+//                    channel = new RandomAccessFile(temporalFile.getAbsolutePath(), "rw").getChannel();
+//                    fileLock = channel.tryLock();
+//                }
+//            }
+
+            result = mUploadOperation.execute(client);
+
+            /// move local temporal file or original file to its corresponding
+            // location in the ownCloud local folder
+            if (!result.isSuccess() && result.getHttpCode() == HttpStatus.SC_PRECONDITION_FAILED) {
+                result = new RemoteOperationResult(ResultCode.SYNC_CONFLICT);
+            }
+
+            if (result.isSuccess()) {
+                // upload metadata
+                DecryptedFolderMetadata.DecryptedFile decryptedFile = new DecryptedFolderMetadata.DecryptedFile();
+                DecryptedFolderMetadata.Data data = new DecryptedFolderMetadata.Data();
+                data.filename = mFile.getFileName();
+                data.mimetype = mFile.getMimetype();
+                data.key = EncryptionUtils.encodeBytesToBase64String(key);
+
+                decryptedFile.encrypted = data;
+                decryptedFile.initializationVector = EncryptionUtils.encodeBytesToBase64String(iv);
+                decryptedFile.authenticationTag = encryptedFile.authenticationTag;
+
+                metadata.files.put(encryptedFileName, decryptedFile);
+
+                EncryptedFolderMetadata encryptedFolderMetadata = EncryptionUtils.encryptFolderMetadata(metadata,
+                        privateKey);
+                String serializedFolderMetadata = EncryptionUtils.serializeJSON(encryptedFolderMetadata);
+
+                // upload metadata
+                RemoteOperationResult uploadMetadataOperationResult;
+                if (metadataExists) {
+                    // update metadata
+                    UpdateMetadataOperation storeMetadataOperation = new UpdateMetadataOperation(parentFile.getLocalId(),
+                            serializedFolderMetadata, token);
+                    uploadMetadataOperationResult = storeMetadataOperation.execute(client);
+                } else {
+                    // store metadata
+                    StoreMetadataOperation storeMetadataOperation = new StoreMetadataOperation(parentFile.getLocalId(),
+                            serializedFolderMetadata);
+                    uploadMetadataOperationResult = storeMetadataOperation.execute(client);
+                }
+
+                if (!uploadMetadataOperationResult.isSuccess()) {
+                    throw new Exception();
+                }
+            }
+        } catch (FileNotFoundException e) {
+            Log_OC.d(TAG, mFile.getStoragePath() + " not exists anymore");
+            result = new RemoteOperationResult(ResultCode.LOCAL_FILE_NOT_FOUND);
+        } catch (OverlappingFileLockException e) {
+            Log_OC.d(TAG, "Overlapping file lock exception");
+            result = new RemoteOperationResult(ResultCode.LOCK_FAILED);
+        } catch (Exception e) {
+            result = new RemoteOperationResult(e);
+
+        } finally {
+            mUploadStarted.set(false);
+
+            // unlock file
+            if (token != null) {
+                UnlockFileOperation unlockFileOperation = new UnlockFileOperation(parentFile.getLocalId(), token);
+                RemoteOperationResult unlockFileOperationResult = unlockFileOperation.execute(client);
+
+                if (!unlockFileOperationResult.isSuccess()) {
+                    Log_OC.e(TAG, "Failed to unlock " + parentFile.getLocalId());
+                }
+            }
+
+            if (fileLock != null) {
+                try {
+                    fileLock.release();
+                } catch (IOException e) {
+                    Log_OC.e(TAG, "Failed to unlock file with path " + mFile.getStoragePath());
+                }
+            }
+
+            if (temporalFile != null && !originalFile.equals(temporalFile)) {
+                temporalFile.delete();
+            }
+            if (result == null) {
+                result = new RemoteOperationResult(ResultCode.UNKNOWN_ERROR);
+            }
+            if (result.isSuccess()) {
+                Log_OC.i(TAG, "Upload of " + mFile.getStoragePath() + " to " + mFile.getRemotePath() + ": " +
+                        result.getLogMessage());
+            } else {
+                if (result.getException() != null) {
+                    if (result.isCancelled()) {
+                        Log_OC.w(TAG, "Upload of " + mFile.getStoragePath() + " to " + mFile.getRemotePath() +
+                                ": " + result.getLogMessage());
+                    } else {
+                        Log_OC.e(TAG, "Upload of " + mFile.getStoragePath() + " to " + mFile.getRemotePath() +
+                                ": " + result.getLogMessage(), result.getException());
+                    }
+
+                } else {
+                    Log_OC.e(TAG, "Upload of " + mFile.getStoragePath() + " to " + mFile.getRemotePath() +
+                            ": " + result.getLogMessage());
+                }
+            }
+        }
+
+        switch (mLocalBehaviour) {
+            case FileUploader.LOCAL_BEHAVIOUR_FORGET:
+                String temporalPath = FileStorageUtils.getTemporalPath(mAccount.name) + mFile.getRemotePath();
+                if (mOriginalStoragePath.equals(temporalPath)) {
+                    // delete local file is was pre-copied in temporary folder (see .ui.helpers.UriUploader)
+                    temporalFile = new File(temporalPath);
+                    temporalFile.delete();
+                }
+                mFile.setStoragePath("");
+                saveUploadedFile(client);
+                break;
+
+            case FileUploader.LOCAL_BEHAVIOUR_DELETE:
+                Log_OC.d(TAG, "Delete source file");
+
+                originalFile.delete();
+                getStorageManager().deleteFileInMediaScan(originalFile.getAbsolutePath());
+                saveUploadedFile(client);
+                break;
+
+            case FileUploader.LOCAL_BEHAVIOUR_COPY:
+                if (temporalFile != null) {
+                    try {
+                        move(temporalFile, expectedFile);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+                mFile.setStoragePath(expectedFile.getAbsolutePath());
+                saveUploadedFile(client);
+                FileDataStorageManager.triggerMediaScan(expectedFile.getAbsolutePath());
+                break;
+
+            case FileUploader.LOCAL_BEHAVIOUR_MOVE:
+
+                String expectedPath = FileStorageUtils.getDefaultSavePathFor(mAccount.name, mFile);
+                expectedFile = new File(expectedPath);
+
+                try {
+                    move(originalFile, expectedFile);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                getStorageManager().deleteFileInMediaScan(originalFile.getAbsolutePath());
+                mFile.setStoragePath(expectedFile.getAbsolutePath());
+                saveUploadedFile(client);
+                FileDataStorageManager.triggerMediaScan(expectedFile.getAbsolutePath());
+                break;
+        }
+
+        return result;
+    }
+
+    private RemoteOperationResult normalUpload(OwnCloudClient client) {
+        RemoteOperationResult result = null;
+        File temporalFile = null;
+        File originalFile = new File(mOriginalStoragePath);
+        File expectedFile = null;
+        FileLock fileLock = null;
+        long size = 0;
+
+        try {
+            /// Check that connectivity conditions are met and delays the upload otherwise
+            if (mOnWifiOnly && !Device.getNetworkType(mContext).equals(JobRequest.NetworkType.UNMETERED)) {
+                Log_OC.d(TAG, "Upload delayed until WiFi is available: " + getRemotePath());
+                return new RemoteOperationResult(ResultCode.DELAYED_FOR_WIFI);
+            }
+
+            // Check if charging conditions are met and delays the upload otherwise
+            if (mWhileChargingOnly && !Device.isCharging(mContext)) {
+                Log_OC.d(TAG, "Upload delayed until the device is charging: " + getRemotePath());
+                return new RemoteOperationResult(ResultCode.DELAYED_FOR_CHARGING);
+            }
+
+            /// check if the file continues existing before schedule the operation
+            if (!originalFile.exists()) {
+                Log_OC.d(TAG, mOriginalStoragePath + " not exists anymore");
+                return new RemoteOperationResult(ResultCode.LOCAL_FILE_NOT_FOUND);
+            }
+
+            /// automatic rename of file to upload in case of name collision in server
+            Log_OC.d(TAG, "Checking name collision in server");
+            if (!mForceOverwrite) {
+                String remotePath = getAvailableRemotePath(client, mRemotePath, null, false);
                 mWasRenamed = !remotePath.equals(mRemotePath);
                 if (mWasRenamed) {
                     createNewOCFile(remotePath);
@@ -674,10 +1097,12 @@ public class UploadFileOperation extends SyncOperation {
      *
      * @param wc
      * @param remotePath
+     * @param metadata
      * @return
      */
-    private String getAvailableRemotePath(OwnCloudClient wc, String remotePath) {
-        boolean check = existsFile(wc, remotePath);
+    private String getAvailableRemotePath(OwnCloudClient wc, String remotePath, DecryptedFolderMetadata metadata,
+                                          boolean encrypted) {
+        boolean check = existsFile(wc, remotePath, metadata, encrypted);
         if (!check) {
             return remotePath;
         }
@@ -693,9 +1118,9 @@ public class UploadFileOperation extends SyncOperation {
         do {
             suffix = " (" + count + ")";
             if (pos >= 0) {
-                check = existsFile(wc, remotePath + suffix + "." + extension);
+                check = existsFile(wc, remotePath + suffix + "." + extension, metadata, encrypted);
             } else {
-                check = existsFile(wc, remotePath + suffix);
+                check = existsFile(wc, remotePath + suffix, metadata, encrypted);
             }
             count++;
         } while (check);
@@ -707,11 +1132,24 @@ public class UploadFileOperation extends SyncOperation {
         }
     }
 
-    private boolean existsFile(OwnCloudClient client, String remotePath) {
-        ExistenceCheckRemoteOperation existsOperation =
-                new ExistenceCheckRemoteOperation(remotePath, mContext, false);
-        RemoteOperationResult result = existsOperation.execute(client);
-        return result.isSuccess();
+    private boolean existsFile(OwnCloudClient client, String remotePath, DecryptedFolderMetadata metadata,
+                               boolean encrypted) {
+        if (encrypted) {
+            String fileName = new File(remotePath).getName();
+
+            for (DecryptedFolderMetadata.DecryptedFile file : metadata.files.values()) {
+                if (file.encrypted.filename.equalsIgnoreCase(fileName)) {
+                    return true;
+                }
+            }
+
+            return false;
+        } else {
+            ExistenceCheckRemoteOperation existsOperation =
+                    new ExistenceCheckRemoteOperation(remotePath, mContext, false);
+            RemoteOperationResult result = existsOperation.execute(client);
+            return result.isSuccess();
+        }
     }
 
     /**

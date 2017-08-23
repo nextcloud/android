@@ -160,6 +160,29 @@ public class FileListListAdapter extends BaseAdapter {
         });
     }
 
+    public void setEncryptionAttributeForItemID(String fileId, boolean encrypted) {
+        for (int i = 0; i < mFiles.size(); i++) {
+            if (mFiles.get(i).getRemoteId().equals(fileId)) {
+                mFiles.get(i).setEncrypted(encrypted);
+                break;
+            }
+        }
+
+        for (int i = 0; i < mFilesAll.size(); i++) {
+            if (mFilesAll.get(i).getRemoteId().equals(fileId)) {
+                mFilesAll.get(i).setEncrypted(encrypted);
+                break;
+            }
+        }
+
+        new Handler(Looper.getMainLooper()).post(new Runnable() {
+            @Override
+            public void run() {
+                notifyDataSetChanged();
+            }
+        });
+    }
+
     @Override
     public long getItemId(int position) {
         if (mFiles == null || mFiles.size() <= position) {
@@ -394,7 +417,7 @@ public class FileListListAdapter extends BaseAdapter {
             } else {
                 // Folder
                 fileIcon.setImageDrawable(MimeTypeUtil.getFolderTypeIcon(file.isSharedWithMe() ||
-                        file.isSharedWithSharee(), file.isSharedViaLink()));
+                        file.isSharedWithSharee(), file.isSharedViaLink(), file.isEncrypted()));
             }
         }
         return view;

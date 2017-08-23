@@ -83,6 +83,7 @@ public class FileContentProvider extends ContentProvider {
     private static final String TEXT = " TEXT, ";
     private static final String ALTER_TABLE = "ALTER TABLE ";
     private static final String ADD_COLUMN = " ADD COLUMN ";
+    private static final String REMOVE_COLUMN = " REMOVE COLUMN ";
     private static final String UPGRADE_VERSION_MSG = "OUT of the ADD in onUpgrade; oldVersion == %d, newVersion == %d";
     private DataBaseHelper mDbHelper;
     private Context mContext;
@@ -1504,7 +1505,28 @@ public class FileContentProvider extends ContentProvider {
             }
 
             if (oldVersion < 25 && newVersion >= 25) {
-                Log_OC.i(SQL, "Entering in the #25 Adding text and element color to capabilities");
+                    Log_OC.i(SQL, "Entering in the #25 Adding encryption flag to file");
+                    db.beginTransaction();
+                    try {
+                        db.execSQL(ALTER_TABLE + ProviderTableMeta.FILE_TABLE_NAME +
+                                ADD_COLUMN + ProviderTableMeta.FILE_IS_ENCRYPTED + " INTEGER ");
+                        db.execSQL(ALTER_TABLE + ProviderTableMeta.FILE_TABLE_NAME +
+                                ADD_COLUMN + ProviderTableMeta.FILE_ENCRYPTED_NAME + " TEXT ");
+                        db.execSQL(ALTER_TABLE + ProviderTableMeta.CAPABILITIES_TABLE_NAME +
+                                ADD_COLUMN + ProviderTableMeta.CAPABILITIES_END_TO_END_ENCRYPTION + " INTEGER ");
+                        upgraded = true;
+                        db.setTransactionSuccessful();
+                    } finally {
+                        db.endTransaction();
+                    }
+            }
+
+            if (!upgraded) {
+                Log_OC.i(SQL, String.format(Locale.ENGLISH, UPGRADE_VERSION_MSG, oldVersion, newVersion));
+            }
+
+            if (oldVersion < 26 && newVersion >= 26) {
+                Log_OC.i(SQL, "Entering in the #26 Adding text and element color to capabilities");
                 db.beginTransaction();
                 try {
                     db.execSQL(ALTER_TABLE + ProviderTableMeta.CAPABILITIES_TABLE_NAME +
@@ -1543,9 +1565,325 @@ public class FileContentProvider extends ContentProvider {
         @Override
         public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion) {
             if (oldVersion == 25 && newVersion == 24) {
-                // nothing needs to be done as the upgrade was adding columns only if they did not exist
-                Log_OC.i(TAG, "Downgrading v" + oldVersion + " to " + newVersion);
+                db.execSQL(ALTER_TABLE + ProviderTableMeta.FILE_TABLE_NAME +
+                        REMOVE_COLUMN + ProviderTableMeta.FILE_IS_ENCRYPTED);
+                db.execSQL(ALTER_TABLE + ProviderTableMeta.FILE_TABLE_NAME +
+                        REMOVE_COLUMN + ProviderTableMeta.FILE_ENCRYPTED_NAME);
+                db.execSQL(ALTER_TABLE + ProviderTableMeta.CAPABILITIES_TABLE_NAME +
+                        REMOVE_COLUMN + ProviderTableMeta.CAPABILITIES_END_TO_END_ENCRYPTION);
             }
         }
+    }
+
+    private boolean checkIfColumnExists(SQLiteDatabase database, String table, String column) {
+        Cursor cursor = database.rawQuery("SELECT * FROM " + table + " LIMIT 0", null);
+        boolean exists = cursor.getColumnIndex(column) != -1;
+
+        cursor.close();
+
+        return exists;
+    }
+
+    private void createFilesTable(SQLiteDatabase db) {
+
+        db.execSQL("CREATE TABLE " + ProviderTableMeta.FILE_TABLE_NAME + "("
+                + ProviderTableMeta._ID + " INTEGER PRIMARY KEY, "
+                + ProviderTableMeta.FILE_NAME + TEXT
+                + ProviderTableMeta.FILE_ENCRYPTED_NAME + TEXT
+                + ProviderTableMeta.FILE_PATH + TEXT
+                + ProviderTableMeta.FILE_PARENT + INTEGER
+                + ProviderTableMeta.FILE_CREATION + INTEGER
+                + ProviderTableMeta.FILE_MODIFIED + INTEGER
+                + ProviderTableMeta.FILE_CONTENT_TYPE + TEXT
+                + ProviderTableMeta.FILE_CONTENT_LENGTH + INTEGER
+                + ProviderTableMeta.FILE_STORAGE_PATH + TEXT
+                + ProviderTableMeta.FILE_ACCOUNT_OWNER + TEXT
+                + ProviderTableMeta.FILE_LAST_SYNC_DATE + INTEGER
+                + ProviderTableMeta.FILE_KEEP_IN_SYNC + INTEGER
+                + ProviderTableMeta.FILE_LAST_SYNC_DATE_FOR_DATA + INTEGER
+                + ProviderTableMeta.FILE_MODIFIED_AT_LAST_SYNC_FOR_DATA + INTEGER
+                + ProviderTableMeta.FILE_ETAG + TEXT
+                + ProviderTableMeta.FILE_SHARED_VIA_LINK + INTEGER
+                + ProviderTableMeta.FILE_PUBLIC_LINK + TEXT
+                + ProviderTableMeta.FILE_PERMISSIONS + " TEXT null,"
+                + ProviderTableMeta.FILE_REMOTE_ID + " TEXT null,"
+                + ProviderTableMeta.FILE_UPDATE_THUMBNAIL + INTEGER //boolean
+                + ProviderTableMeta.FILE_IS_DOWNLOADING + INTEGER //boolean
+                + ProviderTableMeta.FILE_FAVORITE + INTEGER // boolean
+                + ProviderTableMeta.FILE_IS_ENCRYPTED + INTEGER // boolean
+                + ProviderTableMeta.FILE_ETAG_IN_CONFLICT + TEXT
+                + ProviderTableMeta.FILE_SHARED_WITH_SHAREE + " INTEGER);"
+        );
+    }
+
+    private void createOCSharesTable(SQLiteDatabase db) {
+        // Create OCShares table
+        db.execSQL("CREATE TABLE " + ProviderTableMeta.OCSHARES_TABLE_NAME + "("
+                + ProviderTableMeta._ID + " INTEGER PRIMARY KEY, "
+                + ProviderTableMeta.OCSHARES_FILE_SOURCE + INTEGER
+                + ProviderTableMeta.OCSHARES_ITEM_SOURCE + INTEGER
+                + ProviderTableMeta.OCSHARES_SHARE_TYPE + INTEGER
+                + ProviderTableMeta.OCSHARES_SHARE_WITH + TEXT
+                + ProviderTableMeta.OCSHARES_PATH + TEXT
+                + ProviderTableMeta.OCSHARES_PERMISSIONS + INTEGER
+                + ProviderTableMeta.OCSHARES_SHARED_DATE + INTEGER
+                + ProviderTableMeta.OCSHARES_EXPIRATION_DATE + INTEGER
+                + ProviderTableMeta.OCSHARES_TOKEN + TEXT
+                + ProviderTableMeta.OCSHARES_SHARE_WITH_DISPLAY_NAME + TEXT
+                + ProviderTableMeta.OCSHARES_IS_DIRECTORY + INTEGER  // boolean
+                + ProviderTableMeta.OCSHARES_USER_ID + INTEGER
+                + ProviderTableMeta.OCSHARES_ID_REMOTE_SHARED + INTEGER
+                + ProviderTableMeta.OCSHARES_ACCOUNT_OWNER + " TEXT );");
+    }
+
+    private void createCapabilitiesTable(SQLiteDatabase db) {
+        // Create capabilities table
+        db.execSQL("CREATE TABLE " + ProviderTableMeta.CAPABILITIES_TABLE_NAME + "("
+                + ProviderTableMeta._ID + " INTEGER PRIMARY KEY, "
+                + ProviderTableMeta.CAPABILITIES_ACCOUNT_NAME + TEXT
+                + ProviderTableMeta.CAPABILITIES_VERSION_MAYOR + INTEGER
+                + ProviderTableMeta.CAPABILITIES_VERSION_MINOR + INTEGER
+                + ProviderTableMeta.CAPABILITIES_VERSION_MICRO + INTEGER
+                + ProviderTableMeta.CAPABILITIES_VERSION_STRING + TEXT
+                + ProviderTableMeta.CAPABILITIES_VERSION_EDITION + TEXT
+                + ProviderTableMeta.CAPABILITIES_CORE_POLLINTERVAL + INTEGER
+                + ProviderTableMeta.CAPABILITIES_SHARING_API_ENABLED + INTEGER // boolean
+                + ProviderTableMeta.CAPABILITIES_SHARING_PUBLIC_ENABLED + INTEGER  // boolean
+                + ProviderTableMeta.CAPABILITIES_SHARING_PUBLIC_PASSWORD_ENFORCED + INTEGER    // boolean
+                + ProviderTableMeta.CAPABILITIES_SHARING_PUBLIC_EXPIRE_DATE_ENABLED + INTEGER  // boolean
+                + ProviderTableMeta.CAPABILITIES_SHARING_PUBLIC_EXPIRE_DATE_DAYS + INTEGER
+                + ProviderTableMeta.CAPABILITIES_SHARING_PUBLIC_EXPIRE_DATE_ENFORCED + INTEGER // boolean
+                + ProviderTableMeta.CAPABILITIES_SHARING_PUBLIC_SEND_MAIL + INTEGER    // boolean
+                + ProviderTableMeta.CAPABILITIES_SHARING_PUBLIC_UPLOAD + INTEGER       // boolean
+                + ProviderTableMeta.CAPABILITIES_SHARING_USER_SEND_MAIL + INTEGER      // boolean
+                + ProviderTableMeta.CAPABILITIES_SHARING_RESHARING + INTEGER           // boolean
+                + ProviderTableMeta.CAPABILITIES_SHARING_FEDERATION_OUTGOING + INTEGER     // boolean
+                + ProviderTableMeta.CAPABILITIES_SHARING_FEDERATION_INCOMING + INTEGER     // boolean
+                + ProviderTableMeta.CAPABILITIES_FILES_BIGFILECHUNKING + INTEGER   // boolean
+                + ProviderTableMeta.CAPABILITIES_FILES_UNDELETE + INTEGER  // boolean
+                + ProviderTableMeta.CAPABILITIES_FILES_VERSIONING + INTEGER   // boolean
+                + ProviderTableMeta.CAPABILITIES_FILES_DROP + INTEGER  // boolean
+                + ProviderTableMeta.CAPABILITIES_EXTERNAL_LINKS + INTEGER  // boolean
+                + ProviderTableMeta.CAPABILITIES_SERVER_NAME + TEXT
+                + ProviderTableMeta.CAPABILITIES_SERVER_COLOR + TEXT
+                + ProviderTableMeta.CAPABILITIES_SERVER_TEXT_COLOR + TEXT
+                + ProviderTableMeta.CAPABILITIES_SERVER_ELEMENT_COLOR + TEXT
+                + ProviderTableMeta.CAPABILITIES_SERVER_SLOGAN + TEXT
+                + ProviderTableMeta.CAPABILITIES_SERVER_BACKGROUND_URL + TEXT
+                + ProviderTableMeta.CAPABILITIES_END_TO_END_ENCRYPTION + " INTEGER );");
+    }
+
+    private void createUploadsTable(SQLiteDatabase db) {
+        // Create uploads table
+        db.execSQL("CREATE TABLE " + ProviderTableMeta.UPLOADS_TABLE_NAME + "("
+                + ProviderTableMeta._ID + " INTEGER PRIMARY KEY, "
+                + ProviderTableMeta.UPLOADS_LOCAL_PATH + TEXT
+                + ProviderTableMeta.UPLOADS_REMOTE_PATH + TEXT
+                + ProviderTableMeta.UPLOADS_ACCOUNT_NAME + TEXT
+                + ProviderTableMeta.UPLOADS_FILE_SIZE + " LONG, "
+                + ProviderTableMeta.UPLOADS_STATUS + INTEGER               // UploadStatus
+                + ProviderTableMeta.UPLOADS_LOCAL_BEHAVIOUR + INTEGER      // Upload LocalBehaviour
+                + ProviderTableMeta.UPLOADS_UPLOAD_TIME + INTEGER
+                + ProviderTableMeta.UPLOADS_FORCE_OVERWRITE + INTEGER  // boolean
+                + ProviderTableMeta.UPLOADS_IS_CREATE_REMOTE_FOLDER + INTEGER  // boolean
+                + ProviderTableMeta.UPLOADS_UPLOAD_END_TIMESTAMP + INTEGER
+                + ProviderTableMeta.UPLOADS_LAST_RESULT + INTEGER     // Upload LastResult
+                + ProviderTableMeta.UPLOADS_IS_WHILE_CHARGING_ONLY + INTEGER  // boolean
+                + ProviderTableMeta.UPLOADS_IS_WIFI_ONLY + INTEGER // boolean
+                + ProviderTableMeta.UPLOADS_CREATED_BY + " INTEGER );"    // Upload createdBy
+        );
+
+
+        /* before:
+        // PRIMARY KEY should always imply NOT NULL. Unfortunately, due to a
+        // bug in some early versions, this is not the case in SQLite.
+        //db.execSQL("CREATE TABLE " + TABLE_UPLOAD + " (" + " path TEXT PRIMARY KEY NOT NULL UNIQUE,"
+        //        + " uploadStatus INTEGER NOT NULL, uploadObject TEXT NOT NULL);");
+        // uploadStatus is used to easy filtering, it has precedence over
+        // uploadObject.getUploadStatus()
+        */
+    }
+
+    private void createSyncedFoldersTable(SQLiteDatabase db) {
+        db.execSQL("CREATE TABLE " + ProviderTableMeta.SYNCED_FOLDERS_TABLE_NAME + "("
+                + ProviderTableMeta._ID + " INTEGER PRIMARY KEY, "                          // id
+                + ProviderTableMeta.SYNCED_FOLDER_LOCAL_PATH + " TEXT, "           // local path
+                + ProviderTableMeta.SYNCED_FOLDER_REMOTE_PATH + " TEXT, "           // remote path
+                + ProviderTableMeta.SYNCED_FOLDER_WIFI_ONLY + " INTEGER, "          // wifi_only
+                + ProviderTableMeta.SYNCED_FOLDER_CHARGING_ONLY + " INTEGER, "      // charging only
+                + ProviderTableMeta.SYNCED_FOLDER_ENABLED + " INTEGER, "            // enabled
+                + ProviderTableMeta.SYNCED_FOLDER_SUBFOLDER_BY_DATE + " INTEGER, "  // subfolder by date
+                + ProviderTableMeta.SYNCED_FOLDER_ACCOUNT + "  TEXT, "              // account
+                + ProviderTableMeta.SYNCED_FOLDER_UPLOAD_ACTION + " INTEGER, "     // upload action
+                + ProviderTableMeta.SYNCED_FOLDER_TYPE + " INTEGER );"               // type
+        );
+    }
+
+    private void createExternalLinksTable(SQLiteDatabase db) {
+        db.execSQL("CREATE TABLE " + ProviderTableMeta.EXTERNAL_LINKS_TABLE_NAME + "("
+                + ProviderTableMeta._ID + " INTEGER PRIMARY KEY, "          // id
+                + ProviderTableMeta.EXTERNAL_LINKS_ICON_URL + " TEXT, "     // icon url
+                + ProviderTableMeta.EXTERNAL_LINKS_LANGUAGE + " TEXT, "     // language
+                + ProviderTableMeta.EXTERNAL_LINKS_TYPE + " INTEGER, "      // type
+                + ProviderTableMeta.EXTERNAL_LINKS_NAME + " TEXT, "         // name
+                + ProviderTableMeta.EXTERNAL_LINKS_URL + " TEXT );"          // url
+        );
+    }
+
+    private void createArbitraryData(SQLiteDatabase db) {
+        db.execSQL("CREATE TABLE " + ProviderTableMeta.ARBITRARY_DATA_TABLE_NAME + "("
+                + ProviderTableMeta._ID + " INTEGER PRIMARY KEY, "      // id
+                + ProviderTableMeta.ARBITRARY_DATA_CLOUD_ID + " TEXT, " // cloud id (account name + FQDN)
+                + ProviderTableMeta.ARBITRARY_DATA_KEY + " TEXT, "      // key
+                + ProviderTableMeta.ARBITRARY_DATA_VALUE + " TEXT );"    // value
+        );
+    }
+
+    private void createVirtualTable(SQLiteDatabase db) {
+        db.execSQL("CREATE TABLE " + ProviderTableMeta.VIRTUAL_TABLE_NAME + "("
+                + ProviderTableMeta._ID + " INTEGER PRIMARY KEY, "          // id
+                + ProviderTableMeta.VIRTUAL_TYPE + " TEXT, "                // type
+                + ProviderTableMeta.VIRTUAL_OCFILE_ID + " INTEGER )"        // file id
+        );
+    }
+
+    private void createFileSystemTable(SQLiteDatabase db) {
+        db.execSQL("CREATE TABLE IF NOT EXISTS " + ProviderTableMeta.FILESYSTEM_TABLE_NAME + "("
+                + ProviderTableMeta._ID + " INTEGER PRIMARY KEY, "      // id
+                + ProviderTableMeta.FILESYSTEM_FILE_LOCAL_PATH + " TEXT, "
+                + ProviderTableMeta.FILESYSTEM_FILE_IS_FOLDER + " INTEGER, "
+                + ProviderTableMeta.FILESYSTEM_FILE_FOUND_RECENTLY + " LONG, "
+                + ProviderTableMeta.FILESYSTEM_FILE_SENT_FOR_UPLOAD + " INTEGER, "
+                + ProviderTableMeta.FILESYSTEM_SYNCED_FOLDER_ID + " STRING, "
+                + ProviderTableMeta.FILESYSTEM_CRC32 + " STRING, "
+                + ProviderTableMeta.FILESYSTEM_FILE_MODIFIED + " LONG );"
+        );
+    }
+
+
+    /**
+     * Version 10 of database does not modify its scheme. It coincides with the upgrade of the ownCloud account names
+     * structure to include in it the path to the server instance. Updating the account names and path to local files
+     * in the files table is a must to keep the existing account working and the database clean.
+     *
+     * @param db Database where table of files is included.
+     */
+    private void updateAccountName(SQLiteDatabase db) {
+        Log_OC.d(SQL, "THREAD:  " + Thread.currentThread().getName());
+        AccountManager ama = AccountManager.get(getContext());
+        try {
+            // get accounts from AccountManager ;  we can't be sure if accounts in it are updated or not although
+            // we know the update was previously done in {link @FileActivity#onCreate} because the changes through
+            // AccountManager are not synchronous
+            Account[] accounts = AccountManager.get(getContext()).getAccountsByType(
+                    MainApp.getAccountType());
+            String serverUrl;
+            String username;
+            String oldAccountName;
+            String newAccountName;
+
+            for (Account account : accounts) {
+                // build both old and new account name
+                serverUrl = ama.getUserData(account, AccountUtils.Constants.KEY_OC_BASE_URL);
+                username = AccountUtils.getUsernameForAccount(account);
+                oldAccountName = AccountUtils.buildAccountNameOld(Uri.parse(serverUrl), username);
+                newAccountName = AccountUtils.buildAccountName(Uri.parse(serverUrl), username);
+
+                // update values in database
+                db.beginTransaction();
+                try {
+                    ContentValues cv = new ContentValues();
+                    cv.put(ProviderTableMeta.FILE_ACCOUNT_OWNER, newAccountName);
+                    int num = db.update(ProviderTableMeta.FILE_TABLE_NAME,
+                            cv,
+                            ProviderTableMeta.FILE_ACCOUNT_OWNER + "=?",
+                            new String[]{oldAccountName});
+
+                    Log_OC.d(SQL, "Updated account in database: old name == " + oldAccountName +
+                            ", new name == " + newAccountName + " (" + num + " rows updated )");
+
+                    // update path for downloaded files
+                    updateDownloadedFiles(db, newAccountName, oldAccountName);
+
+                    db.setTransactionSuccessful();
+
+                } catch (SQLException e) {
+                    Log_OC.e(TAG, "SQL Exception upgrading account names or paths in database", e);
+                } finally {
+                    db.endTransaction();
+                }
+            }
+        } catch (Exception e) {
+            Log_OC.e(TAG, "Exception upgrading account names or paths in database", e);
+        }
+    }
+
+
+    /**
+     * Rename the local ownCloud folder of one account to match the a rename of the account itself. Updates the
+     * table of files in database so that the paths to the local files keep being the same.
+     *
+     * @param db             Database where table of files is included.
+     * @param newAccountName New name for the target OC account.
+     * @param oldAccountName Old name of the target OC account.
+     */
+    private void updateDownloadedFiles(SQLiteDatabase db, String newAccountName,
+                                       String oldAccountName) {
+
+        String whereClause = ProviderTableMeta.FILE_ACCOUNT_OWNER + "=? AND " +
+                ProviderTableMeta.FILE_STORAGE_PATH + " IS NOT NULL";
+
+        Cursor c = db.query(ProviderTableMeta.FILE_TABLE_NAME,
+                null,
+                whereClause,
+                new String[]{newAccountName},
+                null, null, null);
+
+        try {
+            if (c.moveToFirst()) {
+                // create storage path
+                String oldAccountPath = FileStorageUtils.getSavePath(oldAccountName);
+                String newAccountPath = FileStorageUtils.getSavePath(newAccountName);
+
+                // move files
+                File oldAccountFolder = new File(oldAccountPath);
+                File newAccountFolder = new File(newAccountPath);
+                oldAccountFolder.renameTo(newAccountFolder);
+
+                // update database
+                do {
+                    // Update database
+                    String oldPath = c.getString(
+                            c.getColumnIndex(ProviderTableMeta.FILE_STORAGE_PATH));
+                    OCFile file = new OCFile(
+                            c.getString(c.getColumnIndex(ProviderTableMeta.FILE_PATH)));
+                    String newPath = FileStorageUtils.getDefaultSavePathFor(newAccountName, file);
+
+                    ContentValues cv = new ContentValues();
+                    cv.put(ProviderTableMeta.FILE_STORAGE_PATH, newPath);
+                    db.update(ProviderTableMeta.FILE_TABLE_NAME,
+                            cv,
+                            ProviderTableMeta.FILE_STORAGE_PATH + "=?",
+                            new String[]{oldPath});
+
+                    Log_OC.v(SQL, "Updated path of downloaded file: old file name == " + oldPath +
+                            ", new file name == " + newPath);
+
+                } while (c.moveToNext());
+            }
+        } finally {
+            c.close();
+        }
+    }
+
+    private boolean isCallerNotAllowed() {
+        String callingPackage;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            callingPackage = getCallingPackage();
+        } else {
+            callingPackage = mContext.getPackageManager().getNameForUid(Binder.getCallingUid());
+        }
+
+        return callingPackage == null || !callingPackage.contains(mContext.getPackageName());
     }
 }

@@ -138,9 +138,14 @@ public class PreviewImageActivity extends FileActivity implements
             mPreviewImagePagerAdapter = new PreviewImagePagerAdapter(getSupportFragmentManager(),
                     type, getAccount(), getStorageManager());
         } else {
+            String filename;
+            if (getFile().isEncrypted()) {
+                filename = getFile().getEncryptedFileName();
+            } else {
+                filename = getFile().getFileName();
+            }
             // get parent from path
-            String parentPath = getFile().getRemotePath().substring(0,
-                    getFile().getRemotePath().lastIndexOf(getFile().getFileName()));
+            String parentPath = getFile().getRemotePath().substring(0, getFile().getRemotePath().lastIndexOf(filename));
             OCFile parentFolder = getStorageManager().getFileByPath(parentPath);
 
             if (parentFolder == null) {

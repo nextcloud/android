@@ -695,5 +695,19 @@
     <string name="screenshot_04_accounts">Mit verschiedenen Kontos verbinden</string>
     <string name="screenshot_05_autoUpload">Automatisches Hochladen von Bildern &amp; Videos</string>
     <string name="screenshot_06_davdroid">Kalender &amp; Kontakte mit DAVdroid synchronisieren</string>
-    
-    </resources>
+<string name="dev_version_no_information_available">Keine Information verfügbar!</string>
+    <string name="dev_version_no_new_version_available">Keine neue Version verfügbar!</string>
+
+    <string name="end_to_end_encryption_folder_not_empty">Verzeichnis nicht leer!</string>
+    <string name="end_to_end_encryption_wrong_password">Fehler beim entschlüsseln. Falsches Passwort??</string>
+    <string name="end_to_end_encryption_decrypting">Entschlüsseln…</string>
+    <string name="end_to_end_encryption_retrieving_keys">Hole Schlüssel…</string>
+    <string name="end_to_end_encryption_enter_password">Zum entschlüsseln des privaten Schlüssels bitte Passwort eingeben!</string>
+    <string name="end_to_end_encryption_generating_keys">Erstelle neue Schlüssel…</string>
+    <string name="end_to_end_encryption_keywords_description">Dieser 12 Worte Satz ist wie ein starkes Passwort: Es emöglicht Zugang zu den verschlüsselten Dateien. Bitte notieren Sie sich den Satz und bewahren ihn sicher auf.</string>
+    <string name="end_to_end_encryption_title">Verschlüsselung einrichten</string>
+    <string name="end_to_end_encryption_passphrase_title">Notieren Sie sich den Verschlüsselungssatz.</string>
+    <string name="end_to_end_encryption_not_supported">Verschlüsselung erst ab KitKat unterstützt.</string>
+    <string name="end_to_end_encryption_confirm_button">Verschlüsselung einrichten</string>
+    <string name="end_to_end_encryption_password">Passwort…</string>
+</resources>
