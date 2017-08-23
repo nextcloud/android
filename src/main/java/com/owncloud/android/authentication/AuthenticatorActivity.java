@@ -59,6 +59,7 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
@@ -1791,7 +1792,17 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             if (!webViewLoginMethod) {
                 updateAuthStatusIconAndText(result);
                 showAuthStatus();
+            } else {
+                mLoginWebView = (WebView) findViewById(R.id.login_webview);
+                initWebViewLogin(mServerInfo.mBaseUrl);
             }
+            // reset webview
+            webViewPassword = null;
+            webViewUser = null;
+            deleteCookies();
+
+            Snackbar.make(mLoginWebView, getString(R.string.auth_access_failed) + ": " + result.getLogMessage(),
+                    Snackbar.LENGTH_LONG).show();
             Log_OC.d(TAG, "Access failed: " + result.getLogMessage());
         }
     }
