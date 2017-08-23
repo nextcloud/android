@@ -26,7 +26,6 @@ import android.accounts.OperationCanceledException;
 import android.content.Context;
 import android.text.TextUtils;
 import android.util.Base64;
-import android.util.Log;
 
 import com.google.gson.Gson;
 import com.owncloud.android.MainApp;
