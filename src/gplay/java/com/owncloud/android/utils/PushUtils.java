@@ -106,8 +106,6 @@ public class PushUtils {
         String publicKeyPath = keyPath + File.separator + KEYPAIR_FILE_NAME + KEYPAIR_PUB_EXTENSION;
         File keyPathFile = new File(keyPath);
 
-        Log.d(TAG, publicKeyPath);
-
         if (!new File(privateKeyPath).exists() && !new File(publicKeyPath).exists()) {
             try {
                 if (!keyPathFile.exists()) {
