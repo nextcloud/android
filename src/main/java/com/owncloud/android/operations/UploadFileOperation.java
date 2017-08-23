@@ -87,6 +87,8 @@ import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+import static com.owncloud.android.utils.EncryptionUtils.encodeStringToBase64Bytes;
+
 
 /**
  * Operation performing the update in the ownCloud server
@@ -408,7 +410,50 @@ public class UploadFileOperation extends SyncOperation {
         File originalFile = new File(mOriginalStoragePath);
         File expectedFile = null;
         FileLock fileLock = null;
-        long size;
+        long size = 0;
+
+        boolean metadataExists = false;
+        String token = null;
+
+        ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProvider(getContext().getContentResolver());
+
+        String privateKey = arbitraryDataProvider.getValue(getAccount().name, EncryptionUtils.PRIVATE_KEY);
+        String publicKey = arbitraryDataProvider.getValue(getAccount().name, EncryptionUtils.PUBLIC_KEY);
+
+        /// check the existence of the parent folder for the file to upload
+        String remoteParentPath = new File(getRemotePath()).getParent();
+        remoteParentPath = remoteParentPath.endsWith(OCFile.PATH_SEPARATOR) ?
+                remoteParentPath : remoteParentPath + OCFile.PATH_SEPARATOR;
+        RemoteOperationResult result = grantFolderExistence(remoteParentPath, client);
+
+        if (!result.isSuccess()) {
+            return result;
+        }
+
+        OCFile parent = getStorageManager().getFileByPath(remoteParentPath);
+        mFile.setParentId(parent.getFileId());
+
+        if (parent.isEncrypted()) {
+            Log_OC.d(TAG, "encrypted upload");
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                return encryptedUpload(client, parent);
+            } else {
+                Log_OC.e(TAG, "Encrypted upload on old Android API");
+                return new RemoteOperationResult(ResultCode.OLD_ANDROID_API);
+            }
+        } else {
+            Log_OC.d(TAG, "normal upload");
+            return normalUpload(client);
+        }
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+    private RemoteOperationResult encryptedUpload(OwnCloudClient client, OCFile parentFile) {
+        RemoteOperationResult result = null;
+        File temporalFile = null;
+        File originalFile = new File(mOriginalStoragePath);
+        File expectedFile = null;
+        FileLock fileLock = null;
 
         boolean metadataExists = false;
         String token = null;
@@ -419,7 +464,6 @@ public class UploadFileOperation extends SyncOperation {
         String publicKey = arbitraryDataProvider.getValue(getAccount().name, EncryptionUtils.PUBLIC_KEY);
 
         try {
-
             // check conditions 
             result = checkConditions(originalFile);
 
@@ -488,11 +532,33 @@ public class UploadFileOperation extends SyncOperation {
 
             /***** E2E *****/
 
-            // Key, always generate new one
-            byte[] key = EncryptionUtils.generateKey();
+            // Key
+            byte[] key = null;
 
-            // IV, always generate new one
-            byte[] iv = EncryptionUtils.generateIV();
+            try {
+                // TODO change key if file has changed, e.g. when file is updated
+                key = encodeStringToBase64Bytes(metadata.files.get(mFile.getFileName()).encrypted.key);
+            } catch (Exception e) {
+                // no key found
+            }
+
+            if (key == null || key.length == 0) {
+                key = EncryptionUtils.generateKey();
+            }
+
+            // IV
+            byte[] iv = null;
+
+            try {
+                iv = encodeStringToBase64Bytes(metadata.files.get(mFile.getFileName()).initializationVector);
+            } catch (Exception e) {
+                // no iv found
+            }
+
+            if (iv == null || iv.length == 0) {
+                iv = EncryptionUtils.generateIV();
+            }
+
 
             EncryptionUtils.EncryptedFile encryptedFile = EncryptionUtils.encryptFile(mFile, key, iv);
 
@@ -572,8 +638,7 @@ public class UploadFileOperation extends SyncOperation {
 
 //            FileChannel channel = null;
 //try {
-
-    //                channel = new RandomAccessFile(ocFile.getStoragePath(), "rw").getChannel();
+//                channel = new RandomAccessFile(ocFile.getStoragePath(), "rw").getChannel();
 //                fileLock = channel.tryLock();
 //            } catch (FileNotFoundException e) {
 //                if (temporalFile == null) {
@@ -610,11 +675,6 @@ public class UploadFileOperation extends SyncOperation {
 //                }
 //            }
 
-//            boolean test = true;
-//            if (test) {
-//                throw new Exception("test");
-//            }
-            
             result = mUploadOperation.execute(client);
 //            if (result == null || result.isSuccess() && mUploadOperation != null) {
 //                result = mUploadOperation.execute(client);

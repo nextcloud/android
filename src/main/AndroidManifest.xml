@@ -20,8 +20,8 @@
 -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.owncloud.android"
-          android:versionCode="20000009"
-          android:versionName="2.0.0RC9">
+          android:versionCode="20000052"
+          android:versionName="2.0.0-e2e-02">
 
     <!-- GET_ACCOUNTS is needed for API <= 22.
         For API >= 23 results in the addition of CONTACTS group to the list of permissions that may be
