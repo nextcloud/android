@@ -227,7 +227,6 @@ public class PushUtils {
                                             publicKey,
                                             context.getResources().getString(R.string.push_server_url));
 
-                            Log.d(TAG, pushTokenHash);
                             RemoteOperationResult remoteOperationResult = registerAccountDeviceForNotificationsOperation.
                                     execute(mClient);
 
