@@ -26,6 +26,7 @@ import android.accounts.OperationCanceledException;
 import android.content.Context;
 import android.text.TextUtils;
 import android.util.Base64;
+import android.util.Log;
 
 import com.google.gson.Gson;
 import com.owncloud.android.MainApp;
@@ -104,6 +105,8 @@ public class PushUtils {
         String privateKeyPath = keyPath + File.separator + KEYPAIR_FILE_NAME + KEYPAIR_PRIV_EXTENSION;
         String publicKeyPath = keyPath + File.separator + KEYPAIR_FILE_NAME + KEYPAIR_PUB_EXTENSION;
         File keyPathFile = new File(keyPath);
+
+        Log.d(TAG, publicKeyPath);
 
         if (!new File(privateKeyPath).exists() && !new File(publicKeyPath).exists()) {
             try {
@@ -226,6 +229,7 @@ public class PushUtils {
                                             publicKey,
                                             context.getResources().getString(R.string.push_server_url));
 
+                            Log.d(TAG, pushTokenHash);
                             RemoteOperationResult remoteOperationResult = registerAccountDeviceForNotificationsOperation.
                                     execute(mClient);
 
