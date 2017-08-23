@@ -38,6 +38,7 @@
     <!-- Colors -->
     <color name="standard_grey">#757575</color>
     <color name="elementFallbackColor">#555555</color>
+    <color name="grey_200">#EEEEEE</color>
 
     <!-- standard material color definitions -->
 

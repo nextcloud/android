@@ -184,7 +184,7 @@ public class FileDownloader extends Service
             final String behaviour = intent.getStringExtra(OCFileListFragment.DOWNLOAD_BEHAVIOUR);
             AbstractList<String> requestedDownloads = new Vector<String>();
             try {
-                DownloadFileOperation newDownload = new DownloadFileOperation(account, file, behaviour);
+                DownloadFileOperation newDownload = new DownloadFileOperation(account, file, behaviour, getBaseContext());
                 newDownload.addDatatransferProgressListener(this);
                 newDownload.addDatatransferProgressListener((FileDownloaderBinder) mBinder);
                 Pair<String, String> putResult = mPendingDownloads.putIfAbsent(

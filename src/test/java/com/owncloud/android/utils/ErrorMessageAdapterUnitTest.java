@@ -21,8 +21,10 @@
 
 package com.owncloud.android.utils;
 
+import android.accounts.Account;
 import android.content.res.Resources;
 
+import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.operations.RemoveFileOperation;
@@ -65,10 +67,12 @@ public class ErrorMessageAdapterUnitTest {
         when(mMockResources.getString(R.string.forbidden_permissions_delete))
             .thenReturn(MOCK_TO_DELETE);
 
+        Account account = new Account("name", MainApp.getAccountType());
+
         // ... when method under test is called ...
         String errorMessage = ErrorMessageAdapter.getErrorCauseMessage(
             new RemoteOperationResult(RemoteOperationResult.ResultCode.FORBIDDEN),
-            new RemoveFileOperation(PATH_TO_DELETE, false),
+                new RemoveFileOperation(PATH_TO_DELETE, false, account, MainApp.getAppContext()),
             mMockResources
         );
 

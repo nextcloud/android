@@ -1,8 +1,9 @@
-/**
+/*
  *   ownCloud Android client application
  *
  *   @author David A. Velasco
  *   @author masensio
+ *   @author Tobias Kaminsky
  *   Copyright (C) 2015 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
@@ -21,9 +22,13 @@
 
 package com.owncloud.android.operations;
 
+import android.accounts.Account;
+import android.content.Context;
+
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.lib.common.OwnCloudClient;
+import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
 import com.owncloud.android.lib.resources.files.RemoveRemoteFileOperation;
@@ -36,10 +41,12 @@ import com.owncloud.android.operations.common.SyncOperation;
 public class RemoveFileOperation extends SyncOperation {
     
     // private static final String TAG = RemoveFileOperation.class.getSimpleName();
-    
-    OCFile mFileToRemove;
-    String mRemotePath;
-    boolean mOnlyLocalCopy;
+
+    private OCFile mFileToRemove;
+    private String mRemotePath;
+    private boolean mOnlyLocalCopy;
+    private Account mAccount;
+    private Context mContext;
     
     
     /**
@@ -50,9 +57,11 @@ public class RemoveFileOperation extends SyncOperation {
      * @param onlyLocalCopy         When 'true', and a local copy of the file exists, only this is 
      *                              removed.
      */
-    public RemoveFileOperation(String remotePath, boolean onlyLocalCopy) {
+    public RemoveFileOperation(String remotePath, boolean onlyLocalCopy, Account account, Context context) {
         mRemotePath = remotePath;
         mOnlyLocalCopy = onlyLocalCopy;
+        mAccount = account;
+        mContext = context;
     }
     
     
@@ -73,6 +82,7 @@ public class RemoveFileOperation extends SyncOperation {
     @Override
     protected RemoteOperationResult run(OwnCloudClient client) {
         RemoteOperationResult result = null;
+        RemoteOperation operation;
         
         mFileToRemove = getStorageManager().getFileByPath(mRemotePath);
 
@@ -81,7 +91,15 @@ public class RemoveFileOperation extends SyncOperation {
 
         boolean localRemovalFailed = false;
         if (!mOnlyLocalCopy) {
-            RemoveRemoteFileOperation operation = new RemoveRemoteFileOperation(mRemotePath);
+
+            if (mFileToRemove.isEncrypted() &&
+                    android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT) {
+                OCFile parent = getStorageManager().getFileByPath(mFileToRemove.getParentRemotePath());
+                operation = new RemoveRemoteEncryptedFileOperation(mRemotePath, parent.getLocalId(), mAccount, mContext,
+                        mFileToRemove.getEncryptedFileName());
+            } else {
+                operation = new RemoveRemoteFileOperation(mRemotePath);
+            }
             result = operation.execute(client);
             if (result.isSuccess() || result.getCode() == ResultCode.FILE_NOT_FOUND) {
                 localRemovalFailed = !(getStorageManager().removeFile(mFileToRemove, true, true));
