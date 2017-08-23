@@ -14,12 +14,12 @@
     <string name="actionbar_send_file">Отправить</string>
     <string name="actionbar_sort">Сортировка</string>
     <string name="sort_by">Порядок сортировки</string>
-    <string name="menu_item_sort_by_name_a_z">А–Я</string>
-    <string name="menu_item_sort_by_name_z_a">Я–A</string>
-    <string name="menu_item_sort_by_date_newest_first">Новые–старые</string>
-    <string name="menu_item_sort_by_date_oldest_first">Старые–новые</string>
-    <string name="menu_item_sort_by_size_biggest_first">Большие–маленькие</string>
-    <string name="menu_item_sort_by_size_smallest_first">Маленькие–большие</string>
+    <string name="menu_item_sort_by_name_a_z">А − Я</string>
+    <string name="menu_item_sort_by_name_z_a">Я − A</string>
+    <string name="menu_item_sort_by_date_newest_first">Новые − старые</string>
+    <string name="menu_item_sort_by_date_oldest_first">Старые − новые</string>
+    <string name="menu_item_sort_by_size_biggest_first">Большие − маленькие</string>
+    <string name="menu_item_sort_by_size_smallest_first">Маленькие − большие</string>
 
     <string name="drawer_item_all_files">Все файлы</string>
     <string name="drawer_item_home">Главная</string>
@@ -31,7 +31,7 @@
     <string name="drawer_item_shared">Опубликованное</string>
     <string name="drawer_item_videos">Видео</string>
     <string name="drawer_item_settings">Настройки</string>
-    <string name="drawer_item_uploads_list">Статус выгрузки</string>
+    <string name="drawer_item_uploads_list">Состояние выгрузки</string>
     <string name="drawer_item_activities">События</string>
     <string name="drawer_item_notifications">Уведомления</string>
     <string name="drawer_quota">использовано %1$s из %2$s </string>
@@ -153,12 +153,12 @@
     <string name="uploader_upload_in_progress_content">%1$d%% выгружается %2$s</string>
     <string name="uploader_upload_succeeded_ticker">Успешно выгруженные</string>
     <string name="uploader_upload_succeeded_content_single">%1$s выгружен</string>
-    <string name="uploader_upload_failed_ticker">С ошибками выгрузки</string>
+    <string name="uploader_upload_failed_ticker">Ошибка выгрузки</string>
     <string name="uploader_upload_failed_content_single">Невозможно выгрузить %1$s</string>
     <string name="uploader_upload_failed_credentials_error">Выгрузка не удалась, необходимо повторно войти в систему</string>
-    <string name="uploads_view_title">Статус выгрузки</string>
+    <string name="uploads_view_title">Состояние выгрузки</string>
     <string name="uploads_view_group_current_uploads">Текущие</string>
-    <string name="uploads_view_group_failed_uploads">Перезапуск ожидающих / с ошибками</string>
+    <string name="uploads_view_group_failed_uploads">С ошибками / ожидающие перезапуска</string>
     <string name="uploads_view_group_finished_uploads">Выгруженные</string>
     <string name="uploads_view_upload_status_succeeded">Завершено</string>
     <string name="uploads_view_upload_status_cancelled">Отменено</string>
@@ -478,7 +478,7 @@
     <string name="prefs_instant_behaviour_title">Исходный файл будет&#8230;</string>
     <string name="upload_copy_files">Копировать файл</string>
     <string name="upload_move_files">Переместить файл</string>
-    <string name="select_all">Выделить всё</string>
+    <string name="select_all">Выбрать все</string>
     <string name="deselect_all">Снять выбор со всех</string>
 
     <string name="pref_behaviour_entries_keep_file">оставлен в исходном каталоге</string>
@@ -523,10 +523,10 @@
     <string name="edit_share_done">готово</string>
 
     <string name="action_retry_uploads">Повторить неудавшиеся выгрузки</string>
-    <string name="action_clear_failed_uploads">Убрать неудавшиеся выгрузки</string>
-    <string name="action_clear_successful_uploads">Убрать успешные выгрузки</string>
-    <string name="action_clear_finished_uploads">Убрать завершенные выгрузки</string>
-    <string name="action_force_rescan">Сканировать принудительно</string>
+    <string name="action_clear_failed_uploads">Убрать неудавшиеся</string>
+    <string name="action_clear_successful_uploads">Убрать успешные</string>
+    <string name="action_clear_finished_uploads">Убрать завершённые</string>
+    <string name="action_force_rescan">Перепроверить список</string>
 
     <string name="action_switch_grid_view">Вид сеткой</string>
     <string name="action_switch_list_view">Вид списком</string>
