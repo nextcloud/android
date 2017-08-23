@@ -124,6 +124,7 @@ import com.owncloud.android.ui.dialog.SslUntrustedCertDialog.OnSslUntrustedCertL
 import com.owncloud.android.utils.AnalyticsUtils;
 import com.owncloud.android.utils.DisplayUtils;
 
+import java.net.URLDecoder;
 import java.security.cert.X509Certificate;
 import java.util.HashMap;
 import java.util.Map;
@@ -495,11 +496,14 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
         for (String value : values) {
             if (value.startsWith("user" + LOGIN_URL_DATA_KEY_VALUE_SEPARATOR)) {
-                loginUrlInfo.username = value.substring(("user" + LOGIN_URL_DATA_KEY_VALUE_SEPARATOR).length());
+                loginUrlInfo.username = URLDecoder.decode(
+                        value.substring(("user" + LOGIN_URL_DATA_KEY_VALUE_SEPARATOR).length()));
             } else if (value.startsWith("password" + LOGIN_URL_DATA_KEY_VALUE_SEPARATOR)) {
-                loginUrlInfo.password = value.substring(("password" + LOGIN_URL_DATA_KEY_VALUE_SEPARATOR).length());
+                loginUrlInfo.password = URLDecoder.decode(
+                        value.substring(("password" + LOGIN_URL_DATA_KEY_VALUE_SEPARATOR).length()));
             } else if (value.startsWith("server" + LOGIN_URL_DATA_KEY_VALUE_SEPARATOR)) {
-                loginUrlInfo.serverAddress = value.substring(("server" + LOGIN_URL_DATA_KEY_VALUE_SEPARATOR).length());
+                loginUrlInfo.serverAddress = URLDecoder.decode(
+                        value.substring(("server" + LOGIN_URL_DATA_KEY_VALUE_SEPARATOR).length()));
             } else {
                 // error illegal URL element detected
                 throw new IllegalArgumentException("Illegal magic login URL element detected: " + value);
