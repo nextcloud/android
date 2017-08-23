@@ -66,8 +66,8 @@ public class DownloadFileOperation extends RemoteOperation {
     private String mPackageName;
 
 
-    public DownloadFileOperation(Account account, OCFile file, String behaviour, String activityName,
-                                 String packageName) {
+    public DownloadFileOperation(Account account, OCFile file, String behaviour, String activityName, 
+                                 String packageName, Context context) {
         if (account == null) {
             throw new IllegalArgumentException("Illegal null account in DownloadFileOperation " +
                     "creation");
@@ -82,6 +82,7 @@ public class DownloadFileOperation extends RemoteOperation {
         mBehaviour = behaviour;
         mActivityName = activityName;
         mPackageName = packageName;
+        mContext = context;
     }
 
 
