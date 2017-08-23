@@ -257,7 +257,7 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             // Folder
             fileIcon.setImageDrawable(
                     MimeTypeUtil.getFolderTypeIcon(file.isSharedWithMe() || file.isSharedWithSharee(),
-                            file.isSharedViaLink()));
+                            file.isSharedViaLink(), file.isEncrypted()));
         }
     }
 
