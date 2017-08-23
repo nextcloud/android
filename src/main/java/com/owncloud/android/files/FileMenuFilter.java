@@ -156,7 +156,7 @@ public class FileMenuFilter {
         }
 
         // RENAME
-        if (!isSingleSelection() || synchronizing) {
+        if (!isSingleSelection() || synchronizing || containsEncryptedFile() || containsEncryptedFolder()) {
             toHide.add(R.id.action_rename_file);
 
         } else {
@@ -164,7 +164,7 @@ public class FileMenuFilter {
         }
 
         // MOVE & COPY
-        if (mFiles.isEmpty() || synchronizing) {
+        if (mFiles.isEmpty() || synchronizing || containsEncryptedFile() || containsEncryptedFolder()) {
             toHide.add(R.id.action_move);
             toHide.add(R.id.action_copy);
         } else {
@@ -173,9 +173,8 @@ public class FileMenuFilter {
         }
 
         // REMOVE
-        if (mFiles.isEmpty() || synchronizing) {
+        if (mFiles.isEmpty() || synchronizing || containsEncryptedFolder()) {
             toHide.add(R.id.action_remove_file);
-
         } else {
             toShow.add(R.id.action_remove_file);
         }
@@ -240,8 +239,9 @@ public class FileMenuFilter {
                 (capability.getFilesSharingApiEnabled().isTrue() ||
                         capability.getFilesSharingApiEnabled().isUnknown()
                 );
-        if ((!shareViaLinkAllowed && !shareWithUsersAllowed) ||
-                !isSingleSelection() || !shareApiEnabled || mOverflowMenu) {
+        if (containsEncryptedFile() || (!shareViaLinkAllowed && !shareWithUsersAllowed) ||
+                !isSingleSelection() ||
+                !shareApiEnabled || mOverflowMenu) {
             toHide.add(R.id.action_send_share_file);
         } else {
             toShow.add(R.id.action_send_share_file);
@@ -282,6 +282,22 @@ public class FileMenuFilter {
             toShow.add(R.id.action_unset_favorite);
         }
 
+        // Encryption
+        boolean endToEndEncryptionEnabled = capability != null && capability.getEndToEndEncryption().isTrue();
+        if (mFiles.isEmpty() || !isSingleSelection() || isSingleFile() || isEncryptedFolder()
+                || !endToEndEncryptionEnabled) {
+            toHide.add(R.id.action_encrypted);
+        } else {
+            toShow.add(R.id.action_encrypted);
+        }
+
+        // Un-encrypt
+        if (mFiles.isEmpty() || !isSingleSelection() || isSingleFile() || !isEncryptedFolder()
+                || !endToEndEncryptionEnabled) {
+            toHide.add(R.id.action_unset_encrypted);
+        } else {
+            toShow.add(R.id.action_unset_encrypted);
+        }
 
         // SET PICTURE AS
         if (isSingleImage() && !MimeTypeUtil.isSVG(mFiles.iterator().next())) {
@@ -344,12 +360,40 @@ public class FileMenuFilter {
         return isSingleSelection() && !mFiles.iterator().next().isFolder();
     }
 
+    private boolean isEncryptedFolder() {
+        if (isSingleSelection()) {
+            OCFile file = mFiles.iterator().next();
+
+            return file.isFolder() && file.isEncrypted();
+        } else {
+            return false;
+        }
+    }
+
     private boolean isSingleImage() {
         return isSingleSelection() && MimeTypeUtil.isImage(mFiles.iterator().next());
     }
 
     private boolean allFiles() {
         return mFiles != null && !containsFolder();
+    }
+
+    private boolean containsEncryptedFile() {
+        for (OCFile file : mFiles) {
+            if (!file.isFolder() && file.isEncrypted()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean containsEncryptedFolder() {
+        for (OCFile file : mFiles) {
+            if (file.isFolder() && file.isEncrypted()) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private boolean containsFolder() {

@@ -108,6 +108,18 @@
         android:showAsAction="never"
         android:orderInCategory="1" />
     <item
+        android:id="@+id/action_encrypted"
+        android:title="@string/encrypted"
+        app:showAsAction="never"
+        android:showAsAction="never"
+        android:orderInCategory="1"/>
+    <item
+        android:id="@+id/action_unset_encrypted"
+        android:title="@string/unset_encrypted"
+        app:showAsAction="never"
+        android:showAsAction="never"
+        android:orderInCategory="1"/>
+    <item
         android:id="@+id/action_set_as_wallpaper"
         android:title="@string/set_picture_as"
         app:showAsAction="never"
