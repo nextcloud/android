@@ -127,7 +127,7 @@ public class ThemeUtils {
         int primaryColor = primaryColor();
         float[] hsl = colorToHSL(primaryColor);
 
-        return (hsl[2] / 100) <= 0.5;
+        return hsl[2] <= 0.5;
     }
 
     /**
