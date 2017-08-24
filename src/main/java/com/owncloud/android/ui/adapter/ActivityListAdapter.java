@@ -57,9 +57,9 @@ import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.activities.models.Activity;
+import com.owncloud.android.lib.resources.activities.models.PreviewObject;
 import com.owncloud.android.lib.resources.activities.models.RichElement;
 import com.owncloud.android.lib.resources.activities.models.RichObject;
-import com.owncloud.android.lib.resources.files.FileUtils;
 import com.owncloud.android.ui.interfaces.ActivityListInterface;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
@@ -176,8 +176,10 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 downloadIcon(activity.getIcon(), activityViewHolder.activityIcon);
             }
 
-            if (activity.getRichSubjectElement() != null &&
-                    activity.getRichSubjectElement().getRichObjectList().size() > 0) {
+            List<PreviewObject> previews = activity.getPreviews();
+            int numPreviews = previews.size();
+            if (numPreviews > 0) {
+                Log_OC.e(TAG, "Previews: " + numPreviews);
 
                 activityViewHolder.list.setVisibility(View.VISIBLE);
                 activityViewHolder.list.removeAllViews();
@@ -195,11 +197,10 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 });
 
 
-                for (RichObject richObject : activity.getRichSubjectElement().getRichObjectList()) {
-                    if (richObject.getPath() != null) {
-                        ImageView imageView = createThumbnail(richObject);
-                        activityViewHolder.list.addView(imageView);
-                    }
+                for (int i = 0; i < numPreviews; i++) {
+                    PreviewObject preview = previews.get(i);
+                    ImageView imageView = createThumbnail(preview);
+                    activityViewHolder.list.addView(imageView);
                 }
 
             } else {
@@ -212,24 +213,19 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         }
     }
 
-    private ImageView createThumbnail(final RichObject richObject) {
-        String path = FileUtils.PATH_SEPARATOR + richObject.getPath();
-        OCFile file = storageManager.getFileByPath(path);
-
-        if (file == null) {
-            file = storageManager.getFileByPath(path + FileUtils.PATH_SEPARATOR);
-        }
-        if (file == null) {
-            file = new OCFile(path);
-            file.setRemoteId(richObject.getId());
-        }
-
+    private ImageView createThumbnail(final PreviewObject preview) {
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(px, px);
         params.setMargins(10, 10, 10, 10);
         ImageView imageView = new ImageView(context);
         imageView.setLayoutParams(params);
-        imageView.setOnClickListener(v -> activityListInterface.onActivityClicked(richObject));
-        setBitmap(file, imageView);
+
+        Glide.with(context).using(new CustomGlideStreamLoader()).load(preview.getSource()).into(imageView);
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // activityListInterface.onActivityClicked(preview.getLink());
+            }
+        });
 
         return imageView;
     }
