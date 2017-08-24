@@ -35,7 +35,6 @@ import com.owncloud.android.ui.activity.NotificationsActivity;
 import com.owncloud.android.utils.ThemeUtils;
 
 public class NCFirebaseMessagingService extends FirebaseMessagingService {
-    private static final String TAG = "NCFirebaseMessaging";
 
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
@@ -64,5 +63,4 @@ public class NCFirebaseMessagingService extends FirebaseMessagingService {
 
         notificationManager.notify(0, notificationBuilder.build());
     }
-
 }

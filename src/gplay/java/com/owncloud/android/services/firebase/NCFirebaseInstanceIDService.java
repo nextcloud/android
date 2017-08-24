@@ -29,7 +29,6 @@ import com.owncloud.android.db.PreferenceManager;
 import com.owncloud.android.utils.PushUtils;
 
 public class NCFirebaseInstanceIDService extends FirebaseInstanceIdService {
-    private static final String TAG = "NCFirebaseInstanceID";
 
     @Override
     public void onTokenRefresh() {

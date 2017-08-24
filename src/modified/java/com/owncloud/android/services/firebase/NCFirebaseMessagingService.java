@@ -25,7 +25,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.media.RingtoneManager;
-import android.net.Uri;
 import android.support.v4.app.NotificationCompat;
 
 import com.google.firebase.messaging.FirebaseMessagingService;
@@ -35,7 +34,6 @@ import com.owncloud.android.R;
 import com.owncloud.android.ui.activity.NotificationsActivity;
 
 public class NCFirebaseMessagingService extends FirebaseMessagingService {
-    private static final String TAG = "NCFirebaseMessaging";
 
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
@@ -63,5 +61,4 @@ public class NCFirebaseMessagingService extends FirebaseMessagingService {
 
         notificationManager.notify(0, notificationBuilder.build());
     }
-
 }
