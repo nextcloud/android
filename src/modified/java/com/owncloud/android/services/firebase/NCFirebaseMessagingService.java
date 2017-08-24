@@ -32,6 +32,7 @@ import com.google.firebase.messaging.RemoteMessage;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.ui.activity.NotificationsActivity;
+import com.owncloud.android.utils.ThemeUtils;
 
 public class NCFirebaseMessagingService extends FirebaseMessagingService {
 
