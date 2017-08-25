@@ -332,7 +332,6 @@
     <string name="placeholder_media_time">12:23:45</string>
 
     <string name="auto_upload_on_wifi">Nur über W-Lan hochladen</string>
-    <string name="instant_video_upload_on_wifi">Videos nur über W-Lan hochladen</string>
     <string name="instant_video_upload_on_charging">Nur während des Ladens hochladen</string>
     <string name="instant_upload_on_charging">Nur während des Ladens hochladen</string>
     <string name="instant_upload_path">/SofortUpload</string>

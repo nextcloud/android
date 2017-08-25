@@ -323,7 +323,6 @@
     <string name="placeholder_media_time">12:23:45</string>
 
     <string name="auto_upload_on_wifi">Μεταφόρτωση μόνο μέσω wifi</string>
-    <string name="instant_video_upload_on_wifi">Μεταφόρτωση βίντεο μόνο μέσω wifi</string>
     <string name="instant_video_upload_on_charging">Μεταφόρτωση μόνο κατά τη διάρκεια φόρτισης</string>
     <string name="instant_upload_on_charging">Μεταφόρτωση μόνο κατά τη διάρκεια φόρτισης</string>
     <string name="instant_upload_path">/InstantUpload</string>
