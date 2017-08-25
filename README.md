@@ -5,7 +5,7 @@
       height="80">](https://play.google.com/store/apps/details?id=com.nextcloud.client)
 [<img src="https://f-droid.org/badge/get-it-on.png"
       alt="Get it on F-Droid"
-      height="80">](https://f-droid.org/repository/browse/?fdfilter=com.nextcloud)
+      height="80">](https://f-droid.org/packages/com.nextcloud.client/)
 
 [![irc](https://img.shields.io/badge/IRC-%23nextcloud%20on%20freenode-orange.svg)](https://webchat.freenode.net/?channels=nextcloud)
 [![irc](https://img.shields.io/badge/IRC-%23nextcloud--mobile%20on%20freenode-blue.svg)](https://webchat.freenode.net/?channels=nextcloud-mobile)
@@ -53,3 +53,5 @@ or
 **License:** [GPLv2](https://github.com/nextcloud/android/blob/master/LICENSE.txt)
 
 New contributions are added under [AGPLv3](https://www.gnu.org/licenses/agpl.txt).
+
+Google Play and the Google Play logo are trademarks of Google Inc.
