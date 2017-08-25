@@ -333,7 +333,6 @@
     <string name="placeholder_media_time">12:23:45</string>
 
     <string name="auto_upload_on_wifi">Выгружать только через Wi-Fi</string>
-    <string name="instant_video_upload_on_wifi">Выгружать видео только через Wi-Fi</string>
     <string name="instant_video_upload_on_charging">Выгружать только при зарядке</string>
     <string name="instant_upload_on_charging">Выгружать только при зарядке</string>
     <string name="instant_upload_path">/Автозагрузка</string>
