@@ -331,7 +331,6 @@
     <string name="placeholder_media_time">12:23:45</string>
 
     <string name="auto_upload_on_wifi">Yalnız kablosuz ağ üzerinden yüklensin</string>
-    <string name="instant_video_upload_on_wifi">Görüntüler yalnız kablosuz ağ üzerinden yüklensin</string>
     <string name="instant_video_upload_on_charging">Yalnız şarj edilirken yüklensin</string>
     <string name="instant_upload_on_charging">Yalnız şarj edilirken yüklensin</string>
     <string name="instant_upload_path">/AnındaYükle</string>

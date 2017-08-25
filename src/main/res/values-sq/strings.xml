@@ -331,7 +331,6 @@
     <string name="placeholder_media_time">12:23:45</string>
 
     <string name="auto_upload_on_wifi">Ngarko vetëm nëpërmjet WiFi</string>
-    <string name="instant_video_upload_on_wifi">Videot ngarkoji vetëm përmes wifi-it</string>
     <string name="instant_video_upload_on_charging">Ngarkoni vetëm kur jeni duke e karikuar</string>
     <string name="instant_upload_on_charging">Ngarkoni vetëm kur jeni duke e karikuar</string>
     <string name="instant_upload_path">/InstantUpload</string>

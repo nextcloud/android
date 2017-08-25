@@ -332,7 +332,6 @@ Kies er eentje van een provider.</string>
     <string name="placeholder_media_time">12:23:45</string>
 
     <string name="auto_upload_on_wifi">Alleen uploaden via Wi-Fi</string>
-    <string name="instant_video_upload_on_wifi">Alleen video\'s uploaden via Wi-Fi</string>
     <string name="instant_video_upload_on_charging">Alleen uploaden bij opladen</string>
     <string name="instant_upload_on_charging">Alleen uploaden bij opladen</string>
     <string name="instant_upload_path">/InstantUpload</string>
