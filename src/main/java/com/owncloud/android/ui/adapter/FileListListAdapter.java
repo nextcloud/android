@@ -59,6 +59,7 @@ import com.owncloud.android.lib.resources.files.ReadRemoteFileOperation;
 import com.owncloud.android.lib.resources.files.RemoteFile;
 import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.lib.resources.shares.ShareType;
+import com.owncloud.android.operations.RemoteOperationFailedException;
 import com.owncloud.android.services.OperationsService.OperationsServiceBinder;
 import com.owncloud.android.ui.activity.ComponentsGetter;
 import com.owncloud.android.ui.activity.FileActivity;
@@ -587,17 +588,22 @@ public class FileListListAdapter extends BaseAdapter {
         for (int i = 0; i < objects.size(); i++) {
             OCFile ocFile = FileStorageUtils.fillOCFile((RemoteFile) objects.get(i));
             searchForLocalFileInDefaultPath(ocFile);
-            ocFile = mStorageManager.saveFileWithParent(ocFile, mContext);
 
-            if (!onlyImages || MimeTypeUtil.isImage(ocFile)) {
-                mFiles.add(ocFile);
+            try {
+                ocFile = mStorageManager.saveFileWithParent(ocFile, mContext);
+
+                if (!onlyImages || MimeTypeUtil.isImage(ocFile)) {
+                    mFiles.add(ocFile);
+                }
+
+                ContentValues cv = new ContentValues();
+                cv.put(ProviderMeta.ProviderTableMeta.VIRTUAL_TYPE, type.toString());
+                cv.put(ProviderMeta.ProviderTableMeta.VIRTUAL_OCFILE_ID, ocFile.getFileId());
+
+                contentValues.add(cv);
+            } catch (RemoteOperationFailedException e) {
+                Log_OC.e(TAG, "Error saving file with parent" + e.getMessage(),e);
             }
-
-            ContentValues cv = new ContentValues();
-            cv.put(ProviderMeta.ProviderTableMeta.VIRTUAL_TYPE, type.toString());
-            cv.put(ProviderMeta.ProviderTableMeta.VIRTUAL_OCFILE_ID, ocFile.getFileId());
-
-            contentValues.add(cv);
         }
 
         mStorageManager.saveVirtuals(type, contentValues);
