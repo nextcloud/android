@@ -331,7 +331,6 @@
     <string name="placeholder_media_time">12:23:45</string>
 
     <string name="auto_upload_on_wifi">Téléverser par wifi uniquement</string>
-    <string name="instant_video_upload_on_wifi">Téléverser les images via une connexion WiFi uniquement</string>
     <string name="instant_video_upload_on_charging">Téléverser les images uniquement si le chargeur est branché</string>
     <string name="instant_upload_on_charging">Téléverser les images uniquement si le chargeur est branché</string>
     <string name="instant_upload_path">/InstantUpload</string>

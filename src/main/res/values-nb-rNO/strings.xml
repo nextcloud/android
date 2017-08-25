@@ -331,7 +331,6 @@
     <string name="placeholder_media_time">12:23:45</string>
 
     <string name="auto_upload_on_wifi">Bare last opp på Wi-Fi</string>
-    <string name="instant_video_upload_on_wifi">Last kun opp filmer via Wi-Fi</string>
     <string name="instant_video_upload_on_charging">Last kun opp under lading</string>
     <string name="instant_upload_on_charging">Last kun opp under lading</string>
     <string name="instant_upload_path">/Direkteopplasting</string>

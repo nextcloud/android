@@ -332,7 +332,6 @@
     <string name="placeholder_media_time">12:23:45</string>
 
     <string name="auto_upload_on_wifi">仅在Wi-Fi下上传</string>
-    <string name="instant_video_upload_on_wifi">仅在Wi-Fi下上传视频</string>
     <string name="instant_video_upload_on_charging">仅在充电时上传</string>
     <string name="instant_upload_on_charging">仅在充电时上传</string>
     <string name="instant_upload_path">/实时上传</string>
