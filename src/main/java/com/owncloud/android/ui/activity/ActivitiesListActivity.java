@@ -136,7 +136,9 @@ public class ActivitiesListActivity extends FileActivity implements ActivityList
         // setup drawer
         setupDrawer(R.id.nav_activity);
         ActionBar actionBar = getSupportActionBar();
-        ThemeUtils.setColoredTitle(actionBar, getString(R.string.drawer_item_activities));
+        if(actionBar != null) {
+            ThemeUtils.setColoredTitle(actionBar, getString(R.string.drawer_item_activities));
+        }
 
         swipeListRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
