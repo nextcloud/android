@@ -26,11 +26,12 @@ import android.accounts.AuthenticatorException;
 import android.accounts.OperationCanceledException;
 import android.content.Context;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.graphics.PorterDuff;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
@@ -134,7 +135,10 @@ public class ActivitiesListActivity extends FileActivity implements ActivityList
 
         // setup drawer
         setupDrawer(R.id.nav_activity);
-        getSupportActionBar().setTitle(getString(R.string.drawer_item_activities));
+        ActionBar actionBar = getSupportActionBar();
+        if(actionBar != null) {
+            ThemeUtils.setColoredTitle(actionBar, getString(R.string.drawer_item_activities));
+        }
 
         swipeListRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
