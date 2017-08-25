@@ -85,6 +85,7 @@ import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
@@ -224,6 +225,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     private EditText mPasswordInput;
     private View mOkButton;
     private TextView mAuthStatusView;
+    private ImageButton mTestServerButton;
 
     private WebView mLoginWebView;
 
@@ -246,6 +248,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     private String webViewPassword;
     private TextInputLayout mUsernameInputLayout;
     private TextInputLayout mPasswordInputLayout;
+    private boolean forceOldLoginMethod = false;
 
     /**
      * {@inheritDoc}
@@ -299,18 +302,6 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
             /// initialize general UI elements
             initOverallUi();
-
-            mUsernameInputLayout = (TextInputLayout) findViewById(R.id.input_layout_account_username);
-            mPasswordInputLayout = (TextInputLayout) findViewById(R.id.input_layout_account_password);
-
-            mOkButton = findViewById(R.id.buttonOK);
-            mOkButton.setOnClickListener(new View.OnClickListener() {
-
-                @Override
-                public void onClick(View v) {
-                    onOkClick();
-                }
-            });
 
             findViewById(R.id.centeredRefreshButton).setOnClickListener(new View.OnClickListener() {
 
@@ -421,22 +412,37 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
                 mLoginWebView.loadData(DisplayUtils.getData(getResources().openRawResource(R.raw.custom_error)),"text/html; charset=UTF-8", null);
             }
         });
-    }
 
-//    private Certificate getX509Certificate(SslCertificate sslCertificate) {
-//        Bundle bundle = SslCertificate.saveState(sslCertificate);
-//        byte[] bytes = bundle.getByteArray("x509-certificate");
-//        if (bytes == null) {
-//            return null;
-//        } else {
-//            try {
-//                CertificateFactory certFactory = CertificateFactory.getInstance("X.509");
-//                return certFactory.generateCertificate(new ByteArrayInputStream(bytes));
-//            } catch (CertificateException e) {
-//                return null;
-//            }
-//        }
-//    }
+        // show snackbar after 60s to switch back to old login method
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Snackbar.make(mLoginWebView, "Go back to old login method", Snackbar.LENGTH_INDEFINITE)
+                        .setAction("BACK", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                mLoginWebView.setVisibility(View.INVISIBLE);
+
+                                setContentView(R.layout.account_setup);
+
+                                // initialize general UI elements
+                                initOverallUi();
+
+                                mHostUrlInput.setText(baseURL);
+                                mPasswordInputLayout.setVisibility(View.VISIBLE);
+                                mUsernameInput.requestFocus();
+                                mOAuth2Check.setVisibility(View.INVISIBLE);
+                                mAuthStatusView.setVisibility(View.INVISIBLE);
+                                mServerStatusView.setVisibility(View.INVISIBLE);
+                                mTestServerButton.setVisibility(View.INVISIBLE);
+                                forceOldLoginMethod = true;
+
+                                checkOcServer();
+                            }
+                        }).show();
+            }
+        }, 60000);
+    }
 
     private void parseAndLoginFromWebView(String dataString) {
         String prefix = getString(R.string.login_data_own_scheme) + PROTOCOL_SUFFIX + "login/";
@@ -547,6 +553,18 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
      * Configures elements in the user interface under direct control of the Activity.
      */
     private void initOverallUi() {
+        mHostUrlInput = (CustomEditText) findViewById(R.id.hostUrlInput);
+        mUsernameInputLayout = (TextInputLayout) findViewById(R.id.input_layout_account_username);
+        mPasswordInputLayout = (TextInputLayout) findViewById(R.id.input_layout_account_password);
+        mPasswordInput = (EditText) findViewById(R.id.account_password);
+        mUsernameInput = (EditText) findViewById(R.id.account_username);
+        mAuthStatusView = (TextView) findViewById(R.id.auth_status_text);
+        mOAuth2Check = (CheckBox) findViewById(R.id.oauth_onOff_check);
+        mServerStatusView = (TextView) findViewById(R.id.server_status_text);
+        mTestServerButton = (ImageButton) findViewById(R.id.testServerButton);
+
+        mOkButton = findViewById(R.id.buttonOK);
+        mOkButton.setOnClickListener(v -> onOkClick());
 
         /// step 1 - load and process relevant inputs (resources, intent, savedInstanceState)
         boolean isWelcomeLinkVisible = getResources().getBoolean(R.bool.show_welcome_link);
@@ -1380,7 +1398,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             //      4. we got the authentication method required by the server 
             mServerInfo = (GetServerInfoOperation.ServerInfo) (result.getData().get(0));
 
-            webViewLoginMethod = mServerInfo.mVersion.isWebLoginSupported();
+            webViewLoginMethod = mServerInfo.mVersion.isWebLoginSupported() && !forceOldLoginMethod;
 
             if (webViewUser != null && !webViewUser.isEmpty() &&
                     webViewPassword != null && !webViewPassword.isEmpty()) {
@@ -2006,7 +2024,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
      * to the last check on the ownCloud server.
      */
     private void showServerStatus() {
-        if (mServerStatusIcon == 0 && mServerStatusText == 0) {
+        if (mServerStatusIcon == 0 && mServerStatusText == 0 || forceOldLoginMethod) {
             mServerStatusView.setVisibility(View.INVISIBLE);
         } else {
             mServerStatusView.setText(mServerStatusText);
