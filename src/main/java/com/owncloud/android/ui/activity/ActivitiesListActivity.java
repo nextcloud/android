@@ -118,6 +118,8 @@ public class ActivitiesListActivity extends FileActivity implements ActivityList
     private OwnCloudClient ownCloudClient;
     private AsyncTask<String, Object, OCFile> updateTask;
 
+    private String nextPageUrl;
+    private boolean isLoadingActivities;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -144,7 +146,7 @@ public class ActivitiesListActivity extends FileActivity implements ActivityList
             @Override
             public void onRefresh() {
                 setLoadingMessage();
-                fetchAndSetData();
+                fetchAndSetData(null);
             }
         });
 
@@ -152,7 +154,7 @@ public class ActivitiesListActivity extends FileActivity implements ActivityList
             @Override
             public void onRefresh() {
                 setLoadingMessage();
-                fetchAndSetData();
+                fetchAndSetData(null);
             }
         });
     }
@@ -186,6 +188,23 @@ public class ActivitiesListActivity extends FileActivity implements ActivityList
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
 
         recyclerView.setLayoutManager(layoutManager);
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+
+                int visibleItemCount = recyclerView.getChildCount();
+                int totalItemCount = layoutManager.getItemCount();
+                int firstVisibleItemIndex = layoutManager.findFirstVisibleItemPosition();
+
+                // synchronize loading state when item count changes
+                if (!isLoadingActivities && (totalItemCount - visibleItemCount) <= (firstVisibleItemIndex + 5)) {
+                    // Almost reached the end, continue to load new activities
+                    fetchAndSetData(nextPageUrl);
+                }
+            }
+        });
 
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation_view);
 
@@ -194,10 +213,13 @@ public class ActivitiesListActivity extends FileActivity implements ActivityList
             DisplayUtils.setupBottomBar(bottomNavigationView, getResources(), this, -1);
         }
 
-        fetchAndSetData();
+        fetchAndSetData(null);
     }
 
-    private void fetchAndSetData() {
+    /**
+     * @param pageUrl String
+     */
+    private void fetchAndSetData(String pageUrl) {
         final Account currentAccount = AccountUtils.getCurrentOwnCloudAccount(MainApp.getAppContext());
         final Context context = MainApp.getAppContext();
 
@@ -211,13 +233,21 @@ public class ActivitiesListActivity extends FileActivity implements ActivityList
                     ownCloudClient = OwnCloudClientManagerFactory.getDefaultSingleton().
                             getClientFor(ocAccount, MainApp.getAppContext());
                     ownCloudClient.setOwnCloudVersion(AccountUtils.getServerVersion(currentAccount));
+                    isLoadingActivities = true;
 
-                    RemoteOperation getRemoteNotificationOperation = new GetRemoteActivitiesOperation();
+                    GetRemoteActivitiesOperation getRemoteNotificationOperation = new GetRemoteActivitiesOperation();
+                    if (pageUrl != null) {
+                        getRemoteNotificationOperation.setNextUrl(pageUrl);
+                    }
+
                     Log_OC.d(TAG, "BEFORE getRemoteActivitiesOperation.execute");
                     final RemoteOperationResult result = getRemoteNotificationOperation.execute(ownCloudClient);
+                    //result.get
 
                     if (result.isSuccess() && result.getData() != null) {
-                        final ArrayList<Object> activities = result.getData();
+                        final ArrayList<Object> data = result.getData();
+                        final ArrayList<Object> activities = (ArrayList) data.get(0);
+                        nextPageUrl = (String) data.get(1);
 
                         runOnUiThread(new Runnable() {
                             @Override
@@ -231,6 +261,7 @@ public class ActivitiesListActivity extends FileActivity implements ActivityList
                                     swipeListRefreshLayout.setVisibility(View.GONE);
                                     swipeEmptyListRefreshLayout.setVisibility(View.VISIBLE);
                                 }
+                                isLoadingActivities = false;
                             }
                         });
                     } else {
@@ -245,6 +276,7 @@ public class ActivitiesListActivity extends FileActivity implements ActivityList
                             @Override
                             public void run() {
                                 setEmptyContent(noResultsHeadline, finalLogMessage);
+                                isLoadingActivities = false;
                             }
                         });
                     }
@@ -271,6 +303,7 @@ public class ActivitiesListActivity extends FileActivity implements ActivityList
             public void run() {
                 swipeListRefreshLayout.setRefreshing(false);
                 swipeEmptyListRefreshLayout.setRefreshing(false);
+                isLoadingActivities = false;
             }
         });
     }
