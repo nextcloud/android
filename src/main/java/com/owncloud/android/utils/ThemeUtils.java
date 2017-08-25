@@ -137,8 +137,10 @@ public class ThemeUtils {
      * @param title     title to be shown
      */
     public static void setColoredTitle(ActionBar actionBar, String title) {
-        String colorHex = colorToHexString(fontColor());
-        actionBar.setTitle(Html.fromHtml("<font color='" + colorHex + "'>" + title + "</font>"));
+        if (actionBar != null) {
+            String colorHex = colorToHexString(fontColor());
+            actionBar.setTitle(Html.fromHtml("<font color='" + colorHex + "'>" + title + "</font>"));
+        }
     }
 
     public static Spanned getColoredTitle(String title, int color) {
