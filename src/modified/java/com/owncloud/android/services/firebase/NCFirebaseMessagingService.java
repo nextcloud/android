@@ -25,7 +25,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.media.RingtoneManager;
-import android.net.Uri;
 import android.support.v4.app.NotificationCompat;
 
 import com.google.firebase.messaging.FirebaseMessagingService;
@@ -33,9 +32,9 @@ import com.google.firebase.messaging.RemoteMessage;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.ui.activity.NotificationsActivity;
+import com.owncloud.android.utils.ThemeUtils;
 
 public class NCFirebaseMessagingService extends FirebaseMessagingService {
-    private static final String TAG = "NCFirebaseMessaging";
 
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
@@ -47,12 +46,12 @@ public class NCFirebaseMessagingService extends FirebaseMessagingService {
     private void sendNotification(String contentTitle) {
         Intent intent = new Intent(this, NotificationsActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent,
-                PendingIntent.FLAG_ONE_SHOT);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT);
 
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
                 .setSmallIcon(R.drawable.notification_icon)
                 .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.notification_icon))
+                .setColor(ThemeUtils.primaryColor())
                 .setContentTitle(contentTitle)
                 .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
                 .setAutoCancel(true)
@@ -63,5 +62,4 @@ public class NCFirebaseMessagingService extends FirebaseMessagingService {
 
         notificationManager.notify(0, notificationBuilder.build());
     }
-
 }
