@@ -693,4 +693,5 @@
     <string name="resharing_is_not_allowed">Resharing is not allowed</string>
     <string name="whats_new_fingerprint_title">Unlock with fingerprint</string>
     <string name="whats_new_fingerprint_content">Use your fingerprint to unlock the app</string>
+    <string name="fallback_weblogin_back">BACK</string>
 </resources>
