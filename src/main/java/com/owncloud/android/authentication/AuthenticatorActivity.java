@@ -417,7 +417,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                Snackbar.make(mLoginWebView, "Go back to old login method", Snackbar.LENGTH_INDEFINITE)
+                Snackbar.make(mLoginWebView, R.string.fallback_weblogin_text, Snackbar.LENGTH_INDEFINITE)
                         .setAction(R.string.fallback_weblogin_back, new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
