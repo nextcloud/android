@@ -34,6 +34,7 @@ import android.os.Environment;
 import android.support.multidex.MultiDexApplication;
 import android.support.v4.util.Pair;
 import android.support.v7.app.AlertDialog;
+import android.view.WindowManager;
 
 import com.evernote.android.job.JobManager;
 import com.owncloud.android.authentication.PassCodeManager;
@@ -320,25 +321,29 @@ public class MainApp extends MultiDexApplication {
                         .remove("prefs_instant_behaviour").apply();
 
                 // show info pop-up
-                new AlertDialog.Builder(this, R.style.Theme_ownCloud_Dialog)
-                        .setTitle(R.string.drawer_synced_folders)
-                        .setMessage(R.string.synced_folders_new_info)
-                        .setPositiveButton(R.string.drawer_open, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                // show Auto Upload
-                                Intent folderSyncIntent = new Intent(getApplicationContext(),
-                                        SyncedFoldersActivity.class);
-                                dialog.dismiss();
-                                startActivity(folderSyncIntent);
-                            }
-                        })
-                        .setNegativeButton(R.string.drawer_close, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.dismiss();
-                            }
-                        })
-                        .setIcon(R.drawable.nav_synced_folders)
-                        .show();
+                try {
+                    new AlertDialog.Builder(this, R.style.Theme_ownCloud_Dialog)
+                            .setTitle(R.string.drawer_synced_folders)
+                            .setMessage(R.string.synced_folders_new_info)
+                            .setPositiveButton(R.string.drawer_open, new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    // show Auto Upload
+                                    Intent folderSyncIntent = new Intent(getApplicationContext(),
+                                            SyncedFoldersActivity.class);
+                                    dialog.dismiss();
+                                    startActivity(folderSyncIntent);
+                                }
+                            })
+                            .setNegativeButton(R.string.drawer_close, new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                }
+                            })
+                            .setIcon(R.drawable.nav_synced_folders)
+                            .show();
+                } catch (WindowManager.BadTokenException e) {
+                    Log_OC.i(TAG, "Error showing Auto Upload Update dialog, so skipping it: " + e.getMessage());
+                }
             }
     }
 
