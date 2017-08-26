@@ -418,7 +418,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             @Override
             public void run() {
                 Snackbar.make(mLoginWebView, "Go back to old login method", Snackbar.LENGTH_INDEFINITE)
-                        .setAction("BACK", new View.OnClickListener() {
+                        .setAction(R.string.fallback_weblogin_back, new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
                                 mLoginWebView.setVisibility(View.INVISIBLE);
