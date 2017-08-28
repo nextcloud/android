@@ -64,7 +64,7 @@ To set up the project in Android Studio follow the next steps:
     - Windows: ```gradlew.bat clean build```
     - Mac OS/Linux: ```./gradlew clean build```
 
-The first time the Gradle wrapper is called, the correct Gradle version will be downloaded automatically. An Internet connection is needed for it works.
+The first time the Gradle wrapper is called, the correct Gradle version will be downloaded automatically. That requires a working Internet connection.
 
 The generated APK file is saved in android/build/outputs/apk as android-debug.apk
 
