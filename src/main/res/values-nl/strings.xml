@@ -622,7 +622,7 @@ Kies er eentje van een provider.</string>
     <string name="whats_new_theming_content">Indien aangezet op de server, de app zal xxx achtergrond geven, de server zal naam kleur xxx geven voor verschillende accounts</string>
 
     <string name="whats_new_notification_title">Notificatie ondersteuning</string>
-    <string name="whats_new_notification_content">Krijg notificaties als % nieuwe op afstand gedeelde folders % commentaar, vermeldingen % beheerder aankondigingen.</string>
+    <string name="whats_new_notification_content">Krijg notificaties als\n\u2022 nieuwe op afstand gedeelde folders\n\u2022 commentaar, vermeldingen\n\u2022 beheerder aankondigingen.</string>
 
     <string name="whats_new_skip">Overslaan</string>
 
