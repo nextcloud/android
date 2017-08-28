@@ -612,9 +612,15 @@
     <string name="welcome_feature_3_text">Manten tus fotos seguras</string>
 
     <string name="whats_new_auto_upload_title">Carga automática mejorada</string>
+    <string name="whats_new_auto_upload_content">\u2022 para todas las versiones de Android\n\u2022 menor consumo de batería\n\u2022 más confiable, mas no inmediato\n\u2022 separación de imágenes &amp; videos</string>
+
     <string name="whats_new_search_title">Búsqueda completa en el servidor</string>
+    <string name="whats_new_search_content">\u2022 No sólo en la carpeta actual\n\u2022 Regresa resultados del servidor entero\n\u2022 Abre directamente archivos/carpetas\n\u2022 Soportado en NC12 y superior</string>
+
     <string name="whats_new_theming_title">Soporte a personalización</string>
     <string name="whats_new_notification_title">Soporte a notificaciones</string>
+    <string name="whats_new_notification_content">Recibe notificaciones como \n\u2022 nuevos elementos compartidos remotos\n\u2022 menciones de comentarios\n\u2022 anuncios de administradores</string>
+
     <string name="whats_new_skip">Saltar</string>
 
     <string name="fingerprint_scan_finger">Por favor escanea tu dedo</string>

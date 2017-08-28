@@ -27,7 +27,7 @@
     <string name="drawer_item_on_device">Filer på enheten</string>
     <string name="drawer_item_recently_added">Nyligen tillagd</string>
     <string name="drawer_item_recently_modified">Nyligen ändrad</string>
-    <string name="drawer_item_shared">Delad</string>
+    <string name="drawer_item_shared">Delat</string>
     <string name="drawer_item_videos">Videor</string>
     <string name="drawer_item_settings">Inställningar</string>
     <string name="drawer_item_uploads_list">Uppladdningar</string>
@@ -39,7 +39,7 @@
     <string name="prefs_category_general">Allmänt</string>
     <string name="prefs_category_more">Mer</string>
     <string name="prefs_manage_accounts">Hantera konton</string>
-    <string name="prefs_passcode">Lösenordslås</string>
+    <string name="prefs_passcode">Kodlås</string>
     <string name="prefs_fingerprint">Fingeravtryckslås</string>
     <string name="prefs_fingerprint_notsetup">Inget fingeravtryck har konfigurerats.</string>
     <string name="prefs_expert_mode">Expertläge</string>
@@ -81,7 +81,7 @@
     <string name="uploader_error_message_source_file_not_found">Filen som valdes för uppladdning kan inte hittas. Vänligen dubbelkolla att den existerar.</string>
     <string name="uploader_error_message_source_file_not_copied">Kunde inte kopiera filen till en temporär mapp. Prova att skicka den igen.</string>
     <string name="uploader_upload_files_behaviour">Uppladdningsalternativ:</string>
-    <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">Flytta filen till Nextcloud mappen</string>
+    <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">Flytta filen till Nextcloud-mappen</string>
     <string name="uploader_upload_files_behaviour_only_upload">Behåll fil i källmappen</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Radera fil från källmappen</string>
     <string name="file_list_seconds_ago">sekunder sedan</string>
@@ -89,7 +89,7 @@
     <string name="folder_list_empty_headline">Inga mappar här</string>
     <string name="file_list_empty">Ladda upp något eller synkronisera med dina enheter</string>
     <string name="file_list_empty_favorites_filter_list">Filer och mappar du väljer som favoriter dyker upp här</string>
-    <string name="file_list_empty_favorites_filter">Din sökning gav inga favoritfiler.</string>
+    <string name="file_list_empty_favorites_filter">Din sökning gav inga favoriserade filer.</string>
     <string name="file_list_loading">Laddar&#8230;</string>
     <string name="file_list_no_app_for_file_type">Det finns ingen applikation för att hantera denna filtyp</string>
     <string name="local_file_list_empty">Det finns inga filer i den här mappen.</string>
@@ -192,7 +192,7 @@
     <string name="sync_fail_in_favourites_content">Innehållet i %1$d filer kunde inte synkas (%2$d konflikter)</string>
     <string name="sync_foreign_files_forgotten_ticker">Vissa lokala filer glömdes</string>
     <string name="sync_foreign_files_forgotten_content">%1$d filer från %2$s mappar kunde inte kopieras till</string>
-    <string name="sync_foreign_files_forgotten_explanation">Från och med version 1.3.16 kopieras filer som laddas upp från den här enheten till den lokala %1$smappen för att förhindra dataförlust när en enda fil synkroniseras med flera konton.\n\nPå grund av denna ändring är alla filer som är uppladdade med en tidigare version av denna app kopierade till %2$smappen. Ett fel förhindrade dock slutförandet av denna operation under kontosynkronisering. Du kan antingen lämna filen/filerna och ta bort länken till %3$s, eller flytta filen/filerna till %1$s mappen och behålla länken till %4$s.\n\nListat nedan är de lokala filen/filerna, och fjärrfilen/fjärrfilerna%5$s som de var länkade till.</string>
+    <string name="sync_foreign_files_forgotten_explanation">Från och med version 1.3.16 kopieras filer som laddas upp från den här enheten till den lokala %1$smappen för att förhindra dataförlust när en enda fil synkroniseras med flera konton.\n\nPå grund av denna ändring är alla filer som är uppladdade med en tidigare version av denna app kopierade till %2$smappen. Ett fel förhindrade dock slutförandet av denna operation under kontosynkronisering. Du kan antingen lämna filen/filerna och ta bort länken till %3$s, eller flytta filen/filerna till %1$s mappen och behålla länken till %4$s.\n\nListat nedan är de lokala och externa filen/filerna %5$s som de var länkade till.</string>
     <string name="sync_current_folder_was_removed">Mappen %1$s finns inte längre</string>
     <string name="foreign_files_move">Flytta allt</string>
     <string name="foreign_files_success">Alla filer flyttades</string>
@@ -203,24 +203,24 @@
     <string name="pass_code_enter_pass_code">Var god ange ditt lösenord</string>
     
     <string name="pass_code_configure_your_pass_code">Skriv in ditt lösenord</string>
-    <string name="pass_code_configure_your_pass_code_explanation">Lösenordet kommer efterfrågas varje gång du startar appen</string>
+    <string name="pass_code_configure_your_pass_code_explanation">Koden kommer efterfrågas varje gång du startar appen</string>
     <string name="pass_code_reenter_your_pass_code">Var god ange ditt lösenord igen</string>
     <string name="pass_code_remove_your_pass_code">Ta bort lösenordet</string>
-    <string name="pass_code_mismatch">Lösenorden matchar inte</string>
+    <string name="pass_code_mismatch">Koderna matchar inte</string>
     <string name="pass_code_wrong">Ogiltigt lösenord</string>
     <string name="pass_code_removed">Lösenord borttaget</string>
-    <string name="pass_code_stored">Lösenord sparat</string>
+    <string name="pass_code_stored">Kod sparad</string>
     
     <string name="media_notif_ticker">%1$ musikspelare</string>
     <string name="media_state_playing">%1$s (spelar)</string>
     <string name="media_state_loading">%1$s (buffrar)</string>
     <string name="media_event_done">%1$s spelat färdigt</string>
-    <string name="media_err_nothing_to_play">Hittar ingen medie-fil</string>
+    <string name="media_err_nothing_to_play">Hittar ingen mediefil</string>
     <string name="media_err_no_account">Inget konto är angivet</string>
     <string name="media_err_not_in_owncloud">Filen är inte i ett giltigt konto</string>
     <string name="media_err_unsupported">Saknar stöd för denna mediatyp</string>
-    <string name="media_err_io">Kunde inte läsa media-filen</string>
-    <string name="media_err_malformed">Media-filen har felaktig kodning</string>
+    <string name="media_err_io">Kunde inte läsa mediafilen</string>
+    <string name="media_err_malformed">Mediafilen har felaktig kodning</string>
     <string name="media_err_timeout">Försök att spela upp filen tog för lång tid</string>
     <string name="media_err_invalid_progressive_playback">Media-filen kan inte strömmas</string>
     <string name="media_err_unknown">Mediaspelaren kan inte spela mediafilen</string>
@@ -279,7 +279,7 @@
     <string name="rename_dialog_title">Ange ett nytt namn</string>
     <string name="rename_local_fail_msg">Den lokala kopian kunde inte döpas om, prova med ett annat namn</string>
     <string name="rename_server_fail_msg">Kunde inte ge servern ett nytt namn</string>
-    <string name="sync_file_fail_msg">Kunde inte kontrollera fjärrfilen</string>
+    <string name="sync_file_fail_msg">Kunde inte kontrollera extern fil</string>
     <string name="sync_file_nothing_to_do_msg">Filinnehåll redan synkroniserat</string>
     <string name="create_dir_fail_msg">Kunde inte skapa mapp</string>
     <string name="filename_forbidden_characters">Förbjudna tecken är: / \\ &lt; &gt; : \" | ? *</string>
@@ -332,7 +332,7 @@
 
     <string name="auto_upload_on_wifi">Uppladdning bara via Wi-Fi</string>
     <string name="instant_video_upload_on_charging">Uppladdning bara vid laddning</string>
-    <string name="instant_upload_on_charging">Uppladdning bara vid ladddning</string>
+    <string name="instant_upload_on_charging">Ladda enbart upp när enheten laddas</string>
     <string name="instant_upload_path">/AutomatiskUppladdning</string>
     <string name="auto_upload_path">/AutomatiskUppladdning</string>
     <string name="conflict_title">Filkonflikt</string>
@@ -353,7 +353,7 @@
     <string name="prefs_instant_upload_path_use_subfolders_summary">Spara i undermappar baserat på år och månad</string>
 
 	<string name="share_link_no_support_share_api">Delning är inte aktiverat på din server. Vänligen kontakta administratören.</string>
-	<string name="share_link_file_no_exist">Lyckades ej dela. Vänligen kontrollera om filen eisterar</string>
+	<string name="share_link_file_no_exist">Lyckades ej dela. Vänligen kontrollera om filen existerar</string>
 	<string name="share_link_file_error">Ett fel uppstod vid försök att dela denna fil eller mapp</string>
 	<string name="unshare_link_file_no_exist">Lyckades ej sluta dela. Vänligen kontrollera om filen existerar</string>
 	<string name="unshare_link_file_error">Ett fel uppstod vid försök att sluta dela denna fil eller mapp</string>
@@ -384,7 +384,7 @@
     <string name="unshare_link_forbidden_permissions">att avbryta delningen utav denna fil</string>
     <string name="update_link_forbidden_permissions">att uppdatera denna delning</string>
     <string name="forbidden_permissions_create">att skapa denna fil</string>
-    <string name="uploader_upload_forbidden_permissions">att ladda upp denn amapp</string>
+    <string name="uploader_upload_forbidden_permissions">att ladda upp denna mapp</string>
     <string name="downloader_download_file_not_found">Filen är inte längre tillgänglig på servern</string>
 
     <string name="file_migration_dialog_title">Uppdaterar lagringsplats</string>
@@ -418,8 +418,8 @@
 
 	<string name="actionbar_logger">Loggar</string>
 	<string name="log_send_history_button">Skicka historik</string>
-	<string name="log_send_no_mail_app">Ingen app för att skicka loggar hittades. Vänligen installera en e-mailklient.</string>
-	<string name="log_send_mail_subject">%1$s Android app logs</string>
+	<string name="log_send_no_mail_app">Ingen app för att skicka loggar hittades. Vänligen installera en e-postklient.</string>
+	<string name="log_send_mail_subject">%1$s Android apploggar</string>
 	<string name="log_progress_dialog_text">Laddar data &#8230;</string>
 
 	<string name="saml_authentication_required_text">Autentisering krävs</string>
@@ -479,7 +479,7 @@
     <string name="deselect_all">Avmarkera alla</string>
 
     <string name="pref_behaviour_entries_keep_file">behållas i orginalmapp</string>
-    <string name="pref_behaviour_entries_move">flyttas till Nextcloudmapp</string>
+    <string name="pref_behaviour_entries_move">flyttas till Nextcloud-mapp</string>
     <string name="pref_behaviour_entries_delete_file">raderas</string>
     <string name="prefs_storage_path">Lagringsplats</string>
     <string name="prefs_common">Vanlig</string>
@@ -503,11 +503,11 @@
 
     <string name="search_users_and_groups_hint">Sök användare och grupper</string>
     <string name="share_group_clarification">%1$s (grupp)</string>
-    <string name="share_remote_clarification">%1$s (fjärr)</string>
+    <string name="share_remote_clarification">%1$s (extern)</string>
     <string name="share_email_clarification">%1$s (e-post)</string>
     <string name="share_known_remote_clarification">%1$s ( på %2$s )</string>
 
-    <string name="share_sharee_unavailable">Uppgradera din severversion för att tillåta delning mellan användare med deras klienter.\nVänligen kontakta din administratör. </string>
+    <string name="share_sharee_unavailable">Uppgradera din serverversion för att tillåta delning mellan användare med deras klienter.\nVänligen kontakta din administratör. </string>
     <string name="filedetails_share_link_enable">Dela med länk aktiverat</string>
     <string name="filedetails_share_link_disable">Inte delad med länk</string>
     <string name="filedetails_share_users_with_access">Användare och grupper med tillgång</string>
@@ -542,7 +542,7 @@
 
     <string name="uploads_view_upload_status_waiting_for_charging">Väntar på laddning</string>
     <string name="actionbar_search">Sök</string>
-    <string name="files_drop_not_supported">Detta är en Nextcloud funktion, vänligen uppdatera.</string>
+    <string name="files_drop_not_supported">Detta är en Nextcloud-funktion, vänligen uppdatera.</string>
     <string name="learn_more">Lär dig mer</string>
     <string name="drawer_synced_folders">Automatisk uppladdning</string>
     <string name="drawer_participate">Hjälp oss att bli bättre</string>
@@ -560,14 +560,14 @@
     <string name="participate_contribute_forum_forum">forum</string>
     <string name="participate_contribute_translate_translate">Översätt</string>
     <string name="participate_contribute_translate_text">appen</string>
-    <string name="participate_contribute_github_text">Granska, ändra och skriv kod, see %1$s för detaljer</string>
+    <string name="participate_contribute_github_text">Granska, ändra och skriv kod, se %1$s för detaljer</string>
     <string name="participate_rc_play_store">Hämta release candidate via Google Play store</string>
     <string name="participate_rc_fdroid">Hämta release candidate via f-droid app store</string>
     <string name="participate_dev_fdroid">Hämta utvecklarversion via f-droid app store</string>
     <string name="participate_dev_direct_download">Hämta utvecklarversion via direkt nedladdning</string>
-    <string name="move_to">Fllytta till&#8230;</string>
+    <string name="move_to">Flytta till&#8230;</string>
     <string name="copy_to">Kopiera till&#8230;</string>
-    <string name="choose_remote_folder">Välj fjärrmapp &#8230;</string>
+    <string name="choose_remote_folder">Välj extern mapp&#8230;</string>
     <string name="choose_local_folder">Välj lokal mapp &#8230;</string>
     <string name="synced_folders_loading_folders">Laddar mappar &#8230;</string>
     <string name="synced_folders_no_results">Inga mediamappar funna.</string>
@@ -621,7 +621,7 @@
     <string name="whats_new_theming_content">Om aktiverat på servern kommer applikationen att visa\n\u2022 bakgrundsbild\n\u2022 serverns namn\n\u2022 använda färger för att skilja på konton</string>
 
     <string name="whats_new_notification_title">Stöd för notifieringar</string>
-    <string name="whats_new_notification_content">Få notifikationer som\n\u2022 nya externa delningar\n\u2022 kommentera omnämningar\n\u2022 administrativa meddelanden.</string>
+    <string name="whats_new_notification_content">Få notifikationer som\n\u2022 nya externa delningar\n\u2022 kommentera omnämnanden\n\u2022 administrativa meddelanden.</string>
 
     <string name="whats_new_skip">Hoppa över</string>
 
@@ -630,7 +630,7 @@
 
     <!-- User information -->
     <string name="user_info_full_name">Fullständigt namn</string>
-    <string name="user_info_email">E-mail</string>
+    <string name="user_info_email">E-post</string>
     <string name="user_info_phone">Telefonnummer</string>
     <string name="user_info_address">Adress</string>
     <string name="user_info_website">Webbsida</string>

@@ -78,8 +78,11 @@
     <string name="uploader_upload_files_behaviour_only_upload">Caltener ficheru na carpeta fonte</string>
     <string name="file_list_seconds_ago">hai segundos</string>
     <string name="file_list_empty_headline">Equí nun hai ficheros</string>
+    <string name="file_list_empty_favorites_filter">La to gueta nun devolvió ficheros favoritos.</string>
     <string name="file_list_loading">Cargando&#8230;</string>
+    <string name="file_list_no_app_for_file_type">Nun s\'afitó una aplicación pa remanar esta triba de ficheru.</string>
     <string name="local_file_list_empty">Nun hai ficheros nesta carpeta.</string>
+    <string name="local_folder_list_empty">Nun hai más carpetes.</string>
     <string name="file_list_empty_headline_search">Ensin resultaos nesta carpeta</string>
     <string name="file_list_empty_headline_server_search">Ensin resultaos</string>
     <string name="file_list_empty_shared_headline">Entá nun se compartió nada</string>
@@ -343,10 +346,17 @@
     <string name="file_migration_cleaning">Llimpiando&#8230;</string>
     <string name="file_migration_restoring_accounts_configuration">Restaurando configuración de les cuentes&#8230;</string>
     <string name="file_migration_ok_finished">Finó</string>
+    <string name="file_migration_failed_not_enough_space">undefined</string>
+    <string name="file_migration_failed_while_coping">Fallu: Fallu na migración</string>
+    <string name="file_migration_failed_while_updating_index">Fallu: Fallu nel anovamientu del índiz</string>
+
+    <string name="file_migration_directory_already_exists">Yá esiste la carpeta de datos. Escueyi una de les de darréu:</string>
     <string name="file_migration_override_data_folder">Trocar</string>
     <string name="file_migration_use_data_folder">Usar</string>
 
     <string name="file_migration_source_not_readable_title">¡El direutoriu fonte nun ye lleible!</string>
+    <string name="file_migration_source_not_readable">¿Entá quies camudar el camín d\'almacenamientu a %1$s?\n\nNota: Tolos datos tendrán de baxase de nueves.</string>
+
     <string name="prefs_add_account">Amestar cuenta</string>
     <string name="drawer_manage_accounts">Xestionar cuentes</string>
     <string name="auth_redirect_non_secure_connection_title">Conexón segura redirixida pente una ruta insegura.</string>
@@ -364,6 +374,8 @@
 	<string name="folder_picker_choose_button_text">Esbillar</string>
 
     <string name="move_file_not_found">Nun pue movese\'l ficheru. Comprueba si esiste, por favor</string>
+    <string name="move_file_invalid_into_descendent">Nun ye posible mover una carpeta a les sos soxacentes</string>
+    <string name="move_file_invalid_overwrite">El ficheru yá ta presente na carpeta de destín</string>
     <string name="move_file_error">Asocedió un fallu entrín s\'intentaba mover esta carpeta</string>
     <string name="forbidden_permissions_move">pa mover esti ficheru</string>
 
