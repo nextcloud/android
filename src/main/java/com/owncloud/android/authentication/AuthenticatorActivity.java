@@ -1941,7 +1941,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
      * to the last check on the ownCloud server.
      */
     private void showServerStatus() {
-        if (mServerStatusIcon == 0 && mServerStatusText == 0 || forceOldLoginMethod) {
+        if (mServerStatusIcon == 0 && "".equals(mServerStatusText) || forceOldLoginMethod) {
             mServerStatusView.setVisibility(View.INVISIBLE);
         } else {
             mServerStatusView.setText(mServerStatusText);
