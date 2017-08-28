@@ -27,7 +27,7 @@
     <string name="drawer_item_on_device">Op het apparaat</string>
     <string name="drawer_item_recently_added">Recent toegevoged</string>
     <string name="drawer_item_recently_modified">Recent gewijzigd</string>
-    <string name="drawer_item_shared">Gedeel</string>
+    <string name="drawer_item_shared">Gedeeld</string>
     <string name="drawer_item_videos">Video\'s</string>
     <string name="drawer_item_settings">Instellingen</string>
     <string name="drawer_item_uploads_list">Uploads</string>
@@ -618,7 +618,12 @@ Kies er eentje van een provider.</string>
     <string name="whats_new_search_title">Doorzoek alles op server</string>
     <string name="whats_new_search_content">\u2022 Niet alleen in huidige map\n\u2022 Geeft resultaten van gehele server\n\u2022 Open bestanden/mappen rechtstreeks\n\u2022 Werkt in NC12 en daarboven</string>
 
+    <string name="whats_new_theming_title">Styling support</string>
+    <string name="whats_new_theming_content">Indien aangezet op de server, de app zal xxx achtergrond geven, de server zal naam kleur xxx geven voor verschillende accounts</string>
+
     <string name="whats_new_notification_title">Notificatie ondersteuning</string>
+    <string name="whats_new_notification_content">Krijg notificaties als % nieuwe op afstand gedeelde folders % commentaar, vermeldingen % beheerder aankondigingen.</string>
+
     <string name="whats_new_skip">Overslaan</string>
 
     <string name="fingerprint_scan_finger">Scan je vinger</string>
