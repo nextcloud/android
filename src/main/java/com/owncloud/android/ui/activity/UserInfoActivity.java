@@ -480,7 +480,12 @@ public class UserInfoActivity extends FileActivity {
                     });
                 } else {
                     // show error
-                    setMessageForMultiList(result.getLogMessage(), sorryMessage);
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            setMessageForMultiList(result.getLogMessage(), sorryMessage);
+                        }
+                    });
                     Log_OC.d(TAG, result.getLogMessage());
                 }
             }
