@@ -55,7 +55,8 @@
     <string name="prefs_imprint">Peu d\'imprenta</string>
 
 	<string name="recommend_subject">Proveu %1$s al telèfon intel·ligent!</string>
-	<string name="auth_check_server">Comprova el funcionament del servidor</string>
+	<string name="recommend_text">M\'agradaria convidar-te a utilitzar %1$s al teu dispositiu mòvil.\nDescarrega-ho aquí: %2$s</string>
+    <string name="auth_check_server">Comprova el funcionament del servidor</string>
     <string name="auth_username">Nom d\'usuari</string>
     <string name="auth_password">Contrasenya</string>
     <string name="sync_string_files">Fitxers</string>

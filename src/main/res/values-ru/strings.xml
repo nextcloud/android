@@ -14,12 +14,12 @@
     <string name="actionbar_send_file">Отправить</string>
     <string name="actionbar_sort">Сортировка</string>
     <string name="sort_by">Порядок сортировки</string>
-    <string name="menu_item_sort_by_name_a_z">А–Я</string>
-    <string name="menu_item_sort_by_name_z_a">Я–A</string>
-    <string name="menu_item_sort_by_date_newest_first">Новые–старые</string>
-    <string name="menu_item_sort_by_date_oldest_first">Старые–новые</string>
-    <string name="menu_item_sort_by_size_biggest_first">Большие–маленькие</string>
-    <string name="menu_item_sort_by_size_smallest_first">Маленькие–большие</string>
+    <string name="menu_item_sort_by_name_a_z">А − Я</string>
+    <string name="menu_item_sort_by_name_z_a">Я − A</string>
+    <string name="menu_item_sort_by_date_newest_first">Новые − старые</string>
+    <string name="menu_item_sort_by_date_oldest_first">Старые − новые</string>
+    <string name="menu_item_sort_by_size_biggest_first">Большие − маленькие</string>
+    <string name="menu_item_sort_by_size_smallest_first">Маленькие − большие</string>
 
     <string name="drawer_item_all_files">Все файлы</string>
     <string name="drawer_item_home">Главная</string>
@@ -31,7 +31,7 @@
     <string name="drawer_item_shared">Опубликованное</string>
     <string name="drawer_item_videos">Видео</string>
     <string name="drawer_item_settings">Настройки</string>
-    <string name="drawer_item_uploads_list">Статус выгрузки</string>
+    <string name="drawer_item_uploads_list">Состояние выгрузки</string>
     <string name="drawer_item_activities">События</string>
     <string name="drawer_item_notifications">Уведомления</string>
     <string name="drawer_quota">использовано %1$s из %2$s </string>
@@ -48,7 +48,7 @@
     <string name="prefs_log_delete_history_button">Удалить историю</string>
     <string name="prefs_calendar_contacts">Синхронизировать календарь и контакты</string>
     <string name="prefs_calendar_contacts_summary">Настроить DAVdroid (v1.3.0+) для текущего аккаунта</string>
-    <string name="prefs_calendar_contacts_address_resolve_error">Не удается определить адрес сервера для DAVdroid</string>
+    <string name="prefs_calendar_contacts_address_resolve_error">Не удалось определить адрес сервера для DAVdroid</string>
     <string name="prefs_calendar_contacts_no_store_error">Не установлен магазин Google Play  или приложение F-Droid</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Настройка синхронизации календаря &amp; контактов выполнена успешно.</string>
     <string name="prefs_daily_contacts_sync_summary">Ежедневное сохранение контактов</string>
@@ -66,7 +66,7 @@
     <string name="auth_host_url">Адрес сервера https://&#8230;</string>
     <string name="auth_username">Имя пользователя</string>
     <string name="auth_password">Пароль</string>
-    <string name="auth_register">Нет сервера?\nНажмите здесь чтобы получить от провайдера</string>
+    <string name="auth_register">Нет сервера?\nНажмите здесь чтобы заказать у провайдера</string>
     <string name="sync_string_files">Файлы</string>
     <string name="setup_btn_connect">Подключиться</string>
     <string name="uploader_btn_upload_text">Выгрузить</string>
@@ -98,8 +98,8 @@
     <string name="local_folder_list_empty">Нет других каталогов.</string>
     <string name="file_list_empty_headline_search">В этом каталоге результатов не найдено</string>
     <string name="file_list_empty_headline_server_search">Результаты отсутствуют</string>
-    <string name="file_list_empty_favorite_headline">В избранное ещё ничего не добавлено </string>
-    <string name="file_list_empty_shared_headline">Вы ещё ничем не поделились</string>
+    <string name="file_list_empty_favorite_headline">В избранное ничего не добавлено </string>
+    <string name="file_list_empty_shared_headline">Вы ничем не поделились</string>
     <string name="file_list_empty_shared">Здесь появятся файлы и каталоги, которыми вы поделитесь</string>
     <string name="file_list_empty_headline_server_search_videos">Видео отсуствуют</string>
     <string name="file_list_empty_headline_server_search_photos">Фотографии отсутствуют</string>
@@ -125,7 +125,7 @@
     <string name="filedetails_sync_file">Синхронизировать</string>
     <string name="filedetails_renamed_in_upload_msg">При выгрузке файл был переименован в «%1$s»</string>
     <string name="list_layout">Вид списком</string>
-    <string name="action_share">Поделиться</string>
+    <string name="action_share">Открыть общий доступ</string>
     <string name="common_yes">Да</string>
     <string name="common_no">Нет</string>
     <string name="common_ok">ОК</string>
@@ -153,12 +153,12 @@
     <string name="uploader_upload_in_progress_content">%1$d%% выгружается %2$s</string>
     <string name="uploader_upload_succeeded_ticker">Успешно выгруженные</string>
     <string name="uploader_upload_succeeded_content_single">%1$s выгружен</string>
-    <string name="uploader_upload_failed_ticker">С ошибками выгрузки</string>
+    <string name="uploader_upload_failed_ticker">Ошибка выгрузки</string>
     <string name="uploader_upload_failed_content_single">Невозможно выгрузить %1$s</string>
     <string name="uploader_upload_failed_credentials_error">Выгрузка не удалась, необходимо повторно войти в систему</string>
-    <string name="uploads_view_title">Статус выгрузки</string>
+    <string name="uploads_view_title">Состояние выгрузки</string>
     <string name="uploads_view_group_current_uploads">Текущие</string>
-    <string name="uploads_view_group_failed_uploads">Перезапуск ожидающих / с ошибками</string>
+    <string name="uploads_view_group_failed_uploads">С ошибками / ожидающие перезапуска</string>
     <string name="uploads_view_group_finished_uploads">Выгруженные</string>
     <string name="uploads_view_upload_status_succeeded">Завершено</string>
     <string name="uploads_view_upload_status_cancelled">Отменено</string>
@@ -264,7 +264,7 @@
 	<string name="auth_unsupported_multiaccount">%1$s не поддерживает множественные аккаунты</string>
 	<string name="auth_fail_get_user_name">Сервер не вернул верный пользовательский идентификатор. Пожалуйста, свяжитесь с вашим администратором</string>
 	<string name="auth_can_not_auth_against_server">Не удается авторизоваться на этом сервере</string>
-    <string name="auth_account_does_not_exist">Аккаунт ещё не существует на устройстве</string>
+    <string name="auth_account_does_not_exist">Аккаунт не существует на устройстве</string>
 
 
     <string name="favorite">Сделать доступным автономно</string>
@@ -333,7 +333,6 @@
     <string name="placeholder_media_time">12:23:45</string>
 
     <string name="auto_upload_on_wifi">Выгружать только через Wi-Fi</string>
-    <string name="instant_video_upload_on_wifi">Выгружать видео только через Wi-Fi</string>
     <string name="instant_video_upload_on_charging">Выгружать только при зарядке</string>
     <string name="instant_upload_on_charging">Выгружать только при зарядке</string>
     <string name="instant_upload_path">/Автозагрузка</string>
@@ -350,10 +349,10 @@
 
     <string name="error__upload__local_file_not_copied">%1$s невозможно скопировать в локальный каталог %2$s </string>
     <string name="prefs_instant_upload_path_title">Каталог для немедленной выгрузки</string>
-    <string name="prefs_synced_folders_local_path_title">Локальный каталог</string>
-    <string name="prefs_synced_folders_remote_path_title">Каталог на сервере</string>
-    <string name="prefs_instant_upload_path_use_subfolders_title">Использовать подкаталоги</string>
-    <string name="prefs_instant_upload_path_use_subfolders_summary">Хранить в них, учитывая год и месяц</string>
+    <string name="prefs_synced_folders_local_path_title">Локальная папка</string>
+    <string name="prefs_synced_folders_remote_path_title">Папка на сервере</string>
+    <string name="prefs_instant_upload_path_use_subfolders_title">Создавать вложенные папки</string>
+    <string name="prefs_instant_upload_path_use_subfolders_summary">Сохранять в них на основании года и месяца</string>
 
 	<string name="share_link_no_support_share_api">Возможность предоставления общего доступа не включена на сервере. Пожалуйста, свяжитесь с вашим администратором.</string>
 	<string name="share_link_file_no_exist">Невозможно поделиться. Убедитесь, что файл существует</string>
@@ -380,7 +379,7 @@
     <string name="network_error_connect_timeout_exception">Во время ожидания сервера произошла ошибка, действие не может быть завершено.</string>
     <string name="network_host_not_available">Действие не может быть завершено, сервер недоступен</string>
 
-    <string name="forbidden_permissions">У вас нет права доступа %s</string>
+    <string name="forbidden_permissions">У вас нет разрешений %s</string>
     <string name="forbidden_permissions_rename">для переименования этого файла</string>
     <string name="forbidden_permissions_delete">для удаления этого файла</string>
     <string name="share_link_forbidden_permissions">для открытия общего доступа к этому файлу</string>
@@ -392,7 +391,7 @@
 
     <string name="file_migration_dialog_title">Обновление пути к хранилищу</string>
     <string name="file_migration_finish_button">Завершить</string>
-    <string name="file_migration_preparing">Подготовка к миграции&#8230;</string>
+    <string name="file_migration_preparing">Готовится перенос&#8230;</string>
     <string name="file_migration_checking_destination">Проверка назначения&#8230;</string>
     <string name="file_migration_saving_accounts_configuration">Сохранение настроек пользователя&#8230;</string>
     <string name="file_migration_waiting_for_unfinished_sync">Ожидание завершения синхронизаций&#8230;</string>
@@ -409,7 +408,7 @@
     <string name="file_migration_failed_while_updating_index">Ошибка: не удалось обновить индекс</string>
 
     <string name="file_migration_directory_already_exists">Каталог с данными уже существует. Выберите одно из действий:</string>
-    <string name="file_migration_override_data_folder">Перезаписать</string>
+    <string name="file_migration_override_data_folder">Заменить</string>
     <string name="file_migration_use_data_folder">Использовать существующий</string>
 
     <string name="file_migration_source_not_readable_title">Исходный каталог недоступен для чтения!</string>
@@ -478,7 +477,7 @@
     <string name="prefs_instant_behaviour_title">Исходный файл будет&#8230;</string>
     <string name="upload_copy_files">Копировать файл</string>
     <string name="upload_move_files">Переместить файл</string>
-    <string name="select_all">Выделить всё</string>
+    <string name="select_all">Выбрать все</string>
     <string name="deselect_all">Снять выбор со всех</string>
 
     <string name="pref_behaviour_entries_keep_file">оставлен в исходном каталоге</string>
@@ -488,11 +487,11 @@
     <string name="prefs_common">Основные</string>
 
     <string name="share_dialog_title">Общий доступ</string>
-    <string name="share_file">Поделиться %1$s</string>
-    <string name="share_with_user_section_title">Поделиться с пользователями и группами</string>
-    <string name="share_no_users">Вы пока ничем не поделились</string>
+    <string name="share_file">Общий ресурс «%1$s»</string>
+    <string name="share_with_user_section_title">Общий доступ пользователям и группам</string>
+    <string name="share_no_users">Общий доступ не открыт</string>
     <string name="share_add_user_or_group">Добавить пользователя или группу</string>
-    <string name="share_via_link_section_title">Поделиться ссылкой</string>
+    <string name="share_via_link_section_title">Общий доступ по ссылке</string>
     <string name="share_via_link_expiration_date_label">Установить срок действия</string>
     <string name="share_via_link_password_label">Защитить паролем</string>
     <string name="share_via_link_password_title">Безопасный</string>
@@ -500,7 +499,7 @@
     <string name="share_via_link_hide_file_listing_permission_label">Скрыть список файлов</string>
     <string name="share_get_public_link_button">Получить ссылку</string>
     <string name="share_with_title">Поделиться с &#8230;</string>
-    <string name="share_with_edit_title">Поделиться с %1$s</string>
+    <string name="share_with_edit_title">Общий доступ для %1$s</string>
 
     <string name="share_search">Поиск</string>
 
@@ -512,21 +511,21 @@
 
     <string name="share_sharee_unavailable">Извините, версия вашего сервера не позволяет поделиться с пользователями через клиент. \nПожалуйста обратитесь к администратору</string>
     <string name="filedetails_share_link_enable">Включена возможность поделиться ссылкой</string>
-    <string name="filedetails_share_link_disable">Не раздаётся ссылкой</string>
+    <string name="filedetails_share_link_disable">Общий доступ по ссылке не открыт</string>
     <string name="filedetails_share_users_with_access">Пользователи и группы с доступом</string>
-    <string name="share_privilege_can_share">может делиться с другими</string>
-    <string name="share_privilege_can_edit">может редактировать</string>
-    <string name="share_privilege_can_edit_create">создать</string>
-    <string name="share_privilege_can_edit_change">изменить</string>
-    <string name="share_privilege_can_edit_delete">удалить</string>
+    <string name="share_privilege_can_share">разрешить делиться с другими</string>
+    <string name="share_privilege_can_edit">разрешить редактировать</string>
+    <string name="share_privilege_can_edit_create">создавать</string>
+    <string name="share_privilege_can_edit_change">изменять</string>
+    <string name="share_privilege_can_edit_delete">удалять</string>
     <string name="edit_share_unshare">Закрыть общий доступ</string>
     <string name="edit_share_done">готово</string>
 
-    <string name="action_retry_uploads">Повторить неудавшиеся выгрузки</string>
-    <string name="action_clear_failed_uploads">Убрать неудавшиеся выгрузки</string>
-    <string name="action_clear_successful_uploads">Убрать успешные выгрузки</string>
-    <string name="action_clear_finished_uploads">Убрать завершенные выгрузки</string>
-    <string name="action_force_rescan">Сканировать принудительно</string>
+    <string name="action_retry_uploads">Повторить неудавшиеся</string>
+    <string name="action_clear_failed_uploads">Убрать неудавшиеся</string>
+    <string name="action_clear_successful_uploads">Убрать успешные</string>
+    <string name="action_clear_finished_uploads">Убрать завершённые</string>
+    <string name="action_force_rescan">Перепроверить список</string>
 
     <string name="action_switch_grid_view">Вид сеткой</string>
     <string name="action_switch_list_view">Вид списком</string>

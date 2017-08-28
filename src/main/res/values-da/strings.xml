@@ -42,6 +42,7 @@
     <string name="prefs_passcode">Passcode-lås</string>
     <string name="prefs_fingerprint">Fingeraftrykslås</string>
     <string name="prefs_fingerprint_notsetup">Ingen fingeraftryk er blevet sat op.</string>
+    <string name="prefs_expert_mode">Eksperttilstand </string>
     <string name="prefs_show_hidden_files">Vis skjulte filer</string>
     <string name="prefs_log_delete_history_button">Slet historik</string>
     <string name="prefs_calendar_contacts">Synkroniser kalender &amp; kontakter</string>
@@ -49,6 +50,7 @@
     <string name="prefs_calendar_contacts_address_resolve_error">Serveradresse for konto kunne ikke afgøres for DAVdroid</string>
     <string name="prefs_calendar_contacts_no_store_error">Hverken F-droid eller Google Play er installeret</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Synkroniser kalender &amp;\'s kontakter</string>
+    <string name="prefs_daily_contacts_sync_summary">Daglig backup af dine kontakter</string>
     <string name="prefs_help">Hjælp</string>
     <string name="prefs_recommend">Foreslå til en ven</string>
     <string name="prefs_feedback">Feedback</string>
@@ -61,6 +63,7 @@
     <string name="sync_string_files">Filer</string>
     <string name="setup_btn_connect">Tilslut</string>
     <string name="uploader_btn_upload_text">Upload</string>
+    <string name="uploader_btn_alternative_text">Vælg</string>
     <string name="uploader_top_message">Vælg upload mappe</string>
     <string name="uploader_wrn_no_account_title">Ingen konto fundet</string>
     <string name="uploader_wrn_no_account_text">Der er ingen %1$s-konti på din enhed. Angiv venligst en konto først.</string>
@@ -74,6 +77,8 @@
     <string name="uploader_upload_files_behaviour_only_upload">Behold filen i source-mappen</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Slet filen fra source-mappen</string>
     <string name="file_list_seconds_ago">sekunder siden</string>
+    <string name="file_list_empty_headline">Her er ingen filer</string>
+    <string name="folder_list_empty_headline">Ingen mappe her</string>
     <string name="file_list_loading">Indlæser&#8230;</string>
     <string name="local_file_list_empty">Der er ingen filer i denne mappe.</string>
     <string name="file_list_empty_headline_search">Intet resultat for denne mappe</string>

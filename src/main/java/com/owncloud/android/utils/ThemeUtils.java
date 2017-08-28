@@ -128,7 +128,7 @@ public class ThemeUtils {
         int primaryColor = primaryColor();
         float[] hsl = colorToHSL(primaryColor);
 
-        return (hsl[2] / 100) <= 0.5;
+        return hsl[2] <= 0.5;
     }
 
     /**
@@ -138,8 +138,10 @@ public class ThemeUtils {
      * @param title     title to be shown
      */
     public static void setColoredTitle(ActionBar actionBar, String title) {
-        String colorHex = colorToHexString(fontColor());
-        actionBar.setTitle(Html.fromHtml("<font color='" + colorHex + "'>" + title + "</font>"));
+        if (actionBar != null) {
+            String colorHex = colorToHexString(fontColor());
+            actionBar.setTitle(Html.fromHtml("<font color='" + colorHex + "'>" + title + "</font>"));
+        }
     }
 
     public static Spanned getColoredTitle(String title, int color) {

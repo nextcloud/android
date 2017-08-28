@@ -114,7 +114,6 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment {
         // keep the state of the fragment on configuration changes
         setRetainInstance(true);
 
-        setCancelable(false);
         mView = null;
 
         mSyncedFolder = getArguments().getParcelable(SYNCED_FOLDER_PARCELABLE);

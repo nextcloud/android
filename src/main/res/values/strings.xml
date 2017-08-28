@@ -266,7 +266,7 @@
 	<string name="auth_fail_get_user_name">Your server is not returning a correct user ID, please contact an administrator</string>
 	<string name="auth_can_not_auth_against_server">Cannot authenticate to this server</string>
     <string name="auth_account_does_not_exist">Account does not exist on the device yet</string>
-
+    <string name="auth_access_failed">Access failed</string>
 
     <string name="favorite">Set as available offline</string>
     <string name="unfavorite">Unset as available offline</string>
@@ -334,7 +334,6 @@
     <string name="placeholder_media_time">12:23:45</string>
 
     <string name="auto_upload_on_wifi">Only upload on Wi-Fi</string>
-    <string name="instant_video_upload_on_wifi">Only upload videos on Wi-Fi</string>
     <string name="instant_video_upload_on_charging">Only upload when charging</string>
     <string name="instant_upload_on_charging">Only upload when charging</string>
     <string name="instant_upload_path">/InstantUpload</string>
@@ -701,4 +700,6 @@
     <string name="resized_image_not_possible">No resized image possible. Download full image?</string>
     <string name="whats_new_fingerprint_title">Unlock with fingerprint</string>
     <string name="whats_new_fingerprint_content">Use your fingerprint to unlock the app</string>
+    <string name="fallback_weblogin_back">BACK</string>
+    <string name="fallback_weblogin_text">Go back to old login method</string>
 </resources>

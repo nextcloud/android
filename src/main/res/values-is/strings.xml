@@ -332,7 +332,6 @@ Smelltu hér til að fá þér einn frá þjónustuaðila.</string>
     <string name="placeholder_media_time">12:23:45</string>
 
     <string name="auto_upload_on_wifi">Aðeins senda inn á þráðlausu WiFi-neti</string>
-    <string name="instant_video_upload_on_wifi">Aðeins senda inn myndskeið á þráðlausu WiFi-neti</string>
     <string name="instant_video_upload_on_charging">Einungis senda inn þegar verið er að hlaða</string>
     <string name="instant_upload_on_charging">Einungis senda inn þegar verið er að hlaða</string>
     <string name="instant_upload_path">/BeinInnsending</string>
