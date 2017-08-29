@@ -264,8 +264,6 @@
 	<string name="auth_fail_get_user_name">Su servidor no está regresando un ID de usuario correcto, favor de contactar al adminitrador</string>
 	<string name="auth_can_not_auth_against_server">No es posible autenticarse en este servidor</string>
     <string name="auth_account_does_not_exist">La cuenta aún no existe en el dispositivo</string>
-
-
     <string name="favorite">Establer como disponible sin conexión</string>
     <string name="unfavorite">Establecer como disponible con conexión</string>
     <string name="favorite_real">Establecer como favorito</string>

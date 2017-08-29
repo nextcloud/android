@@ -264,8 +264,6 @@
 	<string name="auth_fail_get_user_name">您的服务器没有返回正确的用户ID，请与管理员联系</string>
 	<string name="auth_can_not_auth_against_server">无法连接认证服务器</string>
     <string name="auth_account_does_not_exist">设备上不存在帐户</string>
-
-
     <string name="favorite">可以设置离线</string>
     <string name="unfavorite">不可以设置离线</string>
     <string name="favorite_real">加入收藏</string>
@@ -662,4 +660,4 @@
     <string name="resharing_is_not_allowed">不允许二次共享</string>
     <string name="whats_new_fingerprint_title">指纹解锁</string>
     <string name="whats_new_fingerprint_content">请用指纹解锁</string>
-</resources>
+    </resources>

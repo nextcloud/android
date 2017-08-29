@@ -264,8 +264,6 @@ Smelltu hér til að fá þér einn frá þjónustuaðila.</string>
 	<string name="auth_fail_get_user_name">Vefþjónninn þinn er ekki að svara með réttu notandaauðkenni, hafðu samband við kerfisstjóra.</string>
 	<string name="auth_can_not_auth_against_server">Get ekki auðkennt á þessum þjóni</string>
     <string name="auth_account_does_not_exist">Aðgangur er ekki ennþá til á tækinu</string>
-
-
     <string name="favorite">Stilla sem tiltækt án nettengingar</string>
     <string name="unfavorite">Afstilla sem tiltækt án nettengingar</string>
     <string name="favorite_real">Setja í eftirlæti</string>
@@ -675,4 +673,4 @@ Smelltu hér til að fá þér einn frá þjónustuaðila.</string>
     <string name="resharing_is_not_allowed">Endurdeiling er ekki leyfð</string>
     <string name="whats_new_fingerprint_title">Aflæsa með fingrafari</string>
     <string name="whats_new_fingerprint_content">Notaðu fingrafarið þitt til að aflæsa forritinu</string>
-</resources>
+    </resources>
