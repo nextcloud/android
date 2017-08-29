@@ -228,8 +228,6 @@
 	<string name="auth_fail_get_user_name">El to sirvidor nun ta devolviendo una ID correuta d\'usuariu, por favor contauta con un alministrador</string>
 	<string name="auth_can_not_auth_against_server">Nun pues autentificate nesti sirvidor</string>
     <string name="auth_account_does_not_exist">La cuenta entá nun esiste nel preséu</string>
-
-
     <string name="favorite">Afitar como disponible ensin conexón</string>
     <string name="unfavorite">Desaniciar como disponible ensin conexón</string>
     <string name="favorite_real">Afitar como favoritu</string>

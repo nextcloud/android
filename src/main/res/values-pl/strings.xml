@@ -262,8 +262,6 @@
 	<string name="auth_fail_get_user_name">Twój serwer nie zwraca poprawnego identyfikatora użytkownika. Proszę skontaktuj się z administratorem.</string>
 	<string name="auth_can_not_auth_against_server">Błąd autoryzacji na tym serwerze</string>
     <string name="auth_account_does_not_exist">Konto jeszcze nie istnieje na tym urządzeniu</string>
-
-
     <string name="favorite">Udostępnij w trybie offline</string>
     <string name="unfavorite">Wyłącz udostępnianie w trybie offline</string>
     <string name="favorite_real">Ustaw jako ulubione</string>
@@ -679,4 +677,4 @@
     <string name="resharing_is_not_allowed">Udostępnianie dalej nie jest dozwolone</string>
     <string name="whats_new_fingerprint_title">Odblokuj odciskiem palca</string>
     <string name="whats_new_fingerprint_content">Odblokuj aplikację odciskiem palca</string>
-</resources>
+    </resources>

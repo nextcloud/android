@@ -253,8 +253,6 @@
 	<string name="auth_fail_get_user_name">你的伺服器並未回應正確的使用者ID，請聯繫管理人員。</string>
 	<string name="auth_can_not_auth_against_server">無法與伺服器認證</string>
     <string name="auth_account_does_not_exist">使用者帳戶尚未存在於裝置上</string>
-
-
     <string name="favorite">設定為離線可用</string>
     <string name="unfavorite">取消離線可用設定</string>
     <string name="favorite_real">設置為收藏</string>

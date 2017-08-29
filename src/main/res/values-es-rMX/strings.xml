@@ -263,8 +263,6 @@
 	<string name="auth_fail_get_user_name">Tu servidor no está regresando un ID de usuario correcto, por favor contacta al adminitrador</string>
 	<string name="auth_can_not_auth_against_server">No es posible autenticarse en este servidor</string>
     <string name="auth_account_does_not_exist">La cuenta aún no existe en el dispositivo</string>
-
-
     <string name="favorite">Establer como disponible sin conexión</string>
     <string name="unfavorite">Establecer como disponible con conexión</string>
     <string name="favorite_real">Establecer como favorito</string>
@@ -618,6 +616,8 @@
     <string name="whats_new_search_content">\u2022 No sólo en la carpeta actual\n\u2022 Regresa resultados del servidor entero\n\u2022 Abre directamente archivos/carpetas\n\u2022 Soportado en NC12 y superior</string>
 
     <string name="whats_new_theming_title">Soporte a personalización</string>
+    <string name="whats_new_theming_content">Si está habilitado en el servidor, la aplicación mostrará\n\u2022 imagen de fondo\n\u2022 nombre del servidor\n\u2022 usar color para distinguir cuentas</string>
+
     <string name="whats_new_notification_title">Soporte a notificaciones</string>
     <string name="whats_new_notification_content">Recibe notificaciones como \n\u2022 nuevos elementos compartidos remotos\n\u2022 menciones de comentarios\n\u2022 anuncios de administradores</string>
 
@@ -676,4 +676,4 @@
     <string name="resharing_is_not_allowed">No está permitido recompartir</string>
     <string name="whats_new_fingerprint_title">Desbloquear con tu huella digital</string>
     <string name="whats_new_fingerprint_content">Usa tu huella digital para desbloquear la aplicación</string>
-</resources>
+    </resources>
