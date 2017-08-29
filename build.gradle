@@ -31,7 +31,7 @@ configurations.all {
 
 ext {
     supportLibraryVersion = '25.4.0'
-    googleLibraryVersion = '10.2.4'
+    googleLibraryVersion = '11.2.2'
 
     travisBuild = System.getenv("TRAVIS") == "true"
 
@@ -219,12 +219,12 @@ dependencies {
     testImplementation 'org.mockito:mockito-core:1.10.19'
     /// dependencies for instrumented tests
     // JUnit4 Rules
-    androidTestImplementation 'com.android.support.test:rules:1.0.0'
+    androidTestImplementation 'com.android.support.test:rules:1.0.1'
     // Android JUnit Runner
-    androidTestImplementation 'com.android.support.test:runner:1.0.0'
+    androidTestImplementation 'com.android.support.test:runner:1.0.1'
 
     // Espresso core
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.0'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
     // UIAutomator - for cross-app UI tests, and to grant screen is turned on in Espresso tests
     //androidTestImplementation 'com.android.support.test.uiautomator:uiautomator-v18:2.1.2'
     // fix conflict in dependencies; see http://g.co/androidstudio/app-test-app-conflict for details
