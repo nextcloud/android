@@ -263,6 +263,8 @@
 	<string name="auth_fail_get_user_name">Votre serveur a retourné un identifiant d\'utilisateur incorrect. Veuillez contacter un administrateur</string>
 	<string name="auth_can_not_auth_against_server">Impossible de s\'authentifier sur ce serveur</string>
     <string name="auth_account_does_not_exist">Le compte n\'existe pas encore sur ce périphérique</string>
+    <string name="auth_access_failed">L\'accès a échoué</string>
+
     <string name="favorite">Rendre disponible hors-ligne</string>
     <string name="unfavorite">Ne plus rendre disponible hors-ligne</string>
     <string name="favorite_real">Mettre en favori</string>
@@ -676,4 +678,6 @@
     <string name="resharing_is_not_allowed">Le repartage n\'est pas autorisé</string>
     <string name="whats_new_fingerprint_title">Déverrouillage par empreinte digitale</string>
     <string name="whats_new_fingerprint_content">Utilisez votre empreinte digitale pour déverrouiller l’application</string>
-    </resources>
+    <string name="fallback_weblogin_back">RETOUR</string>
+    <string name="fallback_weblogin_text">Revenir à l\'ancienne méthode de connexion</string>
+</resources>
