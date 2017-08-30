@@ -263,6 +263,8 @@
 	<string name="auth_fail_get_user_name">Il server non restituisce un ID utente corretto, contatta un amministratore</string>
 	<string name="auth_can_not_auth_against_server">Impossibile autenticarsi a questo server</string>
     <string name="auth_account_does_not_exist">L\'account non esiste ancora sul dispositivo</string>
+    <string name="auth_access_failed">Accesso non riuscito</string>
+
     <string name="favorite">Imposta come disponibile non in linea</string>
     <string name="unfavorite">Rimuovi come disponibile non in linea</string>
     <string name="favorite_real">Imposta come preferito</string>
@@ -676,4 +678,6 @@
     <string name="resharing_is_not_allowed">La ri-condivisione non è consentita</string>
     <string name="whats_new_fingerprint_title">Sblocco con impronta digitale</string>
     <string name="whats_new_fingerprint_content">Usa la tua impronta digitale per sbloccare l\'applicazione</string>
-    </resources>
+    <string name="fallback_weblogin_back">INDIETRO</string>
+    <string name="fallback_weblogin_text">Torna al vecchio metodo di accesso</string>
+</resources>

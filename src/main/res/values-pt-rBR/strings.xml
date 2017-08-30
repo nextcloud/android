@@ -263,6 +263,8 @@
 	<string name="auth_fail_get_user_name">Seu servidor não está retornando um ID correto de usuário. Por favor, contacte o administrador</string>
 	<string name="auth_can_not_auth_against_server">Não foi possível obter autenticação neste servidor</string>
     <string name="auth_account_does_not_exist">A conta ainda não existe no dispositivo</string>
+    <string name="auth_access_failed">Acesso falhou</string>
+
     <string name="favorite">Definir como disponível offline</string>
     <string name="unfavorite">Definir como não disponível offline</string>
     <string name="favorite_real">Marque como favorito</string>
@@ -676,4 +678,6 @@
     <string name="resharing_is_not_allowed">Recompartilhamento não é permitido</string>
     <string name="whats_new_fingerprint_title">Desbloquear com as digitais</string>
     <string name="whats_new_fingerprint_content">Usar as digitais para desbloquear o aplicativo</string>
-    </resources>
+    <string name="fallback_weblogin_back">VOLTAR</string>
+    <string name="fallback_weblogin_text">Voltar ao método de login antigo</string>
+</resources>

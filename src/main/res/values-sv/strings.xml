@@ -263,6 +263,8 @@
 	<string name="auth_fail_get_user_name">Din server returnerar inte korrekt användarID, vänligen kontakta din administratör.</string>
 	<string name="auth_can_not_auth_against_server">Det går inte att autentisera mot denna server</string>
     <string name="auth_account_does_not_exist">Kontot finns inte på enheten än</string>
+    <string name="auth_access_failed">Åtkomst misslyckades</string>
+
     <string name="favorite">Sätt som tillgänglig offline</string>
     <string name="unfavorite">Ta bort som tillgänglig offline</string>
     <string name="favorite_real">Gör till favorit</string>
@@ -676,4 +678,6 @@
     <string name="resharing_is_not_allowed">Att dela på nytt är inte tillåtet</string>
     <string name="whats_new_fingerprint_title">Lås upp med fingeravtryck</string>
     <string name="whats_new_fingerprint_content">Använd ditt fingeravtryck för att låsa upp appen</string>
-    </resources>
+    <string name="fallback_weblogin_back">TILLBAKA</string>
+    <string name="fallback_weblogin_text">Gå tillbaka till gammal inloggningsmetod</string>
+</resources>
