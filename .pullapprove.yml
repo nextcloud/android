@@ -18,7 +18,7 @@ group_defaults:
     approve_regex: '^(Approved|:shipit:|:\+1:|LGTM)'
     reject_regex: '^(Rejected|:-1:)'
   reset_on_push:
-    enabled: true
+    enabled: false
   reset_on_reopened:
     enabled: true
 
