@@ -209,6 +209,8 @@ dependencies {
     annotationProcessor 'org.parceler:parceler:1.1.6'
     implementation 'com.github.bumptech.glide:glide:3.7.0'
     implementation 'com.caverock:androidsvg:1.2.1'
+    implementation "com.android.support:support-annotations:${supportLibraryVersion}"
+
     /// dependencies for local unit tests
     testImplementation 'junit:junit:4.12'
     testImplementation 'org.mockito:mockito-core:1.10.19'
@@ -217,8 +219,7 @@ dependencies {
     androidTestImplementation 'com.android.support.test:rules:1.0.0'
     // Android JUnit Runner
     androidTestImplementation 'com.android.support.test:runner:1.0.0'
-    // Android Annotation Support
-    androidTestImplementation "com.android.support:support-annotations:${supportLibraryVersion}"
+
     // Espresso core
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.0'
     // UIAutomator - for cross-app UI tests, and to grant screen is turned on in Espresso tests
