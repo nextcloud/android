@@ -421,6 +421,8 @@ public class UploadFileOperation extends SyncOperation {
                 channel = new RandomAccessFile(mFile.getStoragePath(), "rw").getChannel();
                 fileLock = channel.tryLock();
             } catch (FileNotFoundException e) {
+                // this basically means that the file is on SD card
+                // try to copy file to temporary dir if it doesn't exist
                 if (temporalFile == null) {
                     String temporalPath = FileStorageUtils.getTemporalPath(mAccount.name) + mFile.getRemotePath();
                     mFile.setStoragePath(temporalPath);
@@ -428,24 +430,18 @@ public class UploadFileOperation extends SyncOperation {
 
                     result = copy(originalFile, temporalFile);
 
-                    if (result != null) {
-                        return result;
-                    } else {
+                    if (result == null) {
                         if (temporalFile.length() == originalFile.length()) {
                             channel = new RandomAccessFile(temporalFile.getAbsolutePath(), "rw").getChannel();
                             fileLock = channel.tryLock();
                         } else {
-                            while (temporalFile.length() != originalFile.length()) {
-                                Files.deleteIfExists(Paths.get(temporalPath));
-                                result = copy(originalFile, temporalFile);
+                            Files.deleteIfExists(Paths.get(temporalPath));
+                            result = copy(originalFile, temporalFile);
 
-                                if (result != null) {
-                                    return result;
-                                } else {
-                                    channel = new RandomAccessFile(temporalFile.getAbsolutePath(), "rw").
-                                            getChannel();
-                                    fileLock = channel.tryLock();
-                                }
+                            if (result == null) {
+                                channel = new RandomAccessFile(temporalFile.getAbsolutePath(), "rw").
+                                        getChannel();
+                                fileLock = channel.tryLock();
                             }
                         }
                     }
@@ -455,13 +451,17 @@ public class UploadFileOperation extends SyncOperation {
                 }
             }
 
-            result = mUploadOperation.execute(client);
+            if (result == null) {
+                result = mUploadOperation.execute(client);
 
-            /// move local temporal file or original file to its corresponding
-            // location in the ownCloud local folder
-            if (!result.isSuccess() && result.getHttpCode() == HttpStatus.SC_PRECONDITION_FAILED) {
-                result = new RemoteOperationResult(ResultCode.SYNC_CONFLICT);
+                /// move local temporal file or original file to its corresponding
+                // location in the ownCloud local folder
+                if (!result.isSuccess() && result.getHttpCode() == HttpStatus.SC_PRECONDITION_FAILED) {
+                    result = new RemoteOperationResult(ResultCode.SYNC_CONFLICT);
+                }
+
             }
+
 
         } catch (FileNotFoundException e) {
             Log_OC.d(TAG, mOriginalStoragePath + " not exists anymore");
@@ -486,6 +486,7 @@ public class UploadFileOperation extends SyncOperation {
             if (temporalFile != null && !originalFile.equals(temporalFile)) {
                 temporalFile.delete();
             }
+
             if (result == null) {
                 result = new RemoteOperationResult(ResultCode.UNKNOWN_ERROR);
             }
