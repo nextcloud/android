@@ -184,7 +184,7 @@ dependencies {
     /// dependencies for app building
     implementation name: 'touch-image-view'
     implementation 'com.android.support:multidex:1.0.2'
-    implementation 'com.github.nextcloud:android-library:1.0.26'
+    implementation 'com.github.nextcloud:android-library:upload-improvements-SNAPSHOT'
     implementation "com.android.support:support-v4:${supportLibraryVersion}"
     implementation "com.android.support:design:${supportLibraryVersion}"
     implementation 'com.jakewharton:disklrucache:2.0.2'
