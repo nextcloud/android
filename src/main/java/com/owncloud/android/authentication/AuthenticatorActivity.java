@@ -1811,20 +1811,21 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             }
 
         } else {    // authorization fail due to client side - probably wrong credentials
-            if (!webViewLoginMethod) {
-                updateAuthStatusIconAndText(result);
-                showAuthStatus();
-            } else {
+            if (webViewLoginMethod) {
                 mLoginWebView = (WebView) findViewById(R.id.login_webview);
                 initWebViewLogin(mServerInfo.mBaseUrl);
+
+                Snackbar.make(mLoginWebView, getString(R.string.auth_access_failed) + ": " + result.getLogMessage(),
+                        Snackbar.LENGTH_LONG).show();
+            } else {
+                updateAuthStatusIconAndText(result);
+                showAuthStatus();
             }
             // reset webview
             webViewPassword = null;
             webViewUser = null;
             deleteCookies();
 
-            Snackbar.make(mLoginWebView, getString(R.string.auth_access_failed) + ": " + result.getLogMessage(),
-                    Snackbar.LENGTH_LONG).show();
             Log_OC.d(TAG, "Access failed: " + result.getLogMessage());
         }
     }
