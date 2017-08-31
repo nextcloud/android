@@ -33,6 +33,7 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.RemoteException;
 import android.provider.MediaStore;
+import android.support.annotation.Nullable;
 
 import com.owncloud.android.MainApp;
 import com.owncloud.android.db.ProviderMeta.ProviderTableMeta;
@@ -921,6 +922,7 @@ public class FileDataStorageManager {
         return c;
     }
 
+    @Nullable
     private OCFile createFileInstanceFromVirtual(Cursor c) {
         OCFile file = null;
         if (c != null) {
@@ -2148,13 +2150,16 @@ public class FileDataStorageManager {
         if (c != null && c.moveToFirst()) {
             do {
                 OCFile child = createFileInstanceFromVirtual(c);
-                ocFiles.add(child);
+
+                if (child != null) {
+                    ocFiles.add(child);
+                }
             } while (c.moveToNext());
             c.close();
         }
 
         if (onlyImages) {
-            OCFile current = null;
+            OCFile current;
             Vector<OCFile> temp = new Vector<>();
             for (int i=0; i < ocFiles.size(); i++) {
                 current = ocFiles.get(i);
