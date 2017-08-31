@@ -151,7 +151,7 @@ if  previous_results == true &&
     current_warning_count == previous_warning_count
 
     puts "SUCCESS: count stayed the same"
-    exit 0
+    exit 2
 end
 
 # either error count or warning count DECREASED
