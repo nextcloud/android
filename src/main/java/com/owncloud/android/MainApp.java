@@ -125,26 +125,7 @@ public class MainApp extends MultiDexApplication {
             Log_OC.d("Debug", "start logging");
         }
 
-        updateToAutoUpload();
-        cleanOldEntries();
-        updateAutoUploadEntries();
-
-        if (PermissionUtil.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
-            splitOutAutoUploadEntries();
-        } else {
-            PreferenceManager.setAutoUploadSplitEntries(this, true);
-        }
-
-        initiateExistingAutoUploadEntries();
-
-        FilesSyncHelper.scheduleFilesSyncIfNeeded();
-        FilesSyncHelper.restartJobsIfNeeded();
-
-        ReceiversHelper.registerNetworkChangeReceiver();
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-            ReceiversHelper.registerPowerChangeReceiver();
-        }
+        initAutoUpload();
 
         // register global protection with pass code
         registerActivityLifecycleCallbacks(new ActivityLifecycleCallbacks() {
@@ -188,6 +169,31 @@ public class MainApp extends MultiDexApplication {
                 Log_OC.d(activity.getClass().getSimpleName(), "onDestroy() ending");
             }
         });
+    }
+
+    public static void initAutoUpload() {
+        updateToAutoUpload();
+        cleanOldEntries();
+        updateAutoUploadEntries();
+
+        if (getAppContext() != null) {
+            if (PermissionUtil.checkSelfPermission(getAppContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+                splitOutAutoUploadEntries();
+            } else {
+                PreferenceManager.setAutoUploadSplitEntries(getAppContext(), true);
+            }
+        }
+
+        initiateExistingAutoUploadEntries();
+
+        FilesSyncHelper.scheduleFilesSyncIfNeeded();
+        FilesSyncHelper.restartJobsIfNeeded();
+
+        ReceiversHelper.registerNetworkChangeReceiver();
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            ReceiversHelper.registerPowerChangeReceiver();
+        }
     }
 
     public static Context getAppContext() {
@@ -301,12 +307,13 @@ public class MainApp extends MultiDexApplication {
         return userAgent;
     }
 
-    private void updateToAutoUpload() {
-            if (PreferenceManager.instantPictureUploadEnabled(this) ||
-                            PreferenceManager.instantPictureUploadEnabled(this)) {
+    private static void updateToAutoUpload() {
+            Context context = getAppContext();
+            if (PreferenceManager.instantPictureUploadEnabled(context) ||
+                            PreferenceManager.instantPictureUploadEnabled(context)) {
 
                 // remove legacy shared preferences
-                SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(this).edit();
+                SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(context).edit();
                 editor.remove("instant_uploading")
                         .remove("instant_video_uploading")
                         .remove("instant_upload_path")
@@ -322,16 +329,16 @@ public class MainApp extends MultiDexApplication {
 
                 // show info pop-up
                 try {
-                    new AlertDialog.Builder(this, R.style.Theme_ownCloud_Dialog)
+                    new AlertDialog.Builder(context, R.style.Theme_ownCloud_Dialog)
                             .setTitle(R.string.drawer_synced_folders)
                             .setMessage(R.string.synced_folders_new_info)
                             .setPositiveButton(R.string.drawer_open, new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int which) {
                                     // show Auto Upload
-                                    Intent folderSyncIntent = new Intent(getApplicationContext(),
+                                    Intent folderSyncIntent = new Intent(context,
                                             SyncedFoldersActivity.class);
                                     dialog.dismiss();
-                                    startActivity(folderSyncIntent);
+                                    context.startActivity(folderSyncIntent);
                                 }
                             })
                             .setNegativeButton(R.string.drawer_close, new DialogInterface.OnClickListener() {
@@ -347,21 +354,23 @@ public class MainApp extends MultiDexApplication {
             }
     }
 
-    private void updateAutoUploadEntries() {
+    private static void updateAutoUploadEntries() {
         // updates entries to reflect their true paths
-        if (!PreferenceManager.getAutoUploadPathsUpdate(this)) {
+        Context context = getAppContext();
+        if (!PreferenceManager.getAutoUploadPathsUpdate(context)) {
             SyncedFolderProvider syncedFolderProvider =
                     new SyncedFolderProvider(MainApp.getAppContext().getContentResolver());
             syncedFolderProvider.updateAutoUploadPaths(mContext);
         }
     }
 
-    private void splitOutAutoUploadEntries() {
-        if (!PreferenceManager.getAutoUploadSplitEntries(this)) {
+    private static void splitOutAutoUploadEntries() {
+        Context context = getAppContext();
+        if (!PreferenceManager.getAutoUploadSplitEntries(context)) {
             // magic to split out existing synced folders in two when needed
             // otherwise, we migrate them to their proper type (image or video)
             Log_OC.i(TAG, "Migrate synced_folders records for image/video split");
-            ContentResolver contentResolver = this.getContentResolver();
+            ContentResolver contentResolver = context.getContentResolver();
 
             SyncedFolderProvider syncedFolderProvider = new SyncedFolderProvider(contentResolver);
 
@@ -405,11 +414,11 @@ public class MainApp extends MultiDexApplication {
                 syncedFolderProvider.deleteSyncedFolder(id);
             }
 
-            PreferenceManager.setAutoUploadSplitEntries(this, true);
+            PreferenceManager.setAutoUploadSplitEntries(context, true);
         }
     }
 
-    private void initiateExistingAutoUploadEntries() {
+    private static void initiateExistingAutoUploadEntries() {
         new Thread(() -> {
             if (!PreferenceManager.getAutoUploadInit(getAppContext())) {
                 SyncedFolderProvider syncedFolderProvider =
@@ -427,13 +436,15 @@ public class MainApp extends MultiDexApplication {
         }).start();
     }
 
-    private void cleanOldEntries() {
+    private static void cleanOldEntries() {
         // previous versions of application created broken entries in the SyncedFolderProvider
         // database, and this cleans all that and leaves 1 (newest) entry per synced folder
 
-        if (!PreferenceManager.getLegacyClean(this)) {
+        Context context = getAppContext();
+
+        if (!PreferenceManager.getLegacyClean(context)) {
             SyncedFolderProvider syncedFolderProvider =
-                    new SyncedFolderProvider(MainApp.getAppContext().getContentResolver());
+                    new SyncedFolderProvider(context.getContentResolver());
 
             List<SyncedFolder> syncedFolderList = syncedFolderProvider.getSyncedFolders();
             Map<Pair<String, String>, Long> syncedFolders = new HashMap<>();
@@ -454,7 +465,7 @@ public class MainApp extends MultiDexApplication {
             if (ids.size() > 0) {
                 syncedFolderProvider.deleteSyncedFoldersNotInList(mContext, ids);
             } else {
-                PreferenceManager.setLegacyClean(this, true);
+                PreferenceManager.setLegacyClean(context, true);
             }
         }
     }
