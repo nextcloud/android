@@ -87,10 +87,10 @@ import butterknife.Unbinder;
  * This Activity presents the user information.
  */
 public class UserInfoActivity extends FileActivity {
-    private static final String TAG = UserInfoActivity.class.getSimpleName();
+    public static final String KEY_ACCOUNT = "ACCOUNT";
 
+    private static final String TAG = UserInfoActivity.class.getSimpleName();
     private static final String KEY_USER_DATA = "USER_DATA";
-    private static final String KEY_ACCOUNT = "ACCOUNT";
     private static final String KEY_DIRECT_REMOVE = "DIRECT_REMOVE";
 
     private static final int KEY_DELETE_CODE = 101;

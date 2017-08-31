@@ -48,9 +48,9 @@ import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.files.services.FileDownloader;
 import com.owncloud.android.files.services.FileUploader;
+import com.owncloud.android.jobs.AccountRemovalJob;
 import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.jobs.AccountRemovalJob;
 import com.owncloud.android.services.OperationsService;
 import com.owncloud.android.ui.adapter.AccountListAdapter;
 import com.owncloud.android.ui.adapter.AccountListItem;
@@ -79,7 +79,6 @@ public class ManageAccountsActivity extends FileActivity
 
     public static final String PENDING_FOR_REMOVAL = "PENDING_FOR_REMOVAL";
 
-    private static final String KEY_ACCOUNT = "ACCOUNT";
     private static final String KEY_DISPLAY_NAME = "DISPLAY_NAME";
 
     private static final int KEY_USER_INFO_REQUEST_CODE = 13;
@@ -134,7 +133,7 @@ public class ManageAccountsActivity extends FileActivity
 
                 if (item != null && item.isEnabled()) {
                     Account account = item.getAccount();
-                    intent.putExtra(KEY_ACCOUNT, Parcels.wrap(account));
+                    intent.putExtra(UserInfoActivity.KEY_ACCOUNT, Parcels.wrap(account));
                     try {
                         OwnCloudAccount oca = new OwnCloudAccount(account, MainApp.getAppContext());
                         intent.putExtra(KEY_DISPLAY_NAME, oca.getDisplayName());
@@ -163,8 +162,8 @@ public class ManageAccountsActivity extends FileActivity
             case KEY_DELETE_CODE:
                 if (data != null) {
                     Bundle bundle = data.getExtras();
-                    if (bundle.containsKey(KEY_ACCOUNT)) {
-                        Account account = Parcels.unwrap(bundle.getParcelable(KEY_ACCOUNT));
+                    if (bundle.containsKey(UserInfoActivity.KEY_ACCOUNT)) {
+                        Account account = Parcels.unwrap(bundle.getParcelable(UserInfoActivity.KEY_ACCOUNT));
                         mAccountName = account.name;
                         performAccountRemoval(account);
                     }
