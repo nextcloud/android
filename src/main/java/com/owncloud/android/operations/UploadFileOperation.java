@@ -28,6 +28,7 @@ import com.evernote.android.job.util.Device;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
+import com.owncloud.android.datamodel.UploadsStorageManager;
 import com.owncloud.android.db.OCUpload;
 import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.lib.common.OwnCloudClient;
@@ -396,25 +397,6 @@ public class UploadFileOperation extends SyncOperation {
             Long timeStampLong = originalFile.lastModified() / 1000;
             String timeStamp = timeStampLong.toString();
 
-            /// perform the upload
-            if (mChunked &&
-                    (new File(mFile.getStoragePath())).length() >
-                            ChunkedUploadRemoteFileOperation.CHUNK_SIZE) {
-                mUploadOperation = new ChunkedUploadRemoteFileOperation(mContext, mFile.getStoragePath(),
-                        mFile.getRemotePath(), mFile.getMimetype(), mFile.getEtagInConflict(), timeStamp);
-            } else {
-                mUploadOperation = new UploadRemoteFileOperation(mFile.getStoragePath(),
-                        mFile.getRemotePath(), mFile.getMimetype(), mFile.getEtagInConflict(), timeStamp);
-            }
-
-            Iterator<OnDatatransferProgressListener> listener = mDataTransferListeners.iterator();
-            while (listener.hasNext()) {
-                mUploadOperation.addDatatransferProgressListener(listener.next());
-            }
-
-            if (mCancellationRequested.get()) {
-                throw new OperationCancelledException();
-            }
 
             FileChannel channel = null;
             try {
@@ -449,6 +431,42 @@ public class UploadFileOperation extends SyncOperation {
                     channel = new RandomAccessFile(temporalFile.getAbsolutePath(), "rw").getChannel();
                     fileLock = channel.tryLock();
                 }
+            }
+
+            long size;
+            UploadsStorageManager uploadsStorageManager = new UploadsStorageManager(mContext.getContentResolver(),
+                    mContext);
+            if ((size = mFile.getStoragePath().length()) == 0 && !(new File(mFile.getStoragePath()).isDirectory())) {
+                size = channel.size();
+            }
+
+            for (OCUpload ocUpload : uploadsStorageManager.getAllStoredUploads()) {
+                if (ocUpload.getUploadId() == getOCUploadId()) {
+                    ocUpload.setFileSize(size);
+                    uploadsStorageManager.updateUpload(ocUpload);
+                    break;
+                }
+
+            }
+
+            /// perform the upload
+            if (mChunked &&
+                    (new File(mFile.getStoragePath())).length() >
+                            ChunkedUploadRemoteFileOperation.CHUNK_SIZE) {
+                mUploadOperation = new ChunkedUploadRemoteFileOperation(mContext, mFile.getStoragePath(),
+                        mFile.getRemotePath(), mFile.getMimetype(), mFile.getEtagInConflict(), timeStamp);
+            } else {
+                mUploadOperation = new UploadRemoteFileOperation(mFile.getStoragePath(),
+                        mFile.getRemotePath(), mFile.getMimetype(), mFile.getEtagInConflict(), timeStamp);
+            }
+
+            Iterator<OnDatatransferProgressListener> listener = mDataTransferListeners.iterator();
+            while (listener.hasNext()) {
+                mUploadOperation.addDatatransferProgressListener(listener.next());
+            }
+
+            if (mCancellationRequested.get()) {
+                throw new OperationCancelledException();
             }
 
             if (result == null) {
