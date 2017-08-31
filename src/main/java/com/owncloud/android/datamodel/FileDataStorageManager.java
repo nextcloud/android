@@ -2159,9 +2159,10 @@ public class FileDataStorageManager {
         }
 
         if (onlyImages) {
+            OCFile current;
             Vector<OCFile> temp = new Vector<>();
             for (int i=0; i < ocFiles.size(); i++) {
-                OCFile current = ocFiles.get(i);
+                current = ocFiles.get(i);
                 if (MimeTypeUtil.isImage(current)) {
                     temp.add(current);
                 }
