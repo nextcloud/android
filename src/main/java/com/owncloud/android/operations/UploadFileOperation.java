@@ -451,8 +451,7 @@ public class UploadFileOperation extends SyncOperation {
 
             /// perform the upload
             if (mChunked &&
-                    (new File(mFile.getStoragePath())).length() >
-                            ChunkedUploadRemoteFileOperation.CHUNK_SIZE) {
+                    (size > ChunkedUploadRemoteFileOperation.CHUNK_SIZE)) {
                 mUploadOperation = new ChunkedUploadRemoteFileOperation(mContext, mFile.getStoragePath(),
                         mFile.getRemotePath(), mFile.getMimetype(), mFile.getEtagInConflict(), timeStamp);
             } else {
