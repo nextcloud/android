@@ -551,7 +551,7 @@
     <string name="participate_testing_report_text">Rapporter en feil på GitHub</string>
     <string name="participate_testing_version_text">Er du interessert i å hjelpe til ved å teste den neste versjonen?</string>
     <string name="participate_beta_headline">Test utviklerversjonen</string>
-    <string name="participate_beta_text">Denne inneholder alle kommende funksjoner og er helt på kanten. Feil/feilmeldinger kan oppstå og i sådant fall, meld fra om dem til oss.</string>
+    <string name="participate_beta_text">Denne inneholder alle kommende funksjoner og er på knivseggen hva angår utvikling. Feil/feilmeldinger kan oppstå, og i sådant fall, meld fra om dem til oss.</string>
     <string name="participate_release_candidate_headline">Slippkandidat</string>
     <string name="participate_release_candidate_text">En Slippkandidat (RC) er en øyeblikkspakke av den kommende utgaven og er forventet å være stabil. Ved å teste denne med ditt oppsett hjelper du til å med dette. Meld deg på testing i Play-butikken, eller se i seksjonen \"Versjon\" for programmet i F-Droid.</string>
     <string name="participate_contribute_headline">Bidra aktivt</string>

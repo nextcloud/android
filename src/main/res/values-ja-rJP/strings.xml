@@ -224,6 +224,7 @@
 	<string name="auth_not_configured_title">サーバー設定が間違っています</string>
 	<string name="auth_account_not_the_same">入力されたユーザーはこのアカウントのユーザーと一致しません</string>
 	<string name="auth_unknown_error_title">不明なエラーに発生しました</string>
+	<string name="auth_unknown_host_title">ホストを見つけられませんでした。</string>
 	<string name="auth_timeout_title">サーバーからの反応がありません</string>
 	<string name="auth_ssl_general_error_title">SSLの初期化に失敗しました</string>
 	<string name="auth_bad_oc_version_title">認識できないサーバーのバージョンです</string>

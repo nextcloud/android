@@ -263,6 +263,8 @@
 	<string name="auth_fail_get_user_name">Su servidor no está retornando una identificación de usuario correcta; contacte a un administrador </string>
 	<string name="auth_can_not_auth_against_server">No puede autenticarse a este servidor</string>
     <string name="auth_account_does_not_exist">La cuenta no existe todavía en el dispositivo</string>
+    <string name="auth_access_failed">Acceso fallido</string>
+
     <string name="favorite">Marcar como disponible sin conexión</string>
     <string name="unfavorite">Desmarcar como disponible sin conexión</string>
     <string name="favorite_real">Marcar como favorito</string>
@@ -606,8 +608,16 @@
     <string name="welcome_feature_2_title">Múltiples cuentas</string>
     <string name="welcome_feature_2_text">Conecta con todas tus nubes</string>
 
+    <string name="welcome_feature_3_title">Subida automática</string>
     <string name="welcome_feature_3_text">Mantén seguras tus fotos</string>
 
+    <string name="whats_new_auto_upload_title">Subida automática mejorada</string>
+    <string name="whats_new_auto_upload_content">\u2022 para todas las versiones de Android\n\u2022 menor consumo de batería\n\u2022 más fiable, pero no instantánea\n\u2022 &amp;separación de imágenes y vídeos</string>
+
+    <string name="whats_new_search_title">Búsqueda en todo el servidor</string>
+    <string name="whats_new_search_content">\u2022 No solo en la carpeta acdtual\n\u2022 Devuelve resultados de todo el servidor\n\u2022 Abre directamente archivos/carpetas\n\u2022 Soportado en NC 12 y superior</string>
+
+    <string name="whats_new_theming_title">Suporte de temas</string>
     <string name="whats_new_skip">Omitir</string>
 
     <string name="fingerprint_scan_finger">Por favor, escanea tu dedo</string>
