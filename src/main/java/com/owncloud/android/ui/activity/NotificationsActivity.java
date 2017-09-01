@@ -219,8 +219,8 @@ public class NotificationsActivity extends FileActivity {
                                     swipeListRefreshLayout.setVisibility(View.VISIBLE);
                                 } else {
                                     setEmptyContent(noResultsHeadline, noResultsMessage);
-                                    swipeEmptyListRefreshLayout.setVisibility(View.VISIBLE);
                                     swipeListRefreshLayout.setVisibility(View.GONE);
+                                    swipeEmptyListRefreshLayout.setVisibility(View.VISIBLE);
                                 }
                             }
                         });
