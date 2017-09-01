@@ -436,8 +436,10 @@ public class UploadFileOperation extends SyncOperation {
             long size;
             UploadsStorageManager uploadsStorageManager = new UploadsStorageManager(mContext.getContentResolver(),
                     mContext);
-            if ((size = mFile.getStoragePath().length()) == 0 && !(new File(mFile.getStoragePath()).isDirectory())) {
+            if (mFile.getStoragePath().length() == 0 && !(new File(mFile.getStoragePath()).isDirectory())) {
                 size = channel.size();
+            } else {
+                size = mFile.getStoragePath().length();
             }
 
             for (OCUpload ocUpload : uploadsStorageManager.getAllStoredUploads()) {
