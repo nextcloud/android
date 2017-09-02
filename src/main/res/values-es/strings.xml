@@ -618,6 +618,11 @@
     <string name="whats_new_search_content">\u2022 No solo en la carpeta acdtual\n\u2022 Devuelve resultados de todo el servidor\n\u2022 Abre directamente archivos/carpetas\n\u2022 Soportado en NC 12 y superior</string>
 
     <string name="whats_new_theming_title">Suporte de temas</string>
+    <string name="whats_new_theming_content">Si se ha activado en el servidor, la app mostrará\n\u2022 la imagen de fondo\n\u2022 el nombre del servidor\n\u2022 usará colores para distinguir las cuentas</string>
+
+    <string name="whats_new_notification_title">Soporte de notificaciones</string>
+    <string name="whats_new_notification_content">Obtén notificaciones como\n\u2022 nuevos compartidos remotos\n\u2022menciones en comentarios\n\u2022 anuncios de los administradores</string>
+
     <string name="whats_new_skip">Omitir</string>
 
     <string name="fingerprint_scan_finger">Por favor, escanea tu dedo</string>
@@ -671,4 +676,8 @@
 
     <string name="test_server_button">Probar conexión con servidor</string>
     <string name="resharing_is_not_allowed">No se permite compartir de nuevo</string>
-    </resources>
+    <string name="whats_new_fingerprint_title">Desbloqueo con lector de huellas</string>
+    <string name="whats_new_fingerprint_content">Usa tu lector de huellas para desbloquear la app</string>
+    <string name="fallback_weblogin_back">VOLVER</string>
+    <string name="fallback_weblogin_text">Volver al método de registro antiguo</string>
+</resources>
