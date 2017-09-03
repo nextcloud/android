@@ -37,7 +37,7 @@ import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.db.PreferenceManager;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.utils.DisplayUtils;
-import com.owncloud.android.utils.FileStorageUtils;
+import com.owncloud.android.utils.FileSortOrder;
 import com.owncloud.android.utils.MimeTypeUtil;
 
 import java.io.File;
@@ -65,11 +65,6 @@ public class LocalFileListAdapter extends BaseAdapter implements FilterableListA
     public LocalFileListAdapter(boolean localFolderPickerMode, File directory, Context context) {
         mContext = context;
         mLocalFolderPicker = localFolderPickerMode;
-
-        // Read sorting order, default to sort by name ascending
-        FileStorageUtils.mSortOrder = PreferenceManager.getSortOrder(context);
-        FileStorageUtils.mSortAscending =PreferenceManager.getSortAscending(context);
-
         swapDirectory(directory);
     }
 
@@ -298,7 +293,8 @@ public class LocalFileListAdapter extends BaseAdapter implements FilterableListA
                 }
             });
 
-            mFiles = FileStorageUtils.sortLocalFolder(mFiles);
+            FileSortOrder sortOrder = PreferenceManager.getSortOrder(mContext);
+            mFiles = sortOrder.sortLocalFiles(mFiles);
 
             // Fetch preferences for showing hidden files
             boolean showHiddenFiles = PreferenceManager.showHiddenFilesEnabled(mContext);
@@ -313,14 +309,9 @@ public class LocalFileListAdapter extends BaseAdapter implements FilterableListA
         notifyDataSetChanged();
     }
 
-    public void setSortOrder(Integer order, boolean ascending) {
-        PreferenceManager.setSortOrder(mContext, order);
-        PreferenceManager.setSortAscending(mContext, ascending);
-
-        FileStorageUtils.mSortOrder = order;
-        FileStorageUtils.mSortAscending = ascending;
-
-        mFiles = FileStorageUtils.sortLocalFolder(mFiles);
+    public void setSortOrder(FileSortOrder sortOrder) {
+        PreferenceManager.setSortOrder(mContext, sortOrder);
+        mFiles = sortOrder.sortLocalFiles(mFiles);
         notifyDataSetChanged();
     }
 
