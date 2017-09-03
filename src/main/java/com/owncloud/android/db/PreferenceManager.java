@@ -25,7 +25,7 @@ import android.content.SharedPreferences;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.ui.activity.ComponentsGetter;
-import com.owncloud.android.utils.FileStorageUtils;
+import com.owncloud.android.utils.FileSortOrder;
 
 /**
  * Helper to simplify reading of Preferences all around the app
@@ -36,8 +36,7 @@ public abstract class PreferenceManager {
      * Value handled by the app without direct access in the UI.
      */
     private static final String AUTO_PREF__LAST_UPLOAD_PATH = "last_upload_path";
-    private static final String AUTO_PREF__SORT_ORDER = "sort_order";
-    private static final String AUTO_PREF__SORT_ASCENDING = "sort_ascending";
+    private static final String AUTO_PREF__SORT_ORDER_NAME = "sort_order_name";
     private static final String AUTO_PREF__UPLOAD_FILE_EXTENSION_MAP_URL = "prefs_upload_file_extension_map_url";
     private static final String AUTO_PREF__UPLOAD_FILE_EXTENSION_URL = "prefs_upload_file_extension_url";
     private static final String AUTO_PREF__UPLOADER_BEHAVIOR = "prefs_uploader_behaviour";
@@ -199,40 +198,21 @@ public abstract class PreferenceManager {
      * Gets the sort order which the user has set last.
      *
      * @param context Caller {@link Context}, used to access to shared preferences manager.
-     * @return sort order     the sort order, default is {@link FileStorageUtils#SORT_NAME} (sort by name)
+     * @return sort order     the sort order, default is {@link FileSortOrder#sort_a_to_z} (sort by name)
      */
-    public static int getSortOrder(Context context) {
-        return getDefaultSharedPreferences(context).getInt(AUTO_PREF__SORT_ORDER, FileStorageUtils.SORT_NAME);
+    public static FileSortOrder getSortOrder(Context context) {
+        String name = getDefaultSharedPreferences(context).getString(AUTO_PREF__SORT_ORDER_NAME, FileSortOrder.sort_a_to_z.mName);
+        return FileSortOrder.sortOrders.get(name);
     }
 
     /**
      * Save the sort order which the user has set last.
      *
      * @param context Caller {@link Context}, used to access to shared preferences manager.
-     * @param order   the sort order
+     * @param sortOrder   the sort order
      */
-    public static void setSortOrder(Context context, int order) {
-        saveIntPreference(context, AUTO_PREF__SORT_ORDER, order);
-    }
-
-    /**
-     * Gets the ascending order flag which the user has set last.
-     *
-     * @param context Caller {@link Context}, used to access to shared preferences manager.
-     * @return ascending order     the ascending order, default is true
-     */
-    public static boolean getSortAscending(Context context) {
-        return getDefaultSharedPreferences(context).getBoolean(AUTO_PREF__SORT_ASCENDING, true);
-    }
-
-    /**
-     * Saves the ascending order flag which the user has set last.
-     *
-     * @param context   Caller {@link Context}, used to access to shared preferences manager.
-     * @param ascending flag if sorting is ascending or descending
-     */
-    public static void setSortAscending(Context context, boolean ascending) {
-        saveBooleanPreference(context, AUTO_PREF__SORT_ASCENDING, ascending);
+    public static void setSortOrder(Context context, FileSortOrder sortOrder) {
+        saveStringPreference(context, AUTO_PREF__SORT_ORDER_NAME, sortOrder.mName);
     }
 
     /**

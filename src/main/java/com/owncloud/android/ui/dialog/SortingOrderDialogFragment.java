@@ -35,6 +35,7 @@ import android.widget.TextView;
 
 import com.owncloud.android.R;
 import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.utils.FileSortOrder;
 import com.owncloud.android.utils.ThemeUtils;
 
 /**
@@ -45,40 +46,17 @@ public class SortingOrderDialogFragment extends DialogFragment {
     private final static String TAG = SortingOrderDialogFragment.class.getSimpleName();
 
     private static final String KEY_SORT_ORDER = "SORT_ORDER";
-    private static final String KEY_ASCENDING = "ASCENDING";
-
-    public static final int BY_NAME_ASC = 0;
-    public static final int BY_NAME_DESC = 1;
-    public static final int BY_MODIFICATION_DATE_ASC = 2;
-    public static final int BY_MODIFICATION_DATE_DESC = 3;
-    public static final int BY_SIZE_ASC = 4;
-    public static final int BY_SIZE_DESC = 5;
 
     private View mView = null;
-    private ImageButton mSortByNameAscendingButton = null;
-    private ImageButton mSortByNameDescendingButton = null;
-    private ImageButton mSortBySizeAscendingButton = null;
-    private ImageButton mSortBySizeDescendingButton = null;
-    private ImageButton mSortByModificationDateAscendingButton = null;
-    private ImageButton mSortByModificationDateDescendingButton = null;
-
-    private TextView mSortByNameAscendingText = null;
-    private TextView mSortByNameDescendingText = null;
-    private TextView mSortBySizeAscendingText = null;
-    private TextView mSortBySizeDescendingText = null;
-    private TextView mSortByModificationDateAscendingText = null;
-    private TextView mSortByModificationDateDescendingText = null;
-
-    private int mSortOrder;
-    private boolean mSortAscending;
+    private View[] mTaggedViews;
     private AppCompatButton mCancel;
+    private String mCurrentSortOrderName;
 
-    public static SortingOrderDialogFragment newInstance(int sortOrder, boolean ascending) {
+    public static SortingOrderDialogFragment newInstance(FileSortOrder sortOrder) {
         SortingOrderDialogFragment dialogFragment = new SortingOrderDialogFragment();
 
         Bundle args = new Bundle();
-        args.putInt(KEY_SORT_ORDER, sortOrder);
-        args.putBoolean(KEY_ASCENDING, ascending);
+        args.putString(KEY_SORT_ORDER, sortOrder.mName);
         dialogFragment.setArguments(args);
 
         dialogFragment.setStyle(STYLE_NORMAL, R.style.Theme_ownCloud_Dialog);
@@ -93,9 +71,7 @@ public class SortingOrderDialogFragment extends DialogFragment {
         setRetainInstance(true);
 
         mView = null;
-
-        mSortOrder = getArguments().getInt(KEY_SORT_ORDER, BY_NAME_ASC);
-        mSortAscending = getArguments().getBoolean(KEY_ASCENDING, true);
+        mCurrentSortOrderName = getArguments().getString(KEY_SORT_ORDER, FileSortOrder.sort_a_to_z.mName);
     }
 
     @Override
@@ -116,36 +92,34 @@ public class SortingOrderDialogFragment extends DialogFragment {
      * @param view the parent view
      */
     private void setupDialogElements(View view) {
-        // find/saves UI elements
-        mSortByNameAscendingButton = (ImageButton) view.findViewById(R.id.sortByNameAscending);
-        mSortByNameDescendingButton = (ImageButton) view.findViewById(R.id.sortByNameDescending);
-        mSortByModificationDateAscendingButton = (ImageButton) view.findViewById(R.id.sortByModificationDateAscending);
-        mSortByModificationDateDescendingButton = (ImageButton) view.findViewById(R.id.sortByModificationDateDescending);
-        mSortBySizeAscendingButton = (ImageButton) view.findViewById(R.id.sortBySizeAscending);
-        mSortBySizeDescendingButton = (ImageButton) view.findViewById(R.id.sortBySizeDescending);
         mCancel = (AppCompatButton) view.findViewById(R.id.cancel);
         mCancel.setTextColor(ThemeUtils.primaryAccentColor());
 
-        mSortByNameAscendingText = (TextView) view.findViewById(R.id.sortByNameAZText);
-        mSortByNameDescendingText = (TextView) view.findViewById(R.id.sortByNameZAText);
-        mSortByModificationDateAscendingText = (TextView) view.findViewById(R.id.sortByModificationDateOldestFirstText);
-        mSortByModificationDateDescendingText = (TextView) view.findViewById(R.id.sortByModificationDateNewestFirstText);
-        mSortBySizeAscendingText = (TextView) view.findViewById(R.id.sortBySizeSmallestFirstText);
-        mSortBySizeDescendingText = (TextView) view.findViewById(R.id.sortBySizeBiggestFirstText);
-
-        mSortByNameAscendingButton.setTag(BY_NAME_ASC);
-        mSortByNameDescendingButton.setTag(BY_NAME_DESC);
-        mSortByModificationDateAscendingButton.setTag(BY_MODIFICATION_DATE_ASC);
-        mSortByModificationDateDescendingButton.setTag(BY_MODIFICATION_DATE_DESC);
-        mSortBySizeAscendingButton.setTag(BY_SIZE_ASC);
-        mSortBySizeDescendingButton.setTag(BY_SIZE_DESC);
-
-        mSortByNameAscendingText.setTag(BY_NAME_ASC);
-        mSortByNameDescendingText.setTag(BY_NAME_DESC);
-        mSortByModificationDateAscendingText.setTag(BY_MODIFICATION_DATE_ASC);
-        mSortByModificationDateDescendingText.setTag(BY_MODIFICATION_DATE_DESC);
-        mSortBySizeAscendingText.setTag(BY_SIZE_ASC);
-        mSortBySizeDescendingText.setTag(BY_SIZE_DESC);
+        mTaggedViews = new View[12];
+        mTaggedViews[0] = view.findViewById(R.id.sortByNameAscending);
+        mTaggedViews[0].setTag(FileSortOrder.sort_a_to_z);
+        mTaggedViews[1] = view.findViewById(R.id.sortByNameAZText);
+        mTaggedViews[1].setTag(FileSortOrder.sort_a_to_z);
+        mTaggedViews[2] = view.findViewById(R.id.sortByNameDescending);
+        mTaggedViews[2].setTag(FileSortOrder.sort_z_to_a);
+        mTaggedViews[3] = view.findViewById(R.id.sortByNameZAText);
+        mTaggedViews[3].setTag(FileSortOrder.sort_z_to_a);
+        mTaggedViews[4] = view.findViewById(R.id.sortByModificationDateAscending);
+        mTaggedViews[4].setTag(FileSortOrder.sort_old_to_new);
+        mTaggedViews[5] = view.findViewById(R.id.sortByModificationDateOldestFirstText);
+        mTaggedViews[5].setTag(FileSortOrder.sort_old_to_new);
+        mTaggedViews[6] = view.findViewById(R.id.sortByModificationDateDescending);
+        mTaggedViews[6].setTag(FileSortOrder.sort_new_to_old);
+        mTaggedViews[7] = view.findViewById(R.id.sortByModificationDateNewestFirstText);
+        mTaggedViews[7].setTag(FileSortOrder.sort_new_to_old);
+        mTaggedViews[8] = view.findViewById(R.id.sortBySizeAscending);
+        mTaggedViews[8].setTag(FileSortOrder.sort_small_to_big);
+        mTaggedViews[9] = view.findViewById(R.id.sortBySizeSmallestFirstText);
+        mTaggedViews[9].setTag(FileSortOrder.sort_small_to_big);
+        mTaggedViews[10] = view.findViewById(R.id.sortBySizeDescending);
+        mTaggedViews[10].setTag(FileSortOrder.sort_big_to_small);
+        mTaggedViews[11] = view.findViewById(R.id.sortBySizeBiggestFirstText);
+        mTaggedViews[11].setTag(FileSortOrder.sort_big_to_small);
 
         setupActiveOrderSelection();
     }
@@ -154,56 +128,19 @@ public class SortingOrderDialogFragment extends DialogFragment {
      * tints the icon reflecting the actual sorting choice in the apps primary color.
      */
     private void setupActiveOrderSelection() {
-        if (mSortAscending) {
-            switch (mSortOrder) {
-                case 0:
-                    colorActiveSortingIconAndText(mSortByNameAscendingButton,
-                            mSortByNameAscendingText);
-                    break;
-                case 1:
-                    colorActiveSortingIconAndText(mSortByModificationDateAscendingButton,
-                            mSortByModificationDateAscendingText);
-                    break;
-                case 2:
-                    colorActiveSortingIconAndText(mSortBySizeAscendingButton,
-                            mSortBySizeAscendingText);
-                    break;
-                default: //do nothing
-                    Log_OC.w(TAG, "Unknown sort order " + mSortOrder);
-                    break;
+        final int color = ThemeUtils.primaryAccentColor();
+        for (View view: mTaggedViews) {
+            if (!((FileSortOrder)view.getTag()).mName.equals(mCurrentSortOrderName)) {
+                continue;
             }
-        } else {
-            switch (mSortOrder) {
-                case 0:
-                    colorActiveSortingIconAndText(mSortByNameDescendingButton,
-                            mSortByNameDescendingText);
-                    break;
-                case 1:
-                    colorActiveSortingIconAndText(mSortByModificationDateDescendingButton,
-                            mSortByModificationDateDescendingText);
-                    break;
-                case 2:
-                    colorActiveSortingIconAndText(mSortBySizeDescendingButton,
-                            mSortBySizeDescendingText);
-                    break;
-                default: //do nothing
-                    Log_OC.w(TAG, "Unknown sort order " + mSortOrder);
-                    break;
+            if (view instanceof ImageButton) {
+                ThemeUtils.colorImageButton((ImageButton)view, color);
+            }
+            if (view instanceof TextView) {
+                ((TextView)view).setTextColor(color);
+                ((TextView)view).setTypeface(Typeface.DEFAULT_BOLD);
             }
         }
-    }
-
-    /**
-     * Sets the text color and tint the icon of given text view and image button.
-     *
-     * @param imageButton the image button, the icon to be tinted
-     * @param textView    the text view, the text color to be set
-     */
-    private void colorActiveSortingIconAndText(ImageButton imageButton, TextView textView) {
-        int color = ThemeUtils.primaryAccentColor();
-        ThemeUtils.colorImageButton(imageButton, color);
-        textView.setTextColor(color);
-        textView.setTypeface(Typeface.DEFAULT_BOLD);
     }
 
     /**
@@ -217,21 +154,11 @@ public class SortingOrderDialogFragment extends DialogFragment {
             }
         });
 
-        OnSortingOrderClickListener sortingClickListener = new OnSortingOrderClickListener();
+        OnSortOrderClickListener sortOrderClickListener = new OnSortOrderClickListener();
 
-        mSortByNameAscendingButton.setOnClickListener(sortingClickListener);
-        mSortByNameDescendingButton.setOnClickListener(sortingClickListener);
-        mSortByModificationDateAscendingButton.setOnClickListener(sortingClickListener);
-        mSortByModificationDateDescendingButton.setOnClickListener(sortingClickListener);
-        mSortBySizeAscendingButton.setOnClickListener(sortingClickListener);
-        mSortBySizeDescendingButton.setOnClickListener(sortingClickListener);
-
-        mSortByNameAscendingText.setOnClickListener(sortingClickListener);
-        mSortByNameDescendingText.setOnClickListener(sortingClickListener);
-        mSortByModificationDateAscendingText.setOnClickListener(sortingClickListener);
-        mSortByModificationDateDescendingText.setOnClickListener(sortingClickListener);
-        mSortBySizeAscendingText.setOnClickListener(sortingClickListener);
-        mSortBySizeDescendingText.setOnClickListener(sortingClickListener);
+        for (View view : mTaggedViews) {
+            view.setOnClickListener(sortOrderClickListener);
+        }
     }
 
     @Override
@@ -249,15 +176,15 @@ public class SortingOrderDialogFragment extends DialogFragment {
         super.onDestroyView();
     }
 
-    private class OnSortingOrderClickListener implements View.OnClickListener {
+    private class OnSortOrderClickListener implements View.OnClickListener {
         @Override
         public void onClick(View v) {
             dismissAllowingStateLoss();
-            ((SortingOrderDialogFragment.OnSortingOrderListener) getActivity()).onSortingOrderChosen((int) v.getTag());
+            ((SortingOrderDialogFragment.OnSortingOrderListener) getActivity()).onSortingOrderChosen((FileSortOrder) v.getTag());
         }
     }
 
     public interface OnSortingOrderListener {
-        void onSortingOrderChosen(int selection);
+        void onSortingOrderChosen(FileSortOrder selection);
     }
 }
