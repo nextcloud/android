@@ -54,6 +54,7 @@ public abstract class PreferenceManager {
     private static final String PREF__AUTO_UPLOAD_SPLIT_OUT = "autoUploadEntriesSplitOut";
     private static final String PREF__AUTO_UPLOAD_INIT = "autoUploadInit";
     private static final String GRID_IS_PREFERED_PREFERENCE = "gridIsPrefered";
+    private static final String KEY_FAB_EVER_CLICKED = "FAB_EVER_CLICKED";
 
     public static void setPushToken(Context context, String pushToken) {
         saveStringPreferenceNow(context, PREF__PUSH_TOKEN, pushToken);
@@ -97,6 +98,14 @@ public abstract class PreferenceManager {
 
     public static boolean showHiddenFilesEnabled(Context context) {
         return PreferenceManager.getDefaultSharedPreferences(context).getBoolean("show_hidden_files_pref", false);
+    }
+
+    public static long getFABClicked(Context context) {
+        return getDefaultSharedPreferences(context).getLong(KEY_FAB_EVER_CLICKED, 0);
+    }
+
+    public static void setFABClicked(Context context) {
+        getDefaultSharedPreferences(context).edit().putLong(KEY_FAB_EVER_CLICKED, 1).apply();
     }
 
     /**
@@ -162,6 +171,28 @@ public abstract class PreferenceManager {
      */
     public static void setLastUploadPath(Context context, String path) {
         saveStringPreference(context, AUTO_PREF__LAST_UPLOAD_PATH, path);
+    }
+
+    /**
+     * Get preferred folder display type.
+     *
+     * @param context Caller {@link Context}, used to access to preferences manager.
+     * @param folder Folder
+     * @return preference value, default is false
+     */
+    public static boolean getIsGridViewPreferred(Context context, OCFile folder) {
+        return (boolean)getFolderPreference(context, GRID_IS_PREFERED_PREFERENCE, folder, false);
+    }
+
+    /**
+     * Set preferred folder display type.
+     *
+     * @param context Caller {@link Context}, used to access to shared preferences manager.
+     * @param folder Folder
+     * @param isPreferred preference value
+     */
+    public static void setIsGridViewPreferred(Context context, OCFile folder, boolean isPreferred) {
+        setFolderPreference(context, GRID_IS_PREFERED_PREFERENCE, folder, isPreferred);
     }
 
     /**
