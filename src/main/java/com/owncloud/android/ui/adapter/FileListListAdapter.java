@@ -64,6 +64,7 @@ import com.owncloud.android.ui.activity.ComponentsGetter;
 import com.owncloud.android.ui.fragment.ExtendedListFragment;
 import com.owncloud.android.ui.interfaces.OCFileListFragmentInterface;
 import com.owncloud.android.utils.DisplayUtils;
+import com.owncloud.android.utils.FileSortOrder;
 import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.ThemeUtils;
@@ -107,10 +108,6 @@ public class FileListListAdapter extends BaseAdapter {
         mHideItemOptions = argHideItemOptions;
 
         mTransferServiceGetter = transferServiceGetter;
-
-        // Read sorting order, default to sort by name ascending
-        FileStorageUtils.mSortOrder = PreferenceManager.getSortOrder(mContext);
-        FileStorageUtils.mSortAscending = PreferenceManager.getSortAscending(mContext);
 
         // initialise thumbnails cache on background thread
         new ThumbnailsCacheManager.InitDiskCacheTask().execute();
@@ -482,7 +479,8 @@ public class FileListListAdapter extends BaseAdapter {
             if (!PreferenceManager.showHiddenFilesEnabled(mContext)) {
                 mFiles = filterHiddenFiles(mFiles);
             }
-            mFiles = FileStorageUtils.sortOcFolder(mFiles);
+            FileSortOrder sortOrder = PreferenceManager.getSortOrder(mContext);
+            mFiles = sortOrder.sortCloudFiles(mFiles);
             mFilesAll.clear();
             mFilesAll.addAll(mFiles);
 
@@ -524,7 +522,8 @@ public class FileListListAdapter extends BaseAdapter {
                 !searchType.equals(ExtendedListFragment.SearchType.PHOTOS_SEARCH_FILTER) &&
                 !searchType.equals(ExtendedListFragment.SearchType.RECENTLY_MODIFIED_SEARCH) &&
                 !searchType.equals(ExtendedListFragment.SearchType.RECENTLY_MODIFIED_SEARCH_FILTER)) {
-            mFiles = FileStorageUtils.sortOcFolder(mFiles);
+            FileSortOrder sortOrder = PreferenceManager.getSortOrder(mContext);
+            mFiles = sortOrder.sortCloudFiles(mFiles);
         } else {
             mFiles = FileStorageUtils.sortOcFolderDescDateModified(mFiles);
         }
@@ -642,15 +641,9 @@ public class FileListListAdapter extends BaseAdapter {
     }
 
 
-    public void setSortOrder(Integer order, boolean ascending) {
-
-        PreferenceManager.setSortOrder(mContext, order);
-        PreferenceManager.setSortAscending(mContext, ascending);
-
-        FileStorageUtils.mSortOrder = order;
-        FileStorageUtils.mSortAscending = ascending;
-
-        mFiles = FileStorageUtils.sortOcFolder(mFiles);
+    public void setSortOrder(FileSortOrder sortOrder) {
+        PreferenceManager.setSortOrder(mContext, sortOrder);
+        mFiles = sortOrder.sortCloudFiles(mFiles);
         notifyDataSetChanged();
     }
 
@@ -714,7 +707,8 @@ public class FileListListAdapter extends BaseAdapter {
                 if (!PreferenceManager.showHiddenFilesEnabled(mContext)) {
                     mFiles = filterHiddenFiles(mFiles);
                 }
-                mFiles = FileStorageUtils.sortOcFolder(mFiles);
+                FileSortOrder sortOrder = PreferenceManager.getSortOrder(mContext);
+                mFiles = sortOrder.sortCloudFiles(mFiles);
             }
 
             notifyDataSetChanged();

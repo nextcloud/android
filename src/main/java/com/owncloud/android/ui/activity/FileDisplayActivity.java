@@ -106,6 +106,7 @@ import com.owncloud.android.ui.preview.PreviewVideoActivity;
 import com.owncloud.android.utils.DataHolderUtil;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.ErrorMessageAdapter;
+import com.owncloud.android.utils.FileSortOrder;
 import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.PermissionUtil;
 import com.owncloud.android.utils.PushUtils;
@@ -120,7 +121,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import static com.owncloud.android.db.PreferenceManager.getSortAscending;
 import static com.owncloud.android.db.PreferenceManager.getSortOrder;
 
 /**
@@ -778,8 +778,7 @@ public class FileDisplayActivity extends HookActivity
                 ft.addToBackStack(null);
 
                 SortingOrderDialogFragment mSortingOrderDialogFragment = SortingOrderDialogFragment.newInstance(
-                        getSortOrder(this),
-                        getSortAscending(this)
+                        getSortOrder(this)
                 );
                 mSortingOrderDialogFragment.show(ft, SORT_ORDER_DIALOG_TAG);
 
@@ -1168,31 +1167,8 @@ public class FileDisplayActivity extends HookActivity
     }
 
     @Override
-    public void onSortingOrderChosen(int selection) {
-        switch (selection) {
-            case SortingOrderDialogFragment.BY_NAME_ASC:
-                sortByName(true);
-                break;
-            case SortingOrderDialogFragment.BY_NAME_DESC:
-                sortByName(false);
-                break;
-            case SortingOrderDialogFragment.BY_MODIFICATION_DATE_ASC:
-                sortByDate(true);
-                break;
-            case SortingOrderDialogFragment.BY_MODIFICATION_DATE_DESC:
-                sortByDate(false);
-                break;
-            case SortingOrderDialogFragment.BY_SIZE_ASC:
-                sortBySize(true);
-                break;
-            case SortingOrderDialogFragment.BY_SIZE_DESC:
-                sortBySize(false);
-                break;
-            default: // defaulting to alphabetical-ascending
-                Log_OC.w(TAG, "Unknown sort order, defaulting to alphabetical-ascending!");
-                sortByName(true);
-                break;
-        }
+    public void onSortingOrderChosen(FileSortOrder selection) {
+        getListOfFilesFragment().sortFiles(selection);
     }
 
     private class SyncBroadcastReceiver extends BroadcastReceiver {
@@ -2177,18 +2153,6 @@ public class FileDisplayActivity extends HookActivity
                 startSyncFolderOperation(folder, ignoreETag);
             }
         }
-    }
-
-    private void sortByDate(boolean ascending) {
-        getListOfFilesFragment().sortByDate(ascending);
-    }
-
-    private void sortBySize(boolean ascending) {
-        getListOfFilesFragment().sortBySize(ascending);
-    }
-
-    private void sortByName(boolean ascending) {
-        getListOfFilesFragment().sortByName(ascending);
     }
 
     private boolean isGridView() {
