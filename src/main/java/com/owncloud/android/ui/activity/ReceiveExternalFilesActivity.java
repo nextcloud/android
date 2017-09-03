@@ -823,7 +823,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
     }
 
     private Vector<OCFile> sortFileList(Vector<OCFile> files) {
-        FileSortOrder sortOrder = PreferenceManager.getSortOrder(this);
+        FileSortOrder sortOrder = PreferenceManager.getSortOrder(this, null);
         return sortOrder.sortCloudFiles(files);
     }
 

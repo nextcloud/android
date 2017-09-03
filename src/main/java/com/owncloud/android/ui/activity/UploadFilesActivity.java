@@ -241,7 +241,7 @@ public class UploadFilesActivity extends FileActivity implements
                 ft.addToBackStack(null);
 
                 SortingOrderDialogFragment mSortingOrderDialogFragment = SortingOrderDialogFragment.newInstance(
-                        getSortOrder(this)
+                        getSortOrder(this, null)
                 );
                 mSortingOrderDialogFragment.show(ft, SORT_ORDER_DIALOG_TAG);
 

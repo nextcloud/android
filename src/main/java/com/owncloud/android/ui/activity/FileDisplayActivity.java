@@ -778,7 +778,7 @@ public class FileDisplayActivity extends HookActivity
                 ft.addToBackStack(null);
 
                 SortingOrderDialogFragment mSortingOrderDialogFragment = SortingOrderDialogFragment.newInstance(
-                        getSortOrder(this)
+                        getSortOrder(this, getListOfFilesFragment().getCurrentFile())
                 );
                 mSortingOrderDialogFragment.show(ft, SORT_ORDER_DIALOG_TAG);
 
