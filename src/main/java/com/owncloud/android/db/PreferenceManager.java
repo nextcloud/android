@@ -22,6 +22,9 @@ package com.owncloud.android.db;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.owncloud.android.datamodel.FileDataStorageManager;
+import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.ui.activity.ComponentsGetter;
 import com.owncloud.android.utils.FileStorageUtils;
 
 /**
@@ -50,6 +53,7 @@ public abstract class PreferenceManager {
     private static final String PREF__PUSH_TOKEN = "pushToken";
     private static final String PREF__AUTO_UPLOAD_SPLIT_OUT = "autoUploadEntriesSplitOut";
     private static final String PREF__AUTO_UPLOAD_INIT = "autoUploadInit";
+    private static final String GRID_IS_PREFERED_PREFERENCE = "gridIsPrefered";
 
     public static void setPushToken(Context context, String pushToken) {
         saveStringPreferenceNow(context, PREF__PUSH_TOKEN, pushToken);
@@ -198,6 +202,51 @@ public abstract class PreferenceManager {
      */
     public static void setSortAscending(Context context, boolean ascending) {
         saveBooleanPreference(context, AUTO_PREF__SORT_ASCENDING, ascending);
+    }
+
+    /**
+     * Get preference value for a folder.
+     * If folder is not set itself, it finds an ancestor that is set.
+     *
+     * @param context Context object.
+     * @param preferenceName Name of the preference to lookup.
+     * @param folder Folder.
+     * @param defaultValue Fallback value in case no ancestor is set.
+     * @return Preference value
+     */
+    public static Object getFolderPreference(Context context, String preferenceName, OCFile folder, Object defaultValue) {
+        FileDataStorageManager storageManager = ((ComponentsGetter)context).getStorageManager();
+        SharedPreferences setting = context.getSharedPreferences(preferenceName, Context.MODE_PRIVATE);
+        while (folder != null && !setting.contains(String.valueOf(folder.getFileId()))) {
+            folder = storageManager.getFileById(folder.getParentId());
+        }
+        final Object value = setting.getAll().get(getKeyFromFolder(folder));
+        return value != null ? value : defaultValue;
+    }
+
+    /**
+     * Set preference value for a folder.
+     *
+     * @param context Context object.
+     * @param preferenceName Name of the preference to set.
+     * @param folder Folder.
+     * @param value Preference value to set.
+     */
+    public static void setFolderPreference(Context context, String preferenceName, OCFile folder, Object value) {
+        SharedPreferences setting = context.getSharedPreferences(preferenceName, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = setting.edit();
+        if (value instanceof Boolean) {
+            editor.putBoolean(String.valueOf(getKeyFromFolder(folder)), (Boolean)value);
+        } else if (value instanceof String) {
+            editor.putString(String.valueOf(getKeyFromFolder(folder)), (String)value);
+        } else {
+            throw new UnsupportedOperationException();
+        }
+        editor.apply();
+    }
+
+    private static String getKeyFromFolder(OCFile folder) {
+        return String.valueOf(folder != null ? folder.getFileId() : FileDataStorageManager.ROOT_PARENT_ID);
     }
 
     public static boolean getAutoUploadInit(Context context) {
