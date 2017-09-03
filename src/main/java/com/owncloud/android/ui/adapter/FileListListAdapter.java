@@ -465,7 +465,7 @@ public class FileListListAdapter extends BaseAdapter {
             if (!PreferenceManager.showHiddenFilesEnabled(mContext)) {
                 mFiles = filterHiddenFiles(mFiles);
             }
-            FileSortOrder sortOrder = PreferenceManager.getSortOrder(mContext);
+            FileSortOrder sortOrder = PreferenceManager.getSortOrder(mContext, directory);
             mFiles = sortOrder.sortCloudFiles(mFiles);
             mFilesAll.clear();
             mFilesAll.addAll(mFiles);
@@ -489,7 +489,7 @@ public class FileListListAdapter extends BaseAdapter {
         }
     }
 
-    public void setData(ArrayList<Object> objects, ExtendedListFragment.SearchType searchType, FileDataStorageManager storageManager) {
+    public void setData(ArrayList<Object> objects, ExtendedListFragment.SearchType searchType, FileDataStorageManager storageManager, OCFile folder) {
         if (storageManager != null && mStorageManager == null) {
             mStorageManager = storageManager;
         }
@@ -508,7 +508,7 @@ public class FileListListAdapter extends BaseAdapter {
                 !searchType.equals(ExtendedListFragment.SearchType.PHOTOS_SEARCH_FILTER) &&
                 !searchType.equals(ExtendedListFragment.SearchType.RECENTLY_MODIFIED_SEARCH) &&
                 !searchType.equals(ExtendedListFragment.SearchType.RECENTLY_MODIFIED_SEARCH_FILTER)) {
-            FileSortOrder sortOrder = PreferenceManager.getSortOrder(mContext);
+            FileSortOrder sortOrder = PreferenceManager.getSortOrder(mContext, folder);
             mFiles = sortOrder.sortCloudFiles(mFiles);
         } else {
             mFiles = FileStorageUtils.sortOcFolderDescDateModified(mFiles);
@@ -627,8 +627,8 @@ public class FileListListAdapter extends BaseAdapter {
     }
 
 
-    public void setSortOrder(FileSortOrder sortOrder) {
-        PreferenceManager.setSortOrder(mContext, sortOrder);
+    public void setSortOrder(OCFile folder, FileSortOrder sortOrder) {
+        PreferenceManager.setSortOrder(mContext, folder, sortOrder);
         mFiles = sortOrder.sortCloudFiles(mFiles);
         notifyDataSetChanged();
     }
@@ -693,7 +693,7 @@ public class FileListListAdapter extends BaseAdapter {
                 if (!PreferenceManager.showHiddenFilesEnabled(mContext)) {
                     mFiles = filterHiddenFiles(mFiles);
                 }
-                FileSortOrder sortOrder = PreferenceManager.getSortOrder(mContext);
+                FileSortOrder sortOrder = PreferenceManager.getSortOrder(mContext, null);
                 mFiles = sortOrder.sortCloudFiles(mFiles);
             }
 

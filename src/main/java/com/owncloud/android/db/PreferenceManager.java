@@ -195,24 +195,23 @@ public abstract class PreferenceManager {
     }
 
     /**
-     * Gets the sort order which the user has set last.
+     * Get preferred folder sort order.
      *
      * @param context Caller {@link Context}, used to access to shared preferences manager.
      * @return sort order     the sort order, default is {@link FileSortOrder#sort_a_to_z} (sort by name)
      */
-    public static FileSortOrder getSortOrder(Context context) {
-        String name = getDefaultSharedPreferences(context).getString(AUTO_PREF__SORT_ORDER_NAME, FileSortOrder.sort_a_to_z.mName);
-        return FileSortOrder.sortOrders.get(name);
+    public static FileSortOrder getSortOrder(Context context, OCFile folder) {
+        return FileSortOrder.sortOrders.get(getFolderPreference(context, AUTO_PREF__SORT_ORDER_NAME, folder, FileSortOrder.sort_a_to_z.mName));
     }
 
     /**
-     * Save the sort order which the user has set last.
+     * Set preferred folder sort order.
      *
      * @param context Caller {@link Context}, used to access to shared preferences manager.
      * @param sortOrder   the sort order
      */
-    public static void setSortOrder(Context context, FileSortOrder sortOrder) {
-        saveStringPreference(context, AUTO_PREF__SORT_ORDER_NAME, sortOrder.mName);
+    public static void setSortOrder(Context context, OCFile folder, FileSortOrder sortOrder) {
+        setFolderPreference(context, AUTO_PREF__SORT_ORDER_NAME, folder, sortOrder.mName);
     }
 
     /**

@@ -292,7 +292,7 @@ public class LocalFileListAdapter extends BaseAdapter implements FilterableListA
                 }
             });
 
-            FileSortOrder sortOrder = PreferenceManager.getSortOrder(mContext);
+            FileSortOrder sortOrder = PreferenceManager.getSortOrder(mContext, null);
             mFiles = sortOrder.sortLocalFiles(mFiles);
 
             // Fetch preferences for showing hidden files
@@ -309,7 +309,7 @@ public class LocalFileListAdapter extends BaseAdapter implements FilterableListA
     }
 
     public void setSortOrder(FileSortOrder sortOrder) {
-        PreferenceManager.setSortOrder(mContext, sortOrder);
+        PreferenceManager.setSortOrder(mContext, null, sortOrder);
         mFiles = sortOrder.sortLocalFiles(mFiles);
         notifyDataSetChanged();
     }

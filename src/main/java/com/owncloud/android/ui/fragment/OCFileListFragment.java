@@ -1188,7 +1188,7 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
     }
 
     public void sortFiles(FileSortOrder sortOrder) {
-        mAdapter.setSortOrder(sortOrder);
+        mAdapter.setSortOrder(mFile, sortOrder);
     }
 
     /**
@@ -1387,7 +1387,7 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
     public void onMessageEvent(final SearchEvent event) {
         searchFragment = true;
         setEmptyListLoadingMessage();
-        mAdapter.setData(new ArrayList<>(), SearchType.NO_SEARCH, mContainerActivity.getStorageManager());
+        mAdapter.setData(new ArrayList<>(), SearchType.NO_SEARCH, mContainerActivity.getStorageManager(), mFile);
 
         setFabEnabled(false);
 
@@ -1463,7 +1463,7 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
                         if (remoteOperationResult.getData() == null || remoteOperationResult.getData().size() == 0) {
                             setEmptyView(event);
                         } else {
-                            mAdapter.setData(remoteOperationResult.getData(), currentSearchType, storageManager);
+                            mAdapter.setData(remoteOperationResult.getData(), currentSearchType, storageManager, mFile);
                         }
 
                         final FileDisplayActivity fileDisplayActivity = (FileDisplayActivity) getActivity();
