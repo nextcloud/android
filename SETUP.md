@@ -35,7 +35,7 @@ Next steps will assume you have a Github account and that you will get the code 
 * Clone your forked repository: ```git clone --recursive git@github.com:YOURGITHUBNAME/android.git```.
 * Move to the project folder with ```cd android```.
 * Pull any changes from your remote branch 'master': ```git pull origin master```
-* Make official Nextcloud repo known as upstream: ```git remote add upstream git@github.com:nextcloud/android.git```
+* Make official Nextcloud repo known as upstream: ```git remote add upstream https://github.com/nextcloud/android.git```
 * Make sure to get the latest changes from official android/master branch: ```git pull upstream master```
 
 At this point you can continue using different tools to build the project. Section 2 and 3 describe the existing alternatives.
