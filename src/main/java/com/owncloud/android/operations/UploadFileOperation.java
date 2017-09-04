@@ -428,8 +428,6 @@ public class UploadFileOperation extends SyncOperation {
                             channel = new RandomAccessFile(temporalFile.getAbsolutePath(), "rw").
                                     getChannel();
                             fileLock = channel.tryLock();
-                        } else {
-                            result = new RemoteOperationResult(ResultCode.LOCK_FAILED);
                         }
                     }
                 }
