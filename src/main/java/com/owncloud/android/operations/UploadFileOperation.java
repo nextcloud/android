@@ -479,8 +479,6 @@ public class UploadFileOperation extends SyncOperation {
                 while (listener.hasNext()) {
                     mUploadOperation.addDatatransferProgressListener(listener.next());
                 }
-            } else {
-                result = new RemoteOperationResult(ResultCode.UNKNOWN_ERROR);
             }
 
             if (mCancellationRequested.get()) {
