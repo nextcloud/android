@@ -52,9 +52,11 @@ import com.owncloud.android.utils.UriUtils;
 
 import org.apache.commons.httpclient.HttpStatus;
 import org.apache.commons.httpclient.methods.RequestEntity;
+import org.apache.commons.io.input.CountingInputStream;
 import org.lukhnos.nnio.file.Files;
 import org.lukhnos.nnio.file.Paths;
 
+import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -398,72 +400,89 @@ public class UploadFileOperation extends SyncOperation {
             String timeStamp = timeStampLong.toString();
 
 
+            boolean onSDCard = false;
             FileChannel channel = null;
             try {
                 channel = new RandomAccessFile(mFile.getStoragePath(), "rw").getChannel();
                 fileLock = channel.tryLock();
             } catch (FileNotFoundException e) {
+                onSDCard = true;
                 // this basically means that the file is on SD card
                 // try to copy file to temporary dir if it doesn't exist
-                if (temporalFile == null) {
-                    String temporalPath = FileStorageUtils.getTemporalPath(mAccount.name) + mFile.getRemotePath();
-                    mFile.setStoragePath(temporalPath);
-                    temporalFile = new File(temporalPath);
+                String temporalPath = FileStorageUtils.getTemporalPath(mAccount.name) + mFile.getRemotePath();
+                mFile.setStoragePath(temporalPath);
+                temporalFile = new File(temporalPath);
 
-                    result = copy(originalFile, temporalFile);
+                Files.deleteIfExists(Paths.get(temporalPath));
+                result = copy(originalFile, temporalFile);
 
-                    if (result == null) {
-                        if (temporalFile.length() == originalFile.length()) {
-                            channel = new RandomAccessFile(temporalFile.getAbsolutePath(), "rw").getChannel();
+                if (result == null) {
+                    if (temporalFile.length() == originalFile.length()) {
+                        channel = new RandomAccessFile(temporalFile.getAbsolutePath(), "rw").getChannel();
+                        fileLock = channel.tryLock();
+                    } else {
+                        Files.deleteIfExists(Paths.get(temporalPath));
+                        result = copy(originalFile, temporalFile);
+
+                        if (result == null) {
+                            channel = new RandomAccessFile(temporalFile.getAbsolutePath(), "rw").
+                                    getChannel();
                             fileLock = channel.tryLock();
                         } else {
-                            Files.deleteIfExists(Paths.get(temporalPath));
-                            result = copy(originalFile, temporalFile);
-
-                            if (result == null) {
-                                channel = new RandomAccessFile(temporalFile.getAbsolutePath(), "rw").
-                                        getChannel();
-                                fileLock = channel.tryLock();
-                            }
+                            result = new RemoteOperationResult(ResultCode.LOCK_FAILED);
                         }
                     }
-                } else {
-                    channel = new RandomAccessFile(temporalFile.getAbsolutePath(), "rw").getChannel();
-                    fileLock = channel.tryLock();
                 }
             }
 
-            long size;
+            long size = 0;
             UploadsStorageManager uploadsStorageManager = new UploadsStorageManager(mContext.getContentResolver(),
                     mContext);
-            if (mFile.getStoragePath().length() == 0 && !(new File(mFile.getStoragePath()).isDirectory())) {
-                size = channel.size();
-            } else {
-                size = mFile.getStoragePath().length();
-            }
+            if (result == null) {
+                if ((mFile.getStoragePath().length() == 0 || onSDCard) && !(new File(mFile.getStoragePath()).isDirectory())) {
+                    size = channel.size();
 
-            for (OCUpload ocUpload : uploadsStorageManager.getAllStoredUploads()) {
-                if (ocUpload.getUploadId() == getOCUploadId()) {
-                    ocUpload.setFileSize(size);
-                    uploadsStorageManager.updateUpload(ocUpload);
-                    break;
+                    if (size == 0) {
+                        CountingInputStream countingInputStream = new CountingInputStream(new BufferedInputStream(
+                                new FileInputStream(mFile.getStoragePath())));
+
+                        while (countingInputStream.read() != -1) {
+
+                        }
+
+                        size = countingInputStream.getByteCount();
+                    }
+                } else {
+                    size = mFile.getStoragePath().length();
                 }
 
+                for (OCUpload ocUpload : uploadsStorageManager.getAllStoredUploads()) {
+                    if (ocUpload.getUploadId() == getOCUploadId()) {
+                        ocUpload.setFileSize(size);
+                        uploadsStorageManager.updateUpload(ocUpload);
+                        break;
+                    }
+
+                }
             }
 
-            /// perform the upload
-            if (mChunked &&
-                    (size > ChunkedUploadRemoteFileOperation.CHUNK_SIZE)) {
-                mUploadOperation = new ChunkedUploadRemoteFileOperation(mContext, mFile.getStoragePath(),
-                        mFile.getRemotePath(), mFile.getMimetype(), mFile.getEtagInConflict(), timeStamp, size);
+            if (size > 0) {
+                /// perform the upload
+                if (mChunked &&
+                        (size > ChunkedUploadRemoteFileOperation.CHUNK_SIZE)) {
+                    mUploadOperation = new ChunkedUploadRemoteFileOperation(mContext, mFile.getStoragePath(),
+                            mFile.getRemotePath(), mFile.getMimetype(), mFile.getEtagInConflict(), timeStamp, size);
+                } else {
+                    mUploadOperation = new UploadRemoteFileOperation(mFile.getStoragePath(),
+                            mFile.getRemotePath(), mFile.getMimetype(), mFile.getEtagInConflict(), timeStamp, size);
+                }
+
+                Iterator<OnDatatransferProgressListener> listener = mDataTransferListeners.iterator();
+                while (listener.hasNext()) {
+                    mUploadOperation.addDatatransferProgressListener(listener.next());
+                }
             } else {
-                mUploadOperation = new UploadRemoteFileOperation(mFile.getStoragePath(),
-                        mFile.getRemotePath(), mFile.getMimetype(), mFile.getEtagInConflict(), timeStamp, size);
-            }
-
-            Iterator<OnDatatransferProgressListener> listener = mDataTransferListeners.iterator();
-            while (listener.hasNext()) {
-                mUploadOperation.addDatatransferProgressListener(listener.next());
+                result = new RemoteOperationResult(ResultCode.UNKNOWN_ERROR);
             }
 
             if (mCancellationRequested.get()) {
