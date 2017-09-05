@@ -187,17 +187,15 @@ public class PreviewImageActivity extends FileActivity implements
         if (operation instanceof RemoveFileOperation) {
             finish();
         } else if (operation instanceof SynchronizeFileOperation) {
-            onSynchronizeFileOperationFinish((SynchronizeFileOperation) operation, result);
+            onSynchronizeFileOperationFinish(result);
 
         }
     }
     
-    private void onSynchronizeFileOperationFinish(SynchronizeFileOperation operation,
-                                                  RemoteOperationResult result) {
+    private void onSynchronizeFileOperationFinish(RemoteOperationResult result) {
         if (result.isSuccess()) {
             supportInvalidateOptionsMenu();
         }
-
     }
 
     @Override

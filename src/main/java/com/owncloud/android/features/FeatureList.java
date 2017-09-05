@@ -1,4 +1,4 @@
-/**
+/*
  *   Nextcloud Android client application
  *
  *   @author Bartosz Przybylski
@@ -27,11 +27,9 @@ import android.os.Parcelable;
 
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
-import com.owncloud.android.lib.common.utils.Log_OC;
 
 import java.util.LinkedList;
 import java.util.List;
-import java.util.regex.Pattern;
 
 /**
  * @author Bartosz Przybylski
@@ -175,16 +173,5 @@ public class FeatureList {
                         return new FeatureItem[size];
                     }
                 };
-    }
-
-    private static int versionCodeFromString(String version) {
-        String v[] = version.split(Pattern.quote("."));
-        if (v.length != 3) {
-            Log_OC.e("FeatureList", "Version string is incorrect " + version);
-            return 0;
-        }
-        return Integer.parseInt(v[0])*(int)(10e6) +
-                Integer.parseInt(v[1])*(int)(10e3) +
-                Integer.parseInt(v[2])*100;
     }
 }
