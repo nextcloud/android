@@ -421,14 +421,8 @@ public class UploadFileOperation extends SyncOperation {
                         channel = new RandomAccessFile(temporalFile.getAbsolutePath(), "rw").getChannel();
                         fileLock = channel.tryLock();
                     } else {
-                        Files.deleteIfExists(Paths.get(temporalPath));
-                        result = copy(originalFile, temporalFile);
+                        result = new RemoteOperationResult(ResultCode.LOCK_FAILED);
 
-                        if (result == null) {
-                            channel = new RandomAccessFile(temporalFile.getAbsolutePath(), "rw").
-                                    getChannel();
-                            fileLock = channel.tryLock();
-                        }
                     }
                 }
             }
