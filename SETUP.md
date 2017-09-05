@@ -26,13 +26,13 @@ For other software dependencies check the details in the section corresponding t
 
 ### 1. Fork and download the nextcloud/android repository.
 
-You will need [git][1] to access to the different versions of the Nextcloud's source code. The source code is hosted in Github and may be read by anybody without needing a Github account. You will need a Github account if you want to contribute to the development of the app with your own code.
+You will need [git][1] to access to the different versions of the Nextcloud's source code. The source code is hosted on GitHub and may be read by anybody, without a GitHub account. You will need one if you want to contribute to the development of the app with your own code.
 
-Next steps will assume you have a Github account and that you will get the code from your own fork.
+The next steps will assume you have a GitHub account and that you will get the code from your own fork.
 
 * In a web browser, go to https://github.com/nextcloud/android, and click the 'Fork' button near the top right corner.
 * Open a terminal and go on with the next steps in it.
-* Clone your forked repository: ```git clone --recursive https://github.com:YOURGITHUBNAME/android.git```.
+* Clone your forked repository: ```git clone --recursive https://github.com/YOURGITHUBNAME/android.git```.
 * Move to the project folder with ```cd android```.
 * Pull any changes from your remote branch 'master': ```git pull origin master```
 * Make official Nextcloud repo known as upstream: ```git remote add upstream https://github.com/nextcloud/android.git```
@@ -45,12 +45,12 @@ At this point you can continue using different tools to build the project. Secti
 
 [Android Studio][5] is currently the official Android IDE. Due to this, we recommend it as the IDE to use in your development environment. Follow the installation instructions [here][6].
 
-We recommend to use the last version available in the stable channel of Android Studio updates. See what update channel is your Android Studio checking for updates in the menu path 'Help'/'Check for Update...'/link 'Updates' in the dialog.
+We recommend to use the last version available in the stable channel of Android Studio updates. See what update channel is your Android Studio checking for updates in the menu path 'Help'/'Check for Update…'/link 'Updates' in the dialog.
 
 To set up the project in Android Studio follow the next steps:
 
 * Make sure you have called ```git submodule update``` whenever you switched branches
-* Open Android Studio and select 'Import Project (Eclipse ADT, Gradle, etc)'. Browse through your file system to the folder 'android' where the project is located. Android Studio will then create the '.iml' files it needs. If you ever close the project but the files are still there, you just select 'Open Project...'. The file chooser will show an Android face as the folder icon, which you can select to reopen the project.
+* Open Android Studio and select 'Import Project (Eclipse ADT, Gradle, etc)'. Browse through your file system to the folder 'android' where the project is located. Android Studio will then create the '.iml' files it needs. If you ever close the project but the files are still there, you just select 'Open Project…'. The file chooser will show an Android face as the folder icon, which you can select to reopen the project.
 * Android Studio will try to build the project directly after importing it. To build it manually, follow the menu path 'Build'/'Make Project', or just click the 'Play' button in the tool bar to build and run it in a mobile device or an emulator. The resulting APK file will be saved in the 'build/outputs/apk/' subdirectory in the project folder.
 
 
@@ -64,7 +64,7 @@ To set up the project in Android Studio follow the next steps:
     - Windows: ```gradlew.bat clean build```
     - Mac OS/Linux: ```./gradlew clean build```
 
-The first time the Gradle wrapper is called, the correct Gradle version will be downloaded automatically. That requires a working Internet connection.
+The first time the Gradle wrapper is called, the correct Gradle version will be downloaded automatically. This requires a working Internet connection.
 
 The generated APK file is saved in android/build/outputs/apk as android-debug.apk
 
