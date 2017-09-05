@@ -422,7 +422,6 @@ public class UploadFileOperation extends SyncOperation {
                         fileLock = channel.tryLock();
                     } else {
                         result = new RemoteOperationResult(ResultCode.LOCK_FAILED);
-
                     }
                 }
             }
@@ -489,7 +488,7 @@ public class UploadFileOperation extends SyncOperation {
                 throw new OperationCancelledException();
             }
 
-            if (result == null || result.isSuccess()) {
+            if (result == null || result.isSuccess() && mUploadOperation != null) {
                 result = mUploadOperation.execute(client);
 
                 /// move local temporal file or original file to its corresponding
