@@ -320,6 +320,19 @@ public class UploadFileOperation extends SyncOperation {
         File expectedFile = null;
         FileLock fileLock = null;
 
+        UploadsStorageManager uploadsStorageManager = new UploadsStorageManager(mContext.getContentResolver(),
+                mContext);
+
+        long size = new File(mFile.getStoragePath()).length();
+
+        for (OCUpload ocUpload : uploadsStorageManager.getAllStoredUploads()) {
+            if (ocUpload.getUploadId() == getOCUploadId()) {
+                ocUpload.setFileSize(size);
+                uploadsStorageManager.updateUpload(ocUpload);
+                break;
+            }
+        }
+        
         try {
 
             /// Check that connectivity conditions are met and delays the upload otherwise
@@ -424,10 +437,6 @@ public class UploadFileOperation extends SyncOperation {
                 }
             }
 
-            UploadsStorageManager uploadsStorageManager = new UploadsStorageManager(mContext.getContentResolver(),
-                    mContext);
-
-            long size = 0;
             try {
                 size = channel.size();
             } catch (IOException e1) {
