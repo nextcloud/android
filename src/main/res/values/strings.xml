@@ -695,4 +695,7 @@
     <string name="whats_new_fingerprint_content">Use your fingerprint to unlock the app</string>
     <string name="fallback_weblogin_back">BACK</string>
     <string name="fallback_weblogin_text">Go back to old login method</string>
+
+    <string name="foreground_service_upload">Uploading files...</string>
+    <string name="foreground_service_download">Downloading files...</string>
 </resources>

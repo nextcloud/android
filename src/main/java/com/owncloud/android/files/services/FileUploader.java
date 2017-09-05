@@ -420,6 +420,7 @@ public class FileUploader extends Service
 
         mNotification = new NotificationCompat.Builder(this).setContentTitle(getApplicationContext().
                 getResources().getString(R.string.app_name))
+                .setContentText(getApplicationContext().getResources().getString(R.string.foreground_service_upload))
                 .setSmallIcon(R.drawable.notification_icon)
                 .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.notification_icon))
                 .setColor(ThemeUtils.primaryColor())
