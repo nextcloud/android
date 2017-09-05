@@ -42,7 +42,7 @@
     <string name="prefs_passcode">Закључавање кодом</string>
     <string name="prefs_fingerprint">Закључавање отиском прста</string>
     <string name="prefs_fingerprint_notsetup">Отисак прста није подешен.</string>
-    <string name="prefs_expert_mode">Експертски начин рада</string>
+    <string name="prefs_expert_mode">Експертски режим</string>
     <string name="prefs_show_hidden_files">Покажи скривене датотеке</string>
     <string name="prefs_log_delete_history_button">Обриши историјат</string>
     <string name="prefs_calendar_contacts">Синхронизуј календар &amp; контакте</string>
@@ -220,6 +220,9 @@
     <string name="media_err_io">Не могу да прочитам мултимедијалну датотеку</string>
     <string name="media_err_malformed">Мултимедијална датотека има неисправно кодирање знакова</string>
     <string name="media_err_timeout">Истекло време покушавајући да пустим датотеку</string>
+    <string name="media_err_invalid_progressive_playback">Мултимедијална датотека не може да се пусти</string>
+    <string name="media_err_unknown">Уграђени мултимедијални плејер не може да пусти мултимедијалну датотеку</string>
+    <string name="media_err_security_ex">Грешка у вези безбедности при покушају да пустим %1$s</string>
     <string name="media_err_io_ex">Улазна грешка при покушају да пустим %1$s</string>
     <string name="media_err_unexpected">Неочекивана грешка при покушају да пустим %1$s</string>
     <string name="media_rewind_description">Уназад</string>
@@ -236,12 +239,14 @@
 	<string name="auth_account_not_new">Налог са истим корисничким именом и сервером већ постоји на овом уређају</string>
 	<string name="auth_account_not_the_same">Унесени корисник се не поклапа са корисником овог налога</string>
 	<string name="auth_unknown_error_title">Дошло је до непознате грешке!</string>
+	<string name="auth_unknown_host_title">Не могу да пронађем рачунар</string>
 	<string name="auth_incorrect_path_title">Сервер није нађен</string>
 	<string name="auth_timeout_title">Серверу је требало предуго да се одазове</string>
 	<string name="auth_incorrect_address_title">Погрешан формат адресе сервера</string>
 	<string name="auth_ssl_general_error_title">ССЛ иницијализација није успела</string>
 	<string name="auth_ssl_unverified_server_title">Не могу да проверим SSL идентитет сервера</string>
 	<string name="auth_bad_oc_version_title">Непозната верзија сервера</string>
+	<string name="auth_wrong_connection_title">Не могу да успоставим везу</string>
 	<string name="auth_secure_connection">Безбедна веза је успостављена</string>
 	<string name="auth_unauthorized">Погрешно име или лозинка</string>
 	<string name="auth_oauth_error">Неуспешна ауторизација</string>
@@ -250,30 +255,49 @@
 	<string name="auth_expired_oauth_token_toast">Ауторизација је истекла. Урадите је поново</string>
 	<string name="auth_expired_basic_auth_toast">Унесите тренутну лозинку</string>
 	<string name="auth_expired_saml_sso_token_toast">Сесија је истекла. Повежите се поново</string>
+	<string name="auth_connecting_auth_server">Повезивање на идентификациони сервер &#8230;</string>
 	<string name="auth_unsupported_auth_method">Сервер не подржава овај начин аутентификације</string>
 	<string name="auth_unsupported_multiaccount">%1$s не подржава вишеструке налоге</string>
 	<string name="auth_fail_get_user_name">Ваш сервер не враћа исправну идентификацију корисника, контактирајте администратора</string>
 	<string name="auth_can_not_auth_against_server">Не могу да аутентификујем са овим сервером</string>
+    <string name="auth_account_does_not_exist">Налог још не постоји на овом уређају</string>
+    <string name="auth_access_failed">Неуспео приступ</string>
+
+    <string name="favorite_real">Постави као омиљено</string>
+    <string name="unset_favorite_real">Склони као омиљено</string>
     <string name="common_rename">Преименуј</string>
     <string name="common_remove">Уклони</string>
+    <string name="confirmation_remove_file_alert">Да ли стварно желите да уклоните %1$s?</string>
+    <string name="confirmation_remove_folder_alert">Да ли стварно желите да уклоните %1$s и сав садржај из фасцикле?</string>
     <string name="confirmation_remove_local">Само локално</string>
+    <string name="remove_success_msg">Уклоњено</string>
     <string name="remove_fail_msg">Уклањање неуспешно</string>
     <string name="rename_dialog_title">Унесите нов назив</string>
+    <string name="rename_local_fail_msg">Промена имена локалне копије није успела, пробајте друго име</string>
     <string name="rename_server_fail_msg">Не могу серверу да дам ново име</string>
     <string name="sync_file_fail_msg">Не могу да проверим удаљену датотеку</string>
     <string name="sync_file_nothing_to_do_msg">Садржај је већ синхронизован</string>
+    <string name="create_dir_fail_msg">Не могу да направим фасциклу</string>
     <string name="filename_forbidden_characters">Забрањени знакови: / \\ &lt; &gt; : \" | ? *</string>
     <string name="filename_forbidden_charaters_from_server">Назив садржи бар један недозвољен карактер</string>
     <string name="filename_empty">Назив фајла не може бити празан</string>
+    <string name="wait_a_moment">Сачекајте мало &#8230;</string>
+    <string name="wait_checking_credentials">Проверавам сачуване акредитиве</string>
+    <string name="filedisplay_unexpected_bad_get_content">Неочекивана грешка, молимо одаберите датотеку из друге апликације</string>
+    <string name="filedisplay_no_file_selected">Није изабрана ниједна датотека</string>
     <string name="activity_chooser_title">Пошаљи везу &#8230;</string>
     <string name="wait_for_tmp_copy_from_private_storage">Копирам фајл из личног складишта</string>
     
+    <string name="oauth_check_onoff">Пријавите се са OAuth 2.0</string> 
+    <string name="oauth_login_connection">Повезивање са OAuth 2.0 сервером &#8230;</string>
+        
     <string name="ssl_validator_header">Не могу да проверим идентитет сајта</string>
     <string name="ssl_validator_reason_cert_not_trusted">– Сертификат сервера није од поверења</string>
     <string name="ssl_validator_reason_cert_expired">– Сертификат сервера је истекао</string>
     <string name="ssl_validator_reason_cert_not_yet_valid">- Датуми важења сертификата су у будућности</string>
     <string name="ssl_validator_reason_hostname_not_verified">– Адреса се не поклапа са именом домаћина у сертификату</string>
     <string name="ssl_validator_question">Желите ли ипак да верујете сертификату?</string>
+    <string name="ssl_validator_not_saved">Не могу да сачувам сертификат</string>
     <string name="ssl_validator_btn_details_see">Подаци</string>
     <string name="ssl_validator_btn_details_hide">Сакриј</string>
     <string name="ssl_validator_label_subject">Издато за:</string>
@@ -291,11 +315,13 @@
     <string name="ssl_validator_label_signature_algorithm">Алгоритам:</string>
     <string name="digest_algorithm_not_available">Дигест алгоритам није доступан на вашем уређају.</string>
     <string name="ssl_validator_label_certificate_fingerprint">Отисак:</string>
+    <string name="certificate_load_problem">Појавио се проблем приликом учитавања сертификата.</string>
     <string name="ssl_validator_null_cert">Сертификат се не може приказати.</string>
     <string name="ssl_validator_no_info_about_error">- Нема података о грешци</string>
 
     <string name="placeholder_sentence">Ово је местодржач</string>
     <string name="placeholder_filename">чувамместо.txt</string>
+    <string name="placeholder_filetype">ПНГ слика</string>
     <string name="placeholder_filesize">389 KB</string>
     <string name="placeholder_timestamp">2012/05/18 12:23 ПоП</string>
     <string name="placeholder_media_time">12:23:45</string>
@@ -306,15 +332,23 @@
     <string name="instant_upload_path">/InstantUpload</string>
     <string name="auto_upload_path">/Аутоматска отпремања</string>
     <string name="conflict_title">Конфликт датотека</string>
+    <string name="conflict_message">Које датотеке желите да сачувате? Ако изаберете обе верзије, локалној датотеци ће бити додат број у назив.</string>
     <string name="conflict_keep_both">Задржи оба</string>
     <string name="conflict_use_local_version">локална верзија</string>
     <string name="conflict_use_server_version">верзија сервера</string>
 
+    <string name="preview_sorry">Извините.</string>
     <string name="preview_image_description">Преглед слике</string>
+    <string name="preview_image_error_unknown_format">Не могу да прикажем слику</string>
+
     <string name="error__upload__local_file_not_copied">%1$s се не може копирати у локалну фасциклу %2$s</string>
     <string name="prefs_instant_upload_path_title">Фасцикла за брза отпремања</string>
+    <string name="prefs_synced_folders_local_path_title">Локална фасцикла</string>
     <string name="prefs_synced_folders_remote_path_title">Удаљена фасцикла</string>
-    <string name="share_link_no_support_share_api">Дељење није омогућено на овом серверу. Контактирајте администратора.</string>
+    <string name="prefs_instant_upload_path_use_subfolders_title">Користи подфасцикле</string>
+    <string name="prefs_instant_upload_path_use_subfolders_summary">Сачувај у подфасциклама према години и месецу</string>
+
+	<string name="share_link_no_support_share_api">Дељење није омогућено на овом серверу. Контактирајте администратора.</string>
 	<string name="share_link_file_no_exist">Не могу да делим. Проверите да ли фајл постоји</string>
 	<string name="share_link_file_error">Дошло је до грешке приликом покушаја дељења овог фајла или фасцикле</string>
 	<string name="unshare_link_file_no_exist">Не могу да прекинем дељење. Проверите да ли фајл постоји</string>
@@ -327,19 +361,47 @@
 
     <string name="copy_link">Копирај везу</string>
     <string name="clipboard_text_copied">Копирано у клипборд</string>
+    <string name="clipboard_label">Текст прекопиран са %1$s</string>
+
     <string name="network_error_socket_exception">Дошло је до грешке приликом повезивања са сервером.</string>
     <string name="network_error_socket_timeout_exception">Дошло је до грешке при чекању на сервер. Радња није могла бити урађена.</string>
     <string name="network_error_connect_timeout_exception">Дошло је до грешке при чекању на сервер. Радња није могла бити урађена.</string>
     <string name="network_host_not_available">Радња није могла бити урађена. Сервер није доступан</string>
 
+    <string name="forbidden_permissions">Није вам дозвољено да %s</string>
     <string name="forbidden_permissions_rename">да преименујете овај фајл</string>
     <string name="forbidden_permissions_delete">да обришете овај фајл</string>
     <string name="share_link_forbidden_permissions">да делите овај фајл</string>
     <string name="unshare_link_forbidden_permissions">да укинете дељење овог фајла</string>
     <string name="update_link_forbidden_permissions">да ажурирате овај фајл</string>
+    <string name="forbidden_permissions_create">направите ову датотеку</string>
+    <string name="uploader_upload_forbidden_permissions">да отпремите ову фасциклу</string>
     <string name="downloader_download_file_not_found">Фајл није више доступан на серверу</string>
 
+    <string name="file_migration_dialog_title">Ажурирам путању до складишта</string>
+    <string name="file_migration_finish_button">Заврши</string>
+    <string name="file_migration_preparing">Припремам пребацивање &#8230;</string>
+    <string name="file_migration_checking_destination">Проверавам одредиште &#8230;</string>
+    <string name="file_migration_saving_accounts_configuration">Чувам подешавања налога &#8230;</string>
+    <string name="file_migration_waiting_for_unfinished_sync">Чекам да се синхронизација заврши &#8230;</string>
+    <string name="file_migration_migrating">Премештам податке &#8230;</string>
+    <string name="file_migration_updating_index">Ажурирам индекс &#8230;</string>
+    <string name="file_migration_cleaning">Чистим &#8230;</string>
+    <string name="file_migration_restoring_accounts_configuration">Враћам подешавања налога &#8230;</string>
+    <string name="file_migration_ok_finished">Завршено</string>
+    <string name="file_migration_failed_not_enough_space">Грешка: недовољно места</string>
+    <string name="file_migration_failed_not_writable">Грешка: не могу да пишем у одредишну датотеку</string>
+    <string name="file_migration_failed_not_readable">Грешка: не могу да читам из изворне датотеке</string>
+    <string name="file_migration_failed_while_coping">Грешка: неуспешно пребацивање</string>
+    <string name="file_migration_failed_while_updating_index">Грешка: неуспешно ажурирање индекса</string>
+
+    <string name="file_migration_directory_already_exists">Фасцикла са подацима већ постоји. Одаберите шта да радим:</string>
+    <string name="file_migration_override_data_folder">Замени постојећу</string>
+    <string name="file_migration_use_data_folder">Искористи ову</string>
+
+    <string name="file_migration_source_not_readable_title">Не могу да читам из изворне фасцикле!</string>
     <string name="prefs_add_account">Додај налог</string>
+    <string name="drawer_manage_accounts">Управљање налозима</string>
     <string name="actionbar_logger">Записници</string>
 	<string name="log_send_history_button">Пошаљи историјат</string>
 	<string name="log_send_mail_subject">Записници %1$s Андроид апликације</string>
@@ -348,8 +410,12 @@
 	<string name="saml_authentication_required_text">Неопходна аутентификација</string>
 	<string name="saml_authentication_wrong_pass">Погрешна лозинка</string>
 	<string name="actionbar_move">Премести</string>
-    <string name="folder_picker_choose_button_text">Одабери</string>
+    <string name="actionbar_copy">Копирај</string>
+	<string name="file_list_empty_moving">Овде нема ничег. Можете додати фасциклу.</string>
+	<string name="folder_picker_choose_button_text">Одабери</string>
 
+    <string name="move_file_not_found">Не могу да померим датотеку. Проверите да ли још постоји.</string>
+    <string name="move_file_invalid_overwrite">Датотека већ постоји у одредишној фасцикли</string>
     <string name="move_file_error">Дошло је до грешке при премештању фајла или фасцикле</string>
     <string name="forbidden_permissions_move">да преместите овај фајл</string>
 
@@ -396,12 +462,19 @@
     <string name="share_via_link_expiration_date_label">Постави датум истека</string>
     <string name="share_via_link_password_title">Обезбеђен</string>
     <string name="share_via_link_edit_permission_label">уређивање</string>
+    <string name="share_via_link_hide_file_listing_permission_label">Сакриј списак датотека</string>
     <string name="share_get_public_link_button">Добави везу</string>
+    <string name="share_with_title">Подели са &#8230;</string>
+    <string name="share_with_edit_title">Подели са %1$s</string>
+
     <string name="share_search">Тражи</string>
 
     <string name="search_users_and_groups_hint">Претражи кориснике и групе</string>
     <string name="share_group_clarification">%1$s (група)</string>
     <string name="share_remote_clarification">%1$s(удаљено)</string>
+    <string name="share_email_clarification">%1$s (е-пошта)</string>
+    <string name="share_known_remote_clarification">%1$s (на %2$s)</string>
+
     <string name="share_privilege_can_share">може да дели</string>
     <string name="share_privilege_can_edit">може да мења</string>
     <string name="share_privilege_can_edit_create">направи</string>
@@ -410,6 +483,8 @@
     <string name="edit_share_unshare">Заустави дељење</string>
     <string name="edit_share_done">завршено</string>
 
+    <string name="action_force_rescan">Форсирај поновно скенирање</string>
+
     <string name="action_switch_grid_view">Приказ мреже</string>
     <string name="action_switch_list_view">Приказ листе</string>
 
@@ -417,6 +492,11 @@
     <string name="manage_space_clear_data">Очисти податке</string>
     <string name="manage_space_error">Неки фајлови нису могли бити обрисани.</string>
 
+    <string name="local_file_not_found_toast">Датотека није нађена у локалном систему датотека</string>
+    <string name="maintenance_mode">Сервер у режиму одржавања</string>
+    <string name="lock_failed">Неуспело закључавање датотеке</string>
+
+    <string name="uploads_view_upload_status_waiting_for_charging">Чекам пуњење</string>
     <string name="drawer_synced_folders">Аутоматска отпремања</string>
     <string name="choose_remote_folder">Одаберите удаљену фасциклу &#8230;</string>
     <string name="synced_folders_preferences">Подешавања аутоматског отпремања</string>
