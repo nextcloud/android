@@ -52,11 +52,9 @@ import com.owncloud.android.utils.UriUtils;
 
 import org.apache.commons.httpclient.HttpStatus;
 import org.apache.commons.httpclient.methods.RequestEntity;
-import org.apache.commons.io.input.CountingInputStream;
 import org.lukhnos.nnio.file.Files;
 import org.lukhnos.nnio.file.Paths;
 
-import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -426,62 +424,38 @@ public class UploadFileOperation extends SyncOperation {
                 }
             }
 
-            long size = 0;
             UploadsStorageManager uploadsStorageManager = new UploadsStorageManager(mContext.getContentResolver(),
                     mContext);
-            if (result == null || result.isSuccess()) {
-                if ((mFile.getStoragePath().length() == 0 || onSDCard) && !(new File(mFile.getStoragePath()).isDirectory())) {
-                    size = channel.size();
 
-                    if (size == 0) {
-                        CountingInputStream countingInputStream = new CountingInputStream(new BufferedInputStream(
-                                new FileInputStream(mFile.getStoragePath())));
+            long size = 0;
+            try {
+                size = channel.size();
+            } catch (IOException e1) {
+                size = new File(mFile.getStoragePath()).length();
+            }
 
-                        while (countingInputStream.read() != -1) {
-
-                        }
-
-                        size = countingInputStream.getByteCount();
-                    }
-                } else {
-                    size = mFile.getStoragePath().length();
-                }
-
-                for (OCUpload ocUpload : uploadsStorageManager.getAllStoredUploads()) {
-                    if (ocUpload.getUploadId() == getOCUploadId()) {
-                        ocUpload.setFileSize(size);
-                        uploadsStorageManager.updateUpload(ocUpload);
-                        break;
-                    }
-
+            for (OCUpload ocUpload : uploadsStorageManager.getAllStoredUploads()) {
+                if (ocUpload.getUploadId() == getOCUploadId()) {
+                    ocUpload.setFileSize(size);
+                    uploadsStorageManager.updateUpload(ocUpload);
+                    break;
                 }
             }
 
-            if (size > 0) {
-                /// perform the upload
-                if (mChunked &&
-                        (size > ChunkedUploadRemoteFileOperation.CHUNK_SIZE)) {
-                    if (mFile.getStoragePath().length() == 0) {
-                        mUploadOperation = new ChunkedUploadRemoteFileOperation(mContext, mFile.getStoragePath(),
-                                mFile.getRemotePath(), mFile.getMimetype(), mFile.getEtagInConflict(), timeStamp, size);
-                    } else {
-                        mUploadOperation = new ChunkedUploadRemoteFileOperation(mContext, mFile.getStoragePath(),
-                                mFile.getRemotePath(), mFile.getMimetype(), mFile.getEtagInConflict(), timeStamp);
-                    }
-                } else {
-                    if (mFile.getStoragePath().length() == 0) {
-                        mUploadOperation = new UploadRemoteFileOperation(mFile.getStoragePath(),
-                                mFile.getRemotePath(), mFile.getMimetype(), mFile.getEtagInConflict(), timeStamp, size);
-                    } else {
-                        mUploadOperation = new UploadRemoteFileOperation(mFile.getStoragePath(),
-                                mFile.getRemotePath(), mFile.getMimetype(), mFile.getEtagInConflict(), timeStamp);
-                    }
-                }
+            /// perform the upload
+            if (mChunked &&
+                    (size > ChunkedUploadRemoteFileOperation.CHUNK_SIZE)) {
+                mUploadOperation = new ChunkedUploadRemoteFileOperation(mContext, mFile.getStoragePath(),
+                        mFile.getRemotePath(), mFile.getMimetype(), mFile.getEtagInConflict(), timeStamp);
+            } else {
 
-                Iterator<OnDatatransferProgressListener> listener = mDataTransferListeners.iterator();
-                while (listener.hasNext()) {
-                    mUploadOperation.addDatatransferProgressListener(listener.next());
-                }
+                mUploadOperation = new UploadRemoteFileOperation(mFile.getStoragePath(),
+                        mFile.getRemotePath(), mFile.getMimetype(), mFile.getEtagInConflict(), timeStamp);
+            }
+
+            Iterator<OnDatatransferProgressListener> listener = mDataTransferListeners.iterator();
+            while (listener.hasNext()) {
+                mUploadOperation.addDatatransferProgressListener(listener.next());
             }
 
             if (mCancellationRequested.get()) {
