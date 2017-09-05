@@ -436,7 +436,7 @@ public class UploadFileOperation extends SyncOperation {
             long size = 0;
             UploadsStorageManager uploadsStorageManager = new UploadsStorageManager(mContext.getContentResolver(),
                     mContext);
-            if (result == null) {
+            if (result == null || result.isSuccess()) {
                 if ((mFile.getStoragePath().length() == 0 || onSDCard) && !(new File(mFile.getStoragePath()).isDirectory())) {
                     size = channel.size();
 
@@ -468,11 +468,21 @@ public class UploadFileOperation extends SyncOperation {
                 /// perform the upload
                 if (mChunked &&
                         (size > ChunkedUploadRemoteFileOperation.CHUNK_SIZE)) {
-                    mUploadOperation = new ChunkedUploadRemoteFileOperation(mContext, mFile.getStoragePath(),
-                            mFile.getRemotePath(), mFile.getMimetype(), mFile.getEtagInConflict(), timeStamp, size);
+                    if (mFile.getStoragePath().length() == 0) {
+                        mUploadOperation = new ChunkedUploadRemoteFileOperation(mContext, mFile.getStoragePath(),
+                                mFile.getRemotePath(), mFile.getMimetype(), mFile.getEtagInConflict(), timeStamp, size);
+                    } else {
+                        mUploadOperation = new ChunkedUploadRemoteFileOperation(mContext, mFile.getStoragePath(),
+                                mFile.getRemotePath(), mFile.getMimetype(), mFile.getEtagInConflict(), timeStamp);
+                    }
                 } else {
-                    mUploadOperation = new UploadRemoteFileOperation(mFile.getStoragePath(),
-                            mFile.getRemotePath(), mFile.getMimetype(), mFile.getEtagInConflict(), timeStamp, size);
+                    if (mFile.getStoragePath().length() == 0) {
+                        mUploadOperation = new UploadRemoteFileOperation(mFile.getStoragePath(),
+                                mFile.getRemotePath(), mFile.getMimetype(), mFile.getEtagInConflict(), timeStamp, size);
+                    } else {
+                        mUploadOperation = new UploadRemoteFileOperation(mFile.getStoragePath(),
+                                mFile.getRemotePath(), mFile.getMimetype(), mFile.getEtagInConflict(), timeStamp);
+                    }
                 }
 
                 Iterator<OnDatatransferProgressListener> listener = mDataTransferListeners.iterator();
@@ -485,7 +495,7 @@ public class UploadFileOperation extends SyncOperation {
                 throw new OperationCancelledException();
             }
 
-            if (result == null) {
+            if (result == null || result.isSuccess()) {
                 result = mUploadOperation.execute(client);
 
                 /// move local temporal file or original file to its corresponding
