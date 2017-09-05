@@ -33,6 +33,7 @@ import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.os.Binder;
 import android.os.Handler;
 import android.os.HandlerThread;
@@ -418,6 +419,8 @@ public class FileUploader extends Service
 
         mNotification = new NotificationCompat.Builder(this).setContentTitle(getApplicationContext().
                 getResources().getString(R.string.app_name))
+                .setSmallIcon(R.mipmap.ic_launcher)
+                .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher))
                 .build();
 
         int failedCounter = mUploadsStorageManager.failInProgressUploads(
