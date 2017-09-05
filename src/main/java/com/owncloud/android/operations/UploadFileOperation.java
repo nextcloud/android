@@ -410,14 +410,11 @@ public class UploadFileOperation extends SyncOperation {
             Long timeStampLong = originalFile.lastModified() / 1000;
             String timeStamp = timeStampLong.toString();
 
-
-            boolean onSDCard = false;
             FileChannel channel = null;
             try {
                 channel = new RandomAccessFile(mFile.getStoragePath(), "rw").getChannel();
                 fileLock = channel.tryLock();
             } catch (FileNotFoundException e) {
-                onSDCard = true;
                 // this basically means that the file is on SD card
                 // try to copy file to temporary dir if it doesn't exist
                 String temporalPath = FileStorageUtils.getTemporalPath(mAccount.name) + mFile.getRemotePath();
