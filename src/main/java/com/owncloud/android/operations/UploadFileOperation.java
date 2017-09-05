@@ -323,7 +323,7 @@ public class UploadFileOperation extends SyncOperation {
         UploadsStorageManager uploadsStorageManager = new UploadsStorageManager(mContext.getContentResolver(),
                 mContext);
 
-        long size = new File(mFile.getStoragePath()).length();
+        long size = 0;
 
         for (OCUpload ocUpload : uploadsStorageManager.getAllStoredUploads()) {
             if (ocUpload.getUploadId() == getOCUploadId()) {
@@ -332,7 +332,7 @@ public class UploadFileOperation extends SyncOperation {
                 break;
             }
         }
-        
+
         try {
 
             /// Check that connectivity conditions are met and delays the upload otherwise
