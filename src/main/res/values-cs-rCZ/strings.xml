@@ -456,14 +456,6 @@
 
     <string name="username">Uživatelské jméno</string>
 
-    <string name="file_list__footer__folder">1 adresář</string>
-    <string name="file_list__footer__folders">%1$d adresáře(ů)</string>
-    <string name="file_list__footer__file">1 soubor</string>
-    <string name="file_list__footer__file_and_folder">1 soubor, 1 adresář</string>
-    <string name="file_list__footer__file_and_folders">1 soubor, %1$d adresáře(ů)</string>
-    <string name="file_list__footer__files">%1$d soubory(ů)</string>
-    <string name="file_list__footer__files_and_folder">%1$d soubory(ů), 1 adresář</string>
-    <string name="file_list__footer__files_and_folders">%1$d soubory(ů), %2$d adresáře(ů)</string>
     <string name="set_picture_as">Použít obrázek jako</string>
     <string name="set_as">Nastavit jako</string>
 

@@ -335,14 +335,6 @@
 
     <string name="username">Brugernavn</string>
 
-    <string name="file_list__footer__folder">1 mappe</string>
-    <string name="file_list__footer__folders">%1$d mapper</string>
-    <string name="file_list__footer__file">1 fil</string>
-    <string name="file_list__footer__file_and_folder">1 fil, 1 mappe</string>
-    <string name="file_list__footer__file_and_folders">1 fil, %1$d mapper</string>
-    <string name="file_list__footer__files">%1$d filer</string>
-    <string name="file_list__footer__files_and_folder">%1$d filer, 1 mape</string>
-    <string name="file_list__footer__files_and_folders">%1$d filer, %2$d mapper</string>
     <string name="upload_copy_files">Kopiér fil</string>
     <string name="upload_move_files">Flyt fil</string>
     <string name="select_all">Vælg alle</string>

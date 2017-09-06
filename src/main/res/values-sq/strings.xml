@@ -453,14 +453,6 @@
 
     <string name="username">Emër përdoruesi</string>
 
-    <string name="file_list__footer__folder">1 dosje</string>
-    <string name="file_list__footer__folders">%1$d dosje</string>
-    <string name="file_list__footer__file">1 skedar</string>
-    <string name="file_list__footer__file_and_folder">1 skedar, 1 dosje</string>
-    <string name="file_list__footer__file_and_folders">1 skedar, %1$d dosje</string>
-    <string name="file_list__footer__files">%1$d skedar</string>
-    <string name="file_list__footer__files_and_folder">%1$d skedare, 1 dosje</string>
-    <string name="file_list__footer__files_and_folders">%1$d skedare, %2$d dosje</string>
     <string name="set_picture_as">Vendos fotografinë</string>
     <string name="set_as">Vendos Si</string>
 

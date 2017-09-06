@@ -458,14 +458,6 @@
 
     <string name="username">Felhasználónév</string>
 
-    <string name="file_list__footer__folder">1 mappa</string>
-    <string name="file_list__footer__folders">%1$d mappa</string>
-    <string name="file_list__footer__file">1 fájl</string>
-    <string name="file_list__footer__file_and_folder">1 fájl, 1 mappa</string>
-    <string name="file_list__footer__file_and_folders">1 fájl, %1$d mappa</string>
-    <string name="file_list__footer__files">%1$d fájl</string>
-    <string name="file_list__footer__files_and_folder">%1$d fájl, 1 mappa</string>
-    <string name="file_list__footer__files_and_folders">%1$d fájl, %2$d mappa</string>
     <string name="set_picture_as">Kép használata mint</string>
     <string name="set_as">Beállítás mint</string>
 

@@ -426,14 +426,6 @@
 
     <string name="username">Användarnamn</string>
 
-    <string name="file_list__footer__folder">1 mapp</string>
-    <string name="file_list__footer__folders">%1$d mappar</string>
-    <string name="file_list__footer__file">1 fil</string>
-    <string name="file_list__footer__file_and_folder">1 fil, 1 mapp</string>
-    <string name="file_list__footer__file_and_folders">1 fil, %1$d mappar</string>
-    <string name="file_list__footer__files">%1$d filer</string>
-    <string name="file_list__footer__files_and_folder">%1$d filer, 1 mapp</string>
-    <string name="file_list__footer__files_and_folders">%1$d filer, %2$d mappar</string>
     <string name="set_picture_as">Använd bild som</string>
     <string name="set_as">Sätt som</string>
 

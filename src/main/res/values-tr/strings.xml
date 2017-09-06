@@ -458,14 +458,6 @@
 
     <string name="username">Kullanıcı adı</string>
 
-    <string name="file_list__footer__folder">1 klasör</string>
-    <string name="file_list__footer__folders">%1$d klasör</string>
-    <string name="file_list__footer__file">1 dosya</string>
-    <string name="file_list__footer__file_and_folder">1 dosya, 1 klasör</string>
-    <string name="file_list__footer__file_and_folders">1 dosya, %1$d klasör</string>
-    <string name="file_list__footer__files">%1$d dosya</string>
-    <string name="file_list__footer__files_and_folder">%1$d dosya, 1 klasör</string>
-    <string name="file_list__footer__files_and_folders">%1$d dosya, %2$d klasör</string>
     <string name="set_picture_as">Görseli farklı kullan</string>
     <string name="set_as">Farklı Ayarla</string>
 

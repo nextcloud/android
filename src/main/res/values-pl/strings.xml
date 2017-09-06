@@ -457,14 +457,6 @@
 
     <string name="username">Użytkownik</string>
 
-    <string name="file_list__footer__folder">1 folder</string>
-    <string name="file_list__footer__folders">%1$d folderów</string>
-    <string name="file_list__footer__file">1 plik</string>
-    <string name="file_list__footer__file_and_folder">1 plik , 1 folder</string>
-    <string name="file_list__footer__file_and_folders">1 plik, %1$d folderów</string>
-    <string name="file_list__footer__files">%1$d plików</string>
-    <string name="file_list__footer__files_and_folder">%1$d plików, 1 folder</string>
-    <string name="file_list__footer__files_and_folders">%1$d plików, %2$d folderów</string>
     <string name="set_picture_as">Użyj obrazu jako</string>
     <string name="set_as">Ustaw jako</string>
 

@@ -459,14 +459,6 @@ Attention la suppression est irréversible.</string>
 
     <string name="username">Nom d\'utilisateur</string>
 
-    <string name="file_list__footer__folder">1 dossier</string>
-    <string name="file_list__footer__folders">%1$d dossiers</string>
-    <string name="file_list__footer__file">1 fichier</string>
-    <string name="file_list__footer__file_and_folder">1 fichier, 1 dossier</string>
-    <string name="file_list__footer__file_and_folders">1 fichier, %1$d dossiers</string>
-    <string name="file_list__footer__files">%1$d fichiers</string>
-    <string name="file_list__footer__files_and_folder">%1$d fichiers, 1 dossier</string>
-    <string name="file_list__footer__files_and_folders">%1$d fichiers, %2$d dossiers</string>
     <string name="set_picture_as">Utiliser l\'image comme</string>
     <string name="set_as">Utiliser comme</string>
 

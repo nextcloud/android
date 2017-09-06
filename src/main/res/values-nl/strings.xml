@@ -459,14 +459,6 @@ Kies er eentje van een provider.</string>
 
     <string name="username">Gebruikersnaam</string>
 
-    <string name="file_list__footer__folder">1 map</string>
-    <string name="file_list__footer__folders">%1$d mappen</string>
-    <string name="file_list__footer__file">1 bestand</string>
-    <string name="file_list__footer__file_and_folder">1 bestand, 1 map</string>
-    <string name="file_list__footer__file_and_folders">1 bestand, %1$d mappen</string>
-    <string name="file_list__footer__files">%1$d bestanden</string>
-    <string name="file_list__footer__files_and_folder">%1$d bestanden, 1 map</string>
-    <string name="file_list__footer__files_and_folders">%1$d bestanden, %2$d mappen</string>
     <string name="set_picture_as">Gebruik afbeelding als</string>
     <string name="set_as">Stel in als</string>
 
