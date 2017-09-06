@@ -680,4 +680,5 @@
     <string name="whats_new_fingerprint_content">Përdorni gjurmët e gishtave tuaj për të zhbllokuar aplikacionin</string>
     <string name="fallback_weblogin_back">PRAPA</string>
     <string name="fallback_weblogin_text">Kthehu në metodën e vjetër të hyrjes</string>
-</resources>
+
+    </resources>

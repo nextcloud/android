@@ -681,4 +681,5 @@
     <string name="whats_new_fingerprint_content">Користите Ваш отисак прста да откључате апликацију</string>
     <string name="fallback_weblogin_back">НАЗАД</string>
     <string name="fallback_weblogin_text">Користите стари начин за пријављивање</string>
-</resources>
+
+    </resources>

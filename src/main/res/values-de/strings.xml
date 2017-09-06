@@ -682,4 +682,5 @@
     <string name="whats_new_fingerprint_content">Entsperre die App mit Deinem Fingerabdruck</string>
     <string name="fallback_weblogin_back">ZURÜCK</string>
     <string name="fallback_weblogin_text">Zurück zu alter Anmeldeart</string>
-</resources>
+
+    </resources>

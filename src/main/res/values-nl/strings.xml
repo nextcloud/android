@@ -681,4 +681,5 @@ Kies er eentje van een provider.</string>
     <string name="whats_new_fingerprint_content">Gebruik je vingerafdruk om de app te deblokkeren</string>
     <string name="fallback_weblogin_back">Terug</string>
     <string name="fallback_weblogin_text">Ga terug naar de oude inlog methode</string>
-</resources>
+
+    </resources>
