@@ -187,7 +187,6 @@
     <string name="sync_conflicts_in_favourites_ticker">Konflikter funnet</string>
     <string name="sync_fail_in_favourites_ticker">Holdt-i-synk -filer mislyktes</string>
     <string name="sync_foreign_files_forgotten_ticker">Noen lokale filer ble glemt</string>
-    <string name="sync_foreign_files_forgotten_content">%1$d filer fra %2$s mappen kunne ikke kopieres til</string>
     <string name="sync_current_folder_was_removed">Mappen %1$s finnes ikke lengre</string>
     <string name="foreign_files_move">Flytt alle</string>
     <string name="foreign_files_success">Alle filene ble flyttet</string>

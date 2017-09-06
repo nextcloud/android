@@ -187,7 +187,6 @@
     <string name="sync_conflicts_in_favourites_ticker">Conflitos encontrados</string>
     <string name="sync_fail_in_favourites_ticker">Falha ao manter arquivos sincronizados</string>
     <string name="sync_foreign_files_forgotten_ticker">Alguns arquivos locais foram esquecidos</string>
-    <string name="sync_foreign_files_forgotten_content">%1$d arquivos de %2$s não puderam ser copiados para a pasta</string>
     <string name="sync_foreign_files_forgotten_explanation">A partir da versão 1.3.16, os arquivos enviados a partir deste dispositivo são copiados para a pasta local %1$s para evitar a perda de dados quando um único arquivo é sincronizado com várias contas.\n\nDevido à esta alteração, todos os arquivos enviados com versões anteriores deste aplicativo foram copiados para a pasta %2$s. No entanto, um erro impediu a conclusão desta operação durante a sincronização da conta. Você pode ou deixar o(s) arquivo(s) assim mesmo e excluir o link para %3$s ou mover o(s) arquivo(s) para a pasta %1$s e manter o link para %4$s.\n\nAbaixo estão listados os arquivos locais e o(s) arquivo(s) remoto(s) em %5$s para onde eles estão linkados.</string>
     <string name="sync_current_folder_was_removed">A pasta %1$s não existe mais</string>
     <string name="foreign_files_move">Mover tudo</string>

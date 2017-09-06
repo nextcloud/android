@@ -142,7 +142,6 @@
     <string name="sync_conflicts_in_favourites_ticker">Открити са конфликти</string>
     <string name="sync_fail_in_favourites_ticker">Неуспешни Kept-in-sync файлове</string>
     <string name="sync_foreign_files_forgotten_ticker">Някои локални файлове бяха забравени.</string>
-    <string name="sync_foreign_files_forgotten_content">%1$d файла от %2$s папки не могат да бъдат копирани</string>
     <string name="pass_code_enter_pass_code">Моля, въведете кода за достъп</string>
     
     <string name="pass_code_configure_your_pass_code">Въведете кода за достъп</string>

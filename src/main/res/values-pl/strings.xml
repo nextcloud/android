@@ -187,7 +187,6 @@
     <string name="sync_conflicts_in_favourites_ticker">Znaleziono konflikty</string>
     <string name="sync_fail_in_favourites_ticker">Synchronizacja plików nie powiodła się</string>
     <string name="sync_foreign_files_forgotten_ticker">Niektóre lokalne pliki zostały zgubione.</string>
-    <string name="sync_foreign_files_forgotten_content">%1$d plików z folderu %2$s nie udało się się przekopiować</string>
     <string name="sync_foreign_files_forgotten_explanation">Od wersji 1.3.16, pliki wysyłane z tego urządzenia są kopiowane do lokalnego folderu %1$s aby zapobiec utracie danych gdy pojedynczy plik jest synchronizowany z wieloma kontami.\n\nZ powodu tej zmiany, wszystkie pliki wysłane za pomocą poprzedniej wersji tej aplikacji były kopiowane do folderu %2$s. Jednakże błąd uniemożliwiał dokończenie tej operacji podczas synchronizacji konta. Możesz albo pozostawić plik(i) tak jak jest i usunąć link do %3$s lub przenieść plik(i) do folderu %1$s i pozostawić link do %4$s.\n\nPoniżej plik(i) lokalny i plik(i) zdalny w %5$s, do którego zostały zlinkowane.</string>
     <string name="sync_current_folder_was_removed">Folder %1$s nie istnieje</string>
     <string name="foreign_files_move">Przenieś wszystko</string>

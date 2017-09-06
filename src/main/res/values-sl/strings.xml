@@ -177,7 +177,6 @@
     <string name="sync_conflicts_in_favourites_ticker">Zaznani spori</string>
     <string name="sync_fail_in_favourites_ticker">Posodobitev stalno usklajenih datotek je spodletelo</string>
     <string name="sync_foreign_files_forgotten_ticker">Nekatere krajevne datoteke so spregledane</string>
-    <string name="sync_foreign_files_forgotten_content">Skupno %1$d datotek iz mape %2$s ni mogoče kopirati v</string>
     <string name="sync_current_folder_was_removed">Mapa %1$s ne obstaja več</string>
     <string name="upload_query_move_foreign_files">Ni dovolj prostora za kopiranje izbranih datotek v mapo %1$s. Ali želiš datoteke premakniti na novo mesto?</string>
     <string name="pass_code_enter_pass_code">Vnesite kodo PIN</string>

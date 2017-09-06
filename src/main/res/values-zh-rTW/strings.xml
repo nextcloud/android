@@ -169,7 +169,6 @@
     <string name="sync_conflicts_in_favourites_ticker">出現衝突</string>
     <string name="sync_fail_in_favourites_ticker">同步檔案失敗</string>
     <string name="sync_foreign_files_forgotten_ticker">有些本地端的檔案已遺失</string>
-    <string name="sync_foreign_files_forgotten_content">%2$s 資料夾中的 %1$d 個檔案無法被複製進去</string>
     <string name="sync_current_folder_was_removed">資料夾%1$s已不存在</string>
     <string name="upload_query_move_foreign_files">空間不足以將選擇檔案複製到%1$s資料夾，是否要改用移動檔案？</string>
     <string name="pass_code_enter_pass_code">請輸入通行碼</string>

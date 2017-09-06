@@ -163,7 +163,6 @@
     <string name="sync_conflicts_in_favourites_ticker">Ristiriitoja löytynyt</string>
     <string name="sync_fail_in_favourites_ticker">\"Pidä synkronoituna\" epäonnistui</string>
     <string name="sync_foreign_files_forgotten_ticker">Jotkin paikalliset tiedostot unohtuivat</string>
-    <string name="sync_foreign_files_forgotten_content">%1$d / %2$s tiedostoa ei voitu kopioida</string>
     <string name="sync_current_folder_was_removed">Kansiota %1$s ei ole enää olemassa</string>
     <string name="foreign_files_move">Siirrä kaikki</string>
     <string name="foreign_files_success">Kaikki tiedostot siirrettiin</string>
