@@ -457,14 +457,6 @@
 
     <string name="username">Nome do usuário</string>
 
-    <string name="file_list__footer__folder">1 pasta</string>
-    <string name="file_list__footer__folders">%1$d pastas</string>
-    <string name="file_list__footer__file">1 arquivo</string>
-    <string name="file_list__footer__file_and_folder">1 arquivo, 1 pasta</string>
-    <string name="file_list__footer__file_and_folders">1 arquivo, %1$d pastas</string>
-    <string name="file_list__footer__files">%1$d arquivos</string>
-    <string name="file_list__footer__files_and_folder">%1$d arquivos, 1 pasta</string>
-    <string name="file_list__footer__files_and_folders">%1$d arquivos, %2$d pastas</string>
     <string name="set_picture_as">Usar imagem como</string>
     <string name="set_as">Definir Como</string>
 

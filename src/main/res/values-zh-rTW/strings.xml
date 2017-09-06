@@ -407,14 +407,6 @@
 
     <string name="username">使用者名稱</string>
 
-    <string name="file_list__footer__folder">1 個資料夾</string>
-    <string name="file_list__footer__folders">%1$d 個資料夾</string>
-    <string name="file_list__footer__file">1 個檔案</string>
-    <string name="file_list__footer__file_and_folder">1 個檔案， 1 個資料夾</string>
-    <string name="file_list__footer__file_and_folders">1 個檔案， %1$d 個資料夾</string>
-    <string name="file_list__footer__files">%1$d 個檔案</string>
-    <string name="file_list__footer__files_and_folder">%1$d 個檔案， 1 個資料夾</string>
-    <string name="file_list__footer__files_and_folders">%1$d 個檔案， %2$d 個資料夾</string>
     <string name="set_picture_as">使用圖片作為</string>
     <string name="set_as">設置為</string>
 

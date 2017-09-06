@@ -315,14 +315,6 @@
 
     <string name="username">Používateľské meno</string>
 
-    <string name="file_list__footer__folder">1 priečinok</string>
-    <string name="file_list__footer__folders">%1$d prieč.</string>
-    <string name="file_list__footer__file">1 súbor</string>
-    <string name="file_list__footer__file_and_folder">1 súbor, 1 priečinok</string>
-    <string name="file_list__footer__file_and_folders">1 súbor, %1$d prieč.</string>
-    <string name="file_list__footer__files">%1$d súb.</string>
-    <string name="file_list__footer__files_and_folder">%1$d súb., 1 priečinok</string>
-    <string name="file_list__footer__files_and_folders">%1$d súb., %2$d prieč.</string>
     <string name="prefs_instant_behaviour_dialogTitle">Pôvodný súbor bude&#8230;</string>
     <string name="prefs_instant_behaviour_title">Pôvodný súbor bude&#8230;</string>
     <string name="upload_copy_files">Kopírovať súbor</string>

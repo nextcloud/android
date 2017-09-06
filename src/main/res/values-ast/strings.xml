@@ -367,14 +367,6 @@
 
     <string name="username">Nome d\'usuariu</string>
 
-    <string name="file_list__footer__folder">1 carpeta</string>
-    <string name="file_list__footer__folders">%1$d carpetes </string>
-    <string name="file_list__footer__file">1 ficheru</string>
-    <string name="file_list__footer__file_and_folder">1 ficheru, 1 carpeta</string>
-    <string name="file_list__footer__file_and_folders">1 ficheru, %1$d carpetes</string>
-    <string name="file_list__footer__files">%1$d ficheros</string>
-    <string name="file_list__footer__files_and_folder">%1$d ficheros, 1 carpeta</string>
-    <string name="file_list__footer__files_and_folders">%1$d ficheros, %2$d carpetes</string>
     <string name="prefs_instant_behaviour_dialogTitle">El ficheru orixinal sedrá&#8230;</string>
     <string name="prefs_instant_behaviour_title">El ficheru orixinal sedrá&#8230;</string>
     <string name="upload_copy_files">Copiar ficheru</string>

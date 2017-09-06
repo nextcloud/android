@@ -358,14 +358,6 @@
 
     <string name="username">사용자 이름</string>
 
-    <string name="file_list__footer__folder">폴더 1개</string>
-    <string name="file_list__footer__folders">폴더 %1$d개</string>
-    <string name="file_list__footer__file">파일 1개</string>
-    <string name="file_list__footer__file_and_folder">파일 1개, 폴더 1개</string>
-    <string name="file_list__footer__file_and_folders">파일 1개, 폴더 %1$d개</string>
-    <string name="file_list__footer__files">파일 %1$d개</string>
-    <string name="file_list__footer__files_and_folder">파일 %1$d개, 폴더 1개</string>
-    <string name="file_list__footer__files_and_folders">파일 %1$d개, 폴더 %2$d개</string>
     <string name="prefs_instant_behaviour_dialogTitle">원래 파일은&#8230;</string>
     <string name="prefs_instant_behaviour_title">원래 파일은&#8230;</string>
     <string name="upload_copy_files">파일 복사</string>
