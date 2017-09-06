@@ -171,7 +171,6 @@
     <string name="sync_fail_content_unauthorized">%1$sのパスワードが間違っています</string>
     <string name="sync_conflicts_in_favourites_ticker">競合が見つかりました</string>
     <string name="sync_fail_in_favourites_ticker">ファイルの同期に失敗しました</string>
-    <string name="sync_fail_in_favourites_content">%1$d ファイルのコンテンツを同期できませんでした（%2$d の競合）</string>
     <string name="sync_foreign_files_forgotten_ticker">一部のローカルファイルが忘れられています</string>
     <string name="sync_foreign_files_forgotten_content"> %2$s フォルダー内の %1$d ファイルはコピーできませんでした。</string>
     <string name="sync_current_folder_was_removed">フォルダー%1$sはもう存在しません</string>

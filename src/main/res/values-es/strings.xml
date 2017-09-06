@@ -186,7 +186,6 @@
     <string name="sync_fail_content_unauthorized">Contraseña errónea para %1$s</string>
     <string name="sync_conflicts_in_favourites_ticker">Se han encontrado conflictos</string>
     <string name="sync_fail_in_favourites_ticker">Fallos en la sincronización de contenidos</string>
-    <string name="sync_fail_in_favourites_content">Los contenidos de %1$d archivos no se han podido sincronizar (%2$d conflictos)</string>
     <string name="sync_foreign_files_forgotten_ticker">Algunos archivos locales se han ignorado</string>
     <string name="sync_foreign_files_forgotten_content">%1$d archivos en la carpeta %2$s no se han podido copiar a</string>
     <string name="sync_current_folder_was_removed">La carpeta %1$s ya no existe</string>

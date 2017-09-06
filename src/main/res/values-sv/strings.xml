@@ -177,7 +177,6 @@
     <string name="sync_fail_content_unauthorized">Fel lösenord för %1$s</string>
     <string name="sync_conflicts_in_favourites_ticker">Konflikter uppstod</string>
     <string name="sync_fail_in_favourites_ticker">Filer flaggade som Håll-filen-uppdaterad misslyckades</string>
-    <string name="sync_fail_in_favourites_content">Innehållet i %1$d filer kunde inte synkas (%2$d konflikter)</string>
     <string name="sync_foreign_files_forgotten_ticker">Vissa lokala filer glömdes</string>
     <string name="sync_foreign_files_forgotten_content">%1$d filer från %2$s mappar kunde inte kopieras till</string>
     <string name="sync_current_folder_was_removed">Mappen %1$s finns inte längre</string>

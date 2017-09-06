@@ -176,7 +176,6 @@
     <string name="sync_fail_content_unauthorized">Napačno geslo za %1$s</string>
     <string name="sync_conflicts_in_favourites_ticker">Zaznani spori</string>
     <string name="sync_fail_in_favourites_ticker">Posodobitev stalno usklajenih datotek je spodletelo</string>
-    <string name="sync_fail_in_favourites_content">Vsebine %1$d datotek ni bilo mogoče uskladiti (zaznanih je %2$d sporov)</string>
     <string name="sync_foreign_files_forgotten_ticker">Nekatere krajevne datoteke so spregledane</string>
     <string name="sync_foreign_files_forgotten_content">Skupno %1$d datotek iz mape %2$s ni mogoče kopirati v</string>
     <string name="sync_current_folder_was_removed">Mapa %1$s ne obstaja več</string>

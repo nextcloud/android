@@ -177,7 +177,6 @@
     <string name="sync_fail_content_unauthorized">Sandi salah untuk %1$s</string>
     <string name="sync_conflicts_in_favourites_ticker">Konflik ditemukan</string>
     <string name="sync_fail_in_favourites_ticker">Berkas kept-in-sync gagal</string>
-    <string name="sync_fail_in_favourites_content">Konten berkas %1$d tidak dapat disinkronasikan (%2$d konflik)</string>
     <string name="sync_foreign_files_forgotten_ticker">Beberapa berkas lokal terlupakan</string>
     <string name="sync_foreign_files_forgotten_content">%1$d berkas diluar folder %2$s tidak dapat disalin kedalamnya</string>
     <string name="sync_current_folder_was_removed">Folder %1$s sudah tidak ada lagi</string>
