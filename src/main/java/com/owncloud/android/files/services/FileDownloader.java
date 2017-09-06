@@ -28,6 +28,7 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.os.Binder;
 import android.os.Handler;
 import android.os.HandlerThread;
@@ -59,6 +60,7 @@ import com.owncloud.android.ui.notifications.NotificationUtils;
 import com.owncloud.android.ui.preview.PreviewImageActivity;
 import com.owncloud.android.ui.preview.PreviewImageFragment;
 import com.owncloud.android.utils.ErrorMessageAdapter;
+import com.owncloud.android.utils.ThemeUtils;
 
 import java.io.File;
 import java.util.AbstractList;
@@ -127,6 +129,10 @@ public class FileDownloader extends Service
 
         mNotification = new NotificationCompat.Builder(this).setContentTitle(getApplicationContext().
                 getResources().getString(R.string.app_name))
+                .setContentText(getApplicationContext().getResources().getString(R.string.foreground_service_download))
+                .setSmallIcon(R.drawable.notification_icon)
+                .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.notification_icon))
+                .setColor(ThemeUtils.primaryColor())
                 .build();
 
         // add AccountsUpdatedListener
