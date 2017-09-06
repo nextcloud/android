@@ -184,7 +184,6 @@
     <string name="sync_fail_content_unauthorized">Fjalëkalim i pavlefshëm për %1$s</string>
     <string name="sync_conflicts_in_favourites_ticker">U hasën përplasje</string>
     <string name="sync_fail_in_favourites_ticker">Mbajtja-në-sinkron e skedarëve dështoj </string>
-    <string name="sync_fail_in_favourites_content">Përmbajtja e %1$d skedarëve s\’u sinkronizua dot (%2$d përplasje)</string>
     <string name="sync_foreign_files_forgotten_ticker">Disa kartela vendore u harruan</string>
     <string name="sync_foreign_files_forgotten_content">%1$d skedarë nga dosja %2$s nuk u kopjuan dot</string>
     <string name="sync_current_folder_was_removed">Dosja %1$s s’ekziston më</string>

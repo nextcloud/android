@@ -147,7 +147,6 @@
     <string name="sync_fail_content_unauthorized">رمز سر خاطئ ل%1$s</string>
     <string name="sync_conflicts_in_favourites_ticker">هناك تعارض</string>
     <string name="sync_fail_in_favourites_ticker">لم تنجح المزامنة التلقائية للملفات</string>
-    <string name="sync_fail_in_favourites_content"> لا يمكن مزامنة جهات اتصال %1$d  ( %2$d تعارض) </string>
     <string name="sync_foreign_files_forgotten_ticker">تم نسيان بعض الملفات المحلية</string>
     <string name="sync_foreign_files_forgotten_content">%1$d لا يمكن نسخها داخل المجلد %2$s الملفات الخارجه من المجلد</string>
     <string name="foreign_files_local_text">محلّي : %1$s</string>

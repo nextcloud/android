@@ -178,7 +178,6 @@ Smelltu hér til að fá þér einn frá þjónustuaðila.</string>
     <string name="sync_fail_content_unauthorized">Rangt lykilorð fyrir %1$s</string>
     <string name="sync_conflicts_in_favourites_ticker">Árekstrar fundust</string>
     <string name="sync_fail_in_favourites_ticker">Skrár merktar fyrir samstillingu mistókust</string>
-    <string name="sync_fail_in_favourites_content">Efni %1$d skráa var ekki hægt að samstilla (%2$d árekstrar)</string>
     <string name="sync_foreign_files_forgotten_ticker">Sumar staðværar skrár gleymdust</string>
     <string name="sync_foreign_files_forgotten_content">%1$d skrár úr %2$s möppunni var ekki hægt að afrita í</string>
     <string name="sync_current_folder_was_removed">Mappan %1$ser ekki lengur til</string>

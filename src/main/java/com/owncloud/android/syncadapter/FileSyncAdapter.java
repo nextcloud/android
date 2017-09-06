@@ -443,8 +443,12 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
                     getContext(), (int) System.currentTimeMillis(), new Intent(), 0
                 ))
                 .setContentTitle(i18n(R.string.sync_fail_in_favourites_ticker))
-                .setContentText(i18n(R.string.sync_fail_in_favourites_content,
-                        mFailedResultsCounter + mConflictsFound, mConflictsFound));
+                .setContentText(getContext().getResources().getQuantityString(
+                    R.plurals.sync_fail_in_favourites_content,
+                    mFailedResultsCounter,
+                    mFailedResultsCounter + mConflictsFound, mConflictsFound
+                    )
+                );
             
             showNotification(R.string.sync_fail_in_favourites_ticker, notificationBuilder);
         } else {

@@ -181,7 +181,6 @@
     <string name="sync_fail_content_unauthorized">%1$s 的密码错误</string>
     <string name="sync_conflicts_in_favourites_ticker">发现冲突</string>
     <string name="sync_fail_in_favourites_ticker">文件同步失败</string>
-    <string name="sync_fail_in_favourites_content">%1$d 文件无法被同步（%2$d 冲突）</string>
     <string name="sync_foreign_files_forgotten_ticker">某些本地文件已被遗忘</string>
     <string name="sync_foreign_files_forgotten_content">%2$s 文件夹中的 %1$d 个文件不能被复制到</string>
     <string name="sync_current_folder_was_removed">文件夹%1$s不再存在</string>

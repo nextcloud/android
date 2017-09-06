@@ -186,7 +186,6 @@
     <string name="sync_fail_content_unauthorized">Feil passord for %1$s</string>
     <string name="sync_conflicts_in_favourites_ticker">Konflikter funnet</string>
     <string name="sync_fail_in_favourites_ticker">Holdt-i-synk -filer mislyktes</string>
-    <string name="sync_fail_in_favourites_content">Innholdet av %1$d filer kunne ikke synkroniseres (%2$d konflikter)</string>
     <string name="sync_foreign_files_forgotten_ticker">Noen lokale filer ble glemt</string>
     <string name="sync_foreign_files_forgotten_content">%1$d filer fra %2$s mappen kunne ikke kopieres til</string>
     <string name="sync_current_folder_was_removed">Mappen %1$s finnes ikke lengre</string>
