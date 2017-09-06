@@ -123,7 +123,6 @@
     <string name="common_choose_account">Alege cont</string>
     <string name="sync_fail_ticker">sincronozare esuata</string>
     <string name="sync_conflicts_in_favourites_ticker">S-au gasit conflicte</string>
-    <string name="sync_conflicts_in_favourites_content">%1$d file pastrate-in-sync files nu au putut fi sincronizate</string>
     <string name="sync_fail_in_favourites_ticker">Pastrarea fisierelor in sync nu a reușit</string>
     <string name="sync_fail_in_favourites_content">Conținutul a%1$d fișiere nu a putut fi sincronizat (conflicte %2$d)</string>
     <string name="sync_foreign_files_forgotten_ticker">Unele fisiere locale au fost uitate</string>

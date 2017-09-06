@@ -125,7 +125,6 @@
     <string name="common_choose_account">Izvēlieties kontu</string>
     <string name="sync_fail_ticker">Sinhronizācija neizdevās</string>
     <string name="sync_conflicts_in_favourites_ticker">Ir atrasti konflikti</string>
-    <string name="sync_conflicts_in_favourites_content">Nevarēja sinhronizēt %1$d kept-in-sync datnes</string>
     <string name="sync_fail_in_favourites_ticker">Kept-in-sync datnes cieta neveiksmi</string>
     <string name="sync_fail_in_favourites_content">Nevarēja sinhronizēt %1$d datņu saturu (%2$d konflikti)</string>
     <string name="sync_foreign_files_forgotten_ticker">Dažas lokālās datnes tika aizmirstas</string>

@@ -149,7 +149,6 @@
     <string name="common_choose_account">Zvoliť účet</string>
     <string name="sync_fail_ticker">Synchronizácia neúspešná</string>
     <string name="sync_conflicts_in_favourites_ticker">Objavené konflikty</string>
-    <string name="sync_conflicts_in_favourites_content">%1$d súborov z automatickej synchronizácie nemožno synchronizovať</string>
     <string name="sync_fail_in_favourites_ticker">Automatická synchronizácia súborov zlyhala</string>
     <string name="sync_fail_in_favourites_content">Obsah %1$d súborov nemohol byť synchronizovaný (%2$d konfliktov)</string>
     <string name="sync_foreign_files_forgotten_ticker">Niektoré lokálne súbory boli zabudnuté</string>

@@ -186,7 +186,6 @@ Kies er eentje van een provider.</string>
     <string name="sync_fail_content">Synchronisatie van %1$s kon niet worden voltooid</string>
     <string name="sync_fail_content_unauthorized">Onjuist wachtwoord voor %1$s</string>
     <string name="sync_conflicts_in_favourites_ticker">Conflicten gevonden</string>
-    <string name="sync_conflicts_in_favourites_content">%1$d gesynchroniseerd te houden bestanden konden niet worden gesynchroniseerd</string>
     <string name="sync_fail_in_favourites_ticker">Gesynchroniseerd te houden bestanden mislukt</string>
     <string name="sync_fail_in_favourites_content">Inhoud van %1$d bestanden kon niet worden gesynchroniseerd (%2$d conflicten)</string>
     <string name="sync_foreign_files_forgotten_ticker">Een paar lokale bestanden werden vergeten</string>

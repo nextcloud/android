@@ -185,7 +185,6 @@
     <string name="sync_fail_content">Nie udało się zsynchronizować %1$s</string>
     <string name="sync_fail_content_unauthorized">Błędne hasło dla %1$s</string>
     <string name="sync_conflicts_in_favourites_ticker">Znaleziono konflikty</string>
-    <string name="sync_conflicts_in_favourites_content">%1$d synchronizowanych plików nie może zostać zsynchronizowanych</string>
     <string name="sync_fail_in_favourites_ticker">Synchronizacja plików nie powiodła się</string>
     <string name="sync_fail_in_favourites_content">Zawartość %1$d plików nie może zostać synchronizowana (%2$d konfliktów)</string>
     <string name="sync_foreign_files_forgotten_ticker">Niektóre lokalne pliki zostały zgubione.</string>

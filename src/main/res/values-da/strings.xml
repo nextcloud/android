@@ -148,7 +148,6 @@
     <string name="sync_fail_ticker">Sync fejlede</string>
     <string name="sync_fail_content_unauthorized">Forkert password til %1$s</string>
     <string name="sync_conflicts_in_favourites_ticker">Konflikter fundet</string>
-    <string name="sync_conflicts_in_favourites_content">%1$d hold-synkroniseret filer kunne ikke synkroniseres</string>
     <string name="sync_fail_in_favourites_ticker">Hold-synkroniseret filer mislykkedes</string>
     <string name="sync_fail_in_favourites_content">Indholdet af %1$d filer ikke kunne synkroniseres (%2$d konflikter)</string>
     <string name="sync_foreign_files_forgotten_ticker">Visse lokale filer blev glemt</string>

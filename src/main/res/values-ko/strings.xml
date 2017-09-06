@@ -166,7 +166,6 @@
     <string name="sync_fail_ticker_unauthorized">동기화 실패, 다시 로그인 해야 합니다</string>
     <string name="sync_fail_content">%1$s의 동기화를 완료할 수 없습니다</string>
     <string name="sync_conflicts_in_favourites_ticker">충돌하는 항목 발견됨</string>
-    <string name="sync_conflicts_in_favourites_content">동기화된 파일 중 %1$d개를 동기화할 수 없습니다</string>
     <string name="sync_fail_in_favourites_ticker">파일을 동기화할 수 없었습니다</string>
     <string name="sync_fail_in_favourites_content">파일 %1$d개의 내용을 동기화할 수 없습니다 (충돌 %2$d개)</string>
     <string name="sync_foreign_files_forgotten_ticker">일부 로컬 파일이 사라졌습니다.</string>

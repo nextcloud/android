@@ -185,7 +185,6 @@
     <string name="sync_fail_content">Impossibile completare la sincronizzazione di %1$s</string>
     <string name="sync_fail_content_unauthorized">Password errata per %1$s</string>
     <string name="sync_conflicts_in_favourites_ticker">Conflitti rilevati</string>
-    <string name="sync_conflicts_in_favourites_content">%1$d file non possono essere sincronizzati</string>
     <string name="sync_fail_in_favourites_ticker">Sincronizzazione dei file non riuscita</string>
     <string name="sync_fail_in_favourites_content">I contenuti di %1$d file non possono essere sincronizzati (%2$d conflitti)</string>
     <string name="sync_foreign_files_forgotten_ticker">Alcuni file locali sono stati trascurati</string>

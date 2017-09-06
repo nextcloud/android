@@ -187,7 +187,6 @@ Attention la suppression est irréversible.</string>
     <string name="sync_fail_content">Impossible de terminer la synchronisation de %1$s</string>
     <string name="sync_fail_content_unauthorized">Mauvais mot de passe pour %1$s</string>
     <string name="sync_conflicts_in_favourites_ticker">Des conflits ont été trouvés</string>
-    <string name="sync_conflicts_in_favourites_content">%1$d fichiers à garder synchronisés n\'ont pu être synchronisés</string>
     <string name="sync_fail_in_favourites_ticker">La synchronisation des fichiers a échoué</string>
     <string name="sync_fail_in_favourites_content">Le contenu de %1$d fichiers n\'a pu être synchronisé (%2$d conflits)</string>
     <string name="sync_foreign_files_forgotten_ticker">Certains fichiers locaux ont été ignorés</string>

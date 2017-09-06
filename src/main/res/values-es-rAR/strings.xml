@@ -176,7 +176,6 @@
     <string name="sync_fail_content">No fue posible completar la sincronización de %1$s</string>
     <string name="sync_fail_content_unauthorized">Contraseña inválida para %1$s</string>
     <string name="sync_conflicts_in_favourites_ticker">Se encontraron conflictos</string>
-    <string name="sync_conflicts_in_favourites_content">%1$d archivos mantenidos-en-sincronización no pudieron ser sinconizados</string>
     <string name="sync_fail_in_favourites_ticker">Falla en archivos mantenidos-en-sincronización.</string>
     <string name="sync_fail_in_favourites_content">El contenido de%1$d archivos no pudo ser sincronizado (%2$d conflictos)</string>
     <string name="sync_foreign_files_forgotten_ticker">Algunos archivos locales se han perdido</string>

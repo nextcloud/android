@@ -176,7 +176,6 @@
     <string name="sync_fail_content">No s\'ha pogut completar la sincronització de%1$s</string>
     <string name="sync_fail_content_unauthorized">Contrasenya incorrecta per a%1$s</string>
     <string name="sync_conflicts_in_favourites_ticker">S\'han trobat conflictes</string>
-    <string name="sync_conflicts_in_favourites_content">%1$d fitxers que han d\'estar sincronitzats no s\'han pogut sincronitzar</string>
     <string name="sync_fail_in_favourites_ticker">Han fallat fitxers que han d\'estar sincronitzats</string>
     <string name="sync_fail_in_favourites_content">No s\'ha pogut sincronitzar el contingut de %1$d fitxers (%2$d conflictes)</string>
     <string name="sync_foreign_files_forgotten_ticker">S\'han oblidat alguns fitxers locals</string>

@@ -129,7 +129,6 @@
     <string name="common_choose_account">נא לבחור בחשבון</string>
     <string name="sync_fail_ticker">סנכרון נכשל</string>
     <string name="sync_conflicts_in_favourites_ticker">נמצאו התנגשויות</string>
-    <string name="sync_conflicts_in_favourites_content">לא ניתן לסנכרן %1$d קבצים שהוגדרו לסנכרון</string>
     <string name="sync_fail_in_favourites_ticker">קבצים שהוגדרו לסנכרון נכשלו</string>
     <string name="sync_fail_in_favourites_content">לא ניתן לסנכרם את תוכנם של %1$d מהקבצים (%2$d התנגשויות)</string>
     <string name="sync_foreign_files_forgotten_ticker">חלק מהקבצים המקומיים נשכחו</string>

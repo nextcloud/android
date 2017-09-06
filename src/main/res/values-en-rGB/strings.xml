@@ -185,7 +185,6 @@
     <string name="sync_fail_content">Could not complete sync of %1$s</string>
     <string name="sync_fail_content_unauthorized">Wrong password for %1$s</string>
     <string name="sync_conflicts_in_favourites_ticker">Conflicts found</string>
-    <string name="sync_conflicts_in_favourites_content">%1$d kept-in-sync files could not be synced</string>
     <string name="sync_fail_in_favourites_ticker">Kept-in-sync files failed</string>
     <string name="sync_fail_in_favourites_content">Contents of %1$d files could not be synced (%2$d conflicts)</string>
     <string name="sync_foreign_files_forgotten_ticker">Some local files were forgotten</string>

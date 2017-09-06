@@ -140,7 +140,6 @@
     <string name="sync_fail_ticker">Синхронизацията се провали</string>
     <string name="sync_fail_ticker_unauthorized">Синхронизацията е неуспешна, трябва да се впишете отново.</string>
     <string name="sync_conflicts_in_favourites_ticker">Открити са конфликти</string>
-    <string name="sync_conflicts_in_favourites_content">%1$d kept-in-sync файла не могат да бъдат сихронизирани</string>
     <string name="sync_fail_in_favourites_ticker">Неуспешни Kept-in-sync файлове</string>
     <string name="sync_fail_in_favourites_content">%1$d файла не могат да бъдат синхронизирани (%2$d конфликта)</string>
     <string name="sync_foreign_files_forgotten_ticker">Някои локални файлове бяха забравени.</string>

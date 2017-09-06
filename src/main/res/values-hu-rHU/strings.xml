@@ -185,7 +185,6 @@
     <string name="sync_fail_content">Nem sikerült befejezni a(z) %1$s szinkronizálását</string>
     <string name="sync_fail_content_unauthorized">Hibás jelszó ehhez: %1$s</string>
     <string name="sync_conflicts_in_favourites_ticker">Ütközések vannak</string>
-    <string name="sync_conflicts_in_favourites_content">%1$d szinkronizálandó fájlokat nem sikerült szinkronizálni</string>
     <string name="sync_fail_in_favourites_ticker">A szinkronizálandó fájlokat nem sikerült szinkronizálni</string>
     <string name="sync_fail_in_favourites_content">%1$d fájl szinkronizálása nem sikerült (%2$d ütközés)</string>
     <string name="sync_foreign_files_forgotten_ticker">Néhány helyi fájlt figyelmen kívül hagytunk</string>

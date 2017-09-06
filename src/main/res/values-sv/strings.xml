@@ -176,7 +176,6 @@
     <string name="sync_fail_content">Kunde inte fullfölja synkroniseringen av %1$s</string>
     <string name="sync_fail_content_unauthorized">Fel lösenord för %1$s</string>
     <string name="sync_conflicts_in_favourites_ticker">Konflikter uppstod</string>
-    <string name="sync_conflicts_in_favourites_content">%1$d Flaggad som Håll-filen-uppdaterad kan inte synkas</string>
     <string name="sync_fail_in_favourites_ticker">Filer flaggade som Håll-filen-uppdaterad misslyckades</string>
     <string name="sync_fail_in_favourites_content">Innehållet i %1$d filer kunde inte synkas (%2$d konflikter)</string>
     <string name="sync_foreign_files_forgotten_ticker">Vissa lokala filer glömdes</string>

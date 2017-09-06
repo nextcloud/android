@@ -185,7 +185,6 @@
     <string name="sync_fail_content">Не могу да завршим синхронизацију %1$s</string>
     <string name="sync_fail_content_unauthorized">Погрешна лозинка за %1$s</string>
     <string name="sync_conflicts_in_favourites_ticker">Пронађени конфликти</string>
-    <string name="sync_conflicts_in_favourites_content">%1$d фајл ниje могао бити синхронизован</string>
     <string name="sync_fail_in_favourites_ticker">Синхронизација није успела</string>
     <string name="sync_fail_in_favourites_content">Садржај %1$d фајла не може бити синхронизован (%2$d конфликата)</string>
     <string name="sync_foreign_files_forgotten_ticker">Неки локални фајлови су заборављени</string>

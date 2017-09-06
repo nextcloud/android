@@ -183,7 +183,6 @@
     <string name="sync_fail_content">Sinkronizimi i %1$s s’u plotësua dot</string>
     <string name="sync_fail_content_unauthorized">Fjalëkalim i pavlefshëm për %1$s</string>
     <string name="sync_conflicts_in_favourites_ticker">U hasën përplasje</string>
-    <string name="sync_conflicts_in_favourites_content">%1$d kartela kept-in-sync s’u njëkohësuan dot</string>
     <string name="sync_fail_in_favourites_ticker">Mbajtja-në-sinkron e skedarëve dështoj </string>
     <string name="sync_fail_in_favourites_content">Përmbajtja e %1$d skedarëve s\’u sinkronizua dot (%2$d përplasje)</string>
     <string name="sync_foreign_files_forgotten_ticker">Disa kartela vendore u harruan</string>
