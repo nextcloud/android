@@ -680,4 +680,5 @@
     <string name="whats_new_fingerprint_content">Χρησιμοποιήστε το δακτυλικό αποτύπωμα για να ξεκλειδώσετε την εφαρμογή</string>
     <string name="fallback_weblogin_back">Πίσω</string>
     <string name="fallback_weblogin_text">Επιστρέψτε στην παλιά μέθοδο σύνδεσης</string>
-</resources>
+
+    </resources>

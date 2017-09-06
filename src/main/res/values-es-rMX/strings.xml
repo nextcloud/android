@@ -680,4 +680,5 @@
     <string name="whats_new_fingerprint_content">Usa tu huella digital para desbloquear la aplicación</string>
     <string name="fallback_weblogin_back">ATRÁS</string>
     <string name="fallback_weblogin_text">Regresar al antiguo método de inicio de sesión</string>
-</resources>
+
+    </resources>

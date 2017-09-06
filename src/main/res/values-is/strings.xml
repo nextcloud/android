@@ -681,4 +681,5 @@ Smelltu hér til að fá þér einn frá þjónustuaðila.</string>
     <string name="whats_new_fingerprint_content">Notaðu fingrafarið þitt til að aflæsa forritinu</string>
     <string name="fallback_weblogin_back">BAKKA</string>
     <string name="fallback_weblogin_text">Fara til baka í gömlu innskráningaraðferðina</string>
-</resources>
+
+    </resources>

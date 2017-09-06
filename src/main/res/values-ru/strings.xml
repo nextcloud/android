@@ -683,4 +683,5 @@
     <string name="whats_new_fingerprint_content">Используйте отпечаток пальца для разблокирования приложения</string>
     <string name="fallback_weblogin_back">ВЕРНУТЬСЯ</string>
     <string name="fallback_weblogin_text">Вернуться к старому способу входа в систему</string>
-</resources>
+
+    </resources>

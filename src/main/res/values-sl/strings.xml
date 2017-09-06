@@ -126,7 +126,7 @@
     <string name="common_error_unknown">Neznana napaka</string>
     <string name="common_pending">V teku</string>
     <string name="common_delete">Pobriši</string>
-    <string name="about_title">O oblaku %1$s</string>
+    <string name="about_title">O</string>
     <string name="change_password">Spremeni geslo</string>
     <string name="delete_account">Odstrani račun</string>
     <string name="active_user">Aktivni uporabnik</string>

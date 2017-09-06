@@ -680,4 +680,5 @@
     <string name="whats_new_fingerprint_content">Utilisez votre empreinte digitale pour déverrouiller l’application</string>
     <string name="fallback_weblogin_back">RETOUR</string>
     <string name="fallback_weblogin_text">Revenir à l\'ancienne méthode de connexion</string>
-</resources>
+
+    </resources>
