@@ -176,7 +176,6 @@
     <string name="sync_fail_content">Синхронизация %1$s не может быть завершена</string>
     <string name="sync_fail_content_unauthorized">Неверный пароль для %1$s</string>
     <string name="sync_conflicts_in_favourites_ticker">Обнаружены конфликты</string>
-    <string name="sync_conflicts_in_favourites_content">%1$d файлов не может быть синхронизировано</string>
     <string name="sync_fail_in_favourites_ticker">Не удалось синхронизировать файлы</string>
     <string name="sync_fail_in_favourites_content">Содержимое %1$d файлов не может быть синхронизировано (конфликтов: %2$d)</string>
     <string name="sync_foreign_files_forgotten_ticker">Некоторые загруженные файлы не были перенесены в локальную папку </string>

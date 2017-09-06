@@ -176,7 +176,6 @@
     <string name="sync_fail_content">Ο συγχρονισμός του %1$s δεν μπόρεσε να ολοκληρωθεί</string>
     <string name="sync_fail_content_unauthorized">Εσφαλμένο συνθηματικό για τον %1$s</string>
     <string name="sync_conflicts_in_favourites_ticker">Βρέθηκαν διενέξεις</string>
-    <string name="sync_conflicts_in_favourites_content">%1$d αρχεία σε αναμονή προς συγχρονισμό δεν μπόρεσαν να συγχρονιστούν</string>
     <string name="sync_fail_in_favourites_ticker">Τα αρχεία σε αναμονή προς συγχρονισμού απέτυχαν</string>
     <string name="sync_fail_in_favourites_content">Τα περιεχόμενα των %1$d αρχείων δεν μπόρεσαν να συγχρονιστούν (%2$d διενέξεις)</string>
     <string name="sync_foreign_files_forgotten_ticker">Ορισμένα τοπικά αρχεία ξεχάστηκαν</string>

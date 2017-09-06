@@ -167,7 +167,6 @@
     <string name="sync_fail_content">%1$s 同步無法完成</string>
     <string name="sync_fail_content_unauthorized">無效的密碼 %1$s</string>
     <string name="sync_conflicts_in_favourites_ticker">出現衝突</string>
-    <string name="sync_conflicts_in_favourites_content">%1$d 持續同步未被同步的檔案</string>
     <string name="sync_fail_in_favourites_ticker">同步檔案失敗</string>
     <string name="sync_fail_in_favourites_content">%1$d 未被同步（與 %2$d 衝突）</string>
     <string name="sync_foreign_files_forgotten_ticker">有些本地端的檔案已遺失</string>

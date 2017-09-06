@@ -185,7 +185,6 @@
     <string name="sync_fail_content">Synchronizace %1$s nemohla být dokončena</string>
     <string name="sync_fail_content_unauthorized">Chybné heslo pro %1$s</string>
     <string name="sync_conflicts_in_favourites_ticker">Nalezeny konflikty</string>
-    <string name="sync_conflicts_in_favourites_content">%1$d souborů z automatické synchronizace nelze synchronizovat</string>
     <string name="sync_fail_in_favourites_ticker">Automatická synchronizace souborů selhala</string>
     <string name="sync_fail_in_favourites_content">Obsah %1$d souborů nemohl být synchronizován (počet konfliktů: %2$d)</string>
     <string name="sync_foreign_files_forgotten_ticker">Některé místní soubory byly zapomenuty</string>

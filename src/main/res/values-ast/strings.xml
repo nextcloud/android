@@ -147,7 +147,6 @@
     <string name="sync_fail_content">Nun pudo completase la sincronización de %1$s</string>
     <string name="sync_fail_content_unauthorized">Contraseña incorreuta pa %1$s</string>
     <string name="sync_conflicts_in_favourites_ticker">Conflictos alcontraos</string>
-    <string name="sync_conflicts_in_favourites_content">Los ficheros %1$d kept-in-sync pueden nun tar sincronizaos</string>
     <string name="sync_fail_in_favourites_ticker">Fallu al caltener ficheros sincronizaos.</string>
     <string name="sync_fail_in_favourites_content">Los conteníos de los ficheros %1$d pueden nun tar sincronizaos (%2$d conflictos)</string>
     <string name="sync_foreign_files_forgotten_ticker">Dexáronse dalgunos ficheros llocales.</string>

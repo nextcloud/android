@@ -186,7 +186,6 @@
     <string name="sync_fail_content">%1$s eşitlemesi tamamlanamadı</string>
     <string name="sync_fail_content_unauthorized">%1$s için parola geçersiz</string>
     <string name="sync_conflicts_in_favourites_ticker">Çakışmalar bulundu</string>
-    <string name="sync_conflicts_in_favourites_content">%1$d eşit tutma dosyası eşitlenemedi</string>
     <string name="sync_fail_in_favourites_ticker">Dosyaları eşit tutma işlemi tamamlanamadı</string>
     <string name="sync_fail_in_favourites_content">%1$d dosya eşitlenemedi (%2$d çakışma)</string>
     <string name="sync_foreign_files_forgotten_ticker">Bazı yerel dosyalar unutulmuş</string>

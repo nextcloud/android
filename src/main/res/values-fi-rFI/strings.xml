@@ -161,7 +161,6 @@
     <string name="sync_fail_ticker">Synkronointi epäonnistui</string>
     <string name="sync_fail_ticker_unauthorized">Synkronointi epäonnistui. Kirjaudu sisään uudelleen</string>
     <string name="sync_conflicts_in_favourites_ticker">Ristiriitoja löytynyt</string>
-    <string name="sync_conflicts_in_favourites_content">%1$d \"pidä synkronoituna\" tiedostoja ei voitu synkronoida</string>
     <string name="sync_fail_in_favourites_ticker">\"Pidä synkronoituna\" epäonnistui</string>
     <string name="sync_fail_in_favourites_content">Hakemiston %1$d tiedostoja ei voitu synkronoida (%2$d konfliktia)</string>
     <string name="sync_foreign_files_forgotten_ticker">Jotkin paikalliset tiedostot unohtuivat</string>

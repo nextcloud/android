@@ -185,7 +185,6 @@
     <string name="sync_fail_content">Synkronisering av %1$s kunne ikke fullføres</string>
     <string name="sync_fail_content_unauthorized">Feil passord for %1$s</string>
     <string name="sync_conflicts_in_favourites_ticker">Konflikter funnet</string>
-    <string name="sync_conflicts_in_favourites_content">%1$d hold-i-synk filer kunne ikke synkroniseres</string>
     <string name="sync_fail_in_favourites_ticker">Holdt-i-synk -filer mislyktes</string>
     <string name="sync_fail_in_favourites_content">Innholdet av %1$d filer kunne ikke synkroniseres (%2$d konflikter)</string>
     <string name="sync_foreign_files_forgotten_ticker">Noen lokale filer ble glemt</string>
