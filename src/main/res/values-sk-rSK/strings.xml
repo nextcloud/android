@@ -151,7 +151,6 @@
     <string name="sync_conflicts_in_favourites_ticker">Objavené konflikty</string>
     <string name="sync_fail_in_favourites_ticker">Automatická synchronizácia súborov zlyhala</string>
     <string name="sync_foreign_files_forgotten_ticker">Niektoré lokálne súbory boli zabudnuté</string>
-    <string name="sync_foreign_files_forgotten_content">%1$d súborov z %2$s priečinkov sa nepodarilo skopírovať do</string>
     <string name="pass_code_enter_pass_code">Vložte prosím svoje heslo</string>
     
     <string name="pass_code_configure_your_pass_code">Vložte svoje heslo</string>

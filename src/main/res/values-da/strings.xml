@@ -150,7 +150,6 @@
     <string name="sync_conflicts_in_favourites_ticker">Konflikter fundet</string>
     <string name="sync_fail_in_favourites_ticker">Hold-synkroniseret filer mislykkedes</string>
     <string name="sync_foreign_files_forgotten_ticker">Visse lokale filer blev glemt</string>
-    <string name="sync_foreign_files_forgotten_content">%1$d filer ud af %2$s mappe kunne ikke kopieres ind i</string>
     <string name="pass_code_enter_pass_code">Indtast venligst din adgangskode</string>
     
     <string name="pass_code_configure_your_pass_code">Angiv din passcode</string>
