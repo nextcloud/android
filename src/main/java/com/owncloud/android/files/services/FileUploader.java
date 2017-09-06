@@ -33,6 +33,7 @@ import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.os.Binder;
 import android.os.Handler;
 import android.os.HandlerThread;
@@ -71,6 +72,7 @@ import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.UploadListActivity;
 import com.owncloud.android.ui.notifications.NotificationUtils;
 import com.owncloud.android.utils.ErrorMessageAdapter;
+import com.owncloud.android.utils.ThemeUtils;
 
 import java.io.File;
 import java.util.AbstractList;
@@ -418,6 +420,10 @@ public class FileUploader extends Service
 
         mNotification = new NotificationCompat.Builder(this).setContentTitle(getApplicationContext().
                 getResources().getString(R.string.app_name))
+                .setContentText(getApplicationContext().getResources().getString(R.string.foreground_service_upload))
+                .setSmallIcon(R.drawable.notification_icon)
+                .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.notification_icon))
+                .setColor(ThemeUtils.primaryColor())
                 .build();
 
         int failedCounter = mUploadsStorageManager.failInProgressUploads(
