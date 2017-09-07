@@ -283,10 +283,8 @@
     <string name="conflict_use_local_version">paikallinen versio</string>
     <string name="conflict_use_server_version">palvelimen versio</string>
 
-    <string name="preview_sorry">Anteeksi.</string>
     <string name="preview_image_description">Kuvan esikatselu</string>
     <string name="preview_image_error_unknown_format">Kuvan näyttäminen ei onnistunut</string>
-
     <string name="prefs_instant_upload_path_title">Välitön lähetys kansio</string>
     <string name="prefs_synced_folders_local_path_title">Paikallinen kansio</string>
     <string name="prefs_synced_folders_remote_path_title">Etäkansio</string>

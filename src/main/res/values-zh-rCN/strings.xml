@@ -70,6 +70,7 @@
     <string name="sync_string_files">文件</string>
     <string name="setup_btn_connect">连接</string>
     <string name="uploader_btn_upload_text">上传</string>
+    <string name="uploader_btn_alternative_text">选择</string>
     <string name="uploader_top_message">选择上传的文件夹</string>
     <string name="uploader_wrn_no_account_title">未找到账号</string>
     <string name="uploader_wrn_no_account_text">设备上无 %1$s 账号，需要先创建一个账号。</string>
@@ -145,6 +146,7 @@
     <string name="change_password">修改密码</string>
     <string name="delete_account">删除账号</string>
     <string name="delete_account_warning">是否删除该账户 %s 并且删除所有文件?\n\n一经删除无法撤销该操作</string>
+    <string name="avatar">具体</string>
     <string name="active_user">活跃用户</string>
     <string name="upload_chooser_title">上传自 &#8230;</string>
     <string name="uploader_info_dirname">文件夹名称</string>
@@ -264,6 +266,8 @@
 	<string name="auth_fail_get_user_name">您的服务器没有返回正确的用户ID，请与管理员联系</string>
 	<string name="auth_can_not_auth_against_server">无法连接认证服务器</string>
     <string name="auth_account_does_not_exist">设备上不存在帐户</string>
+    <string name="auth_access_failed">访问失败</string>
+
     <string name="favorite">可以设置离线</string>
     <string name="unfavorite">不可以设置离线</string>
     <string name="favorite_real">加入收藏</string>
@@ -340,10 +344,8 @@
     <string name="conflict_use_local_version">本地版本</string>
     <string name="conflict_use_server_version">服务器版本</string>
 
-    <string name="preview_sorry">抱歉</string>
     <string name="preview_image_description">图片预览</string>
     <string name="preview_image_error_unknown_format">无法显示图像</string>
-
     <string name="error__upload__local_file_not_copied">无法复制 %1$s 到本地目录 %2$s</string>
     <string name="prefs_instant_upload_path_title">实时上传文件夹</string>
     <string name="prefs_synced_folders_local_path_title">本地文件夹</string>
@@ -560,6 +562,10 @@
     <string name="participate_contribute_translate_translate">翻译</string>
     <string name="participate_contribute_translate_text">此应用</string>
     <string name="participate_contribute_github_text">查看，修改和编写代码，有关详细信息，请参阅%1$s</string>
+    <string name="participate_rc_play_store">通过Google Play商店获取发布候选版</string>
+    <string name="participate_rc_fdroid">通过f-droid应用商店获取候选发布版</string>
+    <string name="participate_dev_fdroid">通过f-droid应用商店获取开发版本</string>
+    <string name="participate_dev_direct_download">直接下载开发版本</string>
     <string name="move_to">转移到&#8230;</string>
     <string name="copy_to">复制到</string>
     <string name="choose_remote_folder">选择远端文件夹&#8230;</string>
@@ -568,6 +574,8 @@
     <string name="synced_folders_no_results">没有发现媒体文件夹</string>
     <string name="synced_folders_preferences">自动上传的首选项</string>
     <string name="synced_folders_settings">设置</string>
+    <string name="synced_folders_new_info">即时上传已经完全改版。 从主菜单中重新配置自动上传。\ n \ n享受新的扩展自动上传。</string>
+    <string name="synced_folders_preferences_folder_path">从 %1$s</string>
     <plurals name="items_selected_count">
         <item quantity="other">%d被选择</item>
     </plurals>
@@ -603,8 +611,18 @@
     <string name="welcome_feature_3_title">自动上传</string>
     <string name="welcome_feature_3_text">保护你的照片安全</string>
 
+    <string name="whats_new_auto_upload_title">加强自动上传功能。</string>
+    <string name="whats_new_auto_upload_content">\u2022适合所有Android版本\n\u2022更少的电池消耗\n\u2022更加可靠，但不是实时的\\n\u2022分离图像&amp;视频。</string>
+
     <string name="whats_new_search_title">全服务器搜索</string>
+    <string name="whats_new_search_content">\u2022不只在当前文件夹\n\u2022从完整的服务器返回结果\n\u2022直接打开文件/文件夹\n\u2022 NC12及以上版本支持</string>
+
     <string name="whats_new_theming_title">主题支持</string>
+    <string name="whats_new_theming_content">如果在服务器上启用，应用程序将显示\n\u2022背景图片\n\u2022服务器名称\n\u2022使用颜色来区分帐户</string>
+
+    <string name="whats_new_notification_title">通知支持</string>
+    <string name="whats_new_notification_content">获取通知，比如\n\u2022新的远程共享\n\u2022注释提示\n\u2022管理员通知</string>
+
     <string name="whats_new_skip">跳过</string>
 
     <string name="fingerprint_scan_finger">请扫描你的手指</string>
@@ -660,4 +678,9 @@
     <string name="resharing_is_not_allowed">不允许二次共享</string>
     <string name="whats_new_fingerprint_title">指纹解锁</string>
     <string name="whats_new_fingerprint_content">请用指纹解锁</string>
-    </resources>
+    <string name="fallback_weblogin_back">后退</string>
+    <string name="fallback_weblogin_text">返回老的登录方式</string>
+
+    <string name="foreground_service_upload">上传文件&#8230;</string>
+    <string name="foreground_service_download">下载文件&#8230;</string>
+</resources>
