@@ -88,16 +88,28 @@
     <string name="file_list_empty_headline">Ni datotek tukaj</string>
     <string name="folder_list_empty_headline">Tukaj ni map</string>
     <string name="file_list_empty">Naloži vsebino ali sinhroniziraj s svojo napravo.</string>
+    <string name="file_list_empty_favorites_filter_list">Datoteke ali mape, ki so označene kot priljubljene, bodo zbrane na tem mestu.</string>
+    <string name="file_list_empty_favorites_filter">Iskanje ni vrnilo nobenih priljubljenih datotek.</string>
     <string name="file_list_loading">Poteka nalaganje&#8230;</string>
+    <string name="file_list_no_app_for_file_type">Nobena datoteka ni nastavljena za odpiranje te vrste datotek.</string>
     <string name="local_file_list_empty">V tej mapi ni datotek.</string>
     <string name="local_folder_list_empty">Ni drugih map.</string>
     <string name="file_list_empty_headline_search">V tej mapi ni rezultatov</string>
     <string name="file_list_empty_headline_server_search">Ni rezultatov</string>
+    <string name="file_list_empty_favorite_headline">Ni še priljubljenih</string>
+    <string name="file_list_empty_shared_headline">Ni še deljenih predmetov</string>
+    <string name="file_list_empty_shared">Datoteke in mape, ki jih deliš se bodo pokazale tukaj</string>
     <string name="file_list_empty_headline_server_search_videos">Ni video posnetkov</string>
     <string name="file_list_empty_headline_server_search_photos">Ni fotografij</string>
     <string name="file_list_empty_search">Mogoče v drugi mapi?</string>
+    <string name="file_list_empty_recently_modified">Ni datotek spremenjenih v zadnjih 7 dni</string>
+    <string name="file_list_empty_recently_modified_filter">Iskanje ni vrnilo datotek spremenjenih v zadnjih 7 dni</string>
+    <string name="file_list_empty_recently_added">Ni nedavno spremenjenih datotek</string>
+    <string name="file_list_empty_recently_added_filter">Iskanje ni vrnilo nedavno spremenjenih datotek.</string>
     <string name="file_list_empty_text_photos">Naloži kakšno sliko ali vključi samodejno nalaganje.</string>
+    <string name="file_list_empty_text_photos_filter">Iskanje ni vrnilo slik.</string>
     <string name="file_list_empty_text_videos">Naloži kakšen video ali vključi samodejno nalaganje.</string>
+    <string name="file_list_empty_text_videos_filter">Iskanje ni vrnilo video posnetkov.</string>
     <string name="upload_list_empty_headline">Nič ni pripravljeno za nalaganje</string>
     <string name="upload_list_empty_text">Naloži kakšno vsebino ali vključi hipno nalaganje.</string>
     <string name="upload_list_empty_text_auto_upload">Naloži kakšno vsebino ali vključi samodejno nalaganje.</string>
@@ -129,6 +141,8 @@
     <string name="about_title">O</string>
     <string name="change_password">Spremeni geslo</string>
     <string name="delete_account">Odstrani račun</string>
+    <string name="delete_account_warning">Pobrišem račun%s z vsemi lokalnimi datotekami?\n\nBrisanja ne moreš preklicati.</string>
+    <string name="avatar">Avatar</string>
     <string name="active_user">Aktivni uporabnik</string>
     <string name="upload_chooser_title">Pošlji datoteko iz &#8230;</string>
     <string name="uploader_info_dirname">Ime mape</string>
@@ -163,11 +177,13 @@
     <string name="downloader_download_succeeded_ticker">Prenešeno</string>
     <string name="downloader_download_succeeded_content">%1$s: prejeto iz oblaka</string>
     <string name="downloader_download_failed_ticker">Prejemanje je spodletelo</string>
+    <string name="downloader_download_failed_content">Ne morem prebrati %1$s</string>
     <string name="downloader_not_downloaded_yet">Prejem še ni zaključen</string>
     <string name="downloader_download_failed_credentials_error">Prejemanje je spodletelo. Zahtevana je ponovna prijava.</string>
     <string name="common_choose_account">Izbor računa</string>
     <string name="sync_fail_ticker">Usklajevanje je spodletelo</string>
     <string name="sync_fail_ticker_unauthorized">Sinhronizacija ni uspela, moraš se ponovno prijaviti</string>
+    <string name="sync_fail_content">Ne morem zaključiti sinhronizacije %1$s</string>
     <string name="sync_fail_content_unauthorized">Napačno geslo za %1$s</string>
     <string name="sync_conflicts_in_favourites_ticker">Zaznani spori</string>
     <string name="sync_conflicts_in_favourites_content">%1$d stalno usklajenih datotek ni bilo mogoče uskladiti</string>
@@ -247,6 +263,8 @@
 	</string>
 	<string name="auth_can_not_auth_against_server">Povezave s strežnikom ni mogoče overiti</string>
     <string name="auth_account_does_not_exist">Račun na napravi še ne obstaja</string>
+    <string name="auth_access_failed">Dostop neuspel</string>
+
     <string name="favorite">Nastavi dosegljivost brez povezave</string>
     <string name="unfavorite">Odstrani dosegljivost brez povezave</string>
     <string name="favorite_real">Nastavi kot priljubljeno</string>
@@ -323,10 +341,8 @@
     <string name="conflict_use_local_version">krajevna različica</string>
     <string name="conflict_use_server_version">različica strežnika</string>
 
-    <string name="preview_sorry">Žal.</string>
     <string name="preview_image_description">Predogled slike</string>
     <string name="preview_image_error_unknown_format">Te slike ni mogoče prikazati</string>
-
     <string name="error__upload__local_file_not_copied">Datoteke %1$s ni mogoče kopirati v krajevno mapo %2$s</string>
     <string name="prefs_instant_upload_path_title">Mapa za hipno nalaganje</string>
     <string name="prefs_synced_folders_local_path_title">Lokalna mapa</string>
@@ -396,8 +412,11 @@
 
     <string name="prefs_add_account">Dodaj račun</string>
     <string name="drawer_manage_accounts">Uredi račune</string>
-    <string name="actionbar_logger">Dnevnik</string>
+    <string name="auth_redirect_non_secure_connection_title">Varna povezava preusmerjena preko nezavarovane poti.</string>
+
+	<string name="actionbar_logger">Dnevnik</string>
 	<string name="log_send_history_button">Pošlji zgodovino</string>
+	<string name="log_send_no_mail_app">Nobena nameščena datoteka ne more pošiljati dnevnikov. prosim, namesti e-poštno aplikacijo.</string>
 	<string name="log_send_mail_subject">%1$s dnevniki programa</string>
 	<string name="log_progress_dialog_text">Poteka nalaganje podatkov &#8230;</string>
 
@@ -522,15 +541,26 @@
     <string name="drawer_synced_folders">Samodejno nalaganje</string>
     <string name="drawer_participate">Sodeluj</string>
     <string name="participate_testing_headline">Pomagaj s testiranjem</string>
+    <string name="participate_testing_bug_text">Našel hrošča? Neprijetnost?</string>
+    <string name="participate_testing_report_text">Prijavi težavo na GitHub</string>
+    <string name="participate_testing_version_text">Želiš testirati naslednjo verzijo?</string>
+    <string name="participate_beta_headline">Testiraj razvojno verzijo</string>
     <string name="participate_release_candidate_headline">Kandidat za objavo</string>
     <string name="participate_contribute_headline">Aktivni prispevek</string>
+    <string name="participate_contribute_forum_text">Pomagaj ostalim na</string>
+    <string name="participate_contribute_forum_forum">forumu</string>
     <string name="participate_contribute_translate_translate">Prevedi</string>
     <string name="participate_contribute_translate_text">aplikacijo</string>
+    <string name="participate_rc_play_store">Naloži kandidata za različico preko Google Play trgovine</string>
+    <string name="participate_rc_fdroid">Naloži kandidata za različico preko f-droid trgovine</string>
+    <string name="participate_dev_fdroid">Naloži razvojno različico preko f-droid trgovine</string>
+    <string name="participate_dev_direct_download">Naloži razvojno različico direktno</string>
     <string name="move_to">Premakni v&#8230;</string>
     <string name="copy_to">Kopiraj v&#8230;</string>
     <string name="choose_remote_folder">Izberi mapo n astrežniku&#8230;</string>
     <string name="choose_local_folder">Izberi lokalno mapo&#8230;</string>
     <string name="synced_folders_loading_folders">Berem mape&#8230;</string>
+    <string name="synced_folders_no_results">Ne najdem map z mediji.</string>
     <string name="synced_folders_preferences">Nastavitve za samodejno nalaganje</string>
     <string name="synced_folders_settings">Nastavitve</string>
     <string name="synced_folders_new_info">Hipno nalaganje je bilo v celoti prenovljeno. Ponovno nastavi samodejno nalaganje iz glavnega menuja..\n\nUživaj v ovem in razširjenem samodejnem nalaganju.</string>
@@ -542,9 +572,19 @@
         <item quantity="other">%d izbranih</item>
     </plurals>
 
+    <string name="activity_list_loading_activity">Nalagam dejavnosti &#8230;</string>
+    <string name="activity_list_no_results">Ne najdem dejavnosti.</string>
+
+    <string name="notifications_loading_activity">Nalagam obvestila&#8230;</string>
+    <string name="notifications_no_results_headline">Ni obvestil</string>
+    <string name="notifications_no_results_message">Prosim, preveri kasneje</string>
+
     <string name="upload_file_dialog_title">Vnesi ime in zvrst datoteke za nalaganje</string>
     <string name="upload_file_dialog_filename">Ime datoteke</string>
     <string name="upload_file_dialog_filetype">Vrsta datoteke</string>
+    <string name="upload_file_dialog_filetype_internet_shortcut">Internetna bližnjica(%s)</string>
+    <string name="upload_file_dialog_filetype_googlemap_shortcut">Google Maps bližnjica(%s)</string>
+
     <string name="storage_description_default">Privzeto</string>
     <string name="storage_description_sd_no">SD kartica %1$d</string>
     <string name="storage_description_unknown">Neznano</string>
@@ -558,7 +598,10 @@
     <string name="welcome_feature_2_text">Poveži se z vsemi tvojimi oblaki</string>
 
     <string name="welcome_feature_3_title">Samodejno nalaganje</string>
+    <string name="welcome_feature_3_text">Hrani svoje slike na varnem</string>
+
     <string name="whats_new_auto_upload_title">Napredno samodejno nalaganje</string>
+    <string name="whats_new_search_title">Iskanje po celotnem strežniku</string>
     <string name="whats_new_theming_title">Podpora temam</string>
     <string name="whats_new_notification_title">Podpora obveščanju</string>
     <string name="whats_new_skip">Preskoči</string>

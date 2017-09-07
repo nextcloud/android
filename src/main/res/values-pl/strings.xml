@@ -341,10 +341,8 @@
     <string name="conflict_use_local_version">wersja lokalna</string>
     <string name="conflict_use_server_version">wersja zdalna</string>
 
-    <string name="preview_sorry">Przykro nam.</string>
     <string name="preview_image_description">Podgląd</string>
     <string name="preview_image_error_unknown_format">Nie można wyświetlić obrazu</string>
-
     <string name="error__upload__local_file_not_copied">%1$s nie może zostać skopiowany do lokalnego folderu %2$s</string>
     <string name="prefs_instant_upload_path_title">Folder natychmiastowego wysyłania</string>
     <string name="prefs_synced_folders_local_path_title">Katalog lokalny</string>
@@ -683,4 +681,6 @@
     <string name="fallback_weblogin_back">Wstecz</string>
     <string name="fallback_weblogin_text">Powrót do starej metody logowania</string>
 
-    </resources>
+    <string name="foreground_service_upload">Wysyłanie plików&#8230;</string>
+    <string name="foreground_service_download">Pobieranie plików&#8230;</string>
+</resources>

@@ -249,7 +249,6 @@
     <string name="conflict_use_local_version">النسخة المحلية</string>
     <string name="conflict_use_server_version">نسخة السيرفر</string>
 
-    <string name="preview_sorry">نعتذر عن ذلك !</string>
     <string name="preview_image_description">معاينة الصورة</string>
     <string name="error__upload__local_file_not_copied">%1$s تعذر نسخه %2$s للمجلد المحلي</string>
     <string name="share_link_file_error">حدث خطأ ما أثناء محاولة مشاركة هذا الملف أو المجلد</string>
