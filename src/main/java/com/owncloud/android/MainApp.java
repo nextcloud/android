@@ -186,7 +186,7 @@ public class MainApp extends MultiDexApplication {
 
         initiateExistingAutoUploadEntries();
 
-        FilesSyncHelper.scheduleFilesSyncIfNeeded();
+        FilesSyncHelper.scheduleFilesSyncIfNeeded(mContext);
         FilesSyncHelper.restartJobsIfNeeded();
 
         ReceiversHelper.registerNetworkChangeReceiver();
