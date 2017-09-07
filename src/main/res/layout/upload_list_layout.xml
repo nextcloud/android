@@ -31,7 +31,8 @@
         android:orientation="vertical">
 
         <include
-            layout="@layout/toolbar_standard"/>
+            android:id="@+id/navigation_bar"
+            android:layout="@layout/toolbar_standard"/>
 
         <FrameLayout
             android:id="@+id/upload_list_fragment"
@@ -39,7 +40,7 @@
             android:layout_height="match_parent"
             android:background="@color/background_color"
             android:layout_above="@+id/bottom_navigation_view"
-            android:layout_below="@+id/appbar" />
+            android:layout_below="@+id/navigation_bar" />
 
         <android.support.design.widget.BottomNavigationView
             android:id="@+id/bottom_navigation_view"
