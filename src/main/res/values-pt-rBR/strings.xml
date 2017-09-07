@@ -681,4 +681,6 @@
     <string name="fallback_weblogin_back">VOLTAR</string>
     <string name="fallback_weblogin_text">Voltar ao método de login antigo</string>
 
-    </resources>
+    <string name="foreground_service_upload">Atualizando arquivos&#8230;</string>
+    <string name="foreground_service_download">Baixando arquivos&#8230;</string>
+</resources>
