@@ -681,4 +681,6 @@
     <string name="fallback_weblogin_back">INDIETRO</string>
     <string name="fallback_weblogin_text">Torna al vecchio metodo di accesso</string>
 
-    </resources>
+    <string name="foreground_service_upload">Caricamento file &#8230;</string>
+    <string name="foreground_service_download">Scaricamento file &#8230;</string>
+</resources>

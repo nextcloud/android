@@ -682,4 +682,6 @@
     <string name="fallback_weblogin_back">ZURÜCK</string>
     <string name="fallback_weblogin_text">Zurück zu alter Anmeldeart</string>
 
-    </resources>
+    <string name="foreground_service_upload">Dateien hochladen&#8230;</string>
+    <string name="foreground_service_download">Dateien herunterladen&#8230;</string>
+</resources>

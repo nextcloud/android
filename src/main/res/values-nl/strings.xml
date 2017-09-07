@@ -682,4 +682,6 @@ Kies er eentje van een provider.</string>
     <string name="fallback_weblogin_back">Terug</string>
     <string name="fallback_weblogin_text">Ga terug naar de oude inlog methode</string>
 
-    </resources>
+    <string name="foreground_service_upload">Bezig met uploaden bestanden &#8230;</string>
+    <string name="foreground_service_download">Bezig met downloaden bestanden&#8230;</string>
+</resources>
