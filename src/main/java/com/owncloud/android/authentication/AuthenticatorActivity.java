@@ -1907,7 +1907,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         Uri uri = Uri.parse(mServerInfo.mBaseUrl);
         String username;
         if (!webViewLoginMethod) {
-            username = mUsernameInput.getText().toString().trim();
+            username = ((UserInfo) authResult.getData().get(0)).id;
         } else {
             username = webViewUser;
         }
