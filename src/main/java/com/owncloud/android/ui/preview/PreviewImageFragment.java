@@ -233,9 +233,9 @@ public class PreviewImageFragment extends FileFragment {
     @Override
     public void onStart() {
         super.onStart();
-        if (getFile() != null && !getFile().isDown()) {
+        if (getFile() == null || !getFile().isDown()) {
             showErrorMessage(R.string.preview_image_error_no_local_file);
-        } else if (getFile() != null) {
+        } else {
             mLoadBitmapTask = new LoadBitmapTask(mImageView);
             mLoadBitmapTask.execute(getFile());
         }
