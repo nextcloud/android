@@ -700,6 +700,6 @@
     <string name="foreground_service_upload">Uploading files&#8230;</string>
     <string name="foreground_service_download">Downloading files&#8230;</string>
 
-    <string name="common_warning">Warning</string>
-    <string name="corrupt_account_info">Accounts have been corrupted in case you have been using a release candidate of 2.0.0 between RC1 and RC5.\n\nWe are sorry to tell you that you need to remove the Nextcloud accounts from your device and need to re-login again completely in order to get fully working login-sessions on this device!</string>
+    <string name="common_warning" translatable="false">Warning</string>
+    <string name="corrupt_account_info" translatable="false">Accounts have been corrupted in case you have been using a release candidate of 2.0.0 between RC1 and RC5.\n\nWe are sorry to tell you that you need to remove the Nextcloud accounts from your device and need to re-login again completely in order to get fully working login-sessions on this device!</string>
 </resources>
