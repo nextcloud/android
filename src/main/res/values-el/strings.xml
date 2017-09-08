@@ -341,6 +341,7 @@
     <string name="conflict_use_local_version">τοπική έκδοση</string>
     <string name="conflict_use_server_version">έκδοση διακομιστή</string>
 
+    <string name="preview_sorry">Σας ζητούμε συγγνώμη</string>
     <string name="preview_image_description">Προεπισκόπηση εικόνας</string>
     <string name="preview_image_error_unknown_format">Αδυναμία προβολής εικόνας</string>
     <string name="error__upload__local_file_not_copied">Το %1$s δεν μπόρεσε να αντιγραφεί στον τοπικό φάκελο %2$s</string>

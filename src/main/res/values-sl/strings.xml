@@ -341,6 +341,7 @@
     <string name="conflict_use_local_version">krajevna različica</string>
     <string name="conflict_use_server_version">različica strežnika</string>
 
+    <string name="preview_sorry">Žal</string>
     <string name="preview_image_description">Predogled slike</string>
     <string name="preview_image_error_unknown_format">Te slike ni mogoče prikazati</string>
     <string name="error__upload__local_file_not_copied">Datoteke %1$s ni mogoče kopirati v krajevno mapo %2$s</string>
