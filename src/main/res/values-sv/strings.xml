@@ -341,6 +341,7 @@
     <string name="conflict_use_local_version">lokala versionen</string>
     <string name="conflict_use_server_version">serverversionen</string>
 
+    <string name="preview_sorry">Tyvärr</string>
     <string name="preview_image_description">Förhandsvisa bild</string>
     <string name="preview_image_error_unknown_format">Kan inte visa bild</string>
     <string name="error__upload__local_file_not_copied">%1$s kunde inte kopieras till %2$s lokal mapp</string>

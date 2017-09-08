@@ -341,6 +341,7 @@
     <string name="conflict_use_local_version">versión local</string>
     <string name="conflict_use_server_version">versión del servidor</string>
 
+    <string name="preview_sorry">¡Lo sentimos</string>
     <string name="preview_image_description">Previsualización de imagen</string>
     <string name="preview_image_error_unknown_format">No se puede mostrar la imagen</string>
     <string name="error__upload__local_file_not_copied">%1$s no se ha podido copiar a la carpeta local %2$s</string>

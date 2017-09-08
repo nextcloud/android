@@ -341,6 +341,7 @@
     <string name="conflict_use_local_version">локална верзија</string>
     <string name="conflict_use_server_version">верзија сервера</string>
 
+    <string name="preview_sorry">Извините</string>
     <string name="preview_image_description">Преглед слике</string>
     <string name="preview_image_error_unknown_format">Не могу да прикажем слику</string>
     <string name="error__upload__local_file_not_copied">%1$s се не може копирати у локалну фасциклу %2$s</string>

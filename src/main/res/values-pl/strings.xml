@@ -341,6 +341,7 @@
     <string name="conflict_use_local_version">wersja lokalna</string>
     <string name="conflict_use_server_version">wersja zdalna</string>
 
+    <string name="preview_sorry">Przykro nam</string>
     <string name="preview_image_description">Podgląd</string>
     <string name="preview_image_error_unknown_format">Nie można wyświetlić obrazu</string>
     <string name="error__upload__local_file_not_copied">%1$s nie może zostać skopiowany do lokalnego folderu %2$s</string>

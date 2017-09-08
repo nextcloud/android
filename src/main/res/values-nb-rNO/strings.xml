@@ -341,6 +341,7 @@
     <string name="conflict_use_local_version">lokal versjon</string>
     <string name="conflict_use_server_version">tjenerversjon</string>
 
+    <string name="preview_sorry">Beklager</string>
     <string name="preview_image_description">Bildeforhåndsvisning</string>
     <string name="preview_image_error_unknown_format">Kunne ikke vise bilde</string>
     <string name="error__upload__local_file_not_copied">%1$s kunne ikke kopieres til lokal mappe %2$s</string>
