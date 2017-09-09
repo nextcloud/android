@@ -48,6 +48,7 @@ import com.owncloud.android.operations.common.SyncOperation;
 import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.MimeType;
 import com.owncloud.android.utils.MimeTypeUtil;
+import com.owncloud.android.utils.UploadUtils;
 import com.owncloud.android.utils.UriUtils;
 
 import org.apache.commons.httpclient.HttpStatus;
@@ -102,6 +103,7 @@ public class UploadFileOperation extends SyncOperation {
     private int mCreatedBy = CREATED_BY_USER;
     private boolean mOnWifiOnly = false;
     private boolean mWhileChargingOnly = false;
+    private boolean mIgnoringPowerSaveMode = false;
 
     private boolean mWasRenamed = false;
     private long mOCUploadId = -1;
@@ -192,6 +194,8 @@ public class UploadFileOperation extends SyncOperation {
         mOCUploadId = upload.getUploadId();
         mCreatedBy = upload.getCreadtedBy();
         mRemoteFolderToBeCreated = upload.isCreateRemoteFolder();
+        // Ignore power save mode only if user explicitly created this upload
+        mIgnoringPowerSaveMode = (mCreatedBy == CREATED_BY_USER);
     }
 
     public boolean getIsWifiRequired() {
@@ -201,6 +205,8 @@ public class UploadFileOperation extends SyncOperation {
     public boolean getIsChargingRequired() {
         return mWhileChargingOnly;
     }
+
+    public boolean getIsIgnoringPowerSaveMode() { return mIgnoringPowerSaveMode; }
 
     public Account getAccount() {
         return mAccount;
@@ -345,6 +351,12 @@ public class UploadFileOperation extends SyncOperation {
             if (mWhileChargingOnly && !Device.isCharging(mContext)) {
                 Log_OC.d(TAG, "Upload delayed until the device is charging: " + getRemotePath());
                 return new RemoteOperationResult(ResultCode.DELAYED_FOR_CHARGING);
+            }
+
+            // Check that device is not in power save mode
+            if (!mIgnoringPowerSaveMode && UploadUtils.isPowerSaveMode(mContext)) {
+                Log_OC.d(TAG, "Upload delayed because device is in power save mode: " + getRemotePath());
+                return new RemoteOperationResult(ResultCode.DELAYED_IN_POWER_SAVE_MODE);
             }
 
             /// check if the file continues existing before schedule the operation

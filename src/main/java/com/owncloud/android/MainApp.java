@@ -194,6 +194,10 @@ public class MainApp extends MultiDexApplication {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
             ReceiversHelper.registerPowerChangeReceiver();
         }
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            ReceiversHelper.registerPowerSaveReceiver();
+        }
     }
 
     public static Context getAppContext() {

@@ -36,7 +36,8 @@ public enum UploadResult {
     SERVICE_INTERRUPTED(10),
     DELAYED_FOR_CHARGING(11),
     MAINTENANCE_MODE(12),
-    LOCK_FAILED(13);
+    LOCK_FAILED(13),
+    DELAYED_IN_POWER_SAVE_MODE(14);
 
     private final int value;
 
@@ -80,6 +81,8 @@ public enum UploadResult {
                 return MAINTENANCE_MODE;
             case 13:
                 return LOCK_FAILED;
+            case 14:
+                return DELAYED_IN_POWER_SAVE_MODE;
         }
         return null;
     }
@@ -116,6 +119,8 @@ public enum UploadResult {
                 return DELAYED_FOR_WIFI;
             case DELAYED_FOR_CHARGING:
                 return DELAYED_FOR_CHARGING;
+            case DELAYED_IN_POWER_SAVE_MODE:
+                return DELAYED_IN_POWER_SAVE_MODE;
             case UNKNOWN_ERROR:
                 if (result.getException() instanceof java.io.FileNotFoundException) {
                     return FILE_ERROR;
