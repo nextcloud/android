@@ -33,7 +33,7 @@
     <string name="drawer_item_uploads_list">Subidas</string>
     <string name="drawer_item_activities">Actividades</string>
     <string name="drawer_item_notifications">Notificaciones</string>
-    <string name="drawer_quota">%1$s de %2$s utilizado</string>
+    <string name="drawer_quota">%1$s de %2$s utilizados</string>
 	<string name="drawer_close">Cerrar</string>
     <string name="drawer_open">Abrir</string>
     <string name="prefs_category_general">General</string>
@@ -62,7 +62,7 @@
 
     <string name="auth_check_server">Verificar servidor</string>
     <string name="auth_host_url">Dirección del servidor https://&#8230;</string>
-    <string name="auth_username">Nombre de usuario</string>
+    <string name="auth_username">Usuario</string>
     <string name="auth_password">Contraseña</string>
     <string name="auth_register">¿No tienes todavía un servidor?\Pulsa aquí para conseguir uno de un proveedor</string>
     <string name="sync_string_files">Archivos</string>
