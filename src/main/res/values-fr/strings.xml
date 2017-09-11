@@ -543,7 +543,7 @@
 
     <string name="uploads_view_upload_status_waiting_for_charging">En attente de recharge de l\'appareil</string>
     <string name="actionbar_search">Rechercher</string>
-    <string name="files_drop_not_supported">Il s\'agit d\'une fonctionnalité de Nextcloud ; veuillez mettre à jour..</string>
+    <string name="files_drop_not_supported">Il s\'agit d\'une fonctionnalité de Nextcloud. Veuillez mettre à jour..</string>
     <string name="learn_more">En apprendre plus</string>
     <string name="drawer_synced_folders">Téléversement automatique</string>
     <string name="drawer_participate">Participer</string>

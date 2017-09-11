@@ -33,7 +33,7 @@
     <string name="drawer_item_uploads_list">Subidas</string>
     <string name="drawer_item_activities">Actividades</string>
     <string name="drawer_item_notifications">Notificaciones</string>
-    <string name="drawer_quota">%1$s de %2$s utilizado</string>
+    <string name="drawer_quota">%1$s de %2$s utilizados</string>
 	<string name="drawer_close">Cerrar</string>
     <string name="drawer_open">Abrir</string>
     <string name="prefs_category_general">General</string>
@@ -62,7 +62,7 @@
 
     <string name="auth_check_server">Verificar servidor</string>
     <string name="auth_host_url">Dirección del servidor https://&#8230;</string>
-    <string name="auth_username">Nombre de usuario</string>
+    <string name="auth_username">Usuario</string>
     <string name="auth_password">Contraseña</string>
     <string name="auth_register">¿No tienes todavía un servidor?\Pulsa aquí para conseguir uno de un proveedor</string>
     <string name="sync_string_files">Archivos</string>
@@ -344,6 +344,8 @@
     <string name="preview_sorry">¡Lo sentimos</string>
     <string name="preview_image_description">Previsualización de imagen</string>
     <string name="preview_image_error_unknown_format">No se puede mostrar la imagen</string>
+    <string name="preview_image_error_no_local_file">No hay archivo local para previsualizar</string>
+
     <string name="error__upload__local_file_not_copied">%1$s no se ha podido copiar a la carpeta local %2$s</string>
     <string name="prefs_instant_upload_path_title">Carpeta para subida instantánea</string>
     <string name="prefs_synced_folders_local_path_title">Carpeta local</string>

@@ -62,6 +62,7 @@
     <string name="sync_string_files">Fitxers</string>
     <string name="setup_btn_connect">Connecta</string>
     <string name="uploader_btn_upload_text">Puja</string>
+    <string name="uploader_btn_alternative_text">Escull</string>
     <string name="uploader_top_message">Elegiu carpeta de pujada</string>
     <string name="uploader_wrn_no_account_title">No s\'ha trobat el compte</string>
     <string name="uploader_wrn_no_account_text">No hi ha comptes %1$s al dispositiu. Primer configureu un compte.</string>
@@ -76,10 +77,12 @@
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Elimina el fitxer de la carpeta d\'origen</string>
     <string name="file_list_seconds_ago">segons enrere</string>
     <string name="file_list_empty_headline">No hi ha arxius</string>
+    <string name="folder_list_empty_headline">No hi ha carpetes aquí</string>
     <string name="file_list_loading">Carregant&#8230;</string>
     <string name="local_file_list_empty">No hi ha fitxers a aquesta carpeta</string>
     <string name="file_list_empty_headline_search">Cap resultat en aquesta carpeta</string>
     <string name="file_list_empty_headline_server_search">Sense resultats</string>
+    <string name="file_list_empty_favorite_headline">Cap preferit encara</string>
     <string name="file_list_empty_headline_server_search_videos">No hi ha vídeos</string>
     <string name="file_list_empty_headline_server_search_photos">No hi ha imatges</string>
     <string name="upload_list_empty_headline">No hi ha pujades disponibles</string>
@@ -96,6 +99,7 @@
     <string name="common_no">No</string>
     <string name="common_ok">D\'acord</string>
     <string name="common_remove_upload">Esborra els fitxers carregats</string>
+    <string name="common_retry_upload">Reintenta la pujada</string>
     <string name="common_cancel_sync">Cancel·la la sincronització</string>
     <string name="common_cancel">Cancel·la</string>
     <string name="common_back">Enrera</string>
@@ -105,9 +109,11 @@
     <string name="common_unknown">desconegut</string>
     <string name="common_error_unknown">Error desconegut</string>
     <string name="common_pending">Pendent</string>
+    <string name="common_delete">Esborra</string>
     <string name="about_title">Quant a</string>
     <string name="change_password">Canvia la contrasenya</string>
     <string name="delete_account">Elimina el compte</string>
+    <string name="active_user">Usuari actiu</string>
     <string name="upload_chooser_title">Puja fitxer des de&#8230;</string>
     <string name="uploader_info_dirname">Nom de la carpeta</string>
     <string name="uploader_upload_in_progress_ticker">S\'està pujant&#8230;</string>
@@ -115,6 +121,7 @@
     <string name="uploader_upload_succeeded_ticker">Penjat</string>
     <string name="uploader_upload_succeeded_content_single">%1$s s\'ha carregat correctament</string>
     <string name="uploader_upload_failed_ticker">La pujada ha fallat</string>
+    <string name="uploader_upload_failed_content_single">No s\'ha pogut pujar %1$s</string>
     <string name="uploader_upload_failed_credentials_error">La pujada ha fallat, us heu de tornar a acreditar</string>
     <string name="uploads_view_title">Fitxers carregats</string>
     <string name="uploads_view_group_current_uploads">Actual</string>

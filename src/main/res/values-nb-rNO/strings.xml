@@ -344,6 +344,8 @@
     <string name="preview_sorry">Beklager</string>
     <string name="preview_image_description">Bildeforhåndsvisning</string>
     <string name="preview_image_error_unknown_format">Kunne ikke vise bilde</string>
+    <string name="preview_image_error_no_local_file">Ingen lokal fil å forhåndsvise</string>
+
     <string name="error__upload__local_file_not_copied">%1$s kunne ikke kopieres til lokal mappe %2$s</string>
     <string name="prefs_instant_upload_path_title">Mappe for umiddelbar opplasting</string>
     <string name="prefs_synced_folders_local_path_title">Lokal mappe</string>
