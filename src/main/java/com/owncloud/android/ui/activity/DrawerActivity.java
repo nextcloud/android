@@ -39,6 +39,7 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.text.Html;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -932,14 +933,33 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
         // set user space information
         Thread t = new Thread(new Runnable() {
             public void run() {
+                AccountManager mAccountMgr = AccountManager.get(MainApp.getAppContext());
 
-                RemoteOperation getQuotaInfoOperation = new GetRemoteUserInfoOperation();
+                String userId = mAccountMgr.getUserData(AccountUtils.getCurrentOwnCloudAccount(DrawerActivity.this),
+                        com.owncloud.android.lib.common.accounts.AccountUtils.Constants.KEY_USER_ID);
+
+                RemoteOperation getQuotaInfoOperation;
+                if (TextUtils.isEmpty(userId)) {
+                    getQuotaInfoOperation = new GetRemoteUserInfoOperation();
+                } else {
+                    getQuotaInfoOperation = new GetRemoteUserInfoOperation(userId);
+                }
+
                 RemoteOperationResult result = getQuotaInfoOperation.execute(
                         AccountUtils.getCurrentOwnCloudAccount(DrawerActivity.this), DrawerActivity.this);
 
                 if (result.isSuccess() && result.getData() != null) {
                     final UserInfo userInfo = (UserInfo) result.getData().get(0);
                     final Quota quota = userInfo.getQuota();
+
+                    // Since we always call this method, might as well put it here
+                    if (userInfo.getId() != null) {
+                        mAccountMgr.setUserData(
+                                AccountUtils.getCurrentOwnCloudAccount(DrawerActivity.this),
+                                com.owncloud.android.lib.common.accounts.AccountUtils.Constants.KEY_USER_ID,
+                                userInfo.getId()
+                        );
+                    }
 
                     if (quota != null) {
                         final long used = quota.getUsed();
