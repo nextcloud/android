@@ -1914,6 +1914,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         if (isOAuth) {
             username = "OAuth_user" + (new java.util.Random(System.currentTimeMillis())).nextLong();
         }
+
         String accountName = com.owncloud.android.lib.common.accounts.AccountUtils.
                 buildAccountName(uri, username);
         Account newAccount = new Account(accountName, MainApp.getAccountType());
@@ -1979,11 +1980,16 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             mAccountMgr.setUserData(
                     mAccount, Constants.KEY_OC_BASE_URL, mServerInfo.mBaseUrl
             );
+
             if (authResult.getData() != null) {
                 try {
                     UserInfo userInfo = (UserInfo) authResult.getData().get(0);
                     mAccountMgr.setUserData(
                             mAccount, Constants.KEY_DISPLAY_NAME, userInfo.getDisplayName()
+                    );
+
+                    mAccountMgr.setUserData(
+                            mAccount, Constants.KEY_USER_ID, userInfo.getId()
                     );
                 } catch (ClassCastException c) {
                     Log_OC.w(TAG, "Couldn't get display name for " + username);

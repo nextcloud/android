@@ -65,6 +65,12 @@ public class GetUserProfileOperation extends SyncOperation {
                 AccountUtils.Constants.KEY_DISPLAY_NAME,
                 userInfo.getDisplayName()
             );
+
+            accountManager.setUserData(
+                    storedAccount,
+                    AccountUtils.Constants.KEY_USER_ID,
+                    userInfo.getId()
+            );
         }
         return result;
     }
