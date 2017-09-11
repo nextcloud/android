@@ -24,22 +24,16 @@ import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.net.Uri;
 import android.preference.PreferenceManager;
 
 import com.owncloud.android.MainApp;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.FileDataStorageManager;
-import com.owncloud.android.lib.common.OwnCloudAccount;
-import com.owncloud.android.lib.common.OwnCloudClient;
-import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
-import com.owncloud.android.lib.common.UserInfo;
 import com.owncloud.android.lib.common.accounts.AccountTypeUtils;
 import com.owncloud.android.lib.common.accounts.AccountUtils.Constants;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.status.OwnCloudVersion;
-import com.owncloud.android.lib.resources.users.GetRemoteUserInfoOperation;
 import com.owncloud.android.operations.GetCapabilitiesOperarion;
 import com.owncloud.android.ui.activity.ManageAccountsActivity;
 
@@ -228,126 +222,7 @@ public class AccountUtils {
         return null;
     }
 
-
-    /**
-     * Update the accounts in AccountManager to meet the current version of accounts expected by the app, if needed.
-     *
-     * Introduced to handle a change in the structure of stored account names needed to allow different OC servers
-     * in the same domain, but not in the same path.
-     *
-     * @param   context     Used to access the AccountManager.
-     */
-    public static void updateAccountVersion(Context context) {
-        Account currentAccount = AccountUtils.getCurrentOwnCloudAccount(context);
-        AccountManager accountMgr = AccountManager.get(context);
-
-        if ( currentAccount != null ) {
-            String currentAccountVersion = accountMgr.getUserData(currentAccount, Constants.KEY_OC_ACCOUNT_VERSION);
-
-            if (!String.valueOf(ACCOUNT_VERSION_WITH_PROPER_ID).equalsIgnoreCase(currentAccountVersion)) {
-                Log_OC.i(TAG, "Upgrading accounts to account version #" + ACCOUNT_VERSION_WITH_PROPER_ID);
-                Account[] ocAccounts = accountMgr.getAccountsByType(MainApp.getAccountType());
-                String serverUrl;
-                String username;
-                String newAccountName;
-                String password;
-                Account newAccount;
-                for (Account account : ocAccounts) {
-                    // build new account name
-                    serverUrl = accountMgr.getUserData(account, Constants.KEY_OC_BASE_URL);
-
-                    // update user name
-                    try {
-                        OwnCloudAccount ocAccount = new OwnCloudAccount(account, context);
-                        OwnCloudClient client = OwnCloudClientManagerFactory.getDefaultSingleton()
-                                .getClientFor(ocAccount, context);
-
-                        GetRemoteUserInfoOperation remoteUserNameOperation = new GetRemoteUserInfoOperation();
-                        RemoteOperationResult result = remoteUserNameOperation.execute(client);
-
-                        if (result.isSuccess()) {
-                            UserInfo userInfo = (UserInfo) result.getData().get(0);
-                            username = userInfo.id;
-                        } else {
-                            // skip account, try it next time
-                            Log_OC.e(TAG, "Error while getting username for account: " + account.name);
-                            continue;
-                        }
-                    } catch (Exception e) {
-                        Log_OC.e(TAG, "Error while getting username: " + e.getMessage());
-                        continue;
-                    }
-
-                    newAccountName = com.owncloud.android.lib.common.accounts.AccountUtils.
-                            buildAccountName(Uri.parse(serverUrl), username);
-
-                    // migrate to a new account, if needed
-                    if (!newAccountName.equals(account.name)) {
-                        Log_OC.d(TAG, "Upgrading " + account.name + " to " + newAccountName);
-
-                        // create the new account
-                        newAccount = new Account(newAccountName, MainApp.getAccountType());
-                        password = accountMgr.getPassword(account);
-                        accountMgr.addAccountExplicitly(newAccount, (password != null) ? password : "", null);
-
-                        // copy base URL
-                        accountMgr.setUserData(newAccount, Constants.KEY_OC_BASE_URL, serverUrl);
-
-                        // copy server version
-                        accountMgr.setUserData(
-                                newAccount,
-                                Constants.KEY_OC_VERSION,
-                                accountMgr.getUserData(account, Constants.KEY_OC_VERSION)
-                        );
-
-                        // copy cookies
-                        accountMgr.setUserData(
-                                newAccount,
-                                Constants.KEY_COOKIES,
-                                accountMgr.getUserData(account, Constants.KEY_COOKIES)
-                        );
-
-                        // copy type of authentication
-                        final String isSamlStr = accountMgr.getUserData(account, Constants.KEY_SUPPORTS_SAML_WEB_SSO);
-                        if (Boolean.parseBoolean(isSamlStr)) {
-                            accountMgr.setUserData(newAccount, Constants.KEY_SUPPORTS_SAML_WEB_SSO, "TRUE");
-                        }
-
-                        final String isOauthStr = accountMgr.getUserData(account, Constants.KEY_SUPPORTS_OAUTH2);
-                        if (Boolean.parseBoolean(isOauthStr)) {
-                            accountMgr.setUserData(newAccount, Constants.KEY_SUPPORTS_OAUTH2, "TRUE");
-                        }
-                        /* TODO - study if it's possible to run this method in a background thread to copy the authToken
-                        if (isOAuth || isSaml) {
-                            accountMgr.setAuthToken(newAccount, mAuthTokenType, mAuthToken);
-                        }
-                        */
-
-                        // don't forget the account saved in preferences as the current one
-                        if (currentAccount.name.equals(account.name)) {
-                            AccountUtils.setCurrentOwnCloudAccount(context, newAccountName);
-                        }
-
-                        // remove the old account
-                        accountMgr.removeAccount(account, null, null);
-                            // will assume it succeeds, not a big deal otherwise
-
-                    } else {
-                        // servers which base URL is in the root of their domain need no change
-                        Log_OC.d(TAG, account.name + " needs no upgrade ");
-                        newAccount = account;
-                    }
-
-                    // at least, upgrade account version
-                    Log_OC.d(TAG, "Setting version " + ACCOUNT_VERSION_WITH_PROPER_ID + " to " + newAccountName);
-                    accountMgr.setUserData(newAccount,
-                            Constants.KEY_OC_ACCOUNT_VERSION, Integer.toString(ACCOUNT_VERSION_WITH_PROPER_ID));
-                }
-            }
-        }
-    }
-
-
+    
     public static String trimWebdavSuffix(String url) {
         while(url.endsWith("/")) {
             url = url.substring(0, url.length() - 1);
