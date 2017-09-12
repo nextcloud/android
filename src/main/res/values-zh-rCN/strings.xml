@@ -684,4 +684,5 @@
 
     <string name="foreground_service_upload">上传文件&#8230;</string>
     <string name="foreground_service_download">下载文件&#8230;</string>
-</resources>
+
+    </resources>

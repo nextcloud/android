@@ -46,7 +46,10 @@
     <string name="prefs_show_hidden_files">הצגת קבצים נסתרים</string>
     <string name="prefs_log_delete_history_button">מחיקת הסטוריה</string>
     <string name="prefs_calendar_contacts_summary">הגדרת DAVdroid (v1.3.0+)‎ עבור החשבון הנוכחי</string>
+    <string name="prefs_calendar_contacts_no_store_error">לא נמצא התקנה של F-droid או Google Play</string>
+    <string name="prefs_daily_contacts_sync_summary">גיבוי יומי של אנשי הקשר שלך</string>
     <string name="prefs_help">עזרה</string>
+    <string name="prefs_recommend">המליצו לחברים</string>
     <string name="prefs_feedback">משוב</string>
     <string name="prefs_imprint">חותמת</string>
 
@@ -57,17 +60,24 @@
     <string name="sync_string_files">קבצים</string>
     <string name="setup_btn_connect">התחברות</string>
     <string name="uploader_btn_upload_text">העלאה</string>
+    <string name="uploader_btn_alternative_text">בחר</string>
     <string name="uploader_top_message">יש לבחור בתיקיית העלאה</string>
     <string name="uploader_wrn_no_account_title">לא נמצא חשבון</string>
     <string name="uploader_wrn_no_account_text">לא מוגדרים חשבונות %1$s במכשיר שלך. יש להגדיר חשבות תחילה.</string>
     <string name="uploader_wrn_no_account_setup_btn_text">הגדרות</string>
     <string name="uploader_wrn_no_account_quit_btn_text">יציאה</string>
     <string name="uploader_error_title_no_file_to_upload">אין קובץ להעלאה</string>
+    <string name="uploader_error_message_no_file_to_upload">המידע שהתקבל לא הכיל קובץ חוקי</string>
+    <string name="uploader_error_title_file_cannot_be_uploaded">לא ניתן להעלות קובץ זה</string>
     <string name="uploader_error_message_read_permission_not_granted">ל- %1$s אסור לקרוא קובץ מתקבל</string>
     <string name="uploader_upload_files_behaviour">אפשרויות העלאה:</string>
+    <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">העבר קובץ לתקיית NextCloud</string>
     <string name="file_list_seconds_ago">שניות</string>
     <string name="file_list_loading">בטעינה …</string>
     <string name="local_file_list_empty">אין קבצים בתיקייה זו:</string>
+    <string name="file_list_empty_headline_search">לא נמצאו תוצאות בתקיה זו</string>
+    <string name="file_list_empty_headline_server_search">לא נמצאו תוצאות</string>
+    <string name="file_list_empty_headline_server_search_photos">אין תמונות</string>
     <string name="file_list_folder">תקיה</string>
     <string name="filedetails_select_file">יש לגעת בקובץ כדי להציג פרטים נוספים.</string>
     <string name="filedetails_size">גודל:</string>

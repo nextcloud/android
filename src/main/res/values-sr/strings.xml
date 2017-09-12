@@ -683,4 +683,5 @@
 
     <string name="foreground_service_upload">Отпремам датотеке&#8230;</string>
     <string name="foreground_service_download">Скидам датотеке&#8230;</string>
-</resources>
+
+    </resources>

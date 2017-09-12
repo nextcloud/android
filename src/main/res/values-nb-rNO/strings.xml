@@ -684,4 +684,5 @@
 
     <string name="foreground_service_upload">Laster opp filer&#8230;</string>
     <string name="foreground_service_download">Laster ned filer&#8230;</string>
-</resources>
+
+    </resources>
