@@ -24,16 +24,22 @@ import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 
 import com.owncloud.android.MainApp;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.FileDataStorageManager;
+import com.owncloud.android.lib.common.OwnCloudAccount;
+import com.owncloud.android.lib.common.OwnCloudClient;
+import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
+import com.owncloud.android.lib.common.UserInfo;
 import com.owncloud.android.lib.common.accounts.AccountUtils.Constants;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.status.OwnCloudVersion;
+import com.owncloud.android.lib.resources.users.GetRemoteUserInfoOperation;
 import com.owncloud.android.operations.GetCapabilitiesOperarion;
 import com.owncloud.android.ui.activity.ManageAccountsActivity;
 
@@ -137,7 +143,7 @@ public class AccountUtils {
     
     /**
      * Returns owncloud account identified by accountName or null if it does not exist.
-     * @param context
+     * @param context the context
      * @param accountName name of account to be returned
      * @return owncloud account named accountName
      */
@@ -194,53 +200,12 @@ public class AccountUtils {
     }
 
     /**
-     * Returns the proper URL path to access the WebDAV interface of an ownCloud server,
-     * according to its version and the authorization method used.
-     * 
-     * @param   version         Version of ownCloud server.
-     * @param   authTokenType   Authorization token type, matching some of the AUTH_TOKEN_TYPE_* constants in
-     *                          {@link AccountAuthenticator}.
-     * @return                  WebDAV path for given OC version and authorization method, null if OC version
-     *                          is unknown; versions prior to ownCloud 4 are not supported anymore
-     */
-    public static String getWebdavPath(OwnCloudVersion version, String authTokenType) {
-        if (version != null) {
-            if (AccountTypeUtils.getAuthTokenTypeAccessToken(MainApp.getAccountType()).equals(authTokenType)) {
-                return ODAV_PATH;
-            }
-            if (AccountTypeUtils.getAuthTokenTypeSamlSessionCookie(MainApp.getAccountType()).equals(authTokenType)) {
-                return SAML_SSO_PATH;
-            }
-
-            return WEBDAV_PATH_4_0_AND_LATER;
-        }
-        return null;
-    }
-
-    
-    public static String trimWebdavSuffix(String url) {
-        while(url.endsWith("/")) {
-            url = url.substring(0, url.length() - 1);
-        }
-        int pos = url.lastIndexOf(WEBDAV_PATH_4_0_AND_LATER);
-        if (pos >= 0) {
-            url = url.substring(0, pos);
-
-        } else {
-            pos = url.lastIndexOf(ODAV_PATH);
-            if (pos >= 0) {
-                url = url.substring(0, pos);
-            }
-        }
-        return url;
-    }
-
      * Update the accounts in AccountManager to meet the current version of accounts expected by the app, if needed.
      *
      * Introduced to handle a change in the structure of stored account names needed to allow different OC servers
      * in the same domain, but not in the same path.
      *
-     * @param   context     Used to access the AccountManager.
+     * @param context Used to access the AccountManager.
      */
     public static void updateAccountVersion(Context context) {
         Account currentAccount = AccountUtils.getCurrentOwnCloudAccount(context);
