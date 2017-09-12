@@ -684,4 +684,5 @@
 
     <string name="foreground_service_upload">Dosyalar yükleniyor&#8230;</string>
     <string name="foreground_service_download">Dosyalar yükleniyor&#8230;</string>
-</resources>
+
+    </resources>

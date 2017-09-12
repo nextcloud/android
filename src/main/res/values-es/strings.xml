@@ -684,4 +684,5 @@
 
     <string name="foreground_service_upload">Subiendo archivos &#8230;</string>
     <string name="foreground_service_download">Descargando archivos &#8230;</string>
-</resources>
+
+    </resources>

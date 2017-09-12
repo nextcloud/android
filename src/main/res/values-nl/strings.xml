@@ -683,4 +683,5 @@ Kies er eentje van een provider.</string>
 
     <string name="foreground_service_upload">Bezig met uploaden bestanden&#8230;</string>
     <string name="foreground_service_download">Bezig met downloaden bestanden&#8230;</string>
-</resources>
+
+    </resources>
