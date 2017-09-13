@@ -1,4 +1,4 @@
-/**
+/*
  *   ownCloud Android client application
  *
  *   Copyright (C) 2012  Bartek Przybylski
@@ -26,6 +26,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.preference.PreferenceManager;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import com.owncloud.android.MainApp;
@@ -61,8 +62,7 @@ public class AccountUtils {
      *                      {@link Account} available, if valid (still registered in the system as ownCloud 
      *                      account). If none is available and valid, returns null.
      */
-    public static @Nullable
-    Account getCurrentOwnCloudAccount(Context context) {
+    public static @Nullable Account getCurrentOwnCloudAccount(Context context) {
         Account[] ocAccounts = getAccounts(context);
         Account defaultAccount = null;
 
@@ -220,7 +220,6 @@ public class AccountUtils {
                 String serverUrl;
                 String username;
                 String newAccountName;
-                String password;
                 Account newAccount;
                 for (Account account : ocAccounts) {
                     // build new account name
@@ -253,54 +252,14 @@ public class AccountUtils {
 
                     // migrate to a new account, if needed
                     if (!newAccountName.equals(account.name)) {
-                        Log_OC.d(TAG, "Upgrading " + account.name + " to " + newAccountName);
-
-                        // create the new account
-                        newAccount = new Account(newAccountName, MainApp.getAccountType());
-                        password = accountMgr.getPassword(account);
-                        accountMgr.addAccountExplicitly(newAccount, (password != null) ? password : "", null);
-
-                        // copy base URL
-                        accountMgr.setUserData(newAccount, Constants.KEY_OC_BASE_URL, serverUrl);
-
-                        // copy server version
-                        accountMgr.setUserData(
-                                newAccount,
-                                Constants.KEY_OC_VERSION,
-                                accountMgr.getUserData(account, Constants.KEY_OC_VERSION)
+                        newAccount = migrateAccount(
+                                context,
+                                currentAccount,
+                                accountMgr,
+                                serverUrl,
+                                newAccountName,
+                                account
                         );
-
-                        // copy cookies
-                        accountMgr.setUserData(
-                                newAccount,
-                                Constants.KEY_COOKIES,
-                                accountMgr.getUserData(account, Constants.KEY_COOKIES)
-                        );
-
-                        // copy type of authentication
-                        final String isSamlStr = accountMgr.getUserData(account, Constants.KEY_SUPPORTS_SAML_WEB_SSO);
-                        if (Boolean.parseBoolean(isSamlStr)) {
-                            accountMgr.setUserData(newAccount, Constants.KEY_SUPPORTS_SAML_WEB_SSO, "TRUE");
-                        }
-
-                        final String isOauthStr = accountMgr.getUserData(account, Constants.KEY_SUPPORTS_OAUTH2);
-                        if (Boolean.parseBoolean(isOauthStr)) {
-                            accountMgr.setUserData(newAccount, Constants.KEY_SUPPORTS_OAUTH2, "TRUE");
-                        }
-                        /* TODO - study if it's possible to run this method in a background thread to copy the authToken
-                        if (isOAuth || isSaml) {
-                            accountMgr.setAuthToken(newAccount, mAuthTokenType, mAuthToken);
-                        }
-                        */
-
-                        // don't forget the account saved in preferences as the current one
-                        if (currentAccount.name.equals(account.name)) {
-                            AccountUtils.setCurrentOwnCloudAccount(context, newAccountName);
-                        }
-
-                        // remove the old account
-                        accountMgr.removeAccount(account, null, null);
-                            // will assume it succeeds, not a big deal otherwise
 
                     } else {
                         // servers which base URL is in the root of their domain need no change
@@ -315,6 +274,63 @@ public class AccountUtils {
                 }
             }
         }
+    }
+
+    @NonNull
+    private static Account migrateAccount(Context context, Account currentAccount, AccountManager accountMgr,
+                                          String serverUrl, String newAccountName, Account account) {
+
+        Log_OC.d(TAG, "Upgrading " + account.name + " to " + newAccountName);
+
+        // create the new account
+        Account newAccount = new Account(newAccountName, MainApp.getAccountType());
+        String password = accountMgr.getPassword(account);
+        accountMgr.addAccountExplicitly(newAccount, (password != null) ? password : "", null);
+
+        // copy base URL
+        accountMgr.setUserData(newAccount, Constants.KEY_OC_BASE_URL, serverUrl);
+
+        // copy server version
+        accountMgr.setUserData(
+                newAccount,
+                Constants.KEY_OC_VERSION,
+                accountMgr.getUserData(account, Constants.KEY_OC_VERSION)
+        );
+
+        // copy cookies
+        accountMgr.setUserData(
+                newAccount,
+                Constants.KEY_COOKIES,
+                accountMgr.getUserData(account, Constants.KEY_COOKIES)
+        );
+
+        // copy type of authentication
+        final String isSamlStr = accountMgr.getUserData(account, Constants.KEY_SUPPORTS_SAML_WEB_SSO);
+        if (Boolean.parseBoolean(isSamlStr)) {
+            accountMgr.setUserData(newAccount, Constants.KEY_SUPPORTS_SAML_WEB_SSO, "TRUE");
+        }
+
+        final String isOauthStr = accountMgr.getUserData(account, Constants.KEY_SUPPORTS_OAUTH2);
+        if (Boolean.parseBoolean(isOauthStr)) {
+            accountMgr.setUserData(newAccount, Constants.KEY_SUPPORTS_OAUTH2, "TRUE");
+        }
+
+        /* TODO - study if it's possible to run this method in a background thread to copy the authToken
+        if (isOAuth || isSaml) {
+            accountMgr.setAuthToken(newAccount, mAuthTokenType, mAuthToken);
+        }
+        */
+
+        // don't forget the account saved in preferences as the current one
+        if (currentAccount.name.equals(account.name)) {
+            AccountUtils.setCurrentOwnCloudAccount(context, newAccountName);
+        }
+
+        // remove the old account
+        accountMgr.removeAccount(account, null, null);
+
+        // will assume it succeeds, not a big deal otherwise
+        return newAccount;
     }
 
     /**
