@@ -651,6 +651,7 @@
     <string name="user_info_twitter">Twitter</string>
 
     <string name="user_information_description">User information</string>
+    <string name="user_information_retrieval_error">Error retrieving user information</string>
 
     <!-- Activities -->
     <string name="activities_no_results_headline">No activity yet</string>
