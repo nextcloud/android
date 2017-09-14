@@ -20,7 +20,7 @@
     <string name="menu_item_sort_by_size_biggest_first">Највеће прво</string>
     <string name="menu_item_sort_by_size_smallest_first">Најмање прво</string>
 
-    <string name="drawer_item_all_files">Све датотеке</string>
+    <string name="drawer_item_all_files">Сви фајлови</string>
     <string name="drawer_item_home">Почетак</string>
     <string name="drawer_item_favorites">Омиљено</string>
     <string name="drawer_item_photos">Слике</string>
@@ -43,7 +43,7 @@
     <string name="prefs_fingerprint">Закључавање отиском прста</string>
     <string name="prefs_fingerprint_notsetup">Отисак прста није подешен.</string>
     <string name="prefs_expert_mode">Експертски режим рада</string>
-    <string name="prefs_show_hidden_files">Прикажи скривене датотеке</string>
+    <string name="prefs_show_hidden_files">Прикажи скривене фајлове</string>
     <string name="prefs_log_delete_history_button">Обриши историјат</string>
     <string name="prefs_calendar_contacts">Синхронизуј календар &amp; контакте</string>
     <string name="prefs_calendar_contacts_summary">Подеси DAVdroid (v1.3.0+) за тренутни налог</string>
@@ -65,7 +65,7 @@
     <string name="auth_username">Корисничко име</string>
     <string name="auth_password">Лозинка</string>
     <string name="auth_register">Немате сервер?\nПритисините овде да нађете неког од провајдера</string>
-    <string name="sync_string_files">Датотеке</string>
+    <string name="sync_string_files">Фајлови</string>
     <string name="setup_btn_connect">Повежи се</string>
     <string name="uploader_btn_upload_text">Отпреми</string>
     <string name="uploader_btn_alternative_text">Одабери</string>
@@ -74,25 +74,25 @@
     <string name="uploader_wrn_no_account_text">Нема %1$s налога на вашем уређају. Најпре подесите налог.</string>
     <string name="uploader_wrn_no_account_setup_btn_text">Подеси</string>
     <string name="uploader_wrn_no_account_quit_btn_text">Напусти</string>
-    <string name="uploader_error_title_no_file_to_upload">Нема датотеке за учитавање</string>
-    <string name="uploader_error_message_no_file_to_upload">Примљјени подаци нису садржали исправну датотеку.</string>
-    <string name="uploader_error_title_file_cannot_be_uploaded">Датотека не може бити отпремљена.</string>
-    <string name="uploader_error_message_read_permission_not_granted">%1$s није дозвљено читати примљену датотеку</string>
-    <string name="uploader_error_message_source_file_not_found">Одабрана датотека није пронађена. Проверите да ли постоји.</string>
-    <string name="uploader_error_message_source_file_not_copied">Не могу да копирам датотеку на привремену локацију. Покушајте да је поново пошаљете.</string>
+    <string name="uploader_error_title_no_file_to_upload">Нема фајлова за учитавање</string>
+    <string name="uploader_error_message_no_file_to_upload">Примљени подаци нису садржали исправни фајл.</string>
+    <string name="uploader_error_title_file_cannot_be_uploaded">Фајл не може бити отпремљен.</string>
+    <string name="uploader_error_message_read_permission_not_granted">%1$s није дозвољено читати примљени фајл</string>
+    <string name="uploader_error_message_source_file_not_found">Одабрани фајл није пронађен. Проверите да ли постоји.</string>
+    <string name="uploader_error_message_source_file_not_copied">Не могу да копирам фајл на привремену локацију. Покушајте да га поново пошаљете.</string>
     <string name="uploader_upload_files_behaviour">Опције отпремања:</string>
     <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">Премести у Некстклауд фасциклу</string>
-    <string name="uploader_upload_files_behaviour_only_upload">Остави датотеку у изворној фасцикли</string>
-    <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Избриши датотеку из изворне фасцикле</string>
+    <string name="uploader_upload_files_behaviour_only_upload">Остави фајл у изворној фасцикли</string>
+    <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Избриши фајл из изворне фасцикле</string>
     <string name="file_list_seconds_ago">пре пар секунди</string>
-    <string name="file_list_empty_headline">Овде нема датотека</string>
+    <string name="file_list_empty_headline">Овде нема фајлова</string>
     <string name="folder_list_empty_headline">Без фасцикли</string>
     <string name="file_list_empty">Отпремите неки садржај или синхронизујте са вашим уређајима.</string>
     <string name="file_list_empty_favorites_filter_list">Фајлови и фасцикле које обележите као омиљене појавиће се овде</string>
-    <string name="file_list_empty_favorites_filter">Ваша претрага није нашла ниједну омиљену датотеку</string>
+    <string name="file_list_empty_favorites_filter">Ваша претрага није нашла ниједан омиљени фајл</string>
     <string name="file_list_loading">Учитавам&#8230;</string>
-    <string name="file_list_no_app_for_file_type">Ниједан програм не зна да препозна овај тип датотеке</string>
-    <string name="local_file_list_empty">Нема датотека у овој фасцикли.</string>
+    <string name="file_list_no_app_for_file_type">Ниједан програм не зна да препозна овај тип фајла.</string>
+    <string name="local_file_list_empty">Нема фајлова у овој фасцикли.</string>
     <string name="local_folder_list_empty">Нема више фасцикли</string>
     <string name="file_list_empty_headline_search">Нема резултата у овој фасцикли</string>
     <string name="file_list_empty_headline_server_search">Нема резултата</string>
@@ -102,10 +102,10 @@
     <string name="file_list_empty_headline_server_search_videos">Нема видео снимака</string>
     <string name="file_list_empty_headline_server_search_photos">Нема слика</string>
     <string name="file_list_empty_search">Можда су у некој другој фасцикли?</string>
-    <string name="file_list_empty_recently_modified">Није пронађена ниједна датотека промењена у последњих 7 дана</string>
-    <string name="file_list_empty_recently_modified_filter">Претрага није вратила ниједну датотеку промењену у последњих 7 дана.</string>
-    <string name="file_list_empty_recently_added">Нема скоро додатих датотека</string>
-    <string name="file_list_empty_recently_added_filter">Ваша претрага није пронашла скоро додане датотеке</string>
+    <string name="file_list_empty_recently_modified">Није пронађен ниједан фајл промењен у последњих 7 дана</string>
+    <string name="file_list_empty_recently_modified_filter">Претрага није вратила ниједан фајл промењен у последњих 7 дана.</string>
+    <string name="file_list_empty_recently_added">Нема скоро додатих фајлова</string>
+    <string name="file_list_empty_recently_added_filter">Ваша претрага није пронашла ниједан скоро додати фајл.</string>
     <string name="file_list_empty_text_photos">Отпремите неке слике или укључите аутоматско отпремање.</string>
     <string name="file_list_empty_text_photos_filter">Ваша претрага није пронашла ниједну слику.</string>
     <string name="file_list_empty_text_videos">Отпремите неке видео записе или укључите аутоматско отпремање.</string>
@@ -114,14 +114,14 @@
     <string name="upload_list_empty_text">Отпремите неки садржај или укључите брзо отпремање.</string>
     <string name="upload_list_empty_text_auto_upload">Отпремите неки садржај или укључите аутоматско отпремање.</string>
     <string name="file_list_folder">фасцикла</string>
-    <string name="filedetails_select_file">Кликните на датотеку ради приказа додатних информација.</string>
+    <string name="filedetails_select_file">Кликните на фајл ради приказа додатних информација.</string>
     <string name="filedetails_size">Величина:</string>
     <string name="filedetails_type">Врста:</string>
     <string name="filedetails_created">Направљен:</string>
     <string name="filedetails_modified">Измењена:</string>
     <string name="filedetails_download">Преузми</string>
     <string name="filedetails_sync_file">Синхронизуј</string>
-    <string name="filedetails_renamed_in_upload_msg">Датотека преименована у %1$sза време отпремања</string>
+    <string name="filedetails_renamed_in_upload_msg">Фајл преименован у %1$sза време отпремања</string>
     <string name="list_layout">Излистани распоред</string>
     <string name="action_share">Дељење</string>
     <string name="common_yes">Да</string>
@@ -142,7 +142,7 @@
     <string name="about_title">О програму</string>
     <string name="change_password">Измени лозинку</string>
     <string name="delete_account">Уклони налог</string>
-    <string name="delete_account_warning">Стварно желите обрисати налог %s заједно са свим локалним датотекама?\n\nБрисање се не може поништити.</string>
+    <string name="delete_account_warning">Стварно желите обрисати налог %s заједно са свим локалним фајловима?\n\nБрисање се не може поништити.</string>
     <string name="avatar">Аватар</string>
     <string name="active_user">Активни корисник</string>
     <string name="upload_chooser_title">Отпреми из…</string>
@@ -165,8 +165,8 @@
     <string name="uploads_view_upload_status_failed_retry">Отпремања ће бити покушана поново ускоро</string>
     <string name="uploads_view_upload_status_failed_credentials_error">Грешка у налог/лозинка</string>
     <string name="uploads_view_upload_status_failed_folder_error">Грешка фасцикле</string>
-    <string name="uploads_view_upload_status_failed_file_error">Грешка датотеке</string>
-    <string name="uploads_view_upload_status_failed_localfile_error">Локална датотека није нађена</string>
+    <string name="uploads_view_upload_status_failed_file_error">Грешка са фајлом</string>
+    <string name="uploads_view_upload_status_failed_localfile_error">Локални фајл није нађен</string>
     <string name="uploads_view_upload_status_failed_permission_error">Грешка дозвола</string>
     <string name="uploads_view_upload_status_conflict">Конфликт</string>
     <string name="uploads_view_upload_status_service_interrupted">Апликација прекинута</string>
@@ -187,19 +187,19 @@
     <string name="sync_fail_content">Не могу да завршим синхронизацију %1$s</string>
     <string name="sync_fail_content_unauthorized">Погрешна лозинка за %1$s</string>
     <string name="sync_conflicts_in_favourites_ticker">Пронађени конфликти</string>
-    <string name="sync_conflicts_in_favourites_content">%1$d датотека ниje могло бити синхронизованo</string>
+    <string name="sync_conflicts_in_favourites_content">%1$d фајл ниje могао бити синхронизован</string>
     <string name="sync_fail_in_favourites_ticker">Синхронизација није успела</string>
-    <string name="sync_fail_in_favourites_content">Садржај %1$d датотека не може бити синхронизован (%2$d конфликата)</string>
-    <string name="sync_foreign_files_forgotten_ticker">Неке локалне датотеке су заборављене</string>
-    <string name="sync_foreign_files_forgotten_content">%1$d датотека из %2$sфасцикле се није могло копирати</string>
-    <string name="sync_foreign_files_forgotten_explanation">Од верзије 1.3.16, датотеке отпремљене са овог уређаја су копиране у локалну фасциклу %1$s да би се спречио губитак података када се једна датотека синхронизује са више налога.\n\nЗбог ове промене, све датотеке отпремљене са старијим верзијама апликације су копиране у фасциклу %2$s. Ипак, десила се грешка која је прекинула синхронизацију налога. Можете или оставите датотеку(е) овакве какве јесу и уклонити везу ка %3$s, или померити датотеку(е) у фасциклу %1$s и задржати везу ка %4$s.\n\nИспод је(су) излистане локалне и где су у %5$s увезане удаљене датотека(е).</string>
+    <string name="sync_fail_in_favourites_content">Садржај %1$d фајла не може бити синхронизован (%2$d конфликата)</string>
+    <string name="sync_foreign_files_forgotten_ticker">Неки локални фајлови су заборављени</string>
+    <string name="sync_foreign_files_forgotten_content">%1$d фајлова из %2$sфасцикле се није могло копирати</string>
+    <string name="sync_foreign_files_forgotten_explanation">Од верзије 1.3.16, фајлови отпремљени са овог уређаја су копирани у локалну фасциклу %1$s да би се спречио губитак података када се један фајл синхронизује са више налога.\n\nЗбог ове промене, сви фајлови отпремљени са старијим верзијама апликације су копирани у фасциклу %2$s. Ипак, десила се грешка која је прекинула синхронизацију налога. Можете или оставите фајл(ове) овакве какве јесу и уклонити везу ка %3$s, или померити фајл(ове) у фасциклу %1$s и задржати везу ка %4$s.\n\nИспод је(су) излистане локални и где су у %5$s увезане удаљени фајл(ови).</string>
     <string name="sync_current_folder_was_removed">Фасцикла %1$s више не постоји</string>
     <string name="foreign_files_move">Премести све</string>
-    <string name="foreign_files_success">Све датотеке су премештене</string>
-    <string name="foreign_files_fail">Неке датотеке нису могле бити премештене</string>
+    <string name="foreign_files_success">Сви фајлови су премештени</string>
+    <string name="foreign_files_fail">Неки фајлови нису могли бити премештени</string>
     <string name="foreign_files_local_text">Локално: %1$s</string>
     <string name="foreign_files_remote_text">Удаљено: %1$s</string>
-    <string name="upload_query_move_foreign_files">Недовољно места да се копирају означене датотеке у фасциклу %1$s. Да ли желите можда да их уместо копирања преместите тамо?</string>
+    <string name="upload_query_move_foreign_files">Недовољно места да се копирају означени фајлови у фасциклу %1$s. Да ли желите можда да их уместо копирања преместите тамо?</string>
     <string name="pass_code_enter_pass_code">Молимо унесите кôд за закључавање</string>
     
     <string name="pass_code_configure_your_pass_code">Унесите код за закључавање</string>
@@ -215,15 +215,15 @@
     <string name="media_state_playing">%1$s (пуштам)</string>
     <string name="media_state_loading">%1$s (учитавам)</string>
     <string name="media_event_done">%1$s пуштање завршено</string>
-    <string name="media_err_nothing_to_play">Нема мултимедијалних датотека</string>
+    <string name="media_err_nothing_to_play">Нема мултимедијалних фајлова</string>
     <string name="media_err_no_account">Није наведен налог</string>
-    <string name="media_err_not_in_owncloud">Датотека није исправан налог</string>
+    <string name="media_err_not_in_owncloud">Фајл није исправан налог</string>
     <string name="media_err_unsupported">Неподржан кодек</string>
-    <string name="media_err_io">Не могу да прочитам мултимедијалну датотеку</string>
-    <string name="media_err_malformed">Мултимедијална датотека има неисправно кодирање знакова</string>
-    <string name="media_err_timeout">Истекло време покушавајући да пустим датотеку</string>
-    <string name="media_err_invalid_progressive_playback">Мултимедијална датотека не може да се пусти</string>
-    <string name="media_err_unknown">Уграђени мултимедијални плејер не може да пусти мултимедијалну датотеку</string>
+    <string name="media_err_io">Не могу да прочитам мултимедијални фајл</string>
+    <string name="media_err_malformed">Мултимедијални фајл има неисправно кодирање знакова</string>
+    <string name="media_err_timeout">Истекло време покушавајући да пустим фајл</string>
+    <string name="media_err_invalid_progressive_playback">Мултимедијални фајл не може да се пусти</string>
+    <string name="media_err_unknown">Уграђени мултимедијални плејер не може да пусти мултимедијални фајл</string>
     <string name="media_err_security_ex">Грешка у вези безбедности при покушају да пустим %1$s</string>
     <string name="media_err_io_ex">Улазна грешка при покушају да пустим %1$s</string>
     <string name="media_err_unexpected">Неочекивана грешка при покушају да пустим %1$s</string>
@@ -279,18 +279,18 @@
     <string name="rename_dialog_title">Унесите нов назив</string>
     <string name="rename_local_fail_msg">Промена имена локалне копије није успела, пробајте друго име</string>
     <string name="rename_server_fail_msg">Не могу серверу да дам ново име</string>
-    <string name="sync_file_fail_msg">Не могу да проверим удаљену датотеку</string>
+    <string name="sync_file_fail_msg">Не могу да проверим удаљени фајл</string>
     <string name="sync_file_nothing_to_do_msg">Садржај је већ синхронизован</string>
     <string name="create_dir_fail_msg">Не могу да направим фасциклу</string>
     <string name="filename_forbidden_characters">Забрањени знакови: / \\ &lt; &gt; : \" | ? *</string>
     <string name="filename_forbidden_charaters_from_server">Назив садржи бар један недозвољен карактер</string>
-    <string name="filename_empty">Назив датотеке не може бити празан</string>
+    <string name="filename_empty">Назив фајла не може бити празан</string>
     <string name="wait_a_moment">Сачекајте мало &#8230;</string>
     <string name="wait_checking_credentials">Проверавам сачуване акредитиве</string>
-    <string name="filedisplay_unexpected_bad_get_content">Неочекивана грешка, молимо одаберите датотеку из друге апликације</string>
-    <string name="filedisplay_no_file_selected">Није изабрана ниједна датотека</string>
+    <string name="filedisplay_unexpected_bad_get_content">Неочекивана грешка, молимо одаберите фајл из друге апликације</string>
+    <string name="filedisplay_no_file_selected">Није изабран ниједан фајл</string>
     <string name="activity_chooser_title">Пошаљи везу &#8230;</string>
-    <string name="wait_for_tmp_copy_from_private_storage">Копирам датотеку из личног складишта</string>
+    <string name="wait_for_tmp_copy_from_private_storage">Копирам фајл из приватног складишта</string>
     
     <string name="oauth_check_onoff">Пријавите се са OAuth 2.0</string> 
     <string name="oauth_login_connection">Повезивање са OAuth 2.0 сервером &#8230;</string>
@@ -335,8 +335,8 @@
     <string name="instant_upload_on_charging">Отпремај само на пуњењу</string>
     <string name="instant_upload_path">/InstantUpload</string>
     <string name="auto_upload_path">/Аутоматска отпремања</string>
-    <string name="conflict_title">Конфликт датотека</string>
-    <string name="conflict_message">Које датотеке желите да сачувате? Ако изаберете обе верзије, локалној датотеци ће бити додат број у назив.</string>
+    <string name="conflict_title">Конфликт фајлова</string>
+    <string name="conflict_message">Које фајлове желите да сачувате? Ако изаберете обе верзије, локалном фајлу ће бити додат број у назив.</string>
     <string name="conflict_keep_both">Задржи оба</string>
     <string name="conflict_use_local_version">локална верзија</string>
     <string name="conflict_use_server_version">верзија сервера</string>
@@ -352,11 +352,11 @@
     <string name="prefs_instant_upload_path_use_subfolders_summary">Сачувај у подфасциклама према години и месецу</string>
 
 	<string name="share_link_no_support_share_api">Дељење није омогућено на овом серверу. Контактирајте администратора.</string>
-	<string name="share_link_file_no_exist">Не могу да делим. Проверите да ли датотека постоји</string>
-	<string name="share_link_file_error">Дошло је до грешке приликом покушаја дељења ове датотеке или фасцикле</string>
-	<string name="unshare_link_file_no_exist">Не могу да прекинем дељење. Проверите да ли датотека постоји</string>
-	<string name="unshare_link_file_error">Дошло је до грешке приликом покушаја укидања дељења ове датотеке или фасцикле</string>
-    <string name="update_link_file_no_exist">Не могу да освежим везу. Проверите да ли датотека постоји</string>
+	<string name="share_link_file_no_exist">Не могу да делим. Проверите да ли фајл постоји</string>
+	<string name="share_link_file_error">Дошло је до грешке приликом покушаја дељења овог фајла или фасцикле</string>
+	<string name="unshare_link_file_no_exist">Не могу да прекинем дељење. Проверите да ли фајл постоји</string>
+	<string name="unshare_link_file_error">Дошло је до грешке приликом покушаја укидања дељења овог фајла или фасцикле</string>
+    <string name="update_link_file_no_exist">Не могу да освежим везу. Проверите да ли фајл постоји</string>
     <string name="update_link_file_error">Дошло је до грешке при покушају ажурирања дељења</string>
     <string name="share_link_password_title">Унесите лозинку</string>
     <string name="share_link_empty_password">Морате унети лозинку</string>
@@ -377,14 +377,14 @@
     <string name="network_host_not_available">Радња није могла бити урађена. Сервер није доступан</string>
 
     <string name="forbidden_permissions">Није вам дозвољено да %s</string>
-    <string name="forbidden_permissions_rename">да преименујете ову датотеку</string>
-    <string name="forbidden_permissions_delete">да обришете ову датотеку</string>
-    <string name="share_link_forbidden_permissions">да делите ову датотеку</string>
-    <string name="unshare_link_forbidden_permissions">да укинете дељење ове датотеке</string>
-    <string name="update_link_forbidden_permissions">да ажурирате обу датотеку</string>
-    <string name="forbidden_permissions_create">направите ову датотеку</string>
+    <string name="forbidden_permissions_rename">да преименујете овај фајл</string>
+    <string name="forbidden_permissions_delete">да обришете овај фајл</string>
+    <string name="share_link_forbidden_permissions">да делите овај фајл</string>
+    <string name="unshare_link_forbidden_permissions">да укинете дељење овог фајла</string>
+    <string name="update_link_forbidden_permissions">да ажурирате овај фајл</string>
+    <string name="forbidden_permissions_create">да направите фајл</string>
     <string name="uploader_upload_forbidden_permissions">да отпремите ову фасциклу</string>
-    <string name="downloader_download_file_not_found">Датотека није више доступна на серверу</string>
+    <string name="downloader_download_file_not_found">Фајл није више доступан на серверу</string>
 
     <string name="file_migration_dialog_title">Ажурирам путању до складишта</string>
     <string name="file_migration_finish_button">Заврши</string>
@@ -398,8 +398,8 @@
     <string name="file_migration_restoring_accounts_configuration">Враћам подешавања налога &#8230;</string>
     <string name="file_migration_ok_finished">Завршено</string>
     <string name="file_migration_failed_not_enough_space">Грешка: недовољно места</string>
-    <string name="file_migration_failed_not_writable">Грешка: не могу да пишем у одредишну датотеку</string>
-    <string name="file_migration_failed_not_readable">Грешка: не могу да читам из изворне датотеке</string>
+    <string name="file_migration_failed_not_writable">Грешка: не могу да пишем у одредишни фајл</string>
+    <string name="file_migration_failed_not_readable">Грешка: не могу да читам из изворног фајла</string>
     <string name="file_migration_failed_dir_already_exists">Грешка: Некстклауд фасцикла већ постоји</string>
     <string name="file_migration_failed_while_coping">Грешка: неуспешно пребацивање</string>
     <string name="file_migration_failed_while_updating_index">Грешка: неуспешно ажурирање индекса</string>
@@ -428,18 +428,18 @@
 	<string name="file_list_empty_moving">Овде нема ничег. Можете додати фасциклу.</string>
 	<string name="folder_picker_choose_button_text">Одабери</string>
 
-    <string name="move_file_not_found">Не могу да померим датотеку. Проверите да ли још постоји.</string>
+    <string name="move_file_not_found">Не могу да померим фајл. Проверите да ли још постоји.</string>
     <string name="move_file_invalid_into_descendent">Не може да се премести фасцикла у неку од својих подфасцикли</string>
-    <string name="move_file_invalid_overwrite">Датотека већ постоји у одредишној фасцикли</string>
-    <string name="move_file_error">Дошло је до грешке при премештању датотеке или фасцикле</string>
-    <string name="forbidden_permissions_move">да преместите ову датотеку</string>
+    <string name="move_file_invalid_overwrite">Фајл већ постоји у одредишној фасцикли</string>
+    <string name="move_file_error">Дошло је до грешке при премештању фајла или фасцикле</string>
+    <string name="forbidden_permissions_move">да преместите овај фајл</string>
 
 
-    <string name="copy_file_not_found">Не могу да копирам. Проверите да ли датотека постоји</string>
+    <string name="copy_file_not_found">Не могу да копирам. Проверите да ли фајл постоји</string>
     <string name="copy_file_invalid_into_descendent">Не може да се ископира фасцикла у неку од својих подфасцикли.</string>
-    <string name="copy_file_invalid_overwrite">Ова датотека већ постоји у одредишној фасцикли</string>
-    <string name="copy_file_error">Грешка приликом копирања ове датотеке или фасцикле</string>
-    <string name="forbidden_permissions_copy">да копирате ову датотеку</string>
+    <string name="copy_file_invalid_overwrite">Фајл већ постоји у одредишној фасцикли</string>
+    <string name="copy_file_error">Грешка приликом копирања овог фајла или фасцикле</string>
+    <string name="forbidden_permissions_copy">да копирате овај фајл</string>
 
     <string name="prefs_category_instant_uploading">Брза отпремања</string>
     <string name="prefs_category_details">Подаци</string>
@@ -461,19 +461,19 @@
 
     <string name="file_list__footer__folder">1 фасцикла</string>
     <string name="file_list__footer__folders">%1$d фасцикли</string>
-    <string name="file_list__footer__file">1 датотека</string>
-    <string name="file_list__footer__file_and_folder">1 датотека, 1 фасцикла</string>
-    <string name="file_list__footer__file_and_folders">1 датотека, %1$d фасцикли</string>
+    <string name="file_list__footer__file">1 фајл</string>
+    <string name="file_list__footer__file_and_folder">1 фајл, 1 фасцикла</string>
+    <string name="file_list__footer__file_and_folders">1 фајл, %1$d фасцикли</string>
     <string name="file_list__footer__files">%1$d фајлова</string>
-    <string name="file_list__footer__files_and_folder">%1$d датотеке, 1 фасцикла</string>
-    <string name="file_list__footer__files_and_folders">%1$d датотеке, %2$d фасцикли</string>
+    <string name="file_list__footer__files_and_folder">%1$d фајла, 1 фасцикла</string>
+    <string name="file_list__footer__files_and_folders">%1$d фајла, %2$d фасцикли</string>
     <string name="set_picture_as">Постави слику као</string>
     <string name="set_as">Постави као</string>
 
-    <string name="prefs_instant_behaviour_dialogTitle">Оригинална датотека ће бити&#8230;</string>
-    <string name="prefs_instant_behaviour_title">Оригинална датотека ће бити&#8230;</string>
-    <string name="upload_copy_files">Копирај датотеку</string>
-    <string name="upload_move_files">Премести датотеку</string>
+    <string name="prefs_instant_behaviour_dialogTitle">Оригинални фајл ће бити &#8230;</string>
+    <string name="prefs_instant_behaviour_title">Оригинални фајл ће бити &#8230;</string>
+    <string name="upload_copy_files">Копирај фајл</string>
+    <string name="upload_move_files">Премести фајл</string>
     <string name="select_all">Означи све</string>
     <string name="deselect_all">Поништи цео избор</string>
 
@@ -493,7 +493,7 @@
     <string name="share_via_link_password_label">Заштити лозинком</string>
     <string name="share_via_link_password_title">Обезбеђен</string>
     <string name="share_via_link_edit_permission_label">Дозволи мењање</string>
-    <string name="share_via_link_hide_file_listing_permission_label">Сакриј списак датотека</string>
+    <string name="share_via_link_hide_file_listing_permission_label">Сакриј списак фајлова</string>
     <string name="share_get_public_link_button">Добави везу</string>
     <string name="share_with_title">Подели са &#8230;</string>
     <string name="share_with_edit_title">Подели са %1$s</string>
@@ -528,16 +528,16 @@
     <string name="action_switch_list_view">Приказ листе</string>
 
     <string name="manage_space_title">Управљање простором</string>
-    <string name="manage_space_description">Подешавања, база и серверски сертификати од података са %1$s ће бити заувек обрисани. \n\nВећ скинуте датотеке неће бити диране.\n\nОво може потрајати.</string>
+    <string name="manage_space_description">Подешавања, база и серверски сертификати од података са %1$s ће бити заувек обрисани. \n\nВећ скинути фајлови неће бити дирани.\n\nОво може потрајати.</string>
     <string name="manage_space_clear_data">Очисти податке</string>
-    <string name="manage_space_error">Неке датотеке нису могле бити обрисане.</string>
+    <string name="manage_space_error">Неки фајлови нису могли бити обрисани.</string>
 
-    <string name="permission_storage_access">Додатне привилегије потребе да се отпремају и скидају датотеке.</string>
-    <string name="local_file_not_found_toast">Датотека није нађена у локалном систему датотека</string>
+    <string name="permission_storage_access">Додатне привилегије потребне да се отпремају и скидају фајлови.</string>
+    <string name="local_file_not_found_toast">Фајл није нађен у локалном систему фајлова</string>
     <string name="confirmation_remove_files_alert">Да ли стварно желите да уклоните означене ставке?</string>
     <string name="confirmation_remove_folders_alert">Да ли стварно желите да уклоните означене ставке и њихов садржај?</string>
     <string name="maintenance_mode">Сервер у режиму одржавања</string>
-    <string name="lock_failed">Неуспело закључавање датотеке</string>
+    <string name="lock_failed">Неуспело закључавање фајла</string>
 
     <string name="uploads_view_upload_status_waiting_for_charging">Чекам пуњење</string>
     <string name="actionbar_search">Претрага</string>
@@ -587,9 +587,9 @@
     <string name="notifications_no_results_headline">Нема обавештења</string>
     <string name="notifications_no_results_message">Молимо проверите касније.</string>
 
-    <string name="upload_file_dialog_title">Унесите име и тип датотеке за отпремање</string>
-    <string name="upload_file_dialog_filename">Име датотеке</string>
-    <string name="upload_file_dialog_filetype">Тип датотеке</string>
+    <string name="upload_file_dialog_title">Унесите име и тип фајла за отпремање</string>
+    <string name="upload_file_dialog_filename">Име фајла</string>
+    <string name="upload_file_dialog_filetype">Тип фајла</string>
     <string name="upload_file_dialog_filetype_snippet_text">Текстуални исечак (.txt)</string>
     <string name="upload_file_dialog_filetype_internet_shortcut">Интернет пречица (%s)</string>
     <string name="upload_file_dialog_filetype_googlemap_shortcut">Пречица Гугл мапа (%s)</string>
@@ -615,7 +615,7 @@
     <string name="whats_new_auto_upload_content">\u2022 за све Андроид верзије\n\u2022 мања потрошња батерије\n\u2022 поузданије, али ипак не брзо отпремање\n\u2022 одвајање слика &amp; видео записа</string>
 
     <string name="whats_new_search_title">Потпуна претрага на серверу</string>
-    <string name="whats_new_search_content">\u2022 Не само у тренутној фасцикли\n\u2022 Враћање резултата са сервера\n\u2022 Директно отварање датотека/фасцикли\n\u2022 Подржано од Некстклауд верзије 12 и изнад</string>
+    <string name="whats_new_search_content">\u2022 Не само у тренутној фасцикли\n\u2022 Враћање резултата са сервера\n\u2022 Директно отварање фајлова/фасцикли\n\u2022 Подржано од Некстклауд верзије 12 и изнад</string>
 
     <string name="whats_new_theming_title">Подршка за теме</string>
     <string name="whats_new_theming_content">Ако је омогућена на серверу, апликација ће приказивати\n\u2022 позадинску слику\n\u2022 име сервера\n\u2022 боје да разликујете налоге</string>
@@ -657,7 +657,7 @@
     <string name="contactlist_no_permission">Није дата ниједна привилегија, ништа није увезено!</string>
     <string name="contacts_preference_choose_date">Одаберите датум</string>
     <string name="contacts_preference_backup_never">никада</string>
-    <string name="contacts_preferences_no_file_found">Ниједна датотека није нађена</string>
+    <string name="contacts_preferences_no_file_found">Ниједан фајл није нађен</string>
     <string name="contacts_preferences_something_strange_happened">Не можемо да пронађемо Вашу последњу резервну копију!</string>
     <string name="contacts_preferences_backup_scheduled">Прављење резервне копије заказано и почеће ускоро</string>
     <string name="contacts_preferences_import_scheduled">Увожење је заказано и почеће ускоро</string>
@@ -667,7 +667,7 @@
     <string name="drawer_logout">Одјавите се</string>
     <string name="picture_set_as_no_app">Ниједна апликација није нађена за постављање слике!</string>
     <string name="privacy">Приватност</string>
-    <string name="file_not_found">Датотека није пронађена!</string>
+    <string name="file_not_found">Фајл није пронађен!</string>
 
     <!-- Auto upload -->
     <string name="autoupload_custom_folder">Подесите произвољну фасциклу</string>
@@ -681,7 +681,7 @@
     <string name="fallback_weblogin_back">НАЗАД</string>
     <string name="fallback_weblogin_text">Користите стари начин за пријављивање</string>
 
-    <string name="foreground_service_upload">Отпремам датотеке&#8230;</string>
-    <string name="foreground_service_download">Скидам датотеке&#8230;</string>
+    <string name="foreground_service_upload">Отпремам фајлове &#8230;</string>
+    <string name="foreground_service_download">Скидам фајлове &#8230;</string>
 
     </resources>
