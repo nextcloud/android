@@ -167,7 +167,7 @@ public class UserInfoActivity extends FileActivity {
     @BindView(R.id.empty_list_progress)
     public ProgressBar multiListProgressBar;
 
-    @BindString(R.string.preview_sorry)
+    @BindString(R.string.user_information_retrieval_error)
     public String sorryMessage;
 
     private float mCurrentAccountAvatarRadiusDimension;
@@ -256,18 +256,22 @@ public class UserInfoActivity extends FileActivity {
             emptyContentMessage.setText("");
 
             emptyContentIcon.setVisibility(View.GONE);
+            emptyContentMessage.setVisibility(View.GONE);
             multiListProgressBar.getIndeterminateDrawable().setColorFilter(ThemeUtils.primaryColor(),
                     PorterDuff.Mode.SRC_IN);
             multiListProgressBar.setVisibility(View.VISIBLE);
         }
     }
 
-    private void setMessageForMultiList(String headline, String message) {
+    private void setErrorMessageForMultiList(String headline, String message) {
         if (emptyContentContainer != null && emptyContentMessage != null) {
             emptyContentHeadline.setText(headline);
             emptyContentMessage.setText(message);
+            emptyContentIcon.setImageResource(R.drawable.ic_list_empty_error);
 
             multiListProgressBar.setVisibility(View.GONE);
+            emptyContentIcon.setVisibility(View.VISIBLE);
+            emptyContentMessage.setVisibility(View.VISIBLE);
         }
     }
 
@@ -483,7 +487,7 @@ public class UserInfoActivity extends FileActivity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            setMessageForMultiList(result.getLogMessage(), sorryMessage);
+                            setErrorMessageForMultiList(sorryMessage, result.getLogMessage());
                         }
                     });
                     Log_OC.d(TAG, result.getLogMessage());
