@@ -276,7 +276,7 @@
     <string name="filename_forbidden_charaters_from_server">نام فایل دارای حداقل یک کاراکتر نامعتبر است</string>
     <string name="filename_empty">نام فایل نمی تواند خالی باشد</string>
     <string name="filedisplay_no_file_selected">هیچ فایلی انتخاب نشده</string>
-    <string name="activity_chooser_title">ارسال لینک به ...</string>
+    <string name="activity_chooser_title"> ارسال لینک به &#8230;</string>
     <string name="wait_for_tmp_copy_from_private_storage">کپی کردن فایل از حافظه خصوصی</string>
     
     <string name="oauth_check_onoff">ورود به برنامه با OAuth 2.0</string> 
