@@ -34,12 +34,17 @@ import com.owncloud.android.MainApp;
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.FileDataStorageManager;
+import com.owncloud.android.datamodel.SyncedFolder;
+import com.owncloud.android.datamodel.SyncedFolderProvider;
+import com.owncloud.android.datamodel.UploadsStorageManager;
 import com.owncloud.android.ui.events.AccountRemovedEvent;
 import com.owncloud.android.utils.FileStorageUtils;
+import com.owncloud.android.utils.FilesSyncHelper;
 
 import org.greenrobot.eventbus.EventBus;
 
 import java.io.File;
+import java.util.List;
 
 import static android.content.Context.ACCOUNT_SERVICE;
 import static com.owncloud.android.ui.activity.ManageAccountsActivity.PENDING_FOR_REMOVAL;
@@ -77,6 +82,23 @@ public class AccountRemovalJob extends Job implements AccountManagerCallback<Boo
             // remove pending account removal
             ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProvider(context.getContentResolver());
             arbitraryDataProvider.deleteKeyForAccount(account.name, PENDING_FOR_REMOVAL);
+
+            // remove synced folders set for account
+            SyncedFolderProvider syncedFolderProvider = new SyncedFolderProvider(context.getContentResolver());
+            List<SyncedFolder> syncedFolders = syncedFolderProvider.getSyncedFolders();
+
+            for (SyncedFolder syncedFolder : syncedFolders) {
+                if (syncedFolder.getAccount().equals(account.name)) {
+                    arbitraryDataProvider.deleteKeyForAccount(FilesSyncHelper.GLOBAL,
+                            FilesSyncHelper.SYNCEDFOLDERINITIATED + syncedFolder.getId());
+                }
+            }
+
+            syncedFolderProvider.deleteSyncFoldersForAccount(account);
+
+            UploadsStorageManager uploadsStorageManager = new UploadsStorageManager(context.getContentResolver(),
+                    context);
+            uploadsStorageManager.removeAccountUploads(account);
 
             return Result.SUCCESS;
         } else {
