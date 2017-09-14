@@ -34,6 +34,7 @@ import com.owncloud.android.MainApp;
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.FileDataStorageManager;
+import com.owncloud.android.datamodel.FilesystemDataProvider;
 import com.owncloud.android.datamodel.SyncedFolder;
 import com.owncloud.android.datamodel.SyncedFolderProvider;
 import com.owncloud.android.datamodel.UploadsStorageManager;
@@ -44,6 +45,7 @@ import com.owncloud.android.utils.FilesSyncHelper;
 import org.greenrobot.eventbus.EventBus;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 import static android.content.Context.ACCOUNT_SERVICE;
@@ -87,10 +89,13 @@ public class AccountRemovalJob extends Job implements AccountManagerCallback<Boo
             SyncedFolderProvider syncedFolderProvider = new SyncedFolderProvider(context.getContentResolver());
             List<SyncedFolder> syncedFolders = syncedFolderProvider.getSyncedFolders();
 
+            List<Long> syncedFolderIds = new ArrayList<>();
+
             for (SyncedFolder syncedFolder : syncedFolders) {
                 if (syncedFolder.getAccount().equals(account.name)) {
                     arbitraryDataProvider.deleteKeyForAccount(FilesSyncHelper.GLOBAL,
                             FilesSyncHelper.SYNCEDFOLDERINITIATED + syncedFolder.getId());
+                    syncedFolderIds.add(syncedFolder.getId());
                 }
             }
 
@@ -99,6 +104,12 @@ public class AccountRemovalJob extends Job implements AccountManagerCallback<Boo
             UploadsStorageManager uploadsStorageManager = new UploadsStorageManager(context.getContentResolver(),
                     context);
             uploadsStorageManager.removeAccountUploads(account);
+
+            FilesystemDataProvider filesystemDataProvider = new FilesystemDataProvider(context.getContentResolver());
+
+            for (long syncedFolderId : syncedFolderIds) {
+                filesystemDataProvider.deleteAllEntriesForSyncedFolder(Long.toString(syncedFolderId));
+            }
 
             return Result.SUCCESS;
         } else {

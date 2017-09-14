@@ -46,6 +46,14 @@ public class FilesystemDataProvider {
         this.contentResolver = contentResolver;
     }
 
+    public int deleteAllEntriesForSyncedFolder(String syncedFolderId) {
+        return contentResolver.delete(
+                ProviderMeta.ProviderTableMeta.CONTENT_URI_FILESYSTEM,
+                ProviderMeta.ProviderTableMeta.FILESYSTEM_SYNCED_FOLDER_ID + " = ?",
+                new String[]{syncedFolderId}
+        );
+    }
+
     public void updateFilesystemFileAsSentForUpload(String path, String syncedFolderId) {
         ContentValues cv = new ContentValues();
         cv.put(ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_SENT_FOR_UPLOAD, 1);
