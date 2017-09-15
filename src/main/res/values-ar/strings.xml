@@ -348,7 +348,6 @@
     <string name="user_info_twitter">تويتر</string>
 
     <string name="user_information_description">معلومات عن المستخدِم</string>
-
     <!-- Activities -->
     <string name="activities_no_results_headline">لا توجد أي أنشطة بعدُ</string>
     <string name="prefs_category_about">حول</string>

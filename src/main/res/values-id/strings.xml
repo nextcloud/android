@@ -634,7 +634,6 @@
     <string name="user_info_twitter">Twitter</string>
 
     <string name="user_information_description">Informasi pengguna</string>
-
     <!-- Activities -->
     <string name="activities_no_results_headline">Tidak ada aktivitas.</string>
     <string name="activities_no_results_message">Stream ini akan menampilkan \npenambahan, perubahan atau pembagian.</string>

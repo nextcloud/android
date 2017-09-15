@@ -11,28 +11,28 @@
     <string name="actionbar_settings">Поставке</string>
     <string name="actionbar_see_details">Детаљи</string>
     <string name="actionbar_send_file">Пошаљи</string>
-    <string name="actionbar_sort">Сортирање по</string>
-    <string name="sort_by">Сортирај по</string>
-    <string name="menu_item_sort_by_name_a_z">А - Ш</string>
-    <string name="menu_item_sort_by_name_z_a">Ш - А</string>
-    <string name="menu_item_sort_by_date_newest_first">Најновије прво</string>
-    <string name="menu_item_sort_by_date_oldest_first">Најстарије прво</string>
-    <string name="menu_item_sort_by_size_biggest_first">Највеће прво</string>
-    <string name="menu_item_sort_by_size_smallest_first">Најмање прво</string>
+    <string name="actionbar_sort">Разврставање</string>
+    <string name="sort_by">Разврстај</string>
+    <string name="menu_item_sort_by_name_a_z">по називу</string>
+    <string name="menu_item_sort_by_name_z_a">по називу, обрнуто</string>
+    <string name="menu_item_sort_by_date_newest_first">прво новије</string>
+    <string name="menu_item_sort_by_date_oldest_first">прво старије</string>
+    <string name="menu_item_sort_by_size_biggest_first">прво највеће</string>
+    <string name="menu_item_sort_by_size_smallest_first">прво најмање</string>
 
     <string name="drawer_item_all_files">Сви фајлови</string>
     <string name="drawer_item_home">Почетак</string>
     <string name="drawer_item_favorites">Омиљено</string>
     <string name="drawer_item_photos">Слике</string>
     <string name="drawer_item_on_device">На уређају</string>
-    <string name="drawer_item_recently_added">Последње додато</string>
-    <string name="drawer_item_recently_modified">Последње модификовано</string>
+    <string name="drawer_item_recently_added">Недавно додато</string>
+    <string name="drawer_item_recently_modified">Недавно измењено</string>
     <string name="drawer_item_shared">Дељено</string>
     <string name="drawer_item_videos">Видео</string>
-    <string name="drawer_item_settings">Подешавања</string>
+    <string name="drawer_item_settings">Поставке</string>
     <string name="drawer_item_uploads_list">Отпремања</string>
     <string name="drawer_item_activities">Активности</string>
-    <string name="drawer_item_notifications">Упозорења</string>
+    <string name="drawer_item_notifications">Обавештења</string>
     <string name="drawer_quota">%1$s од %2$s искориштено</string>
 	<string name="drawer_close">Затвори</string>
     <string name="drawer_open">Отвори</string>
@@ -637,7 +637,6 @@
     <string name="user_info_twitter">Твитер</string>
 
     <string name="user_information_description">Корисничке информације</string>
-
     <!-- Activities -->
     <string name="activities_no_results_headline">Још нема активности</string>
     <string name="activities_no_results_message">Овде ће се приказати догађаји попут\nдодавања, измена или дељења</string>

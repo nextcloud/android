@@ -638,7 +638,6 @@
     <string name="user_info_twitter">Twitter</string>
 
     <string name="user_information_description">Informazioni utente</string>
-
     <!-- Activities -->
     <string name="activities_no_results_headline">Ancora nessuna attività</string>
     <string name="activities_no_results_message">Questo flusso mostrerà eventi come\naggiunte, modifiche e condivisioni</string>

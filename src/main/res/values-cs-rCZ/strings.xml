@@ -592,7 +592,6 @@
     <string name="user_info_twitter">Twitter</string>
 
     <string name="user_information_description">Uživatelské informace</string>
-
     <!-- Activities -->
     <string name="activities_no_results_headline">Zatím žádná aktivita</string>
     <string name="activities_no_results_message">Datový proud bude zobrazovat události jako přidání, změny a sdílení</string>

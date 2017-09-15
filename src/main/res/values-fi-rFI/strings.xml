@@ -484,7 +484,6 @@
     <string name="user_info_twitter">Twitter</string>
 
     <string name="user_information_description">Käyttäjän tiedot</string>
-
     <!-- Activities -->
     <string name="activities_no_results_headline">Ei vielä toimia</string>
     <string name="webview_error">Tapahtui virhe</string>

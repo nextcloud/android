@@ -637,7 +637,6 @@ Kies er eentje van een provider.</string>
     <string name="user_info_twitter">Twitter</string>
 
     <string name="user_information_description">Gebruikersinformatie</string>
-
     <!-- Activities -->
     <string name="activities_no_results_headline">Nog geen activiteit</string>
     <string name="activities_no_results_message">Deze stream laat gebeurtenissen zoals\ntoevoegingen, veranderingen &amp; gedeelde bestanden zien</string>

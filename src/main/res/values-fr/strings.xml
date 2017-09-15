@@ -50,7 +50,7 @@
     <string name="prefs_calendar_contacts_address_resolve_error">Une  adresse de serveur pour le compte pourrait ne pas être résolue par DAVdroid</string>
     <string name="prefs_calendar_contacts_no_store_error">Aucune application Google Play store ou F-Droid installée</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Synchronisation de l\'agenda &amp; des contacts configurée</string>
-    <string name="prefs_daily_contacts_sync_summary">Copie de sauvegarde de vos contacts quotidiennement </string>
+    <string name="prefs_daily_contacts_sync_summary">Sauvegarde quotidienne de vos contacts</string>
     <string name="prefs_help">Aide</string>
     <string name="prefs_recommend">Recommander à un ami</string>
     <string name="prefs_feedback">Nous contacter par mail</string>
@@ -85,8 +85,8 @@
     <string name="uploader_upload_files_behaviour_only_upload">Conserver le fichier dans le dossier original</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Supprimer le fichier du dossier original</string>
     <string name="file_list_seconds_ago">à l\'instant</string>
-    <string name="file_list_empty_headline">Aucun fichier ici</string>
-    <string name="folder_list_empty_headline">Aucun fichier ici</string>
+    <string name="file_list_empty_headline">Aucun fichier</string>
+    <string name="folder_list_empty_headline">Aucun dossier</string>
     <string name="file_list_empty">Déposez du contenu ou synchronisez vos appareils.</string>
     <string name="file_list_empty_favorites_filter_list">Les fichiers et dossiers ajoutés à vos favoris apparaîtront ici</string>
     <string name="file_list_empty_favorites_filter">Auncun fichier mis en favori trouvé qui correspond à votre requête.</string>
@@ -173,7 +173,7 @@
     <string name="uploads_view_upload_status_unknown_fail">Erreur inconnue </string>
     <string name="uploads_view_upload_status_waiting_for_wifi">En attente d\'une connexion WiFi</string>
     <string name="uploads_view_later_waiting_to_upload">En attente de téléversement</string>
-    <string name="downloader_download_in_progress_ticker">Réception de &#8230;</string>
+    <string name="downloader_download_in_progress_ticker">Réception en cours&#8230;</string>
     <string name="downloader_download_in_progress_content">Téléchargement de %2$s : %1$d%% effectués</string>
     <string name="downloader_download_succeeded_ticker">Téléchargé</string>
     <string name="downloader_download_succeeded_content">%1$s téléchargé</string>
@@ -265,9 +265,9 @@
     <string name="auth_account_does_not_exist">Le compte n\'existe pas encore sur ce périphérique</string>
     <string name="auth_access_failed">L\'accès a échoué</string>
 
-    <string name="favorite">Rendre disponible hors-ligne</string>
+    <string name="favorite">Disponible hors-ligne</string>
     <string name="unfavorite">Ne plus rendre disponible hors-ligne</string>
-    <string name="favorite_real">Mettre en favori</string>
+    <string name="favorite_real">Ajouter aux favoris</string>
     <string name="unset_favorite_real">Supprimer des favoris</string>
     <string name="common_rename">Renommer</string>
     <string name="common_remove">Supprimer</string>
@@ -280,7 +280,7 @@
     <string name="rename_local_fail_msg">La version locale ne peut être renommée ; veuillez réessayer avec un nom différent</string>
     <string name="rename_server_fail_msg">Échec du renommage</string>
     <string name="sync_file_fail_msg">Le fichier distant n\'a pu être vérifié</string>
-    <string name="sync_file_nothing_to_do_msg">Le contenu du fichier est déjà synchronisé</string>
+    <string name="sync_file_nothing_to_do_msg">Ce fichier est déjà synchronisé</string>
     <string name="create_dir_fail_msg">Le dossier n\'a pas pu être créé</string>
     <string name="filename_forbidden_characters">Caractères interdits : / \\ &lt; &gt; : \" | ? *</string>
     <string name="filename_forbidden_charaters_from_server">Le nom de fichier contient au moins un caractère invalide</string>
@@ -444,7 +444,7 @@
     <string name="forbidden_permissions_copy">de copier ce fichier</string>
 
     <string name="prefs_category_instant_uploading">Téléversement immédiat</string>
-    <string name="prefs_category_details">Propriétés</string>
+    <string name="prefs_category_details">Préférences</string>
 
 	<string name="prefs_instant_video_upload_path_title">Téléversement immédiat du dossier vidéos</string>
     <string name="sync_folder_failed_content">La synchronisation du dossier %1$s n\'a pas pu être terminée</string>
@@ -520,11 +520,11 @@
     <string name="edit_share_unshare">Terminer le partage</string>
     <string name="edit_share_done">Terminé</string>
 
-    <string name="action_retry_uploads">Relancer les téléversements échoués</string>
-    <string name="action_clear_failed_uploads">Effacer les téléversements échoués</string>
+    <string name="action_retry_uploads">Relancer les envois échoués</string>
+    <string name="action_clear_failed_uploads">Effacer les envois échoués</string>
     <string name="action_clear_successful_uploads">Effacer les envois réussis</string>
-    <string name="action_clear_finished_uploads">Effacer tous les téléversements terminés</string>
-    <string name="action_force_rescan">Forcer une nouvelle numérisation</string>
+    <string name="action_clear_finished_uploads">Effacer les envois terminés</string>
+    <string name="action_force_rescan">Actualiser</string>
 
     <string name="action_switch_grid_view">Affichage mosaïque</string>
     <string name="action_switch_list_view">Affichage liste</string>
@@ -638,29 +638,28 @@
     <string name="user_info_twitter">Twitter</string>
 
     <string name="user_information_description">Information d\'utilisateur</string>
-
     <!-- Activities -->
-    <string name="activities_no_results_headline">Aucune activité pour le moment</string>
+    <string name="activities_no_results_headline">Aucune activité</string>
     <string name="activities_no_results_message">Ce flux liste les événements tels que\nles ajouts, les modifications et les partages</string>
     <string name="webview_error">Une erreur est survenue</string>
     <string name="prefs_category_about">À propos</string>
 
-    <string name="actionbar_contacts">Copie de sauvegarde des contacts</string>
+    <string name="actionbar_contacts">Sauvegarde des contacts</string>
     <string name="actionbar_contacts_restore">Restaurer les contacts</string>
     <string name="contacts_backup_button">Sauvegarder maintenant</string>
-    <string name="contacts_automatic_backup">Copie de sauvegarde automatique</string>
-    <string name="contacts_last_backup">Dernière copie de sauvegarde</string>
+    <string name="contacts_automatic_backup">Sauvegarde automatique</string>
+    <string name="contacts_last_backup">Dernière sauvegarde</string>
     <string name="contacts_read_permission">L\'autorisation de lecture des contacts est nécessaire</string>
     <string name="contacts_write_permission">L\'autorisation d\'écriture des contacts est nécessaire</string>
     <string name="contactlist_title">Restaurer les contacts</string>
     <string name="contaclist_restore_selected">Restaurer les contacts sélectionnés</string>
     <string name="contactlist_account_chooser_title">Choisissez un compte pour importer</string>
     <string name="contactlist_no_permission">Aucune autorisation, rien d\'importé !</string>
-    <string name="contacts_preference_choose_date">Choisir la date</string>
+    <string name="contacts_preference_choose_date">Sélectionner la date</string>
     <string name="contacts_preference_backup_never">jamais</string>
     <string name="contacts_preferences_no_file_found">Aucun fichier trouvé</string>
-    <string name="contacts_preferences_something_strange_happened">Nous ne trouvons pas votre dernière copie de sauvegarde !</string>
-    <string name="contacts_preferences_backup_scheduled">La sauvegarde est planifiée et va démarrer</string>
+    <string name="contacts_preferences_something_strange_happened">Impossible de trouver la dernière sauvegarde !</string>
+    <string name="contacts_preferences_backup_scheduled">La sauvegarde est planifiée et va démarrer bientôt</string>
     <string name="contacts_preferences_import_scheduled">L\'import est planifié et va démarrer</string>
 
     <!-- Notifications -->
@@ -683,6 +682,6 @@
     <string name="fallback_weblogin_text">Revenir à l\'ancienne méthode de connexion</string>
 
     <string name="foreground_service_upload">Envoi des fichiers en cours&#8230;</string>
-    <string name="foreground_service_download">Téléchargement des fichiers en cours&#8230;</string>
+    <string name="foreground_service_download">Réception de fichiers&#8230;</string>
 
     </resources>

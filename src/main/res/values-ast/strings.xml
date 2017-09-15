@@ -490,7 +490,6 @@
     <string name="user_info_twitter">Twitter</string>
 
     <string name="user_information_description">Información d\'usuariu</string>
-
     <!-- Activities -->
     <string name="activities_no_results_headline"> Entá nun hai actividá</string>
     <string name="webview_error">Asocedió un fallu</string>
