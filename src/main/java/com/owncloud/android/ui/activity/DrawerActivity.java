@@ -28,7 +28,6 @@ import android.accounts.AccountManagerFuture;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
-import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -1060,8 +1059,7 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
                             .into(target);
                 } else {
                     // plain color
-                    int color = Color.parseColor(background);
-                    navigationHeader.setBackgroundColor(color);
+                    navigationHeader.setBackgroundColor(ThemeUtils.primaryColor(getAccount()));
                 }
             }
         }
