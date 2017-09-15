@@ -43,11 +43,13 @@ import android.text.TextUtils;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.db.PreferenceManager;
 import com.owncloud.android.db.ProviderMeta;
 import com.owncloud.android.db.ProviderMeta.ProviderTableMeta;
 import com.owncloud.android.lib.common.accounts.AccountUtils;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.shares.ShareType;
+import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.MimeType;
 
@@ -689,6 +691,9 @@ public class FileContentProvider extends ContentProvider {
 
             // Create filesystem table
             createFileSystemTable(db);
+
+            PreferenceManager.getDefaultSharedPreferences(getContext()).edit()
+                    .putBoolean(FileDisplayActivity.KEY_SHOW_ACCOUNT_WARNING, false).apply();
         }
 
         @Override
