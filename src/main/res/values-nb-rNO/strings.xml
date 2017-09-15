@@ -638,7 +638,6 @@
     <string name="user_info_twitter">Twitter</string>
 
     <string name="user_information_description">Brukerinformasjon</string>
-
     <!-- Activities -->
     <string name="activities_no_results_headline">Ingen aktivitet enda</string>
     <string name="activities_no_results_message">Denne strømmen vil vise hendelser som\nf.eks. innlegging, endring og deling</string>

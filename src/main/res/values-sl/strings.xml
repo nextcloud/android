@@ -616,7 +616,6 @@
     <string name="user_info_twitter">Twitter</string>
 
     <string name="user_information_description">Podatki uporabnika</string>
-
     <!-- Activities -->
     <string name="activities_no_results_headline">Ni še aktivnosti</string>
     <string name="webview_error">Zgodila se je napaka</string>

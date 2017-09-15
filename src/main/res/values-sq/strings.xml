@@ -636,7 +636,6 @@
     <string name="user_info_twitter">Twitter</string>
 
     <string name="user_information_description">Informacioni i përdoruesit</string>
-
     <!-- Activities -->
     <string name="activities_no_results_headline">Akoma asnjë aktivitet</string>
     <string name="activities_no_results_message">Ky burim do të tregoj eventet si\nshtimet, ndryshimet dhe ndarjet</string>

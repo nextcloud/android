@@ -475,7 +475,6 @@
     <string name="user_info_twitter">Twitter</string>
 
     <string name="user_information_description">Felhasználói információ</string>
-
     <!-- Activities -->
     <string name="activities_no_results_headline">Nincs még tevékenység</string>
     <string name="webview_error">Hiba történt</string>
