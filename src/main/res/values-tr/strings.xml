@@ -638,6 +638,8 @@
     <string name="user_info_twitter">Twitter</string>
 
     <string name="user_information_description">Kullanıcı bilgileri</string>
+    <string name="user_information_retrieval_error">Kullanıcı bilgileri alınırken sorun çıktı</string>
+
     <!-- Activities -->
     <string name="activities_no_results_headline">Henüz bir işlem yapılmamış</string>
     <string name="activities_no_results_message">Bu akışta ekleme, değiştirme\nve paylaşım gibi işlemler görüntülenir</string>
