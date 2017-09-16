@@ -639,6 +639,8 @@
     <string name="user_info_twitter">Twitter</string>
 
     <string name="user_information_description">Benutzerinformation</string>
+    <string name="user_information_retrieval_error">Fehler beim Laden der Nutzer-Informationen</string>
+
     <!-- Activities -->
     <string name="activities_no_results_headline">Bislang keine Aktivitäten</string>
     <string name="activities_no_results_message">Dieser Stream zeigt Ereignisse wie\nHinzugekommenes, Änderungen und Freigaben an</string>

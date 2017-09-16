@@ -345,6 +345,8 @@ Kies er eentje van een provider.</string>
     <string name="preview_sorry">Sorry</string>
     <string name="preview_image_description">Voorvertoning van afbeelding</string>
     <string name="preview_image_error_unknown_format">Kan afbeelding niet tonen</string>
+    <string name="preview_image_error_no_local_file">Er is geen lokaal bestand om te bekijken</string>
+
     <string name="error__upload__local_file_not_copied">%1$s kon niet worden gekopieerd naar de lokale map %2$s</string>
     <string name="prefs_instant_upload_path_title">Directe-uploadmap</string>
     <string name="prefs_synced_folders_local_path_title">Lokale map</string>
@@ -637,6 +639,8 @@ Kies er eentje van een provider.</string>
     <string name="user_info_twitter">Twitter</string>
 
     <string name="user_information_description">Gebruikersinformatie</string>
+    <string name="user_information_retrieval_error">Fout bij ophalen gebruikersinformatie</string>
+
     <!-- Activities -->
     <string name="activities_no_results_headline">Nog geen activiteit</string>
     <string name="activities_no_results_message">Deze stream laat gebeurtenissen zoals\ntoevoegingen, veranderingen &amp; gedeelde bestanden zien</string>

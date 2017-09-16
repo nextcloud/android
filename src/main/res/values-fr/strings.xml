@@ -638,6 +638,8 @@
     <string name="user_info_twitter">Twitter</string>
 
     <string name="user_information_description">Information d\'utilisateur</string>
+    <string name="user_information_retrieval_error">Erreur lors de la récupération des informations de l\'utilisateur</string>
+
     <!-- Activities -->
     <string name="activities_no_results_headline">Aucune activité</string>
     <string name="activities_no_results_message">Ce flux liste les événements tels que\nles ajouts, les modifications et les partages</string>

@@ -638,6 +638,8 @@
     <string name="user_info_twitter">Twitter</string>
 
     <string name="user_information_description">Informação do usuário</string>
+    <string name="user_information_retrieval_error">Erro ao recuperar informação do usuário</string>
+
     <!-- Activities -->
     <string name="activities_no_results_headline">Nenhuma atividade ainda</string>
     <string name="activities_no_results_message">O Stream irá mostrar eventos como\nInclusões, alterações e compartilhamentos</string>
