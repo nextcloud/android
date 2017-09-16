@@ -33,7 +33,7 @@
     <string name="drawer_item_uploads_list">업로드</string>
     <string name="drawer_item_activities">활동</string>
     <string name="drawer_item_notifications">알림</string>
-    <string name="drawer_quota">%2$s중%1$s사용됨</string>
+    <string name="drawer_quota">%2$s 중 %1$s 사용됨</string>
 	<string name="drawer_close">닫기</string>
     <string name="drawer_open">열기</string>
     <string name="prefs_category_general">일반</string>
@@ -44,7 +44,7 @@
     <string name="prefs_fingerprint_notsetup">설정된 지문이 없습니다.</string>
     <string name="prefs_show_hidden_files">숨겨진 파일보기</string>
     <string name="prefs_log_delete_history_button">내역 삭제</string>
-    <string name="prefs_calendar_contacts_no_store_error">F-droid 나 Google Play 가 설치되어 있지 않습니다.</string>
+    <string name="prefs_calendar_contacts_no_store_error">F-droid나 Google Play가 설치되어 있지 않습니다.</string>
     <string name="prefs_help">도움말</string>
     <string name="prefs_recommend">친구에게 추천하기</string>
     <string name="prefs_feedback">피드백</string>
@@ -274,11 +274,11 @@
     <string name="clipboard_uxexpected_error">클립보드에 복사하는 중 예기치 않은 오류</string>
     <string name="clipboard_label">%1$s에 텍스트 복사</string>
 
-    <string name="forbidden_permissions_rename">이 파일의 이름을 바꿀</string>
-    <string name="forbidden_permissions_delete">이 파일을 삭제할</string>
-    <string name="share_link_forbidden_permissions">이 파일을 공유할</string>
-    <string name="unshare_link_forbidden_permissions">이 파일의 공유를 해제할</string>
-    <string name="update_link_forbidden_permissions">이 공유를 업데이트할</string>
+    <string name="forbidden_permissions_rename">이 파일의 이름을 바꿀 수 없습니다</string>
+    <string name="forbidden_permissions_delete">이 파일을 삭제할 수 없습니다</string>
+    <string name="share_link_forbidden_permissions">이 파일을 공유할 수 없습니다</string>
+    <string name="unshare_link_forbidden_permissions">이 파일의 공유를 해제할 수 없습니다</string>
+    <string name="update_link_forbidden_permissions">이 공유를 업데이트할 수 없습니다</string>
     <string name="downloader_download_file_not_found">이 파일을 서버에서 더 이상 사용할 수 없습니다</string>
 
     <string name="prefs_add_account">계정 추가</string>
@@ -295,11 +295,11 @@
 	<string name="folder_picker_choose_button_text">선택</string>
 
     <string name="move_file_error">이 파일이나 폴더를 이동하는 중 오류가 발생하였습니다</string>
-    <string name="forbidden_permissions_move">이 파일을 이동할</string>
+    <string name="forbidden_permissions_move">이 파일을 이동할 수 없습니다</string>
 
 
-    <string name="copy_file_not_found">복사할 수 없습니다. 파일이 존재하는 지 확인하십시오</string>
-    <string name="copy_file_error">이 파일이나 폴더를 복사할 수 없습니다.</string>
+    <string name="copy_file_not_found">복사할 수 없습니다. 파일이 존재하는지 확인하십시오</string>
+    <string name="copy_file_error">이 파일이나 폴더를 복사할 수 없습니다</string>
     <string name="forbidden_permissions_copy">이 파일을 복사할</string>
 
     <string name="prefs_category_instant_uploading">즉시 업로드</string>
@@ -371,8 +371,8 @@
     <string name="manage_space_clear_data">데이터 지우기</string>
     <string name="manage_space_error">몇몇 파일을 삭제할 수 없음</string>
 
-    <string name="confirmation_remove_files_alert">선택한 항목을 정말로 삭제 하시겠습니까?</string>
-    <string name="confirmation_remove_folders_alert">선택한 항목 및 내용을 정말로 삭제 하시겠습니까?</string>
+    <string name="confirmation_remove_files_alert">선택한 항목을 정말로 삭제하시겠습니까?</string>
+    <string name="confirmation_remove_folders_alert">선택한 항목 및 내용을 정말로 삭제하시겠습니까?</string>
     <string name="actionbar_search">검색</string>
     <string name="files_drop_not_supported">이것은 Nextcloud 기능입니다, 업데이트하십시오.</string>
     <string name="learn_more">자세히 알아보기</string>
