@@ -62,7 +62,6 @@ import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.authentication.AuthenticatorActivity;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.PushConfigurationState;
-import com.owncloud.android.datamodel.SyncedFolderProvider;
 import com.owncloud.android.lib.common.UserInfo;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
@@ -408,10 +407,6 @@ public class UserInfoActivity extends FileActivity {
                                     ContactsPreferenceActivity.cancelContactBackupJobForAccount(getActivity(), account);
 
                                     ContentResolver contentResolver = getActivity().getContentResolver();
-                                    // delete all synced folder for an account
-                                    SyncedFolderProvider syncedFolderProvider = new SyncedFolderProvider(
-                                            contentResolver);
-                                    syncedFolderProvider.deleteSyncFoldersForAccount(account);
 
                                     // disable daily backup
                                     ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProvider(
@@ -420,7 +415,6 @@ public class UserInfoActivity extends FileActivity {
                                     arbitraryDataProvider.storeOrUpdateKeyValue(account.name,
                                             ContactsPreferenceActivity.PREFERENCE_CONTACTS_AUTOMATIC_BACKUP,
                                             "false");
-
 
                                     String arbitraryDataPushString;
 
