@@ -145,7 +145,7 @@
     <string name="delete_account_warning">Стварно желите обрисати налог %s заједно са свим локалним фајловима?\n\nБрисање се не може поништити.</string>
     <string name="avatar">Аватар</string>
     <string name="active_user">Активни корисник</string>
-    <string name="upload_chooser_title">Отпреми из…</string>
+    <string name="upload_chooser_title">Отпреми из &#8230;</string>
     <string name="uploader_info_dirname">Назив фасцикле</string>
     <string name="uploader_upload_in_progress_ticker">Отпремам &#8230;</string>
     <string name="uploader_upload_in_progress_content">%1$d%% Отпремање %2$s</string>
@@ -173,7 +173,7 @@
     <string name="uploads_view_upload_status_unknown_fail">Непозната грешка</string>
     <string name="uploads_view_upload_status_waiting_for_wifi">Чекам на бежичну везу</string>
     <string name="uploads_view_later_waiting_to_upload">Чекам отпремање</string>
-    <string name="downloader_download_in_progress_ticker">Преузимам…</string>
+    <string name="downloader_download_in_progress_ticker">Преузимам &#8230;</string>
     <string name="downloader_download_in_progress_content">%1$d%% преузимам %2$s</string>
     <string name="downloader_download_succeeded_ticker">Преузето</string>
     <string name="downloader_download_succeeded_content">%1$s преузето</string>
@@ -231,8 +231,8 @@
     <string name="media_play_pause_description">Пуштање-пауза</string>
     <string name="media_forward_description">Унапред</string>
 
-	<string name="auth_getting_authorization">Тражим ауторизацију…</string>
-	<string name="auth_trying_to_login">Покушавам пријављивање…</string>
+	<string name="auth_getting_authorization">Тражим ауторизацију &#8230;</string>
+	<string name="auth_trying_to_login">Покушавам пријављивање &#8230;</string>
 	<string name="auth_no_net_conn_title">Нема мрежне везе</string>
 	<string name="auth_nossl_plain_ok_title">Безбедна веза није доступна.</string>
 	<string name="auth_connection_established">Веза успостављена</string>
@@ -515,7 +515,7 @@
     <string name="share_privilege_can_edit_create">направи</string>
     <string name="share_privilege_can_edit_change">измени</string>
     <string name="share_privilege_can_edit_delete">обрише</string>
-    <string name="edit_share_unshare">Заустави дељење</string>
+    <string name="edit_share_unshare">Прекини дељење</string>
     <string name="edit_share_done">завршено</string>
 
     <string name="action_retry_uploads">Понови неуспела отпремања</string>
