@@ -32,7 +32,6 @@ import android.app.FragmentManager;
 import android.content.ContentResolver;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
@@ -301,10 +300,9 @@ public class UserInfoActivity extends FileActivity {
                             .error(R.drawable.background)
                             .crossFade()
                             .into(target);
-                } else if (!background.isEmpty()) {
+                } else {
                     // plain color
-                    int color = Color.parseColor(background);
-                    appBar.setBackgroundColor(color);
+                    appBar.setBackgroundColor(ThemeUtils.primaryColor(account));
                 }
             }
         }
