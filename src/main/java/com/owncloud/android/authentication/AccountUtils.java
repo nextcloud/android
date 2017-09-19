@@ -25,6 +25,7 @@ import android.accounts.AccountManager;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.support.annotation.Nullable;
 
 import com.owncloud.android.MainApp;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
@@ -61,7 +62,8 @@ public class AccountUtils {
      *                      {@link Account} available, if valid (still registered in the system as ownCloud 
      *                      account). If none is available and valid, returns null.
      */
-    public static Account getCurrentOwnCloudAccount(Context context) {
+    public static @Nullable
+    Account getCurrentOwnCloudAccount(Context context) {
         Account[] ocAccounts = getAccounts(context);
         Account defaultAccount = null;
 
