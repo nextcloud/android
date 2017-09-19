@@ -638,6 +638,8 @@
     <string name="user_info_twitter">Twitter</string>
 
     <string name="user_information_description">Información del usuario</string>
+    <string name="user_information_retrieval_error">Error al extraer la información del usuario</string>
+
     <!-- Activities -->
     <string name="activities_no_results_headline">Aún no hay actividades</string>
     <string name="activities_no_results_message">Este flujo le mostrará eventos tales como \nagregados, cambios &amp; elementos compartidos</string>

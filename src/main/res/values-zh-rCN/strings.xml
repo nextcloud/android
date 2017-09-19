@@ -390,14 +390,14 @@
 
     <string name="file_migration_dialog_title">更新存储路径</string>
     <string name="file_migration_finish_button">完成</string>
-    <string name="file_migration_preparing">准备迁移1&#8230;</string>
+    <string name="file_migration_preparing">准备迁移&#8230;</string>
     <string name="file_migration_checking_destination">检查目的地&#8230;</string>
-    <string name="file_migration_saving_accounts_configuration">保存帐户配置1&#8230;</string>
-    <string name="file_migration_waiting_for_unfinished_sync">等待所有同步完成1&#8230;</string>
+    <string name="file_migration_saving_accounts_configuration">保存帐户配置&#8230;</string>
+    <string name="file_migration_waiting_for_unfinished_sync">等待所有同步完成&#8230;</string>
     <string name="file_migration_migrating">正在转移数据&#8230;</string>
     <string name="file_migration_updating_index">更新目录&#8230;</string>
     <string name="file_migration_cleaning">清除&#8230;</string>
-    <string name="file_migration_restoring_accounts_configuration">恢复帐户配置1&#8230;</string>
+    <string name="file_migration_restoring_accounts_configuration">恢复帐户配置&#8230;</string>
     <string name="file_migration_ok_finished">完成</string>
     <string name="file_migration_failed_not_enough_space">错误：空间不足</string>
     <string name="file_migration_failed_not_writable">错误：目标文件不可写入</string>
@@ -567,7 +567,7 @@
     <string name="participate_dev_fdroid">通过f-droid应用商店获取开发版本</string>
     <string name="participate_dev_direct_download">直接下载开发版本</string>
     <string name="move_to">转移到&#8230;</string>
-    <string name="copy_to">复制到</string>
+    <string name="copy_to">复制到&#8230;</string>
     <string name="choose_remote_folder">选择远端文件夹&#8230;</string>
     <string name="choose_local_folder">选择本地文件夹&#8230;</string>
     <string name="synced_folders_loading_folders">正在载入文件夹&#8230;</string>
@@ -637,6 +637,8 @@
     <string name="user_info_twitter">推特</string>
 
     <string name="user_information_description">用户信息</string>
+    <string name="user_information_retrieval_error">检索用户信息时报错</string>
+
     <!-- Activities -->
     <string name="activities_no_results_headline">暂无动态</string>
     <string name="activities_no_results_message">此流将显示\ n添加，更改和共享等事件</string>

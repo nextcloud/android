@@ -90,7 +90,7 @@
     <string name="file_list_empty">Įkelkite tam tikrą turinį (medžiagą) arba sinchronizuokite su savo įrenginiais.</string>
     <string name="file_list_empty_favorites_filter_list">Čia bus rodomi failai ir aplankai, kuriuos pažymėsite kaip mėgstamus</string>
     <string name="file_list_empty_favorites_filter">Pagal Jūsų pateiktą užklausą neradome šių failų.</string>
-    <string name="file_list_loading">Įkeliama...</string>
+    <string name="file_list_loading">Įkeliama&#8230;</string>
     <string name="file_list_no_app_for_file_type">Nėra šios programos failo tipui tvarkyti.</string>
     <string name="local_file_list_empty">Šiame aplanke nėra failų.</string>
     <string name="local_folder_list_empty">Nėra kitų aplankų</string>
@@ -134,7 +134,7 @@
     <string name="common_back">Atgal</string>
     <string name="common_save">Įrašyti</string>
     <string name="common_error">Klaida</string>
-    <string name="common_loading">Įkeliama...</string>
+    <string name="common_loading">Įkeliama&#8230;</string>
     <string name="common_unknown">nežinomas</string>
     <string name="common_error_unknown">Nežinoma klaida</string>
     <string name="common_pending">Laukiantis</string>
@@ -145,9 +145,9 @@
     <string name="delete_account_warning">Ištrinti paskyrą %s su visais failais?\n\nIštrynimas negalės būti atšauktas.</string>
     <string name="avatar">Avataras</string>
     <string name="active_user">Aktyvūs naudotojai</string>
-    <string name="upload_chooser_title">Įkelti iš ...</string>
+    <string name="upload_chooser_title">Įkelti iš &#8230;</string>
     <string name="uploader_info_dirname">Aplanko pavadinimas</string>
-    <string name="uploader_upload_in_progress_ticker">Įkeliama ...</string>
+    <string name="uploader_upload_in_progress_ticker">Įkeliama &#8230;</string>
     <string name="uploader_upload_in_progress_content">%1$d%% Siunčiama %2$s</string>
     <string name="uploader_upload_succeeded_ticker">Įkelta</string>
     <string name="uploader_upload_succeeded_content_single">%1$s įkelta</string>
@@ -173,7 +173,7 @@
     <string name="uploads_view_upload_status_unknown_fail">Neatpažinta klaida</string>
     <string name="uploads_view_upload_status_waiting_for_wifi">Jungiamasi prie Wi-Fi </string>
     <string name="uploads_view_later_waiting_to_upload">Įkelinėjamas failas</string>
-    <string name="downloader_download_in_progress_ticker">Atsiunčiama...</string>
+    <string name="downloader_download_in_progress_ticker">Atsiunčiama &#8230;</string>
     <string name="downloader_download_in_progress_content">%1$d%% Atsiunčiama %2$s</string>
     <string name="downloader_download_succeeded_ticker">Atsisiųsti</string>
     <string name="downloader_download_succeeded_content">%1$s atsisiųsta</string>
@@ -290,7 +290,7 @@
     <string name="wait_checking_credentials">Dekriptuojami prisijungimo duomenys</string>
     <string name="filedisplay_unexpected_bad_get_content">Netikėta problema ; prašome pasirinkti failą iš kitos programėlės</string>
     <string name="filedisplay_no_file_selected">Neįkeltas joks failas</string>
-    <string name="activity_chooser_title">Siųsti nuorodą asmeniui ...</string>
+    <string name="activity_chooser_title">Siųsti nuorodą asmeniui &#8230;</string>
     <string name="wait_for_tmp_copy_from_private_storage">Kopijuojamas failas iš privačios saugyklos</string>
     
     <string name="oauth_check_onoff">Prisijungti naudojant oAuth2</string> 
@@ -473,8 +473,8 @@
     <string name="set_picture_as">Naudokite šį paveiksliuką</string>
     <string name="set_as">Nustatyti kaip</string>
 
-    <string name="prefs_instant_behaviour_dialogTitle">Pradinis failas bus...</string>
-    <string name="prefs_instant_behaviour_title">Pradinis failas bus...</string>
+    <string name="prefs_instant_behaviour_dialogTitle">Pradinis failas bus&#8230;</string>
+    <string name="prefs_instant_behaviour_title">Pradinis failas bus&#8230;</string>
     <string name="upload_copy_files">Kopijuoti failą</string>
     <string name="upload_move_files">Perkelti failą</string>
     <string name="select_all">Pažymėti viską</string>
@@ -578,6 +578,12 @@
     <string name="synced_folders_settings">Nustatymai</string>
     <string name="synced_folders_new_info">Momentinis įkėlimas buvo visiškai sutaisytas. Perkonfigūruokite automatinius įkėlimus per pagrindinį meniu.\n\nMėgaukitės naujuoju automatiniu įkėlimu.</string>
     <string name="synced_folders_preferences_folder_path">Dėl %1$s</string>
+    <plurals name="items_selected_count">
+        <item quantity="one">%d pasirinktas</item>
+        <item quantity="few">%d pasirinkti</item>
+        <item quantity="other">%d pasirinktos</item>
+    </plurals>
+
     <string name="activity_list_loading_activity">Kraunamos veiklos&#8230;</string>
     <string name="activity_list_no_results">Veiklų nerasta.</string>
 
