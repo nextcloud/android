@@ -154,7 +154,7 @@ public class NotificationsActivity extends FileActivity {
             ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProvider(getContentResolver());
 
             boolean usesOldLogin = arbitraryDataProvider.getBooleanValue(account.name,
-                    AccountUtils.ACCOUNT_USES_OLD_LOGIN);
+                    AccountUtils.ACCOUNT_USES_STANDARD_PASSWORD);
 
             if (usesOldLogin) {
                 Snackbar.make(emptyContentContainer, R.string.push_notifications_old_login,
