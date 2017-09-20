@@ -66,8 +66,8 @@ import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.services.FileDownloader;
-import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.jobs.ContactsImportJob;
+import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.TextDrawable;
 import com.owncloud.android.ui.activity.ContactsPreferenceActivity;
 import com.owncloud.android.ui.events.VCardToggleEvent;
@@ -641,11 +641,13 @@ class ContactListAdapter extends RecyclerView.Adapter<ContactListFragment.Contac
             if (vcard.getPhotos().size() > 0) {
                 byte[] data = vcard.getPhotos().get(0).getData();
 
-                Bitmap thumbnail = BitmapFactory.decodeByteArray(data, 0, data.length);
-                RoundedBitmapDrawable drawable = BitmapUtils.bitmapToCircularBitmapDrawable(context.getResources(),
-                        thumbnail);
+                if (data != null && data.length > 0) {
+                    Bitmap thumbnail = BitmapFactory.decodeByteArray(data, 0, data.length);
+                    RoundedBitmapDrawable drawable = BitmapUtils.bitmapToCircularBitmapDrawable(context.getResources(),
+                            thumbnail);
 
-                holder.getBadge().setImageDrawable(drawable);
+                    holder.getBadge().setImageDrawable(drawable);
+                }
             } else {
                 try {
                     holder.getBadge().setImageDrawable(
