@@ -707,5 +707,5 @@
     <string name="prefs_license">License</string>
     <string name="prefs_gpl_v2" translatable="false">GNU General Public License, version 2</string>
     <string name="push_notifications_not_implemented">Push notifications disabled due to dependencies on proprietary Google Play services.</string>
-    <string name="push_notifications_old_login">Push notifications not possible due to outdated login session. Please consider recreating your account.</string>
+    <string name="push_notifications_old_login">No push notifications due to outdated login session. Please consider re-adding your account.</string>
 </resources>
