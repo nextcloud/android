@@ -72,6 +72,14 @@
 			android:title="@string/privacy"
 			android:id="@+id/privacy"
 			android:key="privacy"/>
+		<Preference
+			android:title="@string/prefs_sourcecode"
+			android:id="@+id/sourcecode"
+			android:key="sourcecode"/>
+		<Preference
+			android:title="@string/prefs_license"
+			android:id="@+id/license"
+			android:key="license"/>
 		<Preference android:title="@string/about_title" android:id="@+id/about_app" android:key="about_app" />
 	</PreferenceCategory>
 
