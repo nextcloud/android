@@ -703,4 +703,7 @@
 
     <string name="common_warning" translatable="false">Warning</string>
     <string name="corrupt_account_info" translatable="false">Accounts have been corrupted in case you have been using a release candidate of 2.0.0 between RC1 and RC5.\n\nWe are sorry to tell you that you need to remove the Nextcloud accounts from your device and need to re-login again completely in order to get fully working login-sessions on this device!</string>
+    <string name="prefs_sourcecode">Get source code</string>
+    <string name="prefs_license">License</string>
+    <string name="prefs_gpl_v2" translatable="false">GNU General Public License, version 2</string>
 </resources>
