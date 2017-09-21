@@ -129,6 +129,9 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
     public static final String DOWNLOAD_BEHAVIOUR = "DOWNLOAD_BEHAVIOUR";
     public static final String DOWNLOAD_SEND = "DOWNLOAD_SEND";
 
+    public static final String FOLDER_LAYOUT_LIST = "LIST";
+    public static final String FOLDER_LAYOUT_GRID = "GRID";
+
     public static final String SEARCH_EVENT = "SEARCH_EVENT";
 
     private static final String KEY_FILE = MY_PACKAGE + ".extra.FILE";
@@ -1204,16 +1207,16 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
      * @return 'true' is folder should be shown in grid mode, 'false' if list mode is preferred.
      */
     public boolean isGridViewPreferred(OCFile folder) {
-        return PreferenceManager.getIsGridViewPreferred(getActivity(), folder);
+        return PreferenceManager.getFolderLayout(getActivity(), folder).equals(FOLDER_LAYOUT_GRID);
     }
 
     public void setListAsPreferred() {
-        PreferenceManager.setIsGridViewPreferred(getActivity(), mFile, false);
+        PreferenceManager.setFolderLayout(getActivity(), mFile, FOLDER_LAYOUT_LIST);
         switchToListView();
     }
 
     public void setGridAsPreferred() {
-        PreferenceManager.setIsGridViewPreferred(getActivity(), mFile, true);
+        PreferenceManager.setFolderLayout(getActivity(), mFile, FOLDER_LAYOUT_GRID);
         switchToGridView();
     }
 
