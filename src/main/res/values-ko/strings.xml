@@ -45,9 +45,11 @@
     <string name="prefs_expert_mode">전문가 모드</string>
     <string name="prefs_show_hidden_files">숨겨진 파일보기</string>
     <string name="prefs_log_delete_history_button">내역 삭제</string>
+    <string name="prefs_calendar_contacts">캘린더 &amp; 연락처 동기화</string>
     <string name="prefs_calendar_contacts_summary">이 계정을 위해 DAVdroid (버전 1.3.0 이상)를 설정하세요</string>
     <string name="prefs_calendar_contacts_address_resolve_error"> DAVdroid가 계정의 서버 주소를 해석할 수 없습니다</string>
     <string name="prefs_calendar_contacts_no_store_error">F-droid나 Google Play가 설치되어 있지 않습니다.</string>
+    <string name="prefs_calendar_contacts_sync_setup_successful">달력 설정 &amp; 연락처 동기화 설정</string>
     <string name="prefs_daily_contacts_sync_summary">연락처 일간 백업</string>
     <string name="prefs_help">도움말</string>
     <string name="prefs_recommend">친구에게 추천하기</string>
@@ -70,11 +72,13 @@
     <string name="uploader_btn_alternative_text">선택</string>
     <string name="uploader_top_message">업로드 폴더 선택</string>
     <string name="uploader_wrn_no_account_title">계정 없음</string>
+    <string name="uploader_wrn_no_account_text">이 장치에 %1$s 계정이 없습니다. 먼저 계정 설정을 해주세요.</string>
     <string name="uploader_wrn_no_account_setup_btn_text">설정</string>
     <string name="uploader_wrn_no_account_quit_btn_text">끝내기</string>
     <string name="uploader_error_title_no_file_to_upload">업로드된 파일이 없음</string>
     <string name="uploader_error_message_no_file_to_upload">올바르지 않은 파일을 포함한 데이터를 받았습니다.</string>
     <string name="uploader_error_title_file_cannot_be_uploaded">이 파일을 업로드 할 수 없음</string>
+    <string name="uploader_error_message_read_permission_not_granted">%1$s에게는 받은 파일을 읽을 권한이 없습니다</string>
     <string name="uploader_error_message_source_file_not_found">업로드 하려고 선택한 파일을 찾을 수 없습니다. 파일이 존재하는지 확인하세요.</string>
     <string name="uploader_error_message_source_file_not_copied">파일을 임시 폴더에 저장할 수 없습니다. 재전송을 시도해 보세요.</string>
     <string name="uploader_upload_files_behaviour">업로드 설정:</string>
