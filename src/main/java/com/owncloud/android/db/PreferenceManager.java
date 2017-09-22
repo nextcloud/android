@@ -295,7 +295,7 @@ public abstract class PreferenceManager {
      * @return grid columns     grid columns
      */
     public static float getGridColumns(Context context) {
-        return getDefaultSharedPreferences(context).getFloat(AUTO_PREF__GRID_COLUMNS, -1.0f);
+        return getDefaultSharedPreferences(context).getFloat(AUTO_PREF__GRID_COLUMNS, 3.0f);
     }
 
     /**
