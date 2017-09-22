@@ -30,6 +30,7 @@ import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.design.widget.BottomNavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
@@ -44,6 +45,7 @@ import android.widget.TextView;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
+import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
@@ -55,6 +57,7 @@ import com.owncloud.android.lib.resources.notifications.models.Notification;
 import com.owncloud.android.ui.adapter.NotificationListAdapter;
 import com.owncloud.android.utils.AnalyticsUtils;
 import com.owncloud.android.utils.DisplayUtils;
+import com.owncloud.android.utils.PushUtils;
 import com.owncloud.android.utils.ThemeUtils;
 
 import java.io.IOException;
@@ -139,6 +142,32 @@ public class NotificationsActivity extends FileActivity {
 
             }
         });
+
+        Context context = getApplicationContext();
+        String pushUrl = context.getResources().getString(R.string.push_server_url);
+
+        if (pushUrl.isEmpty()) {
+            Snackbar.make(emptyContentContainer, R.string.push_notifications_not_implemented,
+                    Snackbar.LENGTH_INDEFINITE).show();
+        } else {
+            Account account = AccountUtils.getCurrentOwnCloudAccount(context);
+            ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProvider(getContentResolver());
+
+            boolean usesOldLogin = arbitraryDataProvider.getBooleanValue(account.name,
+                    AccountUtils.ACCOUNT_USES_STANDARD_PASSWORD);
+
+            if (usesOldLogin) {
+                Snackbar.make(emptyContentContainer, R.string.push_notifications_old_login,
+                        Snackbar.LENGTH_INDEFINITE).show();
+            } else {
+                String pushValue = arbitraryDataProvider.getValue(account.name, PushUtils.KEY_PUSH);
+
+                if (pushValue == null || pushValue.isEmpty()) {
+                    Snackbar.make(emptyContentContainer, R.string.push_notifications_temp_error,
+                            Snackbar.LENGTH_INDEFINITE).show();
+                }
+            }
+        }
 
         setupContent();
     }
