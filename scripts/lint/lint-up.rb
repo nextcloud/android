@@ -56,11 +56,10 @@ end
 
 # run Lint
 puts "running Lint..."
-# system './gradlew clean lint'
+system './gradlew clean lint'
 
 # confirm that Lint ran w/out error
-result = 0
-#result = $?.to_i
+result = $?.to_i
 if result != 0
     puts "FAIL: failed to run ./gradlew clean lint"
     exit 1
