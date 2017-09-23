@@ -689,4 +689,5 @@
     <string name="foreground_service_upload">Išsiunčiamos bylos&#8230;</string>
     <string name="foreground_service_download">Atsisiunčiamos bylos&#8230;</string>
 
+    <string name="prefs_license">Licencija</string>
     </resources>

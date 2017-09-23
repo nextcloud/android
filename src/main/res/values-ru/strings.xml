@@ -689,4 +689,5 @@
     <string name="foreground_service_upload">Выгрузка файлов &#8230;</string>
     <string name="foreground_service_download">Скачивание файлов &#8230;</string>
 
+    <string name="prefs_license">Лицензия</string>
     </resources>

@@ -686,4 +686,6 @@
     <string name="foreground_service_upload">Uploading files&#8230;</string>
     <string name="foreground_service_download">Downloading files&#8230;</string>
 
+    <string name="prefs_sourcecode">Get source code</string>
+    <string name="prefs_license">License</string>
     </resources>
