@@ -129,10 +129,10 @@ else
         if CHECK_WARNINGS == true
             previous_warning_string = previous_error_warning_string.match(/[0-9]* warning[s]?/)
             if previous_warning_string.nil?
-                        previous_warning_string = "0 warnings"
-                    else
-                        previous_warning_string = previous_warning_string[0]
-                    end
+                previous_warning_string = "0 warnings"
+            else
+                previous_warning_string = previous_warning_string[0]
+            end
             previous_warning_count = previous_warning_string.match(/[0-9]*/)[0].to_i
             puts "previous warnings: " + previous_warning_count.to_s
         end
