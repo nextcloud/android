@@ -687,4 +687,5 @@ Smelltu hér til að fá þér einn frá þjónustuaðila.</string>
     <string name="foreground_service_upload">Sendi inn skrár&#8230;</string>
     <string name="foreground_service_download">Sæki skrár&#8230;</string>
 
+    <string name="prefs_license">Notkunarleyfi</string>
     </resources>

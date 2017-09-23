@@ -684,4 +684,5 @@
     <string name="foreground_service_upload">Μεταφόρτωση αρχείων &#8230;</string>
     <string name="foreground_service_download">Λήψη αρχείων &#8230;</string>
 
+    <string name="prefs_license">Άδεια χρήσης</string>
     </resources>

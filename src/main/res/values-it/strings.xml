@@ -686,4 +686,6 @@
     <string name="foreground_service_upload">Caricamento file&#8230;</string>
     <string name="foreground_service_download">Scaricamento file&#8230;</string>
 
+    <string name="prefs_sourcecode">Ottieni codice sorgente</string>
+    <string name="prefs_license">Licenza</string>
     </resources>

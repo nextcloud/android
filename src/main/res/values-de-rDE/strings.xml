@@ -687,4 +687,6 @@
     <string name="foreground_service_upload">Dateien hochladen&#8230;</string>
     <string name="foreground_service_download">Dateien herunterladen&#8230;</string>
 
+    <string name="prefs_sourcecode">Zum Programmcode</string>
+    <string name="prefs_license">Lizenz</string>
     </resources>

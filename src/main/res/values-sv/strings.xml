@@ -686,4 +686,6 @@
     <string name="foreground_service_upload">Laddar upp filer &#8230;</string>
     <string name="foreground_service_download">Laddar ner filer &#8230;</string>
 
+    <string name="prefs_sourcecode">Hämta källkod</string>
+    <string name="prefs_license">Licens</string>
     </resources>

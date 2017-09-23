@@ -76,6 +76,7 @@
     <string name="uploader_error_message_no_file_to_upload">Vastaanotettu data ei sisällä kelvollista tiedostoa.</string>
     <string name="uploader_error_title_file_cannot_be_uploaded">Tätä tiedostoa ei voida lähettää</string>
     <string name="uploader_error_message_read_permission_not_granted">%1$s ei saa lukea vastaanotettua tiedostoa</string>
+    <string name="uploader_error_message_source_file_not_found">Lähetykseen valittua tiedostoa ei löytynyt. Varmista, että tiedosto on olemassa.</string>
     <string name="uploader_upload_files_behaviour">Lähetys asetus:</string>
     <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">Siirrä tiedosto Nextcloud kansioon</string>
     <string name="uploader_upload_files_behaviour_only_upload">Pidä tiedosto lähdekansiossa</string>
@@ -95,7 +96,10 @@
     <string name="file_list_empty_headline_server_search_videos">Ei videoita</string>
     <string name="file_list_empty_headline_server_search_photos">Ei kuvia</string>
     <string name="file_list_empty_search">Ehkä se on toisessa kansiossa?</string>
+    <string name="file_list_empty_recently_modified">Viimeisen 7 päivän aikana muokattuja tiedostoja ei löytynyt</string>
+    <string name="file_list_empty_recently_modified_filter">Haku ei palauttanut muokattuja tiedostoja viimeisen 7 päivän ajalta.</string>
     <string name="file_list_empty_recently_added">Äskettäin lisättyja tiedostoja ei löytynyt</string>
+    <string name="file_list_empty_recently_added_filter">Hakusi ei palauttanut äskettäin lisättyjä tiedostoja.</string>
     <string name="file_list_empty_text_photos_filter">Ei hakuasi vastaavia kuvia.</string>
     <string name="file_list_empty_text_videos_filter">Ei hakuasi vastaavia videoita.</string>
     <string name="upload_list_empty_headline">Ei lähetettäviä saatavilla</string>
@@ -112,6 +116,7 @@
     <string name="common_no">Ei</string>
     <string name="common_ok">OK</string>
     <string name="common_remove_upload">Peru lähteys</string>
+    <string name="common_retry_upload">Yritä lähetystä uudelleen</string>
     <string name="common_cancel_sync">Peru synkronointi</string>
     <string name="common_cancel">Peru</string>
     <string name="common_back">Takaisin</string>
@@ -125,6 +130,7 @@
     <string name="about_title">Tietoja</string>
     <string name="change_password">Vaihda salasana</string>
     <string name="delete_account">Poista tili</string>
+    <string name="delete_account_warning">Poistetaanko tili %s ja kaikki sen paikalliset tiedostot?\n\nPoistamista ei voi perua.</string>
     <string name="upload_chooser_title">Lataus täältä:</string>
     <string name="uploader_info_dirname">Kansion nimi</string>
     <string name="uploader_upload_in_progress_ticker">Lähetetään &#8230;</string>
@@ -292,6 +298,7 @@
     <string name="prefs_instant_upload_path_use_subfolders_title">Käytä alikansioita</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Tallenna alikansioihin vuoden ja kuukauden mukaisesti.</string>
 
+	<string name="share_link_no_support_share_api">Jakaminen ei ole käytössä palvelimellasi. Ota yhteys ylläpitäjään.</string>
 	<string name="share_link_file_no_exist">Jakaminen epäonnistui. Varmista, että tiedosto on olemassa</string>
 	<string name="share_link_file_error">Virhe tiedoston tai kansion jakamista yrittäessä</string>
 	<string name="unshare_link_file_no_exist">Jakamisen lopettaminen epäonnistui. Tarkista onko tiedosto olemassa</string>
@@ -311,6 +318,8 @@
     <string name="error_cant_bind_to_operations_service">Kriittinen virhe: toimenpiteiden suorittaminen ei onnistu</string>
 
     <string name="network_error_socket_exception">Palvelimeen yhdistäessä tapahtui virhe.</string>
+    <string name="network_host_not_available">Toimintoa ei voitu suorittaa loppuun. Palvelin ei ole käytettävissä</string>
+
     <string name="forbidden_permissions_rename">nimetä tiedostoa uudelleen</string>
     <string name="forbidden_permissions_delete">poistaa tiedostoa</string>
     <string name="share_link_forbidden_permissions">jakaa tiedostoa</string>
@@ -327,6 +336,7 @@
     <string name="file_migration_ok_finished">Valmistunut</string>
     <string name="file_migration_failed_not_enough_space">Virhe: tallennustila ei riitä</string>
     <string name="file_migration_failed_not_readable">Virhe: lähdetiedosto ei ole luettavissa</string>
+    <string name="file_migration_failed_dir_already_exists">Virhe: Nextcloud-kansio on jo olemassa</string>
     <string name="file_migration_override_data_folder">Korvaa</string>
     <string name="file_migration_use_data_folder">Käytä</string>
 
@@ -448,6 +458,7 @@
     <string name="copy_to">Kopio kohteeseen&#8230;</string>
     <string name="choose_remote_folder">Valitse etäkansio&#8230;</string>
     <string name="synced_folders_no_results">Mediakansioita ei löytynyt.</string>
+    <string name="synced_folders_settings">Asetukset</string>
     <plurals name="items_selected_count">
         <item quantity="one">%d valittu</item>
         <item quantity="other">%d valittu</item>
@@ -456,12 +467,16 @@
     <string name="activity_list_loading_activity">Ladataan toimia&#8230;</string>
     <string name="activity_list_no_results">Toimia ei löydetty</string>
 
+    <string name="notifications_loading_activity">Ladataan ilmoituksia &#8230;</string>
     <string name="notifications_no_results_headline">Ei ilmoituksia</string>
     <string name="upload_file_dialog_filename">Tiedostonimi</string>
     <string name="upload_file_dialog_filetype">Tiedostotyyppi</string>
     <string name="storage_description_default">Oletus</string>
     <string name="storage_description_sd_no">SD kortti %1$d</string>
     <string name="storage_description_unknown">Tuntematon</string>
+
+    <!-- What's new feature and texts to show -->
+    <string name="whats_new_title">Mitä uutta %1$s sisältää</string>
 
     <!-- Welcome to Nc intro features -->
     <string name="welcome_feature_1_title">Turvallinen koti kaikille tiedostoillesi</string>
@@ -470,6 +485,7 @@
 
     <string name="welcome_feature_3_text">Pidä kuvasi tallessa</string>
 
+    <string name="whats_new_theming_title">Teematuki</string>
     <string name="whats_new_notification_title">Ilmoitustuki</string>
     <string name="whats_new_skip">Skippaa</string>
 
@@ -495,10 +511,12 @@
     <string name="contacts_automatic_backup">Automaattinen varmuuskopio</string>
     <string name="contacts_last_backup">Edellinen varmuuskopio</string>
     <string name="contactlist_title">Palauta yhteystiedot</string>
+    <string name="contaclist_restore_selected">Palauta valitut yhteystiedot</string>
     <string name="contactlist_account_chooser_title">Valitse tuotava tili</string>
     <string name="contacts_preference_choose_date">Valitse päiväys</string>
     <string name="contacts_preference_backup_never">ei koskaan</string>
     <string name="contacts_preferences_no_file_found">Tiedostoa ei löytynyt</string>
+    <string name="contacts_preferences_backup_scheduled">Varmuuskopiointi on ajastettu ja se alkaa pian</string>
     <!-- Notifications -->
     <string name="new_notification_received">Uusi ilmoitus vastaanotettu</string>
     <string name="drawer_logout">Kirjaudu ulos</string>
@@ -506,6 +524,9 @@
     <string name="file_not_found">Tiedostoa ei löytynyt!</string>
 
     <string name="test_server_button">Testaa palvelinyhteys</string>
+    <string name="resharing_is_not_allowed">Uudelleenjakaminen ei ole sallittu</string>
     <string name="whats_new_fingerprint_title">Avaa lukitus sormenjäljellä</string>
     <string name="whats_new_fingerprint_content">Käytä sormenjälkeäsi sovelluksen lukituksen avaamiseen</string>
+    <string name="prefs_sourcecode">Hanki lähdekoodi</string>
+    <string name="prefs_license">Lisenssi</string>
     </resources>

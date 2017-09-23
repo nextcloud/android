@@ -688,4 +688,5 @@
     <string name="foreground_service_upload">Wysyłanie plików&#8230;</string>
     <string name="foreground_service_download">Pobieranie plików&#8230;</string>
 
+    <string name="prefs_license">Licencja</string>
     </resources>

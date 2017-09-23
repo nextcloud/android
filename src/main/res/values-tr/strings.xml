@@ -686,4 +686,6 @@
     <string name="foreground_service_upload">Dosyalar yükleniyor&#8230;</string>
     <string name="foreground_service_download">Dosyalar yükleniyor&#8230;</string>
 
+    <string name="prefs_sourcecode">Kaynak kodunu alın</string>
+    <string name="prefs_license">Lisans</string>
     </resources>
