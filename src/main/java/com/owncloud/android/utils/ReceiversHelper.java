@@ -44,7 +44,7 @@ public class ReceiversHelper {
         BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
-                if (Device.getNetworkType(context).equals(JobRequest.NetworkType.UNMETERED)) {
+                if (!Device.getNetworkType(context).equals(JobRequest.NetworkType.ANY)) {
                     FilesSyncHelper.restartJobsIfNeeded();
                 }
             }
