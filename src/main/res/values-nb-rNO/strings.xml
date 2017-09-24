@@ -688,4 +688,7 @@
 
     <string name="prefs_sourcecode">Hent kildekode</string>
     <string name="prefs_license">Lisens</string>
-    </resources>
+    <string name="push_notifications_not_implemented">Push-merknader er avskrudd på grunn av avhengigheter til proprietære Google Play-tjenester.</string>
+    <string name="push_notifications_old_login">Ingen push-merknader på grunn av utdatert innloggingsøkt. Overvei å legge til kontoen din på nytt.</string>
+    <string name="push_notifications_temp_error">Push-merknader er for tiden ikke tilgjengelige.</string>
+</resources>
