@@ -689,4 +689,7 @@
 
     <string name="prefs_sourcecode">Zum Programmcode</string>
     <string name="prefs_license">Lizenz</string>
-    </resources>
+    <string name="push_notifications_not_implemented">Push Benachrichtigungen deaktiviert aufgrund der Abhängigkeiten zu proprietären Google Play Diensten.</string>
+    <string name="push_notifications_old_login">Keine Push Benachrichtigungen aufgrund veralteter Benutzersitzung. Bitte erwägen Sie das erneute Hinzufügen Ihres Kontos.</string>
+    <string name="push_notifications_temp_error">Push Benachrichtigungen aktuell nicht verfügbar.</string>
+</resources>

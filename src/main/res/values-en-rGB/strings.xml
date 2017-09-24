@@ -688,4 +688,7 @@
 
     <string name="prefs_sourcecode">Get source code</string>
     <string name="prefs_license">License</string>
-    </resources>
+    <string name="push_notifications_not_implemented">Push notifications disabled due to dependencies on proprietary Google Play services.</string>
+    <string name="push_notifications_old_login">No push notifications due to outdated login session. Please consider re-adding your account.</string>
+    <string name="push_notifications_temp_error">Push notifications currently not available.</string>
+</resources>
