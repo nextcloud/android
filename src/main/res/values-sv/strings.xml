@@ -548,15 +548,15 @@
     <string name="drawer_synced_folders">Automatisk uppladdning</string>
     <string name="drawer_participate">Hjälp oss att bli bättre</string>
     <string name="participate_testing_headline">Hjälp till att testa</string>
-    <string name="participate_testing_bug_text">Hittade en bugg? Konstigheter?</string>
-    <string name="participate_testing_report_text">Rapportera problem på GitHub</string>
-    <string name="participate_testing_version_text">Intresserad av att hjälpa till att test nästa version?</string>
-    <string name="participate_beta_headline">Testa utvecklingsversion</string>
-    <string name="participate_beta_text">Detta inkluderar alla kommande funktioner och mycket \"bleeding edge\" (den allra senaste koden). Fel/buggar kan uppstå, om och när de gör det, vänligen rapportera dina resultat.</string>
+    <string name="participate_testing_bug_text">Hittat en bugg? Något som är konstigt?</string>
+    <string name="participate_testing_report_text">Rapportera ditt problem på GitHub</string>
+    <string name="participate_testing_version_text">Intresserad av att hjälpa till att testa nästa version?</string>
+    <string name="participate_beta_headline">Testa utvecklingsversionen</string>
+    <string name="participate_beta_text">Detta inkluderar alla kommande funktioner och mycket \"bleeding edge\" (den allra senaste koden). Fel/buggar kan uppstå, om och när de gör det, vänligen meddela oss vad du hittar för fel så att vi kan åtgärda dem.</string>
     <string name="participate_release_candidate_headline">Release candidate</string>
     <string name="participate_release_candidate_text">Release Candidate (RC) är en image av den kommande versionen och förväntas vara stabil. Att testa din individuella konfiguration kan hjälpa till att säkerställa detta. Anmäl dig för testning i Play-butiken eller se manuellt i avsnittet \"Version\" på F-Droid.</string>
     <string name="participate_contribute_headline">Bidra aktivt</string>
-    <string name="participate_contribute_irc_text">Gå med i IRC-chat:</string>
+    <string name="participate_contribute_irc_text">Gå med vår i IRC-chat:</string>
     <string name="participate_contribute_forum_text">Hjälp andra på</string>
     <string name="participate_contribute_forum_forum">forum</string>
     <string name="participate_contribute_translate_translate">Översätt</string>
@@ -688,4 +688,5 @@
 
     <string name="prefs_sourcecode">Hämta källkod</string>
     <string name="prefs_license">Licens</string>
-    </resources>
+    <string name="push_notifications_temp_error">Push-notiser är inte tillgängligt för tillfället.</string>
+</resources>
