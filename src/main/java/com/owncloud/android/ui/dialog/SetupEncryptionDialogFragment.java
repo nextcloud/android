@@ -289,7 +289,7 @@ public class SetupEncryptionDialogFragment extends DialogFragment {
 
                     publicKey = (String) result.getData().get(0);
                 } else {
-                    throw new Exception("Public key not stored!");
+                    throw new RuntimeException("Public key not stored!");
                 }
 
                 keyWords = EncryptionUtils.getRandomWords(12, getContext());
