@@ -603,7 +603,7 @@
     <string name="whats_new_title">Vad är nytt i %1$s</string>
 
     <!-- Welcome to Nc intro features -->
-    <string name="welcome_feature_1_title">En säker plats för all din data</string>
+    <string name="welcome_feature_1_title">En säker lagringsplats för all din data</string>
     <string name="welcome_feature_1_text">Få tillgång, dela och skydda dina filer hemma och i ditt företag</string>
 
     <string name="welcome_feature_2_title">Multikonto</string>
