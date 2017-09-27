@@ -53,10 +53,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 import static android.support.test.InstrumentationRegistry.getInstrumentation;
-import static com.owncloud.android.utils.EncryptionUtils.decodeStringToBase64Bytes;
-import static com.owncloud.android.utils.EncryptionUtils.encodeBytesToBase64String;
-import static com.owncloud.android.utils.EncryptionUtils.generateIV;
-import static com.owncloud.android.utils.EncryptionUtils.generateKey;
 import static junit.framework.Assert.assertTrue;
 import static org.junit.Assert.assertEquals;
 
@@ -117,7 +113,7 @@ public class EncryptionTestIT {
     @Test
     public void encryptStringAsymmetric() throws Exception {
         byte[] key1 = EncryptionUtils.generateKey();
-        String base64encodedKey = encodeBytesToBase64String(key1);
+        String base64encodedKey = EncryptionUtils.encodeBytesToBase64String(key1);
 
         String encryptedString = EncryptionUtils.encryptStringAsymmetric(base64encodedKey, cert);
         String decryptedString = EncryptionUtils.decryptStringAsymmetric(encryptedString, privateKey);
@@ -129,7 +125,7 @@ public class EncryptionTestIT {
 
     @Test
     public void encryptStringSymmetric() throws Exception {
-        byte[] key = generateKey();
+        byte[] key = EncryptionUtils.generateKey();
 
         String encryptedString = EncryptionUtils.encryptStringSymmetric(privateKey, key);
         String decryptedString = EncryptionUtils.decryptStringSymmetric(encryptedString, key);
@@ -146,7 +142,7 @@ public class EncryptionTestIT {
         KeyPair keyPair = keyGen.generateKeyPair();
         PrivateKey privateKey = keyPair.getPrivate();
         byte[] privateKeyBytes = privateKey.getEncoded();
-        String privateKeyString = encodeBytesToBase64String(privateKeyBytes);
+        String privateKeyString = EncryptionUtils.encodeBytesToBase64String(privateKeyBytes);
 
         String encryptedString = EncryptionUtils.encryptPrivateKey(privateKeyString, keyPhrase);
         String decryptedString = EncryptionUtils.decryptPrivateKey(encryptedString, keyPhrase);
@@ -164,7 +160,7 @@ public class EncryptionTestIT {
         String urlEncoded = URLEncoder.encode("-----BEGIN CERTIFICATE REQUEST-----\n" + string +
                 "\n-----END CERTIFICATE REQUEST-----", "UTF-8");
 
-        Log_OC.d(TAG, "public: " + encodeBytesToBase64String(keyPair.getPublic().getEncoded()));
+        Log_OC.d(TAG, "public: " + EncryptionUtils.encodeBytesToBase64String(keyPair.getPublic().getEncoded()));
         Log_OC.d(TAG, "csrPEM: " + string);
         Log_OC.d(TAG, "csrPEM: " + urlEncoded);
     }
@@ -234,7 +230,7 @@ public class EncryptionTestIT {
         Set<String> keys = new HashSet<>();
 
         for (int i = 0; i < 50; i++) {
-            assertTrue(keys.add(encodeBytesToBase64String(generateKey())));
+            assertTrue(keys.add(EncryptionUtils.encodeBytesToBase64String(EncryptionUtils.generateKey())));
         }
     }
 
@@ -246,7 +242,7 @@ public class EncryptionTestIT {
         Set<String> ivs = new HashSet<>();
 
         for (int i = 0; i < 50; i++) {
-            assertTrue(ivs.add(encodeBytesToBase64String(generateIV())));
+            assertTrue(ivs.add(EncryptionUtils.encodeBytesToBase64String(EncryptionUtils.generateIV())));
         }
     }
 
@@ -267,9 +263,9 @@ public class EncryptionTestIT {
     }
 
     private DecryptedFolderMetadata generateFolderMetadata() throws Exception {
-        String metadataKey0 = encodeBytesToBase64String(EncryptionUtils.generateKey());
-        String metadataKey1 = encodeBytesToBase64String(EncryptionUtils.generateKey());
-        String metadataKey2 = encodeBytesToBase64String(EncryptionUtils.generateKey());
+        String metadataKey0 = EncryptionUtils.encodeBytesToBase64String(EncryptionUtils.generateKey());
+        String metadataKey1 = EncryptionUtils.encodeBytesToBase64String(EncryptionUtils.generateKey());
+        String metadataKey2 = EncryptionUtils.encodeBytesToBase64String(EncryptionUtils.generateKey());
         HashMap<Integer, String> metadataKeys = new HashMap<>();
         metadataKeys.put(0, EncryptionUtils.encryptStringAsymmetric(metadataKey0, cert));
         metadataKeys.put(1, EncryptionUtils.encryptStringAsymmetric(metadataKey1, cert));
@@ -332,7 +328,7 @@ public class EncryptionTestIT {
         fileOutputStream.write(encryptedFile.encryptedBytes);
         fileOutputStream.close();
 
-        byte[] authenticationTag = decodeStringToBase64Bytes(encryptedFile.authenticationTag);
+        byte[] authenticationTag = EncryptionUtils.decodeStringToBase64Bytes(encryptedFile.authenticationTag);
 
         // verify authentication tag
         assertTrue(Arrays.equals(expectedAuthTag, authenticationTag));
