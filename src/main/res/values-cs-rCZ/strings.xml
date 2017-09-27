@@ -68,6 +68,7 @@
     <string name="sync_string_files">Soubory</string>
     <string name="setup_btn_connect">Připojit</string>
     <string name="uploader_btn_upload_text">Nahrát</string>
+    <string name="uploader_btn_alternative_text">Vybrat</string>
     <string name="uploader_top_message">Vybrat adresář k nahrávání</string>
     <string name="uploader_wrn_no_account_title">Nenalezen žádný účet</string>
     <string name="uploader_wrn_no_account_text">Na tomto přístroji nejsou žádné %1$s účty. Nejdříve prosím zadejte účet.</string>
@@ -85,6 +86,7 @@
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Uploadovat a vymazat ze zdroje</string>
     <string name="file_list_seconds_ago">před pár sekundami</string>
     <string name="file_list_empty_headline">Nejsou zde žádné soubory</string>
+    <string name="folder_list_empty_headline">Nejsou zde žádné složky</string>
     <string name="file_list_empty">Nahrajte nějaký obsah, nebo synchronizujte s vašimi zařízeními!</string>
     <string name="file_list_empty_favorites_filter_list">Zde budou zobrazeny soubory a adresáře označené jako oblíbené</string>
     <string name="file_list_empty_favorites_filter">Vaše vyhledávání nenalezlo žádné oblíbené soubory</string>
@@ -259,6 +261,8 @@
 	<string name="auth_fail_get_user_name">Váš server nevrací správné přihlašovací ID, kontaktujte prosím svého správce systému</string>
 	<string name="auth_can_not_auth_against_server">Na tomto serveru nelze ověřit</string>
     <string name="auth_account_does_not_exist">V zařízení není zatím nastaven účet</string>
+    <string name="auth_access_failed">Přístup selhal</string>
+
     <string name="favorite">Nastavit jako dostupné offline</string>
     <string name="unfavorite">Zrušit nastavení dostupnosti offline</string>
     <string name="favorite_real">Nastavit jako oblíbené</string>
@@ -513,6 +517,8 @@
     <string name="edit_share_done">dokončeno</string>
 
     <string name="action_clear_finished_uploads">Vyčistit dokončená nahrávání</string>
+    <string name="action_force_rescan">Vynutit index</string>
+
     <string name="action_switch_grid_view">Zobrazení v mřížce</string>
     <string name="action_switch_list_view">Zobrazení v seznamu</string>
 
@@ -550,6 +556,8 @@
     <string name="move_to">Přesunout do&#8230;</string>
     <string name="copy_to">Kopírovat do&#8230;</string>
     <string name="synced_folders_loading_folders">Načítání adresářů&#8230;</string>
+    <string name="synced_folders_no_results">Nebyly nalezeny žádné adresáře médií.</string>
+    <string name="synced_folders_preferences">Nastavení automatického nahrávání</string>
     <string name="synced_folders_settings">Nastavení</string>
     <string name="synced_folders_preferences_folder_path">Pro %1$s</string>
     <plurals name="items_selected_count">
@@ -589,6 +597,7 @@
     <string name="welcome_feature_3_title">Automatické nahrávání</string>
     <string name="welcome_feature_3_text">Již se neobávjte o své fotografie</string>
 
+    <string name="whats_new_theming_title">Podpora motivů</string>
     <string name="whats_new_skip">Přeskočit</string>
 
     <string name="fingerprint_scan_finger">Prosím, naskenujte svůj otisk prstu</string>
@@ -634,6 +643,12 @@
     <string name="privacy">Soukromí</string>
     <string name="file_not_found">Soubor nenalezen!</string>
 
+    <string name="synced_folders_configure_folders">Nastavení adresářů</string>
+
     <string name="test_server_button">Otestovat připojení k serveru</string>
+    <string name="whats_new_fingerprint_title">Odemknout pomocí prstu</string>
+    <string name="whats_new_fingerprint_content">Použijte Váš prst pro odemknutí aplikace</string>
     <string name="fallback_weblogin_back">ZPÁTKY</string>
+    <string name="prefs_sourcecode">Získat zdrojový kód</string>
+    <string name="prefs_license">Licence</string>
     </resources>
