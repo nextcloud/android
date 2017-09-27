@@ -222,7 +222,7 @@ public class EncryptionTestIT {
         Set<String> keys = new HashSet<>();
 
         for (int i = 0; i < 50; i++) {
-            assertTrue(keys.add(encodeBytesToBase64String(generateKey())));
+            assertTrue(keys.add(EncryptionUtils.encodeBytesToBase64String(EncryptionUtils.generateKey())));
         }
     }
 
@@ -234,7 +234,7 @@ public class EncryptionTestIT {
         Set<String> ivs = new HashSet<>();
 
         for (int i = 0; i < 50; i++) {
-            assertTrue(ivs.add(encodeBytesToBase64String(generateIV())));
+            assertTrue(ivs.add(EncryptionUtils.encodeBytesToBase64String(EncryptionUtils.generateIV())));
         }
     }
 
@@ -255,9 +255,9 @@ public class EncryptionTestIT {
     }
 
     private DecryptedFolderMetadata generateFolderMetadata() throws Exception {
-        String metadataKey0 = encodeBytesToBase64String(EncryptionUtils.generateKey());
-        String metadataKey1 = encodeBytesToBase64String(EncryptionUtils.generateKey());
-        String metadataKey2 = encodeBytesToBase64String(EncryptionUtils.generateKey());
+        String metadataKey0 = EncryptionUtils.encodeBytesToBase64String(EncryptionUtils.generateKey());
+        String metadataKey1 = EncryptionUtils.encodeBytesToBase64String(EncryptionUtils.generateKey());
+        String metadataKey2 = EncryptionUtils.encodeBytesToBase64String(EncryptionUtils.generateKey());
         HashMap<Integer, String> metadataKeys = new HashMap<>();
         metadataKeys.put(0, EncryptionUtils.encryptStringAsymmetric(metadataKey0, cert));
         metadataKeys.put(1, EncryptionUtils.encryptStringAsymmetric(metadataKey1, cert));
@@ -320,7 +320,7 @@ public class EncryptionTestIT {
         fileOutputStream.write(encryptedFile.encryptedBytes);
         fileOutputStream.close();
 
-        byte[] authenticationTag = decodeStringToBase64Bytes(encryptedFile.authenticationTag);
+        byte[] authenticationTag = EncryptionUtils.decodeStringToBase64Bytes(encryptedFile.authenticationTag);
 
         // verify authentication tag
         assertTrue(Arrays.equals(expectedAuthTag, authenticationTag));
