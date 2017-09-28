@@ -99,9 +99,9 @@ public class RemoveRemoteEncryptedFileOperation extends RemoteOperation {
             if (lockFileOperationResult.isSuccess()) {
                 token = (String) lockFileOperationResult.getData().get(0);
             } else if (lockFileOperationResult.getHttpCode() == HttpStatus.SC_FORBIDDEN) {
-                throw new RuntimeException("Forbidden! Please try again later.)");
+                throw new RemoteOperationFailedException("Forbidden! Please try again later.)");
             } else {
-                throw new RuntimeException("Unknown error!");
+                throw new RemoteOperationFailedException("Unknown error!");
             }
 
             // refresh metadata
@@ -118,7 +118,7 @@ public class RemoveRemoteEncryptedFileOperation extends RemoteOperation {
 
                 metadata = EncryptionUtils.decryptFolderMetaData(encryptedFolderMetadata, privateKey);
             } else {
-                throw new RuntimeException("No Metadata found!");
+                throw new RemoteOperationFailedException("No Metadata found!");
             }
 
             // delete file remote
@@ -142,7 +142,7 @@ public class RemoveRemoteEncryptedFileOperation extends RemoteOperation {
             RemoteOperationResult uploadMetadataOperationResult = storeMetadataOperation.execute(client);
 
             if (!uploadMetadataOperationResult.isSuccess()) {
-                throw new RuntimeException();
+                throw new RemoteOperationFailedException("Metadata not uploaded!");
             }
 
             // return success
