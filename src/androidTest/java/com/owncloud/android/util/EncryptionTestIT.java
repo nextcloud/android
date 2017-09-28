@@ -30,7 +30,6 @@ import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
 import com.owncloud.android.datamodel.DecryptedFolderMetadata;
 import com.owncloud.android.datamodel.EncryptedFolderMetadata;
-import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.utils.CsrHelper;
 import com.owncloud.android.utils.EncryptionUtils;
 
@@ -42,7 +41,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URLEncoder;
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
 import java.security.PrivateKey;
@@ -156,13 +154,8 @@ public class EncryptionTestIT {
         keyGen.initialize(2048, new SecureRandom());
         KeyPair keyPair = keyGen.generateKeyPair();
 
-        String string = CsrHelper.generateCsrPemEncodedString(keyPair);
-        String urlEncoded = URLEncoder.encode("-----BEGIN CERTIFICATE REQUEST-----\n" + string +
-                "\n-----END CERTIFICATE REQUEST-----", "UTF-8");
-
-        Log_OC.d(TAG, "public: " + EncryptionUtils.encodeBytesToBase64String(keyPair.getPublic().getEncoded()));
-        Log_OC.d(TAG, "csrPEM: " + string);
-        Log_OC.d(TAG, "csrPEM: " + urlEncoded);
+        assertTrue(!CsrHelper.generateCsrPemEncodedString(keyPair).isEmpty());
+        assertTrue(!EncryptionUtils.encodeBytesToBase64String(keyPair.getPublic().getEncoded()).isEmpty());
     }
 
     /**
@@ -200,7 +193,7 @@ public class EncryptionTestIT {
         byte[] iv = EncryptionUtils.decodeStringToBase64Bytes("gKm3n+mJzeY26q4OfuZEqg==");
         byte[] authTag = EncryptionUtils.decodeStringToBase64Bytes("PboI9tqHHX3QeAA22PIu4w==");
 
-        cryptFile("ia7OEEEyXMoRa1QWQk8r", "78f42172166f9dc8fd1a7156b1753353", key, iv, authTag);
+        assertTrue(cryptFile("ia7OEEEyXMoRa1QWQk8r", "78f42172166f9dc8fd1a7156b1753353", key, iv, authTag));
     }
 
     @Test
@@ -208,18 +201,18 @@ public class EncryptionTestIT {
         DecryptedFolderMetadata metadata = generateFolderMetadata();
 
         // n9WXAIXO2wRY4R8nXwmo
-        cryptFile("ia7OEEEyXMoRa1QWQk8r",
+        assertTrue(cryptFile("ia7OEEEyXMoRa1QWQk8r",
                 "78f42172166f9dc8fd1a7156b1753353",
                 EncryptionUtils.decodeStringToBase64Bytes(metadata.files.get("ia7OEEEyXMoRa1QWQk8r").encrypted.key),
                 EncryptionUtils.decodeStringToBase64Bytes(metadata.files.get("ia7OEEEyXMoRa1QWQk8r").initializationVector),
-                EncryptionUtils.decodeStringToBase64Bytes(metadata.files.get("ia7OEEEyXMoRa1QWQk8r").authenticationTag));
+                EncryptionUtils.decodeStringToBase64Bytes(metadata.files.get("ia7OEEEyXMoRa1QWQk8r").authenticationTag)));
 
         // n9WXAIXO2wRY4R8nXwmo
-        cryptFile("n9WXAIXO2wRY4R8nXwmo",
+        assertTrue(cryptFile("n9WXAIXO2wRY4R8nXwmo",
                 "825143ed1f21ebb0c3b3c3f005b2f5db",
                 EncryptionUtils.decodeStringToBase64Bytes(metadata.files.get("n9WXAIXO2wRY4R8nXwmo").encrypted.key),
                 EncryptionUtils.decodeStringToBase64Bytes(metadata.files.get("n9WXAIXO2wRY4R8nXwmo").initializationVector),
-                EncryptionUtils.decodeStringToBase64Bytes(metadata.files.get("n9WXAIXO2wRY4R8nXwmo").authenticationTag));
+                EncryptionUtils.decodeStringToBase64Bytes(metadata.files.get("n9WXAIXO2wRY4R8nXwmo").authenticationTag)));
     }
 
     /**
@@ -316,7 +309,7 @@ public class EncryptionTestIT {
         return new DecryptedFolderMetadata(metadata1, files);
     }
 
-    private void cryptFile(String fileName, String md5, byte[] key, byte[] iv, byte[] expectedAuthTag)
+    private boolean cryptFile(String fileName, String md5, byte[] key, byte[] iv, byte[] expectedAuthTag)
             throws Exception {
         File file = getFile(fileName);
         assertEquals(md5, EncryptionUtils.getMD5Sum(file));
@@ -340,7 +333,7 @@ public class EncryptionTestIT {
         fileOutputStream1.write(decryptedBytes);
         fileOutputStream1.close();
 
-        assertEquals(md5, EncryptionUtils.getMD5Sum(decryptedFile));
+        return md5.compareTo(EncryptionUtils.getMD5Sum(decryptedFile)) == 0;
     }
 
     private File getFile(String filename) throws IOException {
