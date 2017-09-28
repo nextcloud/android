@@ -668,6 +668,7 @@ public class UploadFileOperation extends SyncOperation {
 
         switch (mLocalBehaviour) {
             case FileUploader.LOCAL_BEHAVIOUR_FORGET:
+            default:
                 String temporalPath = FileStorageUtils.getTemporalPath(mAccount.name) + mFile.getRemotePath();
                 if (mOriginalStoragePath.equals(temporalPath)) {
                     // delete local file is was pre-copied in temporary folder (see .ui.helpers.UriUploader)
@@ -1046,15 +1047,16 @@ public class UploadFileOperation extends SyncOperation {
         int pos = remotePath.lastIndexOf('.');
         String suffix = "";
         String extension = "";
+        String remotePathWithoutExtension = "";
         if (pos >= 0) {
             extension = remotePath.substring(pos + 1);
-            remotePath = remotePath.substring(0, pos);
+            remotePathWithoutExtension = remotePath.substring(0, pos);
         }
         int count = 2;
         do {
             suffix = " (" + count + ")";
             if (pos >= 0) {
-                check = existsFile(wc, remotePath + suffix + "." + extension, metadata, encrypted);
+                check = existsFile(wc, remotePathWithoutExtension + suffix + "." + extension, metadata, encrypted);
             } else {
                 check = existsFile(wc, remotePath + suffix, metadata, encrypted);
             }
@@ -1062,7 +1064,7 @@ public class UploadFileOperation extends SyncOperation {
         } while (check);
 
         if (pos >= 0) {
-            return remotePath + suffix + "." + extension;
+            return remotePathWithoutExtension + suffix + "." + extension;
         } else {
             return remotePath + suffix;
         }
