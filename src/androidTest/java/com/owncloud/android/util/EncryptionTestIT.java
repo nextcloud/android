@@ -51,14 +51,13 @@ import java.util.HashSet;
 import java.util.Set;
 
 import static android.support.test.InstrumentationRegistry.getInstrumentation;
+import static junit.framework.Assert.assertFalse;
 import static junit.framework.Assert.assertTrue;
 import static org.junit.Assert.assertEquals;
 
 @RequiresApi(api = Build.VERSION_CODES.KITKAT)
 @RunWith(AndroidJUnit4.class)
 public class EncryptionTestIT {
-    private static String TAG = EncryptionTestIT.class.getSimpleName();
-
     private String privateKey = "MIIEvwIBADANBgkqhkiG9w0BAQEFAASCBKkwggSlAgEAAo" +
             "IBAQDsn0JKS/THu328z1IgN0VzYU53HjSX03WJIgWkmyTaxbiKpoJaKbksXmfSpgzV" +
             "GzKFvGfZ03fwFrN7Q8P8R2e8SNiell7mh1TDw9/0P7Bt/ER8PJrXORo+GviKHxaLr7" +
@@ -154,8 +153,8 @@ public class EncryptionTestIT {
         keyGen.initialize(2048, new SecureRandom());
         KeyPair keyPair = keyGen.generateKeyPair();
 
-        assertTrue(!CsrHelper.generateCsrPemEncodedString(keyPair).isEmpty());
-        assertTrue(!EncryptionUtils.encodeBytesToBase64String(keyPair.getPublic().getEncoded()).isEmpty());
+        assertFalse(CsrHelper.generateCsrPemEncodedString(keyPair).isEmpty());
+        assertFalse(EncryptionUtils.encodeBytesToBase64String(keyPair.getPublic().getEncoded()).isEmpty());
     }
 
     /**

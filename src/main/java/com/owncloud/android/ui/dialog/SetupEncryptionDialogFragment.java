@@ -193,6 +193,7 @@ public class SetupEncryptionDialogFragment extends DialogFragment {
 
                             default:
                                 dialog.dismiss();
+                                break;
                         }
                     }
                 });
