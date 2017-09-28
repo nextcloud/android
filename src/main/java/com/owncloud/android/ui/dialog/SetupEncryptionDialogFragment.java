@@ -69,6 +69,10 @@ public class SetupEncryptionDialogFragment extends DialogFragment {
     private static String ARG_ACCOUNT = "ARG_ACCOUNT";
     private static String TAG = SetupEncryptionDialogFragment.class.getSimpleName();
 
+    private static final String KEY_CREATED = "KEY_CREATED";
+    private static final String KEY_EXISTING_USED = "KEY_EXISTING_USED";
+    private static final String KEY_FAILED = "KEY_FAILED";
+
     private Account account;
     private TextView textView;
     private TextView passphraseTextView;
@@ -77,7 +81,7 @@ public class SetupEncryptionDialogFragment extends DialogFragment {
     private TextInputLayout passwordLayout;
     private DownloadKeysAsyncTask task;
     private TextInputEditText passwordField;
-    private boolean keyCreated;
+    private String keyResult;
 
     /**
      * Public factory method to create new SetupEncryptionDialogFragment instance
@@ -146,42 +150,49 @@ public class SetupEncryptionDialogFragment extends DialogFragment {
 
                     @Override
                     public void onClick(View view) {
-                        if (keyCreated) {
-                            Log_OC.d(TAG, "New keys generated and stored.");
-
-                            dialog.dismiss();
-
-                            Intent intent = new Intent();
-                            intent.putExtra(SUCCESS, true);
-                            intent.putExtra(ARG_POSITION, getArguments().getInt(ARG_POSITION));
-                            getTargetFragment().onActivityResult(getTargetRequestCode(), SETUP_ENCRYPTION_RESULT_CODE,
-                                    intent);
-                        } else {
-                            Log_OC.d(TAG, "Decrypt private key");
-
-                            textView.setText(R.string.end_to_end_encryption_decrypting);
-
-                            try {
-                                String privateKey = task.get();
-                                String decryptedPrivateKey = EncryptionUtils.decryptPrivateKey(privateKey,
-                                        passwordField.getText().toString());
-
-                                arbitraryDataProvider.storeOrUpdateKeyValue(account.name, EncryptionUtils.PRIVATE_KEY,
-                                        decryptedPrivateKey);
+                        switch (keyResult) {
+                            case KEY_CREATED:
+                                Log_OC.d(TAG, "New keys generated and stored.");
 
                                 dialog.dismiss();
-                                Log_OC.d(TAG, "Private key successfully decrypted and stored");
 
-                                Intent intent = new Intent();
-                                intent.putExtra(SUCCESS, true);
-                                intent.putExtra(ARG_POSITION, getArguments().getInt(ARG_POSITION));
+                                Intent intentCreated = new Intent();
+                                intentCreated.putExtra(SUCCESS, true);
+                                intentCreated.putExtra(ARG_POSITION, getArguments().getInt(ARG_POSITION));
                                 getTargetFragment().onActivityResult(getTargetRequestCode(),
-                                        SETUP_ENCRYPTION_RESULT_CODE, intent);
+                                        SETUP_ENCRYPTION_RESULT_CODE, intentCreated);
+                                break;
 
-                            } catch (Exception e) {
-                                textView.setText(R.string.end_to_end_encryption_wrong_password);
-                                Log_OC.d(TAG, "Error while decrypting private key: " + e.getMessage());
-                            }
+                            case KEY_EXISTING_USED:
+                                Log_OC.d(TAG, "Decrypt private key");
+
+                                textView.setText(R.string.end_to_end_encryption_decrypting);
+
+                                try {
+                                    String privateKey = task.get();
+                                    String decryptedPrivateKey = EncryptionUtils.decryptPrivateKey(privateKey,
+                                            passwordField.getText().toString());
+
+                                    arbitraryDataProvider.storeOrUpdateKeyValue(account.name,
+                                            EncryptionUtils.PRIVATE_KEY, decryptedPrivateKey);
+
+                                    dialog.dismiss();
+                                    Log_OC.d(TAG, "Private key successfully decrypted and stored");
+
+                                    Intent intentExisting = new Intent();
+                                    intentExisting.putExtra(SUCCESS, true);
+                                    intentExisting.putExtra(ARG_POSITION, getArguments().getInt(ARG_POSITION));
+                                    getTargetFragment().onActivityResult(getTargetRequestCode(),
+                                            SETUP_ENCRYPTION_RESULT_CODE, intentExisting);
+
+                                } catch (Exception e) {
+                                    textView.setText(R.string.end_to_end_encryption_wrong_password);
+                                    Log_OC.d(TAG, "Error while decrypting private key: " + e.getMessage());
+                                }
+                                break;
+
+                            default:
+                                dialog.dismiss();
                         }
                     }
                 });
@@ -228,7 +239,7 @@ public class SetupEncryptionDialogFragment extends DialogFragment {
             if (privateKeyResult.isSuccess()) {
                 Log_OC.d(TAG, "private key successful downloaded for " + account.name);
 
-                keyCreated = false;
+                keyResult = KEY_EXISTING_USED;
                 return (String) privateKeyResult.getData().get(0);
             } else {
                 return null;
@@ -272,7 +283,6 @@ public class SetupEncryptionDialogFragment extends DialogFragment {
 
             try {
                 String publicKey;
-                keyCreated = true;
 
                 // Create public/private key pair
                 KeyPair keyPair = EncryptionUtils.generateKeyPair();
@@ -289,7 +299,8 @@ public class SetupEncryptionDialogFragment extends DialogFragment {
 
                     publicKey = (String) result.getData().get(0);
                 } else {
-                    throw new RuntimeException("Public key not stored!");
+                    keyResult = KEY_FAILED;
+                    return "";
                 }
 
                 keyWords = EncryptionUtils.getRandomWords(12, getContext());
@@ -314,6 +325,7 @@ public class SetupEncryptionDialogFragment extends DialogFragment {
                             privateKeyString);
                     arbitraryDataProvider.storeOrUpdateKeyValue(account.name, EncryptionUtils.PUBLIC_KEY, publicKey);
 
+                    keyResult = KEY_CREATED;
                     return (String) storePrivateKeyResult.getData().get(0);
                 }
 
@@ -322,6 +334,7 @@ public class SetupEncryptionDialogFragment extends DialogFragment {
                 e.printStackTrace();
             }
 
+            keyResult = KEY_FAILED;
             return "";
         }
 
@@ -329,7 +342,14 @@ public class SetupEncryptionDialogFragment extends DialogFragment {
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
 
-            if (!s.isEmpty()) {
+            if (s.isEmpty()) {
+                keyResult = KEY_FAILED;
+
+                getDialog().setTitle(R.string.common_error);
+                textView.setText(R.string.end_to_end_encryption_unsuccessful);
+                positiveButton.setText(R.string.end_to_end_encryption_dialog_close);
+                positiveButton.setVisibility(View.VISIBLE);
+            } else {
                 getDialog().setTitle(R.string.end_to_end_encryption_passphrase_title);
 
                 textView.setText(R.string.end_to_end_encryption_keywords_description);
