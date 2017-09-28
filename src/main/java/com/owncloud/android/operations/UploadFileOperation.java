@@ -87,8 +87,6 @@ import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-import static com.owncloud.android.utils.EncryptionUtils.encodeStringToBase64Bytes;
-
 
 /**
  * Operation performing the update in the ownCloud server
@@ -490,27 +488,11 @@ public class UploadFileOperation extends SyncOperation {
 
             /***** E2E *****/
 
-            // Key
-            byte[] key = null;
+            // Key, always generate new one
+            byte[] key = EncryptionUtils.generateKey();
 
-            if (metadata.files.get(mFile.getFileName()) != null) {
-                key = encodeStringToBase64Bytes(metadata.files.get(mFile.getFileName()).encrypted.key);
-            }
-
-            if (key == null || key.length == 0) {
-                key = EncryptionUtils.generateKey();
-            }
-
-            // IV
-            byte[] iv = null;
-
-            if (metadata.files.get(mFile.getFileName()) != null) {
-                iv = encodeStringToBase64Bytes(metadata.files.get(mFile.getFileName()).initializationVector);
-            }
-
-            if (iv == null || iv.length == 0) {
-                iv = EncryptionUtils.generateIV();
-            }
+            // IV, always generate new one
+            byte[] iv = EncryptionUtils.generateIV();
 
             EncryptionUtils.EncryptedFile encryptedFile = EncryptionUtils.encryptFile(mFile, key, iv);
 
