@@ -768,4 +768,6 @@
     <string name="end_to_end_encryption_not_supported">Encryption not supported before KitKat.</string>
     <string name="end_to_end_encryption_confirm_button">Set up encryption</string>
     <string name="end_to_end_encryption_password">Password…</string>
+    <string name="end_to_end_encryption_unsuccessful">Retrieving keys was unsuccessful, please try it again!</string>
+    <string name="end_to_end_encryption_dialog_close">Close</string>
 </resources>
