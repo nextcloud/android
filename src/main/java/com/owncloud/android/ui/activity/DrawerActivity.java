@@ -1003,16 +1003,18 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
 
             float density = getResources().getDisplayMetrics().density;
             final int size = Math.round(24 * density);
+            int greyColor = getResources().getColor(R.color.standard_grey);
 
             for (final ExternalLink link : externalLinksProvider.getExternalLink(ExternalLinkType.LINK)) {
 
-                int id=mNavigationView.getMenu().add(R.id.drawer_menu_external_links, MENU_ITEM_EXTERNAL_LINK,
+                int id = mNavigationView.getMenu().add(R.id.drawer_menu_external_links, MENU_ITEM_EXTERNAL_LINK,
                         MENU_ORDER_EXTERNAL_LINKS, link.name).setCheckable(true).getItemId();
 
                 MenuSimpleTarget target = new MenuSimpleTarget<Drawable>(id) {
                     @Override
                     public void onResourceReady(Drawable resource, GlideAnimation glideAnimation) {
-                        mNavigationView.getMenu().findItem(getIdMenuItem()).setIcon(resource);
+                        mNavigationView.getMenu().findItem(getIdMenuItem()).setIcon(
+                                ThemeUtils.tintDrawable(resource, greyColor));
                     }
 
                     @Override
