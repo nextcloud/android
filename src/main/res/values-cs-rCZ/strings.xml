@@ -93,6 +93,7 @@
     <string name="file_list_loading">Načítání&#8230;</string>
     <string name="file_list_no_app_for_file_type">Pro tento typ souboru nebyla nalezena aplikace!</string>
     <string name="local_file_list_empty">V tomto adresáři nejsou žádné soubory.</string>
+    <string name="local_folder_list_empty">Nejsou zde další složky.</string>
     <string name="file_list_empty_headline_search">V této složce nebylo nic nalezeno</string>
     <string name="file_list_empty_headline_server_search">Žádné výsledky</string>
     <string name="file_list_empty_favorite_headline">Zatím není nic oblíbeno</string>
@@ -155,6 +156,7 @@
     <string name="uploader_upload_failed_credentials_error">Nahrání selhalo, je třeba se znovu přihlásit</string>
     <string name="uploads_view_title">Nahrání</string>
     <string name="uploads_view_group_current_uploads">Aktuální</string>
+    <string name="uploads_view_group_failed_uploads">Selhavší / čekající restart</string>
     <string name="uploads_view_group_finished_uploads">Odesláno</string>
     <string name="uploads_view_upload_status_succeeded">Dokončeno</string>
     <string name="uploads_view_upload_status_cancelled">Zrušeno</string>
@@ -342,6 +344,8 @@
     <string name="preview_sorry">Omlouváme se za to</string>
     <string name="preview_image_description">Náhled obrázku</string>
     <string name="preview_image_error_unknown_format">Nelze zobrazit obrázek</string>
+    <string name="preview_image_error_no_local_file">K náhledu není žádný místní soubor</string>
+
     <string name="error__upload__local_file_not_copied">%1$s nelze zkopírovat do místního adresáře %2$s</string>
     <string name="prefs_instant_upload_path_title">Adresář pro okamžité nahrání</string>
     <string name="prefs_synced_folders_local_path_title">Místní složka</string>
@@ -516,6 +520,9 @@
     <string name="edit_share_unshare">Ukončit sdílení</string>
     <string name="edit_share_done">dokončeno</string>
 
+    <string name="action_retry_uploads">Zkusit znovu selhavší nahrání</string>
+    <string name="action_clear_failed_uploads">Vyčistit selhaná nahrávání</string>
+    <string name="action_clear_successful_uploads">Vyčistit úspěšná nahrání</string>
     <string name="action_clear_finished_uploads">Vyčistit dokončená nahrávání</string>
     <string name="action_force_rescan">Vynutit index</string>
 
@@ -532,6 +539,8 @@
     <string name="confirmation_remove_files_alert">Opravdu chcete odstranit vybrané položky?</string>
     <string name="confirmation_remove_folders_alert">Opravdu chcete odstranit vybrané položky a jejich obsah?</string>
     <string name="maintenance_mode">Server je v režimu údržby</string>
+    <string name="lock_failed">Nepodařilo se zamknout soubor</string>
+
     <string name="uploads_view_upload_status_waiting_for_charging">Čekání na nabití</string>
     <string name="actionbar_search">Hledat</string>
     <string name="files_drop_not_supported">Toto je Nextcloud funkce, prosím nahrát</string>
@@ -553,8 +562,14 @@
     <string name="participate_contribute_translate_translate">Překládat</string>
     <string name="participate_contribute_translate_text">Aplikace</string>
     <string name="participate_contribute_github_text">Kontrolujte, vylepšujte a pište kód, víc informací naleznete na %1$s</string>
+    <string name="participate_rc_play_store">Získejte kandidáta na vidání skrz Google Play Store</string>
+    <string name="participate_rc_fdroid">Získejte kandidáta na vydání pomocí obchodu s aplikacemi fDroid</string>
+    <string name="participate_dev_fdroid">Získejte vývojové sestavení pomocí obchodu s aplikacemi f-droid</string>
+    <string name="participate_dev_direct_download">Získat vývojové sestavení přímým stažením</string>
     <string name="move_to">Přesunout do&#8230;</string>
     <string name="copy_to">Kopírovat do&#8230;</string>
+    <string name="choose_remote_folder">Zvolit vzdálenou složku&#8230;</string>
+    <string name="choose_local_folder">Zvolit místní složku&#8230;</string>
     <string name="synced_folders_loading_folders">Načítání adresářů&#8230;</string>
     <string name="synced_folders_no_results">Nebyly nalezeny žádné adresáře médií.</string>
     <string name="synced_folders_preferences">Nastavení automatického nahrávání</string>

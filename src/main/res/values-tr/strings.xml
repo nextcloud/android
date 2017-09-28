@@ -84,7 +84,7 @@
     <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">Dosya Nextcloud klasörüne taşınsın</string>
     <string name="uploader_upload_files_behaviour_only_upload">Dosya kaynak klasörde tutulsun</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Dosya kaynak klasörden silinsin</string>
-    <string name="file_list_seconds_ago">saniye önce</string>
+    <string name="file_list_seconds_ago">saniyeler önce</string>
     <string name="file_list_empty_headline">Burada herhangi bir dosya yok</string>
     <string name="folder_list_empty_headline">Burada herhangi bir klasör yok</string>
     <string name="file_list_empty">Bazı içerikler yükleyin ya da aygıtlarınızla eşitleyin.</string>
