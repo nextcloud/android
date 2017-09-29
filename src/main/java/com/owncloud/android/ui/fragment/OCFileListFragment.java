@@ -634,7 +634,7 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
                     mContainerActivity,
                     getActivity()
             );
-            mf.filter(menu);
+            mf.filter(menu, false);
             return true;
         }
 
@@ -1006,11 +1006,11 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
                 getActivity().startActivityForResult(action, FileDisplayActivity.REQUEST_CODE__COPY_FILES);
                 return true;
             }
-            case R.id.action_select_all: {
+            case R.id.action_select_all_action_menu: {
                 selectAllFiles(true);
                 return true;
             }
-            case R.id.action_deselect_all: {
+            case R.id.action_deselect_all_action_menu: {
                 selectAllFiles(false);
                 return true;
             }

@@ -377,7 +377,7 @@ public class PreviewMediaFragment extends FileFragment implements
                 mContainerActivity,
                 getActivity()
             );
-            mf.filter(menu);
+            mf.filter(menu, true);
         }
 
         // additional restriction for this fragment 

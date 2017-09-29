@@ -218,7 +218,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
                 mContainerActivity,
                 getActivity()
             );
-            mf.filter(menu);
+            mf.filter(menu, true);
         }
 
         // additional restriction for this fragment 
