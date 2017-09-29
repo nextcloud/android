@@ -31,7 +31,7 @@
     <string name="drawer_item_videos">Görüntüler</string>
     <string name="drawer_item_settings">Ayarlar</string>
     <string name="drawer_item_uploads_list">Yüklemeler</string>
-    <string name="drawer_item_activities">İşlemler</string>
+    <string name="drawer_item_activities">Etkinlikler</string>
     <string name="drawer_item_notifications">Bildirimler</string>
     <string name="drawer_quota">%1$s / %2$s kullanıldı</string>
 	<string name="drawer_close">Kapat</string>
