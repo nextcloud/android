@@ -35,7 +35,7 @@
 
         <include
             android:id="@+id/navigation_bar"
-            android:layout="@layout/toolbar_standard"/>
+            layout="@layout/toolbar_standard"/>
 
         <FrameLayout
             android:layout_width="match_parent"
