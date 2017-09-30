@@ -657,7 +657,7 @@
     <string name="contactlist_title">Adressen wiederherstellen</string>
     <string name="contaclist_restore_selected">Ausgewählte Adressen wiederherstellen</string>
     <string name="contactlist_account_chooser_title">Konto für den Import auswählen</string>
-    <string name="contactlist_no_permission">Keine Berechtigung, es wurde nichts importiert!</string>
+    <string name="contactlist_no_permission">Keine Berechtigung vorhanden, es wurde nichts importiert!</string>
     <string name="contacts_preference_choose_date">Datum auswählen</string>
     <string name="contacts_preference_backup_never">nie</string>
     <string name="contacts_preferences_no_file_found">Keine Datei gefunden</string>

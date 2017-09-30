@@ -71,6 +71,7 @@
     <string name="uploader_wrn_no_account_quit_btn_text">Afslut</string>
     <string name="uploader_error_title_no_file_to_upload">Ingen filer til upload</string>
     <string name="uploader_error_message_no_file_to_upload">Modtagne data indeholdt ikke en gyldig fil.</string>
+    <string name="uploader_error_title_file_cannot_be_uploaded">Filen kan ikke uploades</string>
     <string name="uploader_error_message_read_permission_not_granted">%1$s har ikke tilladelse til at læse en modtaget fil</string>
     <string name="uploader_upload_files_behaviour">Upload muligheder</string>
     <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">Flyt fil til Nextcloud mappe</string>
@@ -79,7 +80,9 @@
     <string name="file_list_seconds_ago">sekunder siden</string>
     <string name="file_list_empty_headline">Her er ingen filer</string>
     <string name="folder_list_empty_headline">Ingen mappe her</string>
+    <string name="file_list_empty_favorites_filter">Din søgning returnerede ingen favoritfiler.</string>
     <string name="file_list_loading">Indlæser&#8230;</string>
+    <string name="file_list_no_app_for_file_type">Ingen app er sat op til at håndtere denne filtype.</string>
     <string name="local_file_list_empty">Der er ingen filer i denne mappe.</string>
     <string name="file_list_empty_headline_search">Intet resultat for denne mappe</string>
     <string name="file_list_empty_headline_server_search">Ingen resultater</string>
@@ -87,6 +90,7 @@
     <string name="file_list_empty_shared">Filer og mapper du deler vil blive vist her</string>
     <string name="file_list_empty_headline_server_search_videos">Ingen videoer</string>
     <string name="file_list_empty_headline_server_search_photos">Ingen fotos</string>
+    <string name="file_list_empty_recently_added">Fandt ikke nogen nylig tilføjet filer</string>
     <string name="upload_list_empty_headline">Ingen uploads tilgængelige</string>
     <string name="file_list_folder">mappe</string>
     <string name="filedetails_select_file">Tryk på en fil for at vise yderligere information.</string>
@@ -110,15 +114,19 @@
     <string name="common_unknown">ukendt</string>
     <string name="common_error_unknown">Ukendt fejl</string>
     <string name="common_pending">afventende</string>
+    <string name="common_delete">Slet</string>
     <string name="about_title">Om</string>
     <string name="change_password">Skift kodeord</string>
     <string name="delete_account">Fjern konto</string>
+    <string name="active_user">Aktiv bruger</string>
     <string name="upload_chooser_title">Upload fra &#8230;</string>
     <string name="uploader_info_dirname">Mappenavn</string>
     <string name="uploader_upload_in_progress_ticker">Uploader &#8230;</string>
     <string name="uploader_upload_in_progress_content">%1$d%% Uploader %2$s</string>
+    <string name="uploader_upload_succeeded_ticker">Uploadet </string>
     <string name="uploader_upload_succeeded_content_single">%1$s uploaded</string>
     <string name="uploader_upload_failed_ticker">Upload fejlede</string>
+    <string name="uploader_upload_failed_content_single">Kunne ikke uploade %1$s</string>
     <string name="uploader_upload_failed_credentials_error">Upload fejlet, du skal logge på igen</string>
     <string name="uploads_view_title">Uploade filer</string>
     <string name="uploads_view_group_current_uploads">Nuværende</string>
@@ -138,12 +146,14 @@
     <string name="uploads_view_later_waiting_to_upload">Venter med upload</string>
     <string name="downloader_download_in_progress_ticker">Downloader &#8230;</string>
     <string name="downloader_download_in_progress_content">%1$d%% Downloader %2$s</string>
+    <string name="downloader_download_succeeded_ticker">Downloadet</string>
     <string name="downloader_download_succeeded_content">%1$s downloaded</string>
     <string name="downloader_download_failed_ticker">Download fejlede</string>
     <string name="downloader_not_downloaded_yet">Endnu ikke downloadet</string>
     <string name="downloader_download_failed_credentials_error">Download mislykkedes, du skal logge ind igen</string>
     <string name="common_choose_account">Vælg konto</string>
     <string name="sync_fail_ticker">Sync fejlede</string>
+    <string name="sync_fail_content_unauthorized">Forkert password til %1$s</string>
     <string name="sync_conflicts_in_favourites_ticker">Konflikter fundet</string>
     <string name="sync_conflicts_in_favourites_content">%1$d hold-synkroniseret filer kunne ikke synkroniseres</string>
     <string name="sync_fail_in_favourites_ticker">Hold-synkroniseret filer mislykkedes</string>
@@ -173,7 +183,10 @@
     <string name="media_event_done">%1$s afspilning færdig</string>
     <string name="media_err_nothing_to_play">Mediefil ikke fundet</string>
     <string name="media_err_no_account">Ingen konto angivet</string>
+    <string name="media_err_not_in_owncloud">Filen er ikke i en gyldig konto</string>
     <string name="media_err_unsupported">Ikke-understøttet medie codec</string>
+    <string name="media_err_io">Kunne ikke læse mediefil</string>
+    <string name="media_err_malformed">Mediefilen har en ugyldig indkodning.</string>
     <string name="media_rewind_description">Tilbagespolingsknap</string>
     <string name="media_play_pause_description">Afspil eller pause knap</string>
     <string name="media_forward_description">Hurtigt fremad-knap</string>
@@ -187,9 +200,13 @@
 	<string name="auth_not_configured_title">Misdannet server konfiguration</string>
 	<string name="auth_account_not_the_same">Den indtastede bruger passer ikke til brugeren for denne konto</string>
 	<string name="auth_unknown_error_title">Ukendt fejl opstod!</string>
+	<string name="auth_unknown_host_title">Kunne ikke finde host</string>
+	<string name="auth_incorrect_path_title">Server ikke fundet</string>
 	<string name="auth_timeout_title">Serveren var for længe om at svare</string>
+	<string name="auth_incorrect_address_title">Forkert adresseformat på server</string>
 	<string name="auth_ssl_general_error_title">SSL-initialiseringen fejlede</string>
 	<string name="auth_bad_oc_version_title">Ikke genkendt serverversion</string>
+	<string name="auth_wrong_connection_title">Kunne ikke etablere forbindelse</string>
 	<string name="auth_secure_connection">Sikker forbindelse oprettet</string>
 	<string name="auth_unauthorized">Forkert brugernavn eller kodeord</string>
 	<string name="auth_oauth_error">Mislykket godkendelse</string>
@@ -208,22 +225,33 @@
     <string name="common_remove">Fjern</string>
     <string name="confirmation_remove_file_alert">Er du sikker på at du vil fjerne %1$s ?</string>
     <string name="confirmation_remove_local">Kun lokal</string>
+    <string name="remove_success_msg">Fjernet</string>
     <string name="remove_fail_msg">Fjernelse kunne ikke fuldføres</string>
     <string name="rename_dialog_title">Indtast et nyt navn</string>
+    <string name="rename_local_fail_msg">Lokal kopi kunne ikke omdøbes, på et andet navn</string>
+    <string name="rename_server_fail_msg">Kunne ikke omdøbe server</string>
+    <string name="sync_file_fail_msg">Kunne ikke tjekke fjern fil</string>
     <string name="sync_file_nothing_to_do_msg">Filindholdet allerede synkroniseret</string>
+    <string name="create_dir_fail_msg">Kunne ikke oprette mappe</string>
     <string name="filename_forbidden_characters">Ugyldige tegn: / \\ &lt; &gt; : \" | ? *</string>
     <string name="filename_forbidden_charaters_from_server">Filnavnet indeholder mindst ét ugyldigt tegn</string>
     <string name="filename_empty">Filnavnet kan ikke stå tomt.</string>
+    <string name="wait_a_moment">Vent et øjeblik &#8230;</string>
     <string name="wait_checking_credentials">Undersøger lagrede certificeringer</string>
+    <string name="filedisplay_no_file_selected">Ingen fil valgt</string>
     <string name="activity_chooser_title">Send link til &#8230;</string>
     <string name="wait_for_tmp_copy_from_private_storage">Kopierer fil fra privat lager.</string>
     
+    <string name="oauth_check_onoff">Log ind med OAuth 2.0</string> 
+    <string name="oauth_login_connection">Forbinder til OAuth 2.0 server&#8230;</string>
+        
     <string name="ssl_validator_header">Sidens identitet kunne ikke verificeres</string>
     <string name="ssl_validator_reason_cert_not_trusted">- Serverens certifikat er ikke troværdigt</string>
     <string name="ssl_validator_reason_cert_expired">- Serverens certifikat er udløbet</string>
     <string name="ssl_validator_reason_cert_not_yet_valid">- Serverens certifikat er for ung</string>
     <string name="ssl_validator_reason_hostname_not_verified">- URL adressen stemmer ikke overens med værtsnavnet i certifikatet</string>
     <string name="ssl_validator_question">Stoler du på certifikatet alligevel?</string>
+    <string name="ssl_validator_not_saved">Kunne ikke gemme certifikat</string>
     <string name="ssl_validator_btn_details_see">Detaljer</string>
     <string name="ssl_validator_btn_details_hide">Gem</string>
     <string name="ssl_validator_label_subject">Udstedt til:</string>
@@ -247,19 +275,29 @@
 
     <string name="placeholder_sentence">Dette er en pladsholder</string>
     <string name="placeholder_filename">pladsholder.txt</string>
+    <string name="placeholder_filetype">PNG billede</string>
     <string name="placeholder_filesize">389 KB</string>
     <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
     <string name="placeholder_media_time">12:23:45</string>
 
+    <string name="auto_upload_on_wifi">Upload kun på wifi</string>
+    <string name="instant_video_upload_on_charging">Upload kun under opladning</string>
+    <string name="instant_upload_on_charging">Upload kun under opladning</string>
     <string name="instant_upload_path">/Øjeblikkelig upload</string>
     <string name="conflict_title">Filkonflikt</string>
     <string name="conflict_keep_both">Behold begge</string>
     <string name="conflict_use_local_version">lokal version</string>
     <string name="conflict_use_server_version">serverversion</string>
 
+    <string name="preview_sorry">Undskyld</string>
     <string name="preview_image_description">Forhåndsvisning af billede</string>
+    <string name="preview_image_error_unknown_format">Kunne ikke vise billede</string>
+    <string name="preview_image_error_no_local_file">Der er ingen lokalfil at forhåndsvise</string>
+
     <string name="error__upload__local_file_not_copied">%1$s kunne ikke kopieres til %2$s lokale mappe</string>
     <string name="prefs_instant_upload_path_title">Øjeblikkelig opload mappe</string>
+    <string name="prefs_synced_folders_local_path_title">Lokal mappe</string>
+    <string name="prefs_synced_folders_remote_path_title">Ekstern mappe</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Benyt undermapper</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Lagre i undermapper baseret på år og måned</string>
 
@@ -344,6 +382,7 @@
     <string name="share_with_user_section_title">Del med brugere eller grupper</string>
     <string name="share_via_link_section_title">Del link</string>
     <string name="share_via_link_expiration_date_label">Vælg udløbsdato</string>
+    <string name="share_via_link_password_label">Beskyt med password</string>
     <string name="share_via_link_password_title">Sikret</string>
     <string name="share_via_link_edit_permission_label">Tillad redigering</string>
     <string name="share_get_public_link_button">Få link</string>
@@ -374,10 +413,17 @@
     <string name="actionbar_search">Søg</string>
     <string name="files_drop_not_supported">Dette er en Nextcloud feature, opdater venligst</string>
     <string name="learn_more">Lær mere</string>
+    <string name="drawer_synced_folders">Auto upload</string>
     <string name="drawer_participate">Deltag</string>
+    <string name="participate_testing_headline">Hjælp med at test</string>
+    <string name="participate_testing_report_text">Rapporter et problem på Github</string>
     <string name="participate_release_candidate_headline">Release candidate</string>
+    <string name="participate_contribute_forum_forum">forum</string>
+    <string name="participate_contribute_translate_translate">Oversæt</string>
+    <string name="participate_contribute_translate_text">Appen</string>
     <string name="move_to">Flyt til&#8230;</string>
     <string name="copy_to">Kopiér til&#8230;</string>
+    <string name="notifications_no_results_headline">Ingen notifikationer</string>
     <string name="upload_file_dialog_filename">Filnavn</string>
     <string name="upload_file_dialog_filetype">Filtype</string>
     <string name="storage_description_default">Standard</string>
@@ -386,10 +432,16 @@
 
     <!-- Welcome to Nc intro features -->
     <string name="welcome_feature_1_title">Et sikket hjem til alt dit data</string>
+    <string name="welcome_feature_2_title">Flere kontoer</string>
+    <string name="welcome_feature_2_text">Forbind til alle dine skyer</string>
+
+    <string name="welcome_feature_3_title">Auto upload</string>
+    <string name="whats_new_search_title">Fuld server søgning</string>
     <string name="whats_new_skip">Spring over</string>
 
     <!-- User information -->
     <string name="user_info_full_name">Fulde navn</string>
+    <string name="user_info_email">E-mail</string>
     <string name="user_info_phone">Telefonnummer</string>
     <string name="user_info_address">Adresse</string>
     <string name="user_info_website">Website</string>
@@ -398,4 +450,17 @@
     <string name="user_information_description">Brugerinformation</string>
     <!-- Activities -->
     <string name="activities_no_results_headline">Endnu ingen aktiviteter</string>
+    <string name="prefs_category_about">Om</string>
+
+    <string name="contacts_backup_button">Backup nu</string>
+    <string name="contacts_automatic_backup">Automatisk backup</string>
+    <string name="contacts_preference_choose_date">Vælg dato</string>
+    <string name="contacts_preference_backup_never">aldrig</string>
+    <string name="contacts_preferences_no_file_found">Ingen fil fundet</string>
+    <string name="contacts_preferences_something_strange_happened">Vi kan ikke finde din sidste backup!</string>
+    <string name="drawer_logout">Log ud</string>
+    <string name="file_not_found">Fil ikke fundet!</string>
+
+    <string name="fallback_weblogin_back">TILBAGE</string>
+    <string name="prefs_license">Licens</string>
     </resources>
