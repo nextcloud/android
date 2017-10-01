@@ -269,6 +269,7 @@
     <string name="unfavorite">Çevrimdışı kullanılabilir işaretini kaldır</string>
     <string name="favorite_real">Sık Kullanılanlara Ekle</string>
     <string name="unset_favorite_real">Sık Kullanılanlardan Çıkar</string>
+    <string name="favorite_switch">Çevrimdışı kullanılabilir</string>
     <string name="common_rename">Yeniden adlandır</string>
     <string name="common_remove">Sil</string>
     <string name="confirmation_remove_file_alert">%1$s silinsin mi?</string>

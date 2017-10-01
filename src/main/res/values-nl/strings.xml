@@ -270,6 +270,7 @@ Kies er eentje van een provider.</string>
     <string name="unfavorite">Niet langer offline beschikbaar maken</string>
     <string name="favorite_real">Instellen als favoriet</string>
     <string name="unset_favorite_real">Weghalen als favoriet</string>
+    <string name="favorite_switch">Offline beschikbaar</string>
     <string name="common_rename">Hernoemen</string>
     <string name="common_remove">Verwijderen</string>
     <string name="confirmation_remove_file_alert">Wil je %1$s echt verwijderen?</string>

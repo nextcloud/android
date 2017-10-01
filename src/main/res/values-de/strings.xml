@@ -270,6 +270,7 @@
     <string name="unfavorite">Offline verfügbar Markierung entfernen</string>
     <string name="favorite_real">Als Favorit markieren</string>
     <string name="unset_favorite_real">Markierung als Favorit entfernen</string>
+    <string name="favorite_switch">Offline verfügbar</string>
     <string name="common_rename">Umbenennen</string>
     <string name="common_remove">Entfernen</string>
     <string name="confirmation_remove_file_alert">Möchtest Du %1$s wirklich entfernen?</string>
