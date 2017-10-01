@@ -269,6 +269,7 @@
     <string name="unfavorite">Fjern som tilgjengelig frakoblet</string>
     <string name="favorite_real">Sett som favoritt</string>
     <string name="unset_favorite_real">Fjern favorittmarkering</string>
+    <string name="favorite_switch">Tilgjengelig i frakoblet modus</string>
     <string name="common_rename">Gi nytt navn</string>
     <string name="common_remove">Fjern</string>
     <string name="confirmation_remove_file_alert">Vil du virkelig fjerne %1$s?</string>

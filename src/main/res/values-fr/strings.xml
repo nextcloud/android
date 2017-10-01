@@ -269,6 +269,7 @@
     <string name="unfavorite">Ne plus rendre disponible hors-ligne</string>
     <string name="favorite_real">Ajouter aux favoris</string>
     <string name="unset_favorite_real">Supprimer des favoris</string>
+    <string name="favorite_switch">Rendre disponible hors-ligne</string>
     <string name="common_rename">Renommer</string>
     <string name="common_remove">Supprimer</string>
     <string name="confirmation_remove_file_alert">Voulez-vous vraiment supprimer %1$s ?</string>
