@@ -79,6 +79,16 @@ We are all about quality while not sacrificing speed so we use a very pragmatic 
 * create [pull request](https://github.com/nextcloud/android/pulls)
 * to assure the quality of the app, any PR gets reviewed, approved and tested by [two developers](https://github.com/nextcloud/android/blob/master/MAINTAINERS) before it will be merged to master
 
+
+### Branching model
+![branching model](/doc/branching.png "Branching Model")
+* All contributions bug fix or feature PRs target the ```master``` branch
+* Feature releases will always be based on ```master```
+* Bug fix releases will always be based on their respective feature-release-bug-fix-branches
+* Bug fixes relevant for the most recent _and_ released feature (e.g. ```2.0.0```) or bugfix (e.g. ```2.0.1```) release will be backported to the respective bugfix branch (e.g. ```2.0.x``` or ```2.1.x```)
+* Hot fixes not relevant for an upcoming feature release but the latest release can target the bug fix branch directly
+
+
 ### Android Studio formatter setup
 Our formatter setup is rather simple:
 * Standard Android Studio
