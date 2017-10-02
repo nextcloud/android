@@ -39,6 +39,7 @@ import com.owncloud.android.datamodel.SyncedFolder;
 import com.owncloud.android.datamodel.SyncedFolderProvider;
 import com.owncloud.android.datamodel.UploadsStorageManager;
 import com.owncloud.android.ui.events.AccountRemovedEvent;
+import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.FilesSyncHelper;
 
@@ -84,7 +85,7 @@ public class AccountRemovalJob extends Job implements AccountManagerCallback<Boo
             // remove pending account removal
             ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProvider(context.getContentResolver());
             arbitraryDataProvider.deleteKeyForAccount(account.name, PENDING_FOR_REMOVAL);
-            arbitraryDataProvider.deleteKeyForAccount(account.name, "avatar_timestamp");
+            arbitraryDataProvider.deleteKeyForAccount(account.name, DisplayUtils.AVATAR_TIMESTAMP);
 
             // remove synced folders set for account
             SyncedFolderProvider syncedFolderProvider = new SyncedFolderProvider(context.getContentResolver());

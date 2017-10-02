@@ -105,6 +105,8 @@ public class DisplayUtils {
     private static final String HTTPS_PROTOCOLL = "https://";
     private static final String TWITTER_HANDLE_PREFIX = "@";
 
+    public static final String AVATAR_TIMESTAMP = "avatar_timestamp";
+
     private static Map<String, String> mimeType2HumanReadable;
 
     static {
@@ -438,7 +440,7 @@ public class DisplayUtils {
             boolean twentyFourHoursPassed = false;
             long avatarTimestamp;
 
-            if ((avatarTimestamp = arbitraryDataProvider.getLongValue(account, "avatar_timestamp")) != -1) {
+            if ((avatarTimestamp = arbitraryDataProvider.getLongValue(account, AVATAR_TIMESTAMP)) != -1) {
                 if (System.currentTimeMillis() >= avatarTimestamp + 24 * 60 * 60 * 1000) {
                     twentyFourHoursPassed = true;
                 }
