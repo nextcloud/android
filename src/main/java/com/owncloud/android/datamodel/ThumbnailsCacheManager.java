@@ -22,6 +22,7 @@
 package com.owncloud.android.datamodel;
 
 import android.accounts.Account;
+import android.accounts.AccountManager;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
@@ -34,6 +35,7 @@ import android.media.MediaMetadataRetriever;
 import android.media.ThumbnailUtils;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.text.TextUtils;
 import android.view.MenuItem;
 import android.widget.ImageView;
 
@@ -653,8 +655,15 @@ public class ThumbnailsCacheManager {
                     if (serverOCVersion.supportsRemoteThumbnails()) {
                         GetMethod get = null;
                         try {
-                            String uri = mClient.getBaseUri() + "" +
-                                    "/index.php/avatar/" + AccountUtils.getAccountUsername(username) + "/" + px;
+
+                            String userId = AccountManager.get(MainApp.getAppContext()).getUserData(mAccount,
+                                    com.owncloud.android.lib.common.accounts.AccountUtils.Constants.KEY_USER_ID);
+
+                            if (TextUtils.isEmpty(userId)) {
+                                userId = AccountUtils.getAccountUsername(username);
+                            }
+
+                            String uri = mClient.getBaseUri() + "" + "/index.php/avatar/" + userId + "/" + px;
                             Log_OC.d("Avatar", "URI: " + uri);
                             get = new GetMethod(uri);
                             int status = mClient.executeMethod(get);
