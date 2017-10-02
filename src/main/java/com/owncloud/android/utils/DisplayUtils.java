@@ -57,6 +57,7 @@ import com.caverock.androidsvg.SVG;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
+import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
@@ -431,7 +432,20 @@ public class DisplayUtils {
             // Thumbnail in Cache?
             Bitmap thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache("a_" + account.name);
 
-            if (thumbnail != null) {
+            ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProvider(
+                    MainApp.getAppContext().getContentResolver());
+
+            boolean twentyFourHoursPassed = false;
+            long avatarTimestamp;
+
+            if ((avatarTimestamp = arbitraryDataProvider.getLongValue(account, "avatar_timestamp")) != -1) {
+                if (System.currentTimeMillis() >= avatarTimestamp + 24 * 60 * 60 * 1000) {
+                    twentyFourHoursPassed = true;
+                }
+
+            }
+
+            if (thumbnail != null && !twentyFourHoursPassed) {
                 listener.avatarGenerated(
                         BitmapUtils.bitmapToCircularBitmapDrawable(MainApp.getAppContext().getResources(), thumbnail),
                         callContext);

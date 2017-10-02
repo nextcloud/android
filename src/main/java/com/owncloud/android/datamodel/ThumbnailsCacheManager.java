@@ -599,7 +599,12 @@ public class ThumbnailsCacheManager {
                 if (this == avatarWorkerTask
                         && listener.shouldCallGeneratedCallback(mUsername, mCallContext)) {
                         listener.avatarGenerated(new BitmapDrawable(bitmap), mCallContext);
-                    }
+
+                    ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProvider(
+                            MainApp.getAppContext().getContentResolver());
+                    arbitraryDataProvider.storeOrUpdateKeyValue(mAccount.name, "avatar_timestamp",
+                            Long.toString(System.currentTimeMillis()));
+                }
             }
         }
 
