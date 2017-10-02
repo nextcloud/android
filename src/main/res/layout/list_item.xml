@@ -40,7 +40,7 @@
 
             <ImageView
                 android:id="@+id/thumbnail"
-                android:layout_width="32dp"
+                android:layout_width="@dimen/file_icon_size"
                 android:layout_height="@dimen/file_icon_size"
                 android:layout_centerInParent="true"
                 android:layout_marginLeft="8dp"
