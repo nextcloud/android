@@ -421,21 +421,20 @@ public class DisplayUtils {
                 ((View) callContext).setContentDescription(account.name);
             }
 
-            // Thumbnail in Cache?
-            Bitmap thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache("a_" + account.name);
 
             ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProvider(
                     MainApp.getAppContext().getContentResolver());
 
-            boolean twentyFourHoursPassed = false;
             long avatarTimestamp;
+            boolean twentyFourHoursPassed = false;
 
-            if ((avatarTimestamp = arbitraryDataProvider.getLongValue(account, AVATAR_TIMESTAMP)) != -1 &&
+            if ((avatarTimestamp = arbitraryDataProvider.getLongValue(account, AVATAR_TIMESTAMP)) == -1 ||
                     (System.currentTimeMillis() >= avatarTimestamp + 24 * 60 * 60 * 1000)) {
                 twentyFourHoursPassed = true;
-                ThumbnailsCacheManager.removeBitmapFromDiskCache("a_" + account.name);
             }
 
+            // Thumbnail in Cache?
+            Bitmap thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache("a_" + account.name);
 
             if (thumbnail != null && !twentyFourHoursPassed) {
                 listener.avatarGenerated(
@@ -445,7 +444,8 @@ public class DisplayUtils {
                 // generate new avatar
                 if (ThumbnailsCacheManager.cancelPotentialAvatarWork(account.name, callContext)) {
                     final ThumbnailsCacheManager.AvatarGenerationTask task =
-                            new ThumbnailsCacheManager.AvatarGenerationTask(listener, callContext, storageManager, account);
+                            new ThumbnailsCacheManager.AvatarGenerationTask(listener, callContext, storageManager, account,
+                                    twentyFourHoursPassed);
                     if (thumbnail == null) {
                         try {
                             listener.avatarGenerated(TextDrawable.createAvatar(account.name, avatarRadius), callContext);
