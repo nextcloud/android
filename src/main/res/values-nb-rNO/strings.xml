@@ -456,7 +456,7 @@
 	<string name="subject_user_shared_with_you">%1$s delte \"%2$s\" med deg</string>
     <string name="subject_shared_with_you">\"%1$s\" er blitt delt med deg</string>
 
-    <string name="auth_refresh_button">Oppfrisk forbindelse</string>
+    <string name="auth_refresh_button">Gjenoppfrisk forbindelse</string>
     <string name="auth_host_address">Tjeneradresse</string>
     <string name="common_error_out_memory">Ikke nok minne</string>
 
