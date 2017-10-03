@@ -95,7 +95,7 @@ import com.owncloud.android.ui.fragment.TaskRetainerFragment;
 import com.owncloud.android.ui.helpers.UriUploader;
 import com.owncloud.android.utils.DataHolderUtil;
 import com.owncloud.android.utils.ErrorMessageAdapter;
-import com.owncloud.android.utils.FileStorageUtils;
+import com.owncloud.android.utils.FileSortOrder;
 import com.owncloud.android.utils.ThemeUtils;
 
 import java.io.File;
@@ -855,10 +855,8 @@ public class ReceiveExternalFilesActivity extends FileActivity
     }
 
     private Vector<OCFile> sortFileList(Vector<OCFile> files) {
-        // Read sorting order, default to sort by name ascending
-        FileStorageUtils.mSortOrder = PreferenceManager.getSortOrder(this);
-        FileStorageUtils.mSortAscending = PreferenceManager.getSortAscending(this);
-        return FileStorageUtils.sortOcFolder(files);
+        FileSortOrder sortOrder = PreferenceManager.getSortOrder(this, null);
+        return sortOrder.sortCloudFiles(files);
     }
 
     private String generatePath(Stack<String> dirs) {

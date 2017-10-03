@@ -22,7 +22,10 @@ package com.owncloud.android.db;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.owncloud.android.utils.FileStorageUtils;
+import com.owncloud.android.datamodel.FileDataStorageManager;
+import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.ui.activity.ComponentsGetter;
+import com.owncloud.android.utils.FileSortOrder;
 
 /**
  * Helper to simplify reading of Preferences all around the app
@@ -33,8 +36,7 @@ public abstract class PreferenceManager {
      * Value handled by the app without direct access in the UI.
      */
     private static final String AUTO_PREF__LAST_UPLOAD_PATH = "last_upload_path";
-    private static final String AUTO_PREF__SORT_ORDER = "sort_order";
-    private static final String AUTO_PREF__SORT_ASCENDING = "sort_ascending";
+    private static final String AUTO_PREF__SORT_ORDER_NAME = "sort_order_name";
     private static final String AUTO_PREF__UPLOAD_FILE_EXTENSION_MAP_URL = "prefs_upload_file_extension_map_url";
     private static final String AUTO_PREF__UPLOAD_FILE_EXTENSION_URL = "prefs_upload_file_extension_url";
     private static final String AUTO_PREF__UPLOADER_BEHAVIOR = "prefs_uploader_behaviour";
@@ -50,6 +52,8 @@ public abstract class PreferenceManager {
     private static final String PREF__PUSH_TOKEN = "pushToken";
     private static final String PREF__AUTO_UPLOAD_SPLIT_OUT = "autoUploadEntriesSplitOut";
     private static final String PREF__AUTO_UPLOAD_INIT = "autoUploadInit";
+    private static final String GRID_IS_PREFERED_PREFERENCE = "gridIsPrefered";
+    private static final String KEY_FAB_EVER_CLICKED = "FAB_EVER_CLICKED";
 
     public static void setPushToken(Context context, String pushToken) {
         saveStringPreferenceNow(context, PREF__PUSH_TOKEN, pushToken);
@@ -93,6 +97,14 @@ public abstract class PreferenceManager {
 
     public static boolean showHiddenFilesEnabled(Context context) {
         return PreferenceManager.getDefaultSharedPreferences(context).getBoolean("show_hidden_files_pref", false);
+    }
+
+    public static long getFABClicked(Context context) {
+        return getDefaultSharedPreferences(context).getLong(KEY_FAB_EVER_CLICKED, 0);
+    }
+
+    public static void setFABClicked(Context context) {
+        getDefaultSharedPreferences(context).edit().putLong(KEY_FAB_EVER_CLICKED, 1).apply();
     }
 
     /**
@@ -161,43 +173,90 @@ public abstract class PreferenceManager {
     }
 
     /**
-     * Gets the sort order which the user has set last.
+     * Get preferred folder display type.
      *
-     * @param context Caller {@link Context}, used to access to shared preferences manager.
-     * @return sort order     the sort order, default is {@link FileStorageUtils#SORT_NAME} (sort by name)
+     * @param context Caller {@link Context}, used to access to preferences manager.
+     * @param folder Folder
+     * @return preference value, default is false
      */
-    public static int getSortOrder(Context context) {
-        return getDefaultSharedPreferences(context).getInt(AUTO_PREF__SORT_ORDER, FileStorageUtils.SORT_NAME);
+    public static boolean getIsGridViewPreferred(Context context, OCFile folder) {
+        return (boolean)getFolderPreference(context, GRID_IS_PREFERED_PREFERENCE, folder, false);
     }
 
     /**
-     * Save the sort order which the user has set last.
+     * Set preferred folder display type.
      *
      * @param context Caller {@link Context}, used to access to shared preferences manager.
-     * @param order   the sort order
+     * @param folder Folder
+     * @param isPreferred preference value
      */
-    public static void setSortOrder(Context context, int order) {
-        saveIntPreference(context, AUTO_PREF__SORT_ORDER, order);
+    public static void setIsGridViewPreferred(Context context, OCFile folder, boolean isPreferred) {
+        setFolderPreference(context, GRID_IS_PREFERED_PREFERENCE, folder, isPreferred);
     }
 
     /**
-     * Gets the ascending order flag which the user has set last.
+     * Get preferred folder sort order.
      *
      * @param context Caller {@link Context}, used to access to shared preferences manager.
-     * @return ascending order     the ascending order, default is true
+     * @return sort order     the sort order, default is {@link FileSortOrder#sort_a_to_z} (sort by name)
      */
-    public static boolean getSortAscending(Context context) {
-        return getDefaultSharedPreferences(context).getBoolean(AUTO_PREF__SORT_ASCENDING, true);
+    public static FileSortOrder getSortOrder(Context context, OCFile folder) {
+        return FileSortOrder.sortOrders.get(getFolderPreference(context, AUTO_PREF__SORT_ORDER_NAME, folder, FileSortOrder.sort_a_to_z.mName));
     }
 
     /**
-     * Saves the ascending order flag which the user has set last.
+     * Set preferred folder sort order.
      *
-     * @param context   Caller {@link Context}, used to access to shared preferences manager.
-     * @param ascending flag if sorting is ascending or descending
+     * @param context Caller {@link Context}, used to access to shared preferences manager.
+     * @param sortOrder   the sort order
      */
-    public static void setSortAscending(Context context, boolean ascending) {
-        saveBooleanPreference(context, AUTO_PREF__SORT_ASCENDING, ascending);
+    public static void setSortOrder(Context context, OCFile folder, FileSortOrder sortOrder) {
+        setFolderPreference(context, AUTO_PREF__SORT_ORDER_NAME, folder, sortOrder.mName);
+    }
+
+    /**
+     * Get preference value for a folder.
+     * If folder is not set itself, it finds an ancestor that is set.
+     *
+     * @param context Context object.
+     * @param preferenceName Name of the preference to lookup.
+     * @param folder Folder.
+     * @param defaultValue Fallback value in case no ancestor is set.
+     * @return Preference value
+     */
+    public static Object getFolderPreference(Context context, String preferenceName, OCFile folder, Object defaultValue) {
+        FileDataStorageManager storageManager = ((ComponentsGetter)context).getStorageManager();
+        SharedPreferences setting = context.getSharedPreferences(preferenceName, Context.MODE_PRIVATE);
+        while (folder != null && !setting.contains(String.valueOf(folder.getFileId()))) {
+            folder = storageManager.getFileById(folder.getParentId());
+        }
+        final Object value = setting.getAll().get(getKeyFromFolder(folder));
+        return value != null ? value : defaultValue;
+    }
+
+    /**
+     * Set preference value for a folder.
+     *
+     * @param context Context object.
+     * @param preferenceName Name of the preference to set.
+     * @param folder Folder.
+     * @param value Preference value to set.
+     */
+    public static void setFolderPreference(Context context, String preferenceName, OCFile folder, Object value) {
+        SharedPreferences setting = context.getSharedPreferences(preferenceName, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = setting.edit();
+        if (value instanceof Boolean) {
+            editor.putBoolean(String.valueOf(getKeyFromFolder(folder)), (Boolean)value);
+        } else if (value instanceof String) {
+            editor.putString(String.valueOf(getKeyFromFolder(folder)), (String)value);
+        } else {
+            throw new UnsupportedOperationException();
+        }
+        editor.apply();
+    }
+
+    private static String getKeyFromFolder(OCFile folder) {
+        return String.valueOf(folder != null ? folder.getFileId() : FileDataStorageManager.ROOT_PARENT_ID);
     }
 
     public static boolean getAutoUploadInit(Context context) {
