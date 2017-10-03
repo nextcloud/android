@@ -433,6 +433,7 @@ public class DisplayUtils {
             if ((avatarTimestamp = arbitraryDataProvider.getLongValue(account, AVATAR_TIMESTAMP)) != -1 &&
                     (System.currentTimeMillis() >= avatarTimestamp + 24 * 60 * 60 * 1000)) {
                 twentyFourHoursPassed = true;
+                ThumbnailsCacheManager.removeBitmapFromDiskCache("a_" + account.name);
             }
 
 

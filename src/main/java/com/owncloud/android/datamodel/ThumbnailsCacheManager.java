@@ -167,6 +167,23 @@ public class ThumbnailsCacheManager {
         }
     }
 
+    public static void removeBitmapFromDiskCache(String key) {
+        synchronized (mThumbnailsDiskCacheLock) {
+            // Wait while disk cache is started from background thread
+            while (mThumbnailCacheStarting) {
+                try {
+                    mThumbnailsDiskCacheLock.wait();
+                } catch (InterruptedException e) {
+                    Log_OC.e(TAG, "Wait in mThumbnailsDiskCacheLock was interrupted", e);
+                }
+            }
+            if (mThumbnailCache != null) {
+                mThumbnailCache.removeKey(key);
+            }
+        }
+
+    }
+
     public static Bitmap getBitmapFromDiskCache(String key) {
         synchronized (mThumbnailsDiskCacheLock) {
             // Wait while disk cache is started from background thread
@@ -601,10 +618,6 @@ public class ThumbnailsCacheManager {
                         && listener.shouldCallGeneratedCallback(mUsername, mCallContext)) {
                         listener.avatarGenerated(new BitmapDrawable(bitmap), mCallContext);
 
-                    ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProvider(
-                            MainApp.getAppContext().getContentResolver());
-                    arbitraryDataProvider.storeOrUpdateKeyValue(mAccount.name, DisplayUtils.AVATAR_TIMESTAMP,
-                            Long.toString(System.currentTimeMillis()));
                 }
             }
         }
@@ -673,6 +686,13 @@ public class ThumbnailsCacheManager {
                                 if (avatar != null) {
                                     avatar = handlePNG(avatar, px);
                                     addBitmapToCache(imageKey, avatar);
+
+                                    ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProvider(
+                                            MainApp.getAppContext().getContentResolver());
+                                    arbitraryDataProvider.storeOrUpdateKeyValue(mAccount.name,
+                                            DisplayUtils.AVATAR_TIMESTAMP,
+                                            Long.toString(System.currentTimeMillis()));
+
                                 }
                             } else {
                                 mClient.exhaustResponse(get.getResponseBodyAsStream());
@@ -688,6 +708,8 @@ public class ThumbnailsCacheManager {
                         Log_OC.d(TAG, "Server too old");
                     }
                 }
+
+
             }
             return avatar;
         }
