@@ -93,20 +93,16 @@ import java.util.Set;
  * A helper class for UI/display related operations.
  */
 public class DisplayUtils {
+    public static final String AVATAR_TIMESTAMP = "avatar_timestamp";
     private static final String TAG = DisplayUtils.class.getSimpleName();
-
     private static final String[] sizeSuffixes = {"B", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"};
     private static final int[] sizeScales = {0, 0, 1, 1, 1, 2, 2, 2, 2};
     private static final int RELATIVE_THRESHOLD_WARNING = 90;
     private static final int RELATIVE_THRESHOLD_CRITICAL = 95;
     private static final String MIME_TYPE_UNKNOWN = "Unknown type";
-
     private static final String HTTP_PROTOCOLL = "http://";
     private static final String HTTPS_PROTOCOLL = "https://";
     private static final String TWITTER_HANDLE_PREFIX = "@";
-
-    public static final String AVATAR_TIMESTAMP = "avatar_timestamp";
-
     private static Map<String, String> mimeType2HumanReadable;
 
     static {
@@ -127,8 +123,8 @@ public class DisplayUtils {
     /**
      * Converts the file size in bytes to human readable output.
      * <ul>
-     *     <li>appends a size suffix, e.g. B, KB, MB etc.</li>
-     *     <li>rounds the size based on the suffix to 0,1 or 2 decimals</li>
+     * <li>appends a size suffix, e.g. B, KB, MB etc.</li>
+     * <li>rounds the size based on the suffix to 0,1 or 2 decimals</li>
      * </ul>
      *
      * @param bytes Input file size
@@ -223,7 +219,7 @@ public class DisplayUtils {
     /**
      * Converts an internationalized domain name (IDN) in an URL to and from ASCII/Unicode.
      *
-     * @param url the URL where the domain name should be converted
+     * @param url     the URL where the domain name should be converted
      * @param toASCII if true converts from Unicode to ASCII, if false converts from ASCII to Unicode
      * @return the URL containing the converted domain name
      */
@@ -258,9 +254,9 @@ public class DisplayUtils {
     /**
      * creates the display string for an account.
      *
-     * @param context the actual activity
-     * @param savedAccount the actual, saved account
-     * @param accountName the account name
+     * @param context        the actual activity
+     * @param savedAccount   the actual, saved account
+     * @param accountName    the account name
      * @param fallbackString String to be used in case of an error
      * @return the display string for the given account data
      */
@@ -293,7 +289,7 @@ public class DisplayUtils {
     /**
      * calculates the relative time string based on the given modificaion timestamp.
      *
-     * @param context the app's context
+     * @param context               the app's context
      * @param modificationTimestamp the UNIX timestamp of the file modification time.
      * @return a relative time string
      */
@@ -395,7 +391,7 @@ public class DisplayUtils {
         }
 
         SpannableStringBuilder sb = new SpannableStringBuilder(text);
-        if(spanText == null) {
+        if (spanText == null) {
             return sb;
         }
 
@@ -408,12 +404,6 @@ public class DisplayUtils {
         int end = start + spanText.length();
         sb.setSpan(style, start, end, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
         return sb;
-    }
-
-    public interface AvatarGenerationListener {
-        void avatarGenerated(Drawable avatarDrawable, Object callContext);
-
-        boolean shouldCallGeneratedCallback(String tag, Object callContext);
     }
 
     /**
@@ -440,12 +430,11 @@ public class DisplayUtils {
             boolean twentyFourHoursPassed = false;
             long avatarTimestamp;
 
-            if ((avatarTimestamp = arbitraryDataProvider.getLongValue(account, AVATAR_TIMESTAMP)) != -1) {
-                if (System.currentTimeMillis() >= avatarTimestamp + 24 * 60 * 60 * 1000) {
-                    twentyFourHoursPassed = true;
-                }
-
+            if ((avatarTimestamp = arbitraryDataProvider.getLongValue(account, AVATAR_TIMESTAMP)) != -1 &&
+                    (System.currentTimeMillis() >= avatarTimestamp + 24 * 60 * 60 * 1000)) {
+                twentyFourHoursPassed = true;
             }
+
 
             if (thumbnail != null && !twentyFourHoursPassed) {
                 listener.avatarGenerated(
@@ -601,11 +590,10 @@ public class DisplayUtils {
         }
     }
 
-
     /**
      * Get String data from a InputStream
      *
-     * @param inputStream        The File InputStream
+     * @param inputStream The File InputStream
      */
     public static String getData(InputStream inputStream) {
 
@@ -621,5 +609,12 @@ public class DisplayUtils {
             Log_OC.e(TAG, e.getMessage());
         }
         return text.toString();
+    }
+
+
+    public interface AvatarGenerationListener {
+        void avatarGenerated(Drawable avatarDrawable, Object callContext);
+
+        boolean shouldCallGeneratedCallback(String tag, Object callContext);
     }
 }
