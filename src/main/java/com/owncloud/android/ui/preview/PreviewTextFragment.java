@@ -285,7 +285,8 @@ public class PreviewTextFragment extends FileFragment {
                     getFile(),
                     mContainerActivity.getStorageManager().getAccount(),
                     mContainerActivity,
-                    getActivity()
+                    getActivity(),
+                    false
             );
             mf.filter(menu, true);
         }
