@@ -34,8 +34,6 @@ public interface OCFileListFragmentInterface {
 
     int getColumnSize();
 
-    void onFavoriteIconClick(OCFile file);
-
     void onShareIconClick(OCFile file);
 
     void onOverflowIconClick(View view, OCFile file);
