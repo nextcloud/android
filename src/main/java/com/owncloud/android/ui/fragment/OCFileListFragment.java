@@ -529,7 +529,8 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
                 Collections.singleton(file),
                 ((FileActivity) getActivity()).getAccount(),
                 mContainerActivity,
-                getActivity()
+                getActivity(),
+                true
         );
         mf.filter(popup.getMenu());
         popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
@@ -661,7 +662,8 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
                     checkedFiles,
                     ((FileActivity) getActivity()).getAccount(),
                     mContainerActivity,
-                    getActivity()
+                    getActivity(),
+                    false
             );
             mf.filter(menu, false);
             return true;

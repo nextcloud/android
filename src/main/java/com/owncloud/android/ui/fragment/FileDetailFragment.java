@@ -216,7 +216,8 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
                 getFile(),
                 mContainerActivity.getStorageManager().getAccount(),
                 mContainerActivity,
-                getActivity()
+                getActivity(),
+                false
             );
             mf.filter(menu, true);
         }
