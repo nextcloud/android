@@ -518,22 +518,22 @@ public class UploadsStorageManager extends Observable {
         long result = 0;
         if (account != null) {
             String[] whereArgs = new String[3];
-        whereArgs[0] = String.valueOf(UploadStatus.UPLOAD_SUCCEEDED.value);
-        whereArgs[1] = String.valueOf(UploadStatus.UPLOAD_FAILED.value);
-        whereArgs[2] = account.name;
-        long result = getDB().delete(
-                ProviderTableMeta.CONTENT_URI_UPLOADS,
-                ProviderTableMeta.UPLOADS_STATUS + "=? OR " + ProviderTableMeta.UPLOADS_STATUS + "=?" +
-                        AND + ProviderTableMeta.UPLOADS_LAST_RESULT +
+            whereArgs[0] = String.valueOf(UploadStatus.UPLOAD_SUCCEEDED.value);
+            whereArgs[1] = String.valueOf(UploadStatus.UPLOAD_FAILED.value);
+            whereArgs[2] = account.name;
+            result = getDB().delete(
+                    ProviderTableMeta.CONTENT_URI_UPLOADS,
+                    ProviderTableMeta.UPLOADS_STATUS + "=? OR " + ProviderTableMeta.UPLOADS_STATUS + "=?" +
+                            AND + ProviderTableMeta.UPLOADS_LAST_RESULT +
                             "<>" + UploadResult.LOCK_FAILED.getValue() +
-                        AND + ProviderTableMeta.UPLOADS_LAST_RESULT +
+                            AND + ProviderTableMeta.UPLOADS_LAST_RESULT +
                             "<>" + UploadResult.DELAYED_FOR_WIFI.getValue() +
-                        AND + ProviderTableMeta.UPLOADS_LAST_RESULT +
+                            AND + ProviderTableMeta.UPLOADS_LAST_RESULT +
                             "<>" + UploadResult.DELAYED_FOR_CHARGING.getValue() +
-                        AND + ProviderTableMeta.UPLOADS_LAST_RESULT +
+                            AND + ProviderTableMeta.UPLOADS_LAST_RESULT +
                             "<>" + UploadResult.DELAYED_IN_POWER_SAVE_MODE.getValue() +
-                        AND + ProviderTableMeta.UPLOADS_ACCOUNT_NAME + "== ?",
-                whereArgs
+                            AND + ProviderTableMeta.UPLOADS_ACCOUNT_NAME + "== ?",
+                    whereArgs
             );
         }
 
