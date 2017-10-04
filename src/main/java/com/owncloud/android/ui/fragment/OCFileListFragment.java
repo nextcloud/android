@@ -516,12 +516,6 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
     }
 
     @Override
-    public void onFavoriteIconClick(OCFile file) {
-        mContainerActivity.getFileOperationsHelper().toggleFavoriteFiles(Collections.singleton(file),
-                !file.getIsFavorite());
-    }
-
-    @Override
     public void onShareIconClick(OCFile file) {
         shareFile(file);
     }

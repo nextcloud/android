@@ -316,18 +316,11 @@ public class FileListListAdapter extends BaseAdapter {
             }
 
             // For all Views
-            ImageView favoriteV = (ImageView) view.findViewById(R.id.favorite_action);
             if (file.getIsFavorite()) {
-                favoriteV.setImageResource(R.drawable.ic_favorite);
+                view.findViewById(R.id.favorite_action).setVisibility(View.VISIBLE);
             } else {
-                favoriteV.setImageResource(R.drawable.nav_favorites);
+                view.findViewById(R.id.favorite_action).setVisibility(View.GONE);
             }
-            favoriteV.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    OCFileListFragmentInterface.onFavoriteIconClick(temp);
-                }
-            });
 
             ImageView checkBoxV = (ImageView) view.findViewById(R.id.custom_checkbox);
             checkBoxV.setVisibility(View.GONE);
