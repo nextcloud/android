@@ -32,6 +32,7 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -60,6 +61,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.request.animation.GlideAnimation;
+import com.bumptech.glide.request.target.SimpleTarget;
 import com.evernote.android.job.JobRequest;
 import com.evernote.android.job.util.support.PersistableBundleCompat;
 import com.owncloud.android.R;
@@ -73,6 +76,7 @@ import com.owncloud.android.ui.activity.ContactsPreferenceActivity;
 import com.owncloud.android.ui.events.VCardToggleEvent;
 import com.owncloud.android.ui.fragment.FileFragment;
 import com.owncloud.android.utils.BitmapUtils;
+import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.PermissionUtil;
 import com.owncloud.android.utils.ThemeUtils;
 
@@ -93,6 +97,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import ezvcard.Ezvcard;
 import ezvcard.VCard;
+import ezvcard.property.Photo;
 
 import static com.owncloud.android.ui.fragment.contactsbackup.ContactListFragment.getDisplayName;
 
@@ -639,7 +644,9 @@ class ContactListAdapter extends RecyclerView.Adapter<ContactListFragment.Contac
 
             // photo
             if (vcard.getPhotos().size() > 0) {
-                byte[] data = vcard.getPhotos().get(0).getData();
+                Photo firstPhoto = vcard.getPhotos().get(0);
+                String url = firstPhoto.getUrl();
+                byte[] data = firstPhoto.getData();
 
                 if (data != null && data.length > 0) {
                     Bitmap thumbnail = BitmapFactory.decodeByteArray(data, 0, data.length);
@@ -647,6 +654,23 @@ class ContactListAdapter extends RecyclerView.Adapter<ContactListFragment.Contac
                             thumbnail);
 
                     holder.getBadge().setImageDrawable(drawable);
+                } else if (url != null) {
+                    ImageView badge = holder.getBadge();
+                    SimpleTarget target = new SimpleTarget<Drawable>() {
+                        @Override
+                        public void onResourceReady(Drawable resource, GlideAnimation
+                                glideAnimation) {
+                            holder.getBadge().setImageDrawable(resource);
+                        }
+
+                        @Override
+                        public void onLoadFailed(Exception e, Drawable errorDrawable) {
+                            super.onLoadFailed(e, errorDrawable);
+                            holder.getBadge().setImageDrawable(errorDrawable);
+                        }
+                    };
+                    DisplayUtils.downloadIcon(context, url, target, R.drawable.ic_user,
+                            badge.getWidth(), badge.getHeight());
                 }
             } else {
                 try {
