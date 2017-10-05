@@ -19,8 +19,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           xmlns:tools="http://schemas.android.com/tools"
           package="com.owncloud.android"
-          android:versionCode="20000052"
-          android:versionName="2.0.0-e2e-02">
+          android:versionCode="20000009"
+          android:versionName="2.0.0RC9">
 
     <application
         android:name=".MainApp"
