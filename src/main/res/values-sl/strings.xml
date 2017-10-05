@@ -143,7 +143,7 @@
     <string name="delete_account">Odstrani račun</string>
     <string name="delete_account_warning">Pobrišem račun%s z vsemi lokalnimi datotekami?\n\nBrisanja ne moreš preklicati.</string>
     <string name="avatar">Avatar</string>
-    <string name="active_user">Aktivni uporabnik</string>
+    <string name="active_user">Dejavni uporabnik</string>
     <string name="upload_chooser_title">Pošlji datoteko iz &#8230;</string>
     <string name="uploader_info_dirname">Ime mape</string>
     <string name="uploader_upload_in_progress_ticker">Pošiljanje &#8230;</string>
@@ -351,7 +351,7 @@
     <string name="prefs_instant_upload_path_use_subfolders_title">Uporabi podmape</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Shrani v podmape kot leto in mesec</string>
 
-	<string name="share_link_no_support_share_api">Souporaba na strežniku ni omogočena. Kontaktiraj upravnika.</string>
+	<string name="share_link_no_support_share_api">Na strežniku souporaba ni omogočena. Stopite v stik s skrbnikom sistema.</string>
 	<string name="share_link_file_no_exist">Souporaba ni mogoča. Preverite, ali datoteka obstaja.</string>
 	<string name="share_link_file_error">Prišlo je do napake med poskusom omogočanja souporabe te datoteke ali mape</string>
 	<string name="unshare_link_file_no_exist">Ni mogoče prekiniti souporabe. Preverite, ali datoteka obstaja.</string>
@@ -547,7 +547,7 @@
     <string name="participate_testing_version_text">Želiš testirati naslednjo verzijo?</string>
     <string name="participate_beta_headline">Testiraj razvojno verzijo</string>
     <string name="participate_release_candidate_headline">Kandidat za objavo</string>
-    <string name="participate_contribute_headline">Aktivni prispevek</string>
+    <string name="participate_contribute_headline">Sodelujte</string>
     <string name="participate_contribute_forum_text">Pomagaj ostalim na</string>
     <string name="participate_contribute_forum_forum">forumu</string>
     <string name="participate_contribute_translate_translate">Prevedi</string>
@@ -617,7 +617,7 @@
 
     <string name="user_information_description">Podatki uporabnika</string>
     <!-- Activities -->
-    <string name="activities_no_results_headline">Ni še aktivnosti</string>
+    <string name="activities_no_results_headline">Ni še zabeleženih dejavnosti</string>
     <string name="webview_error">Zgodila se je napaka</string>
     <string name="prefs_category_about">O</string>
 
