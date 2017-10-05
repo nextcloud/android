@@ -85,8 +85,7 @@ public class FileMenuFilter {
      */
     public FileMenuFilter(OCFile targetFile, Account account, ComponentsGetter cg, Context context,
                           boolean overflowMenu) {
-        this(1, Collections.singletonList(targetFile), account, cg, context,
-                overflowMenu);
+        this(1, Collections.singletonList(targetFile), account, cg, context, overflowMenu);
     }
 
     /**
