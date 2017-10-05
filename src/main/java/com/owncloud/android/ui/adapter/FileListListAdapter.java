@@ -340,13 +340,15 @@ public class FileListListAdapter extends BaseAdapter {
                 checkBoxV.setVisibility(View.VISIBLE);
             }
 
-            ImageView overflowIndicatorV = (ImageView) view.findViewById(R.id.overflow_menu);
-            overflowIndicatorV.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    OCFileListFragmentInterface.onOverflowIconClick(v, temp);
-                }
-            });
+            if (ViewType.LIST_ITEM.equals(viewType)) {
+                ImageView overflowIndicatorV = (ImageView) view.findViewById(R.id.overflow_menu);
+                overflowIndicatorV.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        OCFileListFragmentInterface.onOverflowIconClick(v, temp);
+                    }
+                });
+            }
 
             // this if-else is needed even though kept-in-sync icon is visible by default
             // because android reuses views in listview
