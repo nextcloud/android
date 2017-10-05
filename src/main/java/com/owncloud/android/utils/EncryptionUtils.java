@@ -100,6 +100,8 @@ public class EncryptionUtils {
 
     public static String PUBLIC_KEY = "PUBLIC_KEY";
     public static String PRIVATE_KEY = "PRIVATE_KEY";
+    public static String AES_CIPHER = "AES/GCM/NoPadding";
+    public static String RSA_CIPHER = "RSA/ECB/OAEPWithSHA-256AndMGF1Padding";
 
     /*
     JSON
@@ -289,7 +291,7 @@ public class EncryptionUtils {
             InvalidAlgorithmParameterException, NoSuchPaddingException, InvalidKeyException,
             BadPaddingException, IllegalBlockSizeException, IOException, ShortBufferException {
 
-        Cipher cipher = Cipher.getInstance("AES/GCM/NoPadding");
+        Cipher cipher = Cipher.getInstance(AES_CIPHER);
 
         Key key = new SecretKeySpec(encryptionKeyBytes, "AES");
 
@@ -321,7 +323,7 @@ public class EncryptionUtils {
             BadPaddingException, IllegalBlockSizeException, IOException, ShortBufferException {
 
 
-        Cipher cipher = Cipher.getInstance("AES/GCM/NoPadding");
+        Cipher cipher = Cipher.getInstance(AES_CIPHER);
         Key key = new SecretKeySpec(encryptionKeyBytes, "AES");
         GCMParameterSpec spec = new GCMParameterSpec(128, iv);
         cipher.init(Cipher.DECRYPT_MODE, key, spec);
@@ -366,7 +368,7 @@ public class EncryptionUtils {
             BadPaddingException, IllegalBlockSizeException, IOException, ShortBufferException, InvalidKeySpecException,
             CertificateException {
 
-        Cipher cipher = Cipher.getInstance("RSA/ECB/OAEPWithSHA-256AndMGF1Padding");
+        Cipher cipher = Cipher.getInstance(RSA_CIPHER);
 
         String trimmedCert = cert.replace("-----BEGIN CERTIFICATE-----\n", "")
                 .replace("-----END CERTIFICATE-----\n", "");
@@ -402,7 +404,7 @@ public class EncryptionUtils {
             BadPaddingException, IllegalBlockSizeException, IOException, ShortBufferException, CertificateException,
             InvalidKeySpecException {
 
-        Cipher cipher = Cipher.getInstance("RSA/ECB/OAEPWithSHA-256AndMGF1Padding");
+        Cipher cipher = Cipher.getInstance(RSA_CIPHER);
 
         byte[] privateKeyBytes = decodeStringToBase64Bytes(privateKeyString);
         PKCS8EncodedKeySpec keySpec = new PKCS8EncodedKeySpec(privateKeyBytes);
@@ -433,7 +435,7 @@ public class EncryptionUtils {
             BadPaddingException, IllegalBlockSizeException, IOException, ShortBufferException, InvalidKeySpecException,
             CertificateException {
 
-        Cipher cipher = Cipher.getInstance("AES/GCM/NoPadding");
+        Cipher cipher = Cipher.getInstance(AES_CIPHER);
         byte[] iv = generateIV();
 
         Key key = new SecretKeySpec(encryptionKeyBytes, "AES");
@@ -465,7 +467,7 @@ public class EncryptionUtils {
             BadPaddingException, IllegalBlockSizeException, IOException, ShortBufferException, CertificateException,
             InvalidKeySpecException {
 
-        Cipher cipher = Cipher.getInstance("AES/GCM/NoPadding");
+        Cipher cipher = Cipher.getInstance(AES_CIPHER);
 
         String[] strings = string.split(ivDelimiter);
         String cipherString = strings[0];
@@ -493,7 +495,7 @@ public class EncryptionUtils {
     public static String encryptPrivateKey(String privateKey, String keyPhrase) throws NoSuchPaddingException,
             NoSuchAlgorithmException, NoSuchProviderException, InvalidKeyException, BadPaddingException,
             IllegalBlockSizeException, InvalidKeySpecException, InvalidParameterSpecException {
-        Cipher cipher = Cipher.getInstance("AES/GCM/NoPadding");
+        Cipher cipher = Cipher.getInstance(AES_CIPHER);
 
         SecretKeyFactory factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
         KeySpec spec = new PBEKeySpec(keyPhrase.toCharArray(), salt, iterationCount, keyStrength);
@@ -522,7 +524,7 @@ public class EncryptionUtils {
     public static String decryptPrivateKey(String privateKey, String keyPhrase) throws NoSuchPaddingException,
             NoSuchAlgorithmException, NoSuchProviderException, InvalidKeyException, BadPaddingException,
             IllegalBlockSizeException, InvalidKeySpecException, InvalidAlgorithmParameterException {
-        Cipher cipher = Cipher.getInstance("AES/GCM/NoPadding");
+        Cipher cipher = Cipher.getInstance(AES_CIPHER);
 
         SecretKeyFactory factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
         KeySpec spec = new PBEKeySpec(keyPhrase.toCharArray(), salt, iterationCount, keyStrength);
