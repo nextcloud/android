@@ -52,6 +52,7 @@
                 android:layout_alignParentTop="true"
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="4dp"
+                android:contentDescription="@string/favorite_switch"
                 android:src="@drawable/ic_favorite" />
 
             <ImageView
@@ -71,6 +72,7 @@
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentRight="true"
                 android:scaleType="fitCenter"
+                android:contentDescription="@string/downloader_download_succeeded_ticker"
                 android:layout_marginRight="4dp"/>
 
         </RelativeLayout>
@@ -150,6 +152,7 @@
                 android:layout_marginBottom="@dimen/standard_quarter_margin"
                 android:layout_marginRight="@dimen/list_item_share_right_margin"
                 android:clickable="true"
+                android:focusable="true"
                 android:src="@drawable/ic_unshared" />
 
             <ImageView
@@ -161,6 +164,7 @@
                 android:layout_marginRight="@dimen/standard_half_margin"
                 android:layout_toRightOf="@id/sharedIcon"
                 android:clickable="true"
+                android:focusable="true"
                 android:src="@drawable/ic_checkbox_blank_outline" />
 
             <ImageView
@@ -171,6 +175,7 @@
                 android:layout_marginLeft="@dimen/standard_half_margin"
                 android:layout_toRightOf="@id/custom_checkbox"
                 android:clickable="true"
+                android:focusable="true"
                 android:src="@drawable/ic_dots_vertical" />
 
         </RelativeLayout>
