@@ -178,6 +178,7 @@ public class LocalFileListAdapter extends BaseAdapter implements FilterableListA
                 TextView lastModV = (TextView) view.findViewById(R.id.last_mod);
                 lastModV.setVisibility(View.VISIBLE);
                 lastModV.setText(DisplayUtils.getRelativeTimestamp(mContext, file.lastModified()));
+                view.findViewById(R.id.overflow_menu).setVisibility(View.GONE);
             }
 
             if (!file.isDirectory()) {
