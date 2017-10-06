@@ -46,6 +46,7 @@
     <string name="prefs_show_hidden_files">הצגת קבצים נסתרים</string>
     <string name="prefs_log_delete_history_button">מחיקת הסטוריה</string>
     <string name="prefs_calendar_contacts_summary">הגדרת DAVdroid (v1.3.0+)‎ עבור החשבון הנוכחי</string>
+    <string name="prefs_calendar_contacts_address_resolve_error">לא ניתן לפתור את כתובת השרת לחשבון עבור DAVdroid</string>
     <string name="prefs_calendar_contacts_no_store_error">לא נמצא התקנה של F-droid או Google Play</string>
     <string name="prefs_daily_contacts_sync_summary">גיבוי יומי של אנשי הקשר שלך</string>
     <string name="prefs_help">עזרה</string>
