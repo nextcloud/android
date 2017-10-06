@@ -231,21 +231,6 @@ public class FileListListAdapter extends BaseAdapter {
 
         if (file != null) {
             ImageView fileIcon = (ImageView) view.findViewById(R.id.thumbnail);
-            ImageView sharedIconV = (ImageView) view.findViewById(R.id.sharedIcon);
-            if (file.isSharedWithSharee() || file.isSharedWithMe()) {
-                sharedIconV.setImageResource(R.drawable.shared_via_users);
-            } else if (file.isSharedViaLink()) {
-                sharedIconV.setImageResource(R.drawable.shared_via_link);
-            } else {
-                sharedIconV.setImageResource(R.drawable.ic_unshared);
-            }
-            final OCFile temp = file;
-            sharedIconV.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    OCFileListFragmentInterface.onShareIconClick(temp);
-                }
-            });
 
             fileIcon.setTag(file.getFileId());
             TextView fileName;
@@ -323,7 +308,6 @@ public class FileListListAdapter extends BaseAdapter {
             }
 
             ImageView checkBoxV = (ImageView) view.findViewById(R.id.custom_checkbox);
-            checkBoxV.setVisibility(View.GONE);
             view.setBackgroundColor(Color.WHITE);
 
             AbsListView parentList = (AbsListView) parent;
@@ -338,16 +322,12 @@ public class FileListListAdapter extends BaseAdapter {
                     checkBoxV.setImageResource(R.drawable.ic_checkbox_blank_outline);
                 }
                 checkBoxV.setVisibility(View.VISIBLE);
-            }
-
-            if (ViewType.LIST_ITEM.equals(viewType)) {
-                ImageView overflowIndicatorV = (ImageView) view.findViewById(R.id.overflow_menu);
-                overflowIndicatorV.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        OCFileListFragmentInterface.onOverflowIconClick(v, temp);
-                    }
-                });
+                hideShareIcon(view);
+                hideOverflowMenuIcon(view, viewType);
+            } else {
+                checkBoxV.setVisibility(View.GONE);
+                showShareIcon(view, file);
+                showOverflowMenuIcon(view, file, viewType);
             }
 
             // this if-else is needed even though kept-in-sync icon is visible by default
@@ -421,6 +401,48 @@ public class FileListListAdapter extends BaseAdapter {
             }
         }
         return view;
+    }
+
+    private void showShareIcon(View view, OCFile file) {
+        ImageView sharedIconV = (ImageView) view.findViewById(R.id.sharedIcon);
+        sharedIconV.setVisibility(View.VISIBLE);
+        if (file.isSharedWithSharee() || file.isSharedWithMe()) {
+            sharedIconV.setImageResource(R.drawable.shared_via_users);
+        } else if (file.isSharedViaLink()) {
+            sharedIconV.setImageResource(R.drawable.shared_via_link);
+        } else {
+            sharedIconV.setImageResource(R.drawable.ic_unshared);
+        }
+        sharedIconV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                OCFileListFragmentInterface.onShareIconClick(file);
+            }
+        });
+    }
+
+    private void hideShareIcon(View view) {
+        view.findViewById(R.id.sharedIcon).setVisibility(View.GONE);
+    }
+
+    private void showOverflowMenuIcon(View view, OCFile file, ViewType viewType) {
+        if (ViewType.LIST_ITEM.equals(viewType)) {
+            ImageView overflowIndicatorV = (ImageView) view.findViewById(R.id.overflow_menu);
+            overflowIndicatorV.setVisibility(View.VISIBLE);
+            overflowIndicatorV.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    OCFileListFragmentInterface.onOverflowIconClick(v, file);
+                }
+            });
+        }
+    }
+
+    private void hideOverflowMenuIcon(View view, ViewType viewType) {
+        if (ViewType.LIST_ITEM.equals(viewType)) {
+            ImageView overflowIndicatorV = (ImageView) view.findViewById(R.id.overflow_menu);
+            overflowIndicatorV.setVisibility(View.GONE);
+        }
     }
 
     @Override
