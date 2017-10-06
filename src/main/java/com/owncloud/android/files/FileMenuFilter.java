@@ -240,7 +240,8 @@ public class FileMenuFilter {
                 (capability.getFilesSharingApiEnabled().isTrue() ||
                         capability.getFilesSharingApiEnabled().isUnknown()
                 );
-        if ((!shareViaLinkAllowed && !shareWithUsersAllowed) || !isSingleSelection() || !shareApiEnabled) {
+        if ((!shareViaLinkAllowed && !shareWithUsersAllowed) ||
+                !isSingleSelection() || !shareApiEnabled || mOverflowMenu) {
             toHide.add(R.id.action_share_file);
         } else {
             toShow.add(R.id.action_share_file);
