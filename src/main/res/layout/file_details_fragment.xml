@@ -61,27 +61,6 @@
 			android:layout_marginBottom="8dp">
 
 			<TableRow
-				android:id="@+id/fdTypeRow"
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:layout_marginBottom="@dimen/standard_half_margin">
-
-				<TextView
-					android:id="@+id/fdTypeLabel"
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:text="@string/filedetails_type"
-					android:textSize="16sp" />
-				<TextView
-					android:id="@+id/fdType"
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:text="@string/placeholder_filetype"
-					android:textSize="16sp"
-					android:layout_marginLeft="@dimen/standard_half_margin" />
-
-			</TableRow>
-			<TableRow
 				android:id="@+id/fdSizeRow"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
