@@ -110,8 +110,7 @@
         </activity>
         <activity
             android:name=".ui.activity.Preferences"
-            android:theme="@style/Theme.ownCloud" >
-        </activity>
+            android:theme="@style/Theme.ownCloud.Preferences" />
         <activity
             android:name=".ui.preview.PreviewImageActivity"
             android:theme="@style/Theme.ownCloud.Overlay" />

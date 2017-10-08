@@ -67,6 +67,10 @@
 		<item name="colorAccent">@color/login_text_hint_color</item>
 		<item name="android:textColorHint">@color/login_text_hint_color</item>
 	</style>
+	
+	<style name="Theme.ownCloud.Preferences" parent="Theme.ownCloud">
+		<item name="android:background">@android:color/white</item>
+	</style>
 
 	<style name="ownCloud.AlertDialog" parent="Theme.AppCompat.Light.Dialog.Alert">
 		<item name="colorAccent">@color/color_accent</item>
