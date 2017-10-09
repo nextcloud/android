@@ -615,8 +615,8 @@ public class FileUploader extends Service
                     if (isCreateRemoteFolder) {
                         newUpload.setRemoteFolderToBeCreated();
                     }
-                    newUpload.addDatatransferProgressListener(this);
-                    newUpload.addDatatransferProgressListener((FileUploaderBinder) mBinder);
+                    newUpload.addDataTransferProgressListener(this);
+                    newUpload.addDataTransferProgressListener((FileUploaderBinder) mBinder);
 
                     newUpload.addRenameUploadListener(this);
 
@@ -671,8 +671,8 @@ public class FileUploader extends Service
                     whileChargingOnly
             );
 
-            newUpload.addDatatransferProgressListener(this);
-            newUpload.addDatatransferProgressListener((FileUploaderBinder) mBinder);
+            newUpload.addDataTransferProgressListener(this);
+            newUpload.addDataTransferProgressListener((FileUploaderBinder) mBinder);
 
             newUpload.addRenameUploadListener(this);
 
