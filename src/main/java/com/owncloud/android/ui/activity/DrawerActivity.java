@@ -969,7 +969,7 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                if (quotaValue > 0
+                                if ((quotaValue > 0 || quotaValue <= GetRemoteUserInfoOperation.SPACE_UNLIMITED)
                                         || quotaValue == GetRemoteUserInfoOperation.QUOTA_LIMIT_INFO_NOT_AVAILABLE) {
                                     /**
                                      * show quota in case
@@ -980,9 +980,8 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
                                 } else {
                                     /**
                                      * quotaValue < 0 means special cases like
-                                     * {@link RemoteGetUserQuotaOperation.SPACE_NOT_COMPUTED},
-                                     * {@link RemoteGetUserQuotaOperation.SPACE_UNKNOWN} or
-                                     * {@link RemoteGetUserQuotaOperation.SPACE_UNLIMITED}
+                                     * {@link RemoteGetUserQuotaOperation.SPACE_NOT_COMPUTED} or
+                                     * {@link RemoteGetUserQuotaOperation.SPACE_UNKNOWN}
                                      * thus don't display any quota information.
                                      */
                                     showQuota(false);
