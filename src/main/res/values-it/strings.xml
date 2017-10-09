@@ -115,10 +115,6 @@
     <string name="upload_list_empty_text_auto_upload">Carica alcuni contenuti o attiva il caricamento automatico.</string>
     <string name="file_list_folder">cartella</string>
     <string name="filedetails_select_file">Tocca un file per visualizzare informazioni aggiuntive.</string>
-    <string name="filedetails_size">Dimensione:</string>
-    <string name="filedetails_type">Tipo:</string>
-    <string name="filedetails_created">Creato:</string>
-    <string name="filedetails_modified">Modificato:</string>
     <string name="filedetails_download">Scarica</string>
     <string name="filedetails_sync_file">Sincronizza</string>
     <string name="filedetails_renamed_in_upload_msg">File rinominato in %1$s durante il caricamento</string>

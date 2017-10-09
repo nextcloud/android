@@ -99,10 +99,6 @@
     <string name="upload_list_empty_headline">Žiadne súbory na nahratie nie sú dostupné</string>
     <string name="file_list_folder">priečinok</string>
     <string name="filedetails_select_file">Viac informácií získate kliknutím na súbor.</string>
-    <string name="filedetails_size">Veľkosť:</string>
-    <string name="filedetails_type">Typ:</string>
-    <string name="filedetails_created">Vytvorený:</string>
-    <string name="filedetails_modified">Zmenený:</string>
     <string name="filedetails_download">Stiahnuť</string>
     <string name="filedetails_sync_file">Synchronizovať</string>
     <string name="action_share">Sprístupniť</string>

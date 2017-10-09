@@ -110,10 +110,6 @@
     <string name="upload_list_empty_text_auto_upload">تعدادی عکس آپلود کنید یا آپلود خودکار را فعال کنید</string>
     <string name="file_list_folder">پوشه</string>
     <string name="filedetails_select_file">روی هر فایل کلیک کنید تا اطلاعات اضافی نمایش داده شود.</string>
-    <string name="filedetails_size">اندازه</string>
-    <string name="filedetails_type">نوع:</string>
-    <string name="filedetails_created">ایجاد شده توسط:</string>
-    <string name="filedetails_modified">تغییر یافته توسط:</string>
     <string name="filedetails_download">دانلود</string>
     <string name="filedetails_sync_file">همگام سازی</string>
     <string name="filedetails_renamed_in_upload_msg">در حین اپلود فایل به نام %1$s تغییر کرد</string>

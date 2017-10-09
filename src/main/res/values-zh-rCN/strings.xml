@@ -112,10 +112,6 @@
     <string name="upload_list_empty_text_auto_upload">上传一些内容或启用自动上传。</string>
     <string name="file_list_folder">文件夹</string>
     <string name="filedetails_select_file">点击一个文件可以显示额外的信息。</string>
-    <string name="filedetails_size">大小：</string>
-    <string name="filedetails_type">类型：</string>
-    <string name="filedetails_created">创建于：</string>
-    <string name="filedetails_modified">修改于：</string>
     <string name="filedetails_download">下载</string>
     <string name="filedetails_sync_file">同步</string>
     <string name="filedetails_renamed_in_upload_msg">文件在上传时被重命名为%1$s</string>

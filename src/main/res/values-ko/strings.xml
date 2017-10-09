@@ -104,10 +104,6 @@
     <string name="upload_list_empty_headline">업로드 없음</string>
     <string name="file_list_folder">폴더</string>
     <string name="filedetails_select_file">파일을 누르면 추가 정보가 표시됩니다.</string>
-    <string name="filedetails_size">크기:</string>
-    <string name="filedetails_type">종류:</string>
-    <string name="filedetails_created">만든 날짜:</string>
-    <string name="filedetails_modified">수정한 날짜:</string>
     <string name="filedetails_download">다운로드</string>
     <string name="filedetails_sync_file">동기화</string>
     <string name="filedetails_renamed_in_upload_msg">업로드 중 파일이름 %1$s로 변경</string>
