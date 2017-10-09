@@ -110,10 +110,6 @@
     <string name="upload_list_empty_text_auto_upload">Carregueu algun contingut o activeu la càrrega automàtica.</string>
     <string name="file_list_folder">carpeta</string>
     <string name="filedetails_select_file">Feu clic en un fitxer per mostrar informació addicional.</string>
-    <string name="filedetails_size">Mida:</string>
-    <string name="filedetails_type">Tipus:</string>
-    <string name="filedetails_created">Creat:</string>
-    <string name="filedetails_modified">Modificat:</string>
     <string name="filedetails_download">Baixa</string>
     <string name="filedetails_sync_file">Sincronitza</string>
     <string name="filedetails_renamed_in_upload_msg">S\'ha canviat el nom del fitxer %1$sdurant la càrrega</string>

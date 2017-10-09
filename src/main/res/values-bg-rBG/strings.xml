@@ -88,10 +88,6 @@
     <string name="file_list_empty_search">Вероятно е в друга директория</string>
     <string name="file_list_folder">папка</string>
     <string name="filedetails_select_file">Натиснете върху файл, за да видите допълнителна информация.</string>
-    <string name="filedetails_size">Размер:</string>
-    <string name="filedetails_type">Тип:</string>
-    <string name="filedetails_created">Създаден на:</string>
-    <string name="filedetails_modified">Променен на:</string>
     <string name="filedetails_download">Изтегляне</string>
     <string name="filedetails_sync_file">Синхронизиране</string>
     <string name="action_share">Споделяне</string>

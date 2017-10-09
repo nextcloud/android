@@ -116,10 +116,6 @@
     <string name="upload_list_empty_text_auto_upload">Laden Sie Inhalte hoch oder aktivieren Sie den Auto Upload!</string>
     <string name="file_list_folder">Ordner</string>
     <string name="filedetails_select_file">Klicken Sie auf eine Datei für weitere Informationen.</string>
-    <string name="filedetails_size">Größe:</string>
-    <string name="filedetails_type">Art:</string>
-    <string name="filedetails_created">Erstellt:</string>
-    <string name="filedetails_modified">Geändert:</string>
     <string name="filedetails_download">Herunterladen</string>
     <string name="filedetails_sync_file">Synchronisieren</string>
     <string name="filedetails_renamed_in_upload_msg">Datei während des Hochladens in %1$s umbenannt</string>
