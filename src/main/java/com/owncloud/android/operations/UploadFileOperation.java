@@ -608,6 +608,14 @@ public class UploadFileOperation extends SyncOperation {
                 size = new File(mFile.getStoragePath()).length();
             }
 
+            for (OCUpload ocUpload : uploadsStorageManager.getAllStoredUploads()) {
+                if (ocUpload.getUploadId() == getOCUploadId()) {
+                    ocUpload.setFileSize(size);
+                    uploadsStorageManager.updateUpload(ocUpload);
+                    break;
+                }
+            }
+
         boolean metadataExists = false;
             String token = null;
                 
@@ -679,10 +687,11 @@ public class UploadFileOperation extends SyncOperation {
 //            if (result == null || result.isSuccess() && mUploadOperation != null) {
 //                result = mUploadOperation.execute(client);
 
-            /// move local temporal file or original file to its corresponding
-            // location in the Nextcloud local folder
-            if (!result.isSuccess() && result.getHttpCode() == HttpStatus.SC_PRECONDITION_FAILED) {
-                result = new RemoteOperationResult(ResultCode.SYNC_CONFLICT);
+                /// move local temporal file or original file to its corresponding
+                // location in the Nextcloud local folder
+                if (!result.isSuccess() && result.getHttpCode() == HttpStatus.SC_PRECONDITION_FAILED) {
+                    result = new RemoteOperationResult(ResultCode.SYNC_CONFLICT);
+                }
             }
 //            }
 
@@ -781,6 +790,13 @@ public class UploadFileOperation extends SyncOperation {
             getStorageManager().saveConflict(mFile, mFile.getEtagInConflict());
         }
 
+        // TODO
+//        if (result.isSuccess()) {
+//            handleSuccessfulUpload(temporalFile, expectedFile, originalFile, client);
+//        } else if (result.getCode() == ResultCode.SYNC_CONFLICT) {
+//            getStorageManager().saveConflict(mFile, mFile.getEtagInConflict());
+//        }
+
         return result;
     }
 
@@ -796,21 +812,27 @@ public class UploadFileOperation extends SyncOperation {
     }
 
     private RemoteOperationResult checkConditions(File originalFile) {
-        if (Device.getNetworkType(mContext).equals(JobRequest.NetworkType.ANY) ||
-                ConnectivityUtils.isInternetWalled(mContext)) {
-            return new RemoteOperationResult(ResultCode.NO_NETWORK_CONNECTION);
-        }        /// Check that connectivity conditions are met and delays the upload otherwise// TODO verify if this can be deleted
-            if (mOnWifiOnly && !Device.getNetworkType(mContext).equals(JobRequest.NetworkType.UNMETERED)) {
-                Log_OC.d(TAG, "Upload delayed until WiFi is available: " + getRemotePath());
-                return new RemoteOperationResult(ResultCode.DELAYED_FOR_WIFI);
-            }
-
-        // TODO verify if this can be deleted
         // Check if charging conditions are met and delays the upload otherwise
-        if (mWhileChargingOnly && !Device.isCharging(mContext)) {
+        if (mWhileChargingOnly && !Device.getBatteryStatus(mContext).isCharging()) {
             Log_OC.d(TAG, "Upload delayed until the device is charging: " + getRemotePath());
             return new RemoteOperationResult(ResultCode.DELAYED_FOR_CHARGING);
         }
+
+        // Check that device is not in power save mode
+        if (!mIgnoringPowerSaveMode && PowerUtils.isPowerSaveMode(mContext)) {
+            Log_OC.d(TAG, "Upload delayed because device is in power save mode: " + getRemotePath());
+            return new RemoteOperationResult(ResultCode.DELAYED_IN_POWER_SAVE_MODE);
+        }
+
+
+        /// Check that connectivity conditions are met and delays the upload otherwise
+        // TODO verify if this can be deleted
+        if (mOnWifiOnly && !Device.getNetworkType(mContext).equals(JobRequest.NetworkType.UNMETERED)) {
+            Log_OC.d(TAG, "Upload delayed until WiFi is available: " + getRemotePath());
+            return new RemoteOperationResult(ResultCode.DELAYED_FOR_WIFI);
+        }
+
+    
 
         // Check that device is not in power save mode
         if (!mIgnoringPowerSaveMode && UploadUtils.isPowerSaveMode(mContext)) {
@@ -1150,7 +1172,6 @@ public class UploadFileOperation extends SyncOperation {
      * @param client     OwnCloud client
      * @param remotePath remote path of the file
      * @param metadata   metadata of encrypted folder
-     * @param metadata
      * @return new remote path
      */
     private String getAvailableRemotePath(OwnCloudClient client, String remotePath, DecryptedFolderMetadata metadata,
@@ -1199,10 +1220,11 @@ public class UploadFileOperation extends SyncOperation {
 
             return false;
         } else {
-        ExistenceCheckRemoteOperation existsOperation =
-                new ExistenceCheckRemoteOperation(remotePath, mContext, false);
-        RemoteOperationResult result = existsOperation.execute(client);
-        return result.isSuccess();}
+            ExistenceCheckRemoteOperation existsOperation =
+                    new ExistenceCheckRemoteOperation(remotePath, mContext, false);
+            RemoteOperationResult result = existsOperation.execute(client);
+            return result.isSuccess();
+        }
     }
 
     /**
