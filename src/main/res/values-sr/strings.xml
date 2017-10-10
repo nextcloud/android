@@ -269,6 +269,7 @@
     <string name="unfavorite">Склони да буде доступно и ван мреже</string>
     <string name="favorite_real">Постави као омиљено</string>
     <string name="unset_favorite_real">Склони као омиљено</string>
+    <string name="favorite_switch">Досступно ван мреже</string>
     <string name="common_rename">Преименуј</string>
     <string name="common_remove">Уклони</string>
     <string name="confirmation_remove_file_alert">Да ли стварно желите да уклоните %1$s?</string>
@@ -689,4 +690,7 @@
 
     <string name="prefs_sourcecode">Узми изворни кôд</string>
     <string name="prefs_license">Лиценца</string>
-    </resources>
+    <string name="push_notifications_not_implemented">Брза обавештења искључена јер зависе од власничког Google Play сервиса.</string>
+    <string name="push_notifications_old_login">Нема брзих обавештења зато што вам је сесија застарела. Избришите и додајте поново налог.</string>
+    <string name="push_notifications_temp_error">Брза обавештења тренутно нису доступна.</string>
+</resources>

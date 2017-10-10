@@ -269,6 +269,7 @@
     <string name="unfavorite">Zrušit nastavení dostupnosti offline</string>
     <string name="favorite_real">Nastavit jako oblíbené</string>
     <string name="unset_favorite_real">Zrušit jako oblíbené</string>
+    <string name="favorite_switch">Dostupné offline</string>
     <string name="common_rename">Přejmenovat</string>
     <string name="common_remove">Odstranit</string>
     <string name="confirmation_remove_file_alert">Opravdu chcete odstranit %1$s?</string>
@@ -574,6 +575,7 @@
     <string name="synced_folders_no_results">Nebyly nalezeny žádné adresáře médií.</string>
     <string name="synced_folders_preferences">Nastavení automatického nahrávání</string>
     <string name="synced_folders_settings">Nastavení</string>
+    <string name="synced_folders_new_info">Okamžité nahrání bylo kompletně upraveno. Znovu nakonfigurujte automatické nahrávání z hlavní nabídky.\n\nUžijte si nové a rozšířené automatické nahrávání.</string>
     <string name="synced_folders_preferences_folder_path">Pro %1$s</string>
     <plurals name="items_selected_count">
         <item quantity="one">vybráno %d</item>
@@ -612,7 +614,18 @@
     <string name="welcome_feature_3_title">Automatické nahrávání</string>
     <string name="welcome_feature_3_text">Již se neobávjte o své fotografie</string>
 
+    <string name="whats_new_auto_upload_title">Zlepšené automatické nahrávání</string>
+    <string name="whats_new_auto_upload_content">\u2022 pro všechny verze systému Android\n\u2022 méně spotřeby baterie\n\u2022 spolehlivější, ale ne okamžitá\n\u2022 separace obrázků &amp; videa</string>
+
+    <string name="whats_new_search_title">Vyhledávání na straně serveru</string>
+    <string name="whats_new_search_content">\u2022 Neplatí pouze v aktuální složce\n\u2022 Vrátí výsledky z úplného serveru\n\u2022 Přímo otevřít soubory/složky\n\u2022 Podporováno v NC12 a výše</string>
+
     <string name="whats_new_theming_title">Podpora motivů</string>
+    <string name="whats_new_theming_content">Je-li povoleno na serveru, aplikace zobrazí\n\u2022 pozadí obrázku\n\u2022 název serveru\n\u2022 použije barvu k odlišení účtů</string>
+
+    <string name="whats_new_notification_title">Podpora oznámení </string>
+    <string name="whats_new_notification_content">Získání oznámení, jako \n\u2022 nové vzdálené sdílení \n\u2022 uvedeno v komentáři \n\u2022 oznámení admina</string>
+
     <string name="whats_new_skip">Přeskočit</string>
 
     <string name="fingerprint_scan_finger">Prosím, naskenujte svůj otisk prstu</string>
@@ -627,6 +640,8 @@
     <string name="user_info_twitter">Twitter</string>
 
     <string name="user_information_description">Uživatelské informace</string>
+    <string name="user_information_retrieval_error">Chyba při příjmu informace od uživatele</string>
+
     <!-- Activities -->
     <string name="activities_no_results_headline">Zatím žádná aktivita</string>
     <string name="activities_no_results_message">Datový proud bude zobrazovat události jako přidání, změny a sdílení</string>
@@ -658,12 +673,24 @@
     <string name="privacy">Soukromí</string>
     <string name="file_not_found">Soubor nenalezen!</string>
 
+    <!-- Auto upload -->
+    <string name="autoupload_custom_folder">Vytvořte vlastní složku</string>
+    <string name="autoupload_create_new_custom_folder">Vytvořte nové nastavení vlastní složky</string>
     <string name="synced_folders_configure_folders">Nastavení adresářů</string>
 
     <string name="test_server_button">Otestovat připojení k serveru</string>
+    <string name="resharing_is_not_allowed">Opětovné sdílení není povoleno</string>
     <string name="whats_new_fingerprint_title">Odemknout pomocí prstu</string>
     <string name="whats_new_fingerprint_content">Použijte Váš prst pro odemknutí aplikace</string>
     <string name="fallback_weblogin_back">ZPÁTKY</string>
+    <string name="fallback_weblogin_text">Zpět na starou metodu přihlášení</string>
+
+    <string name="foreground_service_upload">Nahrávání souborů&#8230;</string>
+    <string name="foreground_service_download">Stažení souborů&#8230;</string>
+
     <string name="prefs_sourcecode">Získat zdrojový kód</string>
     <string name="prefs_license">Licence</string>
-    </resources>
+    <string name="push_notifications_not_implemented">Push oznámení zakázáno kvůli závislostem na proprietárních službách Google Play.</string>
+    <string name="push_notifications_old_login">Žádné push oznámení kvůli zastaralé relaci přihlášení. Zvažte opětovné přidání účtu.</string>
+    <string name="push_notifications_temp_error">Push oznámení není momentálně k dispozici.</string>
+</resources>
