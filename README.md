@@ -21,7 +21,7 @@ If you want to [contribute](https://nextcloud.com/contribute/), you are very wel
 
 Please read the [Code of Conduct](https://nextcloud.com/community/code-of-conduct/). This document offers some guidance to ensure Nextcloud participants can cooperate effectively in a positive and inspiring atmosphere, and to explain how together we can strengthen and support each other.
 
-if you want to join the Github organization just let us know and we’ll add you! :)
+If you want to join the Github organization just let us know and we’ll add you! :)
 
 *This is by the community, for the community. Everyone is welcome! :)*
 
@@ -29,15 +29,15 @@ if you want to join the Github organization just let us know and we’ll add you
 Make sure you read [SETUP.md](https://github.com/nextcloud/android/blob/master/SETUP.md) and [CONTRIBUTING.md](https://github.com/nextcloud/android/blob/master/CONTRIBUTING.md) when you start working on this project. Basically: Fork this repository and contribute back using pull requests to the master branch.
 Easy starting points are also reviewing [pull requests](https://github.com/nextcloud/android/pulls) and working on [starter issue](https://github.com/nextcloud/android/issues?q=is%3Aopen+is%3Aissue+label%3A%22starter+issue%22).
 
-### Get debug infos via logcat
-#### With computer
-- connect device via usb
+### Get debug info via logcat
+#### With a computer
+- connect device via USB
 - open command prompt/terminal
 - adb logcat > logcatOutput.txt to save the output to this file
 
 **Note:** you must have [adb](https://developer.android.com/studio/releases/platform-tools.html) installed first
 
-#### On device (with root)
+#### On the device (with root)
 - open terminal app (can be enabled in developer options)
 - get root access via "su"
 - enter "logcat -d -f /sdcard/logcatOutput.txt"
