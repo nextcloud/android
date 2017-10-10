@@ -120,7 +120,7 @@ public class DocumentsStorageProvider extends DocumentsProvider {
         }
 
         return ParcelFileDescriptor.open(
-                new File(file.getStoragePath()), ParcelFileDescriptor.MODE_READ_ONLY);
+                new File(file.getStoragePath()), ParcelFileDescriptor.parseMode(mode));
     }
 
     @Override

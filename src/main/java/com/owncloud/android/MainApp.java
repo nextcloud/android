@@ -31,6 +31,7 @@ import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.StrictMode;
 import android.support.multidex.MultiDexApplication;
 import android.support.v4.util.Pair;
 import android.support.v7.app.AlertDialog;
@@ -57,6 +58,7 @@ import com.owncloud.android.utils.FilesSyncHelper;
 import com.owncloud.android.utils.PermissionUtil;
 import com.owncloud.android.utils.ReceiversHelper;
 
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -125,6 +127,15 @@ public class MainApp extends MultiDexApplication {
             // use app writable dir, no permissions needed
             Log_OC.startLogging(getAppContext());
             Log_OC.d("Debug", "start logging");
+        }
+
+        if(Build.VERSION.SDK_INT >= 24){
+            try {
+                Method m = StrictMode.class.getMethod("disableDeathOnFileUriExposure");
+                m.invoke(null);
+            } catch(Exception e){
+                e.printStackTrace();
+            }
         }
 
         initAutoUpload();
