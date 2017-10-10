@@ -24,7 +24,7 @@ Please read the [Code of Conduct](https://nextcloud.com/community/code-of-conduc
 
 If you want to join the Github organization team, just let us know and we’ll add you! :)
 
-*This is by the community, for the community. Everyone is welcome! 🤗*
+*This is by the community, for the community. Everyone is welcome!* 🤗
 
 ## Start contributing
 Make sure you read [SETUP.md](https://github.com/nextcloud/android/blob/master/SETUP.md) and [CONTRIBUTING.md](https://github.com/nextcloud/android/blob/master/CONTRIBUTING.md) before you start working on this project. But basically: fork this repository and contribute back using pull requests to the master branch.
