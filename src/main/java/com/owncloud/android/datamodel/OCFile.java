@@ -26,12 +26,9 @@ package com.owncloud.android.datamodel;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.support.v4.content.FileProvider;
 
-import com.owncloud.android.R;
 import com.owncloud.android.lib.common.network.WebdavUtils;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.utils.MimeType;
@@ -278,12 +275,15 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
         return mLocalUri;
     }
 
+    /*
+        Partly disabled because not all apps understand paths that we get via this method for now
+     */
     public Uri getExposedFileUri(Context context) {
         if (mLocalPath == null || mLocalPath.length() == 0) {
             return null;
         }
         if (mExposedFileUri == null) {
-            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
+            /*if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
                 // TODO - use FileProvider with any Android version, with deeper testing -> 2.2.0
                 mExposedFileUri = Uri.parse(
                         ContentResolver.SCHEME_FILE + "://" + WebdavUtils.encodePath(mLocalPath)
@@ -300,7 +300,10 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
                     Log_OC.e(TAG, "File can't be exported");
                 }
             }
+        }*/
+            return Uri.parse(ContentResolver.SCHEME_FILE + "://" + WebdavUtils.encodePath(mLocalPath));
         }
+        
         return mExposedFileUri;
     }
 
