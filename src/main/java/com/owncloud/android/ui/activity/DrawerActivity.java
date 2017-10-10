@@ -1,8 +1,10 @@
-/**
+/*
  * Nextcloud Android client application
  *
  * @author Andy Scherzinger
+ * @author Tobias Kaminsky
  * Copyright (C) 2016 Andy Scherzinger
+ * Copyright (C) 2017 Tobias Kaminsky
  * Copyright (C) 2016 Nextcloud
  * Copyright (C) 2016 ownCloud Inc.
  *
@@ -488,17 +490,19 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
                 switchToSearchFragment(new SearchEvent("video/%", SearchOperation.SearchType.CONTENT_TYPE_SEARCH,
                         SearchEvent.UnsetType.UNSET_BOTTOM_NAV_BAR), menuItem);
                 break;
-            case MENU_ITEM_EXTERNAL_LINK:
-                // external link clicked
-                externalLinkClicked(menuItem);
-                break;
             case Menu.NONE:
                 // account clicked
                 accountClicked(menuItem.getTitle().toString());
                 break;
             default:
-                Log_OC.i(TAG, "Unknown drawer menu item clicked: " + menuItem.getTitle());
                 break;
+        }
+
+        if (menuItem.getItemId() >= MENU_ITEM_EXTERNAL_LINK && menuItem.getItemId() <= MENU_ITEM_EXTERNAL_LINK + 100) {
+            // external link clicked
+            externalLinkClicked(menuItem);
+        } else {
+            Log_OC.i(TAG, "Unknown drawer menu item clicked: " + menuItem.getTitle());
         }
     }
 
@@ -1006,9 +1010,9 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
             int greyColor = getResources().getColor(R.color.standard_grey);
 
             for (final ExternalLink link : externalLinksProvider.getExternalLink(ExternalLinkType.LINK)) {
-
-                int id = mNavigationView.getMenu().add(R.id.drawer_menu_external_links, MENU_ITEM_EXTERNAL_LINK,
-                        MENU_ORDER_EXTERNAL_LINKS, link.name).setCheckable(true).getItemId();
+                int id = mNavigationView.getMenu().add(R.id.drawer_menu_external_links,
+                        MENU_ITEM_EXTERNAL_LINK + link.id, MENU_ORDER_EXTERNAL_LINKS, link.name)
+                        .setCheckable(true).getItemId();
 
                 MenuSimpleTarget target = new MenuSimpleTarget<Drawable>(id) {
                     @Override
@@ -1347,6 +1351,8 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
                                 for (ExternalLink link : externalLinks) {
                                     externalLinksProvider.storeExternalLink(link);
                                 }
+
+                                updateExternalLinksInDrawer();
                             }
                         } else {
                             sharedPreferences.edit().putInt(EXTERNAL_LINKS_COUNT, count + 1).apply();
