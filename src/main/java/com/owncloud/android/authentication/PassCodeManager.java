@@ -32,6 +32,8 @@ import com.owncloud.android.MainApp;
 import com.owncloud.android.ui.activity.FingerprintActivity;
 import com.owncloud.android.ui.activity.PassCodeActivity;
 import com.owncloud.android.ui.activity.Preferences;
+import com.owncloud.android.ui.activity.RequestCredentialsActivity;
+import com.owncloud.android.utils.DeviceCredentialUtils;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -44,6 +46,7 @@ public class PassCodeManager {
         exemptOfPasscodeActivities = new HashSet<>();
         exemptOfPasscodeActivities.add(PassCodeActivity.class);
         exemptOfPasscodeActivities.add(FingerprintActivity.class);
+        sExemptOfPasscodeActivites.add(RequestCredentialsActivity.class);
         // other activities may be exempted, if needed
     }
 
@@ -91,6 +94,14 @@ public class PassCodeManager {
             activity.startActivity(i);
         }
 
+        if (!sExemptOfPasscodeActivites.contains(activity.getClass()) && Build.VERSION.SDK_INT >=
+                Build.VERSION_CODES.M && deviceCredentialsShouldBeRequested() &&
+                !DeviceCredentialUtils.tryEncrypt()) {
+            Intent i = new Intent(MainApp.getAppContext(), RequestCredentialsActivity.class);
+            i.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+            activity.startActivity(i);
+        }
+
         visibleActivitiesCounter++;    // keep it AFTER passCodeShouldBeRequested was checked
     }
 
@@ -130,5 +141,11 @@ public class PassCodeManager {
         SharedPreferences appPrefs = PreferenceManager.getDefaultSharedPreferences(MainApp.getAppContext());
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.M &&
                 appPrefs.getBoolean(Preferences.PREFERENCE_USE_FINGERPRINT, false);
+    }
+
+    private boolean deviceCredentialsShouldBeRequested() {
+        SharedPreferences appPrefs = PreferenceManager
+                .getDefaultSharedPreferences(MainApp.getAppContext());
+        return (appPrefs.getBoolean(Preferences.PREFERENCE_USE_DEVICE_CREDENTIALS, false));
     }
 }

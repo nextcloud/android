@@ -91,6 +91,7 @@
     <!-- Help, imprint and feedback, and other things -->
     <bool name="fingerprint_enabled">true</bool>
     <bool name="passcode_enabled">true</bool>
+    <bool name="device_credentials">true</bool>
     <bool name="show_hidden_files_enabled">true</bool>
     <bool name="davdroid_integration_enabled">true</bool>
     <bool name="help_enabled">true</bool>

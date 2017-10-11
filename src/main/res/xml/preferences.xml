@@ -46,6 +46,9 @@
 			android:title="@string/prefs_fingerprint"
 			android:key="use_fingerprint"/>
 		<com.owncloud.android.ui.ThemeableSwitchPreference
+			android:title="@string/prefs_use_device_credentials"
+			android:key="use_device_credentials"/>
+		<com.owncloud.android.ui.ThemeableSwitchPreference
 			android:title="@string/prefs_show_hidden_files"
 			android:key="show_hidden_files"/>
 		<com.owncloud.android.ui.ThemeableSwitchPreference
