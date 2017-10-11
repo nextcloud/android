@@ -93,6 +93,9 @@ public class Preferences extends PreferenceActivity
     public static final String LOCK_DEVICE_CREDENTIALS = "device_credentials";
 
     public final static String PREFERENCE_USE_FINGERPRINT = "use_fingerprint";
+
+    public final static String PREFERENCE_USE_DEVICE_CREDENTIALS= "use_device_credentials";
+
     public static final String PREFERENCE_EXPERT_MODE = "expert_mode";
 
     private static final int ACTION_REQUEST_PASSCODE = 5;
@@ -519,6 +522,8 @@ public class Preferences extends PreferenceActivity
         boolean fSyncedFolderLightEnabled = getResources().getBoolean(R.bool.syncedFolder_light);
 
         setupLockPreference(preferenceCategoryDetails, fPassCodeEnabled, fDeviceCredentialsEnabled);
+
+        setupDeviceCredentialsPreference(preferenceCategoryDetails, fDeviceCredentialsEnabled);
 
         setupHiddenFilesPreference(preferenceCategoryDetails, fShowHiddenFilesEnabled);
 

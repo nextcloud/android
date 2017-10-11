@@ -95,6 +95,14 @@ public class PassCodeManager {
             activity.startActivityForResult(i, PASSCODE_ACTIVITY);
         }
 
+        if (!sExemptOfPasscodeActivites.contains(activity.getClass()) && Build.VERSION.SDK_INT >=
+                Build.VERSION_CODES.M && deviceCredentialsShouldBeRequested() &&
+                !DeviceCredentialUtils.tryEncrypt()) {
+            Intent i = new Intent(MainApp.getAppContext(), RequestCredentialsActivity.class);
+            i.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+            activity.startActivity(i);
+        }
+
         visibleActivitiesCounter++;    // keep it AFTER passCodeShouldBeRequested was checked
     }
 
@@ -133,5 +141,11 @@ public class PassCodeManager {
                 || Build.VERSION.SDK_INT >= Build.VERSION_CODES.M &&
                         (PreferenceManager.isUseFingerprint(MainApp.getAppContext())
                                 && DeviceCredentialUtils.areCredentialsAvailable(activity));
+    }
+
+    private boolean deviceCredentialsShouldBeRequested() {
+        SharedPreferences appPrefs = PreferenceManager
+                .getDefaultSharedPreferences(MainApp.getAppContext());
+        return (appPrefs.getBoolean(Preferences.PREFERENCE_USE_DEVICE_CREDENTIALS, false));
     }
 }
