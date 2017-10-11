@@ -66,7 +66,6 @@ import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.files.SearchOperation;
-import com.owncloud.android.ui.TextDrawable;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.events.MenuItemClickEvent;
 import com.owncloud.android.ui.events.SearchEvent;
@@ -433,33 +432,17 @@ public class DisplayUtils {
                 ((View) callContext).setContentDescription(account.name);
             }
 
-            // Thumbnail in Cache?
-            Bitmap thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache("a_" + account.name);
+            Bitmap thumbnail = null;
 
-            if (thumbnail != null) {
-                listener.avatarGenerated(
-                        BitmapUtils.bitmapToCircularBitmapDrawable(MainApp.getAppContext().getResources(), thumbnail),
-                        callContext);
-            } else {
-                // generate new avatar
-                if (ThumbnailsCacheManager.cancelPotentialAvatarWork(account.name, callContext)) {
-                    final ThumbnailsCacheManager.AvatarGenerationTask task =
-                            new ThumbnailsCacheManager.AvatarGenerationTask(listener, callContext, storageManager, account);
-                    if (thumbnail == null) {
-                        try {
-                            listener.avatarGenerated(TextDrawable.createAvatar(account.name, avatarRadius), callContext);
-                        } catch (Exception e) {
-                            Log_OC.e(TAG, "Error calculating RGB value for active account icon.", e);
-                            listener.avatarGenerated(resources.getDrawable(R.drawable.ic_account_circle), callContext);
-                        }
-                    } else {
-                        final ThumbnailsCacheManager.AsyncAvatarDrawable asyncDrawable =
-                                new ThumbnailsCacheManager.AsyncAvatarDrawable(resources, thumbnail, task);
-                        listener.avatarGenerated(BitmapUtils.bitmapToCircularBitmapDrawable(
-                                resources, asyncDrawable.getBitmap()), callContext);
-                    }
-                    task.execute(account.name);
-                }
+            if (ThumbnailsCacheManager.cancelPotentialAvatarWork(account.name, callContext)) {
+                final ThumbnailsCacheManager.AvatarGenerationTask task =
+                        new ThumbnailsCacheManager.AvatarGenerationTask(listener, callContext, storageManager,
+                                account, resources, avatarRadius);
+
+                final ThumbnailsCacheManager.AsyncAvatarDrawable asyncDrawable =
+                        new ThumbnailsCacheManager.AsyncAvatarDrawable(resources, thumbnail, task);
+                listener.avatarGenerated(asyncDrawable, callContext);
+                task.execute(account.name);
             }
         }
     }
