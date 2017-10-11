@@ -26,7 +26,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.support.v4.view.ViewPager;
@@ -34,7 +33,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.WindowManager;
 
 import com.ortiz.touch.ExtendedViewPager;
 import com.owncloud.android.MainApp;
