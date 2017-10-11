@@ -901,18 +901,19 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
                                 type = VirtualFolderType.NONE;
                                 break;
                         }
-                        ((FileDisplayActivity) mContainerActivity).startImagePreview(file, type);
+                        ((FileDisplayActivity) mContainerActivity).startImagePreview(file, type, false);
                     } else {
-                        ((FileDisplayActivity) mContainerActivity).startImagePreview(file);
+                        ((FileDisplayActivity) mContainerActivity).startImagePreview(file, false);
                     }
                 } else if (file.isDown() && MimeTypeUtil.isVCard(file)) {
                     ((FileDisplayActivity) mContainerActivity).startContactListFragment(file);
                 } else if (PreviewTextFragment.canBePreviewed(file)) {
-                    ((FileDisplayActivity) mContainerActivity).startTextPreview(file);
+                    ((FileDisplayActivity) mContainerActivity).startTextPreview(file, false);
                 } else if (file.isDown()) {
                     if (PreviewMediaFragment.canBePreviewed(file)) {
                         // media preview
-                        ((FileDisplayActivity) mContainerActivity).startMediaPreview(file, 0, true);
+                        ((FileDisplayActivity) mContainerActivity).startMediaPreview(file, 0,
+                                true, false);
                     } else {
                         mContainerActivity.getFileOperationsHelper().openFile(file);
                     }
