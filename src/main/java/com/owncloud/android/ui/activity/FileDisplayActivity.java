@@ -87,6 +87,7 @@ import com.owncloud.android.operations.UploadFileOperation;
 import com.owncloud.android.services.observer.FileObserverService;
 import com.owncloud.android.syncadapter.FileSyncAdapter;
 import com.owncloud.android.ui.dialog.SortingOrderDialogFragment;
+import com.owncloud.android.ui.events.SyncEventFinished;
 import com.owncloud.android.ui.events.TokenPushEvent;
 import com.owncloud.android.ui.fragment.ExtendedListFragment;
 import com.owncloud.android.ui.fragment.FileDetailFragment;
@@ -94,6 +95,7 @@ import com.owncloud.android.ui.fragment.FileFragment;
 import com.owncloud.android.ui.fragment.OCFileListFragment;
 import com.owncloud.android.ui.fragment.TaskRetainerFragment;
 import com.owncloud.android.ui.fragment.contactsbackup.ContactListFragment;
+import com.owncloud.android.ui.helpers.FileOperationsHelper;
 import com.owncloud.android.ui.helpers.UriUploader;
 import com.owncloud.android.ui.preview.PreviewImageActivity;
 import com.owncloud.android.ui.preview.PreviewImageFragment;
@@ -159,6 +161,8 @@ public class FileDisplayActivity extends HookActivity
 
     private static final String TAG_LIST_OF_FILES = "LIST_OF_FILES";
     public static final String TAG_SECOND_FRAGMENT = "SECOND_FRAGMENT";
+
+    public static final String TEXT_PREVIEW = "TEXT_PREVIEW";
 
     private OCFile mWaitingToPreview;
 
@@ -465,7 +469,7 @@ public class FileDisplayActivity extends HookActivity
                 if (file.isDown() && MimeTypeUtil.isVCard(file.getMimetype())) {
                     startContactListFragment(file);
                 } else if (file.isDown() && PreviewTextFragment.canBePreviewed(file)) {
-                    startTextPreview(file);
+                    startTextPreview(file, false);
                 }
             }
 
@@ -630,13 +634,13 @@ public class FileDisplayActivity extends HookActivity
                                 mWaitingToPreview.getFileId());   // update the file from database,
                         // for the local storage path
                         if (PreviewMediaFragment.canBePreviewed(mWaitingToPreview)) {
-                            startMediaPreview(mWaitingToPreview, 0, true);
+                            startMediaPreview(mWaitingToPreview, 0, true, true);
                             detailsFragmentChanged = true;
                         } else if (MimeTypeUtil.isVCard(mWaitingToPreview.getMimetype())) {
                             startContactListFragment(mWaitingToPreview);
                             detailsFragmentChanged = true;
                         } else if (PreviewTextFragment.canBePreviewed(mWaitingToPreview)) {
-                            startTextPreview(mWaitingToPreview);
+                            startTextPreview(mWaitingToPreview, true);
                             detailsFragmentChanged = true;
                         } else {
                             getFileOperationsHelper().openFile(mWaitingToPreview);
@@ -1043,7 +1047,7 @@ public class FileDisplayActivity extends HookActivity
             if ((getIntent().getAction() != null && getIntent().getAction().equalsIgnoreCase(ACTION_DETAILS)) && !mDualPane) {
                 getIntent().setAction(null);
                 getIntent().putExtra(EXTRA_FILE, (OCFile) null);
-                startImagePreview(getFile());
+                startImagePreview(getFile(), false);
             }
 
             OCFileListFragment listOfFiles = getListOfFilesFragment();
@@ -1381,9 +1385,9 @@ public class FileDisplayActivity extends HookActivity
                     if (uploadWasFine) {
                         OCFile ocFile = getFile();
                         if (PreviewImageFragment.canBePreviewed(ocFile)) {
-                            startImagePreview(getFile());
+                            startImagePreview(getFile(), true);
                         } else if (PreviewTextFragment.canBePreviewed(ocFile)) {
-                            startTextPreview(ocFile);
+                            startTextPreview(ocFile, true);
                         }
                         // TODO what about other kind of previews?
                     }
@@ -1804,7 +1808,7 @@ public class FileDisplayActivity extends HookActivity
                     ((PreviewMediaFragment) details).updateFile(renamedFile);
                     if (PreviewMediaFragment.canBePreviewed(renamedFile)) {
                         int position = ((PreviewMediaFragment) details).getPosition();
-                        startMediaPreview(renamedFile, position, true);
+                        startMediaPreview(renamedFile, position, true, true);
                     } else {
                         getFileOperationsHelper().openFile(renamedFile);
                     }
@@ -1812,7 +1816,7 @@ public class FileDisplayActivity extends HookActivity
                         renamedFile.equals(details.getFile())) {
                     ((PreviewTextFragment) details).updateFile(renamedFile);
                     if (PreviewTextFragment.canBePreviewed(renamedFile)) {
-                        startTextPreview(renamedFile);
+                        startTextPreview(renamedFile, true);
                     } else {
                         getFileOperationsHelper().openFile(renamedFile);
                     }
@@ -2007,11 +2011,16 @@ public class FileDisplayActivity extends HookActivity
      *
      * @param file Image {@link OCFile} to show.
      */
-    public void startImagePreview(OCFile file) {
+    public void startImagePreview(OCFile file, boolean showPreview) {
         Intent showDetailsIntent = new Intent(this, PreviewImageActivity.class);
         showDetailsIntent.putExtra(EXTRA_FILE, file);
         showDetailsIntent.putExtra(EXTRA_ACCOUNT, getAccount());
-        startActivity(showDetailsIntent);
+        if (showPreview && file.isDown() && !file.isDownloading()) {
+            startActivity(showDetailsIntent);
+        } else {
+            FileOperationsHelper fileOperationsHelper = new FileOperationsHelper(this);
+            fileOperationsHelper.startSyncForFileAndIntent(file, showDetailsIntent);
+        }
     }
 
     /**
@@ -2019,13 +2028,18 @@ public class FileDisplayActivity extends HookActivity
      *
      * @param file Image {@link OCFile} to show.
      */
-    public void startImagePreview(OCFile file, VirtualFolderType type) {
+    public void startImagePreview(OCFile file, VirtualFolderType type, boolean showPreview) {
         Intent showDetailsIntent = new Intent(this, PreviewImageActivity.class);
         showDetailsIntent.putExtra(PreviewImageActivity.EXTRA_FILE, file);
         showDetailsIntent.putExtra(EXTRA_ACCOUNT, getAccount());
         showDetailsIntent.putExtra(PreviewImageActivity.EXTRA_VIRTUAL_TYPE, type);
-        startActivity(showDetailsIntent);
 
+        if (showPreview && file.isDown() && !file.isDownloading()) {
+            startActivity(showDetailsIntent);
+        } else {
+            FileOperationsHelper fileOperationsHelper = new FileOperationsHelper(this);
+            fileOperationsHelper.startSyncForFileAndIntent(file, showDetailsIntent);
+        }
     }
 
     /**
@@ -2037,12 +2051,21 @@ public class FileDisplayActivity extends HookActivity
      * @param autoplay              When 'true', the playback will start without user
      *                              interactions.
      */
-    public void startMediaPreview(OCFile file, int startPlaybackPosition, boolean autoplay) {
-        Fragment mediaFragment = PreviewMediaFragment.newInstance(file, getAccount(), startPlaybackPosition, autoplay);
-        setSecondFragment(mediaFragment);
-        updateFragmentsVisibility(true);
-        updateActionBarTitleAndHomeButton(file);
-        setFile(file);
+    public void startMediaPreview(OCFile file, int startPlaybackPosition, boolean autoplay, boolean showPreview) {
+        if (showPreview && file.isDown() && !file.isDownloading()) {
+            Fragment mediaFragment = PreviewMediaFragment.newInstance(file, getAccount(), startPlaybackPosition, autoplay);
+            setSecondFragment(mediaFragment);
+            updateFragmentsVisibility(true);
+            updateActionBarTitleAndHomeButton(file);
+            setFile(file);
+        } else {
+            Intent previewIntent = new Intent();
+            previewIntent.putExtra(EXTRA_FILE, file);
+            previewIntent.putExtra(PreviewVideoActivity.EXTRA_START_POSITION, startPlaybackPosition);
+            previewIntent.putExtra(PreviewVideoActivity.EXTRA_AUTOPLAY, autoplay);
+            FileOperationsHelper fileOperationsHelper = new FileOperationsHelper(this);
+            fileOperationsHelper.startSyncForFileAndIntent(file, previewIntent);
+        }
     }
 
     /**
@@ -2050,16 +2073,24 @@ public class FileDisplayActivity extends HookActivity
      *
      * @param file Text {@link OCFile} to preview.
      */
-    public void startTextPreview(OCFile file) {
-        Bundle args = new Bundle();
-        args.putParcelable(EXTRA_FILE, file);
-        args.putParcelable(EXTRA_ACCOUNT, getAccount());
-        Fragment textPreviewFragment = Fragment.instantiate(getApplicationContext(),
-                PreviewTextFragment.class.getName(), args);
-        setSecondFragment(textPreviewFragment);
-        updateFragmentsVisibility(true);
-        updateActionBarTitleAndHomeButton(file);
-        setFile(file);
+    public void startTextPreview(OCFile file, boolean showPreview) {
+        if (showPreview && file.isDown() && !file.isDownloading()) {
+            Bundle args = new Bundle();
+            args.putParcelable(EXTRA_FILE, file);
+            args.putParcelable(EXTRA_ACCOUNT, getAccount());
+            Fragment textPreviewFragment = Fragment.instantiate(getApplicationContext(),
+                    PreviewTextFragment.class.getName(), args);
+            setSecondFragment(textPreviewFragment);
+            updateFragmentsVisibility(true);
+            updateActionBarTitleAndHomeButton(file);
+            setFile(file);
+        } else {
+            Intent previewIntent = new Intent();
+            previewIntent.putExtra(EXTRA_FILE, file);
+            previewIntent.putExtra(TEXT_PREVIEW, true);
+            FileOperationsHelper fileOperationsHelper = new FileOperationsHelper(this);
+            fileOperationsHelper.startSyncForFileAndIntent(file, previewIntent);
+        }
     }
 
     public void startContactListFragment(OCFile file) {
@@ -2162,6 +2193,24 @@ public class FileDisplayActivity extends HookActivity
     public void showFiles(boolean onDeviceOnly) {
         super.showFiles(onDeviceOnly);
         getListOfFilesFragment().refreshDirectory();
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(SyncEventFinished event) {
+        Bundle bundle = event.getIntent().getExtras();
+        if (event.getIntent().getBooleanExtra(TEXT_PREVIEW, false)) {
+            startTextPreview((OCFile) bundle.get(EXTRA_FILE), true);
+        } else if (bundle.containsKey(PreviewVideoActivity.EXTRA_START_POSITION)) {
+            startMediaPreview((OCFile)bundle.get(EXTRA_FILE),
+                    (int)bundle.get(PreviewVideoActivity.EXTRA_START_POSITION),
+                    (boolean)bundle.get(PreviewVideoActivity.EXTRA_AUTOPLAY), true);
+        } else if (bundle.containsKey(PreviewImageActivity.EXTRA_VIRTUAL_TYPE)) {
+            startImagePreview((OCFile)bundle.get(EXTRA_FILE),
+                    (VirtualFolderType)bundle.get(PreviewImageActivity.EXTRA_VIRTUAL_TYPE),
+                    true);
+        } else {
+            startImagePreview((OCFile)bundle.get(EXTRA_FILE),true);
+        }
     }
 
     @Subscribe(threadMode = ThreadMode.BACKGROUND)

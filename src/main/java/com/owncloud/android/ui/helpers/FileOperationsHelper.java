@@ -37,18 +37,24 @@ import android.widget.Toast;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
+import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
+import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.lib.resources.shares.ShareType;
 import com.owncloud.android.lib.resources.status.OwnCloudVersion;
+import com.owncloud.android.operations.SynchronizeFileOperation;
 import com.owncloud.android.services.OperationsService;
 import com.owncloud.android.services.observer.FileObserverService;
+import com.owncloud.android.ui.activity.ConflictsResolveActivity;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.ShareActivity;
 import com.owncloud.android.ui.events.FavoriteEvent;
+import com.owncloud.android.ui.events.SyncEventFinished;
+import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.DisplayUtils;
 
 import org.greenrobot.eventbus.EventBus;
@@ -70,14 +76,11 @@ import java.util.regex.Pattern;
 public class FileOperationsHelper {
 
     private static final String TAG = FileOperationsHelper.class.getSimpleName();
-
-    private FileActivity mFileActivity = null;
-
-    /// Identifier of operation in progress which result shouldn't be lost 
-    private long mWaitingForOpId = Long.MAX_VALUE;
-
     private static final Pattern mPatternUrl = Pattern.compile("^URL=(.+)$");
     private static final Pattern mPatternString = Pattern.compile("<string>(.+)</string>");
+    private FileActivity mFileActivity = null;
+    /// Identifier of operation in progress which result shouldn't be lost
+    private long mWaitingForOpId = Long.MAX_VALUE;
 
     public FileOperationsHelper(FileActivity fileActivity) {
         mFileActivity = fileActivity;
@@ -144,6 +147,35 @@ public class FileOperationsHelper {
         return new Intent(Intent.ACTION_VIEW, Uri.parse(url));
     }
 
+
+    public void startSyncForFileAndIntent(OCFile file, Intent intent) {
+        mFileActivity.showLoadingDialog(mFileActivity.getResources().getString(R.string.sync_in_progress));
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Account account = AccountUtils.getCurrentOwnCloudAccount(mFileActivity);
+                FileDataStorageManager storageManager =
+                        new FileDataStorageManager(account, mFileActivity.getContentResolver());
+                SynchronizeFileOperation sfo =
+                        new SynchronizeFileOperation(file, null, account, true, mFileActivity);
+                RemoteOperationResult result = sfo.execute(storageManager, mFileActivity);
+                if (result.getCode() == RemoteOperationResult.ResultCode.SYNC_CONFLICT) {
+                    // ISSUE 5: if the user is not running the app (this is a service!),
+                    // this can be very intrusive; a notification should be preferred
+                    Intent i = new Intent(mFileActivity, ConflictsResolveActivity.class);
+                    i.setFlags(i.getFlags() | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    i.putExtra(ConflictsResolveActivity.EXTRA_FILE, file);
+                    i.putExtra(ConflictsResolveActivity.EXTRA_ACCOUNT, account);
+                    mFileActivity.startActivity(i);
+                } else {
+                    FileStorageUtils.checkIfFileFinishedSaving(file);
+                    EventBus.getDefault().post(new SyncEventFinished(intent));
+                }
+                mFileActivity.dismissLoadingDialog();
+            }
+        }).start();
+
+    }
     public void openFile(OCFile file) {
         if (file != null) {
             String storagePath = file.getStoragePath();
@@ -179,15 +211,48 @@ public class FileOperationsHelper {
             List<ResolveInfo> launchables = mFileActivity.getPackageManager().
                     queryIntentActivities(openFileWithIntent, PackageManager.GET_RESOLVED_FILTER);
 
-            if (launchables != null && launchables.size() > 0) {
-                try {
-                    mFileActivity.startActivity(openFileWithIntent);
-                } catch (ActivityNotFoundException anfe) {
-                    DisplayUtils.showSnackMessage(mFileActivity, R.string.file_list_no_app_for_file_type);
+            mFileActivity.showLoadingDialog(mFileActivity.getResources().getString(R.string.sync_in_progress));
+            Intent finalOpenFileWithIntent = openFileWithIntent;
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    Account account = AccountUtils.getCurrentOwnCloudAccount(mFileActivity);
+                    FileDataStorageManager storageManager =
+                            new FileDataStorageManager(account, mFileActivity.getContentResolver());
+                    // a fresh object is needed; many things could have occurred to the file
+                    // since it was registered to observe again, assuming that local files
+                    // are linked to a remote file AT MOST, SOMETHING TO BE DONE;
+                    SynchronizeFileOperation sfo =
+                            new SynchronizeFileOperation(file, null, account, true, mFileActivity);
+                    RemoteOperationResult result = sfo.execute(storageManager, mFileActivity);
+                    mFileActivity.dismissLoadingDialog();
+                    if (result.getCode() == RemoteOperationResult.ResultCode.SYNC_CONFLICT) {
+                        // ISSUE 5: if the user is not running the app (this is a service!),
+                        // this can be very intrusive; a notification should be preferred
+                        Intent i = new Intent(mFileActivity, ConflictsResolveActivity.class);
+                        i.setFlags(i.getFlags() | Intent.FLAG_ACTIVITY_NEW_TASK);
+                        i.putExtra(ConflictsResolveActivity.EXTRA_FILE, file);
+                        i.putExtra(ConflictsResolveActivity.EXTRA_ACCOUNT, account);
+                        mFileActivity.startActivity(i);
+                    } else {
+                        if (launchables != null && launchables.size() > 0) {
+                            try {
+                                mFileActivity.startActivity(
+                                        Intent.createChooser(
+                                                finalOpenFileWithIntent,
+                                                mFileActivity.getString(R.string.actionbar_open_with)
+                                        )
+                                );
+                            } catch (ActivityNotFoundException anfe) {
+                                DisplayUtils.showSnackMessage(mFileActivity, R.string.file_list_no_app_for_file_type);
+                            }
+                        } else {
+                            DisplayUtils.showSnackMessage(mFileActivity, R.string.file_list_no_app_for_file_type);
+                        }
+                    }
+
                 }
-            } else {
-                DisplayUtils.showSnackMessage(mFileActivity, R.string.file_list_no_app_for_file_type);
-            }
+            }).start();
 
         } else {
             Log_OC.e(TAG, "Trying to open a NULL OCFile");
@@ -197,8 +262,8 @@ public class FileOperationsHelper {
     /**
      * Helper method to share a file via a public link. Starts a request to do it in {@link OperationsService}
      *
-     * @param file          The file to share.
-     * @param password      Optional password to protect the public share.
+     * @param file     The file to share.
+     * @param password Optional password to protect the public share.
      */
     public void shareFileViaLink(OCFile file, String password) {
         if (isSharedSupported()) {
@@ -248,10 +313,10 @@ public class FileOperationsHelper {
     /**
      * Helper method to share a file with a known sharee. Starts a request to do it in {@link OperationsService}
      *
-     * @param file          The file to share.
-     * @param shareeName    Name (user name or group name) of the target sharee.
-     * @param shareType     The share type determines the sharee type.
-     * @param permissions   Permissions to grant to sharee on the shared file.
+     * @param file        The file to share.
+     * @param shareeName  Name (user name or group name) of the target sharee.
+     * @param shareType   The share type determines the sharee type.
+     * @param permissions Permissions to grant to sharee on the shared file.
      */
     public void shareFileWithSharee(OCFile file, String shareeName, ShareType shareType, int permissions) {
         if (file != null) {
@@ -290,7 +355,7 @@ public class FileOperationsHelper {
      * Helper method to unshare a file publicly shared via link.
      * Starts a request to do it in {@link OperationsService}
      *
-     * @param file      The file to unshare.
+     * @param file The file to unshare.
      */
     public void unshareFileViaLink(OCFile file) {
 
@@ -337,7 +402,7 @@ public class FileOperationsHelper {
     /**
      * Show an instance of {@link ShareType} for sharing or unsharing the {@link OCFile} received as parameter.
      *
-     * @param file  File to share or unshare.
+     * @param file File to share or unshare.
      */
     public void showShareFile(OCFile file) {
         Intent intent = new Intent(mFileActivity, ShareActivity.class);
@@ -351,9 +416,9 @@ public class FileOperationsHelper {
      * Updates a public share on a file to set its password.
      * Starts a request to do it in {@link OperationsService}
      *
-     * @param file          File which public share will be protected with a password.
-     * @param password      Password to set for the public link; null or empty string to clear
-     *                      the current password
+     * @param file     File which public share will be protected with a password.
+     * @param password Password to set for the public link; null or empty string to clear
+     *                 the current password
      */
     public void setPasswordToShareViaLink(OCFile file, String password) {
         // Set password updating share
@@ -374,9 +439,9 @@ public class FileOperationsHelper {
      * Updates a public share on a file to set its expiration date.
      * Starts a request to do it in {@link OperationsService}
      *
-     * @param file                      File which public share will be constrained with an expiration date.
-     * @param expirationTimeInMillis    Expiration date to set. A negative value clears the current expiration
-     *                                  date, leaving the link unrestricted. Zero makes no change.
+     * @param file                   File which public share will be constrained with an expiration date.
+     * @param expirationTimeInMillis Expiration date to set. A negative value clears the current expiration
+     *                               date, leaving the link unrestricted. Zero makes no change.
      */
     public void setExpirationDateToShareViaLink(OCFile file, long expirationTimeInMillis) {
         Intent updateShareIntent = new Intent(mFileActivity, OperationsService.class);
@@ -395,8 +460,8 @@ public class FileOperationsHelper {
      * Updates a share on a file to set its access permissions.
      * Starts a request to do it in {@link OperationsService}
      *
-     * @param share                     {@link OCShare} instance which permissions will be updated.
-     * @param permissions               New permissions to set. A value <= 0 makes no update.
+     * @param share       {@link OCShare} instance which permissions will be updated.
+     * @param permissions New permissions to set. A value <= 0 makes no update.
      */
     public void setPermissionsToShare(OCShare share, int permissions) {
         Intent updateShareIntent = new Intent(mFileActivity, OperationsService.class);
@@ -414,8 +479,8 @@ public class FileOperationsHelper {
      * Updates a public share on a folder to set its editing permission.
      * Starts a request to do it in {@link OperationsService}
      *
-     * @param folder                     Folder which editing permission of his public share will be modified.
-     * @param uploadPermission          New state of the permission for editing the folder shared via link.
+     * @param folder           Folder which editing permission of his public share will be modified.
+     * @param uploadPermission New state of the permission for editing the folder shared via link.
      */
     public void setUploadPermissionsToShare(OCFile folder, boolean uploadPermission) {
         Intent updateShareIntent = new Intent(mFileActivity, OperationsService.class);
@@ -433,8 +498,8 @@ public class FileOperationsHelper {
      * Updates a public share on a folder to set its hide file listing permission.
      * Starts a request to do it in {@link OperationsService}
      *
-     * @param share                    {@link OCShare} instance which permissions will be updated.
-     * @param hideFileListing          New state of the permission for editing the folder shared via link.
+     * @param share           {@link OCShare} instance which permissions will be updated.
+     * @param hideFileListing New state of the permission for editing the folder shared via link.
      */
     public void setHideFileListingPermissionsToShare(OCShare share, boolean hideFileListing) {
         Intent updateShareIntent = new Intent(mFileActivity, OperationsService.class);
@@ -548,7 +613,7 @@ public class FileOperationsHelper {
     /**
      * Request the synchronization of a file or folder with the OC server, including its contents.
      *
-     * @param file          The file or folder to synchronize
+     * @param file The file or folder to synchronize
      */
     public void syncFile(OCFile file) {
         if (!file.isFolder()) {
@@ -645,9 +710,9 @@ public class FileOperationsHelper {
     /**
      * Start operations to delete one or several files
      *
-     * @param files             Files to delete
-     * @param onlyLocalCopy     When 'true' only local copy of the files is removed; otherwise files are also deleted
-     *                          in the server.
+     * @param files         Files to delete
+     * @param onlyLocalCopy When 'true' only local copy of the files is removed; otherwise files are also deleted
+     *                      in the server.
      */
     public void removeFiles(Collection<OCFile> files, boolean onlyLocalCopy) {
         for (OCFile file : files) {
@@ -678,6 +743,7 @@ public class FileOperationsHelper {
 
     /**
      * Cancel the transference in downloads (files/folders) and file uploads
+     *
      * @param file OCFile
      */
     public void cancelTransference(OCFile file) {
@@ -704,8 +770,8 @@ public class FileOperationsHelper {
     /**
      * Start operations to move one or several files
      *
-     * @param files            Files to move
-     * @param targetFolder     Folder where the files while be moved into
+     * @param files        Files to move
+     * @param targetFolder Folder where the files while be moved into
      */
     public void moveFiles(Collection<OCFile> files, OCFile targetFolder) {
         for (OCFile file : files) {
@@ -722,8 +788,8 @@ public class FileOperationsHelper {
     /**
      * Start operations to copy one or several files
      *
-     * @param files            Files to copy
-     * @param targetFolder     Folder where the files while be copied into
+     * @param files        Files to copy
+     * @param targetFolder Folder where the files while be copied into
      */
     public void copyFiles(Collection<OCFile> files, OCFile targetFolder) {
         for (OCFile file : files) {
@@ -747,7 +813,7 @@ public class FileOperationsHelper {
     }
 
     /**
-     *  @return 'True' if the server doesn't need to check forbidden characters
+     * @return 'True' if the server doesn't need to check forbidden characters
      */
     public boolean isVersionWithForbiddenCharacters() {
         if (mFileActivity.getAccount() != null) {
@@ -761,7 +827,7 @@ public class FileOperationsHelper {
     /**
      * Starts a check of the currently stored credentials for the given account.
      *
-     * @param account       OC account which credentials will be checked.
+     * @param account OC account which credentials will be checked.
      */
     public void checkCurrentCredentials(Account account) {
         Intent service = new Intent(mFileActivity, OperationsService.class);
