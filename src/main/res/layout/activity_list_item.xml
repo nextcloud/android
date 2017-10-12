@@ -34,6 +34,7 @@
         android:layout_height="@dimen/file_icon_size"
         android:layout_alignParentTop="true"
         android:layout_marginRight="24dp"
+        android:alpha="0.5"
         android:src="@drawable/ic_activity"/>
 
     <LinearLayout
