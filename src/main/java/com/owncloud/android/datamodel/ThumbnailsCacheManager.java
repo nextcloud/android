@@ -50,6 +50,7 @@ import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.status.OwnCloudVersion;
 import com.owncloud.android.ui.adapter.DiskLruImageCache;
 import com.owncloud.android.utils.BitmapUtils;
+import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.DisplayUtils.AvatarGenerationListener;
 import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
@@ -556,12 +557,14 @@ public class ThumbnailsCacheManager {
         private final Object mCallContext;
         private Account mAccount;
         private String mUsername;
+        private boolean mForce;
 
 
         public AvatarGenerationTask(AvatarGenerationListener avatarGenerationListener, Object callContext,
-                                    FileDataStorageManager storageManager, Account account) {
+                                    FileDataStorageManager storageManager, Account account, boolean force) {
             mAvatarGenerationListener = new WeakReference<>(avatarGenerationListener);
             mCallContext = callContext;
+            mForce = force;
             if (storageManager == null) {
                 throw new IllegalArgumentException("storageManager must not be NULL");
             }
@@ -582,7 +585,7 @@ public class ThumbnailsCacheManager {
                 }
 
                 mUsername = params[0];
-                thumbnail = doAvatarInBackground();
+                thumbnail = doAvatarInBackground(mForce);
 
             } catch(OutOfMemoryError oome) {
                 System.gc(); // todo, does this really make sense?
@@ -601,7 +604,8 @@ public class ThumbnailsCacheManager {
                 if (this == avatarWorkerTask
                         && listener.shouldCallGeneratedCallback(mUsername, mCallContext)) {
                         listener.avatarGenerated(new BitmapDrawable(bitmap), mCallContext);
-                    }
+
+                }
             }
         }
 
@@ -636,7 +640,7 @@ public class ThumbnailsCacheManager {
             return Math.round(r.getDimension(R.dimen.file_avatar_size));
         }
 
-        private Bitmap doAvatarInBackground() {
+        private Bitmap doAvatarInBackground(boolean force) {
             String username = mUsername;
 
             final String imageKey = "a_" + username;
@@ -645,7 +649,7 @@ public class ThumbnailsCacheManager {
             Bitmap avatar = getBitmapFromDiskCache(imageKey);
 
             // Not found in disk cache
-            if (avatar == null) {
+            if (avatar == null || force) {
 
                 int px = getAvatarDimension();
 
@@ -676,6 +680,12 @@ public class ThumbnailsCacheManager {
                                 if (avatar != null) {
                                     avatar = handlePNG(avatar, px);
                                     addBitmapToCache(imageKey, avatar);
+
+                                    ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProvider(
+                                            MainApp.getAppContext().getContentResolver());
+                                    arbitraryDataProvider.storeOrUpdateKeyValue(mAccount.name,
+                                            DisplayUtils.AVATAR_TIMESTAMP,
+                                            Long.toString(System.currentTimeMillis()));
                                 }
                             } else {
                                 mClient.exhaustResponse(get.getResponseBodyAsStream());
@@ -691,6 +701,8 @@ public class ThumbnailsCacheManager {
                         Log_OC.d(TAG, "Server too old");
                     }
                 }
+
+
             }
             return avatar;
         }
