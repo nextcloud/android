@@ -21,11 +21,13 @@ package com.owncloud.android.ui.adapter;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.graphics.Color;
 import android.graphics.drawable.PictureDrawable;
 import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
+import android.text.TextPaint;
 import android.text.TextUtils;
 import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
@@ -58,7 +60,6 @@ import com.owncloud.android.lib.resources.files.FileUtils;
 import com.owncloud.android.ui.interfaces.ActivityListInterface;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
-import com.owncloud.android.utils.ThemeUtils;
 import com.owncloud.android.utils.glide.CustomGlideStreamLoader;
 import com.owncloud.android.utils.svg.SvgDecoder;
 import com.owncloud.android.utils.svg.SvgDrawableTranscoder;
@@ -103,19 +104,16 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             Activity activity = (Activity) o;
             String time;
             if (activity.getDatetime() != null) {
-                time = DisplayUtils.getRelativeTimestamp(context,
-                        activity.getDatetime().getTime()).toString();
+                time = DisplayUtils.getRelativeTimestampDayWise(context, activity.getDatetime().getTime()).toString();
             } else if (activity.getDate() != null) {
-                time = DisplayUtils.getRelativeTimestamp(context,
-                        activity.getDate().getTime()).toString();
+                time = DisplayUtils.getRelativeTimestampDayWise(context, activity.getDate().getTime()).toString();
             } else {
-                time = "Unknown";
+                time = context.getString(R.string.date_unknown);
             }
 
             if (sTime.equalsIgnoreCase(time)) {
                 mValues.add(activity);
             } else {
-
                 sTime = time;
                 mValues.add(sTime);
                 mValues.add(activity);
@@ -147,8 +145,7 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 activityViewHolder.dateTime.setText(DisplayUtils.getRelativeTimestamp(context,
                         activity.getDatetime().getTime()));
             } else {
-                activityViewHolder.dateTime.setText(DisplayUtils.getRelativeTimestamp(context,
-                        new Date().getTime()));
+                activityViewHolder.dateTime.setText(DisplayUtils.getRelativeTimestamp(context, new Date().getTime()));
             }
 
             if (activity.getRichSubjectElement() != null &&
@@ -304,10 +301,14 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                     public void onClick(View widget) {
                         activityListInterface.onActivityClicked(richObject);
                     }
+
+                    @Override
+                    public void updateDrawState(TextPaint ds) {
+                        ds.setUnderlineText(false);
+                    }
                 }, idx1, idx2, 0);
                 ssb.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), idx1, idx2, 0);
-                ssb.setSpan(new ForegroundColorSpan(ThemeUtils.primaryAccentColor()), idx1, idx2,
-                        Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                ssb.setSpan(new ForegroundColorSpan(Color.BLACK), idx1, idx2, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             }
             idx1 = text.indexOf("{", idx2);
         }
