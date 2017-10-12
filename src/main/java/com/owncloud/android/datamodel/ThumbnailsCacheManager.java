@@ -86,7 +86,7 @@ public class ThumbnailsCacheManager {
     private static final String TAG = ThumbnailsCacheManager.class.getSimpleName();
     private static final String PNG_MIMETYPE = "image/png";
     private static final String CACHE_FOLDER = "thumbnailCache";
-    private static final String AVATAR = "avatar";
+    public static final String AVATAR = "avatar";
     private static final String ETAG = "ETag";
 
     private static final Object mThumbnailsDiskCacheLock = new Object();
@@ -836,6 +836,12 @@ public class ThumbnailsCacheManager {
 
             final String imageKey = "a_" + username + "_" + eTag;
 
+            try {
+                Thread.sleep(3000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
             int px = getAvatarDimension();
 
             // Download avatar from server
@@ -1106,7 +1112,7 @@ public class ThumbnailsCacheManager {
     public static class AsyncAvatarDrawable extends BitmapDrawable {
         private final WeakReference<AvatarGenerationTask> avatarWorkerTaskReference;
 
-        public AsyncAvatarDrawable(Resources res, Bitmap bitmap, AvatarGenerationTask avatarWorkerTask) {
+        public AsyncAvatarDrawable(Resources res, Drawable bitmap, AvatarGenerationTask avatarWorkerTask) {
             super(res, bitmap);
             avatarWorkerTaskReference = new WeakReference<>(avatarWorkerTask);
         }
