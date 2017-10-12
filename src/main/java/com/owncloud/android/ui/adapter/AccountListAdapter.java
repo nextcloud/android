@@ -150,8 +150,10 @@ public class AccountListAdapter extends ArrayAdapter<AccountListItem> implements
 
     private void setAvatar(AccountViewHolderItem viewHolder, Account account) {
         try {
-            DisplayUtils.setAvatar(account, this, mAccountAvatarRadiusDimension,
-                    mContext.getResources(), mContext.getStorageManager(), viewHolder.imageViewItem);
+            View viewItem = viewHolder.imageViewItem;
+            viewItem.setTag(account.name);
+            DisplayUtils.setAvatar(account, this, mAccountAvatarRadiusDimension, mContext.getResources(),
+                    mContext.getStorageManager(), viewItem);
         } catch (Exception e) {
             Log_OC.e(TAG, "Error calculating RGB value for account list item.", e);
             // use user icon as a fallback

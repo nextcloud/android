@@ -30,7 +30,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
-import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.drawable.Drawable;
@@ -60,12 +59,14 @@ import com.caverock.androidsvg.SVG;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
+import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.files.SearchOperation;
+import com.owncloud.android.ui.TextDrawable;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.events.MenuItemClickEvent;
 import com.owncloud.android.ui.events.SearchEvent;
@@ -425,22 +426,40 @@ public class DisplayUtils {
      * @param resources      reference for density information
      * @param storageManager reference for caching purposes
      */
-    public static void setAvatar(Account account, AvatarGenerationListener listener, float avatarRadius, Resources resources,
-                                 FileDataStorageManager storageManager, Object callContext) {
+    public static void setAvatar(Account account, AvatarGenerationListener listener, float avatarRadius,
+                                 Resources resources, FileDataStorageManager storageManager, Object callContext) {
         if (account != null) {
             if (callContext instanceof View) {
                 ((View) callContext).setContentDescription(account.name);
             }
 
-            Bitmap thumbnail = null;
+            ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProvider(
+                    MainApp.getAppContext().getContentResolver());
 
+            String eTag = arbitraryDataProvider.getValue(account, ThumbnailsCacheManager.AVATAR);
+
+            // first show old one
+            Drawable avatar = BitmapUtils.bitmapToCircularBitmapDrawable(resources,
+                    ThumbnailsCacheManager.getBitmapFromDiskCache("a_" + account.name + "_" + eTag));
+
+            // if no one exists, show colored icon with initial char
+            if (avatar == null) {
+                try {
+                    avatar = TextDrawable.createAvatar(account.name, avatarRadius);
+                } catch (Exception e) {
+                    Log_OC.e(TAG, "Error calculating RGB value for active account icon.", e);
+                    avatar = resources.getDrawable(R.drawable.ic_account_circle);
+                }
+            }
+
+            // check for new avatar, eTag is compared, so only new one is downloaded
             if (ThumbnailsCacheManager.cancelPotentialAvatarWork(account.name, callContext)) {
                 final ThumbnailsCacheManager.AvatarGenerationTask task =
                         new ThumbnailsCacheManager.AvatarGenerationTask(listener, callContext, storageManager,
                                 account, resources, avatarRadius);
 
                 final ThumbnailsCacheManager.AsyncAvatarDrawable asyncDrawable =
-                        new ThumbnailsCacheManager.AsyncAvatarDrawable(resources, thumbnail, task);
+                        new ThumbnailsCacheManager.AsyncAvatarDrawable(resources, avatar, task);
                 listener.avatarGenerated(asyncDrawable, callContext);
                 task.execute(account.name);
             }
