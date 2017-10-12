@@ -335,9 +335,12 @@ public class Preferences extends PreferenceActivity
                     if (mExpertMode.isChecked()) {
                         Log_OC.startLogging(getApplicationContext());
                     } else {
-                        Log_OC.stopLogging();
+                        if (!BuildConfig.DEBUG &&
+                                !getApplicationContext().getResources().getBoolean(R.bool.logger_enabled)) {
+                            Log_OC.stopLogging();
+                        }
                     }
-                    
+
                     return true;
                 }
             });
