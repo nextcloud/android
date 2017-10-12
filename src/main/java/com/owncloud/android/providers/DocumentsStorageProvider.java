@@ -23,6 +23,7 @@ package com.owncloud.android.providers;
 import android.accounts.Account;
 import android.annotation.TargetApi;
 import android.content.ContentResolver;
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.AssetFileDescriptor;
 import android.database.Cursor;
@@ -36,6 +37,10 @@ import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.services.FileDownloader;
+import com.owncloud.android.lib.common.operations.RemoteOperationResult;
+import com.owncloud.android.operations.SynchronizeFileOperation;
+import com.owncloud.android.ui.activity.ConflictsResolveActivity;
+
 import org.nextcloud.providers.cursors.FileCursor;
 import org.nextcloud.providers.cursors.RootCursor;
 
@@ -102,13 +107,14 @@ public class DocumentsStorageProvider extends DocumentsProvider {
         updateCurrentStorageManagerIfNeeded(docId);
 
         OCFile file = mCurrentStorageManager.getFileById(docId);
+        Context context = getContext();
 
         if (!file.isDown()) {
 
-            Intent i = new Intent(getContext(), FileDownloader.class);
+            Intent i = new Intent(context, FileDownloader.class);
             i.putExtra(FileDownloader.EXTRA_ACCOUNT, mCurrentStorageManager.getAccount());
             i.putExtra(FileDownloader.EXTRA_FILE, file);
-            getContext().startService(i);
+            context.startService(i);
 
             do {
                 if (!waitOrGetCancelled(cancellationSignal)) {
@@ -117,7 +123,23 @@ public class DocumentsStorageProvider extends DocumentsProvider {
                 file = mCurrentStorageManager.getFileById(docId);
 
             } while (!file.isDown());
+        } else {
+            SynchronizeFileOperation sfo =
+                    new SynchronizeFileOperation(file, null, mCurrentStorageManager.getAccount(),
+                            true, context);
+            RemoteOperationResult result = sfo.execute(mCurrentStorageManager, context);
+
+            if (result.getCode() == RemoteOperationResult.ResultCode.SYNC_CONFLICT) {
+                // ISSUE 5: if the user is not running the app (this is a service!),
+                // this can be very intrusive; a notification should be preferred
+                Intent i = new Intent(context, ConflictsResolveActivity.class);
+                i.setFlags(i.getFlags() | Intent.FLAG_ACTIVITY_NEW_TASK);
+                i.putExtra(ConflictsResolveActivity.EXTRA_FILE, file);
+                i.putExtra(ConflictsResolveActivity.EXTRA_ACCOUNT, mCurrentStorageManager.getAccount());
+                context.startActivity(i);
+            }
         }
+
 
         return ParcelFileDescriptor.open(
                 new File(file.getStoragePath()), ParcelFileDescriptor.MODE_READ_ONLY);
