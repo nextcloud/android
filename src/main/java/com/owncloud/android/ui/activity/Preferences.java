@@ -317,20 +317,27 @@ public class Preferences extends PreferenceActivity
             preferenceCategoryDetails.removePreference(mShowHiddenFiles);
         }
 
-        mExpertMode = (SwitchPreference) findPreference("expert_mode");
+        mExpertMode = (SwitchPreference) findPreference(UploadListActivity.EXPERT_MODE);
 
         if (getResources().getBoolean(R.bool.syncedFolder_light)) {
             preferenceCategoryDetails.removePreference(mExpertMode);
         } else {
-            mExpertMode = (SwitchPreference) findPreference("expert_mode");
+            mExpertMode = (SwitchPreference) findPreference(UploadListActivity.EXPERT_MODE;
             mExpertMode.setOnPreferenceClickListener(new OnPreferenceClickListener() {
                 @Override
                 public boolean onPreferenceClick(Preference preference) {
                     SharedPreferences appPrefs =
                             PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
                     SharedPreferences.Editor editor = appPrefs.edit();
-                    editor.putBoolean("expert_mode", mExpertMode.isChecked());
+                    editor.putBoolean(UploadListActivity.EXPERT_MODE, mExpertMode.isChecked());
                     editor.apply();
+
+                    if (mExpertMode.isChecked()) {
+                        Log_OC.startLogging(getApplicationContext());
+                    } else {
+                        Log_OC.stopLogging();
+                    }
+                    
                     return true;
                 }
             });

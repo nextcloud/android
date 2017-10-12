@@ -51,6 +51,7 @@ import com.owncloud.android.lib.common.OwnCloudClientManagerFactory.Policy;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.activity.Preferences;
 import com.owncloud.android.ui.activity.SyncedFoldersActivity;
+import com.owncloud.android.ui.activity.UploadListActivity;
 import com.owncloud.android.ui.activity.WhatsNewActivity;
 import com.owncloud.android.utils.AnalyticsUtils;
 import com.owncloud.android.utils.FilesSyncHelper;
@@ -119,7 +120,9 @@ public class MainApp extends MultiDexApplication {
         // initialise thumbnails cache on background thread
         new ThumbnailsCacheManager.InitDiskCacheTask().execute();
 
-        if (BuildConfig.DEBUG) {
+
+        if (BuildConfig.DEBUG || getApplicationContext().getResources().getBoolean(R.bool.logger_enabled) ||
+                appPrefs.getBoolean(UploadListActivity.EXPERT_MODE, false)) {
             // use app writable dir, no permissions needed
             Log_OC.startLogging(getAppContext());
             Log_OC.d("Debug", "start logging");
