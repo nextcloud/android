@@ -300,17 +300,6 @@ public class DisplayUtils {
                 DateUtils.WEEK_IN_MILLIS, 0);
     }
 
-    /**
-     * calculates the relative time string based on the given modification timestamp.
-     *
-     * @param context               the app's context
-     * @param modificationTimestamp the UNIX timestamp of the file modification time.
-     * @return a relative time string
-     */
-    public static CharSequence getRelativeTimestampDayWise(Context context, long modificationTimestamp) {
-        return getRelativeDateTimeString(context, modificationTimestamp, DateUtils.DAY_IN_MILLIS,
-                DateUtils.WEEK_IN_MILLIS, 0);
-    }
 
     /**
      * determines the info level color based on certain thresholds
