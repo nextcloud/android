@@ -8,7 +8,7 @@
     <string name="actionbar_upload_files">الملفات</string>
     <string name="actionbar_open_with">فتح باستخدام</string>
     <string name="actionbar_mkdir">مجلد جديد</string>
-    <string name="actionbar_settings">إعدادات</string>
+    <string name="actionbar_settings">الإعدادات</string>
     <string name="actionbar_see_details">تفاصيل</string>
     <string name="actionbar_send_file">أرسل</string>
     <string name="actionbar_sort">ترتيب</string>
@@ -60,9 +60,10 @@
     <string name="recommend_urls">%1$s أو %2$s</string>
 
     <string name="auth_check_server">فحص الخادم</string>
-    <string name="auth_host_url">عنوان المخدم https://&#8230;</string>
+    <string name="auth_host_url">عنوان الخادوم https://&#8230;</string>
     <string name="auth_username">إسم المستخدم</string>
     <string name="auth_password">كلمة السر</string>
+    <string name="auth_register">ليس لديك خادم حتى الآن ؟\nإضغط هنا للحصول على واحد من أحد المزودين</string>
     <string name="sync_string_files">الملفات</string>
     <string name="setup_btn_connect">اتصال</string>
     <string name="uploader_btn_upload_text">رفع</string>
@@ -82,8 +83,17 @@
     <string name="folder_list_empty_headline">لا توجد مجلدات</string>
     <string name="file_list_loading">تحميل&#8230;</string>
     <string name="local_file_list_empty">لا توجد ملفات في هذا المجلد</string>
+    <string name="file_list_empty_headline_search">لم يتم العثور على أية بيانات في هذا المجلد</string>
+    <string name="file_list_empty_headline_server_search">دون أية نتيجة</string>
+    <string name="file_list_empty_shared_headline">لم تقم بمشاركة أية بيانات بعد</string>
+    <string name="file_list_empty_shared">سوف تظهر هنا كل من الملفات و المجلدات التي قمت بمشاركتها</string>
     <string name="file_list_empty_headline_server_search_videos">لا يوجد فيديوهات</string>
+    <string name="file_list_empty_headline_server_search_photos">لم يتم العثور على أية صورة</string>
+    <string name="file_list_empty_search">ربما كنت تنوي البحث داخل مجلد آخر ؟</string>
+    <string name="file_list_empty_text_photos">قم بتحميل بعض الصور أو قم بتفعيل التحميل التلقائي.</string>
+    <string name="file_list_empty_text_videos">قم بتحميل بعض الفيديوهات أو قم بتفعيل التحميل التلقائي.</string>
     <string name="upload_list_empty_headline">لا توجد تحميلات</string>
+    <string name="upload_list_empty_text_auto_upload">قم بتحميل بعض الملفات أو قم بتفعيل التحميل التلقائي.</string>
     <string name="file_list_folder">مجلد</string>
     <string name="filedetails_select_file">اضغظ على الملف ليتم عرض خيارات أكثر</string>
     <string name="filedetails_size">الحجم :</string>
@@ -106,9 +116,11 @@
     <string name="common_unknown">غير معروف</string>
     <string name="common_error_unknown">خطأ غير معروف. </string>
     <string name="common_pending">مُعلَّق</string>
+    <string name="common_delete">حذف</string>
     <string name="about_title">حول</string>
-    <string name="change_password">عدل كلمة السر</string>
+    <string name="change_password">تعديل كلمة المرور</string>
     <string name="delete_account">حذف الحساب</string>
+    <string name="avatar">الصورة الرمزية</string>
     <string name="upload_chooser_title">الرفع من &#8230;</string>
     <string name="uploader_info_dirname">اسم المجلد</string>
     <string name="uploader_upload_in_progress_ticker">يتم الرفع &#8230;</string>
@@ -210,6 +222,7 @@
     <string name="filename_forbidden_characters">رموز ممنوعة: / \\ &lt; &gt; : \" | ? *</string>
     <string name="filename_forbidden_charaters_from_server">اسم الملف به ، على الأقل ، حرف غير صالح</string>
     <string name="filename_empty">إسم الملف لا يمكن أن يكون فارغاً</string>
+    <string name="wait_a_moment">الرجاء الإنتظار&#8230;</string>
     <string name="activity_chooser_title">ارسل الرابط الى &#8230;</string>
     <string name="ssl_validator_header">لا يمكن التحقق من هوية الموقع</string>
     <string name="ssl_validator_reason_cert_not_trusted">شهادة الخادم غير موثوقة</string>
@@ -249,6 +262,7 @@
     <string name="conflict_use_local_version">النسخة المحلية</string>
     <string name="conflict_use_server_version">نسخة السيرفر</string>
 
+    <string name="preview_sorry">آسف</string>
     <string name="preview_image_description">معاينة الصورة</string>
     <string name="error__upload__local_file_not_copied">%1$s تعذر نسخه %2$s للمجلد المحلي</string>
     <string name="share_link_file_error">حدث خطأ ما أثناء محاولة مشاركة هذا الملف أو المجلد</string>
@@ -289,12 +303,18 @@
 	<string name="auth_host_address">عنوان الخادم</string>
     <string name="username">إسم المستخدم</string>
 
+    <string name="file_list__footer__folder">مجلد واحد</string>
     <string name="file_list__footer__folders">%1$d مجلدات</string>
     <string name="file_list__footer__file">1 ملف</string>
     <string name="file_list__footer__file_and_folder">1 ملف, 1 مجلد</string>
     <string name="file_list__footer__file_and_folders">1 ملف, %1$d مجلدات</string>
     <string name="file_list__footer__files">%1$d ملفات</string>
+    <string name="file_list__footer__files_and_folder">%1$d ملفات و مجلد واحد</string>
+    <string name="file_list__footer__files_and_folders">%1$d ملفات و %2$d مجلدات</string>
     <string name="upload_copy_files">أنسخ الملف</string>
+    <string name="select_all">تحديد الكل</string>
+    <string name="deselect_all">إلغاء تحديد الكل</string>
+
     <string name="pref_behaviour_entries_delete_file">خذفت</string>
     <string name="prefs_storage_path">مسار التخزين</string>
     <string name="share_dialog_title">مشاركة</string>
@@ -326,17 +346,34 @@
     <string name="confirmation_remove_files_alert">هل ترغب فعلاً في حذف العناصر المحددة ؟</string>
     <string name="actionbar_search">بحث</string>
     <string name="learn_more">تعلم المزيد</string>
+    <string name="drawer_synced_folders">تحميل تلقائي</string>
     <string name="drawer_participate">شارك معنا</string>
+    <string name="participate_testing_headline">ساعدنا بالتجريب</string>
     <string name="participate_contribute_headline">ساهم بفعالية</string>
+    <string name="participate_contribute_irc_text">إنضم إلى الدردشة على :</string>
+    <string name="participate_contribute_forum_forum">المنتدى</string>
+    <string name="participate_contribute_translate_translate">الترجمة</string>
+    <string name="participate_contribute_translate_text">التطبيق</string>
+    <string name="synced_folders_settings">الإعدادات</string>
     <string name="notifications_no_results_headline">لا توجد هناك إخطارات</string>
     <string name="upload_file_dialog_filename">اسم الملف</string>
     <string name="upload_file_dialog_filetype">نوع الملف</string>
     <string name="storage_description_default">افتراضي</string>
+    <string name="storage_description_sd_no">ذاكرة التخزين %1$d</string>
     <string name="storage_description_unknown">غير معروف</string>
+
+    <!-- What's new feature and texts to show -->
+    <string name="whats_new_title">ما الجديد في %1$s</string>
 
     <!-- Welcome to Nc intro features -->
     <string name="welcome_feature_1_title">المكان الآمن لجميع بياناتك</string>
+    <string name="welcome_feature_1_text">توصّل إلى ملفاتك و شاركها و قم بتأمينها سواء في المنزل أو في مكان العمل</string>
+
     <string name="welcome_feature_2_title"> متعدد الحسابات</string>
+    <string name="welcome_feature_2_text">إتصل بجميع سحابياتك</string>
+
+    <string name="welcome_feature_3_text">إحرص على أمان صورك</string>
+
     <string name="whats_new_skip">تخطى</string>
 
     <!-- User information -->
@@ -352,6 +389,7 @@
     <string name="activities_no_results_headline">لا توجد أي أنشطة بعدُ</string>
     <string name="prefs_category_about">حول</string>
 
+    <string name="actionbar_contacts">النسخ الإحتياطي لجهات الإتصال</string>
     <string name="contacts_backup_button">نسخة احتياطية الأن</string>
     <string name="contacts_automatic_backup">نسخ احتياطي تلقائي</string>
     <string name="contacts_last_backup">أخر نسخة احتياطية</string>
@@ -365,4 +403,7 @@
     <string name="file_not_found">المجلد غير موجود !</string>
 
     <string name="test_server_button">أفحص أتصال الخادم</string>
+    <string name="fallback_weblogin_back">العودة</string>
+    <string name="prefs_sourcecode">الحصول على الشفرة المصدرية</string>
+    <string name="prefs_license">الرخصة</string>
     </resources>
