@@ -69,7 +69,6 @@ import com.owncloud.android.utils.svg.SvgSoftwareLayerSetter;
 
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -144,10 +143,10 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             final ActivityViewHolder activityViewHolder = (ActivityViewHolder) holder;
             Activity activity = (Activity) mValues.get(position);
             if (activity.getDatetime() != null) {
-                activityViewHolder.dateTime.setText(DisplayUtils.getRelativeTimestamp(context,
-                        activity.getDatetime().getTime()));
+                activityViewHolder.dateTime.setVisibility(View.VISIBLE);
+                activityViewHolder.dateTime.setText(DateFormat.format("HH:MM", activity.getDatetime().getTime()));
             } else {
-                activityViewHolder.dateTime.setText(DisplayUtils.getRelativeTimestamp(context, new Date().getTime()));
+                activityViewHolder.dateTime.setVisibility(View.GONE);
             }
 
             if (activity.getRichSubjectElement() != null &&
