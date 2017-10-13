@@ -319,10 +319,12 @@ public class UploadFilesActivity extends FileActivity implements
         popDirname();
         mFileListFragment.onNavigateUp();
         mCurrentDir = mFileListFragment.getCurrentDirectory();
-        
-        if(mCurrentDir.getParentFile() == null){
-            ActionBar actionBar = getSupportActionBar(); 
-            actionBar.setDisplayHomeAsUpEnabled(false);
+
+        if (mCurrentDir.getParentFile() == null) {
+            ActionBar actionBar = getSupportActionBar();
+            if (actionBar != null) {
+                actionBar.setDisplayHomeAsUpEnabled(false);
+            }
         }
 
         // invalidate checked state when navigating directories
@@ -338,8 +340,12 @@ public class UploadFilesActivity extends FileActivity implements
         Log_OC.d(TAG, "onSaveInstanceState() start");
         super.onSaveInstanceState(outState);
         outState.putString(UploadFilesActivity.KEY_DIRECTORY_PATH, mCurrentDir.getAbsolutePath());
-        outState.putBoolean(UploadFilesActivity.KEY_ALL_SELECTED,
-                mOptionsMenu.findItem(R.id.action_select_all).isChecked());
+        if (mOptionsMenu != null && mOptionsMenu.findItem(R.id.action_select_all) != null) {
+            outState.putBoolean(UploadFilesActivity.KEY_ALL_SELECTED,
+                    mOptionsMenu.findItem(R.id.action_select_all).isChecked());
+        } else {
+            outState.putBoolean(UploadFilesActivity.KEY_ALL_SELECTED, false);
+        }
         Log_OC.d(TAG, "onSaveInstanceState() end");
     }
 

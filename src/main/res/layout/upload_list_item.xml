@@ -89,7 +89,7 @@
             android:textColor="@color/list_item_lastmod_and_filesize_text"
             android:maxLines="1"
             android:text="@string/auth_username"
-            android:textSize="@dimen/upload_list_item_text_size_independent"/>
+            android:textSize="@dimen/upload_list_item_text_size"/>
 
         <TextView
             android:id="@+id/upload_remote_path"
@@ -99,7 +99,7 @@
             android:ellipsize="middle"
             android:singleLine="true"
             android:text="@string/instant_upload_path"
-            android:textSize="@dimen/upload_list_item_text_size_independent"/>
+            android:textSize="@dimen/upload_list_item_text_size"/>
 
     </LinearLayout>
 

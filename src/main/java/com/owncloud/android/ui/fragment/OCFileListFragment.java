@@ -22,6 +22,7 @@
 package com.owncloud.android.ui.fragment;
 
 import android.accounts.Account;
+import android.accounts.AccountManager;
 import android.accounts.AuthenticatorException;
 import android.accounts.OperationCanceledException;
 import android.app.Activity;
@@ -40,6 +41,7 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.text.TextUtils;
 import android.util.SparseBooleanArray;
 import android.view.ActionMode;
 import android.view.LayoutInflater;
@@ -340,11 +342,11 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
         }
 
         searchEvent = Parcels.unwrap(getArguments().getParcelable(OCFileListFragment.SEARCH_EVENT));
-        if (searchEvent != null && searchFragment && savedInstanceState == null) {
+        prepareCurrentSearch(searchEvent);
+        if (searchEvent != null && savedInstanceState == null) {
             onMessageEvent(searchEvent);
         }
 
-        prepareCurrentSearch(searchEvent);
         setTitle();
 
     }
@@ -1422,6 +1424,8 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
         Account currentAccount = AccountUtils.getCurrentOwnCloudAccount(MainApp.getAppContext());
 
         OwnCloudAccount ocAccount = null;
+        AccountManager mAccountMgr = AccountManager.get(getActivity());
+
         try {
             ocAccount = new OwnCloudAccount(
                     currentAccount,
@@ -1431,8 +1435,15 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
             OwnCloudClient mClient = OwnCloudClientManagerFactory.getDefaultSingleton().
                     getClientFor(ocAccount, MainApp.getAppContext());
 
+            String userId = mAccountMgr.getUserData(currentAccount,
+                    com.owncloud.android.lib.common.accounts.AccountUtils.Constants.KEY_USER_ID);
+
+            if (TextUtils.isEmpty(userId)) {
+                userId = mClient.getCredentials().getUsername();
+            }
+
             ToggleFavoriteOperation toggleFavoriteOperation = new ToggleFavoriteOperation(event.shouldFavorite,
-                    event.remotePath);
+                    event.remotePath, userId);
             RemoteOperationResult remoteOperationResult = toggleFavoriteOperation.execute(mClient);
 
             if (remoteOperationResult.isSuccess()) {
@@ -1534,12 +1545,16 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
                         }
 
                         final FileDisplayActivity fileDisplayActivity = (FileDisplayActivity) getActivity();
-                        fileDisplayActivity.runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                fileDisplayActivity.setIndeterminate(false);
-                            }
-                        });
+                        if (fileDisplayActivity != null) {
+                            fileDisplayActivity.runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    if (fileDisplayActivity != null) {
+                                        fileDisplayActivity.setIndeterminate(false);
+                                    }
+                                }
+                            });
+                        }
                     }
 
                     return remoteOperationResult.isSuccess();
@@ -1556,8 +1571,7 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
             }
         };
 
-        remoteOperationAsyncTask.execute(true);
-
+        remoteOperationAsyncTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, true);
     }
 
     private void setTitle(@StringRes final int title) {

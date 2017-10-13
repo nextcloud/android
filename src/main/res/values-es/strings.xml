@@ -33,7 +33,7 @@
     <string name="drawer_item_uploads_list">Subidas</string>
     <string name="drawer_item_activities">Actividades</string>
     <string name="drawer_item_notifications">Notificaciones</string>
-    <string name="drawer_quota">%1$s de %2$s utilizado</string>
+    <string name="drawer_quota">%1$s de %2$s utilizados</string>
 	<string name="drawer_close">Cerrar</string>
     <string name="drawer_open">Abrir</string>
     <string name="prefs_category_general">General</string>
@@ -62,9 +62,9 @@
 
     <string name="auth_check_server">Verificar servidor</string>
     <string name="auth_host_url">Dirección del servidor https://&#8230;</string>
-    <string name="auth_username">Nombre de usuario</string>
+    <string name="auth_username">Usuario</string>
     <string name="auth_password">Contraseña</string>
-    <string name="auth_register">¿No tienes todavía un servidor?\Pulsa aquí para conseguir uno de un proveedor</string>
+    <string name="auth_register">¿No tienes todavía un servidor?\nPulsa aquí para conseguir uno de un proveedor</string>
     <string name="sync_string_files">Archivos</string>
     <string name="setup_btn_connect">Conectar</string>
     <string name="uploader_btn_upload_text">Subir</string>
@@ -263,12 +263,13 @@
 	<string name="auth_fail_get_user_name">Su servidor no está retornando una identificación de usuario correcta; contacte a un administrador </string>
 	<string name="auth_can_not_auth_against_server">No puede autenticarse a este servidor</string>
     <string name="auth_account_does_not_exist">La cuenta no existe todavía en el dispositivo</string>
-
+    <string name="auth_access_failed">Acceso fallido</string>
 
     <string name="favorite">Marcar como disponible sin conexión</string>
     <string name="unfavorite">Desmarcar como disponible sin conexión</string>
     <string name="favorite_real">Marcar como favorito</string>
     <string name="unset_favorite_real">Desmarcar como favorito</string>
+    <string name="favorite_switch">Disponible sin conexión</string>
     <string name="common_rename">Renombrar</string>
     <string name="common_remove">Borrar</string>
     <string name="confirmation_remove_file_alert">¿Estás seguro que quiere eliminar %1$s?</string>
@@ -331,7 +332,6 @@
     <string name="placeholder_media_time">12:23:45</string>
 
     <string name="auto_upload_on_wifi">Subir solamente por Wi-Fi</string>
-    <string name="instant_video_upload_on_wifi">Subir vídeos solamente por Wi-Fi</string>
     <string name="instant_video_upload_on_charging">Subir solamente al cargar</string>
     <string name="instant_upload_on_charging">Subir solamente al cargar</string>
     <string name="instant_upload_path">/SubidaInstantánea</string>
@@ -342,9 +342,10 @@
     <string name="conflict_use_local_version">versión local</string>
     <string name="conflict_use_server_version">versión del servidor</string>
 
-    <string name="preview_sorry">¡Lo sentimos!</string>
+    <string name="preview_sorry">¡Lo sentimos</string>
     <string name="preview_image_description">Previsualización de imagen</string>
     <string name="preview_image_error_unknown_format">No se puede mostrar la imagen</string>
+    <string name="preview_image_error_no_local_file">No hay archivo local para previsualizar</string>
 
     <string name="error__upload__local_file_not_copied">%1$s no se ha podido copiar a la carpeta local %2$s</string>
     <string name="prefs_instant_upload_path_title">Carpeta para subida instantánea</string>
@@ -609,7 +610,20 @@
     <string name="welcome_feature_2_title">Múltiples cuentas</string>
     <string name="welcome_feature_2_text">Conecta con todas tus nubes</string>
 
+    <string name="welcome_feature_3_title">Subida automática</string>
     <string name="welcome_feature_3_text">Mantén seguras tus fotos</string>
+
+    <string name="whats_new_auto_upload_title">Subida automática mejorada</string>
+    <string name="whats_new_auto_upload_content">\u2022 para todas las versiones de Android\n\u2022 menor consumo de batería\n\u2022 más fiable, pero no instantánea\n\u2022 &amp;separación de imágenes y vídeos</string>
+
+    <string name="whats_new_search_title">Búsqueda en todo el servidor</string>
+    <string name="whats_new_search_content">\u2022 No solo en la carpeta acdtual\n\u2022 Devuelve resultados de todo el servidor\n\u2022 Abre directamente archivos/carpetas\n\u2022 Soportado en NC 12 y superior</string>
+
+    <string name="whats_new_theming_title">Suporte de temas</string>
+    <string name="whats_new_theming_content">Si se ha activado en el servidor, la app mostrará\n\u2022 la imagen de fondo\n\u2022 el nombre del servidor\n\u2022 usará colores para distinguir las cuentas</string>
+
+    <string name="whats_new_notification_title">Soporte de notificaciones</string>
+    <string name="whats_new_notification_content">Obtén notificaciones como\n\u2022 nuevos compartidos remotos\n\u2022menciones en comentarios\n\u2022 anuncios de los administradores</string>
 
     <string name="whats_new_skip">Omitir</string>
 
@@ -625,6 +639,7 @@
     <string name="user_info_twitter">Twitter</string>
 
     <string name="user_information_description">Información de usuario</string>
+    <string name="user_information_retrieval_error">Error al recuperar la información del usuario</string>
 
     <!-- Activities -->
     <string name="activities_no_results_headline">Aun no hay actividad</string>
@@ -664,4 +679,17 @@
 
     <string name="test_server_button">Probar conexión con servidor</string>
     <string name="resharing_is_not_allowed">No se permite compartir de nuevo</string>
-    </resources>
+    <string name="whats_new_fingerprint_title">Desbloqueo con lector de huellas</string>
+    <string name="whats_new_fingerprint_content">Usa tu lector de huellas para desbloquear la app</string>
+    <string name="fallback_weblogin_back">VOLVER</string>
+    <string name="fallback_weblogin_text">Volver al método de registro antiguo</string>
+
+    <string name="foreground_service_upload">Subiendo archivos &#8230;</string>
+    <string name="foreground_service_download">Descargando archivos &#8230;</string>
+
+    <string name="prefs_sourcecode">Obtener el código fuente</string>
+    <string name="prefs_license">Licencia</string>
+    <string name="push_notifications_not_implemented">Notificaciones push deshabilitadas debido a que depende de servicios propietarios de Google Play.</string>
+    <string name="push_notifications_old_login">No hay notificaciones push debido a que la sesión está caducada. Por favor, considera volver a añadir la cuentea.</string>
+    <string name="push_notifications_temp_error">Notificaciones push actualmente no disponibles.</string>
+</resources>

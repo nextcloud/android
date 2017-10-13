@@ -42,6 +42,7 @@
     <string name="prefs_passcode">Zámek bezpečnostního kódu</string>
     <string name="prefs_fingerprint">Zámek otiskemprstu</string>
     <string name="prefs_fingerprint_notsetup">Nebyly nastaveny žádné otisky prstů.</string>
+    <string name="prefs_expert_mode">Režim pro experty</string>
     <string name="prefs_show_hidden_files">Zobrazit skryté soubory</string>
     <string name="prefs_log_delete_history_button">Smazat historii</string>
     <string name="prefs_calendar_contacts">Synchronizovat kalendář &amp; kontakty</string>
@@ -67,6 +68,7 @@
     <string name="sync_string_files">Soubory</string>
     <string name="setup_btn_connect">Připojit</string>
     <string name="uploader_btn_upload_text">Nahrát</string>
+    <string name="uploader_btn_alternative_text">Vybrat</string>
     <string name="uploader_top_message">Vybrat adresář k nahrávání</string>
     <string name="uploader_wrn_no_account_title">Nenalezen žádný účet</string>
     <string name="uploader_wrn_no_account_text">Na tomto přístroji nejsou žádné %1$s účty. Nejdříve prosím zadejte účet.</string>
@@ -84,12 +86,14 @@
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Uploadovat a vymazat ze zdroje</string>
     <string name="file_list_seconds_ago">před pár sekundami</string>
     <string name="file_list_empty_headline">Nejsou zde žádné soubory</string>
+    <string name="folder_list_empty_headline">Nejsou zde žádné složky</string>
     <string name="file_list_empty">Nahrajte nějaký obsah, nebo synchronizujte s vašimi zařízeními!</string>
     <string name="file_list_empty_favorites_filter_list">Zde budou zobrazeny soubory a adresáře označené jako oblíbené</string>
     <string name="file_list_empty_favorites_filter">Vaše vyhledávání nenalezlo žádné oblíbené soubory</string>
     <string name="file_list_loading">Načítání&#8230;</string>
     <string name="file_list_no_app_for_file_type">Pro tento typ souboru nebyla nalezena aplikace!</string>
     <string name="local_file_list_empty">V tomto adresáři nejsou žádné soubory.</string>
+    <string name="local_folder_list_empty">Nejsou zde další složky.</string>
     <string name="file_list_empty_headline_search">V této složce nebylo nic nalezeno</string>
     <string name="file_list_empty_headline_server_search">Žádné výsledky</string>
     <string name="file_list_empty_favorite_headline">Zatím není nic oblíbeno</string>
@@ -134,10 +138,13 @@
     <string name="common_unknown">neznámý</string>
     <string name="common_error_unknown">Neznámá chyba</string>
     <string name="common_pending">Čekající</string>
+    <string name="common_delete">Smazat</string>
     <string name="about_title">O aplikaci</string>
     <string name="change_password">Změnit heslo</string>
     <string name="delete_account">Odebrat účet</string>
     <string name="delete_account_warning">Smazat účet %s?\n\nTuto akci nelze vzít zpět.</string>
+    <string name="avatar">Avatar</string>
+    <string name="active_user">Aktivní uživatel</string>
     <string name="upload_chooser_title">Nahrát z &#8230;</string>
     <string name="uploader_info_dirname">Název adresáře</string>
     <string name="uploader_upload_in_progress_ticker">Odesílám &#8230;</string>
@@ -149,6 +156,7 @@
     <string name="uploader_upload_failed_credentials_error">Nahrání selhalo, je třeba se znovu přihlásit</string>
     <string name="uploads_view_title">Nahrání</string>
     <string name="uploads_view_group_current_uploads">Aktuální</string>
+    <string name="uploads_view_group_failed_uploads">Selhavší / čekající restart</string>
     <string name="uploads_view_group_finished_uploads">Odesláno</string>
     <string name="uploads_view_upload_status_succeeded">Dokončeno</string>
     <string name="uploads_view_upload_status_cancelled">Zrušeno</string>
@@ -255,12 +263,13 @@
 	<string name="auth_fail_get_user_name">Váš server nevrací správné přihlašovací ID, kontaktujte prosím svého správce systému</string>
 	<string name="auth_can_not_auth_against_server">Na tomto serveru nelze ověřit</string>
     <string name="auth_account_does_not_exist">V zařízení není zatím nastaven účet</string>
-
+    <string name="auth_access_failed">Přístup selhal</string>
 
     <string name="favorite">Nastavit jako dostupné offline</string>
     <string name="unfavorite">Zrušit nastavení dostupnosti offline</string>
     <string name="favorite_real">Nastavit jako oblíbené</string>
     <string name="unset_favorite_real">Zrušit jako oblíbené</string>
+    <string name="favorite_switch">Dostupné offline</string>
     <string name="common_rename">Přejmenovat</string>
     <string name="common_remove">Odstranit</string>
     <string name="confirmation_remove_file_alert">Opravdu chcete odstranit %1$s?</string>
@@ -323,7 +332,6 @@
     <string name="placeholder_media_time">12:23:45</string>
 
     <string name="auto_upload_on_wifi">Nahrávat pouze přes wifi</string>
-    <string name="instant_video_upload_on_wifi">Nahrávat videa pouze přes wifi</string>
     <string name="instant_video_upload_on_charging">Nahrávat pouze při nabíjení</string>
     <string name="instant_upload_on_charging">Nahrávat pouze při nabíjení</string>
     <string name="instant_upload_path">/InstantUpload</string>
@@ -334,12 +342,15 @@
     <string name="conflict_use_local_version">místní verze</string>
     <string name="conflict_use_server_version">serverová verze</string>
 
-    <string name="preview_sorry">Omlouváme se za to.</string>
+    <string name="preview_sorry">Omlouváme se za to</string>
     <string name="preview_image_description">Náhled obrázku</string>
     <string name="preview_image_error_unknown_format">Nelze zobrazit obrázek</string>
+    <string name="preview_image_error_no_local_file">K náhledu není žádný místní soubor</string>
 
     <string name="error__upload__local_file_not_copied">%1$s nelze zkopírovat do místního adresáře %2$s</string>
     <string name="prefs_instant_upload_path_title">Adresář pro okamžité nahrání</string>
+    <string name="prefs_synced_folders_local_path_title">Místní složka</string>
+    <string name="prefs_synced_folders_remote_path_title">Vzdálená složka</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Používat podadresáře</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Ukládat v podadresářích podle roku a měsíce</string>
 
@@ -510,7 +521,12 @@
     <string name="edit_share_unshare">Ukončit sdílení</string>
     <string name="edit_share_done">dokončeno</string>
 
+    <string name="action_retry_uploads">Zkusit znovu selhavší nahrání</string>
+    <string name="action_clear_failed_uploads">Vyčistit selhaná nahrávání</string>
+    <string name="action_clear_successful_uploads">Vyčistit úspěšná nahrání</string>
     <string name="action_clear_finished_uploads">Vyčistit dokončená nahrávání</string>
+    <string name="action_force_rescan">Vynutit index</string>
+
     <string name="action_switch_grid_view">Zobrazení v mřížce</string>
     <string name="action_switch_list_view">Zobrazení v seznamu</string>
 
@@ -524,10 +540,13 @@
     <string name="confirmation_remove_files_alert">Opravdu chcete odstranit vybrané položky?</string>
     <string name="confirmation_remove_folders_alert">Opravdu chcete odstranit vybrané položky a jejich obsah?</string>
     <string name="maintenance_mode">Server je v režimu údržby</string>
+    <string name="lock_failed">Nepodařilo se zamknout soubor</string>
+
     <string name="uploads_view_upload_status_waiting_for_charging">Čekání na nabití</string>
     <string name="actionbar_search">Hledat</string>
     <string name="files_drop_not_supported">Toto je Nextcloud funkce, prosím nahrát</string>
     <string name="learn_more">Více</string>
+    <string name="drawer_synced_folders">Automatické nahrávání</string>
     <string name="drawer_participate">Zúčastnit se</string>
     <string name="participate_testing_headline">Pomoz nám testovat</string>
     <string name="participate_testing_bug_text">Našli jste chybu? Něco podivného?</string>
@@ -544,8 +563,20 @@
     <string name="participate_contribute_translate_translate">Překládat</string>
     <string name="participate_contribute_translate_text">Aplikace</string>
     <string name="participate_contribute_github_text">Kontrolujte, vylepšujte a pište kód, víc informací naleznete na %1$s</string>
+    <string name="participate_rc_play_store">Získejte kandidáta na vidání skrz Google Play Store</string>
+    <string name="participate_rc_fdroid">Získejte kandidáta na vydání pomocí obchodu s aplikacemi fDroid</string>
+    <string name="participate_dev_fdroid">Získejte vývojové sestavení pomocí obchodu s aplikacemi f-droid</string>
+    <string name="participate_dev_direct_download">Získat vývojové sestavení přímým stažením</string>
     <string name="move_to">Přesunout do&#8230;</string>
     <string name="copy_to">Kopírovat do&#8230;</string>
+    <string name="choose_remote_folder">Zvolit vzdálenou složku&#8230;</string>
+    <string name="choose_local_folder">Zvolit místní složku&#8230;</string>
+    <string name="synced_folders_loading_folders">Načítání adresářů&#8230;</string>
+    <string name="synced_folders_no_results">Nebyly nalezeny žádné adresáře médií.</string>
+    <string name="synced_folders_preferences">Nastavení automatického nahrávání</string>
+    <string name="synced_folders_settings">Nastavení</string>
+    <string name="synced_folders_new_info">Okamžité nahrání bylo kompletně upraveno. Znovu nakonfigurujte automatické nahrávání z hlavní nabídky.\n\nUžijte si nové a rozšířené automatické nahrávání.</string>
+    <string name="synced_folders_preferences_folder_path">Pro %1$s</string>
     <plurals name="items_selected_count">
         <item quantity="one">vybráno %d</item>
         <item quantity="few">vybráno %d</item>
@@ -580,7 +611,20 @@
     <string name="welcome_feature_2_title">Multi účet</string>
     <string name="welcome_feature_2_text">Připojte se ke všem svým cloudům</string>
 
+    <string name="welcome_feature_3_title">Automatické nahrávání</string>
     <string name="welcome_feature_3_text">Již se neobávjte o své fotografie</string>
+
+    <string name="whats_new_auto_upload_title">Zlepšené automatické nahrávání</string>
+    <string name="whats_new_auto_upload_content">\u2022 pro všechny verze systému Android\n\u2022 méně spotřeby baterie\n\u2022 spolehlivější, ale ne okamžitá\n\u2022 separace obrázků &amp; videa</string>
+
+    <string name="whats_new_search_title">Vyhledávání na straně serveru</string>
+    <string name="whats_new_search_content">\u2022 Neplatí pouze v aktuální složce\n\u2022 Vrátí výsledky z úplného serveru\n\u2022 Přímo otevřít soubory/složky\n\u2022 Podporováno v NC12 a výše</string>
+
+    <string name="whats_new_theming_title">Podpora motivů</string>
+    <string name="whats_new_theming_content">Je-li povoleno na serveru, aplikace zobrazí\n\u2022 pozadí obrázku\n\u2022 název serveru\n\u2022 použije barvu k odlišení účtů</string>
+
+    <string name="whats_new_notification_title">Podpora oznámení </string>
+    <string name="whats_new_notification_content">Získání oznámení, jako \n\u2022 nové vzdálené sdílení \n\u2022 uvedeno v komentáři \n\u2022 oznámení admina</string>
 
     <string name="whats_new_skip">Přeskočit</string>
 
@@ -596,6 +640,7 @@
     <string name="user_info_twitter">Twitter</string>
 
     <string name="user_information_description">Uživatelské informace</string>
+    <string name="user_information_retrieval_error">Chyba při příjmu informace od uživatele</string>
 
     <!-- Activities -->
     <string name="activities_no_results_headline">Zatím žádná aktivita</string>
@@ -628,5 +673,24 @@
     <string name="privacy">Soukromí</string>
     <string name="file_not_found">Soubor nenalezen!</string>
 
+    <!-- Auto upload -->
+    <string name="autoupload_custom_folder">Vytvořte vlastní složku</string>
+    <string name="autoupload_create_new_custom_folder">Vytvořte nové nastavení vlastní složky</string>
+    <string name="synced_folders_configure_folders">Nastavení adresářů</string>
+
     <string name="test_server_button">Otestovat připojení k serveru</string>
-    </resources>
+    <string name="resharing_is_not_allowed">Opětovné sdílení není povoleno</string>
+    <string name="whats_new_fingerprint_title">Odemknout pomocí prstu</string>
+    <string name="whats_new_fingerprint_content">Použijte Váš prst pro odemknutí aplikace</string>
+    <string name="fallback_weblogin_back">ZPÁTKY</string>
+    <string name="fallback_weblogin_text">Zpět na starou metodu přihlášení</string>
+
+    <string name="foreground_service_upload">Nahrávání souborů&#8230;</string>
+    <string name="foreground_service_download">Stažení souborů&#8230;</string>
+
+    <string name="prefs_sourcecode">Získat zdrojový kód</string>
+    <string name="prefs_license">Licence</string>
+    <string name="push_notifications_not_implemented">Push oznámení zakázáno kvůli závislostem na proprietárních službách Google Play.</string>
+    <string name="push_notifications_old_login">Žádné push oznámení kvůli zastaralé relaci přihlášení. Zvažte opětovné přidání účtu.</string>
+    <string name="push_notifications_temp_error">Push oznámení není momentálně k dispozici.</string>
+</resources>

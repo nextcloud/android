@@ -263,12 +263,13 @@
 	<string name="auth_fail_get_user_name">Seu servidor não está retornando um ID correto de usuário. Por favor, contacte o administrador</string>
 	<string name="auth_can_not_auth_against_server">Não foi possível obter autenticação neste servidor</string>
     <string name="auth_account_does_not_exist">A conta ainda não existe no dispositivo</string>
-
+    <string name="auth_access_failed">Acesso falhou</string>
 
     <string name="favorite">Definir como disponível offline</string>
     <string name="unfavorite">Definir como não disponível offline</string>
     <string name="favorite_real">Marque como favorito</string>
     <string name="unset_favorite_real">Desmarque como favorito</string>
+    <string name="favorite_switch">Disponível offline</string>
     <string name="common_rename">Renomear</string>
     <string name="common_remove">Excluir</string>
     <string name="confirmation_remove_file_alert">Deseja realmente excluir %1$s?</string>
@@ -331,7 +332,6 @@
     <string name="placeholder_media_time">12:23:45</string>
 
     <string name="auto_upload_on_wifi">Somente enviar por Wi-Fi</string>
-    <string name="instant_video_upload_on_wifi">Somente enviar vídeos por Wi-Fi</string>
     <string name="instant_video_upload_on_charging">Somente enviar quando carregando</string>
     <string name="instant_upload_on_charging">Somente enviar quando carregando</string>
     <string name="instant_upload_path">/EnvioAutomático</string>
@@ -342,9 +342,10 @@
     <string name="conflict_use_local_version">versão local</string>
     <string name="conflict_use_server_version">versão do servidor</string>
 
-    <string name="preview_sorry">Desculpe.</string>
+    <string name="preview_sorry">Desculpe</string>
     <string name="preview_image_description">Pré-visualização da imagem</string>
     <string name="preview_image_error_unknown_format">Não foi possível mostrar a imagem</string>
+    <string name="preview_image_error_no_local_file">Não há arquivos locais para mostrar</string>
 
     <string name="error__upload__local_file_not_copied">%1$s não pôde ser copiado para pasta local %2$s</string>
     <string name="prefs_instant_upload_path_title">Pasta de envio automático</string>
@@ -638,6 +639,7 @@
     <string name="user_info_twitter">Twitter</string>
 
     <string name="user_information_description">Informação do usuário</string>
+    <string name="user_information_retrieval_error">Erro ao recuperar informação do usuário</string>
 
     <!-- Activities -->
     <string name="activities_no_results_headline">Nenhuma atividade ainda</string>
@@ -679,4 +681,15 @@
     <string name="resharing_is_not_allowed">Recompartilhamento não é permitido</string>
     <string name="whats_new_fingerprint_title">Desbloquear com as digitais</string>
     <string name="whats_new_fingerprint_content">Usar as digitais para desbloquear o aplicativo</string>
+    <string name="fallback_weblogin_back">VOLTAR</string>
+    <string name="fallback_weblogin_text">Voltar ao método de login antigo</string>
+
+    <string name="foreground_service_upload">Atualizando arquivos&#8230;</string>
+    <string name="foreground_service_download">Baixando arquivos&#8230;</string>
+
+    <string name="prefs_sourcecode">Obter código fonte</string>
+    <string name="prefs_license">Licença</string>
+    <string name="push_notifications_not_implemented">Envio de notificações desabilitadas devido à dependências nos serviços proprietários do Google Play.</string>
+    <string name="push_notifications_old_login">Sem envio de notificações devido à sessão de login desatualizada. Considere readicionar sua conta.</string>
+    <string name="push_notifications_temp_error">Atualmente o envio de notificações está indisponível.</string>
 </resources>

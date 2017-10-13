@@ -33,6 +33,7 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.RemoteException;
 import android.provider.MediaStore;
+import android.support.annotation.Nullable;
 
 import com.owncloud.android.MainApp;
 import com.owncloud.android.db.ProviderMeta.ProviderTableMeta;
@@ -44,6 +45,7 @@ import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.lib.resources.shares.ShareType;
 import com.owncloud.android.lib.resources.status.CapabilityBooleanType;
 import com.owncloud.android.lib.resources.status.OCCapability;
+import com.owncloud.android.operations.RemoteOperationFailedException;
 import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.MimeType;
 import com.owncloud.android.utils.MimeTypeUtil;
@@ -250,6 +252,14 @@ public class FileDataStorageManager {
         return overriden;
     }
 
+    /**
+     * traverses a files parent tree to be able to store a file with its parents.
+     * Throws a RemoteOperationFailedException in case the parent can't be retrieved.
+     *
+     * @param file the file
+     * @param context the app context
+     * @return the parent file
+     */
     public OCFile saveFileWithParent(OCFile file, Context context) {
         if (file.getParentId() == 0 && !file.getRemotePath().equals("/")) {
             String remotePath = file.getRemotePath();
@@ -267,8 +277,15 @@ public class FileDataStorageManager {
 
                     returnFile = saveFileWithParent(remoteFolder, context);
                 } else {
-                    returnFile = null;
-                    Log_OC.e(TAG, "Error during saving file with parents: " + file.getRemotePath());
+                    Exception exception = result.getException();
+                    String message = "Error during saving file with parents: " + file.getRemotePath() + " / "
+                            + result.getLogMessage();
+
+                    if (exception != null) {
+                        throw new RemoteOperationFailedException(message, exception);
+                    } else {
+                        throw new RemoteOperationFailedException(message);
+                    }
                 }
             } else {
                 returnFile = saveFileWithParent(parentFile, context);
@@ -905,6 +922,7 @@ public class FileDataStorageManager {
         return c;
     }
 
+    @Nullable
     private OCFile createFileInstanceFromVirtual(Cursor c) {
         OCFile file = null;
         if (c != null) {
@@ -2132,13 +2150,16 @@ public class FileDataStorageManager {
         if (c != null && c.moveToFirst()) {
             do {
                 OCFile child = createFileInstanceFromVirtual(c);
-                ocFiles.add(child);
+
+                if (child != null) {
+                    ocFiles.add(child);
+                }
             } while (c.moveToNext());
             c.close();
         }
 
         if (onlyImages) {
-            OCFile current = null;
+            OCFile current;
             Vector<OCFile> temp = new Vector<>();
             for (int i=0; i < ocFiles.size(); i++) {
                 current = ocFiles.get(i);

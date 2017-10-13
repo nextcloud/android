@@ -247,6 +247,10 @@ public class PushUtils {
                                     arbitraryDataProvider.storeOrUpdateKeyValue(account.name, KEY_PUSH,
                                             gson.toJson(pushArbitraryData));
                                 }
+                            } else if (remoteOperationResult.getCode() ==
+                                    RemoteOperationResult.ResultCode.ACCOUNT_USES_STANDARD_PASSWORD) {
+                                arbitraryDataProvider.storeOrUpdateKeyValue(account.name,
+                                        AccountUtils.ACCOUNT_USES_STANDARD_PASSWORD, "true");
                             }
                         } catch (com.owncloud.android.lib.common.accounts.AccountUtils.AccountNotFoundException e) {
                             Log_OC.d(TAG, "Failed to find an account");

@@ -20,8 +20,8 @@
 -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.owncloud.android"
-          android:versionCode="20000004"
-          android:versionName="2.0.0RC4">
+          android:versionCode="20000009"
+          android:versionName="2.0.0RC9">
 
     <uses-sdk
         android:minSdkVersion="14"
@@ -242,6 +242,9 @@
         <receiver android:name=".files.BootupBroadcastReceiver" >
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.QUICKBOOT_POWERON"/>
+                <action android:name="com.htc.intent.action.QUICKBOOT_POWERON"/>
+                <action android:name="android.intent.action.MY_PACKAGE_REPLACED"/>
             </intent-filter>
         </receiver>
 

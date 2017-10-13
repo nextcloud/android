@@ -28,6 +28,7 @@ import com.evernote.android.job.util.Device;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
+import com.owncloud.android.datamodel.UploadsStorageManager;
 import com.owncloud.android.db.OCUpload;
 import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.lib.common.OwnCloudClient;
@@ -319,6 +320,19 @@ public class UploadFileOperation extends SyncOperation {
         File expectedFile = null;
         FileLock fileLock = null;
 
+        UploadsStorageManager uploadsStorageManager = new UploadsStorageManager(mContext.getContentResolver(),
+                mContext);
+
+        long size = 0;
+
+        for (OCUpload ocUpload : uploadsStorageManager.getAllStoredUploads()) {
+            if (ocUpload.getUploadId() == getOCUploadId()) {
+                ocUpload.setFileSize(size);
+                uploadsStorageManager.updateUpload(ocUpload);
+                break;
+            }
+        }
+
         try {
 
             /// Check that connectivity conditions are met and delays the upload otherwise
@@ -396,13 +410,51 @@ public class UploadFileOperation extends SyncOperation {
             Long timeStampLong = originalFile.lastModified() / 1000;
             String timeStamp = timeStampLong.toString();
 
+            FileChannel channel = null;
+            try {
+                channel = new RandomAccessFile(mFile.getStoragePath(), "rw").getChannel();
+                fileLock = channel.tryLock();
+            } catch (FileNotFoundException e) {
+                // this basically means that the file is on SD card
+                // try to copy file to temporary dir if it doesn't exist
+                String temporalPath = FileStorageUtils.getTemporalPath(mAccount.name) + mFile.getRemotePath();
+                mFile.setStoragePath(temporalPath);
+                temporalFile = new File(temporalPath);
+
+                Files.deleteIfExists(Paths.get(temporalPath));
+                result = copy(originalFile, temporalFile);
+
+                if (result == null) {
+                    if (temporalFile.length() == originalFile.length()) {
+                        channel = new RandomAccessFile(temporalFile.getAbsolutePath(), "rw").getChannel();
+                        fileLock = channel.tryLock();
+                    } else {
+                        result = new RemoteOperationResult(ResultCode.LOCK_FAILED);
+                    }
+                }
+            }
+
+            try {
+                size = channel.size();
+            } catch (IOException e1) {
+                size = new File(mFile.getStoragePath()).length();
+            }
+
+            for (OCUpload ocUpload : uploadsStorageManager.getAllStoredUploads()) {
+                if (ocUpload.getUploadId() == getOCUploadId()) {
+                    ocUpload.setFileSize(size);
+                    uploadsStorageManager.updateUpload(ocUpload);
+                    break;
+                }
+            }
+
             /// perform the upload
             if (mChunked &&
-                    (new File(mFile.getStoragePath())).length() >
-                            ChunkedUploadRemoteFileOperation.CHUNK_SIZE) {
+                    (size > ChunkedUploadRemoteFileOperation.CHUNK_SIZE)) {
                 mUploadOperation = new ChunkedUploadRemoteFileOperation(mContext, mFile.getStoragePath(),
                         mFile.getRemotePath(), mFile.getMimetype(), mFile.getEtagInConflict(), timeStamp);
             } else {
+
                 mUploadOperation = new UploadRemoteFileOperation(mFile.getStoragePath(),
                         mFile.getRemotePath(), mFile.getMimetype(), mFile.getEtagInConflict(), timeStamp);
             }
@@ -416,52 +468,17 @@ public class UploadFileOperation extends SyncOperation {
                 throw new OperationCancelledException();
             }
 
-            FileChannel channel = null;
-            try {
-                channel = new RandomAccessFile(mFile.getStoragePath(), "rw").getChannel();
-                fileLock = channel.tryLock();
-            } catch (FileNotFoundException e) {
-                if (temporalFile == null) {
-                    String temporalPath = FileStorageUtils.getTemporalPath(mAccount.name) + mFile.getRemotePath();
-                    mFile.setStoragePath(temporalPath);
-                    temporalFile = new File(temporalPath);
+            if (result == null || result.isSuccess() && mUploadOperation != null) {
+                result = mUploadOperation.execute(client);
 
-                    result = copy(originalFile, temporalFile);
-
-                    if (result != null) {
-                        return result;
-                    } else {
-                        if (temporalFile.length() == originalFile.length()) {
-                            channel = new RandomAccessFile(temporalFile.getAbsolutePath(), "rw").getChannel();
-                            fileLock = channel.tryLock();
-                        } else {
-                            while (temporalFile.length() != originalFile.length()) {
-                                Files.deleteIfExists(Paths.get(temporalPath));
-                                result = copy(originalFile, temporalFile);
-
-                                if (result != null) {
-                                    return result;
-                                } else {
-                                    channel = new RandomAccessFile(temporalFile.getAbsolutePath(), "rw").
-                                            getChannel();
-                                    fileLock = channel.tryLock();
-                                }
-                            }
-                        }
-                    }
-                } else {
-                    channel = new RandomAccessFile(temporalFile.getAbsolutePath(), "rw").getChannel();
-                    fileLock = channel.tryLock();
+                /// move local temporal file or original file to its corresponding
+                // location in the ownCloud local folder
+                if (!result.isSuccess() && result.getHttpCode() == HttpStatus.SC_PRECONDITION_FAILED) {
+                    result = new RemoteOperationResult(ResultCode.SYNC_CONFLICT);
                 }
+
             }
 
-            result = mUploadOperation.execute(client);
-
-            /// move local temporal file or original file to its corresponding
-            // location in the ownCloud local folder
-            if (!result.isSuccess() && result.getHttpCode() == HttpStatus.SC_PRECONDITION_FAILED) {
-                result = new RemoteOperationResult(ResultCode.SYNC_CONFLICT);
-            }
 
         } catch (FileNotFoundException e) {
             Log_OC.d(TAG, mOriginalStoragePath + " not exists anymore");
@@ -486,6 +503,7 @@ public class UploadFileOperation extends SyncOperation {
             if (temporalFile != null && !originalFile.equals(temporalFile)) {
                 temporalFile.delete();
             }
+
             if (result == null) {
                 result = new RemoteOperationResult(ResultCode.UNKNOWN_ERROR);
             }

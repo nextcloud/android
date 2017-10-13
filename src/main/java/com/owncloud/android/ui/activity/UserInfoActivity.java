@@ -32,7 +32,6 @@ import android.app.FragmentManager;
 import android.content.ContentResolver;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
@@ -62,7 +61,6 @@ import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.authentication.AuthenticatorActivity;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.PushConfigurationState;
-import com.owncloud.android.datamodel.SyncedFolderProvider;
 import com.owncloud.android.lib.common.UserInfo;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
@@ -87,10 +85,10 @@ import butterknife.Unbinder;
  * This Activity presents the user information.
  */
 public class UserInfoActivity extends FileActivity {
-    private static final String TAG = UserInfoActivity.class.getSimpleName();
+    public static final String KEY_ACCOUNT = "ACCOUNT";
 
+    private static final String TAG = UserInfoActivity.class.getSimpleName();
     private static final String KEY_USER_DATA = "USER_DATA";
-    private static final String KEY_ACCOUNT = "ACCOUNT";
     private static final String KEY_DIRECT_REMOVE = "DIRECT_REMOVE";
 
     private static final int KEY_DELETE_CODE = 101;
@@ -167,7 +165,7 @@ public class UserInfoActivity extends FileActivity {
     @BindView(R.id.empty_list_progress)
     public ProgressBar multiListProgressBar;
 
-    @BindString(R.string.preview_sorry)
+    @BindString(R.string.user_information_retrieval_error)
     public String sorryMessage;
 
     private float mCurrentAccountAvatarRadiusDimension;
@@ -256,18 +254,22 @@ public class UserInfoActivity extends FileActivity {
             emptyContentMessage.setText("");
 
             emptyContentIcon.setVisibility(View.GONE);
+            emptyContentMessage.setVisibility(View.GONE);
             multiListProgressBar.getIndeterminateDrawable().setColorFilter(ThemeUtils.primaryColor(),
                     PorterDuff.Mode.SRC_IN);
             multiListProgressBar.setVisibility(View.VISIBLE);
         }
     }
 
-    private void setMessageForMultiList(String headline, String message) {
+    private void setErrorMessageForMultiList(String headline, String message) {
         if (emptyContentContainer != null && emptyContentMessage != null) {
             emptyContentHeadline.setText(headline);
             emptyContentMessage.setText(message);
+            emptyContentIcon.setImageResource(R.drawable.ic_list_empty_error);
 
             multiListProgressBar.setVisibility(View.GONE);
+            emptyContentIcon.setVisibility(View.VISIBLE);
+            emptyContentMessage.setVisibility(View.VISIBLE);
         }
     }
 
@@ -298,10 +300,9 @@ public class UserInfoActivity extends FileActivity {
                             .error(R.drawable.background)
                             .crossFade()
                             .into(target);
-                } else if (!background.isEmpty()) {
+                } else {
                     // plain color
-                    int color = Color.parseColor(background);
-                    appBar.setBackgroundColor(color);
+                    appBar.setBackgroundColor(ThemeUtils.primaryColor(account));
                 }
             }
         }
@@ -404,10 +405,6 @@ public class UserInfoActivity extends FileActivity {
                                     ContactsPreferenceActivity.cancelContactBackupJobForAccount(getActivity(), account);
 
                                     ContentResolver contentResolver = getActivity().getContentResolver();
-                                    // delete all synced folder for an account
-                                    SyncedFolderProvider syncedFolderProvider = new SyncedFolderProvider(
-                                            contentResolver);
-                                    syncedFolderProvider.deleteSyncFoldersForAccount(account);
 
                                     // disable daily backup
                                     ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProvider(
@@ -416,7 +413,6 @@ public class UserInfoActivity extends FileActivity {
                                     arbitraryDataProvider.storeOrUpdateKeyValue(account.name,
                                             ContactsPreferenceActivity.PREFERENCE_CONTACTS_AUTOMATIC_BACKUP,
                                             "false");
-
 
                                     String arbitraryDataPushString;
 
@@ -480,7 +476,12 @@ public class UserInfoActivity extends FileActivity {
                     });
                 } else {
                     // show error
-                    setMessageForMultiList(result.getLogMessage(), sorryMessage);
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            setErrorMessageForMultiList(sorryMessage, result.getLogMessage());
+                        }
+                    });
                     Log_OC.d(TAG, result.getLogMessage());
                 }
             }

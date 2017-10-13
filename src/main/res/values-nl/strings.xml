@@ -25,9 +25,9 @@
     <string name="drawer_item_favorites">Favorieten</string>
     <string name="drawer_item_photos">Foto\'s</string>
     <string name="drawer_item_on_device">Op het apparaat</string>
-    <string name="drawer_item_recently_added">Recent toegevoged</string>
+    <string name="drawer_item_recently_added">Recent toegevoegd</string>
     <string name="drawer_item_recently_modified">Recent gewijzigd</string>
-    <string name="drawer_item_shared">Gedeel</string>
+    <string name="drawer_item_shared">Gedeeld</string>
     <string name="drawer_item_videos">Video\'s</string>
     <string name="drawer_item_settings">Instellingen</string>
     <string name="drawer_item_uploads_list">Uploads</string>
@@ -264,12 +264,13 @@ Kies er eentje van een provider.</string>
 	<string name="auth_fail_get_user_name">Je server geeft geen goede userid terug, neem contact op met je beheerder</string>
 	<string name="auth_can_not_auth_against_server">Kan niet autenticeren tegen deze server</string>
     <string name="auth_account_does_not_exist">Account bestaan nog niet op dit apparaat</string>
-
+    <string name="auth_access_failed">Toegang mislukt</string>
 
     <string name="favorite">Offline beschikbaar maken</string>
     <string name="unfavorite">Niet langer offline beschikbaar maken</string>
     <string name="favorite_real">Instellen als favoriet</string>
     <string name="unset_favorite_real">Weghalen als favoriet</string>
+    <string name="favorite_switch">Offline beschikbaar</string>
     <string name="common_rename">Hernoemen</string>
     <string name="common_remove">Verwijderen</string>
     <string name="confirmation_remove_file_alert">Wil je %1$s echt verwijderen?</string>
@@ -332,7 +333,6 @@ Kies er eentje van een provider.</string>
     <string name="placeholder_media_time">12:23:45</string>
 
     <string name="auto_upload_on_wifi">Alleen uploaden via Wi-Fi</string>
-    <string name="instant_video_upload_on_wifi">Alleen video\'s uploaden via Wi-Fi</string>
     <string name="instant_video_upload_on_charging">Alleen uploaden bij opladen</string>
     <string name="instant_upload_on_charging">Alleen uploaden bij opladen</string>
     <string name="instant_upload_path">/InstantUpload</string>
@@ -343,9 +343,10 @@ Kies er eentje van een provider.</string>
     <string name="conflict_use_local_version">lokale versie</string>
     <string name="conflict_use_server_version">serverversie</string>
 
-    <string name="preview_sorry">Sorry.</string>
+    <string name="preview_sorry">Sorry</string>
     <string name="preview_image_description">Voorvertoning van afbeelding</string>
     <string name="preview_image_error_unknown_format">Kan afbeelding niet tonen</string>
+    <string name="preview_image_error_no_local_file">Er is geen lokaal bestand om te bekijken</string>
 
     <string name="error__upload__local_file_not_copied">%1$s kon niet worden gekopieerd naar de lokale map %2$s</string>
     <string name="prefs_instant_upload_path_title">Directe-uploadmap</string>
@@ -619,7 +620,12 @@ Kies er eentje van een provider.</string>
     <string name="whats_new_search_title">Doorzoek alles op server</string>
     <string name="whats_new_search_content">\u2022 Niet alleen in huidige map\n\u2022 Geeft resultaten van gehele server\n\u2022 Open bestanden/mappen rechtstreeks\n\u2022 Werkt in NC12 en daarboven</string>
 
+    <string name="whats_new_theming_title">Styling support</string>
+    <string name="whats_new_theming_content">Indien aangezet op de server, de app zal xxx achtergrond geven, de server zal naam kleur xxx geven voor verschillende accounts</string>
+
     <string name="whats_new_notification_title">Notificatie ondersteuning</string>
+    <string name="whats_new_notification_content">Krijg notificaties als\n\u2022 nieuwe op afstand gedeelde folders\n\u2022 commentaar, vermeldingen\n\u2022 beheerder aankondigingen.</string>
+
     <string name="whats_new_skip">Overslaan</string>
 
     <string name="fingerprint_scan_finger">Scan je vinger</string>
@@ -634,6 +640,7 @@ Kies er eentje van een provider.</string>
     <string name="user_info_twitter">Twitter</string>
 
     <string name="user_information_description">Gebruikersinformatie</string>
+    <string name="user_information_retrieval_error">Fout bij ophalen gebruikersinformatie</string>
 
     <!-- Activities -->
     <string name="activities_no_results_headline">Nog geen activiteit</string>
@@ -675,4 +682,15 @@ Kies er eentje van een provider.</string>
     <string name="resharing_is_not_allowed">Verder delen is niet toegestaan</string>
     <string name="whats_new_fingerprint_title">Deblokkeren met vingerafdruk</string>
     <string name="whats_new_fingerprint_content">Gebruik je vingerafdruk om de app te deblokkeren</string>
+    <string name="fallback_weblogin_back">Terug</string>
+    <string name="fallback_weblogin_text">Ga terug naar de oude inlog methode</string>
+
+    <string name="foreground_service_upload">Bezig met uploaden bestanden&#8230;</string>
+    <string name="foreground_service_download">Bezig met downloaden bestanden&#8230;</string>
+
+    <string name="prefs_sourcecode">Krijg broncode</string>
+    <string name="prefs_license">Licentie</string>
+    <string name="push_notifications_not_implemented">Push notificaties uitgeschakeld door afhankelijkheden op eigen Google Play-services.</string>
+    <string name="push_notifications_old_login">Geen push-notificaties als gevolg van de verouderde inlogsessie. Overweeg het opnieuw toevoegen van uw account.</string>
+    <string name="push_notifications_temp_error">Push notificaties momenteel niet beschikbaar.</string>
 </resources>

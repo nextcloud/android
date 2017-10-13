@@ -254,7 +254,4 @@
 	</style>
 	<style name="NextcloudTextAppearanceMedium" parent="style/TextAppearance.AppCompat.Medium">
 	</style>
-	<style name="NextcloudTextAppearanceSmall" parent="style/TextAppearance.AppCompat.Small">
-	</style>
-	<style name="Test" parent=""/>
 </resources>

@@ -264,7 +264,7 @@ Smelltu hér til að fá þér einn frá þjónustuaðila.</string>
 	<string name="auth_fail_get_user_name">Vefþjónninn þinn er ekki að svara með réttu notandaauðkenni, hafðu samband við kerfisstjóra.</string>
 	<string name="auth_can_not_auth_against_server">Get ekki auðkennt á þessum þjóni</string>
     <string name="auth_account_does_not_exist">Aðgangur er ekki ennþá til á tækinu</string>
-
+    <string name="auth_access_failed">Aðgangur mistókst</string>
 
     <string name="favorite">Stilla sem tiltækt án nettengingar</string>
     <string name="unfavorite">Afstilla sem tiltækt án nettengingar</string>
@@ -332,7 +332,6 @@ Smelltu hér til að fá þér einn frá þjónustuaðila.</string>
     <string name="placeholder_media_time">12:23:45</string>
 
     <string name="auto_upload_on_wifi">Aðeins senda inn á þráðlausu WiFi-neti</string>
-    <string name="instant_video_upload_on_wifi">Aðeins senda inn myndskeið á þráðlausu WiFi-neti</string>
     <string name="instant_video_upload_on_charging">Einungis senda inn þegar verið er að hlaða</string>
     <string name="instant_upload_on_charging">Einungis senda inn þegar verið er að hlaða</string>
     <string name="instant_upload_path">/BeinInnsending</string>
@@ -343,9 +342,10 @@ Smelltu hér til að fá þér einn frá þjónustuaðila.</string>
     <string name="conflict_use_local_version">útgáfu á tölvu</string>
     <string name="conflict_use_server_version">útgáfu á þjóni</string>
 
-    <string name="preview_sorry">Því miður.</string>
+    <string name="preview_sorry">Því miður</string>
     <string name="preview_image_description">Forskoðun myndar</string>
     <string name="preview_image_error_unknown_format">Get ekki birt mynd</string>
+    <string name="preview_image_error_no_local_file">Það er engin staðvær skrá til að forskoða</string>
 
     <string name="error__upload__local_file_not_copied">%1$s var ekki hægt að afrita í staðværu %2$s möppuna</string>
     <string name="prefs_instant_upload_path_title">Mappa fyrir beinar innsendingar</string>
@@ -614,10 +614,14 @@ Smelltu hér til að fá þér einn frá þjónustuaðila.</string>
     <string name="welcome_feature_3_text">Haltu ljósmyndunum þínum öruggum</string>
 
     <string name="whats_new_auto_upload_title">Bættar sjálfvirkar innsendingar</string>
+    <string name="whats_new_auto_upload_content">\u2022 fyrir allar útgáfur Android\n\u2022 minni eyðsla á rafhlöðu\n\u2022 áreiðanlegra en ekki eins snöggt\n\u2022 aðskilnaður mynda &amp; myndskeiða</string>
+
     <string name="whats_new_search_title">Fullkomin leit á þjóni</string>
     <string name="whats_new_search_content">\u2022 Ekki aðeins í núverandi möppu\n\u2022 Skilar niðurstöðum allstaðar frá þjóninum\n\u2022 Opnar beint skrár/möppur\n\u2022 Stutt í NC12 og nýrri</string>
 
     <string name="whats_new_theming_title">Stuðningur við þemu</string>
+    <string name="whats_new_theming_content">Ef það er virkjað á þjóni, mun forritið sýna\n\u2022 bakgrunnsmynd\n\u2022 heiti þjóns\n\u2022 nota liti til aðgreiningar á aðgöngum</string>
+
     <string name="whats_new_notification_title">Stuðningur við tilkynningar</string>
     <string name="whats_new_notification_content">Fáðu tilkynningar á borð við\n\u2022 nýjar fjartengdar sameignir\n\u2022 umsagnir um athugasemdir\n\u2022 tilkynningar kerfisstjóra</string>
 
@@ -635,6 +639,7 @@ Smelltu hér til að fá þér einn frá þjónustuaðila.</string>
     <string name="user_info_twitter">Twitter</string>
 
     <string name="user_information_description">Upplýsingar um notanda</string>
+    <string name="user_information_retrieval_error">Villa við að sækja upplýsingar um notanda</string>
 
     <!-- Activities -->
     <string name="activities_no_results_headline">Engin virkni ennþá</string>
@@ -676,4 +681,11 @@ Smelltu hér til að fá þér einn frá þjónustuaðila.</string>
     <string name="resharing_is_not_allowed">Endurdeiling er ekki leyfð</string>
     <string name="whats_new_fingerprint_title">Aflæsa með fingrafari</string>
     <string name="whats_new_fingerprint_content">Notaðu fingrafarið þitt til að aflæsa forritinu</string>
-</resources>
+    <string name="fallback_weblogin_back">BAKKA</string>
+    <string name="fallback_weblogin_text">Fara til baka í gömlu innskráningaraðferðina</string>
+
+    <string name="foreground_service_upload">Sendi inn skrár&#8230;</string>
+    <string name="foreground_service_download">Sæki skrár&#8230;</string>
+
+    <string name="prefs_license">Notkunarleyfi</string>
+    </resources>

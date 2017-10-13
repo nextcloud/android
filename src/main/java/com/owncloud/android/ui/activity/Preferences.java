@@ -556,6 +556,49 @@ public class Preferences extends PreferenceActivity
             pAboutApp.setSummary(String.format(getString(R.string.about_version), appVersion));
         }
 
+        // source code
+        boolean sourcecodeEnabled = getResources().getBoolean(R.bool.sourcecode_enabled);
+        Preference sourcecodePreference = findPreference("sourcecode");
+        if (sourcecodePreference != null) {
+            String sourcecodeUrl = getString(R.string.sourcecode_url);
+
+            if (sourcecodeEnabled && !sourcecodeUrl.isEmpty()) {
+                sourcecodePreference.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+                    @Override
+                    public boolean onPreferenceClick(Preference preference) {
+                        Uri uriUrl = Uri.parse(sourcecodeUrl);
+                        Intent intent = new Intent(Intent.ACTION_VIEW, uriUrl);
+                        startActivity(intent);
+                        return true;
+                    }
+                });
+            } else {
+                preferenceCategoryAbout.removePreference(sourcecodePreference);
+            }
+        }
+
+        // license
+        boolean licenseEnabled = getResources().getBoolean(R.bool.license_enabled);
+        Preference licensePreference = findPreference("license");
+        if (licensePreference != null) {
+            String licenseUrl = getString(R.string.license_url);
+
+            if (licenseEnabled && !licenseUrl.isEmpty()) {
+                licensePreference.setSummary(R.string.prefs_gpl_v2);
+                licensePreference.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+                    @Override
+                    public boolean onPreferenceClick(Preference preference) {
+                        Uri uriUrl = Uri.parse(licenseUrl);
+                        Intent intent = new Intent(Intent.ACTION_VIEW, uriUrl);
+                        startActivity(intent);
+                        return true;
+                    }
+                });
+            } else {
+                preferenceCategoryAbout.removePreference(licensePreference);
+            }
+        }
+
         // privacy
         boolean privacyEnabled = getResources().getBoolean(R.bool.privacy_enabled);
         Preference privacyPreference = findPreference("privacy");

@@ -83,7 +83,7 @@ public class ParticipateActivity extends FileActivity {
 
         TextView contributeForumView = (TextView) findViewById(R.id.participate_contribute_forum_text);
         contributeForumView.setMovementMethod(LinkMovementMethod.getInstance());
-        contributeForumView.setText(Html.fromHtml(getString(R.string.participate_contribute_irc_text) + " " +
+        contributeForumView.setText(Html.fromHtml(getString(R.string.participate_contribute_forum_text) + " " +
                 getString(R.string.participate_contribute_forum_text_link,
                         ThemeUtils.colorToHexString(ThemeUtils.primaryColor()),
                         getString(R.string.help_link), getString(R.string.participate_contribute_forum_forum))));

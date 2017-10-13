@@ -28,7 +28,6 @@ import android.accounts.AccountManagerFuture;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
-import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -39,6 +38,7 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.text.Html;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -932,14 +932,33 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
         // set user space information
         Thread t = new Thread(new Runnable() {
             public void run() {
+                AccountManager mAccountMgr = AccountManager.get(MainApp.getAppContext());
 
-                RemoteOperation getQuotaInfoOperation = new GetRemoteUserInfoOperation();
+                String userId = mAccountMgr.getUserData(AccountUtils.getCurrentOwnCloudAccount(DrawerActivity.this),
+                        com.owncloud.android.lib.common.accounts.AccountUtils.Constants.KEY_USER_ID);
+
+                RemoteOperation getQuotaInfoOperation;
+                if (TextUtils.isEmpty(userId)) {
+                    getQuotaInfoOperation = new GetRemoteUserInfoOperation();
+                } else {
+                    getQuotaInfoOperation = new GetRemoteUserInfoOperation(userId);
+                }
+
                 RemoteOperationResult result = getQuotaInfoOperation.execute(
                         AccountUtils.getCurrentOwnCloudAccount(DrawerActivity.this), DrawerActivity.this);
 
                 if (result.isSuccess() && result.getData() != null) {
                     final UserInfo userInfo = (UserInfo) result.getData().get(0);
                     final Quota quota = userInfo.getQuota();
+
+                    // Since we always call this method, might as well put it here
+                    if (userInfo.getId() != null) {
+                        mAccountMgr.setUserData(
+                                AccountUtils.getCurrentOwnCloudAccount(DrawerActivity.this),
+                                com.owncloud.android.lib.common.accounts.AccountUtils.Constants.KEY_USER_ID,
+                                userInfo.getId()
+                        );
+                    }
 
                     if (quota != null) {
                         final long used = quota.getUsed();
@@ -984,16 +1003,18 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
 
             float density = getResources().getDisplayMetrics().density;
             final int size = Math.round(24 * density);
+            int greyColor = getResources().getColor(R.color.standard_grey);
 
             for (final ExternalLink link : externalLinksProvider.getExternalLink(ExternalLinkType.LINK)) {
 
-                int id=mNavigationView.getMenu().add(R.id.drawer_menu_external_links, MENU_ITEM_EXTERNAL_LINK,
+                int id = mNavigationView.getMenu().add(R.id.drawer_menu_external_links, MENU_ITEM_EXTERNAL_LINK,
                         MENU_ORDER_EXTERNAL_LINKS, link.name).setCheckable(true).getItemId();
 
                 MenuSimpleTarget target = new MenuSimpleTarget<Drawable>(id) {
                     @Override
                     public void onResourceReady(Drawable resource, GlideAnimation glideAnimation) {
-                        mNavigationView.getMenu().findItem(getIdMenuItem()).setIcon(resource);
+                        mNavigationView.getMenu().findItem(getIdMenuItem()).setIcon(
+                                ThemeUtils.tintDrawable(resource, greyColor));
                     }
 
                     @Override
@@ -1040,8 +1061,7 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
                             .into(target);
                 } else {
                     // plain color
-                    int color = Color.parseColor(background);
-                    navigationHeader.setBackgroundColor(color);
+                    navigationHeader.setBackgroundColor(ThemeUtils.primaryColor(getAccount()));
                 }
             }
         }
