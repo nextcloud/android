@@ -269,6 +269,7 @@
     <string name="unfavorite">Hiqeni si të gatshëm jo në linjë</string>
     <string name="favorite_real">Vendose si të preferuar</string>
     <string name="unset_favorite_real">Hiqe si të preferuar</string>
+    <string name="favorite_switch">I disponueshëm jo në linjë</string>
     <string name="common_rename">Riemërtojeni</string>
     <string name="common_remove">Hiqe</string>
     <string name="confirmation_remove_file_alert">Doni vërtet të hiqni %1$s?</string>
@@ -344,6 +345,8 @@
     <string name="preview_sorry">Më vjen keq</string>
     <string name="preview_image_description">Parapamje figure</string>
     <string name="preview_image_error_unknown_format">Kjo figurë nuk mund të shfaqet</string>
+    <string name="preview_image_error_no_local_file">Nuk ka skedar lokal për të shfaqur</string>
+
     <string name="error__upload__local_file_not_copied">%1$s s\’u kopjua dot te dosja vendore %2$s</string>
     <string name="prefs_instant_upload_path_title">Dosja e ngarkimit të çastit </string>
     <string name="prefs_synced_folders_local_path_title">Dosje lokale</string>
@@ -636,6 +639,8 @@
     <string name="user_info_twitter">Twitter</string>
 
     <string name="user_information_description">Informacioni i përdoruesit</string>
+    <string name="user_information_retrieval_error">Gabim gjatë marrjes së informacionit të përdoruesit</string>
+
     <!-- Activities -->
     <string name="activities_no_results_headline">Akoma asnjë aktivitet</string>
     <string name="activities_no_results_message">Ky burim do të tregoj eventet si\nshtimet, ndryshimet dhe ndarjet</string>
@@ -679,5 +684,9 @@
     <string name="fallback_weblogin_back">PRAPA</string>
     <string name="fallback_weblogin_text">Kthehu në metodën e vjetër të hyrjes</string>
 
+    <string name="foreground_service_upload">Ngarkimi i skedarëve 1&#8230;</string>
+    <string name="foreground_service_download">Shkarkimi i skedarëve&#8230;</string>
+
+    <string name="prefs_sourcecode">Merr kodin burimor</string>
     <string name="prefs_license">Liçensë</string>
     </resources>

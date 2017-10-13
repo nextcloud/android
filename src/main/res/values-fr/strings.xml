@@ -512,7 +512,7 @@
     <string name="share_sharee_unavailable">Désolé, la version de votre serveur ne permet pas aux applications d\'initier des partages avec d\'autres utilisateurs.\nVeuillez contacter votre administrateur</string>
     <string name="filedetails_share_link_enable">Partage par lien activé</string>
     <string name="filedetails_share_link_disable">Aucun partage par lien</string>
-    <string name="filedetails_share_users_with_access">Utilisateurs et groupes avec accès</string>
+    <string name="filedetails_share_users_with_access">Utilisateurs et groupes ayant accès</string>
     <string name="share_privilege_can_share">peut partager</string>
     <string name="share_privilege_can_edit">peut modifier</string>
     <string name="share_privilege_can_edit_create">création</string>
