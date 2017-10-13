@@ -29,6 +29,8 @@ import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.TextPaint;
 import android.text.TextUtils;
+import android.text.format.DateFormat;
+import android.text.format.DateUtils;
 import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
 import android.text.style.ForegroundColorSpan;
@@ -104,9 +106,9 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             Activity activity = (Activity) o;
             String time;
             if (activity.getDatetime() != null) {
-                time = DisplayUtils.getRelativeTimestampDayWise(context, activity.getDatetime().getTime()).toString();
+                time = getHeaderDateString(context, activity.getDatetime().getTime()).toString();
             } else if (activity.getDate() != null) {
-                time = DisplayUtils.getRelativeTimestampDayWise(context, activity.getDate().getTime()).toString();
+                time = getHeaderDateString(context, activity.getDate().getTime()).toString();
             } else {
                 time = context.getString(R.string.date_unknown);
             }
@@ -348,6 +350,15 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         Resources r = MainApp.getAppContext().getResources();
         Double d = Math.pow(2, Math.floor(Math.log(r.getDimension(R.dimen.file_icon_size_grid)) / Math.log(2))) / 2;
         return d.intValue();
+    }
+
+    private CharSequence getHeaderDateString(Context context, long modificationTimestamp) {
+        if ((System.currentTimeMillis() - modificationTimestamp) < DateUtils.WEEK_IN_MILLIS) {
+            return DisplayUtils.getRelativeDateTimeString(context, modificationTimestamp, DateUtils.DAY_IN_MILLIS,
+                    DateUtils.WEEK_IN_MILLIS, 0);
+        } else {
+            return DateFormat.format("EEEE, MMMM d", modificationTimestamp);
+        }
     }
 
     private class ActivityViewHolder extends RecyclerView.ViewHolder {
