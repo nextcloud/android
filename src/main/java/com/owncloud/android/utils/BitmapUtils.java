@@ -313,10 +313,10 @@ public class BitmapUtils {
         return new int[]{(int) (hsl[0] * 360), sat, lum};
     }
 
-    private static double[] rgbToHsl(double r, double g, double b) {
-        r /= 255;
-        g /= 255;
-        b /= 255;
+    private static double[] rgbToHsl(double rUntrimmed, double gUntrimmed, double bUntrimmed) {
+        double r = rUntrimmed / 255;
+        double g = gUntrimmed / 255;
+        double b = bUntrimmed / 255;
 
         double max = Math.max(r, Math.max(g, b));
         double min = Math.min(r, Math.min(g, b));
