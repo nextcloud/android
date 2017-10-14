@@ -143,7 +143,7 @@
     <string name="change_password">Αλλαγή συνθημτικού</string>
     <string name="delete_account">Αφαίρεση λογαριασμού</string>
     <string name="delete_account_warning">Διαγραφή λογαριασμού %s με όλα τα τοπικά αρχεία?\n\n\Διαγράφοντας τα δεν θα υπάρξει επαναφορά.</string>
-    <string name="avatar">Εικονική προσωποποίηση</string>
+    <string name="avatar">Εικόνα προφίλ</string>
     <string name="active_user">Ενεργός χρήστης</string>
     <string name="upload_chooser_title">Μεταφόρτωση από &#8230;</string>
     <string name="uploader_info_dirname">Όνομα φακέλου</string>
@@ -269,6 +269,7 @@
     <string name="unfavorite">Αναίρεση ορισμού ως διαθέσιμο εκτός σύνδεσης</string>
     <string name="favorite_real">Ορισμός ως αγαπημένο</string>
     <string name="unset_favorite_real">Αναίρεση ορισμού ως αγαπημένο</string>
+    <string name="favorite_switch">Διαθέσιμα εκτός σύνδεσης</string>
     <string name="common_rename">Μετονομασία</string>
     <string name="common_remove">Αφαίρεση</string>
     <string name="confirmation_remove_file_alert">Θέλετε να αφαιρέσετε το %1$s;</string>
@@ -524,7 +525,7 @@
     <string name="action_clear_failed_uploads">Εκκαθάριση αποτυχημένων μεταφορτώσεων</string>
     <string name="action_clear_successful_uploads">Εκκαθάριση επιτυχών μεταφορτώσεων</string>
     <string name="action_clear_finished_uploads">Ολοκλήρωση εκκαθάρισης όλων</string>
-    <string name="action_force_rescan">Δύναμη επανεξέτασης</string>
+    <string name="action_force_rescan">Επιβολή σάρωσης</string>
 
     <string name="action_switch_grid_view">Προβολή πλέγματος</string>
     <string name="action_switch_list_view">Προβολή λίστας</string>
@@ -618,8 +619,8 @@
     <string name="whats_new_search_title">Πλήρης αναζήτηση διακομιστή</string>
     <string name="whats_new_search_content">\ n \ u2022 Επιστρέφει τα αποτελέσματα από τον πλήρη διακομιστή \ n \ u2022 Ανοίξτε άμεσα αρχεία / φακέλους \ n \ u2022 Υποστηρίζεται σε NC12 και άνω</string>
 
-    <string name="whats_new_theming_title">Υποστήριξη θεματοποίησης</string>
-    <string name="whats_new_theming_content">Εάν είναι ενεργοποιημένη στο διακομιστή, η εφαρμογή θα εμφανίσει \ n \ u2022 όνομα φόντου \ n \ u2022 όνομα διακομιστή \ n \ u2022 χρήση χρώματος για να ξεχωρίσει τους λογαριασμούς </string>
+    <string name="whats_new_theming_title">Υποστήριξη εμφανισιακών αλλαγών</string>
+    <string name="whats_new_theming_content">Εάν είναι ενεργοποιημένη στο διακομιστή, η εφαρμογή θα εμφανίσει \ n \ u2022 εικόνα φόντου \ n \ u2022 όνομα διακομιστή \ n \ u2022 χρήση χρώματος για να ξεχωρίζουν οι λογαριασμούς </string>
 
     <string name="whats_new_notification_title">Υποστήριξη ειδοποιήσεων</string>
     <string name="whats_new_notification_content">Λήψη ειδοποιήσεων όπως \ n \ u2022 νέα απομακρυσμένη κοινή χρήση \ n \ u2022 σχόλια αναφέρει \ n \ u2022 διαχειριστικές ανακοινώσεις</string>
@@ -638,6 +639,8 @@
     <string name="user_info_twitter">Twitter</string>
 
     <string name="user_information_description">Πληροφορίες χρήστη</string>
+    <string name="user_information_retrieval_error">Σφάλμα ανάκτησης πληροφοριών χρήστη</string>
+
     <!-- Activities -->
     <string name="activities_no_results_headline">Καμία δραστηριότητα ακόμα</string>
     <string name="activities_no_results_message">Σε αυτήν τη ροή θα εμφανιστούν γενονότα όπως\nπροσθήκες, αλλαγές και κοινόχρηστα</string>
@@ -670,19 +673,23 @@
     <string name="file_not_found">Δεν βρέθηκε το αρχείο!</string>
 
     <!-- Auto upload -->
-    <string name="autoupload_custom_folder">Ρυθμίστε έναν προσαρμοσμένο φάκελο</string>
-    <string name="autoupload_create_new_custom_folder">Δημιουργήστε νέα ρύθμιση προσαρμοσμένου φακέλου</string>
+    <string name="autoupload_custom_folder">Διαμορφώστε έναν προσαρμοσμένο φάκελο</string>
+    <string name="autoupload_create_new_custom_folder">Δημιουργήστε νέα διαμόρφωση προσαρμοσμένου φακέλου</string>
     <string name="synced_folders_configure_folders">Ρυθμίστε τους φακέλους</string>
 
     <string name="test_server_button">Δοκιμή σύνδεσης με διακομιστή</string>
-    <string name="resharing_is_not_allowed">Δεν επιτρέπεται η αναδημοσίευση</string>
+    <string name="resharing_is_not_allowed">Δεν επιτρέπεται ο διαμοιρασμός</string>
     <string name="whats_new_fingerprint_title">Ξεκλειδώστε με δακτυλικό αποτύπωμα</string>
     <string name="whats_new_fingerprint_content">Χρησιμοποιήστε το δακτυλικό αποτύπωμα για να ξεκλειδώσετε την εφαρμογή</string>
     <string name="fallback_weblogin_back">ΠΙΣΩ</string>
-    <string name="fallback_weblogin_text">Επιστρέψτε στην παλιά μέθοδο σύνδεσης</string>
+    <string name="fallback_weblogin_text">Επιστρέψτε στην παλιά μέθοδο εισόδου</string>
 
     <string name="foreground_service_upload">Μεταφόρτωση αρχείων &#8230;</string>
     <string name="foreground_service_download">Λήψη αρχείων &#8230;</string>
 
+    <string name="prefs_sourcecode">Λήψη πηγαίου κώδικα</string>
     <string name="prefs_license">Άδεια χρήσης</string>
-    </resources>
+    <string name="push_notifications_not_implemented">Οι ειδοποιήσεις απενεργοποιήθηκαν λόγω εξαρτήσεων στις ιδιόκτητες υπηρεσίες Google Play.</string>
+    <string name="push_notifications_old_login">Δεν υπάρχουν ειδοποιήσεις λόγω παρωχημένης συνεδρίας σύνδεσης. Παρακαλούμε επανεξετάσετε το ενδεχόμενο να ξανά προσθέσετε τον λογαριασμό σας.</string>
+    <string name="push_notifications_temp_error">Οι ειδοποιήσεις push δεν είναι διαθέσιμες αυτήν τη στιγμή.</string>
+</resources>
