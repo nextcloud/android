@@ -76,8 +76,6 @@ public class UploadListActivity extends FileActivity implements UploadListFragme
 
     private static final String SCREEN_NAME = "Uploads";
 
-    public static final String EXPERT_MODE = "expert_mode";
-
     private UploadMessagesReceiver mUploadMessagesReceiver;
 
     private Menu mMenu;
