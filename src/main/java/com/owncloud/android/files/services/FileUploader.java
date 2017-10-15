@@ -922,7 +922,7 @@ public class FileUploader extends Service
                         cancel(mCurrentUpload.getAccount().name, mCurrentUpload.getFile().getRemotePath()
                                 , ResultCode.DELAYED_FOR_WIFI);
                     } else if (mCurrentUpload.getIsChargingRequired() &&
-                            !Device.isCharging(MainApp.getAppContext())) {
+                            !Device.getBatteryStatus(MainApp.getAppContext()).isCharging()) {
                         cancel(mCurrentUpload.getAccount().name, mCurrentUpload.getFile().getRemotePath()
                                 , ResultCode.DELAYED_FOR_CHARGING);
                     } else if (
