@@ -35,6 +35,7 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.evernote.android.job.JobRequest;
+import com.evernote.android.job.util.Device;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
@@ -153,7 +154,7 @@ public class FilesSyncHelper {
 
         for (SyncedFolder syncedFolder : syncedFolderProvider.getSyncedFolders()) {
             if ((syncedFolder.isEnabled()) && ((MediaFolderType.CUSTOM != syncedFolder.getType()) || !skipCustom)) {
-                    insertAllDBEntriesForSyncedFolder(syncedFolder);
+                insertAllDBEntriesForSyncedFolder(syncedFolder);
             }
         }
     }
@@ -228,11 +229,14 @@ public class FilesSyncHelper {
             }
         }
 
-        uploadRequester.retryFailedUploads(
-                context,
-                null,
-                null
-        );
+        if (!Device.getNetworkType(context).equals(JobRequest.NetworkType.ANY) ||
+                !ConnectivityUtils.isInternetWalled(context)) {
+            uploadRequester.retryFailedUploads(
+                    context,
+                    null,
+                    null
+            );
+        }
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -270,15 +274,15 @@ public class FilesSyncHelper {
             }
         }
 
-            if (hasImageFolders || hasVideoFolders) {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                    scheduleJobOnN(hasImageFolders, hasVideoFolders, force);
-                }
-            } else {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                    cancelJobOnN();
-                }
+        if (hasImageFolders || hasVideoFolders) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                scheduleJobOnN(hasImageFolders, hasVideoFolders, force);
             }
+        } else {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                cancelJobOnN();
+            }
+        }
     }
 
     public static void scheduleFilesSyncIfNeeded(Context context) {
