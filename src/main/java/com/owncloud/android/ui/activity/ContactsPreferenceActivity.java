@@ -114,7 +114,7 @@ public class ContactsPreferenceActivity extends FileActivity implements FileFrag
         PersistableBundleCompat bundle = new PersistableBundleCompat();
         bundle.putString(ContactsBackupJob.ACCOUNT, account.name);
 
-        cancelContactBackupJobForAccount(MainApp.getAppContext(), account);
+        cancelPreviousContactBackupJobForAccount(MainApp.getAppContext(), account);
 
         new JobRequest.Builder(ContactsBackupJob.TAG)
                 .setExtras(bundle)
@@ -131,6 +131,21 @@ public class ContactsPreferenceActivity extends FileActivity implements FileFrag
 
         for (JobRequest jobRequest : jobs) {
             jobManager.cancel(jobRequest.getJobId());
+        }
+    }
+
+    public static void cancelPreviousContactBackupJobForAccount(Context context, Account account) {
+        Log_OC.d(TAG, "disabling existing contacts backup job for account: " + account.name);
+
+        JobManager jobManager = JobManager.create(context);
+        Set<JobRequest> jobs = jobManager.getAllJobRequestsForTag(ContactsBackupJob.TAG);
+
+        for (JobRequest jobRequest : jobs) {
+            PersistableBundleCompat extras = jobRequest.getExtras();
+            if (extras.getString(ContactsBackupJob.ACCOUNT, "").equalsIgnoreCase(account.name) &&
+                    jobRequest.isPeriodic()) {
+                jobManager.cancel(jobRequest.getJobId());
+            }
         }
     }
 
