@@ -85,6 +85,8 @@ public class Preferences extends PreferenceActivity
 
     public final static String PREFERENCE_USE_FINGERPRINT = "use_fingerprint";
 
+    public static final String EXPERT_MODE = "expert_mode";
+
     private static final String SCREEN_NAME = "Settings";
 
     private static final int ACTION_REQUEST_PASSCODE = 5;
@@ -317,19 +319,19 @@ public class Preferences extends PreferenceActivity
             preferenceCategoryDetails.removePreference(mShowHiddenFiles);
         }
 
-        mExpertMode = (SwitchPreference) findPreference(UploadListActivity.EXPERT_MODE);
+        mExpertMode = (SwitchPreference) findPreference(EXPERT_MODE);
 
         if (getResources().getBoolean(R.bool.syncedFolder_light)) {
             preferenceCategoryDetails.removePreference(mExpertMode);
         } else {
-            mExpertMode = (SwitchPreference) findPreference(UploadListActivity.EXPERT_MODE;
+            mExpertMode = (SwitchPreference) findPreference(EXPERT_MODE);
             mExpertMode.setOnPreferenceClickListener(new OnPreferenceClickListener() {
                 @Override
                 public boolean onPreferenceClick(Preference preference) {
                     SharedPreferences appPrefs =
                             PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
                     SharedPreferences.Editor editor = appPrefs.edit();
-                    editor.putBoolean(UploadListActivity.EXPERT_MODE, mExpertMode.isChecked());
+                    editor.putBoolean(EXPERT_MODE, mExpertMode.isChecked());
                     editor.apply();
 
                     if (mExpertMode.isChecked()) {
@@ -483,7 +485,7 @@ public class Preferences extends PreferenceActivity
                 PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
         boolean loggerEnabled = getResources().getBoolean(R.bool.logger_enabled) || BuildConfig.DEBUG ||
-                appPrefs.getBoolean("expert_mode", false);
+                appPrefs.getBoolean(EXPERT_MODE, false);
         Preference pLogger = findPreference("logger");
         if (pLogger != null) {
             if (loggerEnabled) {
