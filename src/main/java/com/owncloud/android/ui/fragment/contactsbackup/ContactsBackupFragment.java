@@ -316,7 +316,6 @@ public class ContactsBackupFragment extends FileFragment implements DatePickerDi
         new JobRequest.Builder(ContactsBackupJob.TAG)
                 .setExtras(bundle)
                 .startNow()
-                .setRequiresCharging(false)
                 .setUpdateCurrent(false)
                 .build()
                 .schedule();
