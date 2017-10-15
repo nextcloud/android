@@ -348,7 +348,7 @@ public class UploadFileOperation extends SyncOperation {
             }
 
             // Check if charging conditions are met and delays the upload otherwise
-            if (mWhileChargingOnly && !Device.isCharging(mContext)) {
+            if (mWhileChargingOnly && !Device.getBatteryStatus(mContext).isCharging()) {
                 Log_OC.d(TAG, "Upload delayed until the device is charging: " + getRemotePath());
                 return new RemoteOperationResult(ResultCode.DELAYED_FOR_CHARGING);
             }
