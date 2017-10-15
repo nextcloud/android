@@ -228,12 +228,6 @@ public class UploadListActivity extends FileActivity implements UploadListFragme
                 uploadListFragment.updateUploads();
                 break;
 
-            case R.id.action_clear_finished_uploads:
-                storageManager = new UploadsStorageManager(getContentResolver(), getApplicationContext());
-                storageManager.clearAllFinishedButNotDelayedUploads();
-                uploadListFragment.updateUploads();
-                break;
-
             case R.id.action_force_rescan:
                 PersistableBundleCompat persistableBundleCompat = new PersistableBundleCompat();
                 persistableBundleCompat.putBoolean(FilesSyncJob.OVERRIDE_POWER_SAVING, true);
