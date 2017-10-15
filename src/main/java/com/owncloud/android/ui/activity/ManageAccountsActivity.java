@@ -420,9 +420,8 @@ public class ManageAccountsActivity extends FileActivity
         bundle.putString(AccountRemovalJob.ACCOUNT, account.name);
 
         new JobRequest.Builder(AccountRemovalJob.TAG)
-                .setExecutionWindow(1_000L, 10_000L)
+                .startNow()
                 .setExtras(bundle)
-                .setPersisted(false)
                 .setUpdateCurrent(false)
                 .build()
                 .schedule();

@@ -20,6 +20,7 @@
 package com.owncloud.android;
 
 import android.Manifest;
+import android.accounts.Account;
 import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Context;
@@ -38,7 +39,9 @@ import android.support.v7.app.AlertDialog;
 import android.view.WindowManager;
 
 import com.evernote.android.job.JobManager;
+import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.authentication.PassCodeManager;
+import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.MediaFolder;
 import com.owncloud.android.datamodel.MediaFolderType;
 import com.owncloud.android.datamodel.MediaProvider;
@@ -50,6 +53,7 @@ import com.owncloud.android.jobs.NCJobCreator;
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory.Policy;
 import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.ui.activity.ContactsPreferenceActivity;
 import com.owncloud.android.ui.activity.Preferences;
 import com.owncloud.android.ui.activity.SyncedFoldersActivity;
 import com.owncloud.android.ui.activity.WhatsNewActivity;
@@ -65,6 +69,8 @@ import java.util.List;
 import java.util.Map;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
+import static com.owncloud.android.ui.activity.ContactsPreferenceActivity.PREFERENCE_CONTACTS_AUTOMATIC_BACKUP;
 
 
 /**
@@ -139,6 +145,7 @@ public class MainApp extends MultiDexApplication {
         }
 
         initAutoUpload();
+        initContactsBackup();
 
         // register global protection with pass code
         registerActivityLifecycleCallbacks(new ActivityLifecycleCallbacks() {
@@ -184,6 +191,17 @@ public class MainApp extends MultiDexApplication {
         });
     }
 
+    public static void initContactsBackup() {
+        ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProvider(mContext.getContentResolver());
+        Account[] accounts = AccountUtils.getAccounts(mContext);
+
+        for (Account account : accounts) {
+            if (arbitraryDataProvider.getBooleanValue(account, PREFERENCE_CONTACTS_AUTOMATIC_BACKUP)) {
+                ContactsPreferenceActivity.startContactBackupJob(account);
+            }
+        }
+
+    }
     public static void initAutoUpload() {
         updateToAutoUpload();
         cleanOldEntries();

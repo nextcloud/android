@@ -116,7 +116,6 @@ public class ContactsPreferenceActivity extends FileActivity implements FileFrag
         new JobRequest.Builder(ContactsBackupJob.TAG)
                 .setExtras(bundle)
                 .setRequiresCharging(false)
-                .setPersisted(true)
                 .setUpdateCurrent(true)
                 .setPeriodic(24 * 60 * 60 * 1000)
                 .build()
