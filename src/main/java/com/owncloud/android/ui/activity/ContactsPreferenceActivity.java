@@ -34,6 +34,7 @@ import android.view.View;
 import com.evernote.android.job.JobManager;
 import com.evernote.android.job.JobRequest;
 import com.evernote.android.job.util.support.PersistableBundleCompat;
+import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.utils.Log_OC;
@@ -113,10 +114,10 @@ public class ContactsPreferenceActivity extends FileActivity implements FileFrag
         PersistableBundleCompat bundle = new PersistableBundleCompat();
         bundle.putString(ContactsBackupJob.ACCOUNT, account.name);
 
+        cancelContactBackupJobForAccount(MainApp.getAppContext(), account);
+
         new JobRequest.Builder(ContactsBackupJob.TAG)
                 .setExtras(bundle)
-                .setRequiresCharging(false)
-                .setUpdateCurrent(true)
                 .setPeriodic(24 * 60 * 60 * 1000)
                 .build()
                 .schedule();
