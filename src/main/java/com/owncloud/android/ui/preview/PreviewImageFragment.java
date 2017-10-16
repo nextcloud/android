@@ -654,6 +654,11 @@ public class PreviewImageFragment extends FileFragment {
             mMultiListMessage.setText(message);
             mMultiListIcon.setImageResource(icon);
 
+            mMultiView.setBackgroundColor(Color.BLACK);
+            mMultiListHeadline.setTextColor(Color.WHITE);
+            mMultiListMessage.setTextColor(Color.WHITE);
+            mMultiListIcon.setBackgroundColor(Color.WHITE);
+
             mMultiListMessage.setVisibility(View.VISIBLE);
             mMultiListIcon.setVisibility(View.VISIBLE);
             mMultiListProgress.setVisibility(View.GONE);
