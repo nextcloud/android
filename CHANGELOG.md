@@ -1,4 +1,4 @@
-## 2.0.0 (2017)
+## 2.0.0 (Oct, 17, 2017)
 
 - Account-wide search (Nc 12+)
 - Auto upload available on Android 4+
