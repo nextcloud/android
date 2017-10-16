@@ -83,9 +83,11 @@ public class WhatsNewActivity extends FragmentActivity implements ViewPager.OnPa
         String[] urls = getResources().getStringArray(R.array.whatsnew_urls);
 
         // Sometimes, accounts are not deleted when you uninstall the application so we'll do it now
-        AccountManager am = (AccountManager) getSystemService(ACCOUNT_SERVICE);
-        for (Account account : AccountUtils.getAccounts(this)) {
-            am.removeAccount(account, null, null);
+        if (isFirstRun()) {
+            AccountManager am = (AccountManager) getSystemService(ACCOUNT_SERVICE);
+            for (Account account : AccountUtils.getAccounts(this)) {
+                am.removeAccount(account, null, null);
+            }
         }
 
         boolean showWebView = urls.length > 0;
