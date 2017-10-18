@@ -28,10 +28,10 @@
         app:actionViewClass="android.support.v7.widget.SearchView"
         app:showAsAction="always"/>
     <item
-        android:id="@+id/action_choose_account"
-        android:contentDescription="@string/common_choose_account"
+        android:id="@+id/action_switch_account"
+        android:contentDescription="@string/common_switch_account"
         android:orderInCategory="1"
-        android:title="@string/common_choose_account"
+        android:title="@string/common_switch_account"
         app:showAsAction="never"/>
     <item
         android:id="@+id/action_create_dir"
