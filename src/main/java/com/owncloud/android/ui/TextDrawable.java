@@ -113,10 +113,10 @@ public class TextDrawable extends Drawable {
     @NonNull
     public static TextDrawable createNamedAvatar(String name, float radiusInDp) throws
             UnsupportedEncodingException, NoSuchAlgorithmException {
-        int[] rgb = BitmapUtils.calculateRGB(name);
-        TextDrawable avatar = new TextDrawable(
-                name.substring(0, 1).toUpperCase(), rgb[0], rgb[1], rgb[2], radiusInDp);
-        return avatar;
+        int[] hsl = BitmapUtils.calculateHSL(name);
+        int[] rgb = BitmapUtils.HSLtoRGB(hsl[0], hsl[1], hsl[2], 1);
+
+        return new TextDrawable(name.substring(0, 1).toUpperCase(), rgb[0], rgb[1], rgb[2], radiusInDp);
     }
 
     /**
