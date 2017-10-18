@@ -292,8 +292,6 @@
 	<string name="auth_host_address">عنوان الخادم</string>
     <string name="username">إسم المستخدم</string>
 
-    <string name="file_list__footer__files_and_folder">%1$d ملفات و مجلد واحد</string>
-    <string name="file_list__footer__files_and_folders">%1$d ملفات و %2$d مجلدات</string>
     <string name="set_picture_as">إستخدم الصورة كـ</string>
     <string name="upload_copy_files">أنسخ الملف</string>
     <string name="select_all">تحديد الكل</string>
