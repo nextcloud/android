@@ -532,7 +532,7 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
                 getActivity(),
                 true
         );
-        mf.filter(popup.getMenu(), false);
+        mf.filter(popup.getMenu(), true);
         popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
