@@ -1,4 +1,0 @@
-[submodule "ocdoc"]
-	path = user_manual/ocdoc
-	url = https://github.com/nextcloud/documentation
-	branch = master
