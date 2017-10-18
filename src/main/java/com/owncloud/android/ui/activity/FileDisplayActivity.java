@@ -124,8 +124,7 @@ import static com.owncloud.android.db.PreferenceManager.getSortOrder;
 public class FileDisplayActivity extends HookActivity
         implements FileFragment.ContainerActivity,
         OnEnforceableRefreshListener, SortingOrderDialogFragment.OnSortingOrderListener {
-    public static final String KEY_SHOW_ACCOUNT_WARNING = "SHOW_ACCOUNT_WARNING";
-
+ 
     private SyncBroadcastReceiver mSyncBroadcastReceiver;
     private UploadFinishReceiver mUploadFinishReceiver;
     private DownloadFinishReceiver mDownloadFinishReceiver;
