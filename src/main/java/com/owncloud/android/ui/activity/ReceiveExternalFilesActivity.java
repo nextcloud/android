@@ -698,11 +698,21 @@ public class ReceiveExternalFilesActivity extends FileActivity
         }
     }
 
+    private void setupActionBarSubtitle() {
+        if (isHaveMultipleAccount()) {
+            ActionBar actionBar = getSupportActionBar();
+            if(actionBar != null){
+                actionBar.setSubtitle(getAccount().name);
+            }
+        }
+    }
+
     private void populateDirectoryList() {
         setContentView(R.layout.uploader_layout);
         setupEmptyList();
         setupToolbar();
         ActionBar actionBar = getSupportActionBar();
+        setupActionBarSubtitle();
 
         ListView mListView = (ListView) findViewById(android.R.id.list);
 
@@ -1006,10 +1016,20 @@ public class ReceiveExternalFilesActivity extends FileActivity
         }
     }
 
+    private boolean isHaveMultipleAccount() {
+        return mAccountManager.getAccountsByType(MainApp.getAccountType()).length > 1;
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.receive_file_menu, menu);
+
+        if (!isHaveMultipleAccount()) {
+            MenuItem switchAccountMenu = menu.findItem(R.id.action_switch_account);
+            switchAccountMenu.setVisible(false);
+        }
+
         return true;
     }
 
@@ -1028,7 +1048,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
                     onBackPressed();
                 }
                 break;
-            case R.id.action_choose_account:
+            case R.id.action_switch_account:
                 showAccountChooserDialog();
                 break;
 
