@@ -663,7 +663,7 @@ public class ThumbnailsCacheManager {
                                 userId = AccountUtils.getAccountUsername(username);
                             }
 
-                            String uri = mClient.getBaseUri() + "" + "/index.php/avatar/" + userId + "/" + px;
+                            String uri = mClient.getBaseUri() + "" + "/index.php/avatar/" + Uri.encode(userId) + "/" + px;
                             Log_OC.d("Avatar", "URI: " + uri);
                             get = new GetMethod(uri);
                             int status = mClient.executeMethod(get);
