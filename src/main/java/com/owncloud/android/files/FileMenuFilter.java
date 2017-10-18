@@ -87,9 +87,10 @@ public class FileMenuFilter {
      * Filters out the file actions available in the passed {@link Menu} taken into account
      * the state of the {@link OCFile} held by the filter.
      *
-     * @param menu              Options or context menu to filter.
+     * @param menu                  Options or context menu to filter.
+     * @param inSingleFileFragment  True if this is not listing, but single file fragment, like preview or details.
      */
-    public void filter(Menu menu) {
+    public void filter(Menu menu, boolean inSingleFileFragment) {
         if (mFiles == null || mFiles.size() <= 0) {
             hideAll(menu);
 
@@ -97,7 +98,7 @@ public class FileMenuFilter {
             List<Integer> toShow = new ArrayList<>();
             List<Integer> toHide = new ArrayList<>();
 
-            filter(toShow, toHide);
+            filter(toShow, toHide, inSingleFileFragment);
 
             MenuItem item;
             for (int i : toShow) {
@@ -132,10 +133,11 @@ public class FileMenuFilter {
      *
      * Decides what actions must be shown and hidden.
      *
-     * @param toShow            List to save the options that must be shown in the menu.
-     * @param toHide            List to save the options that must be shown in the menu.
+     * @param toShow                List to save the options that must be shown in the menu.
+     * @param toHide                List to save the options that must be shown in the menu.
+     * @param inSingleFileFragment  True if this is not listing, but single file fragment, like preview or details.
      */
-    private void filter(List<Integer> toShow, List<Integer> toHide) {
+    private void filter(List<Integer> toShow, List<Integer> toHide, boolean inSingleFileFragment) {
         boolean synchronizing = anyFileSynchronizing();
 
         /// decision is taken for each possible action on a file in the menu
@@ -174,25 +176,34 @@ public class FileMenuFilter {
         }
 
         // SELECT ALL
-        // Show only if at least one item isn't selected.
-        if (mFiles.size() >= mNumberOfAllFiles) {
-            toHide.add(R.id.action_select_all);
+        if (!inSingleFileFragment) {
+            // Show only if at least one item isn't selected.
+            if (mFiles.size() >= mNumberOfAllFiles) {
+                toHide.add(R.id.action_select_all_action_menu);
+            } else {
+                toShow.add(R.id.action_select_all_action_menu);
+            }
         } else {
-            toShow.add(R.id.action_select_all);
+            // Always hide in single file fragments
+            toHide.add(R.id.action_select_all_action_menu);
         }
 
         // DESELECT ALL
-        // Show only if at least one item is selected.
-        if (mFiles.isEmpty()) {
-            toHide.add(R.id.action_deselect_all);
-        } else {
-            toShow.add(R.id.action_deselect_all);
+        if (!inSingleFileFragment) {
+            // Show only if at least one item is selected.
+            if (mFiles.isEmpty()) {
+                toHide.add(R.id.action_deselect_all_action_menu);
+            } else {
+                toShow.add(R.id.action_deselect_all_action_menu);
+            }
+        }else {
+            // Always hide in single file fragments
+            toHide.add(R.id.action_deselect_all_action_menu);
         }
 
         // OPEN WITH (different to preview!)
         if (!isSingleFile() || !anyFileDown() || synchronizing) {
             toHide.add(R.id.action_open_file_with);
-
         } else {
             toShow.add(R.id.action_open_file_with);
         }
