@@ -148,9 +148,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_marginTop="@dimen/standard_quarter_margin"
-                android:layout_marginBottom="@dimen/standard_quarter_margin"
                 android:layout_marginRight="@dimen/list_item_share_right_margin"
+                android:padding="@dimen/standard_quarter_padding"
                 android:clickable="true"
                 android:focusable="true"
                 android:src="@drawable/ic_unshared" />
