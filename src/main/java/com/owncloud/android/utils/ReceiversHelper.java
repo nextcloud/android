@@ -71,4 +71,22 @@ public class ReceiversHelper {
 
         context.registerReceiver(broadcastReceiver, intentFilter);
     }
+
+    public static void registerPowerSaveReceiver() {
+        Context context = MainApp.getAppContext();
+
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction("android.os.action.POWER_SAVE_MODE_CHANGED");
+
+        BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                if (!UploadUtils.isPowerSaveMode(context)) {
+                    FilesSyncHelper.restartJobsIfNeeded();
+                }
+            }
+        };
+
+        context.registerReceiver(broadcastReceiver, intentFilter);
+    }
 }

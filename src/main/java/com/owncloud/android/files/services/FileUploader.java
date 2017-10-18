@@ -73,6 +73,7 @@ import com.owncloud.android.ui.activity.UploadListActivity;
 import com.owncloud.android.ui.notifications.NotificationUtils;
 import com.owncloud.android.utils.ErrorMessageAdapter;
 import com.owncloud.android.utils.ThemeUtils;
+import com.owncloud.android.utils.UploadUtils;
 
 import java.io.File;
 import java.util.AbstractList;
@@ -924,6 +925,11 @@ public class FileUploader extends Service
                             !Device.isCharging(MainApp.getAppContext())) {
                         cancel(mCurrentUpload.getAccount().name, mCurrentUpload.getFile().getRemotePath()
                                 , ResultCode.DELAYED_FOR_CHARGING);
+                    } else if (
+                            !mCurrentUpload.getIsIgnoringPowerSaveMode() &&
+                            UploadUtils.isPowerSaveMode(MainApp.getAppContext())) {
+                        cancel(mCurrentUpload.getAccount().name, mCurrentUpload.getFile().getRemotePath()
+                                , ResultCode.DELAYED_IN_POWER_SAVE_MODE);
                     }
                 }
             }
@@ -1142,6 +1148,7 @@ public class FileUploader extends Service
             !ResultCode.LOCAL_FILE_NOT_FOUND.equals(uploadResult.getCode()) &&
             !uploadResult.getCode().equals(ResultCode.DELAYED_FOR_WIFI) &&
             !uploadResult.getCode().equals(ResultCode.DELAYED_FOR_CHARGING) &&
+            !uploadResult.getCode().equals(ResultCode.DELAYED_IN_POWER_SAVE_MODE) &&
             !uploadResult.getCode().equals(ResultCode.LOCK_FAILED)    ) {
 
             int tickerId = (uploadResult.isSuccess()) ? R.string.uploader_upload_succeeded_ticker :
