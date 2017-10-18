@@ -28,6 +28,6 @@
         android:contentDescription="@string/select_all"
         android:title="@string/select_all"
         android:icon="@drawable/ic_select_all"
-        app:showAsAction="always"/>
+        app:showAsAction="ifRoom"/>
 
 </menu>
