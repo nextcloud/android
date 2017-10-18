@@ -701,7 +701,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
     private void setupActionBarSubtitle() {
         if (isHaveMultipleAccount()) {
             ActionBar actionBar = getSupportActionBar();
-            if(actionBar != null){
+            if (actionBar != null) {
                 actionBar.setSubtitle(getAccount().name);
             }
         }
