@@ -77,13 +77,13 @@
         android:showAsAction="never"
         android:orderInCategory="1" />
     <item
-        android:id="@+id/action_select_all"
+        android:id="@+id/action_select_all_action_menu"
         android:title="@string/select_all"
         app:showAsAction="never"
         android:showAsAction="never"
         android:orderInCategory="1" />
     <item
-        android:id="@+id/action_deselect_all"
+        android:id="@+id/action_deselect_all_action_menu"
         android:title="@string/deselect_all"
         app:showAsAction="never"
         android:showAsAction="never"
