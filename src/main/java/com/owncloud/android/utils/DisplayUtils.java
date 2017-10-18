@@ -53,6 +53,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.model.StreamEncoder;
 import com.bumptech.glide.load.resource.file.FileToStreamDecoder;
 import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.target.Target;
 import com.caverock.androidsvg.SVG;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
@@ -503,6 +504,21 @@ public class DisplayUtils {
                 .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                 .load(uri)
                 .into(imageView);
+    }
+
+    public static Bitmap downloadImageSynchronous(Context context, String imageUrl) {
+        try {
+            return Glide.with(context)
+                    .load(imageUrl)
+                    .asBitmap()
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                    .skipMemoryCache(true)
+                    .into(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL)
+                    .get();
+        } catch (Exception e) {
+            Log_OC.e(TAG, "Could not download image " + imageUrl);
+            return null;
+        }
     }
 
     public static void setupBottomBar(BottomNavigationView view, Resources resources, final Activity activity,

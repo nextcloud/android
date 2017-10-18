@@ -4,9 +4,13 @@ import android.content.ContentProviderOperation;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.OperationApplicationException;
+import android.graphics.Bitmap;
 import android.os.RemoteException;
 import android.provider.ContactsContract;
 
+import com.owncloud.android.utils.DisplayUtils;
+
+import java.io.ByteArrayOutputStream;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -16,6 +20,7 @@ import java.util.List;
 import java.util.Map;
 
 import ezvcard.VCard;
+import ezvcard.parameter.ImageType;
 import ezvcard.property.Address;
 import ezvcard.property.Birthday;
 import ezvcard.property.Email;
@@ -511,11 +516,26 @@ public class ContactOperations {
 
     private void convertPhotos(List<NonEmptyContentValues> contentValues, VCard vcard) {
         for (Photo photo : vcard.getPhotos()) {
+            if (photo.getUrl() != null) {
+                downloadPhoto(photo);
+            }
             byte[] data = photo.getData();
 
             NonEmptyContentValues cv = new NonEmptyContentValues(ContactsContract.CommonDataKinds.Photo.CONTENT_ITEM_TYPE);
             cv.put(ContactsContract.CommonDataKinds.Photo.PHOTO, data);
             contentValues.add(cv);
+        }
+    }
+
+    private void downloadPhoto(Photo photo) {
+        String url = photo.getUrl();
+        Bitmap bitmap = DisplayUtils.downloadImageSynchronous(context, url);
+        if (bitmap != null) {
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+            byte[] bitmapdata = stream.toByteArray();
+            photo.setData(bitmapdata, ImageType.find(null, null,
+                    url.substring(url.lastIndexOf(".") + 1)));
         }
     }
 
