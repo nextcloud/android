@@ -171,9 +171,6 @@ public class FileDisplayActivity extends HookActivity
     private MediaServiceBinder mMediaServiceBinder =  null;
     private MediaServiceConnection mMediaServiceConnection = null;
 
-    private MediaServiceBinder mMediaServiceBinder =  null;
-    private MediaServiceConnection mMediaServiceConnection = null;
-
     private String searchQuery;
 
     private SearchView searchView;
