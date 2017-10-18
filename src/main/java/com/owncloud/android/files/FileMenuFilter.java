@@ -52,6 +52,7 @@ public class FileMenuFilter {
     private ComponentsGetter mComponentsGetter;
     private Account mAccount;
     private Context mContext;
+    private boolean mOverflowMenu;
 
     /**
      * Constructor
@@ -61,14 +62,16 @@ public class FileMenuFilter {
      * @param account           ownCloud {@link Account} holding targetFile.
      * @param cg                Accessor to app components, needed to access synchronization services
      * @param context           Android {@link Context}, needed to access build setup resources.
+     * @param overflowMenu      true if the overflow menu items are being filtered
      */
     public FileMenuFilter(int numberOfAllFiles, Collection<OCFile> targetFiles, Account account,
-                          ComponentsGetter cg, Context context) {
+                          ComponentsGetter cg, Context context, boolean overflowMenu) {
         mNumberOfAllFiles = numberOfAllFiles;
         mFiles = targetFiles;
         mAccount = account;
         mComponentsGetter = cg;
         mContext = context;
+        mOverflowMenu = overflowMenu;
     }
 
     /**
@@ -78,9 +81,11 @@ public class FileMenuFilter {
      * @param account           ownCloud {@link Account} holding targetFile.
      * @param cg                Accessor to app components, needed to access synchronization services
      * @param context           Android {@link Context}, needed to access build setup resources.
+     * @param overflowMenu      true if the overflow menu items are being filtered
      */
-    public FileMenuFilter(OCFile targetFile, Account account, ComponentsGetter cg, Context context) {
-        this(1, Collections.singletonList(targetFile), account, cg, context);
+    public FileMenuFilter(OCFile targetFile, Account account, ComponentsGetter cg, Context context,
+                          boolean overflowMenu) {
+        this(1, Collections.singletonList(targetFile), account, cg, context, overflowMenu);
     }
 
     /**
@@ -178,7 +183,7 @@ public class FileMenuFilter {
         // SELECT ALL
         if (!inSingleFileFragment) {
             // Show only if at least one item isn't selected.
-            if (mFiles.size() >= mNumberOfAllFiles) {
+            if (mFiles.size() >= mNumberOfAllFiles || mOverflowMenu) {
                 toHide.add(R.id.action_select_all_action_menu);
             } else {
                 toShow.add(R.id.action_select_all_action_menu);
@@ -191,7 +196,7 @@ public class FileMenuFilter {
         // DESELECT ALL
         if (!inSingleFileFragment) {
             // Show only if at least one item is selected.
-            if (mFiles.isEmpty()) {
+            if (mFiles.isEmpty() || mOverflowMenu) {
                 toHide.add(R.id.action_deselect_all_action_menu);
             } else {
                 toShow.add(R.id.action_deselect_all_action_menu);
@@ -235,7 +240,8 @@ public class FileMenuFilter {
                 (capability.getFilesSharingApiEnabled().isTrue() ||
                         capability.getFilesSharingApiEnabled().isUnknown()
                 );
-        if ((!shareViaLinkAllowed && !shareWithUsersAllowed) || !isSingleSelection() || !shareApiEnabled) {
+        if ((!shareViaLinkAllowed && !shareWithUsersAllowed) ||
+                !isSingleSelection() || !shareApiEnabled || mOverflowMenu) {
             toHide.add(R.id.action_share_file);
         } else {
             toShow.add(R.id.action_share_file);

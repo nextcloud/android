@@ -20,12 +20,21 @@
  */
 package com.owncloud.android.ui.interfaces;
 
+import android.view.View;
+
+import com.owncloud.android.datamodel.OCFile;
+
 /**
- * Interface for signaling filter finish
+ * Interface for communication between {@link com.owncloud.android.ui.fragment.OCFileListFragment}
+ * and {@link com.owncloud.android.ui.adapter.FileListListAdapter}
  */
 
 public interface OCFileListFragmentInterface {
     void finishedFiltering();
 
     int getColumnSize();
+
+    void onShareIconClick(OCFile file);
+
+    void onOverflowIconClick(View view, OCFile file);
 }
