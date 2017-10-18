@@ -624,7 +624,7 @@
     <string name="whats_new_theming_content">Wenn in der Server-App aktiviert, werden \n\u2022 das Hintergrund Bild\n\u2022 der Server-Name\n\u2022 und die eingestellten Farben angezeigt</string>
 
     <string name="whats_new_notification_title">Benachrichtigungen</string>
-    <string name="whats_new_notification_content">Erhalte Benachrichtigungen wie z.B.\n\u2022 Neie Freigaben\n\u2022 Kommentar-Erwähnungen\n\u2022 Adminstratoren-Ankündigungen</string>
+    <string name="whats_new_notification_content">Erhalte Benachrichtigungen wie z.B.\n\u2022 Neue Freigaben\n\u2022 Kommentar-Erwähnungen\n\u2022 Adminstratoren-Ankündigungen</string>
 
     <string name="whats_new_skip">Überspringen</string>
 

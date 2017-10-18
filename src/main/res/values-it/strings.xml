@@ -592,7 +592,7 @@
     <string name="upload_file_dialog_title">Digita il nome e il tipo di file da caricare</string>
     <string name="upload_file_dialog_filename">Nome file</string>
     <string name="upload_file_dialog_filetype">Tipo file</string>
-    <string name="upload_file_dialog_filetype_snippet_text">File dl frammento di testo(.txt)</string>
+    <string name="upload_file_dialog_filetype_snippet_text">File di frammento di testo(.txt)</string>
     <string name="upload_file_dialog_filetype_internet_shortcut">File di scorciatoia Internet (%s)</string>
     <string name="upload_file_dialog_filetype_googlemap_shortcut">File di scorciatoia Google Maps (%s)</string>
 
@@ -623,7 +623,7 @@
     <string name="whats_new_theming_content">Se abilitata sul server, mostrerà\n\u2022 l\'immagine di sfondo\n\u2022 il nome del server\n\u2022 utilizzo dei colori per distinguere gli account</string>
 
     <string name="whats_new_notification_title">Supporto delle notifiche</string>
-    <string name="whats_new_notification_content">Otteni notifiche come\n\u2022 nuova condivisione remota\n\u2022 menzioni dei commenti\n\u2022 annunci amministrativi</string>
+    <string name="whats_new_notification_content">Ottieni notifiche come\n\u2022 nuova condivisione remota\n\u2022 menzioni dei commenti\n\u2022 annunci amministrativi</string>
 
     <string name="whats_new_skip">Salta</string>
 
