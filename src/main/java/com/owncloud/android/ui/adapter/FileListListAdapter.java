@@ -26,7 +26,6 @@ package com.owncloud.android.ui.adapter;
 import android.accounts.Account;
 import android.content.ContentValues;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Handler;
@@ -62,8 +61,6 @@ import com.owncloud.android.lib.resources.shares.ShareType;
 import com.owncloud.android.operations.RemoteOperationFailedException;
 import com.owncloud.android.services.OperationsService.OperationsServiceBinder;
 import com.owncloud.android.ui.activity.ComponentsGetter;
-import com.owncloud.android.ui.activity.FileActivity;
-import com.owncloud.android.ui.activity.ShareActivity;
 import com.owncloud.android.ui.fragment.ExtendedListFragment;
 import com.owncloud.android.ui.interfaces.OCFileListFragmentInterface;
 import com.owncloud.android.utils.DisplayUtils;
@@ -234,10 +231,6 @@ public class FileListListAdapter extends BaseAdapter {
 
         if (file != null) {
             ImageView fileIcon = (ImageView) view.findViewById(R.id.thumbnail);
-            ImageView sharedIconV = (ImageView) view.findViewById(R.id.sharedIcon);
-            if (file.isSharedWithSharee() || file.isSharedWithMe()) {
-                sharedIconV.setImageResource(R.drawable.shared_via_users);
-            }
 
             fileIcon.setTag(file.getFileId());
             TextView fileName;
@@ -258,21 +251,6 @@ public class FileListListAdapter extends BaseAdapter {
                     fileSizeV.setVisibility(View.VISIBLE);
                     fileSizeV.setText(DisplayUtils.bytesToHumanReadable(file.getFileLength()));
 
-                    // Shared icon clickable
-                    if (file.isSharedViaLink() || file.isSharedWithSharee()) {
-                        final OCFile temp = file;
-                        sharedIconV.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                Intent intent = new Intent(mContext, ShareActivity.class);
-                                intent.putExtra(FileActivity.EXTRA_FILE, temp);
-                                intent.putExtra(FileActivity.EXTRA_ACCOUNT, mAccount);
-                                mContext.startActivity(intent);
-                            }
-                        });
-                    }
-
-
                 case GRID_ITEM:
                     // filename
                     fileName = (TextView) view.findViewById(R.id.Filename);
@@ -284,16 +262,6 @@ public class FileListListAdapter extends BaseAdapter {
                     }
 
                 case GRID_IMAGE:
-                    // sharedIcon
-                    if (file.isSharedViaLink()) {
-                        sharedIconV.setVisibility(View.VISIBLE);
-                        sharedIconV.bringToFront();
-                    } else if (file.isSharedWithSharee() || file.isSharedWithMe()) {
-                        sharedIconV.setVisibility(View.VISIBLE);
-                        sharedIconV.bringToFront();
-                    } else {
-                        sharedIconV.setVisibility(View.GONE);
-                    }
 
                     // local state
                     ImageView localStateView = (ImageView) view.findViewById(R.id.localFileIndicator);
@@ -340,7 +308,6 @@ public class FileListListAdapter extends BaseAdapter {
             }
 
             ImageView checkBoxV = (ImageView) view.findViewById(R.id.custom_checkbox);
-            checkBoxV.setVisibility(View.GONE);
             view.setBackgroundColor(Color.WHITE);
 
             AbsListView parentList = (AbsListView) parent;
@@ -355,6 +322,12 @@ public class FileListListAdapter extends BaseAdapter {
                     checkBoxV.setImageResource(R.drawable.ic_checkbox_blank_outline);
                 }
                 checkBoxV.setVisibility(View.VISIBLE);
+                hideShareIcon(view);
+                hideOverflowMenuIcon(view, viewType);
+            } else {
+                checkBoxV.setVisibility(View.GONE);
+                showShareIcon(view, file);
+                showOverflowMenuIcon(view, file, viewType);
             }
 
             // this if-else is needed even though kept-in-sync icon is visible by default
@@ -428,6 +401,48 @@ public class FileListListAdapter extends BaseAdapter {
             }
         }
         return view;
+    }
+
+    private void showShareIcon(View view, OCFile file) {
+        ImageView sharedIconV = (ImageView) view.findViewById(R.id.sharedIcon);
+        sharedIconV.setVisibility(View.VISIBLE);
+        if (file.isSharedWithSharee() || file.isSharedWithMe()) {
+            sharedIconV.setImageResource(R.drawable.shared_via_users);
+        } else if (file.isSharedViaLink()) {
+            sharedIconV.setImageResource(R.drawable.shared_via_link);
+        } else {
+            sharedIconV.setImageResource(R.drawable.ic_unshared);
+        }
+        sharedIconV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                OCFileListFragmentInterface.onShareIconClick(file);
+            }
+        });
+    }
+
+    private void hideShareIcon(View view) {
+        view.findViewById(R.id.sharedIcon).setVisibility(View.GONE);
+    }
+
+    private void showOverflowMenuIcon(View view, OCFile file, ViewType viewType) {
+        if (ViewType.LIST_ITEM.equals(viewType)) {
+            ImageView overflowIndicatorV = (ImageView) view.findViewById(R.id.overflow_menu);
+            overflowIndicatorV.setVisibility(View.VISIBLE);
+            overflowIndicatorV.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    OCFileListFragmentInterface.onOverflowIconClick(v, file);
+                }
+            });
+        }
+    }
+
+    private void hideOverflowMenuIcon(View view, ViewType viewType) {
+        if (ViewType.LIST_ITEM.equals(viewType)) {
+            ImageView overflowIndicatorV = (ImageView) view.findViewById(R.id.overflow_menu);
+            overflowIndicatorV.setVisibility(View.GONE);
+        }
     }
 
     @Override

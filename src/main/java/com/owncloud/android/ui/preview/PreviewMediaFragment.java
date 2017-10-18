@@ -375,7 +375,8 @@ public class PreviewMediaFragment extends FileFragment implements
                 getFile(),
                 mContainerActivity.getStorageManager().getAccount(),
                 mContainerActivity,
-                getActivity()
+                getActivity(),
+                false
             );
             mf.filter(menu, true);
         }
