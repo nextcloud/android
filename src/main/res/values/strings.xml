@@ -408,7 +408,7 @@
     <string name="file_migration_failed_not_readable">Error: Source file not readable</string>
     <string name="file_migration_failed_dir_already_exists">Error: Nextcloud directory already exists</string>
     <string name="file_migration_failed_while_coping">Error: Failed during migration</string>
-    <string name="file_migration_failed_while_updating_index">Error: Failed to updating index</string>
+    <string name="file_migration_failed_while_updating_index">Error: Failed to update index</string>
 
     <string name="file_migration_directory_already_exists">Data folder exists already. Choose one of the following:</string>
     <string name="file_migration_override_data_folder">Replace</string>
@@ -676,7 +676,7 @@
     <string name="contacts_preference_choose_date">Choose date</string>
     <string name="contacts_preference_backup_never">never</string>
     <string name="contacts_preferences_no_file_found">No file found</string>
-    <string name="contacts_preferences_something_strange_happened">We can\'t find your last backup!</string>
+    <string name="contacts_preferences_something_strange_happened">Could not find your last backup!</string>
     <string name="contacts_preferences_backup_scheduled">Backup scheduled and will start shortly</string>
     <string name="contacts_preferences_import_scheduled">Import scheduled and will start shortly</string>
 
