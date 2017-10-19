@@ -62,6 +62,8 @@ import com.owncloud.android.utils.MimeTypeUtil;
 
 import java.io.File;
 
+import static com.owncloud.android.ui.activity.Preferences.EXPERT_MODE;
+
 /**
  * Activity listing pending, active, and completed uploads. User can delete
  * completed uploads from view. Content of this list of coming from
