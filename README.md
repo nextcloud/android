@@ -19,6 +19,7 @@ If you want to [contribute](https://nextcloud.com/contribute/) to Nextcloud, you
 - on our IRC channels **#nextcloud** `(irc://#nextcloud@freenode.net)` and **#nextcloud-mobile** `(irc://#nextcloud-mobile@freenode.net)` on freenode
 - our forum at https://help.nextcloud.com
 - for translations of the app on [Transifex](https://www.transifex.com/nextcloud/nextcloud/android/)
+- opening issues and PRs (including a corresponding issue)
 
 ## Contribution Guidelines & License
 
@@ -39,9 +40,6 @@ More information how to contribute: [https://nextcloud.com/contribute/](https://
 ## Start contributing
 Make sure you read [SETUP.md](https://github.com/nextcloud/android/blob/master/SETUP.md) and [CONTRIBUTING.md](https://github.com/nextcloud/android/blob/master/CONTRIBUTING.md) before you start working on this project. But basically: fork this repository and contribute back using pull requests to the master branch.
 Easy starting points are also reviewing [pull requests](https://github.com/nextcloud/android/pulls) and working on [starter issues](https://github.com/nextcloud/android/issues?q=is%3Aopen+is%3Aissue+label%3A%22starter+issue%22).
-
-### Translations
-For translations of the app [Transifex](https://www.transifex.com/nextcloud/nextcloud/android/) is used exclusively.
 
 ### Getting debug info via logcat
 #### With a computer:
