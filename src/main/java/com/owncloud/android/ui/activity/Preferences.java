@@ -46,6 +46,7 @@ import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
 import android.preference.SwitchPreference;
 import android.support.annotation.LayoutRes;
+import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatDelegate;
 import android.view.Menu;
@@ -134,6 +135,8 @@ public class Preferences extends PreferenceActivity
         actionBar.setDisplayHomeAsUpEnabled(true);
         ThemeUtils.setColoredTitle(actionBar, getString(R.string.actionbar_settings));
         actionBar.setBackgroundDrawable(new ColorDrawable(ThemeUtils.primaryColor()));
+        getWindow().getDecorView().setBackgroundDrawable(new ColorDrawable(ResourcesCompat
+                .getColor(getResources(), R.color.background_color, null)));
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             getWindow().setStatusBarColor(ThemeUtils.primaryDarkColor());
