@@ -1,3 +1,7 @@
+## 2.0.1 (Oct, 19, 2017)
+
+- Fix account removal on first startup up updates app for f-droid release
+
 ## 2.0.0 (Oct, 17, 2017)
 
 - Account-wide search (Nc 12+)
