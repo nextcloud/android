@@ -127,7 +127,6 @@
     <string name="common_yes">Taip</string>
     <string name="common_no">Ne</string>
     <string name="common_ok">Gerai</string>
-    <string name="common_remove_upload">Šalinti</string>
     <string name="common_retry_upload">Pakartotinai įkelkite</string>
     <string name="common_cancel_sync">Atšaukti</string>
     <string name="common_cancel">Atsisakyti</string>
@@ -142,7 +141,6 @@
     <string name="about_title">Apie</string>
     <string name="change_password">Pakeisti slaptažodį</string>
     <string name="delete_account">Šalinti paskyrą</string>
-    <string name="delete_account_warning">Ištrinti paskyrą %s su visais failais?\n\nIštrynimas negalės būti atšauktas.</string>
     <string name="avatar">Avataras</string>
     <string name="active_user">Aktyvūs naudotojai</string>
     <string name="upload_chooser_title">Įkelti iš &#8230;</string>
@@ -192,7 +190,6 @@
     <string name="sync_fail_in_favourites_content">Nepavyko sinchronizuoti %1$d failų turinio (%2$d konfliktų)</string>
     <string name="sync_foreign_files_forgotten_ticker">Keli vietiniai failai buvo užmiršti</string>
     <string name="sync_foreign_files_forgotten_content">%1$d failai iš %2$s aplanko negali būti nukopijuoti</string>
-    <string name="sync_foreign_files_forgotten_explanation">Nuo 1.3.16 versijos, failai įkelti iš šio įrenginio yra kopijuojami į vietinį aplanką %1$s norint apsaugoti duomenis nuo praradimo, kai vienas failas yra sinchronizuojamas keliose paskyrose.\n\Dėl šių pakeitimų, visi failai, įkelti ankstesnių šios programėlės versijų, buvo nukopijuoti į aplanką %2$s. Tačiau dėl įvykusios klaidos nepavyko užbaigti šios operacijos sinchronizuojant paskyrą. Jūs galite palikti failą(us) kur jie yra ir panaikinti nuorodą į %3$s arba perkelti failus į aplanką %1$s ir išsaugoti nuorodą %4$s.\n\nŽemiau yra vietinių failų ir išorinių failų iš %5$ssąrašas.  </string>
     <string name="sync_current_folder_was_removed">Aplankas %1$s nebeegzistuoja</string>
     <string name="foreign_files_move">Perkelti visus</string>
     <string name="foreign_files_success">Visi failai buvo perkelti</string>
@@ -205,10 +202,8 @@
     <string name="pass_code_configure_your_pass_code">Įveskite užraktą</string>
     <string name="pass_code_configure_your_pass_code_explanation">Užrakto kodas bus reikalaujamas kiekvieną kartą paleidžiant programėlę</string>
     <string name="pass_code_reenter_your_pass_code">Įveskite užraktą</string>
-    <string name="pass_code_remove_your_pass_code">Užrakto pašalinimas</string>
     <string name="pass_code_mismatch">Nesutampa užraktas</string>
     <string name="pass_code_wrong">Neteisingas užraktas</string>
-    <string name="pass_code_removed">Užraktas pašalintas</string>
     <string name="pass_code_stored">Užraktas išsaugotas</string>
     
     <string name="media_notif_ticker">%1$s muzikos grotuvas</string>
@@ -272,12 +267,7 @@
     <string name="unset_favorite_real">Panaikinti iš mėgstamųjų</string>
     <string name="favorite_switch">Pasiekiamas offline</string>
     <string name="common_rename">Pervadinti</string>
-    <string name="common_remove">Šalinti</string>
-    <string name="confirmation_remove_file_alert">Ar tikrai norite pašalinti %1$s?</string>
-    <string name="confirmation_remove_folder_alert">Ar tikrai norite pašalinti %1$s ir ten esantį turinį?</string>
     <string name="confirmation_remove_local">Tik vietiniai</string>
-    <string name="remove_success_msg">Šalinti</string>
-    <string name="remove_fail_msg">Pašalinti nepavyko</string>
     <string name="rename_dialog_title">Įveskite naują pavadinimą</string>
     <string name="rename_local_fail_msg">Lokalios kopijos pervadinti nepavyko, pabandykite kitą pavadinimą</string>
     <string name="rename_server_fail_msg">Pervadinti nepavyko</string>
@@ -539,8 +529,6 @@
 
     <string name="permission_storage_access">Papildomos teisės reikalingos įkelti šiuos atsisiųstus failus.</string>
     <string name="local_file_not_found_toast">Failas nerastas vietinėje failų sistemoje </string>
-    <string name="confirmation_remove_files_alert">Ar tikrai norite ištrinti pasirinktus failus?</string>
-    <string name="confirmation_remove_folders_alert">Ar tikrai norite panaikinti pažymėtus elementus ir jų turinį?</string>
     <string name="maintenance_mode">Serveris yra techninės priežiūros veiksenoje</string>
     <string name="lock_failed">Nepavyko apsaugoti failo</string>
 

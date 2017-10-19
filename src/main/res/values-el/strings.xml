@@ -127,7 +127,6 @@
     <string name="common_yes">Ναι</string>
     <string name="common_no">Όχι</string>
     <string name="common_ok">Εντάξει</string>
-    <string name="common_remove_upload">Αφαίρεση μεταφόρτωσης</string>
     <string name="common_retry_upload">Επανάληψη μεταφόρτωσης</string>
     <string name="common_cancel_sync">Ακύρωση συγχρονισμού</string>
     <string name="common_cancel">Ακύρωση</string>
@@ -142,7 +141,6 @@
     <string name="about_title">Περί</string>
     <string name="change_password">Αλλαγή συνθημτικού</string>
     <string name="delete_account">Αφαίρεση λογαριασμού</string>
-    <string name="delete_account_warning">Διαγραφή λογαριασμού %s με όλα τα τοπικά αρχεία?\n\n\Διαγράφοντας τα δεν θα υπάρξει επαναφορά.</string>
     <string name="avatar">Εικόνα προφίλ</string>
     <string name="active_user">Ενεργός χρήστης</string>
     <string name="upload_chooser_title">Μεταφόρτωση από &#8230;</string>
@@ -192,7 +190,6 @@
     <string name="sync_fail_in_favourites_content">Τα περιεχόμενα των %1$d αρχείων δεν μπόρεσαν να συγχρονιστούν (%2$d διενέξεις)</string>
     <string name="sync_foreign_files_forgotten_ticker">Ορισμένα τοπικά αρχεία ξεχάστηκαν</string>
     <string name="sync_foreign_files_forgotten_content">%1$d αρχεία από τον %2$s φάκελο δεν ήταν δυνατό να αντιγραφούν σε</string>
-    <string name="sync_foreign_files_forgotten_explanation">Από την έκδοση 1.3.16, τα αρχεία που μεταφορτώθηκαν από αυτήν τη συσκευή αντιγράφηκαν στον τοπικό φάκελο %1$s για να αποτραπεί η απώλεια δεδομένων όταν ένα αρχείο είναι συγχρονισμένο με πολλαπλούς λογαριασμούς. \n\nΛόγω αυτής της αλλαγής, όλα τα αρχεία που μεταφορτώθηκαν με προηγούμενες εκδόσεις αυτής της εφαρμογής αντιγράφηκαν στον φάκελο %2$s. Ωστόσο, ένα σφάλμα εμπόδισε την ολοκλήρωση αυτής της λειτουργίας κατά το συγχρονισμό του λογαριασμού. Μπορείτε είτε να αφήσετε το(α) αρχείο(α) όπως είναι και να καταργήσετε τη σύνδεση με το %3$s ή να μετακινήσετε τα αρχεία στο φάκελο %1$s και να διατηρήσετε τη σύνδεση με το %4$s. \n\nΑπαριθμημένα πιο κάτω είναι τα τοπικά αρχεία(ο) και τα απομακρυσμένα αρχεία(ο) στο %5$s με τα οποία συνδέονταν.</string>
     <string name="sync_current_folder_was_removed">Ο φάκελος %1$s δεν υπάρχει πια</string>
     <string name="foreign_files_move">Μετακίνηση όλων</string>
     <string name="foreign_files_success">Όλα τα αρχεία μετακινήθηκαν</string>
@@ -205,10 +202,8 @@
     <string name="pass_code_configure_your_pass_code">Εισάγετε τον κωδικό πρόσβασης</string>
     <string name="pass_code_configure_your_pass_code_explanation">Ο κωδικός πρόσβασης θα ζητείται κάθε φορά που εκκινεί η εφαρμογή</string>
     <string name="pass_code_reenter_your_pass_code">Παρακαλούμε εισάγετε ξανά τον κωδικό πρόσβασης</string>
-    <string name="pass_code_remove_your_pass_code">Αφαίρεση του κωδικού πρόσβασης</string>
     <string name="pass_code_mismatch">Οι κωδικοί πρόσβασης δεν ταιριάζουν</string>
     <string name="pass_code_wrong">Εσφαλμένος κωδικός πρόσβασης</string>
-    <string name="pass_code_removed">Ο κωδικός πρόσβασης αφαιρέθηκε</string>
     <string name="pass_code_stored">Ο κωδικός πρόσβασης αποθηκεύτηκε</string>
     
     <string name="media_notif_ticker">%1$s αναπαραγωγέας μουσικής</string>
@@ -271,12 +266,7 @@
     <string name="unset_favorite_real">Αναίρεση ορισμού ως αγαπημένο</string>
     <string name="favorite_switch">Διαθέσιμα εκτός σύνδεσης</string>
     <string name="common_rename">Μετονομασία</string>
-    <string name="common_remove">Αφαίρεση</string>
-    <string name="confirmation_remove_file_alert">Θέλετε να αφαιρέσετε το %1$s;</string>
-    <string name="confirmation_remove_folder_alert">Θέλετε να αφαιρέσετε το %1$s και τα περιεχόμενά του;</string>
     <string name="confirmation_remove_local">Μόνο τοπικά</string>
-    <string name="remove_success_msg">Αφαιρέθηκε</string>
-    <string name="remove_fail_msg">Αποτυχημένη αφαίρεση</string>
     <string name="rename_dialog_title">Εισάγετε νέο όνομα</string>
     <string name="rename_local_fail_msg">Το τοπικό αντίγραφο δεν ήταν δυνατόν να μετονομαστεί. Παρακαλούμε επιλέξτε ένα διαφορετικό όνομα.</string>
     <string name="rename_server_fail_msg">Η μετονομασία δεν μπόρεσε να ολοκληρωθεί</string>
@@ -537,8 +527,6 @@
 
     <string name="permission_storage_access">Επιπλέον διακαιώματα απαιτούνται για μεταφόρτωση και λήψη αρχείων.</string>
     <string name="local_file_not_found_toast">Το αρχείο δεν βρέθηκε στο τοπικό σύστημα αρχείων</string>
-    <string name="confirmation_remove_files_alert">Θέλετε να αφαιρέσετε τα επιλεγμένα αντικείμενα;</string>
-    <string name="confirmation_remove_folders_alert">Θέλετε να αφαιρέσετε τα επιλεγμένα αντικείμενα με τα περιεχόμενά τους;</string>
     <string name="maintenance_mode">Ο διακομιστής είναι σε κατάσταση συντήρησης</string>
     <string name="lock_failed">Αποτυχία κλειδώματος του αρχείου</string>
 

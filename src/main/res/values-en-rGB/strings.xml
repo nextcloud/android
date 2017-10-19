@@ -127,7 +127,6 @@
     <string name="common_yes">Yes</string>
     <string name="common_no">No</string>
     <string name="common_ok">OK</string>
-    <string name="common_remove_upload">Remove upload</string>
     <string name="common_retry_upload">Retry uploading</string>
     <string name="common_cancel_sync">Cancel sync</string>
     <string name="common_cancel">Cancel</string>
@@ -142,7 +141,6 @@
     <string name="about_title">About</string>
     <string name="change_password">Change password</string>
     <string name="delete_account">Remove account</string>
-    <string name="delete_account_warning">Delete account %s with all local files?\n\nDeleting cannot be undone.</string>
     <string name="avatar">Avatar</string>
     <string name="active_user">Active user</string>
     <string name="upload_chooser_title">Upload from &#8230;</string>
@@ -192,7 +190,6 @@
     <string name="sync_fail_in_favourites_content">Contents of %1$d files could not be synced (%2$d conflicts)</string>
     <string name="sync_foreign_files_forgotten_ticker">Some local files were forgotten</string>
     <string name="sync_foreign_files_forgotten_content">%1$d files out of the %2$s folder could not be copied into</string>
-    <string name="sync_foreign_files_forgotten_explanation">As of version 1.3.16, files uploaded from this device are copied into the local %1$s folder to prevent data loss when a single file is synced with multiple accounts.\n\nDue to this change, all files uploaded with earlier versions of this app were copied into the %2$s folder. However, an error prevented the completion of this operation during account synchronization. You may either leave the file(s) as is and remove the link to %3$s, or move the file(s) into the %1$s folder and retain the link to %4$s.\n\nListed below are the local file(s), and the remote file(s) in %5$s they were linked to.</string>
     <string name="sync_current_folder_was_removed">The folder %1$s does not exist anymore</string>
     <string name="foreign_files_move">Move all</string>
     <string name="foreign_files_success">All files were moved</string>
@@ -205,10 +202,8 @@
     <string name="pass_code_configure_your_pass_code">Enter your passcode</string>
     <string name="pass_code_configure_your_pass_code_explanation">The passcode will be requested every time the app is started</string>
     <string name="pass_code_reenter_your_pass_code">Please reenter your passcode</string>
-    <string name="pass_code_remove_your_pass_code">Remove your passcode</string>
     <string name="pass_code_mismatch">The passcodes are not the same</string>
     <string name="pass_code_wrong">Incorrect passcode</string>
-    <string name="pass_code_removed">Passcode removed</string>
     <string name="pass_code_stored">Passcode stored</string>
     
     <string name="media_notif_ticker">%1$s music player</string>
@@ -271,12 +266,7 @@
     <string name="unset_favorite_real">Unset favourite</string>
     <string name="favorite_switch">Available offline</string>
     <string name="common_rename">Rename</string>
-    <string name="common_remove">Remove</string>
-    <string name="confirmation_remove_file_alert">Do you really want to remove %1$s?</string>
-    <string name="confirmation_remove_folder_alert">"Do you really want to remove %1$s and the contents thereof?"</string>
     <string name="confirmation_remove_local">Local only</string>
-    <string name="remove_success_msg">Removed</string>
-    <string name="remove_fail_msg">Removal failed</string>
     <string name="rename_dialog_title">Enter a new name</string>
     <string name="rename_local_fail_msg">Local copy could not be renamed, try a different name</string>
     <string name="rename_server_fail_msg">Could not give server new name</string>
@@ -537,8 +527,6 @@
 
     <string name="permission_storage_access">Additional permissions required to upload and download files.</string>
     <string name="local_file_not_found_toast">File not found in local file system</string>
-    <string name="confirmation_remove_files_alert">Do you really want to remove the selected items?</string>
-    <string name="confirmation_remove_folders_alert">Do you really want to remove the selected items and their contents?</string>
     <string name="maintenance_mode">Server in maintenance mode</string>
     <string name="lock_failed">Failed to lock the file</string>
 

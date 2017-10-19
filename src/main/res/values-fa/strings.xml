@@ -128,7 +128,6 @@
     <string name="common_yes">بله</string>
     <string name="common_no">نه</string>
     <string name="common_ok">تایید</string>
-    <string name="common_remove_upload">حذف آپلود</string>
     <string name="common_retry_upload">آپلود دوباره</string>
     <string name="common_cancel_sync">لغو همگام سازی</string>
     <string name="common_cancel">منصرف شدن</string>
@@ -203,10 +202,8 @@
     <string name="pass_code_configure_your_pass_code">رمز خود را وارد کنید</string>
     <string name="pass_code_configure_your_pass_code_explanation">هر بار که برنامه باز شود, شما نیاز به استفاده از کد عبور خواهید داشت</string>
     <string name="pass_code_reenter_your_pass_code">لطفا کد عبور خود را دوباره وارد کنید</string>
-    <string name="pass_code_remove_your_pass_code">رمز خود را حذف کنید</string>
     <string name="pass_code_mismatch">رمزهای وارد شده یکسان نیستند</string>
     <string name="pass_code_wrong">رمز نادرست</string>
-    <string name="pass_code_removed">رمز حذف شد</string>
     <string name="pass_code_stored">رمز ذخیره شد</string>
     
     <string name="media_notif_ticker">%1$s پخش کننده موسیقی</string>
@@ -264,11 +261,7 @@
     <string name="favorite_real">اضافه کردن به برگزیده</string>
     <string name="unset_favorite_real">حذف کردن از برگزیده</string>
     <string name="common_rename">تغییرنام</string>
-    <string name="common_remove">حذف</string>
-    <string name="confirmation_remove_file_alert">آیا واقعا می‌خواهید %1$s حذف شود ؟</string>
     <string name="confirmation_remove_local">فقط محلی</string>
-    <string name="remove_success_msg">حذف شد</string>
-    <string name="remove_fail_msg">حذف نا موفق بود</string>
     <string name="rename_dialog_title">نام جدید وارد کنید</string>
     <string name="rename_server_fail_msg">نمیتوان به سرور نام جدید داد </string>
     <string name="sync_file_nothing_to_do_msg">محتوای فایل قبلا همگام شده</string>

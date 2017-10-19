@@ -115,7 +115,6 @@
     <string name="common_yes">Kyllä</string>
     <string name="common_no">Ei</string>
     <string name="common_ok">OK</string>
-    <string name="common_remove_upload">Peru lähteys</string>
     <string name="common_retry_upload">Yritä lähetystä uudelleen</string>
     <string name="common_cancel_sync">Peru synkronointi</string>
     <string name="common_cancel">Peru</string>
@@ -130,7 +129,6 @@
     <string name="about_title">Tietoja</string>
     <string name="change_password">Vaihda salasana</string>
     <string name="delete_account">Poista tili</string>
-    <string name="delete_account_warning">Poistetaanko tili %s ja kaikki sen paikalliset tiedostot?\n\nPoistamista ei voi perua.</string>
     <string name="upload_chooser_title">Lataus täältä:</string>
     <string name="uploader_info_dirname">Kansion nimi</string>
     <string name="uploader_upload_in_progress_ticker">Lähetetään &#8230;</string>
@@ -183,10 +181,8 @@
     <string name="pass_code_configure_your_pass_code">Anna suojakoodisi</string>
     <string name="pass_code_configure_your_pass_code_explanation">Suojakoodi kysytään joka kerta, kun sovellus käynnistetään</string>
     <string name="pass_code_reenter_your_pass_code">Anna suojakoodisi uudelleen</string>
-    <string name="pass_code_remove_your_pass_code">Poista suojakoodi käytöstä</string>
     <string name="pass_code_mismatch">Suojakoodit eivät täsmää</string>
     <string name="pass_code_wrong">Virheellinen suojakoodi</string>
-    <string name="pass_code_removed">Suojakoodi poistettu</string>
     <string name="pass_code_stored">Suojakoodi tallennettu</string>
     
     <string name="media_notif_ticker">%1$s-musiikkisoitin</string>
@@ -229,10 +225,7 @@
     <string name="favorite_real">Aseta suosikiksi</string>
     <string name="unset_favorite_real">Poista suosikeista</string>
     <string name="common_rename">Nimeä uudelleen</string>
-    <string name="common_remove">Poista</string>
     <string name="confirmation_remove_local">Vain paikallinen</string>
-    <string name="remove_success_msg">Poistettu</string>
-    <string name="remove_fail_msg">Poistamista ei voitu suorittaa loppuun asti</string>
     <string name="rename_dialog_title">Anna uusi nimi</string>
     <string name="rename_local_fail_msg">Paikallisen kopion nimeä ei voitu muuttaa, yritä eri nimeä</string>
     <string name="rename_server_fail_msg">Ei voitu antaa palvelimelle uutta nimeä</string>
@@ -436,8 +429,6 @@
     <string name="manage_space_error">Joitain tiedostoja ei voitu poistaa.</string>
 
     <string name="local_file_not_found_toast">Tiedostoa ei löytynyt paikallisesta tiedostojärjestelmästä</string>
-    <string name="confirmation_remove_files_alert">Haluatko todella poistaa valitut?</string>
-    <string name="confirmation_remove_folders_alert">Haluatko todella poistaa valitut ja niiden sisällön?</string>
     <string name="maintenance_mode">Palvelin on huoltotilassa</string>
     <string name="lock_failed">Tiedoston lukitseminen epäonnistui</string>
 

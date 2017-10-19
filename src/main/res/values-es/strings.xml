@@ -127,7 +127,6 @@
     <string name="common_yes">Sí</string>
     <string name="common_no">No</string>
     <string name="common_ok">Aceptar</string>
-    <string name="common_remove_upload">Eliminar subida</string>
     <string name="common_retry_upload">Volver a intentar la subida</string>
     <string name="common_cancel_sync">Cancelar sincronización</string>
     <string name="common_cancel">Cancelar</string>
@@ -142,7 +141,6 @@
     <string name="about_title">Acerca de</string>
     <string name="change_password">Cambiar contraseña</string>
     <string name="delete_account">Eliminar cuenta</string>
-    <string name="delete_account_warning">¿Borrar cuenta %s con todos sus archivos locales?\n\nEl borrado no se puede deshacer.</string>
     <string name="avatar">Avatar</string>
     <string name="active_user">Usuario activo</string>
     <string name="upload_chooser_title">Subir desde&#8230;</string>
@@ -192,7 +190,6 @@
     <string name="sync_fail_in_favourites_content">Los contenidos de %1$d archivos no se han podido sincronizar (%2$d conflictos)</string>
     <string name="sync_foreign_files_forgotten_ticker">Algunos archivos locales se han ignorado</string>
     <string name="sync_foreign_files_forgotten_content">%1$d archivos en la carpeta %2$s no se han podido copiar a</string>
-    <string name="sync_foreign_files_forgotten_explanation">A partir de la versión 1.3.16, los archivos subidos desde este dispositivo se copian en la carpeta local %1$s para evitar la pérdida de datos cuando se sincroniza un único archivo con varias cuentas.\n\nDebido a este cambio, todos los archivos subidos con versiones anteriores de esta aplicación fueron copiados a la carpeta %2$s. Sin embargo, un error impidió que se completara esta operación durante la sincronización de la cuenta. Puede dejar los archivos tal cual como están y eliminar el enlace hacia %3$s o mover los archivos a la carpeta %1$s y mantener el enlace hacia %4$s.\n\nDebajo se muestran los archivos locales y los archivos remotos en %5$s a los que fueron enlazados.</string>
     <string name="sync_current_folder_was_removed">La carpeta %1$s ya no existe</string>
     <string name="foreign_files_move">Mover todo</string>
     <string name="foreign_files_success">Se han movido todos los archivos</string>
@@ -205,10 +202,8 @@
     <string name="pass_code_configure_your_pass_code">Introduce tu código de acceso</string>
     <string name="pass_code_configure_your_pass_code_explanation">Se solicitará el código de acceso cada vez que se inicie la aplicación</string>
     <string name="pass_code_reenter_your_pass_code">Por favor, vuelve a introducir tu código de acceso</string>
-    <string name="pass_code_remove_your_pass_code">Borre su código de acceso</string>
     <string name="pass_code_mismatch">Los códigos de acceso no son iguales</string>
     <string name="pass_code_wrong">Código de acceso incorrecto</string>
-    <string name="pass_code_removed">Código de acceso borrado</string>
     <string name="pass_code_stored">Código de acceso almacenado</string>
     
     <string name="media_notif_ticker">Reproductor de música %1$s</string>
@@ -271,12 +266,7 @@
     <string name="unset_favorite_real">Desmarcar como favorito</string>
     <string name="favorite_switch">Disponible sin conexión</string>
     <string name="common_rename">Renombrar</string>
-    <string name="common_remove">Borrar</string>
-    <string name="confirmation_remove_file_alert">¿Estás seguro que quiere eliminar %1$s?</string>
-    <string name="confirmation_remove_folder_alert">¿Realmente deseas eliminar %1$s y todo su contenido?</string>
     <string name="confirmation_remove_local">Solo local</string>
-    <string name="remove_success_msg">Eliminado</string>
-    <string name="remove_fail_msg">Ha fallado el borrado</string>
     <string name="rename_dialog_title">Introduce un nombre nuevo</string>
     <string name="rename_local_fail_msg">No se ha podido cambiar el nombre de la copia local, prueba un nombre diferente</string>
     <string name="rename_server_fail_msg">No se ha podido dar un nombre nuevo al servidor</string>
@@ -537,8 +527,6 @@
 
     <string name="permission_storage_access">Se necesitan permisos adicionales para subir y descargar archivos.</string>
     <string name="local_file_not_found_toast">El archivo no se encuentra en el sistema de archivos local.</string>
-    <string name="confirmation_remove_files_alert">¿Está seguro de que quiere eliminar los elementos seleccionados?</string>
-    <string name="confirmation_remove_folders_alert">¿Está seguro de que quiere eliminar los elementos seleccionados y sus contenidos?</string>
     <string name="maintenance_mode">Servidor en modo mantenimiento</string>
     <string name="lock_failed">Fallo el bloquear el archivo</string>
 

@@ -121,7 +121,6 @@
     <string name="common_yes">예</string>
     <string name="common_no">아니요</string>
     <string name="common_ok">확인</string>
-    <string name="common_remove_upload">업로드 제거</string>
     <string name="common_retry_upload">업로드 재시도</string>
     <string name="common_cancel_sync">동기화 취소</string>
     <string name="common_cancel">취소</string>
@@ -181,7 +180,6 @@
     <string name="sync_fail_in_favourites_content">파일 %1$d개의 내용을 동기화할 수 없습니다 (충돌 %2$d개)</string>
     <string name="sync_foreign_files_forgotten_ticker">일부 로컬 파일이 사라졌습니다.</string>
     <string name="sync_foreign_files_forgotten_content">폴더 %2$s의 파일 중 %1$d개를 복사할 수 없습니다</string>
-    <string name="sync_foreign_files_forgotten_explanation">버전 1.3.16 현재, 한 개의 파일이 여러 계정에 동기화 될 때 데이터 손실을 막기 위해서, 에 이 장치에서 업로드한 파일을 로컬 %1$s 폴더에 복사합니다.\n\n이 변경점으로 인해, 이전 버전에서 업로드된 모든 파일들은 %2$s 폴더에 복사됩니다. 그러나 에러로 인해 계정 동기화 중에는 이 작업이 완료되지 않습니다. 파일을 그대로 놔두고 %3$s에 대한 링크를 제거하거나, 해당 파일들을 %1$s 폴더로 이동시키고 %4$s에 대한 링크를 유지하시기 바랍니다.\n\n아래 표시된 목록은 로컬 파일과 원격 파일들이며, 이들은 %5$s에 링크되어 있습니다.</string>
     <string name="sync_current_folder_was_removed">%1$s 폴더는 더 이상 존재하지 않습니다</string>
     <string name="foreign_files_move">모두 이동</string>
     <string name="foreign_files_success">모든 파일 이동됨</string>
@@ -193,10 +191,8 @@
     <string name="pass_code_configure_your_pass_code">암호를 입력하십시오</string>
     <string name="pass_code_configure_your_pass_code_explanation">앱을 시작할 때마다 암호를 물어봅니다</string>
     <string name="pass_code_reenter_your_pass_code">암호코드를 다시 입력하십시오</string>
-    <string name="pass_code_remove_your_pass_code">내 암호 삭제</string>
     <string name="pass_code_mismatch">암호가 일치하지 않습니다</string>
     <string name="pass_code_wrong">암호가 잘못됨</string>
-    <string name="pass_code_removed">암호 삭제됨</string>
     <string name="pass_code_stored">암호 저장됨</string>
     
     <string name="media_notif_ticker">%1$s 음악 재생기</string>
@@ -236,11 +232,7 @@
     <string name="favorite_real">즐겨찾기 등록</string>
     <string name="unset_favorite_real">즐겨찾기 해제</string>
     <string name="common_rename">이름 바꾸기</string>
-    <string name="common_remove">삭제</string>
-    <string name="confirmation_remove_file_alert">%1$s을(를) 삭제하시겠습니까?</string>
     <string name="confirmation_remove_local">로컬만</string>
-    <string name="remove_success_msg">삭제됨</string>
-    <string name="remove_fail_msg">삭제할 수 없음</string>
     <string name="rename_dialog_title">새 이름 입력</string>
     <string name="sync_file_nothing_to_do_msg">파일 내용이 이미 동기화됨</string>
     <string name="create_dir_fail_msg">폴더를 만들 수 없음</string>
@@ -443,8 +435,6 @@
     <string name="manage_space_clear_data">데이터 지우기</string>
     <string name="manage_space_error">몇몇 파일을 삭제할 수 없음</string>
 
-    <string name="confirmation_remove_files_alert">선택한 항목을 정말로 삭제하시겠습니까?</string>
-    <string name="confirmation_remove_folders_alert">선택한 항목 및 내용을 정말로 삭제하시겠습니까?</string>
     <string name="actionbar_search">검색</string>
     <string name="files_drop_not_supported">이것은 Nextcloud 기능입니다, 업데이트하십시오.</string>
     <string name="learn_more">자세히 알아보기</string>

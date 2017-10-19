@@ -127,7 +127,6 @@
     <string name="common_yes">Sim</string>
     <string name="common_no">Não</string>
     <string name="common_ok">OK</string>
-    <string name="common_remove_upload">Excluir arquivo enviado</string>
     <string name="common_retry_upload">Retentar o envio</string>
     <string name="common_cancel_sync">Cancelar sincronização</string>
     <string name="common_cancel">Cancelar</string>
@@ -142,7 +141,6 @@
     <string name="about_title">Sobre</string>
     <string name="change_password">Alterar senha</string>
     <string name="delete_account">Excluir conta</string>
-    <string name="delete_account_warning">Excluir a conta %s e todos seus arquivos?\n\nEsta exclusão não pode ser desfeita.</string>
     <string name="avatar">Avatar</string>
     <string name="active_user">Ativar usuário</string>
     <string name="upload_chooser_title">Enviar de &#8230;</string>
@@ -192,7 +190,6 @@
     <string name="sync_fail_in_favourites_content">O conteúdo de %1$d arquivos não puderam ser sincronizados (%2$d conflitos)</string>
     <string name="sync_foreign_files_forgotten_ticker">Alguns arquivos locais foram esquecidos</string>
     <string name="sync_foreign_files_forgotten_content">%1$d arquivos de %2$s não puderam ser copiados para a pasta</string>
-    <string name="sync_foreign_files_forgotten_explanation">A partir da versão 1.3.16, os arquivos enviados deste dispositivo serão copiados para a pasta local %1$s para evitar a perda de dados quando um único arquivo é sincronizado em várias contas.\n\nDevido à esta alteração, todos os arquivos enviados com versões anteriores deste aplicativo foram copiados para a pasta %2$s No entanto, um erro impediu a conclusão desta operação durante a sincronização da conta. Você pode deixar o (s) arquivo (s) como está e remover o link para %3$s ou mover os arquivos para a pasta %1$s e manter o link para %4$s.\n\nListados abaixo estão os arquivos locais e os arquivos remotos em %5$s taos quais eles foram vinculados.</string>
     <string name="sync_current_folder_was_removed">A pasta %1$s não existe mais</string>
     <string name="foreign_files_move">Mover todos</string>
     <string name="foreign_files_success">Todos os arquivos foram movidos</string>
@@ -205,10 +202,8 @@
     <string name="pass_code_configure_your_pass_code">Digite o código de acesso</string>
     <string name="pass_code_configure_your_pass_code_explanation">O código de acesso será solicitado toda vez que o aplicativo for iniciado</string>
     <string name="pass_code_reenter_your_pass_code">Por favor, digite seu código de acesso novamente</string>
-    <string name="pass_code_remove_your_pass_code">Excluir seu código de acesso</string>
     <string name="pass_code_mismatch">Os códigos de acesso não são os mesmos</string>
     <string name="pass_code_wrong">Código de acesso incorreto</string>
-    <string name="pass_code_removed">Código de acesso excluído</string>
     <string name="pass_code_stored">Código de acesso salvo</string>
     
     <string name="media_notif_ticker">%1$s reprodutor de música</string>
@@ -271,12 +266,7 @@
     <string name="unset_favorite_real">Desmarque como favorito</string>
     <string name="favorite_switch">Disponível offline</string>
     <string name="common_rename">Renomear</string>
-    <string name="common_remove">Excluir</string>
-    <string name="confirmation_remove_file_alert">Deseja realmente excluir %1$s?</string>
-    <string name="confirmation_remove_folder_alert">Você realmente quer remover %1$s e seu conteúdo?</string>
     <string name="confirmation_remove_local">Somente local</string>
-    <string name="remove_success_msg">Excluído</string>
-    <string name="remove_fail_msg">Erro ao excluir</string>
     <string name="rename_dialog_title">Digite um novo nome</string>
     <string name="rename_local_fail_msg">A cópia local não pôde ser renomeada. Tente um nome diferente</string>
     <string name="rename_server_fail_msg">Não foi possível dar um nome novo ao servidor</string>
@@ -537,8 +527,6 @@
 
     <string name="permission_storage_access">Permissões adicionais são necessárias para enviar ou baixar arquivos.</string>
     <string name="local_file_not_found_toast">Arquivo não encontrado no sistema de arquivos local</string>
-    <string name="confirmation_remove_files_alert">Deseja realmente excluir os itens selecionados?</string>
-    <string name="confirmation_remove_folders_alert">Deseja realmente excluir os itens selecionados e seus conteúdos?</string>
     <string name="maintenance_mode">O servidor está em modo de manutenção</string>
     <string name="lock_failed">Falha ao bloquear o arquivo</string>
 

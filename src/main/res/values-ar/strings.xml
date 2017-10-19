@@ -106,7 +106,6 @@
     <string name="common_yes">نعم</string>
     <string name="common_no">لا</string>
     <string name="common_ok">تم</string>
-    <string name="common_remove_upload">إحذف الرفع</string>
     <string name="common_cancel_sync">ألغ المزامنة</string>
     <string name="common_cancel">إلغاء</string>
     <string name="common_back">رجوع</string>
@@ -167,10 +166,8 @@
     
     <string name="pass_code_configure_your_pass_code">إدخل رمزك السري</string>
     <string name="pass_code_reenter_your_pass_code">أعد إدخال رمزك السري</string>
-    <string name="pass_code_remove_your_pass_code">اخذف رمز المرور </string>
     <string name="pass_code_mismatch">الجملتين السريتين لا تتطابقان</string>
     <string name="pass_code_wrong">رمز المرور غير صحيح</string>
-    <string name="pass_code_removed">رمز المرور المخذوفة</string>
     <string name="pass_code_stored">رمز المرور المخزنة</string>
     
     <string name="media_notif_ticker">مشغل الموسيقى %1$s </string>
@@ -212,11 +209,7 @@
     <string name="favorite_real">حدد كمفضلة</string>
     <string name="unset_favorite_real">الغ التحدد كمفضلة</string>
     <string name="common_rename">إعادة التسمية</string>
-    <string name="common_remove">حذف</string>
-    <string name="confirmation_remove_file_alert">هل تريد حقاً حذف %1$s ؟</string>
     <string name="confirmation_remove_local">محليا فقط</string>
-    <string name="remove_success_msg">حذفت</string>
-    <string name="remove_fail_msg">فشل الحذف</string>
     <string name="rename_dialog_title">أدخل اسما جديدا</string>
     <string name="sync_file_nothing_to_do_msg">تمت  مزامنة محتويات الملفات من قبل</string>
     <string name="filename_forbidden_characters">رموز ممنوعة: / \\ &lt; &gt; : \" | ? *</string>
@@ -343,7 +336,6 @@
     <string name="action_switch_grid_view">عرض شبكي</string>
     <string name="action_switch_list_view">عرض على شكل قائمة</string>
 
-    <string name="confirmation_remove_files_alert">هل ترغب فعلاً في حذف العناصر المحددة ؟</string>
     <string name="actionbar_search">بحث</string>
     <string name="learn_more">تعلم المزيد</string>
     <string name="drawer_synced_folders">تحميل تلقائي</string>

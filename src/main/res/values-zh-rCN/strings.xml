@@ -127,7 +127,6 @@
     <string name="common_yes">是</string>
     <string name="common_no">否</string>
     <string name="common_ok">确定</string>
-    <string name="common_remove_upload">移除上传任务</string>
     <string name="common_retry_upload">重试上传</string>
     <string name="common_cancel_sync">取消同步</string>
     <string name="common_cancel">取消</string>
@@ -142,7 +141,6 @@
     <string name="about_title">关于</string>
     <string name="change_password">修改密码</string>
     <string name="delete_account">删除账号</string>
-    <string name="delete_account_warning">是否删除账户 %s 及其所有本地文件？\n\n一经删除无法撤销。</string>
     <string name="avatar">头像</string>
     <string name="active_user">活跃用户</string>
     <string name="upload_chooser_title">上传自 &#8230;</string>
@@ -192,7 +190,6 @@
     <string name="sync_fail_in_favourites_content">%1$d 文件无法被同步（%2$d 冲突）</string>
     <string name="sync_foreign_files_forgotten_ticker">某些本地文件已被遗忘</string>
     <string name="sync_foreign_files_forgotten_content">%2$s 文件夹中的 %1$d 个文件不能被复制到</string>
-    <string name="sync_foreign_files_forgotten_explanation">从 1.3.16 版起，从此设备上传的文件将被复制到本地的 %1$s 文件夹，以防止某个单一文件在多个账户间同步而造成的数据损失。\n\n 由于此项变化，此应用之前的版本上传的全部文件都已被复制到了 %2$s 文件夹。然而，账户同步期间有一个错误阻止了此操作的完成。您可能想保持文件不动，并移除指向 %3$s 的链接，或将文件移动到 %1$s 文件夹中并保持其到 %4$s 的链接。下面列出的是本地文件，以及它们被链接到的 %5$s 中的远程文件。</string>
     <string name="sync_current_folder_was_removed">文件夹%1$s不再存在</string>
     <string name="foreign_files_move">移动所有</string>
     <string name="foreign_files_success">所有文件已被移动</string>
@@ -205,10 +202,8 @@
     <string name="pass_code_configure_your_pass_code">输入安全码</string>
     <string name="pass_code_configure_your_pass_code_explanation">每次启动应用都会要求输入安全码</string>
     <string name="pass_code_reenter_your_pass_code">请再次输入安全码</string>
-    <string name="pass_code_remove_your_pass_code">移除安全码</string>
     <string name="pass_code_mismatch">安全码不一致</string>
     <string name="pass_code_wrong">安全码不正确</string>
-    <string name="pass_code_removed">已移除的安全码</string>
     <string name="pass_code_stored">已存储的安全码</string>
     
     <string name="media_notif_ticker">%1$s 音乐播放器</string>
@@ -270,12 +265,7 @@
     <string name="favorite_real">加入收藏</string>
     <string name="unset_favorite_real">取消收藏</string>
     <string name="common_rename">重命名</string>
-    <string name="common_remove">删除</string>
-    <string name="confirmation_remove_file_alert">你确定要删除%1$s?</string>
-    <string name="confirmation_remove_folder_alert">你真的要删除%1$s及其内容吗？</string>
     <string name="confirmation_remove_local">仅本地</string>
-    <string name="remove_success_msg">删除</string>
-    <string name="remove_fail_msg">无法完成删除</string>
     <string name="rename_dialog_title">请输出新的名字</string>
     <string name="rename_local_fail_msg">本地副本无法重命名，尝试其他名称</string>
     <string name="rename_server_fail_msg">不能给服务器新的名称</string>
@@ -536,8 +526,6 @@
 
     <string name="permission_storage_access">上传和下载文件所需的其他权限。</string>
     <string name="local_file_not_found_toast">在本地文件系统中找不到文件</string>
-    <string name="confirmation_remove_files_alert">你是否真的要删除所选的项目？</string>
-    <string name="confirmation_remove_folders_alert">你是否真的要删除所选的项目和它们的内容？</string>
     <string name="maintenance_mode">服务器处于维护模式</string>
     <string name="lock_failed">锁定文件失败</string>
 

@@ -127,7 +127,6 @@
     <string name="common_yes">Po</string>
     <string name="common_no">Jo</string>
     <string name="common_ok">OK</string>
-    <string name="common_remove_upload">Hiqe ngarkimin</string>
     <string name="common_retry_upload">Riprovo ngarkimin</string>
     <string name="common_cancel_sync">Anuloje sinkronizimin</string>
     <string name="common_cancel">Anuloje</string>
@@ -142,7 +141,6 @@
     <string name="about_title">Rreth</string>
     <string name="change_password">Ndryshoni fjalëkalimin</string>
     <string name="delete_account">Hiqe llogarinë</string>
-    <string name="delete_account_warning">Fshij llogarinë %s me të gjithë skedarët lokalë?\n\nFshirja nuk mund të zhbëhet.</string>
     <string name="avatar">Avatari</string>
     <string name="active_user">Përdorues aktiv</string>
     <string name="upload_chooser_title">Ngarkojeni prej &#8230;</string>
@@ -192,7 +190,6 @@
     <string name="sync_fail_in_favourites_content">Përmbajtja e %1$d skedarëve s\’u sinkronizua dot (%2$d përplasje)</string>
     <string name="sync_foreign_files_forgotten_ticker">Disa kartela vendore u harruan</string>
     <string name="sync_foreign_files_forgotten_content">%1$d skedarë nga dosja %2$s nuk u kopjuan dot</string>
-    <string name="sync_foreign_files_forgotten_explanation">Nga versioni 1.3.16 e tutje, skedarët e ngarkuar nga kjo pajisje kopjohen te dosja vendore %1$s për të parandaluar humbje të dhënash, kur një skedar i vetëm sinkronizohet me disa llogari.\n\nPër shkak të këtij ndryshimi, të gjithë skedarët e ngarkuar nën versione të mëparshëm të këtij aplikacioni u kopjuan në dosjen %2$s. Por plotësimin e këtij veprimi e pengoi një gabim gjatë sinkronizimit të llogarisë. Ose mund t’i lini kartelat siç janë, dhe të hiqni lidhjen për te %3$s, ose të kaloni skedarët te dosja %1$s dhe të mbani lidhjen për te %4$s.\n\nMë poshtë radhiten skedarët vendor, dhe skedarët e largët te %5$s me të cilët lidhen.</string>
     <string name="sync_current_folder_was_removed">Dosja %1$s s’ekziston më</string>
     <string name="foreign_files_move">Zhvendosi të gjitha</string>
     <string name="foreign_files_success">U zhvendosën të gjithë skedarët</string>
@@ -205,10 +202,8 @@
     <string name="pass_code_configure_your_pass_code">Jepni kodkalimin tuaj</string>
     <string name="pass_code_configure_your_pass_code_explanation">Kodkalimi do të kërkohet sa herë që niset aplikacioni</string>
     <string name="pass_code_reenter_your_pass_code">Ju lutemi, rifutni kodkalimin tuaj</string>
-    <string name="pass_code_remove_your_pass_code">Hiqeni kodkalimin tuaj</string>
     <string name="pass_code_mismatch">Kodkalimet s\’janë të njëjtë</string>
     <string name="pass_code_wrong">Kodkalim i pasaktë</string>
-    <string name="pass_code_removed">Kodkalimi u hoq</string>
     <string name="pass_code_stored">Kodkalimi u depozitua</string>
     
     <string name="media_notif_ticker">Lojtësi %1$s i muzikës</string>
@@ -271,12 +266,7 @@
     <string name="unset_favorite_real">Hiqe si të preferuar</string>
     <string name="favorite_switch">I disponueshëm jo në linjë</string>
     <string name="common_rename">Riemërtojeni</string>
-    <string name="common_remove">Hiqe</string>
-    <string name="confirmation_remove_file_alert">Doni vërtet të hiqni %1$s?</string>
-    <string name="confirmation_remove_folder_alert">Doni vërtet të hiqet %1$s dhe përmbajtja e tij?</string>
     <string name="confirmation_remove_local">Vetëm vendorja</string>
-    <string name="remove_success_msg">Heqja doli me sukses</string>
-    <string name="remove_fail_msg">Heqja dështoi</string>
     <string name="rename_dialog_title">Jepni një emër të ri</string>
     <string name="rename_local_fail_msg">Kopja vendore s\’u riemërtua dot; provoni një emër tjetër</string>
     <string name="rename_server_fail_msg">Serverit nuk mund ti jepej emër i ri</string>
@@ -537,8 +527,6 @@
 
     <string name="permission_storage_access">Që të ngarkoni dhe shkarkoni skedar kërkohen leje shtesë.</string>
     <string name="local_file_not_found_toast">Skedari s’u gjet te sistemi vendor i skedarëve</string>
-    <string name="confirmation_remove_files_alert">Doni vërtetë të hiqni artikujt e zgjedhur?</string>
-    <string name="confirmation_remove_folders_alert">Doni vërtet të hiqni artikujt e zgjedhur dhe përmbajtjen e tyre?</string>
     <string name="maintenance_mode">Shërbyesi në gjëndje mirëmbajtjeje</string>
     <string name="lock_failed">Kyçja e skedarit dështoi</string>
 

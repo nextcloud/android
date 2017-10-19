@@ -128,7 +128,6 @@
     <string name="common_yes">Ja</string>
     <string name="common_no">Nein</string>
     <string name="common_ok">OK</string>
-    <string name="common_remove_upload">Upload entfernen</string>
     <string name="common_retry_upload">Versuche erneut hochzuladen</string>
     <string name="common_cancel_sync">Synchronisation abbrechen</string>
     <string name="common_cancel">Abbrechen</string>
@@ -143,7 +142,6 @@
     <string name="about_title">Über</string>
     <string name="change_password">Passwort ändern</string>
     <string name="delete_account">Benutzerkonto löschen</string>
-    <string name="delete_account_warning">Konto %s mit allen lokalen Dateien löschen?\n\nLöschen kann nicht rückgängig gemacht werden.</string>
     <string name="avatar">Avatar</string>
     <string name="active_user">Aktiver Nutzer</string>
     <string name="upload_chooser_title">Dateien hochladen von &#8230;</string>
@@ -193,7 +191,6 @@
     <string name="sync_fail_in_favourites_content">Inhalte von %1$d Dateien konnten nicht synchronisiert werden (%2$d Konflikte)</string>
     <string name="sync_foreign_files_forgotten_ticker">Einige lokale Dateien wurden vergessen</string>
     <string name="sync_foreign_files_forgotten_content">%1$d Dateien aus dem %2$s Verzeichnis konnten nicht kopiert werden nach</string>
-    <string name="sync_foreign_files_forgotten_explanation">Seit Version 1.3.16 werden Dateien die von diesem Gerät aus hochgeladen werden in den lokalen Ordner %1$s kopiert um Datenverlust zu vermeiden, wenn eine einzelne Datei mit mehreren Accounts synchronisiert wird.\n\nInfolge dieser Änderung wurden alle Dateien, die mit vorherigen Versionen dieser App hochgeladen wurden, in den Ordner %2$s verschoben. Jedoch ist während der Konto-Synchronisation ein Fehler aufgetreten, der das Abschließen dieses Vorgangs verhindert hat. Die Datei(en) können entweder wie sie sind belassen und den Link zu %3$s entfernt werden oder die Datei(en) in den Ordner %1$s verschoben und den Link zu %4$s beibehalten werden.\n\nUnten befindet sich eine Liste der lokalen Datei(en) und der mit ihnen verbundenen Remote-Datei(en) in %5$s.</string>
     <string name="sync_current_folder_was_removed">Der Ordner %1$s existiert nicht mehr</string>
     <string name="foreign_files_move">Verschiebe alle</string>
     <string name="foreign_files_success">Alle Dateien wurden verschoben</string>
@@ -206,10 +203,8 @@
     <string name="pass_code_configure_your_pass_code">PIN eingeben</string>
     <string name="pass_code_configure_your_pass_code_explanation">Die PIN wird jedes mal beim Start der App abgefragt</string>
     <string name="pass_code_reenter_your_pass_code">Bitte Deine PIN nochmals eingeben</string>
-    <string name="pass_code_remove_your_pass_code">PIN entfernen</string>
     <string name="pass_code_mismatch">Die PINs stimmen nicht überein</string>
     <string name="pass_code_wrong">PIN nicht korrekt</string>
-    <string name="pass_code_removed">PIN entfernt</string>
     <string name="pass_code_stored">PIN gespeichert</string>
     
     <string name="media_notif_ticker">%1$s Musik Player</string>
@@ -272,12 +267,7 @@
     <string name="unset_favorite_real">Markierung als Favorit entfernen</string>
     <string name="favorite_switch">Offline verfügbar</string>
     <string name="common_rename">Umbenennen</string>
-    <string name="common_remove">Entfernen</string>
-    <string name="confirmation_remove_file_alert">Möchtest Du %1$s wirklich entfernen?</string>
-    <string name="confirmation_remove_folder_alert">Willst Du %1$s deren Inhalte wirklich löschen?</string>
     <string name="confirmation_remove_local">Nur lokal</string>
-    <string name="remove_success_msg">Entfernt</string>
-    <string name="remove_fail_msg">Entfernen fehlgeschlagen</string>
     <string name="rename_dialog_title">Gib einen neuen Namen ein</string>
     <string name="rename_local_fail_msg">Die lokale Kopie konnte nicht umbenannt werden. Versuche es mit einem anderen Namen.</string>
     <string name="rename_server_fail_msg">Die Umbenennung konnte nicht abgeschlossen werden.</string>
@@ -538,8 +528,6 @@
 
     <string name="permission_storage_access">Du hast nicht die erforderlichen Rechte, um Dateien hoch- oder herunterzuladen.</string>
     <string name="local_file_not_found_toast">Die Datei wurde im lokalen Dateisystem nicht gefunden</string>
-    <string name="confirmation_remove_files_alert">Willst Du die ausgewählten Einträge wirklich löschen?</string>
-    <string name="confirmation_remove_folders_alert">Willst Du die ausgewählten Einträge und deren Inhalte wirklich löschen?</string>
     <string name="maintenance_mode">Der Server ist im Wartungsmodus
 </string>
     <string name="lock_failed">Datei konnte nicht gesperrt werden.</string>
@@ -625,7 +613,7 @@
     <string name="whats_new_theming_content">Wenn in der Server-App aktiviert, werden \n\u2022 das Hintergrund Bild\n\u2022 der Server-Name\n\u2022 und die eingestellten Farben angezeigt</string>
 
     <string name="whats_new_notification_title">Benachrichtigungen</string>
-    <string name="whats_new_notification_content">Erhalten Sie Benachrichtigungen wie z.B.\n\u2022 Neue Freigaben\n\u2022 Kommentar-Erwähnungen\n\u2022 Adminstratoren-Ankündigungen</string>
+    <string name="whats_new_notification_content">Erhalten Sie Benachrichtigungen wie z.B.\n\u2022 Neue Freigaben\n\u2022 Kommentar-Erwähnungen\n\u2022 Administratoren-Ankündigungen</string>
 
     <string name="whats_new_skip">Überspringen</string>
 

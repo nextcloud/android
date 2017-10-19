@@ -91,7 +91,6 @@
     <string name="common_yes">כן</string>
     <string name="common_no">לא</string>
     <string name="common_ok">אישור</string>
-    <string name="common_remove_upload">הסרת העלאה</string>
     <string name="common_cancel_sync">ביטול סנכרון</string>
     <string name="common_cancel">ביטול</string>
     <string name="common_back">אחורה</string>
@@ -149,10 +148,8 @@
     <string name="pass_code_configure_your_pass_code">יש להכניס את הקוד שלך</string>
     <string name="pass_code_configure_your_pass_code_explanation">בכל פעם שיישום זה נפתח יהיה צורך להכניס את הקוד</string>
     <string name="pass_code_reenter_your_pass_code">יש להכניס את הקוד שנית</string>
-    <string name="pass_code_remove_your_pass_code">יש להסיר את הקוד שלך</string>
     <string name="pass_code_mismatch">הקודים אינם זהים</string>
     <string name="pass_code_wrong">קוד שגוי</string>
-    <string name="pass_code_removed">הקוד הוסר</string>
     <string name="pass_code_stored">הקוד נשמר</string>
     
     <string name="media_notif_ticker">נגנן המוזיקה %1$s</string>
@@ -191,9 +188,7 @@
     <string name="favorite">הגדר כזמין באופן לא מקוון</string>
     <string name="unfavorite">ביטול הגדרה כזמין באופן לא מקוון</string>
     <string name="common_rename">שינוי שם</string>
-    <string name="common_remove">הסרה</string>
     <string name="confirmation_remove_local">מקומי בלבד</string>
-    <string name="remove_fail_msg">ההסרה נכשלה</string>
     <string name="rename_dialog_title">נא להזין שם חדש</string>
     <string name="sync_file_nothing_to_do_msg">תוכן הקובץ כבר מסונכרן</string>
     <string name="filename_forbidden_characters">תווים אסורים: / \\ &lt; &gt; : \" | ? *</string>

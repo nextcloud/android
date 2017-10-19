@@ -127,7 +127,6 @@
     <string name="common_yes">Ja</string>
     <string name="common_no">Nej</string>
     <string name="common_ok">OK</string>
-    <string name="common_remove_upload">Ta bort uppladdning</string>
     <string name="common_retry_upload">Försök ladda upp igen</string>
     <string name="common_cancel_sync">Avbryt synkronisering</string>
     <string name="common_cancel">Avbryt</string>
@@ -142,7 +141,6 @@
     <string name="about_title">Om</string>
     <string name="change_password">Ändra lösenord</string>
     <string name="delete_account">Radera konto</string>
-    <string name="delete_account_warning">Ta bort konto %s med alla lokala filer?\n\nBorttagning kan inte göras ogjort.</string>
     <string name="avatar">Avatar</string>
     <string name="active_user">Aktivera användare</string>
     <string name="upload_chooser_title">Ladda upp från &#8230;</string>
@@ -192,7 +190,6 @@
     <string name="sync_fail_in_favourites_content">Innehållet i %1$d filer kunde inte synkas (%2$d konflikter)</string>
     <string name="sync_foreign_files_forgotten_ticker">Vissa lokala filer glömdes</string>
     <string name="sync_foreign_files_forgotten_content">%1$d filer från %2$s mappar kunde inte kopieras till</string>
-    <string name="sync_foreign_files_forgotten_explanation">Från och med version 1.3.16 kopieras filer som laddas upp från den här enheten till den lokala %1$smappen för att förhindra dataförlust när en enda fil synkroniseras med flera konton.\n\nPå grund av denna ändring är alla filer som är uppladdade med en tidigare version av denna app kopierade till %2$smappen. Ett fel förhindrade dock slutförandet av denna operation under kontosynkronisering. Du kan antingen lämna filen/filerna och ta bort länken till %3$s, eller flytta filen/filerna till %1$s mappen och behålla länken till %4$s.\n\nListat nedan är de lokala och externa filen/filerna %5$s som de var länkade till.</string>
     <string name="sync_current_folder_was_removed">Mappen %1$s finns inte längre</string>
     <string name="foreign_files_move">Flytta allt</string>
     <string name="foreign_files_success">Alla filer flyttades</string>
@@ -205,10 +202,8 @@
     <string name="pass_code_configure_your_pass_code">Skriv in ditt lösenord</string>
     <string name="pass_code_configure_your_pass_code_explanation">Koden kommer efterfrågas varje gång du startar appen</string>
     <string name="pass_code_reenter_your_pass_code">Var god ange ditt lösenord igen</string>
-    <string name="pass_code_remove_your_pass_code">Ta bort lösenordet</string>
     <string name="pass_code_mismatch">Koderna matchar inte</string>
     <string name="pass_code_wrong">Ogiltigt lösenord</string>
-    <string name="pass_code_removed">Lösenord borttaget</string>
     <string name="pass_code_stored">Kod sparad</string>
     
     <string name="media_notif_ticker">%1$ musikspelare</string>
@@ -271,12 +266,7 @@
     <string name="unset_favorite_real">Avfavoritisera</string>
     <string name="favorite_switch">Tillgänglig offline</string>
     <string name="common_rename">Byt namn</string>
-    <string name="common_remove">Radera</string>
-    <string name="confirmation_remove_file_alert">Vill du verkligen radera %1$s?</string>
-    <string name="confirmation_remove_folder_alert">Vill du verkligen radera%1$soch dess innehåll?</string>
     <string name="confirmation_remove_local">Endast lokalt</string>
-    <string name="remove_success_msg">Borttagen</string>
-    <string name="remove_fail_msg">Radering kunde inte slutföras</string>
     <string name="rename_dialog_title">Ange ett nytt namn</string>
     <string name="rename_local_fail_msg">Den lokala kopian kunde inte döpas om, prova med ett annat namn</string>
     <string name="rename_server_fail_msg">Kunde inte ge servern ett nytt namn</string>
@@ -537,8 +527,6 @@
 
     <string name="permission_storage_access">Ytterligare rättigheter krävs för att ladda upp eller ned filer</string>
     <string name="local_file_not_found_toast">Fil kunde inte hittas i lokalt filsystem</string>
-    <string name="confirmation_remove_files_alert">Vill du verkligen radera de valda objekten?</string>
-    <string name="confirmation_remove_folders_alert">Vill du verkligen radera de valda objekten och dess innehåll?</string>
     <string name="maintenance_mode">Server i underhållsläge</string>
     <string name="lock_failed">Misslyckades att låsa filen</string>
 

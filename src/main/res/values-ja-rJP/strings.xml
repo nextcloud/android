@@ -123,7 +123,6 @@
     <string name="common_yes">はい</string>
     <string name="common_no">いいえ</string>
     <string name="common_ok">OK</string>
-    <string name="common_remove_upload">アップロードを削除</string>
     <string name="common_retry_upload">再度アップロードを試行する</string>
     <string name="common_cancel_sync">同期のキャンセル</string>
     <string name="common_cancel">キャンセル</string>
@@ -138,7 +137,6 @@
     <string name="about_title">について</string>
     <string name="change_password">パスワードを変更</string>
     <string name="delete_account">アカウント削除</string>
-    <string name="delete_account_warning">アカウント%sに紐づく全てのローカルファイルを削除しますか？\n\nこの作業は取り消すことができません。</string>
     <string name="avatar">アバター</string>
     <string name="active_user">アクティブなユーザー</string>
     <string name="upload_chooser_title">アップロード &#8230;</string>
@@ -186,7 +184,6 @@
     <string name="sync_fail_in_favourites_content">%1$d ファイルのコンテンツを同期できませんでした（%2$d の競合）</string>
     <string name="sync_foreign_files_forgotten_ticker">一部のローカルファイルが忘れられています</string>
     <string name="sync_foreign_files_forgotten_content"> %2$s フォルダー内の %1$d ファイルはコピーできませんでした。</string>
-    <string name="sync_foreign_files_forgotten_explanation">バージョン 1.3.16以降、このデバイスからアップロードされたファイルは、単独のファイルが複数のアカウントと同期する際にデータの損失を防ぐため、ローカルの%1$sフォルダーにコピーされます。 この変更により、このアプリの以前のバージョンでアップロードされたすべてのファイルは%2$sフォルダーにコピーされます。しかしながら、アカウント同期中にはエラーが発生してこの操作が完了しないようになっています。ファイルをこのままにして%3$sへのリンクを削除するか、あるいは%1$sフォルダーにファイルを移動して%4$sへのリンクを維持することができます。 以下のリストにあるのは、ローカルのファイル及びそれらにリンクしている %5$s内のリモートファイルです。</string>
     <string name="sync_current_folder_was_removed">フォルダー%1$sはもう存在しません</string>
     <string name="foreign_files_move">すべて移動</string>
     <string name="foreign_files_success">すべてのファイルを移動しました</string>
@@ -198,10 +195,8 @@
     <string name="pass_code_configure_your_pass_code">パスコードを入力</string>
     <string name="pass_code_configure_your_pass_code_explanation">アプリ開始時には毎回パスコードが要求されます</string>
     <string name="pass_code_reenter_your_pass_code">パスコードを再入力してください</string>
-    <string name="pass_code_remove_your_pass_code">パスコードを削除</string>
     <string name="pass_code_mismatch">パスコードが一致しません</string>
     <string name="pass_code_wrong">パスコードが正しくありません</string>
-    <string name="pass_code_removed">パスコードを削除しました</string>
     <string name="pass_code_stored">パスコードを保存しました</string>
     
     <string name="media_notif_ticker">%1$s ミュージックプレーヤー</string>
@@ -243,10 +238,7 @@
     <string name="favorite_real">お気に入りとして登録</string>
     <string name="unset_favorite_real">お気に入りの登録解除</string>
     <string name="common_rename">名前を変更</string>
-    <string name="common_remove">削除</string>
-    <string name="confirmation_remove_file_alert">本当に %1$s を削除しますか？</string>
     <string name="confirmation_remove_local">ローカルのみ</string>
-    <string name="remove_fail_msg">削除を完了できませんでした</string>
     <string name="rename_dialog_title">新しい名前を入力</string>
     <string name="sync_file_nothing_to_do_msg">ファイルコンテンツはすでに同期されています</string>
     <string name="filename_forbidden_characters">使用できない文字: / \\ &lt; &gt; : \" | ? *</string>
@@ -425,8 +417,6 @@
     <string name="manage_space_clear_data">データのクリア</string>
     <string name="manage_space_error">いくつかのファイルがクリアできませんでした。</string>
 
-    <string name="confirmation_remove_files_alert">本当に選択したものを削除しますか？</string>
-    <string name="confirmation_remove_folders_alert">本当に 洗濯したアイテム およびそのコンテンツを削除してもよろしいですか？</string>
     <string name="actionbar_search">検索</string>
     <string name="files_drop_not_supported">これはNextCloudの機能です。更新してください。</string>
     <string name="learn_more">もっと見る</string>

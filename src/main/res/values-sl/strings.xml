@@ -126,7 +126,6 @@
     <string name="common_yes">Da</string>
     <string name="common_no">Ne</string>
     <string name="common_ok">V redu</string>
-    <string name="common_remove_upload">Odstrani posodobitev</string>
     <string name="common_retry_upload">Vnovičen poskus nalaganja</string>
     <string name="common_cancel_sync">Prekliči usklajevanje</string>
     <string name="common_cancel">Prekliči</string>
@@ -141,7 +140,6 @@
     <string name="about_title">O</string>
     <string name="change_password">Spremeni geslo</string>
     <string name="delete_account">Odstrani račun</string>
-    <string name="delete_account_warning">Pobrišem račun%s z vsemi lokalnimi datotekami?\n\nBrisanja ne moreš preklicati.</string>
     <string name="avatar">Avatar</string>
     <string name="active_user">Dejavni uporabnik</string>
     <string name="upload_chooser_title">Pošlji datoteko iz &#8230;</string>
@@ -191,7 +189,6 @@
     <string name="sync_fail_in_favourites_content">Vsebine %1$d datotek ni bilo mogoče uskladiti (zaznanih je %2$d sporov)</string>
     <string name="sync_foreign_files_forgotten_ticker">Nekatere krajevne datoteke so spregledane</string>
     <string name="sync_foreign_files_forgotten_content">Skupno %1$d datotek iz mape %2$s ni mogoče kopirati v</string>
-    <string name="sync_foreign_files_forgotten_explanation">Od različice 1.3.16 so datoteke, poslane iz te naprave, varnostno kopirane v krajevno mapo %1$s. S tem je preprečena možnost izgube podatkov, ko se ena datoteka usklajuje z več računi.\n\nZaradi te spremembe so vse datoteke, ki so bile kopirane v prejšnjih različicah, kopirane v mapo %2$s. Zaradi napake ni mogoče končati usklajevanja. Datoteke lahko ali pustiš kjer so, in odstraniš povezavo na %3$s ali pa premakneš datoteke v mapo %1$s in ohraniš povezavo do %4$s.\n\nSpodaj so izpisane krajevne datoteke in oddaljene povezane datoteke v mapi %5$s.</string>
     <string name="sync_current_folder_was_removed">Mapa %1$s ne obstaja več</string>
     <string name="foreign_files_move">Premakni vse</string>
     <string name="foreign_files_success">Vse datoteke so uspešno premaknjene na novo mesto</string>
@@ -204,10 +201,8 @@
     <string name="pass_code_configure_your_pass_code">Vnesite kodo PIN programa</string>
     <string name="pass_code_configure_your_pass_code_explanation">Koda bo zahtevana vsakič pred zagonom programa.</string>
     <string name="pass_code_reenter_your_pass_code">Ponovno vnesite kodo PIN</string>
-    <string name="pass_code_remove_your_pass_code">Odstrani kodo PIN programa</string>
     <string name="pass_code_mismatch">Vpisani kodi PIN nista enaki</string>
     <string name="pass_code_wrong">Napačna koda PIN</string>
-    <string name="pass_code_removed">Koda PIN je odstranjena</string>
     <string name="pass_code_stored">Koda PIN je shranjena</string>
     
     <string name="media_notif_ticker">Predvajalnik glasbe %1$s</string>
@@ -270,12 +265,7 @@
     <string name="favorite_real">Nastavi kot priljubljeno</string>
     <string name="unset_favorite_real">Ni več priljubljeno</string>
     <string name="common_rename">Preimenuj</string>
-    <string name="common_remove">Odstrani</string>
-    <string name="confirmation_remove_file_alert">Ali resnično želiš odstraniti %1$s?</string>
-    <string name="confirmation_remove_folder_alert">Ali res želiš odstraniti %1$s skupaj z vsebino?</string>
     <string name="confirmation_remove_local">Le krajevno</string>
-    <string name="remove_success_msg">Odstranjeno</string>
-    <string name="remove_fail_msg">Odstranjevanje je spodletelo</string>
     <string name="rename_dialog_title">Vnesite novo ime</string>
     <string name="rename_local_fail_msg">Krajevne datoteke ni mogoče preimenovati; poskusi z drugačnim novim imenom</string>
     <string name="rename_server_fail_msg">Preimenovanja strežnika ni možno dokončati</string>
@@ -530,8 +520,6 @@
 
     <string name="permission_storage_access">Za prejemanje oziroma pošiljanje datotek v oblak so zahtevana dodatna dovoljenja.</string>
     <string name="local_file_not_found_toast">Datoteke ni mogoče najti na krajevnem sistemu</string>
-    <string name="confirmation_remove_files_alert">Ali resnično želiš odstraniti izbrane elemente?</string>
-    <string name="confirmation_remove_folders_alert">Ali resnično želiš odstraniti izbrane elemente in njihovo vsebino?</string>
     <string name="maintenance_mode">Strežnik je v načinu vzdrževanja</string>
     <string name="lock_failed">Ne morem zakleniti daoteke</string>
 
