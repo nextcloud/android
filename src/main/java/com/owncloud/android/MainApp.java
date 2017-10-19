@@ -119,7 +119,9 @@ public class MainApp extends MultiDexApplication {
         // initialise thumbnails cache on background thread
         new ThumbnailsCacheManager.InitDiskCacheTask().execute();
 
-        if (BuildConfig.DEBUG) {
+
+        if (BuildConfig.DEBUG || getApplicationContext().getResources().getBoolean(R.bool.logger_enabled) ||
+                appPrefs.getBoolean(Preferences.EXPERT_MODE, false)) {
             // use app writable dir, no permissions needed
             Log_OC.startLogging(getAppContext());
             Log_OC.d("Debug", "start logging");
