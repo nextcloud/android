@@ -107,7 +107,6 @@
     <string name="common_yes">Sí</string>
     <string name="common_no">Non</string>
     <string name="common_ok">Aceutar</string>
-    <string name="common_remove_upload">Desaniciar xuba</string>
     <string name="common_retry_upload">Retentar xuba</string>
     <string name="common_cancel_sync">Encaboxar sincronización</string>
     <string name="common_cancel">Encaboxar</string>
@@ -162,7 +161,6 @@
     <string name="sync_fail_in_favourites_content">Los conteníos de los ficheros %1$d pueden nun tar sincronizaos (%2$d conflictos)</string>
     <string name="sync_foreign_files_forgotten_ticker">Dexáronse dalgunos ficheros llocales.</string>
     <string name="sync_foreign_files_forgotten_content">Los ficheros %1$d fuera de la carpeta %2$s nun puen copiase dientro</string>
-    <string name="sync_foreign_files_forgotten_explanation">Lo mesmo que na versión 1.3.16, los archivos xubíos dende esti preséu copiáronse dientro la carpeta llocal %1$s pa prevenir la perda de datos cuando un ficheru se sincroniza con múltiples cuentes Por mor d\'esti cambéu, tolos ficheros xubíos en versiones previes d\'esta aplicación tán copiaos na carpeta %2$s . Por embargu, un error torgó\'l pieslle de la operación demientres la sincronización de la cuenta. Pues dexar el/los ficheru/os como tán, desaniciar l\'enllaz a %3$s , o mover el/los ficheru/os a la carpeta %1$s y guardar l\'enllaz a %4$s . El llistáu d\'abaxo contién los ficheros llocales y remotos enllazaos en %5$s</string>
     <string name="sync_current_folder_was_removed">La carpeta %1$s yá nun esiste</string>
     <string name="foreign_files_move">Mover too</string>
     <string name="foreign_files_success">Moviéronse tolos ficheros</string>
@@ -174,10 +172,8 @@
     <string name="pass_code_configure_your_pass_code">Introduz el to códigu de pasu</string>
     <string name="pass_code_configure_your_pass_code_explanation">La contraseña va ser solicitada cada vegada que s\'anicie l\'aplicación</string>
     <string name="pass_code_reenter_your_pass_code">Por favor, vuelvi inxertar la contraseña</string>
-    <string name="pass_code_remove_your_pass_code">Desanicia la to contraseña</string>
     <string name="pass_code_mismatch">Les contraseñes nun son les mesmes</string>
     <string name="pass_code_wrong">Contraseña incorrecta</string>
-    <string name="pass_code_removed">Contraseña desaniciada</string>
     <string name="pass_code_stored">Contraseña almacenada</string>
     
     <string name="media_notif_ticker">%1$s reproductor de música</string>
@@ -232,10 +228,7 @@
     <string name="unfavorite">Desaniciar como disponible ensin conexón</string>
     <string name="favorite_real">Afitar como favoritu</string>
     <string name="common_rename">Renomar</string>
-    <string name="common_remove">Desaniciáu</string>
-    <string name="confirmation_remove_file_alert">¿De xuru que quies desaniciar %1$s?</string>
     <string name="confirmation_remove_local">Namái llocal</string>
-    <string name="remove_fail_msg">Fallu nel desaniciu </string>
     <string name="rename_dialog_title">Introduz un nome nuevu</string>
     <string name="rename_server_fail_msg">Nun pudo dase\'l nome nuevu al sirvidor</string>
     <string name="sync_file_fail_msg">Nun pudo comprobase\'l ficheru remotu</string>
@@ -454,8 +447,6 @@
     <string name="manage_space_error">Dalgunos ficheros nun pudieron esborrase.</string>
 
     <string name="local_file_not_found_toast">Nun s\'alcontró\'l ficheru nel sistema llocal de ficheros</string>
-    <string name="confirmation_remove_files_alert">¿De xuru que quies desaniciar los elementos esbillaos?</string>
-    <string name="confirmation_remove_folders_alert">¿De xuru que quies desaniciar los elementos esbillaos y los sos conteníos?</string>
     <string name="actionbar_search">Guetar</string>
     <string name="learn_more">Deprendi más</string>
     <string name="participate_release_candidate_headline">Llanzamientu candidatu</string>

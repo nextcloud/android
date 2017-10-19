@@ -113,7 +113,6 @@
     <string name="common_yes">Áno</string>
     <string name="common_no">Nie</string>
     <string name="common_ok">OK</string>
-    <string name="common_remove_upload">Odstrániť nahrávanie</string>
     <string name="common_cancel_sync">Zruš synchronizáciu</string>
     <string name="common_cancel">Zrušiť</string>
     <string name="common_back">Späť</string>
@@ -163,7 +162,6 @@
     <string name="sync_fail_in_favourites_content">Obsah %1$d súborov nemohol byť synchronizovaný (%2$d konfliktov)</string>
     <string name="sync_foreign_files_forgotten_ticker">Niektoré lokálne súbory boli zabudnuté</string>
     <string name="sync_foreign_files_forgotten_content">%1$d súborov z %2$s priečinkov sa nepodarilo skopírovať do</string>
-    <string name="sync_foreign_files_forgotten_explanation">Od verzie 1.3.16 sú súbory nahrané z tohoto zariadenia kopírované do lokálneho priečinka %1$s, aby sa zabránilo strate dát pri synchronizácii jedného súboru s viacerými účtami.\n\nVšetky súbory nahraté predchádzajúcimi verziami aplikácie boli z tohoto dôvodu prekopírované do priečinka %2$s. Bohužiaľ sa objavila chyba zabraňujúca dokončeniu tejto operácie v priebehu synchronizácie účtu. Buď môžete súbor(y) ponechať ako sú a odobrať odkaz z priečinka %3$s, alebo presunúť súbor(y) do priečinka %1$s a zachovať odkaz na %4$s.\n\nNižšie je uvedený lokálny súbor(y) a vzdialený súbor(y) v %5$s, s ktorým je prepojený.</string>
     <string name="foreign_files_move">Premiestniť všetko</string>
     <string name="foreign_files_success">Všetky súbory boli premiestnené</string>
     <string name="foreign_files_fail">Niektoré súbory nebolo možné premiestniť</string>
@@ -174,10 +172,8 @@
     <string name="pass_code_configure_your_pass_code">Vložte svoje heslo</string>
     <string name="pass_code_configure_your_pass_code_explanation">Heslo bude nutné zadať vždy po štarte aplikácie</string>
     <string name="pass_code_reenter_your_pass_code">Vložte prosím znovu svoje heslo</string>
-    <string name="pass_code_remove_your_pass_code">Zmazať svoje heslo</string>
     <string name="pass_code_mismatch">Heslá sa nezhodujú</string>
     <string name="pass_code_wrong">Nesprávne heslo</string>
-    <string name="pass_code_removed">Bezpečnostný kód odstránený</string>
     <string name="pass_code_stored">Bezpečnostný kód uložený</string>
     
     <string name="media_notif_ticker">Prehrávač hudby %1$s</string>
@@ -216,10 +212,7 @@
     <string name="favorite">Dostupné v režime offline</string>
     <string name="unfavorite">Nedostupné v režime offline</string>
     <string name="common_rename">Premenovať</string>
-    <string name="common_remove">Odstrániť</string>
-    <string name="confirmation_remove_file_alert">Naozaj chcete odstrániť %1$s?</string>
     <string name="confirmation_remove_local">Iba lokálne</string>
-    <string name="remove_fail_msg">Odstránenie zlyhalo</string>
     <string name="rename_dialog_title">Zadajte nové meno</string>
     <string name="sync_file_nothing_to_do_msg">Obsah súboru je zosynchronizovaný</string>
     <string name="filename_forbidden_characters">Zakázané znaky: / \\ &lt; &gt; : \" | ? *</string>
@@ -398,8 +391,6 @@
     <string name="manage_space_clear_data">Vyčistiť dáta</string>
     <string name="manage_space_error">Niektoré súbory nebolo možné zmazať.</string>
 
-    <string name="confirmation_remove_files_alert">Naozaj chcete odstrániť vybraté položky?</string>
-    <string name="confirmation_remove_folders_alert">Naozaj chcete odstrániť vybraté položky a ich obsah?</string>
     <string name="actionbar_search">Hľadať</string>
     <string name="files_drop_not_supported">Toto je funkcia Nextcloudu, aktualizujte prosím.</string>
     <string name="learn_more">Dozvedieť sa viac</string>

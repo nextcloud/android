@@ -122,7 +122,6 @@
     <string name="common_yes">是</string>
     <string name="common_no">否</string>
     <string name="common_ok">好</string>
-    <string name="common_remove_upload">移除上傳</string>
     <string name="common_retry_upload">重試上傳</string>
     <string name="common_cancel_sync">取消同步</string>
     <string name="common_cancel">取消</string>
@@ -136,7 +135,6 @@
     <string name="about_title">關於</string>
     <string name="change_password">變更密碼</string>
     <string name="delete_account">刪除帳戶</string>
-    <string name="delete_account_warning">刪除使用者帳號%s與其所屬檔案？刪除後將無法復原。</string>
     <string name="upload_chooser_title">上傳自&#8230;</string>
     <string name="uploader_info_dirname">資料夾名稱</string>
     <string name="uploader_upload_in_progress_ticker">上傳中&#8230;</string>
@@ -183,7 +181,6 @@
     <string name="sync_fail_in_favourites_content">%1$d 未被同步（與 %2$d 衝突）</string>
     <string name="sync_foreign_files_forgotten_ticker">有些本地端的檔案已遺失</string>
     <string name="sync_foreign_files_forgotten_content">%2$s 資料夾中的 %1$d 個檔案無法被複製進去</string>
-    <string name="sync_foreign_files_forgotten_explanation">於1.3.16版本中，此裝置已上傳的檔案會複製到本地%1$s資料夾，以防止多重帳號同步單一檔案時造成遺失。透過此應用程式更早的版本上傳的檔案則複製到%2$s資料夾。但是在同步時出現錯誤會阻礙此操作完成，你可以選擇無視此檔案並移除%3$s的連結，或者移動此檔案到%1$s資料夾並保留%4$s的連結，下面列出%5$s中本地與遠端檔案之間的連結。</string>
     <string name="sync_current_folder_was_removed">資料夾%1$s已不存在</string>
     <string name="foreign_files_move">移動全部</string>
     <string name="foreign_files_success">所有檔案已被移動</string>
@@ -196,10 +193,8 @@
     <string name="pass_code_configure_your_pass_code">輸入通行碼</string>
     <string name="pass_code_configure_your_pass_code_explanation">每次應用程式開啟時，都需要輸入通行碼</string>
     <string name="pass_code_reenter_your_pass_code">再次輸入通行碼</string>
-    <string name="pass_code_remove_your_pass_code">移除通行碼</string>
     <string name="pass_code_mismatch">兩個通行碼不相符</string>
     <string name="pass_code_wrong">通行碼錯誤</string>
-    <string name="pass_code_removed">通行碼已被移除</string>
     <string name="pass_code_stored">通行碼已儲存</string>
     
     <string name="media_notif_ticker">%1$s 音樂播放器</string>
@@ -258,12 +253,7 @@
     <string name="favorite_real">設置為收藏</string>
     <string name="unset_favorite_real">解除設置收藏</string>
     <string name="common_rename">重新命名</string>
-    <string name="common_remove">移除</string>
-    <string name="confirmation_remove_file_alert">您真的要移除 %1$s？</string>
-    <string name="confirmation_remove_folder_alert">是否要刪除%1$s以及其所屬內容?</string>
     <string name="confirmation_remove_local">只有本地</string>
-    <string name="remove_success_msg">已移除</string>
-    <string name="remove_fail_msg">移除失敗</string>
     <string name="rename_dialog_title">輸入新名稱</string>
     <string name="rename_local_fail_msg">本地副本檔案無法被重新命名,請嘗試其他名稱</string>
     <string name="rename_server_fail_msg">無法給予新伺服器名稱</string>
@@ -513,8 +503,6 @@
 
     <string name="permission_storage_access">上傳與下載檔案需要額外的權限。</string>
     <string name="local_file_not_found_toast">本地檔案系統中找不到檔案。</string>
-    <string name="confirmation_remove_files_alert">確認移除已選項目？</string>
-    <string name="confirmation_remove_folders_alert">確認移除已選項目及內容？</string>
     <string name="maintenance_mode">伺服器正處於維護模式。</string>
     <string name="uploads_view_upload_status_waiting_for_charging">等待充電</string>
     <string name="actionbar_search">搜尋</string>

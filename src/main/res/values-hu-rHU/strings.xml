@@ -127,7 +127,6 @@
     <string name="common_yes">Igen</string>
     <string name="common_no">Nem</string>
     <string name="common_ok">OK</string>
-    <string name="common_remove_upload">Feltöltés eltávolítása</string>
     <string name="common_retry_upload">Feltöltés újrapróbálása</string>
     <string name="common_cancel_sync">Szinkronizálás megszakítása</string>
     <string name="common_cancel">Mégsem</string>
@@ -142,7 +141,6 @@
     <string name="about_title">Névjegy</string>
     <string name="change_password">A jelszó megváltoztatása</string>
     <string name="delete_account">Fiók eltávolítása</string>
-    <string name="delete_account_warning">A \"%s\" fiók törlése minden helyi fájlal együtt?\n\nA törlés nem visszavonható!</string>
     <string name="avatar">Avatar</string>
     <string name="active_user">Aktív felhasználó</string>
     <string name="upload_chooser_title">Feltöltés innen &#8230;</string>
@@ -203,10 +201,8 @@
     <string name="pass_code_configure_your_pass_code">Írd be a számkódodat</string>
     <string name="pass_code_configure_your_pass_code_explanation">A számkódra minden alkalommal szükség lesz az alkalmazás indításakor</string>
     <string name="pass_code_reenter_your_pass_code">Kérlek add meg újra a számkódot</string>
-    <string name="pass_code_remove_your_pass_code">Számkódod eltávolítása</string>
     <string name="pass_code_mismatch">A számkódok nem egyeznek</string>
     <string name="pass_code_wrong">Hibás számkód</string>
-    <string name="pass_code_removed">Számkód törölve</string>
     <string name="pass_code_stored">Számkód eltárolva</string>
     
     <string name="media_notif_ticker">%1$s zene lejátszó</string>
@@ -269,12 +265,7 @@
     <string name="unset_favorite_real">Eltávolítás a kedvence közül</string>
     <string name="favorite_switch">Elérhető offline</string>
     <string name="common_rename">Átnevezés</string>
-    <string name="common_remove">Eltávolítás</string>
-    <string name="confirmation_remove_file_alert">Tényleg el akarod távolítani ezt: %1$s?</string>
-    <string name="confirmation_remove_folder_alert">Valóban el akarod távolítani a(z) %1$s-t tartalmával együtt?</string>
     <string name="confirmation_remove_local">Csak a helyi példány</string>
-    <string name="remove_success_msg">Eltávolítva</string>
-    <string name="remove_fail_msg">Az eltávolítás nem sikerült</string>
     <string name="rename_dialog_title">Adj meg egy új nevet</string>
     <string name="rename_local_fail_msg">Helyi másolat nem átnevezhető, próbáld más névvel</string>
     <string name="rename_server_fail_msg">Nem lehet átnevezni a szervert</string>
@@ -286,15 +277,21 @@
     <string name="filename_empty">A fájl név nem lehet üres</string>
     <string name="wait_a_moment">Várj egy kicsit&#8230;</string>
     <string name="wait_checking_credentials">Tárolt azonosítók ellenőrzése</string>
+    <string name="filedisplay_unexpected_bad_get_content">Váratlan hiba, kérlek válaszd ki a fájlt egy másik appból</string>
+    <string name="filedisplay_no_file_selected">Egy fájl sincs kiválasztva.</string>
     <string name="activity_chooser_title">Hivatkozás küldése &#8230;</string>
     <string name="wait_for_tmp_copy_from_private_storage">Fájl átmásolása a privát tárolóról</string>
     
+    <string name="oauth_check_onoff">Bejelentkezés OAuth 2.0 -al</string> 
+    <string name="oauth_login_connection">Kapcsolódás &#8230; OAuth 2.0 szerverhez</string>
+        
     <string name="ssl_validator_header">A kiszolgálót nem sikerült azonosítani</string>
     <string name="ssl_validator_reason_cert_not_trusted">- A szerver tanúsítványa nem megbízható</string>
     <string name="ssl_validator_reason_cert_expired">- A szerver tanúsítványának lejárt az érvényessége</string>
     <string name="ssl_validator_reason_cert_not_yet_valid">- A szerver tanúsítványa most még nem érvényes</string>
     <string name="ssl_validator_reason_hostname_not_verified">- Az URL nem egyezik a tanúsítványban szereplő kiszolgálónévvel</string>
     <string name="ssl_validator_question">Mégis megbízik ebben a tanúsítványban?</string>
+    <string name="ssl_validator_not_saved">Tanúsítvány nem menthető</string>
     <string name="ssl_validator_btn_details_see">Részletek</string>
     <string name="ssl_validator_btn_details_hide">Elrejtés</string>
     <string name="ssl_validator_label_subject">A tanúsítvány birtokosa:</string>
@@ -318,17 +315,28 @@
 
     <string name="placeholder_sentence">Ez egy helyőrző</string>
     <string name="placeholder_filename">helyörző.txt</string>
+    <string name="placeholder_filetype">PNG kép</string>
     <string name="placeholder_filesize">389 KB</string>
     <string name="placeholder_timestamp">2012/05/18 12:23</string>
     <string name="placeholder_media_time">12:23:45</string>
 
+    <string name="auto_upload_on_wifi">Csak Wi-Fi-n tölt fel</string>
+    <string name="instant_video_upload_on_charging">Csak töltés közben tölt fel</string>
+    <string name="instant_upload_on_charging">Csak töltés közben tölt fel
+</string>
     <string name="instant_upload_path">/InstantUpload</string>
+    <string name="auto_upload_path">/AutoFeltölt</string>
     <string name="conflict_title">Fájl ütközés</string>
+    <string name="conflict_message">Melyik fájlt akarod megtartani? Ha mindkettőt kijelölöd, a helyi neve után kerül egy szám</string>
     <string name="conflict_keep_both">Mindkettő megtartása</string>
     <string name="conflict_use_local_version">helyi verzió</string>
     <string name="conflict_use_server_version">szerver verzió</string>
 
+    <string name="preview_sorry">Bocsánat</string>
     <string name="preview_image_description">Előnézeti kép</string>
+    <string name="preview_image_error_unknown_format">Nem tudom megmutatni a képet</string>
+    <string name="preview_image_error_no_local_file">Nincs helyi fájl az előnézethez</string>
+
     <string name="error__upload__local_file_not_copied">%1$s nem lehet másolni a %2$s helyi mappába</string>
     <string name="prefs_instant_upload_path_title">Azonnali feltöltés mappa</string>
     <string name="prefs_synced_folders_local_path_title">Helyi mappa</string>
@@ -336,6 +344,7 @@
     <string name="prefs_instant_upload_path_use_subfolders_title">Almappák használata</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Tárolás év és hónap szerinti almappákban</string>
 
+	<string name="share_link_no_support_share_api">A megosztás nem engedélyezett a szerveren, lépj kapcsolatban a rendszergazdával</string>
 	<string name="share_link_file_no_exist">Nem lehet megosztani. Kérem ellenőrizze, hogy a fájl létezik-e?</string>
 	<string name="share_link_file_error">Hiba lépett fel a mappa megosztásakor</string>
 	<string name="unshare_link_file_no_exist">Nem lehet a megosztást kikapcsolni. Kérem ellenőrizze, hogy a fájl létezik-e?</string>
@@ -349,14 +358,25 @@
 
     <string name="copy_link">Link másolása</string>
     <string name="clipboard_text_copied">Bemásolva a vágólapra</string>
+    <string name="clipboard_no_text_to_copy">Nem kaptam szöveget a vágólapra másoláshoz</string>
     <string name="clipboard_uxexpected_error">Váratlan hiba történ a vágólapra másolás közben</string>
     <string name="clipboard_label">Szöveg másolva innen: %1$s</string>
 
+    <string name="error_cant_bind_to_operations_service">Kritikus hiba: művelet nem végrehajtható</string>
+
+    <string name="network_error_socket_exception">Hiba lépett fel a szerverhez való csatlakozás közben.</string>
+    <string name="network_error_socket_timeout_exception">Hiba lépett fel a szerverre várakozás közben. Művelet teljesíthetetlen.</string>
+    <string name="network_error_connect_timeout_exception">Hiba lépett fel a szerverre várakozás közben. Művelet teljesíthetetlen.</string>
+    <string name="network_host_not_available">Művelet nem elvégezhető. A szerver elérhetetlen</string>
+
+    <string name="forbidden_permissions">Nem engedélyezett %s</string>
     <string name="forbidden_permissions_rename">fájl átnevezés</string>
     <string name="forbidden_permissions_delete">fájl törlés</string>
     <string name="share_link_forbidden_permissions">fájl megosztás</string>
     <string name="unshare_link_forbidden_permissions">fájl megosztás visszavonás</string>
     <string name="update_link_forbidden_permissions">megosztás frissítés</string>
+    <string name="forbidden_permissions_create">Fájl létrehozása</string>
+    <string name="uploader_upload_forbidden_permissions">mappába feltöltés</string>
     <string name="downloader_download_file_not_found">A fájl már nem érhető el a szerveren</string>
 
     <string name="file_migration_dialog_title">Tároló útvonal frissítés</string>
@@ -464,8 +484,6 @@
     <string name="manage_space_clear_data">Adatok törlése</string>
     <string name="manage_space_error">Néhány fájl nem volt törölhető</string>
 
-    <string name="confirmation_remove_files_alert">Biztos, hogy el akarod távolítani a kiválasztott elemeket?</string>
-    <string name="confirmation_remove_folders_alert">Biztos, hogy el akarod távolítani a kiválasztott elemeket és azok tartalmát?</string>
     <string name="actionbar_search">Keresés</string>
     <string name="files_drop_not_supported">Ez egy Nextcloud funkció, kérlek frissíts.</string>
     <string name="learn_more">Tudj meg többet</string>

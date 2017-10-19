@@ -127,7 +127,6 @@
     <string name="common_yes">Tak</string>
     <string name="common_no">Nie</string>
     <string name="common_ok">OK</string>
-    <string name="common_remove_upload">Usuń</string>
     <string name="common_retry_upload">Ponów wysyłanie</string>
     <string name="common_cancel_sync">Anuluj synchronizację</string>
     <string name="common_cancel">Anuluj</string>
@@ -142,7 +141,6 @@
     <string name="about_title">O aplikacji</string>
     <string name="change_password">Zmień hasło</string>
     <string name="delete_account">Usuń konto</string>
-    <string name="delete_account_warning">Usunąć konto %s wraz ze wszystkimi lokalnymi plikami?\n\nUsunięcie nie może być cofnięte.</string>
     <string name="avatar">Avatar</string>
     <string name="active_user">Aktywny użytkownik</string>
     <string name="upload_chooser_title">Wyślij plik z &#8230;</string>
@@ -192,7 +190,6 @@
     <string name="sync_fail_in_favourites_content">Zawartość %1$d plików nie może zostać synchronizowana (%2$d konfliktów)</string>
     <string name="sync_foreign_files_forgotten_ticker">Niektóre lokalne pliki zostały zgubione.</string>
     <string name="sync_foreign_files_forgotten_content">%1$d plików z folderu %2$s nie udało się się przekopiować</string>
-    <string name="sync_foreign_files_forgotten_explanation">Od wersji 1.3.16, pliki wysyłane z tego urządzenia są kopiowane do lokalnego folderu %1$s aby zapobiec utracie danych gdy pojedynczy plik jest synchronizowany z wieloma kontami.\n\nZ powodu tej zmiany, wszystkie pliki wysłane za pomocą poprzedniej wersji tej aplikacji były kopiowane do folderu %2$s. Jednakże, błąd uniemożliwiał dokończenie tej operacji podczas synchronizacji konta. Możesz albo pozostawić plik(i) tak jak jest i usunąć link do %3$s lub przenieść plik(i) do folderu %1$s i pozostawić link do %4$s.\n\nPoniżej plik(i) lokalny i plik(i) zdalny w %5$s, do którego zostały zlinkowane.</string>
     <string name="sync_current_folder_was_removed">Folder %1$s nie istnieje</string>
     <string name="foreign_files_move">Przenieś wszystko</string>
     <string name="foreign_files_success">Wszystkie pliki zostały przeniesione</string>
@@ -205,10 +202,8 @@
     <string name="pass_code_configure_your_pass_code">Wprowadź kod PIN</string>
     <string name="pass_code_configure_your_pass_code_explanation">Kod PIN będzie wymagany przy każdym uruchomieniu aplikacji</string>
     <string name="pass_code_reenter_your_pass_code">Wpisz kod PIN ponownie</string>
-    <string name="pass_code_remove_your_pass_code">Usuń swój kod PIN</string>
     <string name="pass_code_mismatch">Podane kody PIN nie są takie same</string>
     <string name="pass_code_wrong">Kod PIN nieprawidłowy</string>
-    <string name="pass_code_removed">Kod PIN został usunięty</string>
     <string name="pass_code_stored">Kod PIN został zapisany</string>
     
     <string name="media_notif_ticker">%1$s odtwarzacz muzyki</string>
@@ -271,12 +266,7 @@
     <string name="unset_favorite_real">Usuń ustawienie jako ulubione</string>
     <string name="favorite_switch">Dostępne offline</string>
     <string name="common_rename">Zmień nazwę</string>
-    <string name="common_remove">Usuń</string>
-    <string name="confirmation_remove_file_alert">Czy naprawdę chcesz usunąć %1$s?</string>
-    <string name="confirmation_remove_folder_alert">Czy na pewno chcesz usunąć %1$s wraz z zawartością?</string>
     <string name="confirmation_remove_local">Tylko lokalnie</string>
-    <string name="remove_success_msg">Usunięto</string>
-    <string name="remove_fail_msg">Nie można usunąć</string>
     <string name="rename_dialog_title">Wprowadź nową nazwę</string>
     <string name="rename_local_fail_msg">Nie można zmienić nazwy kopii lokalne, użyj innej nazwy</string>
     <string name="rename_server_fail_msg">Nie udało się nadać serwerowi nowej nazwy</string>
@@ -537,8 +527,6 @@
 
     <string name="permission_storage_access">Wymagane są dodatkowe uprawnienia do pobierania i wysyłania plików.</string>
     <string name="local_file_not_found_toast">Plik nie został znaleziony w lokalnym systemie plików</string>
-    <string name="confirmation_remove_files_alert">Czy naprawdę chcesz usunąć zaznaczone elementy?</string>
-    <string name="confirmation_remove_folders_alert">Czy naprawdę chcesz usunąć zaznaczone elementy oraz ich zawartość?</string>
     <string name="maintenance_mode">Serwer w trybie konserwacji</string>
     <string name="lock_failed">Nie udało się zablokować pliku</string>
 

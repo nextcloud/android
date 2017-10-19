@@ -127,7 +127,6 @@
     <string name="common_yes">Sí</string>
     <string name="common_no">No</string>
     <string name="common_ok">D\'acord</string>
-    <string name="common_remove_upload">Esborra els fitxers carregats</string>
     <string name="common_retry_upload">Reintenta la pujada</string>
     <string name="common_cancel_sync">Cancel·la la sincronització</string>
     <string name="common_cancel">Cancel·la</string>
@@ -142,7 +141,6 @@
     <string name="about_title">Quant a</string>
     <string name="change_password">Canvia la contrasenya</string>
     <string name="delete_account">Elimina el compte</string>
-    <string name="delete_account_warning">Voleu suprimir%s el compte amb tots els fitxers locals? \ N \ nEl procés de cancel·lació no es pot desfer.</string>
     <string name="avatar">Avatar</string>
     <string name="active_user">Usuari actiu</string>
     <string name="upload_chooser_title">Puja fitxer des de&#8230;</string>
@@ -192,7 +190,6 @@
     <string name="sync_fail_in_favourites_content">No s\'ha pogut sincronitzar el contingut de %1$d fitxers (%2$d conflictes)</string>
     <string name="sync_foreign_files_forgotten_ticker">S\'han oblidat alguns fitxers locals</string>
     <string name="sync_foreign_files_forgotten_content">%1$d fitxers no s\'han pogut copiar dins de la carpeta %2$s</string>
-    <string name="sync_foreign_files_forgotten_explanation">D\'ençà la versió 1.3.16, els fitxers pujats des d\'aquest dispositiu es copien a la carpeta local %1$s per evitar perdua de dades quan un únic fitxer se sincronitza amb diversos comptes.\n\nA causa d\'aquest canvi, tots els fitxers pujats en versions anteriors d\'aquesta app es van copiar a la carpeta %2$s. Tanmateix, un error ha impedit completar aquesta operació durant la sincronització del compte. Podeu deixar els fitxer(s) com són i eliminar l\'enllaç a %3$s, o bé moure els fitxer(s) a la carpeta %1$s i mantenir l\'enllaç amb %4$s.\n\nA la llista a sota els fitxer(s) locals i els fitxer(s) remots a %5$s amb els que estaven enllaçats.</string>
     <string name="sync_current_folder_was_removed">La carpeta%1$s ja no existeix</string>
     <string name="foreign_files_move">Mou-los tots</string>
     <string name="foreign_files_success">S\'han mogut tots els fitxers</string>
@@ -205,10 +202,8 @@
     <string name="pass_code_configure_your_pass_code">Escriviu codi d\'accés</string>
     <string name="pass_code_configure_your_pass_code_explanation">Es requerirà el codi d\'accés cada vegada que s\'iniciï l\'aplicació</string>
     <string name="pass_code_reenter_your_pass_code">Torneu a escriure el codi d\'accés</string>
-    <string name="pass_code_remove_your_pass_code">Elimina el codi d\'accés</string>
     <string name="pass_code_mismatch">Els codis d\'accés no coincideixen</string>
     <string name="pass_code_wrong">Codi d\'accés incorrecte</string>
-    <string name="pass_code_removed">Codi d\'accés eliminat</string>
     <string name="pass_code_stored">Codi d\'accés desat</string>
     
     <string name="media_notif_ticker">reproductor de música %1$s</string>
@@ -271,12 +266,7 @@
     <string name="unset_favorite_real">Desfés el favorit</string>
     <string name="favorite_switch">fora de línia</string>
     <string name="common_rename">Reanomena</string>
-    <string name="common_remove">Elimina</string>
-    <string name="confirmation_remove_file_alert">Esteu segur que voleu eliminar %1$s?</string>
-    <string name="confirmation_remove_folder_alert">Segur que voleu eliminar %1$s i el contingut d\'aquests?</string>
     <string name="confirmation_remove_local">Només local</string>
-    <string name="remove_success_msg">Eliminat</string>
-    <string name="remove_fail_msg">No s\'ha pogut completar l\'eliminació</string>
     <string name="rename_dialog_title">Introduiu un nom nou</string>
     <string name="rename_local_fail_msg">La còpia local no es pot canviar el nom, proveu un nom diferent</string>
     <string name="rename_server_fail_msg">No es pot donar el nou nom del servidor</string>
@@ -478,8 +468,6 @@
     <string name="manage_space_clear_data">Neteja dades</string>
     <string name="manage_space_error">Alguns fitxers no s\'han pogut esborrar</string>
 
-    <string name="confirmation_remove_files_alert">Voleu eliminar els elements seleccionats?</string>
-    <string name="confirmation_remove_folders_alert">Voleu eliminar els elements seleccionats i els seus continguts?</string>
     <string name="actionbar_search">Cerca</string>
     <string name="files_drop_not_supported">És una característica de Nextcloud. Siusplau actualitzeu.</string>
     <string name="learn_more">Més informació</string>

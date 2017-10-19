@@ -101,7 +101,6 @@
     <string name="common_yes">Да</string>
     <string name="common_no">Не</string>
     <string name="common_ok">ОК</string>
-    <string name="common_remove_upload">Премахване на каченото</string>
     <string name="common_cancel_sync">Отмени синхронизирането</string>
     <string name="common_cancel">Отказ</string>
     <string name="common_back">Назад</string>
@@ -163,10 +162,8 @@
     <string name="pass_code_configure_your_pass_code">Въведете кода за достъп</string>
     <string name="pass_code_configure_your_pass_code_explanation">Кода ще бъде изискван при всяко стартиране на приложението</string>
     <string name="pass_code_reenter_your_pass_code">Моля, въведи отново кода за достъп</string>
-    <string name="pass_code_remove_your_pass_code">Премахни кода</string>
     <string name="pass_code_mismatch">Кодовете не съвпадат</string>
     <string name="pass_code_wrong">Грешен код</string>
-    <string name="pass_code_removed">Кодът е премахнат</string>
     <string name="pass_code_stored">Кодът е запаметен</string>
     
     <string name="media_notif_ticker">%1$s музикален плеър</string>
@@ -205,10 +202,7 @@
     <string name="favorite">Задай като достъпна офлайн</string>
     <string name="unfavorite">Отмяна като достъпна офлайн</string>
     <string name="common_rename">Преименуване</string>
-    <string name="common_remove">Премахване</string>
-    <string name="confirmation_remove_file_alert">Наистина ли желаете %1$s да бъде премахнат?</string>
     <string name="confirmation_remove_local">Само локално</string>
-    <string name="remove_fail_msg">Неуспешно прехамхване</string>
     <string name="rename_dialog_title">Въведете ново име</string>
     <string name="sync_file_nothing_to_do_msg">Съдържанието на файла е вече синхронизирано</string>
     <string name="filename_forbidden_characters">Забранени символи: / \\ &lt; &gt; : \" | ? *</string>
@@ -386,8 +380,6 @@
     <string name="manage_space_clear_data">Изчисти данни</string>
     <string name="manage_space_error">Изтриването на някои файлове не е възможно.</string>
 
-    <string name="confirmation_remove_files_alert">Наистина ли желаете избраните елементи да бъдат премахнати?</string>
-    <string name="confirmation_remove_folders_alert">Наистина ли желаете избраните елементи и съдържанието им да бъдат премахнати?</string>
     <string name="actionbar_search">Търсене</string>
     <string name="files_drop_not_supported">Това е функционалност на Nextcloud, моля актуализирайте.</string>
     <string name="learn_more">Научете повече</string>

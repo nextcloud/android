@@ -125,7 +125,6 @@
     <string name="common_yes">Тийм</string>
     <string name="common_no">Үгүй</string>
     <string name="common_ok">ЗА</string>
-    <string name="common_remove_upload">upload устгах</string>
     <string name="common_retry_upload">upload-ийг дахин хийх</string>
     <string name="common_cancel_sync">sync болих</string>
     <string name="common_cancel">Цуцлах</string>
@@ -140,7 +139,6 @@
     <string name="about_title">Тухай</string>
     <string name="change_password">Нууц үг солих</string>
     <string name="delete_account">Аккаунт устгах</string>
-    <string name="delete_account_warning">%sдансыг эндэхийн бүх файлын хамт устгах уу?\n\nУстгах үйлдэлийг буцаах боломжгүй.</string>
     <string name="avatar">Хөрөг</string>
     <string name="active_user">Идэвхтэй хэрэглэгч</string>
     <string name="upload_chooser_title">&#8230;-ээс байршуулах</string>
@@ -188,10 +186,8 @@
     <string name="pass_code_configure_your_pass_code">Нэвтрэх кодоо оруулна уу</string>
     <string name="pass_code_configure_your_pass_code_explanation">Нэвтрэх код апп ажиллаж эхлэх болгонд асуух болно</string>
     <string name="pass_code_reenter_your_pass_code">Нэвтрэх кодоо дахин оруулна уу</string>
-    <string name="pass_code_remove_your_pass_code">Нэвтрэх кодоо арилгах</string>
     <string name="pass_code_mismatch">Нэвтрэх кодууд таарахгүй байна</string>
     <string name="pass_code_wrong">Нэвтрэх код буруу байна</string>
-    <string name="pass_code_removed">Нэвтрэх код арилгагдсан</string>
     <string name="pass_code_stored">Нэвтрэх код халгалагдлаа</string>
     
     <string name="media_notif_ticker">%1$s хөгжим тоглуулагч</string>
@@ -272,8 +268,6 @@
 
     <string name="permission_storage_access">Нэмэлт  файлуудыг хуулж зөвшөөрөл татаж авах шаардлагатай.</string>
     <string name="local_file_not_found_toast">Байршилын файлын системээс олж чадаагүй</string>
-    <string name="confirmation_remove_files_alert">Та үнэхээр сонгогдсон зүйлсийг устгахыг хүсэж байна уу?</string>
-    <string name="confirmation_remove_folders_alert">Та үнэхээр сонгогдсон зүйлсийг болон тэдгээрийн агуулгыг устгах хүсэж байна уу?</string>
     <string name="maintenance_mode">Сервер засвар үйлчилгээ горим</string>
     <string name="uploads_view_upload_status_waiting_for_charging">Цэнэг хүлээгч</string>
     <string name="actionbar_search">Хайх</string>

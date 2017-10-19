@@ -84,7 +84,6 @@
     <string name="common_yes">Da</string>
     <string name="common_no">Nu</string>
     <string name="common_ok">OK</string>
-    <string name="common_remove_upload">Sterge incarcarea</string>
     <string name="common_cancel_sync">Anuleaza sincronizarea</string>
     <string name="common_cancel">Anulează</string>
     <string name="common_back">Înapoi</string>
@@ -134,7 +133,6 @@
     <string name="sync_fail_in_favourites_content">Conținutul a%1$d fișiere nu a putut fi sincronizat (conflicte %2$d)</string>
     <string name="sync_foreign_files_forgotten_ticker">Unele fisiere locale au fost uitate</string>
     <string name="sync_foreign_files_forgotten_content">%1$d fisiere din  dosarul  %2$s nu a putut fi copiat in</string>
-    <string name="sync_foreign_files_forgotten_explanation">Conform ediției 1.3.16, fișierele încărcate de pe această platformă sunt copiate în dosarul local %1$s pentru a preveni pierderi de date atunci cînd un singur fișier este sincronizat cu mai multe conturi.\n\nDin cauza acestei schimbări, toate fișierele încărcate în edițiile precedente ale acestui app au fost încărcate in dosarul %2$s. Însă acest proces nu fost completat in timpul sincronizării contului din cauza unei erori. Ai opțiunea de a lăsa fișierul intact (fișierele intacte) și de a transfera sursa în dosarul %3$s sau de a schimba locația fișierului(-elor) în dosarul %1$s și de a păstra sursa în %4$s.\n\nMai jos găsești enumerate fișierul local(fișierele locale) și fișierul separat(fișierele separate) în %5$s cu sursa respectivă.</string>
     <string name="foreign_files_move">Muta tot/toate</string>
     <string name="foreign_files_success">Toate fișierele au fost mutate</string>
     <string name="foreign_files_fail">Unele fișiere nu au putut fi mutate</string>
@@ -145,10 +143,8 @@
     <string name="pass_code_configure_your_pass_code">Introdu parola</string>
     <string name="pass_code_configure_your_pass_code_explanation">Parola va fi solicitată de fiecare dată când deschideți aplicația</string>
     <string name="pass_code_reenter_your_pass_code">Vă rugăm reintroduceți parola</string>
-    <string name="pass_code_remove_your_pass_code">Șterge parola</string>
     <string name="pass_code_mismatch">Parolele nu se potrivesc</string>
     <string name="pass_code_wrong">Parolă incorectă</string>
-    <string name="pass_code_removed">Parolă ștearsă</string>
     <string name="pass_code_stored">Parolă stocată</string>
     
     <string name="media_notif_ticker">%1$s  player de muzică</string>
@@ -187,10 +183,7 @@
     <string name="favorite">Selectează ca disponibil offline</string>
     <string name="unfavorite">Deselectează ca disponibil offline</string>
     <string name="common_rename">Redenumește</string>
-    <string name="common_remove">Elimină</string>
-    <string name="confirmation_remove_file_alert">Doriți să ștergeți %1$s?</string>
     <string name="confirmation_remove_local">Doar local</string>
-    <string name="remove_fail_msg">Eliminarea nu a reușit</string>
     <string name="rename_dialog_title">Introduceţi un nou nume</string>
     <string name="sync_file_nothing_to_do_msg">Continutul fisierului este deja sincronizat</string>
     <string name="filename_forbidden_characters">Caractere interzise: / \\ &lt; &gt; : \" | ? *</string>
@@ -369,8 +362,6 @@
     <string name="manage_space_clear_data">Elimină datele</string>
     <string name="manage_space_error">Unele fișiere nu au putut fi șterse.</string>
 
-    <string name="confirmation_remove_files_alert">Doriți să ștergeți elementele selectate?</string>
-    <string name="confirmation_remove_folders_alert">Doriți să ștergeți elementele selectate și conținutul lor?</string>
     <string name="actionbar_search">Caută</string>
     <string name="files_drop_not_supported">Aceasta este o funcționalitate Nextcloud, vă rugăm să actulizați aplicația.</string>
     <string name="learn_more">Află mai mult</string>

@@ -127,7 +127,6 @@
     <string name="common_yes">Ano</string>
     <string name="common_no">Ne</string>
     <string name="common_ok">OK</string>
-    <string name="common_remove_upload">Odstranit nahrávání</string>
     <string name="common_retry_upload">Opakovat nahrání</string>
     <string name="common_cancel_sync">Zrušit synchronizaci</string>
     <string name="common_cancel">Zrušit</string>
@@ -142,7 +141,6 @@
     <string name="about_title">O aplikaci</string>
     <string name="change_password">Změnit heslo</string>
     <string name="delete_account">Odebrat účet</string>
-    <string name="delete_account_warning">Smazat účet %s?\n\nTuto akci nelze vzít zpět.</string>
     <string name="avatar">Avatar</string>
     <string name="active_user">Aktivní uživatel</string>
     <string name="upload_chooser_title">Nahrát z &#8230;</string>
@@ -192,7 +190,6 @@
     <string name="sync_fail_in_favourites_content">Obsah %1$d souborů nemohl být synchronizován (počet konfliktů: %2$d)</string>
     <string name="sync_foreign_files_forgotten_ticker">Některé místní soubory byly zapomenuty</string>
     <string name="sync_foreign_files_forgotten_content">%1$d souborů z %2$s adresáře se nepodařilo zkopírovat do</string>
-    <string name="sync_foreign_files_forgotten_explanation">Od verze 1.3.16 jsou soubory nahrané z tohoto zařízení kopírovány do místního adresáře %1$s, aby se zabránilo ztrátě dat při synchronizaci jednoho souboru s více účty.\n\nVšechny soubory nahrané předchozími verzemi aplikace byly z tohoto důvodu překopírovány do adresáře %2$s. Bohužel se objevila chyba zabraňující dokončení této operace v průběhu synchronizace účtu. Buď můžete soubor(y) ponechat jak jsou a odebrat odkaz do adresáře %3$s, nebo přesunout soubor(y) do adresáře %1$s a zachovat odkaz na %4$s.\n\nNíže je seznam místních i vzdálených souborů v adresáři %5$s, do kterého byly odkázány.</string>
     <string name="sync_current_folder_was_removed">Adresář %1$s již neexistuje</string>
     <string name="foreign_files_move">Přesunout vše</string>
     <string name="foreign_files_success">Všechny soubory byly přesunuty</string>
@@ -205,10 +202,8 @@
     <string name="pass_code_configure_your_pass_code">Zadejte svůj bezpečnostní kód</string>
     <string name="pass_code_configure_your_pass_code_explanation">Bezpečnostní kód bude vyžadován při každém spuštění aplikace</string>
     <string name="pass_code_reenter_your_pass_code">Zopakujte prosím svůj bezpečnostní kód</string>
-    <string name="pass_code_remove_your_pass_code">Odstraňte svůj bezpečnostní kód</string>
     <string name="pass_code_mismatch">Bezpečnostní kód se liší</string>
     <string name="pass_code_wrong">Nesprávný bezpečnostní kód</string>
-    <string name="pass_code_removed">Bezpečnostní kód odstraněn</string>
     <string name="pass_code_stored">Bezpečnostní kód uložen</string>
     
     <string name="media_notif_ticker">Hudební přehrávač %1$s</string>
@@ -271,12 +266,7 @@
     <string name="unset_favorite_real">Zrušit jako oblíbené</string>
     <string name="favorite_switch">Dostupné offline</string>
     <string name="common_rename">Přejmenovat</string>
-    <string name="common_remove">Odstranit</string>
-    <string name="confirmation_remove_file_alert">Opravdu chcete odstranit %1$s?</string>
-    <string name="confirmation_remove_folder_alert">Opravdu chcete odstranit %1$s a jeho obsah?</string>
     <string name="confirmation_remove_local">Pouze místní</string>
-    <string name="remove_success_msg">Odstraněno</string>
-    <string name="remove_fail_msg">Odstranění nelze dokončit</string>
     <string name="rename_dialog_title">Zadejte nový název</string>
     <string name="rename_local_fail_msg">Místní kopii nelze přejmenovat, zkuste jiný nový název</string>
     <string name="rename_server_fail_msg">Přejmenování nelze dokončit</string>
@@ -537,8 +527,6 @@
 
     <string name="permission_storage_access">Vyžadována dodatečná oprávnění pro nahrávání &amp; stahování souborů.</string>
     <string name="local_file_not_found_toast">Soubor nebyl nalezen v místním souborovém systému</string>
-    <string name="confirmation_remove_files_alert">Opravdu chcete odstranit vybrané položky?</string>
-    <string name="confirmation_remove_folders_alert">Opravdu chcete odstranit vybrané položky a jejich obsah?</string>
     <string name="maintenance_mode">Server je v režimu údržby</string>
     <string name="lock_failed">Nepodařilo se zamknout soubor</string>
 

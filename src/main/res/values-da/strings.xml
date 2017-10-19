@@ -104,7 +104,6 @@
     <string name="common_yes">Ja</string>
     <string name="common_no">Nej</string>
     <string name="common_ok">OK</string>
-    <string name="common_remove_upload">Fjern upload</string>
     <string name="common_cancel_sync">Annullér sync</string>
     <string name="common_cancel">Annuller</string>
     <string name="common_back">Tilbage</string>
@@ -160,7 +159,6 @@
     <string name="sync_fail_in_favourites_content">Indholdet af %1$d filer ikke kunne synkroniseres (%2$d konflikter)</string>
     <string name="sync_foreign_files_forgotten_ticker">Visse lokale filer blev glemt</string>
     <string name="sync_foreign_files_forgotten_content">%1$d filer ud af %2$s mappe kunne ikke kopieres ind i</string>
-    <string name="sync_foreign_files_forgotten_explanation">Fra version 1.3.16 bliver filer uploadet fra denne enhed kopieret til mappen %1$s for at forhindre datatab når en enkelt fil synkroniseres med flere konti.\n\nPå grund af denne ændring er alle filer som var uploadet i tidligere versioner af denne app kopieret til mappen %2$s. Imidlertid forhindrede en fejl færdiggørelsen af denne operation under konto-synkronisering. Du kan enten lade filen (el. filerne) være som de er og fjerne linket til %3$s eller flytte filen (el. filerne) til mappen %1$s og beholde linket til %4$s.\n\nHerunder er en liste med den lokale fil(er), og den fjerne mappe(r) i %5$s, som de var knyttet til.</string>
     <string name="foreign_files_move">Flyt alle</string>
     <string name="foreign_files_success">Alle filer blev flyttet</string>
     <string name="foreign_files_fail">Visse filer kunne ikke flyttes</string>
@@ -171,10 +169,8 @@
     <string name="pass_code_configure_your_pass_code">Angiv din passcode</string>
     <string name="pass_code_configure_your_pass_code_explanation">Denne passcode vil blive forespurgt hver gang app\'en startes</string>
     <string name="pass_code_reenter_your_pass_code">Indtast venligst dit kodeord igen</string>
-    <string name="pass_code_remove_your_pass_code">Fjern din passcode</string>
     <string name="pass_code_mismatch">Passcode\'erne er ikke ens</string>
     <string name="pass_code_wrong">Ukorrekt passcode</string>
-    <string name="pass_code_removed">Passcode blev fjernet</string>
     <string name="pass_code_stored">Passcode blev gendannet</string>
     
     <string name="media_notif_ticker">%1$s musikafspiller</string>
@@ -222,11 +218,7 @@
     <string name="favorite_real">Angiv som favorit</string>
     <string name="unset_favorite_real">Fjern som favorit</string>
     <string name="common_rename">Omdøb</string>
-    <string name="common_remove">Fjern</string>
-    <string name="confirmation_remove_file_alert">Er du sikker på at du vil fjerne %1$s ?</string>
     <string name="confirmation_remove_local">Kun lokal</string>
-    <string name="remove_success_msg">Fjernet</string>
-    <string name="remove_fail_msg">Fjernelse kunne ikke fuldføres</string>
     <string name="rename_dialog_title">Indtast et nyt navn</string>
     <string name="rename_local_fail_msg">Lokal kopi kunne ikke omdøbes, på et andet navn</string>
     <string name="rename_server_fail_msg">Kunne ikke omdøbe server</string>

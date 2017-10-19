@@ -67,7 +67,6 @@
     <string name="common_yes">Sim</string>
     <string name="common_no">Não</string>
     <string name="common_ok">OK</string>
-    <string name="common_remove_upload">Remover carregamento</string>
     <string name="common_cancel_sync">Cancelar sincronização</string>
     <string name="common_cancel">Cancelar</string>
     <string name="common_back">Voltar</string>
@@ -127,10 +126,8 @@
     <string name="pass_code_configure_your_pass_code">Insira o seu código</string>
     <string name="pass_code_configure_your_pass_code_explanation">O código será solicitado sempre que a aplicação for iniciada</string>
     <string name="pass_code_reenter_your_pass_code">Por favor, reinsira o seu código</string>
-    <string name="pass_code_remove_your_pass_code">Remova o seu código</string>
     <string name="pass_code_mismatch">Os códigos não coincidem</string>
     <string name="pass_code_wrong">Código incorreto</string>
-    <string name="pass_code_removed">Código removido</string>
     <string name="pass_code_stored">Código guardado</string>
     
     <string name="media_notif_ticker">%1$s reprodutor de música</string>
@@ -168,9 +165,7 @@
 	<string name="auth_can_not_auth_against_server">Não é possível autenticar para este servidor</string>
     <string name="favorite">Definir como disponível em modo desligado</string>
     <string name="common_rename">Renomear</string>
-    <string name="common_remove">Remover</string>
     <string name="confirmation_remove_local">Apenas localmente</string>
-    <string name="remove_fail_msg">Não foi possível remover</string>
     <string name="rename_dialog_title">Introduza um novo nome</string>
     <string name="sync_file_nothing_to_do_msg">O conteúdo do ficheiro já foi sincronizado</string>
     <string name="filename_forbidden_characters">Carateres proibidos: / \\ &lt; &gt; : \" | ? *</string>
@@ -329,8 +324,6 @@
     <string name="manage_space_clear_data">Limpar dados</string>
     <string name="manage_space_error">Alguns ficheiros não podem ser apagados.</string>
 
-    <string name="confirmation_remove_files_alert">Quer realmente remover os itens selecionados?</string>
-    <string name="confirmation_remove_folders_alert">Quer realmente remover os itens selecionados e os seus conteúdos?</string>
     <string name="actionbar_search">Procura</string>
     <string name="learn_more">Conheça melhor</string>
     <string name="drawer_participate">Participe</string>

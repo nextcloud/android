@@ -88,7 +88,6 @@
     <string name="common_yes">Jā</string>
     <string name="common_no">Nē</string>
     <string name="common_ok">Labi</string>
-    <string name="common_remove_upload">Noņemt augšupielādi</string>
     <string name="common_cancel_sync">Atsaukt sinhronizāciju</string>
     <string name="common_cancel">Atcelt</string>
     <string name="common_back">Atpakaļ</string>
@@ -146,10 +145,8 @@
     
     <string name="pass_code_configure_your_pass_code">Ievadiet piekļuves kodu</string>
     <string name="pass_code_reenter_your_pass_code">Lūdzu, atkārtoti ievadiet savu piekļuves kodu</string>
-    <string name="pass_code_remove_your_pass_code">Noņemt kodu</string>
     <string name="pass_code_mismatch">Šie piekļuves kodi nav vienādi</string>
     <string name="pass_code_wrong">Nepareizs piekļuves kods</string>
-    <string name="pass_code_removed">Kods noņemts</string>
     <string name="pass_code_stored">Kods saglabāts</string>
     
     <string name="media_notif_ticker">%1$s mūzikas atskaņotājs</string>
@@ -183,10 +180,7 @@
     <string name="favorite">Iestatīt kā pieejamu bezsaistē</string>
     <string name="unfavorite">Iestatiet, ka pieejams bezsaistē</string>
     <string name="common_rename">Pārsaukt</string>
-    <string name="common_remove">Izņemt</string>
-    <string name="confirmation_remove_file_alert">Vai tiešām vēlaties noņemt %1$s?</string>
     <string name="confirmation_remove_local">Tikai lokālos</string>
-    <string name="remove_fail_msg">Neizdevās izņemt</string>
     <string name="rename_dialog_title">Ievadīt jaunu nosaukumu</string>
     <string name="sync_file_nothing_to_do_msg">Datnes saturs jau ir sinhronizēts</string>
     <string name="filename_forbidden_characters">Aizliegtās rakstzīmes: / \\ &lt; &gt; : \" | ? *</string>
@@ -352,8 +346,6 @@
     <string name="manage_space_clear_data">Notīrīt datus</string>
     <string name="manage_space_error">Dažas datnes nevarēja izdzēst.</string>
 
-    <string name="confirmation_remove_files_alert">Vai tiešām vēlies noņemt izvēlētos?</string>
-    <string name="confirmation_remove_folders_alert">Vai tiešām vēlies noņemt izvēlētos un to saturu?</string>
     <string name="actionbar_search">Meklēt</string>
     <string name="learn_more">Uzziniet vairāk</string>
     <string name="move_to">Pārvietot uz&#8230;</string>

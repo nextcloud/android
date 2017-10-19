@@ -127,7 +127,6 @@
     <string name="common_yes">Ya</string>
     <string name="common_no">Tidak</string>
     <string name="common_ok">Oke</string>
-    <string name="common_remove_upload">Hapus unggahan</string>
     <string name="common_retry_upload">Unggah ulang</string>
     <string name="common_cancel_sync">Batalkan sinkron</string>
     <string name="common_cancel">Batal</string>
@@ -142,7 +141,6 @@
     <string name="about_title">Tentang</string>
     <string name="change_password">Ubah sandi</string>
     <string name="delete_account">Hapus akun</string>
-    <string name="delete_account_warning">hapus akun %s beserta semua file lokal?\n\nSetelah dihapus tidak bisa dipulihkan</string>
     <string name="avatar">Avatar</string>
     <string name="active_user">Pengguna aktif</string>
     <string name="upload_chooser_title">Unggah dari &#8230;</string>
@@ -192,7 +190,6 @@
     <string name="sync_fail_in_favourites_content">Konten berkas %1$d tidak dapat disinkronasikan (%2$d konflik)</string>
     <string name="sync_foreign_files_forgotten_ticker">Beberapa berkas lokal terlupakan</string>
     <string name="sync_foreign_files_forgotten_content">%1$d berkas diluar folder %2$s tidak dapat disalin kedalamnya</string>
-    <string name="sync_foreign_files_forgotten_explanation">Sejak versi  1.3.16, berkas yang diunggah dari perangkat ini akan disalin kedalam folder lokal %1$s  untuk mencagah kehilangan data saat berkasi disinkronisasi dengan beberapa akun.\n\nKarena perubahan ini, semua berkas yang diunggah di versi aplikasi sebelumnya disalin kedalam folder %2$s. Namun, terjadi kesalahan yang mencegah penyelesaian proses  sinkronisasi akun. Anda boleh meninggalkan berkas seperti ini dan menghapus tautan ke %3$s atau memindahkan berkas kedalam folder %1$s dan membiarkan tautan ke %4$s.\n\nYang tampak dibawah adalah berkas lokal, dan berkas remote didalam %5$s yang dihubungkan dengannya.</string>
     <string name="sync_current_folder_was_removed">Folder %1$s sudah tidak ada lagi</string>
     <string name="foreign_files_move">Pindahkan semua</string>
     <string name="foreign_files_success">Semua berkas sudah dipindahkan</string>
@@ -205,10 +202,8 @@
     <string name="pass_code_configure_your_pass_code">Masukkan kode sandi Anda</string>
     <string name="pass_code_configure_your_pass_code_explanation">Kode sandi akan diminta setiap kali apl dijalankan.</string>
     <string name="pass_code_reenter_your_pass_code">Masukkan lagi kode kunci Anda</string>
-    <string name="pass_code_remove_your_pass_code">Hapus kode sandi Anda</string>
     <string name="pass_code_mismatch">Kode sandi tidak sama</string>
     <string name="pass_code_wrong">Kode sandi salah</string>
-    <string name="pass_code_removed">Kode sandi dihapus</string>
     <string name="pass_code_stored">Kode sandi disimpan</string>
     
     <string name="media_notif_ticker">Pemutar musik %1$s</string>
@@ -270,12 +265,7 @@
     <string name="favorite_real">Disukai</string>
     <string name="unset_favorite_real">Hapus tanda suka</string>
     <string name="common_rename">Ubah nama</string>
-    <string name="common_remove">Hapus</string>
-    <string name="confirmation_remove_file_alert">Apakah Anda yakin ingin menghapus %1$s?</string>
-    <string name="confirmation_remove_folder_alert">Apakah Anda yakin ingin menghapus %1$s dan isinya?</string>
     <string name="confirmation_remove_local">Lokal saja</string>
-    <string name="remove_success_msg">Dihapus</string>
-    <string name="remove_fail_msg">Penghapusan gagal</string>
     <string name="rename_dialog_title">Masukkan nama baru</string>
     <string name="rename_local_fail_msg">Salinan lokal tidak dapat diubah namanya, coba dengan nama yang berbeda</string>
     <string name="rename_server_fail_msg">Tidak dapat menggunakan nama server yang baru</string>
@@ -533,8 +523,6 @@
 
     <string name="permission_storage_access">Diperlukan ijin tambahan untuk mengunggah dan mengunduh berkas.</string>
     <string name="local_file_not_found_toast">Berkas tidak ditemukan di sistem berkas lokal</string>
-    <string name="confirmation_remove_files_alert">Apakah Anda yakin ingin menghapus item terpilih?</string>
-    <string name="confirmation_remove_folders_alert">Apakah Anda yakin ingin menghapus item terpilih dan isinya?</string>
     <string name="maintenance_mode">Server dalam proses perawatan.</string>
     <string name="lock_failed">Gagal untuk mengunci berkas.</string>
 
