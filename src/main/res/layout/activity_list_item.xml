@@ -26,14 +26,15 @@
     android:paddingTop="@dimen/standard_padding"
     android:paddingRight="@dimen/standard_padding"
     android:paddingBottom="@dimen/standard_padding"
-    android:paddingLeft="12dp">
+    android:paddingLeft="@dimen/standard_padding">
 
     <ImageView
         android:id="@+id/activity_icon"
         android:layout_width="@dimen/file_icon_size"
         android:layout_height="@dimen/file_icon_size"
         android:layout_alignParentTop="true"
-        android:layout_marginRight="24dp"
+        android:layout_marginRight="@dimen/standard_padding"
+        android:alpha="0.5"
         android:src="@drawable/ic_activity"/>
 
     <LinearLayout
@@ -65,6 +66,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
+            android:layout_marginLeft="-3dp"
+            android:layout_marginStart="-3dp"
             android:columnCount="3" />
 
         <TextView
