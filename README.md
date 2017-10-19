@@ -16,7 +16,7 @@
 ## How to contribute
 If you want to [contribute](https://nextcloud.com/contribute/) to Nextcloud, you are very welcome: 
 
-- on our IRC channels **#nextcloud** `(irc://#nextcloud@freenode.net)` and **#nextcloud-mobile** `(irc://#nextcloud-mobile@freenode.net)` on freenode
+- on our IRC channels [![irc](https://img.shields.io/badge/IRC-%23nextcloud%20on%20freenode-orange.svg)](https://webchat.freenode.net/?channels=nextcloud) and [![irc](https://img.shields.io/badge/IRC-%23nextcloud--mobile%20on%20freenode-blue.svg)](https://webchat.freenode.net/?channels=nextcloud-mobile) on freenode
 - our forum at https://help.nextcloud.com
 - for translations of the app on [Transifex](https://www.transifex.com/nextcloud/nextcloud/android/)
 - opening issues and PRs (including a corresponding issue)
