@@ -638,6 +638,9 @@ public class FileDisplayActivity extends HookActivity
                     detailsFragment.updateFileDetails(false, (success));
                 }
             }
+        } else if (secondFragment != null && secondFragment instanceof PreviewTextFragment) {
+            PreviewTextFragment detailsFragment = (PreviewTextFragment) secondFragment;
+            detailsFragment.loadAndShowTextPreview();
         }
     }
 

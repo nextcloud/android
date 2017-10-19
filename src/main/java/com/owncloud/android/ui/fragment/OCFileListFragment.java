@@ -922,6 +922,10 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
                     ((FileDisplayActivity) mContainerActivity).startDownloadForPreview(file);
                 }
 
+                if (file.needsSync()) {
+                    mContainerActivity.getFileOperationsHelper().syncFile(file);
+                }
+
             }
 
         } else {
