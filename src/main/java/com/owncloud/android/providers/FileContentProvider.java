@@ -85,7 +85,6 @@ public class FileContentProvider extends ContentProvider {
     private static final String TEXT = " TEXT, ";
     private static final String ALTER_TABLE = "ALTER TABLE ";
     private static final String ADD_COLUMN = " ADD COLUMN ";
-    private static final String REMOVE_COLUMN = " REMOVE COLUMN ";
     private static final String UPGRADE_VERSION_MSG = "OUT of the ADD in onUpgrade; oldVersion == %d, newVersion == %d";
 
     @Override
@@ -1159,6 +1158,7 @@ public class FileContentProvider extends ContentProvider {
         public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion) {
             if (oldVersion == 25 && newVersion == 24) {
                 // nothing needs to be done as the upgrade was adding columns only if they did not exist
+                Log_OC.i(TAG, "Downgrading v" + oldVersion + " to " + newVersion);
             }
         }
     }
