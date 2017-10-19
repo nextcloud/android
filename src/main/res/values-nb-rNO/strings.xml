@@ -48,7 +48,7 @@
     <string name="prefs_calendar_contacts">Synkroniser kalender &amp; kontakter</string>
     <string name="prefs_calendar_contacts_summary">Sett opp DAVdroid (v1.3.0+) for nåværende konto</string>
     <string name="prefs_calendar_contacts_address_resolve_error">Tjeneradressen for kontoen ble ikke funnet for DAVdroid</string>
-    <string name="prefs_calendar_contacts_no_store_error">Hverken F-droid eller Google play er installert</string>
+    <string name="prefs_calendar_contacts_no_store_error">Hverken F-Droid eller Google play er installert</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Kalender &amp; kontaktsynkronisering ble satt opp</string>
     <string name="prefs_daily_contacts_sync_summary">Daglig sikkerhetskopiering av dine kontakter</string>
     <string name="prefs_help">Hjelp</string>
@@ -127,6 +127,7 @@
     <string name="common_yes">Ja</string>
     <string name="common_no">Nei</string>
     <string name="common_ok">OK</string>
+    <string name="common_remove_upload">Slett opplastning</string>
     <string name="common_retry_upload">Prøv å laste opp igjen.</string>
     <string name="common_cancel_sync">Avbryt synkronisering</string>
     <string name="common_cancel">Avbryt</string>
@@ -141,6 +142,7 @@
     <string name="about_title">Om</string>
     <string name="change_password">Endre passord</string>
     <string name="delete_account">Fjern konto</string>
+    <string name="delete_account_warning">Fjern kontoen %s og slett alle lokale filer?\n\nSletting kan ikke angres.</string>
     <string name="avatar">Avatar</string>
     <string name="active_user">Aktiv bruker</string>
     <string name="upload_chooser_title">Last opp fra &#8230;</string>
@@ -170,6 +172,7 @@
     <string name="uploads_view_upload_status_service_interrupted">Programmet ble avsluttet</string>
     <string name="uploads_view_upload_status_unknown_fail">Ukjent feil</string>
     <string name="uploads_view_upload_status_waiting_for_wifi">Venter på trådløstilkobling</string>
+    <string name="uploads_view_upload_status_waiting_exit_power_save_mode">Venter på å gå ut av strømsparingsmodus</string>
     <string name="uploads_view_later_waiting_to_upload">Venter på å laste opp</string>
     <string name="downloader_download_in_progress_ticker">Laster ned &#8230;</string>
     <string name="downloader_download_in_progress_content">%1$d%% Laster ned %2$s</string>
@@ -202,8 +205,10 @@
     <string name="pass_code_configure_your_pass_code">Skriv inn passordet ditt</string>
     <string name="pass_code_configure_your_pass_code_explanation">Passordet vil bli krevd hver gang programmet startes</string>
     <string name="pass_code_reenter_your_pass_code">Skriv inn passordet på nytt</string>
+    <string name="pass_code_remove_your_pass_code">Slett din passkode</string>
     <string name="pass_code_mismatch">Passordene er ikke like</string>
     <string name="pass_code_wrong">Feil passord</string>
+    <string name="pass_code_removed">Passkode slettet</string>
     <string name="pass_code_stored">Passord lagret</string>
     
     <string name="media_notif_ticker">%1$s musikkspiller</string>
@@ -266,7 +271,12 @@
     <string name="unset_favorite_real">Fjern favorittmarkering</string>
     <string name="favorite_switch">Tilgjengelig i frakoblet modus</string>
     <string name="common_rename">Gi nytt navn</string>
+    <string name="common_remove">Slett</string>
+    <string name="confirmation_remove_file_alert">Ønsker du virkelig å slette %1$s?</string>
+    <string name="confirmation_remove_folder_alert">Ønsker du virkelig å slette %1$s og dets innhold?</string>
     <string name="confirmation_remove_local">Kun lokalt</string>
+    <string name="remove_success_msg">"Slettet"</string>
+    <string name="remove_fail_msg">Sletting mislyktes</string>
     <string name="rename_dialog_title">Skriv inn et nytt navn</string>
     <string name="rename_local_fail_msg">Lokal kopi kunne ikke endre navn; prøv et annet navn</string>
     <string name="rename_server_fail_msg">Klarte ikke å endre navn</string>
@@ -552,8 +562,8 @@
     <string name="participate_contribute_translate_text">programmet</string>
     <string name="participate_contribute_github_text">Gjennomse, endre og skriv kode, se %1$s for detaljer</string>
     <string name="participate_rc_play_store">Få lanseringskandidaten via Google Play butikken</string>
-    <string name="participate_rc_fdroid">Få lanseringskandidaten via f-droid app butikk</string>
-    <string name="participate_dev_fdroid">Få utviklingsversjonen via f-droid app butikk</string>
+    <string name="participate_rc_fdroid">Få lanseringskandidaten via F-droid app butikk</string>
+    <string name="participate_dev_fdroid">Få utviklingsversjonen via F-droid app butikk</string>
     <string name="participate_dev_direct_download">Få utviklingsversjonen via direkte nedlasting</string>
     <string name="move_to">Flytt til&#8230;</string>
     <string name="copy_to">Kopier til&#8230;</string>
@@ -670,7 +680,7 @@
     <string name="whats_new_fingerprint_title">Lås opp med fingeravtrykk</string>
     <string name="whats_new_fingerprint_content">Bruk fingeravtrykk for å låse opp appen</string>
     <string name="fallback_weblogin_back">TILBAKE</string>
-    <string name="fallback_weblogin_text">Gå tilbake til gamme innloggingsmetode</string>
+    <string name="fallback_weblogin_text">Gå tilbake til gammel innloggingsmetode</string>
 
     <string name="foreground_service_upload">Laster opp filer&#8230;</string>
     <string name="foreground_service_download">Laster ned filer&#8230;</string>

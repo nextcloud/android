@@ -127,6 +127,7 @@
     <string name="common_yes">Sì</string>
     <string name="common_no">No</string>
     <string name="common_ok">OK</string>
+    <string name="common_remove_upload">Elimina caricamento</string>
     <string name="common_retry_upload">Riprova il caricamento</string>
     <string name="common_cancel_sync">Annulla sincronizzazione</string>
     <string name="common_cancel">Annulla</string>
@@ -141,6 +142,7 @@
     <string name="about_title">Informazioni</string>
     <string name="change_password">Modifica la password</string>
     <string name="delete_account">Rimuovi account</string>
+    <string name="delete_account_warning">Rimuovere l\'account %s e tutti i file salvati localmente?\n\nIl processo non può essere annullato.</string>
     <string name="avatar">Avatar</string>
     <string name="active_user">Utente attivo</string>
     <string name="upload_chooser_title">Carica file da &#8230;</string>
@@ -170,6 +172,7 @@
     <string name="uploads_view_upload_status_service_interrupted">Applicazione terminata</string>
     <string name="uploads_view_upload_status_unknown_fail">Errore sconosciuto</string>
     <string name="uploads_view_upload_status_waiting_for_wifi">In attesa della connettività Wi-Fi</string>
+    <string name="uploads_view_upload_status_waiting_exit_power_save_mode">In attesa di uscire dal risparmio energetico</string>
     <string name="uploads_view_later_waiting_to_upload">In attesa di caricamento</string>
     <string name="downloader_download_in_progress_ticker">Scaricamento in corso &#8230;</string>
     <string name="downloader_download_in_progress_content">%1$d%% Scaricamento di %2$s</string>
@@ -202,8 +205,10 @@
     <string name="pass_code_configure_your_pass_code">Digita il tuo codice segreto</string>
     <string name="pass_code_configure_your_pass_code_explanation">Il codice segreto sarà richiesto ogni volta che l\'applicazione è avviata</string>
     <string name="pass_code_reenter_your_pass_code">Digita nuovamente il codice segreto</string>
+    <string name="pass_code_remove_your_pass_code">Elimina il tuo codice segreto</string>
     <string name="pass_code_mismatch">I codici segreti non corrispondono</string>
     <string name="pass_code_wrong">Codice segreto non corretto</string>
+    <string name="pass_code_removed">Codice segreto eliminato</string>
     <string name="pass_code_stored">Codice segreto memorizzato</string>
     
     <string name="media_notif_ticker">Lettore musicale %1$s</string>
@@ -266,7 +271,11 @@
     <string name="unset_favorite_real">Rimuovi preferito</string>
     <string name="favorite_switch">Disponibile non in linea</string>
     <string name="common_rename">Rinomina</string>
+    <string name="common_remove">Elimina</string>
+    <string name="confirmation_remove_file_alert">Vuoi davvero eliminare %1$s?</string>
     <string name="confirmation_remove_local">Solo localmente</string>
+    <string name="remove_success_msg">Eliminato</string>
+    <string name="remove_fail_msg">Eliminazione non riuscita</string>
     <string name="rename_dialog_title">Digita un nuovo nome</string>
     <string name="rename_local_fail_msg">La copia locale non può essere rinominata, prova un nome diverso</string>
     <string name="rename_server_fail_msg">Impossibile assegnare un nuovo nome al server</string>
@@ -527,6 +536,8 @@
 
     <string name="permission_storage_access">Permessi aggiuntivi richiesti per caricare e scaricare i file.</string>
     <string name="local_file_not_found_toast">File non trovato nel file system locale</string>
+    <string name="confirmation_remove_files_alert">Vuoi davvero eliminare gli elementi selezionati?</string>
+    <string name="confirmation_remove_folders_alert">Vuoi davvero eliminare gli elementi selezionati e il loro contenuto?</string>
     <string name="maintenance_mode">Server in manutenzione</string>
     <string name="lock_failed">Blocco del file non riuscito</string>
 
