@@ -48,7 +48,6 @@
     <string name="prefs_calendar_contacts">Synchronizovat kalendář &amp; kontakty</string>
     <string name="prefs_calendar_contacts_summary">Nastavit DAVdroid (v1.3.0+) pro aktuální účet</string>
     <string name="prefs_calendar_contacts_address_resolve_error">Počítačová adresa konta pro DAVdroid nebyla nalezena</string>
-    <string name="prefs_calendar_contacts_no_store_error">Nenainstalován Google Play store nebo F-Droid app</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Synchronizace kalendáře &amp; kontaktů úspěšně dokončena</string>
     <string name="prefs_daily_contacts_sync_summary">Denní záloha vašich kontaktů</string>
     <string name="prefs_help">Nápověda</string>
@@ -56,11 +55,7 @@
     <string name="prefs_feedback">Odezva</string>
     <string name="prefs_imprint">Imprint</string>
 
-	<string name="recommend_subject">Zkuste %1$s na svém chytrém telefonu!</string>
-	<string name="recommend_text">Chtěl bych vás pozvat k používání %1$s na vašem chytrém telefonu!\nKe stažení zde: %2$s</string>
-    <string name="recommend_urls">%1$s nebo %2$s</string>
-
-    <string name="auth_check_server">Ověřit server</string>
+	<string name="auth_check_server">Ověřit server</string>
     <string name="auth_host_url">Adresa serveru https://&#8230;</string>
     <string name="auth_username">Uživatelské jméno</string>
     <string name="auth_password">Heslo</string>
@@ -191,11 +186,6 @@
     <string name="sync_foreign_files_forgotten_ticker">Některé místní soubory byly zapomenuty</string>
     <string name="sync_foreign_files_forgotten_content">%1$d souborů z %2$s adresáře se nepodařilo zkopírovat do</string>
     <string name="sync_current_folder_was_removed">Adresář %1$s již neexistuje</string>
-    <string name="foreign_files_move">Přesunout vše</string>
-    <string name="foreign_files_success">Všechny soubory byly přesunuty</string>
-    <string name="foreign_files_fail">Některé soubory nebylo možno přesunout</string>
-    <string name="foreign_files_local_text">Místní: %1$s</string>
-    <string name="foreign_files_remote_text">Vzdálené: %1$s</string>
     <string name="upload_query_move_foreign_files">Pro zkopírování vybraných souborů do %1$s adresáře není dostatek volného místa. Chcete je místo toho přesunout?</string>
     <string name="pass_code_enter_pass_code">Zadejte prosím svůj bezpečnostní kód</string>
     
@@ -206,10 +196,6 @@
     <string name="pass_code_wrong">Nesprávný bezpečnostní kód</string>
     <string name="pass_code_stored">Bezpečnostní kód uložen</string>
     
-    <string name="media_notif_ticker">Hudební přehrávač %1$s</string>
-    <string name="media_state_playing">%1$s (přehrává)</string>
-    <string name="media_state_loading">%1$s (načítá)</string>
-    <string name="media_event_done">%1$s přehrávání dokončeno</string>
     <string name="media_err_nothing_to_play">Nenalezen žádný multimediální soubor</string>
     <string name="media_err_no_account">Neposkytnut žádný účet</string>
     <string name="media_err_not_in_owncloud">Soubor není v platném účtu</string>
@@ -268,8 +254,6 @@
     <string name="common_rename">Přejmenovat</string>
     <string name="confirmation_remove_local">Pouze místní</string>
     <string name="rename_dialog_title">Zadejte nový název</string>
-    <string name="rename_local_fail_msg">Místní kopii nelze přejmenovat, zkuste jiný nový název</string>
-    <string name="rename_server_fail_msg">Přejmenování nelze dokončit</string>
     <string name="sync_file_fail_msg">Nepodařilo se zkontrolovat vzdálený soubor</string>
     <string name="sync_file_nothing_to_do_msg">Obsah souboru je již synchronizován</string>
     <string name="create_dir_fail_msg">Nepodařilo se vytvořit složku</string>
@@ -278,7 +262,6 @@
     <string name="filename_empty">Název nemůže být prázdný</string>
     <string name="wait_a_moment">Počkejte chvíli&#8230;</string>
     <string name="wait_checking_credentials">Ověřování uložených přihlašovacích údajů</string>
-    <string name="filedisplay_unexpected_bad_get_content">Neočekávaný problém - zkuste zvolit soubor jinou aplikací</string>
     <string name="filedisplay_no_file_selected">Žádný soubor nebyl vybrán</string>
     <string name="activity_chooser_title">Odeslat odkaz &#8230;</string>
     <string name="wait_for_tmp_copy_from_private_storage">Kopírování souboru z privátního úložiště</string>
@@ -395,8 +378,6 @@
     <string name="file_migration_failed_not_readable">Chyba: Soubor nelze číst</string>
     <string name="file_migration_failed_dir_already_exists">Chyba: Nextcloud adresář již existuje</string>
     <string name="file_migration_failed_while_coping">Chyba: V průběhu migrace</string>
-    <string name="file_migration_failed_while_updating_index">Chyba: Nepodařilo se aktualizovat index</string>
-
     <string name="file_migration_directory_already_exists">Datový adresář již existuje. Vyberte jednu z následujících možností:</string>
     <string name="file_migration_override_data_folder">Nahradit</string>
     <string name="file_migration_use_data_folder">Použít</string>
@@ -552,8 +533,6 @@
     <string name="participate_contribute_translate_text">Aplikace</string>
     <string name="participate_contribute_github_text">Kontrolujte, vylepšujte a pište kód, víc informací naleznete na %1$s</string>
     <string name="participate_rc_play_store">Získejte kandidáta na vidání skrz Google Play Store</string>
-    <string name="participate_rc_fdroid">Získejte kandidáta na vydání pomocí obchodu s aplikacemi fDroid</string>
-    <string name="participate_dev_fdroid">Získejte vývojové sestavení pomocí obchodu s aplikacemi f-droid</string>
     <string name="participate_dev_direct_download">Získat vývojové sestavení přímým stažením</string>
     <string name="move_to">Přesunout do&#8230;</string>
     <string name="copy_to">Kopírovat do&#8230;</string>
@@ -650,7 +629,6 @@
     <string name="contacts_preference_choose_date">Zvolte datum</string>
     <string name="contacts_preference_backup_never">Nikdy</string>
     <string name="contacts_preferences_no_file_found">Nebyl nalezen žádný soubor</string>
-    <string name="contacts_preferences_something_strange_happened">Nemůžeme najít poslední zálohu!</string>
     <string name="contacts_preferences_backup_scheduled">Zálohování je naplánováno a brzy začne</string>
     <string name="contacts_preferences_import_scheduled">Import je naplánován a brzy začne</string>
 
@@ -681,4 +659,4 @@
     <string name="push_notifications_not_implemented">Push oznámení zakázáno kvůli závislostem na proprietárních službách Google Play.</string>
     <string name="push_notifications_old_login">Žádné push oznámení kvůli zastaralé relaci přihlášení. Zvažte opětovné přidání účtu.</string>
     <string name="push_notifications_temp_error">Push oznámení není momentálně k dispozici.</string>
-</resources>
+    </resources>

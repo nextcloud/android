@@ -48,7 +48,6 @@
     <string name="prefs_calendar_contacts"> همگام سازی تقویم &amp; مخاطبین</string>
     <string name="prefs_calendar_contacts_summary">DAVdroid (v1.3.0+) را برای همین کاربر راه بیاندازید </string>
     <string name="prefs_calendar_contacts_address_resolve_error">آدرس سرور برای این کاربر و DAVdroid برگردانده نمی شود </string>
-    <string name="prefs_calendar_contacts_no_store_error">هیچ یک از F-droid برای فروشگاه گوگل نصب نشده است </string>
     <string name="prefs_calendar_contacts_sync_setup_successful">تقویم &amp; همگام سازی مخاطبین تنظیم شده است</string>
     <string name="prefs_daily_contacts_sync_summary">پشتیبان گیری روزانه از مخاطبین شما</string>
     <string name="prefs_help">راهنما</string>
@@ -56,12 +55,7 @@
     <string name="prefs_feedback">باز خورد</string>
     <string name="prefs_imprint">اثر</string>
 
-	<string name="recommend_subject">%1$s را بر روی گوشی هوشمند خود امتحان کنید.</string>
-	<string name="recommend_text">من از شما می خواهم که از  %1$sاستفاده کنید.
-از اینجا دانلود کنید %2$s</string>
-    <string name="recommend_urls">* %1$s - %2$s</string>
-
-    <string name="auth_check_server">ارتباط با سرور را چک کنید </string>
+	<string name="auth_check_server">ارتباط با سرور را چک کنید </string>
     <string name="auth_host_url">آدرس سرور https://&#8230;</string>
     <string name="auth_username">نام کاربری</string>
     <string name="auth_password">رمز عبور</string>
@@ -192,11 +186,6 @@
     <string name="sync_foreign_files_forgotten_ticker">بعضی از فایلهای محلی فراموش شده اند</string>
     <string name="sync_foreign_files_forgotten_content">%1$d fفایل از %2$s پوشه نتوانستند کپی شوند در</string>
     <string name="sync_current_folder_was_removed">پوشه %1$s دیگر وجود ندارد</string>
-    <string name="foreign_files_move">انتقال همه</string>
-    <string name="foreign_files_success">همه ی فایل ها جا به جا شدند</string>
-    <string name="foreign_files_fail">بعضی از فایل ها نمی توانند انتقال یابند</string>
-    <string name="foreign_files_local_text">محلی: %1$s</string>
-    <string name="foreign_files_remote_text">دور از دسترس:  %1$s</string>
     <string name="pass_code_enter_pass_code">لطفا کد عبور خود را وارد کنید</string>
     
     <string name="pass_code_configure_your_pass_code">رمز خود را وارد کنید</string>
@@ -206,10 +195,6 @@
     <string name="pass_code_wrong">رمز نادرست</string>
     <string name="pass_code_stored">رمز ذخیره شد</string>
     
-    <string name="media_notif_ticker">%1$s پخش کننده موسیقی</string>
-    <string name="media_state_playing">%1$s ( در حال پخش موسیقی )</string>
-    <string name="media_state_loading">%1$s (درحال بارگذاری)</string>
-    <string name="media_event_done">%1$s پخش به پایان رسید.</string>
     <string name="media_err_nothing_to_play">هیچ رسانه ای یافت نشد.</string>
     <string name="media_err_no_account">هیچ حسابی ارائه نشده است.</string>
     <string name="media_err_not_in_owncloud">این فایل در یک حساب کاربری معتبر نیست</string>
@@ -263,7 +248,6 @@
     <string name="common_rename">تغییرنام</string>
     <string name="confirmation_remove_local">فقط محلی</string>
     <string name="rename_dialog_title">نام جدید وارد کنید</string>
-    <string name="rename_server_fail_msg">نمیتوان به سرور نام جدید داد </string>
     <string name="sync_file_nothing_to_do_msg">محتوای فایل قبلا همگام شده</string>
     <string name="filename_forbidden_characters">کاراکترهای ممنوع: / \\ &lt; &gt; : \" | ? *</string>
     <string name="filename_forbidden_charaters_from_server">نام فایل دارای حداقل یک کاراکتر نامعتبر است</string>

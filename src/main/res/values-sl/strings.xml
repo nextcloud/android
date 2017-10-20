@@ -48,7 +48,6 @@
     <string name="prefs_calendar_contacts">Nastavi sinhronizacijo koledarja in kontaktov</string>
     <string name="prefs_calendar_contacts_summary">Nastavi DAVdroid (v1.3.0+) za trenutno uporabljen račun</string>
     <string name="prefs_calendar_contacts_address_resolve_error">Naslov strežnika za račun ne more biti razrešena za DAVdroid</string>
-    <string name="prefs_calendar_contacts_no_store_error">Niti F-droid niti Google Play nista naložena</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Nastavitev sinhronizacije koledarja&amp; stikov</string>
     <string name="prefs_daily_contacts_sync_summary">Dnevno shranjevanje stikov</string>
     <string name="prefs_help">Pomoč</string>
@@ -56,11 +55,7 @@
     <string name="prefs_feedback">Pošlji sporočilo razvijalcem programa</string>
     <string name="prefs_imprint">Natis</string>
 
-	<string name="recommend_subject">Preizkusi %1$s na pametnem telefonu!</string>
-	<string name="recommend_text">Želim ti predstaviti %1$s na pametnem telefonu!\nPrejmeš ga lahko na: %2$s</string>
-    <string name="recommend_urls">%1$s ali %2$s</string>
-
-    <string name="auth_check_server">Preveri strežnik</string>
+	<string name="auth_check_server">Preveri strežnik</string>
     <string name="auth_host_url">Naslov strežnika https://&#8230;</string>
     <string name="auth_username">Uporabniško ime</string>
     <string name="auth_password">Geslo</string>
@@ -190,11 +185,6 @@
     <string name="sync_foreign_files_forgotten_ticker">Nekatere krajevne datoteke so spregledane</string>
     <string name="sync_foreign_files_forgotten_content">Skupno %1$d datotek iz mape %2$s ni mogoče kopirati v</string>
     <string name="sync_current_folder_was_removed">Mapa %1$s ne obstaja več</string>
-    <string name="foreign_files_move">Premakni vse</string>
-    <string name="foreign_files_success">Vse datoteke so uspešno premaknjene na novo mesto</string>
-    <string name="foreign_files_fail">Nekaterih datotek ni mogoče premakniti</string>
-    <string name="foreign_files_local_text">Krajevno: %1$s</string>
-    <string name="foreign_files_remote_text">Oddaljeno: %1$s</string>
     <string name="upload_query_move_foreign_files">Ni dovolj prostora za kopiranje izbranih datotek v mapo %1$s. Ali želiš datoteke premakniti na novo mesto?</string>
     <string name="pass_code_enter_pass_code">Vnesite kodo PIN</string>
     
@@ -205,10 +195,6 @@
     <string name="pass_code_wrong">Napačna koda PIN</string>
     <string name="pass_code_stored">Koda PIN je shranjena</string>
     
-    <string name="media_notif_ticker">Predvajalnik glasbe %1$s</string>
-    <string name="media_state_playing">%1$s (se predvaja)</string>
-    <string name="media_state_loading">%1$s (se nalaga)</string>
-    <string name="media_event_done">Predvajanje %1$s je končano</string>
     <string name="media_err_nothing_to_play">Predstavnih datotek ni mogoče najti</string>
     <string name="media_err_no_account">Ni navedenega računa</string>
     <string name="media_err_not_in_owncloud">Dokument ni shranjen v veljavnem računu.</string>
@@ -267,8 +253,6 @@
     <string name="common_rename">Preimenuj</string>
     <string name="confirmation_remove_local">Le krajevno</string>
     <string name="rename_dialog_title">Vnesite novo ime</string>
-    <string name="rename_local_fail_msg">Krajevne datoteke ni mogoče preimenovati; poskusi z drugačnim novim imenom</string>
-    <string name="rename_server_fail_msg">Preimenovanja strežnika ni možno dokončati</string>
     <string name="sync_file_fail_msg">Oddaljene datoteke ni mogoče preveriti</string>
     <string name="sync_file_nothing_to_do_msg">Vsebina datoteke je že usklajena</string>
     <string name="create_dir_fail_msg">Ne morem ustvariti mape</string>
@@ -277,7 +261,6 @@
     <string name="filename_empty">Ime datoteke ne sme biti prazno</string>
     <string name="wait_a_moment">Počakaj trenutek&#8230;</string>
     <string name="wait_checking_credentials">Poteka preverjanje shranjenih poveril</string>
-    <string name="filedisplay_unexpected_bad_get_content">Prišlo je do nepričakovane napake. Poskusi datoteko izbrati z drugim programom.</string>
     <string name="filedisplay_no_file_selected">Ni izbranih datotek</string>
     <string name="activity_chooser_title">Pošlji povezavo &#8230;</string>
     <string name="wait_for_tmp_copy_from_private_storage">Kopiranje datoteke iz zasebne shrambe</string>
@@ -392,8 +375,6 @@
     <string name="file_migration_failed_not_readable">Napaka: Izvor ni berljiv</string>
     <string name="file_migration_failed_dir_already_exists">Napaka: Nextcloud mapa že obstaja</string>
     <string name="file_migration_failed_while_coping">Napaka: Izpad med migracijo</string>
-    <string name="file_migration_failed_while_updating_index">Napaka: Izpad med posodabljanjem indeksov</string>
-
     <string name="file_migration_directory_already_exists">Mapa že obstaja. Izberi možnost:</string>
     <string name="file_migration_override_data_folder">Zamenjaj</string>
     <string name="file_migration_use_data_folder">Uporabi</string>
@@ -541,8 +522,6 @@
     <string name="participate_contribute_translate_translate">Prevedi</string>
     <string name="participate_contribute_translate_text">aplikacijo</string>
     <string name="participate_rc_play_store">Naloži kandidata za različico preko Google Play trgovine</string>
-    <string name="participate_rc_fdroid">Naloži kandidata za različico preko f-droid trgovine</string>
-    <string name="participate_dev_fdroid">Naloži razvojno različico preko f-droid trgovine</string>
     <string name="participate_dev_direct_download">Naloži razvojno različico direktno</string>
     <string name="move_to">Premakni v&#8230;</string>
     <string name="copy_to">Kopiraj v&#8230;</string>

@@ -47,14 +47,12 @@
     <string name="prefs_log_delete_history_button">מחיקת הסטוריה</string>
     <string name="prefs_calendar_contacts_summary">הגדרת DAVdroid (v1.3.0+)‎ עבור החשבון הנוכחי</string>
     <string name="prefs_calendar_contacts_address_resolve_error">לא ניתן לפתור את כתובת השרת לחשבון עבור DAVdroid</string>
-    <string name="prefs_calendar_contacts_no_store_error">לא נמצא התקנה של F-droid או Google Play</string>
     <string name="prefs_daily_contacts_sync_summary">גיבוי יומי של אנשי הקשר שלך</string>
     <string name="prefs_help">עזרה</string>
     <string name="prefs_recommend">המליצו לחברים</string>
     <string name="prefs_feedback">משוב</string>
     <string name="prefs_imprint">חותמת</string>
 
-	<string name="recommend_subject">לבדיקה %1$s בטלפון החכם שלך!</string>
 	<string name="auth_check_server">בדיקת שרת</string>
     <string name="auth_username">שם משתמש</string>
     <string name="auth_password">ססמה</string>
@@ -140,11 +138,6 @@
     <string name="sync_fail_in_favourites_content">לא ניתן לסנכרם את תוכנם של %1$d מהקבצים (%2$d התנגשויות)</string>
     <string name="sync_foreign_files_forgotten_ticker">חלק מהקבצים המקומיים נשכחו</string>
     <string name="sync_foreign_files_forgotten_content">קבצים %1$d מחוץ לתיקיית %2$s לא ניתן להעתיק אל</string>
-    <string name="foreign_files_move">להעביר הכול</string>
-    <string name="foreign_files_success">כל הקבצים הועברו</string>
-    <string name="foreign_files_fail">לא ניתן להעביר חלק מהקבצים</string>
-    <string name="foreign_files_local_text">מקומי: %1$s</string>
-    <string name="foreign_files_remote_text">מרוחק: %1$s</string>
     <string name="pass_code_configure_your_pass_code">יש להכניס את הקוד שלך</string>
     <string name="pass_code_configure_your_pass_code_explanation">בכל פעם שיישום זה נפתח יהיה צורך להכניס את הקוד</string>
     <string name="pass_code_reenter_your_pass_code">יש להכניס את הקוד שנית</string>
@@ -152,10 +145,6 @@
     <string name="pass_code_wrong">קוד שגוי</string>
     <string name="pass_code_stored">הקוד נשמר</string>
     
-    <string name="media_notif_ticker">נגנן המוזיקה %1$s</string>
-    <string name="media_state_playing">%1$s (מתנגן)</string>
-    <string name="media_state_loading">%1$s (בטעינה)</string>
-    <string name="media_event_done">השמעת %1$s הסתיימה</string>
     <string name="media_err_nothing_to_play">לא נמצא קובץ מדיה</string>
     <string name="media_err_no_account">לא צוין חשבון</string>
     <string name="media_err_unsupported">מקודד המדיה אינו נתמך</string>

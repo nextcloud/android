@@ -48,7 +48,6 @@
     <string name="prefs_calendar_contacts">Синхронизуј календар &amp; контакте</string>
     <string name="prefs_calendar_contacts_summary">Подеси DAVdroid (v1.3.0+) за тренутни налог</string>
     <string name="prefs_calendar_contacts_address_resolve_error">Адреса сервера за налог не може бити пронађена за DAVdroid</string>
-    <string name="prefs_calendar_contacts_no_store_error">F-droid као и Google Play апликација нису инсталиране.</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Календар&amp; синхронизација контаката подешена</string>
     <string name="prefs_daily_contacts_sync_summary">Прављење резервне копије Ваших контаката на дневном нивоу</string>
     <string name="prefs_help">Помоћ</string>
@@ -56,11 +55,7 @@
     <string name="prefs_feedback">Ваше мишљење</string>
     <string name="prefs_imprint">Жиг</string>
 
-	<string name="recommend_subject">Пробајте %1$s на вашем телефону!</string>
-	<string name="recommend_text">Позивам те да користиш%1$s на твом телефону.\nПреузмите овде:%2$s</string>
-    <string name="recommend_urls">%1$s или %2$s</string>
-
-    <string name="auth_check_server">Провери сервер</string>
+	<string name="auth_check_server">Провери сервер</string>
     <string name="auth_host_url">Адреса сервера https://&#8230;</string>
     <string name="auth_username">Корисничко име</string>
     <string name="auth_password">Лозинка</string>
@@ -191,11 +186,6 @@
     <string name="sync_foreign_files_forgotten_ticker">Неки локални фајлови су заборављени</string>
     <string name="sync_foreign_files_forgotten_content">%1$d фајлова из %2$sфасцикле се није могло копирати</string>
     <string name="sync_current_folder_was_removed">Фасцикла %1$s више не постоји</string>
-    <string name="foreign_files_move">Премести све</string>
-    <string name="foreign_files_success">Сви фајлови су премештени</string>
-    <string name="foreign_files_fail">Неки фајлови нису могли бити премештени</string>
-    <string name="foreign_files_local_text">Локално: %1$s</string>
-    <string name="foreign_files_remote_text">Удаљено: %1$s</string>
     <string name="upload_query_move_foreign_files">Недовољно места да се копирају означени фајлови у фасциклу %1$s. Да ли желите можда да их уместо копирања преместите тамо?</string>
     <string name="pass_code_enter_pass_code">Молимо унесите кôд за закључавање</string>
     
@@ -206,10 +196,6 @@
     <string name="pass_code_wrong">Неисправан код</string>
     <string name="pass_code_stored">Код за закључавање је сачуван</string>
     
-    <string name="media_notif_ticker">%1$s музички плејер</string>
-    <string name="media_state_playing">%1$s (пуштам)</string>
-    <string name="media_state_loading">%1$s (учитавам)</string>
-    <string name="media_event_done">%1$s пуштање завршено</string>
     <string name="media_err_nothing_to_play">Нема мултимедијалних фајлова</string>
     <string name="media_err_no_account">Није наведен налог</string>
     <string name="media_err_not_in_owncloud">Фајл није исправан налог</string>
@@ -268,8 +254,6 @@
     <string name="common_rename">Преименуј</string>
     <string name="confirmation_remove_local">Само локално</string>
     <string name="rename_dialog_title">Унесите нов назив</string>
-    <string name="rename_local_fail_msg">Промена имена локалне копије није успела, пробајте друго име</string>
-    <string name="rename_server_fail_msg">Не могу серверу да дам ново име</string>
     <string name="sync_file_fail_msg">Не могу да проверим удаљени фајл</string>
     <string name="sync_file_nothing_to_do_msg">Садржај је већ синхронизован</string>
     <string name="create_dir_fail_msg">Не могу да направим фасциклу</string>
@@ -278,7 +262,6 @@
     <string name="filename_empty">Назив фајла не може бити празан</string>
     <string name="wait_a_moment">Сачекајте мало &#8230;</string>
     <string name="wait_checking_credentials">Проверавам сачуване акредитиве</string>
-    <string name="filedisplay_unexpected_bad_get_content">Неочекивана грешка, молимо одаберите фајл из друге апликације</string>
     <string name="filedisplay_no_file_selected">Није изабран ниједан фајл</string>
     <string name="activity_chooser_title">Пошаљи везу &#8230;</string>
     <string name="wait_for_tmp_copy_from_private_storage">Копирам фајл из приватног складишта</string>
@@ -395,8 +378,6 @@
     <string name="file_migration_failed_not_readable">Грешка: не могу да читам из изворног фајла</string>
     <string name="file_migration_failed_dir_already_exists">Грешка: Некстклауд фасцикла већ постоји</string>
     <string name="file_migration_failed_while_coping">Грешка: неуспешно пребацивање</string>
-    <string name="file_migration_failed_while_updating_index">Грешка: неуспешно ажурирање индекса</string>
-
     <string name="file_migration_directory_already_exists">Фасцикла са подацима већ постоји. Одаберите шта да радим:</string>
     <string name="file_migration_override_data_folder">Замени постојећу</string>
     <string name="file_migration_use_data_folder">Искористи ову</string>
@@ -552,8 +533,6 @@
     <string name="participate_contribute_translate_text">апликације</string>
     <string name="participate_contribute_github_text">Прегледај, дорађуј и мењај кôд, погледај %1$s за детаље</string>
     <string name="participate_rc_play_store">Преузмите кандидата за нову верзију преко Google Play продавнице</string>
-    <string name="participate_rc_fdroid">Преузмите кандидата за нову верзију преко Ф-Дроид продавнице</string>
-    <string name="participate_dev_fdroid">Преузмите развојну верзију преко Ф-Дроид продавнице</string>
     <string name="participate_dev_direct_download">Преузмите развојну верзију директним скидањем</string>
     <string name="move_to">Премести у &#8230;</string>
     <string name="copy_to">Копирај у &#8230;</string>
@@ -650,7 +629,6 @@
     <string name="contacts_preference_choose_date">Одаберите датум</string>
     <string name="contacts_preference_backup_never">никада</string>
     <string name="contacts_preferences_no_file_found">Ниједан фајл није нађен</string>
-    <string name="contacts_preferences_something_strange_happened">Не можемо да пронађемо Вашу последњу резервну копију!</string>
     <string name="contacts_preferences_backup_scheduled">Прављење резервне копије заказано и почеће ускоро</string>
     <string name="contacts_preferences_import_scheduled">Увожење је заказано и почеће ускоро</string>
 
@@ -681,4 +659,4 @@
     <string name="push_notifications_not_implemented">Брза обавештења искључена јер зависе од власничког Google Play сервиса.</string>
     <string name="push_notifications_old_login">Нема брзих обавештења зато што вам је сесија застарела. Избришите и додајте поново налог.</string>
     <string name="push_notifications_temp_error">Брза обавештења тренутно нису доступна.</string>
-</resources>
+    </resources>

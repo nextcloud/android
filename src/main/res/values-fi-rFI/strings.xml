@@ -48,7 +48,6 @@
     <string name="prefs_calendar_contacts">Synkronoi kalenteri &amp; kontaktit</string>
     <string name="prefs_calendar_contacts_summary">Aseta DAVdroid (v1.3.0+) nykyiselle käyttäjälle</string>
     <string name="prefs_calendar_contacts_address_resolve_error">Käyttäjän palvelin osoitetta ei voitu selvittää DAVdroidille</string>
-    <string name="prefs_calendar_contacts_no_store_error">Google Play kauppaa tai F-Droid sovellusta ei ole asennettu</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Kalenterin &amp; yhteystieto synkronointi asetettu</string>
     <string name="prefs_daily_contacts_sync_summary">Päivittäinen varmuuskopio yhteystiedoistasi</string>
     <string name="prefs_help">Ohje</string>
@@ -56,10 +55,7 @@
     <string name="prefs_feedback">Palaute</string>
     <string name="prefs_imprint">Tiedot</string>
 
-	<string name="recommend_subject">Kokeile %1$sia älypuhelimellasi!</string>
-	<string name="recommend_urls">%1$s tai %2$s</string>
-
-    <string name="auth_check_server">Tarkista palvelin</string>
+	<string name="auth_check_server">Tarkista palvelin</string>
     <string name="auth_host_url">Palvelimen osoite https://&#8230;</string>
     <string name="auth_username">Käyttäjätunnus</string>
     <string name="auth_password">Salasana</string>
@@ -171,11 +167,6 @@
     <string name="sync_foreign_files_forgotten_ticker">Jotkin paikalliset tiedostot unohtuivat</string>
     <string name="sync_foreign_files_forgotten_content">%1$d / %2$s tiedostoa ei voitu kopioida</string>
     <string name="sync_current_folder_was_removed">Kansiota %1$s ei ole enää olemassa</string>
-    <string name="foreign_files_move">Siirrä kaikki</string>
-    <string name="foreign_files_success">Kaikki tiedostot siirrettiin</string>
-    <string name="foreign_files_fail">Joidenkin tiedostojen siirtäminen epäonnistui</string>
-    <string name="foreign_files_local_text">Paikallinen: %1$s</string>
-    <string name="foreign_files_remote_text">Etä: %1$s</string>
     <string name="pass_code_enter_pass_code">Anna suojakoodi</string>
     
     <string name="pass_code_configure_your_pass_code">Anna suojakoodisi</string>
@@ -185,9 +176,6 @@
     <string name="pass_code_wrong">Virheellinen suojakoodi</string>
     <string name="pass_code_stored">Suojakoodi tallennettu</string>
     
-    <string name="media_notif_ticker">%1$s-musiikkisoitin</string>
-    <string name="media_state_playing">%1$s (toistetaan)</string>
-    <string name="media_state_loading">%1$s (ladataan)</string>
     <string name="media_err_nothing_to_play">Mediatiedostoa ei löytynyt</string>
     <string name="media_err_no_account">Tiliä ei määritetty</string>
     <string name="media_err_not_in_owncloud">Tiedosto ei ole kelvollinen tili</string>
@@ -227,8 +215,6 @@
     <string name="common_rename">Nimeä uudelleen</string>
     <string name="confirmation_remove_local">Vain paikallinen</string>
     <string name="rename_dialog_title">Anna uusi nimi</string>
-    <string name="rename_local_fail_msg">Paikallisen kopion nimeä ei voitu muuttaa, yritä eri nimeä</string>
-    <string name="rename_server_fail_msg">Ei voitu antaa palvelimelle uutta nimeä</string>
     <string name="sync_file_nothing_to_do_msg">Tiedoston sisältö on jo synkronoitu</string>
     <string name="create_dir_fail_msg">Kansion luominen ei onnistunut</string>
     <string name="filename_forbidden_characters">Kielletyt merkit: / \\ &lt; &gt; : \" | ? *</string>

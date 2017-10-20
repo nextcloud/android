@@ -47,7 +47,6 @@
     <string name="prefs_calendar_contacts">Sinkronizatu egutegia eta kontaktuak</string>
     <string name="prefs_calendar_contacts_summary">Konfiguratu DAVdroid (v1.3.0+) kontu honetarako</string>
     <string name="prefs_calendar_contacts_address_resolve_error">Serbitzariaren helbidea ezin izan da aurkitu DAVdroid-arentzat</string>
-    <string name="prefs_calendar_contacts_no_store_error">Ez F-droid ez Google Play daude instalaturik</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Egutegi &amp; kontaktu sinkronizazioa ezarrita</string>
     <string name="prefs_daily_contacts_sync_summary">Zure kontaktuen eguneroko babes-kopia</string>
     <string name="prefs_help">Laguntza</string>
@@ -55,12 +54,7 @@
     <string name="prefs_feedback">Oharrak</string>
     <string name="prefs_imprint">Imprint</string>
 
-	<string name="recommend_subject">Probatu %1$s zure telefono adimentsuan!</string>
-	<string name="recommend_text">%1$s zure telefonoan erabiltzera gonbidatu nahi zaitut\n Hemendik jaitsi: %2$s;
- </string>
-    <string name="recommend_urls">%1$s edo %2$s</string>
-
-    <string name="auth_check_server">Zervitzaria egiaztatu</string>
+	<string name="auth_check_server">Zervitzaria egiaztatu</string>
     <string name="auth_host_url">Zerbitzariaren helbidea https://1&#8230;</string>
     <string name="auth_username">Erabiltzaile izena</string>
     <string name="auth_password">Pasahitza</string>
@@ -194,11 +188,6 @@
     <string name="sync_foreign_files_forgotten_ticker">Bertako fitxategi batzuk ahaztu dira</string>
     <string name="sync_foreign_files_forgotten_content">%2$s karpetako %1$d fitxategi ezin dira dira kopiatu</string>
     <string name="sync_current_folder_was_removed">%1$s karpeta ez da iadanik existitzen</string>
-    <string name="foreign_files_move">Mugitu denak</string>
-    <string name="foreign_files_success">Fitxategi guztiak mugitu dira</string>
-    <string name="foreign_files_fail">Fitxategi batzuk ezin dira mugitu</string>
-    <string name="foreign_files_local_text">Bertakoa: %1$s</string>
-    <string name="foreign_files_remote_text">Urrunekoa: %1$s</string>
     <string name="upload_query_move_foreign_files">Hautatutako fitxategiak ezin dira %1$sra kopiatu ez dagoelako toki nahikorik. Kopiatu ordez bertara mugitu nahi dituzu?</string>
     <string name="pass_code_enter_pass_code">Zure pasahitza sar ezazu mesedez</string>
     
@@ -209,10 +198,6 @@
     <string name="pass_code_wrong">Okerreko pasahitza</string>
     <string name="pass_code_stored">Pasahitza gordeta</string>
     
-    <string name="media_notif_ticker">%1$s musika erreproduzigailua</string>
-    <string name="media_state_playing">%1$s (jotzen)</string>
-    <string name="media_state_loading">%1$s (kargatzen)</string>
-    <string name="media_event_done">%1$s erreprodukzioa amaitua</string>
     <string name="media_err_nothing_to_play">Ez da euskarri fitxategia aurkitu</string>
     <string name="media_err_no_account">Ez da konturik eman</string>
     <string name="media_err_not_in_owncloud">Fitxategia ez dago kontu baliagarri batean</string>
@@ -272,8 +257,6 @@ Mesedez, baimendu berriz</string>
     <string name="common_rename">Berrizendatu</string>
     <string name="confirmation_remove_local">Bertakoa bakarrik</string>
     <string name="rename_dialog_title">Idatzi izen berri bat</string>
-    <string name="rename_local_fail_msg">Kopia lokalari ezin zaio izena aldatu, beste izen batekin saia zaitez</string>
-    <string name="rename_server_fail_msg">Zerbitzariari ezin zaio izen berria eman</string>
     <string name="sync_file_fail_msg">Ezin da urruneko fitxategia konprobatu</string>
     <string name="sync_file_nothing_to_do_msg">Fitxategi edukiak dagoeneko sinkronizaturik</string>
     <string name="create_dir_fail_msg">Ezin da karpeta sortu</string>
@@ -282,7 +265,6 @@ Mesedez, baimendu berriz</string>
     <string name="filename_empty">Fitxategi izena ezin da hutsa izan</string>
     <string name="wait_a_moment">Itxoin momentu bat &#8230;</string>
     <string name="wait_checking_credentials">Gordetako nortasun-datuak konprobatzen</string>
-    <string name="filedisplay_unexpected_bad_get_content">Arazo ezezaguna, fitxategia beste app batetik hauta ezazu</string>
     <string name="filedisplay_no_file_selected">Ez da fitxategirik hautatu</string>
     <string name="activity_chooser_title">Bidali lotura honi &#8230;</string>
     <string name="wait_for_tmp_copy_from_private_storage">Fitxategia biltegiratze pribatutik kopiatzen</string>

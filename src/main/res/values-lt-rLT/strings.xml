@@ -48,7 +48,6 @@
     <string name="prefs_calendar_contacts">Sinchronizuoti kalendorių ir kontaktus</string>
     <string name="prefs_calendar_contacts_summary">Nustatykite \"DAVdroid\" versiją (v1.3.0 +) esamame profilyje</string>
     <string name="prefs_calendar_contacts_address_resolve_error">Šios paskyros serverio adreso nepavyko pritaikyti \"DAVdroid\" </string>
-    <string name="prefs_calendar_contacts_no_store_error">Neįdiegta nei F-droid, nei Google Play</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Kalendoriaus &amp; kontaktų sinchronizavimas nustatytas</string>
     <string name="prefs_daily_contacts_sync_summary">Kontaktų atsarginė kopija</string>
     <string name="prefs_help">Pagalba</string>
@@ -56,11 +55,7 @@
     <string name="prefs_feedback">Atsiliepimai</string>
     <string name="prefs_imprint">Spaudas, antspaudas</string>
 
-	<string name="recommend_subject">Išbandykite %1$s savo išmaniajame telefone!</string>
-	<string name="recommend_text">Kviečiu jus naudotis %1$s savo telefone. Atsisiuntimai: %2$s</string>
-    <string name="recommend_urls">%1$s ar %2$s</string>
-
-    <string name="auth_check_server">Patikrinti serverį</string>
+	<string name="auth_check_server">Patikrinti serverį</string>
     <string name="auth_host_url">Serverio adresas https://&#8230;</string>
     <string name="auth_username">Naudotojo vardas</string>
     <string name="auth_password">Slaptažodis</string>
@@ -191,11 +186,6 @@
     <string name="sync_foreign_files_forgotten_ticker">Keli vietiniai failai buvo užmiršti</string>
     <string name="sync_foreign_files_forgotten_content">%1$d failai iš %2$s aplanko negali būti nukopijuoti</string>
     <string name="sync_current_folder_was_removed">Aplankas %1$s nebeegzistuoja</string>
-    <string name="foreign_files_move">Perkelti visus</string>
-    <string name="foreign_files_success">Visi failai buvo perkelti</string>
-    <string name="foreign_files_fail">Kai kurių failų negalima perkelti</string>
-    <string name="foreign_files_local_text">Vietinis: %1$s</string>
-    <string name="foreign_files_remote_text">Nuotolinis: %1$s</string>
     <string name="upload_query_move_foreign_files">Nepakankamas vietos kiekis neleidžia kopijuoti pasirinktų failų į %1$s aplanką. Ar norėtumėte vietoje to juos perkelti?</string>
     <string name="pass_code_enter_pass_code">Prašome įvesti slaptažodį</string>
     
@@ -206,10 +196,6 @@
     <string name="pass_code_wrong">Neteisingas užraktas</string>
     <string name="pass_code_stored">Užraktas išsaugotas</string>
     
-    <string name="media_notif_ticker">%1$s muzikos grotuvas</string>
-    <string name="media_state_playing">%1$s (grojama)</string>
-    <string name="media_state_loading">%1$s (įkeliama)</string>
-    <string name="media_event_done">%1$s sąrašas baigtas</string>
     <string name="media_err_nothing_to_play">Nerasta medija failų</string>
     <string name="media_err_no_account">Nenurodyta paskyra</string>
     <string name="media_err_not_in_owncloud">Failas nėra galiojančioje paskyroje (profilyje)</string>
@@ -269,8 +255,6 @@
     <string name="common_rename">Pervadinti</string>
     <string name="confirmation_remove_local">Tik vietiniai</string>
     <string name="rename_dialog_title">Įveskite naują pavadinimą</string>
-    <string name="rename_local_fail_msg">Lokalios kopijos pervadinti nepavyko, pabandykite kitą pavadinimą</string>
-    <string name="rename_server_fail_msg">Pervadinti nepavyko</string>
     <string name="sync_file_fail_msg">Nutolę failai negalėjo būti patikrinti</string>
     <string name="sync_file_nothing_to_do_msg">Failo turinys jau sunchronizuotas</string>
     <string name="create_dir_fail_msg">Nepavyko sukurti failo</string>
@@ -279,7 +263,6 @@
     <string name="filename_empty">Failo pavadinimas negali būti tuščias</string>
     <string name="wait_a_moment">Palaukite minutėlę&#8230;</string>
     <string name="wait_checking_credentials">Dekriptuojami prisijungimo duomenys</string>
-    <string name="filedisplay_unexpected_bad_get_content">Netikėta problema ; prašome pasirinkti failą iš kitos programėlės</string>
     <string name="filedisplay_no_file_selected">Neįkeltas joks failas</string>
     <string name="activity_chooser_title">Siųsti nuorodą asmeniui &#8230;</string>
     <string name="wait_for_tmp_copy_from_private_storage">Kopijuojamas failas iš privačios saugyklos</string>
@@ -396,8 +379,6 @@
     <string name="file_migration_failed_not_readable">failų sistema nenuskaitoma</string>
     <string name="file_migration_failed_dir_already_exists">Programėlės katalogas jau yra</string>
     <string name="file_migration_failed_while_coping">Klaida ištrynimo metu:</string>
-    <string name="file_migration_failed_while_updating_index">Įvyko klaida atnaujinant programą</string>
-
     <string name="file_migration_directory_already_exists">Duomenų aplankas jau yra, ką daryti?</string>
     <string name="file_migration_override_data_folder">Pakeisti</string>
     <string name="file_migration_use_data_folder">Naudok</string>
@@ -554,8 +535,6 @@
     <string name="participate_contribute_translate_text">Programėlė</string>
     <string name="participate_contribute_github_text">Peržiūrėti, pataisyti ir įrašyti kodą, žr. %1$s</string>
     <string name="participate_rc_play_store">Gauti versiją kandidatę išleidimui Google Play </string>
-    <string name="participate_rc_fdroid">Gauti versiją kandidatę f-droid app store</string>
-    <string name="participate_dev_fdroid">Gauti kūrėjo versiją f-droid app store</string>
     <string name="participate_dev_direct_download">Gauti kūrėjo versiją tiesiogiai atsisiųsti</string>
     <string name="move_to">Perkelti į&#8230;</string>
     <string name="copy_to">Kopijuoti į&#8230;</string>
@@ -652,7 +631,6 @@
     <string name="contacts_preference_choose_date">Pasirinkite datą</string>
     <string name="contacts_preference_backup_never">Niekada</string>
     <string name="contacts_preferences_no_file_found">Failas nerastas</string>
-    <string name="contacts_preferences_something_strange_happened">Negalime rasti paskutinės atsarginės kopijos!</string>
     <string name="contacts_preferences_backup_scheduled">Atsarginės kopijos darymas suplanuotas ir prasidės netrukus</string>
     <string name="contacts_preferences_import_scheduled">Importas suplanuotas ir prasidės netrukus</string>
 
@@ -683,4 +661,4 @@
     <string name="push_notifications_not_implemented">Stumti pranešimus, kurie išjungti dėl ryšių su Google Play servisais</string>
     <string name="push_notifications_old_login">Nėra pranešimų dėl pasenusios prisijungimo sesijos. Pasvarstykite galimybę iš naujo pridėti prisijungimo duomenis.</string>
     <string name="push_notifications_temp_error">Stumti pranešimus funkcija šiuo metu negalima</string>
-</resources>
+    </resources>

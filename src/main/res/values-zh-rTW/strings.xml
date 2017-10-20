@@ -47,7 +47,6 @@
     <string name="prefs_calendar_contacts">設定日曆與聯絡人同步</string>
     <string name="prefs_calendar_contacts_summary">設定目前帳戶所使用的 DAVdroid (V1.3.0+)</string>
     <string name="prefs_calendar_contacts_address_resolve_error">帳戶的伺服器位址無法被 DAVdroid 辨認</string>
-    <string name="prefs_calendar_contacts_no_store_error">尚未安裝 F-droid 或 Google Play</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">日曆 &amp; 聯絡人同步設定</string>
     <string name="prefs_daily_contacts_sync_summary">每日備份通訊錄</string>
     <string name="prefs_help">說明</string>
@@ -55,11 +54,7 @@
     <string name="prefs_feedback">回饋</string>
     <string name="prefs_imprint">法律聲明</string>
 
-	<string name="recommend_subject">在您的手機中試用 %1$s ！</string>
-	<string name="recommend_text">我想邀請您在您的手機上使用%1$s！可以由這兒下載：%2$s</string>
-    <string name="recommend_urls">%1$s或%2$s</string>
-
-    <string name="auth_check_server">檢查伺服器</string>
+	<string name="auth_check_server">檢查伺服器</string>
     <string name="auth_username">使用者名稱</string>
     <string name="auth_password">密碼</string>
     <string name="auth_register">還沒有伺服器嗎？\n點這裡可以從供應商取得一個。</string>
@@ -182,11 +177,6 @@
     <string name="sync_foreign_files_forgotten_ticker">有些本地端的檔案已遺失</string>
     <string name="sync_foreign_files_forgotten_content">%2$s 資料夾中的 %1$d 個檔案無法被複製進去</string>
     <string name="sync_current_folder_was_removed">資料夾%1$s已不存在</string>
-    <string name="foreign_files_move">移動全部</string>
-    <string name="foreign_files_success">所有檔案已被移動</string>
-    <string name="foreign_files_fail">部份檔案無法被移動</string>
-    <string name="foreign_files_local_text">本地： %1$s</string>
-    <string name="foreign_files_remote_text">遠端： %1$s</string>
     <string name="upload_query_move_foreign_files">空間不足以將選擇檔案複製到%1$s資料夾，是否要改用移動檔案？</string>
     <string name="pass_code_enter_pass_code">請輸入通行碼</string>
     
@@ -197,10 +187,6 @@
     <string name="pass_code_wrong">通行碼錯誤</string>
     <string name="pass_code_stored">通行碼已儲存</string>
     
-    <string name="media_notif_ticker">%1$s 音樂播放器</string>
-    <string name="media_state_playing">%1$s （播放中）</string>
-    <string name="media_state_loading">%1$s （載入中）</string>
-    <string name="media_event_done">%1$s 已播放</string>
     <string name="media_err_nothing_to_play">沒有發現媒體檔案</string>
     <string name="media_err_no_account">沒有提供的帳戶</string>
     <string name="media_err_not_in_owncloud">檔案不存在於有效的帳戶中</string>
@@ -255,8 +241,6 @@
     <string name="common_rename">重新命名</string>
     <string name="confirmation_remove_local">只有本地</string>
     <string name="rename_dialog_title">輸入新名稱</string>
-    <string name="rename_local_fail_msg">本地副本檔案無法被重新命名,請嘗試其他名稱</string>
-    <string name="rename_server_fail_msg">無法給予新伺服器名稱</string>
     <string name="sync_file_fail_msg">無法檢查遠端檔案</string>
     <string name="sync_file_nothing_to_do_msg">檔案已同步</string>
     <string name="create_dir_fail_msg">無法新增資料夾</string>
@@ -264,7 +248,6 @@
     <string name="filename_forbidden_charaters_from_server">檔案名稱含有不合法的字元</string>
     <string name="filename_empty">檔名不能為空</string>
     <string name="wait_checking_credentials">檢查儲存的帳號密碼</string>
-    <string name="filedisplay_unexpected_bad_get_content">未知的問題,請透過不同應用程式選擇檔案</string>
     <string name="filedisplay_no_file_selected">未選擇任何檔案</string>
     <string name="activity_chooser_title">傳送連結至&#8230;</string>
     <string name="wait_for_tmp_copy_from_private_storage">由私有儲存空間複製檔案中</string>
@@ -375,8 +358,6 @@
     <string name="file_migration_failed_not_readable">錯誤: 檔案不能讀取</string>
     <string name="file_migration_failed_dir_already_exists">錯誤:Nextcloud目錄已存在</string>
     <string name="file_migration_failed_while_coping">錯誤:移動中出現失敗</string>
-    <string name="file_migration_failed_while_updating_index">錯誤:更新目錄失敗</string>
-
     <string name="file_migration_directory_already_exists">資料目錄已存在.請選擇下列其一:</string>
     <string name="file_migration_override_data_folder">取代</string>
     <string name="file_migration_use_data_folder">使用</string>
