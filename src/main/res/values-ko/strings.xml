@@ -48,7 +48,6 @@
     <string name="prefs_calendar_contacts">캘린더 &amp; 연락처 동기화</string>
     <string name="prefs_calendar_contacts_summary">이 계정을 위해 DAVdroid (버전 1.3.0 이상)를 설정하세요</string>
     <string name="prefs_calendar_contacts_address_resolve_error"> DAVdroid가 계정의 서버 주소를 해석할 수 없습니다</string>
-    <string name="prefs_calendar_contacts_no_store_error">F-droid나 Google Play가 설치되어 있지 않습니다.</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">달력 설정 &amp; 연락처 동기화 설정</string>
     <string name="prefs_daily_contacts_sync_summary">연락처 일간 백업</string>
     <string name="prefs_help">도움말</string>
@@ -56,11 +55,7 @@
     <string name="prefs_feedback">피드백</string>
     <string name="prefs_imprint">법적 고지</string>
 
-	<string name="recommend_subject">%1$s을(를) 스마트폰에서 사용해 보세요!</string>
-	<string name="recommend_text">스마트폰에서 %1$s를 사용해보세요. 여기서 다운로드 하실 수 있습니다: %2$s</string>
-    <string name="recommend_urls">%1$s 및 %2$s</string>
-
-    <string name="auth_check_server">서버 확인</string>
+	<string name="auth_check_server">서버 확인</string>
     <string name="auth_host_url">서버 주소 https://&#8230;</string>
     <string name="auth_username">사용자 이름</string>
     <string name="auth_password">암호</string>
@@ -181,11 +176,6 @@
     <string name="sync_foreign_files_forgotten_ticker">일부 로컬 파일이 사라졌습니다.</string>
     <string name="sync_foreign_files_forgotten_content">폴더 %2$s의 파일 중 %1$d개를 복사할 수 없습니다</string>
     <string name="sync_current_folder_was_removed">%1$s 폴더는 더 이상 존재하지 않습니다</string>
-    <string name="foreign_files_move">모두 이동</string>
-    <string name="foreign_files_success">모든 파일 이동됨</string>
-    <string name="foreign_files_fail">몇몇 파일을 이동할 수 없음</string>
-    <string name="foreign_files_local_text">로컬: %1$s</string>
-    <string name="foreign_files_remote_text">원격: %1$s</string>
     <string name="pass_code_enter_pass_code">암호코드를 입력하십시오</string>
     
     <string name="pass_code_configure_your_pass_code">암호를 입력하십시오</string>
@@ -195,10 +185,6 @@
     <string name="pass_code_wrong">암호가 잘못됨</string>
     <string name="pass_code_stored">암호 저장됨</string>
     
-    <string name="media_notif_ticker">%1$s 음악 재생기</string>
-    <string name="media_state_playing">%1$s (재생 중)</string>
-    <string name="media_state_loading">%1$s (불러오는 중)</string>
-    <string name="media_event_done">%1$s 재생 완료됨</string>
     <string name="media_err_nothing_to_play">미디어 파일을 찾을 수 음</string>
     <string name="media_err_no_account">준비된 계정이 없습니다</string>
     <string name="media_err_unsupported">지원하지 않는 미디어 코덱</string>
@@ -241,7 +227,6 @@
     <string name="filename_empty">파일 이름이 비어 있을 수 없음</string>
     <string name="wait_a_moment">기다려주십시오&#8230;</string>
     <string name="wait_checking_credentials">저장된 인증 확인</string>
-    <string name="filedisplay_unexpected_bad_get_content">예상하지 못한 오류, 다른 앱에서 파일을 선택하세요</string>
     <string name="filedisplay_no_file_selected">선택된 파일 없음</string>
     <string name="activity_chooser_title">다음으로 링크 보내기&#8230;</string>
     <string name="wait_for_tmp_copy_from_private_storage">개인 저장소에서 파일 복사</string>
@@ -338,8 +323,6 @@
     <string name="file_migration_failed_not_readable">오류: 원본 파일 읽기 불가</string>
     <string name="file_migration_failed_dir_already_exists">오류: Nextcloud 폴더가 이미 존재합니다</string>
     <string name="file_migration_failed_while_coping">오류: 마이그레이션 실패</string>
-    <string name="file_migration_failed_while_updating_index">오류: 인덱스 업데이트 실패</string>
-
     <string name="file_migration_directory_already_exists">데이터 폴더가 이미 존재합니다. 다음 중 하나를 고르세요:</string>
     <string name="file_migration_override_data_folder">바꾸기</string>
     <string name="file_migration_source_not_readable_title">원본 폴더 읽기 불가!</string>
@@ -448,8 +431,6 @@
     <string name="participate_contribute_forum_forum">포럼</string>
     <string name="participate_contribute_translate_translate">번역</string>
     <string name="participate_rc_play_store">구글 플레이스토어에서 RC버전 얻기</string>
-    <string name="participate_rc_fdroid">f-droid 앱스토어에서 RC버전 얻기</string>
-    <string name="participate_dev_fdroid">f-droid 앱스토어에서 개발 버전 얻기</string>
     <string name="participate_dev_direct_download">직접 다운로드로 개발 버전 얻기</string>
     <string name="move_to">(으)로 이동&#8230;</string>
     <string name="copy_to">(으)로 복사&#8230;</string>

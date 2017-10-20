@@ -48,7 +48,6 @@
     <string name="prefs_calendar_contacts">Sinkronkan kalender &amp; kontak</string>
     <string name="prefs_calendar_contacts_summary">Atur DAVdroid (v1.3.0+) untuk akun saat ini</string>
     <string name="prefs_calendar_contacts_address_resolve_error">Alamat server untuk akun tidak dapat diselesaikan untuk DAVdroid</string>
-    <string name="prefs_calendar_contacts_no_store_error">F-droid atau Google Play belum terpasang</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Pemasangan kalender &amp; kontak</string>
     <string name="prefs_daily_contacts_sync_summary">Cadangkan kontak harian</string>
     <string name="prefs_help">Bantuan</string>
@@ -56,11 +55,7 @@
     <string name="prefs_feedback">Umpan balik</string>
     <string name="prefs_imprint">Jejak</string>
 
-	<string name="recommend_subject">Cobalah %1$s pada ponsel cerdas Anda!</string>
-	<string name="recommend_text">Bila anda ingin mengundang gunakan %1$s di ponsel pintar.\nUnduh di: %2$s</string>
-    <string name="recommend_urls">%1$s atau %2$s</string>
-
-    <string name="auth_check_server">Periksa peladen</string>
+	<string name="auth_check_server">Periksa peladen</string>
     <string name="auth_host_url">Alamat server https://&#8230;</string>
     <string name="auth_username">Nama Pengguna</string>
     <string name="auth_password">Sandi</string>
@@ -191,11 +186,6 @@
     <string name="sync_foreign_files_forgotten_ticker">Beberapa berkas lokal terlupakan</string>
     <string name="sync_foreign_files_forgotten_content">%1$d berkas diluar folder %2$s tidak dapat disalin kedalamnya</string>
     <string name="sync_current_folder_was_removed">Folder %1$s sudah tidak ada lagi</string>
-    <string name="foreign_files_move">Pindahkan semua</string>
-    <string name="foreign_files_success">Semua berkas sudah dipindahkan</string>
-    <string name="foreign_files_fail">Beberapa berkas tidak dapat dipindahkan</string>
-    <string name="foreign_files_local_text">Lokal: %1$s</string>
-    <string name="foreign_files_remote_text">Remote: %1$s</string>
     <string name="upload_query_move_foreign_files">Ruang tidak cukup untuk menyalin berkas terpilih ke folder %1$s. Apakah Anda ingin memindahkannya?</string>
     <string name="pass_code_enter_pass_code">Masukkan kode kunci Anda</string>
     
@@ -206,10 +196,6 @@
     <string name="pass_code_wrong">Kode sandi salah</string>
     <string name="pass_code_stored">Kode sandi disimpan</string>
     
-    <string name="media_notif_ticker">Pemutar musik %1$s</string>
-    <string name="media_state_playing">%1$s (dimainkan)</string>
-    <string name="media_state_loading">%1$s (sedang dimuat)</string>
-    <string name="media_event_done">%1$s pemutaran selesai</string>
     <string name="media_err_nothing_to_play">Tidak ditemukan berkas media</string>
     <string name="media_err_no_account">Tidak ada akun yang diberikan</string>
     <string name="media_err_not_in_owncloud">Berkas tidak didalam akun yang sah</string>
@@ -267,8 +253,6 @@
     <string name="common_rename">Ubah nama</string>
     <string name="confirmation_remove_local">Lokal saja</string>
     <string name="rename_dialog_title">Masukkan nama baru</string>
-    <string name="rename_local_fail_msg">Salinan lokal tidak dapat diubah namanya, coba dengan nama yang berbeda</string>
-    <string name="rename_server_fail_msg">Tidak dapat menggunakan nama server yang baru</string>
     <string name="sync_file_fail_msg">Tidak dapat mengecek berkas remot</string>
     <string name="sync_file_nothing_to_do_msg">Isi berkas sudah diselaraskan</string>
     <string name="create_dir_fail_msg">Folder tidak dapat dibuat</string>
@@ -277,7 +261,6 @@
     <string name="filename_empty">Nama berkas tidak boleh kosong</string>
     <string name="wait_a_moment">Tunggu sebentar &#8230;</string>
     <string name="wait_checking_credentials">Mengecek kredensial yang tersimpan</string>
-    <string name="filedisplay_unexpected_bad_get_content">Masalah tidak terduga, silahkan pilih berkas dari aplikasi yang berbeda</string>
     <string name="filedisplay_no_file_selected">Tidak ada berkas yang dipilih</string>
     <string name="activity_chooser_title">Kirim taukan ke &#8230;</string>
     <string name="wait_for_tmp_copy_from_private_storage">Menyalin berkas dari penyimpanan pribadi</string>
@@ -391,8 +374,6 @@
     <string name="file_migration_failed_not_readable">GALAT: Berkas sumber tidak dapat dibaca</string>
     <string name="file_migration_failed_dir_already_exists">GALAT: Direktori Nextcloud sudah ada</string>
     <string name="file_migration_failed_while_coping">GALAT: Ketika migrasi</string>
-    <string name="file_migration_failed_while_updating_index">GALAT: Ketika memperbarui indeks</string>
-
     <string name="file_migration_directory_already_exists">Data folder sudah ada, pilih salah satu?</string>
     <string name="file_migration_override_data_folder">Timpa</string>
     <string name="file_migration_use_data_folder">Gunakan</string>
@@ -548,8 +529,6 @@
     <string name="participate_contribute_translate_text">aplikasi</string>
     <string name="participate_contribute_github_text">Tinjauan, perubahan dan penulis kode lihat %1$suntuk jelasnya.</string>
     <string name="participate_rc_play_store">Dapatkan calon rilis lewat Google Play store.</string>
-    <string name="participate_rc_fdroid">Dapatkan calon rilis lewat  f-droid app store</string>
-    <string name="participate_dev_fdroid">Dapatkan rilis pengembangan lewat f-droid app store</string>
     <string name="participate_dev_direct_download">Dapatkan rilis pengembangan dengan download langsung.</string>
     <string name="move_to">Pindah ke&#8230;</string>
     <string name="copy_to">Salin ke&#8230;</string>
@@ -642,7 +621,6 @@
     <string name="contacts_preference_choose_date">Pilih tanggal.</string>
     <string name="contacts_preference_backup_never">tidak pernah.</string>
     <string name="contacts_preferences_no_file_found">Tidak ada berkas ditemukan.</string>
-    <string name="contacts_preferences_something_strange_happened">Tidak dapat menemukan pencadangan terbaru.</string>
     <string name="contacts_preferences_backup_scheduled">Jadwalkan pencadangan dan jalankan sebentar lagi.</string>
     <string name="contacts_preferences_import_scheduled">Impor jadwal dan jalankan sebentar lagi.</string>
 

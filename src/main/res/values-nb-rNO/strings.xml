@@ -48,7 +48,6 @@
     <string name="prefs_calendar_contacts">Synkroniser kalender &amp; kontakter</string>
     <string name="prefs_calendar_contacts_summary">Sett opp DAVdroid (v1.3.0+) for nåværende konto</string>
     <string name="prefs_calendar_contacts_address_resolve_error">Tjeneradressen for kontoen ble ikke funnet for DAVdroid</string>
-    <string name="prefs_calendar_contacts_no_store_error">Hverken F-Droid eller Google play er installert</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Kalender &amp; kontaktsynkronisering ble satt opp</string>
     <string name="prefs_daily_contacts_sync_summary">Daglig sikkerhetskopiering av dine kontakter</string>
     <string name="prefs_help">Hjelp</string>
@@ -56,11 +55,7 @@
     <string name="prefs_feedback">Tilbakemelding</string>
     <string name="prefs_imprint">Avtrykk</string>
 
-	<string name="recommend_subject">Prøv %1$s på smarttelefonen din!</string>
-	<string name="recommend_text">Jeg ønsker å invitere deg til å bruke %1$s på smarttelefonen din!\nLast ned her: %2$s</string>
-    <string name="recommend_urls">%1$s eller %2$s</string>
-
-    <string name="auth_check_server">Sjekk tjener</string>
+	<string name="auth_check_server">Sjekk tjener</string>
     <string name="auth_host_url">Tjeneradresse https://&#8230;</string>
     <string name="auth_username">Brukernavn</string>
     <string name="auth_password">Passord</string>
@@ -183,6 +178,7 @@
     <string name="downloader_not_downloaded_yet">Ikke lastet ned enda</string>
     <string name="downloader_download_failed_credentials_error">Nedlasting mislyktes, du må logge inn på nytt</string>
     <string name="common_choose_account">Velg konto</string>
+    <string name="common_switch_account">Bytt konto</string>
     <string name="sync_fail_ticker">Synkronisering mislyktes</string>
     <string name="sync_fail_ticker_unauthorized">Synkronisering mislyktes, du må logge inn på nytt</string>
     <string name="sync_fail_content">Synkronisering av %1$s kunne ikke fullføres</string>
@@ -194,11 +190,6 @@
     <string name="sync_foreign_files_forgotten_ticker">Noen lokale filer ble glemt</string>
     <string name="sync_foreign_files_forgotten_content">%1$d filer fra %2$s mappen kunne ikke kopieres til</string>
     <string name="sync_current_folder_was_removed">Mappen %1$s finnes ikke lengre</string>
-    <string name="foreign_files_move">Flytt alle</string>
-    <string name="foreign_files_success">Alle filer ble flyttet</string>
-    <string name="foreign_files_fail">Noen filer kunne ikke fjernes</string>
-    <string name="foreign_files_local_text">Lokal: %1$s</string>
-    <string name="foreign_files_remote_text">Ekstern: %1$s</string>
     <string name="upload_query_move_foreign_files">Det er ikke nok plass til å kopiere de valgte filene inn i mappen %1$s. Vil du flytte dem i stedet? </string>
     <string name="pass_code_enter_pass_code">Sett inn passordet ditt</string>
     
@@ -211,10 +202,6 @@
     <string name="pass_code_removed">Passkode slettet</string>
     <string name="pass_code_stored">Passord lagret</string>
     
-    <string name="media_notif_ticker">%1$s musikkspiller</string>
-    <string name="media_state_playing">%1$s (spiller)</string>
-    <string name="media_state_loading">%1$s (laster)</string>
-    <string name="media_event_done">%1$s avspilling avsluttet</string>
     <string name="media_err_nothing_to_play">Ingen mediafil funnet</string>
     <string name="media_err_no_account">Ingen konto angitt</string>
     <string name="media_err_not_in_owncloud">Filen er ikke i en gyldig konto</string>
@@ -272,14 +259,8 @@
     <string name="favorite_switch">Tilgjengelig i frakoblet modus</string>
     <string name="common_rename">Gi nytt navn</string>
     <string name="common_remove">Slett</string>
-    <string name="confirmation_remove_file_alert">Ønsker du virkelig å slette %1$s?</string>
-    <string name="confirmation_remove_folder_alert">Ønsker du virkelig å slette %1$s og dets innhold?</string>
     <string name="confirmation_remove_local">Kun lokalt</string>
-    <string name="remove_success_msg">"Slettet"</string>
-    <string name="remove_fail_msg">Sletting mislyktes</string>
     <string name="rename_dialog_title">Skriv inn et nytt navn</string>
-    <string name="rename_local_fail_msg">Lokal kopi kunne ikke endre navn; prøv et annet navn</string>
-    <string name="rename_server_fail_msg">Klarte ikke å endre navn</string>
     <string name="sync_file_fail_msg">Eksterne filer kunne ikke sjekkes</string>
     <string name="sync_file_nothing_to_do_msg">filinnhold er allerede synkronisert</string>
     <string name="create_dir_fail_msg">Mappe kunne ikke opprettes</string>
@@ -288,7 +269,6 @@
     <string name="filename_empty">Filnavn kan ikke være tomt</string>
     <string name="wait_a_moment">Vent et øyeblikk&#8230;</string>
     <string name="wait_checking_credentials">Sjekker lagrede påloggingsdetaljer</string>
-    <string name="filedisplay_unexpected_bad_get_content">Uventet problem; velg filen fra et annet program</string>
     <string name="filedisplay_no_file_selected">Ingen fil ble valgt</string>
     <string name="activity_chooser_title">Send lenke til &#8230;</string>
     <string name="wait_for_tmp_copy_from_private_storage">Kopierer fil fra privat lager</string>
@@ -405,8 +385,6 @@
     <string name="file_migration_failed_not_readable">Feil: Målfil ikke lesbar</string>
     <string name="file_migration_failed_dir_already_exists">Feil: Nextcloud-mappen finnes allerede</string>
     <string name="file_migration_failed_while_coping">Feil: Mislyktes under flytting</string>
-    <string name="file_migration_failed_while_updating_index">Feil: Klarte ikke å oppdatere indeks</string>
-
     <string name="file_migration_directory_already_exists">Datamappen finnes allerede. Velg en av disse:</string>
     <string name="file_migration_override_data_folder">Erstatt</string>
     <string name="file_migration_use_data_folder">Bruk</string>
@@ -562,8 +540,6 @@
     <string name="participate_contribute_translate_text">programmet</string>
     <string name="participate_contribute_github_text">Gjennomse, endre og skriv kode, se %1$s for detaljer</string>
     <string name="participate_rc_play_store">Få lanseringskandidaten via Google Play butikken</string>
-    <string name="participate_rc_fdroid">Få lanseringskandidaten via F-droid app butikk</string>
-    <string name="participate_dev_fdroid">Få utviklingsversjonen via F-droid app butikk</string>
     <string name="participate_dev_direct_download">Få utviklingsversjonen via direkte nedlasting</string>
     <string name="move_to">Flytt til&#8230;</string>
     <string name="copy_to">Kopier til&#8230;</string>
@@ -659,7 +635,6 @@
     <string name="contacts_preference_choose_date">Velg dato</string>
     <string name="contacts_preference_backup_never">aldri</string>
     <string name="contacts_preferences_no_file_found">Ingen fil funnet</string>
-    <string name="contacts_preferences_something_strange_happened">Vi kan ikke finne din siste sikkerhetskopi!</string>
     <string name="contacts_preferences_backup_scheduled">Sikkerhetskopi planlagt og i snarlig effektuering</string>
     <string name="contacts_preferences_import_scheduled">Importering planlagt og i snarlig effektuering</string>
 
@@ -690,4 +665,4 @@
     <string name="push_notifications_not_implemented">Push-merknader er avskrudd på grunn av avhengigheter til proprietære Google Play-tjenester.</string>
     <string name="push_notifications_old_login">Ingen push-merknader på grunn av utdatert innloggingsøkt. Overvei å legge til kontoen din på nytt.</string>
     <string name="push_notifications_temp_error">Push-merknader er for tiden ikke tilgjengelige.</string>
-</resources>
+    </resources>

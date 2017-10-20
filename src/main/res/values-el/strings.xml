@@ -48,7 +48,6 @@
     <string name="prefs_calendar_contacts">Συγχρονισμός ημερολογίου &amp; επαφών</string>
     <string name="prefs_calendar_contacts_summary">Ρυθμίστε το DAVdroid (v1.3.0+) για τον τρέχον λογαριασμό</string>
     <string name="prefs_calendar_contacts_address_resolve_error">Η διεύθυνση του διακομιστή για τον λογαριασμό δεν μπορεί να καθοριστεί για το DAVdroid</string>
-    <string name="prefs_calendar_contacts_no_store_error">Δεν είναι εγκατεστημένο το F-droid αλλά ούτε και το Google Play</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Επιτυχής ρύθμιση συγχρονισμού ημερολογίου &amp; επαφών</string>
     <string name="prefs_daily_contacts_sync_summary">Ημερήσιο αντίγραφο ασφαλείας των επαφών σας </string>
     <string name="prefs_help">Βοήθεια</string>
@@ -56,11 +55,7 @@
     <string name="prefs_feedback">Aνάδραση</string>
     <string name="prefs_imprint">Αποτύπωμα</string>
 
-	<string name="recommend_subject">Δοκιμή %1$s στο κινητό σας!</string>
-	<string name="recommend_text">Θα ήθελα να σε προσκαλέσω να χρησιμοποιήσεις το %1$s στο κινητό σου!\nΛήψη από εδώ: %2$s</string>
-    <string name="recommend_urls">%1$s ή %2$s</string>
-
-    <string name="auth_check_server">Έλεγχος διακομιστή</string>
+	<string name="auth_check_server">Έλεγχος διακομιστή</string>
     <string name="auth_host_url">Διεύθυνση διακομιστή https://&#8230;</string>
     <string name="auth_username">Όνομα χρήστη</string>
     <string name="auth_password">Συνθηματικό</string>
@@ -191,11 +186,6 @@
     <string name="sync_foreign_files_forgotten_ticker">Ορισμένα τοπικά αρχεία ξεχάστηκαν</string>
     <string name="sync_foreign_files_forgotten_content">%1$d αρχεία από τον %2$s φάκελο δεν ήταν δυνατό να αντιγραφούν σε</string>
     <string name="sync_current_folder_was_removed">Ο φάκελος %1$s δεν υπάρχει πια</string>
-    <string name="foreign_files_move">Μετακίνηση όλων</string>
-    <string name="foreign_files_success">Όλα τα αρχεία μετακινήθηκαν</string>
-    <string name="foreign_files_fail">Μερικά αρχεία δεν μπόρεσαν να μετακινηθούν</string>
-    <string name="foreign_files_local_text">Τοπικά: %1$s</string>
-    <string name="foreign_files_remote_text">Απομακρυσμένα: %1$s</string>
     <string name="upload_query_move_foreign_files">Δεν υπάρχει αρκετός διαθέσιμος αποθηκευτικός χώρος για να αντιγραφούν τα επιλεγμένα αρχεία στον φάκελο %1$s. Θα θέλατε να τα μετακινήσετε αντί αυτού;</string>
     <string name="pass_code_enter_pass_code">Παρακαλούμε εισάγετε τον κωδικό πρόσβασης</string>
     
@@ -206,10 +196,6 @@
     <string name="pass_code_wrong">Εσφαλμένος κωδικός πρόσβασης</string>
     <string name="pass_code_stored">Ο κωδικός πρόσβασης αποθηκεύτηκε</string>
     
-    <string name="media_notif_ticker">%1$s αναπαραγωγέας μουσικής</string>
-    <string name="media_state_playing">%1$s (αναπαραγωγή)</string>
-    <string name="media_state_loading">%1$s (φόρτωση)</string>
-    <string name="media_event_done">%1$s αναπαραγωγή τελείωσε</string>
     <string name="media_err_nothing_to_play">Δεν βρέθηκαν αρχεία πολυμέσων</string>
     <string name="media_err_no_account">Δεν δόθηκε λογαριασμός</string>
     <string name="media_err_not_in_owncloud">Το αρχείο δεν είναι έγκυρος λογαριασμός</string>
@@ -268,8 +254,6 @@
     <string name="common_rename">Μετονομασία</string>
     <string name="confirmation_remove_local">Μόνο τοπικά</string>
     <string name="rename_dialog_title">Εισάγετε νέο όνομα</string>
-    <string name="rename_local_fail_msg">Το τοπικό αντίγραφο δεν ήταν δυνατόν να μετονομαστεί. Παρακαλούμε επιλέξτε ένα διαφορετικό όνομα.</string>
-    <string name="rename_server_fail_msg">Η μετονομασία δεν μπόρεσε να ολοκληρωθεί</string>
     <string name="sync_file_fail_msg">Αδυναμία ελέγχου του απομακρυσμένου αρχείου</string>
     <string name="sync_file_nothing_to_do_msg">Τα περιεχόμενα του αρχείου έχουν ήδη συγχρονιστεί</string>
     <string name="create_dir_fail_msg">Αδυναμία δημιουργίας φακέλου</string>
@@ -278,7 +262,6 @@
     <string name="filename_empty">Το όνομα αρχείου δεν μπορεί να είναι κενό</string>
     <string name="wait_a_moment">Παρακαλούμε περιμένετε&#8230;</string>
     <string name="wait_checking_credentials">Γίνεται έλεγχος αποθηκευμένων διαπιστευτηρίων</string>
-    <string name="filedisplay_unexpected_bad_get_content">Μη αναμενόμενο πρόβλημα, παρακαλώ ελέγξτε το αρχείο από διαφορετική εφαρμογή</string>
     <string name="filedisplay_no_file_selected">Δεν επιλέχθηκε αρχείο</string>
     <string name="activity_chooser_title">Αποστολή συνδέσμου σε &#8230;</string>
     <string name="wait_for_tmp_copy_from_private_storage">Γίνεται αντιγραφή αρχείου από ιδιωτικό αποθηκευτικό χώρο</string>
@@ -395,8 +378,6 @@
     <string name="file_migration_failed_not_readable">Λάθος: Αδυναμία ανάγνωσης πηγαίου αρχείου </string>
     <string name="file_migration_failed_dir_already_exists">Λάθος: Ο φάκελος Nextcloud υπάρχει ήδη</string>
     <string name="file_migration_failed_while_coping">Λάθος: Αποτυχία κατά την μετάβαση</string>
-    <string name="file_migration_failed_while_updating_index">Σφάλμα: Αποτυχία ενημέρωσης ευρετηρίου</string>
-
     <string name="file_migration_directory_already_exists">Ο φάκελος δεδομένων υπάρχει ήδη. Επιλέξτε ένα από τα παρακάτω:</string>
     <string name="file_migration_override_data_folder">Αντικατάσταση</string>
     <string name="file_migration_use_data_folder">Χρήση</string>
@@ -552,8 +533,6 @@
     <string name="participate_contribute_translate_text">η εφαρμογή</string>
     <string name="participate_contribute_github_text">Επιθεωρήστε, τροποποιήστε και γράψτε κώδικα, δείτε %1$s για λεπτομέρειες</string>
     <string name="participate_rc_play_store">Αποκτήστε τις υποψήφιες εκδόσεις μέσω του Google Play store</string>
-    <string name="participate_rc_fdroid">Αποκτήστε υποψήφια αποδέσμευση μέσω του καταστήματος app f-droid</string>
-    <string name="participate_dev_fdroid">Λάβετε την έκδοση ανάπτυξης μέσω του καταστήματος app f-droid</string>
     <string name="participate_dev_direct_download">Αποκτήστε την έκδοση ανάπτυξης μέσω απευθείας λήψης</string>
     <string name="move_to">Μετακίνηση σε&#8230;</string>
     <string name="copy_to">Αντιγραφή σε&#8230;</string>
@@ -649,7 +628,6 @@
     <string name="contacts_preference_choose_date">Επιλογή ημερομηνίας</string>
     <string name="contacts_preference_backup_never">ποτέ</string>
     <string name="contacts_preferences_no_file_found">Δεν βρέθηκε αρχείο</string>
-    <string name="contacts_preferences_something_strange_happened">Δεν μπορούμε να βρούμε το τελευταίο σας αντίγραφο ασφαλείας!</string>
     <string name="contacts_preferences_backup_scheduled">Η λήψη αντιγράφου αφαλείας έχει προγραμματιστεί και θα ξεκινήσει σύντομα</string>
     <string name="contacts_preferences_import_scheduled">Η εισαγωγή έχει προγραμματιστεί και θα ξεκινήσει σύντομα</string>
 
@@ -680,4 +658,4 @@
     <string name="push_notifications_not_implemented">Οι ειδοποιήσεις απενεργοποιήθηκαν λόγω εξαρτήσεων στις ιδιόκτητες υπηρεσίες Google Play.</string>
     <string name="push_notifications_old_login">Δεν υπάρχουν ειδοποιήσεις λόγω παρωχημένης συνεδρίας σύνδεσης. Παρακαλούμε επανεξετάσετε το ενδεχόμενο να ξανά προσθέσετε τον λογαριασμό σας.</string>
     <string name="push_notifications_temp_error">Οι ειδοποιήσεις push δεν είναι διαθέσιμες αυτήν τη στιγμή.</string>
-</resources>
+    </resources>

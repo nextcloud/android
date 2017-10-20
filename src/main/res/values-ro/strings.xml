@@ -48,7 +48,6 @@
     <string name="prefs_feedback">Feedback</string>
     <string name="prefs_imprint">Imprint</string>
 
-	<string name="recommend_subject">Încearcă %1$s pe smartphone-ul tău!</string>
 	<string name="auth_check_server">Verifică serverul</string>
     <string name="auth_username">Nume utilizator</string>
     <string name="auth_password">Parolă</string>
@@ -133,11 +132,6 @@
     <string name="sync_fail_in_favourites_content">Conținutul a%1$d fișiere nu a putut fi sincronizat (conflicte %2$d)</string>
     <string name="sync_foreign_files_forgotten_ticker">Unele fisiere locale au fost uitate</string>
     <string name="sync_foreign_files_forgotten_content">%1$d fisiere din  dosarul  %2$s nu a putut fi copiat in</string>
-    <string name="foreign_files_move">Muta tot/toate</string>
-    <string name="foreign_files_success">Toate fișierele au fost mutate</string>
-    <string name="foreign_files_fail">Unele fișiere nu au putut fi mutate</string>
-    <string name="foreign_files_local_text">Local: %1$s</string>
-    <string name="foreign_files_remote_text">La distanță: %1$s</string>
     <string name="pass_code_enter_pass_code">Vă rugăm introduceți parola</string>
     
     <string name="pass_code_configure_your_pass_code">Introdu parola</string>
@@ -147,10 +141,6 @@
     <string name="pass_code_wrong">Parolă incorectă</string>
     <string name="pass_code_stored">Parolă stocată</string>
     
-    <string name="media_notif_ticker">%1$s  player de muzică</string>
-    <string name="media_state_playing">%1$s (cântă)</string>
-    <string name="media_state_loading">%1$s (încarcă)</string>
-    <string name="media_event_done">%1$s redare terminată</string>
     <string name="media_err_nothing_to_play">Nu s-a găsit nici un fișier media</string>
     <string name="media_err_no_account">Nu a fost dat nici un cont</string>
     <string name="media_err_unsupported">Codec media fără suport</string>

@@ -48,7 +48,6 @@
     <string name="prefs_calendar_contacts">Synkroniser kalender &amp; kontakter</string>
     <string name="prefs_calendar_contacts_summary">Indstil DAVdroid (v1.3.0+) for aktiv konto</string>
     <string name="prefs_calendar_contacts_address_resolve_error">Serveradresse for konto kunne ikke afgøres for DAVdroid</string>
-    <string name="prefs_calendar_contacts_no_store_error">Hverken F-droid eller Google Play er installeret</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Synkroniser kalender &amp;\'s kontakter</string>
     <string name="prefs_daily_contacts_sync_summary">Daglig backup af dine kontakter</string>
     <string name="prefs_help">Hjælp</string>
@@ -56,7 +55,6 @@
     <string name="prefs_feedback">Feedback</string>
     <string name="prefs_imprint">Aftryk</string>
 
-	<string name="recommend_subject">Prøv %1$s på din smartphone!</string>
 	<string name="auth_check_server">Tjek server</string>
     <string name="auth_username">Brugernavn</string>
     <string name="auth_password">Kodeord</string>
@@ -159,11 +157,6 @@
     <string name="sync_fail_in_favourites_content">Indholdet af %1$d filer ikke kunne synkroniseres (%2$d konflikter)</string>
     <string name="sync_foreign_files_forgotten_ticker">Visse lokale filer blev glemt</string>
     <string name="sync_foreign_files_forgotten_content">%1$d filer ud af %2$s mappe kunne ikke kopieres ind i</string>
-    <string name="foreign_files_move">Flyt alle</string>
-    <string name="foreign_files_success">Alle filer blev flyttet</string>
-    <string name="foreign_files_fail">Visse filer kunne ikke flyttes</string>
-    <string name="foreign_files_local_text">Lokal: %1$s</string>
-    <string name="foreign_files_remote_text">Fjernplacering: %1$s</string>
     <string name="pass_code_enter_pass_code">Indtast venligst din adgangskode</string>
     
     <string name="pass_code_configure_your_pass_code">Angiv din passcode</string>
@@ -173,10 +166,6 @@
     <string name="pass_code_wrong">Ukorrekt passcode</string>
     <string name="pass_code_stored">Passcode blev gendannet</string>
     
-    <string name="media_notif_ticker">%1$s musikafspiller</string>
-    <string name="media_state_playing">%1$s (afspiller)</string>
-    <string name="media_state_loading">%1$s (indlæser)</string>
-    <string name="media_event_done">%1$s afspilning færdig</string>
     <string name="media_err_nothing_to_play">Mediefil ikke fundet</string>
     <string name="media_err_no_account">Ingen konto angivet</string>
     <string name="media_err_not_in_owncloud">Filen er ikke i en gyldig konto</string>
@@ -220,8 +209,6 @@
     <string name="common_rename">Omdøb</string>
     <string name="confirmation_remove_local">Kun lokal</string>
     <string name="rename_dialog_title">Indtast et nyt navn</string>
-    <string name="rename_local_fail_msg">Lokal kopi kunne ikke omdøbes, på et andet navn</string>
-    <string name="rename_server_fail_msg">Kunne ikke omdøbe server</string>
     <string name="sync_file_fail_msg">Kunne ikke tjekke fjern fil</string>
     <string name="sync_file_nothing_to_do_msg">Filindholdet allerede synkroniseret</string>
     <string name="create_dir_fail_msg">Kunne ikke oprette mappe</string>
@@ -449,7 +436,6 @@
     <string name="contacts_preference_choose_date">Vælg dato</string>
     <string name="contacts_preference_backup_never">aldrig</string>
     <string name="contacts_preferences_no_file_found">Ingen fil fundet</string>
-    <string name="contacts_preferences_something_strange_happened">Vi kan ikke finde din sidste backup!</string>
     <string name="drawer_logout">Log ud</string>
     <string name="file_not_found">Fil ikke fundet!</string>
 

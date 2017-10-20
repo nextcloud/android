@@ -48,17 +48,13 @@
     <string name="prefs_calendar_contacts">Synchronizovať kalendár &amp; kontakty</string>
     <string name="prefs_calendar_contacts_summary">Nastaviť DAVdroid (v1.3.0+) pre tento účet</string>
     <string name="prefs_calendar_contacts_address_resolve_error">Adresu servera pre účet sa nepodarilo zistiť pre DAVdroid</string>
-    <string name="prefs_calendar_contacts_no_store_error">Obchod Google Play alebo F-Droid nie je nainštalovaný</string>
     <string name="prefs_daily_contacts_sync_summary">Denná záloha vašich kontaktov</string>
     <string name="prefs_help">Pomoc</string>
     <string name="prefs_recommend">Odporučiť priateľom</string>
     <string name="prefs_feedback">Spätná väzba</string>
     <string name="prefs_imprint">Podmienky používania</string>
 
-	<string name="recommend_subject">Skúste %1$s na vašom telefóne!</string>
-	<string name="recommend_urls">%1$s alebo %2$s</string>
-
-    <string name="auth_check_server">Skontrolovať server</string>
+	<string name="auth_check_server">Skontrolovať server</string>
     <string name="auth_host_url">Adresa servera https://&#8230;</string>
     <string name="auth_username">Používateľské meno</string>
     <string name="auth_password">Heslo</string>
@@ -162,11 +158,6 @@
     <string name="sync_fail_in_favourites_content">Obsah %1$d súborov nemohol byť synchronizovaný (%2$d konfliktov)</string>
     <string name="sync_foreign_files_forgotten_ticker">Niektoré lokálne súbory boli zabudnuté</string>
     <string name="sync_foreign_files_forgotten_content">%1$d súborov z %2$s priečinkov sa nepodarilo skopírovať do</string>
-    <string name="foreign_files_move">Premiestniť všetko</string>
-    <string name="foreign_files_success">Všetky súbory boli premiestnené</string>
-    <string name="foreign_files_fail">Niektoré súbory nebolo možné premiestniť</string>
-    <string name="foreign_files_local_text">Lokálne: %1$s</string>
-    <string name="foreign_files_remote_text">Vzdialené: %1$s</string>
     <string name="pass_code_enter_pass_code">Vložte prosím svoje heslo</string>
     
     <string name="pass_code_configure_your_pass_code">Vložte svoje heslo</string>
@@ -176,10 +167,6 @@
     <string name="pass_code_wrong">Nesprávne heslo</string>
     <string name="pass_code_stored">Bezpečnostný kód uložený</string>
     
-    <string name="media_notif_ticker">Prehrávač hudby %1$s</string>
-    <string name="media_state_playing">%1$s (prehráva)</string>
-    <string name="media_state_loading">%1$s (načítava)</string>
-    <string name="media_event_done">%1$s prehrávanie dokončené</string>
     <string name="media_err_nothing_to_play">Nenájdený žiaden multimediálny súbor</string>
     <string name="media_err_no_account">Účet neposkytnutý</string>
     <string name="media_err_unsupported">Nepodporovaný kodek</string>

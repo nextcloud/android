@@ -48,18 +48,13 @@
     <string name="prefs_calendar_contacts">コンタクト &amp; カレンダーを同期</string>
     <string name="prefs_calendar_contacts_summary">DAVdroid (v1.3.0以上) を現在のアカウントで使う</string>
     <string name="prefs_calendar_contacts_address_resolve_error">DAVdroid でアカウントのサーバーアドレスが解決できませんでした。</string>
-    <string name="prefs_calendar_contacts_no_store_error">F-droid または Google Play がインストールされていません</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">カレンダー &amp; 連絡先の同期設定しました</string>
     <string name="prefs_help">ヘルプ</string>
     <string name="prefs_recommend">友達に推奨</string>
     <string name="prefs_feedback">フィードバック</string>
     <string name="prefs_imprint">インプリント</string>
 
-	<string name="recommend_subject">スマートフォンで %1$s を試してください！</string>
-	<string name="recommend_text">スマートフォンで %1$s を利用してみませんか。\nここからダウンロードしてください: %2$s</string>
-    <string name="recommend_urls">%1$sまたは%2$s</string>
-
-    <string name="auth_check_server">サーバーのチェック</string>
+	<string name="auth_check_server">サーバーのチェック</string>
     <string name="auth_username">ユーザー名</string>
     <string name="auth_password">パスワード</string>
     <string name="auth_register">まだサーバーがありませんか？\nここをクリックして、プロバイダーから取得してください</string>
@@ -185,11 +180,6 @@
     <string name="sync_foreign_files_forgotten_ticker">一部のローカルファイルが忘れられています</string>
     <string name="sync_foreign_files_forgotten_content"> %2$s フォルダー内の %1$d ファイルはコピーできませんでした。</string>
     <string name="sync_current_folder_was_removed">フォルダー%1$sはもう存在しません</string>
-    <string name="foreign_files_move">すべて移動</string>
-    <string name="foreign_files_success">すべてのファイルを移動しました</string>
-    <string name="foreign_files_fail">一部のファイルは移動できませんでした</string>
-    <string name="foreign_files_local_text">ローカル: %1$s</string>
-    <string name="foreign_files_remote_text">リモート: %1$s</string>
     <string name="pass_code_enter_pass_code">パスコードを入力してください</string>
     
     <string name="pass_code_configure_your_pass_code">パスコードを入力</string>
@@ -199,10 +189,6 @@
     <string name="pass_code_wrong">パスコードが正しくありません</string>
     <string name="pass_code_stored">パスコードを保存しました</string>
     
-    <string name="media_notif_ticker">%1$s ミュージックプレーヤー</string>
-    <string name="media_state_playing">%1$s (プレイ中)</string>
-    <string name="media_state_loading">%1$s (読込中)</string>
-    <string name="media_event_done">%1$s プレイバック終了</string>
     <string name="media_err_nothing_to_play">メディアファイルが見つかりませんでした</string>
     <string name="media_err_no_account">アカウントが提供されていません</string>
     <string name="media_err_unsupported">サポートされていないメディアコーデック</string>

@@ -48,7 +48,6 @@
     <string name="prefs_calendar_contacts">Naptár és Névjegyek szinkronizálása</string>
     <string name="prefs_calendar_contacts_summary">DAVdroid (v1.3.0+) beállítása a fiókhoz</string>
     <string name="prefs_calendar_contacts_address_resolve_error">A fiók szerver címe nem feloldható a DAVdroid számára</string>
-    <string name="prefs_calendar_contacts_no_store_error">Sem F-Droid, sem Google Play nincs telepítve</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Szinkronizálás beállítva a &amp; naptárhoz</string>
     <string name="prefs_daily_contacts_sync_summary">Névjegyek napi mentése</string>
     <string name="prefs_help">Súgó</string>
@@ -56,11 +55,7 @@
     <string name="prefs_feedback">Visszajelzés</string>
     <string name="prefs_imprint">Impresszum</string>
 
-	<string name="recommend_subject">Próbáld ki a %1$s-ot az okostelefonodon!</string>
-	<string name="recommend_text">Szeretnélek meghívni, hogy használd a %1$s-et az okostelefonodon.\nLetöltés itt:ˇ%2$s</string>
-    <string name="recommend_urls"> %1$s vagy %2$s </string>
-
-    <string name="auth_check_server">Szerver ellenörzés</string>
+	<string name="auth_check_server">Szerver ellenörzés</string>
     <string name="auth_host_url">Kiszolgáló cím https://&#8230;</string>
     <string name="auth_username">Felhasználónév</string>
     <string name="auth_password">Jelszó</string>
@@ -191,24 +186,17 @@
     <string name="sync_foreign_files_forgotten_ticker">Néhány helyi fájlt figyelmen kívül hagytunk</string>
     <string name="sync_foreign_files_forgotten_content">%2$s mappából %1$d fájlt nem lehetett másolni</string>
     <string name="sync_current_folder_was_removed">A(z) %1$s mappa már nem létezik</string>
-    <string name="foreign_files_move">Helyezzük át mindet</string>
-    <string name="foreign_files_success">Az összes fájlt áthelyeztük</string>
-    <string name="foreign_files_fail">Egyes fájlokat nem sikerült áthelyezni</string>
-    <string name="foreign_files_local_text">Helyi: %1$s</string>
-    <string name="foreign_files_remote_text">Távoli: %1$s</string>
     <string name="pass_code_enter_pass_code">Kérlek add meg a számkódot</string>
     
     <string name="pass_code_configure_your_pass_code">Írd be a számkódodat</string>
     <string name="pass_code_configure_your_pass_code_explanation">A számkódra minden alkalommal szükség lesz az alkalmazás indításakor</string>
     <string name="pass_code_reenter_your_pass_code">Kérlek add meg újra a számkódot</string>
+    <string name="pass_code_remove_your_pass_code">Számkód törlése</string>
     <string name="pass_code_mismatch">A számkódok nem egyeznek</string>
     <string name="pass_code_wrong">Hibás számkód</string>
+    <string name="pass_code_removed">Számkód törölve</string>
     <string name="pass_code_stored">Számkód eltárolva</string>
     
-    <string name="media_notif_ticker">%1$s zene lejátszó</string>
-    <string name="media_state_playing">%1$s (lejátszás)</string>
-    <string name="media_state_loading">%1$s (betöltés)</string>
-    <string name="media_event_done">%1$s lejátszás véget ért</string>
     <string name="media_err_nothing_to_play">Nincs média fájl találat</string>
     <string name="media_err_no_account">Nincs felhasználói fiók</string>
     <string name="media_err_not_in_owncloud">A fájl nem érvényes fiókban található</string>
@@ -265,10 +253,9 @@
     <string name="unset_favorite_real">Eltávolítás a kedvence közül</string>
     <string name="favorite_switch">Elérhető offline</string>
     <string name="common_rename">Átnevezés</string>
+    <string name="common_remove">Törlés</string>
     <string name="confirmation_remove_local">Csak a helyi példány</string>
     <string name="rename_dialog_title">Adj meg egy új nevet</string>
-    <string name="rename_local_fail_msg">Helyi másolat nem átnevezhető, próbáld más névvel</string>
-    <string name="rename_server_fail_msg">Nem lehet átnevezni a szervert</string>
     <string name="sync_file_fail_msg">Távoli fájl nem ellenőrizhető</string>
     <string name="sync_file_nothing_to_do_msg">Az fájlok már szinkronizálva vannak</string>
     <string name="create_dir_fail_msg">A mappa nem jött létre</string>
@@ -277,7 +264,6 @@
     <string name="filename_empty">A fájl név nem lehet üres</string>
     <string name="wait_a_moment">Várj egy kicsit&#8230;</string>
     <string name="wait_checking_credentials">Tárolt azonosítók ellenőrzése</string>
-    <string name="filedisplay_unexpected_bad_get_content">Váratlan hiba, kérlek válaszd ki a fájlt egy másik appból</string>
     <string name="filedisplay_no_file_selected">Egy fájl sincs kiválasztva.</string>
     <string name="activity_chooser_title">Hivatkozás küldése &#8230;</string>
     <string name="wait_for_tmp_copy_from_private_storage">Fájl átmásolása a privát tárolóról</string>
@@ -381,12 +367,25 @@
 
     <string name="file_migration_dialog_title">Tároló útvonal frissítés</string>
     <string name="file_migration_finish_button">Befejez</string>
+    <string name="file_migration_preparing">Összevonás előkészítése&#8230;</string>
     <string name="file_migration_checking_destination">Cél ellenőrzése&#8230;</string>
+    <string name="file_migration_saving_accounts_configuration">A(z)&#8230;fiókok beállításainak mentése</string>
+    <string name="file_migration_waiting_for_unfinished_sync">Várakozás a(z)&#8230;szinkronizálására</string>
     <string name="file_migration_migrating">Adatok áthelyezése&#8230;</string>
     <string name="file_migration_updating_index">Index frissítése&#8230;</string>
     <string name="file_migration_cleaning">Tisztítás&#8230;</string>
+    <string name="file_migration_restoring_accounts_configuration">A(z)&#8230;fiókok adatainak visszaállítása</string>
     <string name="file_migration_ok_finished">Kész</string>
+    <string name="file_migration_failed_not_enough_space">Hiba: kevés a hely</string>
+    <string name="file_migration_failed_not_writable">Hiba: célfájl nem írható</string>
+    <string name="file_migration_failed_not_readable">Hiba: forrásfájl nem olvasható</string>
+    <string name="file_migration_failed_dir_already_exists">Hiba: Nextcloud mappa már létezik</string>
+    <string name="file_migration_failed_while_coping">Hiba: sikertelen összevonás</string>
+    <string name="file_migration_directory_already_exists">Adatmappa már létezik. Válassz egyet a következőkből:</string>
     <string name="file_migration_override_data_folder">Csere</string>
+    <string name="file_migration_use_data_folder">Használat</string>
+
+    <string name="file_migration_source_not_readable_title">Forrásmappa nem olvasható!</string>
     <string name="prefs_add_account">Fiók hozzáadása</string>
     <string name="drawer_manage_accounts">Fiókok kezelése</string>
     <string name="actionbar_logger">Naplók</string>

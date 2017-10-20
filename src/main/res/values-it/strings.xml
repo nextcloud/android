@@ -48,7 +48,6 @@
     <string name="prefs_calendar_contacts">Sincronizza calendario e contatti</string>
     <string name="prefs_calendar_contacts_summary">Configura DAVdroid (v1.3.0+) per l\'account corrente</string>
     <string name="prefs_calendar_contacts_address_resolve_error">L\'indirizzo del server per l\'account non può essere risolto da DAVdroid</string>
-    <string name="prefs_calendar_contacts_no_store_error">F-Droid o Google Play non installato</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Sincronizzazione calendario &amp; contatti configurata</string>
     <string name="prefs_daily_contacts_sync_summary">Backup giornaliero dei tuoi contatti</string>
     <string name="prefs_help">Aiuto</string>
@@ -56,11 +55,7 @@
     <string name="prefs_feedback">Segnalazioni</string>
     <string name="prefs_imprint">Imprint</string>
 
-	<string name="recommend_subject">Prova %1$s sul tuo smartphone!</string>
-	<string name="recommend_text">Vorrei invitarti a utilizzare %1$s sul tuo smartphone.\nScaricalo qui:%2$s</string>
-    <string name="recommend_urls">%1$s o %2$s</string>
-
-    <string name="auth_check_server">Controlla server</string>
+	<string name="auth_check_server">Controlla server</string>
     <string name="auth_host_url">Indirizzo server https://&#8230;</string>
     <string name="auth_username">Nome utente</string>
     <string name="auth_password">Password</string>
@@ -194,11 +189,6 @@
     <string name="sync_foreign_files_forgotten_ticker">Alcuni file locali sono stati trascurati</string>
     <string name="sync_foreign_files_forgotten_content">%1$d file della cartella %2$s non possono essere copiati</string>
     <string name="sync_current_folder_was_removed">La cartella %1$s non esiste più</string>
-    <string name="foreign_files_move">Sposta tutto</string>
-    <string name="foreign_files_success">Tutti i file sono stati spostati</string>
-    <string name="foreign_files_fail">Alcuni file non possono essere spostati</string>
-    <string name="foreign_files_local_text">Locale: %1$s</string>
-    <string name="foreign_files_remote_text">Remoto %1$s</string>
     <string name="upload_query_move_foreign_files">La mancanza di spazio impedisce di copiare i file selezionati nella cartella %1$s. Vuoi spostarli in quella cartella?</string>
     <string name="pass_code_enter_pass_code">Digita il tuo codice segreto</string>
     
@@ -211,10 +201,6 @@
     <string name="pass_code_removed">Codice segreto eliminato</string>
     <string name="pass_code_stored">Codice segreto memorizzato</string>
     
-    <string name="media_notif_ticker">Lettore musicale %1$s</string>
-    <string name="media_state_playing">%1$s (in riproduzione)</string>
-    <string name="media_state_loading">%1$s (in caricamento)</string>
-    <string name="media_event_done">Riproduzione di %1$s terminata</string>
     <string name="media_err_nothing_to_play">Nessun file multimediale trovato</string>
     <string name="media_err_no_account">Nessun account fornito</string>
     <string name="media_err_not_in_owncloud">Il file non è in un account valido</string>
@@ -272,13 +258,8 @@
     <string name="favorite_switch">Disponibile non in linea</string>
     <string name="common_rename">Rinomina</string>
     <string name="common_remove">Elimina</string>
-    <string name="confirmation_remove_file_alert">Vuoi davvero eliminare %1$s?</string>
     <string name="confirmation_remove_local">Solo localmente</string>
-    <string name="remove_success_msg">Eliminato</string>
-    <string name="remove_fail_msg">Eliminazione non riuscita</string>
     <string name="rename_dialog_title">Digita un nuovo nome</string>
-    <string name="rename_local_fail_msg">La copia locale non può essere rinominata, prova un nome diverso</string>
-    <string name="rename_server_fail_msg">Impossibile assegnare un nuovo nome al server</string>
     <string name="sync_file_fail_msg">Impossibile controllare il file remoto</string>
     <string name="sync_file_nothing_to_do_msg">Contenuti del file già sincronizzati</string>
     <string name="create_dir_fail_msg">Impossibile creare la cartella</string>
@@ -287,7 +268,6 @@
     <string name="filename_empty">Il nome del file non può essere vuoto</string>
     <string name="wait_a_moment">Attendi&#8230;</string>
     <string name="wait_checking_credentials">Controllo delle credenziali memorizzate</string>
-    <string name="filedisplay_unexpected_bad_get_content">Problema inatteso; seleziona il file da un\'altra applicazione</string>
     <string name="filedisplay_no_file_selected">Nessun file selezionato</string>
     <string name="activity_chooser_title">Invia collegamento a &#8230;</string>
     <string name="wait_for_tmp_copy_from_private_storage">Copia file dall\'archiviazione privata</string>
@@ -404,8 +384,6 @@
     <string name="file_migration_failed_not_readable">Errore: file sorgente non leggibile</string>
     <string name="file_migration_failed_dir_already_exists">Errore: la cartella di Nextcloud esiste già</string>
     <string name="file_migration_failed_while_coping">Errore: problema durante la migrazione</string>
-    <string name="file_migration_failed_while_updating_index">Errore: aggiornamento dell\'indice non riuscito</string>
-
     <string name="file_migration_directory_already_exists">La cartella Data esiste già. Scegli una delle seguenti:</string>
     <string name="file_migration_override_data_folder">Sostituisci</string>
     <string name="file_migration_use_data_folder">Usa</string>
@@ -563,8 +541,6 @@
     <string name="participate_contribute_translate_text">l\'applicazione</string>
     <string name="participate_contribute_github_text">Esamina, correggi e scrivi codice, vedi %1$s per i dettagli</string>
     <string name="participate_rc_play_store">Ottieni la candidata al rilascio tramite Google Play</string>
-    <string name="participate_rc_fdroid">Ottieni la candidata al rilascio tramite F-Droid</string>
-    <string name="participate_dev_fdroid">Ottieni la versione di sviluppo tramite F-Droid</string>
     <string name="participate_dev_direct_download">Ottieni la versione di sviluppo tramite scaricamento diretto</string>
     <string name="move_to">Sposta in&#8230;</string>
     <string name="copy_to">Copia in&#8230;</string>
@@ -660,7 +636,6 @@
     <string name="contacts_preference_choose_date">Scegli data</string>
     <string name="contacts_preference_backup_never">mai</string>
     <string name="contacts_preferences_no_file_found">Nessun file trovato</string>
-    <string name="contacts_preferences_something_strange_happened">Non troviamo il tuo ultimo backup!</string>
     <string name="contacts_preferences_backup_scheduled">Backup pianificato e partirà a breve</string>
     <string name="contacts_preferences_import_scheduled">Importazione pianificata e partirà a breve</string>
 
@@ -691,4 +666,4 @@
     <string name="push_notifications_not_implemented">Notifiche push disabilitate a causa delle dipendenze dai servizi proprietari di Google Play.</string>
     <string name="push_notifications_old_login">Nessuna notifica push a causa della sessione di accesso scaduta. Considera di aggungere nuovamente il tuo account.</string>
     <string name="push_notifications_temp_error">Notifiche push attualmente non disponibili.</string>
-</resources>
+    </resources>

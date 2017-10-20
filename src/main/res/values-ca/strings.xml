@@ -48,7 +48,6 @@
     <string name="prefs_calendar_contacts">Sincronitza el calendari i els contactes</string>
     <string name="prefs_calendar_contacts_summary">Configura DAVdroid (v1.3.0+) al compte actual</string>
     <string name="prefs_calendar_contacts_address_resolve_error">No s\'ha pogut resoldre pel DAVdroid l\'adreça del servidor del compte</string>
-    <string name="prefs_calendar_contacts_no_store_error">Ni F-droid ni Google Play està instal·lat</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Configuració de sincronització de contactes de calendari&amp;</string>
     <string name="prefs_daily_contacts_sync_summary">Còpia de seguretat diària dels teus contactes</string>
     <string name="prefs_help">Ajuda</string>
@@ -56,11 +55,7 @@
     <string name="prefs_feedback">Comentaris</string>
     <string name="prefs_imprint">Peu d\'imprenta</string>
 
-	<string name="recommend_subject">Proveu %1$s al telèfon intel·ligent!</string>
-	<string name="recommend_text">M\'agradaria convidar-te a utilitzar %1$s al teu dispositiu mòvil.\nDescarrega-ho aquí: %2$s</string>
-    <string name="recommend_urls">%1$sde%2$s</string>
-
-    <string name="auth_check_server">Comprova el funcionament del servidor</string>
+	<string name="auth_check_server">Comprova el funcionament del servidor</string>
     <string name="auth_host_url">Adreça del servidor https: //&#8230;</string>
     <string name="auth_username">Nom d\'usuari</string>
     <string name="auth_password">Contrasenya</string>
@@ -191,11 +186,6 @@
     <string name="sync_foreign_files_forgotten_ticker">S\'han oblidat alguns fitxers locals</string>
     <string name="sync_foreign_files_forgotten_content">%1$d fitxers no s\'han pogut copiar dins de la carpeta %2$s</string>
     <string name="sync_current_folder_was_removed">La carpeta%1$s ja no existeix</string>
-    <string name="foreign_files_move">Mou-los tots</string>
-    <string name="foreign_files_success">S\'han mogut tots els fitxers</string>
-    <string name="foreign_files_fail">Alguns fitxers no s\'han pogut moure</string>
-    <string name="foreign_files_local_text">Local: %1$s</string>
-    <string name="foreign_files_remote_text">Remot: %1$s</string>
     <string name="upload_query_move_foreign_files">L\'espai insuficient evita la còpia dels fitxers seleccionats a la carpeta.%1$s Voleu allunyar-los aquí?</string>
     <string name="pass_code_enter_pass_code">Escriviu el codi d\'accés</string>
     
@@ -206,10 +196,6 @@
     <string name="pass_code_wrong">Codi d\'accés incorrecte</string>
     <string name="pass_code_stored">Codi d\'accés desat</string>
     
-    <string name="media_notif_ticker">reproductor de música %1$s</string>
-    <string name="media_state_playing">%1$s (sonant)</string>
-    <string name="media_state_loading">%1$s (carregant)</string>
-    <string name="media_event_done">reproducció acabada %1$s</string>
     <string name="media_err_nothing_to_play">No s\'han trobat fitxers multimèdia</string>
     <string name="media_err_no_account">No s\'ha proporcionat cap compte</string>
     <string name="media_err_not_in_owncloud">El fitxer no està en un compte vàlid</string>
@@ -268,8 +254,6 @@
     <string name="common_rename">Reanomena</string>
     <string name="confirmation_remove_local">Només local</string>
     <string name="rename_dialog_title">Introduiu un nom nou</string>
-    <string name="rename_local_fail_msg">La còpia local no es pot canviar el nom, proveu un nom diferent</string>
-    <string name="rename_server_fail_msg">No es pot donar el nou nom del servidor</string>
     <string name="sync_file_fail_msg">No s\'ha pogut verificar el fitxer remot</string>
     <string name="sync_file_nothing_to_do_msg">Contingut del fitxer ja sincronitzat</string>
     <string name="create_dir_fail_msg">No s\'ha pogut crear la carpeta</string>
@@ -278,7 +262,6 @@
     <string name="filename_empty">El nom del fitxer no pot estar buit</string>
     <string name="wait_a_moment">Espera un moment&#8230;</string>
     <string name="wait_checking_credentials">Comprovant les credencials emmagatzemades</string>
-    <string name="filedisplay_unexpected_bad_get_content">Problema inesperat, seleccioneu el fitxer des d\'una aplicació diferent</string>
     <string name="filedisplay_no_file_selected">Cap fitxer escollit</string>
     <string name="activity_chooser_title">Envia l\'enllaç a&#8230;</string>
     <string name="wait_for_tmp_copy_from_private_storage">Copiant fitxer des d\'emmagatzematge privat</string>

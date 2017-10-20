@@ -48,18 +48,13 @@
     <string name="prefs_calendar_contacts">مزامنة التقويم &amp; جهات الاتصال</string>
     <string name="prefs_calendar_contacts_summary">اعداد دافرويد (+v1.3.0) للحساب الحالى </string>
     <string name="prefs_calendar_contacts_address_resolve_error">لم يتم العثور على عنوان الخادم الخاص بـ DAVdroid للحساب</string>
-    <string name="prefs_calendar_contacts_no_store_error">لم يتم تثبيت F-droid  ولا Google Play</string>
     <string name="prefs_daily_contacts_sync_summary">نسخ أحتياطي يومي لجهات الإتصال</string>
     <string name="prefs_help">المساعدة</string>
     <string name="prefs_recommend">يوصي لصديق</string>
     <string name="prefs_feedback">ملاحظات</string>
     <string name="prefs_imprint">الدمغة.</string>
 
-	<string name="recommend_subject">جرب %1$s على جهازك الذكي</string>
-	<string name="recommend_text">أود دعوتك لاستخدام %1$s على هاتفك الذكي.\nDownload هنا: %2$s</string>
-    <string name="recommend_urls">%1$s أو %2$s</string>
-
-    <string name="auth_check_server">فحص الخادم</string>
+	<string name="auth_check_server">فحص الخادم</string>
     <string name="auth_host_url">عنوان الخادوم https://&#8230;</string>
     <string name="auth_username">إسم المستخدم</string>
     <string name="auth_password">كلمة السر</string>
@@ -157,11 +152,6 @@
     <string name="sync_fail_in_favourites_content"> لا يمكن مزامنة جهات اتصال %1$d  ( %2$d تعارض) </string>
     <string name="sync_foreign_files_forgotten_ticker">تم نسيان بعض الملفات المحلية</string>
     <string name="sync_foreign_files_forgotten_content">%1$d لا يمكن نسخها داخل المجلد %2$s الملفات الخارجه من المجلد</string>
-    <string name="foreign_files_move">نقل الكل</string>
-    <string name="foreign_files_success">تم نقل جميع الملفات</string>
-    <string name="foreign_files_fail">لم ينجح نقل بعض الملفات</string>
-    <string name="foreign_files_local_text">محلي :%1$s</string>
-    <string name="foreign_files_remote_text">خارجي : %1$s</string>
     <string name="pass_code_enter_pass_code">إدخل رمزك السري من فضلك</string>
     
     <string name="pass_code_configure_your_pass_code">إدخل رمزك السري</string>
@@ -170,10 +160,6 @@
     <string name="pass_code_wrong">رمز المرور غير صحيح</string>
     <string name="pass_code_stored">رمز المرور المخزنة</string>
     
-    <string name="media_notif_ticker">مشغل الموسيقى %1$s </string>
-    <string name="media_state_playing">%1$s  (يتم التشغيل)</string>
-    <string name="media_state_loading">%1$s (يتم التحميل)</string>
-    <string name="media_event_done">انتهى تشغيل  %1$s</string>
     <string name="media_err_nothing_to_play">لا يوجد ملف وسائط</string>
     <string name="media_err_no_account">لم يتم تقديم أي حساب</string>
     <string name="media_err_unsupported">ترميز غير مدعّم</string>

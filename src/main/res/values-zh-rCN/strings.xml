@@ -48,7 +48,6 @@
     <string name="prefs_calendar_contacts">同步日历 &amp; 联系人</string>
     <string name="prefs_calendar_contacts_summary">为当前账户设置 DAVdroid (v1.3.0+)</string>
     <string name="prefs_calendar_contacts_address_resolve_error">当前账户的服务器地址无法被用于 DAVdroid 解析</string>
-    <string name="prefs_calendar_contacts_no_store_error">F-droid 和 Google Play 都没有安装</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">日历 &amp; 联系人同步设置</string>
     <string name="prefs_daily_contacts_sync_summary">联系人每日备份</string>
     <string name="prefs_help">帮助</string>
@@ -56,11 +55,7 @@
     <string name="prefs_feedback">反馈</string>
     <string name="prefs_imprint">版本说明</string>
 
-	<string name="recommend_subject">在手机上使用 %1$s！</string>
-	<string name="recommend_text">我想邀请你在手机上使用 %1$s。\n下载地址：%2$s</string>
-    <string name="recommend_urls">%1$s 或 %2$s</string>
-
-    <string name="auth_check_server">检查服务器</string>
+	<string name="auth_check_server">检查服务器</string>
     <string name="auth_host_url">服务器地址 https://&#8230;</string>
     <string name="auth_username">用户名</string>
     <string name="auth_password">密码</string>
@@ -191,11 +186,6 @@
     <string name="sync_foreign_files_forgotten_ticker">某些本地文件已被遗忘</string>
     <string name="sync_foreign_files_forgotten_content">%2$s 文件夹中的 %1$d 个文件不能被复制到</string>
     <string name="sync_current_folder_was_removed">文件夹%1$s不再存在</string>
-    <string name="foreign_files_move">移动所有</string>
-    <string name="foreign_files_success">所有文件已被移动</string>
-    <string name="foreign_files_fail">某些文件无法被移动</string>
-    <string name="foreign_files_local_text">本地: %1$s</string>
-    <string name="foreign_files_remote_text">远程: %1$s</string>
     <string name="upload_query_move_foreign_files">空间不足将阻止将所选文件复制到%1$s文件夹中。 你想把它们移到那里吗？</string>
     <string name="pass_code_enter_pass_code">请输入安全码</string>
     
@@ -206,10 +196,6 @@
     <string name="pass_code_wrong">安全码不正确</string>
     <string name="pass_code_stored">已存储的安全码</string>
     
-    <string name="media_notif_ticker">%1$s 音乐播放器</string>
-    <string name="media_state_playing">%1$s (播放中)</string>
-    <string name="media_state_loading">%1$s (载入中)</string>
-    <string name="media_event_done">%1$s 播放完毕</string>
     <string name="media_err_nothing_to_play">没有发现媒体文件</string>
     <string name="media_err_no_account">未提供账户</string>
     <string name="media_err_not_in_owncloud">该文件不属于一个有效的账户</string>
@@ -267,8 +253,6 @@
     <string name="common_rename">重命名</string>
     <string name="confirmation_remove_local">仅本地</string>
     <string name="rename_dialog_title">请输出新的名字</string>
-    <string name="rename_local_fail_msg">本地副本无法重命名，尝试其他名称</string>
-    <string name="rename_server_fail_msg">不能给服务器新的名称</string>
     <string name="sync_file_fail_msg">无法查看远程文件</string>
     <string name="sync_file_nothing_to_do_msg">文件内容已同步</string>
     <string name="create_dir_fail_msg">无法创建文件夹</string>
@@ -277,7 +261,6 @@
     <string name="filename_empty">文件名不能为空</string>
     <string name="wait_a_moment">稍等&#8230;</string>
     <string name="wait_checking_credentials">检查保存的证书</string>
-    <string name="filedisplay_unexpected_bad_get_content">意外的问题，请从不同的应用程序选择文件</string>
     <string name="filedisplay_no_file_selected">没有选择文件</string>
     <string name="activity_chooser_title">发送链接给 &#8230;</string>
     <string name="wait_for_tmp_copy_from_private_storage">从私有存储中拷贝文件</string>
@@ -394,8 +377,6 @@
     <string name="file_migration_failed_not_readable">错误：无法读取源文件</string>
     <string name="file_migration_failed_dir_already_exists">错误：Nextcloud目录已存在</string>
     <string name="file_migration_failed_while_coping">错误：迁移失败</string>
-    <string name="file_migration_failed_while_updating_index">错误：无法更新索引</string>
-
     <string name="file_migration_directory_already_exists">数据文件夹已经存在。请选择以下选项：</string>
     <string name="file_migration_override_data_folder">代替</string>
     <string name="file_migration_use_data_folder">使用</string>
@@ -551,8 +532,6 @@
     <string name="participate_contribute_translate_text">此应用</string>
     <string name="participate_contribute_github_text">查看，修改和编写代码，有关详细信息，请参阅%1$s</string>
     <string name="participate_rc_play_store">通过Google Play商店获取发布候选版</string>
-    <string name="participate_rc_fdroid">通过f-droid应用商店获取候选发布版</string>
-    <string name="participate_dev_fdroid">通过f-droid应用商店获取开发版本</string>
     <string name="participate_dev_direct_download">直接下载开发版本</string>
     <string name="move_to">转移到&#8230;</string>
     <string name="copy_to">复制到&#8230;</string>
@@ -647,7 +626,6 @@
     <string name="contacts_preference_choose_date">选择时间</string>
     <string name="contacts_preference_backup_never">永远不</string>
     <string name="contacts_preferences_no_file_found">没有文件被发现</string>
-    <string name="contacts_preferences_something_strange_happened">找不到最后的备份</string>
     <string name="contacts_preferences_backup_scheduled">备份已经排期，稍后将开始</string>
     <string name="contacts_preferences_import_scheduled">导入已经排期，稍后将开始</string>
 
@@ -678,4 +656,4 @@
     <string name="push_notifications_not_implemented">由于依赖于专有的Google Play服务，推送通知被禁用。</string>
     <string name="push_notifications_old_login">由于过期的登录会话，没有推送通知。 请考虑重新添加您的帐户。</string>
     <string name="push_notifications_temp_error">推送通知目前不可用。</string>
-</resources>
+    </resources>
