@@ -77,7 +77,7 @@ We are all about quality while not sacrificing speed so we use a very pragmatic 
     * after that no conceptual changes!
 * develop code
 * create [pull request](https://github.com/nextcloud/android/pulls)
-* to assure the quality of the app, any PR gets reviewed, approved and tested by [two developers](https://github.com/nextcloud/android/blob/master/MAINTAINERS) before it will be merged to master
+* to assure the quality of the app, any PR gets reviewed, approved and tested by [two developers](https://github.com/nextcloud/android/blob/master/.pullapprove.yml#L29) before it will be merged to master
 
 
 ### Branching model
