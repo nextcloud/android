@@ -48,6 +48,7 @@
     <string name="prefs_calendar_contacts">Synchroniseren agenda &amp; contactpersonen</string>
     <string name="prefs_calendar_contacts_summary">DAVdroid (v1.3.0+) voor huidige account instellen</string>
     <string name="prefs_calendar_contacts_address_resolve_error">Serveradres voor dit account kon niet worden gevonden voor DAVdroid</string>
+    <string name="prefs_calendar_contacts_no_store_error">Noch F-Droid, noch Google Play is geïnstalleerd</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Agenda &amp; contactpersonen sync instellingen</string>
     <string name="prefs_daily_contacts_sync_summary">Dagelijkse back-up van je contactpersonen</string>
     <string name="prefs_help">Help</string>
@@ -55,7 +56,11 @@
     <string name="prefs_feedback">Feedback</string>
     <string name="prefs_imprint">afdruk</string>
 
-	<string name="auth_check_server">Controleer server</string>
+	<string name="recommend_subject">Probeer %1$s op je smartphone!</string>
+	<string name="recommend_text">Ik wil je uitnodigen om %1$s op je smartphone te gebruiken.\nDownload hier: %2$s</string>
+    <string name="recommend_urls">%1$s or %2$s</string>
+
+    <string name="auth_check_server">Controleer server</string>
     <string name="auth_host_url">Serveradres https://&#8230;</string>
     <string name="auth_username">Gebruikersnaam</string>
     <string name="auth_password">Wachtwoord</string>
@@ -123,6 +128,7 @@ Kies er eentje van een provider.</string>
     <string name="common_yes">Ja</string>
     <string name="common_no">Nee</string>
     <string name="common_ok">OK</string>
+    <string name="common_remove_upload">Upload verwijderen</string>
     <string name="common_retry_upload">Opnieuw uploaden</string>
     <string name="common_cancel_sync">Synchronisatie annuleren</string>
     <string name="common_cancel">Annuleren</string>
@@ -137,6 +143,7 @@ Kies er eentje van een provider.</string>
     <string name="about_title">Over</string>
     <string name="change_password">Wachtwoord wijzigen</string>
     <string name="delete_account">Account verwijderen</string>
+    <string name="delete_account_warning">Verwijder account %s met alle lokale bestanden? Het verwijderen kan niet worden teruggedraaid.</string>
     <string name="avatar">Avatar</string>
     <string name="active_user">Actieve gebruiker</string>
     <string name="upload_chooser_title">Upload van &#8230;</string>
@@ -187,16 +194,27 @@ Kies er eentje van een provider.</string>
     <string name="sync_foreign_files_forgotten_ticker">Een paar lokale bestanden werden vergeten</string>
     <string name="sync_foreign_files_forgotten_content">%1$d bestanden uit de %2$s-map konden niet worden gekopieerd naar</string>
     <string name="sync_current_folder_was_removed">Map %1$s bestaat niet meer</string>
+    <string name="foreign_files_move">Alles verplaatsen</string>
+    <string name="foreign_files_success">Alle bestanden zijn verplaatst</string>
+    <string name="foreign_files_fail">Een paar bestanden konden niet worden verplaatst</string>
+    <string name="foreign_files_local_text">Lokaal: %1$s</string>
+    <string name="foreign_files_remote_text">Extern: %1$s</string>
     <string name="upload_query_move_foreign_files">Er is niet genoeg ruimte om de geselecteerde bestanden te kopieren naar %1$s. Wilt u ze in plaats daarvan verplaatsen?</string>
     <string name="pass_code_enter_pass_code">Voer je toegangscode in</string>
     
     <string name="pass_code_configure_your_pass_code">Toegangscode invoeren</string>
     <string name="pass_code_configure_your_pass_code_explanation">De toegangscode wordt elke keer gevraagd bij opstarten van de app</string>
     <string name="pass_code_reenter_your_pass_code">Voer nogmaals je toegangscode in</string>
+    <string name="pass_code_remove_your_pass_code">Toegangscode verwijderen</string>
     <string name="pass_code_mismatch">De codes komen niet overeen</string>
     <string name="pass_code_wrong">Onjuiste toegangscode</string>
+    <string name="pass_code_removed">Toegangscode verwijderd</string>
     <string name="pass_code_stored">Toegangscode opgeslagen</string>
     
+    <string name="media_notif_ticker">%1$s muziekspeler</string>
+    <string name="media_state_playing">%1$s (speelt)</string>
+    <string name="media_state_loading">%1$s (laden)</string>
+    <string name="media_event_done">%1$s afspelen beëindigd</string>
     <string name="media_err_nothing_to_play">Geen mediabestand gevonden</string>
     <string name="media_err_no_account">Geen account opgegeven</string>
     <string name="media_err_not_in_owncloud">Het bestand hoort niet bij een geldig account</string>
@@ -253,8 +271,15 @@ Kies er eentje van een provider.</string>
     <string name="unset_favorite_real">Weghalen als favoriet</string>
     <string name="favorite_switch">Offline beschikbaar</string>
     <string name="common_rename">Hernoemen</string>
+    <string name="common_remove">Verwijderen</string>
+    <string name="confirmation_remove_file_alert">Wil je %1$s echt verwijderen?</string>
+    <string name="confirmation_remove_folder_alert">Wil je %1$s en de inhoud ervan werkelijk verwijderen?</string>
     <string name="confirmation_remove_local">Alleen lokaal</string>
+    <string name="remove_success_msg">Verwijderd</string>
+    <string name="remove_fail_msg">Verwijderen mislukt</string>
     <string name="rename_dialog_title">Voer een nieuwe naam in</string>
+    <string name="rename_local_fail_msg">Lokale kopie kon niet worden hernoemd; probeer een andere naam</string>
+    <string name="rename_server_fail_msg">Kon de server geen nieuwe naam geven</string>
     <string name="sync_file_fail_msg">Kon extern bestand niet controleren</string>
     <string name="sync_file_nothing_to_do_msg">Bestandsinhoud is al gesynchroniseerd</string>
     <string name="create_dir_fail_msg">Kan map niet aanmaken</string>
@@ -263,6 +288,7 @@ Kies er eentje van een provider.</string>
     <string name="filename_empty">Bestandsnaam mag niet leeg zijn</string>
     <string name="wait_a_moment">Even geduld&#8230;</string>
     <string name="wait_checking_credentials">Opgeslagen inloggegevens nakijken</string>
+    <string name="filedisplay_unexpected_bad_get_content">Onverwacht probleem; probeer het bestand met een andere app te selecteren</string>
     <string name="filedisplay_no_file_selected">Geen bestand geselecteerd</string>
     <string name="activity_chooser_title">Verstuur link naar &#8230;</string>
     <string name="wait_for_tmp_copy_from_private_storage">Bestand vanaf privéopslag kopiëren</string>
@@ -379,6 +405,8 @@ Kies er eentje van een provider.</string>
     <string name="file_migration_failed_not_readable">Fout: Niet leesbaar bronbestand</string>
     <string name="file_migration_failed_dir_already_exists">Fout: Nextcloud folder bestaat al</string>
     <string name="file_migration_failed_while_coping">Fout: Migratie is mislukt</string>
+    <string name="file_migration_failed_while_updating_index">Fout: Index bijwerken is mislukt</string>
+
     <string name="file_migration_directory_already_exists">Datamap bestaat al. Kies een van de volgende:</string>
     <string name="file_migration_override_data_folder">Vervangen</string>
     <string name="file_migration_use_data_folder">Gebruiken</string>
@@ -509,6 +537,8 @@ Kies er eentje van een provider.</string>
 
     <string name="permission_storage_access">Aanvullende permessies vereist voor het uploaden en downloaden van bestanden.</string>
     <string name="local_file_not_found_toast">Het bestand is niet te vinden binnen het lokale bestandssysteem.</string>
+    <string name="confirmation_remove_files_alert">Wil je de geselecteerde objecten echt verwijderen?</string>
+    <string name="confirmation_remove_folders_alert">Wil je de geselecteerde objecten en hun inhoud echt verwijderen?</string>
     <string name="maintenance_mode">Server in onderhoudsmodus</string>
     <string name="lock_failed">Kan bestand niet vergrendelen</string>
 
@@ -534,6 +564,8 @@ Kies er eentje van een provider.</string>
     <string name="participate_contribute_translate_text">de app</string>
     <string name="participate_contribute_github_text">Bekijk, wijzig en schrijf code, zie %1$s voor details</string>
     <string name="participate_rc_play_store">Ontvang release candidate via Google Play store</string>
+    <string name="participate_rc_fdroid">Ontvang release candidate via F-Droid app store</string>
+    <string name="participate_dev_fdroid">Ontvang development release via F-Droid app store</string>
     <string name="participate_dev_direct_download">Ontvang development release via directe download</string>
     <string name="move_to">Verplaats naar&#160;&#8230;</string>
     <string name="copy_to">Kopieer naar&#160;&#8230;</string>
@@ -629,6 +661,7 @@ Kies er eentje van een provider.</string>
     <string name="contacts_preference_choose_date">Kies datum</string>
     <string name="contacts_preference_backup_never">nooit</string>
     <string name="contacts_preferences_no_file_found">Geen bestand gevonden</string>
+    <string name="contacts_preferences_something_strange_happened">We kunnen uw laatste backup niet vinden!</string>
     <string name="contacts_preferences_backup_scheduled">Backup ingepland en zal zo starten</string>
     <string name="contacts_preferences_import_scheduled">Import ingepland en zal zo starten</string>
 

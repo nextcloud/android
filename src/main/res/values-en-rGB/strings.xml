@@ -48,6 +48,7 @@
     <string name="prefs_calendar_contacts">Sync calendar &amp; contacts</string>
     <string name="prefs_calendar_contacts_summary">Set up DAVdroid (v1.3.0+) for current account</string>
     <string name="prefs_calendar_contacts_address_resolve_error">Server address for account could not be resolved for DAVdroid</string>
+    <string name="prefs_calendar_contacts_no_store_error">Neither F-Droid nor Google Play is installed</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Calendar &amp; contacts sync set up</string>
     <string name="prefs_daily_contacts_sync_summary">Daily backup of your contacts</string>
     <string name="prefs_help">Help</string>
@@ -55,7 +56,11 @@
     <string name="prefs_feedback">Feedback</string>
     <string name="prefs_imprint">Imprint</string>
 
-	<string name="auth_check_server">Check server</string>
+	<string name="recommend_subject">Try %1$s on your smartphone!</string>
+	<string name="recommend_text">I want to invite you to use %1$s on your smartphone.\nDownload here: %2$s</string>
+    <string name="recommend_urls">%1$s or %2$s</string>
+
+    <string name="auth_check_server">Check server</string>
     <string name="auth_host_url">Server address https://&#8230;</string>
     <string name="auth_username">Username</string>
     <string name="auth_password">Password</string>
@@ -122,6 +127,7 @@
     <string name="common_yes">Yes</string>
     <string name="common_no">No</string>
     <string name="common_ok">OK</string>
+    <string name="common_remove_upload">Delete upload</string>
     <string name="common_retry_upload">Retry uploading</string>
     <string name="common_cancel_sync">Cancel sync</string>
     <string name="common_cancel">Cancel</string>
@@ -136,6 +142,7 @@
     <string name="about_title">About</string>
     <string name="change_password">Change password</string>
     <string name="delete_account">Remove account</string>
+    <string name="delete_account_warning">Remove account %s and delete all local files?\n\nDeletion cannot be undone.</string>
     <string name="avatar">Avatar</string>
     <string name="active_user">Active user</string>
     <string name="upload_chooser_title">Upload from &#8230;</string>
@@ -165,6 +172,7 @@
     <string name="uploads_view_upload_status_service_interrupted">App terminated</string>
     <string name="uploads_view_upload_status_unknown_fail">Unknown error</string>
     <string name="uploads_view_upload_status_waiting_for_wifi">Waiting for Wi-Fi connectivity</string>
+    <string name="uploads_view_upload_status_waiting_exit_power_save_mode">Waiting to exit power save mode</string>
     <string name="uploads_view_later_waiting_to_upload">Waiting to upload</string>
     <string name="downloader_download_in_progress_ticker">Downloading &#8230;</string>
     <string name="downloader_download_in_progress_content">%1$d%% Downloading %2$s</string>
@@ -175,6 +183,7 @@
     <string name="downloader_not_downloaded_yet">Not downloaded yet</string>
     <string name="downloader_download_failed_credentials_error">Download failed, you need to log in again</string>
     <string name="common_choose_account">Choose account</string>
+    <string name="common_switch_account">Switch Account</string>
     <string name="sync_fail_ticker">Sync failed</string>
     <string name="sync_fail_ticker_unauthorized">Sync failed, you need to log in again</string>
     <string name="sync_fail_content">Could not complete sync of %1$s</string>
@@ -185,17 +194,29 @@
     <string name="sync_fail_in_favourites_content">Contents of %1$d files could not be synced (%2$d conflicts)</string>
     <string name="sync_foreign_files_forgotten_ticker">Some local files were forgotten</string>
     <string name="sync_foreign_files_forgotten_content">%1$d files out of the %2$s folder could not be copied into</string>
+    <string name="sync_foreign_files_forgotten_explanation">As of version 1.3.16, files uploaded from this device are copied into the local %1$s folder to prevent data loss when a single file is synced with multiple accounts.\n\nDue to this change, all files uploaded with earlier versions of this app were copied into the %2$s folder. However, an error prevented the completion of this operation during account synchronization. You may either leave the file(s) as is and delete the link to %3$s, or move the file(s) into the %1$s folder and retain the link to %4$s.\n\nListed below are the local file(s), and the remote file(s) in %5$s they were linked to.</string>
     <string name="sync_current_folder_was_removed">The folder %1$s does not exist anymore</string>
+    <string name="foreign_files_move">Move all</string>
+    <string name="foreign_files_success">All files were moved</string>
+    <string name="foreign_files_fail">Some files could not be moved</string>
+    <string name="foreign_files_local_text">Local: %1$s</string>
+    <string name="foreign_files_remote_text">Remote: %1$s</string>
     <string name="upload_query_move_foreign_files">Insufficient space prevents copying the selected files into the %1$s folder. Would you like to move them there instead?</string>
     <string name="pass_code_enter_pass_code">Please enter your passcode</string>
     
     <string name="pass_code_configure_your_pass_code">Enter your passcode</string>
     <string name="pass_code_configure_your_pass_code_explanation">The passcode will be requested every time the app is started</string>
     <string name="pass_code_reenter_your_pass_code">Please reenter your passcode</string>
+    <string name="pass_code_remove_your_pass_code">Delete your passcode</string>
     <string name="pass_code_mismatch">The passcodes are not the same</string>
     <string name="pass_code_wrong">Incorrect passcode</string>
+    <string name="pass_code_removed">Passcode deleted</string>
     <string name="pass_code_stored">Passcode stored</string>
     
+    <string name="media_notif_ticker">%1$s music player</string>
+    <string name="media_state_playing">%1$s (playing)</string>
+    <string name="media_state_loading">%1$s (loading)</string>
+    <string name="media_event_done">%1$s playback finished</string>
     <string name="media_err_nothing_to_play">No media file found</string>
     <string name="media_err_no_account">No account provided</string>
     <string name="media_err_not_in_owncloud">The file is not in a valid account</string>
@@ -252,8 +273,15 @@
     <string name="unset_favorite_real">Unset favourite</string>
     <string name="favorite_switch">Available offline</string>
     <string name="common_rename">Rename</string>
+    <string name="common_remove">Delete</string>
+    <string name="confirmation_remove_file_alert">Do you really want to delete %1$s?</string>
+    <string name="confirmation_remove_folder_alert">Do you really want to delete %1$s and the contents thereof?</string>
     <string name="confirmation_remove_local">Local only</string>
+    <string name="remove_success_msg">Deleted</string>
+    <string name="remove_fail_msg">Deletion failed</string>
     <string name="rename_dialog_title">Enter a new name</string>
+    <string name="rename_local_fail_msg">Local copy could not be renamed, try a different name</string>
+    <string name="rename_server_fail_msg">Could not give server new name</string>
     <string name="sync_file_fail_msg">Could not check remote file</string>
     <string name="sync_file_nothing_to_do_msg">File contents already synchronised</string>
     <string name="create_dir_fail_msg">Could not create folder</string>
@@ -262,6 +290,7 @@
     <string name="filename_empty">File name cannot be empty</string>
     <string name="wait_a_moment">Wait a moment&#8230;</string>
     <string name="wait_checking_credentials">Checking stored credentials</string>
+    <string name="filedisplay_unexpected_bad_get_content">Unexpected problem, please select the file from a different app</string>
     <string name="filedisplay_no_file_selected">No file selected</string>
     <string name="activity_chooser_title">Send link to &#8230;</string>
     <string name="wait_for_tmp_copy_from_private_storage">Copying file from private storage</string>
@@ -378,6 +407,8 @@
     <string name="file_migration_failed_not_readable">Error: Source file not readable</string>
     <string name="file_migration_failed_dir_already_exists">Error: Nextcloud directory already exists</string>
     <string name="file_migration_failed_while_coping">Error: Failed during migration</string>
+    <string name="file_migration_failed_while_updating_index">Error: Failed to update index</string>
+
     <string name="file_migration_directory_already_exists">Data folder exists already. Choose one of the following:</string>
     <string name="file_migration_override_data_folder">Replace</string>
     <string name="file_migration_use_data_folder">Use</string>
@@ -508,6 +539,8 @@
 
     <string name="permission_storage_access">Additional permissions required to upload and download files.</string>
     <string name="local_file_not_found_toast">File not found in local file system</string>
+    <string name="confirmation_remove_files_alert">Do you really want to delete the selected items?</string>
+    <string name="confirmation_remove_folders_alert">Do you really want to delete the selected items and their contents?</string>
     <string name="maintenance_mode">Server in maintenance mode</string>
     <string name="lock_failed">Failed to lock the file</string>
 
@@ -533,6 +566,8 @@
     <string name="participate_contribute_translate_text">the app</string>
     <string name="participate_contribute_github_text">Review, amend and write code, see %1$s for details</string>
     <string name="participate_rc_play_store">Get release candidate via Google Play store</string>
+    <string name="participate_rc_fdroid">Get release candidate via F-Droid app store</string>
+    <string name="participate_dev_fdroid">Get development release via F-Droid app store</string>
     <string name="participate_dev_direct_download">Get development release via direct download</string>
     <string name="move_to">Move to&#8230;</string>
     <string name="copy_to">Copy to&#8230;</string>
@@ -628,6 +663,7 @@
     <string name="contacts_preference_choose_date">Choose date</string>
     <string name="contacts_preference_backup_never">never</string>
     <string name="contacts_preferences_no_file_found">No file found</string>
+    <string name="contacts_preferences_something_strange_happened">Could not find your last backup!</string>
     <string name="contacts_preferences_backup_scheduled">Backup scheduled and will start shortly</string>
     <string name="contacts_preferences_import_scheduled">Import scheduled and will start shortly</string>
 
@@ -658,4 +694,5 @@
     <string name="push_notifications_not_implemented">Push notifications disabled due to dependencies on proprietary Google Play services.</string>
     <string name="push_notifications_old_login">No push notifications due to outdated login session. Please consider re-adding your account.</string>
     <string name="push_notifications_temp_error">Push notifications currently not available.</string>
-    </resources>
+    <string name="date_unknown">Unknown</string>
+</resources>

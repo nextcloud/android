@@ -48,6 +48,7 @@
     <string name="prefs_calendar_contacts">Takvim ve kişiler eşitlensin</string>
     <string name="prefs_calendar_contacts_summary">Geçerli hesap için DAVdroid (v1.3.0+) kurulumu</string>
     <string name="prefs_calendar_contacts_address_resolve_error">Hesabın sunucu adresi DAVdroid tarafından çözümlenemedi</string>
+    <string name="prefs_calendar_contacts_no_store_error">F-Droid ya da Google Play kurulmamış</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Takvim ve kişi eşitlemesi ayarları</string>
     <string name="prefs_daily_contacts_sync_summary">Kişilerinizin günlük yedeği</string>
     <string name="prefs_help">Yardım</string>
@@ -55,7 +56,12 @@
     <string name="prefs_feedback">Geri bildirim</string>
     <string name="prefs_imprint">İzlenim</string>
 
-	<string name="auth_check_server">Sunucuyu denetle</string>
+	<string name="recommend_subject">%1$s uygulamasını akıllı telefonunuzda deneyin!</string>
+	<string name="recommend_text">Akıllı telefonunda %1$s uygulamasını denemeni öneririm\n
+Şuradan indirebilirsin: %2$s</string>
+    <string name="recommend_urls">%1$s ya da %2$s</string>
+
+    <string name="auth_check_server">Sunucuyu denetle</string>
     <string name="auth_host_url">Sunucu adresi https://&#8230;</string>
     <string name="auth_username">Kullanıcı Adı</string>
     <string name="auth_password">Parola</string>
@@ -178,6 +184,7 @@
     <string name="downloader_not_downloaded_yet">Henüz indirilmemiş</string>
     <string name="downloader_download_failed_credentials_error">İndirilemedi, yeniden oturum açmalısınız</string>
     <string name="common_choose_account">Hesap seçin</string>
+    <string name="common_switch_account">Hesabı Değiştir</string>
     <string name="sync_fail_ticker">Eşitlenemedi</string>
     <string name="sync_fail_ticker_unauthorized">Eşitlenemedi, yeniden oturum açmalısınız</string>
     <string name="sync_fail_content">%1$s eşitlemesi tamamlanamadı</string>
@@ -190,6 +197,11 @@
     <string name="sync_foreign_files_forgotten_content">%2$s klasöründeki %1$d dosya şuraya kopyalanamadı</string>
     <string name="sync_foreign_files_forgotten_explanation">1.3.16 sürümünden sonra, veri kaybının önlenebilmesi için bu aygıttan yüklenen dosyalar, bir dosya birden fazla hesapla eşitlendiğinde %1$s yerel klasörüne kopyalanır.\n\nBu değişiklikten dolayı, bu uygulamanın yüklenmiş tüm önceki sürümündeki dosyalar %2$s klasörüne kopyalandı. Ancak hesap eşitlemesi sırasında bu işlemin tamamlanmasını engelleyen bir sorun çıktı. Dosyaları olduğu gibi bırakabilir ve %3$s bağlantısını kaldırabilir ya da dosyaları %1$s klasörüne taşıyıp %4$s bağlantısını koruyabilirsiniz.\n\nYerel dosyaları ve bağlı oldukları %5$s içindeki uzak dosyaların listesini aşağıda görebilirsiniz.</string>
     <string name="sync_current_folder_was_removed">%1$s klasörü artık yok</string>
+    <string name="foreign_files_move">Tümünü taşı</string>
+    <string name="foreign_files_success">Tüm dosyalar taşındı</string>
+    <string name="foreign_files_fail">Bazı dosyalar taşınamadı</string>
+    <string name="foreign_files_local_text">Yerel: %1$s</string>
+    <string name="foreign_files_remote_text">Uzak: %1$s</string>
     <string name="upload_query_move_foreign_files">Seçilmiş dosyaları %1$s klasörüne kopyalamak için yeterli boş alan yok. Bu dosyaları kopyalamak yerine taşımak ister misiniz?</string>
     <string name="pass_code_enter_pass_code">Lütfen parolanızı yazın</string>
     
@@ -202,6 +214,10 @@
     <string name="pass_code_removed">Parola silindi</string>
     <string name="pass_code_stored">Parola depolandı</string>
     
+    <string name="media_notif_ticker">%1$s müzik oynatıcı</string>
+    <string name="media_state_playing">%1$s (oynatılıyor)</string>
+    <string name="media_state_loading">%1$s (yükleniyor)</string>
+    <string name="media_event_done">%1$s oynatıldı</string>
     <string name="media_err_nothing_to_play">Herhangi bir ortam dosyası bulunamadı</string>
     <string name="media_err_no_account">Herhangi bir hesap belirtilmemiş</string>
     <string name="media_err_not_in_owncloud">Dosya geçerli bir hesapta değil</string>
@@ -259,8 +275,14 @@
     <string name="favorite_switch">Çevrimdışı kullanılabilir</string>
     <string name="common_rename">Yeniden adlandır</string>
     <string name="common_remove">Sil</string>
+    <string name="confirmation_remove_file_alert">%1$s dosyasını gerçekten silmek istiyor musunuz?</string>
+    <string name="confirmation_remove_folder_alert">%1$s klasörünü ve içindekileri gerçekten silmek istiyor musunuz?</string>
     <string name="confirmation_remove_local">Yalnız yerel</string>
+    <string name="remove_success_msg">Silindi</string>
+    <string name="remove_fail_msg">Silinemedi</string>
     <string name="rename_dialog_title">Yeni bir ad yazın</string>
+    <string name="rename_local_fail_msg">Yerel kopyanın adı değiştirilemedi. Lütfen başka bir ad deneyin</string>
+    <string name="rename_server_fail_msg">Sunucu adı değiştirilemedi</string>
     <string name="sync_file_fail_msg">Uzak dosya denetlenemedi</string>
     <string name="sync_file_nothing_to_do_msg">Dosya içerikleri zaten eşitlenmiş</string>
     <string name="create_dir_fail_msg">Klasör oluşturulamadı</string>
@@ -269,6 +291,7 @@
     <string name="filename_empty">Dosya adı boş olamaz</string>
     <string name="wait_a_moment">Biraz bekleyin&#8230;</string>
     <string name="wait_checking_credentials">Kayıtlı kimlik bilgileri denetleniyor</string>
+    <string name="filedisplay_unexpected_bad_get_content">Beklenmeyen bir sorun çıktı. Lütfen dosyayı başka bir uygulamadan seçin</string>
     <string name="filedisplay_no_file_selected">Herhangi bir dosya seçilmemiş</string>
     <string name="activity_chooser_title">Bağlantıyı gönder&#8230;</string>
     <string name="wait_for_tmp_copy_from_private_storage">Dosya kişisel depolamadan kopyalanıyor</string>
@@ -385,6 +408,8 @@
     <string name="file_migration_failed_not_readable">Hata: Kaynak dosya okunabilir değil</string>
     <string name="file_migration_failed_dir_already_exists">Hata: Nextcloud klasörü zaten var</string>
     <string name="file_migration_failed_while_coping">Hata: Aktarım sırasında sorun çıktı</string>
+    <string name="file_migration_failed_while_updating_index">Hata: Dizin güncellenemedi</string>
+
     <string name="file_migration_directory_already_exists">Veri klasörü zaten var. Şunlardan birini seçin:</string>
     <string name="file_migration_override_data_folder">Değiştirilsin</string>
     <string name="file_migration_use_data_folder">Kullanılsın</string>
@@ -542,6 +567,8 @@
     <string name="participate_contribute_translate_text">uygulamayı</string>
     <string name="participate_contribute_github_text">Kodun gözden geçirilmesine ve geliştirilmesine katkıda bulunun. Ayrıntılı bilgi almak için %1$s dosyasına bakın</string>
     <string name="participate_rc_play_store">Yayın adayını Google Play mağazasından alın</string>
+    <string name="participate_rc_fdroid">F-Droid uygulama mağazasından yayın adayı sürümünü alın</string>
+    <string name="participate_dev_fdroid">F-Droid uygulama mağazasından geliştirici sürümünü alın</string>
     <string name="participate_dev_direct_download">Geliştirme sürümünü doğrudan indirerek alın</string>
     <string name="move_to">Taşı&#8230;</string>
     <string name="copy_to">Kopyala&#8230;</string>
@@ -637,6 +664,7 @@
     <string name="contacts_preference_choose_date">Tarih seçin</string>
     <string name="contacts_preference_backup_never">asla</string>
     <string name="contacts_preferences_no_file_found">Herhangi bir dosya bulunamadı</string>
+    <string name="contacts_preferences_something_strange_happened">Son yedeğiniz bulunamadı!</string>
     <string name="contacts_preferences_backup_scheduled">Yedekleme zamanlandı ve kısa süre sonra başlatılacak</string>
     <string name="contacts_preferences_import_scheduled">İçe aktarma işlemi zamanlandı ve kısa süre sonra başlatılacak</string>
 
@@ -667,4 +695,5 @@
     <string name="push_notifications_not_implemented">Anında bildirimler Google Play hizmetlerine ait olan bağımlılıklar nedeniyle devre dışı bırakıldı.</string>
     <string name="push_notifications_old_login">Oturumunuzun süresi dolduğundan anında bildirimler gönderilemez. Lütfen hesabınızı yeniden eklemeyi düşünün.</string>
     <string name="push_notifications_temp_error">Anında bildirimler şu anda kullanılamıyor.</string>
-    </resources>
+    <string name="date_unknown">Bilinmiyor</string>
+</resources>

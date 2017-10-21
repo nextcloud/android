@@ -54,7 +54,10 @@
     <string name="prefs_feedback">ملاحظات</string>
     <string name="prefs_imprint">الدمغة.</string>
 
-	<string name="auth_check_server">فحص الخادم</string>
+	<string name="recommend_subject">جرّب %1$s على هاتفك الذكي !</string>
+	<string name="recommend_urls">%1$s أو %2$s</string>
+
+    <string name="auth_check_server">فحص الخادم</string>
     <string name="auth_host_url">عنوان الخادوم https://&#8230;</string>
     <string name="auth_username">إسم المستخدم</string>
     <string name="auth_password">كلمة السر</string>
@@ -152,6 +155,8 @@
     <string name="sync_fail_in_favourites_content"> لا يمكن مزامنة جهات اتصال %1$d  ( %2$d تعارض) </string>
     <string name="sync_foreign_files_forgotten_ticker">تم نسيان بعض الملفات المحلية</string>
     <string name="sync_foreign_files_forgotten_content">%1$d لا يمكن نسخها داخل المجلد %2$s الملفات الخارجه من المجلد</string>
+    <string name="foreign_files_local_text">محلّي : %1$s</string>
+    <string name="foreign_files_remote_text">عن بعد : %1$s</string>
     <string name="pass_code_enter_pass_code">إدخل رمزك السري من فضلك</string>
     
     <string name="pass_code_configure_your_pass_code">إدخل رمزك السري</string>
@@ -194,14 +199,17 @@
     <string name="unfavorite">الغ التحدد كمتوفر بدون اتصال الانترنت</string>
     <string name="favorite_real">حدد كمفضلة</string>
     <string name="unset_favorite_real">الغ التحدد كمفضلة</string>
+    <string name="favorite_switch">مُتاح بدون إتصال بالإنترنت</string>
     <string name="common_rename">إعادة التسمية</string>
     <string name="confirmation_remove_local">محليا فقط</string>
     <string name="rename_dialog_title">أدخل اسما جديدا</string>
     <string name="sync_file_nothing_to_do_msg">تمت  مزامنة محتويات الملفات من قبل</string>
+    <string name="create_dir_fail_msg">تعذر إنشاء المُجلّد</string>
     <string name="filename_forbidden_characters">رموز ممنوعة: / \\ &lt; &gt; : \" | ? *</string>
     <string name="filename_forbidden_charaters_from_server">اسم الملف به ، على الأقل ، حرف غير صالح</string>
     <string name="filename_empty">إسم الملف لا يمكن أن يكون فارغاً</string>
     <string name="wait_a_moment">الرجاء الإنتظار&#8230;</string>
+    <string name="filedisplay_no_file_selected">لم تقم بتحديد أي ملف</string>
     <string name="activity_chooser_title">ارسل الرابط الى &#8230;</string>
     <string name="ssl_validator_header">لا يمكن التحقق من هوية الموقع</string>
     <string name="ssl_validator_reason_cert_not_trusted">شهادة الخادم غير موثوقة</string>
@@ -209,6 +217,7 @@
     <string name="ssl_validator_reason_cert_not_yet_valid">وقت صلاحية شهادة الخادم لم يحن بعد</string>
     <string name="ssl_validator_reason_hostname_not_verified">الرابط لا يوافق اسم المضيف فى  شهاده الحماية </string>
     <string name="ssl_validator_question">هل تريد أن تثق في هذه الشهادة على اي حال ؟</string>
+    <string name="ssl_validator_not_saved">تعذر الإحتفاظ بالشهادة</string>
     <string name="ssl_validator_btn_details_see">تفاصيل</string>
     <string name="ssl_validator_btn_details_hide">إخفاء</string>
     <string name="ssl_validator_label_subject">أصدرت لـ :</string>
@@ -243,8 +252,13 @@
 
     <string name="preview_sorry">آسف</string>
     <string name="preview_image_description">معاينة الصورة</string>
+    <string name="preview_image_error_unknown_format">تعذرت عملية عرض الصورة</string>
     <string name="error__upload__local_file_not_copied">%1$s تعذر نسخه %2$s للمجلد المحلي</string>
-    <string name="share_link_file_error">حدث خطأ ما أثناء محاولة مشاركة هذا الملف أو المجلد</string>
+    <string name="prefs_synced_folders_local_path_title">مجلد محلي</string>
+    <string name="prefs_synced_folders_remote_path_title">مجلد عن بعد</string>
+    <string name="prefs_instant_upload_path_use_subfolders_title">إستخدم المجلدات الفرعية</string>
+    <string name="share_link_no_support_share_api">عذراً، المشاركة غير متاحة في الخادم الخاص بك. الرجاء الإتصال بالمسؤول.</string>
+	<string name="share_link_file_error">حدث خطأ ما أثناء محاولة مشاركة هذا الملف أو المجلد</string>
 	<string name="unshare_link_file_error">حدث خطأ ما أثناء محاولة إلغاء مشاركة هذا الملف أو المجلد</string>
     <string name="share_link_password_title">إدخِل كلمة السر</string>
     <string name="share_link_empty_password">يجب عليك إدخال كلمة مرور</string>
@@ -253,9 +267,11 @@
 
     <string name="copy_link">نسخ الرابط</string>
     <string name="clipboard_text_copied">تم النسخ للحافظة</string>
+    <string name="forbidden_permissions">غير مسموح لك أن %s</string>
     <string name="forbidden_permissions_rename">لإعادة تسمية هذا الملف</string>
     <string name="forbidden_permissions_delete">لحذف هذا الملف</string>
     <string name="share_link_forbidden_permissions">لمشاركة هذا الملف</string>
+    <string name="forbidden_permissions_create">إنشاء هذا الملف</string>
     <string name="file_migration_finish_button">تم</string>
     <string name="file_migration_cleaning">تنظيف&#8230;</string>
     <string name="file_migration_ok_finished">مكتملة</string>
@@ -274,6 +290,7 @@
 
     <string name="forbidden_permissions_copy">لنسخ هذا الملف</string>
 
+    <string name="prefs_category_instant_uploading">تحميلات تلقائية</string>
     <string name="prefs_category_details">تفاصيل</string>
 
 	<string name="shared_subject_header">المشاركات</string>
@@ -290,6 +307,7 @@
     <string name="file_list__footer__files">%1$d ملفات</string>
     <string name="file_list__footer__files_and_folder">%1$d ملفات و مجلد واحد</string>
     <string name="file_list__footer__files_and_folders">%1$d ملفات و %2$d مجلدات</string>
+    <string name="set_picture_as">إستخدم الصورة كـ</string>
     <string name="upload_copy_files">أنسخ الملف</string>
     <string name="select_all">تحديد الكل</string>
     <string name="deselect_all">إلغاء تحديد الكل</string>
@@ -298,6 +316,7 @@
     <string name="prefs_storage_path">مسار التخزين</string>
     <string name="share_dialog_title">مشاركة</string>
     <string name="share_file">شارك %1$s</string>
+    <string name="share_with_user_section_title">شارك مع مستخدمين أو مجموعات</string>
     <string name="share_via_link_section_title">شارك الرابط</string>
     <string name="share_via_link_expiration_date_label">تعيين تاريخ إنتهاء الصلاحية</string>
     <string name="share_via_link_password_title">مؤَمَّن</string>
@@ -311,6 +330,8 @@
     <string name="search_users_and_groups_hint">إبحث عن مستخدمين أو مجموعات</string>
     <string name="share_group_clarification">%1$s(مجموعة)</string>
     <string name="share_email_clarification">%1$s(بريد)</string>
+    <string name="filedetails_share_link_disable">لم يتم مشاركته بعد بواسطة رابط</string>
+    <string name="filedetails_share_users_with_access">المجموعات و المستخدمون المرخص لهم</string>
     <string name="share_privilege_can_share">يمكن المشاركة</string>
     <string name="share_privilege_can_edit">يمكن التحرير</string>
     <string name="share_privilege_can_edit_create">إنشاء</string>
@@ -327,12 +348,19 @@
     <string name="drawer_synced_folders">تحميل تلقائي</string>
     <string name="drawer_participate">شارك معنا</string>
     <string name="participate_testing_headline">ساعدنا بالتجريب</string>
+    <string name="participate_testing_report_text">إرسل تقرير أخطاء على جيت هب</string>
+    <string name="participate_beta_headline">جرّب تطبيق المطورين</string>
     <string name="participate_contribute_headline">ساهم بفعالية</string>
     <string name="participate_contribute_irc_text">إنضم إلى الدردشة على :</string>
+    <string name="participate_contribute_forum_text">قم بمساعدة الآخرين على</string>
     <string name="participate_contribute_forum_forum">المنتدى</string>
     <string name="participate_contribute_translate_translate">الترجمة</string>
     <string name="participate_contribute_translate_text">التطبيق</string>
     <string name="synced_folders_settings">الإعدادات</string>
+    <string name="activity_list_loading_activity">تحميل النشاطات &#8230;</string>
+    <string name="activity_list_no_results">لا توجد نشاطات</string>
+
+    <string name="notifications_loading_activity">تحميل الإخطارات &#8230;</string>
     <string name="notifications_no_results_headline">لا توجد هناك إخطارات</string>
     <string name="upload_file_dialog_filename">اسم الملف</string>
     <string name="upload_file_dialog_filetype">نوع الملف</string>
@@ -380,8 +408,13 @@
     <string name="privacy">الخصوصية</string>
     <string name="file_not_found">المجلد غير موجود !</string>
 
+    <string name="synced_folders_configure_folders">إعداد المجلدات</string>
+
     <string name="test_server_button">أفحص أتصال الخادم</string>
+    <string name="whats_new_fingerprint_title">افتحه ببصمتك</string>
+    <string name="whats_new_fingerprint_content">إستخدم بصمتك لفتح التطبيق</string>
     <string name="fallback_weblogin_back">العودة</string>
     <string name="prefs_sourcecode">الحصول على الشفرة المصدرية</string>
     <string name="prefs_license">الرخصة</string>
-    </resources>
+    <string name="date_unknown">مجهول</string>
+</resources>

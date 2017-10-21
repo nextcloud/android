@@ -48,6 +48,7 @@
     <string name="prefs_calendar_contacts">Configurer la synchronisation de l\'agenda et des contacts</string>
     <string name="prefs_calendar_contacts_summary">Configurer DAVdroid (v1.3.0+) pour le compte actuel</string>
     <string name="prefs_calendar_contacts_address_resolve_error">Une  adresse de serveur pour le compte pourrait ne pas être résolue par DAVdroid</string>
+    <string name="prefs_calendar_contacts_no_store_error">Aucune application Google Play store ou F-Droid installée</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Synchronisation de l\'agenda &amp; des contacts configurée</string>
     <string name="prefs_daily_contacts_sync_summary">Sauvegarde quotidienne de vos contacts</string>
     <string name="prefs_help">Aide</string>
@@ -55,7 +56,11 @@
     <string name="prefs_feedback">Nous contacter par mail</string>
     <string name="prefs_imprint">Mentions</string>
 
-	<string name="auth_check_server">Vérifier le serveur</string>
+	<string name="recommend_subject">Essayez %1$s sur votre smartphone !</string>
+	<string name="recommend_text">J\'aimerais vous inviter à utiliser %1$s sur votre smartphone.\nTéléchargez-la ici : %2$s.</string>
+    <string name="recommend_urls">%1$s ou %2$s</string>
+
+    <string name="auth_check_server">Vérifier le serveur</string>
     <string name="auth_host_url">Adresse du serveur https://&#8230;</string>
     <string name="auth_username">Nom d\'utilisateur</string>
     <string name="auth_password">Mot de passe</string>
@@ -122,6 +127,7 @@
     <string name="common_yes">Oui</string>
     <string name="common_no">Non</string>
     <string name="common_ok">OK</string>
+    <string name="common_remove_upload">Retirer le téléversement</string>
     <string name="common_retry_upload">Renvoyer</string>
     <string name="common_cancel_sync">Annuler la synchronisation</string>
     <string name="common_cancel">Annuler</string>
@@ -190,16 +196,27 @@ Attention la suppression est irréversible.</string>
     <string name="sync_foreign_files_forgotten_ticker">Certains fichiers locaux ont été ignorés</string>
     <string name="sync_foreign_files_forgotten_content">%1$d fichiers du dossier %2$s n\'ont pas pu être copiés dans</string>
     <string name="sync_current_folder_was_removed">Le dossier %1$s n\'existe plus</string>
+    <string name="foreign_files_move">Tout déplacer</string>
+    <string name="foreign_files_success">Tous les fichiers ont été déplacés</string>
+    <string name="foreign_files_fail">Certains fichiers n\'ont pu être déplacés</string>
+    <string name="foreign_files_local_text">Local : %1$s</string>
+    <string name="foreign_files_remote_text">Distant : %1$s</string>
     <string name="upload_query_move_foreign_files">Il n\'y a pas assez d\'espace pour copier les fichiers sélectionnés dans le dossier %1$s. Souhaitez-vous plutôt les déplacer ?</string>
     <string name="pass_code_enter_pass_code">Veuillez saisir votre code de sécurité</string>
     
     <string name="pass_code_configure_your_pass_code">Saisissez votre code de sécurité</string>
     <string name="pass_code_configure_your_pass_code_explanation">Le code de sécurité sera demandé à chaque ouverture de l\'application</string>
     <string name="pass_code_reenter_your_pass_code">Veuillez saisir de nouveau votre code de sécurité</string>
+    <string name="pass_code_remove_your_pass_code">Supprimer votre code de sécurité</string>
     <string name="pass_code_mismatch">Les codes de sécurité ne sont pas identiques</string>
     <string name="pass_code_wrong">Code de sécurité incorrect</string>
+    <string name="pass_code_removed">Code de sécurité supprimé</string>
     <string name="pass_code_stored">Code de sécurité enregistré</string>
     
+    <string name="media_notif_ticker">Lecteur de musique %1$s</string>
+    <string name="media_state_playing">%1$s (lecture)</string>
+    <string name="media_state_loading">%1$s (chargement)</string>
+    <string name="media_event_done">Lecture de %1$s terminée</string>
     <string name="media_err_nothing_to_play">Aucun fichier média trouvé</string>
     <string name="media_err_no_account">Aucun compte fourni</string>
     <string name="media_err_not_in_owncloud">Le fichier n\'est pas dans un compte valide</string>
@@ -257,8 +274,13 @@ Attention la suppression est irréversible.</string>
     <string name="favorite_switch">Disponible hors-ligne</string>
     <string name="common_rename">Renommer</string>
     <string name="common_remove">Supprimer</string>
+    <string name="confirmation_remove_file_alert">Souhaitez-vous vraiment supprimer %1$s ?</string>
+    <string name="confirmation_remove_folder_alert">Voulez-vous vraiment supprimer %1$s et ses contenus ?</string>
     <string name="confirmation_remove_local">Local seulement</string>
+    <string name="remove_success_msg">Supprimé</string>
+    <string name="remove_fail_msg">Échec de la suppression</string>
     <string name="rename_dialog_title">Entrez un nouveau nom</string>
+    <string name="rename_local_fail_msg">La version locale ne peut être renommée ; veuillez réessayer avec un nom différent</string>
     <string name="sync_file_fail_msg">Le fichier distant n\'a pu être vérifié</string>
     <string name="sync_file_nothing_to_do_msg">Ce fichier est déjà synchronisé</string>
     <string name="create_dir_fail_msg">Le dossier n\'a pas pu être créé</string>
@@ -267,6 +289,7 @@ Attention la suppression est irréversible.</string>
     <string name="filename_empty">Le nom du fichier ne peut pas être vide</string>
     <string name="wait_a_moment">Veuillez patienter&#8230;</string>
     <string name="wait_checking_credentials">Vérification des identifiants enregistrés</string>
+    <string name="filedisplay_unexpected_bad_get_content">Problème inattendu ; veuillez sélectionner le fichier depuis une autre application</string>
     <string name="filedisplay_no_file_selected">Aucun fichier sélectionné</string>
     <string name="activity_chooser_title">Envoyer le lien vers &#8230;</string>
     <string name="wait_for_tmp_copy_from_private_storage">Copie du fichier depuis le stockage privé</string>
@@ -383,6 +406,8 @@ Attention la suppression est irréversible.</string>
     <string name="file_migration_failed_not_readable">Erreur : Le fichier source n\'est pas lisible</string>
     <string name="file_migration_failed_dir_already_exists">Erreur : Le dossier Nextcloud existe déjà</string>
     <string name="file_migration_failed_while_coping">Erreur : Echec lors de la migration</string>
+    <string name="file_migration_failed_while_updating_index">Erreur : Echec lors de la mise à jour de l\'index</string>
+
     <string name="file_migration_directory_already_exists">Le dossier de données existe déjà. Choisissez une des options suivantes :</string>
     <string name="file_migration_override_data_folder">Remplacer</string>
     <string name="file_migration_use_data_folder">Conserver le dossier actuel</string>
@@ -540,6 +565,8 @@ Attention la suppression est irréversible.</string>
     <string name="participate_contribute_translate_text">l\'application</string>
     <string name="participate_contribute_github_text">Vérifier, corriger et écrire du code, voir %1$s pour plus de détails</string>
     <string name="participate_rc_play_store">Obtenez la version Release Candidate via Google Play store</string>
+    <string name="participate_rc_fdroid">Obtenez la version Release Candidate via F-Droid app store</string>
+    <string name="participate_dev_fdroid">Obtenir la version de développement sur la boutique d\'applications F-Droid</string>
     <string name="participate_dev_direct_download">Obtenir la version de développement par téléchargement direct</string>
     <string name="move_to">Déplacer vers&#8230;</string>
     <string name="copy_to">Copier vers&#8230;</string>
@@ -635,6 +662,7 @@ Attention la suppression est irréversible.</string>
     <string name="contacts_preference_choose_date">Sélectionner la date</string>
     <string name="contacts_preference_backup_never">jamais</string>
     <string name="contacts_preferences_no_file_found">Aucun fichier trouvé</string>
+    <string name="contacts_preferences_something_strange_happened">Impossible de trouver la dernière sauvegarde !</string>
     <string name="contacts_preferences_backup_scheduled">La sauvegarde est planifiée et va bientôt démarrer</string>
     <string name="contacts_preferences_import_scheduled">L\'import est planifié et va démarrer</string>
 
@@ -665,4 +693,5 @@ Attention la suppression est irréversible.</string>
     <string name="push_notifications_not_implemented">L\'envoi de notifications est désactivé à cause des dépendances propriétaires des services Google Play.</string>
     <string name="push_notifications_old_login">Aucune notification push à cause d\'une connexion expirée. Veuillez ajouter de nouveau votre compte. </string>
     <string name="push_notifications_temp_error">Les notifications push ne sont pas disponibles actuellement.</string>
-    </resources>
+    <string name="date_unknown">Inconnu</string>
+</resources>
