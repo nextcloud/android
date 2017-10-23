@@ -261,7 +261,7 @@ Kies er eentje van een provider.</string>
 	<string name="auth_unsupported_auth_method">De server ondersteunt deze authenticatiemethode niet</string>
 	<string name="auth_unsupported_multiaccount">%1$s ondersteunt het gebruik van meerdere accounts niet</string>
 	<string name="auth_fail_get_user_name">Je server geeft geen goede userid terug, neem contact op met je beheerder</string>
-	<string name="auth_can_not_auth_against_server">Kan niet autenticeren tegen deze server</string>
+	<string name="auth_can_not_auth_against_server">Kan niet authenticeren tegen deze server</string>
     <string name="auth_account_does_not_exist">Account bestaan nog niet op dit apparaat</string>
     <string name="auth_access_failed">Toegang mislukt</string>
 
@@ -692,4 +692,5 @@ Kies er eentje van een provider.</string>
     <string name="push_notifications_not_implemented">Push notificaties uitgeschakeld door afhankelijkheden op eigen Google Play-services.</string>
     <string name="push_notifications_old_login">Geen push-notificaties als gevolg van de verouderde inlogsessie. Overweeg het opnieuw toevoegen van uw account.</string>
     <string name="push_notifications_temp_error">Push notificaties momenteel niet beschikbaar.</string>
-    </resources>
+    <string name="date_unknown">Onbekend</string>
+</resources>
