@@ -121,13 +121,13 @@ public class PreviewImageActivity extends FileActivity implements
                         }
                     }
                 });
-
+         
         if (savedInstanceState != null) {
             mRequestWaitingForBinder = savedInstanceState.getBoolean(KEY_WAITING_FOR_BINDER);
         } else {
             mRequestWaitingForBinder = false;
         }
-
+        
     }
 
     private void initViewPager() {
@@ -349,6 +349,7 @@ public class PreviewImageActivity extends FileActivity implements
         mHasSavedPosition = true;
         if (mDownloaderBinder == null) {
             mRequestWaitingForBinder = true;
+            
         } else {
             OCFile currentFile = mPreviewImagePagerAdapter.getFileAt(position); 
             getSupportActionBar().setTitle(currentFile.getFileName());
@@ -472,7 +473,7 @@ public class PreviewImageActivity extends FileActivity implements
             if (file.getFileId() > FileDataStorageManager.ROOT_PARENT_ID) {
                 file = getStorageManager().getFileById(file.getFileId());
             }
-
+            
             if (file != null) {
                 /// Refresh the activity according to the Account and OCFile set
                 setFile(file);  // reset after getting it fresh from storageManager

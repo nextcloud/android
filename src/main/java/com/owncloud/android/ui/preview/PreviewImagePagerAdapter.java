@@ -138,13 +138,13 @@ public class PreviewImagePagerAdapter extends FragmentStatePagerAdapter {
         return mImageFiles.get(position);
     }
 
-
+    
     public Fragment getItem(int i) {
         OCFile file = mImageFiles.get(i);
         Fragment fragment;
         if (file.isDown()) {
             fragment = PreviewImageFragment.newInstance(file, mObsoletePositions.contains(i), false);
-
+            
         } else {
             if (mDownloadErrors.contains(i)) {
                 fragment = FileDownloadFragment.newInstance(file, mAccount, true);

@@ -166,7 +166,7 @@ public class FingerprintActivity extends AppCompatActivity {
     @Override
     public void onStop(){
         super.onStop();
-        if (cancellationSignal != null) {
+        if(cancellationSignal != null) {
             cancellationSignal.cancel();
         }
     }

@@ -328,7 +328,7 @@
     <string name="prefs_instant_upload_path_use_subfolders_summary">Spara i undermappar baserat på år och månad</string>
 
 	<string name="share_link_no_support_share_api">Delning är inte aktiverat på din server. Vänligen kontakta administratören.</string>
-    <string name="share_link_file_no_exist">Lyckades ej dela. Vänligen kontrollera om filen existerar</string>
+	<string name="share_link_file_no_exist">Lyckades ej dela. Vänligen kontrollera om filen existerar</string>
 	<string name="share_link_file_error">Ett fel uppstod vid försök att dela denna fil eller mapp</string>
 	<string name="unshare_link_file_no_exist">Lyckades ej sluta dela. Vänligen kontrollera om filen existerar</string>
 	<string name="unshare_link_file_error">Ett fel uppstod vid försök att sluta dela denna fil eller mapp</string>
@@ -391,8 +391,8 @@
 
 	<string name="actionbar_logger">Loggar</string>
 	<string name="log_send_history_button">Skicka historik</string>
-    <string name="log_send_no_mail_app">Ingen app för att skicka loggar hittades. Vänligen installera en e-postklient.</string>
-    <string name="log_send_mail_subject">%1$s Android apploggar</string>
+	<string name="log_send_no_mail_app">Ingen app för att skicka loggar hittades. Vänligen installera en e-postklient.</string>
+	<string name="log_send_mail_subject">%1$s Android apploggar</string>
 	<string name="log_progress_dialog_text">Laddar data &#8230;</string>
 
 	<string name="saml_authentication_required_text">Autentisering krävs</string>

@@ -256,7 +256,7 @@ public class PreviewImageFragment extends FileFragment {
 
             if (mShowResizedImage) {
                 Bitmap resizedImage = ThumbnailsCacheManager.getBitmapFromDiskCache(
-                        String.valueOf("r" + getFile().getRemoteId()));
+                        String.valueOf(ThumbnailsCacheManager.PREFIX_RESIZED_IMAGE + getFile().getRemoteId()));
 
                 if (resizedImage != null && !getFile().needsUpdateThumbnail()) {
                     mImageView.setImageBitmap(resizedImage);
@@ -265,7 +265,7 @@ public class PreviewImageFragment extends FileFragment {
                 } else {
                     // show thumbnail while loading resized image
                     Bitmap thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(
-                            String.valueOf("t" + getFile().getRemoteId()));
+                            String.valueOf(ThumbnailsCacheManager.PREFIX_THUMBNAIL + getFile().getRemoteId()));
 
                     if (thumbnail != null) {
                         mImageView.setImageBitmap(thumbnail);

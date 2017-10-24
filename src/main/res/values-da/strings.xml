@@ -185,13 +185,13 @@
 	<string name="auth_not_configured_title">Misdannet server konfiguration</string>
 	<string name="auth_account_not_the_same">Den indtastede bruger passer ikke til brugeren for denne konto</string>
 	<string name="auth_unknown_error_title">Ukendt fejl opstod!</string>
-    <string name="auth_unknown_host_title">Kunne ikke finde host</string>
-    <string name="auth_incorrect_path_title">Server ikke fundet</string>
+	<string name="auth_unknown_host_title">Kunne ikke finde host</string>
+	<string name="auth_incorrect_path_title">Server ikke fundet</string>
 	<string name="auth_timeout_title">Serveren var for længe om at svare</string>
-    <string name="auth_incorrect_address_title">Forkert adresseformat på server</string>
+	<string name="auth_incorrect_address_title">Forkert adresseformat på server</string>
 	<string name="auth_ssl_general_error_title">SSL-initialiseringen fejlede</string>
 	<string name="auth_bad_oc_version_title">Ikke genkendt serverversion</string>
-    <string name="auth_wrong_connection_title">Kunne ikke etablere forbindelse</string>
+	<string name="auth_wrong_connection_title">Kunne ikke etablere forbindelse</string>
 	<string name="auth_secure_connection">Sikker forbindelse oprettet</string>
 	<string name="auth_unauthorized">Forkert brugernavn eller kodeord</string>
 	<string name="auth_oauth_error">Mislykket godkendelse</string>
@@ -220,10 +220,10 @@
     <string name="filedisplay_no_file_selected">Ingen fil valgt</string>
     <string name="activity_chooser_title">Send link til &#8230;</string>
     <string name="wait_for_tmp_copy_from_private_storage">Kopierer fil fra privat lager.</string>
-
-    <string name="oauth_check_onoff">Log ind med OAuth 2.0</string>
+    
+    <string name="oauth_check_onoff">Log ind med OAuth 2.0</string> 
     <string name="oauth_login_connection">Forbinder til OAuth 2.0 server&#8230;</string>
-
+        
     <string name="ssl_validator_header">Sidens identitet kunne ikke verificeres</string>
     <string name="ssl_validator_reason_cert_not_trusted">- Serverens certifikat er ikke troværdigt</string>
     <string name="ssl_validator_reason_cert_expired">- Serverens certifikat er udløbet</string>

@@ -344,7 +344,7 @@ public class FileListListAdapter extends BaseAdapter {
                 if ((MimeTypeUtil.isImage(file) || MimeTypeUtil.isVideo(file)) && file.getRemoteId() != null) {
                     // Thumbnail in Cache?
                     Bitmap thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(
-                            "t" + String.valueOf(file.getRemoteId())
+                            ThumbnailsCacheManager.PREFIX_THUMBNAIL + String.valueOf(file.getRemoteId())
                     );
                     if (thumbnail != null && !file.needsUpdateThumbnail()) {
 
@@ -361,6 +361,7 @@ public class FileListListAdapter extends BaseAdapter {
                                 final ThumbnailsCacheManager.ThumbnailGenerationTask task =
                                         new ThumbnailsCacheManager.ThumbnailGenerationTask(
                                                 fileIcon, mStorageManager, mAccount, asyncTasks);
+
                                 if (thumbnail == null) {
                                     if (MimeTypeUtil.isVideo(file)) {
                                         thumbnail = ThumbnailsCacheManager.mDefaultVideo;
@@ -619,7 +620,7 @@ public class FileListListAdapter extends BaseAdapter {
 
                 contentValues.add(cv);
             } catch (RemoteOperationFailedException e) {
-                Log_OC.e(TAG, "Error saving file with parent" + e.getMessage(), e);
+                Log_OC.e(TAG, "Error saving file with parent" + e.getMessage(),e);
             }
         }
 

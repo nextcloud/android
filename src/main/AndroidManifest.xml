@@ -82,9 +82,8 @@
         <activity android:name=".ui.activity.UserInfoActivity" />
         <activity android:name=".ui.activity.NotificationsActivity"/>
         <activity android:name=".ui.activity.ParticipateActivity" />
-        <activity
-            android:name=".ui.activity.ActivitiesListActivity"
-            android:configChanges="orientation|screenSize|keyboardHidden"/>
+        <activity android:name=".ui.activity.ActivitiesListActivity"
+                  android:configChanges="orientation|screenSize|keyboardHidden" />
         <activity android:name=".ui.activity.SyncedFoldersActivity"/>
         <activity android:name=".ui.activity.UploadFilesActivity" />
         <activity android:name=".ui.activity.ExternalSiteWebView"
@@ -229,7 +228,7 @@
         <activity android:name=".ui.activity.ConflictsResolveActivity"/>
         <activity android:name=".ui.activity.GenericExplanationActivity"/>
         <activity android:name=".ui.activity.ErrorsWhileCopyingHandlerActivity"/>
-
+        
         <activity android:name=".ui.activity.LogHistoryActivity"/>
 
         <activity android:name=".ui.errorhandling.ErrorShowActivity" />

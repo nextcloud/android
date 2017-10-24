@@ -237,18 +237,18 @@ Attention la suppression est irréversible.</string>
 
 	<string name="auth_getting_authorization">Contrôle d\'autorisation&#8230;</string>
 	<string name="auth_trying_to_login">Tentative de connexion&#8230;</string>
-    <string name="auth_no_net_conn_title">Aucune connexion réseau</string>
+	<string name="auth_no_net_conn_title">Aucune connexion réseau</string>
 	<string name="auth_nossl_plain_ok_title">Connexion sécurisée non disponible</string>
 	<string name="auth_connection_established">Connexion établie</string>
 	<string name="auth_testing_connection">Test de connexion en cours</string>
 	<string name="auth_not_configured_title">Configuration du serveur erronée</string>
-    <string name="auth_account_not_new">Un compte existe déjà pour cet utilisateur et ce serveur</string>
+	<string name="auth_account_not_new">Un compte existe déjà pour cet utilisateur et ce serveur</string>
 	<string name="auth_account_not_the_same">L\'utilisateur saisi ne correspond pas à l\'utilisateur de ce compte</string>
 	<string name="auth_unknown_error_title">Une erreur inconnue s\'est produite !</string>
 	<string name="auth_unknown_host_title">Impossible de trouver l\'hôte</string>
 	<string name="auth_incorrect_path_title">Aucune instance du serveur n\'a été trouvée</string>
 	<string name="auth_timeout_title">Le serveur a pris trop de temps à répondre</string>
-    <string name="auth_incorrect_address_title">Format invalide pour l\'adresse du serveur</string>
+	<string name="auth_incorrect_address_title">Format invalide pour l\'adresse du serveur</string>
 	<string name="auth_ssl_general_error_title">Échec de l\'initialisation SSL</string>
 	<string name="auth_ssl_unverified_server_title">Impossible de vérifier l\'identité du serveur SSL</string>
 	<string name="auth_bad_oc_version_title">La version du serveur n\'est pas reconnue</string>

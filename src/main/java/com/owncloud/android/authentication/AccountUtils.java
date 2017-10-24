@@ -85,7 +85,7 @@ public class AccountUtils {
 
         if (defaultAccount == null && ocAccounts.length > 0) {
             // take first which is not pending for removal account as fallback
-            for (Account account : ocAccounts) {
+            for (Account account: ocAccounts) {
                 boolean pendingForRemoval = arbitraryDataProvider.getBooleanValue(account,
                         ManageAccountsActivity.PENDING_FOR_REMOVAL);
 
@@ -225,7 +225,7 @@ public class AccountUtils {
         return null;
     }
 
-
+    
     public static String trimWebdavSuffix(String url) {
         while(url.endsWith("/")) {
             url = url.substring(0, url.length() - 1);

@@ -314,12 +314,12 @@ public class MainApp extends MultiDexApplication {
     }
 
     private static void updateToAutoUpload() {
-        Context context = getAppContext();
-        if (PreferenceManager.instantPictureUploadEnabled(context) ||
-                PreferenceManager.instantPictureUploadEnabled(context)) {
+            Context context = getAppContext();
+            if (PreferenceManager.instantPictureUploadEnabled(context) ||
+                            PreferenceManager.instantPictureUploadEnabled(context)) {
 
                 // remove legacy shared preferences
-            SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(context).edit();
+                SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(context).edit();
                 editor.remove("instant_uploading")
                         .remove("instant_video_uploading")
                         .remove("instant_upload_path")
@@ -334,29 +334,29 @@ public class MainApp extends MultiDexApplication {
                         .remove("prefs_instant_behaviour").apply();
 
                 // show info pop-up
-            try {
-                new AlertDialog.Builder(context, R.style.Theme_ownCloud_Dialog)
-                        .setTitle(R.string.drawer_synced_folders)
-                        .setMessage(R.string.synced_folders_new_info)
-                        .setPositiveButton(R.string.drawer_open, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                // show Auto Upload
-                                Intent folderSyncIntent = new Intent(context,
-                                        SyncedFoldersActivity.class);
-                                dialog.dismiss();
-                                context.startActivity(folderSyncIntent);
-                            }
-                        })
-                        .setNegativeButton(R.string.drawer_close, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.dismiss();
-                            }
-                        })
-                        .setIcon(R.drawable.nav_synced_folders)
-                        .show();
-            } catch (WindowManager.BadTokenException e) {
-                Log_OC.i(TAG, "Error showing Auto Upload Update dialog, so skipping it: " + e.getMessage());
-            }
+                try {
+                    new AlertDialog.Builder(context, R.style.Theme_ownCloud_Dialog)
+                            .setTitle(R.string.drawer_synced_folders)
+                            .setMessage(R.string.synced_folders_new_info)
+                            .setPositiveButton(R.string.drawer_open, new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    // show Auto Upload
+                                    Intent folderSyncIntent = new Intent(context,
+                                            SyncedFoldersActivity.class);
+                                    dialog.dismiss();
+                                    context.startActivity(folderSyncIntent);
+                                }
+                            })
+                            .setNegativeButton(R.string.drawer_close, new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                }
+                            })
+                            .setIcon(R.drawable.nav_synced_folders)
+                            .show();
+                } catch (WindowManager.BadTokenException e) {
+                    Log_OC.i(TAG, "Error showing Auto Upload Update dialog, so skipping it: " + e.getMessage());
+                }
             }
     }
 
