@@ -755,7 +755,7 @@ public class PreviewImageFragment extends FileFragment {
         try {
             Snackbar.make(getView(), R.string.auth_no_net_conn_title, Snackbar.LENGTH_LONG).show();
         } catch (NullPointerException npe) {
-
+            Log_OC.e(TAG, "Error showing snackbar", npe);
         }
     }
 

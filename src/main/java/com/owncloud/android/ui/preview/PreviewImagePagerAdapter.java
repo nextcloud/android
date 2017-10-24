@@ -51,7 +51,6 @@ public class PreviewImagePagerAdapter extends FragmentStatePagerAdapter {
     private Set<Integer> mObsoletePositions;
     private Set<Integer> mDownloadErrors;
     private FileDataStorageManager mStorageManager;
-    private Context mContext;
 
     private Map<Integer, FileFragment> mCachedFragments;
 
@@ -78,7 +77,6 @@ public class PreviewImagePagerAdapter extends FragmentStatePagerAdapter {
             throw new IllegalArgumentException("NULL storage manager");
         }
 
-        mContext = context;
         mAccount = account;
         mStorageManager = storageManager;
         mImageFiles = mStorageManager.getFolderImages(parentFolder, onlyOnDevice);
