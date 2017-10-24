@@ -110,10 +110,6 @@
     <string name="upload_list_empty_text_auto_upload">Μεταφορτώστε περιεχόμενο ή ενεργοποιήστε την αυτόματη μεταφόρτωση.</string>
     <string name="file_list_folder">φάκελος</string>
     <string name="filedetails_select_file">Αγγίξτε κάποιο αρχείο για να προβάλετε περισσότερες πληροφορίες.</string>
-    <string name="filedetails_size">Μέγεθος:</string>
-    <string name="filedetails_type">Τύπος:</string>
-    <string name="filedetails_created">Δημιουργήθηκε:</string>
-    <string name="filedetails_modified">Τροποποιήθηκε:</string>
     <string name="filedetails_download">Λήψη</string>
     <string name="filedetails_sync_file">Συγχρονισμός</string>
     <string name="filedetails_renamed_in_upload_msg">Το αρχείο μετονομάστηκε σε %1$s κατά τη μεταφόρτωση</string>

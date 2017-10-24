@@ -115,10 +115,6 @@
     <string name="upload_list_empty_text_auto_upload">Отпремите неки садржај или укључите аутоматско отпремање.</string>
     <string name="file_list_folder">фасцикла</string>
     <string name="filedetails_select_file">Кликните на фајл ради приказа додатних информација.</string>
-    <string name="filedetails_size">Величина:</string>
-    <string name="filedetails_type">Врста:</string>
-    <string name="filedetails_created">Направљен:</string>
-    <string name="filedetails_modified">Измењена:</string>
     <string name="filedetails_download">Преузми</string>
     <string name="filedetails_sync_file">Синхронизуј</string>
     <string name="filedetails_renamed_in_upload_msg">Фајл преименован у %1$sза време отпремања</string>

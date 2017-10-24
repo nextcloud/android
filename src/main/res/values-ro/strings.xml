@@ -73,10 +73,6 @@
     <string name="upload_list_empty_headline">Nu există încărcări disponibile</string>
     <string name="file_list_folder">director</string>
     <string name="filedetails_select_file">Selectați un fișier pentru a afișa informația adițională.</string>
-    <string name="filedetails_size">Mărime:</string>
-    <string name="filedetails_type">Tip:</string>
-    <string name="filedetails_created">Creat:</string>
-    <string name="filedetails_modified">Modificat:</string>
     <string name="filedetails_download">Descarcă</string>
     <string name="filedetails_sync_file">Sincronizează</string>
     <string name="action_share">Partajează</string>

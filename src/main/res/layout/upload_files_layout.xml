@@ -28,7 +28,7 @@
     <fragment
         android:id="@+id/local_files_list"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/zero"
+        android:layout_height="0dp"
         android:layout_weight="1"
         class="com.owncloud.android.ui.fragment.LocalFileListFragment" />
 
@@ -64,7 +64,7 @@
 
         <Spinner
             android:layout_width="match_parent"
-            android:layout_height="@dimen/zero"
+            android:layout_height="0dp"
             android:id="@+id/upload_files_spinner_behaviour"
             android:layout_weight="1"/>
     </LinearLayout>

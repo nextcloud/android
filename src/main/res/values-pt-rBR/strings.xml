@@ -115,10 +115,6 @@
     <string name="upload_list_empty_text_auto_upload">Enviar algum conteúdo ou ativar o envio automático.</string>
     <string name="file_list_folder">pasta</string>
     <string name="filedetails_select_file">Toque em um arquivo para mostrar informações adicionais.</string>
-    <string name="filedetails_size">Tamanho:</string>
-    <string name="filedetails_type">Tipo:</string>
-    <string name="filedetails_created">Criado:</string>
-    <string name="filedetails_modified">Modificado:</string>
     <string name="filedetails_download">Baixar</string>
     <string name="filedetails_sync_file">Sincronizar</string>
     <string name="filedetails_renamed_in_upload_msg">Arquivo renomeado para %1$s durante o envio</string>

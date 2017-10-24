@@ -115,10 +115,6 @@
     <string name="upload_list_empty_text_auto_upload">Sube algún contenido o active la subida automática.</string>
     <string name="file_list_folder">carpeta</string>
     <string name="filedetails_select_file">Pulsa sobre un archivo para mostrar información adicional.</string>
-    <string name="filedetails_size">Tamaño:</string>
-    <string name="filedetails_type">Tipo:</string>
-    <string name="filedetails_created">Creado:</string>
-    <string name="filedetails_modified">Modificado:</string>
     <string name="filedetails_download">Descargar</string>
     <string name="filedetails_sync_file">Sincronizar</string>
     <string name="filedetails_renamed_in_upload_msg">Archivo renombrado a %1$s durante la subida</string>

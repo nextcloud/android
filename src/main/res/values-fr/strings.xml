@@ -115,10 +115,6 @@
     <string name="upload_list_empty_text_auto_upload">Téléversez du contenu ou activez le téléversement automatique.</string>
     <string name="file_list_folder">dossier</string>
     <string name="filedetails_select_file">Appuyez sur un fichier pour afficher des informations supplémentaires.</string>
-    <string name="filedetails_size">Taille :</string>
-    <string name="filedetails_type">Type :</string>
-    <string name="filedetails_created">Créé le :</string>
-    <string name="filedetails_modified">Modifié le :</string>
     <string name="filedetails_download">Télécharger</string>
     <string name="filedetails_sync_file">Synchroniser</string>
     <string name="filedetails_renamed_in_upload_msg">Le fichier a été renommé en %1$s pendant l\'envoi</string>

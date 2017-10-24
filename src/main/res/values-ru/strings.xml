@@ -110,10 +110,6 @@
     <string name="upload_list_empty_text_auto_upload">Выгрузите что-нибудь или включите автоматическую выгрузку!</string>
     <string name="file_list_folder">каталог</string>
     <string name="filedetails_select_file">Нажмите на файл для отображения дополнительной информации.</string>
-    <string name="filedetails_size">Размер:</string>
-    <string name="filedetails_type">Тип:</string>
-    <string name="filedetails_created">Создан:</string>
-    <string name="filedetails_modified">Изменён:</string>
     <string name="filedetails_download">Скачать</string>
     <string name="filedetails_sync_file">Синхронизировать</string>
     <string name="filedetails_renamed_in_upload_msg">При выгрузке файл был переименован в «%1$s»</string>
