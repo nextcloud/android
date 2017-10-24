@@ -292,9 +292,11 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
             item.setEnabled(false);
         }
 
+        item = menu.findItem(R.id.action_share_file);
+        item.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+
         if(getFile().isSharedWithMe() && !getFile().canReshare()){
             // additional restriction for this fragment
-            item = menu.findItem(R.id.action_share_file);
             if(item != null){
                 item.setVisible(false);
                 item.setEnabled(false);
