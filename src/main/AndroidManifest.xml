@@ -187,7 +187,7 @@
 
         <provider
             android:name=".providers.DiskLruImageCacheFileProvider"
-            android:authorities="org.nextcloud.imageCache.provider"
+            android:authorities="@string/image_cache_provider_authority"
             android:exported="true">
         </provider>
 

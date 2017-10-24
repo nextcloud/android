@@ -11,6 +11,7 @@
     <string name="users_and_groups_share_with">com.nextcloud.android.providers.UsersAndGroupsSearchProvider.action.SHARE_WITH</string>
     <string name="document_provider_authority">org.nextcloud.documents</string>
     <string name="file_provider_authority">org.nextcloud.files</string>
+    <string name="image_cache_provider_authority">org.nextcloud.imageCache.provider</string>
     <string name ="db_file">nextcloud.db</string>
     <string name ="db_name">nextcloud</string>
     <string name ="data_folder">nextcloud</string>

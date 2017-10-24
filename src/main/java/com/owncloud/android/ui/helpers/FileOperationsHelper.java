@@ -44,7 +44,6 @@ import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.lib.resources.shares.ShareType;
 import com.owncloud.android.lib.resources.status.OwnCloudVersion;
-import com.owncloud.android.providers.DiskLruImageCacheFileProvider;
 import com.owncloud.android.services.OperationsService;
 import com.owncloud.android.services.observer.FileObserverService;
 import com.owncloud.android.ui.activity.FileActivity;
@@ -498,10 +497,12 @@ public class FileOperationsHelper {
 
     public void sendCachedImage(OCFile file) {
         if (file != null) {
+            Context context = MainApp.getAppContext();
             Intent sendIntent = new Intent(Intent.ACTION_SEND);
             // set MimeType
             sendIntent.setType(file.getMimetype());
-            sendIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse("content://" + DiskLruImageCacheFileProvider.AUTHORITY +
+            sendIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse("content://" +
+                    context.getResources().getString(R.string.image_cache_provider_authority) +
                     file.getRemotePath()));
             sendIntent.putExtra(Intent.ACTION_SEND, true);      // Send Action
 
