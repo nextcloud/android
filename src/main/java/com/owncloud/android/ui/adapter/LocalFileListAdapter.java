@@ -204,7 +204,7 @@ public class LocalFileListAdapter extends BaseAdapter implements FilterableListA
                 if (MimeTypeUtil.isImage(file)){
                 // Thumbnail in Cache?
                     Bitmap thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(
-                            String.valueOf(file.hashCode())
+                            ThumbnailsCacheManager.PREFIX_THUMBNAIL + String.valueOf(file.hashCode())
                     );
                     if (thumbnail != null){
                         fileIcon.setImageBitmap(thumbnail);
@@ -226,7 +226,7 @@ public class LocalFileListAdapter extends BaseAdapter implements FilterableListA
                                             task
                                     );
                             fileIcon.setImageDrawable(asyncDrawable);
-                            task.execute(file);
+                            task.execute(new ThumbnailsCacheManager.ThumbnailGenerationTaskObject(file, null));
                             Log_OC.v(TAG, "Executing task to generate a new thumbnail");
 
                         } // else, already being generated, don't restart it

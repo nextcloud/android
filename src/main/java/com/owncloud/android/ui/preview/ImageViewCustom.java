@@ -31,6 +31,7 @@ public class ImageViewCustom extends AppCompatImageView {
     private long mMovieDuration;
     private long mMovieRunDuration;
     private long mLastTick;
+    protected PreviewImageFragment previewImageFragment;
 
     public ImageViewCustom(Context context) {
         super(context);
@@ -143,4 +144,7 @@ public class ImageViewCustom extends AppCompatImageView {
         }
     }
 
+    public void setPreviewImageFragment(PreviewImageFragment previewImageFragment) {
+        this.previewImageFragment = previewImageFragment;
+    }
 }
