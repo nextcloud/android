@@ -57,7 +57,7 @@
     <string name="prefs_imprint">법적 고지</string>
 
 	<string name="recommend_subject">%1$s을(를) 스마트폰에서 사용해 보세요!</string>
-	<string name="recommend_text">스마트폰에서 %1$s를 사용해보세요. 여기서 다운로드 하실 수 있습니다: %2$s</string>
+    <string name="recommend_text">스마트폰에서 %1$s를 사용해보세요. 여기서 다운로드 하실 수 있습니다: %2$s</string>
     <string name="recommend_urls">%1$s 및 %2$s</string>
 
     <string name="auth_check_server">서버 확인</string>
@@ -219,7 +219,7 @@
 	<string name="auth_not_configured_title">서버 설정이 잘못됨</string>
 	<string name="auth_account_not_the_same">입력된 사용자가 이 계정의 사용자와 일치하지 않습니다</string>
 	<string name="auth_unknown_error_title">알 수 없는 오류가 발생하였습니다!</string>
-	<string name="auth_incorrect_path_title">서버를 찾을 수 없음</string>
+    <string name="auth_incorrect_path_title">서버를 찾을 수 없음</string>
 	<string name="auth_timeout_title">서버 응답 시간이 초과됨</string>
 	<string name="auth_ssl_general_error_title">SSL 초기화 오류</string>
 	<string name="auth_bad_oc_version_title">확인할 수 없는 서버 버전</string>
@@ -253,10 +253,10 @@
     <string name="filedisplay_no_file_selected">선택된 파일 없음</string>
     <string name="activity_chooser_title">다음으로 링크 보내기&#8230;</string>
     <string name="wait_for_tmp_copy_from_private_storage">개인 저장소에서 파일 복사</string>
-    
-    <string name="oauth_check_onoff">OAuth 2.0으로 로그인</string> 
+
+    <string name="oauth_check_onoff">OAuth 2.0으로 로그인</string>
     <string name="oauth_login_connection">OAuth 2.0 서버에 연결 중&#8230;</string>
-        
+
     <string name="ssl_validator_header">사이트 인증서를 확인할 수 없습니다</string>
     <string name="ssl_validator_reason_cert_not_trusted">- 서버 인증서를 신뢰할 수 없습니다</string>
     <string name="ssl_validator_reason_cert_expired">- 서버 인증서가 만료되었습니다</string>
@@ -355,7 +355,7 @@
     <string name="drawer_manage_accounts">계정 관리</string>
     <string name="actionbar_logger">로그</string>
 	<string name="log_send_history_button">내역 전송</string>
-	<string name="log_send_no_mail_app">로그 전송을 위한 앱이 발견되지 않았습니다. 이메일 클라이언트를 설치하십시오.</string>
+    <string name="log_send_no_mail_app">로그 전송을 위한 앱이 발견되지 않았습니다. 이메일 클라이언트를 설치하십시오.</string>
 	<string name="log_send_mail_subject">%1$s Android 앱 로그</string>
 	<string name="log_progress_dialog_text">데이터 불러오는 중&#8230;</string>
 
@@ -539,4 +539,4 @@
     <string name="foreground_service_upload">파일 업로드 중&#8230;</string>
     <string name="foreground_service_download">파일 다운로드 중&#8230;</string>
 
-    </resources>
+</resources>

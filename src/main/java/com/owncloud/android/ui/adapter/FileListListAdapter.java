@@ -604,7 +604,7 @@ public class FileListListAdapter extends BaseAdapter {
 
                 contentValues.add(cv);
             } catch (RemoteOperationFailedException e) {
-                Log_OC.e(TAG, "Error saving file with parent" + e.getMessage(),e);
+                Log_OC.e(TAG, "Error saving file with parent" + e.getMessage(), e);
             }
         }
 

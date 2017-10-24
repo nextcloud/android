@@ -225,7 +225,7 @@ public class AccountUtils {
         return null;
     }
 
-    
+
     public static String trimWebdavSuffix(String url) {
         while(url.endsWith("/")) {
             url = url.substring(0, url.length() - 1);

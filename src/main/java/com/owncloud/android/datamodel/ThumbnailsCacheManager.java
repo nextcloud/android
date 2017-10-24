@@ -22,8 +22,8 @@
 package com.owncloud.android.datamodel;
 
 import android.accounts.Account;
-import android.content.Context;
 import android.accounts.AccountManager;
+import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
@@ -37,8 +37,8 @@ import android.media.MediaMetadataRetriever;
 import android.media.ThumbnailUtils;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.view.Display;
 import android.text.TextUtils;
+import android.view.Display;
 import android.view.MenuItem;
 import android.view.WindowManager;
 import android.widget.ImageView;

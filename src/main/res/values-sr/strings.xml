@@ -201,7 +201,7 @@
     <string name="foreign_files_remote_text">Удаљено: %1$s</string>
     <string name="upload_query_move_foreign_files">Недовољно места да се копирају означени фајлови у фасциклу %1$s. Да ли желите можда да их уместо копирања преместите тамо?</string>
     <string name="pass_code_enter_pass_code">Молимо унесите кôд за закључавање</string>
-    
+
     <string name="pass_code_configure_your_pass_code">Унесите код за закључавање</string>
     <string name="pass_code_configure_your_pass_code_explanation">Код ће бити затражен сваки пут кад се апликација покрене</string>
     <string name="pass_code_reenter_your_pass_code">Поново унесите кôд за закључавање</string>
@@ -231,36 +231,36 @@
     <string name="media_play_pause_description">Пуштање-пауза</string>
     <string name="media_forward_description">Унапред</string>
 
-	<string name="auth_getting_authorization">Тражим ауторизацију &#8230;</string>
-	<string name="auth_trying_to_login">Покушавам пријављивање &#8230;</string>
+    <string name="auth_getting_authorization">Тражим ауторизацију &#8230;</string>
+    <string name="auth_trying_to_login">Покушавам пријављивање &#8230;</string>
 	<string name="auth_no_net_conn_title">Нема мрежне везе</string>
 	<string name="auth_nossl_plain_ok_title">Безбедна веза није доступна.</string>
-	<string name="auth_connection_established">Веза успостављена</string>
+    <string name="auth_connection_established">Веза успостављена</string>
 	<string name="auth_testing_connection">Проверавам везу</string>
 	<string name="auth_not_configured_title">Лоше подешавање сервера</string>
-	<string name="auth_account_not_new">Налог са истим корисничким именом и сервером већ постоји на овом уређају</string>
+    <string name="auth_account_not_new">Налог са истим корисничким именом и сервером већ постоји на овом уређају</string>
 	<string name="auth_account_not_the_same">Унесени корисник се не поклапа са корисником овог налога</string>
 	<string name="auth_unknown_error_title">Дошло је до непознате грешке!</string>
-	<string name="auth_unknown_host_title">Не могу да пронађем рачунар</string>
-	<string name="auth_incorrect_path_title">Сервер није нађен</string>
+    <string name="auth_unknown_host_title">Не могу да пронађем рачунар</string>
+    <string name="auth_incorrect_path_title">Сервер није нађен</string>
 	<string name="auth_timeout_title">Серверу је требало предуго да се одазове</string>
-	<string name="auth_incorrect_address_title">Погрешан формат адресе сервера</string>
+    <string name="auth_incorrect_address_title">Погрешан формат адресе сервера</string>
 	<string name="auth_ssl_general_error_title">ССЛ иницијализација није успела</string>
-	<string name="auth_ssl_unverified_server_title">Не могу да проверим SSL идентитет сервера</string>
+    <string name="auth_ssl_unverified_server_title">Не могу да проверим SSL идентитет сервера</string>
 	<string name="auth_bad_oc_version_title">Непозната верзија сервера</string>
-	<string name="auth_wrong_connection_title">Не могу да успоставим везу</string>
+    <string name="auth_wrong_connection_title">Не могу да успоставим везу</string>
 	<string name="auth_secure_connection">Безбедна веза је успостављена</string>
 	<string name="auth_unauthorized">Погрешно име или лозинка</string>
 	<string name="auth_oauth_error">Неуспешна ауторизација</string>
 	<string name="auth_oauth_error_access_denied">Сервер ауторизације је одбио приступ</string>
-	<string name="auth_wtf_reenter_URL">Неочекивано стање, молимо поново унестите адресу сервера</string>
+    <string name="auth_wtf_reenter_URL">Неочекивано стање, молимо поново унестите адресу сервера</string>
 	<string name="auth_expired_oauth_token_toast">Ауторизација је истекла. Урадите је поново</string>
 	<string name="auth_expired_basic_auth_toast">Унесите тренутну лозинку</string>
 	<string name="auth_expired_saml_sso_token_toast">Сесија је истекла. Повежите се поново</string>
-	<string name="auth_connecting_auth_server">Повезивање на идентификациони сервер &#8230;</string>
+    <string name="auth_connecting_auth_server">Повезивање на идентификациони сервер &#8230;</string>
 	<string name="auth_unsupported_auth_method">Сервер не подржава овај начин аутентификације</string>
 	<string name="auth_unsupported_multiaccount">%1$s не подржава вишеструке налоге</string>
-	<string name="auth_fail_get_user_name">Ваш сервер не враћа исправну идентификацију корисника, контактирајте администратора</string>
+    <string name="auth_fail_get_user_name">Ваш сервер не враћа исправну идентификацију корисника, контактирајте администратора</string>
 	<string name="auth_can_not_auth_against_server">Не могу да аутентификујем са овим сервером</string>
     <string name="auth_account_does_not_exist">Налог још не постоји на овом уређају</string>
     <string name="auth_access_failed">Неуспео приступ</string>
@@ -292,10 +292,10 @@
     <string name="filedisplay_no_file_selected">Није изабран ниједан фајл</string>
     <string name="activity_chooser_title">Пошаљи везу &#8230;</string>
     <string name="wait_for_tmp_copy_from_private_storage">Копирам фајл из приватног складишта</string>
-    
-    <string name="oauth_check_onoff">Пријавите се са OAuth 2.0</string> 
+
+    <string name="oauth_check_onoff">Пријавите се са OAuth 2.0</string>
     <string name="oauth_login_connection">Повезивање са OAuth 2.0 сервером &#8230;</string>
-        
+
     <string name="ssl_validator_header">Не могу да проверим идентитет сајта</string>
     <string name="ssl_validator_reason_cert_not_trusted">– Сертификат сервера није од поверења</string>
     <string name="ssl_validator_reason_cert_expired">– Сертификат сервера је истекао</string>
@@ -354,8 +354,8 @@
     <string name="prefs_instant_upload_path_use_subfolders_title">Користи подфасцикле</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Сачувај у подфасциклама према години и месецу</string>
 
-	<string name="share_link_no_support_share_api">Дељење није омогућено на овом серверу. Контактирајте администратора.</string>
-	<string name="share_link_file_no_exist">Не могу да делим. Проверите да ли фајл постоји</string>
+    <string name="share_link_no_support_share_api">Дељење није омогућено на овом серверу. Контактирајте администратора.</string>
+    <string name="share_link_file_no_exist">Не могу да делим. Проверите да ли фајл постоји</string>
 	<string name="share_link_file_error">Дошло је до грешке приликом покушаја дељења овог фајла или фасцикле</string>
 	<string name="unshare_link_file_no_exist">Не могу да прекинем дељење. Проверите да ли фајл постоји</string>
 	<string name="unshare_link_file_error">Дошло је до грешке приликом покушаја укидања дељења овог фајла или фасцикле</string>
@@ -418,9 +418,9 @@
     <string name="drawer_manage_accounts">Управљање налозима</string>
     <string name="auth_redirect_non_secure_connection_title">Безбедна веза је преусмерена на небезбедну руту.</string>
 
-	<string name="actionbar_logger">Записници</string>
+    <string name="actionbar_logger">Записници</string>
 	<string name="log_send_history_button">Пошаљи историјат</string>
-	<string name="log_send_no_mail_app">Нема апликације за слање дневника. Инсталирајте клијент за е-пошту.</string>
+    <string name="log_send_no_mail_app">Нема апликације за слање дневника. Инсталирајте клијент за е-пошту.</string>
 	<string name="log_send_mail_subject">Записници %1$s Андроид апликације</string>
 	<string name="log_progress_dialog_text">Учитавам податке…</string>
 
@@ -428,8 +428,8 @@
 	<string name="saml_authentication_wrong_pass">Погрешна лозинка</string>
 	<string name="actionbar_move">Премести</string>
     <string name="actionbar_copy">Копирај</string>
-	<string name="file_list_empty_moving">Овде нема ничег. Можете додати фасциклу.</string>
-	<string name="folder_picker_choose_button_text">Одабери</string>
+    <string name="file_list_empty_moving">Овде нема ничег. Можете додати фасциклу.</string>
+    <string name="folder_picker_choose_button_text">Одабери</string>
 
     <string name="move_file_not_found">Не могу да померим фајл. Проверите да ли још постоји.</string>
     <string name="move_file_invalid_into_descendent">Не може да се премести фасцикла у неку од својих подфасцикли</string>
@@ -447,7 +447,7 @@
     <string name="prefs_category_instant_uploading">Брза отпремања</string>
     <string name="prefs_category_details">Подаци</string>
 
-	<string name="prefs_instant_video_upload_path_title">Фасцикла за видео записе за брзо отпремање</string>
+    <string name="prefs_instant_video_upload_path_title">Фасцикла за видео записе за брзо отпремање</string>
     <string name="sync_folder_failed_content">Не могу да довршим синхронизацију фасцикле %1$s</string>
 
 	<string name="shared_subject_header">дељено</string>

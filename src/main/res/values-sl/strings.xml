@@ -351,7 +351,7 @@
     <string name="prefs_instant_upload_path_use_subfolders_title">Uporabi podmape</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Shrani v podmape kot leto in mesec</string>
 
-	<string name="share_link_no_support_share_api">Na strežniku souporaba ni omogočena. Stopite v stik s skrbnikom sistema.</string>
+    <string name="share_link_no_support_share_api">Na strežniku souporaba ni omogočena. Stopite v stik s skrbnikom sistema.</string>
 	<string name="share_link_file_no_exist">Souporaba ni mogoča. Preverite, ali datoteka obstaja.</string>
 	<string name="share_link_file_error">Prišlo je do napake med poskusom omogočanja souporabe te datoteke ali mape</string>
 	<string name="unshare_link_file_no_exist">Ni mogoče prekiniti souporabe. Preverite, ali datoteka obstaja.</string>
@@ -415,9 +415,9 @@
     <string name="drawer_manage_accounts">Uredi račune</string>
     <string name="auth_redirect_non_secure_connection_title">Varna povezava preusmerjena preko nezavarovane poti.</string>
 
-	<string name="actionbar_logger">Dnevnik</string>
+    <string name="actionbar_logger">Dnevnik</string>
 	<string name="log_send_history_button">Pošlji zgodovino</string>
-	<string name="log_send_no_mail_app">Nobena nameščena datoteka ne more pošiljati dnevnikov. prosim, namesti e-poštno aplikacijo.</string>
+    <string name="log_send_no_mail_app">Nobena nameščena datoteka ne more pošiljati dnevnikov. prosim, namesti e-poštno aplikacijo.</string>
 	<string name="log_send_mail_subject">%1$s dnevniki programa</string>
 	<string name="log_progress_dialog_text">Poteka nalaganje podatkov &#8230;</string>
 

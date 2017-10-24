@@ -256,7 +256,7 @@ public class FileDataStorageManager {
      * traverses a files parent tree to be able to store a file with its parents.
      * Throws a RemoteOperationFailedException in case the parent can't be retrieved.
      *
-     * @param file the file
+     * @param file    the file
      * @param context the app context
      * @return the parent file
      */

@@ -57,7 +57,7 @@
     <string name="prefs_imprint">Jejak</string>
 
 	<string name="recommend_subject">Cobalah %1$s pada ponsel cerdas Anda!</string>
-	<string name="recommend_text">Bila anda ingin mengundang gunakan %1$s di ponsel pintar.\nUnduh di: %2$s</string>
+    <string name="recommend_text">Bila anda ingin mengundang gunakan %1$s di ponsel pintar.\nUnduh di: %2$s</string>
     <string name="recommend_urls">%1$s atau %2$s</string>
 
     <string name="auth_check_server">Periksa peladen</string>
@@ -238,29 +238,29 @@
 	<string name="auth_connection_established">Sambungan dibuat</string>
 	<string name="auth_testing_connection">Mencoba sambungan</string>
 	<string name="auth_not_configured_title">Konfigurasi server cacat</string>
-	<string name="auth_account_not_new">Akun untuk pengguna dan server yang sama sudah ada dalam perangkat</string>
+    <string name="auth_account_not_new">Akun untuk pengguna dan server yang sama sudah ada dalam perangkat</string>
 	<string name="auth_account_not_the_same">Pengguna yang dimasukkan tidak cocok dengan pengguna akun ini</string>
 	<string name="auth_unknown_error_title">Terjadi kesalahan yang tidak diketahui!</string>
-	<string name="auth_unknown_host_title">Tidak menemukan host</string>
-	<string name="auth_incorrect_path_title">Server tidak ditemukan</string>
+    <string name="auth_unknown_host_title">Tidak menemukan host</string>
+    <string name="auth_incorrect_path_title">Server tidak ditemukan</string>
 	<string name="auth_timeout_title">Server terlalu lama merespon</string>
-	<string name="auth_incorrect_address_title">Format alamat server salah</string>
+    <string name="auth_incorrect_address_title">Format alamat server salah</string>
 	<string name="auth_ssl_general_error_title">Menginisiasi SSL gagal</string>
-	<string name="auth_ssl_unverified_server_title">Identitas server SSL tidak dapat diverifikasi</string>
+    <string name="auth_ssl_unverified_server_title">Identitas server SSL tidak dapat diverifikasi</string>
 	<string name="auth_bad_oc_version_title">Versi server tidak dikenal</string>
-	<string name="auth_wrong_connection_title">Tidak dapat memulai koneksi</string>
+    <string name="auth_wrong_connection_title">Tidak dapat memulai koneksi</string>
 	<string name="auth_secure_connection">Sambungan aman dibuat</string>
 	<string name="auth_unauthorized">Nama pengguna dan sandi salah</string>
 	<string name="auth_oauth_error">Otorisasi tidak berhasil</string>
 	<string name="auth_oauth_error_access_denied">Akses ditolak oleh server otorisasi</string>
-	<string name="auth_wtf_reenter_URL">Masalah tidak terduga; masukkan ulang alamat server</string>
+    <string name="auth_wtf_reenter_URL">Masalah tidak terduga; masukkan ulang alamat server</string>
 	<string name="auth_expired_oauth_token_toast">Otorisasi Anda telah berakhir. Silakan mengotorisasi lagi</string>
 	<string name="auth_expired_basic_auth_toast">Masukkan kata sandi</string>
 	<string name="auth_expired_saml_sso_token_toast">Sesi Anda telah berakhir. Silakan masuk kembali</string>
-	<string name="auth_connecting_auth_server">Menyambungkan ke server otentikasi &#8230;</string>
+    <string name="auth_connecting_auth_server">Menyambungkan ke server otentikasi &#8230;</string>
 	<string name="auth_unsupported_auth_method">Server tidak mendukung medote otentikasi ini</string>
 	<string name="auth_unsupported_multiaccount">%1$s tidak mendukung banyak akun </string>
-	<string name="auth_fail_get_user_name">Server tidak memberikan id pengguna dengan benar, hubungi Administrator </string>
+    <string name="auth_fail_get_user_name">Server tidak memberikan id pengguna dengan benar, hubungi Administrator </string>
 	<string name="auth_can_not_auth_against_server">Tidak terotentikasi ke server ini</string>
     <string name="auth_account_does_not_exist">Akun belum ada di perangkat ini</string>
     <string name="auth_access_failed">Akses gagal.</string>
@@ -291,10 +291,10 @@
     <string name="filedisplay_no_file_selected">Tidak ada berkas yang dipilih</string>
     <string name="activity_chooser_title">Kirim taukan ke &#8230;</string>
     <string name="wait_for_tmp_copy_from_private_storage">Menyalin berkas dari penyimpanan pribadi</string>
-    
-    <string name="oauth_check_onoff">Masuk dengan 2.0</string> 
+
+    <string name="oauth_check_onoff">Masuk dengan 2.0</string>
     <string name="oauth_login_connection">Menyambukan ke server OAuth 2.0 &#8230;</string>
-        
+
     <string name="ssl_validator_header">Identitas situs tidak dapat diverfikasi</string>
     <string name="ssl_validator_reason_cert_not_trusted">- Sertifikat server tidak terpercaya</string>
     <string name="ssl_validator_reason_cert_expired">- Sertifikat server kadaluarsa</string>
@@ -350,7 +350,7 @@
     <string name="prefs_instant_upload_path_use_subfolders_title">Gunakan subfolder</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Simpan dalam subfolder berdasarkan tahun dan bulan</string>
 
-	<string name="share_link_no_support_share_api">Fasilitas berbagi tidak diaktifkan di server anda. Hubungi administrator</string>
+    <string name="share_link_no_support_share_api">Fasilitas berbagi tidak diaktifkan di server anda. Hubungi administrator</string>
 	<string name="share_link_file_no_exist">Tidak dapat berbagi. Mohon periksa apakah berkas ada</string>
 	<string name="share_link_file_error">Terjadi kesalahan saat mencoba membagikan berkas atau folder ini</string>
 	<string name="unshare_link_file_no_exist">Tidak dapat menghapus berbagi. Mohon periksa apakah berkas ada</string>
@@ -414,9 +414,9 @@
     <string name="drawer_manage_accounts">Kelola akun</string>
     <string name="auth_redirect_non_secure_connection_title">Sambungan aman dialihkan melalui rute yang tidak aman.</string>
 
-	<string name="actionbar_logger">Log</string>
+    <string name="actionbar_logger">Log</string>
 	<string name="log_send_history_button">Kirim riwayat</string>
-	<string name="log_send_no_mail_app">Tidak ada aplikasi untuk mengirim riwayat. Pasang aplikasi surel.</string>
+    <string name="log_send_no_mail_app">Tidak ada aplikasi untuk mengirim riwayat. Pasang aplikasi surel.</string>
 	<string name="log_send_mail_subject">%1$s Android apl log</string>
 	<string name="log_progress_dialog_text">Memuat data &#8230;</string>
 
@@ -424,7 +424,7 @@
 	<string name="saml_authentication_wrong_pass">Sandi salah</string>
 	<string name="actionbar_move">Pindah</string>
     <string name="actionbar_copy">Salin</string>
-	<string name="file_list_empty_moving">Kosong. Anda dapat menambahkan folder</string>
+    <string name="file_list_empty_moving">Kosong. Anda dapat menambahkan folder</string>
 	<string name="folder_picker_choose_button_text">Pilih</string>
 
     <string name="move_file_not_found">Tidak dapat memindahkan. Silakan periksa apakah berkas sudah ada</string>
@@ -443,7 +443,7 @@
     <string name="prefs_category_instant_uploading">Unggah cepat</string>
     <string name="prefs_category_details">Rincian</string>
 
-	<string name="prefs_instant_video_upload_path_title">Folder untuk mengunggah video cepat</string>
+    <string name="prefs_instant_video_upload_path_title">Folder untuk mengunggah video cepat</string>
     <string name="sync_folder_failed_content">Sinkronisasi folder %1$s tidak dapat diselesaikan</string>
 
 	<string name="shared_subject_header">dibagikan</string>
@@ -677,4 +677,4 @@
     <string name="fallback_weblogin_back">KEMBALI</string>
     <string name="fallback_weblogin_text">Kembali ke metode login lama.</string>
 
-    </resources>
+</resources>

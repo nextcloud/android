@@ -201,7 +201,7 @@
     <string name="foreign_files_remote_text">Zdalnie: %1$s</string>
     <string name="upload_query_move_foreign_files">Brak wystarczającego miejsca, aby skopiować wybrane pliki do folderu %1$s. Czy w zamian chcesz je tam przenieść?</string>
     <string name="pass_code_enter_pass_code">Podaj kod PIN</string>
-    
+
     <string name="pass_code_configure_your_pass_code">Wprowadź kod PIN</string>
     <string name="pass_code_configure_your_pass_code_explanation">Kod PIN będzie wymagany przy każdym uruchomieniu aplikacji</string>
     <string name="pass_code_reenter_your_pass_code">Wpisz kod PIN ponownie</string>
@@ -254,7 +254,7 @@
 	<string name="auth_oauth_error">Nieudana autoryzacja</string>
 	<string name="auth_oauth_error_access_denied">Dostęp zabroniony przez serwer autoryzacji</string>
 	<string name="auth_wtf_reenter_URL">Nieoczekiwany stan. Podaj ponownie adres serwera</string>
-	<string name="auth_expired_oauth_token_toast">Twoja autoryzacja wygasła. Proszę zaloguj się ponownie</string>
+    <string name="auth_expired_oauth_token_toast">Twoja autoryzacja wygasła. Proszę zaloguj się ponownie</string>
 	<string name="auth_expired_basic_auth_toast">Podaj aktualne hasło</string>
 	<string name="auth_expired_saml_sso_token_toast">Twoja sesja wygasła. Proszę zaloguj się ponownie</string>
 	<string name="auth_connecting_auth_server">Łączenie z serwerem uwierzytelniania&#8230;</string>

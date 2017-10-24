@@ -21,7 +21,6 @@ package com.owncloud.android.ui.preview;
 
 import android.accounts.Account;
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
@@ -30,7 +29,6 @@ import android.view.ViewGroup;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.VirtualFolderType;
-import com.owncloud.android.db.PreferenceManager;
 import com.owncloud.android.ui.fragment.FileFragment;
 import com.owncloud.android.utils.FileStorageUtils;
 
@@ -140,28 +138,20 @@ public class PreviewImagePagerAdapter extends FragmentStatePagerAdapter {
         return mImageFiles.get(position);
     }
 
-    
+
     public Fragment getItem(int i) {
         OCFile file = mImageFiles.get(i);
         Fragment fragment;
         if (file.isDown()) {
             fragment = PreviewImageFragment.newInstance(file, mObsoletePositions.contains(i), false);
-            
+
         } else {
             if (mDownloadErrors.contains(i)) {
                 fragment = FileDownloadFragment.newInstance(file, mAccount, true);
-                ((FileDownloadFragment)fragment).setError(true);
+                ((FileDownloadFragment) fragment).setError(true);
                 mDownloadErrors.remove(i);
             } else {
-                SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(mContext);
-                boolean behaviour = sharedPreferences.getString("preview_behaviour", "PREVIEW_BEHAVIOUR_PREVIEW")
-                        .equalsIgnoreCase("PREVIEW_BEHAVIOUR_PREVIEW");
-
-                if (behaviour) {
-                    fragment = PreviewImageFragment.newInstance(file, mObsoletePositions.contains(i), true);
-                } else {
-                    fragment = FileDownloadFragment.newInstance(file, mAccount, mObsoletePositions.contains(i));
-                }
+                fragment = PreviewImageFragment.newInstance(file, mObsoletePositions.contains(i), true);
             }
         }
 
