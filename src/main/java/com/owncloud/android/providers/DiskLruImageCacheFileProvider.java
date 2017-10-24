@@ -42,7 +42,6 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 
 public class DiskLruImageCacheFileProvider extends ContentProvider {
-    public static final String AUTHORITY = "org.nextcloud.imageCache.provider";
     public static final String TAG = DiskLruImageCacheFileProvider.class.getSimpleName();
 
     @Override
