@@ -110,10 +110,6 @@
     <string name="upload_list_empty_text_auto_upload">Ladda upp något innehåll eller aktivera automatisk uppladdning.</string>
     <string name="file_list_folder">mapp</string>
     <string name="filedetails_select_file">Peka på en fil för att visa mer information.</string>
-    <string name="filedetails_size">Storlek:</string>
-    <string name="filedetails_type">Typ:</string>
-    <string name="filedetails_created">Skapad:</string>
-    <string name="filedetails_modified">Ändrad:</string>
     <string name="filedetails_download">Ladda ned</string>
     <string name="filedetails_sync_file">Synkronisera</string>
     <string name="filedetails_renamed_in_upload_msg">Fil döptes om till %1$s under uppladdning</string>

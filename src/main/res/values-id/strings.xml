@@ -110,10 +110,6 @@
     <string name="upload_list_empty_text_auto_upload">Unggah beberapa foto atau aktifkan unggah otomatis.</string>
     <string name="file_list_folder">folder</string>
     <string name="filedetails_select_file">Sentuh pada berkas untuk menampilkan informasi tambahan</string>
-    <string name="filedetails_size">Ukuran:</string>
-    <string name="filedetails_type">Tipe:</string>
-    <string name="filedetails_created">Dibuat:</string>
-    <string name="filedetails_modified">Diubah:</string>
     <string name="filedetails_download">Unduh</string>
     <string name="filedetails_sync_file">Sinkronisasi</string>
     <string name="filedetails_renamed_in_upload_msg">Nama berkas diubah menjadi  %1$s waktu diunggah</string>

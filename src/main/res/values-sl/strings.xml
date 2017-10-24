@@ -110,10 +110,6 @@
     <string name="upload_list_empty_text_auto_upload">Naloži kakšno vsebino ali vključi samodejno nalaganje.</string>
     <string name="file_list_folder">mapa</string>
     <string name="filedetails_select_file">Pritisnite na datoteko za prikaz dodatnih podrobnosti.</string>
-    <string name="filedetails_size">Velikost:</string>
-    <string name="filedetails_type">Vrsta:</string>
-    <string name="filedetails_created">Ustvarjeno:</string>
-    <string name="filedetails_modified">Spremenjeno:</string>
     <string name="filedetails_download">Prejmi</string>
     <string name="filedetails_sync_file">Uskladi</string>
     <string name="filedetails_renamed_in_upload_msg">Datoteka je bila preimenovana v %1$s med nalaganjem</string>

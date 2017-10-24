@@ -111,10 +111,6 @@ Smelltu hér til að fá þér einn frá þjónustuaðila.</string>
     <string name="upload_list_empty_text_auto_upload">Sendu inn einhverjar myndir eða virkjaðu sjálfvirka innsendingu.</string>
     <string name="file_list_folder">mappa</string>
     <string name="filedetails_select_file">Bankaðu á skrá til að sjá ítarlegri upplýsingar.</string>
-    <string name="filedetails_size">Stærð:</string>
-    <string name="filedetails_type">Tegund:</string>
-    <string name="filedetails_created">Búið til:</string>
-    <string name="filedetails_modified">Breytt:</string>
     <string name="filedetails_download">Niðurhal</string>
     <string name="filedetails_sync_file">Samstilla</string>
     <string name="filedetails_renamed_in_upload_msg">Skrá endurnefnd sem %1$s við innsendingu</string>

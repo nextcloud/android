@@ -110,10 +110,6 @@
     <string name="upload_list_empty_text_auto_upload">Įkelkite failus arba sinchronizuokite su savo įrenginiais</string>
     <string name="file_list_folder">aplankas</string>
     <string name="filedetails_select_file">Palieskite failą, kad parodyti papildomą informaciją.</string>
-    <string name="filedetails_size">Dydis:</string>
-    <string name="filedetails_type">Tipas:</string>
-    <string name="filedetails_created">Sukurta:</string>
-    <string name="filedetails_modified">Modifikuota:</string>
     <string name="filedetails_download">Atsisiųsti</string>
     <string name="filedetails_sync_file">Sinchronizuojama</string>
     <string name="filedetails_renamed_in_upload_msg">Įkėlimo metu failas buvo pervadintas į %1$s</string>

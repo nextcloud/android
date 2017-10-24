@@ -116,10 +116,6 @@
     <string name="upload_list_empty_text_auto_upload">Bazı içerikler yükleyin ya da otomatik yüklemeyi etkinleştirin.</string>
     <string name="file_list_folder">klasör</string>
     <string name="filedetails_select_file">Ek bilgileri görmek için dosyaya dokunun.</string>
-    <string name="filedetails_size">Boyut:</string>
-    <string name="filedetails_type">Tür:</string>
-    <string name="filedetails_created">Oluşturulma:</string>
-    <string name="filedetails_modified">Değiştirilme:</string>
     <string name="filedetails_download">İndir</string>
     <string name="filedetails_sync_file">Eşitle</string>
     <string name="filedetails_renamed_in_upload_msg">Dosya adı, yükleme sırasında %1$s olarak değiştirildi</string>

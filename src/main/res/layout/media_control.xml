@@ -71,7 +71,7 @@
         <SeekBar
             android:id="@+id/progressBar"
             style="?android:attr/progressBarStyleHorizontal"
-            android:layout_width="@dimen/zero"
+            android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="@dimen/seek_bar_height"
             android:progressDrawable="@color/white"

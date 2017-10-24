@@ -92,10 +92,6 @@
     <string name="upload_list_empty_headline">Ingen uploads tilgængelige</string>
     <string name="file_list_folder">mappe</string>
     <string name="filedetails_select_file">Tryk på en fil for at vise yderligere information.</string>
-    <string name="filedetails_size">Størelse:</string>
-    <string name="filedetails_type">Type:</string>
-    <string name="filedetails_created">Oprettet:</string>
-    <string name="filedetails_modified">Ændret:</string>
     <string name="filedetails_download">Hent</string>
     <string name="filedetails_sync_file">Synkronisér</string>
     <string name="action_share">Del</string>

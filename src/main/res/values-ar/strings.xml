@@ -94,10 +94,6 @@
     <string name="upload_list_empty_text_auto_upload">قم بتحميل بعض الملفات أو قم بتفعيل التحميل التلقائي.</string>
     <string name="file_list_folder">مجلد</string>
     <string name="filedetails_select_file">اضغظ على الملف ليتم عرض خيارات أكثر</string>
-    <string name="filedetails_size">الحجم :</string>
-    <string name="filedetails_type">النوع :</string>
-    <string name="filedetails_created">انشئ في :</string>
-    <string name="filedetails_modified">عُدل في :</string>
     <string name="filedetails_download">تحميل</string>
     <string name="filedetails_sync_file">زامِن</string>
     <string name="action_share">شارك</string>

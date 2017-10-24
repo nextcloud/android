@@ -115,10 +115,6 @@
     <string name="upload_list_empty_text_auto_upload">Wyślij zawartość lub włącz wysyłanie automatyczne.</string>
     <string name="file_list_folder">folder</string>
     <string name="filedetails_select_file">Dotknij plik aby wyświetlić dodatkowe informacje</string>
-    <string name="filedetails_size">Rozmiar:</string>
-    <string name="filedetails_type">Typ:</string>
-    <string name="filedetails_created">Utworzono:</string>
-    <string name="filedetails_modified">Zmodyfikowano:</string>
     <string name="filedetails_download">Pobierz</string>
     <string name="filedetails_sync_file">Synchronizuj</string>
     <string name="filedetails_renamed_in_upload_msg">Podczas wysyłania zmieniono nazwę pliku na %1$s</string>
