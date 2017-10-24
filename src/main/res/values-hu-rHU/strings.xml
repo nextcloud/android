@@ -115,10 +115,6 @@
     <string name="upload_list_empty_text_auto_upload">Az automatikus feltöltés aktiválásához tölts fel valami tartalmat.</string>
     <string name="file_list_folder">mappa</string>
     <string name="filedetails_select_file">Érintsen meg egy fájlt a további információkért.</string>
-    <string name="filedetails_size">Méret:</string>
-    <string name="filedetails_type">Tipus:</string>
-    <string name="filedetails_created">Készült:</string>
-    <string name="filedetails_modified">Módosítva:</string>
     <string name="filedetails_download">Letöltés</string>
     <string name="filedetails_sync_file">Szinkronizálás</string>
     <string name="filedetails_renamed_in_upload_msg">A fájl feltöltés közben átnevezve erre: %1$s</string>

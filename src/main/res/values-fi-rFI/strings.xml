@@ -101,10 +101,6 @@
     <string name="upload_list_empty_headline">Ei lähetettäviä saatavilla</string>
     <string name="file_list_folder">kansio</string>
     <string name="filedetails_select_file">Napauta tiedostoa nähdäksesi lisätietoja.</string>
-    <string name="filedetails_size">Koko:</string>
-    <string name="filedetails_type">Tyyppi:</string>
-    <string name="filedetails_created">Luotu:</string>
-    <string name="filedetails_modified">Muokattu:</string>
     <string name="filedetails_download">Lataa</string>
     <string name="filedetails_sync_file">Synkronoi</string>
     <string name="action_share">Jaa</string>

@@ -91,10 +91,6 @@
     <string name="upload_list_empty_text">Xubi dalgo de conteníu o activa la xuba nel intre.</string>
     <string name="file_list_folder">Carpeta</string>
     <string name="filedetails_select_file">Calca nun ficheru p\'amosar información adicional</string>
-    <string name="filedetails_size">Tamañu:</string>
-    <string name="filedetails_type">Triba:</string>
-    <string name="filedetails_created">Creáu:</string>
-    <string name="filedetails_modified">Modificáu:</string>
     <string name="filedetails_download">Descargar</string>
     <string name="filedetails_sync_file">Sincroniza</string>
     <string name="filedetails_renamed_in_upload_msg">Renomóse\'l ficheru %1$s na xuba</string>

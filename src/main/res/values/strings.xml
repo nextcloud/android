@@ -115,10 +115,6 @@
     <string name="upload_list_empty_text_auto_upload">Upload some content or activate auto upload.</string>
     <string name="file_list_folder">folder</string>
     <string name="filedetails_select_file">Tap on a file to display additional information.</string>
-    <string name="filedetails_size">Size:</string>
-    <string name="filedetails_type">Type:</string>
-    <string name="filedetails_created">Created:</string>
-    <string name="filedetails_modified">Modified:</string>
     <string name="filedetails_download">Download</string>
     <string name="filedetails_sync_file">Synchronize</string>
     <string name="filedetails_renamed_in_upload_msg">File renamed to %1$s during upload</string>

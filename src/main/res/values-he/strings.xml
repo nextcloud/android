@@ -79,10 +79,6 @@
     <string name="file_list_empty_headline_server_search_photos">אין תמונות</string>
     <string name="file_list_folder">תקיה</string>
     <string name="filedetails_select_file">יש לגעת בקובץ כדי להציג פרטים נוספים.</string>
-    <string name="filedetails_size">גודל:</string>
-    <string name="filedetails_type">סוג:</string>
-    <string name="filedetails_created">מועד היצירה:</string>
-    <string name="filedetails_modified">מועד השינוי:</string>
     <string name="filedetails_download">הורדה</string>
     <string name="filedetails_sync_file">סנכרון</string>
     <string name="action_share">שיתוף</string>

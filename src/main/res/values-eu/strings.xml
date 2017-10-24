@@ -112,10 +112,6 @@
     <string name="upload_list_empty_text_auto_upload">Edukiak igo edo auto-igotzea aktiba ezazu.</string>
     <string name="file_list_folder">karpeta</string>
     <string name="filedetails_select_file">Sakatu fitxategi baten gainean informazio gehiago lortzeko</string>
-    <string name="filedetails_size">Tamaina:</string>
-    <string name="filedetails_type">Mota:</string>
-    <string name="filedetails_created">Sortuta:</string>
-    <string name="filedetails_modified">Aldatuta:</string>
     <string name="filedetails_download">Deskargatu</string>
     <string name="filedetails_sync_file">Sinkronizatu</string>
     <string name="filedetails_renamed_in_upload_msg">Fitxategia igotzean %1$s izenarekin berrizendatu da</string>

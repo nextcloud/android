@@ -110,10 +110,6 @@
     <string name="upload_list_empty_text_auto_upload">Nahrajte nějaký obsah nebo aktivujte automatické nahrávání.</string>
     <string name="file_list_folder">adresář</string>
     <string name="filedetails_select_file">Více informací získáte klepnutím na soubor.</string>
-    <string name="filedetails_size">Velikost:</string>
-    <string name="filedetails_type">Typ:</string>
-    <string name="filedetails_created">Vytvořen:</string>
-    <string name="filedetails_modified">Upraven:</string>
     <string name="filedetails_download">Stáhnout</string>
     <string name="filedetails_sync_file">Synchronizovat</string>
     <string name="filedetails_renamed_in_upload_msg">Soubor byl během nahrávání přejmenován na %1$s</string>

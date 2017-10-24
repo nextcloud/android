@@ -40,111 +40,59 @@
 				android:layout_height="wrap_content"
 				android:src="@drawable/file"/>
 
-			<TextView
-				android:id="@+id/fdFilename"
+			<LinearLayout
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
 				android:layout_centerVertical="true"
 				android:layout_toRightOf="@+id/fdIcon"
 				android:paddingLeft="@dimen/standard_padding"
-				android:text="@string/placeholder_filename"
-				android:textAppearance="?android:attr/textAppearanceLarge"/>
+				android:orientation="vertical">
+
+				<TextView
+					android:id="@+id/fdFilename"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="@string/placeholder_filename"
+					android:textAppearance="?android:attr/textAppearanceLarge"/>
+
+				<LinearLayout
+					android:id="@+id/fdFiledetails"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:orientation="horizontal">
+
+					<TextView
+						android:id="@+id/fdSize"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:text="@string/placeholder_filesize"
+						android:textColor="@color/list_item_lastmod_and_filesize_text"
+						android:textSize="@dimen/two_line_secondary_text_size"/>
+
+					<TextView
+						android:id="@+id/file_separator"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:paddingRight="@dimen/standard_quarter_padding"
+						android:gravity="right"
+						android:text="@string/info_separator"
+						android:textColor="@color/list_item_lastmod_and_filesize_text"
+						android:textSize="@dimen/two_line_secondary_text_size"/>
+
+					<TextView
+						android:id="@+id/fdModified"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:gravity="right"
+						android:text="@string/placeholder_media_time"
+						android:textColor="@color/list_item_lastmod_and_filesize_text"
+						android:textSize="@dimen/two_line_secondary_text_size"/>
+
+				</LinearLayout>
+
+			</LinearLayout>
 
 		</RelativeLayout>
-
-		<TableLayout
-			android:id="@+id/fdDetailsTable"
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:layout_marginLeft="16dp"
-			android:layout_marginRight="16dp"
-			android:layout_marginBottom="8dp">
-
-			<TableRow
-				android:id="@+id/fdTypeRow"
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:layout_marginBottom="@dimen/standard_half_margin">
-
-				<TextView
-					android:id="@+id/fdTypeLabel"
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:text="@string/filedetails_type"
-					android:textSize="16sp" />
-				<TextView
-					android:id="@+id/fdType"
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:text="@string/placeholder_filetype"
-					android:textSize="16sp"
-					android:layout_marginLeft="@dimen/standard_half_margin" />
-
-			</TableRow>
-			<TableRow
-				android:id="@+id/fdSizeRow"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:layout_marginBottom="@dimen/standard_half_margin">
-				<TextView
-					android:id="@+id/fdSizeLabel"
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:text="@string/filedetails_size"
-					android:textSize="16sp"/>
-				<TextView
-					android:id="@+id/fdSize"
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:text="@string/placeholder_filesize"
-					android:textSize="16sp"
-					android:layout_marginLeft="@dimen/standard_half_margin" />
-
-			</TableRow>
-			<TableRow
-				android:id="@+id/fdCreatedRow"
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:padding="5dp"
-				android:layout_marginTop="12dp"
-				android:visibility="gone">
-				<TextView
-					android:id="@+id/fdCreatedLabel"
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:text="@string/filedetails_created"
-					android:textSize="16sp" />
-				<TextView
-					android:id="@+id/fdCreated"
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:text="@string/placeholder_timestamp"
-					android:textSize="16sp"
-					android:layout_marginLeft="4dp" />
-
-			</TableRow>
-			<TableRow
-				android:id="@+id/fdModifiedRow"
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:layout_marginBottom="@dimen/standard_half_margin">
-				<TextView
-					android:id="@+id/fdModifiedLabel"
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:text="@string/filedetails_modified"
-					android:textSize="16sp" />
-				<TextView
-					android:id="@+id/fdModified"
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:text="@string/placeholder_timestamp"
-					android:textSize="16sp"
-					android:layout_marginLeft="@dimen/standard_half_margin" />
-
-			</TableRow>
-
-		</TableLayout>
 
 		<View
 			android:layout_width="match_parent"

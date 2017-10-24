@@ -115,10 +115,6 @@
     <string name="upload_list_empty_text_auto_upload">Ngarko disa përmbajtje ose aktivizo ngarkimin direkt. </string>
     <string name="file_list_folder">dosje</string>
     <string name="filedetails_select_file">Prekni mbi një kartelë që të shfaqen të dhëna shtesë.</string>
-    <string name="filedetails_size">Madhësi:</string>
-    <string name="filedetails_type">Lloj:</string>
-    <string name="filedetails_created">Krijuar më:</string>
-    <string name="filedetails_modified">Ndryshuar më:</string>
     <string name="filedetails_download">Shkarkoje</string>
     <string name="filedetails_sync_file">Sinkronizo</string>
     <string name="filedetails_renamed_in_upload_msg">Skedari u riemërtua %1$s gjatë ngarkimit</string>

@@ -76,10 +76,6 @@
     <string name="upload_list_empty_headline">Augšupielādes nav pieejamas.</string>
     <string name="file_list_folder">mape</string>
     <string name="filedetails_select_file">Uzsit uz datnes, lai redzētu papildinformāciju.</string>
-    <string name="filedetails_size">Izmērs:</string>
-    <string name="filedetails_type">Tips:</string>
-    <string name="filedetails_created">Izveidota:</string>
-    <string name="filedetails_modified">Modificēta:</string>
     <string name="filedetails_download">Lejupielādēt</string>
     <string name="filedetails_sync_file">Sinhronizēt</string>
     <string name="action_share">Koplietot</string>
