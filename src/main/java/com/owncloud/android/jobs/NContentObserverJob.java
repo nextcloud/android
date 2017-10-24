@@ -29,6 +29,7 @@ import android.support.annotation.RequiresApi;
 import com.evernote.android.job.JobRequest;
 import com.evernote.android.job.util.support.PersistableBundleCompat;
 import com.owncloud.android.utils.FilesSyncHelper;
+import com.owncloud.android.utils.UploadUtils;
 
 import java.util.concurrent.TimeUnit;
 
@@ -43,7 +44,8 @@ public class NContentObserverJob extends JobService {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             if (params.getJobId() == FilesSyncHelper.ContentSyncJobId && params.getTriggeredContentAuthorities()
                     != null && params.getTriggeredContentUris() != null
-                    && params.getTriggeredContentUris().length > 0) {
+                    && params.getTriggeredContentUris().length > 0
+                    && !UploadUtils.isPowerSaveMode(getApplicationContext())) {
 
                 PersistableBundleCompat persistableBundleCompat = new PersistableBundleCompat();
                 persistableBundleCompat.putBoolean(FilesSyncJob.SKIP_CUSTOM, true);
@@ -51,6 +53,7 @@ public class NContentObserverJob extends JobService {
                 new JobRequest.Builder(FilesSyncJob.TAG)
                         .setExecutionWindow(1, TimeUnit.SECONDS.toMillis(2))
                         .setBackoffCriteria(TimeUnit.SECONDS.toMillis(5), JobRequest.BackoffPolicy.LINEAR)
+                        .setExtras(persistableBundleCompat)
                         .setUpdateCurrent(false)
                         .build()
                         .schedule();

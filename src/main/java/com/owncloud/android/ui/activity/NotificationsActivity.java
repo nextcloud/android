@@ -107,6 +107,7 @@ public class NotificationsActivity extends FileActivity {
     private Unbinder unbinder;
 
     private NotificationListAdapter adapter;
+    private Snackbar snackbar = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -143,33 +144,62 @@ public class NotificationsActivity extends FileActivity {
             }
         });
 
-        Context context = getApplicationContext();
-        String pushUrl = context.getResources().getString(R.string.push_server_url);
+        setupPushWarning();
+        setupContent();
+    }
 
-        if (pushUrl.isEmpty()) {
-            Snackbar.make(emptyContentContainer, R.string.push_notifications_not_implemented,
-                    Snackbar.LENGTH_INDEFINITE).show();
+    private void setupPushWarning() {
+        if (snackbar != null) {
+            if (!snackbar.isShown()) {
+                snackbar.show();
+            }
         } else {
-            Account account = AccountUtils.getCurrentOwnCloudAccount(context);
-            ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProvider(getContentResolver());
+            Context context = getApplicationContext();
+            String pushUrl = context.getResources().getString(R.string.push_server_url);
 
-            boolean usesOldLogin = arbitraryDataProvider.getBooleanValue(account.name,
-                    AccountUtils.ACCOUNT_USES_STANDARD_PASSWORD);
-
-            if (usesOldLogin) {
-                Snackbar.make(emptyContentContainer, R.string.push_notifications_old_login,
-                        Snackbar.LENGTH_INDEFINITE).show();
+            if (pushUrl.isEmpty()) {
+                snackbar = Snackbar.make(emptyContentContainer, R.string.push_notifications_not_implemented,
+                        Snackbar.LENGTH_INDEFINITE);
             } else {
-                String pushValue = arbitraryDataProvider.getValue(account.name, PushUtils.KEY_PUSH);
+                Account account = AccountUtils.getCurrentOwnCloudAccount(context);
+                ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProvider(getContentResolver());
 
-                if (pushValue == null || pushValue.isEmpty()) {
-                    Snackbar.make(emptyContentContainer, R.string.push_notifications_temp_error,
-                            Snackbar.LENGTH_INDEFINITE).show();
+                boolean usesOldLogin = arbitraryDataProvider.getBooleanValue(account.name,
+                        AccountUtils.ACCOUNT_USES_STANDARD_PASSWORD);
+
+                if (usesOldLogin) {
+                    snackbar = Snackbar.make(emptyContentContainer, R.string.push_notifications_old_login,
+                            Snackbar.LENGTH_INDEFINITE);
+                } else {
+                    String pushValue = arbitraryDataProvider.getValue(account.name, PushUtils.KEY_PUSH);
+
+                    if (pushValue == null || pushValue.isEmpty()) {
+                        snackbar = Snackbar.make(emptyContentContainer, R.string.push_notifications_temp_error,
+                                Snackbar.LENGTH_INDEFINITE);
+                    }
                 }
             }
-        }
 
-        setupContent();
+            if (snackbar != null && !snackbar.isShown()) {
+                snackbar.show();
+            }
+        }
+    }
+
+    @Override
+    public void openDrawer() {
+        super.openDrawer();
+
+        if (snackbar != null && snackbar.isShown()) {
+            snackbar.dismiss();
+        }
+    }
+
+    @Override
+    public void closeDrawer() {
+        super.closeDrawer();
+
+        setupPushWarning();
     }
 
     public void onDestroy() {

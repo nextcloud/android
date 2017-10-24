@@ -124,8 +124,7 @@ import static com.owncloud.android.db.PreferenceManager.getSortOrder;
 public class FileDisplayActivity extends HookActivity
         implements FileFragment.ContainerActivity,
         OnEnforceableRefreshListener, SortingOrderDialogFragment.OnSortingOrderListener {
-    public static final String KEY_SHOW_ACCOUNT_WARNING = "SHOW_ACCOUNT_WARNING";
-
+ 
     private SyncBroadcastReceiver mSyncBroadcastReceiver;
     private UploadFinishReceiver mUploadFinishReceiver;
     private DownloadFinishReceiver mDownloadFinishReceiver;
@@ -275,7 +274,6 @@ public class FileDisplayActivity extends HookActivity
         // always AFTER setContentView(...) in onCreate(); to work around bug in its implementation
 
         upgradeNotificationForInstantUpload();
-        upgradeNotificationForCorruptAccounts();
     }
 
     /**
@@ -322,45 +320,6 @@ public class FileDisplayActivity extends HookActivity
                     .setIcon(R.drawable.nav_synced_folders)
                     .show();
         }
-    }
-
-    /**
-     * TODO: remove after 2.0.0 final release
-     */
-    private void upgradeNotificationForCorruptAccounts() {
-        boolean showWarning = PreferenceManager.getDefaultSharedPreferences(this)
-                .getBoolean(KEY_SHOW_ACCOUNT_WARNING, true);
-        int version = getVersion();
-
-        // check show warning, version > 1.4.3 and <= 2.0.0RCx
-        if (showWarning && version > 10040299 && version < 20000099) {
-            final Context context = this;
-
-            // show info pop-up
-            new AlertDialog.Builder(this, R.style.Theme_ownCloud_Dialog)
-                    .setTitle(R.string.common_warning)
-                    .setMessage(R.string.corrupt_account_info)
-                    .setPositiveButton(R.string.common_ok, new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss();
-                            PreferenceManager.getDefaultSharedPreferences(context)
-                                    .edit().putBoolean(KEY_SHOW_ACCOUNT_WARNING, false).apply();
-                        }
-                    })
-                    .setIcon(R.drawable.ic_warning)
-                    .setCancelable(false)
-                    .show();
-        }
-    }
-
-    public int getVersion() {
-        int version = 0;
-        try {
-            version = getPackageManager().getPackageInfo(getPackageName(), 0).versionCode;
-        } catch (PackageManager.NameNotFoundException e) {
-            return version;
-        }
-        return version;
     }
 
     @Override

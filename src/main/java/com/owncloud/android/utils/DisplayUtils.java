@@ -53,6 +53,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.model.StreamEncoder;
 import com.bumptech.glide.load.resource.file.FileToStreamDecoder;
 import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.target.Target;
 import com.caverock.androidsvg.SVG;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
@@ -288,7 +289,7 @@ public class DisplayUtils {
     }
 
     /**
-     * calculates the relative time string based on the given modificaion timestamp.
+     * calculates the relative time string based on the given modification timestamp.
      *
      * @param context the app's context
      * @param modificationTimestamp the UNIX timestamp of the file modification time.
@@ -298,6 +299,7 @@ public class DisplayUtils {
         return getRelativeDateTimeString(context, modificationTimestamp, DateUtils.SECOND_IN_MILLIS,
                 DateUtils.WEEK_IN_MILLIS, 0);
     }
+
 
     /**
      * determines the info level color based on certain thresholds
@@ -322,8 +324,8 @@ public class DisplayUtils {
         }
     }
 
-    public static CharSequence getRelativeDateTimeString(
-            Context c, long time, long minResolution, long transitionResolution, int flags) {
+    public static CharSequence getRelativeDateTimeString(Context c, long time, long minResolution,
+                                                         long transitionResolution, int flags) {
 
         CharSequence dateString = "";
 
@@ -332,7 +334,7 @@ public class DisplayUtils {
             return DisplayUtils.unixTimeToHumanReadable(time);
         }
         // < 60 seconds -> seconds ago
-        else if ((System.currentTimeMillis() - time) < 60 * 1000) {
+        else if ((System.currentTimeMillis() - time) < 60 * 1000 && minResolution == DateUtils.SECOND_IN_MILLIS) {
             return c.getString(R.string.file_list_seconds_ago);
         } else {
             dateString = DateUtils.getRelativeDateTimeString(c, time, minResolution, transitionResolution, flags);
@@ -346,7 +348,7 @@ public class DisplayUtils {
                 return parts[1];
             }
         }
-        //dateString contains unexpected format. fallback: use relative date time string from android api as is.
+        // dateString contains unexpected format. fallback: use relative date time string from android api as is.
         return dateString.toString();
     }
 
@@ -503,6 +505,21 @@ public class DisplayUtils {
                 .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                 .load(uri)
                 .into(imageView);
+    }
+
+    public static Bitmap downloadImageSynchronous(Context context, String imageUrl) {
+        try {
+            return Glide.with(context)
+                    .load(imageUrl)
+                    .asBitmap()
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                    .skipMemoryCache(true)
+                    .into(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL)
+                    .get();
+        } catch (Exception e) {
+            Log_OC.e(TAG, "Could not download image " + imageUrl);
+            return null;
+        }
     }
 
     public static void setupBottomBar(BottomNavigationView view, Resources resources, final Activity activity,

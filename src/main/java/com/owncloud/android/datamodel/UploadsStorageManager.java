@@ -376,15 +376,17 @@ public class UploadsStorageManager extends Observable {
 
         if (account != null) {
             return getUploads(
-                    ProviderTableMeta.UPLOADS_STATUS + "==" + UploadStatus.UPLOAD_IN_PROGRESS.value +
-                            " OR " + ProviderTableMeta.UPLOADS_LAST_RESULT +
+                ProviderTableMeta.UPLOADS_STATUS + "==" + UploadStatus.UPLOAD_IN_PROGRESS.value +
+                        " OR " + ProviderTableMeta.UPLOADS_LAST_RESULT +
                             "==" + UploadResult.DELAYED_FOR_WIFI.getValue() +
-                            " OR " + ProviderTableMeta.UPLOADS_LAST_RESULT +
+                        " OR " + ProviderTableMeta.UPLOADS_LAST_RESULT +
                             "==" + UploadResult.LOCK_FAILED.getValue() +
-                            " OR " + ProviderTableMeta.UPLOADS_LAST_RESULT +
+                        " OR " + ProviderTableMeta.UPLOADS_LAST_RESULT +
                             "==" + UploadResult.DELAYED_FOR_CHARGING.getValue() +
-                            " AND " + ProviderTableMeta.UPLOADS_ACCOUNT_NAME + "== ?",
-                    new String[]{account.name}
+                        " OR " + ProviderTableMeta.UPLOADS_LAST_RESULT +
+                            "==" + UploadResult.DELAYED_IN_POWER_SAVE_MODE.getValue() +
+                        " AND " + ProviderTableMeta.UPLOADS_ACCOUNT_NAME + "== ?",
+                new String[]{account.name}
             );
         } else {
             return new OCUpload[0];
@@ -424,14 +426,16 @@ public class UploadsStorageManager extends Observable {
 
         if (account != null) {
             return getUploads(ProviderTableMeta.UPLOADS_STATUS + "==" + UploadStatus.UPLOAD_FAILED.value +
-                            AND +
-                            ProviderTableMeta.UPLOADS_LAST_RESULT + "<>" + UploadResult.DELAYED_FOR_WIFI.getValue() +
-                            AND +
-                            ProviderTableMeta.UPLOADS_LAST_RESULT + "<>" + UploadResult.LOCK_FAILED.getValue() +
-                            AND +
-                            ProviderTableMeta.UPLOADS_LAST_RESULT + "<>" + UploadResult.DELAYED_FOR_CHARGING.getValue() +
-                            AND + ProviderTableMeta.UPLOADS_ACCOUNT_NAME + "== ?",
-                    new String[]{account.name}
+                        AND + ProviderTableMeta.UPLOADS_LAST_RESULT +
+                            "<>" + UploadResult.DELAYED_FOR_WIFI.getValue() +
+                        AND + ProviderTableMeta.UPLOADS_LAST_RESULT +
+                            "<>" + UploadResult.LOCK_FAILED.getValue() +
+                        AND + ProviderTableMeta.UPLOADS_LAST_RESULT +
+                            "<>" + UploadResult.DELAYED_FOR_CHARGING.getValue() +
+                        AND + ProviderTableMeta.UPLOADS_LAST_RESULT +
+                            "<>" + UploadResult.DELAYED_IN_POWER_SAVE_MODE.getValue() +
+                        AND + ProviderTableMeta.UPLOADS_ACCOUNT_NAME + "== ?",
+                new String[]{account.name}
             );
         } else {
             return new OCUpload[0];
@@ -446,9 +450,13 @@ public class UploadsStorageManager extends Observable {
     public OCUpload[] getFailedButNotDelayedUploads() {
 
         return getUploads(ProviderTableMeta.UPLOADS_STATUS + "==" + UploadStatus.UPLOAD_FAILED.value + AND +
-                        ProviderTableMeta.UPLOADS_LAST_RESULT + "<>" + UploadResult.LOCK_FAILED.getValue() + AND +
-                        ProviderTableMeta.UPLOADS_LAST_RESULT + "<>" + UploadResult.DELAYED_FOR_WIFI.getValue() + AND +
-                        ProviderTableMeta.UPLOADS_LAST_RESULT + "<>" + UploadResult.DELAYED_FOR_CHARGING.getValue(),
+                        ProviderTableMeta.UPLOADS_LAST_RESULT + "<>" + UploadResult.LOCK_FAILED.getValue() +
+                        AND + ProviderTableMeta.UPLOADS_LAST_RESULT +
+                            "<>" + UploadResult.DELAYED_FOR_WIFI.getValue() +
+                        AND + ProviderTableMeta.UPLOADS_LAST_RESULT +
+                            "<>" + UploadResult.DELAYED_FOR_CHARGING.getValue() +
+                        AND + ProviderTableMeta.UPLOADS_LAST_RESULT +
+                            "<>" + UploadResult.DELAYED_IN_POWER_SAVE_MODE.getValue(),
                 null
         );
     }
@@ -463,17 +471,18 @@ public class UploadsStorageManager extends Observable {
         long result = 0;
         if (account != null) {
             result = getDB().delete(
-                    ProviderTableMeta.CONTENT_URI_UPLOADS,
-                    ProviderTableMeta.UPLOADS_STATUS + "==" + UploadStatus.UPLOAD_FAILED.value +
-                            AND +
-                            ProviderTableMeta.UPLOADS_LAST_RESULT + "<>" + UploadResult.LOCK_FAILED.getValue() +
-                            AND +
-                            ProviderTableMeta.UPLOADS_LAST_RESULT + "<>" + UploadResult.DELAYED_FOR_WIFI.getValue() +
-                            AND +
-                            ProviderTableMeta.UPLOADS_LAST_RESULT + "<>" + UploadResult.DELAYED_FOR_CHARGING.getValue() +
-                            AND +
-                            ProviderTableMeta.UPLOADS_ACCOUNT_NAME + "== ?",
-                    new String[]{account.name}
+                ProviderTableMeta.CONTENT_URI_UPLOADS,
+                ProviderTableMeta.UPLOADS_STATUS + "==" + UploadStatus.UPLOAD_FAILED.value +
+                        AND + ProviderTableMeta.UPLOADS_LAST_RESULT +
+                            "<>" + UploadResult.LOCK_FAILED.getValue() +
+                        AND + ProviderTableMeta.UPLOADS_LAST_RESULT +
+                            "<>" + UploadResult.DELAYED_FOR_WIFI.getValue() +
+                        AND + ProviderTableMeta.UPLOADS_LAST_RESULT +
+                            "<>" + UploadResult.DELAYED_FOR_CHARGING.getValue() +
+                        AND + ProviderTableMeta.UPLOADS_LAST_RESULT +
+                            "<>" + UploadResult.DELAYED_IN_POWER_SAVE_MODE.getValue() +
+                        AND + ProviderTableMeta.UPLOADS_ACCOUNT_NAME + "== ?",
+                new String[]{account.name}
             );
         }
 
@@ -515,14 +524,16 @@ public class UploadsStorageManager extends Observable {
             result = getDB().delete(
                     ProviderTableMeta.CONTENT_URI_UPLOADS,
                     ProviderTableMeta.UPLOADS_STATUS + "=? OR " + ProviderTableMeta.UPLOADS_STATUS + "=?" +
-                            AND +
-                            ProviderTableMeta.UPLOADS_LAST_RESULT + "<>" + UploadResult.LOCK_FAILED.getValue() +
-                            AND +
-                            ProviderTableMeta.UPLOADS_LAST_RESULT + "<>" + UploadResult.DELAYED_FOR_WIFI.getValue() +
-                            AND +
-                            ProviderTableMeta.UPLOADS_LAST_RESULT + "<>" + UploadResult.DELAYED_FOR_CHARGING.getValue() +
-                            AND +
-                            ProviderTableMeta.UPLOADS_ACCOUNT_NAME + "== ?", whereArgs
+                            AND + ProviderTableMeta.UPLOADS_LAST_RESULT +
+                            "<>" + UploadResult.LOCK_FAILED.getValue() +
+                            AND + ProviderTableMeta.UPLOADS_LAST_RESULT +
+                            "<>" + UploadResult.DELAYED_FOR_WIFI.getValue() +
+                            AND + ProviderTableMeta.UPLOADS_LAST_RESULT +
+                            "<>" + UploadResult.DELAYED_FOR_CHARGING.getValue() +
+                            AND + ProviderTableMeta.UPLOADS_LAST_RESULT +
+                            "<>" + UploadResult.DELAYED_IN_POWER_SAVE_MODE.getValue() +
+                            AND + ProviderTableMeta.UPLOADS_ACCOUNT_NAME + "== ?",
+                    whereArgs
             );
         }
 

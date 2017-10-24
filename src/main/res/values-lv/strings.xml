@@ -46,14 +46,12 @@
     <string name="prefs_log_delete_history_button">Dzēst vēsturi</string>
     <string name="prefs_calendar_contacts">Sinhronizēt kalendāra &amp; kontaktus</string>
     <string name="prefs_calendar_contacts_summary">Kontam iestatīt DAVdroid (v1.3.0+)</string>
-    <string name="prefs_calendar_contacts_no_store_error">Ne F-droid, ne Google Play ir instalēts.</string>
     <string name="prefs_daily_contacts_sync_summary">Ikdieniška kontaktu dublēšana</string>
     <string name="prefs_help">Palīdzība</string>
     <string name="prefs_recommend">Ieteikt draugam</string>
     <string name="prefs_feedback">Atsauksmes</string>
     <string name="prefs_imprint">Importēt</string>
 
-	<string name="recommend_subject">Izmēģini %1$s uz savu viedtālruni!</string>
 	<string name="auth_check_server">Pārbaudīt serveri</string>
     <string name="auth_username">Lietotājvārds</string>
     <string name="auth_password">Parole</string>
@@ -88,7 +86,6 @@
     <string name="common_yes">Jā</string>
     <string name="common_no">Nē</string>
     <string name="common_ok">Labi</string>
-    <string name="common_remove_upload">Noņemt augšupielādi</string>
     <string name="common_cancel_sync">Atsaukt sinhronizāciju</string>
     <string name="common_cancel">Atcelt</string>
     <string name="common_back">Atpakaļ</string>
@@ -137,25 +134,14 @@
     <string name="sync_fail_in_favourites_content">Nevarēja sinhronizēt %1$d datņu saturu (%2$d konflikti)</string>
     <string name="sync_foreign_files_forgotten_ticker">Dažas lokālās datnes tika aizmirstas</string>
     <string name="sync_foreign_files_forgotten_content">%1$d datnes ārpus %2$s mapes nevar kopēt uz</string>
-    <string name="foreign_files_move">Pārvietot visu</string>
-    <string name="foreign_files_success">Visas datnes tika pārvietotas</string>
-    <string name="foreign_files_fail">Dažas datnes nevarēja pārvietot</string>
-    <string name="foreign_files_local_text">Lokāli: %1$s</string>
-    <string name="foreign_files_remote_text">Attālināti: %1$s</string>
     <string name="pass_code_enter_pass_code">Lūdzu, ievadiet piekļuves kodu</string>
     
     <string name="pass_code_configure_your_pass_code">Ievadiet piekļuves kodu</string>
     <string name="pass_code_reenter_your_pass_code">Lūdzu, atkārtoti ievadiet savu piekļuves kodu</string>
-    <string name="pass_code_remove_your_pass_code">Noņemt kodu</string>
     <string name="pass_code_mismatch">Šie piekļuves kodi nav vienādi</string>
     <string name="pass_code_wrong">Nepareizs piekļuves kods</string>
-    <string name="pass_code_removed">Kods noņemts</string>
     <string name="pass_code_stored">Kods saglabāts</string>
     
-    <string name="media_notif_ticker">%1$s mūzikas atskaņotājs</string>
-    <string name="media_state_playing">%1$s (atskaņot)</string>
-    <string name="media_state_loading">%1$s (ielādēt)</string>
-    <string name="media_event_done">%1$s atskaņošana pabeigta</string>
     <string name="media_err_nothing_to_play">Nav atrasts neviens multivides fails</string>
     <string name="media_rewind_description">Attīšanas poga</string>
     <string name="media_play_pause_description">Atskaņot vai pauzēt</string>
@@ -183,10 +169,7 @@
     <string name="favorite">Iestatīt kā pieejamu bezsaistē</string>
     <string name="unfavorite">Iestatiet, ka pieejams bezsaistē</string>
     <string name="common_rename">Pārsaukt</string>
-    <string name="common_remove">Izņemt</string>
-    <string name="confirmation_remove_file_alert">Vai tiešām vēlaties noņemt %1$s?</string>
     <string name="confirmation_remove_local">Tikai lokālos</string>
-    <string name="remove_fail_msg">Neizdevās izņemt</string>
     <string name="rename_dialog_title">Ievadīt jaunu nosaukumu</string>
     <string name="sync_file_nothing_to_do_msg">Datnes saturs jau ir sinhronizēts</string>
     <string name="filename_forbidden_characters">Aizliegtās rakstzīmes: / \\ &lt; &gt; : \" | ? *</string>
@@ -352,8 +335,6 @@
     <string name="manage_space_clear_data">Notīrīt datus</string>
     <string name="manage_space_error">Dažas datnes nevarēja izdzēst.</string>
 
-    <string name="confirmation_remove_files_alert">Vai tiešām vēlies noņemt izvēlētos?</string>
-    <string name="confirmation_remove_folders_alert">Vai tiešām vēlies noņemt izvēlētos un to saturu?</string>
     <string name="actionbar_search">Meklēt</string>
     <string name="learn_more">Uzziniet vairāk</string>
     <string name="move_to">Pārvietot uz&#8230;</string>

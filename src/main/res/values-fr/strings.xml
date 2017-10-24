@@ -142,7 +142,9 @@
     <string name="about_title">À propos de</string>
     <string name="change_password">Changer de mot de passe</string>
     <string name="delete_account">Supprimer le compte</string>
-    <string name="delete_account_warning">Supprimer le compte %s ?\n\nCette suppression sera irréversible.</string>
+    <string name="delete_account_warning">Retirer le compte %s et supprimer tous les fichiers locaux ?
+
+Attention la suppression est irréversible.</string>
     <string name="avatar">Avatar</string>
     <string name="active_user">Utilisateur actif</string>
     <string name="upload_chooser_title">Envoyer depuis&#8230;</string>
@@ -172,6 +174,7 @@
     <string name="uploads_view_upload_status_service_interrupted">L\'application s\'est arrêtée</string>
     <string name="uploads_view_upload_status_unknown_fail">Erreur inconnue </string>
     <string name="uploads_view_upload_status_waiting_for_wifi">En attente d\'une connexion Wifi</string>
+    <string name="uploads_view_upload_status_waiting_exit_power_save_mode">En attente de sortie du mode d’économie d’énergie</string>
     <string name="uploads_view_later_waiting_to_upload">En attente d\'envoi</string>
     <string name="downloader_download_in_progress_ticker">Réception en cours&#8230;</string>
     <string name="downloader_download_in_progress_content">Téléchargement de %2$s : %1$d%% effectués</string>
@@ -182,6 +185,7 @@
     <string name="downloader_not_downloaded_yet">Pas encore téléchargé</string>
     <string name="downloader_download_failed_credentials_error">Le téléchargement a échoué, vous devez vous reconnecter</string>
     <string name="common_choose_account">Sélectionnez un compte</string>
+    <string name="common_switch_account">Basculer de compte</string>
     <string name="sync_fail_ticker">La synchronisation a échoué</string>
     <string name="sync_fail_ticker_unauthorized">La synchronisation a échoué, vous devez vous reconnecter</string>
     <string name="sync_fail_content">Impossible de terminer la synchronisation de %1$s</string>
@@ -272,14 +276,14 @@
     <string name="favorite_switch">Disponible hors-ligne</string>
     <string name="common_rename">Renommer</string>
     <string name="common_remove">Supprimer</string>
-    <string name="confirmation_remove_file_alert">Voulez-vous vraiment supprimer %1$s ?</string>
+    <string name="confirmation_remove_file_alert">Souhaitez-vous vraiment supprimer %1$s ?</string>
     <string name="confirmation_remove_folder_alert">Voulez-vous vraiment supprimer %1$s et ses contenus ?</string>
     <string name="confirmation_remove_local">Local seulement</string>
     <string name="remove_success_msg">Supprimé</string>
     <string name="remove_fail_msg">Échec de la suppression</string>
     <string name="rename_dialog_title">Entrez un nouveau nom</string>
     <string name="rename_local_fail_msg">La version locale ne peut être renommée ; veuillez réessayer avec un nom différent</string>
-    <string name="rename_server_fail_msg">Échec du renommage</string>
+    <string name="rename_server_fail_msg">Impossible de renommer le serveur</string>
     <string name="sync_file_fail_msg">Le fichier distant n\'a pu être vérifié</string>
     <string name="sync_file_nothing_to_do_msg">Ce fichier est déjà synchronisé</string>
     <string name="create_dir_fail_msg">Le dossier n\'a pas pu être créé</string>
@@ -537,8 +541,8 @@
 
     <string name="permission_storage_access">Des permissions supplémentaires sont exigées pour téléverser et télécharger des fichiers.</string>
     <string name="local_file_not_found_toast">Le fichier n\'a pas été trouvé sur le système de fichier local</string>
-    <string name="confirmation_remove_files_alert">Voulez-vous vraiment supprimer les éléments sélectionnés ?</string>
-    <string name="confirmation_remove_folders_alert">Voulez-vous vraiment supprimer les éléments sélectionnés et leurs contenus ?</string>
+    <string name="confirmation_remove_files_alert">Souhaitez-vous vraiment supprimer les éléments sélectionnés ?</string>
+    <string name="confirmation_remove_folders_alert">Souhaitez-vous vraiment supprimer les éléments sélectionnés ainsi que leurs contenus ?</string>
     <string name="maintenance_mode">Serveur en maintenance</string>
     <string name="lock_failed">Erreur lors du verrouillage du fichier.</string>
 
@@ -564,8 +568,8 @@
     <string name="participate_contribute_translate_text">l\'application</string>
     <string name="participate_contribute_github_text">Vérifier, corriger et écrire du code, voir %1$s pour plus de détails</string>
     <string name="participate_rc_play_store">Obtenez la version Release Candidate via Google Play store</string>
-    <string name="participate_rc_fdroid">Obtenez la version Release Candidate via f-droid app store</string>
-    <string name="participate_dev_fdroid">Obtenir la version de développement sur la boutique d\'applications f-droid</string>
+    <string name="participate_rc_fdroid">Obtenez la version Release Candidate via F-Droid app store</string>
+    <string name="participate_dev_fdroid">Obtenir la version de développement sur la boutique d\'applications F-Droid</string>
     <string name="participate_dev_direct_download">Obtenir la version de développement par téléchargement direct</string>
     <string name="move_to">Déplacer vers&#8230;</string>
     <string name="copy_to">Copier vers&#8230;</string>
@@ -613,8 +617,8 @@
     <string name="welcome_feature_3_title">Téléversement automatique</string>
     <string name="welcome_feature_3_text">Conservez vos photos en toute sécurité</string>
 
-    <string name="whats_new_auto_upload_title">Améliorer le téléversement automatique</string>
-    <string name="whats_new_auto_upload_content">\u2022 pour toutes les version Android \n\u2022 une plus faible consommation d\'énergie \n\u2022 plus fiable, mais pas immédiat \n\u2022 séparation des images &amp; vidéos</string>
+    <string name="whats_new_auto_upload_title">Un téléversement automatique amélioré</string>
+    <string name="whats_new_auto_upload_content">\u2022 pour toutes les version Android \n\u2022 une consommation d\'énergie plus faible \n\u2022 plus fiable, mais pas immédiat \n\u2022 séparation des images &amp; vidéos</string>
 
     <string name="whats_new_search_title">Recherche sur tout le serveur</string>
     <string name="whats_new_search_content">\u2022 Pas seulement dans le dossier actuel \n\u2022 Retourne les résultats de tout le serveur \n\u2022 Ouvre directement les fichiers/dossiers \n\u2022 Compatible avec NC12 et plus </string>
@@ -692,4 +696,5 @@
     <string name="push_notifications_not_implemented">L\'envoi de notifications est désactivé à cause des dépendances propriétaires des services Google Play.</string>
     <string name="push_notifications_old_login">Aucune notification push à cause d\'une connexion expirée. Veuillez ajouter de nouveau votre compte. </string>
     <string name="push_notifications_temp_error">Les notifications push ne sont pas disponibles actuellement.</string>
+    <string name="date_unknown">Inconnu</string>
 </resources>

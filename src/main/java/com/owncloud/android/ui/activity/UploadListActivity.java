@@ -43,6 +43,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.evernote.android.job.JobRequest;
+import com.evernote.android.job.util.support.PersistableBundleCompat;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.UploadsStorageManager;
 import com.owncloud.android.db.OCUpload;
@@ -61,6 +62,8 @@ import com.owncloud.android.utils.MimeTypeUtil;
 
 import java.io.File;
 
+import static com.owncloud.android.ui.activity.Preferences.EXPERT_MODE;
+
 /**
  * Activity listing pending, active, and completed uploads. User can delete
  * completed uploads from view. Content of this list of coming from
@@ -74,8 +77,6 @@ public class UploadListActivity extends FileActivity implements UploadListFragme
     private static final String TAG_UPLOAD_LIST_FRAGMENT = "UPLOAD_LIST_FRAGMENT";
 
     private static final String SCREEN_NAME = "Uploads";
-
-    private static final String EXPERT_MODE = "expert_mode";
 
     private UploadMessagesReceiver mUploadMessagesReceiver;
 
@@ -237,9 +238,12 @@ public class UploadListActivity extends FileActivity implements UploadListFragme
                 break;
 
             case R.id.action_force_rescan:
+                PersistableBundleCompat persistableBundleCompat = new PersistableBundleCompat();
+                persistableBundleCompat.putBoolean(FilesSyncJob.OVERRIDE_POWER_SAVING, true);
                 new JobRequest.Builder(FilesSyncJob.TAG)
                         .setExact(1_000L)
                         .setUpdateCurrent(false)
+                        .setExtras(persistableBundleCompat)
                         .build()
                         .schedule();
                 

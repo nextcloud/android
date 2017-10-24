@@ -34,7 +34,7 @@
     <string name="drawer_item_activities">فعالیت ها</string>
     <string name="drawer_item_notifications">پیغام ها</string>
     <string name="drawer_quota">%1$s از %2$s استفاده شده </string>
-    <string name="drawer_close">بستن</string>
+	<string name="drawer_close">بستن</string>
     <string name="drawer_open">باز کردن</string>
     <string name="prefs_category_general">عمومی</string>
     <string name="prefs_category_more">بیش‌تر</string>
@@ -48,7 +48,6 @@
     <string name="prefs_calendar_contacts"> همگام سازی تقویم &amp; مخاطبین</string>
     <string name="prefs_calendar_contacts_summary">DAVdroid (v1.3.0+) را برای همین کاربر راه بیاندازید </string>
     <string name="prefs_calendar_contacts_address_resolve_error">آدرس سرور برای این کاربر و DAVdroid برگردانده نمی شود </string>
-    <string name="prefs_calendar_contacts_no_store_error">هیچ یک از F-droid برای فروشگاه گوگل نصب نشده است </string>
     <string name="prefs_calendar_contacts_sync_setup_successful">تقویم &amp; همگام سازی مخاطبین تنظیم شده است</string>
     <string name="prefs_daily_contacts_sync_summary">پشتیبان گیری روزانه از مخاطبین شما</string>
     <string name="prefs_help">راهنما</string>
@@ -56,12 +55,7 @@
     <string name="prefs_feedback">باز خورد</string>
     <string name="prefs_imprint">اثر</string>
 
-    <string name="recommend_subject">%1$s را بر روی گوشی هوشمند خود امتحان کنید.</string>
-    <string name="recommend_text">من از شما می خواهم که از  %1$sاستفاده کنید.
-از اینجا دانلود کنید %2$s</string>
-    <string name="recommend_urls">* %1$s - %2$s</string>
-
-    <string name="auth_check_server">ارتباط با سرور را چک کنید </string>
+	<string name="auth_check_server">ارتباط با سرور را چک کنید </string>
     <string name="auth_host_url">آدرس سرور https://&#8230;</string>
     <string name="auth_username">نام کاربری</string>
     <string name="auth_password">رمز عبور</string>
@@ -128,7 +122,6 @@
     <string name="common_yes">بله</string>
     <string name="common_no">نه</string>
     <string name="common_ok">تایید</string>
-    <string name="common_remove_upload">حذف آپلود</string>
     <string name="common_retry_upload">آپلود دوباره</string>
     <string name="common_cancel_sync">لغو همگام سازی</string>
     <string name="common_cancel">منصرف شدن</string>
@@ -193,26 +186,15 @@
     <string name="sync_foreign_files_forgotten_ticker">بعضی از فایلهای محلی فراموش شده اند</string>
     <string name="sync_foreign_files_forgotten_content">%1$d fفایل از %2$s پوشه نتوانستند کپی شوند در</string>
     <string name="sync_current_folder_was_removed">پوشه %1$s دیگر وجود ندارد</string>
-    <string name="foreign_files_move">انتقال همه</string>
-    <string name="foreign_files_success">همه ی فایل ها جا به جا شدند</string>
-    <string name="foreign_files_fail">بعضی از فایل ها نمی توانند انتقال یابند</string>
-    <string name="foreign_files_local_text">محلی: %1$s</string>
-    <string name="foreign_files_remote_text">دور از دسترس:  %1$s</string>
     <string name="pass_code_enter_pass_code">لطفا کد عبور خود را وارد کنید</string>
-
+    
     <string name="pass_code_configure_your_pass_code">رمز خود را وارد کنید</string>
     <string name="pass_code_configure_your_pass_code_explanation">هر بار که برنامه باز شود, شما نیاز به استفاده از کد عبور خواهید داشت</string>
     <string name="pass_code_reenter_your_pass_code">لطفا کد عبور خود را دوباره وارد کنید</string>
-    <string name="pass_code_remove_your_pass_code">رمز خود را حذف کنید</string>
     <string name="pass_code_mismatch">رمزهای وارد شده یکسان نیستند</string>
     <string name="pass_code_wrong">رمز نادرست</string>
-    <string name="pass_code_removed">رمز حذف شد</string>
     <string name="pass_code_stored">رمز ذخیره شد</string>
-
-    <string name="media_notif_ticker">%1$s پخش کننده موسیقی</string>
-    <string name="media_state_playing">%1$s ( در حال پخش موسیقی )</string>
-    <string name="media_state_loading">%1$s (درحال بارگذاری)</string>
-    <string name="media_event_done">%1$s پخش به پایان رسید.</string>
+    
     <string name="media_err_nothing_to_play">هیچ رسانه ای یافت نشد.</string>
     <string name="media_err_no_account">هیچ حسابی ارائه نشده است.</string>
     <string name="media_err_not_in_owncloud">این فایل در یک حساب کاربری معتبر نیست</string>
@@ -227,35 +209,35 @@
     <string name="media_play_pause_description">دکمه پخش یا توقف</string>
     <string name="media_forward_description">دکمه رو به جلو سریع</string>
 
-    <string name="auth_no_net_conn_title">هیچ ارتباطی به شبکه موجود نیست</string>
-    <string name="auth_nossl_plain_ok_title">اتصال امن در دسترس نیست</string>
-    <string name="auth_connection_established">اتصال برقرار شد</string>
-    <string name="auth_testing_connection">اجرای تست ارتباط</string>
-    <string name="auth_not_configured_title">پیکربندی سرور ناقص است</string>
-    <string name="auth_account_not_new">یک حساب کاربری با همین نام و سرور در حال حاضر در دستگاه وجود دارد</string>
-    <string name="auth_account_not_the_same">نام کاربری وارد شده با نام کاربری این اکانت مطابقت ندارد</string>
-    <string name="auth_unknown_error_title">خطای نامشخص رخ داده است!</string>
-    <string name="auth_unknown_host_title">هاست یافت نشد</string>
-    <string name="auth_incorrect_path_title">سرور یافت نشد</string>
-    <string name="auth_timeout_title">زمان زیادی برای پاسخ سرور صورت گرفت.</string>
-    <string name="auth_incorrect_address_title">فرمت آدرس برای سرور اشتباه است</string>
-    <string name="auth_ssl_general_error_title">مقداردهی SSL ناموفق بود.</string>
-    <string name="auth_ssl_unverified_server_title">هویت سرور SSL را نمی توان تایید کرد</string>
-    <string name="auth_bad_oc_version_title">نسخه ی سرور ناشناخته</string>
-    <string name="auth_wrong_connection_title">ارتباط برقرار نشد</string>
-    <string name="auth_secure_connection">ایجاد ارتباط ایمن</string>
-    <string name="auth_unauthorized">نام کاربری یا رمز ورود اشتباه است</string>
-    <string name="auth_oauth_error">احراز هویت ناموفق</string>
-    <string name="auth_oauth_error_access_denied">دسترسی توسط سرور احراز هویت رد شده است.</string>
-    <string name="auth_wtf_reenter_URL">وضیعت غیر منتظره، لطفا آدرس سرور را دوباره وارد کنید</string>
-    <string name="auth_expired_oauth_token_toast">احراز هویت شما منقضی شده است. لطفا، مجددا احراز هویت فرمایید.</string>
-    <string name="auth_expired_basic_auth_toast">لطفا گذرواژه فعلی را وارد کنید</string>
-    <string name="auth_expired_saml_sso_token_toast">نشست شما منقضی شد, دوباره اتصال شوید.</string>
-    <string name="auth_connecting_auth_server">اتصال به سرور احراز هویت &#8230;</string>
-    <string name="auth_unsupported_auth_method">سرور این نوع احراز هویت را پشتیبانی نمی‌کند</string>
-    <string name="auth_unsupported_multiaccount">%1$s چند اکانته بودن را پشتیبانی نمی‌کند</string>
-    <string name="auth_fail_get_user_name">سرور شما یک شناسه کاربری معتبر را نشان نمی دهد، لطفا با یک ادمین تماس بگیرید</string>
-    <string name="auth_can_not_auth_against_server">نمی توان به این سرور تأیید کرد</string>
+	<string name="auth_no_net_conn_title">هیچ ارتباطی به شبکه موجود نیست</string>
+	<string name="auth_nossl_plain_ok_title">اتصال امن در دسترس نیست</string>
+	<string name="auth_connection_established">اتصال برقرار شد</string>
+	<string name="auth_testing_connection">اجرای تست ارتباط</string>
+	<string name="auth_not_configured_title">پیکربندی سرور ناقص است</string>
+	<string name="auth_account_not_new">یک حساب کاربری با همین نام و سرور در حال حاضر در دستگاه وجود دارد</string>
+	<string name="auth_account_not_the_same">نام کاربری وارد شده با نام کاربری این اکانت مطابقت ندارد</string>
+	<string name="auth_unknown_error_title">خطای نامشخص رخ داده است!</string>
+	<string name="auth_unknown_host_title">هاست یافت نشد</string>
+	<string name="auth_incorrect_path_title">سرور یافت نشد</string>
+	<string name="auth_timeout_title">زمان زیادی برای پاسخ سرور صورت گرفت.</string>
+	<string name="auth_incorrect_address_title">فرمت آدرس برای سرور اشتباه است</string>
+	<string name="auth_ssl_general_error_title">مقداردهی SSL ناموفق بود.</string>
+	<string name="auth_ssl_unverified_server_title">هویت سرور SSL را نمی توان تایید کرد</string>
+	<string name="auth_bad_oc_version_title">نسخه ی سرور ناشناخته</string>
+	<string name="auth_wrong_connection_title">ارتباط برقرار نشد</string>
+	<string name="auth_secure_connection">ایجاد ارتباط ایمن</string>
+	<string name="auth_unauthorized">نام کاربری یا رمز ورود اشتباه است</string>
+	<string name="auth_oauth_error">احراز هویت ناموفق</string>
+	<string name="auth_oauth_error_access_denied">دسترسی توسط سرور احراز هویت رد شده است.</string>
+	<string name="auth_wtf_reenter_URL">وضیعت غیر منتظره، لطفا آدرس سرور را دوباره وارد کنید</string>
+	<string name="auth_expired_oauth_token_toast">احراز هویت شما منقضی شده است. لطفا، مجددا احراز هویت فرمایید.</string>
+	<string name="auth_expired_basic_auth_toast">لطفا گذرواژه فعلی را وارد کنید</string>
+	<string name="auth_expired_saml_sso_token_toast">نشست شما منقضی شد, دوباره اتصال شوید.</string>
+	<string name="auth_connecting_auth_server">اتصال به سرور احراز هویت &#8230;</string>
+	<string name="auth_unsupported_auth_method">سرور این نوع احراز هویت را پشتیبانی نمی‌کند</string>
+	<string name="auth_unsupported_multiaccount">%1$s چند اکانته بودن را پشتیبانی نمی‌کند</string>
+	<string name="auth_fail_get_user_name">سرور شما یک شناسه کاربری معتبر را نشان نمی دهد، لطفا با یک ادمین تماس بگیرید</string>
+	<string name="auth_can_not_auth_against_server">نمی توان به این سرور تأیید کرد</string>
     <string name="auth_account_does_not_exist">حساب کاربری هنوز روی دستگاه وجود ندارد</string>
     <string name="auth_access_failed">دسترسی ناموفق</string>
 
@@ -264,13 +246,8 @@
     <string name="favorite_real">اضافه کردن به برگزیده</string>
     <string name="unset_favorite_real">حذف کردن از برگزیده</string>
     <string name="common_rename">تغییرنام</string>
-    <string name="common_remove">حذف</string>
-    <string name="confirmation_remove_file_alert">آیا واقعا می‌خواهید %1$s حذف شود ؟</string>
     <string name="confirmation_remove_local">فقط محلی</string>
-    <string name="remove_success_msg">حذف شد</string>
-    <string name="remove_fail_msg">حذف نا موفق بود</string>
     <string name="rename_dialog_title">نام جدید وارد کنید</string>
-    <string name="rename_server_fail_msg">نمیتوان به سرور نام جدید داد </string>
     <string name="sync_file_nothing_to_do_msg">محتوای فایل قبلا همگام شده</string>
     <string name="filename_forbidden_characters">کاراکترهای ممنوع: / \\ &lt; &gt; : \" | ? *</string>
     <string name="filename_forbidden_charaters_from_server">نام فایل دارای حداقل یک کاراکتر نامعتبر است</string>
@@ -278,8 +255,8 @@
     <string name="filedisplay_no_file_selected">هیچ فایلی انتخاب نشده</string>
     <string name="activity_chooser_title"> ارسال لینک به &#8230;</string>
     <string name="wait_for_tmp_copy_from_private_storage">کپی کردن فایل از حافظه خصوصی</string>
-
-    <string name="oauth_check_onoff">ورود به برنامه با OAuth 2.0</string>
+    
+    <string name="oauth_check_onoff">ورود به برنامه با OAuth 2.0</string> 
     <string name="ssl_validator_header">هویت این سایت نمی تواند تایید شود</string>
     <string name="ssl_validator_reason_cert_not_trusted">- گواهی سرور نامعتبر است</string>
     <string name="ssl_validator_reason_cert_expired">- گواهی سرور انقضا یافته</string>
@@ -334,8 +311,8 @@
     <string name="prefs_instant_upload_path_use_subfolders_title">استفاده از زیر پوشه</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">ذخیره زیر پوشه بر اساس سال و ماه</string>
 
-    <string name="share_link_file_error">در حین اشتراک گذاری این فایل یا پوشه خطایی رخ داده است</string>
-    <string name="unshare_link_file_error">در حین حذف اشتراک گذاری این فایل یا پوشه خطایی رخ داده است</string>
+	<string name="share_link_file_error">در حین اشتراک گذاری این فایل یا پوشه خطایی رخ داده است</string>
+	<string name="unshare_link_file_error">در حین حذف اشتراک گذاری این فایل یا پوشه خطایی رخ داده است</string>
     <string name="share_link_password_title">یک رمزعبور را وارد کنید</string>
     <string name="share_link_empty_password">شما باید یک رمزعبور را وارد کنید</string>
 
@@ -351,9 +328,9 @@
 
     <string name="prefs_add_account">ایحاد حساب کاربری</string>
     <string name="actionbar_logger">Logs</string>
-    <string name="saml_authentication_required_text">احراز هویت مورد نیاز است</string>
-    <string name="saml_authentication_wrong_pass">رمز عبور اشتباه است</string>
-    <string name="actionbar_move">انتقال</string>
+	<string name="saml_authentication_required_text">احراز هویت مورد نیاز است</string>
+	<string name="saml_authentication_wrong_pass">رمز عبور اشتباه است</string>
+	<string name="actionbar_move">انتقال</string>
     <string name="folder_picker_choose_button_text">انتخاب کردن</string>
 
     <string name="move_file_error">خطایی در زمان تلاش برای انتقال این فایل یا پوشه رخ داده است</string>
@@ -366,10 +343,10 @@
 
     <string name="prefs_category_details">جزئیات</string>
 
-    <string name="shared_subject_header">به اشتراک گذاشته شد</string>
-    <string name="with_you_subject_header">با تو</string>
-
-    <string name="subject_user_shared_with_you">\"%2$s\" توسط %1$s با شما به اشتراک گذاشته شد</string>
+	<string name="shared_subject_header">به اشتراک گذاشته شد</string>
+	<string name="with_you_subject_header">با تو</string>
+    
+	<string name="subject_user_shared_with_you">\"%2$s\" توسط %1$s با شما به اشتراک گذاشته شد</string>
     <string name="subject_shared_with_you">\"%1$s\" با شما به اشتراک گذاشته شد</string>
 
     <string name="auth_refresh_button">بروزرسانی ارتباط</string>
@@ -401,4 +378,4 @@
     <string name="contacts_preference_backup_never">هیچ وقت</string>
     <string name="contacts_preferences_no_file_found">هیچ فایلی یافت نشد</string>
     <string name="privacy">حریم خصوصی</string>
-</resources>
+    </resources>

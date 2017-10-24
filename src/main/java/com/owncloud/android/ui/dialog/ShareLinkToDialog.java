@@ -1,4 +1,4 @@
-/**
+/*
  *   ownCloud Android client application
  *
  *   @author David A. Velasco
@@ -29,6 +29,8 @@ import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
@@ -77,6 +79,7 @@ public class ShareLinkToDialog  extends DialogFragment {
     }
     
     @Override
+    @NonNull
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         mIntent = getArguments().getParcelable(ARG_INTENT);
         String[] packagesToExclude = getArguments().getStringArray(ARG_PACKAGES_TO_EXCLUDE);
@@ -84,8 +87,7 @@ public class ShareLinkToDialog  extends DialogFragment {
                 packagesToExclude : new String[0]);
 
         PackageManager pm= getActivity().getPackageManager();
-        List<ResolveInfo> activities = pm.queryIntentActivities(mIntent,
-                PackageManager.MATCH_DEFAULT_ONLY);
+        List<ResolveInfo> activities = pm.queryIntentActivities(mIntent, PackageManager.MATCH_DEFAULT_ONLY);
         Iterator<ResolveInfo> it = activities.iterator();
         ResolveInfo resolveInfo;
         while (it.hasNext()) {
@@ -110,7 +112,6 @@ public class ShareLinkToDialog  extends DialogFragment {
         mAdapter = new ActivityAdapter(getActivity(), pm, activities);
         
         return createSelector(sendAction);
-        
     }
 
     private AlertDialog createSelector(final boolean sendAction) {
@@ -152,7 +153,7 @@ public class ShareLinkToDialog  extends DialogFragment {
         }
         
         @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
+        public @NonNull View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
             if (convertView == null) {
                 convertView = newView(parent);
             }

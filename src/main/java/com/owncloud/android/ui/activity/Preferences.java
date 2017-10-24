@@ -46,6 +46,7 @@ import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
 import android.preference.SwitchPreference;
 import android.support.annotation.LayoutRes;
+import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatDelegate;
 import android.view.Menu;
@@ -84,6 +85,8 @@ public class Preferences extends PreferenceActivity
     private static final String TAG = Preferences.class.getSimpleName();
 
     public final static String PREFERENCE_USE_FINGERPRINT = "use_fingerprint";
+
+    public static final String EXPERT_MODE = "expert_mode";
 
     private static final String SCREEN_NAME = "Settings";
 
@@ -132,6 +135,8 @@ public class Preferences extends PreferenceActivity
         actionBar.setDisplayHomeAsUpEnabled(true);
         ThemeUtils.setColoredTitle(actionBar, getString(R.string.actionbar_settings));
         actionBar.setBackgroundDrawable(new ColorDrawable(ThemeUtils.primaryColor()));
+        getWindow().getDecorView().setBackgroundDrawable(new ColorDrawable(ResourcesCompat
+                .getColor(getResources(), R.color.background_color, null)));
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             getWindow().setStatusBarColor(ThemeUtils.primaryDarkColor());
@@ -317,20 +322,30 @@ public class Preferences extends PreferenceActivity
             preferenceCategoryDetails.removePreference(mShowHiddenFiles);
         }
 
-        mExpertMode = (SwitchPreference) findPreference("expert_mode");
+        mExpertMode = (SwitchPreference) findPreference(EXPERT_MODE);
 
         if (getResources().getBoolean(R.bool.syncedFolder_light)) {
             preferenceCategoryDetails.removePreference(mExpertMode);
         } else {
-            mExpertMode = (SwitchPreference) findPreference("expert_mode");
+            mExpertMode = (SwitchPreference) findPreference(EXPERT_MODE);
             mExpertMode.setOnPreferenceClickListener(new OnPreferenceClickListener() {
                 @Override
                 public boolean onPreferenceClick(Preference preference) {
                     SharedPreferences appPrefs =
                             PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
                     SharedPreferences.Editor editor = appPrefs.edit();
-                    editor.putBoolean("expert_mode", mExpertMode.isChecked());
+                    editor.putBoolean(EXPERT_MODE, mExpertMode.isChecked());
                     editor.apply();
+
+                    if (mExpertMode.isChecked()) {
+                        Log_OC.startLogging(getApplicationContext());
+                    } else {
+                        if (!BuildConfig.DEBUG &&
+                                !getApplicationContext().getResources().getBoolean(R.bool.logger_enabled)) {
+                            Log_OC.stopLogging();
+                        }
+                    }
+
                     return true;
                 }
             });
@@ -473,7 +488,7 @@ public class Preferences extends PreferenceActivity
                 PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
         boolean loggerEnabled = getResources().getBoolean(R.bool.logger_enabled) || BuildConfig.DEBUG ||
-                appPrefs.getBoolean("expert_mode", false);
+                appPrefs.getBoolean(EXPERT_MODE, false);
         Preference pLogger = findPreference("logger");
         if (pLogger != null) {
             if (loggerEnabled) {

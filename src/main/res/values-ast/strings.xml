@@ -47,14 +47,9 @@
     <string name="prefs_log_delete_history_button">Desaniciar historial</string>
     <string name="prefs_calendar_contacts">Sincronizar calendariu &amp; contautos</string>
     <string name="prefs_calendar_contacts_summary">Configura DAVdroid (v1.3.0+) pa la cuenta actual</string>
-    <string name="prefs_calendar_contacts_no_store_error">Nin F-droid nin Google Play tán instalaos</string>
     <string name="prefs_help">Ayuda</string>
     <string name="prefs_recommend">Aconseyar a un collaciu</string>
     <string name="prefs_feedback">Feedback</string>
-    <string name="recommend_subject">¡Prueba %1$s nel to teléfonu intelixente!</string>
-	<string name="recommend_text">Quiero convidate a usar %1$s nel to teléfonu intelixente.\nBáxalu d\'equí: %2$s</string>
-    <string name="recommend_urls">%1$s ó %2$s</string>
-
     <string name="auth_check_server">Comprobar servidor</string>
     <string name="auth_host_url">Direición del sirvidor https://&#8230;</string>
     <string name="auth_username">Nome d\'usuariu</string>
@@ -107,7 +102,6 @@
     <string name="common_yes">Sí</string>
     <string name="common_no">Non</string>
     <string name="common_ok">Aceutar</string>
-    <string name="common_remove_upload">Desaniciar xuba</string>
     <string name="common_retry_upload">Retentar xuba</string>
     <string name="common_cancel_sync">Encaboxar sincronización</string>
     <string name="common_cancel">Encaboxar</string>
@@ -162,28 +156,16 @@
     <string name="sync_fail_in_favourites_content">Los conteníos de los ficheros %1$d pueden nun tar sincronizaos (%2$d conflictos)</string>
     <string name="sync_foreign_files_forgotten_ticker">Dexáronse dalgunos ficheros llocales.</string>
     <string name="sync_foreign_files_forgotten_content">Los ficheros %1$d fuera de la carpeta %2$s nun puen copiase dientro</string>
-    <string name="sync_foreign_files_forgotten_explanation">Lo mesmo que na versión 1.3.16, los archivos xubíos dende esti preséu copiáronse dientro la carpeta llocal %1$s pa prevenir la perda de datos cuando un ficheru se sincroniza con múltiples cuentes Por mor d\'esti cambéu, tolos ficheros xubíos en versiones previes d\'esta aplicación tán copiaos na carpeta %2$s . Por embargu, un error torgó\'l pieslle de la operación demientres la sincronización de la cuenta. Pues dexar el/los ficheru/os como tán, desaniciar l\'enllaz a %3$s , o mover el/los ficheru/os a la carpeta %1$s y guardar l\'enllaz a %4$s . El llistáu d\'abaxo contién los ficheros llocales y remotos enllazaos en %5$s</string>
     <string name="sync_current_folder_was_removed">La carpeta %1$s yá nun esiste</string>
-    <string name="foreign_files_move">Mover too</string>
-    <string name="foreign_files_success">Moviéronse tolos ficheros</string>
-    <string name="foreign_files_fail">Nun pudieron movese dalgunos ficheros</string>
-    <string name="foreign_files_local_text">Llocal: %1$s</string>
-    <string name="foreign_files_remote_text">Remotu: %1$s</string>
     <string name="pass_code_enter_pass_code">Introduz el to códigu de pasu, por favor</string>
     
     <string name="pass_code_configure_your_pass_code">Introduz el to códigu de pasu</string>
     <string name="pass_code_configure_your_pass_code_explanation">La contraseña va ser solicitada cada vegada que s\'anicie l\'aplicación</string>
     <string name="pass_code_reenter_your_pass_code">Por favor, vuelvi inxertar la contraseña</string>
-    <string name="pass_code_remove_your_pass_code">Desanicia la to contraseña</string>
     <string name="pass_code_mismatch">Les contraseñes nun son les mesmes</string>
     <string name="pass_code_wrong">Contraseña incorrecta</string>
-    <string name="pass_code_removed">Contraseña desaniciada</string>
     <string name="pass_code_stored">Contraseña almacenada</string>
     
-    <string name="media_notif_ticker">%1$s reproductor de música</string>
-    <string name="media_state_playing">%1$s (reproduciendo)</string>
-    <string name="media_state_loading">%1$s (cargando)</string>
-    <string name="media_event_done">%1$s reproducción finada</string>
     <string name="media_err_nothing_to_play">Nun s\'atopó nengún ficheru multimedia</string>
     <string name="media_err_no_account">Nun s\'especificó nenguna cuenta.</string>
     <string name="media_err_not_in_owncloud">El ficheru nun ye una cuenta válida</string>
@@ -232,12 +214,8 @@
     <string name="unfavorite">Desaniciar como disponible ensin conexón</string>
     <string name="favorite_real">Afitar como favoritu</string>
     <string name="common_rename">Renomar</string>
-    <string name="common_remove">Desaniciáu</string>
-    <string name="confirmation_remove_file_alert">¿De xuru que quies desaniciar %1$s?</string>
     <string name="confirmation_remove_local">Namái llocal</string>
-    <string name="remove_fail_msg">Fallu nel desaniciu </string>
     <string name="rename_dialog_title">Introduz un nome nuevu</string>
-    <string name="rename_server_fail_msg">Nun pudo dase\'l nome nuevu al sirvidor</string>
     <string name="sync_file_fail_msg">Nun pudo comprobase\'l ficheru remotu</string>
     <string name="sync_file_nothing_to_do_msg">El conteníu del ficheru yá ta sincronizáu</string>
     <string name="create_dir_fail_msg">Nun pudo crease la carpeta</string>
@@ -245,7 +223,6 @@
     <string name="filename_forbidden_charaters_from_server">El nome del ficheru contién polo menos un carácter non válidu</string>
     <string name="filename_empty">El nome de ficheru nun pue tar baleru</string>
     <string name="wait_checking_credentials">Comprobación de credenciales almacenaes</string>
-    <string name="filedisplay_unexpected_bad_get_content">Problema inesperáu, por favor esbilla\'l ficheru dende una aplicación diferente</string>
     <string name="filedisplay_no_file_selected">Nun s\'esbillaron ficheros</string>
     <string name="activity_chooser_title">Unviar enllaz a&#8230;</string>
     <string name="wait_for_tmp_copy_from_private_storage">Copiando ficheru dende l\'almacenamientu priváu</string>
@@ -344,8 +321,6 @@
     <string name="file_migration_ok_finished">Finó</string>
     <string name="file_migration_failed_not_enough_space">undefined</string>
     <string name="file_migration_failed_while_coping">Fallu: Fallu na migración</string>
-    <string name="file_migration_failed_while_updating_index">Fallu: Fallu nel anovamientu del índiz</string>
-
     <string name="file_migration_directory_already_exists">Yá esiste la carpeta de datos. Escueyi una de les de darréu:</string>
     <string name="file_migration_override_data_folder">Trocar</string>
     <string name="file_migration_use_data_folder">Usar</string>
@@ -454,8 +429,6 @@
     <string name="manage_space_error">Dalgunos ficheros nun pudieron esborrase.</string>
 
     <string name="local_file_not_found_toast">Nun s\'alcontró\'l ficheru nel sistema llocal de ficheros</string>
-    <string name="confirmation_remove_files_alert">¿De xuru que quies desaniciar los elementos esbillaos?</string>
-    <string name="confirmation_remove_folders_alert">¿De xuru que quies desaniciar los elementos esbillaos y los sos conteníos?</string>
     <string name="actionbar_search">Guetar</string>
     <string name="learn_more">Deprendi más</string>
     <string name="participate_release_candidate_headline">Llanzamientu candidatu</string>

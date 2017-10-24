@@ -375,14 +375,22 @@ public class PreviewMediaFragment extends FileFragment implements
                 getFile(),
                 mContainerActivity.getStorageManager().getAccount(),
                 mContainerActivity,
-                getActivity()
+                getActivity(),
+                false
             );
-            mf.filter(menu);
+            mf.filter(menu, true);
         }
 
         // additional restriction for this fragment 
         // TODO allow renaming in PreviewImageFragment
         MenuItem item = menu.findItem(R.id.action_rename_file);
+        if (item != null) {
+            item.setVisible(false);
+            item.setEnabled(false);
+        }
+
+        // additional restriction for this fragment
+        item = menu.findItem(R.id.action_select_all);
         if (item != null) {
             item.setVisible(false);
             item.setEnabled(false);

@@ -30,7 +30,6 @@
         android:layout_height="match_parent"
         android:orientation="horizontal">
 
-
         <RelativeLayout
             android:layout_width="72dp"
             android:layout_height="@dimen/standard_list_item_size"
@@ -40,7 +39,7 @@
 
             <ImageView
                 android:id="@+id/thumbnail"
-                android:layout_width="32dp"
+                android:layout_width="@dimen/file_icon_size"
                 android:layout_height="@dimen/file_icon_size"
                 android:layout_centerInParent="true"
                 android:layout_marginLeft="8dp"
@@ -53,9 +52,8 @@
                 android:layout_alignParentTop="true"
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="4dp"
-                android:src="@drawable/ic_favorite"
-                />
-
+                android:contentDescription="@string/favorite_switch"
+                android:src="@drawable/ic_favorite" />
 
             <ImageView
                 android:id="@+id/keptOfflineIcon"
@@ -74,12 +72,13 @@
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentRight="true"
                 android:scaleType="fitCenter"
+                android:contentDescription="@string/downloader_download_succeeded_ticker"
                 android:layout_marginRight="4dp"/>
 
         </RelativeLayout>
 
         <LinearLayout
-            android:layout_width="@dimen/zero"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="top"
@@ -141,36 +140,50 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:paddingRight="@dimen/standard_padding">
+            android:paddingLeft="@dimen/alternate_padding"
+            android:paddingRight="@dimen/alternate_padding">
 
             <ImageView
                 android:id="@+id/sharedIcon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginTop="@dimen/standard_quarter_margin"
-                android:layout_marginLeft="@dimen/standard_quarter_margin"
-                android:layout_marginBottom="@dimen/standard_quarter_margin"
-                android:layout_marginRight="@dimen/standard_quarter_margin"
-                android:src="@drawable/shared_via_link" />
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/list_item_share_right_margin"
+                android:padding="@dimen/standard_quarter_padding"
+                android:clickable="true"
+                android:focusable="true"
+                android:src="@drawable/ic_unshared" />
 
             <ImageView
                 android:id="@+id/custom_checkbox"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="@dimen/standard_quarter_margin"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/standard_half_margin"
+                android:layout_marginRight="@dimen/standard_half_margin"
+                android:layout_toRightOf="@id/sharedIcon"
+                android:clickable="true"
+                android:focusable="true"
+                android:src="@drawable/ic_checkbox_blank_outline" />
 
-                android:src="@drawable/ic_checkbox_blank_outline"
-                android:layout_toRightOf="@id/sharedIcon"/>
+            <ImageView
+                android:id="@+id/overflow_menu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/standard_half_margin"
+                android:layout_toRightOf="@id/custom_checkbox"
+                android:clickable="true"
+                android:focusable="true"
+                android:src="@drawable/ic_dots_vertical" />
+
         </RelativeLayout>
-
 
     </LinearLayout>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/list_divider_background"></View>
+        android:background="@color/list_divider_background" />
 
 </LinearLayout>

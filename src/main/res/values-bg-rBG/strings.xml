@@ -47,15 +47,12 @@
     <string name="prefs_calendar_contacts">Синхронизиране на календар и контакти</string>
     <string name="prefs_calendar_contacts_summary">Настройване на DAVdroid (v1.3.0+) за текущия профил</string>
     <string name="prefs_calendar_contacts_address_resolve_error">Адресът на сървъра не може да бъде разчетен от DAVdroid</string>
-    <string name="prefs_calendar_contacts_no_store_error">Няма инсталиран F-droid или Google Play</string>
     <string name="prefs_help">Помощ</string>
     <string name="prefs_recommend">Препоръчай на приятел</string>
     <string name="prefs_feedback">Обратна връзка</string>
     <string name="prefs_imprint">Отпечатък</string>
 
-	<string name="recommend_subject">Пробвайте %1$s на смартфона си!</string>
-	<string name="recommend_text">Искам да ви поканя да използвате %1$s на вашия смартфон.\nСвалете тук: %2$s</string>
-    <string name="auth_check_server">Проверяване на сървъра</string>
+	<string name="auth_check_server">Проверяване на сървъра</string>
     <string name="auth_username">Потребител</string>
     <string name="auth_password">Парола</string>
     <string name="auth_register">Все още нямате сървър?\nНатиснете тук, за да вземете от доставчик</string>
@@ -101,7 +98,6 @@
     <string name="common_yes">Да</string>
     <string name="common_no">Не</string>
     <string name="common_ok">ОК</string>
-    <string name="common_remove_upload">Премахване на каченото</string>
     <string name="common_cancel_sync">Отмени синхронизирането</string>
     <string name="common_cancel">Отказ</string>
     <string name="common_back">Назад</string>
@@ -153,26 +149,15 @@
     <string name="sync_fail_in_favourites_content">%1$d файла не могат да бъдат синхронизирани (%2$d конфликта)</string>
     <string name="sync_foreign_files_forgotten_ticker">Някои локални файлове бяха забравени.</string>
     <string name="sync_foreign_files_forgotten_content">%1$d файла от %2$s папки не могат да бъдат копирани</string>
-    <string name="foreign_files_move">Преместване на всички</string>
-    <string name="foreign_files_success">Всички файлове са преместени.</string>
-    <string name="foreign_files_fail">Някои файлове не могат да бъдат преместени</string>
-    <string name="foreign_files_local_text">Локален: %1$s</string>
-    <string name="foreign_files_remote_text">Отдалечен: %1$s</string>
     <string name="pass_code_enter_pass_code">Моля, въведете кода за достъп</string>
     
     <string name="pass_code_configure_your_pass_code">Въведете кода за достъп</string>
     <string name="pass_code_configure_your_pass_code_explanation">Кода ще бъде изискван при всяко стартиране на приложението</string>
     <string name="pass_code_reenter_your_pass_code">Моля, въведи отново кода за достъп</string>
-    <string name="pass_code_remove_your_pass_code">Премахни кода</string>
     <string name="pass_code_mismatch">Кодовете не съвпадат</string>
     <string name="pass_code_wrong">Грешен код</string>
-    <string name="pass_code_removed">Кодът е премахнат</string>
     <string name="pass_code_stored">Кодът е запаметен</string>
     
-    <string name="media_notif_ticker">%1$s музикален плеър</string>
-    <string name="media_state_playing">%1$s (се възпроизвежда)</string>
-    <string name="media_state_loading">%1$s (се зарежда)</string>
-    <string name="media_event_done">%1$s възпроизвеждането завърши</string>
     <string name="media_err_nothing_to_play">Не са открити медийни файлове</string>
     <string name="media_err_no_account">Не е зададен профил.</string>
     <string name="media_err_unsupported">Неподдържан медиен кодек</string>
@@ -205,10 +190,7 @@
     <string name="favorite">Задай като достъпна офлайн</string>
     <string name="unfavorite">Отмяна като достъпна офлайн</string>
     <string name="common_rename">Преименуване</string>
-    <string name="common_remove">Премахване</string>
-    <string name="confirmation_remove_file_alert">Наистина ли желаете %1$s да бъде премахнат?</string>
     <string name="confirmation_remove_local">Само локално</string>
-    <string name="remove_fail_msg">Неуспешно прехамхване</string>
     <string name="rename_dialog_title">Въведете ново име</string>
     <string name="sync_file_nothing_to_do_msg">Съдържанието на файла е вече синхронизирано</string>
     <string name="filename_forbidden_characters">Забранени символи: / \\ &lt; &gt; : \" | ? *</string>
@@ -386,8 +368,6 @@
     <string name="manage_space_clear_data">Изчисти данни</string>
     <string name="manage_space_error">Изтриването на някои файлове не е възможно.</string>
 
-    <string name="confirmation_remove_files_alert">Наистина ли желаете избраните елементи да бъдат премахнати?</string>
-    <string name="confirmation_remove_folders_alert">Наистина ли желаете избраните елементи и съдържанието им да бъдат премахнати?</string>
     <string name="actionbar_search">Търсене</string>
     <string name="files_drop_not_supported">Това е функционалност на Nextcloud, моля актуализирайте.</string>
     <string name="learn_more">Научете повече</string>

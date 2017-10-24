@@ -48,7 +48,7 @@
     <string name="prefs_calendar_contacts">Synchronizuj kalendarz i kontakty</string>
     <string name="prefs_calendar_contacts_summary">Skonfiguruj DAVdroid (v1.3.0+) dla obecnego konta</string>
     <string name="prefs_calendar_contacts_address_resolve_error">Adres serwera dla konta nie mógł został przekonwertowany do DAVdroid</string>
-    <string name="prefs_calendar_contacts_no_store_error">F-droid i Google Play nie są zainstalowane</string>
+    <string name="prefs_calendar_contacts_no_store_error">Brak w systemie F-Droid lub Google Play</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Synchronizacja kontaktów &amp; kalendarza została skonfigurowana pomyślnie</string>
     <string name="prefs_daily_contacts_sync_summary">Codzienna kopia zapasowa Twoich kontaktów</string>
     <string name="prefs_help">Pomoc</string>
@@ -56,7 +56,7 @@
     <string name="prefs_feedback">Opinie</string>
     <string name="prefs_imprint">Stopka</string>
 
-	<string name="recommend_subject">Wypróbuj %1$s na swoim smartfonie!</string>
+	<string name="recommend_subject">Wypróbuj %1$s na Twoim spartfonie!</string>
 	<string name="recommend_text">Zapraszam do użycia %1$s na swoim smartfonie!\nŚciągnij tutaj: %2$s</string>
     <string name="recommend_urls">%1$s lub %2$s</string>
 
@@ -127,7 +127,7 @@
     <string name="common_yes">Tak</string>
     <string name="common_no">Nie</string>
     <string name="common_ok">OK</string>
-    <string name="common_remove_upload">Usuń</string>
+    <string name="common_remove_upload">Usuń upload</string>
     <string name="common_retry_upload">Ponów wysyłanie</string>
     <string name="common_cancel_sync">Anuluj synchronizację</string>
     <string name="common_cancel">Anuluj</string>
@@ -172,6 +172,7 @@
     <string name="uploads_view_upload_status_service_interrupted">Aplikacja została zatrzymana</string>
     <string name="uploads_view_upload_status_unknown_fail">Nieznany błąd</string>
     <string name="uploads_view_upload_status_waiting_for_wifi">Oczekiwanie na połączenie Wi-Fi</string>
+    <string name="uploads_view_upload_status_waiting_exit_power_save_mode">Oczekiwanie na wyjście z trybu oszczędzania energii</string>
     <string name="uploads_view_later_waiting_to_upload">Oczekuję na przesyłanie</string>
     <string name="downloader_download_in_progress_ticker">Pobieranie &#8230;</string>
     <string name="downloader_download_in_progress_content">%1$d%% Pobieranie %2$s</string>
@@ -182,6 +183,7 @@
     <string name="downloader_not_downloaded_yet">Jeszcze nie pobrane</string>
     <string name="downloader_download_failed_credentials_error">Błąd podczas pobierania, zaloguj się ponownie</string>
     <string name="common_choose_account">Wybierz konto</string>
+    <string name="common_switch_account">Przełącz konto</string>
     <string name="sync_fail_ticker">Nieudana synchronizacja </string>
     <string name="sync_fail_ticker_unauthorized">Synchronizacja nieudana, zaloguj się ponownie</string>
     <string name="sync_fail_content">Nie udało się zsynchronizować %1$s</string>
@@ -192,11 +194,11 @@
     <string name="sync_fail_in_favourites_content">Zawartość %1$d plików nie może zostać synchronizowana (%2$d konfliktów)</string>
     <string name="sync_foreign_files_forgotten_ticker">Niektóre lokalne pliki zostały zgubione.</string>
     <string name="sync_foreign_files_forgotten_content">%1$d plików z folderu %2$s nie udało się się przekopiować</string>
-    <string name="sync_foreign_files_forgotten_explanation">Od wersji 1.3.16, pliki wysyłane z tego urządzenia są kopiowane do lokalnego folderu %1$s aby zapobiec utracie danych gdy pojedynczy plik jest synchronizowany z wieloma kontami.\n\nZ powodu tej zmiany, wszystkie pliki wysłane za pomocą poprzedniej wersji tej aplikacji były kopiowane do folderu %2$s. Jednakże, błąd uniemożliwiał dokończenie tej operacji podczas synchronizacji konta. Możesz albo pozostawić plik(i) tak jak jest i usunąć link do %3$s lub przenieść plik(i) do folderu %1$s i pozostawić link do %4$s.\n\nPoniżej plik(i) lokalny i plik(i) zdalny w %5$s, do którego zostały zlinkowane.</string>
+    <string name="sync_foreign_files_forgotten_explanation">Od wersji 1.3.16, pliki wysyłane z tego urządzenia są kopiowane do lokalnego folderu %1$s aby zapobiec utracie danych gdy pojedynczy plik jest synchronizowany z wieloma kontami.\n\nZ powodu tej zmiany, wszystkie pliki wysłane za pomocą poprzedniej wersji tej aplikacji były kopiowane do folderu %2$s. Jednakże błąd uniemożliwiał dokończenie tej operacji podczas synchronizacji konta. Możesz albo pozostawić plik(i) tak jak jest i usunąć link do %3$s lub przenieść plik(i) do folderu %1$s i pozostawić link do %4$s.\n\nPoniżej plik(i) lokalny i plik(i) zdalny w %5$s, do którego zostały zlinkowane.</string>
     <string name="sync_current_folder_was_removed">Folder %1$s nie istnieje</string>
     <string name="foreign_files_move">Przenieś wszystko</string>
     <string name="foreign_files_success">Wszystkie pliki zostały przeniesione</string>
-    <string name="foreign_files_fail">Niektóre pliki nie mogły być przeniesione</string>
+    <string name="foreign_files_fail">Niektóre pliki nie mogły zostać przeniesione</string>
     <string name="foreign_files_local_text">Lokalnie: %1$s</string>
     <string name="foreign_files_remote_text">Zdalnie: %1$s</string>
     <string name="upload_query_move_foreign_files">Brak wystarczającego miejsca, aby skopiować wybrane pliki do folderu %1$s. Czy w zamian chcesz je tam przenieść?</string>
@@ -212,8 +214,8 @@
     <string name="pass_code_stored">Kod PIN został zapisany</string>
     
     <string name="media_notif_ticker">%1$s odtwarzacz muzyki</string>
-    <string name="media_state_playing">%1$s (odtwarzany)</string>
-    <string name="media_state_loading">%1$s (wczytywany)</string>
+    <string name="media_state_playing">%1$s (odtwarzanie)</string>
+    <string name="media_state_loading">%1$s (ładowanie)</string>
     <string name="media_event_done">%1$s odtwarzanie zakończone</string>
     <string name="media_err_nothing_to_play">Nie znaleziono plików multimedialnych</string>
     <string name="media_err_no_account">Nie znaleziono konta</string>
@@ -276,9 +278,9 @@
     <string name="confirmation_remove_folder_alert">Czy na pewno chcesz usunąć %1$s wraz z zawartością?</string>
     <string name="confirmation_remove_local">Tylko lokalnie</string>
     <string name="remove_success_msg">Usunięto</string>
-    <string name="remove_fail_msg">Nie można usunąć</string>
+    <string name="remove_fail_msg">Usuwanie nie powiodło się</string>
     <string name="rename_dialog_title">Wprowadź nową nazwę</string>
-    <string name="rename_local_fail_msg">Nie można zmienić nazwy kopii lokalne, użyj innej nazwy</string>
+    <string name="rename_local_fail_msg">Nie można zmienić nazwy kopii lokalnej, użyj innej nazwy</string>
     <string name="rename_server_fail_msg">Nie udało się nadać serwerowi nowej nazwy</string>
     <string name="sync_file_fail_msg">Nie udało się sprawdzić zdalnego pliku</string>
     <string name="sync_file_nothing_to_do_msg">Zawartość pliku została już synchronizowana</string>
@@ -565,7 +567,7 @@
     <string name="participate_contribute_github_text">Przejrzyj, zmień i napisz kod, zajrzyj do %1$s po szczegóły</string>
     <string name="participate_rc_play_store">Pobierz wersja oczekującą na wydanie (RC) przez sklep Google Play</string>
     <string name="participate_rc_fdroid">Pobierz wersja oczekującą na wydanie (RC) przez aplikację f-droid</string>
-    <string name="participate_dev_fdroid">Pobierz wersję rozwojową przez aplikację f-droid</string>
+    <string name="participate_dev_fdroid">Pobierz wersję rozwojową przez aplikację F-Droid</string>
     <string name="participate_dev_direct_download">Pobierz wersję rozwojową bezpośrednio</string>
     <string name="move_to">Przenieś do&#8230;</string>
     <string name="copy_to">Skopiuj do&#8230;</string>
@@ -663,7 +665,7 @@
     <string name="contacts_preference_choose_date">Wybierz datę</string>
     <string name="contacts_preference_backup_never">nigdy</string>
     <string name="contacts_preferences_no_file_found">Nie znaleziono żadnych plików</string>
-    <string name="contacts_preferences_something_strange_happened">Nie odnaleziono twojej ostatniej kopii zapasowej!</string>
+    <string name="contacts_preferences_something_strange_happened">Nie odnaleziono Twojej ostatniej kopii zapasowej!</string>
     <string name="contacts_preferences_backup_scheduled">Kopia zapasowa została zaplanowana i wkrótce zostanie uruchomiona</string>
     <string name="contacts_preferences_import_scheduled">Importowanie zostało zaplanowane i wkrótce zostanie uruchomione</string>
 
@@ -694,4 +696,5 @@
     <string name="push_notifications_not_implemented">Powiadomienia typu push zostały wyłączone ze względu na zastrzeżenia prawne usług Google Play.</string>
     <string name="push_notifications_old_login">Brak powiadomień typu push ze względu na wygasłą sesję logowania. Przemyśl ponowne dodanie swojego konta.</string>
     <string name="push_notifications_temp_error">Powiadomienia typu push nie są aktualnie dostępne.</string>
+    <string name="date_unknown">Nieznane</string>
 </resources>

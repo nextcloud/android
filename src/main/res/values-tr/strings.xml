@@ -48,7 +48,7 @@
     <string name="prefs_calendar_contacts">Takvim ve kişiler eşitlensin</string>
     <string name="prefs_calendar_contacts_summary">Geçerli hesap için DAVdroid (v1.3.0+) kurulumu</string>
     <string name="prefs_calendar_contacts_address_resolve_error">Hesabın sunucu adresi DAVdroid tarafından çözümlenemedi</string>
-    <string name="prefs_calendar_contacts_no_store_error">F-droid ya da Google Play kurulmamış</string>
+    <string name="prefs_calendar_contacts_no_store_error">F-Droid ya da Google Play kurulmamış</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Takvim ve kişi eşitlemesi ayarları</string>
     <string name="prefs_daily_contacts_sync_summary">Kişilerinizin günlük yedeği</string>
     <string name="prefs_help">Yardım</string>
@@ -57,7 +57,8 @@
     <string name="prefs_imprint">İzlenim</string>
 
 	<string name="recommend_subject">%1$s uygulamasını akıllı telefonunuzda deneyin!</string>
-	<string name="recommend_text">Akıllı telefonunda %1$s kullanmanı öneriyorum!\nBuradan indirebilirsin: %2$s</string>
+	<string name="recommend_text">Akıllı telefonunda %1$s uygulamasını denemeni öneririm\n
+Şuradan indirebilirsin: %2$s</string>
     <string name="recommend_urls">%1$s ya da %2$s</string>
 
     <string name="auth_check_server">Sunucuyu denetle</string>
@@ -127,7 +128,7 @@
     <string name="common_yes">Evet</string>
     <string name="common_no">Hayır</string>
     <string name="common_ok">Tamam</string>
-    <string name="common_remove_upload">Yüklemeyi kaldır</string>
+    <string name="common_remove_upload">Yüklemeyi sil</string>
     <string name="common_retry_upload">Yüklemeyi yeniden dene</string>
     <string name="common_cancel_sync">Eşitlemeyi iptal et</string>
     <string name="common_cancel">İptal</string>
@@ -142,7 +143,7 @@
     <string name="about_title">Hakkında</string>
     <string name="change_password">Parola değiştir</string>
     <string name="delete_account">Hesabı kaldır</string>
-    <string name="delete_account_warning">%s hesabı tüm yerel dosyaları ile silinsin mi?\n\nSilme işlemi geri alınamaz.</string>
+    <string name="delete_account_warning">%s hesabı ve tüm yerel dosyalar kaldırılsın mı?\n\nSilme işlemi geri alınamaz.</string>
     <string name="avatar">Avatar</string>
     <string name="active_user">Etkin kullanıcı</string>
     <string name="upload_chooser_title">Şuradan yükle&#8230;</string>
@@ -172,6 +173,7 @@
     <string name="uploads_view_upload_status_service_interrupted">Uygulama sonlandırıldı</string>
     <string name="uploads_view_upload_status_unknown_fail">Bilinmeyen sorun</string>
     <string name="uploads_view_upload_status_waiting_for_wifi">WiFi bağlantısı bekleniyor</string>
+    <string name="uploads_view_upload_status_waiting_exit_power_save_mode">Güç tasarrufu kipinden çıkılması bekleniyor</string>
     <string name="uploads_view_later_waiting_to_upload">Yüklenmeyi bekliyor</string>
     <string name="downloader_download_in_progress_ticker">İndiriliyor&#8230;</string>
     <string name="downloader_download_in_progress_content">%%%1$d İndirilen: %2$s</string>
@@ -182,6 +184,7 @@
     <string name="downloader_not_downloaded_yet">Henüz indirilmemiş</string>
     <string name="downloader_download_failed_credentials_error">İndirilemedi, yeniden oturum açmalısınız</string>
     <string name="common_choose_account">Hesap seçin</string>
+    <string name="common_switch_account">Hesabı Değiştir</string>
     <string name="sync_fail_ticker">Eşitlenemedi</string>
     <string name="sync_fail_ticker_unauthorized">Eşitlenemedi, yeniden oturum açmalısınız</string>
     <string name="sync_fail_content">%1$s eşitlemesi tamamlanamadı</string>
@@ -205,16 +208,16 @@
     <string name="pass_code_configure_your_pass_code">Parolanızı yazın</string>
     <string name="pass_code_configure_your_pass_code_explanation">Parola uygulama her başlatıldığında sorulacak</string>
     <string name="pass_code_reenter_your_pass_code">Lütfen parolanızı yeniden yazın</string>
-    <string name="pass_code_remove_your_pass_code">Parolanızı kaldırın</string>
+    <string name="pass_code_remove_your_pass_code">Parolanızı silin</string>
     <string name="pass_code_mismatch">Parola ile onayı aynı değil</string>
     <string name="pass_code_wrong">Parola yanlış</string>
-    <string name="pass_code_removed">Parola kaldırıldı</string>
+    <string name="pass_code_removed">Parola silindi</string>
     <string name="pass_code_stored">Parola depolandı</string>
     
     <string name="media_notif_ticker">%1$s müzik oynatıcı</string>
     <string name="media_state_playing">%1$s (oynatılıyor)</string>
     <string name="media_state_loading">%1$s (yükleniyor)</string>
-    <string name="media_event_done">%1$s oynatma tamamlandı</string>
+    <string name="media_event_done">%1$s oynatıldı</string>
     <string name="media_err_nothing_to_play">Herhangi bir ortam dosyası bulunamadı</string>
     <string name="media_err_no_account">Herhangi bir hesap belirtilmemiş</string>
     <string name="media_err_not_in_owncloud">Dosya geçerli bir hesapta değil</string>
@@ -272,14 +275,14 @@
     <string name="favorite_switch">Çevrimdışı kullanılabilir</string>
     <string name="common_rename">Yeniden adlandır</string>
     <string name="common_remove">Sil</string>
-    <string name="confirmation_remove_file_alert">%1$s silinsin mi?</string>
-    <string name="confirmation_remove_folder_alert">%1$s ve içeriğini silmek istediğinize emin misiniz?</string>
+    <string name="confirmation_remove_file_alert">%1$s dosyasını gerçekten silmek istiyor musunuz?</string>
+    <string name="confirmation_remove_folder_alert">%1$s klasörünü ve içindekileri gerçekten silmek istiyor musunuz?</string>
     <string name="confirmation_remove_local">Yalnız yerel</string>
     <string name="remove_success_msg">Silindi</string>
     <string name="remove_fail_msg">Silinemedi</string>
     <string name="rename_dialog_title">Yeni bir ad yazın</string>
-    <string name="rename_local_fail_msg">Yerel kopya yeniden adlandırılamadı; farklı bir ad deneyin</string>
-    <string name="rename_server_fail_msg">Sunucu yeniden adlandırılamadı</string>
+    <string name="rename_local_fail_msg">Yerel kopyanın adı değiştirilemedi. Lütfen başka bir ad deneyin</string>
+    <string name="rename_server_fail_msg">Sunucu adı değiştirilemedi</string>
     <string name="sync_file_fail_msg">Uzak dosya denetlenemedi</string>
     <string name="sync_file_nothing_to_do_msg">Dosya içerikleri zaten eşitlenmiş</string>
     <string name="create_dir_fail_msg">Klasör oluşturulamadı</string>
@@ -288,7 +291,7 @@
     <string name="filename_empty">Dosya adı boş olamaz</string>
     <string name="wait_a_moment">Biraz bekleyin&#8230;</string>
     <string name="wait_checking_credentials">Kayıtlı kimlik bilgileri denetleniyor</string>
-    <string name="filedisplay_unexpected_bad_get_content">Beklenmedik bir sorun çıktı, lütfen başka bir uygulamadan dosya seçin</string>
+    <string name="filedisplay_unexpected_bad_get_content">Beklenmeyen bir sorun çıktı. Lütfen dosyayı başka bir uygulamadan seçin</string>
     <string name="filedisplay_no_file_selected">Herhangi bir dosya seçilmemiş</string>
     <string name="activity_chooser_title">Bağlantıyı gönder&#8230;</string>
     <string name="wait_for_tmp_copy_from_private_storage">Dosya kişisel depolamadan kopyalanıyor</string>
@@ -405,7 +408,7 @@
     <string name="file_migration_failed_not_readable">Hata: Kaynak dosya okunabilir değil</string>
     <string name="file_migration_failed_dir_already_exists">Hata: Nextcloud klasörü zaten var</string>
     <string name="file_migration_failed_while_coping">Hata: Aktarım sırasında sorun çıktı</string>
-    <string name="file_migration_failed_while_updating_index">Hata: Dizin güncellenirken sorun çıktı</string>
+    <string name="file_migration_failed_while_updating_index">Hata: Dizin güncellenemedi</string>
 
     <string name="file_migration_directory_already_exists">Veri klasörü zaten var. Şunlardan birini seçin:</string>
     <string name="file_migration_override_data_folder">Değiştirilsin</string>
@@ -537,8 +540,8 @@
 
     <string name="permission_storage_access">Dosya yüklemek ve indirmek için ek izinler gerekli.</string>
     <string name="local_file_not_found_toast">Dosya yerel dosya sisteminde bulunamadı</string>
-    <string name="confirmation_remove_files_alert">Seçilen ögeleri gerçekten silmek istiyor musunuz?</string>
-    <string name="confirmation_remove_folders_alert">Seçilen ögeleri ve içeriklerini gerçekten silmek istiyor musunuz?</string>
+    <string name="confirmation_remove_files_alert">Seçilmiş ögeleri gerçekten silmek istiyor musunuz?</string>
+    <string name="confirmation_remove_folders_alert">Seçilmiş ögeleri ve içindekileri gerçekten silmek istiyor musunuz?</string>
     <string name="maintenance_mode">Sunucu bakım kipinde</string>
     <string name="lock_failed">Dosya kilitlenemedi</string>
 
@@ -564,8 +567,8 @@
     <string name="participate_contribute_translate_text">uygulamayı</string>
     <string name="participate_contribute_github_text">Kodun gözden geçirilmesine ve geliştirilmesine katkıda bulunun. Ayrıntılı bilgi almak için %1$s dosyasına bakın</string>
     <string name="participate_rc_play_store">Yayın adayını Google Play mağazasından alın</string>
-    <string name="participate_rc_fdroid">Yayın adayını f-droid uygulama mağazasından alın</string>
-    <string name="participate_dev_fdroid">Geliştirme sürümünü f-droid uygulama mağazasından alın</string>
+    <string name="participate_rc_fdroid">F-Droid uygulama mağazasından yayın adayı sürümünü alın</string>
+    <string name="participate_dev_fdroid">F-Droid uygulama mağazasından geliştirici sürümünü alın</string>
     <string name="participate_dev_direct_download">Geliştirme sürümünü doğrudan indirerek alın</string>
     <string name="move_to">Taşı&#8230;</string>
     <string name="copy_to">Kopyala&#8230;</string>
@@ -692,4 +695,5 @@
     <string name="push_notifications_not_implemented">Anında bildirimler Google Play hizmetlerine ait olan bağımlılıklar nedeniyle devre dışı bırakıldı.</string>
     <string name="push_notifications_old_login">Oturumunuzun süresi dolduğundan anında bildirimler gönderilemez. Lütfen hesabınızı yeniden eklemeyi düşünün.</string>
     <string name="push_notifications_temp_error">Anında bildirimler şu anda kullanılamıyor.</string>
+    <string name="date_unknown">Bilinmiyor</string>
 </resources>
