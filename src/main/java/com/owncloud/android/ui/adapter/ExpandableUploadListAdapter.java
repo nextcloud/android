@@ -138,8 +138,6 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
                 return Long.valueOf(upload2.getUploadEndTimestamp()).compareTo(upload1.getUploadEndTimestamp());
             }
         };
-
-        abstract public int getGroupIcon();
     }
 
     public ExpandableUploadListAdapter(FileActivity parentActivity) {
@@ -153,11 +151,6 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
                 items = mUploadsStorageManager.getCurrentAndPendingUploadsForCurrentAccount();
                 Arrays.sort(items, comparator);
             }
-
-            @Override
-            public int getGroupIcon() {
-                return R.drawable.upload_in_progress;
-            }
         };
         mUploadGroups[1] = new UploadGroup(mParentActivity.getString(R.string.uploads_view_group_failed_uploads)) {
             @Override
@@ -165,12 +158,6 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
                 items = mUploadsStorageManager.getFailedButNotDelayedUploadsForCurrentAccount();
                 Arrays.sort(items, comparator);
             }
-
-            @Override
-            public int getGroupIcon() {
-                return R.drawable.upload_failed;
-            }
-
         };
         mUploadGroups[2] = new UploadGroup(mParentActivity.getString(R.string.uploads_view_group_finished_uploads)) {
             @Override
@@ -178,12 +165,6 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
                 items = mUploadsStorageManager.getFinishedUploadsForCurrentAccount();
                 Arrays.sort(items, comparator);
             }
-
-            @Override
-            public int getGroupIcon() {
-                return R.drawable.upload_finished;
-            }
-
         };
         loadUploadItemsFromDb();
     }
