@@ -115,10 +115,6 @@
     <string name="upload_list_empty_text_auto_upload">Last opp noe innhold eller aktiver automatisk opplasting!</string>
     <string name="file_list_folder">mappe</string>
     <string name="filedetails_select_file">Trykk på en fil for å vise ekstra informasjon.</string>
-    <string name="filedetails_size">Størrelse:</string>
-    <string name="filedetails_type">Type:</string>
-    <string name="filedetails_created">Opprettet:</string>
-    <string name="filedetails_modified">Endret:</string>
     <string name="filedetails_download">Last ned</string>
     <string name="filedetails_sync_file">Synkroniser</string>
     <string name="filedetails_renamed_in_upload_msg">Filnavnet ble endret til  %1$s under opplasting</string>

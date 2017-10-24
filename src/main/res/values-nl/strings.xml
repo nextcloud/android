@@ -116,10 +116,6 @@ Kies er eentje van een provider.</string>
     <string name="upload_list_empty_text_auto_upload">Upload enkele gegevens of activeer auto-upload.</string>
     <string name="file_list_folder">map</string>
     <string name="filedetails_select_file">Druk op een bestand om extra informatie weer te geven</string>
-    <string name="filedetails_size">Grootte:</string>
-    <string name="filedetails_type">Type:</string>
-    <string name="filedetails_created">Aangemaakt:</string>
-    <string name="filedetails_modified">Aangepast:</string>
     <string name="filedetails_download">Downloaden</string>
     <string name="filedetails_sync_file">Synchroniseren</string>
     <string name="filedetails_renamed_in_upload_msg">Bestand hernoemd naar %1$s tijdens de upload</string>

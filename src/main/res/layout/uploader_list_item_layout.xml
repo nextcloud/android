@@ -32,7 +32,7 @@
         android:src="@drawable/folder" />
 
     <LinearLayout
-        android:layout_width="@dimen/zero"
+        android:layout_width="0dp"
         android:layout_height="@dimen/standard_list_item_size"
         android:layout_weight="1"
         android:gravity="center_vertical"

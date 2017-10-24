@@ -105,10 +105,6 @@
     <string name="upload_list_empty_text_auto_upload">上傳一些聯絡人或者啟用自動上傳</string>
     <string name="file_list_folder">資料夾</string>
     <string name="filedetails_select_file">在檔案上輕觸來顯示更多資訊</string>
-    <string name="filedetails_size">大小：</string>
-    <string name="filedetails_type">類型：</string>
-    <string name="filedetails_created">建立：</string>
-    <string name="filedetails_modified">修改：</string>
     <string name="filedetails_download">下載</string>
     <string name="filedetails_sync_file">同步</string>
     <string name="filedetails_renamed_in_upload_msg">上傳過程中檔案%1$s被重新命名</string>
