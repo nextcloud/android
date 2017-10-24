@@ -149,7 +149,7 @@ public class PreviewImageActivity extends FileActivity implements
             }
 
             mPreviewImagePagerAdapter = new PreviewImagePagerAdapter(getSupportFragmentManager(),
-                    parentFolder, getAccount(), getStorageManager(), MainApp.isOnlyOnDevice());
+                    parentFolder, getAccount(), getStorageManager(), MainApp.isOnlyOnDevice(), getBaseContext());
         }
 
         mViewPager = (ExtendedViewPager) findViewById(R.id.fragmentPager);
@@ -325,7 +325,7 @@ public class PreviewImageActivity extends FileActivity implements
         finish();
     }
 
-    private void requestForDownload(OCFile file) {
+    public void requestForDownload(OCFile file) {
         if (mDownloaderBinder == null) {
             Log_OC.d(TAG, "requestForDownload called without binder to download service");
             
@@ -354,10 +354,6 @@ public class PreviewImageActivity extends FileActivity implements
             OCFile currentFile = mPreviewImagePagerAdapter.getFileAt(position); 
             getSupportActionBar().setTitle(currentFile.getFileName());
             setDrawerIndicatorEnabled(false);
-            if (!currentFile.isDown()
-                    && !mPreviewImagePagerAdapter.pendingErrorAt(position)) {
-                requestForDownload(currentFile);
-            }
 
             // Call to reset image zoom to initial state
             ((PreviewImagePagerAdapter) mViewPager.getAdapter()).resetZoom();
@@ -454,6 +450,10 @@ public class PreviewImageActivity extends FileActivity implements
             // actionBar.show(); // propagated through
             // OnSystemUiVisibilityChangeListener()
         }
+    }
+
+    public void switchToFullScreen() {
+        hideSystemUI(mFullScreenAnchorView);
     }
 
     @Override
