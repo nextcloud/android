@@ -1,4 +1,4 @@
-/**
+/*
  *   ownCloud Android client application
  *
  *   @author Bartek Przybylski
@@ -247,71 +247,99 @@ public class Preferences extends PreferenceActivity
         preferenceCategoryMore.setTitle(ThemeUtils.getColoredTitle(getString(R.string.prefs_category_more),
                 accentColor));
 
-        boolean calendarContactsEnabled = getResources().getBoolean(R.bool.davdroid_integration_enabled);
-        Preference pCalendarContacts = findPreference("calendar_contacts");
-        if (pCalendarContacts != null) {
-            if (calendarContactsEnabled) {
-                final Activity activity = this;
-                pCalendarContacts.setOnPreferenceClickListener(new OnPreferenceClickListener() {
-                    @Override
-                    public boolean onPreferenceClick(Preference preference) {
-                        try {
-                            launchDavDroidLogin();
-                        } catch (Throwable t) {
-                            Log_OC.e(TAG, "Base Uri for account could not be resolved to call DAVdroid!", t);
-                            DisplayUtils.showSnackMessage(
-                                    activity,
-                                    R.string.prefs_calendar_contacts_address_resolve_error
-                            );
-                        }
-                        return true;
-                    }
-                });
-            } else {
-                preferenceCategoryMore.removePreference(pCalendarContacts);
-            }
-        }
+        setupCalendarPreference(preferenceCategoryMore);
 
-        boolean contactsBackupEnabled = !getResources().getBoolean(R.bool.show_drawer_contacts_backup)
-                && getResources().getBoolean(R.bool.contacts_backup);
-        Preference pContactsBackup = findPreference("contacts");
-        if (pCalendarContacts != null) {
-            if (contactsBackupEnabled) {
-                pContactsBackup.setOnPreferenceClickListener(new OnPreferenceClickListener() {
-                    @Override
-                    public boolean onPreferenceClick(Preference preference) {
-                        Intent contactsIntent = new Intent(getApplicationContext(), ContactsPreferenceActivity.class);
-                        contactsIntent.putExtra(ContactsPreferenceActivity.EXTRA_SHOW_SIDEBAR, false);
-                        startActivity(contactsIntent);
-                        return true;
-                    }
-                });
-            } else {
-                preferenceCategoryMore.removePreference(pContactsBackup);
-            }
-        }
+        setupContactsBackupPreference(preferenceCategoryMore);
 
-        boolean helpEnabled = getResources().getBoolean(R.bool.help_enabled);
-        Preference pHelp = findPreference("help");
-        if (pHelp != null) {
-            if (helpEnabled) {
-                pHelp.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+        setupHelpPreference(preferenceCategoryMore);
+
+        setupRecommendPreference(preferenceCategoryMore);
+
+        setupFeedbackPreference(appVersion, preferenceCategoryMore);
+
+        setupLoggingPreference(preferenceCategoryMore);
+
+        setupImprintPreference(preferenceCategoryMore);
+
+        loadExternalSettingLinks(preferenceCategoryMore);
+    }
+
+    private void setupImprintPreference(PreferenceCategory preferenceCategoryMore) {
+        boolean imprintEnabled = getResources().getBoolean(R.bool.imprint_enabled);
+        Preference pImprint = findPreference("imprint");
+        if (pImprint != null) {
+            if (imprintEnabled) {
+                pImprint.setOnPreferenceClickListener(new OnPreferenceClickListener() {
                     @Override
                     public boolean onPreferenceClick(Preference preference) {
-                        String helpWeb = getString(R.string.url_help);
-                        if (helpWeb != null && helpWeb.length() > 0) {
-                            Uri uriUrl = Uri.parse(helpWeb);
+                        String imprintWeb = getString(R.string.url_imprint);
+                        if (imprintWeb != null && imprintWeb.length() > 0) {
+                            Uri uriUrl = Uri.parse(imprintWeb);
                             Intent intent = new Intent(Intent.ACTION_VIEW, uriUrl);
                             startActivity(intent);
                         }
+                        //ImprintDialog.newInstance(true).show(preference.get, "IMPRINT_DIALOG");
                         return true;
                     }
                 });
             } else {
-                preferenceCategoryMore.removePreference(pHelp);
+                preferenceCategoryMore.removePreference(pImprint);
             }
         }
+    }
 
+    private void setupLoggingPreference(PreferenceCategory preferenceCategoryMore) {
+        SharedPreferences appPrefs =
+                PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+
+        boolean loggerEnabled = getResources().getBoolean(R.bool.logger_enabled) || BuildConfig.DEBUG ||
+                appPrefs.getBoolean(PREFERENCE_EXPERT_MODE, false);
+        Preference pLogger = findPreference("logger");
+        if (pLogger != null) {
+            if (loggerEnabled) {
+                pLogger.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+                    @Override
+                    public boolean onPreferenceClick(Preference preference) {
+                        Intent loggerIntent = new Intent(getApplicationContext(), LogHistoryActivity.class);
+                        startActivity(loggerIntent);
+
+                        return true;
+                    }
+                });
+            } else {
+                preferenceCategoryMore.removePreference(pLogger);
+            }
+        }
+    }
+
+    private void setupFeedbackPreference(String appVersion, PreferenceCategory preferenceCategoryMore) {
+        boolean feedbackEnabled = getResources().getBoolean(R.bool.feedback_enabled);
+        Preference pFeedback = findPreference("feedback");
+        if (pFeedback != null) {
+            if (feedbackEnabled) {
+                pFeedback.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+                    @Override
+                    public boolean onPreferenceClick(Preference preference) {
+                        String feedbackMail = getString(R.string.mail_feedback);
+                        String feedback = getText(R.string.prefs_feedback) + " - android v" + appVersion;
+                        Intent intent = new Intent(Intent.ACTION_SENDTO);
+                        intent.setType("text/plain");
+                        intent.putExtra(Intent.EXTRA_SUBJECT, feedback);
+
+                        intent.setData(Uri.parse(feedbackMail));
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(intent);
+
+                        return true;
+                    }
+                });
+            } else {
+                preferenceCategoryMore.removePreference(pFeedback);
+            }
+        }
+    }
+
+    private void setupRecommendPreference(PreferenceCategory preferenceCategoryMore) {
         boolean recommendEnabled = getResources().getBoolean(R.bool.recommend_enabled);
         Preference pRecommend = findPreference("recommend");
         if (pRecommend != null) {
@@ -346,77 +374,77 @@ public class Preferences extends PreferenceActivity
                 preferenceCategoryMore.removePreference(pRecommend);
             }
         }
+    }
 
-        boolean feedbackEnabled = getResources().getBoolean(R.bool.feedback_enabled);
-        Preference pFeedback = findPreference("feedback");
-        if (pFeedback != null) {
-            if (feedbackEnabled) {
-                pFeedback.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+    private void setupHelpPreference(PreferenceCategory preferenceCategoryMore) {
+        boolean helpEnabled = getResources().getBoolean(R.bool.help_enabled);
+        Preference pHelp = findPreference("help");
+        if (pHelp != null) {
+            if (helpEnabled) {
+                pHelp.setOnPreferenceClickListener(new OnPreferenceClickListener() {
                     @Override
                     public boolean onPreferenceClick(Preference preference) {
-                        String feedbackMail = getString(R.string.mail_feedback);
-                        String feedback = getText(R.string.prefs_feedback) + " - android v" + appVersion;
-                        Intent intent = new Intent(Intent.ACTION_SENDTO);
-                        intent.setType("text/plain");
-                        intent.putExtra(Intent.EXTRA_SUBJECT, feedback);
-
-                        intent.setData(Uri.parse(feedbackMail));
-                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        startActivity(intent);
-
-                        return true;
-                    }
-                });
-            } else {
-                preferenceCategoryMore.removePreference(pFeedback);
-            }
-        }
-
-        SharedPreferences appPrefs =
-                PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-
-        boolean loggerEnabled = getResources().getBoolean(R.bool.logger_enabled) || BuildConfig.DEBUG ||
-                appPrefs.getBoolean(PREFERENCE_EXPERT_MODE, false);
-        Preference pLogger = findPreference("logger");
-        if (pLogger != null) {
-            if (loggerEnabled) {
-                pLogger.setOnPreferenceClickListener(new OnPreferenceClickListener() {
-                    @Override
-                    public boolean onPreferenceClick(Preference preference) {
-                        Intent loggerIntent = new Intent(getApplicationContext(), LogHistoryActivity.class);
-                        startActivity(loggerIntent);
-
-                        return true;
-                    }
-                });
-            } else {
-                preferenceCategoryMore.removePreference(pLogger);
-            }
-        }
-
-        boolean imprintEnabled = getResources().getBoolean(R.bool.imprint_enabled);
-        Preference pImprint = findPreference("imprint");
-        if (pImprint != null) {
-            if (imprintEnabled) {
-                pImprint.setOnPreferenceClickListener(new OnPreferenceClickListener() {
-                    @Override
-                    public boolean onPreferenceClick(Preference preference) {
-                        String imprintWeb = getString(R.string.url_imprint);
-                        if (imprintWeb != null && imprintWeb.length() > 0) {
-                            Uri uriUrl = Uri.parse(imprintWeb);
+                        String helpWeb = getString(R.string.url_help);
+                        if (helpWeb != null && helpWeb.length() > 0) {
+                            Uri uriUrl = Uri.parse(helpWeb);
                             Intent intent = new Intent(Intent.ACTION_VIEW, uriUrl);
                             startActivity(intent);
                         }
-                        //ImprintDialog.newInstance(true).show(preference.get, "IMPRINT_DIALOG");
                         return true;
                     }
                 });
             } else {
-                preferenceCategoryMore.removePreference(pImprint);
+                preferenceCategoryMore.removePreference(pHelp);
             }
         }
+    }
 
-        loadExternalSettingLinks(preferenceCategoryMore);
+    private void setupContactsBackupPreference(PreferenceCategory preferenceCategoryMore) {
+        boolean contactsBackupEnabled = !getResources().getBoolean(R.bool.show_drawer_contacts_backup)
+                && getResources().getBoolean(R.bool.contacts_backup);
+        Preference pContactsBackup = findPreference("contacts");
+        if (pContactsBackup != null) {
+            if (contactsBackupEnabled) {
+                pContactsBackup.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+                    @Override
+                    public boolean onPreferenceClick(Preference preference) {
+                        Intent contactsIntent = new Intent(getApplicationContext(), ContactsPreferenceActivity.class);
+                        contactsIntent.putExtra(ContactsPreferenceActivity.EXTRA_SHOW_SIDEBAR, false);
+                        startActivity(contactsIntent);
+                        return true;
+                    }
+                });
+            } else {
+                preferenceCategoryMore.removePreference(pContactsBackup);
+            }
+        }
+    }
+
+    private void setupCalendarPreference(PreferenceCategory preferenceCategoryMore) {
+        boolean calendarContactsEnabled = getResources().getBoolean(R.bool.davdroid_integration_enabled);
+        Preference pCalendarContacts = findPreference("calendar_contacts");
+        if (pCalendarContacts != null) {
+            if (calendarContactsEnabled) {
+                final Activity activity = this;
+                pCalendarContacts.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+                    @Override
+                    public boolean onPreferenceClick(Preference preference) {
+                        try {
+                            launchDavDroidLogin();
+                        } catch (Throwable t) {
+                            Log_OC.e(TAG, "Base Uri for account could not be resolved to call DAVdroid!", t);
+                            DisplayUtils.showSnackMessage(
+                                    activity,
+                                    R.string.prefs_calendar_contacts_address_resolve_error
+                            );
+                        }
+                        return true;
+                    }
+                });
+            } else {
+                preferenceCategoryMore.removePreference(pCalendarContacts);
+            }
+        }
     }
 
     private void setupDetailsCategory(int accentColor, PreferenceScreen preferenceScreen) {
@@ -425,31 +453,74 @@ public class Preferences extends PreferenceActivity
                 accentColor));
 
         boolean fPassCodeEnabled = getResources().getBoolean(R.bool.passcode_enabled);
-        pCode = (SwitchPreference) findPreference(PassCodeActivity.PREFERENCE_SET_PASSCODE);
-        if (pCode != null && fPassCodeEnabled) {
-            pCode.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
+        boolean fPrintEnabled = getResources().getBoolean(R.bool.fingerprint_enabled);
+        boolean fShowHiddenFilesEnabled = getResources().getBoolean(R.bool.show_hidden_files_enabled);
+
+        setupPasscodePreference(preferenceCategoryDetails, fPassCodeEnabled);
+
+        setupFingerprintPreference(preferenceCategoryDetails, fPrintEnabled);
+
+        setupHiddenFilesPreference(preferenceCategoryDetails, fShowHiddenFilesEnabled);
+
+        setupExpertModePreference(preferenceCategoryDetails);
+
+        if (!fShowHiddenFilesEnabled && !fPrintEnabled && !fPassCodeEnabled) {
+            preferenceScreen.removePreference(preferenceCategoryDetails);
+        }
+    }
+
+    private void setupExpertModePreference(PreferenceCategory preferenceCategoryDetails) {
+        mExpertMode = (SwitchPreference) findPreference(PREFERENCE_EXPERT_MODE);
+
+        if (getResources().getBoolean(R.bool.syncedFolder_light)) {
+            preferenceCategoryDetails.removePreference(mExpertMode);
+        } else {
+            mExpertMode = (SwitchPreference) findPreference(PREFERENCE_EXPERT_MODE);
+            mExpertMode.setOnPreferenceClickListener(new OnPreferenceClickListener() {
                 @Override
-                public boolean onPreferenceChange(Preference preference, Object newValue) {
-                    Intent i = new Intent(getApplicationContext(), PassCodeActivity.class);
-                    Boolean incoming = (Boolean) newValue;
+                public boolean onPreferenceClick(Preference preference) {
+                    SharedPreferences appPrefs =
+                            PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                    SharedPreferences.Editor editor = appPrefs.edit();
+                    editor.putBoolean(PREFERENCE_EXPERT_MODE, mExpertMode.isChecked());
+                    editor.apply();
 
-                    i.setAction(
-                            incoming ? PassCodeActivity.ACTION_REQUEST_WITH_RESULT :
-                                    PassCodeActivity.ACTION_CHECK_WITH_RESULT
-                    );
+                    if (mExpertMode.isChecked()) {
+                        Log_OC.startLogging(getApplicationContext());
+                    } else {
+                        if (!BuildConfig.DEBUG &&
+                                !getApplicationContext().getResources().getBoolean(R.bool.logger_enabled)) {
+                            Log_OC.stopLogging();
+                        }
+                    }
 
-                    startActivityForResult(i, incoming ? ACTION_REQUEST_PASSCODE :
-                            ACTION_CONFIRM_PASSCODE);
+                    return true;
+                }
+            });
+        }
+    }
 
-                    // Don't update just yet, we will decide on it in onActivityResult
-                    return false;
+    private void setupHiddenFilesPreference(PreferenceCategory preferenceCategoryDetails,
+                                            boolean fShowHiddenFilesEnabled) {
+        mShowHiddenFiles = (SwitchPreference) findPreference("show_hidden_files");
+        if (fShowHiddenFilesEnabled) {
+            mShowHiddenFiles.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+                @Override
+                public boolean onPreferenceClick(Preference preference) {
+                    SharedPreferences appPrefs =
+                            PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                    SharedPreferences.Editor editor = appPrefs.edit();
+                    editor.putBoolean("show_hidden_files_pref", mShowHiddenFiles.isChecked());
+                    editor.apply();
+                    return true;
                 }
             });
         } else {
-            preferenceCategoryDetails.removePreference(pCode);
+            preferenceCategoryDetails.removePreference(mShowHiddenFiles);
         }
+    }
 
-        boolean fPrintEnabled = getResources().getBoolean(R.bool.fingerprint_enabled);
+    private void setupFingerprintPreference(PreferenceCategory preferenceCategoryDetails, boolean fPrintEnabled) {
         fPrint = (SwitchPreference) findPreference(PREFERENCE_USE_FINGERPRINT);
         if (fPrint != null) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -496,57 +567,31 @@ public class Preferences extends PreferenceActivity
                 preferenceCategoryDetails.removePreference(fPrint);
             }
         }
+    }
 
-        boolean fShowHiddenFilesEnabled = getResources().getBoolean(R.bool.show_hidden_files_enabled);
-        mShowHiddenFiles = (SwitchPreference) findPreference("show_hidden_files");
-
-        if (fShowHiddenFilesEnabled) {
-            mShowHiddenFiles.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+    private void setupPasscodePreference(PreferenceCategory preferenceCategoryDetails, boolean fPassCodeEnabled) {
+        pCode = (SwitchPreference) findPreference(PassCodeActivity.PREFERENCE_SET_PASSCODE);
+        if (pCode != null && fPassCodeEnabled) {
+            pCode.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
                 @Override
-                public boolean onPreferenceClick(Preference preference) {
-                    SharedPreferences appPrefs =
-                            PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-                    SharedPreferences.Editor editor = appPrefs.edit();
-                    editor.putBoolean("show_hidden_files_pref", mShowHiddenFiles.isChecked());
-                    editor.apply();
-                    return true;
+                public boolean onPreferenceChange(Preference preference, Object newValue) {
+                    Intent i = new Intent(getApplicationContext(), PassCodeActivity.class);
+                    Boolean incoming = (Boolean) newValue;
+
+                    i.setAction(
+                            incoming ? PassCodeActivity.ACTION_REQUEST_WITH_RESULT :
+                                    PassCodeActivity.ACTION_CHECK_WITH_RESULT
+                    );
+
+                    startActivityForResult(i, incoming ? ACTION_REQUEST_PASSCODE :
+                            ACTION_CONFIRM_PASSCODE);
+
+                    // Don't update just yet, we will decide on it in onActivityResult
+                    return false;
                 }
             });
         } else {
-            preferenceCategoryDetails.removePreference(mShowHiddenFiles);
-        }
-
-        mExpertMode = (SwitchPreference) findPreference(PREFERENCE_EXPERT_MODE);
-
-        if (getResources().getBoolean(R.bool.syncedFolder_light)) {
-            preferenceCategoryDetails.removePreference(mExpertMode);
-        } else {
-            mExpertMode = (SwitchPreference) findPreference(PREFERENCE_EXPERT_MODE);
-            mExpertMode.setOnPreferenceClickListener(new OnPreferenceClickListener() {
-                @Override
-                public boolean onPreferenceClick(Preference preference) {
-                    SharedPreferences appPrefs =
-                            PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-                    SharedPreferences.Editor editor = appPrefs.edit();
-                    editor.putBoolean(PREFERENCE_EXPERT_MODE, mExpertMode.isChecked());
-                    editor.apply();
-
-                    if (mExpertMode.isChecked()) {
-                        Log_OC.startLogging(getApplicationContext());
-                    } else {
-                        if (!BuildConfig.DEBUG &&
-                                !getApplicationContext().getResources().getBoolean(R.bool.logger_enabled)) {
-                            Log_OC.stopLogging();
-                        }
-                    }
-
-                    return true;
-                }
-            });
-        }
-
-        if (!fShowHiddenFilesEnabled && !fPrintEnabled && !fPassCodeEnabled) {
-            preferenceScreen.removePreference(preferenceCategoryDetails);
+            preferenceCategoryDetails.removePreference(pCode);
         }
     }
 
