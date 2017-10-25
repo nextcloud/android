@@ -297,7 +297,6 @@
     <string name="preview_image_error_no_local_file">هیچ فایل محلی برای پیش نمایش وجود ندارد</string>
 
     <string name="error__upload__local_file_not_copied">کپی %1$s به پوشه محلی %2$s امکان پذیر نیست</string>
-    <string name="prefs_instant_upload_path_title">پوشه آپلود فوری</string>
     <string name="prefs_synced_folders_local_path_title">پوشه محلی</string>
     <string name="prefs_synced_folders_remote_path_title">پوشه از راه دور</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">استفاده از زیر پوشه</string>
