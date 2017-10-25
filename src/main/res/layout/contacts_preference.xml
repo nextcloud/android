@@ -34,13 +34,14 @@
         android:orientation="vertical">
 
         <include
+            android:id="@+id/navigation_bar"
             layout="@layout/toolbar_standard"/>
 
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_above="@+id/bottom_navigation_view"
-            android:layout_below="@+id/appbar"
+            android:layout_below="@+id/navigation_bar"
             android:id="@+id/frame_container">
 
         </FrameLayout>
