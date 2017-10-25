@@ -2308,4 +2308,11 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             mIsFirstAuthAttempt = false;
         }
     }
+
+    /**
+     * For retrieving the clicking on authentication cancel button.
+     */
+    public void doNegativeAuthenticationDialogClick() {
+        mIsFirstAuthAttempt = true;
+    }
 }
