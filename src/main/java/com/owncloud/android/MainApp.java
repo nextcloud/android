@@ -123,7 +123,7 @@ public class MainApp extends MultiDexApplication {
 
 
         if (BuildConfig.DEBUG || getApplicationContext().getResources().getBoolean(R.bool.logger_enabled) ||
-                appPrefs.getBoolean(Preferences.EXPERT_MODE, false)) {
+                appPrefs.getBoolean(Preferences.PREFERENCE_EXPERT_MODE, false)) {
             // use app writable dir, no permissions needed
             Log_OC.startLogging(getAppContext());
             Log_OC.d("Debug", "start logging");
