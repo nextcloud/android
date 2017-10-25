@@ -323,7 +323,6 @@ Attention la suppression est irréversible.</string>
 
     <string name="placeholder_sentence">Ceci est un espace réservé</string>
     <string name="placeholder_filename">placeholder.txt</string>
-    <string name="placeholder_filetype">Image PNG</string>
     <string name="placeholder_filesize">389 Ko</string>
     <string name="placeholder_timestamp">18/05/2012 12:23 PM</string>
     <string name="placeholder_media_time">12:23:45</string>
@@ -441,10 +440,8 @@ Attention la suppression est irréversible.</string>
     <string name="copy_file_error">Une erreur est survenue lors de la copie de ce fichier ou dossier</string>
     <string name="forbidden_permissions_copy">de copier ce fichier</string>
 
-    <string name="prefs_category_instant_uploading">Téléversement immédiat</string>
     <string name="prefs_category_details">Préférences</string>
 
-	<string name="prefs_instant_video_upload_path_title">Téléversement immédiat du dossier vidéos</string>
     <string name="sync_folder_failed_content">La synchronisation du dossier %1$s n\'a pas pu être terminée</string>
 
 	<string name="shared_subject_header">a partagé</string>

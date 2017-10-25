@@ -321,7 +321,6 @@
 
     <string name="placeholder_sentence">Ово је местодржач</string>
     <string name="placeholder_filename">чувамместо.txt</string>
-    <string name="placeholder_filetype">ПНГ слика</string>
     <string name="placeholder_filesize">389 KB</string>
     <string name="placeholder_timestamp">2012/05/18 12:23 ПоП</string>
     <string name="placeholder_media_time">12:23:45</string>
@@ -439,10 +438,8 @@
     <string name="copy_file_error">Грешка приликом копирања овог фајла или фасцикле</string>
     <string name="forbidden_permissions_copy">да копирате овај фајл</string>
 
-    <string name="prefs_category_instant_uploading">Брза отпремања</string>
     <string name="prefs_category_details">Подаци</string>
 
-	<string name="prefs_instant_video_upload_path_title">Фасцикла за видео записе за брзо отпремање</string>
     <string name="sync_folder_failed_content">Не могу да довршим синхронизацију фасцикле %1$s</string>
 
 	<string name="shared_subject_header">дељено</string>

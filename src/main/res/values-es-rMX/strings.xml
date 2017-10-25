@@ -321,7 +321,6 @@
 
     <string name="placeholder_sentence">Este es un marcador de posición</string>
     <string name="placeholder_filename">marcadordeposición.txt</string>
-    <string name="placeholder_filetype">Imagen PNG</string>
     <string name="placeholder_filesize">389 KB</string>
     <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
     <string name="placeholder_media_time">12:23:45</string>
@@ -439,10 +438,8 @@
     <string name="copy_file_error">Se presentó un error al intentar copiar este archivo o carpeta</string>
     <string name="forbidden_permissions_copy">para copiar este archivo</string>
 
-    <string name="prefs_category_instant_uploading">Cargas automáticas</string>
     <string name="prefs_category_details">Detalles</string>
 
-	<string name="prefs_instant_video_upload_path_title">Carpeta de video para cargas automáticas</string>
     <string name="sync_folder_failed_content">La sincronización de %1$s carpeta no se pudo completar</string>
 
 	<string name="shared_subject_header">compartido</string>

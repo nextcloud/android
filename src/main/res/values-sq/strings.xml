@@ -317,7 +317,6 @@
 
     <string name="placeholder_sentence">Kjo është një vendmbajtëse</string>
     <string name="placeholder_filename">placeholder.txt</string>
-    <string name="placeholder_filetype">Imazh PNG</string>
     <string name="placeholder_filesize">389 KB</string>
     <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
     <string name="placeholder_media_time">12:23:45</string>
@@ -435,10 +434,8 @@
     <string name="copy_file_error">Ndodhi një gabim teksa përpiqej të kopjohej ky skedar apo kjo dosje</string>
     <string name="forbidden_permissions_copy">për kopjim të kësaj kartele</string>
 
-    <string name="prefs_category_instant_uploading">Ngarkime të menjëhershme</string>
     <string name="prefs_category_details">Hollësi</string>
 
-	<string name="prefs_instant_video_upload_path_title">Dosja e ngarkimit të videove të çastit </string>
     <string name="sync_folder_failed_content">Sinkronizimi i i dosjes %1$s nuk u plotësua dot</string>
 
 	<string name="shared_subject_header">ndarë</string>

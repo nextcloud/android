@@ -268,7 +268,6 @@
     <string name="ssl_validator_null_cert">Varmennetta ei voi näyttää.</string>
     <string name="ssl_validator_no_info_about_error">- Ei lisätietoja virheestä</string>
 
-    <string name="placeholder_filetype">PNG-kuva</string>
     <string name="placeholder_filesize">389 kt</string>
     <string name="placeholder_media_time">12:23:45</string>
 
@@ -355,7 +354,6 @@
     <string name="copy_file_error">Tätä tiedostoa tai kansiota kopioitaessa tapahtui virhe</string>
     <string name="forbidden_permissions_copy">kopioida tämä tiedosto</string>
 
-    <string name="prefs_category_instant_uploading">Välittömät lähetykset</string>
     <string name="prefs_category_details">Tiedot</string>
 
 	<string name="sync_folder_failed_content">Kansion %1$s synkronointia ei voitu suorittaa kokonaan</string>

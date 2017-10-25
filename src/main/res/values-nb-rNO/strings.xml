@@ -320,7 +320,6 @@
 
     <string name="placeholder_sentence">Dette er en plassholder</string>
     <string name="placeholder_filename">plassholder.txt</string>
-    <string name="placeholder_filetype">PNG-bilde</string>
     <string name="placeholder_filesize">389 KB</string>
     <string name="placeholder_timestamp">18.05.2012 12:23</string>
     <string name="placeholder_media_time">12:23:45</string>
@@ -438,10 +437,8 @@
     <string name="copy_file_error">En feil oppstod ved kopiering av denne filen eller mappen</string>
     <string name="forbidden_permissions_copy">å kopiere denne filen</string>
 
-    <string name="prefs_category_instant_uploading">Umiddelbare opplastinger</string>
     <string name="prefs_category_details">Detaljer</string>
 
-	<string name="prefs_instant_video_upload_path_title">Mappe for umiddelbar opplasting av filmer</string>
     <string name="sync_folder_failed_content">Synkronisering av %1$s mappe kunne ikke fullføres</string>
 
 	<string name="shared_subject_header">delt</string>

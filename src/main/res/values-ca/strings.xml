@@ -292,7 +292,6 @@
 
     <string name="placeholder_sentence">Això és un text variable</string>
     <string name="placeholder_filename">placeholder.txt</string>
-    <string name="placeholder_filetype">Imatge PNG</string>
     <string name="placeholder_filesize">389 KB</string>
     <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
     <string name="placeholder_media_time">12:23:45</string>
@@ -371,7 +370,6 @@
     <string name="copy_file_error">Hi ha hagut un error en copiar aquest fitxer o carpeta</string>
     <string name="forbidden_permissions_copy">per copiar aquest fitxer</string>
 
-    <string name="prefs_category_instant_uploading">Pujada instantània</string>
     <string name="prefs_category_details">Detalls</string>
 
 	<string name="sync_folder_failed_content">La sincronització de la carpeta %1$s no s\'ha pogut completar</string>

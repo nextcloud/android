@@ -276,7 +276,6 @@
 
     <string name="placeholder_sentence">這是佔位內容</string>
     <string name="placeholder_filename">placeholder.txt</string>
-    <string name="placeholder_filetype">PNG 圖檔</string>
     <string name="placeholder_filesize">389 KB</string>
     <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
     <string name="placeholder_media_time">12:23:45</string>
@@ -389,10 +388,8 @@
     <string name="copy_file_error">嘗試複製檔案或資料夾時發生錯誤</string>
     <string name="forbidden_permissions_copy">複製這個檔案</string>
 
-    <string name="prefs_category_instant_uploading">即時上傳</string>
     <string name="prefs_category_details">詳細資料</string>
 
-	<string name="prefs_instant_video_upload_path_title">即時上傳的影片資料夾</string>
     <string name="sync_folder_failed_content">%1$s 資料夾的同步作業未完成</string>
 
 	<string name="shared_subject_header">已分享</string>

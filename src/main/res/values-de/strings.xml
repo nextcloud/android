@@ -322,7 +322,6 @@
 
     <string name="placeholder_sentence">Dies ist ein Platzhalter</string>
     <string name="placeholder_filename">platzhalter.txt</string>
-    <string name="placeholder_filetype">PNG-Bild</string>
     <string name="placeholder_filesize">389 KB</string>
     <string name="placeholder_timestamp">18.5.2012 12:23</string>
     <string name="placeholder_media_time">12:23:45</string>
@@ -440,10 +439,8 @@
     <string name="copy_file_error">Es ist ein Fehler beim Kopieren der Datei oder des Ordners aufgetreten.</string>
     <string name="forbidden_permissions_copy">diese Datei zu kopieren</string>
 
-    <string name="prefs_category_instant_uploading">sofort hochladen</string>
     <string name="prefs_category_details">Details</string>
 
-	<string name="prefs_instant_video_upload_path_title">Video Speicherpfad wählen</string>
     <string name="sync_folder_failed_content">Bei der Synchronisation konnte %1$s Ordner nicht fertig gestellt werden</string>
 
 	<string name="shared_subject_header">geteilt</string>

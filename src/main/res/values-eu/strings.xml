@@ -295,7 +295,6 @@ Mesedez, baimendu berriz</string>
 
     <string name="placeholder_sentence">Hau leku-marka da</string>
     <string name="placeholder_filename">kokalekua.txt</string>
-    <string name="placeholder_filetype">PNG irudia</string>
     <string name="placeholder_filesize">389 KB</string>
     <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
     <string name="placeholder_media_time">12:23:45</string>
