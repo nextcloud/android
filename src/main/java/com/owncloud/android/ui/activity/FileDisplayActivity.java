@@ -156,7 +156,7 @@ public class FileDisplayActivity extends HookActivity
         SendShareDialog.SendShareDialogDownloader {
 
     public static final String RESTART = "RESTART";
- 
+
     private SyncBroadcastReceiver mSyncBroadcastReceiver;
     private UploadFinishReceiver mUploadFinishReceiver;
     private DownloadFinishReceiver mDownloadFinishReceiver;
@@ -368,7 +368,7 @@ public class FileDisplayActivity extends HookActivity
 
             if (MainApp.getVersionCode() > lastSeenVersion) {
                 OwnCloudVersion serverVersion = AccountUtils.getServerVersionForAccount(account, this);
-                
+
                 if (serverVersion == null) {
                     OCCapability capability = getCapabilities();
                     serverVersion = new OwnCloudVersion(capability.getVersionMayor() + VERSION_DOT +
@@ -736,7 +736,7 @@ public class FileDisplayActivity extends HookActivity
                     if (success) {
                         // update the file from database, for the local storage path
                         mWaitingToPreview = getStorageManager().getFileById(mWaitingToPreview.getFileId());
-                        
+
                         if (PreviewMediaFragment.canBePreviewed(mWaitingToPreview)) {
                             boolean streaming = AccountUtils.getServerVersionForAccount(getAccount(), this)
                                     .isMediaStreamingSupported();
@@ -1261,7 +1261,7 @@ public class FileDisplayActivity extends HookActivity
         } else {
             setDrawerMenuItemChecked(menuItemId);
         }
-        
+
         Log_OC.v(TAG, "onResume() end");
     }
 
@@ -2301,7 +2301,7 @@ public class FileDisplayActivity extends HookActivity
         } else {
             Log_OC.e(TAG, "Trying to send a NULL OCFile");
         }
-        
+
         mWaitingToSend = null;
     }
 
@@ -2492,9 +2492,23 @@ public class FileDisplayActivity extends HookActivity
         browseToRoot();
     }
 
+    public void setActionBarTitle(@StringRes final int title) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if (getSupportActionBar() != null) {
+                    ThemeUtils.setColoredTitle(getSupportActionBar(), title, getBaseContext());
+                }
+            }
+        });
+    }
+
     @Override
     public void showFiles(boolean onDeviceOnly) {
         super.showFiles(onDeviceOnly);
+        if (onDeviceOnly) {
+            setActionBarTitle(R.string.drawer_item_on_device);
+        }
         getListOfFilesFragment().refreshDirectory();
     }
 
