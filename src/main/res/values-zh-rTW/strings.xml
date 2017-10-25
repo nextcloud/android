@@ -167,11 +167,8 @@
     <string name="sync_fail_content">%1$s 同步無法完成</string>
     <string name="sync_fail_content_unauthorized">無效的密碼 %1$s</string>
     <string name="sync_conflicts_in_favourites_ticker">出現衝突</string>
-    <string name="sync_conflicts_in_favourites_content">%1$d 持續同步未被同步的檔案</string>
     <string name="sync_fail_in_favourites_ticker">同步檔案失敗</string>
-    <string name="sync_fail_in_favourites_content">%1$d 未被同步（與 %2$d 衝突）</string>
     <string name="sync_foreign_files_forgotten_ticker">有些本地端的檔案已遺失</string>
-    <string name="sync_foreign_files_forgotten_content">%2$s 資料夾中的 %1$d 個檔案無法被複製進去</string>
     <string name="sync_current_folder_was_removed">資料夾%1$s已不存在</string>
     <string name="upload_query_move_foreign_files">空間不足以將選擇檔案複製到%1$s資料夾，是否要改用移動檔案？</string>
     <string name="pass_code_enter_pass_code">請輸入通行碼</string>
@@ -410,14 +407,6 @@
 
     <string name="username">使用者名稱</string>
 
-    <string name="file_list__footer__folder">1 個資料夾</string>
-    <string name="file_list__footer__folders">%1$d 個資料夾</string>
-    <string name="file_list__footer__file">1 個檔案</string>
-    <string name="file_list__footer__file_and_folder">1 個檔案， 1 個資料夾</string>
-    <string name="file_list__footer__file_and_folders">1 個檔案， %1$d 個資料夾</string>
-    <string name="file_list__footer__files">%1$d 個檔案</string>
-    <string name="file_list__footer__files_and_folder">%1$d 個檔案， 1 個資料夾</string>
-    <string name="file_list__footer__files_and_folders">%1$d 個檔案， %2$d 個資料夾</string>
     <string name="set_picture_as">使用圖片作為</string>
     <string name="set_as">設置為</string>
 

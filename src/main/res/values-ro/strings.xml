@@ -123,11 +123,8 @@
     <string name="common_choose_account">Alege cont</string>
     <string name="sync_fail_ticker">sincronozare esuata</string>
     <string name="sync_conflicts_in_favourites_ticker">S-au gasit conflicte</string>
-    <string name="sync_conflicts_in_favourites_content">%1$d file pastrate-in-sync files nu au putut fi sincronizate</string>
     <string name="sync_fail_in_favourites_ticker">Pastrarea fisierelor in sync nu a reușit</string>
-    <string name="sync_fail_in_favourites_content">Conținutul a%1$d fișiere nu a putut fi sincronizat (conflicte %2$d)</string>
     <string name="sync_foreign_files_forgotten_ticker">Unele fisiere locale au fost uitate</string>
-    <string name="sync_foreign_files_forgotten_content">%1$d fisiere din  dosarul  %2$s nu a putut fi copiat in</string>
     <string name="pass_code_enter_pass_code">Vă rugăm introduceți parola</string>
     
     <string name="pass_code_configure_your_pass_code">Introdu parola</string>
@@ -292,14 +289,6 @@
 
     <string name="username">Utilizator</string>
 
-    <string name="file_list__footer__folder">1 folder</string>
-    <string name="file_list__footer__folders">%1$d foldere</string>
-    <string name="file_list__footer__file">1 fișier</string>
-    <string name="file_list__footer__file_and_folder">1 fișier, 1 folder</string>
-    <string name="file_list__footer__file_and_folders">1 fișier, %1$d foldere</string>
-    <string name="file_list__footer__files">%1$d fișiere</string>
-    <string name="file_list__footer__files_and_folder">%1$d fișiere, 1 folder</string>
-    <string name="file_list__footer__files_and_folders">%1$d fișiere, %2$d foldere</string>
     <string name="prefs_instant_behaviour_dialogTitle">Fișierul original va fi&#8230;</string>
     <string name="prefs_instant_behaviour_title">Fișierul original va fi&#8230;</string>
     <string name="upload_copy_files">Copiază fișierul</string>

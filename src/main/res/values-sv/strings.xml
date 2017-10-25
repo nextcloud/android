@@ -176,11 +176,8 @@
     <string name="sync_fail_content">Kunde inte fullfölja synkroniseringen av %1$s</string>
     <string name="sync_fail_content_unauthorized">Fel lösenord för %1$s</string>
     <string name="sync_conflicts_in_favourites_ticker">Konflikter uppstod</string>
-    <string name="sync_conflicts_in_favourites_content">%1$d Flaggad som Håll-filen-uppdaterad kan inte synkas</string>
     <string name="sync_fail_in_favourites_ticker">Filer flaggade som Håll-filen-uppdaterad misslyckades</string>
-    <string name="sync_fail_in_favourites_content">Innehållet i %1$d filer kunde inte synkas (%2$d konflikter)</string>
     <string name="sync_foreign_files_forgotten_ticker">Vissa lokala filer glömdes</string>
-    <string name="sync_foreign_files_forgotten_content">%1$d filer från %2$s mappar kunde inte kopieras till</string>
     <string name="sync_current_folder_was_removed">Mappen %1$s finns inte längre</string>
     <string name="upload_query_move_foreign_files">Otillräckligt utrymme förhindrar kopiering av de valda filerna till %1$s -mappen. Vill du flytta dem dit i stället?</string>
     <string name="pass_code_enter_pass_code">Var god ange ditt lösenord</string>
@@ -429,14 +426,6 @@
 
     <string name="username">Användarnamn</string>
 
-    <string name="file_list__footer__folder">1 mapp</string>
-    <string name="file_list__footer__folders">%1$d mappar</string>
-    <string name="file_list__footer__file">1 fil</string>
-    <string name="file_list__footer__file_and_folder">1 fil, 1 mapp</string>
-    <string name="file_list__footer__file_and_folders">1 fil, %1$d mappar</string>
-    <string name="file_list__footer__files">%1$d filer</string>
-    <string name="file_list__footer__files_and_folder">%1$d filer, 1 mapp</string>
-    <string name="file_list__footer__files_and_folders">%1$d filer, %2$d mappar</string>
     <string name="set_picture_as">Använd bild som</string>
     <string name="set_as">Sätt som</string>
 

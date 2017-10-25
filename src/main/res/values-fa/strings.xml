@@ -176,11 +176,8 @@
     <string name="sync_fail_content">همگامسازی %1$s نمیتواند انجام شود</string>
     <string name="sync_fail_content_unauthorized">گذرواژه %1$s اشتباه است</string>
     <string name="sync_conflicts_in_favourites_ticker">ناسازگاری ها یافت شدند</string>
-    <string name="sync_conflicts_in_favourites_content">%1$d پرونده ها نمیتوانند همگام سازی شوند.</string>
     <string name="sync_fail_in_favourites_ticker">همگام سازی پرونده ها ناموفق بود.</string>
-    <string name="sync_fail_in_favourites_content">محتوای %1$d فایل ها نمی توانند همگام باشند(%2$d ناسازگاری)</string>
     <string name="sync_foreign_files_forgotten_ticker">بعضی از فایلهای محلی فراموش شده اند</string>
-    <string name="sync_foreign_files_forgotten_content">%1$d fفایل از %2$s پوشه نتوانستند کپی شوند در</string>
     <string name="sync_current_folder_was_removed">پوشه %1$s دیگر وجود ندارد</string>
     <string name="pass_code_enter_pass_code">لطفا کد عبور خود را وارد کنید</string>
     
@@ -351,14 +348,6 @@
 
     <string name="username">نام کاربری</string>
 
-    <string name="file_list__footer__folder">1 پوشه</string>
-    <string name="file_list__footer__folders">%1$d پوشه</string>
-    <string name="file_list__footer__file">1 فایل</string>
-    <string name="file_list__footer__file_and_folder">1 فایل، 1 پوشه</string>
-    <string name="file_list__footer__file_and_folders">1 فایل، %1$d پوشه</string>
-    <string name="file_list__footer__files">%1$d  فایل</string>
-    <string name="file_list__footer__files_and_folder">%1$d فایل، 1 پوشه</string>
-    <string name="file_list__footer__files_and_folders">%1$d فایل, %2$d پوشه</string>
     <string name="share_dialog_title">اشتراک گذاری</string>
     <string name="share_via_link_section_title">اشتراک گذاشتن لینک</string>
     <string name="share_via_link_expiration_date_label">تنظیم تاریخ انقضا</string>
