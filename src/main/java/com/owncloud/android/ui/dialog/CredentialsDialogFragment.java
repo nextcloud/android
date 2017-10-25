@@ -139,7 +139,7 @@ public class CredentialsDialogFragment extends DialogFragment
 
         } else if (which == AlertDialog.BUTTON_NEGATIVE) {
             mWebView.stopLoading();
-            ((AuthenticatorActivity)getActivity()).doNegativeAuthenticatioDialogClick();
+            ((AuthenticatorActivity)getActivity()).doNegativeAuthenticationDialogClick();
         }
 
         dialog.dismiss();
