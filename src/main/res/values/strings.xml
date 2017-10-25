@@ -151,7 +151,6 @@
     <string name="uploader_upload_failed_ticker">Upload failed</string>
     <string name="uploader_upload_failed_content_single">Could not upload %1$s</string>
     <string name="uploader_upload_failed_credentials_error">Upload failed, you need to log in again</string>
-    <string name="uploader_upload_failed_ssl_certificate_not_trusted">Server certificate is not trusted</string>
     <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">Server certificate is not trusted</string>
     <string name="uploads_view_title">Uploads</string>
     <string name="uploads_view_group_current_uploads">Current</string>
