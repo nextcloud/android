@@ -292,7 +292,6 @@
 
     <string name="placeholder_sentence">Detta är en platshållare</string>
     <string name="placeholder_filename">placeholder.txt</string>
-    <string name="placeholder_filetype">PNG-bild</string>
     <string name="placeholder_filesize">389 KB</string>
     <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
     <string name="placeholder_media_time">12:23:45</string>
@@ -408,10 +407,8 @@
     <string name="copy_file_error">Ett fel uppstod, kunde inte kopiera filen eller mappen</string>
     <string name="forbidden_permissions_copy">att kopiera denna fil</string>
 
-    <string name="prefs_category_instant_uploading">Automatiska uppladdningar</string>
     <string name="prefs_category_details">Detaljer</string>
 
-	<string name="prefs_instant_video_upload_path_title">Videomapp för Automatisk uppladdning</string>
     <string name="sync_folder_failed_content">Synkronisering av %1$s mapp kunde inte slutföras</string>
 
 	<string name="shared_subject_header">delad</string>

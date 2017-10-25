@@ -260,7 +260,6 @@
     <string name="copy_file_error">Radās kļūda, mēģinot kopēt šo failu vai mapi</string>
     <string name="forbidden_permissions_copy">lai kopētu šo datni</string>
 
-    <string name="prefs_category_instant_uploading">Tūlītējas augšupielādes</string>
     <string name="prefs_category_details">Detaļas</string>
 
 	<string name="shared_subject_header">koplietots</string>

@@ -321,7 +321,6 @@
 
     <string name="placeholder_sentence">Questo è un segnaposto</string>
     <string name="placeholder_filename">segnaposto.txt</string>
-    <string name="placeholder_filetype">Immagine PNG</string>
     <string name="placeholder_filesize">389 KB</string>
     <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
     <string name="placeholder_media_time">12:23:45</string>
@@ -439,10 +438,8 @@
     <string name="copy_file_error">Si è verificato un errore durante il tentativo di copiare il file o la cartella</string>
     <string name="forbidden_permissions_copy">per copiare questo file</string>
 
-    <string name="prefs_category_instant_uploading">Caricamenti istantanei</string>
     <string name="prefs_category_details">Dettagli</string>
 
-	<string name="prefs_instant_video_upload_path_title">Cartella dei video per caricamento automatico</string>
     <string name="sync_folder_failed_content">La sincronizzazione della cartella %1$s non può essere completata</string>
 
 	<string name="shared_subject_header">condiviso</string>

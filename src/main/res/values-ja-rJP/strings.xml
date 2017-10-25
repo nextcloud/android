@@ -323,7 +323,6 @@
     <string name="copy_file_error">このファイルまたはフォルダーをコピーする際にエラーが発生しました</string>
     <string name="forbidden_permissions_copy">このファイルをコピー</string>
 
-    <string name="prefs_category_instant_uploading">自動アップロード</string>
     <string name="prefs_category_details">詳細</string>
 
 	<string name="sync_folder_failed_content">%1$s フォルダーの同期が完了しませんでした。</string>

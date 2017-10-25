@@ -291,7 +291,6 @@
 
     <string name="placeholder_sentence">Ini adalah placeholder</string>
     <string name="placeholder_filename">placeholder.txt</string>
-    <string name="placeholder_filetype">Gambar PNG</string>
     <string name="placeholder_filesize">389 KB</string>
     <string name="placeholder_timestamp">18/05/2012 12:23 PM</string>
     <string name="placeholder_media_time">12:23:45</string>
@@ -404,10 +403,8 @@
     <string name="copy_file_error">Terjadi kesalahan ketika mencoba menyalin berkas atau folder ini</string>
     <string name="forbidden_permissions_copy">untuk menyalin berkas ini</string>
 
-    <string name="prefs_category_instant_uploading">Unggah cepat</string>
     <string name="prefs_category_details">Rincian</string>
 
-	<string name="prefs_instant_video_upload_path_title">Folder untuk mengunggah video cepat</string>
     <string name="sync_folder_failed_content">Sinkronisasi folder %1$s tidak dapat diselesaikan</string>
 
 	<string name="shared_subject_header">dibagikan</string>

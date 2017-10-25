@@ -292,7 +292,6 @@ Smelltu hér til að fá þér einn frá þjónustuaðila.</string>
 
     <string name="placeholder_sentence">Þetta er frátökutákn</string>
     <string name="placeholder_filename">frátökutákn.txt</string>
-    <string name="placeholder_filetype">PNG-mynd</string>
     <string name="placeholder_filesize">389 KB</string>
     <string name="placeholder_timestamp">2012/05/18 12:23 EH</string>
     <string name="placeholder_media_time">12:23:45</string>
@@ -408,10 +407,8 @@ Smelltu hér til að fá þér einn frá þjónustuaðila.</string>
     <string name="copy_file_error">Villa kom upp við að reyna að afrita þessa skrá eða möppu</string>
     <string name="forbidden_permissions_copy">til að afrita þessa skrá</string>
 
-    <string name="prefs_category_instant_uploading">Beinar innsendingar</string>
     <string name="prefs_category_details">Nánar</string>
 
-	<string name="prefs_instant_video_upload_path_title">Mappa fyrir beinar innsendingar myndskeiða</string>
     <string name="sync_folder_failed_content">Ekki var hægt að ljúka samstillingu á %1$s möppunni</string>
 
 	<string name="shared_subject_header">deilt</string>

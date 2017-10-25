@@ -321,7 +321,6 @@
 
     <string name="placeholder_sentence">Ez egy helyőrző</string>
     <string name="placeholder_filename">helyörző.txt</string>
-    <string name="placeholder_filetype">PNG kép</string>
     <string name="placeholder_filesize">389 KB</string>
     <string name="placeholder_timestamp">2012/05/18 12:23</string>
     <string name="placeholder_media_time">12:23:45</string>
@@ -440,10 +439,8 @@
     <string name="copy_file_error">Hiba történt a fájl vagy mappa másolása közben</string>
     <string name="forbidden_permissions_copy">a fájl másolása</string>
 
-    <string name="prefs_category_instant_uploading">Azonnali feltöltések</string>
     <string name="prefs_category_details">Részletek</string>
 
-	<string name="prefs_instant_video_upload_path_title">Videó mappa az instant feltöltéshez</string>
     <string name="sync_folder_failed_content">%1$s mappa szinkronizációját nem lehet végrehajtani</string>
 
 	<string name="shared_subject_header">megosztva</string>

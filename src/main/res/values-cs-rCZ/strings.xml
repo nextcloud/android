@@ -320,7 +320,6 @@
 
     <string name="placeholder_sentence">Zástupný text</string>
     <string name="placeholder_filename">placeholder.txt</string>
-    <string name="placeholder_filetype">Obrázek PNG</string>
     <string name="placeholder_filesize">389 KB</string>
     <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
     <string name="placeholder_media_time">12:23:45</string>
@@ -438,10 +437,8 @@
     <string name="copy_file_error">Při pokusu o zkopírování tohoto souboru či adresáře došlo k chybě</string>
     <string name="forbidden_permissions_copy">pro zkopírování tohoto souboru</string>
 
-    <string name="prefs_category_instant_uploading">Okamžitá odesílání</string>
     <string name="prefs_category_details">Podrobnosti</string>
 
-	<string name="prefs_instant_video_upload_path_title">Adresář pro okamžité nahrání videa</string>
     <string name="sync_folder_failed_content">Synchronizaci adresáře %1$s nelze dokončit</string>
 
 	<string name="shared_subject_header">sdílené</string>

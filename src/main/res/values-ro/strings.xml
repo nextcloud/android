@@ -272,7 +272,6 @@
     <string name="copy_file_error">A apărut o eroare în timpul copierii fișierului sau dosarului </string>
     <string name="forbidden_permissions_copy">să copiați acest fișier</string>
 
-    <string name="prefs_category_instant_uploading">Încărcări instantanee</string>
     <string name="prefs_category_details">Detalii</string>
 
 	<string name="sync_folder_failed_content">Sincronizarea dosarului %1$s nu a putut fi finalizată</string>

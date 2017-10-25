@@ -321,7 +321,6 @@
 
     <string name="placeholder_sentence">This is a placeholder</string>
     <string name="placeholder_filename">placeholder.txt</string>
-    <string name="placeholder_filetype">PNG image</string>
     <string name="placeholder_filesize">389 KB</string>
     <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
     <string name="placeholder_media_time">12:23:45</string>
@@ -439,10 +438,8 @@
     <string name="copy_file_error">An error occurred while trying to copy this file or folder</string>
     <string name="forbidden_permissions_copy">to copy this file</string>
 
-    <string name="prefs_category_instant_uploading">Instant uploads</string>
     <string name="prefs_category_details">Details</string>
 
-	<string name="prefs_instant_video_upload_path_title">Video folder for instant uploads</string>
     <string name="sync_folder_failed_content">Synchronisation of %1$s folder could not be completed</string>
 
 	<string name="shared_subject_header">shared</string>

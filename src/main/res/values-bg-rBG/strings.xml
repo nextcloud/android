@@ -288,7 +288,6 @@
     <string name="copy_file_error">Възникна грешка при опита за копиране на файла или папката</string>
     <string name="forbidden_permissions_copy">да копира този файл</string>
 
-    <string name="prefs_category_instant_uploading">Незабавни качвания</string>
     <string name="prefs_category_details">Детайли</string>
 
 	<string name="sync_folder_failed_content">Синхронизацията на папка %1$s не може да бъде завършена</string>

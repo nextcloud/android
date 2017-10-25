@@ -322,7 +322,6 @@ Kies er eentje van een provider.</string>
 
     <string name="placeholder_sentence">Dit is een plaatshouder</string>
     <string name="placeholder_filename">plaatshouder.txt</string>
-    <string name="placeholder_filetype">PNG afbeelding</string>
     <string name="placeholder_filesize">389 KB</string>
     <string name="placeholder_timestamp">2012/05/18 12:23</string>
     <string name="placeholder_media_time">12:23:45</string>
@@ -440,10 +439,8 @@ Kies er eentje van een provider.</string>
     <string name="copy_file_error">Er trad een fout op bij het kopiëren van dit bestand of deze map</string>
     <string name="forbidden_permissions_copy">om dit bestand te kopiëren</string>
 
-    <string name="prefs_category_instant_uploading">Direct uploaden</string>
     <string name="prefs_category_details">Details</string>
 
-	<string name="prefs_instant_video_upload_path_title">Directe-uploadmap voor video\'s</string>
     <string name="sync_folder_failed_content">Synchronisatie van map %1$s kon niet worden voltooid</string>
 
 	<string name="shared_subject_header">gedeeld</string>

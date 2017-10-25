@@ -298,7 +298,6 @@
     <string name="copy_file_error">Počas kopírovania súboru alebo zložky sa vyskytla chyba</string>
     <string name="forbidden_permissions_copy">kopírovať súbor</string>
 
-    <string name="prefs_category_instant_uploading">Okamžité nahratia</string>
     <string name="prefs_category_details">Podrobnosti</string>
 
 	<string name="sync_folder_failed_content">Synchronizáciu priečinka %1$s nebolo možné dokončiť</string>

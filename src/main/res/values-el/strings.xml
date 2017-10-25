@@ -292,7 +292,6 @@
 
     <string name="placeholder_sentence">Αυτό είναι ένα σημείο placeholder</string>
     <string name="placeholder_filename">placeholder.txt</string>
-    <string name="placeholder_filetype">Εικόνα PNG</string>
     <string name="placeholder_filesize">389 KB</string>
     <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
     <string name="placeholder_media_time">12:23:45</string>
@@ -408,10 +407,8 @@
     <string name="copy_file_error">Παρουσιάστηκε σφάλμα κατά την προσπάθεια αντιγραφής αυτού του αρχείου ή φακέλου</string>
     <string name="forbidden_permissions_copy">για αντιγραφή αυτού του αρχείου</string>
 
-    <string name="prefs_category_instant_uploading">Άμεσες μεταφορτώσεις</string>
     <string name="prefs_category_details">Λεπτομέρειες</string>
 
-	<string name="prefs_instant_video_upload_path_title">Φάκελος άμεσης μεταφόρτωσης βίντεο</string>
     <string name="sync_folder_failed_content">Ο συγχρονισμός του φακέλου %1$s δεν μπόρεσε να ολοκληρωθεί</string>
 
 	<string name="shared_subject_header">διαμοιρασμένα</string>

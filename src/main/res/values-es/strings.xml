@@ -301,7 +301,6 @@
 
     <string name="placeholder_sentence">Esto es un marcador de posición</string>
     <string name="placeholder_filename">placeholder.txt</string>
-    <string name="placeholder_filetype">Imagen PNG</string>
     <string name="placeholder_filesize">389 KB</string>
     <string name="placeholder_timestamp">18/05/2012 12:23 PM</string>
     <string name="placeholder_media_time">12:23:45</string>
@@ -417,10 +416,8 @@
     <string name="copy_file_error">Hubo un error al tratar de copiar este archivo o carpeta</string>
     <string name="forbidden_permissions_copy">copiar este archivo</string>
 
-    <string name="prefs_category_instant_uploading">Subidas instantáneas</string>
     <string name="prefs_category_details">Detalles</string>
 
-	<string name="prefs_instant_video_upload_path_title">Carpeta para subida instantáneo de vídeos</string>
     <string name="sync_folder_failed_content">La sincronización de la carpeta %1$s no se ha podido completar</string>
 
 	<string name="shared_subject_header">compartido</string>
