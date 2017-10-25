@@ -394,51 +394,38 @@ public class ErrorMessageAdapter {
                 message = res.getString(R.string.maintenance_mode);
 
             } else if (result.getCode() == ResultCode.SSL_RECOVERABLE_PEER_UNVERIFIED) {
-                message = res.getString(
-                        R.string.uploads_view_upload_status_failed_ssl_certificate_not_trusted
-                );
+                message = res.getString(R.string.uploads_view_upload_status_failed_ssl_certificate_not_trusted);
 
             } else if (result.getCode() == ResultCode.BAD_OC_VERSION) {
-                message = res.getString(
-                        R.string.auth_bad_oc_version_title
-                );
+                message = res.getString(R.string.auth_bad_oc_version_title);
+
             } else if (result.getCode() == ResultCode.INCORRECT_ADDRESS) {
-                message = res.getString(
-                        R.string.auth_incorrect_address_title
-                );
+                message = res.getString(R.string.auth_incorrect_address_title);
 
             } else if (result.getCode() == ResultCode.SSL_ERROR) {
-                message = res.getString(
-                        R.string.auth_ssl_general_error_title
-                );
+                message = res.getString(R.string.auth_ssl_general_error_title);
+
             } else if (result.getCode() == ResultCode.UNAUTHORIZED) {
-                message = res.getString(
-                        R.string.auth_unauthorized
-                );
+                message = res.getString(R.string.auth_unauthorized);
+
             } else if (result.getCode() == ResultCode.INSTANCE_NOT_CONFIGURED) {
-                message = res.getString(
-                        R.string.auth_not_configured_title
-                );
+                message = res.getString(R.string.auth_not_configured_title);
+
             } else if (result.getCode() == ResultCode.FILE_NOT_FOUND) {
-                message = res.getString(
-                        R.string.auth_incorrect_path_title
-                );
+                message = res.getString(R.string.auth_incorrect_path_title);
+
             } else if (result.getCode() == ResultCode.OAUTH2_ERROR) {
-                message = res.getString(
-                        R.string.auth_oauth_error
-                );
+                message = res.getString(R.string.auth_oauth_error);
+
             } else if (result.getCode() == ResultCode.OAUTH2_ERROR_ACCESS_DENIED) {
-                message = res.getString(
-                        R.string.auth_oauth_error_access_denied
-                );
+                message = res.getString(R.string.auth_oauth_error_access_denied);
+
             } else if (result.getCode() == ResultCode.ACCOUNT_NOT_NEW) {
-                message = res.getString(
-                        R.string.auth_account_not_new
-                );
+                message = res.getString(R.string.auth_account_not_new);
+
             } else if (result.getCode() == ResultCode.ACCOUNT_NOT_THE_SAME) {
-                message = res.getString(
-                        R.string.auth_account_not_the_same
-                );
+                message = res.getString(R.string.auth_account_not_the_same);
+
             }
 
             else if (result.getHttpPhrase() != null && result.getHttpPhrase().length() > 0) {
@@ -449,7 +436,6 @@ public class ErrorMessageAdapter {
 
         return message;
     }
-
 
     /**
      * Return a user message corresponding to a generic error for a given operation.
