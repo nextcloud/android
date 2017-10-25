@@ -183,11 +183,8 @@
     <string name="sync_fail_content">Sinkronizimi i %1$s s’u plotësua dot</string>
     <string name="sync_fail_content_unauthorized">Fjalëkalim i pavlefshëm për %1$s</string>
     <string name="sync_conflicts_in_favourites_ticker">U hasën përplasje</string>
-    <string name="sync_conflicts_in_favourites_content">%1$d kartela kept-in-sync s’u njëkohësuan dot</string>
     <string name="sync_fail_in_favourites_ticker">Mbajtja-në-sinkron e skedarëve dështoj </string>
-    <string name="sync_fail_in_favourites_content">Përmbajtja e %1$d skedarëve s\’u sinkronizua dot (%2$d përplasje)</string>
     <string name="sync_foreign_files_forgotten_ticker">Disa kartela vendore u harruan</string>
-    <string name="sync_foreign_files_forgotten_content">%1$d skedarë nga dosja %2$s nuk u kopjuan dot</string>
     <string name="sync_current_folder_was_removed">Dosja %1$s s’ekziston më</string>
     <string name="foreign_files_move">Zhvendosi të gjitha</string>
     <string name="foreign_files_success">U zhvendosën të gjithë skedarët</string>
@@ -456,14 +453,6 @@
 
     <string name="username">Emër përdoruesi</string>
 
-    <string name="file_list__footer__folder">1 dosje</string>
-    <string name="file_list__footer__folders">%1$d dosje</string>
-    <string name="file_list__footer__file">1 skedar</string>
-    <string name="file_list__footer__file_and_folder">1 skedar, 1 dosje</string>
-    <string name="file_list__footer__file_and_folders">1 skedar, %1$d dosje</string>
-    <string name="file_list__footer__files">%1$d skedar</string>
-    <string name="file_list__footer__files_and_folder">%1$d skedare, 1 dosje</string>
-    <string name="file_list__footer__files_and_folders">%1$d skedare, %2$d dosje</string>
     <string name="set_picture_as">Vendos fotografinë</string>
     <string name="set_as">Vendos Si</string>
 

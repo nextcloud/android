@@ -161,11 +161,8 @@
     <string name="sync_fail_ticker">Synkronointi epäonnistui</string>
     <string name="sync_fail_ticker_unauthorized">Synkronointi epäonnistui. Kirjaudu sisään uudelleen</string>
     <string name="sync_conflicts_in_favourites_ticker">Ristiriitoja löytynyt</string>
-    <string name="sync_conflicts_in_favourites_content">%1$d \"pidä synkronoituna\" tiedostoja ei voitu synkronoida</string>
     <string name="sync_fail_in_favourites_ticker">\"Pidä synkronoituna\" epäonnistui</string>
-    <string name="sync_fail_in_favourites_content">Hakemiston %1$d tiedostoja ei voitu synkronoida (%2$d konfliktia)</string>
     <string name="sync_foreign_files_forgotten_ticker">Jotkin paikalliset tiedostot unohtuivat</string>
-    <string name="sync_foreign_files_forgotten_content">%1$d / %2$s tiedostoa ei voitu kopioida</string>
     <string name="sync_current_folder_was_removed">Kansiota %1$s ei ole enää olemassa</string>
     <string name="foreign_files_move">Siirrä kaikki</string>
     <string name="foreign_files_success">Kaikki tiedostot siirrettiin</string>
@@ -375,14 +372,6 @@
 
     <string name="username">Käyttäjätunnus</string>
 
-    <string name="file_list__footer__folder">1 kansio</string>
-    <string name="file_list__footer__folders">%1$d kansiota</string>
-    <string name="file_list__footer__file">1 tiedosto</string>
-    <string name="file_list__footer__file_and_folder">1 tiedosto, 1 kansio</string>
-    <string name="file_list__footer__file_and_folders">1 tiedosto, %1$d kansiota</string>
-    <string name="file_list__footer__files">%1$d tiedostoa</string>
-    <string name="file_list__footer__files_and_folder">%1$d tiedostoa, 1 kansio</string>
-    <string name="file_list__footer__files_and_folders">%1$d tiedostoa, %2$d kansiota</string>
     <string name="prefs_instant_behaviour_dialogTitle">Alkuperäinen tiedosto&#8230;</string>
     <string name="prefs_instant_behaviour_title">Alkuperäinen tiedosto&#8230;</string>
     <string name="upload_copy_files">Kopioi tiedosto</string>

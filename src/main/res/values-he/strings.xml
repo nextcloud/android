@@ -129,11 +129,8 @@
     <string name="common_choose_account">נא לבחור בחשבון</string>
     <string name="sync_fail_ticker">סנכרון נכשל</string>
     <string name="sync_conflicts_in_favourites_ticker">נמצאו התנגשויות</string>
-    <string name="sync_conflicts_in_favourites_content">לא ניתן לסנכרן %1$d קבצים שהוגדרו לסנכרון</string>
     <string name="sync_fail_in_favourites_ticker">קבצים שהוגדרו לסנכרון נכשלו</string>
-    <string name="sync_fail_in_favourites_content">לא ניתן לסנכרם את תוכנם של %1$d מהקבצים (%2$d התנגשויות)</string>
     <string name="sync_foreign_files_forgotten_ticker">חלק מהקבצים המקומיים נשכחו</string>
-    <string name="sync_foreign_files_forgotten_content">קבצים %1$d מחוץ לתיקיית %2$s לא ניתן להעתיק אל</string>
     <string name="pass_code_configure_your_pass_code">יש להכניס את הקוד שלך</string>
     <string name="pass_code_configure_your_pass_code_explanation">בכל פעם שיישום זה נפתח יהיה צורך להכניס את הקוד</string>
     <string name="pass_code_reenter_your_pass_code">יש להכניס את הקוד שנית</string>
@@ -286,14 +283,6 @@
 
     <string name="username">שם משתמש</string>
 
-    <string name="file_list__footer__folder">1 תיקייה</string>
-    <string name="file_list__footer__folders">%1$d תיקיות</string>
-    <string name="file_list__footer__file">1 קובץ</string>
-    <string name="file_list__footer__file_and_folder">1 קובץ, 1 תיקייה</string>
-    <string name="file_list__footer__file_and_folders">1 קובץ, %1$d תיקיות</string>
-    <string name="file_list__footer__files">%1$d קבצים</string>
-    <string name="file_list__footer__files_and_folder">%1$d קבצים, 1 תיקייה</string>
-    <string name="file_list__footer__files_and_folders">%1$d קבצים, %2$d תיקיות</string>
     <string name="prefs_instant_behaviour_dialogTitle">&#8230;קובץ מקורי יהיה</string>
     <string name="prefs_instant_behaviour_title">&#8230;קובץ מקורי יהיה</string>
     <string name="upload_copy_files">העתקת קובץ</string>

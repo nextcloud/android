@@ -1189,40 +1189,31 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
         String output = "";
 
         if (getActivity() != null) {
-            if (filesCount <= 0) {
-                if (foldersCount <= 0) {
-                    output = "";
-
-                } else if (foldersCount == 1) {
-                    output = getResources().getString(R.string.file_list__footer__folder);
-
-                } else { // foldersCount > 1
-                    output = getResources().getString(R.string.file_list__footer__folders, foldersCount);
-                }
-
-            } else if (filesCount == 1) {
-                if (foldersCount <= 0) {
-                    output = getResources().getString(R.string.file_list__footer__file);
-
-                } else if (foldersCount == 1) {
-                    output = getResources().getString(R.string.file_list__footer__file_and_folder);
-
-                } else { // foldersCount > 1
-                    output = getResources().getString(R.string.file_list__footer__file_and_folders, foldersCount);
-                }
-            } else {    // filesCount > 1
-                if (foldersCount <= 0) {
-                    output = getResources().getString(R.string.file_list__footer__files, filesCount);
-
-                } else if (foldersCount == 1) {
-                    output = getResources().getString(R.string.file_list__footer__files_and_folder, filesCount);
-
-                } else { // foldersCount > 1
-                    output = getResources().getString(
-                            R.string.file_list__footer__files_and_folders, filesCount, foldersCount
-                    );
-
-                }
+            if (filesCount + foldersCount <= 0) {
+                output = "";
+            } else if (foldersCount <= 0) {
+                output = getResources().getQuantityString(
+                        R.plurals.file_list__footer__file,
+                        filesCount,
+                        filesCount
+                );
+            } else if (filesCount <= 0) {
+                output = getResources().getQuantityString(
+                        R.plurals.file_list__footer__folder,
+                        foldersCount,
+                        foldersCount
+                );
+            } else {
+                output = getResources().getQuantityString(
+                        R.plurals.file_list__footer__file,
+                        filesCount,
+                        filesCount)
+                        + ", "
+                        + getResources().getQuantityString(
+                        R.plurals.file_list__footer__folder,
+                        foldersCount,
+                        foldersCount
+                );
             }
         }
 
