@@ -167,7 +167,7 @@ public class UploadListActivity extends FileActivity implements UploadListFragme
         /// TODO is this path still active?
         File f = new File(file.getLocalPath());
         if(!f.exists()) {
-            showSnackMessage(getString(R.string.local_file_not_found_toast));
+            DisplayUtils.showSnackMessage(this, R.string.local_file_not_found_toast);
         } else {
             openFileWithDefault(file.getLocalPath());
         }
@@ -188,7 +188,7 @@ public class UploadListActivity extends FileActivity implements UploadListFragme
         try {
             startActivity(myIntent);
         } catch (ActivityNotFoundException e) {
-            showSnackMessage(getString(R.string.file_list_no_app_for_file_type));
+            DisplayUtils.showSnackMessage(this, R.string.file_list_no_app_for_file_type);
             Log_OC.i(TAG, "Could not find app for sending log history.");
         }        
     }

@@ -21,6 +21,7 @@ package com.owncloud.android.ui.activity;
 
 import android.accounts.Account;
 import android.accounts.AuthenticatorException;
+import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -54,6 +55,7 @@ import com.owncloud.android.ui.fragment.FileFragment;
 import com.owncloud.android.ui.fragment.OCFileListFragment;
 import com.owncloud.android.utils.AnalyticsUtils;
 import com.owncloud.android.utils.DataHolderUtil;
+import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.ErrorMessageAdapter;
 import com.owncloud.android.utils.ThemeUtils;
 
@@ -150,6 +152,10 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
         }
     }
 
+    private Activity getActivity() {
+        return this;
+    }
+
     private void createFragments() {
         OCFileListFragment listOfFiles = new OCFileListFragment();
         Bundle args = new Bundle();
@@ -191,7 +197,6 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
         Log_OC.e(TAG, "Access to unexisting list of files fragment!!");
         return null;
     }
-
     
     /**
      * {@inheritDoc}
@@ -204,7 +209,6 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
         updateNavigationElementsInActionBar();
         // Sync Folder
         startSyncFolderOperation(directory, false);
-        
     }
 
     @Override
@@ -418,15 +422,15 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
             refreshListOfFilesFragment(false);
         } else {
             try {
-                showSnackMessage(ErrorMessageAdapter.getErrorCauseMessage(result, operation, getResources()));
+                DisplayUtils.showSnackMessage(
+                        this,ErrorMessageAdapter.getErrorCauseMessage(result, operation, getResources())
+                );
 
             } catch (NotFoundException e) {
                 Log_OC.e(TAG, "Error while trying to show fail message " , e);
             }
         }
     }
-    
-    
     
     private class SyncBroadcastReceiver extends BroadcastReceiver {
 
@@ -458,11 +462,10 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
     
                         if (currentDir == null) {
                             // current folder was removed from the server
-                            showSnackMessage(
-                                    String.format(
-                                            getString(R.string.sync_current_folder_was_removed),
-                                            getCurrentFolder().getFileName()
-                                    )
+                            DisplayUtils.showSnackMessage(
+                                    getActivity(),
+                                    R.string.sync_current_folder_was_removed,
+                                    getCurrentFolder().getFileName()
                             );
                             browseToRoot();
                             

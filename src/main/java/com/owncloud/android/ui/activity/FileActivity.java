@@ -31,7 +31,6 @@ import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -68,6 +67,7 @@ import com.owncloud.android.ui.dialog.ConfirmationDialogFragment;
 import com.owncloud.android.ui.dialog.LoadingDialog;
 import com.owncloud.android.ui.dialog.SslUntrustedCertDialog;
 import com.owncloud.android.ui.helpers.FileOperationsHelper;
+import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.ErrorMessageAdapter;
 
 
@@ -306,7 +306,9 @@ public abstract class FileActivity extends DrawerActivity
             requestCredentialsUpdate(this);
 
             if (result.getCode() == ResultCode.UNAUTHORIZED) {
-                showSnackMessage(ErrorMessageAdapter.getErrorCauseMessage(result, operation, getResources()));
+                DisplayUtils.showSnackMessage(
+                        this, ErrorMessageAdapter.getErrorCauseMessage(result, operation, getResources())
+                );
             }
 
         } else if (!result.isSuccess() && ResultCode.SSL_RECOVERABLE_PEER_UNVERIFIED.equals(result.getCode())) {
@@ -324,7 +326,9 @@ public abstract class FileActivity extends DrawerActivity
                 updateFileFromDB();
 
             } else if (result.getCode() != ResultCode.CANCELLED) {
-                showSnackMessage(ErrorMessageAdapter.getErrorCauseMessage(result, operation, getResources()));
+                DisplayUtils.showSnackMessage(
+                        this, ErrorMessageAdapter.getErrorCauseMessage(result, operation, getResources())
+                );
             }
 
         } else if (operation instanceof SynchronizeFileOperation) {
@@ -335,7 +339,9 @@ public abstract class FileActivity extends DrawerActivity
                 updateFileFromDB();
 
             } else {
-                showSnackMessage(ErrorMessageAdapter.getErrorCauseMessage(result, operation, getResources()));
+                DisplayUtils.showSnackMessage(
+                        this, ErrorMessageAdapter.getErrorCauseMessage(result, operation, getResources())
+                );
             }
         }
     }
@@ -397,7 +403,7 @@ public abstract class FileActivity extends DrawerActivity
             startActivityForResult(updateAccountCredentials, REQUEST_CODE__UPDATE_CREDENTIALS);
 
         } catch (com.owncloud.android.lib.common.accounts.AccountUtils.AccountNotFoundException e) {
-            showSnackMessage(getString(R.string.auth_account_does_not_exist));
+            DisplayUtils.showSnackMessage(this, R.string.auth_account_does_not_exist);
         }
 
     }
@@ -574,14 +580,5 @@ public abstract class FileActivity extends DrawerActivity
     @Override
     public void onCancelCertificate() {
         // nothing to do
-    }
-
-    /**
-     * Show a temporary message in a Snackbar bound to the content view
-     *
-     * @param message Message to show.
-     */
-    public void showSnackMessage(String message) {
-        Snackbar.make(findViewById(android.R.id.content),message,Snackbar.LENGTH_LONG).show();
     }
 }

@@ -26,6 +26,7 @@ package com.owncloud.android.ui.activity;
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.accounts.AuthenticatorException;
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -93,6 +94,7 @@ import com.owncloud.android.ui.dialog.CreateFolderDialogFragment;
 import com.owncloud.android.ui.fragment.TaskRetainerFragment;
 import com.owncloud.android.ui.helpers.UriUploader;
 import com.owncloud.android.utils.DataHolderUtil;
+import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.ErrorMessageAdapter;
 import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.ThemeUtils;
@@ -209,6 +211,10 @@ public class ReceiveExternalFilesActivity extends FileActivity
     private void showAccountChooserDialog() {
         DialogMultipleAccount dialog = new DialogMultipleAccount();
         dialog.show(getSupportFragmentManager(), null);
+    }
+
+    private Activity getActivity() {
+        return this;
     }
 
     @Override
@@ -975,7 +981,9 @@ public class ReceiveExternalFilesActivity extends FileActivity
             populateDirectoryList();
         } else {
             try {
-                showSnackMessage(ErrorMessageAdapter.getErrorCauseMessage(result, operation, getResources()));
+                DisplayUtils.showSnackMessage(
+                        this, ErrorMessageAdapter.getErrorCauseMessage(result, operation, getResources())
+                );
 
             } catch (NotFoundException e) {
                 Log_OC.e(TAG, "Error while trying to show fail message ", e);
@@ -1104,11 +1112,10 @@ public class ReceiveExternalFilesActivity extends FileActivity
 
                         if (currentDir == null) {
                             // current folder was removed from the server
-                            showSnackMessage(
-                                    String.format(
-                                            getString(R.string.sync_current_folder_was_removed),
-                                            getCurrentFolder().getFileName()
-                                    )
+                            DisplayUtils.showSnackMessage(
+                                    getActivity(),
+                                    R.string.sync_current_folder_was_removed,
+                                    getCurrentFolder().getFileName()
                             );
                             browseToRoot();
 

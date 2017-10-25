@@ -25,6 +25,7 @@ import android.Manifest;
 import android.accounts.Account;
 import android.accounts.AuthenticatorException;
 import android.annotation.TargetApi;
+import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.ContentResolver;
@@ -98,6 +99,7 @@ import com.owncloud.android.ui.preview.PreviewMediaFragment;
 import com.owncloud.android.ui.preview.PreviewTextFragment;
 import com.owncloud.android.ui.preview.PreviewVideoActivity;
 import com.owncloud.android.utils.DataHolderUtil;
+import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.ErrorMessageAdapter;
 import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.PermissionUtil;
@@ -273,6 +275,10 @@ public class FileDisplayActivity extends HookActivity
         // always AFTER setContentView(...) in onCreate(); to work around bug in its implementation
 
         upgradeNotificationForInstantUpload();
+    }
+
+    private Activity getActivity() {
+        return this;
     }
 
     /**
@@ -920,7 +926,7 @@ public class FileDisplayActivity extends HookActivity
 
         } else {
             Log_OC.d(TAG, "User clicked on 'Update' with no selection");
-            showSnackMessage(getString(R.string.filedisplay_no_file_selected));
+            DisplayUtils.showSnackMessage(this, R.string.filedisplay_no_file_selected);
         }
     }
 
@@ -1211,12 +1217,10 @@ public class FileDisplayActivity extends HookActivity
 
                         if (currentDir == null) {
                             // current folder was removed from the server
-                            showSnackMessage(
-                                    String.format(
-                                            getString(R.string.
-                                                    sync_current_folder_was_removed),
-                                            synchFolderRemotePath
-                                    )
+                            DisplayUtils.showSnackMessage(
+                                    getActivity(),
+                                    R.string.sync_current_folder_was_removed,
+                                    synchFolderRemotePath
                             );
 
                             browseToRoot();
@@ -1356,11 +1360,10 @@ public class FileDisplayActivity extends HookActivity
                     }
                     if (renamedInUpload) {
                         String newName = (new File(uploadedRemotePath)).getName();
-                        showSnackMessage(
-                                String.format(
-                                        getString(R.string.filedetails_renamed_in_upload_msg),
-                                        newName
-                                )
+                        DisplayUtils.showSnackMessage(
+                                getActivity(),
+                                R.string.filedetails_renamed_in_upload_msg,
+                                newName
                         );
                     }
                     if (uploadWasFine || getFile().fileExists()) {
@@ -1660,7 +1663,9 @@ public class FileDisplayActivity extends HookActivity
      */
     private void onRemoveFileOperationFinish(RemoveFileOperation operation,
                                              RemoteOperationResult result) {
-        showSnackMessage(ErrorMessageAdapter.getErrorCauseMessage(result, operation, getResources()));
+        DisplayUtils.showSnackMessage(
+                this, ErrorMessageAdapter.getErrorCauseMessage(result, operation, getResources())
+        );
 
         if (result.isSuccess()) {
             OCFile removedFile = operation.getFile();
@@ -1698,7 +1703,9 @@ public class FileDisplayActivity extends HookActivity
             refreshListOfFilesFragment(false);
         } else {
             try {
-                showSnackMessage(ErrorMessageAdapter.getErrorCauseMessage(result, operation, getResources()));
+                DisplayUtils.showSnackMessage(
+                        this, ErrorMessageAdapter.getErrorCauseMessage(result, operation, getResources())
+                );
 
             } catch (NotFoundException e) {
                 Log_OC.e(TAG, "Error while trying to show fail message ", e);
@@ -1718,7 +1725,9 @@ public class FileDisplayActivity extends HookActivity
             refreshListOfFilesFragment(false);
         } else {
             try {
-                showSnackMessage(ErrorMessageAdapter.getErrorCauseMessage(result, operation, getResources()));
+                DisplayUtils.showSnackMessage(
+                        this, ErrorMessageAdapter.getErrorCauseMessage(result, operation, getResources())
+                );
 
             } catch (NotFoundException e) {
                 Log_OC.e(TAG, "Error while trying to show fail message ", e);
@@ -1769,7 +1778,9 @@ public class FileDisplayActivity extends HookActivity
             }
 
         } else {
-            showSnackMessage(ErrorMessageAdapter.getErrorCauseMessage(result, operation, getResources()));
+            DisplayUtils.showSnackMessage(
+                    this, ErrorMessageAdapter.getErrorCauseMessage(result, operation, getResources())
+            );
 
             if (result.isSslRecoverableException()) {
                 mLastSslUntrustedServerResult = result;
@@ -1802,7 +1813,9 @@ public class FileDisplayActivity extends HookActivity
             refreshListOfFilesFragment(false);
         } else {
             try {
-                showSnackMessage(ErrorMessageAdapter.getErrorCauseMessage(result, operation, getResources()));
+                DisplayUtils.showSnackMessage(
+                        this, ErrorMessageAdapter.getErrorCauseMessage(result, operation, getResources())
+                );
 
             } catch (NotFoundException e) {
                 Log_OC.e(TAG, "Error while trying to show fail message ", e);
