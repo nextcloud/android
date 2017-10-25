@@ -185,11 +185,8 @@
     <string name="sync_fail_content">Synkronisering av %1$s kunne ikke fullføres</string>
     <string name="sync_fail_content_unauthorized">Feil passord for %1$s</string>
     <string name="sync_conflicts_in_favourites_ticker">Konflikter funnet</string>
-    <string name="sync_conflicts_in_favourites_content">%1$d hold-i-synk filer kunne ikke synkroniseres</string>
     <string name="sync_fail_in_favourites_ticker">Holdt-i-synk -filer mislyktes</string>
-    <string name="sync_fail_in_favourites_content">Innholdet av %1$d filer kunne ikke synkroniseres (%2$d konflikter)</string>
     <string name="sync_foreign_files_forgotten_ticker">Noen lokale filer ble glemt</string>
-    <string name="sync_foreign_files_forgotten_content">%1$d filer fra %2$s mappen kunne ikke kopieres til</string>
     <string name="sync_current_folder_was_removed">Mappen %1$s finnes ikke lengre</string>
     <string name="foreign_files_move">Flytt alle</string>
     <string name="foreign_files_success">Alle filene ble flyttet</string>
@@ -459,14 +456,6 @@
 
     <string name="username">Brukernavn</string>
 
-    <string name="file_list__footer__folder">1 mappe</string>
-    <string name="file_list__footer__folders">%1$d mapper</string>
-    <string name="file_list__footer__file">1 fil</string>
-    <string name="file_list__footer__file_and_folder">1 fil, 1 mappe</string>
-    <string name="file_list__footer__file_and_folders">1 fil, %1$d mapper</string>
-    <string name="file_list__footer__files">%1$d filer</string>
-    <string name="file_list__footer__files_and_folder">%1$d filer, 1 mappe</string>
-    <string name="file_list__footer__files_and_folders">%1$d filer, %2$d mapper</string>
     <string name="set_picture_as">Bruk bilde som</string>
     <string name="set_as">Bruk som</string>
 

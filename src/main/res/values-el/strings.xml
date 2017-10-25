@@ -176,11 +176,8 @@
     <string name="sync_fail_content">Ο συγχρονισμός του %1$s δεν μπόρεσε να ολοκληρωθεί</string>
     <string name="sync_fail_content_unauthorized">Εσφαλμένο συνθηματικό για τον %1$s</string>
     <string name="sync_conflicts_in_favourites_ticker">Βρέθηκαν διενέξεις</string>
-    <string name="sync_conflicts_in_favourites_content">%1$d αρχεία σε αναμονή προς συγχρονισμό δεν μπόρεσαν να συγχρονιστούν</string>
     <string name="sync_fail_in_favourites_ticker">Τα αρχεία σε αναμονή προς συγχρονισμού απέτυχαν</string>
-    <string name="sync_fail_in_favourites_content">Τα περιεχόμενα των %1$d αρχείων δεν μπόρεσαν να συγχρονιστούν (%2$d διενέξεις)</string>
     <string name="sync_foreign_files_forgotten_ticker">Ορισμένα τοπικά αρχεία ξεχάστηκαν</string>
-    <string name="sync_foreign_files_forgotten_content">%1$d αρχεία από τον %2$s φάκελο δεν ήταν δυνατό να αντιγραφούν σε</string>
     <string name="sync_current_folder_was_removed">Ο φάκελος %1$s δεν υπάρχει πια</string>
     <string name="upload_query_move_foreign_files">Δεν υπάρχει αρκετός διαθέσιμος αποθηκευτικός χώρος για να αντιγραφούν τα επιλεγμένα αρχεία στον φάκελο %1$s. Θα θέλατε να τα μετακινήσετε αντί αυτού;</string>
     <string name="pass_code_enter_pass_code">Παρακαλούμε εισάγετε τον κωδικό πρόσβασης</string>
@@ -429,14 +426,6 @@
 
     <string name="username">Όνομα χρήστη</string>
 
-    <string name="file_list__footer__folder">1 φάκελος</string>
-    <string name="file_list__footer__folders">%1$d φάκελοι</string>
-    <string name="file_list__footer__file">1 αρχείο</string>
-    <string name="file_list__footer__file_and_folder">1 αρχείο, 1 φάκελος</string>
-    <string name="file_list__footer__file_and_folders">1 αρχείο, %1$d φάκελοι</string>
-    <string name="file_list__footer__files">%1$d αρχεία</string>
-    <string name="file_list__footer__files_and_folder">%1$d αρχεία, 1 φάκελος</string>
-    <string name="file_list__footer__files_and_folders">%1$d αρχεία, %2$d φάκελοι</string>
     <string name="set_picture_as">Χρησιμοποίησε την εικόνα ως</string>
     <string name="set_as">Ορισμός ως</string>
 

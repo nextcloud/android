@@ -148,11 +148,8 @@
     <string name="sync_fail_ticker">Sync fejlede</string>
     <string name="sync_fail_content_unauthorized">Forkert password til %1$s</string>
     <string name="sync_conflicts_in_favourites_ticker">Konflikter fundet</string>
-    <string name="sync_conflicts_in_favourites_content">%1$d hold-synkroniseret filer kunne ikke synkroniseres</string>
     <string name="sync_fail_in_favourites_ticker">Hold-synkroniseret filer mislykkedes</string>
-    <string name="sync_fail_in_favourites_content">Indholdet af %1$d filer ikke kunne synkroniseres (%2$d konflikter)</string>
     <string name="sync_foreign_files_forgotten_ticker">Visse lokale filer blev glemt</string>
-    <string name="sync_foreign_files_forgotten_content">%1$d filer ud af %2$s mappe kunne ikke kopieres ind i</string>
     <string name="pass_code_enter_pass_code">Indtast venligst din adgangskode</string>
     
     <string name="pass_code_configure_your_pass_code">Angiv din passcode</string>
@@ -338,14 +335,6 @@
 
     <string name="username">Brugernavn</string>
 
-    <string name="file_list__footer__folder">1 mappe</string>
-    <string name="file_list__footer__folders">%1$d mapper</string>
-    <string name="file_list__footer__file">1 fil</string>
-    <string name="file_list__footer__file_and_folder">1 fil, 1 mappe</string>
-    <string name="file_list__footer__file_and_folders">1 fil, %1$d mapper</string>
-    <string name="file_list__footer__files">%1$d filer</string>
-    <string name="file_list__footer__files_and_folder">%1$d filer, 1 mape</string>
-    <string name="file_list__footer__files_and_folders">%1$d filer, %2$d mapper</string>
     <string name="upload_copy_files">Kopiér fil</string>
     <string name="upload_move_files">Flyt fil</string>
     <string name="select_all">Vælg alle</string>

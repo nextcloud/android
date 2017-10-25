@@ -180,11 +180,8 @@
     <string name="sync_fail_content">无法完成 %1$s 的同步</string>
     <string name="sync_fail_content_unauthorized">%1$s 的密码错误</string>
     <string name="sync_conflicts_in_favourites_ticker">发现冲突</string>
-    <string name="sync_conflicts_in_favourites_content">%1$d 文件无法同步</string>
     <string name="sync_fail_in_favourites_ticker">文件同步失败</string>
-    <string name="sync_fail_in_favourites_content">%1$d 文件无法被同步（%2$d 冲突）</string>
     <string name="sync_foreign_files_forgotten_ticker">某些本地文件已被遗忘</string>
-    <string name="sync_foreign_files_forgotten_content">%2$s 文件夹中的 %1$d 个文件不能被复制到</string>
     <string name="sync_current_folder_was_removed">文件夹%1$s不再存在</string>
     <string name="foreign_files_move">移动全部</string>
     <string name="upload_query_move_foreign_files">空间不足将阻止将所选文件复制到%1$s文件夹中。 你想把它们移到那里吗？</string>
@@ -433,14 +430,6 @@
 
     <string name="username">用户名</string>
 
-    <string name="file_list__footer__folder">1 个文件夹</string>
-    <string name="file_list__footer__folders">%1$d 个文件夹</string>
-    <string name="file_list__footer__file">1 个文件</string>
-    <string name="file_list__footer__file_and_folder">1 个文件，1 个文件夹</string>
-    <string name="file_list__footer__file_and_folders">1 个文件，%1$d 个文件夹</string>
-    <string name="file_list__footer__files">%1$d 个文件</string>
-    <string name="file_list__footer__files_and_folder">%1$d 个文件，1 个文件夹</string>
-    <string name="file_list__footer__files_and_folders">%1$d 个文件，%2$d 个文件夹</string>
     <string name="set_picture_as">将图片用作</string>
     <string name="set_as">设置</string>
 

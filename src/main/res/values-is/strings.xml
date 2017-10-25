@@ -177,11 +177,8 @@ Smelltu hér til að fá þér einn frá þjónustuaðila.</string>
     <string name="sync_fail_content">Gat ekki lokið samstillingu á %1$s</string>
     <string name="sync_fail_content_unauthorized">Rangt lykilorð fyrir %1$s</string>
     <string name="sync_conflicts_in_favourites_ticker">Árekstrar fundust</string>
-    <string name="sync_conflicts_in_favourites_content">%1$d skrár merktar fyrir samstillingu var ekki hægt að samstilla</string>
     <string name="sync_fail_in_favourites_ticker">Skrár merktar fyrir samstillingu mistókust</string>
-    <string name="sync_fail_in_favourites_content">Efni %1$d skráa var ekki hægt að samstilla (%2$d árekstrar)</string>
     <string name="sync_foreign_files_forgotten_ticker">Sumar staðværar skrár gleymdust</string>
-    <string name="sync_foreign_files_forgotten_content">%1$d skrár úr %2$s möppunni var ekki hægt að afrita í</string>
     <string name="sync_current_folder_was_removed">Mappan %1$ser ekki lengur til</string>
     <string name="upload_query_move_foreign_files">Ónógt pláss hamlar því að hægt sé að afrita valdar skrár í %1$s möppuna. Viltu færa þær þangað í staðinn?</string>
     <string name="pass_code_enter_pass_code">Settu inn lykilkóðann þinn</string>
@@ -429,14 +426,6 @@ Smelltu hér til að fá þér einn frá þjónustuaðila.</string>
 
     <string name="username">Notandanafn</string>
 
-    <string name="file_list__footer__folder">1 mappa</string>
-    <string name="file_list__footer__folders">%1$d möppur</string>
-    <string name="file_list__footer__file">1 skrá</string>
-    <string name="file_list__footer__file_and_folder">1 skrá, 1 mappa</string>
-    <string name="file_list__footer__file_and_folders">1 skrá, %1$d möppur</string>
-    <string name="file_list__footer__files">%1$d skrár</string>
-    <string name="file_list__footer__files_and_folder">%1$d skrár, 1 mappa</string>
-    <string name="file_list__footer__files_and_folders">%1$d skrár, %2$d möppur</string>
     <string name="set_picture_as">Nota mynd sem</string>
     <string name="set_as">Setja sem</string>
 
