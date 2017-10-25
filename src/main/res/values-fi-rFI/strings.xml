@@ -48,6 +48,7 @@
     <string name="prefs_calendar_contacts">Synkronoi kalenteri &amp; kontaktit</string>
     <string name="prefs_calendar_contacts_summary">Aseta DAVdroid (v1.3.0+) nykyiselle käyttäjälle</string>
     <string name="prefs_calendar_contacts_address_resolve_error">Käyttäjän palvelin osoitetta ei voitu selvittää DAVdroidille</string>
+    <string name="prefs_calendar_contacts_no_store_error">F-Droid tai Google Play ei ole asennettu</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Kalenterin &amp; yhteystieto synkronointi asetettu</string>
     <string name="prefs_daily_contacts_sync_summary">Päivittäinen varmuuskopio yhteystiedoistasi</string>
     <string name="prefs_help">Ohje</string>
@@ -55,7 +56,9 @@
     <string name="prefs_feedback">Palaute</string>
     <string name="prefs_imprint">Tiedot</string>
 
-	<string name="auth_check_server">Tarkista palvelin</string>
+	<string name="recommend_urls">%1$s tai %2$s</string>
+
+    <string name="auth_check_server">Tarkista palvelin</string>
     <string name="auth_host_url">Palvelimen osoite https://&#8230;</string>
     <string name="auth_username">Käyttäjätunnus</string>
     <string name="auth_password">Salasana</string>
@@ -154,6 +157,7 @@
     <string name="downloader_not_downloaded_yet">Ei vielä ladattu</string>
     <string name="downloader_download_failed_credentials_error">Lataus epäonnistui, kirjaudu sisään uudelleen</string>
     <string name="common_choose_account">Valitse tili</string>
+    <string name="common_switch_account">Vaihda tiliä</string>
     <string name="sync_fail_ticker">Synkronointi epäonnistui</string>
     <string name="sync_fail_ticker_unauthorized">Synkronointi epäonnistui. Kirjaudu sisään uudelleen</string>
     <string name="sync_conflicts_in_favourites_ticker">Ristiriitoja löytynyt</string>
@@ -163,6 +167,11 @@
     <string name="sync_foreign_files_forgotten_ticker">Jotkin paikalliset tiedostot unohtuivat</string>
     <string name="sync_foreign_files_forgotten_content">%1$d / %2$s tiedostoa ei voitu kopioida</string>
     <string name="sync_current_folder_was_removed">Kansiota %1$s ei ole enää olemassa</string>
+    <string name="foreign_files_move">Siirrä kaikki</string>
+    <string name="foreign_files_success">Kaikki tiedostot siirrettiin</string>
+    <string name="foreign_files_fail">Joitain tiedostoja ei voitu siirtää</string>
+    <string name="foreign_files_local_text">Paikallinen: %1$s</string>
+    <string name="foreign_files_remote_text">Etä: %1$s</string>
     <string name="pass_code_enter_pass_code">Anna suojakoodi</string>
     
     <string name="pass_code_configure_your_pass_code">Anna suojakoodisi</string>
@@ -172,10 +181,13 @@
     <string name="pass_code_wrong">Virheellinen suojakoodi</string>
     <string name="pass_code_stored">Suojakoodi tallennettu</string>
     
+    <string name="media_state_playing">%1$s (toistetaan)</string>
+    <string name="media_state_loading">%1$s (ladataan)</string>
     <string name="media_err_nothing_to_play">Mediatiedostoa ei löytynyt</string>
     <string name="media_err_no_account">Tiliä ei määritetty</string>
     <string name="media_err_not_in_owncloud">Tiedosto ei ole kelvollinen tili</string>
     <string name="media_err_unsupported">Mediakoodekki ei ole tuettu</string>
+    <string name="media_err_io">Mediatiedostoa ei voitu lukea</string>
     <string name="media_rewind_description">Taaksepäin kelaus -painike</string>
     <string name="media_play_pause_description">Toisto tai keskeytys -painike</string>
     <string name="media_forward_description">Eteenpäin kelaus -painike</string>
@@ -192,6 +204,7 @@
 	<string name="auth_incorrect_path_title">Palvelinta ei löytynyt</string>
 	<string name="auth_timeout_title">Palvelimen vastaus viipyy liian kauan</string>
 	<string name="auth_ssl_general_error_title">SSL:n alustus epäonnistui</string>
+	<string name="auth_ssl_unverified_server_title">SSL-palvelimen identiteettiä ei voitu vahvistaa</string>
 	<string name="auth_bad_oc_version_title">Tuntematon palvelimen versio</string>
 	<string name="auth_wrong_connection_title">Yhteyden muodostaminen ei onnistunut</string>
 	<string name="auth_secure_connection">Salattu yhteys muodostettu</string>
@@ -209,13 +222,20 @@
     <string name="favorite_real">Aseta suosikiksi</string>
     <string name="unset_favorite_real">Poista suosikeista</string>
     <string name="common_rename">Nimeä uudelleen</string>
+    <string name="common_remove">Poista</string>
+    <string name="confirmation_remove_file_alert">Haluatko varmasti poistaa kohteen %1$s?</string>
     <string name="confirmation_remove_local">Vain paikallinen</string>
+    <string name="remove_success_msg">Poistettu</string>
+    <string name="remove_fail_msg">Poistaminen epäonnistui</string>
     <string name="rename_dialog_title">Anna uusi nimi</string>
+    <string name="rename_server_fail_msg">Ei voitu antaa uutta nimeä palvelimelle</string>
+    <string name="sync_file_fail_msg">Ei voitu tarkistaa etätiedostoa</string>
     <string name="sync_file_nothing_to_do_msg">Tiedoston sisältö on jo synkronoitu</string>
     <string name="create_dir_fail_msg">Kansion luominen ei onnistunut</string>
     <string name="filename_forbidden_characters">Kielletyt merkit: / \\ &lt; &gt; : \" | ? *</string>
     <string name="filename_forbidden_charaters_from_server">Tiedoston nimi sisältää ainakin yhden virheellisen merkin</string>
     <string name="filename_empty">Tiedoston nimi ei voi olla tyhjä</string>
+    <string name="wait_a_moment">Odota hetki&#8230;</string>
     <string name="wait_checking_credentials">Tarkistetaan tallennettuja tilitietoja</string>
     <string name="filedisplay_no_file_selected">Tiedostoa ei ole valittu</string>
     <string name="activity_chooser_title">Lähetä linkki…</string>
@@ -411,6 +431,8 @@
     <string name="manage_space_error">Joitain tiedostoja ei voitu poistaa.</string>
 
     <string name="local_file_not_found_toast">Tiedostoa ei löytynyt paikallisesta tiedostojärjestelmästä</string>
+    <string name="confirmation_remove_files_alert">Haluatko varmasti poistaa valitut kohteet?</string>
+    <string name="confirmation_remove_folders_alert">Haluatko varmasti poistaa valitut kohteet ja niiden sisällön?</string>
     <string name="maintenance_mode">Palvelin on huoltotilassa</string>
     <string name="lock_failed">Tiedoston lukitseminen epäonnistui</string>
 
@@ -430,6 +452,7 @@
     <string name="move_to">Siirrä kohteeseen&#8230;</string>
     <string name="copy_to">Kopio kohteeseen&#8230;</string>
     <string name="choose_remote_folder">Valitse etäkansio&#8230;</string>
+    <string name="synced_folders_loading_folders">Ladataan kansioita&#8230;</string>
     <string name="synced_folders_no_results">Mediakansioita ei löytynyt.</string>
     <string name="synced_folders_settings">Asetukset</string>
     <plurals name="items_selected_count">
@@ -444,6 +467,9 @@
     <string name="notifications_no_results_headline">Ei ilmoituksia</string>
     <string name="upload_file_dialog_filename">Tiedostonimi</string>
     <string name="upload_file_dialog_filetype">Tiedostotyyppi</string>
+    <string name="upload_file_dialog_filetype_internet_shortcut">Internet-pikakuvaketiedosto(%s)</string>
+    <string name="upload_file_dialog_filetype_googlemap_shortcut">Google Maps -pikakuvaketiedosto(%s)</string>
+
     <string name="storage_description_default">Oletus</string>
     <string name="storage_description_sd_no">SD kortti %1$d</string>
     <string name="storage_description_unknown">Tuntematon</string>
@@ -500,6 +526,10 @@
     <string name="resharing_is_not_allowed">Uudelleenjakaminen ei ole sallittu</string>
     <string name="whats_new_fingerprint_title">Avaa lukitus sormenjäljellä</string>
     <string name="whats_new_fingerprint_content">Käytä sormenjälkeäsi sovelluksen lukituksen avaamiseen</string>
+    <string name="foreground_service_upload">Lähetetään tiedostoja&#8230;</string>
+    <string name="foreground_service_download">Ladataan tiedostoja&#8230;</string>
+
     <string name="prefs_sourcecode">Hanki lähdekoodi</string>
     <string name="prefs_license">Lisenssi</string>
-    </resources>
+    <string name="date_unknown">Tuntematon</string>
+</resources>
