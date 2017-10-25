@@ -125,7 +125,7 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
 
 
         findViewById(R.id.toolbar).post(() -> {
-            if (!appPrefs.getBoolean("expert_mode", false)) {
+            if (!appPrefs.getBoolean(Preferences.PREFERENCE_EXPERT_MODE, false)) {
                 findViewById(R.id.app_bar).getLayoutParams().height = findViewById(R.id.toolbar).getHeight();
 
                 AppBarLayout.LayoutParams p = (AppBarLayout.LayoutParams) mCollapsingToolbarLayout.getLayoutParams();
