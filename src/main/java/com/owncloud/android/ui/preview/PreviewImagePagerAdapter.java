@@ -20,7 +20,6 @@
 package com.owncloud.android.ui.preview;
 
 import android.accounts.Account;
-import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
@@ -64,7 +63,7 @@ public class PreviewImagePagerAdapter extends FragmentStatePagerAdapter {
      */
     public PreviewImagePagerAdapter(FragmentManager fragmentManager, OCFile parentFolder,
                                     Account account, FileDataStorageManager storageManager,
-                                    boolean onlyOnDevice, Context context) {
+                                    boolean onlyOnDevice) {
         super(fragmentManager);
         
         if (fragmentManager == null) {
