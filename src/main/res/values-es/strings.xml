@@ -322,7 +322,6 @@
     <string name="preview_image_error_no_local_file">No hay archivo local para previsualizar</string>
 
     <string name="error__upload__local_file_not_copied">%1$s no se ha podido copiar a la carpeta local %2$s</string>
-    <string name="prefs_instant_upload_path_title">Carpeta para subida instantánea</string>
     <string name="prefs_synced_folders_local_path_title">Carpeta local</string>
     <string name="prefs_synced_folders_remote_path_title">Carpeta remota</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Usar subcarpetas</string>
