@@ -49,6 +49,7 @@ import com.owncloud.android.services.observer.FileObserverService;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.ShareActivity;
 import com.owncloud.android.ui.events.FavoriteEvent;
+import com.owncloud.android.utils.DisplayUtils;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -182,10 +183,10 @@ public class FileOperationsHelper {
                 try {
                     mFileActivity.startActivity(openFileWithIntent);
                 } catch (ActivityNotFoundException anfe) {
-                    mFileActivity.showSnackMessage(mFileActivity.getString(R.string.file_list_no_app_for_file_type));
+                    DisplayUtils.showSnackMessage(mFileActivity, R.string.file_list_no_app_for_file_type);
                 }
             } else {
-                mFileActivity.showSnackMessage(mFileActivity.getString(R.string.file_list_no_app_for_file_type));
+                DisplayUtils.showSnackMessage(mFileActivity, R.string.file_list_no_app_for_file_type);
             }
 
         } else {
@@ -202,10 +203,7 @@ public class FileOperationsHelper {
     public void shareFileViaLink(OCFile file, String password) {
         if (isSharedSupported()) {
             if (file != null) {
-                mFileActivity.showLoadingDialog(
-                        mFileActivity.getApplicationContext().
-                                getString(R.string.wait_a_moment)
-                );
+                mFileActivity.showLoadingDialog(mFileActivity.getString(R.string.wait_a_moment));
                 Intent service = new Intent(mFileActivity, OperationsService.class);
                 service.setAction(OperationsService.ACTION_CREATE_SHARE_VIA_LINK);
                 service.putExtra(OperationsService.EXTRA_ACCOUNT, mFileActivity.getAccount());
@@ -222,7 +220,7 @@ public class FileOperationsHelper {
 
         } else {
             // Show a Message
-            mFileActivity.showSnackMessage(mFileActivity.getString(R.string.share_link_no_support_share_api));
+            DisplayUtils.showSnackMessage(mFileActivity, R.string.share_link_no_support_share_api);
         }
     }
 
@@ -243,7 +241,7 @@ public class FileOperationsHelper {
             }
         } else {
             // Show a Message
-            mFileActivity.showSnackMessage(mFileActivity.getString(R.string.share_link_no_support_share_api));
+            DisplayUtils.showSnackMessage(mFileActivity, R.string.share_link_no_support_share_api);
         }
     }
 
@@ -332,7 +330,7 @@ public class FileOperationsHelper {
 
         } else {
             // Show a Message
-            mFileActivity.showSnackMessage(mFileActivity.getString(R.string.share_link_no_support_share_api));
+            DisplayUtils.showSnackMessage(mFileActivity, R.string.share_link_no_support_share_api);
         }
     }
 

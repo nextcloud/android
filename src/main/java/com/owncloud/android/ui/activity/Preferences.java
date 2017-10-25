@@ -25,6 +25,7 @@ package com.owncloud.android.ui.activity;
 import android.accounts.Account;
 import android.accounts.AuthenticatorException;
 import android.accounts.OperationCanceledException;
+import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
@@ -46,7 +47,6 @@ import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
 import android.preference.SwitchPreference;
 import android.support.annotation.LayoutRes;
-import android.support.design.widget.Snackbar;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatDelegate;
@@ -70,6 +70,7 @@ import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.utils.AnalyticsUtils;
+import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.ThemeUtils;
 
 import java.io.IOException;
@@ -257,6 +258,7 @@ public class Preferences extends PreferenceActivity
         if (fPrint != null) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 if (FingerprintActivity.isFingerprintCapable(MainApp.getAppContext()) && fPrintEnabled) {
+                    final Activity activity = this;
                     fPrint.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
                         @Override
                         public boolean onPreferenceChange(Preference preference, Object newValue) {
@@ -272,7 +274,7 @@ public class Preferences extends PreferenceActivity
                                     return true;
                                 } else {
                                     if (incoming) {
-                                        showSnackMessage(R.string.prefs_fingerprint_notsetup);
+                                        DisplayUtils.showSnackMessage(activity, R.string.prefs_fingerprint_notsetup);
                                         fPrint.setChecked(false);
                                     }
                                     SharedPreferences appPrefs =
@@ -355,6 +357,7 @@ public class Preferences extends PreferenceActivity
         Preference pCalendarContacts = findPreference("calendar_contacts");
         if (pCalendarContacts != null) {
             if (calendarContactsEnabled) {
+                final Activity activity = this;
                 pCalendarContacts.setOnPreferenceClickListener(new OnPreferenceClickListener() {
                     @Override
                     public boolean onPreferenceClick(Preference preference) {
@@ -362,7 +365,10 @@ public class Preferences extends PreferenceActivity
                             launchDavDroidLogin();
                         } catch (Throwable t) {
                             Log_OC.e(TAG, "Base Uri for account could not be resolved to call DAVdroid!", t);
-                            showSnackMessage(R.string.prefs_calendar_contacts_address_resolve_error);
+                            DisplayUtils.showSnackMessage(
+                                    activity,
+                                    R.string.prefs_calendar_contacts_address_resolve_error
+                            );
                         }
                         return true;
                     }
@@ -667,7 +673,7 @@ public class Preferences extends PreferenceActivity
                         Uri.parse("https://f-droid.org/repository/browse/?fdid=at.bitfire.davdroid"));
                 startActivity(downloadIntent);
 
-                showSnackMessage(R.string.prefs_calendar_contacts_no_store_error);
+                DisplayUtils.showSnackMessage(this, R.string.prefs_calendar_contacts_no_store_error);
             }
         }
     }
@@ -739,7 +745,7 @@ public class Preferences extends PreferenceActivity
                 }
                 appPrefs.putBoolean(PassCodeActivity.PREFERENCE_SET_PASSCODE, true);
                 appPrefs.apply();
-                showSnackMessage(R.string.pass_code_stored);
+                DisplayUtils.showSnackMessage(this, R.string.pass_code_stored);
             }
         } else if (requestCode == ACTION_CONFIRM_PASSCODE && resultCode == RESULT_OK) {
             if (data.getBooleanExtra(PassCodeActivity.KEY_CHECK_RESULT, false)) {
@@ -749,10 +755,10 @@ public class Preferences extends PreferenceActivity
                 appPrefs.putBoolean(PassCodeActivity.PREFERENCE_SET_PASSCODE, false);
                 appPrefs.apply();
 
-                showSnackMessage(R.string.pass_code_removed);
+                DisplayUtils.showSnackMessage(this, R.string.pass_code_removed);
             }
         } else if (requestCode == ACTION_REQUEST_CODE_DAVDROID_SETUP && resultCode == RESULT_OK) {
-            showSnackMessage(R.string.prefs_calendar_contacts_sync_setup_successful);
+            DisplayUtils.showSnackMessage(this, R.string.prefs_calendar_contacts_sync_setup_successful);
         }
     }
 
@@ -898,14 +904,5 @@ public class Preferences extends PreferenceActivity
     @Override
     public void onCancelMigration() {
         // Migration was canceled so we don't do anything
-    }
-
-    /**
-     * Show a temporary message in a Snackbar bound to the content view
-     *
-     * @param messageResource Message to show.
-     */
-    private void showSnackMessage(int messageResource) {
-        Snackbar.make(findViewById(android.R.id.content), messageResource, Snackbar.LENGTH_LONG).show();
     }
 }

@@ -38,7 +38,9 @@ import android.graphics.drawable.PictureDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.support.annotation.NonNull;
+import android.support.annotation.StringRes;
 import android.support.design.widget.BottomNavigationView;
+import android.support.design.widget.Snackbar;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.format.DateUtils;
@@ -622,5 +624,40 @@ public class DisplayUtils {
             Log_OC.e(TAG, e.getMessage());
         }
         return text.toString();
+    }
+
+    /**
+     * Show a temporary message in a Snackbar bound to the content view.
+     *
+     * @param activity Activity to which's content view the Snackbar is bound.
+     * @param messageResource Message to show.
+     */
+    public static void showSnackMessage(Activity activity, @StringRes int messageResource) {
+        Snackbar.make(activity.findViewById(android.R.id.content), messageResource, Snackbar.LENGTH_LONG).show();
+    }
+
+    /**
+     * Show a temporary message in a Snackbar bound to the content view.
+     *
+     * @param activity        Activity to which's content view the Snackbar is bound.
+     * @param messageResource Resource id for the format string - message to show.
+     * @param formatArgs      The format arguments that will be used for substitution.
+     */
+    public static void showSnackMessage(Activity activity, @StringRes int messageResource, Object... formatArgs) {
+        Snackbar.make(
+                activity.findViewById(android.R.id.content),
+                String.format(activity.getString(messageResource, formatArgs)),
+                Snackbar.LENGTH_LONG)
+                .show();
+    }
+
+    /**
+     * Show a temporary message in a Snackbar bound to the content view.
+     *
+     * @param activity Activity to which's content view the Snackbar is bound.
+     * @param message Message to show.
+     */
+    public static void showSnackMessage(Activity activity, String message) {
+        Snackbar.make(activity.findViewById(android.R.id.content), message, Snackbar.LENGTH_LONG).show();
     }
 }

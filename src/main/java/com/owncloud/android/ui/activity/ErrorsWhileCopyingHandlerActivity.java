@@ -276,20 +276,15 @@ public class ErrorsWhileCopyingHandlerActivity  extends AppCompatActivity implem
             
             if (result) {
                 // nothing else to do in this activity
-                Toast t = Toast.makeText(ErrorsWhileCopyingHandlerActivity.this,
-                        getString(R.string.foreign_files_success), Toast.LENGTH_LONG);
-                t.show();
+                Toast.makeText(ErrorsWhileCopyingHandlerActivity.this,
+                        getString(R.string.foreign_files_success), Toast.LENGTH_LONG)
+                        .show();
                 finish();
                 
             } else {
-                Snackbar snackbar = Snackbar.make(
-                        findViewById(android.R.id.content),
-                        R.string.foreign_files_fail,
-                        Snackbar.LENGTH_LONG
-                );
-                snackbar.show();
+                Snackbar.make(findViewById(android.R.id.content),R.string.foreign_files_fail,Snackbar.LENGTH_LONG)
+                        .show();
             }
         }
-    }    
-
+    }
 }

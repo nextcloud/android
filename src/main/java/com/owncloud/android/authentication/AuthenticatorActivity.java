@@ -2225,7 +2225,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     @Override
     public void onFailedSavingCertificate() {
         dismissDialog(SAML_DIALOG_TAG);
-        showSnackMessage(R.string.ssl_validator_not_saved);
+        DisplayUtils.showSnackMessage(this, R.string.ssl_validator_not_saved);
     }
 
     @Override
@@ -2303,20 +2303,9 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         dialog.show(ft, CREDENTIALS_DIALOG_TAG);
 
         if (!mIsFirstAuthAttempt) {
-            showSnackMessage(R.string.saml_authentication_wrong_pass);
+            DisplayUtils.showSnackMessage(this, R.string.saml_authentication_wrong_pass);
         } else {
             mIsFirstAuthAttempt = false;
         }
-    }
-
-    /**
-     * For retrieving the clicking on authentication cancel button
-     */
-    public void doNegativeAuthenticatioDialogClick() {
-        mIsFirstAuthAttempt = true;
-    }
-
-    private void showSnackMessage(int messageResource) {
-        Snackbar.make(findViewById(android.R.id.content), messageResource, Snackbar.LENGTH_LONG).show();
     }
 }

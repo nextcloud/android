@@ -30,7 +30,6 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
@@ -43,6 +42,7 @@ import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.resources.files.FileUtils;
 import com.owncloud.android.ui.activity.ComponentsGetter;
+import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.ThemeUtils;
 
 
@@ -130,7 +130,7 @@ public class RenameFileDialogFragment
                     .getText().toString().trim();
             
             if (newFileName.length() <= 0) {
-                showSnackMessage(R.string.filename_empty);
+                DisplayUtils.showSnackMessage(getActivity(), R.string.filename_empty);
                 return;
             }
 
@@ -138,13 +138,13 @@ public class RenameFileDialogFragment
                     getFileOperationsHelper().isVersionWithForbiddenCharacters();
 
             if (!FileUtils.isValidName(newFileName, serverWithForbiddenChars)) {
-                int messageId = 0;
+
                 if (serverWithForbiddenChars) {
-                    messageId = R.string.filename_forbidden_charaters_from_server;
+                    DisplayUtils.showSnackMessage(getActivity(), R.string.filename_forbidden_charaters_from_server);
                 } else {
-                    messageId = R.string.filename_forbidden_characters;
+                    DisplayUtils.showSnackMessage(getActivity(), R.string.filename_forbidden_characters);
                 }
-                showSnackMessage(messageId);
+
                 return;
             }
 
@@ -152,18 +152,5 @@ public class RenameFileDialogFragment
                     renameFile(mTargetFile, newFileName);
 
         }
-    }
-
-    /**
-     * Show a temporary message in a Snackbar bound to the content view of the parent Activity
-     *
-     * @param messageResource Message to show.
-     */
-    private void showSnackMessage(int messageResource) {
-        Snackbar.make(
-                getActivity().findViewById(android.R.id.content),
-                messageResource,
-                Snackbar.LENGTH_LONG
-        ).show();
     }
 }

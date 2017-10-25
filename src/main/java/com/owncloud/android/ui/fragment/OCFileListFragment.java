@@ -390,16 +390,18 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
      * registers all listeners on all mini FABs.
      */
     private void registerFabListeners() {
-        registerFabUploadListeners();
-        registerFabMkDirListeners();
-        registerFabUploadFromAppListeners();
+        registerFabUploadListeners(getActivity());
+        registerFabMkDirListeners(getActivity());
+        registerFabUploadFromAppListeners(getActivity());
     }
 
     /**
      * registers {@link android.view.View.OnClickListener} and {@link android.view.View.OnLongClickListener}
      * on the Upload mini FAB for the linked action and {@link Snackbar} showing the underlying action.
+     *
+     * @param activity the activity on which's content the {@link Snackbar} will be shown.
      */
-    private void registerFabUploadListeners() {
+    private void registerFabUploadListeners(final Activity activity) {
         getFabUpload().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -413,7 +415,7 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
         getFabUpload().setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                showSnackMessage(R.string.actionbar_upload);
+                DisplayUtils.showSnackMessage(activity, R.string.actionbar_upload);
                 return true;
             }
         });
@@ -422,8 +424,10 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
     /**
      * registers {@link android.view.View.OnClickListener} and {@link android.view.View.OnLongClickListener}
      * on the 'Create Dir' mini FAB for the linked action and {@link Snackbar} showing the underlying action.
+     *
+     * @param activity the activity on which's content the {@link Snackbar} will be shown.
      */
-    private void registerFabMkDirListeners() {
+    private void registerFabMkDirListeners(final Activity activity) {
         getFabMkdir().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -438,7 +442,7 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
         getFabMkdir().setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                showSnackMessage(R.string.actionbar_mkdir);
+                DisplayUtils.showSnackMessage(activity, R.string.actionbar_mkdir);
                 return true;
             }
         });
@@ -447,8 +451,10 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
     /**
      * registers {@link android.view.View.OnClickListener} and {@link android.view.View.OnLongClickListener}
      * on the Upload from App mini FAB for the linked action and {@link Snackbar} showing the underlying action.
+     *
+     * @param activity the activity on which's content the {@link Snackbar} will be shown.
      */
-    private void registerFabUploadFromAppListeners() {
+    private void registerFabUploadFromAppListeners(final Activity activity) {
         getFabUploadFromApp().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -470,7 +476,7 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
         getFabUploadFromApp().setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                showSnackMessage(R.string.actionbar_upload_from_apps);
+                DisplayUtils.showSnackMessage(activity, R.string.actionbar_upload_from_apps);
                 return true;
             }
         });
@@ -1658,19 +1664,5 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
         for (int position = 0; position < listView.getCount(); position++) {
             listView.setItemChecked(position, select);
         }
-    }
-
-
-    /**
-     * Show a temporary message in a Snackbar bound to the content view of the parent Activity
-     *
-     * @param messageResource Message to show.
-     */
-    private void showSnackMessage(int messageResource) {
-        Snackbar.make(
-                getActivity().findViewById(android.R.id.content),
-                messageResource,
-                Snackbar.LENGTH_LONG
-        ).show();
     }
 }
