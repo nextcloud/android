@@ -176,11 +176,8 @@
     <string name="sync_fail_content">No fue posible completar la sincronización de %1$s</string>
     <string name="sync_fail_content_unauthorized">Contraseña inválida para %1$s</string>
     <string name="sync_conflicts_in_favourites_ticker">Se encontraron conflictos</string>
-    <string name="sync_conflicts_in_favourites_content">%1$d archivos mantenidos-en-sincronización no pudieron ser sinconizados</string>
     <string name="sync_fail_in_favourites_ticker">Falla en archivos mantenidos-en-sincronización.</string>
-    <string name="sync_fail_in_favourites_content">El contenido de%1$d archivos no pudo ser sincronizado (%2$d conflictos)</string>
     <string name="sync_foreign_files_forgotten_ticker">Algunos archivos locales se han perdido</string>
-    <string name="sync_foreign_files_forgotten_content">%1$d archivos de la carpeta %2$s no pudieron ser copiadas</string>
     <string name="sync_current_folder_was_removed">La carpeta %1$s ya no existe</string>
     <string name="upload_query_move_foreign_files">El espacio insuficiente evita que se copien los archivos seleccionados dentro de la carpeta %1$s. ¿Le gustaría moverlos ahí en su lugar?</string>
     <string name="pass_code_enter_pass_code">Favor de ingresar su código de seguridad</string>
@@ -424,14 +421,6 @@
 
     <string name="username">Nombre de usuario</string>
 
-    <string name="file_list__footer__folder">1 carpeta</string>
-    <string name="file_list__footer__folders">%1$d carpetas</string>
-    <string name="file_list__footer__file">1 archivo</string>
-    <string name="file_list__footer__file_and_folder">1 archivo, 1 carpeta</string>
-    <string name="file_list__footer__file_and_folders">1 archivo, %1$d carpeta</string>
-    <string name="file_list__footer__files">%1$d archivos</string>
-    <string name="file_list__footer__files_and_folder">%1$d archivos, 1 carpeta</string>
-    <string name="file_list__footer__files_and_folders">%1$d archivos, %2$d carpetas</string>
     <string name="set_picture_as">Usar imagen como</string>
     <string name="set_as">Establecer Como</string>
 

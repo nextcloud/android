@@ -140,11 +140,8 @@
     <string name="sync_fail_ticker">Синхронизацията се провали</string>
     <string name="sync_fail_ticker_unauthorized">Синхронизацията е неуспешна, трябва да се впишете отново.</string>
     <string name="sync_conflicts_in_favourites_ticker">Открити са конфликти</string>
-    <string name="sync_conflicts_in_favourites_content">%1$d kept-in-sync файла не могат да бъдат сихронизирани</string>
     <string name="sync_fail_in_favourites_ticker">Неуспешни Kept-in-sync файлове</string>
-    <string name="sync_fail_in_favourites_content">%1$d файла не могат да бъдат синхронизирани (%2$d конфликта)</string>
     <string name="sync_foreign_files_forgotten_ticker">Някои локални файлове бяха забравени.</string>
-    <string name="sync_foreign_files_forgotten_content">%1$d файла от %2$s папки не могат да бъдат копирани</string>
     <string name="pass_code_enter_pass_code">Моля, въведете кода за достъп</string>
     
     <string name="pass_code_configure_your_pass_code">Въведете кода за достъп</string>
@@ -308,14 +305,6 @@
 
     <string name="username">Потребител</string>
 
-    <string name="file_list__footer__folder">1 папка</string>
-    <string name="file_list__footer__folders">%1$d папки</string>
-    <string name="file_list__footer__file">1 файл</string>
-    <string name="file_list__footer__file_and_folder">1 файл, 1 папка</string>
-    <string name="file_list__footer__file_and_folders">1 файл, %1$d папки</string>
-    <string name="file_list__footer__files">%1$d файла</string>
-    <string name="file_list__footer__files_and_folder">%1$d файла, 1 папка</string>
-    <string name="file_list__footer__files_and_folders">%1$d файла, %2$d папки</string>
     <string name="prefs_instant_behaviour_dialogTitle">Оригиналните файлове ще бъдат &#8230;</string>
     <string name="prefs_instant_behaviour_title">Оригиналните файлове ще бъдат &#8230;</string>
     <string name="upload_copy_files">Копирай файла</string>

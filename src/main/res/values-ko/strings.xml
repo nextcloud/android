@@ -166,11 +166,8 @@
     <string name="sync_fail_ticker_unauthorized">동기화 실패, 다시 로그인 해야 합니다</string>
     <string name="sync_fail_content">%1$s의 동기화를 완료할 수 없습니다</string>
     <string name="sync_conflicts_in_favourites_ticker">충돌하는 항목 발견됨</string>
-    <string name="sync_conflicts_in_favourites_content">동기화된 파일 중 %1$d개를 동기화할 수 없습니다</string>
     <string name="sync_fail_in_favourites_ticker">파일을 동기화할 수 없었습니다</string>
-    <string name="sync_fail_in_favourites_content">파일 %1$d개의 내용을 동기화할 수 없습니다 (충돌 %2$d개)</string>
     <string name="sync_foreign_files_forgotten_ticker">일부 로컬 파일이 사라졌습니다.</string>
-    <string name="sync_foreign_files_forgotten_content">폴더 %2$s의 파일 중 %1$d개를 복사할 수 없습니다</string>
     <string name="sync_current_folder_was_removed">%1$s 폴더는 더 이상 존재하지 않습니다</string>
     <string name="pass_code_enter_pass_code">암호코드를 입력하십시오</string>
     
@@ -361,14 +358,6 @@
 
     <string name="username">사용자 이름</string>
 
-    <string name="file_list__footer__folder">폴더 1개</string>
-    <string name="file_list__footer__folders">폴더 %1$d개</string>
-    <string name="file_list__footer__file">파일 1개</string>
-    <string name="file_list__footer__file_and_folder">파일 1개, 폴더 1개</string>
-    <string name="file_list__footer__file_and_folders">파일 1개, 폴더 %1$d개</string>
-    <string name="file_list__footer__files">파일 %1$d개</string>
-    <string name="file_list__footer__files_and_folder">파일 %1$d개, 폴더 1개</string>
-    <string name="file_list__footer__files_and_folders">파일 %1$d개, 폴더 %2$d개</string>
     <string name="prefs_instant_behaviour_dialogTitle">원래 파일은&#8230;</string>
     <string name="prefs_instant_behaviour_title">원래 파일은&#8230;</string>
     <string name="upload_copy_files">파일 복사</string>

@@ -149,11 +149,8 @@
     <string name="common_choose_account">Zvoliť účet</string>
     <string name="sync_fail_ticker">Synchronizácia neúspešná</string>
     <string name="sync_conflicts_in_favourites_ticker">Objavené konflikty</string>
-    <string name="sync_conflicts_in_favourites_content">%1$d súborov z automatickej synchronizácie nemožno synchronizovať</string>
     <string name="sync_fail_in_favourites_ticker">Automatická synchronizácia súborov zlyhala</string>
-    <string name="sync_fail_in_favourites_content">Obsah %1$d súborov nemohol byť synchronizovaný (%2$d konfliktov)</string>
     <string name="sync_foreign_files_forgotten_ticker">Niektoré lokálne súbory boli zabudnuté</string>
-    <string name="sync_foreign_files_forgotten_content">%1$d súborov z %2$s priečinkov sa nepodarilo skopírovať do</string>
     <string name="pass_code_enter_pass_code">Vložte prosím svoje heslo</string>
     
     <string name="pass_code_configure_your_pass_code">Vložte svoje heslo</string>
@@ -318,14 +315,6 @@
 
     <string name="username">Používateľské meno</string>
 
-    <string name="file_list__footer__folder">1 priečinok</string>
-    <string name="file_list__footer__folders">%1$d prieč.</string>
-    <string name="file_list__footer__file">1 súbor</string>
-    <string name="file_list__footer__file_and_folder">1 súbor, 1 priečinok</string>
-    <string name="file_list__footer__file_and_folders">1 súbor, %1$d prieč.</string>
-    <string name="file_list__footer__files">%1$d súb.</string>
-    <string name="file_list__footer__files_and_folder">%1$d súb., 1 priečinok</string>
-    <string name="file_list__footer__files_and_folders">%1$d súb., %2$d prieč.</string>
     <string name="prefs_instant_behaviour_dialogTitle">Pôvodný súbor bude&#8230;</string>
     <string name="prefs_instant_behaviour_title">Pôvodný súbor bude&#8230;</string>
     <string name="upload_copy_files">Kopírovať súbor</string>
