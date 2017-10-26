@@ -31,12 +31,12 @@ import android.view.View;
 import android.view.WindowManager.LayoutParams;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.resources.files.FileUtils;
 import com.owncloud.android.ui.activity.ComponentsGetter;
+import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.ThemeUtils;
 
 /**
@@ -116,23 +116,19 @@ public class CreateFolderDialogFragment
                         .getText().toString().trim();
             
             if (newFolderName.length() <= 0) {
-                Toast.makeText(
-                        getActivity(),
-                        R.string.filename_empty, 
-                        Toast.LENGTH_LONG).show();
+                DisplayUtils.showSnackMessage(getActivity(), R.string.filename_empty);
                 return;
             }
             boolean serverWithForbiddenChars = ((ComponentsGetter)getActivity()).
                     getFileOperationsHelper().isVersionWithForbiddenCharacters();
 
             if (!FileUtils.isValidName(newFolderName, serverWithForbiddenChars)) {
-                int messageId = 0;
+
                 if (serverWithForbiddenChars) {
-                    messageId = R.string.filename_forbidden_charaters_from_server;
+                    DisplayUtils.showSnackMessage(getActivity(), R.string.filename_forbidden_charaters_from_server);
                 } else {
-                    messageId = R.string.filename_forbidden_characters;
+                    DisplayUtils.showSnackMessage(getActivity(), R.string.filename_forbidden_characters);
                 }
-                Toast.makeText(getActivity(), messageId, Toast.LENGTH_LONG).show();
 
                 return;
             }
@@ -143,5 +139,4 @@ public class CreateFolderDialogFragment
                 getFileOperationsHelper().createFolder(path, false);
         }
     }
-        
 }
