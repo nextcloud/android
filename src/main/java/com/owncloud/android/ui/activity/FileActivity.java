@@ -67,6 +67,7 @@ import com.owncloud.android.ui.dialog.ConfirmationDialogFragment;
 import com.owncloud.android.ui.dialog.LoadingDialog;
 import com.owncloud.android.ui.dialog.SslUntrustedCertDialog;
 import com.owncloud.android.ui.helpers.FileOperationsHelper;
+import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.ErrorMessageAdapter;
 
 
@@ -305,10 +306,9 @@ public abstract class FileActivity extends DrawerActivity
             requestCredentialsUpdate(this);
 
             if (result.getCode() == ResultCode.UNAUTHORIZED) {
-                Toast t = Toast.makeText(this, ErrorMessageAdapter.getErrorCauseMessage(result,
-                        operation, getResources()),
-                    Toast.LENGTH_LONG);
-                t.show();
+                DisplayUtils.showSnackMessage(
+                        this, ErrorMessageAdapter.getErrorCauseMessage(result, operation, getResources())
+                );
             }
 
         } else if (!result.isSuccess() && ResultCode.SSL_RECOVERABLE_PEER_UNVERIFIED.equals(result.getCode())) {
@@ -326,10 +326,9 @@ public abstract class FileActivity extends DrawerActivity
                 updateFileFromDB();
 
             } else if (result.getCode() != ResultCode.CANCELLED) {
-                Toast t = Toast.makeText(this,
-                        ErrorMessageAdapter.getErrorCauseMessage(result, operation, getResources()),
-                        Toast.LENGTH_LONG);
-                t.show();
+                DisplayUtils.showSnackMessage(
+                        this, ErrorMessageAdapter.getErrorCauseMessage(result, operation, getResources())
+                );
             }
 
         } else if (operation instanceof SynchronizeFileOperation) {
@@ -340,10 +339,9 @@ public abstract class FileActivity extends DrawerActivity
                 updateFileFromDB();
 
             } else {
-                Toast t = Toast.makeText(this,
-                        ErrorMessageAdapter.getErrorCauseMessage(result, operation, getResources()),
-                        Toast.LENGTH_LONG);
-                t.show();
+                DisplayUtils.showSnackMessage(
+                        this, ErrorMessageAdapter.getErrorCauseMessage(result, operation, getResources())
+                );
             }
         }
     }
@@ -379,8 +377,7 @@ public abstract class FileActivity extends DrawerActivity
             }
             OwnCloudClient client;
             OwnCloudAccount ocAccount = new OwnCloudAccount(account, context);
-            client = (OwnCloudClientManagerFactory.getDefaultSingleton().
-                    removeClientFor(ocAccount));
+            client = (OwnCloudClientManagerFactory.getDefaultSingleton().removeClientFor(ocAccount));
             if (client != null) {
                 OwnCloudCredentials cred = client.getCredentials();
                 if (cred != null) {
@@ -406,7 +403,7 @@ public abstract class FileActivity extends DrawerActivity
             startActivityForResult(updateAccountCredentials, REQUEST_CODE__UPDATE_CREDENTIALS);
 
         } catch (com.owncloud.android.lib.common.accounts.AccountUtils.AccountNotFoundException e) {
-            Toast.makeText(context, R.string.auth_account_does_not_exist, Toast.LENGTH_SHORT).show();
+            DisplayUtils.showSnackMessage(this, R.string.auth_account_does_not_exist);
         }
 
     }
@@ -584,5 +581,4 @@ public abstract class FileActivity extends DrawerActivity
     public void onCancelCertificate() {
         // nothing to do
     }
-
 }

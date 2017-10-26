@@ -56,7 +56,6 @@ import android.widget.ListView;
 import android.widget.PopupMenu;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
@@ -391,16 +390,18 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
      * registers all listeners on all mini FABs.
      */
     private void registerFabListeners() {
-        registerFabUploadListeners();
-        registerFabMkDirListeners();
-        registerFabUploadFromAppListeners();
+        registerFabUploadListeners(getActivity());
+        registerFabMkDirListeners(getActivity());
+        registerFabUploadFromAppListeners(getActivity());
     }
 
     /**
      * registers {@link android.view.View.OnClickListener} and {@link android.view.View.OnLongClickListener}
-     * on the Upload mini FAB for the linked action and {@link Toast} showing the underlying action.
+     * on the Upload mini FAB for the linked action and {@link Snackbar} showing the underlying action.
+     *
+     * @param activity the activity on which's content the {@link Snackbar} will be shown.
      */
-    private void registerFabUploadListeners() {
+    private void registerFabUploadListeners(final Activity activity) {
         getFabUpload().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -414,7 +415,7 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
         getFabUpload().setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                Toast.makeText(getActivity(), R.string.actionbar_upload, Toast.LENGTH_SHORT).show();
+                DisplayUtils.showSnackMessage(activity, R.string.actionbar_upload);
                 return true;
             }
         });
@@ -422,9 +423,11 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
 
     /**
      * registers {@link android.view.View.OnClickListener} and {@link android.view.View.OnLongClickListener}
-     * on the 'Create Dir' mini FAB for the linked action and {@link Toast} showing the underlying action.
+     * on the 'Create Dir' mini FAB for the linked action and {@link Snackbar} showing the underlying action.
+     *
+     * @param activity the activity on which's content the {@link Snackbar} will be shown.
      */
-    private void registerFabMkDirListeners() {
+    private void registerFabMkDirListeners(final Activity activity) {
         getFabMkdir().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -439,7 +442,7 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
         getFabMkdir().setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                Toast.makeText(getActivity(), R.string.actionbar_mkdir, Toast.LENGTH_SHORT).show();
+                DisplayUtils.showSnackMessage(activity, R.string.actionbar_mkdir);
                 return true;
             }
         });
@@ -447,9 +450,11 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
 
     /**
      * registers {@link android.view.View.OnClickListener} and {@link android.view.View.OnLongClickListener}
-     * on the Upload from App mini FAB for the linked action and {@link Toast} showing the underlying action.
+     * on the Upload from App mini FAB for the linked action and {@link Snackbar} showing the underlying action.
+     *
+     * @param activity the activity on which's content the {@link Snackbar} will be shown.
      */
-    private void registerFabUploadFromAppListeners() {
+    private void registerFabUploadFromAppListeners(final Activity activity) {
         getFabUploadFromApp().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -471,9 +476,7 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
         getFabUploadFromApp().setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                Toast.makeText(getActivity(),
-                        R.string.actionbar_upload_from_apps,
-                        Toast.LENGTH_SHORT).show();
+                DisplayUtils.showSnackMessage(activity, R.string.actionbar_upload_from_apps);
                 return true;
             }
         });
@@ -1662,5 +1665,4 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
             listView.setItemChecked(position, select);
         }
     }
-
 }
