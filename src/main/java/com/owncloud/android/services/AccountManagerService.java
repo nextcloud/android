@@ -15,6 +15,7 @@ import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
+import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.asynctasks.AsyncTaskHelper;
 
@@ -164,6 +165,7 @@ public class AccountManagerService extends Service {
                                 bResp.putByteArray("result", (byte[]) result);
                             } else {
                                 // TODO return streaming server port
+                                Log_OC.d(TAG, "Stream found, but currently not used");
                             }
                             bResp.putSerializable("exception", exception);
                             resp.setData(bResp);
