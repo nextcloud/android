@@ -1348,8 +1348,6 @@ public class FileContentProvider extends ContentProvider {
      * structure to include in it the path to the server instance. Updating the account names and path to local files
      * in the files table is a must to keep the existing account working and the database clean.
      *
-     * See {@link com.owncloud.android.authentication.AccountUtils#updateAccountVersion(android.content.Context)}
-     *
      * @param db Database where table of files is included.
      */
     private void updateAccountName(SQLiteDatabase db) {
