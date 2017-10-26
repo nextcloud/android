@@ -17,7 +17,7 @@ import java.util.concurrent.Callable;
 public class AsyncTaskHelper {
 
     @RequiresApi(api = Build.VERSION_CODES.HONEYCOMB)
-    public static <T> T ExecuteBlockingRequest(Callable<T> callable) throws Exception {
+    public static <T> T executeBlockingRequest(Callable<T> callable) throws Exception {
         GenericAsyncTaskWithCallable<T> at = new GenericAsyncTaskWithCallable<>(callable);
 
         T result = at.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR).get();

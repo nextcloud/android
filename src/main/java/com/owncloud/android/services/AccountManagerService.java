@@ -33,7 +33,6 @@ import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.net.SocketAddress;
 import java.util.Map;
-import java.util.concurrent.Callable;
 
 import de.luhmer.owncloud.accountimporter.helper.InputStreamBinder;
 import de.luhmer.owncloud.accountimporter.helper.NextcloudRequest;
@@ -42,18 +41,16 @@ public class AccountManagerService extends Service {
 
     private static final String TAG = AccountManagerService.class.getCanonicalName();
 
-    public AccountManagerService() { }
-
-    @Override
-    public IBinder onBind(Intent intent) {
-        return (new InputStreamBinder(this));
-    }
-
     /** Command to the service to display a message */
     private static final int MSG_CREATE_NEW_ACCOUNT = 3;
 
     private static final int MSG_REQUEST_NETWORK_REQUEST = 4;
     private static final int MSG_RESPONSE_NETWORK_REQUEST = 5;
+
+    @Override
+    public IBinder onBind(Intent intent) {
+        return (new InputStreamBinder(this));
+    }
 
     /**
      * Handler of incoming messages from clients.
@@ -80,82 +77,79 @@ public class AccountManagerService extends Service {
                         Object result = null;
                         Exception exception = null;
                         try {
-                            result = AsyncTaskHelper.ExecuteBlockingRequest(new Callable<Object>() {
-                                @Override
-                                public Object call() throws Exception {
-                                    Account account = AccountUtils.getOwnCloudAccountByName(AccountManagerService.this, accountName); // TODO handle case that account is not found!
-                                    OwnCloudAccount ocAccount = new OwnCloudAccount(account, AccountManagerService.this);
-                                    OwnCloudClient client = OwnCloudClientManagerFactory.getDefaultSingleton().getClientFor(ocAccount, AccountManagerService.this);
+                            result = AsyncTaskHelper.executeBlockingRequest(() -> {
+                                Account account = AccountUtils.getOwnCloudAccountByName(AccountManagerService.this, accountName); // TODO handle case that account is not found!
+                                OwnCloudAccount ocAccount = new OwnCloudAccount(account, AccountManagerService.this);
+                                OwnCloudClient client = OwnCloudClientManagerFactory.getDefaultSingleton().getClientFor(ocAccount, AccountManagerService.this);
 
-                                    //OwnCloudVersion version = AccountUtils.getServerVersion(account);
-                                    //client.setOwnCloudVersion(version);
+                                //OwnCloudVersion version = AccountUtils.getServerVersion(account);
+                                //client.setOwnCloudVersion(version);
 
-                                    // TODO do some checks if url is correct!! (prevent ../ in url etc..
-                                    request.url = client.getBaseUri() + request.url;
+                                // TODO do some checks if url is correct!! (prevent ../ in url etc..
+                                request.url = client.getBaseUri() + request.url;
 
-                                    INetworkInterface network = (stream) ? new StreamingRequest(port) : new PlainRequest();
+                                INetworkInterface network = (stream) ? new StreamingRequest(port) : new PlainRequest();
 
-                                    switch(request.method) {
-                                        case "GET":
-                                            GetMethod get = new GetMethod(request.url);
-                                            get.setQueryString(convertMapToNVP(request.parameter));
-                                            get.addRequestHeader("OCS-APIREQUEST", "true");
-                                            int status = client.executeMethod(get);
-                                            if(status == 200) {
-                                                return network.handleGetRequest(get);
-                                            } else {
-                                                throw new Exception("Network error!!");
-                                            }
-                                        case "POST":
-                                            PostMethod post = new PostMethod(request.url);
-                                            post.setQueryString(convertMapToNVP(request.parameter));
-                                            post.addRequestHeader("OCS-APIREQUEST", "true");
+                                switch(request.method) {
+                                    case "GET":
+                                        GetMethod get = new GetMethod(request.url);
+                                        get.setQueryString(convertMapToNVP(request.parameter));
+                                        get.addRequestHeader("OCS-APIREQUEST", "true");
+                                        int status = client.executeMethod(get);
+                                        if(status == 200) {
+                                            return network.handleGetRequest(get);
+                                        } else {
+                                            throw new Exception("Network error!!");
+                                        }
+                                    case "POST":
+                                        PostMethod post = new PostMethod(request.url);
+                                        post.setQueryString(convertMapToNVP(request.parameter));
+                                        post.addRequestHeader("OCS-APIREQUEST", "true");
 
-                                            if(request.requestBody != null) {
-                                                StringRequestEntity requestEntity = new StringRequestEntity(
-                                                        request.requestBody,
-                                                        "application/json",
-                                                        "UTF-8");
-                                                post.setRequestEntity(requestEntity);
-                                            }
-                                            int status2 = client.executeMethod(post);
-                                            if(status2 == 200) {
-                                                return network.handlePostRequest(post);
-                                            } else {
-                                                throw new Exception("Network error!!");
-                                            }
-                                        case "PUT":
-                                            PutMethod put = new PutMethod(request.url);
-                                            put.setQueryString(convertMapToNVP(request.parameter));
-                                            put.addRequestHeader("OCS-APIREQUEST", "true");
+                                        if(request.requestBody != null) {
+                                            StringRequestEntity requestEntity = new StringRequestEntity(
+                                                    request.requestBody,
+                                                    "application/json",
+                                                    "UTF-8");
+                                            post.setRequestEntity(requestEntity);
+                                        }
+                                        int status2 = client.executeMethod(post);
+                                        if(status2 == 200) {
+                                            return network.handlePostRequest(post);
+                                        } else {
+                                            throw new Exception("Network error!!");
+                                        }
+                                    case "PUT":
+                                        PutMethod put = new PutMethod(request.url);
+                                        put.setQueryString(convertMapToNVP(request.parameter));
+                                        put.addRequestHeader("OCS-APIREQUEST", "true");
 
-                                            if(request.requestBody != null) {
-                                                StringRequestEntity requestEntity = new StringRequestEntity(
-                                                        request.requestBody,
-                                                        "application/json",
-                                                        "UTF-8");
-                                                put.setRequestEntity(requestEntity);
-                                            }
-                                            int status4 = client.executeMethod(put);
-                                            if(status4 == 200) {
-                                                return network.handlePutRequest(put);
-                                            } else {
-                                                throw new Exception("Network error!!");
-                                            }
+                                        if(request.requestBody != null) {
+                                            StringRequestEntity requestEntity = new StringRequestEntity(
+                                                    request.requestBody,
+                                                    "application/json",
+                                                    "UTF-8");
+                                            put.setRequestEntity(requestEntity);
+                                        }
+                                        int status4 = client.executeMethod(put);
+                                        if(status4 == 200) {
+                                            return network.handlePutRequest(put);
+                                        } else {
+                                            throw new Exception("Network error!!");
+                                        }
 
-                                        case "DELETE":
-                                            DeleteMethod delete = new DeleteMethod(request.url);
-                                            delete.setQueryString(convertMapToNVP(request.parameter));
-                                            delete.addRequestHeader("OCS-APIREQUEST", "true");
-                                            int status3 = client.executeMethod(delete);
-                                            if(status3 == 200) {
-                                                return true;
-                                            } else {
-                                                throw new Exception("Network error!!");
-                                            }
-                                        default:
-                                            throw new Exception("Unexpected type!!");
-                                    }
+                                    case "DELETE":
+                                        DeleteMethod delete = new DeleteMethod(request.url);
+                                        delete.setQueryString(convertMapToNVP(request.parameter));
+                                        delete.addRequestHeader("OCS-APIREQUEST", "true");
+                                        int status3 = client.executeMethod(delete);
+                                        if(status3 == 200) {
+                                            return true;
+                                        } else {
+                                            throw new Exception("Network error!!");
+                                        }
+                                    default:
+                                        throw new Exception("Unexpected type!!");
                                 }
                             });
                         } catch (Exception e) {
@@ -225,7 +219,7 @@ public class AccountManagerService extends Service {
 
     public class StreamingRequest implements INetworkInterface {
 
-        int port;
+        private int port;
 
         public StreamingRequest(int port) {
             this.port = port;
@@ -245,7 +239,7 @@ public class AccountManagerService extends Service {
                 InputStream in = get.getResponseBodyAsStream();
                 OutputStream out = m_activity_socket.getOutputStream();
                 // the header describes the frame data (type, width, height, length)
-                // frame width and heigth have been previously decoded
+                // frame width and height have been previously decoded
                 //byte[] header = new byte[16];
                 //build_header( 1, width, height, frameData.length, header, 1 );
                 //m_nos.write( header );  // message header
