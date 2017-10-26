@@ -89,7 +89,7 @@ public class InputStreamBinder extends IInputStreamService.Stub {
 
     private InputStream processRequest(final NextcloudRequest request) {
         try {
-            return AsyncTaskHelper.ExecuteBlockingRequest(new Callable<InputStream>() {
+            return AsyncTaskHelper.executeBlockingRequest(new Callable<InputStream>() {
                 @Override
                 public InputStream call() throws Exception {
                     Account account = AccountUtils.getOwnCloudAccountByName(context, request.accountName); // TODO handle case that account is not found!

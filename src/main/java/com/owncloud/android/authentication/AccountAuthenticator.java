@@ -57,6 +57,7 @@ public class AccountAuthenticator extends AbstractAccountAuthenticator {
     public static final String KEY_REQUIRED_FEATURES = "requiredFeatures";
     public static final String KEY_LOGIN_OPTIONS = "loginOptions";
     public static final String KEY_ACCOUNT = "account";
+    private static final String NEXTCLOUD_SSO = "NextcloudSSO";
     
     private static final String TAG = AccountAuthenticator.class.getSimpleName();
     
@@ -158,7 +159,7 @@ public class AccountAuthenticator extends AbstractAccountAuthenticator {
             Account account, String authTokenType, Bundle options)
             throws NetworkErrorException {
 
-        if(authTokenType.equals("NextcloudSSO")) {
+        if (NEXTCLOUD_SSO.equals(authTokenType)) {
             AccountManager am = AccountManager.get(mContext);
             final Bundle result = new Bundle();
 
@@ -167,7 +168,7 @@ public class AccountAuthenticator extends AbstractAccountAuthenticator {
 
             result.putString(AccountManager.KEY_ACCOUNT_NAME,  account.name);
             result.putString(AccountManager.KEY_ACCOUNT_TYPE,  MainApp.getAccountType());
-            result.putString(AccountManager.KEY_AUTHTOKEN,     "NextcloudSSO");
+            result.putString(AccountManager.KEY_AUTHTOKEN,     NEXTCLOUD_SSO);
             result.putString("username",                       username);
             result.putString("password",                       am.getPassword(account));
             result.putString("server_url",                     "https://" + server);

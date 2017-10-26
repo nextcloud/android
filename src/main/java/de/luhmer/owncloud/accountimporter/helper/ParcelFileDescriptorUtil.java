@@ -37,10 +37,10 @@ public class ParcelFileDescriptorUtil {
         return writeSide;
     }
 
-    static class TransferThread extends Thread {
-        final InputStream mIn;
-        final OutputStream mOut;
-        final IThreadListener mListener;
+    public static class TransferThread extends Thread {
+        private final InputStream mIn;
+        private final OutputStream mOut;
+        private final IThreadListener mListener;
 
         TransferThread(InputStream in, OutputStream out, IThreadListener listener) {
             super("ParcelFileDescriptor Transfer Thread");
