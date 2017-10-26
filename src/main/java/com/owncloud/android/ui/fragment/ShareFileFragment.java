@@ -43,7 +43,6 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.ScrollView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
@@ -247,8 +246,11 @@ public class ShareFileFragment extends Fragment implements ShareUserListAdapter.
                     // Show Search Fragment
                     mListener.showSearchUsersAndGroups();
                 } else {
-                    String message = getString(R.string.share_sharee_unavailable);
-                    Toast.makeText(getActivity(), message, Toast.LENGTH_LONG).show();
+                    Snackbar.make(
+                            getActivity().findViewById(android.R.id.content),
+                            getString(R.string.share_sharee_unavailable),
+                            Snackbar.LENGTH_LONG
+                    ).show();
                 }
             }
         });
