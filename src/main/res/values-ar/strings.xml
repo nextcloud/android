@@ -232,7 +232,6 @@
 
     <string name="placeholder_sentence">هذه مساحة محجوزة</string>
     <string name="placeholder_filename">placeholder.txt</string>
-    <string name="placeholder_filetype">صورة PNG</string>
     <string name="placeholder_filesize">389 KB</string>
     <string name="placeholder_timestamp">2012/05/18 12:23 مساء</string>
     <string name="placeholder_media_time">12:23:45</string>
@@ -283,7 +282,6 @@
 
     <string name="forbidden_permissions_copy">لنسخ هذا الملف</string>
 
-    <string name="prefs_category_instant_uploading">تحميلات تلقائية</string>
     <string name="prefs_category_details">تفاصيل</string>
 
 	<string name="shared_subject_header">المشاركات</string>
