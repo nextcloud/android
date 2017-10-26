@@ -27,6 +27,7 @@ import android.content.SharedPreferences;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -37,7 +38,6 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.owncloud.android.R;
 import com.owncloud.android.lib.common.utils.Log_OC;
@@ -377,9 +377,8 @@ public class PassCodeActivity extends AppCompatActivity {
     private void showErrorAndRestart(int errorMessage, int headerMessage,
                                      int explanationVisibility) {
         Arrays.fill(mPassCodeDigits, null);
-        CharSequence errorSeq = getString(errorMessage);
-        Toast.makeText(this, errorSeq, Toast.LENGTH_LONG).show();
-        mPassCodeHdr.setText(headerMessage);                // TODO check if really needed
+        Snackbar.make(findViewById(android.R.id.content), getString(errorMessage), Snackbar.LENGTH_LONG).show();
+        mPassCodeHdr.setText(headerMessage);                          // TODO check if really needed
         mPassCodeHdrExplanation.setVisibility(explanationVisibility); // TODO check if really needed
         clearBoxes();
     }

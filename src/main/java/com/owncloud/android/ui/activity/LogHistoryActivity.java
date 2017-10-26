@@ -26,6 +26,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -35,7 +36,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.owncloud.android.R;
 import com.owncloud.android.lib.common.utils.Log_OC;
@@ -187,16 +187,14 @@ public class LogHistoryActivity extends ToolbarActivity {
         try {
             startActivity(intent);
         } catch (ActivityNotFoundException e) {
-            Toast.makeText(this, getString(R.string.log_send_no_mail_app), Toast.LENGTH_LONG).show();
+            Snackbar.make(findViewById(android.R.id.content),R.string.log_send_no_mail_app,Snackbar.LENGTH_LONG).show();
             Log_OC.i(TAG, "Could not find app for sending log history.");
         }
 
     }
 
     /**
-     *
      * Class for loading the log data async
-     *
      */
     private class LoadingLogTask extends AsyncTask<String, Void, String> {
         private final WeakReference<TextView> textViewReference;
