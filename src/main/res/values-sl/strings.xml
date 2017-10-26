@@ -291,7 +291,6 @@
 
     <string name="placeholder_sentence">To je vsebnik predmetov</string>
     <string name="placeholder_filename">vsebnik.txt</string>
-    <string name="placeholder_filetype">PNG slika</string>
     <string name="placeholder_filesize">389 KB</string>
     <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
     <string name="placeholder_media_time">12:23:45</string>
@@ -311,7 +310,6 @@
     <string name="preview_image_description">Predogled slike</string>
     <string name="preview_image_error_unknown_format">Te slike ni mogoče prikazati</string>
     <string name="error__upload__local_file_not_copied">Datoteke %1$s ni mogoče kopirati v krajevno mapo %2$s</string>
-    <string name="prefs_instant_upload_path_title">Mapa za hipno nalaganje</string>
     <string name="prefs_synced_folders_local_path_title">Lokalna mapa</string>
     <string name="prefs_synced_folders_remote_path_title">Mapa na strežniku</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Uporabi podmape</string>
@@ -405,10 +403,8 @@
     <string name="copy_file_error">Prišlo je do napake med kopiranjem datoteke v mapo</string>
     <string name="forbidden_permissions_copy">za kopiranje te datoteke</string>
 
-    <string name="prefs_category_instant_uploading">Hipno pošiljanje</string>
     <string name="prefs_category_details">Podrobnosti</string>
 
-	<string name="prefs_instant_video_upload_path_title">Mapa s posnetki za hipno nalaganje</string>
     <string name="sync_folder_failed_content">Usklajevanja mape %1$s ni mogoče zaključiti</string>
 
 	<string name="shared_subject_header">v souporabi</string>

@@ -14,7 +14,7 @@ buildscript {
         google()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.0.0-rc2'
+        classpath 'com.android.tools.build:gradle:3.0.0'
         classpath 'com.google.gms:google-services:3.0.0'
     }
 }
@@ -185,7 +185,6 @@ android {
 
 dependencies {
     /// dependencies for app building
-    implementation name: 'touch-image-view'
     implementation 'com.android.support:multidex:1.0.2'
     compile 'com.github.nextcloud:android-library:1.0.31'
     implementation "com.android.support:support-v4:${supportLibraryVersion}"

@@ -217,7 +217,6 @@
 
     <string name="preview_image_description">Previzualizare imagine</string>
     <string name="error__upload__local_file_not_copied">%1$s nu a putut fi copiat in dosarul local %2$s </string>
-    <string name="prefs_instant_upload_path_title">Dosar pentru încărcare instantă</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Folosește subdosare</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Stocați in subdosar bazat pe an și lună</string>
 
@@ -272,7 +271,6 @@
     <string name="copy_file_error">A apărut o eroare în timpul copierii fișierului sau dosarului </string>
     <string name="forbidden_permissions_copy">să copiați acest fișier</string>
 
-    <string name="prefs_category_instant_uploading">Încărcări instantanee</string>
     <string name="prefs_category_details">Detalii</string>
 
 	<string name="sync_folder_failed_content">Sincronizarea dosarului %1$s nu a putut fi finalizată</string>

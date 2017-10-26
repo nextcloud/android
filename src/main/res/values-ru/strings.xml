@@ -321,7 +321,6 @@
 
     <string name="placeholder_sentence">Это заполнитель</string>
     <string name="placeholder_filename">placeholder.txt</string>
-    <string name="placeholder_filetype">Изображение PNG</string>
     <string name="placeholder_filesize">389 КБ</string>
     <string name="placeholder_timestamp">2012/05/18 12:23</string>
     <string name="placeholder_media_time">12:23:45</string>
@@ -343,7 +342,6 @@
     <string name="preview_image_error_no_local_file">Отсутствует локальный файл для создания миниатюры</string>
 
     <string name="error__upload__local_file_not_copied">%1$s невозможно скопировать в локальный каталог %2$s </string>
-    <string name="prefs_instant_upload_path_title">Каталог для немедленной выгрузки</string>
     <string name="prefs_synced_folders_local_path_title">Локальная папка</string>
     <string name="prefs_synced_folders_remote_path_title">Папка на сервере</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Создавать вложенные папки</string>
@@ -439,10 +437,8 @@
     <string name="copy_file_error">Произошла ошибка при попытке копирования этого файла или каталога</string>
     <string name="forbidden_permissions_copy">для копирования этого файла</string>
 
-    <string name="prefs_category_instant_uploading">Немедленная выгрузка</string>
     <string name="prefs_category_details">Дополнительные</string>
 
-	<string name="prefs_instant_video_upload_path_title">Каталог для немедленной загрузки видео</string>
     <string name="sync_folder_failed_content">Синхронизация каталога %1$s не может быть завершена</string>
 
 	<string name="shared_subject_header">поделился</string>
