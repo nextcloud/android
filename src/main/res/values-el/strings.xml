@@ -475,7 +475,6 @@
     <string name="action_retry_uploads">Επανάληψη αποτυχημένων μεταφορτώσεων</string>
     <string name="action_clear_failed_uploads">Εκκαθάριση αποτυχημένων μεταφορτώσεων</string>
     <string name="action_clear_successful_uploads">Εκκαθάριση επιτυχών μεταφορτώσεων</string>
-    <string name="action_clear_finished_uploads">Ολοκλήρωση εκκαθάρισης όλων</string>
     <string name="action_force_rescan">Επιβολή σάρωσης</string>
 
     <string name="action_switch_grid_view">Προβολή πλέγματος</string>

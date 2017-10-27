@@ -471,7 +471,6 @@
     <string name="action_retry_uploads">Ulangi unggahan yang gagal.</string>
     <string name="action_clear_failed_uploads">Bersihkan unggahan gagal.</string>
     <string name="action_clear_successful_uploads">Bersihkan unggahan yang berhasil.</string>
-    <string name="action_clear_finished_uploads">Bersihkan unggahan yang selesai.</string>
     <string name="action_force_rescan">Paksa untuk memindah ulang.</string>
 
     <string name="action_switch_grid_view">Tampilan kotak</string>

@@ -526,7 +526,6 @@
     <string name="action_retry_uploads">Понови неуспела отпремања</string>
     <string name="action_clear_failed_uploads">Избриши неуспела отпремања</string>
     <string name="action_clear_successful_uploads">Очисти успела отпремања</string>
-    <string name="action_clear_finished_uploads">Очисти завршена отпремања</string>
     <string name="action_force_rescan">Форсирај поновно скенирање</string>
 
     <string name="action_switch_grid_view">Приказ мреже</string>

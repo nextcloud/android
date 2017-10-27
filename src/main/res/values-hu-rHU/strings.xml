@@ -508,7 +508,6 @@ Lépj kapcsolatba a rendszergazdával</string>
     <string name="action_retry_uploads">Sikertelen feltöltések újrapróbálása</string>
     <string name="action_clear_failed_uploads">Sikertelen feltöltések eltávolítása</string>
     <string name="action_clear_successful_uploads">Sikeres feltöltések eltávolítása</string>
-    <string name="action_clear_finished_uploads">Befejeződött feltöltések eltávolítása</string>
     <string name="action_force_rescan">Újra-átfésülés kényszerítése</string>
 
     <string name="action_switch_grid_view">Rács nézet</string>

@@ -507,7 +507,6 @@
     <string name="action_retry_uploads">Gescheiterte Uploads neu starten</string>
     <string name="action_clear_failed_uploads">Gescheiterte Uploads entfernen</string>
     <string name="action_clear_successful_uploads">Lösche erfolgreich hochgeladene Dateien</string>
-    <string name="action_clear_finished_uploads">Alles aufräumen</string>
     <string name="action_force_rescan">Neuen Scan erzwingen</string>
 
     <string name="action_switch_grid_view">Rasteransicht</string>
