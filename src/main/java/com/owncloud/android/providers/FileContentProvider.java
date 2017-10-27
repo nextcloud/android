@@ -1153,6 +1153,14 @@ public class FileContentProvider extends ContentProvider {
                 Log_OC.i(SQL, String.format(Locale.ENGLISH, UPGRADE_VERSION_MSG, oldVersion, newVersion));
             }
         }
+
+        @Override
+        public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+            if (oldVersion == 25 && newVersion == 24) {
+                // nothing needs to be done as the upgrade was adding columns only if they did not exist
+                Log_OC.i(TAG, "Downgrading v" + oldVersion + " to " + newVersion);
+            }
+        }
     }
 
     private boolean checkIfColumnExists(SQLiteDatabase database, String table, String column) {
