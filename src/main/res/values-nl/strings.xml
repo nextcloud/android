@@ -507,7 +507,6 @@ Kies er eentje van een provider.</string>
     <string name="action_retry_uploads">Probeer mislukte uploads opnieuw</string>
     <string name="action_clear_failed_uploads">Wis mislukte uploads</string>
     <string name="action_clear_successful_uploads">Wis gelukte uploads</string>
-    <string name="action_clear_finished_uploads">Alle voltoooide opschonen</string>
     <string name="action_force_rescan">Indexering forceren</string>
 
     <string name="action_switch_grid_view">Rasterindeling </string>

@@ -514,7 +514,6 @@
     <string name="action_retry_uploads">Riprova caricamenti non riusciti</string>
     <string name="action_clear_failed_uploads">Cancella caricamenti non riusciti</string>
     <string name="action_clear_successful_uploads">Cancella i caricamenti completati</string>
-    <string name="action_clear_finished_uploads">Cancella caricamenti completati</string>
     <string name="action_force_rescan">Forza nuova scansione</string>
 
     <string name="action_switch_grid_view">Vista Griglia</string>
