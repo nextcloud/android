@@ -150,8 +150,8 @@ public class UploadFilesActivity extends FileActivity implements
         mFileListFragment = (LocalFileListFragment) getSupportFragmentManager().findFragmentById(R.id.local_files_list);
         
         // Set input controllers
-        Button mCancelBtn = (Button) findViewById(R.id.upload_files_btn_cancel);
-        mCancelBtn.setOnClickListener(this);
+        findViewById(R.id.upload_files_btn_cancel).setOnClickListener(this);
+
         mUploadBtn = (AppCompatButton) findViewById(R.id.upload_files_btn_upload);
         mUploadBtn.getBackground().setColorFilter(ThemeUtils.primaryAccentColor(), PorterDuff.Mode.SRC_ATOP);
         mUploadBtn.setOnClickListener(this);

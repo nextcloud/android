@@ -119,7 +119,7 @@ public class GetServerInfoOperation extends RemoteOperation {
             if (trimmedUrl.endsWith("/")) {
                 trimmedUrl = trimmedUrl.substring(0, trimmedUrl.length() - 1);
             }
-            if(trimmedUrl.toLowerCase().endsWith(AuthenticatorUrlUtils.WEBDAV_PATH_4_0_AND_LATER)){
+            if (trimmedUrl.toLowerCase().endsWith(AuthenticatorUrlUtils.WEBDAV_PATH_4_0_AND_LATER)) {
                 trimmedUrl = trimmedUrl.substring(0,
                         trimmedUrl.length() - AuthenticatorUrlUtils.WEBDAV_PATH_4_0_AND_LATER.length());
             }
