@@ -80,7 +80,7 @@ public class ThumbnailsCacheManager {
     public static final String PREFIX_THUMBNAIL = "t";
 
     private static final String TAG = ThumbnailsCacheManager.class.getSimpleName();
-    
+    private static final String PNG_MIMETYPE = "image/png";
     private static final String CACHE_FOLDER = "thumbnailCache";
 
     private static final Object mThumbnailsDiskCacheLock = new Object();
@@ -155,8 +155,7 @@ public class ThumbnailsCacheManager {
      * @return Point
      */
     private static Point getScreenDimension() {
-        WindowManager wm = (WindowManager) MainApp.getAppContext().
-                getSystemService(Context.WINDOW_SERVICE);
+        WindowManager wm = (WindowManager) MainApp.getAppContext().getSystemService(Context.WINDOW_SERVICE);
         Display display = wm.getDefaultDisplay();
         Point point = new Point();
         display.getSize(point);
@@ -248,6 +247,7 @@ public class ThumbnailsCacheManager {
 
             } catch (OutOfMemoryError oome) {
                 System.gc();
+                Log_OC.e(TAG, "Out of memory -> garbage collector called");
             } catch (Throwable t) {
                 // the app should never break due to a problem with thumbnails
                 Log_OC.e(TAG, "Generation of thumbnail for " + file + " failed", t);
@@ -271,12 +271,11 @@ public class ThumbnailsCacheManager {
                 int pxH = p.y;
 
                 if (file.isDown()) {
-                    Bitmap bitmap = BitmapUtils.decodeSampledBitmapFromFile(
-                            file.getStoragePath(), pxW, pxH);
+                    Bitmap bitmap = BitmapUtils.decodeSampledBitmapFromFile(file.getStoragePath(), pxW, pxH);
 
                     if (bitmap != null) {
                         // Handle PNG
-                        if (file.getMimetype().equalsIgnoreCase("image/png")) {
+                        if (file.getMimetype().equalsIgnoreCase(PNG_MIMETYPE)) {
                             bitmap = handlePNG(bitmap, pxW);
                         }
 
@@ -294,12 +293,9 @@ public class ThumbnailsCacheManager {
                             GetMethod getMethod = null;
                             try {
                                 // resized image via gallery app
-                                String uri = mClient.getBaseUri() + "" +
-                                        "/index.php/apps/gallery/api/preview/" +
-                                        Integer.parseInt(file.getRemoteId().substring(0, 8)) +
-                                        "/" + pxW + "/" + pxH;
-                                Log_OC.d(TAG, "generate resizedImage: " + file.getFileName() +
-                                        " URI: " + uri);
+                                String uri = mClient.getBaseUri() + "/index.php/apps/gallery/api/preview/" +
+                                        Integer.parseInt(file.getRemoteId().substring(0, 8)) + "/" + pxW + "/" + pxH;
+                                Log_OC.d(TAG, "generate resizedImage: " + file.getFileName() + " URI: " + uri);
                                 getMethod = new GetMethod(uri);
                                 getMethod.setRequestHeader("Cookie",
                                         "nc_sameSiteCookielax=true;nc_sameSiteCookiestrict=true");
@@ -312,7 +308,7 @@ public class ThumbnailsCacheManager {
                                 }
 
                                 // Handle PNG
-                                if (file.getMimetype().equalsIgnoreCase("image/png")) {
+                                if (file.getMimetype().equalsIgnoreCase(PNG_MIMETYPE)) {
                                     thumbnail = handlePNG(thumbnail, pxW);
                                 }
 
@@ -475,15 +471,15 @@ public class ThumbnailsCacheManager {
             return thumbnail;
         }
 
-        protected void onPostExecute(Bitmap bitmap){
+        protected void onPostExecute(Bitmap bitmap) {
             if (bitmap != null && mImageViewReference != null) {
                 final ImageView imageView = mImageViewReference.get();
                 final ThumbnailGenerationTask bitmapWorkerTask = getBitmapWorkerTask(imageView);
                 if (this == bitmapWorkerTask) {
                     String tagId = "";
-                    if (mFile instanceof OCFile){
+                    if (mFile instanceof OCFile) {
                         tagId = String.valueOf(((OCFile)mFile).getFileId());
-                    } else if (mFile instanceof File){
+                    } else if (mFile instanceof File) {
                         tagId = String.valueOf(mFile.hashCode());
                     }
                     if (String.valueOf(imageView.getTag()).equals(tagId)) {
@@ -517,7 +513,7 @@ public class ThumbnailsCacheManager {
 
                     if (bitmap != null) {
                         // Handle PNG
-                        if (file.getMimetype().equalsIgnoreCase("image/png")) {
+                        if (file.getMimetype().equalsIgnoreCase(PNG_MIMETYPE)) {
                             bitmap = handlePNG(bitmap, pxW);
                         }
 
@@ -535,8 +531,7 @@ public class ThumbnailsCacheManager {
                             getMethod = null;
                             try {
                                 // thumbnail
-                                String uri = mClient.getBaseUri() + "" +
-                                        "/index.php/apps/files/api/v1/thumbnail/" +
+                                String uri = mClient.getBaseUri() + "/index.php/apps/files/api/v1/thumbnail/" +
                                         pxW + "/" + pxH + Uri.encode(file.getRemotePath(), "/");
                                 Log_OC.d(TAG, "generate thumbnail: " + file.getFileName() +
                                         " URI: " + uri);
@@ -557,7 +552,7 @@ public class ThumbnailsCacheManager {
                                 }
 
                                 // Handle PNG
-                                if (file.getMimetype().equalsIgnoreCase("image/png")) {
+                                if (file.getMimetype().equalsIgnoreCase(PNG_MIMETYPE)) {
                                     thumbnail = handlePNG(thumbnail, pxW);
                                 }
 
@@ -847,7 +842,7 @@ public class ThumbnailsCacheManager {
                                 userId = AccountUtils.getAccountUsername(username);
                             }
 
-                            String uri = mClient.getBaseUri() + "" + "/index.php/avatar/" + Uri.encode(userId) + "/" + px;
+                            String uri = mClient.getBaseUri() + "/index.php/avatar/" + Uri.encode(userId) + "/" + px;
                             Log_OC.d("Avatar", "URI: " + uri);
                             get = new GetMethod(uri);
                             int status = mClient.executeMethod(get);
@@ -1111,7 +1106,7 @@ public class ThumbnailsCacheManager {
 
         if (bitmap != null) {
             // Handle PNG
-            if (file.getMimetype().equalsIgnoreCase("image/png")) {
+            if (file.getMimetype().equalsIgnoreCase(PNG_MIMETYPE)) {
                 bitmap = handlePNG(bitmap, pxW);
             }
 

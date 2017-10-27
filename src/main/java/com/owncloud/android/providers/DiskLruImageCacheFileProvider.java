@@ -1,20 +1,22 @@
 /*
- *   ownCloud Android client application
+ * Nextcloud Android client application
  *
- *   Copyright (C) 2016 Tobias Kaminsky
+ * @author Tobias Kaminsky
+ * Copyright (C) 2017 Tobias Kaminsky
+ * Copyright (C) 2017 Nextcloud GmbH.
  *
- *   This program is free software; you can redistribute it and/or
- *   modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
- *   License as published by the Free Software Foundation; either
- *   version 3 of the License, or any later version.
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * at your option) any later version.
  *
- *   This program is distributed in the hope that it will be useful,
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *   GNU AFFERO GENERAL PUBLIC LICENSE for more details.
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU Affero General Public License for more details.
  *
- *   You should have received a copy of the GNU Affero General Public
- *   License along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
 package com.owncloud.android.providers;
@@ -28,6 +30,7 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.ParcelFileDescriptor;
 import android.provider.OpenableColumns;
+import android.support.annotation.NonNull;
 
 import com.owncloud.android.MainApp;
 import com.owncloud.android.authentication.AccountUtils;
@@ -58,7 +61,7 @@ public class DiskLruImageCacheFileProvider extends ContentProvider {
     }
 
     @Override
-    public ParcelFileDescriptor openFile(Uri uri, String mode) throws FileNotFoundException {
+    public ParcelFileDescriptor openFile(@NonNull Uri uri, @NonNull String mode) throws FileNotFoundException {
         OCFile ocFile = getFile(uri);
 
         Bitmap thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(
@@ -90,7 +93,7 @@ public class DiskLruImageCacheFileProvider extends ContentProvider {
             try {
                 fos = new FileOutputStream(f);
             } catch (FileNotFoundException e) {
-                e.printStackTrace();
+                Log_OC.e(TAG, "File not found: " + e.getMessage());
             }
             fos.write(bitmapData);
             fos.flush();
@@ -104,13 +107,13 @@ public class DiskLruImageCacheFileProvider extends ContentProvider {
     }
 
     @Override
-    public String getType(Uri uri) {
+    public String getType(@NonNull Uri uri) {
         OCFile ocFile = getFile(uri);
         return ocFile.getMimetype();
     }
 
     @Override
-    public Cursor query(Uri uri, String[] arg1, String arg2, String[] arg3, String arg4) {
+    public Cursor query(@NonNull Uri uri, String[] arg1, String arg2, String[] arg3, String arg4) {
         MatrixCursor cursor = null;
 
         OCFile ocFile = getFile(uri);
@@ -126,17 +129,17 @@ public class DiskLruImageCacheFileProvider extends ContentProvider {
     }
 
     @Override
-    public Uri insert(Uri uri, ContentValues values) {
+    public Uri insert(@NonNull Uri uri, ContentValues values) {
         return null;
     }
 
     @Override
-    public int delete(Uri uri, String selection, String[] selectionArgs) {
+    public int delete(@NonNull Uri uri, String selection, String[] selectionArgs) {
         return 0;
     }
 
     @Override
-    public int update(Uri uri, ContentValues values, String selection, String[] selectionArgs) {
+    public int update(@NonNull Uri uri, ContentValues values, String selection, String[] selectionArgs) {
         return 0;
     }
 }
