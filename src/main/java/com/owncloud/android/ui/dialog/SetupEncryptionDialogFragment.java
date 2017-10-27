@@ -313,7 +313,8 @@ public class SetupEncryptionDialogFragment extends DialogFragment {
                 String keyPhrase = stringBuilder.toString();
 
                 String privateKeyString = EncryptionUtils.encodeBytesToBase64String(privateKey.getEncoded());
-                String encryptedPrivateKey = EncryptionUtils.encryptPrivateKey(privateKeyString, keyPhrase);
+                String privatePemKeyString = EncryptionUtils.privateKeyToPEM(privateKey);
+                String encryptedPrivateKey = EncryptionUtils.encryptPrivateKey(privatePemKeyString, keyPhrase);
 
                 // upload encryptedPrivateKey
                 StorePrivateKeyOperation storePrivateKeyOperation = new StorePrivateKeyOperation(encryptedPrivateKey);

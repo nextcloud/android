@@ -541,7 +541,17 @@ public class EncryptionUtils {
         byte[] bytes = decodeStringToBase64Bytes(realPrivateKey);
         byte[] decrypted = cipher.doFinal(bytes);
 
-        return decodeBase64BytesToString(decrypted);
+        String pemKey = decodeBase64BytesToString(decrypted);
+
+        return pemKey.replaceAll("\n", "").replace("-----BEGIN PRIVATE KEY-----", "")
+                .replace("-----END PRIVATE KEY-----", "");
+    }
+
+    public static String privateKeyToPEM(PrivateKey privateKey) throws IOException {
+        String privateKeyString = encodeBytesToBase64String(privateKey.getEncoded());
+
+        return "-----BEGIN PRIVATE KEY-----\n" + privateKeyString.replaceAll("(.{65})", "$1\n")
+                + "\n-----END PRIVATE KEY-----";
     }
 
     /*
