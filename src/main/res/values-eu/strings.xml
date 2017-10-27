@@ -416,7 +416,6 @@ Mesedez, baimendu berriz</string>
     <string name="action_retry_uploads">Erroredun igoerak berriz saiatu</string>
     <string name="action_clear_failed_uploads">Erroredun igoerak garbitu</string>
     <string name="action_clear_successful_uploads">Ondo igo diren igoerak garbitu</string>
-    <string name="action_clear_finished_uploads">Bukatutako igoerak garbitu</string>
     <string name="action_force_rescan">Bireskaneatzea behartu</string>
 
     <string name="action_switch_grid_view">Sare ikuspegia</string>

@@ -469,7 +469,6 @@
     <string name="action_retry_uploads">Ponovi neuspela nalaganja</string>
     <string name="action_clear_failed_uploads">Pobriši neuspela nalaganja</string>
     <string name="action_clear_successful_uploads">Pobriši uspela nalaganja</string>
-    <string name="action_clear_finished_uploads">Pobriši končana nalaganja</string>
     <string name="action_force_rescan">Vsili osvežitev</string>
 
     <string name="action_switch_grid_view">Mrežni pogled</string>

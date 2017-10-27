@@ -479,7 +479,6 @@
     <string name="action_retry_uploads">重试失败上传任务</string>
     <string name="action_clear_failed_uploads">清除失败上传任务</string>
     <string name="action_clear_successful_uploads">清除成功上传任务</string>
-    <string name="action_clear_finished_uploads">清除完成上传</string>
     <string name="action_force_rescan">强制重新扫描</string>
 
     <string name="action_switch_grid_view">网格视图</string>

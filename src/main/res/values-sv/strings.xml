@@ -475,7 +475,6 @@
     <string name="action_retry_uploads">Försök igen med misslyckade uppladdningar</string>
     <string name="action_clear_failed_uploads">Ta bort misslyckade uppladdningar</string>
     <string name="action_clear_successful_uploads">Ta bort lyckade uppladdningar</string>
-    <string name="action_clear_finished_uploads">Ta bort färdiga uppladdningar</string>
     <string name="action_force_rescan">Tvinga ny genomsökning</string>
 
     <string name="action_switch_grid_view">Rutnätsvy</string>

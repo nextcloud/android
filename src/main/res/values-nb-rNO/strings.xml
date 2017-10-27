@@ -505,7 +505,6 @@
     <string name="action_retry_uploads">Prøv å laste opp igjen.</string>
     <string name="action_clear_failed_uploads">Fjern feilede opplastinger</string>
     <string name="action_clear_successful_uploads">Fjern fullførte opplastinger</string>
-    <string name="action_clear_finished_uploads">Slett alle ferdige</string>
     <string name="action_force_rescan">Tving reskanning</string>
 
     <string name="action_switch_grid_view">Rutenett-visning</string>
