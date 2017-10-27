@@ -126,6 +126,7 @@ import com.owncloud.android.utils.AnalyticsUtils;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.ErrorMessageAdapter;
 
+import java.io.InputStream;
 import java.net.URLDecoder;
 import java.security.cert.X509Certificate;
 import java.util.HashMap;
@@ -412,7 +413,13 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
                 progressBar.setVisibility(View.GONE);
                 mLoginWebView.setVisibility(View.VISIBLE);
-                mLoginWebView.loadData(DisplayUtils.getData(getResources().openRawResource(R.raw.custom_error)),"text/html; charset=UTF-8", null);
+
+                InputStream resources = getResources().openRawResource(R.raw.custom_error);
+                String customError = DisplayUtils.getData(resources);
+
+                if (!customError.isEmpty()) {
+                    mLoginWebView.loadData(customError, "text/html; charset=UTF-8", null);
+                }
             }
         });
 
