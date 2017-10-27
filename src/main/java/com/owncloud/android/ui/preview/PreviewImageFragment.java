@@ -743,20 +743,11 @@ public class PreviewImageFragment extends FileFragment {
 
     public void setErrorPreviewMessage() {
         Snackbar.make(mMultiView, R.string.resized_image_not_possible, Snackbar.LENGTH_INDEFINITE)
-                .setAction(R.string.common_yes, new OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        downloadFile();
-                    }
-                }).show();
+                .setAction(R.string.common_yes, v -> downloadFile()).show();
     }
 
     public void setNoConnectionErrorMessage() {
-        try {
-            Snackbar.make(getView(), R.string.auth_no_net_conn_title, Snackbar.LENGTH_LONG).show();
-        } catch (NullPointerException npe) {
-            Log_OC.e(TAG, "Error showing snackbar", npe);
-        }
+            Snackbar.make(mMultiView, R.string.auth_no_net_conn_title, Snackbar.LENGTH_LONG).show();
     }
 
     /**

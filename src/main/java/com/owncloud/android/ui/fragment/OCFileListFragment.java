@@ -1015,11 +1015,11 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
                 return true;
             }
             case R.id.action_keep_files_offline: {
-                mContainerActivity.getFileOperationsHelper().toogleOfflineFiles(checkedFiles, true);
+                mContainerActivity.getFileOperationsHelper().toggleOfflineFiles(checkedFiles, true);
                 return true;
             }
             case R.id.action_unset_keep_files_offline: {
-                mContainerActivity.getFileOperationsHelper().toogleOfflineFiles(checkedFiles, false);
+                mContainerActivity.getFileOperationsHelper().toggleOfflineFiles(checkedFiles, false);
                 return true;
             }
             case R.id.action_favorite: {
