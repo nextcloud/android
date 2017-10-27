@@ -522,7 +522,6 @@
     <string name="action_retry_uploads">Retentar envios falhados</string>
     <string name="action_clear_failed_uploads">Limpar envios falhados</string>
     <string name="action_clear_successful_uploads">Limpar envios concluídos</string>
-    <string name="action_clear_finished_uploads">Limpar envios termiandos</string>
     <string name="action_force_rescan">Forçar verificação</string>
 
     <string name="action_switch_grid_view">Vista da grade</string>

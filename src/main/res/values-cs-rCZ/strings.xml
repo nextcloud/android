@@ -505,7 +505,6 @@
     <string name="action_retry_uploads">Zkusit znovu selhavší nahrání</string>
     <string name="action_clear_failed_uploads">Vyčistit selhaná nahrávání</string>
     <string name="action_clear_successful_uploads">Vyčistit úspěšná nahrání</string>
-    <string name="action_clear_finished_uploads">Vyčistit dokončená nahrávání</string>
     <string name="action_force_rescan">Vynutit index</string>
 
     <string name="action_switch_grid_view">Zobrazení v mřížce</string>

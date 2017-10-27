@@ -502,7 +502,6 @@
     <string name="action_retry_uploads">Riprovoni ngarkimet e dështuara</string>
     <string name="action_clear_failed_uploads">Pastroni ngarkimet e dështuara</string>
     <string name="action_clear_successful_uploads">Fshi ngarkimet e suksesshme</string>
-    <string name="action_clear_finished_uploads">Pastro të gjithë të përfunduarit</string>
     <string name="action_force_rescan">Riskanim i detyruar</string>
 
     <string name="action_switch_grid_view">Pamje galeri</string>

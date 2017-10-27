@@ -512,38 +512,6 @@ public class UploadsStorageManager extends Observable {
         return result;
     }
 
-    public long clearAllFinishedButNotDelayedUploads() {
-        Account account = AccountUtils.getCurrentOwnCloudAccount(mContext);
-
-        long result = 0;
-        if (account != null) {
-            String[] whereArgs = new String[3];
-            whereArgs[0] = String.valueOf(UploadStatus.UPLOAD_SUCCEEDED.value);
-            whereArgs[1] = String.valueOf(UploadStatus.UPLOAD_FAILED.value);
-            whereArgs[2] = account.name;
-            result = getDB().delete(
-                    ProviderTableMeta.CONTENT_URI_UPLOADS,
-                    ProviderTableMeta.UPLOADS_STATUS + "=? OR " + ProviderTableMeta.UPLOADS_STATUS + "=?" +
-                            AND + ProviderTableMeta.UPLOADS_LAST_RESULT +
-                            "<>" + UploadResult.LOCK_FAILED.getValue() +
-                            AND + ProviderTableMeta.UPLOADS_LAST_RESULT +
-                            "<>" + UploadResult.DELAYED_FOR_WIFI.getValue() +
-                            AND + ProviderTableMeta.UPLOADS_LAST_RESULT +
-                            "<>" + UploadResult.DELAYED_FOR_CHARGING.getValue() +
-                            AND + ProviderTableMeta.UPLOADS_LAST_RESULT +
-                            "<>" + UploadResult.DELAYED_IN_POWER_SAVE_MODE.getValue() +
-                            AND + ProviderTableMeta.UPLOADS_ACCOUNT_NAME + "== ?",
-                    whereArgs
-            );
-        }
-
-        Log_OC.d(TAG, "delete all finished uploads");
-        if (result > 0) {
-            notifyObserversNow();
-        }
-
-        return result;
-    }
 
     /**
      * Updates the persistent upload database with upload result.

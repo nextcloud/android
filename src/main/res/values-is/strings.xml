@@ -523,7 +523,6 @@ Smelltu hér til að fá þér einn frá þjónustuaðila.</string>
     <string name="action_retry_uploads">Prófa aftur innsendingar sem mistókust</string>
     <string name="action_clear_failed_uploads">Hreinsa lista yfir innsendingar sem mistókust</string>
     <string name="action_clear_successful_uploads">Hreinsa lista yfir innsendingar sem tókust</string>
-    <string name="action_clear_finished_uploads">Hreinsa innsendingar sem er lokið</string>
     <string name="action_force_rescan">Þvinga endurskönnun</string>
 
     <string name="action_switch_grid_view">Reitir</string>

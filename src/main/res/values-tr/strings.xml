@@ -507,7 +507,6 @@
     <string name="action_retry_uploads">Tamamlanamayan yüklemeler yinelensin</string>
     <string name="action_clear_failed_uploads">Tamamlanamayan yüklemeler silinsin</string>
     <string name="action_clear_successful_uploads">Sorunsuz yüklemeler temizlensin</string>
-    <string name="action_clear_finished_uploads">Tamamlanmış yüklemeleri temizle</string>
     <string name="action_force_rescan">Yeniden tarama dayatılsın</string>
 
     <string name="action_switch_grid_view">Tablo görünümü</string>
