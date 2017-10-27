@@ -205,7 +205,8 @@ public class Preferences extends PreferenceActivity
                     public boolean onPreferenceClick(Preference preference) {
                         String privacyUrl = getString(R.string.privacy_url);
                         if (privacyUrl.length() > 0) {
-                            Intent externalWebViewIntent = new Intent(getApplicationContext(), ExternalSiteWebView.class);
+                            Intent externalWebViewIntent =
+                                    new Intent(getApplicationContext(),ExternalSiteWebView.class);
                             externalWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_TITLE,
                                     getResources().getString(R.string.privacy));
                             externalWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_URL, privacyUrl);
@@ -629,7 +630,8 @@ public class Preferences extends PreferenceActivity
                     pSyncedFolder.setOnPreferenceClickListener(new OnPreferenceClickListener() {
                         @Override
                         public boolean onPreferenceClick(Preference preference) {
-                            Intent syncedFoldersIntent = new Intent(getApplicationContext(), SyncedFoldersActivity.class);
+                            Intent syncedFoldersIntent =
+                                    new Intent(getApplicationContext(), SyncedFoldersActivity.class);
                             syncedFoldersIntent.putExtra(SyncedFoldersActivity.EXTRA_SHOW_SIDEBAR, false);
                             startActivity(syncedFoldersIntent);
                             return true;
@@ -923,7 +925,8 @@ public class Preferences extends PreferenceActivity
                     p.setOnPreferenceClickListener(new OnPreferenceClickListener() {
                         @Override
                         public boolean onPreferenceClick(Preference preference) {
-                            Intent externalWebViewIntent = new Intent(getApplicationContext(), ExternalSiteWebView.class);
+                            Intent externalWebViewIntent =
+                                    new Intent(getApplicationContext(), ExternalSiteWebView.class);
                             externalWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_TITLE, link.name);
                             externalWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_URL, link.url);
                             externalWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_SHOW_SIDEBAR, false);

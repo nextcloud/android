@@ -182,7 +182,7 @@ public class SearchShareesFragment extends Fragment implements ShareUserListAdap
     private void updateListOfUserGroups() {
         // Update list of users/groups
         // TODO Refactoring: create a new {@link ShareUserListAdapter} instance with every call should not be needed
-        ShareUserListAdapter mUserGroupsAdapter = new ShareUserListAdapter(
+        ShareUserListAdapter userGroupsAdapter = new ShareUserListAdapter(
                 getActivity().getApplicationContext(),
                 R.layout.share_user_item, mShares, this
         );
@@ -192,7 +192,7 @@ public class SearchShareesFragment extends Fragment implements ShareUserListAdap
 
         if (mShares.size() > 0) {
             usersList.setVisibility(View.VISIBLE);
-            usersList.setAdapter(mUserGroupsAdapter);
+            usersList.setAdapter(userGroupsAdapter);
 
         } else {
             usersList.setVisibility(View.GONE);
