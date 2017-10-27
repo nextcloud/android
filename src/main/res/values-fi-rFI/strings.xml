@@ -241,7 +241,6 @@
     <string name="oauth_check_onoff">Kirjaudu käyttäen OAuth 2.0:ta</string> 
     <string name="oauth_login_connection">Yhdistetään OAuth 2.0 -palvelimeen &#8230;</string>
         
-    <string name="ssl_validator_header">Sivuston identiteetin vahvistaminen ei onnistunut</string>
     <string name="ssl_validator_reason_cert_not_trusted">- Palvelimen varmenteeseen ei luoteta</string>
     <string name="ssl_validator_reason_cert_expired">- Palvelimen varmenne on vanhentunut</string>
     <string name="ssl_validator_reason_cert_not_yet_valid">- Palvelimen varmenteen kelvolliset päivät ovat tulevaisuudessa</string>
@@ -355,7 +354,7 @@
 
     <string name="prefs_category_details">Tiedot</string>
 
-	<string name="sync_folder_failed_content">Kansion %1$s synkronointia ei voitu suorittaa kokonaan</string>
+    <string name="sync_folder_failed_content">Kansion %1$s synkronointia ei voitu suorittaa kokonaan</string>
 
 	<string name="shared_subject_header">jaettu</string>
 	<string name="with_you_subject_header">kanssasi</string>

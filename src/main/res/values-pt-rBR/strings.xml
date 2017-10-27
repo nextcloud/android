@@ -186,7 +186,15 @@
     <string name="sync_fail_content_unauthorized">Senha errada para %1$s</string>
     <string name="sync_conflicts_in_favourites_ticker">Conflitos encontrados</string>
     <string name="sync_fail_in_favourites_ticker">Falha ao manter arquivos sincronizados</string>
+    <plurals name="sync_fail_in_favourites_content">
+        <item quantity="one">O conteúdo de %1$d arquivo não pôde ser sincronizado (conflita com: %2$d)</item>
+        <item quantity="other">O conteúdo de %1$d arquivos não puderam ser sincronizados (conflitam com: %2$d)</item>
+    </plurals>
     <string name="sync_foreign_files_forgotten_ticker">Alguns arquivos locais foram esquecidos</string>
+    <plurals name="sync_foreign_files_forgotten_content">
+        <item quantity="one">%1$d arquivo da pasta %2$s não pôde ser copiado</item>
+        <item quantity="other">%1$d arquivos da pasta %2$s não puderam ser copiados</item>
+    </plurals>
     <string name="sync_foreign_files_forgotten_explanation">A partir da versão 1.3.16, os arquivos enviados a partir deste dispositivo são copiados para a pasta local %1$s para evitar a perda de dados quando um único arquivo é sincronizado com várias contas.\n\nDevido à esta alteração, todos os arquivos enviados com versões anteriores deste aplicativo foram copiados para a pasta %2$s. No entanto, um erro impediu a conclusão desta operação durante a sincronização da conta. Você pode ou deixar o(s) arquivo(s) assim mesmo e excluir o link para %3$s ou mover o(s) arquivo(s) para a pasta %1$s e manter o link para %4$s.\n\nAbaixo estão listados os arquivos locais e o(s) arquivo(s) remoto(s) em %5$s para onde eles estão linkados.</string>
     <string name="sync_current_folder_was_removed">A pasta %1$s não existe mais</string>
     <string name="foreign_files_move">Mover tudo</string>
@@ -291,7 +299,6 @@
     <string name="oauth_check_onoff">Entrar com OAuth 2.0</string> 
     <string name="oauth_login_connection">Conectando ao servidor OAuth 2.0&#8230;</string>
         
-    <string name="ssl_validator_header">A identidade do site não pôde ser verificada</string>
     <string name="ssl_validator_reason_cert_not_trusted">- O certificado do servidor não é confiável</string>
     <string name="ssl_validator_reason_cert_expired">- O certificado do servidor expirou</string>
     <string name="ssl_validator_reason_cert_not_yet_valid">- A data de expiração do certificado do servidor está no futuro</string>
@@ -453,6 +460,14 @@
 
     <string name="username">Nome do usuário</string>
 
+    <plurals name="file_list__footer__folder">
+        <item quantity="one">%1$d pasta</item>
+        <item quantity="other">%1$d pastas</item>
+    </plurals>
+    <plurals name="file_list__footer__file">
+        <item quantity="one">%1$d arquivo</item>
+        <item quantity="other">%1$d arquivos</item>
+    </plurals>
     <string name="set_picture_as">Usar imagem como</string>
     <string name="set_as">Definir Como</string>
 

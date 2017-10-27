@@ -204,7 +204,6 @@
     <string name="wait_a_moment">الرجاء الإنتظار&#8230;</string>
     <string name="filedisplay_no_file_selected">لم تقم بتحديد أي ملف</string>
     <string name="activity_chooser_title">ارسل الرابط الى &#8230;</string>
-    <string name="ssl_validator_header">لا يمكن التحقق من هوية الموقع</string>
     <string name="ssl_validator_reason_cert_not_trusted">شهادة الخادم غير موثوقة</string>
     <string name="ssl_validator_reason_cert_expired">شهادة الخادم منتهية الصلاحية</string>
     <string name="ssl_validator_reason_cert_not_yet_valid">وقت صلاحية شهادة الخادم لم يحن بعد</string>
@@ -284,7 +283,7 @@
 
     <string name="prefs_category_details">تفاصيل</string>
 
-	<string name="shared_subject_header">المشاركات</string>
+    <string name="shared_subject_header">المشاركات</string>
 	<string name="with_you_subject_header">معك</string>
     
 	<string name="auth_host_address">عنوان الخادم</string>

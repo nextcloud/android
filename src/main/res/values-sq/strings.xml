@@ -287,7 +287,6 @@
     <string name="oauth_check_onoff">Hyrje me OAuth 2.0</string> 
     <string name="oauth_login_connection">Duke u lidhur me serverin OAuth 2.0&#8230;</string>
         
-    <string name="ssl_validator_header">Identiteti i sajtit s\’u verifikua dot</string>
     <string name="ssl_validator_reason_cert_not_trusted">- Dëshmia e serverit s\’është e besuar</string>
     <string name="ssl_validator_reason_cert_expired">- Dëshmia e serverit skadoi</string>
     <string name="ssl_validator_reason_cert_not_yet_valid">- Datat e vlefshmërisë së dëshmisë së serverit i përkasin të ardhmes</string>

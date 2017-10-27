@@ -217,7 +217,6 @@
     <string name="oauth_check_onoff">Log ind med OAuth 2.0</string> 
     <string name="oauth_login_connection">Forbinder til OAuth 2.0 server&#8230;</string>
         
-    <string name="ssl_validator_header">Sidens identitet kunne ikke verificeres</string>
     <string name="ssl_validator_reason_cert_not_trusted">- Serverens certifikat er ikke troværdigt</string>
     <string name="ssl_validator_reason_cert_expired">- Serverens certifikat er udløbet</string>
     <string name="ssl_validator_reason_cert_not_yet_valid">- Serverens certifikat er for ung</string>
@@ -321,7 +320,7 @@
 
     <string name="prefs_category_details">Detaljer</string>
 
-	<string name="shared_subject_header">delt</string>
+    <string name="shared_subject_header">delt</string>
 	<string name="with_you_subject_header">med dig</string>
     
 	<string name="subject_user_shared_with_you">%1$s delte \"%2$s\" med dig</string>

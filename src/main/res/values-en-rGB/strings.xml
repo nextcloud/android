@@ -291,7 +291,6 @@
     <string name="oauth_check_onoff">Log in with OAuth 2.0</string> 
     <string name="oauth_login_connection">Connecting to OAuth 2.0 server&#8230;</string>
         
-    <string name="ssl_validator_header">The identity of the site could not be verified</string>
     <string name="ssl_validator_reason_cert_not_trusted">- The server certificate is not trusted</string>
     <string name="ssl_validator_reason_cert_expired">- The server certificate expired</string>
     <string name="ssl_validator_reason_cert_not_yet_valid">- The server certificate valid dates are in the future</string>

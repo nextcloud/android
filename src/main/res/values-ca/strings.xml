@@ -262,7 +262,6 @@
     <string name="oauth_check_onoff">Inicieu sessió amb OAuth 2.0</string> 
     <string name="oauth_login_connection">Connexió al servidor&#8230; OAuth 2.0</string>
         
-    <string name="ssl_validator_header">No s\'ha pogut verificar la identitat del lloc web</string>
     <string name="ssl_validator_reason_cert_not_trusted">- El certificat del servidor no està autenticat</string>
     <string name="ssl_validator_reason_cert_expired">- El certificat del servidor ha expirat</string>
     <string name="ssl_validator_reason_cert_not_yet_valid">- Les dades vàlides del certificat del servidor són al futur</string>
@@ -371,7 +370,7 @@
 
     <string name="prefs_category_details">Detalls</string>
 
-	<string name="sync_folder_failed_content">La sincronització de la carpeta %1$s no s\'ha pogut completar</string>
+    <string name="sync_folder_failed_content">La sincronització de la carpeta %1$s no s\'ha pogut completar</string>
 
 	<string name="shared_subject_header">compartit</string>
 	<string name="with_you_subject_header">amb tú</string>

@@ -266,7 +266,6 @@
     <string name="oauth_check_onoff">使用OAuth 2.0登录</string> 
     <string name="oauth_login_connection">连接到OAuth 2.0服务器&#8230;</string>
         
-    <string name="ssl_validator_header">站点身份无法验证</string>
     <string name="ssl_validator_reason_cert_not_trusted">- 不受信任的服务器证书</string>
     <string name="ssl_validator_reason_cert_expired">- 服务器证书过期</string>
     <string name="ssl_validator_reason_cert_not_yet_valid">- 服务器证书时间比当前时间还晚</string>

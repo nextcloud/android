@@ -290,7 +290,6 @@
     <string name="oauth_check_onoff">Přihlásit se s OAuth 2.0</string> 
     <string name="oauth_login_connection">Připojuji se k OAuth 2.0 serveru&#8230;</string>
         
-    <string name="ssl_validator_header">Identitu stránky nelze ověřit</string>
     <string name="ssl_validator_reason_cert_not_trusted">- Certifikát serveru je nedůvěryhodný</string>
     <string name="ssl_validator_reason_cert_expired">- Certifikátu serveru vypršela platnost</string>
     <string name="ssl_validator_reason_cert_not_yet_valid">- Datum platnosti certifikátu je v budoucnosti</string>

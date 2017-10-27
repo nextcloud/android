@@ -293,7 +293,6 @@ Attention la suppression est irréversible.</string>
     <string name="oauth_check_onoff">Connexion avec OAuth 2.0</string> 
     <string name="oauth_login_connection">Connexion au serveur OAuth 2.0&#8230;</string>
         
-    <string name="ssl_validator_header">L\'identité du site ne peut être vérifiée</string>
     <string name="ssl_validator_reason_cert_not_trusted">- Le certificat du serveur n\'est pas sûr</string>
     <string name="ssl_validator_reason_cert_expired">- Le certificat du serveur a expiré</string>
     <string name="ssl_validator_reason_cert_not_yet_valid">- Le certificat du serveur n\'est pas encore valide</string>
@@ -455,6 +454,14 @@ Attention la suppression est irréversible.</string>
 
     <string name="username">Nom d\'utilisateur</string>
 
+    <plurals name="file_list__footer__folder">
+        <item quantity="one">%1$d dossier</item>
+        <item quantity="other">%1$d dossiers</item>
+    </plurals>
+    <plurals name="file_list__footer__file">
+        <item quantity="one">%1$d fichier</item>
+        <item quantity="other">%1$d fichiers</item>
+    </plurals>
     <string name="set_picture_as">Utiliser l\'image comme</string>
     <string name="set_as">Utiliser comme</string>
 

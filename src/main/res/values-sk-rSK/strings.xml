@@ -202,7 +202,6 @@
     <string name="activity_chooser_title">Odošli link do &#8230;</string>
     <string name="wait_for_tmp_copy_from_private_storage">Kopírovanie súboru z privátneho úložiska</string>
     
-    <string name="ssl_validator_header">Identitu stránky nemožno overiť</string>
     <string name="ssl_validator_reason_cert_not_trusted">- Certifikát servera nie je overený</string>
     <string name="ssl_validator_reason_cert_expired">- Platnosť certifikátu servera vypršala</string>
     <string name="ssl_validator_reason_cert_not_yet_valid">- Certifikát servera je príliš mladý</string>
@@ -299,7 +298,7 @@
 
     <string name="prefs_category_details">Podrobnosti</string>
 
-	<string name="sync_folder_failed_content">Synchronizáciu priečinka %1$s nebolo možné dokončiť</string>
+    <string name="sync_folder_failed_content">Synchronizáciu priečinka %1$s nebolo možné dokončiť</string>
 
 	<string name="shared_subject_header">sprístupnené</string>
 	<string name="with_you_subject_header">s vami</string>

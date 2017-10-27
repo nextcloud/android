@@ -292,7 +292,6 @@ Kies er eentje van een provider.</string>
     <string name="oauth_check_onoff">Inloggen met OAuth 2.0</string> 
     <string name="oauth_login_connection">Verbinden met OAuth 2.0 server&#8230;</string>
         
-    <string name="ssl_validator_header">De identiteit van de site kan niet worden gecontroleerd</string>
     <string name="ssl_validator_reason_cert_not_trusted">- Het servercertificaat wordt niet vertrouwd</string>
     <string name="ssl_validator_reason_cert_expired">- Het servercertificaat is verlopen</string>
     <string name="ssl_validator_reason_cert_not_yet_valid">- Het servercertificaat is nog niet geldig</string>

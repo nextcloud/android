@@ -171,7 +171,6 @@
     <string name="activity_chooser_title">Sūtīt saiti uz &#8230;</string>
     <string name="wait_for_tmp_copy_from_private_storage">Notiek faila kopēšana no privāta krātuves</string>
     
-    <string name="ssl_validator_header">Šīs vietnes identitāti nevarēja pārbaudīt</string>
     <string name="ssl_validator_reason_cert_not_trusted">- Nav uzticības servera sertifikātam</string>
     <string name="ssl_validator_reason_cert_expired">- Servera sertifikātam ir beidzies termiņš</string>
     <string name="ssl_validator_reason_cert_not_yet_valid">- Servera sertifikāta datumi ir nākotnē</string>
@@ -261,7 +260,7 @@
 
     <string name="prefs_category_details">Detaļas</string>
 
-	<string name="shared_subject_header">koplietots</string>
+    <string name="shared_subject_header">koplietots</string>
 	<string name="with_you_subject_header">ar jums</string>
     
 	<string name="subject_user_shared_with_you">%1$s koplietots \"%2$s\" ar tevi</string>
