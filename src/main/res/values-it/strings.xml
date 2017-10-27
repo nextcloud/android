@@ -186,6 +186,10 @@
     <string name="sync_fail_content_unauthorized">Password errata per %1$s</string>
     <string name="sync_conflicts_in_favourites_ticker">Conflitti rilevati</string>
     <string name="sync_fail_in_favourites_ticker">Sincronizzazione dei file non riuscita</string>
+    <plurals name="sync_fail_in_favourites_content">
+        <item quantity="one">Il contenuto di %1$d file non può essere sincronizzato  (conflitti: %2$d)</item>
+        <item quantity="other">Il contenuto di %1$d file non può essere sincronizzato  (conflitti: %2$d)</item>
+    </plurals>
     <string name="sync_foreign_files_forgotten_ticker">Alcuni file locali sono stati trascurati</string>
     <string name="sync_foreign_files_forgotten_explanation">Dalla versone 1.3.16, i file caricati da questo dispositivo sono copiati nella cartella locale %1$s per evitare perdite di dati quando un singolo file è sincronizzato con più account.\n\nA causa di questa modifica, tutti i file caricati con versioni precedenti di questa applicazione sono stati copiati nella cartella %2$s. Tuttavia, un errore ha impedito il completamento di questa operazione durante la sincronizzazione dell\'account. Puoi sia lasciare i file come sono ed eliminare il collegamento a %3$s, o spostare i file nella cartella %1$s e mantenere il collegamento a %4$s.\n\nSotto sono elencati i file locali e i file remoti in %5$sai quali erano collegati.</string>
     <string name="sync_current_folder_was_removed">La cartella %1$s non esiste più</string>
@@ -291,7 +295,6 @@
     <string name="oauth_check_onoff">Accedi con OAuth 2.0</string> 
     <string name="oauth_login_connection">Connessione al server OAuth 2.0&#8230;</string>
         
-    <string name="ssl_validator_header">L\'identità del sito non può essere verificata</string>
     <string name="ssl_validator_reason_cert_not_trusted">- Il certificato del server non è affidabile</string>
     <string name="ssl_validator_reason_cert_expired">- Il certificato del server è scaduto</string>
     <string name="ssl_validator_reason_cert_not_yet_valid">- Il certificato del server è troppo recente</string>
@@ -453,6 +456,10 @@
 
     <string name="username">Nome utente</string>
 
+    <plurals name="file_list__footer__folder">
+        <item quantity="one">%1$d cartella</item>
+        <item quantity="other">%1$d cartelle</item>
+    </plurals>
     <string name="set_picture_as">Usa immagine come</string>
     <string name="set_as">Imposta come</string>
 

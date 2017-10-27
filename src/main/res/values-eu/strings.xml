@@ -265,7 +265,6 @@ Mesedez, baimendu berriz</string>
     <string name="oauth_check_onoff">izena emanda OAuth 2.0 erabiliz</string> 
     <string name="oauth_login_connection">&#8230; OAuth 2.0 zerbitzarira konektatzen</string>
         
-    <string name="ssl_validator_header">Lekuaren identitatea ezin da egiaztatu</string>
     <string name="ssl_validator_reason_cert_not_trusted">- Zerbitzariaren ziurtagiria ez da fidagarria</string>
     <string name="ssl_validator_reason_cert_expired">- Zerbitzariaren ziurtagiria iraungi da</string>
     <string name="ssl_validator_reason_cert_not_yet_valid">- Zerbitzariaren ziurtagiria oso gaztea da</string>
@@ -334,28 +333,135 @@ Mesedez, baimendu berriz</string>
     <string name="actionbar_copy">Kopiatu</string>
 	<string name="folder_picker_choose_button_text">Aukeratu</string>
 
+    <string name="move_file_not_found">Ezin da fitxategia mugitu. Existitzen dela egiazta ezazu</string>
+    <string name="move_file_invalid_into_descendent">Ezin da karpeta bat azpikarpeta batera mugitu</string>
+    <string name="move_file_invalid_overwrite">Fitxategi hau iada existitzen da helburuko karpetan</string>
     <string name="move_file_error">Errore bat gertatu da fitxategi edo karpeta hau mugitzen saiatzerakoan</string>
     <string name="forbidden_permissions_move">fitxategi hau mugitzeko</string>
 
 
+    <string name="copy_file_not_found">Ezin da kopiatu. Fitxategia existitzen dela egiazta ezazu</string>
+    <string name="copy_file_invalid_into_descendent">Ezin da karpeta bat azpikarpeta batera kopiatu</string>
+    <string name="copy_file_invalid_overwrite">Fitxategi hau iada existitzen da helburuko karpetan</string>
+    <string name="copy_file_error">Fitxategi edo karpeta kopiatzean errore bat gertatu da.</string>
+    <string name="forbidden_permissions_copy">fitxategia kopiatzeko</string>
+
     <string name="prefs_category_details">Xehetasunak</string>
 
-	<string name="auth_host_address">Zerbitzariaren helbidea</string>
+    <string name="sync_folder_failed_content">%1$s karpetaren sinkronizazioa ez da burutu</string>
+
+	<string name="shared_subject_header">partekatua</string>
+	<string name="with_you_subject_header">zurekin</string>
+    
+	<string name="subject_user_shared_with_you">%1$sk %2$s zurekin partekatu du</string>
+    <string name="subject_shared_with_you">%1$s zurekin partekatu dute</string>
+
+    <string name="auth_refresh_button">Konexioa freskatu</string>
+    <string name="auth_host_address">Zerbitzariaren helbidea</string>
+    <string name="common_error_out_memory">Ez dago memoria nahikorik</string>
+
+    <string name="username">Erabiltzaile-izena</string>
+
+    <string name="set_picture_as">Erabili argazkia</string>
+    <string name="set_as">Ezarri honela</string>
+
+    <string name="prefs_instant_behaviour_dialogTitle">Fitxategi originala  &#8230; izango da</string>
+    <string name="prefs_instant_behaviour_title">Fitxategi originala  &#8230; izango da</string>
     <string name="upload_copy_files">Kopiatu fitxategia</string>
     <string name="upload_move_files">Mugitu fitxategia</string>
     <string name="select_all">Hautatu dena</string>
+    <string name="deselect_all">Deshautatu dena</string>
+
+    <string name="pref_behaviour_entries_keep_file">Karpeta originalean gorde</string>
+    <string name="pref_behaviour_entries_move">Aplikazioaren karpetara mugitu</string>
+    <string name="pref_behaviour_entries_delete_file">Borratua</string>
+    <string name="prefs_storage_path">Biltegiratze helbidea</string>
+    <string name="prefs_common">Komuna</string>
+
     <string name="share_dialog_title">Partekatzea</string>
+    <string name="share_file">Partekatu %1$s</string>
+    <string name="share_with_user_section_title">Erabiltzaile eta taldeekin partekatu</string>
+    <string name="share_no_users">Oraindik ez da erabiltzaileekin daturik partekatu</string>
     <string name="share_add_user_or_group">Gehitu erabiltzalea edo taldea</string>
     <string name="share_via_link_section_title">Elkarbanatu lotura</string>
     <string name="share_via_link_expiration_date_label">Ezarri muga data</string>
+    <string name="share_via_link_password_label">Pasahitzarekin babestua</string>
+    <string name="share_via_link_password_title">Segurua</string>
     <string name="share_via_link_edit_permission_label">Baimendu editatzea</string>
+    <string name="share_via_link_hide_file_listing_permission_label">Fitxategi zerrenda ezkutatu</string>
+    <string name="share_get_public_link_button">Esteka lortu</string>
+    <string name="share_with_title">&#8230; -rekin partekatu</string>
+    <string name="share_with_edit_title">%1$s -rekin partekatu</string>
+
     <string name="share_search">Bilatu</string>
 
+    <string name="search_users_and_groups_hint">Bilatu erabiltzaile eta taldeak</string>
+    <string name="share_group_clarification">%1$s (taldea)</string>
+    <string name="share_remote_clarification">%1$s (urrunekoa)</string>
+    <string name="share_email_clarification">%1$s (eposta)</string>
+    <string name="share_known_remote_clarification">%1$s (%2$s-n)</string>
+
+    <string name="share_sharee_unavailable">Erabiltzaileen bezeroetatik partekatzea baimentzeko zerbitzariaren bertsioa eguneratu. \n Zure administratzailearekin harremanetan jar zaitez</string>
+    <string name="filedetails_share_link_enable">Esteka bidez partekatzea baimenduta</string>
+    <string name="filedetails_share_link_disable">Ezin da partekatu esteka bidez</string>
+    <string name="filedetails_share_users_with_access">Sarbidea duten erabiltzaile eta taldeak</string>
     <string name="share_privilege_can_share">elkarbana dezake</string>
     <string name="share_privilege_can_edit">editatu dezake</string>
     <string name="share_privilege_can_edit_create">sortu</string>
     <string name="share_privilege_can_edit_change">aldatu</string>
     <string name="share_privilege_can_edit_delete">ezabatu</string>
+    <string name="edit_share_unshare">Partekatzeari utzi</string>
+    <string name="edit_share_done">eginda</string>
+
+    <string name="action_retry_uploads">Erroredun igoerak berriz saiatu</string>
+    <string name="action_clear_failed_uploads">Erroredun igoerak garbitu</string>
+    <string name="action_clear_successful_uploads">Ondo igo diren igoerak garbitu</string>
+    <string name="action_clear_finished_uploads">Bukatutako igoerak garbitu</string>
+    <string name="action_force_rescan">Bireskaneatzea behartu</string>
+
+    <string name="action_switch_grid_view">Sare ikuspegia</string>
+    <string name="action_switch_list_view">Zerrenda ikuspegia</string>
+
+    <string name="manage_space_title">Tokia kudeatu</string>
+    <string name="manage_space_description">Ezarpenak, %1$sren datubase eta zerbitzariaren ziurtagiriak betirako borratuko dira.\n\n Jaitsitako fitxategiak ez dira ikutuko.\n\n Prozesu honek denbora behar du</string>
+    <string name="manage_space_clear_data">Datuak garbitu</string>
+    <string name="manage_space_error">Fitxategi batzuk ezin dira borratu</string>
+
+    <string name="permission_storage_access">Fitxategiak igo eta jaisteko baimen gehigarriak behar dira</string>
+    <string name="local_file_not_found_toast">Ez da fitxategia topatu fitxategi-sistema lokalean</string>
+    <string name="confirmation_remove_files_alert">Hautatutako elementuak benetan borratu nahi dituzu?</string>
+    <string name="confirmation_remove_folders_alert">Hautatutako elementuak eta bere edukiak benetan borratu nahi dituzu?</string>
+    <string name="maintenance_mode">Zerbitzaria mantentze moduan dago</string>
+    <string name="lock_failed">Fitxategia kateatzean errorea</string>
+
+    <string name="uploads_view_upload_status_waiting_for_charging">Karga itxoiten</string>
+    <string name="actionbar_search">Bilatu</string>
+    <string name="files_drop_not_supported">Nextcloud-en ezaugarri bat da, eguneratu mesedez.</string>
+    <string name="learn_more">Gehiago ikasi</string>
+    <string name="drawer_synced_folders">Eguneratu automatikoki</string>
+    <string name="drawer_participate">Parte hartu</string>
+    <string name="participate_testing_headline">Testeatzen lagundu</string>
+    <string name="participate_testing_bug_text">Errore bat topatu duzu? </string>
+    <string name="participate_testing_report_text">Arazo bezala GitHub-era igo</string>
+    <string name="participate_testing_version_text">Lagundu nahi gaituzu hurrengo bertsioa probatzen?</string>
+    <string name="participate_beta_headline">Dev bertsioa probatu</string>
+    <string name="participate_beta_text">Ezaugarri berri guztiak datoz eta punta-puntakoa da. Bug/erroreak gerta daitezke, eta gertatzen direnean, mesedez bidaliguzu topatutakoa</string>
+    <string name="participate_release_candidate_headline">Release hautagaia</string>
+    <string name="participate_contribute_irc_text">IRC txatean sar zaitez</string>
+    <string name="participate_contribute_forum_text">Besteak lagundu</string>
+    <string name="participate_contribute_forum_forum">foroa</string>
+    <string name="participate_contribute_translate_translate">Itzuli</string>
+    <string name="participate_contribute_translate_text">app-a</string>
+    <string name="participate_contribute_github_text">Errebisatu, hobetu eta kodea idatzi, %1$s begira itzazu xehetasunak</string>
+    <string name="participate_rc_play_store">Release hautagaia Google Play Storetik jaso ezazu</string>
+    <string name="participate_rc_fdroid">Release hautagaia F-Droidetik jaso ezazu</string>
+    <string name="participate_dev_fdroid">Garapen hautagaia F-Droidetik jaso ezazu</string>
+    <string name="participate_dev_direct_download">Garapen bertsioa deskarga zuzenetik jaso ezazu</string>
+    <string name="move_to">&#8230;ra mugitua</string>
+    <string name="copy_to">&#8230;ra kopiatua</string>
+    <string name="choose_remote_folder">&#8230; urruneko fitxategia hautatu</string>
+    <string name="choose_local_folder">&#8230; fitxategia lokala hautatu</string>
+    <string name="synced_folders_loading_folders">Karpetak &#8230;ra igotzen</string>
     <string name="storage_description_default">Lehenetsia</string>
     <string name="storage_description_unknown">Ezezaguna</string>
 

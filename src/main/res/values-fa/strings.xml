@@ -250,7 +250,6 @@
     <string name="wait_for_tmp_copy_from_private_storage">کپی کردن فایل از حافظه خصوصی</string>
     
     <string name="oauth_check_onoff">ورود به برنامه با OAuth 2.0</string> 
-    <string name="ssl_validator_header">هویت این سایت نمی تواند تایید شود</string>
     <string name="ssl_validator_reason_cert_not_trusted">- گواهی سرور نامعتبر است</string>
     <string name="ssl_validator_reason_cert_expired">- گواهی سرور انقضا یافته</string>
     <string name="ssl_validator_reason_cert_not_yet_valid">- زمان اعتبار گواهی نامه سرویس دهنده فرانرسیده است</string>
@@ -334,7 +333,7 @@
 
     <string name="prefs_category_details">جزئیات</string>
 
-	<string name="shared_subject_header">به اشتراک گذاشته شد</string>
+    <string name="shared_subject_header">به اشتراک گذاشته شد</string>
 	<string name="with_you_subject_header">با تو</string>
     
 	<string name="subject_user_shared_with_you">\"%2$s\" توسط %1$s با شما به اشتراک گذاشته شد</string>

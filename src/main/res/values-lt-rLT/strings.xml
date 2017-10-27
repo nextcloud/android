@@ -263,7 +263,6 @@
     <string name="oauth_check_onoff">Prisijungti naudojant oAuth2</string> 
     <string name="oauth_login_connection">Jungiamasi prie OAuth 2.0 serverio&#8230;</string>
         
-    <string name="ssl_validator_header">Serverio tapatybė negali būti patikrinta</string>
     <string name="ssl_validator_reason_cert_not_trusted">- Nepatikimas serverio liudijimas</string>
     <string name="ssl_validator_reason_cert_expired">- Serverio liudijimo galiojimo laikas pasibaigęs</string>
     <string name="ssl_validator_reason_cert_not_yet_valid">- Serverio liudijimas yra pernelyg naujas</string>

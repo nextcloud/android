@@ -292,7 +292,6 @@
     <string name="oauth_check_onoff">OAuth 2.0 ile Oturum Aç</string> 
     <string name="oauth_login_connection">OAuth 2.0 sunucusuna bağlanılıyor&#8230;</string>
         
-    <string name="ssl_validator_header">Sitenin kimliği doğrulanamadı</string>
     <string name="ssl_validator_reason_cert_not_trusted">- Sunucu sertifikasına güvenilmiyor</string>
     <string name="ssl_validator_reason_cert_expired">- Sunucu sertifikasının süresi dolmuş</string>
     <string name="ssl_validator_reason_cert_not_yet_valid">- Sunucu sertifikasının geçerlilik tarihi gelecekte</string>

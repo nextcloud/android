@@ -261,7 +261,6 @@
     <string name="oauth_check_onoff">Masuk dengan 2.0</string> 
     <string name="oauth_login_connection">Menyambukan ke server OAuth 2.0 &#8230;</string>
         
-    <string name="ssl_validator_header">Identitas situs tidak dapat diverfikasi</string>
     <string name="ssl_validator_reason_cert_not_trusted">- Sertifikat server tidak terpercaya</string>
     <string name="ssl_validator_reason_cert_expired">- Sertifikat server kadaluarsa</string>
     <string name="ssl_validator_reason_cert_not_yet_valid">- Tanggal sertifikat server yang valid adalah di masa depan</string>

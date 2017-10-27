@@ -291,7 +291,6 @@
     <string name="oauth_check_onoff">Loguj przez OAuth 2.0</string> 
     <string name="oauth_login_connection">Łączenie z serwerem OAuth 2.0&#8230;</string>
         
-    <string name="ssl_validator_header">Nie można zweryfikować tożsamości strony</string>
     <string name="ssl_validator_reason_cert_not_trusted">- Certyfikat serwera jest niezaufany</string>
     <string name="ssl_validator_reason_cert_expired">- Certyfikat serwera wygasł</string>
     <string name="ssl_validator_reason_cert_not_yet_valid">- Certyfikat serwera jest wystawiony w przyszłości</string>
