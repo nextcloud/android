@@ -150,6 +150,7 @@
     <string name="uploader_upload_failed_ticker">Wysyłanie nie powiodło się</string>
     <string name="uploader_upload_failed_content_single">Nie udało się wysłać %1$s</string>
     <string name="uploader_upload_failed_credentials_error">Błąd podczas wysyłania, zaloguj się ponownie</string>
+    <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">Certyfikat serwera jest niezaufany</string>
     <string name="uploads_view_title">Wysłane</string>
     <string name="uploads_view_group_current_uploads">Bieżące</string>
     <string name="uploads_view_group_failed_uploads">Niepowodzenie / Ponowne uruchomienie</string>
@@ -291,6 +292,7 @@
     <string name="oauth_check_onoff">Loguj przez OAuth 2.0</string> 
     <string name="oauth_login_connection">Łączenie z serwerem OAuth 2.0&#8230;</string>
         
+    <string name="ssl_validator_header">Nie można zweryfikować tożsamości serwera</string>
     <string name="ssl_validator_reason_cert_not_trusted">- Certyfikat serwera jest niezaufany</string>
     <string name="ssl_validator_reason_cert_expired">- Certyfikat serwera wygasł</string>
     <string name="ssl_validator_reason_cert_not_yet_valid">- Certyfikat serwera jest wystawiony w przyszłości</string>
