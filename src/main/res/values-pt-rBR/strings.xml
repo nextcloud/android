@@ -150,6 +150,7 @@
     <string name="uploader_upload_failed_ticker">Falha no envio</string>
     <string name="uploader_upload_failed_content_single">Não foi possível enviar %1$s</string>
     <string name="uploader_upload_failed_credentials_error">Falha no envio, você precisa reautenticar-se</string>
+    <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">O certificado do servidor não é confiável</string>
     <string name="uploads_view_title">Envios</string>
     <string name="uploads_view_group_current_uploads">Atual</string>
     <string name="uploads_view_group_failed_uploads">Falhou / Reinício pendente</string>
@@ -299,6 +300,7 @@
     <string name="oauth_check_onoff">Entrar com OAuth 2.0</string> 
     <string name="oauth_login_connection">Conectando ao servidor OAuth 2.0&#8230;</string>
         
+    <string name="ssl_validator_header">A identidade do servidor não pôde ser verificada</string>
     <string name="ssl_validator_reason_cert_not_trusted">- O certificado do servidor não é confiável</string>
     <string name="ssl_validator_reason_cert_expired">- O certificado do servidor expirou</string>
     <string name="ssl_validator_reason_cert_not_yet_valid">- A data de expiração do certificado do servidor está no futuro</string>

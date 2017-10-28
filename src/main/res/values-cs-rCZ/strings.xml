@@ -150,6 +150,7 @@
     <string name="uploader_upload_failed_ticker">Odesílání selhalo</string>
     <string name="uploader_upload_failed_content_single">Nepodařilo se nahrát %1$s</string>
     <string name="uploader_upload_failed_credentials_error">Nahrání selhalo, je třeba se znovu přihlásit</string>
+    <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">Serverový certifikát není důvěryhodný</string>
     <string name="uploads_view_title">Nahrání</string>
     <string name="uploads_view_group_current_uploads">Aktuální</string>
     <string name="uploads_view_group_failed_uploads">Selhavší / čekající restart</string>
@@ -186,7 +187,17 @@
     <string name="sync_fail_content_unauthorized">Chybné heslo pro %1$s</string>
     <string name="sync_conflicts_in_favourites_ticker">Nalezeny konflikty</string>
     <string name="sync_fail_in_favourites_ticker">Automatická synchronizace souborů selhala</string>
+    <plurals name="sync_fail_in_favourites_content">
+        <item quantity="one">Obsah %1$d souboru nemohl být synchronizován (počet konfliktů: %2$d)</item>
+        <item quantity="few">Obsah %1$d souborů nemohl být synchronizován (počet konfliktů: %2$d)</item>
+        <item quantity="other">Obsah %1$d souborů nemohl být synchronizován (počet konfliktů: %2$d)</item>
+    </plurals>
     <string name="sync_foreign_files_forgotten_ticker">Některé místní soubory byly zapomenuty</string>
+    <plurals name="sync_foreign_files_forgotten_content">
+        <item quantity="one">%1$d soubor z adresáře %2$s se nepodařilo zkopírovat do</item>
+        <item quantity="few">%1$d soubory z adresáře %2$s se nepodařilo zkopírovat do</item>
+        <item quantity="other">%1$d souborů z adresáře %2$s se nepodařilo zkopírovat do</item>
+    </plurals>
     <string name="sync_current_folder_was_removed">Adresář %1$s již neexistuje</string>
     <string name="foreign_files_move">Přesunout vše</string>
     <string name="foreign_files_success">Všechny soubory byly přesunuty</string>
@@ -290,6 +301,7 @@
     <string name="oauth_check_onoff">Přihlásit se s OAuth 2.0</string> 
     <string name="oauth_login_connection">Připojuji se k OAuth 2.0 serveru&#8230;</string>
         
+    <string name="ssl_validator_header">Identitu serveru se nepodařilo ověřit</string>
     <string name="ssl_validator_reason_cert_not_trusted">- Certifikát serveru je nedůvěryhodný</string>
     <string name="ssl_validator_reason_cert_expired">- Certifikátu serveru vypršela platnost</string>
     <string name="ssl_validator_reason_cert_not_yet_valid">- Datum platnosti certifikátu je v budoucnosti</string>
@@ -451,6 +463,16 @@
 
     <string name="username">Uživatelské jméno</string>
 
+    <plurals name="file_list__footer__folder">
+        <item quantity="one">%1$d adresář</item>
+        <item quantity="few">%1$d adresář</item>
+        <item quantity="other">%1$d adresářů</item>
+    </plurals>
+    <plurals name="file_list__footer__file">
+        <item quantity="one">%1$d soubor</item>
+        <item quantity="few">%1$d soubory</item>
+        <item quantity="other">%1$d souborů</item>
+    </plurals>
     <string name="set_picture_as">Použít obrázek jako</string>
     <string name="set_as">Nastavit jako</string>
 
