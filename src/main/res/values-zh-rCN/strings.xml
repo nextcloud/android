@@ -194,6 +194,9 @@
     <string name="pass_code_wrong">安全码不正确</string>
     <string name="pass_code_stored">已存储的安全码</string>
     
+    <string name="media_notif_ticker">%1$s 音乐播放器</string>
+    <string name="media_state_playing">%1$s (播放)</string>
+    <string name="media_state_loading">%1$s (加载)</string>
     <string name="media_err_nothing_to_play">没有发现媒体文件</string>
     <string name="media_err_no_account">未提供账户</string>
     <string name="media_err_not_in_owncloud">该文件不属于一个有效的账户</string>
@@ -248,8 +251,12 @@
     <string name="unfavorite">不可以设置离线</string>
     <string name="favorite_real">加入收藏</string>
     <string name="unset_favorite_real">取消收藏</string>
+    <string name="favorite_switch">离线可用</string>
     <string name="common_rename">重命名</string>
+    <string name="common_remove">删除</string>
     <string name="confirmation_remove_local">仅本地</string>
+    <string name="remove_success_msg">已删除</string>
+    <string name="remove_fail_msg">删除失败</string>
     <string name="rename_dialog_title">请输出新的名字</string>
     <string name="sync_file_fail_msg">无法查看远程文件</string>
     <string name="sync_file_nothing_to_do_msg">文件内容已同步</string>
@@ -425,6 +432,12 @@
 
     <string name="username">用户名</string>
 
+    <plurals name="file_list__footer__folder">
+        <item quantity="other">%1$d 文件夹</item>
+    </plurals>
+    <plurals name="file_list__footer__file">
+        <item quantity="other">%1$d 文件</item>
+    </plurals>
     <string name="set_picture_as">将图片用作</string>
     <string name="set_as">设置</string>
 
@@ -640,4 +653,5 @@
     <string name="push_notifications_not_implemented">由于依赖于专有的Google Play服务，推送通知被禁用。</string>
     <string name="push_notifications_old_login">由于过期的登录会话，没有推送通知。 请考虑重新添加您的帐户。</string>
     <string name="push_notifications_temp_error">推送通知目前不可用。</string>
-    </resources>
+    <string name="date_unknown">未知</string>
+</resources>
