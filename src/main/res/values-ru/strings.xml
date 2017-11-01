@@ -150,6 +150,7 @@
     <string name="uploader_upload_failed_ticker">Ошибка выгрузки</string>
     <string name="uploader_upload_failed_content_single">Невозможно выгрузить %1$s</string>
     <string name="uploader_upload_failed_credentials_error">Выгрузка не удалась, необходимо повторно войти в систему</string>
+    <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">Сертификат сервера не является доверенным</string>
     <string name="uploads_view_title">Состояние выгрузки</string>
     <string name="uploads_view_group_current_uploads">Текущие</string>
     <string name="uploads_view_group_failed_uploads">С ошибками / ожидающие перезапуска</string>
@@ -186,7 +187,19 @@
     <string name="sync_fail_content_unauthorized">Неверный пароль для %1$s</string>
     <string name="sync_conflicts_in_favourites_ticker">Обнаружены конфликты</string>
     <string name="sync_fail_in_favourites_ticker">Не удалось синхронизировать файлы</string>
+    <plurals name="sync_fail_in_favourites_content">
+        <item quantity="one">Содержимое %1$d файла не может быть синхронизировано (конфликтов: %2$d)</item>
+        <item quantity="few">Содержимое %1$d файлов не может быть синхронизировано (конфликтов: %2$d)</item>
+        <item quantity="many">Содержимое %1$d файлов не может быть синхронизировано (конфликтов: %2$d)</item>
+        <item quantity="other">Содержимое %1$d файлов не может быть синхронизировано (конфликтов: %2$d)</item>
+    </plurals>
     <string name="sync_foreign_files_forgotten_ticker">Некоторые загруженные файлы не были перенесены в локальную папку </string>
+    <plurals name="sync_foreign_files_forgotten_content">
+        <item quantity="one">Не удалось скопировать %1$d файл из каталога %2$s в</item>
+        <item quantity="few">Не удалось скопировать %1$d файла из каталога %2$s в</item>
+        <item quantity="many">Не удалось скопировать %1$d файлов из каталога %2$s в</item>
+        <item quantity="other">Не удалось скопировать %1$d файлов из каталога %2$s в</item>
+    </plurals>
     <string name="sync_foreign_files_forgotten_explanation">Начиная с версии 1.3.16, файлы, загружаемые с этого устройства, копируются в локальный каталог %1$s, чтобы предотвратить потерю данных при синхронизации файла с несколькими учётными записями.\n\nПоэтому все файлы, загруженные предыдущими версиями данного приложения, были скопированы в каталог %2$s. Однако, во время синхронизации что-то помешало завершить эту операцию. Можете оставить файлы как есть и удалить ссылку на %3$s, либо переместить их в %1$s и сохранить ссылку на %4$s.\n\nНиже перечислены локальные файлы, и соответствующие им удалённые файлы в %5$s, c которыми они связаны.</string>
     <string name="sync_current_folder_was_removed">Каталог %1$s больше не существует</string>
     <string name="foreign_files_move">Переместить все</string>
@@ -291,6 +304,7 @@
     <string name="oauth_check_onoff">Войти через OAuth 2.0</string> 
     <string name="oauth_login_connection">Подключение к серверу OAuth 2.0&#8230;</string>
         
+    <string name="ssl_validator_header">Не удалось проверить подлинность сервера</string>
     <string name="ssl_validator_reason_cert_not_trusted">- Сертификат сервера не является доверенным</string>
     <string name="ssl_validator_reason_cert_expired">- Срок действия сертификата сервера истёк</string>
     <string name="ssl_validator_reason_cert_not_yet_valid">- Срок действия сертификата сервера ещё не начался</string>
@@ -452,6 +466,18 @@
 
     <string name="username">Имя пользователя</string>
 
+    <plurals name="file_list__footer__folder">
+        <item quantity="one">%1$d каталог</item>
+        <item quantity="few">%1$d каталога</item>
+        <item quantity="many">%1$d каталогов</item>
+        <item quantity="other">%1$d каталогов</item>
+    </plurals>
+    <plurals name="file_list__footer__file">
+        <item quantity="one">%1$d файл</item>
+        <item quantity="few">%1$d файла</item>
+        <item quantity="many">%1$d файлов</item>
+        <item quantity="other">%1$d файлов</item>
+    </plurals>
     <string name="set_picture_as">Использовать изображение</string>
     <string name="set_as">Установить как</string>
 
