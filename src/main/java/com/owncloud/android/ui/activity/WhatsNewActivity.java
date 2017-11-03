@@ -72,14 +72,13 @@ public class WhatsNewActivity extends FragmentActivity implements ViewPager.OnPa
     private Button mSkipButton;
     private ProgressIndicator mProgress;
     private ViewPager mPager;
-    private int fontColor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.whats_new_activity);
 
-        fontColor = ThemeUtils.fontColor();
+        int fontColor = ThemeUtils.fontColor();
 
         mProgress = (ProgressIndicator) findViewById(R.id.progressIndicator);
         mPager = (ViewPager) findViewById(R.id.contentPanel);
