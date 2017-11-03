@@ -1,21 +1,21 @@
-/**
+/*
  * Nextcloud Android client application
  *
  * @author Bartosz Przybylski
  * Copyright (C) 2015 Bartosz Przybylski
  * Copyright (C) 2015 ownCloud Inc.
  * Copyright (C) 2016 Nextcloud.
- * <p>
+ * 
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
  * License as published by the Free Software Foundation; either
  * version 3 of the License, or any later version.
- * <p>
+ * 
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU AFFERO GENERAL PUBLIC LICENSE for more details.
- * <p>
+ * 
  * You should have received a copy of the GNU Affero General Public
  * License along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -55,6 +55,7 @@ import com.owncloud.android.features.FeatureList;
 import com.owncloud.android.features.FeatureList.FeatureItem;
 import com.owncloud.android.ui.whatsnew.ProgressIndicator;
 import com.owncloud.android.utils.AnalyticsUtils;
+import com.owncloud.android.utils.ThemeUtils;
 
 /**
  * Activity displaying general feature after a fresh install and new features after an update.
@@ -71,11 +72,14 @@ public class WhatsNewActivity extends FragmentActivity implements ViewPager.OnPa
     private Button mSkipButton;
     private ProgressIndicator mProgress;
     private ViewPager mPager;
+    private int fontColor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.whats_new_activity);
+
+        fontColor = ThemeUtils.fontColor();
 
         mProgress = (ProgressIndicator) findViewById(R.id.progressIndicator);
         mPager = (ViewPager) findViewById(R.id.contentPanel);
@@ -108,6 +112,8 @@ public class WhatsNewActivity extends FragmentActivity implements ViewPager.OnPa
 
 
         mForwardFinishButton = (ImageButton) findViewById(R.id.forward);
+        ThemeUtils.colorImageButton(mForwardFinishButton, fontColor);
+        
         mForwardFinishButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -129,6 +135,7 @@ public class WhatsNewActivity extends FragmentActivity implements ViewPager.OnPa
         }
 
         mSkipButton = (Button) findViewById(R.id.skip);
+        mSkipButton.setTextColor(fontColor);
         mSkipButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -326,6 +333,7 @@ public class WhatsNewActivity extends FragmentActivity implements ViewPager.OnPa
                                  @Nullable ViewGroup container,
                                  @Nullable Bundle savedInstanceState) {
             View v = inflater.inflate(R.layout.whats_new_element, container, false);
+            int fontColor = ThemeUtils.fontColor();
 
             ImageView iv = (ImageView) v.findViewById(R.id.whatsNewImage);
             if (mItem.shouldShowImage()) {
@@ -335,11 +343,13 @@ public class WhatsNewActivity extends FragmentActivity implements ViewPager.OnPa
             TextView tv2 = (TextView) v.findViewById(R.id.whatsNewTitle);
             if (mItem.shouldShowTitleText()) {
                 tv2.setText(mItem.getTitleText());
+                tv2.setTextColor(fontColor);
             }
 
             tv2 = (TextView) v.findViewById(R.id.whatsNewText);
             if (mItem.shouldShowContentText()) {
                 tv2.setText(mItem.getContentText());
+                tv2.setTextColor(fontColor);
 
                 if (!mItem.shouldContentCentered()) {
                     tv2.setGravity(Gravity.START);
