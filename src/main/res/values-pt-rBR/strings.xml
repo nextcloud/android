@@ -557,11 +557,11 @@
     <string name="participate_release_candidate_text">O release candidate (RC) é uma cópia de uma nova versão e espera-se que seja estável. Testar sua própria configuração pode garantir isso. Assine para testes na Play Store ou manualmente procure no seção \"Versão\" do F-Droid,</string>
     <string name="participate_contribute_headline">Contribuir ativamente</string>
     <string name="participate_contribute_irc_text">Junte-se ao chat no IRC:</string>
-    <string name="participate_contribute_forum_text">Ajude outros em</string>
+    <string name="participate_contribute_forum_text">Ajude outros no</string>
     <string name="participate_contribute_forum_forum">forum</string>
-    <string name="participate_contribute_translate_translate">Traduzir</string>
+    <string name="participate_contribute_translate_translate">Traduza</string>
     <string name="participate_contribute_translate_text">o aplicativo</string>
-    <string name="participate_contribute_github_text">Revise, modifique e escreva código, veja detalhes em%1$s</string>
+    <string name="participate_contribute_github_text">Revise, modifique e escreva código. Veja detalhes em %1$s</string>
     <string name="participate_rc_play_store">Obtenha uma versão candidata a lançamento pelo Google Play store</string>
     <string name="participate_rc_fdroid">Obtenha o candidato de lançamento através da loja de aplicativos F-Droid</string>
     <string name="participate_dev_fdroid">Obtenha o lançamento de desenvolvimento através da loja de aplicativos F-Droid</string>
