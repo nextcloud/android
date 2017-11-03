@@ -23,6 +23,7 @@
 package com.owncloud.android.ui.whatsnew;
 
 import android.content.Context;
+import android.graphics.PorterDuff;
 import android.graphics.drawable.TransitionDrawable;
 import android.util.AttributeSet;
 import android.view.Gravity;
@@ -32,6 +33,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.owncloud.android.R;
+import com.owncloud.android.utils.ThemeUtils;
 
 /**
  * Progress indicator visualizing the actual progress with dots.
@@ -63,11 +65,13 @@ public class ProgressIndicator extends FrameLayout {
     }
 
     public void setNumberOfSteps(int steps) {
+        int fontColor = ThemeUtils.fontColor();
         mNumberOfSteps = steps;
         mDotsContainer.removeAllViews();
         for (int i = 0; i < steps; ++i) {
             ImageView iv = new ImageView(getContext());
             iv.setImageDrawable(getContext().getResources().getDrawable(R.drawable.whats_new_progress_transition));
+            iv.setColorFilter(fontColor, PorterDuff.Mode.SRC_ATOP);
             mDotsContainer.addView(iv);
         }
         animateToStep(1);
