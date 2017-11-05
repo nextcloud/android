@@ -40,8 +40,6 @@
     <string name="prefs_category_more">More</string>
     <string name="prefs_manage_accounts">Manage accounts</string>
     <string name="prefs_passcode">Passcode lock</string>
-    <string name="prefs_fingerprint">Fingerprint lock</string>
-    <string name="prefs_fingerprint_notsetup">No fingerprints have been set up.</string>
     <string name="prefs_use_device_credentials">Lock using device credentials</string>
     <string name="prefs_device_credentials_not_setup">No device credentials have been set up.</string>
     <string name="prefs_expert_mode">Expert mode</string>
@@ -618,9 +616,6 @@
     <string name="whats_new_ipv6_content">IPv6 when the server supports it, IPv4 if not.</string>
 
     <string name="whats_new_skip">Skip</string>
-
-    <string name="fingerprint_scan_finger">Please scan your finger</string>
-    <string name="fingerprint_unknown">Finger not recognized</string>
 
     <!-- User information -->
     <string name="user_info_email">E-mail</string>

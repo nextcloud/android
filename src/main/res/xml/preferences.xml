@@ -43,9 +43,6 @@
 			android:title="@string/prefs_passcode"
 			android:key="set_pincode"/>
 		<com.owncloud.android.ui.ThemeableSwitchPreference
-			android:title="@string/prefs_fingerprint"
-			android:key="use_fingerprint"/>
-		<com.owncloud.android.ui.ThemeableSwitchPreference
 			android:title="@string/prefs_use_device_credentials"
 			android:key="use_device_credentials"/>
 		<com.owncloud.android.ui.ThemeableSwitchPreference
