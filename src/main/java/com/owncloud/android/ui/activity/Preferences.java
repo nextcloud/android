@@ -857,15 +857,14 @@ public class Preferences extends PreferenceActivity
             }
         } else if (requestCode == ACTION_REQUEST_CODE_DAVDROID_SETUP && resultCode == RESULT_OK) {
             DisplayUtils.showSnackMessage(this, R.string.prefs_calendar_contacts_sync_setup_successful);
-        } else if (requestCode == ACTION_CONFIRM_DEVICE_CREDENTIALS && resultCode == RESULT_OK) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M &&
-                    data.getBooleanExtra(RequestCredentialsActivity.KEY_CHECK_RESULT, false)) {
-                SharedPreferences.Editor appPrefs = PreferenceManager
-                        .getDefaultSharedPreferences(getApplicationContext()).edit();
-                appPrefs.putBoolean(PREFERENCE_USE_DEVICE_CREDENTIALS, false).apply();
+        } else if (requestCode == ACTION_CONFIRM_DEVICE_CREDENTIALS && resultCode == RESULT_OK &&
+            Build.VERSION.SDK_INT >= Build.VERSION_CODES.M &&
+            data.getBooleanExtra(RequestCredentialsActivity.KEY_CHECK_RESULT, false)) {
+            SharedPreferences.Editor appPrefs = PreferenceManager
+                    .getDefaultSharedPreferences(getApplicationContext()).edit();
+            appPrefs.putBoolean(PREFERENCE_USE_DEVICE_CREDENTIALS, false).apply();
 
-                DisplayUtils.showSnackMessage(this, R.string.credentials_disabled);
-            }
+            DisplayUtils.showSnackMessage(this, R.string.credentials_disabled);
         }
     }
 

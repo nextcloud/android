@@ -91,6 +91,15 @@
     <!-- Help, imprint and feedback, and other things -->
     <bool name="passcode_enabled">true</bool>
     <bool name="device_credentials_enabled">true</bool>
+    <string name="secret_key_name">Nextcloud</string>
+    <integer-array name="secret_byte_array">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+    </integer-array>
     <bool name="show_hidden_files_enabled">true</bool>
     <bool name="davdroid_integration_enabled">true</bool>
     <bool name="help_enabled">true</bool>

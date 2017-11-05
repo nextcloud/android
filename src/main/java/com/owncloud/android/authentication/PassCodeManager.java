@@ -85,7 +85,7 @@ public class PassCodeManager {
 
         if (!sExemptOfPasscodeActivites.contains(activity.getClass()) && Build.VERSION.SDK_INT >=
                 Build.VERSION_CODES.M && deviceCredentialsShouldBeRequested() &&
-                !DeviceCredentialUtils.tryEncrypt()) {
+                !DeviceCredentialUtils.tryEncrypt(activity)) {
             Intent i = new Intent(MainApp.getAppContext(), RequestCredentialsActivity.class);
             i.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
             activity.startActivity(i);
@@ -138,6 +138,6 @@ public class PassCodeManager {
     private boolean deviceCredentialsAreEnabled() {
         SharedPreferences appPrefs = PreferenceManager
                 .getDefaultSharedPreferences(MainApp.getAppContext());
-        return (appPrefs.getBoolean(Preferences.PREFERENCE_USE_DEVICE_CREDENTIALS, false));
+        return appPrefs.getBoolean(Preferences.PREFERENCE_USE_DEVICE_CREDENTIALS, false);
     }
 }
