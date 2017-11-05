@@ -377,6 +377,7 @@ public class Preferences extends PreferenceActivity
         if (pFeedback != null) {
             if (feedbackEnabled) {
                 pFeedback.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+
                     @Override
                     public boolean onPreferenceClick(Preference preference) {
                         String feedbackMail = getString(R.string.mail_feedback);
