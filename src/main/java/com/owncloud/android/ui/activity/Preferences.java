@@ -87,8 +87,6 @@ public class Preferences extends PreferenceActivity
 
     private static final String TAG = Preferences.class.getSimpleName();
 
-    public final static String PREFERENCE_USE_FINGERPRINT = "use_fingerprint";
-
     public final static String PREFERENCE_USE_DEVICE_CREDENTIALS= "use_device_credentials";
 
     public static final String PREFERENCE_EXPERT_MODE = "expert_mode";
@@ -109,7 +107,6 @@ public class Preferences extends PreferenceActivity
     private Uri mUri;
 
     private SwitchPreference pCode;
-    private SwitchPreference fPrint;
     private SwitchPreference mShowHiddenFiles;
     private SwitchPreference mExpertMode;
     private AppCompatDelegate mDelegate;
@@ -372,6 +369,7 @@ public class Preferences extends PreferenceActivity
         if (pFeedback != null) {
             if (feedbackEnabled) {
                 pFeedback.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+
                     @Override
                     public boolean onPreferenceClick(Preference preference) {
                         String feedbackMail = getString(R.string.mail_feedback);
@@ -507,29 +505,28 @@ public class Preferences extends PreferenceActivity
                 accentColor));
 
         boolean fPassCodeEnabled = getResources().getBoolean(R.bool.passcode_enabled);
-        boolean fPrintEnabled = getResources().getBoolean(R.bool.fingerprint_enabled);
         boolean fDeviceCredentialsEnabled = getResources().getBoolean(R.bool.device_credentials);
         boolean fShowHiddenFilesEnabled = getResources().getBoolean(R.bool.show_hidden_files_enabled);
+        boolean fSyncedFolderLightEnabled = getResources().getBoolean(R.bool.syncedFolder_light);
 
         setupPasscodePreference(preferenceCategoryDetails, fPassCodeEnabled);
-
-        setupFingerprintPreference(preferenceCategoryDetails, fPrintEnabled);
 
         setupDeviceCredentialsPreference(preferenceCategoryDetails, fDeviceCredentialsEnabled);
 
         setupHiddenFilesPreference(preferenceCategoryDetails, fShowHiddenFilesEnabled);
 
-        setupExpertModePreference(preferenceCategoryDetails);
+        setupExpertModePreference(preferenceCategoryDetails, fSyncedFolderLightEnabled);
 
-        if (!fShowHiddenFilesEnabled && !fPrintEnabled && !fPassCodeEnabled) {
+        if (!fPassCodeEnabled && !fDeviceCredentialsEnabled && !fShowHiddenFilesEnabled && fSyncedFolderLightEnabled) {
             preferenceScreen.removePreference(preferenceCategoryDetails);
         }
     }
 
-    private void setupExpertModePreference(PreferenceCategory preferenceCategoryDetails) {
+    private void setupExpertModePreference(PreferenceCategory preferenceCategoryDetails,
+                                           boolean fSyncedFolderLightEnabled) {
         mExpertMode = (SwitchPreference) findPreference(PREFERENCE_EXPERT_MODE);
 
-        if (getResources().getBoolean(R.bool.syncedFolder_light)) {
+        if (fSyncedFolderLightEnabled) {
             preferenceCategoryDetails.removePreference(mExpertMode);
         } else {
             mExpertMode = (SwitchPreference) findPreference(PREFERENCE_EXPERT_MODE);
@@ -577,66 +574,16 @@ public class Preferences extends PreferenceActivity
         }
     }
 
-    private void setupFingerprintPreference(PreferenceCategory preferenceCategoryDetails, boolean fPrintEnabled) {
-        fPrint = (SwitchPreference) findPreference(PREFERENCE_USE_FINGERPRINT);
-        if (fPrint != null) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                if (FingerprintActivity.isFingerprintCapable(MainApp.getAppContext()) && fPrintEnabled) {
-                    final Activity activity = this;
-                    fPrint.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
-                        @Override
-                        public boolean onPreferenceChange(Preference preference, Object newValue) {
-                            Boolean incoming = (Boolean) newValue;
-
-                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                                if (FingerprintActivity.isFingerprintReady(MainApp.getAppContext())) {
-                                    SharedPreferences appPrefs =
-                                            PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-                                    SharedPreferences.Editor editor = appPrefs.edit();
-                                    editor.putBoolean(PREFERENCE_USE_FINGERPRINT, incoming);
-                                    editor.apply();
-                                    return true;
-                                } else {
-                                    if (incoming) {
-                                        DisplayUtils.showSnackMessage(activity, R.string.prefs_fingerprint_notsetup);
-                                        fPrint.setChecked(false);
-                                    }
-                                    SharedPreferences appPrefs =
-                                            PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-                                    SharedPreferences.Editor editor = appPrefs.edit();
-                                    editor.putBoolean(PREFERENCE_USE_FINGERPRINT, false);
-                                    editor.apply();
-                                    return false;
-                                }
-                            } else {
-                                return false;
-                            }
-                        }
-                    });
-                    if (!FingerprintActivity.isFingerprintReady(MainApp.getAppContext())) {
-                        fPrint.setChecked(false);
-                    }
-
-                } else {
-                    preferenceCategoryDetails.removePreference(fPrint);
-                }
-            } else {
-                preferenceCategoryDetails.removePreference(fPrint);
-            }
-        }
-    }
-
     private void setupDeviceCredentialsPreference(PreferenceCategory preferenceCategoryDetails,
-                                                  boolean fDeviceCredentialsEnabled) {
+                                                  boolean deviceCredentialsEnabled) {
         SwitchPreference useDeviceCredentials = (SwitchPreference) findPreference(PREFERENCE_USE_DEVICE_CREDENTIALS);
-        if (useDeviceCredentials != null && fDeviceCredentialsEnabled && Build.VERSION.SDK_INT >=
+        if (useDeviceCredentials != null && deviceCredentialsEnabled && Build.VERSION.SDK_INT >=
                 Build.VERSION_CODES.M) {
             if (!DeviceCredentialUtils.areCredentialsAvailable(getApplicationContext())) {
                 DisplayUtils.showSnackMessage(this, R.string.prefs_device_credentials_not_setup);
                 useDeviceCredentials.setChecked(false);
             } else {
-                useDeviceCredentials.setOnPreferenceChangeListener(
-                        new OnPreferenceChangeListener() {
+                useDeviceCredentials.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
                     @Override
                     public boolean onPreferenceChange(Preference preference, Object newValue) {
                         Boolean incoming = (Boolean) newValue;
