@@ -4,4 +4,8 @@
         <ignore path="**/freemarker-2.3.23.jar"/>
         <ignore path="**/nnio-0.2.jar"/>
     </issue>
+    
+    <issue id="UnusedResources">
+        <ignore regexp="store_short_desc|store_full_desc" />
+    </issue>
 </lint>
