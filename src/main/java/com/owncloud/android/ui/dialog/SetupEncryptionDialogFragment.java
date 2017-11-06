@@ -290,7 +290,7 @@ public class SetupEncryptionDialogFragment extends DialogFragment {
                 PrivateKey privateKey = keyPair.getPrivate();
 
                 // create CSR
-                String urlEncoded = CsrHelper.generateCsrPemEncodedString(keyPair);
+                String urlEncoded = CsrHelper.generateCsrPemEncodedString(keyPair, account.name);
 
                 SendCSROperation operation = new SendCSROperation(urlEncoded);
                 RemoteOperationResult result = operation.execute(account, getContext());
