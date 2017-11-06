@@ -32,6 +32,7 @@ import com.owncloud.android.R;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.utils.AnalyticsUtils;
 import com.owncloud.android.utils.DeviceCredentialUtils;
+import com.owncloud.android.utils.DisplayUtils;
 
 /**
  * Dummy activity that is used to handle the device's default authentication workflow.
@@ -62,8 +63,14 @@ public class RequestCredentialsActivity extends Activity {
     protected void onResume() {
         super.onResume();
         AnalyticsUtils.setCurrentScreenName(this, SCREEN_NAME, TAG);
-        DeviceCredentialUtils.createKey(getApplicationContext());
-        requestCredentials();
+
+        if (DeviceCredentialUtils.areCredentialsAvailable(this)) {
+            DeviceCredentialUtils.createKey(getApplicationContext());
+            requestCredentials();
+        } else {
+            DisplayUtils.showSnackMessage(this, R.string.prefs_device_credentials_not_setup);
+            finishWithResult(true);
+        }
     }
 
     private void requestCredentials() {
