@@ -151,6 +151,7 @@ Kies er eentje van een provider.</string>
     <string name="uploader_upload_failed_ticker">Uploaden mislukt</string>
     <string name="uploader_upload_failed_content_single">Kon %1$s niet uploaden</string>
     <string name="uploader_upload_failed_credentials_error">Uploaden mislukt, je moet opnieuw inloggen</string>
+    <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">Het servercertificaat is niet vertrouwd</string>
     <string name="uploads_view_title">Uploads</string>
     <string name="uploads_view_group_current_uploads">Huidige</string>
     <string name="uploads_view_group_failed_uploads">Mislukt / Wacht op herstart</string>
@@ -187,7 +188,15 @@ Kies er eentje van een provider.</string>
     <string name="sync_fail_content_unauthorized">Onjuist wachtwoord voor %1$s</string>
     <string name="sync_conflicts_in_favourites_ticker">Conflicten gevonden</string>
     <string name="sync_fail_in_favourites_ticker">Gesynchroniseerd te houden bestanden mislukt</string>
+    <plurals name="sync_fail_in_favourites_content">
+        <item quantity="one">De inhoud van %1$d bestand kon niet worden gesynchroniseerd (conflicten: %2$d)</item>
+        <item quantity="other">De inhoud van %1$d bestanden kon niet worden gesynchroniseerd (conflicten: %2$d)</item>
+    </plurals>
     <string name="sync_foreign_files_forgotten_ticker">Een paar lokale bestanden werden vergeten</string>
+    <plurals name="sync_foreign_files_forgotten_content">
+        <item quantity="one">%1$d bestand van de map %2$s kond niet worden gekopieerd</item>
+        <item quantity="other">%1$d bestanden van de map %2$s konden niet worden gekopieerd</item>
+    </plurals>
     <string name="sync_foreign_files_forgotten_explanation">Sinds versie 1.3.16: bestanden ge-upload vanaf dit apparaat zijn gekopieerd in de lokale %1$s directory om zoekraken van bestanden te voorkomen indien een enkel bestand wordt gesynchroniseerd met meerdere accounts. \n\n Door deze verandering zijn alle bestanden ge-upload met een eerdere versie van deze app gekopieerd  naar de %2$s directory.  Let wel: door een fout is deze actie niet uitgevoerd tijdens account synchronisatie. U kunt deze bestanden laten waar ze zijn en verwijder de verwijzingen naar %3$s, of verplaats de bestanden naar de %1$s directory en behoud de verwijzing naar %4$s. \n\n Hieronder zijn de lokale bestanden weergegeven en de remote bestanden in %5$s waar ze naar verwijzen.</string>
     <string name="sync_current_folder_was_removed">Map %1$s bestaat niet meer</string>
     <string name="foreign_files_move">Alles verplaatsen</string>
@@ -292,6 +301,7 @@ Kies er eentje van een provider.</string>
     <string name="oauth_check_onoff">Inloggen met OAuth 2.0</string> 
     <string name="oauth_login_connection">Verbinden met OAuth 2.0 server&#8230;</string>
         
+    <string name="ssl_validator_header">De identiteit van de server kon niet geverifieerd worden</string>
     <string name="ssl_validator_reason_cert_not_trusted">- Het servercertificaat wordt niet vertrouwd</string>
     <string name="ssl_validator_reason_cert_expired">- Het servercertificaat is verlopen</string>
     <string name="ssl_validator_reason_cert_not_yet_valid">- Het servercertificaat is nog niet geldig</string>
@@ -453,6 +463,14 @@ Kies er eentje van een provider.</string>
 
     <string name="username">Gebruikersnaam</string>
 
+    <plurals name="file_list__footer__folder">
+        <item quantity="one">%1$d map</item>
+        <item quantity="other">%1$d mappen</item>
+    </plurals>
+    <plurals name="file_list__footer__file">
+        <item quantity="one">%1$d bestand</item>
+        <item quantity="other">%1$d bestanden</item>
+    </plurals>
     <string name="set_picture_as">Gebruik afbeelding als</string>
     <string name="set_as">Stel in als</string>
 
