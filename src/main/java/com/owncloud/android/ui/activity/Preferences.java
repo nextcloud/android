@@ -505,7 +505,7 @@ public class Preferences extends PreferenceActivity
                 accentColor));
 
         boolean fPassCodeEnabled = getResources().getBoolean(R.bool.passcode_enabled);
-        boolean fDeviceCredentialsEnabled = getResources().getBoolean(R.bool.device_credentials);
+        boolean fDeviceCredentialsEnabled = getResources().getBoolean(R.bool.device_credentials_enabled);
         boolean fShowHiddenFilesEnabled = getResources().getBoolean(R.bool.show_hidden_files_enabled);
         boolean fSyncedFolderLightEnabled = getResources().getBoolean(R.bool.syncedFolder_light);
 
@@ -577,30 +577,33 @@ public class Preferences extends PreferenceActivity
     private void setupDeviceCredentialsPreference(PreferenceCategory preferenceCategoryDetails,
                                                   boolean deviceCredentialsEnabled) {
         SwitchPreference useDeviceCredentials = (SwitchPreference) findPreference(PREFERENCE_USE_DEVICE_CREDENTIALS);
+
+        final Activity activity = this;
+
         if (useDeviceCredentials != null && deviceCredentialsEnabled && Build.VERSION.SDK_INT >=
                 Build.VERSION_CODES.M) {
-            if (!DeviceCredentialUtils.areCredentialsAvailable(getApplicationContext())) {
-                DisplayUtils.showSnackMessage(this, R.string.prefs_device_credentials_not_setup);
-                useDeviceCredentials.setChecked(false);
-            } else {
-                useDeviceCredentials.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
-                    @Override
-                    public boolean onPreferenceChange(Preference preference, Object newValue) {
-                        Boolean incoming = (Boolean) newValue;
-                        if (incoming) {
-                            SharedPreferences appPrefs = PreferenceManager
-                                    .getDefaultSharedPreferences(getApplicationContext());
-                            SharedPreferences.Editor editor = appPrefs.edit();
-                            editor.putBoolean(PREFERENCE_USE_DEVICE_CREDENTIALS, true).apply();
-                            return true;
-                        } else {
-                            Intent i = new Intent(getApplicationContext(), RequestCredentialsActivity.class);
-                            startActivityForResult(i, ACTION_CONFIRM_DEVICE_CREDENTIALS);
+            useDeviceCredentials.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
+                @Override
+                public boolean onPreferenceChange(Preference preference, Object newValue) {
+                    Boolean incoming = (Boolean) newValue;
+                    if (incoming) {
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M &&
+                                !DeviceCredentialUtils.areCredentialsAvailable(getApplicationContext())) {
+                            DisplayUtils
+                                    .showSnackMessage(activity, R.string.prefs_device_credentials_not_setup);
                             return false;
                         }
+                        SharedPreferences appPrefs = PreferenceManager
+                                .getDefaultSharedPreferences(getApplicationContext());
+                        appPrefs.edit().putBoolean(PREFERENCE_USE_DEVICE_CREDENTIALS, true).apply();
+                        return true;
+                    } else {
+                        Intent i = new Intent(getApplicationContext(), RequestCredentialsActivity.class);
+                        startActivityForResult(i, ACTION_CONFIRM_DEVICE_CREDENTIALS);
+                        return false;
                     }
-                });
-            }
+                }
+            });
         } else {
             preferenceCategoryDetails.removePreference(useDeviceCredentials);
         }
