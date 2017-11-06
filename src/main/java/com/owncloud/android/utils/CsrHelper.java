@@ -34,13 +34,14 @@ public class CsrHelper {
      * Create the certificate signing request (CSR) from private and public keys
      *
      * @param keyPair the KeyPair with private and public keys
+     * @param userId
      * @return PKCS10CertificationRequest with the certificate signing request (CSR) data
      * @throws IOException thrown if key cannot be created
      * @throws OperatorCreationException thrown if contentSigner cannot be build
      */
-    private static PKCS10CertificationRequest generateCSR(KeyPair keyPair) throws IOException,
+    private static PKCS10CertificationRequest generateCSR(KeyPair keyPair, String userId) throws IOException,
     OperatorCreationException {
-        String principal = "CN=www.nextcloud.com, O=Nextcloud, L=Stuttgart, ST=Baden-Wuerttemberg, C=DE";
+        String principal = "CN=" + userId + ", O=Nextcloud, L=Stuttgart, ST=Baden-Wuerttemberg, C=DE";
         AsymmetricKeyParameter privateKey = PrivateKeyFactory.createKey(keyPair.getPrivate().getEncoded());
         AlgorithmIdentifier signatureAlgorithm = new DefaultSignatureAlgorithmIdentifierFinder().find("SHA1WITHRSA");
         AlgorithmIdentifier digestAlgorithm = new DefaultDigestAlgorithmIdentifierFinder().find("SHA-1");
@@ -55,8 +56,9 @@ public class CsrHelper {
         return csrBuilder.build(signer);
     }
 
-    public static String generateCsrPemEncodedString(KeyPair keyPair) throws IOException, OperatorCreationException {
-        PKCS10CertificationRequest csr = CsrHelper.generateCSR(keyPair);
+    public static String generateCsrPemEncodedString(KeyPair keyPair, String userId) 
+            throws IOException, OperatorCreationException {
+        PKCS10CertificationRequest csr = CsrHelper.generateCSR(keyPair, userId);
         byte[] derCSR = csr.getEncoded();
         return "-----BEGIN CERTIFICATE REQUEST-----\n" + android.util.Base64.encodeToString(
                 derCSR, android.util.Base64.NO_PADDING | android.util.Base64.NO_WRAP)
