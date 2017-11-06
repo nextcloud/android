@@ -153,7 +153,7 @@ public class EncryptionTestIT {
         keyGen.initialize(2048, new SecureRandom());
         KeyPair keyPair = keyGen.generateKeyPair();
 
-        assertFalse(CsrHelper.generateCsrPemEncodedString(keyPair).isEmpty());
+        assertFalse(CsrHelper.generateCsrPemEncodedString(keyPair, "").isEmpty());
         assertFalse(EncryptionUtils.encodeBytesToBase64String(keyPair.getPublic().getEncoded()).isEmpty());
     }
 
