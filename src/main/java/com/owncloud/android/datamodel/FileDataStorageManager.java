@@ -1928,6 +1928,8 @@ public class FileDataStorageManager {
         cv.put(ProviderTableMeta.CAPABILITIES_SERVER_COLOR, capability.getServerColor());
         cv.put(ProviderTableMeta.CAPABILITIES_SERVER_BACKGROUND_URL, capability.getServerBackground());
         cv.put(ProviderTableMeta.CAPABILITIES_SERVER_SLOGAN, capability.getServerSlogan());
+        cv.put(ProviderTableMeta.CAPABILITIES_FULL_NEXT_SEARCH_ENABLED, capability.getFullNextSearchEnabled().getValue());
+        cv.put(ProviderTableMeta.CAPABILITIES_FULL_NEXT_SEARCH_FILES, capability.getFullNextSearchFiles().getValue());
 
         if (capabilityExists(mAccount.name)) {
             if (getContentResolver() != null) {
@@ -2072,6 +2074,10 @@ public class FileDataStorageManager {
             capability.setServerBackground(c.getString(c.getColumnIndex(
                     ProviderTableMeta.CAPABILITIES_SERVER_BACKGROUND_URL)));
             capability.setServerSlogan(c.getString(c.getColumnIndex(ProviderTableMeta.CAPABILITIES_SERVER_SLOGAN)));
+            capability.setFullNextSearchEnabled(CapabilityBooleanType.fromValue(
+                    c.getInt(c.getColumnIndex(ProviderTableMeta.CAPABILITIES_FULL_NEXT_SEARCH_ENABLED))));
+            capability.setFullNextSearchFiles(CapabilityBooleanType.fromValue(
+                    c.getInt(c.getColumnIndex(ProviderTableMeta.CAPABILITIES_FULL_NEXT_SEARCH_FILES))));
         }
         return capability;
     }

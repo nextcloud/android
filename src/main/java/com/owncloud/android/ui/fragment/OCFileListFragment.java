@@ -70,6 +70,7 @@ import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.lib.resources.files.FullNextSearchFileSearchOperation;
 import com.owncloud.android.lib.resources.files.SearchOperation;
 import com.owncloud.android.lib.resources.files.ToggleFavoriteOperation;
 import com.owncloud.android.lib.resources.shares.GetRemoteSharesOperation;
@@ -356,7 +357,6 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
         if (event != null) {
             if (event.getSearchType().equals(SearchOperation.SearchType.FILE_SEARCH)) {
                 currentSearchType = SearchType.FILE_SEARCH;
-
             } else if (event.getSearchType().equals(SearchOperation.SearchType.CONTENT_TYPE_SEARCH)) {
                 if (event.getSearchQuery().equals("image/%")) {
                     currentSearchType = SearchType.PHOTO_SEARCH;
@@ -371,6 +371,8 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
                 currentSearchType = SearchType.RECENTLY_MODIFIED_SEARCH;
             } else if (event.getSearchType().equals(SearchOperation.SearchType.SHARED_SEARCH)) {
                 currentSearchType = SearchType.SHARED_FILTER;
+            } else if (event.getSearchType().equals(SearchOperation.SearchType.FULL_NEXT_SEARCH_FILE_SEARCH)) {
+                currentSearchType = SearchType.FULL_NEXT_SEARCH_FILE_SEARCH;
             }
 
             prepareActionBarItems(event);
@@ -1540,10 +1542,13 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
         }
 
         final RemoteOperation remoteOperation;
-        if (!currentSearchType.equals(SearchType.SHARED_FILTER)) {
-            remoteOperation = new SearchOperation(event.getSearchQuery(), event.getSearchType());
-        } else {
+        if (currentSearchType.equals(SearchType.SHARED_FILTER)) {
             remoteOperation = new GetRemoteSharesOperation();
+        } else if (currentSearchType.equals(SearchType.FULL_NEXT_SEARCH_FILE_SEARCH)) {
+            remoteOperation = new FullNextSearchFileSearchOperation(event.getSearchQuery());
+        } else {
+            remoteOperation = new FullNextSearchFileSearchOperation(event.getSearchQuery());
+//            remoteOperation = new SearchOperation(event.getSearchQuery(), event.getSearchType());
         }
 
         final Account currentAccount = AccountUtils.getCurrentOwnCloudAccount(MainApp.getAppContext());

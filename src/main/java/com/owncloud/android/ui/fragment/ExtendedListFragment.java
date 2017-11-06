@@ -21,6 +21,7 @@
 
 package com.owncloud.android.ui.fragment;
 
+import android.accounts.Account;
 import android.animation.LayoutTransition;
 import android.app.Activity;
 import android.content.res.Configuration;
@@ -64,9 +65,11 @@ import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
+import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.db.PreferenceManager;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.files.SearchOperation;
+import com.owncloud.android.lib.resources.status.OCCapability;
 import com.owncloud.android.ui.ExtendedListView;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.activity.FolderPickerActivity;
@@ -154,6 +157,7 @@ public class ExtendedListFragment extends Fragment
         RECENTLY_MODIFIED_SEARCH_FILTER,
         RECENTLY_ADDED_SEARCH,
         RECENTLY_ADDED_SEARCH_FILTER,
+        FULL_NEXT_SEARCH_FILE_SEARCH,
         // not a real filter, but nevertheless
         SHARED_FILTER
     }
@@ -331,27 +335,35 @@ public class ExtendedListFragment extends Fragment
                 delay = 0;
             }
 
+            Account account = AccountUtils.getCurrentOwnCloudAccount(MainApp.getAppContext());
+            FileDataStorageManager fileDataStorageManager = new FileDataStorageManager(account,
+                    getContext().getContentResolver());
+            OCCapability capability;
+
+            if (account != null) {
+                capability = fileDataStorageManager.getCapability(account.name);
+            } else {
+                capability = new OCCapability();
+            }
+
             if (mAdapter != null && mAdapter instanceof FileListListAdapter) {
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (AccountUtils.hasSearchSupport(AccountUtils.
-                                getCurrentOwnCloudAccount(MainApp.getAppContext()))) {
-                            EventBus.getDefault().post(new SearchEvent(query, SearchOperation.SearchType.FILE_SEARCH,
-                                    SearchEvent.UnsetType.NO_UNSET));
-                        } else {
+                handler.postDelayed(() -> {
+                    if (capability.isFullNextSearchFilesSearchEnabled()) {
+                        EventBus.getDefault().post(new SearchEvent(query,
+                                SearchOperation.SearchType.FULL_NEXT_SEARCH_FILE_SEARCH,
+                                SearchEvent.UnsetType.NO_UNSET));
+                    } else if (AccountUtils.hasSearchSupport(account)) {
+                        EventBus.getDefault().post(new SearchEvent(query, SearchOperation.SearchType.FILE_SEARCH,
+                                SearchEvent.UnsetType.NO_UNSET));
+                    } else {
                             FileListListAdapter fileListListAdapter = (FileListListAdapter) mAdapter;
                             fileListListAdapter.getFilter().filter(query);
-                        }
                     }
                 }, delay);
             } else if (mAdapter != null && mAdapter instanceof LocalFileListAdapter) {
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        LocalFileListAdapter localFileListAdapter = (LocalFileListAdapter) mAdapter;
-                        localFileListAdapter.filter(query);
-                    }
+                handler.postDelayed(() -> {
+                    LocalFileListAdapter localFileListAdapter = (LocalFileListAdapter) mAdapter;
+                    localFileListAdapter.filter(query);
                 }, delay);
             }
 

@@ -1152,6 +1152,27 @@ public class FileContentProvider extends ContentProvider {
             if (!upgraded) {
                 Log_OC.i(SQL, String.format(Locale.ENGLISH, UPGRADE_VERSION_MSG, oldVersion, newVersion));
             }
+
+            if (oldVersion < 25 && newVersion >= 25) {
+                Log_OC.i(SQL, "Entering in the #25 Adding full next search to capabilities");
+                db.beginTransaction();
+                try {
+                    db.execSQL(ALTER_TABLE + ProviderTableMeta.CAPABILITIES_TABLE_NAME +
+                            ADD_COLUMN + ProviderTableMeta.CAPABILITIES_FULL_NEXT_SEARCH_ENABLED + " INTEGER ");
+
+                    db.execSQL(ALTER_TABLE + ProviderTableMeta.CAPABILITIES_TABLE_NAME +
+                            ADD_COLUMN + ProviderTableMeta.CAPABILITIES_FULL_NEXT_SEARCH_FILES + " INTEGER ");
+
+                    upgraded = true;
+                    db.setTransactionSuccessful();
+                } finally {
+                    db.endTransaction();
+                }
+            }
+
+            if (!upgraded) {
+                Log_OC.i(SQL, String.format(Locale.ENGLISH, UPGRADE_VERSION_MSG, oldVersion, newVersion));
+            }
         }
     }
 
@@ -1245,7 +1266,9 @@ public class FileContentProvider extends ContentProvider {
                 + ProviderTableMeta.CAPABILITIES_SERVER_NAME + TEXT
                 + ProviderTableMeta.CAPABILITIES_SERVER_COLOR + TEXT
                 + ProviderTableMeta.CAPABILITIES_SERVER_SLOGAN + TEXT
-                + ProviderTableMeta.CAPABILITIES_SERVER_BACKGROUND_URL + " TEXT );");
+                + ProviderTableMeta.CAPABILITIES_SERVER_BACKGROUND_URL + TEXT
+                + ProviderTableMeta.CAPABILITIES_FULL_NEXT_SEARCH_ENABLED + INTEGER // boolean
+                + ProviderTableMeta.CAPABILITIES_FULL_NEXT_SEARCH_FILES + " INTEGER );");
     }
 
     private void createUploadsTable(SQLiteDatabase db) {
