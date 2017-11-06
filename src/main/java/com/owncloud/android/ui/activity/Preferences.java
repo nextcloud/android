@@ -863,7 +863,9 @@ public class Preferences extends PreferenceActivity
             SharedPreferences.Editor appPrefs = PreferenceManager
                     .getDefaultSharedPreferences(getApplicationContext()).edit();
             appPrefs.putBoolean(PREFERENCE_USE_DEVICE_CREDENTIALS, false).apply();
-
+            SwitchPreference useDeviceCredentials = (SwitchPreference)
+                    findPreference(PREFERENCE_USE_DEVICE_CREDENTIALS);
+            useDeviceCredentials.setChecked(false);
             DisplayUtils.showSnackMessage(this, R.string.credentials_disabled);
         }
     }
