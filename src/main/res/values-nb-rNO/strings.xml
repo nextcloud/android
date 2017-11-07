@@ -451,6 +451,14 @@
 
     <string name="username">Brukernavn</string>
 
+    <plurals name="file_list__footer__folder">
+        <item quantity="one">%1$d mappe</item>
+        <item quantity="other">%1$d mapper</item>
+    </plurals>
+    <plurals name="file_list__footer__file">
+        <item quantity="one">%1$d fil</item>
+        <item quantity="other">%1$d filer</item>
+    </plurals>
     <string name="set_picture_as">Bruk bilde som</string>
     <string name="set_as">Bruk som</string>
 

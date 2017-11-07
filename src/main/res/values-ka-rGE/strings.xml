@@ -1,0 +1,694 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="about_android">%1$s ანდროიდ აპლიკაცია</string>
+    <string name="about_version">ვერსია %1$s</string>
+    <string name="actionbar_sync">ანგარიშის განახლება</string>
+    <string name="actionbar_upload">ატვირთვა</string>
+    <string name="actionbar_upload_from_apps">შიგთავსი სხვა აპლიკაცისებიდან</string>
+    <string name="actionbar_upload_files">ფაილები</string>
+    <string name="actionbar_open_with">გახსნა</string>
+    <string name="actionbar_mkdir">ახალი საქაღალდე</string>
+    <string name="actionbar_settings">პარამეტრები</string>
+    <string name="actionbar_see_details">დეტალები</string>
+    <string name="actionbar_send_file">გაგზავნა</string>
+    <string name="actionbar_sort">სორტირება</string>
+    <string name="sort_by">დაასორტირე</string>
+    <string name="menu_item_sort_by_name_a_z">ა-ჰ</string>
+    <string name="menu_item_sort_by_name_z_a">ჰ-ა</string>
+    <string name="menu_item_sort_by_date_newest_first">სიახლის მიხედვით</string>
+    <string name="menu_item_sort_by_date_oldest_first">სიძველის მიხედვით</string>
+    <string name="menu_item_sort_by_size_biggest_first">ჯერ დიდი</string>
+    <string name="menu_item_sort_by_size_smallest_first">ჯერ პატარა</string>
+
+    <string name="drawer_item_all_files">ყველა ფაილი</string>
+    <string name="drawer_item_home">სახლი</string>
+    <string name="drawer_item_favorites">ფავორიტები</string>
+    <string name="drawer_item_photos">სურათები</string>
+    <string name="drawer_item_on_device">მოწყობილობაზე</string>
+    <string name="drawer_item_recently_added">ახლად დამატებული</string>
+    <string name="drawer_item_recently_modified">ახლად შეცვლილი</string>
+    <string name="drawer_item_shared">გაზიარებული</string>
+    <string name="drawer_item_videos">ვიდეოები</string>
+    <string name="drawer_item_settings">პარამეტრები</string>
+    <string name="drawer_item_uploads_list">ატვირთვები</string>
+    <string name="drawer_item_activities">აქტივობები</string>
+    <string name="drawer_item_notifications">შეტყობინებები</string>
+    <string name="drawer_quota">გამოყენებულია %1$s %2$s-იდან </string>
+	<string name="drawer_close">დახურვა</string>
+    <string name="drawer_open">გახსნა</string>
+    <string name="prefs_category_general">ზოგადი</string>
+    <string name="prefs_category_more">მეტი</string>
+    <string name="prefs_manage_accounts">ანგარიშთა მართვა</string>
+    <string name="prefs_passcode">კოდით ჩაკეტვა</string>
+    <string name="prefs_fingerprint">ჩაკეტვა თითის ანაბეჭდით</string>
+    <string name="prefs_fingerprint_notsetup">თითის ანაბეჭდი ვერ მოიძებნა</string>
+    <string name="prefs_expert_mode">ექპერტ რეჟიმი</string>
+    <string name="prefs_show_hidden_files">დამალული ფაილების ჩვენება</string>
+    <string name="prefs_log_delete_history_button">ისტორიის წაშლა</string>
+    <string name="prefs_calendar_contacts">კანენდრისა და კონტაქტების სინქრონიზაცია. &amp;</string>
+    <string name="prefs_calendar_contacts_summary">DAVdroid (v1.3.0+)-ის დაყენება მიმდნარე ანგარიშზე</string>
+    <string name="prefs_calendar_contacts_address_resolve_error">სერვერის მისამართი ანგარიშზე ვერ დადგინდა</string>
+    <string name="prefs_calendar_contacts_no_store_error">არც Google Play-ა დაყენებული, არც F-Droid-ი</string>
+    <string name="prefs_calendar_contacts_sync_setup_successful">კალენდრისა და კონტაქტების სინქრონიზაცია დაყენებულია &amp;</string>
+    <string name="prefs_daily_contacts_sync_summary">კონტაქტების ყოველდღიური დაზღვევა</string>
+    <string name="prefs_help">დახმარება</string>
+    <string name="prefs_recommend">ურჩიეთ მეგობარს</string>
+    <string name="prefs_feedback">უკუკავშირი</string>
+    <string name="prefs_imprint">ბეჭედი</string>
+
+	<string name="recommend_subject">სცადეთ %1$s თქვენს სმარტფონზე!</string>
+	<string name="recommend_text">გპატიჟებთ სმარტფონზე %1$s-ის გამოყენებისთვის.\nგადმოწერეთ აქედან: %2$s</string>
+    <string name="recommend_urls">%1$s ან %2$s</string>
+
+    <string name="auth_check_server">სერვერის შემოწმება</string>
+    <string name="auth_host_url">სერვერის მისამართი https://&#8230;</string>
+    <string name="auth_username">მომხმარებლის სახელი</string>
+    <string name="auth_password">პაროლი</string>
+    <string name="auth_register">უკვე გააქვთ სერვერი?\nმისი მიღებისთვის დააჭირეთ აქ</string>
+    <string name="sync_string_files">ფაილები</string>
+    <string name="setup_btn_connect">დაკავშირება</string>
+    <string name="uploader_btn_upload_text">ატვირთვა</string>
+    <string name="uploader_btn_alternative_text">აირჩიეთ</string>
+    <string name="uploader_top_message">აირჩიეთ ატვირთვის დირექტორია</string>
+    <string name="uploader_wrn_no_account_title">ანგარიში ვერ მოიძებნა</string>
+    <string name="uploader_wrn_no_account_text">ანგარიშები %1$s მოწყობილობაზე არაა.
+გთხოვთ დააყენოთ ანგარიშები.</string>
+    <string name="uploader_wrn_no_account_setup_btn_text">დაყენება</string>
+    <string name="uploader_wrn_no_account_quit_btn_text">გამოსვლა</string>
+    <string name="uploader_error_title_no_file_to_upload">ფაილი ატვირთვისთვის არაა.</string>
+    <string name="uploader_error_message_no_file_to_upload">მიღებული მონაცემები არ მოიცავდნენ სწორ ფაილს.</string>
+    <string name="uploader_error_title_file_cannot_be_uploaded">ფაილი ვერ იტვირთება</string>
+    <string name="uploader_error_message_read_permission_not_granted">%1$s-ს არ აქვს ფაილის წაკითხვის უფლებები.</string>
+    <string name="uploader_error_message_source_file_not_found">ატვირთვისთვის არჩეული ფაილი ვერ იქნა ნაპოვნი. გთხოვთ დაამოწმოთ ფაილის არსებობა.</string>
+    <string name="uploader_error_message_source_file_not_copied">ფაილი დროებით დირექტორიაში ვერ დაკოპირდა. სცადეთ მისი ახლიდან გაგზავნა.</string>
+    <string name="uploader_upload_files_behaviour">ატვირთვის არჩევანი:</string>
+    <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">ფაილის გადატანა Nextcloud დირექტორიაში</string>
+    <string name="uploader_upload_files_behaviour_only_upload">ფაილის საწყის დირექტორიაში დატოვება</string>
+    <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">ფაილის გაუქმება საწყის დირექტორიაში</string>
+    <string name="file_list_seconds_ago">წამის წინ</string>
+    <string name="file_list_empty_headline">აქ ფაილები არაა</string>
+    <string name="folder_list_empty_headline">აქ დირექტორიები არაა</string>
+    <string name="file_list_empty">ატვირთეთ რამე ან მოახდინეთ სინქრონიზაცია თქვენს მოწყობილობებთან.</string>
+    <string name="file_list_empty_favorites_filter_list">აქ გამოჩნდება ფაილები და დირექტორიები რომლებსაც მონიშნავთ ფავორიტებად</string>
+    <string name="file_list_empty_favorites_filter">არც ერთი ფავორიტი ფაილი არ იქნა ნაპოვნი.</string>
+    <string name="file_list_loading">იტვირთება &#8230;</string>
+    <string name="file_list_no_app_for_file_type">ამ ფაილთან სამუშაოდ აპლიკაცია დაყანებული არაა.</string>
+    <string name="local_file_list_empty">ამ დირექტორიაში ფაილები არაა.</string>
+    <string name="local_folder_list_empty">მომდევნო დირექტორიები არაა.</string>
+    <string name="file_list_empty_headline_search">ამ დირექტორიაში შედეგები არაა</string>
+    <string name="file_list_empty_headline_server_search">შედეგები არაა</string>
+    <string name="file_list_empty_favorite_headline">ფავორიტებში ჯერ არაფერია დამატებული</string>
+    <string name="file_list_empty_shared_headline">გაზიაღებული ჯერ არაფერია</string>
+    <string name="file_list_empty_shared">აქ გამოჩნდება ფაილები და დირექტორიები რომლებსაც აზიარებთ</string>
+    <string name="file_list_empty_headline_server_search_videos">ვიდეოები არაა</string>
+    <string name="file_list_empty_headline_server_search_photos">ფოტოები არაა</string>
+    <string name="file_list_empty_search">იქნებ სხვა დირექტორიაშია?</string>
+    <string name="file_list_empty_recently_modified">გასული 7 დღის განმავლობაში შეცვლილი ფაილები არაა ნაპოვნი</string>
+    <string name="file_list_empty_recently_modified_filter">გასული 7 დღის განმავლობაში შეცვლილი ფაილები ვერ იქნა მოძიებული.</string>
+    <string name="file_list_empty_recently_added">ახლად დამატებული ფაილები არ იქნა ნაპოვნი</string>
+    <string name="file_list_empty_recently_added_filter">ახლად დამატებული ფაილები ვერ იქნა მოძიებული.</string>
+    <string name="file_list_empty_text_photos">ატვირთეთ რამდენიმე ფოტო, ან გაააქტიურეთ ავტო-ატვირთვა.</string>
+    <string name="file_list_empty_text_photos_filter">ვერც ერთი ფოტო ვერ იქნა მოძიებული.</string>
+    <string name="file_list_empty_text_videos">ატვირთეთ რამდენიმე ვიდეო რგოლი ან გაააქტიურეთ ავტო-ატვირთვა.</string>
+    <string name="file_list_empty_text_videos_filter">ვერც ერთი ვიდეო რგოლი ვერ იქნა მოძიებული.</string>
+    <string name="upload_list_empty_headline">არც ერთი ატვირთვა არაა ხელმისაწვდომელი.</string>
+    <string name="upload_list_empty_text">ატვირთეთ რაიმე ან გაააქტიურეთ დაუყოვნებელი ატვირთვა.</string>
+    <string name="upload_list_empty_text_auto_upload">ატვირთეთ რაიმე ანდ გაააქტიურეთ ავტო-ატვირთვა.</string>
+    <string name="file_list_folder">დირექტორია</string>
+    <string name="filedetails_select_file">დააჭირეთ ფაილს დამატებითი ინფორმაციის გამოსაჩენად.</string>
+    <string name="filedetails_download">ჩამოტვირთვა</string>
+    <string name="filedetails_sync_file">სინქრონიზაცია</string>
+    <string name="filedetails_renamed_in_upload_msg">ატვირთვისას ფაილის სახელი შეიცვალა %1$s-ზე</string>
+    <string name="list_layout">ჩამოწერილი მაკეტი</string>
+    <string name="action_share">გაზიარება</string>
+    <string name="common_yes">დიახ</string>
+    <string name="common_no">არა</string>
+    <string name="common_ok">კი</string>
+    <string name="common_remove_upload">ატვირთვის გაუქმება</string>
+    <string name="common_retry_upload">ატვირთვის ხელ-ახლა მცდელობა</string>
+    <string name="common_cancel_sync">სინქრონიზაციის შეჩერება</string>
+    <string name="common_cancel">გაუქმება</string>
+    <string name="common_back">უკან</string>
+    <string name="common_save">შენახვა</string>
+    <string name="common_error">შეცდომა</string>
+    <string name="common_loading">იტვირთება &#8230;</string>
+    <string name="common_unknown">არაა ცნობილი</string>
+    <string name="common_error_unknown">უცნობი შეცდომა</string>
+    <string name="common_pending">მოლოდინშია</string>
+    <string name="common_delete">გაუქმება</string>
+    <string name="about_title">ჩვენს შესახებ</string>
+    <string name="change_password">პაროლის შეცვლა</string>
+    <string name="delete_account">ანგარიშის გაუქმება</string>
+    <string name="delete_account_warning">გავაუქმოთ ანგარიში %s და ყველა ლოკალური ფაილი?\n\nგაუქმება ვერ იქნება უკუბრუნებული.</string>
+    <string name="avatar">ავატარი.</string>
+    <string name="active_user">აქტიური მომხმარებელი</string>
+    <string name="upload_chooser_title">ატვირთე აქედან &#8230;</string>
+    <string name="uploader_info_dirname">საქაღალდის სახელი</string>
+    <string name="uploader_upload_in_progress_ticker">&#8230;-ის ატვირთვა</string>
+    <string name="uploader_upload_in_progress_content">%1$d%% ატვირთვა %2$s</string>
+    <string name="uploader_upload_succeeded_ticker">ატვირთული</string>
+    <string name="uploader_upload_succeeded_content_single">%1$s ატვირთულია</string>
+    <string name="uploader_upload_failed_ticker">ატვირთვა ვერ განხორციელდა</string>
+    <string name="uploader_upload_failed_content_single">%1$s ვერ აიტვირთა</string>
+    <string name="uploader_upload_failed_credentials_error">ატვირთვა დასრულდა წარუმატებლად, საჭიროა ავტორიზაციის ახლიდან გავლა</string>
+    <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">სერვერის სერტიფიკატი არაა სანდო</string>
+    <string name="uploads_view_title">ატვირთვები</string>
+    <string name="uploads_view_group_current_uploads">მიმდინარე</string>
+    <string name="uploads_view_group_failed_uploads">წარუმატებელია / მიმდინარეობს, რესტარტი</string>
+    <string name="uploads_view_group_finished_uploads">ატვირთულია</string>
+    <string name="uploads_view_upload_status_succeeded">დასრულებულია</string>
+    <string name="uploads_view_upload_status_cancelled">უარყოფილია</string>
+    <string name="uploads_view_upload_status_paused">შეჩერებულია</string>
+    <string name="uploads_view_upload_status_failed_connection_error">კავშირის პრობლემა</string>
+    <string name="uploads_view_upload_status_failed_retry">მალე მოხდება ატვირთვის ხელახალი მცდელობა</string>
+    <string name="uploads_view_upload_status_failed_credentials_error">უფლებამოსილებების შეცდომა</string>
+    <string name="uploads_view_upload_status_failed_folder_error">დირექტორიის შეცდომა</string>
+    <string name="uploads_view_upload_status_failed_file_error">ფაილის შეცდომა</string>
+    <string name="uploads_view_upload_status_failed_localfile_error">ლოკალური ფაილი ვერ იქნა ნაპოვნი</string>
+    <string name="uploads_view_upload_status_failed_permission_error">უფლებების შეცდომა</string>
+    <string name="uploads_view_upload_status_conflict">კონფლიქტი</string>
+    <string name="uploads_view_upload_status_service_interrupted">აპლიკაცია შეჩერდა</string>
+    <string name="uploads_view_upload_status_unknown_fail">უცნობი შეცდომა</string>
+    <string name="uploads_view_upload_status_waiting_for_wifi">ველოდებით Wi-Fi კავშირს</string>
+    <string name="uploads_view_upload_status_waiting_exit_power_save_mode">ველოდებით ეკონომიური რეჟიმიდან გამოსვლას</string>
+    <string name="uploads_view_later_waiting_to_upload">ველოდებით ატვირთვას</string>
+    <string name="downloader_download_in_progress_ticker">ჩამოტვირთვა...</string>
+    <string name="downloader_download_in_progress_content">%1$d%% ჩამოტვირთვა %2$s</string>
+    <string name="downloader_download_succeeded_ticker">გადმოწერილია</string>
+    <string name="downloader_download_succeeded_content">%1$s გადმოწერილია</string>
+    <string name="downloader_download_failed_ticker">ჩამოტვირთვა ვერ განხორციელდა</string>
+    <string name="downloader_download_failed_content">ვერ გადმოიწერა %1$s</string>
+    <string name="downloader_not_downloaded_yet">ჯერ ვერ გადმოიწერა</string>
+    <string name="downloader_download_failed_credentials_error">გადმოწერა დამთავრდა წარუმატებლად, საჭიროა ავტორიზაციის ახლიდან გავლა</string>
+    <string name="common_choose_account">აირჩიეთ ანგარიში</string>
+    <string name="common_switch_account">ანგარიშის შეცვლა</string>
+    <string name="sync_fail_ticker">სინქრონიზაცია დამთავრდა წარუმატებლად</string>
+    <string name="sync_fail_ticker_unauthorized">სინქრონიზაცია დამთავრდა წარუმატებლად, საჭიროა ავტორიზაციის ახლიდან გავლა</string>
+    <string name="sync_fail_content">%1$s-ის სინქრონიზაცია ვერ დასრულდა</string>
+    <string name="sync_fail_content_unauthorized">%1$s-ისთვის არასწორი პაროლი</string>
+    <string name="sync_conflicts_in_favourites_ticker">წარმოიშვა კონფლიქტი </string>
+    <string name="sync_fail_in_favourites_ticker">Kept-in-sync ფაილების შეცდომა</string>
+    <plurals name="sync_fail_in_favourites_content">
+        <item quantity="other">%1$d ფაილების შიგთავსის სინქრონიზაცია ვერ მოხერხდა  (%2$d კონფლიქტი)</item>
+    </plurals>
+    <string name="sync_foreign_files_forgotten_ticker">რამოდენიმე ლოკალური ფაილი გამორჩენილია</string>
+    <plurals name="sync_foreign_files_forgotten_content">
+        <item quantity="other">%1$d ფაილი %2$s დირექტორიიდან ვერ დაკოპირდა</item>
+    </plurals>
+    <string name="sync_foreign_files_forgotten_explanation">1.3.16 ვერსიაში მონაცემების დაკარგვისგან თავის ასარიდებლად, როდესაც ერთი ფაილი სინქრონიზირებულია რამდენიმე ანგარიშთან, ამ მოწყობილობით ატვირთული ფაილ(ებ)ი კოპირდება %1$s დირექტორიაში.\n\nამ ცვლილების გამო, აპლიკაციის ძველი ვერსიებით ყველა ატვირთული ფაილი დაკოპირდა %2$s დირექტორიაში. თუმცა, შეცდომის გამო სინქრონიზაციისას მოხდა ამ ოპერაციის შეჩერება. შეგიძლიათ ფაილ(ებ)ი დატოვოთ ისე როგორც  არის და წაშალოთ ბმული %3$s-თან, ან გადაიტანოთ ფაილ(ებ)ი %1$s დირექტორიაში და შეინარჩუნოთ ბმული %4$s-ისთვის.\n\nქვემოთ ჩამოწერილია ლოკალური და %5$s-ში არსებული დისტანციური ფაილ(ებ)ი.</string>
+    <string name="sync_current_folder_was_removed">დირექტორია %1$s აღარ არსებობს</string>
+    <string name="foreign_files_move">ყველას გადატანა</string>
+    <string name="foreign_files_success">ყველა ფაილი გადატანილია</string>
+    <string name="foreign_files_fail">გარკვეული ფაილების გადატანა ვერ მოხერხდა</string>
+    <string name="foreign_files_local_text">ლოკალური: %1$s</string>
+    <string name="foreign_files_remote_text">დისტანციური: %1$s</string>
+    <string name="upload_query_move_foreign_files">არასაკმარისი ადგილი აჩერებს არჩეული ფაილების კოპირებას %1$s დირექტორიაში. გსურთ სანაცვლოდ მათი გადაადგილება?</string>
+    <string name="pass_code_enter_pass_code">გთხოვთ შეიყვანოთ თქვენი პასკოდი</string>
+    
+    <string name="pass_code_configure_your_pass_code">შეიყვანეთ თქვენი პასკოდი</string>
+    <string name="pass_code_configure_your_pass_code_explanation">პასკოდი მოთხოვნილ იქნება აპლიკაციის გაშვების ყოველ ჯერზე</string>
+    <string name="pass_code_reenter_your_pass_code">გთხოვთ ახლიდან შეიყვანოთ თქვენი პასკოდი</string>
+    <string name="pass_code_remove_your_pass_code">თქვენი პასკოდის გაუქმება</string>
+    <string name="pass_code_mismatch">პასკოდები ერთმანეთს არ ემთხვევა</string>
+    <string name="pass_code_wrong">არასწორი პასკოდი</string>
+    <string name="pass_code_removed">პასკოდი გაუქმებულია</string>
+    <string name="pass_code_stored">პასკოდი შენახულია</string>
+    
+    <string name="media_notif_ticker">%1$s მუსიკის დამკვრელი</string>
+    <string name="media_state_playing">%1$s (იკვრება)</string>
+    <string name="media_state_loading">%1$s (იტვირთება)</string>
+    <string name="media_event_done">%1$s დაკვრა დასრულებულია</string>
+    <string name="media_err_nothing_to_play">მედია ფაილი ვერ იქნა ნაპოვნი</string>
+    <string name="media_err_no_account">ანგარიში არაა უზრუნველყოფილი</string>
+    <string name="media_err_not_in_owncloud">ეს ფაილი არაა დაშვებულ ანგარიშში</string>
+    <string name="media_err_unsupported">მედია კოდეკი მხარდაუჭერელია</string>
+    <string name="media_err_io">მედია ფაილის წაკითხვა ვერ მოხერხდა</string>
+    <string name="media_err_malformed">მედია ფაილს გააჩნია არასწორი კოდირება</string>
+    <string name="media_err_timeout">ფაილის დაკვრის მცდელობის დრო ამოიწურა</string>
+    <string name="media_err_invalid_progressive_playback">მედია ფაილის სტრიმი ვერ ხორციელდება</string>
+    <string name="media_err_unknown">მედიის დამკვრელი ფაილს ვერ უშვებს</string>
+    <string name="media_err_security_ex">ფაილის %1$s-ის დაკვრის მცდელობისას წარმოიშვა უსაფრთხებასთან დაკავშირებული შეცდომა</string>
+    <string name="media_err_io_ex">%1$s-ის დაკვრის მცდელობისას წარმოიშვა შენატანთან დაკავშირებული შეცდომა</string>
+    <string name="media_err_unexpected">%1$s-ის დაკვრის მცდელობისას წარმოიშვა მოულოდნელი შეცდომა</string>
+    <string name="media_rewind_description">გადახვევის ღილაკი</string>
+    <string name="media_play_pause_description">დაკვრის ან პაუზის ღილაკი</string>
+    <string name="media_forward_description">წინ სწრაფად გადახვევის ღილაკი</string>
+
+	<string name="auth_getting_authorization">ხდება ავტორიზაცია &#8230;</string>
+	<string name="auth_trying_to_login">ავტორიზაციის მცდელობა &#8230;</string>
+	<string name="auth_no_net_conn_title">ქსელური კავშირი არ არის</string>
+	<string name="auth_nossl_plain_ok_title">დაცული კავშირი არ არსებობს.</string>
+	<string name="auth_connection_established">კავშირი დამყარდა</string>
+	<string name="auth_testing_connection">კავშირის შემოწმება</string>
+	<string name="auth_not_configured_title">არასწორი სერვერის კონფიგურაცია</string>
+	<string name="auth_account_not_new">ანგარიში ამ მომხმარებლით და სერვერით მოწყობილობაზე უკვე არსებობს</string>
+	<string name="auth_account_not_the_same">შეყვანილი მომხმარებელი არ ემთხვევა ამ ანგარიშის მომხმარებელს</string>
+	<string name="auth_unknown_error_title">აღმოჩენილია უცნობი შეცდომა!</string>
+	<string name="auth_unknown_host_title">ჰოსტი ვერ იქნა ნაპოვნი</string>
+	<string name="auth_incorrect_path_title">სერვერი ვერ იქნა ნაპოვნი</string>
+	<string name="auth_timeout_title">სერვერის პასუხი იგვიანებს</string>
+	<string name="auth_incorrect_address_title">სერვერისთვის არასწორი მისამსამართის ფორმატი</string>
+	<string name="auth_ssl_general_error_title">შეცდომა SSL ინიციალიზაციისას</string>
+	<string name="auth_ssl_unverified_server_title">SSL სერვერის იდენტობა ვერ დამოწმდა</string>
+	<string name="auth_bad_oc_version_title">ამოუცნობი სერვერის ვერსია</string>
+	<string name="auth_wrong_connection_title">კავშირი ვერ დამყარდა</string>
+	<string name="auth_secure_connection">დაცული კავშირი დამყარდა</string>
+	<string name="auth_unauthorized">არასწორი მომხმარებელი ან პაროლი</string>
+	<string name="auth_oauth_error">წარუმატებელი ავტორიზაცია</string>
+	<string name="auth_oauth_error_access_denied">ავტორიზაციის სერვერის მიერ წვდომა აიკრძალა</string>
+	<string name="auth_wtf_reenter_URL">მოულოდნელი მდგომარეობა, გთხოვთ სერვერის მისამართი შეიყვანოთ ახლიდან</string>
+	<string name="auth_expired_oauth_token_toast">თქვენს ავტორიზაციას ვადა გაუვიდა. გთხოვთ ახლიდან გაიაროთ ავტორიზაცია</string>
+	<string name="auth_expired_basic_auth_toast">გთხოვთ შეიყვანოთ ამჟამინდელი პაროლი</string>
+	<string name="auth_expired_saml_sso_token_toast">თქვენს სესიას ვადა გაუვიდა. გთხოვთ ახლიდან დაკავშირდდით</string>
+	<string name="auth_connecting_auth_server">იდენტიფიკაციის სერვერთან დაკავშირება &#8230;</string>
+	<string name="auth_unsupported_auth_method">სერვერი არ იყენებს ამ იდენტიფიკაციის მეთოდს</string>
+	<string name="auth_unsupported_multiaccount">%1$s არ უჭერს მხარს მრავალი ანგარიშის არსებობას</string>
+	<string name="auth_fail_get_user_name">სერვერი არ აბრუნებს სწორ მომხმარებლის ID-ს,
+გთხოვთ დაუკავშირდეთ ადმინისტრატორს</string>
+	<string name="auth_can_not_auth_against_server">ამ სერვერთან იდენტიფიკაცია ვერ მოხერხდა</string>
+    <string name="auth_account_does_not_exist">ანგარიში მოწყობილობაზე ჯერ არ არსებობს</string>
+    <string name="auth_access_failed">წვდომა დასრულდა წარუმატებლად</string>
+
+    <string name="favorite">დააყენეთ როგორც ხელმისაწვდომი კავშირს გარეთ</string>
+    <string name="unfavorite">მოაშორეთ როგორც ხელმისაწვდომი კავშირს გარეთ</string>
+    <string name="favorite_real">გახადეთ ფავორიტი</string>
+    <string name="unset_favorite_real">მოაშორეთ ფავორიტობა</string>
+    <string name="favorite_switch">ხელმისაწვდომი კავშირს გარეთ</string>
+    <string name="common_rename">გადარქმევა</string>
+    <string name="common_remove">გაუქმება</string>
+    <string name="confirmation_remove_file_alert">ნაღდად გსურთ %1$s-ის გაუქმება?</string>
+    <string name="confirmation_remove_folder_alert">ნაღდად გსურთ %1$s-ის და მოცულობის გაუქმება?</string>
+    <string name="confirmation_remove_local">მხოლოდ ლოკალური</string>
+    <string name="remove_success_msg">გაუქმებულია</string>
+    <string name="remove_fail_msg">გაუქმება ვერ მოხერხდა</string>
+    <string name="rename_dialog_title">შეიყვანეთ ახალი სახელი</string>
+    <string name="rename_local_fail_msg">ლოკალური ასლის სახელი ვერ იქნა შეცვლილი, გთხოვთ სცადოთ სხვა სახელი</string>
+    <string name="rename_server_fail_msg">სერვერს ახალი სახელი ვერ მიეცა</string>
+    <string name="sync_file_fail_msg">დისტანციუირ ფაილი ვერ შემოწმდა</string>
+    <string name="sync_file_nothing_to_do_msg">ფაილების შიგთავსი უკვე სინქრონიზირებულია</string>
+    <string name="create_dir_fail_msg">დირექტორია ვერ შეიქმნა</string>
+    <string name="filename_forbidden_characters">აკრძალული სიმბოლოები: / \\ &lt; &gt; : \" | ? *</string>
+    <string name="filename_forbidden_charaters_from_server">ფაილის სახელი მოიცავს დაუშვებელ სიმბოლოს</string>
+    <string name="filename_empty">ფაილის სახელი ვერ იქნება ცარიელი</string>
+    <string name="wait_a_moment">გთხოვთ მოითმინოთ &#8230;</string>
+    <string name="wait_checking_credentials">მოწმდება შენახული უფლებამოსილებანი</string>
+    <string name="filedisplay_unexpected_bad_get_content">მოულოდნელი შეცდომა, გთხოვთ ფაილი აირჩიოთ სხვა აპლიკაციიდან</string>
+    <string name="filedisplay_no_file_selected">ფაილი არაა არჩეული</string>
+    <string name="activity_chooser_title">გაუგზავნეთ ბმული &#8230;-ს</string>
+    <string name="wait_for_tmp_copy_from_private_storage">ბაილის კოპირება პირადი საცავიდან</string>
+    
+    <string name="oauth_check_onoff">გაიარეთ ავტორიზაცია OAuth 2.0-ით</string> 
+    <string name="oauth_login_connection">ხდება დაკავშირება OAuth 2.0 სერვერთან &#8230;</string>
+        
+    <string name="ssl_validator_header">სერვერის იდენტურობა ვერ დამოწმდა</string>
+    <string name="ssl_validator_reason_cert_not_trusted">– სერვერის სერთიფიკატი არ არის სანდო</string>
+    <string name="ssl_validator_reason_cert_expired">– სერვერის სერთიფიკატი ვადაგასულია</string>
+    <string name="ssl_validator_reason_cert_not_yet_valid">– სერვერის სერთიფიკატის თარიღები მომავალშია</string>
+    <string name="ssl_validator_reason_hostname_not_verified">– URL არ ემთხვევა სერთიფიკატში არსებულ ჰოსტნეიმს</string>
+    <string name="ssl_validator_question">გსურთ მაინც ენდოთ ამ სერთიფიკატს?</string>
+    <string name="ssl_validator_not_saved">სერტიფიკატის შენახვა ვერ მოხერხდა</string>
+    <string name="ssl_validator_btn_details_see">დეტალური ინფორმაცია</string>
+    <string name="ssl_validator_btn_details_hide">დამალვა</string>
+    <string name="ssl_validator_label_subject">გაცემულია:</string>
+    <string name="ssl_validator_label_issuer">გაცემულია მიერ:</string>
+    <string name="ssl_validator_label_CN">ზოგადი სახელი:</string>
+    <string name="ssl_validator_label_O">ორგანიზაცია:</string>
+    <string name="ssl_validator_label_OU">ორგანიზაციის ქვედანაყოფი:</string>
+    <string name="ssl_validator_label_C">ქვეყანა:</string>
+    <string name="ssl_validator_label_ST">შტატი:</string>
+    <string name="ssl_validator_label_L">ადგილმდებარეობა:</string>
+    <string name="ssl_validator_label_validity">მოქმედების ვადა:</string>
+    <string name="ssl_validator_label_validity_from">დან:</string>
+    <string name="ssl_validator_label_validity_to">ვისზე:</string>
+    <string name="ssl_validator_label_signature">ხელმოწერა:</string>
+    <string name="ssl_validator_label_signature_algorithm">ალგორითმი:</string>
+    <string name="digest_algorithm_not_available">თქვენი ტელეფონი არ უჭერს მხარს ამ დაიჯესტის ალგორითმს</string>
+    <string name="ssl_validator_label_certificate_fingerprint">თითის ანაბეჭდი:</string>
+    <string name="certificate_load_problem">სერტიპიკატის ჩატვირთვასთან პრობლემაა.</string>
+    <string name="ssl_validator_null_cert">სერტიფიკატის ჩვენება შეუძლებელია.</string>
+    <string name="ssl_validator_no_info_about_error">- შეცდომაზე ინფორმაცია არაა</string>
+
+    <string name="placeholder_sentence">ეს არის ადგილი</string>
+    <string name="placeholder_filename">ადგილი.txt</string>
+    <string name="placeholder_filesize">389 კბ</string>
+    <string name="placeholder_timestamp">18/05/2012 12:23</string>
+    <string name="placeholder_media_time">12:23:45</string>
+
+    <string name="auto_upload_on_wifi">ატვირთვა მხოლოდ Wi-Fi-ზე</string>
+    <string name="instant_video_upload_on_charging">ატვირთვა მხოლოდ დატენვისას</string>
+    <string name="instant_upload_on_charging">ატვირთვა მხოლოდ დატენვისას</string>
+    <string name="instant_upload_path">/მყისიერი_ატვირთვა</string>
+    <string name="auto_upload_path">/AutoUpload</string>
+    <string name="conflict_title">ფაილის კონფლიქტი</string>
+    <string name="conflict_message">რომელი ფაილების შენარჩუნება გსურთ? თუ აირჩევთ ორივე ვერისას, ლოკალური ფაილის სახელს წინ დაერთვება ციფრი.</string>
+    <string name="conflict_keep_both">დატოვე ორივე</string>
+    <string name="conflict_use_local_version">ლოკალური ვერსია</string>
+    <string name="conflict_use_server_version">სერვერის ვერსია</string>
+
+    <string name="preview_sorry">ბოდიში</string>
+    <string name="preview_image_description">სურათის წინასწარი ჩვენება</string>
+    <string name="preview_image_error_unknown_format">სურათის ჩვენება შეუძლებელია</string>
+    <string name="preview_image_error_no_local_file">წინასწარი ჩვენებისთვის ლოკალური ფაილი არაა</string>
+
+    <string name="error__upload__local_file_not_copied">%1$s ვერ კოპირდება %2$s ლოკალურ დირექტორიაში</string>
+    <string name="prefs_synced_folders_local_path_title">ლოკალური დირექტორია</string>
+    <string name="prefs_synced_folders_remote_path_title">დისტანციური დირექტორია</string>
+    <string name="prefs_instant_upload_path_use_subfolders_title">ქვე-დირექტორიების გამოყენება</string>
+    <string name="prefs_instant_upload_path_use_subfolders_summary">თვის და წელიწადის მიხედვით შევნახვა ქვე-დირექტორიებში</string>
+
+	<string name="share_link_no_support_share_api">გაზიარება სერვერზე არაა ნებადართული. გთხოვთ დაუკავშირდეთ ადმინისტრატორს.</string>
+	<string name="share_link_file_no_exist">გაზიარება არ ხერხდება. გთხოვთ დაამოწმოთ ფაილის არსებობა</string>
+	<string name="share_link_file_error">ამ ფაილის თუ დირექტორიის გაზიარებისას წარმოიშვა შეცდომა</string>
+	<string name="unshare_link_file_no_exist">გაზიარების მოშორება არ ხერხდება. დაამოწმეთ ფაილის არსებობა</string>
+	<string name="unshare_link_file_error">ამ ფაილისა თუ დირექტორიის გაზიარების მოშორებისას წარმოიშვა შეცდომა</string>
+    <string name="update_link_file_no_exist">განახლება არ ხერხდება. დაამოწმეთ ფაილის არსებობა</string>
+    <string name="update_link_file_error">გაზიარების განახლებისას წარმოიშვა შეცდომა</string>
+    <string name="share_link_password_title">შეიყვანეთ პაროლი</string>
+    <string name="share_link_empty_password">უნდა შეიყვანოთ პაროლი</string>
+
+    <string name="activity_chooser_send_file_title">გაგზავნა</string>
+
+    <string name="copy_link">ბმულის კოპირება</string>
+    <string name="clipboard_text_copied">კოპირებულია ბუფერში</string>
+    <string name="clipboard_no_text_to_copy">ტექსტი \"კლიპბორდში\" გადატანისთვის არაა</string>
+    <string name="clipboard_uxexpected_error">\"კლიპბორდში\" კოპირებისას წარმოშვა მოულოდნელი შეცდომა</string>
+    <string name="clipboard_label">ტექსტი %1$s-იდან დაკოპირდა</string>
+
+    <string name="error_cant_bind_to_operations_service">კრიტიკული შეცდომა: შეუძლებელია ოპერაციების გახორციელება</string>
+
+    <string name="network_error_socket_exception">სერვერთან კავშირისას წარმოიშვა შეცდომა.</string>
+    <string name="network_error_socket_timeout_exception">სერვერის ლოდინისას წარმოიშვა შეცდომა.
+ოპერაცია ვერ დასრულდა.</string>
+    <string name="network_error_connect_timeout_exception">სერვერის ლოდინისას წარმოიშვა შეცდომა.
+ოპერაცია ვერ დასრულდა.</string>
+    <string name="network_host_not_available">ოპერაცია ვერ დასრულდა. სერვერი ხელმიუწვდომელია</string>
+
+    <string name="forbidden_permissions">თქვენ არ ხართ ნებადართული %s</string>
+    <string name="forbidden_permissions_rename">რომ შეუცვალოთ ამ ფაილს სახელი</string>
+    <string name="forbidden_permissions_delete">რომ გააუქმოთ ეს ფაილი</string>
+    <string name="share_link_forbidden_permissions">რომ გააზიაროთ ეს ფაილი</string>
+    <string name="unshare_link_forbidden_permissions">რომ მოხსნათ ამ ფაილზე გაზიარება</string>
+    <string name="update_link_forbidden_permissions">რომ განაახლოთ ეს გაზიარება</string>
+    <string name="forbidden_permissions_create">რომ შექმნათ ეს ფაილი</string>
+    <string name="uploader_upload_forbidden_permissions">რომ ატვირთოთ ამ დირექტორიაში</string>
+    <string name="downloader_download_file_not_found">ეს ფაილი სერვერზე მეტი აღარ არსებობს</string>
+
+    <string name="file_migration_dialog_title">საცავის მისამართის განახლება</string>
+    <string name="file_migration_finish_button">დასრულება</string>
+    <string name="file_migration_preparing">მიგრაციის მომზადება &#8230;</string>
+    <string name="file_migration_checking_destination">დანიშნულების შემოწმება &#8230;</string>
+    <string name="file_migration_saving_accounts_configuration">ანგარიშების კონფიგურაციების შენახვა &#8230;</string>
+    <string name="file_migration_waiting_for_unfinished_sync">ველოდებით ყველა სინქრონიზაციის დასრულებას &#8230;</string>
+    <string name="file_migration_migrating">მონაცემების გადატანა. &#8230;</string>
+    <string name="file_migration_updating_index">ინდექსის განახლება &#8230;</string>
+    <string name="file_migration_cleaning">გასუფთავება &#8230;</string>
+    <string name="file_migration_restoring_accounts_configuration">ანგარიშების კონფიგურაციების აღდგენა &#8230;</string>
+    <string name="file_migration_ok_finished">დასრულებულია</string>
+    <string name="file_migration_failed_not_enough_space">შეცდომა: არასაკმარისი ადგილი</string>
+    <string name="file_migration_failed_not_writable">შეცდომა: დანიშნულების ფაილი არაა წერადი</string>
+    <string name="file_migration_failed_not_readable">შეცდომა: წყაროს ფაილი არაა კითხვადი</string>
+    <string name="file_migration_failed_dir_already_exists">შეცდომა: Nextcloud დირექტორია უკვე არსებობს</string>
+    <string name="file_migration_failed_while_coping">შეცდომა: მიგრაცია დასრულდა წარუმატებლად</string>
+    <string name="file_migration_failed_while_updating_index">შეცდომა: ინდექსის განახლება დასრულდა წარუმატებლად</string>
+
+    <string name="file_migration_directory_already_exists">მონაცემების დირექტორია უკვა არსებობს. შემდეგიდან აირჩიეთ ერთ-ერთი:</string>
+    <string name="file_migration_override_data_folder">ჩანაცვლება</string>
+    <string name="file_migration_use_data_folder">გამოყენება</string>
+
+    <string name="file_migration_source_not_readable_title">წყაროს დირქტორია არ იკითხება!</string>
+    <string name="file_migration_source_not_readable">მაინც გსურთ დირექტორიის მისამართის შეცვლა %1$s-ზე?\n\nშენიშვნა: ყველა მონაცემი გადმოიწერება ახლიდან.</string>
+
+    <string name="prefs_add_account">ანგარიშის დამატება.</string>
+    <string name="drawer_manage_accounts">ანგარიშების მენეჯმენტი</string>
+    <string name="auth_redirect_non_secure_connection_title">დაცული კავშირი გადამისამართდა დაუცველი მარშრუტით.</string>
+
+	<string name="actionbar_logger">აღრიცხვის ჟურნალები</string>
+	<string name="log_send_history_button">გაგზავნის ისტორია</string>
+	<string name="log_send_no_mail_app">აპლიკაცია აღრიცხვის ჟურნალების გადასაგზავნად ვერ იქნა ნაპოვნი. გთხოვთ ელ-ფოსტის კლიენტი დააყენოთ ახლიდან.</string>
+	<string name="log_send_mail_subject">%1$s Android აპლიკაციის აღრიცხვის შურნალი.</string>
+	<string name="log_progress_dialog_text">მონაცემები იტვირთება &#8230;</string>
+
+	<string name="saml_authentication_required_text">აცუილებელია იდენტიფიკაცია</string>
+	<string name="saml_authentication_wrong_pass">არასორი პაროლი</string>
+	<string name="actionbar_move">გადატანა</string>
+    <string name="actionbar_copy">კოპირება</string>
+	<string name="file_list_empty_moving">აქ არაფერია. შეგიძლიათ დაამატოთ დირექტორია.</string>
+	<string name="folder_picker_choose_button_text">არჩევა</string>
+
+    <string name="move_file_not_found">ფაილის გადატანა ვერ ხერხდება. დაამოწმეთ მისი არსებობა</string>
+    <string name="move_file_invalid_into_descendent">დირექტორიის გადატანა მასში არსებულ დირექტორიაში შეუძლებელია</string>
+    <string name="move_file_invalid_overwrite">ფაილი დანიშნულ დირექტორიაში უკვე არსებობს</string>
+    <string name="move_file_error">ამ ფაილისა თუ დირექტორიის გადატანისას წარმოიშვა შეცდომა</string>
+    <string name="forbidden_permissions_move">რომ გადაიტანოთ ეს ფაილი</string>
+
+
+    <string name="copy_file_not_found">კოპირება ვერ ხერხდება. დაამოწმეთ ფაილის არსებობა</string>
+    <string name="copy_file_invalid_into_descendent">დირექტორიის კოპირება მასში არსებულ დირექტორიაში შეუძლებელია</string>
+    <string name="copy_file_invalid_overwrite">ფაილი დანიშნულ დირექტორიაში უკვე არსებობს</string>
+    <string name="copy_file_error">ამ ფაილისა თუ დირექტორიის კოპირებისას წარმოიშვა შეცდომა</string>
+    <string name="forbidden_permissions_copy">რომ დააკოპიროთ ეს ფაილი</string>
+
+    <string name="prefs_category_details">დეტალური ინფორმაცია</string>
+
+    <string name="sync_folder_failed_content">%1$s-ის სინქრონიზაცია ვერ დასრულდა</string>
+
+	<string name="shared_subject_header">გაზუარებული</string>
+	<string name="with_you_subject_header">თქვენთან</string>
+    
+	<string name="subject_user_shared_with_you">%1$s-მა თქვენ გაგიზიარათ \"%2$s\"</string>
+    <string name="subject_shared_with_you">\"%1$s\" გაგიზიარდათ</string>
+
+    <string name="auth_refresh_button">კავშირის განახლება</string>
+    <string name="auth_host_address">სერვერის მისამართი</string>
+    <string name="common_error_out_memory">არასაკმარისი მეხსიერება</string>
+
+    <string name="username">მომხმარებლის სახელი</string>
+
+    <plurals name="file_list__footer__folder">
+        <item quantity="other">%1$d დირექტორია</item>
+    </plurals>
+    <plurals name="file_list__footer__file">
+        <item quantity="other">%1$d ფაილი</item>
+    </plurals>
+    <string name="set_picture_as">გამოიყენეთ სურათი როგორც</string>
+    <string name="set_as">დააყენეთ როგორც</string>
+
+    <string name="prefs_instant_behaviour_dialogTitle">ორიგინალი ფაილი იქნება &#8230;</string>
+    <string name="prefs_instant_behaviour_title">ორიგინალი ფაილი იქნება &#8230;</string>
+    <string name="upload_copy_files">ფაილის კოპირება</string>
+    <string name="upload_move_files">ფაილის გადატანა</string>
+    <string name="select_all">ყველას მონიშვნა</string>
+    <string name="deselect_all">ყველას წაშლა</string>
+
+    <string name="pref_behaviour_entries_keep_file">დარჩა ორიგინალ დირექტორიაში</string>
+    <string name="pref_behaviour_entries_move">გადატანილია აპლიკაციის დირექტორიაში</string>
+    <string name="pref_behaviour_entries_delete_file">გაუქმებულია</string>
+    <string name="prefs_storage_path">საცავის მისამართი</string>
+    <string name="prefs_common">ჩვეული</string>
+
+    <string name="share_dialog_title">გაზიარება</string>
+    <string name="share_file">%1$s-ის გაზიარება</string>
+    <string name="share_with_user_section_title">მომხმარებლებთან და ჯგუფებთან გაზიარება</string>
+    <string name="share_no_users">მონაცემები ჯერ მომხმარებლებთან არ გაზიარებულა</string>
+    <string name="share_add_user_or_group">მომხმარებლის ან ჯგუფის დამატება</string>
+    <string name="share_via_link_section_title">ბმულის გაზიარება</string>
+    <string name="share_via_link_expiration_date_label">მიუთითე ვადის გასვლის დრო</string>
+    <string name="share_via_link_password_label">დაცვა პაროლით</string>
+    <string name="share_via_link_password_title">დაცულია</string>
+    <string name="share_via_link_edit_permission_label">ცვლილების უფლების მინიჭება</string>
+    <string name="share_via_link_hide_file_listing_permission_label">ფაილის დამალვა ჩამონათვალში</string>
+    <string name="share_get_public_link_button">ბმულის მიღება</string>
+    <string name="share_with_title">&#8230; თან გაზიარება</string>
+    <string name="share_with_edit_title">%1$s-თან გაზიარება</string>
+
+    <string name="share_search">ძებნა</string>
+
+    <string name="search_users_and_groups_hint">მომხმარებლების და ჯგუფების ძიება</string>
+    <string name="share_group_clarification">%1$s (ჯგუფი)</string>
+    <string name="share_remote_clarification">%1$s (დისტანციური)</string>
+    <string name="share_email_clarification">%1$s (ელ-ფოსტა)</string>
+    <string name="share_known_remote_clarification">%1$s ( %2$s-ზე )</string>
+
+    <string name="share_sharee_unavailable">იმისათვის რომ მომხმარებლებმა შეძნოთ მათ კლიენტებთან გაზიარება განაახლეთ სერვერის ვერსია.\nგთხოვთ დაუკავშირდეთ თქვენს ადმინისტრატორს</string>
+    <string name="filedetails_share_link_enable">ბმულით გაზიარება ნებადართულია</string>
+    <string name="filedetails_share_link_disable">არაა გაზიარებული ბმულით</string>
+    <string name="filedetails_share_users_with_access">მომხმარებლები და ჯგუფები წვდომის უფლებით</string>
+    <string name="share_privilege_can_share">შეუძლიათ გაზიარება</string>
+    <string name="share_privilege_can_edit">შეგიძლია შეცვლა</string>
+    <string name="share_privilege_can_edit_create">შექმნა</string>
+    <string name="share_privilege_can_edit_change">შეცვლა</string>
+    <string name="share_privilege_can_edit_delete">წაშლა</string>
+    <string name="edit_share_unshare">გაზიარების შეწყვეტა</string>
+    <string name="edit_share_done">დასრულებულია</string>
+
+    <string name="action_retry_uploads">წარუმატებლად დასრულებული ატვირთების ხელახლა გაშვება</string>
+    <string name="action_clear_failed_uploads">წარუმატებლად დასრულებული ატვირთების გასუფთავება</string>
+    <string name="action_clear_successful_uploads">წარმატებით დასრულებული ატვირთების გასუფთავება</string>
+    <string name="action_force_rescan">ხელახალი სკანირების ძალდატანება</string>
+
+    <string name="action_switch_grid_view">ბადისებური ხედი</string>
+    <string name="action_switch_list_view">ჩამონათვლისებური ხედი</string>
+
+    <string name="manage_space_title">მოცულობის მენეჯმენტი</string>
+    <string name="manage_space_description">პარამეტრები, მონაცემთა ბაზა და სერტიფიკატები %1$s-ის მონაცემებიდან სამუდამოდ წაიშლება.\n\nგადმოწერილი ფაილები დარჩება ხელუხლებელი.\n\nეს პროცესი გასტანს გარკვეულ დროს.</string>
+    <string name="manage_space_clear_data">მონაცემების გასუფთავება</string>
+    <string name="manage_space_error">გარკვეული ფაილები ვერ გაუქმდა.</string>
+
+    <string name="permission_storage_access">ფაილების ატვირთვისა და გადმოწერისათვის საჭიროა დამატებითი უფლებები.</string>
+    <string name="local_file_not_found_toast">ლოკალურ ფაილ-სისტემაში ფაილი ვერ იქნა ნაპოვნი</string>
+    <string name="confirmation_remove_files_alert">დარწმუნებული ხართ რომ გსურთ არჩეული ჩანაწერების გაუქმება?</string>
+    <string name="confirmation_remove_folders_alert">დარწმუნებული ხართ რომ გსურთ არჩეული ჩანაწერებისა და მათი მოცულობების გაუქმება?</string>
+    <string name="maintenance_mode">სერვერი სარემონტო რეჟიმშია</string>
+    <string name="lock_failed">ფაილის ჩაკეტვა ვერ მოხერხდა.</string>
+
+    <string name="uploads_view_upload_status_waiting_for_charging">გადახდის მოლოდინშია</string>
+    <string name="actionbar_search">ძიება</string>
+    <string name="files_drop_not_supported">ეს Nextcloud-ის ფუნქციაა, გთოხთ განაახლოთ.</string>
+    <string name="learn_more">მეტის გაგება</string>
+    <string name="drawer_synced_folders">ავტო-ატვირთვა</string>
+    <string name="drawer_participate">მონაწილეობის მიღება</string>
+    <string name="participate_testing_headline">დაგვეხმარეთ ტესტირებით</string>
+    <string name="participate_testing_bug_text">იპოვეთ \"bug\"-ი? უცნაურობა?</string>
+    <string name="participate_testing_report_text">დაამატეთ მოხსენიება GitHub-ზე</string>
+    <string name="participate_testing_version_text">დაინტერესებული ხართ დახმარებით შემდეგი ვერსიის ტესტირებით?</string>
+    <string name="participate_beta_headline">დევ. ვერსიის ტესტირება</string>
+    <string name="participate_beta_text">მოიცავს ყველა დამდეგ ფუნქციას და სისხლდენის ზღვარზეა. შეიძლება გამოჩნდეს ბაგები/შეცდომები, ასეთ შემთხვევებში გთხოვთ დაგვიკავშირდეთ და გვამცნობოთ.</string>
+    <string name="participate_release_candidate_headline">რელიზის კანდიდატი</string>
+    <string name="participate_release_candidate_text">ეს რელიზის კანდიდატი (RC) დამდეგი რელიზის კადრია და მოსალოდნელია იყოს სტაბილური. ინდივიდუალური მოწყობილობის ტესტირება ამის დარწმუნებაში დაგვეხმარება. ტესტირებისთვის დარეგისტრირდით Play-ზე ან F-Droid-ში გადახედეთ \"Version\" სექზიას.</string>
+    <string name="participate_contribute_headline">აქტიურად შეიტანეთ წვლილი</string>
+    <string name="participate_contribute_irc_text">შემოგვიერთდით IRC ჩეტში:</string>
+    <string name="participate_contribute_forum_text">დაეხმარეთ სხვებს</string>
+    <string name="participate_contribute_forum_forum">ფურუმი</string>
+    <string name="participate_contribute_translate_translate">გადათარგმნეთ</string>
+    <string name="participate_contribute_translate_text">აპლიკაცია</string>
+    <string name="participate_contribute_github_text">განიხილეთ, შეცვალეთ და დაწერეთ კოდი, დეტალებისთვის იხილეთ %1$s</string>
+    <string name="participate_rc_play_store">მიიღეთ რელიზის კანდიდატი Google Play-დან</string>
+    <string name="participate_rc_fdroid">მიიღეთ რელიზის კანდიდატი F-Droid-იდან</string>
+    <string name="participate_dev_fdroid">მიირეთ დეველოპმენტ რელიზი F-Droid-იდან</string>
+    <string name="participate_dev_direct_download">მიიღეთ დეველოპმენტ რელიზი პირდაპირი გადმოწერით</string>
+    <string name="move_to">გადაიტანეთ &#8230;-ში.</string>
+    <string name="copy_to">დააკოპირეთ &#8230;-ში</string>
+    <string name="choose_remote_folder">აირჩიეთ დისტანციური დირექტორია &#8230;</string>
+    <string name="choose_local_folder">აირჩიეთ ლოკალური დირექტორია &#8230;</string>
+    <string name="synced_folders_loading_folders">დირექტორიების ჩატვირთვა &#8230;</string>
+    <string name="synced_folders_no_results">მედია დირექტორიები ვერ იქნა ნაპოვნი.</string>
+    <string name="synced_folders_preferences">პრეფერენციები ავტო-ატვირთვაზე</string>
+    <string name="synced_folders_settings">პარამეტრები</string>
+    <string name="synced_folders_new_info">მომენტალური ატვირთვა გამოსწორებულია. მთავარი მენიუდან გაუწიეთ ავტო-ატვირთვას რეკონფიგურაცია.\n\nისიამოვნეთ ახალი და გაუმჯობესებული ავტო-ატვირთვით.</string>
+    <string name="synced_folders_preferences_folder_path">%1$s-ისთვის</string>
+    <plurals name="items_selected_count">
+        <item quantity="other">%d არჩეული</item>
+    </plurals>
+
+    <string name="activity_list_loading_activity">აქტივობების ჩატვირთვა &#8230;</string>
+    <string name="activity_list_no_results">აქტივობები ვერ იქნა ნაპოვნი.</string>
+
+    <string name="notifications_loading_activity">შეტყობინებების ჩატვირთვა &#8230;</string>
+    <string name="notifications_no_results_headline">შეტყობინებები არაა</string>
+    <string name="notifications_no_results_message">გთხოვთ დაბრუნდეთ მოგვინაებით.</string>
+
+    <string name="upload_file_dialog_title">ატვირთვისთვის შეიყვანეთ ფაილის სახელი და ტიპი</string>
+    <string name="upload_file_dialog_filename">ფაილის სახელი</string>
+    <string name="upload_file_dialog_filetype">ფაილის ტიპი</string>
+    <string name="upload_file_dialog_filetype_snippet_text">ტექსტ ფაილის ჩამონაჭერი(.txt)</string>
+    <string name="upload_file_dialog_filetype_internet_shortcut">ინტერნეტ იარლიყის ფაილი(%s)</string>
+    <string name="upload_file_dialog_filetype_googlemap_shortcut">Google Maps იარლიყის ფაილი(%s)</string>
+
+    <string name="storage_description_default">საწყისი</string>
+    <string name="storage_description_sd_no">SD ბარათი %1$d</string>
+    <string name="storage_description_unknown">ამოუცნობი</string>
+
+    <!-- What's new feature and texts to show -->
+    <string name="whats_new_title">რა არის ახალი %1$s-ში</string>
+
+    <!-- Welcome to Nc intro features -->
+    <string name="welcome_feature_1_title">უსაფრთხო სახლი მთელი თქვენი მონაცემებისათვის</string>
+    <string name="welcome_feature_1_text">მიაღწიეთ, გააზიარეთ და დაიცავით თქვენი ფაილები სახლსა და სამსახურში</string>
+
+    <string name="welcome_feature_2_title">მულტი-ანგარიში</string>
+    <string name="welcome_feature_2_text">დაუკავშირდით თქვენს ყველა \"cloud\"-ს</string>
+
+    <string name="welcome_feature_3_title">ავტო-ატვირთვა</string>
+    <string name="welcome_feature_3_text">დაცულათ იქონიეთ თქვენი ფოტოები</string>
+
+    <string name="whats_new_auto_upload_title">გაუმჯობესებული ავტო-ატვირთვა.</string>
+    <string name="whats_new_auto_upload_content">\u2022 ყველა Android-ის ვერსიითვის\n\u2002 ნაკლები ბატარეის მოხმარება\n\u\2022 მეტად სანდო, მაგრამ არა-მომანტალური\n\u2022 ვიდეოებისა და სურათების განცაკლევება. &amp;</string>
+
+    <string name="whats_new_search_title">სრული სერვერული ძიება</string>
+    <string name="whats_new_search_content">\u2022 ახალ მხოლოდ აქტიურ დირექტორიაში\n\u2022 აბრუნებს შედეგებს მთელი სერვერიდან\n\u2022 გახსენით ფაილები/დირექტორიები პირდაპირ\n\u2022 მხარდაჭერილია NC12-იდან</string>
+
+    <string name="whats_new_theming_title">ვიზუალური თემების მხარდაჭერა</string>
+    <string name="whats_new_theming_content">თუ ჩართულია სერვერზე, აპლიკაცია აჩვენებს\n\u2022ფონს\n\u2022 სერვერის სახელს\n\u2022გამოიყენეთ ფერები რომ განასხვავოთ ანგარიშები</string>
+
+    <string name="whats_new_notification_title">შეტყობინებების მხარდაჭერა</string>
+    <string name="whats_new_notification_content">მიიღეთ ისეთი შეტყობინებები როგორებიცაა\n\u2022 ახალი დისტანციური გაზიარება\n\u2022 კომენტარების მოხსენიებები\n\u2022 ადმინისტრაციული განცხადებები</string>
+
+    <string name="whats_new_skip">გამოტოვება</string>
+
+    <string name="fingerprint_scan_finger">გთხოვთ დაასკანირეთ თქვენი თითი</string>
+    <string name="fingerprint_unknown">თითი არ იქნა ამოცნობილი</string>
+
+    <!-- User information -->
+    <string name="user_info_full_name">სრული სახელი</string>
+    <string name="user_info_email">ელ-ფოსტა</string>
+    <string name="user_info_phone">ტელეფონის ნომერი</string>
+    <string name="user_info_address">მისამართი</string>
+    <string name="user_info_website">ვებ-საიტი</string>
+    <string name="user_info_twitter">ტვიტერი</string>
+
+    <string name="user_information_description">მომხმარებლის ინფორმაცია</string>
+    <string name="user_information_retrieval_error">მოხმარებლის ინფორმაციის მიღებისას წარმოიშვა შეცდომა</string>
+
+    <!-- Activities -->
+    <string name="activities_no_results_headline">აქტოვობა ჯერ არაა</string>
+    <string name="activities_no_results_message">ეს ნაკადი გამოიტანს ისეთ მოვლენებს როგორებიცაა\nდამატებები, ცვლილებები და გაზიარებები</string>
+    <string name="webview_error">წარმოიშვა შეცდომა</string>
+    <string name="prefs_category_about">შესახებ</string>
+
+    <string name="actionbar_contacts">კონტაქტების დაზღვევა</string>
+    <string name="actionbar_contacts_restore">კონტაქტების აღდგენა</string>
+    <string name="contacts_backup_button">დააზღვიეთ ახლა</string>
+    <string name="contacts_automatic_backup">ავტომატური დაზღვევა</string>
+    <string name="contacts_last_backup">ბოლო დაზღვევა</string>
+    <string name="contacts_read_permission">საჭიროა კონტაქტის სიის წაკითხვის უფლება</string>
+    <string name="contacts_write_permission">საჭიროა კონტაქტის სიის ცვლილების უფლება</string>
+    <string name="contactlist_title">კონტაქტების აღდგენა</string>
+    <string name="contaclist_restore_selected">არჩეული კონტაქტების აღდგენა</string>
+    <string name="contactlist_account_chooser_title">იმპორტისთვის აირჩიეთ ანგარიში</string>
+    <string name="contactlist_no_permission">უფლებები არაა მოცემული, არაფერი იქნა იპორტირებული!</string>
+    <string name="contacts_preference_choose_date">აირჩიეთ თარიღი</string>
+    <string name="contacts_preference_backup_never">არასდროს</string>
+    <string name="contacts_preferences_no_file_found">ფაილი ვერ იქნა ნაპოვნი</string>
+    <string name="contacts_preferences_something_strange_happened">თქვენი ბოლო დაზღვევა ვერ იქნა ნაპოვნი!</string>
+    <string name="contacts_preferences_backup_scheduled">დაზღვევა დაინიშნა და მალე დაიწყება</string>
+    <string name="contacts_preferences_import_scheduled">იმპორტი დაინიშნა და მალე დაიწყება</string>
+
+    <!-- Notifications -->
+    <string name="new_notification_received">მიღებულია ახალი შეტყობინება</string>
+    <string name="drawer_logout">გასვლა</string>
+    <string name="picture_set_as_no_app">სურათის დასაყენებლად ვერც ერთი აპლიკაცია ვერ იქნა ნაპოვნი!</string>
+    <string name="privacy">კონფიდენციალურობა</string>
+    <string name="file_not_found">ფაილი ვერ იქნა ნაპოვნი!</string>
+
+    <!-- Auto upload -->
+    <string name="autoupload_custom_folder">დააყენეთ სპეციფიური დირექტორია</string>
+    <string name="autoupload_create_new_custom_folder">შექყმენით ახალი სპეციფიური დირექტორია</string>
+    <string name="synced_folders_configure_folders">დირექტორიების კონფიგურაცია</string>
+
+    <string name="test_server_button">სერვერთან კავშირის შემოწმება</string>
+    <string name="resharing_is_not_allowed">ხელახალი გაზიარება არაა ნებადართული</string>
+    <string name="whats_new_fingerprint_title">ბლოკის მოხსნა თითის ანაბეჭდის მეშვეობით</string>
+    <string name="whats_new_fingerprint_content">აპლიკაციაზე ბლოკის მოსახსნელად გამოიყენეთ თქვენი თითის ანაბეჭდი</string>
+    <string name="fallback_weblogin_back">უკან</string>
+    <string name="fallback_weblogin_text">დაუბრუნდით ძველ ავტორიზაციის მეთოდს.</string>
+
+    <string name="foreground_service_upload">ფაილების ატვირთვა &#8230;</string>
+    <string name="foreground_service_download">ფაილების გადმოწერა &#8230;</string>
+
+    <string name="prefs_sourcecode">მიიღეთ კოდი</string>
+    <string name="prefs_license">ლიცენზია</string>
+    <string name="push_notifications_not_implemented">Push-შეტყობინებები გათიშულია Google Play სერვისების მესაკუთრეობრივი დამოკიდებულებების გამო.</string>
+    <string name="push_notifications_old_login">ვადაგასული აუტენტიფიკაციის გამო push-ნოტიფიკაციები არაა. გთხოვთ გაითვალისწინოთ თქვენი ანგარიშის ხელახალი დამატება.</string>
+    <string name="push_notifications_temp_error">Push-შეტყობინებები ამჟამად ხელმიუწვდომელია.</string>
+    <string name="date_unknown">არაა ცნობილი</string>
+</resources>
