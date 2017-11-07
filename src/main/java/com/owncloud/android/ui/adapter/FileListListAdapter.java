@@ -70,6 +70,7 @@ import com.owncloud.android.utils.ThemeUtils;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Vector;
 
 
@@ -514,11 +515,12 @@ public class FileListListAdapter extends BaseAdapter {
 
         // early exit
         if (objects.size() > 0 && mStorageManager != null) {
-            if (searchType.equals(ExtendedListFragment.SearchType.SHARED_FILTER)) {
-                parseShares(objects);
-            } else {
-                parseVirtuals(objects, searchType);
-            }
+            parseFullNextSearch(objects);
+//            if (searchType.equals(ExtendedListFragment.SearchType.SHARED_FILTER)) {
+//                parseShares(objects);
+//            } else {
+//                parseVirtuals(objects, searchType);
+//            }
         }
 
         if (!searchType.equals(ExtendedListFragment.SearchType.PHOTO_SEARCH) &&
@@ -578,6 +580,24 @@ public class FileListListAdapter extends BaseAdapter {
             }
         }
         mStorageManager.saveShares(shares);
+    }
+
+    private void parseFullNextSearch(ArrayList<Object> objects) {
+        HashMap<Integer, ArrayList<String>> results = (HashMap<Integer, ArrayList<String>>) objects.get(0);
+
+        for (HashMap.Entry<Integer, ArrayList<String>> entry : results.entrySet()) {
+            Integer key = entry.getKey();
+            ArrayList<String> values = entry.getValue();
+
+            OCFile file = mStorageManager.getFileByRemoteId("00000" + key + "oc9zw9bt6mmj");
+
+            if (file != null) {
+                mFiles.add(file);
+            }
+        }
+
+        Log_OC.d(TAG, "FNS finished");
+
     }
 
     private void parseVirtuals(ArrayList<Object> objects, ExtendedListFragment.SearchType searchType) {
