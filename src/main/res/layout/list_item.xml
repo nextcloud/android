@@ -90,8 +90,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_marginLeft="@dimen/zero"
-                android:layout_marginRight="@dimen/standard_quarter_margin"
                 android:ellipsize="middle"
                 android:singleLine="true"
                 android:text="@string/placeholder_filename"
@@ -101,8 +99,6 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/zero"
-                android:layout_marginRight="@dimen/standard_quarter_margin"
                 android:orientation="horizontal">
 
                 <TextView
@@ -140,16 +136,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:paddingLeft="@dimen/alternate_padding"
-            android:paddingRight="@dimen/alternate_padding">
+            android:paddingLeft="@dimen/standard_half_padding">
 
             <ImageView
                 android:id="@+id/sharedIcon"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_centerVertical="true"
-                android:layout_marginRight="@dimen/list_item_share_right_margin"
-                android:padding="@dimen/standard_quarter_padding"
+                android:paddingRight="@dimen/list_item_share_right_margin"
+                android:paddingLeft="@dimen/standard_half_padding"
                 android:clickable="true"
                 android:focusable="true"
                 android:src="@drawable/ic_unshared" />
@@ -157,10 +152,10 @@
             <ImageView
                 android:id="@+id/custom_checkbox"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_centerVertical="true"
-                android:layout_marginLeft="@dimen/standard_half_margin"
-                android:layout_marginRight="@dimen/standard_half_margin"
+                android:paddingLeft="@dimen/standard_half_padding"
+                android:paddingRight="@dimen/alternate_padding"
                 android:layout_toRightOf="@id/sharedIcon"
                 android:clickable="true"
                 android:focusable="true"
@@ -169,10 +164,11 @@
             <ImageView
                 android:id="@+id/overflow_menu"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_centerVertical="true"
-                android:layout_marginLeft="@dimen/standard_half_margin"
+                android:paddingLeft="@dimen/standard_half_padding"
                 android:layout_toRightOf="@id/custom_checkbox"
+                android:paddingRight="@dimen/alternate_padding"
                 android:clickable="true"
                 android:focusable="true"
                 android:src="@drawable/ic_dots_vertical" />
