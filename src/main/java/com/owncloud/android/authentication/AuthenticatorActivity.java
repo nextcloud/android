@@ -368,13 +368,17 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         mLoginWebView.getSettings().setSaveFormData(false);
         mLoginWebView.getSettings().setSavePassword(false);
 
-        if (baseURL != null && !baseURL.isEmpty()){
-            Map<String, String> headers = new HashMap<>();
-            headers.put(RemoteOperation.OCS_API_HEADER, RemoteOperation.OCS_API_HEADER_VALUE);
-            mLoginWebView.loadUrl(baseURL + WEB_LOGIN, headers);
+        Map<String, String> headers = new HashMap<>();
+        headers.put(RemoteOperation.OCS_API_HEADER, RemoteOperation.OCS_API_HEADER_VALUE);
+
+        String url;
+        if (baseURL != null && !baseURL.isEmpty()) {
+            url = baseURL + WEB_LOGIN;
         } else {
-            mLoginWebView.loadUrl(getResources().getString(R.string.webview_login_url));
+            url = getResources().getString(R.string.webview_login_url);
         }
+
+        mLoginWebView.loadUrl(url, headers);
 
         mLoginWebView.setWebViewClient(new WebViewClient() {
             @Override
