@@ -10,7 +10,7 @@
     </issue>
     
     <issue id="MissingQuantity">
-        <ignore path="/src/main/res/values-ka-rGE/strings.xml" />
+        <ignore path="**/values-ka-rGE/strings.xml"/>
     </issue>
 
 </lint>
