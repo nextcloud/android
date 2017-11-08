@@ -103,6 +103,34 @@ public class ThemeUtils {
         }
     }
 
+    public static int elementColor() {
+        return elementColor(null);
+    }
+
+    public static int elementColor(Account account) {
+        OCCapability capability = getCapability(account);
+
+        try {
+            return Color.parseColor(capability.getServerElementColor());
+        } catch (Exception e) {
+            int primaryColor;
+
+            try {
+                primaryColor = Color.parseColor(capability.getServerColor());
+            } catch (Exception e1) {
+                primaryColor = MainApp.getAppContext().getResources().getColor(R.color.primary);
+            }
+
+            float[] hsl = colorToHSL(primaryColor);
+
+            if (hsl[2] > 0.8) {
+                return MainApp.getAppContext().getResources().getColor(R.color.elementFallbackColor);
+            } else {
+                return primaryColor;
+            }
+        }
+    }
+
     public static boolean themingEnabled() {
         return getCapability().getServerColor() != null && !getCapability().getServerColor().isEmpty();
     }
@@ -112,10 +140,14 @@ public class ThemeUtils {
      * adapted from https://github.com/nextcloud/server/blob/master/apps/theming/lib/Util.php#L90-L102
      */
     public static int fontColor() {
-        if (darkTheme()) {
-            return Color.WHITE;
-        } else {
-            return Color.BLACK;
+        try {
+            return Color.parseColor(getCapability().getServerTextColor());
+        } catch (Exception e) {
+            if (darkTheme()) {
+                return Color.WHITE;
+            } else {
+                return Color.BLACK;
+            }
         }
     }
 
