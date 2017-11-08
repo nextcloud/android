@@ -343,7 +343,9 @@ public class FileListListAdapter extends BaseAdapter {
             if (!file.isFolder()) {
                 if ((MimeTypeUtil.isImage(file) || MimeTypeUtil.isVideo(file)) && file.getRemoteId() != null) {
                     // Thumbnail in Cache?
-                    Bitmap thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(file.getRemoteId());
+                    Bitmap thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(
+                            ThumbnailsCacheManager.PREFIX_THUMBNAIL + String.valueOf(file.getRemoteId())
+                    );
                     if (thumbnail != null && !file.needsUpdateThumbnail()) {
 
                         if (MimeTypeUtil.isVideo(file)) {
@@ -375,7 +377,8 @@ public class FileListListAdapter extends BaseAdapter {
                                         );
                                 fileIcon.setImageDrawable(asyncDrawable);
                                 asyncTasks.add(task);
-                                task.execute(file);
+                                task.execute(new ThumbnailsCacheManager.ThumbnailGenerationTaskObject(file,
+                                        file.getRemoteId()));
                             } catch (IllegalArgumentException e) {
                                 Log_OC.d(TAG, "ThumbnailGenerationTask : " + e.getMessage());
                             }

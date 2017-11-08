@@ -970,14 +970,21 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
                     return true;
                 }
                 case R.id.action_send_file: {
-                    // Obtain the file
-                    if (!singleFile.isDown()) {  // Download the file
-                        Log_OC.d(TAG, singleFile.getRemotePath() + " : File must be downloaded");
-                        ((FileDisplayActivity) mContainerActivity).startDownloadForSending(singleFile, DOWNLOAD_SEND);
+                    if (MimeTypeUtil.isImage(singleFile) && !singleFile.isDown()) {
+                        mContainerActivity.getFileOperationsHelper().sendCachedImage(singleFile);
+                        return true;
                     } else {
-                        mContainerActivity.getFileOperationsHelper().sendDownloadedFile(singleFile);
+                        // Obtain the file
+                        if (!singleFile.isDown()) {  // Download the file
+                            Log_OC.d(TAG, singleFile.getRemotePath() + " : File must be downloaded");
+                            ((FileDisplayActivity) mContainerActivity).startDownloadForSending(singleFile,
+                                    DOWNLOAD_SEND);
+
+                        } else {
+                            mContainerActivity.getFileOperationsHelper().sendDownloadedFile(singleFile);
+                        }
+                        return true;
                     }
-                    return true;
                 }
                 case R.id.action_set_as_wallpaper: {
                     if (singleFile.isDown()) {
@@ -1008,11 +1015,11 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
                 return true;
             }
             case R.id.action_keep_files_offline: {
-                mContainerActivity.getFileOperationsHelper().toogleOfflineFiles(checkedFiles, true);
+                mContainerActivity.getFileOperationsHelper().toggleOfflineFiles(checkedFiles, true);
                 return true;
             }
             case R.id.action_unset_keep_files_offline: {
-                mContainerActivity.getFileOperationsHelper().toogleOfflineFiles(checkedFiles, false);
+                mContainerActivity.getFileOperationsHelper().toggleOfflineFiles(checkedFiles, false);
                 return true;
             }
             case R.id.action_favorite: {
