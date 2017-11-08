@@ -220,7 +220,6 @@ public class ThemeUtils {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
             seekBar.getThumb().setColorFilter(color, PorterDuff.Mode.SRC_IN);
-            seekBar.getThumb().setColorFilter(color, PorterDuff.Mode.SRC_IN);
         }
     }
 
