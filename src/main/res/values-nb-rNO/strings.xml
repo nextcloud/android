@@ -681,4 +681,4 @@
     <string name="push_notifications_old_login">Ingen push-merknader på grunn av utdatert innloggingsøkt. Overvei å legge til kontoen din på nytt.</string>
     <string name="push_notifications_temp_error">Push-merknader er for tiden ikke tilgjengelige.</string>
     <string name="date_unknown">Ukjent</string>
-</resources>
+    </resources>

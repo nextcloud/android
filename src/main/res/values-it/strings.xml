@@ -692,4 +692,4 @@
     <string name="push_notifications_old_login">Nessuna notifica push a causa della sessione di accesso scaduta. Considera di aggungere nuovamente il tuo account.</string>
     <string name="push_notifications_temp_error">Notifiche push attualmente non disponibili.</string>
     <string name="date_unknown">Sconosciuta</string>
-</resources>
+    </resources>

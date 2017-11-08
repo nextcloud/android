@@ -693,4 +693,4 @@ Kies er eentje van een provider.</string>
     <string name="push_notifications_old_login">Geen push-notificaties als gevolg van de verouderde inlogsessie. Overweeg het opnieuw toevoegen van uw account.</string>
     <string name="push_notifications_temp_error">Push notificaties momenteel niet beschikbaar.</string>
     <string name="date_unknown">Onbekend</string>
-</resources>
+    </resources>

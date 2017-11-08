@@ -1,0 +1,1 @@
+The Nextcloud Android app allows you to access all your files on your Nextcloud

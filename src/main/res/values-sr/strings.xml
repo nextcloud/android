@@ -697,4 +697,4 @@
     <string name="push_notifications_old_login">Нема брзих обавештења зато што вам је сесија застарела. Избришите и додајте поново налог.</string>
     <string name="push_notifications_temp_error">Брза обавештења тренутно нису доступна.</string>
     <string name="date_unknown">Непознато</string>
-</resources>
+    </resources>
