@@ -132,7 +132,7 @@
 
     <!-- login data links -->
     <string name="login_data_own_scheme" translatable="false">nc</string>
-    <!-- url for webview login, with the protocol prefix
+    <!-- url for webview login, with the protocol prefix and with full url (normally /index.php/login/flow)
     If set, will replace all other login methods available -->
     <string name="webview_login_url" translatable="false"></string>
 
