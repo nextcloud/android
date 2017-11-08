@@ -691,4 +691,4 @@
     <string name="push_notifications_old_login">ვადაგასული აუტენტიფიკაციის გამო push-ნოტიფიკაციები არაა. გთხოვთ გაითვალისწინოთ თქვენი ანგარიშის ხელახალი დამატება.</string>
     <string name="push_notifications_temp_error">Push-შეტყობინებები ამჟამად ხელმიუწვდომელია.</string>
     <string name="date_unknown">არაა ცნობილი</string>
-</resources>
+    </resources>

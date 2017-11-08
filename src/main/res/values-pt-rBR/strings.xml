@@ -692,4 +692,4 @@
     <string name="push_notifications_old_login">Sem envio de notificações devido à sessão de login desatualizada. Considere readicionar sua conta.</string>
     <string name="push_notifications_temp_error">Atualmente o envio de notificações está indisponível.</string>
     <string name="date_unknown">Desconhecido</string>
-</resources>
+    </resources>
