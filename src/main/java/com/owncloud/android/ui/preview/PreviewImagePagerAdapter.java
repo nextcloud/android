@@ -50,7 +50,7 @@ public class PreviewImagePagerAdapter extends FragmentStatePagerAdapter {
     private Set<Integer> mObsoletePositions;
     private Set<Integer> mDownloadErrors;
     private FileDataStorageManager mStorageManager;
-    
+
     private Map<Integer, FileFragment> mCachedFragments;
 
     /**
@@ -140,16 +140,18 @@ public class PreviewImagePagerAdapter extends FragmentStatePagerAdapter {
         OCFile file = mImageFiles.get(i);
         Fragment fragment;
         if (file.isDown()) {
-            fragment = PreviewImageFragment.newInstance(file, mObsoletePositions.contains(i));
-            
-        } else if (mDownloadErrors.contains(i)) {
-            fragment = FileDownloadFragment.newInstance(file, mAccount, true);
-            ((FileDownloadFragment)fragment).setError(true);
-            mDownloadErrors.remove(i);
+            fragment = PreviewImageFragment.newInstance(file, mObsoletePositions.contains(i), false);
             
         } else {
-            fragment = FileDownloadFragment.newInstance(file, mAccount, mObsoletePositions.contains(i));
+            if (mDownloadErrors.contains(i)) {
+                fragment = FileDownloadFragment.newInstance(file, mAccount, true);
+                ((FileDownloadFragment) fragment).setError(true);
+                mDownloadErrors.remove(i);
+            } else {
+                fragment = PreviewImageFragment.newInstance(file, mObsoletePositions.contains(i), true);
+            }
         }
+
         mObsoletePositions.remove(i);
         return fragment;
     }

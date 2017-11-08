@@ -25,6 +25,7 @@ import android.os.Build.VERSION;
 import android.os.Build.VERSION_CODES;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.support.design.widget.Snackbar;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.GestureDetector;
@@ -35,6 +36,7 @@ import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.OverScroller;
 import android.widget.Scroller;
 
+import com.owncloud.android.R;
 import com.owncloud.android.ui.preview.ImageViewCustom;
 
 /**
@@ -888,9 +890,13 @@ public class TouchImageViewCustom extends ImageViewCustom {
      *
      */
     private class ScaleListener extends ScaleGestureDetector.SimpleOnScaleGestureListener {
+        private boolean snackShown = false;
+
         @Override
         public boolean onScaleBegin(ScaleGestureDetector detector) {
             setState(State.ZOOM);
+
+            previewImageFragment.switchToFullScreen();
             return true;
         }
 
@@ -898,6 +904,10 @@ public class TouchImageViewCustom extends ImageViewCustom {
         public boolean onScale(ScaleGestureDetector detector) {
         	scaleImage(detector.getScaleFactor(), detector.getFocusX(), detector.getFocusY(), true);
         	
+            if (!snackShown && getCurrentZoom() > 2 && !previewImageFragment.getFile().isDown()) {
+                showDownloadSnackbar();
+            }
+
         	//
         	// OnTouchImageViewListener is set: TouchImageView pinch zoomed by user.
         	//
@@ -907,6 +917,20 @@ public class TouchImageViewCustom extends ImageViewCustom {
             return true;
         }
         
+        private void showDownloadSnackbar() {
+            snackShown = true;
+
+            Snackbar.make(getRootView(), R.string.resized_images_download_full_image, Snackbar.LENGTH_LONG)
+                    .setCallback(new Snackbar.Callback() {
+                        @Override
+                        public void onDismissed(Snackbar snackbar, int event) {
+                            super.onDismissed(snackbar, event);
+                            snackShown = false;
+                        }
+                    })
+                    .setAction(R.string.common_yes, v -> previewImageFragment.downloadFile()).show();
+        }
+
         @Override
         public void onScaleEnd(ScaleGestureDetector detector) {
         	super.onScaleEnd(detector);

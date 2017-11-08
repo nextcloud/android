@@ -185,6 +185,12 @@
                 android:resource="@xml/exposed_filepaths" />
         </provider>
 
+        <provider
+            android:name=".providers.DiskLruImageCacheFileProvider"
+            android:authorities="@string/image_cache_provider_authority"
+            android:exported="true">
+        </provider>
+
         <activity
             android:name=".authentication.AuthenticatorActivity"
             android:exported="true"

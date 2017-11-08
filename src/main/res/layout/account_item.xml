@@ -38,10 +38,12 @@
             android:id="@+id/user_icon"
             android:layout_width="@dimen/user_icon_size"
             android:layout_height="@dimen/user_icon_size"
-            android:layout_gravity="top|left"
+            android:layout_gravity="top|start"
             android:layout_marginBottom="1dp"
             android:layout_marginLeft="12dp"
+            android:layout_marginStart="12dp"
             android:layout_marginRight="1dp"
+            android:layout_marginEnd="1dp"
             android:layout_marginTop="1dp"
             android:src="@drawable/folder"
             android:contentDescription="@string/avatar"/>
@@ -50,7 +52,7 @@
             android:id="@+id/ticker"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom|right"
+            android:layout_gravity="bottom|end"
             android:background="@drawable/round_bgnd"
             android:src="@drawable/ic_account_circle_white_18dp"
             android:contentDescription="@string/active_user"/>

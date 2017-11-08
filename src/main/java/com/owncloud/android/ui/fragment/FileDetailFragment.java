@@ -339,14 +339,10 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
                 return true;
             }
             case R.id.action_send_file: {
-                // Obtain the file
-                if (!getFile().isDown()) {  // Download the file                    
-                    Log_OC.d(TAG, getFile().getRemotePath() + " : File must be downloaded");
-                    ((FileDisplayActivity) mContainerActivity).startDownloadForSending(getFile(),
-                            OCFileListFragment.DOWNLOAD_SEND);
-                }
-                else {
+                if (getFile().isDown()) {
                     mContainerActivity.getFileOperationsHelper().sendDownloadedFile(getFile());
+                } else {
+                    mContainerActivity.getFileOperationsHelper().sendCachedImage(getFile());
                 }
                 return true;
             }
@@ -508,7 +504,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
                                         task
                                 );
                         iv.setImageDrawable(asyncDrawable);
-                        task.execute(file);
+                        task.execute(new ThumbnailsCacheManager.ThumbnailGenerationTaskObject(file, file.getRemoteId()));
                     }
                 }
             } else {

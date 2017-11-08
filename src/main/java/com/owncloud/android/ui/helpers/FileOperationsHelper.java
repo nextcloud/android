@@ -1,20 +1,20 @@
-/**
+/*
  * ownCloud Android client application
  *
  * @author masensio
  * @author David A. Velasco
  * @author Juan Carlos González Cabrero
  * Copyright (C) 2015 ownCloud Inc.
- * <p>
+ * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2,
  * as published by the Free Software Foundation.
- * <p>
+ * 
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * <p>
+ * 
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -495,6 +495,24 @@ public class FileOperationsHelper {
         }
     }
 
+    public void sendCachedImage(OCFile file) {
+        if (file != null) {
+            Context context = MainApp.getAppContext();
+            Intent sendIntent = new Intent(Intent.ACTION_SEND);
+            // set MimeType
+            sendIntent.setType(file.getMimetype());
+            sendIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse("content://" +
+                    context.getResources().getString(R.string.image_cache_provider_authority) +
+                    file.getRemotePath()));
+            sendIntent.putExtra(Intent.ACTION_SEND, true);      // Send Action
+
+            mFileActivity.startActivity(Intent.createChooser(sendIntent, 
+                    context.getString(R.string.actionbar_send_file)));
+        } else {
+            Log_OC.wtf(TAG, "Trying to send a NULL OCFile");
+        }
+    }
+
     public void setPictureAs(OCFile file) {
         if (file != null) {
             if (file.isDown()) {
@@ -575,7 +593,7 @@ public class FileOperationsHelper {
     }
 
 
-    public void toogleOfflineFiles(Collection<OCFile> files, boolean isAvailableOffline) {
+    public void toggleOfflineFiles(Collection<OCFile> files, boolean isAvailableOffline) {
         List<OCFile> alreadyRightStateList = new ArrayList<>();
         for (OCFile file : files) {
             if (file.isAvailableOffline() == isAvailableOffline) {
@@ -741,7 +759,7 @@ public class FileOperationsHelper {
     }
 
     /**
-     * Starts a check of the currenlty stored credentials for the given account.
+     * Starts a check of the currently stored credentials for the given account.
      *
      * @param account       OC account which credentials will be checked.
      */
@@ -751,8 +769,6 @@ public class FileOperationsHelper {
         service.putExtra(OperationsService.EXTRA_ACCOUNT, account);
         mWaitingForOpId = mFileActivity.getOperationsServiceBinder().queueNewOperation(service);
 
-        mFileActivity.showLoadingDialog(
-                mFileActivity.getString(R.string.wait_checking_credentials)
-        );
+        mFileActivity.showLoadingDialog(mFileActivity.getString(R.string.wait_checking_credentials));
     }
 }
