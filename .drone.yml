@@ -39,6 +39,19 @@ pipeline:
     when:
       matrix:
         FLAVOUR: Lint
+        
+  notify:
+      image: drillster/drone-email
+      host: $EMAIL_HOST
+      port: 587
+      username: $EMAIL_USERNAME
+      password: $EMAIL_PASSWORD
+      from: nextcloud-drone@kaminsky.me
+      recipients_only: true
+      recipients: [ $EMAIL_RECIPIENTS ]
+      secrets: [ EMAIL_USERNAME, EMAIL_PASSWORD, EMAIL_RECIPIENTS, EMAIL_HOST ]
+      when:
+        status: [ failure ]
 
 matrix:
   FLAVOUR:
