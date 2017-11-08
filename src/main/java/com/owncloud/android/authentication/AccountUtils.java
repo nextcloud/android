@@ -1,4 +1,4 @@
-/**
+/*
  *   ownCloud Android client application
  *
  *   Copyright (C) 2012  Bartek Przybylski
@@ -30,7 +30,6 @@ import android.support.annotation.Nullable;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.FileDataStorageManager;
-import com.owncloud.android.lib.common.accounts.AccountTypeUtils;
 import com.owncloud.android.lib.common.accounts.AccountUtils.Constants;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
@@ -41,14 +40,7 @@ import com.owncloud.android.ui.activity.ManageAccountsActivity;
 import java.util.Locale;
 
 public class AccountUtils {
-
     private static final String TAG = AccountUtils.class.getSimpleName();
-
-    public static final String WEBDAV_PATH_4_0_AND_LATER = "/remote.php/webdav";
-    public static final String DAV_PATH = "/remote.php/dav";
-    private static final String ODAV_PATH = "/remote.php/odav";
-    private static final String SAML_SSO_PATH = "/remote.php/webdav";
-    public static final String STATUS_PATH = "/status.php";
 
     public static final int ACCOUNT_VERSION = 1;
     public static final int ACCOUNT_VERSION_WITH_PROPER_ID = 2;
@@ -63,8 +55,7 @@ public class AccountUtils {
      *                      {@link Account} available, if valid (still registered in the system as ownCloud 
      *                      account). If none is available and valid, returns null.
      */
-    public static @Nullable
-    Account getCurrentOwnCloudAccount(Context context) {
+    public static @Nullable Account getCurrentOwnCloudAccount(Context context) {
         Account[] ocAccounts = getAccounts(context);
         Account defaultAccount = null;
 
@@ -145,7 +136,7 @@ public class AccountUtils {
     
     /**
      * Returns owncloud account identified by accountName or null if it does not exist.
-     * @param context
+     * @param context the context
      * @param accountName name of account to be returned
      * @return owncloud account named accountName
      */
@@ -199,48 +190,6 @@ public class AccountUtils {
         appPrefs.putString("select_oc_account", null);
 
         appPrefs.apply();
-    }
-
-    /**
-     * Returns the proper URL path to access the WebDAV interface of an ownCloud server,
-     * according to its version and the authorization method used.
-     * 
-     * @param   version         Version of ownCloud server.
-     * @param   authTokenType   Authorization token type, matching some of the AUTH_TOKEN_TYPE_* constants in
-     *                          {@link AccountAuthenticator}.
-     * @return                  WebDAV path for given OC version and authorization method, null if OC version
-     *                          is unknown; versions prior to ownCloud 4 are not supported anymore
-     */
-    public static String getWebdavPath(OwnCloudVersion version, String authTokenType) {
-        if (version != null) {
-            if (AccountTypeUtils.getAuthTokenTypeAccessToken(MainApp.getAccountType()).equals(authTokenType)) {
-                return ODAV_PATH;
-            }
-            if (AccountTypeUtils.getAuthTokenTypeSamlSessionCookie(MainApp.getAccountType()).equals(authTokenType)) {
-                return SAML_SSO_PATH;
-            }
-
-            return WEBDAV_PATH_4_0_AND_LATER;
-        }
-        return null;
-    }
-
-    
-    public static String trimWebdavSuffix(String url) {
-        while(url.endsWith("/")) {
-            url = url.substring(0, url.length() - 1);
-        }
-        int pos = url.lastIndexOf(WEBDAV_PATH_4_0_AND_LATER);
-        if (pos >= 0) {
-            url = url.substring(0, pos);
-
-        } else {
-            pos = url.lastIndexOf(ODAV_PATH);
-            if (pos >= 0) {
-                url = url.substring(0, pos);
-            }
-        }
-        return url;
     }
 
     /**

@@ -61,7 +61,7 @@ import com.owncloud.android.utils.MimeTypeUtil;
 
 import java.io.File;
 
-import static com.owncloud.android.ui.activity.Preferences.EXPERT_MODE;
+import static com.owncloud.android.ui.activity.Preferences.PREFERENCE_EXPERT_MODE;
 
 /**
  * Activity listing pending, active, and completed uploads. User can delete
@@ -255,7 +255,7 @@ public class UploadListActivity extends FileActivity implements UploadListFragme
     public boolean onCreateOptionsMenu(Menu menu) {
         SharedPreferences appPrefs =
                 PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        if (appPrefs.getBoolean(EXPERT_MODE, false)) {
+        if (appPrefs.getBoolean(PREFERENCE_EXPERT_MODE, false)) {
             MenuInflater inflater = getMenuInflater();
             inflater.inflate(R.menu.upload_list_menu, menu);
             mMenu = menu;

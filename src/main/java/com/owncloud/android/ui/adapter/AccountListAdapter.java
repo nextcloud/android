@@ -65,25 +65,25 @@ public class AccountListAdapter extends ArrayAdapter<AccountListItem> implements
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
         AccountViewHolderItem viewHolder;
+        View view = convertView;
 
-        if (convertView == null) {
+        if (view == null) {
             LayoutInflater inflater = mContext.getLayoutInflater();
-            convertView = inflater.inflate(R.layout.account_item, parent, false);
+            view = inflater.inflate(R.layout.account_item, parent, false);
 
             viewHolder = new AccountViewHolderItem();
-            viewHolder.imageViewItem = (ImageView) convertView.findViewById(R.id.user_icon);
-            viewHolder.checkViewItem = (ImageView) convertView.findViewById(R.id.ticker);
+            viewHolder.imageViewItem = (ImageView) view.findViewById(R.id.user_icon);
+            viewHolder.checkViewItem = (ImageView) view.findViewById(R.id.ticker);
             viewHolder.checkViewItem.setImageDrawable(mTintedCheck);
-            viewHolder.usernameViewItem = (TextView) convertView.findViewById(R.id.user_name);
-            viewHolder.accountViewItem = (TextView) convertView.findViewById(R.id.account);
+            viewHolder.usernameViewItem = (TextView) view.findViewById(R.id.user_name);
+            viewHolder.accountViewItem = (TextView) view.findViewById(R.id.account);
 
-            convertView.setTag(viewHolder);
+            view.setTag(viewHolder);
         } else {
-            viewHolder = (AccountViewHolderItem) convertView.getTag();
+            viewHolder = (AccountViewHolderItem) view.getTag();
         }
 
         AccountListItem accountListItem = mValues.get(position);
-
 
         if (accountListItem != null) {
             // create account item
@@ -111,7 +111,7 @@ public class AccountListAdapter extends ArrayAdapter<AccountListItem> implements
             }
         }
 
-        return convertView;
+        return view;
     }
 
     @NonNull
@@ -192,10 +192,10 @@ public class AccountListAdapter extends ArrayAdapter<AccountListItem> implements
      * Account ViewHolderItem to get smooth scrolling.
      */
     private static class AccountViewHolderItem {
-        ImageView imageViewItem;
-        ImageView checkViewItem;
+        private ImageView imageViewItem;
+        private ImageView checkViewItem;
 
-        TextView usernameViewItem;
-        TextView accountViewItem;
+        private TextView usernameViewItem;
+        private TextView accountViewItem;
     }
 }
