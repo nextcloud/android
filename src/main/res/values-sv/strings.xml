@@ -40,8 +40,6 @@
     <string name="prefs_category_more">Mer</string>
     <string name="prefs_manage_accounts">Hantera konton</string>
     <string name="prefs_passcode">Kodlås</string>
-    <string name="prefs_fingerprint">Fingeravtryckslås</string>
-    <string name="prefs_fingerprint_notsetup">Inget fingeravtryck har konfigurerats.</string>
     <string name="prefs_expert_mode">Expertläge</string>
     <string name="prefs_show_hidden_files">Visa dolda filer</string>
     <string name="prefs_log_delete_history_button">Radera historik</string>
@@ -498,9 +496,6 @@
     <string name="welcome_feature_3_text">Lagra dina foton på ett säkert ställe</string>
 
     <string name="whats_new_skip">Hoppa över</string>
-
-    <string name="fingerprint_scan_finger">Vänligen skanna ditt finger</string>
-    <string name="fingerprint_unknown">Finger ej igenkänt</string>
 
     <!-- User information -->
     <string name="user_info_email">E-post</string>

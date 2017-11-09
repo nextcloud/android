@@ -40,8 +40,6 @@
     <string name="prefs_category_more">Altro</string>
     <string name="prefs_manage_accounts">Gestisci account</string>
     <string name="prefs_passcode">Blocco con codice di sicurezza</string>
-    <string name="prefs_fingerprint">Blocco con impronta digitale</string>
-    <string name="prefs_fingerprint_notsetup">Non è stata impostata alcuna impronta digitale</string>
     <string name="prefs_expert_mode">Modalità esperta</string>
     <string name="prefs_show_hidden_files">Mostra i file nascosti</string>
     <string name="prefs_log_delete_history_button">Elimina cronologia</string>
@@ -601,9 +599,6 @@
     <string name="whats_new_ipv6_content">IPv6 se il server lo supporta, altrimenti IPv4.</string>
 
     <string name="whats_new_skip">Salta</string>
-
-    <string name="fingerprint_scan_finger">Esegui la scansione del tuo dito</string>
-    <string name="fingerprint_unknown">Dito non riconosciuto</string>
 
     <!-- User information -->
     <string name="user_info_email">Email</string>

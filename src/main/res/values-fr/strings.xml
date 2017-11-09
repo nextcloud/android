@@ -40,8 +40,6 @@
     <string name="prefs_category_more">Plus</string>
     <string name="prefs_manage_accounts">Gestion des comptes</string>
     <string name="prefs_passcode">Code de sécurité</string>
-    <string name="prefs_fingerprint">Verrouillage par empreinte digitale</string>
-    <string name="prefs_fingerprint_notsetup">Aucune empreinte digitale n\'a été installée.</string>
     <string name="prefs_expert_mode">Mode expert</string>
     <string name="prefs_show_hidden_files">Afficher les fichiers masqués</string>
     <string name="prefs_log_delete_history_button">Effacer le journal</string>
@@ -600,9 +598,6 @@ Veuillez contacter votre administrateur</string>
     <string name="whats_new_ipv6_content">En IPv6 si le serveur le supporte, IPv4 sinon.</string>
 
     <string name="whats_new_skip">Ignorer</string>
-
-    <string name="fingerprint_scan_finger">Veuillez scanner votre doigt</string>
-    <string name="fingerprint_unknown">Doigt non reconnu</string>
 
     <!-- User information -->
     <string name="user_info_email">Adresse e-mail</string>

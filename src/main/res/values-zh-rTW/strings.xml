@@ -40,8 +40,6 @@
     <string name="prefs_category_more">更多</string>
     <string name="prefs_manage_accounts">管理帳戶</string>
     <string name="prefs_passcode">密碼鎖</string>
-    <string name="prefs_fingerprint">指紋上鎖</string>
-    <string name="prefs_fingerprint_notsetup">尚未設置任何指紋。</string>
     <string name="prefs_expert_mode">專家模式</string>
     <string name="prefs_show_hidden_files">顯示隱藏檔案</string>
     <string name="prefs_log_delete_history_button">刪除記錄</string>
