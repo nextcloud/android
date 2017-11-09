@@ -33,7 +33,9 @@ import android.content.ContentResolver;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.PorterDuff;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.LayerDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.ColorInt;
@@ -285,10 +287,14 @@ public class UserInfoActivity extends FileActivity {
                     SimpleTarget target = new SimpleTarget<Drawable>() {
                         @Override
                         public void onResourceReady(Drawable resource, GlideAnimation glideAnimation) {
+                            int primaryColor = ThemeUtils.primaryColor(getAccount());
+                            Drawable[] drawables = {new ColorDrawable(primaryColor), resource};
+                            LayerDrawable layerDrawable = new LayerDrawable(drawables);
+                            
                             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
-                                appBar.setBackgroundDrawable(resource);
+                                appBar.setBackgroundDrawable(layerDrawable);
                             } else {
-                                appBar.setBackground(resource);
+                                appBar.setBackground(layerDrawable);
                             }
                         }
                     };
