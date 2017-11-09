@@ -51,7 +51,8 @@ pipeline:
       recipients: [ $EMAIL_RECIPIENTS ]
       secrets: [ EMAIL_USERNAME, EMAIL_PASSWORD, EMAIL_RECIPIENTS, EMAIL_HOST ]
       when:
-        status: [ failure ]
+        status: failure
+        branch: master
 
 matrix:
   FLAVOUR:
