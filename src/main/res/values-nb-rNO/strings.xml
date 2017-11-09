@@ -150,6 +150,7 @@
     <string name="uploader_upload_failed_ticker">Opplasting mislyktes</string>
     <string name="uploader_upload_failed_content_single">Kunne ikke laste opp %1$s</string>
     <string name="uploader_upload_failed_credentials_error">Opplasting mislyktes, du må logge inn på nytt</string>
+    <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">Tjenersertifikatet er ikke betrodd</string>
     <string name="uploads_view_title">Opplastinger</string>
     <string name="uploads_view_group_current_uploads">Nåværende</string>
     <string name="uploads_view_group_failed_uploads">Feilet / Venter på omstart</string>
@@ -681,4 +682,6 @@
     <string name="push_notifications_old_login">Ingen push-merknader på grunn av utdatert innloggingsøkt. Overvei å legge til kontoen din på nytt.</string>
     <string name="push_notifications_temp_error">Push-merknader er for tiden ikke tilgjengelige.</string>
     <string name="date_unknown">Ukjent</string>
+
+    <string name="store_short_desc">Nextcloud-programmet for Android gir deg tilgang til alle filene dine i din Nextcloud</string>
     </resources>

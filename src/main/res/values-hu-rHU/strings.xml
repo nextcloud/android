@@ -695,4 +695,5 @@ hozzáadások, változások és megosztások</string>
     <string name="push_notifications_old_login">Lejárt munkamenet miatt nincsenek push üzenetek. Próbáld újra hozzáadni a fiókod.</string>
     <string name="push_notifications_temp_error">Push üzenetek jelenleg nem elérhetők</string>
     <string name="date_unknown">Ismeretlen</string>
+
     </resources>
