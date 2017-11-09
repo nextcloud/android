@@ -48,6 +48,7 @@
     <string name="prefs_calendar_contacts">設定日曆與聯絡人同步</string>
     <string name="prefs_calendar_contacts_summary">設定目前帳戶所使用的 DAVdroid (V1.3.0+)</string>
     <string name="prefs_calendar_contacts_address_resolve_error">帳戶的伺服器位址無法被 DAVdroid 辨認</string>
+    <string name="prefs_calendar_contacts_no_store_error">F-Droid或Google Play尚未安裝</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">日曆 &amp; 聯絡人同步設定</string>
     <string name="prefs_daily_contacts_sync_summary">每日備份通訊錄</string>
     <string name="prefs_help">說明</string>
@@ -55,13 +56,16 @@
     <string name="prefs_feedback">回饋</string>
     <string name="prefs_imprint">法律聲明</string>
 
+	<string name="recommend_subject">在您的智慧型手機上試試%1$s</string>
 	<string name="auth_check_server">檢查伺服器</string>
+    <string name="auth_host_url">伺服器網址 https://&#8230;</string>
     <string name="auth_username">使用者名稱</string>
     <string name="auth_password">密碼</string>
     <string name="auth_register">還沒有伺服器嗎？\n點這裡可以從供應商取得一個。</string>
     <string name="sync_string_files">檔案</string>
     <string name="setup_btn_connect">連線</string>
     <string name="uploader_btn_upload_text">上傳</string>
+    <string name="uploader_btn_alternative_text">選擇</string>
     <string name="uploader_top_message">選擇上傳檔案夾</string>
     <string name="uploader_wrn_no_account_title">找不到帳號</string>
     <string name="uploader_wrn_no_account_text">無 %1$s 帳戶，請先建立帳戶。</string>
@@ -79,6 +83,7 @@
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">刪除來源資料夾中的檔案</string>
     <string name="file_list_seconds_ago">幾秒前</string>
     <string name="file_list_empty_headline">目前沒有檔案</string>
+    <string name="folder_list_empty_headline">這裡沒有資料夾</string>
     <string name="file_list_empty">上傳一些項目或與你的設備同步！</string>
     <string name="file_list_empty_favorites_filter_list">您標記為最愛的檔案與資料夾將會顯示在這裡</string>
     <string name="file_list_empty_favorites_filter">您搜尋的結果顯示無已收藏檔案。</string>
@@ -114,6 +119,7 @@
     <string name="common_yes">是</string>
     <string name="common_no">否</string>
     <string name="common_ok">好</string>
+    <string name="common_remove_upload">刪除上傳</string>
     <string name="common_retry_upload">重試上傳</string>
     <string name="common_cancel_sync">取消同步</string>
     <string name="common_cancel">取消</string>
@@ -124,6 +130,7 @@
     <string name="common_unknown">未知</string>
     <string name="common_error_unknown">未知的錯誤</string>
     <string name="common_pending">等候中</string>
+    <string name="common_delete">刪除</string>
     <string name="about_title">關於</string>
     <string name="change_password">變更密碼</string>
     <string name="delete_account">刪除帳戶</string>
@@ -163,6 +170,7 @@
     <string name="downloader_not_downloaded_yet">尚未下載</string>
     <string name="downloader_download_failed_credentials_error">下載失敗，請重新登入</string>
     <string name="common_choose_account">選擇帳戶</string>
+    <string name="common_switch_account">使用其他帳號</string>
     <string name="sync_fail_ticker">同步失敗</string>
     <string name="sync_fail_ticker_unauthorized">同步失敗，請重新登入</string>
     <string name="sync_fail_content">%1$s 同步無法完成</string>
@@ -171,14 +179,18 @@
     <string name="sync_fail_in_favourites_ticker">同步檔案失敗</string>
     <string name="sync_foreign_files_forgotten_ticker">有些本地端的檔案已遺失</string>
     <string name="sync_current_folder_was_removed">資料夾%1$s已不存在</string>
+    <string name="foreign_files_move">移動全部</string>
+    <string name="foreign_files_local_text">本地端：%1$s</string>
     <string name="upload_query_move_foreign_files">空間不足以將選擇檔案複製到%1$s資料夾，是否要改用移動檔案？</string>
     <string name="pass_code_enter_pass_code">請輸入通行碼</string>
     
     <string name="pass_code_configure_your_pass_code">輸入通行碼</string>
     <string name="pass_code_configure_your_pass_code_explanation">每次應用程式開啟時，都需要輸入通行碼</string>
     <string name="pass_code_reenter_your_pass_code">再次輸入通行碼</string>
+    <string name="pass_code_remove_your_pass_code">刪除您的通行碼</string>
     <string name="pass_code_mismatch">兩個通行碼不相符</string>
     <string name="pass_code_wrong">通行碼錯誤</string>
+    <string name="pass_code_removed">通行碼已刪除</string>
     <string name="pass_code_stored">通行碼已儲存</string>
     
     <string name="media_err_nothing_to_play">沒有發現媒體檔案</string>
@@ -233,7 +245,10 @@
     <string name="favorite_real">設置為收藏</string>
     <string name="unset_favorite_real">解除設置收藏</string>
     <string name="common_rename">重新命名</string>
+    <string name="common_remove">刪除</string>
     <string name="confirmation_remove_local">只有本地</string>
+    <string name="remove_success_msg">已刪除</string>
+    <string name="remove_fail_msg">刪除失敗</string>
     <string name="rename_dialog_title">輸入新名稱</string>
     <string name="sync_file_fail_msg">無法檢查遠端檔案</string>
     <string name="sync_file_nothing_to_do_msg">檔案已同步</string>
@@ -295,6 +310,8 @@
     <string name="preview_image_description">圖片預覽</string>
     <string name="preview_image_error_unknown_format">無法顯示圖像</string>
     <string name="error__upload__local_file_not_copied">%1$s 無法被複製到本地資料夾 %2$s</string>
+    <string name="prefs_synced_folders_local_path_title">本地資料夾</string>
+    <string name="prefs_synced_folders_remote_path_title">遠端資料夾</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">使用子資料夾</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">依據年月存在子資料夾內</string>
 
@@ -469,6 +486,7 @@
     <string name="actionbar_search">搜尋</string>
     <string name="files_drop_not_supported">這是 Nextcloud 的功能，請更新</string>
     <string name="learn_more">瞭解更多</string>
+    <string name="drawer_synced_folders">自動上傳</string>
     <string name="drawer_participate">參與</string>
     <string name="participate_testing_headline">協助測試</string>
     <string name="participate_testing_bug_text">發現問題或瑕疵？</string>
@@ -477,19 +495,79 @@
     <string name="participate_beta_headline">測試開發版本</string>
     <string name="participate_release_candidate_headline">最終測試版</string>
     <string name="participate_contribute_headline">積極貢獻</string>
+    <string name="participate_contribute_forum_text">幫助其他人</string>
+    <string name="participate_contribute_forum_forum">論壇</string>
+    <string name="participate_contribute_translate_translate">翻譯</string>
+    <string name="participate_contribute_translate_text">應用程式</string>
     <string name="move_to">移動到&#8230;</string>
     <string name="copy_to">複製到&#8230;</string>
+    <string name="synced_folders_settings">設定</string>
     <plurals name="items_selected_count">
         <item quantity="other">%d 已選</item>
     </plurals>
 
+    <string name="upload_file_dialog_filename">檔案名稱</string>
+    <string name="upload_file_dialog_filetype">檔案類型</string>
     <string name="storage_description_default">預設</string>
     <string name="storage_description_sd_no">SD 卡 %1$d</string>
     <string name="storage_description_unknown">未知</string>
 
+    <string name="welcome_feature_2_title">分身</string>
+    <string name="welcome_feature_2_text">連接您的所有的雲端</string>
+
+    <string name="whats_new_theming_title">佈景主題支援</string>
+    <string name="whats_new_skip">略過</string>
+
+    <!-- User information -->
+    <string name="user_info_full_name">全名</string>
+    <string name="user_info_email">E-mail</string>
+    <string name="user_info_phone">電話號碼</string>
+    <string name="user_info_address">地址</string>
+    <string name="user_info_website">網站</string>
+    <string name="user_info_twitter">Twitter
+</string>
+
+    <string name="user_information_description">使用者資訊</string>
+    <!-- Activities -->
+    <string name="activities_no_results_headline">尚未啟動</string>
+    <string name="webview_error">發生錯誤</string>
     <string name="prefs_category_about">關於</string>
 
+    <string name="actionbar_contacts">備份聯絡人</string>
+    <string name="actionbar_contacts_restore">恢復聯絡人</string>
     <string name="contacts_backup_button">立刻備份</string>
+    <string name="contacts_automatic_backup">自動備份</string>
+    <string name="contacts_last_backup">最新備份</string>
+    <string name="contacts_read_permission">需要讀取聯絡人清單的權限</string>
+    <string name="contacts_write_permission">需要改變聯絡人清單的權限</string>
+    <string name="contactlist_title">恢復聯絡人</string>
+    <string name="contactlist_account_chooser_title">選擇帳戶以匯入</string>
+    <string name="contacts_preference_choose_date">選擇日期</string>
+    <string name="contacts_preference_backup_never">永不</string>
+    <string name="contacts_preferences_no_file_found">無檔案</string>
+    <string name="contacts_preferences_something_strange_happened">找不到您最新的備份</string>
+    <!-- Notifications -->
+    <string name="new_notification_received">已收到新通知</string>
     <string name="drawer_logout">登出</string>
+    <string name="privacy">隱私權</string>
+    <string name="file_not_found">找不到檔案！</string>
+
+    <!-- Auto upload -->
+    <string name="autoupload_custom_folder">設定自訂資料夾</string>
+    <string name="autoupload_create_new_custom_folder">新增自訂資料夾</string>
+    <string name="synced_folders_configure_folders">設定資料夾</string>
+
     <string name="test_server_button">測試伺服器連線</string>
+    <string name="resharing_is_not_allowed">不允許重新分享</string>
+    <string name="whats_new_fingerprint_title">指紋解鎖</string>
+    <string name="whats_new_fingerprint_content">使用您的指紋來解鎖app</string>
+    <string name="fallback_weblogin_back">返回</string>
+    <string name="foreground_service_upload">上傳檔案&#8230;</string>
+    <string name="foreground_service_download">下載檔案&#8230;</string>
+
+    <string name="prefs_sourcecode">取得原始碼</string>
+    <string name="prefs_license">授權</string>
+    <string name="date_unknown">未知</string>
+
+    <string name="store_short_desc">Nextcloud的app可以讓您存取所有您在Nextcloud的檔案</string>
     </resources>

@@ -690,4 +690,6 @@ Attention la suppression est irréversible.</string>
     <string name="push_notifications_old_login">Aucune notification push à cause d\'une connexion expirée. Veuillez ajouter de nouveau votre compte. </string>
     <string name="push_notifications_temp_error">Les notifications push ne sont pas disponibles actuellement.</string>
     <string name="date_unknown">Inconnu</string>
+
+    <string name="store_short_desc">L\'application Android Nextcloud vous permet d\'accéder à tous vos fichiers et contenus stockés sur Nextcloud</string>
     </resources>

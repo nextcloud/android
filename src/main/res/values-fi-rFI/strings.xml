@@ -522,4 +522,5 @@
     <string name="prefs_license">Lisenssi</string>
     <string name="push_notifications_temp_error">Push-ilmoitukset eivät ole nyt käytettävissä.</string>
     <string name="date_unknown">Tuntematon</string>
+
     </resources>

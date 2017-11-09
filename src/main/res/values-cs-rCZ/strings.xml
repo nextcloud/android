@@ -696,4 +696,5 @@
     <string name="push_notifications_old_login">Žádné push oznámení kvůli zastaralé relaci přihlášení. Zvažte opětovné přidání účtu.</string>
     <string name="push_notifications_temp_error">Push oznámení není momentálně k dispozici.</string>
     <string name="date_unknown">Neznámé</string>
+
     </resources>

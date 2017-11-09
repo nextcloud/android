@@ -172,7 +172,7 @@
     <string name="uploads_view_upload_status_waiting_for_wifi">ველოდებით Wi-Fi კავშირს</string>
     <string name="uploads_view_upload_status_waiting_exit_power_save_mode">ველოდებით ეკონომიური რეჟიმიდან გამოსვლას</string>
     <string name="uploads_view_later_waiting_to_upload">ველოდებით ატვირთვას</string>
-    <string name="downloader_download_in_progress_ticker">ჩამოტვირთვა...</string>
+    <string name="downloader_download_in_progress_ticker">ჩამოტვირთვა &#8230;</string>
     <string name="downloader_download_in_progress_content">%1$d%% ჩამოტვირთვა %2$s</string>
     <string name="downloader_download_succeeded_ticker">გადმოწერილია</string>
     <string name="downloader_download_succeeded_content">%1$s გადმოწერილია</string>
@@ -691,4 +691,5 @@
     <string name="push_notifications_old_login">ვადაგასული აუტენტიფიკაციის გამო push-ნოტიფიკაციები არაა. გთხოვთ გაითვალისწინოთ თქვენი ანგარიშის ხელახალი დამატება.</string>
     <string name="push_notifications_temp_error">Push-შეტყობინებები ამჟამად ხელმიუწვდომელია.</string>
     <string name="date_unknown">არაა ცნობილი</string>
+
     </resources>
