@@ -74,7 +74,6 @@
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="@dimen/seek_bar_height"
-            android:progressDrawable="@color/white"
             android:splitTrack="false"/>
 
         <TextView android:id="@+id/totalTimeText"
