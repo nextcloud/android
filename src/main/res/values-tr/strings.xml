@@ -40,8 +40,6 @@
     <string name="prefs_category_more">Daha fazla</string>
     <string name="prefs_manage_accounts">Hesap yönetimi</string>
     <string name="prefs_passcode">Parola kod kilidi</string>
-    <string name="prefs_fingerprint">Parmak izi kilidi</string>
-    <string name="prefs_fingerprint_notsetup">Henüz bir parmak izi ayarlanmamış.</string>
     <string name="prefs_expert_mode">Uzman kipi</string>
     <string name="prefs_show_hidden_files">Gizli dosyaları görüntüle</string>
     <string name="prefs_log_delete_history_button">Geçmişi sil</string>
@@ -601,9 +599,6 @@
     <string name="whats_new_ipv6_content">Sunucu destekliyorsa IPv6, desteklemiyorsa IPv4.</string>
 
     <string name="whats_new_skip">Atla</string>
-
-    <string name="fingerprint_scan_finger">Lütfen parmağınızı tarayın</string>
-    <string name="fingerprint_unknown">Parmak tanınamadı</string>
 
     <!-- User information -->
     <string name="user_info_email">E-posta</string>

@@ -40,8 +40,6 @@
     <string name="prefs_category_more">Mais</string>
     <string name="prefs_manage_accounts">Gerenciar contas</string>
     <string name="prefs_passcode">Bloqueio de código de acesso</string>
-    <string name="prefs_fingerprint">Bloqueio por impressão digital</string>
-    <string name="prefs_fingerprint_notsetup">Nenhuma impressão digital foi configurada.</string>
     <string name="prefs_expert_mode">Modo avançado</string>
     <string name="prefs_show_hidden_files">Mostrar arquivos ocultos</string>
     <string name="prefs_log_delete_history_button">Eliminar histórico</string>
@@ -601,9 +599,6 @@
     <string name="whats_new_ipv6_content">IPv6 quando o servidor suportar, IPv4 quando não.</string>
 
     <string name="whats_new_skip">Saltar</string>
-
-    <string name="fingerprint_scan_finger">Por favor escaneie sua impressão digital</string>
-    <string name="fingerprint_unknown">Impressão digital não reconhecida</string>
 
     <!-- User information -->
     <string name="user_info_email">Email</string>

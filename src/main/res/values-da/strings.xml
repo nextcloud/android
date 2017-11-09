@@ -40,8 +40,6 @@
     <string name="prefs_category_more">Mere</string>
     <string name="prefs_manage_accounts">Administrer konti</string>
     <string name="prefs_passcode">Passcode-lås</string>
-    <string name="prefs_fingerprint">Fingeraftrykslås</string>
-    <string name="prefs_fingerprint_notsetup">Ingen fingeraftryk er blevet sat op.</string>
     <string name="prefs_expert_mode">Eksperttilstand </string>
     <string name="prefs_show_hidden_files">Vis skjulte filer</string>
     <string name="prefs_log_delete_history_button">Slet historik</string>

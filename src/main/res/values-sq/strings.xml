@@ -40,8 +40,6 @@
     <string name="prefs_category_more">Më tepër</string>
     <string name="prefs_manage_accounts">Administroni llogaritë</string>
     <string name="prefs_passcode">Kyçje kodkalimi</string>
-    <string name="prefs_fingerprint">Kyçuni me shenjat e gishtave</string>
-    <string name="prefs_fingerprint_notsetup">Shenjat e gishtave nuk janë vendosur</string>
     <string name="prefs_expert_mode">Mënyra eksperte</string>
     <string name="prefs_show_hidden_files">Trego skedarët e fshehur</string>
     <string name="prefs_log_delete_history_button">Fshini historikun</string>
@@ -601,9 +599,6 @@
     <string name="whats_new_ipv6_content">IPv6 kur serveri e suporton atë, IPv4 kur nuk e suporton.</string>
 
     <string name="whats_new_skip">Kalo</string>
-
-    <string name="fingerprint_scan_finger">Ju lutemi skanoni gishtin tuaj</string>
-    <string name="fingerprint_unknown">Gishti nuk u njoh</string>
 
     <!-- User information -->
     <string name="user_info_email">E-mail</string>

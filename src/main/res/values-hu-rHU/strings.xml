@@ -40,8 +40,6 @@
     <string name="prefs_category_more">Több</string>
     <string name="prefs_manage_accounts">Fiókok kezelése</string>
     <string name="prefs_passcode">Számkódos lezárás</string>
-    <string name="prefs_fingerprint">Lezárás Újjlenyomattal</string>
-    <string name="prefs_fingerprint_notsetup">Nincs újjlenyomat beállítva.</string>
     <string name="prefs_expert_mode">Szakértő mód</string>
     <string name="prefs_show_hidden_files">Rejtett fájlok megjelenítése</string>
     <string name="prefs_log_delete_history_button">Előzmények törlése</string>
@@ -579,9 +577,6 @@ Lépj kapcsolatba a rendszergazdával</string>
     <string name="whats_new_ipv6_content">IPv6 ha a szerver támogatja,IPv4 ha nem.</string>
 
     <string name="whats_new_skip">Kihagy</string>
-
-    <string name="fingerprint_scan_finger">Kérlek húzd le az ujjad</string>
-    <string name="fingerprint_unknown">Ujj ismeretlen</string>
 
     <!-- User information -->
     <string name="user_info_email">E-mail</string>

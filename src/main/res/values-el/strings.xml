@@ -40,8 +40,6 @@
     <string name="prefs_category_more">Περισσότερα</string>
     <string name="prefs_manage_accounts">Διαχείριση λογαριασμών</string>
     <string name="prefs_passcode">Κλείδωμα με κωδικό πρόσβασης</string>
-    <string name="prefs_fingerprint">Κλείδωμα με αποτύπωμα</string>
-    <string name="prefs_fingerprint_notsetup">Δεν έχει οριστεί αποτύπωμα</string>
     <string name="prefs_expert_mode">Λειτουργία για προχωρημένους</string>
     <string name="prefs_show_hidden_files">Εμφάνιση κρυφών αρχείων</string>
     <string name="prefs_log_delete_history_button">Διαγραφή ιστορικού</string>
@@ -526,9 +524,6 @@
 
     <string name="whats_new_ipv6_title">Υποστήριξη IPv6</string>
     <string name="whats_new_skip">Παράλειψη</string>
-
-    <string name="fingerprint_scan_finger">Παρακαλώ σαρρώστε το αποτύπωμά σας</string>
-    <string name="fingerprint_unknown">Το αποτύπωμα δεν αναγνωρίστηκε</string>
 
     <!-- User information -->
     <string name="user_info_email">E-mail</string>

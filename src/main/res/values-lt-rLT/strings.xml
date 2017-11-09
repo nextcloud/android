@@ -40,8 +40,6 @@
     <string name="prefs_category_more">Daugiau</string>
     <string name="prefs_manage_accounts">Tvarkyti paskyras</string>
     <string name="prefs_passcode">Užrakinimas kodų</string>
-    <string name="prefs_fingerprint">Piršto užraktas</string>
-    <string name="prefs_fingerprint_notsetup">Nėra pirštų antspaudo užrakto</string>
     <string name="prefs_expert_mode">Eksperto režimas</string>
     <string name="prefs_show_hidden_files">Rodyti paslėptus failus</string>
     <string name="prefs_log_delete_history_button">Ištrinti istoriją</string>
@@ -457,9 +455,6 @@
     <string name="welcome_feature_3_text">Saugokite nuotraukas</string>
 
     <string name="whats_new_skip">Praleisti</string>
-
-    <string name="fingerprint_scan_finger">Prašome nuskenuoti piršto atspaudą</string>
-    <string name="fingerprint_unknown">Atspaudas neatpažintas</string>
 
     <!-- User information -->
     <string name="user_info_email">El. paštas</string>

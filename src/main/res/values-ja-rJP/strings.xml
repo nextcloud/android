@@ -40,8 +40,6 @@
     <string name="prefs_category_more">もっと見る</string>
     <string name="prefs_manage_accounts">アカウント管理</string>
     <string name="prefs_passcode">パスコードロック</string>
-    <string name="prefs_fingerprint">指紋ロック</string>
-    <string name="prefs_fingerprint_notsetup">指紋は設定されていません。</string>
     <string name="prefs_expert_mode">エキスパートモード</string>
     <string name="prefs_show_hidden_files">隠しファイルを表示</string>
     <string name="prefs_log_delete_history_button">履歴の削除</string>
@@ -449,9 +447,6 @@
     <string name="welcome_feature_3_text">あなたの写真を安全に保つ</string>
 
     <string name="whats_new_skip">スキップ</string>
-
-    <string name="fingerprint_scan_finger">指紋をスキャンしてください</string>
-    <string name="fingerprint_unknown">指紋が認識できません</string>
 
     <string name="user_info_phone">電話番号</string>
     <string name="user_info_address">住所</string>

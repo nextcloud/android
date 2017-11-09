@@ -40,8 +40,6 @@
     <string name="prefs_category_more">المزيد</string>
     <string name="prefs_manage_accounts">إدارة الحسابات</string>
     <string name="prefs_passcode">الرقم السري</string>
-    <string name="prefs_fingerprint">قفل بصمه الاصبع</string>
-    <string name="prefs_fingerprint_notsetup">لم يتم ادخال اى بصمات </string>
     <string name="prefs_expert_mode">وضع متقدم</string>
     <string name="prefs_show_hidden_files">عرض الملفات المخفية</string>
     <string name="prefs_log_delete_history_button">حذف البيانات التاريخية</string>

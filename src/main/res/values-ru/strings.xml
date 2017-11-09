@@ -40,8 +40,6 @@
     <string name="prefs_category_more">Больше</string>
     <string name="prefs_manage_accounts">Управление аккаунтами</string>
     <string name="prefs_passcode">Блокировка кодом</string>
-    <string name="prefs_fingerprint">Блокировка отпечатком пальца</string>
-    <string name="prefs_fingerprint_notsetup">Отпечатки не были настроены.</string>
     <string name="prefs_expert_mode">Экспертный режим</string>
     <string name="prefs_show_hidden_files">Показывать скрытые файлы</string>
     <string name="prefs_log_delete_history_button">Удалить историю</string>
@@ -609,9 +607,6 @@
     <string name="whats_new_ipv6_content">IPv6, если сервер поддерживает, IPv4, если нет</string>
 
     <string name="whats_new_skip">Пропустить</string>
-
-    <string name="fingerprint_scan_finger">Приложите палец</string>
-    <string name="fingerprint_unknown">Отпечаток не распознан</string>
 
     <!-- User information -->
     <string name="user_info_email">Email</string>

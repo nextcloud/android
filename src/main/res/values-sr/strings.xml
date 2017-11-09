@@ -40,8 +40,6 @@
     <string name="prefs_category_more">Остало</string>
     <string name="prefs_manage_accounts">Управљање налозима</string>
     <string name="prefs_passcode">Закључавање кодом</string>
-    <string name="prefs_fingerprint">Закључавање отиском прста</string>
-    <string name="prefs_fingerprint_notsetup">Отисак прста није подешен.</string>
     <string name="prefs_expert_mode">Експертски режим</string>
     <string name="prefs_show_hidden_files">Прикажи скривене фајлове</string>
     <string name="prefs_log_delete_history_button">Обриши историјат</string>
@@ -606,9 +604,6 @@
     <string name="whats_new_ipv6_content">IPv6 уколико га сервер подржава, у супротном IPv4.</string>
 
     <string name="whats_new_skip">Прескочи</string>
-
-    <string name="fingerprint_scan_finger">Молимо скенирајте Ваш прст</string>
-    <string name="fingerprint_unknown">Прст није препознат</string>
 
     <!-- User information -->
     <string name="user_info_email">Адреса е-поште</string>

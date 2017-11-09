@@ -567,9 +567,6 @@
     <string name="whats_new_ipv6_title">Podpora IPv6</string>
     <string name="whats_new_skip">Přeskočit</string>
 
-    <string name="fingerprint_scan_finger">Prosím, naskenujte svůj otisk prstu</string>
-    <string name="fingerprint_unknown">Otisk prstu nerozpoznán</string>
-
     <!-- User information -->
     <string name="user_info_email">E-mail</string>
     <string name="user_info_phone">Telefonní číslo</string>
