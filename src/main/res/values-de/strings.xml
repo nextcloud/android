@@ -695,6 +695,9 @@
     <string name="push_notifications_temp_error">Push Benachrichtigungen aktuell nicht verfügbar.</string>
     <string name="date_unknown">Unbekannt</string>
 
+    <string name="resized_image_not_possible">Kein verkleinertes Bild verfügbar. Originalbild herunterladen?</string>
+    <string name="resized_images_download_full_image">Originalbild herunterladen?</string>
+
     <string name="store_short_desc">Die Nextcloud Android App erlaubt Ihnen den Zugriff auf alle Dateien in Ihrer Nextcloud</string>
     <string name="store_full_desc">Die Open Source Nextcloud Android App erlaubt Dir Zugriff auf alle Dateien in Deiner Nextcloud.\n\nEigenschaften:\n* Einfache, moderne Oberfläche\n* Lade Deine Dateien auf Deinen Nextcloud Server\n* Teile Deine Dateien mit anderen\n* Wichtige Dateien und Verzeichnisse können aktuell gehalten werden\n* Suche über alle Ordner auf deinem Server\n* Automatisches Hochladen von Photos und Videos von deinem Gerät\n* Bleib auf dem Laufenden durch Benachrichtigungen\n* Mehrere Konten gleichzeitig\n* Geschützter Zugriff durch Fingerabdruck oder PIN\n* Integration mit DAVdroid für einfaches Konfigurieren von Kalender &amp; Kontakte Synchronisierung\n\nBitte berichte alle Probleme unter https://github.com/nextcloud/android/issues oder diskutiere über die App auf https://help.nextcloud.com/c/clients/android\n\nWas ist die Nextcloud? Die Nextcloud ist ein privater Dateiaustausch &amp; -synchronisierungs Server. Nextcloud ist Open Source und kann auf einem eigenen Server installiert werden. So behältst Du die Kontrolle über Deine Fotos, Deine Kalender und Kontakte, Deine Dokumente und alle anderen Daten.\n\nSchau Dir Nextcloud unter https://nextcloud.com an.</string>
 </resources>

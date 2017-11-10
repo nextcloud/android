@@ -691,5 +691,8 @@ Attention la suppression est irréversible.</string>
     <string name="push_notifications_temp_error">Les notifications push ne sont pas disponibles actuellement.</string>
     <string name="date_unknown">Inconnu</string>
 
+    <string name="resized_image_not_possible">Impossible de redimensionner l\'image. Télécharger l\'image originale ?</string>
+    <string name="resized_images_download_full_image">Télécharger l\'image originale ?</string>
+
     <string name="store_short_desc">L\'application Android Nextcloud vous permet d\'accéder à tous vos fichiers et contenus stockés sur Nextcloud</string>
     </resources>

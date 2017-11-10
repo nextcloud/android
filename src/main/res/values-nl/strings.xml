@@ -694,4 +694,24 @@ Kies er eentje van een provider.</string>
     <string name="push_notifications_temp_error">Push notificaties momenteel niet beschikbaar.</string>
     <string name="date_unknown">Onbekend</string>
 
-    </resources>
+    <string name="store_short_desc">De Nextcloud Android app geeft je toegang tot al je Nextcloud bestanden.</string>
+    <string name="store_full_desc">De Open Source Nextcloud Android app geeft je toegang tot al je bestanden op Nextcloud servers.
+
+Functies:
+* Simpel &amp; modern uiterlijk, helemaal in dezelfde stijl als jouw server
+* Upload bestanden naar je Nextcloud server
+* Deel bestanden met anderen
+* Hou je favoriete bestanden en mappen gesynchroniseerd
+* Zoek in al je bestanden op de server
+* Automatisch uploaden voor al je foto\'s en videos
+* Blijf op de hoogte met notificaties
+* Ondersteuning voor meerdere accounts en servers
+* Beveilig toegang tot je gegevens met vingerafdruk of pincode
+* Integratie met DAVdroid voor makkelijk synchroniseren van je kalender &amp; contacten
+
+Meld alsjeblieft alle bugs en problemen op https://github.com/nextcloud/android/issues en doe je zegje over deze app in ons forum https://help.nextcloud.com/c/clients/android
+
+Nieuw bij Nextcloud? Nextcloud is jouw persoonlijke bestanden- en communicatieserver. Het is volledig open source en je kunt het zelf hosten of een bedrijf betalen om dat voor je te doen. Zo heb je volledige controle over je foto\'s, kalender, adresboek, document en al het andere.
+
+Check Nextcloud op https://nextcloud.com</string>
+</resources>
