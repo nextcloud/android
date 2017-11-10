@@ -51,6 +51,7 @@ pipeline:
       recipients: [ $EMAIL_RECIPIENTS ]
       secrets: [ EMAIL_USERNAME, EMAIL_PASSWORD, EMAIL_RECIPIENTS, EMAIL_HOST ]
       when:
+        event: push
         status: failure
         branch: master
 
