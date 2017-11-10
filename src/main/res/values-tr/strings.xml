@@ -694,4 +694,8 @@
     <string name="push_notifications_temp_error">Anında bildirimler şu anda kullanılamıyor.</string>
     <string name="date_unknown">Bilinmiyor</string>
 
+    <string name="resized_image_not_possible">Boyutları değiştirilmiş bir görsel bulunamadı. Tam görsel indirilsin mi?</string>
+    <string name="resized_images_download_full_image">Tam görsel indirilsin mi?</string>
+
+    <string name="store_short_desc">Nextcloud Android uygulaması Nextcloud üzerindeki tüm dosyalarınıza erişmenizi sağlar</string>
     </resources>

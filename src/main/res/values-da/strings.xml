@@ -423,4 +423,5 @@
 
     <string name="fallback_weblogin_back">TILBAGE</string>
     <string name="prefs_license">Licens</string>
+    <string name="store_short_desc">Nextcloud Android appen giver dig adgang til alle dine filer på din Nextcloud.</string>
     </resources>

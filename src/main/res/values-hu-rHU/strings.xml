@@ -696,4 +696,9 @@ hozzáadások, változások és megosztások</string>
     <string name="push_notifications_temp_error">Push üzenetek jelenleg nem elérhetők</string>
     <string name="date_unknown">Ismeretlen</string>
 
-    </resources>
+    <string name="resized_image_not_possible">Átméretezett kép nem lehetséges. Letölti a teljeset?</string>
+    <string name="resized_images_download_full_image">Teljes kép letöltése?</string>
+
+    <string name="store_short_desc">A Nextcloud app segítségével hozzáférsz az összes fájlodhoz a Nextcloudodban</string>
+    <string name="store_full_desc">A Nextcloud app segítségével hozzáférsz az összes fájlodhoz a Nextcloudodban.\n\nKépességek:\n* Egyszerű, modern interfész, teljesen témázható igazodva a szerveredhez\n* Fájlok feltöltése a Nextcloudodba\n* Fájlok megosztása másokkal\n* Kedvenceid és mappáid szinkronban tartása\n* A szerver összes fájljában és mappájában való keresés\n* Képek és videók automatikus feltöltése az elkészítésükkor\n* Értesítések fogadása\n* Több fiók támogatása\n* Biztonságos hozzáférés ujjlenyomattal vagy pin-el\n* Integráció a DavDroiddal a naptár beállításának megkönnyítésére &amp; Kapcsolat szinkronizálás\n\nKérjük minden hibát és furcsaságot itt jelents: https://github.com/nextcloud/android/issues itt beszélhetsz az appról: https://help.nextcloud.com/c/clients/android\n\nÚj még a NextCloud? A Nextcloud egy saját fájlszinkronizáló &amp; megosztó és kommunikációs szerver. Teljesen nyílt forrású, magad is hosztolhatod vagy bérelheted másoknál. Így uralhatod saját adataidat, fotóidat, dokumentumaidat és minden egyebedet.\n\nItt tudhatsz meg többet: https://nextcloud.com</string>
+</resources>

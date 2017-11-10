@@ -55,6 +55,7 @@
     <string name="prefs_feedback">反馈</string>
     <string name="prefs_imprint">版本说明</string>
 
+	<string name="recommend_subject">在你的设备上尝试 %1$s</string>
 	<string name="recommend_urls">%1$s或%2$s</string>
 
     <string name="auth_check_server">检查服务器</string>

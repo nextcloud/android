@@ -666,4 +666,5 @@
 
     <string name="prefs_sourcecode">Merr kodin burimor</string>
     <string name="prefs_license">Liçensë</string>
+    <string name="store_short_desc">Aplikacioni Android i Nextcloud ju lejon që të aksesoni të gjithë skedarët në Nextcloud-in tuaj.</string>
     </resources>

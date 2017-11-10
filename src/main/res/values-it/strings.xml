@@ -693,4 +693,8 @@
     <string name="push_notifications_temp_error">Notifiche push attualmente non disponibili.</string>
     <string name="date_unknown">Sconosciuta</string>
 
+    <string name="resized_image_not_possible">Immagine ridimensionata non possibile. Scaricare l\'immagine completa?</string>
+    <string name="resized_images_download_full_image">Vuoi scaricare l\'immagine completa?</string>
+
+    <string name="store_short_desc">L\'applicazione per Android di Nextcloud ti consente di accedere ai file sul tuo Nextcloud</string>
     </resources>
