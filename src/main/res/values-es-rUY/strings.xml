@@ -693,7 +693,4 @@
     <string name="push_notifications_temp_error">En este momento las notificaciones push no están disponibles.</string>
     <string name="date_unknown">Desconocido</string>
 
-    <string name="resized_images_download_full_image">¿Descargar imagen completa?</string>
-
-    <string name="store_short_desc">La aplicación para Android de Nextcloud te permite acceder a todos tus archivos en tu Nextcloud</string>
     </resources>

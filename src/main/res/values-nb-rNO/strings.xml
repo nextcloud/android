@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="about_android">%1$s Android-app</string>
+    <string name="about_android">%1$s Android-program</string>
     <string name="about_version">versjon %1$s</string>
     <string name="actionbar_sync">Oppdater konto</string>
     <string name="actionbar_upload">Last opp</string>
@@ -13,8 +13,8 @@
     <string name="actionbar_send_file">Send</string>
     <string name="actionbar_sort">Sorter</string>
     <string name="sort_by">Sorter etter</string>
-    <string name="menu_item_sort_by_name_a_z">A - Z</string>
-    <string name="menu_item_sort_by_name_z_a">Z - A</string>
+    <string name="menu_item_sort_by_name_a_z">A - Å</string>
+    <string name="menu_item_sort_by_name_z_a">Å - A</string>
     <string name="menu_item_sort_by_date_newest_first">Nyeste først</string>
     <string name="menu_item_sort_by_date_oldest_first">Eldste først</string>
     <string name="menu_item_sort_by_size_biggest_first">Største først</string>
@@ -45,11 +45,11 @@
     <string name="prefs_expert_mode">Ekspertmodus</string>
     <string name="prefs_show_hidden_files">Vis skjulte filer</string>
     <string name="prefs_log_delete_history_button">Slett historikk</string>
-    <string name="prefs_calendar_contacts">Synkroniser kalender &amp; kontakter</string>
+    <string name="prefs_calendar_contacts">Synkroniser kalender og kontakter</string>
     <string name="prefs_calendar_contacts_summary">Sett opp DAVdroid (v1.3.0+) for nåværende konto</string>
     <string name="prefs_calendar_contacts_address_resolve_error">Tjeneradressen for kontoen ble ikke funnet for DAVdroid</string>
     <string name="prefs_calendar_contacts_no_store_error">Hverken F-Droid eller Google Play er installert</string>
-    <string name="prefs_calendar_contacts_sync_setup_successful">Kalender &amp; kontaktsynkronisering ble satt opp</string>
+    <string name="prefs_calendar_contacts_sync_setup_successful">Kalender og kontaktsynkronisering ble satt opp</string>
     <string name="prefs_daily_contacts_sync_summary">Daglig sikkerhetskopiering av dine kontakter</string>
     <string name="prefs_help">Hjelp</string>
     <string name="prefs_recommend">Anbefal til en venn</string>
@@ -187,7 +187,16 @@
     <string name="sync_fail_content_unauthorized">Feil passord for %1$s</string>
     <string name="sync_conflicts_in_favourites_ticker">Konflikter funnet</string>
     <string name="sync_fail_in_favourites_ticker">Holdt-i-synk -filer mislyktes</string>
+    <plurals name="sync_fail_in_favourites_content">
+        <item quantity="one">Innholdet av %1$d fil kunne ikke synkroniseres (konflikter: %2$d)</item>
+        <item quantity="other">Innholdet av %1$d filer kunne ikke synkroniseres (konflikter: %2$d)</item>
+    </plurals>
     <string name="sync_foreign_files_forgotten_ticker">Noen lokale filer ble glemt</string>
+    <plurals name="sync_foreign_files_forgotten_content">
+        <item quantity="one">%1$d fil fra %2$s-mappen kunne ikke kopieres til</item>
+        <item quantity="other">%1$d filer fra %2$s-mappen kunne ikke kopieres til</item>
+    </plurals>
+    <string name="sync_foreign_files_forgotten_explanation">Fra versjon 1.3.16 blir filer som lastes opp fra denne enheten kopiert inn i den lokale mappen %1$s for å forhindre tap av data når samme fil synkroniseres med flere kontoer.\n\nPga. denne endringen ble alle filer som er blitt lastet opp med tidligere versjoner av dette programmet, kopiert til mappen %2$s. Imidlertid kunne ikke denne kopieringen fullføres under konto-synkroniseringen pga. en feil. Du kan enten la filen(e) ligge der de ligger og fjerne lenken til %3$s, eller flytte filene til mappe %1$s og beholde lenken til %4$s.\n\nNedenfor finner du en liste over de lokale filene og de eksterne filene i %5$s som de var lenket til.</string>
     <string name="sync_current_folder_was_removed">Mappen %1$s finnes ikke lengre</string>
     <string name="foreign_files_move">Flytt alle</string>
     <string name="foreign_files_success">Alle filene ble flyttet</string>
@@ -291,6 +300,7 @@
     <string name="oauth_check_onoff">Logg inn med OAuth 2.0</string> 
     <string name="oauth_login_connection">Kobler til OAuth 2.0-tjener&#8230;</string>
         
+    <string name="ssl_validator_header">Tjenerens identitet kunne ikke bekreftes</string>
     <string name="ssl_validator_reason_cert_not_trusted">- Tjenerens sertifikat er ikke til å stole på</string>
     <string name="ssl_validator_reason_cert_expired">- Tjenerens sertifikat er utløpt</string>
     <string name="ssl_validator_reason_cert_not_yet_valid">- Tjenersertifikatets gyldige datoer er i fremtiden</string>
@@ -583,7 +593,7 @@
     <string name="upload_file_dialog_filetype">Filtype</string>
     <string name="upload_file_dialog_filetype_snippet_text">Textfil-snutt(.txt)</string>
     <string name="upload_file_dialog_filetype_internet_shortcut">Internett snarvei-fil (%s)</string>
-    <string name="upload_file_dialog_filetype_googlemap_shortcut">Google Maps snarvei-fil (%s)</string>
+    <string name="upload_file_dialog_filetype_googlemap_shortcut">Google Maps snarveisfil (%s)</string>
 
     <string name="storage_description_default">Standard</string>
     <string name="storage_description_sd_no">SD-kort %1$d</string>
@@ -597,13 +607,13 @@
     <string name="welcome_feature_1_text">Benytt, del og beskytt filene dine hjemme og i din bedrift</string>
 
     <string name="welcome_feature_2_title">Multi-konto</string>
-    <string name="welcome_feature_2_text">Foren alle skyene dine</string>
+    <string name="welcome_feature_2_text">Koble til alle skyene dine</string>
 
     <string name="welcome_feature_3_title">Auto-opplasting</string>
     <string name="welcome_feature_3_text">Hold bildene dine trygge</string>
 
     <string name="whats_new_auto_upload_title">Utvidet auto-opplasting</string>
-    <string name="whats_new_auto_upload_content">\u2022 for alle Android-versjoner\n\u2022 mindre batteribruk\n\u2022 mer pålitelig, men ikke umiddelbar \n\u2022 inndeling av bilder &amp; videoer</string>
+    <string name="whats_new_auto_upload_content">\u2022 for alle Android-versjoner\n\u2022 mindre batteribruk\n\u2022 mer pålitelig, men ikke umiddelbar \n\u2022 inndeling av bilder og videoer</string>
 
     <string name="whats_new_search_title">Fullt serversøk</string>
     <string name="whats_new_search_content">\u2022 Ikke bare i gjeldende mappe\n\u2022 Gir svarresultater fra fullverdig tjener\n\u2022 Åpne filer og mapper direkte\n\u2022 Støttet i NC12 og høyere</string>
@@ -683,5 +693,26 @@
     <string name="push_notifications_temp_error">Push-merknader er for tiden ikke tilgjengelige.</string>
     <string name="date_unknown">Ukjent</string>
 
+    <string name="resized_image_not_possible">Inget mindre bilde tilgjengelig. Last ned fullversjon?</string>
+    <string name="resized_images_download_full_image">Last ned hele bildet?</string>
+
     <string name="store_short_desc">Nextcloud-programmet for Android gir deg tilgang til alle filene dine i din Nextcloud</string>
-    </resources>
+    <string name="store_full_desc">Nextcloud-programmet for Android er fri programvare, og gir deg tilgang til alle dine filer i din Nextcloud.
+
+Egenskaper:
+* Enkelt, moderne brukergrensesnitt, i samsvar med din tjeners draktvalg.
+* Last opp filer til din Nextcloud-tjener
+* Del filer med andre
+* Hold dine favorittfiler og mapper synkroniserte
+* Søk i alle mappene på tjeneren din
+* Direkteopplasting av bilder og filmer fra din mobile enhet
+* Hold deg oppdatert med varsler
+* Støtte for flere brukerkonti
+* Sikker tilgang til din data med fingeravtrykk eller PIN
+* Integrasjon med DAVdroid for enkelt oppsett av kalender og kontakt -synkronisering.
+Meld inn alle problemer til https://github.com/nextcloud/android/issues og diskuter programmet på https://help.nextcloud.com/c/clients/android
+
+Ny med Nextcloud? Nextcloud er en privat filtjener for synkronisering og deling. Den har fullstendig åpen kildekode og du kan drifte den selv, eller betale noen for å gjøre det for deg. På denne måten har du kontroll på dine bilder, kalender, kontakter, dokumenter og alt annet.
+
+Sjekk ut Nextcloud på https://nextcloud.com</string>
+</resources>
