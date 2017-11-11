@@ -49,7 +49,7 @@
     <string name="prefs_calendar_contacts_summary">Configura DAVdroid (v1.3.0+) per l\'account corrente</string>
     <string name="prefs_calendar_contacts_address_resolve_error">L\'indirizzo del server per l\'account non può essere risolto da DAVdroid</string>
     <string name="prefs_calendar_contacts_no_store_error">F-Droid o Google Play non installato</string>
-    <string name="prefs_calendar_contacts_sync_setup_successful">Sincronizzazione calendario &amp; contatti configurata</string>
+    <string name="prefs_calendar_contacts_sync_setup_successful">Sincronizzazione calendario e contatti configurata</string>
     <string name="prefs_daily_contacts_sync_summary">Backup giornaliero dei tuoi contatti</string>
     <string name="prefs_help">Aiuto</string>
     <string name="prefs_recommend">Consiglia a un amico</string>
@@ -613,7 +613,7 @@
     <string name="welcome_feature_3_text">Tieni al sicuro le tue foto</string>
 
     <string name="whats_new_auto_upload_title">Caricamento automatico migliorato</string>
-    <string name="whats_new_auto_upload_content">\u2022 per tutte le versioni di Android\n\u2022 minor consumo della batteria\n\u2022 maggiore affidabilità\n\u2022 separazione di immagini &amp; video</string>
+    <string name="whats_new_auto_upload_content">\u2022 per tutte le versioni di Android\n\u2022 minor consumo della batteria\n\u2022 maggiore affidabilità\n\u2022 separazione di immagini e video</string>
 
     <string name="whats_new_search_title">Ricerca completa sul server</string>
     <string name="whats_new_search_content">\u2022 Non solo nella cartella attuale\n\u2022 Restituisce i risultati dall\'intero server\n\u2022 Apre direttamente file/cartellle\n\u2022 Supportate in NC12 e superiori</string>
@@ -697,4 +697,5 @@
     <string name="resized_images_download_full_image">Vuoi scaricare l\'immagine completa?</string>
 
     <string name="store_short_desc">L\'applicazione per Android di Nextcloud ti consente di accedere ai file sul tuo Nextcloud</string>
-    </resources>
+    <string name="store_full_desc">L\'applicazione Open Source Android di Nextcloud ti consente di accedere ai file sul tuo Nextcloud.\n\nFunzionalità:\n* Interfaccia semplice e moderna, con supporto completo dei temi allineato alla gestione dei temi del tuo server\n* Carica i tuoi file sul tuo server Nextcloud\n* Condividi i tuoi file con altri\n* Ricerca attraverso tutte le cartelle sul tuo server\n* Mantieni i tuoi file e le cartelle preferite sincronizzate\n* Caricamento automatico per le foto e i video acquisiti con il tuo dispositivo\n* Tieniti aggiornato con le notifiche\n* Supporto di più account\n* Proteggi l\'accesso ai tuoi dati con iimpronta digitale o PIN\n* Integrazione con DAVdroid per una facile configurazione della sincronizzazione di calendari e contatti\n\nSegnala tutti i problemi su https://github.com/nextcloud/android/issues e discuti questa applicazione su https://help.nextcloud.com/c/clients/android\n\nNuovo di Nextcloud? Nextcloud è un server privato di sincronizzazione e condivisione dei file e un server di comunicazione. Il suo codice sorgente è completamente aperto e puoi ospitarlo a casa tua o pagare una società che lo faccia per conto tuo. In questo modo, avrai il controllo delle tue foto, del tuo calendario e dei tuoi contatti, dei tuoi documenti e di qualsiasi altra cosa.\n\nDai un\'occhiata a Nextcloud su https://nextcloud.com</string>
+</resources>
