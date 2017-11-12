@@ -107,9 +107,9 @@
     <string name="file_list_empty_recently_added">Nem talált mostanában hozzáadott fájlt.</string>
     <string name="file_list_empty_recently_added_filter">A keresés nem hozott mostanában hozzáadott fájlokat.</string>
     <string name="file_list_empty_text_photos">Az automatikus feltöltés aktiválásához tölts fel néhány képet.</string>
-    <string name="file_list_empty_text_photos_filter">A keresés nem nem talált fényképeket.</string>
+    <string name="file_list_empty_text_photos_filter">A keresés nem talált fényképeket.</string>
     <string name="file_list_empty_text_videos">Az automatikus feltöltés aktiválásához tölts fel néhány videót.</string>
-    <string name="file_list_empty_text_videos_filter">A keresés nem nem talált videókat.</string>
+    <string name="file_list_empty_text_videos_filter">A keresés nem talált videókat.</string>
     <string name="upload_list_empty_headline">Nincsenek feltöltések</string>
     <string name="upload_list_empty_text">Tölts fel néhány tartalmat, vagy aktiváld az azonnali feltöltést.</string>
     <string name="upload_list_empty_text_auto_upload">Az automatikus feltöltés aktiválásához tölts fel valami tartalmat.</string>
@@ -331,7 +331,7 @@
     <string name="placeholder_sentence">Ez egy helyőrző</string>
     <string name="placeholder_filename">helyörző.txt</string>
     <string name="placeholder_filesize">389 KB</string>
-    <string name="placeholder_timestamp">2012-05-18 12:23</string>
+    <string name="placeholder_timestamp">2012&#8211;05&#8211;18 12:23</string>
     <string name="placeholder_media_time">12:23:45</string>
 
     <string name="auto_upload_on_wifi">Csak Wi-Fi-n tölt fel</string>
