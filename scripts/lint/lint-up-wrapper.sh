@@ -15,6 +15,9 @@ if [ $3 = "master" ]; then
     curl -u $4:$5 -X PUT https://nextcloud.kaminsky.me/remote.php/webdav/droneLogs/master.html --upload-file build/reports/lint/lint.html
     exit 0
 elif [ $returnValue -eq 1 ]; then
+    if [ -e $6 ] ; then
+        6="master-"$(date +%F)
+    fi
     echo "New results at https://nextcloud.kaminsky.me/index.php/s/tXwtChzyqMj6I8v ->" $6.html
     curl -u $4:$5 -X PUT https://nextcloud.kaminsky.me/remote.php/webdav/droneLogs/$6.html --upload-file build/reports/lint/lint.html
     exit 1
