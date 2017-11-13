@@ -55,6 +55,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.URLUtil;
 
 import com.owncloud.android.BuildConfig;
 import com.owncloud.android.MainApp;
@@ -71,6 +72,8 @@ import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.utils.AnalyticsUtils;
 import com.owncloud.android.utils.DisplayUtils;
+import com.owncloud.android.utils.MimeType;
+import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.ThemeUtils;
 
 import java.io.IOException;
@@ -199,20 +202,30 @@ public class Preferences extends PreferenceActivity
         boolean privacyEnabled = getResources().getBoolean(R.bool.privacy_enabled);
         Preference privacyPreference = findPreference("privacy");
         if (privacyPreference != null) {
-            if (privacyEnabled) {
+            if (privacyEnabled && URLUtil.isValidUrl(getString(R.string.privacy_url))) {
                 privacyPreference.setOnPreferenceClickListener(new OnPreferenceClickListener() {
                     @Override
                     public boolean onPreferenceClick(Preference preference) {
-                        String privacyUrl = getString(R.string.privacy_url);
-                        if (privacyUrl.length() > 0) {
-                            Intent externalWebViewIntent =
-                                    new Intent(getApplicationContext(),ExternalSiteWebView.class);
-                            externalWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_TITLE,
-                                    getResources().getString(R.string.privacy));
-                            externalWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_URL, privacyUrl);
-                            externalWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_SHOW_SIDEBAR, false);
-                            externalWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_MENU_ITEM_ID, -1);
-                            startActivity(externalWebViewIntent);
+                        try {
+                            Uri privacyUrl = Uri.parse(getString(R.string.privacy_url));
+                            String mimeType = MimeTypeUtil.getBestMimeTypeByFilename(privacyUrl.getLastPathSegment());
+                            
+                            Intent intent;
+                            if ("application/pdf".equals(mimeType)) {
+                                intent = new Intent(Intent.ACTION_VIEW, privacyUrl);
+                            } else {
+                                intent = new Intent(getApplicationContext(), ExternalSiteWebView.class);
+                                intent.putExtra(ExternalSiteWebView.EXTRA_TITLE, 
+                                        getResources().getString(R.string.privacy));
+                                intent.putExtra(ExternalSiteWebView.EXTRA_URL, privacyUrl.toString());
+                                intent.putExtra(ExternalSiteWebView.EXTRA_SHOW_SIDEBAR, false);
+                                intent.putExtra(ExternalSiteWebView.EXTRA_MENU_ITEM_ID, -1);
+                            }
+                            
+                            startActivity(intent);
+                        } catch (Exception e) {
+                            Log_OC.e(TAG, "Could not parse privacy url");
+                            preferenceCategoryAbout.removePreference(privacyPreference);
                         }
                         return true;
                     }
