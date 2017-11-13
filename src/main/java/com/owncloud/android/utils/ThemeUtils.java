@@ -64,12 +64,12 @@ public class ThemeUtils {
 
         try {
             float adjust;
-            if (darkTheme()){
+            if (darkTheme()) {
                 adjust = +0.1f;
             } else {
                 adjust = -0.1f;
             }
-            return adjustLightness(adjust, Color.parseColor(capability.getServerColor()));
+            return adjustLightness(adjust, Color.parseColor(capability.getServerColor()), 0.35f);
         } catch (Exception e) {
             return MainApp.getAppContext().getResources().getColor(R.color.color_accent);
         }
@@ -83,7 +83,7 @@ public class ThemeUtils {
         OCCapability capability = getCapability(account);
 
         try {
-            return adjustLightness(-0.2f, Color.parseColor(capability.getServerColor()));
+            return adjustLightness(-0.2f, Color.parseColor(capability.getServerColor()), -1f);
         } catch (Exception e) {
             return MainApp.getAppContext().getResources().getColor(R.color.primary_dark);
         }
@@ -170,10 +170,22 @@ public class ThemeUtils {
         }
     }
 
-    public static int adjustLightness(float lightnessDelta, int color) {
+    /**
+     * Adjust lightness of given color
+     *
+     * @param lightnessDelta values -1..+1
+     * @param color
+     * @param threshold      0..1 as maximum value, -1 to disable
+     * @return color adjusted by lightness
+     */
+    public static int adjustLightness(float lightnessDelta, int color, float threshold) {
         float[] hsl = colorToHSL(color);
 
-        hsl[2] += lightnessDelta;
+        if (threshold == -1f) {
+            hsl[2] += lightnessDelta;
+        } else {
+            hsl[2] = Math.min(hsl[2] + lightnessDelta, threshold);
+        }
 
         return ColorUtils.HSLToColor(hsl);
     }
