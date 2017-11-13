@@ -148,6 +148,7 @@
     <string name="uploads_view_upload_status_conflict">Ristiriita</string>
     <string name="uploads_view_upload_status_unknown_fail">Tuntematon virhe</string>
     <string name="uploads_view_upload_status_waiting_for_wifi">Odotetaan wifi-yhteyttä</string>
+    <string name="uploads_view_upload_status_waiting_exit_power_save_mode">Odotetaan virransäästötilasta poistumista</string>
     <string name="uploads_view_later_waiting_to_upload">Odottaa siirtoa</string>
     <string name="downloader_download_in_progress_ticker">Ladataan &#8230;</string>
     <string name="downloader_download_in_progress_content">%1$d%% ladataan palvelimelta %2$s</string>
@@ -410,6 +411,8 @@
     <string name="edit_share_unshare">Lopeta jakaminen</string>
     <string name="edit_share_done">valmis</string>
 
+    <string name="action_clear_failed_uploads">Tyhjennä epäonnistuneet lähetykset</string>
+    <string name="action_clear_successful_uploads">Tyhjennä onnistuneet lähetykset</string>
     <string name="action_switch_grid_view">Ruudukkonäkymä</string>
     <string name="action_switch_list_view">Luettelonäkymä</string>
 
@@ -522,5 +525,7 @@
     <string name="prefs_license">Lisenssi</string>
     <string name="push_notifications_temp_error">Push-ilmoitukset eivät ole nyt käytettävissä.</string>
     <string name="date_unknown">Tuntematon</string>
+
+    <string name="resized_images_download_full_image">Ladataanko koko kuva?</string>
 
     </resources>

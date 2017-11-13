@@ -194,6 +194,10 @@ Attention la suppression est irréversible.</string>
         <item quantity="other">Le contenu de %1$d fichiers n\'a pu être synchronisé (conflits : %2$d)</item>
     </plurals>
     <string name="sync_foreign_files_forgotten_ticker">Certains fichiers locaux ont été ignorés</string>
+    <plurals name="sync_foreign_files_forgotten_content">
+        <item quantity="one"> %1$dfichier en dehors du dossier %2$s n\'a pas pu être copié à l\'intérieur de celui-ci</item>
+        <item quantity="other">%1$d fichiers en dehors du dossier %2$s n\'ont pu être copiés à l\'intérieur de celui-ci</item>
+    </plurals>
     <string name="sync_foreign_files_forgotten_explanation">Depuis la version 1.3.16, les fichiers envoyés depuis cet appareil sont copiés dans le dossier local %1$s pour éviter une perte de données lorsqu\'un même fichier est synchronisé avec plusieurs comptes.\n\nEn raison de cette modification, tous les fichiers envoyés avec des versions antérieures de cette application ont été copiés dans le dossier %2$s. Cependant, une erreur a empêché l\'achèvement de cette opération pendant la synchronisation du compte. Vous pouvez soit laisser les fichiers tels quels et supprimer le lien vers %3$s, soit déplacer les fichiers dans le dossier %1$s et garder le lien vers %4$s.\n\nCi-dessous la liste des fichiers locaux, et les fichiers distants dans %5$s auxquels ils étaient liés.</string>
     <string name="sync_current_folder_was_removed">Le dossier %1$s n\'existe plus</string>
     <string name="foreign_files_move">Tout déplacer</string>
@@ -695,4 +699,5 @@ Attention la suppression est irréversible.</string>
     <string name="resized_images_download_full_image">Télécharger l\'image originale ?</string>
 
     <string name="store_short_desc">L\'application Android Nextcloud vous permet d\'accéder à tous vos fichiers et contenus stockés sur Nextcloud</string>
-    </resources>
+    <string name="store_full_desc">L\'application Open Source Nextcloud Android vous permet d\'accéder à tous vos fichiers stockés sur Nextcloud.\n\nFonctionnalités :\n* Interface facile d\'utilisation et moderne, personnalisée avec le même thème que celui du serveur\n* Envoyez vos fichiers sur votre serveur Nextcloud\n* Partagez vos fichiers avec d\'autres personnes\n* Synchronisez vos fichiers et dossiers favoris\n* Recherchez parmi tous vos dossiers situés sur votre serveur\n* Téléversez automatiquement les photos et vidéos prises avec votre appareil\n* Restez à jour grâce aux notifications\n* Gestion du multi comptes\n* Accès sécurisé à vos données avec votre empreinte digitale ou un code pin\n* Intégration avec DAVdroid pour faciliter l\'installation de la synchronisation du Calendrier &amp; des Contacts\n\nMerci de signaler tout problème sur https://github.com/nextcloud/android/issues et venez discuter de cette application sur https://help.nextcloud.com/c/clients/android\n\nVous découvrez Nextcloud ? Nextcloud est un système de synchronisation de fichiers personnels &amp; un serveur de partage. Ce système est entièrement Open Source. Vous pouvez l\'héberger vous-même ou payer une entreprise pour ce service. Vous aurez ainsi le contrôle de vos photos, votre calendrier, vos données de contacts, vos documents et de tout le reste.\n\nPour en savoir plus, consultez le site Nextcloud sur https://nextcloud.com</string>
+</resources>
