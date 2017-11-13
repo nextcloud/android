@@ -18,24 +18,24 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/ListItemLayout"
-    android:layout_width="match_parent"
-    android:background="@drawable/list_selector"
-    android:orientation="vertical"
-    android:layout_height="@dimen/standard_list_item_size"
-    android:descendantFocusability="blocksDescendants">
+              android:id="@+id/ListItemLayout"
+              android:layout_width="match_parent"
+              android:background="@drawable/list_selector"
+              android:orientation="vertical"
+              android:layout_height="90dp"
+              android:descendantFocusability="blocksDescendants">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="72dp"
         android:orientation="horizontal">
 
         <RelativeLayout
             android:layout_width="72dp"
             android:layout_height="@dimen/standard_list_item_size"
             android:paddingBottom="@dimen/standard_padding"
-            android:paddingTop="@dimen/standard_padding"
-            android:paddingRight="4dp">
+            android:paddingRight="4dp"
+            android:paddingTop="@dimen/standard_padding">
 
             <ImageView
                 android:id="@+id/thumbnail"
@@ -43,37 +43,37 @@
                 android:layout_height="@dimen/file_icon_size"
                 android:layout_centerInParent="true"
                 android:layout_marginLeft="8dp"
-                android:src="@drawable/folder" />
+                android:src="@drawable/folder"/>
 
             <ImageView
                 android:id="@+id/favorite_action"
                 android:layout_width="16dp"
                 android:layout_height="16dp"
-                android:layout_alignParentTop="true"
                 android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
                 android:layout_marginRight="4dp"
                 android:contentDescription="@string/favorite_switch"
-                android:src="@drawable/ic_favorite" />
+                android:src="@drawable/ic_favorite"/>
 
             <ImageView
                 android:id="@+id/keptOfflineIcon"
-                android:layout_height="12dp"
                 android:layout_width="12dp"
+                android:layout_height="12dp"
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="20dp"
-                android:src="@drawable/ic_available_offline" />
+                android:src="@drawable/ic_available_offline"/>
 
             <ImageView
                 android:id="@+id/localFileIndicator"
                 android:layout_width="12dp"
                 android:layout_height="12dp"
-                android:src="@drawable/ic_synced"
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentRight="true"
-                android:scaleType="fitCenter"
+                android:layout_marginRight="4dp"
                 android:contentDescription="@string/downloader_download_succeeded_ticker"
-                android:layout_marginRight="4dp"/>
+                android:scaleType="fitCenter"
+                android:src="@drawable/ic_synced"/>
 
         </RelativeLayout>
 
@@ -82,8 +82,8 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="top"
-            android:paddingTop="@dimen/standard_padding"
-            android:orientation="vertical" >
+            android:orientation="vertical"
+            android:paddingTop="@dimen/standard_padding">
 
             <TextView
                 android:id="@+id/Filename"
@@ -96,7 +96,7 @@
                 android:singleLine="true"
                 android:text="@string/placeholder_filename"
                 android:textColor="@color/textColor"
-                android:textSize="@dimen/two_line_primary_text_size" />
+                android:textSize="@dimen/two_line_primary_text_size"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -117,8 +117,8 @@
                     android:id="@+id/file_separator"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingRight="@dimen/standard_quarter_padding"
                     android:gravity="right"
+                    android:paddingRight="@dimen/standard_quarter_padding"
                     android:text="@string/info_separator"
                     android:textColor="@color/list_item_lastmod_and_filesize_text"
                     android:textSize="@dimen/two_line_secondary_text_size"/>
@@ -149,10 +149,10 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="@dimen/list_item_share_right_margin"
-                android:padding="@dimen/standard_quarter_padding"
                 android:clickable="true"
                 android:focusable="true"
-                android:src="@drawable/ic_unshared" />
+                android:padding="@dimen/standard_quarter_padding"
+                android:src="@drawable/ic_unshared"/>
 
             <ImageView
                 android:id="@+id/custom_checkbox"
@@ -164,7 +164,7 @@
                 android:layout_toRightOf="@id/sharedIcon"
                 android:clickable="true"
                 android:focusable="true"
-                android:src="@drawable/ic_checkbox_blank_outline" />
+                android:src="@drawable/ic_checkbox_blank_outline"/>
 
             <ImageView
                 android:id="@+id/overflow_menu"
@@ -175,11 +175,18 @@
                 android:layout_toRightOf="@id/custom_checkbox"
                 android:clickable="true"
                 android:focusable="true"
-                android:src="@drawable/ic_dots_vertical" />
+                android:src="@drawable/ic_dots_vertical"/>
 
         </RelativeLayout>
 
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/excerpts"
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        />
+
 
     <View
         android:layout_width="match_parent"

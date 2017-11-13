@@ -69,10 +69,10 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
     private long mCreationTimestamp;
     private long mModifiedTimestamp;
     private long mModifiedTimestampAtLastSyncForData;
-    private String mRemotePath;
+    protected String mRemotePath;
     private String mLocalPath;
     private String mMimeType;
-    private boolean mNeedsUpdating;
+    protected boolean mNeedsUpdating;
     private long mLastSyncDateForProperties;
     private long mLastSyncDateForData;
     private boolean mAvailableOffline;
@@ -421,7 +421,7 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
     /**
      * Used internally. Reset all file properties
      */
-    private void resetData() {
+    protected void resetData() {
         mId = -1;
         mRemotePath = null;
         mParentId = 0;

@@ -46,6 +46,7 @@ import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.datamodel.SearchResultOCFile;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.datamodel.VirtualFolderType;
 import com.owncloud.android.db.PreferenceManager;
@@ -236,6 +237,15 @@ public class FileListListAdapter extends BaseAdapter {
             fileIcon.setTag(file.getFileId());
             TextView fileName;
             String name = file.getFileName();
+
+            if (file instanceof SearchResultOCFile) {
+                SearchResultOCFile searchResultOCFile = (SearchResultOCFile) file;
+                TextView excerpts = (TextView) view.findViewById(R.id.excerpts);
+
+                for (String excerpt : searchResultOCFile.getExcerpts()) {
+                    excerpts.setText(excerpts.getText() + excerpt);
+                }
+            }
 
             switch (viewType) {
                 case LIST_ITEM:
@@ -583,16 +593,21 @@ public class FileListListAdapter extends BaseAdapter {
     }
 
     private void parseFullNextSearch(ArrayList<Object> objects) {
-        HashMap<Integer, ArrayList<String>> results = (HashMap<Integer, ArrayList<String>>) objects.get(0);
+        HashMap<RemoteFile, ArrayList<String>> results = (HashMap<RemoteFile, ArrayList<String>>) objects.get(0);
 
-        for (HashMap.Entry<Integer, ArrayList<String>> entry : results.entrySet()) {
-            Integer key = entry.getKey();
+        for (HashMap.Entry<RemoteFile, ArrayList<String>> entry : results.entrySet()) {
+            RemoteFile remoteFile = entry.getKey();
             ArrayList<String> values = entry.getValue();
 
-            OCFile file = mStorageManager.getFileByRemoteId("00000" + key + "oc9zw9bt6mmj");
+            OCFile ocFile = FileStorageUtils.fillSearchResultOCFile(remoteFile, values);
+            searchForLocalFileInDefaultPath(ocFile);
 
-            if (file != null) {
-                mFiles.add(file);
+            try {
+                ocFile = mStorageManager.saveFileWithParent(ocFile, mContext);
+
+                mFiles.add(ocFile);
+            } catch (RemoteOperationFailedException e) {
+                Log_OC.e(TAG, "Error saving file with parent" + e.getMessage(), e);
             }
         }
 

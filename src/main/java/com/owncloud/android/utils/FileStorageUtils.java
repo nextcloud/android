@@ -30,6 +30,7 @@ import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.datamodel.SearchResultOCFile;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.files.RemoteFile;
 
@@ -225,6 +226,32 @@ public class FileStorageUtils {
         file.setPermissions(remote.getPermissions());
         file.setRemoteId(remote.getRemoteId());
         file.setFavorite(remote.getIsFavorite());
+        return file;
+    }
+
+    /**
+     * Creates and populates a new {@link OCFile} object with the data read from the server.
+     *
+     * @param remote   remote file read from the server (remote file or folder).
+     * @param excerpts list of search excerpts from full next search
+     * @return New OCFile instance representing the remote resource described by remote.
+     */
+    public static SearchResultOCFile fillSearchResultOCFile(RemoteFile remote, ArrayList<String> excerpts) {
+        SearchResultOCFile file = new SearchResultOCFile(remote.getRemotePath());
+        file.setCreationTimestamp(remote.getCreationTimestamp());
+        if (remote.getMimeType().equalsIgnoreCase(MimeType.DIRECTORY)) {
+            file.setFileLength(remote.getSize());
+        } else {
+            file.setFileLength(remote.getLength());
+        }
+        file.setMimetype(remote.getMimeType());
+        file.setModificationTimestamp(remote.getModifiedTimestamp());
+        file.setEtag(remote.getEtag());
+        file.setPermissions(remote.getPermissions());
+        file.setRemoteId(remote.getRemoteId());
+        file.setFavorite(remote.getIsFavorite());
+        file.setExcerpts(excerpts);
+
         return file;
     }
 
