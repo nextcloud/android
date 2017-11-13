@@ -12,7 +12,8 @@ from xml.etree import ElementTree
 
 
 XML_PATH = '../../src/main/res'
-METADATA_PATH = '../../fastlane/metadata/android'
+METADATA_PATH = '../../src/generic/fastlane/metadata/android/'
+METADATA_DEV_PATH = '../../src/versionDev/fastlane/metadata/android/'
 DEFAULT_LANG = 'en-US'
 LANG_MAP = {
     'values': 'en-US',
@@ -79,15 +80,24 @@ def main():
         e = ElementTree.parse(strings_file).getroot()
         short_desc = e.find('.//string[@name="store_short_desc"]')
         full_desc = e.find('.//string[@name="store_full_desc"]')
-        if short_desc is None or full_desc is None:
-            print("Warning: Skipping %s because of incomplete translation" % entry)
-            continue
-        save_file(short_desc.text, LANG_MAP[entry], 'short_description.txt')
-        save_file(full_desc.text, LANG_MAP[entry], 'full_description.txt')
+        short_dev_desc = e.find('.//string[@name="store_short_dev_desc"]')
+        full_dev_desc = e.find('.//string[@name="store_full_dev_desc"]')
+        if short_desc is not None:
+            save_file(short_desc.text, LANG_MAP[entry], 'short_description.txt', False)
+        if short_dev_desc is not None:
+            save_file(short_dev_desc.text, LANG_MAP[entry], 'short_description.txt', True)
+        if full_desc is not None:
+            save_file(full_desc.text, LANG_MAP[entry], 'full_description.txt', False)
+        if full_dev_desc is not None:
+            save_file(full_dev_desc.text, LANG_MAP[entry], 'full_description.txt', True)
 
 
-def save_file(text, directory, filename):
-    directory_path = os.path.join(PATH, METADATA_PATH, directory)
+def save_file(text, directory, filename, dev):
+    if dev:
+        directory_path = os.path.join(PATH, METADATA_DEV_PATH, directory)
+    else:
+        directory_path = os.path.join(PATH, METADATA_PATH, directory)
+
     if not os.path.exists(directory_path):
         os.makedirs(directory_path)
     if filename == 'short_description.txt':
