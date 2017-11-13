@@ -443,7 +443,6 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
                                 // initialize general UI elements
                                 initOverallUi();
 
-                                mHostUrlInput.setText(baseURL);
                                 mPasswordInputLayout.setVisibility(View.VISIBLE);
                                 mUsernameInputLayout.setVisibility(View.VISIBLE);
                                 mUsernameInput.requestFocus();
@@ -456,11 +455,13 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
                                 initServerPreFragment(null);
 
+                                mHostUrlInput.setText(baseURL);
+
                                 checkOcServer();
                             }
                         }).show();
             }
-        }, 60000);
+        }, 1000);
     }
 
     private void parseAndLoginFromWebView(String dataString) {
