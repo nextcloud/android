@@ -131,10 +131,6 @@ android {
         exclude 'META-INF/LICENSE'
     }
 
-    signingConfigs {
-        release
-    }
-
     task checkstyle(type: Checkstyle) {
         configFile = file("${rootProject.projectDir}/checkstyle.xml")
         configProperties.checkstyleSuppressionsPath = file("${project.rootDir}/config/quality/checkstyle/suppressions.xml").absolutePath
@@ -190,20 +186,6 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
-    
-    buildTypes {
-        release {
-            signingConfig signingConfigs.release
-        }
-    }
-
-}
-
-if (project.hasProperty('RELEASE_STORE_FILE')) {
-    android.signingConfigs.release.storeFile = file(RELEASE_STORE_FILE)
-    android.signingConfigs.release.storePassword = RELEASE_STORE_PASSWORD
-    android.signingConfigs.release.keyAlias = RELEASE_KEY_ALIAS
-    android.signingConfigs.release.keyPassword = RELEASE_KEY_PASSWORD
 }
 
 dependencies {
