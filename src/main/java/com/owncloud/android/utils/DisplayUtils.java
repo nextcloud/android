@@ -33,6 +33,7 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Point;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.PictureDrawable;
 import android.net.Uri;
@@ -42,6 +43,7 @@ import android.support.annotation.StringRes;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.Snackbar;
 import android.text.Spannable;
+import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
 import android.text.format.DateUtils;
 import android.text.style.StyleSpan;
@@ -381,6 +383,30 @@ public class DisplayUtils {
             caller.getWindowManager().getDefaultDisplay().getSize(size);
         }
         return size;
+    }
+
+    /**
+     * marking of given spanText within a given text.
+     *
+     * @param text     the non styled complete text
+     * @param spanText the to be bold styled text
+     */
+    public static Spannable markMatchesBold(String text, String spanText) {
+        int startSpan;
+        int endSpan = 0;
+        Spannable spannable = new SpannableString(text);
+
+        while (true) {
+            startSpan = text.indexOf(spanText, endSpan);
+
+            if (startSpan < 0) {
+                break;
+            }
+            endSpan = startSpan + spanText.length();
+            spannable.setSpan(new StyleSpan(Typeface.BOLD), startSpan, endSpan, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        }
+
+        return spannable;
     }
 
     /**

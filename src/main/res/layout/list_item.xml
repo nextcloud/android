@@ -18,11 +18,12 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
               android:id="@+id/ListItemLayout"
               android:layout_width="match_parent"
               android:background="@drawable/list_selector"
               android:orientation="vertical"
-              android:layout_height="90dp"
+              android:layout_height="wrap_content"
               android:descendantFocusability="blocksDescendants">
 
     <LinearLayout
@@ -184,13 +185,12 @@
     <TextView
         android:id="@+id/excerpts"
         android:layout_width="match_parent"
-        android:layout_height="20dp"
-        />
-
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/list_divider_background" />
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/standard_half_padding"
+        android:paddingLeft="@dimen/standard_list_item_size"
+        android:paddingStart="@dimen/standard_list_item_size"
+        android:paddingRight="@dimen/standard_padding"
+        android:paddingEnd="@dimen/standard_padding"
+        tools:text="This is a test search result"/>
 
 </LinearLayout>

@@ -237,13 +237,20 @@ public class FileListListAdapter extends BaseAdapter {
             fileIcon.setTag(file.getFileId());
             TextView fileName;
             String name = file.getFileName();
+            TextView excerpts = (TextView) view.findViewById(R.id.excerpts);
 
-            if (file instanceof SearchResultOCFile) {
+            if (file instanceof SearchResultOCFile && ViewType.LIST_ITEM.equals(viewType)) {
                 SearchResultOCFile searchResultOCFile = (SearchResultOCFile) file;
-                TextView excerpts = (TextView) view.findViewById(R.id.excerpts);
-
+                excerpts.setVisibility(View.VISIBLE);
+                StringBuilder excerptText = new StringBuilder();
                 for (String excerpt : searchResultOCFile.getExcerpts()) {
-                    excerpts.setText(excerpts.getText() + excerpt);
+                    excerptText.append(excerpt);
+                }
+
+                excerpts.setText(DisplayUtils.markMatchesBold(excerptText.toString(), "test"));
+            } else {
+                if (excerpts != null) {
+                    excerpts.setVisibility(View.GONE);
                 }
             }
 
@@ -517,7 +524,10 @@ public class FileListListAdapter extends BaseAdapter {
         }
     }
 
-    public void setData(ArrayList<Object> objects, ExtendedListFragment.SearchType searchType, FileDataStorageManager storageManager) {
+    public void setData(
+            ArrayList<Object> objects,
+            ExtendedListFragment.SearchType searchType,
+            FileDataStorageManager storageManager) {
         if (storageManager != null && mStorageManager == null) {
             mStorageManager = storageManager;
         }
