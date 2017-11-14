@@ -380,7 +380,6 @@
     <string name="share_via_link_section_title">Compartir enllaz</string>
     <string name="share_via_link_expiration_date_label">Afitar la data de caducidá</string>
     <string name="share_via_link_password_title">Aseguráu</string>
-    <string name="share_via_link_edit_permission_label">Permitir edición</string>
     <string name="share_get_public_link_button">Consiguir enllaz</string>
     <string name="share_with_title">Compartir con&#8230;</string>
     <string name="share_with_edit_title">Compartir con %1$s</string>

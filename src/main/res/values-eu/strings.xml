@@ -387,7 +387,6 @@ Mesedez, baimendu berriz</string>
     <string name="share_via_link_expiration_date_label">Ezarri muga data</string>
     <string name="share_via_link_password_label">Pasahitzarekin babestua</string>
     <string name="share_via_link_password_title">Segurua</string>
-    <string name="share_via_link_edit_permission_label">Baimendu editatzea</string>
     <string name="share_via_link_hide_file_listing_permission_label">Fitxategi zerrenda ezkutatu</string>
     <string name="share_get_public_link_button">Esteka lortu</string>
     <string name="share_with_title">&#8230; -rekin partekatu</string>
@@ -452,10 +451,6 @@ Mesedez, baimendu berriz</string>
     <string name="participate_contribute_translate_translate">Itzuli</string>
     <string name="participate_contribute_translate_text">app-a</string>
     <string name="participate_contribute_github_text">Errebisatu, hobetu eta kodea idatzi, %1$s begira itzazu xehetasunak</string>
-    <string name="participate_rc_play_store">Release hautagaia Google Play Storetik jaso ezazu</string>
-    <string name="participate_rc_fdroid">Release hautagaia F-Droidetik jaso ezazu</string>
-    <string name="participate_dev_fdroid">Garapen hautagaia F-Droidetik jaso ezazu</string>
-    <string name="participate_dev_direct_download">Garapen bertsioa deskarga zuzenetik jaso ezazu</string>
     <string name="move_to">&#8230;ra mugitua</string>
     <string name="copy_to">&#8230;ra kopiatua</string>
     <string name="choose_remote_folder">&#8230; urruneko fitxategia hautatu</string>

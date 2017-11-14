@@ -56,9 +56,7 @@
     <string name="prefs_feedback">Opinie</string>
     <string name="prefs_imprint">Stopka</string>
 
-	<string name="recommend_subject">Wypróbuj %1$s na Twoim spartfonie!</string>
-	<string name="recommend_text">Zapraszam do użycia %1$s na swoim smartfonie!\nŚciągnij tutaj: %2$s</string>
-    <string name="recommend_urls">%1$s lub %2$s</string>
+	<string name="recommend_urls">%1$s lub %2$s</string>
 
     <string name="auth_check_server">Sprawdź serwer</string>
     <string name="auth_host_url">Adres serwera https://&#8230;</string>
@@ -479,7 +477,6 @@
     <string name="share_via_link_expiration_date_label">Ustaw datę wygaśnięcia</string>
     <string name="share_via_link_password_label">Zabezpiecz hasłem</string>
     <string name="share_via_link_password_title">Zabezpieczone</string>
-    <string name="share_via_link_edit_permission_label">Pozwól na edycję</string>
     <string name="share_via_link_hide_file_listing_permission_label">Schowaj listę plików</string>
     <string name="share_get_public_link_button">Pobierz link</string>
     <string name="share_with_title">Współdziel z &#8230;</string>
@@ -546,10 +543,6 @@
     <string name="participate_contribute_translate_translate">Tłumacz</string>
     <string name="participate_contribute_translate_text">aplikacja</string>
     <string name="participate_contribute_github_text">Przejrzyj, zmień i napisz kod, zajrzyj do %1$s po szczegóły</string>
-    <string name="participate_rc_play_store">Pobierz wersja oczekującą na wydanie (RC) przez sklep Google Play</string>
-    <string name="participate_rc_fdroid">Pobierz wersja oczekującą na wydanie (RC) przez aplikację f-droid</string>
-    <string name="participate_dev_fdroid">Pobierz wersję rozwojową przez aplikację F-Droid</string>
-    <string name="participate_dev_direct_download">Pobierz wersję rozwojową bezpośrednio</string>
     <string name="move_to">Przenieś do&#8230;</string>
     <string name="copy_to">Skopiuj do&#8230;</string>
     <string name="choose_remote_folder">Wybierz zdalny folder&#8230;</string>
@@ -666,9 +659,6 @@
     <string name="resharing_is_not_allowed">Udostępnianie dalej nie jest dozwolone</string>
     <string name="whats_new_fingerprint_title">Odblokuj odciskiem palca</string>
     <string name="whats_new_fingerprint_content">Odblokuj aplikację odciskiem palca</string>
-    <string name="fallback_weblogin_back">Wstecz</string>
-    <string name="fallback_weblogin_text">Powrót do starej metody logowania</string>
-
     <string name="foreground_service_upload">Wysyłanie plików&#8230;</string>
     <string name="foreground_service_download">Pobieranie plików&#8230;</string>
 

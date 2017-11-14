@@ -345,7 +345,6 @@
     <string name="share_via_link_expiration_date_label">Vælg udløbsdato</string>
     <string name="share_via_link_password_label">Beskyt med password</string>
     <string name="share_via_link_password_title">Sikret</string>
-    <string name="share_via_link_edit_permission_label">Tillad redigering</string>
     <string name="share_get_public_link_button">Få link</string>
     <string name="share_with_title">Del med &#8230;</string>
     <string name="share_with_edit_title">Del med %1$s</string>
@@ -421,7 +420,5 @@
     <string name="drawer_logout">Log ud</string>
     <string name="file_not_found">Fil ikke fundet!</string>
 
-    <string name="fallback_weblogin_back">TILBAGE</string>
     <string name="prefs_license">Licens</string>
-    <string name="store_short_desc">Nextcloud Android appen giver dig adgang til alle dine filer på din Nextcloud.</string>
     </resources>

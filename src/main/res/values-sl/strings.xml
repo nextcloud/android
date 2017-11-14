@@ -441,7 +441,6 @@
     <string name="share_via_link_expiration_date_label">Nastavi datum preteka</string>
     <string name="share_via_link_password_label">Zaščiti z geslom</string>
     <string name="share_via_link_password_title">Varovano</string>
-    <string name="share_via_link_edit_permission_label">Dovoli urejanje</string>
     <string name="share_via_link_hide_file_listing_permission_label">Skrij spisek datotek</string>
     <string name="share_get_public_link_button">Pridobi povezavo</string>
     <string name="share_with_title">Omogoči souporabo z &#8230;</string>
@@ -500,8 +499,6 @@
     <string name="participate_contribute_forum_forum">forumu</string>
     <string name="participate_contribute_translate_translate">Prevedi</string>
     <string name="participate_contribute_translate_text">aplikacijo</string>
-    <string name="participate_rc_play_store">Naloži kandidata za različico preko Google Play trgovine</string>
-    <string name="participate_dev_direct_download">Naloži razvojno različico direktno</string>
     <string name="move_to">Premakni v&#8230;</string>
     <string name="copy_to">Kopiraj v&#8230;</string>
     <string name="choose_remote_folder">Izberi mapo n astrežniku&#8230;</string>

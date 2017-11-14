@@ -447,7 +447,6 @@
     <string name="share_via_link_expiration_date_label">Nustatykite galiojimo laiką</string>
     <string name="share_via_link_password_label">Apsaugotas slaptažodžiu</string>
     <string name="share_via_link_password_title">Apsaugota</string>
-    <string name="share_via_link_edit_permission_label">Leisti redaguoti</string>
     <string name="share_via_link_hide_file_listing_permission_label">Paslėpti failų sąrašą</string>
     <string name="share_get_public_link_button">Gauti nuorodą</string>
     <string name="share_with_title">Dalintis su &#8230;</string>
@@ -513,8 +512,6 @@
     <string name="participate_contribute_translate_translate">Išversti</string>
     <string name="participate_contribute_translate_text">Programėlė</string>
     <string name="participate_contribute_github_text">Peržiūrėti, pataisyti ir įrašyti kodą, žr. %1$s</string>
-    <string name="participate_rc_play_store">Gauti versiją kandidatę išleidimui Google Play </string>
-    <string name="participate_dev_direct_download">Gauti kūrėjo versiją tiesiogiai atsisiųsti</string>
     <string name="move_to">Perkelti į&#8230;</string>
     <string name="copy_to">Kopijuoti į&#8230;</string>
     <string name="choose_remote_folder">Pasirinkite nuotolinį aplanką&#8230;</string>
@@ -629,9 +626,6 @@
     <string name="resharing_is_not_allowed">Dalijimasis iš naujo negalimas</string>
     <string name="whats_new_fingerprint_title">Atrakinti piršto antspaudu</string>
     <string name="whats_new_fingerprint_content">Naudokite pirštų antspaudus atrakinti programėlę</string>
-    <string name="fallback_weblogin_back">ATGAL</string>
-    <string name="fallback_weblogin_text">Atgal prie seno prisijungimo būdo</string>
-
     <string name="foreground_service_upload">Išsiunčiamos bylos&#8230;</string>
     <string name="foreground_service_download">Atsisiunčiamos bylos&#8230;</string>
 

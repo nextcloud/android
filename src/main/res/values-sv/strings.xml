@@ -446,7 +446,6 @@
     <string name="share_via_link_expiration_date_label">Sätt utgångsdatum</string>
     <string name="share_via_link_password_label">Skydda med lösenord</string>
     <string name="share_via_link_password_title">Säkrad</string>
-    <string name="share_via_link_edit_permission_label">Tillåt redigering</string>
     <string name="share_via_link_hide_file_listing_permission_label">Göm fillistning</string>
     <string name="share_get_public_link_button">Hämta länk</string>
     <string name="share_with_title">Dela med &#8230;</string>
@@ -511,8 +510,6 @@
     <string name="participate_contribute_translate_translate">Översätt</string>
     <string name="participate_contribute_translate_text">appen</string>
     <string name="participate_contribute_github_text">Granska, ändra och skriv kod, se %1$s för detaljer</string>
-    <string name="participate_rc_play_store">Hämta release candidate via Google Play store</string>
-    <string name="participate_dev_direct_download">Hämta utvecklarversion via direkt nedladdning</string>
     <string name="move_to">Flytta till&#8230;</string>
     <string name="copy_to">Kopiera till&#8230;</string>
     <string name="choose_remote_folder">Välj extern mapp&#8230;</string>
@@ -626,9 +623,6 @@
     <string name="resharing_is_not_allowed">Att dela på nytt är inte tillåtet</string>
     <string name="whats_new_fingerprint_title">Lås upp med fingeravtryck</string>
     <string name="whats_new_fingerprint_content">Använd ditt fingeravtryck för att låsa upp appen</string>
-    <string name="fallback_weblogin_back">TILLBAKA</string>
-    <string name="fallback_weblogin_text">Gå tillbaka till gammal inloggningsmetod</string>
-
     <string name="foreground_service_upload">Laddar upp filer &#8230;</string>
     <string name="foreground_service_download">Laddar ner filer &#8230;</string>
 

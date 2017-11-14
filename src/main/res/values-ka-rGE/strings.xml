@@ -56,9 +56,7 @@
     <string name="prefs_feedback">უკუკავშირი</string>
     <string name="prefs_imprint">ბეჭედი</string>
 
-	<string name="recommend_subject">სცადეთ %1$s თქვენს სმარტფონზე!</string>
-	<string name="recommend_text">გიწვევთ გამოიყენოთ სმარტფონზე %1$s.\nჩამოტვირთეთ აქედან: %2$s</string>
-    <string name="recommend_urls">%1$s ან %2$s</string>
+	<string name="recommend_urls">%1$s ან %2$s</string>
 
     <string name="auth_check_server">სერვერის შემოწმება</string>
     <string name="auth_host_url">სერვერის მისამართი https://&#8230;</string>
@@ -191,9 +189,6 @@
         <item quantity="other">%1$d ფაილების შემცველობის სინქრონიზაცია ვერ მოხერხდა  (%2$d კონფლიქტი)</item>
     </plurals>
     <string name="sync_foreign_files_forgotten_ticker">რამოდენიმე ლოკალური ფაილი გამორჩენილია</string>
-    <plurals name="sync_foreign_files_forgotten_content">
-        <item quantity="other">%1$d ფაილი სულ %2$s დირექტორიიდან ვერ დაკოპირდა</item>
-    </plurals>
     <string name="sync_foreign_files_forgotten_explanation">როდესაც ერთი ფაილი სინქრონიზირებულია რამოდენიმე ანგარიშთან, 1.3.16 ვერსიაში მონაცემების დაკარგვისგან თავის ასარიდებლად, ამ მოწყობილობით ატვირთული ფაილ(ებ)ი კოპირდება %1$s დირექტორიაში.\n\nამ ცვლილების გამო, აპლიკაციის ძველი ვერსიით ატვირთული ყველა ფაილი დაკოპირდა %2$s დირექტორიაში. თუმცა, შეცდომის გამო სინქრონიზაციისას მოხდა ამ ოპერაციის შეჩერება. შეგიძლიათ ფაილ(ებ)ი დატოვოთ ისე როგორც  არის და წაშალოთ ბმული %3$s-სთან, ან გადაიტანოთ ფაილ(ებ)ი %1$s დირექტორიაში და შეინარჩუნოთ ბმული %4$s-ისთვის.\n\nქვემოთ ჩამოწერილია ლოკალური და %5$s-ში არსებული დისტანციური ფაილ(ებ)ი.</string>
     <string name="sync_current_folder_was_removed">დირექტორია %1$s აღარ არსებობს</string>
     <string name="foreign_files_move">ყველას გადატანა</string>
@@ -491,7 +486,6 @@
     <string name="share_via_link_expiration_date_label">მიუთითე ვადის გასვლის დრო</string>
     <string name="share_via_link_password_label">დაცვა პაროლით</string>
     <string name="share_via_link_password_title">დაცულია</string>
-    <string name="share_via_link_edit_permission_label">ცვლილების უფლების მინიჭება</string>
     <string name="share_via_link_hide_file_listing_permission_label">ფაილის ჩამონათვლის დამალვა</string>
     <string name="share_get_public_link_button">ბმულის მიღება</string>
     <string name="share_with_title">&#8230;-სთან გაზიარება</string>
@@ -558,10 +552,6 @@
     <string name="participate_contribute_translate_translate">გადათარგმნეთ</string>
     <string name="participate_contribute_translate_text">აპლიკაცია</string>
     <string name="participate_contribute_github_text">განიხილეთ, შეცვალეთ და დაწერეთ კოდი, დეტალებისთვის იხილეთ %1$s</string>
-    <string name="participate_rc_play_store">რელიზის კანდიდატი მიიღეთ Google Play-დან</string>
-    <string name="participate_rc_fdroid">რელიზის კანდიდატი მიიღეთ F-Droid-იდან</string>
-    <string name="participate_dev_fdroid">დეველოპმენტ რელიზი მიიღეთ F-Droid-იდან</string>
-    <string name="participate_dev_direct_download">დეველოპმენტ რელიზი მიიღეთ პირდაპირი გადმოწერით</string>
     <string name="move_to">გადაიტანეთ&#8230;-ში.</string>
     <string name="copy_to">დააკოპირეთ&#8230;-ში</string>
     <string name="choose_remote_folder">აირჩიეთ დისტანციური დირექტორია&#8230;</string>
@@ -675,9 +665,6 @@
     <string name="resharing_is_not_allowed">ხელახალი გაზიარება არაა ნებადართული</string>
     <string name="whats_new_fingerprint_title">თითის ანაბეჭდის მეშვეობით გახსნა</string>
     <string name="whats_new_fingerprint_content">აპლიკაციის გასახსნელად გამოიყენეთ თქვენი თითის ანაბეჭდი</string>
-    <string name="fallback_weblogin_back">უკან</string>
-    <string name="fallback_weblogin_text">დაუბრუნდით ძველ ავტორიზაციის მეთოდს</string>
-
     <string name="foreground_service_upload">ფაილების ატვირთვა&#8230;</string>
     <string name="foreground_service_download">ფაილების ჩამოტვირთვა&#8230;</string>
 
@@ -688,9 +675,6 @@
     <string name="push_notifications_temp_error">ფუშ შეტყობინებები ამჟამად ხელმიუწვდომელია.</string>
     <string name="date_unknown">ამოუცნობი</string>
 
-    <string name="resized_image_not_possible">ზომაშეცვლილი სურათის მიღება ვერ ხერხდება. გადმოვწეროთ მთელი სურათი?</string>
     <string name="resized_images_download_full_image">გადმოვწეროთ მთელი სურათი?</string>
 
-    <string name="store_short_desc">Nextcloud Android აპლიკაცია იძლევა თქვენს Nextcloud-ში ყველა არსებულ ფაილთან წვდომის საშუალებას.</string>
-    <string name="store_full_desc">Nextcloud-ის ღია Android აპლიკაცია საშუალებას გაძლევთ, თქვენს Nextcloud-ში არსებულ ყველა ფაილთან იქონიოთ წვდომა.\n\nფუნქციები:\n* ადვილი, თანამედროვე ინტერფეისი, თქვენი სერვერის გრაფიკულ თემასთან შეთანხმებით გაფორმებული\n* ატვირთეთ თქვენი ფაილები თქვენს Nexcloud სერვერზე\n* გააზიარეთ ფაილები სხვებთან\n* სინქრონიზირებულად იქონიეთ რჩეული ფაილები და დირექტორიები\n* მოიძიეთ სასურველი ფაილი თუ დირექტორია\n* ავტომატურად ატვირთეთ თქვენი მოწყობილობით გადაღებული ფოტოები და ვიდეოები\n* არ ჩამოუვარდეთ შეტყობინებებს\n* მულტი-ანგარიშების მხარდაჭერა\nდაცული წვდომა თქვენს მონაცემებთან თითის ანაბეჭდით ან პინით\n* ინტეგრაცია DAVdroid-თან კალენდარისა და კონტაქტების სინქრონიზაციის მარტივი მოწყობითვის.\n\nგთხოვთ გვამცნობოთ ნებისმიერი პრობლემის შესახებ https://github.com/nextcloud/android/issues მისამართზე და განვიხილოთ ეს აპლიკაცია https://help.nextcloud.com/c/clients/android ბმულზე.\n\nახალია თქვენთვის Nextcloud-ი? Nextcloud-ი პირადი ფილების სინქრონიზაციის, გაზიარებისა და კომუნიკაციის სერვერია. ის სრულად ღიაა, შეგიძლიათ თავად დააყენოთ ან სერვერზე გასამართად გადაუხადოთ კომპანიას. ამ გზით თქვენი ფოტოები, კალენდარი, საკონტაქტო ინფორმაცია, დოკუმენტები და ყველაფერი სხვა თქვენს კონტროლს ქვეშაა.\n\nიხილეთ Nextcloud https://nextcloud.com მისამართზე.</string>
-</resources>
+    </resources>

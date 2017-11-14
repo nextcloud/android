@@ -300,7 +300,6 @@
     <string name="share_via_link_section_title">קישור לשיתוף</string>
     <string name="share_via_link_expiration_date_label">הגדרת תאריך תפוגה</string>
     <string name="share_via_link_password_title">מאובטח</string>
-    <string name="share_via_link_edit_permission_label">אישור עריכה</string>
     <string name="share_get_public_link_button">קבלת קישור</string>
     <string name="share_with_title">שיתף עם &#8230;</string>
     <string name="share_with_edit_title">שיתף עם %1$s</string>

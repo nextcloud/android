@@ -305,7 +305,6 @@
     <string name="share_via_link_section_title">Partajază legătură</string>
     <string name="share_via_link_expiration_date_label">Specifică data expirării</string>
     <string name="share_via_link_password_title">Securizat</string>
-    <string name="share_via_link_edit_permission_label">Permite editarea</string>
     <string name="share_via_link_hide_file_listing_permission_label">Ascunde listarea fișierelor</string>
     <string name="share_get_public_link_button">Obține adresa</string>
     <string name="share_with_title">Partajează cu&#8230;</string>

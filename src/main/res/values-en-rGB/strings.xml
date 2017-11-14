@@ -56,9 +56,7 @@
     <string name="prefs_feedback">Feedback</string>
     <string name="prefs_imprint">Imprint</string>
 
-	<string name="recommend_subject">Try %1$s on your smartphone!</string>
-	<string name="recommend_text">I want to invite you to use %1$s on your smartphone.\nDownload here: %2$s</string>
-    <string name="recommend_urls">%1$s or %2$s</string>
+	<string name="recommend_urls">%1$s or %2$s</string>
 
     <string name="auth_check_server">Check server</string>
     <string name="auth_host_url">Server address https://&#8230;</string>
@@ -192,10 +190,6 @@
         <item quantity="other">Contents of %1$d files could not be sync\'ed (conflicts: %2$d)</item>
     </plurals>
     <string name="sync_foreign_files_forgotten_ticker">Some local files were forgotten</string>
-    <plurals name="sync_foreign_files_forgotten_content">
-        <item quantity="one">%1$d file out of the %2$s folder could not be copied into</item>
-        <item quantity="other">%1$d files out of the %2$s folder could not be copied into</item>
-    </plurals>
     <string name="sync_foreign_files_forgotten_explanation">As of version 1.3.16, files uploaded from this device are copied into the local %1$s folder to prevent data loss when a single file is synced with multiple accounts.\n\nDue to this change, all files uploaded with earlier versions of this app were copied into the %2$s folder. However, an error prevented the completion of this operation during account synchronization. You may either leave the file(s) as is and delete the link to %3$s, or move the file(s) into the %1$s folder and retain the link to %4$s.\n\nListed below are the local file(s), and the remote file(s) in %5$s they were linked to.</string>
     <string name="sync_current_folder_was_removed">The folder %1$s does not exist anymore</string>
     <string name="foreign_files_move">Move all</string>
@@ -495,7 +489,6 @@
     <string name="share_via_link_expiration_date_label">Set expiration date</string>
     <string name="share_via_link_password_label">Protect with password</string>
     <string name="share_via_link_password_title">Secured</string>
-    <string name="share_via_link_edit_permission_label">Allow editing</string>
     <string name="share_via_link_hide_file_listing_permission_label">Hide file listing</string>
     <string name="share_get_public_link_button">Get link</string>
     <string name="share_with_title">Share with &#8230;</string>
@@ -562,10 +555,6 @@
     <string name="participate_contribute_translate_translate">Translate</string>
     <string name="participate_contribute_translate_text">the app</string>
     <string name="participate_contribute_github_text">Review, amend and write code, see %1$s for details</string>
-    <string name="participate_rc_play_store">Get release candidate via Google Play store</string>
-    <string name="participate_rc_fdroid">Get release candidate via F-Droid app store</string>
-    <string name="participate_dev_fdroid">Get development release via F-Droid app store</string>
-    <string name="participate_dev_direct_download">Get development release via direct download</string>
     <string name="move_to">Move to&#8230;</string>
     <string name="copy_to">Copy to&#8230;</string>
     <string name="choose_remote_folder">Choose remote folder&#8230;</string>
@@ -680,9 +669,6 @@
     <string name="resharing_is_not_allowed">Resharing is not allowed</string>
     <string name="whats_new_fingerprint_title">Unlock with fingerprint</string>
     <string name="whats_new_fingerprint_content">Use your fingerprint to unlock the app</string>
-    <string name="fallback_weblogin_back">BACK</string>
-    <string name="fallback_weblogin_text">Go back to old login method</string>
-
     <string name="foreground_service_upload">Uploading files&#8230;</string>
     <string name="foreground_service_download">Downloading files&#8230;</string>
 
@@ -693,9 +679,6 @@
     <string name="push_notifications_temp_error">Push notifications currently not available.</string>
     <string name="date_unknown">Unknown</string>
 
-    <string name="resized_image_not_possible">No resized image possible. Download full image?</string>
     <string name="resized_images_download_full_image">Download full image?</string>
 
-    <string name="store_short_desc">The Nextcloud Android app allows you to access all your files on your Nextcloud</string>
-    <string name="store_full_desc">The Open Source Nextcloud Android app allows you to access all your files on your Nextcloud.\n\nFeatures:\n* Easy, modern interface, fully themed in alignment with your server\'s theming\n* Upload your files to your Nextcloud server\n* Share your files with others\n* Keep your favourite files and folders synced\n* Search across all folders on your server\n* Auto Upload for photos and videos taken by your device\n* Keep up to date with notifications\n* Multi-account support\n* Secure access to your data with fingerprint or pin\n* Integration with DAVdroid for easy setup of Calendar &amp; Contacts synchronisation\n\nPlease report all issues at https://github.com/nextcloud/android/issues and discuss this app at https://help.nextcloud.com/c/clients/android\n\nNew to Nextcloud? Nextcloud is a private file sync &amp; share and communication server. It is fully open source and you can host it yourself or pay a company to do it for you. That way, you are in control of your photos, your calendar and contact data, your documents and everything else.\n\nCheck out Nextcloud at https://nextcloud.com</string>
-</resources>
+    </resources>
