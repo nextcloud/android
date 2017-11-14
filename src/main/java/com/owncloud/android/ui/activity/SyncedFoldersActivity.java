@@ -291,6 +291,8 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
                     return -1;
                 } else if (f2.getFolderName() == null) {
                     return 1;
+                } else if (PRIORITIZED_FOLDER.equals(f1.getFolderName()) && PRIORITIZED_FOLDER.equals(f2.getFolderName())) {
+                    return 0;
                 } else if (PRIORITIZED_FOLDER.equals(f1.getFolderName())) {
                     return -1;
                 } else if (PRIORITIZED_FOLDER.equals(f2.getFolderName())) {
