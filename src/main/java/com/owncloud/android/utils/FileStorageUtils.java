@@ -237,7 +237,7 @@ public class FileStorageUtils {
      * @return New OCFile instance representing the remote resource described by remote.
      */
     public static SearchResultOCFile fillSearchResultOCFile(RemoteFile remote, ArrayList<String> excerpts) {
-        SearchResultOCFile file = new SearchResultOCFile(remote.getRemotePath());
+        SearchResultOCFile file = new SearchResultOCFile(remote.getRemotePath(), excerpts);
         file.setCreationTimestamp(remote.getCreationTimestamp());
         if (remote.getMimeType().equalsIgnoreCase(MimeType.DIRECTORY)) {
             file.setFileLength(remote.getSize());
@@ -250,7 +250,6 @@ public class FileStorageUtils {
         file.setPermissions(remote.getPermissions());
         file.setRemoteId(remote.getRemoteId());
         file.setFavorite(remote.getIsFavorite());
-        file.setExcerpts(excerpts);
 
         return file;
     }

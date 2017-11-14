@@ -397,7 +397,7 @@ public class DisplayUtils {
         Spannable spannable = new SpannableString(text);
 
         while (true) {
-            startSpan = text.indexOf(spanText, endSpan);
+            startSpan = text.toLowerCase().indexOf(spanText.toLowerCase(), endSpan);
 
             if (startSpan < 0) {
                 break;

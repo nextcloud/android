@@ -30,6 +30,7 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Handler;
 import android.os.Looper;
+import android.text.Html;
 import android.text.TextUtils;
 import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
@@ -244,10 +245,12 @@ public class FileListListAdapter extends BaseAdapter {
                 excerpts.setVisibility(View.VISIBLE);
                 StringBuilder excerptText = new StringBuilder();
                 for (String excerpt : searchResultOCFile.getExcerpts()) {
-                    excerptText.append(excerpt);
+                    excerptText.append(Html.fromHtml(excerpt.replaceAll("\\\\n", "")));
+                    excerptText.append(Html.fromHtml("<br>"));
                 }
 
-                excerpts.setText(DisplayUtils.markMatchesBold(excerptText.toString(), "test"));
+                excerpts.setText(DisplayUtils.markMatchesBold(excerptText.toString(),
+                        searchResultOCFile.getSearchTerm()));
             } else {
                 if (excerpts != null) {
                     excerpts.setVisibility(View.GONE);
@@ -527,7 +530,7 @@ public class FileListListAdapter extends BaseAdapter {
     public void setData(
             ArrayList<Object> objects,
             ExtendedListFragment.SearchType searchType,
-            FileDataStorageManager storageManager) {
+            FileDataStorageManager storageManager, String query) {
         if (storageManager != null && mStorageManager == null) {
             mStorageManager = storageManager;
         }
@@ -535,7 +538,7 @@ public class FileListListAdapter extends BaseAdapter {
 
         // early exit
         if (objects.size() > 0 && mStorageManager != null) {
-            parseFullNextSearch(objects);
+            parseFullNextSearch(objects, query);
 //            if (searchType.equals(ExtendedListFragment.SearchType.SHARED_FILTER)) {
 //                parseShares(objects);
 //            } else {
@@ -602,18 +605,22 @@ public class FileListListAdapter extends BaseAdapter {
         mStorageManager.saveShares(shares);
     }
 
-    private void parseFullNextSearch(ArrayList<Object> objects) {
+    private void parseFullNextSearch(ArrayList<Object> objects, String query) {
         HashMap<RemoteFile, ArrayList<String>> results = (HashMap<RemoteFile, ArrayList<String>>) objects.get(0);
 
         for (HashMap.Entry<RemoteFile, ArrayList<String>> entry : results.entrySet()) {
             RemoteFile remoteFile = entry.getKey();
             ArrayList<String> values = entry.getValue();
 
+
             OCFile ocFile = FileStorageUtils.fillSearchResultOCFile(remoteFile, values);
             searchForLocalFileInDefaultPath(ocFile);
 
+            SearchResultOCFile searchResultOCFile = (SearchResultOCFile) ocFile;
+            searchResultOCFile.setSearchTerm(query);
+
             try {
-                ocFile = mStorageManager.saveFileWithParent(ocFile, mContext);
+                ocFile = mStorageManager.saveFileWithParent(searchResultOCFile, mContext);
 
                 mFiles.add(ocFile);
             } catch (RemoteOperationFailedException e) {

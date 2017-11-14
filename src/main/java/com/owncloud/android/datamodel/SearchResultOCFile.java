@@ -9,9 +9,12 @@ import java.util.ArrayList;
 public class SearchResultOCFile extends OCFile {
 
     private ArrayList<String> excerpts;
+    private String searchTerm;
 
-    public SearchResultOCFile(String path) {
+    public SearchResultOCFile(String path, ArrayList<String> excerpts) {
         super(path);
+        this.excerpts = excerpts;
+        this.searchTerm = searchTerm;
     }
 
     public void setExcerpts(ArrayList<String> excerpts) {
@@ -20,5 +23,13 @@ public class SearchResultOCFile extends OCFile {
 
     public ArrayList<String> getExcerpts() {
         return excerpts;
+    }
+
+    public void setSearchTerm(String searchTerm) {
+        this.searchTerm = searchTerm;
+    }
+
+    public String getSearchTerm() {
+        return searchTerm;
     }
 }
