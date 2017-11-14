@@ -403,7 +403,6 @@
     <string name="share_via_link_section_title">Comparteix l\'enllaç</string>
     <string name="share_via_link_expiration_date_label">Estableix la data de venciment</string>
     <string name="share_via_link_password_title">Assegurat</string>
-    <string name="share_via_link_edit_permission_label">Permetre edició</string>
     <string name="share_via_link_hide_file_listing_permission_label">Amaga la llista de fitxers</string>
     <string name="share_get_public_link_button">Obtén l\'enllaç</string>
     <string name="share_with_title">Comparteix amb&#8230;</string>

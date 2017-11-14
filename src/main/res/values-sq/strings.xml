@@ -56,9 +56,7 @@
     <string name="prefs_feedback">Përshtypje</string>
     <string name="prefs_imprint">Imprint</string>
 
-	<string name="recommend_subject">Provojeni %1$s te telefoni juaj!</string>
-	<string name="recommend_text">Dua t’ju ftoj të përdorni %1$s në telefonin tuaj!\nShkarko këtu: %2$s</string>
-    <string name="recommend_urls">%1$s ose %2$s</string>
+	<string name="recommend_urls">%1$s ose %2$s</string>
 
     <string name="auth_check_server">Kontrollo serverin</string>
     <string name="auth_host_url">Adresa e serverit https://&#8230;</string>
@@ -473,7 +471,6 @@
     <string name="share_via_link_expiration_date_label">Caktoni datë skadimi</string>
     <string name="share_via_link_password_label">Mbroje me fjalëkalim</string>
     <string name="share_via_link_password_title">E siguruar</string>
-    <string name="share_via_link_edit_permission_label">Lejo përpunim</string>
     <string name="share_via_link_hide_file_listing_permission_label">Fshihni listën e skedarëve</string>
     <string name="share_get_public_link_button">Merreni lidhjen</string>
     <string name="share_with_title">Ndajeni me &#8230;</string>
@@ -540,10 +537,6 @@
     <string name="participate_contribute_translate_translate">Përkthe</string>
     <string name="participate_contribute_translate_text">aplikacioni</string>
     <string name="participate_contribute_github_text">Rishiko, ndrysho dhe shkruaj kod, shi %1$s për detaje</string>
-    <string name="participate_rc_play_store">Merni lirimin kandidat nga dyqani Google Play</string>
-    <string name="participate_rc_fdroid">Merni lirimin kandidat nga dyqani F-Droid app</string>
-    <string name="participate_dev_fdroid">Merni lirimin e zhvillimit nga dyqani i F-Droid</string>
-    <string name="participate_dev_direct_download">Merni lirimin e zhvillimit nga shkarkimi direkt</string>
     <string name="move_to">Levizni tek&#8230;</string>
     <string name="copy_to">Kopjojeni tek&#8230;</string>
     <string name="choose_remote_folder">Zhgjidhni dosjen remote &#8230;</string>
@@ -658,13 +651,9 @@
     <string name="resharing_is_not_allowed">Ri-shpërndarja nuk lejohet</string>
     <string name="whats_new_fingerprint_title">Zhbllokoje me gjurmët e gishtave</string>
     <string name="whats_new_fingerprint_content">Përdorni gjurmët e gishtave tuaj për të zhbllokuar aplikacionin</string>
-    <string name="fallback_weblogin_back">PRAPA</string>
-    <string name="fallback_weblogin_text">Kthehu në metodën e vjetër të hyrjes</string>
-
     <string name="foreground_service_upload">Ngarkimi i skedarëve 1&#8230;</string>
     <string name="foreground_service_download">Shkarkimi i skedarëve&#8230;</string>
 
     <string name="prefs_sourcecode">Merr kodin burimor</string>
     <string name="prefs_license">Liçensë</string>
-    <string name="store_short_desc">Aplikacioni Android i Nextcloud ju lejon që të aksesoni të gjithë skedarët në Nextcloud-in tuaj.</string>
     </resources>

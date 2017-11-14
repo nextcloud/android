@@ -56,9 +56,7 @@
     <string name="prefs_feedback">Feedback</string>
     <string name="prefs_imprint">afdruk</string>
 
-	<string name="recommend_subject">Probeer %1$s op je smartphone!</string>
-	<string name="recommend_text">Ik wil je uitnodigen om %1$s op je smartphone te gebruiken.\nDownload hier: %2$s</string>
-    <string name="recommend_urls">%1$s or %2$s</string>
+	<string name="recommend_urls">%1$s or %2$s</string>
 
     <string name="auth_check_server">Controleer server</string>
     <string name="auth_host_url">Serveradres https://&#8230;</string>
@@ -193,10 +191,6 @@ Kies er eentje van een provider.</string>
         <item quantity="other">De inhoud van %1$d bestanden kon niet worden gesynchroniseerd (conflicten: %2$d)</item>
     </plurals>
     <string name="sync_foreign_files_forgotten_ticker">Een paar lokale bestanden werden vergeten</string>
-    <plurals name="sync_foreign_files_forgotten_content">
-        <item quantity="one">%1$d bestand van de map %2$s kond niet worden gekopieerd</item>
-        <item quantity="other">%1$d bestanden van de map %2$s konden niet worden gekopieerd</item>
-    </plurals>
     <string name="sync_foreign_files_forgotten_explanation">Sinds versie 1.3.16: bestanden ge-upload vanaf dit apparaat zijn gekopieerd in de lokale %1$s directory om zoekraken van bestanden te voorkomen indien een enkel bestand wordt gesynchroniseerd met meerdere accounts. \n\n Door deze verandering zijn alle bestanden ge-upload met een eerdere versie van deze app gekopieerd  naar de %2$s directory.  Let wel: door een fout is deze actie niet uitgevoerd tijdens account synchronisatie. U kunt deze bestanden laten waar ze zijn en verwijder de verwijzingen naar %3$s, of verplaats de bestanden naar de %1$s directory en behoud de verwijzing naar %4$s. \n\n Hieronder zijn de lokale bestanden weergegeven en de remote bestanden in %5$s waar ze naar verwijzen.</string>
     <string name="sync_current_folder_was_removed">Map %1$s bestaat niet meer</string>
     <string name="foreign_files_move">Alles verplaatsen</string>
@@ -496,7 +490,6 @@ Kies er eentje van een provider.</string>
     <string name="share_via_link_expiration_date_label">Stel vervaldatum in</string>
     <string name="share_via_link_password_label">Beveilig met wachtwoord</string>
     <string name="share_via_link_password_title">Beveiligd</string>
-    <string name="share_via_link_edit_permission_label">Bewerken toestaan</string>
     <string name="share_via_link_hide_file_listing_permission_label">Verberg bestandsoverzicht</string>
     <string name="share_get_public_link_button">Link ophalen </string>
     <string name="share_with_title">Deel met &#8230;</string>
@@ -563,10 +556,6 @@ Kies er eentje van een provider.</string>
     <string name="participate_contribute_translate_translate">Vertalen</string>
     <string name="participate_contribute_translate_text">de app</string>
     <string name="participate_contribute_github_text">Bekijk, wijzig en schrijf code, zie %1$s voor details</string>
-    <string name="participate_rc_play_store">Ontvang release candidate via Google Play store</string>
-    <string name="participate_rc_fdroid">Ontvang release candidate via F-Droid app store</string>
-    <string name="participate_dev_fdroid">Ontvang development release via F-Droid app store</string>
-    <string name="participate_dev_direct_download">Ontvang development release via directe download</string>
     <string name="move_to">Verplaats naar&#160;&#8230;</string>
     <string name="copy_to">Kopieer naar&#160;&#8230;</string>
     <string name="choose_remote_folder">Kies externe map&#8230;</string>
@@ -681,9 +670,6 @@ Kies er eentje van een provider.</string>
     <string name="resharing_is_not_allowed">Verder delen is niet toegestaan</string>
     <string name="whats_new_fingerprint_title">Deblokkeren met vingerafdruk</string>
     <string name="whats_new_fingerprint_content">Gebruik je vingerafdruk om de app te deblokkeren</string>
-    <string name="fallback_weblogin_back">Terug</string>
-    <string name="fallback_weblogin_text">Ga terug naar de oude inlog methode</string>
-
     <string name="foreground_service_upload">Bezig met uploaden bestanden&#8230;</string>
     <string name="foreground_service_download">Bezig met downloaden bestanden&#8230;</string>
 
@@ -694,24 +680,4 @@ Kies er eentje van een provider.</string>
     <string name="push_notifications_temp_error">Push notificaties momenteel niet beschikbaar.</string>
     <string name="date_unknown">Onbekend</string>
 
-    <string name="store_short_desc">De Nextcloud Android app geeft je toegang tot al je Nextcloud bestanden.</string>
-    <string name="store_full_desc">De Open Source Nextcloud Android app geeft je toegang tot al je bestanden op Nextcloud servers.
-
-Functies:
-* Simpel &amp; modern uiterlijk, helemaal in dezelfde stijl als jouw server
-* Upload bestanden naar je Nextcloud server
-* Deel bestanden met anderen
-* Hou je favoriete bestanden en mappen gesynchroniseerd
-* Zoek in al je bestanden op de server
-* Automatisch uploaden voor al je foto\'s en videos
-* Blijf op de hoogte met notificaties
-* Ondersteuning voor meerdere accounts en servers
-* Beveilig toegang tot je gegevens met vingerafdruk of pincode
-* Integratie met DAVdroid voor makkelijk synchroniseren van je kalender &amp; contacten
-
-Meld alsjeblieft alle bugs en problemen op https://github.com/nextcloud/android/issues en doe je zegje over deze app in ons forum https://help.nextcloud.com/c/clients/android
-
-Nieuw bij Nextcloud? Nextcloud is jouw persoonlijke bestanden- en communicatieserver. Het is volledig open source en je kunt het zelf hosten of een bedrijf betalen om dat voor je te doen. Zo heb je volledige controle over je foto\'s, kalender, adresboek, document en al het andere.
-
-Check Nextcloud op https://nextcloud.com</string>
-</resources>
+    </resources>

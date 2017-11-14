@@ -56,9 +56,7 @@
     <string name="prefs_feedback">Tilbakemelding</string>
     <string name="prefs_imprint">Avtrykk</string>
 
-	<string name="recommend_subject">Prøv %1$s på smarttelefonen din!</string>
-	<string name="recommend_text">Jeg ønsker å invitere deg til å bruke %1$s på smarttelefonen din!\nLast ned her: %2$s</string>
-    <string name="recommend_urls">%1$s eller %2$s</string>
+	<string name="recommend_urls">%1$s eller %2$s</string>
 
     <string name="auth_check_server">Sjekk tjener</string>
     <string name="auth_host_url">Tjeneradresse https://&#8230;</string>
@@ -192,10 +190,6 @@
         <item quantity="other">Innholdet av %1$d filer kunne ikke synkroniseres (konflikter: %2$d)</item>
     </plurals>
     <string name="sync_foreign_files_forgotten_ticker">Noen lokale filer ble glemt</string>
-    <plurals name="sync_foreign_files_forgotten_content">
-        <item quantity="one">%1$d fil fra %2$s-mappen kunne ikke kopieres til</item>
-        <item quantity="other">%1$d filer fra %2$s-mappen kunne ikke kopieres til</item>
-    </plurals>
     <string name="sync_foreign_files_forgotten_explanation">Fra versjon 1.3.16 blir filer som lastes opp fra denne enheten kopiert inn i den lokale mappen %1$s for å forhindre tap av data når samme fil synkroniseres med flere kontoer.\n\nPga. denne endringen ble alle filer som er blitt lastet opp med tidligere versjoner av dette programmet, kopiert til mappen %2$s. Imidlertid kunne ikke denne kopieringen fullføres under konto-synkroniseringen pga. en feil. Du kan enten la filen(e) ligge der de ligger og fjerne lenken til %3$s, eller flytte filene til mappe %1$s og beholde lenken til %4$s.\n\nNedenfor finner du en liste over de lokale filene og de eksterne filene i %5$s som de var lenket til.</string>
     <string name="sync_current_folder_was_removed">Mappen %1$s finnes ikke lengre</string>
     <string name="foreign_files_move">Flytt alle</string>
@@ -495,7 +489,6 @@
     <string name="share_via_link_expiration_date_label">Sett utløpsdato</string>
     <string name="share_via_link_password_label">Passordbeskyttet</string>
     <string name="share_via_link_password_title">Sikret</string>
-    <string name="share_via_link_edit_permission_label">Tillat redigering</string>
     <string name="share_via_link_hide_file_listing_permission_label">Skjul filliste</string>
     <string name="share_get_public_link_button">Hent lenke</string>
     <string name="share_with_title">Del med &#8230;</string>
@@ -562,10 +555,6 @@
     <string name="participate_contribute_translate_translate">Oversett</string>
     <string name="participate_contribute_translate_text">programmet</string>
     <string name="participate_contribute_github_text">Gjennomse, endre og skriv kode, se %1$s for detaljer</string>
-    <string name="participate_rc_play_store">Få lanseringskandidaten via Google Play butikken</string>
-    <string name="participate_rc_fdroid">Få lanseringskandidaten via F-Droid app butikk</string>
-    <string name="participate_dev_fdroid">Få utviklingsversjonen via F-Droid app butikk</string>
-    <string name="participate_dev_direct_download">Få utviklingsversjonen via direkte nedlasting</string>
     <string name="move_to">Flytt til&#8230;</string>
     <string name="copy_to">Kopier til&#8230;</string>
     <string name="choose_remote_folder">Velg fjernmappe&#8230;</string>
@@ -680,9 +669,6 @@
     <string name="resharing_is_not_allowed">Videredeling er ikke tillatt</string>
     <string name="whats_new_fingerprint_title">Lås opp med fingeravtrykk</string>
     <string name="whats_new_fingerprint_content">Bruk fingeravtrykk for å låse opp appen</string>
-    <string name="fallback_weblogin_back">TILBAKE</string>
-    <string name="fallback_weblogin_text">Gå tilbake til gammel innloggingsmetode</string>
-
     <string name="foreground_service_upload">Laster opp filer&#8230;</string>
     <string name="foreground_service_download">Laster ned filer&#8230;</string>
 
@@ -693,26 +679,6 @@
     <string name="push_notifications_temp_error">Push-merknader er for tiden ikke tilgjengelige.</string>
     <string name="date_unknown">Ukjent</string>
 
-    <string name="resized_image_not_possible">Inget mindre bilde tilgjengelig. Last ned fullversjon?</string>
     <string name="resized_images_download_full_image">Last ned hele bildet?</string>
 
-    <string name="store_short_desc">Nextcloud-programmet for Android gir deg tilgang til alle filene dine i din Nextcloud</string>
-    <string name="store_full_desc">Nextcloud-programmet for Android er fri programvare, og gir deg tilgang til alle dine filer i din Nextcloud.
-
-Egenskaper:
-* Enkelt, moderne brukergrensesnitt, i samsvar med din tjeners draktvalg.
-* Last opp filer til din Nextcloud-tjener
-* Del filer med andre
-* Hold dine favorittfiler og mapper synkroniserte
-* Søk i alle mappene på tjeneren din
-* Direkteopplasting av bilder og filmer fra din mobile enhet
-* Hold deg oppdatert med varsler
-* Støtte for flere brukerkonti
-* Sikker tilgang til din data med fingeravtrykk eller PIN
-* Integrasjon med DAVdroid for enkelt oppsett av kalender og kontakt -synkronisering.
-Meld inn alle problemer til https://github.com/nextcloud/android/issues og diskuter programmet på https://help.nextcloud.com/c/clients/android
-
-Ny med Nextcloud? Nextcloud er en privat filtjener for synkronisering og deling. Den har fullstendig åpen kildekode og du kan drifte den selv, eller betale noen for å gjøre det for deg. På denne måten har du kontroll på dine bilder, kalender, kontakter, dokumenter og alt annet.
-
-Sjekk ut Nextcloud på https://nextcloud.com</string>
-</resources>
+    </resources>

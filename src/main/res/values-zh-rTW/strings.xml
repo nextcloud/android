@@ -56,7 +56,6 @@
     <string name="prefs_feedback">回饋</string>
     <string name="prefs_imprint">法律聲明</string>
 
-	<string name="recommend_subject">在您的智慧型手機上試試%1$s</string>
 	<string name="auth_check_server">檢查伺服器</string>
     <string name="auth_host_url">伺服器網址 https://&#8230;</string>
     <string name="auth_username">使用者名稱</string>
@@ -445,7 +444,6 @@
     <string name="share_via_link_expiration_date_label">指定到期日</string>
     <string name="share_via_link_password_label">使用密碼保護</string>
     <string name="share_via_link_password_title">安全</string>
-    <string name="share_via_link_edit_permission_label">允許編輯</string>
     <string name="share_via_link_hide_file_listing_permission_label">隱藏檔案列表</string>
     <string name="share_get_public_link_button">取得連結</string>
     <string name="share_with_title">分享給&#8230;</string>
@@ -561,7 +559,6 @@
     <string name="resharing_is_not_allowed">不允許重新分享</string>
     <string name="whats_new_fingerprint_title">指紋解鎖</string>
     <string name="whats_new_fingerprint_content">使用您的指紋來解鎖app</string>
-    <string name="fallback_weblogin_back">返回</string>
     <string name="foreground_service_upload">上傳檔案&#8230;</string>
     <string name="foreground_service_download">下載檔案&#8230;</string>
 
@@ -569,5 +566,4 @@
     <string name="prefs_license">授權</string>
     <string name="date_unknown">未知</string>
 
-    <string name="store_short_desc">Nextcloud的app可以讓您存取所有您在Nextcloud的檔案</string>
     </resources>

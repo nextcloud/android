@@ -56,9 +56,7 @@
     <string name="prefs_feedback">Odezva</string>
     <string name="prefs_imprint">Imprint</string>
 
-	<string name="recommend_subject">Vyzkoušejte %1$s na vašem chytrém telefonu!</string>
-	<string name="recommend_text">Chtěl bych vás pozvat k používání %1$s na vašem chytrém telefonu.\nKe stažení zde: %2$s</string>
-    <string name="recommend_urls">%1$s nebo %2$s</string>
+	<string name="recommend_urls">%1$s nebo %2$s</string>
 
     <string name="auth_check_server">Ověřit server</string>
     <string name="auth_host_url">Adresa serveru https://&#8230;</string>
@@ -193,11 +191,6 @@
         <item quantity="other">Obsah %1$d souborů nemohl být synchronizován (počet konfliktů: %2$d)</item>
     </plurals>
     <string name="sync_foreign_files_forgotten_ticker">Některé místní soubory byly zapomenuty</string>
-    <plurals name="sync_foreign_files_forgotten_content">
-        <item quantity="one">%1$d soubor z adresáře %2$s se nepodařilo zkopírovat do</item>
-        <item quantity="few">%1$d soubory z adresáře %2$s se nepodařilo zkopírovat do</item>
-        <item quantity="other">%1$d souborů z adresáře %2$s se nepodařilo zkopírovat do</item>
-    </plurals>
     <string name="sync_current_folder_was_removed">Adresář %1$s již neexistuje</string>
     <string name="foreign_files_move">Přesunout vše</string>
     <string name="foreign_files_success">Všechny soubory byly přesunuty</string>
@@ -498,7 +491,6 @@
     <string name="share_via_link_expiration_date_label">Nastavit datum vypršení platnosti</string>
     <string name="share_via_link_password_label">Chránit heslem</string>
     <string name="share_via_link_password_title">Zabezpečeno</string>
-    <string name="share_via_link_edit_permission_label">Povolit úpravy</string>
     <string name="share_via_link_hide_file_listing_permission_label">Skrýt seznam souborů</string>
     <string name="share_get_public_link_button">Vytvořit odkaz</string>
     <string name="share_with_title">Sdílet s &#8230;</string>
@@ -565,10 +557,6 @@
     <string name="participate_contribute_translate_translate">Překládat</string>
     <string name="participate_contribute_translate_text">Aplikace</string>
     <string name="participate_contribute_github_text">Kontrolujte, vylepšujte a pište kód, víc informací naleznete na %1$s</string>
-    <string name="participate_rc_play_store">Získejte kandidáta na vidání skrz Google Play Store</string>
-    <string name="participate_rc_fdroid">Získejte kandidáta na vydání pomocí obchodu s aplikacemi F-Droid</string>
-    <string name="participate_dev_fdroid">Získejte vývojové sestavení pomocí obchodu s aplikacemi F-Droid</string>
-    <string name="participate_dev_direct_download">Získat vývojové sestavení přímým stažením</string>
     <string name="move_to">Přesunout do&#8230;</string>
     <string name="copy_to">Kopírovat do&#8230;</string>
     <string name="choose_remote_folder">Zvolit vzdálenou složku&#8230;</string>
@@ -684,9 +672,6 @@
     <string name="resharing_is_not_allowed">Opětovné sdílení není povoleno</string>
     <string name="whats_new_fingerprint_title">Odemknout pomocí prstu</string>
     <string name="whats_new_fingerprint_content">Použijte Váš prst pro odemknutí aplikace</string>
-    <string name="fallback_weblogin_back">ZPÁTKY</string>
-    <string name="fallback_weblogin_text">Zpět na starou metodu přihlášení</string>
-
     <string name="foreground_service_upload">Nahrávání souborů&#8230;</string>
     <string name="foreground_service_download">Stažení souborů&#8230;</string>
 

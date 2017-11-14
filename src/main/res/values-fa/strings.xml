@@ -348,7 +348,6 @@
     <string name="share_dialog_title">اشتراک گذاری</string>
     <string name="share_via_link_section_title">اشتراک گذاشتن لینک</string>
     <string name="share_via_link_expiration_date_label">تنظیم تاریخ انقضا</string>
-    <string name="share_via_link_edit_permission_label">اجازه‌ی ویرایش</string>
     <string name="share_search">جست‌و‌جو</string>
 
     <string name="share_privilege_can_share">قابل به اشتراک گذاری</string>

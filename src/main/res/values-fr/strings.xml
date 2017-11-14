@@ -56,9 +56,7 @@
     <string name="prefs_feedback">Nous contacter par mail</string>
     <string name="prefs_imprint">Mentions</string>
 
-	<string name="recommend_subject">Essayez %1$s sur votre smartphone !</string>
-	<string name="recommend_text">J\'aimerais vous inviter à utiliser %1$s sur votre smartphone.\nTéléchargez-la ici : %2$s.</string>
-    <string name="recommend_urls">%1$s ou %2$s</string>
+	<string name="recommend_urls">%1$s ou %2$s</string>
 
     <string name="auth_check_server">Vérifier le serveur</string>
     <string name="auth_host_url">Adresse du serveur https://&#8230;</string>
@@ -194,10 +192,6 @@ Attention la suppression est irréversible.</string>
         <item quantity="other">Le contenu de %1$d fichiers n\'a pu être synchronisé (conflits : %2$d)</item>
     </plurals>
     <string name="sync_foreign_files_forgotten_ticker">Certains fichiers locaux ont été ignorés</string>
-    <plurals name="sync_foreign_files_forgotten_content">
-        <item quantity="one"> %1$dfichier en dehors du dossier %2$s n\'a pas pu être copié à l\'intérieur de celui-ci</item>
-        <item quantity="other">%1$d fichiers en dehors du dossier %2$s n\'ont pu être copiés à l\'intérieur de celui-ci</item>
-    </plurals>
     <string name="sync_foreign_files_forgotten_explanation">Depuis la version 1.3.16, les fichiers envoyés depuis cet appareil sont copiés dans le dossier local %1$s pour éviter une perte de données lorsqu\'un même fichier est synchronisé avec plusieurs comptes.\n\nEn raison de cette modification, tous les fichiers envoyés avec des versions antérieures de cette application ont été copiés dans le dossier %2$s. Cependant, une erreur a empêché l\'achèvement de cette opération pendant la synchronisation du compte. Vous pouvez soit laisser les fichiers tels quels et supprimer le lien vers %3$s, soit déplacer les fichiers dans le dossier %1$s et garder le lien vers %4$s.\n\nCi-dessous la liste des fichiers locaux, et les fichiers distants dans %5$s auxquels ils étaient liés.</string>
     <string name="sync_current_folder_was_removed">Le dossier %1$s n\'existe plus</string>
     <string name="foreign_files_move">Tout déplacer</string>
@@ -497,7 +491,6 @@ Attention la suppression est irréversible.</string>
     <string name="share_via_link_expiration_date_label">Définir une date d\'expiration</string>
     <string name="share_via_link_password_label">Protéger avec un mot de passe</string>
     <string name="share_via_link_password_title">Sécurisé</string>
-    <string name="share_via_link_edit_permission_label">Autoriser la modification</string>
     <string name="share_via_link_hide_file_listing_permission_label">Masquer la liste des fichiers</string>
     <string name="share_get_public_link_button">Partager le lien</string>
     <string name="share_with_title">Partager avec &#8230;</string>
@@ -564,10 +557,6 @@ Attention la suppression est irréversible.</string>
     <string name="participate_contribute_translate_translate">Traduire</string>
     <string name="participate_contribute_translate_text">l\'application</string>
     <string name="participate_contribute_github_text">Vérifier, corriger et écrire du code, voir %1$s pour plus de détails</string>
-    <string name="participate_rc_play_store">Obtenez la version Release Candidate via Google Play store</string>
-    <string name="participate_rc_fdroid">Obtenez la version Release Candidate via F-Droid app store</string>
-    <string name="participate_dev_fdroid">Obtenir la version de développement sur la boutique d\'applications F-Droid</string>
-    <string name="participate_dev_direct_download">Obtenir la version de développement par téléchargement direct</string>
     <string name="move_to">Déplacer vers&#8230;</string>
     <string name="copy_to">Copier vers&#8230;</string>
     <string name="choose_remote_folder">Sélectionner le dossier distant &#8230;</string>
@@ -682,9 +671,6 @@ Attention la suppression est irréversible.</string>
     <string name="resharing_is_not_allowed">Le repartage n\'est pas autorisé</string>
     <string name="whats_new_fingerprint_title">Déverrouillage par empreinte digitale</string>
     <string name="whats_new_fingerprint_content">Utilisez votre empreinte digitale pour déverrouiller l’application</string>
-    <string name="fallback_weblogin_back">RETOUR</string>
-    <string name="fallback_weblogin_text">Revenir à l\'ancienne méthode de connexion</string>
-
     <string name="foreground_service_upload">Envoi des fichiers en cours&#8230;</string>
     <string name="foreground_service_download">Réception de fichiers&#8230;</string>
 
@@ -695,9 +681,6 @@ Attention la suppression est irréversible.</string>
     <string name="push_notifications_temp_error">Les notifications push ne sont pas disponibles actuellement.</string>
     <string name="date_unknown">Inconnu</string>
 
-    <string name="resized_image_not_possible">Impossible de redimensionner l\'image. Télécharger l\'image originale ?</string>
     <string name="resized_images_download_full_image">Télécharger l\'image originale ?</string>
 
-    <string name="store_short_desc">L\'application Android Nextcloud vous permet d\'accéder à tous vos fichiers et contenus stockés sur Nextcloud</string>
-    <string name="store_full_desc">L\'application Open Source Nextcloud Android vous permet d\'accéder à tous vos fichiers stockés sur Nextcloud.\n\nFonctionnalités :\n* Interface facile d\'utilisation et moderne, personnalisée avec le même thème que celui du serveur\n* Envoyez vos fichiers sur votre serveur Nextcloud\n* Partagez vos fichiers avec d\'autres personnes\n* Synchronisez vos fichiers et dossiers favoris\n* Recherchez parmi tous vos dossiers situés sur votre serveur\n* Téléversez automatiquement les photos et vidéos prises avec votre appareil\n* Restez à jour grâce aux notifications\n* Gestion du multi comptes\n* Accès sécurisé à vos données avec votre empreinte digitale ou un code pin\n* Intégration avec DAVdroid pour faciliter l\'installation de la synchronisation du Calendrier &amp; des Contacts\n\nMerci de signaler tout problème sur https://github.com/nextcloud/android/issues et venez discuter de cette application sur https://help.nextcloud.com/c/clients/android\n\nVous découvrez Nextcloud ? Nextcloud est un système de synchronisation de fichiers personnels &amp; un serveur de partage. Ce système est entièrement Open Source. Vous pouvez l\'héberger vous-même ou payer une entreprise pour ce service. Vous aurez ainsi le contrôle de vos photos, votre calendrier, vos données de contacts, vos documents et de tout le reste.\n\nPour en savoir plus, consultez le site Nextcloud sur https://nextcloud.com</string>
-</resources>
+    </resources>

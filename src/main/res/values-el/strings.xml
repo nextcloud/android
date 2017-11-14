@@ -446,7 +446,6 @@
     <string name="share_via_link_expiration_date_label">Ορισμός ημερομηνίας λήξης</string>
     <string name="share_via_link_password_label">Προστασία με συνθηματικό</string>
     <string name="share_via_link_password_title">Ασφαλίστηκε</string>
-    <string name="share_via_link_edit_permission_label">Επιτρέπεται η επεξεργασία</string>
     <string name="share_via_link_hide_file_listing_permission_label">Απόκρυψη λίστας αρχείου</string>
     <string name="share_get_public_link_button">Λήψη συνδέσμου</string>
     <string name="share_with_title">Διαμοιρασμός με &#8230;</string>
@@ -511,8 +510,6 @@
     <string name="participate_contribute_translate_translate">Μετάφραση</string>
     <string name="participate_contribute_translate_text">η εφαρμογή</string>
     <string name="participate_contribute_github_text">Επιθεωρήστε, τροποποιήστε και γράψτε κώδικα, δείτε %1$s για λεπτομέρειες</string>
-    <string name="participate_rc_play_store">Αποκτήστε τις υποψήφιες εκδόσεις μέσω του Google Play store</string>
-    <string name="participate_dev_direct_download">Αποκτήστε την έκδοση ανάπτυξης μέσω απευθείας λήψης</string>
     <string name="move_to">Μετακίνηση σε&#8230;</string>
     <string name="copy_to">Αντιγραφή σε&#8230;</string>
     <string name="choose_remote_folder">Επιλέξτε απομακρυσμένο φάκελο&#8230;</string>
@@ -626,9 +623,6 @@
     <string name="resharing_is_not_allowed">Δεν επιτρέπεται ο διαμοιρασμός</string>
     <string name="whats_new_fingerprint_title">Ξεκλειδώστε με δακτυλικό αποτύπωμα</string>
     <string name="whats_new_fingerprint_content">Χρησιμοποιήστε το δακτυλικό αποτύπωμα για να ξεκλειδώσετε την εφαρμογή</string>
-    <string name="fallback_weblogin_back">ΠΙΣΩ</string>
-    <string name="fallback_weblogin_text">Επιστρέψτε στην παλιά μέθοδο εισόδου</string>
-
     <string name="foreground_service_upload">Μεταφόρτωση αρχείων &#8230;</string>
     <string name="foreground_service_download">Λήψη αρχείων &#8230;</string>
 

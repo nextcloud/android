@@ -56,9 +56,7 @@
     <string name="prefs_feedback">Umsögn</string>
     <string name="prefs_imprint">Prenta</string>
 
-	<string name="recommend_subject">Prófaðu %1$s á snjallsímanum þínum!</string>
-	<string name="recommend_text">Mér langar til að bjóða þér að nota  %1$s á snjallsímanum þínum.\nSæktu það hér: %2$s</string>
-    <string name="recommend_urls">%1$s eða %2$s</string>
+	<string name="recommend_urls">%1$s eða %2$s</string>
 
     <string name="auth_check_server">Athuga með þjón</string>
     <string name="auth_host_url">Vistfang þjóns https://&#8230;</string>
@@ -193,10 +191,6 @@ Smelltu hér til að fá þér einn frá þjónustuaðila.</string>
         <item quantity="other">Ekki var hægt að samstilla innihald %1$d skránna (árekstrar: %2$d)</item>
     </plurals>
     <string name="sync_foreign_files_forgotten_ticker">Sumar staðværar skrár gleymdust</string>
-    <plurals name="sync_foreign_files_forgotten_content">
-        <item quantity="one">%1$d skrá úr %2$s möppunni var ekki hægt að afrita inn í</item>
-        <item quantity="other">%1$d skrár úr %2$s möppunni var ekki hægt að afrita inn í</item>
-    </plurals>
     <string name="sync_foreign_files_forgotten_explanation">Frá og með útgáfu 1.3.16, eru skrár sem sendar eru inn frá þessu tæki afritaðar inn í staðværu %1$s möppuna, til að koma í veg fyrir gagnatap þegar stök skrá er samstillt við marga notendaaðganga.\n\nVegna þessarar breytingar, hafa allar skrár sem innsendar voru með eldri útgáfum þessa forrits nú verið afritaðar inn í %2$s möppuna. Hinsvegar kom villa í veg fyrir að hægt væri að ljúka aðgerðinni á meðan samstilling fór fram á notandaaðgangnum. Þú getur annað hvort látið skrána/skrárnar vera eins og þær eru nú og fjarlægt tengilinn í %3$s, eða fært skrána/skrárnar inn í %1$s möppuna og haldið tenglinum í %4$s.\n\nHér fyrir neðan eru staðværu skrárnar taldar upp, ásamt þeim fjartengdu skrám í %5$s sem þær voru tengdar.</string>
     <string name="sync_current_folder_was_removed">Mappan %1$ser ekki lengur til</string>
     <string name="foreign_files_move">Færa allt</string>
@@ -496,7 +490,6 @@ Smelltu hér til að fá þér einn frá þjónustuaðila.</string>
     <string name="share_via_link_expiration_date_label">Setja gildistíma</string>
     <string name="share_via_link_password_label">Verja með lykilorði</string>
     <string name="share_via_link_password_title">Öruggt</string>
-    <string name="share_via_link_edit_permission_label">Leyfa breytingar</string>
     <string name="share_via_link_hide_file_listing_permission_label">Fela skráalista</string>
     <string name="share_get_public_link_button">Ná í tengil</string>
     <string name="share_with_title">Deila með &#8230;</string>
@@ -563,10 +556,6 @@ Smelltu hér til að fá þér einn frá þjónustuaðila.</string>
     <string name="participate_contribute_translate_translate">Þýddu</string>
     <string name="participate_contribute_translate_text">forritið</string>
     <string name="participate_contribute_github_text">Yfirfarðu, bættu og skrifaðu kóða, skoðaðu %1$s fyrir nánari upplýsingar</string>
-    <string name="participate_rc_play_store">Náðu í forútgáfu í Google Play safninu</string>
-    <string name="participate_rc_fdroid">Náðu í forútgáfu í f-Droid forritasafninu</string>
-    <string name="participate_dev_fdroid">Náðu í þróunarútgáfu í f-Droid forritasafninu</string>
-    <string name="participate_dev_direct_download">Náðu í þróunarútgáfu sem beint niðurhal</string>
     <string name="move_to">Færa í&#8230;</string>
     <string name="copy_to">Afrita í&#8230;</string>
     <string name="choose_remote_folder">Veldu fjartengda möppu &#8230;</string>
@@ -681,9 +670,6 @@ Smelltu hér til að fá þér einn frá þjónustuaðila.</string>
     <string name="resharing_is_not_allowed">Endurdeiling er ekki leyfð</string>
     <string name="whats_new_fingerprint_title">Aflæsa með fingrafari</string>
     <string name="whats_new_fingerprint_content">Notaðu fingrafarið þitt til að aflæsa forritinu</string>
-    <string name="fallback_weblogin_back">BAKKA</string>
-    <string name="fallback_weblogin_text">Fara til baka í gömlu innskráningaraðferðina</string>
-
     <string name="foreground_service_upload">Sendi inn skrár&#8230;</string>
     <string name="foreground_service_download">Sæki skrár&#8230;</string>
 
@@ -694,9 +680,6 @@ Smelltu hér til að fá þér einn frá þjónustuaðila.</string>
     <string name="push_notifications_temp_error">Ýti-tilkynningar eru ekki tiltækar þessa stundina.</string>
     <string name="date_unknown">Óþekkt</string>
 
-    <string name="resized_image_not_possible">Engin stærðarbreytt mynd í boði. Sækja alla myndina?</string>
     <string name="resized_images_download_full_image">Sækja alla myndina?</string>
 
-    <string name="store_short_desc">Nextcloud Android appið gerir þér kleift að nálgast allar skrárnar þínar á Nextcloud-skýinu þínu.</string>
-    <string name="store_full_desc">Nextcloud-forritið fyrir Android er opið og frjálst, og gerir þér kleift að nálgast allar skrárnar þínar á Nextcloud-skýinu  þínu.\n\nEiginleikar:\n* Einfalt, nútímalegt viðmót, með þema í samræmi við netþjóninn þinn\n* Sendir skrár inn á Nextcloud-þjóna\n* Deilir skránum þínum með öðrum\n* Heldur eftirlætisskránum og möppunum þínum samstilltum\n* Leitar í öllum möppum á þjóninum þínum\n* Sjálfvirk innsending mynda og myndskeiða sem tekin eru með tækjunum þínum\n* Heldur uppfærðu með tilkynningum\n* Styður við marga notandaaðganga\n* Öruggur aðgangur að gögnunum þínum með fingrafari eða PIN-númeri\n* Samþætting við DAVdroid fyrir auðvelda uppsetningu á samstillingu dagatals og tengiliða\n\nTilkynntu um vandamál á https://github.com/nextcloud/android/issues og ræddu um þetta forrit á https://help.nextcloud.com/c/clients/android\n\nNýr í Nextcloud? Nextcloud er þinn eiginn vefþjónn til samstillingar, samskipta og deilingar á skrám. Kóði hugbúnaðarins er fullkomlega opinn og frjáls til afnota; þú getur hýst hann sjálfur eða borgað fyrirtæki fyrir að gera það fyrir þig. Á þennan máta, hefur þú sjálfur full yfirráð yfir myndunum þínum, dagatalinu, tengiliðaskránum, skjölunum þínum og öllu öðru tilheyrandi.\n\nSkoðaðu fleira um Nextcloud á https://nextcloud.com</string>
-</resources>
+    </resources>

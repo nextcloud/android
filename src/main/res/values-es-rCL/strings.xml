@@ -56,9 +56,7 @@
     <string name="prefs_feedback">Retroalimentación</string>
     <string name="prefs_imprint">Excención de responsabilidad </string>
 
-	<string name="recommend_subject">¡Prueba %1$s en tu teléfono inteligente!</string>
-	<string name="recommend_text">Quiero invitarte a usar %1$s en tu teléfono inteligente.\n Descárgalo aquí: %2$s</string>
-    <string name="recommend_urls">%1$s ó %2$s</string>
+	<string name="recommend_urls">%1$s ó %2$s</string>
 
     <string name="auth_check_server">Verficar el servidor</string>
     <string name="auth_host_url">Dirección del servidor https://&#8230;</string>
@@ -192,10 +190,6 @@
         <item quantity="other">El contenido de %1$d archivos no pudo ser sincronizado (conflictos: %2$d)</item>
     </plurals>
     <string name="sync_foreign_files_forgotten_ticker">Algunos archivos locales se han perdido</string>
-    <plurals name="sync_foreign_files_forgotten_content">
-        <item quantity="one"> %1$d archivo de los %2$s no pudo ser copiado a la carpeta</item>
-        <item quantity="other">%1$d archivos de los %2$s no pudieron ser copiados a la carpeta</item>
-    </plurals>
     <string name="sync_foreign_files_forgotten_explanation">A partir de la versión 1.3.16, los archivos cargados desde este dispositivo serán copiados a la carpeta local %1$spara prevenir perdidas de datos cuando un archivo se sincroniza entre múltiples cuentas. \n\nDerivado de este cambio, todos los archivos cargados con versiones anteriores de la aplicación fueron copiados a la carpeta %2$s. Sin embargo, un error evitó que se completara esta operación durante la sincronizacion de la cuenta. Puedes dejar el(los) archivo(s) como está(n) y eliminar la liga a %3$s, o bien, mover el(los) archivo(s) a la carpeta%1$s y mantener la liga a %4$s.\n\nSe enlistan a continuación los archivos locales así como los archivos remotos en %5$s a donde estaban ligados</string>
     <string name="sync_current_folder_was_removed">La carpeta %1$s ya no existe</string>
     <string name="foreign_files_move">Mover todos</string>
@@ -495,7 +489,6 @@
     <string name="share_via_link_expiration_date_label">Establecer fecha de expiración</string>
     <string name="share_via_link_password_label">Proteger con contraseña</string>
     <string name="share_via_link_password_title">Asegurado</string>
-    <string name="share_via_link_edit_permission_label">Permitir edición</string>
     <string name="share_via_link_hide_file_listing_permission_label">Ocultar listado de archivos</string>
     <string name="share_get_public_link_button">Obtener liga</string>
     <string name="share_with_title">Compartir con &#8230;</string>
@@ -562,10 +555,6 @@
     <string name="participate_contribute_translate_translate">Traducir</string>
     <string name="participate_contribute_translate_text">la aplicación</string>
     <string name="participate_contribute_github_text">Revisa, corrige y escribe código, ve %1$s para más detalles</string>
-    <string name="participate_rc_play_store">Obten el candidato a liberación vía la tienda de Google Play</string>
-    <string name="participate_rc_fdroid">Obten el candidato a liberación vía la tienda de aplicaciones F-Droid </string>
-    <string name="participate_dev_fdroid">Obten la liberación de desarrollo vía la tienda de aplicaciones F-Droid </string>
-    <string name="participate_dev_direct_download">Obten la liberación de desarrollo vía descarga directa</string>
     <string name="move_to">Mover a&#8230;</string>
     <string name="copy_to">Copiar a&#8230;</string>
     <string name="choose_remote_folder">Selecciona la carpeta remota &#8230;</string>
@@ -680,9 +669,6 @@
     <string name="resharing_is_not_allowed">No está permitido recompartir</string>
     <string name="whats_new_fingerprint_title">Desbloquear con tu huella digital</string>
     <string name="whats_new_fingerprint_content">Usa tu huella digital para desbloquear la aplicación</string>
-    <string name="fallback_weblogin_back">ATRÁS</string>
-    <string name="fallback_weblogin_text">Regresar al antiguo método de inicio de sesión</string>
-
     <string name="foreground_service_upload">Cargando archivos &#8230;</string>
     <string name="foreground_service_download">Descargando archivos &#8230;</string>
 
@@ -692,5 +678,7 @@
     <string name="push_notifications_old_login">No hay notificaciones push debido a un incio de sesión caduco. Por favor vuelve a ingresar a tu cuenta. </string>
     <string name="push_notifications_temp_error">En este momento las notificaciones push no están disponibles.</string>
     <string name="date_unknown">Desconocido</string>
+
+    <string name="resized_images_download_full_image">¿Descargar imagen completa?</string>
 
     </resources>

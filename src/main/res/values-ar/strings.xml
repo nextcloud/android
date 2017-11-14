@@ -54,7 +54,6 @@
     <string name="prefs_feedback">ملاحظات</string>
     <string name="prefs_imprint">الدمغة.</string>
 
-	<string name="recommend_subject">جرّب %1$s على هاتفك الذكي !</string>
 	<string name="recommend_urls">%1$s أو %2$s</string>
 
     <string name="auth_check_server">فحص الخادم</string>
@@ -302,7 +301,6 @@
     <string name="share_via_link_section_title">شارك الرابط</string>
     <string name="share_via_link_expiration_date_label">تعيين تاريخ إنتهاء الصلاحية</string>
     <string name="share_via_link_password_title">مؤَمَّن</string>
-    <string name="share_via_link_edit_permission_label">السماح بالتعديلات</string>
     <string name="share_get_public_link_button">تحصل على رابط</string>
     <string name="share_with_title">شارك مع &#8230;</string>
     <string name="share_with_edit_title">شارك مع %1$s</string>
@@ -395,10 +393,8 @@
     <string name="test_server_button">أفحص أتصال الخادم</string>
     <string name="whats_new_fingerprint_title">افتحه ببصمتك</string>
     <string name="whats_new_fingerprint_content">إستخدم بصمتك لفتح التطبيق</string>
-    <string name="fallback_weblogin_back">العودة</string>
     <string name="prefs_sourcecode">الحصول على الشفرة المصدرية</string>
     <string name="prefs_license">الرخصة</string>
     <string name="date_unknown">مجهول</string>
 
-    <string name="store_short_desc">يسمح لك تطبيق ناكست كلاود بالوصول إلى جميع الملفات الخاصة بك على السيرفر السحابي ناكست كلاود الخاص بك.</string>
     </resources>

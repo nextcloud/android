@@ -55,7 +55,6 @@
     <string name="prefs_feedback">反馈</string>
     <string name="prefs_imprint">版本说明</string>
 
-	<string name="recommend_subject">在你的设备上尝试 %1$s</string>
 	<string name="recommend_urls">%1$s或%2$s</string>
 
     <string name="auth_check_server">检查服务器</string>
@@ -464,7 +463,6 @@
     <string name="share_via_link_expiration_date_label">设置过期日期</string>
     <string name="share_via_link_password_label">用密码保护</string>
     <string name="share_via_link_password_title">安全</string>
-    <string name="share_via_link_edit_permission_label">允许编辑</string>
     <string name="share_via_link_hide_file_listing_permission_label">隐藏文件列表</string>
     <string name="share_get_public_link_button">获取链接</string>
     <string name="share_with_title">分享 &#8230;</string>
@@ -529,8 +527,6 @@
     <string name="participate_contribute_translate_translate">翻译</string>
     <string name="participate_contribute_translate_text">此应用</string>
     <string name="participate_contribute_github_text">查看，修改和编写代码，有关详细信息，请参阅%1$s</string>
-    <string name="participate_rc_play_store">通过Google Play商店获取发布候选版</string>
-    <string name="participate_dev_direct_download">直接下载开发版本</string>
     <string name="move_to">转移到&#8230;</string>
     <string name="copy_to">复制到&#8230;</string>
     <string name="choose_remote_folder">选择远端文件夹&#8230;</string>
@@ -643,9 +639,6 @@
     <string name="resharing_is_not_allowed">不允许二次共享</string>
     <string name="whats_new_fingerprint_title">指纹解锁</string>
     <string name="whats_new_fingerprint_content">请用指纹解锁</string>
-    <string name="fallback_weblogin_back">后退</string>
-    <string name="fallback_weblogin_text">返回老的登录方式</string>
-
     <string name="foreground_service_upload">上传文件&#8230;</string>
     <string name="foreground_service_download">下载文件&#8230;</string>
 

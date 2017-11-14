@@ -56,10 +56,7 @@
     <string name="prefs_feedback">Geri bildirim</string>
     <string name="prefs_imprint">İzlenim</string>
 
-	<string name="recommend_subject">%1$s uygulamasını akıllı telefonunuzda deneyin!</string>
-	<string name="recommend_text">Akıllı telefonunda %1$s uygulamasını denemeni öneririm\n
-Şuradan indirebilirsin: %2$s</string>
-    <string name="recommend_urls">%1$s ya da %2$s</string>
+	<string name="recommend_urls">%1$s ya da %2$s</string>
 
     <string name="auth_check_server">Sunucuyu denetle</string>
     <string name="auth_host_url">Sunucu adresi https://&#8230;</string>
@@ -193,10 +190,6 @@
         <item quantity="other">%1$d dosyanın içeriği eşitlenemedi (çakışma: %2$d)</item>
     </plurals>
     <string name="sync_foreign_files_forgotten_ticker">Bazı yerel dosyalar unutulmuş</string>
-    <plurals name="sync_foreign_files_forgotten_content">
-        <item quantity="one">%1$d / %2$sklasör şuraya kopyalanamadı </item>
-        <item quantity="other">%1$d / %2$s klasör şuraya kopyalanamadı</item>
-    </plurals>
     <string name="sync_foreign_files_forgotten_explanation">1.3.16 sürümünden sonra, veri kaybının önlenebilmesi için bu aygıttan yüklenen dosyalar, bir dosya birden fazla hesapla eşitlendiğinde %1$s yerel klasörüne kopyalanır.\n\nBu değişiklikten dolayı, bu uygulamanın yüklenmiş tüm önceki sürümündeki dosyalar %2$s klasörüne kopyalandı. Ancak hesap eşitlemesi sırasında bu işlemin tamamlanmasını engelleyen bir sorun çıktı. Dosyaları olduğu gibi bırakabilir ve %3$s bağlantısını kaldırabilir ya da dosyaları %1$s klasörüne taşıyıp %4$s bağlantısını koruyabilirsiniz.\n\nYerel dosyaları ve bağlı oldukları %5$s içindeki uzak dosyaların listesini aşağıda görebilirsiniz.</string>
     <string name="sync_current_folder_was_removed">%1$s klasörü artık yok</string>
     <string name="foreign_files_move">Tümünü taşı</string>
@@ -496,7 +489,6 @@
     <string name="share_via_link_expiration_date_label">Son kullanma tarihini ayarla</string>
     <string name="share_via_link_password_label">Parola ile korunsun</string>
     <string name="share_via_link_password_title">Güvenli</string>
-    <string name="share_via_link_edit_permission_label">Düzenlenebilsin</string>
     <string name="share_via_link_hide_file_listing_permission_label">Dosya listeleme gizlensin</string>
     <string name="share_get_public_link_button">Bağlantıyı al</string>
     <string name="share_with_title">Şununla paylaş&#8230;</string>
@@ -563,10 +555,6 @@
     <string name="participate_contribute_translate_translate">Çevirin</string>
     <string name="participate_contribute_translate_text">uygulamayı</string>
     <string name="participate_contribute_github_text">Kodun gözden geçirilmesine ve geliştirilmesine katkıda bulunun. Ayrıntılı bilgi almak için %1$s dosyasına bakın</string>
-    <string name="participate_rc_play_store">Yayın adayını Google Play mağazasından alın</string>
-    <string name="participate_rc_fdroid">F-Droid uygulama mağazasından yayın adayı sürümünü alın</string>
-    <string name="participate_dev_fdroid">F-Droid uygulama mağazasından geliştirici sürümünü alın</string>
-    <string name="participate_dev_direct_download">Geliştirme sürümünü doğrudan indirerek alın</string>
     <string name="move_to">Taşı&#8230;</string>
     <string name="copy_to">Kopyala&#8230;</string>
     <string name="choose_remote_folder">Uzak klasörü seçin&#8230;</string>
@@ -681,9 +669,6 @@
     <string name="resharing_is_not_allowed">Yeniden paylaşıma izin verilmiyor</string>
     <string name="whats_new_fingerprint_title">Parmak izi ile kilit açma</string>
     <string name="whats_new_fingerprint_content">Uygulama kilidini açmak için parmak izi kullanımı</string>
-    <string name="fallback_weblogin_back">GERİ</string>
-    <string name="fallback_weblogin_text">Eski oturum açma yöntemine geri dön</string>
-
     <string name="foreground_service_upload">Dosyalar yükleniyor&#8230;</string>
     <string name="foreground_service_download">Dosyalar yükleniyor&#8230;</string>
 
@@ -694,9 +679,6 @@
     <string name="push_notifications_temp_error">Anında bildirimler şu anda kullanılamıyor.</string>
     <string name="date_unknown">Bilinmiyor</string>
 
-    <string name="resized_image_not_possible">Boyutları değiştirilmiş bir görsel bulunamadı. Tam görsel indirilsin mi?</string>
     <string name="resized_images_download_full_image">Tam görsel indirilsin mi?</string>
 
-    <string name="store_short_desc">Nextcloud Android uygulaması Nextcloud üzerindeki tüm dosyalarınıza erişmenizi sağlar</string>
-    <string name="store_full_desc">AndroidAçık kaynak kodlu Nextcloud Android uygulaması, Nextcloud üzerindeki tüm dosyalarınıza erişmenizi sağlar.\n\nÖzellikleri:\n* Kolay kullanılan modern arayüz, sunucu temanızla aynı temayı kullanabilme\n* Dosyalarınızı Nextcloud sunucunuza kolayca yükleyebilme\n* Dosyalarınızı başkalarıyla paylaşabilme\n* Sık kullandığınız dosya ve klasörleri eşitleme\n* Sunucunuzdaki tüm klasörlerde arama yapabilme\n* Aygıtınızla çekilmiş fotoğraf ve görüntüleri otomatik yükleyebilme\n* Bildirimler aracılığı ile gelişmeleri izleyebilme\n* Birden çok hesap desteği\n* Verilerinize parmak izi ya da pin kodu ile güvenli olarak erişebilme\n* Kolay kişi ve takvim eşitlemesi kurulumu için DAVdroid bütünleştirmesi\nKullanımda karşılaşabileceğiniz hataları https://github.com/nextcloud/android/issues adresinden bildirebilir, uygulama hakkında çeşitli konuları \nhttps://help.nextcloud.com/c/clients/android adresinde tartışabilirsiniz ;-)\nNextcloud ile yeni mi tanıştınız? Nextcloud özel bir veri depolama ve paylaşma ağıdır. Tamamen açık kaynak kodludur. Barındırmayı kendi sunucunuzda yapabileceğiniz gibi ücretli hizmet olarak da satın alabilirsiniz. Böylece fotoğraflarınız, dosyalarınız, takviminiz, belgeleriniz, kişileriniz ve diğer tüm özel bilgileriniz sizin kontrolünüzde olur. \n\nAyrıntılı bilgi almak için sitemize bakabilirsiniz: https://nextcloud.com</string>
-</resources>
+    </resources>

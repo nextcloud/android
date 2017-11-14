@@ -370,7 +370,6 @@
     <string name="share_via_link_section_title">링크 공유</string>
     <string name="share_via_link_expiration_date_label">만료 날짜 설정</string>
     <string name="share_via_link_password_title">보호됨</string>
-    <string name="share_via_link_edit_permission_label">편집 허용</string>
     <string name="share_via_link_hide_file_listing_permission_label">숨김 파일 목록</string>
     <string name="share_get_public_link_button">링크 얻기</string>
     <string name="share_with_title">&#8230;와 공유</string>
@@ -411,8 +410,6 @@
     <string name="participate_contribute_irc_text">IRC 채팅 참여하기:</string>
     <string name="participate_contribute_forum_forum">포럼</string>
     <string name="participate_contribute_translate_translate">번역</string>
-    <string name="participate_rc_play_store">구글 플레이스토어에서 RC버전 얻기</string>
-    <string name="participate_dev_direct_download">직접 다운로드로 개발 버전 얻기</string>
     <string name="move_to">(으)로 이동&#8230;</string>
     <string name="copy_to">(으)로 복사&#8230;</string>
     <string name="choose_remote_folder">원격 폴더를 선택하세요&#8230;</string>
@@ -485,9 +482,6 @@
     <string name="resharing_is_not_allowed">다시 공유할 수 없습니다</string>
     <string name="whats_new_fingerprint_title">지문으로 잠금해제</string>
     <string name="whats_new_fingerprint_content">지문으로 잠금 해제하기</string>
-    <string name="fallback_weblogin_back">뒤로 가기</string>
-    <string name="fallback_weblogin_text">이전 로그인 방식으로 돌아가기</string>
-
     <string name="foreground_service_upload">파일 업로드 중&#8230;</string>
     <string name="foreground_service_download">파일 다운로드 중&#8230;</string>
 
