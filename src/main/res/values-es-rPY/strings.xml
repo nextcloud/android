@@ -40,8 +40,6 @@
     <string name="prefs_category_more">Más</string>
     <string name="prefs_manage_accounts">Administrar cuentas</string>
     <string name="prefs_passcode">Bloqueo con código de seguridad</string>
-    <string name="prefs_fingerprint">Bloqueo cor huella digital</string>
-    <string name="prefs_fingerprint_notsetup">No se ha establecido alguna huella digital. </string>
     <string name="prefs_expert_mode">Modo experto</string>
     <string name="prefs_show_hidden_files">Mostrar archivos ocultos</string>
     <string name="prefs_log_delete_history_button">Borrar historial</string>
@@ -479,9 +477,6 @@
     <string name="welcome_feature_3_text">Manten tus fotos seguras</string>
 
     <string name="whats_new_skip">Saltar</string>
-
-    <string name="fingerprint_scan_finger">Por favor escanea tu dedo</string>
-    <string name="fingerprint_unknown">El dedo no ha sido reconocido</string>
 
     <!-- User information -->
     <string name="user_info_email">Correo electrónico</string>
