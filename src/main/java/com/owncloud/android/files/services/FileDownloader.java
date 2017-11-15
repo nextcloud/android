@@ -55,6 +55,7 @@ import com.owncloud.android.lib.resources.files.FileUtils;
 import com.owncloud.android.operations.DownloadFileOperation;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
+import com.owncloud.android.ui.dialog.SendShareDialog;
 import com.owncloud.android.ui.fragment.OCFileListFragment;
 import com.owncloud.android.ui.notifications.NotificationUtils;
 import com.owncloud.android.ui.preview.PreviewImageActivity;
@@ -182,9 +183,12 @@ public class FileDownloader extends Service
             final Account account = intent.getParcelableExtra(EXTRA_ACCOUNT);
             final OCFile file = intent.getParcelableExtra(EXTRA_FILE);
             final String behaviour = intent.getStringExtra(OCFileListFragment.DOWNLOAD_BEHAVIOUR);
+            String activityName = intent.getStringExtra(SendShareDialog.ACTIVITY_NAME);
+            String packageName = intent.getStringExtra(SendShareDialog.PACKAGE_NAME);
             AbstractList<String> requestedDownloads = new Vector<String>();
             try {
-                DownloadFileOperation newDownload = new DownloadFileOperation(account, file, behaviour);
+                DownloadFileOperation newDownload = new DownloadFileOperation(account, file, behaviour, activityName,
+                        packageName);
                 newDownload.addDatatransferProgressListener(this);
                 newDownload.addDatatransferProgressListener((FileDownloaderBinder) mBinder);
                 Pair<String, String> putResult = mPendingDownloads.putIfAbsent(
@@ -648,6 +652,8 @@ public class FileDownloader extends Service
         end.putExtra(EXTRA_REMOTE_PATH, download.getRemotePath());
         end.putExtra(EXTRA_FILE_PATH, download.getSavePath());
         end.putExtra(OCFileListFragment.DOWNLOAD_BEHAVIOUR, download.getBehaviour());
+        end.putExtra(SendShareDialog.ACTIVITY_NAME, download.getActivityName());
+        end.putExtra(SendShareDialog.PACKAGE_NAME, download.getPackageName());
         if (unlinkedFromRemotePath != null) {
             end.putExtra(EXTRA_LINKED_TO_PATH, unlinkedFromRemotePath);
         }

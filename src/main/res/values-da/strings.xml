@@ -97,7 +97,7 @@
     <string name="filedetails_select_file">Tryk på en fil for at vise yderligere information.</string>
     <string name="filedetails_download">Hent</string>
     <string name="filedetails_sync_file">Synkronisér</string>
-    <string name="action_share">Del</string>
+    <string name="action_send_share">Del</string>
     <string name="common_yes">Ja</string>
     <string name="common_no">Nej</string>
     <string name="common_ok">OK</string>

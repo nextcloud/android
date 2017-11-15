@@ -119,7 +119,7 @@
     <string name="filedetails_sync_file">同步</string>
     <string name="filedetails_renamed_in_upload_msg">文件在上传时被重命名为%1$s</string>
     <string name="list_layout">列出的布局</string>
-    <string name="action_share">共享</string>
+    <string name="action_send_share">共享</string>
     <string name="common_yes">是</string>
     <string name="common_no">否</string>
     <string name="common_ok">确定</string>

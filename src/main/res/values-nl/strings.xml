@@ -120,7 +120,7 @@ Kies er eentje van een provider.</string>
     <string name="filedetails_sync_file">Synchroniseren</string>
     <string name="filedetails_renamed_in_upload_msg">Bestand hernoemd naar %1$s tijdens de upload</string>
     <string name="list_layout">Lijstoverzicht</string>
-    <string name="action_share">Delen</string>
+    <string name="action_send_share">Delen</string>
     <string name="common_yes">Ja</string>
     <string name="common_no">Nee</string>
     <string name="common_ok">OK</string>

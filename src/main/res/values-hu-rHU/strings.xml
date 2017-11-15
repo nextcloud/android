@@ -119,7 +119,7 @@
     <string name="filedetails_sync_file">Szinkronizálás</string>
     <string name="filedetails_renamed_in_upload_msg">A fájl feltöltés közben átnevezve erre: %1$s</string>
     <string name="list_layout">Listás elrendezés</string>
-    <string name="action_share">Megosztás</string>
+    <string name="action_send_share">Megosztás</string>
     <string name="common_yes">Igen</string>
     <string name="common_no">Nem</string>
     <string name="common_ok">OK</string>

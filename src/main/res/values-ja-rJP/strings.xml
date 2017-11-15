@@ -110,7 +110,7 @@
     <string name="filedetails_download">ダウンロード</string>
     <string name="filedetails_sync_file">ファイルを同期</string>
     <string name="list_layout">リスト表示</string>
-    <string name="action_share">共有</string>
+    <string name="action_send_share">共有</string>
     <string name="common_yes">はい</string>
     <string name="common_no">いいえ</string>
     <string name="common_ok">OK</string>
