@@ -102,15 +102,15 @@ public class UpdateOCVersionOperation extends RemoteOperation {
             }
 
 
-            Log_OC.i(TAG, "Check for update of ownCloud server version at " + webDav + ": " + result.getLogMessage());
+            Log_OC.i(TAG, "Check for update of Nextcloud server version at " + webDav + ": " + result.getLogMessage());
             
         } catch (JSONException e) {
             result = new RemoteOperationResult(RemoteOperationResult.ResultCode.INSTANCE_NOT_CONFIGURED);
-            Log_OC.e(TAG, "Check for update of ownCloud server version at " + webDav + ": " + result.getLogMessage(), e);
+            Log_OC.e(TAG, "Check for update of Nextcloud server version at " + webDav + ": " + result.getLogMessage(), e);
                 
         } catch (Exception e) {
             result = new RemoteOperationResult(e);
-            Log_OC.e(TAG, "Check for update of ownCloud server version at " + webDav + ": " + result.getLogMessage(), e);
+            Log_OC.e(TAG, "Check for update of Nextcloud server version at " + webDav + ": " + result.getLogMessage(), e);
             
         } finally {
             if (getMethod != null) {
