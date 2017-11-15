@@ -56,7 +56,9 @@
     <string name="prefs_feedback">Nous contacter par mail</string>
     <string name="prefs_imprint">Mentions</string>
 
-	<string name="recommend_urls">%1$s ou %2$s</string>
+	<string name="recommend_subject">Essayez %1$s sur votre smartphone !</string>
+	<string name="recommend_text">J\'aimerais vous inviter à utiliser %1$s sur votre smartphone.\nTéléchargez-la ici : %2$s</string>
+    <string name="recommend_urls">%1$s ou %2$s</string>
 
     <string name="auth_check_server">Vérifier le serveur</string>
     <string name="auth_host_url">Adresse du serveur https://&#8230;</string>
@@ -491,6 +493,7 @@ Attention la suppression est irréversible.</string>
     <string name="share_via_link_expiration_date_label">Définir une date d\'expiration</string>
     <string name="share_via_link_password_label">Protéger avec un mot de passe</string>
     <string name="share_via_link_password_title">Sécurisé</string>
+    <string name="share_via_link_edit_permission_label">Autoriser les modifications</string>
     <string name="share_via_link_hide_file_listing_permission_label">Masquer la liste des fichiers</string>
     <string name="share_get_public_link_button">Partager le lien</string>
     <string name="share_with_title">Partager avec &#8230;</string>
@@ -671,6 +674,9 @@ Attention la suppression est irréversible.</string>
     <string name="resharing_is_not_allowed">Le repartage n\'est pas autorisé</string>
     <string name="whats_new_fingerprint_title">Déverrouillage par empreinte digitale</string>
     <string name="whats_new_fingerprint_content">Utilisez votre empreinte digitale pour déverrouiller l’application</string>
+    <string name="fallback_weblogin_back">Retour</string>
+    <string name="fallback_weblogin_text">Revenir à l\'ancienne méthode de connexion</string>
+
     <string name="foreground_service_upload">Envoi des fichiers en cours&#8230;</string>
     <string name="foreground_service_download">Réception de fichiers&#8230;</string>
 

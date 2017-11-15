@@ -495,6 +495,7 @@
     <string name="share_via_link_expiration_date_label">Установить срок действия</string>
     <string name="share_via_link_password_label">Защитить паролем</string>
     <string name="share_via_link_password_title">Безопасный</string>
+    <string name="share_via_link_edit_permission_label">Разрешить редактирование</string>
     <string name="share_via_link_hide_file_listing_permission_label">Скрыть список файлов</string>
     <string name="share_get_public_link_button">Получить ссылку</string>
     <string name="share_with_title">Поделиться с &#8230;</string>
@@ -677,6 +678,7 @@
     <string name="resharing_is_not_allowed">Повторное открытие доступа запрещено</string>
     <string name="whats_new_fingerprint_title">Разблокирование отпечатком пальца</string>
     <string name="whats_new_fingerprint_content">Используйте отпечаток пальца для разблокирования приложения</string>
+    <string name="fallback_weblogin_back">Назад</string>
     <string name="foreground_service_upload">Выгрузка файлов &#8230;</string>
     <string name="foreground_service_download">Скачивание файлов &#8230;</string>
 
@@ -686,5 +688,8 @@
     <string name="push_notifications_old_login">Нет аккаунтов для уведомлений. Пожалуйста добавьте аккаунт.</string>
     <string name="push_notifications_temp_error">Всплывающие уведомления недоступны</string>
     <string name="date_unknown">Неизвестно</string>
+
+    <string name="resized_image_not_possible">Масштабированное изображение недоступно.  Скачать полноразмерное изображение?</string>
+    <string name="resized_images_download_full_image">Скачать полноразмерное изображение?</string>
 
     </resources>

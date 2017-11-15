@@ -56,7 +56,9 @@
     <string name="prefs_feedback">Feedback</string>
     <string name="prefs_imprint">Imprimir</string>
 
-	<string name="recommend_urls">%1$s ou %2$s</string>
+	<string name="recommend_subject">Experimente %1$s em seu dispositivo!</string>
+	<string name="recommend_text">Quero convidar você a usar %1$s em seu dispositivo.\nBaixe daqui: %2$s</string>
+    <string name="recommend_urls">%1$s ou %2$s</string>
 
     <string name="auth_check_server">Verificar servidor</string>
     <string name="auth_host_url">Endereço do servidor https://&#8230;</string>
@@ -190,6 +192,10 @@
         <item quantity="other">O conteúdo de %1$d arquivos não puderam ser sincronizados (conflitam com: %2$d)</item>
     </plurals>
     <string name="sync_foreign_files_forgotten_ticker">Alguns arquivos locais foram esquecidos</string>
+    <plurals name="sync_foreign_files_forgotten_content">
+        <item quantity="one">%1$d arquivo na pasta %2$s não pôde ser copiado</item>
+        <item quantity="other">%1$d arquivos na pasta %2$s não puderam ser copiados</item>
+    </plurals>
     <string name="sync_foreign_files_forgotten_explanation">A partir da versão 1.3.16, os arquivos enviados a partir deste dispositivo são copiados para a pasta local %1$s para evitar a perda de dados quando um único arquivo é sincronizado com várias contas.\n\nDevido à esta alteração, todos os arquivos enviados com versões anteriores deste aplicativo foram copiados para a pasta %2$s. No entanto, um erro impediu a conclusão desta operação durante a sincronização da conta. Você pode ou deixar o(s) arquivo(s) assim mesmo e excluir o link para %3$s ou mover o(s) arquivo(s) para a pasta %1$s e manter o link para %4$s.\n\nAbaixo estão listados os arquivos locais e o(s) arquivo(s) remoto(s) em %5$s para onde eles estão linkados.</string>
     <string name="sync_current_folder_was_removed">A pasta %1$s não existe mais</string>
     <string name="foreign_files_move">Mover tudo</string>
@@ -489,6 +495,7 @@
     <string name="share_via_link_expiration_date_label">Definir data de expiração</string>
     <string name="share_via_link_password_label">Proteger com senha</string>
     <string name="share_via_link_password_title">Seguro</string>
+    <string name="share_via_link_edit_permission_label">Permitir edições</string>
     <string name="share_via_link_hide_file_listing_permission_label">Ocultar a listagem de arquivos</string>
     <string name="share_get_public_link_button">Obter link</string>
     <string name="share_with_title">Compartilhar com &#8230;</string>
@@ -555,6 +562,10 @@
     <string name="participate_contribute_translate_translate">Traduza</string>
     <string name="participate_contribute_translate_text">o aplicativo</string>
     <string name="participate_contribute_github_text">Revise, modifique e escreva código. Veja detalhes em %1$s</string>
+    <string name="participate_rc_play_store">Obtenha a versão de teste do Google Play</string>
+    <string name="participate_rc_fdroid">Obtenha a versão de teste do F-Droid</string>
+    <string name="participate_dev_fdroid">Obtenha a versão de desenvolvimento do F-Droid</string>
+    <string name="participate_dev_direct_download">Baixe a versão de desenvolvimento diretamente</string>
     <string name="move_to">Mover para&#8230;</string>
     <string name="copy_to">Copiar para&#8230;</string>
     <string name="choose_remote_folder">Escolher pasta remota&#8230;</string>
@@ -669,16 +680,23 @@
     <string name="resharing_is_not_allowed">Recompartilhamento não é permitido</string>
     <string name="whats_new_fingerprint_title">Desbloquear com as digitais</string>
     <string name="whats_new_fingerprint_content">Usar as digitais para desbloquear o aplicativo</string>
+    <string name="fallback_weblogin_back">Voltar</string>
+    <string name="fallback_weblogin_text">Volte ao antigo método de login</string>
+
     <string name="foreground_service_upload">Atualizando arquivos&#8230;</string>
     <string name="foreground_service_download">Baixando arquivos&#8230;</string>
 
     <string name="prefs_sourcecode">Obter código fonte</string>
     <string name="prefs_license">Licença</string>
+    <string name="prefs_gpl_v2">GNU Licença Pública Geral, version 2</string>
     <string name="push_notifications_not_implemented">Envio de notificações desabilitadas devido à dependências nos serviços proprietários do Google Play.</string>
     <string name="push_notifications_old_login">Sem envio de notificações devido à sessão de login desatualizada. Considere readicionar sua conta.</string>
     <string name="push_notifications_temp_error">Atualmente o envio de notificações está indisponível.</string>
     <string name="date_unknown">Desconhecido</string>
 
+    <string name="resized_image_not_possible">Nenhuma image reduzida disponível. Baixar a completa?</string>
     <string name="resized_images_download_full_image">Baixar imagem completa?</string>
 
-    </resources>
+    <string name="store_short_desc">O aplicativo Android do Nextcloud permite acesso total aos arquivos do Nextcloud</string>
+    <string name="store_full_desc">O aplicativo Android de código aberto do Nextcloud lhe dá acesso a todos os arquivos em seu Nextcloud.\n\nFeatures:\n* Interface fácil e moderna, adequada ao tema do seu servidor\n* Envia arquivos para seu servidor Nextcloud\n* Compartilhe arquivo com outros\n* Mantenha seus arquivos e pastas favoritas sincronizadas\n* Pesquise em todas as pastas do seu servidor\n* Envio automático para fotos e vídeos tirados pelo seu dispositivo portátil\n* Mantenha-se atualizado com notificações\n* Suporte à multi-conta\n* Acesso seguro aos seus dados com impressão digital ou PIN\n* Integração com o DAVdroid para facilitar a configuração do calendário e &amp; sincronização de contatos\n\nPor favor, informe qualquer problema em https://github.com/nextcloud/android/issues e discuta sobre este aplicativo em https://help.nextcloud.com/c/clients/android\n\nNovo para o Nextcloud? Nextcloud é um servidor privado de sincronização de arquivos  &amp; compartilhamento e comunicação. É um software livre e você pode hospedá-lo você mesmo ou pagar uma empresa para fazê-lo. Dessa forma, você controla suas fotos, seu calendário e dados de contato, seus documentos e tudo mais.\n\nSaiba mais sobre o Nextcloud em https://nextcloud.com</string>
+</resources>
