@@ -191,13 +191,13 @@
 			android:orientation="vertical">
 
 			<TextView
-				android:id="@+id/fdShareTitle"
-				style="@style/TextAppearance.AppCompat.Body2"
-				android:textColor="@color/color_accent"
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:layout_marginBottom="@dimen/standard_half_margin"
-				android:text="@string/action_share"/>
+                android:id="@+id/fdShareTitle"
+                style="@style/TextAppearance.AppCompat.Body2"
+                android:textColor="@color/color_accent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/standard_half_margin"
+                android:text="@string/action_send_share"/>
 
 			<LinearLayout
 				android:layout_width="match_parent"

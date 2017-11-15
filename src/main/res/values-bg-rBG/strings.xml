@@ -90,7 +90,7 @@
     <string name="filedetails_select_file">Натиснете върху файл, за да видите допълнителна информация.</string>
     <string name="filedetails_download">Изтегляне</string>
     <string name="filedetails_sync_file">Синхронизиране</string>
-    <string name="action_share">Споделяне</string>
+    <string name="action_send_share">Споделяне</string>
     <string name="common_yes">Да</string>
     <string name="common_no">Не</string>
     <string name="common_ok">ОК</string>

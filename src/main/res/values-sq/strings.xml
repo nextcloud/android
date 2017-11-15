@@ -117,7 +117,7 @@
     <string name="filedetails_sync_file">Sinkronizo</string>
     <string name="filedetails_renamed_in_upload_msg">Skedari u riemërtua %1$s gjatë ngarkimit</string>
     <string name="list_layout">Strukturë e listuar</string>
-    <string name="action_share">Ndaje</string>
+    <string name="action_send_share">Ndaje</string>
     <string name="common_yes">Po</string>
     <string name="common_no">Jo</string>
     <string name="common_ok">OK</string>

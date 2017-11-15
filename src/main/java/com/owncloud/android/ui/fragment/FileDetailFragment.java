@@ -137,11 +137,11 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
 
-        setFile((OCFile) getArguments().getParcelable(ARG_FILE));
+        setFile(getArguments().getParcelable(ARG_FILE));
         mAccount = getArguments().getParcelable(ARG_ACCOUNT);
 
         if (savedInstanceState != null) {
-            setFile((OCFile) savedInstanceState.getParcelable(FileActivity.EXTRA_FILE));
+            setFile(savedInstanceState.getParcelable(FileActivity.EXTRA_FILE));
             mAccount = savedInstanceState.getParcelable(FileActivity.EXTRA_ACCOUNT);
         }
 
@@ -292,7 +292,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
             item.setEnabled(false);
         }
 
-        item = menu.findItem(R.id.action_share_file);
+        item = menu.findItem(R.id.action_send_share_file);
         item.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
 
         if(getFile().isSharedWithMe() && !getFile().canReshare()){
@@ -311,8 +311,9 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.action_share_file: {
-                mContainerActivity.getFileOperationsHelper().showShareFile(getFile());
+            case R.id.action_send_share_file: {
+                mContainerActivity.getFileOperationsHelper().sendShareFile(getFile(),
+                        (FileDisplayActivity) mContainerActivity);
                 return true;
             }
             case R.id.action_open_file_with: {
@@ -336,14 +337,6 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
             case R.id.action_download_file:
             case R.id.action_sync_file: {
                 mContainerActivity.getFileOperationsHelper().syncFile(getFile());
-                return true;
-            }
-            case R.id.action_send_file: {
-                if (getFile().isDown()) {
-                    mContainerActivity.getFileOperationsHelper().sendDownloadedFile(getFile());
-                } else {
-                    mContainerActivity.getFileOperationsHelper().sendCachedImage(getFile());
-                }
                 return true;
             }
             default:

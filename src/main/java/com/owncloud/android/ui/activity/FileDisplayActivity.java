@@ -86,6 +86,7 @@ import com.owncloud.android.operations.SynchronizeFileOperation;
 import com.owncloud.android.operations.UploadFileOperation;
 import com.owncloud.android.services.observer.FileObserverService;
 import com.owncloud.android.syncadapter.FileSyncAdapter;
+import com.owncloud.android.ui.dialog.SendShareDialog;
 import com.owncloud.android.ui.dialog.SortingOrderDialogFragment;
 import com.owncloud.android.ui.events.SyncEventFinished;
 import com.owncloud.android.ui.events.TokenPushEvent;
@@ -1447,7 +1448,10 @@ public class FileDisplayActivity extends HookActivity
                     if (mWaitingToSend.isDown() && downloadBehaviour != null) {
                         switch (downloadBehaviour) {
                             case OCFileListFragment.DOWNLOAD_SEND:
-                                sendDownloadedFile();
+                                String packageName = intent.getStringExtra(SendShareDialog.PACKAGE_NAME);
+                                String activityName = intent.getStringExtra(SendShareDialog.ACTIVITY_NAME);
+
+                                sendDownloadedFile(packageName, activityName);
                                 break;
                             default:
                                 // do nothing
@@ -1559,19 +1563,16 @@ public class FileDisplayActivity extends HookActivity
 
         @Override
         public void onServiceConnected(ComponentName component, IBinder service) {
-            if (component.equals(new ComponentName(
-                    FileDisplayActivity.this, FileDownloader.class))) {
+            if (component.equals(new ComponentName(FileDisplayActivity.this, FileDownloader.class))) {
                 Log_OC.d(TAG, "Download service connected");
                 mDownloaderBinder = (FileDownloaderBinder) service;
                 if (mWaitingToPreview != null && getStorageManager() != null) {
                     // update the file
-                    mWaitingToPreview =
-                            getStorageManager().getFileById(mWaitingToPreview.getFileId());
+                    mWaitingToPreview = getStorageManager().getFileById(mWaitingToPreview.getFileId());
                     if (!mWaitingToPreview.isDown()) {
                         requestForDownload();
                     }
                 }
-
             } else if (component.equals(new ComponentName(FileDisplayActivity.this,
                     FileUploader.class))) {
                 Log_OC.d(TAG, "Upload service connected");
@@ -1596,12 +1597,10 @@ public class FileDisplayActivity extends HookActivity
 
         @Override
         public void onServiceDisconnected(ComponentName component) {
-            if (component.equals(new ComponentName(FileDisplayActivity.this,
-                    FileDownloader.class))) {
+            if (component.equals(new ComponentName(FileDisplayActivity.this, FileDownloader.class))) {
                 Log_OC.d(TAG, "Download service disconnected");
                 mDownloaderBinder = null;
-            } else if (component.equals(new ComponentName(FileDisplayActivity.this,
-                    FileUploader.class))) {
+            } else if (component.equals(new ComponentName(FileDisplayActivity.this, FileUploader.class))) {
                 Log_OC.d(TAG, "Upload service disconnected");
                 mUploaderBinder = null;
             }
@@ -1967,19 +1966,35 @@ public class FileDisplayActivity extends HookActivity
         }
     }
 
-    private void requestForDownload(OCFile file, String downloadBehaviour) {
+    private void requestForDownload(OCFile file, String downloadBehaviour, String packageName, String activityName) {
         Account account = getAccount();
         if (!mDownloaderBinder.isDownloading(account, mWaitingToPreview)) {
             Intent i = new Intent(this, FileDownloader.class);
             i.putExtra(FileDownloader.EXTRA_ACCOUNT, account);
             i.putExtra(FileDownloader.EXTRA_FILE, file);
+            i.putExtra(SendShareDialog.PACKAGE_NAME, packageName);
+            i.putExtra(SendShareDialog.ACTIVITY_NAME, activityName);
             i.putExtra(OCFileListFragment.DOWNLOAD_BEHAVIOUR, downloadBehaviour);
             startService(i);
         }
     }
 
-    private void sendDownloadedFile() {
-        getFileOperationsHelper().sendDownloadedFile(mWaitingToSend);
+    private void sendDownloadedFile(String packageName, String activityName) {
+        if (mWaitingToSend != null) {
+            Intent sendIntent = new Intent(Intent.ACTION_SEND);
+            sendIntent.setType(mWaitingToSend.getMimetype());
+            sendIntent.putExtra(Intent.EXTRA_STREAM, mWaitingToSend.getExposedFileUri(this));
+            sendIntent.putExtra(Intent.ACTION_SEND, true);
+
+            sendIntent.setComponent(new ComponentName(packageName, activityName));
+
+            // Show dialog
+            String sendTitle = getString(R.string.activity_chooser_send_file_title);
+            startActivity(Intent.createChooser(sendIntent, sendTitle));
+        } else {
+            Log_OC.e(TAG, "Trying to send a NULL OCFile");
+        }
+        
         mWaitingToSend = null;
     }
 
@@ -1989,10 +2004,13 @@ public class FileDisplayActivity extends HookActivity
      * when the download finishes.
      *
      * @param file {@link OCFile} to download and preview.
+     * @param packageName
+     * @param activityName
      */
-    public void startDownloadForSending(OCFile file, String downloadBehaviour) {
+    public void startDownloadForSending(OCFile file, String downloadBehaviour, String packageName,
+                                        String activityName) {
         mWaitingToSend = file;
-        requestForDownload(mWaitingToSend, downloadBehaviour);
+        requestForDownload(mWaitingToSend, downloadBehaviour, packageName, activityName);
         boolean hasSecondFragment = (getSecondFragment() != null);
         updateFragmentsVisibility(hasSecondFragment);
     }

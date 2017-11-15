@@ -120,7 +120,7 @@
     <string name="filedetails_sync_file">Synchronisation</string>
     <string name="filedetails_renamed_in_upload_msg">Datei während des Hochladens in %1$s umbenannt</string>
     <string name="list_layout">Layout der Liste</string>
-    <string name="action_share">Teilen</string>
+    <string name="action_send_share">Teilen</string>
     <string name="common_yes">Ja</string>
     <string name="common_no">Nein</string>
     <string name="common_ok">OK</string>

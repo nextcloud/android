@@ -118,7 +118,7 @@ Smelltu hér til að fá þér einn frá þjónustuaðila.</string>
     <string name="filedetails_sync_file">Samstilla</string>
     <string name="filedetails_renamed_in_upload_msg">Skrá endurnefnd sem %1$s við innsendingu</string>
     <string name="list_layout">Framsetning sem listi</string>
-    <string name="action_share">Deila</string>
+    <string name="action_send_share">Deila</string>
     <string name="common_yes">Já</string>
     <string name="common_no">Nei</string>
     <string name="common_ok">Í lagi</string>

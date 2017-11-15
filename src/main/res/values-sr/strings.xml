@@ -119,7 +119,7 @@
     <string name="filedetails_sync_file">Синхронизуј</string>
     <string name="filedetails_renamed_in_upload_msg">Фајл преименован у %1$sза време отпремања</string>
     <string name="list_layout">Излистани распоред</string>
-    <string name="action_share">Дељење</string>
+    <string name="action_send_share">Дељење</string>
     <string name="common_yes">Да</string>
     <string name="common_no">Не</string>
     <string name="common_ok">У реду</string>

@@ -60,6 +60,7 @@ import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.files.FileMenuFilter;
 import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment;
 import com.owncloud.android.ui.dialog.RemoveFilesDialogFragment;
 import com.owncloud.android.ui.fragment.FileFragment;
@@ -404,7 +405,7 @@ public class PreviewImageFragment extends FileFragment {
 
         if(getFile().isSharedWithMe() && !getFile().canReshare()){
             // additional restriction for this fragment
-            item = menu.findItem(R.id.action_share_file);
+            item = menu.findItem(R.id.action_send_share_file);
             if(item != null){
                 item.setVisible(false);
                 item.setEnabled(false);
@@ -420,8 +421,9 @@ public class PreviewImageFragment extends FileFragment {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.action_share_file:
-                mContainerActivity.getFileOperationsHelper().showShareFile(getFile());
+            case R.id.action_send_share_file:
+                mContainerActivity.getFileOperationsHelper().sendShareFile(getFile(),
+                        (FileDisplayActivity) mContainerActivity);
                 return true;
 
             case R.id.action_open_file_with:
@@ -436,15 +438,6 @@ public class PreviewImageFragment extends FileFragment {
             case R.id.action_see_details:
                 seeDetails();
                 return true;
-
-            case R.id.action_send_file:
-                if (MimeTypeUtil.isImage(getFile()) && !getFile().isDown()) {
-                    mContainerActivity.getFileOperationsHelper().sendCachedImage(getFile());
-                    return true;
-                } else {
-                    mContainerActivity.getFileOperationsHelper().sendDownloadedFile(getFile());
-                    return true;
-                }
 
             case R.id.action_download_file:
             case R.id.action_sync_file:
