@@ -118,6 +118,7 @@
     <string name="common_yes">Ναι</string>
     <string name="common_no">Όχι</string>
     <string name="common_ok">Εντάξει</string>
+    <string name="common_remove_upload">Διαγραφή μεταφόρτωσης</string>
     <string name="common_retry_upload">Επανάληψη μεταφόρτωσης</string>
     <string name="common_cancel_sync">Ακύρωση συγχρονισμού</string>
     <string name="common_cancel">Ακύρωση</string>
