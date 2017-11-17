@@ -1373,7 +1373,7 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
                                     externalLinksProvider.storeExternalLink(link);
                                 }
 
-                                updateExternalLinksInDrawer();
+                                runOnUiThread(() -> updateExternalLinksInDrawer());
                             }
                         } else {
                             sharedPreferences.edit().putInt(EXTERNAL_LINKS_COUNT, count + 1).apply();
