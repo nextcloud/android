@@ -527,8 +527,6 @@
 
     <string name="whats_new_skip">Ohita</string>
 
-    <string name="fingerprint_scan_finger">Skannaa sormesi.</string>
-    <string name="fingerprint_unknown">Sormea ei tunnistettu</string>
 
     <!-- User information -->
     <string name="user_info_email">Sähköposti</string>
