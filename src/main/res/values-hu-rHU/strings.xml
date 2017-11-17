@@ -701,4 +701,23 @@ hozzáadások, változások és megosztások</string>
     <string name="resized_images_download_full_image">Teljes kép letöltése?</string>
 
     <string name="store_short_desc">A Nextcloud Android alkalmazás segítségével hozzáférhetsz a saját Nextcloud-on tárolt fájlaidhoz.</string>
-    </resources>
+    <string name="store_full_desc">A nyílt forrású Nextcloud android app segítségével hozzáférhetsz a saját Nextcloudod fájljaihoz.
+
+Szolgáltatások:
+* Egyszerű, modern felület, mely teljesen személyre szabott, igazodik a szerveredhez
+* Fájl feltöltés  a saját Nextcloud szerveredre
+* Fájl megosztás másokkal
+* Kedvenc mappád fájljaid szinkronizálása
+* Keresés a szerver mappái között
+* Az eszközöddel készített videók és képek automatikus feltöltése
+* Értesítések fogadása
+* Több hozzáférés támogatása
+* Biztonságosa adatelérés PIN vagy ujjlenyomat segítségével
+* Kapcsolódás a DAVdroiddal a naptár és névjegy szinkronizálás megkönnyítésére
+
+Kérjük jelents minden hibát a https://github.com/nextcloud/android/issues címen és beszélgess az appról itt: https://help.nextcloud.com/c/clients/android
+
+Új neked a Nextcloud? A Nextcloud egy privát fájl szinkronizáló, megosztó és kommunikációs szerver. Teljesen nyílt forrású, melyet magad is futtathatsz, vagy fizethetsz más cégeknek, hogy megtegyék neked. Segítségével teljesen ura lehetsz saját képeidnek, naptáradnak, kapcsolataidnak, fájljaidnak és minden egyebednek.
+
+A Nextcloud itt érhető el: https://nextcloud.com</string>
+</resources>
