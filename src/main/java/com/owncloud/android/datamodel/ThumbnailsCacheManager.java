@@ -37,6 +37,7 @@ import android.media.MediaMetadataRetriever;
 import android.media.ThumbnailUtils;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.view.Display;
 import android.view.MenuItem;
@@ -508,8 +509,13 @@ public class ThumbnailsCacheManager {
                 pxW = pxH = getThumbnailDimension();
 
                 if (file.isDown()) {
-                    Bitmap bitmap = BitmapUtils.decodeSampledBitmapFromFile(
-                            file.getStoragePath(), pxW, pxH);
+                    Bitmap bitmap;
+                    if (MimeTypeUtil.isVideo(file)) {
+                        bitmap = ThumbnailUtils.createVideoThumbnail(file.getStoragePath(),
+                                MediaStore.Images.Thumbnails.MINI_KIND);
+                    } else {
+                        bitmap = BitmapUtils.decodeSampledBitmapFromFile(file.getStoragePath(), pxW, pxH);
+                    }
 
                     if (bitmap != null) {
                         // Handle PNG
