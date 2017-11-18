@@ -56,6 +56,7 @@
     <string name="prefs_feedback">Feedback</string>
     <string name="prefs_imprint">afdruk</string>
 
+	<string name="recommend_subject">Probeer %1$s op je toestel!</string>
 	<string name="recommend_urls">%1$s or %2$s</string>
 
     <string name="auth_check_server">Controleer server</string>
