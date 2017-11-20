@@ -28,6 +28,7 @@
         android:layout_height="wrap_content"
         android:paddingBottom="@dimen/alternate_half_padding"
         android:paddingLeft="@dimen/standard_padding"
+        android:paddingStart="@dimen/standard_padding"
         android:paddingTop="@dimen/alternate_half_padding">
 
         <LinearLayout
@@ -36,8 +37,10 @@
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/buttonBar"
             android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
             android:layout_alignTop="@+id/buttonBar"
-            android:layout_toLeftOf="@+id/buttonBar">
+            android:layout_toLeftOf="@+id/buttonBar"
+            android:layout_toStartOf="@+id/buttonBar">
 
             <ImageView
                 android:id="@+id/type"
@@ -45,7 +48,9 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="start|center_vertical"
                 android:paddingRight="@dimen/standard_half_padding"
-                android:src="@drawable/ic_image_18dp"/>
+                android:paddingEnd="@dimen/standard_half_padding"
+                android:src="@drawable/ic_image_18dp"
+                android:contentDescription="@string/synced_folders_type"/>
 
             <TextView
                 android:id="@+id/title"
@@ -63,7 +68,8 @@
             android:id="@+id/buttonBar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true">
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true">
 
             <ImageButton
                 android:id="@+id/syncStatusButton"
@@ -72,7 +78,9 @@
                 android:background="@color/transparent"
                 android:clickable="true"
                 android:padding="@dimen/standard_half_padding"
-                android:src="@drawable/ic_cloud_sync_off"/>
+                android:src="@drawable/ic_cloud_sync_off"
+                android:contentDescription="@string/sync_status_button"
+                android:focusable="true"/>
 
             <ImageButton
                 android:id="@+id/settingsButton"
@@ -82,9 +90,13 @@
                 android:clickable="true"
                 android:paddingBottom="@dimen/standard_half_padding"
                 android:paddingLeft="@dimen/standard_half_padding"
+                android:paddingStart="@dimen/standard_half_padding"
                 android:paddingRight="@dimen/standard_padding"
+                android:paddingEnd="@dimen/standard_padding"
                 android:paddingTop="@dimen/standard_half_padding"
-                android:src="@drawable/ic_dots_vertical"/>
+                android:src="@drawable/ic_dots_vertical"
+                android:contentDescription="@string/synced_folder_settings_button"
+                android:focusable="true"/>
         </LinearLayout>
     </RelativeLayout>
 
