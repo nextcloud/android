@@ -1,4 +1,4 @@
-/**
+/*
  *   ownCloud Android client application
  *
  *   Copyright (C) 2016 ownCloud Inc.
@@ -102,13 +102,17 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
 
         // Action bar setup
         setupToolbar();
-        getSupportActionBar().setDisplayShowTitleEnabled(true);
+
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayShowTitleEnabled(true);
+            getSupportActionBar().setTitle(caption);
+        }
+        
         if (getIntent().getStringExtra(EXTRA_ACTION) != null) {
             caption = getIntent().getStringExtra(EXTRA_ACTION);
         } else {
             caption = ThemeUtils.getDefaultDisplayNameForRootFolder();
         }
-        getSupportActionBar().setTitle(caption);
 
         setIndeterminate(mSyncInProgress);
         // always AFTER setContentView(...) ; to work around bug in its implementation
@@ -161,6 +165,7 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
         Bundle args = new Bundle();
         args.putBoolean(OCFileListFragment.ARG_JUST_FOLDERS, true);
         args.putBoolean(OCFileListFragment.ARG_HIDE_FAB, true);
+        args.putBoolean(OCFileListFragment.ARG_HIDE_ITEM_OPTIONS, true);
         listOfFiles.setArguments(args);
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.add(R.id.fragment_container, listOfFiles, TAG_LIST_OF_FOLDERS);
@@ -194,7 +199,7 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
         if (listOfFiles != null) {
             return (OCFileListFragment)listOfFiles;
         }
-        Log_OC.e(TAG, "Access to unexisting list of files fragment!!");
+        Log_OC.e(TAG, "Access to non existing list of files fragment!!");
         return null;
     }
     
@@ -222,19 +227,12 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
         mSyncInProgress = true;
                 
         // perform folder synchronization
-        RemoteOperation synchFolderOp = new RefreshFolderOperation( folder,
-                                                                        currentSyncTime, 
-                                                                        false,
-                                                                        getFileOperationsHelper().isSharedSupported(),
-                                                                        ignoreETag,
-                                                                        getStorageManager(), 
-                                                                        getAccount(), 
-                                                                        getApplicationContext()
-                                                                      );
-        synchFolderOp.execute(getAccount(), this, null, null);
+        RemoteOperation refreshFolderOperation = new RefreshFolderOperation(folder, currentSyncTime, false,
+                getFileOperationsHelper().isSharedSupported(), ignoreETag, getStorageManager(), getAccount(),
+                getApplicationContext());
 
+        refreshFolderOperation.execute(getAccount(), this, null, null);
         setIndeterminate(true);
-
         setBackgroundText();
     }
 
@@ -277,6 +275,9 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.main_menu, menu);
+        menu.findItem(R.id.action_switch_view).setVisible(false);
+        menu.findItem(R.id.action_sync_account).setVisible(false);
+        menu.findItem(R.id.action_select_all).setVisible(false);
         menu.findItem(R.id.action_sort).setVisible(false);
         return true;
     }
@@ -355,16 +356,15 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
     }
 
     protected void updateNavigationElementsInActionBar() {
-        ActionBar actionBar = getSupportActionBar();
         OCFile currentDir = getCurrentFolder();
-        boolean atRoot = (currentDir == null || currentDir.getParentId() == 0);
-        actionBar.setDisplayHomeAsUpEnabled(!atRoot);
-        actionBar.setHomeButtonEnabled(!atRoot);
-        actionBar.setTitle(
-            atRoot
-                ? caption
-                : currentDir.getFileName()
-        );
+        ActionBar actionBar = getSupportActionBar();
+
+        if (actionBar != null) {
+            boolean atRoot = (currentDir == null || currentDir.getParentId() == 0);
+            actionBar.setDisplayHomeAsUpEnabled(!atRoot);
+            actionBar.setHomeButtonEnabled(!atRoot);
+            actionBar.setTitle(atRoot ? caption : currentDir.getFileName());
+        }
     }
 
     /**
@@ -443,39 +443,33 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
                 String event = intent.getAction();
                 Log_OC.d(TAG, "Received broadcast " + event);
                 String accountName = intent.getStringExtra(FileSyncAdapter.EXTRA_ACCOUNT_NAME);
-                String synchFolderRemotePath = intent.getStringExtra(FileSyncAdapter.EXTRA_FOLDER_PATH);
-                RemoteOperationResult synchResult = (RemoteOperationResult)
+                String syncFolderRemotePath = intent.getStringExtra(FileSyncAdapter.EXTRA_FOLDER_PATH);
+                RemoteOperationResult syncResult = (RemoteOperationResult)
                         DataHolderUtil.getInstance().retrieve(intent.getStringExtra(FileSyncAdapter.EXTRA_RESULT));
-                boolean sameAccount = (getAccount() != null && 
-                        accountName.equals(getAccount().name) && getStorageManager() != null); 
+                boolean sameAccount = (getAccount() != null && accountName.equals(getAccount().name)
+                        && getStorageManager() != null); 
     
                 if (sameAccount) {
-                    
                     if (FileSyncAdapter.EVENT_FULL_SYNC_START.equals(event)) {
                         mSyncInProgress = true;
-                        
                     } else {
-                        OCFile currentFile = (getFile() == null) ? null : 
-                            getStorageManager().getFileByPath(getFile().getRemotePath());
+                        OCFile currentFile = (getFile() == null) ? null :
+                                getStorageManager().getFileByPath(getFile().getRemotePath());
                         OCFile currentDir = (getCurrentFolder() == null) ? null : 
                             getStorageManager().getFileByPath(getCurrentFolder().getRemotePath());
     
                         if (currentDir == null) {
                             // current folder was removed from the server
-                            DisplayUtils.showSnackMessage(
-                                    getActivity(),
-                                    R.string.sync_current_folder_was_removed,
-                                    getCurrentFolder().getFileName()
-                            );
+                            DisplayUtils.showSnackMessage(getActivity(), R.string.sync_current_folder_was_removed,
+                                    getCurrentFolder().getFileName());
                             browseToRoot();
-                            
                         } else {
                             if (currentFile == null && !getFile().isFolder()) {
                                 // currently selected file was removed in the server, and now we know it
                                 currentFile = currentDir;
                             }
 
-                            if (currentDir.getRemotePath().equals(synchFolderRemotePath)) {
+                            if (currentDir.getRemotePath().equals(syncFolderRemotePath)) {
                                 OCFileListFragment fileListFragment = getListOfFilesFragment();
                                 if (fileListFragment != null) {
                                     fileListFragment.listDirectory(currentDir, false, false);
@@ -486,21 +480,17 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
                         
                         mSyncInProgress = (!FileSyncAdapter.EVENT_FULL_SYNC_END.equals(event) && 
                                 !RefreshFolderOperation.EVENT_SINGLE_FOLDER_SHARES_SYNCED.equals(event));
-                                
-                        if (RefreshFolderOperation.EVENT_SINGLE_FOLDER_CONTENTS_SYNCED.
-                                    equals(event) &&
+
+                        if (RefreshFolderOperation.EVENT_SINGLE_FOLDER_CONTENTS_SYNCED.equals(event) &&
                                 /// TODO refactor and make common
-                                synchResult != null && !synchResult.isSuccess()) {
+                                syncResult != null && !syncResult.isSuccess()) {
 
-                            if(ResultCode.UNAUTHORIZED.equals(synchResult.getCode())   ||
-                                (synchResult.isException() && synchResult.getException()
-                                    instanceof AuthenticatorException)) {
-
+                            if (ResultCode.UNAUTHORIZED.equals(syncResult.getCode()) || (syncResult.isException()
+                                    && syncResult.getException() instanceof AuthenticatorException)) {
                                 requestCredentialsUpdate(context);
-
-                            } else if(RemoteOperationResult.ResultCode.SSL_RECOVERABLE_PEER_UNVERIFIED.equals(synchResult.getCode())) {
-
-                                showUntrustedCertDialog(synchResult);
+                            } else if (RemoteOperationResult.ResultCode.SSL_RECOVERABLE_PEER_UNVERIFIED
+                                    .equals(syncResult.getCode())) {
+                                showUntrustedCertDialog(syncResult);
                             }
 
                         }
