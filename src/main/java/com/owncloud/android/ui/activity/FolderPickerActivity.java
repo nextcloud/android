@@ -102,16 +102,16 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
 
         // Action bar setup
         setupToolbar();
-
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setDisplayShowTitleEnabled(true);
-            getSupportActionBar().setTitle(caption);
-        }
         
         if (getIntent().getStringExtra(EXTRA_ACTION) != null) {
             caption = getIntent().getStringExtra(EXTRA_ACTION);
         } else {
             caption = ThemeUtils.getDefaultDisplayNameForRootFolder();
+        }
+
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayShowTitleEnabled(true);
+            getSupportActionBar().setTitle(caption);
         }
 
         setIndeterminate(mSyncInProgress);
