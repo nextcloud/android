@@ -1,1 +1,1 @@
-De Nextcloud Android app geeft je toegang tot al je Nextcloud bestanden.
+De Nextcloud app voor Android geeft je toegang tot al je Nextcloud bestanden.
