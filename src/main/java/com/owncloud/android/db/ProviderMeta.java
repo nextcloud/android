@@ -101,8 +101,13 @@ public class ProviderMeta {
         public static final String FILE_ETAG_IN_CONFLICT = "etag_in_conflict";
         public static final String FILE_FAVORITE = "favorite";
 
-        public static final String FILE_DEFAULT_SORT_ORDER = FILE_NAME
-                + " collate nocase asc";
+        public static final String[] FILE_ALL_COLUMNS = {_ID, FILE_PARENT, FILE_NAME, FILE_CREATION, FILE_MODIFIED,
+                FILE_MODIFIED_AT_LAST_SYNC_FOR_DATA, FILE_CONTENT_LENGTH, FILE_CONTENT_TYPE, FILE_STORAGE_PATH,
+                FILE_PATH, FILE_ACCOUNT_OWNER, FILE_LAST_SYNC_DATE, FILE_LAST_SYNC_DATE_FOR_DATA, FILE_KEEP_IN_SYNC,
+                FILE_ETAG, FILE_SHARED_VIA_LINK, FILE_SHARED_WITH_SHAREE, FILE_PUBLIC_LINK, FILE_PERMISSIONS,
+                FILE_REMOTE_ID, FILE_UPDATE_THUMBNAIL, FILE_IS_DOWNLOADING, FILE_ETAG_IN_CONFLICT, FILE_FAVORITE};
+
+        public static final String FILE_DEFAULT_SORT_ORDER = FILE_NAME + " collate nocase asc";
 
         // Columns of ocshares table
         public static final String OCSHARES_FILE_SOURCE = "file_source";
