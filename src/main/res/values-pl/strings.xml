@@ -56,7 +56,9 @@
     <string name="prefs_feedback">Opinie</string>
     <string name="prefs_imprint">Stopka</string>
 
-	<string name="recommend_urls">%1$s lub %2$s</string>
+	<string name="recommend_subject">Wypróbuj %1$s na Twoim urządzeniu!</string>
+	<string name="recommend_text">Chciałbym zaprosić Cię to użytkowania %1$s na Twoim urządzeniu.\nPobierz stąd: %2$s</string>
+    <string name="recommend_urls">%1$s lub %2$s</string>
 
     <string name="auth_check_server">Sprawdź serwer</string>
     <string name="auth_host_url">Adres serwera https://&#8230;</string>
@@ -477,6 +479,7 @@
     <string name="share_via_link_expiration_date_label">Ustaw datę wygaśnięcia</string>
     <string name="share_via_link_password_label">Zabezpiecz hasłem</string>
     <string name="share_via_link_password_title">Zabezpieczone</string>
+    <string name="share_via_link_edit_permission_label">Pozwól na edycję</string>
     <string name="share_via_link_hide_file_listing_permission_label">Schowaj listę plików</string>
     <string name="share_get_public_link_button">Pobierz link</string>
     <string name="share_with_title">Współdziel z &#8230;</string>
@@ -543,6 +546,10 @@
     <string name="participate_contribute_translate_translate">Tłumacz</string>
     <string name="participate_contribute_translate_text">aplikacja</string>
     <string name="participate_contribute_github_text">Przejrzyj, zmień i napisz kod, zajrzyj do %1$s po szczegóły</string>
+    <string name="participate_rc_play_store">Pobierz wersję \"kandydującą\" ze sklepu Google Play</string>
+    <string name="participate_rc_fdroid">Pobierz wersję \"kandydującą\" z F-Droid</string>
+    <string name="participate_dev_fdroid">Pobierz wersję \"rozwojową\" z F-Droid</string>
+    <string name="participate_dev_direct_download">Pobierz wersję \"kandydującą\" bezpośrednio</string>
     <string name="move_to">Przenieś do&#8230;</string>
     <string name="copy_to">Skopiuj do&#8230;</string>
     <string name="choose_remote_folder">Wybierz zdalny folder&#8230;</string>
@@ -659,14 +666,37 @@
     <string name="resharing_is_not_allowed">Udostępnianie dalej nie jest dozwolone</string>
     <string name="whats_new_fingerprint_title">Odblokuj odciskiem palca</string>
     <string name="whats_new_fingerprint_content">Odblokuj aplikację odciskiem palca</string>
+    <string name="fallback_weblogin_back">Wróć</string>
+    <string name="fallback_weblogin_text">Przywróć starą metodę logowania</string>
+
     <string name="foreground_service_upload">Wysyłanie plików&#8230;</string>
     <string name="foreground_service_download">Pobieranie plików&#8230;</string>
 
     <string name="prefs_sourcecode">Pobierz kod źródłowy</string>
     <string name="prefs_license">Licencja</string>
+    <string name="prefs_gpl_v2">Publiczna Licencja GNU, wersja 2</string>
     <string name="push_notifications_not_implemented">Powiadomienia typu push zostały wyłączone ze względu na zastrzeżenia prawne usług Google Play.</string>
     <string name="push_notifications_old_login">Brak powiadomień typu push ze względu na wygasłą sesję logowania. Przemyśl ponowne dodanie swojego konta.</string>
     <string name="push_notifications_temp_error">Powiadomienia typu push nie są aktualnie dostępne.</string>
     <string name="date_unknown">Nieznane</string>
 
-    </resources>
+    <string name="resized_image_not_possible">Niedostępna wersja ze zmienionym rozmiarem. Pobrać pełen obraz?</string>
+    <string name="resized_images_download_full_image">Pobrać pełen obraz?</string>
+
+    <string name="store_short_desc">Aplikacja Nextcloud na Androida umożliwia Tobie na dostęp do wszystkich plików na Twoim Nextcloudzie.</string>
+    <string name="store_full_desc">Oparta na Open Source aplikacja Nexcloud Android umożliwia dostęp do wszystkich twoich plików w Nextcloud.
+
+Funkcje:
+* Prosty i nowoczesny wygląd
+* Wysyłaj swoje pliki na swój serwer Nextcloud
+* Dawaj innym dostęp do twoich plików
+* Synchronizuj wybrane pliki i katalogi z serwerem
+* Automatycznie wysyłaj zdjęcia i filmy robione urządzeniem
+* Wsparcie dla wielu kont
+
+Zgłaszaj błędy na https://github.com/nextcloud/android/issues i dyskutuj na temat tej aplikacji na https://help.nextcloud.com ;-)
+
+Nie znasz jeszcze Nextcloud? Nextcloud jest prywatnym serwerem synchronizacji i współdzielenia plików oraz komunikacji. Jego źródła są całkowicie otwarte, więc możesz korzystać z niego na własnym serwerze albo możesz zapłacić za to firmie trzeciej. W ten sposób kontrolujesz swoje zdjęcia, kalendarz, dane kontaktowe, twoje dokumenty i inne dane.
+
+Zobacz Nextcloud na https://nextcloud.com</string>
+</resources>

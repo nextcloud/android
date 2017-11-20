@@ -33,7 +33,7 @@
     <string name="drawer_item_uploads_list">Отпремања</string>
     <string name="drawer_item_activities">Активности</string>
     <string name="drawer_item_notifications">Обавештења</string>
-    <string name="drawer_quota">%1$s од %2$s искориштено</string>
+    <string name="drawer_quota">%1$s од %2$s заузето</string>
 	<string name="drawer_close">Затвори</string>
     <string name="drawer_open">Отвори</string>
     <string name="prefs_category_general">Опште</string>
@@ -42,22 +42,22 @@
     <string name="prefs_passcode">Закључавање кодом</string>
     <string name="prefs_fingerprint">Закључавање отиском прста</string>
     <string name="prefs_fingerprint_notsetup">Отисак прста није подешен.</string>
-    <string name="prefs_expert_mode">Експертски режим рада</string>
+    <string name="prefs_expert_mode">Експертски режим</string>
     <string name="prefs_show_hidden_files">Прикажи скривене фајлове</string>
     <string name="prefs_log_delete_history_button">Обриши историјат</string>
-    <string name="prefs_calendar_contacts">Синхронизуј календар &amp; контакте</string>
-    <string name="prefs_calendar_contacts_summary">Подеси DAVdroid (v1.3.0+) за тренутни налог</string>
-    <string name="prefs_calendar_contacts_address_resolve_error">Адреса сервера за налог не може бити пронађена за DAVdroid</string>
-    <string name="prefs_calendar_contacts_no_store_error">Ни Ф-Дроид ни Google Play продавница нису инсталиране</string>
-    <string name="prefs_calendar_contacts_sync_setup_successful">Календар&amp; синхронизација контаката подешена</string>
-    <string name="prefs_daily_contacts_sync_summary">Прављење резервне копије Ваших контаката на дневном нивоу</string>
+    <string name="prefs_calendar_contacts">Синхронизуј календар и контакте</string>
+    <string name="prefs_calendar_contacts_summary">Подеси ДАВдроид (в1.3.0+) за тренутни налог</string>
+    <string name="prefs_calendar_contacts_address_resolve_error">Адреса сервера за налог не може бити пронађена за ДАВдроид</string>
+    <string name="prefs_calendar_contacts_no_store_error">Ни Ф-дроид ни Гугл плеј продавница нису инсталиране</string>
+    <string name="prefs_calendar_contacts_sync_setup_successful">Календар и синхронизација контаката подешени</string>
+    <string name="prefs_daily_contacts_sync_summary">Дневно архивирање ваших контаката</string>
     <string name="prefs_help">Помоћ</string>
     <string name="prefs_recommend">Препоручите пријатељу</string>
     <string name="prefs_feedback">Ваше мишљење</string>
     <string name="prefs_imprint">Жиг</string>
 
-	<string name="recommend_subject">Испробај %1$s на уређају!</string>
-	<string name="recommend_text">Желео бих да те позовем да испробаш %1$s на уређају.\nСкини га овде: %2$s</string>
+	<string name="recommend_subject">Испробај %1$s на свом уређају!</string>
+	<string name="recommend_text">Желим да те позовем да испробаш %1$s на свом уређају.\nПреузми га овде: %2$s</string>
     <string name="recommend_urls">%1$s или %2$s</string>
 
     <string name="auth_check_server">Провери сервер</string>
