@@ -268,7 +268,7 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
         mAccountMiddleAccountAvatar = (ImageView) findNavigationViewChildById(R.id.drawer_account_middle);
         mAccountEndAccountAvatar = (ImageView) findNavigationViewChildById(R.id.drawer_account_end);
 
-        mAccountChooserToggle = (ImageView) findNavigationViewChildById(R.id.drawer_account_chooser_toogle);
+        mAccountChooserToggle = (ImageView) findNavigationViewChildById(R.id.drawer_account_chooser_toggle);
         mAccountChooserToggle.setColorFilter(ThemeUtils.fontColor());
 
         if (getResources().getBoolean(R.bool.allow_profile_click)) {

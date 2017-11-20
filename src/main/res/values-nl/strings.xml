@@ -331,7 +331,7 @@ Kies er eentje van een provider.</string>
 
     <string name="placeholder_sentence">Dit is een plaatshouder</string>
     <string name="placeholder_filename">plaatshouder.txt</string>
-    <string name="placeholder_filesize">389 KB</string>
+    <string name="placeholder_fileSize">389 KB</string>
     <string name="placeholder_timestamp">2012/05/18 12:23</string>
     <string name="placeholder_media_time">12:23:45</string>
 
