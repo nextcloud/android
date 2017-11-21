@@ -560,6 +560,10 @@ Attention la suppression est irréversible.</string>
     <string name="participate_contribute_translate_translate">Traduire</string>
     <string name="participate_contribute_translate_text">l\'application</string>
     <string name="participate_contribute_github_text">Vérifier, corriger et écrire du code, voir %1$s pour plus de détails</string>
+    <string name="participate_rc_play_store">Obtenez la version Release Candidate depuis le Play store Google</string>
+    <string name="participate_rc_fdroid">Obtenez la version Release Candidate depuis le F-Droid</string>
+    <string name="participate_dev_fdroid"> Obtenez la version de développement depuis le F-Droid </string>
+    <string name="participate_dev_direct_download">Obtenir la version de développement par téléchargement direct</string>
     <string name="move_to">Déplacer vers&#8230;</string>
     <string name="copy_to">Copier vers&#8230;</string>
     <string name="choose_remote_folder">Sélectionner le dossier distant &#8230;</string>
@@ -682,6 +686,7 @@ Attention la suppression est irréversible.</string>
 
     <string name="prefs_sourcecode">Obtenir le code source</string>
     <string name="prefs_license">Licence</string>
+    <string name="prefs_gpl_v2">Licence Publique Générale GNU, version 2</string>
     <string name="push_notifications_not_implemented">L\'envoi de notifications est désactivé à cause des dépendances propriétaires des services Google Play.</string>
     <string name="push_notifications_old_login">Aucune notification push à cause d\'une connexion expirée. Veuillez ajouter de nouveau votre compte. </string>
     <string name="push_notifications_temp_error">Les notifications push ne sont pas disponibles actuellement.</string>
