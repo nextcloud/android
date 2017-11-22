@@ -471,6 +471,7 @@ public class EncryptionUtils {
 
         String[] strings = string.split(ivDelimiter);
         String cipherString = strings[0];
+
         byte[] iv = new IvParameterSpec(decodeStringToBase64Bytes(strings[1])).getIV();
 
         Key key = new SecretKeySpec(encryptionKeyBytes, "AES");
