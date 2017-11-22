@@ -68,7 +68,7 @@ public class RequestCredentialsActivity extends Activity {
             DeviceCredentialUtils.createKey(getApplicationContext());
             requestCredentials();
         } else {
-            DisplayUtils.showSnackMessage(this, R.string.prefs_device_credentials_not_setup);
+            DisplayUtils.showSnackMessage(this, R.string.prefs_lock_device_credentials_not_setup);
             finishWithResult(true);
         }
     }

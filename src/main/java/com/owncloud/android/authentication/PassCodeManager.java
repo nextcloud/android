@@ -114,8 +114,10 @@ public class PassCodeManager {
     }
 
     private boolean passCodeIsEnabled() {
-        SharedPreferences appPrefs = PreferenceManager.getDefaultSharedPreferences(MainApp.getAppContext());
-        return (appPrefs.getBoolean(PassCodeActivity.PREFERENCE_SET_PASSCODE, false));
+        SharedPreferences appPrefs = PreferenceManager
+                .getDefaultSharedPreferences(MainApp.getAppContext());
+        return (appPrefs.getString(Preferences.PREFERENCE_LOCK, "")
+                .equals(Preferences.LOCK_PASSCODE));
     }
 
     private boolean deviceCredentialsShouldBeRequested() {
@@ -138,6 +140,7 @@ public class PassCodeManager {
     private boolean deviceCredentialsAreEnabled() {
         SharedPreferences appPrefs = PreferenceManager
                 .getDefaultSharedPreferences(MainApp.getAppContext());
-        return appPrefs.getBoolean(Preferences.PREFERENCE_USE_DEVICE_CREDENTIALS, false);
+        return (appPrefs.getString(Preferences.PREFERENCE_LOCK, "")
+                .equals(Preferences.LOCK_DEVICE_CREDENTIALS));
     }
 }

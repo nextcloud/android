@@ -94,7 +94,9 @@ public class ManageSpaceActivity extends AppCompatActivity {
             SharedPreferences appPrefs = PreferenceManager
                     .getDefaultSharedPreferences(getApplicationContext());
 
-            boolean passCodeEnable = appPrefs.getBoolean(PassCodeActivity.PREFERENCE_SET_PASSCODE, false);
+            String lockPref = appPrefs.getString(Preferences.PREFERENCE_LOCK, Preferences.LOCK_NONE);
+            boolean passCodeEnable = appPrefs.getString(Preferences.PREFERENCE_LOCK, "")
+                    .equals(Preferences.LOCK_PASSCODE);
 
             String passCodeDigits[] = new String[4];
             if (passCodeEnable) {
@@ -122,7 +124,7 @@ public class ManageSpaceActivity extends AppCompatActivity {
                 appPrefsEditor.putString(PassCodeActivity.PREFERENCE_PASSCODE_D4, passCodeDigits[3]);
             }
 
-            appPrefsEditor.putBoolean(PassCodeActivity.PREFERENCE_SET_PASSCODE, passCodeEnable);
+            appPrefsEditor.putString(Preferences.PREFERENCE_LOCK, lockPref);
             result = result && appPrefsEditor.commit();
 
             return result;
