@@ -39,12 +39,11 @@
 	</PreferenceCategory>
 
 	<PreferenceCategory android:title="@string/prefs_category_details" android:key="details">
-		<com.owncloud.android.ui.ThemeableSwitchPreference
-			android:title="@string/prefs_passcode"
-			android:key="set_pincode"/>
-		<com.owncloud.android.ui.ThemeableSwitchPreference
-			android:title="@string/prefs_use_device_credentials"
-			android:key="use_device_credentials"/>
+		<ListPreference
+			android:title="@string/prefs_lock"
+			android:key="lock"
+			android:dialogTitle="@string/prefs_lock_title"
+			android:defaultValue="none"/>
 		<com.owncloud.android.ui.ThemeableSwitchPreference
 			android:title="@string/prefs_show_hidden_files"
 			android:key="show_hidden_files"/>

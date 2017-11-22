@@ -56,9 +56,6 @@ public class PassCodeActivity extends AppCompatActivity {
     public final static String KEY_PASSCODE  = "KEY_PASSCODE";
     public final static String KEY_CHECK_RESULT = "KEY_CHECK_RESULT";
 
-    // NOTE: PREFERENCE_SET_PASSCODE must have the same value as preferences.xml-->android:key for passcode preference
-    public final static String PREFERENCE_SET_PASSCODE = "set_pincode";
-
     public final static String PREFERENCE_PASSCODE_D = "PrefPinCode";
     public final static String PREFERENCE_PASSCODE_D1 = "PrefPinCode1";
     public final static String PREFERENCE_PASSCODE_D2 = "PrefPinCode2";

@@ -39,9 +39,13 @@
     <string name="prefs_category_general">General</string>
     <string name="prefs_category_more">More</string>
     <string name="prefs_manage_accounts">Manage accounts</string>
-    <string name="prefs_passcode">Passcode lock</string>
-    <string name="prefs_use_device_credentials">Lock using device credentials</string>
-    <string name="prefs_device_credentials_not_setup">No device credentials have been set up.</string>
+    <string name="prefs_lock">Lock</string>
+    <string name="prefs_lock_title">Lock using</string>
+    <string name="prefs_lock_none">None</string>
+    <string name="prefs_lock_using_passcode">Passcode</string>
+    <string name="prefs_lock_using_device_credentials">Device credentials</string>
+    <string name="prefs_lock_device_credentials_enabled">Device credentials enabled</string>
+    <string name="prefs_lock_device_credentials_not_setup">No device credentials have been set up.</string>
     <string name="prefs_expert_mode">Expert mode</string>
     <string name="prefs_show_hidden_files">Show hidden files</string>
     <string name="prefs_log_delete_history_button">Delete history</string>
