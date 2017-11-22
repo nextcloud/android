@@ -181,34 +181,38 @@ public class Preferences extends PreferenceActivity
             /* Link to dev apks */
             Preference pDevLink = findPreference("dev_link");
             if (pDevLink != null) {
-                pDevLink.setOnPreferenceClickListener(preference -> {
-                    Integer latestVersion = -1;
-                    Integer currentVersion = -1;
-                    try {
-                        currentVersion = getPackageManager().getPackageInfo(getPackageName(), 0).versionCode;
-                        String url = getString(R.string.dev_latest);
-                        LoadingVersionNumberTask loadTask = new LoadingVersionNumberTask();
-                        loadTask.execute(url);
-                        latestVersion = loadTask.get();
-                    } catch (InterruptedException | ExecutionException | NameNotFoundException e) {
-                        Log_OC.e(TAG, "Error detecting app version", e);
-                    }
-                    if (latestVersion == -1 || currentVersion == -1) {
-                        Snackbar.make(getListView(), R.string.dev_version_no_information_available,
-                                Snackbar.LENGTH_SHORT).show();
-                    }
-                    if (latestVersion > currentVersion) {
-                        String devApkLink = (String) getText(R.string.dev_link) + latestVersion + ".apk";
-                        Uri uriUrl = Uri.parse(devApkLink);
-                        Intent intent = new Intent(Intent.ACTION_VIEW, uriUrl);
-                        startActivity(intent);
-                        return true;
-                    } else {
-                        Snackbar.make(getListView(), R.string.dev_version_no_new_version_available,
-                                Snackbar.LENGTH_SHORT).show();
-                        return true;
-                    }
-                });
+                if (getResources().getBoolean(R.bool.dev_version_direct_download_enabled)) {
+                    pDevLink.setOnPreferenceClickListener(preference -> {
+                        Integer latestVersion = -1;
+                        Integer currentVersion = -1;
+                        try {
+                            currentVersion = getPackageManager().getPackageInfo(getPackageName(), 0).versionCode;
+                            String url = getString(R.string.dev_latest);
+                            LoadingVersionNumberTask loadTask = new LoadingVersionNumberTask();
+                            loadTask.execute(url);
+                            latestVersion = loadTask.get();
+                        } catch (InterruptedException | ExecutionException | NameNotFoundException e) {
+                            Log_OC.e(TAG, "Error detecting app version", e);
+                        }
+                        if (latestVersion == -1 || currentVersion == -1) {
+                            Snackbar.make(getListView(), R.string.dev_version_no_information_available,
+                                    Snackbar.LENGTH_SHORT).show();
+                        }
+                        if (latestVersion > currentVersion) {
+                            String devApkLink = (String) getText(R.string.dev_link) + latestVersion + ".apk";
+                            Uri uriUrl = Uri.parse(devApkLink);
+                            Intent intent = new Intent(Intent.ACTION_VIEW, uriUrl);
+                            startActivity(intent);
+                            return true;
+                        } else {
+                            Snackbar.make(getListView(), R.string.dev_version_no_new_version_available,
+                                    Snackbar.LENGTH_SHORT).show();
+                            return true;
+                        }
+                    });
+                } else {
+                    preferenceCategoryDev.removePreference(pDevLink);
+                }
             }
 
             /* Link to dev changelog */
