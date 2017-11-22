@@ -8,9 +8,14 @@
 #6: DRONE_BUILD_NUMBER
 
 ruby scripts/lint/lint-up.rb $1 $2 $3
-
 returnValue=$?
-if [ $3 = "master" ]; then
+
+# exit codes:
+# 0: count was reduced
+# 1: count was increased
+# 2: count stayed the same
+
+if [ $3 = "master" -a $returnValue -eq 0 ]; then
     echo "New master at: https://nextcloud.kaminsky.me/index.php/s/tXwtChzyqMj6I8v"
     curl -u $4:$5 -X PUT https://nextcloud.kaminsky.me/remote.php/webdav/droneLogs/master.html --upload-file build/reports/lint/lint.html
     exit 0
