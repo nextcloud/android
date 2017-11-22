@@ -720,4 +720,6 @@
     <string name="store_full_dev_desc">The Open Source Nextcloud Android app allows you to access all your files on your Nextcloud.\nThis is a dev version of the official Nextcloud app and includes brand-new, untested features which might lead to instabilities and data loss. The app is designed for users willing to test the new features and to report bugs if they occur. Do not use it for your productive work!\n\nThe dev version can be installed alongside the official Nextcloud app which is available at F-Droid, too. Once a day it is checked if the source code was updated, so there can be longer pauses between builds.</string>
     
     <string name="prefs_category_dev">Dev</string>
+    <string name="dev_version_no_information_available">No information available!</string>
+    <string name="dev_version_no_new_version_available">No new version available!</string>
 </resources>

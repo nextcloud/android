@@ -47,6 +47,7 @@ import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
 import android.preference.SwitchPreference;
 import android.support.annotation.LayoutRes;
+import android.support.design.widget.Snackbar;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatDelegate;
@@ -193,7 +194,8 @@ public class Preferences extends PreferenceActivity
                         Log_OC.e(TAG, "Error detecting app version", e);
                     }
                     if (latestVersion == -1 || currentVersion == -1) {
-                        Toast.makeText(getApplicationContext(), "No information available!", Toast.LENGTH_SHORT).show();
+                        Snackbar.make(getListView(), R.string.dev_version_no_information_available,
+                                Snackbar.LENGTH_SHORT).show();
                     }
                     if (latestVersion > currentVersion) {
                         String devApkLink = (String) getText(R.string.dev_link) + latestVersion + ".apk";
@@ -202,7 +204,8 @@ public class Preferences extends PreferenceActivity
                         startActivity(intent);
                         return true;
                     } else {
-                        Toast.makeText(getApplicationContext(), "No new version available!", Toast.LENGTH_SHORT).show();
+                        Snackbar.make(getListView(), R.string.dev_version_no_new_version_available,
+                                Snackbar.LENGTH_SHORT).show();
                         return true;
                     }
                 });
