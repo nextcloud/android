@@ -410,50 +410,7 @@ public class UploadFileOperation extends SyncOperation {
         File originalFile = new File(mOriginalStoragePath);
         File expectedFile = null;
         FileLock fileLock = null;
-        long size = 0;
-
-        boolean metadataExists = false;
-        String token = null;
-
-        ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProvider(getContext().getContentResolver());
-
-        String privateKey = arbitraryDataProvider.getValue(getAccount().name, EncryptionUtils.PRIVATE_KEY);
-        String publicKey = arbitraryDataProvider.getValue(getAccount().name, EncryptionUtils.PUBLIC_KEY);
-
-        /// check the existence of the parent folder for the file to upload
-        String remoteParentPath = new File(getRemotePath()).getParent();
-        remoteParentPath = remoteParentPath.endsWith(OCFile.PATH_SEPARATOR) ?
-                remoteParentPath : remoteParentPath + OCFile.PATH_SEPARATOR;
-        RemoteOperationResult result = grantFolderExistence(remoteParentPath, client);
-
-        if (!result.isSuccess()) {
-            return result;
-        }
-
-        OCFile parent = getStorageManager().getFileByPath(remoteParentPath);
-        mFile.setParentId(parent.getFileId());
-
-        if (parent.isEncrypted()) {
-            Log_OC.d(TAG, "encrypted upload");
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                return encryptedUpload(client, parent);
-            } else {
-                Log_OC.e(TAG, "Encrypted upload on old Android API");
-                return new RemoteOperationResult(ResultCode.OLD_ANDROID_API);
-            }
-        } else {
-            Log_OC.d(TAG, "normal upload");
-            return normalUpload(client);
-        }
-    }
-
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-    private RemoteOperationResult encryptedUpload(OwnCloudClient client, OCFile parentFile) {
-        RemoteOperationResult result = null;
-        File temporalFile = null;
-        File originalFile = new File(mOriginalStoragePath);
-        File expectedFile = null;
-        FileLock fileLock = null;
+        long size;
 
         boolean metadataExists = false;
         String token = null;
@@ -687,11 +644,10 @@ public class UploadFileOperation extends SyncOperation {
 //            if (result == null || result.isSuccess() && mUploadOperation != null) {
 //                result = mUploadOperation.execute(client);
 
-                /// move local temporal file or original file to its corresponding
-                // location in the Nextcloud local folder
-                if (!result.isSuccess() && result.getHttpCode() == HttpStatus.SC_PRECONDITION_FAILED) {
-                    result = new RemoteOperationResult(ResultCode.SYNC_CONFLICT);
-                }
+            /// move local temporal file or original file to its corresponding
+            // location in the Nextcloud local folder
+            if (!result.isSuccess() && result.getHttpCode() == HttpStatus.SC_PRECONDITION_FAILED) {
+                result = new RemoteOperationResult(ResultCode.SYNC_CONFLICT);
             }
 //            }
 
@@ -789,13 +745,6 @@ public class UploadFileOperation extends SyncOperation {
         } else if (result.getCode() == ResultCode.SYNC_CONFLICT) {
             getStorageManager().saveConflict(mFile, mFile.getEtagInConflict());
         }
-
-        // TODO
-//        if (result.isSuccess()) {
-//            handleSuccessfulUpload(temporalFile, expectedFile, originalFile, client);
-//        } else if (result.getCode() == ResultCode.SYNC_CONFLICT) {
-//            getStorageManager().saveConflict(mFile, mFile.getEtagInConflict());
-//        }
 
         return result;
     }
