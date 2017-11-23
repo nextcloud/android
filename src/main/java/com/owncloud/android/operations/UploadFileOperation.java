@@ -409,7 +409,7 @@ public class UploadFileOperation extends SyncOperation {
         try {
 
             // check conditions 
-            result = checkConditions (originalFile);
+            result = checkConditions(originalFile);
 
             /***** E2E *****/
 
