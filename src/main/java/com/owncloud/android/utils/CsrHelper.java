@@ -41,7 +41,7 @@ public class CsrHelper {
      */
     private static PKCS10CertificationRequest generateCSR(KeyPair keyPair, String userId) throws IOException,
     OperatorCreationException {
-        String principal = "CN=" + userId + ", O=Nextcloud, L=Stuttgart, ST=Baden-Wuerttemberg, C=DE";
+        String principal = "CN=" + userId.split("@")[0];
         AsymmetricKeyParameter privateKey = PrivateKeyFactory.createKey(keyPair.getPrivate().getEncoded());
         AlgorithmIdentifier signatureAlgorithm = new DefaultSignatureAlgorithmIdentifierFinder().find("SHA1WITHRSA");
         AlgorithmIdentifier digestAlgorithm = new DefaultDigestAlgorithmIdentifierFinder().find("SHA-1");
@@ -60,8 +60,7 @@ public class CsrHelper {
             throws IOException, OperatorCreationException {
         PKCS10CertificationRequest csr = CsrHelper.generateCSR(keyPair, userId);
         byte[] derCSR = csr.getEncoded();
-        return "-----BEGIN CERTIFICATE REQUEST-----\n" + android.util.Base64.encodeToString(
-                derCSR, android.util.Base64.NO_PADDING | android.util.Base64.NO_WRAP)
-                + "\n-----END CERTIFICATE REQUEST-----";
+        return "-----BEGIN CERTIFICATE REQUEST-----\n" + android.util.Base64.encodeToString(derCSR,
+                android.util.Base64.NO_WRAP) + "\n-----END CERTIFICATE REQUEST-----";
     }
 }
