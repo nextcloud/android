@@ -36,13 +36,6 @@ import static org.junit.Assert.fail;
 
 @RequiresApi(api = Build.VERSION_CODES.KITKAT)
 public class EncryptionTest {
-    private String encryptedString = "{\"metadata\":{\"encrypted\":\"np1sIwoAFCb/vRqV/jWOIe1UtyVO02EJhvPoh3VwcZuiSbDjwQO5QHUWtKXpHLyX6wfbkRX6nr8mSG0+HhLRud1t126UMxQK5BNINu99WlzPMa5PaKhTXlpuRUf3tR6PTQ\\u003d\\u003d\",\"initializationVector\":" +
-            "\"kahzfT4u86Knc+e3\",\"sharing\":{\"recipient\":{\"blah@schiessle.org\":\"PUBLIC KEY\"," +
-            "\"bjoern@schiessle.org\":\"PUBLIC KEY\"},\"signature\":\"HMACOFRECIPIENTANDNEWESTMETADATAKEY\"}," +
-            "\"version\":1},\"files\":{\"ia7OEEEyXMoRa1QWQk8r\":{\"encrypted\":\"yl52TIccvo62LezCaFjQFJs7a1Q281pOuj59oNXMX7ti+7+h1SjK1AAk1HuwT+CI7BT64+R0ZLgyR/vBPjWvAQuxi9JWgsCjFMX91Mv2m2zI/bNQCarczOfnmf4FZ3Nv6yPLSjShmfQzemQ99Z3g7UHyrZ6pKT18m17IueJHF3V5kOhd9vcH\",\"metadataKey\":0," +
-            "\"initializationVector\":\"+mHu52HyZq+pAAIN\"}," +
-            "\"n9WXAIXO2wRY4R8nXwmo\":{\"encrypted\":\"Z9YTAgY/0YqKQlDwiqENcZRRupjgmJ1f0bTy0hOHP2/mHxFtoHCftT4STvt21OJMx8wF6V3cquQIGJ976WxkhA4SQxaQNpznhm1W9e8y+B5x8QnxSasYnOSFtZ/xVgQq6IZRjvYdPo7rvZk49hnqkwnUyvqtCj14aCE42qoxVZCd9M6XaZEBTA\\u003d\\u003d\",\"metadataKey\":0,\"initializationVector\":" +
-            "\"sOFd17hCKWIv0gyB\"}}}";
 
     private String decryptedString = "{\"metadata\":{\"encrypted\":{\"metadataKeys\":{\"0\":" +
             "\"s4k4LPDpxoO53TKwem3Lo1\",\"2\":\"…\",\"3\":\"NEWESTMETADATAKEY\"}},\"initializationVector\":" +
@@ -54,8 +47,6 @@ public class EncryptionTest {
             "\"n9WXAIXO2wRY4R8nXwmo\":{\"encrypted\":{\"key\":\"s4k4LPDpxoO53TKwem3Lo1yJnbNUYH2KLrSFT8Ea\"," +
             "\"filename\":\"test2.txt\",\"authenticationTag\":\"HMAC of file\",\"version\":1}," +
             "\"metadataKey\":0,\"initializationVector\":\"sOFd17hCKWIv0gyB\"}}}";
-
-    private String privateKey = "TUlJRXZRSUJBREFOQmdrcWhraUc5dzBCQVFFRkFBU0NCS2N3Z2dTakFnRUFBb0lCQVFEV0FKMDNuNlBLVDNJWlZTT1paSzgyd3dqRTVWSW4vclZ5L0VLbmsyMVgzQ1dPbkdsb0ZrUXdiSWFsYjlkVWNRcmQzM250NVFoMmhJeXM5TkdsMjdMUmhreU1qemYzaFdzbnljSVhZQURVSExweGJZbWpJRzRjbWlNQnI4ckhjVFEvM0dUTlBKWG00ZzUwQlZEOXZlRThoMkQrTXdIQXlTSkxZcG5FaDBKWExES0pvVnpQYldxdVZVdHZNMmdmWVFHNFgwbS9kamR5VzJ4ZGN2UkpZeUtpWDZ3UmY3U3ViaWJkR1V1MHgxckhRdGhnM1dtaXdLd09NR2pQQ3oxRDAwMC9vWjZnckRHcW03TG5XMVZaN0VNTWtWWjVjVlc4NlpGQ2lrcXNtcDd1MVg1YjdCTzBiaThyV2Z0Zm8zZnJaOUptdmkvZHpmeXo2RFRFOWIrZU9CNzlBZ01CQUFFQ2dnRUJBSURYYzlCR1k5VnRDWFBwQjNyVjNJdXExcis4bFQ4UklldHRweSsvR2dqWXVSL29XYW5hSmduRmZUZGpZNUFxVXZHTUY1dTcxZUdOSWlrTGFLRmo2WUF1VEM0Z0dBRUZLYU9WM0M0NGxhY2UrTDFMeHA4WTZsSjhGbkZ3aGpTWG1tNk1ZWUFUWnVqUDF3WFJJWmJ6V0FVYU9MSXl3VzV4YWgxYTZ0c2cyRGNrZ2h3YVoxMURiRTVkNEpNNXl0Q1J6YmZzWTA3cElrUmU4WlFLcm1sMXU0THlsWXVHVHBDZGMwSnNXdUx3d1NWbm8vK056RURiVVNKZThIRmpnM1k3L2JkajgzNE9INzBtQWdBVUdEQTJqQ1BqY1hzNHJnN25udkhuQm5WcVFaemFvVWhHYzFOak9pZzMwNitUV25OL1JUNWc0TThucDNuMXZETWF2dVBiM0lFQ2dZRUE2NVpQV243UlYxZVVVS20zcVRUN1BSa3NuLzZDVWdFaFQ1WDloc0c3cXJXMUVlalhuODE2S1A0R3VsaDc1S0dhQ3hUVmdGZDhHdHF1QVU3MGdaKzB5MHVGd2hTdGtWN1A0K2xlUXlYSmxtNDNWNU9zT3Jxb25ocTZyOCthZ3lGbnNuOEhGd3lVcG1VM0FqR2tXVUNzYWFNdWM4SEt0ajU4RkdGRlh6K3ZlcDBDZ1lFQTZJdUZVZmljLytpUXpsVjczTDdWSS9kRjJNcFRPeHVKb1c4MmM1OE1tdEhGMFFQSktlYU5YVGJuYzluUXZ0aFBWM3c1eEZWc3FkN3pKOEM4ZkJ5S21Xc2ZLOU1abGQvY3RZTk9EMTNLWlM2WTNvWXpGVU5ZRzFPSEhpamNZT3RSWUsvY3k0cS9SRnExQ0pZVCtPaEVTOXlmeGFqZlZXdzFPdGxNZGNuNlYrRUNnWUFwNlN5bTBjYldQZnRodWorMU4zcTJyT0xXZDhXaFp4Z1ErNE1GMVROWXRFakpMZDRtVEx5OXpDdFFQV3VWQ2ZiSW4rVTNsdGk2UWtzUWFvWnZCUVY1NFM2amoyQXRhMnVhaFNyQzBWY2lqdXNEaG43dVY4U2xrK1hBWHpPQ3ZvK2ZIcUFaUnFDdlZYUkt6S0FMVE1rZlpldGVwb3cwamJzdk9QckpiaC8rdFFLQmdIQUFpd1R4RmtVWGNXOC9zdm1lSERCSGI2ZTd3eHlyNWIwUVFJeXRwVGVJSTV2SkZBR1BYclR2dGNpUnR6M0VGMnJPbFZBZnlNZUViMTdOTUxzaVVBc1draHZjZiswMHRpdmlneDFaa2hycnQ0c3QzYnEzQmQrYmVtK25SSVdWc1VzOVNMM3NKTFU2Yndra3A1ZngzcnNmRndEdmxpbWhoWDNEblZUNkpBNWhBb0dBZUtSZGRBVFAxZmVDL1pIZWE0VWh1MEVIencrY2xraDBrdjFDQkNHNnhjM002Y245SzFUNlIwMHRZYlFjS1JvZHJ1ZnBZNUNOL3V2Zyt0VWRucTUxRFhwTU5tbDVMdGpRYnV3MktuZ1F1ZG9NQ1NFMHMzT0dnaGJqMzZtbEVsRERjUGxLaE0rb1hyaVRYdXUvWmljclZqcGxTcWxuSlN2aDh6STJGNFBLaDlnPQ==";
 
     private String publicKey = "-----BEGIN CERTIFICATE-----\n" +
             "MIIDpzCCAo+gAwIBAgIBADANBgkqhkiG9w0BAQUFADBuMRowGAYDVQQDDBF3d3cu\n" +
