@@ -72,6 +72,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
@@ -597,7 +598,7 @@ public class EncryptionUtils {
 
         ArrayList<String> outputLines = new ArrayList<>();
         for (int i = 0; i < count; i++) {
-            int randomLine = (int) (random.nextDouble() * lines.size());
+            int randomLine = new Random().nextInt(lines.size());
             outputLines.add(lines.get(randomLine));
         }
 
