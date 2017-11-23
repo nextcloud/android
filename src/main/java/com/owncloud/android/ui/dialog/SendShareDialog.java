@@ -13,6 +13,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.owncloud.android.R;
@@ -90,21 +91,50 @@ public class SendShareDialog extends BottomSheetDialogFragment {
         view = inflater.inflate(R.layout.send_share_fragment, container, false);
 
         // Share with people
-        TextView sharePeopleButton = (TextView) view.findViewById(R.id.share_people_button);
+        TextView sharePeopleText = (TextView) view.findViewById(R.id.share_people_button);
+        sharePeopleText.setOnClickListener(v -> shareFile(file));
 
-        sharePeopleButton.setOnClickListener(v -> fileOperationsHelper.showShareFile(file));
-
+        ImageView sharePeopleImageView = (ImageView) view.findViewById(R.id.share_people_icon);
+        sharePeopleImageView.setOnClickListener(v -> shareFile(file));
 
         // Share via link button
-        TextView shareLinkButton = (TextView) view.findViewById(R.id.share_link_button);
+        TextView shareLinkText = (TextView) view.findViewById(R.id.share_link_button);
+        shareLinkText.setOnClickListener(v -> fileOperationsHelper.showShareFile(file));
+
+        ImageView shareLinkImageView = (ImageView) view.findViewById(R.id.share_link_icon);
+        shareLinkImageView.setOnClickListener(v -> shareFile(file));
 
         if (file.isSharedWithMe() && !file.canReshare()) {
-            Snackbar.make(view, R.string.resharing_is_not_allowed, Snackbar.LENGTH_LONG).show();
-            shareLinkButton.setVisibility(View.GONE);
+            Snackbar snackbar = Snackbar.make(view, R.string.resharing_is_not_allowed, Snackbar.LENGTH_LONG);
+            snackbar.addCallback(new Snackbar.Callback() {
+                @Override
+                public void onDismissed(Snackbar transientBottomBar, int event) {
+                    super.onDismissed(transientBottomBar, event);
+
+                    if (file.isFolder()) {
+                        dismiss();
+                    }
+                }
+            });
+
+            snackbar.show();
+
+            if (file.isFolder()) {
+                shareLinkText.setVisibility(View.GONE);
+                shareLinkImageView.setVisibility(View.GONE);
+                sharePeopleText.setVisibility(View.GONE);
+                sharePeopleImageView.setVisibility(View.GONE);
+            } else {
+                shareLinkText.setEnabled(false);
+                shareLinkText.setAlpha(0.3f);
+                shareLinkImageView.setEnabled(false);
+                shareLinkImageView.setAlpha(0.3f);
+                sharePeopleText.setEnabled(false);
+                sharePeopleText.setAlpha(0.3f);
+                sharePeopleImageView.setEnabled(false);
+                sharePeopleImageView.setAlpha(0.3f);
+            }
         }
-
-        shareLinkButton.setOnClickListener(v -> fileOperationsHelper.showShareFile(file));
-
 
         // populate send apps
         Intent sendIntent = new Intent(Intent.ACTION_SEND);
@@ -124,7 +154,7 @@ public class SendShareDialog extends BottomSheetDialogFragment {
         }
 
         if (getContext().getString(R.string.send_files_to_other_apps).equalsIgnoreCase("off")) {
-            sharePeopleButton.setVisibility(View.GONE);
+            sharePeopleText.setVisibility(View.GONE);
         }
 
         SendButtonAdapter.ClickListener clickListener = sendButtonDataData -> {
@@ -157,6 +187,11 @@ public class SendShareDialog extends BottomSheetDialogFragment {
 
 
         return view;
+    }
+
+    private void shareFile(OCFile file) {
+        fileOperationsHelper.showShareFile(file);
+        dismiss();
     }
 
     public void setFileOperationsHelper(FileOperationsHelper fileOperationsHelper) {
