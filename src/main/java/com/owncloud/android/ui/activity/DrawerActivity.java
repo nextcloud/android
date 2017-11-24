@@ -30,7 +30,9 @@ import android.accounts.AccountManagerFuture;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.LayerDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -1044,16 +1046,33 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
 
             if (navigationHeader != null) {
                 String background = getStorageManager().getCapability(getAccount().name).getServerBackground();
+                int primaryColor = ThemeUtils.primaryColor(getAccount());
 
                 if (URLUtil.isValidUrl(background) || background.isEmpty()) {
                     // background image
                     SimpleTarget target = new SimpleTarget<Drawable>() {
                         @Override
                         public void onResourceReady(Drawable resource, GlideAnimation glideAnimation) {
+                            Drawable[] drawables = {new ColorDrawable(primaryColor), resource};
+                            LayerDrawable layerDrawable = new LayerDrawable(drawables);
+                            
                             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
-                                navigationHeader.setBackgroundDrawable(resource);
+                                navigationHeader.setBackgroundDrawable(layerDrawable);
                             } else {
-                                navigationHeader.setBackground(resource);
+                                navigationHeader.setBackground(layerDrawable);
+                            }
+                        }
+
+                        @Override
+                        public void onLoadFailed(Exception e, Drawable errorDrawable) {
+                            Drawable[] drawables = {new ColorDrawable(primaryColor),
+                                    getResources().getDrawable(R.drawable.background)};
+                            LayerDrawable layerDrawable = new LayerDrawable(drawables);
+
+                            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
+                                navigationHeader.setBackgroundDrawable(layerDrawable);
+                            } else {
+                                navigationHeader.setBackground(layerDrawable);
                             }
                         }
                     };
