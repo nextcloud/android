@@ -1152,6 +1152,27 @@ public class FileContentProvider extends ContentProvider {
             if (!upgraded) {
                 Log_OC.i(SQL, String.format(Locale.ENGLISH, UPGRADE_VERSION_MSG, oldVersion, newVersion));
             }
+
+            if (oldVersion < 25 && newVersion >= 25) {
+                Log_OC.i(SQL, "Entering in the #25 Adding text and element color to capabilities");
+                db.beginTransaction();
+                try {
+                    db.execSQL(ALTER_TABLE + ProviderTableMeta.CAPABILITIES_TABLE_NAME +
+                            ADD_COLUMN + ProviderTableMeta.CAPABILITIES_SERVER_TEXT_COLOR + " TEXT ");
+
+                    db.execSQL(ALTER_TABLE + ProviderTableMeta.CAPABILITIES_TABLE_NAME +
+                            ADD_COLUMN + ProviderTableMeta.CAPABILITIES_SERVER_ELEMENT_COLOR + " TEXT ");
+
+                    upgraded = true;
+                    db.setTransactionSuccessful();
+                } finally {
+                    db.endTransaction();
+                }
+            }
+
+            if (!upgraded) {
+                Log_OC.i(SQL, String.format(Locale.ENGLISH, UPGRADE_VERSION_MSG, oldVersion, newVersion));
+            }
         }
 
         @Override
@@ -1252,6 +1273,8 @@ public class FileContentProvider extends ContentProvider {
                 + ProviderTableMeta.CAPABILITIES_EXTERNAL_LINKS + INTEGER  // boolean
                 + ProviderTableMeta.CAPABILITIES_SERVER_NAME + TEXT
                 + ProviderTableMeta.CAPABILITIES_SERVER_COLOR + TEXT
+                + ProviderTableMeta.CAPABILITIES_SERVER_TEXT_COLOR + TEXT
+                + ProviderTableMeta.CAPABILITIES_SERVER_ELEMENT_COLOR + TEXT
                 + ProviderTableMeta.CAPABILITIES_SERVER_SLOGAN + TEXT
                 + ProviderTableMeta.CAPABILITIES_SERVER_BACKGROUND_URL + " TEXT );");
     }

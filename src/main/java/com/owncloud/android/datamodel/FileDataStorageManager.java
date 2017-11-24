@@ -1926,6 +1926,8 @@ public class FileDataStorageManager {
         cv.put(ProviderTableMeta.CAPABILITIES_EXTERNAL_LINKS, capability.getExternalLinks().getValue());
         cv.put(ProviderTableMeta.CAPABILITIES_SERVER_NAME, capability.getServerName());
         cv.put(ProviderTableMeta.CAPABILITIES_SERVER_COLOR, capability.getServerColor());
+        cv.put(ProviderTableMeta.CAPABILITIES_SERVER_TEXT_COLOR, capability.getServerTextColor());
+        cv.put(ProviderTableMeta.CAPABILITIES_SERVER_ELEMENT_COLOR, capability.getServerElementColor());
         cv.put(ProviderTableMeta.CAPABILITIES_SERVER_BACKGROUND_URL, capability.getServerBackground());
         cv.put(ProviderTableMeta.CAPABILITIES_SERVER_SLOGAN, capability.getServerSlogan());
 
@@ -2069,6 +2071,10 @@ public class FileDataStorageManager {
                     .getColumnIndex(ProviderTableMeta.CAPABILITIES_EXTERNAL_LINKS))));
             capability.setServerName(c.getString(c.getColumnIndex(ProviderTableMeta.CAPABILITIES_SERVER_NAME)));
             capability.setServerColor(c.getString(c.getColumnIndex(ProviderTableMeta.CAPABILITIES_SERVER_COLOR)));
+            capability.setServerTextColor(
+                    c.getString(c.getColumnIndex(ProviderTableMeta.CAPABILITIES_SERVER_TEXT_COLOR)));
+            capability.setServerElementColor(
+                    c.getString(c.getColumnIndex(ProviderTableMeta.CAPABILITIES_SERVER_ELEMENT_COLOR)));
             capability.setServerBackground(c.getString(c.getColumnIndex(
                     ProviderTableMeta.CAPABILITIES_SERVER_BACKGROUND_URL)));
             capability.setServerSlogan(c.getString(c.getColumnIndex(ProviderTableMeta.CAPABILITIES_SERVER_SLOGAN)));
