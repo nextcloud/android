@@ -436,26 +436,32 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
                             @Override
                             public void onClick(View v) {
                                 mLoginWebView.setVisibility(View.INVISIBLE);
+                                webViewLoginMethod = false;
 
                                 setContentView(R.layout.account_setup);
 
                                 // initialize general UI elements
                                 initOverallUi();
 
-                                mHostUrlInput.setText(baseURL);
                                 mPasswordInputLayout.setVisibility(View.VISIBLE);
+                                mUsernameInputLayout.setVisibility(View.VISIBLE);
                                 mUsernameInput.requestFocus();
                                 mOAuth2Check.setVisibility(View.INVISIBLE);
                                 mAuthStatusView.setVisibility(View.INVISIBLE);
                                 mServerStatusView.setVisibility(View.INVISIBLE);
                                 mTestServerButton.setVisibility(View.INVISIBLE);
                                 forceOldLoginMethod = true;
+                                mOkButton.setVisibility(View.VISIBLE);
+
+                                initServerPreFragment(null);
+
+                                mHostUrlInput.setText(baseURL);
 
                                 checkOcServer();
                             }
                         }).show();
             }
-        }, 60000);
+        }, 1000);
     }
 
     private void parseAndLoginFromWebView(String dataString) {
@@ -1987,7 +1993,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
 
     private void showRefreshButton(boolean show) {
-        if (webViewLoginMethod) {
+        if (webViewLoginMethod && mRefreshButton != null) {
             if (show) {
                 mRefreshButton.setVisibility(View.VISIBLE);
             } else {
