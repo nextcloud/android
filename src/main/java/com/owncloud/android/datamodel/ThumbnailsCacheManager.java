@@ -352,7 +352,7 @@ public class ThumbnailsCacheManager {
                         }
                     }
                 } else {
-                    if (ConnectivityUtils.isAppConnected(MainApp.getAppContext())) {
+                    if (!ConnectivityUtils.isInternetWalled(MainApp.getAppContext())) {
                         previewImageFragment.setErrorPreviewMessage();
                     } else {
                         previewImageFragment.setNoConnectionErrorMessage();
