@@ -81,7 +81,7 @@ public class ReceiversHelper {
         BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
-                if (!UploadUtils.isPowerSaveMode(context)) {
+                if (!PowerUtils.isPowerSaveMode(context)) {
                     FilesSyncHelper.restartJobsIfNeeded();
                 }
             }
