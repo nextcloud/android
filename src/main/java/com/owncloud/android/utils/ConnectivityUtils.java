@@ -23,11 +23,15 @@
 
 package com.owncloud.android.utils;
 
+import android.accounts.Account;
 import android.content.Context;
 import android.util.Log;
 
 import com.evernote.android.job.JobRequest;
 import com.evernote.android.job.util.Device;
+import com.owncloud.android.MainApp;
+import com.owncloud.android.authentication.AccountUtils;
+import com.owncloud.android.lib.common.OwnCloudAccount;
 
 import org.apache.commons.httpclient.util.HttpURLConnection;
 
@@ -39,23 +43,29 @@ public class ConnectivityUtils {
     private final static String TAG = ConnectivityUtils.class.getName();
 
     public static boolean isInternetWalled(Context context) {
-        if (!Device.getNetworkType(context).equals(JobRequest.NetworkType.ANY)) {
-            try {
-                HttpURLConnection urlc = (HttpURLConnection)
-                        (new URL("http://clients3.google.com/generate_204")
-                                .openConnection());
-                urlc.setRequestProperty("User-Agent", "Android");
-                urlc.setRequestProperty("Connection", "close");
-                urlc.setConnectTimeout(1500);
-                urlc.connect();
-                return !(urlc.getResponseCode() == 204 &&
-                        urlc.getContentLength() == 0);
-            } catch (IOException e) {
-                Log.e(TAG, "Error checking internet connection", e);
+        Account currentAccount = AccountUtils.getCurrentOwnCloudAccount(context);
+        try {
+            OwnCloudAccount ocAccount = null;
+            if (currentAccount != null && !Device.getNetworkType(context).equals(JobRequest.NetworkType.ANY)) {
+                ocAccount = new OwnCloudAccount(currentAccount, context);
+                try {
+                    HttpURLConnection urlc = (HttpURLConnection)
+                            (new URL(ocAccount.getBaseUri() + "/204")
+                                    .openConnection());
+                    urlc.setRequestProperty("User-Agent", MainApp.getUserAgent());
+                    urlc.setRequestProperty("Connection", "close");
+                    urlc.setConnectTimeout(1500);
+                    urlc.connect();
+                    return !(urlc.getResponseCode() == 204 &&
+                            urlc.getContentLength() == 0);
+                } catch (IOException e) {
+                    Log.e(TAG, "Error checking internet connection", e);
+                }
             }
-        } else {
-            Log.d(TAG, "No network available!");
+        } catch (com.owncloud.android.lib.common.accounts.AccountUtils.AccountNotFoundException e) {
+            Log.d(TAG, "No account found");
         }
+
         return true;
 
     }
