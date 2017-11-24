@@ -55,7 +55,9 @@
     <string name="prefs_feedback">Feedback</string>
     <string name="prefs_imprint">Aftryk</string>
 
+	<string name="recommend_subject">Prøv %1$s på din enhed!</string>
 	<string name="auth_check_server">Tjek server</string>
+    <string name="auth_host_url">Serveraddresse https://&#8230;</string>
     <string name="auth_username">Brugernavn</string>
     <string name="auth_password">Kodeord</string>
     <string name="sync_string_files">Filer</string>
@@ -78,6 +80,7 @@
     <string name="file_list_seconds_ago">sekunder siden</string>
     <string name="file_list_empty_headline">Her er ingen filer</string>
     <string name="folder_list_empty_headline">Ingen mappe her</string>
+    <string name="file_list_empty">Upload indhold eller synk med dine enheder.</string>
     <string name="file_list_empty_favorites_filter">Din søgning returnerede ingen favoritfiler.</string>
     <string name="file_list_loading">Indlæser&#8230;</string>
     <string name="file_list_no_app_for_file_type">Ingen app er sat op til at håndtere denne filtype.</string>
@@ -169,6 +172,8 @@
     <string name="pass_code_stored">Passcode blev gendannet</string>
     
     <string name="media_notif_ticker">%1$s musik afspiller</string>
+    <string name="media_state_playing">%1$s (afspiller)</string>
+    <string name="media_state_loading">%1$s (loader)</string>
     <string name="media_err_nothing_to_play">Mediefil ikke fundet</string>
     <string name="media_err_no_account">Ingen konto angivet</string>
     <string name="media_err_not_in_owncloud">Filen er ikke i en gyldig konto</string>
@@ -205,10 +210,13 @@
 	<string name="auth_unsupported_auth_method">Serveren understøtter ikke denne godkendelsesmetode</string>
 	<string name="auth_unsupported_multiaccount">%1$s understøtter ikke flere konti</string>
 	<string name="auth_can_not_auth_against_server">Kan ikke autorisere forbindelse til denne server</string>
+    <string name="auth_access_failed">Adgang fejlede</string>
+
     <string name="favorite">Gør tilgængelig unden internet</string>
     <string name="unfavorite">Afmarker offline tilgængelighed</string>
     <string name="favorite_real">Angiv som favorit</string>
     <string name="unset_favorite_real">Fjern som favorit</string>
+    <string name="favorite_switch">Tilgængelig offline</string>
     <string name="common_rename">Omdøb</string>
     <string name="common_remove">Slet</string>
     <string name="confirmation_remove_local">Kun lokal</string>
