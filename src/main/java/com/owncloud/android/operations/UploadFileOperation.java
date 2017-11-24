@@ -48,7 +48,7 @@ import com.owncloud.android.operations.common.SyncOperation;
 import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.MimeType;
 import com.owncloud.android.utils.MimeTypeUtil;
-import com.owncloud.android.utils.UploadUtils;
+import com.owncloud.android.utils.PowerUtils;
 import com.owncloud.android.utils.UriUtils;
 
 import org.apache.commons.httpclient.HttpStatus;
@@ -354,7 +354,7 @@ public class UploadFileOperation extends SyncOperation {
             }
 
             // Check that device is not in power save mode
-            if (!mIgnoringPowerSaveMode && UploadUtils.isPowerSaveMode(mContext)) {
+            if (!mIgnoringPowerSaveMode && PowerUtils.isPowerSaveMode(mContext)) {
                 Log_OC.d(TAG, "Upload delayed because device is in power save mode: " + getRemotePath());
                 return new RemoteOperationResult(ResultCode.DELAYED_IN_POWER_SAVE_MODE);
             }
