@@ -31,10 +31,6 @@ mv latest.apk ~/apks/
 # remove all but the latest 5 apks
 /bin/ls -t ~/apks/*.apk | awk 'NR>6' | xargs rm -f
 
-git add .
-git commit -m "daily dev $date"
-git push
-
 git tag dev-$date
 git push origin dev-$date
 
