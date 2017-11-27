@@ -74,18 +74,18 @@
     <string name="uploader_wrn_no_account_quit_btn_text">Выход</string>
     <string name="uploader_error_title_no_file_to_upload">Нет файла для выгрузки</string>
     <string name="uploader_error_message_no_file_to_upload">Принятые данные не содержат исправный файл.</string>
-    <string name="uploader_error_title_file_cannot_be_uploaded">Этот файл не может быть выгружен</string>
+    <string name="uploader_error_title_file_cannot_be_uploaded">Этот файл не может быть загружен</string>
     <string name="uploader_error_message_read_permission_not_granted">%1$s не позволено читать принятый файл</string>
-    <string name="uploader_error_message_source_file_not_found">Не удалось найти файл для выгрузки. Убедитесь, что файл существует.</string>
+    <string name="uploader_error_message_source_file_not_found">Не удалось найти файл для загрузки. Убедитесь, что файл существует.</string>
     <string name="uploader_error_message_source_file_not_copied">Произошла ошибка во время копирования этого файла во временный каталог. Пожалуйста попробуйте отправить его заново.</string>
-    <string name="uploader_upload_files_behaviour">Настройка выгрузки:</string>
+    <string name="uploader_upload_files_behaviour">Настройка загрузки:</string>
     <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">Переместить файл в каталог Nextcloud</string>
     <string name="uploader_upload_files_behaviour_only_upload">Оставить файл в исходном каталоге</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Удалить файл из исходного каталога</string>
     <string name="file_list_seconds_ago">несколько секунд назад</string>
     <string name="file_list_empty_headline">Здесь нет файлов</string>
     <string name="folder_list_empty_headline">Здесь нет каталогов</string>
-    <string name="file_list_empty">Выгрузите что-нибудь или синхронизируйте со своими устройствами!</string>
+    <string name="file_list_empty">Загрузите что-нибудь или синхронизируйте со своими устройствами!</string>
     <string name="file_list_empty_favorites_filter_list">Здесь появятся файлы и каталоги, отмеченные как избранные</string>
     <string name="file_list_empty_favorites_filter">По запросу избранных файлов не найдено.</string>
     <string name="file_list_loading">Загружается&#8230;</string>
@@ -104,25 +104,25 @@
     <string name="file_list_empty_recently_modified_filter">Не найдено ни одного изменённого за последние 7 дней файла.</string>
     <string name="file_list_empty_recently_added">Не найдено файлов, добавленных недавно</string>
     <string name="file_list_empty_recently_added_filter">По запросу не найдено файлов, добавленных недавно!</string>
-    <string name="file_list_empty_text_photos">Выгрузите фотографии или включите автоматическую выгрузку!</string>
+    <string name="file_list_empty_text_photos">Загрузите фотографии или включите автоматическую загрузку!</string>
     <string name="file_list_empty_text_photos_filter">По запросу фото не найдено!</string>
-    <string name="file_list_empty_text_videos">Выгрузите видео или включите автоматическую выгрузку!</string>
+    <string name="file_list_empty_text_videos">Загрузите видео или включите автоматическую загрузку!</string>
     <string name="file_list_empty_text_videos_filter">По запросу файлов видео не найдено!</string>
     <string name="upload_list_empty_headline">Очередь выгрузки пуста</string>
-    <string name="upload_list_empty_text">Выгрузите что-нибудь или включите моментальную загрузку!</string>
-    <string name="upload_list_empty_text_auto_upload">Выгрузите что-нибудь или включите автоматическую выгрузку!</string>
+    <string name="upload_list_empty_text">Загрузите что-нибудь или включите моментальную загрузку!</string>
+    <string name="upload_list_empty_text_auto_upload">Загрузите что-нибудь или включите автоматическую загрузку!</string>
     <string name="file_list_folder">каталог</string>
     <string name="filedetails_select_file">Нажмите на файл для отображения дополнительной информации.</string>
     <string name="filedetails_download">Скачать</string>
     <string name="filedetails_sync_file">Синхронизировать</string>
-    <string name="filedetails_renamed_in_upload_msg">При выгрузке файл был переименован в «%1$s»</string>
+    <string name="filedetails_renamed_in_upload_msg">При загрузке файл был переименован в «%1$s»</string>
     <string name="list_layout">Вид списком</string>
     <string name="action_share">Общий доступ</string>
     <string name="common_yes">Да</string>
     <string name="common_no">Нет</string>
     <string name="common_ok">ОК</string>
-    <string name="common_remove_upload">Удалить выгрузку</string>
-    <string name="common_retry_upload">Повторить выгрузку</string>
+    <string name="common_remove_upload">Удалить загрузку</string>
+    <string name="common_retry_upload">Повторить загрузку</string>
     <string name="common_cancel_sync">Отменить синхронизацию</string>
     <string name="common_cancel">Отменить</string>
     <string name="common_back">Назад</string>
@@ -143,10 +143,10 @@
     <string name="uploader_info_dirname">Имя каталога</string>
     <string name="uploader_upload_in_progress_ticker">Выгружается &#8230;</string>
     <string name="uploader_upload_in_progress_content">%1$d%% выгружается %2$s</string>
-    <string name="uploader_upload_succeeded_ticker">Успешно выгруженные</string>
+    <string name="uploader_upload_succeeded_ticker">Успешно загруженные</string>
     <string name="uploader_upload_succeeded_content_single">%1$s выгружен</string>
     <string name="uploader_upload_failed_ticker">Ошибка выгрузки</string>
-    <string name="uploader_upload_failed_content_single">Невозможно выгрузить %1$s</string>
+    <string name="uploader_upload_failed_content_single">Невозможно загрузить %1$s</string>
     <string name="uploader_upload_failed_credentials_error">Выгрузка не удалась, необходимо повторно войти в систему</string>
     <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">Сертификат сервера не является доверенным</string>
     <string name="uploads_view_title">Состояние выгрузки</string>
@@ -330,9 +330,9 @@
     <string name="placeholder_timestamp">2012/05/18 12:23</string>
     <string name="placeholder_media_time">12:23:45</string>
 
-    <string name="auto_upload_on_wifi">Выгружать только через Wi-Fi</string>
-    <string name="instant_video_upload_on_charging">Выгружать только при зарядке</string>
-    <string name="instant_upload_on_charging">Выгружать только при зарядке</string>
+    <string name="auto_upload_on_wifi">Загружать только через Wi-Fi</string>
+    <string name="instant_video_upload_on_charging">Загружать только при зарядке</string>
+    <string name="instant_upload_on_charging">Загружать только при зарядке</string>
     <string name="instant_upload_path">/Автозагрузка</string>
     <string name="auto_upload_path">/Автозагрузка</string>
     <string name="conflict_title">Конфликт файлов</string>
@@ -545,7 +545,7 @@
     <string name="actionbar_search">Поиск</string>
     <string name="files_drop_not_supported">Это есть в новой версии Nextcloud, пожалуйста обновитесь</string>
     <string name="learn_more">Узнать больше</string>
-    <string name="drawer_synced_folders">Автоматическая выгрузка</string>
+    <string name="drawer_synced_folders">Автоматическая загрузка</string>
     <string name="drawer_participate">Участие</string>
     <string name="participate_testing_headline">Помогите нам в тестировании</string>
     <string name="participate_testing_bug_text">Нашли ошибку? Заметили необычное поведение программы?</string>
@@ -568,9 +568,9 @@
     <string name="choose_local_folder">Выберите локальный каталог &#8230;</string>
     <string name="synced_folders_loading_folders">Загрузка каталогов &#8230;</string>
     <string name="synced_folders_no_results">Не найдены каталоги с медиа(файлами).</string>
-    <string name="synced_folders_preferences">Настройки автовыгрузки</string>
+    <string name="synced_folders_preferences">Настройки автозагрузки</string>
     <string name="synced_folders_settings">Настройки</string>
-    <string name="synced_folders_new_info">Моментальная выгрузка была полностью переделана. Используйте главное меню для перенастройки автоматической выгрузки. Извините за неудобства.\n\nВам понравятся новые расширенные возможности!</string>
+    <string name="synced_folders_new_info">Моментальная загрузка была полностью переделана. Используйте главное меню для перенастройки автоматической загрузки. Извините за неудобства.\n\nВам понравятся новые расширенные возможности!</string>
     <string name="synced_folders_preferences_folder_path">Для %1$s</string>
     <plurals name="items_selected_count">
         <item quantity="one">%d выбран</item>
@@ -586,7 +586,7 @@
     <string name="notifications_no_results_headline">Уведомлений нет</string>
     <string name="notifications_no_results_message">Проверьте позже.</string>
 
-    <string name="upload_file_dialog_title">Имя и типа файла для автовыгрузки </string>
+    <string name="upload_file_dialog_title">Имя и типа файла для автозагрузки </string>
     <string name="upload_file_dialog_filename">Имя файла</string>
     <string name="upload_file_dialog_filetype">Тип файла</string>
     <string name="upload_file_dialog_filetype_snippet_text">Текстовый файл заготовок(*.txt)</string>
@@ -607,10 +607,10 @@
     <string name="welcome_feature_2_title">Работа с несколькими аккаунтами</string>
     <string name="welcome_feature_2_text">Доступ ко всем вашим облакам</string>
 
-    <string name="welcome_feature_3_title">Автоматическая выгрузка</string>
+    <string name="welcome_feature_3_title">Автоматическая загрузка</string>
     <string name="welcome_feature_3_text">Держите ваши фотографии в безопасности</string>
 
-    <string name="whats_new_auto_upload_title">Улучшенная автоматическая выгрузка</string>
+    <string name="whats_new_auto_upload_title">Улучшенная автоматическая загрузка</string>
     <string name="whats_new_auto_upload_content">\u2022 для всех версий платформы Android\n\u2022 уменьшенный расход батареи\n\u2022 более гибкое, но не мгновенное\n\u2022 разделение изображений &amp; и видеофайлов</string>
 
     <string name="whats_new_search_title">Поиск по всему серверу</string>
@@ -679,7 +679,7 @@
     <string name="whats_new_fingerprint_title">Разблокирование отпечатком пальца</string>
     <string name="whats_new_fingerprint_content">Используйте отпечаток пальца для разблокирования приложения</string>
     <string name="fallback_weblogin_back">Назад</string>
-    <string name="foreground_service_upload">Выгрузка файлов &#8230;</string>
+    <string name="foreground_service_upload">Загрузка файлов &#8230;</string>
     <string name="foreground_service_download">Скачивание файлов &#8230;</string>
 
     <string name="prefs_sourcecode">Получить исходный код</string>
