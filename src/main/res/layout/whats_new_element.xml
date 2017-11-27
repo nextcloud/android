@@ -32,7 +32,8 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginBottom="10dp"
         android:layout_weight="50"
-        android:src="@drawable/whats_new_files"/>
+        android:src="@drawable/whats_new_files"
+        android:contentDescription="@string/what_s_new_image"/>
 
     <TextView
         android:layout_width="wrap_content"

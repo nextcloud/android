@@ -26,7 +26,8 @@
             android:layout_width="32sp"
             android:layout_height="32sp"
             android:src="@drawable/ic_user"
-            android:layout_gravity="center_vertical"/>
+            android:layout_gravity="center_vertical"
+            android:contentDescription="@string/user_icon"/>
 
         <TextView
             android:layout_width="match_parent"
