@@ -47,6 +47,7 @@ import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
 import android.preference.SwitchPreference;
 import android.support.annotation.LayoutRes;
+import android.support.design.widget.Snackbar;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatDelegate;
@@ -70,12 +71,14 @@ import com.owncloud.android.lib.common.ExternalLinkType;
 import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
 import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.ui.asynctasks.LoadingVersionNumberTask;
 import com.owncloud.android.utils.AnalyticsUtils;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.ThemeUtils;
 
 import java.io.IOException;
+import java.util.concurrent.ExecutionException;
 
 /**
  * An Activity that allows the user to change the application's settings.
@@ -161,6 +164,70 @@ public class Preferences extends PreferenceActivity
 
         // About
         setupAboutCategory(accentColor, appVersion);
+        
+        // Dev
+        setupDevCategory(accentColor, preferenceScreen);
+    }
+
+    private void setupDevCategory(int accentColor, PreferenceScreen preferenceScreen) {
+        // Dev category
+        PreferenceCategory preferenceCategoryDev = (PreferenceCategory) findPreference("dev_category");
+
+        if (getResources().getBoolean(R.bool.is_beta)) {
+            preferenceCategoryDev.setTitle(ThemeUtils.getColoredTitle(getString(R.string.prefs_category_dev),
+                    accentColor));
+
+            /* Link to dev apks */
+            Preference pDevLink = findPreference("dev_link");
+            if (pDevLink != null) {
+                if (getResources().getBoolean(R.bool.dev_version_direct_download_enabled)) {
+                    pDevLink.setOnPreferenceClickListener(preference -> {
+                        Integer latestVersion = -1;
+                        Integer currentVersion = -1;
+                        try {
+                            currentVersion = getPackageManager().getPackageInfo(getPackageName(), 0).versionCode;
+                            String url = getString(R.string.dev_latest);
+                            LoadingVersionNumberTask loadTask = new LoadingVersionNumberTask();
+                            loadTask.execute(url);
+                            latestVersion = loadTask.get();
+                        } catch (InterruptedException | ExecutionException | NameNotFoundException e) {
+                            Log_OC.e(TAG, "Error detecting app version", e);
+                        }
+                        if (latestVersion == -1 || currentVersion == -1) {
+                            Snackbar.make(getListView(), R.string.dev_version_no_information_available,
+                                    Snackbar.LENGTH_SHORT).show();
+                        }
+                        if (latestVersion > currentVersion) {
+                            String devApkLink = (String) getText(R.string.dev_link) + latestVersion + ".apk";
+                            Uri uriUrl = Uri.parse(devApkLink);
+                            Intent intent = new Intent(Intent.ACTION_VIEW, uriUrl);
+                            startActivity(intent);
+                            return true;
+                        } else {
+                            Snackbar.make(getListView(), R.string.dev_version_no_new_version_available,
+                                    Snackbar.LENGTH_SHORT).show();
+                            return true;
+                        }
+                    });
+                } else {
+                    preferenceCategoryDev.removePreference(pDevLink);
+                }
+            }
+
+            /* Link to dev changelog */
+            Preference pChangelogLink = findPreference("changelog_link");
+            if (pChangelogLink != null) {
+                pChangelogLink.setOnPreferenceClickListener(preference -> {
+                    String devChangelogLink = getString(R.string.dev_changelog);
+                    Uri uriUrl = Uri.parse(devChangelogLink);
+                    Intent intent = new Intent(Intent.ACTION_VIEW, uriUrl);
+                    startActivity(intent);
+                    return true;
+                });
+            }
+        } else {
+            preferenceScreen.removePreference(preferenceCategoryDev);
+        }
     }
 
     private void setupAboutCategory(int accentColor, String appVersion) {
