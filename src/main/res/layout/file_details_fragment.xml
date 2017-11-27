@@ -35,18 +35,21 @@
 			android:layout_margin="@dimen/standard_margin">
 
 			<ImageView
-				android:id="@+id/fdIcon"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:src="@drawable/file"/>
+                android:id="@+id/fdIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/file"
+                android:contentDescription="@string/file_icon"/>
 
 			<LinearLayout
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:layout_centerVertical="true"
-				android:layout_toRightOf="@+id/fdIcon"
-				android:paddingLeft="@dimen/standard_padding"
-				android:orientation="vertical">
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/fdIcon"
+                android:layout_toEndOf="@+id/fdIcon"
+                android:paddingLeft="@dimen/standard_padding"
+                android:paddingStart="@dimen/standard_padding"
+                android:orientation="vertical">
 
 				<TextView
 					android:id="@+id/fdFilename"
@@ -62,31 +65,32 @@
 					android:orientation="horizontal">
 
 					<TextView
-						android:id="@+id/fdSize"
-						android:layout_width="wrap_content"
-						android:layout_height="wrap_content"
-						android:text="@string/placeholder_filesize"
-						android:textColor="@color/list_item_lastmod_and_filesize_text"
-						android:textSize="@dimen/two_line_secondary_text_size"/>
+                        android:id="@+id/fdSize"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/placeholder_fileSize"
+                        android:textColor="@color/list_item_lastmod_and_filesize_text"
+                        android:textSize="@dimen/two_line_secondary_text_size"/>
 
 					<TextView
-						android:id="@+id/file_separator"
-						android:layout_width="wrap_content"
-						android:layout_height="wrap_content"
-						android:paddingRight="@dimen/standard_quarter_padding"
-						android:gravity="right"
-						android:text="@string/info_separator"
-						android:textColor="@color/list_item_lastmod_and_filesize_text"
-						android:textSize="@dimen/two_line_secondary_text_size"/>
+                        android:id="@+id/file_separator"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingRight="@dimen/standard_quarter_padding"
+                        android:paddingEnd="@dimen/standard_quarter_padding"
+                        android:gravity="end"
+                        android:text="@string/info_separator"
+                        android:textColor="@color/list_item_lastmod_and_filesize_text"
+                        android:textSize="@dimen/two_line_secondary_text_size"/>
 
 					<TextView
-						android:id="@+id/fdModified"
-						android:layout_width="wrap_content"
-						android:layout_height="wrap_content"
-						android:gravity="right"
-						android:text="@string/placeholder_media_time"
-						android:textColor="@color/list_item_lastmod_and_filesize_text"
-						android:textSize="@dimen/two_line_secondary_text_size"/>
+                        android:id="@+id/fdModified"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="end"
+                        android:text="@string/placeholder_media_time"
+                        android:textColor="@color/list_item_lastmod_and_filesize_text"
+                        android:textSize="@dimen/two_line_secondary_text_size"/>
 
 				</LinearLayout>
 
@@ -152,13 +156,14 @@
 						android:indeterminateOnly="false"/>
 
 					<ImageButton
-						android:id="@+id/fdCancelBtn"
-						android:layout_width="wrap_content"
-						android:layout_height="wrap_content"
-						android:layout_marginLeft="@dimen/standard_half_margin"
-						android:background="@android:color/transparent"
-						android:src="@drawable/ic_cancel"
-						android:contentDescription="@string/common_cancel"/>
+                        android:id="@+id/fdCancelBtn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/standard_half_margin"
+                        android:layout_marginStart="@dimen/standard_half_margin"
+                        android:background="@android:color/transparent"
+                        android:src="@drawable/ic_cancel"
+                        android:contentDescription="@string/common_cancel"/>
 
 				</LinearLayout>
 
@@ -196,13 +201,14 @@
 				android:orientation="horizontal">
 
 				<ImageView
-					android:id="@+id/fdShareLinkIcon"
-					android:layout_width="14sp"
-					android:layout_height="14sp"
-					android:layout_gravity="center_vertical"
-					android:layout_marginRight="@dimen/standard_half_margin"
-					android:src="@drawable/shared_via_link"
-					android:visibility="gone"/>
+                    android:id="@+id/fdShareLinkIcon"
+                    android:layout_width="14sp"
+                    android:layout_height="14sp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginRight="@dimen/standard_half_margin"
+                    android:layout_marginEnd="@dimen/standard_half_margin"
+                    android:src="@drawable/shared_via_link"
+                    android:visibility="gone"/>
 
 				<TextView
 					android:id="@+id/fdSharebyLink"

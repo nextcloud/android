@@ -48,9 +48,10 @@
 		android:orientation="horizontal">
 
 		<ImageView
-			android:layout_width="match_parent"
-			android:layout_height="1dp"
-			android:src="@drawable/uploader_list_separator"/>
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:src="@drawable/uploader_list_separator"
+            android:contentDescription="@null"/>
 
 	</LinearLayout>
 
@@ -62,15 +63,16 @@
         android:padding="@dimen/standard_padding">
 
 		<android.support.v7.widget.AppCompatButton
-			android:theme="@style/Button"
-		    android:id="@+id/uploader_cancel"
-			style="@style/ownCloud.Button"
-		    android:layout_width="fill_parent"
-		    android:layout_height="wrap_content"
-		    android:layout_gravity="bottom"
-		    android:layout_weight="1"
-		    android:text="@string/common_cancel"
-			android:layout_marginRight="@dimen/standard_half_margin" />
+            android:theme="@style/Button"
+            android:id="@+id/uploader_cancel"
+            style="@style/ownCloud.Button"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_weight="1"
+            android:text="@string/common_cancel"
+            android:layout_marginRight="@dimen/standard_half_margin"
+            android:layout_marginEnd="@dimen/standard_half_margin"/>
 
 		<android.support.v7.widget.AppCompatButton
 		    android:id="@+id/uploader_choose_folder"
