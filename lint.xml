@@ -6,7 +6,7 @@
     </issue>
     
     <issue id="UnusedResources">
-        <ignore regexp="store_short_desc|store_full_desc" />
+        <ignore regexp="store_short_desc|store_full_desc|store_short_dev_desc|store_full_dev_desc" />
     </issue>
     
     <issue id="MissingQuantity">
