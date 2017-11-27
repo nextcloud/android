@@ -41,6 +41,8 @@
                 android:layout_height="@dimen/file_icon_size"
                 android:layout_gravity="center_vertical"
                 android:layout_marginRight="@dimen/standard_half_margin"
+                android:layout_marginEnd="@dimen/standard_half_margin"
+                android:contentDescription="@string/share_file_icon"
                 android:src="@drawable/file"/>
 
             <TextView
@@ -66,9 +68,10 @@
                 android:layout_below="@+id/shareFileName"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="@dimen/standard_quarter_margin"
+                android:layout_marginStart="@dimen/standard_quarter_margin"
                 android:layout_toEndOf="@+id/shareFileIcon"
                 android:layout_toRightOf="@+id/shareFileIcon"
-                android:text="@string/placeholder_filesize"
+                android:text="@string/placeholder_fileSize"
                 android:textSize="@dimen/share_file_layout_text_size"/>
 
         </RelativeLayout>
@@ -104,6 +107,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dip"
                 android:layout_weight="1"
+                android:paddingStart="@dimen/standard_half_padding"
                 android:paddingLeft="@dimen/standard_half_padding"
                 android:scrollbars="vertical"
                 android:visibility="gone"/>
@@ -147,6 +151,7 @@
                 android:layout_marginTop="@dimen/standard_half_margin"
                 android:checked="false"
                 android:paddingRight="@dimen/standard_half_padding"
+                android:paddingEnd="@dimen/standard_half_padding"
                 android:text="@string/share_via_link_section_title"
                 android:textColor="@color/color_accent"/>
 

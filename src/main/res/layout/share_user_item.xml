@@ -31,7 +31,8 @@
             android:layout_height="wrap_content"
             android:id="@+id/icon"
             android:src="@drawable/ic_user"
-            android:layout_gravity="center_vertical"/>
+            android:layout_gravity="center_vertical"
+            android:contentDescription="@string/user_icon"/>
 
         <TextView
             android:layout_width="0dp"
@@ -64,7 +65,8 @@
             android:id="@+id/editShareButton"
             android:src="@drawable/ic_dots_vertical"
             android:padding="@dimen/standard_half_padding"
-            android:layout_gravity="center_vertical"/>
+            android:layout_gravity="center_vertical"
+            android:contentDescription="@string/overflow_menu"/>
 
     </LinearLayout>
 

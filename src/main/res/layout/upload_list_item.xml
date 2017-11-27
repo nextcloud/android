@@ -19,7 +19,8 @@
             android:layout_width="@dimen/file_icon_size"
             android:layout_height="@dimen/file_icon_size"
             android:layout_gravity="center"
-            android:src="@drawable/folder" />
+            android:src="@drawable/folder"
+            android:contentDescription="@string/thumbnail"/>
   
     </FrameLayout>
 
@@ -50,11 +51,11 @@
                 android:id="@+id/upload_file_size"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="left"
+                android:gravity="start"
                 android:textColor="@color/list_item_lastmod_and_filesize_text"
                 android:ellipsize="middle"
                 android:singleLine="true"
-                android:text="@string/placeholder_filesize"
+                android:text="@string/placeholder_fileSize"
                 android:textSize="@dimen/upload_list_item_text_size"/>
             <TextView
                 android:id="@+id/upload_date"
@@ -111,7 +112,7 @@
         android:focusableInTouchMode="false"
         android:layout_gravity="center_vertical"
         android:paddingLeft="@dimen/standard_half_padding"
-     >
+        android:paddingStart="@dimen/standard_half_padding">
 
         <ImageButton
             android:id="@+id/upload_right_button"
@@ -119,7 +120,7 @@
             android:layout_height="@dimen/upload_list_item_image_size"
             android:layout_gravity="center"
             android:background="@android:color/transparent"
-     />
+            android:contentDescription="@string/upload_item_action_button"/>
 
 	</FrameLayout>
     
