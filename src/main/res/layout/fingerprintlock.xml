@@ -58,7 +58,8 @@
             android:padding="16dp"
             android:scaleType="fitCenter"
             android:src="@drawable/ic_fingerprint"
-            android:tint="@color/primary"/>
+            android:tint="@color/primary"
+            android:contentDescription="@string/fingerprint_icon"/>
 
     </LinearLayout>
 </LinearLayout>
