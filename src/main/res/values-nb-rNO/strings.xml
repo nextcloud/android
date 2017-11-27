@@ -716,4 +716,5 @@ Meld inn alle problemer til https://github.com/nextcloud/android/issues og disku
 Ny med Nextcloud? Nextcloud er en privat filtjener for synkronisering og deling. Den er helt fri kildekode og du kan drifte den selv, eller betale noen for å gjøre det for deg. På denne måten har du kontroll på dine bilder, kalender, kontakter, dokumenter og alt annet.
 
 Sjekk ut Nextcloud på https://nextcloud.com</string>
-</resources>
+
+    </resources>
