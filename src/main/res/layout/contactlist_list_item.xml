@@ -28,13 +28,15 @@
         android:layout_height="40dp"
         android:layout_margin="16dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/ic_user"/>
+        android:src="@drawable/ic_user"
+        android:contentDescription="@string/contactlist_item_icon"/>
 
     <CheckedTextView
         android:id="@+id/contactlist_item_name"
         android:layout_width="0dp"
         android:layout_height="@dimen/standard_list_item_size"
         android:layout_marginRight="@dimen/standard_margin"
+        android:layout_marginEnd="@dimen/standard_margin"
         android:layout_weight="1"
         android:checkMark="?android:attr/listChoiceIndicatorMultiple"
         android:ellipsize="marquee"

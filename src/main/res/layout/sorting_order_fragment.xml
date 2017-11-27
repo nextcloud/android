@@ -58,7 +58,8 @@
                     android:paddingLeft="@dimen/standard_padding"
                     android:paddingRight="@dimen/standard_half_padding"
                     android:paddingTop="@dimen/standard_half_padding"
-                    android:src="@drawable/ic_alphabetical_asc"/>
+                    android:src="@drawable/ic_alphabetical_asc"
+                    android:contentDescription="@string/sort_by_name_ascending"/>
 
                 <TextView
                     android:id="@+id/sortByNameAZText"
@@ -70,6 +71,7 @@
                     android:singleLine="true"
                     android:paddingBottom="@dimen/standard_half_padding"
                     android:paddingRight="@dimen/standard_double_padding"
+                    android:paddingEnd="@dimen/standard_double_padding"
                     android:paddingTop="@dimen/standard_half_padding"
                     android:text="@string/menu_item_sort_by_name_a_z"
                     android:textColor="@color/standard_grey"
@@ -91,7 +93,8 @@
                     android:paddingLeft="@dimen/standard_padding"
                     android:paddingRight="@dimen/standard_half_padding"
                     android:paddingTop="@dimen/standard_half_padding"
-                    android:src="@drawable/ic_alphabetical_desc"/>
+                    android:src="@drawable/ic_alphabetical_desc"
+                    android:contentDescription="@string/sort_by_name_descending"/>
 
                 <TextView
                     android:id="@+id/sortByNameZAText"
@@ -103,6 +106,7 @@
                     android:singleLine="true"
                     android:paddingBottom="@dimen/standard_half_padding"
                     android:paddingRight="@dimen/standard_double_padding"
+                    android:paddingEnd="@dimen/standard_double_padding"
                     android:paddingTop="@dimen/standard_half_padding"
                     android:text="@string/menu_item_sort_by_name_z_a"
                     android:textColor="@color/standard_grey"
@@ -125,7 +129,8 @@
                     android:paddingLeft="@dimen/standard_padding"
                     android:paddingRight="@dimen/standard_half_padding"
                     android:paddingTop="@dimen/standard_half_padding"
-                    android:src="@drawable/ic_modification_desc"/>
+                    android:src="@drawable/ic_modification_desc"
+                    android:contentDescription="@string/sort_by_modification_date_descending"/>
 
                 <TextView
                     android:id="@+id/sortByModificationDateNewestFirstText"
@@ -137,6 +142,7 @@
                     android:singleLine="true"
                     android:paddingBottom="@dimen/standard_half_padding"
                     android:paddingRight="@dimen/standard_double_padding"
+                    android:paddingEnd="@dimen/standard_double_padding"
                     android:paddingTop="@dimen/standard_half_padding"
                     android:text="@string/menu_item_sort_by_date_newest_first"
                     android:textColor="@color/standard_grey"
@@ -158,7 +164,8 @@
                     android:paddingLeft="@dimen/standard_padding"
                     android:paddingRight="@dimen/standard_half_padding"
                     android:paddingTop="@dimen/standard_half_padding"
-                    android:src="@drawable/ic_modification_asc"/>
+                    android:src="@drawable/ic_modification_asc"
+                    android:contentDescription="@string/sort_by_modification_date_ascending"/>
 
                 <TextView
                     android:id="@+id/sortByModificationDateOldestFirstText"
@@ -170,6 +177,7 @@
                     android:singleLine="true"
                     android:paddingBottom="@dimen/standard_half_padding"
                     android:paddingRight="@dimen/standard_double_padding"
+                    android:paddingEnd="@dimen/standard_double_padding"
                     android:paddingTop="@dimen/standard_half_padding"
                     android:text="@string/menu_item_sort_by_date_oldest_first"
                     android:textColor="@color/standard_grey"
@@ -193,7 +201,8 @@
                     android:paddingLeft="@dimen/standard_padding"
                     android:paddingRight="@dimen/standard_half_padding"
                     android:paddingTop="@dimen/standard_half_padding"
-                    android:src="@drawable/ic_size_desc"/>
+                    android:src="@drawable/ic_size_desc"
+                    android:contentDescription="@string/sort_by_size_descending"/>
 
                 <TextView
                     android:id="@+id/sortBySizeBiggestFirstText"
@@ -205,6 +214,7 @@
                     android:singleLine="true"
                     android:paddingBottom="@dimen/standard_half_padding"
                     android:paddingRight="@dimen/standard_double_padding"
+                    android:paddingEnd="@dimen/standard_double_padding"
                     android:paddingTop="@dimen/standard_half_padding"
                     android:text="@string/menu_item_sort_by_size_biggest_first"
                     android:textColor="@color/standard_grey"
@@ -226,7 +236,8 @@
                     android:paddingLeft="@dimen/standard_padding"
                     android:paddingRight="@dimen/standard_half_padding"
                     android:paddingTop="@dimen/standard_half_padding"
-                    android:src="@drawable/ic_size_asc"/>
+                    android:src="@drawable/ic_size_asc"
+                    android:contentDescription="@string/sort_by_size_ascending"/>
 
                 <TextView
                     android:id="@+id/sortBySizeSmallestFirstText"
@@ -238,6 +249,7 @@
                     android:singleLine="true"
                     android:paddingBottom="@dimen/standard_half_padding"
                     android:paddingRight="@dimen/standard_double_padding"
+                    android:paddingEnd="@dimen/standard_double_padding"
                     android:paddingTop="@dimen/standard_half_padding"
                     android:text="@string/menu_item_sort_by_size_smallest_first"
                     android:textColor="@color/standard_grey"
@@ -252,7 +264,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="right">
+        android:gravity="end">
 
         <android.support.v7.widget.AppCompatButton
             android:id="@+id/cancel"
