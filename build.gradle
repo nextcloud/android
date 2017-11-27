@@ -202,6 +202,7 @@ dependencies {
     implementation "com.android.support:cardview-v7:${supportLibraryVersion}"
     implementation "com.android.support:exifinterface:${supportLibraryVersion}"
     implementation 'com.github.tobiasKaminsky:android-floating-action-button:1.10.2'
+    implementation 'com.github.albfernandez:juniversalchardet:v2.0.0'
     implementation 'com.google.code.findbugs:annotations:2.0.1'
     implementation 'commons-io:commons-io:2.5'
     implementation 'com.github.evernote:android-job:v1.1.11'
