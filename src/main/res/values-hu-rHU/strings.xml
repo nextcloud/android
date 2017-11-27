@@ -720,4 +720,5 @@ Kérjük jelents minden hibát a https://github.com/nextcloud/android/issues cí
 Új neked a Nextcloud? A Nextcloud egy privát fájl szinkronizáló, megosztó és kommunikációs szerver. Teljesen nyílt forrású, melyet magad is futtathatsz, vagy fizethetsz más cégeknek, hogy megtegyék neked. Segítségével teljesen ura lehetsz saját képeidnek, naptáradnak, kapcsolataidnak, fájljaidnak és minden egyebednek.
 
 A Nextcloud itt érhető el: https://nextcloud.com</string>
-</resources>
+
+    </resources>
