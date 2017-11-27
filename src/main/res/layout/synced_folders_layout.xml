@@ -59,14 +59,17 @@
                         android:id="@+id/custom_folder_image"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/ic_folder_star_18dp"/>
+                        android:src="@drawable/ic_folder_star_18dp"
+                        android:contentDescription="@string/synced_folder_custom_folder_image"/>
 
                     <TextView
                         android:id="@+id/add_custom_folder"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_toRightOf="@id/custom_folder_image"
+                        android:layout_toEndOf="@id/custom_folder_image"
                         android:paddingLeft="@dimen/alternate_half_padding"
+                        android:paddingStart="@dimen/alternate_half_padding"
                         android:text="@string/autoupload_custom_folder"/>
 
                 </RelativeLayout>

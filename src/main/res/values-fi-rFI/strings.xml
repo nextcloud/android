@@ -270,7 +270,7 @@
     <string name="ssl_validator_null_cert">Varmennetta ei voi näyttää.</string>
     <string name="ssl_validator_no_info_about_error">- Ei lisätietoja virheestä</string>
 
-    <string name="placeholder_filesize">389 kt</string>
+    <string name="placeholder_fileSize">389 kt</string>
     <string name="placeholder_media_time">12:23:45</string>
 
     <string name="auto_upload_on_wifi">Lähetä vain Wi-Fi-yhteydellä</string>
