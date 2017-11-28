@@ -358,6 +358,11 @@ public class PreviewImageActivity extends FileActivity implements
             }
             setDrawerIndicatorEnabled(false);
 
+            if (currentFile.isEncrypted() && !currentFile.isDown() &&
+                    !mPreviewImagePagerAdapter.pendingErrorAt(position)) {
+                requestForDownload(currentFile);
+            }
+
             // Call to reset image zoom to initial state
             ((PreviewImagePagerAdapter) mViewPager.getAdapter()).resetZoom();
         }
