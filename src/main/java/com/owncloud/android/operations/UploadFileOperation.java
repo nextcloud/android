@@ -112,6 +112,7 @@ public class UploadFileOperation extends SyncOperation {
      */
     private OCFile mOldFile;
     private String mRemotePath = null;
+    private String mFolderUnlockToken;
     private boolean mChunked = false;
     private boolean mRemoteFolderToBeCreated = false;
     private boolean mForceOverwrite = false;
@@ -140,6 +141,7 @@ public class UploadFileOperation extends SyncOperation {
     protected RequestEntity mEntity = null;
 
     private Account mAccount;
+    private OCUpload mUpload;
     private UploadsStorageManager uploadsStorageManager;
 
     public static OCFile obtainNewOCFileToUpload(String remotePath, String localPath, String mimeType) {
@@ -191,6 +193,7 @@ public class UploadFileOperation extends SyncOperation {
         }
 
         mAccount = account;
+        mUpload = upload;
         if (file == null) {
             mFile = obtainNewOCFileToUpload(
                     upload.getRemotePath(),
@@ -213,6 +216,7 @@ public class UploadFileOperation extends SyncOperation {
         mRemoteFolderToBeCreated = upload.isCreateRemoteFolder();
         // Ignore power save mode only if user explicitly created this upload
         mIgnoringPowerSaveMode = (mCreatedBy == CREATED_BY_USER);
+        mFolderUnlockToken = upload.getFolderUnlockToken();
     }
 
     public boolean getIsWifiRequired() {
@@ -361,18 +365,28 @@ public class UploadFileOperation extends SyncOperation {
             }
         }
 
-        /// check the existence of the parent folder for the file to upload
+        // check the existence of the parent folder for the file to upload
         String remoteParentPath = new File(getRemotePath()).getParent();
         remoteParentPath = remoteParentPath.endsWith(OCFile.PATH_SEPARATOR) ?
                 remoteParentPath : remoteParentPath + OCFile.PATH_SEPARATOR;
+
+        OCFile parent = getStorageManager().getFileByPath(remoteParentPath);
+        mFile.setParentId(parent.getFileId());
+
+        if (parent.isEncrypted()) {
+            UnlockFileOperation unlockFileOperation = new UnlockFileOperation(parent.getLocalId(), mFolderUnlockToken);
+            RemoteOperationResult unlockFileOperationResult = unlockFileOperation.execute(client);
+
+            if (!unlockFileOperationResult.isSuccess()) {
+                return unlockFileOperationResult;
+            }
+        }
+
         RemoteOperationResult result = grantFolderExistence(remoteParentPath, client);
 
         if (!result.isSuccess()) {
             return result;
         }
-
-        OCFile parent = getStorageManager().getFileByPath(remoteParentPath);
-        mFile.setParentId(parent.getFileId());
 
         if (parent.isEncrypted()) {
             Log_OC.d(TAG, "encrypted upload");
@@ -618,6 +632,11 @@ public class UploadFileOperation extends SyncOperation {
 //                }
 //            }
 
+//            boolean test = true;
+//            if (test) {
+//                throw new Exception("test");
+//            }
+            
             result = mUploadOperation.execute(client);
 //            if (result == null || result.isSuccess() && mUploadOperation != null) {
 //                result = mUploadOperation.execute(client);
@@ -676,8 +695,9 @@ public class UploadFileOperation extends SyncOperation {
         } finally {
             mUploadStarted.set(false);
 
-            // unlock folder
-            unlockFolder(parentFile, client, token);
+            // if something fails, store token and retry again
+            mUpload.setFolderUnlockToken(token);
+            uploadsStorageManager.updateUpload(mUpload);
 
             if (fileLock != null) {
                 try {
