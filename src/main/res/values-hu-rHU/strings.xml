@@ -330,7 +330,6 @@
 
     <string name="placeholder_sentence">Ez egy helyőrző</string>
     <string name="placeholder_filename">helyörző.txt</string>
-    <string name="placeholder_fileSize">389 KB</string>
     <string name="placeholder_timestamp">2012&#8211;05&#8211;18 12:23</string>
     <string name="placeholder_media_time">12:23:45</string>
 
@@ -721,4 +720,10 @@ Kérjük jelents minden hibát a https://github.com/nextcloud/android/issues cí
 
 A Nextcloud itt érhető el: https://nextcloud.com</string>
 
-    </resources>
+    <string name="store_short_dev_desc">A Nextcloud Dev app egy fejlesztői pillanatkép és párhuzamosan telepíthető.</string>
+    <string name="store_full_dev_desc">A nyílt forráskódú Nextcloud Android app lehetővé teszi a fáljaid elérését a Nextcloud-odban.\nEz a hivatalos Nextcloud app fejlesztői változata és új, esetleg instabil megoldásokat tartalmazhat, melyek hibákhoz, adatvesztéshez vezethetnek. Az appot olyanoknak szánjuk, akik hajlandóak tesztelni azt és jelenteni az esetleges hibákat. Ne használd éles környezetben.\n\nA fejlesztői verzió párhuzamosan telepíthető és az F-Droidból is elérhető.. Naponta egyszer kerül ellenőrzésre a forráskód változása, így lehetséges nagyobb kihagyás két kiadás között.</string>
+
+    <string name="prefs_category_dev">Dev</string>
+    <string name="dev_version_no_information_available">Nincs információ!</string>
+    <string name="dev_version_no_new_version_available">Nincs újabb verzió!</string>
+</resources>

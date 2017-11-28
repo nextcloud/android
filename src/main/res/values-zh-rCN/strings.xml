@@ -302,7 +302,6 @@
 
     <string name="placeholder_sentence">占位符</string>
     <string name="placeholder_filename">点位符.txt</string>
-    <string name="placeholder_fileSize">389字节</string>
     <string name="placeholder_timestamp">2012/05/18 下午12:23 </string>
     <string name="placeholder_media_time">12:23:45</string>
 

@@ -256,7 +256,6 @@
 
     <string name="placeholder_sentence">이것은 자리 비움자입니다</string>
     <string name="placeholder_filename">placeholder.txt</string>
-    <string name="placeholder_fileSize">389KB</string>
     <string name="placeholder_timestamp">2012년 05월 18일 오후 12:23</string>
     <string name="placeholder_media_time">12:23:45</string>
 

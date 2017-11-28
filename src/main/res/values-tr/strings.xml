@@ -330,7 +330,6 @@
 
     <string name="placeholder_sentence">Bu bir yer belirleyicidir</string>
     <string name="placeholder_filename">yerbelirleyici.txt</string>
-    <string name="placeholder_fileSize">389 KB</string>
     <string name="placeholder_timestamp">2012/05/18 12:23 ÖS</string>
     <string name="placeholder_media_time">12:23:45</string>
 
@@ -700,4 +699,7 @@
     <string name="store_short_desc">Nextcloud Android uygulaması Nextcloud üzerindeki tüm dosyalarınıza erişmenizi sağlar.</string>
     <string name="store_full_desc">Copyleft Nextcloud Android uygulaması, Nextcloud üzerindeki tüm dosyalarınıza erişmenizi sağlar.\n\nÖzellikleri:\* Kolay kullanılan modern arayüz\n* Dosyalarınızı Nextcloud sunucunuza kolayca yükleyebilme\n* Dosyalarınızı başkalarıyla paylaşabilme\n* Sık kullandığınız dosya ve klasörleri eşitleme\n* Çektiğiniz fotoğraf ve görüntüleri anında yükleme\n* Birden çok hesap desteği\nKullanımda karşılaşabileceğiniz hataları https://github.com/nextcloud/android/issues adresinden bildirebilir, uygulama hakkındaki konuları https://help.nextcloud.com adresinde tartışabilirsiniz ;-)\n\nNextcloud ile yeni mi tanıştınız? Nextcloud özel bir veri depolama ve paylaşma ağıdır. Tamamen açık kaynak kodludur. Dosyalarınızı kendi sunucunuzda saklayabileceğiniz gibi ücretli hizmet olarak da satın alabilirsiniz. Böylece fotoğraflarınız, dosyalarınız, takviminiz, belgeleriniz, kişileriniz ve diğer tüm özel bilgileriniz sizin kontrolünüzde olur. \n\nAyrıntılı bilgi almak için sitemize bakabilirsiniz: https://nextcloud.com</string>
 
-    </resources>
+    <string name="prefs_category_dev">Geliştirici</string>
+    <string name="dev_version_no_information_available">Bilgi mevcut değil!</string>
+    <string name="dev_version_no_new_version_available">Yeni sürüm mevcut değil!</string>
+</resources>
