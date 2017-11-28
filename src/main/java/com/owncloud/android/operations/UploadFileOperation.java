@@ -640,6 +640,11 @@ public class UploadFileOperation extends SyncOperation {
 //                }
 //            }
 
+//            boolean test = true;
+//            if (test) {
+//                throw new Exception("test");
+//            }
+            
             result = mUploadOperation.execute(client);
 //            if (result == null || result.isSuccess() && mUploadOperation != null) {
 //                result = mUploadOperation.execute(client);
