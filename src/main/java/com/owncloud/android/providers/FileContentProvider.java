@@ -1560,6 +1560,23 @@ public class FileContentProvider extends ContentProvider {
             if (!upgraded) {
                 Log_OC.i(SQL, String.format(Locale.ENGLISH, UPGRADE_VERSION_MSG, oldVersion, newVersion));
             }
+
+            if (oldVersion < 26 && newVersion >= 26) {
+                Log_OC.i(SQL, "Entering in the #26 Adding token to ocUpload");
+                db.beginTransaction();
+                try {
+                    db.execSQL(ALTER_TABLE + ProviderTableMeta.UPLOADS_TABLE_NAME +
+                            ADD_COLUMN + ProviderTableMeta.UPLOADS_FOLDER_UNLOCK_TOKEN + " TEXT ");
+                    upgraded = true;
+                    db.setTransactionSuccessful();
+                } finally {
+                    db.endTransaction();
+                }
+            }
+
+            if (!upgraded) {
+                Log_OC.i(SQL, String.format(Locale.ENGLISH, UPGRADE_VERSION_MSG, oldVersion, newVersion));
+            }
         }
 
         @Override
