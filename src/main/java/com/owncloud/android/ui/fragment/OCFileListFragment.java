@@ -125,6 +125,7 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
     public final static String ARG_JUST_FOLDERS = MY_PACKAGE + ".JUST_FOLDERS";
     public final static String ARG_ALLOW_CONTEXTUAL_ACTIONS = MY_PACKAGE + ".ALLOW_CONTEXTUAL";
     public final static String ARG_HIDE_FAB = MY_PACKAGE + ".HIDE_FAB";
+    public final static String ARG_HIDE_ITEM_OPTIONS = MY_PACKAGE + ".HIDE_ITEM_OPTIONS";
 
     public static final String DOWNLOAD_BEHAVIOUR = "DOWNLOAD_BEHAVIOUR";
     public static final String DOWNLOAD_SEND = "DOWNLOAD_SEND";
@@ -312,13 +313,9 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
 
         Bundle args = getArguments();
         mJustFolders = (args != null) && args.getBoolean(ARG_JUST_FOLDERS, false);
-        mAdapter = new FileListListAdapter(
-                mJustFolders,
-                getActivity(),
-                mContainerActivity,
-                this,
-                mContainerActivity.getStorageManager()
-        );
+        boolean hideItemOptions = (args != null) && args.getBoolean(ARG_HIDE_ITEM_OPTIONS, false);
+
+        mAdapter = new FileListListAdapter(mJustFolders, getActivity(), mContainerActivity, this, hideItemOptions);
         setListAdapter(mAdapter);
 
         mHideFab = (args != null) && args.getBoolean(ARG_HIDE_FAB, false);
