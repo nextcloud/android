@@ -171,6 +171,7 @@
     <string name="downloader_not_downloaded_yet">Dar neatsiųsta</string>
     <string name="downloader_download_failed_credentials_error">Įkėlimas nepavyko. prisijunkite dar kartą</string>
     <string name="common_choose_account">Pasirinkite paskyrą</string>
+    <string name="common_switch_account">Perjungti paskyrą</string>
     <string name="sync_fail_ticker">Įrašymas nepavyko</string>
     <string name="sync_fail_ticker_unauthorized">Įkėlimas nepavyko. prisijunkite dar kartą</string>
     <string name="sync_fail_content">Nepavyko užbaigti %1$s sinchronizacijos</string>
@@ -179,6 +180,8 @@
     <string name="sync_fail_in_favourites_ticker">Sinchronizuojamų failų klaida</string>
     <string name="sync_foreign_files_forgotten_ticker">Keli vietiniai failai buvo užmiršti</string>
     <string name="sync_current_folder_was_removed">Aplankas %1$s nebeegzistuoja</string>
+    <string name="foreign_files_success">Visi failai buvo perkelti</string>
+    <string name="foreign_files_fail">Kai kurių failų nepavyko perkelti</string>
     <string name="upload_query_move_foreign_files">Nepakankamas vietos kiekis neleidžia kopijuoti pasirinktų failų į %1$s aplanką. Ar norėtumėte vietoje to juos perkelti?</string>
     <string name="pass_code_enter_pass_code">Prašome įvesti slaptažodį</string>
     
@@ -246,7 +249,11 @@
     <string name="unset_favorite_real">Panaikinti iš mėgstamųjų</string>
     <string name="favorite_switch">Pasiekiamas offline</string>
     <string name="common_rename">Pervadinti</string>
+    <string name="common_remove">Ištrinti</string>
+    <string name="confirmation_remove_file_alert">Ar tikrai norite ištrinti %1$s?</string>
     <string name="confirmation_remove_local">Tik vietiniai</string>
+    <string name="remove_success_msg">Ištrinta</string>
+    <string name="remove_fail_msg">Ištrynimas nepavyko</string>
     <string name="rename_dialog_title">Įveskite naują pavadinimą</string>
     <string name="sync_file_fail_msg">Nutolę failai negalėjo būti patikrinti</string>
     <string name="sync_file_nothing_to_do_msg">Failo turinys jau sunchronizuotas</string>
@@ -292,7 +299,6 @@
 
     <string name="placeholder_sentence">Rezervas</string>
     <string name="placeholder_filename">rezervas.txt</string>
-    <string name="placeholder_fileSize">389 KB</string>
     <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
     <string name="placeholder_media_time">12:23:45</string>
 

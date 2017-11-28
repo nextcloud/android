@@ -330,7 +330,6 @@
 
     <string name="placeholder_sentence">Esto es un marcador de posición</string>
     <string name="placeholder_filename">placeholder.txt</string>
-    <string name="placeholder_fileSize">389 KB</string>
     <string name="placeholder_timestamp">18/05/2012 12:23 PM</string>
     <string name="placeholder_media_time">12:23:45</string>
 
@@ -700,4 +699,8 @@
     <string name="store_short_desc">La app de Nextcloud te permite acceder a todos tus archivos en tu Nextcloud</string>
     <string name="store_full_desc">La app copyleft de software libre Nextcloud para Android te permite acceder a todos tus archivos en tu Nextcloud.\n\nCaracterísticas\n*Interfaz sencilla y moderna, adaptada al tema de tu servidor\n* Sube tus archivos a tu servidor Nextcloud\n* Comparte tus archivos con otros\n* Mantén sincronizados tus archivos y carpetas favoritos\n* Busca en todas las carpetas del servidor\n* Subida automática de fotos y vídeos realizados con tu dispositivo\n* Mantente al tanto de todo mediante las notificaciones\n* Soporte de múltiples cuentas\n* Acceso seguro a tus datos con huella digital o PIN\n* Integración con DAVdroid para configurar fácilmente la sincronización de calendarios y contactos\n\nPor favor, informa de todos los problemas en https://github.com/nextcloud/android/issues y discute la app en https://help.nextcloud.com/c/clients/android\n\n¿Eres nuevo en Nextcloud? Nextcloud es un servidor privado para sincronizar, compartir y comunicarte. Es software libre y puedes alojarlo tú mismo o pagar a una compañía para que lo haga por ti. De esta forma, tienes el control de tus fotos, tus calendarios y los datos de contactos, tus documentos y todo lo demás.\n\nConoce Nextcloud en https://nextcloud.com</string>
 
-    </resources>
+    <string name="store_full_dev_desc">La Aplicación Android de Código Abierto se deja accede todo su archivos en su Nextcloud.\nEso es una versión de desarollo y incluye características completamente nuevas que pueden conducir a instabilidades y el pérdida de datos. El aplicación es diseñado para usuarios dispuesto a probar los características nuevas y reportar errores si occuren. ¡No lo use para su trabajo productivo!\n\nEl versión de desarollo se puede instalar junto al applicación oficial que esta disponible en F-Droid, también. Uno vez al día, es comprobada para ver si se cambia el código fuente, así que puede haber pausas más largas entre vérsiones.</string>
+
+    <string name="dev_version_no_information_available">¡No hay información disponible!</string>
+    <string name="dev_version_no_new_version_available">¡No hay nueva versión disponible!</string>
+</resources>
