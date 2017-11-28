@@ -84,6 +84,7 @@ public class FileListListAdapter extends BaseAdapter {
     private Vector<OCFile> mFilesAll = new Vector<OCFile>();
     private Vector<OCFile> mFiles = null;
     private boolean mJustFolders;
+    private boolean mHideItemOptions;
 
     private FileDataStorageManager mStorageManager;
     private Account mAccount;
@@ -96,17 +97,14 @@ public class FileListListAdapter extends BaseAdapter {
 
     private ArrayList<ThumbnailsCacheManager.ThumbnailGenerationTask> asyncTasks = new ArrayList<>();
 
-    public FileListListAdapter(
-            boolean justFolders,
-            Context context,
-            ComponentsGetter transferServiceGetter,
-            OCFileListFragmentInterface OCFileListFragmentInterface
-    ) {
+    public FileListListAdapter(boolean justFolders, Context context, ComponentsGetter transferServiceGetter,
+                               OCFileListFragmentInterface OCFileListFragmentInterface, boolean argHideItemOptions) {
 
         this.OCFileListFragmentInterface = OCFileListFragmentInterface;
         mJustFolders = justFolders;
         mContext = context;
         mAccount = AccountUtils.getCurrentOwnCloudAccount(mContext);
+        mHideItemOptions = argHideItemOptions;
 
         mTransferServiceGetter = transferServiceGetter;
 
@@ -116,17 +114,6 @@ public class FileListListAdapter extends BaseAdapter {
 
         // initialise thumbnails cache on background thread
         new ThumbnailsCacheManager.InitDiskCacheTask().execute();
-    }
-
-    public FileListListAdapter(
-            boolean justFolders,
-            Context context,
-            ComponentsGetter transferServiceGetter,
-            OCFileListFragmentInterface OCFileListFragmentInterface,
-            FileDataStorageManager fileDataStorageManager
-    ) {
-        this(justFolders, context, transferServiceGetter, OCFileListFragmentInterface);
-        mStorageManager = fileDataStorageManager;
     }
 
     @Override
@@ -326,8 +313,17 @@ public class FileListListAdapter extends BaseAdapter {
                 hideOverflowMenuIcon(view, viewType);
             } else {
                 checkBoxV.setVisibility(View.GONE);
-                showShareIcon(view, file);
-                showOverflowMenuIcon(view, file, viewType);
+
+                if (mHideItemOptions) {
+                    ImageView sharedIconView = (ImageView) view.findViewById(R.id.sharedIcon);
+                    sharedIconView.setVisibility(View.GONE);
+
+                    ImageView overflowIndicatorView = (ImageView) view.findViewById(R.id.overflow_menu);
+                    overflowIndicatorView.setVisibility(View.GONE);
+                } else {
+                    showShareIcon(view, file);
+                    showOverflowMenuIcon(view, file, viewType);
+                }
             }
 
             // this if-else is needed even though kept-in-sync icon is visible by default
