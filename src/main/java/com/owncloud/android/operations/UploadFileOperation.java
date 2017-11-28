@@ -374,7 +374,7 @@ public class UploadFileOperation extends SyncOperation {
         OCFile parent = getStorageManager().getFileByPath(remoteParentPath);
         mFile.setParentId(parent.getFileId());
 
-        if (parent.isEncrypted()) {
+        if (parent.isEncrypted() && !mFolderUnlockToken.isEmpty()) {
             UnlockFileOperation unlockFileOperation = new UnlockFileOperation(parent.getLocalId(), mFolderUnlockToken);
             RemoteOperationResult unlockFileOperationResult = unlockFileOperation.execute(client);
 
@@ -474,7 +474,7 @@ public class UploadFileOperation extends SyncOperation {
             /***** E2E *****/
 
             // check name collision
-            checkNameCollision(client);
+            checkNameCollision(client, metadata, parentFile.isEncrypted());
 
             String expectedPath = FileStorageUtils.getDefaultSavePathFor(mAccount.name, mFile);
             expectedFile = new File(expectedPath);
@@ -806,7 +806,7 @@ public class UploadFileOperation extends SyncOperation {
             result = checkConditions(originalFile);
 
             // check name collision
-            checkNameCollision(client);
+            checkNameCollision(client, null, false);
 
             String expectedPath = FileStorageUtils.getDefaultSavePathFor(mAccount.name, mFile);
             expectedFile = new File(expectedPath);
@@ -959,12 +959,12 @@ public class UploadFileOperation extends SyncOperation {
         return result;
     }
 
-    private void checkNameCollision(OwnCloudClient client) throws OperationCancelledException {
+    private void checkNameCollision(OwnCloudClient client, DecryptedFolderMetadata metadata, boolean encrypted)
+            throws OperationCancelledException {
         /// automatic rename of file to upload in case of name collision in server
         Log_OC.d(TAG, "Checking name collision in server");
         if (!mForceOverwrite) {
-            // TODO encrypted always false?
-            String remotePath = getAvailableRemotePath(client, mRemotePath, null, false);
+            String remotePath = getAvailableRemotePath(client, mRemotePath, metadata, encrypted);
             mWasRenamed = !remotePath.equals(mRemotePath);
             if (mWasRenamed) {
                 createNewOCFile(remotePath);
