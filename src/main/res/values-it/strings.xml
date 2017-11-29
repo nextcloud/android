@@ -330,6 +330,7 @@
 
     <string name="placeholder_sentence">Questo è un segnaposto</string>
     <string name="placeholder_filename">segnaposto.txt</string>
+    <string name="placeholder_fileSize">389 KB</string>
     <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
     <string name="placeholder_media_time">12:23:45</string>
 
@@ -699,4 +700,33 @@
     <string name="store_short_desc">L\'applicazione per Android di Nextcloud ti consente di accedere ai file sul tuo Nextcloud</string>
     <string name="store_full_desc">L\'applicazione libera per Android di Nextcloud ti consente di accedere ai file sul tuo Nextcloud.\n\nFunzionalità:\n* Interfaccia semplice e moderna, che si adattaal tema del tuo server\n* Carica i tuoi file sul tuo server Nextcloud\n* Condividili con altri\n* Mantieni i tuoi file e le cartelle preferite sincronizzate\n* Ricerca attraverso tutte le cartelle sul tuo server\n* Caricamento automatico per le foto e i video acquisiti con il tuo dispositivo\n* Tieniti aggiornato con le notifiche\n* Supporto di più account\n* Proteggi l\'accesso ai tuoi dati con impronta digitale o PIN\n* Integrazione con DAVdroid per una facile configurazione della sincronizzazione di calendari e contatti\n\nSegnala tutti i problemi su https://github.com/nextcloud/android/issues e discuti questa applicazione su https://help.nextcloud.com/c/clients/android\n\nNuovo di Nextcloud? Nextcloud è un server privato di sincronizzazione e condivisione dei file e un server di comunicazione. È un software libero e puoi ospitarlo a casa tua o pagare una società che lo faccia per conto tuo. In questo modo, avrai il controllo delle tue foto, del tuo calendario e dei tuoi contatti, dei tuoi documenti e di qualsiasi altra cosa.\n\nDai un\'occhiata a Nextcloud su https://nextcloud.com</string>
 
-    </resources>
+    <string name="drawer_current_account">Account attuale</string>
+    <string name="drawer_middle_account">Account centrale</string>
+    <string name="drawer_end_account">Ultimo account</string>
+    <string name="activity_icon">Icona attività</string>
+    <string name="file_icon">Icona file</string>
+    <string name="user_icon">Icona utente</string>
+    <string name="fingerprint_icon">Icona impronta digitale</string>
+    <string name="favorite_icon">Icona preferiti</string>
+    <string name="shared_via_link_icon">Icona condivisi tramite collegamento</string>
+    <string name="synced_icon">Icona sincronizzati</string>
+    <string name="available_offline_icon">Icona disponibile non in linea</string>
+    <string name="checkbox">Casella di selezione</string>
+    <string name="thumbnail">Miniatura</string>
+    <string name="shared_icon">Icona condivisi</string>
+    <string name="share_file_icon">Icona file condivisi</string>
+    <string name="sort_by_name_ascending">Ordina per nome crescente</string>
+    <string name="sort_by_modification_date_ascending">Ordina per data di modifica crescente</string>
+    <string name="sort_by_size_descending">Ordina per dimensione decrescente</string>
+    <string name="sort_by_size_ascending">Ordina per dimensione crescente</string>
+    <string name="sort_by_name_descending">Ordina per nome decrescente</string>
+    <string name="sort_by_modification_date_descending">Ordina per data di modifica decrescente</string>
+    <string name="synced_folders_type">Tipo</string>
+    <string name="sync_status_button">Pulsante stato di sincronizzazione</string>
+    <string name="synced_folder_settings_button">Pulsante impostazioni</string>
+    <string name="synced_folder_custom_folder_image">Immagine cartella personalizzata</string>
+    <string name="forward">Inoltra</string>
+    <string name="store_short_dev_desc">Nextcloud Dev è un\'istantanea di sviluppo, installabile parallelamente.</string>
+    <string name="dev_version_no_information_available">Nessuna informazione disponibile!</string>
+    <string name="dev_version_no_new_version_available">Nessuna nuova versione disponibile!</string>
+</resources>

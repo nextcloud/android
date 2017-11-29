@@ -331,6 +331,7 @@
 
     <string name="placeholder_sentence">Dies ist ein Platzhalter</string>
     <string name="placeholder_filename">platzhalter.txt</string>
+    <string name="placeholder_fileSize">389 KB</string>
     <string name="placeholder_timestamp">18.5.2012 12:23</string>
     <string name="placeholder_media_time">12:23:45</string>
 
@@ -700,4 +701,17 @@
     <string name="store_short_desc">Die Nextcloud Android App erlaubt Ihnen den Zugriff auf alle Dateien in Ihrer Nextcloud </string>
     <string name="store_full_desc">Die Open Source Nextcloud Android App erlaubt Ihnen Zugriff auf alle Dateien in Ihrer Nextcloud.\n\nEigenschaften:\n* Einfache, moderne Oberfläche\n* Laden Sie Ihre Dateien auf Ihren Nextcloud Server\n* Teilen Sie Ihre Dateien mit anderen\n* Wichtige Dateien und Verzeichnisse können aktuell gehalten werden\n* Suche über alle Ordner auf Ihrem Server\n* Automatisches Hochladen von Photos und Videos von Ihrem Gerät\n* Bleiben Sie auf dem Laufenden durch Benachrichtigungen\n* Mehrere Konten gleichzeitig\n* Geschützter Zugriff durch Fingerabdruck oder PIN\n* Integration mit DAVdroid für einfaches Konfigurieren von Kalender &amp; Kontakte Synchronisierung\n\nBitte melden Sie alle Probleme unter https://github.com/nextcloud/android/issues oder diskutieren Sie über die App auf https://help.nextcloud.com/c/clients/android\n\nWas ist die Nextcloud? Die Nextcloud ist ein privater Dateiaustausch &amp; -synchronisierungs Server. Nextcloud ist Open Source und kann auf einem eigenen Server installiert werden. So behalten Sie die Kontrolle über Ihre Fotos, Ihre Kalender und Kontakte, Ihre Dokumente und alle anderen Daten.\n\nSchauen Sie sich Nextcloud unter https://nextcloud.com an. </string>
 
-    </resources>
+    <string name="drawer_current_account">Aktuelles Konto</string>
+    <string name="drawer_end_account">Letztes Konto</string>
+    <string name="activity_icon">Aktivitäten-Icon</string>
+    <string name="file_icon">Datei-Icon</string>
+    <string name="user_icon">Nutzer-Icon</string>
+    <string name="fingerprint_icon">Fingerabdruck-Icon</string>
+    <string name="favorite_icon">Favoriten-Icon</string>
+    <string name="shared_via_link_icon">Geteilt mittels Link Icon</string>
+    <string name="synced_icon">Synchronisiert-Icon</string>
+    <string name="available_offline_icon">Offline Verfügbar Icon</string>
+    <string name="synced_folders_type">Typ</string>
+    <string name="dev_version_no_information_available">Keine Information verfügbar!</string>
+    <string name="dev_version_no_new_version_available">Keine neue Version verfügbar!</string>
+</resources>
