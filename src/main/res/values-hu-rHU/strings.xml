@@ -330,6 +330,7 @@
 
     <string name="placeholder_sentence">Ez egy helyőrző</string>
     <string name="placeholder_filename">helyörző.txt</string>
+    <string name="placeholder_fileSize">389 KB</string>
     <string name="placeholder_timestamp">2012&#8211;05&#8211;18 12:23</string>
     <string name="placeholder_media_time">12:23:45</string>
 
@@ -719,6 +720,37 @@ Kérjük jelents minden hibát a https://github.com/nextcloud/android/issues cí
 Új neked a Nextcloud? A Nextcloud egy privát fájl szinkronizáló, megosztó és kommunikációs szerver. Teljesen nyílt forrású, melyet magad is futtathatsz, vagy fizethetsz más cégeknek, hogy megtegyék neked. Segítségével teljesen ura lehetsz saját képeidnek, naptáradnak, kapcsolataidnak, fájljaidnak és minden egyebednek.
 
 A Nextcloud itt érhető el: https://nextcloud.com</string>
+
+    <string name="drawer_current_account">Jelenlegi fiók</string>
+    <string name="drawer_middle_account">Középső fiók</string>
+    <string name="drawer_end_account">Utolsó fiók</string>
+    <string name="contactlist_item_icon">Kapcsolati lista felhasználó ikon</string>
+    <string name="activity_icon">Aktivitás ikon</string>
+    <string name="file_icon">Fájl ikon</string>
+    <string name="user_icon">Felhasználó ikon</string>
+    <string name="fingerprint_icon">Ujjlenyomat ikon</string>
+    <string name="favorite_icon">Kedvencek ikon</string>
+    <string name="shared_via_link_icon">Link ikonon keresztül megosztva</string>
+    <string name="synced_icon">Szinkronizálva ikon</string>
+    <string name="available_offline_icon">Offline elérhető ikon</string>
+    <string name="checkbox">Pipáló</string>
+    <string name="thumbnail">Előnézet</string>
+    <string name="shared_icon">Megosztva ikon</string>
+    <string name="overflow_menu">Túlfutó menü</string>
+    <string name="share_file_icon">Fájl megosztás ikon</string>
+    <string name="sort_by_name_ascending">Név szerint növekvő sorrend</string>
+    <string name="sort_by_modification_date_ascending">Módosítási dátum szerint növekvő sorrend</string>
+    <string name="sort_by_size_descending">Méret szerint csökkenő sorrend</string>
+    <string name="sort_by_size_ascending">Méret szerint növekvő sorrend</string>
+    <string name="sort_by_name_descending">Név szerint csökkenő sorrend</string>
+    <string name="sort_by_modification_date_descending">Módosítási dátum szerint csökkenőq sorrend</string>
+    <string name="synced_folders_type">Típus</string>
+    <string name="sync_status_button">Szinkronizálás állapota gomb</string>
+    <string name="synced_folder_settings_button">Beállítások gomb</string>
+    <string name="synced_folder_custom_folder_image">Egyéni mappa kép</string>
+    <string name="upload_item_action_button">Elem feltöltése gomb</string>
+    <string name="forward">Tovább</string>
+    <string name="what_s_new_image">Mi újság gomb</string>
 
     <string name="store_short_dev_desc">A Nextcloud Dev app egy fejlesztői pillanatkép és párhuzamosan telepíthető.</string>
     <string name="store_full_dev_desc">A nyílt forráskódú Nextcloud Android app lehetővé teszi a fáljaid elérését a Nextcloud-odban.\nEz a hivatalos Nextcloud app fejlesztői változata és új, esetleg instabil megoldásokat tartalmazhat, melyek hibákhoz, adatvesztéshez vezethetnek. Az appot olyanoknak szánjuk, akik hajlandóak tesztelni azt és jelenteni az esetleges hibákat. Ne használd éles környezetben.\n\nA fejlesztői verzió párhuzamosan telepíthető és az F-Droidból is elérhető.. Naponta egyszer kerül ellenőrzésre a forráskód változása, így lehetséges nagyobb kihagyás két kiadás között.</string>

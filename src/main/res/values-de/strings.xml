@@ -331,6 +331,7 @@
 
     <string name="placeholder_sentence">Dies ist ein Platzhalter</string>
     <string name="placeholder_filename">platzhalter.txt</string>
+    <string name="placeholder_fileSize">389 KB</string>
     <string name="placeholder_timestamp">18.5.2012 12:23</string>
     <string name="placeholder_media_time">12:23:45</string>
 
@@ -701,4 +702,37 @@
     <string name="store_short_desc">Die Nextcloud App erlaubt Dir Zugriff auf alle Dateien in Deiner Nextcloud </string>
     <string name="store_full_desc">Die Open Source Nextcloud Android App ermöglicht Dir Zugriff auf alle Dateien in Deiner Nextcloud.\n\nFunktionen:\n* Einfache, moderne Oberfläche, volles Theming entsprechend Deiner Servereinstellungen\n* Lade Deine Dateien auf Deinen Nextcloud Server\n* Teile Deine Dateien mit anderen\n* Wichtige Dateien und Verzeichnisse können aktuell gehalten werden\n* Suche über alle Ordner auf deinem Server\n* Auto Upload für Fotos und Videos die auf deinem Gerät aufgenommen wurden\n* Bleibe auf dem aktuellen Stand durch Benachrichtigungen\n* Multi-Konten Unterstützung\n* Gesicherter Zugriff auf deine Daten mittels Fingerabdruck oder PIN\n* Integration mit DAVdroid für eine einfache Kalender &amp; Kontakte Synchronisierung\n\nBitte berichte alle Probleme unter https://github.com/nextcloud/android/issues oder diskutiere über die App auf https://help.nextcloud.com/c/clients/android\n\nWas ist die Nextcloud? Die Nextcloud ist ein privater Dateiaustausch Server. Nextcloud ist Open Source und kann auf einem eigenen Server installiert werden. So behältst Du die Kontrolle über Deine Fotos, Deine Kalender und Kontakte, Deine Dokumente und alle anderen Daten. \n\nSieh Dir Nextcloud unter https://nextcloud.com an.</string>
 
-    </resources>
+    <string name="drawer_current_account">Aktuelles Konto</string>
+    <string name="drawer_middle_account">Mittleres Konto</string>
+    <string name="drawer_end_account">Letztes Konto</string>
+    <string name="contactlist_item_icon">Kontaktliste Nutzericon</string>
+    <string name="activity_icon">Aktivitäten-Icon</string>
+    <string name="file_icon">Datei-Icon</string>
+    <string name="user_icon">Nutzer-Icon</string>
+    <string name="fingerprint_icon">Fingerabdruck-Icon</string>
+    <string name="favorite_icon">Favoriten-Icon</string>
+    <string name="shared_via_link_icon">Geteilt mittels Link Icon</string>
+    <string name="synced_icon">Synchronisiert-Icon</string>
+    <string name="available_offline_icon">Offline Verfügbar Icon</string>
+    <string name="checkbox">Kontrollkästchen</string>
+    <string name="thumbnail">Vorschaubild</string>
+    <string name="shared_icon">Geteilt Icon</string>
+    <string name="overflow_menu">Menü</string>
+    <string name="share_file_icon">Datei teilen Icon</string>
+    <string name="sort_by_name_ascending">Nach Name aufsteigend sortiert</string>
+    <string name="sort_by_modification_date_ascending">Nach Änderungsdatum aufsteigend sortiert</string>
+    <string name="sort_by_size_descending">Nach Dateigröße aufsteigend sortiert</string>
+    <string name="sort_by_size_ascending">Nach Dateigröße absteigend sortiert</string>
+    <string name="sort_by_name_descending">Nach Name absteigend sortiert</string>
+    <string name="sort_by_modification_date_descending">Nach Änderungsdatum absteigend sortiert</string>
+    <string name="synced_folders_type">Typ</string>
+    <string name="sync_status_button">Sync Status Button</string>
+    <string name="synced_folder_settings_button">Einstellungen Schaltfläche</string>
+    <string name="synced_folder_custom_folder_image">Individueller Ordner Icon</string>
+    <string name="upload_item_action_button">Datei hochladen Button</string>
+    <string name="forward">Vorwärts</string>
+    <string name="what_s_new_image">Was ist neu Bild</string>
+
+    <string name="dev_version_no_information_available">Keine Information verfügbar!</string>
+    <string name="dev_version_no_new_version_available">Keine neue Version verfügbar!</string>
+</resources>
