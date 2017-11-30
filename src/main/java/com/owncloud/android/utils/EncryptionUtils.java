@@ -227,6 +227,7 @@ public class EncryptionUtils {
         try {
             return EncryptionUtils.decryptFolderMetaData(encryptedFolderMetadata, privateKey);
         } catch (Exception e) {
+            Log_OC.e(TAG, e.getMessage());
             return null;
         }
     }
