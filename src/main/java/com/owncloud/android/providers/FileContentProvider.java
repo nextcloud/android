@@ -1578,8 +1578,8 @@ public class FileContentProvider extends ContentProvider {
                 Log_OC.i(SQL, String.format(Locale.ENGLISH, UPGRADE_VERSION_MSG, oldVersion, newVersion));
             }
 
-            if (oldVersion < 26 && newVersion >= 26) {
-                Log_OC.i(SQL, "Entering in the #26 Adding token to ocUpload");
+            if (oldVersion < 27 && newVersion >= 27) {
+                Log_OC.i(SQL, "Entering in the #27 Adding token to ocUpload");
                 db.beginTransaction();
                 try {
                     db.execSQL(ALTER_TABLE + ProviderTableMeta.UPLOADS_TABLE_NAME +
