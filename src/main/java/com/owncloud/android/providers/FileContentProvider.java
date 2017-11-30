@@ -1215,8 +1215,8 @@ public class FileContentProvider extends ContentProvider {
                 Log_OC.i(SQL, String.format(Locale.ENGLISH, UPGRADE_VERSION_MSG, oldVersion, newVersion));
             }
 
-            if (oldVersion < 26 && newVersion >= 26) {
-                Log_OC.i(SQL, "Entering in the #26 Adding token to ocUpload");
+            if (oldVersion < 27 && newVersion >= 27) {
+                Log_OC.i(SQL, "Entering in the #27 Adding token to ocUpload");
                 db.beginTransaction();
                 try {
                     db.execSQL(ALTER_TABLE + ProviderTableMeta.UPLOADS_TABLE_NAME +
@@ -1361,8 +1361,8 @@ public class FileContentProvider extends ContentProvider {
                 + ProviderTableMeta.UPLOADS_LAST_RESULT + INTEGER     // Upload LastResult
                 + ProviderTableMeta.UPLOADS_IS_WHILE_CHARGING_ONLY + INTEGER  // boolean
                 + ProviderTableMeta.UPLOADS_IS_WIFI_ONLY + INTEGER // boolean
-                + ProviderTableMeta.UPLOADS_CREATED_BY + " INTEGER );"    // Upload createdBy
-        );
+                + ProviderTableMeta.UPLOADS_CREATED_BY + INTEGER    // Upload createdBy
+                + ProviderTableMeta.UPLOADS_FOLDER_UNLOCK_TOKEN + " TEXT );");
 
 
         /* before:
