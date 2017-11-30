@@ -711,12 +711,25 @@
     <string name="available_offline_icon">Icono de disponible sin conexión</string>
     <string name="thumbnail">Miniatura</string>
     <string name="shared_icon">Icono de compartido</string>
+    <string name="share_file_icon">Icono de archivo compartido</string>
     <string name="sort_by_name_ascending">Ordenar por nombre —ascendente—</string>
     <string name="sort_by_modification_date_ascending">Ordenar por fecha de modificación —ascendente—</string>
     <string name="sort_by_size_descending">Ordenar por tamaño —descendente—</string>
     <string name="sort_by_size_ascending">Ordenar por tamaño —ascendente—</string>
+    <string name="sort_by_name_descending">Ordenar por nombre —descendente—</string>
+    <string name="sort_by_modification_date_descending">Ordenar por fecha de modificación descendente</string>
+    <string name="synced_folders_type">ipo</string>
+    <string name="sync_status_button">Botón de estado de la sincronización</string>
+    <string name="synced_folder_settings_button">Botón de configuración</string>
+    <string name="synced_folder_custom_folder_image">Imagen de carpeta personalizada</string>
+    <string name="upload_item_action_button">Botón de acción de subida de objeto</string>
+    <string name="forward">Adelante</string>
+    <string name="what_s_new_image">Imagen de Qué hay de nuevo</string>
+
+    <string name="store_short_dev_desc">Nextcloud Dev es una instantánea de desarrollo y se puede instalar en paralelo</string>
     <string name="store_full_dev_desc">La Aplicación Android de Código Abierto se deja accede todo su archivos en su Nextcloud.\nEso es una versión de desarollo y incluye características completamente nuevas que pueden conducir a instabilidades y el pérdida de datos. El aplicación es diseñado para usuarios dispuesto a probar los características nuevas y reportar errores si occuren. ¡No lo use para su trabajo productivo!\n\nEl versión de desarollo se puede instalar junto al applicación oficial que esta disponible en F-Droid, también. Uno vez al día, es comprobada para ver si se cambia el código fuente, así que puede haber pausas más largas entre vérsiones.</string>
 
+    <string name="prefs_category_dev">Dev</string>
     <string name="dev_version_no_information_available">¡No hay información disponible!</string>
     <string name="dev_version_no_new_version_available">¡No hay nueva versión disponible!</string>
 </resources>

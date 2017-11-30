@@ -332,6 +332,7 @@
 
     <string name="placeholder_sentence">Ово је местодржач</string>
     <string name="placeholder_filename">чувамместо.txt</string>
+    <string name="placeholder_fileSize">389 KB</string>
     <string name="placeholder_timestamp">2012/05/18 12:23 ПоП</string>
     <string name="placeholder_media_time">12:23:45</string>
 
@@ -704,4 +705,39 @@
     <string name="store_short_desc">Некстклауд Андроид апликација даје приступ свим вашим фајловима на Некстклауд серверу.</string>
     <string name="store_full_desc">Некстклауд андроид апликација отвореног кода омогућава приступ свим фајловима на вашем Некстклауд серверу.\n\nОсобине:\n* Лако и модерно сучеље, потпуно усклађено са темом са сервера\n* Отпремање фајлова на Некстклауд сервер\n* Дељење фајлова са другима\n* Синхронизација омиљених фајлова и фасцикли\n* Претрага кроз све фасцикле на серверу\n* Аутоматско отпремање слика и видео записа са уређаја\n* Обавештења са сервера\n* Подршка за више налога\n* Безбедан приступ свим подацима преко отиска прста или пина\n* Интеграција са ДАВдроидом за брзо подешавање синхронизације календара &amp; контаката\n\nСве проблеме можете да пријавите на https://github.com/nextcloud/android/issues а о апликацији дискутујте на https://help.nextcloud.com/c/clients/android\nНови сте на Некстклауду? Некстклауд је лични сервер за синхронизацију, дељење фајлова &amp; комуникацију. Потпуно је отвореног кода и можете да га сами хостовати или платити компанији да која то већ ради. На овај начин, сами контролишете своје слике, календаре, контакате, документа и све остало.\n\nПогледајте Некстклауд на https://nextcloud.com</string>
 
-    </resources>
+    <string name="drawer_current_account">Тренутни налог</string>
+    <string name="drawer_middle_account">Средишњи налог</string>
+    <string name="drawer_end_account">Последњи налог</string>
+    <string name="contactlist_item_icon">Икона листе контакта</string>
+    <string name="activity_icon">Икона активности</string>
+    <string name="file_icon">Икона фајла</string>
+    <string name="user_icon">Икона корисника</string>
+    <string name="fingerprint_icon">Икона отиска прста</string>
+    <string name="favorite_icon">Икона омиљених</string>
+    <string name="shared_via_link_icon">Икона дељења преко везе</string>
+    <string name="synced_icon">Икона синхронизоване ставке</string>
+    <string name="available_offline_icon">Икона доступно ван мреже</string>
+    <string name="checkbox">Штиклирање</string>
+    <string name="thumbnail">Мала сличица</string>
+    <string name="shared_icon">Икона дељења</string>
+    <string name="overflow_menu">Overflow мени</string>
+    <string name="share_file_icon">Икона дељења фајла</string>
+    <string name="sort_by_name_ascending">Сортирај растуће по имену</string>
+    <string name="sort_by_modification_date_ascending">Сортирај растуће по времену измене</string>
+    <string name="sort_by_size_descending">Сортирај опадајуће по величини</string>
+    <string name="sort_by_size_ascending">Сортирај растуће по величини</string>
+    <string name="sort_by_name_descending">Сортирај опадајуће по имену</string>
+    <string name="sort_by_modification_date_descending">Сортирај опадајуће по времену измене</string>
+    <string name="synced_folders_type">Тип</string>
+    <string name="sync_status_button">Дугме статус синхронизације</string>
+    <string name="synced_folder_settings_button">Дугме поставки</string>
+    <string name="synced_folder_custom_folder_image">Слика произвољне фасцикле</string>
+    <string name="upload_item_action_button">Дугме отпремања ставке</string>
+    <string name="forward">Проследи</string>
+    <string name="what_s_new_image">Слика шта је ново</string>
+
+    <string name="store_short_dev_desc">Развојна верзија се тренутно развија и може се ставити заједно са постојећом.</string>
+    <string name="prefs_category_dev">Развојно</string>
+    <string name="dev_version_no_information_available">Нема доступних информација!</string>
+    <string name="dev_version_no_new_version_available">Нема доступних нових верзија!</string>
+</resources>
