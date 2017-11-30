@@ -323,7 +323,7 @@
     <string name="ssl_validator_label_signature">Aláírás:</string>
     <string name="ssl_validator_label_signature_algorithm">Algoritmus:</string>
     <string name="digest_algorithm_not_available">Ez a feldolgozó algoritmus nem elérhető a telefonján.</string>
-    <string name="ssl_validator_label_certificate_fingerprint">Újlenyomat:</string>
+    <string name="ssl_validator_label_certificate_fingerprint">Ujjlenyomat:</string>
     <string name="certificate_load_problem">Probléma történt a tanusítvány betöltésekor</string>
     <string name="ssl_validator_null_cert">A tanúsítvány nem megjeleníthető.</string>
     <string name="ssl_validator_no_info_about_error">- Nincs információ a hibáról</string>

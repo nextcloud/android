@@ -330,6 +330,7 @@
 
     <string name="placeholder_sentence">Dette er en plassholder</string>
     <string name="placeholder_filename">plassholder.txt</string>
+    <string name="placeholder_fileSize">389 KB</string>
     <string name="placeholder_timestamp">18.05.2012 12:23</string>
     <string name="placeholder_media_time">12:23:45</string>
 
@@ -716,4 +717,6 @@ Ny med Nextcloud? Nextcloud er en privat filtjener for synkronisering og deling.
 
 Sjekk ut Nextcloud på https://nextcloud.com</string>
 
+    <string name="drawer_current_account">Nåværende konto</string>
+    <string name="synced_folder_settings_button">Innstillingsknapp</string>
     </resources>
