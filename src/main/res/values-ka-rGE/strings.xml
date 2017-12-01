@@ -39,7 +39,6 @@
     <string name="prefs_category_general">ზოგადი</string>
     <string name="prefs_category_more">მეტი</string>
     <string name="prefs_manage_accounts">ანგარიშების მართვა</string>
-    <string name="prefs_passcode">ჩაკეტვა პასკოდით</string>
     <string name="prefs_expert_mode">ექპერტ-რეჟიმი</string>
     <string name="prefs_show_hidden_files">დამალული ფაილების ჩვენება</string>
     <string name="prefs_log_delete_history_button">ისტორიის წაშლა</string>

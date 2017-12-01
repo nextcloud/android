@@ -39,7 +39,6 @@
     <string name="prefs_category_general">Опште</string>
     <string name="prefs_category_more">Остало</string>
     <string name="prefs_manage_accounts">Управљање налозима</string>
-    <string name="prefs_passcode">Закључавање кодом</string>
     <string name="prefs_expert_mode">Експертски режим</string>
     <string name="prefs_show_hidden_files">Прикажи скривене фајлове</string>
     <string name="prefs_log_delete_history_button">Обриши историјат</string>

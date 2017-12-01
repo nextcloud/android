@@ -39,7 +39,6 @@
     <string name="prefs_category_general">Általános</string>
     <string name="prefs_category_more">Több</string>
     <string name="prefs_manage_accounts">Fiókok kezelése</string>
-    <string name="prefs_passcode">Számkódos lezárás</string>
     <string name="prefs_expert_mode">Szakértő mód</string>
     <string name="prefs_show_hidden_files">Rejtett fájlok megjelenítése</string>
     <string name="prefs_log_delete_history_button">Előzmények törlése</string>

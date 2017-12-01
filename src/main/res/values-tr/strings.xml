@@ -39,7 +39,6 @@
     <string name="prefs_category_general">Genel</string>
     <string name="prefs_category_more">Daha fazla</string>
     <string name="prefs_manage_accounts">Hesap yönetimi</string>
-    <string name="prefs_passcode">Parola kod kilidi</string>
     <string name="prefs_expert_mode">Uzman kipi</string>
     <string name="prefs_show_hidden_files">Gizli dosyaları görüntüle</string>
     <string name="prefs_log_delete_history_button">Geçmişi sil</string>

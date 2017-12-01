@@ -39,7 +39,6 @@
     <string name="prefs_category_general">Allgemein</string>
     <string name="prefs_category_more">Mehr</string>
     <string name="prefs_manage_accounts">Konten verwalten</string>
-    <string name="prefs_passcode">PIN gesperrt</string>
     <string name="prefs_expert_mode">Expertenmodus</string>
     <string name="prefs_show_hidden_files">Versteckte Dateien anzeigen</string>
     <string name="prefs_log_delete_history_button">Verlauf löschen</string>

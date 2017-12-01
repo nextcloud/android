@@ -39,7 +39,6 @@
     <string name="prefs_category_general">Yleiset</string>
     <string name="prefs_category_more">Enemmän</string>
     <string name="prefs_manage_accounts">Tilien hallinta</string>
-    <string name="prefs_passcode">Suojakoodilukitus</string>
     <string name="prefs_expert_mode">Asiantuntijatila</string>
     <string name="prefs_show_hidden_files">Näytä piilotetut tiedostot</string>
     <string name="prefs_log_delete_history_button">Poista historia</string>

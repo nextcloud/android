@@ -39,7 +39,6 @@
     <string name="prefs_category_general">Të përgjithshme</string>
     <string name="prefs_category_more">Më tepër</string>
     <string name="prefs_manage_accounts">Administroni llogaritë</string>
-    <string name="prefs_passcode">Kyçje kodkalimi</string>
     <string name="prefs_expert_mode">Mënyra eksperte</string>
     <string name="prefs_show_hidden_files">Trego skedarët e fshehur</string>
     <string name="prefs_log_delete_history_button">Fshini historikun</string>

@@ -39,7 +39,6 @@
     <string name="prefs_category_general">Generelt</string>
     <string name="prefs_category_more">Mer</string>
     <string name="prefs_manage_accounts">Håndter kontoer</string>
-    <string name="prefs_passcode">Passordlås</string>
     <string name="prefs_expert_mode">Ekspertmodus</string>
     <string name="prefs_show_hidden_files">Vis skjulte filer</string>
     <string name="prefs_log_delete_history_button">Slett historikk</string>

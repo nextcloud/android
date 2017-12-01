@@ -39,7 +39,6 @@
     <string name="prefs_category_general">Obecné</string>
     <string name="prefs_category_more">Více</string>
     <string name="prefs_manage_accounts">Spravovat účty</string>
-    <string name="prefs_passcode">Zámek bezpečnostního kódu</string>
     <string name="prefs_fingerprint">Zámek otiskem prstu</string>
     <string name="prefs_fingerprint_notsetup">Nebyly nastaveny žádné otisky prstů.</string>
     <string name="prefs_expert_mode">Režim pro experty</string>

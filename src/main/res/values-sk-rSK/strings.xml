@@ -39,7 +39,6 @@
     <string name="prefs_category_general">Všeobecné</string>
     <string name="prefs_category_more">Viac</string>
     <string name="prefs_manage_accounts">Spravovať účty</string>
-    <string name="prefs_passcode">Zámok bezpečnostného kódu</string>
     <string name="prefs_expert_mode">Expertný režim</string>
     <string name="prefs_show_hidden_files">Zobraziť skryté súbory</string>
     <string name="prefs_log_delete_history_button">Vymazať históriu</string>
