@@ -29,7 +29,8 @@
         android:layout_height="@dimen/file_icon_size"
         android:layout_gravity="center_vertical"
         android:layout_margin="@dimen/uploader_list_item_layout_image_margin"
-        android:src="@drawable/folder" />
+        android:src="@drawable/folder"
+        android:contentDescription="@string/thumbnail"/>
 
     <LinearLayout
         android:layout_width="0dp"

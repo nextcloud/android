@@ -29,6 +29,8 @@
         android:paddingBottom="@dimen/alternate_half_padding"
         android:paddingLeft="@dimen/standard_padding"
         android:paddingStart="@dimen/standard_padding"
+        android:paddingRight="@dimen/zero"
+        android:paddingEnd="@dimen/zero"
         android:paddingTop="@dimen/alternate_half_padding">
 
         <LinearLayout
@@ -49,6 +51,8 @@
                 android:layout_gravity="start|center_vertical"
                 android:paddingRight="@dimen/standard_half_padding"
                 android:paddingEnd="@dimen/standard_half_padding"
+                android:paddingStart="@dimen/zero"
+                android:paddingLeft="@dimen/zero"
                 android:src="@drawable/ic_image_18dp"
                 android:contentDescription="@string/synced_folders_type"/>
 

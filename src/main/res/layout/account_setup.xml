@@ -94,6 +94,8 @@
                     android:inputType="textUri"
                     android:paddingRight="@dimen/alternate_padding_right"
                     android:paddingEnd="@dimen/alternate_padding_right"
+                    android:paddingStart="@dimen/zero"
+                    android:paddingLeft="@dimen/zero"
                     android:textColor="@color/login_text_color"
                     android:textColorHint="@color/login_text_color">
 
@@ -124,6 +126,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical|end"
                 android:layout_marginRight="@dimen/alternate_half_padding"
+                android:layout_marginEnd="@dimen/alternate_half_padding"
                 android:padding="@dimen/zero"
                 android:scaleType="fitCenter"
                 android:src="@drawable/ic_action_refresh"

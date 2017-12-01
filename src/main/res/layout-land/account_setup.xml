@@ -100,9 +100,11 @@
                             android:drawablePadding="@dimen/alternate_half_padding"
                             android:inputType="textUri"
                             android:paddingRight="@dimen/alternate_padding_right"
+                            android:paddingEnd="@dimen/alternate_padding_right"
+                            android:paddingStart="@dimen/zero"
+                            android:paddingLeft="@dimen/zero"
                             android:textColor="@color/login_text_color"
-                            android:textColorHint="@color/login_text_hint_color"
-                            >
+                            android:textColorHint="@color/login_text_hint_color">
 
                             <requestFocus/>
                         </com.owncloud.android.ui.components.CustomEditText>
@@ -110,31 +112,33 @@
                     </android.support.design.widget.TextInputLayout>
 
 					<ImageButton
-						android:id="@+id/testServerButton"
-						android:layout_width="wrap_content"
-						android:layout_height="wrap_content"
-						android:layout_gravity="center_vertical|right"
-						android:layout_marginRight="@dimen/alternate_half_padding"
-						android:padding="@dimen/zero"
-						android:scaleType="fitCenter"
-						android:src="@drawable/arrow_right"
-						android:tint="@color/white"
-						android:background="@android:color/transparent"
-						android:onClick="onTestServerConnectionClick"
-						android:contentDescription="@string/test_server_button"
+                        android:id="@+id/testServerButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical|end"
+                        android:layout_marginRight="@dimen/alternate_half_padding"
+                        android:layout_marginEnd="@dimen/alternate_half_padding"
+                        android:padding="@dimen/zero"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/arrow_right"
+                        android:tint="@color/white"
+                        android:background="@android:color/transparent"
+                        android:onClick="onTestServerConnectionClick"
+                        android:contentDescription="@string/test_server_button"
 						/>
 
 					<ImageButton
-					    android:id="@+id/embeddedRefreshButton"
-					    android:layout_width="wrap_content"
-					    android:layout_height="wrap_content"
-					    android:layout_gravity="center_vertical|right"
-					    android:layout_marginRight="@dimen/alternate_half_margin"
-					    android:padding="@dimen/zero"
-					    android:scaleType="fitCenter"
-					    android:src="@drawable/ic_action_refresh"
-					    android:visibility="gone"
-						android:background="@android:color/transparent"
+                        android:id="@+id/embeddedRefreshButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical|end"
+                        android:layout_marginRight="@dimen/alternate_half_margin"
+                        android:layout_marginEnd="@dimen/alternate_half_margin"
+                        android:padding="@dimen/zero"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/ic_action_refresh"
+                        android:visibility="gone"
+                        android:background="@android:color/transparent"
                         android:contentDescription="@string/auth_refresh_button"
 					    />
 				</FrameLayout>
