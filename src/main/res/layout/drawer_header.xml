@@ -81,7 +81,9 @@
                 android:layout_weight="1"
                 android:orientation="vertical"
                 android:paddingEnd="@dimen/standard_half_padding"
-                android:paddingRight="@dimen/standard_half_padding">
+                android:paddingRight="@dimen/standard_half_padding"
+                android:paddingStart="@dimen/zero"
+                android:paddingLeft="@dimen/zero">
 
                 <TextView
                     android:id="@+id/drawer_username"

@@ -34,6 +34,7 @@
         android:layout_height="@dimen/file_icon_size"
         android:layout_alignParentTop="true"
         android:layout_marginRight="@dimen/standard_padding"
+        android:layout_marginEnd="@dimen/standard_padding"
         android:alpha="0.5"
         android:src="@drawable/ic_activity"
         android:contentDescription="@string/activity_icon"/>

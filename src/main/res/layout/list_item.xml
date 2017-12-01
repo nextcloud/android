@@ -37,7 +37,9 @@
             android:paddingBottom="@dimen/standard_padding"
             android:paddingTop="@dimen/standard_padding"
             android:paddingEnd="4dp"
-            android:paddingRight="4dp">
+            android:paddingRight="4dp"
+            android:paddingStart="@dimen/zero"
+            android:paddingLeft="@dimen/zero">
 
             <ImageView
                 android:id="@+id/thumbnail"

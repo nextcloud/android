@@ -29,7 +29,8 @@
     <LinearLayout
         android:id="@+id/top_title"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:baselineAligned="false">
 
         <LinearLayout
             android:layout_width="0dp"
@@ -62,6 +63,9 @@
             android:gravity="end|top"
             android:orientation="vertical"
             android:paddingLeft="@dimen/standard_padding"
+            android:paddingStart="@dimen/standard_padding"
+            android:paddingRight="@dimen/zero"
+            android:paddingEnd="@dimen/zero"
             android:paddingTop="@dimen/standard_padding">
 
             <android.support.v7.widget.SwitchCompat
@@ -116,6 +120,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignLeft="@id/local_folder_title"
+                        android:layout_alignStart="@id/local_folder_title"
                         android:layout_below="@id/local_folder_title"
                         android:ellipsize="middle"
                         android:maxLines="2"
@@ -131,7 +136,10 @@
                     android:layout_height="match_parent"
                     android:gravity="end|center_vertical"
                     android:orientation="vertical"
-                    android:paddingLeft="@dimen/standard_padding">
+                    android:paddingLeft="@dimen/standard_padding"
+                    android:paddingStart="@dimen/standard_padding"
+                    android:paddingRight="@dimen/zero"
+                    android:paddingEnd="@dimen/zero">
 
                     <ImageView
                         android:id="@+id/local_folder_icon"
@@ -139,7 +147,8 @@
                         android:layout_height="wrap_content"
                         android:background="@null"
                         android:padding="@dimen/standard_quarter_padding"
-                        android:src="@drawable/ic_folder_open"/>
+                        android:src="@drawable/ic_folder_open"
+                        android:contentDescription="@string/folder_icon"/>
 
                 </LinearLayout>
 
@@ -173,6 +182,7 @@
                         android:id="@+id/remote_folder_summary"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_alignStart="@id/remote_folder_title"
                         android:layout_alignLeft="@id/remote_folder_title"
                         android:layout_below="@id/remote_folder_title"
                         android:ellipsize="middle"
@@ -189,7 +199,10 @@
                     android:layout_height="match_parent"
                     android:gravity="end|center_vertical"
                     android:orientation="vertical"
-                    android:paddingLeft="@dimen/standard_padding">
+                    android:paddingLeft="@dimen/standard_padding"
+                    android:paddingStart="@dimen/standard_padding"
+                    android:paddingEnd="@dimen/zero"
+                    android:paddingRight="@dimen/zero">
 
                     <ImageView
                         android:id="@+id/remote_folder_icon"
@@ -197,7 +210,8 @@
                         android:layout_height="wrap_content"
                         android:background="@null"
                         android:padding="@dimen/standard_quarter_padding"
-                        android:src="@drawable/ic_folder_open"/>
+                        android:src="@drawable/ic_folder_open"
+                        android:contentDescription="@string/folder_icon"/>
 
                 </LinearLayout>
 
@@ -236,7 +250,10 @@
                     android:layout_height="match_parent"
                     android:gravity="end|center_vertical"
                     android:orientation="vertical"
-                    android:paddingLeft="@dimen/standard_padding">
+                    android:paddingLeft="@dimen/standard_padding"
+                    android:paddingStart="@dimen/standard_padding"
+                    android:paddingRight="@dimen/zero"
+                    android:paddingEnd="@dimen/zero">
 
                     <android.support.v7.widget.AppCompatCheckBox
                         android:id="@+id/setting_instant_upload_on_wifi_checkbox"
@@ -283,7 +300,10 @@
                     android:layout_height="match_parent"
                     android:gravity="end|center_vertical"
                     android:orientation="vertical"
-                    android:paddingLeft="@dimen/standard_padding">
+                    android:paddingLeft="@dimen/standard_padding"
+                    android:paddingStart="@dimen/standard_padding"
+                    android:paddingRight="@dimen/zero"
+                    android:paddingEnd="@dimen/zero">
 
                     <android.support.v7.widget.AppCompatCheckBox
                         android:id="@+id/setting_instant_upload_on_charging_checkbox"
@@ -327,6 +347,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignLeft="@id/setting_instant_upload_path_use_subfolders_label"
+                        android:layout_alignStart="@id/setting_instant_upload_path_use_subfolders_label"
                         android:layout_below="@id/setting_instant_upload_path_use_subfolders_label"
                         android:ellipsize="end"
                         android:maxLines="2"
@@ -342,7 +363,10 @@
                     android:layout_height="match_parent"
                     android:gravity="end|center_vertical"
                     android:orientation="vertical"
-                    android:paddingLeft="@dimen/standard_padding">
+                    android:paddingLeft="@dimen/standard_padding"
+                    android:paddingStart="@dimen/standard_padding"
+                    android:paddingRight="@dimen/zero"
+                    android:paddingEnd="@dimen/zero">
 
                     <android.support.v7.widget.AppCompatCheckBox
                         android:id="@+id/setting_instant_upload_path_use_subfolders_checkbox"
@@ -402,12 +426,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
             android:text="@string/common_delete"/>
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true">
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true">
 
             <android.support.v7.widget.AppCompatButton
                 android:id="@+id/cancel"
