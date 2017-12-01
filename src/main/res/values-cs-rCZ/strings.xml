@@ -56,7 +56,9 @@
     <string name="prefs_feedback">Odezva</string>
     <string name="prefs_imprint">Imprint</string>
 
-	<string name="recommend_urls">%1$s nebo %2$s</string>
+	<string name="recommend_subject">Vyzkoušejte %1$s ve svém telefonu!</string>
+	<string name="recommend_text">Chci tě pozvat k používání %1$s ve tvém telefonu.\nKe stažení zde: %2$s</string>
+    <string name="recommend_urls">%1$s nebo %2$s</string>
 
     <string name="auth_check_server">Ověřit server</string>
     <string name="auth_host_url">Adresa serveru https://&#8230;</string>
@@ -324,6 +326,7 @@
 
     <string name="placeholder_sentence">Zástupný text</string>
     <string name="placeholder_filename">placeholder.txt</string>
+    <string name="placeholder_fileSize">389 KB</string>
     <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
     <string name="placeholder_media_time">12:23:45</string>
 
@@ -490,6 +493,7 @@
     <string name="share_via_link_expiration_date_label">Nastavit datum vypršení platnosti</string>
     <string name="share_via_link_password_label">Chránit heslem</string>
     <string name="share_via_link_password_title">Zabezpečeno</string>
+    <string name="share_via_link_edit_permission_label">Umožnit úpravy</string>
     <string name="share_via_link_hide_file_listing_permission_label">Skrýt seznam souborů</string>
     <string name="share_get_public_link_button">Vytvořit odkaz</string>
     <string name="share_with_title">Sdílet s &#8230;</string>
@@ -556,6 +560,10 @@
     <string name="participate_contribute_translate_translate">Překládat</string>
     <string name="participate_contribute_translate_text">Aplikace</string>
     <string name="participate_contribute_github_text">Kontrolujte, vylepšujte a pište kód, víc informací naleznete na %1$s</string>
+    <string name="participate_rc_play_store">Získat kandidáta na vydání z Google Play store</string>
+    <string name="participate_rc_fdroid">Získat kandidáta na vydání z aplikace F-Droid</string>
+    <string name="participate_dev_fdroid">Získat vývojové vydání z aplikace F-Droid</string>
+    <string name="participate_dev_direct_download">Stáhnout vývojové vydání přímo</string>
     <string name="move_to">Přesunout do&#8230;</string>
     <string name="copy_to">Kopírovat do&#8230;</string>
     <string name="choose_remote_folder">Zvolit vzdálenou složku&#8230;</string>
@@ -671,14 +679,23 @@
     <string name="resharing_is_not_allowed">Opětovné sdílení není povoleno</string>
     <string name="whats_new_fingerprint_title">Odemknout pomocí prstu</string>
     <string name="whats_new_fingerprint_content">Použijte Váš prst pro odemknutí aplikace</string>
+    <string name="fallback_weblogin_back">Zpět</string>
+    <string name="fallback_weblogin_text">Vrátit se ke starému způsobu přihlašování</string>
+
     <string name="foreground_service_upload">Nahrávání souborů&#8230;</string>
     <string name="foreground_service_download">Stažení souborů&#8230;</string>
 
     <string name="prefs_sourcecode">Získat zdrojový kód</string>
     <string name="prefs_license">Licence</string>
+    <string name="prefs_gpl_v2">GNU General Public License, verze 2</string>
     <string name="push_notifications_not_implemented">Push oznámení zakázáno kvůli závislostem na proprietárních službách Google Play.</string>
     <string name="push_notifications_old_login">Žádné push oznámení kvůli zastaralé relaci přihlášení. Zvažte opětovné přidání účtu.</string>
     <string name="push_notifications_temp_error">Push oznámení není momentálně k dispozici.</string>
     <string name="date_unknown">Neznámé</string>
 
+    <string name="resized_image_not_possible">Zmenšený obrázek není k dispozici. Stáhnout obrázek v plné velikosti?</string>
+    <string name="resized_images_download_full_image">Stáhnout obrázek v plné velikosti?</string>
+
+    <string name="store_short_desc">Aplikace Nextcloud pro Android ti nabízí přístup ke všem souborům ve tvém Nextcloudu</string>
+    <string name="drawer_current_account">Aktuální účet</string>
     </resources>

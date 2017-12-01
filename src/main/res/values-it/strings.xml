@@ -703,6 +703,7 @@
     <string name="drawer_current_account">Account attuale</string>
     <string name="drawer_middle_account">Account centrale</string>
     <string name="drawer_end_account">Ultimo account</string>
+    <string name="contactlist_item_icon">Icona utente della lista contatti</string>
     <string name="activity_icon">Icona attività</string>
     <string name="file_icon">Icona file</string>
     <string name="user_icon">Icona utente</string>
@@ -714,6 +715,7 @@
     <string name="checkbox">Casella di selezione</string>
     <string name="thumbnail">Miniatura</string>
     <string name="shared_icon">Icona condivisi</string>
+    <string name="overflow_menu">Menu di overflow</string>
     <string name="share_file_icon">Icona file condivisi</string>
     <string name="sort_by_name_ascending">Ordina per nome crescente</string>
     <string name="sort_by_modification_date_ascending">Ordina per data di modifica crescente</string>
@@ -725,8 +727,14 @@
     <string name="sync_status_button">Pulsante stato di sincronizzazione</string>
     <string name="synced_folder_settings_button">Pulsante impostazioni</string>
     <string name="synced_folder_custom_folder_image">Immagine cartella personalizzata</string>
+    <string name="upload_item_action_button">Pulsante azione Carica elemento</string>
     <string name="forward">Inoltra</string>
+    <string name="what_s_new_image">Immagine Cosa c\'è di nuovo</string>
+
     <string name="store_short_dev_desc">Nextcloud Dev è un\'istantanea di sviluppo, installabile parallelamente.</string>
+    <string name="store_full_dev_desc">L\'applicazione Open Source Nextcloud Android ti consente di accedere a tutti i file sul tuo Nextcloud.\nQuesta è una versione di sviluppo dell\'applicazione Nextcloud ufficiale e include funzionalità  nuove, non testate che potrebbero provocare instabilità e perdite di dati. Questa applicazione è progettata per gli utenti che desiderano provare le nuove funzionalità e segnalare bug, se si verificano. Non utilizzarla in ambienti di produzione!\n\nLa versione di sviluppo può essere installata parallelamente all\'applicazione Nextcloud ufficiale, disponibile anche su F-Droid. Una volta al giorno  viene verificato se il codice sorgente sia stato aggiornato, per cui possono esserci delle pause più lunghe tra la versioni.</string>
+
+    <string name="prefs_category_dev">Sviluppo</string>
     <string name="dev_version_no_information_available">Nessuna informazione disponibile!</string>
     <string name="dev_version_no_new_version_available">Nessuna nuova versione disponibile!</string>
 </resources>
