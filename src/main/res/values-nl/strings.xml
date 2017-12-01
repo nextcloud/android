@@ -39,7 +39,6 @@
     <string name="prefs_category_general">Algemeen</string>
     <string name="prefs_category_more">Meer</string>
     <string name="prefs_manage_accounts">Accounts beheren</string>
-    <string name="prefs_passcode">Toegangscode</string>
     <string name="prefs_expert_mode">Expertmodus</string>
     <string name="prefs_show_hidden_files">Verborgen bestanden weergeven</string>
     <string name="prefs_log_delete_history_button">Verwijder geschiedenis</string>

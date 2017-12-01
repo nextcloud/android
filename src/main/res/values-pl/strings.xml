@@ -39,7 +39,6 @@
     <string name="prefs_category_general">Ogólne</string>
     <string name="prefs_category_more">Więcej</string>
     <string name="prefs_manage_accounts">Zarządzaj kontami</string>
-    <string name="prefs_passcode">Blokada kodem PIN</string>
     <string name="prefs_expert_mode">Tryb eksperta</string>
     <string name="prefs_show_hidden_files">Pokaż ukryte pliki</string>
     <string name="prefs_log_delete_history_button">Wyczyść historię</string>

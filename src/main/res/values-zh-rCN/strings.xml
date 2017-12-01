@@ -39,7 +39,6 @@
     <string name="prefs_category_general">常规</string>
     <string name="prefs_category_more">更多</string>
     <string name="prefs_manage_accounts">管理账号</string>
-    <string name="prefs_passcode">安全码锁</string>
     <string name="prefs_expert_mode">专家模式</string>
     <string name="prefs_show_hidden_files">显示隐藏文件</string>
     <string name="prefs_log_delete_history_button">删除历史</string>

@@ -39,7 +39,6 @@
     <string name="prefs_category_general">일반</string>
     <string name="prefs_category_more">더 보기</string>
     <string name="prefs_manage_accounts">계정 관리</string>
-    <string name="prefs_passcode">암호 잠금</string>
     <string name="prefs_expert_mode">전문가 모드</string>
     <string name="prefs_show_hidden_files">숨겨진 파일 보기</string>
     <string name="prefs_log_delete_history_button">과거 기록 삭제</string>

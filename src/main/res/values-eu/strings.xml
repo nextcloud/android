@@ -39,7 +39,6 @@
     <string name="prefs_category_general">Orokorra</string>
     <string name="prefs_category_more">Gehiago</string>
     <string name="prefs_manage_accounts">Kudeatu kontuak</string>
-    <string name="prefs_passcode">Pasakode bidezko blokeoa</string>
     <string name="prefs_fingerprint">Hatz-marka bidezko blokeoa</string>
     <string name="prefs_fingerprint_notsetup">Ez da hatz-markarik konfiguratu</string>
     <string name="prefs_expert_mode">Modu aurreratua</string>

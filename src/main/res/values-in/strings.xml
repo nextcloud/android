@@ -39,7 +39,6 @@
     <string name="prefs_category_general">Umum</string>
     <string name="prefs_category_more">Lainnya</string>
     <string name="prefs_manage_accounts">Kelola akun</string>
-    <string name="prefs_passcode">Kunci kode sandi</string>
     <string name="prefs_expert_mode">Mode Ahli</string>
     <string name="prefs_show_hidden_files">Lihat berkas tersembunyi</string>
     <string name="prefs_log_delete_history_button">Hapus riwayat</string>

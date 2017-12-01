@@ -39,7 +39,6 @@
     <string name="prefs_category_general">Splošno</string>
     <string name="prefs_category_more">Več</string>
     <string name="prefs_manage_accounts">Upravljanje z računi</string>
-    <string name="prefs_passcode">Zakleni dostop s kodo PIN</string>
     <string name="prefs_expert_mode">Napredni način</string>
     <string name="prefs_show_hidden_files">Prikaži skrite datoteke</string>
     <string name="prefs_log_delete_history_button">Izbriši zgodovino</string>

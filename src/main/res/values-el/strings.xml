@@ -39,7 +39,6 @@
     <string name="prefs_category_general">Γενικά</string>
     <string name="prefs_category_more">Περισσότερα</string>
     <string name="prefs_manage_accounts">Διαχείριση λογαριασμών</string>
-    <string name="prefs_passcode">Κλείδωμα με κωδικό πρόσβασης</string>
     <string name="prefs_expert_mode">Λειτουργία για προχωρημένους</string>
     <string name="prefs_show_hidden_files">Εμφάνιση κρυφών αρχείων</string>
     <string name="prefs_log_delete_history_button">Διαγραφή ιστορικού</string>

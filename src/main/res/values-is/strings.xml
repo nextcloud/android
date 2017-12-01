@@ -39,7 +39,6 @@
     <string name="prefs_category_general">Almennt</string>
     <string name="prefs_category_more">Meira</string>
     <string name="prefs_manage_accounts">Sýsla með notandaaðganga</string>
-    <string name="prefs_passcode">Læsing með lykilkóða</string>
     <string name="prefs_expert_mode">Sérfræðingahamur</string>
     <string name="prefs_show_hidden_files">Sýna faldar skrár</string>
     <string name="prefs_log_delete_history_button">Eyða ferli</string>

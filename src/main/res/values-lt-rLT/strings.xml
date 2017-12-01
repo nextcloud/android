@@ -39,7 +39,6 @@
     <string name="prefs_category_general">Bendras</string>
     <string name="prefs_category_more">Daugiau</string>
     <string name="prefs_manage_accounts">Tvarkyti paskyras</string>
-    <string name="prefs_passcode">Užrakinimas kodų</string>
     <string name="prefs_expert_mode">Eksperto režimas</string>
     <string name="prefs_show_hidden_files">Rodyti paslėptus failus</string>
     <string name="prefs_log_delete_history_button">Ištrinti istoriją</string>

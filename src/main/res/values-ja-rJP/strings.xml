@@ -39,7 +39,6 @@
     <string name="prefs_category_general">一般</string>
     <string name="prefs_category_more">もっと見る</string>
     <string name="prefs_manage_accounts">アカウント管理</string>
-    <string name="prefs_passcode">パスコードロック</string>
     <string name="prefs_expert_mode">エキスパートモード</string>
     <string name="prefs_show_hidden_files">隠しファイルを表示</string>
     <string name="prefs_log_delete_history_button">履歴の削除</string>

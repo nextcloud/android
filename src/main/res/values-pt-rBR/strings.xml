@@ -39,7 +39,6 @@
     <string name="prefs_category_general">Geral</string>
     <string name="prefs_category_more">Mais</string>
     <string name="prefs_manage_accounts">Gerenciar contas</string>
-    <string name="prefs_passcode">Bloqueio de código de acesso</string>
     <string name="prefs_expert_mode">Modo avançado</string>
     <string name="prefs_show_hidden_files">Mostrar arquivos ocultos</string>
     <string name="prefs_log_delete_history_button">Eliminar histórico</string>

@@ -39,7 +39,6 @@
     <string name="prefs_category_general">Generale</string>
     <string name="prefs_category_more">Altro</string>
     <string name="prefs_manage_accounts">Gestisci account</string>
-    <string name="prefs_passcode">Blocco con codice di sicurezza</string>
     <string name="prefs_expert_mode">Modalità esperta</string>
     <string name="prefs_show_hidden_files">Mostra i file nascosti</string>
     <string name="prefs_log_delete_history_button">Elimina cronologia</string>

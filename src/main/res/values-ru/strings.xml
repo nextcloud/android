@@ -39,7 +39,6 @@
     <string name="prefs_category_general">Основные</string>
     <string name="prefs_category_more">Больше</string>
     <string name="prefs_manage_accounts">Управление аккаунтами</string>
-    <string name="prefs_passcode">Блокировка кодом</string>
     <string name="prefs_expert_mode">Экспертный режим</string>
     <string name="prefs_show_hidden_files">Показывать скрытые файлы</string>
     <string name="prefs_log_delete_history_button">Удалить историю</string>

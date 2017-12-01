@@ -39,7 +39,6 @@
     <string name="prefs_category_general">General</string>
     <string name="prefs_category_more">Més</string>
     <string name="prefs_manage_accounts">Gestió de comptes</string>
-    <string name="prefs_passcode">Contrasenya</string>
     <string name="prefs_expert_mode">Mode expert</string>
     <string name="prefs_show_hidden_files">Mostra els fitxers ocults</string>
     <string name="prefs_log_delete_history_button">Esborra l\'històric</string>
