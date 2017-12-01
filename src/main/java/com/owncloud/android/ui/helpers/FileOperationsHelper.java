@@ -56,6 +56,7 @@ import com.owncloud.android.ui.events.FavoriteEvent;
 import com.owncloud.android.ui.events.SyncEventFinished;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.FileStorageUtils;
+import com.owncloud.android.utils.UriUtils;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -582,30 +583,34 @@ public class FileOperationsHelper {
 
     public void setPictureAs(OCFile file) {
         if (file != null) {
-            if (file.isDown()) {
-                Context context = MainApp.getAppContext();
+            Context context = MainApp.getAppContext();
+            Intent intent = new Intent(Intent.ACTION_ATTACH_DATA);
+            Uri uri;
 
-                try {
+            try {
+                if (file.isDown()) {
                     File externalFile = new File(file.getStoragePath());
-                    Intent intent = new Intent(Intent.ACTION_ATTACH_DATA);
-                    Uri sendUri;
 
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                         intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                        sendUri = FileProvider.getUriForFile(context,
+                        uri = FileProvider.getUriForFile(context,
                                 context.getResources().getString(R.string.file_provider_authority), externalFile);
                     } else {
-                        sendUri = Uri.fromFile(externalFile);
+                        uri = Uri.fromFile(externalFile);
                     }
-
-                    intent.setDataAndType(sendUri, file.getMimetype());
-                    intent.putExtra("mimeType", file.getMimetype());
-                    mFileActivity.startActivityForResult(Intent.createChooser(intent,
-                            mFileActivity.getString(R.string.set_as)), 200);
-
-                } catch (ActivityNotFoundException exception) {
-                    Toast.makeText(context, R.string.picture_set_as_no_app, Toast.LENGTH_LONG).show();
+                } else {
+                    uri = Uri.parse(UriUtils.URI_CONTENT_SCHEME +
+                            context.getResources().getString(R.string.image_cache_provider_authority) +
+                            file.getRemotePath());
                 }
+
+                intent.setDataAndType(uri, file.getMimetype());
+                mFileActivity.startActivityForResult(Intent.createChooser(intent,
+                        mFileActivity.getString(R.string.set_as)), 200);
+
+                intent.setDataAndType(uri, file.getMimetype());
+            } catch (ActivityNotFoundException exception) {
+                Toast.makeText(context, R.string.picture_set_as_no_app, Toast.LENGTH_LONG).show();
             }
         } else {
             Log_OC.wtf(TAG, "Trying to send a NULL OCFile");
