@@ -711,7 +711,25 @@
     <string name="shared_via_link_icon">Geteilt mittels Link Icon</string>
     <string name="synced_icon">Synchronisiert-Icon</string>
     <string name="available_offline_icon">Offline Verfügbar Icon</string>
+    <string name="checkbox">Checkbox</string>
+    <string name="thumbnail">Vorschaubild</string>
+    <string name="shared_icon">Geteiltes Icon</string>
+    <string name="share_file_icon">Datei-Icon teilen</string>
+    <string name="sort_by_name_ascending">Nach Namen aufsteigend sortieren</string>
+    <string name="sort_by_modification_date_ascending">Nach Änderungsdatum aufsteigend sortieren</string>
+    <string name="sort_by_size_descending">Nach Größe absteigend sortieren</string>
+    <string name="sort_by_size_ascending">Nach Größe aufsteigend sortieren</string>
+    <string name="sort_by_name_descending">Nach Namen absteigend sortieren</string>
+    <string name="sort_by_modification_date_descending">Nach Änderungsdatum absteigend sortieren</string>
     <string name="synced_folders_type">Typ</string>
+    <string name="sync_status_button">Status-synchronisieren-Button</string>
+    <string name="synced_folder_settings_button">Einstellungs-Button</string>
+    <string name="synced_folder_custom_folder_image">Eigenes-Verzeichnis-Bild</string>
+    <string name="upload_item_action_button">Button, um Objekt hochzuladen</string>
+    <string name="forward">Weiterleiten</string>
+    <string name="what_s_new_image">Was-gibt\'s-Neues-Bild</string>
+
+    <string name="prefs_category_dev">Dev</string>
     <string name="dev_version_no_information_available">Keine Information verfügbar!</string>
     <string name="dev_version_no_new_version_available">Keine neue Version verfügbar!</string>
 </resources>
