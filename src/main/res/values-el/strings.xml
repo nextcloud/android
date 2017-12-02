@@ -274,7 +274,7 @@
     <string name="ssl_validator_label_subject">Εκδόθηκε για:</string>
     <string name="ssl_validator_label_issuer">Εκδόθηκε από:</string>
     <string name="ssl_validator_label_CN">Κοινό όνομα:</string>
-    <string name="ssl_validator_label_O">Οργανισμός:</string>
+    <string name="ssl_validator_label_O">Οργάνωση:</string>
     <string name="ssl_validator_label_OU">Μονάδα οργανισμού:</string>
     <string name="ssl_validator_label_C">Χώρα:</string>
     <string name="ssl_validator_label_ST">Πολιτεία:</string>

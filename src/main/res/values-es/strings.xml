@@ -715,6 +715,7 @@
     <string name="checkbox">Casilla de verificación</string>
     <string name="thumbnail">Miniatura</string>
     <string name="shared_icon">Icono de compartido</string>
+    <string name="overflow_menu">Menú desplazado</string>
     <string name="share_file_icon">Icono de archivo compartido</string>
     <string name="sort_by_name_ascending">Ordenar por nombre —ascendente—</string>
     <string name="sort_by_modification_date_ascending">Ordenar por fecha de modificación —ascendente—</string>
