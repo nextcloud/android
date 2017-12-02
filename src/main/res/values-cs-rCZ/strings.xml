@@ -698,4 +698,38 @@
 
     <string name="store_short_desc">Aplikace Nextcloud pro Android ti nabízí přístup ke všem souborům ve tvém Nextcloudu</string>
     <string name="drawer_current_account">Aktuální účet</string>
-    </resources>
+    <string name="drawer_middle_account">Prostřední účet</string>
+    <string name="drawer_end_account">Poslední účet</string>
+    <string name="contactlist_item_icon">Ikona uživatele v seznamu kontaktů</string>
+    <string name="activity_icon">Ikona Aktivita</string>
+    <string name="file_icon">Ikona Soubor</string>
+    <string name="user_icon">Ikona Uživatel</string>
+    <string name="fingerprint_icon">Ikona Otisk prstu</string>
+    <string name="favorite_icon">Ikona Oblíbené</string>
+    <string name="shared_via_link_icon">Ikona Sdíleno odkazem</string>
+    <string name="synced_icon">Ikona Synchronizováno</string>
+    <string name="available_offline_icon">Ikona Dostupné offline</string>
+    <string name="checkbox">Zatržítko</string>
+    <string name="thumbnail">Náhled</string>
+    <string name="shared_icon">Ikona Sdíleno</string>
+    <string name="overflow_menu">Vysouvací menu</string>
+    <string name="share_file_icon">Ikona Sdílet soubor</string>
+    <string name="sort_by_name_ascending">Řadit podle jména vzestupně</string>
+    <string name="sort_by_modification_date_ascending">Řadit podle data poslední změny vzestupně</string>
+    <string name="sort_by_size_descending">Řadit podle velikosti sestupně</string>
+    <string name="sort_by_size_ascending">Řadit podle velikosti vzestupně</string>
+    <string name="sort_by_name_descending">Řadit podle jména sestupně</string>
+    <string name="sort_by_modification_date_descending">Řadit podle data poslední změny sestupně</string>
+    <string name="synced_folders_type">Typ</string>
+    <string name="sync_status_button">Tlačítko Stav synchronizace</string>
+    <string name="synced_folder_settings_button">Tlačítko Nastavení</string>
+    <string name="synced_folder_custom_folder_image">Vlastní obrázek adresáře</string>
+    <string name="upload_item_action_button">Akční tlačítko Nahraj položku</string>
+    <string name="forward">Vpřed</string>
+    <string name="what_s_new_image">Obrázek Co je nového</string>
+
+    <string name="store_short_dev_desc">Aplikace Nextcloud Dev je vývojovým snímkem a může být nainstalována paralelně.</string>
+    <string name="prefs_category_dev">Dev</string>
+    <string name="dev_version_no_information_available">Žádné informace nejsou dostupné!</string>
+    <string name="dev_version_no_new_version_available">Žádná nová verze k dispozici!</string>
+</resources>

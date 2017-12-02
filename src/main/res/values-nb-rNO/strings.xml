@@ -673,7 +673,7 @@
 
     <!-- Auto upload -->
     <string name="autoupload_custom_folder">Sett opp en tilpasset mappe</string>
-    <string name="autoupload_create_new_custom_folder">Lag ny tilpasset mappe oppsett</string>
+    <string name="autoupload_create_new_custom_folder">Lag nytt tilpasset mappe-oppsett</string>
     <string name="synced_folders_configure_folders">Sett opp mapper</string>
 
     <string name="test_server_button">Test tjenertilkobling</string>
@@ -718,5 +718,25 @@ Ny med Nextcloud? Nextcloud er en privat filtjener for synkronisering og deling.
 Sjekk ut Nextcloud på https://nextcloud.com</string>
 
     <string name="drawer_current_account">Nåværende konto</string>
+    <string name="file_icon">Filikon</string>
+    <string name="user_icon">Brukerikon</string>
+    <string name="fingerprint_icon">Fingeravtrykksikon</string>
+    <string name="favorite_icon">Favorittikon</string>
+    <string name="shared_via_link_icon">Delt via lenkeikon</string>
+    <string name="synced_icon">Synkronisert-ikon</string>
+    <string name="available_offline_icon">Ikon for tilgjengelighet i frakoblet modus</string>
+    <string name="checkbox">Avkryssningsboks</string>
+    <string name="thumbnail">Miniatyrbilde</string>
+    <string name="shared_icon">Delt-ikon</string>
+    <string name="share_file_icon">Del fil-ikon</string>
+    <string name="sort_by_name_ascending">Sorter etter navn, stigende</string>
+    <string name="sort_by_modification_date_ascending">Sorter etter endringsdato, stigende</string>
+    <string name="sort_by_size_descending">Sorter etter størrelse, synkende</string>
+    <string name="sort_by_size_ascending">Sorter etter størrelse, stigende</string>
+    <string name="sort_by_name_descending">Sorter etter navn, synkende</string>
+    <string name="sort_by_modification_date_descending">Sorter etter endringsdato, synkende</string>
+    <string name="synced_folders_type">Type</string>
+    <string name="sync_status_button">Synkroniseringsstatusknapp</string>
     <string name="synced_folder_settings_button">Innstillingsknapp</string>
+    <string name="synced_folder_custom_folder_image">Tilpasset mappe-knapp</string>
     </resources>
