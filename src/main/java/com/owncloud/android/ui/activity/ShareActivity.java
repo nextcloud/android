@@ -32,6 +32,7 @@ import android.support.v4.app.FragmentTransaction;
 
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.accounts.AccountUtils;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
@@ -313,7 +314,19 @@ public class ShareActivity extends FileActivity implements ShareFragmentListener
 
             intentToShareLink.putExtra(Intent.EXTRA_TEXT, link);
             intentToShareLink.setType("text/plain");
-            String username = AccountUtils.getUsernameForAccount(getAccount());
+
+            String username;
+            try {
+                OwnCloudAccount oca = new OwnCloudAccount(getAccount(), this);
+                if (oca.getDisplayName() != null && !oca.getDisplayName().isEmpty()) {
+                    username = oca.getDisplayName();
+                } else {
+                    username = AccountUtils.getUsernameForAccount(getAccount());
+                }
+            } catch (Exception e) {
+                username = AccountUtils.getUsernameForAccount(getAccount());
+            }
+
             if (username != null) {
                 intentToShareLink.putExtra(
                     Intent.EXTRA_SUBJECT,
