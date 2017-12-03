@@ -56,7 +56,9 @@
     <string name="prefs_feedback">Обратная связь</string>
     <string name="prefs_imprint">Отпечаток</string>
 
-	<string name="recommend_urls">%1$s или %2$s</string>
+	<string name="recommend_subject">Испытайте %1$s на своём устройстве!</string>
+	<string name="recommend_text">Хочу посоветовать использовать %1$s на твоём устройстве!\nСкачай здесь: %2$s</string>
+    <string name="recommend_urls">%1$s или %2$s</string>
 
     <string name="auth_check_server">Проверить сервер</string>
     <string name="auth_host_url">Адрес сервера https://&#8230;</string>
@@ -192,6 +194,12 @@
         <item quantity="other">Содержимое %1$d файлов не может быть синхронизировано (конфликтов: %2$d)</item>
     </plurals>
     <string name="sync_foreign_files_forgotten_ticker">Некоторые загруженные файлы не были перенесены в локальную папку </string>
+    <plurals name="sync_foreign_files_forgotten_content">
+        <item quantity="one">Не удалось скопировать %1$dфайл в папку «%2$s»</item>
+        <item quantity="few">Не удалось скопировать %1$d файлов в папку «%2$s»</item>
+        <item quantity="many">Не удалось скопировать %1$dфайлов в папку «%2$s»</item>
+        <item quantity="other">Не удалось скопировать %1$d файлов в папку «%2$s»</item>
+    </plurals>
     <string name="sync_foreign_files_forgotten_explanation">Начиная с версии 1.3.16, файлы, загружаемые с этого устройства, копируются в локальный каталог %1$s, чтобы предотвратить потерю данных при синхронизации файла с несколькими учётными записями.\n\nПоэтому все файлы, загруженные предыдущими версиями данного приложения, были скопированы в каталог %2$s. Однако, во время синхронизации что-то помешало завершить эту операцию. Можете оставить файлы как есть и удалить ссылку на %3$s, либо переместить их в %1$s и сохранить ссылку на %4$s.\n\nНиже перечислены локальные файлы, и соответствующие им удалённые файлы в %5$s, c которыми они связаны.</string>
     <string name="sync_current_folder_was_removed">Каталог %1$s больше не существует</string>
     <string name="foreign_files_move">Переместить все</string>
@@ -326,6 +334,7 @@
 
     <string name="placeholder_sentence">Это заполнитель</string>
     <string name="placeholder_filename">placeholder.txt</string>
+    <string name="placeholder_fileSize">389 Кбайт</string>
     <string name="placeholder_timestamp">2012/05/18 12:23</string>
     <string name="placeholder_media_time">12:23:45</string>
 
@@ -549,11 +558,11 @@
     <string name="participate_testing_headline">Помогите нам в тестировании</string>
     <string name="participate_testing_bug_text">Нашли ошибку? Заметили необычное поведение программы?</string>
     <string name="participate_testing_report_text">Сообщить о проблеме на GitHub</string>
-    <string name="participate_testing_version_text">Вам интересно участие в тестировании следующих версий?</string>
+    <string name="participate_testing_version_text">Интересно участие в тестировании следующих версий?</string>
     <string name="participate_beta_headline">Протестируйте разрабатываемую версию</string>
     <string name="participate_beta_text">Она включает в себя все готовящиеся возможности с самой передовой. Могут появляться баги, в таком случае, напишите о них нам.</string>
-    <string name="participate_release_candidate_headline">Кандидат в релизы</string>
-    <string name="participate_release_candidate_text">Релиз-кандидат (RC) — это текущее состояние готовящегося выпуска, и, ожидается, что он будет стабильным. Проверка с вашими индивидуальными настройками может помочь убедится в этом. Зарегистрируйтесь для тестирования в Google Play или загляните в раздел «версии» каталога приложений F-Droid.</string>
+    <string name="participate_release_candidate_headline">Предвыпускная версия</string>
+    <string name="participate_release_candidate_text">Предвыпускная версия — это текущее состояние готовящегося выпуска, и, ожидается, что он будет стабильным. Проверка с вашими индивидуальными настройками может помочь убедится в этом. Зарегистрируйтесь для тестирования в Google Play или загляните в раздел «версии» каталога приложений F-Droid.</string>
     <string name="participate_contribute_headline">Активное участие</string>
     <string name="participate_contribute_irc_text">Присоединяйтесь  к беседе на канале IRC:</string>
     <string name="participate_contribute_forum_text">Помогайте другим на</string>
@@ -561,6 +570,10 @@
     <string name="participate_contribute_translate_translate">Переводите</string>
     <string name="participate_contribute_translate_text">приложение</string>
     <string name="participate_contribute_github_text">Просмотрите, измените и напишите код, подробности смотрите в %1$s</string>
+    <string name="participate_rc_play_store">Скачать предвыпускную версию из магазина приложений Google Play</string>
+    <string name="participate_rc_fdroid">Скачать предвыпускную версию из магазина приложений F-Droid</string>
+    <string name="participate_dev_fdroid">Скачать разрабатываемую версию из магазина приложений F-Droid</string>
+    <string name="participate_dev_direct_download">Скачать предвыпускную версию</string>
     <string name="move_to">Переместить в&#8230;</string>
     <string name="copy_to">Копировать в&#8230;</string>
     <string name="choose_remote_folder">Выберите каталог на сервере &#8230;</string>
@@ -678,11 +691,14 @@
     <string name="whats_new_fingerprint_title">Разблокирование отпечатком пальца</string>
     <string name="whats_new_fingerprint_content">Используйте отпечаток пальца для разблокирования приложения</string>
     <string name="fallback_weblogin_back">Назад</string>
+    <string name="fallback_weblogin_text">Использовать прежний метод авторизации</string>
+
     <string name="foreground_service_upload">Загрузка файлов &#8230;</string>
     <string name="foreground_service_download">Скачивание файлов &#8230;</string>
 
     <string name="prefs_sourcecode">Получить исходный код</string>
     <string name="prefs_license">Лицензия</string>
+    <string name="prefs_gpl_v2">Открытое лицензионное соглашение GNU, версия 2</string>
     <string name="push_notifications_not_implemented">Всплывающие уведомления отключены, так как зависят от Google Play сервисов</string>
     <string name="push_notifications_old_login">Нет аккаунтов для уведомлений. Пожалуйста добавьте аккаунт.</string>
     <string name="push_notifications_temp_error">Всплывающие уведомления недоступны</string>
@@ -691,4 +707,33 @@
     <string name="resized_image_not_possible">Масштабированное изображение недоступно.  Скачать полноразмерное изображение?</string>
     <string name="resized_images_download_full_image">Скачать полноразмерное изображение?</string>
 
+    <string name="store_short_desc">Приложение Nextcloud для Android предоставляет доступ к файлам из вашего Nextcloud</string>
+    <string name="drawer_current_account">Текущая учётная запись</string>
+    <string name="contactlist_item_icon">Значок пользователя в списке контактов</string>
+    <string name="activity_icon">Значок события</string>
+    <string name="file_icon">Значок файла</string>
+    <string name="user_icon">Значок пользователя</string>
+    <string name="fingerprint_icon">Значок отпечатка пальца</string>
+    <string name="favorite_icon">Значок избранного</string>
+    <string name="synced_icon">Значок синхронизированного</string>
+    <string name="available_offline_icon">Значок автономно доступного</string>
+    <string name="checkbox">Флажок</string>
+    <string name="thumbnail">Миниатюра</string>
+    <string name="shared_icon">Значок ресурсов общего доступа</string>
+    <string name="share_file_icon">Значок общего файла</string>
+    <string name="sort_by_name_ascending">Сортировка по имени по возрастанию</string>
+    <string name="sort_by_modification_date_ascending">Сортировка по времени изменения по возрастанию</string>
+    <string name="sort_by_size_descending">Сортировка по размеру по убыванию</string>
+    <string name="sort_by_size_ascending">Сортировка по размеру по возрастанию</string>
+    <string name="sort_by_name_descending">Сортировка по имени по убыванию</string>
+    <string name="sort_by_modification_date_descending">Сортировка по времени изменения по убыванию</string>
+    <string name="synced_folders_type">Тип</string>
+    <string name="sync_status_button">Кнопка статуса синхронизации</string>
+    <string name="synced_folder_settings_button">Кнопка настроек</string>
+    <string name="synced_folder_custom_folder_image">Пользовательское изображение папки</string>
+    <string name="upload_item_action_button">Кнопка «выгрузить элемент»</string>
+    <string name="forward">Вперёд</string>
+    <string name="what_s_new_image">Изображение «что нового»</string>
+
+    <string name="store_short_dev_desc">Разрабатываемая версия Nextcloud может быть установлена совместно с обычной.</string>
     </resources>
