@@ -53,6 +53,7 @@ import com.owncloud.android.utils.MimeType;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Locale;
 
 /**
@@ -459,7 +460,7 @@ public class FileContentProvider extends ContentProvider {
     private Cursor query(
             SQLiteDatabase db,
             Uri uri,
-            String[] projection,
+            String[] projectionArray,
             String selection,
             String[] selectionArgs,
             String sortOrder
@@ -579,7 +580,25 @@ public class FileContentProvider extends ContentProvider {
 
         // DB case_sensitive
         db.execSQL("PRAGMA case_sensitive_like = true");
-        Cursor c = sqlQuery.query(db, projection, selection, selectionArgs, null, null, order);
+
+        // only file list is accessible via content provider, so only this has to be protected with projectionMap
+        if (mUriMatcher.match(uri) == ROOT_DIRECTORY && projectionArray != null) {
+            HashMap<String, String> projectionMap = new HashMap<>();
+
+            for (String projection : ProviderTableMeta.FILE_ALL_COLUMNS) {
+                projectionMap.put(projection, projection);
+            }
+
+            sqlQuery.setProjectionMap(projectionMap);
+        }
+
+        if (selectionArgs == null) {
+            selectionArgs = new String[]{selection};
+            selection = "(?)";
+        }
+
+        sqlQuery.setStrict(true);
+        Cursor c = sqlQuery.query(db, projectionArray, selection, selectionArgs, null, null, order);
         c.setNotificationUri(getContext().getContentResolver(), uri);
         return c;
     }
