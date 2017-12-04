@@ -1346,7 +1346,15 @@ public class UploadFileOperation extends SyncOperation {
         // in theory, should return the same we already have
         // TODO from the appropriate OC server version, get data from last PUT response headers, instead
         // TODO     of a new PROPFIND; the latter may fail, specially for chunked uploads
-        ReadRemoteFileOperation operation = new ReadRemoteFileOperation(getRemotePath());
+        String path;
+        OCFile parent = getStorageManager().getFileByPath(file.getParentRemotePath());
+        if (parent.isEncrypted()) {
+            path = file.getParentRemotePath() + mFile.getEncryptedFileName();
+        } else {
+            path = getRemotePath();
+        }
+
+        ReadRemoteFileOperation operation = new ReadRemoteFileOperation(path);
         RemoteOperationResult result = operation.execute(client);
         if (result.isSuccess()) {
             updateOCFile(file, (RemoteFile) result.getData().get(0));
