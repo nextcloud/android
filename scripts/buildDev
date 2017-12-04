@@ -33,7 +33,6 @@ mv latest.apk ~/apks/
 
 git add build.gradle
 git commit -m "daily dev $date"
-git push
 
 git tag dev-$date
 git push origin dev-$date
