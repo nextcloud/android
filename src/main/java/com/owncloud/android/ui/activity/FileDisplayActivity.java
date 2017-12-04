@@ -1449,9 +1449,6 @@ public class FileDisplayActivity extends HookActivity
                             case OCFileListFragment.DOWNLOAD_SEND:
                                 sendDownloadedFile();
                                 break;
-                            case OCFileListFragment.DOWNLOAD_SET_AS:
-                                setPictureAs();
-                                break;
                             default:
                                 // do nothing
                                 break;
@@ -1609,7 +1606,7 @@ public class FileDisplayActivity extends HookActivity
                 mUploaderBinder = null;
             }
         }
-    };    
+    }
 
     private MediaServiceConnection newMediaConnection(){
         return new MediaServiceConnection();
@@ -1639,7 +1636,7 @@ public class FileDisplayActivity extends HookActivity
                 mMediaServiceBinder = null;
             }
         }
-    };
+    }
 
     /**
      * Updates the view associated to the activity after the finish of some operation over files
@@ -1985,12 +1982,6 @@ public class FileDisplayActivity extends HookActivity
         getFileOperationsHelper().sendDownloadedFile(mWaitingToSend);
         mWaitingToSend = null;
     }
-
-    private void setPictureAs() {
-        getFileOperationsHelper().setPictureAs(mWaitingToSend);
-        mWaitingToSend = null;
-    }
-
 
     /**
      * Requests the download of the received {@link OCFile} , updates the UI

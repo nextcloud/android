@@ -30,9 +30,10 @@ import android.content.pm.ResolveInfo;
 import android.net.Uri;
 import android.os.Build;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.content.FileProvider;
+import android.view.View;
 import android.webkit.MimeTypeMap;
-import android.widget.Toast;
 
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
@@ -581,7 +582,7 @@ public class FileOperationsHelper {
         }
     }
 
-    public void setPictureAs(OCFile file) {
+    public void setPictureAs(OCFile file, View view) {
         if (file != null) {
             Context context = MainApp.getAppContext();
             Intent intent = new Intent(Intent.ACTION_ATTACH_DATA);
@@ -610,7 +611,7 @@ public class FileOperationsHelper {
 
                 intent.setDataAndType(uri, file.getMimetype());
             } catch (ActivityNotFoundException exception) {
-                Toast.makeText(context, R.string.picture_set_as_no_app, Toast.LENGTH_LONG).show();
+                Snackbar.make(view, R.string.picture_set_as_no_app, Snackbar.LENGTH_LONG).show();
             }
         } else {
             Log_OC.wtf(TAG, "Trying to send a NULL OCFile");

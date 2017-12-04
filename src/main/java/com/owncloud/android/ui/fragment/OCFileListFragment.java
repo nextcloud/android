@@ -129,7 +129,6 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
 
     public static final String DOWNLOAD_BEHAVIOUR = "DOWNLOAD_BEHAVIOUR";
     public static final String DOWNLOAD_SEND = "DOWNLOAD_SEND";
-    public static final String DOWNLOAD_SET_AS = "DOWNLOAD_SET_AS";
 
     public static final String SEARCH_EVENT = "SEARCH_EVENT";
 
@@ -985,7 +984,7 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
                     }
                 }
                 case R.id.action_set_as_wallpaper: {
-                    mContainerActivity.getFileOperationsHelper().setPictureAs(singleFile);
+                    mContainerActivity.getFileOperationsHelper().setPictureAs(singleFile, getView());
                     return true;
                 }
             }
