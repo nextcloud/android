@@ -68,6 +68,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.lang.ref.WeakReference;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
@@ -293,13 +294,11 @@ public class ThumbnailsCacheManager {
                         if (serverOCVersion.supportsRemoteThumbnails()) {
                             GetMethod getMethod = null;
                             try {
-                                // resized image via gallery app
-                                String uri = mClient.getBaseUri() + "/index.php/apps/gallery/api/preview/" +
-                                        Integer.parseInt(file.getRemoteId().substring(0, 8)) + "/" + pxW + "/" + pxH;
-                                Log_OC.d(TAG, "generate resizedImage: " + file.getFileName() + " URI: " + uri);
+                                String uri = mClient.getBaseUri() + "/index.php/core/preview.png?file="
+                                        + URLEncoder.encode(file.getRemotePath())
+                                        + "&x=" + pxW + "&y=" + pxH + "&a=1&mode=cover&forceIcon=0";
                                 getMethod = new GetMethod(uri);
-                                getMethod.setRequestHeader("Cookie",
-                                        "nc_sameSiteCookielax=true;nc_sameSiteCookiestrict=true");
+
                                 int status = mClient.executeMethod(getMethod);
                                 if (status == HttpStatus.SC_OK) {
                                     InputStream inputStream = getMethod.getResponseBodyAsStream();
