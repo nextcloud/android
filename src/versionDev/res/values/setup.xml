@@ -16,6 +16,7 @@
     <string name="default_display_name_for_root_folder">Nextcloud dev</string>
     
     <bool name="logger_enabled">true</bool>
+    <string name="dev_changelog">https://github.com/nextcloud/android/commits/master</string>
 
     <!--Destination mail for sending log files -->
     <string name="mail_logger">android@nextcloud.com</string>
