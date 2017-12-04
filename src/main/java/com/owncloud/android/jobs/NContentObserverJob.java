@@ -29,9 +29,7 @@ import android.support.annotation.RequiresApi;
 import com.evernote.android.job.JobRequest;
 import com.evernote.android.job.util.support.PersistableBundleCompat;
 import com.owncloud.android.utils.FilesSyncHelper;
-import com.owncloud.android.utils.UploadUtils;
-
-import java.util.concurrent.TimeUnit;
+import com.owncloud.android.utils.PowerUtils;
 
 /*
     Job that triggers new FilesSyncJob in case new photo or video were detected
@@ -45,14 +43,14 @@ public class NContentObserverJob extends JobService {
             if (params.getJobId() == FilesSyncHelper.ContentSyncJobId && params.getTriggeredContentAuthorities()
                     != null && params.getTriggeredContentUris() != null
                     && params.getTriggeredContentUris().length > 0
-                    && !UploadUtils.isPowerSaveMode(getApplicationContext())) {
+                    && !PowerUtils.isPowerSaveMode(getApplicationContext())) {
 
                 PersistableBundleCompat persistableBundleCompat = new PersistableBundleCompat();
                 persistableBundleCompat.putBoolean(FilesSyncJob.SKIP_CUSTOM, true);
 
                 new JobRequest.Builder(FilesSyncJob.TAG)
-                        .setExecutionWindow(1, TimeUnit.SECONDS.toMillis(2))
-                        .setBackoffCriteria(TimeUnit.SECONDS.toMillis(5), JobRequest.BackoffPolicy.LINEAR)
+                        .addExtras(persistableBundleCompat)
+                        .startNow()
                         .setExtras(persistableBundleCompat)
                         .setUpdateCurrent(false)
                         .build()

@@ -47,7 +47,7 @@ import com.owncloud.android.ui.activity.Preferences;
 import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.FilesSyncHelper;
 import com.owncloud.android.utils.MimeTypeUtil;
-import com.owncloud.android.utils.UploadUtils;
+import com.owncloud.android.utils.PowerUtils;
 
 import java.io.File;
 import java.io.IOException;
@@ -86,7 +86,7 @@ public class FilesSyncJob extends Job {
         final boolean overridePowerSaving = bundle.getBoolean(OVERRIDE_POWER_SAVING, false);
 
         // If we are in power save mode, better to postpone upload
-        if (UploadUtils.isPowerSaveMode(context) && !overridePowerSaving) {
+        if (PowerUtils.isPowerSaveMode(context) && !overridePowerSaving) {
             return Result.SUCCESS;
         }
 

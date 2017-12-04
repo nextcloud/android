@@ -14,7 +14,7 @@ buildscript {
         google()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.0.0'
+        classpath 'com.android.tools.build:gradle:3.0.1'
         classpath 'com.google.gms:google-services:3.0.0'
     }
 }
@@ -30,7 +30,7 @@ configurations.all {
 }
 
 ext {
-    supportLibraryVersion = '25.4.0'
+    supportLibraryVersion = '26.1.0'
     googleLibraryVersion = '11.2.2'
 
     travisBuild = System.getenv("TRAVIS") == "true"
@@ -42,9 +42,7 @@ ext {
 repositories {
     jcenter()
     maven { url "https://jitpack.io" }
-    maven {
-        url 'https://oss.sonatype.org/content/repositories/snapshots/'
-    }
+    maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
     google()
 
     flatDir {
@@ -64,7 +62,7 @@ android {
         javaMaxHeapSize "4g"
     }
 
-    compileSdkVersion 25
+    compileSdkVersion 26
     buildToolsVersion '26.0.2'
 
     defaultConfig {
@@ -194,7 +192,7 @@ dependencies {
     /// dependencies for app building
     implementation 'com.android.support:multidex:1.0.2'
     implementation 'com.github.nextcloud:android-library:1.0.32'
-    versionDevImplementation 'com.github.nextcloud:android-library:master-SNAPSHOT'
+    versionDevImplementation 'com.github.nextcloud:android-library:1.0.32'
     implementation "com.android.support:support-v4:${supportLibraryVersion}"
     implementation "com.android.support:design:${supportLibraryVersion}"
     implementation 'com.jakewharton:disklrucache:2.0.2'
@@ -205,7 +203,7 @@ dependencies {
     implementation 'com.github.albfernandez:juniversalchardet:v2.0.0'
     implementation 'com.google.code.findbugs:annotations:2.0.1'
     implementation 'commons-io:commons-io:2.5'
-    implementation 'com.github.evernote:android-job:v1.1.11'
+    implementation 'com.github.evernote:android-job:v1.2.0'
     implementation 'com.jakewharton:butterknife:8.5.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
     implementation 'org.greenrobot:eventbus:3.0.0'
