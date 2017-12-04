@@ -493,11 +493,8 @@ public class UploadFileOperation extends SyncOperation {
             // Key
             byte[] key = null;
 
-            try {
-                // TODO change key if file has changed, e.g. when file is updated
+            if (metadata.files.get(mFile.getFileName()) != null) {
                 key = encodeStringToBase64Bytes(metadata.files.get(mFile.getFileName()).encrypted.key);
-            } catch (Exception e) {
-                // no key found
             }
 
             if (key == null || key.length == 0) {
@@ -507,16 +504,13 @@ public class UploadFileOperation extends SyncOperation {
             // IV
             byte[] iv = null;
 
-            try {
+            if (metadata.files.get(mFile.getFileName()) != null) {
                 iv = encodeStringToBase64Bytes(metadata.files.get(mFile.getFileName()).initializationVector);
-            } catch (Exception e) {
-                // no iv found
             }
 
             if (iv == null || iv.length == 0) {
                 iv = EncryptionUtils.generateIV();
             }
-
 
             EncryptionUtils.EncryptedFile encryptedFile = EncryptionUtils.encryptFile(mFile, key, iv);
 
