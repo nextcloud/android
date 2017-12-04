@@ -53,6 +53,7 @@ public class BootupBroadcastReceiver extends BroadcastReceiver {
         context.startService(initObservers);
 
         MainApp.initAutoUpload();
+        MainApp.initContactsBackup();
     }
 
 }
