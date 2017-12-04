@@ -1335,53 +1335,50 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
      */
     public void fetchExternalLinks(final boolean force) {
         if (getBaseContext().getResources().getBoolean(R.bool.show_external_links)) {
-            Thread t = new Thread(new Runnable() {
-                public void run() {
-                    // fetch capabilities as early as possible
-                    if ((getCapabilities() == null || getCapabilities().getAccountName().isEmpty())
-                            && getStorageManager() != null) {
-                        GetCapabilitiesOperarion getCapabilities = new GetCapabilitiesOperarion();
-                        getCapabilities.execute(getStorageManager(), getBaseContext());
-                    }
+            Thread t = new Thread(() -> {
+                // fetch capabilities as early as possible
+                if ((getCapabilities() == null || getCapabilities().getAccountName().isEmpty())
+                        && getStorageManager() != null) {
+                    GetCapabilitiesOperarion getCapabilities = new GetCapabilitiesOperarion();
+                    getCapabilities.execute(getStorageManager(), getBaseContext());
+                }
 
-                    Account account = AccountUtils.getCurrentOwnCloudAccount(DrawerActivity.this);
+                Account account = AccountUtils.getCurrentOwnCloudAccount(DrawerActivity.this);
 
-                    if (account != null && getStorageManager() != null &&
-                            getStorageManager().getCapability(account.name) != null &&
-                            getStorageManager().getCapability(account.name).getExternalLinks().isTrue()) {
+                externalLinksProvider.deleteAllExternalLinks();
 
-                        int count = sharedPreferences.getInt(EXTERNAL_LINKS_COUNT, -1);
-                        if (count > 10 || count == -1 || force) {
-                            if (force) {
-                                Log_OC.d("ExternalLinks", "force update");
+                if (account != null && getStorageManager() != null &&
+                        getStorageManager().getCapability(account.name) != null &&
+                        getStorageManager().getCapability(account.name).getExternalLinks().isTrue()) {
+
+                    int count = sharedPreferences.getInt(EXTERNAL_LINKS_COUNT, -1);
+                    if (count > 10 || count == -1 || force) {
+                        if (force) {
+                            Log_OC.d("ExternalLinks", "force update");
+                        }
+
+                        sharedPreferences.edit().putInt(EXTERNAL_LINKS_COUNT, 0).apply();
+
+                        Log_OC.d("ExternalLinks", "update via api");
+                        RemoteOperation getExternalLinksOperation = new ExternalLinksOperation();
+                        RemoteOperationResult result = getExternalLinksOperation.execute(account, DrawerActivity.this);
+
+                        if (result.isSuccess() && result.getData() != null) {
+                            externalLinksProvider.deleteAllExternalLinks();
+
+                            ArrayList<ExternalLink> externalLinks = (ArrayList<ExternalLink>) (Object) result.getData();
+
+                            for (ExternalLink link : externalLinks) {
+                                externalLinksProvider.storeExternalLink(link);
                             }
-
-                            sharedPreferences.edit().putInt(EXTERNAL_LINKS_COUNT, 0).apply();
-
-                            Log_OC.d("ExternalLinks", "update via api");
-                            ExternalLinksProvider externalLinksProvider = new ExternalLinksProvider(getContentResolver());
-
-                            RemoteOperation getExternalLinksOperation = new ExternalLinksOperation();
-                            RemoteOperationResult result = getExternalLinksOperation.execute(account, DrawerActivity.this);
-
-                            if (result.isSuccess() && result.getData() != null) {
-                                externalLinksProvider.deleteAllExternalLinks();
-
-                                ArrayList<ExternalLink> externalLinks = (ArrayList<ExternalLink>) (Object) result.getData();
-
-                                for (ExternalLink link : externalLinks) {
-                                    externalLinksProvider.storeExternalLink(link);
-                                }
-
-                                runOnUiThread(() -> updateExternalLinksInDrawer());
-                            }
-                        } else {
-                            sharedPreferences.edit().putInt(EXTERNAL_LINKS_COUNT, count + 1).apply();
                         }
                     } else {
-                        Log_OC.d("ExternalLinks", "links disabled");
+                        sharedPreferences.edit().putInt(EXTERNAL_LINKS_COUNT, count + 1).apply();
                     }
+                } else {
+                    Log_OC.d("ExternalLinks", "links disabled");
                 }
+                runOnUiThread(() -> updateExternalLinksInDrawer());
             });
 
             t.start();
