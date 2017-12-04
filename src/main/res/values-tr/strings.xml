@@ -330,6 +330,7 @@
 
     <string name="placeholder_sentence">Bu bir yer belirleyicidir</string>
     <string name="placeholder_filename">yerbelirleyici.txt</string>
+    <string name="placeholder_fileSize">389 KB</string>
     <string name="placeholder_timestamp">2012/05/18 12:23 ÖS</string>
     <string name="placeholder_media_time">12:23:45</string>
 
@@ -699,7 +700,41 @@
     <string name="store_short_desc">Nextcloud Android uygulaması Nextcloud üzerindeki tüm dosyalarınıza erişmenizi sağlar.</string>
     <string name="store_full_desc">Copyleft Nextcloud Android uygulaması, Nextcloud üzerindeki tüm dosyalarınıza erişmenizi sağlar.\n\nÖzellikleri:\* Kolay kullanılan modern arayüz\n* Dosyalarınızı Nextcloud sunucunuza kolayca yükleyebilme\n* Dosyalarınızı başkalarıyla paylaşabilme\n* Sık kullandığınız dosya ve klasörleri eşitleme\n* Çektiğiniz fotoğraf ve görüntüleri anında yükleme\n* Birden çok hesap desteği\nKullanımda karşılaşabileceğiniz hataları https://github.com/nextcloud/android/issues adresinden bildirebilir, uygulama hakkındaki konuları https://help.nextcloud.com adresinde tartışabilirsiniz ;-)\n\nNextcloud ile yeni mi tanıştınız? Nextcloud özel bir veri depolama ve paylaşma ağıdır. Tamamen açık kaynak kodludur. Dosyalarınızı kendi sunucunuzda saklayabileceğiniz gibi ücretli hizmet olarak da satın alabilirsiniz. Böylece fotoğraflarınız, dosyalarınız, takviminiz, belgeleriniz, kişileriniz ve diğer tüm özel bilgileriniz sizin kontrolünüzde olur. \n\nAyrıntılı bilgi almak için sitemize bakabilirsiniz: https://nextcloud.com</string>
 
+    <string name="drawer_current_account">Geçerli hesap</string>
+    <string name="drawer_middle_account">Orta hesap</string>
+    <string name="drawer_end_account">Son hesap</string>
+    <string name="contactlist_item_icon">Kullanıcı listesi kullanıcı simgesi</string>
+    <string name="activity_icon">İşlem simgesi</string>
+    <string name="file_icon">Dosya simgesi</string>
+    <string name="user_icon">Kullanıcı simgesi</string>
+    <string name="fingerprint_icon">Parmakizi simgesi</string>
+    <string name="favorite_icon">Sık kullanılanlar simgesi</string>
+    <string name="shared_via_link_icon">Bağlantı ile paylaşılmış simgesi</string>
+    <string name="synced_icon">Eşitlenmiş simgesi</string>
+    <string name="available_offline_icon">Çevrimdışı kullanılabilir simgesi</string>
+    <string name="checkbox">İşaret kutusu</string>
+    <string name="thumbnail">Küçük görsel</string>
+    <string name="shared_icon">Paylaşılmış simgesi</string>
+    <string name="overflow_menu">Taşma menüsü</string>
+    <string name="share_file_icon">Dosya paylaşımı simgesi</string>
+    <string name="sort_by_name_ascending">Ada göre artan sıralama</string>
+    <string name="sort_by_modification_date_ascending">Değişiklik tarihine göre artan sıralama</string>
+    <string name="sort_by_size_descending">Boyuta göre azalan sıralama</string>
+    <string name="sort_by_size_ascending">Boyuta göre artan sıralama</string>
+    <string name="sort_by_name_descending">Ada göre azalan sıralama</string>
+    <string name="sort_by_modification_date_descending">Değişiklik tarihine göre azalan sıralama</string>
+    <string name="synced_folders_type">Tür</string>
+    <string name="sync_status_button">Eşitleme durumu düğmesi</string>
+    <string name="synced_folder_settings_button">Ayarlar düğmesi</string>
+    <string name="synced_folder_custom_folder_image">Özel klasör görseli</string>
+    <string name="upload_item_action_button">Öge yükleme işlemi düğmesi</string>
+    <string name="forward">İlet</string>
+    <string name="what_s_new_image">Yenilikler görseli</string>
+
+    <string name="store_short_dev_desc">Nextcloud Dev uygulaması paralel olarak kurulabilen geliştirme sürümü örneğidir.</string>
+    <string name="store_full_dev_desc">Açık Kaynaklı Nextcloud Android uygulaması ile Nextcloud üzerindeki tüm dosyalarınıza erişebilirsiniz.\nBu sürüm resmi Nextcloud uygulamasının geliştirici sürümüdür ve kararsız çalışan ve veri kaybına yol açabilecek yeterince sınanmamış yeni özellikleri bulundurur. Bu sürüm yeni özellikleri sınamak ve hataları bildirmek isteyen kullanıcılar için tasarlanmıştır. Bu sürümü günlük kullanımınız için kullanmayın.\nGeliştirici sürümü F-Droid üzerinde de bulunur ve resmi Nexcloud uygulaması ile aynı anda kurulup kullanılabilir. Günde bir kez güncellemeler denetlenir ve yeni bir sürüm varsa yüklenir. Bu nedenle sürümler arasında daha uzun süreler olabilir.</string>
+
     <string name="prefs_category_dev">Geliştirici</string>
-    <string name="dev_version_no_information_available">Bilgi mevcut değil!</string>
-    <string name="dev_version_no_new_version_available">Yeni sürüm mevcut değil!</string>
+    <string name="dev_version_no_information_available">Herhangi bir bilgi yok!</string>
+    <string name="dev_version_no_new_version_available">Yeni bir sürüm yayınlanmamış!</string>
 </resources>

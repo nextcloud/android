@@ -718,6 +718,7 @@ Ny med Nextcloud? Nextcloud er en privat filtjener for synkronisering og deling.
 Sjekk ut Nextcloud på https://nextcloud.com</string>
 
     <string name="drawer_current_account">Nåværende konto</string>
+    <string name="activity_icon">Aktivitetsikon</string>
     <string name="file_icon">Filikon</string>
     <string name="user_icon">Brukerikon</string>
     <string name="fingerprint_icon">Fingeravtrykksikon</string>
