@@ -98,7 +98,7 @@ public class PushUtils {
     }
     
     private static int generateRsa2048KeyPair() {
-        String keyPath = MainApp.getStoragePath() + File.separator + MainApp.getDataFolder() + File.separator
+        String keyPath = MainApp.getAppContext().getFilesDir().getAbsolutePath() + File.separator + MainApp.getDataFolder() + File.separator
                 + KEYPAIR_FOLDER;
 
         String privateKeyPath = keyPath + File.separator + KEYPAIR_FILE_NAME + KEYPAIR_PRIV_EXTENSION;
@@ -270,7 +270,7 @@ public class PushUtils {
     }
 
     public static Key readKeyFromFile(boolean readPublicKey) {
-        String keyPath = MainApp.getStoragePath() + File.separator + MainApp.getDataFolder() + File.separator
+        String keyPath = MainApp.getAppContext().getFilesDir().getAbsolutePath() + File.separator + MainApp.getDataFolder() + File.separator
                 + KEYPAIR_FOLDER;
 
         String privateKeyPath = keyPath + File.separator + KEYPAIR_FILE_NAME + KEYPAIR_PRIV_EXTENSION;
