@@ -752,6 +752,12 @@ public class UploadFileOperation extends SyncOperation {
     }
 
     private RemoteOperationResult checkConditions(File originalFile) {
+        // Check that connectivity conditions are met and delays the upload otherwise
+        if (mOnWifiOnly && !Device.getNetworkType(mContext).equals(JobRequest.NetworkType.UNMETERED)) {
+            Log_OC.d(TAG, "Upload delayed until WiFi is available: " + getRemotePath());
+            return new RemoteOperationResult(ResultCode.DELAYED_FOR_WIFI);
+        }
+
         // Check if charging conditions are met and delays the upload otherwise
         if (mWhileChargingOnly && !Device.getBatteryStatus(mContext).isCharging()) {
             Log_OC.d(TAG, "Upload delayed until the device is charging: " + getRemotePath());
@@ -763,29 +769,8 @@ public class UploadFileOperation extends SyncOperation {
             Log_OC.d(TAG, "Upload delayed because device is in power save mode: " + getRemotePath());
             return new RemoteOperationResult(ResultCode.DELAYED_IN_POWER_SAVE_MODE);
         }
-        
-        
-        /// Check that connectivity conditions are met and delays the upload otherwise
-        // TODO verify if this can be deleted
-        if (mOnWifiOnly && !Device.getNetworkType(mContext).equals(JobRequest.NetworkType.UNMETERED)) {
-            Log_OC.d(TAG, "Upload delayed until WiFi is available: " + getRemotePath());
-            return new RemoteOperationResult(ResultCode.DELAYED_FOR_WIFI);
-        }
 
-        // TODO verify if this can be deleted
-        // Check if charging conditions are met and delays the upload otherwise
-        if (mWhileChargingOnly && !Device.isCharging(mContext)) {
-            Log_OC.d(TAG, "Upload delayed until the device is charging: " + getRemotePath());
-            return new RemoteOperationResult(ResultCode.DELAYED_FOR_CHARGING);
-        }
-
-        // Check that device is not in power save mode
-        if (!mIgnoringPowerSaveMode && UploadUtils.isPowerSaveMode(mContext)) {
-            Log_OC.d(TAG, "Upload delayed because device is in power save mode: " + getRemotePath());
-            return new RemoteOperationResult(ResultCode.DELAYED_IN_POWER_SAVE_MODE);
-        }
-
-        /// check if the file continues existing before schedule the operation
+        // check if the file continues existing before schedule the operation
         if (!originalFile.exists()) {
             Log_OC.d(TAG, mOriginalStoragePath + " not exists anymore");
             return new RemoteOperationResult(ResultCode.LOCAL_FILE_NOT_FOUND);
