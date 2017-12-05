@@ -155,6 +155,7 @@ public class FileOperationsHelper {
                 String guessedMimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension(fileExt);
                 if (guessedMimeType != null) {
                     openFileWithIntent = new Intent(Intent.ACTION_VIEW);
+                    openFileWithIntent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
                     openFileWithIntent.setDataAndType(
                             file.getExposedFileUri(mFileActivity),
                             guessedMimeType
