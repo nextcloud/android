@@ -3,6 +3,7 @@ package com.owncloud.android.ui.dialog;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.content.pm.ResolveInfo;
+import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -25,6 +26,7 @@ import com.owncloud.android.ui.components.SendButtonData;
 import com.owncloud.android.ui.fragment.OCFileListFragment;
 import com.owncloud.android.ui.helpers.FileOperationsHelper;
 import com.owncloud.android.utils.MimeTypeUtil;
+import com.owncloud.android.utils.ThemeUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -95,6 +97,7 @@ public class SendShareDialog extends BottomSheetDialogFragment {
         sharePeopleText.setOnClickListener(v -> shareFile(file));
 
         ImageView sharePeopleImageView = (ImageView) view.findViewById(R.id.share_people_icon);
+        sharePeopleImageView.getBackground().setColorFilter(ThemeUtils.primaryColor(), PorterDuff.Mode.SRC_IN);
         sharePeopleImageView.setOnClickListener(v -> shareFile(file));
 
         // Share via link button
@@ -102,6 +105,7 @@ public class SendShareDialog extends BottomSheetDialogFragment {
         shareLinkText.setOnClickListener(v -> fileOperationsHelper.showShareFile(file));
 
         ImageView shareLinkImageView = (ImageView) view.findViewById(R.id.share_link_icon);
+        shareLinkImageView.getBackground().setColorFilter(ThemeUtils.primaryColor(), PorterDuff.Mode.SRC_IN);
         shareLinkImageView.setOnClickListener(v -> shareFile(file));
 
         if (file.isSharedWithMe() && !file.canReshare()) {
