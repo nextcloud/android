@@ -753,11 +753,13 @@ public class UploadFileOperation extends SyncOperation {
 
     private RemoteOperationResult checkConditions(File originalFile) {
         // Check that connectivity conditions are met and delays the upload otherwise
+        // TODO verify if this can be deleted
         if (mOnWifiOnly && !Device.getNetworkType(mContext).equals(JobRequest.NetworkType.UNMETERED)) {
             Log_OC.d(TAG, "Upload delayed until WiFi is available: " + getRemotePath());
             return new RemoteOperationResult(ResultCode.DELAYED_FOR_WIFI);
         }
 
+        // TODO verify if this can be deleted
         // Check if charging conditions are met and delays the upload otherwise
         if (mWhileChargingOnly && !Device.getBatteryStatus(mContext).isCharging()) {
             Log_OC.d(TAG, "Upload delayed until the device is charging: " + getRemotePath());
