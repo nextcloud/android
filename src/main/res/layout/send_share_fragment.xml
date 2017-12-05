@@ -53,7 +53,15 @@
                 android:layout_gravity="center_horizontal"
                 android:alpha="0.7"
                 android:contentDescription="@string/share"
-                android:src="@drawable/shared_via_users"/>
+                android:src="@drawable/shared_via_users"
+                android:background="@drawable/round_bgnd"
+                android:backgroundTint="@color/primary"
+                android:paddingStart="5dp"
+                android:paddingLeft="5dp"
+                android:paddingBottom="@dimen/standard_half_padding"
+                android:paddingTop="@dimen/standard_half_padding"
+                android:paddingEnd="@dimen/standard_half_padding"
+                android:paddingRight="@dimen/standard_half_padding"/>
 
             <TextView
                 android:id="@+id/share_people_button"
@@ -78,7 +86,10 @@
                 android:layout_gravity="center_horizontal"
                 android:alpha="0.7"
                 android:contentDescription="@string/link"
-                android:src="@drawable/shared_via_link"/>
+                android:src="@drawable/shared_via_link"
+                android:background="@drawable/round_bgnd"
+                android:backgroundTint="@color/primary"
+                android:padding="@dimen/standard_half_padding"/>
 
             <TextView
                 android:id="@+id/share_link_button"
