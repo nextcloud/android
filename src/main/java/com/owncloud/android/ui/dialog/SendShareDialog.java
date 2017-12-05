@@ -97,7 +97,8 @@ public class SendShareDialog extends BottomSheetDialogFragment {
         sharePeopleText.setOnClickListener(v -> shareFile(file));
 
         ImageView sharePeopleImageView = (ImageView) view.findViewById(R.id.share_people_icon);
-        sharePeopleImageView.getBackground().setColorFilter(ThemeUtils.primaryColor(), PorterDuff.Mode.SRC_IN);
+        sharePeopleImageView.getBackground().setColorFilter(ThemeUtils.elementColor(), PorterDuff.Mode.SRC_IN);
+        sharePeopleImageView.getDrawable().setColorFilter(ThemeUtils.fontColor(), PorterDuff.Mode.SRC_IN);
         sharePeopleImageView.setOnClickListener(v -> shareFile(file));
 
         // Share via link button
@@ -105,7 +106,8 @@ public class SendShareDialog extends BottomSheetDialogFragment {
         shareLinkText.setOnClickListener(v -> fileOperationsHelper.showShareFile(file));
 
         ImageView shareLinkImageView = (ImageView) view.findViewById(R.id.share_link_icon);
-        shareLinkImageView.getBackground().setColorFilter(ThemeUtils.primaryColor(), PorterDuff.Mode.SRC_IN);
+        shareLinkImageView.getBackground().setColorFilter(ThemeUtils.elementColor(), PorterDuff.Mode.SRC_IN);
+        shareLinkImageView.getDrawable().setColorFilter(ThemeUtils.fontColor(), PorterDuff.Mode.SRC_IN);
         shareLinkImageView.setOnClickListener(v -> shareFile(file));
 
         if (file.isSharedWithMe() && !file.canReshare()) {
