@@ -72,8 +72,8 @@ import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.UploadListActivity;
 import com.owncloud.android.ui.notifications.NotificationUtils;
 import com.owncloud.android.utils.ErrorMessageAdapter;
+import com.owncloud.android.utils.PowerUtils;
 import com.owncloud.android.utils.ThemeUtils;
-import com.owncloud.android.utils.UploadUtils;
 
 import java.io.File;
 import java.util.AbstractList;
@@ -922,12 +922,11 @@ public class FileUploader extends Service
                         cancel(mCurrentUpload.getAccount().name, mCurrentUpload.getFile().getRemotePath()
                                 , ResultCode.DELAYED_FOR_WIFI);
                     } else if (mCurrentUpload.getIsChargingRequired() &&
-                            !Device.isCharging(MainApp.getAppContext())) {
+                            !Device.getBatteryStatus(MainApp.getAppContext()).isCharging()) {
                         cancel(mCurrentUpload.getAccount().name, mCurrentUpload.getFile().getRemotePath()
                                 , ResultCode.DELAYED_FOR_CHARGING);
-                    } else if (
-                            !mCurrentUpload.getIsIgnoringPowerSaveMode() &&
-                            UploadUtils.isPowerSaveMode(MainApp.getAppContext())) {
+                    } else if (!mCurrentUpload.getIsIgnoringPowerSaveMode() &&
+                            PowerUtils.isPowerSaveMode(MainApp.getAppContext())) {
                         cancel(mCurrentUpload.getAccount().name, mCurrentUpload.getFile().getRemotePath()
                                 , ResultCode.DELAYED_IN_POWER_SAVE_MODE);
                     }
