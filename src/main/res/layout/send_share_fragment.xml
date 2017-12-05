@@ -73,9 +73,10 @@
 
             <ImageView
                 android:id="@+id/share_link_icon"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
+                android:layout_width="@dimen/user_icon_size"
+                android:layout_height="@dimen/user_icon_size"
                 android:layout_gravity="center_horizontal"
+                android:alpha="0.7"
                 android:contentDescription="@string/link"
                 android:src="@drawable/shared_via_link"/>
 
