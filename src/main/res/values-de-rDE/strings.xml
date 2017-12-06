@@ -702,7 +702,9 @@
     <string name="store_full_desc">Die Open Source Nextcloud Android App erlaubt Ihnen Zugriff auf alle Dateien in Ihrer Nextcloud.\n\nEigenschaften:\n* Einfache, moderne Oberfläche\n* Laden Sie Ihre Dateien auf Ihren Nextcloud Server\n* Teilen Sie Ihre Dateien mit anderen\n* Wichtige Dateien und Verzeichnisse können aktuell gehalten werden\n* Suche über alle Ordner auf Ihrem Server\n* Automatisches Hochladen von Photos und Videos von Ihrem Gerät\n* Bleiben Sie auf dem Laufenden durch Benachrichtigungen\n* Mehrere Konten gleichzeitig\n* Geschützter Zugriff durch Fingerabdruck oder PIN\n* Integration mit DAVdroid für einfaches Konfigurieren von Kalender &amp; Kontakte Synchronisierung\n\nBitte melden Sie alle Probleme unter https://github.com/nextcloud/android/issues oder diskutieren Sie über die App auf https://help.nextcloud.com/c/clients/android\n\nWas ist die Nextcloud? Die Nextcloud ist ein privater Dateiaustausch &amp; -synchronisierungs Server. Nextcloud ist Open Source und kann auf einem eigenen Server installiert werden. So behalten Sie die Kontrolle über Ihre Fotos, Ihre Kalender und Kontakte, Ihre Dokumente und alle anderen Daten.\n\nSchauen Sie sich Nextcloud unter https://nextcloud.com an. </string>
 
     <string name="drawer_current_account">Aktuelles Konto</string>
+    <string name="drawer_middle_account">Mittleres Konto</string>
     <string name="drawer_end_account">Letztes Konto</string>
+    <string name="contactlist_item_icon">Kontaktliste Nutzericon</string>
     <string name="activity_icon">Aktivitäten-Icon</string>
     <string name="file_icon">Datei-Icon</string>
     <string name="user_icon">Nutzer-Icon</string>
@@ -714,6 +716,7 @@
     <string name="checkbox">Checkbox</string>
     <string name="thumbnail">Vorschaubild</string>
     <string name="shared_icon">Geteiltes Icon</string>
+    <string name="overflow_menu">Menü</string>
     <string name="share_file_icon">Datei-Icon teilen</string>
     <string name="sort_by_name_ascending">Nach Namen aufsteigend sortieren</string>
     <string name="sort_by_modification_date_ascending">Nach Änderungsdatum aufsteigend sortieren</string>
@@ -728,6 +731,9 @@
     <string name="upload_item_action_button">Button, um Objekt hochzuladen</string>
     <string name="forward">Weiterleiten</string>
     <string name="what_s_new_image">Was-gibt\'s-Neues-Bild</string>
+
+    <string name="store_short_dev_desc">Die Nextcloud Dev App ist ein Entwicklungsstand und wird parallel installiert.</string>
+    <string name="store_full_dev_desc">Die Open Source Nextcloud Android App ermöglicht es Ihnen auf all Ihre Dateien in Ihrer Nextcloud zuzugreifen.\nDies ist eine Entwicklungsversion der offiziellen Nextcloud App und beinhaltet brandaktuelle, ungetestete Funktionalität welche zu Instabilität oder Datenverlust führen kann. Die App richtet sich an Nutzende, die bereit sind neue Funktionalität auszutesten und Fehler zurückzumelden, sollten sie auftreten. Verwenden Sie diese Version nicht für den produktiven Einsatz!\n\nDie Entwicklungsversion kann neben der offiziellen Nextcloud App installiert werden, werden auch bei F-Droid verfügbar ist. Einmal täglich wird geprüft ob der Quellcode neue Änderungen besitzt, daher kann es auch längere Pausen zwischen Entwicklungsversionen geben.</string>
 
     <string name="prefs_category_dev">Dev</string>
     <string name="dev_version_no_information_available">Keine Information verfügbar!</string>
