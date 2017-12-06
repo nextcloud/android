@@ -703,7 +703,22 @@ Attention la suppression est irréversible.</string>
     <string name="store_full_desc">L\'application Open Source Nextcloud Android vous permet d\'accéder à tous vos fichiers stockés sur Nextcloud.\n\nFonctionnalités :\n* Interface facile d\'utilisation et moderne, personnalisée avec le même thème que celui du serveur\n* Envoyez vos fichiers sur votre serveur Nextcloud\n* Partagez vos fichiers avec d\'autres personnes\n* Synchronisez vos fichiers et dossiers favoris\n* Recherchez parmi tous vos dossiers situés sur votre serveur\n* Téléversez automatiquement les photos et vidéos prises avec votre appareil\n* Restez à jour grâce aux notifications\n* Gestion du multi comptes\n* Accès sécurisé à vos données avec votre empreinte digitale ou un code pin\n* Intégration avec DAVdroid pour faciliter l\'installation de la synchronisation du Calendrier &amp; des Contacts\n\nMerci de signaler tout problème sur https://github.com/nextcloud/android/issues et venez discuter de cette application sur https://help.nextcloud.com/c/clients/android\n\nVous découvrez Nextcloud ? Nextcloud est un système de synchronisation de fichiers personnels &amp; un serveur de partage. Ce système est entièrement Open Source. Vous pouvez l\'héberger vous-même ou payer une entreprise pour ce service. Vous aurez ainsi le contrôle de vos photos, votre calendrier, vos données de contacts, vos documents et de tout le reste.\n\nPour en savoir plus, consultez le site Nextcloud sur https://nextcloud.com</string>
 
     <string name="drawer_current_account">Compte Courrant</string>
+    <string name="drawer_middle_account">Compte du milieu</string>
+    <string name="drawer_end_account">Dernier compte</string>
+    <string name="contactlist_item_icon">Icône de l\'utilisateur de la liste de contacts</string>
+    <string name="activity_icon">Icône d\'activité</string>
+    <string name="file_icon">Icône de fichier</string>
+    <string name="user_icon">Icône d\'utilisateur</string>
+    <string name="fingerprint_icon">Icône de fingerprint</string>
+    <string name="favorite_icon">Icône des favoris</string>
+    <string name="shared_via_link_icon">Icône de partage par lien</string>
+    <string name="synced_icon">Icône synchronisé</string>
+    <string name="available_offline_icon">Icône disponible hors-ligne</string>
+    <string name="checkbox">Case à cocher</string>
     <string name="thumbnail">Miniature</string>
+    <string name="shared_icon">Icône partagé</string>
+    <string name="overflow_menu">Menu recouvrant</string>
+    <string name="share_file_icon">Icône de partage de fichier</string>
     <string name="sort_by_name_ascending">Trier par ordre alphabétique</string>
     <string name="sort_by_modification_date_ascending">Trier par date de modification croissante</string>
     <string name="sort_by_size_descending">Trier par taille décroissante</string>
@@ -711,6 +726,16 @@ Attention la suppression est irréversible.</string>
     <string name="sort_by_name_descending">Trier par ordre alphabétique inversé</string>
     <string name="sort_by_modification_date_descending">Trier par date de modification décroissante</string>
     <string name="synced_folders_type">Type</string>
+    <string name="sync_status_button">Bouton de statut de la synchronisation</string>
+    <string name="synced_folder_settings_button">Bouton des paramètres</string>
+    <string name="synced_folder_custom_folder_image">Image de dossier personnalisée</string>
+    <string name="upload_item_action_button">Bouton d\'action d\'upload</string>
+    <string name="forward">Suivant</string>
+    <string name="what_s_new_image">Image quoi de neuf</string>
+
+    <string name="store_short_dev_desc">Nextcloud Dev est une version de travail qui peut être installée en parallèle.</string>
+    <string name="store_full_dev_desc">L\'application Open Source Nextcloud pour Android vous permet d\'accéder à tous les fichiers de votre instance Nextcloud.\nC\'est la version en développement de l\'application Nextcloud officielle. Elle comprend de nouvelles fonctionnalités qui ne sont pas encore stables et qui peuvent causer instabilités et pertes de données. Cette application est destinée aux utilisateurs qui veulent tester les nouvelles fonctionnalités et faire remonter les bugs éventuels. Ne l\'utilisez pas pour le travail !\n\nLa version en développement peut être installée en parallèle de l\'application Nextcloud officielle qui est disponible sur F-Droid. Les changements de code sont vérifiés une fois par jour, afin d\'avoir un laps de temps relativement espacé entre les nouvelles versions.</string>
+
     <string name="prefs_category_dev">Dév</string>
     <string name="dev_version_no_information_available">Aucune information disponible !</string>
     <string name="dev_version_no_new_version_available">Aucune nouvelle version disponible !</string>
