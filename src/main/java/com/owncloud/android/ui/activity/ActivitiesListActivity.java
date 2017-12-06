@@ -132,8 +132,10 @@ public class ActivitiesListActivity extends FileActivity implements ActivityList
         // setup toolbar
         setupToolbar();
 
-        swipeEmptyListRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_containing_empty);
-        swipeListRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_containing_list);
+        swipeEmptyListRefreshLayout = findViewById(R.id.swipe_containing_empty);
+        swipeListRefreshLayout = findViewById(R.id.swipe_containing_list);
+        onCreateSwipeToRefresh(swipeEmptyListRefreshLayout);
+        onCreateSwipeToRefresh(swipeListRefreshLayout);
 
         // setup drawer
         setupDrawer(R.id.nav_activity);
@@ -146,6 +148,9 @@ public class ActivitiesListActivity extends FileActivity implements ActivityList
             @Override
             public void onRefresh() {
                 setLoadingMessage();
+                if (swipeListRefreshLayout.isRefreshing()) {
+                    swipeListRefreshLayout.setRefreshing(false);
+                }
                 fetchAndSetData(null);
             }
         });
@@ -154,9 +159,21 @@ public class ActivitiesListActivity extends FileActivity implements ActivityList
             @Override
             public void onRefresh() {
                 setLoadingMessage();
+                if (swipeEmptyListRefreshLayout.isRefreshing()) {
+                    swipeEmptyListRefreshLayout.setRefreshing(false);
+                }
                 fetchAndSetData(null);
             }
         });
+    }
+
+    protected void onCreateSwipeToRefresh(SwipeRefreshLayout refreshLayout) {
+        int primaryColor = ThemeUtils.primaryColor();
+        int darkColor = ThemeUtils.primaryDarkColor();
+        int accentColor = ThemeUtils.primaryAccentColor();
+
+        // Colors in animations
+        refreshLayout.setColorSchemeColors(accentColor, primaryColor, darkColor);
     }
 
     public void onDestroy() {
@@ -225,7 +242,6 @@ public class ActivitiesListActivity extends FileActivity implements ActivityList
 
         Thread t = new Thread(new Runnable() {
 
-
             public void run() {
                 OwnCloudAccount ocAccount;
                 try {
@@ -234,6 +250,7 @@ public class ActivitiesListActivity extends FileActivity implements ActivityList
                             getClientFor(ocAccount, MainApp.getAppContext());
                     ownCloudClient.setOwnCloudVersion(AccountUtils.getServerVersion(currentAccount));
                     isLoadingActivities = true;
+                    setIndeterminate(isLoadingActivities);
 
                     GetRemoteActivitiesOperation getRemoteNotificationOperation = new GetRemoteActivitiesOperation();
                     if (pageUrl != null) {
@@ -262,6 +279,7 @@ public class ActivitiesListActivity extends FileActivity implements ActivityList
                                     swipeEmptyListRefreshLayout.setVisibility(View.VISIBLE);
                                 }
                                 isLoadingActivities = false;
+                                setIndeterminate(isLoadingActivities);
                             }
                         });
                     } else {
@@ -277,6 +295,7 @@ public class ActivitiesListActivity extends FileActivity implements ActivityList
                             public void run() {
                                 setEmptyContent(noResultsHeadline, finalLogMessage);
                                 isLoadingActivities = false;
+                                setIndeterminate(isLoadingActivities);
                             }
                         });
                     }
@@ -304,6 +323,7 @@ public class ActivitiesListActivity extends FileActivity implements ActivityList
                 swipeListRefreshLayout.setRefreshing(false);
                 swipeEmptyListRefreshLayout.setRefreshing(false);
                 isLoadingActivities = false;
+                setIndeterminate(isLoadingActivities);
             }
         });
     }
