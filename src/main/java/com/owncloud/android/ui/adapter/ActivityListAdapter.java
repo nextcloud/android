@@ -99,7 +99,6 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     public void setActivityItems(List<Object> activityItems, OwnCloudClient client) {
         this.mClient = client;
-        mValues.clear();
         String sTime = "";
         for (Object o : activityItems) {
             Activity activity = (Activity) o;
@@ -121,7 +120,6 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             }
         }
         notifyDataSetChanged();
-
     }
 
     @Override
