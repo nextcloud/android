@@ -45,6 +45,7 @@ import com.owncloud.android.lib.resources.files.ReadRemoteFileOperation;
 import com.owncloud.android.lib.resources.files.RemoteFile;
 import com.owncloud.android.lib.resources.files.UploadRemoteFileOperation;
 import com.owncloud.android.operations.common.SyncOperation;
+import com.owncloud.android.utils.ConnectivityUtils;
 import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.MimeType;
 import com.owncloud.android.utils.MimeTypeUtil;
@@ -340,6 +341,11 @@ public class UploadFileOperation extends SyncOperation {
         }
 
         try {
+
+            if (Device.getNetworkType(mContext).equals(JobRequest.NetworkType.ANY) ||
+                    ConnectivityUtils.isInternetWalled(mContext)) {
+                return new RemoteOperationResult(ResultCode.NO_NETWORK_CONNECTION);
+            }
 
             /// Check that connectivity conditions are met and delays the upload otherwise
             if (mOnWifiOnly && !Device.getNetworkType(mContext).equals(JobRequest.NetworkType.UNMETERED)) {
