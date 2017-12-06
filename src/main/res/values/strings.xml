@@ -708,6 +708,8 @@
     <string name="push_notifications_not_implemented">Push notifications disabled due to dependencies on proprietary Google Play services.</string>
     <string name="push_notifications_old_login">No push notifications due to outdated login session. Please consider re-adding your account.</string>
     <string name="push_notifications_temp_error">Push notifications currently not available.</string>
+
+    <string name="sync_in_progress">Please wait while we fetch the newest version of the file.</string>
     <string name="date_unknown">Unknown</string>
 
     <string name="resized_image_not_possible">No resized image available. Download full image?</string>
