@@ -694,6 +694,7 @@
     <string name="push_notifications_not_implemented">Push Benachrichtigungen deaktiviert aufgrund der Abhängigkeiten zu proprietären Google Play Diensten.</string>
     <string name="push_notifications_old_login">Keine Push Benachrichtigungen aufgrund veralteter Benutzersitzung. Bitte erwäge das erneute Hinzufügen deines Kontos.</string>
     <string name="push_notifications_temp_error">Push Benachrichtigungen aktuell nicht verfügbar.</string>
+
     <string name="date_unknown">Unbekannt</string>
 
     <string name="resized_image_not_possible">Kein verkleinertes Bild vorhanden. Vollbild herunterladen?</string>

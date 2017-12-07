@@ -697,6 +697,7 @@
     <string name="push_notifications_not_implemented">Брза обавештења искључена јер зависе од власничког Google Play сервиса.</string>
     <string name="push_notifications_old_login">Нема брзих обавештења зато што вам је сесија застарела. Избришите и додајте поново налог.</string>
     <string name="push_notifications_temp_error">Брза обавештења тренутно нису доступна.</string>
+
     <string name="date_unknown">Непознато</string>
 
     <string name="resized_image_not_possible">Нема доступне умањене сличице. Скини оригиналну слику?</string>
