@@ -250,7 +250,7 @@ public class ActivitiesListActivity extends FileActivity implements ActivityList
                             getClientFor(ocAccount, MainApp.getAppContext());
                     ownCloudClient.setOwnCloudVersion(AccountUtils.getServerVersion(currentAccount));
                     isLoadingActivities = true;
-                    setIndeterminate(isLoadingActivities);
+                    runOnUiThread(() -> setIndeterminate(isLoadingActivities));
 
                     GetRemoteActivitiesOperation getRemoteNotificationOperation = new GetRemoteActivitiesOperation();
                     if (pageUrl != null) {
@@ -266,21 +266,18 @@ public class ActivitiesListActivity extends FileActivity implements ActivityList
                         final ArrayList<Object> activities = (ArrayList) data.get(0);
                         nextPageUrl = (String) data.get(1);
 
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                populateList(activities, ownCloudClient);
-                                if (activities.size() > 0) {
-                                    swipeEmptyListRefreshLayout.setVisibility(View.GONE);
-                                    swipeListRefreshLayout.setVisibility(View.VISIBLE);
-                                } else {
-                                    setEmptyContent(noResultsHeadline, noResultsMessage);
-                                    swipeListRefreshLayout.setVisibility(View.GONE);
-                                    swipeEmptyListRefreshLayout.setVisibility(View.VISIBLE);
-                                }
-                                isLoadingActivities = false;
-                                setIndeterminate(isLoadingActivities);
+                        runOnUiThread(() -> {
+                            populateList(activities, ownCloudClient);
+                            if (activities.size() > 0) {
+                                swipeEmptyListRefreshLayout.setVisibility(View.GONE);
+                                swipeListRefreshLayout.setVisibility(View.VISIBLE);
+                            } else {
+                                setEmptyContent(noResultsHeadline, noResultsMessage);
+                                swipeListRefreshLayout.setVisibility(View.GONE);
+                                swipeEmptyListRefreshLayout.setVisibility(View.VISIBLE);
                             }
+                            isLoadingActivities = false;
+                            setIndeterminate(isLoadingActivities);
                         });
                     } else {
                         Log_OC.d(TAG, result.getLogMessage());
@@ -290,13 +287,10 @@ public class ActivitiesListActivity extends FileActivity implements ActivityList
                             logMessage = noResultsMessage;
                         }
                         final String finalLogMessage = logMessage;
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                setEmptyContent(noResultsHeadline, finalLogMessage);
-                                isLoadingActivities = false;
-                                setIndeterminate(isLoadingActivities);
-                            }
+                        runOnUiThread(() -> {
+                            setEmptyContent(noResultsHeadline, finalLogMessage);
+                            isLoadingActivities = false;
+                            setIndeterminate(isLoadingActivities);
                         });
                     }
 
@@ -317,14 +311,11 @@ public class ActivitiesListActivity extends FileActivity implements ActivityList
     }
 
     private void hideRefreshLayoutLoader() {
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                swipeListRefreshLayout.setRefreshing(false);
-                swipeEmptyListRefreshLayout.setRefreshing(false);
-                isLoadingActivities = false;
-                setIndeterminate(isLoadingActivities);
-            }
+        runOnUiThread(() -> {
+            swipeListRefreshLayout.setRefreshing(false);
+            swipeEmptyListRefreshLayout.setRefreshing(false);
+            isLoadingActivities = false;
+            setIndeterminate(isLoadingActivities);
         });
     }
 
