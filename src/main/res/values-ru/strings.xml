@@ -702,6 +702,7 @@
     <string name="push_notifications_not_implemented">Всплывающие уведомления отключены, так как зависят от Google Play сервисов</string>
     <string name="push_notifications_old_login">Нет аккаунтов для уведомлений. Пожалуйста добавьте аккаунт.</string>
     <string name="push_notifications_temp_error">Всплывающие уведомления недоступны</string>
+
     <string name="date_unknown">Неизвестно</string>
 
     <string name="resized_image_not_possible">Масштабированное изображение недоступно.  Скачать полноразмерное изображение?</string>
