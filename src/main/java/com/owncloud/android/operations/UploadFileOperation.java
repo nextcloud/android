@@ -20,6 +20,7 @@
 package com.owncloud.android.operations;
 
 import android.accounts.Account;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Build;
@@ -374,6 +375,7 @@ public class UploadFileOperation extends SyncOperation {
         OCFile parent = getStorageManager().getFileByPath(remoteParentPath);
         mFile.setParentId(parent.getFileId());
 
+        // try to unlock folder with stored token, e.g. when upload needs to be resumed or app crashed
         if (parent.isEncrypted() && !mFolderUnlockToken.isEmpty()) {
             UnlockFileOperation unlockFileOperation = new UnlockFileOperation(parent.getLocalId(), mFolderUnlockToken);
             RemoteOperationResult unlockFileOperationResult = unlockFileOperation.execute(client);
@@ -403,6 +405,7 @@ public class UploadFileOperation extends SyncOperation {
         }
     }
 
+    @SuppressLint("AndroidLintUseSparseArrays") // gson cannot handle sparse arrays easily, therefore use hashmap
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     private RemoteOperationResult encryptedUpload(OwnCloudClient client, OCFile parentFile) {
         RemoteOperationResult result = null;
@@ -641,7 +644,7 @@ public class UploadFileOperation extends SyncOperation {
 //            if (test) {
 //                throw new Exception("test");
 //            }
-            
+
             result = mUploadOperation.execute(client);
 //            if (result == null || result.isSuccess() && mUploadOperation != null) {
 //                result = mUploadOperation.execute(client);
@@ -735,7 +738,6 @@ public class UploadFileOperation extends SyncOperation {
             }
         }
 
-        // TODO on failure store token
         if (result.isSuccess()) {
             handleSuccessfulUpload(temporalFile, expectedFile, originalFile, client);
             unlockFolder(parentFile, client, token);
