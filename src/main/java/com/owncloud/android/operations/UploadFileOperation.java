@@ -1013,17 +1013,17 @@ public class UploadFileOperation extends SyncOperation {
 
             case FileUploader.LOCAL_BEHAVIOUR_MOVE:
                 String expectedPath = FileStorageUtils.getDefaultSavePathFor(mAccount.name, mFile);
-                expectedFile = new File(expectedPath);
+                File newFile = new File(expectedPath);
 
                 try {
-                    move(originalFile, expectedFile);
+                    move(originalFile, newFile);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
                 getStorageManager().deleteFileInMediaScan(originalFile.getAbsolutePath());
-                mFile.setStoragePath(expectedFile.getAbsolutePath());
+                mFile.setStoragePath(newFile.getAbsolutePath());
                 saveUploadedFile(client);
-                FileDataStorageManager.triggerMediaScan(expectedFile.getAbsolutePath());
+                FileDataStorageManager.triggerMediaScan(newFile.getAbsolutePath());
                 break;
         }
     }
