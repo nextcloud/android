@@ -679,6 +679,7 @@
     <string name="push_notifications_old_login">Brak powiadomień typu push ze względu na wygasłą sesję logowania. Przemyśl ponowne dodanie swojego konta.</string>
     <string name="push_notifications_temp_error">Powiadomienia typu push nie są aktualnie dostępne.</string>
 
+    <string name="sync_in_progress">Zaczekaj chwilkę zanim pobierzemy najnowszą wersję pliku.</string>
     <string name="date_unknown">Nieznane</string>
 
     <string name="resized_image_not_possible">Niedostępna wersja ze zmienionym rozmiarem. Pobrać pełen obraz?</string>
@@ -719,6 +720,8 @@ Przycisk wysyłania elementu</string>
     <string name="forward">Prześlij dalej</string>
     <string name="what_s_new_image">Obraz \"co nowego\"</string>
 
+    <string name="store_short_dev_desc">
+Wersja Nextcloud Dev jest wersją rozwojową, można ją zainstalować równolegle.</string>
     <string name="prefs_category_dev">Rozwojowa</string>
     <string name="dev_version_no_information_available">Brak informacji!</string>
     <string name="dev_version_no_new_version_available">Brak nowej wersji!</string>
