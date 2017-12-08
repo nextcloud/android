@@ -93,15 +93,16 @@ import javax.crypto.spec.SecretKeySpec;
 public class EncryptionUtils {
     private static String TAG = EncryptionUtils.class.getSimpleName();
 
-    private static byte[] salt = "$4$YmBjm3hk$Qb74D5IUYwghUmzsMqeNFx5z0/8$".getBytes();
+    public static String PUBLIC_KEY = "PUBLIC_KEY";
+    public static String PRIVATE_KEY = "PRIVATE_KEY";
+    public static int ivLength = 16;
+    public static int saltLength = 40;
+    
     private static String ivDelimiter = "fA=="; // "|" base64 encoded
     private static int iterationCount = 1024;
     private static int keyStrength = 256;
-
-    public static String PUBLIC_KEY = "PUBLIC_KEY";
-    public static String PRIVATE_KEY = "PRIVATE_KEY";
-    public static String AES_CIPHER = "AES/GCM/NoPadding";
-    public static String RSA_CIPHER = "RSA/ECB/OAEPWithSHA-256AndMGF1Padding";
+    private static String AES_CIPHER = "AES/GCM/NoPadding";
+    private static String RSA_CIPHER = "RSA/ECB/OAEPWithSHA-256AndMGF1Padding";
 
     /*
     JSON
@@ -267,7 +268,7 @@ public class EncryptionUtils {
     /**
      * @param ocFile             file do crypt
      * @param encryptionKeyBytes key, either from metadata or {@link EncryptionUtils#generateKey()}
-     * @param iv                 initialization vector, either from metadata or {@link EncryptionUtils#generateIV()}
+     * @param iv                 initialization vector, either from metadata or {@link EncryptionUtils#randomBytes(int)}
      * @return encryptedFile with encryptedBytes and authenticationTag
      */
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
@@ -283,7 +284,7 @@ public class EncryptionUtils {
     /**
      * @param file               file do crypt
      * @param encryptionKeyBytes key, either from metadata or {@link EncryptionUtils#generateKey()}
-     * @param iv                 initialization vector, either from metadata or {@link EncryptionUtils#generateIV()}
+     * @param iv                 initialization vector, either from metadata or {@link EncryptionUtils#randomBytes(int)}
      * @return encryptedFile with encryptedBytes and authenticationTag
      */
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
@@ -437,7 +438,7 @@ public class EncryptionUtils {
             CertificateException {
 
         Cipher cipher = Cipher.getInstance(AES_CIPHER);
-        byte[] iv = generateIV();
+        byte[] iv = randomBytes(ivLength);
 
         Key key = new SecretKeySpec(encryptionKeyBytes, "AES");
         GCMParameterSpec spec = new GCMParameterSpec(128, iv);
@@ -500,6 +501,7 @@ public class EncryptionUtils {
         Cipher cipher = Cipher.getInstance(AES_CIPHER);
 
         SecretKeyFactory factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
+        byte[] salt = randomBytes(saltLength);
         KeySpec spec = new PBEKeySpec(keyPhrase.toCharArray(), salt, iterationCount, keyStrength);
         SecretKey tmp = factory.generateSecret(spec);
         SecretKeySpec key = new SecretKeySpec(tmp.getEncoded(), "AES");
@@ -510,9 +512,10 @@ public class EncryptionUtils {
 
         byte[] iv = cipher.getParameters().getParameterSpec(IvParameterSpec.class).getIV();
         String encodedIV = encodeBytesToBase64String(iv);
+        String encodedSalt = encodeBytesToBase64String(salt);
         String encodedEncryptedBytes = encodeBytesToBase64String(encrypted);
 
-        return encodedEncryptedBytes + ivDelimiter + encodedIV;
+        return encodedEncryptedBytes + ivDelimiter + encodedIV + ivDelimiter + encodedSalt;
     }
 
     /**
@@ -526,19 +529,21 @@ public class EncryptionUtils {
     public static String decryptPrivateKey(String privateKey, String keyPhrase) throws NoSuchPaddingException,
             NoSuchAlgorithmException, NoSuchProviderException, InvalidKeyException, BadPaddingException,
             IllegalBlockSizeException, InvalidKeySpecException, InvalidAlgorithmParameterException {
-        Cipher cipher = Cipher.getInstance(AES_CIPHER);
 
+        // split up iv, salt
+        String[] strings = privateKey.split(ivDelimiter);
+        String realPrivateKey = strings[0];
+        byte[] iv = decodeStringToBase64Bytes(strings[1]);
+        byte[] salt = decodeStringToBase64Bytes(strings[2]);
+
+        Cipher cipher = Cipher.getInstance(AES_CIPHER);
         SecretKeyFactory factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
         KeySpec spec = new PBEKeySpec(keyPhrase.toCharArray(), salt, iterationCount, keyStrength);
         SecretKey tmp = factory.generateSecret(spec);
         SecretKeySpec key = new SecretKeySpec(tmp.getEncoded(), "AES");
 
-        // handle private key
-        String[] strings = privateKey.split(ivDelimiter);
-        String realPrivateKey = strings[0];
-        String iv = strings[1];
 
-        cipher.init(Cipher.DECRYPT_MODE, key, new IvParameterSpec(decodeStringToBase64Bytes(iv)));
+        cipher.init(Cipher.DECRYPT_MODE, key, new IvParameterSpec(iv));
 
         byte[] bytes = decodeStringToBase64Bytes(realPrivateKey);
         byte[] decrypted = cipher.doFinal(bytes);
@@ -625,9 +630,9 @@ public class EncryptionUtils {
         return null;
     }
 
-    public static byte[] generateIV() {
+    public static byte[] randomBytes(int size) {
         SecureRandom random = new SecureRandom();
-        final byte[] iv = new byte[16];
+        final byte[] iv = new byte[size];
         random.nextBytes(iv);
 
         return iv;
