@@ -593,7 +593,7 @@ public class FileContentProvider extends ContentProvider {
             sqlQuery.setProjectionMap(projectionMap);
         }
 
-        if (selectionArgs == null) {
+        if (selectionArgs == null && selection != null) {
             selectionArgs = new String[]{selection};
             selection = "(?)";
         }
