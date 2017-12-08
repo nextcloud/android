@@ -33,6 +33,7 @@ import com.owncloud.android.utils.BitmapUtils;
 
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
+import java.util.Locale;
 
 /**
  * A Drawable object that draws text (1 character) on top of a circular/filled background.
@@ -116,7 +117,8 @@ public class TextDrawable extends Drawable {
         int[] hsl = BitmapUtils.calculateHSL(name);
         int[] rgb = BitmapUtils.HSLtoRGB(hsl[0], hsl[1], hsl[2], 1);
 
-        return new TextDrawable(name.substring(0, 1).toUpperCase(), rgb[0], rgb[1], rgb[2], radiusInDp);
+        return new TextDrawable(name.substring(0, 1).toUpperCase(Locale.getDefault()), rgb[0], rgb[1], rgb[2],
+                radiusInDp);
     }
 
     /**

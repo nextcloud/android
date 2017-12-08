@@ -63,6 +63,7 @@ import java.security.PublicKey;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
+import java.util.Locale;
 
 public class PushUtils {
 
@@ -191,7 +192,7 @@ public class PushUtils {
         if (!TextUtils.isEmpty(MainApp.getAppContext().getResources().getString(R.string.push_server_url)) &&
                 !TextUtils.isEmpty(token)) {
             PushUtils.generateRsa2048KeyPair();
-            String pushTokenHash = PushUtils.generateSHA512Hash(token).toLowerCase();
+            String pushTokenHash = PushUtils.generateSHA512Hash(token).toLowerCase(Locale.ROOT);
             PublicKey devicePublicKey = (PublicKey) PushUtils.readKeyFromFile(true);
             if (devicePublicKey != null) {
                 byte[] publicKeyBytes = Base64.encode(devicePublicKey.getEncoded(), Base64.NO_WRAP);

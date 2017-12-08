@@ -4,6 +4,7 @@ import android.provider.ContactsContract;
 
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 import ezvcard.parameter.AddressType;
@@ -164,7 +165,7 @@ public class DataMappings {
             return ContactsContract.CommonDataKinds.Website.TYPE_CUSTOM;
         }
 
-        type = type.toLowerCase();
+        type = type.toLowerCase(Locale.ROOT);
         Integer value = websiteTypeMappings.get(type);
         return (value == null) ? ContactsContract.CommonDataKinds.Website.TYPE_CUSTOM : value;
     }
@@ -180,7 +181,7 @@ public class DataMappings {
             return ContactsContract.CommonDataKinds.Event.TYPE_OTHER;
         }
 
-        type = type.toLowerCase();
+        type = type.toLowerCase(Locale.ROOT);
         for (Map.Entry<String, Integer> entry : abDateMappings.entrySet()){
             if (type.contains(entry.getKey())){
                 return entry.getValue();
@@ -200,7 +201,7 @@ public class DataMappings {
             return ContactsContract.CommonDataKinds.Relation.TYPE_CUSTOM;
         }
 
-        type = type.toLowerCase();
+        type = type.toLowerCase(Locale.ROOT);
         for (Map.Entry<String, Integer> entry : abRelatedNamesMappings.entrySet()){
             if (type.contains(entry.getKey())){
                 return entry.getValue();
@@ -230,7 +231,7 @@ public class DataMappings {
             return ContactsContract.CommonDataKinds.Im.PROTOCOL_CUSTOM;
         }
 
-        protocol = protocol.toLowerCase();
+        protocol = protocol.toLowerCase(Locale.ROOT);
         Integer value = imProtocolMappings.get(protocol);
         return (value == null) ? ContactsContract.CommonDataKinds.Im.PROTOCOL_CUSTOM : value;
     }

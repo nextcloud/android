@@ -34,6 +34,7 @@ import org.apache.commons.codec.binary.Hex;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Locale;
 
 /**
  * Utility class with methods for decoding Bitmaps.
@@ -277,7 +278,7 @@ public class BitmapUtils {
         int lum = 68;
         int modulo = 16;
 
-        String hash = name.toLowerCase().replaceAll("[^0-9a-f]", "");
+        String hash = name.toLowerCase(Locale.ROOT).replaceAll("[^0-9a-f]", "");
 
         if (!hash.matches("^[0-9a-f]{32}")) {
             hash = md5(hash);

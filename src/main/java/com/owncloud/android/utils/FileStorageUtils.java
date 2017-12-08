@@ -286,7 +286,7 @@ public class FileStorageUtils {
         if (pos >= 0) {
             extension = path.substring(pos + 1);
         }
-        String result = MimeTypeMap.getSingleton().getMimeTypeFromExtension(extension.toLowerCase());
+        String result = MimeTypeMap.getSingleton().getMimeTypeFromExtension(extension.toLowerCase(Locale.ROOT));
         return (result != null) ? result : "";
     }
 

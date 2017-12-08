@@ -25,6 +25,8 @@ import com.owncloud.android.MainApp;
 import com.owncloud.android.lib.common.accounts.AccountTypeUtils;
 import com.owncloud.android.lib.resources.status.OwnCloudVersion;
 
+import java.util.Locale;
+
 /**
  * Helper class for authenticator-URL related logic.
  */
@@ -75,8 +77,8 @@ public abstract class AuthenticatorUrlUtils {
         if (normalizedUrl != null && normalizedUrl.length() > 0) {
             normalizedUrl = normalizedUrl.trim();
 
-            if (!normalizedUrl.toLowerCase().startsWith(HTTP_PROTOCOL) &&
-                    !normalizedUrl.toLowerCase().startsWith(HTTP_PROTOCOL)) {
+            if (!normalizedUrl.toLowerCase(Locale.ROOT).startsWith(HTTP_PROTOCOL) &&
+                    !normalizedUrl.toLowerCase(Locale.ROOT).startsWith(HTTP_PROTOCOL)) {
                 if (sslWhenUnprefixed) {
                     normalizedUrl = HTTPS_PROTOCOL + normalizedUrl;
                 } else {
@@ -110,7 +112,7 @@ public abstract class AuthenticatorUrlUtils {
     }
 
     private static String trimUrlWebdav(String url) {
-        if (url.toLowerCase().endsWith(WEBDAV_PATH_4_0_AND_LATER)) {
+        if (url.toLowerCase(Locale.ROOT).endsWith(WEBDAV_PATH_4_0_AND_LATER)) {
             return url.substring(0, url.length() - WEBDAV_PATH_4_0_AND_LATER.length());
         }
 

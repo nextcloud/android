@@ -51,6 +51,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Locale;
 
 
 /**
@@ -148,7 +149,7 @@ public class UsersAndGroupsSearchProvider extends ContentProvider {
         MatrixCursor response = null;
 
 
-        String userQuery = uri.getLastPathSegment().toLowerCase();
+        String userQuery = uri.getLastPathSegment().toLowerCase(Locale.ROOT);
 
 
         /// need to trust on the AccountUtils to get the current account since the query in the client side is not

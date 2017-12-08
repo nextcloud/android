@@ -32,6 +32,7 @@ import com.owncloud.android.lib.resources.files.ExistenceCheckRemoteOperation;
 import org.apache.commons.httpclient.HttpStatus;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 /**
  * Operation to find out what authentication method requires the server to access files.
@@ -101,7 +102,7 @@ public class DetectAuthenticationMethodOperation extends RemoteOperation {
 
             for (String header : authHeaders) {
                 // currently we only support basic auth
-                if (header.toLowerCase().startsWith("basic")) {
+                if (header.toLowerCase(Locale.ROOT).startsWith("basic")) {
                     authMethod = AuthenticationMethod.BASIC_HTTP_AUTH;
                     break;
                 }
