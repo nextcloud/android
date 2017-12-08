@@ -432,6 +432,9 @@ public class UploadFileOperation extends SyncOperation {
 
             if (lockFileOperationResult.isSuccess()) {
                 token = (String) lockFileOperationResult.getData().get(0);
+                // immediately store it 
+                mUpload.setFolderUnlockToken(token);
+                uploadsStorageManager.updateUpload(mUpload);
             } else if (lockFileOperationResult.getHttpCode() == HttpStatus.SC_FORBIDDEN) {
                 throw new Exception("Forbidden! Please try again later.)");
             } else {
@@ -696,10 +699,6 @@ public class UploadFileOperation extends SyncOperation {
             result = new RemoteOperationResult(e);
         } finally {
             mUploadStarted.set(false);
-
-            // if something fails, store token and retry again
-            mUpload.setFolderUnlockToken(token);
-            uploadsStorageManager.updateUpload(mUpload);
 
             if (fileLock != null) {
                 try {
