@@ -695,6 +695,7 @@ Attention la suppression est irréversible.</string>
     <string name="push_notifications_old_login">Aucune notification push à cause d\'une connexion expirée. Veuillez ajouter de nouveau votre compte. </string>
     <string name="push_notifications_temp_error">Les notifications push ne sont pas disponibles actuellement.</string>
 
+    <string name="sync_in_progress">Veuillez patienter pendant que nous récupérons la nouvelle version du fichier.</string>
     <string name="date_unknown">Inconnu</string>
 
     <string name="resized_image_not_possible">Aucune image réduite disponible. Télécharger l\'image originale ?</string>

@@ -693,6 +693,7 @@
     <string name="push_notifications_old_login">Nessuna notifica push a causa della sessione di accesso scaduta. Considera di aggungere nuovamente il tuo account.</string>
     <string name="push_notifications_temp_error">Notifiche push attualmente non disponibili.</string>
 
+    <string name="sync_in_progress">Attendi mentre recuperiamo la versione più recente del file.</string>
     <string name="date_unknown">Sconosciuta</string>
 
     <string name="resized_image_not_possible">Immagine ridimensionata non disponibile. Scaricare l\'immagine completa?</string>
