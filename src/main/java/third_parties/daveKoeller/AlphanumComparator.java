@@ -29,6 +29,7 @@ import com.owncloud.android.datamodel.OCFile;
 import java.io.File;
 import java.text.Collator;
 import java.util.Comparator;
+import java.util.Locale;
 
 /*
  * This is an updated version with enhancements made by Daniel Migowski, Andre Bogus, and David Koelle
@@ -86,15 +87,15 @@ public class AlphanumComparator<T> implements Comparator<T> {
     }
 
     public int compare(OCFile o1, OCFile o2) {
-        String s1 = o1.getRemotePath().toLowerCase();
-        String s2 = o2.getRemotePath().toLowerCase();
+        String s1 = o1.getRemotePath().toLowerCase(Locale.ROOT);
+        String s2 = o2.getRemotePath().toLowerCase(Locale.ROOT);
 
         return compare(s1, s2);
     }
 
     public int compare(File f1, File f2) {
-        String s1 = f1.getPath().toLowerCase();
-        String s2 = f2.getPath().toLowerCase();
+        String s1 = f1.getPath().toLowerCase(Locale.ROOT);
+        String s2 = f2.getPath().toLowerCase(Locale.ROOT);
 
         return compare(s1, s2);
     }

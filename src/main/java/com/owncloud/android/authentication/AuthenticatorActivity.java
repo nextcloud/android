@@ -130,6 +130,7 @@ import java.io.InputStream;
 import java.net.URLDecoder;
 import java.security.cert.X509Certificate;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
@@ -330,7 +331,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
         } else {
             setContentView(R.layout.account_setup_webview);
-            mLoginWebView = (WebView) findViewById(R.id.login_webview);
+            mLoginWebView = findViewById(R.id.login_webview);
             initWebViewLogin(null);
         }
 
@@ -353,14 +354,14 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     }
 
     private static String getWebLoginUserAgent() {
-        return Build.MANUFACTURER.substring(0, 1).toUpperCase() +
-                Build.MANUFACTURER.substring(1).toLowerCase() + " " + Build.MODEL;
+        return Build.MANUFACTURER.substring(0, 1).toUpperCase(Locale.getDefault()) +
+                Build.MANUFACTURER.substring(1).toLowerCase(Locale.getDefault()) + " " + Build.MODEL;
     }
 
     private void initWebViewLogin(String baseURL) {
         mLoginWebView.setVisibility(View.GONE);
 
-        final ProgressBar progressBar = (ProgressBar) findViewById(R.id.login_webview_progress_bar);
+        final ProgressBar progressBar = findViewById(R.id.login_webview_progress_bar);
 
         mLoginWebView.getSettings().setAllowFileAccess(false);
         mLoginWebView.getSettings().setJavaScriptEnabled(true);
@@ -572,15 +573,15 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
      * Configures elements in the user interface under direct control of the Activity.
      */
     private void initOverallUi() {
-        mHostUrlInput = (CustomEditText) findViewById(R.id.hostUrlInput);
-        mUsernameInputLayout = (TextInputLayout) findViewById(R.id.input_layout_account_username);
-        mPasswordInputLayout = (TextInputLayout) findViewById(R.id.input_layout_account_password);
-        mPasswordInput = (EditText) findViewById(R.id.account_password);
-        mUsernameInput = (EditText) findViewById(R.id.account_username);
-        mAuthStatusView = (TextView) findViewById(R.id.auth_status_text);
-        mOAuth2Check = (CheckBox) findViewById(R.id.oauth_onOff_check);
-        mServerStatusView = (TextView) findViewById(R.id.server_status_text);
-        mTestServerButton = (ImageButton) findViewById(R.id.testServerButton);
+        mHostUrlInput = findViewById(R.id.hostUrlInput);
+        mUsernameInputLayout = findViewById(R.id.input_layout_account_username);
+        mPasswordInputLayout = findViewById(R.id.input_layout_account_password);
+        mPasswordInput = findViewById(R.id.account_password);
+        mUsernameInput = findViewById(R.id.account_username);
+        mAuthStatusView = findViewById(R.id.auth_status_text);
+        mOAuth2Check = findViewById(R.id.oauth_onOff_check);
+        mServerStatusView = findViewById(R.id.server_status_text);
+        mTestServerButton = findViewById(R.id.testServerButton);
 
         mOkButton = findViewById(R.id.buttonOK);
         mOkButton.setOnClickListener(v -> onOkClick());
@@ -603,13 +604,13 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         }
 
         /// step 2 - set properties of UI elements (text, visibility, enabled...)
-        Button welcomeLink = (Button) findViewById(R.id.welcome_link);
+        Button welcomeLink = findViewById(R.id.welcome_link);
         welcomeLink.setVisibility(mAction == ACTION_CREATE && isWelcomeLinkVisible ? View.VISIBLE : View.GONE);
         welcomeLink.setText(getString(R.string.auth_register));
 
         mTestServerButton.setVisibility(mAction == ACTION_CREATE ? View.VISIBLE : View.GONE);
 
-        TextView instructionsView = (TextView) findViewById(R.id.instructions_message);
+        TextView instructionsView = findViewById(R.id.instructions_message);
         if (instructionsMessageText != null) {
             instructionsView.setVisibility(View.VISIBLE);
             instructionsView.setText(instructionsMessageText);
@@ -665,7 +666,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
         if (!webViewLoginMethod) {
             /// step 2 - set properties of UI elements (text, visibility, enabled...)
-            mHostUrlInput = (CustomEditText) findViewById(R.id.hostUrlInput);
+            mHostUrlInput = findViewById(R.id.hostUrlInput);
             // Convert IDN to Unicode
             mHostUrlInput.setText(DisplayUtils.convertIdn(mServerInfo.mBaseUrl, false));
             if (mAction != ACTION_CREATE) {
@@ -681,7 +682,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             }
             showRefreshButton(mServerIsChecked && !mServerIsValid &&
                     mWaitingForOpId > Integer.MAX_VALUE);
-            mServerStatusView = (TextView) findViewById(R.id.server_status_text);
+            mServerStatusView = findViewById(R.id.server_status_text);
             showServerStatus();
 
             /// step 3 - bind some listeners and options
@@ -741,12 +742,12 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     private void initAuthorizationPreFragment(Bundle savedInstanceState) {
 
         /// step 0 - get UI elements in layout
-        mOAuth2Check = (CheckBox) findViewById(R.id.oauth_onOff_check);
-        mOAuthAuthEndpointText = (TextView) findViewById(R.id.oAuthEntryPoint_1);
-        mOAuthTokenEndpointText = (TextView) findViewById(R.id.oAuthEntryPoint_2);
-        mUsernameInput = (EditText) findViewById(R.id.account_username);
-        mPasswordInput = (EditText) findViewById(R.id.account_password);
-        mAuthStatusView = (TextView) findViewById(R.id.auth_status_text);
+        mOAuth2Check = findViewById(R.id.oauth_onOff_check);
+        mOAuthAuthEndpointText = findViewById(R.id.oAuthEntryPoint_1);
+        mOAuthTokenEndpointText = findViewById(R.id.oAuthEntryPoint_2);
+        mUsernameInput = findViewById(R.id.account_username);
+        mPasswordInput = findViewById(R.id.account_password);
+        mAuthStatusView = findViewById(R.id.auth_status_text);
 
         /// step 1 - load and process relevant inputs (resources, intent, savedInstanceState)
         String presetUserName = null;
@@ -1434,7 +1435,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
                 mPasswordInputLayout.setVisibility(View.GONE);
 
                 setContentView(R.layout.account_setup_webview);
-                mLoginWebView = (WebView) findViewById(R.id.login_webview);
+                mLoginWebView = findViewById(R.id.login_webview);
                 initWebViewLogin(mServerInfo.mBaseUrl);
             } else {
                 // show old login
@@ -1507,7 +1508,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
             case OK_NO_SSL:
             case OK:
-                if (mHostUrlInput.getText().toString().trim().toLowerCase().startsWith(HTTP_PROTOCOL)) {
+                if (mHostUrlInput.getText().toString().trim().toLowerCase(Locale.ROOT).startsWith(HTTP_PROTOCOL)) {
                     mServerStatusText = getResources().getString(R.string.auth_connection_established);
                     mServerStatusIcon = R.drawable.ic_ok;
                 } else {
@@ -1592,7 +1593,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
             case OK_NO_SSL:
             case OK:
-                if (mHostUrlInput.getText().toString().trim().toLowerCase().startsWith(HTTP_PROTOCOL)) {
+                if (mHostUrlInput.getText().toString().trim().toLowerCase(Locale.ROOT).startsWith(HTTP_PROTOCOL)) {
                     mAuthStatusText = getResources().getString(R.string.auth_connection_established);
                     mAuthStatusIcon = R.drawable.ic_ok;
                 } else {
@@ -1712,12 +1713,12 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
                 mLoginWebView.setVisibility(View.GONE);
                 setContentView(R.layout.account_setup);
 
-                CustomEditText serverAddressField = (CustomEditText) findViewById(R.id.hostUrlInput);
+                CustomEditText serverAddressField = findViewById(R.id.hostUrlInput);
                 serverAddressField.setText(mServerInfo.mBaseUrl);
 
                 findViewById(R.id.oauth_onOff_check).setVisibility(View.GONE);
                 findViewById(R.id.server_status_text).setVisibility(View.GONE);
-                mAuthStatusView = (TextView) findViewById(R.id.auth_status_text);
+                mAuthStatusView = findViewById(R.id.auth_status_text);
 
                 showAuthStatus();
             }
@@ -1749,7 +1750,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
         } else {    // authorization fail due to client side - probably wrong credentials
             if (webViewLoginMethod) {
-                mLoginWebView = (WebView) findViewById(R.id.login_webview);
+                mLoginWebView = findViewById(R.id.login_webview);
                 initWebViewLogin(mServerInfo.mBaseUrl);
 
                 Snackbar.make(mLoginWebView, getString(R.string.auth_access_failed) + ": " + result.getLogMessage(),

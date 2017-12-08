@@ -33,6 +33,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 /**
@@ -177,29 +178,29 @@ public class MimeTypeUtil {
      * @return 'True' if the mime type defines image
      */
     public static boolean isImage(String mimeType) {
-        return (mimeType != null && mimeType.toLowerCase().startsWith("image/") && !mimeType.toLowerCase().contains
-                ("djvu"));
+        return (mimeType != null && mimeType.toLowerCase(Locale.ROOT).startsWith("image/") &&
+                !mimeType.toLowerCase(Locale.ROOT).contains("djvu"));
     }
 
     /**
      * @return 'True' the mime type defines video
      */
     public static boolean isVideo(String mimeType) {
-        return (mimeType != null && mimeType.toLowerCase().startsWith("video/"));
+        return (mimeType != null && mimeType.toLowerCase(Locale.ROOT).startsWith("video/"));
     }
 
     /**
      * @return 'True' the mime type defines audio
      */
     public static boolean isAudio(String mimeType) {
-        return (mimeType != null && mimeType.toLowerCase().startsWith("audio/"));
+        return (mimeType != null && mimeType.toLowerCase(Locale.ROOT).startsWith("audio/"));
     }
 
     /**
      * @return 'True' if mime type defines text
      */
     public static boolean isText(String mimeType) {
-        return (mimeType != null && mimeType.toLowerCase().startsWith("text/"));
+        return (mimeType != null && mimeType.toLowerCase(Locale.ROOT).startsWith("text/"));
     }
 
     /**
@@ -284,7 +285,7 @@ public class MimeTypeUtil {
      */
     private static String extractMimeType(File file) {
         Uri selectedUri = Uri.fromFile(file);
-        String fileExtension = MimeTypeMap.getFileExtensionFromUrl(selectedUri.toString().toLowerCase());
+        String fileExtension = MimeTypeMap.getFileExtensionFromUrl(selectedUri.toString().toLowerCase(Locale.ROOT));
         return MimeTypeMap.getSingleton().getMimeTypeFromExtension(fileExtension);
     }
 
@@ -354,7 +355,7 @@ public class MimeTypeUtil {
         if (pos >= 0) {
             extension = path.substring(pos + 1);
         }
-        String result = MimeTypeMap.getSingleton().getMimeTypeFromExtension(extension.toLowerCase());
+        String result = MimeTypeMap.getSingleton().getMimeTypeFromExtension(extension.toLowerCase(Locale.ROOT));
         return (result != null) ? result : "";
     }
 
@@ -365,7 +366,7 @@ public class MimeTypeUtil {
      * @return the file extension
      */
     private static String getExtension(String filename) {
-        return filename.substring(filename.lastIndexOf('.') + 1).toLowerCase();
+        return filename.substring(filename.lastIndexOf('.') + 1).toLowerCase(Locale.ROOT);
     }
 
     /**
