@@ -57,8 +57,8 @@ import com.owncloud.android.lib.resources.files.UnlockFileOperation;
 import com.owncloud.android.lib.resources.files.UpdateMetadataOperation;
 import com.owncloud.android.lib.resources.files.UploadRemoteFileOperation;
 import com.owncloud.android.operations.common.SyncOperation;
-import com.owncloud.android.utils.EncryptionUtils;
 import com.owncloud.android.utils.ConnectivityUtils;
+import com.owncloud.android.utils.EncryptionUtils;
 import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.MimeType;
 import com.owncloud.android.utils.MimeTypeUtil;
@@ -704,20 +704,75 @@ public class UploadFileOperation extends SyncOperation {
                 }
             }
 
-            /// Check that connectivity conditions are met and delays the upload otherwise
-            if (mOnWifiOnly && !Device.getNetworkType(mContext).equals(JobRequest.NetworkType.UNMETERED)) {
-                Log_OC.d(TAG, "Upload delayed until WiFi is available: " + getRemotePath());
-                return new RemoteOperationResult(ResultCode.DELAYED_FOR_WIFI);
+            if (temporalFile != null && !originalFile.equals(temporalFile)) {
+                temporalFile.delete();
+            }
+            if (result == null) {
+                result = new RemoteOperationResult(ResultCode.UNKNOWN_ERROR);
             }
 
-        // TODO verify if this can be deleted
-        // Check if charging conditions are met and delays the upload otherwise
+            if (result.isSuccess()) {
+                Log_OC.i(TAG, "Upload of " + mFile.getStoragePath() + " to " + mFile.getRemotePath() + ": " +
+                        result.getLogMessage());
+            } else {
+                if (result.getException() != null) {
+                    if (result.isCancelled()) {
+                        Log_OC.w(TAG, "Upload of " + mFile.getStoragePath() + " to " + mFile.getRemotePath() +
+                                ": " + result.getLogMessage());
+                    } else {
+                        Log_OC.e(TAG, "Upload of " + mFile.getStoragePath() + " to " + mFile.getRemotePath() +
+                                ": " + result.getLogMessage(), result.getException());
+                    }
+
+                } else {
+                    Log_OC.e(TAG, "Upload of " + mFile.getStoragePath() + " to " + mFile.getRemotePath() +
+                            ": " + result.getLogMessage());
+                }
+            }
+        }
+
+        if (result.isSuccess()) {
+            handleSuccessfulUpload(temporalFile, expectedFile, originalFile, client);
+            unlockFolder(parentFile, client, token);
+
+        } else if (result.getCode() == ResultCode.SYNC_CONFLICT) {
+            getStorageManager().saveConflict(mFile, mFile.getEtagInConflict());
+        }
+
+        return result;
+    }
+
+    private void unlockFolder(OCFile parentFolder, OwnCloudClient client, String token) {
+        if (token != null) {
+            UnlockFileOperation unlockFileOperation = new UnlockFileOperation(parentFolder.getLocalId(), token);
+            RemoteOperationResult unlockFileOperationResult = unlockFileOperation.execute(client);
+
+            if (!unlockFileOperationResult.isSuccess()) {
+                Log_OC.e(TAG, "Failed to unlock " + parentFolder.getLocalId());
+            }
+        }
+    }
+
+    private RemoteOperationResult checkConditions(File originalFile) {
+        // check that internet is not behind walled garden
+        if (Device.getNetworkType(mContext).equals(JobRequest.NetworkType.ANY) ||
+                ConnectivityUtils.isInternetWalled(mContext)) {
+            return new RemoteOperationResult(ResultCode.NO_NETWORK_CONNECTION);
+        }
+
+        // check that connectivity conditions are met and delays the upload otherwise
+        if (mOnWifiOnly && !Device.getNetworkType(mContext).equals(JobRequest.NetworkType.UNMETERED)) {
+            Log_OC.d(TAG, "Upload delayed until WiFi is available: " + getRemotePath());
+            return new RemoteOperationResult(ResultCode.DELAYED_FOR_WIFI);
+        }
+
+        // check if charging conditions are met and delays the upload otherwise
         if (mWhileChargingOnly && !Device.getBatteryStatus(mContext).isCharging()) {
             Log_OC.d(TAG, "Upload delayed until the device is charging: " + getRemotePath());
             return new RemoteOperationResult(ResultCode.DELAYED_FOR_CHARGING);
         }
 
-        // Check that device is not in power save mode
+        // check that device is not in power save mode
         if (!mIgnoringPowerSaveMode && PowerUtils.isPowerSaveMode(mContext)) {
             Log_OC.d(TAG, "Upload delayed because device is in power save mode: " + getRemotePath());
             return new RemoteOperationResult(ResultCode.DELAYED_IN_POWER_SAVE_MODE);
