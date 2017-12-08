@@ -511,7 +511,7 @@ public class UploadFileOperation extends SyncOperation {
             }
 
             if (iv == null || iv.length == 0) {
-                iv = EncryptionUtils.generateIV();
+                iv = EncryptionUtils.randomBytes(EncryptionUtils.ivLength);
             }
 
             EncryptionUtils.EncryptedFile encryptedFile = EncryptionUtils.encryptFile(mFile, key, iv);

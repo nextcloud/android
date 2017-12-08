@@ -234,7 +234,21 @@ public class EncryptionTestIT {
         Set<String> ivs = new HashSet<>();
 
         for (int i = 0; i < 50; i++) {
-            assertTrue(ivs.add(EncryptionUtils.encodeBytesToBase64String(EncryptionUtils.generateIV())));
+            assertTrue(ivs.add(EncryptionUtils.encodeBytesToBase64String(
+                    EncryptionUtils.randomBytes(EncryptionUtils.ivLength))));
+        }
+    }
+
+    /**
+     * generates new salt and tests if they are unique
+     */
+    @Test
+    public void testSalt() {
+        Set<String> ivs = new HashSet<>();
+
+        for (int i = 0; i < 50; i++) {
+            assertTrue(ivs.add(EncryptionUtils.encodeBytesToBase64String(
+                    EncryptionUtils.randomBytes(EncryptionUtils.saltLength))));
         }
     }
 
