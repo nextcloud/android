@@ -768,9 +768,13 @@ public class UploadFileOperation extends SyncOperation {
             return new RemoteOperationResult(ResultCode.DELAYED_FOR_WIFI);
         }
 
-    
+        // check if charging conditions are met and delays the upload otherwise
+        if (mWhileChargingOnly && !Device.getBatteryStatus(mContext).isCharging()) {
+            Log_OC.d(TAG, "Upload delayed until the device is charging: " + getRemotePath());
+            return new RemoteOperationResult(ResultCode.DELAYED_FOR_CHARGING);
+        }
 
-        // Check that device is not in power save mode
+        // check that device is not in power save mode
         if (!mIgnoringPowerSaveMode && PowerUtils.isPowerSaveMode(mContext)) {
             Log_OC.d(TAG, "Upload delayed because device is in power save mode: " + getRemotePath());
             return new RemoteOperationResult(ResultCode.DELAYED_IN_POWER_SAVE_MODE);
