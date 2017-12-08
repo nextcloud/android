@@ -630,4 +630,5 @@
     <string name="push_notifications_not_implemented">Pushnotiser har inaktiverats på grund av beroenden till skyddade Google Play-tjänster</string>
     <string name="push_notifications_old_login">Inga pushnotiser på grund av utgången inloggningssession. Överväg att lägga till ditt konto på nytt.</string>
     <string name="push_notifications_temp_error">Push-notiser är inte tillgängligt för tillfället.</string>
+
     </resources>

@@ -677,6 +677,7 @@ Smelltu hér til að fá þér einn frá þjónustuaðila.</string>
     <string name="push_notifications_not_implemented">Ýti-tilkynningar eru óvirkar vegna ósamhæfis við séreignahugbúnað í Google Play þjónustu.</string>
     <string name="push_notifications_old_login">Engar ýtitilkynningar vegna útrunnirnnar innskráningarsetu. Íhugaðu að setja aðganginn þinn inn aftur.</string>
     <string name="push_notifications_temp_error">Ýti-tilkynningar eru ekki tiltækar þessa stundina.</string>
+
     <string name="date_unknown">Óþekkt</string>
 
     <string name="resized_images_download_full_image">Sækja alla myndina?</string>

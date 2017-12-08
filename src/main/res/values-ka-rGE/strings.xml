@@ -687,6 +687,7 @@
     <string name="push_notifications_not_implemented">Google Play სერვისების მესაკუთრეობრივი დამოკიდებულებების გამო, ფუშ შეტყობინებები გათიშულია.</string>
     <string name="push_notifications_old_login">ვადაგასული აუტენტიფიკაციის გამო ფუშ შეტყობინებები არაა. გთხოვთ გაითვალისწინოთ თქვენი ანგარიშის თავიდან დამატება.</string>
     <string name="push_notifications_temp_error">ფუშ შეტყობინებები ამჟამად ხელმიუწვდომელია.</string>
+
     <string name="date_unknown">ამოუცნობი</string>
 
     <string name="resized_image_not_possible">ზომა-შეცვლილი სურათი არაა ხელმისაწვდომი. გადმოვწეროთ მთლიანი სურათი?</string>

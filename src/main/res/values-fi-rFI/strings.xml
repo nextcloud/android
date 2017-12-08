@@ -522,6 +522,7 @@
     <string name="prefs_sourcecode">Hanki lähdekoodi</string>
     <string name="prefs_license">Lisenssi</string>
     <string name="push_notifications_temp_error">Push-ilmoitukset eivät ole nyt käytettävissä.</string>
+
     <string name="date_unknown">Tuntematon</string>
 
     <string name="resized_images_download_full_image">Ladataanko koko kuva?</string>
