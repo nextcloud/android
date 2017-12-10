@@ -360,7 +360,8 @@ public class FileUploader extends Service
             boolean needsWifi = ocUpload.isUseWifiOnly();
             boolean needsCharging = ocUpload.isWhileChargingOnly();
             
-            boolean works = false;
+            boolean works = true;
+
             if (needsCharging) {
                 if (isCharging) {
                     works = true;
