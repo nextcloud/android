@@ -71,6 +71,7 @@ import com.owncloud.android.operations.UploadFileOperation;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.UploadListActivity;
 import com.owncloud.android.ui.notifications.NotificationUtils;
+import com.owncloud.android.utils.ConnectivityUtils;
 import com.owncloud.android.utils.ErrorMessageAdapter;
 import com.owncloud.android.utils.PowerUtils;
 import com.owncloud.android.utils.ThemeUtils;
@@ -355,6 +356,34 @@ public class FileUploader extends Service
             }
         }
 
+        private boolean checkIfUploadCanBeRetried(OCUpload ocUpload, boolean gotWifi, boolean isCharging) {
+            boolean needsWifi = ocUpload.isUseWifiOnly();
+            boolean needsCharging = ocUpload.isWhileChargingOnly();
+            
+            boolean works = false;
+            if (needsCharging) {
+                if (isCharging) {
+                    works = true;
+                } else {
+                    return false;
+                }
+            }
+
+            if (needsWifi) {
+                if (gotWifi) {
+                    works = true;
+                } else {
+                    return false;
+                }
+            }
+
+            if (!new File(ocUpload.getLocalPath()).exists()) {
+                works = false;
+            }
+
+            return works;
+        }
+
         /**
          * Retry a subset of all the stored failed uploads.
          *
@@ -370,6 +399,13 @@ public class FileUploader extends Service
             Account currentAccount = null;
             boolean resultMatch;
             boolean accountMatch;
+
+            boolean gotNetwork = !Device.getNetworkType(context).equals(JobRequest.NetworkType.ANY) &&
+                    !ConnectivityUtils.isInternetWalled(context);
+            boolean gotWifi = gotNetwork && Device.getNetworkType(context).equals(JobRequest.NetworkType.UNMETERED);
+            boolean charging = Device.getBatteryStatus(context).isCharging();
+            boolean isPowerSaving = PowerUtils.isPowerSaveMode(context);
+
             for ( OCUpload failedUpload: failedUploads) {
                 accountMatch = (account == null || account.name.equals(failedUpload.getAccountName()));
                 resultMatch = ((uploadResult == null || uploadResult.equals(failedUpload.getLastResult())));
@@ -378,7 +414,10 @@ public class FileUploader extends Service
                             !currentAccount.name.equals(failedUpload.getAccountName())) {
                         currentAccount = failedUpload.getAccount(context);
                     }
-                    retry(context, currentAccount, failedUpload);
+
+                    if (!isPowerSaving && gotNetwork && checkIfUploadCanBeRetried(failedUpload, gotWifi, charging)) {
+                            retry(context, currentAccount, failedUpload);
+                        }
                 }
             }
         }
