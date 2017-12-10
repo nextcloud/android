@@ -359,30 +359,10 @@ public class FileUploader extends Service
         private boolean checkIfUploadCanBeRetried(OCUpload ocUpload, boolean gotWifi, boolean isCharging) {
             boolean needsWifi = ocUpload.isUseWifiOnly();
             boolean needsCharging = ocUpload.isWhileChargingOnly();
-            
-            boolean works = true;
 
-            if (needsCharging) {
-                if (isCharging) {
-                    works = true;
-                } else {
-                    return false;
-                }
-            }
+            return new File(ocUpload.getLocalPath()).exists() && !(needsCharging && !isCharging) &&
+                    !(needsWifi && !gotWifi);
 
-            if (needsWifi) {
-                if (gotWifi) {
-                    works = true;
-                } else {
-                    return false;
-                }
-            }
-
-            if (!new File(ocUpload.getLocalPath()).exists()) {
-                works = false;
-            }
-
-            return works;
         }
 
         /**
