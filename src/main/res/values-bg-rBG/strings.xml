@@ -98,7 +98,6 @@
     <string name="common_cancel">Отказ</string>
     <string name="common_back">Назад</string>
     <string name="common_save">Запазване</string>
-    <string name="common_error">Грешка</string>
     <string name="common_loading">Зареждане &#8230;</string>
     <string name="common_unknown">неясна</string>
     <string name="common_error_unknown">Неизвестна грешка</string>
@@ -118,9 +117,7 @@
     <string name="uploads_view_group_finished_uploads">Качени</string>
     <string name="uploads_view_upload_status_succeeded">Завършено</string>
     <string name="uploads_view_upload_status_cancelled">Отказано</string>
-    <string name="uploads_view_upload_status_paused">На пауза</string>
     <string name="uploads_view_upload_status_failed_connection_error">Грешка при свързване</string>
-    <string name="uploads_view_upload_status_failed_retry">Качването ще се повтори скоро</string>
     <string name="uploads_view_upload_status_failed_credentials_error">Грешка при удостоверение</string>
     <string name="uploads_view_upload_status_failed_folder_error">Грешка в папката</string>
     <string name="uploads_view_upload_status_failed_file_error">Грешка във файла</string>
@@ -177,7 +174,6 @@
 	<string name="auth_expired_oauth_token_toast">Оторизацията изтече. Моля, оторизирайте се отново.</string>
 	<string name="auth_expired_basic_auth_toast">Моля въведете текущата парола</string>
 	<string name="auth_expired_saml_sso_token_toast">Сесията изтече. Моля, свържете се отново</string>
-	<string name="auth_unsupported_auth_method">Сървърът не поддържа този метод за идентификация</string>
 	<string name="auth_unsupported_multiaccount">%1$s не поддържа множество профили</string>
 	<string name="auth_can_not_auth_against_server">Неуспешно идентифициране към сървъра</string>
     <string name="favorite">Задай като достъпна офлайн</string>
@@ -258,7 +254,6 @@
     <string name="downloader_download_file_not_found">Файлът вече не се намира на сървъра</string>
 
     <string name="file_migration_dialog_title">Обновяване на пътя до хранилището</string>
-    <string name="file_migration_finish_button">Край</string>
     <string name="file_migration_checking_destination">Проверка на дестинация&#8230;</string>
     <string name="file_migration_migrating">Преместване на данни&#8230;</string>
     <string name="file_migration_updating_index">Обновяване на индекс&#8230;</string>
@@ -289,9 +284,6 @@
 
     <string name="sync_folder_failed_content">Синхронизацията на папка %1$s не може да бъде завършена</string>
 
-	<string name="shared_subject_header">споделен</string>
-	<string name="with_you_subject_header">с вас</string>
-    
 	<string name="subject_user_shared_with_you">%1$s сподели с вас \"%2$s\"</string>
     <string name="subject_shared_with_you">\"%1$s\" бе споделено с вас</string>
 
@@ -303,8 +295,6 @@
 
     <string name="prefs_instant_behaviour_dialogTitle">Оригиналните файлове ще бъдат &#8230;</string>
     <string name="prefs_instant_behaviour_title">Оригиналните файлове ще бъдат &#8230;</string>
-    <string name="upload_copy_files">Копирай файла</string>
-    <string name="upload_move_files">Премести файла</string>
     <string name="select_all">Избере всички</string>
     <string name="pref_behaviour_entries_keep_file">запазвани в оригиналната папка</string>
     <string name="pref_behaviour_entries_move">премествани в папката на приложението</string>
@@ -338,15 +328,12 @@
     <string name="share_privilege_can_edit_create">създаване</string>
     <string name="share_privilege_can_edit_change">промяна</string>
     <string name="share_privilege_can_edit_delete">изтриване</string>
-    <string name="edit_share_unshare">Спри споделянето</string>
-    <string name="edit_share_done">готово</string>
 
     <string name="action_switch_grid_view">Решетъчен изглед</string>
     <string name="action_switch_list_view">Списъчен изглед</string>
 
     <string name="manage_space_title">Управление на място</string>
     <string name="manage_space_clear_data">Изчисти данни</string>
-    <string name="manage_space_error">Изтриването на някои файлове не е възможно.</string>
 
     <string name="actionbar_search">Търсене</string>
     <string name="files_drop_not_supported">Това е функционалност на Nextcloud, моля актуализирайте.</string>
@@ -361,16 +348,12 @@
         <item quantity="other">%d избрани</item>
     </plurals>
 
-    <string name="activity_list_no_results">Няма открити файлове</string>
-
     <string name="notifications_no_results_headline">Няма известия</string>
     <string name="notifications_no_results_message">Моля, опитайте отново по-късно</string>
 
     <string name="upload_file_dialog_filename">Име на файла</string>
     <string name="upload_file_dialog_filetype">Тип на файла</string>
     <string name="storage_description_default">По подразбиране</string>
-    <string name="storage_description_sd_no">SD карта %1$d</string>
-    <string name="storage_description_unknown">Неизвестно</string>
 
     <!-- Welcome to Nc intro features -->
     <string name="welcome_feature_1_title">Безопасен дом за всички ваши данни</string>
@@ -384,21 +367,18 @@
     <string name="fingerprint_unknown">Пръстовият отпечатък не е разпознат</string>
 
     <!-- User information -->
-    <string name="user_info_full_name">Цяло име</string>
     <string name="user_info_email">Е-мейл</string>
     <string name="user_info_phone">Теелфонен номер</string>
     <string name="user_info_address">Адрес</string>
     <string name="user_info_website">Интернет страница</string>
     <string name="user_info_twitter">Twitter</string>
 
-    <string name="user_information_description">Информация за потребителя</string>
     <string name="prefs_category_about">Относно</string>
 
     <string name="actionbar_contacts_restore">Възстанови контакт</string>
     <string name="contacts_preference_backup_never">никога</string>
     <string name="contacts_preferences_no_file_found">Няма намерен файл</string>
     <!-- Notifications -->
-    <string name="new_notification_received">Получено е ново известие</string>
     <string name="drawer_logout">Отпиши се</string>
     <string name="file_not_found">Файлът не е открит</string>
 

@@ -101,13 +101,10 @@
     <string name="common_yes">Ja</string>
     <string name="common_no">Nej</string>
     <string name="common_ok">OK</string>
-    <string name="common_remove_upload">Slet upload</string>
-    <string name="common_retry_upload">Forsøg upload igen</string>
     <string name="common_cancel_sync">Annullér sync</string>
     <string name="common_cancel">Annuller</string>
     <string name="common_back">Tilbage</string>
     <string name="common_save">Gem</string>
-    <string name="common_error">Fejl</string>
     <string name="common_loading">Indlæser &#8230;</string>
     <string name="common_unknown">ukendt</string>
     <string name="common_error_unknown">Ukendt fejl</string>
@@ -132,9 +129,7 @@
     <string name="uploads_view_group_finished_uploads">Sendt</string>
     <string name="uploads_view_upload_status_succeeded">Fuldført</string>
     <string name="uploads_view_upload_status_cancelled">Annulléret</string>
-    <string name="uploads_view_upload_status_paused">Sat på pause</string>
     <string name="uploads_view_upload_status_failed_connection_error">Tilslutnings-fejl</string>
-    <string name="uploads_view_upload_status_failed_retry">Upload vil blive tilbagetrukket inden længe</string>
     <string name="uploads_view_upload_status_failed_credentials_error">Godkendelsesfejl</string>
     <string name="uploads_view_upload_status_failed_folder_error">Mappefejl</string>
     <string name="uploads_view_upload_status_failed_file_error">Filfejl</string>
@@ -207,7 +202,6 @@
 	<string name="auth_expired_oauth_token_toast">Din godkendelse udløb. Gentag godkendelse</string>
 	<string name="auth_expired_basic_auth_toast">Indtast venligst din nuværende adgangskode</string>
 	<string name="auth_expired_saml_sso_token_toast">Din session udløb. Forbind venligst igen</string>
-	<string name="auth_unsupported_auth_method">Serveren understøtter ikke denne godkendelsesmetode</string>
 	<string name="auth_unsupported_multiaccount">%1$s understøtter ikke flere konti</string>
 	<string name="auth_can_not_auth_against_server">Kan ikke autorisere forbindelse til denne server</string>
     <string name="auth_access_failed">Adgang fejlede</string>
@@ -222,7 +216,6 @@
     <string name="confirmation_remove_local">Kun lokal</string>
     <string name="remove_success_msg">Slettet</string>
     <string name="rename_dialog_title">Indtast et nyt navn</string>
-    <string name="sync_file_fail_msg">Kunne ikke tjekke fjern fil</string>
     <string name="sync_file_nothing_to_do_msg">Filindholdet allerede synkroniseret</string>
     <string name="create_dir_fail_msg">Kunne ikke oprette mappe</string>
     <string name="filename_forbidden_characters">Ugyldige tegn: / \\ &lt; &gt; : \" | ? *</string>
@@ -270,7 +263,6 @@
     <string name="placeholder_media_time">12:23:45</string>
 
     <string name="auto_upload_on_wifi">Upload kun på wifi</string>
-    <string name="instant_video_upload_on_charging">Upload kun under opladning</string>
     <string name="instant_upload_on_charging">Upload kun under opladning</string>
     <string name="instant_upload_path">/Øjeblikkelig upload</string>
     <string name="conflict_title">Filkonflikt</string>
@@ -312,7 +304,6 @@
     <string name="forbidden_permissions_create">for at slette denne fil</string>
     <string name="downloader_download_file_not_found">Filen er ikke længere tilgængelig på serveren</string>
 
-    <string name="file_migration_finish_button">Færdigør</string>
     <string name="file_migration_migrating">Flytter data &#8230;</string>
     <string name="file_migration_updating_index">Opdaterer index&#8230;</string>
     <string name="file_migration_cleaning">Oprydning&#8230;</string>
@@ -342,10 +333,7 @@
 
     <string name="prefs_category_details">Detaljer</string>
 
-    <string name="shared_subject_header">delt</string>
-	<string name="with_you_subject_header">med dig</string>
-    
-	<string name="subject_user_shared_with_you">%1$s delte \"%2$s\" med dig</string>
+    <string name="subject_user_shared_with_you">%1$s delte \"%2$s\" med dig</string>
     <string name="subject_shared_with_you">\"%1$s\" er blevet delt med dig</string>
 
     <string name="auth_refresh_button">Genopfrisk forbindelsen</string>
@@ -356,8 +344,6 @@
 
     <string name="set_as">Sæt som</string>
 
-    <string name="upload_copy_files">Kopiér fil</string>
-    <string name="upload_move_files">Flyt fil</string>
     <string name="select_all">Vælg alle</string>
     <string name="pref_behaviour_entries_delete_file">Slettet</string>
     <string name="prefs_common">Almindelig</string>
@@ -384,15 +370,12 @@
     <string name="share_privilege_can_edit_create">opret</string>
     <string name="share_privilege_can_edit_change">tilpas</string>
     <string name="share_privilege_can_edit_delete">slet</string>
-    <string name="edit_share_unshare">Stop deling</string>
-    <string name="edit_share_done">færdig</string>
 
     <string name="action_switch_grid_view">Grid visning</string>
     <string name="action_switch_list_view">List visning</string>
 
     <string name="manage_space_title">Håndter plads</string>
     <string name="manage_space_clear_data">Fjern data</string>
-    <string name="manage_space_error">Visse filer kunne ikke slettes.</string>
 
     <string name="actionbar_search">Søg</string>
     <string name="files_drop_not_supported">Dette er en Nextcloud feature, opdater venligst</string>
@@ -410,16 +393,11 @@
     <string name="move_to">Flyt til&#8230;</string>
     <string name="copy_to">Kopiér til&#8230;</string>
     <string name="synced_folders_loading_folders">Loader mappe &#8230;</string>
-    <string name="synced_folders_settings">Indstillinger</string>
     <string name="synced_folders_preferences_folder_path">For %1$s</string>
-    <string name="activity_list_no_results">Ingen aktiviteter fundet.</string>
-
     <string name="notifications_no_results_headline">Ingen notifikationer</string>
     <string name="upload_file_dialog_filename">Filnavn</string>
     <string name="upload_file_dialog_filetype">Filtype</string>
     <string name="storage_description_default">Standard</string>
-    <string name="storage_description_sd_no">SD-kort %1$d</string>
-    <string name="storage_description_unknown">Ukendt</string>
 
     <!-- What's new feature and texts to show -->
     <string name="whats_new_title">Hvad er i %1$s</string>
@@ -434,17 +412,14 @@
     <string name="whats_new_skip">Spring over</string>
 
     <!-- User information -->
-    <string name="user_info_full_name">Fulde navn</string>
     <string name="user_info_email">E-mail</string>
     <string name="user_info_phone">Telefonnummer</string>
     <string name="user_info_address">Adresse</string>
     <string name="user_info_website">Website</string>
     <string name="user_info_twitter">Twitter</string>
 
-    <string name="user_information_description">Brugerinformation</string>
     <!-- Activities -->
     <string name="activities_no_results_headline">Endnu ingen aktiviteter</string>
-    <string name="webview_error">Der opstod en fejl.</string>
     <string name="prefs_category_about">Om</string>
 
     <string name="actionbar_contacts">Backup kontaktpersoner</string>
@@ -452,10 +427,10 @@
     <string name="contacts_backup_button">Backup nu</string>
     <string name="contacts_automatic_backup">Automatisk backup</string>
     <string name="contacts_last_backup">Sidste backup</string>
-    <string name="contactlist_title">Genskab kontakter</string>
     <string name="contacts_preference_choose_date">Vælg dato</string>
     <string name="contacts_preference_backup_never">aldrig</string>
     <string name="contacts_preferences_no_file_found">Ingen fil fundet</string>
+    <!-- Notifications -->
     <string name="drawer_logout">Log ud</string>
     <string name="file_not_found">Fil ikke fundet!</string>
 

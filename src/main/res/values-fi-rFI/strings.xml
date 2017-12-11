@@ -110,12 +110,10 @@
     <string name="common_yes">Kyllä</string>
     <string name="common_no">Ei</string>
     <string name="common_ok">OK</string>
-    <string name="common_retry_upload">Yritä lähetystä uudelleen</string>
     <string name="common_cancel_sync">Peru synkronointi</string>
     <string name="common_cancel">Peru</string>
     <string name="common_back">Takaisin</string>
     <string name="common_save">Tallenna</string>
-    <string name="common_error">Virhe</string>
     <string name="common_loading">Ladataan…</string>
     <string name="common_unknown">tuntematon</string>
     <string name="common_error_unknown">Tuntematon virhe</string>
@@ -137,9 +135,7 @@
     <string name="uploads_view_group_finished_uploads">Lähetetty</string>
     <string name="uploads_view_upload_status_succeeded">Valmiina</string>
     <string name="uploads_view_upload_status_cancelled">Peruttu</string>
-    <string name="uploads_view_upload_status_paused">Keskeytetty</string>
     <string name="uploads_view_upload_status_failed_connection_error">Yhteysvirhe</string>
-    <string name="uploads_view_upload_status_failed_retry">Lähetystä yritetään pian uudelleen</string>
     <string name="uploads_view_upload_status_failed_credentials_error">Valtuutusvirhe</string>
     <string name="uploads_view_upload_status_failed_folder_error">Kansiovirhe</string>
     <string name="uploads_view_upload_status_failed_file_error">Tiedostovirhe</string>
@@ -214,7 +210,6 @@
 	<string name="auth_expired_oauth_token_toast">Valtuutus vanhentui. Valtuuta uudelleen</string>
 	<string name="auth_expired_basic_auth_toast">Anna nykyinen salasana</string>
 	<string name="auth_expired_saml_sso_token_toast">Istunto vanhentui. Yhdistä uudelleen</string>
-	<string name="auth_unsupported_auth_method">Palvelin ei tue tätä tunnistautumistapaa</string>
 	<string name="auth_unsupported_multiaccount">%1$s ei tue useita tilejä</string>
 	<string name="auth_can_not_auth_against_server">Tälle palvelimelle ei voi tunnistautua</string>
     <string name="auth_account_does_not_exist">Tiliä ei ole vielä olemassa laitteella</string>
@@ -229,7 +224,6 @@
     <string name="remove_fail_msg">Poistaminen epäonnistui</string>
     <string name="rename_dialog_title">Anna uusi nimi</string>
     <string name="rename_server_fail_msg">Ei voitu antaa uutta nimeä palvelimelle</string>
-    <string name="sync_file_fail_msg">Ei voitu tarkistaa etätiedostoa</string>
     <string name="sync_file_nothing_to_do_msg">Tiedoston sisältö on jo synkronoitu</string>
     <string name="create_dir_fail_msg">Kansion luominen ei onnistunut</string>
     <string name="filename_forbidden_characters">Kielletyt merkit: / \\ &lt; &gt; : \" | ? *</string>
@@ -273,7 +267,6 @@
     <string name="placeholder_media_time">12:23:45</string>
 
     <string name="auto_upload_on_wifi">Lähetä vain Wi-Fi-yhteydellä</string>
-    <string name="instant_video_upload_on_charging">Lähetä vain ladattaessa virtaa</string>
     <string name="instant_upload_on_charging">Lähetä vain ladattaessa virtaa</string>
     <string name="instant_upload_path">/InstantUpload</string>
     <string name="conflict_title">Tiedoston ristiriita</string>
@@ -319,7 +312,6 @@
     <string name="downloader_download_file_not_found">Tämä tiedosto ei ole enää palvelimella käytettävissä</string>
 
     <string name="file_migration_dialog_title">Päivitetään tallennus polkua</string>
-    <string name="file_migration_finish_button">Valmis</string>
     <string name="file_migration_checking_destination">Tarkistetaan kohde&#8230;</string>
     <string name="file_migration_migrating">Siirretään dataa&#8230;</string>
     <string name="file_migration_updating_index">Päivitetään indeksiä&#8230;</string>
@@ -358,9 +350,6 @@
 
     <string name="sync_folder_failed_content">Kansion %1$s synkronointia ei voitu suorittaa kokonaan</string>
 
-	<string name="shared_subject_header">jaettu</string>
-	<string name="with_you_subject_header">kanssasi</string>
-    
 	<string name="subject_user_shared_with_you">%1$s jakoi kohteen \"%2$s\" kanssasi</string>
     <string name="subject_shared_with_you">\"%1$s\" on jaettu kanssasi</string>
 
@@ -372,8 +361,6 @@
 
     <string name="prefs_instant_behaviour_dialogTitle">Alkuperäinen tiedosto&#8230;</string>
     <string name="prefs_instant_behaviour_title">Alkuperäinen tiedosto&#8230;</string>
-    <string name="upload_copy_files">Kopioi tiedosto</string>
-    <string name="upload_move_files">Siirrä tiedosto</string>
     <string name="select_all">Valitse kaikki</string>
     <string name="pref_behaviour_entries_keep_file">pidetään alkuperäisessä kansiossa</string>
     <string name="pref_behaviour_entries_move">siirretään sovelluskansioon</string>
@@ -406,8 +393,6 @@
     <string name="share_privilege_can_edit_create">luo</string>
     <string name="share_privilege_can_edit_change">muuta</string>
     <string name="share_privilege_can_edit_delete">poista</string>
-    <string name="edit_share_unshare">Lopeta jakaminen</string>
-    <string name="edit_share_done">valmis</string>
 
     <string name="action_clear_failed_uploads">Tyhjennä epäonnistuneet lähetykset</string>
     <string name="action_clear_successful_uploads">Tyhjennä onnistuneet lähetykset</string>
@@ -416,13 +401,11 @@
 
     <string name="manage_space_title">Hallitse tilaa</string>
     <string name="manage_space_clear_data">Tyhjennä tiedot</string>
-    <string name="manage_space_error">Joitain tiedostoja ei voitu poistaa.</string>
 
     <string name="local_file_not_found_toast">Tiedostoa ei löytynyt paikallisesta tiedostojärjestelmästä</string>
     <string name="confirmation_remove_files_alert">Haluatko varmasti poistaa valitut kohteet?</string>
     <string name="confirmation_remove_folders_alert">Haluatko varmasti poistaa valitut kohteet ja niiden sisällön?</string>
     <string name="maintenance_mode">Palvelin on huoltotilassa</string>
-    <string name="lock_failed">Tiedoston lukitseminen epäonnistui</string>
 
     <string name="uploads_view_upload_status_waiting_for_charging">Odoteatan latausta</string>
     <string name="actionbar_search">Etsi</string>
@@ -443,14 +426,10 @@
     <string name="choose_local_folder">Valitse paikallinen kansio&#8230;</string>
     <string name="synced_folders_loading_folders">Ladataan kansioita&#8230;</string>
     <string name="synced_folders_no_results">Mediakansioita ei löytynyt.</string>
-    <string name="synced_folders_settings">Asetukset</string>
     <plurals name="items_selected_count">
         <item quantity="one">%d valittu</item>
         <item quantity="other">%d valittu</item>
     </plurals>
-
-    <string name="activity_list_loading_activity">Ladataan toimia&#8230;</string>
-    <string name="activity_list_no_results">Toimia ei löydetty</string>
 
     <string name="notifications_loading_activity">Ladataan ilmoituksia &#8230;</string>
     <string name="notifications_no_results_headline">Ei ilmoituksia</string>
@@ -460,8 +439,6 @@
     <string name="upload_file_dialog_filetype_googlemap_shortcut">Google Maps -pikakuvaketiedosto(%s)</string>
 
     <string name="storage_description_default">Oletus</string>
-    <string name="storage_description_sd_no">SD kortti %1$d</string>
-    <string name="storage_description_unknown">Tuntematon</string>
 
     <!-- What's new feature and texts to show -->
     <string name="whats_new_title">Mitä uutta %1$s sisältää</string>
@@ -480,17 +457,14 @@
     <string name="fingerprint_unknown">Sormea ei tunnistettu</string>
 
     <!-- User information -->
-    <string name="user_info_full_name">Koko nimi</string>
     <string name="user_info_email">Sähköposti</string>
     <string name="user_info_phone">Puhelinnumero</string>
     <string name="user_info_address">Osoite</string>
     <string name="user_info_website">Verkkosivusto</string>
     <string name="user_info_twitter">Twitter</string>
 
-    <string name="user_information_description">Käyttäjän tiedot</string>
     <!-- Activities -->
     <string name="activities_no_results_headline">Ei vielä toimia</string>
-    <string name="webview_error">Tapahtui virhe</string>
     <string name="prefs_category_about">Tietoja</string>
 
     <string name="actionbar_contacts">Varmuuskopioi yhteystietosi</string>
@@ -498,7 +472,6 @@
     <string name="contacts_backup_button">Varmuuskopioi nyt</string>
     <string name="contacts_automatic_backup">Automaattinen varmuuskopio</string>
     <string name="contacts_last_backup">Edellinen varmuuskopio</string>
-    <string name="contactlist_title">Palauta yhteystiedot</string>
     <string name="contaclist_restore_selected">Palauta valitut yhteystiedot</string>
     <string name="contactlist_account_chooser_title">Valitse tuotava tili</string>
     <string name="contacts_preference_choose_date">Valitse päiväys</string>
@@ -507,7 +480,6 @@
     <string name="contacts_preferences_something_strange_happened">Viimeisintä varmuuskopiota ei löytynyt!</string>
     <string name="contacts_preferences_backup_scheduled">Varmuuskopiointi on ajastettu ja se alkaa pian</string>
     <!-- Notifications -->
-    <string name="new_notification_received">Uusi ilmoitus vastaanotettu</string>
     <string name="drawer_logout">Kirjaudu ulos</string>
     <string name="privacy">Yksityisyys</string>
     <string name="file_not_found">Tiedostoa ei löytynyt!</string>

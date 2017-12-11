@@ -123,13 +123,10 @@
     <string name="common_yes">Evet</string>
     <string name="common_no">Hayır</string>
     <string name="common_ok">Tamam</string>
-    <string name="common_remove_upload">Yüklemeyi sil</string>
-    <string name="common_retry_upload">Yüklemeyi yeniden dene</string>
     <string name="common_cancel_sync">Eşitlemeyi iptal et</string>
     <string name="common_cancel">İptal</string>
     <string name="common_back">Geri</string>
     <string name="common_save">Kaydet</string>
-    <string name="common_error">Hata</string>
     <string name="common_loading">Yükleniyor&#8230;</string>
     <string name="common_unknown">bilinmiyor</string>
     <string name="common_error_unknown">Bilinmeyen sorun</string>
@@ -157,9 +154,7 @@
     <string name="uploads_view_group_finished_uploads">Yüklendi</string>
     <string name="uploads_view_upload_status_succeeded">Tamamlandı</string>
     <string name="uploads_view_upload_status_cancelled">İptal Edildi</string>
-    <string name="uploads_view_upload_status_paused">Duraklatıldı</string>
     <string name="uploads_view_upload_status_failed_connection_error">Bağlantı sorunu</string>
-    <string name="uploads_view_upload_status_failed_retry">Yükleme kısa bir süre sonra yeniden denenecek</string>
     <string name="uploads_view_upload_status_failed_credentials_error">Kimlik bilgileri sorunu</string>
     <string name="uploads_view_upload_status_failed_folder_error">Klasör sorunu</string>
     <string name="uploads_view_upload_status_failed_file_error">Dosya sorunu</string>
@@ -262,7 +257,6 @@
 	<string name="auth_expired_basic_auth_toast">Lütfen geçerli parolanızı yazın</string>
 	<string name="auth_expired_saml_sso_token_toast">Oturumuzun süresi dolmuş. Lütfen yeniden bağlanın</string>
 	<string name="auth_connecting_auth_server">Kimlik doğrulama sunucusuna bağlanılıyor&#8230;</string>
-	<string name="auth_unsupported_auth_method">Sunucu bu kimlik doğrulama yöntemini desteklemiyor</string>
 	<string name="auth_unsupported_multiaccount">%1$s birden çok hesabı desteklemiyor</string>
 	<string name="auth_fail_get_user_name">Sunucunuz doğru bir kullanıcı kodu döndürmüyor, lütfen bir yönetici ile görüşün</string>
 	<string name="auth_can_not_auth_against_server">Bu sunucuda kimlik doğrulanamadı</string>
@@ -284,7 +278,6 @@
     <string name="rename_dialog_title">Yeni bir ad yazın</string>
     <string name="rename_local_fail_msg">Yerel kopyanın adı değiştirilemedi. Lütfen başka bir ad deneyin</string>
     <string name="rename_server_fail_msg">Sunucu adı değiştirilemedi</string>
-    <string name="sync_file_fail_msg">Uzak dosya denetlenemedi</string>
     <string name="sync_file_nothing_to_do_msg">Dosya içerikleri zaten eşitlenmiş</string>
     <string name="create_dir_fail_msg">Klasör oluşturulamadı</string>
     <string name="filename_forbidden_characters">İzin verilmeyen karakterler: / \\ &lt; &gt; : \" | ? *</string>
@@ -292,7 +285,6 @@
     <string name="filename_empty">Dosya adı boş olamaz</string>
     <string name="wait_a_moment">Biraz bekleyin&#8230;</string>
     <string name="wait_checking_credentials">Kayıtlı kimlik bilgileri denetleniyor</string>
-    <string name="filedisplay_unexpected_bad_get_content">Beklenmeyen bir sorun çıktı. Lütfen dosyayı başka bir uygulamadan seçin</string>
     <string name="filedisplay_no_file_selected">Herhangi bir dosya seçilmemiş</string>
     <string name="activity_chooser_title">Bağlantıyı gönder&#8230;</string>
     <string name="wait_for_tmp_copy_from_private_storage">Dosya kişisel depolamadan kopyalanıyor</string>
@@ -335,7 +327,6 @@
     <string name="placeholder_media_time">12:23:45</string>
 
     <string name="auto_upload_on_wifi">Yalnız kablosuz ağ üzerinden yüklensin</string>
-    <string name="instant_video_upload_on_charging">Yalnız şarj edilirken yüklensin</string>
     <string name="instant_upload_on_charging">Yalnız şarj edilirken yüklensin</string>
     <string name="instant_upload_path">/AnındaYükle</string>
     <string name="auto_upload_path">/OtomatikYükleme</string>
@@ -392,7 +383,6 @@
     <string name="downloader_download_file_not_found">Bu dosya artık sunucuda yok</string>
 
     <string name="file_migration_dialog_title">Depolama yolu güncelleniyor</string>
-    <string name="file_migration_finish_button">Bitti</string>
     <string name="file_migration_preparing">Aktarıma hazırlanılıyor&#8230;</string>
     <string name="file_migration_checking_destination">Hedef denetleniyor&#8230;</string>
     <string name="file_migration_saving_accounts_configuration">Hesap ayarları kaydediliyor&#8230;</string>
@@ -450,9 +440,6 @@
 
     <string name="sync_folder_failed_content">%1$s klasörünün eşitlemesi tamamlanamadı</string>
 
-	<string name="shared_subject_header">sizinle</string>
-	<string name="with_you_subject_header">paylaştı</string>
-    
 	<string name="subject_user_shared_with_you">%1$s, sizinle \"%2$s\" ögesini paylaştı</string>
     <string name="subject_shared_with_you">\"%1$s\" sizinle paylaşıldı</string>
 
@@ -475,8 +462,6 @@
 
     <string name="prefs_instant_behaviour_dialogTitle">Özgün dosya için&#8230;</string>
     <string name="prefs_instant_behaviour_title">Özgün dosya için&#8230;</string>
-    <string name="upload_copy_files">Dosyayı kopyala</string>
-    <string name="upload_move_files">Dosyayı taşı</string>
     <string name="select_all">Tümünü seç</string>
     <string name="deselect_all">Tümünü bırak</string>
 
@@ -518,8 +503,6 @@
     <string name="share_privilege_can_edit_create">oluştur</string>
     <string name="share_privilege_can_edit_change">değiştir</string>
     <string name="share_privilege_can_edit_delete">sil</string>
-    <string name="edit_share_unshare">Paylaşımı durdur</string>
-    <string name="edit_share_done">bitti</string>
 
     <string name="action_retry_uploads">Tamamlanamayan yüklemeler yinelensin</string>
     <string name="action_clear_failed_uploads">Tamamlanamayan yüklemeler silinsin</string>
@@ -532,14 +515,12 @@
     <string name="manage_space_title">Alan yönetimi</string>
     <string name="manage_space_description">%1$s verilerinden ayarlar, veritabanı ve sunucu sertifikaları kalıcı olarak silinecek. \n\nİndirilen dosyalara dokunulmayacak.\n\nBu işlem biraz zaman alabilir.</string>
     <string name="manage_space_clear_data">Verileri temizle</string>
-    <string name="manage_space_error">Bazı dosyalar silinemedi.</string>
 
     <string name="permission_storage_access">Dosya yüklemek ve indirmek için ek izinler gerekli.</string>
     <string name="local_file_not_found_toast">Dosya yerel dosya sisteminde bulunamadı</string>
     <string name="confirmation_remove_files_alert">Seçilmiş ögeleri gerçekten silmek istiyor musunuz?</string>
     <string name="confirmation_remove_folders_alert">Seçilmiş ögeleri ve içindekileri gerçekten silmek istiyor musunuz?</string>
     <string name="maintenance_mode">Sunucu bakım kipinde</string>
-    <string name="lock_failed">Dosya kilitlenemedi</string>
 
     <string name="uploads_view_upload_status_waiting_for_charging">Aygıtın şarj olması bekleniyor</string>
     <string name="actionbar_search">Arama</string>
@@ -573,16 +554,12 @@
     <string name="synced_folders_loading_folders">Klasörler yükleniyor&#8230;</string>
     <string name="synced_folders_no_results">Herhangi bir ortam klasörü bulunamadı.</string>
     <string name="synced_folders_preferences">Otomatik yükleme ayarları</string>
-    <string name="synced_folders_settings">Ayarlar</string>
     <string name="synced_folders_new_info">Anında yükleme tamamen elden geçirildi. Lütfen ama menüye giderek otomatik yükleme ayarlarınızı yeniden yapın.\n\nYeni ve geliştirilmiş otomatik yükleme özelliklerinin tadını çıkarın.</string>
     <string name="synced_folders_preferences_folder_path">%1$s için</string>
     <plurals name="items_selected_count">
         <item quantity="one">%d seçilmiş</item>
         <item quantity="other">%d seçilmiş</item>
     </plurals>
-
-    <string name="activity_list_loading_activity">İşlemler yükleniyor&#8230;</string>
-    <string name="activity_list_no_results">Herhangi bir işlem bulunamadı.</string>
 
     <string name="notifications_loading_activity">Bildirimler yükleniyor&#8230;</string>
     <string name="notifications_no_results_headline">Herhangi bir bildirim yok</string>
@@ -596,8 +573,6 @@
     <string name="upload_file_dialog_filetype_googlemap_shortcut">Google haritalar kısayol dosyası(%s)</string>
 
     <string name="storage_description_default">Varsayılan</string>
-    <string name="storage_description_sd_no">SD kart  %1$d</string>
-    <string name="storage_description_unknown">Bilinmiyor</string>
 
     <!-- What's new feature and texts to show -->
     <string name="whats_new_title">%1$s yenilikleri</string>
@@ -630,20 +605,17 @@
     <string name="fingerprint_unknown">Parmak tanınamadı</string>
 
     <!-- User information -->
-    <string name="user_info_full_name">Tam ad</string>
     <string name="user_info_email">E-posta</string>
     <string name="user_info_phone">Telefon numarası</string>
     <string name="user_info_address">Adres</string>
     <string name="user_info_website">Web sitesi</string>
     <string name="user_info_twitter">Twitter</string>
 
-    <string name="user_information_description">Kullanıcı bilgileri</string>
     <string name="user_information_retrieval_error">Kullanıcı bilgileri alınırken sorun çıktı</string>
 
     <!-- Activities -->
     <string name="activities_no_results_headline">Henüz bir işlem yapılmamış</string>
     <string name="activities_no_results_message">Bu akışta ekleme, değiştirme\nve paylaşım gibi işlemler görüntülenir</string>
-    <string name="webview_error">Sorun çıktı</string>
     <string name="prefs_category_about">Hakkında</string>
 
     <string name="actionbar_contacts">Kişileri yedekle</string>
@@ -652,8 +624,6 @@
     <string name="contacts_automatic_backup">Otomatik yedekleme</string>
     <string name="contacts_last_backup">Son Yedek</string>
     <string name="contacts_read_permission">Kişi listesini okuma izni gerekiyor</string>
-    <string name="contacts_write_permission">Kişi listesini düzenleme izni gerekiyor</string>
-    <string name="contactlist_title">Kişileri geri yükle</string>
     <string name="contaclist_restore_selected">Seçilmiş kişileri geri yükle</string>
     <string name="contactlist_account_chooser_title">İçe aktarılacak hesabı seçin</string>
     <string name="contactlist_no_permission">Herhangi bir izin verilmemiş olduğundan hiçbir şey içe aktarılamadı!</string>
@@ -665,7 +635,6 @@
     <string name="contacts_preferences_import_scheduled">İçe aktarma işlemi zamanlandı ve kısa süre sonra başlatılacak</string>
 
     <!-- Notifications -->
-    <string name="new_notification_received">Yeni bir bildirim var</string>
     <string name="drawer_logout">Oturumu Kapat</string>
     <string name="picture_set_as_no_app">Görselin ayarlanabileceği bir uygulama bulunamadı!</string>
     <string name="privacy">Gizlilik</string>

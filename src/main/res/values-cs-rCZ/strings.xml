@@ -123,13 +123,10 @@
     <string name="common_yes">Ano</string>
     <string name="common_no">Ne</string>
     <string name="common_ok">OK</string>
-    <string name="common_remove_upload">Odstranit nahrávání</string>
-    <string name="common_retry_upload">Opakovat nahrání</string>
     <string name="common_cancel_sync">Zrušit synchronizaci</string>
     <string name="common_cancel">Zrušit</string>
     <string name="common_back">Zpět</string>
     <string name="common_save">Uložit</string>
-    <string name="common_error">Chyba</string>
     <string name="common_loading">Načítání &#8230;</string>
     <string name="common_unknown">neznámý</string>
     <string name="common_error_unknown">Neznámá chyba</string>
@@ -157,9 +154,7 @@
     <string name="uploads_view_group_finished_uploads">Odesláno</string>
     <string name="uploads_view_upload_status_succeeded">Dokončeno</string>
     <string name="uploads_view_upload_status_cancelled">Zrušeno</string>
-    <string name="uploads_view_upload_status_paused">Pozastaveno</string>
     <string name="uploads_view_upload_status_failed_connection_error">Chyba připojení</string>
-    <string name="uploads_view_upload_status_failed_retry">Nahrání bude brzy opakováno</string>
     <string name="uploads_view_upload_status_failed_credentials_error">Chyba přihlašovacích údajů</string>
     <string name="uploads_view_upload_status_failed_folder_error">Chyba adresáře</string>
     <string name="uploads_view_upload_status_failed_file_error">Chyba souboru</string>
@@ -258,7 +253,6 @@
 	<string name="auth_expired_basic_auth_toast">Zadejte prosím aktuální heslo</string>
 	<string name="auth_expired_saml_sso_token_toast">Vaše přihlášení vypršelo. Přihlaste se prosím znovu</string>
 	<string name="auth_connecting_auth_server">Připojování k ověřovacímu serveru&#8230;</string>
-	<string name="auth_unsupported_auth_method">Server nepodporuje tuto přihlašovací metodu</string>
 	<string name="auth_unsupported_multiaccount">%1$s nepodporuje více účtů</string>
 	<string name="auth_fail_get_user_name">Váš server nevrací správné přihlašovací ID, kontaktujte prosím svého správce systému</string>
 	<string name="auth_can_not_auth_against_server">Na tomto serveru nelze ověřit</string>
@@ -280,7 +274,6 @@
     <string name="rename_dialog_title">Zadejte nový název</string>
     <string name="rename_local_fail_msg">Místní kopii nelze přejmenovat, zkuste jiný nový název</string>
     <string name="rename_server_fail_msg">Přejmenování serveru se nezdařilo</string>
-    <string name="sync_file_fail_msg">Nepodařilo se zkontrolovat vzdálený soubor</string>
     <string name="sync_file_nothing_to_do_msg">Obsah souboru je již synchronizován</string>
     <string name="create_dir_fail_msg">Nepodařilo se vytvořit složku</string>
     <string name="filename_forbidden_characters">Zakázané znaky: / \\ &lt; &gt; : \" | ? *</string>
@@ -288,7 +281,6 @@
     <string name="filename_empty">Název nemůže být prázdný</string>
     <string name="wait_a_moment">Počkejte chvíli&#8230;</string>
     <string name="wait_checking_credentials">Ověřování uložených přihlašovacích údajů</string>
-    <string name="filedisplay_unexpected_bad_get_content">Neočekávaný problém, zkuste zvolit soubor v jiné aplikaci</string>
     <string name="filedisplay_no_file_selected">Žádný soubor nebyl vybrán</string>
     <string name="activity_chooser_title">Odeslat odkaz &#8230;</string>
     <string name="wait_for_tmp_copy_from_private_storage">Kopírování souboru z privátního úložiště</string>
@@ -331,7 +323,6 @@
     <string name="placeholder_media_time">12:23:45</string>
 
     <string name="auto_upload_on_wifi">Nahrávat pouze přes wifi</string>
-    <string name="instant_video_upload_on_charging">Nahrávat pouze při nabíjení</string>
     <string name="instant_upload_on_charging">Nahrávat pouze při nabíjení</string>
     <string name="instant_upload_path">/InstantUpload</string>
     <string name="auto_upload_path">/AutomatickéNahrávání</string>
@@ -388,7 +379,6 @@
     <string name="downloader_download_file_not_found">Tento soubor již není dostupný na serveru</string>
 
     <string name="file_migration_dialog_title">Aktualizace cesty k úložišti</string>
-    <string name="file_migration_finish_button">Dokončit</string>
     <string name="file_migration_preparing">Příprava na migraci&#8230;</string>
     <string name="file_migration_checking_destination">Prověřování cílového umístění&#8230;</string>
     <string name="file_migration_saving_accounts_configuration">Ukládání konfigurace účtů&#8230;</string>
@@ -446,9 +436,6 @@
 
     <string name="sync_folder_failed_content">Synchronizaci adresáře %1$s nelze dokončit</string>
 
-	<string name="shared_subject_header">sdílené</string>
-	<string name="with_you_subject_header">s vámi</string>
-    
 	<string name="subject_user_shared_with_you">%1$s s vámi sdílí \"%2$s\"</string>
     <string name="subject_shared_with_you">\"%1$s\" ti byl nasdílen</string>
 
@@ -473,8 +460,6 @@
 
     <string name="prefs_instant_behaviour_dialogTitle">Originální soubor bude&#8230;</string>
     <string name="prefs_instant_behaviour_title">Originální soubor bude&#8230;</string>
-    <string name="upload_copy_files">Zkopírovat soubor</string>
-    <string name="upload_move_files">Přesunout soubor</string>
     <string name="select_all">Vybrat vše</string>
     <string name="deselect_all">Odznačit vše</string>
 
@@ -516,8 +501,6 @@
     <string name="share_privilege_can_edit_create">vytvořit</string>
     <string name="share_privilege_can_edit_change">změnit</string>
     <string name="share_privilege_can_edit_delete">smazat</string>
-    <string name="edit_share_unshare">Ukončit sdílení</string>
-    <string name="edit_share_done">dokončeno</string>
 
     <string name="action_retry_uploads">Zkusit znovu selhavší nahrání</string>
     <string name="action_clear_failed_uploads">Vyčistit selhaná nahrávání</string>
@@ -530,14 +513,12 @@
     <string name="manage_space_title">Spravovat úložný prostor</string>
     <string name="manage_space_description">Nastavení, databáze a certifikáty serverů z %1$s data budou permanentně smazány. \n\nStažené soubory nebudou rozbaleny.\n\nTento proces může chvíli trvat.</string>
     <string name="manage_space_clear_data">Vyčistit data</string>
-    <string name="manage_space_error">Některé soubory nebylo možno smazat.</string>
 
     <string name="permission_storage_access">Vyžadována dodatečná oprávnění pro nahrávání &amp; stahování souborů.</string>
     <string name="local_file_not_found_toast">Soubor nebyl nalezen v místním souborovém systému</string>
     <string name="confirmation_remove_files_alert">Opravdu chcete odstranit vybrané položky?</string>
     <string name="confirmation_remove_folders_alert">Opravdu chcete odstranit vybrané položky a jejich obsah?</string>
     <string name="maintenance_mode">Server je v režimu údržby</string>
-    <string name="lock_failed">Nepodařilo se zamknout soubor</string>
 
     <string name="uploads_view_upload_status_waiting_for_charging">Čekání na nabití</string>
     <string name="actionbar_search">Hledat</string>
@@ -571,7 +552,6 @@
     <string name="synced_folders_loading_folders">Načítání adresářů&#8230;</string>
     <string name="synced_folders_no_results">Nebyly nalezeny žádné adresáře médií.</string>
     <string name="synced_folders_preferences">Nastavení automatického nahrávání</string>
-    <string name="synced_folders_settings">Nastavení</string>
     <string name="synced_folders_new_info">Okamžité nahrání bylo kompletně upraveno. Znovu nakonfigurujte automatické nahrávání z hlavní nabídky.\n\nUžijte si nové a rozšířené automatické nahrávání.</string>
     <string name="synced_folders_preferences_folder_path">Pro %1$s</string>
     <plurals name="items_selected_count">
@@ -579,9 +559,6 @@
         <item quantity="few">vybráno %d</item>
         <item quantity="other">vybráno %d</item>
     </plurals>
-
-    <string name="activity_list_loading_activity">Načítání aktivit&#8230;</string>
-    <string name="activity_list_no_results">Žádné aktivity nebyly nalezeny.</string>
 
     <string name="notifications_loading_activity">Načítání upozornění&#8230;</string>
     <string name="notifications_no_results_headline">Žádné oznámení</string>
@@ -595,8 +572,6 @@
     <string name="upload_file_dialog_filetype_googlemap_shortcut">Soubor zkratky pro Google mapy(%s)</string>
 
     <string name="storage_description_default">Výchozí</string>
-    <string name="storage_description_sd_no">SD karta %1$d</string>
-    <string name="storage_description_unknown">Neznámý</string>
 
     <!-- What's new feature and texts to show -->
     <string name="whats_new_title">Co je v %1$s nového</string>
@@ -629,20 +604,17 @@
     <string name="fingerprint_unknown">Otisk prstu nerozpoznán</string>
 
     <!-- User information -->
-    <string name="user_info_full_name">Celé jméno</string>
     <string name="user_info_email">E-mail</string>
     <string name="user_info_phone">Telefonní číslo</string>
     <string name="user_info_address">Adresa</string>
     <string name="user_info_website">Webová stránka</string>
     <string name="user_info_twitter">Twitter</string>
 
-    <string name="user_information_description">Uživatelské informace</string>
     <string name="user_information_retrieval_error">Chyba při příjmu informace od uživatele</string>
 
     <!-- Activities -->
     <string name="activities_no_results_headline">Zatím žádná aktivita</string>
     <string name="activities_no_results_message">Datový proud bude zobrazovat události jako přidání, změny a sdílení</string>
-    <string name="webview_error">Došlo k chybě</string>
     <string name="prefs_category_about">O aplikaci</string>
 
     <string name="actionbar_contacts">Zálohování kontaktů</string>
@@ -651,8 +623,6 @@
     <string name="contacts_automatic_backup">Automatické zálohování</string>
     <string name="contacts_last_backup">Poslední záloha</string>
     <string name="contacts_read_permission">Je třeba oprávnění ke čtení seznamu kontaktů</string>
-    <string name="contacts_write_permission">Povolení změn v seznam kontaktů je vyžadováno</string>
-    <string name="contactlist_title">Restore contacts</string>
     <string name="contaclist_restore_selected">Obnovit vybrané kontakty</string>
     <string name="contactlist_account_chooser_title">Vyber účet, který chceš importovat</string>
     <string name="contactlist_no_permission">Povolení není udělené, žádný import!</string>
@@ -664,7 +634,6 @@
     <string name="contacts_preferences_import_scheduled">Import je naplánován a brzy začne</string>
 
     <!-- Notifications -->
-    <string name="new_notification_received">Přijato nové upozornění</string>
     <string name="drawer_logout">Odhlásit se</string>
     <string name="picture_set_as_no_app">Pro tento typ souboru nebyla nalezena aplikace!</string>
     <string name="privacy">Soukromí</string>

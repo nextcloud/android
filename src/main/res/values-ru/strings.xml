@@ -123,13 +123,10 @@
     <string name="common_yes">Да</string>
     <string name="common_no">Нет</string>
     <string name="common_ok">ОК</string>
-    <string name="common_remove_upload">Удалить загрузку</string>
-    <string name="common_retry_upload">Повторить загрузку</string>
     <string name="common_cancel_sync">Отменить синхронизацию</string>
     <string name="common_cancel">Отменить</string>
     <string name="common_back">Назад</string>
     <string name="common_save">Сохранить</string>
-    <string name="common_error">Ошибка</string>
     <string name="common_loading">Загружаю &#8230;</string>
     <string name="common_unknown">неизвестно</string>
     <string name="common_error_unknown">Неизвестная ошибка</string>
@@ -157,9 +154,7 @@
     <string name="uploads_view_group_finished_uploads">Выгруженные</string>
     <string name="uploads_view_upload_status_succeeded">Завершено</string>
     <string name="uploads_view_upload_status_cancelled">Отменено</string>
-    <string name="uploads_view_upload_status_paused">На паузе</string>
     <string name="uploads_view_upload_status_failed_connection_error">Ошибка соединения</string>
-    <string name="uploads_view_upload_status_failed_retry">Попытка выгрузки скоро повторится</string>
     <string name="uploads_view_upload_status_failed_credentials_error">Ошибка данных подтверждения подлинности</string>
     <string name="uploads_view_upload_status_failed_folder_error">Ошибка каталога</string>
     <string name="uploads_view_upload_status_failed_file_error">Ошибка файла</string>
@@ -266,7 +261,6 @@
 	<string name="auth_expired_basic_auth_toast">Введите текущий пароль</string>
 	<string name="auth_expired_saml_sso_token_toast">Время сессии истекло. Пожалуйста, подключитесь снова</string>
 	<string name="auth_connecting_auth_server">Подключение к серверу аутентификации &#8230;</string>
-	<string name="auth_unsupported_auth_method">Сервер не поддерживает выбранный метод аутентификации</string>
 	<string name="auth_unsupported_multiaccount">%1$s не поддерживает множественные аккаунты</string>
 	<string name="auth_fail_get_user_name">Сервер не вернул верный пользовательский идентификатор. Пожалуйста, свяжитесь с вашим администратором</string>
 	<string name="auth_can_not_auth_against_server">Не удается авторизоваться на этом сервере</string>
@@ -288,7 +282,6 @@
     <string name="rename_dialog_title">Введите новое имя</string>
     <string name="rename_local_fail_msg">Ваша копия не может быть переименована, попробуйте выбрать другое имя</string>
     <string name="rename_server_fail_msg">Не удалось задать новое серверное имя</string>
-    <string name="sync_file_fail_msg">Файл на сервере не может быть проверен</string>
     <string name="sync_file_nothing_to_do_msg">Содержимое файла уже синхронизировано</string>
     <string name="create_dir_fail_msg">Не удалось создать каталог</string>
     <string name="filename_forbidden_characters">Недопустимые символы: / \\ &lt; &gt; : \" | ? *</string>
@@ -296,7 +289,6 @@
     <string name="filename_empty">Имя файла не может быть пустым</string>
     <string name="wait_a_moment">Подождите немного &#8230;</string>
     <string name="wait_checking_credentials">Проверка сохранённых реквизитов учётных данных</string>
-    <string name="filedisplay_unexpected_bad_get_content">Неизвестная ошибка. Выберите этот файл из другого приложения</string>
     <string name="filedisplay_no_file_selected">Файлы не выбраны</string>
     <string name="activity_chooser_title">Отправить ссылку &#8230;</string>
     <string name="wait_for_tmp_copy_from_private_storage">Копирование файла из частного хранилища</string>
@@ -339,7 +331,6 @@
     <string name="placeholder_media_time">12:23:45</string>
 
     <string name="auto_upload_on_wifi">Загружать только через Wi-Fi</string>
-    <string name="instant_video_upload_on_charging">Загружать только при зарядке</string>
     <string name="instant_upload_on_charging">Загружать только при зарядке</string>
     <string name="instant_upload_path">/Автозагрузка</string>
     <string name="auto_upload_path">/Автозагрузка</string>
@@ -396,7 +387,6 @@
     <string name="downloader_download_file_not_found">Этот файл больше недоступен на сервере</string>
 
     <string name="file_migration_dialog_title">Обновление пути к хранилищу</string>
-    <string name="file_migration_finish_button">Завершить</string>
     <string name="file_migration_preparing">Готовится перенос&#8230;</string>
     <string name="file_migration_checking_destination">Проверка назначения&#8230;</string>
     <string name="file_migration_saving_accounts_configuration">Сохранение настроек пользователя&#8230;</string>
@@ -454,9 +444,6 @@
 
     <string name="sync_folder_failed_content">Синхронизация каталога %1$s не может быть завершена</string>
 
-	<string name="shared_subject_header">поделился</string>
-	<string name="with_you_subject_header">с вами</string>
-    
 	<string name="subject_user_shared_with_you">%1$s предоставил вам доступ к «%2$s»</string>
     <string name="subject_shared_with_you">Вам предоставлен доступ к «%1$s»</string>
 
@@ -483,8 +470,6 @@
 
     <string name="prefs_instant_behaviour_dialogTitle">Исходный файл будет&#8230;</string>
     <string name="prefs_instant_behaviour_title">Исходный файл будет&#8230;</string>
-    <string name="upload_copy_files">Копировать файл</string>
-    <string name="upload_move_files">Переместить файл</string>
     <string name="select_all">Выбрать все</string>
     <string name="deselect_all">Снять выбор со всех</string>
 
@@ -526,8 +511,6 @@
     <string name="share_privilege_can_edit_create">создавать</string>
     <string name="share_privilege_can_edit_change">изменять</string>
     <string name="share_privilege_can_edit_delete">удалять</string>
-    <string name="edit_share_unshare">Закрыть общий доступ</string>
-    <string name="edit_share_done">готово</string>
 
     <string name="action_retry_uploads">Повторить неудавшиеся</string>
     <string name="action_clear_failed_uploads">Убрать неудавшиеся</string>
@@ -540,14 +523,12 @@
     <string name="manage_space_title">Управление свободным местом</string>
     <string name="manage_space_description">Настройки, сертификаты базы данных и сервера из данных %1$s будут удалены навсегда. \n\nЗагруженные файлы будут сохранены нетронутыми. \n\nЭтот процесс может занять некоторое время.</string>
     <string name="manage_space_clear_data">Очистить данные</string>
-    <string name="manage_space_error">Некоторые файлы не могут быть удалены.</string>
 
     <string name="permission_storage_access">Для загрузки и скачивания файлов требуются дополнительные права доступа.</string>
     <string name="local_file_not_found_toast">Файл не был найден в локальной файловой системе</string>
     <string name="confirmation_remove_files_alert">Вы действительно хотите удалить выбранные элементы?</string>
     <string name="confirmation_remove_folders_alert">Вы действительно хотите удалить выбранные элементы и их содержимое?</string>
     <string name="maintenance_mode">Сервер находится в режиме обслуживания</string>
-    <string name="lock_failed">Не удалось заблокировать файл</string>
 
     <string name="uploads_view_upload_status_waiting_for_charging">Ожидание зарядки устройства</string>
     <string name="actionbar_search">Поиск</string>
@@ -581,7 +562,6 @@
     <string name="synced_folders_loading_folders">Загрузка каталогов &#8230;</string>
     <string name="synced_folders_no_results">Не найдены каталоги с медиа(файлами).</string>
     <string name="synced_folders_preferences">Настройки автозагрузки</string>
-    <string name="synced_folders_settings">Настройки</string>
     <string name="synced_folders_new_info">Моментальная загрузка была полностью переделана. Используйте главное меню для перенастройки автоматической загрузки. Извините за неудобства.\n\nВам понравятся новые расширенные возможности!</string>
     <string name="synced_folders_preferences_folder_path">Для %1$s</string>
     <plurals name="items_selected_count">
@@ -590,9 +570,6 @@
         <item quantity="many">%d выбрано</item>
         <item quantity="other">%d выбрано</item>
     </plurals>
-
-    <string name="activity_list_loading_activity">Загружаются события&#8230;</string>
-    <string name="activity_list_no_results">Событий не найдено.</string>
 
     <string name="notifications_loading_activity">Загрузка уведомлений&#8230;</string>
     <string name="notifications_no_results_headline">Уведомлений нет</string>
@@ -606,8 +583,6 @@
     <string name="upload_file_dialog_filetype_googlemap_shortcut">Файл ярлыка на Google Maps(%s)</string>
 
     <string name="storage_description_default">По умолчанию</string>
-    <string name="storage_description_sd_no">SD карта %1$d</string>
-    <string name="storage_description_unknown">Неизвестно</string>
 
     <!-- What's new feature and texts to show -->
     <string name="whats_new_title">Что нового в %1$s</string>
@@ -640,20 +615,17 @@
     <string name="fingerprint_unknown">Отпечаток не распознан</string>
 
     <!-- User information -->
-    <string name="user_info_full_name">Полное имя</string>
     <string name="user_info_email">Email</string>
     <string name="user_info_phone">Номер телефона</string>
     <string name="user_info_address">Адрес</string>
     <string name="user_info_website">Сайт</string>
     <string name="user_info_twitter">Twitter</string>
 
-    <string name="user_information_description">Пользовательская информация</string>
     <string name="user_information_retrieval_error">При получении информации о пользователе произошла ошибка</string>
 
     <!-- Activities -->
     <string name="activities_no_results_headline">Событий ещё нет</string>
     <string name="activities_no_results_message">Этот поток будет отображать события вроде\nдобавления, изменения файлов или открытия доступа к ним</string>
-    <string name="webview_error">Произошла ошибка</string>
     <string name="prefs_category_about">О программе</string>
 
     <string name="actionbar_contacts">Резервное копирование контактов</string>
@@ -662,8 +634,6 @@
     <string name="contacts_automatic_backup">Автоматически создавать резервные копии</string>
     <string name="contacts_last_backup">Последнее резервное копирование</string>
     <string name="contacts_read_permission">Требуется разрешение на чтение контактов</string>
-    <string name="contacts_write_permission">Требуется разрешение на запись контактов</string>
-    <string name="contactlist_title">Восстановить контакты</string>
     <string name="contaclist_restore_selected">Восстановить выбранные контакты</string>
     <string name="contactlist_account_chooser_title">Выберите аккаунт для импорта</string>
     <string name="contactlist_no_permission">Отсутствуют разрешения, ничего не импортировано!</string>
@@ -675,7 +645,6 @@
     <string name="contacts_preferences_import_scheduled">Импорт запланирован и скоро начнётся</string>
 
     <!-- Notifications -->
-    <string name="new_notification_received">Получено новое уведомление</string>
     <string name="drawer_logout">Выйти</string>
     <string name="picture_set_as_no_app">Не надено приложения, с помощью которого можно установить изображение!</string>
     <string name="privacy">Конфиденциальность</string>

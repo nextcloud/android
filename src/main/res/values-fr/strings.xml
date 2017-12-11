@@ -123,13 +123,10 @@
     <string name="common_yes">Oui</string>
     <string name="common_no">Non</string>
     <string name="common_ok">OK</string>
-    <string name="common_remove_upload">Retirer le téléversement</string>
-    <string name="common_retry_upload">Renvoyer</string>
     <string name="common_cancel_sync">Annuler la synchronisation</string>
     <string name="common_cancel">Annuler</string>
     <string name="common_back">Retour</string>
     <string name="common_save">Enregistrer</string>
-    <string name="common_error">Erreur</string>
     <string name="common_loading">Chargement&#8230;</string>
     <string name="common_unknown">Inconnu</string>
     <string name="common_error_unknown">Erreur inconnue </string>
@@ -159,9 +156,7 @@ Attention la suppression est irréversible.</string>
     <string name="uploads_view_group_finished_uploads">Envoyé</string>
     <string name="uploads_view_upload_status_succeeded">Terminé</string>
     <string name="uploads_view_upload_status_cancelled">Annulé</string>
-    <string name="uploads_view_upload_status_paused">En pause</string>
     <string name="uploads_view_upload_status_failed_connection_error">Erreur de connexion</string>
-    <string name="uploads_view_upload_status_failed_retry">Le téléversement sera réessayé dans un court instant</string>
     <string name="uploads_view_upload_status_failed_credentials_error">Erreur d\'identifiants</string>
     <string name="uploads_view_upload_status_failed_folder_error">Erreur de dossier</string>
     <string name="uploads_view_upload_status_failed_file_error">Erreur de fichier</string>
@@ -264,7 +259,6 @@ Attention la suppression est irréversible.</string>
 	<string name="auth_expired_basic_auth_toast">Veuillez saisir le mot de passe actuel</string>
 	<string name="auth_expired_saml_sso_token_toast">Votre session a expiré. Merci de vous reconnecter</string>
 	<string name="auth_connecting_auth_server">Connexion au serveur d\'authentification&#8230;</string>
-	<string name="auth_unsupported_auth_method">Le serveur ne prend pas en charge cette méthode d\'authentification</string>
 	<string name="auth_unsupported_multiaccount">%1$s ne prend pas en charge les comptes multiples</string>
 	<string name="auth_fail_get_user_name">Votre serveur a retourné un identifiant d\'utilisateur incorrect. Veuillez contacter un administrateur</string>
 	<string name="auth_can_not_auth_against_server">Impossible de s\'authentifier sur ce serveur</string>
@@ -286,7 +280,6 @@ Attention la suppression est irréversible.</string>
     <string name="rename_dialog_title">Entrez un nouveau nom</string>
     <string name="rename_local_fail_msg">La version locale ne peut être renommée ; veuillez réessayer avec un nom différent</string>
     <string name="rename_server_fail_msg">Impossible de renommer le serveur</string>
-    <string name="sync_file_fail_msg">Le fichier distant n\'a pu être vérifié</string>
     <string name="sync_file_nothing_to_do_msg">Ce fichier est déjà synchronisé</string>
     <string name="create_dir_fail_msg">Le dossier n\'a pas pu être créé</string>
     <string name="filename_forbidden_characters">Caractères interdits : / \\ &lt; &gt; : \" | ? *</string>
@@ -294,7 +287,6 @@ Attention la suppression est irréversible.</string>
     <string name="filename_empty">Le nom du fichier ne peut pas être vide</string>
     <string name="wait_a_moment">Veuillez patienter&#8230;</string>
     <string name="wait_checking_credentials">Vérification des identifiants enregistrés</string>
-    <string name="filedisplay_unexpected_bad_get_content">Problème inattendu ; veuillez sélectionner le fichier depuis une autre application</string>
     <string name="filedisplay_no_file_selected">Aucun fichier sélectionné</string>
     <string name="activity_chooser_title">Envoyer le lien vers &#8230;</string>
     <string name="wait_for_tmp_copy_from_private_storage">Copie du fichier depuis le stockage privé</string>
@@ -337,7 +329,6 @@ Attention la suppression est irréversible.</string>
     <string name="placeholder_media_time">12:23:45</string>
 
     <string name="auto_upload_on_wifi">Téléverser par Wifi uniquement</string>
-    <string name="instant_video_upload_on_charging">Envoyer uniquement si le chargeur est branché</string>
     <string name="instant_upload_on_charging">Envoyer uniquement si le chargeur est branché</string>
     <string name="instant_upload_path">/InstantUpload</string>
     <string name="auto_upload_path">/TéléversementAutomatique</string>
@@ -394,7 +385,6 @@ Attention la suppression est irréversible.</string>
     <string name="downloader_download_file_not_found">Ce fichier n’est plus disponible sur le serveur</string>
 
     <string name="file_migration_dialog_title">Mise à jour du chemin de stockage</string>
-    <string name="file_migration_finish_button">Terminer</string>
     <string name="file_migration_preparing">Préparation pour la migration&#8230;</string>
     <string name="file_migration_checking_destination">Vérification de la destination&#8230;</string>
     <string name="file_migration_saving_accounts_configuration">Enregistrement de la configuration des comptes&#8230;</string>
@@ -452,9 +442,6 @@ Attention la suppression est irréversible.</string>
 
     <string name="sync_folder_failed_content">La synchronisation du dossier %1$s n\'a pas pu être terminée</string>
 
-	<string name="shared_subject_header">a partagé</string>
-	<string name="with_you_subject_header">avec vous</string>
-    
 	<string name="subject_user_shared_with_you">%1$s a partagé \"%2$s\" avec vous</string>
     <string name="subject_shared_with_you">\"%1$s\" a été partagé avec vous</string>
 
@@ -477,8 +464,6 @@ Attention la suppression est irréversible.</string>
 
     <string name="prefs_instant_behaviour_dialogTitle">Le fichier original sera&#8230;</string>
     <string name="prefs_instant_behaviour_title">Le fichier original sera&#8230;</string>
-    <string name="upload_copy_files">Copier le fichier</string>
-    <string name="upload_move_files">Déplacer le fichier</string>
     <string name="select_all">Tout sélectionner</string>
     <string name="deselect_all">Tout désélectionner</string>
 
@@ -520,8 +505,6 @@ Attention la suppression est irréversible.</string>
     <string name="share_privilege_can_edit_create">création</string>
     <string name="share_privilege_can_edit_change">modification</string>
     <string name="share_privilege_can_edit_delete">suppression</string>
-    <string name="edit_share_unshare">Arrêter le partage</string>
-    <string name="edit_share_done">Terminé</string>
 
     <string name="action_retry_uploads">Relancer les envois échoués</string>
     <string name="action_clear_failed_uploads">Effacer les envois échoués</string>
@@ -534,14 +517,12 @@ Attention la suppression est irréversible.</string>
     <string name="manage_space_title">Gestion de l\'espace</string>
     <string name="manage_space_description">Les paramètres, la base de données et les certificats du serveur provenant de %1$s seront définitivement effacés. \n\nLes fichiers téléchargés ne seront pas impactés.\n\nCette opération peut prendre du temps.</string>
     <string name="manage_space_clear_data">Effacer les données</string>
-    <string name="manage_space_error">Certains fichiers n\'ont pu être supprimés.</string>
 
     <string name="permission_storage_access">Des permissions supplémentaires sont exigées pour téléverser et télécharger des fichiers.</string>
     <string name="local_file_not_found_toast">Le fichier n\'a pas été trouvé sur le système de fichier local</string>
     <string name="confirmation_remove_files_alert">Souhaitez-vous vraiment supprimer les éléments sélectionnés ?</string>
     <string name="confirmation_remove_folders_alert">Souhaitez-vous vraiment supprimer les éléments sélectionnés ainsi que leurs contenus ?</string>
     <string name="maintenance_mode">Serveur en maintenance</string>
-    <string name="lock_failed">Erreur lors du verrouillage du fichier.</string>
 
     <string name="uploads_view_upload_status_waiting_for_charging">En attente de recharge de l\'appareil</string>
     <string name="actionbar_search">Rechercher</string>
@@ -575,16 +556,12 @@ Attention la suppression est irréversible.</string>
     <string name="synced_folders_loading_folders">Chargement des dossiers&#8230;</string>
     <string name="synced_folders_no_results">Aucun dossier média trouvé.</string>
     <string name="synced_folders_preferences">Préférences pour le téléversement automatique</string>
-    <string name="synced_folders_settings">Paramètres</string>
     <string name="synced_folders_new_info">Le téléversement immédiat a été complètement réorganisé. Merci de bien vouloir accéder au menu principal et de reconfigurer votre téléversement automatique.\n\nProfitez des nouvelles capacités étendues du téléversement automatique.</string>
     <string name="synced_folders_preferences_folder_path">Pour %1$s</string>
     <plurals name="items_selected_count">
         <item quantity="one">%d sélectionné</item>
         <item quantity="other">%d sélectionnés</item>
     </plurals>
-
-    <string name="activity_list_loading_activity">Chargement des activités&#8230;</string>
-    <string name="activity_list_no_results">Aucune activité trouvée.</string>
 
     <string name="notifications_loading_activity">Chargement des notifications&#8230;</string>
     <string name="notifications_no_results_headline">Aucune notification</string>
@@ -598,8 +575,6 @@ Attention la suppression est irréversible.</string>
     <string name="upload_file_dialog_filetype_googlemap_shortcut">Raccourci(%s) Google Maps</string>
 
     <string name="storage_description_default">Défaut</string>
-    <string name="storage_description_sd_no">Carte SD %1$d</string>
-    <string name="storage_description_unknown">Inconnu</string>
 
     <!-- What's new feature and texts to show -->
     <string name="whats_new_title">Nouveautés %1$s</string>
@@ -632,20 +607,17 @@ Attention la suppression est irréversible.</string>
     <string name="fingerprint_unknown">Doigt non reconnu</string>
 
     <!-- User information -->
-    <string name="user_info_full_name">Nom complet</string>
     <string name="user_info_email">Adresse e-mail</string>
     <string name="user_info_phone">Numéro de téléphone</string>
     <string name="user_info_address">Adresse</string>
     <string name="user_info_website">Site web</string>
     <string name="user_info_twitter">Twitter</string>
 
-    <string name="user_information_description">Information utilisateur</string>
     <string name="user_information_retrieval_error">Erreur de récupération des informations utilisateur</string>
 
     <!-- Activities -->
     <string name="activities_no_results_headline">Aucune activité</string>
     <string name="activities_no_results_message">Ce flux liste les événements tels que\nles ajouts, les modifications et les partages</string>
-    <string name="webview_error">Une erreur est survenue</string>
     <string name="prefs_category_about">À propos</string>
 
     <string name="actionbar_contacts">Sauvegarde des contacts</string>
@@ -654,8 +626,6 @@ Attention la suppression est irréversible.</string>
     <string name="contacts_automatic_backup">Sauvegarde automatique</string>
     <string name="contacts_last_backup">Dernière sauvegarde</string>
     <string name="contacts_read_permission">L\'autorisation de lecture des contacts est nécessaire</string>
-    <string name="contacts_write_permission">L\'autorisation d\'écriture des contacts est nécessaire</string>
-    <string name="contactlist_title">Restaurer les contacts</string>
     <string name="contaclist_restore_selected">Restaurer les contacts sélectionnés</string>
     <string name="contactlist_account_chooser_title">Choisissez un compte pour importer</string>
     <string name="contactlist_no_permission">Aucune autorisation, rien d\'importé !</string>
@@ -667,7 +637,6 @@ Attention la suppression est irréversible.</string>
     <string name="contacts_preferences_import_scheduled">L\'import est planifié et va démarrer</string>
 
     <!-- Notifications -->
-    <string name="new_notification_received">Nouvelle notification reçue</string>
     <string name="drawer_logout">Se déconnecter</string>
     <string name="picture_set_as_no_app">Aucune application trouvée pour utiliser cette image !</string>
     <string name="privacy">Vie privée</string>

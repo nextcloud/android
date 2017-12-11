@@ -120,13 +120,10 @@
     <string name="common_yes">是</string>
     <string name="common_no">否</string>
     <string name="common_ok">确定</string>
-    <string name="common_remove_upload">删除上传</string>
-    <string name="common_retry_upload">重试上传</string>
     <string name="common_cancel_sync">取消同步</string>
     <string name="common_cancel">取消</string>
     <string name="common_back">返回</string>
     <string name="common_save">保存</string>
-    <string name="common_error">错误</string>
     <string name="common_loading">加载中 &#8230;</string>
     <string name="common_unknown">未知</string>
     <string name="common_error_unknown">未知错误</string>
@@ -152,9 +149,7 @@
     <string name="uploads_view_group_finished_uploads">已上传</string>
     <string name="uploads_view_upload_status_succeeded">已完成</string>
     <string name="uploads_view_upload_status_cancelled">已取消</string>
-    <string name="uploads_view_upload_status_paused">已暂停</string>
     <string name="uploads_view_upload_status_failed_connection_error">连接错误</string>
-    <string name="uploads_view_upload_status_failed_retry">将在短时间内重试上传</string>
     <string name="uploads_view_upload_status_failed_credentials_error">证书错误</string>
     <string name="uploads_view_upload_status_failed_folder_error">文件夹错误</string>
     <string name="uploads_view_upload_status_failed_file_error">文件错误</string>
@@ -240,7 +235,6 @@
 	<string name="auth_expired_basic_auth_toast">请输入当前的密码</string>
 	<string name="auth_expired_saml_sso_token_toast">您的会话超时了，请重新连接</string>
 	<string name="auth_connecting_auth_server">连接到身份验证服务器 &#8230;</string>
-	<string name="auth_unsupported_auth_method">服务器不支持这种验证方式</string>
 	<string name="auth_unsupported_multiaccount">%1$s不支持多个账户</string>
 	<string name="auth_fail_get_user_name">您的服务器没有返回正确的用户ID，请与管理员联系</string>
 	<string name="auth_can_not_auth_against_server">无法连接认证服务器</string>
@@ -258,7 +252,6 @@
     <string name="remove_success_msg">已删除</string>
     <string name="remove_fail_msg">删除失败</string>
     <string name="rename_dialog_title">请输出新的名字</string>
-    <string name="sync_file_fail_msg">无法查看远程文件</string>
     <string name="sync_file_nothing_to_do_msg">文件内容已同步</string>
     <string name="create_dir_fail_msg">无法创建文件夹</string>
     <string name="filename_forbidden_characters">禁用字符: / \\ &lt; &gt; : \" | ? *</string>
@@ -306,7 +299,6 @@
     <string name="placeholder_media_time">12:23:45</string>
 
     <string name="auto_upload_on_wifi">仅在Wi-Fi下上传</string>
-    <string name="instant_video_upload_on_charging">仅在充电时上传</string>
     <string name="instant_upload_on_charging">仅在充电时上传</string>
     <string name="instant_upload_path">/实时上传</string>
     <string name="auto_upload_path">/自动上传</string>
@@ -363,7 +355,6 @@
     <string name="downloader_download_file_not_found">该文件在服务器上不可用</string>
 
     <string name="file_migration_dialog_title">更新存储路径</string>
-    <string name="file_migration_finish_button">完成</string>
     <string name="file_migration_preparing">准备迁移&#8230;</string>
     <string name="file_migration_checking_destination">检查目的地&#8230;</string>
     <string name="file_migration_saving_accounts_configuration">保存帐户配置&#8230;</string>
@@ -419,9 +410,6 @@
 
     <string name="sync_folder_failed_content"> %1$s同步未完成。</string>
 
-	<string name="shared_subject_header">已共享</string>
-	<string name="with_you_subject_header">与你</string>
-    
 	<string name="subject_user_shared_with_you">%1$s和你分享了“%2$s”</string>
     <string name="subject_shared_with_you">已与你分享“%1$s”</string>
 
@@ -442,8 +430,6 @@
 
     <string name="prefs_instant_behaviour_dialogTitle">原始文件将会&#8230;</string>
     <string name="prefs_instant_behaviour_title">原始文件将会&#8230;</string>
-    <string name="upload_copy_files">复制文件</string>
-    <string name="upload_move_files">移动文件</string>
     <string name="select_all">选择全部</string>
     <string name="deselect_all">全部取消选择</string>
 
@@ -484,8 +470,6 @@
     <string name="share_privilege_can_edit_create">创建</string>
     <string name="share_privilege_can_edit_change">更改</string>
     <string name="share_privilege_can_edit_delete">删除</string>
-    <string name="edit_share_unshare">停止共享</string>
-    <string name="edit_share_done">完成</string>
 
     <string name="action_retry_uploads">重试失败上传任务</string>
     <string name="action_clear_failed_uploads">清除失败上传任务</string>
@@ -498,12 +482,10 @@
     <string name="manage_space_title">管理空间</string>
     <string name="manage_space_description">来自%1$s数据的设置，数据库和服务器证书将被永久删除。 \ n \ n下载的文件将保持不变。\ n \ n此过程可能需要一段时间。</string>
     <string name="manage_space_clear_data">清除数据</string>
-    <string name="manage_space_error">某些文件无法删除。</string>
 
     <string name="permission_storage_access">上传和下载文件所需的其他权限。</string>
     <string name="local_file_not_found_toast">在本地文件系统中找不到文件</string>
     <string name="maintenance_mode">服务器处于维护模式</string>
-    <string name="lock_failed">锁定文件失败</string>
 
     <string name="uploads_view_upload_status_waiting_for_charging">等待收费</string>
     <string name="actionbar_search">搜索</string>
@@ -533,15 +515,11 @@
     <string name="synced_folders_loading_folders">正在载入文件夹&#8230;</string>
     <string name="synced_folders_no_results">没有发现媒体文件夹</string>
     <string name="synced_folders_preferences">自动上传的首选项</string>
-    <string name="synced_folders_settings">设置</string>
     <string name="synced_folders_new_info">即时上传已经完全改版。 从主菜单中重新配置自动上传。\ n \ n享受新的扩展自动上传。</string>
     <string name="synced_folders_preferences_folder_path">从 %1$s</string>
     <plurals name="items_selected_count">
         <item quantity="other">%d被选择</item>
     </plurals>
-
-    <string name="activity_list_loading_activity">正在加载动态&#8230;</string>
-    <string name="activity_list_no_results">未找到动态</string>
 
     <string name="notifications_loading_activity">加载提示&#8230;</string>
     <string name="notifications_no_results_headline">没有提示</string>
@@ -555,8 +533,6 @@
     <string name="upload_file_dialog_filetype_googlemap_shortcut">谷歌地图快捷文件(%s)</string>
 
     <string name="storage_description_default">默认</string>
-    <string name="storage_description_sd_no">SD卡%1$d</string>
-    <string name="storage_description_unknown">不知道</string>
 
     <!-- What's new feature and texts to show -->
     <string name="whats_new_title">有什么新东西在%1$s里</string>
@@ -589,20 +565,17 @@
     <string name="fingerprint_unknown">手指未被识别</string>
 
     <!-- User information -->
-    <string name="user_info_full_name">全名</string>
     <string name="user_info_email">邮件</string>
     <string name="user_info_phone">电话号码</string>
     <string name="user_info_address">地址</string>
     <string name="user_info_website">网站</string>
     <string name="user_info_twitter">推特</string>
 
-    <string name="user_information_description">用户信息</string>
     <string name="user_information_retrieval_error">检索用户信息时报错</string>
 
     <!-- Activities -->
     <string name="activities_no_results_headline">暂无动态</string>
     <string name="activities_no_results_message">此流将显示\ n添加，更改和共享等事件</string>
-    <string name="webview_error">发生错误</string>
     <string name="prefs_category_about">关于</string>
 
     <string name="actionbar_contacts">联系人备份</string>
@@ -611,8 +584,6 @@
     <string name="contacts_automatic_backup">自动备份</string>
     <string name="contacts_last_backup">上次备份</string>
     <string name="contacts_read_permission">需要更改阅读列表的权限</string>
-    <string name="contacts_write_permission">需要更改联系人列表的权限</string>
-    <string name="contactlist_title">恢复联系人</string>
     <string name="contaclist_restore_selected">恢复选中的联系人</string>
     <string name="contactlist_account_chooser_title">选择导入帐户</string>
     <string name="contactlist_no_permission">没有授权，不能进入</string>
@@ -623,7 +594,6 @@
     <string name="contacts_preferences_import_scheduled">导入已经排期，稍后将开始</string>
 
     <!-- Notifications -->
-    <string name="new_notification_received">收到新提示</string>
     <string name="drawer_logout">退出</string>
     <string name="picture_set_as_no_app">没有应用程序发现设置图片！</string>
     <string name="privacy">隐私</string>

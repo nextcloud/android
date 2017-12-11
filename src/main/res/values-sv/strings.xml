@@ -118,12 +118,10 @@
     <string name="common_yes">Ja</string>
     <string name="common_no">Nej</string>
     <string name="common_ok">OK</string>
-    <string name="common_retry_upload">Försök ladda upp igen</string>
     <string name="common_cancel_sync">Avbryt synkronisering</string>
     <string name="common_cancel">Avbryt</string>
     <string name="common_back">Tillbaka</string>
     <string name="common_save">Spara</string>
-    <string name="common_error">Fel</string>
     <string name="common_loading">Laddar &#8230;</string>
     <string name="common_unknown">okänt</string>
     <string name="common_error_unknown">Okänt fel</string>
@@ -149,9 +147,7 @@
     <string name="uploads_view_group_finished_uploads">Uppladdad</string>
     <string name="uploads_view_upload_status_succeeded">Slutförande</string>
     <string name="uploads_view_upload_status_cancelled">Avbruten</string>
-    <string name="uploads_view_upload_status_paused">Pausad</string>
     <string name="uploads_view_upload_status_failed_connection_error">Anslutningsfel</string>
-    <string name="uploads_view_upload_status_failed_retry">Uppladdning kommer prövas snart igen</string>
     <string name="uploads_view_upload_status_failed_credentials_error">Fel Inloggningsuppgifter</string>
     <string name="uploads_view_upload_status_failed_folder_error">Mappfel</string>
     <string name="uploads_view_upload_status_failed_file_error">Filfel</string>
@@ -232,7 +228,6 @@
 	<string name="auth_expired_basic_auth_toast">Var god ange ditt nuvarande lösenord</string>
 	<string name="auth_expired_saml_sso_token_toast">Din session har upphört att gälla. Vänligen anslut igen</string>
 	<string name="auth_connecting_auth_server">Ansluter till autentiseringsservern &#8230;</string>
-	<string name="auth_unsupported_auth_method">Servern har inte stöd för denna autentiseringsmetod</string>
 	<string name="auth_unsupported_multiaccount">%1$s har inte stöd för multipla konton</string>
 	<string name="auth_fail_get_user_name">Din server returnerar inte korrekt användarID, vänligen kontakta din administratör.</string>
 	<string name="auth_can_not_auth_against_server">Det går inte att autentisera mot denna server</string>
@@ -247,7 +242,6 @@
     <string name="common_rename">Byt namn</string>
     <string name="confirmation_remove_local">Endast lokalt</string>
     <string name="rename_dialog_title">Ange ett nytt namn</string>
-    <string name="sync_file_fail_msg">Kunde inte kontrollera extern fil</string>
     <string name="sync_file_nothing_to_do_msg">Filinnehåll redan synkroniserat</string>
     <string name="create_dir_fail_msg">Kunde inte skapa mapp</string>
     <string name="filename_forbidden_characters">Förbjudna tecken är: / \\ &lt; &gt; : \" | ? *</string>
@@ -295,7 +289,6 @@
     <string name="placeholder_media_time">12:23:45</string>
 
     <string name="auto_upload_on_wifi">Uppladdning bara via Wi-Fi</string>
-    <string name="instant_video_upload_on_charging">Uppladdning bara vid laddning</string>
     <string name="instant_upload_on_charging">Ladda enbart upp när enheten laddas</string>
     <string name="instant_upload_path">/AutomatiskUppladdning</string>
     <string name="auto_upload_path">/AutomatiskUppladdning</string>
@@ -352,7 +345,6 @@
     <string name="downloader_download_file_not_found">Filen är inte längre tillgänglig på servern</string>
 
     <string name="file_migration_dialog_title">Uppdaterar lagringsplats</string>
-    <string name="file_migration_finish_button">Slutför</string>
     <string name="file_migration_preparing">Förbereder migration&#8230;</string>
     <string name="file_migration_checking_destination">Kontrollerar mål&#8230;</string>
     <string name="file_migration_saving_accounts_configuration">Sparar konfigurationen för kontona&#8230;</string>
@@ -408,9 +400,6 @@
 
     <string name="sync_folder_failed_content">Synkronisering av %1$s mapp kunde inte slutföras</string>
 
-	<string name="shared_subject_header">delad</string>
-	<string name="with_you_subject_header">med dig</string>
-    
 	<string name="subject_user_shared_with_you">%1$s delade \"%2$s\" med dig</string>
     <string name="subject_shared_with_you">\"%1$s\" har delats med dig</string>
 
@@ -425,8 +414,6 @@
 
     <string name="prefs_instant_behaviour_dialogTitle">Originalfilen kommer att&#8230;</string>
     <string name="prefs_instant_behaviour_title">Originalfilen kommer att&#8230;</string>
-    <string name="upload_copy_files">Kopiera fil</string>
-    <string name="upload_move_files">Flytta fil</string>
     <string name="select_all">Välj alla</string>
     <string name="deselect_all">Avmarkera alla</string>
 
@@ -467,8 +454,6 @@
     <string name="share_privilege_can_edit_create">skapa</string>
     <string name="share_privilege_can_edit_change">ändra</string>
     <string name="share_privilege_can_edit_delete">radera</string>
-    <string name="edit_share_unshare">Sluta dela</string>
-    <string name="edit_share_done">färdig</string>
 
     <string name="action_retry_uploads">Försök igen med misslyckade uppladdningar</string>
     <string name="action_clear_failed_uploads">Ta bort misslyckade uppladdningar</string>
@@ -481,12 +466,10 @@
     <string name="manage_space_title">Hantera utrymme</string>
     <string name="manage_space_description">Inställningar, databas och servercertifikat från %1$s\'s data kommer att raderas permanent. \n\nNedladdade filer kommer inte att raderas eller ändras.\n\nDenna process kan ta ett tag.</string>
     <string name="manage_space_clear_data">Rensa data</string>
-    <string name="manage_space_error">Vissa filer kunde inte raderas.</string>
 
     <string name="permission_storage_access">Ytterligare rättigheter krävs för att ladda upp eller ned filer</string>
     <string name="local_file_not_found_toast">Fil kunde inte hittas i lokalt filsystem</string>
     <string name="maintenance_mode">Server i underhållsläge</string>
-    <string name="lock_failed">Misslyckades att låsa filen</string>
 
     <string name="uploads_view_upload_status_waiting_for_charging">Väntar på laddning</string>
     <string name="actionbar_search">Sök</string>
@@ -516,16 +499,12 @@
     <string name="synced_folders_loading_folders">Laddar mappar &#8230;</string>
     <string name="synced_folders_no_results">Inga mediamappar funna.</string>
     <string name="synced_folders_preferences">Inställningar för automatisk uppladdning</string>
-    <string name="synced_folders_settings">Inställningar</string>
     <string name="synced_folders_new_info">Direktuppladdning heter numera Automatisk uppladdning och har blivit totalt omgjort. Vänligen se huvudmenyn för att konfigurera Automatisk uppladdning igen. Ledsen för besväret.\n\nNjut av de nya och förbättrade uppladdningsmöjligheterna!</string>
     <string name="synced_folders_preferences_folder_path">För %1$s</string>
     <plurals name="items_selected_count">
         <item quantity="one">%d vald</item>
         <item quantity="other">%d vald</item>
     </plurals>
-
-    <string name="activity_list_loading_activity">Laddningsaktiviteter &#8230;</string>
-    <string name="activity_list_no_results">Inga aktiviteter funna.</string>
 
     <string name="notifications_loading_activity">Laddningsnotifieringar &#8230;</string>
     <string name="notifications_no_results_headline">Inga notifieringar</string>
@@ -539,8 +518,6 @@
     <string name="upload_file_dialog_filetype_googlemap_shortcut">Google Kartor-genväg(%s)</string>
 
     <string name="storage_description_default">Standard</string>
-    <string name="storage_description_sd_no">SD kort %1$d</string>
-    <string name="storage_description_unknown">Okänd</string>
 
     <!-- What's new feature and texts to show -->
     <string name="whats_new_title">Vad är nytt i %1$s</string>
@@ -573,20 +550,17 @@
     <string name="fingerprint_unknown">Finger ej igenkänt</string>
 
     <!-- User information -->
-    <string name="user_info_full_name">Fullständigt namn</string>
     <string name="user_info_email">E-post</string>
     <string name="user_info_phone">Telefonnummer</string>
     <string name="user_info_address">Adress</string>
     <string name="user_info_website">Webbsida</string>
     <string name="user_info_twitter">Twitter</string>
 
-    <string name="user_information_description">Användarinformation</string>
     <string name="user_information_retrieval_error">Fel uppstod när användarinformation skulle hämtas</string>
 
     <!-- Activities -->
     <string name="activities_no_results_headline">Ingen aktivitet än</string>
     <string name="activities_no_results_message">Flödet visar aktiviteter så som\ntillägg, ändringar och delningar</string>
-    <string name="webview_error">Fel inträffade</string>
     <string name="prefs_category_about">Om</string>
 
     <string name="actionbar_contacts">Backa upp kontakter</string>
@@ -595,8 +569,6 @@
     <string name="contacts_automatic_backup">Automatisk backup</string>
     <string name="contacts_last_backup">Senaste backup</string>
     <string name="contacts_read_permission">Tillstånd att läsa kontaktlista behövs</string>
-    <string name="contacts_write_permission">Tillstånd att ändra kontaktlista behövs</string>
-    <string name="contactlist_title">Återställ kontakter</string>
     <string name="contaclist_restore_selected">Återställ valda kontakter</string>
     <string name="contactlist_account_chooser_title">Välj konto att importera</string>
     <string name="contactlist_no_permission">Ingen tillstått givet, ingen importerat!</string>
@@ -607,7 +579,6 @@
     <string name="contacts_preferences_import_scheduled">Importering schemalagt och kommer starta inom kort</string>
 
     <!-- Notifications -->
-    <string name="new_notification_received">Inga nya notifieringar mottagna</string>
     <string name="drawer_logout">Logga ut</string>
     <string name="picture_set_as_no_app">Ingen app hittad att sätta bilden i!</string>
     <string name="privacy">Privat</string>

@@ -118,12 +118,10 @@
     <string name="common_yes">Taip</string>
     <string name="common_no">Ne</string>
     <string name="common_ok">Gerai</string>
-    <string name="common_retry_upload">Pakartotinai įkelkite</string>
     <string name="common_cancel_sync">Atšaukti</string>
     <string name="common_cancel">Atsisakyti</string>
     <string name="common_back">Atgal</string>
     <string name="common_save">Įrašyti</string>
-    <string name="common_error">Klaida</string>
     <string name="common_loading">Įkeliama&#8230;</string>
     <string name="common_unknown">nežinomas</string>
     <string name="common_error_unknown">Nežinoma klaida</string>
@@ -149,9 +147,7 @@
     <string name="uploads_view_group_finished_uploads">Įkelta</string>
     <string name="uploads_view_upload_status_succeeded">Atliktas</string>
     <string name="uploads_view_upload_status_cancelled">Atsisakyta</string>
-    <string name="uploads_view_upload_status_paused">Pristabdyti</string>
     <string name="uploads_view_upload_status_failed_connection_error">Ryšio klaida</string>
-    <string name="uploads_view_upload_status_failed_retry">Netrukus bus pakartotinai įkeltas</string>
     <string name="uploads_view_upload_status_failed_credentials_error">Prisijungimo duomenų klaida</string>
     <string name="uploads_view_upload_status_failed_folder_error">Aplanko klaida</string>
     <string name="uploads_view_upload_status_failed_file_error">Failo klaida</string>
@@ -236,7 +232,6 @@
 	<string name="auth_expired_basic_auth_toast">Prašome įvesti dabartinį slaptažodį</string>
 	<string name="auth_expired_saml_sso_token_toast">Jūsų seanso laikas baigėsi. Prašome prisijungti iš naujo</string>
 	<string name="auth_connecting_auth_server">Jungiamasi prie autentifikavimo serverio &#8230;</string>
-	<string name="auth_unsupported_auth_method">Serveris nepalaiko šio autentikacijos metodo</string>
 	<string name="auth_unsupported_multiaccount">%1$s nepalaiko kelių paskyrų iš karto</string>
 	<string name="auth_fail_get_user_name">Jūsų serveris negrąžina teisingo vartotojo ID, prašome susisiekti su administratorium</string>
 	<string name="auth_can_not_auth_against_server">Nepavyko autentifikuotis šiame serveryje</string>
@@ -255,7 +250,6 @@
     <string name="remove_success_msg">Ištrinta</string>
     <string name="remove_fail_msg">Ištrynimas nepavyko</string>
     <string name="rename_dialog_title">Įveskite naują pavadinimą</string>
-    <string name="sync_file_fail_msg">Nutolę failai negalėjo būti patikrinti</string>
     <string name="sync_file_nothing_to_do_msg">Failo turinys jau sunchronizuotas</string>
     <string name="create_dir_fail_msg">Nepavyko sukurti failo</string>
     <string name="filename_forbidden_characters">Neleistini simboliai: / \\ &lt; &gt; : \" | ? *</string>
@@ -303,7 +297,6 @@
     <string name="placeholder_media_time">12:23:45</string>
 
     <string name="auto_upload_on_wifi">Tik prisijungus prie Wi-Fi</string>
-    <string name="instant_video_upload_on_charging">Tik prisijungus kuomet kraunamas</string>
     <string name="instant_upload_on_charging">Įkelti failus tik kai kraunasi</string>
     <string name="instant_upload_path">/InstantUpload</string>
     <string name="auto_upload_path">automatinis paleidimas</string>
@@ -360,7 +353,6 @@
     <string name="downloader_download_file_not_found">Failas neegzistuoja serveryje</string>
 
     <string name="file_migration_dialog_title">Atnaujinamas saugyklos kelias</string>
-    <string name="file_migration_finish_button">Užbaigti</string>
     <string name="file_migration_preparing">Įkeliami duomenys &#8230;</string>
     <string name="file_migration_checking_destination">Įkeliami duomenys &#8230;</string>
     <string name="file_migration_saving_accounts_configuration">Įkeliami duomenys &#8230;</string>
@@ -416,9 +408,6 @@
 
     <string name="sync_folder_failed_content">%1$s sinchronizavimas negali būti užbaigtas.</string>
 
-	<string name="shared_subject_header">Dalinamasi</string>
-	<string name="with_you_subject_header">su jumis</string>
-    
 	<string name="subject_user_shared_with_you">%1$s dalinamasi \"%2$s\" su jumis</string>
     <string name="subject_shared_with_you">\"%1$s\" dalinamasi su jumis</string>
 
@@ -433,8 +422,6 @@
 
     <string name="prefs_instant_behaviour_dialogTitle">Pradinis failas bus&#8230;</string>
     <string name="prefs_instant_behaviour_title">Pradinis failas bus&#8230;</string>
-    <string name="upload_copy_files">Kopijuoti failą</string>
-    <string name="upload_move_files">Perkelti failą</string>
     <string name="select_all">Pažymėti viską</string>
     <string name="deselect_all">Panaikinti pasirinkimą</string>
 
@@ -476,8 +463,6 @@
     <string name="share_privilege_can_edit_create">sukurti</string>
     <string name="share_privilege_can_edit_change">keisti</string>
     <string name="share_privilege_can_edit_delete">ištrinti</string>
-    <string name="edit_share_unshare">Stabdyti dalijimąsi</string>
-    <string name="edit_share_done">Atlikta</string>
 
     <string name="action_retry_uploads">Pabandyti iš naujo nepavykusius įkėlimus</string>
     <string name="action_clear_failed_uploads">Išvalyti baigtus įkėlimus</string>
@@ -490,12 +475,10 @@
     <string name="manage_space_title">Tvarkyti vietą</string>
     <string name="manage_space_description">Nustatymai, duomenų bazė ir serverio sertifikatai iš %1$s duomenų bus ištrinti negrįžtamai. \n\nAtsisiųsti failai bus išsaugoti.\n\nŠis procesas gali užtrukti.</string>
     <string name="manage_space_clear_data">Išvalyti duomenis</string>
-    <string name="manage_space_error">Kai kurių failų negalima ištrinti</string>
 
     <string name="permission_storage_access">Papildomos teisės reikalingos įkelti šiuos atsisiųstus failus.</string>
     <string name="local_file_not_found_toast">Failas nerastas vietinėje failų sistemoje </string>
     <string name="maintenance_mode">Serveris yra techninės priežiūros veiksenoje</string>
-    <string name="lock_failed">Nepavyko apsaugoti failo</string>
 
     <string name="uploads_view_upload_status_waiting_for_charging">Laukiama mokėjimo </string>
     <string name="actionbar_search">Paieška</string>
@@ -525,7 +508,6 @@
     <string name="synced_folders_loading_folders">Įkeliami aplankai &#8230;</string>
     <string name="synced_folders_no_results">Medijos aplankų nerasta</string>
     <string name="synced_folders_preferences">Pageidaujami nustatymai automatiniam įkėlimui</string>
-    <string name="synced_folders_settings">Nustatymai</string>
     <string name="synced_folders_new_info">Momentinis įkėlimas buvo visiškai sutaisytas. Perkonfigūruokite automatinius įkėlimus per pagrindinį meniu.\n\nMėgaukitės naujuoju automatiniu įkėlimu.</string>
     <string name="synced_folders_preferences_folder_path">Dėl %1$s</string>
     <plurals name="items_selected_count">
@@ -533,9 +515,6 @@
         <item quantity="few">%d pasirinkti</item>
         <item quantity="other">%d pasirinktos</item>
     </plurals>
-
-    <string name="activity_list_loading_activity">Kraunamos veiklos&#8230;</string>
-    <string name="activity_list_no_results">Veiklų nerasta.</string>
 
     <string name="notifications_loading_activity">Kraunami įspėjimai &#8230;</string>
     <string name="notifications_no_results_headline">Pranešimų nėra</string>
@@ -549,8 +528,6 @@
     <string name="upload_file_dialog_filetype_googlemap_shortcut">Google Maps nuorodos failas(%s)</string>
 
     <string name="storage_description_default">Numatytasis</string>
-    <string name="storage_description_sd_no">SD kortelė %1$d</string>
-    <string name="storage_description_unknown">Nežinomas</string>
 
     <!-- What's new feature and texts to show -->
     <string name="whats_new_title">Kas naujo %1$s</string>
@@ -583,20 +560,17 @@
     <string name="fingerprint_unknown">Atspaudas neatpažintas</string>
 
     <!-- User information -->
-    <string name="user_info_full_name">Vardas, pavardė</string>
     <string name="user_info_email">El. paštas</string>
     <string name="user_info_phone">Telefono numeris</string>
     <string name="user_info_address">Adresas</string>
     <string name="user_info_website">Svetainė</string>
     <string name="user_info_twitter">Twitter</string>
 
-    <string name="user_information_description">Naudotojo informacija</string>
     <string name="user_information_retrieval_error">Klaida gaunant vartotojo informaciją</string>
 
     <!-- Activities -->
     <string name="activities_no_results_headline">Kol kas jokių veiksmų</string>
     <string name="activities_no_results_message">Srautas rodo papildymus, pakeitimus ir bendrinimus</string>
-    <string name="webview_error">Įvyko klaida</string>
     <string name="prefs_category_about">Apie</string>
 
     <string name="actionbar_contacts">Išsaugoti atsarginę kontaktų kopiją</string>
@@ -605,8 +579,6 @@
     <string name="contacts_automatic_backup">Automatinė atsarginė kopija</string>
     <string name="contacts_last_backup">Paskutinė atsarginė kopija</string>
     <string name="contacts_read_permission">Reikalingas leidimas skaityti sąrašą</string>
-    <string name="contacts_write_permission">Reikalingas leidimas keisti sąrašą</string>
-    <string name="contactlist_title">Atkurti kontaktus</string>
     <string name="contaclist_restore_selected">Atkurti pasirinktus kontaktus</string>
     <string name="contactlist_account_chooser_title">Pasirinkite failą </string>
     <string name="contactlist_no_permission">Leidimas nesuteiktas, niekas neimportuota!</string>
@@ -617,7 +589,6 @@
     <string name="contacts_preferences_import_scheduled">Importas suplanuotas ir prasidės netrukus</string>
 
     <!-- Notifications -->
-    <string name="new_notification_received">Gautas naujas pranešimas</string>
     <string name="drawer_logout">Atsijungti</string>
     <string name="picture_set_as_no_app">Nerasta programėlė nustatyti paveikslą</string>
     <string name="privacy">Privatumas</string>

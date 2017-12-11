@@ -103,7 +103,6 @@
     <string name="common_cancel">إلغاء</string>
     <string name="common_back">رجوع</string>
     <string name="common_save">حفظ</string>
-    <string name="common_error">خطأ</string>
     <string name="common_loading">تحميل &#8230;</string>
     <string name="common_unknown">غير معروف</string>
     <string name="common_error_unknown">خطأ غير معروف. </string>
@@ -125,9 +124,7 @@
     <string name="uploads_view_group_finished_uploads">تم رفعه</string>
     <string name="uploads_view_upload_status_succeeded">مكتمل</string>
     <string name="uploads_view_upload_status_cancelled">ملغي</string>
-    <string name="uploads_view_upload_status_paused">مُوقَف</string>
     <string name="uploads_view_upload_status_failed_connection_error">خطأ اتصال</string>
-    <string name="uploads_view_upload_status_failed_retry">ستتم معاودة الرفع قريباً</string>
     <string name="uploads_view_upload_status_failed_folder_error">خطأ في المجلّد</string>
     <string name="uploads_view_upload_status_failed_file_error">خطأ في الملف</string>
     <string name="uploads_view_upload_status_failed_localfile_error">لم يتم العثور على الملف المحلّي</string>
@@ -185,7 +182,6 @@
 	<string name="auth_expired_oauth_token_toast">مدة التحقق انتهت , يرجى اعادة التحقق </string>
 	<string name="auth_expired_basic_auth_toast">إدخل كلمة المرور الخاصة بك من فضلك</string>
 	<string name="auth_expired_saml_sso_token_toast">مدة الجلسة انتهت , يرجى اعادة الاتصال</string>
-	<string name="auth_unsupported_auth_method">الخادم لا يدعم طريقة التحقق هذه</string>
 	<string name="auth_unsupported_multiaccount">%1$s لا يدعم الحسابات المتعددة </string>
 	<string name="favorite">حدد كمتوفر بدون اتصال الانترنت</string>
     <string name="unfavorite">الغ التحدد كمتوفر بدون اتصال الانترنت</string>
@@ -261,7 +257,6 @@
     <string name="forbidden_permissions_delete">لحذف هذا الملف</string>
     <string name="share_link_forbidden_permissions">لمشاركة هذا الملف</string>
     <string name="forbidden_permissions_create">إنشاء هذا الملف</string>
-    <string name="file_migration_finish_button">تم</string>
     <string name="file_migration_cleaning">تنظيف&#8230;</string>
     <string name="file_migration_ok_finished">مكتملة</string>
     <string name="file_migration_use_data_folder">استعمل</string>
@@ -281,14 +276,10 @@
 
     <string name="prefs_category_details">تفاصيل</string>
 
-    <string name="shared_subject_header">المشاركات</string>
-	<string name="with_you_subject_header">معك</string>
-    
-	<string name="auth_host_address">عنوان الخادم</string>
+    <string name="auth_host_address">عنوان الخادم</string>
     <string name="username">إسم المستخدم</string>
 
     <string name="set_picture_as">إستخدم الصورة كـ</string>
-    <string name="upload_copy_files">أنسخ الملف</string>
     <string name="select_all">تحديد الكل</string>
     <string name="deselect_all">إلغاء تحديد الكل</string>
 
@@ -316,8 +307,6 @@
     <string name="share_privilege_can_edit_create">إنشاء</string>
     <string name="share_privilege_can_edit_change">تغيير</string>
     <string name="share_privilege_can_edit_delete">حذف</string>
-    <string name="edit_share_unshare">أوقف المشاركة</string>
-    <string name="edit_share_done">تم</string>
 
     <string name="action_switch_grid_view">عرض شبكي</string>
     <string name="action_switch_list_view">عرض على شكل قائمة</string>
@@ -335,17 +324,11 @@
     <string name="participate_contribute_forum_forum">المنتدى</string>
     <string name="participate_contribute_translate_translate">الترجمة</string>
     <string name="participate_contribute_translate_text">التطبيق</string>
-    <string name="synced_folders_settings">الإعدادات</string>
-    <string name="activity_list_loading_activity">تحميل النشاطات &#8230;</string>
-    <string name="activity_list_no_results">لا توجد نشاطات</string>
-
     <string name="notifications_loading_activity">تحميل الإخطارات &#8230;</string>
     <string name="notifications_no_results_headline">لا توجد هناك إخطارات</string>
     <string name="upload_file_dialog_filename">اسم الملف</string>
     <string name="upload_file_dialog_filetype">نوع الملف</string>
     <string name="storage_description_default">افتراضي</string>
-    <string name="storage_description_sd_no">ذاكرة التخزين %1$d</string>
-    <string name="storage_description_unknown">غير معروف</string>
 
     <!-- What's new feature and texts to show -->
     <string name="whats_new_title">ما الجديد في %1$s</string>
@@ -362,14 +345,12 @@
     <string name="whats_new_skip">تخطى</string>
 
     <!-- User information -->
-    <string name="user_info_full_name"> الإسم الكامل</string>
     <string name="user_info_email">البريد الإلكتروني</string>
     <string name="user_info_phone"> رقم الهاتف</string>
     <string name="user_info_address"> العنوان</string>
     <string name="user_info_website"> الموقع الإلكتروني</string>
     <string name="user_info_twitter">تويتر</string>
 
-    <string name="user_information_description">معلومات عن المستخدِم</string>
     <!-- Activities -->
     <string name="activities_no_results_headline">لا توجد أي أنشطة بعدُ</string>
     <string name="prefs_category_about">حول</string>
@@ -381,7 +362,6 @@
     <string name="contacts_preference_choose_date">أختر التاريخ</string>
     <string name="contacts_preferences_no_file_found">لم يتم ايجاد أي ملف</string>
     <!-- Notifications -->
-    <string name="new_notification_received">تم تلقي إشعار جديد</string>
     <string name="drawer_logout">خروج</string>
     <string name="picture_set_as_no_app">ﻻ يوجد تطبيق لتعيين الصور !</string>
     <string name="privacy">الخصوصية</string>

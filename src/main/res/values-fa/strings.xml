@@ -118,12 +118,10 @@
     <string name="common_yes">بله</string>
     <string name="common_no">نه</string>
     <string name="common_ok">تایید</string>
-    <string name="common_retry_upload">آپلود دوباره</string>
     <string name="common_cancel_sync">لغو همگام سازی</string>
     <string name="common_cancel">منصرف شدن</string>
     <string name="common_back">بازگشت</string>
     <string name="common_save">ذخیره</string>
-    <string name="common_error">خطا</string>
     <string name="common_loading">بارگیری&#8230;</string>
     <string name="common_unknown">نامشخص</string>
     <string name="common_error_unknown">خطای نامشخص</string>
@@ -149,9 +147,7 @@
     <string name="uploads_view_group_finished_uploads">آپلود شده</string>
     <string name="uploads_view_upload_status_succeeded">نکمیل شده</string>
     <string name="uploads_view_upload_status_cancelled">لغو شده</string>
-    <string name="uploads_view_upload_status_paused">متوقف شد</string>
     <string name="uploads_view_upload_status_failed_connection_error">خطای اتصال</string>
-    <string name="uploads_view_upload_status_failed_retry">آپلود در مدت کوتاهی دوباره اجرا میشود</string>
     <string name="uploads_view_upload_status_failed_credentials_error">خطای اعتبار</string>
     <string name="uploads_view_upload_status_failed_folder_error">حطای پوشه</string>
     <string name="uploads_view_upload_status_failed_file_error">خطای فایل</string>
@@ -227,7 +223,6 @@
 	<string name="auth_expired_basic_auth_toast">لطفا گذرواژه فعلی را وارد کنید</string>
 	<string name="auth_expired_saml_sso_token_toast">نشست شما منقضی شد, دوباره اتصال شوید.</string>
 	<string name="auth_connecting_auth_server">اتصال به سرور احراز هویت &#8230;</string>
-	<string name="auth_unsupported_auth_method">سرور این نوع احراز هویت را پشتیبانی نمی‌کند</string>
 	<string name="auth_unsupported_multiaccount">%1$s چند اکانته بودن را پشتیبانی نمی‌کند</string>
 	<string name="auth_fail_get_user_name">سرور شما یک شناسه کاربری معتبر را نشان نمی دهد، لطفا با یک ادمین تماس بگیرید</string>
 	<string name="auth_can_not_auth_against_server">نمی توان به این سرور تأیید کرد</string>
@@ -280,7 +275,6 @@
     <string name="placeholder_media_time">12:23:45</string>
 
     <string name="auto_upload_on_wifi">فقط در حالی که متصل بهWIFI هستید آپلود کنید</string>
-    <string name="instant_video_upload_on_charging">فقط هنگامی که گوشی شارژ می شود آپلود کنید</string>
     <string name="instant_upload_on_charging">فقط هنگامی که گوشی شارژ می شود آپلود کنید</string>
     <string name="instant_upload_path">آپلود فوری</string>
     <string name="auto_upload_path">/AutoUpload</string>
@@ -332,10 +326,7 @@
 
     <string name="prefs_category_details">جزئیات</string>
 
-    <string name="shared_subject_header">به اشتراک گذاشته شد</string>
-	<string name="with_you_subject_header">با تو</string>
-    
-	<string name="subject_user_shared_with_you">\"%2$s\" توسط %1$s با شما به اشتراک گذاشته شد</string>
+    <string name="subject_user_shared_with_you">\"%2$s\" توسط %1$s با شما به اشتراک گذاشته شد</string>
     <string name="subject_shared_with_you">\"%1$s\" با شما به اشتراک گذاشته شد</string>
 
     <string name="auth_refresh_button">بروزرسانی ارتباط</string>
@@ -354,6 +345,7 @@
     <string name="share_privilege_can_edit_create">ایجاد</string>
     <string name="share_privilege_can_edit_change">تغییر</string>
     <string name="share_privilege_can_edit_delete">حذف</string>
+
     <string name="contacts_preference_choose_date">تاریخ را انتخاب کنید</string>
     <string name="contacts_preference_backup_never">هیچ وقت</string>
     <string name="contacts_preferences_no_file_found">هیچ فایلی یافت نشد</string>
