@@ -469,7 +469,6 @@
     <string name="pref_behaviour_entries_move">movido a la capreta de la aplicación</string>
     <string name="pref_behaviour_entries_delete_file">Borrado</string>
     <string name="prefs_storage_path">Ruta de almacenamiento</string>
-    <string name="prefs_common">Común</string>
 
     <string name="share_dialog_title">Compartiendo</string>
     <string name="share_file">Compartir %1$s</string>

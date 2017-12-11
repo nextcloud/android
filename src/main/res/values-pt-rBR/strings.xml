@@ -469,7 +469,6 @@
     <string name="pref_behaviour_entries_move">movido para a pasta aplicativos</string>
     <string name="pref_behaviour_entries_delete_file">excluído</string>
     <string name="prefs_storage_path">Caminho do armazenamento</string>
-    <string name="prefs_common">Comum</string>
 
     <string name="share_dialog_title">Compartilhamento</string>
     <string name="share_file">Compartilhar %1$s</string>

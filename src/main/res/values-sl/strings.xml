@@ -416,7 +416,6 @@
     <string name="pref_behaviour_entries_move">premakni v mapo programa</string>
     <string name="pref_behaviour_entries_delete_file">pobrisano</string>
     <string name="prefs_storage_path">Mesto shrambe</string>
-    <string name="prefs_common">Splošno</string>
 
     <string name="share_dialog_title">Souporaba</string>
     <string name="share_file">Omogoči souporabo %1$s</string>
