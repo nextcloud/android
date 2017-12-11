@@ -1190,7 +1190,7 @@ public class FileContentProvider extends ContentProvider {
             }
 
             if (oldVersion < 26 && newVersion >= 26) {
-                Log_OC.i(SQL, "Entering in the #25 Adding text and element color to capabilities");
+                Log_OC.i(SQL, "Entering in the #26 Adding CRC32 column to filesystem table");
                 db.beginTransaction();
                 try {
                     db.execSQL(ALTER_TABLE + ProviderTableMeta.FILESYSTEM_TABLE_NAME +
