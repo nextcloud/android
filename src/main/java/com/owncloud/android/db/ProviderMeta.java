@@ -32,7 +32,7 @@ import com.owncloud.android.MainApp;
 public class ProviderMeta {
 
     public static final String DB_NAME = "filelist";
-    public static final int DB_VERSION = 25;
+    public static final int DB_VERSION = 26;
 
     private ProviderMeta() {
     }
@@ -218,5 +218,6 @@ public class ProviderMeta {
         public static final String FILESYSTEM_FILE_FOUND_RECENTLY = "found_at";
         public static final String FILESYSTEM_FILE_SENT_FOR_UPLOAD = "upload_triggered";
         public static final String FILESYSTEM_SYNCED_FOLDER_ID = "syncedfolder_id";
+        public static final String FILESYSTEM_CRC32 = "crc32";
     }
 }

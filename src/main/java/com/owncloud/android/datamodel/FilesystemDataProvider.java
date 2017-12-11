@@ -27,8 +27,14 @@ import android.net.Uri;
 import com.owncloud.android.db.ProviderMeta;
 import com.owncloud.android.lib.common.utils.Log_OC;
 
+import java.io.BufferedInputStream;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.zip.CRC32;
 
 /**
  * Provider for stored filesystem data.
@@ -119,6 +125,11 @@ public class FilesystemDataProvider {
             cv.put(ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_SENT_FOR_UPLOAD, false);
             cv.put(ProviderMeta.ProviderTableMeta.FILESYSTEM_SYNCED_FOLDER_ID, syncedFolder.getId());
 
+            long newCrc32 = getFileChecksum(localPath);
+            if (newCrc32 != -1) {
+                cv.put(ProviderMeta.ProviderTableMeta.FILESYSTEM_CRC32, Long.toString(newCrc32));
+            }
+
             Uri result = contentResolver.insert(ProviderMeta.ProviderTableMeta.CONTENT_URI_FILESYSTEM, cv);
 
             if (result == null) {
@@ -127,7 +138,11 @@ public class FilesystemDataProvider {
         } else {
 
             if (data.getModifiedAt() != modifiedAt) {
-                cv.put(ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_SENT_FOR_UPLOAD, 0);
+                long newCrc32 = getFileChecksum(localPath);
+                if (data.getCrc32() == null || (newCrc32 != -1 && !data.getCrc32().equals(Long.toString(newCrc32)))) {
+                    cv.put(ProviderMeta.ProviderTableMeta.FILESYSTEM_CRC32, Long.toString(newCrc32));
+                    cv.put(ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_SENT_FOR_UPLOAD, 0);
+                }
             }
 
 
@@ -177,11 +192,13 @@ public class FilesystemDataProvider {
                     isSentForUpload = true;
                 }
 
+                String crc32 = cursor.getString(cursor.getColumnIndex(ProviderMeta.ProviderTableMeta.FILESYSTEM_CRC32));
+
                 if (id == -1) {
                     Log_OC.e(TAG, "Arbitrary value could not be created from cursor");
                 } else {
                     dataSet = new FileSystemDataSet(id, localPath, modifiedAt, isFolder, isSentForUpload, foundAt,
-                            syncedFolder.getId());
+                            syncedFolder.getId(), crc32);
                 }
             }
             cursor.close();
@@ -190,5 +207,25 @@ public class FilesystemDataProvider {
         }
 
         return dataSet;
+    }
+
+    private static long getFileChecksum(String filepath) {
+
+        InputStream inputStream = null;
+        try {
+            inputStream = new BufferedInputStream(new FileInputStream(filepath));
+            CRC32 crc = new CRC32();
+            int cnt;
+            while ((cnt = inputStream.read()) != -1) {
+                crc.update(cnt);
+            }
+
+            return crc.getValue();
+
+        } catch (FileNotFoundException e) {
+            return -1;
+        } catch (IOException e) {
+            return -1;
+        }
     }
 }
