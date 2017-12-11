@@ -417,7 +417,6 @@
     <string name="pref_behaviour_entries_move">Dipindahkan ke folder aplikasi</string>
     <string name="pref_behaviour_entries_delete_file">terhapus</string>
     <string name="prefs_storage_path">Jalur penyimpanan</string>
-    <string name="prefs_common">Umum</string>
 
     <string name="share_dialog_title">Berbagi</string>
     <string name="share_file">Bagikan %1$s</string>
