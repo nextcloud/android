@@ -571,7 +571,6 @@
     <string name="contacts_preferences_backup_scheduled">Jadwalkan pencadangan dan jalankan sebentar lagi.</string>
     <string name="contacts_preferences_import_scheduled">Impor jadwal dan jalankan sebentar lagi.</string>
 
-    <!-- Notifications -->
     <string name="drawer_logout">Keluar.</string>
     <string name="picture_set_as_no_app">Aplikasi tidak ditemukan untuk men-set gambar.</string>
     <string name="privacy">Privasi</string>

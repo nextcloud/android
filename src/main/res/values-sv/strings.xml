@@ -578,7 +578,6 @@
     <string name="contacts_preferences_backup_scheduled">Backup schemalagt och kommer starta inom kort</string>
     <string name="contacts_preferences_import_scheduled">Importering schemalagt och kommer starta inom kort</string>
 
-    <!-- Notifications -->
     <string name="drawer_logout">Logga ut</string>
     <string name="picture_set_as_no_app">Ingen app hittad att sätta bilden i!</string>
     <string name="privacy">Privat</string>

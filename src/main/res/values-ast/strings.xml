@@ -423,6 +423,5 @@
 
     <string name="actionbar_contacts_restore">Restaurar contautos</string>
     <string name="contacts_preference_backup_never">enxamás</string>
-    <!-- Notifications -->
     <string name="drawer_logout">Zarrar sesión</string>
     </resources>

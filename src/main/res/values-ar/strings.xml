@@ -361,7 +361,6 @@
     <string name="contacts_last_backup">أخر نسخة احتياطية</string>
     <string name="contacts_preference_choose_date">أختر التاريخ</string>
     <string name="contacts_preferences_no_file_found">لم يتم ايجاد أي ملف</string>
-    <!-- Notifications -->
     <string name="drawer_logout">خروج</string>
     <string name="picture_set_as_no_app">ﻻ يوجد تطبيق لتعيين الصور !</string>
     <string name="privacy">الخصوصية</string>

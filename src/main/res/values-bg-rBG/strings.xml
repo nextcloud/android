@@ -378,7 +378,6 @@
     <string name="actionbar_contacts_restore">Възстанови контакт</string>
     <string name="contacts_preference_backup_never">никога</string>
     <string name="contacts_preferences_no_file_found">Няма намерен файл</string>
-    <!-- Notifications -->
     <string name="drawer_logout">Отпиши се</string>
     <string name="file_not_found">Файлът не е открит</string>
 

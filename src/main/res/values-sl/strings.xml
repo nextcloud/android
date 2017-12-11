@@ -547,7 +547,6 @@
     <string name="contacts_preference_choose_date">Izberi datum</string>
     <string name="contacts_preference_backup_never">nikoli</string>
     <string name="contacts_preferences_no_file_found">Ne najdem datoteke</string>
-    <!-- Notifications -->
     <string name="drawer_logout">Odjava</string>
     <string name="privacy">Zasebnost</string>
     <string name="file_not_found">Datoteke ne najdem!</string>

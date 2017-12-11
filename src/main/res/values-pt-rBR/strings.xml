@@ -634,7 +634,6 @@
     <string name="contacts_preferences_backup_scheduled">Backup agendado, irá iniciar em breve</string>
     <string name="contacts_preferences_import_scheduled">Backup importado, irá iniciar em breve</string>
 
-    <!-- Notifications -->
     <string name="drawer_logout">Sair</string>
     <string name="picture_set_as_no_app">Nenhum aplicativo encontrado para atribuir uma imagem!</string>
     <string name="privacy">Privacidade</string>

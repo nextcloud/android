@@ -447,7 +447,6 @@
     <string name="contactlist_no_permission">주어진 권한이 없어, 아무것도 가져오지 못했습니다!</string>
     <string name="contacts_preference_choose_date">날짜 선택</string>
     <string name="contacts_preferences_no_file_found">파일을 찾을 수 없음</string>
-    <!-- Notifications -->
     <string name="drawer_logout">로그아웃</string>
     <string name="privacy">개인정보처리방침</string>
     <string name="file_not_found">파일을 찾을 수 없음!</string>
