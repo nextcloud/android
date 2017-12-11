@@ -224,7 +224,7 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Log_OC.i(TAG, "onCreateView() start");
         View v = super.onCreateView(inflater, container, savedInstanceState);
-        bottomNavigationView = (BottomNavigationView) v.findViewById(R.id.bottom_navigation_view);
+        bottomNavigationView = v.findViewById(R.id.bottom_navigation_view);
 
         if (savedInstanceState != null) {
             currentSearchType = Parcels.unwrap(savedInstanceState.getParcelable(KEY_CURRENT_SEARCH_TYPE));
@@ -901,9 +901,9 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
                                 type = VirtualFolderType.NONE;
                                 break;
                         }
-                        ((FileDisplayActivity) mContainerActivity).startImagePreview(file, type, false);
+                        ((FileDisplayActivity) mContainerActivity).startImagePreview(file, type, !file.isDown());
                     } else {
-                        ((FileDisplayActivity) mContainerActivity).startImagePreview(file, false);
+                        ((FileDisplayActivity) mContainerActivity).startImagePreview(file, !file.isDown());
                     }
                 } else if (file.isDown() && MimeTypeUtil.isVCard(file)) {
                     ((FileDisplayActivity) mContainerActivity).startContactListFragment(file);
