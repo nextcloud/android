@@ -1,20 +1,20 @@
-/**
+/*
  * ownCloud Android client application
  *
  * @author masensio
  * @author David A. Velasco
  * @author Juan Carlos González Cabrero
  * Copyright (C) 2015 ownCloud Inc.
- * <p/>
+ * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2,
  * as published by the Free Software Foundation.
- * <p/>
+ * 
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * <p/>
+ * 
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -32,6 +32,7 @@ import android.support.v4.app.FragmentTransaction;
 
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.accounts.AccountUtils;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
@@ -313,7 +314,19 @@ public class ShareActivity extends FileActivity implements ShareFragmentListener
 
             intentToShareLink.putExtra(Intent.EXTRA_TEXT, link);
             intentToShareLink.setType("text/plain");
-            String username = AccountUtils.getUsernameForAccount(getAccount());
+
+            String username;
+            try {
+                OwnCloudAccount oca = new OwnCloudAccount(getAccount(), this);
+                if (oca.getDisplayName() != null && !oca.getDisplayName().isEmpty()) {
+                    username = oca.getDisplayName();
+                } else {
+                    username = AccountUtils.getUsernameForAccount(getAccount());
+                }
+            } catch (Exception e) {
+                username = AccountUtils.getUsernameForAccount(getAccount());
+            }
+
             if (username != null) {
                 intentToShareLink.putExtra(
                     Intent.EXTRA_SUBJECT,
