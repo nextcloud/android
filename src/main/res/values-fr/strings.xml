@@ -471,7 +471,6 @@ Attention la suppression est irréversible.</string>
     <string name="pref_behaviour_entries_move">déplacé vers le dossier de l\'application</string>
     <string name="pref_behaviour_entries_delete_file">supprimé</string>
     <string name="prefs_storage_path">Chemin de stockage</string>
-    <string name="prefs_common">Commun</string>
 
     <string name="share_dialog_title">Partage</string>
     <string name="share_file">Partager %1$s</string>

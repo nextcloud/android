@@ -346,7 +346,6 @@
 
     <string name="select_all">Vælg alle</string>
     <string name="pref_behaviour_entries_delete_file">Slettet</string>
-    <string name="prefs_common">Almindelig</string>
 
     <string name="share_dialog_title">Deling</string>
     <string name="share_file">Del %1$s</string>

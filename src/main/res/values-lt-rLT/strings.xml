@@ -429,7 +429,6 @@
     <string name="pref_behaviour_entries_move">perkelti į app aplanką</string>
     <string name="pref_behaviour_entries_delete_file">Ištrintas</string>
     <string name="prefs_storage_path">Saugojimo kelias</string>
-    <string name="prefs_common">Bendras pavadinimas:</string>
 
     <string name="share_dialog_title">Dalijimasis</string>
     <string name="share_file">Dalintis %1$s</string>
