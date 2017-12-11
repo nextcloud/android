@@ -639,7 +639,6 @@
     <string name="contacts_preferences_backup_scheduled">Прављење резервне копије заказано и почеће ускоро</string>
     <string name="contacts_preferences_import_scheduled">Увожење је заказано и почеће ускоро</string>
 
-    <!-- Notifications -->
     <string name="drawer_logout">Одјавите се</string>
     <string name="picture_set_as_no_app">Ниједна апликација није нађена за постављање слике!</string>
     <string name="privacy">Приватност</string>

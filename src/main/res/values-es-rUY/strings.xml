@@ -634,7 +634,6 @@
     <string name="contacts_preferences_backup_scheduled">El respaldo está calendarizado y deberá iniciar en breve</string>
     <string name="contacts_preferences_import_scheduled">La importación está calendarizada y deberá iniciar en breve</string>
 
-    <!-- Notifications -->
     <string name="drawer_logout">Salir de la sesión</string>
     <string name="picture_set_as_no_app">¡No se encontró una aplicación con la cual establecer una imagen!</string>
     <string name="privacy">Privacidad</string>

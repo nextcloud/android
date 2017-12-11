@@ -588,7 +588,6 @@
     <string name="contacts_preferences_backup_scheduled">Atsarginės kopijos darymas suplanuotas ir prasidės netrukus</string>
     <string name="contacts_preferences_import_scheduled">Importas suplanuotas ir prasidės netrukus</string>
 
-    <!-- Notifications -->
     <string name="drawer_logout">Atsijungti</string>
     <string name="picture_set_as_no_app">Nerasta programėlė nustatyti paveikslą</string>
     <string name="privacy">Privatumas</string>
