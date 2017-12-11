@@ -54,8 +54,8 @@ import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.ShareActivity;
 import com.owncloud.android.ui.events.FavoriteEvent;
 import com.owncloud.android.ui.events.SyncEventFinished;
-import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.DisplayUtils;
+import com.owncloud.android.utils.FileStorageUtils;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -168,8 +168,10 @@ public class FileOperationsHelper {
                     i.putExtra(ConflictsResolveActivity.EXTRA_ACCOUNT, account);
                     mFileActivity.startActivity(i);
                 } else {
-                    FileStorageUtils.checkIfFileFinishedSaving(file);
-                    EventBus.getDefault().post(new SyncEventFinished(intent));
+                    if (file.isDown()) {
+                        FileStorageUtils.checkIfFileFinishedSaving(file);
+                        EventBus.getDefault().post(new SyncEventFinished(intent));
+                    }
                 }
                 mFileActivity.dismissLoadingDialog();
             }
