@@ -421,7 +421,6 @@
     <string name="pref_behaviour_entries_move">flyttas till Nextcloud-mapp</string>
     <string name="pref_behaviour_entries_delete_file">raderas</string>
     <string name="prefs_storage_path">Lagringsplats</string>
-    <string name="prefs_common">Vanlig</string>
 
     <string name="share_dialog_title">Dela</string>
     <string name="share_file">Dela %1$s</string>

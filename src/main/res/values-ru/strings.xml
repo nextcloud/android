@@ -477,7 +477,6 @@
     <string name="pref_behaviour_entries_move">перемещен в каталог приложения</string>
     <string name="pref_behaviour_entries_delete_file">удалён</string>
     <string name="prefs_storage_path">Путь к хранилищу</string>
-    <string name="prefs_common">Основные</string>
 
     <string name="share_dialog_title">Общий доступ</string>
     <string name="share_file">Общий ресурс «%1$s»</string>

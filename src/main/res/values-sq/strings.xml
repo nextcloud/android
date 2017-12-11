@@ -444,7 +444,6 @@
     <string name="pref_behaviour_entries_move">u kalua te dosja e aplikacionit</string>
     <string name="pref_behaviour_entries_delete_file">të fshira</string>
     <string name="prefs_storage_path">Rruga e hapsirës ruajtëse</string>
-    <string name="prefs_common">E përbashkët</string>
 
     <string name="share_dialog_title">Ndarje me të tjerët</string>
     <string name="share_file">Ndajeni %1$s</string>

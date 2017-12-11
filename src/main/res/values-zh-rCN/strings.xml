@@ -437,7 +437,6 @@
     <string name="pref_behaviour_entries_move">移动到应用文件夹</string>
     <string name="pref_behaviour_entries_delete_file">删除</string>
     <string name="prefs_storage_path">存储路径</string>
-    <string name="prefs_common">普通</string>
 
     <string name="share_dialog_title">共享</string>
     <string name="share_file">分享 %1$s</string>

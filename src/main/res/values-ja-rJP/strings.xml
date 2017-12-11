@@ -334,7 +334,6 @@
     <string name="pref_behaviour_entries_move">アプリフォルダに移動</string>
     <string name="pref_behaviour_entries_delete_file">削除されました</string>
     <string name="prefs_storage_path">ストレージの場所</string>
-    <string name="prefs_common">共通の</string>
 
     <string name="share_dialog_title">共有</string>
     <string name="share_file">%1$s を共有</string>

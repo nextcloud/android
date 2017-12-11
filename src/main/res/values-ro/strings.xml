@@ -294,7 +294,6 @@
     <string name="pref_behaviour_entries_move">mutate în dosarul aplicației</string>
     <string name="pref_behaviour_entries_delete_file">șterge</string>
     <string name="prefs_storage_path">Calea către spațiul de depozitare</string>
-    <string name="prefs_common">General</string>
 
     <string name="share_dialog_title">Partajare</string>
     <string name="share_file">Partajare %1$s</string>
