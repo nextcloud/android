@@ -118,13 +118,10 @@
     <string name="common_yes">是</string>
     <string name="common_no">否</string>
     <string name="common_ok">好</string>
-    <string name="common_remove_upload">刪除上傳</string>
-    <string name="common_retry_upload">重試上傳</string>
     <string name="common_cancel_sync">取消同步</string>
     <string name="common_cancel">取消</string>
     <string name="common_back">返回</string>
     <string name="common_save">儲存</string>
-    <string name="common_error">錯誤</string>
     <string name="common_loading">載入中&#8230;</string>
     <string name="common_unknown">未知</string>
     <string name="common_error_unknown">未知的錯誤</string>
@@ -147,9 +144,7 @@
     <string name="uploads_view_group_finished_uploads">已上傳</string>
     <string name="uploads_view_upload_status_succeeded">完成</string>
     <string name="uploads_view_upload_status_cancelled">已取消</string>
-    <string name="uploads_view_upload_status_paused">已暫停</string>
     <string name="uploads_view_upload_status_failed_connection_error">連線錯誤</string>
-    <string name="uploads_view_upload_status_failed_retry">將在稍後重試上傳</string>
     <string name="uploads_view_upload_status_failed_credentials_error">認證錯誤</string>
     <string name="uploads_view_upload_status_failed_folder_error">資料夾錯誤</string>
     <string name="uploads_view_upload_status_failed_file_error">檔案錯誤</string>
@@ -234,7 +229,6 @@
 	<string name="auth_expired_oauth_token_toast">你的登入授權已過期，請再次登入</string>
 	<string name="auth_expired_basic_auth_toast">請輸入目前的密碼</string>
 	<string name="auth_expired_saml_sso_token_toast">您的工作階段已失效，請重新連線</string>
-	<string name="auth_unsupported_auth_method">伺服器不支援這種認證方式</string>
 	<string name="auth_unsupported_multiaccount">%1$s 不支援多個賬戶</string>
 	<string name="auth_fail_get_user_name">你的伺服器並未回應正確的使用者ID，請聯繫管理人員。</string>
 	<string name="auth_can_not_auth_against_server">無法與伺服器認證</string>
@@ -249,7 +243,6 @@
     <string name="remove_success_msg">已刪除</string>
     <string name="remove_fail_msg">刪除失敗</string>
     <string name="rename_dialog_title">輸入新名稱</string>
-    <string name="sync_file_fail_msg">無法檢查遠端檔案</string>
     <string name="sync_file_nothing_to_do_msg">檔案已同步</string>
     <string name="create_dir_fail_msg">無法新增資料夾</string>
     <string name="filename_forbidden_characters">禁止使用的字元： / \\ &lt; &gt; : \" | ? *</string>
@@ -294,7 +287,6 @@
     <string name="placeholder_media_time">12:23:45</string>
 
     <string name="auto_upload_on_wifi">只透過 WiFi 上傳</string>
-    <string name="instant_video_upload_on_charging">只在充電時上傳</string>
     <string name="instant_upload_on_charging">只在充電時上傳</string>
     <string name="instant_upload_path">/InstantUpload</string>
     <string name="auto_upload_path">自動上傳</string>
@@ -349,7 +341,6 @@
     <string name="downloader_download_file_not_found">這個檔案已經不存在於伺服器中</string>
 
     <string name="file_migration_dialog_title">更新儲存路徑</string>
-    <string name="file_migration_finish_button">完成</string>
     <string name="file_migration_preparing">準備移動&#8230;</string>
     <string name="file_migration_checking_destination">檢查目的地&#8230;</string>
     <string name="file_migration_saving_accounts_configuration">正在儲存&#8230;的帳戶設置</string>
@@ -406,9 +397,6 @@
 
     <string name="sync_folder_failed_content">%1$s 資料夾的同步作業未完成</string>
 
-	<string name="shared_subject_header">已分享</string>
-	<string name="with_you_subject_header">與你</string>
-    
 	<string name="subject_user_shared_with_you">%1$s 分享了 \"%2$s\" 給您</string>
     <string name="subject_shared_with_you">\"%1$s\" 已經與您分享</string>
 
@@ -423,8 +411,6 @@
 
     <string name="prefs_instant_behaviour_dialogTitle">原始的檔案將會&#8230;</string>
     <string name="prefs_instant_behaviour_title">原始的檔案將會&#8230;</string>
-    <string name="upload_copy_files">複製檔案</string>
-    <string name="upload_move_files">移動檔案</string>
     <string name="select_all">全選</string>
     <string name="deselect_all">取消全選</string>
 
@@ -465,8 +451,6 @@
     <string name="share_privilege_can_edit_create">建立</string>
     <string name="share_privilege_can_edit_change">更動</string>
     <string name="share_privilege_can_edit_delete">刪除</string>
-    <string name="edit_share_unshare">停止分享</string>
-    <string name="edit_share_done">完成</string>
 
     <string name="action_switch_grid_view">網格檢視</string>
     <string name="action_switch_list_view">清單檢視</string>
@@ -474,11 +458,11 @@
     <string name="manage_space_title">管理空間</string>
     <string name="manage_space_description">來自%1$s的設定，資料庫與伺服器憑證相關資料將被永久刪除，已下載的檔案將不會變動，此過程需要花費一些時間。</string>
     <string name="manage_space_clear_data">清除資料</string>
-    <string name="manage_space_error">某些檔案無法被刪除</string>
 
     <string name="permission_storage_access">上傳與下載檔案需要額外的權限。</string>
     <string name="local_file_not_found_toast">本地檔案系統中找不到檔案。</string>
     <string name="maintenance_mode">伺服器正處於維護模式。</string>
+
     <string name="uploads_view_upload_status_waiting_for_charging">等待充電</string>
     <string name="actionbar_search">搜尋</string>
     <string name="files_drop_not_supported">這是 Nextcloud 的功能，請更新</string>
@@ -498,7 +482,6 @@
     <string name="participate_contribute_translate_text">應用程式</string>
     <string name="move_to">移動到&#8230;</string>
     <string name="copy_to">複製到&#8230;</string>
-    <string name="synced_folders_settings">設定</string>
     <plurals name="items_selected_count">
         <item quantity="other">%d 已選</item>
     </plurals>
@@ -506,8 +489,6 @@
     <string name="upload_file_dialog_filename">檔案名稱</string>
     <string name="upload_file_dialog_filetype">檔案類型</string>
     <string name="storage_description_default">預設</string>
-    <string name="storage_description_sd_no">SD 卡 %1$d</string>
-    <string name="storage_description_unknown">未知</string>
 
     <string name="welcome_feature_2_title">分身</string>
     <string name="welcome_feature_2_text">連接您的所有的雲端</string>
@@ -516,7 +497,6 @@
     <string name="whats_new_skip">略過</string>
 
     <!-- User information -->
-    <string name="user_info_full_name">全名</string>
     <string name="user_info_email">E-mail</string>
     <string name="user_info_phone">電話號碼</string>
     <string name="user_info_address">地址</string>
@@ -524,10 +504,8 @@
     <string name="user_info_twitter">Twitter
 </string>
 
-    <string name="user_information_description">使用者資訊</string>
     <!-- Activities -->
     <string name="activities_no_results_headline">尚未啟動</string>
-    <string name="webview_error">發生錯誤</string>
     <string name="prefs_category_about">關於</string>
 
     <string name="actionbar_contacts">備份聯絡人</string>
@@ -536,15 +514,12 @@
     <string name="contacts_automatic_backup">自動備份</string>
     <string name="contacts_last_backup">最新備份</string>
     <string name="contacts_read_permission">需要讀取聯絡人清單的權限</string>
-    <string name="contacts_write_permission">需要改變聯絡人清單的權限</string>
-    <string name="contactlist_title">恢復聯絡人</string>
     <string name="contactlist_account_chooser_title">選擇帳戶以匯入</string>
     <string name="contacts_preference_choose_date">選擇日期</string>
     <string name="contacts_preference_backup_never">永不</string>
     <string name="contacts_preferences_no_file_found">無檔案</string>
     <string name="contacts_preferences_something_strange_happened">找不到您最新的備份</string>
     <!-- Notifications -->
-    <string name="new_notification_received">已收到新通知</string>
     <string name="drawer_logout">登出</string>
     <string name="privacy">隱私權</string>
     <string name="file_not_found">找不到檔案！</string>

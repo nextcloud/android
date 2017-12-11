@@ -123,13 +123,10 @@
     <string name="common_yes">Ja</string>
     <string name="common_no">Nei</string>
     <string name="common_ok">OK</string>
-    <string name="common_remove_upload">Slett opplastning</string>
-    <string name="common_retry_upload">Prøv å laste opp igjen.</string>
     <string name="common_cancel_sync">Avbryt synkronisering</string>
     <string name="common_cancel">Avbryt</string>
     <string name="common_back">Tilbake</string>
     <string name="common_save">Lagre</string>
-    <string name="common_error">Feil</string>
     <string name="common_loading">Laster &#8230;</string>
     <string name="common_unknown">ukjent</string>
     <string name="common_error_unknown">Ukjent feil</string>
@@ -157,9 +154,7 @@
     <string name="uploads_view_group_finished_uploads">Opplastet</string>
     <string name="uploads_view_upload_status_succeeded">Ferdig</string>
     <string name="uploads_view_upload_status_cancelled">Avbrutt</string>
-    <string name="uploads_view_upload_status_paused">Pauset</string>
     <string name="uploads_view_upload_status_failed_connection_error">Tilkoblingsfeil</string>
-    <string name="uploads_view_upload_status_failed_retry">Nytt forsøk på opplasting vil settes i verk snart</string>
     <string name="uploads_view_upload_status_failed_credentials_error">Legitimasjonsfeil</string>
     <string name="uploads_view_upload_status_failed_folder_error">Mappefeil</string>
     <string name="uploads_view_upload_status_failed_file_error">Filfeil</string>
@@ -262,7 +257,6 @@
 	<string name="auth_expired_basic_auth_toast">Legg inn nåværende passord</string>
 	<string name="auth_expired_saml_sso_token_toast">Økta di har gått ut. Koble til igjen</string>
 	<string name="auth_connecting_auth_server">Kobler til autentiseringstjener&#8230;</string>
-	<string name="auth_unsupported_auth_method">Tjeneren støtter ikke denne autorisasjonsmetoden</string>
 	<string name="auth_unsupported_multiaccount">%1$s støtter ikke flere kontoer</string>
 	<string name="auth_fail_get_user_name">Tjeneren din svarer ikke med korrekt bruker-ID, ta kontakt med en administrator </string>
 	<string name="auth_can_not_auth_against_server">Kan ikke autentisere mot denne tjeneren</string>
@@ -284,7 +278,6 @@
     <string name="rename_dialog_title">Skriv inn et nytt navn</string>
     <string name="rename_local_fail_msg">Kunne ikke endre navn på lokal kopi, prøv et annet navn</string>
     <string name="rename_server_fail_msg">Klarte ikke å gi tjeneren nytt navn</string>
-    <string name="sync_file_fail_msg">Eksterne filer kunne ikke sjekkes</string>
     <string name="sync_file_nothing_to_do_msg">filinnhold er allerede synkronisert</string>
     <string name="create_dir_fail_msg">Mappe kunne ikke opprettes</string>
     <string name="filename_forbidden_characters">Forbudte tegn: / \\ &lt; &gt; : \" | ? *</string>
@@ -292,7 +285,6 @@
     <string name="filename_empty">Filnavn kan ikke være tomt</string>
     <string name="wait_a_moment">Vent et øyeblikk&#8230;</string>
     <string name="wait_checking_credentials">Sjekker lagrede påloggingsdetaljer</string>
-    <string name="filedisplay_unexpected_bad_get_content">Uventet problem, velg filen fra et annet program</string>
     <string name="filedisplay_no_file_selected">Ingen fil ble valgt</string>
     <string name="activity_chooser_title">Send lenke til &#8230;</string>
     <string name="wait_for_tmp_copy_from_private_storage">Kopierer fil fra privat lager</string>
@@ -335,7 +327,6 @@
     <string name="placeholder_media_time">12:23:45</string>
 
     <string name="auto_upload_on_wifi">Last kun opp på Wi-Fi</string>
-    <string name="instant_video_upload_on_charging">Last kun opp under lading</string>
     <string name="instant_upload_on_charging">Last kun opp under lading</string>
     <string name="instant_upload_path">/Direkteopplasting</string>
     <string name="auto_upload_path">/Auto-opplasting</string>
@@ -392,7 +383,6 @@
     <string name="downloader_download_file_not_found">Filen finnes ikke på tjeneren lenger</string>
 
     <string name="file_migration_dialog_title">Oppdaterer sti for lagring</string>
-    <string name="file_migration_finish_button">Fullfør</string>
     <string name="file_migration_preparing">Forebereder migrering&#8230;</string>
     <string name="file_migration_checking_destination">Sjekker mål&#8230;</string>
     <string name="file_migration_saving_accounts_configuration">Lagrer kontokonfigurasjon&#8230;</string>
@@ -450,9 +440,6 @@
 
     <string name="sync_folder_failed_content">Synkronisering av %1$s mappe kunne ikke fullføres</string>
 
-	<string name="shared_subject_header">delt</string>
-	<string name="with_you_subject_header">med deg</string>
-    
 	<string name="subject_user_shared_with_you">%1$s delte \"%2$s\" med deg</string>
     <string name="subject_shared_with_you">\"%1$s\" er blitt delt med deg</string>
 
@@ -475,8 +462,6 @@
 
     <string name="prefs_instant_behaviour_dialogTitle">Opprinnelig fil vil bli&#8230;</string>
     <string name="prefs_instant_behaviour_title">Opprinnelig fil vil bli&#8230;</string>
-    <string name="upload_copy_files">Kopier fil</string>
-    <string name="upload_move_files">Flytt fil</string>
     <string name="select_all">Velg alle</string>
     <string name="deselect_all">Fjern all markering</string>
 
@@ -518,8 +503,6 @@
     <string name="share_privilege_can_edit_create">opprette</string>
     <string name="share_privilege_can_edit_change">endre</string>
     <string name="share_privilege_can_edit_delete">slett</string>
-    <string name="edit_share_unshare">Avslutt deling</string>
-    <string name="edit_share_done">ferdig</string>
 
     <string name="action_retry_uploads">Prøv å laste opp igjen.</string>
     <string name="action_clear_failed_uploads">Fjern feilede opplastinger</string>
@@ -532,14 +515,12 @@
     <string name="manage_space_title">Håndter plass</string>
     <string name="manage_space_description">Innstillinger, database og tjenersertifikater fra %1$s\'s filer vil bli slettet. \n\nNedlastede filer blir urørt.\n\nDette kan ta noe tid.</string>
     <string name="manage_space_clear_data">Nullstill data</string>
-    <string name="manage_space_error">Noen filer kunne ikke fjernes.</string>
 
     <string name="permission_storage_access">Flere tillatelser trengs for å laste opp og ned filer.</string>
     <string name="local_file_not_found_toast">Filen ble ikke funnet i lokalt filsystem</string>
     <string name="confirmation_remove_files_alert">Vil du virkelig fjerne de valgte elementene?</string>
     <string name="confirmation_remove_folders_alert">Vil du virkelig fjerne de valgte elementene og dets innhold?</string>
     <string name="maintenance_mode">Tjener i vedlikeholdsmodus</string>
-    <string name="lock_failed">Kunne ikke låse filen</string>
 
     <string name="uploads_view_upload_status_waiting_for_charging">Venter på lading av enhet.</string>
     <string name="actionbar_search">Søk</string>
@@ -573,16 +554,12 @@
     <string name="synced_folders_loading_folders">Laster mapper&#8230;</string>
     <string name="synced_folders_no_results">Ingen mediamapper funnet.</string>
     <string name="synced_folders_preferences">Alternativer for auto-opplasting</string>
-    <string name="synced_folders_settings">Innstillinger</string>
     <string name="synced_folders_new_info">Umiddelbar opplasting er fullstendig omarbeidet. Du må sette opp auto-opplasting på nytt fra hovedmenyen.\n\nKos deg med den nye og utvidede auto-opplastingen.</string>
     <string name="synced_folders_preferences_folder_path">For %1$s</string>
     <plurals name="items_selected_count">
         <item quantity="one">%d valgt</item>
         <item quantity="other">%d valgte</item>
     </plurals>
-
-    <string name="activity_list_loading_activity">Laster inn aktiviteter&#8230;</string>
-    <string name="activity_list_no_results">Ingen aktiviteter funnet.</string>
 
     <string name="notifications_loading_activity">Laster inn varsler&#8230;</string>
     <string name="notifications_no_results_headline">Ingen varsler</string>
@@ -596,8 +573,6 @@
     <string name="upload_file_dialog_filetype_googlemap_shortcut">Google Maps snarveisfil (%s)</string>
 
     <string name="storage_description_default">Standard</string>
-    <string name="storage_description_sd_no">SD-kort %1$d</string>
-    <string name="storage_description_unknown">Ukjent</string>
 
     <!-- What's new feature and texts to show -->
     <string name="whats_new_title">Hva er nytt i %1$s</string>
@@ -630,20 +605,17 @@
     <string name="fingerprint_unknown">Gjenkjenner ikke finger</string>
 
     <!-- User information -->
-    <string name="user_info_full_name">Fullt navn</string>
     <string name="user_info_email">E-post</string>
     <string name="user_info_phone">Telefonnummer</string>
     <string name="user_info_address">Adresse</string>
     <string name="user_info_website">Nettsted</string>
     <string name="user_info_twitter">Twitter</string>
 
-    <string name="user_information_description">Brukerinformasjon</string>
     <string name="user_information_retrieval_error">Feil ved innhenting av brukerinformasjon</string>
 
     <!-- Activities -->
     <string name="activities_no_results_headline">Ingen aktivitet enda</string>
     <string name="activities_no_results_message">Denne strømmen vil vise hendelser som\nf.eks. innlegging, endring og deling</string>
-    <string name="webview_error">Feil oppstod</string>
     <string name="prefs_category_about">Om</string>
 
     <string name="actionbar_contacts">Sikkerhetskopier kontakter</string>
@@ -652,8 +624,6 @@
     <string name="contacts_automatic_backup">Automatisk sikkerhetskopiering</string>
     <string name="contacts_last_backup">Siste sikkerhetskopi</string>
     <string name="contacts_read_permission">Lesetilgang til kontaktliste trengs</string>
-    <string name="contacts_write_permission">Skrivetilgang til kontaktliste trengs</string>
-    <string name="contactlist_title">Gjenopprett kontakter</string>
     <string name="contaclist_restore_selected">Gjenopprett valgte kontakter</string>
     <string name="contactlist_account_chooser_title">Velg konto å importere</string>
     <string name="contactlist_no_permission">Ingen tilgang, ingenting importert!</string>
@@ -665,7 +635,6 @@
     <string name="contacts_preferences_import_scheduled">Importering planlagt og i snarlig effektuering</string>
 
     <!-- Notifications -->
-    <string name="new_notification_received">Nytt varsel mottatt</string>
     <string name="drawer_logout">Utlogging</string>
     <string name="picture_set_as_no_app">Fant ikke noe program å sette bilder med.</string>
     <string name="privacy">Personvern</string>

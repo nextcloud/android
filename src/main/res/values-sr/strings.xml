@@ -123,13 +123,10 @@
     <string name="common_yes">Да</string>
     <string name="common_no">Не</string>
     <string name="common_ok">У реду</string>
-    <string name="common_remove_upload">Обриши отпремање</string>
-    <string name="common_retry_upload">Покушај отпремање поново</string>
     <string name="common_cancel_sync">Откажи синхронизацију</string>
     <string name="common_cancel">Откажи</string>
     <string name="common_back">Назад</string>
     <string name="common_save">Сачувај</string>
-    <string name="common_error">Грешка</string>
     <string name="common_loading">Учитавам &#8230;</string>
     <string name="common_unknown">непознато</string>
     <string name="common_error_unknown">Непозната грешка</string>
@@ -157,9 +154,7 @@
     <string name="uploads_view_group_finished_uploads">Отпремљено</string>
     <string name="uploads_view_upload_status_succeeded">Завршено</string>
     <string name="uploads_view_upload_status_cancelled">Отказано</string>
-    <string name="uploads_view_upload_status_paused">Паузирано</string>
     <string name="uploads_view_upload_status_failed_connection_error">Грешка у повезивању</string>
-    <string name="uploads_view_upload_status_failed_retry">Отпремања ће бити покушана поново ускоро</string>
     <string name="uploads_view_upload_status_failed_credentials_error">Грешка у налог/лозинка</string>
     <string name="uploads_view_upload_status_failed_folder_error">Грешка фасцикле</string>
     <string name="uploads_view_upload_status_failed_file_error">Грешка са фајлом</string>
@@ -264,7 +259,6 @@
 	<string name="auth_expired_basic_auth_toast">Унесите тренутну лозинку</string>
 	<string name="auth_expired_saml_sso_token_toast">Сесија је истекла. Повежите се поново</string>
 	<string name="auth_connecting_auth_server">Повезивање на идентификациони сервер &#8230;</string>
-	<string name="auth_unsupported_auth_method">Сервер не подржава овај начин аутентификације</string>
 	<string name="auth_unsupported_multiaccount">%1$s не подржава вишеструке налоге</string>
 	<string name="auth_fail_get_user_name">Ваш сервер не враћа исправну идентификацију корисника, контактирајте администратора</string>
 	<string name="auth_can_not_auth_against_server">Не могу да аутентификујем са овим сервером</string>
@@ -286,7 +280,6 @@
     <string name="rename_dialog_title">Унесите нов назив</string>
     <string name="rename_local_fail_msg">Локална копија не може да се преименује, пробајте друго име</string>
     <string name="rename_server_fail_msg">Не могу да дам серверу ново име</string>
-    <string name="sync_file_fail_msg">Не могу да проверим удаљени фајл</string>
     <string name="sync_file_nothing_to_do_msg">Садржај је већ синхронизован</string>
     <string name="create_dir_fail_msg">Не могу да направим фасциклу</string>
     <string name="filename_forbidden_characters">Забрањени знакови: / \\ &lt; &gt; : \" | ? *</string>
@@ -294,7 +287,6 @@
     <string name="filename_empty">Назив фајла не може бити празан</string>
     <string name="wait_a_moment">Сачекајте мало &#8230;</string>
     <string name="wait_checking_credentials">Проверавам сачуване акредитиве</string>
-    <string name="filedisplay_unexpected_bad_get_content">Неочекивани проблем, одаберите фајл из друге апликације</string>
     <string name="filedisplay_no_file_selected">Није изабран ниједан фајл</string>
     <string name="activity_chooser_title">Пошаљи везу &#8230;</string>
     <string name="wait_for_tmp_copy_from_private_storage">Копирам фајл из приватног складишта</string>
@@ -337,7 +329,6 @@
     <string name="placeholder_media_time">12:23:45</string>
 
     <string name="auto_upload_on_wifi">Отпремај само на Wi-Fi мрежи</string>
-    <string name="instant_video_upload_on_charging">Отпремај само на пуњењу</string>
     <string name="instant_upload_on_charging">Отпремај само на пуњењу</string>
     <string name="instant_upload_path">/InstantUpload</string>
     <string name="auto_upload_path">/Аутоматска отпремања</string>
@@ -394,7 +385,6 @@
     <string name="downloader_download_file_not_found">Фајл није више доступан на серверу</string>
 
     <string name="file_migration_dialog_title">Ажурирам путању до складишта</string>
-    <string name="file_migration_finish_button">Заврши</string>
     <string name="file_migration_preparing">Припремам пребацивање &#8230;</string>
     <string name="file_migration_checking_destination">Проверавам одредиште &#8230;</string>
     <string name="file_migration_saving_accounts_configuration">Чувам подешавања налога &#8230;</string>
@@ -452,9 +442,6 @@
 
     <string name="sync_folder_failed_content">Не могу да довршим синхронизацију фасцикле %1$s</string>
 
-	<string name="shared_subject_header">дељено</string>
-	<string name="with_you_subject_header">са вама</string>
-    
 	<string name="subject_user_shared_with_you">%1$s подели „%2$s“ са вама</string>
     <string name="subject_shared_with_you">„%1$s“ је подељен са вама</string>
 
@@ -479,8 +466,6 @@
 
     <string name="prefs_instant_behaviour_dialogTitle">Оригинални фајл ће бити &#8230;</string>
     <string name="prefs_instant_behaviour_title">Оригинални фајл ће бити &#8230;</string>
-    <string name="upload_copy_files">Копирај фајл</string>
-    <string name="upload_move_files">Премести фајл</string>
     <string name="select_all">Означи све</string>
     <string name="deselect_all">Поништи цео избор</string>
 
@@ -522,8 +507,6 @@
     <string name="share_privilege_can_edit_create">направи</string>
     <string name="share_privilege_can_edit_change">измени</string>
     <string name="share_privilege_can_edit_delete">обрише</string>
-    <string name="edit_share_unshare">Прекини дељење</string>
-    <string name="edit_share_done">завршено</string>
 
     <string name="action_retry_uploads">Понови неуспела отпремања</string>
     <string name="action_clear_failed_uploads">Избриши неуспела отпремања</string>
@@ -536,14 +519,12 @@
     <string name="manage_space_title">Управљање простором</string>
     <string name="manage_space_description">Подешавања, база и серверски сертификати од података са %1$s ће бити заувек обрисани. \n\nВећ скинути фајлови неће бити дирани.\n\nОво може потрајати.</string>
     <string name="manage_space_clear_data">Очисти податке</string>
-    <string name="manage_space_error">Неки фајлови нису могли бити обрисани.</string>
 
     <string name="permission_storage_access">Додатне привилегије потребне да се отпремају и скидају фајлови.</string>
     <string name="local_file_not_found_toast">Фајл није нађен у локалном систему фајлова</string>
     <string name="confirmation_remove_files_alert">Да ли стварно желите да обришете означене ставке?</string>
     <string name="confirmation_remove_folders_alert">Да ли стварно желите да обришете означене ставке и сав њихов садржај?</string>
     <string name="maintenance_mode">Сервер у режиму одржавања</string>
-    <string name="lock_failed">Неуспело закључавање фајла</string>
 
     <string name="uploads_view_upload_status_waiting_for_charging">Чекам пуњење</string>
     <string name="actionbar_search">Претрага</string>
@@ -577,7 +558,6 @@
     <string name="synced_folders_loading_folders">Учитавам фасцикле &#8230;</string>
     <string name="synced_folders_no_results">Нису пронађене мултимедијалне фасцикле.</string>
     <string name="synced_folders_preferences">Подешавања аутоматског отпремања</string>
-    <string name="synced_folders_settings">Подешавања</string>
     <string name="synced_folders_new_info">Брзо отпремање је скроз редизајнирано. Поново подесите Ваша аутоматска отпремања из главног менија.\n\nУживајте у новом аутоматском отпремању.</string>
     <string name="synced_folders_preferences_folder_path">За %1$s</string>
     <plurals name="items_selected_count">
@@ -585,9 +565,6 @@
         <item quantity="few">%d одабрана</item>
         <item quantity="other">%d одабрано</item>
     </plurals>
-
-    <string name="activity_list_loading_activity">Учитавам активности &#8230;</string>
-    <string name="activity_list_no_results">Активности нису пронађене.</string>
 
     <string name="notifications_loading_activity">Учитавам обавештења &#8230;</string>
     <string name="notifications_no_results_headline">Нема обавештења</string>
@@ -601,8 +578,6 @@
     <string name="upload_file_dialog_filetype_googlemap_shortcut">Пречица Гугл мапа (%s)</string>
 
     <string name="storage_description_default">Подразумевано</string>
-    <string name="storage_description_sd_no">SD картица %1$d</string>
-    <string name="storage_description_unknown">Непознато</string>
 
     <!-- What's new feature and texts to show -->
     <string name="whats_new_title">Шта је ново у %1$s</string>
@@ -635,20 +610,17 @@
     <string name="fingerprint_unknown">Прст није препознат</string>
 
     <!-- User information -->
-    <string name="user_info_full_name">Пуно име</string>
     <string name="user_info_email">Адреса е-поште</string>
     <string name="user_info_phone">Број телефона</string>
     <string name="user_info_address">Адреса</string>
     <string name="user_info_website">Сајт</string>
     <string name="user_info_twitter">Твитер</string>
 
-    <string name="user_information_description">Корисничке информације</string>
     <string name="user_information_retrieval_error">Грешка при дохватању корисничких информација</string>
 
     <!-- Activities -->
     <string name="activities_no_results_headline">Још нема активности</string>
     <string name="activities_no_results_message">Овде ће се приказати догађаји попут\nдодавања, измена или дељења</string>
-    <string name="webview_error">Дошло је до грешке</string>
     <string name="prefs_category_about">О програму</string>
 
     <string name="actionbar_contacts">Направите резервну копију контаката</string>
@@ -657,8 +629,6 @@
     <string name="contacts_automatic_backup">Аутоматско прављење резервне копије</string>
     <string name="contacts_last_backup">Последња резервна копија</string>
     <string name="contacts_read_permission">Потребне привилегије за читање листе контаката</string>
-    <string name="contacts_write_permission">Потребне привилегије за измену листе контаката</string>
-    <string name="contactlist_title">Поврати контакте</string>
     <string name="contaclist_restore_selected">Поврати означене контакте</string>
     <string name="contactlist_account_chooser_title">Одаберите налоге за увоз</string>
     <string name="contactlist_no_permission">Није дата ниједна привилегија, ништа није увезено!</string>
@@ -670,7 +640,6 @@
     <string name="contacts_preferences_import_scheduled">Увожење је заказано и почеће ускоро</string>
 
     <!-- Notifications -->
-    <string name="new_notification_received">Примљено ново обавештење</string>
     <string name="drawer_logout">Одјавите се</string>
     <string name="picture_set_as_no_app">Ниједна апликација није нађена за постављање слике!</string>
     <string name="privacy">Приватност</string>

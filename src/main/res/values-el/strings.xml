@@ -118,13 +118,10 @@
     <string name="common_yes">Ναι</string>
     <string name="common_no">Όχι</string>
     <string name="common_ok">Εντάξει</string>
-    <string name="common_remove_upload">Διαγραφή μεταφόρτωσης</string>
-    <string name="common_retry_upload">Επανάληψη μεταφόρτωσης</string>
     <string name="common_cancel_sync">Ακύρωση συγχρονισμού</string>
     <string name="common_cancel">Ακύρωση</string>
     <string name="common_back">Επιστροφή</string>
     <string name="common_save">Αποθήκευση</string>
-    <string name="common_error">Σφάλμα</string>
     <string name="common_loading">Φόρτωση &#8230;</string>
     <string name="common_unknown">άγνωστο</string>
     <string name="common_error_unknown">Άγνωστο σφάλμα</string>
@@ -150,9 +147,7 @@
     <string name="uploads_view_group_finished_uploads">Μεταφορτώθηκε</string>
     <string name="uploads_view_upload_status_succeeded">Ολοκληρωμένες</string>
     <string name="uploads_view_upload_status_cancelled">Ακυρώθηκαν</string>
-    <string name="uploads_view_upload_status_paused">Παύθηκαν</string>
     <string name="uploads_view_upload_status_failed_connection_error">Σφάλμα σύνδεσης</string>
-    <string name="uploads_view_upload_status_failed_retry">Η μεταφόρτωση θα επαναληφθεί σύντομα</string>
     <string name="uploads_view_upload_status_failed_credentials_error">Σφάλμα διαπιστευτηρίων</string>
     <string name="uploads_view_upload_status_failed_folder_error">Σφάλμα φακέλου</string>
     <string name="uploads_view_upload_status_failed_file_error">Σφάλμα αρχείου</string>
@@ -233,7 +228,6 @@
 	<string name="auth_expired_basic_auth_toast">Παρακαλούμε εισάγετε το τρέχον συνθηματικό</string>
 	<string name="auth_expired_saml_sso_token_toast">Η συνεδρία σας έληξε. Παρακαλούμε συνδεθείτε ξανά</string>
 	<string name="auth_connecting_auth_server">Σύνδεση με το διακομιστή πιστοποίησης&#8230;</string>
-	<string name="auth_unsupported_auth_method">Ο διακομιστής δεν υποστηρίζει αυτή τη μέθοδο πιστοποίησης</string>
 	<string name="auth_unsupported_multiaccount">Ο %1$s  δεν υποστηρίζει πολλαπλούς λογαριασμούς</string>
 	<string name="auth_fail_get_user_name">Ο διακομιστής σας δεν επιστρέφει το σωστό αναγνωριστικό χρήστη, παρακαλούμε επικοινωνήστε τον διαχειριστή</string>
 	<string name="auth_can_not_auth_against_server">Αδυαμία πιστοποίησης με αυτόν το διακομιστή</string>
@@ -248,7 +242,6 @@
     <string name="common_rename">Μετονομασία</string>
     <string name="confirmation_remove_local">Μόνο τοπικά</string>
     <string name="rename_dialog_title">Εισάγετε νέο όνομα</string>
-    <string name="sync_file_fail_msg">Αδυναμία ελέγχου του απομακρυσμένου αρχείου</string>
     <string name="sync_file_nothing_to_do_msg">Τα περιεχόμενα του αρχείου έχουν ήδη συγχρονιστεί</string>
     <string name="create_dir_fail_msg">Αδυναμία δημιουργίας φακέλου</string>
     <string name="filename_forbidden_characters">Απαγορευμένοι χαρακτήρες: / \\ &lt; &gt; : \" | ? *</string>
@@ -296,7 +289,6 @@
     <string name="placeholder_media_time">12:23:45</string>
 
     <string name="auto_upload_on_wifi">Μεταφόρτωση μόνο μέσω wifi</string>
-    <string name="instant_video_upload_on_charging">Μεταφόρτωση μόνο κατά τη διάρκεια φόρτισης</string>
     <string name="instant_upload_on_charging">Μεταφόρτωση μόνο κατά τη διάρκεια φόρτισης</string>
     <string name="instant_upload_path">/InstantUpload</string>
     <string name="auto_upload_path">/ΑυτόματηΜεταφόρτωση</string>
@@ -353,7 +345,6 @@
     <string name="downloader_download_file_not_found">Αυτό το αρχείο δεν είναι πια διαθέσιμο στον διακομιστή</string>
 
     <string name="file_migration_dialog_title">Ενημέρωση διαδρομής αποθηκευτικού χώρου</string>
-    <string name="file_migration_finish_button">Ολοκλήρωση</string>
     <string name="file_migration_preparing">Προετοιμασία για μεταφορά&#8230;</string>
     <string name="file_migration_checking_destination">Γίνεται έλεγχος προορισμού&#8230;</string>
     <string name="file_migration_saving_accounts_configuration">Γίνεται αποθήκευση ρυθμίσεων λογαριασμών&#8230;</string>
@@ -409,9 +400,6 @@
 
     <string name="sync_folder_failed_content">Ο συγχρονισμός του φακέλου %1$s δεν μπόρεσε να ολοκληρωθεί</string>
 
-	<string name="shared_subject_header">διαμοιρασμένα</string>
-	<string name="with_you_subject_header">με εσάς</string>
-    
 	<string name="subject_user_shared_with_you">Ο %1$s διαμοιράστηκε το \"%2$s\" με εσάς</string>
     <string name="subject_shared_with_you">Ο \"%1$s\" διαμοιράστηκε μαζί σας</string>
 
@@ -426,8 +414,6 @@
 
     <string name="prefs_instant_behaviour_dialogTitle">Το πρωτότυπο αρχείο θα είναι&#8230;</string>
     <string name="prefs_instant_behaviour_title">Το πρωτότυπο αρχείο θα είναι&#8230;</string>
-    <string name="upload_copy_files">Αντιγραφή αρχείου</string>
-    <string name="upload_move_files">Μετακίνηση αρχείου</string>
     <string name="select_all">Επιλογή όλων</string>
     <string name="deselect_all">Αναίρεση επιλογής όλων</string>
 
@@ -468,8 +454,6 @@
     <string name="share_privilege_can_edit_create">δημιουργία</string>
     <string name="share_privilege_can_edit_change">αλλαγή</string>
     <string name="share_privilege_can_edit_delete">διαγραφή</string>
-    <string name="edit_share_unshare">Διακοπή διαμοιρασμού</string>
-    <string name="edit_share_done">ολοκληρώθηκε</string>
 
     <string name="action_retry_uploads">Επανάληψη αποτυχημένων μεταφορτώσεων</string>
     <string name="action_clear_failed_uploads">Εκκαθάριση αποτυχημένων μεταφορτώσεων</string>
@@ -482,12 +466,10 @@
     <string name="manage_space_title">Διαχείριση χώρου</string>
     <string name="manage_space_description">Τα πιστοποιητικά ρυθμίσεων, βάσης δεδομένων και διακομιστή από τα δεδομένα %1$s\'s θα διαγραφούν μόνιμα.\n\nΤα ληφθέντα αρχεία θα παραμείνουν ανέπαφα.\n\nΑυτή η διαδικασία ενδεχομένως να διαρκέσει αρκετά.</string>
     <string name="manage_space_clear_data">Εκκαθάριση δεδομένων</string>
-    <string name="manage_space_error">Μερικά αρχεία δεν μπορούν να διαγραφούν.</string>
 
     <string name="permission_storage_access">Επιπλέον διακαιώματα απαιτούνται για μεταφόρτωση και λήψη αρχείων.</string>
     <string name="local_file_not_found_toast">Το αρχείο δεν βρέθηκε στο τοπικό σύστημα αρχείων</string>
     <string name="maintenance_mode">Ο διακομιστής είναι σε κατάσταση συντήρησης</string>
-    <string name="lock_failed">Αποτυχία κλειδώματος του αρχείου</string>
 
     <string name="uploads_view_upload_status_waiting_for_charging">Αναμονή για φόρτιση συσκευής</string>
     <string name="actionbar_search">Αναζήτηση</string>
@@ -517,16 +499,12 @@
     <string name="synced_folders_loading_folders">Φόρτωση φακέλων&#8230;</string>
     <string name="synced_folders_no_results">Δεν βρέθηκαν φάκελοι media .</string>
     <string name="synced_folders_preferences">Προτιμήσεις για αυτόματη μεταφόρτωση</string>
-    <string name="synced_folders_settings">Ρυθμίσεις</string>
     <string name="synced_folders_new_info">Η άμεση μεταφόρτωση έχει ανανεωθεί πλήρως. Ξανά ρυθμίστε την αυτόματη μεταφόρτωσή σας από το κύριο μενού. \ N \ nΑπολαύστε τη νέα και εκτεταμένη αυτόματη μεταφόρτωση.</string>
     <string name="synced_folders_preferences_folder_path">Για%1$s</string>
     <plurals name="items_selected_count">
         <item quantity="one">%d επιλέχθηκε</item>
         <item quantity="other">%d επιλέχθηκαν</item>
     </plurals>
-
-    <string name="activity_list_loading_activity">Γίνεται φόρτωση δραστηριοτήτων&#8230;</string>
-    <string name="activity_list_no_results">Δεν βρέθηκαν δραστηριότητες.</string>
 
     <string name="notifications_loading_activity">Φόρτωση ενημερώσεων&#8230;</string>
     <string name="notifications_no_results_headline">Καμία ειδοποίηση</string>
@@ -540,8 +518,6 @@
     <string name="upload_file_dialog_filetype_googlemap_shortcut">Αρχείο συντόμευσης Google Maps(%s)</string>
 
     <string name="storage_description_default">Προεπιλογή</string>
-    <string name="storage_description_sd_no">Κάρτα SD %1$d</string>
-    <string name="storage_description_unknown">Άγνωστο</string>
 
     <!-- What's new feature and texts to show -->
     <string name="whats_new_title">Τι νέο υπάρχει στο %1$s</string>
@@ -574,20 +550,17 @@
     <string name="fingerprint_unknown">Το αποτύπωμα δεν αναγνωρίστηκε</string>
 
     <!-- User information -->
-    <string name="user_info_full_name">Πλήρες όνομα</string>
     <string name="user_info_email">E-mail</string>
     <string name="user_info_phone">Αριθμός τηλεφώνου</string>
     <string name="user_info_address">Διεύθυνση</string>
     <string name="user_info_website">Ιστοσελίδα</string>
     <string name="user_info_twitter">Twitter</string>
 
-    <string name="user_information_description">Πληροφορίες χρήστη</string>
     <string name="user_information_retrieval_error">Σφάλμα ανάκτησης πληροφοριών χρήστη</string>
 
     <!-- Activities -->
     <string name="activities_no_results_headline">Καμία δραστηριότητα ακόμα</string>
     <string name="activities_no_results_message">Σε αυτήν τη ροή θα εμφανιστούν γενονότα όπως\nπροσθήκες, αλλαγές και κοινόχρηστα</string>
-    <string name="webview_error">Παρουσιάστηκε σφάλμα</string>
     <string name="prefs_category_about">Περί</string>
 
     <string name="actionbar_contacts">Εφεδρικό αντίγραφο επαφών</string>
@@ -596,8 +569,6 @@
     <string name="contacts_automatic_backup">Αυτόματο εφεδρικό αντίγραφο</string>
     <string name="contacts_last_backup">Τελευταίο αντίγραφο ασφαλείας</string>
     <string name="contacts_read_permission">Απαιτείτούνται δικαιώματα ανάγνωσης για τις επαφές</string>
-    <string name="contacts_write_permission">Απαιτείτούνται δικαιώματα εγγραφής για τις επαφές</string>
-    <string name="contactlist_title">Επαναφορά επαφών</string>
     <string name="contaclist_restore_selected">Επαναφορά επιλεγμένων επαφών</string>
     <string name="contactlist_account_chooser_title">Επιλογή λογαριασμού για εισαγωγή</string>
     <string name="contactlist_no_permission">Κανένα δικαίωμα δεν δόθηκε, τίποτε δεν εισήχθη</string>
@@ -608,7 +579,6 @@
     <string name="contacts_preferences_import_scheduled">Η εισαγωγή έχει προγραμματιστεί και θα ξεκινήσει σύντομα</string>
 
     <!-- Notifications -->
-    <string name="new_notification_received">Νέα ενημέρωση ελήφθη </string>
     <string name="drawer_logout">Έξοδος</string>
     <string name="picture_set_as_no_app">Δεν εντοπίστηκε εφαρμογή για συσχετισμό εικόνας!</string>
     <string name="privacy">Ιδιωτικότητα</string>

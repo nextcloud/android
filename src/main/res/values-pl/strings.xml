@@ -123,13 +123,10 @@
     <string name="common_yes">Tak</string>
     <string name="common_no">Nie</string>
     <string name="common_ok">OK</string>
-    <string name="common_remove_upload">Usuń upload</string>
-    <string name="common_retry_upload">Ponów wysyłanie</string>
     <string name="common_cancel_sync">Anuluj synchronizację</string>
     <string name="common_cancel">Anuluj</string>
     <string name="common_back">Wróć</string>
     <string name="common_save">Zapisz</string>
-    <string name="common_error">Błąd</string>
     <string name="common_loading">Wczytuję &#8230;</string>
     <string name="common_unknown">nieznane</string>
     <string name="common_error_unknown">Nieznany błąd</string>
@@ -157,9 +154,7 @@
     <string name="uploads_view_group_finished_uploads">Wysłane</string>
     <string name="uploads_view_upload_status_succeeded">Ukończono</string>
     <string name="uploads_view_upload_status_cancelled">Przerwano</string>
-    <string name="uploads_view_upload_status_paused">Zatrzymano</string>
     <string name="uploads_view_upload_status_failed_connection_error">Błąd połączenia</string>
-    <string name="uploads_view_upload_status_failed_retry">Wysyłanie będzie wkrótce ponowione</string>
     <string name="uploads_view_upload_status_failed_credentials_error">Błąd uwierzytelniania</string>
     <string name="uploads_view_upload_status_failed_folder_error">Błąd folderu</string>
     <string name="uploads_view_upload_status_failed_file_error">Błąd pliku</string>
@@ -254,7 +249,6 @@
 	<string name="auth_expired_basic_auth_toast">Podaj aktualne hasło</string>
 	<string name="auth_expired_saml_sso_token_toast">Twoja sesja wygasła. Proszę zaloguj się ponownie</string>
 	<string name="auth_connecting_auth_server">Łączenie z serwerem uwierzytelniania&#8230;</string>
-	<string name="auth_unsupported_auth_method">Serwer nie obsługuje tej metody autoryzacji</string>
 	<string name="auth_unsupported_multiaccount">%1$s nie wspiera wielu kont</string>
 	<string name="auth_fail_get_user_name">Twój serwer nie zwraca poprawnego identyfikatora użytkownika. Proszę skontaktuj się z administratorem.</string>
 	<string name="auth_can_not_auth_against_server">Błąd autoryzacji na tym serwerze</string>
@@ -276,7 +270,6 @@
     <string name="rename_dialog_title">Wprowadź nową nazwę</string>
     <string name="rename_local_fail_msg">Nie można zmienić nazwy kopii lokalnej, użyj innej nazwy</string>
     <string name="rename_server_fail_msg">Nie udało się nadać serwerowi nowej nazwy</string>
-    <string name="sync_file_fail_msg">Nie udało się sprawdzić zdalnego pliku</string>
     <string name="sync_file_nothing_to_do_msg">Zawartość pliku została już synchronizowana</string>
     <string name="create_dir_fail_msg">Nie udało się utworzyć folderu</string>
     <string name="filename_forbidden_characters">Znaki zabronione: / \\ &lt; &gt; : \" | ? *</string>
@@ -284,7 +277,6 @@
     <string name="filename_empty">Nazwa pliku nie może być pusta.</string>
     <string name="wait_a_moment">Proszę czekać&#8230;</string>
     <string name="wait_checking_credentials">Sprawdzanie danych</string>
-    <string name="filedisplay_unexpected_bad_get_content">Nieoczekiwany błąd, proszę wybrać plik z innej aplikacji</string>
     <string name="filedisplay_no_file_selected">Nie wybrano żadnego pliku</string>
     <string name="activity_chooser_title">Wyślij link do &#8230;</string>
     <string name="wait_for_tmp_copy_from_private_storage">Kopiowanie pliku z prywatnego zasobu</string>
@@ -327,7 +319,6 @@
     <string name="placeholder_media_time">12:23:45</string>
 
     <string name="auto_upload_on_wifi">Wysyłaj tylko przez Wi-Fi</string>
-    <string name="instant_video_upload_on_charging">Wysyłaj tylko podczas ładowania</string>
     <string name="instant_upload_on_charging">Wysyłaj tylko podczas ładowania</string>
     <string name="instant_upload_path">/InstantUpload</string>
     <string name="auto_upload_path">/AutoUpload</string>
@@ -384,7 +375,6 @@
     <string name="downloader_download_file_not_found">Ten plik nie jest już dostępny na serwerze</string>
 
     <string name="file_migration_dialog_title">Aktualizacja ścieżki przechowywania</string>
-    <string name="file_migration_finish_button">Koniec</string>
     <string name="file_migration_preparing">Przygotowywanie migracji&#8230;</string>
     <string name="file_migration_checking_destination">Sprawdzanie docelowe&#8230;</string>
     <string name="file_migration_saving_accounts_configuration">Zapisywanie konfiguracji konta&#8230;</string>
@@ -442,9 +432,6 @@
 
     <string name="sync_folder_failed_content">Synchronizacja folderu %1$s nie może zostać zakończona</string>
 
-	<string name="shared_subject_header">udostępniony</string>
-	<string name="with_you_subject_header">z tobą</string>
-    
 	<string name="subject_user_shared_with_you">%1$s wspólne \"%2$s\" z tobą</string>
     <string name="subject_shared_with_you">Udostępniono Ci \"%1$s\"</string>
 
@@ -459,8 +446,6 @@
 
     <string name="prefs_instant_behaviour_dialogTitle">Oryginalny plik zostanie&#8230;</string>
     <string name="prefs_instant_behaviour_title">Oryginalny plik zostanie&#8230;</string>
-    <string name="upload_copy_files">Kopiuj plik</string>
-    <string name="upload_move_files">Przenieś plik</string>
     <string name="select_all">Wybierz wszystko</string>
     <string name="deselect_all">Odznacz wszystkie</string>
 
@@ -502,8 +487,6 @@
     <string name="share_privilege_can_edit_create">utwórz</string>
     <string name="share_privilege_can_edit_change">zmiany</string>
     <string name="share_privilege_can_edit_delete">usuń</string>
-    <string name="edit_share_unshare">Cofnij udostępnianie</string>
-    <string name="edit_share_done">zakończono</string>
 
     <string name="action_retry_uploads">Ponów nieudane wysyłanie</string>
     <string name="action_clear_failed_uploads">Wyczyść nieudane wysyłanie</string>
@@ -516,14 +499,12 @@
     <string name="manage_space_title">Zarządzaj przestrzenią</string>
     <string name="manage_space_description">Ustawienia, baza danych i certyfikaty serwera %1$s zostaną trwale skasowane.\n\nPobrane pliki pozostaną na swoich miejscach.\n\nTen proces zajmie trochę czasu.</string>
     <string name="manage_space_clear_data">Wyczyść dane</string>
-    <string name="manage_space_error">Nie udało się usunąć niektórych plików.</string>
 
     <string name="permission_storage_access">Wymagane są dodatkowe uprawnienia do pobierania i wysyłania plików.</string>
     <string name="local_file_not_found_toast">Plik nie został znaleziony w lokalnym systemie plików</string>
     <string name="confirmation_remove_files_alert">Czy naprawdę chcesz usunąć zaznaczone elementy?</string>
     <string name="confirmation_remove_folders_alert">Czy naprawdę chcesz usunąć zaznaczone elementy oraz ich zawartość?</string>
     <string name="maintenance_mode">Serwer w trybie konserwacji</string>
-    <string name="lock_failed">Nie udało się zablokować pliku</string>
 
     <string name="uploads_view_upload_status_waiting_for_charging">Oczekiwanie na ładowanie urządzenia</string>
     <string name="actionbar_search">Wyszukaj</string>
@@ -557,7 +538,6 @@
     <string name="synced_folders_loading_folders">Pobieram foldery&#8230;</string>
     <string name="synced_folders_no_results">Nie znaleziono folderów multimedialnych</string>
     <string name="synced_folders_preferences">Preferencje automatycznego przesyłania</string>
-    <string name="synced_folders_settings">Ustawienia</string>
     <string name="synced_folders_new_info">Natychmiastowe przesłanie zostało udoskonalone. Ponownie skonfiguruj automatyczne przesyłanie z menu głównego.\n\nKorzystaj z nowego i rozszerzonego automatycznego przesyłania.</string>
     <string name="synced_folders_preferences_folder_path">Dla %1$s</string>
     <plurals name="items_selected_count">
@@ -566,9 +546,6 @@
         <item quantity="many">%d zaznaczonych</item>
         <item quantity="other">%d zaznaczonych</item>
     </plurals>
-
-    <string name="activity_list_loading_activity">Ładuję aktywności&#8230;</string>
-    <string name="activity_list_no_results">Nie znaleziono żadnych aktywności.</string>
 
     <string name="notifications_loading_activity">Ładuję powiadomienia&#8230;</string>
     <string name="notifications_no_results_headline">Brak powiadomień</string>
@@ -582,8 +559,6 @@
     <string name="upload_file_dialog_filetype_googlemap_shortcut">Skrót Google Maps file(%s)</string>
 
     <string name="storage_description_default">Domyślny</string>
-    <string name="storage_description_sd_no">karta SD %1$d</string>
-    <string name="storage_description_unknown">Nieznany</string>
 
     <!-- What's new feature and texts to show -->
     <string name="whats_new_title">Co nowego w %1$s</string>
@@ -616,20 +591,17 @@
     <string name="fingerprint_unknown">Nie rozpoznano odcisku palca</string>
 
     <!-- User information -->
-    <string name="user_info_full_name">Pełna nazwa</string>
     <string name="user_info_email">E-mail</string>
     <string name="user_info_phone">Numer telefonu</string>
     <string name="user_info_address">Adres</string>
     <string name="user_info_website">Strona WWW</string>
     <string name="user_info_twitter">Twitter</string>
 
-    <string name="user_information_description">Informacje użytkownika</string>
     <string name="user_information_retrieval_error">Błąd pobierania informacji użytkownika</string>
 
     <!-- Activities -->
     <string name="activities_no_results_headline">Brak aktywności</string>
     <string name="activities_no_results_message">Ten strumień pokaże zdarzenia jak\ndodatki, zmiany i udziały</string>
-    <string name="webview_error">Wystąpił błąd</string>
     <string name="prefs_category_about">O aplikacji</string>
 
     <string name="actionbar_contacts">Zrób kopię kontaktów</string>
@@ -638,8 +610,6 @@
     <string name="contacts_automatic_backup">Automatyczna kopia zapasowa</string>
     <string name="contacts_last_backup">Ostatnia kopia zapasowa</string>
     <string name="contacts_read_permission">Potrzebne uprawnienia do odczytu kontaktów</string>
-    <string name="contacts_write_permission">Potrzebne uprawnienia do modyfikacji kontaktów</string>
-    <string name="contactlist_title">Przywróć kontakty</string>
     <string name="contaclist_restore_selected">Przywróć wybrane kontakty</string>
     <string name="contactlist_account_chooser_title">Wybierz konto do zaimportiwania</string>
     <string name="contactlist_no_permission">Nie nadano uprawnień, nic nie zostało zaimportowane!</string>
@@ -651,7 +621,6 @@
     <string name="contacts_preferences_import_scheduled">Importowanie zostało zaplanowane i wkrótce zostanie uruchomione</string>
 
     <!-- Notifications -->
-    <string name="new_notification_received">Otrzymano nowe powiadomienie</string>
     <string name="drawer_logout">Wyloguj</string>
     <string name="picture_set_as_no_app">Nie znaleziono aplikacji do ustawienia obrazu!</string>
     <string name="privacy">Prywatność</string>

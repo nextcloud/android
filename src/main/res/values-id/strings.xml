@@ -118,12 +118,10 @@
     <string name="common_yes">Ya</string>
     <string name="common_no">Tidak</string>
     <string name="common_ok">Oke</string>
-    <string name="common_retry_upload">Unggah ulang</string>
     <string name="common_cancel_sync">Batalkan sinkron</string>
     <string name="common_cancel">Batal</string>
     <string name="common_back">Kembali</string>
     <string name="common_save">Simpan</string>
-    <string name="common_error">Kesalahan</string>
     <string name="common_loading">Memuat &#8230;</string>
     <string name="common_unknown">tidak diketahui</string>
     <string name="common_error_unknown">Kesalahan tidak diketahui</string>
@@ -149,9 +147,7 @@
     <string name="uploads_view_group_finished_uploads">Terunggah</string>
     <string name="uploads_view_upload_status_succeeded">Selesai</string>
     <string name="uploads_view_upload_status_cancelled">Dibatalkan</string>
-    <string name="uploads_view_upload_status_paused">Dihentikan</string>
     <string name="uploads_view_upload_status_failed_connection_error">Terjadi kesalahan koneksi</string>
-    <string name="uploads_view_upload_status_failed_retry">Pengunggahan akan dicoba lagi</string>
     <string name="uploads_view_upload_status_failed_credentials_error">Kesalahan Kredensial</string>
     <string name="uploads_view_upload_status_failed_folder_error">Kesalahan folder</string>
     <string name="uploads_view_upload_status_failed_file_error">Kesalahaan berkas</string>
@@ -232,7 +228,6 @@
 	<string name="auth_expired_basic_auth_toast">Masukkan kata sandi</string>
 	<string name="auth_expired_saml_sso_token_toast">Sesi Anda telah berakhir. Silakan masuk kembali</string>
 	<string name="auth_connecting_auth_server">Menyambungkan ke server otentikasi &#8230;</string>
-	<string name="auth_unsupported_auth_method">Server tidak mendukung medote otentikasi ini</string>
 	<string name="auth_unsupported_multiaccount">%1$s tidak mendukung banyak akun </string>
 	<string name="auth_fail_get_user_name">Server tidak memberikan id pengguna dengan benar, hubungi Administrator </string>
 	<string name="auth_can_not_auth_against_server">Tidak terotentikasi ke server ini</string>
@@ -246,7 +241,6 @@
     <string name="common_rename">Ubah nama</string>
     <string name="confirmation_remove_local">Lokal saja</string>
     <string name="rename_dialog_title">Masukkan nama baru</string>
-    <string name="sync_file_fail_msg">Tidak dapat mengecek berkas remot</string>
     <string name="sync_file_nothing_to_do_msg">Isi berkas sudah diselaraskan</string>
     <string name="create_dir_fail_msg">Folder tidak dapat dibuat</string>
     <string name="filename_forbidden_characters">Karakter yang dilarang: / \\ &lt; &gt; : \" | ? *</string>
@@ -294,7 +288,6 @@
     <string name="placeholder_media_time">12:23:45</string>
 
     <string name="auto_upload_on_wifi">Hanya unggah lewat Wi-Fi</string>
-    <string name="instant_video_upload_on_charging">Hanya unggah ketika dicas</string>
     <string name="instant_upload_on_charging">Hanya unggah ketika dicas</string>
     <string name="instant_upload_path">/UnggahInstan</string>
     <string name="auto_upload_path">/AutoUpload</string>
@@ -348,7 +341,6 @@
     <string name="downloader_download_file_not_found">Berkas tidak lagi tersedia pada server</string>
 
     <string name="file_migration_dialog_title">Memperbarui jalur penyimpanan</string>
-    <string name="file_migration_finish_button">Selesai</string>
     <string name="file_migration_preparing">Persiapan untuk migrasi&#8230;</string>
     <string name="file_migration_checking_destination">Memeriksa tujuan&#8230;</string>
     <string name="file_migration_saving_accounts_configuration">Menyimpan konfigurasi akun&#8230;</string>
@@ -404,9 +396,6 @@
 
     <string name="sync_folder_failed_content">Sinkronisasi folder %1$s tidak dapat diselesaikan</string>
 
-	<string name="shared_subject_header">dibagikan</string>
-	<string name="with_you_subject_header">kepada Anda</string>
-    
 	<string name="subject_user_shared_with_you">%1$s dibagikan \"%2$s\" kepada Anda</string>
     <string name="subject_shared_with_you">\"%1$s\" telah membagikan dengan Anda</string>
 
@@ -421,8 +410,6 @@
 
     <string name="prefs_instant_behaviour_dialogTitle">Berkas asli akan menjadi&#8230;</string>
     <string name="prefs_instant_behaviour_title">Berkas asli akan menjadi&#8230;</string>
-    <string name="upload_copy_files">Salin berkas</string>
-    <string name="upload_move_files">Pindahkan berkas</string>
     <string name="select_all">Pilih semua</string>
     <string name="deselect_all">Tidak ada yang dipilih</string>
 
@@ -463,8 +450,6 @@
     <string name="share_privilege_can_edit_create">buat</string>
     <string name="share_privilege_can_edit_change">ubah</string>
     <string name="share_privilege_can_edit_delete">hapus</string>
-    <string name="edit_share_unshare">Berhenti berbagi</string>
-    <string name="edit_share_done">selesai</string>
 
     <string name="action_retry_uploads">Ulangi unggahan yang gagal.</string>
     <string name="action_clear_failed_uploads">Bersihkan unggahan gagal.</string>
@@ -477,12 +462,10 @@
     <string name="manage_space_title">Kelola ruang</string>
     <string name="manage_space_description">Pengaturan, database dan sertifikat server dari data %1$s akan dihapus secara permanen. \n\nBerkas terunduh akan tetap terjaga.\n\nProses ini dapat memakan waktu lama.</string>
     <string name="manage_space_clear_data">Bersihkan data</string>
-    <string name="manage_space_error">Beberapa berkas tidak dapat dihapus.</string>
 
     <string name="permission_storage_access">Diperlukan ijin tambahan untuk mengunggah dan mengunduh berkas.</string>
     <string name="local_file_not_found_toast">Berkas tidak ditemukan di sistem berkas lokal</string>
     <string name="maintenance_mode">Server dalam proses perawatan.</string>
-    <string name="lock_failed">Gagal untuk mengunci berkas.</string>
 
     <string name="uploads_view_upload_status_waiting_for_charging">Menunggu dicas.</string>
     <string name="actionbar_search">Cari</string>
@@ -512,15 +495,11 @@
     <string name="synced_folders_loading_folders">Memuat folder &#8230;</string>
     <string name="synced_folders_no_results">Folder media tidak ditemukan.</string>
     <string name="synced_folders_preferences">Preferensi untuk mengunggah otomatis.</string>
-    <string name="synced_folders_settings">Pengaturan</string>
     <string name="synced_folders_new_info">Unggah instan telah dirubah sepenuhnya. Harap lihat menu utama dan konfigurasi ulang unggah otomatis anda. Maaf untuk gangguannya.\n\nNikmati kemampuan unggah otomatis yang baru!</string>
     <string name="synced_folders_preferences_folder_path">Untuk %1$s</string>
     <plurals name="items_selected_count">
         <item quantity="other">%d dipilih</item>
     </plurals>
-
-    <string name="activity_list_loading_activity">Memuat aktifitas &#8230;</string>
-    <string name="activity_list_no_results">Tidak ada aktivitas.</string>
 
     <string name="notifications_loading_activity">Memuat notifikasi &#8230;</string>
     <string name="notifications_no_results_headline">Tidak ada notifikasi.</string>
@@ -534,8 +513,6 @@
     <string name="upload_file_dialog_filetype_googlemap_shortcut">Berkas pintasan Google Maps(%s)</string>
 
     <string name="storage_description_default">Bawaan</string>
-    <string name="storage_description_sd_no">Kartu SD %1$d</string>
-    <string name="storage_description_unknown">Tidak diketahui</string>
 
     <!-- What's new feature and texts to show -->
     <string name="whats_new_title">Apa yang baru di %1$s</string>
@@ -568,18 +545,15 @@
     <string name="fingerprint_unknown">Jari tidak dikenali.</string>
 
     <!-- User information -->
-    <string name="user_info_full_name">Nama lengkap</string>
     <string name="user_info_email">Surel</string>
     <string name="user_info_phone">Nomor telepon</string>
     <string name="user_info_address">Alamat</string>
     <string name="user_info_website">Situs web</string>
     <string name="user_info_twitter">Twitter</string>
 
-    <string name="user_information_description">Informasi pengguna</string>
     <!-- Activities -->
     <string name="activities_no_results_headline">Tidak ada aktivitas.</string>
     <string name="activities_no_results_message">Stream ini akan menampilkan \npenambahan, perubahan atau pembagian.</string>
-    <string name="webview_error">Terjadi kesalahn.</string>
     <string name="prefs_category_about">Tentang.</string>
 
     <string name="actionbar_contacts">Cadangkan kontak.</string>
@@ -588,8 +562,6 @@
     <string name="contacts_automatic_backup">Cadangkan otomatis</string>
     <string name="contacts_last_backup">Pencadangan terakhir.</string>
     <string name="contacts_read_permission">Dibutuhkan Ijin untuk melihat daftar kontak</string>
-    <string name="contacts_write_permission">Dibutuhkan ijin untuk merubah daftar kontak.</string>
-    <string name="contactlist_title">Memulihkan kontak.</string>
     <string name="contaclist_restore_selected">Memulihkan kontak pilihan.</string>
     <string name="contactlist_account_chooser_title">Pilih akun untuk di impor</string>
     <string name="contactlist_no_permission">Tidak ada ijin diberikan, tidak ada yang di impor.</string>
@@ -600,7 +572,6 @@
     <string name="contacts_preferences_import_scheduled">Impor jadwal dan jalankan sebentar lagi.</string>
 
     <!-- Notifications -->
-    <string name="new_notification_received">Ada notifikasi.</string>
     <string name="drawer_logout">Keluar.</string>
     <string name="picture_set_as_no_app">Aplikasi tidak ditemukan untuk men-set gambar.</string>
     <string name="privacy">Privasi</string>
