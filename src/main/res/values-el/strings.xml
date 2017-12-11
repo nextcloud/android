@@ -421,7 +421,6 @@
     <string name="pref_behaviour_entries_move">μετακινήθηκε στον φάκελο εφαρμογών</string>
     <string name="pref_behaviour_entries_delete_file">διαγράφηκε</string>
     <string name="prefs_storage_path">Διαδρομή αποθηκευτικού χώρου</string>
-    <string name="prefs_common">Κοινό</string>
 
     <string name="share_dialog_title">Γίνεται διαμοιρασμός</string>
     <string name="share_file">Διαμοιρασμός %1$s</string>

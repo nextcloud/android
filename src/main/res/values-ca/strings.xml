@@ -392,7 +392,6 @@
     <string name="pref_behaviour_entries_move">mogut a la carpeta de l\'aplicació</string>
     <string name="pref_behaviour_entries_delete_file">eliminat</string>
     <string name="prefs_storage_path">Ruta d\'emmagatzematge</string>
-    <string name="prefs_common">Comú</string>
 
     <string name="share_dialog_title">Compartint</string>
     <string name="share_file">Comparteix %1$s</string>
