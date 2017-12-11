@@ -126,6 +126,7 @@
     <string name="common_cancel">Cancel</string>
     <string name="common_back">Back</string>
     <string name="common_save">Save</string>
+    <string name="common_error">Error</string>
     <string name="common_loading">Loading &#8230;</string>
     <string name="common_unknown">unknown</string>
     <string name="common_error_unknown">Unknown error</string>
