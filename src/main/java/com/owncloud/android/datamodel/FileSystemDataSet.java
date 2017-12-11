@@ -20,6 +20,8 @@
  */
 package com.owncloud.android.datamodel;
 
+import android.support.annotation.Nullable;
+
 /*
     Model for filesystem data from the database
  */
@@ -32,12 +34,13 @@ public class FileSystemDataSet {
     private boolean isSentForUpload;
     private long foundAt;
     private long syncedFolderId;
+    @Nullable private String crc32;
 
     public FileSystemDataSet() {
     }
 
     public FileSystemDataSet(int id, String localPath, long modifiedAt, boolean isFolder,
-                             boolean isSentForUpload, long foundAt, long syncedFolderId) {
+                             boolean isSentForUpload, long foundAt, long syncedFolderId, @Nullable String crc32) {
         this.id = id;
         this.localPath = localPath;
         this.modifiedAt = modifiedAt;
@@ -45,6 +48,15 @@ public class FileSystemDataSet {
         this.isSentForUpload = isSentForUpload;
         this.foundAt = foundAt;
         this.syncedFolderId = syncedFolderId;
+        this.crc32 = crc32;
+    }
+
+    public String getCrc32() {
+        return crc32;
+    }
+
+    public void setCrc32(String crc32) {
+        this.crc32 = crc32;
     }
 
     public int getId() {
