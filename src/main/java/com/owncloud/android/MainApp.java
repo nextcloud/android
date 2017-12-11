@@ -276,7 +276,7 @@ public class MainApp extends MultiDexApplication {
         }
     }
 
-    //  From AccountAuthenticator 
+    //  From AccountAuthenticator
     //  public static final String AUTHORITY = "org.owncloud";
     public static String getAuthority() {
         return getAppContext().getResources().getString(R.string.authority);
