@@ -123,13 +123,10 @@
     <string name="common_yes">Sí</string>
     <string name="common_no">No</string>
     <string name="common_ok">D\'acord</string>
-    <string name="common_remove_upload">Esborra la càrrega</string>
-    <string name="common_retry_upload">Reintenta la pujada</string>
     <string name="common_cancel_sync">Cancel·la la sincronització</string>
     <string name="common_cancel">Cancel·la</string>
     <string name="common_back">Enrere</string>
     <string name="common_save">Guarda</string>
-    <string name="common_error">Error</string>
     <string name="common_loading">Carregant&#8230;</string>
     <string name="common_unknown">desconegut</string>
     <string name="common_error_unknown">Error desconegut</string>
@@ -157,9 +154,7 @@
     <string name="uploads_view_group_finished_uploads">Carregat</string>
     <string name="uploads_view_upload_status_succeeded">Completat</string>
     <string name="uploads_view_upload_status_cancelled">S\'ha cancel·lat</string>
-    <string name="uploads_view_upload_status_paused">Pausat</string>
     <string name="uploads_view_upload_status_failed_connection_error">Hi ha un error de connexió</string>
-    <string name="uploads_view_upload_status_failed_retry">La pujada tornarà a reintentar-se d\'aquí a una estona</string>
     <string name="uploads_view_upload_status_failed_credentials_error">Hi ha un error de credencials</string>
     <string name="uploads_view_upload_status_failed_folder_error">Hi ha un error a les carpetes</string>
     <string name="uploads_view_upload_status_failed_file_error">Hi ha un error al fitxer</string>
@@ -246,7 +241,6 @@
 	<string name="auth_expired_basic_auth_toast">Escriviu la contrasenya actual</string>
 	<string name="auth_expired_saml_sso_token_toast">La sessió ha vençut. Connecteu-vos de nou</string>
 	<string name="auth_connecting_auth_server">Connexió al servidor d\'autenticació&#8230;</string>
-	<string name="auth_unsupported_auth_method">El serivdor no permet aquest mètode d\'autenticació</string>
 	<string name="auth_unsupported_multiaccount">%1$s no permet comptes múltiples</string>
 	<string name="auth_fail_get_user_name">El vostre servidor no torna un identificador d\'usuari correcte, contacteu amb un administrador</string>
 	<string name="auth_can_not_auth_against_server">No es pot autenticar en aquest servidor</string>
@@ -261,7 +255,6 @@
     <string name="common_rename">Reanomena</string>
     <string name="confirmation_remove_local">Només local</string>
     <string name="rename_dialog_title">Introduiu un nom nou</string>
-    <string name="sync_file_fail_msg">No s\'ha pogut verificar el fitxer remot</string>
     <string name="sync_file_nothing_to_do_msg">Contingut del fitxer ja sincronitzat</string>
     <string name="create_dir_fail_msg">No s\'ha pogut crear la carpeta</string>
     <string name="filename_forbidden_characters">Caràcters no permesos: / \\ &lt; &gt; : \" | ? *</string>
@@ -309,7 +302,6 @@
     <string name="placeholder_media_time">12:23:45</string>
 
     <string name="auto_upload_on_wifi">conexio només a Wi-Fi</string>
-    <string name="instant_video_upload_on_charging">Només es carrega quan es carrega</string>
     <string name="instant_upload_on_charging">Només es carrega quan es carrega</string>
     <string name="instant_upload_path">/PujadaInstantània</string>
     <string name="auto_upload_path">/ Carrega automàtica</string>
@@ -351,7 +343,6 @@
     <string name="downloader_download_file_not_found">El fitxer ja no està disponible en el servidor</string>
 
     <string name="file_migration_dialog_title">S\'està actualitzant la ruta d\'emmagatzematge</string>
-    <string name="file_migration_finish_button">Acabeu</string>
     <string name="file_migration_checking_destination">Comprovant la destinació&#8230;</string>
     <string name="file_migration_migrating">Movent dades&#8230;</string>
     <string name="file_migration_updating_index">Actualitzant l\'índex&#8230;</string>
@@ -385,9 +376,6 @@
 
     <string name="sync_folder_failed_content">La sincronització de la carpeta %1$s no s\'ha pogut completar</string>
 
-	<string name="shared_subject_header">compartit</string>
-	<string name="with_you_subject_header">amb tú</string>
-    
 	<string name="subject_user_shared_with_you">%1$s ha compartit %2$s amb tu</string>
     <string name="subject_shared_with_you">\"%1$s\" s\'ha compartit amb tu</string>
 
@@ -399,8 +387,6 @@
 
     <string name="prefs_instant_behaviour_dialogTitle">El fitxer original serà&#8230;</string>
     <string name="prefs_instant_behaviour_title">El fitxer original serà&#8230;</string>
-    <string name="upload_copy_files">Copiar fitxer</string>
-    <string name="upload_move_files">Moure fitxer</string>
     <string name="select_all">Selecciona tot</string>
     <string name="pref_behaviour_entries_keep_file">mantingut a la carpeta original</string>
     <string name="pref_behaviour_entries_move">mogut a la carpeta de l\'aplicació</string>
@@ -434,15 +420,12 @@
     <string name="share_privilege_can_edit_create">crear</string>
     <string name="share_privilege_can_edit_change">canviar</string>
     <string name="share_privilege_can_edit_delete">eliminar</string>
-    <string name="edit_share_unshare">Deixar de compartir</string>
-    <string name="edit_share_done">Fet</string>
 
     <string name="action_switch_grid_view">Vista de graella</string>
     <string name="action_switch_list_view">Vista de llista</string>
 
     <string name="manage_space_title">Gestió d\'espai</string>
     <string name="manage_space_clear_data">Neteja dades</string>
-    <string name="manage_space_error">Alguns fitxers no s\'han pogut esborrar</string>
 
     <string name="actionbar_search">Cerca</string>
     <string name="files_drop_not_supported">És una característica de Nextcloud. Siusplau actualitzeu.</string>
@@ -464,8 +447,6 @@
     <string name="upload_file_dialog_filetype_googlemap_shortcut">Fitxer(%s) de drecera de Google Maps</string>
 
     <string name="storage_description_default">Per defecte</string>
-    <string name="storage_description_sd_no">Targeta SD %1$d</string>
-    <string name="storage_description_unknown">Desconegut</string>
 
     <!-- Welcome to Nc intro features -->
     <string name="welcome_feature_1_title">Un lloc segur per totes les vostres dades</string>

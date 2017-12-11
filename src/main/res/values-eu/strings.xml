@@ -120,12 +120,10 @@
     <string name="common_yes">Bai</string>
     <string name="common_no">Ez</string>
     <string name="common_ok">Ados</string>
-    <string name="common_retry_upload">Berriz igotzen saiatu</string>
     <string name="common_cancel_sync">Sinkronizazioa eten</string>
     <string name="common_cancel">Ezeztatu</string>
     <string name="common_back">Atzera</string>
     <string name="common_save">Gorde</string>
-    <string name="common_error">Errorea</string>
     <string name="common_loading">Kargatzen &#8230;</string>
     <string name="common_unknown">ezezaguna</string>
     <string name="common_error_unknown">Errore ezezaguna</string>
@@ -151,9 +149,7 @@
     <string name="uploads_view_group_finished_uploads">Igoa</string>
     <string name="uploads_view_upload_status_succeeded">Betea</string>
     <string name="uploads_view_upload_status_cancelled">Ezeztatuak</string>
-    <string name="uploads_view_upload_status_paused">Pausatuta</string>
     <string name="uploads_view_upload_status_failed_connection_error">Konexio errorea</string>
-    <string name="uploads_view_upload_status_failed_retry">Igotzea laister bersaiatuko da</string>
     <string name="uploads_view_upload_status_failed_credentials_error">Nortasun datuen errorea</string>
     <string name="uploads_view_upload_status_failed_folder_error">Karpeta errorea</string>
     <string name="uploads_view_upload_status_failed_file_error">Fitxategi errorea</string>
@@ -235,7 +231,6 @@ Mesedez, baimendu berriz</string>
 	<string name="auth_expired_basic_auth_toast">Oraingo pasahitza sartu mesedez</string>
 	<string name="auth_expired_saml_sso_token_toast">Zure saioa iraungitu da. Mesdez konektatu berriro</string>
 	<string name="auth_connecting_auth_server">&#8230; Kautotze-zerbitzariarekin konektatzen</string>
-	<string name="auth_unsupported_auth_method">Zerbitzariak ez du autentikazio metodo hau onartzen</string>
 	<string name="auth_unsupported_multiaccount">%1$s ez du kontu anitzak onartzen</string>
 	<string name="auth_fail_get_user_name">Zure zerbitzariak ez du ID erabiltzaile egokia itzultzen, jar zaitez harremanetan zure administradoreareakin</string>
 	<string name="auth_can_not_auth_against_server">Ezin da zerbitzariekin kautotu</string>
@@ -250,7 +245,6 @@ Mesedez, baimendu berriz</string>
     <string name="common_rename">Berrizendatu</string>
     <string name="confirmation_remove_local">Bertakoa bakarrik</string>
     <string name="rename_dialog_title">Idatzi izen berri bat</string>
-    <string name="sync_file_fail_msg">Ezin da urruneko fitxategia konprobatu</string>
     <string name="sync_file_nothing_to_do_msg">Fitxategi edukiak dagoeneko sinkronizaturik</string>
     <string name="create_dir_fail_msg">Ezin da karpeta sortu</string>
     <string name="filename_forbidden_characters">Debekatutako karaktereak: / \\ &lt; &gt; : \" | ? *</string>
@@ -298,7 +292,6 @@ Mesedez, baimendu berriz</string>
     <string name="placeholder_media_time">12:23:45</string>
 
     <string name="auto_upload_on_wifi">Igoerak Wi-Fi bidez soilik</string>
-    <string name="instant_video_upload_on_charging">Igoerak kargatzen dagoenean soilik</string>
     <string name="instant_upload_path">/BerehalakoIgoerak</string>
     <string name="conflict_title">Fitxategi gatazka</string>
     <string name="conflict_keep_both">Mantendu biak</string>
@@ -349,9 +342,6 @@ Mesedez, baimendu berriz</string>
 
     <string name="sync_folder_failed_content">%1$s karpetaren sinkronizazioa ez da burutu</string>
 
-	<string name="shared_subject_header">partekatua</string>
-	<string name="with_you_subject_header">zurekin</string>
-    
 	<string name="subject_user_shared_with_you">%1$sk %2$s zurekin partekatu du</string>
     <string name="subject_shared_with_you">%1$s zurekin partekatu dute</string>
 
@@ -366,8 +356,6 @@ Mesedez, baimendu berriz</string>
 
     <string name="prefs_instant_behaviour_dialogTitle">Fitxategi originala  &#8230; izango da</string>
     <string name="prefs_instant_behaviour_title">Fitxategi originala  &#8230; izango da</string>
-    <string name="upload_copy_files">Kopiatu fitxategia</string>
-    <string name="upload_move_files">Mugitu fitxategia</string>
     <string name="select_all">Hautatu dena</string>
     <string name="deselect_all">Deshautatu dena</string>
 
@@ -408,8 +396,6 @@ Mesedez, baimendu berriz</string>
     <string name="share_privilege_can_edit_create">sortu</string>
     <string name="share_privilege_can_edit_change">aldatu</string>
     <string name="share_privilege_can_edit_delete">ezabatu</string>
-    <string name="edit_share_unshare">Partekatzeari utzi</string>
-    <string name="edit_share_done">eginda</string>
 
     <string name="action_retry_uploads">Erroredun igoerak berriz saiatu</string>
     <string name="action_clear_failed_uploads">Erroredun igoerak garbitu</string>
@@ -422,14 +408,12 @@ Mesedez, baimendu berriz</string>
     <string name="manage_space_title">Tokia kudeatu</string>
     <string name="manage_space_description">Ezarpenak, %1$sren datubase eta zerbitzariaren ziurtagiriak betirako borratuko dira.\n\n Jaitsitako fitxategiak ez dira ikutuko.\n\n Prozesu honek denbora behar du</string>
     <string name="manage_space_clear_data">Datuak garbitu</string>
-    <string name="manage_space_error">Fitxategi batzuk ezin dira borratu</string>
 
     <string name="permission_storage_access">Fitxategiak igo eta jaisteko baimen gehigarriak behar dira</string>
     <string name="local_file_not_found_toast">Ez da fitxategia topatu fitxategi-sistema lokalean</string>
     <string name="confirmation_remove_files_alert">Hautatutako elementuak benetan borratu nahi dituzu?</string>
     <string name="confirmation_remove_folders_alert">Hautatutako elementuak eta bere edukiak benetan borratu nahi dituzu?</string>
     <string name="maintenance_mode">Zerbitzaria mantentze moduan dago</string>
-    <string name="lock_failed">Fitxategia kateatzean errorea</string>
 
     <string name="uploads_view_upload_status_waiting_for_charging">Karga itxoiten</string>
     <string name="actionbar_search">Bilatu</string>
@@ -456,6 +440,5 @@ Mesedez, baimendu berriz</string>
     <string name="choose_local_folder">&#8230; fitxategia lokala hautatu</string>
     <string name="synced_folders_loading_folders">Karpetak &#8230;ra igotzen</string>
     <string name="storage_description_default">Lehenetsia</string>
-    <string name="storage_description_unknown">Ezezaguna</string>
 
     </resources>

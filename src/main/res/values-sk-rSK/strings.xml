@@ -108,13 +108,10 @@
     <string name="common_yes">Áno</string>
     <string name="common_no">Nie</string>
     <string name="common_ok">OK</string>
-    <string name="common_remove_upload">Odstrániť nahrávanie</string>
-    <string name="common_retry_upload">Opakovať nahrávanie</string>
     <string name="common_cancel_sync">Zruš synchronizáciu</string>
     <string name="common_cancel">Zrušiť</string>
     <string name="common_back">Späť</string>
     <string name="common_save">Uložiť</string>
-    <string name="common_error">Chyba</string>
     <string name="common_loading">Načítavam&#8230;</string>
     <string name="common_unknown">neznámy</string>
     <string name="common_error_unknown">Neznáma chyba</string>
@@ -141,9 +138,7 @@
     <string name="uploads_view_group_finished_uploads">Odoslané</string>
     <string name="uploads_view_upload_status_succeeded">Dokončené</string>
     <string name="uploads_view_upload_status_cancelled">Zrušené</string>
-    <string name="uploads_view_upload_status_paused">Pozastavené</string>
     <string name="uploads_view_upload_status_failed_connection_error">Chyba spojenia</string>
-    <string name="uploads_view_upload_status_failed_retry">Nahratie sa zopakuje o chvíľu</string>
     <string name="uploads_view_upload_status_failed_credentials_error">Chybné prihlasovacie údaje</string>
     <string name="uploads_view_upload_status_failed_folder_error">Chybný priečinok</string>
     <string name="uploads_view_upload_status_failed_file_error">Chybný súbor</string>
@@ -225,7 +220,6 @@
 	<string name="auth_expired_oauth_token_toast">Vaša autorizácia vypršala. Prosím, autorizujte sa znovu</string>
 	<string name="auth_expired_basic_auth_toast">Zadajte prosím aktuálne heslo</string>
 	<string name="auth_expired_saml_sso_token_toast">Vaše pripojenie vypršalo. Pripojte sa znovu prosím</string>
-	<string name="auth_unsupported_auth_method">Server nepodporuje túto autentifikačnú metódu</string>
 	<string name="auth_unsupported_multiaccount">%1$s nepodporuje viacero účtov</string>
 	<string name="auth_can_not_auth_against_server">Nie je možné sa overiť voči tomuto serveru</string>
     <string name="favorite">Dostupné v režime offline</string>
@@ -307,7 +301,6 @@
     <string name="downloader_download_file_not_found">Súbor už na serveri nie je dostupný</string>
 
     <string name="file_migration_dialog_title">Aktualizujem cestu k úložisku</string>
-    <string name="file_migration_finish_button">Dokončiť</string>
     <string name="file_migration_checking_destination">Kontrolujem umiestnenie&#8230;</string>
     <string name="file_migration_migrating">Presúvam dáta&#8230;</string>
     <string name="file_migration_updating_index">Aktualizujem zoznam&#8230;</string>
@@ -338,9 +331,6 @@
 
     <string name="sync_folder_failed_content">Synchronizáciu priečinka %1$s nebolo možné dokončiť</string>
 
-	<string name="shared_subject_header">sprístupnené</string>
-	<string name="with_you_subject_header">s vami</string>
-    
 	<string name="subject_user_shared_with_you">%1$s vám sprístupnil \"%2$s\"</string>
     <string name="subject_shared_with_you">\"%1$s\" vám bol sprístupnený</string>
 
@@ -352,8 +342,6 @@
 
     <string name="prefs_instant_behaviour_dialogTitle">Pôvodný súbor bude&#8230;</string>
     <string name="prefs_instant_behaviour_title">Pôvodný súbor bude&#8230;</string>
-    <string name="upload_copy_files">Kopírovať súbor</string>
-    <string name="upload_move_files">Presunúť súbor</string>
     <string name="select_all">Vybrať všetko</string>
     <string name="pref_behaviour_entries_keep_file">ponechané v pôvodnom priečinku</string>
     <string name="pref_behaviour_entries_move">presunuté do aplikačného priečinka</string>
@@ -387,15 +375,12 @@
     <string name="share_privilege_can_edit_create">vytvoriť</string>
     <string name="share_privilege_can_edit_change">zmeniť</string>
     <string name="share_privilege_can_edit_delete">vymazať</string>
-    <string name="edit_share_unshare">Ukončiť sprístupnenie</string>
-    <string name="edit_share_done">hotovo</string>
 
     <string name="action_switch_grid_view">Zobrazenie mriežky</string>
     <string name="action_switch_list_view">Zobrazenie zoznamu</string>
 
     <string name="manage_space_title">Spravovať miesto</string>
     <string name="manage_space_clear_data">Vyčistiť dáta</string>
-    <string name="manage_space_error">Niektoré súbory nebolo možné zmazať.</string>
 
     <string name="actionbar_search">Hľadať</string>
     <string name="files_drop_not_supported">Toto je funkcia Nextcloudu, aktualizujte prosím.</string>
@@ -417,8 +402,6 @@
     <string name="upload_file_dialog_filetype_googlemap_shortcut">Odkaz na Google mapy(%s)</string>
 
     <string name="storage_description_default">Predvolené</string>
-    <string name="storage_description_sd_no">SD karta %1$d</string>
-    <string name="storage_description_unknown">Neznámy</string>
 
     <!-- Welcome to Nc intro features -->
     <string name="welcome_feature_1_title">Bezpečný domov pre všetky vaše dáta</string>
@@ -429,12 +412,9 @@
 
     <string name="whats_new_skip">Preskočiť</string>
 
-    <!-- User information -->
-    <string name="user_info_full_name">Celé meno</string>
     <string name="user_info_phone">Telefónne číslo</string>
     <string name="user_info_address">Adresa</string>
     <string name="user_info_website">Web stránka</string>
     <string name="user_info_twitter">Twitter</string>
 
-    <string name="user_information_description">Informácie o používateľovi</string>
     </resources>

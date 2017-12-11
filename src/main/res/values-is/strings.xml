@@ -122,13 +122,10 @@ Smelltu hér til að fá þér einn frá þjónustuaðila.</string>
     <string name="common_yes">Já</string>
     <string name="common_no">Nei</string>
     <string name="common_ok">Í lagi</string>
-    <string name="common_remove_upload">Eyða innsendingu</string>
-    <string name="common_retry_upload">Prófa innsendingu aftur</string>
     <string name="common_cancel_sync">Hætta við samstillingu</string>
     <string name="common_cancel">Hætta við</string>
     <string name="common_back">Til baka</string>
     <string name="common_save">Vista</string>
-    <string name="common_error"><strong>Villa</strong></string>
     <string name="common_loading">Hleð inn &#8230;</string>
     <string name="common_unknown">óþekkt</string>
     <string name="common_error_unknown">Óþekkt villa</string>
@@ -156,9 +153,7 @@ Smelltu hér til að fá þér einn frá þjónustuaðila.</string>
     <string name="uploads_view_group_finished_uploads">Hlaðið inn</string>
     <string name="uploads_view_upload_status_succeeded">Lokið</string>
     <string name="uploads_view_upload_status_cancelled">Hætt við</string>
-    <string name="uploads_view_upload_status_paused">Í bið</string>
     <string name="uploads_view_upload_status_failed_connection_error">Villa við tengingu</string>
-    <string name="uploads_view_upload_status_failed_retry">Innsending verður reynd aftur innan skamms</string>
     <string name="uploads_view_upload_status_failed_credentials_error">Villa í auðkennum</string>
     <string name="uploads_view_upload_status_failed_folder_error">Villa í möppu</string>
     <string name="uploads_view_upload_status_failed_file_error">Villa í skrá</string>
@@ -257,7 +252,6 @@ Smelltu hér til að fá þér einn frá þjónustuaðila.</string>
 	<string name="auth_expired_basic_auth_toast">Settu inn núgildandi lykilorð</string>
 	<string name="auth_expired_saml_sso_token_toast">Setan þín er útrunnin. Skráðu þig aftur inn.</string>
 	<string name="auth_connecting_auth_server">Tengist við auðkenningarþjón&#8230;</string>
-	<string name="auth_unsupported_auth_method">Þjónninn styður ekki þessa auðkenningaraðferð</string>
 	<string name="auth_unsupported_multiaccount">%1$s styður ekki fjölaðganga</string>
 	<string name="auth_fail_get_user_name">Vefþjónninn þinn er ekki að svara með réttu notandaauðkenni, hafðu samband við kerfisstjóra.</string>
 	<string name="auth_can_not_auth_against_server">Get ekki auðkennt á þessum þjóni</string>
@@ -279,7 +273,6 @@ Smelltu hér til að fá þér einn frá þjónustuaðila.</string>
     <string name="rename_dialog_title">Settu inn nýtt nafn</string>
     <string name="rename_local_fail_msg">Ekki var hægt að endurnefna staðvært afrit, prófaðu annað heiti</string>
     <string name="rename_server_fail_msg">Gat ekki gefið þjóni nýtt nafn</string>
-    <string name="sync_file_fail_msg">Gat ekki athugað fjartengda skrá</string>
     <string name="sync_file_nothing_to_do_msg">Efni skrár er þegar samstillt</string>
     <string name="create_dir_fail_msg">Gat ekki búið til möppu</string>
     <string name="filename_forbidden_characters">Óleyfilegir stafir: / \\ &lt; &gt; : \" | ? *</string>
@@ -287,7 +280,6 @@ Smelltu hér til að fá þér einn frá þjónustuaðila.</string>
     <string name="filename_empty">Skráarheiti má ekki vera tómt</string>
     <string name="wait_a_moment">Bíddu aðeins&#8230;</string>
     <string name="wait_checking_credentials">Athuga geymd auðkenni</string>
-    <string name="filedisplay_unexpected_bad_get_content">Óvænt vandamál, veldu skrána úr einhverju öðru forriti</string>
     <string name="filedisplay_no_file_selected">Engin skrá valin</string>
     <string name="activity_chooser_title">Senda tengil til &#8230;</string>
     <string name="wait_for_tmp_copy_from_private_storage">Afrita skrá úr einkageymslu</string>
@@ -329,7 +321,6 @@ Smelltu hér til að fá þér einn frá þjónustuaðila.</string>
     <string name="placeholder_media_time">12:23:45</string>
 
     <string name="auto_upload_on_wifi">Aðeins senda inn á þráðlausu WiFi-neti</string>
-    <string name="instant_video_upload_on_charging">Einungis senda inn þegar verið er að hlaða</string>
     <string name="instant_upload_on_charging">Einungis senda inn þegar verið er að hlaða</string>
     <string name="instant_upload_path">/BeinInnsending</string>
     <string name="auto_upload_path">/SjálfvirkInnsending</string>
@@ -386,7 +377,6 @@ Smelltu hér til að fá þér einn frá þjónustuaðila.</string>
     <string name="downloader_download_file_not_found">Skráin er ekki lengur tiltæk á þjóninum</string>
 
     <string name="file_migration_dialog_title">Uppfæri slóð á gagnageymslu</string>
-    <string name="file_migration_finish_button">Ljúka</string>
     <string name="file_migration_preparing">Undirbý yfirfærslu&#8230;</string>
     <string name="file_migration_checking_destination">Athuga áfangastað&#8230;</string>
     <string name="file_migration_saving_accounts_configuration">Vista aðgangsuppsetningar&#8230;</string>
@@ -444,9 +434,6 @@ Smelltu hér til að fá þér einn frá þjónustuaðila.</string>
 
     <string name="sync_folder_failed_content">Ekki var hægt að ljúka samstillingu á %1$s möppunni</string>
 
-	<string name="shared_subject_header">deilt</string>
-	<string name="with_you_subject_header">með þér</string>
-    
 	<string name="subject_user_shared_with_you">%1$s deilt \"%2$s\" með þér</string>
     <string name="subject_shared_with_you">\"%1$s\" hefur verið deilt með þér</string>
 
@@ -469,8 +456,6 @@ Smelltu hér til að fá þér einn frá þjónustuaðila.</string>
 
     <string name="prefs_instant_behaviour_dialogTitle">Upprunaleg skrá verður&#8230;</string>
     <string name="prefs_instant_behaviour_title">Upprunaleg skrá verður&#8230;</string>
-    <string name="upload_copy_files">Afrita skrá</string>
-    <string name="upload_move_files">Færa skrá</string>
     <string name="select_all">Velja allt</string>
     <string name="deselect_all">Afvelja allt</string>
 
@@ -511,8 +496,6 @@ Smelltu hér til að fá þér einn frá þjónustuaðila.</string>
     <string name="share_privilege_can_edit_create">búið til</string>
     <string name="share_privilege_can_edit_change">breytt</string>
     <string name="share_privilege_can_edit_delete">eytt</string>
-    <string name="edit_share_unshare">Hætta deilingu</string>
-    <string name="edit_share_done">lokið</string>
 
     <string name="action_retry_uploads">Prófa aftur innsendingar sem mistókust</string>
     <string name="action_clear_failed_uploads">Hreinsa lista yfir innsendingar sem mistókust</string>
@@ -525,14 +508,12 @@ Smelltu hér til að fá þér einn frá þjónustuaðila.</string>
     <string name="manage_space_title">Sýsla með geymslurými</string>
     <string name="manage_space_description">Stillingum, gagnagrunni og skilríkjum vefþjóns úr gögnum %1$s verður eytt endanlega. \n\nSóttar skrár verða ekki snertar.\n\nÞetta ferli getur tekið drjúga stund.</string>
     <string name="manage_space_clear_data">Hreinsa gögn</string>
-    <string name="manage_space_error">Ekki tókst að eyða öllum skrám.</string>
 
     <string name="permission_storage_access">Krafist er viðbótarheimilda til að senda inn og sækja skrár.</string>
     <string name="local_file_not_found_toast">Skrá fannst ekki á staðværu skráakerfi</string>
     <string name="confirmation_remove_files_alert">Ertu viss um að þú viljir eyða völdum atriðum?</string>
     <string name="confirmation_remove_folders_alert">Ertu viss um að þú viljir eyða völdum atriðum og innihaldi þeirra?</string>
     <string name="maintenance_mode">Þjónn í viðhaldsham</string>
-    <string name="lock_failed">Mistókst að læsa skránni</string>
 
     <string name="uploads_view_upload_status_waiting_for_charging">Bíð eftir hleðslu</string>
     <string name="actionbar_search">Leita</string>
@@ -562,16 +543,12 @@ Smelltu hér til að fá þér einn frá þjónustuaðila.</string>
     <string name="synced_folders_loading_folders">Hleð inn möppum&#8230;</string>
     <string name="synced_folders_no_results">Engar margmiðlunarmöppur fundust.</string>
     <string name="synced_folders_preferences">Kjörstillingar fyrir sjálfvirkar innsendingar</string>
-    <string name="synced_folders_settings">Stillingar</string>
     <string name="synced_folders_new_info">Beinar innsendingar hafa verið algerlega endurhannaðar. Endurstilltu sjálfvirkar innsendingar beint í aðalvalmyndinni\n\nNjóttu góðs af nýju og ítarlegu viðmóti sjálfvirkra innsendinga.</string>
     <string name="synced_folders_preferences_folder_path">Fyrir %1$s</string>
     <plurals name="items_selected_count">
         <item quantity="one">%d valið</item>
         <item quantity="other">%d valið</item>
     </plurals>
-
-    <string name="activity_list_loading_activity">Hleð inn virkniupplýsingum &#8230;</string>
-    <string name="activity_list_no_results">Engin virkni fannst.</string>
 
     <string name="notifications_loading_activity">Hleð inn tilkynningum &#8230;</string>
     <string name="notifications_no_results_headline">Engar tilkynningar</string>
@@ -585,8 +562,6 @@ Smelltu hér til að fá þér einn frá þjónustuaðila.</string>
     <string name="upload_file_dialog_filetype_googlemap_shortcut">Google Maps flýtileiðarskrá(%s)</string>
 
     <string name="storage_description_default">Sjálfgefið</string>
-    <string name="storage_description_sd_no">SD-minniskort %1$d</string>
-    <string name="storage_description_unknown">Óþekkt</string>
 
     <!-- What's new feature and texts to show -->
     <string name="whats_new_title">Hvað er nýtt í %1$s</string>
@@ -619,20 +594,17 @@ Smelltu hér til að fá þér einn frá þjónustuaðila.</string>
     <string name="fingerprint_unknown">Fingrafar þekktist ekki</string>
 
     <!-- User information -->
-    <string name="user_info_full_name">Fullt nafn</string>
     <string name="user_info_email">Tölvupóstur</string>
     <string name="user_info_phone">Símanúmer</string>
     <string name="user_info_address">Heimilisfang</string>
     <string name="user_info_website">Vefsvæði</string>
     <string name="user_info_twitter">Twitter</string>
 
-    <string name="user_information_description">Upplýsingar um notanda</string>
     <string name="user_information_retrieval_error">Villa við að sækja upplýsingar um notanda</string>
 
     <!-- Activities -->
     <string name="activities_no_results_headline">Engin virkni ennþá</string>
     <string name="activities_no_results_message">Þetta streymi mun birta atburði á borð við viðbætingar, breytingar og deilingar</string>
-    <string name="webview_error">Villa átti sér stað</string>
     <string name="prefs_category_about">Um hugbúnaðinn</string>
 
     <string name="actionbar_contacts">Taka öryggisafrit af tengiliðum </string>
@@ -641,8 +613,6 @@ Smelltu hér til að fá þér einn frá þjónustuaðila.</string>
     <string name="contacts_automatic_backup">Sjálfvirk öryggisafritun</string>
     <string name="contacts_last_backup">Síðasta öryggisafrit</string>
     <string name="contacts_read_permission">Nauðsynlegt er að hafa heimild til að lesa tengiliðalista</string>
-    <string name="contacts_write_permission">Nauðsynlegt er að hafa heimild til að breyta tengiliðalista</string>
-    <string name="contactlist_title">Endurheimta tengiliði</string>
     <string name="contaclist_restore_selected">Endurheimta valda tengiliði</string>
     <string name="contactlist_account_chooser_title">Veldu aðgang til að flytja inn</string>
     <string name="contactlist_no_permission">Engin heimild gefin, ekkert flutt inn!</string>
@@ -654,7 +624,6 @@ Smelltu hér til að fá þér einn frá þjónustuaðila.</string>
     <string name="contacts_preferences_import_scheduled">Innflutningur er á áætlun og mun hefjast fljótlega</string>
 
     <!-- Notifications -->
-    <string name="new_notification_received">Tók á móti nýrri tilkynningu</string>
     <string name="drawer_logout">Útskráning</string>
     <string name="picture_set_as_no_app">Engin forrit fundust til að setja mynd!</string>
     <string name="privacy">Gagnaleynd</string>

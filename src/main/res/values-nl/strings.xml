@@ -124,13 +124,10 @@ Kies er eentje van een provider.</string>
     <string name="common_yes">Ja</string>
     <string name="common_no">Nee</string>
     <string name="common_ok">OK</string>
-    <string name="common_remove_upload">Upload verwijderen</string>
-    <string name="common_retry_upload">Opnieuw uploaden</string>
     <string name="common_cancel_sync">Synchronisatie annuleren</string>
     <string name="common_cancel">Annuleren</string>
     <string name="common_back">Terug</string>
     <string name="common_save">Bewaren</string>
-    <string name="common_error">Fout</string>
     <string name="common_loading">Laden&#160;&#8230;</string>
     <string name="common_unknown">onbekend</string>
     <string name="common_error_unknown">Onbekende fout</string>
@@ -158,9 +155,7 @@ Kies er eentje van een provider.</string>
     <string name="uploads_view_group_finished_uploads">Geüpload</string>
     <string name="uploads_view_upload_status_succeeded">Voltooid</string>
     <string name="uploads_view_upload_status_cancelled">Geannuleerd</string>
-    <string name="uploads_view_upload_status_paused">Gepauzeerd</string>
     <string name="uploads_view_upload_status_failed_connection_error">Verbindingsfout</string>
-    <string name="uploads_view_upload_status_failed_retry">Upload wordt dadelijk opnieuw geprobeerd</string>
     <string name="uploads_view_upload_status_failed_credentials_error">Inlogfout</string>
     <string name="uploads_view_upload_status_failed_folder_error">Mapfout</string>
     <string name="uploads_view_upload_status_failed_file_error">Bestandsfout</string>
@@ -197,14 +192,14 @@ Kies er eentje van een provider.</string>
         <item quantity="one">%1$d bestand uit de map %2$s kon niet worden gekopieerd</item>
         <item quantity="other">%1$d bestanden uit de map %2$s konden niet worden gekopieerd</item>
     </plurals>
-    <string name="sync_foreign_files_forgotten_explanation">Sinds versie 1.3.16: bestanden ge-upload vanaf dit apparaat zijn gekopieerd in de lokale %1$s directory om zoekraken van bestanden te voorkomen indien een enkel bestand wordt gesynchroniseerd met meerdere accounts. \n\n Door deze verandering zijn alle bestanden ge-upload met een eerdere versie van deze app gekopieerd  naar de %2$s directory.  Let wel: door een fout is deze actie niet uitgevoerd tijdens account synchronisatie. U kunt deze bestanden laten waar ze zijn en verwijder de verwijzingen naar %3$s, of verplaats de bestanden naar de %1$s directory en behoud de verwijzing naar %4$s. \n\n Hieronder zijn de lokale bestanden weergegeven en de remote bestanden in %5$s waar ze naar verwijzen.</string>
+    <string name="sync_foreign_files_forgotten_explanation">Sinds versie 1.3.16: bestanden ge-upload vanaf dit apparaat zijn gekopieerd in de lokale %1$s directory om zoekraken van bestanden te voorkomen indien een enkel bestand wordt gesynchroniseerd met meerdere accounts. \n\n Door deze verandering zijn alle bestanden ge-upload met een eerdere versie van deze app gekopieerd  naar de %2$s directory.  Let wel: door een fout is deze actie niet uitgevoerd tijdens account synchronisatie. Je kunt deze bestanden laten waar ze zijn en verwijder de verwijzingen naar %3$s, of verplaats de bestanden naar de %1$s directory en behoud de verwijzing naar %4$s. \n\n Hieronder zijn de lokale bestanden weergegeven en de remote bestanden in %5$s waar ze naar verwijzen.</string>
     <string name="sync_current_folder_was_removed">Map %1$s bestaat niet meer</string>
     <string name="foreign_files_move">Alles verplaatsen</string>
     <string name="foreign_files_success">Alle bestanden zijn verplaatst</string>
     <string name="foreign_files_fail">Een paar bestanden konden niet worden verplaatst</string>
     <string name="foreign_files_local_text">Lokaal: %1$s</string>
     <string name="foreign_files_remote_text">Extern: %1$s</string>
-    <string name="upload_query_move_foreign_files">Er is niet genoeg ruimte om de geselecteerde bestanden te kopieren naar %1$s. Wilt u ze in plaats daarvan verplaatsen?</string>
+    <string name="upload_query_move_foreign_files">Er is niet genoeg ruimte om de geselecteerde bestanden te kopieren naar %1$s. Wil je ze in plaats daarvan verplaatsen?</string>
     <string name="pass_code_enter_pass_code">Voer je toegangscode in</string>
     
     <string name="pass_code_configure_your_pass_code">Toegangscode invoeren</string>
@@ -232,7 +227,7 @@ Kies er eentje van een provider.</string>
     <string name="media_err_security_ex">Beveiligingsfout bij afspelen %1$s</string>
     <string name="media_err_io_ex">Invoerfout bij afspelen %1$s</string>
     <string name="media_err_unexpected">Onverwachte fout bij afspelen %1$s</string>
-    <string name="media_rewind_description">Terugpoelknop</string>
+    <string name="media_rewind_description">Terugspoelknop</string>
     <string name="media_play_pause_description">Speel- of pauzeknop</string>
     <string name="media_forward_description">Doorspoelknop</string>
 
@@ -263,7 +258,6 @@ Kies er eentje van een provider.</string>
 	<string name="auth_expired_basic_auth_toast">Voer het huidige wachtwoord in</string>
 	<string name="auth_expired_saml_sso_token_toast">Je sessie is verstreken. Verbind opnieuw</string>
 	<string name="auth_connecting_auth_server">Verbinden met authenticatie server&#8230;</string>
-	<string name="auth_unsupported_auth_method">De server ondersteunt deze authenticatiemethode niet</string>
 	<string name="auth_unsupported_multiaccount">%1$s ondersteunt het gebruik van meerdere accounts niet</string>
 	<string name="auth_fail_get_user_name">Je server geeft geen goede userid terug, neem contact op met je beheerder</string>
 	<string name="auth_can_not_auth_against_server">Kan niet authenticeren tegen deze server</string>
@@ -285,7 +279,6 @@ Kies er eentje van een provider.</string>
     <string name="rename_dialog_title">Voer een nieuwe naam in</string>
     <string name="rename_local_fail_msg">Lokale kopie kon niet worden hernoemd; probeer een andere naam</string>
     <string name="rename_server_fail_msg">Kon de server geen nieuwe naam geven</string>
-    <string name="sync_file_fail_msg">Kon extern bestand niet controleren</string>
     <string name="sync_file_nothing_to_do_msg">Bestandsinhoud is al gesynchroniseerd</string>
     <string name="create_dir_fail_msg">Kan map niet aanmaken</string>
     <string name="filename_forbidden_characters">Verboden tekens: / \\ &lt; &gt; : " | ? *</string>
@@ -293,7 +286,6 @@ Kies er eentje van een provider.</string>
     <string name="filename_empty">Bestandsnaam mag niet leeg zijn</string>
     <string name="wait_a_moment">Even geduld&#8230;</string>
     <string name="wait_checking_credentials">Opgeslagen inloggegevens nakijken</string>
-    <string name="filedisplay_unexpected_bad_get_content">Onverwacht probleem; probeer het bestand met een andere app te selecteren</string>
     <string name="filedisplay_no_file_selected">Geen bestand geselecteerd</string>
     <string name="activity_chooser_title">Verstuur link naar &#8230;</string>
     <string name="wait_for_tmp_copy_from_private_storage">Bestand vanaf privéopslag kopiëren</string>
@@ -336,7 +328,6 @@ Kies er eentje van een provider.</string>
     <string name="placeholder_media_time">12:23:45</string>
 
     <string name="auto_upload_on_wifi">Alleen uploaden via Wi-Fi</string>
-    <string name="instant_video_upload_on_charging">Alleen uploaden bij opladen</string>
     <string name="instant_upload_on_charging">Alleen uploaden bij opladen</string>
     <string name="instant_upload_path">/InstantUpload</string>
     <string name="auto_upload_path">/AutomatischUploaden</string>
@@ -393,7 +384,6 @@ Kies er eentje van een provider.</string>
     <string name="downloader_download_file_not_found">Dit bestand is niet langer beschikbaar op de server</string>
 
     <string name="file_migration_dialog_title">Opslagpad bijwerken</string>
-    <string name="file_migration_finish_button">Afronden</string>
     <string name="file_migration_preparing">Voorbereiden van migratie&#8230;</string>
     <string name="file_migration_checking_destination">Doelmap controleren&#160;&#8230;</string>
     <string name="file_migration_saving_accounts_configuration">Accountconfiguratie opslaan&#8230;</string>
@@ -451,9 +441,6 @@ Kies er eentje van een provider.</string>
 
     <string name="sync_folder_failed_content">Synchronisatie van map %1$s kon niet worden voltooid</string>
 
-	<string name="shared_subject_header">gedeeld</string>
-	<string name="with_you_subject_header">met jou</string>
-    
 	<string name="subject_user_shared_with_you">%1$s deelde \"%2$s\" met jou</string>
     <string name="subject_shared_with_you">\"%1$s\" is met je gedeeld</string>
 
@@ -476,8 +463,6 @@ Kies er eentje van een provider.</string>
 
     <string name="prefs_instant_behaviour_dialogTitle">Origineel bestand zal&#160;&#8230;</string>
     <string name="prefs_instant_behaviour_title">Origineel bestand zal&#160;&#8230;</string>
-    <string name="upload_copy_files">Bestand kopiëren</string>
-    <string name="upload_move_files">Bestand verplaatsen</string>
     <string name="select_all">Alles selecteren</string>
     <string name="deselect_all">Deselecteer alles</string>
 
@@ -519,8 +504,6 @@ Kies er eentje van een provider.</string>
     <string name="share_privilege_can_edit_create">creëer</string>
     <string name="share_privilege_can_edit_change">wijzig</string>
     <string name="share_privilege_can_edit_delete">verwijderen</string>
-    <string name="edit_share_unshare">Stop met delen</string>
-    <string name="edit_share_done">gedaan</string>
 
     <string name="action_retry_uploads">Probeer mislukte uploads opnieuw</string>
     <string name="action_clear_failed_uploads">Wis mislukte uploads</string>
@@ -533,14 +516,12 @@ Kies er eentje van een provider.</string>
     <string name="manage_space_title">Beheer ruimte</string>
     <string name="manage_space_description">Instellingen, database en servercertificaten van de data van %1$s zullen permanent worden verwijderd. \n\nGedownloade bestanden blijven onaangeroerd.\n\nDit proces kan even duren.</string>
     <string name="manage_space_clear_data">Gegevens verwijderen</string>
-    <string name="manage_space_error">Sommige bestanden konden niet worden verwijderd</string>
 
     <string name="permission_storage_access">Aanvullende permessies vereist voor het uploaden en downloaden van bestanden.</string>
     <string name="local_file_not_found_toast">Het bestand is niet te vinden binnen het lokale bestandssysteem.</string>
     <string name="confirmation_remove_files_alert">Wil je de geselecteerde objecten echt verwijderen?</string>
     <string name="confirmation_remove_folders_alert">Wil je de geselecteerde objecten en hun inhoud echt verwijderen?</string>
     <string name="maintenance_mode">Server in onderhoudsmodus</string>
-    <string name="lock_failed">Kan bestand niet vergrendelen</string>
 
     <string name="uploads_view_upload_status_waiting_for_charging">Wachten to apparaat wordt opgeladen</string>
     <string name="actionbar_search">Zoeken</string>
@@ -574,16 +555,12 @@ Kies er eentje van een provider.</string>
     <string name="synced_folders_loading_folders">Mappen laden&#8230;</string>
     <string name="synced_folders_no_results">Geen mediamappen gevonden.</string>
     <string name="synced_folders_preferences">Voorkeuren voor automatisch uploaden</string>
-    <string name="synced_folders_settings">Instellingen</string>
     <string name="synced_folders_new_info">Automatisch uploaden is helemaal herzien. Herconfigureer je auto-uploadfunctie in het hoofdmenu.\n\nVeel plezier met de nieuwe en meer uitgebreide auto-upload.</string>
     <string name="synced_folders_preferences_folder_path">Voor %1$s</string>
     <plurals name="items_selected_count">
         <item quantity="one">%d geselecteerd</item>
         <item quantity="other">%d geselecteerd</item>
     </plurals>
-
-    <string name="activity_list_loading_activity">Laden activiteiten&#8230;</string>
-    <string name="activity_list_no_results">Geen activiteiten gevonden.</string>
 
     <string name="notifications_loading_activity">Laden meldingen&#8230;</string>
     <string name="notifications_no_results_headline">Geen meldingen</string>
@@ -597,8 +574,6 @@ Kies er eentje van een provider.</string>
     <string name="upload_file_dialog_filetype_googlemap_shortcut">Google Maps-snelkoppelingsbestand(%s)</string>
 
     <string name="storage_description_default">Standaard</string>
-    <string name="storage_description_sd_no">SD-kaart %1$d</string>
-    <string name="storage_description_unknown">Onbekend</string>
 
     <!-- What's new feature and texts to show -->
     <string name="whats_new_title">Nieuw in %1$s</string>
@@ -631,20 +606,17 @@ Kies er eentje van een provider.</string>
     <string name="fingerprint_unknown">Vinger niet herkend</string>
 
     <!-- User information -->
-    <string name="user_info_full_name">Volledige naam</string>
     <string name="user_info_email">Email</string>
     <string name="user_info_phone">Telefoonnummer</string>
     <string name="user_info_address">Adres</string>
     <string name="user_info_website">Website</string>
     <string name="user_info_twitter">Twitter</string>
 
-    <string name="user_information_description">Gebruikersinformatie</string>
     <string name="user_information_retrieval_error">Fout bij ophalen gebruikersinformatie</string>
 
     <!-- Activities -->
     <string name="activities_no_results_headline">Nog geen activiteit</string>
     <string name="activities_no_results_message">Deze stream laat gebeurtenissen zoals\ntoevoegingen, veranderingen &amp; gedeelde bestanden zien</string>
-    <string name="webview_error">Er heeft zich een fout voorgedaan</string>
     <string name="prefs_category_about">Over</string>
 
     <string name="actionbar_contacts">Maak een backup van de contacten</string>
@@ -653,8 +625,6 @@ Kies er eentje van een provider.</string>
     <string name="contacts_automatic_backup">Automatische backup</string>
     <string name="contacts_last_backup">Laatsts backup</string>
     <string name="contacts_read_permission">Leesrechten voor contactpersonen vereist</string>
-    <string name="contacts_write_permission">Schrijfrechten voor contactpersonen vereist</string>
-    <string name="contactlist_title">Herstellen contactpersonen</string>
     <string name="contaclist_restore_selected">Herstel de geselecteerde contactpersonen</string>
     <string name="contactlist_account_chooser_title">Kies een account voor import</string>
     <string name="contactlist_no_permission">Geen permissies, niets geïnporteerd!</string>
@@ -666,7 +636,6 @@ Kies er eentje van een provider.</string>
     <string name="contacts_preferences_import_scheduled">Import ingepland en zal zo starten</string>
 
     <!-- Notifications -->
-    <string name="new_notification_received">Nieuwe meldingen ontvangen</string>
     <string name="drawer_logout">Uitloggen</string>
     <string name="picture_set_as_no_app">Geen app gevonden om afbeelding in te stellen</string>
     <string name="privacy">Privacy</string>
@@ -691,7 +660,7 @@ Kies er eentje van een provider.</string>
     <string name="prefs_license">Licentie</string>
     <string name="prefs_gpl_v2">GNU General Public Licence, versie 2</string>
     <string name="push_notifications_not_implemented">Push notificaties uitgeschakeld door afhankelijkheden op eigen Google Play-services.</string>
-    <string name="push_notifications_old_login">Geen push-notificaties als gevolg van de verouderde inlogsessie. Overweeg het opnieuw toevoegen van uw account.</string>
+    <string name="push_notifications_old_login">Geen push-notificaties als gevolg van de verouderde inlogsessie. Overweeg het opnieuw toevoegen van je account.</string>
     <string name="push_notifications_temp_error">Push notificaties momenteel niet beschikbaar.</string>
 
     <string name="date_unknown">Onbekend</string>
@@ -705,9 +674,16 @@ Kies er eentje van een provider.</string>
     <string name="drawer_current_account">Huidige account</string>
     <string name="drawer_middle_account">Gemiddelde account</string>
     <string name="drawer_end_account">Laatste account</string>
+    <string name="activity_icon">Activiteitspictogram</string>
+    <string name="file_icon">Bestandpictogram</string>
+    <string name="user_icon">Gebruikerspictogram</string>
+    <string name="fingerprint_icon">Vingerafdrukpictogram</string>
+    <string name="favorite_icon">Favorietenpictogram</string>
     <string name="synced_folders_type">Type</string>
     <string name="forward">Doorsturen</string>
     <string name="what_s_new_image">Wat is nieuw afbeelding</string>
 
     <string name="prefs_category_dev">Dev</string>
-    </resources>
+    <string name="dev_version_no_information_available">Geen informatie beschikbaar!</string>
+    <string name="dev_version_no_new_version_available">Geen nieuwe versie beschikbaar!</string>
+</resources>

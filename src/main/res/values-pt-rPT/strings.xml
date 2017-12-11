@@ -114,7 +114,6 @@
     <string name="common_cancel">Cancelar</string>
     <string name="common_back">Voltar</string>
     <string name="common_save">Guardar</string>
-    <string name="common_error">Erro</string>
     <string name="common_loading">A carregar&#8230;</string>
     <string name="common_unknown">desconhecido</string>
     <string name="common_error_unknown">Erro desconhecido</string>
@@ -138,9 +137,7 @@
     <string name="uploads_view_group_finished_uploads">Carregado</string>
     <string name="uploads_view_upload_status_succeeded">Concluído</string>
     <string name="uploads_view_upload_status_cancelled">Cancelado</string>
-    <string name="uploads_view_upload_status_paused">Em pausa</string>
     <string name="uploads_view_upload_status_failed_connection_error">Erro de ligação</string>
-    <string name="uploads_view_upload_status_failed_retry">O carregamento será repetido brevemente</string>
     <string name="uploads_view_upload_status_failed_credentials_error">Erro de credenciais</string>
     <string name="uploads_view_upload_status_failed_folder_error">Erro de pasta</string>
     <string name="uploads_view_upload_status_failed_file_error">Erro de ficheiro</string>
@@ -220,7 +217,6 @@
 	<string name="auth_expired_basic_auth_toast">Por favor, introduza a sua palavra-passe atual</string>
 	<string name="auth_expired_saml_sso_token_toast">A sua sessão expirou. Por favor, inicie a sessão novamente</string>
 	<string name="auth_connecting_auth_server">A conectar com o servidor autenticado &#8230;</string>
-	<string name="auth_unsupported_auth_method">O servidor não suporta este método de autenticação</string>
 	<string name="auth_unsupported_multiaccount">%1$s não suporta contas múltiplas</string>
 	<string name="auth_fail_get_user_name">O servidor não está a retornar um ID correcto do usuário. Por favor contacta o administrador.</string>
 	<string name="auth_can_not_auth_against_server">Não é possível autenticar para este servidor</string>
@@ -323,9 +319,6 @@
 
     <string name="sync_folder_failed_content">Não foi possível completar a sincronização da pasta %1$s</string>
 
-	<string name="shared_subject_header">partilhado</string>
-	<string name="with_you_subject_header">consigo</string>
-    
 	<string name="subject_user_shared_with_you">%1$s partilhou \"%2$s\" consigo</string>
     <string name="subject_shared_with_you">\"%1$s\" foi partilhado consigo</string>
 
@@ -337,8 +330,6 @@
 
     <string name="prefs_instant_behaviour_dialogTitle">O ficheiro original será&#8230;</string>
     <string name="prefs_instant_behaviour_title">O ficheiro original será&#8230;</string>
-    <string name="upload_copy_files">Copiar ficheiro</string>
-    <string name="upload_move_files">Mover ficheiro</string>
     <string name="pref_behaviour_entries_keep_file">mantido na pasta original</string>
     <string name="pref_behaviour_entries_move">movido para pasta da aplicação</string>
     <string name="share_dialog_title">Partilha</string>
@@ -365,17 +356,15 @@
     <string name="share_privilege_can_edit_create">criar</string>
     <string name="share_privilege_can_edit_change">alterar</string>
     <string name="share_privilege_can_edit_delete">eliminar</string>
-    <string name="edit_share_unshare">Parar partilha</string>
-    <string name="edit_share_done">feito</string>
 
     <string name="action_switch_grid_view">Vista em grelha</string>
     <string name="action_switch_list_view">Vista em lista</string>
 
     <string name="manage_space_title">Gerir espaço</string>
     <string name="manage_space_clear_data">Limpar dados</string>
-    <string name="manage_space_error">Alguns ficheiros não podem ser apagados.</string>
 
     <string name="maintenance_mode">Servidor em manutenção</string>
+
     <string name="actionbar_search">Procura</string>
     <string name="learn_more">Conheça melhor</string>
     <string name="drawer_participate">Participe</string>
@@ -385,8 +374,6 @@
     <string name="upload_file_dialog_filetype_googlemap_shortcut">Ficheiro(%s) de atalho do Google Maps</string>
 
     <string name="storage_description_default">Por defeito</string>
-    <string name="storage_description_sd_no">Cartão SD %1$d</string>
-    <string name="storage_description_unknown">Desconhecido</string>
 
     <!-- Welcome to Nc intro features -->
     <string name="welcome_feature_1_title">Um lugar seguro para todos os seus dados</string>
@@ -396,12 +383,10 @@
     <string name="whats_new_skip">Passar à frente</string>
 
     <!-- User information -->
-    <string name="user_info_full_name">Nome completo</string>
     <string name="user_info_email">E-mail</string>
     <string name="user_info_address">Endereço</string>
     <string name="user_info_twitter">Twitter</string>
 
-    <string name="webview_error">Ocorreu um erro</string>
     <string name="prefs_license">Licença</string>
     <string name="date_unknown">Desconhecido</string>
 

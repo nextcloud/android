@@ -121,13 +121,10 @@
     <string name="common_yes">Po</string>
     <string name="common_no">Jo</string>
     <string name="common_ok">OK</string>
-    <string name="common_remove_upload">Hiqe ngarkimin</string>
-    <string name="common_retry_upload">Riprovo ngarkimin</string>
     <string name="common_cancel_sync">Anuloje sinkronizimin</string>
     <string name="common_cancel">Anuloje</string>
     <string name="common_back">Mbrapsht</string>
     <string name="common_save">Ruaj</string>
-    <string name="common_error">Gabim</string>
     <string name="common_loading">Po ngarkohet &#8230;</string>
     <string name="common_unknown">panjohur</string>
     <string name="common_error_unknown">Gabim i panjohur</string>
@@ -154,9 +151,7 @@
     <string name="uploads_view_group_finished_uploads">U ngarkua</string>
     <string name="uploads_view_upload_status_succeeded">Të plotësuara</string>
     <string name="uploads_view_upload_status_cancelled">U anulua</string>
-    <string name="uploads_view_upload_status_paused">Pushuar</string>
     <string name="uploads_view_upload_status_failed_connection_error">Gabim lidhjeje</string>
-    <string name="uploads_view_upload_status_failed_retry">Ngarkimi do të riprovohet së shpejti</string>
     <string name="uploads_view_upload_status_failed_credentials_error">Gabim kredencialesh</string>
     <string name="uploads_view_upload_status_failed_folder_error">Gabim dosjeje</string>
     <string name="uploads_view_upload_status_failed_file_error">Gabim skedari</string>
@@ -248,7 +243,6 @@
 	<string name="auth_expired_basic_auth_toast">Ju lutem, jepni fjalëkalimin e tanishëm</string>
 	<string name="auth_expired_saml_sso_token_toast">Sesioni juaj skadoi. Ju lutemi, rilidhuni</string>
 	<string name="auth_connecting_auth_server">Po lidhet te serveri i identifikimit&#8230;</string>
-	<string name="auth_unsupported_auth_method">Serveri s’e mbulon këtë metodë identifikimi</string>
 	<string name="auth_unsupported_multiaccount">%1$s s\’mbulon llogari të shumëfishta</string>
 	<string name="auth_fail_get_user_name">Serveri juaj nuk është duke kthyer një  id përdoruesi të saktë, ju lutem kontaktoni një administrator</string>
 	<string name="auth_can_not_auth_against_server">S’kryhet dot identifikimi me këtë server</string>
@@ -269,7 +263,6 @@
     <string name="rename_dialog_title">Jepni një emër të ri</string>
     <string name="rename_local_fail_msg">Kopja vendore s\’u riemërtua dot; provoni një emër tjetër</string>
     <string name="rename_server_fail_msg">Serverit nuk mund ti jepej emër i ri</string>
-    <string name="sync_file_fail_msg">S’u kap dot skedari i largët</string>
     <string name="sync_file_nothing_to_do_msg">Përmbajtja e skedarit tashmë e sinkronizuar</string>
     <string name="create_dir_fail_msg">S’u krijua dot dosja</string>
     <string name="filename_forbidden_characters">Shenja të ndaluara: / \\ &lt; &gt; : \" | ? *</string>
@@ -277,7 +270,6 @@
     <string name="filename_empty">Emri i skedarit s’mund të jetë i zbrazët</string>
     <string name="wait_a_moment">Prisni një çast&#8230;</string>
     <string name="wait_checking_credentials">Po kontrollohen kredenciale të depozituara</string>
-    <string name="filedisplay_unexpected_bad_get_content">Problem i papritur; ju lutemi, përzgjidhni një skedar nga një aplikacion tjetër</string>
     <string name="filedisplay_no_file_selected">S’u përzgjodh skedar</string>
     <string name="activity_chooser_title">Dërgoni lidhje te &#8230;</string>
     <string name="wait_for_tmp_copy_from_private_storage">Po kopjohet skedar nga depo private</string>
@@ -318,7 +310,6 @@
     <string name="placeholder_media_time">12:23:45</string>
 
     <string name="auto_upload_on_wifi">Ngarko vetëm nëpërmjet WiFi</string>
-    <string name="instant_video_upload_on_charging">Ngarkoni vetëm kur jeni duke e karikuar</string>
     <string name="instant_upload_on_charging">Ngarkoni vetëm kur jeni duke e karikuar</string>
     <string name="instant_upload_path">/InstantUpload</string>
     <string name="auto_upload_path">/NgarkimAutomatik</string>
@@ -375,7 +366,6 @@
     <string name="downloader_download_file_not_found">Skedari s’gjendet më te serveri</string>
 
     <string name="file_migration_dialog_title">Duke përditësuar rrugen e hapsirës ruajtëse</string>
-    <string name="file_migration_finish_button">Përfundo</string>
     <string name="file_migration_preparing">Duke u pregatitur për migrimin&#8230;</string>
     <string name="file_migration_checking_destination">Duke kontrolluar destinacionin&#8230;</string>
     <string name="file_migration_saving_accounts_configuration">Duke ruajtur konfigurimin&#8230; e llogarive</string>
@@ -433,9 +423,6 @@
 
     <string name="sync_folder_failed_content">Sinkronizimi i i dosjes %1$s nuk u plotësua dot</string>
 
-	<string name="shared_subject_header">ndarë</string>
-	<string name="with_you_subject_header">me ju</string>
-    
 	<string name="subject_user_shared_with_you">%1$s ndau me ju \"%2$s\"</string>
     <string name="subject_shared_with_you">\"%1$s\" është ndarë me ju</string>
 
@@ -450,8 +437,6 @@
 
     <string name="prefs_instant_behaviour_dialogTitle">Skedari origjinal do të jetë&#8230;</string>
     <string name="prefs_instant_behaviour_title">Skedari origjinal do të jetë&#8230;</string>
-    <string name="upload_copy_files">Kopjoje kartelën</string>
-    <string name="upload_move_files">Lëvize kartelën</string>
     <string name="select_all">Zgjidhi të gjitha</string>
     <string name="deselect_all">Hiqi të gjithë</string>
 
@@ -492,8 +477,6 @@
     <string name="share_privilege_can_edit_create">krijoje</string>
     <string name="share_privilege_can_edit_change">ndrysho</string>
     <string name="share_privilege_can_edit_delete">fshi</string>
-    <string name="edit_share_unshare">Resht së ndari</string>
-    <string name="edit_share_done">u bë</string>
 
     <string name="action_retry_uploads">Riprovoni ngarkimet e dështuara</string>
     <string name="action_clear_failed_uploads">Pastroni ngarkimet e dështuara</string>
@@ -506,14 +489,12 @@
     <string name="manage_space_title">Administroni hapësirë</string>
     <string name="manage_space_description">Rregullimet, baza e të dhënave dhe dëshmitë e serverit prej të dhënave nga %1$s do të fshihen përgjithmonë. \n\nSkedarët e shkarkuar do të ruhen të paprekura.\n\nKy proces mund të kërkoj ca kohë.</string>
     <string name="manage_space_clear_data">Pastroji të dhënat</string>
-    <string name="manage_space_error">Ca kartela s’u fshinë dot.</string>
 
     <string name="permission_storage_access">Që të ngarkoni dhe shkarkoni skedar kërkohen leje shtesë.</string>
     <string name="local_file_not_found_toast">Skedari s’u gjet te sistemi vendor i skedarëve</string>
     <string name="confirmation_remove_files_alert">Doni vërtetë të hiqni artikujt e zgjedhur?</string>
     <string name="confirmation_remove_folders_alert">Doni vërtet të hiqni artikujt e zgjedhur dhe përmbajtjen e tyre?</string>
     <string name="maintenance_mode">Shërbyesi në gjëndje mirëmbajtjeje</string>
-    <string name="lock_failed">Kyçja e skedarit dështoi</string>
 
     <string name="uploads_view_upload_status_waiting_for_charging">Duke pritur që pajisja të karikohet</string>
     <string name="actionbar_search">Kërkoni</string>
@@ -543,16 +524,12 @@
     <string name="synced_folders_loading_folders">Po ngarkohen dosjet &#8230;</string>
     <string name="synced_folders_no_results">Nuk u gjet asnjë dosje.</string>
     <string name="synced_folders_preferences">Parapëlqimet për ngarkimin automatik</string>
-    <string name="synced_folders_settings">Rregullime</string>
     <string name="synced_folders_new_info">Ngarkimi i menjëhershëm është ngritur plotësisht. Rii-konfiguroni ngarkimet tuaja automatike  brenda menusë kryesore.\n\nShijoni aftësitë e reja dhe të zgjeruara të ngarkimit automatik.</string>
     <string name="synced_folders_preferences_folder_path">Për %1$s</string>
     <plurals name="items_selected_count">
         <item quantity="one">%d të përzgjedhura</item>
         <item quantity="other">%d të përzgjedhura</item>
     </plurals>
-
-    <string name="activity_list_loading_activity">Duke ngarkuar aktivitetet &#8230;</string>
-    <string name="activity_list_no_results">Asnjë aktivitet nuk u gjet.</string>
 
     <string name="notifications_loading_activity">Duke ngarkuar njoftimet 1&#8230;</string>
     <string name="notifications_no_results_headline">Asnjë njofim</string>
@@ -566,8 +543,6 @@
     <string name="upload_file_dialog_filetype_googlemap_shortcut">Skedar Google Maps(%s)</string>
 
     <string name="storage_description_default">Paraprake</string>
-    <string name="storage_description_sd_no">Kart SD %1$d</string>
-    <string name="storage_description_unknown">E panjohur</string>
 
     <!-- What's new feature and texts to show -->
     <string name="whats_new_title">Çfarë është e re në %1$s</string>
@@ -600,20 +575,17 @@
     <string name="fingerprint_unknown">Gishti nuk u njoh</string>
 
     <!-- User information -->
-    <string name="user_info_full_name">Emri i plotë</string>
     <string name="user_info_email">E-mail</string>
     <string name="user_info_phone">Numri i telefonit</string>
     <string name="user_info_address">Adresa</string>
     <string name="user_info_website">Website</string>
     <string name="user_info_twitter">Twitter</string>
 
-    <string name="user_information_description">Informacioni i përdoruesit</string>
     <string name="user_information_retrieval_error">Gabim gjatë marrjes së informacionit të përdoruesit</string>
 
     <!-- Activities -->
     <string name="activities_no_results_headline">Akoma asnjë aktivitet</string>
     <string name="activities_no_results_message">Ky burim do të tregoj eventet si\nshtimet, ndryshimet dhe ndarjet</string>
-    <string name="webview_error">Ndodhi një gabim</string>
     <string name="prefs_category_about">Rreth </string>
 
     <string name="actionbar_contacts">Krijo backup të kontakteve</string>
@@ -622,8 +594,6 @@
     <string name="contacts_automatic_backup">Back up automatik</string>
     <string name="contacts_last_backup">Backup i fundit</string>
     <string name="contacts_read_permission">Kërkohet e drejta për të lexuar listën e kontakteve</string>
-    <string name="contacts_write_permission">Kërkohet e drejta për të ndryshuar listën e kontakteve</string>
-    <string name="contactlist_title">Rikthe kontaktet</string>
     <string name="contaclist_restore_selected">Rikthe kontaktet e zgjedhura</string>
     <string name="contactlist_account_chooser_title">Zgjidh llogarinë që do të importohet</string>
     <string name="contactlist_no_permission">Nuk është dhënë asnjë e drejtë, asgjë nuk u importua!</string>
@@ -635,7 +605,6 @@
     <string name="contacts_preferences_import_scheduled">Importimi u skedulua dhe do të filloj së shpejti</string>
 
     <!-- Notifications -->
-    <string name="new_notification_received">Morët njoftime të reja</string>
     <string name="drawer_logout">Dilni</string>
     <string name="picture_set_as_no_app">Nuk u gjet aplikacioni me të cilin vendoset foto!</string>
     <string name="privacy">Privatësi</string>

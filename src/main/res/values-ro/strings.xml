@@ -86,7 +86,6 @@
     <string name="common_cancel">Anulează</string>
     <string name="common_back">Înapoi</string>
     <string name="common_save">Salvează</string>
-    <string name="common_error">Eroare</string>
     <string name="common_loading">Se încarcă &#8230;</string>
     <string name="common_unknown">necunoscut</string>
     <string name="common_error_unknown">Eroare necunoscută</string>
@@ -108,9 +107,7 @@
     <string name="uploads_view_group_finished_uploads">Încărcat</string>
     <string name="uploads_view_upload_status_succeeded">Terminat</string>
     <string name="uploads_view_upload_status_cancelled">Anulat</string>
-    <string name="uploads_view_upload_status_paused">oprit</string>
     <string name="uploads_view_upload_status_failed_connection_error">Eroare de conexiune</string>
-    <string name="uploads_view_upload_status_failed_retry">Incarcarea va fi reincercata in scurt timp</string>
     <string name="uploads_view_upload_status_failed_credentials_error">Erori de autentificare</string>
     <string name="uploads_view_upload_status_failed_folder_error">Eroare de director</string>
     <string name="uploads_view_upload_status_failed_file_error">Eroare de fișier</string>
@@ -166,7 +163,6 @@
 	<string name="auth_expired_oauth_token_toast">Autorizarea dvs. a expirat. Vă rugăm să autorizați din nou.</string>
 	<string name="auth_expired_basic_auth_toast">Va rugăm să introduceți parola actuală</string>
 	<string name="auth_expired_saml_sso_token_toast">Sesiunea a expirat .Va rugam conectati-va din nou </string>
-	<string name="auth_unsupported_auth_method">Serverul nu soporta aceasta metoda de autentificare </string>
 	<string name="auth_unsupported_multiaccount">%1$s nu suporta conturi multiple</string>
 	<string name="auth_can_not_auth_against_server">Nu se poate autentifica la acest server</string>
     <string name="favorite">Selectează ca disponibil offline</string>
@@ -252,7 +248,6 @@
     <string name="downloader_download_file_not_found">Fișierul nu mai este disponibil pe server</string>
 
     <string name="file_migration_dialog_title">Se actualizează calea către mediul de stocare</string>
-    <string name="file_migration_finish_button">Finalizare</string>
     <string name="file_migration_checking_destination">Se verifică destinația&#8230;</string>
     <string name="file_migration_migrating">Se mută datele&#8230;</string>
     <string name="file_migration_updating_index">Indexul se actualizează&#8230;</string>
@@ -283,9 +278,6 @@
 
     <string name="sync_folder_failed_content">Sincronizarea dosarului %1$s nu a putut fi finalizată</string>
 
-	<string name="shared_subject_header">partajat</string>
-	<string name="with_you_subject_header">cu tine</string>
-    
 	<string name="subject_user_shared_with_you">%1$s a partajat fișierul \"%2$s\" cu tine</string>
     <string name="subject_shared_with_you">„%1$s” a fost partajat cu dumneavoastră</string>
 
@@ -297,8 +289,6 @@
 
     <string name="prefs_instant_behaviour_dialogTitle">Fișierul original va fi&#8230;</string>
     <string name="prefs_instant_behaviour_title">Fișierul original va fi&#8230;</string>
-    <string name="upload_copy_files">Copiază fișierul</string>
-    <string name="upload_move_files">Mută fișierul</string>
     <string name="select_all">Selectează tot</string>
     <string name="pref_behaviour_entries_keep_file">păstrate in dosarul original</string>
     <string name="pref_behaviour_entries_move">mutate în dosarul aplicației</string>
@@ -332,15 +322,12 @@
     <string name="share_privilege_can_edit_create">creare</string>
     <string name="share_privilege_can_edit_change">modifică</string>
     <string name="share_privilege_can_edit_delete">ștergere</string>
-    <string name="edit_share_unshare">Oprește partajarea</string>
-    <string name="edit_share_done">finalizat</string>
 
     <string name="action_switch_grid_view">Afișare în grilă</string>
     <string name="action_switch_list_view">Afișare în listă</string>
 
     <string name="manage_space_title">Administrare spațiu</string>
     <string name="manage_space_clear_data">Elimină datele</string>
-    <string name="manage_space_error">Unele fișiere nu au putut fi șterse.</string>
 
     <string name="actionbar_search">Caută</string>
     <string name="files_drop_not_supported">Aceasta este o funcționalitate Nextcloud, vă rugăm să actulizați aplicația.</string>
@@ -353,7 +340,6 @@
     <string name="participate_contribute_translate_text">aplicația</string>
     <string name="move_to">Mută în&#8230;</string>
     <string name="copy_to">Copiază în&#8230;</string>
-    <string name="synced_folders_settings">Setări</string>
     <plurals name="items_selected_count">
         <item quantity="one">%d selectat</item>
         <item quantity="few">%d selectate</item>
@@ -367,8 +353,6 @@
     <string name="upload_file_dialog_filetype_googlemap_shortcut">Fișier scurtătură pe Google Maps (%s)</string>
 
     <string name="storage_description_default">Implicit</string>
-    <string name="storage_description_sd_no">Card SD %1$d</string>
-    <string name="storage_description_unknown">Necunoscut</string>
 
     <!-- Welcome to Nc intro features -->
     <string name="welcome_feature_1_title">O casă sigură pentru toate datele tale</string>
@@ -380,7 +364,6 @@
     <string name="whats_new_skip">Sari peste</string>
 
     <!-- User information -->
-    <string name="user_info_full_name">Nume complet</string>
     <string name="user_info_email">E-mail</string>
     <string name="user_info_phone">Număr telefon</string>
     <string name="user_info_address">Adresă</string>

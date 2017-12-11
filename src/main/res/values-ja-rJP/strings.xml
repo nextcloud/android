@@ -114,12 +114,10 @@
     <string name="common_yes">はい</string>
     <string name="common_no">いいえ</string>
     <string name="common_ok">OK</string>
-    <string name="common_retry_upload">再度アップロードを試行する</string>
     <string name="common_cancel_sync">同期のキャンセル</string>
     <string name="common_cancel">キャンセル</string>
     <string name="common_back">戻る</string>
     <string name="common_save">保存</string>
-    <string name="common_error">エラー</string>
     <string name="common_loading">読込中&#8230;</string>
     <string name="common_unknown">不明</string>
     <string name="common_error_unknown">不明なエラー</string>
@@ -144,9 +142,7 @@
     <string name="uploads_view_group_finished_uploads">アップロード済み</string>
     <string name="uploads_view_upload_status_succeeded">完了</string>
     <string name="uploads_view_upload_status_cancelled">キャンセル済</string>
-    <string name="uploads_view_upload_status_paused">停止中</string>
     <string name="uploads_view_upload_status_failed_connection_error">接続エラー</string>
-    <string name="uploads_view_upload_status_failed_retry">アップロードは間もなく再試行されます</string>
     <string name="uploads_view_upload_status_failed_credentials_error">資格情報エラー</string>
     <string name="uploads_view_upload_status_failed_folder_error">フォルダーエラー</string>
     <string name="uploads_view_upload_status_failed_file_error">ファイルエラー</string>
@@ -209,7 +205,6 @@
 	<string name="auth_expired_oauth_token_toast">認証情報は有効期限切れです。再度認証を行ってください。</string>
 	<string name="auth_expired_basic_auth_toast">現在のパスワードを入力してください</string>
 	<string name="auth_expired_saml_sso_token_toast">セッションの有効期限切れです。再度接続してください。</string>
-	<string name="auth_unsupported_auth_method">サーバーはこの認証方式をサポートしていません</string>
 	<string name="auth_unsupported_multiaccount">%1$s は複数アカウントをサポートしていません</string>
 	<string name="auth_can_not_auth_against_server">認証サーバーに接続できません</string>
     <string name="favorite">オフラインで利用可能に設定</string>
@@ -293,7 +288,6 @@
     <string name="downloader_download_file_not_found">ファイルはサーバー上で利用できません</string>
 
     <string name="file_migration_dialog_title">ストレージの場所を更新中</string>
-    <string name="file_migration_finish_button">完了</string>
     <string name="file_migration_checking_destination">宛先の確認中&#8230;</string>
     <string name="file_migration_migrating">データの移動中&#8230;</string>
     <string name="file_migration_updating_index">インデックスの更新中&#8230;</string>
@@ -324,9 +318,6 @@
 
     <string name="sync_folder_failed_content">%1$s フォルダーの同期が完了しませんでした。</string>
 
-	<string name="shared_subject_header">共有中</string>
-	<string name="with_you_subject_header">あなたと</string>
-    
 	<string name="subject_user_shared_with_you">%1$s は \"%2$s\" をあなたと共有しました</string>
     <string name="subject_shared_with_you">\"%1$s\" があなたと共有しました</string>
 
@@ -338,8 +329,6 @@
 
     <string name="prefs_instant_behaviour_dialogTitle">オリジナルファイルは、&#8230; になります。</string>
     <string name="prefs_instant_behaviour_title">オリジナルファイルは、&#8230; になります。</string>
-    <string name="upload_copy_files">ファイルをコピー</string>
-    <string name="upload_move_files">ファイルを移動</string>
     <string name="select_all">すべて選択</string>
     <string name="pref_behaviour_entries_keep_file">元のフォルダに保持</string>
     <string name="pref_behaviour_entries_move">アプリフォルダに移動</string>
@@ -373,15 +362,12 @@
     <string name="share_privilege_can_edit_create">作成</string>
     <string name="share_privilege_can_edit_change">更新</string>
     <string name="share_privilege_can_edit_delete">削除</string>
-    <string name="edit_share_unshare">共有の停止</string>
-    <string name="edit_share_done">完了</string>
 
     <string name="action_switch_grid_view">グリッド表示</string>
     <string name="action_switch_list_view">リスト表示</string>
 
     <string name="manage_space_title">管理領域</string>
     <string name="manage_space_clear_data">データのクリア</string>
-    <string name="manage_space_error">いくつかのファイルがクリアできませんでした。</string>
 
     <string name="actionbar_search">検索</string>
     <string name="files_drop_not_supported">これはNextCloudの機能です。更新してください。</string>
@@ -396,9 +382,6 @@
         <item quantity="other">%d選択されています。</item>
     </plurals>
 
-    <string name="activity_list_loading_activity">アクティビティの読み込み中&#8230;</string>
-    <string name="activity_list_no_results">アクティビティが見つかりません。</string>
-
     <string name="notifications_loading_activity">通知の読み込み中&#8230;</string>
     <string name="notifications_no_results_headline">通知なし</string>
     <string name="notifications_no_results_message">後で確認してください。</string>
@@ -410,8 +393,6 @@
     <string name="upload_file_dialog_filetype_googlemap_shortcut">Googleマップショートカットファイル(%s)</string>
 
     <string name="storage_description_default">デフォルト</string>
-    <string name="storage_description_sd_no">SD カード %1$d</string>
-    <string name="storage_description_unknown">不明</string>
 
     <!-- Welcome to Nc intro features -->
     <string name="welcome_feature_1_title">すべてのデータの安全なホーム</string>
@@ -425,21 +406,16 @@
     <string name="fingerprint_scan_finger">指紋をスキャンしてください</string>
     <string name="fingerprint_unknown">指紋が認識できません</string>
 
-    <!-- User information -->
-    <string name="user_info_full_name">氏名</string>
     <string name="user_info_phone">電話番号</string>
     <string name="user_info_address">住所</string>
     <string name="user_info_website">ウェブサイト</string>
     <string name="user_info_twitter">Twitter</string>
 
-    <string name="user_information_description">ユーザー情報</string>
     <!-- Activities -->
     <string name="activities_no_results_headline">まだアクティビティはありません</string>
-    <string name="webview_error">エラーが発生しました</string>
     <string name="prefs_category_about">アプリについて</string>
 
     <string name="contacts_last_backup">前回のバックアップ</string>
-    <string name="contactlist_title">アドレス帳を復元</string>
     <string name="contaclist_restore_selected">選択したアドレス帳を復元</string>
     <string name="contacts_preference_choose_date">日付を選択</string>
     <string name="contacts_preference_backup_never">しない</string>
@@ -447,6 +423,4 @@
     <string name="contacts_preferences_backup_scheduled">バックアップをスケジュールしました。まもなく開始します</string>
     <string name="contacts_preferences_import_scheduled">インポートをスケジュールしました。まもなく開始します</string>
 
-    <!-- Notifications -->
-    <string name="new_notification_received">新しい通知を受け取りました</string>
     </resources>

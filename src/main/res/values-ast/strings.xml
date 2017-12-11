@@ -98,11 +98,9 @@
     <string name="common_yes">Sí</string>
     <string name="common_no">Non</string>
     <string name="common_ok">Aceutar</string>
-    <string name="common_retry_upload">Retentar xuba</string>
     <string name="common_cancel_sync">Encaboxar sincronización</string>
     <string name="common_cancel">Encaboxar</string>
     <string name="common_back">Atrás</string>
-    <string name="common_error">Fallu</string>
     <string name="common_loading">Cargando&#8230;</string>
     <string name="common_unknown">desconocí­u</string>
     <string name="common_error_unknown">Fallu desconocíu</string>
@@ -122,9 +120,7 @@
     <string name="uploads_view_group_finished_uploads">Xubíu</string>
     <string name="uploads_view_upload_status_succeeded">Completáu</string>
     <string name="uploads_view_upload_status_cancelled">Encaboxáu</string>
-    <string name="uploads_view_upload_status_paused">Pausáu</string>
     <string name="uploads_view_upload_status_failed_connection_error">Fallu de conexón</string>
-    <string name="uploads_view_upload_status_failed_retry">Xubida volverá intentase de nueves</string>
     <string name="uploads_view_upload_status_failed_credentials_error">Fallu de credenciales</string>
     <string name="uploads_view_upload_status_failed_folder_error">Fallu de carpeta</string>
     <string name="uploads_view_upload_status_failed_file_error">Fallu de ficheru</string>
@@ -198,7 +194,6 @@
 	<string name="auth_expired_oauth_token_toast">La to autorización finó. Por favor, autorízala otra vegada</string>
 	<string name="auth_expired_basic_auth_toast">Por favor, introduzca la contraseña actual</string>
 	<string name="auth_expired_saml_sso_token_toast">La so sesión finó. Por favor conéutate otra vegada</string>
-	<string name="auth_unsupported_auth_method">El sirvidor nun sofita esti métodu/triba d\'autentificación</string>
 	<string name="auth_unsupported_multiaccount">%1$s nun permite cuentes múltiples</string>
 	<string name="auth_fail_get_user_name">El to sirvidor nun ta devolviendo una ID correuta d\'usuariu, por favor contauta con un alministrador</string>
 	<string name="auth_can_not_auth_against_server">Nun pues autentificate nesti sirvidor</string>
@@ -209,7 +204,6 @@
     <string name="common_rename">Renomar</string>
     <string name="confirmation_remove_local">Namái llocal</string>
     <string name="rename_dialog_title">Introduz un nome nuevu</string>
-    <string name="sync_file_fail_msg">Nun pudo comprobase\'l ficheru remotu</string>
     <string name="sync_file_nothing_to_do_msg">El conteníu del ficheru yá ta sincronizáu</string>
     <string name="create_dir_fail_msg">Nun pudo crease la carpeta</string>
     <string name="filename_forbidden_characters">Caráuteres prohibíos: / \\ &lt; &gt; : \" | ? *</string>
@@ -253,7 +247,6 @@
     <string name="placeholder_media_time">12:23:45</string>
 
     <string name="auto_upload_on_wifi">Xubir namái na Wi-Fi</string>
-    <string name="instant_video_upload_on_charging">Namái xubir al cargar</string>
     <string name="instant_upload_on_charging">Namái xubir al cargar</string>
     <string name="instant_upload_path">/XubidaNelIntre</string>
     <string name="conflict_title">Conflictu nel ficheru</string>
@@ -298,7 +291,6 @@
     <string name="uploader_upload_forbidden_permissions">pa xubir esta carpeta</string>
     <string name="downloader_download_file_not_found">Esti ficheru yá nun ta nel sirvidor</string>
 
-    <string name="file_migration_finish_button">Finar</string>
     <string name="file_migration_preparing">Tresnando la migración&#8230;</string>
     <string name="file_migration_checking_destination">Comprobando destín&#8230;</string>
     <string name="file_migration_saving_accounts_configuration">Guardando configuración de les cuentes&#8230;</string>
@@ -349,9 +341,6 @@
 
     <string name="sync_folder_failed_content">La sincronización de la carpeta %1$s nun pudo completase</string>
 
-	<string name="shared_subject_header">compartíu</string>
-	<string name="with_you_subject_header">contigo</string>
-    
 	<string name="subject_user_shared_with_you">%1$s compartío \"%2$s\" contigo</string>
     <string name="subject_shared_with_you">Compartiose \"%1$s\" contigo</string>
 
@@ -363,8 +352,6 @@
 
     <string name="prefs_instant_behaviour_dialogTitle">El ficheru orixinal sedrá&#8230;</string>
     <string name="prefs_instant_behaviour_title">El ficheru orixinal sedrá&#8230;</string>
-    <string name="upload_copy_files">Copiar ficheru</string>
-    <string name="upload_move_files">Mover ficheru</string>
     <string name="select_all">Esbillar too</string>
     <string name="pref_behaviour_entries_keep_file">guardáu en carpeta orixinal</string>
     <string name="pref_behaviour_entries_move">movíu a la carpeta d\'aplicaciones</string>
@@ -396,15 +383,12 @@
     <string name="share_privilege_can_edit_create">crear</string>
     <string name="share_privilege_can_edit_change">camudar</string>
     <string name="share_privilege_can_edit_delete">desaniciar</string>
-    <string name="edit_share_unshare">Dexar de compartir</string>
-    <string name="edit_share_done">fechu</string>
 
     <string name="action_switch_grid_view">Vista de rexella</string>
     <string name="action_switch_list_view">Vista de llista</string>
 
     <string name="manage_space_title">Alministrar espaciu</string>
     <string name="manage_space_clear_data">Llimpiar datos</string>
-    <string name="manage_space_error">Dalgunos ficheros nun pudieron esborrase.</string>
 
     <string name="local_file_not_found_toast">Nun s\'alcontró\'l ficheru nel sistema llocal de ficheros</string>
     <string name="actionbar_search">Guetar</string>
@@ -413,16 +397,10 @@
     <string name="move_to">Mover a&#8230;</string>
     <string name="copy_to">Copiar a&#8230;</string>
     <string name="synced_folders_loading_folders">Cargando carpetes&#8230;</string>
-    <string name="activity_list_loading_activity">Cargando actividaes&#8230;</string>
-    <string name="activity_list_no_results">Nun s\'alcontraron actividaes.</string>
-
     <string name="notifications_loading_activity">Cargando avisos&#8230;</string>
     <string name="notifications_no_results_headline">Ensin avisos</string>
     <string name="upload_file_dialog_filename">Nome de ficheru</string>
     <string name="upload_file_dialog_filetype">Triba de ficheru</string>
-    <string name="storage_description_sd_no">Tarxeta SD %1$d</string>
-    <string name="storage_description_unknown">Desconozse</string>
-
     <!-- Welcome to Nc intro features -->
     <string name="welcome_feature_1_title">Un llar seguru pa tolos tos datos</string>
     <string name="welcome_feature_1_text">Accedu, comparti y protexi los tos ficheros en casa y nel trabayu</string>
@@ -433,22 +411,18 @@
     <string name="fingerprint_unknown">Nun se reconoz el deu</string>
 
     <!-- User information -->
-    <string name="user_info_full_name">Nome completu</string>
     <string name="user_info_email">Corréu</string>
     <string name="user_info_phone">Númberu telefónicu</string>
     <string name="user_info_address">Direición</string>
     <string name="user_info_website">Sitiu web</string>
     <string name="user_info_twitter">Twitter</string>
 
-    <string name="user_information_description">Información d\'usuariu</string>
     <!-- Activities -->
     <string name="activities_no_results_headline"> Entá nun hai actividá</string>
-    <string name="webview_error">Asocedió un fallu</string>
     <string name="prefs_category_about">Tocante a</string>
 
     <string name="actionbar_contacts_restore">Restaurar contautos</string>
     <string name="contacts_preference_backup_never">enxamás</string>
     <!-- Notifications -->
-    <string name="new_notification_received">Recibióse un avisu nuevu</string>
     <string name="drawer_logout">Zarrar sesión</string>
     </resources>
