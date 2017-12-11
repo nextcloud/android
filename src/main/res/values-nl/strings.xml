@@ -635,7 +635,6 @@ Kies er eentje van een provider.</string>
     <string name="contacts_preferences_backup_scheduled">Backup ingepland en zal zo starten</string>
     <string name="contacts_preferences_import_scheduled">Import ingepland en zal zo starten</string>
 
-    <!-- Notifications -->
     <string name="drawer_logout">Uitloggen</string>
     <string name="picture_set_as_no_app">Geen app gevonden om afbeelding in te stellen</string>
     <string name="privacy">Privacy</string>

@@ -158,7 +158,7 @@
     <string name="uploads_view_upload_status_failed_credentials_error">Ошибка данных подтверждения подлинности</string>
     <string name="uploads_view_upload_status_failed_folder_error">Ошибка каталога</string>
     <string name="uploads_view_upload_status_failed_file_error">Ошибка файла</string>
-    <string name="uploads_view_upload_status_failed_localfile_error">Локальный файл не найден</string>
+    <string name="uploads_view_upload_status_failed_localfile_error">Файл не найден на устройстве</string>
     <string name="uploads_view_upload_status_failed_permission_error">Ошибка прав доступа</string>
     <string name="uploads_view_upload_status_conflict">Конфликт</string>
     <string name="uploads_view_upload_status_service_interrupted">Работа приложения была прекращена</string>
@@ -346,7 +346,7 @@
     <string name="preview_image_error_no_local_file">Отсутствует локальный файл для создания миниатюры</string>
 
     <string name="error__upload__local_file_not_copied">%1$s невозможно скопировать в локальный каталог %2$s </string>
-    <string name="prefs_synced_folders_local_path_title">Локальная папка</string>
+    <string name="prefs_synced_folders_local_path_title">Папка на устройстве</string>
     <string name="prefs_synced_folders_remote_path_title">Папка на сервере</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Создавать вложенные папки</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Сохранять в них на основании года и месяца</string>
@@ -644,7 +644,6 @@
     <string name="contacts_preferences_backup_scheduled">Резервное копирование запланировано и скоро начётся</string>
     <string name="contacts_preferences_import_scheduled">Импорт запланирован и скоро начнётся</string>
 
-    <!-- Notifications -->
     <string name="drawer_logout">Выйти</string>
     <string name="picture_set_as_no_app">Не надено приложения, с помощью которого можно установить изображение!</string>
     <string name="privacy">Конфиденциальность</string>

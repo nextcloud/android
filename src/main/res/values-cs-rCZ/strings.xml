@@ -633,7 +633,6 @@
     <string name="contacts_preferences_backup_scheduled">Zálohování je naplánováno a brzy začne</string>
     <string name="contacts_preferences_import_scheduled">Import je naplánován a brzy začne</string>
 
-    <!-- Notifications -->
     <string name="drawer_logout">Odhlásit se</string>
     <string name="picture_set_as_no_app">Pro tento typ souboru nebyla nalezena aplikace!</string>
     <string name="privacy">Soukromí</string>

@@ -629,7 +629,6 @@
     <string name="contacts_preferences_backup_scheduled">ბექაფი დაინიშნა და მალე დაიწყება</string>
     <string name="contacts_preferences_import_scheduled">იმპორტი დაინიშნა და მალე დაიწყება</string>
 
-    <!-- Notifications -->
     <string name="drawer_logout">გასვლა</string>
     <string name="picture_set_as_no_app">სურათის დასაყენებლად ვერც ერთი აპლიკაცია ვერ იქნა ნაპოვნი!</string>
     <string name="privacy">კონფიდენციალურობა</string>
