@@ -352,11 +352,14 @@ public class ThumbnailsCacheManager {
                         }
                     }
                 } else {
-                    if (ConnectivityUtils.isInternetWalled(MainApp.getAppContext())) {
-                        previewImageFragment.setNoConnectionErrorMessage();
-                    } else {
-                        previewImageFragment.setErrorPreviewMessage();
-                    }
+                    new Thread(() -> {
+                        if (ConnectivityUtils.isInternetWalled(MainApp.getAppContext())) {
+                            previewImageFragment.setNoConnectionErrorMessage();
+                        } else {
+                            previewImageFragment.setErrorPreviewMessage();
+                        }
+                    }).start();
+                    
                 }
             }
         }
