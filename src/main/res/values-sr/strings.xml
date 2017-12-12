@@ -473,7 +473,6 @@
     <string name="pref_behaviour_entries_move">премештен у фасциклу апликације</string>
     <string name="pref_behaviour_entries_delete_file">обрисано</string>
     <string name="prefs_storage_path">Путања до складишта</string>
-    <string name="prefs_common">Опште</string>
 
     <string name="share_dialog_title">Дељење</string>
     <string name="share_file">Подели %1$s</string>
