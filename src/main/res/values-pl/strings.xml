@@ -453,7 +453,6 @@
     <string name="pref_behaviour_entries_move">przeniesiony do folderu aplikacji</string>
     <string name="pref_behaviour_entries_delete_file">usunięty</string>
     <string name="prefs_storage_path">Ścieżka przechowywania</string>
-    <string name="prefs_common">Wspólny</string>
 
     <string name="share_dialog_title">Udostępnianie</string>
     <string name="share_file">Współdziel %1$s</string>

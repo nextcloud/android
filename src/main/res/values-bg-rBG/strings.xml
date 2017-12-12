@@ -300,7 +300,6 @@
     <string name="pref_behaviour_entries_move">премествани в папката на приложението</string>
     <string name="pref_behaviour_entries_delete_file">изтривани</string>
     <string name="prefs_storage_path">Път до хранилището</string>
-    <string name="prefs_common">Познато</string>
 
     <string name="share_dialog_title">Споделяне</string>
     <string name="share_file">Споделяне на %1$s</string>

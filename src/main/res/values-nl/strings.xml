@@ -470,7 +470,6 @@ Kies er eentje van een provider.</string>
     <string name="pref_behaviour_entries_move">verplaatst worden naar app-map</string>
     <string name="pref_behaviour_entries_delete_file">verwijderd worden</string>
     <string name="prefs_storage_path">Opslagpad</string>
-    <string name="prefs_common">Gemeenschappelijk</string>
 
     <string name="share_dialog_title">Delen</string>
     <string name="share_file">Deel %1$s</string>

@@ -463,7 +463,6 @@ Smelltu hér til að fá þér einn frá þjónustuaðila.</string>
     <string name="pref_behaviour_entries_move">færð í forritsmöppu</string>
     <string name="pref_behaviour_entries_delete_file">eytt</string>
     <string name="prefs_storage_path">Slóð á gagnageymslu</string>
-    <string name="prefs_common">Algengt</string>
 
     <string name="share_dialog_title">Deiling</string>
     <string name="share_file">Deila %1$s</string>

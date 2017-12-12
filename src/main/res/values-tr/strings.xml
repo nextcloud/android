@@ -469,7 +469,6 @@
     <string name="pref_behaviour_entries_move">app klasörüne taşındı</string>
     <string name="pref_behaviour_entries_delete_file">silindi</string>
     <string name="prefs_storage_path">Depolama yolu</string>
-    <string name="prefs_common">Genel</string>
 
     <string name="share_dialog_title">Paylaşım</string>
     <string name="share_file">%1$s paylaş</string>

@@ -461,7 +461,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
                             }
                         }).show();
             }
-        }, 1000);
+        }, 60000);
     }
 
     private void parseAndLoginFromWebView(String dataString) {
