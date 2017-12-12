@@ -88,8 +88,10 @@ public class ActivitiesListActivity extends FileActivity implements ActivityList
     @BindView(R.id.empty_list_view)
     public LinearLayout emptyContentContainer;
 
+    @BindView(R.id.swipe_containing_list)
     public SwipeRefreshLayout swipeListRefreshLayout;
 
+    @BindView(R.id.swipe_containing_empty)
     public SwipeRefreshLayout swipeEmptyListRefreshLayout;
 
     @BindView(R.id.empty_list_view_text)
@@ -107,6 +109,9 @@ public class ActivitiesListActivity extends FileActivity implements ActivityList
     @BindView(android.R.id.list)
     public RecyclerView recyclerView;
 
+    @BindView(R.id.bottom_navigation_view)
+    public BottomNavigationView bottomNavigationView;
+
     @BindString(R.string.activities_no_results_headline)
     public String noResultsHeadline;
 
@@ -118,6 +123,8 @@ public class ActivitiesListActivity extends FileActivity implements ActivityList
     private OwnCloudClient ownCloudClient;
     private AsyncTask<String, Object, OCFile> updateTask;
 
+    private String nextPageUrl;
+    private boolean isLoadingActivities;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -130,8 +137,8 @@ public class ActivitiesListActivity extends FileActivity implements ActivityList
         // setup toolbar
         setupToolbar();
 
-        swipeEmptyListRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_containing_empty);
-        swipeListRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_containing_list);
+        onCreateSwipeToRefresh(swipeEmptyListRefreshLayout);
+        onCreateSwipeToRefresh(swipeListRefreshLayout);
 
         // setup drawer
         setupDrawer(R.id.nav_activity);
@@ -140,21 +147,32 @@ public class ActivitiesListActivity extends FileActivity implements ActivityList
             ThemeUtils.setColoredTitle(actionBar, getString(R.string.drawer_item_activities));
         }
 
-        swipeListRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                setLoadingMessage();
-                fetchAndSetData();
-            }
-        });
+        swipeListRefreshLayout.setOnRefreshListener(() -> {
+                    setLoadingMessage();
+                    if (swipeListRefreshLayout != null && swipeListRefreshLayout.isRefreshing()) {
+                        swipeListRefreshLayout.setRefreshing(false);
+                    }
+                    fetchAndSetData(null);
+                }
+        );
 
-        swipeEmptyListRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                setLoadingMessage();
-                fetchAndSetData();
-            }
-        });
+        swipeEmptyListRefreshLayout.setOnRefreshListener(() -> {
+                    setLoadingMessage();
+                    if (swipeEmptyListRefreshLayout != null && swipeEmptyListRefreshLayout.isRefreshing()) {
+                        swipeEmptyListRefreshLayout.setRefreshing(false);
+                    }
+                    fetchAndSetData(null);
+                }
+        );
+    }
+
+    protected void onCreateSwipeToRefresh(SwipeRefreshLayout refreshLayout) {
+        int primaryColor = ThemeUtils.primaryColor();
+        int darkColor = ThemeUtils.primaryDarkColor();
+        int accentColor = ThemeUtils.primaryAccentColor();
+
+        // Colors in animations
+        refreshLayout.setColorSchemeColors(accentColor, primaryColor, darkColor);
     }
 
     public void onDestroy() {
@@ -186,52 +204,75 @@ public class ActivitiesListActivity extends FileActivity implements ActivityList
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
 
         recyclerView.setLayoutManager(layoutManager);
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
 
-        BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation_view);
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+
+                int visibleItemCount = recyclerView.getChildCount();
+                int totalItemCount = layoutManager.getItemCount();
+                int firstVisibleItemIndex = layoutManager.findFirstVisibleItemPosition();
+
+                // synchronize loading state when item count changes
+                if (!isLoadingActivities && (totalItemCount - visibleItemCount) <= (firstVisibleItemIndex + 5)) {
+                    // Almost reached the end, continue to load new activities
+                    fetchAndSetData(nextPageUrl);
+                }
+            }
+        });
 
         if (getResources().getBoolean(R.bool.bottom_toolbar_enabled)) {
             bottomNavigationView.setVisibility(View.VISIBLE);
             DisplayUtils.setupBottomBar(bottomNavigationView, getResources(), this, -1);
         }
 
-        fetchAndSetData();
+        fetchAndSetData(null);
     }
 
-    private void fetchAndSetData() {
+    /**
+     * @param pageUrl String
+     */
+    private void fetchAndSetData(String pageUrl) {
         final Account currentAccount = AccountUtils.getCurrentOwnCloudAccount(MainApp.getAppContext());
         final Context context = MainApp.getAppContext();
 
-        Thread t = new Thread(new Runnable() {
-
-
-            public void run() {
+        Thread t = new Thread(() -> {
                 OwnCloudAccount ocAccount;
                 try {
                     ocAccount = new OwnCloudAccount(currentAccount, context);
                     ownCloudClient = OwnCloudClientManagerFactory.getDefaultSingleton().
                             getClientFor(ocAccount, MainApp.getAppContext());
                     ownCloudClient.setOwnCloudVersion(AccountUtils.getServerVersion(currentAccount));
+                    isLoadingActivities = true;
+                    runOnUiThread(() -> setIndeterminate(isLoadingActivities));
 
-                    RemoteOperation getRemoteNotificationOperation = new GetRemoteActivitiesOperation();
+                    GetRemoteActivitiesOperation getRemoteNotificationOperation = new GetRemoteActivitiesOperation();
+                    if (pageUrl != null) {
+                        getRemoteNotificationOperation.setNextUrl(pageUrl);
+                    }
+
                     Log_OC.d(TAG, "BEFORE getRemoteActivitiesOperation.execute");
                     final RemoteOperationResult result = getRemoteNotificationOperation.execute(ownCloudClient);
+                    //result.get
 
                     if (result.isSuccess() && result.getData() != null) {
-                        final ArrayList<Object> activities = result.getData();
+                        final ArrayList<Object> data = result.getData();
+                        final ArrayList<Object> activities = (ArrayList) data.get(0);
+                        nextPageUrl = (String) data.get(1);
 
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                populateList(activities, ownCloudClient);
-                                if (activities.size() > 0) {
-                                    swipeEmptyListRefreshLayout.setVisibility(View.GONE);
-                                    swipeListRefreshLayout.setVisibility(View.VISIBLE);
-                                } else {
-                                    setEmptyContent(noResultsHeadline, noResultsMessage);
-                                    swipeListRefreshLayout.setVisibility(View.GONE);
-                                    swipeEmptyListRefreshLayout.setVisibility(View.VISIBLE);
-                                }
+                        runOnUiThread(() -> {
+                            populateList(activities, ownCloudClient);
+                            if (activities.size() > 0) {
+                                swipeEmptyListRefreshLayout.setVisibility(View.GONE);
+                                swipeListRefreshLayout.setVisibility(View.VISIBLE);
+                            } else {
+                                setEmptyContent(noResultsHeadline, noResultsMessage);
+                                swipeListRefreshLayout.setVisibility(View.GONE);
+                                swipeEmptyListRefreshLayout.setVisibility(View.VISIBLE);
                             }
+                            isLoadingActivities = false;
+                            setIndeterminate(isLoadingActivities);
                         });
                     } else {
                         Log_OC.d(TAG, result.getLogMessage());
@@ -241,11 +282,10 @@ public class ActivitiesListActivity extends FileActivity implements ActivityList
                             logMessage = noResultsMessage;
                         }
                         final String finalLogMessage = logMessage;
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                setEmptyContent(noResultsHeadline, finalLogMessage);
-                            }
+                        runOnUiThread(() -> {
+                            setEmptyContent(noResultsHeadline, finalLogMessage);
+                            isLoadingActivities = false;
+                            setIndeterminate(isLoadingActivities);
                         });
                     }
 
@@ -260,23 +300,21 @@ public class ActivitiesListActivity extends FileActivity implements ActivityList
                     Log_OC.e(TAG, "Authentication Exception", e);
                 }
             }
-        });
+        );
 
         t.start();
     }
 
     private void hideRefreshLayoutLoader() {
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                swipeListRefreshLayout.setRefreshing(false);
-                swipeEmptyListRefreshLayout.setRefreshing(false);
-            }
+        runOnUiThread(() -> {
+            swipeListRefreshLayout.setRefreshing(false);
+            swipeEmptyListRefreshLayout.setRefreshing(false);
+            isLoadingActivities = false;
+            setIndeterminate(isLoadingActivities);
         });
     }
 
     private void populateList(List<Object> activities, OwnCloudClient mClient) {
-
         adapter.setActivityItems(activities, mClient);
     }
 
