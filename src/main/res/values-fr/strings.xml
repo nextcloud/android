@@ -671,7 +671,6 @@ Veuillez contacter votre administrateur</string>
     <string name="activity_icon">Icône d\'activité</string>
     <string name="file_icon">Icône de fichier</string>
     <string name="user_icon">Icône d\'utilisateur</string>
-    <string name="fingerprint_icon">Icône de fingerprint</string>
     <string name="favorite_icon">Icône des favoris</string>
     <string name="shared_via_link_icon">Icône de partage par lien</string>
     <string name="synced_icon">Icône synchronisé</string>

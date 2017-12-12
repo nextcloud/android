@@ -479,8 +479,6 @@
 
     <string name="whats_new_skip">略過</string>
 
-    <string name="fingerprint_scan_finger">請掃描您的指紋</string>
-    <string name="fingerprint_unknown">不認識的指紋</string>
 
     <!-- User information -->
     <string name="user_info_email">E-mail</string>

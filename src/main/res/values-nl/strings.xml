@@ -669,7 +669,6 @@
     <string name="activity_icon">Activiteitspictogram</string>
     <string name="file_icon">Bestandpictogram</string>
     <string name="user_icon">Gebruikerspictogram</string>
-    <string name="fingerprint_icon">Vingerafdrukpictogram</string>
     <string name="favorite_icon">Favorietenpictogram</string>
     <string name="shared_via_link_icon">Gedeeld via link icoon</string>
     <string name="synced_icon">Gesynch\'d pictogram</string>

@@ -680,7 +680,6 @@
     <string name="activity_icon">Значок события</string>
     <string name="file_icon">Значок файла</string>
     <string name="user_icon">Значок пользователя</string>
-    <string name="fingerprint_icon">Значок отпечатка пальца</string>
     <string name="favorite_icon">Значок избранного</string>
     <string name="shared_via_link_icon">Значок доступного по ссылке</string>
     <string name="synced_icon">Значок синхронизированного содержимого</string>

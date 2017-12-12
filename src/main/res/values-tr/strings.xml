@@ -673,7 +673,6 @@
     <string name="activity_icon">İşlem simgesi</string>
     <string name="file_icon">Dosya simgesi</string>
     <string name="user_icon">Kullanıcı simgesi</string>
-    <string name="fingerprint_icon">Parmakizi simgesi</string>
     <string name="favorite_icon">Sık kullanılanlar simgesi</string>
     <string name="shared_via_link_icon">Bağlantı ile paylaşılmış simgesi</string>
     <string name="synced_icon">Eşitlenmiş simgesi</string>

@@ -611,7 +611,6 @@
     <string name="activity_icon">აქტივობის პიქტოგრამა</string>
     <string name="file_icon">ფაილის პიქტოგრამა</string>
     <string name="user_icon">მომხმარებლის პიქტოგრამა</string>
-    <string name="fingerprint_icon">თითის ანაბეჭდის პიქტოგრამა</string>
     <string name="favorite_icon">რჩეულის პიქტოგრამა</string>
     <string name="shared_via_link_icon">გაზიარებულია ბმულის პიქტოგრამით</string>
     <string name="synced_icon">სინქრონიზირებული პიქტოგრამა</string>

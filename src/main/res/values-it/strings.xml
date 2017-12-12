@@ -673,7 +673,6 @@
     <string name="activity_icon">Icona attività</string>
     <string name="file_icon">Icona file</string>
     <string name="user_icon">Icona utente</string>
-    <string name="fingerprint_icon">Icona impronta digitale</string>
     <string name="favorite_icon">Icona preferiti</string>
     <string name="shared_via_link_icon">Icona condivisi tramite collegamento</string>
     <string name="synced_icon">Icona sincronizzati</string>

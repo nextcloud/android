@@ -697,7 +697,6 @@
     <string name="activity_icon">Activity icon</string>
     <string name="file_icon">File icon</string>
     <string name="user_icon">User icon</string>
-    <string name="fingerprint_icon">Fingerprint icon</string>
     <string name="favorite_icon">Favorite icon</string>
     <string name="shared_via_link_icon">Shared via link icon</string>
     <string name="synced_icon">Synced icon</string>

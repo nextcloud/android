@@ -685,7 +685,6 @@ Sjekk ut Nextcloud på https://nextcloud.com</string>
     <string name="activity_icon">Aktivitetsikon</string>
     <string name="file_icon">Filikon</string>
     <string name="user_icon">Brukerikon</string>
-    <string name="fingerprint_icon">Fingeravtrykksikon</string>
     <string name="favorite_icon">Favorittikon</string>
     <string name="shared_via_link_icon">Delt via lenkeikon</string>
     <string name="synced_icon">Synkronisert-ikon</string>
