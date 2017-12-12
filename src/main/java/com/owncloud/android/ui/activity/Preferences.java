@@ -34,7 +34,6 @@ import android.content.res.Configuration;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
@@ -78,7 +77,6 @@ import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.ThemeUtils;
 
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.concurrent.ExecutionException;
 
@@ -1062,28 +1060,5 @@ public class Preferences extends PreferenceActivity
     @Override
     public void onCancelMigration() {
         // Migration was canceled so we don't do anything
-    }
-
-    /**
-     *
-     * Class for loading the version number
-     *
-     */
-    private class LoadingVersionNumberTask extends AsyncTask<Void, Void, Integer> {
-        protected Integer doInBackground(Void... args) {
-            try {
-                URL url = new URL(getString(R.string.dev_latest));
-                BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream()));
-
-                Integer latestVersion = Integer.parseInt(in.readLine());
-                in.close();
-
-                return latestVersion;
-
-            } catch (IOException e) {
-                Log_OC.e(TAG, "Error loading version number", e);
-            }
-            return -1;
-        }
     }
 }
