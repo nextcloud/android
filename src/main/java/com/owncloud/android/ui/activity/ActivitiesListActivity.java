@@ -88,8 +88,10 @@ public class ActivitiesListActivity extends FileActivity implements ActivityList
     @BindView(R.id.empty_list_view)
     public LinearLayout emptyContentContainer;
 
+    @BindView(R.id.swipe_containing_list)
     public SwipeRefreshLayout swipeListRefreshLayout;
 
+    @BindView(R.id.swipe_containing_empty)
     public SwipeRefreshLayout swipeEmptyListRefreshLayout;
 
     @BindView(R.id.empty_list_view_text)
@@ -106,6 +108,9 @@ public class ActivitiesListActivity extends FileActivity implements ActivityList
 
     @BindView(android.R.id.list)
     public RecyclerView recyclerView;
+
+    @BindView(R.id.bottom_navigation_view)
+    public BottomNavigationView bottomNavigationView;
 
     @BindString(R.string.activities_no_results_headline)
     public String noResultsHeadline;
@@ -132,8 +137,6 @@ public class ActivitiesListActivity extends FileActivity implements ActivityList
         // setup toolbar
         setupToolbar();
 
-        swipeEmptyListRefreshLayout = findViewById(R.id.swipe_containing_empty);
-        swipeListRefreshLayout = findViewById(R.id.swipe_containing_list);
         onCreateSwipeToRefresh(swipeEmptyListRefreshLayout);
         onCreateSwipeToRefresh(swipeListRefreshLayout);
 
@@ -144,27 +147,23 @@ public class ActivitiesListActivity extends FileActivity implements ActivityList
             ThemeUtils.setColoredTitle(actionBar, getString(R.string.drawer_item_activities));
         }
 
-        swipeListRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                setLoadingMessage();
-                if (swipeListRefreshLayout.isRefreshing()) {
-                    swipeListRefreshLayout.setRefreshing(false);
+        swipeListRefreshLayout.setOnRefreshListener(() -> {
+                    setLoadingMessage();
+                    if (swipeListRefreshLayout != null && swipeListRefreshLayout.isRefreshing()) {
+                        swipeListRefreshLayout.setRefreshing(false);
+                    }
+                    fetchAndSetData(null);
                 }
-                fetchAndSetData(null);
-            }
-        });
+        );
 
-        swipeEmptyListRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                setLoadingMessage();
-                if (swipeEmptyListRefreshLayout.isRefreshing()) {
-                    swipeEmptyListRefreshLayout.setRefreshing(false);
+        swipeEmptyListRefreshLayout.setOnRefreshListener(() -> {
+                    setLoadingMessage();
+                    if (swipeEmptyListRefreshLayout != null && swipeEmptyListRefreshLayout.isRefreshing()) {
+                        swipeEmptyListRefreshLayout.setRefreshing(false);
+                    }
+                    fetchAndSetData(null);
                 }
-                fetchAndSetData(null);
-            }
-        });
+        );
     }
 
     protected void onCreateSwipeToRefresh(SwipeRefreshLayout refreshLayout) {
@@ -223,8 +222,6 @@ public class ActivitiesListActivity extends FileActivity implements ActivityList
             }
         });
 
-        BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation_view);
-
         if (getResources().getBoolean(R.bool.bottom_toolbar_enabled)) {
             bottomNavigationView.setVisibility(View.VISIBLE);
             DisplayUtils.setupBottomBar(bottomNavigationView, getResources(), this, -1);
@@ -240,9 +237,7 @@ public class ActivitiesListActivity extends FileActivity implements ActivityList
         final Account currentAccount = AccountUtils.getCurrentOwnCloudAccount(MainApp.getAppContext());
         final Context context = MainApp.getAppContext();
 
-        Thread t = new Thread(new Runnable() {
-
-            public void run() {
+        Thread t = new Thread(() -> {
                 OwnCloudAccount ocAccount;
                 try {
                     ocAccount = new OwnCloudAccount(currentAccount, context);
@@ -305,7 +300,7 @@ public class ActivitiesListActivity extends FileActivity implements ActivityList
                     Log_OC.e(TAG, "Authentication Exception", e);
                 }
             }
-        });
+        );
 
         t.start();
     }
@@ -320,7 +315,6 @@ public class ActivitiesListActivity extends FileActivity implements ActivityList
     }
 
     private void populateList(List<Object> activities, OwnCloudClient mClient) {
-
         adapter.setActivityItems(activities, mClient);
     }
 
