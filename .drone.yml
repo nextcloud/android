@@ -60,7 +60,6 @@ matrix:
     - Generic
     - Gplay
     - Modified
-    - VersionDev
     - Lint
 
 branches: master
