@@ -629,7 +629,6 @@
     <string name="activity_icon">Ikona Aktivita</string>
     <string name="file_icon">Ikona Soubor</string>
     <string name="user_icon">Ikona Uživatel</string>
-    <string name="fingerprint_icon">Ikona Otisk prstu</string>
     <string name="favorite_icon">Ikona Oblíbené</string>
     <string name="shared_via_link_icon">Ikona Sdíleno odkazem</string>
     <string name="synced_icon">Ikona Synchronizováno</string>

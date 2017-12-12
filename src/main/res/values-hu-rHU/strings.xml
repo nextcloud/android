@@ -668,7 +668,6 @@ A Nextcloud itt érhető el: https://nextcloud.com</string>
     <string name="activity_icon">Aktivitás ikon</string>
     <string name="file_icon">Fájl ikon</string>
     <string name="user_icon">Felhasználó ikon</string>
-    <string name="fingerprint_icon">Ujjlenyomat ikon</string>
     <string name="favorite_icon">Kedvencek ikon</string>
     <string name="shared_via_link_icon">Link ikonon keresztül megosztva</string>
     <string name="synced_icon">Szinkronizálva ikon</string>

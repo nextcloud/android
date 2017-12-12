@@ -678,7 +678,6 @@
     <string name="activity_icon">Икона активности</string>
     <string name="file_icon">Икона фајла</string>
     <string name="user_icon">Икона корисника</string>
-    <string name="fingerprint_icon">Икона отиска прста</string>
     <string name="favorite_icon">Икона омиљених</string>
     <string name="shared_via_link_icon">Икона дељења преко везе</string>
     <string name="synced_icon">Икона синхронизоване ставке</string>

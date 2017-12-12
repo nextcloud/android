@@ -674,7 +674,6 @@
     <string name="activity_icon">Aktivitäten-Icon</string>
     <string name="file_icon">Datei-Icon</string>
     <string name="user_icon">Nutzer-Icon</string>
-    <string name="fingerprint_icon">Fingerabdruck-Icon</string>
     <string name="favorite_icon">Favoriten-Icon</string>
     <string name="shared_via_link_icon">Geteilt mittels Link Icon</string>
     <string name="synced_icon">Synchronisiert-Icon</string>
