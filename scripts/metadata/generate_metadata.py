@@ -5,11 +5,10 @@
 # copied on 2017/11/06 from https://github.com/grote/Transportr/blob/master/fastlane/generate_metadata.py
 # adapted by Tobias Kaminsky
 
+import codecs
 import os
 import shutil
-import codecs
 from xml.etree import ElementTree
-
 
 XML_PATH = '../../src/main/res'
 METADATA_PATH = '../../src/generic/fastlane/metadata/android/'
@@ -113,7 +112,7 @@ def save_file(text, directory, filename, dev):
 
 
 def clean_text(text, limit=0):
-    text = text.replace('\\\'', '\'')
+    text = text.replace('\\\'', '\'').replace('\\n', '\n')
     if limit != 0 and len(text) > limit:
         print("Warning: Short Description longer than 80 characters, truncating...")
         text = text[:limit]
