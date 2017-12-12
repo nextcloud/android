@@ -15,10 +15,10 @@ fi
 
 # sign
 source ~/.gradle/devVersionSecrets
-apksigner sign --ks-pass env:VERSION_DEV_STORE_PASSWORD \
+/home/nextcloud/bin/apksigner sign --ks-pass env:VERSION_DEV_STORE_PASSWORD \
                --key-pass env:VERSION_DEV_KEY_PASSWORD \
                --ks $VERSION_DEV_STORE_FILE \
-               --out ~/apks/nextcloud-dev-$date.apk \
+               --out /home/nextcloud/apks/nextcloud-dev-$date.apk \
                ./build/outputs/apk/versionDev/release/android-versionDev-release-unsigned.apk
 
 # use the current date
