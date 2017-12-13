@@ -7,6 +7,8 @@ import android.support.test.rule.ActivityTestRule;
 import com.owncloud.android.R;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 
+import junit.framework.Assert;
+
 import org.junit.BeforeClass;
 import org.junit.ClassRule;
 import org.junit.Rule;
@@ -48,6 +50,8 @@ public class ScreenshotsIT {
 
         Espresso.openContextualActionModeOverflowMenu();
         onView(anyOf(withText(R.string.action_switch_list_view), withId(R.id.action_switch_view))).perform(click());
+
+        Assert.assertTrue(true); // if we reach this, everything is ok
     }
 
     @Test
@@ -58,6 +62,8 @@ public class ScreenshotsIT {
         Screengrab.screenshot("02_list_view");
 
         Espresso.pressBack();
+
+        Assert.assertTrue(true); // if we reach this, everything is ok
     }
 
     @Test
@@ -69,6 +75,7 @@ public class ScreenshotsIT {
 
         onView(withId(R.id.drawer_layout)).perform(DrawerActions.close());
 
+        Assert.assertTrue(true); // if we reach this, everything is ok
     }
 
     @Test
@@ -80,6 +87,8 @@ public class ScreenshotsIT {
         Screengrab.screenshot("04_accounts");
 
         onView(withId(R.id.drawer_layout)).perform(DrawerActions.close());
+
+        Assert.assertTrue(true); // if we reach this, everything is ok
     }
 
     @Test
@@ -91,5 +100,7 @@ public class ScreenshotsIT {
         Screengrab.screenshot("05_auto_upload");
 
         Espresso.pressBack();
+
+        Assert.assertTrue(true); // if we reach this, everything is ok
     }
 }
