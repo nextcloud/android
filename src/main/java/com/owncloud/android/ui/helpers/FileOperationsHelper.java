@@ -552,7 +552,7 @@ public class FileOperationsHelper {
         SendShareDialog mSendShareDialog = SendShareDialog.newInstance(file);
         mSendShareDialog.setFileOperationsHelper(this);
         mSendShareDialog.setFileDisplayActivity(fileDisplayActivity);
-        mSendShareDialog.show(ft, "TAG_12");
+        mSendShareDialog.show(ft, "TAG_SEND_SHARE_DIALOG");
     }
 
     public void syncFiles(Collection<OCFile> files) {
