@@ -93,19 +93,19 @@ public class SendShareDialog extends BottomSheetDialogFragment {
         view = inflater.inflate(R.layout.send_share_fragment, container, false);
 
         // Share with people
-        TextView sharePeopleText = (TextView) view.findViewById(R.id.share_people_button);
+        TextView sharePeopleText = view.findViewById(R.id.share_people_button);
         sharePeopleText.setOnClickListener(v -> shareFile(file));
 
-        ImageView sharePeopleImageView = (ImageView) view.findViewById(R.id.share_people_icon);
+        ImageView sharePeopleImageView = view.findViewById(R.id.share_people_icon);
         sharePeopleImageView.getBackground().setColorFilter(ThemeUtils.elementColor(), PorterDuff.Mode.SRC_IN);
         sharePeopleImageView.getDrawable().setColorFilter(ThemeUtils.fontColor(), PorterDuff.Mode.SRC_IN);
         sharePeopleImageView.setOnClickListener(v -> shareFile(file));
 
         // Share via link button
-        TextView shareLinkText = (TextView) view.findViewById(R.id.share_link_button);
+        TextView shareLinkText = view.findViewById(R.id.share_link_button);
         shareLinkText.setOnClickListener(v -> fileOperationsHelper.showShareFile(file));
 
-        ImageView shareLinkImageView = (ImageView) view.findViewById(R.id.share_link_icon);
+        ImageView shareLinkImageView = view.findViewById(R.id.share_link_icon);
         shareLinkImageView.getBackground().setColorFilter(ThemeUtils.elementColor(), PorterDuff.Mode.SRC_IN);
         shareLinkImageView.getDrawable().setColorFilter(ThemeUtils.fontColor(), PorterDuff.Mode.SRC_IN);
         shareLinkImageView.setOnClickListener(v -> shareFile(file));
@@ -130,6 +130,7 @@ public class SendShareDialog extends BottomSheetDialogFragment {
                 shareLinkImageView.setVisibility(View.GONE);
                 sharePeopleText.setVisibility(View.GONE);
                 sharePeopleImageView.setVisibility(View.GONE);
+                getDialog().hide();
             } else {
                 shareLinkText.setEnabled(false);
                 shareLinkText.setAlpha(0.3f);
@@ -186,7 +187,7 @@ public class SendShareDialog extends BottomSheetDialogFragment {
             dismiss();
         };
 
-        RecyclerView sendButtonsView = (RecyclerView) view.findViewById(R.id.send_button_recycler_view);
+        RecyclerView sendButtonsView = view.findViewById(R.id.send_button_recycler_view);
         sendButtonsView.setHasFixedSize(true);
         sendButtonsView.setLayoutManager(new GridLayoutManager(getActivity(), 3));
         sendButtonsView.setAdapter(new SendButtonAdapter(sendButtonDataList, clickListener));
