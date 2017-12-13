@@ -31,7 +31,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:gravity="center_horizontal"
-        android:drawablePadding="8dp"
-        android:padding="16dp"
+        android:drawablePadding="@dimen/standard_half_padding"
+        android:padding="@dimen/standard_padding"
         android:textColor="@color/black"/>
 </FrameLayout>
