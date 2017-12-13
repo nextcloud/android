@@ -50,6 +50,7 @@ import com.owncloud.android.utils.CsrHelper;
 import com.owncloud.android.utils.EncryptionUtils;
 import com.owncloud.android.utils.ThemeUtils;
 
+import java.io.IOException;
 import java.security.KeyPair;
 import java.security.PrivateKey;
 import java.util.ArrayList;
@@ -72,16 +73,20 @@ public class SetupEncryptionDialogFragment extends DialogFragment {
     private static final String KEY_CREATED = "KEY_CREATED";
     private static final String KEY_EXISTING_USED = "KEY_EXISTING_USED";
     private static final String KEY_FAILED = "KEY_FAILED";
+    private static final String KEY_INFO = "KEY_INFO";
+    private static final String KEY_GENERATE = "KEY_GENERATE";
 
     private Account account;
     private TextView textView;
     private TextView passphraseTextView;
     private ArbitraryDataProvider arbitraryDataProvider;
     private Button positiveButton;
+    private Button negativeButton;
     private TextInputLayout passwordLayout;
     private DownloadKeysAsyncTask task;
     private TextInputEditText passwordField;
     private String keyResult;
+    private ArrayList<String> keyWords;
 
     /**
      * Public factory method to create new SetupEncryptionDialogFragment instance
@@ -108,6 +113,10 @@ public class SetupEncryptionDialogFragment extends DialogFragment {
         positiveButton = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE);
         positiveButton.setTextColor(color);
         positiveButton.setVisibility(View.INVISIBLE);
+
+        negativeButton = alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE);
+        negativeButton.setTextColor(color);
+        negativeButton.setVisibility(View.INVISIBLE);
     }
 
     @Override
@@ -122,10 +131,10 @@ public class SetupEncryptionDialogFragment extends DialogFragment {
 
         // Setup layout
         View v = inflater.inflate(R.layout.setup_encryption_dialog, null);
-        textView = (TextView) v.findViewById(R.id.encryption_status);
-        passphraseTextView = (TextView) v.findViewById(R.id.encryption_passphrase);
-        passwordLayout = (TextInputLayout) v.findViewById(R.id.encryption_passwordLayout);
-        passwordField = (TextInputEditText) v.findViewById(R.id.encryption_passwordInput);
+        textView = v.findViewById(R.id.encryption_status);
+        passphraseTextView = v.findViewById(R.id.encryption_passphrase);
+        passwordLayout = v.findViewById(R.id.encryption_passwordLayout);
+        passwordField = v.findViewById(R.id.encryption_passwordInput);
         passwordField.getBackground().setColorFilter(accentColor, PorterDuff.Mode.SRC_ATOP);
 
         Drawable wrappedDrawable = DrawableCompat.wrap(passwordField.getBackground());
@@ -135,6 +144,7 @@ public class SetupEncryptionDialogFragment extends DialogFragment {
         // Build the dialog  
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setView(v).setPositiveButton(R.string.common_ok, null)
+                .setNegativeButton(R.string.common_cancel, null)
                 .setTitle(ThemeUtils.getColoredTitle(getString(R.string.end_to_end_encryption_title), accentColor));
 
         Dialog dialog = builder.create();
@@ -191,6 +201,46 @@ public class SetupEncryptionDialogFragment extends DialogFragment {
                                 }
                                 break;
 
+                            case KEY_INFO:
+                                try {
+                                    keyWords = EncryptionUtils.getRandomWords(12, getContext());
+
+                                    getDialog().setTitle(ThemeUtils.getColoredTitle(
+                                            getString(R.string.end_to_end_encryption_passphrase_title),
+                                            ThemeUtils.primaryColor()));
+
+                                    textView.setText(R.string.end_to_end_encryption_keywords_description);
+
+                                    StringBuilder stringBuilder = new StringBuilder();
+
+                                    for (String string : keyWords) {
+                                        stringBuilder.append(string).append(" ");
+                                    }
+                                    String keys = stringBuilder.toString();
+
+                                    passphraseTextView.setText(keys);
+
+                                    passphraseTextView.setVisibility(View.VISIBLE);
+                                    positiveButton.setText(R.string.end_to_end_encryption_confirm_button);
+                                    positiveButton.setVisibility(View.VISIBLE);
+
+                                    keyResult = KEY_GENERATE;
+                                } catch (IOException e) {
+                                    textView.setText(R.string.common_error);
+                                }
+                                break;
+
+                            case KEY_GENERATE:
+                                passphraseTextView.setVisibility(View.GONE);
+                                positiveButton.setVisibility(View.GONE);
+                                negativeButton.setVisibility(View.GONE);
+                                getDialog().setTitle(ThemeUtils.getColoredTitle(getString(
+                                        R.string.end_to_end_encryption_storing_keys), ThemeUtils.primaryColor()));
+
+                                GenerateNewKeysAsyncTask newKeysTask = new GenerateNewKeysAsyncTask();
+                                newKeysTask.execute();
+                                break;
+                            
                             default:
                                 dialog.dismiss();
                                 break;
@@ -252,11 +302,13 @@ public class SetupEncryptionDialogFragment extends DialogFragment {
             super.onPostExecute(privateKey);
 
             if (privateKey == null) {
-                // no public/private key available, generate new
-                GenerateNewKeysAsyncTask newKeysTask = new GenerateNewKeysAsyncTask();
+                // first show info
+                textView.setText("During setup you will have to note down a mnemonic which allows to setup E2E on other devices.\nPlease only proceed if you are in a safe location and able to note the mnemonic.");
+                positiveButton.setVisibility(View.VISIBLE);
+                positiveButton.setText(R.string.common_next);
+                negativeButton.setVisibility(View.VISIBLE);
 
-                newKeysTask.execute();
-
+                keyResult = KEY_INFO;
             } else if (!privateKey.isEmpty()) {
                 textView.setText(R.string.end_to_end_encryption_enter_password);
                 passwordLayout.setVisibility(View.VISIBLE);
@@ -268,13 +320,11 @@ public class SetupEncryptionDialogFragment extends DialogFragment {
     }
 
     private class GenerateNewKeysAsyncTask extends AsyncTask<Void, Void, String> {
-        private ArrayList<String> keyWords;
-
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
 
-            textView.setText(R.string.end_to_end_encryption_generating_keys);
+            textView.setText(R.string.end_to_end_encryption_storing_keys_on_server);
         }
 
         @Override
@@ -304,10 +354,8 @@ public class SetupEncryptionDialogFragment extends DialogFragment {
                     return "";
                 }
 
-                keyWords = EncryptionUtils.getRandomWords(12, getContext());
-
                 StringBuilder stringBuilder = new StringBuilder();
-                for (String string: keyWords) {
+                for (String string : keyWords) {
                     stringBuilder.append(string);
                 }
                 String keyPhrase = stringBuilder.toString();
@@ -347,27 +395,13 @@ public class SetupEncryptionDialogFragment extends DialogFragment {
             if (s.isEmpty()) {
                 keyResult = KEY_FAILED;
 
-                getDialog().setTitle(R.string.common_error);
+                getDialog().setTitle(ThemeUtils.getColoredTitle(
+                        getString(R.string.common_error), ThemeUtils.primaryColor()));
                 textView.setText(R.string.end_to_end_encryption_unsuccessful);
                 positiveButton.setText(R.string.end_to_end_encryption_dialog_close);
                 positiveButton.setVisibility(View.VISIBLE);
             } else {
-                getDialog().setTitle(R.string.end_to_end_encryption_passphrase_title);
-
-                textView.setText(R.string.end_to_end_encryption_keywords_description);
-
-                StringBuilder stringBuilder = new StringBuilder();
-
-                for (String string: keyWords) {
-                    stringBuilder.append(string).append(" ");
-                }
-                String keys = stringBuilder.toString();
-
-                passphraseTextView.setText(keys);
-
-                passphraseTextView.setVisibility(View.VISIBLE);
-                positiveButton.setText(R.string.end_to_end_encryption_confirm_button);
-                positiveButton.setVisibility(View.VISIBLE);
+                getDialog().dismiss();
             }
         }
     }
