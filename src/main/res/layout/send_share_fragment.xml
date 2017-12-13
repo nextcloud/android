@@ -32,13 +32,13 @@
             android:id="@+id/send_share_buttons"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="20dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginStart="20dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginLeft="24dp"
+            android:layout_marginRight="24dp"
+            android:layout_marginStart="24dp"
             android:orientation="horizontal"
             android:baselineAligned="false"
-            android:padding="20dp">
+            android:padding="24dp">
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -48,18 +48,18 @@
 
             <ImageView
                 android:id="@+id/share_people_icon"
-                android:layout_width="@dimen/user_icon_size"
-                android:layout_height="@dimen/user_icon_size"
+                android:layout_width="@dimen/share_icon_size"
+                android:layout_height="@dimen/share_icon_size"
                 android:layout_gravity="center_horizontal"
                 android:contentDescription="@string/share"
                 android:src="@drawable/shared_via_users"
-                android:background="@drawable/round_bgnd"
-                android:paddingStart="@dimen/standard_half_padding"
-                android:paddingLeft="@dimen/standard_half_padding"
-                android:paddingBottom="@dimen/standard_half_padding"
-                android:paddingTop="@dimen/standard_half_padding"
-                android:paddingEnd="@dimen/standard_half_padding"
-                android:paddingRight="@dimen/standard_half_padding"/>
+                android:paddingTop="12dp"
+                android:paddingRight="12dp"
+                android:paddingEnd="12dp"
+                android:paddingBottom="12dp"
+                android:paddingLeft="8dp"
+                android:paddingStart="8dp"
+                android:background="@drawable/round_bgnd"/>
 
             <TextView
                 android:id="@+id/share_people_button"
@@ -68,6 +68,7 @@
                 android:layout_gravity="center_horizontal"
                 android:drawable="@drawable/ic_share"
                 android:text="@string/share"
+                android:paddingTop="@dimen/standard_half_padding"
                 android:textColor="@color/black"/>
         </LinearLayout>
 
@@ -79,18 +80,13 @@
 
             <ImageView
                 android:id="@+id/share_link_icon"
-                android:layout_width="@dimen/user_icon_size"
-                android:layout_height="@dimen/user_icon_size"
+                android:layout_width="@dimen/share_icon_size"
+                android:layout_height="@dimen/share_icon_size"
                 android:layout_gravity="center_horizontal"
                 android:contentDescription="@string/link"
                 android:src="@drawable/shared_via_link"
-                android:background="@drawable/round_bgnd"
-                android:paddingStart="9dp"
-                android:paddingLeft="9dp"
-                android:paddingBottom="@dimen/standard_half_padding"
-                android:paddingTop="@dimen/standard_half_padding"
-                android:paddingEnd="@dimen/standard_half_padding"
-                android:paddingRight="@dimen/standard_half_padding"/>
+                android:padding="12dp"
+                android:background="@drawable/round_bgnd"/>
 
             <TextView
                 android:id="@+id/share_link_button"
@@ -99,6 +95,7 @@
                 android:layout_gravity="center_horizontal"
                 android:drawable="@drawable/ic_share"
                 android:text="@string/link"
+                android:paddingTop="@dimen/standard_half_padding"
                 android:textColor="@color/black"/>
         </LinearLayout>
 
