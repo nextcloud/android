@@ -303,9 +303,9 @@ public class SetupEncryptionDialogFragment extends DialogFragment {
 
             if (privateKey == null) {
                 // first show info
-                textView.setText("During setup you will have to note down a mnemonic which allows to setup E2E on other devices.\nPlease only proceed if you are in a safe location and able to note the mnemonic.");
+                textView.setText(R.string.end_to_end_encryption_setup_info);
                 positiveButton.setVisibility(View.VISIBLE);
-                positiveButton.setText(R.string.common_next);
+                positiveButton.setText(R.string.end_to_end_encryption_confirm_button);
                 negativeButton.setVisibility(View.VISIBLE);
 
                 keyResult = KEY_INFO;
