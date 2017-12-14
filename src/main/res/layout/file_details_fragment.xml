@@ -208,6 +208,7 @@
                 android:orientation="horizontal">
 
                 <ImageView
+                    android:contentDescription="@string/shared_icon"
                     android:id="@+id/fdShareLinkIcon"
                     android:layout_width="14sp"
                     android:layout_height="14sp"
