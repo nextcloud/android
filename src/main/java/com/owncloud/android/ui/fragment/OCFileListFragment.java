@@ -230,7 +230,7 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Log_OC.i(TAG, "onCreateView() start");
         View v = super.onCreateView(inflater, container, savedInstanceState);
-        bottomNavigationView = (BottomNavigationView) v.findViewById(R.id.bottom_navigation_view);
+        bottomNavigationView = v.findViewById(R.id.bottom_navigation_view);
 
         if (savedInstanceState != null) {
             currentSearchType = Parcels.unwrap(savedInstanceState.getParcelable(KEY_CURRENT_SEARCH_TYPE));
@@ -1696,7 +1696,7 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
 
             ToggleEncryptionOperation toggleEncryptionOperation = new ToggleEncryptionOperation(event.localId,
                     event.remotePath, event.shouldBeEncrypted);
-            RemoteOperationResult remoteOperationResult = toggleEncryptionOperation.execute(mClient);
+            RemoteOperationResult remoteOperationResult = toggleEncryptionOperation.execute(mClient, true);
 
             if (remoteOperationResult.isSuccess()) {
                 mAdapter.setEncryptionAttributeForItemID(event.remoteId, event.shouldBeEncrypted);
