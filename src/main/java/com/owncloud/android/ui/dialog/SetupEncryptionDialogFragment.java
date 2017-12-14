@@ -272,7 +272,7 @@ public class SetupEncryptionDialogFragment extends DialogFragment {
             //  - decrypt private key, store unencrypted private key in database
 
             GetPublicKeyOperation publicKeyOperation = new GetPublicKeyOperation();
-            RemoteOperationResult publicKeyResult = publicKeyOperation.execute(account, getContext());
+            RemoteOperationResult publicKeyResult = publicKeyOperation.execute(account, getContext(), true);
 
             if (publicKeyResult.isSuccess()) {
                 Log_OC.d(TAG, "public key successful downloaded for " + account.name);
@@ -285,7 +285,7 @@ public class SetupEncryptionDialogFragment extends DialogFragment {
             }
 
             GetPrivateKeyOperation privateKeyOperation = new GetPrivateKeyOperation();
-            RemoteOperationResult privateKeyResult = privateKeyOperation.execute(account, getContext());
+            RemoteOperationResult privateKeyResult = privateKeyOperation.execute(account, getContext(), true);
 
             if (privateKeyResult.isSuccess()) {
                 Log_OC.d(TAG, "private key successful downloaded for " + account.name);
@@ -343,7 +343,7 @@ public class SetupEncryptionDialogFragment extends DialogFragment {
                 String urlEncoded = CsrHelper.generateCsrPemEncodedString(keyPair, account.name);
 
                 SendCSROperation operation = new SendCSROperation(urlEncoded);
-                RemoteOperationResult result = operation.execute(account, getContext());
+                RemoteOperationResult result = operation.execute(account, getContext(), true);
 
                 if (result.isSuccess()) {
                     Log_OC.d(TAG, "public key success");
@@ -366,7 +366,8 @@ public class SetupEncryptionDialogFragment extends DialogFragment {
 
                 // upload encryptedPrivateKey
                 StorePrivateKeyOperation storePrivateKeyOperation = new StorePrivateKeyOperation(encryptedPrivateKey);
-                RemoteOperationResult storePrivateKeyResult = storePrivateKeyOperation.execute(account, getContext());
+                RemoteOperationResult storePrivateKeyResult = storePrivateKeyOperation.execute(account, getContext(),
+                        true);
 
                 if (storePrivateKeyResult.isSuccess()) {
                     Log_OC.d(TAG, "private key success");

@@ -94,7 +94,7 @@ public class RemoveRemoteEncryptedFileOperation extends RemoteOperation {
         try {
             // Lock folder
             LockFileOperation lockFileOperation = new LockFileOperation(parentId);
-            RemoteOperationResult lockFileOperationResult = lockFileOperation.execute(client);
+            RemoteOperationResult lockFileOperationResult = lockFileOperation.execute(client, true);
 
             if (lockFileOperationResult.isSuccess()) {
                 token = (String) lockFileOperationResult.getData().get(0);
@@ -106,7 +106,7 @@ public class RemoveRemoteEncryptedFileOperation extends RemoteOperation {
 
             // refresh metadata
             GetMetadataOperation getMetadataOperation = new GetMetadataOperation(parentId);
-            RemoteOperationResult getMetadataOperationResult = getMetadataOperation.execute(client);
+            RemoteOperationResult getMetadataOperationResult = getMetadataOperation.execute(client, true);
 
             if (getMetadataOperationResult.isSuccess()) {
                 // decrypt metadata
@@ -139,7 +139,7 @@ public class RemoveRemoteEncryptedFileOperation extends RemoteOperation {
             // upload metadata
             UpdateMetadataOperation storeMetadataOperation = new UpdateMetadataOperation(parentId,
                     serializedFolderMetadata, token);
-            RemoteOperationResult uploadMetadataOperationResult = storeMetadataOperation.execute(client);
+            RemoteOperationResult uploadMetadataOperationResult = storeMetadataOperation.execute(client, true);
 
             if (!uploadMetadataOperationResult.isSuccess()) {
                 throw new RemoteOperationFailedException("Metadata not uploaded!");
@@ -159,7 +159,7 @@ public class RemoveRemoteEncryptedFileOperation extends RemoteOperation {
             // unlock file
             if (token != null) {
                 UnlockFileOperation unlockFileOperation = new UnlockFileOperation(parentId, token);
-                RemoteOperationResult unlockFileOperationResult = unlockFileOperation.execute(client);
+                RemoteOperationResult unlockFileOperationResult = unlockFileOperation.execute(client, true);
 
                 if (!unlockFileOperationResult.isSuccess()) {
                     Log_OC.e(TAG, "Failed to unlock " + parentId);
