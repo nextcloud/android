@@ -110,7 +110,6 @@
     <string name="file_list_empty_text_photos_filter">Your search returned no photos.</string>
     <string name="file_list_empty_text_videos">Upload some videos or activate auto upload.</string>
     <string name="file_list_empty_text_videos_filter">Your search returned no videos.</string>
-    <string name="file_item_metadata_separator" translatable="false">,</string>
     <string name="upload_list_empty_headline">No uploads available</string>
     <string name="upload_list_empty_text">Upload some content or activate instant uploading.</string>
     <string name="upload_list_empty_text_auto_upload">Upload some content or activate auto upload.</string>
