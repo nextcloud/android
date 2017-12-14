@@ -1,11 +1,13 @@
 package com.owncloud.android.screenshots;
 
+import android.content.Intent;
 import android.support.test.espresso.Espresso;
 import android.support.test.espresso.contrib.DrawerActions;
 import android.support.test.rule.ActivityTestRule;
 
 import com.owncloud.android.R;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
+import com.owncloud.android.ui.activity.Preferences;
 
 import junit.framework.Assert;
 
@@ -35,6 +37,9 @@ public class ScreenshotsIT {
 
     @Rule
     public ActivityTestRule<FileDisplayActivity> fileDisplayRule = new ActivityTestRule<>(FileDisplayActivity.class);
+
+    @Rule
+    public ActivityTestRule<Preferences> preferencesRule = new ActivityTestRule<>(Preferences.class, true, false);
 
     @BeforeClass
     public static void beforeAll() {
@@ -102,5 +107,18 @@ public class ScreenshotsIT {
         Espresso.pressBack();
 
         Assert.assertTrue(true); // if we reach this, everything is ok
+    }
+
+    @Test
+    public void davdroidScreenshot() throws InterruptedException {
+
+        preferencesRule.launchActivity(new Intent());
+
+//        onView(withId(R.id.drawer_layout)).perform(DrawerActions.open());
+//        onView(withId(R.id.nav_settings)).perform(click());
+
+        Screengrab.screenshot("06_davdroid");
+
+//        Espresso.pressBack();
     }
 }
