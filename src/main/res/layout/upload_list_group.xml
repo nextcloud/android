@@ -15,6 +15,9 @@
        android:showDividers="none"
        android:textColor="@color/color_accent"
        android:paddingLeft="@dimen/standard_padding"
+       android:paddingStart="@dimen/standard_padding"
+       android:paddingRight="@dimen/zero"
+       android:paddingEnd="@dimen/zero"
        android:paddingTop="@dimen/standard_padding"
        android:paddingBottom="@dimen/standard_half_margin"
 	/>

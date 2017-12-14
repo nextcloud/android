@@ -38,8 +38,11 @@
 		android:id="@+id/reason_cert_not_trusted"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:layout_gravity="left"
+		android:layout_gravity="start"
 		android:paddingLeft="@dimen/standard_half_padding"
+		android:paddingStart="@dimen/standard_half_padding"
+		android:paddingRight="@dimen/zero"
+		android:paddingEnd="@dimen/zero"
 		android:text="@string/ssl_validator_reason_cert_not_trusted"
 		android:textAppearance="?android:attr/textAppearanceSmall"
 		 />
@@ -48,8 +51,11 @@
 		android:id="@+id/reason_cert_expired"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:layout_gravity="left"
+		android:layout_gravity="start"
 		android:paddingLeft="@dimen/standard_half_padding"
+		android:paddingStart="@dimen/standard_half_padding"
+		android:paddingRight="@dimen/zero"
+		android:paddingEnd="@dimen/zero"
 		android:text="@string/ssl_validator_reason_cert_expired"
 		android:textAppearance="?android:attr/textAppearanceSmall"
 		 />
@@ -58,8 +64,11 @@
 		android:id="@+id/reason_cert_not_yet_valid"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:layout_gravity="left"
+		android:layout_gravity="start"
 		android:paddingLeft="@dimen/standard_half_padding"
+		android:paddingStart="@dimen/standard_half_padding"
+		android:paddingRight="@dimen/zero"
+		android:paddingEnd="@dimen/zero"
 		android:text="@string/ssl_validator_reason_cert_not_yet_valid"
 		android:textAppearance="?android:attr/textAppearanceSmall"
 		 />
@@ -68,8 +77,11 @@
 		android:id="@+id/reason_hostname_not_verified"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:layout_gravity="left"
+		android:layout_gravity="start"
 		android:paddingLeft="@dimen/standard_half_padding"
+		android:paddingStart="@dimen/standard_half_padding"
+		android:paddingRight="@dimen/zero"
+		android:paddingEnd="@dimen/zero"
 		android:text="@string/ssl_validator_reason_hostname_not_verified"
 		android:textAppearance="?android:attr/textAppearanceSmall"
 		 />
@@ -82,11 +94,11 @@
         android:layout_height="@dimen/scroll_view_height">
         
 		<LinearLayout
-    		android:id="@+id/details_view"
-    		android:layout_width="wrap_content"
-    		android:layout_height="wrap_content"
-    		android:gravity="left"
-    		android:orientation="vertical" >
+			android:id="@+id/details_view"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:gravity="start"
+			android:orientation="vertical" >
     			
 				<TextView
         			android:id="@+id/label_subject"
