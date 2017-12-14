@@ -19,6 +19,7 @@
     <string name="log_name">nextcloud</string>
     <string name="default_display_name_for_root_folder">Nextcloud</string>
     <string name="user_agent">Mozilla/5.0 (Android) ownCloud-android/%1$s</string>
+    <string name="nextcloud_user_agent">Mozilla/5.0 (Android) Nextcloud-android/%1$s</string>
     
     <!-- URLs and flags related -->
     <string name="server_url"></string>

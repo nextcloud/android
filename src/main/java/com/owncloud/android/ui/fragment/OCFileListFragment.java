@@ -1607,7 +1607,7 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
 
             ToggleEncryptionOperation toggleEncryptionOperation = new ToggleEncryptionOperation(event.localId,
                     event.remotePath, event.shouldBeEncrypted);
-            RemoteOperationResult remoteOperationResult = toggleEncryptionOperation.execute(mClient);
+            RemoteOperationResult remoteOperationResult = toggleEncryptionOperation.execute(mClient, true);
 
             if (remoteOperationResult.isSuccess()) {
                 mAdapter.setEncryptionAttributeForItemID(event.remoteId, event.shouldBeEncrypted);

@@ -194,7 +194,8 @@ android {
 dependencies {
     /// dependencies for app building
     implementation 'com.android.support:multidex:1.0.2'
-    implementation 'com.github.nextcloud:android-library:1.0.34'
+//    implementation 'com.github.nextcloud:android-library:1.0.34'
+    implementation project('nextcloud-android-library')
     versionDevImplementation 'com.github.nextcloud:android-library:master-SNAPSHOT' // use always latest master
     implementation "com.android.support:support-v4:${supportLibraryVersion}"
     implementation "com.android.support:design:${supportLibraryVersion}"

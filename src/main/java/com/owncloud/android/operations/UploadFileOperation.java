@@ -378,7 +378,7 @@ public class UploadFileOperation extends SyncOperation {
         // try to unlock folder with stored token, e.g. when upload needs to be resumed or app crashed
         if (parent.isEncrypted() && !mFolderUnlockToken.isEmpty()) {
             UnlockFileOperation unlockFileOperation = new UnlockFileOperation(parent.getLocalId(), mFolderUnlockToken);
-            RemoteOperationResult unlockFileOperationResult = unlockFileOperation.execute(client);
+            RemoteOperationResult unlockFileOperationResult = unlockFileOperation.execute(client, true);
 
             if (!unlockFileOperationResult.isSuccess()) {
                 return unlockFileOperationResult;
@@ -431,7 +431,7 @@ public class UploadFileOperation extends SyncOperation {
 
             // Lock folder
             LockFileOperation lockFileOperation = new LockFileOperation(parentFile.getLocalId());
-            RemoteOperationResult lockFileOperationResult = lockFileOperation.execute(client);
+            RemoteOperationResult lockFileOperationResult = lockFileOperation.execute(client, true);
 
             if (lockFileOperationResult.isSuccess()) {
                 token = (String) lockFileOperationResult.getData().get(0);
@@ -446,7 +446,7 @@ public class UploadFileOperation extends SyncOperation {
 
             // Update metadata
             GetMetadataOperation getMetadataOperation = new GetMetadataOperation(parentFile.getLocalId());
-            RemoteOperationResult getMetadataOperationResult = getMetadataOperation.execute(client);
+            RemoteOperationResult getMetadataOperationResult = getMetadataOperation.execute(client, true);
 
             DecryptedFolderMetadata metadata;
 
@@ -680,12 +680,12 @@ public class UploadFileOperation extends SyncOperation {
                     // update metadata
                     UpdateMetadataOperation storeMetadataOperation = new UpdateMetadataOperation(parentFile.getLocalId(),
                             serializedFolderMetadata, token);
-                    uploadMetadataOperationResult = storeMetadataOperation.execute(client);
+                    uploadMetadataOperationResult = storeMetadataOperation.execute(client, true);
                 } else {
                     // store metadata
                     StoreMetadataOperation storeMetadataOperation = new StoreMetadataOperation(parentFile.getLocalId(),
                             serializedFolderMetadata);
-                    uploadMetadataOperationResult = storeMetadataOperation.execute(client);
+                    uploadMetadataOperationResult = storeMetadataOperation.execute(client, true);
                 }
 
                 if (!uploadMetadataOperationResult.isSuccess()) {
@@ -752,7 +752,7 @@ public class UploadFileOperation extends SyncOperation {
     private void unlockFolder(OCFile parentFolder, OwnCloudClient client, String token) {
         if (token != null) {
             UnlockFileOperation unlockFileOperation = new UnlockFileOperation(parentFolder.getLocalId(), token);
-            RemoteOperationResult unlockFileOperationResult = unlockFileOperation.execute(client);
+            RemoteOperationResult unlockFileOperationResult = unlockFileOperation.execute(client, true);
 
             if (!unlockFileOperationResult.isSuccess()) {
                 Log_OC.e(TAG, "Failed to unlock " + parentFolder.getLocalId());
