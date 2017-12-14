@@ -98,8 +98,7 @@ public class SendShareDialog extends BottomSheetDialogFragment {
         sharePeopleText.setOnClickListener(v -> shareFile(file));
 
         ImageView sharePeopleImageView = view.findViewById(R.id.share_people_icon);
-        sharePeopleImageView.getBackground().setColorFilter(ThemeUtils.elementColor(), PorterDuff.Mode.SRC_IN);
-        sharePeopleImageView.getDrawable().setColorFilter(ThemeUtils.fontColor(), PorterDuff.Mode.SRC_IN);
+        themeShareButtonImage(sharePeopleImageView);
         sharePeopleImageView.setOnClickListener(v -> shareFile(file));
 
         // Share via link button
@@ -107,8 +106,7 @@ public class SendShareDialog extends BottomSheetDialogFragment {
         shareLinkText.setOnClickListener(v -> shareFile(file));
 
         ImageView shareLinkImageView = view.findViewById(R.id.share_link_icon);
-        shareLinkImageView.getBackground().setColorFilter(ThemeUtils.elementColor(), PorterDuff.Mode.SRC_IN);
-        shareLinkImageView.getDrawable().setColorFilter(ThemeUtils.fontColor(), PorterDuff.Mode.SRC_IN);
+        themeShareButtonImage(shareLinkImageView);
         shareLinkImageView.setOnClickListener(v -> shareFile(file));
 
         if (file.isSharedWithMe() && !file.canReshare()) {
@@ -149,6 +147,11 @@ public class SendShareDialog extends BottomSheetDialogFragment {
         sendButtonsView.setAdapter(new SendButtonAdapter(sendButtonDataList, clickListener));
 
         return view;
+    }
+
+    private void themeShareButtonImage(ImageView shareImageView) {
+        shareImageView.getBackground().setColorFilter(ThemeUtils.elementColor(), PorterDuff.Mode.SRC_IN);
+        shareImageView.getDrawable().setColorFilter(ThemeUtils.fontColor(), PorterDuff.Mode.SRC_IN);
     }
 
     private void showResharingNotAllowedSnackbar() {
