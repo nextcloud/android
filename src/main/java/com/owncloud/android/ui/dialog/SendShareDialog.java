@@ -104,7 +104,7 @@ public class SendShareDialog extends BottomSheetDialogFragment {
 
         // Share via link button
         TextView shareLinkText = view.findViewById(R.id.share_link_button);
-        shareLinkText.setOnClickListener(v -> fileOperationsHelper.showShareFile(file));
+        shareLinkText.setOnClickListener(v -> shareFile(file));
 
         ImageView shareLinkImageView = view.findViewById(R.id.share_link_icon);
         shareLinkImageView.getBackground().setColorFilter(ThemeUtils.elementColor(), PorterDuff.Mode.SRC_IN);
