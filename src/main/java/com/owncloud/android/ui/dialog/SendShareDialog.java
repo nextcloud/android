@@ -6,6 +6,7 @@ import android.content.pm.ResolveInfo;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomSheetDialogFragment;
 import android.support.design.widget.Snackbar;
@@ -111,19 +112,7 @@ public class SendShareDialog extends BottomSheetDialogFragment {
         shareLinkImageView.setOnClickListener(v -> shareFile(file));
 
         if (file.isSharedWithMe() && !file.canReshare()) {
-            Snackbar snackbar = Snackbar.make(view, R.string.resharing_is_not_allowed, Snackbar.LENGTH_LONG);
-            snackbar.addCallback(new Snackbar.Callback() {
-                @Override
-                public void onDismissed(Snackbar transientBottomBar, int event) {
-                    super.onDismissed(transientBottomBar, event);
-
-                    if (file.isFolder()) {
-                        dismiss();
-                    }
-                }
-            });
-
-            snackbar.show();
+            showResharingNotAllowedSnackbar();
 
             if (file.isFolder()) {
                 shareLinkText.setVisibility(View.GONE);
@@ -144,11 +133,68 @@ public class SendShareDialog extends BottomSheetDialogFragment {
         }
 
         // populate send apps
-        Intent sendIntent = new Intent(Intent.ACTION_SEND);
-        sendIntent.setType(file.getMimetype());
-        sendIntent.putExtra(Intent.EXTRA_STREAM, file.getExposedFileUri(getActivity()));
-        sendIntent.putExtra(Intent.ACTION_SEND, true);
+        Intent sendIntent = createSendIntent();
 
+        List<SendButtonData> sendButtonDataList = setupSendButtonData(sendIntent);
+
+        if (getContext().getString(R.string.send_files_to_other_apps).equalsIgnoreCase("off")) {
+            sharePeopleText.setVisibility(View.GONE);
+        }
+
+        SendButtonAdapter.ClickListener clickListener = setupSendButtonClickListener(sendIntent);
+
+        RecyclerView sendButtonsView = view.findViewById(R.id.send_button_recycler_view);
+        sendButtonsView.setHasFixedSize(true);
+        sendButtonsView.setLayoutManager(new GridLayoutManager(getActivity(), 3));
+        sendButtonsView.setAdapter(new SendButtonAdapter(sendButtonDataList, clickListener));
+
+        return view;
+    }
+
+    private void showResharingNotAllowedSnackbar() {
+        Snackbar snackbar = Snackbar.make(view, R.string.resharing_is_not_allowed, Snackbar.LENGTH_LONG);
+        snackbar.addCallback(new Snackbar.Callback() {
+            @Override
+            public void onDismissed(Snackbar transientBottomBar, int event) {
+                super.onDismissed(transientBottomBar, event);
+
+                if (file.isFolder()) {
+                    dismiss();
+                }
+            }
+        });
+
+        snackbar.show();
+    }
+
+    @NonNull
+    private SendButtonAdapter.ClickListener setupSendButtonClickListener(Intent sendIntent) {
+        return sendButtonDataData -> {
+
+                if (MimeTypeUtil.isImage(file) && !file.isDown()) {
+                    fileOperationsHelper.sendCachedImage(file);
+                } else {
+                    String packageName = sendButtonDataData.getPackageName();
+                    String activityName = sendButtonDataData.getActivityName();
+
+                    // Obtain the file
+                    if (file.isDown()) {
+                        sendIntent.setComponent(new ComponentName(packageName, activityName));
+                        getActivity().startActivity(Intent.createChooser(sendIntent, getString(R.string.send)));
+
+                    } else {  // Download the file
+                        Log_OC.d(TAG, file.getRemotePath() + ": File must be downloaded");
+                        fileDisplayActivity.startDownloadForSending(file, OCFileListFragment.DOWNLOAD_SEND,
+                                packageName, activityName);
+                    }
+                }
+
+                dismiss();
+            };
+    }
+
+    @NonNull
+    private List<SendButtonData> setupSendButtonData(Intent sendIntent) {
         List<SendButtonData> sendButtonDataList = new ArrayList<>();
         for (ResolveInfo match : getActivity().getPackageManager().queryIntentActivities(sendIntent, 0)) {
             Drawable icon = match.loadIcon(getActivity().getPackageManager());
@@ -159,41 +205,16 @@ public class SendShareDialog extends BottomSheetDialogFragment {
 
             sendButtonDataList.add(sendButtonData);
         }
+        return sendButtonDataList;
+    }
 
-        if (getContext().getString(R.string.send_files_to_other_apps).equalsIgnoreCase("off")) {
-            sharePeopleText.setVisibility(View.GONE);
-        }
-
-        SendButtonAdapter.ClickListener clickListener = sendButtonDataData -> {
-
-            if (MimeTypeUtil.isImage(file) && !file.isDown()) {
-                fileOperationsHelper.sendCachedImage(file);
-            } else {
-                String packageName = sendButtonDataData.getPackageName();
-                String activityName = sendButtonDataData.getActivityName();
-                
-                // Obtain the file
-                if (file.isDown()) {
-                    sendIntent.setComponent(new ComponentName(packageName, activityName));
-                    getActivity().startActivity(Intent.createChooser(sendIntent, getString(R.string.send)));
-
-                } else {  // Download the file
-                    Log_OC.d(TAG, file.getRemotePath() + ": File must be downloaded");
-                    fileDisplayActivity.startDownloadForSending(file, OCFileListFragment.DOWNLOAD_SEND,
-                            packageName, activityName);
-                }
-            }
-
-            dismiss();
-        };
-
-        RecyclerView sendButtonsView = view.findViewById(R.id.send_button_recycler_view);
-        sendButtonsView.setHasFixedSize(true);
-        sendButtonsView.setLayoutManager(new GridLayoutManager(getActivity(), 3));
-        sendButtonsView.setAdapter(new SendButtonAdapter(sendButtonDataList, clickListener));
-
-
-        return view;
+    @NonNull
+    private Intent createSendIntent() {
+        Intent sendIntent = new Intent(Intent.ACTION_SEND);
+        sendIntent.setType(file.getMimetype());
+        sendIntent.putExtra(Intent.EXTRA_STREAM, file.getExposedFileUri(getActivity()));
+        sendIntent.putExtra(Intent.ACTION_SEND, true);
+        return sendIntent;
     }
 
     private void shareFile(OCFile file) {
