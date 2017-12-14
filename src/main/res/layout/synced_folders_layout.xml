@@ -70,6 +70,8 @@
                         android:layout_toEndOf="@id/custom_folder_image"
                         android:paddingLeft="@dimen/alternate_half_padding"
                         android:paddingStart="@dimen/alternate_half_padding"
+                        android:paddingRight="@dimen/zero"
+                        android:paddingEnd="@dimen/zero"
                         android:text="@string/autoupload_custom_folder"/>
 
                 </RelativeLayout>

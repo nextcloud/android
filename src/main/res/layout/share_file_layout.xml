@@ -109,6 +109,8 @@
                 android:layout_weight="1"
                 android:paddingStart="@dimen/standard_half_padding"
                 android:paddingLeft="@dimen/standard_half_padding"
+                android:paddingEnd="@dimen/zero"
+                android:paddingRight="@dimen/zero"
                 android:scrollbars="vertical"
                 android:visibility="gone"/>
 
@@ -152,6 +154,8 @@
                 android:checked="false"
                 android:paddingRight="@dimen/standard_half_padding"
                 android:paddingEnd="@dimen/standard_half_padding"
+                android:paddingLeft="@dimen/zero"
+                android:paddingStart="@dimen/zero"
                 android:text="@string/share_via_link_section_title"
                 android:textColor="@color/color_accent"/>
 
