@@ -615,7 +615,7 @@ public abstract class FileActivity extends DrawerActivity
             Log_OC.e(TAG, "Error detecting app version", e);
         }
         if (latestVersion == -1 || currentVersion == -1) {
-            Snackbar.make(view, R.string.dev_version_no_information_available, Snackbar.LENGTH_SHORT).show();
+            Snackbar.make(view, R.string.dev_version_no_information_available, Snackbar.LENGTH_LONG).show();
         }
         if (latestVersion > currentVersion) {
             if (openDirectly) {
@@ -625,7 +625,7 @@ public abstract class FileActivity extends DrawerActivity
                 context.startActivity(intent);
             } else {
                 Integer finalLatestVersion = latestVersion;
-                Snackbar.make(view, R.string.dev_version_new_version_available, Snackbar.LENGTH_SHORT)
+                Snackbar.make(view, R.string.dev_version_new_version_available, Snackbar.LENGTH_LONG)
                         .setAction(context.getString(R.string.version_dev_download), v -> {
                             String devApkLink = (String) context.getText(R.string.dev_link)
                                     + finalLatestVersion + ".apk";
@@ -635,7 +635,7 @@ public abstract class FileActivity extends DrawerActivity
                         }).show();
             }
         } else {
-            Snackbar.make(view, R.string.dev_version_no_new_version_available, Snackbar.LENGTH_SHORT).show();
+            Snackbar.make(view, R.string.dev_version_no_new_version_available, Snackbar.LENGTH_LONG).show();
         }
     }
 }
