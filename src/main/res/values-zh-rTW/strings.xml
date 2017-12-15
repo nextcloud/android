@@ -57,7 +57,11 @@
     <string name="prefs_imprint">法律聲明</string>
 
 	<string name="recommend_subject">在您的裝置上試用 %1$s！</string>
-	<string name="auth_check_server">檢查伺服器</string>
+	<string name="recommend_text">我想邀請您在您的裝置也使用%1$s
+請從這裡下載:%2$s</string>
+    <string name="recommend_urls">%1$s或%2$s</string>
+
+    <string name="auth_check_server">檢查伺服器</string>
     <string name="auth_host_url">伺服器網址 https://&#8230;</string>
     <string name="auth_username">使用者名稱</string>
     <string name="auth_password">密碼</string>
@@ -132,6 +136,7 @@
     <string name="about_title">關於</string>
     <string name="change_password">變更密碼</string>
     <string name="delete_account">刪除帳戶</string>
+    <string name="delete_account_warning">移除帳號%s並刪除所有本地檔案?\n\n刪除後將無法恢復。</string>
     <string name="avatar">頭像</string>
     <string name="active_user">活躍使用者</string>
     <string name="upload_chooser_title">上傳自&#8230;</string>
@@ -552,15 +557,17 @@
     <string name="user_information_retrieval_error">取得使用者資訊發生錯誤</string>
 
     <!-- Activities -->
-    <string name="activities_no_results_headline">尚未啟動</string>
+    <string name="activities_no_results_headline">目前沒有任何活動</string>
+    <string name="activities_no_results_message">這個串流會顯示檔案的增加、變更、分享等活動</string>
     <string name="prefs_category_about">關於</string>
 
     <string name="actionbar_contacts">備份聯絡人</string>
-    <string name="actionbar_contacts_restore">恢復聯絡人</string>
+    <string name="actionbar_contacts_restore">還原聯絡人</string>
     <string name="contacts_backup_button">立刻備份</string>
     <string name="contacts_automatic_backup">自動備份</string>
     <string name="contacts_last_backup">最新備份</string>
     <string name="contacts_read_permission">需要讀取聯絡人清單的權限</string>
+    <string name="contaclist_restore_selected">還原所選的聯絡人</string>
     <string name="contactlist_account_chooser_title">選擇帳戶以匯入</string>
     <string name="contacts_preference_choose_date">選擇日期</string>
     <string name="contacts_preference_backup_never">永不</string>

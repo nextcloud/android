@@ -634,6 +634,8 @@ Kies er eentje van een provider.</string>
     <string name="contacts_preferences_backup_scheduled">Backup ingepland en zal zo starten</string>
     <string name="contacts_preferences_import_scheduled">Import ingepland en zal zo starten</string>
 
+    <!-- Notifications -->
+    <string name="new_notification_received">Nieuwe melding ontvangen</string>
     <string name="drawer_logout">Uitloggen</string>
     <string name="picture_set_as_no_app">Geen app gevonden om afbeelding in te stellen</string>
     <string name="privacy">Privacy</string>
@@ -661,6 +663,7 @@ Kies er eentje van een provider.</string>
     <string name="push_notifications_old_login">Geen push-notificaties als gevolg van de verouderde inlogsessie. Overweeg het opnieuw toevoegen van je account.</string>
     <string name="push_notifications_temp_error">Push notificaties momenteel niet beschikbaar.</string>
 
+    <string name="sync_in_progress">Even geduld a.u.b., de nieuweste versie van het bestand word gedownload.</string>
     <string name="date_unknown">Onbekend</string>
 
     <string name="resized_image_not_possible">Geen verkleinde afbeelding beschikbaar. Volledige afbeelding downloaden?</string>
@@ -677,11 +680,20 @@ Kies er eentje van een provider.</string>
     <string name="user_icon">Gebruikerspictogram</string>
     <string name="fingerprint_icon">Vingerafdrukpictogram</string>
     <string name="favorite_icon">Favorietenpictogram</string>
+    <string name="shared_via_link_icon">Gedeeld via link icoon</string>
+    <string name="available_offline_icon">Offline beschikbaar icoon</string>
+    <string name="shared_icon">Gedeeld icoon</string>
+    <string name="share_file_icon">Deel bestand icoon</string>
+    <string name="sort_by_name_ascending">Sorteer op naam oplopend</string>
+    <string name="sort_by_size_descending">Sorteer op grote aflopend</string>
+    <string name="sort_by_size_ascending">Sorteer op grote oplopend</string>
+    <string name="sort_by_name_descending">Sorteer op naam aflopend</string>
     <string name="synced_folders_type">Type</string>
+    <string name="synced_folder_settings_button">Instellingen knop</string>
     <string name="forward">Doorsturen</string>
     <string name="what_s_new_image">Wat is nieuw afbeelding</string>
 
     <string name="prefs_category_dev">Dev</string>
     <string name="dev_version_no_information_available">Geen informatie beschikbaar!</string>
     <string name="dev_version_no_new_version_available">Geen nieuwe versie beschikbaar!</string>
-</resources>
+    </resources>

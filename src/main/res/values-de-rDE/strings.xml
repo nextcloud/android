@@ -76,11 +76,10 @@
     <string name="uploader_wrn_no_account_quit_btn_text">Beenden</string>
     <string name="uploader_error_title_no_file_to_upload">Keine Datei zum Hochladen</string>
     <string name="uploader_error_message_no_file_to_upload">Empfangene Daten enthalten keine gültige Datei.</string>
-    <string name="uploader_error_title_file_cannot_be_uploaded">Diese Datei kan nicht hochgeladen werden</string>
+    <string name="uploader_error_title_file_cannot_be_uploaded">Diese Datei kann nicht hochgeladen werden</string>
     <string name="uploader_error_message_read_permission_not_granted">%1$s darf eine empfangene Datei nicht lesen</string>
-    <string name="uploader_error_message_source_file_not_found">Die zum Hochladen ausgewählte Datei kann nicht gefunden werden. Bitte prüfe ob die Datei existiert.
-</string>
-    <string name="uploader_error_message_source_file_not_copied">Es ist ein Fehler beim Kopieren dieser Datei in einen temporären Ordner aufgetreten. Bitte erneut versuchen die Datei zu senden.</string>
+    <string name="uploader_error_message_source_file_not_found">Die zum Hochladen ausgewählte Datei kann nicht gefunden werden. Bitte prüfen Sie ob die Datei existiert.</string>
+    <string name="uploader_error_message_source_file_not_copied">Es ist ein Fehler beim Kopieren dieser Datei in einen temporären Ordner aufgetreten. Bitte versuchen Sie erneut die Datei zu senden.</string>
     <string name="uploader_upload_files_behaviour">Upload Option:</string>
     <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">Datei in Nextcloud Ordner verschieben</string>
     <string name="uploader_upload_files_behaviour_only_upload">Hochladen und im Quellordner behalten</string>
@@ -253,9 +252,9 @@
 	<string name="auth_unauthorized">Falscher Benutzername oder Passwort</string>
 	<string name="auth_oauth_error">Autorisierung nicht erfolgreich</string>
 	<string name="auth_oauth_error_access_denied">Zugriff durch den Autorisierungsserver abgelehnt</string>
-	<string name="auth_wtf_reenter_URL">Unerwarteter Zustand; Bitte gib die Adresse des Servers erneut ein</string>
+	<string name="auth_wtf_reenter_URL">Unerwarteter Zustand, bitte geben Sie die Adresse des Servers erneut ein</string>
 	<string name="auth_expired_oauth_token_toast">Die Autorisierung ist abgelaufen. Bitte Autorisierung nochmals durchführen</string>
-	<string name="auth_expired_basic_auth_toast">Bitte gib das aktuelle Passwort ein</string>
+	<string name="auth_expired_basic_auth_toast">Bitte geben Sie das aktuelle Passwort ein</string>
 	<string name="auth_expired_saml_sso_token_toast">Ihre Sitzung ist abgelaufen. Bitte erneut verbinden</string>
 	<string name="auth_connecting_auth_server">Verbinden zum Authentifizierungs-Server&#8230;</string>
 	<string name="auth_unsupported_multiaccount">%1$s unterstützt nicht mehrere Benutzerkonten</string>
@@ -276,7 +275,7 @@
     <string name="confirmation_remove_local">Nur lokal</string>
     <string name="remove_success_msg">Gelöscht</string>
     <string name="remove_fail_msg">Löschen fehlgeschlagen</string>
-    <string name="rename_dialog_title">Gib einen neuen Namen ein</string>
+    <string name="rename_dialog_title">Geben Sie einen neuen Namen ein</string>
     <string name="rename_local_fail_msg">Die lokale Kopie konnte nicht umbenannt werden. Versuchen Sie es mit einem anderen Namen.</string>
     <string name="rename_server_fail_msg">Die Umbenennung konnte nicht abgeschlossen werden.</string>
     <string name="sync_file_nothing_to_do_msg">Dateiinhalte bereits synchronisiert</string>
@@ -349,14 +348,14 @@
     <string name="prefs_instant_upload_path_use_subfolders_summary">In Unterordnern speichern, basierend auf Jahr und Monat</string>
 
 	<string name="share_link_no_support_share_api">Teilen ist auf Ihrem Server nicht aktiviert. Bitte kontaktieren Sie den Administrator.</string>
-	<string name="share_link_file_no_exist">Teilen nicht möglich. Prüfe, ob die Datei existiert</string>
+	<string name="share_link_file_no_exist">Teilen nicht möglich. Bitte prüfen Sie, ob die Datei existiert</string>
 	<string name="share_link_file_error">Es ist ein Fehler beim Freigeben der Datei oder des Ordners aufgetreten.</string>
-	<string name="unshare_link_file_no_exist">Entfernen der Freigabe nicht möglich. Prüfe, dass die Datei existiert</string>
+	<string name="unshare_link_file_no_exist">Entfernen der Freigabe nicht möglich. Bitte prüfen Sie, ob die Datei existiert</string>
 	<string name="unshare_link_file_error">Es ist ein Fehler beim Entfernen der Freigabe für diese Datei oder den Ordner aufgetreten.</string>
-    <string name="update_link_file_no_exist">Aktualisierung der Datei nicht möglich. Prüfe, ob die Datei existiert</string>
+    <string name="update_link_file_no_exist">Aktualisierung der Datei nicht möglich. Bitte prüfen Sie, ob die Datei existiert</string>
     <string name="update_link_file_error">Es ist ein Fehler beim Aktualisieren der Freigabe aufgetreten</string>
     <string name="share_link_password_title">Passwort eingeben</string>
-    <string name="share_link_empty_password">Si müssen ein Passwort eingeben</string>
+    <string name="share_link_empty_password">Sie müssen ein Passwort eingeben</string>
 
     <string name="activity_chooser_send_file_title">Senden</string>
 
@@ -373,7 +372,7 @@
     <string name="network_error_connect_timeout_exception">Es ist ein Fehler beim Warten auf den Server aufgetreten, die Operationkonnte nicht abgeschlossen werden</string>
     <string name="network_host_not_available">Die Operation kann nicht abgeschlossen werden, der Server ist nicht erreichbar</string>
 
-    <string name="forbidden_permissions">Dir fehlt die Erlaubnis %s</string>
+    <string name="forbidden_permissions">Ihnen fehlt die Erlaubnis %s</string>
     <string name="forbidden_permissions_rename">diese Datei umzubenennen</string>
     <string name="forbidden_permissions_delete">diese Datei zu löschen</string>
     <string name="share_link_forbidden_permissions">diese Datei zu teilen</string>
@@ -424,14 +423,14 @@
 	<string name="file_list_empty_moving">Noch nichts vorhanden. Sie können einen Ordner hinzufügen.</string>
 	<string name="folder_picker_choose_button_text">Auswählen</string>
 
-    <string name="move_file_not_found">Verschieben nicht möglich. Prüfe, ob die Datei existiert</string>
+    <string name="move_file_not_found">Verschieben nicht möglich. Bitte prüfen Sie, ob die Datei existiert</string>
     <string name="move_file_invalid_into_descendent">Es ist nicht möglich, einen Ordner in einen seiner Unterordner zu verschieben</string>
     <string name="move_file_invalid_overwrite">Die Datei ist bereits im Zielordner vorhanden</string>
     <string name="move_file_error">Es ist ein Fehler beim Verschieben der Datei oder des Ordners aufgetreten.</string>
     <string name="forbidden_permissions_move">um diese Datei zu verschieben</string>
 
 
-    <string name="copy_file_not_found">Kopieren nicht möglich. Prüfe, dass die Datei existiert</string>
+    <string name="copy_file_not_found">Kopieren nicht möglich. Bitte prüfen Sie, ob die Datei existiert</string>
     <string name="copy_file_invalid_into_descendent">Es ist nicht möglich, einen Ordner in einen seiner Unterordner zu kopieren</string>
     <string name="copy_file_invalid_overwrite">Die Datei existiert bereits im Zielverzeichnis</string>
     <string name="copy_file_error">Es ist ein Fehler beim Kopieren der Datei oder des Ordners aufgetreten.</string>
@@ -441,8 +440,8 @@
 
     <string name="sync_folder_failed_content">Bei der Synchronisation konnte %1$s Ordner nicht fertig gestellt werden</string>
 
-	<string name="subject_user_shared_with_you">%1$s hat \"%2$s\" mit Dir geteilt</string>
-    <string name="subject_shared_with_you">\"%1$s\" wurde mit Dir geteilt</string>
+	<string name="subject_user_shared_with_you">%1$s hat \"%2$s\" mit Ihnen geteilt</string>
+    <string name="subject_shared_with_you">\"%1$s\" wurde mit Ihnen geteilt</string>
 
     <string name="auth_refresh_button">Verbindung aktualisieren</string>
     <string name="auth_host_address">Serveradresse</string>
@@ -524,7 +523,7 @@
 
     <string name="uploads_view_upload_status_waiting_for_charging">Warte auf das Aufladen des Gerätes</string>
     <string name="actionbar_search">Suche</string>
-    <string name="files_drop_not_supported">Dies ist eine Nextcloud Funktion, bitte updaten.</string>
+    <string name="files_drop_not_supported">Dies ist eine Nextcloud Funktion, bitte updaten Sie.</string>
     <string name="learn_more">Mehr</string>
     <string name="drawer_synced_folders">Automatisches Hochladen</string>
     <string name="drawer_participate">Mitmachen</string>
@@ -533,7 +532,7 @@
     <string name="participate_testing_report_text">Fehlerbericht GitHub senden</string>
     <string name="participate_testing_version_text">Interessiert uns beim Test der nächsten Version zu unterstützen?</string>
     <string name="participate_beta_headline">Teste die Entwicklerversion</string>
-    <string name="participate_beta_text">Dies beinhaltet neue Funktionalitäten und ist nicht vollumfänglich qualitätsgesichert. Es können daher Fehler/Bugs auftreten, melde uns diese bitte.</string>
+    <string name="participate_beta_text">Dies beinhaltet neue Funktionalitäten und ist nicht vollumfänglich qualitätsgesichert. Es können daher Fehler/Bugs auftreten, melde Sie uns diese bitte.</string>
     <string name="participate_release_candidate_headline">Vorabversion</string>
     <string name="participate_release_candidate_text">Der Release-Kandidat (RC) ist eine Vorschau auf die kommende Version und sollte stabil sein. Das Testen des RC unter Ihrer individuellen Umgebung kann helfen, die Stabilität und Qualität zu sichern. Registrieren Sie sich als Tester im Play-Store oder schauen Sie in die \"Version\"-Sektion auf F-Droid.</string>
     <string name="participate_contribute_headline">Aktiv etwas beitragen</string>
@@ -554,7 +553,7 @@
     <string name="synced_folders_loading_folders">Lade Ordner&#8230;</string>
     <string name="synced_folders_no_results">Keine Medien-Ordner gefunden.</string>
     <string name="synced_folders_preferences">Einstellungen für automatisches Hochladen</string>
-    <string name="synced_folders_new_info">Die Sofort-Uploads wurden vollständig überarbeitet. Konfiguriere deinen automatischen Uploader im Hauptmenü.\n\nGenieße den verbesserten Auto-Upload.</string>
+    <string name="synced_folders_new_info">Die Sofort-Uploads wurden vollständig überarbeitet. Konfiguriere Sie Ihren automatischen Uploader im Hauptmenü.\n\nGenießen Sie den verbesserten Auto-Upload.</string>
     <string name="synced_folders_preferences_folder_path">Für %1$s</string>
     <plurals name="items_selected_count">
         <item quantity="one">%d ausgewählt</item>
@@ -634,14 +633,16 @@
     <string name="contacts_preferences_backup_scheduled">Sicherung geplant und wird in Kürze starten</string>
     <string name="contacts_preferences_import_scheduled">Import geplant und wird in Kürze starten</string>
 
+    <!-- Notifications -->
+    <string name="new_notification_received">Neue Benachrichtigung erhalten</string>
     <string name="drawer_logout">Abmelden</string>
     <string name="picture_set_as_no_app">Keine App gefunden, mit der ein Bid gesetzt werden könnte!</string>
     <string name="privacy">Datenschutz</string>
     <string name="file_not_found">Datei nicht gefunden!</string>
 
     <!-- Auto upload -->
-    <string name="autoupload_custom_folder">Erstelle einen eigenen Ordner</string>
-    <string name="autoupload_create_new_custom_folder">Erstelle ein Setup für den eigenen Ordner</string>
+    <string name="autoupload_custom_folder">Erstellen Sie einen eigenen Ordner</string>
+    <string name="autoupload_create_new_custom_folder">Erstellen Sie ein Setup für den eigenen Ordner</string>
     <string name="synced_folders_configure_folders">Ordner konfigurieren</string>
 
     <string name="test_server_button">Prüfe Server-Verbindung</string>
@@ -707,4 +708,4 @@
     <string name="prefs_category_dev">Dev</string>
     <string name="dev_version_no_information_available">Keine Information verfügbar!</string>
     <string name="dev_version_no_new_version_available">Keine neue Version verfügbar!</string>
-</resources>
+    </resources>

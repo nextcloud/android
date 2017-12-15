@@ -349,11 +349,11 @@
     <string name="prefs_instant_upload_path_use_subfolders_summary">In Unterordnern speichern, basierend auf Jahr und Monat</string>
 
 	<string name="share_link_no_support_share_api">Teilen ist auf Deinem Server nicht aktiviert. Bitte kontaktiere den Administrator.</string>
-	<string name="share_link_file_no_exist">Teilen nicht möglich. Prüfe, ob die Datei existiert</string>
+	<string name="share_link_file_no_exist">Teilen nicht möglich. Bitte prüfe, ob die Datei existiert</string>
 	<string name="share_link_file_error">Es ist ein Fehler beim Freigeben der Datei oder des Ordners aufgetreten.</string>
-	<string name="unshare_link_file_no_exist">Entfernen der Freigabe nicht möglich. Prüfe, dass die Datei existiert</string>
+	<string name="unshare_link_file_no_exist">Entfernen der Freigabe nicht möglich. Bitte prüfe, ob die Datei existiert</string>
 	<string name="unshare_link_file_error">Es ist ein Fehler beim Entfernen der Freigabe für diese Datei oder den Ordner aufgetreten.</string>
-    <string name="update_link_file_no_exist">Aktualisierung der Datei nicht möglich. Prüfe, ob die Datei existiert</string>
+    <string name="update_link_file_no_exist">Aktualisierung der Datei nicht möglich. Bitte prüfe, ob die Datei existiert</string>
     <string name="update_link_file_error">Es ist ein Fehler beim Aktualisieren der Freigabe aufgetreten</string>
     <string name="share_link_password_title">Passwort eingeben</string>
     <string name="share_link_empty_password">Du musst ein Passwort eingeben</string>
@@ -424,14 +424,14 @@
 	<string name="file_list_empty_moving">Noch nichts vorhanden. Du kannst einen Ordner hinzufügen.</string>
 	<string name="folder_picker_choose_button_text">Auswählen</string>
 
-    <string name="move_file_not_found">Verschieben nicht möglich. Prüfe, ob die Datei existiert</string>
+    <string name="move_file_not_found">Verschieben nicht möglich. Bitte prüfe, ob die Datei existiert</string>
     <string name="move_file_invalid_into_descendent">Es ist nicht möglich, einen Ordner in einen seiner Unterordner zu verschieben</string>
     <string name="move_file_invalid_overwrite">Die Datei ist bereits im Zielordner vorhanden</string>
     <string name="move_file_error">Es ist ein Fehler beim Verschieben der Datei oder des Ordners aufgetreten.</string>
     <string name="forbidden_permissions_move">um diese Datei zu verschieben</string>
 
 
-    <string name="copy_file_not_found">Kopieren nicht möglich. Prüfe, dass die Datei existiert</string>
+    <string name="copy_file_not_found">Kopieren nicht möglich. Bitte prüfe, ob die Datei existiert</string>
     <string name="copy_file_invalid_into_descendent">Es ist nicht möglich, einen Ordner in einen seiner Unterordner zu kopieren</string>
     <string name="copy_file_invalid_overwrite">Die Datei existiert bereits im Zielverzeichnis</string>
     <string name="copy_file_error">Es ist ein Fehler beim Kopieren der Datei oder des Ordners aufgetreten.</string>
@@ -635,6 +635,8 @@
     <string name="contacts_preferences_backup_scheduled">Sicherung geplant und wird in Kürze starten</string>
     <string name="contacts_preferences_import_scheduled">Import geplant und wird in Kürze starten</string>
 
+    <!-- Notifications -->
+    <string name="new_notification_received">Neue Benachrichtigung erhalten</string>
     <string name="drawer_logout">Abmelden</string>
     <string name="picture_set_as_no_app">Keine App gefunden, mit der ein Bid gesetzt werden könnte!</string>
     <string name="privacy">Datenschutz</string>
@@ -708,4 +710,4 @@
     <string name="prefs_category_dev">Entwicklung</string>
     <string name="dev_version_no_information_available">Keine Information verfügbar!</string>
     <string name="dev_version_no_new_version_available">Keine neue Version verfügbar!</string>
-</resources>
+    </resources>

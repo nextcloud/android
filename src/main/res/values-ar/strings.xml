@@ -285,6 +285,7 @@
 
     <string name="pref_behaviour_entries_delete_file">خذفت</string>
     <string name="prefs_storage_path">مسار التخزين</string>
+
     <string name="share_dialog_title">مشاركة</string>
     <string name="share_file">شارك %1$s</string>
     <string name="share_with_user_section_title">شارك مع مستخدمين أو مجموعات</string>

@@ -317,6 +317,7 @@ Smelltu hér til að fá þér einn frá þjónustuaðila.</string>
 
     <string name="placeholder_sentence">Þetta er frátökutákn</string>
     <string name="placeholder_filename">frátökutákn.txt</string>
+    <string name="placeholder_fileSize">389 KB</string>
     <string name="placeholder_timestamp">2012/05/18 12:23 EH</string>
     <string name="placeholder_media_time">12:23:45</string>
 
@@ -473,6 +474,7 @@ Smelltu hér til að fá þér einn frá þjónustuaðila.</string>
     <string name="share_via_link_expiration_date_label">Setja gildistíma</string>
     <string name="share_via_link_password_label">Verja með lykilorði</string>
     <string name="share_via_link_password_title">Öruggt</string>
+    <string name="share_via_link_edit_permission_label">Leyfa breytingar</string>
     <string name="share_via_link_hide_file_listing_permission_label">Fela skráalista</string>
     <string name="share_get_public_link_button">Ná í tengil</string>
     <string name="share_with_title">Deila með &#8230;</string>
@@ -636,11 +638,13 @@ Smelltu hér til að fá þér einn frá þjónustuaðila.</string>
     <string name="resharing_is_not_allowed">Endurdeiling er ekki leyfð</string>
     <string name="whats_new_fingerprint_title">Aflæsa með fingrafari</string>
     <string name="whats_new_fingerprint_content">Notaðu fingrafarið þitt til að aflæsa forritinu</string>
+    <string name="fallback_weblogin_back">Til baka</string>
     <string name="foreground_service_upload">Sendi inn skrár&#8230;</string>
     <string name="foreground_service_download">Sæki skrár&#8230;</string>
 
     <string name="prefs_sourcecode">Náðu í grunnkóðann</string>
     <string name="prefs_license">Notkunarleyfi</string>
+    <string name="prefs_gpl_v2">GNU General Public notkunarleyfið, útgáfa 2</string>
     <string name="push_notifications_not_implemented">Ýti-tilkynningar eru óvirkar vegna ósamhæfis við séreignahugbúnað í Google Play þjónustu.</string>
     <string name="push_notifications_old_login">Engar ýtitilkynningar vegna útrunnirnnar innskráningarsetu. Íhugaðu að setja aðganginn þinn inn aftur.</string>
     <string name="push_notifications_temp_error">Ýti-tilkynningar eru ekki tiltækar þessa stundina.</string>
@@ -649,4 +653,5 @@ Smelltu hér til að fá þér einn frá þjónustuaðila.</string>
 
     <string name="resized_images_download_full_image">Sækja alla myndina?</string>
 
+    <string name="forward">Áfram</string>
     </resources>
