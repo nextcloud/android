@@ -633,6 +633,8 @@
     <string name="contacts_preferences_backup_scheduled">Backup scheduled and will start shortly</string>
     <string name="contacts_preferences_import_scheduled">Import scheduled and will start shortly</string>
 
+    <!-- Notifications -->
+    <string name="new_notification_received">New notification received</string>
     <string name="drawer_logout">Logout</string>
     <string name="picture_set_as_no_app">No app found to set a picture with!</string>
     <string name="privacy">Privacy</string>
@@ -706,4 +708,4 @@
     <string name="prefs_category_dev">Dev</string>
     <string name="dev_version_no_information_available">No information available!</string>
     <string name="dev_version_no_new_version_available">No new version available!</string>
-</resources>
+    </resources>

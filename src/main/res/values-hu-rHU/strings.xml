@@ -636,6 +636,8 @@ hozzáadások, változások és megosztások</string>
     <string name="contacts_preferences_backup_scheduled">Mentés ütemezve és hamarosan indul</string>
     <string name="contacts_preferences_import_scheduled">Importálás ütemezve és hamarosan indul</string>
 
+    <!-- Notifications -->
+    <string name="new_notification_received">Új értesítés</string>
     <string name="drawer_logout">Kijelentkezés</string>
     <string name="picture_set_as_no_app">Nincs alkalmazás a képbeállításhoz</string>
     <string name="privacy">Titoktartás</string>
@@ -727,4 +729,4 @@ A Nextcloud itt érhető el: https://nextcloud.com</string>
     <string name="prefs_category_dev">Dev</string>
     <string name="dev_version_no_information_available">Nincs információ!</string>
     <string name="dev_version_no_new_version_available">Nincs újabb verzió!</string>
-</resources>
+    </resources>

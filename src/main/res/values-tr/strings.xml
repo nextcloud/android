@@ -633,6 +633,8 @@
     <string name="contacts_preferences_backup_scheduled">Yedekleme zamanlandı ve kısa süre sonra başlatılacak</string>
     <string name="contacts_preferences_import_scheduled">İçe aktarma işlemi zamanlandı ve kısa süre sonra başlatılacak</string>
 
+    <!-- Notifications -->
+    <string name="new_notification_received">Yeni bir bildirim var</string>
     <string name="drawer_logout">Oturumu Kapat</string>
     <string name="picture_set_as_no_app">Görselin ayarlanabileceği bir uygulama bulunamadı!</string>
     <string name="privacy">Gizlilik</string>
@@ -706,4 +708,4 @@
     <string name="prefs_category_dev">Geliştirici</string>
     <string name="dev_version_no_information_available">Herhangi bir bilgi yok!</string>
     <string name="dev_version_no_new_version_available">Yeni bir sürüm yayınlanmamış!</string>
-</resources>
+    </resources>

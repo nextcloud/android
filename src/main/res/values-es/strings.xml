@@ -633,6 +633,8 @@
     <string name="contacts_preferences_backup_scheduled">Copia de seguridad programada. Comenzará en breve</string>
     <string name="contacts_preferences_import_scheduled">Importación programada. Comenzará en breve</string>
 
+    <!-- Notifications -->
+    <string name="new_notification_received">Nueva notificación recibida</string>
     <string name="drawer_logout">Desconectar</string>
     <string name="picture_set_as_no_app">¡No se ha encontrado ninguna aplicación para establecer una imagen!</string>
     <string name="privacy">Privacidad</string>
@@ -706,4 +708,4 @@
     <string name="prefs_category_dev">Dev</string>
     <string name="dev_version_no_information_available">¡No hay información disponible!</string>
     <string name="dev_version_no_new_version_available">¡No hay nueva versión disponible!</string>
-</resources>
+    </resources>

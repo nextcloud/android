@@ -7,7 +7,7 @@
     <string name="actionbar_upload_from_apps">Содержимое из других приложений</string>
     <string name="actionbar_upload_files">Файлы</string>
     <string name="actionbar_open_with">Открыть с помощью</string>
-    <string name="actionbar_mkdir">Новый каталог</string>
+    <string name="actionbar_mkdir">Создать папку</string>
     <string name="actionbar_settings">Настройки</string>
     <string name="actionbar_see_details">Подробности</string>
     <string name="actionbar_send_file">Отправить</string>
@@ -76,11 +76,11 @@
     <string name="uploader_wrn_no_account_quit_btn_text">Выход</string>
     <string name="uploader_error_title_no_file_to_upload">Нет файла для выгрузки</string>
     <string name="uploader_error_message_no_file_to_upload">Принятые данные не содержат исправный файл.</string>
-    <string name="uploader_error_title_file_cannot_be_uploaded">Этот файл не может быть загружен</string>
+    <string name="uploader_error_title_file_cannot_be_uploaded">Этот файл не может быть передан на сервер</string>
     <string name="uploader_error_message_read_permission_not_granted">%1$s не позволено читать принятый файл</string>
     <string name="uploader_error_message_source_file_not_found">Не удалось найти файл для загрузки. Убедитесь, что файл существует.</string>
     <string name="uploader_error_message_source_file_not_copied">Произошла ошибка во время копирования этого файла во временный каталог. Пожалуйста попробуйте отправить его заново.</string>
-    <string name="uploader_upload_files_behaviour">Настройка загрузки:</string>
+    <string name="uploader_upload_files_behaviour">Параметры передачи:</string>
     <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">Переместить файл в каталог Nextcloud</string>
     <string name="uploader_upload_files_behaviour_only_upload">Оставить файл в исходном каталоге</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Удалить файл из исходного каталога</string>
@@ -117,7 +117,7 @@
     <string name="filedetails_select_file">Нажмите на файл для отображения дополнительной информации.</string>
     <string name="filedetails_download">Скачать</string>
     <string name="filedetails_sync_file">Синхронизировать</string>
-    <string name="filedetails_renamed_in_upload_msg">При загрузке файл был переименован в «%1$s»</string>
+    <string name="filedetails_renamed_in_upload_msg">Во время передачи на сервер файл был переименован в «%1$s»</string>
     <string name="list_layout">Вид списком</string>
     <string name="action_share">Общий доступ</string>
     <string name="common_yes">Да</string>
@@ -247,7 +247,7 @@
 	<string name="auth_unknown_host_title">Невозможно найти сервер</string>
 	<string name="auth_incorrect_path_title">Сервер не найден</string>
 	<string name="auth_timeout_title">Сервер слишком долго не отвечает</string>
-	<string name="auth_incorrect_address_title">Неправильный формат адреса сервера</string>
+	<string name="auth_incorrect_address_title">Неверный формат адреса сервера</string>
 	<string name="auth_ssl_general_error_title">Ошибка инициализации SSL</string>
 	<string name="auth_ssl_unverified_server_title">Невозможно проверить SSL подлинность сервера</string>
 	<string name="auth_bad_oc_version_title">Неизвестная версия сервера</string>
@@ -337,8 +337,8 @@
     <string name="conflict_title">Конфликт файлов</string>
     <string name="conflict_message">Какие файлы вы хотите сохранить? Если вы выберете обе версии, локальный файл будет иметь номер, добавленный к его имени.</string>
     <string name="conflict_keep_both">Сохранить оба</string>
-    <string name="conflict_use_local_version">локальная версия</string>
-    <string name="conflict_use_server_version">версия сервера</string>
+    <string name="conflict_use_local_version">Версию на устройстве</string>
+    <string name="conflict_use_server_version">Версия сервера</string>
 
     <string name="preview_sorry">Приносим извинения</string>
     <string name="preview_image_description">Предпросмотр</string>
@@ -643,6 +643,8 @@
     <string name="contacts_preferences_backup_scheduled">Резервное копирование запланировано и скоро начётся</string>
     <string name="contacts_preferences_import_scheduled">Импорт запланирован и скоро начнётся</string>
 
+    <!-- Notifications -->
+    <string name="new_notification_received">Получено новое уведомление</string>
     <string name="drawer_logout">Выйти</string>
     <string name="picture_set_as_no_app">Не надено приложения, с помощью которого можно установить изображение!</string>
     <string name="privacy">Конфиденциальность</string>
@@ -670,24 +672,31 @@
     <string name="push_notifications_old_login">Нет аккаунтов для уведомлений. Пожалуйста добавьте аккаунт.</string>
     <string name="push_notifications_temp_error">Всплывающие уведомления недоступны</string>
 
+    <string name="sync_in_progress">Дождитесь получения новой версии файла.</string>
     <string name="date_unknown">Неизвестно</string>
 
     <string name="resized_image_not_possible">Масштабированное изображение недоступно.  Скачать полноразмерное изображение?</string>
     <string name="resized_images_download_full_image">Скачать полноразмерное изображение?</string>
 
     <string name="store_short_desc">Приложение Nextcloud для Android предоставляет доступ к файлам из вашего Nextcloud</string>
+    <string name="store_full_desc">Приложение Nextcloud для Android, распространяемое под свободной копилефт лицензией, позволяет получать доступ ко всем файлам на вашем сервере Nextcloud.\n\nОсобенности: \n* Легкий современный интерфейс\n* Передача файлов на сервер Nextcloud\n* Возможность делиться своими файлами с другими\n* Синхронизация файлов и папок\n* Поиск по всем папкам на сервере\n* Автоматическая передача на сервер видео и фотографий, сделанных на мобильном устройстве\n* Поддержка нескольких учётных записей\n* Защита доступа к данным отпечатком пальца или ПИН-кодом\n* Интеграция с DAVdroid для лёгкой настройки синхронизации календарей и контактов\n\nЗамечания и ошибки: https://github.com/nextcloud/android/issues \nПомощь и обсуждение: https://help.nextcloud.com\n\nНе знакомы с Nextcloud? Nextcloud — это свободное серверное ПО для хранения и совместной работы с файлами, событиями календаря, контактами, документами и пр. с открытым исходным кодом. Вы можете самостоятельно развернуть сервер или поручить компании сделать это для вас. Таким образом, только вы управляете своими фотографиями, своими календарями и записными книжками, своими документами и всем остальным.\n\nhttps://nextcloud.com</string>
+
     <string name="drawer_current_account">Текущая учётная запись</string>
+    <string name="drawer_middle_account">Средняя учётная запись</string>
+    <string name="drawer_end_account">Последняя учётная запись</string>
     <string name="contactlist_item_icon">Значок пользователя в списке контактов</string>
     <string name="activity_icon">Значок события</string>
     <string name="file_icon">Значок файла</string>
     <string name="user_icon">Значок пользователя</string>
     <string name="fingerprint_icon">Значок отпечатка пальца</string>
     <string name="favorite_icon">Значок избранного</string>
+    <string name="shared_via_link_icon">Значок доступного по ссылке</string>
     <string name="synced_icon">Значок синхронизированного</string>
     <string name="available_offline_icon">Значок автономно доступного</string>
     <string name="checkbox">Флажок</string>
     <string name="thumbnail">Миниатюра</string>
     <string name="shared_icon">Значок ресурсов общего доступа</string>
+    <string name="overflow_menu">Меню переполнения</string>
     <string name="share_file_icon">Значок общего файла</string>
     <string name="sort_by_name_ascending">Сортировка по имени по возрастанию</string>
     <string name="sort_by_modification_date_ascending">Сортировка по времени изменения по возрастанию</string>
@@ -704,4 +713,9 @@
     <string name="what_s_new_image">Изображение «что нового»</string>
 
     <string name="store_short_dev_desc">Разрабатываемая версия Nextcloud может быть установлена совместно с обычной.</string>
+    <string name="store_full_dev_desc">Приложение с открытым исходным кодом Nextcloud для Android позволяет получать доступ ко всем вашим файлам на сервере Nextcloud.\n Это разрабатываемая версия официального приложения Nextcloud, содержащая новые возможности, тестирование которых не ещё завершено. Разрабатываемая версия может быть нестабильна и её использование может привести к потере данных. Это приложение предназначено для пользователей, которые хотят познакомиться с новыми возможности и сообщать об обнаруженных ошибках. Не используйте его для работы!\n\nРазрабатываемая версия может быть установлена совместно с официальным приложением Nextcloud, которое также доступно в F-Droid. Проверка наличия обновлений исходного кода производится один раз в день, поэтому возможны задержки между сборками.</string>
+
+    <string name="prefs_category_dev">Разрабатываемая версия</string>
+    <string name="dev_version_no_information_available">Информация отсутствует!</string>
+    <string name="dev_version_no_new_version_available">Новая версия отсутствует!</string>
     </resources>

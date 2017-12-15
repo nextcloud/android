@@ -692,4 +692,4 @@ Wersja Nextcloud Dev jest wersją rozwojową, można ją zainstalować równoleg
     <string name="prefs_category_dev">Rozwojowa</string>
     <string name="dev_version_no_information_available">Brak informacji!</string>
     <string name="dev_version_no_new_version_available">Brak nowej wersji!</string>
-</resources>
+    </resources>
