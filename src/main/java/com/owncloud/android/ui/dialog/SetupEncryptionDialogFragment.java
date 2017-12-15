@@ -73,7 +73,6 @@ public class SetupEncryptionDialogFragment extends DialogFragment {
     private static final String KEY_CREATED = "KEY_CREATED";
     private static final String KEY_EXISTING_USED = "KEY_EXISTING_USED";
     private static final String KEY_FAILED = "KEY_FAILED";
-    private static final String KEY_INFO = "KEY_INFO";
     private static final String KEY_GENERATE = "KEY_GENERATE";
 
     private Account account;
@@ -201,35 +200,6 @@ public class SetupEncryptionDialogFragment extends DialogFragment {
                                 }
                                 break;
 
-                            case KEY_INFO:
-                                try {
-                                    keyWords = EncryptionUtils.getRandomWords(12, getContext());
-
-                                    getDialog().setTitle(ThemeUtils.getColoredTitle(
-                                            getString(R.string.end_to_end_encryption_passphrase_title),
-                                            ThemeUtils.primaryColor()));
-
-                                    textView.setText(R.string.end_to_end_encryption_keywords_description);
-
-                                    StringBuilder stringBuilder = new StringBuilder();
-
-                                    for (String string : keyWords) {
-                                        stringBuilder.append(string).append(" ");
-                                    }
-                                    String keys = stringBuilder.toString();
-
-                                    passphraseTextView.setText(keys);
-
-                                    passphraseTextView.setVisibility(View.VISIBLE);
-                                    positiveButton.setText(R.string.end_to_end_encryption_confirm_button);
-                                    positiveButton.setVisibility(View.VISIBLE);
-
-                                    keyResult = KEY_GENERATE;
-                                } catch (IOException e) {
-                                    textView.setText(R.string.common_error);
-                                }
-                                break;
-
                             case KEY_GENERATE:
                                 passphraseTextView.setVisibility(View.GONE);
                                 positiveButton.setVisibility(View.GONE);
@@ -303,12 +273,34 @@ public class SetupEncryptionDialogFragment extends DialogFragment {
 
             if (privateKey == null) {
                 // first show info
-                textView.setText(R.string.end_to_end_encryption_setup_info);
-                positiveButton.setVisibility(View.VISIBLE);
-                positiveButton.setText(R.string.end_to_end_encryption_confirm_button);
-                negativeButton.setVisibility(View.VISIBLE);
+                try {
+                    keyWords = EncryptionUtils.getRandomWords(12, getContext());
 
-                keyResult = KEY_INFO;
+                    getDialog().setTitle(ThemeUtils.getColoredTitle(
+                            getString(R.string.end_to_end_encryption_passphrase_title),
+                            ThemeUtils.primaryColor()));
+
+                    textView.setText(R.string.end_to_end_encryption_keywords_description);
+
+                    StringBuilder stringBuilder = new StringBuilder();
+
+                    for (String string : keyWords) {
+                        stringBuilder.append(string).append(" ");
+                    }
+                    String keys = stringBuilder.toString();
+
+                    passphraseTextView.setText(keys);
+
+                    passphraseTextView.setVisibility(View.VISIBLE);
+                    positiveButton.setText(R.string.end_to_end_encryption_confirm_button);
+                    positiveButton.setVisibility(View.VISIBLE);
+
+                    negativeButton.setVisibility(View.VISIBLE);
+
+                    keyResult = KEY_GENERATE;
+                } catch (IOException e) {
+                    textView.setText(R.string.common_error);
+                }
             } else if (!privateKey.isEmpty()) {
                 textView.setText(R.string.end_to_end_encryption_enter_password);
                 passwordLayout.setVisibility(View.VISIBLE);
@@ -403,6 +395,12 @@ public class SetupEncryptionDialogFragment extends DialogFragment {
                 positiveButton.setVisibility(View.VISIBLE);
             } else {
                 getDialog().dismiss();
+
+                Intent intentExisting = new Intent();
+                intentExisting.putExtra(SUCCESS, true);
+                intentExisting.putExtra(ARG_POSITION, getArguments().getInt(ARG_POSITION));
+                getTargetFragment().onActivityResult(getTargetRequestCode(),
+                        SETUP_ENCRYPTION_RESULT_CODE, intentExisting);
             }
         }
     }
