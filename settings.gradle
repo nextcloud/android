@@ -1,2 +1,2 @@
-include 'nextcloud-android-library'
-//include ':'
+include ':'
+//include 'nextcloud-android-library'
