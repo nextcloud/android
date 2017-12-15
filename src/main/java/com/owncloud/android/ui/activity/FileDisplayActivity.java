@@ -2191,6 +2191,14 @@ public class FileDisplayActivity extends HookActivity
     public void onStart() {
         super.onStart();
         EventBus.getDefault().post(new TokenPushEvent());
+
+        checkForNewDevVersionNecessary(findViewById(R.id.root_layout), getApplicationContext());
     }
 
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+
+        checkForNewDevVersionNecessary(findViewById(R.id.root_layout), getApplicationContext());
+    }
 }
