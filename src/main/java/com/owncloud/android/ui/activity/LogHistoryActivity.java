@@ -49,7 +49,6 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.lang.ref.WeakReference;
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 
 
@@ -81,10 +80,10 @@ public class LogHistoryActivity extends ToolbarActivity {
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
-        Button deleteHistoryButton = (Button) findViewById(R.id.deleteLogHistoryButton);
-        Button sendHistoryButton = (Button) findViewById(R.id.sendLogHistoryButton);
+        Button deleteHistoryButton = findViewById(R.id.deleteLogHistoryButton);
+        Button sendHistoryButton = findViewById(R.id.sendLogHistoryButton);
         sendHistoryButton.getBackground().setColorFilter(ThemeUtils.primaryAccentColor(), PorterDuff.Mode.SRC_ATOP);
-        TextView logTV = (TextView) findViewById(R.id.logTV);
+        TextView logTV = findViewById(R.id.logTV);
 
         deleteHistoryButton.setOnClickListener(new OnClickListener() {
             
@@ -148,20 +147,8 @@ public class LogHistoryActivity extends ToolbarActivity {
      * Start activity for sending email with logs attached
      */
     private void sendMail() {
+        String emailAddress = getString(R.string.mail_logger);
 
-        // For the moment we need to consider the possibility that setup.xml
-        // does not include the "mail_logger" entry. This block prevents that
-        // compilation fails in this case.
-        String emailAddress;
-        try {
-            Class<?> stringClass = R.string.class;
-            Field mailLoggerField = stringClass.getField("mail_logger");
-            int emailAddressId = (Integer) mailLoggerField.get(null);
-            emailAddress = getString(emailAddressId);
-        } catch (Exception e) {
-            emailAddress = "";
-        }
-        
         ArrayList<Uri> uris = new ArrayList<>();
 
         // Convert from paths to Android friendly Parcelable Uri's

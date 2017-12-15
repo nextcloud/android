@@ -26,7 +26,6 @@
     <string name="server_input_type">regular</string>
     <bool name="show_welcome_link">true</bool>
 	<string name="welcome_link_url">"https://nextcloud.com/providers"</string>
-	<string name="share_api_link"></string>
 
     <!-- Flags to setup the authentication methods available in the app -->
     <string name="auth_method_oauth2">off</string>
@@ -99,7 +98,6 @@
     <bool name="feedback_enabled">true</bool>
     <bool name="logger_enabled">false</bool>
     <string name="url_imprint"></string>
-    <string name="mail_recommend">"mailto:"</string>
     <string name="mail_feedback">"mailto:android@nextcloud.com"</string>
     <string name="url_app_download">"https://play.google.com/store/apps/details?id=com.nextcloud.client"</string>
     <string name="url_server_install">https://nextcloud.com/install</string>

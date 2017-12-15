@@ -18,8 +18,6 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
-	<style name="Animations" />
-
 	<!-- General ownCloud app style -->
 	<style name="Theme.ownCloud" parent="Theme.AppCompat.Light.DarkActionBar">
     	<item name="android:actionBarStyle">@style/Theme.ownCloud.Widget.ActionBar</item>
@@ -233,19 +231,10 @@
   		    
     </style>
 	
-	<style name="OAuthDialog" parent="style/Theme.AppCompat.Light.Dialog.Alert">
-		<item name="windowNoTitle">false</item>
-		<item name="colorAccent">@color/color_accent</item>
-	</style>    
-		
-	<color name="setup_text_hint">#777777</color>
-	<color name="setup_text_typed">#000000</color>
     <style name="Theme.ownCloud.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
-    <style name="Theme.ownCloud.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
-    <style name="Theme.ownCloud.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
 	<!-- Text styles -->
 	<style name="NextcloudTextAppearanceHeadline" parent="style/TextAppearance.AppCompat.Headline">
