@@ -728,10 +728,10 @@
     <string name="share">Share</string>
     <string name="link">Link</string>
 
-    <string name="screenshot_grid_view">A safe home for all your data</string>
-    <string name="screenshot_list_view"></string>
-    <string name="screenshot_drawer"></string>
-    <string name="screenshot_multiple_accounts"></string>
-    <string name="screenshot_autoUpload"></string>
-    <string name="screenshot_davdroid"></string>
+    <string name="screenshot_01_gridView">A safe home for all your data</string>
+    <string name="screenshot_02_listView">Browse and share your files easily</string>
+    <string name="screenshot_03_drawer">Quickly access activity, shares, offline files and more</string>
+    <string name="screenshot_04_accounts">Connect to different accounts</string>
+    <string name="screenshot_05_autoUpload">Automatically upload your photos &amp; videos</string>
+    <string name="screenshot_06_davdroid">Sync Calendar &amp; Contacts with DAVdroid</string>
 </resources>

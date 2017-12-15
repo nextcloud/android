@@ -7,6 +7,8 @@
     
     <issue id="UnusedResources">
         <ignore regexp="store_short_desc|store_full_desc|store_short_dev_desc|store_full_dev_desc" />
+        <ignore
+            regexp="screenshot_01_grid_view|screenshot_02_list_view|screenshot_03_drawer|screenshot_04_multiple_accounts|screenshot_05_autoUpload|screenshot_06_davdroid"/>
     </issue>
     
     <issue id="MissingQuantity">
