@@ -112,7 +112,9 @@
         android:focusableInTouchMode="false"
         android:layout_gravity="center_vertical"
         android:paddingLeft="@dimen/standard_half_padding"
-        android:paddingStart="@dimen/standard_half_padding">
+        android:paddingStart="@dimen/standard_half_padding"
+        android:paddingRight="@dimen/zero"
+        android:paddingEnd="@dimen/zero">
 
         <ImageButton
             android:id="@+id/upload_right_button"
