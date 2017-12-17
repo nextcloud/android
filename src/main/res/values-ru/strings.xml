@@ -718,4 +718,5 @@
     <string name="prefs_category_dev">Разрабатываемая версия</string>
     <string name="dev_version_no_information_available">Информация отсутствует!</string>
     <string name="dev_version_no_new_version_available">Новая версия отсутствует!</string>
-    </resources>
+    <string name="folder_icon">Значок папки</string>
+</resources>

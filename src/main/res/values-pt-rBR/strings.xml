@@ -708,4 +708,5 @@
     <string name="prefs_category_dev">Desenvolvimento</string>
     <string name="dev_version_no_information_available">Sem informação disponível!</string>
     <string name="dev_version_no_new_version_available">Nenhuma versão nova disponível!</string>
-    </resources>
+    <string name="folder_icon">Ícone de pasta</string>
+</resources>

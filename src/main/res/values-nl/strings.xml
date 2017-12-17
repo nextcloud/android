@@ -192,7 +192,7 @@ Kies er eentje van een provider.</string>
         <item quantity="one">%1$d bestand uit de map %2$s kon niet worden gekopieerd</item>
         <item quantity="other">%1$d bestanden uit de map %2$s konden niet worden gekopieerd</item>
     </plurals>
-    <string name="sync_foreign_files_forgotten_explanation">Sinds versie 1.3.16: bestanden ge-upload vanaf dit apparaat zijn gekopieerd in de lokale %1$s directory om zoekraken van bestanden te voorkomen indien een enkel bestand wordt gesynchroniseerd met meerdere accounts. \n\n Door deze verandering zijn alle bestanden ge-upload met een eerdere versie van deze app gekopieerd  naar de %2$s directory.  Let wel: door een fout is deze actie niet uitgevoerd tijdens account synchronisatie. Je kunt deze bestanden laten waar ze zijn en verwijder de verwijzingen naar %3$s, of verplaats de bestanden naar de %1$s directory en behoud de verwijzing naar %4$s. \n\n Hieronder zijn de lokale bestanden weergegeven en de remote bestanden in %5$s waar ze naar verwijzen.</string>
+    <string name="sync_foreign_files_forgotten_explanation">Sinds versie 1.3.16: bestanden geüpload vanaf dit apparaat zijn gekopieerd in de lokale %1$s directory om zoekraken van bestanden te voorkomen indien een enkel bestand wordt gesynchroniseerd met meerdere accounts. \n\n Door deze verandering zijn alle bestanden geüpload met een eerdere versie van deze app gekopieerd  naar de %2$s directory.  Let wel: door een fout is deze actie niet uitgevoerd tijdens account synchronisatie. Je kunt deze bestanden laten waar ze zijn en verwijder de verwijzingen naar %3$s, of verplaats de bestanden naar de %1$s directory en behoud de verwijzing naar %4$s. \n\n Hieronder zijn de lokale bestanden weergegeven en de remote bestanden in %5$s waar ze naar verwijzen.</string>
     <string name="sync_current_folder_was_removed">Map %1$s bestaat niet meer</string>
     <string name="foreign_files_move">Alles verplaatsen</string>
     <string name="foreign_files_success">Alle bestanden zijn verplaatst</string>
@@ -259,7 +259,7 @@ Kies er eentje van een provider.</string>
 	<string name="auth_expired_saml_sso_token_toast">Je sessie is verstreken. Verbind opnieuw</string>
 	<string name="auth_connecting_auth_server">Verbinden met authenticatie server&#8230;</string>
 	<string name="auth_unsupported_multiaccount">%1$s ondersteunt het gebruik van meerdere accounts niet</string>
-	<string name="auth_fail_get_user_name">Je server geeft geen goede userid terug, neem contact op met je beheerder</string>
+	<string name="auth_fail_get_user_name">Je server geeft geen goede userID terug, neem contact op met je beheerder</string>
 	<string name="auth_can_not_auth_against_server">Kan niet authenticeren tegen deze server</string>
     <string name="auth_account_does_not_exist">Account bestaan nog niet op dit apparaat</string>
     <string name="auth_access_failed">Toegang mislukt</string>
@@ -395,8 +395,8 @@ Kies er eentje van een provider.</string>
     <string name="file_migration_ok_finished">Afgerond</string>
     <string name="file_migration_failed_not_enough_space">Fout: Onvoldoende ruimte</string>
     <string name="file_migration_failed_not_writable">Fout: Niet schrijfbaar bronbestand</string>
-    <string name="file_migration_failed_not_readable">Fout: Niet leesbaar bronbestand</string>
-    <string name="file_migration_failed_dir_already_exists">Fout: Nextcloud folder bestaat al</string>
+    <string name="file_migration_failed_not_readable">Fout: Onleesbaar bronbestand</string>
+    <string name="file_migration_failed_dir_already_exists">Fout: Nextcloud-map bestaat al</string>
     <string name="file_migration_failed_while_coping">Fout: Migratie is mislukt</string>
     <string name="file_migration_failed_while_updating_index">Fout: Index bijwerken is mislukt</string>
 
@@ -593,7 +593,7 @@ Kies er eentje van een provider.</string>
     <string name="whats_new_search_title">Doorzoek alles op server</string>
     <string name="whats_new_search_content">\u2022 Niet alleen in huidige map\n\u2022 Geeft resultaten van gehele server\n\u2022 Open bestanden/mappen rechtstreeks\n\u2022 Werkt in NC12 en daarboven</string>
 
-    <string name="whats_new_theming_title">Styling support</string>
+    <string name="whats_new_theming_title">Ondersteuning thema\'s</string>
     <string name="whats_new_theming_content">Indien aangezet op de server, de app zal xxx achtergrond geven, de server zal naam kleur xxx geven voor verschillende accounts</string>
 
     <string name="whats_new_notification_title">Notificatie ondersteuning</string>
@@ -663,14 +663,14 @@ Kies er eentje van een provider.</string>
     <string name="push_notifications_old_login">Geen push-notificaties als gevolg van de verouderde inlogsessie. Overweeg het opnieuw toevoegen van je account.</string>
     <string name="push_notifications_temp_error">Push notificaties momenteel niet beschikbaar.</string>
 
-    <string name="sync_in_progress">Even geduld a.u.b., de nieuweste versie van het bestand word gedownload.</string>
+    <string name="sync_in_progress">Even geduld alsjeblieft, de nieuwste versie van het bestand word gedownload.</string>
     <string name="date_unknown">Onbekend</string>
 
     <string name="resized_image_not_possible">Geen verkleinde afbeelding beschikbaar. Volledige afbeelding downloaden?</string>
     <string name="resized_images_download_full_image">Volledige afbeelding downloaden?</string>
 
-    <string name="store_short_desc">De Nextcloud app voor Android geeft je toegang tot al je Nextcloud bestanden.</string>
-    <string name="store_full_desc">De Open Source Nextcloud Android app geeft je toegang tot al je bestanden op Nextcloud servers.\n\nFuncties:\n* Simpel &amp; modern uiterlijk, helemaal in dezelfde stijl als jouw server\n* Upload bestanden naar je Nextcloud server\n* Deel bestanden met anderen\n* Hou je favoriete bestanden en mappen gesynchroniseerd\n* Zoek in al je bestanden op de server\n* Automatisch uploaden voor al je foto\'s en video\'s\n* Blijf op de hoogte met notificaties\n* Ondersteuning voor meerdere accounts en servers\n* Beveilig toegang tot je gegevens met vingerafdruk of pincode\n* Integratie met DAVdroid voor makkelijk synchroniseren van je kalender &amp; contacten\n\nMeld alsjeblieft alle bugs en problemen op https://github.com/nextcloud/android/issues en doe je zegje over deze app in ons forum https://help.nextcloud.com/c/clients/android\n\nNieuw bij Nextcloud? Nextcloud is jouw persoonlijke bestanden- en communicatieserver. Het is volledig open source en je kunt het zelf hosten of een bedrijf betalen om dat voor je te doen. Zo heb je volledige controle over je foto\'s, kalender, adresboek, document en al het andere.\n\nCheck Nextcloud op https://nextcloud.com</string>
+    <string name="store_short_desc">De Nextcloud-app voor Android geeft je toegang tot al je Nextcloud bestanden.</string>
+    <string name="store_full_desc">De Open Source Nextcloud Android app geeft je toegang tot al je bestanden op Nextcloud servers.\n\nFuncties:\n* Simpel &amp; modern uiterlijk, helemaal in dezelfde stijl als jouw server\n* Upload bestanden naar je Nextcloud server\n* Deel bestanden met anderen\n* Hou je favoriete bestanden en mappen gesynchroniseerd\n* Zoek in al je bestanden op de server\n* Automatisch uploaden voor al je foto\'s en video\'s\n* Blijf op de hoogte met notificaties\n* Ondersteuning voor meerdere accounts en servers\n* Beveilig toegang tot je gegevens met vingerafdruk of pincode\n* Integratie met DAVdroid voor makkelijk synchroniseren van je kalender &amp; contacten\n\nMeld alsjeblieft alle bugs en problemen op https://github.com/nextcloud/android/issues en doe je zegje over deze app in ons forum https://help.nextcloud.com/c/clients/android\n\nNieuw bij Nextcloud? Nextcloud is je persoonlijke bestanden- en communicatieserver. Het is volledig open source en je kunt het zelf hosten of een bedrijf betalen om dat voor je te doen. Zo heb je volledige controle over je foto\'s, kalender, adresboek, document en al het andere.\n\nCheck Nextcloud op https://nextcloud.com</string>
 
     <string name="drawer_current_account">Huidige account</string>
     <string name="drawer_middle_account">Gemiddelde account</string>

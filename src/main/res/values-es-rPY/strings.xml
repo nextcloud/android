@@ -633,6 +633,8 @@
     <string name="contacts_preferences_backup_scheduled">El respaldo está calendarizado y deberá iniciar en breve</string>
     <string name="contacts_preferences_import_scheduled">La importación está calendarizada y deberá iniciar en breve</string>
 
+    <!-- Notifications -->
+    <string name="new_notification_received">Nueva notificación recibida</string>
     <string name="drawer_logout">Salir de la sesión</string>
     <string name="picture_set_as_no_app">¡No se encontró una aplicación con la cual establecer una imagen!</string>
     <string name="privacy">Privacidad</string>
@@ -660,6 +662,7 @@
     <string name="push_notifications_old_login">No hay notificaciones push debido a un incio de sesión caduco. Por favor vuelve a ingresar a tu cuenta. </string>
     <string name="push_notifications_temp_error">En este momento las notificaciones push no están disponibles.</string>
 
+    <string name="sync_in_progress">Por favor aguarda en lo que obtenemos la versión más actual del archivo.</string>
     <string name="date_unknown">Desconocido</string>
 
     <string name="resized_image_not_possible">No hay una imagen a escala disponible. ¿Descargar la imagen completa? </string>
@@ -705,4 +708,5 @@
     <string name="prefs_category_dev">Desarrollo</string>
     <string name="dev_version_no_information_available">¡No hay información disponible!</string>
     <string name="dev_version_no_new_version_available">¡No hay una nueva versión disponible</string>
-    </resources>
+    <string name="folder_icon">Ícono de carpeta</string>
+</resources>
