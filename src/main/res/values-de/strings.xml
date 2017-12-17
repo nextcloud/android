@@ -710,4 +710,5 @@
     <string name="prefs_category_dev">Entwicklung</string>
     <string name="dev_version_no_information_available">Keine Information verfügbar!</string>
     <string name="dev_version_no_new_version_available">Keine neue Version verfügbar!</string>
-    </resources>
+    <string name="folder_icon">Ordnersymbol</string>
+</resources>

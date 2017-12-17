@@ -710,4 +710,5 @@ Attention la suppression est irréversible.</string>
     <string name="prefs_category_dev">Dév</string>
     <string name="dev_version_no_information_available">Aucune information disponible !</string>
     <string name="dev_version_no_new_version_available">Aucune nouvelle version disponible !</string>
-    </resources>
+    <string name="folder_icon">Icône de dossier</string>
+</resources>
