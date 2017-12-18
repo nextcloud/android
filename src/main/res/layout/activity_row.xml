@@ -46,22 +46,4 @@
 		android:singleLine="true"
 		android:textAppearance="?android:attr/textAppearanceLargePopupMenu" />
 
-		<ImageView
-			android:id="@+id/icon"
-			android:layout_width="@dimen/user_icon_size_independent"
-			android:layout_height="@dimen/user_icon_size_independent"
-			android:layout_gravity="center_vertical"
-			android:layout_marginEnd="@dimen/standard_padding"
-			android:layout_marginRight="@dimen/standard_padding"
-			android:contentDescription="@string/activity_icon"/>
-
-        <TextView
-            android:id="@+id/title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:textAppearance="?android:attr/textAppearanceLargePopupMenu"
-			android:singleLine="true"
-            android:ellipsize="marquee"/>
-
     </LinearLayout>

@@ -47,7 +47,6 @@
                 android:layout_centerVertical="true"
                 android:layout_toEndOf="@+id/fdIcon"
                 android:layout_toRightOf="@+id/fdIcon"
-                android:orientation="vertical"
                 android:paddingLeft="@dimen/standard_padding"
                 android:paddingStart="@dimen/standard_padding"
                 android:paddingEnd="@dimen/zero"
@@ -79,8 +78,6 @@
                         android:id="@+id/file_separator"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:gravity="end"
-                        android:paddingEnd="@dimen/standard_quarter_padding"
                         android:paddingRight="@dimen/standard_quarter_padding"
                         android:paddingEnd="@dimen/standard_quarter_padding"
                         android:paddingStart="@dimen/zero"
@@ -216,8 +213,7 @@
                     android:layout_marginEnd="@dimen/standard_half_margin"
                     android:layout_marginRight="@dimen/standard_half_margin"
                     android:src="@drawable/shared_via_link"
-                    android:visibility="gone"
-                    android:contentDescription="@string/shared_via_link_icon"/>
+                    android:visibility="gone"/>
 
                 <TextView
                     android:id="@+id/fdSharebyLink"
