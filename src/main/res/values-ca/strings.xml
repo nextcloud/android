@@ -188,10 +188,15 @@
     </plurals>
     <string name="sync_foreign_files_forgotten_ticker">S\'han oblidat alguns fitxers locals</string>
     <string name="sync_current_folder_was_removed">La carpeta%1$s ja no existeix</string>
+    <string name="foreign_files_move">Mou tots</string>
+    <string name="foreign_files_success">S\'han mogut tots els fitxers</string>
+    <string name="foreign_files_fail">No s\'han pogut moure alguns fitxers</string>
+    <string name="foreign_files_local_text">Local: %1$s</string>
+    <string name="foreign_files_remote_text">Remot: %1$s</string>
     <string name="upload_query_move_foreign_files">L\'espai insuficient evita la còpia dels fitxers seleccionats a la carpeta.%1$s Voleu allunyar-los aquí?</string>
-    <string name="pass_code_enter_pass_code">Escriviu el codi d\'accés</string>
+    <string name="pass_code_enter_pass_code">Escriu el codi d\'accés</string>
     
-    <string name="pass_code_configure_your_pass_code">Escriviu codi d\'accés</string>
+    <string name="pass_code_configure_your_pass_code">Escriu el teu codi d\'accés</string>
     <string name="pass_code_configure_your_pass_code_explanation">Es requerirà el codi d\'accés cada vegada que s\'iniciï l\'aplicació</string>
     <string name="pass_code_reenter_your_pass_code">Torneu a escriure el codi d\'accés</string>
     <string name="pass_code_mismatch">Els codis d\'accés no coincideixen</string>
