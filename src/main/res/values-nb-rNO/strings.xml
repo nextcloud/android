@@ -708,4 +708,5 @@ Sjekk ut Nextcloud på https://nextcloud.com</string>
     <string name="sync_status_button">Synkroniseringsstatusknapp</string>
     <string name="synced_folder_settings_button">Innstillingsknapp</string>
     <string name="synced_folder_custom_folder_image">Tilpasset mappe-knapp</string>
-    </resources>
+    <string name="folder_icon">Mappeikon</string>
+</resources>

@@ -54,7 +54,7 @@
     <string name="prefs_help">Help</string>
     <string name="prefs_recommend">Aanbevelen bij vriend</string>
     <string name="prefs_feedback">Feedback</string>
-    <string name="prefs_imprint">afdruk</string>
+    <string name="prefs_imprint">Afdruk</string>
 
 	<string name="recommend_subject">Probeer %1$s op je toestel!</string>
 	<string name="recommend_text">Ik wil je uitnodigen om %1$s op je smartphone te gebruiken.\nDownload hier: %2$s</string>
@@ -92,7 +92,7 @@ Kies er eentje van een provider.</string>
     <string name="file_list_empty_favorites_filter_list">Bestanden en mappen gemarkeerd als favoriet worden hier getoond</string>
     <string name="file_list_empty_favorites_filter">Geen favoriete bestanden gevonden voor je zoekopdracht!</string>
     <string name="file_list_loading">Laden&#8230;</string>
-    <string name="file_list_no_app_for_file_type">Er is geen app ingesteld om dit bestandformaat te behandelen.</string>
+    <string name="file_list_no_app_for_file_type">Er is geen app ingesteld om dit bestandsformaat te behandelen.</string>
     <string name="local_file_list_empty">Er staan geen bestanden in deze map.</string>
     <string name="local_folder_list_empty">Er zijn niet meer mappen.</string>
     <string name="file_list_empty_headline_search">Geen resultaten in deze map</string>
@@ -199,7 +199,7 @@ Kies er eentje van een provider.</string>
     <string name="foreign_files_fail">Een paar bestanden konden niet worden verplaatst</string>
     <string name="foreign_files_local_text">Lokaal: %1$s</string>
     <string name="foreign_files_remote_text">Extern: %1$s</string>
-    <string name="upload_query_move_foreign_files">Er is niet genoeg ruimte om de geselecteerde bestanden te kopieren naar %1$s. Wil je ze in plaats daarvan verplaatsen?</string>
+    <string name="upload_query_move_foreign_files">Er is niet genoeg ruimte om de geselecteerde bestanden te kopiëren naar %1$s. Wil je ze in plaats daarvan verplaatsen?</string>
     <string name="pass_code_enter_pass_code">Voer je toegangscode in</string>
     
     <string name="pass_code_configure_your_pass_code">Toegangscode invoeren</string>
@@ -261,7 +261,7 @@ Kies er eentje van een provider.</string>
 	<string name="auth_unsupported_multiaccount">%1$s ondersteunt het gebruik van meerdere accounts niet</string>
 	<string name="auth_fail_get_user_name">Je server geeft geen goede userID terug, neem contact op met je beheerder</string>
 	<string name="auth_can_not_auth_against_server">Kan niet authenticeren tegen deze server</string>
-    <string name="auth_account_does_not_exist">Account bestaan nog niet op dit apparaat</string>
+    <string name="auth_account_does_not_exist">Account bestaat nog niet op dit apparaat</string>
     <string name="auth_access_failed">Toegang mislukt</string>
 
     <string name="favorite">Offline beschikbaar maken</string>
@@ -675,25 +675,39 @@ Kies er eentje van een provider.</string>
     <string name="drawer_current_account">Huidige account</string>
     <string name="drawer_middle_account">Gemiddelde account</string>
     <string name="drawer_end_account">Laatste account</string>
+    <string name="contactlist_item_icon">Contactpersonen pictogram</string>
     <string name="activity_icon">Activiteitspictogram</string>
     <string name="file_icon">Bestandpictogram</string>
     <string name="user_icon">Gebruikerspictogram</string>
     <string name="fingerprint_icon">Vingerafdrukpictogram</string>
     <string name="favorite_icon">Favorietenpictogram</string>
     <string name="shared_via_link_icon">Gedeeld via link icoon</string>
+    <string name="synced_icon">Gesynch\'d pictogram</string>
     <string name="available_offline_icon">Offline beschikbaar icoon</string>
+    <string name="checkbox">Aanvinkvakje</string>
+    <string name="thumbnail">Miniatuurweergave</string>
     <string name="shared_icon">Gedeeld icoon</string>
+    <string name="overflow_menu">Overloopmenu</string>
     <string name="share_file_icon">Deel bestand icoon</string>
     <string name="sort_by_name_ascending">Sorteer op naam oplopend</string>
+    <string name="sort_by_modification_date_ascending">Sorteren op oplopende wijzigingsdatum</string>
     <string name="sort_by_size_descending">Sorteer op grote aflopend</string>
     <string name="sort_by_size_ascending">Sorteer op grote oplopend</string>
     <string name="sort_by_name_descending">Sorteer op naam aflopend</string>
+    <string name="sort_by_modification_date_descending">Sorteren op aflopende wijzigingsdatum</string>
     <string name="synced_folders_type">Type</string>
+    <string name="sync_status_button">Sync status knop</string>
     <string name="synced_folder_settings_button">Instellingen knop</string>
+    <string name="synced_folder_custom_folder_image">Maatwerkmap afbeelding</string>
+    <string name="upload_item_action_button">Upload object actie knop</string>
     <string name="forward">Doorsturen</string>
     <string name="what_s_new_image">Wat is nieuw afbeelding</string>
+
+    <string name="store_short_dev_desc">De Nextcloud Dev app is een ontwikkelversie. Kan parallel worden geïnstalleerd.</string>
+    <string name="store_full_dev_desc">De Open Source Nextcloud Android app laat je al je bestanden op Nextcloud benaderen.\nDit is de ontwikkelversie van de officiële Nextcloud app en bevat gloednieuwe, ongeteste mogelijkheden die tot instabiliteit en gegevensverlies kunnen leiden. De app is ontworpen voor gebruikers die de nieuwe functies willen testen en bugs willen melden. Gebruik de app niet voor productiewerkzaamheden!\n\nDe ontwikkelversie kan ook worden geïnstalleerd naast de officiële Nextcloud app die beschikbaar is in F-Droid. Eens per dag wordt gecontroleerd of de broncode is gewijzigd, waardoor er langere tijd tussen builds kan bestaan.</string>
 
     <string name="prefs_category_dev">Dev</string>
     <string name="dev_version_no_information_available">Geen informatie beschikbaar!</string>
     <string name="dev_version_no_new_version_available">Geen nieuwe versie beschikbaar!</string>
-    </resources>
+    <string name="folder_icon">Map pictogram</string>
+</resources>

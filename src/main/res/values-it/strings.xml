@@ -633,6 +633,8 @@
     <string name="contacts_preferences_backup_scheduled">Backup pianificato e partirà a breve</string>
     <string name="contacts_preferences_import_scheduled">Importazione pianificata e partirà a breve</string>
 
+    <!-- Notifications -->
+    <string name="new_notification_received">Nuova notifica ricevuta</string>
     <string name="drawer_logout">Esci</string>
     <string name="picture_set_as_no_app">Nessuna applicazione trovata per impostare un\'immagine!</string>
     <string name="privacy">Riservatezza</string>
@@ -706,4 +708,5 @@
     <string name="prefs_category_dev">Sviluppo</string>
     <string name="dev_version_no_information_available">Nessuna informazione disponibile!</string>
     <string name="dev_version_no_new_version_available">Nessuna nuova versione disponibile!</string>
-    </resources>
+    <string name="folder_icon">Icona delle cartelle</string>
+</resources>
