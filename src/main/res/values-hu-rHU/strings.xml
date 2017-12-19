@@ -532,7 +532,6 @@ Lépj kapcsolatba a rendszergazdával</string>
     <string name="participate_testing_headline">Segíts a teszteléssel</string>
     <string name="participate_testing_bug_text">Hibát találtál? vagy furcsaságot?</string>
     <string name="participate_testing_report_text">Jelentsd az eseteket GitHubon</string>
-    <string name="participate_testing_version_text">Van kedved segíteni a következő verzió tesztelésével?</string>
     <string name="participate_beta_headline">Fejlesztési verzió tesztelése</string>
     <string name="participate_beta_text">Ez tartalmaz minden újítást és az élen táncol. Hibákat tartalmazhat, de ha így van kérünk jelentsd.</string>
     <string name="participate_release_candidate_headline">Kiadásra jelölt</string>
@@ -628,7 +627,6 @@ hozzáadások, változások és megosztások</string>
     <string name="contacts_read_permission">Hozzáférés szükséges a névjegy lista olvasásához</string>
     <string name="contaclist_restore_selected">Kijelölt névjegyek visszaállítása</string>
     <string name="contactlist_account_chooser_title">Válassz importálandó fiókot</string>
-    <string name="contactlist_no_permission">Nincsenek jogok megadva, semmit sem importáltunk!</string>
     <string name="contacts_preference_choose_date">Válassz dátumot</string>
     <string name="contacts_preference_backup_never">soha</string>
     <string name="contacts_preferences_no_file_found">Nincs fájl</string>
@@ -638,7 +636,6 @@ hozzáadások, változások és megosztások</string>
 
     <!-- Notifications -->
     <string name="new_notification_received">Új értesítés</string>
-    <string name="drawer_logout">Kijelentkezés</string>
     <string name="picture_set_as_no_app">Nincs alkalmazás a képbeállításhoz</string>
     <string name="privacy">Titoktartás</string>
     <string name="file_not_found">Fájl nincs meg!</string>
@@ -665,7 +662,6 @@ hozzáadások, változások és megosztások</string>
     <string name="push_notifications_old_login">Lejárt munkamenet miatt nincsenek push üzenetek. Próbáld újra hozzáadni a fiókod.</string>
     <string name="push_notifications_temp_error">Push üzenetek jelenleg nem elérhetők</string>
 
-    <string name="sync_in_progress">Kérjük várj a fájl legfrissebb verziójának lekéréséig.</string>
     <string name="date_unknown">Ismeretlen</string>
 
     <string name="resized_image_not_possible">Átméretezett kép nem elérhető. Letöltsem a teljes képet?</string>
@@ -724,10 +720,6 @@ A Nextcloud itt érhető el: https://nextcloud.com</string>
     <string name="what_s_new_image">Mi újság gomb</string>
 
     <string name="store_short_dev_desc">A Nextcloud Dev app egy fejlesztői pillanatkép és párhuzamosan telepíthető.</string>
-    <string name="store_full_dev_desc">A nyílt forráskódú Nextcloud Android app lehetővé teszi a fáljaid elérését a Nextcloud-odban.\nEz a hivatalos Nextcloud app fejlesztői változata és új, esetleg instabil megoldásokat tartalmazhat, melyek hibákhoz, adatvesztéshez vezethetnek. Az appot olyanoknak szánjuk, akik hajlandóak tesztelni azt és jelenteni az esetleges hibákat. Ne használd éles környezetben.\n\nA fejlesztői verzió párhuzamosan telepíthető és az F-Droidból is elérhető.. Naponta egyszer kerül ellenőrzésre a forráskód változása, így lehetséges nagyobb kihagyás két kiadás között.</string>
-
     <string name="prefs_category_dev">Dev</string>
-    <string name="dev_version_no_information_available">Nincs információ!</string>
-    <string name="dev_version_no_new_version_available">Nincs újabb verzió!</string>
     <string name="folder_icon">Mappaikon</string>
 </resources>

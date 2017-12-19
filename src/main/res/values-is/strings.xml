@@ -525,7 +525,6 @@ Smelltu hér til að fá þér einn frá þjónustuaðila.</string>
     <string name="participate_testing_headline">Hjálpaðu til við prófanir</string>
     <string name="participate_testing_bug_text">Fannstu villu? Skringilegheit?</string>
     <string name="participate_testing_report_text">Tilkynntu um vandamál á GitHub</string>
-    <string name="participate_testing_version_text">Hefurðu áhuga á að hjálpa til við að prófa næstu útgáfu?</string>
     <string name="participate_beta_headline">Prófaðu þróunarútgáfuna</string>
     <string name="participate_beta_text">Þetta inniheldur alla væntanlega eiginleika og er alveg á jaðrinum hvað varðar stöðugleika. Villur geta komið upp, og ef slíkt gerist, endilega tilkynntu um þær.</string>
     <string name="participate_release_candidate_headline">Forútgáfa</string>
@@ -616,7 +615,6 @@ Smelltu hér til að fá þér einn frá þjónustuaðila.</string>
     <string name="contacts_read_permission">Nauðsynlegt er að hafa heimild til að lesa tengiliðalista</string>
     <string name="contaclist_restore_selected">Endurheimta valda tengiliði</string>
     <string name="contactlist_account_chooser_title">Veldu aðgang til að flytja inn</string>
-    <string name="contactlist_no_permission">Engin heimild gefin, ekkert flutt inn!</string>
     <string name="contacts_preference_choose_date">Veldu dagsetningu</string>
     <string name="contacts_preference_backup_never">aldrei</string>
     <string name="contacts_preferences_no_file_found">Engin skrá fannst</string>
@@ -624,7 +622,6 @@ Smelltu hér til að fá þér einn frá þjónustuaðila.</string>
     <string name="contacts_preferences_backup_scheduled">Öryggisafritun er á áætlun og mun hefjast fljótlega</string>
     <string name="contacts_preferences_import_scheduled">Innflutningur er á áætlun og mun hefjast fljótlega</string>
 
-    <string name="drawer_logout">Útskráning</string>
     <string name="picture_set_as_no_app">Engin forrit fundust til að setja mynd!</string>
     <string name="privacy">Gagnaleynd</string>
     <string name="file_not_found">Skrá finnst ekki!</string>

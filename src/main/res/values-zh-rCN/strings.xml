@@ -511,7 +511,6 @@
     <string name="participate_testing_headline">通过测试帮助</string>
     <string name="participate_testing_bug_text">发现错误？细节？</string>
     <string name="participate_testing_report_text">在Github报告问题 OR 通过Github提交问题（issue）</string>
-    <string name="participate_testing_version_text">在帮助里有兴趣通过测试下一个版本？</string>
     <string name="participate_beta_headline">检查这个设备的版本</string>
     <string name="participate_beta_text">这包括所有即将到来的功能，它处于非常流行的边缘。 可能会发生错误/错误，如果及时，请报告您的发现。</string>
     <string name="participate_release_candidate_headline">发行候选版本</string>
@@ -605,7 +604,6 @@
     <string name="contacts_read_permission">需要更改阅读列表的权限</string>
     <string name="contaclist_restore_selected">恢复选中的联系人</string>
     <string name="contactlist_account_chooser_title">选择导入帐户</string>
-    <string name="contactlist_no_permission">没有授权，不能进入</string>
     <string name="contacts_preference_choose_date">选择时间</string>
     <string name="contacts_preference_backup_never">永远不</string>
     <string name="contacts_preferences_no_file_found">没有文件被发现</string>
@@ -615,7 +613,6 @@
 
     <!-- Notifications -->
     <string name="new_notification_received">收到新的消息</string>
-    <string name="drawer_logout">退出</string>
     <string name="picture_set_as_no_app">没有应用程序发现设置图片！</string>
     <string name="privacy">隐私</string>
     <string name="file_not_found">文件未找到</string>
@@ -640,7 +637,5 @@
 
     <string name="date_unknown">未知</string>
 
-    <string name="dev_version_no_information_available">没有可用的信息！</string>
-    <string name="dev_version_no_new_version_available">没有可用的更新版本！</string>
     <string name="folder_icon">目录图标</string>
 </resources>

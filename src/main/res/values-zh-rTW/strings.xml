@@ -512,7 +512,6 @@
     <string name="participate_testing_headline">協助測試</string>
     <string name="participate_testing_bug_text">發現問題或瑕疵？</string>
     <string name="participate_testing_report_text">在 GitHub 上回報問題</string>
-    <string name="participate_testing_version_text">對於協助測試下一個版本有興趣嗎？</string>
     <string name="participate_beta_headline">測試開發版本</string>
     <string name="participate_release_candidate_headline">最終測試版</string>
     <string name="participate_contribute_headline">積極貢獻</string>
@@ -573,7 +572,6 @@
     <string name="contacts_preference_backup_never">永不</string>
     <string name="contacts_preferences_no_file_found">無檔案</string>
     <string name="contacts_preferences_something_strange_happened">找不到您最新的備份</string>
-    <string name="drawer_logout">登出</string>
     <string name="privacy">隱私權</string>
     <string name="file_not_found">找不到檔案！</string>
 

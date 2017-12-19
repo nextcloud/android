@@ -479,7 +479,6 @@
     <string name="participate_testing_headline">Βοηθήστε μας στις δοκιμές</string>
     <string name="participate_testing_bug_text">Βρήκατε σφάλμα; Κάτι σας φαίνεται παράξενο;</string>
     <string name="participate_testing_report_text">Αναφορά προβλήματος στο GitHub</string>
-    <string name="participate_testing_version_text">Σας ενδιαφέρει να μας βοηθήσετε να δοκιμάσουμε την επόμενη έκδοση;</string>
     <string name="participate_beta_headline">Δοκιμή της εκδοσης προς ανάπτυξη</string>
     <string name="participate_beta_text">Αυτή περιέχει όλες τις επερχόμενες λειτουργίες και δαθέτει ότι τελευταίο έχει ενσωματωθεί. Σφάλματα/λάθη μπορεί να προκύψουν. Σας παρακαλούμε να μας τα αναφέρετε.</string>
     <string name="participate_release_candidate_headline">Release candidate</string>
@@ -570,14 +569,12 @@
     <string name="contacts_read_permission">Απαιτείτούνται δικαιώματα ανάγνωσης για τις επαφές</string>
     <string name="contaclist_restore_selected">Επαναφορά επιλεγμένων επαφών</string>
     <string name="contactlist_account_chooser_title">Επιλογή λογαριασμού για εισαγωγή</string>
-    <string name="contactlist_no_permission">Κανένα δικαίωμα δεν δόθηκε, τίποτε δεν εισήχθη</string>
     <string name="contacts_preference_choose_date">Επιλογή ημερομηνίας</string>
     <string name="contacts_preference_backup_never">ποτέ</string>
     <string name="contacts_preferences_no_file_found">Δεν βρέθηκε αρχείο</string>
     <string name="contacts_preferences_backup_scheduled">Η λήψη αντιγράφου αφαλείας έχει προγραμματιστεί και θα ξεκινήσει σύντομα</string>
     <string name="contacts_preferences_import_scheduled">Η εισαγωγή έχει προγραμματιστεί και θα ξεκινήσει σύντομα</string>
 
-    <string name="drawer_logout">Έξοδος</string>
     <string name="picture_set_as_no_app">Δεν εντοπίστηκε εφαρμογή για συσχετισμό εικόνας!</string>
     <string name="privacy">Ιδιωτικότητα</string>
     <string name="file_not_found">Δεν βρέθηκε το αρχείο!</string>
