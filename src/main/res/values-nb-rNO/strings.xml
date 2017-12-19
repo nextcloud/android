@@ -633,6 +633,8 @@
     <string name="contacts_preferences_backup_scheduled">Sikkerhetskopi planlagt og i snarlig effektuering</string>
     <string name="contacts_preferences_import_scheduled">Importering planlagt og i snarlig effektuering</string>
 
+    <!-- Notifications -->
+    <string name="new_notification_received">Ny melding mottatt</string>
     <string name="drawer_logout">Utlogging</string>
     <string name="picture_set_as_no_app">Fant ikke noe program å sette bilder med.</string>
     <string name="privacy">Personvern</string>
@@ -686,6 +688,8 @@ Ny med Nextcloud? Nextcloud er en privat filtjener for synkronisering og deling.
 Sjekk ut Nextcloud på https://nextcloud.com</string>
 
     <string name="drawer_current_account">Nåværende konto</string>
+    <string name="drawer_middle_account">Mellomkonto</string>
+    <string name="drawer_end_account">Siste konto</string>
     <string name="activity_icon">Aktivitetsikon</string>
     <string name="file_icon">Filikon</string>
     <string name="user_icon">Brukerikon</string>
@@ -708,5 +712,9 @@ Sjekk ut Nextcloud på https://nextcloud.com</string>
     <string name="sync_status_button">Synkroniseringsstatusknapp</string>
     <string name="synced_folder_settings_button">Innstillingsknapp</string>
     <string name="synced_folder_custom_folder_image">Tilpasset mappe-knapp</string>
+    <string name="forward">Fremover</string>
+    <string name="prefs_category_dev">Utvikling</string>
+    <string name="dev_version_no_information_available">Ingen informasjon er tilgjengelig!</string>
+    <string name="dev_version_no_new_version_available">Ingen ny versjon er tilgjengelig!</string>
     <string name="folder_icon">Mappeikon</string>
 </resources>
