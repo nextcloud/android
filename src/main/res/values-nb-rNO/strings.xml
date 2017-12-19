@@ -530,7 +530,6 @@
     <string name="participate_testing_headline">Hjelp oss å teste</string>
     <string name="participate_testing_bug_text">Funnet en feil? Føles noe rart?</string>
     <string name="participate_testing_report_text">Rapporter en feil på GitHub</string>
-    <string name="participate_testing_version_text">Er du interessert i å hjelpe til ved å teste den neste versjonen?</string>
     <string name="participate_beta_headline">Test utviklerversjonen</string>
     <string name="participate_beta_text">Denne inneholder alle kommende funksjoner og er på knivseggen hva angår utvikling. Feil/feilmeldinger kan oppstå, og i sådant fall, meld fra om dem til oss.</string>
     <string name="participate_release_candidate_headline">Slippkandidat</string>
@@ -625,7 +624,6 @@
     <string name="contacts_read_permission">Lesetilgang til kontaktliste trengs</string>
     <string name="contaclist_restore_selected">Gjenopprett valgte kontakter</string>
     <string name="contactlist_account_chooser_title">Velg konto å importere</string>
-    <string name="contactlist_no_permission">Ingen tilgang, ingenting importert!</string>
     <string name="contacts_preference_choose_date">Velg dato</string>
     <string name="contacts_preference_backup_never">aldri</string>
     <string name="contacts_preferences_no_file_found">Ingen fil funnet</string>
@@ -635,7 +633,6 @@
 
     <!-- Notifications -->
     <string name="new_notification_received">Ny melding mottatt</string>
-    <string name="drawer_logout">Utlogging</string>
     <string name="picture_set_as_no_app">Fant ikke noe program å sette bilder med.</string>
     <string name="privacy">Personvern</string>
     <string name="file_not_found">Finner ikke filen!</string>
@@ -713,8 +710,7 @@ Sjekk ut Nextcloud på https://nextcloud.com</string>
     <string name="synced_folder_settings_button">Innstillingsknapp</string>
     <string name="synced_folder_custom_folder_image">Tilpasset mappe-knapp</string>
     <string name="forward">Fremover</string>
+    <string name="store_short_dev_desc">Nextcloud Dev er et øyblikksbygg som kan installeres parallelt </string>
     <string name="prefs_category_dev">Utvikling</string>
-    <string name="dev_version_no_information_available">Ingen informasjon er tilgjengelig!</string>
-    <string name="dev_version_no_new_version_available">Ingen ny versjon er tilgjengelig!</string>
     <string name="folder_icon">Mappeikon</string>
 </resources>

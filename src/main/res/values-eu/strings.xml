@@ -423,7 +423,6 @@ Mesedez, baimendu berriz</string>
     <string name="participate_testing_headline">Testeatzen lagundu</string>
     <string name="participate_testing_bug_text">Errore bat topatu duzu? </string>
     <string name="participate_testing_report_text">Arazo bezala GitHub-era igo</string>
-    <string name="participate_testing_version_text">Lagundu nahi gaituzu hurrengo bertsioa probatzen?</string>
     <string name="participate_beta_headline">Dev bertsioa probatu</string>
     <string name="participate_beta_text">Ezaugarri berri guztiak datoz eta punta-puntakoa da. Bug/erroreak gerta daitezke, eta gertatzen direnean, mesedez bidaliguzu topatutakoa</string>
     <string name="participate_release_candidate_headline">Release hautagaia</string>

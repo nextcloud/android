@@ -504,7 +504,6 @@
     <string name="participate_testing_headline">Ndihmo duke testuar</string>
     <string name="participate_testing_bug_text">Gjetet një defekt? Diçka është e çuditshme?</string>
     <string name="participate_testing_report_text">Raporto një problem në GitHub</string>
-    <string name="participate_testing_version_text">Jeni të interesuar për të na ndihmuar në testimin e versionit të ardhshëm?</string>
     <string name="participate_beta_headline">Testoni versionin Beta</string>
     <string name="participate_beta_text">Kjo përfshin të gjitha karakteristikat që do të vijnë dhe ky është vetëm fillimi. Buget/gabimet  mund të ndodhin, nëse dhe kur të ndodhin, ju lutemi të raportoni për gjetjet tuaja. </string>
     <string name="participate_release_candidate_headline">Lëshimi i kandidatit</string>
@@ -595,7 +594,6 @@
     <string name="contacts_read_permission">Kërkohet e drejta për të lexuar listën e kontakteve</string>
     <string name="contaclist_restore_selected">Rikthe kontaktet e zgjedhura</string>
     <string name="contactlist_account_chooser_title">Zgjidh llogarinë që do të importohet</string>
-    <string name="contactlist_no_permission">Nuk është dhënë asnjë e drejtë, asgjë nuk u importua!</string>
     <string name="contacts_preference_choose_date">Zgjidh datën</string>
     <string name="contacts_preference_backup_never">kurrë</string>
     <string name="contacts_preferences_no_file_found">Asnjë skedarë i gjetur</string>
@@ -603,7 +601,6 @@
     <string name="contacts_preferences_backup_scheduled">Backup-i u skedulua dhe do të filloj së shpejti</string>
     <string name="contacts_preferences_import_scheduled">Importimi u skedulua dhe do të filloj së shpejti</string>
 
-    <string name="drawer_logout">Dilni</string>
     <string name="picture_set_as_no_app">Nuk u gjet aplikacioni me të cilin vendoset foto!</string>
     <string name="privacy">Privatësi</string>
     <string name="file_not_found">Skedari nuk u gjet!</string>

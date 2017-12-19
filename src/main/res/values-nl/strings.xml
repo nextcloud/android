@@ -531,7 +531,6 @@ Kies er eentje van een provider.</string>
     <string name="participate_testing_headline">Help bij testen</string>
     <string name="participate_testing_bug_text">Bug gevonden? Rare dingen?</string>
     <string name="participate_testing_report_text">Meld een probleem op GitHub</string>
-    <string name="participate_testing_version_text">Geïnteresseerd om ons te helpen de volgende versie te testen?</string>
     <string name="participate_beta_headline">Test de dev versie</string>
     <string name="participate_beta_text">Dit omvat alle komende opties en is zeer \'bleeding edge\'. Bugs/fouten kunnen voorkomen en in dat geval vragen we je die aan ons te melden.</string>
     <string name="participate_release_candidate_headline">Release candidate</string>
@@ -626,7 +625,6 @@ Kies er eentje van een provider.</string>
     <string name="contacts_read_permission">Leesrechten voor contactpersonen vereist</string>
     <string name="contaclist_restore_selected">Herstel de geselecteerde contactpersonen</string>
     <string name="contactlist_account_chooser_title">Kies een account voor import</string>
-    <string name="contactlist_no_permission">Geen permissies, niets geïnporteerd!</string>
     <string name="contacts_preference_choose_date">Kies datum</string>
     <string name="contacts_preference_backup_never">nooit</string>
     <string name="contacts_preferences_no_file_found">Geen bestand gevonden</string>
@@ -636,7 +634,6 @@ Kies er eentje van een provider.</string>
 
     <!-- Notifications -->
     <string name="new_notification_received">Nieuwe melding ontvangen</string>
-    <string name="drawer_logout">Uitloggen</string>
     <string name="picture_set_as_no_app">Geen app gevonden om afbeelding in te stellen</string>
     <string name="privacy">Privacy</string>
     <string name="file_not_found">Bestand niet gevonden!</string>
@@ -663,7 +660,6 @@ Kies er eentje van een provider.</string>
     <string name="push_notifications_old_login">Geen push-notificaties als gevolg van de verouderde inlogsessie. Overweeg het opnieuw toevoegen van je account.</string>
     <string name="push_notifications_temp_error">Push notificaties momenteel niet beschikbaar.</string>
 
-    <string name="sync_in_progress">Even geduld alsjeblieft, de nieuwste versie van het bestand word gedownload.</string>
     <string name="date_unknown">Onbekend</string>
 
     <string name="resized_image_not_possible">Geen verkleinde afbeelding beschikbaar. Volledige afbeelding downloaden?</string>
@@ -704,10 +700,6 @@ Kies er eentje van een provider.</string>
     <string name="what_s_new_image">Wat is nieuw afbeelding</string>
 
     <string name="store_short_dev_desc">De Nextcloud Dev app is een ontwikkelversie. Kan parallel worden geïnstalleerd.</string>
-    <string name="store_full_dev_desc">De Open Source Nextcloud Android app laat je al je bestanden op Nextcloud benaderen.\nDit is de ontwikkelversie van de officiële Nextcloud app en bevat gloednieuwe, ongeteste mogelijkheden die tot instabiliteit en gegevensverlies kunnen leiden. De app is ontworpen voor gebruikers die de nieuwe functies willen testen en bugs willen melden. Gebruik de app niet voor productiewerkzaamheden!\n\nDe ontwikkelversie kan ook worden geïnstalleerd naast de officiële Nextcloud app die beschikbaar is in F-Droid. Eens per dag wordt gecontroleerd of de broncode is gewijzigd, waardoor er langere tijd tussen builds kan bestaan.</string>
-
     <string name="prefs_category_dev">Dev</string>
-    <string name="dev_version_no_information_available">Geen informatie beschikbaar!</string>
-    <string name="dev_version_no_new_version_available">Geen nieuwe versie beschikbaar!</string>
     <string name="folder_icon">Map pictogram</string>
 </resources>

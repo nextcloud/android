@@ -472,7 +472,6 @@
     <string name="participate_testing_headline">Pomagaj s testiranjem</string>
     <string name="participate_testing_bug_text">Našel hrošča? Neprijetnost?</string>
     <string name="participate_testing_report_text">Prijavi težavo na GitHub</string>
-    <string name="participate_testing_version_text">Želiš testirati naslednjo verzijo?</string>
     <string name="participate_beta_headline">Testiraj razvojno verzijo</string>
     <string name="participate_release_candidate_headline">Kandidat za objavo</string>
     <string name="participate_contribute_headline">Sodelujte</string>
@@ -546,7 +545,6 @@
     <string name="contacts_preference_choose_date">Izberi datum</string>
     <string name="contacts_preference_backup_never">nikoli</string>
     <string name="contacts_preferences_no_file_found">Ne najdem datoteke</string>
-    <string name="drawer_logout">Odjava</string>
     <string name="privacy">Zasebnost</string>
     <string name="file_not_found">Datoteke ne najdem!</string>
 

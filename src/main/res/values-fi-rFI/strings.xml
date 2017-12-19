@@ -413,7 +413,6 @@
     <string name="drawer_participate">Osallitu</string>
     <string name="participate_testing_headline">Auta testaamalla</string>
     <string name="participate_testing_report_text">Ilmoita ongelmasta GitHubissa</string>
-    <string name="participate_testing_version_text">Oletko kiinnostunut auttamaan testaamalla seuraavaa versiota?</string>
     <string name="participate_beta_headline">Testaa kehitysversiota</string>
     <string name="participate_release_candidate_headline">Julkaisu ehdokas</string>
     <string name="participate_contribute_irc_text">Liity keskusteluun IRC:ssä:</string>
@@ -478,7 +477,6 @@
     <string name="contacts_preferences_no_file_found">Tiedostoa ei löytynyt</string>
     <string name="contacts_preferences_something_strange_happened">Viimeisintä varmuuskopiota ei löytynyt!</string>
     <string name="contacts_preferences_backup_scheduled">Varmuuskopiointi on ajastettu ja se alkaa pian</string>
-    <string name="drawer_logout">Kirjaudu ulos</string>
     <string name="privacy">Yksityisyys</string>
     <string name="file_not_found">Tiedostoa ei löytynyt!</string>
 
