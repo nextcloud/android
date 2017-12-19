@@ -339,7 +339,6 @@
     <string name="learn_more">Научете повече</string>
     <string name="drawer_participate">Участвайте</string>
     <string name="participate_testing_headline">Помогни с тестването</string>
-    <string name="participate_testing_version_text">Интересувате ли се да ни помогнете с тестването на следващата версия?</string>
     <string name="move_to">Преместване в&#8230;</string>
     <string name="copy_to">Копиране в&#8230;</string>
     <plurals name="items_selected_count">
@@ -377,7 +376,6 @@
     <string name="actionbar_contacts_restore">Възстанови контакт</string>
     <string name="contacts_preference_backup_never">никога</string>
     <string name="contacts_preferences_no_file_found">Няма намерен файл</string>
-    <string name="drawer_logout">Отпиши се</string>
     <string name="file_not_found">Файлът не е открит</string>
 
     </resources>

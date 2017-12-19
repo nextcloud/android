@@ -530,7 +530,6 @@
     <string name="participate_testing_headline">Help by testing</string>
     <string name="participate_testing_bug_text">Found a bug? Oddments?</string>
     <string name="participate_testing_report_text">Report an issue on GitHub</string>
-    <string name="participate_testing_version_text">Interested in helping out by testing the next version?</string>
     <string name="participate_beta_headline">Test the dev version</string>
     <string name="participate_beta_text">This includes all upcoming features and it is on the very bleeding edge. Bugs/errors can occur, if and when they do, please report of your findings.</string>
     <string name="participate_release_candidate_headline">Release candidate</string>
@@ -625,7 +624,6 @@
     <string name="contacts_read_permission">Permission to read contact list needed</string>
     <string name="contaclist_restore_selected">Restore selected contacts</string>
     <string name="contactlist_account_chooser_title">Choose account to import</string>
-    <string name="contactlist_no_permission">No permission given, nothing imported!</string>
     <string name="contacts_preference_choose_date">Choose date</string>
     <string name="contacts_preference_backup_never">never</string>
     <string name="contacts_preferences_no_file_found">No file found</string>
@@ -635,7 +633,6 @@
 
     <!-- Notifications -->
     <string name="new_notification_received">New notification received</string>
-    <string name="drawer_logout">Logout</string>
     <string name="picture_set_as_no_app">No app found to set a picture with!</string>
     <string name="privacy">Privacy</string>
     <string name="file_not_found">File not found!</string>
@@ -662,7 +659,6 @@
     <string name="push_notifications_old_login">No push notifications due to outdated login session. Please consider re-adding your account.</string>
     <string name="push_notifications_temp_error">Push notifications currently not available.</string>
 
-    <string name="sync_in_progress">Please wait while we fetch the newest version of the file.</string>
     <string name="date_unknown">Unknown</string>
 
     <string name="resized_image_not_possible">No resized image available. Download full image?</string>
@@ -703,10 +699,6 @@
     <string name="what_s_new_image">What\'s new image</string>
 
     <string name="store_short_dev_desc">The Nextcloud Dev app is a development snapshot and can be installed parallel.</string>
-    <string name="store_full_dev_desc">The Open Source Nextcloud Android app allows you to access all your files on your Nextcloud.\nThis is a dev version of the official Nextcloud app and includes brand-new, untested features which might lead to instabilities and data loss. The app is designed for users willing to test the new features and to report bugs if they occur. Do not use it for your productive work!\n\nThe dev version can be installed alongside the official Nextcloud app which is available at F-Droid, too. Once a day it is checked if the source code was updated, so there can be longer pauses between builds.</string>
-
     <string name="prefs_category_dev">Dev</string>
-    <string name="dev_version_no_information_available">No information available!</string>
-    <string name="dev_version_no_new_version_available">No new version available!</string>
     <string name="folder_icon">Folder icon</string>
 </resources>

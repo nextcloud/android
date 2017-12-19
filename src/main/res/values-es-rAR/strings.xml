@@ -474,7 +474,6 @@
     <string name="participate_testing_headline">Ayúdenos probando</string>
     <string name="participate_testing_bug_text">¿Encontró una falla? ¿Hay algo raro?</string>
     <string name="participate_testing_report_text">Reportar un error en GitHub</string>
-    <string name="participate_testing_version_text">¿Le interesaría ayudarnos a probar la siguiente versión?</string>
     <string name="participate_beta_headline">Probar la versión de desarrollo</string>
     <string name="participate_beta_text">Esto incluye todas las últimas funcionalidades y es lo más nuevo. Fallas/errores pueden ocurrir y si es el caso, favor de reportarnoslos. </string>
     <string name="participate_release_candidate_headline">Candidato a lanzamiento</string>
@@ -551,14 +550,12 @@
     <string name="contacts_read_permission">Se requiere el permiso para leer la lista de contactos</string>
     <string name="contaclist_restore_selected">Restaurar los contactos seleccionados</string>
     <string name="contactlist_account_chooser_title">Seleccione la cuenta a importar</string>
-    <string name="contactlist_no_permission">¡No se otorgaron permisos, nada fue importado!</string>
     <string name="contacts_preference_choose_date">Seleccione una fecha</string>
     <string name="contacts_preference_backup_never">nunca</string>
     <string name="contacts_preferences_no_file_found">No se encontraron archivos</string>
     <string name="contacts_preferences_backup_scheduled">El respaldo está calendarizado y deberá iniciar en breve</string>
     <string name="contacts_preferences_import_scheduled">La importación está calendarizada y deberá iniciar en breve</string>
 
-    <string name="drawer_logout">Salir de la sesión</string>
     <string name="picture_set_as_no_app">¡No se encontró una aplicación con la cual establecer una imagen!</string>
     <string name="privacy">Privacidad</string>
     <string name="file_not_found">¡Archivo no encontrado!</string>

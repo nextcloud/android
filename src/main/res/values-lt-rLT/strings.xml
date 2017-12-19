@@ -488,7 +488,6 @@
     <string name="participate_testing_headline">Pagalba testuojant</string>
     <string name="participate_testing_bug_text">Radote klaidą? Netikslumą?</string>
     <string name="participate_testing_report_text">Pranešti problemą GitHub?</string>
-    <string name="participate_testing_version_text">Susidomėjote pagelbėti testuojant naują versiją?</string>
     <string name="participate_beta_headline">Testuoti dev versiją</string>
     <string name="participate_beta_text">Tai yra ateities funkcijos ir jos yra nepatikrintos. Klaidos ar netikslumai gali pasitaikyti, tuo atveju, informuokite apie savo pastebėjimus.</string>
     <string name="participate_release_candidate_headline">Kandidatas kitam leidimui</string>
@@ -580,14 +579,12 @@
     <string name="contacts_read_permission">Reikalingas leidimas skaityti sąrašą</string>
     <string name="contaclist_restore_selected">Atkurti pasirinktus kontaktus</string>
     <string name="contactlist_account_chooser_title">Pasirinkite failą </string>
-    <string name="contactlist_no_permission">Leidimas nesuteiktas, niekas neimportuota!</string>
     <string name="contacts_preference_choose_date">Pasirinkite datą</string>
     <string name="contacts_preference_backup_never">Niekada</string>
     <string name="contacts_preferences_no_file_found">Failas nerastas</string>
     <string name="contacts_preferences_backup_scheduled">Atsarginės kopijos darymas suplanuotas ir prasidės netrukus</string>
     <string name="contacts_preferences_import_scheduled">Importas suplanuotas ir prasidės netrukus</string>
 
-    <string name="drawer_logout">Atsijungti</string>
     <string name="picture_set_as_no_app">Nerasta programėlė nustatyti paveikslą</string>
     <string name="privacy">Privatumas</string>
     <string name="file_not_found">Failas nerastas</string>

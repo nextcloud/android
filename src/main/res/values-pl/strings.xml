@@ -514,7 +514,6 @@
     <string name="participate_testing_headline">Pomóż nam testować</string>
     <string name="participate_testing_bug_text">Znaleziono błąd? Jest coś dziwnego?</string>
     <string name="participate_testing_report_text">Zgłoś problem na GitHub</string>
-    <string name="participate_testing_version_text">Chcesz pomóc nam testować następną wersję?</string>
     <string name="participate_beta_headline">Sprawdź wersję rozwojową</string>
     <string name="participate_beta_text">Zawiera w sobie wszystkie nadchodzące funkcjonalności i jest bardzo ryzykowne. Mogą się pojawiać błędy. Jeśli będą proszę je do nas zgłosić.</string>
     <string name="participate_release_candidate_headline">Wydanie kandydujące</string>
@@ -611,7 +610,6 @@
     <string name="contacts_read_permission">Potrzebne uprawnienia do odczytu kontaktów</string>
     <string name="contaclist_restore_selected">Przywróć wybrane kontakty</string>
     <string name="contactlist_account_chooser_title">Wybierz konto do zaimportiwania</string>
-    <string name="contactlist_no_permission">Nie nadano uprawnień, nic nie zostało zaimportowane!</string>
     <string name="contacts_preference_choose_date">Wybierz datę</string>
     <string name="contacts_preference_backup_never">nigdy</string>
     <string name="contacts_preferences_no_file_found">Nie znaleziono żadnych plików</string>
@@ -619,7 +617,6 @@
     <string name="contacts_preferences_backup_scheduled">Kopia zapasowa została zaplanowana i wkrótce zostanie uruchomiona</string>
     <string name="contacts_preferences_import_scheduled">Importowanie zostało zaplanowane i wkrótce zostanie uruchomione</string>
 
-    <string name="drawer_logout">Wyloguj</string>
     <string name="picture_set_as_no_app">Nie znaleziono aplikacji do ustawienia obrazu!</string>
     <string name="privacy">Prywatność</string>
     <string name="file_not_found">Nie odnaleziono pliku</string>
@@ -646,7 +643,6 @@
     <string name="push_notifications_old_login">Brak powiadomień typu push ze względu na wygasłą sesję logowania. Przemyśl ponowne dodanie swojego konta.</string>
     <string name="push_notifications_temp_error">Powiadomienia typu push nie są aktualnie dostępne.</string>
 
-    <string name="sync_in_progress">Zaczekaj chwilkę zanim pobierzemy najnowszą wersję pliku.</string>
     <string name="date_unknown">Nieznane</string>
 
     <string name="resized_image_not_possible">Niedostępna wersja ze zmienionym rozmiarem. Pobrać pełen obraz?</string>
@@ -690,6 +686,4 @@ Przycisk wysyłania elementu</string>
     <string name="store_short_dev_desc">
 Wersja Nextcloud Dev jest wersją rozwojową, można ją zainstalować równolegle.</string>
     <string name="prefs_category_dev">Rozwojowa</string>
-    <string name="dev_version_no_information_available">Brak informacji!</string>
-    <string name="dev_version_no_new_version_available">Brak nowej wersji!</string>
     </resources>

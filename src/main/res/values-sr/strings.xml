@@ -534,7 +534,6 @@
     <string name="participate_testing_headline">Помози тестирајући</string>
     <string name="participate_testing_bug_text">Нашли сте грешку? Нешто чудно?</string>
     <string name="participate_testing_report_text">Пријавите проблем на GitHub-у</string>
-    <string name="participate_testing_version_text">Заинтересовани да помогнете тако што би тестирали нову верзију?</string>
     <string name="participate_beta_headline">Тестирајте развојну верзију</string>
     <string name="participate_beta_text">Ово укључује све функционалности које тек долазе и најновији и најсвежији кôд. То значи и да могу лако да се појаве грешке. Ако их уочите, молимо да их пријавите.</string>
     <string name="participate_release_candidate_headline">Кандидат за нову верзију</string>
@@ -630,7 +629,6 @@
     <string name="contacts_read_permission">Потребне привилегије за читање листе контаката</string>
     <string name="contaclist_restore_selected">Поврати означене контакте</string>
     <string name="contactlist_account_chooser_title">Одаберите налоге за увоз</string>
-    <string name="contactlist_no_permission">Није дата ниједна привилегија, ништа није увезено!</string>
     <string name="contacts_preference_choose_date">Одаберите датум</string>
     <string name="contacts_preference_backup_never">никада</string>
     <string name="contacts_preferences_no_file_found">Ниједан фајл није нађен</string>
@@ -640,7 +638,6 @@
 
     <!-- Notifications -->
     <string name="new_notification_received">Примљено ново обавештење</string>
-    <string name="drawer_logout">Одјавите се</string>
     <string name="picture_set_as_no_app">Ниједна апликација није нађена за постављање слике!</string>
     <string name="privacy">Приватност</string>
     <string name="file_not_found">Фајл није пронађен!</string>
@@ -667,7 +664,6 @@
     <string name="push_notifications_old_login">Нема брзих обавештења зато што вам је сесија застарела. Избришите и додајте поново налог.</string>
     <string name="push_notifications_temp_error">Брза обавештења тренутно нису доступна.</string>
 
-    <string name="sync_in_progress">Причекајте док скинемо најновију верзију овог фајла.</string>
     <string name="date_unknown">Непознато</string>
 
     <string name="resized_image_not_possible">Нема доступне умањене сличице. Скини оригиналну слику?</string>
@@ -708,10 +704,6 @@
     <string name="what_s_new_image">Слика шта је ново</string>
 
     <string name="store_short_dev_desc">Развојна верзија се тренутно развија и може се ставити заједно са постојећом.</string>
-    <string name="store_full_dev_desc">Некстклауд Андроид апликација отвореног кода Вам омогућава да приступате свим фајловима на Некстклауду.\nОво је развојна верзија званичне Некстклауд апликације и укључује најновије, али и неистестиране функционалности које могу довести до нестабилности у раду апликације, па чак и губитка података. Апликација је намењена корисницима који желе да истестирају нове функционалности и пријаве грешке, ако се десе. Не користити је за продукцију!\n\nРазвојна верзија се може инсталирати у паралели са званичном Некстклауд апликацијом, која је исто доступна на Ф-Дроид продавници. Једном дневно се проверава да ли се изворни код променио, па може да се десе и веће паузе између развојних верзија.</string>
-
     <string name="prefs_category_dev">Развојно</string>
-    <string name="dev_version_no_information_available">Нема доступних информација!</string>
-    <string name="dev_version_no_new_version_available">Нема доступних нових верзија!</string>
     <string name="folder_icon">Икона фасцикле</string>
 </resources>

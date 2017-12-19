@@ -530,7 +530,6 @@
     <string name="participate_testing_headline">Denememize yardımcı olun</string>
     <string name="participate_testing_bug_text">Bir hata mı buldunuz? Bir gariplik mi var?</string>
     <string name="participate_testing_report_text">GitHub üzerinde sorun bildirin</string>
-    <string name="participate_testing_version_text">Sonraki sürümü deneyerek bize yardımcı olmak ister misiniz?</string>
     <string name="participate_beta_headline">Geliştirici sürümünü deneyin</string>
     <string name="participate_beta_text">Bu sürümde tüm yeni özellikler bulunur ve çok taze olduğundan eksikleri olabilir. Bir hata ya da soruna rastlarsanız bize iletin.</string>
     <string name="participate_release_candidate_headline">Yayın adayı</string>
@@ -625,7 +624,6 @@
     <string name="contacts_read_permission">Kişi listesini okuma izni gerekiyor</string>
     <string name="contaclist_restore_selected">Seçilmiş kişileri geri yükle</string>
     <string name="contactlist_account_chooser_title">İçe aktarılacak hesabı seçin</string>
-    <string name="contactlist_no_permission">Herhangi bir izin verilmemiş olduğundan hiçbir şey içe aktarılamadı!</string>
     <string name="contacts_preference_choose_date">Tarih seçin</string>
     <string name="contacts_preference_backup_never">asla</string>
     <string name="contacts_preferences_no_file_found">Herhangi bir dosya bulunamadı</string>
@@ -635,7 +633,6 @@
 
     <!-- Notifications -->
     <string name="new_notification_received">Yeni bir bildirim var</string>
-    <string name="drawer_logout">Oturumu Kapat</string>
     <string name="picture_set_as_no_app">Görselin ayarlanabileceği bir uygulama bulunamadı!</string>
     <string name="privacy">Gizlilik</string>
     <string name="file_not_found">Dosya bulunamadı!</string>
@@ -662,7 +659,6 @@
     <string name="push_notifications_old_login">Oturumunuzun süresi dolduğundan anında bildirimler gönderilemez. Lütfen hesabınızı yeniden eklemeyi düşünün.</string>
     <string name="push_notifications_temp_error">Anında bildirimler şu anda kullanılamıyor.</string>
 
-    <string name="sync_in_progress">Lütfen dosyanın en son sürümü alınırken bekleyin.</string>
     <string name="date_unknown">Bilinmiyor</string>
 
     <string name="resized_image_not_possible">Boyutu değiştirilmiş bir görsel yok. Tam görsel indirilsin mi?</string>
@@ -703,10 +699,6 @@
     <string name="what_s_new_image">Yenilikler görseli</string>
 
     <string name="store_short_dev_desc">Nextcloud Dev uygulaması paralel olarak kurulabilen geliştirme sürümü örneğidir.</string>
-    <string name="store_full_dev_desc">Açık Kaynaklı Nextcloud Android uygulaması ile Nextcloud üzerindeki tüm dosyalarınıza erişebilirsiniz.\nBu sürüm resmi Nextcloud uygulamasının geliştirici sürümüdür ve kararsız çalışan ve veri kaybına yol açabilecek yeterince sınanmamış yeni özellikleri bulundurur. Bu sürüm yeni özellikleri sınamak ve hataları bildirmek isteyen kullanıcılar için tasarlanmıştır. Bu sürümü günlük kullanımınız için kullanmayın.\nGeliştirici sürümü F-Droid üzerinde de bulunur ve resmi Nexcloud uygulaması ile aynı anda kurulup kullanılabilir. Günde bir kez güncellemeler denetlenir ve yeni bir sürüm varsa yüklenir. Bu nedenle sürümler arasında daha uzun süreler olabilir.</string>
-
     <string name="prefs_category_dev">Geliştirici</string>
-    <string name="dev_version_no_information_available">Herhangi bir bilgi yok!</string>
-    <string name="dev_version_no_new_version_available">Yeni bir sürüm yayınlanmamış!</string>
     <string name="folder_icon">Klasör Simgesi</string>
 </resources>

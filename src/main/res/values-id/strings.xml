@@ -475,7 +475,6 @@
     <string name="participate_testing_headline">Bantu dengan menguji.</string>
     <string name="participate_testing_bug_text">Menemukan kesalahan?</string>
     <string name="participate_testing_report_text">Laporkan di GitHub</string>
-    <string name="participate_testing_version_text">Tertarik membantu kami menguji Versi selanjutnya?</string>
     <string name="participate_beta_headline">Uji versi dev</string>
     <string name="participate_beta_text">Ini termasuk semua fitur yang akan datang.  Bug/galat bisa terjadi, bila terjadi harap laporkan ke kami.</string>
     <string name="participate_release_candidate_headline">Kandidat rilis</string>
@@ -563,14 +562,12 @@
     <string name="contacts_read_permission">Dibutuhkan Ijin untuk melihat daftar kontak</string>
     <string name="contaclist_restore_selected">Memulihkan kontak pilihan.</string>
     <string name="contactlist_account_chooser_title">Pilih akun untuk di impor</string>
-    <string name="contactlist_no_permission">Tidak ada ijin diberikan, tidak ada yang di impor.</string>
     <string name="contacts_preference_choose_date">Pilih tanggal.</string>
     <string name="contacts_preference_backup_never">tidak pernah.</string>
     <string name="contacts_preferences_no_file_found">Tidak ada berkas ditemukan.</string>
     <string name="contacts_preferences_backup_scheduled">Jadwalkan pencadangan dan jalankan sebentar lagi.</string>
     <string name="contacts_preferences_import_scheduled">Impor jadwal dan jalankan sebentar lagi.</string>
 
-    <string name="drawer_logout">Keluar.</string>
     <string name="picture_set_as_no_app">Aplikasi tidak ditemukan untuk men-set gambar.</string>
     <string name="privacy">Privasi</string>
     <string name="file_not_found">Berkas tidak ditemukan!</string>

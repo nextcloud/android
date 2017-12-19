@@ -530,7 +530,6 @@
     <string name="participate_testing_headline">Ayúdanos a realizar pruebas</string>
     <string name="participate_testing_bug_text">¿Encontraste un error? ¿Algo va mal?</string>
     <string name="participate_testing_report_text">Informar de un problema en GitHub</string>
-    <string name="participate_testing_version_text">¿Estás interesado en ayudarnos a probar la próxima versión?</string>
     <string name="participate_beta_headline">Probar la versión de desarrollo</string>
     <string name="participate_beta_text">Esto incluye todas las características por llegar y está muy avazado en lo último. Pueden ocurrir fallos y errores. Si y cuando suceden, infórmanos, por favor.</string>
     <string name="participate_release_candidate_headline">Versión candidata</string>
@@ -625,7 +624,6 @@
     <string name="contacts_read_permission">Se necesita el permiso para leer la lista de contactos</string>
     <string name="contaclist_restore_selected">Restaurar los contactos seleccionados</string>
     <string name="contactlist_account_chooser_title">Escoge la cuenta para importar</string>
-    <string name="contactlist_no_permission">No se han concedido permisos. ¡No se ha importado nada!</string>
     <string name="contacts_preference_choose_date">Escoge fecha</string>
     <string name="contacts_preference_backup_never">nunca</string>
     <string name="contacts_preferences_no_file_found">No se ha encontrado ningún archivo</string>
@@ -635,7 +633,6 @@
 
     <!-- Notifications -->
     <string name="new_notification_received">Nueva notificación recibida</string>
-    <string name="drawer_logout">Desconectar</string>
     <string name="picture_set_as_no_app">¡No se ha encontrado ninguna aplicación para establecer una imagen!</string>
     <string name="privacy">Privacidad</string>
     <string name="file_not_found">¡Archivo no encontrado!</string>
@@ -662,7 +659,6 @@
     <string name="push_notifications_old_login">No hay notificaciones push debido a que la sesión está caducada. Por favor, considera volver a añadir la cuentea.</string>
     <string name="push_notifications_temp_error">Notificaciones push actualmente no disponibles.</string>
 
-    <string name="sync_in_progress">Por favor, espera mientras conseguimos la última versión del archivo.</string>
     <string name="date_unknown">Desconocido</string>
 
     <string name="resized_image_not_possible">No se dispone de la imagen en otros tamaños. ¿Descargar en tamaño completo?</string>
@@ -703,10 +699,6 @@
     <string name="what_s_new_image">Imagen de Qué hay de nuevo</string>
 
     <string name="store_short_dev_desc">Nextcloud Dev es una instantánea de desarrollo y se puede instalar en paralelo</string>
-    <string name="store_full_dev_desc">La Aplicación Android de Código Abierto se deja accede todo su archivos en su Nextcloud.\nEso es una versión de desarollo y incluye características completamente nuevas que pueden conducir a instabilidades y el pérdida de datos. El aplicación es diseñado para usuarios dispuesto a probar los características nuevas y reportar errores si occuren. ¡No lo use para su trabajo productivo!\n\nEl versión de desarollo se puede instalar junto al applicación oficial que esta disponible en F-Droid, también. Uno vez al día, es comprobada para ver si se cambia el código fuente, así que puede haber pausas más largas entre vérsiones.</string>
-
     <string name="prefs_category_dev">Dev</string>
-    <string name="dev_version_no_information_available">¡No hay información disponible!</string>
-    <string name="dev_version_no_new_version_available">¡No hay nueva versión disponible!</string>
     <string name="folder_icon">Icono de carpeta</string>
 </resources>

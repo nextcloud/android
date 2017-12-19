@@ -526,7 +526,6 @@
     <string name="participate_testing_headline">დაგვეხმარეთ შემოწმებით</string>
     <string name="participate_testing_bug_text">იპოვეთ შეცდომა? უცნაურობა?</string>
     <string name="participate_testing_report_text">დაამატეთ მოხსენიება GitHub-ზე</string>
-    <string name="participate_testing_version_text">ხაართ დაინტერესებული გამოიჩინოთ დახმარება შმედეგი ვერსიის შემოწმებით?</string>
     <string name="participate_beta_headline">დევ. ვერსიის შემოწმება</string>
     <string name="participate_beta_text">იმყოფება სისხლდენის ზღვარზე და მოიცავს ყველა დამდეგ ფუნქციას. შეიძლება გამოჩნდეს შეცდომები, ასეთი შემთხვევისას გთხოვთ გვამცნობოთ რეპორტით.</string>
     <string name="participate_release_candidate_headline">რელიზის კანდიდატი</string>
@@ -620,7 +619,6 @@
     <string name="contacts_read_permission">კონტაქტის სიის წაკითხვისთვის საჭიროა უფლება</string>
     <string name="contaclist_restore_selected">არჩეული კონტაქტების აღდგენა</string>
     <string name="contactlist_account_chooser_title">იმპორტისთვის აირჩიეთ ანგარიში</string>
-    <string name="contactlist_no_permission">უფლებები არაა მოცემული, არაფერი იქნა იპორტირებული!</string>
     <string name="contacts_preference_choose_date">აირჩიეთ თარიღი</string>
     <string name="contacts_preference_backup_never">არასდროს</string>
     <string name="contacts_preferences_no_file_found">ფაილი ვერ იქნა ნაპოვნი</string>
@@ -628,7 +626,6 @@
     <string name="contacts_preferences_backup_scheduled">ბექაფი დაინიშნა და მალე დაიწყება</string>
     <string name="contacts_preferences_import_scheduled">იმპორტი დაინიშნა და მალე დაიწყება</string>
 
-    <string name="drawer_logout">გასვლა</string>
     <string name="picture_set_as_no_app">სურათის დასაყენებლად ვერც ერთი აპლიკაცია ვერ იქნა ნაპოვნი!</string>
     <string name="privacy">კონფიდენციალურობა</string>
     <string name="file_not_found">ფაილი ვერ იქნა ნაპოვნი!</string>
@@ -695,9 +692,5 @@
     <string name="what_s_new_image">რა არის ახალი სურათი</string>
 
     <string name="store_short_dev_desc">Nextcloud დევ. აპლიკაცია დევ. კადრია და შესაძლებელია მისი პარალელური დაყენება.</string>
-    <string name="store_full_dev_desc">ღია Nextcloud Android აპლიკაცია ხელმისაწვდომს ხდის ყველა თქვენს ფაილს Nextcloud-ში.\nეს ოფიციალური Nextcloud აპლიკაციის დეველოპმენტ ვერსიაა და მოიცავს უახლეს, შეუმოწმებელ ფუნქციებს, რამაც შეიძლება გამოიწვიოს არასტაბილურობა და მონაცემების დაკარგვა. აპლიკაცია დამზადებულია მომხმარებლებისთვის, რომლებსაც სურთ ახალი ფუნქციების შემოწმება და გამოჩენილ შეცდომებზე განაცხადის გაკეთება. არ გამოიყენოთ საწარმოო სამუშაოსთვის!\n\nდევ. ვერსია შეიძლება დაყენდეს ოფიციალური Nextcloud აპლიკაციასთან ერთად, რომელიც ხელმისაწვდომია F-Droid-ზეც. ის დღეში ერთხელ მოწმდება კოდის განახლებაზე, ასე რომ შესაძლოა კონსტრუქციებს შორის იარსებონ გრძელმა პაუზებმა.</string>
-
     <string name="prefs_category_dev">დევ.</string>
-    <string name="dev_version_no_information_available">ინფორმაცია ხელმიუწვდომელია</string>
-    <string name="dev_version_no_new_version_available">ახალი ვერსია არაა ხელმისაწვდომი!</string>
     </resources>
