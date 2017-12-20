@@ -182,8 +182,8 @@
                 android:paddingEnd="@dimen/alternate_padding"
                 android:layout_toRightOf="@id/sharedIcon"
                 android:layout_toEndOf="@id/sharedIcon"
-                android:clickable="true"
-                android:focusable="true"
+                android:clickable="false"
+                android:focusable="false"
                 android:src="@drawable/ic_checkbox_blank_outline"
                 android:contentDescription="@string/checkbox"/>
 
