@@ -532,6 +532,7 @@
     <string name="participate_testing_headline">Hilf uns Testen</string>
     <string name="participate_testing_bug_text">Fehler gefunden? Komisches Verhalten?</string>
     <string name="participate_testing_report_text">Fehlerbericht GitHub senden</string>
+    <string name="participate_testing_version_text">Interessiert uns beim Test der nächsten Version zu unterstützen?</string>
     <string name="participate_beta_headline">Teste die Entwicklerversion</string>
     <string name="participate_beta_text">Dies beinhaltet neue Funktionalitäten und ist nicht vollumfänglich qualitätsgesichert. Es können daher Fehler/Bugs auftreten, melde uns diese bitte.</string>
     <string name="participate_release_candidate_headline">Vorabversion</string>
@@ -578,7 +579,7 @@
     <string name="whats_new_title">Neues in %1$s</string>
 
     <!-- Welcome to Nc intro features -->
-    <string name="welcome_feature_1_title">Ein sicheres Zuhause für alle Deine Daten</string>
+    <string name="welcome_feature_1_title">Ein sicheres Zuhause für all Deine Daten</string>
     <string name="welcome_feature_1_text">Zugriff, Freigabe &amp; Schutz deiner Dateien zu Hause und in deinem Unternehmen.</string>
 
     <string name="welcome_feature_2_title">Mehrfachkonto</string>
@@ -626,6 +627,7 @@
     <string name="contacts_read_permission">Leseberechtigung auf Kontakte erforderlich</string>
     <string name="contaclist_restore_selected">Ausgewählte Adressen wiederherstellen</string>
     <string name="contactlist_account_chooser_title">Konto für den Import auswählen</string>
+    <string name="contactlist_no_permission">Keine Berechtigung vergeben, es wurde nichts importiert.</string>
     <string name="contacts_preference_choose_date">Datum auswählen</string>
     <string name="contacts_preference_backup_never">nie</string>
     <string name="contacts_preferences_no_file_found">Keine Datei gefunden</string>
@@ -635,6 +637,7 @@
 
     <!-- Notifications -->
     <string name="new_notification_received">Neue Benachrichtigung erhalten</string>
+    <string name="drawer_logout">Abmelden</string>
     <string name="picture_set_as_no_app">Keine App gefunden, mit der ein Bid gesetzt werden könnte!</string>
     <string name="privacy">Datenschutz</string>
     <string name="file_not_found">Datei nicht gefunden!</string>
@@ -661,6 +664,7 @@
     <string name="push_notifications_old_login">Keine Push Benachrichtigungen aufgrund veralteter Benutzersitzung. Bitte erwäge das erneute Hinzufügen deines Kontos.</string>
     <string name="push_notifications_temp_error">Push Benachrichtigungen aktuell nicht verfügbar.</string>
 
+    <string name="sync_in_progress">Neueste Version der Datei wird geladen.</string>
     <string name="date_unknown">Unbekannt</string>
 
     <string name="resized_image_not_possible">Kein verkleinertes Bild vorhanden. Vollbild herunterladen?</string>
@@ -701,6 +705,10 @@
     <string name="what_s_new_image">Was ist neu Bild</string>
 
     <string name="store_short_dev_desc">Die Nextcloud Dev App ist ein Entwicklungsstand und wird parallel installiert.</string>
+    <string name="store_full_dev_desc">Die Open Source Nextcloud Android App ermöglicht es dir auf all deine Dateien in deiner Nextcloud zuzugreifen.\nDies ist die offizielle Entwicklungsversion und beinhaltet brandaktuelle, ungetestete Funktionalität, welche zu Instabilität oder Datenverlust führen kann. Die App richtet sich an Nutzende, die bereit sind neue Funktionalität auszutesten und Fehler zurückzumelden, sollten sie auftreten. Verwende diese Version nicht für den produktiven Einsatz!\n\nDie Entwicklungsversion kann neben der offiziellen Nextcloud App installiert werden, welche auch bei F-Droid verfügbar ist.</string>
+
     <string name="prefs_category_dev">Entwicklung</string>
+    <string name="dev_version_no_information_available">Keine Information verfügbar.</string>
+    <string name="dev_version_no_new_version_available">Keine neue Version verfügbar.</string>
     <string name="folder_icon">Ordnersymbol</string>
 </resources>

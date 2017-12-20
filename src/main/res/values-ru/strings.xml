@@ -538,6 +538,7 @@
     <string name="participate_testing_headline">Помогите нам в тестировании</string>
     <string name="participate_testing_bug_text">Нашли ошибку? Заметили необычное поведение программы?</string>
     <string name="participate_testing_report_text">Сообщить о проблеме на GitHub</string>
+    <string name="participate_testing_version_text">Хотите помочь проверкой новых функций,  разрабатываемых для следующей версии?</string>
     <string name="participate_beta_headline">Протестируйте разрабатываемую версию</string>
     <string name="participate_beta_text">Она включает в себя все готовящиеся возможности с самой передовой. Могут появляться баги, в таком случае, напишите о них нам.</string>
     <string name="participate_release_candidate_headline">Предвыпускная версия</string>
@@ -634,6 +635,7 @@
     <string name="contacts_read_permission">Требуется разрешение на чтение контактов</string>
     <string name="contaclist_restore_selected">Восстановить выбранные контакты</string>
     <string name="contactlist_account_chooser_title">Выберите аккаунт для импорта</string>
+    <string name="contactlist_no_permission">Отсутствуют разрешения, ничего не импортировано.</string>
     <string name="contacts_preference_choose_date">Выберите дату</string>
     <string name="contacts_preference_backup_never">никогда</string>
     <string name="contacts_preferences_no_file_found">Файл не найден</string>
@@ -643,6 +645,7 @@
 
     <!-- Notifications -->
     <string name="new_notification_received">Получено новое уведомление</string>
+    <string name="drawer_logout">Выйти</string>
     <string name="picture_set_as_no_app">Не надено приложения, с помощью которого можно установить изображение!</string>
     <string name="privacy">Конфиденциальность</string>
     <string name="file_not_found">Файл не найден!</string>
@@ -669,6 +672,7 @@
     <string name="push_notifications_old_login">Нет аккаунтов для уведомлений. Пожалуйста добавьте аккаунт.</string>
     <string name="push_notifications_temp_error">Всплывающие уведомления недоступны</string>
 
+    <string name="sync_in_progress">Дождитесь получения новой версии файла.</string>
     <string name="date_unknown">Неизвестно</string>
 
     <string name="resized_image_not_possible">Масштабированное изображение недоступно.  Скачать полноразмерное изображение?</string>
@@ -709,6 +713,10 @@
     <string name="what_s_new_image">Изображение «что нового»</string>
 
     <string name="store_short_dev_desc">Разрабатываемая версия Nextcloud может быть установлена совместно с обычной.</string>
+    <string name="store_full_dev_desc">Приложение с открытым исходным кодом Nextcloud для Android позволяет получать доступ ко всем вашим файлам на сервере Nextcloud.\n Это разрабатываемая версия официального приложения Nextcloud, содержащая новые возможности, тестирование которых не ещё завершено. Разрабатываемая версия может быть нестабильна и её использование может привести к потере данных. Это приложение предназначено для пользователей, которые хотят познакомиться с новыми возможности и сообщать об обнаруженных ошибках. Не используйте его для работы!\n\nРазрабатываемая версия может быть установлена совместно с официальным приложением Nextcloud, которое также доступно в F-Droid.</string>
+
     <string name="prefs_category_dev">Разрабатываемая версия</string>
+    <string name="dev_version_no_information_available">Информация отсутствует.</string>
+    <string name="dev_version_no_new_version_available">Новая версия отсутствует.</string>
     <string name="folder_icon">Значок папки</string>
 </resources>
