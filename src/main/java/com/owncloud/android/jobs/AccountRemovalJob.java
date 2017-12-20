@@ -69,7 +69,10 @@ public class AccountRemovalJob extends Job implements AccountManagerCallback<Boo
 
         if (account != null ) {
             AccountManager am = (AccountManager) context.getSystemService(ACCOUNT_SERVICE);
-            am.removeAccount(account, this, null);
+
+            if (am != null) {
+                am.removeAccount(account, this, null);
+            }
 
             FileDataStorageManager storageManager = new FileDataStorageManager(account, context.getContentResolver());
 
