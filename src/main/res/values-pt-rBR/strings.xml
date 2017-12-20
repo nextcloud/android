@@ -530,6 +530,7 @@
     <string name="participate_testing_headline">Ajuda para teste</string>
     <string name="participate_testing_bug_text">Encontrou um erro? Comentários?</string>
     <string name="participate_testing_report_text">Relate um problema no GitHub</string>
+    <string name="participate_testing_version_text">Tem interesse em ajudar nos testes da próxima versão?</string>
     <string name="participate_beta_headline">Teste a versão dev</string>
     <string name="participate_beta_text">Isso inclui todos os recursos futuros e está num limite perigoso. Erros podem ocorrer e acontecendo, por favor reporte-os à nós.</string>
     <string name="participate_release_candidate_headline">Candidato a versão</string>
@@ -624,6 +625,7 @@
     <string name="contacts_read_permission">Permissão para ler lista de contatos é necessária</string>
     <string name="contaclist_restore_selected">Restaurar contatos selecionados</string>
     <string name="contactlist_account_chooser_title">Escolha a conta para importar</string>
+    <string name="contactlist_no_permission">Nenhuma permissão fornecida, nada foi importado.</string>
     <string name="contacts_preference_choose_date">Escolha a data</string>
     <string name="contacts_preference_backup_never">nunca</string>
     <string name="contacts_preferences_no_file_found">Nenhum arquivo encontrado</string>
@@ -633,6 +635,7 @@
 
     <!-- Notifications -->
     <string name="new_notification_received">Nova notificação recebida</string>
+    <string name="drawer_logout">Sair</string>
     <string name="picture_set_as_no_app">Nenhum aplicativo encontrado para atribuir uma imagem!</string>
     <string name="privacy">Privacidade</string>
     <string name="file_not_found">Arquivo não encontrado!</string>
@@ -659,6 +662,7 @@
     <string name="push_notifications_old_login">Sem envio de notificações devido à sessão de login desatualizada. Considere readicionar sua conta.</string>
     <string name="push_notifications_temp_error">Atualmente o envio de notificações está indisponível.</string>
 
+    <string name="sync_in_progress">Obtendo a versão mais recente do arquivo.</string>
     <string name="date_unknown">Desconhecido</string>
 
     <string name="resized_image_not_possible">Nenhuma image reduzida disponível. Baixar a completa?</string>
@@ -699,6 +703,10 @@
     <string name="what_s_new_image">Imagem nova</string>
 
     <string name="store_short_dev_desc">O aplicativo Desenvolvimento é um instantâneo e pode ser instalado em paralelo.</string>
+    <string name="store_full_dev_desc">O aplicativo de software livre Nexcloud para Android oferece acesso a todos os arquivos em seu Nextcloud.\nEsta é a versão oficial de desenvolvimento, com uma amostra diária de toda nova funcionalidade não testada, a qual pode causar instabilidade e perda de dados. O aplicativo é para usuários dispostos a testar e informar erros se eles ocorrerem. Não use-o em ambiente produtivo!\n\nAmbas as versões oficial e de desenvolvimento estão disponíveis no F-droid e podem ser instalados ao mesmo tempo.</string>
+
     <string name="prefs_category_dev">Desenvolvimento</string>
+    <string name="dev_version_no_information_available">Nenhuma informação disponível.</string>
+    <string name="dev_version_no_new_version_available">Nenhuma versão nova disponível.</string>
     <string name="folder_icon">Ícone de pasta</string>
 </resources>
