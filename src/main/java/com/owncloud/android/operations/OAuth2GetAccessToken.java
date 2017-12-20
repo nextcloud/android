@@ -1,4 +1,4 @@
-/**
+/*
  *   ownCloud Android client application
  *
  *   Copyright (C) 2015 ownCloud Inc.
@@ -54,7 +54,7 @@ public class OAuth2GetAccessToken extends RemoteOperation {
         mRedirectUri = redirectUri;
         mGrantType = grantType;
         mOAuth2AuthorizationResponse = oAuth2AuthorizationResponse;
-        mOAuth2ParsedAuthorizationResponse = new HashMap<String, String>();
+        mOAuth2ParsedAuthorizationResponse = new HashMap<>();
         mResultTokenMap = null;
     }
 
@@ -90,7 +90,7 @@ public class OAuth2GetAccessToken extends RemoteOperation {
                 
                 postMethod = new PostMethod(client.getWebdavUri().toString());
                 postMethod.setRequestBody(nameValuePairs);
-                int status = client.executeMethod(postMethod);
+                client.executeMethod(postMethod);
                 
                 String response = postMethod.getResponseBodyAsString();
                 if (response != null && response.length() > 0) {
@@ -122,14 +122,16 @@ public class OAuth2GetAccessToken extends RemoteOperation {
 
             final String code = "code";
             final String oauth_token_request = "OAuth2 TOKEN REQUEST with auth code ";
-            if (result !=  null && result.isSuccess()) {
-                Log_OC.i(TAG, oauth_token_request + mOAuth2ParsedAuthorizationResponse.get(code) + " to " + client.getWebdavUri() + ": " + result.getLogMessage());
-            } else if (result.getException() != null) {
-                Log_OC.e(TAG, oauth_token_request + mOAuth2ParsedAuthorizationResponse.get(code) + " to " + client.getWebdavUri() + ": " + result.getLogMessage(), result.getException());
-            } else if (result.getCode() == ResultCode.OAUTH2_ERROR) {
-                Log_OC.e(TAG, oauth_token_request + mOAuth2ParsedAuthorizationResponse.get(code) + " to " + client.getWebdavUri() + ": " + ((mResultTokenMap != null) ? mResultTokenMap.get(OAuth2Constants.KEY_ERROR) : "NULL"));
-            } else {
-                Log_OC.e(TAG, oauth_token_request + mOAuth2ParsedAuthorizationResponse.get(code) + " to " + client.getWebdavUri() + ": " + result.getLogMessage());
+            if (result != null) {
+                if (result.isSuccess()) {
+                    Log_OC.i(TAG, oauth_token_request + mOAuth2ParsedAuthorizationResponse.get(code) + " to " + client.getWebdavUri() + ": " + result.getLogMessage());
+                } else if (result.getException() != null) {
+                    Log_OC.e(TAG, oauth_token_request + mOAuth2ParsedAuthorizationResponse.get(code) + " to " + client.getWebdavUri() + ": " + result.getLogMessage(), result.getException());
+                } else if (result.getCode() == ResultCode.OAUTH2_ERROR) {
+                    Log_OC.e(TAG, oauth_token_request + mOAuth2ParsedAuthorizationResponse.get(code) + " to " + client.getWebdavUri() + ": " + ((mResultTokenMap != null) ? mResultTokenMap.get(OAuth2Constants.KEY_ERROR) : "NULL"));
+                } else {
+                    Log_OC.e(TAG, oauth_token_request + mOAuth2ParsedAuthorizationResponse.get(code) + " to " + client.getWebdavUri() + ": " + result.getLogMessage());
+                }
             }
         }
         
@@ -141,7 +143,7 @@ public class OAuth2GetAccessToken extends RemoteOperation {
         String[] pairs = mOAuth2AuthorizationResponse.split("&");
         int i = 0;
         String key = "";
-        String value = "";
+        String value;
         while (pairs.length > i) {
             int j = 0;
             String[] part = pairs[i].split("=");
@@ -162,7 +164,7 @@ public class OAuth2GetAccessToken extends RemoteOperation {
 
 
     private void parseAccessTokenResult (JSONObject tokenJson) throws JSONException {
-        mResultTokenMap = new HashMap<String, String>();
+        mResultTokenMap = new HashMap<>();
         
         if (tokenJson.has(OAuth2Constants.KEY_ACCESS_TOKEN)) {
             mResultTokenMap.put(OAuth2Constants.KEY_ACCESS_TOKEN, tokenJson.getString(OAuth2Constants.KEY_ACCESS_TOKEN));
