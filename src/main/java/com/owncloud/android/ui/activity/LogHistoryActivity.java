@@ -258,6 +258,7 @@ public class LogHistoryActivity extends ToolbarActivity {
                         br.close();
                     } catch (IOException e) {
                         // ignore
+                        Log_OC.d(TAG, "Error closing log reader", e);
                     }
                 }
             }

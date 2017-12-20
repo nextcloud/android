@@ -1117,6 +1117,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
                 uri = DisplayUtils.convertIdn(uri, true);
             } catch (IllegalArgumentException ex) {
                 // Let Owncloud library check the error of the malformed URI
+                Log_OC.e(TAG, "Error converting internationalized domain name " + uri, ex);
             }
 
             if (mHostUrlInput != null) {
