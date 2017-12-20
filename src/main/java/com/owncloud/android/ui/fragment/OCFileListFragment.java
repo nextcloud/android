@@ -941,9 +941,9 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
                                 type = VirtualFolderType.NONE;
                                 break;
                         }
-                        ((FileDisplayActivity) mContainerActivity).startImagePreview(file, type, false);
+                        ((FileDisplayActivity) mContainerActivity).startImagePreview(file, type, !file.isDown());
                     } else {
-                        ((FileDisplayActivity) mContainerActivity).startImagePreview(file, false);
+                        ((FileDisplayActivity) mContainerActivity).startImagePreview(file, !file.isDown());
                     }
                 } else if (file.isDown() && MimeTypeUtil.isVCard(file)) {
                     ((FileDisplayActivity) mContainerActivity).startContactListFragment(file);
