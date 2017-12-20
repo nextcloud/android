@@ -180,7 +180,7 @@ public class SetupEncryptionDialogFragment extends DialogFragment {
                                 try {
                                     String privateKey = task.get();
                                     String decryptedPrivateKey = EncryptionUtils.decryptPrivateKey(privateKey,
-                                            passwordField.getText().toString());
+                                            passwordField.getText().toString().replaceAll("\\s", ""));
 
                                     arbitraryDataProvider.storeOrUpdateKeyValue(account.name,
                                             EncryptionUtils.PRIVATE_KEY, decryptedPrivateKey);
