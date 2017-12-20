@@ -54,6 +54,7 @@ import java.io.IOException;
 import java.security.KeyPair;
 import java.security.PrivateKey;
 import java.util.ArrayList;
+import java.util.Locale;
 
 /*
  *  Dialog to setup encryption
@@ -180,7 +181,8 @@ public class SetupEncryptionDialogFragment extends DialogFragment {
                                 try {
                                     String privateKey = task.get();
                                     String decryptedPrivateKey = EncryptionUtils.decryptPrivateKey(privateKey,
-                                            passwordField.getText().toString().replaceAll("\\s", ""));
+                                            passwordField.getText().toString().replaceAll("\\s", "")
+                                                    .toLowerCase(Locale.ROOT));
 
                                     arbitraryDataProvider.storeOrUpdateKeyValue(account.name,
                                             EncryptionUtils.PRIVATE_KEY, decryptedPrivateKey);
