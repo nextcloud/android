@@ -532,6 +532,7 @@ Attention la suppression est irréversible.</string>
     <string name="participate_testing_headline">Aidez-nous à améliorer Nextcloud</string>
     <string name="participate_testing_bug_text">Vous avez trouvé un bug ? Quelque chose vous semble étrange ?</string>
     <string name="participate_testing_report_text">Signaler un problème sur Github</string>
+    <string name="participate_testing_version_text">Intéressé à nous aider en testant la prochaine version ?</string>
     <string name="participate_beta_headline">Testez la version Bêta</string>
     <string name="participate_beta_text">La version Beta inclut les dernières fonctionnalités qui sont encore toutes fraîches. Des erreurs peuvent se produire et si c\'est le cas, merci de nous les signaler.</string>
     <string name="participate_release_candidate_headline">Testez la version Release Candidate</string>
@@ -626,6 +627,7 @@ Attention la suppression est irréversible.</string>
     <string name="contacts_read_permission">L\'autorisation de lecture des contacts est nécessaire</string>
     <string name="contaclist_restore_selected">Restaurer les contacts sélectionnés</string>
     <string name="contactlist_account_chooser_title">Choisissez un compte pour importer</string>
+    <string name="contactlist_no_permission">Pas de permission donnée, rien n\'a été importé.</string>
     <string name="contacts_preference_choose_date">Sélectionner la date</string>
     <string name="contacts_preference_backup_never">jamais</string>
     <string name="contacts_preferences_no_file_found">Aucun fichier trouvé</string>
@@ -635,6 +637,7 @@ Attention la suppression est irréversible.</string>
 
     <!-- Notifications -->
     <string name="new_notification_received">Vous avez reçu une nouvelle notification</string>
+    <string name="drawer_logout">Déconnexion</string>
     <string name="picture_set_as_no_app">Aucune application trouvée pour utiliser cette image !</string>
     <string name="privacy">Vie privée</string>
     <string name="file_not_found">Fichier non trouvé !</string>
@@ -661,6 +664,7 @@ Attention la suppression est irréversible.</string>
     <string name="push_notifications_old_login">Aucune notification push à cause d\'une connexion expirée. Veuillez ajouter de nouveau votre compte. </string>
     <string name="push_notifications_temp_error">Les notifications push ne sont pas disponibles actuellement.</string>
 
+    <string name="sync_in_progress">Récupération de la version la plus récente du fichier.</string>
     <string name="date_unknown">Inconnu</string>
 
     <string name="resized_image_not_possible">Aucune image réduite disponible. Télécharger l\'image originale ?</string>
@@ -701,6 +705,10 @@ Attention la suppression est irréversible.</string>
     <string name="what_s_new_image">Image quoi de neuf</string>
 
     <string name="store_short_dev_desc">Nextcloud Dev est une version de travail qui peut être installée en parallèle.</string>
+    <string name="store_full_dev_desc">L\'application, libre de copie, Nextcloud pour Android, vous donne accès à tous les fichiers dans votre Nextcloud.\nC\'est la version officielle de développement, comportant un échantillon quotidien de toutes les nouvelles fonctionnalités non testées, qui peut causer l\'instabilité et la perte de données. L\'application est destinée aux utilisateurs qui souhaitent tester et signaler les bogues s\'ils surviennent. Ne l\'utilisez pas pour votre travail productif ! \n\nLa version officielle de développement et la version régulière sont disponibles sur F-droid, et peuvent être installées en même temps.</string>
+
     <string name="prefs_category_dev">Dév</string>
+    <string name="dev_version_no_information_available">Aucune information disponible.</string>
+    <string name="dev_version_no_new_version_available">Aucune nouvelle version disponible.</string>
     <string name="folder_icon">Icône de dossier</string>
 </resources>
