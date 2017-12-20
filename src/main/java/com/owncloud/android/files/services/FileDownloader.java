@@ -450,7 +450,7 @@ public class FileDownloader extends Service
 
 
                     /// perform the download
-                    downloadResult = mCurrentDownload.execute(mDownloadClient);
+                    downloadResult = mCurrentDownload.execute(mDownloadClient, mCurrentDownload.getFile().isEncrypted());
                     if (downloadResult.isSuccess()) {
                         saveDownloadedFile();
                     }
