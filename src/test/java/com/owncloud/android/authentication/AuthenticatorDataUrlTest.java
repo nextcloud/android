@@ -31,8 +31,8 @@ import org.junit.runners.BlockJUnit4ClassRunner;
  */
 @RunWith(BlockJUnit4ClassRunner.class)
 public class AuthenticatorDataUrlTest {
-    public static final String URL_PARSING = " url parsing";
-    public static final String INCORRECT_USER_VALUE_IN = "Incorrect user value in ";
+    private static final String URL_PARSING = " url parsing";
+    private static final String INCORRECT_USER_VALUE_IN = "Incorrect user value in ";
     private String schemeUrl = "nextcloud://login/";
     private String plus = "&";
 
@@ -152,6 +152,7 @@ public class AuthenticatorDataUrlTest {
                 Assert.fail("Illegal Argument Exception expected!");
             } catch (IllegalArgumentException e) {
                 // all well
+                System.out.println("Error with " + urlStart + dataUrl);
             }
         }
     }

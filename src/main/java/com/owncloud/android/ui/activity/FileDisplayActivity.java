@@ -1294,6 +1294,7 @@ public class FileDisplayActivity extends HookActivity
                     DataHolderUtil.getInstance().delete(intent.getStringExtra(FileSyncAdapter.EXTRA_RESULT));
                 } catch (RuntimeException re) {
                     // we did not send this intent, so ignoring
+                    Log_OC.i(TAG, "Ignoring error deleting data");
                 }
             }
         }
