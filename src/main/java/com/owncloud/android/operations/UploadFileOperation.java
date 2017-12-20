@@ -374,6 +374,7 @@ public class UploadFileOperation extends SyncOperation {
 
         OCFile parent = getStorageManager().getFileByPath(remoteParentPath);
         mFile.setParentId(parent.getFileId());
+        mFile.setEncrypted(parent.isEncrypted());
 
         // try to unlock folder with stored token, e.g. when upload needs to be resumed or app crashed
         if (parent.isEncrypted() && !mFolderUnlockToken.isEmpty()) {
@@ -873,7 +874,7 @@ public class UploadFileOperation extends SyncOperation {
             }
 
             if (result == null || result.isSuccess() && mUploadOperation != null) {
-                result = mUploadOperation.execute(client);
+                result = mUploadOperation.execute(client, mFile.isEncrypted());
 
                 /// move local temporal file or original file to its corresponding
                 // location in the Nextcloud local folder
@@ -1041,7 +1042,7 @@ public class UploadFileOperation extends SyncOperation {
      */
     private RemoteOperationResult grantFolderExistence(String pathToGrant, OwnCloudClient client) {
         RemoteOperation operation = new ExistenceCheckRemoteOperation(pathToGrant, mContext, false);
-        RemoteOperationResult result = operation.execute(client);
+        RemoteOperationResult result = operation.execute(client, mFile.isEncrypted());
         if (!result.isSuccess() && result.getCode() == ResultCode.FILE_NOT_FOUND && mRemoteFolderToBeCreated) {
             SyncOperation syncOp = new CreateFolderOperation(pathToGrant, true);
             result = syncOp.execute(client, getStorageManager());
@@ -1357,7 +1358,7 @@ public class UploadFileOperation extends SyncOperation {
         }
 
         ReadRemoteFileOperation operation = new ReadRemoteFileOperation(path);
-        RemoteOperationResult result = operation.execute(client);
+        RemoteOperationResult result = operation.execute(client, mFile.isEncrypted());
         if (result.isSuccess()) {
             updateOCFile(file, (RemoteFile) result.getData().get(0));
             file.setLastSyncDateForProperties(syncDate);
