@@ -1118,6 +1118,10 @@ public class FileUploader extends Service
                         String.format(getString(R.string.uploader_upload_in_progress_content), 0, upload.getFileName())
                 );
 
+        if ((android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O)) {
+            mNotificationBuilder.setChannelId(NotificationUtils.NOTIFICATION_CHANNEL_UPLOAD);
+        }
+
         /// includes a pending intent in the notification showing the details
         Intent showUploadListIntent = new Intent(this, UploadListActivity.class);
         showUploadListIntent.putExtra(FileActivity.EXTRA_FILE, upload.getFile());

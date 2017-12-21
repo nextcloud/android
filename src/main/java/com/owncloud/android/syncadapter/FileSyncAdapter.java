@@ -46,6 +46,7 @@ import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.operations.RefreshFolderOperation;
 import com.owncloud.android.operations.UpdateOCVersionOperation;
 import com.owncloud.android.ui.activity.ErrorsWhileCopyingHandlerActivity;
+import com.owncloud.android.ui.notifications.NotificationUtils;
 import com.owncloud.android.utils.DataHolderUtil;
 import com.owncloud.android.utils.ThemeUtils;
 
@@ -528,8 +529,14 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
      * @param builder
      */
     private void showNotification(int id, NotificationCompat.Builder builder) {
-        ((NotificationManager) getContext().getSystemService(Context.NOTIFICATION_SERVICE))
-            .notify(id, builder.build());
+        NotificationManager notificationManager = ((NotificationManager) getContext().
+                getSystemService(Context.NOTIFICATION_SERVICE));
+
+        if ((android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O)) {
+            builder.setChannelId(NotificationUtils.NOTIFICATION_CHANNEL_FILE_SYNC);
+        }
+
+        notificationManager.notify(id, builder.build());
     }
     /**
      * Shorthand translation

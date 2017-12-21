@@ -1,4 +1,4 @@
-/**
+/*
  * ownCloud Android client application
  *
  * @author David A. Velasco
@@ -48,12 +48,20 @@ public class BootupBroadcastReceiver extends BroadcastReceiver {
      */
     @Override
     public void onReceive(Context context, Intent intent) {
-        Log_OC.d(TAG, "Starting file observer service...");
-        Intent initObservers = FileObserverService.makeInitIntent(context);
-        context.startService(initObservers);
+        if (Intent.ACTION_BOOT_COMPLETED.equals(intent.getAction())) {
+            Log_OC.d(TAG, "Starting file observer service...");
+            Intent initObservers = FileObserverService.makeInitIntent(context);
 
-        MainApp.initAutoUpload();
-        MainApp.initContactsBackup();
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+                context.startForegroundService(initObservers);
+            } else {
+                context.startService(initObservers);
+            }
+
+            MainApp.initAutoUpload();
+            MainApp.initContactsBackup();
+        } else {
+            Log_OC.d(TAG, "Getting wrong intent: " + intent.getAction());
+        }
     }
-
 }
