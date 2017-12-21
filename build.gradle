@@ -66,6 +66,9 @@ android {
     buildToolsVersion '26.0.2'
 
     defaultConfig {
+        minSdkVersion 14
+        targetSdkVersion 26 
+
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
         // arguments to be passed to functional tests
