@@ -22,6 +22,8 @@ package com.owncloud.android;
 import android.Manifest;
 import android.accounts.Account;
 import android.app.Activity;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -57,6 +59,7 @@ import com.owncloud.android.ui.activity.ContactsPreferenceActivity;
 import com.owncloud.android.ui.activity.Preferences;
 import com.owncloud.android.ui.activity.SyncedFoldersActivity;
 import com.owncloud.android.ui.activity.WhatsNewActivity;
+import com.owncloud.android.ui.notifications.NotificationUtils;
 import com.owncloud.android.utils.AnalyticsUtils;
 import com.owncloud.android.utils.FilesSyncHelper;
 import com.owncloud.android.utils.PermissionUtil;
@@ -146,6 +149,7 @@ public class MainApp extends MultiDexApplication {
 
         initAutoUpload();
         initContactsBackup();
+        notificationChannels();
 
         // register global protection with pass code
         registerActivityLifecycleCallbacks(new ActivityLifecycleCallbacks() {
@@ -202,6 +206,7 @@ public class MainApp extends MultiDexApplication {
         }
 
     }
+
     public static void initAutoUpload() {
         updateToAutoUpload();
         cleanOldEntries();
@@ -230,6 +235,75 @@ public class MainApp extends MultiDexApplication {
             ReceiversHelper.registerPowerSaveReceiver();
         }
     }
+
+    public static void notificationChannels() {
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O && getAppContext() != null) {
+            Context context = getAppContext();
+            NotificationManager notificationManager = (NotificationManager)
+                    context.getSystemService(Context.NOTIFICATION_SERVICE);
+
+            if (notificationManager != null) {
+                if (notificationManager.getNotificationChannel(
+                        NotificationUtils.NOTIFICATION_CHANNEL_DOWNLOAD) == null) {
+                    CharSequence name = context.getString(R.string.notification_channel_download_name);
+                    String description = context.getString(R.string.notification_channel_download_description);
+                    NotificationChannel channel = new NotificationChannel(
+                            NotificationUtils.NOTIFICATION_CHANNEL_DOWNLOAD, name,
+                            NotificationManager.IMPORTANCE_LOW);
+
+                    channel.setDescription(description);
+                    channel.enableLights(false);
+                    channel.enableVibration(false);
+                    notificationManager.createNotificationChannel(channel);
+                }
+
+                if (notificationManager.getNotificationChannel(
+                        NotificationUtils.NOTIFICATION_CHANNEL_UPLOAD) == null) {
+                    CharSequence name = context.getString(R.string.notification_channel_upload_name);
+                    String description = context.getString(R.string.notification_channel_upload_description);
+                    NotificationChannel channel = new NotificationChannel(
+                            NotificationUtils.NOTIFICATION_CHANNEL_UPLOAD, name,
+                            NotificationManager.IMPORTANCE_LOW);
+
+                    channel.setDescription(description);
+                    channel.enableLights(false);
+                    channel.enableVibration(false);
+                    notificationManager.createNotificationChannel(channel);
+                }
+
+                if (notificationManager.getNotificationChannel(
+                        NotificationUtils.NOTIFICATION_CHANNEL_MEDIA) == null) {
+                    CharSequence name = context.getString(R.string.notification_channel_media_name);
+                    String description = context.getString(R.string.notification_channel_media_description);
+                    NotificationChannel channel = new NotificationChannel(
+                            NotificationUtils.NOTIFICATION_CHANNEL_MEDIA, name,
+                            NotificationManager.IMPORTANCE_LOW);
+
+                    channel.setDescription(description);
+                    channel.enableLights(false);
+                    channel.enableVibration(false);
+                    notificationManager.createNotificationChannel(channel);
+                }
+
+                if (notificationManager.getNotificationChannel(
+                        NotificationUtils.NOTIFICATION_CHANNEL_FILE_SYNC) == null) {
+                    CharSequence name = context.getString(R.string.notification_channel_file_sync_name);
+                    String description = context.getString(R.string.notification_channel_file_sync_description);
+                    NotificationChannel channel = new NotificationChannel(
+                            NotificationUtils.NOTIFICATION_CHANNEL_FILE_SYNC, name,
+                            NotificationManager.IMPORTANCE_LOW);
+
+                    channel.setDescription(description);
+                    channel.enableLights(false);
+                    channel.enableVibration(false);
+                    notificationManager.createNotificationChannel(channel);
+                }
+            } else {
+                Log_OC.e(TAG, "Notification manager is null");
+            }
+        }
+    }
+    
 
     public static Context getAppContext() {
         return MainApp.mContext;
