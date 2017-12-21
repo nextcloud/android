@@ -48,6 +48,7 @@
     <string name="prefs_calendar_contacts">Συγχρονισμός ημερολογίου &amp; επαφών</string>
     <string name="prefs_calendar_contacts_summary">Ρυθμίστε το DAVdroid (v1.3.0+) για τον τρέχον λογαριασμό</string>
     <string name="prefs_calendar_contacts_address_resolve_error">Η διεύθυνση του διακομιστή για τον λογαριασμό δεν μπορεί να καθοριστεί για το DAVdroid</string>
+    <string name="prefs_calendar_contacts_no_store_error">Δεν είναι εγκατεστημένα το Google Play ή το F-Droid</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Επιτυχής ρύθμιση συγχρονισμού ημερολογίου &amp; επαφών</string>
     <string name="prefs_daily_contacts_sync_summary">Ημερήσιο αντίγραφο ασφαλείας των επαφών σας </string>
     <string name="prefs_help">Βοήθεια</string>
