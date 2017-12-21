@@ -32,6 +32,8 @@ import android.webkit.MimeTypeMap;
 
 import com.owncloud.android.lib.common.utils.Log_OC;
 
+import java.util.Locale;
+
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 
@@ -218,7 +220,7 @@ public class UriUtils {
                 // Add best possible extension
                 int index = displayName.lastIndexOf('.');
                 if (index == -1 || MimeTypeMap.getSingleton().
-                        getMimeTypeFromExtension(displayName.substring(index + 1)) == null) {
+                        getMimeTypeFromExtension(displayName.substring(index + 1).toLowerCase(Locale.ROOT)) == null) {
                     String mimeType = context.getContentResolver().getType(uri);
                     String extension = MimeTypeMap.getSingleton().getExtensionFromMimeType(mimeType);
                     if (extension != null) {
