@@ -1113,7 +1113,7 @@ public class ThumbnailsCacheManager {
         private final WeakReference<AvatarGenerationTask> avatarWorkerTaskReference;
 
         public AsyncAvatarDrawable(Resources res, Drawable bitmap, AvatarGenerationTask avatarWorkerTask) {
-            super(res, bitmap);
+            super(res, BitmapUtils.drawableToBitmap(bitmap));
             avatarWorkerTaskReference = new WeakReference<>(avatarWorkerTask);
         }
 
