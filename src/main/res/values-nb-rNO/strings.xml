@@ -530,6 +530,7 @@
     <string name="participate_testing_headline">Hjelp oss å teste</string>
     <string name="participate_testing_bug_text">Funnet en feil? Føles noe rart?</string>
     <string name="participate_testing_report_text">Rapporter en feil på GitHub</string>
+    <string name="participate_testing_version_text">Interessert i å prøve ut det som kommer til å bli neste versjon?</string>
     <string name="participate_beta_headline">Test utviklerversjonen</string>
     <string name="participate_beta_text">Denne inneholder alle kommende funksjoner og er på knivseggen hva angår utvikling. Feil/feilmeldinger kan oppstå, og i sådant fall, meld fra om dem til oss.</string>
     <string name="participate_release_candidate_headline">Slippkandidat</string>
@@ -624,6 +625,7 @@
     <string name="contacts_read_permission">Lesetilgang til kontaktliste trengs</string>
     <string name="contaclist_restore_selected">Gjenopprett valgte kontakter</string>
     <string name="contactlist_account_chooser_title">Velg konto å importere</string>
+    <string name="contactlist_no_permission">Ingen tilgang gitt, ingenting importert.</string>
     <string name="contacts_preference_choose_date">Velg dato</string>
     <string name="contacts_preference_backup_never">aldri</string>
     <string name="contacts_preferences_no_file_found">Ingen fil funnet</string>
@@ -660,6 +662,7 @@
     <string name="push_notifications_old_login">Ingen push-merknader på grunn av utdatert innloggingsøkt. Overvei å legge til kontoen din på nytt.</string>
     <string name="push_notifications_temp_error">Push-merknader er for tiden ikke tilgjengelige.</string>
 
+    <string name="sync_in_progress">Henter nyligste versjon av fila.</string>
     <string name="date_unknown">Ukjent</string>
 
     <string name="resized_image_not_possible">Inget mindre bilde tilgjengelig. Last ned fullversjon?</string>
@@ -712,6 +715,10 @@ Sjekk ut Nextcloud på https://nextcloud.com</string>
     <string name="synced_folder_custom_folder_image">Tilpasset mappe-knapp</string>
     <string name="forward">Fremover</string>
     <string name="store_short_dev_desc">Nextcloud Dev er et øyblikksbygg som kan installeres parallelt </string>
+    <string name="store_full_dev_desc">Det frie copyleft Nextcloud Android programmet, gir deg tilgang til filene i din Nextcloud.\nDette er den offisielle utviklingsversjonen, som gir deg et daglig innblikk i ny utestet funksjonalitet, som kan forårsake ustabilitet og datatap. Programmet er myntet på brukere som er villige til å teste, og rapportere feil om de inntreffer. Ikke bruk det til produktivt arbeid!\n\n\Både offisiell vanlig- og dev-versjon er tilgjengelig på F-droid, og kan installeres samtidig.</string>
+
     <string name="prefs_category_dev">Utvikling</string>
+    <string name="dev_version_no_information_available">Ingen informasjon tilgjengelig.</string>
+    <string name="dev_version_no_new_version_available">Ingen ny versjon tilgjengelig.</string>
     <string name="folder_icon">Mappeikon</string>
 </resources>
