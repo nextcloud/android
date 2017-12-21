@@ -23,6 +23,7 @@
     <application
         android:name=".MainApp"
         android:icon="@mipmap/ic_launcher"
+		tools:replace="android:icon"
         android:label="@string/app_name"
         android:fullBackupContent="@xml/backup_config"
         android:theme="@style/Theme.ownCloud.Toolbar"
