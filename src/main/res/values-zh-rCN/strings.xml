@@ -48,6 +48,7 @@
     <string name="prefs_calendar_contacts">同步日历 &amp; 联系人</string>
     <string name="prefs_calendar_contacts_summary">为当前账户设置 DAVdroid (v1.3.0+)</string>
     <string name="prefs_calendar_contacts_address_resolve_error">当前账户的服务器地址无法被用于 DAVdroid 解析</string>
+    <string name="prefs_calendar_contacts_no_store_error">F-droid 和 Google Play 都没有安装</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">日历 &amp; 联系人同步设置</string>
     <string name="prefs_daily_contacts_sync_summary">联系人每日备份</string>
     <string name="prefs_help">帮助</string>
