@@ -243,63 +243,40 @@ public class MainApp extends MultiDexApplication {
                     context.getSystemService(Context.NOTIFICATION_SERVICE);
 
             if (notificationManager != null) {
-                if (notificationManager.getNotificationChannel(
-                        NotificationUtils.NOTIFICATION_CHANNEL_DOWNLOAD) == null) {
-                    CharSequence name = context.getString(R.string.notification_channel_download_name);
-                    String description = context.getString(R.string.notification_channel_download_description);
-                    NotificationChannel channel = new NotificationChannel(
-                            NotificationUtils.NOTIFICATION_CHANNEL_DOWNLOAD, name,
-                            NotificationManager.IMPORTANCE_LOW);
+                createChannel(notificationManager, NotificationUtils.NOTIFICATION_CHANNEL_DOWNLOAD,
+                        R.string.notification_channel_download_name,
+                        R.string.notification_channel_download_description, context);
 
-                    channel.setDescription(description);
-                    channel.enableLights(false);
-                    channel.enableVibration(false);
-                    notificationManager.createNotificationChannel(channel);
-                }
+                createChannel(notificationManager, NotificationUtils.NOTIFICATION_CHANNEL_UPLOAD,
+                        R.string.notification_channel_upload_name,
+                        R.string.notification_channel_upload_description, context);
 
-                if (notificationManager.getNotificationChannel(
-                        NotificationUtils.NOTIFICATION_CHANNEL_UPLOAD) == null) {
-                    CharSequence name = context.getString(R.string.notification_channel_upload_name);
-                    String description = context.getString(R.string.notification_channel_upload_description);
-                    NotificationChannel channel = new NotificationChannel(
-                            NotificationUtils.NOTIFICATION_CHANNEL_UPLOAD, name,
-                            NotificationManager.IMPORTANCE_LOW);
+                createChannel(notificationManager, NotificationUtils.NOTIFICATION_CHANNEL_MEDIA,
+                        R.string.notification_channel_media_name,
+                        R.string.notification_channel_media_description, context);
 
-                    channel.setDescription(description);
-                    channel.enableLights(false);
-                    channel.enableVibration(false);
-                    notificationManager.createNotificationChannel(channel);
-                }
-
-                if (notificationManager.getNotificationChannel(
-                        NotificationUtils.NOTIFICATION_CHANNEL_MEDIA) == null) {
-                    CharSequence name = context.getString(R.string.notification_channel_media_name);
-                    String description = context.getString(R.string.notification_channel_media_description);
-                    NotificationChannel channel = new NotificationChannel(
-                            NotificationUtils.NOTIFICATION_CHANNEL_MEDIA, name,
-                            NotificationManager.IMPORTANCE_LOW);
-
-                    channel.setDescription(description);
-                    channel.enableLights(false);
-                    channel.enableVibration(false);
-                    notificationManager.createNotificationChannel(channel);
-                }
-
-                if (notificationManager.getNotificationChannel(
-                        NotificationUtils.NOTIFICATION_CHANNEL_FILE_SYNC) == null) {
-                    CharSequence name = context.getString(R.string.notification_channel_file_sync_name);
-                    String description = context.getString(R.string.notification_channel_file_sync_description);
-                    NotificationChannel channel = new NotificationChannel(
-                            NotificationUtils.NOTIFICATION_CHANNEL_FILE_SYNC, name,
-                            NotificationManager.IMPORTANCE_LOW);
-
-                    channel.setDescription(description);
-                    channel.enableLights(false);
-                    channel.enableVibration(false);
-                    notificationManager.createNotificationChannel(channel);
-                }
+                createChannel(notificationManager, NotificationUtils.NOTIFICATION_CHANNEL_FILE_SYNC,
+                        R.string.notification_channel_file_sync_name,
+                        R.string.notification_channel_file_sync_description, context);
             } else {
                 Log_OC.e(TAG, "Notification manager is null");
+            }
+        }
+    }
+
+    private static void createChannel(NotificationManager notificationManager, String channelId, int channelName,
+                                      int channelDescription, Context context) {
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O && getAppContext() != null) {
+            if (notificationManager.getNotificationChannel(channelId) == null) {
+                CharSequence name = context.getString(channelName);
+                String description = context.getString(channelDescription);
+                NotificationChannel channel = new NotificationChannel(channelId, name,
+                        NotificationManager.IMPORTANCE_LOW);
+
+                channel.setDescription(description);
+                channel.enableLights(false);
+                channel.enableVibration(false);
+                notificationManager.createNotificationChannel(channel);
             }
         }
     }
