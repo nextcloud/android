@@ -270,16 +270,15 @@ public class MainApp extends MultiDexApplication {
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O
                 && getAppContext() != null
                 && notificationManager.getNotificationChannel(channelId) == null) {
-                CharSequence name = context.getString(channelName);
-                String description = context.getString(channelDescription);
-                NotificationChannel channel = new NotificationChannel(channelId, name,
-                        NotificationManager.IMPORTANCE_LOW);
+            CharSequence name = context.getString(channelName);
+            String description = context.getString(channelDescription);
+            NotificationChannel channel = new NotificationChannel(channelId, name,
+                    NotificationManager.IMPORTANCE_LOW);
 
-                channel.setDescription(description);
-                channel.enableLights(false);
-                channel.enableVibration(false);
-                notificationManager.createNotificationChannel(channel);
-            }
+            channel.setDescription(description);
+            channel.enableLights(false);
+            channel.enableVibration(false);
+            notificationManager.createNotificationChannel(channel);
         }
     }
     
