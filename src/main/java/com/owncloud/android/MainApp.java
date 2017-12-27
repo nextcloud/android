@@ -264,10 +264,12 @@ public class MainApp extends MultiDexApplication {
         }
     }
 
-    private static void createChannel(NotificationManager notificationManager, String channelId, int channelName,
+    private static void createChannel(NotificationManager notificationManager,
+                                      String channelId, int channelName,
                                       int channelDescription, Context context) {
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O && getAppContext() != null) {
-            if (notificationManager.getNotificationChannel(channelId) == null) {
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O
+                && getAppContext() != null
+                && notificationManager.getNotificationChannel(channelId) == null) {
                 CharSequence name = context.getString(channelName);
                 String description = context.getString(channelDescription);
                 NotificationChannel channel = new NotificationChannel(channelId, name,
