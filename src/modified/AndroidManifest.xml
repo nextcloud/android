@@ -20,7 +20,7 @@
           xmlns:tools="http://schemas.android.com/tools"
           package="com.owncloud.android">
 
-    <application tools:replace="android:icon"
+    <application
         android:name=".MainApp"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
