@@ -68,7 +68,8 @@ public class ConnectivityUtils {
                     int status = client.executeMethod(get);
                     
                     if (serverVersion.compareTo(OwnCloudVersion.nextcloud_13) > 0) {
-                        return !(status == 204 && get.getResponseContentLength() == -1);
+                        return !(status == 204 &&
+                                (get.getResponseContentLength() == -1 || get.getResponseContentLength() == 0));
                     } else {
                         if (status == 200) {
                             try {
