@@ -44,8 +44,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="12dp"
+            android:layout_marginStart="12dp"
             android:layout_marginLeft="12dp"
             android:layout_marginRight="@dimen/standard_half_margin"
+            android:layout_marginEnd="@dimen/standard_half_margin"
             android:gravity="bottom"
             android:orientation="horizontal"
             android:weightSum="1">
