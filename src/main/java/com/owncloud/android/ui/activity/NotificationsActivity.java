@@ -120,8 +120,8 @@ public class NotificationsActivity extends FileActivity {
         // setup toolbar
         setupToolbar();
 
-        swipeEmptyListRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_containing_empty);
-        swipeListRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_containing_list);
+        swipeEmptyListRefreshLayout = findViewById(R.id.swipe_containing_empty);
+        swipeListRefreshLayout = findViewById(R.id.swipe_containing_list);
 
         // setup drawer
         setupDrawer(R.id.nav_notifications);
@@ -236,7 +236,7 @@ public class NotificationsActivity extends FileActivity {
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.addItemDecoration(dividerItemDecoration);
 
-        BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation_view);
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation_view);
 
         if (getResources().getBoolean(R.bool.bottom_toolbar_enabled)) {
             bottomNavigationView.setVisibility(View.VISIBLE);
@@ -344,7 +344,7 @@ public class NotificationsActivity extends FileActivity {
     }
 
     private void setLoadingMessage() {
-        emptyContentHeadline.setText(R.string.file_list_loading);
+        emptyContentHeadline.setText(R.string.notifications_loading_activity);
         emptyContentMessage.setText("");
 
         emptyContentIcon.setVisibility(View.GONE);
