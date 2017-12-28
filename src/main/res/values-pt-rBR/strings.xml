@@ -329,7 +329,7 @@
     <string name="auto_upload_on_wifi">Somente enviar por Wi-Fi</string>
     <string name="instant_upload_on_charging">Somente enviar quando carregando</string>
     <string name="instant_upload_path">/EnvioAutomático</string>
-    <string name="auto_upload_path">/AutoUpload</string>
+    <string name="auto_upload_path">/AutoEnvio</string>
     <string name="conflict_title">Conflito de arquivo</string>
     <string name="conflict_message">Quais arquivos você quer manter? Se você selecionar ambos, o arquivo local terá um número adicionado ao seu nome.</string>
     <string name="conflict_keep_both">Manter ambos</string>
