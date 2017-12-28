@@ -119,7 +119,7 @@
     <string name="filedetails_sync_file">Synkroniser</string>
     <string name="filedetails_renamed_in_upload_msg">Filnavnet ble endret til  %1$s under opplasting</string>
     <string name="list_layout">Listevisning</string>
-    <string name="action_share">Del med andre</string>
+    <string name="action_send_share">Del med andre</string>
     <string name="common_yes">Ja</string>
     <string name="common_no">Nei</string>
     <string name="common_ok">OK</string>

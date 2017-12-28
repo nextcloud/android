@@ -119,7 +119,7 @@
     <string name="filedetails_sync_file">Синхронизировать</string>
     <string name="filedetails_renamed_in_upload_msg">Во время передачи на сервер файл был переименован в «%1$s»</string>
     <string name="list_layout">Вид списком</string>
-    <string name="action_share">Общий доступ</string>
+    <string name="action_send_share">Общий доступ</string>
     <string name="common_yes">Да</string>
     <string name="common_no">Нет</string>
     <string name="common_ok">ОК</string>

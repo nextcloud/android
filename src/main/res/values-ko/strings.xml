@@ -108,7 +108,7 @@
     <string name="filedetails_sync_file">동기화</string>
     <string name="filedetails_renamed_in_upload_msg">업로드 중 파일이름 %1$s로 변경</string>
     <string name="list_layout">목록 보기</string>
-    <string name="action_share">공유</string>
+    <string name="action_send_share">공유</string>
     <string name="common_yes">예</string>
     <string name="common_no">아니요</string>
     <string name="common_ok">확인</string>

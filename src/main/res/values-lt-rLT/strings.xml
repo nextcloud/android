@@ -114,7 +114,7 @@
     <string name="filedetails_sync_file">Sinchronizuojama</string>
     <string name="filedetails_renamed_in_upload_msg">Įkėlimo metu failas buvo pervadintas į %1$s</string>
     <string name="list_layout">Išdėstymas sąraše</string>
-    <string name="action_share">Dalintis</string>
+    <string name="action_send_share">Dalintis</string>
     <string name="common_yes">Taip</string>
     <string name="common_no">Ne</string>
     <string name="common_ok">Gerai</string>

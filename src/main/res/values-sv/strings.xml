@@ -114,7 +114,7 @@
     <string name="filedetails_sync_file">Synkronisera</string>
     <string name="filedetails_renamed_in_upload_msg">Fil döptes om till %1$s under uppladdning</string>
     <string name="list_layout">Listad layout</string>
-    <string name="action_share">Dela</string>
+    <string name="action_send_share">Dela</string>
     <string name="common_yes">Ja</string>
     <string name="common_no">Nej</string>
     <string name="common_ok">OK</string>

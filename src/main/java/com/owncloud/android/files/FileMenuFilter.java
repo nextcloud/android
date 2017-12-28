@@ -242,9 +242,9 @@ public class FileMenuFilter {
                 );
         if ((!shareViaLinkAllowed && !shareWithUsersAllowed) ||
                 !isSingleSelection() || !shareApiEnabled || mOverflowMenu) {
-            toHide.add(R.id.action_share_file);
+            toHide.add(R.id.action_send_share_file);
         } else {
-            toShow.add(R.id.action_share_file);
+            toShow.add(R.id.action_send_share_file);
         }
 
         // SEE DETAILS
@@ -252,15 +252,6 @@ public class FileMenuFilter {
             toHide.add(R.id.action_see_details);
         } else {
             toShow.add(R.id.action_see_details);
-        }
-
-        // SEND
-        boolean sendAllowed = (mContext != null &&
-                mContext.getString(R.string.send_files_to_other_apps).equalsIgnoreCase("on"));
-        if (!isSingleFile() || !sendAllowed || synchronizing) {
-            toHide.add(R.id.action_send_file);
-        } else {
-            toShow.add(R.id.action_send_file);
         }
 
         // Kept available offline

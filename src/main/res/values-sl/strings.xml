@@ -113,7 +113,7 @@
     <string name="filedetails_download">Prejmi</string>
     <string name="filedetails_sync_file">Uskladi</string>
     <string name="filedetails_renamed_in_upload_msg">Datoteka je bila preimenovana v %1$s med nalaganjem</string>
-    <string name="action_share">Souporaba</string>
+    <string name="action_send_share">Souporaba</string>
     <string name="common_yes">Da</string>
     <string name="common_no">Ne</string>
     <string name="common_ok">V redu</string>

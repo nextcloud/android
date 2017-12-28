@@ -106,7 +106,6 @@
     <string name="filedetails_select_file">Toque num ficheiro para visualizar a informação adicional.</string>
     <string name="filedetails_download">Descarregar</string>
     <string name="filedetails_sync_file">Sincronizar</string>
-    <string name="action_share">Partilhar</string>
     <string name="common_yes">Sim</string>
     <string name="common_no">Não</string>
     <string name="common_ok">OK</string>

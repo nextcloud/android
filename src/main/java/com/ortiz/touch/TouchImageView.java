@@ -1184,14 +1184,8 @@ public class TouchImageView extends AppCompatImageView {
     	boolean isPreGingerbread;
     	
     	public CompatScroller(Context context) {
-    		if (VERSION.SDK_INT < VERSION_CODES.GINGERBREAD) {
-    			isPreGingerbread = true;
-    			scroller = new Scroller(context);
-    			
-    		} else {
-    			isPreGingerbread = false;
-    			overScroller = new OverScroller(context);
-    		}
+    		isPreGingerbread = false;
+    		overScroller = new OverScroller(context);
     	}
     	
     	public void fling(int startX, int startY, int velocityX, int velocityY, int minX, int maxX, int minY, int maxY) {

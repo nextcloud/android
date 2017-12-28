@@ -78,7 +78,7 @@
     <string name="filedetails_select_file">Selectați un fișier pentru a afișa informația adițională.</string>
     <string name="filedetails_download">Descarcă</string>
     <string name="filedetails_sync_file">Sincronizează</string>
-    <string name="action_share">Partajează</string>
+    <string name="action_send_share">Partajează</string>
     <string name="common_yes">Da</string>
     <string name="common_no">Nu</string>
     <string name="common_ok">OK</string>

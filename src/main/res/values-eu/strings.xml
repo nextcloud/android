@@ -116,7 +116,7 @@
     <string name="filedetails_sync_file">Sinkronizatu</string>
     <string name="filedetails_renamed_in_upload_msg">Fitxategia igotzean %1$s izenarekin berrizendatu da</string>
     <string name="list_layout">Zerrenda ikuspegia</string>
-    <string name="action_share">Partekatu</string>
+    <string name="action_send_share">Partekatu</string>
     <string name="common_yes">Bai</string>
     <string name="common_no">Ez</string>
     <string name="common_ok">Ados</string>

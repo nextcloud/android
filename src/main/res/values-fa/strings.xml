@@ -114,7 +114,7 @@
     <string name="filedetails_sync_file">همگام سازی</string>
     <string name="filedetails_renamed_in_upload_msg">در حین اپلود فایل به نام %1$s تغییر کرد</string>
     <string name="list_layout">Listed layout</string>
-    <string name="action_share">اشتراک‌گذاری</string>
+    <string name="action_send_share">اشتراک‌گذاری</string>
     <string name="common_yes">بله</string>
     <string name="common_no">نه</string>
     <string name="common_ok">تایید</string>
