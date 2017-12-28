@@ -119,7 +119,7 @@
     <string name="filedetails_sync_file">Sincronizza</string>
     <string name="filedetails_renamed_in_upload_msg">File rinominato in %1$s durante il caricamento</string>
     <string name="list_layout">Struttura a elenco</string>
-    <string name="action_share">Condividi</string>
+    <string name="action_send_share">Condividi</string>
     <string name="common_yes">Sì</string>
     <string name="common_no">No</string>
     <string name="common_ok">OK</string>

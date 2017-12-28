@@ -119,7 +119,7 @@
     <string name="filedetails_sync_file">Synchroniser</string>
     <string name="filedetails_renamed_in_upload_msg">Le fichier a été renommé en %1$s pendant l\'envoi</string>
     <string name="list_layout">Affichage en liste</string>
-    <string name="action_share">Partager</string>
+    <string name="action_send_share">Partager</string>
     <string name="common_yes">Oui</string>
     <string name="common_no">Non</string>
     <string name="common_ok">OK</string>

@@ -95,7 +95,7 @@
     <string name="filedetails_select_file">اضغظ على الملف ليتم عرض خيارات أكثر</string>
     <string name="filedetails_download">تحميل</string>
     <string name="filedetails_sync_file">زامِن</string>
-    <string name="action_share">شارك</string>
+    <string name="action_send_share">شارك</string>
     <string name="common_yes">نعم</string>
     <string name="common_no">لا</string>
     <string name="common_ok">تم</string>

@@ -120,7 +120,7 @@
     <string name="filedetails_sync_file">同步</string>
     <string name="filedetails_renamed_in_upload_msg">上傳過程中檔案%1$s被重新命名</string>
     <string name="list_layout">清單顯示</string>
-    <string name="action_share">分享</string>
+    <string name="action_send_share">分享</string>
     <string name="common_yes">是</string>
     <string name="common_no">否</string>
     <string name="common_ok">好</string>

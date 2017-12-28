@@ -94,7 +94,7 @@
     <string name="filedetails_download">Descargar</string>
     <string name="filedetails_sync_file">Sincroniza</string>
     <string name="filedetails_renamed_in_upload_msg">Renomóse\'l ficheru %1$s na xuba</string>
-    <string name="action_share">Compartir</string>
+    <string name="action_send_share">Compartir</string>
     <string name="common_yes">Sí</string>
     <string name="common_no">Non</string>
     <string name="common_ok">Aceutar</string>

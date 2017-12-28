@@ -516,7 +516,7 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
 
     @Override
     public void onShareIconClick(OCFile file) {
-        shareFile(file);
+        mContainerActivity.getFileOperationsHelper().sendShareFile(file, (FileDisplayActivity) mContainerActivity);
     }
 
     @Override
@@ -946,8 +946,9 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
             /// action only possible on a single file
             OCFile singleFile = checkedFiles.get(0);
             switch (menuId) {
-                case R.id.action_share_file: {
-                    shareFile(singleFile);
+                case R.id.action_send_share_file: {
+                    mContainerActivity.getFileOperationsHelper().sendShareFile(singleFile,
+                            (FileDisplayActivity) mContainerActivity);
                     return true;
                 }
                 case R.id.action_open_file_with: {
@@ -965,23 +966,6 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
                     }
                     mContainerActivity.showDetails(singleFile);
                     return true;
-                }
-                case R.id.action_send_file: {
-                    if (MimeTypeUtil.isImage(singleFile) && !singleFile.isDown()) {
-                        mContainerActivity.getFileOperationsHelper().sendCachedImage(singleFile);
-                        return true;
-                    } else {
-                        // Obtain the file
-                        if (!singleFile.isDown()) {  // Download the file
-                            Log_OC.d(TAG, singleFile.getRemotePath() + " : File must be downloaded");
-                            ((FileDisplayActivity) mContainerActivity).startDownloadForSending(singleFile,
-                                    DOWNLOAD_SEND);
-
-                        } else {
-                            mContainerActivity.getFileOperationsHelper().sendDownloadedFile(singleFile);
-                        }
-                        return true;
-                    }
                 }
                 case R.id.action_set_as_wallpaper: {
                     mContainerActivity.getFileOperationsHelper().setPictureAs(singleFile, getView());
@@ -1046,14 +1030,6 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
             }
             default:
                 return false;
-        }
-    }
-
-    private void shareFile(OCFile file) {
-        if(file.isSharedWithMe() && !file.canReshare()){
-            Snackbar.make(getView(), R.string.resharing_is_not_allowed, Snackbar.LENGTH_LONG).show();
-        } else {
-            mContainerActivity.getFileOperationsHelper().showShareFile(file);
         }
     }
 

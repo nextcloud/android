@@ -106,7 +106,7 @@
     <string name="filedetails_select_file">Napauta tiedostoa nähdäksesi lisätietoja.</string>
     <string name="filedetails_download">Lataa</string>
     <string name="filedetails_sync_file">Synkronoi</string>
-    <string name="action_share">Jaa</string>
+    <string name="action_send_share">Jaa</string>
     <string name="common_yes">Kyllä</string>
     <string name="common_no">Ei</string>
     <string name="common_ok">OK</string>

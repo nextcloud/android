@@ -115,7 +115,7 @@
     <string name="filedetails_sync_file">Συγχρονισμός</string>
     <string name="filedetails_renamed_in_upload_msg">Το αρχείο μετονομάστηκε σε %1$s κατά τη μεταφόρτωση</string>
     <string name="list_layout">Διάταξη λίστας</string>
-    <string name="action_share">Διαμοιρασμός</string>
+    <string name="action_send_share">Διαμοιρασμός</string>
     <string name="common_yes">Ναι</string>
     <string name="common_no">Όχι</string>
     <string name="common_ok">Εντάξει</string>

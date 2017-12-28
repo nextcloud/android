@@ -31,6 +31,8 @@ import android.net.Uri;
 import android.os.Build;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.FileProvider;
 import android.view.View;
 import android.webkit.MimeTypeMap;
@@ -52,7 +54,9 @@ import com.owncloud.android.services.OperationsService;
 import com.owncloud.android.services.observer.FileObserverService;
 import com.owncloud.android.ui.activity.ConflictsResolveActivity;
 import com.owncloud.android.ui.activity.FileActivity;
+import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.activity.ShareActivity;
+import com.owncloud.android.ui.dialog.SendShareDialog;
 import com.owncloud.android.ui.events.FavoriteEvent;
 import com.owncloud.android.ui.events.SyncEventFinished;
 import com.owncloud.android.utils.DisplayUtils;
@@ -539,23 +543,16 @@ public class FileOperationsHelper {
         return false;
     }
 
-    public void sendDownloadedFile(OCFile file) {
-        if (file != null) {
-            Intent sendIntent = new Intent(Intent.ACTION_SEND);
-            // set MimeType
-            sendIntent.setType(file.getMimetype());
-            sendIntent.putExtra(
-                    Intent.EXTRA_STREAM,
-                    file.getExposedFileUri(mFileActivity)
-            );
-            sendIntent.putExtra(Intent.ACTION_SEND, true);      // Send Action
+    public void sendShareFile(OCFile file, FileDisplayActivity fileDisplayActivity) {
+        // Show dialog
+        FragmentManager fm = mFileActivity.getSupportFragmentManager();
+        FragmentTransaction ft = fm.beginTransaction();
+        ft.addToBackStack(null);
 
-            // Show dialog
-            final String sendTitle = mFileActivity.getString(R.string.activity_chooser_send_file_title);
-            mFileActivity.startActivity(Intent.createChooser(sendIntent, sendTitle));
-        } else {
-            Log_OC.e(TAG, "Trying to send a NULL OCFile");
-        }
+        SendShareDialog mSendShareDialog = SendShareDialog.newInstance(file);
+        mSendShareDialog.setFileOperationsHelper(this);
+        mSendShareDialog.setFileDisplayActivity(fileDisplayActivity);
+        mSendShareDialog.show(ft, "TAG_SEND_SHARE_DIALOG");
     }
 
     public void syncFiles(Collection<OCFile> files) {

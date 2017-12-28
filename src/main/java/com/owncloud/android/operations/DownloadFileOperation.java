@@ -56,9 +56,12 @@ public class DownloadFileOperation extends RemoteOperation {
     private final AtomicBoolean mCancellationRequested = new AtomicBoolean(false);
     
     private DownloadRemoteFileOperation mDownloadOperation;
+    private String mActivityName;
+    private String mPackageName;
 
 
-    public DownloadFileOperation(Account account, OCFile file, String behaviour) {
+    public DownloadFileOperation(Account account, OCFile file, String behaviour, String activityName,
+                                 String packageName) {
         if (account == null) {
             throw new IllegalArgumentException("Illegal null account in DownloadFileOperation " +
                     "creation");
@@ -71,6 +74,8 @@ public class DownloadFileOperation extends RemoteOperation {
         mAccount = account;
         mFile = file;
         mBehaviour = behaviour;
+        mActivityName = activityName;
+        mPackageName = packageName;
     }
 
 
@@ -200,5 +205,13 @@ public class DownloadFileOperation extends RemoteOperation {
         synchronized (mDataTransferListeners) {
             mDataTransferListeners.remove(listener);
         }
+    }
+
+    public String getActivityName() {
+        return mActivityName;
+    }
+
+    public String getPackageName() {
+        return mPackageName;
     }
 }

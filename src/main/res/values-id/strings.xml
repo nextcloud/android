@@ -114,7 +114,7 @@
     <string name="filedetails_sync_file">Sinkronisasi</string>
     <string name="filedetails_renamed_in_upload_msg">Nama berkas diubah menjadi  %1$s waktu diunggah</string>
     <string name="list_layout">Daftar tampilan</string>
-    <string name="action_share">Bagikan</string>
+    <string name="action_send_share">Bagikan</string>
     <string name="common_yes">Ya</string>
     <string name="common_no">Tidak</string>
     <string name="common_ok">Oke</string>

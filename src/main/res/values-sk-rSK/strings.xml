@@ -104,7 +104,7 @@
     <string name="filedetails_download">Stiahnuť</string>
     <string name="filedetails_sync_file">Synchronizovať</string>
     <string name="list_layout">Náhľad zoznamu</string>
-    <string name="action_share">Sprístupniť</string>
+    <string name="action_send_share">Sprístupniť</string>
     <string name="common_yes">Áno</string>
     <string name="common_no">Nie</string>
     <string name="common_ok">OK</string>
