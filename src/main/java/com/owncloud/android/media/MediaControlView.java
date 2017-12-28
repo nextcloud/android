@@ -39,6 +39,7 @@ import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
 
 import com.owncloud.android.R;
+import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.utils.ThemeUtils;
 
 import java.util.Formatter;
@@ -56,6 +57,7 @@ import java.util.Locale;
  */
 
 public class MediaControlView extends FrameLayout /* implements OnLayoutChangeListener, OnTouchListener */ implements OnClickListener, OnSeekBarChangeListener {
+    private static final String TAG = MediaControlView.class.getSimpleName();
 
     private MediaPlayerControl mPlayer;
     private Context mContext;
@@ -256,6 +258,7 @@ public class MediaControlView extends FrameLayout /* implements OnLayoutChangeLi
             // the canPause/canSeekXYZ methods. This is OK, it just means we
             // assume the media can be paused and seeked, and so we don't disable
             // the buttons.
+            Log_OC.i(TAG, "Old media interface detected");
         }
     }
 
