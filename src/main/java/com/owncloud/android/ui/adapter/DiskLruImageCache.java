@@ -97,7 +97,8 @@ public class DiskLruImageCache {
                 if (editor != null) {
                     editor.abort();
                 }
-            } catch (IOException ignored) {
+            } catch (IOException ex) {
+                Log_OC.d(TAG, "Error aborting editor", ex);
             }
         }
     }
