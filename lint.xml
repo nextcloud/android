@@ -13,4 +13,61 @@
         <ignore path="**/values-ka-rGE/strings.xml"/>
     </issue>
 
+    <issue id="ExtraTranslation">
+        <ignore path="**/values-pt-rPT/strings.xml"/>
+        <ignore path="**/values-ro/strings.xml"/>
+        <ignore path="**/values-zh-rCN/strings.xml"/>
+        <ignore path="**/values-bg-rBG/strings.xml"/>
+        <ignore path="**/values-nb-rNO/strings.xml"/>
+        <ignore path="**/values-es/strings.xml"/>
+        <ignore path="**/values-fa/strings.xml"/>
+        <ignore path="**/values-ko/strings.xml"/>
+        <ignore path="**/values-ru/strings.xml"/>
+        <ignore path="**/values-ast/strings.xml"/>
+        <ignore path="**/values-es-rCO/strings.xml"/>
+        <ignore path="**/values-es-rCL/strings.xml"/>
+        <ignore path="**/values-es-rSV/strings.xml"/>
+        <ignore path="**/values-sv/strings.xml"/>
+        <ignore path="**/values-tr/strings.xml"/>
+        <ignore path="**/values-es-rUY/strings.xml"/>
+        <ignore path="**/values-es-rGT/strings.xml"/>
+        <ignore path="**/values-fr/strings.xml"/>
+        <ignore path="**/values-es-rMX/strings.xml"/>
+        <ignore path="**/values-fi-rFI/strings.xml"/>
+        <ignore path="**/values-ar/strings.xml"/>
+        <ignore path="**/values-es-rAR/strings.xml"/>
+        <ignore path="**/values-de-rDE/strings.xml"/>
+        <ignore path="**/values-ca/strings.xml"/>
+        <ignore path="**/values-is/strings.xml"/>
+        <ignore path="**/values-es-rNI/strings.xml"/>
+        <ignore path="**/values-es-rPR/strings.xml"/>
+        <ignore path="**/values-es-rDO/strings.xml"/>
+        <ignore path="**/values-sq/strings.xml"/>
+        <ignore path="**/values-pt-rBR/strings.xml"/>
+        <ignore path="**/values-ja-rJP/strings.xml"/>
+        <ignore path="**/values-sr/strings.xml"/>
+        <ignore path="**/values-it/strings.xml"/>
+        <ignore path="**/values-hu-rHU/strings.xml"/>
+        <ignore path="**/values-pl/strings.xml"/>
+        <ignore path="**/values-es-rHN/strings.xml"/>
+        <ignore path="**/values-lt-rLT/strings.xml"/>
+        <ignore path="**/values-es-rPA/strings.xml"/>
+        <ignore path="**/values-nl/strings.xml"/>
+        <ignore path="**/values-sk-rSK/strings.xml"/>
+        <ignore path="**/values-ka-rGE/strings.xml"/>
+        <ignore path="**/values-eu/strings.xml"/>
+        <ignore path="**/values-es-rCR/strings.xml"/>
+        <ignore path="**/values-da/strings.xml"/>
+        <ignore path="**/values-es-rEC/strings.xml"/>
+        <ignore path="**/values-de/strings.xml"/>
+        <ignore path="**/values-sl/strings.xml"/>
+        <ignore path="**/values-es-rPY/strings.xml"/>
+        <ignore path="**/values-es-rPE/strings.xml"/>
+        <ignore path="**/values-zh-rTW/strings.xml"/>
+        <ignore path="**/values-el/strings.xml"/>
+        <ignore path="**/values-id/strings.xml"/>
+        <ignore path="**/values-cs-rCZ/strings.xml"/>
+        <ignore path="**/values-en-rGB/strings.xml"/>
+    </issue>
+
 </lint>
