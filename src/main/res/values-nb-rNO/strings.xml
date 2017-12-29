@@ -111,7 +111,6 @@
     <string name="file_list_empty_text_videos">Last opp noen videoer eller skru på automatisk opplasting.</string>
     <string name="file_list_empty_text_videos_filter">Din spørring returnerte ingen vidoer!</string>
     <string name="upload_list_empty_headline">Ingen opplastinger tilgjengelig</string>
-    <string name="upload_list_empty_text">Last opp innhold eller aktiver umiddelbar opplasting.</string>
     <string name="upload_list_empty_text_auto_upload">Last opp noe innhold eller aktiver automatisk opplasting!</string>
     <string name="file_list_folder">mappe</string>
     <string name="filedetails_select_file">Trykk på en fil for å vise ekstra informasjon.</string>
@@ -119,7 +118,6 @@
     <string name="filedetails_sync_file">Synkroniser</string>
     <string name="filedetails_renamed_in_upload_msg">Filnavnet ble endret til  %1$s under opplasting</string>
     <string name="list_layout">Listevisning</string>
-    <string name="action_send_share">Del med andre</string>
     <string name="common_yes">Ja</string>
     <string name="common_no">Nei</string>
     <string name="common_ok">OK</string>
@@ -721,4 +719,5 @@ Sjekk ut Nextcloud på https://nextcloud.com</string>
     <string name="dev_version_no_information_available">Ingen informasjon tilgjengelig.</string>
     <string name="dev_version_no_new_version_available">Ingen ny versjon tilgjengelig.</string>
     <string name="folder_icon">Mappeikon</string>
-</resources>
+
+    </resources>

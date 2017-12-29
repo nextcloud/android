@@ -107,7 +107,6 @@
     <string name="file_list_empty_text_videos">Μεταφορτώστε μερικά βίντεο ή ενεργοποιήστε την αυτόματη μεταφόρτωση.</string>
     <string name="file_list_empty_text_videos_filter">Δεν βρέθηκε βίντεο για το αίτημά σας.</string>
     <string name="upload_list_empty_headline">Μη διαθέσιμες μεταφορτώσεις</string>
-    <string name="upload_list_empty_text">Μεταφορτώστε περιεχόμενο ή ενεργοποιήστε την άμεση μεταφόρτωση.</string>
     <string name="upload_list_empty_text_auto_upload">Μεταφορτώστε περιεχόμενο ή ενεργοποιήστε την αυτόματη μεταφόρτωση.</string>
     <string name="file_list_folder">φάκελος</string>
     <string name="filedetails_select_file">Αγγίξτε κάποιο αρχείο για να προβάλετε περισσότερες πληροφορίες.</string>
@@ -115,7 +114,6 @@
     <string name="filedetails_sync_file">Συγχρονισμός</string>
     <string name="filedetails_renamed_in_upload_msg">Το αρχείο μετονομάστηκε σε %1$s κατά τη μεταφόρτωση</string>
     <string name="list_layout">Διάταξη λίστας</string>
-    <string name="action_send_share">Διαμοιρασμός</string>
     <string name="common_yes">Ναι</string>
     <string name="common_no">Όχι</string>
     <string name="common_ok">Εντάξει</string>

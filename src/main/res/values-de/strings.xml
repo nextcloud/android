@@ -112,7 +112,6 @@
     <string name="file_list_empty_text_videos">Lade einige Videos hoch oder aktiviere den Sofortupload.</string>
     <string name="file_list_empty_text_videos_filter">Keine Videos gefunden.</string>
     <string name="upload_list_empty_headline">Keine Uploads verfügbar</string>
-    <string name="upload_list_empty_text">Lade Inhalte hoch oder aktiviere den Sofortupload.</string>
     <string name="upload_list_empty_text_auto_upload">Lade Inhalte hoch oder aktiviere den Sofortupload.</string>
     <string name="file_list_folder">Ordner</string>
     <string name="filedetails_select_file">Klicke auf eine Datei für weitere Informationen.</string>
@@ -120,7 +119,6 @@
     <string name="filedetails_sync_file">Synchronisation</string>
     <string name="filedetails_renamed_in_upload_msg">Datei während des Hochladens in %1$s umbenannt</string>
     <string name="list_layout">Layout der Liste</string>
-    <string name="action_send_share">Teilen</string>
     <string name="common_yes">Ja</string>
     <string name="common_no">Nein</string>
     <string name="common_ok">OK</string>
@@ -711,4 +709,5 @@
     <string name="dev_version_no_information_available">Keine Information verfügbar.</string>
     <string name="dev_version_no_new_version_available">Keine neue Version verfügbar.</string>
     <string name="folder_icon">Ordnersymbol</string>
-</resources>
+
+    </resources>

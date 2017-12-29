@@ -108,7 +108,6 @@
     <string name="file_list_empty_text_videos">Igo bideo batzuk edo auto-igotzea aktiba ezazu.</string>
     <string name="file_list_empty_text_videos_filter">Bilaketak ez du bideorik topatu.</string>
     <string name="upload_list_empty_headline">Ezin dira fitxategiak igo</string>
-    <string name="upload_list_empty_text">Edukiak igo edo auto-igotzea aktiba ezazu.</string>
     <string name="upload_list_empty_text_auto_upload">Edukiak igo edo auto-igotzea aktiba ezazu.</string>
     <string name="file_list_folder">karpeta</string>
     <string name="filedetails_select_file">Sakatu fitxategi baten gainean informazio gehiago lortzeko</string>
@@ -116,7 +115,6 @@
     <string name="filedetails_sync_file">Sinkronizatu</string>
     <string name="filedetails_renamed_in_upload_msg">Fitxategia igotzean %1$s izenarekin berrizendatu da</string>
     <string name="list_layout">Zerrenda ikuspegia</string>
-    <string name="action_send_share">Partekatu</string>
     <string name="common_yes">Bai</string>
     <string name="common_no">Ez</string>
     <string name="common_ok">Ados</string>

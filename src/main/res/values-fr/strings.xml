@@ -111,7 +111,6 @@
     <string name="file_list_empty_text_videos">Envoyez des vidéos ou activez le téléversement automatique.</string>
     <string name="file_list_empty_text_videos_filter">Aucune vidéo trouvée</string>
     <string name="upload_list_empty_headline">Aucun historique de téléversement</string>
-    <string name="upload_list_empty_text">Téléversez du contenu ou activez le téléversement instantané.</string>
     <string name="upload_list_empty_text_auto_upload">Téléversez du contenu ou activez le téléversement automatique.</string>
     <string name="file_list_folder">dossier</string>
     <string name="filedetails_select_file">Appuyez sur un fichier pour afficher des informations supplémentaires.</string>
@@ -119,7 +118,6 @@
     <string name="filedetails_sync_file">Synchroniser</string>
     <string name="filedetails_renamed_in_upload_msg">Le fichier a été renommé en %1$s pendant l\'envoi</string>
     <string name="list_layout">Affichage en liste</string>
-    <string name="action_send_share">Partager</string>
     <string name="common_yes">Oui</string>
     <string name="common_no">Non</string>
     <string name="common_ok">OK</string>
@@ -711,4 +709,5 @@ Attention la suppression est irréversible.</string>
     <string name="dev_version_no_information_available">Aucune information disponible.</string>
     <string name="dev_version_no_new_version_available">Aucune nouvelle version disponible.</string>
     <string name="folder_icon">Icône de dossier</string>
-</resources>
+
+    </resources>

@@ -111,7 +111,6 @@
     <string name="file_list_empty_text_videos">Nahrajte nějaká videa nebo aktivujte automatické nahrávání.</string>
     <string name="file_list_empty_text_videos_filter">Vaše vyhledávání nenalezlo žádná videa.</string>
     <string name="upload_list_empty_headline">Nic k nahrání</string>
-    <string name="upload_list_empty_text">Nahrajte nějaký obsah, nebo aktivujte okamžité nahrání!</string>
     <string name="upload_list_empty_text_auto_upload">Nahrajte nějaký obsah nebo aktivujte automatické nahrávání.</string>
     <string name="file_list_folder">adresář</string>
     <string name="filedetails_select_file">Více informací získáte klepnutím na soubor.</string>
@@ -119,7 +118,6 @@
     <string name="filedetails_sync_file">Synchronizovat</string>
     <string name="filedetails_renamed_in_upload_msg">Soubor byl během nahrávání přejmenován na %1$s</string>
     <string name="list_layout">Náhled seznamu</string>
-    <string name="action_send_share">Sdílet</string>
     <string name="common_yes">Ano</string>
     <string name="common_no">Ne</string>
     <string name="common_ok">OK</string>
@@ -698,4 +696,5 @@
     <string name="store_short_dev_desc">Aplikace Nextcloud Dev je vývojovým snímkem a může být nainstalována paralelně.</string>
     <string name="prefs_category_dev">Dev</string>
     <string name="folder_icon">Ikona adresáře</string>
-</resources>
+
+    </resources>

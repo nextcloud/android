@@ -112,7 +112,6 @@
     <string name="file_list_empty_text_videos">上傳些影片或者啟用自動上傳功能</string>
     <string name="file_list_empty_text_videos_filter">您的搜尋顯示無影片。</string>
     <string name="upload_list_empty_headline">沒有上傳的檔案</string>
-    <string name="upload_list_empty_text">上傳一些聯絡人或者啟用即時上傳</string>
     <string name="upload_list_empty_text_auto_upload">上傳一些聯絡人或者啟用自動上傳</string>
     <string name="file_list_folder">資料夾</string>
     <string name="filedetails_select_file">在檔案上輕觸來顯示更多資訊</string>
@@ -120,7 +119,6 @@
     <string name="filedetails_sync_file">同步</string>
     <string name="filedetails_renamed_in_upload_msg">上傳過程中檔案%1$s被重新命名</string>
     <string name="list_layout">清單顯示</string>
-    <string name="action_send_share">分享</string>
     <string name="common_yes">是</string>
     <string name="common_no">否</string>
     <string name="common_ok">好</string>

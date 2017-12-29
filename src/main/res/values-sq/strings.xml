@@ -109,7 +109,6 @@
     <string name="file_list_empty_text_videos">Ngarkoni disa video ose aktivizoni ngarkimin direkt.</string>
     <string name="file_list_empty_text_videos_filter">Kërkimi juaj nuk gjeti asnjë video.</string>
     <string name="upload_list_empty_headline">Nuk ka asnjë ngarkim në gjëndje</string>
-    <string name="upload_list_empty_text">Ngarko disa të dhëna ose aktivizo ngarkimin e menjëhershëm.</string>
     <string name="upload_list_empty_text_auto_upload">Ngarko disa përmbajtje ose aktivizo ngarkimin direkt. </string>
     <string name="file_list_folder">dosje</string>
     <string name="filedetails_select_file">Prekni mbi një kartelë që të shfaqen të dhëna shtesë.</string>
@@ -117,7 +116,6 @@
     <string name="filedetails_sync_file">Sinkronizo</string>
     <string name="filedetails_renamed_in_upload_msg">Skedari u riemërtua %1$s gjatë ngarkimit</string>
     <string name="list_layout">Strukturë e listuar</string>
-    <string name="action_send_share">Ndaje</string>
     <string name="common_yes">Po</string>
     <string name="common_no">Jo</string>
     <string name="common_ok">OK</string>

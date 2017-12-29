@@ -103,14 +103,12 @@
     <string name="file_list_empty_text_videos">動画をアップロードするか、自動アップロードを有効にしてください。</string>
     <string name="file_list_empty_text_videos_filter">検索条件に該当する動画が見つかりませんでした。</string>
     <string name="upload_list_empty_headline">アップロードは利用できません</string>
-    <string name="upload_list_empty_text">コンテンツをアップロードするか、インスタントアップロードを有効にしてください。</string>
     <string name="upload_list_empty_text_auto_upload">何かコンテンツをアップロードするか、自動アップロードを有効にしてください。</string>
     <string name="file_list_folder">フォルダー</string>
     <string name="filedetails_select_file">ファイルをタップすると追加情報が表示されます。</string>
     <string name="filedetails_download">ダウンロード</string>
     <string name="filedetails_sync_file">ファイルを同期</string>
     <string name="list_layout">リスト表示</string>
-    <string name="action_send_share">共有</string>
     <string name="common_yes">はい</string>
     <string name="common_no">いいえ</string>
     <string name="common_ok">OK</string>

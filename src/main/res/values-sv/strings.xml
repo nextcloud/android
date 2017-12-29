@@ -106,7 +106,6 @@
     <string name="file_list_empty_text_videos">Ladda upp några videor eller aktivera automatisk uppladdning.</string>
     <string name="file_list_empty_text_videos_filter">Din sökning gav inga videor.</string>
     <string name="upload_list_empty_headline">Inga nerladdningar tillgängliga</string>
-    <string name="upload_list_empty_text">Ladda upp något innehåll eller aktivera ögonblicklig uppladdning.</string>
     <string name="upload_list_empty_text_auto_upload">Ladda upp något innehåll eller aktivera automatisk uppladdning.</string>
     <string name="file_list_folder">mapp</string>
     <string name="filedetails_select_file">Peka på en fil för att visa mer information.</string>
@@ -114,7 +113,6 @@
     <string name="filedetails_sync_file">Synkronisera</string>
     <string name="filedetails_renamed_in_upload_msg">Fil döptes om till %1$s under uppladdning</string>
     <string name="list_layout">Listad layout</string>
-    <string name="action_send_share">Dela</string>
     <string name="common_yes">Ja</string>
     <string name="common_no">Nej</string>
     <string name="common_ok">OK</string>

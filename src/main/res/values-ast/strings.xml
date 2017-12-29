@@ -88,13 +88,11 @@
     <string name="file_list_empty_recently_added_filter">La to gueta nun devolvió ficheros amestaos apocayá</string>
     <string name="file_list_empty_text_videos_filter">La to gueta nun devolvió vídeos.</string>
     <string name="upload_list_empty_headline">Nun hai xubes disponibles</string>
-    <string name="upload_list_empty_text">Xubi dalgo de conteníu o activa la xuba nel intre.</string>
     <string name="file_list_folder">Carpeta</string>
     <string name="filedetails_select_file">Calca nun ficheru p\'amosar información adicional</string>
     <string name="filedetails_download">Descargar</string>
     <string name="filedetails_sync_file">Sincroniza</string>
     <string name="filedetails_renamed_in_upload_msg">Renomóse\'l ficheru %1$s na xuba</string>
-    <string name="action_send_share">Compartir</string>
     <string name="common_yes">Sí</string>
     <string name="common_no">Non</string>
     <string name="common_ok">Aceutar</string>

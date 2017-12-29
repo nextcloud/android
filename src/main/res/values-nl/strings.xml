@@ -112,7 +112,6 @@ Kies er eentje van een provider.</string>
     <string name="file_list_empty_text_videos">Upload enkele video\'s of activeer auto-upload.</string>
     <string name="file_list_empty_text_videos_filter">Geen video\'s voor je zoekopdracht.</string>
     <string name="upload_list_empty_headline">Geen uploads beschikbaar</string>
-    <string name="upload_list_empty_text">Upload enkele gegevens of activeer directe upload.</string>
     <string name="upload_list_empty_text_auto_upload">Upload enkele gegevens of activeer auto-upload.</string>
     <string name="file_list_folder">map</string>
     <string name="filedetails_select_file">Druk op een bestand om extra informatie weer te geven</string>
@@ -120,7 +119,6 @@ Kies er eentje van een provider.</string>
     <string name="filedetails_sync_file">Synchroniseren</string>
     <string name="filedetails_renamed_in_upload_msg">Bestand hernoemd naar %1$s tijdens de upload</string>
     <string name="list_layout">Lijstoverzicht</string>
-    <string name="action_send_share">Delen</string>
     <string name="common_yes">Ja</string>
     <string name="common_no">Nee</string>
     <string name="common_ok">OK</string>
@@ -710,4 +708,5 @@ Kies er eentje van een provider.</string>
     <string name="dev_version_no_information_available">Geen informatie beschikbaar.</string>
     <string name="dev_version_no_new_version_available">Geen nieuwe versie beschikbaar.</string>
     <string name="folder_icon">Map pictogram</string>
-</resources>
+
+    </resources>

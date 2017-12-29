@@ -111,7 +111,6 @@
     <string name="file_list_empty_text_videos">Az automatikus feltöltés aktiválásához tölts fel néhány videót.</string>
     <string name="file_list_empty_text_videos_filter">A keresés nem talált videókat.</string>
     <string name="upload_list_empty_headline">Nincsenek feltöltések</string>
-    <string name="upload_list_empty_text">Tölts fel néhány tartalmat, vagy aktiváld az azonnali feltöltést.</string>
     <string name="upload_list_empty_text_auto_upload">Az automatikus feltöltés aktiválásához tölts fel valami tartalmat.</string>
     <string name="file_list_folder">mappa</string>
     <string name="filedetails_select_file">Érintsen meg egy fájlt a további információkért.</string>
@@ -119,7 +118,6 @@
     <string name="filedetails_sync_file">Szinkronizálás</string>
     <string name="filedetails_renamed_in_upload_msg">A fájl feltöltés közben átnevezve erre: %1$s</string>
     <string name="list_layout">Listás elrendezés</string>
-    <string name="action_send_share">Megosztás</string>
     <string name="common_yes">Igen</string>
     <string name="common_no">Nem</string>
     <string name="common_ok">OK</string>
@@ -730,4 +728,5 @@ A Nextcloud itt érhető el: https://nextcloud.com</string>
     <string name="dev_version_no_information_available">Nincs információ.</string>
     <string name="dev_version_no_new_version_available">Nincs új verzió.</string>
     <string name="folder_icon">Mappaikon</string>
-</resources>
+
+    </resources>

@@ -111,7 +111,6 @@
     <string name="file_list_empty_text_videos">ატვირთეთ რამდენიმე ვიდეო რგოლი ან გაააქტიურეთ ავტო-ატვირთვა.</string>
     <string name="file_list_empty_text_videos_filter">ვერც ერთი ვიდეო რგოლი ვერ იქნა ნაპოვნი.</string>
     <string name="upload_list_empty_headline">არც ერთი ატვირთვა არაა ხელმისაწვდომი.</string>
-    <string name="upload_list_empty_text">ატვირთეთ რაიმე ან გაააქტიურეთ მყისიერი ატვირთვა.</string>
     <string name="upload_list_empty_text_auto_upload">ატვირთეთ რაიმე ან გაააქტიურეთ ავტო-ატვირთვა.</string>
     <string name="file_list_folder">დირექტორია</string>
     <string name="filedetails_select_file">დააჭირეთ ფაილს დამატებითი ინფორმაციის გამოსაჩენად.</string>
@@ -119,7 +118,6 @@
     <string name="filedetails_sync_file">სინქრონიზაცია</string>
     <string name="filedetails_renamed_in_upload_msg">ატვირთვისას ფაილს სახელი შეეცვალა %1$s-ზე</string>
     <string name="list_layout">ჩამოწერილი მაკეტი</string>
-    <string name="action_send_share">გაზიარება</string>
     <string name="common_yes">კი</string>
     <string name="common_no">არა</string>
     <string name="common_ok">კარგი</string>
