@@ -106,7 +106,6 @@
     <string name="file_list_empty_text_videos">Cargue algunos videos o active la carga automática.</string>
     <string name="file_list_empty_text_videos_filter">Su búsqueda no encontró videos. </string>
     <string name="upload_list_empty_headline">No hay cargas disponibles</string>
-    <string name="upload_list_empty_text">Cargue algún contenido o active la carga instantánea</string>
     <string name="upload_list_empty_text_auto_upload">Cargue algún contenido o active la carga automática</string>
     <string name="file_list_folder">carpeta</string>
     <string name="filedetails_select_file">Pulse un archivo para mostrar información adicional.</string>
@@ -114,7 +113,6 @@
     <string name="filedetails_sync_file">Sincronizar</string>
     <string name="filedetails_renamed_in_upload_msg">El archivo se renombró como %1$s durante la carga</string>
     <string name="list_layout">Vista enlistada</string>
-    <string name="action_send_share">Compartir</string>
     <string name="common_yes">Sí</string>
     <string name="common_no">No</string>
     <string name="common_ok">OK</string>

@@ -111,7 +111,6 @@
     <string name="file_list_empty_text_videos">Wyślij pliki wideo lub włącz automatyczne wysyłanie</string>
     <string name="file_list_empty_text_videos_filter">Twoje wyszukiwanie nie zwróciło żadnych plików wideo</string>
     <string name="upload_list_empty_headline">Brak dostępnych danych do wysłania</string>
-    <string name="upload_list_empty_text">Wyślij zawartość lub włącz wysyłanie natychmiastowe.</string>
     <string name="upload_list_empty_text_auto_upload">Wyślij zawartość lub włącz wysyłanie automatyczne.</string>
     <string name="file_list_folder">folder</string>
     <string name="filedetails_select_file">Dotknij plik aby wyświetlić dodatkowe informacje</string>
@@ -119,7 +118,6 @@
     <string name="filedetails_sync_file">Synchronizuj</string>
     <string name="filedetails_renamed_in_upload_msg">Podczas wysyłania zmieniono nazwę pliku na %1$s</string>
     <string name="list_layout">Wygląd listy</string>
-    <string name="action_send_share">Udostępnij</string>
     <string name="common_yes">Tak</string>
     <string name="common_no">Nie</string>
     <string name="common_ok">OK</string>

@@ -111,7 +111,6 @@
     <string name="file_list_empty_text_videos">Sube algunos vídeos o activa la subida automática.</string>
     <string name="file_list_empty_text_videos_filter">Tu búsqueda no encontró vídeos.</string>
     <string name="upload_list_empty_headline">No hay subidas disponibles</string>
-    <string name="upload_list_empty_text">Sube algún contenido o activa la subida instantánea.</string>
     <string name="upload_list_empty_text_auto_upload">Sube algún contenido o active la subida automática.</string>
     <string name="file_list_folder">carpeta</string>
     <string name="filedetails_select_file">Pulsa sobre un archivo para mostrar información adicional.</string>
@@ -119,7 +118,6 @@
     <string name="filedetails_sync_file">Sincronizar</string>
     <string name="filedetails_renamed_in_upload_msg">Archivo renombrado a %1$s durante la subida</string>
     <string name="list_layout">Formato de lista</string>
-    <string name="action_send_share">Compartir</string>
     <string name="common_yes">Sí</string>
     <string name="common_no">No</string>
     <string name="common_ok">Aceptar</string>
@@ -707,4 +705,5 @@
     <string name="dev_version_no_information_available">No hay información disponible</string>
     <string name="dev_version_no_new_version_available">No hay disponible ninguna versión nueva</string>
     <string name="folder_icon">Icono de carpeta</string>
-</resources>
+
+    </resources>

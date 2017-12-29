@@ -111,7 +111,6 @@
     <string name="file_list_empty_text_videos">Carga algunos videos o activa la carga automática.</string>
     <string name="file_list_empty_text_videos_filter">Tu búsqueda no encontró videos. </string>
     <string name="upload_list_empty_headline">No hay cargas disponibles</string>
-    <string name="upload_list_empty_text">Carga algún contenido o activa la carga automática</string>
     <string name="upload_list_empty_text_auto_upload">Carga algún contenido o activa la carga automática</string>
     <string name="file_list_folder">carpeta</string>
     <string name="filedetails_select_file">Pulsa un archivo para mostrar información adicional.</string>
@@ -708,4 +707,5 @@
     <string name="dev_version_no_information_available">No hay información disponible.</string>
     <string name="dev_version_no_new_version_available">No hay una nueva versión disponible.</string>
     <string name="folder_icon">Ícono de carpeta</string>
-</resources>
+
+    </resources>

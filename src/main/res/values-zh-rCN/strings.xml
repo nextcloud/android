@@ -111,7 +111,6 @@
     <string name="file_list_empty_text_videos">上传一些视频或启动自动上传</string>
     <string name="file_list_empty_text_videos_filter">搜索结果中没有视频。</string>
     <string name="upload_list_empty_headline">没有可以上传的</string>
-    <string name="upload_list_empty_text">上传一些内容或启用即时上传。</string>
     <string name="upload_list_empty_text_auto_upload">上传一些内容或启用自动上传。</string>
     <string name="file_list_folder">文件夹</string>
     <string name="filedetails_select_file">点击一个文件可以显示额外的信息。</string>
@@ -119,7 +118,6 @@
     <string name="filedetails_sync_file">同步</string>
     <string name="filedetails_renamed_in_upload_msg">文件在上传时被重命名为%1$s</string>
     <string name="list_layout">列出的布局</string>
-    <string name="action_send_share">共享</string>
     <string name="common_yes">是</string>
     <string name="common_no">否</string>
     <string name="common_ok">确定</string>
@@ -639,4 +637,5 @@
     <string name="date_unknown">未知</string>
 
     <string name="folder_icon">目录图标</string>
-</resources>
+
+    </resources>

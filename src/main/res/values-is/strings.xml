@@ -110,7 +110,6 @@ Smelltu hér til að fá þér einn frá þjónustuaðila.</string>
     <string name="file_list_empty_text_videos">Sendu inn einhver myndskeið eða virkjaðu sjálfvirka innsendingu.</string>
     <string name="file_list_empty_text_videos_filter">Leitin skilaði engum myndskeiðum.</string>
     <string name="upload_list_empty_headline">Engar innsendingar tiltækar</string>
-    <string name="upload_list_empty_text">Sendu inn eitthvað efni eða virkjaðu beina innsendingu.</string>
     <string name="upload_list_empty_text_auto_upload">Sendu inn einhverjar myndir eða virkjaðu sjálfvirka innsendingu.</string>
     <string name="file_list_folder">mappa</string>
     <string name="filedetails_select_file">Bankaðu á skrá til að sjá ítarlegri upplýsingar.</string>
@@ -118,7 +117,6 @@ Smelltu hér til að fá þér einn frá þjónustuaðila.</string>
     <string name="filedetails_sync_file">Samstilla</string>
     <string name="filedetails_renamed_in_upload_msg">Skrá endurnefnd sem %1$s við innsendingu</string>
     <string name="list_layout">Framsetning sem listi</string>
-    <string name="action_send_share">Deila</string>
     <string name="common_yes">Já</string>
     <string name="common_no">Nei</string>
     <string name="common_ok">Í lagi</string>

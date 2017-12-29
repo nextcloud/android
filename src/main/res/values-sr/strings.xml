@@ -111,7 +111,6 @@
     <string name="file_list_empty_text_videos">Отпремите неке видео записе или укључите аутоматско отпремање.</string>
     <string name="file_list_empty_text_videos_filter">Ваша претрага није пронашла ниједан видео.</string>
     <string name="upload_list_empty_headline">Нема доступних отпремања</string>
-    <string name="upload_list_empty_text">Отпремите неки садржај или укључите брзо отпремање.</string>
     <string name="upload_list_empty_text_auto_upload">Отпремите неки садржај или укључите аутоматско отпремање.</string>
     <string name="file_list_folder">фасцикла</string>
     <string name="filedetails_select_file">Кликните на фајл ради приказа додатних информација.</string>
@@ -119,7 +118,6 @@
     <string name="filedetails_sync_file">Синхронизуј</string>
     <string name="filedetails_renamed_in_upload_msg">Фајл преименован у %1$sза време отпремања</string>
     <string name="list_layout">Излистани распоред</string>
-    <string name="action_send_share">Дељење</string>
     <string name="common_yes">Да</string>
     <string name="common_no">Не</string>
     <string name="common_ok">У реду</string>
@@ -519,7 +517,7 @@
     <string name="manage_space_description">Подешавања, база и серверски сертификати од података са %1$s ће бити заувек обрисани. \n\nВећ скинути фајлови неће бити дирани.\n\nОво може потрајати.</string>
     <string name="manage_space_clear_data">Очисти податке</string>
 
-    <string name="permission_storage_access">Додатне привилегије потребне да се отпремају и скидају фајлови.</string>
+    <string name="permission_storage_access">Додатне дозволе потребне да се отпремају и скидају фајлови.</string>
     <string name="local_file_not_found_toast">Фајл није нађен у локалном систему фајлова</string>
     <string name="confirmation_remove_files_alert">Да ли стварно желите да обришете означене ставке?</string>
     <string name="confirmation_remove_folders_alert">Да ли стварно желите да обришете означене ставке и сав њихов садржај?</string>
@@ -534,6 +532,7 @@
     <string name="participate_testing_headline">Помози тестирајући</string>
     <string name="participate_testing_bug_text">Нашли сте грешку? Нешто чудно?</string>
     <string name="participate_testing_report_text">Пријавите проблем на GitHub-у</string>
+    <string name="participate_testing_version_text">Заинтересовани да помогнете тако што ћете тестирати шта ће бити у наредној верзији?</string>
     <string name="participate_beta_headline">Тестирајте развојну верзију</string>
     <string name="participate_beta_text">Ово укључује све функционалности које тек долазе и најновији и најсвежији кôд. То значи и да могу лако да се појаве грешке. Ако их уочите, молимо да их пријавите.</string>
     <string name="participate_release_candidate_headline">Кандидат за нову верзију</string>
@@ -626,9 +625,10 @@
     <string name="contacts_backup_button">Направите резервну копију сада</string>
     <string name="contacts_automatic_backup">Аутоматско прављење резервне копије</string>
     <string name="contacts_last_backup">Последња резервна копија</string>
-    <string name="contacts_read_permission">Потребне привилегије за читање листе контаката</string>
+    <string name="contacts_read_permission">Потребне дозволе за читање листе контаката</string>
     <string name="contaclist_restore_selected">Поврати означене контакте</string>
     <string name="contactlist_account_chooser_title">Одаберите налоге за увоз</string>
+    <string name="contactlist_no_permission">Ниједна дозвола није дата, ништа није увезено.</string>
     <string name="contacts_preference_choose_date">Одаберите датум</string>
     <string name="contacts_preference_backup_never">никада</string>
     <string name="contacts_preferences_no_file_found">Ниједан фајл није нађен</string>
@@ -638,6 +638,7 @@
 
     <!-- Notifications -->
     <string name="new_notification_received">Примљено ново обавештење</string>
+    <string name="drawer_logout">Одјава</string>
     <string name="picture_set_as_no_app">Ниједна апликација није нађена за постављање слике!</string>
     <string name="privacy">Приватност</string>
     <string name="file_not_found">Фајл није пронађен!</string>
@@ -664,6 +665,7 @@
     <string name="push_notifications_old_login">Нема брзих обавештења зато што вам је сесија застарела. Избришите и додајте поново налог.</string>
     <string name="push_notifications_temp_error">Брза обавештења тренутно нису доступна.</string>
 
+    <string name="sync_in_progress">Дохватам најскорију верзију фајла.</string>
     <string name="date_unknown">Непознато</string>
 
     <string name="resized_image_not_possible">Нема доступне умањене сличице. Скини оригиналну слику?</string>
@@ -704,6 +706,11 @@
     <string name="what_s_new_image">Слика шта је ново</string>
 
     <string name="store_short_dev_desc">Развојна верзија се тренутно развија и може се ставити заједно са постојећом.</string>
+    <string name="store_full_dev_desc">Некстклауд Андроид апликација слободног и отвореног кода Вам омогућава да приступате свим фајловима на Некстклауду.\nОво је званична развојна верзија Некстклауд апликације и укључује најновије, али и неистестиране функционалности на дневном нивоу, које могу довести до нестабилности у раду апликације, па чак и губитка података. Апликација је намењена корисницима који желе да тестирају нове функционалности и пријаве грешке, ако се оне десе. Не користити је за продукцију!\n\nИ развојна и званична верзија су доступне на Ф-Дроид продавници, и обе се могу инсталирати у паралели.</string>
+
     <string name="prefs_category_dev">Развојно</string>
+    <string name="dev_version_no_information_available">Информације недоступне.</string>
+    <string name="dev_version_no_new_version_available">Нема нових верзија доступних.</string>
     <string name="folder_icon">Икона фасцикле</string>
-</resources>
+
+    </resources>

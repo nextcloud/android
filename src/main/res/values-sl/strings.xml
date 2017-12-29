@@ -106,14 +106,12 @@
     <string name="file_list_empty_text_videos">Naloži kakšen video ali vključi samodejno nalaganje.</string>
     <string name="file_list_empty_text_videos_filter">Iskanje ni vrnilo video posnetkov.</string>
     <string name="upload_list_empty_headline">Nič ni pripravljeno za nalaganje</string>
-    <string name="upload_list_empty_text">Naloži kakšno vsebino ali vključi hipno nalaganje.</string>
     <string name="upload_list_empty_text_auto_upload">Naloži kakšno vsebino ali vključi samodejno nalaganje.</string>
     <string name="file_list_folder">mapa</string>
     <string name="filedetails_select_file">Pritisnite na datoteko za prikaz dodatnih podrobnosti.</string>
     <string name="filedetails_download">Prejmi</string>
     <string name="filedetails_sync_file">Uskladi</string>
     <string name="filedetails_renamed_in_upload_msg">Datoteka je bila preimenovana v %1$s med nalaganjem</string>
-    <string name="action_send_share">Souporaba</string>
     <string name="common_yes">Da</string>
     <string name="common_no">Ne</string>
     <string name="common_ok">V redu</string>

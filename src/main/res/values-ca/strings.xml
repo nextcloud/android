@@ -111,7 +111,6 @@
     <string name="file_list_empty_text_videos">Carrega vídeos o activa la càrrega automàtica.</string>
     <string name="file_list_empty_text_videos_filter">La teva cerca no ha retornat vídeos.</string>
     <string name="upload_list_empty_headline">No hi ha pujades disponibles</string>
-    <string name="upload_list_empty_text">Puja algun contingut o activa la càrrega instantània.</string>
     <string name="upload_list_empty_text_auto_upload">Carrega algun contingut o activa la càrrega automàtica.</string>
     <string name="file_list_folder">carpeta</string>
     <string name="filedetails_select_file">Feu clic en un fitxer per mostrar informació addicional.</string>
@@ -119,7 +118,6 @@
     <string name="filedetails_sync_file">Sincronitza</string>
     <string name="filedetails_renamed_in_upload_msg">S\'ha canviat el nom del fitxer %1$sdurant la càrrega</string>
     <string name="list_layout">Disposició llistada</string>
-    <string name="action_send_share">Comparteix</string>
     <string name="common_yes">Sí</string>
     <string name="common_no">No</string>
     <string name="common_ok">D\'acord</string>
