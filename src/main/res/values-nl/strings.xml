@@ -119,6 +119,7 @@ Kies er eentje van een provider.</string>
     <string name="filedetails_sync_file">Synchroniseren</string>
     <string name="filedetails_renamed_in_upload_msg">Bestand hernoemd naar %1$s tijdens de upload</string>
     <string name="list_layout">Lijstoverzicht</string>
+    <string name="action_send_share">Versturen/Delen</string>
     <string name="common_yes">Ja</string>
     <string name="common_no">Nee</string>
     <string name="common_ok">OK</string>
@@ -709,4 +710,7 @@ Kies er eentje van een provider.</string>
     <string name="dev_version_no_new_version_available">Geen nieuwe versie beschikbaar.</string>
     <string name="folder_icon">Map pictogram</string>
 
-    </resources>
+    <string name="send">Versturen</string>
+    <string name="share">Delen</string>
+    <string name="link">Link</string>
+</resources>

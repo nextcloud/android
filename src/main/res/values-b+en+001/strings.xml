@@ -118,6 +118,7 @@
     <string name="filedetails_sync_file">Synchronise</string>
     <string name="filedetails_renamed_in_upload_msg">File renamed to %1$s during upload</string>
     <string name="list_layout">Listed layout</string>
+    <string name="action_send_share">Send/Share</string>
     <string name="common_yes">Yes</string>
     <string name="common_no">No</string>
     <string name="common_ok">OK</string>
@@ -708,4 +709,7 @@
     <string name="dev_version_no_new_version_available">No new version available.</string>
     <string name="folder_icon">Folder icon</string>
 
-    </resources>
+    <string name="send">Send</string>
+    <string name="share">Share</string>
+    <string name="link">Link</string>
+</resources>
