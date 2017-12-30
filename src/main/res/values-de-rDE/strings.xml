@@ -118,6 +118,7 @@
     <string name="filedetails_sync_file">Synchronisieren</string>
     <string name="filedetails_renamed_in_upload_msg">Datei während des Hochladens in %1$s umbenannt</string>
     <string name="list_layout">Layout der Liste</string>
+    <string name="action_send_share">Senden/Teilen</string>
     <string name="common_yes">Ja</string>
     <string name="common_no">Nein</string>
     <string name="common_ok">OK</string>
@@ -708,4 +709,7 @@
     <string name="dev_version_no_new_version_available">Keine neue Version verfügbar.</string>
     <string name="folder_icon">Ordnersymbol</string>
 
-    </resources>
+    <string name="send">Senden</string>
+    <string name="share">Teilen</string>
+    <string name="link">Link</string>
+</resources>

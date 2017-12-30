@@ -118,6 +118,7 @@
     <string name="filedetails_sync_file">Sincronizar</string>
     <string name="filedetails_renamed_in_upload_msg">El archivo se renombró como %1$s durante la carga</string>
     <string name="list_layout">Vista de lista</string>
+    <string name="action_send_share">Enviar/Compartir</string>
     <string name="common_yes">Sí</string>
     <string name="common_no">No</string>
     <string name="common_ok">OK</string>
@@ -708,4 +709,7 @@
     <string name="dev_version_no_new_version_available">No hay una nueva versión disponible.</string>
     <string name="folder_icon">Ícono de carpeta</string>
 
-    </resources>
+    <string name="send">Enviar</string>
+    <string name="share">Compartir</string>
+    <string name="link">Liga</string>
+</resources>

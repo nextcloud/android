@@ -48,6 +48,7 @@
     <string name="prefs_calendar_contacts">Synkronisera kalender &amp; kontakter</string>
     <string name="prefs_calendar_contacts_summary">Sätt upp DAVdroid (v1.3.0+) för nuvarande konto</string>
     <string name="prefs_calendar_contacts_address_resolve_error">Serveradressen för kontot kan inte hittas för DAVdroid</string>
+    <string name="prefs_calendar_contacts_no_store_error">Varken F-Droid eller Google Play är installerad</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Synkronisera kalender &amp; kontakter</string>
     <string name="prefs_daily_contacts_sync_summary">Daglig backup av dina kontakter</string>
     <string name="prefs_help">Hjälp</string>
@@ -55,7 +56,10 @@
     <string name="prefs_feedback">Feedback</string>
     <string name="prefs_imprint">Imprint</string>
 
-	<string name="auth_check_server">Testa servern</string>
+	<string name="recommend_subject">Försök%1$s på din enhet!</string>
+	<string name="recommend_urls">%1$s eller %2$s</string>
+
+    <string name="auth_check_server">Testa servern</string>
     <string name="auth_host_url">Serveradress https://&#8230;</string>
     <string name="auth_username">Användarnamn</string>
     <string name="auth_password">Lösenord</string>
@@ -113,6 +117,7 @@
     <string name="filedetails_sync_file">Synkronisera</string>
     <string name="filedetails_renamed_in_upload_msg">Fil döptes om till %1$s under uppladdning</string>
     <string name="list_layout">Listad layout</string>
+    <string name="action_send_share">Skicka/Dela</string>
     <string name="common_yes">Ja</string>
     <string name="common_no">Nej</string>
     <string name="common_ok">OK</string>
@@ -139,6 +144,7 @@
     <string name="uploader_upload_failed_ticker">Misslyckad uppladdning</string>
     <string name="uploader_upload_failed_content_single">Kunde inte ladda upp %1$s</string>
     <string name="uploader_upload_failed_credentials_error">Uppladdningen misslyckades, du måste logga in igen</string>
+    <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">Servercertifikat är inte betrott</string>
     <string name="uploads_view_title">Uppladdningar</string>
     <string name="uploads_view_group_current_uploads">Nuvarande</string>
     <string name="uploads_view_group_failed_uploads">Misslyckades / Väntar på omstart</string>
@@ -165,6 +171,7 @@
     <string name="downloader_not_downloaded_yet">Ännu inte nedladdade</string>
     <string name="downloader_download_failed_credentials_error">Nedladdningen misslyckades, du måste logga in igen</string>
     <string name="common_choose_account">Välj konto</string>
+    <string name="common_switch_account">Växla Konto</string>
     <string name="sync_fail_ticker">Synkronisering misslyckades</string>
     <string name="sync_fail_ticker_unauthorized">Synkronisering misslyckades, du behöver logga in igen</string>
     <string name="sync_fail_content">Kunde inte fullfölja synkroniseringen av %1$s</string>
@@ -173,16 +180,26 @@
     <string name="sync_fail_in_favourites_ticker">Filer flaggade som Håll-filen-uppdaterad misslyckades</string>
     <string name="sync_foreign_files_forgotten_ticker">Vissa lokala filer glömdes</string>
     <string name="sync_current_folder_was_removed">Mappen %1$s finns inte längre</string>
+    <string name="foreign_files_move">Flytta all</string>
+    <string name="foreign_files_success">Alla filer flyttades</string>
+    <string name="foreign_files_fail">Vissa filer kunde inte flyttas</string>
+    <string name="foreign_files_local_text">Lokal: %1$s</string>
+    <string name="foreign_files_remote_text">Extern: %1$s</string>
     <string name="upload_query_move_foreign_files">Otillräckligt utrymme förhindrar kopiering av de valda filerna till %1$s -mappen. Vill du flytta dem dit i stället?</string>
     <string name="pass_code_enter_pass_code">Var god ange ditt lösenord</string>
     
     <string name="pass_code_configure_your_pass_code">Skriv in ditt lösenord</string>
     <string name="pass_code_configure_your_pass_code_explanation">Koden kommer efterfrågas varje gång du startar appen</string>
     <string name="pass_code_reenter_your_pass_code">Var god ange ditt lösenord igen</string>
+    <string name="pass_code_remove_your_pass_code">Radera ditt lösenord</string>
     <string name="pass_code_mismatch">Koderna matchar inte</string>
     <string name="pass_code_wrong">Ogiltigt lösenord</string>
+    <string name="pass_code_removed">Lösenord raderat</string>
     <string name="pass_code_stored">Kod sparad</string>
     
+    <string name="media_notif_ticker">%1$s musikspelare</string>
+    <string name="media_state_playing">%1$s (spelar)</string>
+    <string name="media_state_loading">%1$s (laddar)</string>
     <string name="media_err_nothing_to_play">Hittar ingen mediefil</string>
     <string name="media_err_no_account">Inget konto är angivet</string>
     <string name="media_err_not_in_owncloud">Filen är inte i ett giltigt konto</string>
