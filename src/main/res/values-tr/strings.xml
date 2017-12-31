@@ -118,6 +118,7 @@
     <string name="filedetails_sync_file">Eşitle</string>
     <string name="filedetails_renamed_in_upload_msg">Dosya adı, yükleme sırasında %1$s olarak değiştirildi</string>
     <string name="list_layout">Liste düzeni</string>
+    <string name="action_send_share">Gönder/Paylaş</string>
     <string name="common_yes">Evet</string>
     <string name="common_no">Hayır</string>
     <string name="common_ok">Tamam</string>
@@ -708,4 +709,7 @@
     <string name="dev_version_no_new_version_available">Yeni bir sürüm yok.</string>
     <string name="folder_icon">Klasör Simgesi</string>
 
-    </resources>
+    <string name="send">Gönder</string>
+    <string name="share">Paylaş</string>
+    <string name="link">Bağlantı</string>
+</resources>
