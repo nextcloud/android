@@ -1158,7 +1158,11 @@ public class FileUploader extends Service
     private void notifyUploadResult(UploadFileOperation upload,
                                     RemoteOperationResult uploadResult) {
         Log_OC.d(TAG, "NotifyUploadResult with resultCode: " + uploadResult.getCode());
-        // / cancelled operation or success -> silent removal of progress notification
+        // cancelled operation or success -> silent removal of progress notification
+        if (mNotificationManager == null) {
+            mNotificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        }
+
         mNotificationManager.cancel(R.string.uploader_upload_in_progress_ticker);
 
         // Show the result: success or fail notification
