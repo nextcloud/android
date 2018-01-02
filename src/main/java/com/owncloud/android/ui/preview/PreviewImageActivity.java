@@ -152,7 +152,7 @@ public class PreviewImageActivity extends FileActivity implements
                     parentFolder, getAccount(), getStorageManager(), MainApp.isOnlyOnDevice());
         }
 
-        mViewPager = (ExtendedViewPager) findViewById(R.id.fragmentPager);
+        mViewPager = findViewById(R.id.fragmentPager);
 
         int position = mHasSavedPosition ? mSavedPosition : mPreviewImagePagerAdapter.getFilePosition(getFile());
         position = (position >= 0) ? position : 0;
@@ -318,8 +318,6 @@ public class PreviewImageActivity extends FileActivity implements
                 AccountUtils.getCurrentOwnCloudAccount(this));
         showDetailsIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         startActivity(showDetailsIntent);
-        int pos = mPreviewImagePagerAdapter.getFilePosition(file);
-        file = mPreviewImagePagerAdapter.getFileAt(pos);
         finish();
     }
 
@@ -347,10 +345,12 @@ public class PreviewImageActivity extends FileActivity implements
         mHasSavedPosition = true;
         if (mDownloaderBinder == null) {
             mRequestWaitingForBinder = true;
-            
         } else {
-            OCFile currentFile = mPreviewImagePagerAdapter.getFileAt(position); 
-            getSupportActionBar().setTitle(currentFile.getFileName());
+            OCFile currentFile = mPreviewImagePagerAdapter.getFileAt(position);
+
+            if (getSupportActionBar() != null && currentFile != null) {
+                getSupportActionBar().setTitle(currentFile.getFileName());
+            }
             setDrawerIndicatorEnabled(false);
 
             // Call to reset image zoom to initial state
