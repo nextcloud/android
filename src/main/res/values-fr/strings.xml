@@ -118,6 +118,7 @@
     <string name="filedetails_sync_file">Synchroniser</string>
     <string name="filedetails_renamed_in_upload_msg">Le fichier a été renommé en %1$s pendant l\'envoi</string>
     <string name="list_layout">Affichage en liste</string>
+    <string name="action_send_share">Envoyer / Partager</string>
     <string name="common_yes">Oui</string>
     <string name="common_no">Non</string>
     <string name="common_ok">OK</string>
@@ -710,4 +711,7 @@ Attention la suppression est irréversible.</string>
     <string name="dev_version_no_new_version_available">Aucune nouvelle version disponible.</string>
     <string name="folder_icon">Icône de dossier</string>
 
-    </resources>
+    <string name="send">Envoyer</string>
+    <string name="share">Partager</string>
+    <string name="link">Lien</string>
+</resources>
