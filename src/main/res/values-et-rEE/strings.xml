@@ -83,7 +83,7 @@
     <string name="folder_list_empty_headline">Siin ei ole kaustu</string>
     <string name="file_list_empty_favorites_filter_list">Lemmikuteks märgitud failid ja kaustad kuvatakse siin</string>
     <string name="file_list_empty_favorites_filter">Sinu poolt sooritatud otsing ei leidnud ühtegi lemmikuks märgitud faili.</string>
-    <string name="file_list_loading">Laadimine...</string>
+    <string name="file_list_loading">Laadimine &#8230;</string>
     <string name="local_file_list_empty">Kaustas pole faile.</string>
     <string name="local_folder_list_empty">Rohkem kaustu ei ole.</string>
     <string name="file_list_empty_headline_server_search">Vasteid ei leitud</string>
@@ -104,7 +104,7 @@
     <string name="common_cancel">Loobu</string>
     <string name="common_back">Tagasi</string>
     <string name="common_save">Salvesta</string>
-    <string name="common_loading">Laadimine ...</string>
+    <string name="common_loading">Laadimine &#8230;</string>
     <string name="common_unknown">tundmatu</string>
     <string name="common_error_unknown">Tundmatu viga</string>
     <string name="common_pending">Ootel</string>
@@ -114,9 +114,9 @@
     <string name="delete_account">Eemalda konto</string>
     <string name="avatar">Avatar</string>
     <string name="active_user">Aktiivne kasutaja</string>
-    <string name="upload_chooser_title">Lae fail üles kohast ...</string>
+    <string name="upload_chooser_title">Lae fail üles kohast &#8230;</string>
     <string name="uploader_info_dirname">Kausta nimi</string>
-    <string name="uploader_upload_in_progress_ticker">Üleslaadimine ...</string>
+    <string name="uploader_upload_in_progress_ticker">Üleslaadimine &#8230;</string>
     <string name="uploader_upload_in_progress_content">%1$d%% üleslaadimine %2$s</string>
     <string name="uploader_upload_succeeded_ticker">Ülesse laetud</string>
     <string name="uploader_upload_failed_ticker">Üleslaadimine ebaõnnestus</string>
@@ -135,7 +135,7 @@
     <string name="uploads_view_upload_status_unknown_fail">Tundmatu viga</string>
     <string name="uploads_view_upload_status_waiting_for_wifi">Wi-Fi ühenduse ootamine</string>
     <string name="uploads_view_later_waiting_to_upload">Üleslaadimise ootamine</string>
-    <string name="downloader_download_in_progress_ticker">Allalaadimine ...</string>
+    <string name="downloader_download_in_progress_ticker">Allalaadimine &#8230;</string>
     <string name="downloader_download_in_progress_content">%1$d%% allalaadimine %2$s</string>
     <string name="downloader_download_succeeded_ticker">Alla laetud</string>
     <string name="downloader_download_succeeded_content">%1$s alla laetud</string>
@@ -268,7 +268,7 @@
     <string name="actionbar_logger">Logid</string>
 	<string name="log_send_history_button">Saada ajalugu</string>
 	<string name="log_send_mail_subject">%1$s Androidi rakenduse logid</string>
-	<string name="log_progress_dialog_text">Andmete laadimine ...</string>
+	<string name="log_progress_dialog_text">Andmete laadimine &#8230;</string>
 
 	<string name="saml_authentication_required_text">Autentimine on vajalik</string>
 	<string name="saml_authentication_wrong_pass">Vale parool</string>
@@ -294,8 +294,8 @@
 
     <string name="username">Kasutajanimi</string>
 
-    <string name="prefs_instant_behaviour_dialogTitle">Algne fail&#8230;</string>
-    <string name="prefs_instant_behaviour_title">Algne fail&#8230;</string>
+    <string name="prefs_instant_behaviour_dialogTitle">Algne fail &#8230;</string>
+    <string name="prefs_instant_behaviour_title">Algne fail &#8230;</string>
     <string name="pref_behaviour_entries_keep_file">hoitakse algses kaustas</string>
     <string name="pref_behaviour_entries_move">liigutatakse rakenduse kausta</string>
     <string name="share_dialog_title">Jagamine</string>
@@ -306,7 +306,7 @@
     <string name="share_via_link_expiration_date_label">Määra aegumise kuupäev</string>
     <string name="share_via_link_password_title">Turvatud</string>
     <string name="share_get_public_link_button">Hangi link</string>
-    <string name="share_with_title">Jaga ...</string>
+    <string name="share_with_title">Jaga &#8230;</string>
     <string name="share_search">Otsi</string>
 
     <string name="search_users_and_groups_hint">Otsi kasutajaid ja gruppe</string>
