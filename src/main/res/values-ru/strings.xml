@@ -15,8 +15,8 @@
     <string name="sort_by">Порядок сортировки</string>
     <string name="menu_item_sort_by_name_a_z">А − Я</string>
     <string name="menu_item_sort_by_name_z_a">Я − A</string>
-    <string name="menu_item_sort_by_date_newest_first">Новые − старые</string>
-    <string name="menu_item_sort_by_date_oldest_first">Старые − новые</string>
+    <string name="menu_item_sort_by_date_newest_first">Сначала новые</string>
+    <string name="menu_item_sort_by_date_oldest_first">Сначала старые</string>
     <string name="menu_item_sort_by_size_biggest_first">Большие − маленькие</string>
     <string name="menu_item_sort_by_size_smallest_first">Маленькие − большие</string>
 
@@ -118,6 +118,7 @@
     <string name="filedetails_sync_file">Синхронизировать</string>
     <string name="filedetails_renamed_in_upload_msg">Во время передачи на сервер файл был переименован в «%1$s»</string>
     <string name="list_layout">Вид списком</string>
+    <string name="action_send_share">Отправить/Открыть доступ</string>
     <string name="common_yes">Да</string>
     <string name="common_no">Нет</string>
     <string name="common_ok">ОК</string>
@@ -718,4 +719,7 @@
     <string name="dev_version_no_new_version_available">Новая версия отсутствует.</string>
     <string name="folder_icon">Значок папки</string>
 
-    </resources>
+    <string name="send">Отправить</string>
+    <string name="share">Открыть доступ</string>
+    <string name="link">Ссылка</string>
+</resources>
