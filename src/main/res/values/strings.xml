@@ -727,4 +727,5 @@
     <string name="send">Send</string>
     <string name="share">Share</string>
     <string name="link">Link</string>
+    <string name="account_not_found">Account not found!</string>
 </resources>

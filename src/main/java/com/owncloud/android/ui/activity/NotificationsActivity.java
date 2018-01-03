@@ -1,4 +1,4 @@
-/**
+/*
  * Nextcloud Android client application
  *
  * @author Andy Scherzinger
@@ -127,21 +127,15 @@ public class NotificationsActivity extends FileActivity {
         setupDrawer(R.id.nav_notifications);
         ThemeUtils.setColoredTitle(getSupportActionBar(), getString(R.string.drawer_item_notifications));
 
-        swipeListRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                setLoadingMessage();
-                fetchAndSetData();
-            }
+        swipeListRefreshLayout.setOnRefreshListener(() -> {
+            setLoadingMessage();
+            fetchAndSetData();
         });
 
-        swipeEmptyListRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                setLoadingMessage();
-                fetchAndSetData();
+        swipeEmptyListRefreshLayout.setOnRefreshListener(() -> {
+            setLoadingMessage();
+            fetchAndSetData();
 
-            }
         });
 
         setupPushWarning();
@@ -256,11 +250,10 @@ public class NotificationsActivity extends FileActivity {
         final Account currentAccount = AccountUtils.getCurrentOwnCloudAccount(MainApp.getAppContext());
         final Context context = MainApp.getAppContext();
 
-        Thread t = new Thread(new Runnable() {
-            public void run() {
-                OwnCloudAccount ocAccount;
-                try {
-                    ocAccount = new OwnCloudAccount(currentAccount, context);
+        Thread t = new Thread(() -> {
+            try {
+                if (currentAccount != null) {
+                    OwnCloudAccount ocAccount = new OwnCloudAccount(currentAccount, context);
                     OwnCloudClient mClient = OwnCloudClientManagerFactory.getDefaultSingleton().
                             getClientFor(ocAccount, MainApp.getAppContext());
                     mClient.setOwnCloudVersion(AccountUtils.getServerVersion(currentAccount));
@@ -271,41 +264,36 @@ public class NotificationsActivity extends FileActivity {
                     if (result.isSuccess() && result.getNotificationData() != null) {
                         final List<Notification> notifications = result.getNotificationData();
 
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                populateList(notifications);
-                                if (notifications.size() > 0) {
-                                    swipeEmptyListRefreshLayout.setVisibility(View.GONE);
-                                    swipeListRefreshLayout.setVisibility(View.VISIBLE);
-                                } else {
-                                    setEmptyContent(noResultsHeadline, noResultsMessage);
-                                    swipeListRefreshLayout.setVisibility(View.GONE);
-                                    swipeEmptyListRefreshLayout.setVisibility(View.VISIBLE);
-                                }
+                        runOnUiThread(() -> {
+                            populateList(notifications);
+                            if (notifications.size() > 0) {
+                                swipeEmptyListRefreshLayout.setVisibility(View.GONE);
+                                swipeListRefreshLayout.setVisibility(View.VISIBLE);
+                            } else {
+                                setEmptyContent(noResultsHeadline, noResultsMessage);
+                                swipeListRefreshLayout.setVisibility(View.GONE);
+                                swipeEmptyListRefreshLayout.setVisibility(View.VISIBLE);
                             }
                         });
                     } else {
                         Log_OC.d(TAG, result.getLogMessage());
                         // show error
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                setEmptyContent(noResultsHeadline, result.getLogMessage());
-                            }
-                        });
+                        runOnUiThread(() -> setEmptyContent(noResultsHeadline, result.getLogMessage()));
                     }
 
                     hideRefreshLayoutLoader();
-                } catch (com.owncloud.android.lib.common.accounts.AccountUtils.AccountNotFoundException e) {
-                    Log_OC.e(TAG, "Account not found", e);
-                } catch (IOException e) {
-                    Log_OC.e(TAG, "IO error", e);
-                } catch (OperationCanceledException e) {
-                    Log_OC.e(TAG, "Operation has been canceled", e);
-                } catch (AuthenticatorException e) {
-                    Log_OC.e(TAG, "Authentication Exception", e);
+                } else {
+                    // show error
+                    runOnUiThread(() -> setEmptyContent(noResultsHeadline, getString(R.string.account_not_found)));
                 }
+            } catch (com.owncloud.android.lib.common.accounts.AccountUtils.AccountNotFoundException e) {
+                Log_OC.e(TAG, "Account not found", e);
+            } catch (IOException e) {
+                Log_OC.e(TAG, "IO error", e);
+            } catch (OperationCanceledException e) {
+                Log_OC.e(TAG, "Operation has been canceled", e);
+            } catch (AuthenticatorException e) {
+                Log_OC.e(TAG, "Authentication Exception", e);
             }
         });
 
@@ -314,12 +302,9 @@ public class NotificationsActivity extends FileActivity {
     }
 
     private void hideRefreshLayoutLoader() {
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                swipeListRefreshLayout.setRefreshing(false);
-                swipeEmptyListRefreshLayout.setRefreshing(false);
-            }
+        runOnUiThread(() -> {
+            swipeListRefreshLayout.setRefreshing(false);
+            swipeEmptyListRefreshLayout.setRefreshing(false);
         });
     }
 
