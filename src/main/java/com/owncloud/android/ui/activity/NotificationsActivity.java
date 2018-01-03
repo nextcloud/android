@@ -164,18 +164,20 @@ public class NotificationsActivity extends FileActivity {
                 Account account = AccountUtils.getCurrentOwnCloudAccount(context);
                 ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProvider(getContentResolver());
 
-                boolean usesOldLogin = arbitraryDataProvider.getBooleanValue(account.name,
-                        AccountUtils.ACCOUNT_USES_STANDARD_PASSWORD);
+                if (account != null) {
+                    boolean usesOldLogin = arbitraryDataProvider.getBooleanValue(account.name,
+                            AccountUtils.ACCOUNT_USES_STANDARD_PASSWORD);
 
-                if (usesOldLogin) {
-                    snackbar = Snackbar.make(emptyContentContainer, R.string.push_notifications_old_login,
-                            Snackbar.LENGTH_INDEFINITE);
-                } else {
-                    String pushValue = arbitraryDataProvider.getValue(account.name, PushUtils.KEY_PUSH);
-
-                    if (pushValue == null || pushValue.isEmpty()) {
-                        snackbar = Snackbar.make(emptyContentContainer, R.string.push_notifications_temp_error,
+                    if (usesOldLogin) {
+                        snackbar = Snackbar.make(emptyContentContainer, R.string.push_notifications_old_login,
                                 Snackbar.LENGTH_INDEFINITE);
+                    } else {
+                        String pushValue = arbitraryDataProvider.getValue(account.name, PushUtils.KEY_PUSH);
+
+                        if (pushValue == null || pushValue.isEmpty()) {
+                            snackbar = Snackbar.make(emptyContentContainer, R.string.push_notifications_temp_error,
+                                    Snackbar.LENGTH_INDEFINITE);
+                        }
                     }
                 }
             }
