@@ -29,7 +29,6 @@ import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.design.widget.Snackbar;
 import android.util.Log;
-import android.view.View;
 
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
@@ -159,12 +158,7 @@ public class MediaProvider {
                 // Show explanation to the user and then request permission
                 Snackbar snackbar = Snackbar.make(activity.findViewById(R.id.ListLayout),
                         R.string.permission_storage_access, Snackbar.LENGTH_INDEFINITE)
-                        .setAction(R.string.common_ok, new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                PermissionUtil.requestWriteExternalStoreagePermission(activity);
-                            }
-                        });
+                        .setAction(R.string.common_ok, v -> PermissionUtil.requestWriteExternalStoreagePermission(activity));
 
                 ThemeUtils.colorSnackbar(activity.getApplicationContext(), snackbar);
 
