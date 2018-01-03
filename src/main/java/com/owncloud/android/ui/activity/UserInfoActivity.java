@@ -1,4 +1,4 @@
-/**
+/*
  * Nextcloud Android client application
  *
  * @author Mario Danic
@@ -30,7 +30,6 @@ import android.app.Dialog;
 import android.app.DialogFragment;
 import android.app.FragmentManager;
 import android.content.ContentResolver;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.ColorDrawable;
@@ -410,57 +409,54 @@ public class UserInfoActivity extends FileActivity {
                     .setMessage(getResources().getString(R.string.delete_account_warning, account.name))
                     .setIcon(R.drawable.ic_warning)
                     .setPositiveButton(R.string.common_ok,
-                            new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialogInterface, int i) {
-                                    // remove contact backup job
-                                    ContactsPreferenceActivity.cancelContactBackupJobForAccount(getActivity(), account);
+                            (dialogInterface, i) -> {
+                                // remove contact backup job
+                                ContactsPreferenceActivity.cancelContactBackupJobForAccount(getActivity(), account);
 
-                                    ContentResolver contentResolver = getActivity().getContentResolver();
+                                ContentResolver contentResolver = getActivity().getContentResolver();
 
-                                    // disable daily backup
-                                    ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProvider(
-                                            contentResolver);
+                                // disable daily backup
+                                ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProvider(
+                                        contentResolver);
 
-                                    arbitraryDataProvider.storeOrUpdateKeyValue(account.name,
-                                            ContactsPreferenceActivity.PREFERENCE_CONTACTS_AUTOMATIC_BACKUP,
-                                            "false");
+                                arbitraryDataProvider.storeOrUpdateKeyValue(account.name,
+                                        ContactsPreferenceActivity.PREFERENCE_CONTACTS_AUTOMATIC_BACKUP,
+                                        "false");
 
-                                    String arbitraryDataPushString;
+                                String arbitraryDataPushString;
 
-                                    if (!TextUtils.isEmpty(arbitraryDataPushString = arbitraryDataProvider.getValue(
-                                            account, PushUtils.KEY_PUSH)) &&
-                                            !TextUtils.isEmpty(getResources().getString(R.string.push_server_url))) {
-                                        Gson gson = new Gson();
-                                        PushConfigurationState pushArbitraryData = gson.fromJson(arbitraryDataPushString,
-                                                PushConfigurationState.class);
-                                        pushArbitraryData.setShouldBeDeleted(true);
-                                        arbitraryDataProvider.storeOrUpdateKeyValue(account.name, PushUtils.KEY_PUSH,
-                                                gson.toJson(pushArbitraryData));
-                                        EventBus.getDefault().post(new TokenPushEvent());
-                                    }
+                                if (!TextUtils.isEmpty(arbitraryDataPushString = arbitraryDataProvider.getValue(
+                                        account, PushUtils.KEY_PUSH)) &&
+                                        !TextUtils.isEmpty(getResources().getString(R.string.push_server_url))) {
+                                    Gson gson = new Gson();
+                                    PushConfigurationState pushArbitraryData = gson.fromJson(arbitraryDataPushString,
+                                            PushConfigurationState.class);
+                                    pushArbitraryData.setShouldBeDeleted(true);
+                                    arbitraryDataProvider.storeOrUpdateKeyValue(account.name, PushUtils.KEY_PUSH,
+                                            gson.toJson(pushArbitraryData));
+                                    EventBus.getDefault().post(new TokenPushEvent());
+                                }
 
 
-                                    if (getActivity() != null && !removeDirectly) {
-                                        Bundle bundle = new Bundle();
-                                        bundle.putParcelable(KEY_ACCOUNT, Parcels.wrap(account));
-                                        Intent intent = new Intent();
-                                        intent.putExtras(bundle);
-                                        getActivity().setResult(KEY_DELETE_CODE, intent);
-                                        getActivity().finish();
-                                    } else {
-                                        AccountManager am = (AccountManager) getActivity()
-                                                .getSystemService(ACCOUNT_SERVICE);
+                                if (getActivity() != null && !removeDirectly) {
+                                    Bundle bundle = new Bundle();
+                                    bundle.putParcelable(KEY_ACCOUNT, Parcels.wrap(account));
+                                    Intent intent = new Intent();
+                                    intent.putExtras(bundle);
+                                    getActivity().setResult(KEY_DELETE_CODE, intent);
+                                    getActivity().finish();
+                                } else {
+                                    AccountManager am = (AccountManager) getActivity()
+                                            .getSystemService(ACCOUNT_SERVICE);
 
-                                        am.removeAccount(account, null, null);
+                                    am.removeAccount(account, null, null);
 
-                                        Intent start = new Intent(getActivity(), FileDisplayActivity.class);
-                                        start.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                        startActivity(start);
-
-                                    }
+                                    Intent start = new Intent(getActivity(), FileDisplayActivity.class);
+                                    start.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                    startActivity(start);
 
                                 }
+
                             })
                     .setNegativeButton(R.string.common_cancel, null)
                     .create();
@@ -468,34 +464,29 @@ public class UserInfoActivity extends FileActivity {
     }
 
     private void fetchAndSetData() {
-        Thread t = new Thread(new Runnable() {
-            public void run() {
+        Thread t = new Thread(() -> {
+            RemoteOperation getRemoteUserInfoOperation = new GetRemoteUserInfoOperation();
+            RemoteOperationResult result = getRemoteUserInfoOperation.execute(account, UserInfoActivity.this);
 
-                RemoteOperation getRemoteUserInfoOperation = new GetRemoteUserInfoOperation();
-                RemoteOperationResult result = getRemoteUserInfoOperation.execute(account, UserInfoActivity.this);
+            if (result.isSuccess() && result.getData() != null) {
+                userInfo = (UserInfo) result.getData().get(0);
 
-                if (result.isSuccess() && result.getData() != null) {
-                    userInfo = (UserInfo) result.getData().get(0);
-
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            populateUserInfoUi(userInfo);
-
-                            emptyContentContainer.setVisibility(View.GONE);
-                            userInfoView.setVisibility(View.VISIBLE);
-                        }
-                    });
+                if (userInfo.getPhone() == null && userInfo.getEmail() == null && userInfo.getAddress() == null
+                        && userInfo.getTwitter() == null & userInfo.getWebpage() == null) {
+                    runOnUiThread(() -> setErrorMessageForMultiList(getString(R.string.userinfo_no_info_headline),
+                            getString(R.string.userinfo_no_info_text)));
                 } else {
-                    // show error
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            setErrorMessageForMultiList(sorryMessage, result.getLogMessage());
-                        }
+                    runOnUiThread(() -> {
+                        populateUserInfoUi(userInfo);
+
+                        emptyContentContainer.setVisibility(View.GONE);
+                        userInfoView.setVisibility(View.VISIBLE);
                     });
-                    Log_OC.d(TAG, result.getLogMessage());
                 }
+            } else {
+                // show error
+                runOnUiThread(() -> setErrorMessageForMultiList(sorryMessage, result.getLogMessage()));
+                Log_OC.d(TAG, result.getLogMessage());
             }
         });
 
