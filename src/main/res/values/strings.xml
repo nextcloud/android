@@ -747,4 +747,7 @@
     <string name="screenshot_04_accounts">Connect to different accounts</string>
     <string name="screenshot_05_autoUpload">Automatically upload your photos &amp; videos</string>
     <string name="screenshot_06_davdroid">Sync Calendar &amp; Contacts with DAVdroid</string>
+    
+    <string name="userinfo_no_info_headline">No info</string>
+    <string name="userinfo_no_info_text">No user info available. You can add informations on your personal site.</string>
 </resources>
