@@ -410,7 +410,7 @@ public class MainApp extends MultiDexApplication {
             SyncedFolderProvider syncedFolderProvider = new SyncedFolderProvider(contentResolver);
 
             final List<MediaFolder> imageMediaFolders = MediaProvider.getImageFolders(contentResolver, 1, null);
-            final List<MediaFolder> videoMediaFolders = MediaProvider.getVideoFolders(contentResolver, 1);
+            final List<MediaFolder> videoMediaFolders = MediaProvider.getVideoFolders(contentResolver, 1, null);
 
             ArrayList<Long> idsToDelete = new ArrayList<>();
             List<SyncedFolder> syncedFolders = syncedFolderProvider.getSyncedFolders();

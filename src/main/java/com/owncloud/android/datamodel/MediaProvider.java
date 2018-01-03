@@ -71,27 +71,14 @@ public class MediaProvider {
         // check permissions
         checkPermissions(activity);
 
-
         // query media/image folders
-        Cursor cursorFolders;
+        Cursor cursorFolders = null;
         if (activity != null && PermissionUtil.checkSelfPermission(activity.getApplicationContext(),
                 Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
-            cursorFolders = contentResolver.query(
-                    IMAGES_MEDIA_URI,
-                    IMAGES_FOLDER_PROJECTION,
-                    null,
-                    null,
-                    IMAGES_FOLDER_SORT_ORDER
-            );
-        } else {
-            cursorFolders = contentResolver.query(
-                    IMAGES_MEDIA_URI,
-                    IMAGES_FOLDER_PROJECTION,
-                    null,
-                    null,
-                    IMAGES_FOLDER_SORT_ORDER
-            );
+            cursorFolders = contentResolver.query(IMAGES_MEDIA_URI, IMAGES_FOLDER_PROJECTION, null, null,
+                    IMAGES_FOLDER_SORT_ORDER);
         }
+
         List<MediaFolder> mediaFolders = new ArrayList<>();
         String dataPath = MainApp.getStoragePath() + File.separator + MainApp.getDataFolder();
 
@@ -189,16 +176,26 @@ public class MediaProvider {
         }
     }
 
-    public static List<MediaFolder> getVideoFolders(ContentResolver contentResolver, int itemLimit) {
-        Cursor cursorFolders = contentResolver.query(MediaStore.Video.Media.EXTERNAL_CONTENT_URI,
-                VIDEOS_FOLDER_PROJECTION, null, null, null);
+    public static List<MediaFolder> getVideoFolders(ContentResolver contentResolver, int itemLimit,
+                                                    @Nullable final Activity activity) {
+        // check permissions
+        checkPermissions(activity);
+
+        // query media/image folders
+        Cursor cursorFolders = null;
+        if (activity != null && PermissionUtil.checkSelfPermission(activity.getApplicationContext(),
+                Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+            cursorFolders = contentResolver.query(MediaStore.Video.Media.EXTERNAL_CONTENT_URI, VIDEOS_FOLDER_PROJECTION,
+                    null, null, null);
+        } 
+        
         List<MediaFolder> mediaFolders = new ArrayList<>();
         String dataPath = MainApp.getStoragePath() + File.separator + MainApp.getDataFolder();
 
         if (cursorFolders != null) {
             String folderName;
             String fileSortOrder = MediaStore.Video.Media.DATE_TAKEN + " DESC LIMIT " + itemLimit;
-            Cursor cursorImages;
+            Cursor cursorVideos;
 
             while (cursorFolders.moveToNext()) {
                 String folderId = cursorFolders.getString(cursorFolders.getColumnIndex(MediaStore.Video.Media
@@ -211,8 +208,8 @@ public class MediaProvider {
                 mediaFolder.folderName = folderName;
                 mediaFolder.filePaths = new ArrayList<>();
 
-                // query images
-                cursorImages = contentResolver.query(
+                // query videos
+                cursorVideos = contentResolver.query(
                         MediaStore.Video.Media.EXTERNAL_CONTENT_URI,
                         FILE_PROJECTION,
                         MediaStore.Video.Media.BUCKET_ID + "=" + folderId,
@@ -220,10 +217,10 @@ public class MediaProvider {
                         fileSortOrder);
                 Log.d(TAG, "Reading videos for " + mediaFolder.folderName);
 
-                if (cursorImages != null) {
+                if (cursorVideos != null) {
                     String filePath;
-                    while (cursorImages.moveToNext()) {
-                        filePath = cursorImages.getString(cursorImages.getColumnIndexOrThrow(
+                    while (cursorVideos.moveToNext()) {
+                        filePath = cursorVideos.getString(cursorVideos.getColumnIndexOrThrow(
                                 MediaStore.MediaColumns.DATA));
 
                         if (filePath != null) {
@@ -231,7 +228,7 @@ public class MediaProvider {
                             mediaFolder.absolutePath = filePath.substring(0, filePath.lastIndexOf("/"));
                         }
                     }
-                    cursorImages.close();
+                    cursorVideos.close();
 
                     // only do further work if folder is not within the Nextcloud app itself
                     if (mediaFolder.absolutePath != null && !mediaFolder.absolutePath.startsWith(dataPath)) {
