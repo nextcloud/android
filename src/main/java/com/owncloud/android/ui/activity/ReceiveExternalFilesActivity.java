@@ -249,8 +249,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
             AlertDialog.Builder builder = new Builder(getActivity());
             builder.setIcon(R.drawable.ic_warning);
             builder.setTitle(R.string.uploader_wrn_no_account_title);
-            builder.setMessage(String.format(
-                    getString(R.string.uploader_wrn_no_account_text),
+            builder.setMessage(String.format(getString(R.string.uploader_wrn_no_account_text), 
                     getString(R.string.app_name)));
             builder.setCancelable(false);
             builder.setPositiveButton(R.string.uploader_wrn_no_account_setup_btn_text, (dialog, which) -> {
@@ -649,7 +648,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
                     mUploadPath += p + OCFile.PATH_SEPARATOR;
                 }
 
-                if (mUploadFromTmpFile){
+                if (mUploadFromTmpFile) {
                     DialogInputUploadFilename dialog = DialogInputUploadFilename.newInstance(mSubjectText, mExtraText);
                     dialog.show(getSupportFragmentManager(), null);
                 } else {
