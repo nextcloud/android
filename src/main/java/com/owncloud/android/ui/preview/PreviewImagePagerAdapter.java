@@ -130,7 +130,7 @@ public class PreviewImagePagerAdapter extends FragmentStatePagerAdapter {
      * @return OCFile desired image or null if position is not in adapter
      */
     @Nullable
-    OCFile getFileAt(int position) {
+    public OCFile getFileAt(int position) {
         try {
             return mImageFiles.get(position);
         } catch (IndexOutOfBoundsException exception) {
@@ -217,7 +217,7 @@ public class PreviewImagePagerAdapter extends FragmentStatePagerAdapter {
     /**
      * Reset the image zoom to default value for each CachedFragments
      */
-    void resetZoom() {
+    public void resetZoom() {
         for (int i = 0; i < mCachedFragments.size(); i++) {
             FileFragment fileFragment = mCachedFragments.valueAt(i);
             
