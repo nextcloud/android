@@ -854,7 +854,11 @@ public class FileDataStorageManager {
             c.close();
         }
 
-        Collections.sort(ret);
+        try {
+            Collections.sort(ret);
+        } catch (IllegalArgumentException e) {
+            Log_OC.e(TAG, "Collection not sorted: " + e.getMessage());
+        }
 
         return ret;
     }
