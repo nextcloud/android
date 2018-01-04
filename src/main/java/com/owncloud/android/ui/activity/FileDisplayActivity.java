@@ -145,8 +145,6 @@ public class FileDisplayActivity extends HookActivity
     private static final String KEY_WAITING_TO_SEND = "WAITING_TO_SEND";
     private static final String KEY_SEARCH_QUERY = "KEY_SEARCH_QUERY";
 
-    private static final String SORT_ORDER_DIALOG_TAG = "SORT_ORDER_DIALOG";
-
     public static final String ACTION_DETAILS = "com.owncloud.android.ui.activity.action.DETAILS";
 
     public static final String DRAWER_MENU_ID = "DRAWER_MENU_ID";
@@ -678,10 +676,10 @@ public class FileDisplayActivity extends HookActivity
 
         // hacky as no default way is provided
         int fontColor = ThemeUtils.fontColor();
-        EditText editText = (EditText) searchView.findViewById(android.support.v7.appcompat.R.id.search_src_text);
+        EditText editText = searchView.findViewById(android.support.v7.appcompat.R.id.search_src_text);
         editText.setHintTextColor(fontColor);
         editText.setTextColor(fontColor);
-        ImageView searchClose = (ImageView) searchView.findViewById(android.support.v7.appcompat.R.id.search_close_btn);
+        ImageView searchClose = searchView.findViewById(android.support.v7.appcompat.R.id.search_close_btn);
         searchClose.setColorFilter(ThemeUtils.fontColor());
 
         // populate list of menu items to show/hide when drawer is opened/closed
@@ -780,7 +778,7 @@ public class FileDisplayActivity extends HookActivity
                 SortingOrderDialogFragment mSortingOrderDialogFragment = SortingOrderDialogFragment.newInstance(
                         getSortOrder(this, getListOfFilesFragment().getCurrentFile())
                 );
-                mSortingOrderDialogFragment.show(ft, SORT_ORDER_DIALOG_TAG);
+                mSortingOrderDialogFragment.show(ft, SortingOrderDialogFragment.SORTING_ORDER_FRAGRMENT);
 
                 break;
             }
@@ -1005,7 +1003,7 @@ public class FileDisplayActivity extends HookActivity
 
     private void revertBottomNavigationBarToAllFiles() {
         if (getResources().getBoolean(R.bool.bottom_toolbar_enabled)) {
-            BottomNavigationView bottomNavigationView = (BottomNavigationView) getListOfFilesFragment().getView()
+            BottomNavigationView bottomNavigationView = getListOfFilesFragment().getView()
                     .findViewById(R.id.bottom_navigation_view);
             if (bottomNavigationView.getMenu().findItem(R.id.nav_bar_settings).isChecked()) {
                 bottomNavigationView.getMenu().findItem(R.id.nav_bar_files).setChecked(true);

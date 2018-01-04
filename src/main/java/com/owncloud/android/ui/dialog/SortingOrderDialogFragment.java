@@ -45,6 +45,7 @@ public class SortingOrderDialogFragment extends DialogFragment {
 
     private final static String TAG = SortingOrderDialogFragment.class.getSimpleName();
 
+    public static final String SORTING_ORDER_FRAGRMENT = "SORTING_ORDER_FRAGRMENT";
     private static final String KEY_SORT_ORDER = "SORT_ORDER";
 
     private View mView = null;
@@ -92,7 +93,7 @@ public class SortingOrderDialogFragment extends DialogFragment {
      * @param view the parent view
      */
     private void setupDialogElements(View view) {
-        mCancel = (AppCompatButton) view.findViewById(R.id.cancel);
+        mCancel = view.findViewById(R.id.cancel);
         mCancel.setTextColor(ThemeUtils.primaryAccentColor());
 
         mTaggedViews = new View[12];
