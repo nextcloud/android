@@ -776,22 +776,19 @@ public class FileDisplayActivity extends HookActivity
                 ft.addToBackStack(null);
 
                 SortingOrderDialogFragment mSortingOrderDialogFragment = SortingOrderDialogFragment.newInstance(
-                        getSortOrder(this, getListOfFilesFragment().getCurrentFile())
-                );
-                mSortingOrderDialogFragment.show(ft, SortingOrderDialogFragment.SORTING_ORDER_FRAGRMENT);
+                        getSortOrder(this, getListOfFilesFragment().getCurrentFile()));
+                mSortingOrderDialogFragment.show(ft, SortingOrderDialogFragment.SORTING_ORDER_FRAGMENT);
 
                 break;
             }
             case R.id.action_switch_view: {
                 if (isGridView()) {
                     item.setTitle(getString(R.string.action_switch_grid_view));
-                    item.setIcon(ContextCompat.getDrawable(getApplicationContext(),
-                            R.drawable.ic_view_module));
+                    item.setIcon(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_view_module));
                     getListOfFilesFragment().setListAsPreferred();
                 } else {
                     item.setTitle(getApplicationContext().getString(R.string.action_switch_list_view));
-                    item.setIcon(ContextCompat.getDrawable(getApplicationContext(),
-                            R.drawable.ic_view_list));
+                    item.setIcon(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_view_list));
                     getListOfFilesFragment().setGridAsPreferred();
                 }
                 break;

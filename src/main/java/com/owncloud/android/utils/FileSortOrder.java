@@ -1,4 +1,4 @@
-/**
+/*
  * Nextcloud Android client application
  *
  * @author Sven R. Kunze
@@ -30,7 +30,7 @@ import java.util.Map;
 import java.util.Vector;
 
 /**
- * Created by srkunze on 28.08.17.
+ * Sort order 
  */
 
 public class FileSortOrder {

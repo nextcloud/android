@@ -1,4 +1,4 @@
-/**
+/*
  * ownCloud Android client application
  *
  * @author Bartek Przybylski
@@ -1097,7 +1097,8 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
                             if ((activity = getActivity()) != null && activity instanceof FileDisplayActivity) {
                                 FileDisplayActivity fileDisplayActivity = (FileDisplayActivity) activity;
                                 if (getCurrentFile() != null) {
-                                    fileDisplayActivity.setDrawerIndicatorEnabled(fileDisplayActivity.isRoot(getCurrentFile()));
+                                    fileDisplayActivity.setDrawerIndicatorEnabled(
+                                            fileDisplayActivity.isRoot(getCurrentFile()));
                                 }
                             }
 

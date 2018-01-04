@@ -1,18 +1,18 @@
-/**
+/*
  * ownCloud Android client application
  *
  * @author David A. Velasco
  * Copyright (C) 2016 ownCloud Inc.
- * <p/>
+ * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2,
  * as published by the Free Software Foundation.
- * <p/>
+ * 
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * <p/>
+ * 
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -50,7 +50,8 @@ public abstract class PreferenceManager {
     private static final String PREF__INSTANT_UPLOAD_PATH_USE_SUBFOLDERS = "instant_upload_path_use_subfolders";
     private static final String PREF__INSTANT_UPLOAD_ON_WIFI = "instant_upload_on_wifi";
     private static final String PREF__INSTANT_VIDEO_UPLOAD_ON_WIFI = "instant_video_upload_on_wifi";
-    private static final String PREF__INSTANT_VIDEO_UPLOAD_PATH_USE_SUBFOLDERS = "instant_video_upload_path_use_subfolders";
+    private static final String PREF__INSTANT_VIDEO_UPLOAD_PATH_USE_SUBFOLDERS
+            = "instant_video_upload_path_use_subfolders";
     private static final String PREF__LEGACY_CLEAN = "legacyClean";
     private static final String PREF__AUTO_UPLOAD_UPDATE_PATH = "autoUploadPathUpdate";
     private static final String PREF__PUSH_TOKEN = "pushToken";
@@ -97,7 +98,8 @@ public abstract class PreferenceManager {
     }
 
     public static boolean instantVideoUploadWhenChargingOnly(Context context) {
-        return PreferenceManager.getDefaultSharedPreferences(context).getBoolean("instant_video_upload_on_charging", false);
+        return PreferenceManager.getDefaultSharedPreferences(context).getBoolean("instant_video_upload_on_charging",
+                false);
     }
 
     public static boolean showHiddenFilesEnabled(Context context) {
@@ -182,7 +184,8 @@ public abstract class PreferenceManager {
      *
      * @param context Caller {@link Context}, used to access to preferences manager.
      * @param folder Folder
-     * @return preference value, default is {@link com.owncloud.android.ui.fragment.OCFileListFragment#FOLDER_LAYOUT_LIST}
+     * @return preference value, default is 
+     * {@link com.owncloud.android.ui.fragment.OCFileListFragment#FOLDER_LAYOUT_LIST}
      */
     public static String getFolderLayout(Context context, OCFile folder) {
         return getFolderPreference(context, PREF__FOLDER_LAYOUT, folder, FOLDER_LAYOUT_LIST);
@@ -206,7 +209,8 @@ public abstract class PreferenceManager {
      * @return sort order     the sort order, default is {@link FileSortOrder#sort_a_to_z} (sort by name)
      */
     public static FileSortOrder getSortOrder(Context context, OCFile folder) {
-        return FileSortOrder.sortOrders.get(getFolderPreference(context, PREF__FOLDER_SORT_ORDER, folder, FileSortOrder.sort_a_to_z.mName));
+        return FileSortOrder.sortOrders.get(getFolderPreference(context, PREF__FOLDER_SORT_ORDER, folder,
+                FileSortOrder.sort_a_to_z.mName));
     }
 
     /**
@@ -229,7 +233,8 @@ public abstract class PreferenceManager {
      * @param defaultValue Fallback value in case no ancestor is set.
      * @return Preference value
      */
-    public static String getFolderPreference(Context context, String preferenceName, OCFile folder, String defaultValue) {
+    public static String getFolderPreference(Context context, String preferenceName, OCFile folder,
+                                             String defaultValue) {
         Account account = AccountUtils.getCurrentOwnCloudAccount(context);
         ArbitraryDataProvider dataProvider = new ArbitraryDataProvider(context.getContentResolver());
         FileDataStorageManager storageManager = ((ComponentsGetter)context).getStorageManager();
@@ -256,7 +261,9 @@ public abstract class PreferenceManager {
     }
 
     private static String getKeyFromFolder(String preferenceName, OCFile folder) {
-        final String folderIdString = String.valueOf(folder != null ? folder.getFileId() : FileDataStorageManager.ROOT_PARENT_ID);
+        final String folderIdString = String.valueOf(folder != null ? folder.getFileId() :
+                FileDataStorageManager.ROOT_PARENT_ID);
+        
         return preferenceName + "_" + folderIdString;
     }
 

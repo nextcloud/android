@@ -1041,7 +1041,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
                 SortingOrderDialogFragment mSortingOrderDialogFragment = SortingOrderDialogFragment.newInstance(
                         getSortOrder(this, mFile));
                 mSortingOrderDialogFragment.show(getSupportFragmentManager(),
-                        SortingOrderDialogFragment.SORTING_ORDER_FRAGRMENT);
+                        SortingOrderDialogFragment.SORTING_ORDER_FRAGMENT);
                 break;
             default:
                 retval = super.onOptionsItemSelected(item);
