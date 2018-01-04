@@ -396,6 +396,7 @@ public class FileUploader extends Service
                         currentAccount = failedUpload.getAccount(context);
                     }
 
+                    charging = charging || Device.getBatteryStatus(context).getBatteryPercent() == 1;
                     if (!isPowerSaving && gotNetwork && checkIfUploadCanBeRetried(failedUpload, gotWifi, charging)) {
                             retry(context, currentAccount, failedUpload);
                         }
@@ -942,7 +943,7 @@ public class FileUploader extends Service
                         cancel(mCurrentUpload.getAccount().name, mCurrentUpload.getFile().getRemotePath()
                                 , ResultCode.DELAYED_FOR_WIFI);
                     } else if (mCurrentUpload.getIsChargingRequired() &&
-                            !Device.getBatteryStatus(MainApp.getAppContext()).isCharging()) {
+                            (!Device.getBatteryStatus(MainApp.getAppContext()).isCharging())) {
                         cancel(mCurrentUpload.getAccount().name, mCurrentUpload.getFile().getRemotePath()
                                 , ResultCode.DELAYED_FOR_CHARGING);
                     } else if (!mCurrentUpload.getIsIgnoringPowerSaveMode() &&
