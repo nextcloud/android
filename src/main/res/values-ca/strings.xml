@@ -118,6 +118,7 @@
     <string name="filedetails_sync_file">Sincronitza</string>
     <string name="filedetails_renamed_in_upload_msg">S\'ha canviat el nom del fitxer %1$sdurant la càrrega</string>
     <string name="list_layout">Disposició llistada</string>
+    <string name="action_send_share">Envia/Comparteix</string>
     <string name="common_yes">Sí</string>
     <string name="common_no">No</string>
     <string name="common_ok">D\'acord</string>
@@ -201,6 +202,10 @@
     <string name="pass_code_wrong">Codi d\'accés incorrecte</string>
     <string name="pass_code_stored">Codi d\'accés desat</string>
     
+    <string name="media_notif_ticker">%1$s reproductor de música</string>
+    <string name="media_state_playing">%1$s (sonant)</string>
+    <string name="media_state_loading">%1$s (carregant)</string>
+    <string name="media_event_done">%1$s reproducció acabada</string>
     <string name="media_err_nothing_to_play">No s\'han trobat fitxers multimèdia</string>
     <string name="media_err_no_account">No s\'ha proporcionat cap compte</string>
     <string name="media_err_not_in_owncloud">El fitxer no està en un compte vàlid</string>
@@ -256,7 +261,12 @@
     <string name="unset_favorite_real">Desfés el favorit</string>
     <string name="favorite_switch">fora de línia</string>
     <string name="common_rename">Reanomena</string>
+    <string name="common_remove">Esborra</string>
+    <string name="confirmation_remove_file_alert">Esteu segur que voleu esborrar%1$s?</string>
+    <string name="confirmation_remove_folder_alert">Esteu segur que voleu esborrar %1$s i els seus continguts?</string>
     <string name="confirmation_remove_local">Només local</string>
+    <string name="remove_success_msg">Esborrat</string>
+    <string name="remove_fail_msg">No s\'ha pogut completar l\'eliminació</string>
     <string name="rename_dialog_title">Introduiu un nom nou</string>
     <string name="sync_file_nothing_to_do_msg">Contingut del fitxer ja sincronitzat</string>
     <string name="create_dir_fail_msg">No s\'ha pogut crear la carpeta</string>

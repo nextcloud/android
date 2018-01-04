@@ -661,7 +661,6 @@
     <string name="resized_image_not_possible">Zmenšený obrázek není k dispozici. Stáhnout obrázek v plné velikosti?</string>
     <string name="resized_images_download_full_image">Stáhnout obrázek v plné velikosti?</string>
 
-    <string name="store_short_desc">Aplikace Nextcloud pro Android ti nabízí přístup ke všem souborům ve tvém Nextcloudu</string>
     <string name="drawer_current_account">Aktuální účet</string>
     <string name="drawer_middle_account">Prostřední účet</string>
     <string name="drawer_end_account">Poslední účet</string>
