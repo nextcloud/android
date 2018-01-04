@@ -114,11 +114,10 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
 
         // setup toolbar
         setupToolbar();
-        CollapsingToolbarLayout mCollapsingToolbarLayout = ((CollapsingToolbarLayout)
-                findViewById(R.id.collapsing_toolbar));
+        CollapsingToolbarLayout mCollapsingToolbarLayout = findViewById(R.id.collapsing_toolbar);
         mCollapsingToolbarLayout.setTitle(this.getString(R.string.drawer_synced_folders));
 
-        mCustomFolderRelativeLayout = (RelativeLayout) findViewById(R.id.custom_folder_toolbar);
+        mCustomFolderRelativeLayout = findViewById(R.id.custom_folder_toolbar);
 
         SharedPreferences appPrefs =
                 PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
@@ -170,10 +169,10 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
      * sets up the UI elements and loads all media/synced folders.
      */
     private void setupContent() {
-        mRecyclerView = (RecyclerView) findViewById(android.R.id.list);
+        mRecyclerView = findViewById(android.R.id.list);
 
-        mProgress = (LinearLayout) findViewById(android.R.id.progress);
-        mEmpty = (TextView) findViewById(android.R.id.empty);
+        mProgress = findViewById(android.R.id.progress);
+        mEmpty = findViewById(android.R.id.empty);
 
         final int gridWidth = getResources().getInteger(R.integer.media_grid_width);
         boolean lightVersion = getResources().getBoolean(R.bool.syncedFolder_light);
@@ -187,7 +186,7 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
         mRecyclerView.setLayoutManager(lm);
         mRecyclerView.setAdapter(mAdapter);
 
-        BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation_view);
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation_view);
 
         if (getResources().getBoolean(R.bool.bottom_toolbar_enabled)) {
             bottomNavigationView.setVisibility(View.VISIBLE);
@@ -209,13 +208,14 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
         setListShown(false);
         final List<MediaFolder> mediaFolders = MediaProvider.getImageFolders(getContentResolver(),
                 perFolderMediaItemLimit, SyncedFoldersActivity.this);
-        mediaFolders.addAll(MediaProvider.getVideoFolders(getContentResolver(), perFolderMediaItemLimit));
+        mediaFolders.addAll(MediaProvider.getVideoFolders(getContentResolver(), perFolderMediaItemLimit,
+                SyncedFoldersActivity.this));
 
         List<SyncedFolder> syncedFolderArrayList = mSyncedFolderProvider.getSyncedFolders();
         List<SyncedFolder> currentAccountSyncedFoldersList = new ArrayList<>();
         Account currentAccount = AccountUtils.getCurrentOwnCloudAccount(SyncedFoldersActivity.this);
         for (SyncedFolder syncedFolder : syncedFolderArrayList) {
-            if (syncedFolder.getAccount().equals(currentAccount.name)) {
+            if (currentAccount != null && syncedFolder.getAccount().equals(currentAccount.name)) {
                 currentAccountSyncedFoldersList.add(syncedFolder);
             }
         }
