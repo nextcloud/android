@@ -1,4 +1,4 @@
-/**
+/*
  * Nextcloud Android client application
  *
  * @author Sven R. Kunze
@@ -33,7 +33,7 @@ import java.util.Vector;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
- * Created by srkunze on 28.08.17.
+ * Sorts files by sizes
  */
 
 public class FileSortOrderBySize extends FileSortOrder {
@@ -79,15 +79,14 @@ public class FileSortOrderBySize extends FileSortOrder {
     public File[] sortLocalFiles(File[] filesArray) {
         final int multiplier = mAscending ? 1 : -1;
 
-        List<File> files = new ArrayList<File>(Arrays.asList(filesArray));
+        List<File> files = new ArrayList<>(Arrays.asList(filesArray));
 
         Collections.sort(files, new Comparator<File>() {
             @SuppressFBWarnings(value = "Bx")
             public int compare(File o1, File o2) {
                 if (o1.isDirectory() && o2.isDirectory()) {
-                    // Long obj1 = getFolderSize(o1);
-                    // return multiplier * obj1.compareTo(getFolderSize(o2));
-                    return o1.getPath().toLowerCase().compareTo(o2.getPath().toLowerCase());
+                    Long obj1 = FileStorageUtils.getFolderSize(o1);
+                    return multiplier * obj1.compareTo(FileStorageUtils.getFolderSize(o2));
                 } else if (o1.isDirectory()) {
                     return -1;
                 } else if (o2.isDirectory()) {

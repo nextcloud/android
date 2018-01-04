@@ -159,7 +159,7 @@ public class UploadFilesActivity extends FileActivity implements
         int localBehaviour = PreferenceManager.getUploaderBehaviour(this);
 
         // file upload spinner
-        mBehaviourSpinner = (Spinner) findViewById(R.id.upload_files_spinner_behaviour);
+        mBehaviourSpinner = findViewById(R.id.upload_files_spinner_behaviour);
         ArrayAdapter<CharSequence> behaviourAdapter = ArrayAdapter.createFromResource(this,
                 R.array.upload_files_behaviour, android.R.layout.simple_spinner_item);
         behaviourAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -241,8 +241,7 @@ public class UploadFilesActivity extends FileActivity implements
                 ft.addToBackStack(null);
 
                 SortingOrderDialogFragment mSortingOrderDialogFragment = SortingOrderDialogFragment.newInstance(
-                        getSortOrder(this, null)
-                );
+                        getSortOrder(this, null));
                 mSortingOrderDialogFragment.show(ft, SORT_ORDER_DIALOG_TAG);
 
                 break;
@@ -257,6 +256,7 @@ public class UploadFilesActivity extends FileActivity implements
                     item.setIcon(R.drawable.ic_view_list);
                     mFileListFragment.switchToGridView();
                 }
+                break;
             }
             default:
                 retval = super.onOptionsItemSelected(item);

@@ -503,7 +503,8 @@ public class FileListListAdapter extends BaseAdapter {
         }
     }
 
-    public void setData(ArrayList<Object> objects, ExtendedListFragment.SearchType searchType, FileDataStorageManager storageManager, OCFile folder) {
+    public void setData(ArrayList<Object> objects, ExtendedListFragment.SearchType searchType,
+                        FileDataStorageManager storageManager, OCFile folder) {
         if (storageManager != null && mStorageManager == null) {
             mStorageManager = storageManager;
         }

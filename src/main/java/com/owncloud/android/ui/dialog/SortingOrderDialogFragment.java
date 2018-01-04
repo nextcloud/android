@@ -1,4 +1,4 @@
-/**
+/*
  * Nextcloud Android client application
  *
  * @author Andy Scherzinger
@@ -45,7 +45,7 @@ public class SortingOrderDialogFragment extends DialogFragment {
 
     private final static String TAG = SortingOrderDialogFragment.class.getSimpleName();
 
-    public static final String SORTING_ORDER_FRAGRMENT = "SORTING_ORDER_FRAGRMENT";
+    public static final String SORTING_ORDER_FRAGMENT = "SORTING_ORDER_FRAGMENT";
     private static final String KEY_SORT_ORDER = "SORT_ORDER";
 
     private View mView = null;
@@ -148,12 +148,7 @@ public class SortingOrderDialogFragment extends DialogFragment {
      * setup all listeners.
      */
     private void setupListeners() {
-        mCancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dismiss();
-            }
-        });
+        mCancel.setOnClickListener(view -> dismiss());
 
         OnSortOrderClickListener sortOrderClickListener = new OnSortOrderClickListener();
 
@@ -181,7 +176,8 @@ public class SortingOrderDialogFragment extends DialogFragment {
         @Override
         public void onClick(View v) {
             dismissAllowingStateLoss();
-            ((SortingOrderDialogFragment.OnSortingOrderListener) getActivity()).onSortingOrderChosen((FileSortOrder) v.getTag());
+            ((SortingOrderDialogFragment.OnSortingOrderListener) getActivity())
+                    .onSortingOrderChosen((FileSortOrder) v.getTag());
         }
     }
 
