@@ -661,7 +661,7 @@
     <string name="push_notifications_old_login">Keine Push Benachrichtigungen aufgrund veralteter Benutzersitzung. Bitte erwägen Sie das erneute Hinzufügen Ihres Kontos.</string>
     <string name="push_notifications_temp_error">Push Benachrichtigungen aktuell nicht verfügbar.</string>
 
-    <string name="sync_in_progress">Keine Berechtigung vergeben, es wurde nichts importiert.</string>
+    <string name="sync_in_progress">Neueste Version der Datei wird geladen.</string>
     <string name="date_unknown">Unbekannt</string>
 
     <string name="resized_image_not_possible">Kein verkleinertes Bild vorhanden. Vollbild herunterladen?</string>
