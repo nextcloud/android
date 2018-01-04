@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 cd scripts/screenshots/
 for i in $(find ../../fastlane | grep png) ; do 
@@ -12,13 +12,17 @@ for i in $(find ../../fastlane | grep png) ; do
             locale=""
             ;;
         *)
-            locale="-"+$locale
+            locale="-"$locale
     esac
     
-    text=$(grep $textID ../../src/main/res/values$locale/strings.xml | cut -d">" -f2 | cut -d"<" -f1 | sed s'#\&amp;#\\&#')
+    if [ -e ../../src/main/res/values$locale/strings.xml ] ; then
+        text=$(grep $textID ../../src/main/res/values$locale/strings.xml | cut -d">" -f2 | cut -d"<" -f1 | sed s'#\&amp;#\\&#')
+    else
+        text=""
+    fi
     
     # fallback to english if there is not translation
-    if [ $text == "" ]; then
+    if [ -n $text ]; then
         text=$(grep $textID ../../src/main/res/values/strings.xml | cut -d">" -f2 | cut -d"<" -f1 | sed s'#\&amp;#\\&#')
     fi
     
