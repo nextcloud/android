@@ -207,8 +207,6 @@ public class UserInfoActivity extends FileActivity {
 
         if (userInfo != null) {
             populateUserInfoUi(userInfo);
-            emptyContentContainer.setVisibility(View.GONE);
-            userInfoView.setVisibility(View.VISIBLE);
         } else {
             setMultiListLoadingMessage();
             fetchAndSetData();
@@ -320,39 +318,36 @@ public class UserInfoActivity extends FileActivity {
     }
 
     private void populateUserInfoUi(UserInfo userInfo) {
-        userName.setText(account.name);
-        DisplayUtils.setAvatar(account, UserInfoActivity.this,
-                mCurrentAccountAvatarRadiusDimension, getResources(), getStorageManager(), avatar);
+        if (userInfo.getPhone() == null && userInfo.getEmail() == null && userInfo.getAddress() == null
+                && userInfo.getTwitter() == null & userInfo.getWebpage() == null) {
+            setErrorMessageForMultiList(getString(R.string.userinfo_no_info_headline),
+                    getString(R.string.userinfo_no_info_text));
+        } else {
+            emptyContentContainer.setVisibility(View.GONE);
+            userInfoView.setVisibility(View.VISIBLE);
+            userName.setText(account.name);
+            DisplayUtils.setAvatar(account, UserInfoActivity.this,
+                    mCurrentAccountAvatarRadiusDimension, getResources(), getStorageManager(), avatar);
 
-        int tint = ThemeUtils.primaryColor(account);
+            int tint = ThemeUtils.primaryColor(account);
 
-        if (userInfo != null) {
             if (!TextUtils.isEmpty(userInfo.getDisplayName())) {
                 fullName.setText(userInfo.getDisplayName());
             }
 
-            populateUserInfoElement(mPhoneNumberContainer, mPhoneNumberTextView, userInfo.getPhone(),
-                    mPhoneNumberIcon, tint);
+            populateUserInfoElement(mPhoneNumberContainer, mPhoneNumberTextView, userInfo.getPhone(), mPhoneNumberIcon,
+                    tint);
             populateUserInfoElement(mEmailContainer, mEmailAddressTextView, userInfo.getEmail(), mEmailIcon, tint);
             populateUserInfoElement(mAddressContainer, mAddressTextView, userInfo.getAddress(), mAddressIcon, tint);
-
-            populateUserInfoElement(
-                    mWebsiteContainer,
-                    mWebsiteTextView,
-                    DisplayUtils.beautifyURL(userInfo.getWebpage()),
-                    mWebsiteIcon,
-                    tint);
-            populateUserInfoElement(
-                    mTwitterContainer,
-                    mTwitterHandleTextView,
-                    DisplayUtils.beautifyTwitterHandle(userInfo.getTwitter()),
-                    mTwitterIcon,
-                    tint);
+            populateUserInfoElement(mWebsiteContainer, mWebsiteTextView,
+                    DisplayUtils.beautifyURL(userInfo.getWebpage()), mWebsiteIcon, tint);
+            populateUserInfoElement(mTwitterContainer, mTwitterHandleTextView,
+                    DisplayUtils.beautifyTwitterHandle(userInfo.getTwitter()), mTwitterIcon, tint);
         }
     }
 
-    private void populateUserInfoElement(View container, TextView textView, String text, ImageView icon, @ColorInt int
-            tint) {
+    private void populateUserInfoElement(View container, TextView textView, String text, ImageView icon,
+                                         @ColorInt int tint) {
         if (!TextUtils.isEmpty(text)) {
             textView.setText(text);
             DrawableCompat.setTint(icon.getDrawable(), tint);
@@ -471,18 +466,8 @@ public class UserInfoActivity extends FileActivity {
             if (result.isSuccess() && result.getData() != null) {
                 userInfo = (UserInfo) result.getData().get(0);
 
-                if (userInfo.getPhone() == null && userInfo.getEmail() == null && userInfo.getAddress() == null
-                        && userInfo.getTwitter() == null & userInfo.getWebpage() == null) {
-                    runOnUiThread(() -> setErrorMessageForMultiList(getString(R.string.userinfo_no_info_headline),
-                            getString(R.string.userinfo_no_info_text)));
-                } else {
-                    runOnUiThread(() -> {
-                        populateUserInfoUi(userInfo);
+                runOnUiThread(() -> populateUserInfoUi(userInfo));
 
-                        emptyContentContainer.setVisibility(View.GONE);
-                        userInfoView.setVisibility(View.VISIBLE);
-                    });
-                }
             } else {
                 // show error
                 runOnUiThread(() -> setErrorMessageForMultiList(sorryMessage, result.getLogMessage()));
