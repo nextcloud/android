@@ -11,6 +11,9 @@ for i in $(find ../../fastlane | grep png) ; do
         "en-US")
             locale=""
             ;;
+        "de-DE")
+            locale="-de"
+            ;;
         *)
             locale="-"$locale
     esac
