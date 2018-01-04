@@ -118,6 +118,7 @@
     <string name="filedetails_sync_file">Synkroniser</string>
     <string name="filedetails_renamed_in_upload_msg">Filnavnet ble endret til  %1$s under opplasting</string>
     <string name="list_layout">Listevisning</string>
+    <string name="action_send_share">Send/del</string>
     <string name="common_yes">Ja</string>
     <string name="common_no">Nei</string>
     <string name="common_ok">OK</string>
@@ -666,7 +667,6 @@
     <string name="resized_image_not_possible">Inget mindre bilde tilgjengelig. Last ned fullversjon?</string>
     <string name="resized_images_download_full_image">Last ned hele bildet?</string>
 
-    <string name="store_short_desc">Nextcloud-programmet for Android gir deg tilgang til alle filene dine i din Nextcloud</string>
     <string name="store_full_desc">Nextcloud-programmet for Android er copyleft fri programvare, og gir deg tilgang til alle dine filer i din Nextcloud.
 
 Egenskaper:
@@ -720,4 +720,6 @@ Sjekk ut Nextcloud på https://nextcloud.com</string>
     <string name="dev_version_no_new_version_available">Ingen ny versjon tilgjengelig.</string>
     <string name="folder_icon">Mappeikon</string>
 
+    <string name="send">Send</string>
+    <string name="share">Del</string>
     </resources>

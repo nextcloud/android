@@ -1,0 +1,19 @@
+L'applicazione libera per Android di Nextcloud ti consente di accedere ai file sul tuo Nextcloud.
+
+Funzionalità:
+* Interfaccia semplice e moderna, che si adattaal tema del tuo server
+* Carica i tuoi file sul tuo server Nextcloud
+* Condividili con altri
+* Mantieni i tuoi file e le cartelle preferite sincronizzate
+* Ricerca attraverso tutte le cartelle sul tuo server
+* Caricamento automatico per le foto e i video acquisiti con il tuo dispositivo
+* Tieniti aggiornato con le notifiche
+* Supporto di più account
+* Proteggi l'accesso ai tuoi dati con impronta digitale o PIN
+* Integrazione con DAVdroid per una facile configurazione della sincronizzazione di calendari e contatti
+
+Segnala tutti i problemi su https://github.com/nextcloud/android/issues e discuti questa applicazione su https://help.nextcloud.com/c/clients/android
+
+Nuovo di Nextcloud? Nextcloud è un server privato di sincronizzazione e condivisione dei file e un server di comunicazione. È un software libero e puoi ospitarlo a casa tua o pagare una società che lo faccia per conto tuo. In questo modo, avrai il controllo delle tue foto, del tuo calendario e dei tuoi contatti, dei tuoi documenti e di qualsiasi altra cosa.
+
+Dai un'occhiata a Nextcloud su https://nextcloud.com
