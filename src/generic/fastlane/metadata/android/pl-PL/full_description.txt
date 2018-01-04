@@ -1,0 +1,14 @@
+Oparta na Open Source aplikacja Nexcloud Android umożliwia dostęp do wszystkich twoich plików w Nextcloud.
+
+Funkcje:
+* Prosty i nowoczesny wygląd
+* Wysyłaj swoje pliki na swój serwer Nextcloud* Dawaj innym dostęp do twoich plików
+* Synchronizuj wybrane pliki i katalogi z serwerem
+* Automatycznie wysyłaj zdjęcia i filmy robione urządzeniem
+* Wsparcie dla wielu kont
+
+Zgłaszaj błędy na https://github.com/nextcloud/android/issues i dyskutuj na temat tej aplikacji na https://help.nextcloud.com/c/clients/android
+
+Nie znasz jeszcze Nextcloud? Nextcloud jest prywatnym serwerem synchronizacji & współdzielenia plików oraz komunikacji. Jego źródła są całkowicie otwarte, więc możesz korzystać z niego na własnym serwerze albo możesz zapłacić za to firmie trzeciej. W ten sposób kontrolujesz swoje zdjęcia, kalendarz, dane kontaktowe, twoje dokumenty i inne dane.
+
+Zobacz Nextcloud na https://nextcloud.com

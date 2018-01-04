@@ -1,0 +1,1 @@
+Nextcloud Dev es una instantánea de desarrollo y se puede instalar en paralelo
