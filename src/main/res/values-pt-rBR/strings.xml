@@ -118,6 +118,7 @@
     <string name="filedetails_sync_file">Sincronizar</string>
     <string name="filedetails_renamed_in_upload_msg">Arquivo renomeado para %1$s durante o envio</string>
     <string name="list_layout">Layout listado</string>
+    <string name="action_send_share">Envia/Compartilhar</string>
     <string name="common_yes">Sim</string>
     <string name="common_no">Não</string>
     <string name="common_ok">OK</string>
@@ -708,4 +709,7 @@
     <string name="dev_version_no_new_version_available">Nenhuma versão nova disponível.</string>
     <string name="folder_icon">Ícone de pasta</string>
 
-    </resources>
+    <string name="send">Enviar</string>
+    <string name="share">Compartilhar</string>
+    <string name="link">Link</string>
+</resources>
