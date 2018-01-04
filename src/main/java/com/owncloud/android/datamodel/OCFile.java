@@ -277,6 +277,19 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
         return mLocalUri;
     }
 
+
+    public Uri getLegacyExposedFileUri(Context context) {
+        if (mLocalPath == null || mLocalPath.length() == 0) {
+            return null;
+        }
+
+        if (mExposedFileUri == null) {
+            return Uri.parse(ContentResolver.SCHEME_FILE + "://" + WebdavUtils.encodePath(mLocalPath));
+        }
+
+        return mExposedFileUri;
+
+    }
     /*
         Partly disabled because not all apps understand paths that we get via this method for now
      */
@@ -293,7 +306,7 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
             } catch (IllegalArgumentException ex) {
                 // Could not share file using FileProvider URI scheme.
                 // Fall back to legacy URI parsing.
-                return Uri.parse(ContentResolver.SCHEME_FILE + "://" + WebdavUtils.encodePath(mLocalPath));
+                getLegacyExposedFileUri(context);
             }
         }
         
