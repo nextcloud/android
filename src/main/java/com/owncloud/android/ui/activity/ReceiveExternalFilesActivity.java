@@ -1,4 +1,4 @@
-/**
+/*
  *  ownCloud Android client application
  *
  *  @author Bartek Przybylski
@@ -30,8 +30,6 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.Resources.NotFoundException;
@@ -105,6 +103,7 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -244,34 +243,26 @@ public class ReceiveExternalFilesActivity extends FileActivity
     }
 
     public static class DialogNoAccount extends DialogFragment {
+        @NonNull
         @Override
         public Dialog onCreateDialog(Bundle savedInstanceState) {
             AlertDialog.Builder builder = new Builder(getActivity());
             builder.setIcon(R.drawable.ic_warning);
             builder.setTitle(R.string.uploader_wrn_no_account_title);
-            builder.setMessage(String.format(
-                                   getString(R.string.uploader_wrn_no_account_text),
-                                   getString(R.string.app_name)));
+            builder.setMessage(String.format(getString(R.string.uploader_wrn_no_account_text), 
+                    getString(R.string.app_name)));
             builder.setCancelable(false);
-            builder.setPositiveButton(R.string.uploader_wrn_no_account_setup_btn_text, new OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    // using string value since in API7 this
-                    // constant is not defined
-                    // in API7 < this constant is defined in
-                    // Settings.ADD_ACCOUNT_SETTINGS
-                    // and Settings.EXTRA_AUTHORITIES
-                    Intent intent = new Intent(android.provider.Settings.ACTION_ADD_ACCOUNT);
-                    intent.putExtra("authorities", new String[]{MainApp.getAuthTokenType()});
-                    startActivityForResult(intent, REQUEST_CODE__SETUP_ACCOUNT);
-                }
+            builder.setPositiveButton(R.string.uploader_wrn_no_account_setup_btn_text, (dialog, which) -> {
+                // using string value since in API7 this
+                // constant is not defined
+                // in API7 < this constant is defined in
+                // Settings.ADD_ACCOUNT_SETTINGS
+                // and Settings.EXTRA_AUTHORITIES
+                Intent intent = new Intent(android.provider.Settings.ACTION_ADD_ACCOUNT);
+                intent.putExtra("authorities", new String[]{MainApp.getAuthTokenType()});
+                startActivityForResult(intent, REQUEST_CODE__SETUP_ACCOUNT);
             });
-            builder.setNegativeButton(R.string.uploader_wrn_no_account_quit_btn_text, new OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    getActivity().finish();
-                }
-            });
+            builder.setNegativeButton(R.string.uploader_wrn_no_account_quit_btn_text, (dialog, which) -> getActivity().finish());
             return builder.create();
         }
     }
@@ -294,14 +285,11 @@ public class ReceiveExternalFilesActivity extends FileActivity
             mAccountListAdapter = new AccountListAdapter(parent, getAccountListItems(parent), mTintedCheck);
 
             builder.setTitle(R.string.common_choose_account);
-            builder.setAdapter(mAccountListAdapter, new OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    final ReceiveExternalFilesActivity parent = (ReceiveExternalFilesActivity) getActivity();
-                    parent.setAccount(parent.mAccountManager.getAccountsByType(MainApp.getAccountType())[which], false);
-                    parent.onAccountSet(parent.mAccountWasRestored);
-                    dialog.dismiss();
-                }
+            builder.setAdapter(mAccountListAdapter, (dialog, which) -> {
+                final ReceiveExternalFilesActivity parent1 = (ReceiveExternalFilesActivity) getActivity();
+                parent1.setAccount(parent1.mAccountManager.getAccountsByType(MainApp.getAccountType())[which], false);
+                parent1.onAccountSet(parent1.mAccountWasRestored);
+                dialog.dismiss();
             });
             builder.setCancelable(true);
             return builder.create();
@@ -391,7 +379,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
 
                 selectPos = PreferenceManager.getUploadUrlFileExtensionUrlSelectedPos(getActivity());
                 mFileCategory = CATEGORY_URL;
-            } else if (isIntentFromGoogleMap(subjectText, extraText)) {
+            } else if (extraText != null && isIntentFromGoogleMap(subjectText, extraText)) {
                 String str = getString(R.string.upload_file_dialog_filetype_googlemap_shortcut);
                 String texts[] = extraText.split("\n");
                 mText.add(internetShortcutUrlText(texts[2]));
@@ -413,21 +401,23 @@ public class ReceiveExternalFilesActivity extends FileActivity
                 mFileCategory = CATEGORY_MAPS_URL;
             }
 
-            final EditText userInput = (EditText) view.findViewById(R.id.user_input);
+            final EditText userInput = view.findViewById(R.id.user_input);
             setFilename(userInput, selectPos);
             userInput.requestFocus();
 
-            final Spinner spinner = (Spinner) view.findViewById(R.id.file_type);
+            final Spinner spinner = view.findViewById(R.id.file_type);
             setupSpinner(adapter, selectPos, userInput, spinner);
             if (adapter.getCount() == 1) {
-                TextView label = (TextView) view.findViewById(R.id.label_file_type);
+                TextView label = view.findViewById(R.id.label_file_type);
                 label.setVisibility(View.GONE);
                 spinner.setVisibility(View.GONE);
             }
             mSpinner = spinner;
 
             Dialog filenameDialog =  createFilenameDialog(view, userInput, spinner);
-            filenameDialog.getWindow().setSoftInputMode(LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+            if (filenameDialog.getWindow() != null) {
+                filenameDialog.getWindow().setSoftInputMode(LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+            }
             return filenameDialog;
         }
 
@@ -455,31 +445,27 @@ public class ReceiveExternalFilesActivity extends FileActivity
             Builder builder = new Builder(getActivity());
             builder.setView(view);
             builder.setTitle(R.string.upload_file_dialog_title);
-            builder.setPositiveButton(R.string.common_ok, new OnClickListener() {
-                public void onClick(DialogInterface dialog,int id) {
-                    int selectPos = spinner.getSelectedItemPosition();
+            builder.setPositiveButton(R.string.common_ok, (dialog, id) -> {
+                int selectPos = spinner.getSelectedItemPosition();
 
-                    // verify if file name has suffix
-                    String filename = userInput.getText().toString();
-                    String suffix = mFilenameSuffix.get(selectPos);
-                    if (!filename.endsWith(suffix)){
-                        filename += suffix;
-                    }
+                // verify if file name has suffix
+                String filename = userInput.getText().toString();
+                String suffix = mFilenameSuffix.get(selectPos);
+                if (!filename.endsWith(suffix)) {
+                    filename += suffix;
+                }
 
-                    File file = createTempFile("tmp.tmp", mText.get(selectPos));
-                    if (file == null) {
-                        getActivity().finish();
-                    }
-                    String tmpname = file.getAbsolutePath();
+                File file = createTempFile(mText.get(selectPos));
 
-                    ((ReceiveExternalFilesActivity)getActivity()).uploadFile(tmpname, filename);
+                if (file == null) {
+                    getActivity().finish();
+                } else {
+                    String tmpName = file.getAbsolutePath();
+
+                    ((ReceiveExternalFilesActivity) getActivity()).uploadFile(tmpName, filename);
                 }
             });
-            builder.setNegativeButton(R.string.common_cancel, new OnClickListener() {
-                public void onClick(DialogInterface dialog,int id) {
-                    dialog.cancel();
-                }
-            });
+            builder.setNegativeButton(R.string.common_cancel, (dialog, id) -> dialog.cancel());
 
             return builder.create();
         }
@@ -592,8 +578,8 @@ public class ReceiveExternalFilesActivity extends FileActivity
         }
 
         @Nullable
-        private File createTempFile(String filename, String text) {
-            File file = new File(getActivity().getCacheDir(), filename);
+        private File createTempFile(String text) {
+            File file = new File(getActivity().getCacheDir(), "tmp.tmp");
             FileWriter fw = null;
             try {
                 fw = new FileWriter(file);
@@ -630,17 +616,16 @@ public class ReceiveExternalFilesActivity extends FileActivity
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         // click on folder in the list
         Log_OC.d(TAG, "on item click");
-        Vector<OCFile> tmpfiles = getStorageManager().getFolderContent(mFile , false);
-        sortFileList(tmpfiles);
+        Vector<OCFile> tmpFiles = getStorageManager().getFolderContent(mFile, false);
+        tmpFiles = sortFileList(tmpFiles);
 
-        if (tmpfiles.size() <= 0) {
+        if (tmpFiles.size() <= 0) {
             return;
         }
         // filter on dirtype
         Vector<OCFile> files = new Vector<>();
-        for (OCFile f : tmpfiles) {
-            files.add(f);
-        }
+        files.addAll(tmpFiles);
+        
         if (files.size() < position) {
             throw new IndexOutOfBoundsException("Incorrect item selected");
         }
@@ -663,7 +648,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
                     mUploadPath += p + OCFile.PATH_SEPARATOR;
                 }
 
-                if (mUploadFromTmpFile){
+                if (mUploadFromTmpFile) {
                     DialogInputUploadFilename dialog = DialogInputUploadFilename.newInstance(mSubjectText, mExtraText);
                     dialog.show(getSupportFragmentManager(), null);
                 } else {
@@ -719,19 +704,21 @@ public class ReceiveExternalFilesActivity extends FileActivity
         ActionBar actionBar = getSupportActionBar();
         setupActionBarSubtitle();
 
-        ListView mListView = (ListView) findViewById(android.R.id.list);
+        ListView mListView = findViewById(android.R.id.list);
 
         String current_dir = mParents.peek();
-        if ("".equals(current_dir)) {
-            actionBar.setTitle(getString(R.string.uploader_top_message));
-        } else {
-            actionBar.setTitle(current_dir);
-        }
-
         boolean notRoot = (mParents.size() > 1);
 
-        actionBar.setDisplayHomeAsUpEnabled(notRoot);
-        actionBar.setHomeButtonEnabled(notRoot);
+        if (actionBar != null) {
+            if ("".equals(current_dir)) {
+                actionBar.setTitle(getString(R.string.uploader_top_message));
+            } else {
+                actionBar.setTitle(current_dir);
+            }
+
+            actionBar.setDisplayHomeAsUpEnabled(notRoot);
+            actionBar.setHomeButtonEnabled(notRoot);
+        }
 
         String full_path = generatePath(mParents);
 
@@ -742,16 +729,12 @@ public class ReceiveExternalFilesActivity extends FileActivity
             Vector<OCFile> files = getStorageManager().getFolderContent(mFile, false);
 
             if (files.size() == 0) {
-                setMessageForEmptyList(
-                        R.string.file_list_empty_headline,
-                        R.string.empty,
-                        R.drawable.ic_list_empty_upload,
-                        true
-                );
+                setMessageForEmptyList(R.string.file_list_empty_headline, R.string.empty,
+                        R.drawable.ic_list_empty_upload);
             } else {
                 mEmptyListContainer.setVisibility(View.GONE);
 
-                sortFileList(files);
+                files = sortFileList(files);
 
                 List<HashMap<String, Object>> data = new LinkedList<>();
                 for (OCFile f : files) {
@@ -769,7 +752,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
 
                 mListView.setAdapter(sa);
             }
-                Button btnChooseFolder = (Button) findViewById(R.id.uploader_choose_folder);
+            Button btnChooseFolder = findViewById(R.id.uploader_choose_folder);
                 btnChooseFolder.setOnClickListener(this);
                 btnChooseFolder.getBackground().setColorFilter(ThemeUtils.primaryColor(getAccount()),
                         PorterDuff.Mode.SRC_ATOP);
@@ -783,7 +766,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
 
                 ThemeUtils.colorToolbarProgressBar(this, ThemeUtils.primaryColor(getAccount()));
 
-                Button btnNewFolder = (Button) findViewById(R.id.uploader_cancel);
+            Button btnNewFolder = findViewById(R.id.uploader_cancel);
                 btnNewFolder.setOnClickListener(this);
 
                 mListView.setOnItemClickListener(this);
@@ -791,33 +774,27 @@ public class ReceiveExternalFilesActivity extends FileActivity
         }
 
     protected void setupEmptyList() {
-        mEmptyListContainer = (LinearLayout) findViewById(R.id.empty_list_view);
-        mEmptyListMessage = (TextView) findViewById(R.id.empty_list_view_text);
-        mEmptyListHeadline = (TextView) findViewById(R.id.empty_list_view_headline);
-        mEmptyListIcon = (ImageView) findViewById(R.id.empty_list_icon);
-        mEmptyListProgress = (ProgressBar) findViewById(R.id.empty_list_progress);
+        mEmptyListContainer = findViewById(R.id.empty_list_view);
+        mEmptyListMessage = findViewById(R.id.empty_list_view_text);
+        mEmptyListHeadline = findViewById(R.id.empty_list_view_headline);
+        mEmptyListIcon = findViewById(R.id.empty_list_icon);
+        mEmptyListProgress = findViewById(R.id.empty_list_progress);
         mEmptyListProgress.getIndeterminateDrawable().setColorFilter(ThemeUtils.primaryColor(),
                 PorterDuff.Mode.SRC_IN);
     }
 
     public void setMessageForEmptyList(@StringRes final int headline, @StringRes final int message,
-                                       @DrawableRes final int icon, final boolean tintIcon) {
-        new Handler(Looper.getMainLooper()).post(new Runnable() {
-            @Override
-            public void run() {
+                                       @DrawableRes final int icon) {
+        new Handler(Looper.getMainLooper()).post(() -> {
+            if (mEmptyListContainer != null && mEmptyListMessage != null) {
+                mEmptyListHeadline.setText(headline);
+                mEmptyListMessage.setText(message);
 
-                if (mEmptyListContainer != null && mEmptyListMessage != null) {
-                    mEmptyListHeadline.setText(headline);
-                    mEmptyListMessage.setText(message);
+                mEmptyListIcon.setImageDrawable(ThemeUtils.tintDrawable(icon, ThemeUtils.primaryColor()));
 
-                    if (tintIcon) {
-                        mEmptyListIcon.setImageDrawable(ThemeUtils.tintDrawable(icon, ThemeUtils.primaryColor()));
-                    }
-
-                    mEmptyListIcon.setVisibility(View.VISIBLE);
-                    mEmptyListProgress.setVisibility(View.GONE);
-                    mEmptyListMessage.setVisibility(View.VISIBLE);
-                }
+                mEmptyListIcon.setVisibility(View.VISIBLE);
+                mEmptyListProgress.setVisibility(View.GONE);
+                mEmptyListMessage.setVisibility(View.VISIBLE);
             }
         });
     }
@@ -833,7 +810,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
         mSyncInProgress = true;
 
         // perform folder synchronization
-        RemoteOperation synchFolderOp = new RefreshFolderOperation( folder,
+        RemoteOperation syncFolderOp = new RefreshFolderOperation(folder,
                                                                         currentSyncTime,
                                                                         false,
                                                                         false,
@@ -842,7 +819,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
                                                                         getAccount(),
                                                                         getApplicationContext()
                                                                       );
-        synchFolderOp.execute(getAccount(), this, null, null);
+        syncFolderOp.execute(getAccount(), this, null, null);
     }
 
     private Vector<OCFile> sortFileList(Vector<OCFile> files) {
@@ -863,10 +840,11 @@ public class ReceiveExternalFilesActivity extends FileActivity
 
     private void prepareStreamsToUpload() {
         Intent intent = getIntent();
-        if (intent.getAction().equals(Intent.ACTION_SEND)) {
+
+        if (Intent.ACTION_SEND.equals(intent.getAction())) {
             mStreamsToUpload = new ArrayList<>();
             mStreamsToUpload.add(intent.getParcelableExtra(Intent.EXTRA_STREAM));
-        } else if (intent.getAction().equals(Intent.ACTION_SEND_MULTIPLE)) {
+        } else if (Intent.ACTION_SEND_MULTIPLE.equals(intent.getAction())) {
             mStreamsToUpload = intent.getParcelableArrayListExtra(Intent.EXTRA_STREAM);
         }
 
@@ -877,7 +855,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
     }
 
     private void saveTextsFromIntent(Intent intent) {
-        if (!intent.getType().equals("text/plain")) {
+        if (!"text/plain".equals(intent.getType())) {
             return;
         }
         mUploadFromTmpFile = true;
@@ -897,12 +875,12 @@ public class ReceiveExternalFilesActivity extends FileActivity
                 mUploadFromTmpFile);
     }
 
-    public void uploadFile(String tmpname, String filename) {
+    public void uploadFile(String tmpName, String filename) {
         FileUploader.UploadRequester requester = new FileUploader.UploadRequester();
         requester.uploadNewFile(
             getBaseContext(),
             getAccount(),
-            tmpname,
+                tmpName,
             mFile.getRemotePath() + filename,
             FileUploader.LOCAL_BEHAVIOUR_COPY,
             null,
@@ -1010,9 +988,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
         } else {
             String[] dir_names = lastPath.split("/");
             mParents.clear();
-            for (String dir : dir_names) {
-                mParents.add(dir);
-            }
+            mParents.addAll(Arrays.asList(dir_names));
         }
         //Make sure that path still exists, if it doesn't pop the stack and try the previous path
         while (!getStorageManager().fileExists(generatePath(mParents)) && mParents.size() > 1) {
@@ -1092,9 +1068,8 @@ public class ReceiveExternalFilesActivity extends FileActivity
                 String event = intent.getAction();
                 Log_OC.d(TAG, "Received broadcast " + event);
                 String accountName = intent.getStringExtra(FileSyncAdapter.EXTRA_ACCOUNT_NAME);
-                String synchFolderRemotePath =
-                        intent.getStringExtra(FileSyncAdapter.EXTRA_FOLDER_PATH);
-                RemoteOperationResult synchResult = (RemoteOperationResult)
+                String syncFolderRemotePath = intent.getStringExtra(FileSyncAdapter.EXTRA_FOLDER_PATH);
+                RemoteOperationResult syncResult = (RemoteOperationResult)
                         DataHolderUtil.getInstance().retrieve(intent.getStringExtra(FileSyncAdapter.EXTRA_RESULT));
                 boolean sameAccount = (getAccount() != null &&
                         accountName.equals(getAccount().name) && getStorageManager() != null);
@@ -1125,7 +1100,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
                                 currentFile = currentDir;
                             }
 
-                            if (currentDir.getRemotePath().equals(synchFolderRemotePath)) {
+                            if (currentDir.getRemotePath().equals(syncFolderRemotePath)) {
                                 populateDirectoryList();
                             }
                             mFile = currentFile;
@@ -1137,17 +1112,17 @@ public class ReceiveExternalFilesActivity extends FileActivity
                         if (RefreshFolderOperation.EVENT_SINGLE_FOLDER_CONTENTS_SYNCED.
                                 equals(event) &&
                                 /// TODO refactor and make common
-                                synchResult != null && !synchResult.isSuccess()) {
+                                syncResult != null && !syncResult.isSuccess()) {
 
-                            if(synchResult.getCode() == ResultCode.UNAUTHORIZED ||
-                                        (synchResult.isException() && synchResult.getException()
+                            if (syncResult.getCode() == ResultCode.UNAUTHORIZED ||
+                                    (syncResult.isException() && syncResult.getException()
                                                 instanceof AuthenticatorException)) {
 
                                 requestCredentialsUpdate(context);
 
-                            } else if(RemoteOperationResult.ResultCode.SSL_RECOVERABLE_PEER_UNVERIFIED.equals(synchResult.getCode())) {
+                            } else if (RemoteOperationResult.ResultCode.SSL_RECOVERABLE_PEER_UNVERIFIED.equals(syncResult.getCode())) {
 
-                                showUntrustedCertDialog(synchResult);
+                                showUntrustedCertDialog(syncResult);
                             }
                         }
                     }
