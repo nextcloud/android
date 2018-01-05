@@ -1,0 +1,19 @@
+자유 소프트웨어 Nextcloud Android 앱으로 내 Nextcloud에 있는 파일에 접근할 수 있습니다.
+
+기능:
+* 쉽고 간결한 인터페이스, 서버의 테마를 따라가는 테마
+* 내 Nextcloud 서버에 파일 업로드
+* 다른 사람과 파일 공유하기
+* 즐겨찾는 파일과 폴더 동기화
+* 서버에 있는 모든 폴더 검색
+* 내 장치로 찍은 사진과 동영상 자동 업로드
+* 최신 알림 유지
+* 다중 계정 지원
+* 지문이나 PIN으로 데이터 접근 보호
+* DAVDroid 통합을 통한 간편한 캘린더 및 연락처 동기화
+
+https://github.com/nextcloud/android/issues 사이트에 버그를 보고해 주십시오. https://help.nextcloud.com/c/clients/android 사이트에서 앱에 대해 토론할 수 있습니다.
+
+Nextcloud를 처음 들어 보셨나요? Nextcloud는 개인 파일 동기화 및 공유 서버입니다. 직접 서버에 설치하거나 호스팅 업체에 설치할 수 있는 자유 오픈 소스 프로젝트입니다. 내 사진, 캘린더, 연락처, 문서 및 모든 것의 통제권을 가질 수 있습니다.
+
+Nextcloud에 대해 더 알아보려면 https://nextcloud.com 사이트를 방문하십시오

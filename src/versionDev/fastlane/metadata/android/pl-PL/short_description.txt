@@ -1,0 +1,2 @@
+
+Wersja Nextcloud Dev jest wersją rozwojową, można ją zainstalować równolegle.
