@@ -659,7 +659,6 @@
     <string name="resized_image_not_possible">Ingen förminskad bild tillgänglig. Vill du ladda ner fullständig bild?</string>
     <string name="resized_images_download_full_image">Vill du ladda ner fullständig bild?</string>
 
-    <string name="store_short_desc">Nextcloud Android-app ger dig åtkomst till alla dina filer i ditt Nextcloud</string>
     <string name="drawer_current_account">Nuvarande konto</string>
     <string name="drawer_middle_account">Mittenkonto</string>
     <string name="drawer_end_account">Sista konto</string>
