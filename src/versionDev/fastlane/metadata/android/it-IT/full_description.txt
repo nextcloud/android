@@ -1,0 +1,4 @@
+L'applicazione Open Source Nextcloud Android ti consente di accedere a tutti i file sul tuo Nextcloud.
+Questa è una versione di sviluppo dell'applicazione Nextcloud ufficiale e include funzionalità  nuove, non testate che potrebbero provocare instabilità e perdite di dati. Questa applicazione è progettata per gli utenti che desiderano provare le nuove funzionalità e segnalare bug, se si verificano. Non utilizzarla in ambienti di produzione!
+
+La versione di sviluppo può essere installata parallelamente all'applicazione Nextcloud ufficiale, disponibile anche su F-Droid. Una volta al giorno  viene verificato se il codice sorgente sia stato aggiornato, per cui possono esserci delle pause più lunghe tra la versioni.

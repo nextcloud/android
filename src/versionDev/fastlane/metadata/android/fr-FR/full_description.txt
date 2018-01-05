@@ -1,0 +1,4 @@
+L'application, libre de copie, Nextcloud pour Android, vous donne accès à tous les fichiers dans votre Nextcloud.
+C'est la version officielle de développement, comportant un échantillon quotidien de toutes les nouvelles fonctionnalités non testées, qui peut causer l'instabilité et la perte de données. L'application est destinée aux utilisateurs qui souhaitent tester et signaler les bogues s'ils surviennent. Ne l'utilisez pas pour votre travail productif ! 
+
+La version officielle de développement et la version régulière sont disponibles sur F-droid, et peuvent être installées en même temps.

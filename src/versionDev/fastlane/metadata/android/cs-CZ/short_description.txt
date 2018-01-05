@@ -1,0 +1,1 @@
+Aplikace Nextcloud Dev je vývojovým snímkem a může být nainstalována paralelně.
