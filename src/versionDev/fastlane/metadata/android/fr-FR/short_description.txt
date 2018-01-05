@@ -1,0 +1,1 @@
+Nextcloud Dev est une version de travail qui peut être installée en parallèle.

@@ -1,0 +1,1 @@
+Nextcloud Dev uygulaması paralel olarak kurulabilen geliştirme sürümü örneğidir.
