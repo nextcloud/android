@@ -1,0 +1,4 @@
+O aplicativo de software livre Nexcloud para Android oferece acesso a todos os arquivos em seu Nextcloud.
+Esta é a versão oficial de desenvolvimento, com uma amostra diária de toda nova funcionalidade não testada, a qual pode causar instabilidade e perda de dados. O aplicativo é para usuários dispostos a testar e informar erros se eles ocorrerem. Não use-o em ambiente produtivo!
+
+Ambas as versões oficial e de desenvolvimento estão disponíveis no F-droid e podem ser instalados ao mesmo tempo.

@@ -15,8 +15,8 @@
     <string name="sort_by">Порядок сортировки</string>
     <string name="menu_item_sort_by_name_a_z">А − Я</string>
     <string name="menu_item_sort_by_name_z_a">Я − A</string>
-    <string name="menu_item_sort_by_date_newest_first">Новые − старые</string>
-    <string name="menu_item_sort_by_date_oldest_first">Старые − новые</string>
+    <string name="menu_item_sort_by_date_newest_first">Сначала новые</string>
+    <string name="menu_item_sort_by_date_oldest_first">Сначала старые</string>
     <string name="menu_item_sort_by_size_biggest_first">Большие − маленькие</string>
     <string name="menu_item_sort_by_size_smallest_first">Маленькие − большие</string>
 
@@ -118,6 +118,7 @@
     <string name="filedetails_sync_file">Синхронизировать</string>
     <string name="filedetails_renamed_in_upload_msg">Во время передачи на сервер файл был переименован в «%1$s»</string>
     <string name="list_layout">Вид списком</string>
+    <string name="action_send_share">Отправить/Открыть доступ</string>
     <string name="common_yes">Да</string>
     <string name="common_no">Нет</string>
     <string name="common_ok">ОК</string>
@@ -676,7 +677,6 @@
     <string name="resized_image_not_possible">Масштабированное изображение недоступно.  Скачать полноразмерное изображение?</string>
     <string name="resized_images_download_full_image">Скачать полноразмерное изображение?</string>
 
-    <string name="store_short_desc">Приложение Nextcloud для Android предоставляет доступ к файлам из вашего Nextcloud</string>
     <string name="store_full_desc">Приложение Nextcloud для Android, распространяемое под свободной копилефт лицензией, позволяет получать доступ ко всем файлам на вашем сервере Nextcloud.\n\nОсобенности: \n* Легкий современный интерфейс\n* Передача файлов на сервер Nextcloud\n* Возможность делиться своими файлами с другими\n* Синхронизация файлов и папок\n* Поиск по всем папкам на сервере\n* Автоматическая передача на сервер видео и фотографий, сделанных на мобильном устройстве\n* Поддержка нескольких учётных записей\n* Защита доступа к данным отпечатком пальца или ПИН-кодом\n* Интеграция с DAVdroid для лёгкой настройки синхронизации календарей и контактов\n\nЗамечания и ошибки: https://github.com/nextcloud/android/issues \nПомощь и обсуждение: https://help.nextcloud.com\n\nНе знакомы с Nextcloud? Nextcloud — это свободное серверное ПО для хранения и совместной работы с файлами, событиями календаря, контактами, документами и пр. с открытым исходным кодом. Вы можете самостоятельно развернуть сервер или поручить компании сделать это для вас. Таким образом, только вы управляете своими фотографиями, своими календарями и записными книжками, своими документами и всем остальным.\n\nhttps://nextcloud.com</string>
 
     <string name="drawer_current_account">Текущая учётная запись</string>
@@ -718,4 +718,7 @@
     <string name="dev_version_no_new_version_available">Новая версия отсутствует.</string>
     <string name="folder_icon">Значок папки</string>
 
-    </resources>
+    <string name="send">Отправить</string>
+    <string name="share">Открыть доступ</string>
+    <string name="link">Ссылка</string>
+</resources>

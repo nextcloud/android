@@ -1,0 +1,6 @@
+# This is the minimum version number required.
+fastlane_version "2.58.0"
+
+lane :screenshots do
+  screengrab
+end
