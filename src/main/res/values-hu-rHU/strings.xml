@@ -732,4 +732,5 @@ A Nextcloud itt érhető el: https://nextcloud.com</string>
     <string name="send">Küldés</string>
     <string name="share">Megosztás</string>
     <string name="link">Hivatkozás</string>
-</resources>
+  
+    </resources>
