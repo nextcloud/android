@@ -1,0 +1,1 @@
+Nextcloud Android 앱으로 내 Nextcloud에 있는 모든 파일을 사용하십시오.
