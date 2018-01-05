@@ -228,13 +228,18 @@ public class UploadsStorageManager extends Observable {
                 null
         );
 
-        if (c.getCount() != 1) {
-            Log_OC.e(TAG, c.getCount() + " items for id=" + id
-                    + " available in UploadDb. Expected 1. Failed to update upload db.");
+        if (c != null) {
+            if (c.getCount() != 1) {
+                Log_OC.e(TAG, c.getCount() + " items for id=" + id
+                        + " available in UploadDb. Expected 1. Failed to update upload db.");
+            } else {
+                returnValue = updateUploadInternal(c, status, result, remotePath, localPath);
+            }
+            c.close();
         } else {
-            returnValue = updateUploadInternal(c, status, result, remotePath, localPath);
+            Log_OC.e(TAG, "Cursor is null");
         }
-        c.close();
+        
         return returnValue;
     }
 
@@ -317,6 +322,8 @@ public class UploadsStorageManager extends Observable {
 
 
     private OCUpload[] getUploads(String selection, String[] selectionArgs) {
+        OCUpload[] list;
+
         Cursor c = getDB().query(
                 ProviderTableMeta.CONTENT_URI_UPLOADS,
                 null,
@@ -324,19 +331,24 @@ public class UploadsStorageManager extends Observable {
                 selectionArgs,
                 null
         );
-        OCUpload[] list = new OCUpload[c.getCount()];
-        if (c.moveToFirst()) {
-            do {
-                OCUpload upload = createOCUploadFromCursor(c);
-                if (upload == null) {
-                    Log_OC.e(TAG, "OCUpload could not be created from cursor");
-                } else {
-                    list[c.getPosition()] = upload;
-                }
-            } while (c.moveToNext());
 
+        if (c != null) {
+            list = new OCUpload[c.getCount()];
+
+            if (c.moveToFirst()) {
+                do {
+                    OCUpload upload = createOCUploadFromCursor(c);
+                    if (upload == null) {
+                        Log_OC.e(TAG, "OCUpload could not be created from cursor");
+                    } else {
+                        list[c.getPosition()] = upload;
+                    }
+                } while (c.moveToNext());
+            }
+            c.close();
+        } else {
+            list = new OCUpload[0];
         }
-        c.close();
 
         return list;
     }
