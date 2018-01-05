@@ -748,8 +748,6 @@
     <string name="screenshot_05_autoUpload">Automatically upload your photos &amp; videos</string>
     <string name="screenshot_06_davdroid">Sync Calendar &amp; Contacts with DAVdroid</string>
     
-    <string name="userinfo_no_info_headline">No info</string>
-    <string name="userinfo_no_info_text">No personal info set.\nAdd name, picture and contact details on your profile
-        page.
-    </string>
+    <string name="userinfo_no_info_headline">No personal info set</string>
+    <string name="userinfo_no_info_text">Add name, picture and contact details on your profile page.</string>
 </resources>
