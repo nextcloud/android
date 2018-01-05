@@ -1,0 +1,4 @@
+Açık Kaynaklı Nextcloud Android uygulaması ile Nextcloud üzerindeki tüm dosyalarınıza erişebilirsiniz.
+Bu sürüm resmi Nextcloud uygulamasının geliştirici sürümüdür ve kararsız çalışan ve veri kaybına yol açabilecek yeterince sınanmamış yeni özellikleri bulundurur. Bu sürüm yeni özellikleri sınamak ve hataları bildirmek isteyen kullanıcılar için tasarlanmıştır. Bu sürümü günlük işleriniz için kullanmayın!
+
+Normal ve Geliştirici sürümleri F-Droid üzerinde bulunur ve aynı anda kurulup kullanılabilir.
