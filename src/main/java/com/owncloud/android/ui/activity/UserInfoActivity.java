@@ -38,6 +38,7 @@ import android.graphics.drawable.LayerDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.ColorInt;
+import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
@@ -53,7 +54,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-
+import butterknife.BindString;
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
@@ -72,16 +76,10 @@ import com.owncloud.android.ui.events.TokenPushEvent;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.PushUtils;
 import com.owncloud.android.utils.ThemeUtils;
-
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 import org.parceler.Parcels;
-
-import butterknife.BindString;
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
 
 /**
  * This Activity presents the user information.
@@ -261,11 +259,11 @@ public class UserInfoActivity extends FileActivity {
         }
     }
 
-    private void setErrorMessageForMultiList(String headline, String message) {
+    private void setErrorMessageForMultiList(String headline, String message, @DrawableRes int errorResource) {
         if (emptyContentContainer != null && emptyContentMessage != null) {
             emptyContentHeadline.setText(headline);
             emptyContentMessage.setText(message);
-            emptyContentIcon.setImageResource(R.drawable.ic_list_empty_error);
+            emptyContentIcon.setImageResource(errorResource);
 
             multiListProgressBar.setVisibility(View.GONE);
             emptyContentIcon.setVisibility(View.VISIBLE);
@@ -318,22 +316,24 @@ public class UserInfoActivity extends FileActivity {
     }
 
     private void populateUserInfoUi(UserInfo userInfo) {
+        userName.setText(account.name);
+        DisplayUtils.setAvatar(account, UserInfoActivity.this,
+                mCurrentAccountAvatarRadiusDimension, getResources(), getStorageManager(), avatar);
+
+        int tint = ThemeUtils.primaryColor(account);
+
+        if (!TextUtils.isEmpty(userInfo.getDisplayName())) {
+            fullName.setText(userInfo.getDisplayName());
+        }
+        
         if (userInfo.getPhone() == null && userInfo.getEmail() == null && userInfo.getAddress() == null
                 && userInfo.getTwitter() == null & userInfo.getWebpage() == null) {
+
             setErrorMessageForMultiList(getString(R.string.userinfo_no_info_headline),
-                    getString(R.string.userinfo_no_info_text));
+                    getString(R.string.userinfo_no_info_text), R.drawable.ic_user);
         } else {
             emptyContentContainer.setVisibility(View.GONE);
             userInfoView.setVisibility(View.VISIBLE);
-            userName.setText(account.name);
-            DisplayUtils.setAvatar(account, UserInfoActivity.this,
-                    mCurrentAccountAvatarRadiusDimension, getResources(), getStorageManager(), avatar);
-
-            int tint = ThemeUtils.primaryColor(account);
-
-            if (!TextUtils.isEmpty(userInfo.getDisplayName())) {
-                fullName.setText(userInfo.getDisplayName());
-            }
 
             populateUserInfoElement(mPhoneNumberContainer, mPhoneNumberTextView, userInfo.getPhone(), mPhoneNumberIcon,
                     tint);
@@ -470,7 +470,8 @@ public class UserInfoActivity extends FileActivity {
 
             } else {
                 // show error
-                runOnUiThread(() -> setErrorMessageForMultiList(sorryMessage, result.getLogMessage()));
+                runOnUiThread(() -> setErrorMessageForMultiList(sorryMessage, result.getLogMessage(),
+                        R.drawable.ic_list_empty_error));
                 Log_OC.d(TAG, result.getLogMessage());
             }
         });
