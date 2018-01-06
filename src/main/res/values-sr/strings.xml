@@ -718,4 +718,12 @@
     <string name="share">Подели</string>
     <string name="link">Веза</string>
   
-    </resources>
+    <string name="account_not_found">Налог није нађен!</string>
+
+    <string name="screenshot_01_gridView">Сигурно место за све Ваше податке</string>
+    <string name="screenshot_02_listView">Лако гледајте и чувајте Ваше фајлове</string>
+    <string name="screenshot_03_drawer">Брзо приступајте активностима, дељеним фајловима, фајловима ван мреже и још више</string>
+    <string name="screenshot_04_accounts">Повежите се на различите налоге</string>
+    <string name="screenshot_05_autoUpload">Аутоматски отпремајте Ваше слике &amp; видео записе</string>
+    <string name="screenshot_06_davdroid">Синхронизујте календар &amp; контакте</string>
+</resources>

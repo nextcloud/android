@@ -708,4 +708,12 @@
     <string name="share">공유</string>
     <string name="link">링크</string>
   
-    </resources>
+    <string name="account_not_found">계정을 찾을 수 없습니다!</string>
+
+    <string name="screenshot_01_gridView">내 모든 데이터를 위한 안전한 저장소</string>
+    <string name="screenshot_02_listView">내 파일을 쉽게 탐색하고 공유하기</string>
+    <string name="screenshot_03_drawer">활동, 공유, 오프라인 파일 및 기타 콘텐츠에 빠르게 접근</string>
+    <string name="screenshot_04_accounts">다른 계정에 연결하기</string>
+    <string name="screenshot_05_autoUpload">내 사진과 동영상 자동 업로드</string>
+    <string name="screenshot_06_davdroid">DAVdroid를 통한 달력 및 연락처 동기화</string>
+</resources>
