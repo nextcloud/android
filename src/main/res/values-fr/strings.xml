@@ -715,4 +715,12 @@ Attention la suppression est irréversible.</string>
     <string name="share">Partager</string>
     <string name="link">Lien</string>
   
-    </resources>
+    <string name="account_not_found">Compte introuvable !</string>
+
+    <string name="screenshot_01_gridView">Un lieu sûr pour toutes vos données</string>
+    <string name="screenshot_02_listView">Consultez et partagez vos fichiers facilement</string>
+    <string name="screenshot_03_drawer">Accédez rapidement aux fichiers hors-connexion, partagez, consultez l\'activé et bien plus</string>
+    <string name="screenshot_04_accounts">Connectez-vous avec plusieurs comptes</string>
+    <string name="screenshot_05_autoUpload">Envoyez instantanément vos photos &amp; vidéos</string>
+    <string name="screenshot_06_davdroid">Synchronisez Agenda &amp; Contacts avec DAVdroid</string>
+</resources>

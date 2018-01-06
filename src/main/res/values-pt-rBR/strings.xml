@@ -713,4 +713,12 @@
     <string name="share">Compartilhar</string>
     <string name="link">Link</string>
   
-    </resources>
+    <string name="account_not_found">Conta não encontrada!</string>
+
+    <string name="screenshot_01_gridView">Um lugar seguro para seus dados</string>
+    <string name="screenshot_02_listView">Navegue e compartilhe seus arquivos facilmente</string>
+    <string name="screenshot_03_drawer">Acesse as atividades, compartilhamentos, arquivos offline e muito mais</string>
+    <string name="screenshot_04_accounts">Conecte com diferentes contas</string>
+    <string name="screenshot_05_autoUpload">Envie suas fotos &amp; vídeos automaticamente</string>
+    <string name="screenshot_06_davdroid">Sincronize Calendários &amp; Contatos com DAVdroid</string>
+</resources>
