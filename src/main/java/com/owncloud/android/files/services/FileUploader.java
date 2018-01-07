@@ -396,6 +396,7 @@ public class FileUploader extends Service
                         currentAccount = failedUpload.getAccount(context);
                     }
 
+                    charging = charging || Device.getBatteryStatus(context).getBatteryPercent() == 1;
                     if (!isPowerSaving && gotNetwork && checkIfUploadCanBeRetried(failedUpload, gotWifi, charging)) {
                             retry(context, currentAccount, failedUpload);
                         }
