@@ -708,4 +708,12 @@
     <string name="share">გაზიარება</string>
     <string name="link">ბმული</string>
   
-    </resources>
+    <string name="account_not_found">ანგარიში ვერ იქნა ნაპოვნი!</string>
+
+    <string name="screenshot_01_gridView">უსაფრთხო სახლი მთელი თქვენი მონაცემებისათვის</string>
+    <string name="screenshot_02_listView">მოიხილეთ და გააზიარეთ თქვენი ფაილები მარტივად</string>
+    <string name="screenshot_03_drawer">იქონიეთ სწრაფი წვდომა აქტივობებზე, გაზიარებებზე, ოფლაინ ფაილებზე და ა.შ.</string>
+    <string name="screenshot_04_accounts">დაუკავშირდით სხვა ანგარიშებს</string>
+    <string name="screenshot_05_autoUpload">ავტომატურად ატვირთეთ თქვენი ფოტოები და ვიდეოები</string>
+    <string name="screenshot_06_davdroid">კალენდრისა და კონტაქტების სინქ. DAVdroid-თან</string>
+</resources>
