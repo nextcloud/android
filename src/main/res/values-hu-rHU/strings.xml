@@ -670,6 +670,7 @@ hozzáadások, változások és megosztások</string>
     <string name="resized_image_not_possible">Átméretezett kép nem elérhető. Letöltsem a teljes képet?</string>
     <string name="resized_images_download_full_image">Teljes kép letöltése?</string>
 
+    <string name="store_short_desc">A Nextcloud Android alkalmazás segítségével hozzáférhetsz a saját Nextcloud-on tárolt fájlaidhoz.</string>
     <string name="store_full_desc">A nyílt forrású Nextcloud android app segítségével hozzáférhetsz a saját Nextcloudod fájljaihoz.
 
 Szolgáltatások:
@@ -737,4 +738,8 @@ A Nextcloud itt érhető el: https://nextcloud.com</string>
 
     <string name="screenshot_01_gridView">Egy biztonságos hely az adataidnak</string>
     <string name="screenshot_02_listView">Böngészd és keresd a fájljaidat könnyedén</string>
-    </resources>
+    <string name="screenshot_03_drawer">Férj hozzá gyorsan az aktivitáshoz, megosztáshoz, offline fájlokhoz és még máshoz</string>
+    <string name="screenshot_04_accounts">Kapcsolódás más fiókokhoz</string>
+    <string name="screenshot_05_autoUpload">Automatikus Fotó &amp; videó feltöltés</string>
+    <string name="screenshot_06_davdroid">Naptár &amp; Kapcsolatok szinkronizálása DAVdroid segítségével</string>
+</resources>
