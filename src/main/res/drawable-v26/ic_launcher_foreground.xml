@@ -1,0 +1,32 @@
+<!--
+  Nextcloud Android client application
+
+  Copyright (C) 2017 Andy Scherzinger
+  Copyright (C) 2017 Nextcloud.
+
+  This program is free software; you can redistribute it and/or
+  modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
+  License as published by the Free Software Foundation; either
+  version 3 of the License, or any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  GNU AFFERO GENERAL PUBLIC LICENSE for more details.
+
+  You should have received a copy of the GNU Affero General Public
+  License along with this program. If not, see <http://www.gnu.org/licenses/>.
+  -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+        android:width="108dp"
+        android:height="108dp"
+        android:viewportWidth="1636.9231"
+        android:viewportHeight="1636.9231">
+    <group android:translateX="286.46155"
+            android:translateY="286.46155">
+        <path
+            android:pathData="M532.7,320C439.3,320 360.9,383.9 337,469.9 316.1,423.9 270.1,391.3 216.6,391.3 143.8,391.3 84,451.2 84,524c-0,72.8 59.8,132.6 132.6,132.7 53.5,-0 99.4,-32.6 120.4,-78.6 23.9,86 102.4,149.9 195.7,149.9 92.8,0 170.8,-63.2 195.3,-148.5 21.2,45.1 66.5,77.2 119.4,77.2 72.8,0 132.7,-59.8 132.6,-132.7 -0,-72.8 -59.9,-132.6 -132.6,-132.6 -52.8,0 -98.2,32 -119.4,77.2 -24.4,-85.3 -102.4,-148.5 -195.3,-148.5zM532.7,397.9c70.1,0 126.1,56 126.1,126.1 0,70.1 -56,126.1 -126.1,126.1 -70.1,-0 -126.1,-56 -126.1,-126.1 0,-70.1 56,-126.1 126.1,-126.1zM216.6,469.2c30.7,0 54.8,24.1 54.8,54.8 0,30.7 -24,54.8 -54.8,54.8 -30.7,0 -54.8,-24.1 -54.8,-54.8 0,-30.7 24.1,-54.8 54.8,-54.8zM847.4,469.2c30.7,-0 54.8,24.1 54.8,54.8 0,30.7 -24.1,54.8 -54.8,54.8 -30.7,0 -54.8,-24.1 -54.8,-54.8 0,-30.7 24.1,-54.8 54.8,-54.8z"
+            android:fillType="nonZero"
+            android:fillColor="#ffffff"/>
+    </group>
+</vector>
