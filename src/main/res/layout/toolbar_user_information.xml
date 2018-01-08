@@ -76,7 +76,7 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/drawer_username_full"
+                    android:id="@+id/userinfo_username_full"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ellipsize="end"
@@ -90,7 +90,7 @@
                     android:textStyle="bold"/>
 
                 <TextView
-                    android:id="@+id/drawer_username"
+                    android:id="@+id/userinfo_username"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ellipsize="end"

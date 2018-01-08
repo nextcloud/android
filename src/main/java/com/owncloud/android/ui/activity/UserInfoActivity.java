@@ -113,10 +113,10 @@ public class UserInfoActivity extends FileActivity {
     @BindView(R.id.user_icon)
     public ImageView avatar;
 
-    @BindView(R.id.drawer_username)
+    @BindView(R.id.userinfo_username)
     public TextView userName;
 
-    @BindView(R.id.drawer_username_full)
+    @BindView(R.id.userinfo_username_full)
     public TextView fullName;
 
     @BindView(R.id.phone_container)
@@ -277,7 +277,7 @@ public class UserInfoActivity extends FileActivity {
 
     private void setHeaderImage() {
         if (getStorageManager().getCapability(account.name).getServerBackground() != null) {
-            final AppBarLayout appBar = (AppBarLayout) findViewById(R.id.appbar);
+            final AppBarLayout appBar = findViewById(R.id.appbar);
 
             if (appBar != null) {
                 String background = getStorageManager().getCapability(account.name).getServerBackground();
