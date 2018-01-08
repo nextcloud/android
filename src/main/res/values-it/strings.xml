@@ -713,4 +713,12 @@
     <string name="share">Condividi</string>
     <string name="link">Collegamento</string>
   
-    </resources>
+    <string name="account_not_found">Account non trovato</string>
+
+    <string name="screenshot_01_gridView">Un posto sicuro per tutti i tuoi dati</string>
+    <string name="screenshot_02_listView">Sfoglia e condividi facilmente tutti i tuoi file</string>
+    <string name="screenshot_03_drawer">Accedi rapidamente alle attività, alle condivisioni, ai file non in linea e altro</string>
+    <string name="screenshot_04_accounts">Connetti a differenti account</string>
+    <string name="screenshot_05_autoUpload">Carica automaticamente le tue foto e i video</string>
+    <string name="screenshot_06_davdroid">Sincronizza calendario e contatti con DAVdroid</string>
+</resources>

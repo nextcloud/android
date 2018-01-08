@@ -118,6 +118,7 @@
     <string name="filedetails_sync_file">Sincronizar</string>
     <string name="filedetails_renamed_in_upload_msg">Archivo renombrado a %1$s durante la subida</string>
     <string name="list_layout">Formato de lista</string>
+    <string name="action_send_share">Mandar/Compartir</string>
     <string name="common_yes">Sí</string>
     <string name="common_no">No</string>
     <string name="common_ok">Aceptar</string>
@@ -700,9 +701,17 @@
     <string name="what_s_new_image">Imagen de Qué hay de nuevo</string>
 
     <string name="store_short_dev_desc">Nextcloud Dev es una instantánea de desarrollo y se puede instalar en paralelo</string>
+    <string name="store_full_dev_desc">La Aplicación Android de Código Abierto se deja accede todo su archivos en su Nextcloud.\nEso es una versión de desarollo y incluye características completamente nuevas que pueden conducir a instabilidades y el pérdida de datos. El aplicación es diseñado para usuarios dispuesto a probar los características nuevas y reportar errores si occuren. ¡No lo use para su trabajo productivo!\n\nEl versión de desarollo se puede instalar junto al applicación oficial que esta disponible en F-Droid, también. Uno vez al día, es comprobada para ver si se cambia el código fuente, así que puede haber pausas más largas entre vérsiones. </string>
+
     <string name="prefs_category_dev">Dev</string>
     <string name="dev_version_no_information_available">No hay información disponible</string>
     <string name="dev_version_no_new_version_available">No hay disponible ninguna versión nueva</string>
     <string name="folder_icon">Icono de carpeta</string>
 
+    <string name="send">Mandar</string>
+    <string name="share">Compartir</string>
+    <string name="account_not_found">¡Cuenta no encontrada!</string>
+
+    <string name="screenshot_01_gridView">Un lugar seguro para tus datos</string>
+    <string name="screenshot_04_accounts">Conectar a cuentas diferentes</string>
     </resources>
