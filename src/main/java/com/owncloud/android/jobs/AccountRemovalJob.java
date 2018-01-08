@@ -66,16 +66,13 @@ public class AccountRemovalJob extends Job implements AccountManagerCallback<Boo
         Context context = MainApp.getAppContext();
         PersistableBundleCompat bundle = params.getExtras();
         Account account = AccountUtils.getOwnCloudAccountByName(context, bundle.getString(ACCOUNT, ""));
+        AccountManager am = (AccountManager) context.getSystemService(ACCOUNT_SERVICE);
 
-        if (account != null ) {
+        if (account == null || am == null) {
+            return Result.FAILURE;
+        } else {
             // disable contact backup job
             ContactsPreferenceActivity.cancelPreviousContactBackupJobForAccount(context, account);
-
-            AccountManager am = (AccountManager) context.getSystemService(ACCOUNT_SERVICE);
-
-            if (am == null) {
-                return Result.FAILURE;
-            }
 
             am.removeAccount(account, this, null);
 
@@ -121,8 +118,6 @@ public class AccountRemovalJob extends Job implements AccountManagerCallback<Boo
             }
 
             return Result.SUCCESS;
-        } else {
-            return Result.FAILURE;
         }
     }
 
