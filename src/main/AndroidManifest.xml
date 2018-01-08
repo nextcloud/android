@@ -21,10 +21,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.owncloud.android">
 
-    <uses-sdk
-        android:minSdkVersion="14"
-        android:targetSdkVersion="25" />
-
     <!-- GET_ACCOUNTS is needed for API < 23.
         For API >= 23 results in the addition of CONTACTS group to the list of permissions that may be
         dynamically disabled or enabled by the user after installation; but it is not important,
@@ -62,6 +58,7 @@
     <application
         android:name=".MainApp"
         android:icon="@mipmap/ic_launcher"
+        android:roundIcon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:fullBackupContent="@xml/backup_config"
         android:theme="@style/Theme.ownCloud.Toolbar"

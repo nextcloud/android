@@ -42,6 +42,7 @@ import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
+import com.owncloud.android.ui.notifications.NotificationUtils;
 import com.owncloud.android.utils.ThemeUtils;
 
 import java.io.IOException;
@@ -555,6 +556,10 @@ public class MediaService extends Service implements OnCompletionListener, OnPre
         mNotificationBuilder.setContentTitle(ticker);
         mNotificationBuilder.setContentText(content);
 
+        if ((android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O)) {
+            mNotificationBuilder.setChannelId(NotificationUtils.NOTIFICATION_CHANNEL_MEDIA);
+        }
+
         mNotificationManager.notify(R.string.media_notif_ticker, mNotificationBuilder.build());
     }
 
@@ -587,6 +592,10 @@ public class MediaService extends Service implements OnCompletionListener, OnPre
                 PendingIntent.FLAG_UPDATE_CURRENT));
         mNotificationBuilder.setContentTitle(ticker);
         mNotificationBuilder.setContentText(content);
+
+        if ((android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O)) {
+            mNotificationBuilder.setChannelId(NotificationUtils.NOTIFICATION_CHANNEL_MEDIA);
+        }
 
         startForeground(R.string.media_notif_ticker, mNotificationBuilder.build());
     }
