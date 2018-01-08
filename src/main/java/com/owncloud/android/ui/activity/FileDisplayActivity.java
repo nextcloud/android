@@ -130,7 +130,8 @@ import static com.owncloud.android.db.PreferenceManager.getSortOrder;
 
 public class FileDisplayActivity extends HookActivity
         implements FileFragment.ContainerActivity,
-        OnEnforceableRefreshListener, SortingOrderDialogFragment.OnSortingOrderListener {
+        OnEnforceableRefreshListener, SortingOrderDialogFragment.OnSortingOrderListener,
+        SendShareDialog.SendShareDialogDownloader {
  
     private SyncBroadcastReceiver mSyncBroadcastReceiver;
     private UploadFinishReceiver mUploadFinishReceiver;
@@ -1176,6 +1177,11 @@ public class FileDisplayActivity extends HookActivity
     @Override
     public void onSortingOrderChosen(FileSortOrder selection) {
         getListOfFilesFragment().sortFiles(selection);
+    }
+
+    @Override
+    public void downloadFile(OCFile file, String packageName, String activityName) {
+        startDownloadForSending(file, OCFileListFragment.DOWNLOAD_SEND, packageName, activityName);
     }
 
     private class SyncBroadcastReceiver extends BroadcastReceiver {
