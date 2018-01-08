@@ -79,6 +79,7 @@ import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.activity.FolderPickerActivity;
 import com.owncloud.android.ui.activity.OnEnforceableRefreshListener;
+import com.owncloud.android.ui.activity.ToolbarActivity;
 import com.owncloud.android.ui.activity.UploadFilesActivity;
 import com.owncloud.android.ui.adapter.FileListListAdapter;
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment;
@@ -1542,7 +1543,7 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
                             mAdapter.setData(remoteOperationResult.getData(), currentSearchType, storageManager, mFile);
                         }
 
-                        final FileDisplayActivity fileDisplayActivity = (FileDisplayActivity) getActivity();
+                        final ToolbarActivity fileDisplayActivity = (ToolbarActivity) getActivity();
                         if (fileDisplayActivity != null) {
                             fileDisplayActivity.runOnUiThread(new Runnable() {
                                 @Override
