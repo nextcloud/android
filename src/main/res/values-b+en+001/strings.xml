@@ -713,4 +713,12 @@
     <string name="share">Share</string>
     <string name="link">Link</string>
   
-    </resources>
+    <string name="account_not_found">Account not found!</string>
+
+    <string name="screenshot_01_gridView">A safe home for all your data</string>
+    <string name="screenshot_02_listView">Browse and share your files easily</string>
+    <string name="screenshot_03_drawer">Quickly access activity, shares, offline files and more</string>
+    <string name="screenshot_04_accounts">Connect to different accounts</string>
+    <string name="screenshot_05_autoUpload">Automatically upload your photos &amp; videos</string>
+    <string name="screenshot_06_davdroid">Sync Calendar &amp; Contacts with DAVdroid</string>
+</resources>
