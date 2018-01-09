@@ -24,6 +24,7 @@ package com.owncloud.android.ui.fragment;
 import android.accounts.Account;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v7.widget.SwitchCompat;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -312,8 +313,16 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_send_share_file: {
-                mContainerActivity.getFileOperationsHelper().sendShareFile(getFile(),
+                if(getFile().isSharedWithMe() && !getFile().canReshare()){
+                    Snackbar.make(getView(),
+                            R.string.resharing_is_not_allowed,
+                            Snackbar.LENGTH_LONG
+                    )
+                            .show();
+                } else {
+                    mContainerActivity.getFileOperationsHelper().sendShareFile(getFile(),
                         (FileDisplayActivity) mContainerActivity);
+                }
                 return true;
             }
             case R.id.action_open_file_with: {

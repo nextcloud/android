@@ -944,8 +944,8 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
             OCFile singleFile = checkedFiles.get(0);
             switch (menuId) {
                 case R.id.action_send_share_file: {
-                    mContainerActivity.getFileOperationsHelper().sendShareFile(singleFile,
-                            (FileDisplayActivity) mContainerActivity);
+                        mContainerActivity.getFileOperationsHelper().sendShareFile(singleFile,
+                    (FileDisplayActivity) mContainerActivity);
                     return true;
                 }
                 case R.id.action_open_file_with: {

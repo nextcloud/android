@@ -188,13 +188,13 @@ public class PreviewMediaFragment extends FileFragment implements
 
         mView = inflater.inflate(R.layout.file_preview, container, false);
 
-        mPreviewContainer = (RelativeLayout) mView.findViewById(R.id.file_preview_container);
-        mImagePreview = (ImageView) mView.findViewById(R.id.image_preview);
-        mVideoPreview = (VideoView) mView.findViewById(R.id.video_preview);
+        mPreviewContainer = mView.findViewById(R.id.file_preview_container);
+        mImagePreview = mView.findViewById(R.id.image_preview);
+        mVideoPreview = mView.findViewById(R.id.video_preview);
         mVideoPreview.setOnTouchListener(this);
 
-        mMediaController = (MediaControlView) mView.findViewById(R.id.media_controller);
-        mMultiView = (RelativeLayout) mView.findViewById(R.id.multi_view);
+        mMediaController = mView.findViewById(R.id.media_controller);
+        mMultiView = mView.findViewById(R.id.multi_view);
 
         setupMultiView(mView);
         setMultiListLoadingMessage();
@@ -203,11 +203,11 @@ public class PreviewMediaFragment extends FileFragment implements
 
 
     protected void setupMultiView(View view) {
-        mMultiListContainer = (LinearLayout) view.findViewById(R.id.empty_list_view);
-        mMultiListMessage = (TextView) view.findViewById(R.id.empty_list_view_text);
-        mMultiListHeadline = (TextView) view.findViewById(R.id.empty_list_view_headline);
-        mMultiListIcon = (ImageView) view.findViewById(R.id.empty_list_icon);
-        mMultiListProgress = (ProgressBar) view.findViewById(R.id.empty_list_progress);
+        mMultiListContainer = view.findViewById(R.id.empty_list_view);
+        mMultiListMessage = view.findViewById(R.id.empty_list_view_text);
+        mMultiListHeadline = view.findViewById(R.id.empty_list_view_headline);
+        mMultiListIcon = view.findViewById(R.id.empty_list_icon);
+        mMultiListProgress = view.findViewById(R.id.empty_list_progress);
     }
 
     private void setMultiListLoadingMessage() {
