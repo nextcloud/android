@@ -88,6 +88,7 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
@@ -163,7 +164,7 @@ public class DisplayUtils {
             return mimeType2HumanReadable.get(mimetype);
         }
         if (mimetype.split("/").length >= 2) {
-            return mimetype.split("/")[1].toUpperCase() + " file";
+            return mimetype.split("/")[1].toUpperCase(Locale.getDefault()) + " file";
         }
         return MIME_TYPE_UNKNOWN;
     }

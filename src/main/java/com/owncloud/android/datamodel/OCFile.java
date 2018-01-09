@@ -34,6 +34,7 @@ import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.utils.MimeType;
 
 import java.io.File;
+import java.util.Locale;
 
 import third_parties.daveKoeller.AlphanumComparator;
 
@@ -563,7 +564,7 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
     @Override
     public int compareTo(OCFile another) {
         if (isFolder() && another.isFolder()) {
-            return getRemotePath().toLowerCase().compareTo(another.getRemotePath().toLowerCase());
+            return getRemotePath().toLowerCase(Locale.ROOT).compareTo(another.getRemotePath().toLowerCase(Locale.ROOT));
         } else if (isFolder()) {
             return -1;
         } else if (another.isFolder()) {

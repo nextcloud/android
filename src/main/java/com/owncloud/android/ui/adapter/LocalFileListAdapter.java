@@ -47,6 +47,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Locale;
 import java.util.Vector;
 
 /**
@@ -147,12 +148,12 @@ public class LocalFileListAdapter extends BaseAdapter implements FilterableListA
             }
 
             if(!ViewType.GRID_IMAGE.equals(viewType)) {
-                TextView fileName = (TextView) view.findViewById(R.id.Filename);
+                TextView fileName = view.findViewById(R.id.Filename);
                 String name = file.getName();
                 fileName.setText(name);
             }
 
-            ImageView fileIcon = (ImageView) view.findViewById(R.id.thumbnail);
+            ImageView fileIcon = view.findViewById(R.id.thumbnail);
 
             /** Cancellation needs do be checked and done before changing the drawable in fileIcon, or
              * {@link ThumbnailsCacheManager#cancelPotentialThumbnailWork} will NEVER cancel any task.
@@ -166,11 +167,11 @@ public class LocalFileListAdapter extends BaseAdapter implements FilterableListA
             }
             fileIcon.setTag(file.hashCode());
 
-            ImageView checkBoxV = (ImageView) view.findViewById(R.id.custom_checkbox);
-            TextView fileSizeV = (TextView) view.findViewById(R.id.file_size);
-            TextView fileSizeSeparatorV = (TextView) view.findViewById(R.id.file_separator);
+            ImageView checkBoxV = view.findViewById(R.id.custom_checkbox);
+            TextView fileSizeV = view.findViewById(R.id.file_size);
+            TextView fileSizeSeparatorV = view.findViewById(R.id.file_separator);
             if (!isGridView) {
-                TextView lastModV = (TextView) view.findViewById(R.id.last_mod);
+                TextView lastModV = view.findViewById(R.id.last_mod);
                 lastModV.setVisibility(View.VISIBLE);
                 lastModV.setText(DisplayUtils.getRelativeTimestamp(mContext, file.lastModified()));
                 view.findViewById(R.id.overflow_menu).setVisibility(View.GONE);
@@ -289,7 +290,8 @@ public class LocalFileListAdapter extends BaseAdapter implements FilterableListA
                 }
             
                 private int compareNames(File lhs, File rhs) {
-                    return lhs.getName().toLowerCase().compareTo(rhs.getName().toLowerCase());                
+                    return lhs.getName().toLowerCase(Locale.getDefault()).compareTo(
+                            rhs.getName().toLowerCase(Locale.getDefault()));                
                 }
             });
 
@@ -329,9 +331,9 @@ public class LocalFileListAdapter extends BaseAdapter implements FilterableListA
             mFiles = mFilesAll.toArray(new File[1]);
         } else {
             ArrayList<File> result = new ArrayList<>();
-            text = text.toLowerCase();
+            text = text.toLowerCase(Locale.getDefault());
             for (File file: mFilesAll) {
-                if (file.getName().toLowerCase().contains(text)) {
+                if (file.getName().toLowerCase(Locale.getDefault()).contains(text)) {
                     result.add(file);
                 }
             }

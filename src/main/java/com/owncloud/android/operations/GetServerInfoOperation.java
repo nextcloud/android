@@ -34,6 +34,7 @@ import com.owncloud.android.lib.resources.status.OwnCloudVersion;
 import com.owncloud.android.operations.DetectAuthenticationMethodOperation.AuthenticationMethod;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 /**
  * Get basic information from an ownCloud server given its URL.
@@ -119,7 +120,7 @@ public class GetServerInfoOperation extends RemoteOperation {
             if (trimmedUrl.endsWith("/")) {
                 trimmedUrl = trimmedUrl.substring(0, trimmedUrl.length() - 1);
             }
-            if (trimmedUrl.toLowerCase().endsWith(AuthenticatorUrlUtils.WEBDAV_PATH_4_0_AND_LATER)) {
+            if (trimmedUrl.toLowerCase(Locale.ROOT).endsWith(AuthenticatorUrlUtils.WEBDAV_PATH_4_0_AND_LATER)) {
                 trimmedUrl = trimmedUrl.substring(0,
                         trimmedUrl.length() - AuthenticatorUrlUtils.WEBDAV_PATH_4_0_AND_LATER.length());
             }
@@ -129,8 +130,8 @@ public class GetServerInfoOperation extends RemoteOperation {
 
     
     private String normalizeProtocolPrefix(String url, boolean isSslConn) {
-        if (!url.toLowerCase().startsWith("http://") &&
-                !url.toLowerCase().startsWith("https://")) {
+        if (!url.toLowerCase(Locale.ROOT).startsWith("http://") &&
+                !url.toLowerCase(Locale.ROOT).startsWith("https://")) {
             if (isSslConn) {
                 return "https://" + url;
             } else {
