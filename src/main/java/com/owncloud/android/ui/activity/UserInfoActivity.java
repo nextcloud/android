@@ -100,18 +100,18 @@ public class UserInfoActivity extends FileActivity {
 
     private static final int KEY_DELETE_CODE = 101;
 
-    @BindView(R.id.empty_list_view) LinearLayout emptyContentContainer;
-    @BindView(R.id.empty_list_view_text) TextView emptyContentMessage;
-    @BindView(R.id.empty_list_view_headline) TextView emptyContentHeadline;
-    @BindView(R.id.empty_list_icon) ImageView emptyContentIcon;
-    @BindView(R.id.user_info_view) LinearLayout userInfoView;
-    @BindView(R.id.user_icon) ImageView avatar;
-    @BindView(R.id.userinfo_username) TextView userName;
-    @BindView(R.id.userinfo_username_full) TextView fullName;
-    @BindView(R.id.user_info_list) RecyclerView mUserInfoList;
-    @BindView(R.id.empty_list_progress) ProgressBar multiListProgressBar;
+    @BindView(R.id.empty_list_view) protected LinearLayout emptyContentContainer;
+    @BindView(R.id.empty_list_view_text) protected TextView emptyContentMessage;
+    @BindView(R.id.empty_list_view_headline) protected TextView emptyContentHeadline;
+    @BindView(R.id.empty_list_icon) protected ImageView emptyContentIcon;
+    @BindView(R.id.user_info_view) protected LinearLayout userInfoView;
+    @BindView(R.id.user_icon) protected ImageView avatar;
+    @BindView(R.id.userinfo_username) protected TextView userName;
+    @BindView(R.id.userinfo_username_full) protected TextView fullName;
+    @BindView(R.id.user_info_list) protected RecyclerView mUserInfoList;
+    @BindView(R.id.empty_list_progress) protected ProgressBar multiListProgressBar;
     
-    @BindString(R.string.user_information_retrieval_error) String sorryMessage;
+    @BindString(R.string.user_information_retrieval_error) protected String sorryMessage;
 
     private float mCurrentAccountAvatarRadiusDimension;
 
@@ -442,7 +442,7 @@ public class UserInfoActivity extends FileActivity {
     }
 
 
-    class UserInfoDetailsItem {
+    protected class UserInfoDetailsItem {
         @DrawableRes int icon;
         String text;
 
@@ -452,12 +452,12 @@ public class UserInfoActivity extends FileActivity {
         }
     }
 
-    class UserInfoAdapter extends RecyclerView.Adapter<UserInfoAdapter.ViewHolder> {
+    protected class UserInfoAdapter extends RecyclerView.Adapter<UserInfoAdapter.ViewHolder> {
 
-        class ViewHolder extends RecyclerView.ViewHolder {
+        public class ViewHolder extends RecyclerView.ViewHolder {
 
-            @BindView(R.id.icon) ImageView icon;
-            @BindView(R.id.text) TextView text;
+            @BindView(R.id.icon) ImageView icon = null;
+            @BindView(R.id.text) TextView text = null;
 
             public ViewHolder(View itemView) {
                 super(itemView);
