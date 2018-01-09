@@ -55,12 +55,12 @@ import com.owncloud.android.ui.dialog.SortingOrderDialogFragment;
 import com.owncloud.android.ui.fragment.ExtendedListFragment;
 import com.owncloud.android.ui.fragment.LocalFileListFragment;
 import com.owncloud.android.utils.AnalyticsUtils;
+import com.owncloud.android.utils.FileSortOrder;
 import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.ThemeUtils;
 
 import java.io.File;
 
-import static com.owncloud.android.db.PreferenceManager.getSortAscending;
 import static com.owncloud.android.db.PreferenceManager.getSortOrder;
 
 
@@ -159,7 +159,7 @@ public class UploadFilesActivity extends FileActivity implements
         int localBehaviour = PreferenceManager.getUploaderBehaviour(this);
 
         // file upload spinner
-        mBehaviourSpinner = (Spinner) findViewById(R.id.upload_files_spinner_behaviour);
+        mBehaviourSpinner = findViewById(R.id.upload_files_spinner_behaviour);
         ArrayAdapter<CharSequence> behaviourAdapter = ArrayAdapter.createFromResource(this,
                 R.array.upload_files_behaviour, android.R.layout.simple_spinner_item);
         behaviourAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -241,9 +241,7 @@ public class UploadFilesActivity extends FileActivity implements
                 ft.addToBackStack(null);
 
                 SortingOrderDialogFragment mSortingOrderDialogFragment = SortingOrderDialogFragment.newInstance(
-                        getSortOrder(this),
-                        getSortAscending(this)
-                );
+                        getSortOrder(this, null));
                 mSortingOrderDialogFragment.show(ft, SORT_ORDER_DIALOG_TAG);
 
                 break;
@@ -258,6 +256,7 @@ public class UploadFilesActivity extends FileActivity implements
                     item.setIcon(R.drawable.ic_view_list);
                     mFileListFragment.switchToGridView();
                 }
+                break;
             }
             default:
                 retval = super.onOptionsItemSelected(item);
@@ -267,31 +266,8 @@ public class UploadFilesActivity extends FileActivity implements
     }
 
     @Override
-    public void onSortingOrderChosen(int selection) {
-        switch (selection) {
-            case SortingOrderDialogFragment.BY_NAME_ASC:
-                mFileListFragment.sortByName(true);
-                break;
-            case SortingOrderDialogFragment.BY_NAME_DESC:
-                mFileListFragment.sortByName(false);
-                break;
-            case SortingOrderDialogFragment.BY_MODIFICATION_DATE_ASC:
-                mFileListFragment.sortByDate(true);
-                break;
-            case SortingOrderDialogFragment.BY_MODIFICATION_DATE_DESC:
-                mFileListFragment.sortByDate(false);
-                break;
-            case SortingOrderDialogFragment.BY_SIZE_ASC:
-                mFileListFragment.sortBySize(true);
-                break;
-            case SortingOrderDialogFragment.BY_SIZE_DESC:
-                mFileListFragment.sortBySize(false);
-                break;
-            default: // defaulting to alphabetical-ascending
-                Log_OC.w(TAG, "Unknown sort order, defaulting to alphabetical-ascending!");
-                mFileListFragment.sortByName(true);
-                break;
-        }
+    public void onSortingOrderChosen(FileSortOrder selection) {
+        mFileListFragment.sortFiles(selection);
     }
     
     @Override

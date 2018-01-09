@@ -42,18 +42,14 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
-import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
 import java.util.Vector;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-import third_parties.daveKoeller.AlphanumComparator;
 
 
 /**
@@ -62,12 +58,7 @@ import third_parties.daveKoeller.AlphanumComparator;
 public class FileStorageUtils {
     private static final String TAG = FileStorageUtils.class.getSimpleName();
 
-    public static final Integer SORT_NAME = 0;
-    public static final Integer SORT_DATE = 1;
-    public static final Integer SORT_SIZE = 2;
     public static final String PATTERN_YYYY_MM = "yyyy/MM/";
-    public static Integer mSortOrder = SORT_NAME;
-    public static Boolean mSortAscending = true;
 
     /**
      * Get local owncloud storage path for accountName.
@@ -258,227 +249,9 @@ public class FileStorageUtils {
             }
         });
 
-        return sortOCFilesByFavourite(files);
+        return FileSortOrder.sortCloudFilesByFavourite(files);
     }
 
-    /**
-     * Sorts all filenames, regarding last user decision 
-     */
-    public static Vector<OCFile> sortOcFolder(Vector<OCFile> files) {
-        switch (mSortOrder) {
-            case 0:
-                files = FileStorageUtils.sortOCFilesByName(files);
-                break;
-            case 1:
-                files = FileStorageUtils.sortOCFilesByDate(files);
-                break;
-            case 2:
-                files = FileStorageUtils.sortOCFilesBySize(files);
-                break;
-        }
-
-        files = FileStorageUtils.sortOCFilesByFavourite(files);
-
-        return files;
-    }
-
-    /**
-     * Sorts all filenames, regarding last user decision.
-     *
-     * @param files of files to sort
-     */
-    public static File[] sortLocalFolder(File[] files) {
-        switch (mSortOrder) {
-            case 0:
-                files = FileStorageUtils.sortLocalFilesByName(files);
-                break;
-            case 1:
-                files = FileStorageUtils.sortLocalFilesByDate(files);
-                break;
-            case 2:
-                files = FileStorageUtils.sortLocalFilesBySize(files);
-                break;
-        }
-
-        return files;
-    }
-
-    /**
-     * Sorts list by Date.
-     *
-     * @param files list of files to sort
-     */
-    public static Vector<OCFile> sortOCFilesByDate(Vector<OCFile> files) {
-        final int multiplier = mSortAscending ? 1 : -1;
-
-        Collections.sort(files, new Comparator<OCFile>() {
-            @SuppressFBWarnings(value = "Bx", justification = "Would require stepping up API level")
-            public int compare(OCFile o1, OCFile o2) {
-                Long obj1 = o1.getModificationTimestamp();
-                return multiplier * obj1.compareTo(o2.getModificationTimestamp());
-            }
-        });
-
-        return files;
-    }
-
-    /**
-     * Sorts list by Date.
-     *
-     * @param filesArray list of files to sort
-     */
-    public static File[] sortLocalFilesByDate(File[] filesArray) {
-        final int multiplier = mSortAscending ? 1 : -1;
-
-        List<File> files = new ArrayList<File>(Arrays.asList(filesArray));
-
-        Collections.sort(files, new Comparator<File>() {
-            @SuppressFBWarnings(value = "Bx")
-            public int compare(File o1, File o2) {
-                Long obj1 = o1.lastModified();
-                return multiplier * obj1.compareTo(o2.lastModified());
-            }
-        });
-
-        File[] returnArray = new File[files.size()];
-        return files.toArray(returnArray);
-    }
-
-    /**
-     * Sorts list by Size.
-     *
-     * @param files list of files to sort
-     */
-    public static Vector<OCFile> sortOCFilesBySize(Vector<OCFile> files) {
-        final int multiplier = mSortAscending ? 1 : -1;
-
-        Collections.sort(files, new Comparator<OCFile>() {
-            @SuppressFBWarnings(value = "Bx")
-            public int compare(OCFile o1, OCFile o2) {
-                if (o1.isFolder() && o2.isFolder()) {
-                    Long obj1 = o1.getFileLength();
-                    return multiplier * obj1.compareTo(o2.getFileLength());
-                } else if (o1.isFolder()) {
-                    return -1;
-
-                } else if (o2.isFolder()) {
-                    return 1;
-                } else {
-                    Long obj1 = o1.getFileLength();
-                    return multiplier * obj1.compareTo(o2.getFileLength());
-                }
-            }
-        });
-
-        return files;
-    }
-
-    /**
-     * Sorts list by Size.
-     *
-     * @param filesArray list of files to sort
-     */
-    public static File[] sortLocalFilesBySize(File[] filesArray) {
-        final int multiplier = mSortAscending ? 1 : -1;
-
-        List<File> files = new ArrayList<>(Arrays.asList(filesArray));
-
-        Collections.sort(files, new Comparator<File>() {
-            @SuppressFBWarnings(value = "Bx")
-            public int compare(File o1, File o2) {
-                if (o1.isDirectory() && o2.isDirectory()) {
-                    // Long obj1 = getFolderSize(o1);
-                    // return multiplier * obj1.compareTo(getFolderSize(o2));
-                    return o1.getPath().toLowerCase().compareTo(o2.getPath().toLowerCase());
-                } else if (o1.isDirectory()) {
-                    return -1;
-                } else if (o2.isDirectory()) {
-                    return 1;
-                } else {
-                    Long obj1 = o1.length();
-                    return multiplier * obj1.compareTo(o2.length());
-                }
-            }
-        });
-
-        File[] returnArray = new File[files.size()];
-        return files.toArray(returnArray);
-    }
-
-    /**
-     * Sorts list by Name.
-     *
-     * @param files files to sort
-     */
-    @SuppressFBWarnings(value = "Bx")
-    public static Vector<OCFile> sortOCFilesByName(Vector<OCFile> files) {
-        final int multiplier = mSortAscending ? 1 : -1;
-
-        Collections.sort(files, new Comparator<OCFile>() {
-            public int compare(OCFile o1, OCFile o2) {
-                if (o1.isFolder() && o2.isFolder()) {
-                    return multiplier * new AlphanumComparator().compare(o1, o2);
-                } else if (o1.isFolder()) {
-                    return -1;
-                } else if (o2.isFolder()) {
-                    return 1;
-                }
-                return multiplier * new AlphanumComparator().compare(o1, o2);
-            }
-        });
-
-        return files;
-    }
-
-    /**
-     * Sorts list by Name.
-     *
-     * @param filesArray files to sort
-     */
-    public static File[] sortLocalFilesByName(File[] filesArray) {
-        final int multiplier = mSortAscending ? 1 : -1;
-
-        List<File> files = new ArrayList<File>(Arrays.asList(filesArray));
-
-        Collections.sort(files, new Comparator<File>() {
-            public int compare(File o1, File o2) {
-                if (o1.isDirectory() && o2.isDirectory()) {
-                    return multiplier * o1.getPath().toLowerCase().compareTo(o2.getPath().toLowerCase());
-                } else if (o1.isDirectory()) {
-                    return -1;
-                } else if (o2.isDirectory()) {
-                    return 1;
-                }
-                return multiplier * new AlphanumComparator().compare(o1.getPath().toLowerCase(),
-                        o2.getPath().toLowerCase());
-            }
-        });
-
-        File[] returnArray = new File[files.size()];
-        return files.toArray(returnArray);
-    }
-
-    /**
-     * Sorts list by Favourites.
-     *
-     * @param files files to sort
-     */
-    public static Vector<OCFile> sortOCFilesByFavourite(Vector<OCFile> files) {
-        Collections.sort(files, new Comparator<OCFile>() {
-            public int compare(OCFile o1, OCFile o2) {
-                if (o1.getIsFavorite() && o2.getIsFavorite()) {
-                    return 0;
-                } else if (o1.getIsFavorite()) {
-                    return -1;
-                } else if (o2.getIsFavorite()) {
-                    return 1;
-                }
-                return 0;
-            }
-        });
-
-        return files;
-    }
 
     /**
      * Local Folder size.
