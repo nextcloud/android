@@ -669,6 +669,7 @@
     <string name="resized_image_not_possible">Kein verkleinertes Bild vorhanden. Vollbild herunterladen?</string>
     <string name="resized_images_download_full_image">Originalbild herunterladen?</string>
 
+    <string name="store_short_desc">Die Nextcloud Android App erlaubt Dir den Zugriff auf alle Dateien in Deiner Nextcloud.</string>
     <string name="store_full_desc">Die Open Source Nextcloud Android App ermöglicht Dir Zugriff auf alle Dateien in Deiner Nextcloud.\n\nFunktionen:\n* Einfache, moderne Oberfläche, volles Theming entsprechend Deiner Servereinstellungen\n* Lade Deine Dateien auf Deinen Nextcloud Server\n* Teile Deine Dateien mit anderen\n* Wichtige Dateien und Verzeichnisse können aktuell gehalten werden\n* Suche über alle Ordner auf deinem Server\n* Auto Upload für Fotos und Videos die auf deinem Gerät aufgenommen wurden\n* Bleibe auf dem aktuellen Stand durch Benachrichtigungen\n* Multi-Konten Unterstützung\n* Gesicherter Zugriff auf deine Daten mittels Fingerabdruck oder PIN\n* Integration mit DAVdroid für eine einfache Kalender &amp; Kontakte Synchronisierung\n\nBitte berichte alle Probleme unter https://github.com/nextcloud/android/issues oder diskutiere über die App auf https://help.nextcloud.com/c/clients/android\n\nWas ist die Nextcloud? Die Nextcloud ist ein privater Dateiaustausch Server. Nextcloud ist Open Source und kann auf einem eigenen Server installiert werden. So behältst Du die Kontrolle über Deine Fotos, Deine Kalender und Kontakte, Deine Dokumente und alle anderen Daten. \n\nSieh Dir Nextcloud unter https://nextcloud.com an.</string>
 
     <string name="drawer_current_account">Aktuelles Konto</string>
@@ -713,5 +714,11 @@
     <string name="send">Senden</string>
     <string name="share">Teilen</string>
     <string name="link">Link</string>
-  
-    </resources>
+
+    <string name="account_not_found">Kein Konto gefunden</string>
+
+    <string name="screenshot_01_gridView">Ein sicheres Zuhause für all Deine Daten</string>
+    <string name="screenshot_04_accounts">Mit verschiedenen Kontos verbinden</string>
+    <string name="screenshot_05_autoUpload">Automatisches Hochladen von Bildern &amp; Videos</string>
+    <string name="screenshot_06_davdroid">Kalender &amp; Kontakte mit DAVdroid synchronisieren</string>
+</resources>
