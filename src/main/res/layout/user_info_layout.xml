@@ -20,6 +20,7 @@
 -->
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
                                                  xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                                                 xmlns:app="http://schemas.android.com/apk/res-auto"
                                                  android:layout_width="match_parent"
                                                  android:layout_height="match_parent">
 
@@ -28,236 +29,229 @@
 
     <include layout="@layout/empty_list"/>
 
-    <RelativeLayout
-        android:id="@+id/multi_view"
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingTop="@dimen/nav_drawer_header_height">
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <ScrollView
+        <LinearLayout
+            android:id="@+id/user_info_view"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true">
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone">
 
-            <LinearLayout
-                android:id="@+id/user_info_view"
+            <android.support.v7.widget.CardView
+                android:id="@+id/primary_user_info_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:visibility="gone">
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/standard_half_margin"
+                card_view:cardCornerRadius="3dp"
+                card_view:cardUseCompatPadding="true">
 
-                <android.support.v7.widget.CardView
-                    android:id="@+id/primary_user_info_view"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_margin="@dimen/standard_half_margin"
-                    card_view:cardCornerRadius="3dp"
-                    card_view:cardUseCompatPadding="true">
+                    android:orientation="vertical">
 
-                    <LinearLayout
+                    <RelativeLayout
+                        android:id="@+id/phone_container"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
+                        android:layout_height="wrap_content">
 
-                        <RelativeLayout
-                            android:id="@+id/phone_container"
+                        <ImageView
+                            android:id="@+id/phone_icon"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/standard_margin"
+                            android:layout_marginLeft="@dimen/standard_icon_list_horizontal_margin"
+                            android:layout_marginRight="@dimen/standard_icon_list_horizontal_margin"
+                            android:layout_marginTop="@dimen/standard_margin"
+                            android:contentDescription="@string/user_info_phone"
+                            android:src="@drawable/ic_phone"/>
+
+                        <TextView
+                            android:id="@+id/phone_number"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:layout_marginBottom="@dimen/standard_margin"
+                            android:layout_marginEnd="@dimen/standard_padding"
+                            android:layout_marginRight="@dimen/standard_padding"
+                            android:layout_marginTop="@dimen/standard_margin"
+                            android:layout_toEndOf="@id/phone_icon"
+                            android:layout_toRightOf="@id/phone_icon"
+                            android:maxLines="3"
+                            android:text="@string/placeholder_filename"
+                            android:textAppearance="?android:attr/textAppearanceListItem"/>
 
-                            <ImageView
-                                android:id="@+id/phone_icon"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginBottom="@dimen/standard_margin"
-                                android:layout_marginLeft="@dimen/standard_icon_list_horizontal_margin"
-                                android:layout_marginRight="@dimen/standard_icon_list_horizontal_margin"
-                                android:layout_marginTop="@dimen/standard_margin"
-                                android:src="@drawable/ic_phone"
-                                android:contentDescription="@string/user_info_phone"/>
+                    </RelativeLayout>
 
-                            <TextView
-                                android:id="@+id/phone_number"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_centerInParent="true"
-                                android:layout_marginRight="@dimen/standard_padding"
-                                android:layout_marginEnd="@dimen/standard_padding"
-                                android:layout_marginBottom="@dimen/standard_margin"
-                                android:layout_marginTop="@dimen/standard_margin"
-                                android:layout_toEndOf="@id/phone_icon"
-                                android:layout_toRightOf="@id/phone_icon"
-                                android:maxLines="3"
-                                android:text="@string/placeholder_filename"
-                                android:textAppearance="?android:attr/textAppearanceListItem"/>
+                    <RelativeLayout
+                        android:id="@+id/email_container"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
 
-                        </RelativeLayout>
-
-                        <RelativeLayout
-                            android:id="@+id/email_container"
+                        <View
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
+                            android:layout_height="1dp"
+                            android:background="@color/list_divider_background"/>
 
-                            <View
-                                android:layout_width="match_parent"
-                                android:layout_height="1dp"
-                                android:background="@color/list_divider_background"/>
+                        <ImageView
+                            android:id="@+id/email_icon"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/standard_margin"
+                            android:layout_marginLeft="@dimen/standard_icon_list_horizontal_margin"
+                            android:layout_marginRight="@dimen/standard_icon_list_horizontal_margin"
+                            android:layout_marginTop="@dimen/standard_margin"
+                            android:contentDescription="@string/user_info_email"
+                            android:src="@drawable/ic_email"/>
 
-                            <ImageView
-                                android:id="@+id/email_icon"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginBottom="@dimen/standard_margin"
-                                android:layout_marginLeft="@dimen/standard_icon_list_horizontal_margin"
-                                android:layout_marginRight="@dimen/standard_icon_list_horizontal_margin"
-                                android:layout_marginTop="@dimen/standard_margin"
-                                android:src="@drawable/ic_email"
-                                android:contentDescription="@string/user_info_email"/>
-
-                            <TextView
-                                android:id="@+id/email_address"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_centerInParent="true"
-                                android:layout_marginRight="@dimen/standard_padding"
-                                android:layout_marginEnd="@dimen/standard_padding"
-                                android:layout_marginBottom="@dimen/standard_margin"
-                                android:layout_marginTop="@dimen/standard_margin"
-                                android:layout_toEndOf="@id/email_icon"
-                                android:layout_toRightOf="@id/email_icon"
-                                android:maxLines="3"
-                                android:text="@string/placeholder_filename"
-                                android:textAppearance="?android:attr/textAppearanceListItem"/>
-
-                        </RelativeLayout>
-
-                        <RelativeLayout
-                            android:id="@+id/address_container"
+                        <TextView
+                            android:id="@+id/email_address"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:layout_marginBottom="@dimen/standard_margin"
+                            android:layout_marginEnd="@dimen/standard_padding"
+                            android:layout_marginRight="@dimen/standard_padding"
+                            android:layout_marginTop="@dimen/standard_margin"
+                            android:layout_toEndOf="@id/email_icon"
+                            android:layout_toRightOf="@id/email_icon"
+                            android:maxLines="3"
+                            android:text="@string/placeholder_filename"
+                            android:textAppearance="?android:attr/textAppearanceListItem"/>
 
-                            <View
-                                android:layout_width="match_parent"
-                                android:layout_height="1dp"
-                                android:background="@color/list_divider_background"/>
+                    </RelativeLayout>
 
-                            <ImageView
-                                android:id="@+id/address_icon"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginBottom="@dimen/standard_margin"
-                                android:layout_marginLeft="@dimen/standard_icon_list_horizontal_margin"
-                                android:layout_marginRight="@dimen/standard_icon_list_horizontal_margin"
-                                android:layout_marginTop="@dimen/standard_margin"
-                                android:src="@drawable/ic_map_marker"
-                                android:contentDescription="@string/user_info_address"/>
+                    <RelativeLayout
+                        android:id="@+id/address_container"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
 
-                            <TextView
-                                android:id="@+id/address"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_centerInParent="true"
-                                android:layout_marginRight="@dimen/standard_padding"
-                                android:layout_marginEnd="@dimen/standard_padding"
-                                android:layout_marginBottom="@dimen/standard_margin"
-                                android:layout_marginTop="@dimen/standard_margin"
-                                android:maxLines="3"
-                                android:text="@string/placeholder_filename"
-                                android:textAppearance="?android:attr/textAppearanceListItem"
-                                android:layout_toRightOf="@+id/address_icon"
-                                android:layout_toEndOf="@+id/address_icon"/>
-
-                        </RelativeLayout>
-
-                        <RelativeLayout
-                            android:id="@+id/website_container"
+                        <View
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
+                            android:layout_height="1dp"
+                            android:background="@color/list_divider_background"/>
 
-                            <View
-                                android:layout_width="match_parent"
-                                android:layout_height="1dp"
-                                android:background="@color/list_divider_background"/>
+                        <ImageView
+                            android:id="@+id/address_icon"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/standard_margin"
+                            android:layout_marginLeft="@dimen/standard_icon_list_horizontal_margin"
+                            android:layout_marginRight="@dimen/standard_icon_list_horizontal_margin"
+                            android:layout_marginTop="@dimen/standard_margin"
+                            android:contentDescription="@string/user_info_address"
+                            android:src="@drawable/ic_map_marker"/>
 
-                            <ImageView
-                                android:id="@+id/website_icon"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:src="@drawable/ic_web"
-                                android:layout_marginBottom="@dimen/standard_margin"
-                                android:layout_marginLeft="@dimen/standard_icon_list_horizontal_margin"
-                                android:layout_marginRight="@dimen/standard_icon_list_horizontal_margin"
-                                android:layout_marginTop="@dimen/standard_margin"
-                                android:contentDescription="@string/user_info_website"/>
-
-                            <TextView
-                                android:id="@+id/website_address"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_centerInParent="true"
-                                android:layout_marginRight="@dimen/standard_padding"
-                                android:layout_marginEnd="@dimen/standard_padding"
-                                android:layout_marginBottom="@dimen/standard_margin"
-                                android:layout_marginTop="@dimen/standard_margin"
-                                android:layout_toEndOf="@id/website_icon"
-                                android:layout_toRightOf="@id/website_icon"
-                                android:maxLines="3"
-                                android:text="@string/placeholder_filename"
-                                android:textAppearance="?android:attr/textAppearanceListItem"
-                                android:textColor="?android:attr/textColorSecondary"/>
-
-                        </RelativeLayout>
-
-                        <RelativeLayout
-                            android:id="@+id/twitter_container"
+                        <TextView
+                            android:id="@+id/address"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:layout_marginBottom="@dimen/standard_margin"
+                            android:layout_marginEnd="@dimen/standard_padding"
+                            android:layout_marginRight="@dimen/standard_padding"
+                            android:layout_marginTop="@dimen/standard_margin"
+                            android:layout_toEndOf="@+id/address_icon"
+                            android:layout_toRightOf="@+id/address_icon"
+                            android:maxLines="3"
+                            android:text="@string/placeholder_filename"
+                            android:textAppearance="?android:attr/textAppearanceListItem"/>
 
-                            <View
-                                android:layout_width="match_parent"
-                                android:layout_height="1dp"
-                                android:background="@color/list_divider_background"/>
+                    </RelativeLayout>
 
-                            <ImageView
-                                android:id="@+id/twitter_icon"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginBottom="@dimen/standard_margin"
-                                android:layout_marginLeft="@dimen/standard_icon_list_horizontal_margin"
-                                android:layout_marginRight="@dimen/standard_icon_list_horizontal_margin"
-                                android:layout_marginTop="@dimen/standard_margin"
-                                android:src="@drawable/ic_twitter"
-                                android:contentDescription="@string/user_info_twitter"/>
+                    <RelativeLayout
+                        android:id="@+id/website_container"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
 
-                            <TextView
-                                android:id="@+id/twitter_handle"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_centerInParent="true"
-                                android:layout_marginRight="@dimen/standard_padding"
-                                android:layout_marginEnd="@dimen/standard_padding"
-                                android:layout_marginBottom="@dimen/standard_margin"
-                                android:layout_marginTop="@dimen/standard_margin"
-                                android:layout_toEndOf="@id/twitter_icon"
-                                android:layout_toRightOf="@id/twitter_icon"
-                                android:maxLines="3"
-                                android:text="@string/placeholder_filename"
-                                android:textAppearance="?android:attr/textAppearanceListItem"
-                                android:textColor="?android:attr/textColorSecondary"/>
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="@color/list_divider_background"/>
 
-                        </RelativeLayout>
+                        <ImageView
+                            android:id="@+id/website_icon"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/standard_margin"
+                            android:layout_marginLeft="@dimen/standard_icon_list_horizontal_margin"
+                            android:layout_marginRight="@dimen/standard_icon_list_horizontal_margin"
+                            android:layout_marginTop="@dimen/standard_margin"
+                            android:contentDescription="@string/user_info_website"
+                            android:src="@drawable/ic_web"/>
 
-                    </LinearLayout>
+                        <TextView
+                            android:id="@+id/website_address"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:layout_marginBottom="@dimen/standard_margin"
+                            android:layout_marginEnd="@dimen/standard_padding"
+                            android:layout_marginRight="@dimen/standard_padding"
+                            android:layout_marginTop="@dimen/standard_margin"
+                            android:layout_toEndOf="@id/website_icon"
+                            android:layout_toRightOf="@id/website_icon"
+                            android:maxLines="3"
+                            android:text="@string/placeholder_filename"
+                            android:textAppearance="?android:attr/textAppearanceListItem"
+                            android:textColor="?android:attr/textColorSecondary"/>
 
-                </android.support.v7.widget.CardView>
+                    </RelativeLayout>
 
-            </LinearLayout>
+                    <RelativeLayout
+                        android:id="@+id/twitter_container"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
 
-        </ScrollView>
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="@color/list_divider_background"/>
 
-    </RelativeLayout>
+                        <ImageView
+                            android:id="@+id/twitter_icon"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/standard_margin"
+                            android:layout_marginLeft="@dimen/standard_icon_list_horizontal_margin"
+                            android:layout_marginRight="@dimen/standard_icon_list_horizontal_margin"
+                            android:layout_marginTop="@dimen/standard_margin"
+                            android:contentDescription="@string/user_info_twitter"
+                            android:src="@drawable/ic_twitter"/>
+
+                        <TextView
+                            android:id="@+id/twitter_handle"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:layout_marginBottom="@dimen/standard_margin"
+                            android:layout_marginEnd="@dimen/standard_padding"
+                            android:layout_marginRight="@dimen/standard_padding"
+                            android:layout_marginTop="@dimen/standard_margin"
+                            android:layout_toEndOf="@id/twitter_icon"
+                            android:layout_toRightOf="@id/twitter_icon"
+                            android:maxLines="3"
+                            android:text="@string/placeholder_filename"
+                            android:textAppearance="?android:attr/textAppearanceListItem"
+                            android:textColor="?android:attr/textColorSecondary"/>
+
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+        </LinearLayout>
+
+    </android.support.v4.widget.NestedScrollView>
 
 
 </android.support.design.widget.CoordinatorLayout>

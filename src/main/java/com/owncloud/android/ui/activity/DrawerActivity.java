@@ -46,6 +46,7 @@ import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.webkit.URLUtil;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -1042,7 +1043,7 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
     public void updateHeaderBackground() {
         if (getAccount() != null &&
                 getStorageManager().getCapability(getAccount().name).getServerBackground() != null) {
-            final LinearLayout navigationHeader = (LinearLayout) findNavigationViewChildById(R.id.drawer_header_view);
+            final ViewGroup navigationHeader = (ViewGroup) findNavigationViewChildById(R.id.drawer_header_view);
 
             if (navigationHeader != null) {
                 String background = getStorageManager().getCapability(getAccount().name).getServerBackground();
@@ -1055,12 +1056,7 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
                         public void onResourceReady(Drawable resource, GlideAnimation glideAnimation) {
                             Drawable[] drawables = {new ColorDrawable(primaryColor), resource};
                             LayerDrawable layerDrawable = new LayerDrawable(drawables);
-                            
-                            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
-                                navigationHeader.setBackgroundDrawable(layerDrawable);
-                            } else {
-                                navigationHeader.setBackground(layerDrawable);
-                            }
+                            setNavigationHeaderBackground(layerDrawable, navigationHeader);
                         }
 
                         @Override
@@ -1068,12 +1064,7 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
                             Drawable[] drawables = {new ColorDrawable(primaryColor),
                                     getResources().getDrawable(R.drawable.background)};
                             LayerDrawable layerDrawable = new LayerDrawable(drawables);
-
-                            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
-                                navigationHeader.setBackgroundDrawable(layerDrawable);
-                            } else {
-                                navigationHeader.setBackground(layerDrawable);
-                            }
+                            setNavigationHeaderBackground(layerDrawable, navigationHeader);
                         }
                     };
 
@@ -1086,10 +1077,15 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
                             .into(target);
                 } else {
                     // plain color
-                    navigationHeader.setBackgroundColor(ThemeUtils.primaryColor(getAccount()));
+                    setNavigationHeaderBackground(new ColorDrawable(primaryColor), navigationHeader);
                 }
             }
         }
+    }
+
+    private void setNavigationHeaderBackground(Drawable drawable, ViewGroup navigationHeader) {
+        final ImageView background = navigationHeader.findViewById(R.id.drawer_header_background);
+        background.setImageDrawable(drawable);
     }
 
     @Override
