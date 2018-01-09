@@ -733,7 +733,7 @@ A Nextcloud itt érhető el: https://nextcloud.com</string>
     <string name="send">Küldés</string>
     <string name="share">Megosztás</string>
     <string name="link">Hivatkozás</string>
-  
+
     <string name="account_not_found">Fiók nem található!</string>
 
     <string name="screenshot_01_gridView">Egy biztonságos hely az adataidnak</string>
