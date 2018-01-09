@@ -74,6 +74,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import static android.support.design.widget.AppBarLayout.LayoutParams.SCROLL_FLAG_ENTER_ALWAYS;
@@ -280,7 +281,8 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
                 } else if (f2 == null) {
                     return 1;
                 } else if (f1.isEnabled() && f2.isEnabled()) {
-                    return f1.getFolderName().toLowerCase().compareTo(f2.getFolderName().toLowerCase());
+                    return f1.getFolderName().toLowerCase(Locale.getDefault()).compareTo(
+                            f2.getFolderName().toLowerCase(Locale.getDefault()));
                 } else if (f1.isEnabled()) {
                     return -1;
                 } else if (f2.isEnabled()) {
@@ -291,14 +293,16 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
                     return -1;
                 } else if (f2.getFolderName() == null) {
                     return 1;
-                } else if (PRIORITIZED_FOLDER.equals(f1.getFolderName()) && PRIORITIZED_FOLDER.equals(f2.getFolderName())) {
+                } else if (PRIORITIZED_FOLDER.equals(f1.getFolderName()) &&
+                        PRIORITIZED_FOLDER.equals(f2.getFolderName())) {
                     return 0;
                 } else if (PRIORITIZED_FOLDER.equals(f1.getFolderName())) {
                     return -1;
                 } else if (PRIORITIZED_FOLDER.equals(f2.getFolderName())) {
                     return 1;
                 } else {
-                    return f1.getFolderName().toLowerCase().compareTo(f2.getFolderName().toLowerCase());
+                    return f1.getFolderName().toLowerCase(Locale.getDefault()).compareTo(
+                            f2.getFolderName().toLowerCase(Locale.getDefault()));
                 }
             }
         });

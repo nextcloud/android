@@ -71,6 +71,7 @@ import com.owncloud.android.utils.ThemeUtils;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.Vector;
 
 
@@ -686,7 +687,8 @@ public class FileListListAdapter extends BaseAdapter {
                 for (int i = 0; i < mFilesAll.size(); i++) {
                     OCFile currentFile = mFilesAll.get(i);
                     if (currentFile.getParentRemotePath().equals(currentDirectory.getRemotePath()) &&
-                            currentFile.getFileName().toLowerCase().contains(constraint.toString().toLowerCase()) &&
+                            currentFile.getFileName().toLowerCase(Locale.getDefault()).contains(
+                                    constraint.toString().toLowerCase(Locale.getDefault())) && 
                             !filteredFiles.contains(currentFile)) {
                         filteredFiles.add(currentFile);
                     }
