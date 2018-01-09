@@ -712,5 +712,11 @@
     <string name="send">Senden</string>
     <string name="share">Teilen</string>
     <string name="link">Link</string>
-  
-    </resources>
+
+    <string name="account_not_found">Kein Konto gefunden</string>
+
+    <string name="screenshot_01_gridView">Ein sicheres Zuhause für all Ihre Daten</string>
+    <string name="screenshot_04_accounts">Mit verschiedenen Kontos verbinden</string>
+    <string name="screenshot_05_autoUpload">Automatisches Hochladen von Bildern &amp; Videos</string>
+    <string name="screenshot_06_davdroid">Kalender &amp; Kontakte mit DAVdroid synchronisieren</string>
+</resources>
