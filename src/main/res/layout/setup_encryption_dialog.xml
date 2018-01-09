@@ -37,6 +37,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:background="@drawable/e2e_border"
+        android:textIsSelectable="true"
         android:gravity="center"
         android:padding="5dp"
         android:visibility="gone"/>
