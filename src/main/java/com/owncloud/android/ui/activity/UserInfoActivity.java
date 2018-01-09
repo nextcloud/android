@@ -443,10 +443,10 @@ public class UserInfoActivity extends FileActivity {
 
 
     protected class UserInfoDetailsItem {
-        @DrawableRes int icon;
-        String text;
+        @DrawableRes public int icon;
+        public String text;
 
-        UserInfoDetailsItem(@DrawableRes int icon, String text) {
+        public UserInfoDetailsItem(@DrawableRes int icon, String text) {
             this.icon = icon;
             this.text = text;
         }
@@ -456,8 +456,8 @@ public class UserInfoActivity extends FileActivity {
 
         public class ViewHolder extends RecyclerView.ViewHolder {
 
-            @BindView(R.id.icon) ImageView icon = null;
-            @BindView(R.id.text) TextView text = null;
+            @BindView(R.id.icon) protected ImageView icon = null;
+            @BindView(R.id.text) protected TextView text = null;
 
             public ViewHolder(View itemView) {
                 super(itemView);
