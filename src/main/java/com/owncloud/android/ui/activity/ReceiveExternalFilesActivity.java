@@ -89,12 +89,13 @@ import com.owncloud.android.ui.adapter.UploaderAdapter;
 import com.owncloud.android.ui.asynctasks.CopyAndUploadContentUrisTask;
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment;
 import com.owncloud.android.ui.dialog.CreateFolderDialogFragment;
+import com.owncloud.android.ui.dialog.SortingOrderDialogFragment;
 import com.owncloud.android.ui.fragment.TaskRetainerFragment;
 import com.owncloud.android.ui.helpers.UriUploader;
 import com.owncloud.android.utils.DataHolderUtil;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.ErrorMessageAdapter;
-import com.owncloud.android.utils.FileStorageUtils;
+import com.owncloud.android.utils.FileSortOrder;
 import com.owncloud.android.utils.ThemeUtils;
 
 import java.io.File;
@@ -111,12 +112,15 @@ import java.util.List;
 import java.util.Stack;
 import java.util.Vector;
 
+import static com.owncloud.android.db.PreferenceManager.getSortOrder;
+
 
 /**
  * This can be used to upload things to an ownCloud instance.
  */
 public class ReceiveExternalFilesActivity extends FileActivity
-        implements OnItemClickListener, View.OnClickListener, CopyAndUploadContentUrisTask.OnCopyTmpFilesTaskListener {
+        implements OnItemClickListener, View.OnClickListener, CopyAndUploadContentUrisTask.OnCopyTmpFilesTaskListener,
+        SortingOrderDialogFragment.OnSortingOrderListener {
 
     private static final String TAG = ReceiveExternalFilesActivity.class.getSimpleName();
 
@@ -235,11 +239,17 @@ public class ReceiveExternalFilesActivity extends FileActivity
     }
 
     @Override
-    protected void onDestroy(){
+    protected void onDestroy() {
         if (mSyncBroadcastReceiver != null) {
             unregisterReceiver(mSyncBroadcastReceiver);
         }
         super.onDestroy();
+    }
+
+    @Override
+    public void onSortingOrderChosen(FileSortOrder newSortOrder) {
+        PreferenceManager.setSortOrder(getBaseContext(), mFile, newSortOrder);
+        populateDirectoryList();
     }
 
     public static class DialogNoAccount extends DialogFragment {
@@ -823,10 +833,8 @@ public class ReceiveExternalFilesActivity extends FileActivity
     }
 
     private Vector<OCFile> sortFileList(Vector<OCFile> files) {
-        // Read sorting order, default to sort by name ascending
-        FileStorageUtils.mSortOrder = PreferenceManager.getSortOrder(this);
-        FileStorageUtils.mSortAscending = PreferenceManager.getSortAscending(this);
-        return FileStorageUtils.sortOcFolder(files);
+        FileSortOrder sortOrder = getSortOrder(this, mFile);
+        return sortOrder.sortCloudFiles(files);
     }
 
     private String generatePath(Stack<String> dirs) {
@@ -1019,9 +1027,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
         switch (item.getItemId()) {
             case R.id.action_create_dir:
                 CreateFolderDialogFragment dialog = CreateFolderDialogFragment.newInstance(mFile);
-                dialog.show(
-                        getSupportFragmentManager(),
-                        CreateFolderDialogFragment.CREATE_FOLDER_FRAGMENT);
+                dialog.show(getSupportFragmentManager(), CreateFolderDialogFragment.CREATE_FOLDER_FRAGMENT);
                 break;
             case android.R.id.home:
                 if ((mParents.size() > 1)) {
@@ -1031,7 +1037,12 @@ public class ReceiveExternalFilesActivity extends FileActivity
             case R.id.action_switch_account:
                 showAccountChooserDialog();
                 break;
-
+            case R.id.action_sort:
+                SortingOrderDialogFragment mSortingOrderDialogFragment = SortingOrderDialogFragment.newInstance(
+                        getSortOrder(this, mFile));
+                mSortingOrderDialogFragment.show(getSupportFragmentManager(),
+                        SortingOrderDialogFragment.SORTING_ORDER_FRAGMENT);
+                break;
             default:
                 retval = super.onOptionsItemSelected(item);
                 break;

@@ -106,6 +106,7 @@ import com.owncloud.android.ui.preview.PreviewVideoActivity;
 import com.owncloud.android.utils.DataHolderUtil;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.ErrorMessageAdapter;
+import com.owncloud.android.utils.FileSortOrder;
 import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.PermissionUtil;
 import com.owncloud.android.utils.PushUtils;
@@ -120,7 +121,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import static com.owncloud.android.db.PreferenceManager.getSortAscending;
 import static com.owncloud.android.db.PreferenceManager.getSortOrder;
 
 /**
@@ -144,8 +144,6 @@ public class FileDisplayActivity extends HookActivity
     private static final String KEY_SYNC_IN_PROGRESS = "SYNC_IN_PROGRESS";
     private static final String KEY_WAITING_TO_SEND = "WAITING_TO_SEND";
     private static final String KEY_SEARCH_QUERY = "KEY_SEARCH_QUERY";
-
-    private static final String SORT_ORDER_DIALOG_TAG = "SORT_ORDER_DIALOG";
 
     public static final String ACTION_DETAILS = "com.owncloud.android.ui.activity.action.DETAILS";
 
@@ -678,10 +676,10 @@ public class FileDisplayActivity extends HookActivity
 
         // hacky as no default way is provided
         int fontColor = ThemeUtils.fontColor();
-        EditText editText = (EditText) searchView.findViewById(android.support.v7.appcompat.R.id.search_src_text);
+        EditText editText = searchView.findViewById(android.support.v7.appcompat.R.id.search_src_text);
         editText.setHintTextColor(fontColor);
         editText.setTextColor(fontColor);
-        ImageView searchClose = (ImageView) searchView.findViewById(android.support.v7.appcompat.R.id.search_close_btn);
+        ImageView searchClose = searchView.findViewById(android.support.v7.appcompat.R.id.search_close_btn);
         searchClose.setColorFilter(ThemeUtils.fontColor());
 
         // populate list of menu items to show/hide when drawer is opened/closed
@@ -778,23 +776,19 @@ public class FileDisplayActivity extends HookActivity
                 ft.addToBackStack(null);
 
                 SortingOrderDialogFragment mSortingOrderDialogFragment = SortingOrderDialogFragment.newInstance(
-                        getSortOrder(this),
-                        getSortAscending(this)
-                );
-                mSortingOrderDialogFragment.show(ft, SORT_ORDER_DIALOG_TAG);
+                        getSortOrder(this, getListOfFilesFragment().getCurrentFile()));
+                mSortingOrderDialogFragment.show(ft, SortingOrderDialogFragment.SORTING_ORDER_FRAGMENT);
 
                 break;
             }
             case R.id.action_switch_view: {
                 if (isGridView()) {
                     item.setTitle(getString(R.string.action_switch_grid_view));
-                    item.setIcon(ContextCompat.getDrawable(getApplicationContext(),
-                            R.drawable.ic_view_module));
+                    item.setIcon(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_view_module));
                     getListOfFilesFragment().setListAsPreferred();
                 } else {
                     item.setTitle(getApplicationContext().getString(R.string.action_switch_list_view));
-                    item.setIcon(ContextCompat.getDrawable(getApplicationContext(),
-                            R.drawable.ic_view_list));
+                    item.setIcon(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_view_list));
                     getListOfFilesFragment().setGridAsPreferred();
                 }
                 break;
@@ -1006,7 +1000,7 @@ public class FileDisplayActivity extends HookActivity
 
     private void revertBottomNavigationBarToAllFiles() {
         if (getResources().getBoolean(R.bool.bottom_toolbar_enabled)) {
-            BottomNavigationView bottomNavigationView = (BottomNavigationView) getListOfFilesFragment().getView()
+            BottomNavigationView bottomNavigationView = getListOfFilesFragment().getView()
                     .findViewById(R.id.bottom_navigation_view);
             if (bottomNavigationView.getMenu().findItem(R.id.nav_bar_settings).isChecked()) {
                 bottomNavigationView.getMenu().findItem(R.id.nav_bar_files).setChecked(true);
@@ -1168,31 +1162,8 @@ public class FileDisplayActivity extends HookActivity
     }
 
     @Override
-    public void onSortingOrderChosen(int selection) {
-        switch (selection) {
-            case SortingOrderDialogFragment.BY_NAME_ASC:
-                sortByName(true);
-                break;
-            case SortingOrderDialogFragment.BY_NAME_DESC:
-                sortByName(false);
-                break;
-            case SortingOrderDialogFragment.BY_MODIFICATION_DATE_ASC:
-                sortByDate(true);
-                break;
-            case SortingOrderDialogFragment.BY_MODIFICATION_DATE_DESC:
-                sortByDate(false);
-                break;
-            case SortingOrderDialogFragment.BY_SIZE_ASC:
-                sortBySize(true);
-                break;
-            case SortingOrderDialogFragment.BY_SIZE_DESC:
-                sortBySize(false);
-                break;
-            default: // defaulting to alphabetical-ascending
-                Log_OC.w(TAG, "Unknown sort order, defaulting to alphabetical-ascending!");
-                sortByName(true);
-                break;
-        }
+    public void onSortingOrderChosen(FileSortOrder selection) {
+        getListOfFilesFragment().sortFiles(selection);
     }
 
     private class SyncBroadcastReceiver extends BroadcastReceiver {
@@ -2177,18 +2148,6 @@ public class FileDisplayActivity extends HookActivity
                 startSyncFolderOperation(folder, ignoreETag);
             }
         }
-    }
-
-    private void sortByDate(boolean ascending) {
-        getListOfFilesFragment().sortByDate(ascending);
-    }
-
-    private void sortBySize(boolean ascending) {
-        getListOfFilesFragment().sortBySize(ascending);
-    }
-
-    private void sortByName(boolean ascending) {
-        getListOfFilesFragment().sortByName(ascending);
     }
 
     private boolean isGridView() {

@@ -1,4 +1,4 @@
-/**
+/*
  * ownCloud Android client application
  *
  * @author Bartek Przybylski
@@ -28,13 +28,11 @@ import android.accounts.OperationCanceledException;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.support.design.widget.BottomNavigationView;
@@ -63,6 +61,7 @@ import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.VirtualFolderType;
+import com.owncloud.android.db.PreferenceManager;
 import com.owncloud.android.files.FileMenuFilter;
 import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.OwnCloudClient;
@@ -95,7 +94,7 @@ import com.owncloud.android.ui.preview.PreviewMediaFragment;
 import com.owncloud.android.ui.preview.PreviewTextFragment;
 import com.owncloud.android.utils.AnalyticsUtils;
 import com.owncloud.android.utils.DisplayUtils;
-import com.owncloud.android.utils.FileStorageUtils;
+import com.owncloud.android.utils.FileSortOrder;
 import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.ThemeUtils;
 
@@ -130,14 +129,14 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
     public static final String DOWNLOAD_BEHAVIOUR = "DOWNLOAD_BEHAVIOUR";
     public static final String DOWNLOAD_SEND = "DOWNLOAD_SEND";
 
+    public static final String FOLDER_LAYOUT_LIST = "LIST";
+    public static final String FOLDER_LAYOUT_GRID = "GRID";
+
     public static final String SEARCH_EVENT = "SEARCH_EVENT";
 
     private static final String KEY_FILE = MY_PACKAGE + ".extra.FILE";
-    private static final String KEY_FAB_EVER_CLICKED = "FAB_EVER_CLICKED";
 
     private static final String KEY_CURRENT_SEARCH_TYPE = "CURRENT_SEARCH_TYPE";
-
-    private static final String GRID_IS_PREFERED_PREFERENCE = "gridIsPrefered";
 
     private static final String DIALOG_CREATE_FOLDER = "DIALOG_CREATE_FOLDER";
 
@@ -325,8 +324,7 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
             registerFabListeners();
 
             // detect if a mini FAB has ever been clicked
-            final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
-            if (prefs.getLong(KEY_FAB_EVER_CLICKED, 0) > 0) {
+            if (PreferenceManager.getFABClicked(getActivity()) > 0) {
                 miniFabClicked = true;
             }
 
@@ -488,8 +486,7 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
     private void recordMiniFabClick() {
         // only record if it hasn't been done already at some other time
         if (!miniFabClicked) {
-            final SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getActivity());
-            sp.edit().putLong(KEY_FAB_EVER_CLICKED, 1).apply();
+            PreferenceManager.setFABClicked(getActivity());
             miniFabClicked = true;
         }
     }
@@ -1100,7 +1097,8 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
                             if ((activity = getActivity()) != null && activity instanceof FileDisplayActivity) {
                                 FileDisplayActivity fileDisplayActivity = (FileDisplayActivity) activity;
                                 if (getCurrentFile() != null) {
-                                    fileDisplayActivity.setDrawerIndicatorEnabled(fileDisplayActivity.isRoot(getCurrentFile()));
+                                    fileDisplayActivity.setDrawerIndicatorEnabled(
+                                            fileDisplayActivity.isRoot(getCurrentFile()));
                                 }
                             }
 
@@ -1198,71 +1196,29 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
         return output;
     }
 
-    public void sortByName(boolean descending) {
-        mAdapter.setSortOrder(FileStorageUtils.SORT_NAME, descending);
-    }
-
-    public void sortByDate(boolean descending) {
-        mAdapter.setSortOrder(FileStorageUtils.SORT_DATE, descending);
-    }
-
-    public void sortBySize(boolean descending) {
-        mAdapter.setSortOrder(FileStorageUtils.SORT_SIZE, descending);
+    public void sortFiles(FileSortOrder sortOrder) {
+        mAdapter.setSortOrder(mFile, sortOrder);
     }
 
     /**
      * Determines if user set folder to grid or list view. If folder is not set itself,
      * it finds a parent that is set (at least root is set).
      *
-     * @param file Folder to check.
+     * @param folder Folder to check.
      * @return 'true' is folder should be shown in grid mode, 'false' if list mode is preferred.
      */
-    public boolean isGridViewPreferred(OCFile file) {
-        if (file != null) {
-            OCFile fileToTest = file;
-            OCFile parentDir;
-            String parentPath = null;
-            FileDataStorageManager storageManager = mContainerActivity.getStorageManager();
-
-            SharedPreferences setting =
-                    getActivity().getSharedPreferences(
-                            GRID_IS_PREFERED_PREFERENCE, Context.MODE_PRIVATE
-                    );
-
-            if (setting.contains(String.valueOf(fileToTest.getFileId()))) {
-                return setting.getBoolean(String.valueOf(fileToTest.getFileId()), false);
-            } else {
-                do {
-                    if (fileToTest.getParentId() != FileDataStorageManager.ROOT_PARENT_ID) {
-                        parentPath = new File(fileToTest.getRemotePath()).getParent();
-                        parentPath = parentPath.endsWith(OCFile.PATH_SEPARATOR) ? parentPath :
-                                parentPath + OCFile.PATH_SEPARATOR;
-                        parentDir = storageManager.getFileByPath(parentPath);
-                    } else {
-                        parentDir = storageManager.getFileByPath(OCFile.ROOT_PATH);
-                    }
-
-                    while (parentDir == null) {
-                        parentPath = new File(parentPath).getParent();
-                        parentPath = parentPath.endsWith(OCFile.PATH_SEPARATOR) ? parentPath :
-                                parentPath + OCFile.PATH_SEPARATOR;
-                        parentDir = storageManager.getFileByPath(parentPath);
-                    }
-                    fileToTest = parentDir;
-                } while (endWhile(parentDir, setting));
-                return setting.getBoolean(String.valueOf(fileToTest.getFileId()), false);
-            }
-        } else {
-            return false;
-        }
+    public boolean isGridViewPreferred(OCFile folder) {
+        return PreferenceManager.getFolderLayout(getActivity(), folder).equals(FOLDER_LAYOUT_GRID);
     }
 
-    private boolean endWhile(OCFile parentDir, SharedPreferences setting) {
-        if (parentDir.getRemotePath().compareToIgnoreCase(OCFile.ROOT_PATH) == 0) {
-            return false;
-        } else {
-            return !setting.contains(String.valueOf(parentDir.getFileId()));
-        }
+    public void setListAsPreferred() {
+        PreferenceManager.setFolderLayout(getActivity(), mFile, FOLDER_LAYOUT_LIST);
+        switchToListView();
+    }
+
+    public void setGridAsPreferred() {
+        PreferenceManager.setFolderLayout(getActivity(), mFile, FOLDER_LAYOUT_GRID);
+        switchToGridView();
     }
 
     private void changeGridIcon(Menu menu) {
@@ -1275,29 +1231,6 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
                 menuItem.setTitle(getString(R.string.action_switch_grid_view));
                 menuItem.setIcon(R.drawable.ic_view_module);
             }
-        }
-    }
-
-    public void setListAsPreferred() {
-        saveGridAsPreferred(false);
-        switchToListView();
-    }
-
-    public void setGridAsPreferred() {
-        saveGridAsPreferred(true);
-        switchToGridView();
-    }
-
-    private void saveGridAsPreferred(boolean setGrid) {
-        SharedPreferences setting = getActivity().getSharedPreferences(
-                GRID_IS_PREFERED_PREFERENCE, Context.MODE_PRIVATE
-        );
-
-        // can be in case of favorites, shared
-        if (mFile != null) {
-            SharedPreferences.Editor editor = setting.edit();
-            editor.putBoolean(String.valueOf(mFile.getFileId()), setGrid);
-            editor.apply();
         }
     }
 
@@ -1463,7 +1396,7 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
     public void onMessageEvent(final SearchEvent event) {
         searchFragment = true;
         setEmptyListLoadingMessage();
-        mAdapter.setData(new ArrayList<>(), SearchType.NO_SEARCH, mContainerActivity.getStorageManager());
+        mAdapter.setData(new ArrayList<>(), SearchType.NO_SEARCH, mContainerActivity.getStorageManager(), mFile);
 
         setFabEnabled(false);
 
@@ -1539,7 +1472,7 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
                         if (remoteOperationResult.getData() == null || remoteOperationResult.getData().size() == 0) {
                             setEmptyView(event);
                         } else {
-                            mAdapter.setData(remoteOperationResult.getData(), currentSearchType, storageManager);
+                            mAdapter.setData(remoteOperationResult.getData(), currentSearchType, storageManager, mFile);
                         }
 
                         final FileDisplayActivity fileDisplayActivity = (FileDisplayActivity) getActivity();
