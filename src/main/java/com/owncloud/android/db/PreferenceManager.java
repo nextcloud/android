@@ -236,6 +236,11 @@ public abstract class PreferenceManager {
     public static String getFolderPreference(Context context, String preferenceName, OCFile folder,
                                              String defaultValue) {
         Account account = AccountUtils.getCurrentOwnCloudAccount(context);
+
+        if (account == null) {
+            return defaultValue;
+        }
+        
         ArbitraryDataProvider dataProvider = new ArbitraryDataProvider(context.getContentResolver());
         FileDataStorageManager storageManager = ((ComponentsGetter)context).getStorageManager();
         String value = dataProvider.getValue(account.name, getKeyFromFolder(preferenceName, folder));
