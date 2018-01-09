@@ -48,6 +48,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.webkit.URLUtil;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -277,9 +278,11 @@ public class UserInfoActivity extends FileActivity {
 
     private void setHeaderImage() {
         if (getStorageManager().getCapability(account.name).getServerBackground() != null) {
-            final AppBarLayout appBar = findViewById(R.id.appbar);
+            ViewGroup appBar = findViewById(R.id.appbar);
 
             if (appBar != null) {
+                ImageView backgroundImageView = appBar.findViewById(R.id.drawer_header_background);
+
                 String background = getStorageManager().getCapability(account.name).getServerBackground();
                 int primaryColor = ThemeUtils.primaryColor(getAccount());
 
@@ -290,12 +293,7 @@ public class UserInfoActivity extends FileActivity {
                         public void onResourceReady(Drawable resource, GlideAnimation glideAnimation) {
                             Drawable[] drawables = {new ColorDrawable(primaryColor), resource};
                             LayerDrawable layerDrawable = new LayerDrawable(drawables);
-                            
-                            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
-                                appBar.setBackgroundDrawable(layerDrawable);
-                            } else {
-                                appBar.setBackground(layerDrawable);
-                            }
+                            backgroundImageView.setImageDrawable(layerDrawable);
                         }
 
                         @Override
@@ -303,12 +301,7 @@ public class UserInfoActivity extends FileActivity {
                             Drawable[] drawables = {new ColorDrawable(primaryColor),
                                     getResources().getDrawable(R.drawable.background)};
                             LayerDrawable layerDrawable = new LayerDrawable(drawables);
-
-                            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
-                                appBar.setBackgroundDrawable(layerDrawable);
-                            } else {
-                                appBar.setBackground(layerDrawable);
-                            }
+                            backgroundImageView.setImageDrawable(layerDrawable);
                         }
                     };
 
@@ -321,7 +314,7 @@ public class UserInfoActivity extends FileActivity {
                             .into(target);
                 } else {
                     // plain color
-                    appBar.setBackgroundColor(ThemeUtils.primaryColor(account));
+                    backgroundImageView.setImageDrawable(new ColorDrawable(primaryColor));
                 }
             }
         }

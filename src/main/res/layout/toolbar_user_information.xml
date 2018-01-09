@@ -24,88 +24,97 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="@dimen/nav_drawer_header_height"
-    android:background="@drawable/background"
     android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@id/toolbar"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        app:layout_scrollFlags="scroll|enterAlways|snap"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
+        android:layout_height="match_parent">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:gravity="bottom">
-
-        <RelativeLayout
+        <ImageView
+            android:id="@+id/drawer_header_background"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="12dp"
-            android:layout_marginStart="12dp"
-            android:layout_marginLeft="12dp"
-            android:layout_marginRight="@dimen/standard_half_margin"
-            android:layout_marginEnd="@dimen/standard_half_margin"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"/>
+
+        <android.support.v7.widget.Toolbar
+            android:id="@id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:gravity="bottom"
-            android:orientation="horizontal"
-            android:weightSum="1">
+            android:orientation="vertical">
 
-            <FrameLayout
-                android:id="@+id/avatar_container"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-
-                <ImageView
-                    android:id="@+id/user_icon"
-                    android:layout_width="@dimen/nav_drawer_header_avatar"
-                    android:layout_height="@dimen/nav_drawer_header_avatar"
-                    android:src="@drawable/ic_account_circle"
-                    android:contentDescription="@string/avatar"/>
-            </FrameLayout>
-
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:layout_marginLeft="@dimen/standard_half_margin"
+                android:layout_marginBottom="12dp"
+                android:layout_marginEnd="@dimen/standard_half_margin"
+                android:layout_marginLeft="12dp"
                 android:layout_marginRight="@dimen/standard_half_margin"
-                android:layout_toEndOf="@id/avatar_container"
-                android:layout_toRightOf="@id/avatar_container"
-                android:orientation="vertical">
+                android:layout_marginStart="12dp"
+                android:gravity="bottom"
+                android:orientation="horizontal"
+                android:weightSum="1">
 
-                <TextView
-                    android:id="@+id/userinfo_username_full"
+                <FrameLayout
+                    android:id="@+id/avatar_container"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/user_icon"
+                        android:layout_width="@dimen/nav_drawer_header_avatar"
+                        android:layout_height="@dimen/nav_drawer_header_avatar"
+                        android:contentDescription="@string/avatar"
+                        android:src="@drawable/ic_account_circle"/>
+                </FrameLayout>
+
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:ellipsize="end"
-                    android:maxLines="1"
-                    android:shadowColor="@color/black"
-                    android:shadowDx="0.5"
-                    android:shadowDy="0"
-                    android:shadowRadius="2"
-                    android:textColor="@android:color/white"
-                    android:textSize="@dimen/drawer_header_text"
-                    android:textStyle="bold"/>
+                    android:layout_centerInParent="true"
+                    android:layout_marginLeft="@dimen/standard_half_margin"
+                    android:layout_marginRight="@dimen/standard_half_margin"
+                    android:layout_toEndOf="@id/avatar_container"
+                    android:layout_toRightOf="@id/avatar_container"
+                    android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/userinfo_username"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:ellipsize="end"
-                    android:lines="1"
-                    android:maxLines="1"
-                    android:shadowColor="@color/black"
-                    android:shadowDx="0.5"
-                    android:shadowDy="0"
-                    android:shadowRadius="2"
-                    android:textColor="@android:color/white"
-                    android:textSize="@dimen/drawer_header_subtext"/>
-            </LinearLayout>
+                    <TextView
+                        android:id="@+id/userinfo_username_full"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:shadowColor="@color/black"
+                        android:shadowDx="0.5"
+                        android:shadowDy="0"
+                        android:shadowRadius="2"
+                        android:textColor="@android:color/white"
+                        android:textSize="@dimen/drawer_header_text"
+                        android:textStyle="bold"/>
 
-        </RelativeLayout>
+                    <TextView
+                        android:id="@+id/userinfo_username"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:lines="1"
+                        android:maxLines="1"
+                        android:shadowColor="@color/black"
+                        android:shadowDx="0.5"
+                        android:shadowDy="0"
+                        android:shadowRadius="2"
+                        android:textColor="@android:color/white"
+                        android:textSize="@dimen/drawer_header_subtext"/>
+                </LinearLayout>
 
-    </LinearLayout>
+            </RelativeLayout>
+
+        </LinearLayout>
+    </RelativeLayout>
 
 </android.support.design.widget.AppBarLayout>
