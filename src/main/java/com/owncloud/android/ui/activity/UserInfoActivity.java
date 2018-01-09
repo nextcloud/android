@@ -43,7 +43,11 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.v4.graphics.drawable.DrawableCompat;
+import android.support.v7.widget.DividerItemDecoration;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.text.TextUtils;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -81,6 +85,9 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 import org.parceler.Parcels;
 
+import java.util.LinkedList;
+import java.util.List;
+
 /**
  * This Activity presents the user information.
  */
@@ -93,80 +100,18 @@ public class UserInfoActivity extends FileActivity {
 
     private static final int KEY_DELETE_CODE = 101;
 
-    @BindView(R.id.empty_list_view)
-    public LinearLayout emptyContentContainer;
-
-    @BindView(R.id.empty_list_view_text)
-    public TextView emptyContentMessage;
-
-    @BindView(R.id.empty_list_view_headline)
-    public TextView emptyContentHeadline;
-
-    @BindView(R.id.empty_list_icon)
-    public ImageView emptyContentIcon;
-
-    @BindView(R.id.user_info_view)
-    public LinearLayout userInfoView;
-
-    @BindView(R.id.user_icon)
-    public ImageView avatar;
-
-    @BindView(R.id.userinfo_username)
-    public TextView userName;
-
-    @BindView(R.id.userinfo_username_full)
-    public TextView fullName;
-
-    @BindView(R.id.phone_container)
-    public View mPhoneNumberContainer;
-
-    @BindView(R.id.phone_number)
-    public TextView mPhoneNumberTextView;
-
-    @BindView(R.id.phone_icon)
-    public ImageView mPhoneNumberIcon;
-
-    @BindView(R.id.email_container)
-    public View mEmailContainer;
-
-    @BindView(R.id.email_address)
-    public TextView mEmailAddressTextView;
-
-    @BindView(R.id.email_icon)
-    public ImageView mEmailIcon;
-
-    @BindView(R.id.address_container)
-    public View mAddressContainer;
-
-    @BindView(R.id.address)
-    public TextView mAddressTextView;
-
-    @BindView(R.id.address_icon)
-    public ImageView mAddressIcon;
-
-    @BindView(R.id.website_container)
-    public View mWebsiteContainer;
-
-    @BindView(R.id.website_address)
-    public TextView mWebsiteTextView;
-
-    @BindView(R.id.website_icon)
-    public ImageView mWebsiteIcon;
-
-    @BindView(R.id.twitter_container)
-    public View mTwitterContainer;
-
-    @BindView(R.id.twitter_handle)
-    public TextView mTwitterHandleTextView;
-
-    @BindView(R.id.twitter_icon)
-    public ImageView mTwitterIcon;
-
-    @BindView(R.id.empty_list_progress)
-    public ProgressBar multiListProgressBar;
-
-    @BindString(R.string.user_information_retrieval_error)
-    public String sorryMessage;
+    @BindView(R.id.empty_list_view) LinearLayout emptyContentContainer;
+    @BindView(R.id.empty_list_view_text) TextView emptyContentMessage;
+    @BindView(R.id.empty_list_view_headline) TextView emptyContentHeadline;
+    @BindView(R.id.empty_list_icon) ImageView emptyContentIcon;
+    @BindView(R.id.user_info_view) LinearLayout userInfoView;
+    @BindView(R.id.user_icon) ImageView avatar;
+    @BindView(R.id.userinfo_username) TextView userName;
+    @BindView(R.id.userinfo_username_full) TextView fullName;
+    @BindView(R.id.user_info_list) RecyclerView mUserInfoList;
+    @BindView(R.id.empty_list_progress) ProgressBar multiListProgressBar;
+    
+    @BindString(R.string.user_information_retrieval_error) String sorryMessage;
 
     private float mCurrentAccountAvatarRadiusDimension;
 
@@ -202,6 +147,8 @@ public class UserInfoActivity extends FileActivity {
         setupToolbar(useBackgroundImage);
         updateActionBarTitleAndHomeButtonByString("");
 
+        mUserInfoList.setAdapter(new UserInfoAdapter(null, ThemeUtils.primaryColor(getAccount())));
+        mUserInfoList.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
 
         if (userInfo != null) {
             populateUserInfoUi(userInfo);
@@ -335,25 +282,27 @@ public class UserInfoActivity extends FileActivity {
             emptyContentContainer.setVisibility(View.GONE);
             userInfoView.setVisibility(View.VISIBLE);
 
-            populateUserInfoElement(mPhoneNumberContainer, mPhoneNumberTextView, userInfo.getPhone(), mPhoneNumberIcon,
-                    tint);
-            populateUserInfoElement(mEmailContainer, mEmailAddressTextView, userInfo.getEmail(), mEmailIcon, tint);
-            populateUserInfoElement(mAddressContainer, mAddressTextView, userInfo.getAddress(), mAddressIcon, tint);
-            populateUserInfoElement(mWebsiteContainer, mWebsiteTextView,
-                    DisplayUtils.beautifyURL(userInfo.getWebpage()), mWebsiteIcon, tint);
-            populateUserInfoElement(mTwitterContainer, mTwitterHandleTextView,
-                    DisplayUtils.beautifyTwitterHandle(userInfo.getTwitter()), mTwitterIcon, tint);
+            if (mUserInfoList.getAdapter() instanceof UserInfoAdapter) {
+                mUserInfoList.setAdapter(new UserInfoAdapter(createUserInfoDetails(userInfo), tint));
+            }
         }
     }
 
-    private void populateUserInfoElement(View container, TextView textView, String text, ImageView icon,
-                                         @ColorInt int tint) {
-        if (!TextUtils.isEmpty(text)) {
-            textView.setText(text);
-            DrawableCompat.setTint(icon.getDrawable(), tint);
-        } else {
-            container.setVisibility(View.GONE);
-        }
+    private List<UserInfoDetailsItem> createUserInfoDetails(UserInfo userInfo) {
+        List<UserInfoDetailsItem> result = new LinkedList<>();
+
+        addToListIfNeeded(result, R.drawable.ic_phone, userInfo.getPhone());
+        addToListIfNeeded(result, R.drawable.ic_email, userInfo.getEmail());
+        addToListIfNeeded(result, R.drawable.ic_map_marker, userInfo.getAddress());
+        addToListIfNeeded(result, R.drawable.ic_web, DisplayUtils.beautifyURL(userInfo.getWebpage()));
+        addToListIfNeeded(result, R.drawable.ic_twitter, DisplayUtils.beautifyTwitterHandle(userInfo.getTwitter()));
+
+        return result;
+    }
+
+    private void addToListIfNeeded(List<UserInfoDetailsItem> info, @DrawableRes int icon, String text) {
+        if (!TextUtils.isEmpty(text))
+            info.add(new UserInfoDetailsItem(icon, text));
     }
 
     private void changeAccountPassword(Account account) {
@@ -490,5 +439,64 @@ public class UserInfoActivity extends FileActivity {
     @Subscribe(threadMode = ThreadMode.BACKGROUND)
     public void onMessageEvent(TokenPushEvent event) {
         PushUtils.pushRegistrationToServer();
+    }
+
+
+    class UserInfoDetailsItem {
+        @DrawableRes int icon;
+        String text;
+
+        UserInfoDetailsItem(@DrawableRes int icon, String text) {
+            this.icon = icon;
+            this.text = text;
+        }
+    }
+
+    class UserInfoAdapter extends RecyclerView.Adapter<UserInfoAdapter.ViewHolder> {
+
+        class ViewHolder extends RecyclerView.ViewHolder {
+
+            @BindView(R.id.icon) ImageView icon;
+            @BindView(R.id.text) TextView text;
+
+            public ViewHolder(View itemView) {
+                super(itemView);
+                ButterKnife.bind(this, itemView);
+            }
+        }
+
+        List<UserInfoDetailsItem> mDisplayList;
+        @ColorInt int mTintColor;
+
+        public UserInfoAdapter(List<UserInfoDetailsItem> displayList, @ColorInt int tintColor) {
+            mDisplayList = displayList == null ? new LinkedList<>() : displayList;
+            mTintColor = tintColor;
+        }
+
+        public void setData(List<UserInfoDetailsItem> displayList) {
+            mDisplayList = displayList == null ? new LinkedList<>() : displayList;
+            notifyDataSetChanged();
+        }
+
+        @Override
+        public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            LayoutInflater inflater = LayoutInflater.from(parent.getContext());
+            View view = inflater.inflate(R.layout.user_info_details_table_item, parent, false);
+            ViewHolder holder = new ViewHolder(view);
+            return holder;
+        }
+
+        @Override
+        public void onBindViewHolder(ViewHolder holder, int position) {
+            UserInfoDetailsItem item = mDisplayList.get(position);
+            holder.icon.setImageResource(item.icon);
+            holder.text.setText(item.text);
+            DrawableCompat.setTint(holder.icon.getDrawable(), mTintColor);
+        }
+
+        @Override
+        public int getItemCount() {
+            return mDisplayList.size();
+        }
     }
 }
