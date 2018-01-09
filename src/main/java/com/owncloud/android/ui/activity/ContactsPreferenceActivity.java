@@ -129,17 +129,6 @@ public class ContactsPreferenceActivity extends FileActivity implements FileFrag
                 .schedule();
     }
 
-    public static void cancelAllContactBackupJobs(Context context) {
-        Log_OC.d(TAG, "disabling all contacts backup job");
-
-        JobManager jobManager = JobManager.create(context);
-        Set<JobRequest> jobs = jobManager.getAllJobRequestsForTag(ContactsBackupJob.TAG);
-
-        for (JobRequest jobRequest : jobs) {
-            jobManager.cancel(jobRequest.getJobId());
-        }
-    }
-
     public static void cancelPreviousContactBackupJobForAccount(Context context, Account account) {
         Log_OC.d(TAG, "disabling existing contacts backup job for account: " + account.name);
 
