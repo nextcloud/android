@@ -96,7 +96,7 @@ public class TextDrawable extends Drawable {
      * @throws NoSuchAlgorithmException     if the specified algorithm is not available when calculating the color values
      */
     @NonNull
-    @NextcloudServer(min = -1, max = 12)
+    @NextcloudServer(max = 12)
     public static TextDrawable createAvatar(String accountName, float radiusInDp) throws
             UnsupportedEncodingException, NoSuchAlgorithmException {
         String username = AccountUtils.getAccountUsername(accountName);
