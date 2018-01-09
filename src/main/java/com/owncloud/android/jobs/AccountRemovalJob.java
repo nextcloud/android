@@ -68,11 +68,9 @@ public class AccountRemovalJob extends Job implements AccountManagerCallback<Boo
         Account account = AccountUtils.getOwnCloudAccountByName(context, bundle.getString(ACCOUNT, ""));
         AccountManager am = (AccountManager) context.getSystemService(ACCOUNT_SERVICE);
 
-        if (account == null || am == null) {
-            return Result.FAILURE;
-        } else {
+        if (account != null && am != null) {
             // disable contact backup job
-            ContactsPreferenceActivity.cancelPreviousContactBackupJobForAccount(context, account);
+            ContactsPreferenceActivity.cancelContactBackupJobForAccount(context, account);
 
             am.removeAccount(account, this, null);
 
@@ -118,6 +116,8 @@ public class AccountRemovalJob extends Job implements AccountManagerCallback<Boo
             }
 
             return Result.SUCCESS;
+        } else {
+            return Result.FAILURE;
         }
     }
 
