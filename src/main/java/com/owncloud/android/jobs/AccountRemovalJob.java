@@ -38,6 +38,7 @@ import com.owncloud.android.datamodel.FilesystemDataProvider;
 import com.owncloud.android.datamodel.SyncedFolder;
 import com.owncloud.android.datamodel.SyncedFolderProvider;
 import com.owncloud.android.datamodel.UploadsStorageManager;
+import com.owncloud.android.ui.activity.ContactsPreferenceActivity;
 import com.owncloud.android.ui.events.AccountRemovedEvent;
 import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.FilesSyncHelper;
@@ -65,9 +66,12 @@ public class AccountRemovalJob extends Job implements AccountManagerCallback<Boo
         Context context = MainApp.getAppContext();
         PersistableBundleCompat bundle = params.getExtras();
         Account account = AccountUtils.getOwnCloudAccountByName(context, bundle.getString(ACCOUNT, ""));
+        AccountManager am = (AccountManager) context.getSystemService(ACCOUNT_SERVICE);
 
-        if (account != null ) {
-            AccountManager am = (AccountManager) context.getSystemService(ACCOUNT_SERVICE);
+        if (account != null && am != null) {
+            // disable contact backup job
+            ContactsPreferenceActivity.cancelContactBackupJobForAccount(context, account);
+
             am.removeAccount(account, this, null);
 
             FileDataStorageManager storageManager = new FileDataStorageManager(account, context.getContentResolver());
