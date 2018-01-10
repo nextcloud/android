@@ -112,11 +112,12 @@ public class SetupEncryptionDialogFragment extends DialogFragment {
 
         positiveButton = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE);
         positiveButton.setTextColor(color);
-        positiveButton.setVisibility(View.INVISIBLE);
 
         negativeButton = alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE);
         negativeButton.setTextColor(color);
-        negativeButton.setVisibility(View.INVISIBLE);
+
+        task = new DownloadKeysAsyncTask();
+        task.execute();
     }
 
     @Override
@@ -222,9 +223,6 @@ public class SetupEncryptionDialogFragment extends DialogFragment {
             }
         });
 
-        task = new DownloadKeysAsyncTask();
-        task.execute();
-
         return dialog;
     }
 
@@ -234,6 +232,8 @@ public class SetupEncryptionDialogFragment extends DialogFragment {
             super.onPreExecute();
 
             textView.setText(R.string.end_to_end_encryption_retrieving_keys);
+            positiveButton.setVisibility(View.INVISIBLE);
+            negativeButton.setVisibility(View.INVISIBLE);
         }
 
         @Override
