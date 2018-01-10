@@ -465,11 +465,11 @@ public class UploadFileOperation extends SyncOperation {
             } else if (getMetadataOperationResult.getHttpCode() == HttpStatus.SC_NOT_FOUND) {
                 // new metadata
                 metadata = new DecryptedFolderMetadata();
-                metadata.metadata = new DecryptedFolderMetadata.Metadata();
-                metadata.metadata.metadataKeys = new HashMap<>();
+                metadata.setMetadata(new DecryptedFolderMetadata.Metadata());
+                metadata.getMetadata().setMetadataKeys(new HashMap<>());
                 String metadataKey = EncryptionUtils.encodeBytesToBase64String(EncryptionUtils.generateKey());
                 String encryptedMetadataKey = EncryptionUtils.encryptStringAsymmetric(metadataKey, publicKey);
-                metadata.metadata.metadataKeys.put(0, encryptedMetadataKey);
+                metadata.getMetadata().getMetadataKeys().put(0, encryptedMetadataKey);
             } else {
                 // TODO error
                 throw new Exception("something wrong");
@@ -505,7 +505,7 @@ public class UploadFileOperation extends SyncOperation {
             // new random file name, check if it exists in metadata
             String encryptedFileName = UUID.randomUUID().toString().replaceAll("-", "");
 
-            while (metadata.files.get(encryptedFileName) != null) {
+            while (metadata.getFiles().get(encryptedFileName) != null) {
                 encryptedFileName = UUID.randomUUID().toString().replaceAll("-", "");
             }
 
@@ -643,15 +643,15 @@ public class UploadFileOperation extends SyncOperation {
                 // upload metadata
                 DecryptedFolderMetadata.DecryptedFile decryptedFile = new DecryptedFolderMetadata.DecryptedFile();
                 DecryptedFolderMetadata.Data data = new DecryptedFolderMetadata.Data();
-                data.filename = mFile.getFileName();
-                data.mimetype = mFile.getMimetype();
-                data.key = EncryptionUtils.encodeBytesToBase64String(key);
+                data.setFilename(mFile.getFileName());
+                data.setMimetype(mFile.getMimetype());
+                data.setKey(EncryptionUtils.encodeBytesToBase64String(key));
 
-                decryptedFile.encrypted = data;
-                decryptedFile.initializationVector = EncryptionUtils.encodeBytesToBase64String(iv);
-                decryptedFile.authenticationTag = encryptedFile.authenticationTag;
+                decryptedFile.setEncrypted(data);
+                decryptedFile.setInitializationVector(EncryptionUtils.encodeBytesToBase64String(iv));
+                decryptedFile.setAuthenticationTag(encryptedFile.authenticationTag);
 
-                metadata.files.put(encryptedFileName, decryptedFile);
+                metadata.getFiles().put(encryptedFileName, decryptedFile);
 
                 EncryptedFolderMetadata encryptedFolderMetadata = EncryptionUtils.encryptFolderMetadata(metadata,
                         privateKey);
@@ -1135,8 +1135,8 @@ public class UploadFileOperation extends SyncOperation {
         if (encrypted) {
             String fileName = new File(remotePath).getName();
 
-            for (DecryptedFolderMetadata.DecryptedFile file : metadata.files.values()) {
-                if (file.encrypted.filename.equalsIgnoreCase(fileName)) {
+            for (DecryptedFolderMetadata.DecryptedFile file : metadata.getFiles().values()) {
+                if (file.getEncrypted().getFilename().equalsIgnoreCase(fileName)) {
                     return true;
                 }
             }

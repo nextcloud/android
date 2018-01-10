@@ -194,9 +194,12 @@ public class DownloadFileOperation extends RemoteOperation {
                 if (metadata == null) {
                     return new RemoteOperationResult(RemoteOperationResult.ResultCode.METADATA_NOT_FOUND);
                 }
-                byte[] key = EncryptionUtils.decodeStringToBase64Bytes(metadata.files.get(mFile.getEncryptedFileName()).encrypted.key);
-                byte[] iv = EncryptionUtils.decodeStringToBase64Bytes(metadata.files.get(mFile.getEncryptedFileName()).initializationVector);
-                byte[] authenticationTag = EncryptionUtils.decodeStringToBase64Bytes(metadata.files.get(mFile.getEncryptedFileName()).authenticationTag);
+                byte[] key = EncryptionUtils.decodeStringToBase64Bytes(metadata.getFiles()
+                        .get(mFile.getEncryptedFileName()).getEncrypted().getKey());
+                byte[] iv = EncryptionUtils.decodeStringToBase64Bytes(metadata.getFiles()
+                        .get(mFile.getEncryptedFileName()).getInitializationVector());
+                byte[] authenticationTag = EncryptionUtils.decodeStringToBase64Bytes(metadata.getFiles()
+                        .get(mFile.getEncryptedFileName()).getAuthenticationTag());
 
                 try {
                     byte[] decryptedBytes = EncryptionUtils.decryptFile(tmpFile, key, iv, authenticationTag);
@@ -205,7 +208,6 @@ public class DownloadFileOperation extends RemoteOperation {
                     fileOutputStream.write(decryptedBytes);
                     fileOutputStream.close();
                 } catch (Exception e) {
-                    // TODO TOBI better handling
                     return new RemoteOperationResult(e);
                 }
             }

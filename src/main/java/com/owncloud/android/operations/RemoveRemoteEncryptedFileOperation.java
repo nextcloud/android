@@ -130,7 +130,7 @@ public class RemoveRemoteEncryptedFileOperation extends RemoteOperation {
             Log_OC.i(TAG, "Remove " + remotePath + ": " + result.getLogMessage());
 
             // remove file from metadata
-            metadata.files.remove(fileName);
+            metadata.getFiles().remove(fileName);
 
             EncryptedFolderMetadata encryptedFolderMetadata = EncryptionUtils.encryptFolderMetadata(metadata,
                     privateKey);

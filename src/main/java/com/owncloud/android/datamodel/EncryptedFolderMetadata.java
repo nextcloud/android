@@ -28,19 +28,67 @@ import java.util.HashMap;
  */
 
 public class EncryptedFolderMetadata {
-    public DecryptedFolderMetadata.Metadata metadata;
-    public HashMap<String, EncryptedFile> files;
-
+    private DecryptedFolderMetadata.Metadata metadata;
+    private HashMap<String, EncryptedFile> files;
+    
     public EncryptedFolderMetadata(DecryptedFolderMetadata.Metadata metadata, HashMap<String, EncryptedFile> files) {
         this.metadata = metadata;
         this.files = files;
     }
 
+    public DecryptedFolderMetadata.Metadata getMetadata() {
+        return metadata;
+    }
+
+    public void setMetadata(DecryptedFolderMetadata.Metadata metadata) {
+        this.metadata = metadata;
+    }
+
+    public HashMap<String, EncryptedFile> getFiles() {
+        return files;
+    }
+
+    public void setFiles(HashMap<String, EncryptedFile> files) {
+        this.files = files;
+    }
+
     public static class EncryptedFile {
-        public String encrypted;
-        public String initializationVector;
-        public String authenticationTag;
-        public int metadataKey;
+        private String encrypted;
+        private String initializationVector;
+        private String authenticationTag;
+        private int metadataKey;
+
+        public String getEncrypted() {
+            return encrypted;
+        }
+
+        public void setEncrypted(String encrypted) {
+            this.encrypted = encrypted;
+        }
+
+        public String getInitializationVector() {
+            return initializationVector;
+        }
+
+        public void setInitializationVector(String initializationVector) {
+            this.initializationVector = initializationVector;
+        }
+
+        public String getAuthenticationTag() {
+            return authenticationTag;
+        }
+
+        public void setAuthenticationTag(String authenticationTag) {
+            this.authenticationTag = authenticationTag;
+        }
+
+        public int getMetadataKey() {
+            return metadataKey;
+        }
+
+        public void setMetadataKey(int metadataKey) {
+            this.metadataKey = metadataKey;
+        }
     }
 }
 
