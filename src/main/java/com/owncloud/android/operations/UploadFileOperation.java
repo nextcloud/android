@@ -723,7 +723,11 @@ public class UploadFileOperation extends SyncOperation {
 
         if (result.isSuccess()) {
             handleSuccessfulUpload(temporalFile, expectedFile, originalFile, client);
-            unlockFolder(parentFile, client, token);
+            RemoteOperationResult unlockFolderResult = unlockFolder(parentFile, client, token);
+
+            if (!unlockFolderResult.isSuccess()) {
+                return unlockFolderResult;
+            }
 
         } else if (result.getCode() == ResultCode.SYNC_CONFLICT) {
             getStorageManager().saveConflict(mFile, mFile.getEtagInConflict());
@@ -732,15 +736,14 @@ public class UploadFileOperation extends SyncOperation {
         return result;
     }
 
-    private void unlockFolder(OCFile parentFolder, OwnCloudClient client, String token) {
+    private RemoteOperationResult unlockFolder(OCFile parentFolder, OwnCloudClient client, String token) {
         if (token != null) {
             UnlockFileOperation unlockFileOperation = new UnlockFileOperation(parentFolder.getLocalId(), token);
             RemoteOperationResult unlockFileOperationResult = unlockFileOperation.execute(client, true);
 
-            if (!unlockFileOperationResult.isSuccess()) {
-                Log_OC.e(TAG, "Failed to unlock " + parentFolder.getLocalId());
-            }
-        }
+            return unlockFileOperationResult;
+        } else
+            return new RemoteOperationResult(new Exception("No token available"));
     }
 
     private RemoteOperationResult checkConditions(File originalFile) {
