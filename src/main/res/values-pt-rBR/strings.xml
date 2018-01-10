@@ -713,6 +713,15 @@
     <string name="share">Compartilhar</string>
     <string name="link">Link</string>
 
+    <string name="notification_channel_upload_name">Canal de notificação de envio</string>
+    <string name="notification_channel_download_name">Canal de notificação de download</string>
+    <string name="notification_channel_download_description">Mostra o progresso de download</string>
+    <string name="notification_channel_upload_description">Mostra o progresso de envio</string>
+    <string name="notification_channel_media_name">Tocador de mídia</string>
+    <string name="notification_channel_media_description">Progresso do tocador de mídia</string>
+    <string name="notification_channel_file_sync_name">Sincronização de arquivo</string>
+    <string name="notification_channel_file_sync_description">Mostra o progresso sincronização de arquivo e resultados</string>
+  
     <string name="account_not_found">Conta não encontrada!</string>
 
     <string name="screenshot_01_gridView">Um lugar seguro para seus dados</string>

@@ -667,6 +667,7 @@
     <string name="resized_image_not_possible">Boyutu değiştirilmiş bir görsel yok. Tam görsel indirilsin mi?</string>
     <string name="resized_images_download_full_image">Tam görsel indirilsin mi?</string>
 
+    <string name="store_short_desc">Nextcloud Android uygulaması Nextcloud kopyanızdaki tüm dosyalarınıza erişmenizi sağlar.</string>
     <string name="store_full_desc">Copyleft Nextcloud Android uygulaması, Nextcloud üzerindeki tüm dosyalarınıza erişmenizi sağlar.\n\nÖzellikleri:\* Kolay kullanılan modern arayüz\n* Dosyalarınızı Nextcloud sunucunuza kolayca yükleyebilme\n* Dosyalarınızı başkalarıyla paylaşabilme\n* Sık kullandığınız dosya ve klasörleri eşitleme\n* Çektiğiniz fotoğraf ve görüntüleri anında yükleme\n* Birden çok hesap desteği\nKullanımda karşılaşabileceğiniz hataları https://github.com/nextcloud/android/issues adresinden bildirebilir, uygulama hakkındaki konuları https://help.nextcloud.com adresinde tartışabilirsiniz ;-)\n\nNextcloud ile yeni mi tanıştınız? Nextcloud özel bir veri depolama ve paylaşma ağıdır. Tamamen açık kaynak kodludur. Dosyalarınızı kendi sunucunuzda saklayabileceğiniz gibi ücretli hizmet olarak da satın alabilirsiniz. Böylece fotoğraflarınız, dosyalarınız, takviminiz, belgeleriniz, kişileriniz ve diğer tüm özel bilgileriniz sizin kontrolünüzde olur. \n\nAyrıntılı bilgi almak için sitemize bakabilirsiniz: https://nextcloud.com</string>
 
     <string name="drawer_current_account">Geçerli hesap</string>
@@ -712,4 +713,21 @@
     <string name="share">Paylaş</string>
     <string name="link">Bağlantı</string>
 
-    </resources>
+    <string name="notification_channel_upload_name">Yükleme bildirimi kanalı</string>
+    <string name="notification_channel_download_name">İndirme bildirimi kanalı</string>
+    <string name="notification_channel_download_description">İndirme ilerlemesini görüntüler</string>
+    <string name="notification_channel_upload_description">Yükleme ilerlemesini görüntüler</string>
+    <string name="notification_channel_media_name">Ortam oynatıcı</string>
+    <string name="notification_channel_media_description">Müzik çalar ilerlemesi</string>
+    <string name="notification_channel_file_sync_name">Dosya eşitleme</string>
+    <string name="notification_channel_file_sync_description">Dosya eşitleme ilerlemesi ve sonuçlarını görüntüler</string>
+  
+    <string name="account_not_found">Hesap bulunamadı!</string>
+
+    <string name="screenshot_01_gridView">Verileriniz için güvenli bir yer!</string>
+    <string name="screenshot_02_listView">Dosyalarınıza kolayca erişin ve paylaşın</string>
+    <string name="screenshot_03_drawer">İşlem, paylaşım, çevrimdışı dosyalar ve diğer özelliklere kolayca erişin</string>
+    <string name="screenshot_04_accounts">Farklı hesaplara bağlanın</string>
+    <string name="screenshot_05_autoUpload">Fotoğraf ve görüntülerinizi otomatik olarak yükleyin</string>
+    <string name="screenshot_06_davdroid">DAVdroid ile Takvim ve Kişilerinizi eşitleyin</string>
+</resources>

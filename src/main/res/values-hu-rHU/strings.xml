@@ -734,6 +734,8 @@ A Nextcloud itt érhető el: https://nextcloud.com</string>
     <string name="share">Megosztás</string>
     <string name="link">Hivatkozás</string>
 
+    <string name="notification_channel_media_name">Médialejátszó</string>
+    <string name="notification_channel_file_sync_name">Fájl szinkronizálás</string>
     <string name="account_not_found">Fiók nem található!</string>
 
     <string name="screenshot_01_gridView">Egy biztonságos hely az adataidnak</string>
