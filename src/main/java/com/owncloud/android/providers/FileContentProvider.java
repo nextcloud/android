@@ -42,6 +42,7 @@ import android.os.Binder;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
@@ -99,7 +100,7 @@ public class FileContentProvider extends ContentProvider {
         if (isCallerNotAllowed()) {
             return -1;
         }
-                
+
         SQLiteDatabase db = mDbHelper.getWritableDatabase();
         db.beginTransaction();
         try {
@@ -116,7 +117,7 @@ public class FileContentProvider extends ContentProvider {
         if (isCallerNotAllowed()) {
             return -1;
         }
-        
+
         int count = 0;
         switch (mUriMatcher.match(uri)) {
             case SINGLE_FILE:
@@ -1552,13 +1553,7 @@ public class FileContentProvider extends ContentProvider {
     }
 
     private boolean isCallerNotAllowed() {
-        String callingPackage;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            callingPackage = getCallingPackage();
-        } else {
-            callingPackage = mContext.getPackageManager().getNameForUid(Binder.getCallingUid());
-        }
-
+        String callingPackage = mContext.getPackageManager().getNameForUid(Binder.getCallingUid());
         return callingPackage == null || !callingPackage.contains(mContext.getPackageName());
     }
 }
