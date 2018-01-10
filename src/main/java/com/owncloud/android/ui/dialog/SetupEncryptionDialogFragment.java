@@ -376,7 +376,6 @@ public class SetupEncryptionDialogFragment extends DialogFragment {
 
             } catch (Exception e) {
                 Log_OC.e(TAG, e.getMessage());
-                e.printStackTrace();
             }
 
             keyResult = KEY_FAILED;
