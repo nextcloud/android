@@ -31,10 +31,27 @@ import java.security.KeyPair;
 public class CsrHelper {
 
     /**
+     * Generate CSR with PEM encoding
+     *
+     * @param keyPair the KeyPair with private and public keys
+     * @param userId  userId of CSR owner
+     * @return PEM encoded CSR string
+     * @throws IOException               thrown if key cannot be created
+     * @throws OperatorCreationException thrown if contentSigner cannot be build
+     */
+    public static String generateCsrPemEncodedString(KeyPair keyPair, String userId)
+            throws IOException, OperatorCreationException {
+        PKCS10CertificationRequest csr = CsrHelper.generateCSR(keyPair, userId);
+        byte[] derCSR = csr.getEncoded();
+        return "-----BEGIN CERTIFICATE REQUEST-----\n" + android.util.Base64.encodeToString(derCSR,
+                android.util.Base64.NO_WRAP) + "\n-----END CERTIFICATE REQUEST-----";
+    }
+    
+    /**
      * Create the certificate signing request (CSR) from private and public keys
      *
      * @param keyPair the KeyPair with private and public keys
-     * @param userId
+     * @param userId userId of CSR owner
      * @return PKCS10CertificationRequest with the certificate signing request (CSR) data
      * @throws IOException thrown if key cannot be created
      * @throws OperatorCreationException thrown if contentSigner cannot be build
@@ -54,13 +71,5 @@ public class CsrHelper {
         csrBuilder.addAttribute(PKCSObjectIdentifiers.pkcs_9_at_extensionRequest, extensionsGenerator.generate());
 
         return csrBuilder.build(signer);
-    }
-
-    public static String generateCsrPemEncodedString(KeyPair keyPair, String userId) 
-            throws IOException, OperatorCreationException {
-        PKCS10CertificationRequest csr = CsrHelper.generateCSR(keyPair, userId);
-        byte[] derCSR = csr.getEncoded();
-        return "-----BEGIN CERTIFICATE REQUEST-----\n" + android.util.Base64.encodeToString(derCSR,
-                android.util.Base64.NO_WRAP) + "\n-----END CERTIFICATE REQUEST-----";
     }
 }
