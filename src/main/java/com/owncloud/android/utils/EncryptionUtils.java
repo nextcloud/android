@@ -626,7 +626,7 @@ public class EncryptionUtils {
 
             return keyGenerator.generateKey().getEncoded();
         } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
+            Log_OC.e(TAG, e.getMessage());
         }
 
         return null;
