@@ -41,11 +41,9 @@ import android.support.annotation.ColorInt;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.AppBarLayout;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.helper.ItemTouchHelper;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -453,6 +451,8 @@ public class UserInfoActivity extends FileActivity {
     }
 
     protected class UserInfoAdapter extends RecyclerView.Adapter<UserInfoAdapter.ViewHolder> {
+        protected List<UserInfoDetailsItem> mDisplayList;
+        @ColorInt protected int mTintColor;
 
         public class ViewHolder extends RecyclerView.ViewHolder {
 
@@ -464,9 +464,6 @@ public class UserInfoActivity extends FileActivity {
                 ButterKnife.bind(this, itemView);
             }
         }
-
-        List<UserInfoDetailsItem> mDisplayList;
-        @ColorInt int mTintColor;
 
         public UserInfoAdapter(List<UserInfoDetailsItem> displayList, @ColorInt int tintColor) {
             mDisplayList = displayList == null ? new LinkedList<>() : displayList;
