@@ -134,26 +134,27 @@ public class EncryptionUtils {
             NoSuchProviderException, IllegalBlockSizeException, InvalidKeySpecException, CertificateException {
 
         HashMap<String, EncryptedFolderMetadata.EncryptedFile> files = new HashMap<>();
-        EncryptedFolderMetadata encryptedFolderMetadata = new EncryptedFolderMetadata(decryptedFolderMetadata.metadata,
-                files);
+        EncryptedFolderMetadata encryptedFolderMetadata = new EncryptedFolderMetadata(decryptedFolderMetadata
+                .getMetadata(), files);
 
         // Encrypt each file in "files"
-        for (Map.Entry<String, DecryptedFolderMetadata.DecryptedFile> entry : decryptedFolderMetadata.files.entrySet()) {
+        for (Map.Entry<String, DecryptedFolderMetadata.DecryptedFile> entry : decryptedFolderMetadata
+                .getFiles().entrySet()) {
             String key = entry.getKey();
             DecryptedFolderMetadata.DecryptedFile decryptedFile = entry.getValue();
 
             EncryptedFolderMetadata.EncryptedFile encryptedFile = new EncryptedFolderMetadata.EncryptedFile();
-            encryptedFile.initializationVector = decryptedFile.initializationVector;
-            encryptedFile.metadataKey = decryptedFile.metadataKey;
-            encryptedFile.authenticationTag = decryptedFile.authenticationTag;
+            encryptedFile.setInitializationVector(decryptedFile.getInitializationVector());
+            encryptedFile.setMetadataKey(decryptedFile.getMetadataKey());
+            encryptedFile.setAuthenticationTag(decryptedFile.getAuthenticationTag());
 
             byte[] decryptedMetadataKey = EncryptionUtils.decodeStringToBase64Bytes(EncryptionUtils.decryptStringAsymmetric(
-                    decryptedFolderMetadata.metadata.metadataKeys.get(encryptedFile.metadataKey),
+                    decryptedFolderMetadata.getMetadata().getMetadataKeys().get(encryptedFile.getMetadataKey()),
                     privateKey));
 
             // encrypt
-            String dataJson = EncryptionUtils.serializeJSON(decryptedFile.encrypted);
-            encryptedFile.encrypted = EncryptionUtils.encryptStringSymmetric(dataJson, decryptedMetadataKey);
+            String dataJson = EncryptionUtils.serializeJSON(decryptedFile.getEncrypted());
+            encryptedFile.setEncrypted(EncryptionUtils.encryptStringSymmetric(dataJson, decryptedMetadataKey));
 
             files.put(key, encryptedFile);
         }
@@ -172,27 +173,28 @@ public class EncryptionUtils {
             NoSuchProviderException, IllegalBlockSizeException, CertificateException, InvalidKeySpecException {
 
         HashMap<String, DecryptedFolderMetadata.DecryptedFile> files = new HashMap<>();
-        DecryptedFolderMetadata decryptedFolderMetadata = new DecryptedFolderMetadata(encryptedFolderMetadata.metadata,
-                files);
+        DecryptedFolderMetadata decryptedFolderMetadata = new DecryptedFolderMetadata(
+                encryptedFolderMetadata.getMetadata(), files);
 
-        for (Map.Entry<String, EncryptedFolderMetadata.EncryptedFile> entry : encryptedFolderMetadata.files.entrySet()) {
+        for (Map.Entry<String, EncryptedFolderMetadata.EncryptedFile> entry : encryptedFolderMetadata
+                .getFiles().entrySet()) {
             String key = entry.getKey();
             EncryptedFolderMetadata.EncryptedFile encryptedFile = entry.getValue();
 
             DecryptedFolderMetadata.DecryptedFile decryptedFile = new DecryptedFolderMetadata.DecryptedFile();
-            decryptedFile.initializationVector = encryptedFile.initializationVector;
-            decryptedFile.metadataKey = encryptedFile.metadataKey;
-            decryptedFile.authenticationTag = encryptedFile.authenticationTag;
+            decryptedFile.setInitializationVector(encryptedFile.getInitializationVector());
+            decryptedFile.setMetadataKey(encryptedFile.getMetadataKey());
+            decryptedFile.setAuthenticationTag(encryptedFile.getAuthenticationTag());
 
-            byte[] decryptedMetadataKey = EncryptionUtils.decodeStringToBase64Bytes(EncryptionUtils.decryptStringAsymmetric(
-                    decryptedFolderMetadata.metadata.metadataKeys.get(encryptedFile.metadataKey),
-                    privateKey));
+            byte[] decryptedMetadataKey = EncryptionUtils.decodeStringToBase64Bytes(
+                    EncryptionUtils.decryptStringAsymmetric(decryptedFolderMetadata.getMetadata()
+                            .getMetadataKeys().get(encryptedFile.getMetadataKey()), privateKey));
 
             // decrypt
-            String dataJson = EncryptionUtils.decryptStringSymmetric(encryptedFile.encrypted, decryptedMetadataKey);
-            decryptedFile.encrypted = EncryptionUtils.deserializeJSON(dataJson,
+            String dataJson = EncryptionUtils.decryptStringSymmetric(encryptedFile.getEncrypted(), decryptedMetadataKey);
+            decryptedFile.setEncrypted(EncryptionUtils.deserializeJSON(dataJson,
                     new TypeToken<DecryptedFolderMetadata.Data>() {
-                    });
+                    }));
 
             files.put(key, decryptedFile);
         }

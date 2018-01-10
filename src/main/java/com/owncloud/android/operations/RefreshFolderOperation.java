@@ -455,8 +455,9 @@ public class RefreshFolderOperation extends RemoteOperation {
             if (metadata != null) {
                 updatedFile.setEncryptedFileName(updatedFile.getFileName());
                 try {
-                    String decryptedFileName = metadata.files.get(updatedFile.getFileName()).encrypted.filename;
-                    String mimetype = metadata.files.get(updatedFile.getFileName()).encrypted.mimetype;
+                    String decryptedFileName = metadata.getFiles().get(updatedFile.getFileName()).getEncrypted()
+                            .getFilename();
+                    String mimetype = metadata.getFiles().get(updatedFile.getFileName()).getEncrypted().getMimetype();
                     updatedFile.setFileName(decryptedFileName);
                     if (mimetype == null || mimetype.isEmpty()) {
                         updatedFile.setMimetype("application/octet-stream");

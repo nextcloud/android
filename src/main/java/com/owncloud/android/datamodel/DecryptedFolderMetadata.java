@@ -28,8 +28,8 @@ import java.util.HashMap;
  */
 
 public class DecryptedFolderMetadata {
-    public Metadata metadata;
-    public HashMap<String, DecryptedFile> files;
+    private Metadata metadata;
+    private HashMap<String, DecryptedFile> files;
 
     public DecryptedFolderMetadata() {
         this.metadata = new Metadata();
@@ -41,10 +41,50 @@ public class DecryptedFolderMetadata {
         this.files = files;
     }
 
+    public Metadata getMetadata() {
+        return metadata;
+    }
+
+    public void setMetadata(Metadata metadata) {
+        this.metadata = metadata;
+    }
+
+    public HashMap<String, DecryptedFile> getFiles() {
+        return files;
+    }
+
+    public void setFiles(HashMap<String, DecryptedFile> files) {
+        this.files = files;
+    }
+
     public static class Metadata {
-        public HashMap<Integer, String> metadataKeys; // each keys is encrypted on its own, decrypt on use
-        public Sharing sharing;
-        public int version;
+        private HashMap<Integer, String> metadataKeys; // each keys is encrypted on its own, decrypt on use
+        private Sharing sharing;
+        private int version;
+
+        public HashMap<Integer, String> getMetadataKeys() {
+            return metadataKeys;
+        }
+
+        public void setMetadataKeys(HashMap<Integer, String> metadataKeys) {
+            this.metadataKeys = metadataKeys;
+        }
+
+        public Sharing getSharing() {
+            return sharing;
+        }
+
+        public void setSharing(Sharing sharing) {
+            this.sharing = sharing;
+        }
+
+        public int getVersion() {
+            return version;
+        }
+
+        public void setVersion(int version) {
+            this.version = version;
+        }
 
         @Override
         public String toString() {
@@ -53,25 +93,113 @@ public class DecryptedFolderMetadata {
     }
 
     public static class Encrypted {
-        public HashMap<Integer, String> metadataKeys;
+        private HashMap<Integer, String> metadataKeys;
+
+        public HashMap<Integer, String> getMetadataKeys() {
+            return metadataKeys;
+        }
+
+        public void setMetadataKeys(HashMap<Integer, String> metadataKeys) {
+            this.metadataKeys = metadataKeys;
+        }
     }
 
     public static class Sharing {
-        public HashMap<String, String> recipient;
-        public String signature;
+        private HashMap<String, String> recipient;
+        private String signature;
+
+        public HashMap<String, String> getRecipient() {
+            return recipient;
+        }
+
+        public void setRecipient(HashMap<String, String> recipient) {
+            this.recipient = recipient;
+        }
+
+        public String getSignature() {
+            return signature;
+        }
+
+        public void setSignature(String signature) {
+            this.signature = signature;
+        }
     }
 
     public static class DecryptedFile {
-        public Data encrypted;
-        public String initializationVector;
-        public String authenticationTag;
-        public int metadataKey;
+        private Data encrypted;
+        private String initializationVector;
+        private String authenticationTag;
+        private int metadataKey;
+
+        public Data getEncrypted() {
+            return encrypted;
+        }
+
+        public void setEncrypted(Data encrypted) {
+            this.encrypted = encrypted;
+        }
+
+        public String getInitializationVector() {
+            return initializationVector;
+        }
+
+        public void setInitializationVector(String initializationVector) {
+            this.initializationVector = initializationVector;
+        }
+
+        public String getAuthenticationTag() {
+            return authenticationTag;
+        }
+
+        public void setAuthenticationTag(String authenticationTag) {
+            this.authenticationTag = authenticationTag;
+        }
+
+        public int getMetadataKey() {
+            return metadataKey;
+        }
+
+        public void setMetadataKey(int metadataKey) {
+            this.metadataKey = metadataKey;
+        }
     }
 
     public static class Data {
-        public String key;
-        public String filename;
-        public String mimetype;
-        public int version;
+        private String key;
+        private String filename;
+        private String mimetype;
+        private int version;
+
+        public String getKey() {
+            return key;
+        }
+
+        public void setKey(String key) {
+            this.key = key;
+        }
+
+        public String getFilename() {
+            return filename;
+        }
+
+        public void setFilename(String filename) {
+            this.filename = filename;
+        }
+
+        public String getMimetype() {
+            return mimetype;
+        }
+
+        public void setMimetype(String mimetype) {
+            this.mimetype = mimetype;
+        }
+
+        public int getVersion() {
+            return version;
+        }
+
+        public void setVersion(int version) {
+            this.version = version;
+        }
     }
 }
