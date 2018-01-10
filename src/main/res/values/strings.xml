@@ -723,6 +723,8 @@
     <string name="dev_version_no_information_available">No information available.</string>
     <string name="dev_version_no_new_version_available">No new version available.</string>
     <string name="folder_icon">Folder icon</string>
+    <string name="dev_version_new_version_available">New version available</string>
+    <string name="version_dev_download">Download</string>
 
     <string name="send">Send</string>
     <string name="share">Share</string>

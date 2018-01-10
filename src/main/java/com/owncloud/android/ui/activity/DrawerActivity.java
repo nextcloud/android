@@ -28,7 +28,6 @@ import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.accounts.AccountManagerFuture;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
@@ -36,7 +35,6 @@ import android.graphics.drawable.LayerDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.preference.PreferenceManager;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -82,6 +80,7 @@ import com.owncloud.android.ui.events.MenuItemClickEvent;
 import com.owncloud.android.ui.events.SearchEvent;
 import com.owncloud.android.ui.fragment.OCFileListFragment;
 import com.owncloud.android.utils.DisplayUtils;
+import com.owncloud.android.utils.FilesSyncHelper;
 import com.owncloud.android.utils.ThemeUtils;
 import com.owncloud.android.utils.svg.MenuSimpleTarget;
 
@@ -100,7 +99,6 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
     private static final String TAG = DrawerActivity.class.getSimpleName();
     private static final String KEY_IS_ACCOUNT_CHOOSER_ACTIVE = "IS_ACCOUNT_CHOOSER_ACTIVE";
     private static final String KEY_CHECKED_MENU_ITEM = "CHECKED_MENU_ITEM";
-    private static final String EXTERNAL_LINKS_COUNT = "EXTERNAL_LINKS_COUNT";
     private static final int ACTION_MANAGE_ACCOUNTS = 101;
     private static final int MENU_ORDER_ACCOUNT = 1;
     private static final int MENU_ORDER_ACCOUNT_FUNCTION = 2;
@@ -188,7 +186,6 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
     private Runnable pendingRunnable;
 
     private ExternalLinksProvider externalLinksProvider;
-    private SharedPreferences sharedPreferences;
     private ArbitraryDataProvider arbitraryDataProvider;
 
     /**
@@ -207,9 +204,9 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
      * This method needs to be called after the content view has been set.
      */
     protected void setupDrawer() {
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        mDrawerLayout = findViewById(R.id.drawer_layout);
 
-        mNavigationView = (NavigationView) findViewById(R.id.nav_view);
+        mNavigationView = findViewById(R.id.nav_view);
         if (mNavigationView != null) {
             setupDrawerHeader();
 
@@ -1106,8 +1103,6 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
 
         externalLinksProvider = new ExternalLinksProvider(MainApp.getAppContext().getContentResolver());
         arbitraryDataProvider = new ArbitraryDataProvider(getContentResolver());
-
-        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
     }
 
     @Override
@@ -1201,7 +1196,7 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
      * @return The view if found or <code>null</code> otherwise.
      */
     private View findNavigationViewChildById(int id) {
-        NavigationView view = ((NavigationView) findViewById(R.id.nav_view));
+        NavigationView view = findViewById(R.id.nav_view);
 
         if (view != null) {
             return view.getHeaderView(0).findViewById(id);
@@ -1347,13 +1342,16 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
                         getStorageManager().getCapability(account.name) != null &&
                         getStorageManager().getCapability(account.name).getExternalLinks().isTrue()) {
 
-                    int count = sharedPreferences.getInt(EXTERNAL_LINKS_COUNT, -1);
+                    int count = arbitraryDataProvider.getIntegerValue(FilesSyncHelper.GLOBAL,
+                            FileActivity.APP_OPENED_COUNT);
+                    
                     if (count > 10 || count == -1 || force) {
                         if (force) {
                             Log_OC.d("ExternalLinks", "force update");
                         }
 
-                        sharedPreferences.edit().putInt(EXTERNAL_LINKS_COUNT, 0).apply();
+                        arbitraryDataProvider.storeOrUpdateKeyValue(FilesSyncHelper.GLOBAL,
+                                FileActivity.APP_OPENED_COUNT, "0");
 
                         Log_OC.d("ExternalLinks", "update via api");
                         RemoteOperation getExternalLinksOperation = new ExternalLinksOperation();
@@ -1369,7 +1367,8 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
                             }
                         }
                     } else {
-                        sharedPreferences.edit().putInt(EXTERNAL_LINKS_COUNT, count + 1).apply();
+                        arbitraryDataProvider.storeOrUpdateKeyValue(FilesSyncHelper.GLOBAL,
+                                FileActivity.APP_OPENED_COUNT, String.valueOf(count + 1));
                     }
                 } else {
                     Log_OC.d("ExternalLinks", "links disabled");
