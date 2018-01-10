@@ -202,16 +202,22 @@ public class EncryptionTestIT {
         // n9WXAIXO2wRY4R8nXwmo
         assertTrue(cryptFile("ia7OEEEyXMoRa1QWQk8r",
                 "78f42172166f9dc8fd1a7156b1753353",
-                EncryptionUtils.decodeStringToBase64Bytes(metadata.files.get("ia7OEEEyXMoRa1QWQk8r").encrypted.key),
-                EncryptionUtils.decodeStringToBase64Bytes(metadata.files.get("ia7OEEEyXMoRa1QWQk8r").initializationVector),
-                EncryptionUtils.decodeStringToBase64Bytes(metadata.files.get("ia7OEEEyXMoRa1QWQk8r").authenticationTag)));
+                EncryptionUtils.decodeStringToBase64Bytes(metadata.getFiles().get("ia7OEEEyXMoRa1QWQk8r")
+                        .getEncrypted().getKey()),
+                EncryptionUtils.decodeStringToBase64Bytes(metadata.getFiles().get("ia7OEEEyXMoRa1QWQk8r")
+                        .getInitializationVector()),
+                EncryptionUtils.decodeStringToBase64Bytes(metadata.getFiles().get("ia7OEEEyXMoRa1QWQk8r")
+                        .getAuthenticationTag())));
 
         // n9WXAIXO2wRY4R8nXwmo
         assertTrue(cryptFile("n9WXAIXO2wRY4R8nXwmo",
                 "825143ed1f21ebb0c3b3c3f005b2f5db",
-                EncryptionUtils.decodeStringToBase64Bytes(metadata.files.get("n9WXAIXO2wRY4R8nXwmo").encrypted.key),
-                EncryptionUtils.decodeStringToBase64Bytes(metadata.files.get("n9WXAIXO2wRY4R8nXwmo").initializationVector),
-                EncryptionUtils.decodeStringToBase64Bytes(metadata.files.get("n9WXAIXO2wRY4R8nXwmo").authenticationTag)));
+                EncryptionUtils.decodeStringToBase64Bytes(metadata.getFiles().get("n9WXAIXO2wRY4R8nXwmo")
+                        .getEncrypted().getKey()),
+                EncryptionUtils.decodeStringToBase64Bytes(metadata.getFiles().get("n9WXAIXO2wRY4R8nXwmo")
+                        .getInitializationVector()),
+                EncryptionUtils.decodeStringToBase64Bytes(metadata.getFiles().get("n9WXAIXO2wRY4R8nXwmo")
+                        .getAuthenticationTag())));
     }
 
     /**
@@ -277,45 +283,45 @@ public class EncryptionTestIT {
         metadataKeys.put(1, EncryptionUtils.encryptStringAsymmetric(metadataKey1, cert));
         metadataKeys.put(2, EncryptionUtils.encryptStringAsymmetric(metadataKey2, cert));
         DecryptedFolderMetadata.Encrypted encrypted = new DecryptedFolderMetadata.Encrypted();
-        encrypted.metadataKeys = metadataKeys;
+        encrypted.setMetadataKeys(metadataKeys);
 
         DecryptedFolderMetadata.Metadata metadata1 = new DecryptedFolderMetadata.Metadata();
-        metadata1.metadataKeys = metadataKeys;
-        metadata1.version = 1;
+        metadata1.setMetadataKeys(metadataKeys);
+        metadata1.setVersion(1);
 
         DecryptedFolderMetadata.Sharing sharing = new DecryptedFolderMetadata.Sharing();
-        sharing.signature = "HMACOFRECIPIENTANDNEWESTMETADATAKEY";
+        sharing.setSignature("HMACOFRECIPIENTANDNEWESTMETADATAKEY");
         HashMap<String, String> recipient = new HashMap<>();
         recipient.put("blah@schiessle.org", "PUBLIC KEY");
         recipient.put("bjoern@schiessle.org", "PUBLIC KEY");
-        sharing.recipient = recipient;
-        metadata1.sharing = sharing;
+        sharing.setRecipient(recipient);
+        metadata1.setSharing(sharing);
 
         HashMap<String, DecryptedFolderMetadata.DecryptedFile> files = new HashMap<>();
 
         DecryptedFolderMetadata.Data data1 = new DecryptedFolderMetadata.Data();
-        data1.key = "WANM0gRv+DhaexIsI0T3Lg==";
-        data1.filename = "test.txt";
-        data1.version = 1;
+        data1.setKey("WANM0gRv+DhaexIsI0T3Lg==");
+        data1.setFilename("test.txt");
+        data1.setVersion(1);
 
         DecryptedFolderMetadata.DecryptedFile file1 = new DecryptedFolderMetadata.DecryptedFile();
-        file1.initializationVector = "gKm3n+mJzeY26q4OfuZEqg==";
-        file1.encrypted = data1;
-        file1.metadataKey = 0;
-        file1.authenticationTag = "PboI9tqHHX3QeAA22PIu4w==";
+        file1.setInitializationVector("gKm3n+mJzeY26q4OfuZEqg==");
+        file1.setEncrypted(data1);
+        file1.setMetadataKey(0);
+        file1.setAuthenticationTag("PboI9tqHHX3QeAA22PIu4w==");
 
         files.put("ia7OEEEyXMoRa1QWQk8r", file1);
 
         DecryptedFolderMetadata.Data data2 = new DecryptedFolderMetadata.Data();
-        data2.key = "9dfzbIYDt28zTyZfbcll+g==";
-        data2.filename = "test2.txt";
-        data2.version = 1;
+        data2.setKey("9dfzbIYDt28zTyZfbcll+g==");
+        data2.setFilename("test2.txt");
+        data2.setVersion(1);
 
         DecryptedFolderMetadata.DecryptedFile file2 = new DecryptedFolderMetadata.DecryptedFile();
-        file2.initializationVector = "hnJLF8uhDvDoFK4ajuvwrg==";
-        file2.encrypted = data2;
-        file2.metadataKey = 0;
-        file2.authenticationTag = "qOQZdu5soFO77Y7y4rAOVA==";
+        file2.setInitializationVector("hnJLF8uhDvDoFK4ajuvwrg==");
+        file2.setEncrypted(data2);
+        file2.setMetadataKey(0);
+        file2.setAuthenticationTag("qOQZdu5soFO77Y7y4rAOVA==");
 
         files.put("n9WXAIXO2wRY4R8nXwmo", file2);
 

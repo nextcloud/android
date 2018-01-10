@@ -556,15 +556,7 @@ public class UploadFileOperation extends SyncOperation {
                 }
             }
 
-        boolean metadataExists = false;
-            String token = null;
-                
-                ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProvider(getContext().getContentResolver());
-                
-            String privateKey = arbitraryDataProvider.getValue(getAccount().name, EncryptionUtils.PRIVATE_KEY);
-        String publicKey = arbitraryDataProvider.getValue(getAccount().name, EncryptionUtils.PUBLIC_KEY);
-
-        /// perform the upload
+            /// perform the upload
             if (mChunked && (size > ChunkedUploadRemoteFileOperation.CHUNK_SIZE)) {
                 mUploadOperation = new ChunkedUploadRemoteFileOperation(mContext, encryptedTempFile.getAbsolutePath(),
                         mFile.getParentRemotePath() + encryptedFileName, mFile.getMimetype(),
@@ -585,7 +577,7 @@ public class UploadFileOperation extends SyncOperation {
             }
 
 //            FileChannel channel = null;
-//try {
+//            try {
 //                channel = new RandomAccessFile(ocFile.getStoragePath(), "rw").getChannel();
 //                fileLock = channel.tryLock();
 //            } catch (FileNotFoundException e) {
@@ -747,8 +739,13 @@ public class UploadFileOperation extends SyncOperation {
     }
 
     private RemoteOperationResult checkConditions(File originalFile) {
-        //  Check that connectivity conditions are met and delays the upload otherwise
-        
+        // check that internet is not behind walled garden
+        if (Device.getNetworkType(mContext).equals(JobRequest.NetworkType.ANY) ||
+                ConnectivityUtils.isInternetWalled(mContext)) {
+            return new RemoteOperationResult(ResultCode.NO_NETWORK_CONNECTION);
+        }
+
+        // check that connectivity conditions are met and delays the upload otherwise
         if (mOnWifiOnly && !Device.getNetworkType(mContext).equals(JobRequest.NetworkType.UNMETERED)) {
             Log_OC.d(TAG, "Upload delayed until WiFi is available: " + getRemotePath());
             return new RemoteOperationResult(ResultCode.DELAYED_FOR_WIFI);
@@ -1146,8 +1143,8 @@ public class UploadFileOperation extends SyncOperation {
 
             return false;
         } else {
-            ExistenceCheckRemoteOperation existsOperation =
-                    new ExistenceCheckRemoteOperation(remotePath, mContext, false);
+            ExistenceCheckRemoteOperation existsOperation = new ExistenceCheckRemoteOperation(remotePath, mContext,
+                    false);
             RemoteOperationResult result = existsOperation.execute(client);
             return result.isSuccess();
         }

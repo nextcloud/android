@@ -99,7 +99,6 @@ import com.owncloud.android.ui.preview.PreviewTextFragment;
 import com.owncloud.android.utils.AnalyticsUtils;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.EncryptionUtils;
-import com.owncloud.android.utils.EncryptionUtils;
 import com.owncloud.android.utils.FileSortOrder;
 import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.ThemeUtils;
@@ -1027,14 +1026,6 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
                 }
                 case R.id.action_set_as_wallpaper: {
                     mContainerActivity.getFileOperationsHelper().setPictureAs(singleFile, getView());
-                    return true;
-                }
-                case R.id. action_encrypted: {
-                    mContainerActivity.getFileOperationsHelper().toggleEncryption(singleFile, true);
-                    return true;
-                }
-                case R.id. action_unset_encrypted: {
-                    mContainerActivity.getFileOperationsHelper().toggleEncryption(singleFile, false);
                     return true;
                 }
                 case R.id. action_encrypted: {
