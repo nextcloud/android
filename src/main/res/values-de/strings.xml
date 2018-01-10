@@ -695,8 +695,6 @@
     <string name="screenshot_04_accounts">Mit verschiedenen Kontos verbinden</string>
     <string name="screenshot_05_autoUpload">Automatisches Hochladen von Bildern &amp; Videos</string>
     <string name="screenshot_06_davdroid">Kalender &amp; Kontakte mit DAVdroid synchronisieren</string>
-<string name="dev_version_no_information_available">Keine Information verfügbar!</string>
-    <string name="dev_version_no_new_version_available">Keine neue Version verfügbar!</string>
 
     <string name="end_to_end_encryption_folder_not_empty">Verzeichnis nicht leer!</string>
     <string name="end_to_end_encryption_wrong_password">Fehler beim entschlüsseln. Falsches Passwort??</string>
