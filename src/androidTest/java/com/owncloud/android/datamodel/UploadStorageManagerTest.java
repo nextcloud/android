@@ -10,6 +10,7 @@ import android.support.test.runner.AndroidJUnit4;
 import com.owncloud.android.db.OCUpload;
 
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -37,16 +38,16 @@ public class UploadStorageManagerTest {
 
     @Test
     public void testDeleteAllUploads() {
-        //Clean
+        // Clean
         for (Account account : Accounts) {
-//            uploadsStorageManager.removeAccountUploads(account);
+            uploadsStorageManager.removeAccountUploads(account);
         }
         int accountRowsA = 3;
         int accountRowsB = 4;
         insertUploads(Accounts[0], accountRowsA);
         insertUploads(Accounts[1], accountRowsB);
 
-//        Assert.assertTrue("Expected 4 removed uploads files", uploadsStorageManager.removeAccountUploads(Accounts[1]) == 4);
+        Assert.assertTrue("Expected 4 removed uploads files", uploadsStorageManager.removeAccountUploads(Accounts[1]) == 4);
     }
 
     private void insertUploads(Account account, int rowsToInsert) {
@@ -65,7 +66,7 @@ public class UploadStorageManagerTest {
     @After
     public void tearDown() {
         for (Account account : Accounts) {
-//            uploadsStorageManager.removeAccountUploads(account);
+            uploadsStorageManager.removeAccountUploads(account);
         }
     }
 }
