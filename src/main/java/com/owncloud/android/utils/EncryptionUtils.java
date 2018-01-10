@@ -93,16 +93,18 @@ import javax.crypto.spec.SecretKeySpec;
 public class EncryptionUtils {
     private static String TAG = EncryptionUtils.class.getSimpleName();
 
-    public static String PUBLIC_KEY = "PUBLIC_KEY";
-    public static String PRIVATE_KEY = "PRIVATE_KEY";
-    public static int ivLength = 16;
-    public static int saltLength = 40;
-    
-    private static String ivDelimiter = "fA=="; // "|" base64 encoded
-    private static int iterationCount = 1024;
-    private static int keyStrength = 256;
-    private static String AES_CIPHER = "AES/GCM/NoPadding";
-    private static String RSA_CIPHER = "RSA/ECB/OAEPWithSHA-256AndMGF1Padding";
+    public static final String PUBLIC_KEY = "PUBLIC_KEY";
+    public static final String PRIVATE_KEY = "PRIVATE_KEY";
+    public static final int ivLength = 16;
+    public static final int saltLength = 40;
+
+    private static final String ivDelimiter = "fA=="; // "|" base64 encoded
+    private static final int iterationCount = 1024;
+    private static final int keyStrength = 256;
+    private static final String AES_CIPHER = "AES/GCM/NoPadding";
+    private static final String AES = "AES";
+    private static final String RSA_CIPHER = "RSA/ECB/OAEPWithSHA-256AndMGF1Padding";
+    private static final String RSA = "RSA";
 
     /*
     JSON
@@ -297,7 +299,7 @@ public class EncryptionUtils {
 
         Cipher cipher = Cipher.getInstance(AES_CIPHER);
 
-        Key key = new SecretKeySpec(encryptionKeyBytes, "AES");
+        Key key = new SecretKeySpec(encryptionKeyBytes, AES);
 
         GCMParameterSpec spec = new GCMParameterSpec(128, iv);
         cipher.init(Cipher.ENCRYPT_MODE, key, spec);
@@ -328,7 +330,7 @@ public class EncryptionUtils {
 
 
         Cipher cipher = Cipher.getInstance(AES_CIPHER);
-        Key key = new SecretKeySpec(encryptionKeyBytes, "AES");
+        Key key = new SecretKeySpec(encryptionKeyBytes, AES);
         GCMParameterSpec spec = new GCMParameterSpec(128, iv);
         cipher.init(Cipher.DECRYPT_MODE, key, spec);
 
@@ -412,7 +414,7 @@ public class EncryptionUtils {
 
         byte[] privateKeyBytes = decodeStringToBase64Bytes(privateKeyString);
         PKCS8EncodedKeySpec keySpec = new PKCS8EncodedKeySpec(privateKeyBytes);
-        KeyFactory kf = KeyFactory.getInstance("RSA");
+        KeyFactory kf = KeyFactory.getInstance(RSA);
         PrivateKey privateKey = kf.generatePrivate(keySpec);
 
         cipher.init(Cipher.DECRYPT_MODE, privateKey);
@@ -442,7 +444,7 @@ public class EncryptionUtils {
         Cipher cipher = Cipher.getInstance(AES_CIPHER);
         byte[] iv = randomBytes(ivLength);
 
-        Key key = new SecretKeySpec(encryptionKeyBytes, "AES");
+        Key key = new SecretKeySpec(encryptionKeyBytes, AES);
         GCMParameterSpec spec = new GCMParameterSpec(128, iv);
         cipher.init(Cipher.ENCRYPT_MODE, key, spec);
 
@@ -478,7 +480,7 @@ public class EncryptionUtils {
 
         byte[] iv = new IvParameterSpec(decodeStringToBase64Bytes(strings[1])).getIV();
 
-        Key key = new SecretKeySpec(encryptionKeyBytes, "AES");
+        Key key = new SecretKeySpec(encryptionKeyBytes, AES);
 
         GCMParameterSpec spec = new GCMParameterSpec(128, iv);
         cipher.init(Cipher.DECRYPT_MODE, key, spec);
@@ -506,7 +508,7 @@ public class EncryptionUtils {
         byte[] salt = randomBytes(saltLength);
         KeySpec spec = new PBEKeySpec(keyPhrase.toCharArray(), salt, iterationCount, keyStrength);
         SecretKey tmp = factory.generateSecret(spec);
-        SecretKeySpec key = new SecretKeySpec(tmp.getEncoded(), "AES");
+        SecretKeySpec key = new SecretKeySpec(tmp.getEncoded(), AES);
 
         cipher.init(Cipher.ENCRYPT_MODE, key);
         byte[] bytes = encodeStringToBase64Bytes(privateKey);
@@ -542,8 +544,7 @@ public class EncryptionUtils {
         SecretKeyFactory factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
         KeySpec spec = new PBEKeySpec(keyPhrase.toCharArray(), salt, iterationCount, keyStrength);
         SecretKey tmp = factory.generateSecret(spec);
-        SecretKeySpec key = new SecretKeySpec(tmp.getEncoded(), "AES");
-
+        SecretKeySpec key = new SecretKeySpec(tmp.getEncoded(), AES);
 
         cipher.init(Cipher.DECRYPT_MODE, key, new IvParameterSpec(iv));
 
@@ -613,7 +614,7 @@ public class EncryptionUtils {
     }
 
     public static KeyPair generateKeyPair() throws NoSuchAlgorithmException {
-        KeyPairGenerator keyGen = KeyPairGenerator.getInstance("RSA");
+        KeyPairGenerator keyGen = KeyPairGenerator.getInstance(RSA);
         keyGen.initialize(2048, new SecureRandom());
         return keyGen.generateKeyPair();
     }
@@ -621,7 +622,7 @@ public class EncryptionUtils {
     public static byte[] generateKey() {
         KeyGenerator keyGenerator;
         try {
-            keyGenerator = KeyGenerator.getInstance("AES");
+            keyGenerator = KeyGenerator.getInstance(AES);
             keyGenerator.init(128);
 
             return keyGenerator.generateKey().getEncoded();
