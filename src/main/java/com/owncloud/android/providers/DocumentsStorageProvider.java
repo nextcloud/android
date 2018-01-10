@@ -21,6 +21,7 @@
 package com.owncloud.android.providers;
 
 import android.accounts.Account;
+import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.content.ContentResolver;
 import android.content.Context;
@@ -32,6 +33,7 @@ import android.os.Build;
 import android.os.CancellationSignal;
 import android.os.ParcelFileDescriptor;
 import android.provider.DocumentsProvider;
+import android.util.Log;
 
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.FileDataStorageManager;
@@ -40,6 +42,7 @@ import com.owncloud.android.files.services.FileDownloader;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.operations.SynchronizeFileOperation;
 import com.owncloud.android.ui.activity.ConflictsResolveActivity;
+import com.owncloud.android.ui.notifications.NotificationUtils;
 import com.owncloud.android.utils.FileStorageUtils;
 
 import org.nextcloud.providers.cursors.FileCursor;
@@ -53,6 +56,8 @@ import java.util.Vector;
 
 @TargetApi(Build.VERSION_CODES.KITKAT)
 public class DocumentsStorageProvider extends DocumentsProvider {
+
+    private static final String TAG = "DocumentsStorageProvider";
 
     private FileDataStorageManager mCurrentStorageManager = null;
     private static Map<Long, FileDataStorageManager> mRootIdToStorageManager;
@@ -76,6 +81,15 @@ public class DocumentsStorageProvider extends DocumentsProvider {
         updateCurrentStorageManagerIfNeeded(docId);
 
         final FileCursor result = new FileCursor(projection);
+        if (mCurrentStorageManager == null) {
+            for(long key : mRootIdToStorageManager.keySet()) {
+                if (mRootIdToStorageManager.get(key).getFileById(docId) != null) {
+                    mCurrentStorageManager = mRootIdToStorageManager.get(key);
+                    break;
+                }
+            }
+        }
+
         OCFile file = mCurrentStorageManager.getFileById(docId);
         if (file != null) {
             result.addFile(file);
@@ -101,6 +115,7 @@ public class DocumentsStorageProvider extends DocumentsProvider {
         return result;
     }
 
+    @SuppressLint("LongLogTag")
     @Override
     public ParcelFileDescriptor openDocument(String documentId, String mode, CancellationSignal cancellationSignal)
             throws FileNotFoundException {
@@ -127,21 +142,38 @@ public class DocumentsStorageProvider extends DocumentsProvider {
 
             } while (!file.isDown());
         } else {
-            FileDataStorageManager storageManager =
-                    new FileDataStorageManager(account, context.getContentResolver());
-            SynchronizeFileOperation sfo =
-                    new SynchronizeFileOperation(file, null, account, true, context);
-            RemoteOperationResult result = sfo.execute(storageManager, context);
-            if (result.getCode() == RemoteOperationResult.ResultCode.SYNC_CONFLICT) {
-                // ISSUE 5: if the user is not running the app (this is a service!),
-                // this can be very intrusive; a notification should be preferred
-                Intent i = new Intent(context, ConflictsResolveActivity.class);
-                i.setFlags(i.getFlags() | Intent.FLAG_ACTIVITY_NEW_TASK);
-                i.putExtra(ConflictsResolveActivity.EXTRA_FILE, file);
-                i.putExtra(ConflictsResolveActivity.EXTRA_ACCOUNT, account);
-                context.startActivity(i);
-            } else {
-                FileStorageUtils.checkIfFileFinishedSaving(file);
+            OCFile finalFile = file;
+            Thread syncThread = new Thread(() -> {
+                try {
+                    FileDataStorageManager storageManager =
+                            new FileDataStorageManager(account, context.getContentResolver());
+                    SynchronizeFileOperation sfo =
+                            new SynchronizeFileOperation(finalFile, null, account, true, context);
+                    RemoteOperationResult result = sfo.execute(storageManager, context);
+                    if (result.getCode() == RemoteOperationResult.ResultCode.SYNC_CONFLICT) {
+                        // ISSUE 5: if the user is not running the app (this is a service!),
+                        // this can be very intrusive; a notification should be preferred
+                        Intent i = new Intent(context, ConflictsResolveActivity.class);
+                        i.setFlags(i.getFlags() | Intent.FLAG_ACTIVITY_NEW_TASK);
+                        i.putExtra(ConflictsResolveActivity.EXTRA_FILE, finalFile);
+                        i.putExtra(ConflictsResolveActivity.EXTRA_ACCOUNT, account);
+                        context.startActivity(i);
+                    } else {
+                        FileStorageUtils.checkIfFileFinishedSaving(finalFile);
+                        if (!result.isSuccess()) {
+                            NotificationUtils.showSyncFailedNotification();
+                        }
+                    }
+                } catch (Exception exception) {
+                    NotificationUtils.showSyncFailedNotification();
+                }
+            });
+
+            syncThread.start();
+            try {
+                syncThread.join();
+            } catch (InterruptedException e) {
+                Log.e(TAG, "Failed to wait for thread to finish");
             }
         }
 
@@ -185,7 +217,16 @@ public class DocumentsStorageProvider extends DocumentsProvider {
         return result;
     }
 
+    @SuppressLint("LongLogTag")
     private void updateCurrentStorageManagerIfNeeded(long docId) {
+        if (mRootIdToStorageManager == null) {
+            try {
+                queryRoots(FileCursor.DEFAULT_DOCUMENT_PROJECTION);
+            } catch (FileNotFoundException e) {
+                Log.e(TAG, "Failed to query roots");
+            }
+        }
+
         if (mCurrentStorageManager == null ||
                 (mRootIdToStorageManager.containsKey(docId) &&
                         mCurrentStorageManager != mRootIdToStorageManager.get(docId))) {

@@ -176,6 +176,9 @@ public class FileOperationsHelper {
                 } else {
                     if (file.isDown()) {
                         FileStorageUtils.checkIfFileFinishedSaving(file);
+                        if (!result.isSuccess()) {
+                            DisplayUtils.showSnackMessage(mFileActivity, R.string.file_not_synced);
+                        }
                         EventBus.getDefault().post(new SyncEventFinished(intent));
                     }
                 }
@@ -245,13 +248,17 @@ public class FileOperationsHelper {
                     } else {
                         if (launchables != null && launchables.size() > 0) {
                             try {
+                                if (!result.isSuccess()) {
+                                    DisplayUtils.showSnackMessage(mFileActivity, R.string.file_not_synced);
+                                }
+
                                 mFileActivity.startActivity(
                                         Intent.createChooser(
                                                 finalOpenFileWithIntent,
                                                 mFileActivity.getString(R.string.actionbar_open_with)
                                         )
                                 );
-                            } catch (ActivityNotFoundException anfe) {
+                            } catch (ActivityNotFoundException exception) {
                                 DisplayUtils.showSnackMessage(mFileActivity, R.string.file_list_no_app_for_file_type);
                             }
                         } else {
