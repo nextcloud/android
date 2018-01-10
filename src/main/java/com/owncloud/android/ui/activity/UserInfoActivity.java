@@ -35,12 +35,12 @@ import android.graphics.PorterDuff;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.ColorInt;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.StringRes;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.RecyclerView;
@@ -289,18 +289,23 @@ public class UserInfoActivity extends FileActivity {
     private List<UserInfoDetailsItem> createUserInfoDetails(UserInfo userInfo) {
         List<UserInfoDetailsItem> result = new LinkedList<>();
 
-        addToListIfNeeded(result, R.drawable.ic_phone, userInfo.getPhone());
-        addToListIfNeeded(result, R.drawable.ic_email, userInfo.getEmail());
-        addToListIfNeeded(result, R.drawable.ic_map_marker, userInfo.getAddress());
-        addToListIfNeeded(result, R.drawable.ic_web, DisplayUtils.beautifyURL(userInfo.getWebpage()));
-        addToListIfNeeded(result, R.drawable.ic_twitter, DisplayUtils.beautifyTwitterHandle(userInfo.getTwitter()));
+        addToListIfNeeded(result, R.drawable.ic_phone, userInfo.getPhone(), R.string.user_info_phone);
+        addToListIfNeeded(result, R.drawable.ic_email, userInfo.getEmail(), R.string.user_info_email);
+        addToListIfNeeded(result, R.drawable.ic_map_marker, userInfo.getAddress(), R.string.user_info_address);
+        addToListIfNeeded(result, R.drawable.ic_web, DisplayUtils.beautifyURL(userInfo.getWebpage()),
+                    R.string.user_info_website);
+        addToListIfNeeded(result, R.drawable.ic_twitter, DisplayUtils.beautifyTwitterHandle(userInfo.getTwitter()),
+                    R.string.user_info_twitter);
 
         return result;
     }
 
-    private void addToListIfNeeded(List<UserInfoDetailsItem> info, @DrawableRes int icon, String text) {
+    private void addToListIfNeeded(List<UserInfoDetailsItem> info,
+                                   @DrawableRes int icon,
+                                   String text,
+                                   @StringRes int contentDescriptionInt) {
         if (!TextUtils.isEmpty(text))
-            info.add(new UserInfoDetailsItem(icon, text));
+            info.add(new UserInfoDetailsItem(icon, text, getResources().getString(contentDescriptionInt)));
     }
 
     private void changeAccountPassword(Account account) {
@@ -443,10 +448,12 @@ public class UserInfoActivity extends FileActivity {
     protected class UserInfoDetailsItem {
         @DrawableRes public int icon;
         public String text;
+        public String iconContentDescription;
 
-        public UserInfoDetailsItem(@DrawableRes int icon, String text) {
+        public UserInfoDetailsItem(@DrawableRes int icon, String text, String iconContentDescription) {
             this.icon = icon;
             this.text = text;
+            this.iconContentDescription = iconContentDescription;
         }
     }
 
@@ -488,6 +495,7 @@ public class UserInfoActivity extends FileActivity {
             UserInfoDetailsItem item = mDisplayList.get(position);
             holder.icon.setImageResource(item.icon);
             holder.text.setText(item.text);
+            holder.icon.setContentDescription(item.iconContentDescription);
             DrawableCompat.setTint(holder.icon.getDrawable(), mTintColor);
         }
 
