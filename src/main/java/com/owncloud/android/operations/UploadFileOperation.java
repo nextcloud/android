@@ -989,7 +989,7 @@ public class UploadFileOperation extends SyncOperation {
                     try {
                         move(temporalFile, expectedFile);
                     } catch (IOException e) {
-                        e.printStackTrace();
+                        Log_OC.e(TAG, e.getMessage());
                     }
                 }
                 mFile.setStoragePath(expectedFile.getAbsolutePath());
