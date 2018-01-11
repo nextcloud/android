@@ -24,7 +24,6 @@ import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.adapter.SendButtonAdapter;
 import com.owncloud.android.ui.components.SendButtonData;
-import com.owncloud.android.ui.fragment.OCFileListFragment;
 import com.owncloud.android.ui.helpers.FileOperationsHelper;
 import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.ThemeUtils;
@@ -187,8 +186,8 @@ public class SendShareDialog extends BottomSheetDialogFragment {
 
                     } else {  // Download the file
                         Log_OC.d(TAG, file.getRemotePath() + ": File must be downloaded");
-                        fileDisplayActivity.startDownloadForSending(file, OCFileListFragment.DOWNLOAD_SEND,
-                                packageName, activityName);
+                        ((SendShareDialog.SendShareDialogDownloader) getActivity()).downloadFile(file, packageName,
+                                activityName);
                     }
                 }
 
@@ -229,7 +228,7 @@ public class SendShareDialog extends BottomSheetDialogFragment {
         this.fileOperationsHelper = fileOperationsHelper;
     }
 
-    public void setFileDisplayActivity(FileDisplayActivity fileDisplayActivity) {
-        this.fileDisplayActivity = fileDisplayActivity;
+    public interface SendShareDialogDownloader {
+        void downloadFile(OCFile file, String packageName, String activityName);
     }
 }

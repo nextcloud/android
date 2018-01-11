@@ -54,7 +54,6 @@ import com.owncloud.android.services.OperationsService;
 import com.owncloud.android.services.observer.FileObserverService;
 import com.owncloud.android.ui.activity.ConflictsResolveActivity;
 import com.owncloud.android.ui.activity.FileActivity;
-import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.activity.ShareActivity;
 import com.owncloud.android.ui.dialog.SendShareDialog;
 import com.owncloud.android.ui.events.FavoriteEvent;
@@ -543,7 +542,7 @@ public class FileOperationsHelper {
         return false;
     }
 
-    public void sendShareFile(OCFile file, FileDisplayActivity fileDisplayActivity) {
+    public void sendShareFile(OCFile file) {
         // Show dialog
         FragmentManager fm = mFileActivity.getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
@@ -551,7 +550,6 @@ public class FileOperationsHelper {
 
         SendShareDialog mSendShareDialog = SendShareDialog.newInstance(file);
         mSendShareDialog.setFileOperationsHelper(this);
-        mSendShareDialog.setFileDisplayActivity(fileDisplayActivity);
         mSendShareDialog.show(ft, "TAG_SEND_SHARE_DIALOG");
     }
 
