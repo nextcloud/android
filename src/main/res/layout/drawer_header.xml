@@ -28,6 +28,7 @@
         android:id="@+id/drawer_header_background"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:contentDescription="@string/drawer_header_background"
         android:src="@drawable/background"
         android:scaleType="centerCrop"/>
 
