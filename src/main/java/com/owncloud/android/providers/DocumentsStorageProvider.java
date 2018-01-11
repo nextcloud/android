@@ -31,10 +31,15 @@ import android.database.Cursor;
 import android.graphics.Point;
 import android.os.Build;
 import android.os.CancellationSignal;
+import android.os.Handler;
+import android.os.Looper;
 import android.os.ParcelFileDescriptor;
 import android.provider.DocumentsProvider;
 import android.util.Log;
+import android.widget.Toast;
 
+import com.owncloud.android.MainApp;
+import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
@@ -42,7 +47,6 @@ import com.owncloud.android.files.services.FileDownloader;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.operations.SynchronizeFileOperation;
 import com.owncloud.android.ui.activity.ConflictsResolveActivity;
-import com.owncloud.android.ui.notifications.NotificationUtils;
 import com.owncloud.android.utils.FileStorageUtils;
 
 import org.nextcloud.providers.cursors.FileCursor;
@@ -161,11 +165,11 @@ public class DocumentsStorageProvider extends DocumentsProvider {
                     } else {
                         FileStorageUtils.checkIfFileFinishedSaving(finalFile);
                         if (!result.isSuccess()) {
-                            NotificationUtils.showSyncFailedNotification();
+                            showToast();
                         }
                     }
                 } catch (Exception exception) {
-                    NotificationUtils.showSyncFailedNotification();
+                    showToast();
                 }
             });
 
@@ -178,6 +182,13 @@ public class DocumentsStorageProvider extends DocumentsProvider {
         }
 
         return ParcelFileDescriptor.open(new File(file.getStoragePath()), ParcelFileDescriptor.parseMode(mode));
+    }
+
+    private void showToast() {
+        Handler handler = new Handler(Looper.getMainLooper());
+        handler.post(() -> Toast.makeText(MainApp.getAppContext(),
+                R.string.file_not_synced,
+                Toast.LENGTH_SHORT).show());
     }
 
     @Override

@@ -34,6 +34,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.FileProvider;
+import android.util.Log;
 import android.view.View;
 import android.webkit.MimeTypeMap;
 
@@ -178,6 +179,11 @@ public class FileOperationsHelper {
                         FileStorageUtils.checkIfFileFinishedSaving(file);
                         if (!result.isSuccess()) {
                             DisplayUtils.showSnackMessage(mFileActivity, R.string.file_not_synced);
+                            try {
+                                Thread.sleep(3000);
+                            } catch (InterruptedException e) {
+                                Log.e(TAG, "Failed to sleep for a bit");
+                            }
                         }
                         EventBus.getDefault().post(new SyncEventFinished(intent));
                     }
@@ -250,6 +256,11 @@ public class FileOperationsHelper {
                             try {
                                 if (!result.isSuccess()) {
                                     DisplayUtils.showSnackMessage(mFileActivity, R.string.file_not_synced);
+                                    try {
+                                        Thread.sleep(3000);
+                                    } catch (InterruptedException e) {
+                                        Log.e(TAG, "Failed to sleep");
+                                    }
                                 }
 
                                 mFileActivity.startActivity(
