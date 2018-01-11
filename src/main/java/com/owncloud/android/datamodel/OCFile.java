@@ -28,7 +28,9 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.support.v4.content.FileProvider;
 
+import com.owncloud.android.R;
 import com.owncloud.android.lib.common.network.WebdavUtils;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.utils.MimeType;
@@ -316,6 +318,19 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
         return mLocalUri;
     }
 
+
+    public Uri getLegacyExposedFileUri(Context context) {
+        if (mLocalPath == null || mLocalPath.length() == 0) {
+            return null;
+        }
+
+        if (mExposedFileUri == null) {
+            return Uri.parse(ContentResolver.SCHEME_FILE + "://" + WebdavUtils.encodePath(mLocalPath));
+        }
+
+        return mExposedFileUri;
+
+    }
     /*
         Partly disabled because not all apps understand paths that we get via this method for now
      */
@@ -324,25 +339,16 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
             return null;
         }
         if (mExposedFileUri == null) {
-            /*if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
-                // TODO - use FileProvider with any Android version, with deeper testing -> 2.2.0
-                mExposedFileUri = Uri.parse(
-                        ContentResolver.SCHEME_FILE + "://" + WebdavUtils.encodePath(mLocalPath)
-                );
-            } else {
-                // Use the FileProvider to get a content URI
-                try {
-                    mExposedFileUri = FileProvider.getUriForFile(
-                            context,
-                            context.getString(R.string.file_provider_authority),
-                            new File(mLocalPath)
-                    );
-                } catch (IllegalArgumentException e) {
-                    Log_OC.e(TAG, "File can't be exported");
-                }
+            try {
+                mExposedFileUri = FileProvider.getUriForFile(
+                        context,
+                        context.getString(R.string.file_provider_authority),
+                        new File(mLocalPath));
+            } catch (IllegalArgumentException ex) {
+                // Could not share file using FileProvider URI scheme.
+                // Fall back to legacy URI parsing.
+                getLegacyExposedFileUri(context);
             }
-        }*/
-            return Uri.parse(ContentResolver.SCHEME_FILE + "://" + WebdavUtils.encodePath(mLocalPath));
         }
         
         return mExposedFileUri;

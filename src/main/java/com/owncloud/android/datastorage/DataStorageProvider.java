@@ -21,7 +21,7 @@
 
 package com.owncloud.android.datastorage;
 
-import android.os.Build;
+import android.os.Environment;
 
 import com.owncloud.android.MainApp;
 import com.owncloud.android.datastorage.providers.EnvironmentStoragePointProvider;
@@ -31,7 +31,6 @@ import com.owncloud.android.datastorage.providers.MountCommandStoragePointProvid
 import com.owncloud.android.datastorage.providers.SystemDefaultStoragePointProvider;
 import com.owncloud.android.datastorage.providers.VDCStoragePointProvider;
 
-import java.io.File;
 import java.util.Vector;
 
 /**
@@ -63,18 +62,14 @@ public class DataStorageProvider {
             return mCachedStoragePoints.toArray(new StoragePoint[mCachedStoragePoints.size()]);
         }
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            for (File f : MainApp.getAppContext().getExternalMediaDirs()) {
-                if (f != null) {
-                    mCachedStoragePoints.add(new StoragePoint(f.getAbsolutePath(), f.getAbsolutePath()));
-                }
-            }
-        } else {
-            for (IStoragePointProvider p : mStorageProviders) {
-                if (p.canProvideStoragePoints()) {
-                    mCachedStoragePoints.addAll(p.getAvailableStoragePoint());
-                }
-            }
+        // Add internal storage directory
+        mCachedStoragePoints.add(new StoragePoint(MainApp.getAppContext().getFilesDir().getAbsolutePath(),
+                MainApp.getAppContext().getFilesDir().getAbsolutePath()));
+
+        // Add external storage directory if available.
+        if (isExternalStorageWritable()) {
+            mCachedStoragePoints.add(new StoragePoint(MainApp.getAppContext().getExternalFilesDir(null).getAbsolutePath(),
+                    MainApp.getAppContext().getExternalFilesDir(null).getAbsolutePath()));
         }
 
         return mCachedStoragePoints.toArray(new StoragePoint[mCachedStoragePoints.size()]);
@@ -97,4 +92,11 @@ public class DataStorageProvider {
     public void removeStoragePointProvider(IStoragePointProvider provider) {
         mStorageProviders.remove(provider);
     }
+
+    /* Checks if external storage is available for read and write */
+    public boolean isExternalStorageWritable() {
+        String state = Environment.getExternalStorageState();
+        return Environment.MEDIA_MOUNTED.equals(state);
+    }
+
 }

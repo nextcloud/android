@@ -115,8 +115,8 @@ public class MainApp extends MultiDexApplication {
 
         SharedPreferences appPrefs =
                 PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        MainApp.storagePath = appPrefs.getString(Preferences.PreferenceKeys.STORAGE_PATH, Environment.
-                getExternalStorageDirectory().getAbsolutePath());
+        MainApp.storagePath = appPrefs.getString(Preferences.PreferenceKeys.STORAGE_PATH,
+                getApplicationContext().getFilesDir().getAbsolutePath());
 
         boolean isSamlAuth = AUTH_ON.equals(getString(R.string.auth_method_saml_web_sso));
 

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="ms_office_extensions">
+        <item>doc</item>
+        <item>dot</item>
+        <item>docx</item>
+        <item>dotx</item>
+        <item>docm</item>
+        <item>dotm</item>
+        <item>xls</item>
+        <item>xlt</item>
+        <item>xla</item>
+        <item>xlsx</item>
+        <item>xltx</item>
+        <item>xlsm</item>
+        <item>xltm</item>
+        <item>xlam</item>
+        <item>xlsb</item>
+        <item>ppt</item>
+        <item>pot</item>
+        <item>pps</item>
+        <item>ppa</item>
+        <item>pptx</item>
+        <item>potx</item>
+        <item>ppsx</item>
+        <item>ppam</item>
+        <item>pptm</item>
+        <item>potm</item>
+        <item>ppsm</item>
+        <item>mdb</item>
+    </array>
+</resources>

@@ -1017,8 +1017,9 @@ public class Preferences extends PreferenceActivity
     private void loadStoragePath() {
         SharedPreferences appPrefs =
                 PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        mStoragePath = appPrefs.getString(PreferenceKeys.STORAGE_PATH, Environment.getExternalStorageDirectory()
-                .getAbsolutePath());
+        // Load storage path from shared preferences. Use private internal storage by default.
+        mStoragePath = appPrefs.getString(PreferenceKeys.STORAGE_PATH,
+                getApplicationContext().getFilesDir().getAbsolutePath());
         String storageDescription = DataStorageProvider.getInstance().getStorageDescriptionByPath(mStoragePath);
         mPrefStoragePath.setSummary(storageDescription);
     }
