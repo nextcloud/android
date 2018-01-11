@@ -56,7 +56,10 @@
     <string name="prefs_feedback">Spätná väzba</string>
     <string name="prefs_imprint">Podmienky používania</string>
 
-	<string name="auth_check_server">Skontrolovať server</string>
+	<string name="recommend_subject">Vyskúšajte %1$s na vašom zariadení!</string>
+	<string name="recommend_urls">%1$s alebo %2$s</string>
+
+    <string name="auth_check_server">Skontrolovať server</string>
     <string name="auth_host_url">Adresa servera https://&#8230;</string>
     <string name="auth_username">Používateľské meno</string>
     <string name="auth_password">Heslo</string>
@@ -104,6 +107,7 @@
     <string name="filedetails_download">Stiahnuť</string>
     <string name="filedetails_sync_file">Synchronizovať</string>
     <string name="list_layout">Náhľad zoznamu</string>
+    <string name="action_send_share">Odoslať/Zdieľať</string>
     <string name="common_yes">Áno</string>
     <string name="common_no">Nie</string>
     <string name="common_ok">OK</string>
@@ -209,6 +213,7 @@
 	<string name="auth_not_configured_title">Nesprávna konfigurácia servera</string>
 	<string name="auth_account_not_the_same">Zadané prihlasovacie údaje používateľa sú nesprávne</string>
 	<string name="auth_unknown_error_title">Nastala neznáma chyba!</string>
+	<string name="auth_incorrect_path_title">Server sa nenašiel</string>
 	<string name="auth_timeout_title">Serveru trvá odpoveď príliš dlho</string>
 	<string name="auth_ssl_general_error_title">Inicializácia SSL zlyhala</string>
 	<string name="auth_bad_oc_version_title">Nerozpoznaná verzia servera</string>
@@ -223,6 +228,7 @@
 	<string name="auth_can_not_auth_against_server">Nie je možné sa overiť voči tomuto serveru</string>
     <string name="favorite">Dostupné v režime offline</string>
     <string name="unfavorite">Nedostupné v režime offline</string>
+    <string name="favorite_real">Nastaviť ako obľúbené</string>
     <string name="common_rename">Premenovať</string>
     <string name="confirmation_remove_local">Iba lokálne</string>
     <string name="rename_dialog_title">Zadajte nové meno</string>
@@ -305,6 +311,8 @@
     <string name="file_migration_updating_index">Aktualizujem zoznam&#8230;</string>
     <string name="file_migration_cleaning">Čistenie&#8230;</string>
     <string name="file_migration_ok_finished">Hotovo</string>
+    <string name="file_migration_failed_not_enough_space">Chyba: Nedostatok miesta</string>
+    <string name="file_migration_override_data_folder">Nahradiť</string>
     <string name="prefs_add_account">Pridať účet</string>
     <string name="drawer_manage_accounts">Správa účtov</string>
     <string name="actionbar_logger">Logy</string>
@@ -316,6 +324,7 @@
 	<string name="saml_authentication_wrong_pass">Nesprávne heslo</string>
 	<string name="actionbar_move">Presunúť</string>
     <string name="actionbar_copy">Kopírovať</string>
+	<string name="file_list_empty_moving">Nič tu nie je. Môžete pridať priečinok.</string>
 	<string name="folder_picker_choose_button_text">Vybrať</string>
 
     <string name="move_file_error">Pri pokuse o presun tohoto súboru alebo priečinka nastala chyba</string>
@@ -339,6 +348,17 @@
 
     <string name="username">Používateľské meno</string>
 
+    <plurals name="file_list__footer__folder">
+        <item quantity="one">%1$d priečinok</item>
+        <item quantity="few">%1$d priečinky</item>
+        <item quantity="other">%1$d priečinkov</item>
+    </plurals>
+    <plurals name="file_list__footer__file">
+        <item quantity="one">%1$d súbor</item>
+        <item quantity="few">%1$d súbory</item>
+        <item quantity="other">%1$d súborov</item>
+    </plurals>
+    <string name="set_picture_as">Použiť obrázok ako</string>
     <string name="prefs_instant_behaviour_dialogTitle">Pôvodný súbor bude&#8230;</string>
     <string name="prefs_instant_behaviour_title">Pôvodný súbor bude&#8230;</string>
     <string name="select_all">Vybrať všetko</string>
@@ -354,6 +374,7 @@
     <string name="share_add_user_or_group">Pridaj používateľa alebo skupinu</string>
     <string name="share_via_link_section_title">Sprístupniť odkaz</string>
     <string name="share_via_link_expiration_date_label">Nastaviť dátum expirácie</string>
+    <string name="share_via_link_password_label">Chrániť heslom</string>
     <string name="share_via_link_password_title">Zabezpečené</string>
     <string name="share_via_link_hide_file_listing_permission_label">Skryť zobrazenie súborov</string>
     <string name="share_get_public_link_button">Získať odkaz</string>
@@ -401,6 +422,9 @@
 
     <string name="storage_description_default">Predvolené</string>
 
+    <!-- What's new feature and texts to show -->
+    <string name="whats_new_title">Čo je nové v %1$s</string>
+
     <!-- Welcome to Nc intro features -->
     <string name="welcome_feature_1_title">Bezpečný domov pre všetky vaše dáta</string>
     <string name="welcome_feature_2_title">Viac účtov</string>
@@ -410,9 +434,21 @@
 
     <string name="whats_new_skip">Preskočiť</string>
 
+    <!-- User information -->
+    <string name="user_info_email">E-mail</string>
     <string name="user_info_phone">Telefónne číslo</string>
     <string name="user_info_address">Adresa</string>
     <string name="user_info_website">Web stránka</string>
     <string name="user_info_twitter">Twitter</string>
 
+    <!-- Activities -->
+    <string name="activities_no_results_headline">Zatiaľ žiadna aktivita</string>
+    <string name="contacts_preference_backup_never">nikdy</string>
+    <string name="file_not_found">Súbor nenájdený!</string>
+
+    <string name="fallback_weblogin_back">Späť</string>
+    <string name="prefs_license">Licencia</string>
+    <string name="send">Odoslať</string>
+    <string name="share">Zdieľať</string>
+    <string name="screenshot_01_gridView">Bezpečný domov pre všetky vaše dáta</string>
     </resources>

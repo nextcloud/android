@@ -710,12 +710,19 @@ Attention la suppression est irréversible.</string>
     <string name="dev_version_no_information_available">Aucune information disponible.</string>
     <string name="dev_version_no_new_version_available">Aucune nouvelle version disponible.</string>
     <string name="folder_icon">Icône de dossier</string>
-
     <string name="send">Envoyer</string>
     <string name="share">Partager</string>
     <string name="link">Lien</string>
 
+    <string name="notification_channel_upload_name">Canal de notification de téléversement</string>
+    <string name="notification_channel_download_name">Canal de notification de téléchargement</string>
+    <string name="notification_channel_download_description">Afficher la progression de téléchargement</string>
+    <string name="notification_channel_upload_description">Afficher la progression de téléversement</string>
     <string name="notification_channel_media_name">Lecteur média</string>
+    <string name="notification_channel_media_description">Progression du lecteur de musique</string>
+    <string name="notification_channel_file_sync_name">Synchronisation de fichier</string>
+    <string name="notification_channel_file_sync_description">Afficher les résultats et la progression de synchronisation du fichier</string>
+  
     <string name="account_not_found">Compte introuvable !</string>
 
     <string name="screenshot_01_gridView">Un lieu sûr pour toutes vos données</string>

@@ -719,7 +719,6 @@ Sjekk ut Nextcloud på https://nextcloud.com</string>
     <string name="dev_version_no_information_available">Ingen informasjon tilgjengelig.</string>
     <string name="dev_version_no_new_version_available">Ingen ny versjon tilgjengelig.</string>
     <string name="folder_icon">Mappeikon</string>
-
     <string name="send">Send</string>
     <string name="share">Del</string>
     </resources>

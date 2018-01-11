@@ -708,11 +708,19 @@
     <string name="dev_version_no_information_available">Nessuna informazione disponibile</string>
     <string name="dev_version_no_new_version_available">Nessuna nuova versione disponibilie</string>
     <string name="folder_icon">Icona delle cartelle</string>
-
     <string name="send">Invia</string>
     <string name="share">Condividi</string>
     <string name="link">Collegamento</string>
 
+    <string name="notification_channel_upload_name">Canale delle notifiche di caricamento</string>
+    <string name="notification_channel_download_name">Canale delle notifiche di scaricamento</string>
+    <string name="notification_channel_download_description">Mostra l\'avanzamento degli scaricamenti</string>
+    <string name="notification_channel_upload_description">Mostra l\'avanzamento dei caricamenti</string>
+    <string name="notification_channel_media_name">Lettore multimediale</string>
+    <string name="notification_channel_media_description">Avanzamento del lettore musicale</string>
+    <string name="notification_channel_file_sync_name">Sincronizzazione file</string>
+    <string name="notification_channel_file_sync_description">Mostra l\'avanzamento e i risultati della sincronizzazione file</string>
+  
     <string name="account_not_found">Account non trovato</string>
 
     <string name="screenshot_01_gridView">Un posto sicuro per tutti i tuoi dati</string>

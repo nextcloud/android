@@ -718,11 +718,19 @@
     <string name="dev_version_no_information_available">Информация отсутствует.</string>
     <string name="dev_version_no_new_version_available">Новая версия отсутствует.</string>
     <string name="folder_icon">Значок папки</string>
-
     <string name="send">Отправить</string>
     <string name="share">Открыть доступ</string>
     <string name="link">Ссылка</string>
 
+    <string name="notification_channel_upload_name">Канал уведомления отправки</string>
+    <string name="notification_channel_download_name">Канал уведомления о получении</string>
+    <string name="notification_channel_download_description">Показывает выполнение получения</string>
+    <string name="notification_channel_upload_description">Показывает выполнение отправки</string>
+    <string name="notification_channel_media_name">Мультимедийный проигрыватель </string>
+    <string name="notification_channel_media_description">Состояние воспроизведения музыки</string>
+    <string name="notification_channel_file_sync_name">Синхронизация файлов</string>
+    <string name="notification_channel_file_sync_description">Показывает состояние и результаты синхронизации файлов </string>
+  
     <string name="account_not_found">Учётная запись не найдена!</string>
 
     <string name="screenshot_01_gridView">Надёжный дом для всех ваших данных</string>

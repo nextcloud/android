@@ -118,6 +118,7 @@
     <string name="filedetails_sync_file">同步</string>
     <string name="filedetails_renamed_in_upload_msg">文件在上传时被重命名为%1$s</string>
     <string name="list_layout">列出的布局</string>
+    <string name="action_send_share">共享</string>
     <string name="common_yes">是</string>
     <string name="common_no">否</string>
     <string name="common_ok">确定</string>
@@ -180,10 +181,19 @@
     <string name="sync_fail_content_unauthorized">%1$s 的密码错误</string>
     <string name="sync_conflicts_in_favourites_ticker">发现冲突</string>
     <string name="sync_fail_in_favourites_ticker">文件同步失败</string>
+    <plurals name="sync_fail_in_favourites_content">
+        <item quantity="other">%1$d 文件无法被同步(与%2$d冲突 )</item>
+    </plurals>
     <string name="sync_foreign_files_forgotten_ticker">某些本地文件已被遗忘</string>
+    <plurals name="sync_foreign_files_forgotten_content">
+        <item quantity="other">%2$s 文件夹中的 %1$d 个文件不能被复制到</item>
+    </plurals>
     <string name="sync_current_folder_was_removed">文件夹%1$s不再存在</string>
     <string name="foreign_files_move">移动全部</string>
+    <string name="foreign_files_success">所有文件已被移动</string>
     <string name="foreign_files_fail">某些文件无法移动</string>
+    <string name="foreign_files_local_text">本地: %1$s</string>
+    <string name="foreign_files_remote_text">远程: %1$s</string>
     <string name="upload_query_move_foreign_files">空间不足将阻止将所选文件复制到%1$s文件夹中。 你想把它们移到那里吗？</string>
     <string name="pass_code_enter_pass_code">请输入安全码</string>
     
@@ -199,6 +209,7 @@
     <string name="media_notif_ticker">%1$s 音乐播放器</string>
     <string name="media_state_playing">%1$s (播放)</string>
     <string name="media_state_loading">%1$s (加载)</string>
+    <string name="media_event_done">%1$s 回放完毕</string>
     <string name="media_err_nothing_to_play">没有发现媒体文件</string>
     <string name="media_err_no_account">未提供账户</string>
     <string name="media_err_not_in_owncloud">该文件不属于一个有效的账户</string>
@@ -261,6 +272,7 @@
     <string name="remove_success_msg">已删除</string>
     <string name="remove_fail_msg">删除失败</string>
     <string name="rename_dialog_title">请输出新的名字</string>
+    <string name="rename_local_fail_msg">本地副本无法重命名，尝试其他名称</string>
     <string name="rename_server_fail_msg">无法重命名服务器</string>
     <string name="sync_file_nothing_to_do_msg">文件内容已同步</string>
     <string name="create_dir_fail_msg">无法创建文件夹</string>
@@ -276,6 +288,7 @@
     <string name="oauth_check_onoff">使用OAuth 2.0登录</string> 
     <string name="oauth_login_connection">连接到OAuth 2.0服务器&#8230;</string>
         
+    <string name="ssl_validator_header">服务器身份无法验证</string>
     <string name="ssl_validator_reason_cert_not_trusted">- 不受信任的服务器证书</string>
     <string name="ssl_validator_reason_cert_expired">- 服务器证书过期</string>
     <string name="ssl_validator_reason_cert_not_yet_valid">- 服务器证书时间比当前时间还晚</string>
@@ -460,6 +473,7 @@
     <string name="share_via_link_expiration_date_label">设置过期日期</string>
     <string name="share_via_link_password_label">用密码保护</string>
     <string name="share_via_link_password_title">安全</string>
+    <string name="share_via_link_edit_permission_label">允许编辑</string>
     <string name="share_via_link_hide_file_listing_permission_label">隐藏文件列表</string>
     <string name="share_get_public_link_button">获取链接</string>
     <string name="share_with_title">分享 &#8230;</string>
@@ -510,6 +524,7 @@
     <string name="participate_testing_headline">通过测试帮助</string>
     <string name="participate_testing_bug_text">发现错误？细节？</string>
     <string name="participate_testing_report_text">在Github报告问题 OR 通过Github提交问题（issue）</string>
+    <string name="participate_testing_version_text">有兴趣来帮我们测试下一个版本吗？</string>
     <string name="participate_beta_headline">检查这个设备的版本</string>
     <string name="participate_beta_text">这包括所有即将到来的功能，它处于非常流行的边缘。 可能会发生错误/错误，如果及时，请报告您的发现。</string>
     <string name="participate_release_candidate_headline">发行候选版本</string>
@@ -603,6 +618,7 @@
     <string name="contacts_read_permission">需要更改阅读列表的权限</string>
     <string name="contaclist_restore_selected">恢复选中的联系人</string>
     <string name="contactlist_account_chooser_title">选择导入帐户</string>
+    <string name="contactlist_no_permission">未授予权限，没有文件被导入</string>
     <string name="contacts_preference_choose_date">选择时间</string>
     <string name="contacts_preference_backup_never">永远不</string>
     <string name="contacts_preferences_no_file_found">没有文件被发现</string>
@@ -612,6 +628,7 @@
 
     <!-- Notifications -->
     <string name="new_notification_received">收到新的消息</string>
+    <string name="drawer_logout">退出</string>
     <string name="picture_set_as_no_app">没有应用程序发现设置图片！</string>
     <string name="privacy">隐私</string>
     <string name="file_not_found">文件未找到</string>
@@ -625,17 +642,72 @@
     <string name="resharing_is_not_allowed">不允许二次共享</string>
     <string name="whats_new_fingerprint_title">指纹解锁</string>
     <string name="whats_new_fingerprint_content">请用指纹解锁</string>
+    <string name="fallback_weblogin_back">返回</string>
+    <string name="fallback_weblogin_text">采用旧的登录方式</string>
+
     <string name="foreground_service_upload">上传文件&#8230;</string>
     <string name="foreground_service_download">下载文件&#8230;</string>
 
     <string name="prefs_sourcecode">获取源代码</string>
     <string name="prefs_license">许可证</string>
+    <string name="prefs_gpl_v2">GNU 通用公共许可证，版本2</string>
     <string name="push_notifications_not_implemented">由于依赖于专有的Google Play服务，推送通知被禁用。</string>
     <string name="push_notifications_old_login">由于过期的登录会话，没有推送通知。 请考虑重新添加您的帐户。</string>
     <string name="push_notifications_temp_error">推送通知目前不可用。</string>
 
+    <string name="sync_in_progress">获取文件的最新版本</string>
     <string name="date_unknown">未知</string>
 
-    <string name="folder_icon">目录图标</string>
+    <string name="resized_image_not_possible">重整大小的图片不可用。下载完整图片？</string>
+    <string name="resized_images_download_full_image">下载完整图片？</string>
 
-    </resources>
+    <string name="store_short_desc">Nextcloud 安卓应用 可以访问你在Nextcloud上存储的所有文件实例</string>
+    <string name="drawer_current_account">当前账户</string>
+    <string name="activity_icon">动态图标</string>
+    <string name="file_icon">文件图标</string>
+    <string name="user_icon">用户图标</string>
+    <string name="fingerprint_icon">指纹图标</string>
+    <string name="favorite_icon">收藏图标</string>
+    <string name="shared_via_link_icon">已共享通过图标</string>
+    <string name="synced_icon">同步图标</string>
+    <string name="available_offline_icon">离线可用图标</string>
+    <string name="checkbox">复选框</string>
+    <string name="thumbnail">缩略图</string>
+    <string name="shared_icon">已共享图标</string>
+    <string name="share_file_icon">共享文件图标</string>
+    <string name="sort_by_name_ascending">根据名字升序排序</string>
+    <string name="sort_by_modification_date_ascending">根据修改日期升序排序</string>
+    <string name="sort_by_size_descending">根据大小降序排序</string>
+    <string name="sort_by_size_ascending">根据大小升序排序</string>
+    <string name="sort_by_name_descending">根据名字降序排序</string>
+    <string name="sort_by_modification_date_descending">根据修改时间降序排序</string>
+    <string name="synced_folders_type">类型</string>
+    <string name="sync_status_button">同步状态按钮</string>
+    <string name="synced_folder_settings_button">设置按钮</string>
+    <string name="synced_folder_custom_folder_image">自定义图片文件夹</string>
+    <string name="upload_item_action_button">上传项操作按钮</string>
+    <string name="forward">向前</string>
+    <string name="store_short_dev_desc">Nextcloud Dev 应用是一个开发快照, 并且可以并行安装。</string>
+    <string name="prefs_category_dev">开发</string>
+    <string name="dev_version_no_information_available">没有可用的信息</string>
+    <string name="dev_version_no_new_version_available">没有可用的新版本</string>
+    <string name="folder_icon">目录图标</string>
+    <string name="send">发送</string>
+    <string name="share">共享</string>
+    <string name="link">链接</string>
+
+    <string name="notification_channel_download_description">显示下载进度</string>
+    <string name="notification_channel_upload_description">显示上传进度 </string>
+    <string name="notification_channel_media_name">多媒体播放器</string>
+    <string name="notification_channel_media_description">音乐播放器进度</string>
+    <string name="notification_channel_file_sync_name">文件同步</string>
+    <string name="notification_channel_file_sync_description">显示文件同步进度和结果</string>
+  
+    <string name="account_not_found">账户未找到</string>
+
+    <string name="screenshot_01_gridView">为你的数据找一个安全的家</string>
+    <string name="screenshot_02_listView">方便的浏览和共享你的文件</string>
+    <string name="screenshot_04_accounts">连接到不同的账户</string>
+    <string name="screenshot_05_autoUpload">自动上传照片&amp;/视频 </string>
+    <string name="screenshot_06_davdroid">通过DAVdroid 同步日历 &amp; 联系人</string>
+</resources>
