@@ -34,6 +34,7 @@
             android:id="@+id/drawer_header_background"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:contentDescription="@string/drawer_header_background"
             android:scaleType="centerCrop"/>
 
         <android.support.v7.widget.Toolbar
