@@ -243,22 +243,28 @@ public class MainApp extends MultiDexApplication {
 
         if (!PreferenceManager.getKeysMigration(context)) {
             String oldKeyPath = getStoragePath() + File.separator + MainApp.getDataFolder() + File.separator + "nc-keypair";
-            File oldPrivateKey = new File(oldKeyPath + File.separator + "push_key.priv");
-            File oldPublicKey = new File(oldKeyPath + File.separator + "push_key.pub");
+            File oldPrivateKey = new File(oldKeyPath,  "push_key.priv");
+            File oldPublicKey = new File(oldKeyPath, "push_key.pub");
 
             String keyPath = getAppContext().getFilesDir().getAbsolutePath() +
                     File.separator + MainApp.getDataFolder() + File.separator + "nc-keypair";
-            File privateKey = new File(keyPath + File.separator + "push_key.priv");
-            File publicKey = new File(keyPath + File.separator + "push_key.pub");
+            File privateKey = new File(keyPath, "push_key.priv");
+            File publicKey = new File(keyPath, "push_key.pub");
 
-            if (oldPrivateKey.exists() && oldPublicKey.exists()) {
-                if (oldPrivateKey.renameTo(privateKey) && oldPublicKey.renameTo(publicKey)) {
-                    PreferenceManager.setKeysMigration(context, true);
-                } else {
-                    PreferenceManager.setKeysMigration(context, false);
-                }
-            } else {
+            if ((privateKey.exists() && publicKey.exists()) || (!oldPrivateKey.exists() && !oldPublicKey.exists())) {
                 PreferenceManager.setKeysMigration(context, true);
+            } else {
+                if (oldPrivateKey.exists()) {
+                    oldPrivateKey.renameTo(privateKey);
+                }
+
+                if (oldPublicKey.exists()) {
+                    oldPublicKey.renameTo(publicKey);
+                }
+
+                if (privateKey.exists() && publicKey.exists()) {
+                    PreferenceManager.setKeysMigration(context, true);
+                }
             }
         }
     }
