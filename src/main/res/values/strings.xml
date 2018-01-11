@@ -772,8 +772,6 @@
     <string name="end_to_end_encryption_password">Password…</string>
     <string name="end_to_end_encryption_unsuccessful">Storing keys was unsuccessful, please try it again!</string>
     <string name="end_to_end_encryption_dialog_close">Close</string>
-    <string name="end_to_end_encryption_error_revoking_keys">Error revoking keys</string>
     <string name="end_to_end_encryption_storing_keys">Storing keys</string>
     <string name="end_to_end_encryption_storing_keys_on_server">Storing keys on server</string>
-    <string name="end_to_end_encryption_setup_info">You will have to note down a secret 12 word phrase which allows you to set up encryption on other devices.\nPlease only continue if you are in a safe location and able to note down the phrase.</string>
 </resources>
