@@ -90,7 +90,7 @@
     <string name="file_list_empty">Upload some content or sync with your devices.</string>
     <string name="file_list_empty_favorites_filter_list">Files and folders you mark as favorites will show up here</string>
     <string name="file_list_empty_favorites_filter">Your search returned no favorited files.</string>
-    <string name="file_list_loading">Loading&#8230;</string>
+    <string name="file_list_loading">Loading &#8230;</string>
     <string name="file_list_no_app_for_file_type">No app set up to handle this file type.</string>
     <string name="local_file_list_empty">There are no files in this folder.</string>
     <string name="local_folder_list_empty">There are no further folders.</string>
@@ -256,7 +256,7 @@
 	<string name="auth_expired_oauth_token_toast">Your authorization expired. Please, authorize again</string>
 	<string name="auth_expired_basic_auth_toast">Please enter the current password</string>
 	<string name="auth_expired_saml_sso_token_toast">Your session expired. Please connect again</string>
-	<string name="auth_connecting_auth_server">Connecting to authentication server&#8230;</string>
+    <string name="auth_connecting_auth_server">Connecting to authentication server &#8230;</string>
 	<string name="auth_unsupported_multiaccount">%1$s does not support multiple accounts</string>
 	<string name="auth_fail_get_user_name">Your server is not returning a correct user ID, please contact an administrator</string>
 	<string name="auth_can_not_auth_against_server">Cannot authenticate to this server</string>
@@ -283,14 +283,14 @@
     <string name="filename_forbidden_characters">Forbidden characters: / \\ &lt; &gt; : " | ? *</string>
     <string name="filename_forbidden_charaters_from_server">File name contains at least one invalid character</string>
     <string name="filename_empty">File name cannot be empty</string>
-    <string name="wait_a_moment">Wait a moment&#8230;</string>
+    <string name="wait_a_moment">Wait a moment &#8230;</string>
     <string name="wait_checking_credentials">Checking stored credentials</string>
     <string name="filedisplay_no_file_selected">No file selected</string>
     <string name="activity_chooser_title">Send link to &#8230;</string>
     <string name="wait_for_tmp_copy_from_private_storage">Copying file from private storage</string>
     
-    <string name="oauth_check_onoff">Log in with OAuth 2.0</string> 
-    <string name="oauth_login_connection">Connecting to OAuth 2.0 server&#8230;</string>
+    <string name="oauth_check_onoff">Log in with OAuth 2.0</string>
+    <string name="oauth_login_connection">Connecting to OAuth 2.0 server &#8230;</string>
         
     <string name="ssl_validator_header">The identity of the server could not be verified</string>
     <string name="ssl_validator_reason_cert_not_trusted">- The server certificate is not trusted</string>
@@ -383,14 +383,14 @@
     <string name="downloader_download_file_not_found">The file is no longer available on the server</string>
 
     <string name="file_migration_dialog_title">Updating storage path</string>
-    <string name="file_migration_preparing">Preparing migration&#8230;</string>
-    <string name="file_migration_checking_destination">Checking destination&#8230;</string>
-    <string name="file_migration_saving_accounts_configuration">Saving configuration of accounts&#8230;</string>
-    <string name="file_migration_waiting_for_unfinished_sync">Waiting for all synchronizations to finish&#8230;</string>
-    <string name="file_migration_migrating">Moving data&#8230;</string>
-    <string name="file_migration_updating_index">Updating index&#8230;</string>
-    <string name="file_migration_cleaning">Cleaning&#8230;</string>
-    <string name="file_migration_restoring_accounts_configuration">Restoring configuration of accounts&#8230;</string>
+    <string name="file_migration_preparing">Preparing migration &#8230;</string>
+    <string name="file_migration_checking_destination">Checking destination &#8230;</string>
+    <string name="file_migration_saving_accounts_configuration">Saving configuration of accounts &#8230;</string>
+    <string name="file_migration_waiting_for_unfinished_sync">Waiting for all synchronizations to finish &#8230;</string>
+    <string name="file_migration_migrating">Moving data &#8230;</string>
+    <string name="file_migration_updating_index">Updating index &#8230;</string>
+    <string name="file_migration_cleaning">Cleaning &#8230;</string>
+    <string name="file_migration_restoring_accounts_configuration">Restoring configuration of accounts &#8230;</string>
     <string name="file_migration_ok_finished">Finished</string>
     <string name="file_migration_failed_not_enough_space">Error: Insufficient space</string>
     <string name="file_migration_failed_not_writable">Error: Destination file not writable</string>
@@ -460,8 +460,8 @@
     <string name="set_picture_as">Use picture as</string>
     <string name="set_as">Set As</string>
 
-    <string name="prefs_instant_behaviour_dialogTitle">Original file will be&#8230;</string>
-    <string name="prefs_instant_behaviour_title">Original file will be&#8230;</string>
+    <string name="prefs_instant_behaviour_dialogTitle">Original file will be &#8230;</string>
+    <string name="prefs_instant_behaviour_title">Original file will be &#8230;</string>
     <string name="select_all">Select all</string>
     <string name="deselect_all">Deselect all</string>
 
@@ -550,11 +550,11 @@
     <string name="participate_rc_fdroid">Get release candidate from F-Droid app</string>
     <string name="participate_dev_fdroid">Get development release from F-Droid app</string>
     <string name="participate_dev_direct_download">Download development release directly</string>
-    <string name="move_to">Move to&#8230;</string>
-    <string name="copy_to">Copy to&#8230;</string>
-    <string name="choose_remote_folder">Choose remote folder&#8230;</string>
-    <string name="choose_local_folder">Choose local folder&#8230;</string>
-    <string name="synced_folders_loading_folders">Loading folders&#8230;</string>
+    <string name="move_to">Move to &#8230;</string>
+    <string name="copy_to">Copy to &#8230;</string>
+    <string name="choose_remote_folder">Choose remote folder &#8230;</string>
+    <string name="choose_local_folder">Choose local folder &#8230;</string>
+    <string name="synced_folders_loading_folders">Loading folders &#8230;</string>
     <string name="synced_folders_no_results">No media folders found.</string>
     <string name="synced_folders_preferences">Preferences for auto uploading</string>
     <string name="synced_folders_new_info">Instant uploading has been revamped completely. Re-configure your auto upload from within the main menu.\n\nEnjoy the new and extended auto uploading.</string>
@@ -572,7 +572,7 @@
         <item quantity="other">%d selected</item>
     </plurals>
 
-    <string name="notifications_loading_activity">Loading notifications&#8230;</string>
+    <string name="notifications_loading_activity">Loading notifications &#8230;</string>
     <string name="notifications_no_results_headline">No notifications</string>
     <string name="notifications_no_results_message">Please check back later.</string>
 
@@ -666,8 +666,8 @@
     <string name="fallback_weblogin_back">Back</string>
     <string name="fallback_weblogin_text">Revert to old login method</string>
 
-    <string name="foreground_service_upload">Uploading files&#8230;</string>
-    <string name="foreground_service_download">Downloading files&#8230;</string>
+    <string name="foreground_service_upload">Uploading files &#8230;</string>
+    <string name="foreground_service_download">Downloading files &#8230;</string>
 
     <string name="prefs_sourcecode">Get source code</string>
     <string name="prefs_license">License</string>
