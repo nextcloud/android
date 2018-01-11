@@ -26,15 +26,11 @@ import android.os.HandlerThread;
 import android.os.Process;
 import android.support.v4.app.NotificationCompat;
 
-import com.owncloud.android.MainApp;
-import com.owncloud.android.R;
 import com.owncloud.android.utils.ThemeUtils;
 
 import java.util.Random;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-
-import static android.content.Context.NOTIFICATION_SERVICE;
 
 public class NotificationUtils {
 
@@ -81,25 +77,5 @@ public class NotificationUtils {
                  ((HandlerThread)Thread.currentThread()).getLooper().quit();
              } 
         }, delayInMillis);
-    }
-
-    public static void showSyncFailedNotification() {
-        Context context = MainApp.getAppContext();
-        NotificationCompat.Builder mNotificationBuilder = NotificationUtils.newNotificationBuilder(context);
-        mNotificationBuilder
-                .setTicker(context.getString(R.string.sync_fail_ticker))
-                .setSmallIcon(R.drawable.notification_icon)
-                .setContentTitle(context.getString(R.string.sync_fail_ticker))
-                .setContentText(context.getString(R.string.file_not_synced_short));
-
-
-        if ((android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O)) {
-            mNotificationBuilder.setChannelId(NotificationUtils.NOTIFICATION_CHANNEL_DOWNLOAD);
-        }
-
-        NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(NOTIFICATION_SERVICE);
-        if (mNotificationManager != null) {
-            mNotificationManager.notify(R.string.sync_fail_ticker, mNotificationBuilder.build());
-        }
     }
 }
