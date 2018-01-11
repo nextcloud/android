@@ -215,7 +215,8 @@ public class ActivitiesListActivity extends FileActivity implements ActivityList
                 int firstVisibleItemIndex = layoutManager.findFirstVisibleItemPosition();
 
                 // synchronize loading state when item count changes
-                if (!isLoadingActivities && (totalItemCount - visibleItemCount) <= (firstVisibleItemIndex + 5)) {
+                if (!isLoadingActivities && (totalItemCount - visibleItemCount) <= (firstVisibleItemIndex + 5)
+                        && nextPageUrl != null && !nextPageUrl.isEmpty()) {
                     // Almost reached the end, continue to load new activities
                     fetchAndSetData(nextPageUrl);
                 }
@@ -254,7 +255,6 @@ public class ActivitiesListActivity extends FileActivity implements ActivityList
 
                     Log_OC.d(TAG, "BEFORE getRemoteActivitiesOperation.execute");
                     final RemoteOperationResult result = getRemoteNotificationOperation.execute(ownCloudClient);
-                    //result.get
 
                     if (result.isSuccess() && result.getData() != null) {
                         final ArrayList<Object> data = result.getData();
@@ -262,7 +262,7 @@ public class ActivitiesListActivity extends FileActivity implements ActivityList
                         nextPageUrl = (String) data.get(1);
 
                         runOnUiThread(() -> {
-                            populateList(activities, ownCloudClient);
+                            populateList(activities, ownCloudClient, pageUrl == null);
                             if (activities.size() > 0) {
                                 swipeEmptyListRefreshLayout.setVisibility(View.GONE);
                                 swipeListRefreshLayout.setVisibility(View.VISIBLE);
@@ -314,8 +314,8 @@ public class ActivitiesListActivity extends FileActivity implements ActivityList
         });
     }
 
-    private void populateList(List<Object> activities, OwnCloudClient mClient) {
-        adapter.setActivityItems(activities, mClient);
+    private void populateList(List<Object> activities, OwnCloudClient mClient, boolean clear) {
+        adapter.setActivityItems(activities, mClient, clear);
     }
 
     @Override
