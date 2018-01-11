@@ -318,7 +318,7 @@ public class SetupEncryptionDialogFragment extends DialogFragment {
         protected void onPreExecute() {
             super.onPreExecute();
 
-            textView.setText(R.string.end_to_end_encryption_storing_keys_on_server);
+            textView.setText(R.string.end_to_end_encryption_generating_keys);
         }
 
         @Override
