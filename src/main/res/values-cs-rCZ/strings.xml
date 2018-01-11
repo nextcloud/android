@@ -695,5 +695,4 @@
     <string name="store_short_dev_desc">Aplikace Nextcloud Dev je vývojovým snímkem a může být nainstalována paralelně.</string>
     <string name="prefs_category_dev">Dev</string>
     <string name="folder_icon">Ikona adresáře</string>
-
     </resources>

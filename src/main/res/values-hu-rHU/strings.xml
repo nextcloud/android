@@ -729,7 +729,6 @@ A Nextcloud itt érhető el: https://nextcloud.com</string>
     <string name="dev_version_no_information_available">Nincs információ.</string>
     <string name="dev_version_no_new_version_available">Nincs új verzió.</string>
     <string name="folder_icon">Mappaikon</string>
-
     <string name="send">Küldés</string>
     <string name="share">Megosztás</string>
     <string name="link">Hivatkozás</string>
