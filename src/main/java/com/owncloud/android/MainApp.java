@@ -33,7 +33,6 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
 import android.os.StrictMode;
 import android.support.annotation.StringRes;
 import android.support.multidex.MultiDexApplication;
@@ -66,6 +65,7 @@ import com.owncloud.android.utils.FilesSyncHelper;
 import com.owncloud.android.utils.PermissionUtil;
 import com.owncloud.android.utils.ReceiversHelper;
 
+import java.io.File;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -235,6 +235,31 @@ public class MainApp extends MultiDexApplication {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             ReceiversHelper.registerPowerSaveReceiver();
+        }
+    }
+
+    public static void migratePushKeys() {
+        Context context = getAppContext();
+
+        if (!PreferenceManager.getKeysMigration(context)) {
+            String oldKeyPath = getStoragePath() + File.separator + MainApp.getDataFolder() + File.separator + "nc-keypair";
+            File oldPrivateKey = new File(oldKeyPath + File.separator + "push_key.priv");
+            File oldPublicKey = new File(oldKeyPath + File.separator + "push_key.pub");
+
+            String keyPath = getAppContext().getFilesDir().getAbsolutePath() +
+                    File.separator + MainApp.getDataFolder() + File.separator + "nc-keypair";
+            File privateKey = new File(keyPath + File.separator + "push_key.priv");
+            File publicKey = new File(keyPath + File.separator + "push_key.pub");
+
+            if (oldPrivateKey.exists() && oldPublicKey.exists()) {
+                if (oldPrivateKey.renameTo(privateKey) && oldPublicKey.renameTo(publicKey)) {
+                    PreferenceManager.setKeysMigration(context, true);
+                } else {
+                    PreferenceManager.setKeysMigration(context, false);
+                }
+            } else {
+                PreferenceManager.setKeysMigration(context, true);
+            }
         }
     }
 

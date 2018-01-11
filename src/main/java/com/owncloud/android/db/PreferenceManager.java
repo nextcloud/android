@@ -53,6 +53,7 @@ public abstract class PreferenceManager {
     private static final String PREF__INSTANT_VIDEO_UPLOAD_PATH_USE_SUBFOLDERS
             = "instant_video_upload_path_use_subfolders";
     private static final String PREF__LEGACY_CLEAN = "legacyClean";
+    private static final String PREF__KEYS_MIGRATION = "keysMigration";
     private static final String PREF__AUTO_UPLOAD_UPDATE_PATH = "autoUploadPathUpdate";
     private static final String PREF__PUSH_TOKEN = "pushToken";
     private static final String PREF__AUTO_UPLOAD_SPLIT_OUT = "autoUploadEntriesSplitOut";
@@ -286,6 +287,11 @@ public abstract class PreferenceManager {
         return getDefaultSharedPreferences(context).getBoolean(PREF__LEGACY_CLEAN, false);
     }
 
+    public static boolean getKeysMigration(Context context) {
+        return getDefaultSharedPreferences(context).getBoolean(PREF__KEYS_MIGRATION, false);
+    }
+
+
     /**
      * Gets the auto upload paths flag last set.
      *
@@ -314,6 +320,10 @@ public abstract class PreferenceManager {
      */
     public static void setLegacyClean(Context context, boolean legacyClean) {
         saveBooleanPreference(context, PREF__LEGACY_CLEAN, legacyClean);
+    }
+
+    public static void setKeysMigration(Context context, boolean keysMigration) {
+        saveBooleanPreference(context, PREF__KEYS_MIGRATION, keysMigration);
     }
 
     public static void setAutoUploadInit(Context context, boolean autoUploadInit) {
