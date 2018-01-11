@@ -47,6 +47,7 @@ import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.SeekBar;
 
+import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
@@ -356,6 +357,12 @@ public class ThemeUtils {
 
     public static String colorToHexString(int color) {
         return String.format("#%06X", 0xFFFFFF & color);
+    }
+
+    public static void tintFloatingActionButton(FloatingActionButton button, int drawable) {
+        button.setColorNormal(ThemeUtils.primaryColor());
+        button.setColorPressed(ThemeUtils.primaryDarkColor());
+        button.setIconDrawable(ThemeUtils.tintDrawable(drawable, ThemeUtils.fontColor()));
     }
 
     private static OCCapability getCapability() {

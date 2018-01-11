@@ -58,7 +58,6 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.getbase.floatingactionbutton.AddFloatingActionButton;
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.owncloud.android.MainApp;
@@ -249,7 +248,7 @@ public class ExtendedListFragment extends Fragment
                                     getCurrentOwnCloudAccount(MainApp.getAppContext()));
 
                             if (getResources().getBoolean(R.bool.bottom_toolbar_enabled) && searchSupported) {
-                                BottomNavigationView bottomNavigationView = (BottomNavigationView) getActivity().
+                                BottomNavigationView bottomNavigationView = getActivity().
                                         findViewById(R.id.bottom_navigation_view);
                                 if (hasFocus) {
                                     bottomNavigationView.setVisibility(View.GONE);
@@ -292,13 +291,13 @@ public class ExtendedListFragment extends Fragment
 
         int fontColor = ThemeUtils.fontColor();
 
-        LinearLayout searchBar = (LinearLayout) searchView.findViewById(R.id.search_bar);
-        TextView searchBadge = (TextView) searchView.findViewById(R.id.search_badge);
+        LinearLayout searchBar = searchView.findViewById(R.id.search_bar);
+        TextView searchBadge = searchView.findViewById(R.id.search_badge);
 
         searchBadge.setTextColor(fontColor);
         searchBadge.setHintTextColor(fontColor);
 
-        ImageView searchButton = (ImageView) searchView.findViewById(R.id.search_button);
+        ImageView searchButton = searchView.findViewById(R.id.search_button);
         searchButton.setImageDrawable(ThemeUtils.tintDrawable(R.drawable.ic_search, fontColor));
 
         searchBar.setLayoutTransition(new LayoutTransition());
@@ -386,11 +385,11 @@ public class ExtendedListFragment extends Fragment
         View v = inflater.inflate(R.layout.list_fragment, null);
         setupEmptyList(v);
 
-        mListView = (ExtendedListView) (v.findViewById(R.id.list_root));
+        mListView = v.findViewById(R.id.list_root);
         mListView.setOnItemClickListener(this);
         mListFooterView = inflater.inflate(R.layout.list_footer, null, false);
 
-        mGridView = (GridViewWithHeaderAndFooter) (v.findViewById(R.id.grid_root));
+        mGridView = v.findViewById(R.id.grid_root);
 
         mScale = PreferenceManager.getGridColumns(getContext());
         setGridViewColumns(1f);
@@ -426,9 +425,9 @@ public class ExtendedListFragment extends Fragment
         }
 
         // Pull-down to refresh layout
-        mRefreshListLayout = (SwipeRefreshLayout) v.findViewById(R.id.swipe_containing_list);
-        mRefreshGridLayout = (SwipeRefreshLayout) v.findViewById(R.id.swipe_containing_grid);
-        mRefreshEmptyLayout = (SwipeRefreshLayout) v.findViewById(R.id.swipe_containing_empty);
+        mRefreshListLayout = v.findViewById(R.id.swipe_containing_list);
+        mRefreshGridLayout = v.findViewById(R.id.swipe_containing_grid);
+        mRefreshEmptyLayout = v.findViewById(R.id.swipe_containing_empty);
 
         onCreateSwipeToRefresh(mRefreshListLayout);
         onCreateSwipeToRefresh(mRefreshGridLayout);
@@ -437,31 +436,10 @@ public class ExtendedListFragment extends Fragment
         mListView.setEmptyView(mRefreshEmptyLayout);
         mGridView.setEmptyView(mRefreshEmptyLayout);
 
-        int primaryColor = ThemeUtils.primaryColor();
-        int primaryColorDark = ThemeUtils.primaryDarkColor();
-        int fontColor = ThemeUtils.fontColor();
-
-        mFabMain = (FloatingActionsMenu) v.findViewById(R.id.fab_main);
-
-        AddFloatingActionButton addButton = mFabMain.getAddButton();
-        addButton.setColorNormal(primaryColor);
-        addButton.setColorPressed(primaryColorDark);
-        addButton.setPlusColor(fontColor);
-
-        mFabUpload = (FloatingActionButton) v.findViewById(R.id.fab_upload);
-        mFabUpload.setColorNormal(primaryColor);
-        mFabUpload.setColorPressed(primaryColorDark);
-        mFabUpload.setIconDrawable(ThemeUtils.tintDrawable(R.drawable.ic_action_upload, fontColor));
-
-        mFabMkdir = (FloatingActionButton) v.findViewById(R.id.fab_mkdir);
-        mFabMkdir.setColorNormal(primaryColor);
-        mFabMkdir.setColorPressed(primaryColorDark);
-        mFabMkdir.setIconDrawable(ThemeUtils.tintDrawable(R.drawable.ic_action_create_dir, fontColor));
-
-        mFabUploadFromApp = (FloatingActionButton) v.findViewById(R.id.fab_upload_from_app);
-        mFabUploadFromApp.setColorNormal(primaryColor);
-        mFabUploadFromApp.setColorPressed(primaryColorDark);
-        mFabUploadFromApp.setIconDrawable(ThemeUtils.tintDrawable(R.drawable.ic_import, fontColor));
+        mFabMain = v.findViewById(R.id.fab_main);
+        mFabUpload = v.findViewById(R.id.fab_upload);
+        mFabMkdir = v.findViewById(R.id.fab_mkdir);
+        mFabUploadFromApp = v.findViewById(R.id.fab_upload_from_app);
 
         boolean searchSupported = AccountUtils.hasSearchSupport(AccountUtils.
                 getCurrentOwnCloudAccount(MainApp.getAppContext()));
@@ -470,8 +448,7 @@ public class ExtendedListFragment extends Fragment
             RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) mFabMain.getLayoutParams();
             final float scale = v.getResources().getDisplayMetrics().density;
 
-            BottomNavigationView bottomNavigationView = (BottomNavigationView)
-                    v.findViewById(R.id.bottom_navigation_view);
+            BottomNavigationView bottomNavigationView = v.findViewById(R.id.bottom_navigation_view);
 
             // convert the DP into pixel
             int pixel = (int) (32 * scale + 0.5f);
@@ -535,11 +512,11 @@ public class ExtendedListFragment extends Fragment
     }
 
     protected void setupEmptyList(View view) {
-        mEmptyListContainer = (LinearLayout) view.findViewById(R.id.empty_list_view);
-        mEmptyListMessage = (TextView) view.findViewById(R.id.empty_list_view_text);
-        mEmptyListHeadline = (TextView) view.findViewById(R.id.empty_list_view_headline);
-        mEmptyListIcon = (ImageView) view.findViewById(R.id.empty_list_icon);
-        mEmptyListProgress = (ProgressBar) view.findViewById(R.id.empty_list_progress);
+        mEmptyListContainer = view.findViewById(R.id.empty_list_view);
+        mEmptyListMessage = view.findViewById(R.id.empty_list_view_text);
+        mEmptyListHeadline = view.findViewById(R.id.empty_list_view_headline);
+        mEmptyListIcon = view.findViewById(R.id.empty_list_icon);
+        mEmptyListProgress = view.findViewById(R.id.empty_list_progress);
         mEmptyListProgress.getIndeterminateDrawable().setColorFilter(ThemeUtils.primaryColor(),
                 PorterDuff.Mode.SRC_IN);
     }
