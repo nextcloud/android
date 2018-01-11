@@ -97,9 +97,14 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         px = getThumbnailDimension();
     }
 
-    public void setActivityItems(List<Object> activityItems, OwnCloudClient client) {
+    public void setActivityItems(List<Object> activityItems, OwnCloudClient client, boolean clear) {
         this.mClient = client;
         String sTime = "";
+        
+        if (clear) {
+            mValues.clear();
+        }
+        
         for (Object o : activityItems) {
             Activity activity = (Activity) o;
             String time;
@@ -368,11 +373,11 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
         private ActivityViewHolder(View itemView) {
             super(itemView);
-            activityIcon = (ImageView) itemView.findViewById(R.id.activity_icon);
-            subject = (TextView) itemView.findViewById(R.id.activity_subject);
-            message = (TextView) itemView.findViewById(R.id.activity_message);
-            dateTime = (TextView) itemView.findViewById(R.id.activity_datetime);
-            list = (GridLayout) itemView.findViewById(R.id.list);
+            activityIcon = itemView.findViewById(R.id.activity_icon);
+            subject = itemView.findViewById(R.id.activity_subject);
+            message = itemView.findViewById(R.id.activity_message);
+            dateTime = itemView.findViewById(R.id.activity_datetime);
+            list = itemView.findViewById(R.id.list);
         }
     }
 
@@ -382,7 +387,7 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
         private ActivityViewHeaderHolder(View itemView) {
             super(itemView);
-            title = (TextView) itemView.findViewById(R.id.title_header);
+            title = itemView.findViewById(R.id.title_header);
 
         }
     }
