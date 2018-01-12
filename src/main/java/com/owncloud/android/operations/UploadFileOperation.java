@@ -144,6 +144,8 @@ public class UploadFileOperation extends SyncOperation {
     private OCUpload mUpload;
     private UploadsStorageManager uploadsStorageManager;
 
+    private boolean encryptedAncestor;
+
     public static OCFile obtainNewOCFileToUpload(String remotePath, String localPath, String mimeType) {
 
         // MIME type
@@ -354,8 +356,7 @@ public class UploadFileOperation extends SyncOperation {
         mCancellationRequested.set(false);
         mUploadStarted.set(true);
 
-        uploadsStorageManager = new UploadsStorageManager(mContext.getContentResolver(),
-                mContext);
+        uploadsStorageManager = new UploadsStorageManager(mContext.getContentResolver(), mContext);
 
         for (OCUpload ocUpload : uploadsStorageManager.getAllStoredUploads()) {
             if (ocUpload.getUploadId() == getOCUploadId()) {
@@ -370,12 +371,21 @@ public class UploadFileOperation extends SyncOperation {
         remoteParentPath = remoteParentPath.endsWith(OCFile.PATH_SEPARATOR) ?
                 remoteParentPath : remoteParentPath + OCFile.PATH_SEPARATOR;
 
+        RemoteOperationResult result = grantFolderExistence(remoteParentPath, client);
+
+        if (!result.isSuccess()) {
+            return result;
+        }
+
         OCFile parent = getStorageManager().getFileByPath(remoteParentPath);
         mFile.setParentId(parent.getFileId());
-        mFile.setEncrypted(parent.isEncrypted());
+
+        // check if any parent is encrypted
+        encryptedAncestor = FileStorageUtils.checkIfInEncryptedFolder(parent, getStorageManager());
+        mFile.setEncrypted(encryptedAncestor);
 
         // try to unlock folder with stored token, e.g. when upload needs to be resumed or app crashed
-        if (parent.isEncrypted() && !mFolderUnlockToken.isEmpty()) {
+        if (encryptedAncestor && !mFolderUnlockToken.isEmpty()) {
             UnlockFileOperation unlockFileOperation = new UnlockFileOperation(parent.getLocalId(), mFolderUnlockToken);
             RemoteOperationResult unlockFileOperationResult = unlockFileOperation.execute(client, true);
 
@@ -384,13 +394,7 @@ public class UploadFileOperation extends SyncOperation {
             }
         }
 
-        RemoteOperationResult result = grantFolderExistence(remoteParentPath, client);
-
-        if (!result.isSuccess()) {
-            return result;
-        }
-
-        if (parent.isEncrypted()) {
+        if (encryptedAncestor) {
             Log_OC.d(TAG, "encrypted upload");
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
                 return encryptedUpload(client, parent);
@@ -1332,8 +1336,7 @@ public class UploadFileOperation extends SyncOperation {
         // TODO from the appropriate OC server version, get data from last PUT response headers, instead
         // TODO     of a new PROPFIND; the latter may fail, specially for chunked uploads
         String path;
-        OCFile parent = getStorageManager().getFileByPath(file.getParentRemotePath());
-        if (parent.isEncrypted()) {
+        if (encryptedAncestor) {
             path = file.getParentRemotePath() + mFile.getEncryptedFileName();
         } else {
             path = getRemotePath();

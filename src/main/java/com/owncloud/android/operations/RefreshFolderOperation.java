@@ -371,7 +371,8 @@ public class RefreshFolderOperation extends RemoteOperation {
 
         // if local folder is encrypted, download fresh metadata
         DecryptedFolderMetadata metadata;
-        if (mLocalFolder.isEncrypted() && android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT) {
+        boolean encryptedAncestor = FileStorageUtils.checkIfInEncryptedFolder(mLocalFolder, mStorageManager);
+        if (encryptedAncestor && android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT) {
             metadata = EncryptionUtils.downloadFolderMetadata(mLocalFolder, getClient(), mContext, mAccount);
         } else {
             metadata = null;
@@ -383,7 +384,7 @@ public class RefreshFolderOperation extends RemoteOperation {
         for (OCFile file : localFiles) {
             String remotePath = file.getRemotePath();
 
-            if (metadata != null) {
+            if (metadata != null && !file.isFolder()) {
                 remotePath = file.getParentRemotePath() + file.getEncryptedFileName();
             }
             localFilesMap.put(remotePath, file);
@@ -467,9 +468,10 @@ public class RefreshFolderOperation extends RemoteOperation {
                 } catch (NullPointerException e) {
                     Log_OC.e(TAG, "Metadata for file " + updatedFile.getFileId() + " not found!");
                 }
-                updatedFile.setEncrypted(true);
             }
 
+            updatedFile.setEncrypted(encryptedAncestor);
+            
             updatedFiles.add(updatedFile);
         }
 

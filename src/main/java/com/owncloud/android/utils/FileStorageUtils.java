@@ -382,4 +382,14 @@ public class FileStorageUtils {
 
         return true;
     }
+
+    public static boolean checkIfInEncryptedFolder(OCFile file, FileDataStorageManager storageManager) {
+        while (!OCFile.ROOT_PATH.equals(file.getRemotePath())) {
+            if (file.isEncrypted()) {
+                return true;
+            }
+            file = storageManager.getFileById(file.getParentId());
+        }
+        return false;
+    }
 }
