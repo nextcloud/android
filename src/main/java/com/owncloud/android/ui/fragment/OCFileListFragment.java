@@ -1180,20 +1180,7 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
                 }
                 mFile = directory;
 
-                // hide create new folder within encrypted folders for now
-                if (mFile.isEncrypted()) {
-                    getFabMkdir().setVisibility(View.GONE);
-                } else {
-                    getFabMkdir().setVisibility(View.VISIBLE);
-
-                    if (miniFabClicked) {
-                        ((TextView) getFabMkdir().getTag(com.getbase.floatingactionbutton.R.id.fab_label))
-                                .setVisibility(View.GONE);
-                    }
-                }
-
                 updateLayout();
-
             }
         }
     }
