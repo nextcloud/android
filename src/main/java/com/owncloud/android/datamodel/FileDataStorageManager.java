@@ -1,18 +1,18 @@
-/**
+/*
  * ownCloud Android client application
- * <p>
+ * 
  * Copyright (C) 2012  Bartek Przybylski
  * Copyright (C) 2015 ownCloud Inc.
- * <p>
+ * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2,
  * as published by the Free Software Foundation.
- * <p>
+ * 
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * <p>
+ * 
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -1937,6 +1937,10 @@ public class FileDataStorageManager {
         cv.put(ProviderTableMeta.CAPABILITIES_SERVER_BACKGROUND_URL, capability.getServerBackground());
         cv.put(ProviderTableMeta.CAPABILITIES_SERVER_SLOGAN, capability.getServerSlogan());
         cv.put(ProviderTableMeta.CAPABILITIES_END_TO_END_ENCRYPTION, capability.getEndToEndEncryption().getValue());
+        cv.put(ProviderTableMeta.CAPABILITIES_SERVER_BACKGROUND_DEFAULT, capability.getServerBackgroundDefault()
+                .getValue());
+        cv.put(ProviderTableMeta.CAPABILITIES_SERVER_BACKGROUND_PLAIN, capability.getServerBackgroundPlain()
+                .getValue());
 
         if (capabilityExists(mAccount.name)) {
             if (getContentResolver() != null) {
@@ -2087,6 +2091,10 @@ public class FileDataStorageManager {
             capability.setServerSlogan(c.getString(c.getColumnIndex(ProviderTableMeta.CAPABILITIES_SERVER_SLOGAN)));
             capability.setEndToEndEncryption(CapabilityBooleanType.fromValue(c.getInt(c
                     .getColumnIndex(ProviderTableMeta.CAPABILITIES_END_TO_END_ENCRYPTION))));
+            capability.setServerBackgroundDefault(CapabilityBooleanType.fromValue(
+                    c.getInt(c.getColumnIndex(ProviderTableMeta.CAPABILITIES_SERVER_BACKGROUND_DEFAULT))));
+            capability.setServerBackgroundPlain(CapabilityBooleanType.fromValue(
+                    c.getInt(c.getColumnIndex(ProviderTableMeta.CAPABILITIES_SERVER_BACKGROUND_PLAIN))));
         }
         return capability;
     }
