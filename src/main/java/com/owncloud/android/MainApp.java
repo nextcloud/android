@@ -38,6 +38,7 @@ import android.support.annotation.StringRes;
 import android.support.multidex.MultiDexApplication;
 import android.support.v4.util.Pair;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.WindowManager;
 
 import com.evernote.android.job.JobManager;
@@ -65,7 +66,13 @@ import com.owncloud.android.utils.FilesSyncHelper;
 import com.owncloud.android.utils.PermissionUtil;
 import com.owncloud.android.utils.ReceiversHelper;
 
+import org.lukhnos.nnio.file.Files;
+import org.lukhnos.nnio.file.Path;
+import org.lukhnos.nnio.file.Paths;
+import org.lukhnos.nnio.file.StandardCopyOption;
+
 import java.io.File;
+import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -242,28 +249,43 @@ public class MainApp extends MultiDexApplication {
         Context context = getAppContext();
 
         if (!PreferenceManager.getKeysMigration(context)) {
-            String oldKeyPath = getStoragePath() + File.separator + MainApp.getDataFolder() +
-                    File.separator + "nc-keypair";
-            File oldPrivateKey = new File(oldKeyPath,  "push_key.priv");
-            File oldPublicKey = new File(oldKeyPath, "push_key.pub");
+            String oldKeyPath = getStoragePath() + File.separator + MainApp.getDataFolder() + File.separator + "nc-keypair";
+            File oldPrivateKeyFile = new File(oldKeyPath,  "push_key.priv");
+            File oldPublicKeyFile = new File(oldKeyPath, "push_key.pub");
+
+            Path oldPrivateKeyPath = Paths.get(oldPrivateKeyFile.toURI());
+            Path oldPublicKeyPath = Paths.get(oldPublicKeyFile.toURI());
 
             String keyPath = getAppContext().getFilesDir().getAbsolutePath() +
                     File.separator + MainApp.getDataFolder() + File.separator + "nc-keypair";
-            File privateKey = new File(keyPath, "push_key.priv");
-            File publicKey = new File(keyPath, "push_key.pub");
+            File privateKeyFile = new File(keyPath, "push_key.priv");
+            File publicKeyFile = new File(keyPath, "push_key.pub");
 
-            if ((privateKey.exists() && publicKey.exists()) || (!oldPrivateKey.exists() && !oldPublicKey.exists())) {
+            Path privateKeyPath = Paths.get(privateKeyFile.toURI());
+            Path publicKeyPath = Paths.get(publicKeyFile.toURI());
+
+
+            if ((privateKeyFile.exists() && publicKeyFile.exists()) ||
+                    (!oldPrivateKeyFile.exists() && !oldPublicKeyFile.exists())) {
                 PreferenceManager.setKeysMigration(context, true);
             } else {
-                if (oldPrivateKey.exists()) {
-                    oldPrivateKey.renameTo(privateKey);
+                if (oldPrivateKeyFile.exists()) {
+                    try {
+                        Files.move(oldPrivateKeyPath, privateKeyPath, StandardCopyOption.ATOMIC_MOVE);
+                    } catch (IOException e) {
+                        Log.e(TAG, "Failed to move old private key to new location");
+                    }
                 }
 
-                if (oldPublicKey.exists()) {
-                    oldPublicKey.renameTo(publicKey);
+                if (oldPublicKeyFile.exists()) {
+                    try {
+                        Files.move(oldPublicKeyPath, publicKeyPath, StandardCopyOption.ATOMIC_MOVE);
+                    } catch (IOException e) {
+                        Log.e(TAG, "Failed to move old public key to new location");
+                    }
                 }
 
-                if (privateKey.exists() && publicKey.exists()) {
+                if (privateKeyFile.exists() && publicKeyFile.exists()) {
                     PreferenceManager.setKeysMigration(context, true);
                 }
             }
