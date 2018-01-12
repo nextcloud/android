@@ -246,6 +246,7 @@ dependencies {
     //androidTestImplementation "com.android.support:support-annotations:${supportLibraryVersion}"
     implementation 'org.jetbrains:annotations:15.0'
 
+    implementation 'org.lukhnos:nnio:0.2'
     androidTestCompile 'tools.fastlane:screengrab:1.0.0'
 }
 
