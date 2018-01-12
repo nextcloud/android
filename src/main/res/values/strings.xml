@@ -651,6 +651,8 @@
     <string name="picture_set_as_no_app">No app found to set a picture with!</string>
     <string name="privacy">Privacy</string>
     <string name="file_not_found">File not found!</string>
+    <string name="file_not_synced">Failed to sync the desired file. Last version available is shown.</string>
+    <string name="file_not_synced_short">Last version available is shown.</string>
 
     <!-- Auto upload -->
     <string name="autoupload_custom_folder">Set up a custom folder</string>

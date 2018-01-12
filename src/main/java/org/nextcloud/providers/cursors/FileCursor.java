@@ -31,7 +31,7 @@ import com.owncloud.android.utils.MimeTypeUtil;
 @TargetApi(Build.VERSION_CODES.KITKAT)
 public class FileCursor extends MatrixCursor {
 
-    private static final String[] DEFAULT_DOCUMENT_PROJECTION = new String[] {
+    public static final String[] DEFAULT_DOCUMENT_PROJECTION = new String[] {
             Document.COLUMN_DOCUMENT_ID, Document.COLUMN_DISPLAY_NAME,
             Document.COLUMN_MIME_TYPE, Document.COLUMN_SIZE,
             Document.COLUMN_FLAGS, Document.COLUMN_LAST_MODIFIED
