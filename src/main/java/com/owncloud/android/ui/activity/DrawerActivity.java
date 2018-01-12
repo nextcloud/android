@@ -32,7 +32,6 @@ import android.content.res.Configuration;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.NavigationView;
@@ -70,6 +69,9 @@ import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.files.SearchOperation;
+import com.owncloud.android.lib.resources.status.CapabilityBooleanType;
+import com.owncloud.android.lib.resources.status.OCCapability;
+import com.owncloud.android.lib.resources.status.OwnCloudVersion;
 import com.owncloud.android.lib.resources.users.GetRemoteUserInfoOperation;
 import com.owncloud.android.operations.GetCapabilitiesOperarion;
 import com.owncloud.android.ui.TextDrawable;
@@ -1049,38 +1051,60 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
             final ViewGroup navigationHeader = (ViewGroup) findNavigationViewChildById(R.id.drawer_header_view);
 
             if (navigationHeader != null) {
-                String background = getStorageManager().getCapability(getAccount().name).getServerBackground();
+                OCCapability capability = getStorageManager().getCapability(getAccount().name);
+                String background = capability.getServerBackground();
+                CapabilityBooleanType backgroundDefault = capability.getServerBackgroundDefault();
+                CapabilityBooleanType backgroundPlain = capability.getServerBackgroundPlain();
                 int primaryColor = ThemeUtils.primaryColor(getAccount());
 
-                if (URLUtil.isValidUrl(background) || background.isEmpty()) {
-                    // background image
-                    SimpleTarget target = new SimpleTarget<Drawable>() {
-                        @Override
-                        public void onResourceReady(Drawable resource, GlideAnimation glideAnimation) {
-                            Drawable[] drawables = {new ColorDrawable(primaryColor), resource};
-                            LayerDrawable layerDrawable = new LayerDrawable(drawables);
-                            setNavigationHeaderBackground(layerDrawable, navigationHeader);
-                        }
-
-                        @Override
-                        public void onLoadFailed(Exception e, Drawable errorDrawable) {
-                            Drawable[] drawables = {new ColorDrawable(primaryColor),
-                                    getResources().getDrawable(R.drawable.background)};
-                            LayerDrawable layerDrawable = new LayerDrawable(drawables);
-                            setNavigationHeaderBackground(layerDrawable, navigationHeader);
-                        }
-                    };
-
-                    Glide.with(this)
-                            .load(background)
-                            .centerCrop()
-                            .placeholder(R.drawable.background)
-                            .error(R.drawable.background)
-                            .crossFade()
-                            .into(target);
-                } else {
-                    // plain color
+                if (backgroundDefault.isTrue() && backgroundPlain.isTrue()) {
+                    // use only solid color
                     setNavigationHeaderBackground(new ColorDrawable(primaryColor), navigationHeader);
+                } else if (backgroundDefault.isTrue() && backgroundPlain.isFalse()) {
+                    // use nc13 background image with themed color
+                    Drawable[] drawables = {new ColorDrawable(primaryColor),
+                            getResources().getDrawable(R.drawable.background_nc13)};
+                    LayerDrawable layerDrawable = new LayerDrawable(drawables);
+                    setNavigationHeaderBackground(layerDrawable, navigationHeader);
+                } else {
+                    // use url 
+                    if (URLUtil.isValidUrl(background) || background.isEmpty()) {
+                        // background image
+                        SimpleTarget target = new SimpleTarget<Drawable>() {
+                            @Override
+                            public void onResourceReady(Drawable resource, GlideAnimation glideAnimation) {
+                                Drawable[] drawables = {new ColorDrawable(primaryColor), resource};
+                                LayerDrawable layerDrawable = new LayerDrawable(drawables);
+                                setNavigationHeaderBackground(layerDrawable, navigationHeader);
+                            }
+
+                            @Override
+                            public void onLoadFailed(Exception e, Drawable errorDrawable) {
+                                Drawable[] drawables = {new ColorDrawable(primaryColor), errorDrawable};
+                                LayerDrawable layerDrawable = new LayerDrawable(drawables);
+                                setNavigationHeaderBackground(layerDrawable, navigationHeader);
+                            }
+                        };
+
+                        int backgroundResource;
+                        OwnCloudVersion ownCloudVersion = AccountUtils.getServerVersion(getAccount());
+                        if (ownCloudVersion.compareTo(OwnCloudVersion.nextcloud_13) >= 0) {
+                            backgroundResource = R.drawable.background_nc13;
+                        } else {
+                            backgroundResource = R.drawable.background;
+                        }
+
+                        Glide.with(this)
+                                .load(background)
+                                .centerCrop()
+                                .placeholder(backgroundResource)
+                                .error(backgroundResource)
+                                .crossFade()
+                                .into(target);
+                    } else {
+                        // plain color
+                        setNavigationHeaderBackground(new ColorDrawable(primaryColor), navigationHeader);
+                    }
                 }
             }
         }
@@ -1350,7 +1374,7 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
 
                     int count = arbitraryDataProvider.getIntegerValue(FilesSyncHelper.GLOBAL,
                             FileActivity.APP_OPENED_COUNT);
-                    
+
                     if (count > 10 || count == -1 || force) {
                         if (force) {
                             Log_OC.d("ExternalLinks", "force update");
