@@ -85,7 +85,6 @@
     <string name="file_list_empty">Unggah beberapa berkas atau sinkronisasi dengan perangkat anda.</string>
     <string name="file_list_empty_favorites_filter_list">Berkas dan folder yang Anda tandai sebagai favorit akan ditampilkan disini.</string>
     <string name="file_list_empty_favorites_filter">Tidak ada hasil penelusuran di folder yang disukai.</string>
-    <string name="file_list_loading">Memuat&#8230;</string>
     <string name="file_list_no_app_for_file_type">Tidak ada aplikasi untuk membuka jenis berkas ini.</string>
     <string name="local_file_list_empty">Tidak ada satupun berkas dalam folder ini.</string>
     <string name="local_folder_list_empty">Tidak ada folder lagi.</string>
@@ -225,8 +224,7 @@
 	<string name="auth_expired_oauth_token_toast">Otorisasi Anda telah berakhir. Silakan mengotorisasi lagi</string>
 	<string name="auth_expired_basic_auth_toast">Masukkan kata sandi</string>
 	<string name="auth_expired_saml_sso_token_toast">Sesi Anda telah berakhir. Silakan masuk kembali</string>
-	<string name="auth_connecting_auth_server">Menyambungkan ke server otentikasi &#8230;</string>
-	<string name="auth_unsupported_multiaccount">%1$s tidak mendukung banyak akun </string>
+    <string name="auth_unsupported_multiaccount">%1$s tidak mendukung banyak akun </string>
 	<string name="auth_fail_get_user_name">Server tidak memberikan id pengguna dengan benar, hubungi Administrator </string>
 	<string name="auth_can_not_auth_against_server">Tidak terotentikasi ke server ini</string>
     <string name="auth_account_does_not_exist">Akun belum ada di perangkat ini</string>
@@ -244,15 +242,12 @@
     <string name="filename_forbidden_characters">Karakter yang dilarang: / \\ &lt; &gt; : \" | ? *</string>
     <string name="filename_forbidden_charaters_from_server">Nama berkas berisi setidaknya satu karakter yang tidak sah</string>
     <string name="filename_empty">Nama berkas tidak boleh kosong</string>
-    <string name="wait_a_moment">Tunggu sebentar &#8230;</string>
     <string name="wait_checking_credentials">Mengecek kredensial yang tersimpan</string>
     <string name="filedisplay_no_file_selected">Tidak ada berkas yang dipilih</string>
     <string name="activity_chooser_title">Kirim taukan ke &#8230;</string>
     <string name="wait_for_tmp_copy_from_private_storage">Menyalin berkas dari penyimpanan pribadi</string>
     
-    <string name="oauth_check_onoff">Masuk dengan 2.0</string> 
-    <string name="oauth_login_connection">Menyambukan ke server OAuth 2.0 &#8230;</string>
-        
+    <string name="oauth_check_onoff">Masuk dengan 2.0</string>
     <string name="ssl_validator_reason_cert_not_trusted">- Sertifikat server tidak terpercaya</string>
     <string name="ssl_validator_reason_cert_expired">- Sertifikat server kadaluarsa</string>
     <string name="ssl_validator_reason_cert_not_yet_valid">- Tanggal sertifikat server yang valid adalah di masa depan</string>
@@ -339,14 +334,6 @@
     <string name="downloader_download_file_not_found">Berkas tidak lagi tersedia pada server</string>
 
     <string name="file_migration_dialog_title">Memperbarui jalur penyimpanan</string>
-    <string name="file_migration_preparing">Persiapan untuk migrasi&#8230;</string>
-    <string name="file_migration_checking_destination">Memeriksa tujuan&#8230;</string>
-    <string name="file_migration_saving_accounts_configuration">Menyimpan konfigurasi akun&#8230;</string>
-    <string name="file_migration_waiting_for_unfinished_sync">Menunggu proses sinkronisasi menyelesaikan&#8230;</string>
-    <string name="file_migration_migrating">Memindahkan data&#8230;</string>
-    <string name="file_migration_updating_index">Memperbarui indeks&#8230;</string>
-    <string name="file_migration_cleaning">Membersihkan&#8230;</string>
-    <string name="file_migration_restoring_accounts_configuration">Memulihkan konfigurasi akun&#8230;</string>
     <string name="file_migration_ok_finished">Selesai</string>
     <string name="file_migration_failed_not_enough_space">GALAT: Penyimpanan tidak cukup</string>
     <string name="file_migration_failed_not_writable">GALAT: Berkas tidak dapat ditulis</string>
@@ -406,8 +393,6 @@
     <string name="set_picture_as">Gunakan gambar sebagai</string>
     <string name="set_as">Gunakan sebagai</string>
 
-    <string name="prefs_instant_behaviour_dialogTitle">Berkas asli akan menjadi&#8230;</string>
-    <string name="prefs_instant_behaviour_title">Berkas asli akan menjadi&#8230;</string>
     <string name="select_all">Pilih semua</string>
     <string name="deselect_all">Tidak ada yang dipilih</string>
 
@@ -484,11 +469,6 @@
     <string name="participate_contribute_translate_translate">Terjemahkan</string>
     <string name="participate_contribute_translate_text">aplikasi</string>
     <string name="participate_contribute_github_text">Tinjauan, perubahan dan penulis kode lihat %1$suntuk jelasnya.</string>
-    <string name="move_to">Pindah ke&#8230;</string>
-    <string name="copy_to">Salin ke&#8230;</string>
-    <string name="choose_remote_folder">Pilih folder remot&#8230;</string>
-    <string name="choose_local_folder">Pilih folder lokal &#8230;</string>
-    <string name="synced_folders_loading_folders">Memuat folder &#8230;</string>
     <string name="synced_folders_no_results">Folder media tidak ditemukan.</string>
     <string name="synced_folders_preferences">Preferensi untuk mengunggah otomatis.</string>
     <string name="synced_folders_new_info">Unggah instan telah dirubah sepenuhnya. Harap lihat menu utama dan konfigurasi ulang unggah otomatis anda. Maaf untuk gangguannya.\n\nNikmati kemampuan unggah otomatis yang baru!</string>
@@ -497,7 +477,6 @@
         <item quantity="other">%d dipilih</item>
     </plurals>
 
-    <string name="notifications_loading_activity">Memuat notifikasi &#8230;</string>
     <string name="notifications_no_results_headline">Tidak ada notifikasi.</string>
     <string name="notifications_no_results_message">Cek ulang nanti.</string>
 

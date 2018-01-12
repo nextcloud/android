@@ -90,7 +90,6 @@
     <string name="file_list_empty">Laden Sie Inhalt hoch oder synchronisieren Sie mit Ihren Geräten.</string>
     <string name="file_list_empty_favorites_filter_list">Dateien und Ordner, die als Favoriten markiert werden, erscheinen hier</string>
     <string name="file_list_empty_favorites_filter">Keine favorisierten Dateien in Ihrem Verlauf gefunden.</string>
-    <string name="file_list_loading">Lade&#8230;</string>
     <string name="file_list_no_app_for_file_type">Es wurde keine App für diesen Dateityp gefunden!</string>
     <string name="local_file_list_empty">Es befinden sich keine Dateien in diesem Ordner.</string>
     <string name="local_folder_list_empty">Hier gibt es keine weiteren Ordner.</string>
@@ -255,8 +254,7 @@
 	<string name="auth_expired_oauth_token_toast">Die Autorisierung ist abgelaufen. Bitte Autorisierung nochmals durchführen</string>
 	<string name="auth_expired_basic_auth_toast">Bitte geben Sie das aktuelle Passwort ein</string>
 	<string name="auth_expired_saml_sso_token_toast">Ihre Sitzung ist abgelaufen. Bitte erneut verbinden</string>
-	<string name="auth_connecting_auth_server">Verbinden zum Authentifizierungs-Server&#8230;</string>
-	<string name="auth_unsupported_multiaccount">%1$s unterstützt nicht mehrere Benutzerkonten</string>
+    <string name="auth_unsupported_multiaccount">%1$s unterstützt nicht mehrere Benutzerkonten</string>
 	<string name="auth_fail_get_user_name">Ihr Server gibt keine korrekte Benutzer-ID zurück, bitte kontaktieren Sie einen Administrator</string>
 	<string name="auth_can_not_auth_against_server">Kann sich nicht auf diesem Server authentifizieren</string>
     <string name="auth_account_does_not_exist">Das Benutzerkonto ist bis jetzt noch nicht auf dem Gerät vorhanden</string>
@@ -282,15 +280,12 @@
     <string name="filename_forbidden_characters">Verbotene Zeichen: / \\ &lt; &gt; : \" | ? *</string>
     <string name="filename_forbidden_charaters_from_server">Der Dateiname enthält mindestens ein ungültiges Zeichen</string>
     <string name="filename_empty">Dateiname darf nicht leer sein</string>
-    <string name="wait_a_moment">Bitte warten&#8230;</string>
     <string name="wait_checking_credentials">Überprüfe gespeicherte Anmeldeinformationen</string>
     <string name="filedisplay_no_file_selected">Keine Datei gewählt</string>
     <string name="activity_chooser_title">Link senden an &#8230;</string>
     <string name="wait_for_tmp_copy_from_private_storage">Kopiere Datei vom privatem Speicher</string>
     
-    <string name="oauth_check_onoff">Anmelden mit OAuth 2.0</string> 
-    <string name="oauth_login_connection">Verbinde mit dem OAuth 2.0-Server&#8230;</string>
-        
+    <string name="oauth_check_onoff">Anmelden mit OAuth 2.0</string>
     <string name="ssl_validator_header">Die Identität des Servers konnte nicht verifiziert werden</string>
     <string name="ssl_validator_reason_cert_not_trusted">- Das Zertifikat des Servers ist nicht vertrauenswürdig</string>
     <string name="ssl_validator_reason_cert_expired">- Das Zertifikat des Servers ist abgelaufen</string>
@@ -382,14 +377,6 @@
     <string name="downloader_download_file_not_found">Diese Datei steht auf dem Server nicht mehr zur Verfügung</string>
 
     <string name="file_migration_dialog_title">Aktualisiere Speicherort</string>
-    <string name="file_migration_preparing">Bereite Migration vor&#8230;</string>
-    <string name="file_migration_checking_destination">Prüfe Zielort&#8230;</string>
-    <string name="file_migration_saving_accounts_configuration">Sichere Konfiguration der Konten&#8230;</string>
-    <string name="file_migration_waiting_for_unfinished_sync">Warte auf die Fertigstellung der Synchronisationen&#8230;</string>
-    <string name="file_migration_migrating">Verschiebe Dateien&#8230;</string>
-    <string name="file_migration_updating_index">Aktualisiere Index&#8230;</string>
-    <string name="file_migration_cleaning">Aufräumen&#8230;</string>
-    <string name="file_migration_restoring_accounts_configuration">Konfiguration der Konten wiederherstellen&#8230;</string>
     <string name="file_migration_ok_finished">Abgeschlossen</string>
     <string name="file_migration_failed_not_enough_space">Fehler: Nicht ausreichender Speicherplatz</string>
     <string name="file_migration_failed_not_writable">Fehler: Für das Ziel existieren keine Schreibrechte</string>
@@ -459,8 +446,6 @@
     <string name="set_picture_as">Nutze Bild als</string>
     <string name="set_as">Setze als</string>
 
-    <string name="prefs_instant_behaviour_dialogTitle">Originaldatei wird&#8230;</string>
-    <string name="prefs_instant_behaviour_title">Originaldatei wird&#8230;</string>
     <string name="select_all">Alle auswählen</string>
     <string name="deselect_all">Auswahl aufheben</string>
 
@@ -545,11 +530,6 @@
     <string name="participate_rc_fdroid">Release-Kandidat über die F-Droid-App beziehen</string>
     <string name="participate_dev_fdroid">Entwicklungs-Version über die F-Droid-App beziehen</string>
     <string name="participate_dev_direct_download">Entwicklungs-Version direkt herunterladen</string>
-    <string name="move_to">Verschieben nach&#8230;</string>
-    <string name="copy_to">Kopieren nach&#8230;</string>
-    <string name="choose_remote_folder">Wähle einen Remote-Ordner &#8230;</string>
-    <string name="choose_local_folder">Wähle einen lokalen Ordner&#8230;</string>
-    <string name="synced_folders_loading_folders">Lade Ordner&#8230;</string>
     <string name="synced_folders_no_results">Keine Medien-Ordner gefunden.</string>
     <string name="synced_folders_preferences">Einstellungen für automatisches Hochladen</string>
     <string name="synced_folders_new_info">Die Sofort-Uploads wurden vollständig überarbeitet. Konfiguriere Sie Ihren automatischen Uploader im Hauptmenü.\n\nGenießen Sie den verbesserten Auto-Upload.</string>
@@ -559,7 +539,6 @@
         <item quantity="other">%d ausgewählt</item>
     </plurals>
 
-    <string name="notifications_loading_activity">Lade Benachrichtigungen&#8230;</string>
     <string name="notifications_no_results_headline">Keine Benachrichtigungen</string>
     <string name="notifications_no_results_message">Bitte später noch einmal nachsehen.</string>
 
@@ -651,9 +630,6 @@
     <string name="fallback_weblogin_back">Zurück</string>
     <string name="fallback_weblogin_text">Zur alten Anmeldungsmethode zurückkehren</string>
 
-    <string name="foreground_service_upload">Dateien hochladen&#8230;</string>
-    <string name="foreground_service_download">Dateien herunterladen&#8230;</string>
-
     <string name="prefs_sourcecode">Zum Programmcode</string>
     <string name="prefs_license">Lizenz</string>
     <string name="prefs_gpl_v2">GNU General Public Lizenz, version 2</string>
@@ -718,4 +694,5 @@
     <string name="screenshot_04_accounts">Mit verschiedenen Kontos verbinden</string>
     <string name="screenshot_05_autoUpload">Automatisches Hochladen von Bildern &amp; Videos</string>
     <string name="screenshot_06_davdroid">Kalender &amp; Kontakte mit DAVdroid synchronisieren</string>
-</resources>
+    
+    </resources>

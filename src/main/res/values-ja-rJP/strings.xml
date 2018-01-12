@@ -83,7 +83,6 @@
     <string name="file_list_empty">コンテンツをアップロードするか、デバイスと同期してください。</string>
     <string name="file_list_empty_favorites_filter_list">お気に入りに登録されたファイルやフォルダーがここに表示されます</string>
     <string name="file_list_empty_favorites_filter">お気に入りのファイルが見つかりませんでした。</string>
-    <string name="file_list_loading">読込中&#8230;</string>
     <string name="file_list_no_app_for_file_type">このファイル形式に設定されたアプリがありません。</string>
     <string name="local_file_list_empty">このフォルダーにはファイルがありません。</string>
     <string name="local_folder_list_empty">これ以上フォルダーがありません。</string>
@@ -203,7 +202,7 @@
 	<string name="auth_expired_oauth_token_toast">認証情報は有効期限切れです。再度認証を行ってください。</string>
 	<string name="auth_expired_basic_auth_toast">現在のパスワードを入力してください</string>
 	<string name="auth_expired_saml_sso_token_toast">セッションの有効期限切れです。再度接続してください。</string>
-	<string name="auth_unsupported_multiaccount">%1$s は複数アカウントをサポートしていません</string>
+    <string name="auth_unsupported_multiaccount">%1$s は複数アカウントをサポートしていません</string>
 	<string name="auth_can_not_auth_against_server">認証サーバーに接続できません</string>
     <string name="favorite">オフラインで利用可能に設定</string>
     <string name="unfavorite">オフラインで利用不可に設定</string>
@@ -286,10 +285,6 @@
     <string name="downloader_download_file_not_found">ファイルはサーバー上で利用できません</string>
 
     <string name="file_migration_dialog_title">ストレージの場所を更新中</string>
-    <string name="file_migration_checking_destination">宛先の確認中&#8230;</string>
-    <string name="file_migration_migrating">データの移動中&#8230;</string>
-    <string name="file_migration_updating_index">インデックスの更新中&#8230;</string>
-    <string name="file_migration_cleaning">クリーニング中&#8230;</string>
     <string name="file_migration_ok_finished">完了</string>
     <string name="prefs_add_account">アカウントを追加</string>
     <string name="drawer_manage_accounts">アカウント管理</string>
@@ -325,8 +320,6 @@
 
     <string name="username">ユーザー名</string>
 
-    <string name="prefs_instant_behaviour_dialogTitle">オリジナルファイルは、&#8230; になります。</string>
-    <string name="prefs_instant_behaviour_title">オリジナルファイルは、&#8230; になります。</string>
     <string name="select_all">すべて選択</string>
     <string name="pref_behaviour_entries_keep_file">元のフォルダに保持</string>
     <string name="pref_behaviour_entries_move">アプリフォルダに移動</string>
@@ -373,13 +366,10 @@
     <string name="participate_beta_headline">開発バージョンをテスト</string>
     <string name="participate_release_candidate_headline">リリース候補</string>
     <string name="participate_contribute_headline">積極的な貢献</string>
-    <string name="move_to">&#8230;に移動</string>
-    <string name="copy_to">&#8230;にコピー</string>
     <plurals name="items_selected_count">
         <item quantity="other">%d選択されています。</item>
     </plurals>
 
-    <string name="notifications_loading_activity">通知の読み込み中&#8230;</string>
     <string name="notifications_no_results_headline">通知なし</string>
     <string name="notifications_no_results_message">後で確認してください。</string>
 

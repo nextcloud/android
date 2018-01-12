@@ -89,7 +89,6 @@ Smelltu hér til að fá þér einn frá þjónustuaðila.</string>
     <string name="file_list_empty">Sendu inn eitthvað efni eða samstilltu við tækin þín.</string>
     <string name="file_list_empty_favorites_filter_list">Skrár og möppur sem þú merkir sem eftirlæti birtast hér</string>
     <string name="file_list_empty_favorites_filter">Leitin skilaði engum eftirlætisskrám</string>
-    <string name="file_list_loading">Hleð inn&#8230;</string>
     <string name="file_list_no_app_for_file_type">Ekkert forrit er uppsett til að meðhöndla þessa tegund skráa.</string>
     <string name="local_file_list_empty">Það eru engar skrár í þessari möppu.</string>
     <string name="local_folder_list_empty">Það eru engar fleiri möppur.</string>
@@ -249,8 +248,7 @@ Smelltu hér til að fá þér einn frá þjónustuaðila.</string>
 	<string name="auth_expired_oauth_token_toast">Heimild þín er útrunnin. Skráðu þig aftur inn.</string>
 	<string name="auth_expired_basic_auth_toast">Settu inn núgildandi lykilorð</string>
 	<string name="auth_expired_saml_sso_token_toast">Setan þín er útrunnin. Skráðu þig aftur inn.</string>
-	<string name="auth_connecting_auth_server">Tengist við auðkenningarþjón&#8230;</string>
-	<string name="auth_unsupported_multiaccount">%1$s styður ekki fjölaðganga</string>
+    <string name="auth_unsupported_multiaccount">%1$s styður ekki fjölaðganga</string>
 	<string name="auth_fail_get_user_name">Vefþjónninn þinn er ekki að svara með réttu notandaauðkenni, hafðu samband við kerfisstjóra.</string>
 	<string name="auth_can_not_auth_against_server">Get ekki auðkennt á þessum þjóni</string>
     <string name="auth_account_does_not_exist">Aðgangur er ekki ennþá til á tækinu</string>
@@ -276,15 +274,12 @@ Smelltu hér til að fá þér einn frá þjónustuaðila.</string>
     <string name="filename_forbidden_characters">Óleyfilegir stafir: / \\ &lt; &gt; : \" | ? *</string>
     <string name="filename_forbidden_charaters_from_server">Skráarheitið inniheldur að minnsta kosti einn ógildan staf</string>
     <string name="filename_empty">Skráarheiti má ekki vera tómt</string>
-    <string name="wait_a_moment">Bíddu aðeins&#8230;</string>
     <string name="wait_checking_credentials">Athuga geymd auðkenni</string>
     <string name="filedisplay_no_file_selected">Engin skrá valin</string>
     <string name="activity_chooser_title">Senda tengil til &#8230;</string>
     <string name="wait_for_tmp_copy_from_private_storage">Afrita skrá úr einkageymslu</string>
     
-    <string name="oauth_check_onoff">Skrá inn með OAuth 2.0</string> 
-    <string name="oauth_login_connection">Tengist við OAuth 2.0-auðkenningarþjón&#8230;</string>
-        
+    <string name="oauth_check_onoff">Skrá inn með OAuth 2.0</string>
     <string name="ssl_validator_header">Ekki tókst að sannvotta auðkenni þjónsins</string>
     <string name="ssl_validator_reason_cert_not_trusted">- Skilríki þjónsins er ekki treyst</string>
     <string name="ssl_validator_reason_cert_expired">- Skilríki þjónsins er útrunnið</string>
@@ -376,14 +371,6 @@ Smelltu hér til að fá þér einn frá þjónustuaðila.</string>
     <string name="downloader_download_file_not_found">Skráin er ekki lengur tiltæk á þjóninum</string>
 
     <string name="file_migration_dialog_title">Uppfæri slóð á gagnageymslu</string>
-    <string name="file_migration_preparing">Undirbý yfirfærslu&#8230;</string>
-    <string name="file_migration_checking_destination">Athuga áfangastað&#8230;</string>
-    <string name="file_migration_saving_accounts_configuration">Vista aðgangsuppsetningar&#8230;</string>
-    <string name="file_migration_waiting_for_unfinished_sync">Bíð eftir að öllum samstillingum ljúki&#8230;</string>
-    <string name="file_migration_migrating">Færi gögn&#8230;</string>
-    <string name="file_migration_updating_index">Uppfæri atriðaskrá&#8230;</string>
-    <string name="file_migration_cleaning">Hreinsa&#8230;</string>
-    <string name="file_migration_restoring_accounts_configuration">Endurheimti aðgangsuppsetningar&#8230;</string>
     <string name="file_migration_ok_finished">Lokið</string>
     <string name="file_migration_failed_not_enough_space">Villa: ekki nægilegt pláss</string>
     <string name="file_migration_failed_not_writable">Villa: úttaksskrá ekki skrifanleg</string>
@@ -453,8 +440,6 @@ Smelltu hér til að fá þér einn frá þjónustuaðila.</string>
     <string name="set_picture_as">Nota mynd sem</string>
     <string name="set_as">Setja sem</string>
 
-    <string name="prefs_instant_behaviour_dialogTitle">Upprunaleg skrá verður&#8230;</string>
-    <string name="prefs_instant_behaviour_title">Upprunaleg skrá verður&#8230;</string>
     <string name="select_all">Velja allt</string>
     <string name="deselect_all">Afvelja allt</string>
 
@@ -534,11 +519,6 @@ Smelltu hér til að fá þér einn frá þjónustuaðila.</string>
     <string name="participate_contribute_translate_translate">Þýddu</string>
     <string name="participate_contribute_translate_text">forritið</string>
     <string name="participate_contribute_github_text">Yfirfarðu, bættu og skrifaðu kóða, skoðaðu %1$s fyrir nánari upplýsingar</string>
-    <string name="move_to">Færa í&#8230;</string>
-    <string name="copy_to">Afrita í&#8230;</string>
-    <string name="choose_remote_folder">Veldu fjartengda möppu &#8230;</string>
-    <string name="choose_local_folder">Veldu staðværa möppu &#8230;</string>
-    <string name="synced_folders_loading_folders">Hleð inn möppum&#8230;</string>
     <string name="synced_folders_no_results">Engar margmiðlunarmöppur fundust.</string>
     <string name="synced_folders_preferences">Kjörstillingar fyrir sjálfvirkar innsendingar</string>
     <string name="synced_folders_new_info">Beinar innsendingar hafa verið algerlega endurhannaðar. Endurstilltu sjálfvirkar innsendingar beint í aðalvalmyndinni\n\nNjóttu góðs af nýju og ítarlegu viðmóti sjálfvirkra innsendinga.</string>
@@ -548,7 +528,6 @@ Smelltu hér til að fá þér einn frá þjónustuaðila.</string>
         <item quantity="other">%d valið</item>
     </plurals>
 
-    <string name="notifications_loading_activity">Hleð inn tilkynningum &#8230;</string>
     <string name="notifications_no_results_headline">Engar tilkynningar</string>
     <string name="notifications_no_results_message">Athugaðu aftur síðar.</string>
 
@@ -634,9 +613,6 @@ Smelltu hér til að fá þér einn frá þjónustuaðila.</string>
     <string name="whats_new_fingerprint_title">Aflæsa með fingrafari</string>
     <string name="whats_new_fingerprint_content">Notaðu fingrafarið þitt til að aflæsa forritinu</string>
     <string name="fallback_weblogin_back">Til baka</string>
-    <string name="foreground_service_upload">Sendi inn skrár&#8230;</string>
-    <string name="foreground_service_download">Sæki skrár&#8230;</string>
-
     <string name="prefs_sourcecode">Náðu í grunnkóðann</string>
     <string name="prefs_license">Notkunarleyfi</string>
     <string name="prefs_gpl_v2">GNU General Public notkunarleyfið, útgáfa 2</string>

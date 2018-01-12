@@ -90,7 +90,6 @@
     <string name="file_list_empty">Wyślij zawartość lub synchronizuj ją ze swoimi urządzeniami</string>
     <string name="file_list_empty_favorites_filter_list">Tutaj znajdziesz pliki i foldery oznaczone jako ulubione</string>
     <string name="file_list_empty_favorites_filter">Twoje wyszukiwanie nie zwróciło żadnych ulubionych plików</string>
-    <string name="file_list_loading">Wczytywanie&#8230;</string>
     <string name="file_list_no_app_for_file_type">Brak aplikacji dla tego typu plików.</string>
     <string name="local_file_list_empty">Nie ma plików w tym folderze.</string>
     <string name="local_folder_list_empty">Nie ma plików w tym folderze.</string>
@@ -246,8 +245,7 @@
 	<string name="auth_expired_oauth_token_toast">Twoja autoryzacja wygasła. Proszę zaloguj się ponownie</string>
 	<string name="auth_expired_basic_auth_toast">Podaj aktualne hasło</string>
 	<string name="auth_expired_saml_sso_token_toast">Twoja sesja wygasła. Proszę zaloguj się ponownie</string>
-	<string name="auth_connecting_auth_server">Łączenie z serwerem uwierzytelniania&#8230;</string>
-	<string name="auth_unsupported_multiaccount">%1$s nie wspiera wielu kont</string>
+    <string name="auth_unsupported_multiaccount">%1$s nie wspiera wielu kont</string>
 	<string name="auth_fail_get_user_name">Twój serwer nie zwraca poprawnego identyfikatora użytkownika. Proszę skontaktuj się z administratorem.</string>
 	<string name="auth_can_not_auth_against_server">Błąd autoryzacji na tym serwerze</string>
     <string name="auth_account_does_not_exist">Konto jeszcze nie istnieje na tym urządzeniu</string>
@@ -273,15 +271,12 @@
     <string name="filename_forbidden_characters">Znaki zabronione: / \\ &lt; &gt; : \" | ? *</string>
     <string name="filename_forbidden_charaters_from_server">Nazwa pliku zawiera co najmniej jeden nieprawidłowy znak</string>
     <string name="filename_empty">Nazwa pliku nie może być pusta.</string>
-    <string name="wait_a_moment">Proszę czekać&#8230;</string>
     <string name="wait_checking_credentials">Sprawdzanie danych</string>
     <string name="filedisplay_no_file_selected">Nie wybrano żadnego pliku</string>
     <string name="activity_chooser_title">Wyślij link do &#8230;</string>
     <string name="wait_for_tmp_copy_from_private_storage">Kopiowanie pliku z prywatnego zasobu</string>
     
-    <string name="oauth_check_onoff">Loguj przez OAuth 2.0</string> 
-    <string name="oauth_login_connection">Łączenie z serwerem OAuth 2.0&#8230;</string>
-        
+    <string name="oauth_check_onoff">Loguj przez OAuth 2.0</string>
     <string name="ssl_validator_header">Nie można zweryfikować tożsamości serwera</string>
     <string name="ssl_validator_reason_cert_not_trusted">- Certyfikat serwera jest niezaufany</string>
     <string name="ssl_validator_reason_cert_expired">- Certyfikat serwera wygasł</string>
@@ -373,14 +368,6 @@
     <string name="downloader_download_file_not_found">Ten plik nie jest już dostępny na serwerze</string>
 
     <string name="file_migration_dialog_title">Aktualizacja ścieżki przechowywania</string>
-    <string name="file_migration_preparing">Przygotowywanie migracji&#8230;</string>
-    <string name="file_migration_checking_destination">Sprawdzanie docelowe&#8230;</string>
-    <string name="file_migration_saving_accounts_configuration">Zapisywanie konfiguracji konta&#8230;</string>
-    <string name="file_migration_waiting_for_unfinished_sync">Oczekiwanie na zakończenie synchronizacji&#8230;</string>
-    <string name="file_migration_migrating">Przenoszenie danych&#8230;</string>
-    <string name="file_migration_updating_index">Aktualizacja indeksu&#8230;</string>
-    <string name="file_migration_cleaning">Czyszczenie&#8230;</string>
-    <string name="file_migration_restoring_accounts_configuration">Przywracanie konfiguracji konta&#8230;</string>
     <string name="file_migration_ok_finished">Skończone</string>
     <string name="file_migration_failed_not_enough_space">Błąd: Brak miejsca</string>
     <string name="file_migration_failed_not_writable">Błąd: Plik docelowy bez możliwości zapisu</string>
@@ -442,8 +429,6 @@
     <string name="set_picture_as">Użyj obrazu jako</string>
     <string name="set_as">Ustaw jako</string>
 
-    <string name="prefs_instant_behaviour_dialogTitle">Oryginalny plik zostanie&#8230;</string>
-    <string name="prefs_instant_behaviour_title">Oryginalny plik zostanie&#8230;</string>
     <string name="select_all">Wybierz wszystko</string>
     <string name="deselect_all">Odznacz wszystkie</string>
 
@@ -527,11 +512,6 @@
     <string name="participate_rc_fdroid">Pobierz wersję \"kandydującą\" z F-Droid</string>
     <string name="participate_dev_fdroid">Pobierz wersję \"rozwojową\" z F-Droid</string>
     <string name="participate_dev_direct_download">Pobierz wersję \"kandydującą\" bezpośrednio</string>
-    <string name="move_to">Przenieś do&#8230;</string>
-    <string name="copy_to">Skopiuj do&#8230;</string>
-    <string name="choose_remote_folder">Wybierz zdalny folder&#8230;</string>
-    <string name="choose_local_folder">Wybierz lokalny folder&#8230;</string>
-    <string name="synced_folders_loading_folders">Pobieram foldery&#8230;</string>
     <string name="synced_folders_no_results">Nie znaleziono folderów multimedialnych</string>
     <string name="synced_folders_preferences">Preferencje automatycznego przesyłania</string>
     <string name="synced_folders_new_info">Natychmiastowe przesłanie zostało udoskonalone. Ponownie skonfiguruj automatyczne przesyłanie z menu głównego.\n\nKorzystaj z nowego i rozszerzonego automatycznego przesyłania.</string>
@@ -543,7 +523,6 @@
         <item quantity="other">%d zaznaczonych</item>
     </plurals>
 
-    <string name="notifications_loading_activity">Ładuję powiadomienia&#8230;</string>
     <string name="notifications_no_results_headline">Brak powiadomień</string>
     <string name="notifications_no_results_message">Proszę sprawdź później</string>
 
@@ -630,9 +609,6 @@
     <string name="whats_new_fingerprint_content">Odblokuj aplikację odciskiem palca</string>
     <string name="fallback_weblogin_back">Wróć</string>
     <string name="fallback_weblogin_text">Przywróć starą metodę logowania</string>
-
-    <string name="foreground_service_upload">Wysyłanie plików&#8230;</string>
-    <string name="foreground_service_download">Pobieranie plików&#8230;</string>
 
     <string name="prefs_sourcecode">Pobierz kod źródłowy</string>
     <string name="prefs_license">Licencja</string>

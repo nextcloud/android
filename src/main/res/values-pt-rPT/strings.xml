@@ -90,7 +90,6 @@
     <string name="file_list_empty">Faz upload de conteúdo ou sincroniza com os teus dispositivos</string>
     <string name="file_list_empty_favorites_filter_list">Os teus ficheiros e pastas favoritos irão ser mostrados aqui</string>
     <string name="file_list_empty_favorites_filter">A tua pesquisa retornou a inexistência de ficheiros favoritos</string>
-    <string name="file_list_loading">A carregar&#8230;</string>
     <string name="file_list_no_app_for_file_type">Nenhuma app foi escolhida para abrir este tipo de ficheiro.</string>
     <string name="local_file_list_empty">Não existem ficheiros nesta pasta.</string>
     <string name="local_folder_list_empty">Não existem mais pastas</string>
@@ -215,8 +214,7 @@
 	<string name="auth_expired_oauth_token_toast">A sua autorização expirou. Por favor, autorize novamente</string>
 	<string name="auth_expired_basic_auth_toast">Por favor, introduza a sua palavra-passe atual</string>
 	<string name="auth_expired_saml_sso_token_toast">A sua sessão expirou. Por favor, inicie a sessão novamente</string>
-	<string name="auth_connecting_auth_server">A conectar com o servidor autenticado &#8230;</string>
-	<string name="auth_unsupported_multiaccount">%1$s não suporta contas múltiplas</string>
+    <string name="auth_unsupported_multiaccount">%1$s não suporta contas múltiplas</string>
 	<string name="auth_fail_get_user_name">O servidor não está a retornar um ID correcto do usuário. Por favor contacta o administrador.</string>
 	<string name="auth_can_not_auth_against_server">Não é possível autenticar para este servidor</string>
     <string name="auth_account_does_not_exist">Não existe esta conta no dispositivo ainda</string>
@@ -327,8 +325,6 @@
 
     <string name="username">Nome de utilizador</string>
 
-    <string name="prefs_instant_behaviour_dialogTitle">O ficheiro original será&#8230;</string>
-    <string name="prefs_instant_behaviour_title">O ficheiro original será&#8230;</string>
     <string name="pref_behaviour_entries_keep_file">mantido na pasta original</string>
     <string name="pref_behaviour_entries_move">movido para pasta da aplicação</string>
     <string name="share_dialog_title">Partilha</string>

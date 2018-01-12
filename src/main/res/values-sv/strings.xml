@@ -90,7 +90,6 @@
     <string name="file_list_empty">Ladda upp något eller synkronisera med dina enheter</string>
     <string name="file_list_empty_favorites_filter_list">Filer och mappar du väljer som favoriter dyker upp här</string>
     <string name="file_list_empty_favorites_filter">Din sökning gav inga favoriserade filer.</string>
-    <string name="file_list_loading">Laddar&#8230;</string>
     <string name="file_list_no_app_for_file_type">Det finns ingen applikation för att hantera denna filtyp</string>
     <string name="local_file_list_empty">Det finns inga filer i den här mappen.</string>
     <string name="local_folder_list_empty">Det finna inga fler mappar.</string>
@@ -247,8 +246,7 @@
 	<string name="auth_expired_oauth_token_toast">Din inloggning har gått ut. Var god logga in igen</string>
 	<string name="auth_expired_basic_auth_toast">Var god ange ditt nuvarande lösenord</string>
 	<string name="auth_expired_saml_sso_token_toast">Din session har upphört att gälla. Vänligen anslut igen</string>
-	<string name="auth_connecting_auth_server">Ansluter till autentiseringsservern &#8230;</string>
-	<string name="auth_unsupported_multiaccount">%1$s har inte stöd för multipla konton</string>
+    <string name="auth_unsupported_multiaccount">%1$s har inte stöd för multipla konton</string>
 	<string name="auth_fail_get_user_name">Din server returnerar inte korrekt användarID, vänligen kontakta din administratör.</string>
 	<string name="auth_can_not_auth_against_server">Det går inte att autentisera mot denna server</string>
     <string name="auth_account_does_not_exist">Kontot finns inte på enheten än</string>
@@ -274,15 +272,12 @@
     <string name="filename_forbidden_characters">Förbjudna tecken är: / \\ &lt; &gt; : \" | ? *</string>
     <string name="filename_forbidden_charaters_from_server">Filnamnet innehåller minst ett ogiltigt tecken</string>
     <string name="filename_empty">Filnamnet får inte lämnas blankt</string>
-    <string name="wait_a_moment">Ett ögonblick&#8230;</string>
     <string name="wait_checking_credentials">Kontrollerar lagrade inloggningsuppgifter</string>
     <string name="filedisplay_no_file_selected">Ingen fil vald</string>
     <string name="activity_chooser_title">Sänd länk till &#8230;</string>
     <string name="wait_for_tmp_copy_from_private_storage">Kopierar fil från privat lagring</string>
     
-    <string name="oauth_check_onoff">Logga in med OAuth 2.0</string> 
-    <string name="oauth_login_connection">Ansluter till OAuth 2.0 server&#8230;</string>
-        
+    <string name="oauth_check_onoff">Logga in med OAuth 2.0</string>
     <string name="ssl_validator_header">Webbplatsens identitet kunde inte verifieras</string>
     <string name="ssl_validator_reason_cert_not_trusted">- Servercertifikatet är inte tillförlitligt</string>
     <string name="ssl_validator_reason_cert_expired">- Servercertifikatet har gått ut</string>
@@ -374,14 +369,6 @@
     <string name="downloader_download_file_not_found">Filen är inte längre tillgänglig på servern</string>
 
     <string name="file_migration_dialog_title">Uppdaterar lagringsplats</string>
-    <string name="file_migration_preparing">Förbereder migration&#8230;</string>
-    <string name="file_migration_checking_destination">Kontrollerar mål&#8230;</string>
-    <string name="file_migration_saving_accounts_configuration">Sparar konfigurationen för kontona&#8230;</string>
-    <string name="file_migration_waiting_for_unfinished_sync">Väntar på alla synkroniseringar att bli färdiga &#8230;</string>
-    <string name="file_migration_migrating">Flyttar data&#8230;</string>
-    <string name="file_migration_updating_index">Uppdaterar index&#8230;</string>
-    <string name="file_migration_cleaning">Rensar upp&#8230;</string>
-    <string name="file_migration_restoring_accounts_configuration">Återställer konfigurationen av kontona &#8230;</string>
     <string name="file_migration_ok_finished">Slutförd</string>
     <string name="file_migration_failed_not_enough_space">Fel: Otillräckligt utrymme</string>
     <string name="file_migration_failed_not_writable">Fel: Målfil är inte skrivbar</string>
@@ -451,8 +438,6 @@
     <string name="set_picture_as">Använd bild som</string>
     <string name="set_as">Sätt som</string>
 
-    <string name="prefs_instant_behaviour_dialogTitle">Originalfilen kommer att&#8230;</string>
-    <string name="prefs_instant_behaviour_title">Originalfilen kommer att&#8230;</string>
     <string name="select_all">Välj alla</string>
     <string name="deselect_all">Avmarkera alla</string>
 
@@ -537,11 +522,6 @@
     <string name="participate_rc_fdroid">Hämta release candidate via f-droid app store</string>
     <string name="participate_dev_fdroid">Hämta utvecklarversion via f-droid app store</string>
     <string name="participate_dev_direct_download">Hämta utvecklarversion via direkt nedladdning</string>
-    <string name="move_to">Flytta till&#8230;</string>
-    <string name="copy_to">Kopiera till&#8230;</string>
-    <string name="choose_remote_folder">Välj extern mapp&#8230;</string>
-    <string name="choose_local_folder">Välj lokal mapp &#8230;</string>
-    <string name="synced_folders_loading_folders">Laddar mappar &#8230;</string>
     <string name="synced_folders_no_results">Inga mediamappar funna.</string>
     <string name="synced_folders_preferences">Inställningar för automatisk uppladdning</string>
     <string name="synced_folders_new_info">Direktuppladdning heter numera Automatisk uppladdning och har blivit totalt omgjort. Vänligen se huvudmenyn för att konfigurera Automatisk uppladdning igen. Ledsen för besväret.\n\nNjut av de nya och förbättrade uppladdningsmöjligheterna!</string>
@@ -551,7 +531,6 @@
         <item quantity="other">%d vald</item>
     </plurals>
 
-    <string name="notifications_loading_activity">Laddningsnotifieringar &#8230;</string>
     <string name="notifications_no_results_headline">Inga notifieringar</string>
     <string name="notifications_no_results_message">Var god kolla igen senare.</string>
 
@@ -642,9 +621,6 @@
     <string name="whats_new_fingerprint_content">Använd ditt fingeravtryck för att låsa upp appen</string>
     <string name="fallback_weblogin_back">Tillbaka</string>
     <string name="fallback_weblogin_text">Gå tillbaka till gammal inloggningsmetod</string>
-
-    <string name="foreground_service_upload">Laddar upp filer &#8230;</string>
-    <string name="foreground_service_download">Laddar ner filer &#8230;</string>
 
     <string name="prefs_sourcecode">Hämta källkod</string>
     <string name="prefs_license">Licens</string>

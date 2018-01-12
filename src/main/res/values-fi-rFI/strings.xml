@@ -85,7 +85,6 @@
     <string name="folder_list_empty_headline">Ei kansioita täällä</string>
     <string name="file_list_empty">Lähetä sisältöä tai synkronisoi laitteidesi kanssa</string>
     <string name="file_list_empty_favorites_filter_list">Tiedostot ja kansiot, jotka merkitset suosikeiksesi, ilmestyvät tänne</string>
-    <string name="file_list_loading">Ladataan…</string>
     <string name="local_file_list_empty">Tässä kansiossa ei ole tiedostoja</string>
     <string name="file_list_empty_headline_search">Ei kohteita tässä kansiossa</string>
     <string name="file_list_empty_headline_server_search">Ei tuloksia</string>
@@ -209,7 +208,7 @@
 	<string name="auth_expired_oauth_token_toast">Valtuutus vanhentui. Valtuuta uudelleen</string>
 	<string name="auth_expired_basic_auth_toast">Anna nykyinen salasana</string>
 	<string name="auth_expired_saml_sso_token_toast">Istunto vanhentui. Yhdistä uudelleen</string>
-	<string name="auth_unsupported_multiaccount">%1$s ei tue useita tilejä</string>
+    <string name="auth_unsupported_multiaccount">%1$s ei tue useita tilejä</string>
 	<string name="auth_can_not_auth_against_server">Tälle palvelimelle ei voi tunnistautua</string>
     <string name="auth_account_does_not_exist">Tiliä ei ole vielä olemassa laitteella</string>
     <string name="favorite">Aseta saatavaksi offline tilassa</string>
@@ -228,15 +227,12 @@
     <string name="filename_forbidden_characters">Kielletyt merkit: / \\ &lt; &gt; : \" | ? *</string>
     <string name="filename_forbidden_charaters_from_server">Tiedoston nimi sisältää ainakin yhden virheellisen merkin</string>
     <string name="filename_empty">Tiedoston nimi ei voi olla tyhjä</string>
-    <string name="wait_a_moment">Odota hetki&#8230;</string>
     <string name="wait_checking_credentials">Tarkistetaan tallennettuja tilitietoja</string>
     <string name="filedisplay_no_file_selected">Tiedostoa ei ole valittu</string>
     <string name="activity_chooser_title">Lähetä linkki…</string>
     <string name="wait_for_tmp_copy_from_private_storage">Kopioidaan tiedostoa yksityisestä tallennustilasta</string>
     
-    <string name="oauth_check_onoff">Kirjaudu käyttäen OAuth 2.0:ta</string> 
-    <string name="oauth_login_connection">Yhdistetään OAuth 2.0 -palvelimeen &#8230;</string>
-        
+    <string name="oauth_check_onoff">Kirjaudu käyttäen OAuth 2.0:ta</string>
     <string name="ssl_validator_reason_cert_not_trusted">- Palvelimen varmenteeseen ei luoteta</string>
     <string name="ssl_validator_reason_cert_expired">- Palvelimen varmenne on vanhentunut</string>
     <string name="ssl_validator_reason_cert_not_yet_valid">- Palvelimen varmenteen kelvolliset päivät ovat tulevaisuudessa</string>
@@ -311,10 +307,6 @@
     <string name="downloader_download_file_not_found">Tämä tiedosto ei ole enää palvelimella käytettävissä</string>
 
     <string name="file_migration_dialog_title">Päivitetään tallennus polkua</string>
-    <string name="file_migration_checking_destination">Tarkistetaan kohde&#8230;</string>
-    <string name="file_migration_migrating">Siirretään dataa&#8230;</string>
-    <string name="file_migration_updating_index">Päivitetään indeksiä&#8230;</string>
-    <string name="file_migration_cleaning">Siivotaan&#8230;</string>
     <string name="file_migration_ok_finished">Valmistunut</string>
     <string name="file_migration_failed_not_enough_space">Virhe: tallennustila ei riitä</string>
     <string name="file_migration_failed_not_readable">Virhe: lähdetiedosto ei ole luettavissa</string>
@@ -358,8 +350,6 @@
 
     <string name="username">Käyttäjätunnus</string>
 
-    <string name="prefs_instant_behaviour_dialogTitle">Alkuperäinen tiedosto&#8230;</string>
-    <string name="prefs_instant_behaviour_title">Alkuperäinen tiedosto&#8230;</string>
     <string name="select_all">Valitse kaikki</string>
     <string name="pref_behaviour_entries_keep_file">pidetään alkuperäisessä kansiossa</string>
     <string name="pref_behaviour_entries_move">siirretään sovelluskansioon</string>
@@ -417,18 +407,12 @@
     <string name="participate_contribute_irc_text">Liity keskusteluun IRC:ssä:</string>
     <string name="participate_contribute_translate_translate">Käännä</string>
     <string name="participate_contribute_translate_text">sovellus</string>
-    <string name="move_to">Siirrä kohteeseen&#8230;</string>
-    <string name="copy_to">Kopio kohteeseen&#8230;</string>
-    <string name="choose_remote_folder">Valitse etäkansio&#8230;</string>
-    <string name="choose_local_folder">Valitse paikallinen kansio&#8230;</string>
-    <string name="synced_folders_loading_folders">Ladataan kansioita&#8230;</string>
     <string name="synced_folders_no_results">Mediakansioita ei löytynyt.</string>
     <plurals name="items_selected_count">
         <item quantity="one">%d valittu</item>
         <item quantity="other">%d valittu</item>
     </plurals>
 
-    <string name="notifications_loading_activity">Ladataan ilmoituksia &#8230;</string>
     <string name="notifications_no_results_headline">Ei ilmoituksia</string>
     <string name="upload_file_dialog_filename">Tiedostonimi</string>
     <string name="upload_file_dialog_filetype">Tiedostotyyppi</string>
@@ -483,9 +467,6 @@
     <string name="resharing_is_not_allowed">Uudelleenjakaminen ei ole sallittu</string>
     <string name="whats_new_fingerprint_title">Avaa lukitus sormenjäljellä</string>
     <string name="whats_new_fingerprint_content">Käytä sormenjälkeäsi sovelluksen lukituksen avaamiseen</string>
-    <string name="foreground_service_upload">Lähetetään tiedostoja&#8230;</string>
-    <string name="foreground_service_download">Ladataan tiedostoja&#8230;</string>
-
     <string name="prefs_sourcecode">Hanki lähdekoodi</string>
     <string name="prefs_license">Lisenssi</string>
     <string name="push_notifications_temp_error">Push-ilmoitukset eivät ole nyt käytettävissä.</string>
