@@ -1,4 +1,4 @@
-/**
+/*
  * Nextcloud Android client application
  *
  * @author Mario Danic
@@ -100,8 +100,8 @@ public class PushUtils {
     
     private static int generateRsa2048KeyPair() {
         MainApp.migratePushKeys();
-        String keyPath = MainApp.getAppContext().getFilesDir().getAbsolutePath() + File.separator + MainApp.getDataFolder() + File.separator
-                + KEYPAIR_FOLDER;
+        String keyPath = MainApp.getAppContext().getFilesDir().getAbsolutePath() + File.separator + 
+                MainApp.getDataFolder() + File.separator + KEYPAIR_FOLDER;
 
         String privateKeyPath = keyPath + File.separator + KEYPAIR_FILE_NAME + KEYPAIR_PRIV_EXTENSION;
         String publicKeyPath = keyPath + File.separator + KEYPAIR_FILE_NAME + KEYPAIR_PUB_EXTENSION;
@@ -228,8 +228,8 @@ public class PushUtils {
                                             publicKey,
                                             context.getResources().getString(R.string.push_server_url));
 
-                            RemoteOperationResult remoteOperationResult = registerAccountDeviceForNotificationsOperation.
-                                    execute(mClient);
+                            RemoteOperationResult remoteOperationResult = 
+                                    registerAccountDeviceForNotificationsOperation.execute(mClient);
 
                             if (remoteOperationResult.isSuccess()) {
                                 PushResponse pushResponse = remoteOperationResult.getPushResponseData();
@@ -272,8 +272,8 @@ public class PushUtils {
     }
 
     public static Key readKeyFromFile(boolean readPublicKey) {
-        String keyPath = MainApp.getAppContext().getFilesDir().getAbsolutePath() + File.separator + MainApp.getDataFolder() + File.separator
-                + KEYPAIR_FOLDER;
+        String keyPath = MainApp.getAppContext().getFilesDir().getAbsolutePath() + File.separator + 
+                MainApp.getDataFolder() + File.separator + KEYPAIR_FOLDER;
 
         String privateKeyPath = keyPath + File.separator + KEYPAIR_FILE_NAME + KEYPAIR_PRIV_EXTENSION;
         String publicKeyPath = keyPath + File.separator + KEYPAIR_FILE_NAME + KEYPAIR_PUB_EXTENSION;
