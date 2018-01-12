@@ -76,7 +76,6 @@ public class NotificationUtils {
                  notificationManager.cancel(notificationId);
                  ((HandlerThread)Thread.currentThread()).getLooper().quit();
              } 
-        }, delayInMillis); 
-    
+        }, delayInMillis);
     }
 }
