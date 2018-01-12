@@ -85,7 +85,6 @@
     <string name="file_list_empty">Įkelkite tam tikrą turinį (medžiagą) arba sinchronizuokite su savo įrenginiais.</string>
     <string name="file_list_empty_favorites_filter_list">Čia bus rodomi failai ir aplankai, kuriuos pažymėsite kaip mėgstamus</string>
     <string name="file_list_empty_favorites_filter">Pagal Jūsų pateiktą užklausą neradome šių failų.</string>
-    <string name="file_list_loading">Įkeliama&#8230;</string>
     <string name="file_list_no_app_for_file_type">Nėra šios programos failo tipui tvarkyti.</string>
     <string name="local_file_list_empty">Šiame aplanke nėra failų.</string>
     <string name="local_folder_list_empty">Nėra kitų aplankų</string>
@@ -229,8 +228,7 @@
 	<string name="auth_expired_oauth_token_toast">Autorizacijos laikas baigėsi. Prašome autorizuotis iš naujo</string>
 	<string name="auth_expired_basic_auth_toast">Prašome įvesti dabartinį slaptažodį</string>
 	<string name="auth_expired_saml_sso_token_toast">Jūsų seanso laikas baigėsi. Prašome prisijungti iš naujo</string>
-	<string name="auth_connecting_auth_server">Jungiamasi prie autentifikavimo serverio &#8230;</string>
-	<string name="auth_unsupported_multiaccount">%1$s nepalaiko kelių paskyrų iš karto</string>
+    <string name="auth_unsupported_multiaccount">%1$s nepalaiko kelių paskyrų iš karto</string>
 	<string name="auth_fail_get_user_name">Jūsų serveris negrąžina teisingo vartotojo ID, prašome susisiekti su administratorium</string>
 	<string name="auth_can_not_auth_against_server">Nepavyko autentifikuotis šiame serveryje</string>
     <string name="auth_account_does_not_exist">Paskyra neegzistuoja įrenginyje</string>
@@ -253,15 +251,12 @@
     <string name="filename_forbidden_characters">Neleistini simboliai: / \\ &lt; &gt; : \" | ? *</string>
     <string name="filename_forbidden_charaters_from_server">Failo vardas sudarytas iš neleistinų simbolių</string>
     <string name="filename_empty">Failo pavadinimas negali būti tuščias</string>
-    <string name="wait_a_moment">Palaukite minutėlę&#8230;</string>
     <string name="wait_checking_credentials">Dekriptuojami prisijungimo duomenys</string>
     <string name="filedisplay_no_file_selected">Neįkeltas joks failas</string>
     <string name="activity_chooser_title">Siųsti nuorodą asmeniui &#8230;</string>
     <string name="wait_for_tmp_copy_from_private_storage">Kopijuojamas failas iš privačios saugyklos</string>
     
-    <string name="oauth_check_onoff">Prisijungti naudojant oAuth2</string> 
-    <string name="oauth_login_connection">Jungiamasi prie OAuth 2.0 serverio&#8230;</string>
-        
+    <string name="oauth_check_onoff">Prisijungti naudojant oAuth2</string>
     <string name="ssl_validator_reason_cert_not_trusted">- Nepatikimas serverio liudijimas</string>
     <string name="ssl_validator_reason_cert_expired">- Serverio liudijimo galiojimo laikas pasibaigęs</string>
     <string name="ssl_validator_reason_cert_not_yet_valid">- Serverio liudijimas yra pernelyg naujas</string>
@@ -351,14 +346,6 @@
     <string name="downloader_download_file_not_found">Failas neegzistuoja serveryje</string>
 
     <string name="file_migration_dialog_title">Atnaujinamas saugyklos kelias</string>
-    <string name="file_migration_preparing">Įkeliami duomenys &#8230;</string>
-    <string name="file_migration_checking_destination">Įkeliami duomenys &#8230;</string>
-    <string name="file_migration_saving_accounts_configuration">Įkeliami duomenys &#8230;</string>
-    <string name="file_migration_waiting_for_unfinished_sync">Laukiama, kol sinchronizacija bus baigta&#8230;</string>
-    <string name="file_migration_migrating">Įkeliami duomenys &#8230;</string>
-    <string name="file_migration_updating_index">Išsiunčiamos bylos&#8230;</string>
-    <string name="file_migration_cleaning">išvalomos &#8230;</string>
-    <string name="file_migration_restoring_accounts_configuration">Įkeliami duomenys &#8230;</string>
     <string name="file_migration_ok_finished">Baigta</string>
     <string name="file_migration_failed_not_enough_space">Nepakanka vietos</string>
     <string name="file_migration_failed_not_writable">Klaida: Paskirties failas neredaguojamas</string>
@@ -418,8 +405,6 @@
     <string name="set_picture_as">Naudokite šį paveiksliuką</string>
     <string name="set_as">Nustatyti kaip</string>
 
-    <string name="prefs_instant_behaviour_dialogTitle">Pradinis failas bus&#8230;</string>
-    <string name="prefs_instant_behaviour_title">Pradinis failas bus&#8230;</string>
     <string name="select_all">Pažymėti viską</string>
     <string name="deselect_all">Panaikinti pasirinkimą</string>
 
@@ -497,11 +482,6 @@
     <string name="participate_contribute_translate_translate">Išversti</string>
     <string name="participate_contribute_translate_text">Programėlė</string>
     <string name="participate_contribute_github_text">Peržiūrėti, pataisyti ir įrašyti kodą, žr. %1$s</string>
-    <string name="move_to">Perkelti į&#8230;</string>
-    <string name="copy_to">Kopijuoti į&#8230;</string>
-    <string name="choose_remote_folder">Pasirinkite nuotolinį aplanką&#8230;</string>
-    <string name="choose_local_folder">Pasirinkite aplanką &#8230;</string>
-    <string name="synced_folders_loading_folders">Įkeliami aplankai &#8230;</string>
     <string name="synced_folders_no_results">Medijos aplankų nerasta</string>
     <string name="synced_folders_preferences">Pageidaujami nustatymai automatiniam įkėlimui</string>
     <string name="synced_folders_new_info">Momentinis įkėlimas buvo visiškai sutaisytas. Perkonfigūruokite automatinius įkėlimus per pagrindinį meniu.\n\nMėgaukitės naujuoju automatiniu įkėlimu.</string>
@@ -512,7 +492,6 @@
         <item quantity="other">%d pasirinktos</item>
     </plurals>
 
-    <string name="notifications_loading_activity">Kraunami įspėjimai &#8230;</string>
     <string name="notifications_no_results_headline">Pranešimų nėra</string>
     <string name="notifications_no_results_message">Prašome patikrinti vėliau</string>
 
@@ -596,9 +575,6 @@
     <string name="resharing_is_not_allowed">Dalijimasis iš naujo negalimas</string>
     <string name="whats_new_fingerprint_title">Atrakinti piršto antspaudu</string>
     <string name="whats_new_fingerprint_content">Naudokite pirštų antspaudus atrakinti programėlę</string>
-    <string name="foreground_service_upload">Išsiunčiamos bylos&#8230;</string>
-    <string name="foreground_service_download">Atsisiunčiamos bylos&#8230;</string>
-
     <string name="prefs_sourcecode">Gauti išeities kodą</string>
     <string name="prefs_license">Licencija</string>
     <string name="push_notifications_not_implemented">Stumti pranešimus, kurie išjungti dėl ryšių su Google Play servisais</string>

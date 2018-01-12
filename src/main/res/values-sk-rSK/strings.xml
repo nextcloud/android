@@ -88,7 +88,6 @@
     <string name="file_list_empty">Nahrajte nejaký obsah alebo synchronizujte so svojimi zariadeniami.</string>
     <string name="file_list_empty_favorites_filter_list"> Tu sa zobrazia súbory a priečinky označené ako obľúbené</string>
     <string name="file_list_empty_favorites_filter">Vaše vyhľadávanie nenašlo žiadne obľúbené súbory.</string>
-    <string name="file_list_loading">Načítavam&#8230;</string>
     <string name="file_list_no_app_for_file_type">Aplikácia pre váš typ súboru sa nenašla.</string>
     <string name="local_file_list_empty">V tomto priečinku nie sú žiadne súbory.</string>
     <string name="local_folder_list_empty">Neexistujú ďalšie priečinky.</string>
@@ -224,7 +223,7 @@
 	<string name="auth_expired_oauth_token_toast">Vaša autorizácia vypršala. Prosím, autorizujte sa znovu</string>
 	<string name="auth_expired_basic_auth_toast">Zadajte prosím aktuálne heslo</string>
 	<string name="auth_expired_saml_sso_token_toast">Vaše pripojenie vypršalo. Pripojte sa znovu prosím</string>
-	<string name="auth_unsupported_multiaccount">%1$s nepodporuje viacero účtov</string>
+    <string name="auth_unsupported_multiaccount">%1$s nepodporuje viacero účtov</string>
 	<string name="auth_can_not_auth_against_server">Nie je možné sa overiť voči tomuto serveru</string>
     <string name="favorite">Dostupné v režime offline</string>
     <string name="unfavorite">Nedostupné v režime offline</string>
@@ -306,10 +305,6 @@
     <string name="downloader_download_file_not_found">Súbor už na serveri nie je dostupný</string>
 
     <string name="file_migration_dialog_title">Aktualizujem cestu k úložisku</string>
-    <string name="file_migration_checking_destination">Kontrolujem umiestnenie&#8230;</string>
-    <string name="file_migration_migrating">Presúvam dáta&#8230;</string>
-    <string name="file_migration_updating_index">Aktualizujem zoznam&#8230;</string>
-    <string name="file_migration_cleaning">Čistenie&#8230;</string>
     <string name="file_migration_ok_finished">Hotovo</string>
     <string name="file_migration_failed_not_enough_space">Chyba: Nedostatok miesta</string>
     <string name="file_migration_override_data_folder">Nahradiť</string>
@@ -359,8 +354,6 @@
         <item quantity="other">%1$d súborov</item>
     </plurals>
     <string name="set_picture_as">Použiť obrázok ako</string>
-    <string name="prefs_instant_behaviour_dialogTitle">Pôvodný súbor bude&#8230;</string>
-    <string name="prefs_instant_behaviour_title">Pôvodný súbor bude&#8230;</string>
     <string name="select_all">Vybrať všetko</string>
     <string name="pref_behaviour_entries_keep_file">ponechané v pôvodnom priečinku</string>
     <string name="pref_behaviour_entries_move">presunuté do aplikačného priečinka</string>
@@ -407,8 +400,6 @@
     <string name="drawer_participate">Zúčastniť sa</string>
     <string name="participate_release_candidate_headline">Release candidate</string>
     <string name="participate_contribute_headline">Aktívne prispievať</string>
-    <string name="move_to">Presunúť do&#8230;</string>
-    <string name="copy_to">Kopírovať do&#8230;</string>
     <plurals name="items_selected_count">
         <item quantity="one">%d vybraný</item>
         <item quantity="few">%d vybraných</item>

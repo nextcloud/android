@@ -88,7 +88,6 @@
     <string name="file_list_empty">Ngarko disa të dhëna ose sinkronizo me pajisjet e tua!</string>
     <string name="file_list_empty_favorites_filter_list">Skedarët dhe direktoritë që i shënoni si të preferuara do të shfaqen këtu</string>
     <string name="file_list_empty_favorites_filter">Kërkimi juaj nuk gjeti asnjë skedar të preferuar</string>
-    <string name="file_list_loading">Po ngarkohet&#8230;</string>
     <string name="file_list_no_app_for_file_type">Nuk ka asnjë konfigurim për të trajtuar këtë tip skedari</string>
     <string name="local_file_list_empty">Në këtë dosje s’ka skedar.</string>
     <string name="local_folder_list_empty">Nuk ka më dosje më tej.</string>
@@ -240,8 +239,7 @@
 	<string name="auth_expired_oauth_token_toast">Autorizimi juaj skadoi. Ju lutemi, autorizohuni sërisht</string>
 	<string name="auth_expired_basic_auth_toast">Ju lutem, jepni fjalëkalimin e tanishëm</string>
 	<string name="auth_expired_saml_sso_token_toast">Sesioni juaj skadoi. Ju lutemi, rilidhuni</string>
-	<string name="auth_connecting_auth_server">Po lidhet te serveri i identifikimit&#8230;</string>
-	<string name="auth_unsupported_multiaccount">%1$s s\’mbulon llogari të shumëfishta</string>
+    <string name="auth_unsupported_multiaccount">%1$s s\’mbulon llogari të shumëfishta</string>
 	<string name="auth_fail_get_user_name">Serveri juaj nuk është duke kthyer një  id përdoruesi të saktë, ju lutem kontaktoni një administrator</string>
 	<string name="auth_can_not_auth_against_server">S’kryhet dot identifikimi me këtë server</string>
     <string name="auth_account_does_not_exist">Llogaria s\’ekziston ende te pajisja</string>
@@ -266,15 +264,12 @@
     <string name="filename_forbidden_characters">Shenja të ndaluara: / \\ &lt; &gt; : \" | ? *</string>
     <string name="filename_forbidden_charaters_from_server">Emri i skedarit përmban të paktën një shenjë të pavlefshme</string>
     <string name="filename_empty">Emri i skedarit s’mund të jetë i zbrazët</string>
-    <string name="wait_a_moment">Prisni një çast&#8230;</string>
     <string name="wait_checking_credentials">Po kontrollohen kredenciale të depozituara</string>
     <string name="filedisplay_no_file_selected">S’u përzgjodh skedar</string>
     <string name="activity_chooser_title">Dërgoni lidhje te &#8230;</string>
     <string name="wait_for_tmp_copy_from_private_storage">Po kopjohet skedar nga depo private</string>
     
-    <string name="oauth_check_onoff">Hyrje me OAuth 2.0</string> 
-    <string name="oauth_login_connection">Duke u lidhur me serverin OAuth 2.0&#8230;</string>
-        
+    <string name="oauth_check_onoff">Hyrje me OAuth 2.0</string>
     <string name="ssl_validator_reason_cert_not_trusted">- Dëshmia e serverit s\’është e besuar</string>
     <string name="ssl_validator_reason_cert_expired">- Dëshmia e serverit skadoi</string>
     <string name="ssl_validator_reason_cert_not_yet_valid">- Datat e vlefshmërisë së dëshmisë së serverit i përkasin të ardhmes</string>
@@ -364,14 +359,6 @@
     <string name="downloader_download_file_not_found">Skedari s’gjendet më te serveri</string>
 
     <string name="file_migration_dialog_title">Duke përditësuar rrugen e hapsirës ruajtëse</string>
-    <string name="file_migration_preparing">Duke u pregatitur për migrimin&#8230;</string>
-    <string name="file_migration_checking_destination">Duke kontrolluar destinacionin&#8230;</string>
-    <string name="file_migration_saving_accounts_configuration">Duke ruajtur konfigurimin&#8230; e llogarive</string>
-    <string name="file_migration_waiting_for_unfinished_sync">Duke pritur për sinkronizimet&#8230; të papërfunduara</string>
-    <string name="file_migration_migrating">Duke lëvizur të dhënat&#8230;</string>
-    <string name="file_migration_updating_index">Duke përditësuar indeksin&#8230;</string>
-    <string name="file_migration_cleaning">Duke pastruar&#8230;</string>
-    <string name="file_migration_restoring_accounts_configuration">Rikthimi i konfigurimit&#8230; të llogarive</string>
     <string name="file_migration_ok_finished">Përfundoi</string>
     <string name="file_migration_failed_not_enough_space">Gabim: Hapësirë e pamjaftueshme</string>
     <string name="file_migration_failed_not_writable">Gabim: Skadari destinacion jo i shkruajtshëm</string>
@@ -433,8 +420,6 @@
     <string name="set_picture_as">Vendos fotografinë</string>
     <string name="set_as">Vendos Si</string>
 
-    <string name="prefs_instant_behaviour_dialogTitle">Skedari origjinal do të jetë&#8230;</string>
-    <string name="prefs_instant_behaviour_title">Skedari origjinal do të jetë&#8230;</string>
     <string name="select_all">Zgjidhi të gjitha</string>
     <string name="deselect_all">Hiqi të gjithë</string>
 
@@ -513,11 +498,6 @@
     <string name="participate_contribute_translate_translate">Përkthe</string>
     <string name="participate_contribute_translate_text">aplikacioni</string>
     <string name="participate_contribute_github_text">Rishiko, ndrysho dhe shkruaj kod, shi %1$s për detaje</string>
-    <string name="move_to">Levizni tek&#8230;</string>
-    <string name="copy_to">Kopjojeni tek&#8230;</string>
-    <string name="choose_remote_folder">Zhgjidhni dosjen remote &#8230;</string>
-    <string name="choose_local_folder">Zgjidhni dosjen lokale &#8230;</string>
-    <string name="synced_folders_loading_folders">Po ngarkohen dosjet &#8230;</string>
     <string name="synced_folders_no_results">Nuk u gjet asnjë dosje.</string>
     <string name="synced_folders_preferences">Parapëlqimet për ngarkimin automatik</string>
     <string name="synced_folders_new_info">Ngarkimi i menjëhershëm është ngritur plotësisht. Rii-konfiguroni ngarkimet tuaja automatike  brenda menusë kryesore.\n\nShijoni aftësitë e reja dhe të zgjeruara të ngarkimit automatik.</string>
@@ -527,7 +507,6 @@
         <item quantity="other">%d të përzgjedhura</item>
     </plurals>
 
-    <string name="notifications_loading_activity">Duke ngarkuar njoftimet 1&#8230;</string>
     <string name="notifications_no_results_headline">Asnjë njofim</string>
     <string name="notifications_no_results_message">Ju lutemi kontrolloni përsëri më vonë.</string>
 
@@ -612,9 +591,6 @@
     <string name="resharing_is_not_allowed">Ri-shpërndarja nuk lejohet</string>
     <string name="whats_new_fingerprint_title">Zhbllokoje me gjurmët e gishtave</string>
     <string name="whats_new_fingerprint_content">Përdorni gjurmët e gishtave tuaj për të zhbllokuar aplikacionin</string>
-    <string name="foreground_service_upload">Ngarkimi i skedarëve 1&#8230;</string>
-    <string name="foreground_service_download">Shkarkimi i skedarëve&#8230;</string>
-
     <string name="prefs_sourcecode">Merr kodin burimor</string>
     <string name="prefs_license">Liçensë</string>
     </resources>

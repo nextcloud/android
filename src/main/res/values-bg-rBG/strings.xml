@@ -76,7 +76,6 @@
     <string name="file_list_empty_headline">Няма намерени файлове</string>
     <string name="file_list_empty">Качи съдържание или синхронизирай с твоите устройства.</string>
     <string name="file_list_empty_favorites_filter_list">Файловете и папките които отбелязваш като любими ще се показват тук</string>
-    <string name="file_list_loading">Зарежда&#8230;</string>
     <string name="local_file_list_empty">В папката няма файлове.</string>
     <string name="file_list_empty_headline_search">Няма намерени резултати в тази папла</string>
     <string name="file_list_empty_headline_server_search">Няма резултат</string>
@@ -173,7 +172,7 @@
 	<string name="auth_expired_oauth_token_toast">Оторизацията изтече. Моля, оторизирайте се отново.</string>
 	<string name="auth_expired_basic_auth_toast">Моля въведете текущата парола</string>
 	<string name="auth_expired_saml_sso_token_toast">Сесията изтече. Моля, свържете се отново</string>
-	<string name="auth_unsupported_multiaccount">%1$s не поддържа множество профили</string>
+    <string name="auth_unsupported_multiaccount">%1$s не поддържа множество профили</string>
 	<string name="auth_can_not_auth_against_server">Неуспешно идентифициране към сървъра</string>
     <string name="favorite">Задай като достъпна офлайн</string>
     <string name="unfavorite">Отмяна като достъпна офлайн</string>
@@ -253,10 +252,6 @@
     <string name="downloader_download_file_not_found">Файлът вече не се намира на сървъра</string>
 
     <string name="file_migration_dialog_title">Обновяване на пътя до хранилището</string>
-    <string name="file_migration_checking_destination">Проверка на дестинация&#8230;</string>
-    <string name="file_migration_migrating">Преместване на данни&#8230;</string>
-    <string name="file_migration_updating_index">Обновяване на индекс&#8230;</string>
-    <string name="file_migration_cleaning">Почистване&#8230;</string>
     <string name="file_migration_ok_finished">Завършен</string>
     <string name="prefs_add_account">Добавяне на профил</string>
     <string name="drawer_manage_accounts">Управление на профилите</string>
@@ -292,8 +287,6 @@
 
     <string name="username">Потребител</string>
 
-    <string name="prefs_instant_behaviour_dialogTitle">Оригиналните файлове ще бъдат &#8230;</string>
-    <string name="prefs_instant_behaviour_title">Оригиналните файлове ще бъдат &#8230;</string>
     <string name="select_all">Избере всички</string>
     <string name="pref_behaviour_entries_keep_file">запазвани в оригиналната папка</string>
     <string name="pref_behaviour_entries_move">премествани в папката на приложението</string>
@@ -338,8 +331,6 @@
     <string name="learn_more">Научете повече</string>
     <string name="drawer_participate">Участвайте</string>
     <string name="participate_testing_headline">Помогни с тестването</string>
-    <string name="move_to">Преместване в&#8230;</string>
-    <string name="copy_to">Копиране в&#8230;</string>
     <plurals name="items_selected_count">
         <item quantity="one">%d избран</item>
         <item quantity="other">%d избрани</item>

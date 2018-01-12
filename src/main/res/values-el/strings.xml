@@ -86,7 +86,6 @@
     <string name="file_list_empty">Μεταφόρτωση περιεχομένου ή συγχρονισμός με τις συσκευές σας.</string>
     <string name="file_list_empty_favorites_filter_list">Τα αρχεία ή οι φάκελοι που σημειώσατε ως αγαπημένα θα εμφανιστούν εδώ</string>
     <string name="file_list_empty_favorites_filter">Δεν βρέθηκαν αρχεία σημειωμένα ως αγαπημένα για το ερώτημά σας.</string>
-    <string name="file_list_loading">Φόρτωση&#8230;</string>
     <string name="file_list_no_app_for_file_type">Δεν βρέθηκε εφαρμογή για τον τύπο αρχείου.</string>
     <string name="local_file_list_empty">Δεν υπάρχουν αρχεία σε αυτό τον φάκελο.</string>
     <string name="local_folder_list_empty">Δεν υπάρχουν άλλοι φάκελοι.</string>
@@ -226,8 +225,7 @@
 	<string name="auth_expired_oauth_token_toast">Η πιστοποιίησή σας έληξε. Παρακαλούμε εξουσιοδοτήστε ξανά</string>
 	<string name="auth_expired_basic_auth_toast">Παρακαλούμε εισάγετε το τρέχον συνθηματικό</string>
 	<string name="auth_expired_saml_sso_token_toast">Η συνεδρία σας έληξε. Παρακαλούμε συνδεθείτε ξανά</string>
-	<string name="auth_connecting_auth_server">Σύνδεση με το διακομιστή πιστοποίησης&#8230;</string>
-	<string name="auth_unsupported_multiaccount">Ο %1$s  δεν υποστηρίζει πολλαπλούς λογαριασμούς</string>
+    <string name="auth_unsupported_multiaccount">Ο %1$s  δεν υποστηρίζει πολλαπλούς λογαριασμούς</string>
 	<string name="auth_fail_get_user_name">Ο διακομιστής σας δεν επιστρέφει το σωστό αναγνωριστικό χρήστη, παρακαλούμε επικοινωνήστε τον διαχειριστή</string>
 	<string name="auth_can_not_auth_against_server">Αδυαμία πιστοποίησης με αυτόν το διακομιστή</string>
     <string name="auth_account_does_not_exist">Ο λογαριασμός δεν υπάρχει ακόμα στη συσκευή</string>
@@ -246,15 +244,12 @@
     <string name="filename_forbidden_characters">Απαγορευμένοι χαρακτήρες: / \\ &lt; &gt; : \" | ? *</string>
     <string name="filename_forbidden_charaters_from_server">Το όνομα αρχείου περιέχει έναν τουλάχιστον μη έγκυρο χαρακτήρα</string>
     <string name="filename_empty">Το όνομα αρχείου δεν μπορεί να είναι κενό</string>
-    <string name="wait_a_moment">Παρακαλούμε περιμένετε&#8230;</string>
     <string name="wait_checking_credentials">Γίνεται έλεγχος αποθηκευμένων διαπιστευτηρίων</string>
     <string name="filedisplay_no_file_selected">Δεν επιλέχθηκε αρχείο</string>
     <string name="activity_chooser_title">Αποστολή συνδέσμου σε &#8230;</string>
     <string name="wait_for_tmp_copy_from_private_storage">Γίνεται αντιγραφή αρχείου από ιδιωτικό αποθηκευτικό χώρο</string>
     
-    <string name="oauth_check_onoff">Σύνδεση με OAuth 2.0</string> 
-    <string name="oauth_login_connection">Γίνεται σύνδεση στο διακομιστή OAuth 2.0&#8230;</string>
-        
+    <string name="oauth_check_onoff">Σύνδεση με OAuth 2.0</string>
     <string name="ssl_validator_reason_cert_not_trusted">- Το πιστοποιητικό του διακομιστή δεν είναι έμπιστο</string>
     <string name="ssl_validator_reason_cert_expired">- Το πιστοποιητικό του διακομιστή έχει λήξει</string>
     <string name="ssl_validator_reason_cert_not_yet_valid">- Οι έγκυρες ημερομηνίες του πιστοποιητικού του διακομιστή είναι στο μέλλον</string>
@@ -344,14 +339,6 @@
     <string name="downloader_download_file_not_found">Αυτό το αρχείο δεν είναι πια διαθέσιμο στον διακομιστή</string>
 
     <string name="file_migration_dialog_title">Ενημέρωση διαδρομής αποθηκευτικού χώρου</string>
-    <string name="file_migration_preparing">Προετοιμασία για μεταφορά&#8230;</string>
-    <string name="file_migration_checking_destination">Γίνεται έλεγχος προορισμού&#8230;</string>
-    <string name="file_migration_saving_accounts_configuration">Γίνεται αποθήκευση ρυθμίσεων λογαριασμών&#8230;</string>
-    <string name="file_migration_waiting_for_unfinished_sync">Αναμονή για τους μη ολοκληρωμένους συγχρονισμούς&#8230;</string>
-    <string name="file_migration_migrating">Γίνεται μετακίνηση δεδομένων&#8230;</string>
-    <string name="file_migration_updating_index">Γίνεται ενημέρωση ευρετηρίου&#8230;</string>
-    <string name="file_migration_cleaning">Γίνεται εκκαθάριση&#8230;</string>
-    <string name="file_migration_restoring_accounts_configuration">Γίνεται επαναφορά ρυθμίσεων λογαριασμών&#8230;</string>
     <string name="file_migration_ok_finished">Ολοκληρώθηκε</string>
     <string name="file_migration_failed_not_enough_space">Σφάλμα: Μη επαρκής χώρος</string>
     <string name="file_migration_failed_not_writable">Λάθος: Αρχείο προορισμού μη εγγράψιμο</string>
@@ -411,8 +398,6 @@
     <string name="set_picture_as">Χρησιμοποίησε την εικόνα ως</string>
     <string name="set_as">Ορισμός ως</string>
 
-    <string name="prefs_instant_behaviour_dialogTitle">Το πρωτότυπο αρχείο θα είναι&#8230;</string>
-    <string name="prefs_instant_behaviour_title">Το πρωτότυπο αρχείο θα είναι&#8230;</string>
     <string name="select_all">Επιλογή όλων</string>
     <string name="deselect_all">Αναίρεση επιλογής όλων</string>
 
@@ -489,11 +474,6 @@
     <string name="participate_contribute_translate_translate">Μετάφραση</string>
     <string name="participate_contribute_translate_text">η εφαρμογή</string>
     <string name="participate_contribute_github_text">Επιθεωρήστε, τροποποιήστε και γράψτε κώδικα, δείτε %1$s για λεπτομέρειες</string>
-    <string name="move_to">Μετακίνηση σε&#8230;</string>
-    <string name="copy_to">Αντιγραφή σε&#8230;</string>
-    <string name="choose_remote_folder">Επιλέξτε απομακρυσμένο φάκελο&#8230;</string>
-    <string name="choose_local_folder">Επιλέξτε τοπικό φάκελο&#8230;</string>
-    <string name="synced_folders_loading_folders">Φόρτωση φακέλων&#8230;</string>
     <string name="synced_folders_no_results">Δεν βρέθηκαν φάκελοι media .</string>
     <string name="synced_folders_preferences">Προτιμήσεις για αυτόματη μεταφόρτωση</string>
     <string name="synced_folders_new_info">Η άμεση μεταφόρτωση έχει ανανεωθεί πλήρως. Ξανά ρυθμίστε την αυτόματη μεταφόρτωσή σας από το κύριο μενού. \ N \ nΑπολαύστε τη νέα και εκτεταμένη αυτόματη μεταφόρτωση.</string>
@@ -503,7 +483,6 @@
         <item quantity="other">%d επιλέχθηκαν</item>
     </plurals>
 
-    <string name="notifications_loading_activity">Φόρτωση ενημερώσεων&#8230;</string>
     <string name="notifications_no_results_headline">Καμία ειδοποίηση</string>
     <string name="notifications_no_results_message">Παρακαλούμε ελέγξτε ξανά αργότερα. </string>
 
@@ -587,9 +566,6 @@
     <string name="resharing_is_not_allowed">Δεν επιτρέπεται ο διαμοιρασμός</string>
     <string name="whats_new_fingerprint_title">Ξεκλειδώστε με δακτυλικό αποτύπωμα</string>
     <string name="whats_new_fingerprint_content">Χρησιμοποιήστε το δακτυλικό αποτύπωμα για να ξεκλειδώσετε την εφαρμογή</string>
-    <string name="foreground_service_upload">Μεταφόρτωση αρχείων &#8230;</string>
-    <string name="foreground_service_download">Λήψη αρχείων &#8230;</string>
-
     <string name="prefs_sourcecode">Λήψη πηγαίου κώδικα</string>
     <string name="prefs_license">Άδεια χρήσης</string>
     <string name="push_notifications_not_implemented">Οι ειδοποιήσεις απενεργοποιήθηκαν λόγω εξαρτήσεων στις ιδιόκτητες υπηρεσίες Google Play.</string>

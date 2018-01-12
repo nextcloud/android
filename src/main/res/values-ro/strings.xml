@@ -70,7 +70,6 @@
     <string name="uploader_upload_files_behaviour_only_upload">Păstrați fișierul in dosarul sursă</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Ștergeți fișierul din dosarul sursă</string>
     <string name="file_list_seconds_ago">secunde în urmă</string>
-    <string name="file_list_loading">Se încarcă&#8230;</string>
     <string name="local_file_list_empty">În acest folder nu sunt fișiere.</string>
     <string name="file_list_empty_headline_search">Niciun element găsit în acest director</string>
     <string name="upload_list_empty_headline">Nu există încărcări disponibile</string>
@@ -162,7 +161,7 @@
 	<string name="auth_expired_oauth_token_toast">Autorizarea dvs. a expirat. Vă rugăm să autorizați din nou.</string>
 	<string name="auth_expired_basic_auth_toast">Va rugăm să introduceți parola actuală</string>
 	<string name="auth_expired_saml_sso_token_toast">Sesiunea a expirat .Va rugam conectati-va din nou </string>
-	<string name="auth_unsupported_multiaccount">%1$s nu suporta conturi multiple</string>
+    <string name="auth_unsupported_multiaccount">%1$s nu suporta conturi multiple</string>
 	<string name="auth_can_not_auth_against_server">Nu se poate autentifica la acest server</string>
     <string name="favorite">Selectează ca disponibil offline</string>
     <string name="unfavorite">Deselectează ca disponibil offline</string>
@@ -247,10 +246,6 @@
     <string name="downloader_download_file_not_found">Fișierul nu mai este disponibil pe server</string>
 
     <string name="file_migration_dialog_title">Se actualizează calea către mediul de stocare</string>
-    <string name="file_migration_checking_destination">Se verifică destinația&#8230;</string>
-    <string name="file_migration_migrating">Se mută datele&#8230;</string>
-    <string name="file_migration_updating_index">Indexul se actualizează&#8230;</string>
-    <string name="file_migration_cleaning">Curățare&#8230;</string>
     <string name="file_migration_ok_finished">Finalizat</string>
     <string name="prefs_add_account">Adaugă cont</string>
     <string name="drawer_manage_accounts">Administrare conturi</string>
@@ -286,8 +281,6 @@
 
     <string name="username">Utilizator</string>
 
-    <string name="prefs_instant_behaviour_dialogTitle">Fișierul original va fi&#8230;</string>
-    <string name="prefs_instant_behaviour_title">Fișierul original va fi&#8230;</string>
     <string name="select_all">Selectează tot</string>
     <string name="pref_behaviour_entries_keep_file">păstrate in dosarul original</string>
     <string name="pref_behaviour_entries_move">mutate în dosarul aplicației</string>
@@ -336,8 +329,6 @@
     <string name="participate_contribute_forum_forum">forum</string>
     <string name="participate_contribute_translate_translate">Tradu</string>
     <string name="participate_contribute_translate_text">aplicația</string>
-    <string name="move_to">Mută în&#8230;</string>
-    <string name="copy_to">Copiază în&#8230;</string>
     <plurals name="items_selected_count">
         <item quantity="one">%d selectat</item>
         <item quantity="few">%d selectate</item>

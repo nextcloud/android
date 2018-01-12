@@ -90,7 +90,6 @@
     <string name="file_list_empty">Last opp innhold eller synkroniser med enhetene dine.</string>
     <string name="file_list_empty_favorites_filter_list">Filer og mapper du markerer som favoritter vil vises her</string>
     <string name="file_list_empty_favorites_filter">Din spørring returnerte ingen filer markert som favoritter.</string>
-    <string name="file_list_loading">Laster&#8230;</string>
     <string name="file_list_no_app_for_file_type">Inget program funnet for filtypen.</string>
     <string name="local_file_list_empty">Det er ingen filer i denne mappen.</string>
     <string name="local_folder_list_empty">Det er ingen flere mapper.</string>
@@ -255,8 +254,7 @@
 	<string name="auth_expired_oauth_token_toast">Autorisasjonen din har gått ut. Autoriser igjen</string>
 	<string name="auth_expired_basic_auth_toast">Legg inn nåværende passord</string>
 	<string name="auth_expired_saml_sso_token_toast">Økta di har gått ut. Koble til igjen</string>
-	<string name="auth_connecting_auth_server">Kobler til autentiseringstjener&#8230;</string>
-	<string name="auth_unsupported_multiaccount">%1$s støtter ikke flere kontoer</string>
+    <string name="auth_unsupported_multiaccount">%1$s støtter ikke flere kontoer</string>
 	<string name="auth_fail_get_user_name">Tjeneren din svarer ikke med korrekt bruker-ID, ta kontakt med en administrator </string>
 	<string name="auth_can_not_auth_against_server">Kan ikke autentisere mot denne tjeneren</string>
     <string name="auth_account_does_not_exist">Kontoen eksisterer ikke på enheten enda</string>
@@ -282,15 +280,12 @@
     <string name="filename_forbidden_characters">Forbudte tegn: / \\ &lt; &gt; : \" | ? *</string>
     <string name="filename_forbidden_charaters_from_server">Filnavnet inneholder minst ett ulovlig tegn</string>
     <string name="filename_empty">Filnavn kan ikke være tomt</string>
-    <string name="wait_a_moment">Vent et øyeblikk&#8230;</string>
     <string name="wait_checking_credentials">Sjekker lagrede påloggingsdetaljer</string>
     <string name="filedisplay_no_file_selected">Ingen fil ble valgt</string>
     <string name="activity_chooser_title">Send lenke til &#8230;</string>
     <string name="wait_for_tmp_copy_from_private_storage">Kopierer fil fra privat lager</string>
     
-    <string name="oauth_check_onoff">Logg inn med OAuth 2.0</string> 
-    <string name="oauth_login_connection">Kobler til OAuth 2.0-tjener&#8230;</string>
-        
+    <string name="oauth_check_onoff">Logg inn med OAuth 2.0</string>
     <string name="ssl_validator_header">Tjenerens identitet kunne ikke bekreftes</string>
     <string name="ssl_validator_reason_cert_not_trusted">- Tjenerens sertifikat er ikke til å stole på</string>
     <string name="ssl_validator_reason_cert_expired">- Tjenerens sertifikat er utløpt</string>
@@ -382,14 +377,6 @@
     <string name="downloader_download_file_not_found">Filen finnes ikke på tjeneren lenger</string>
 
     <string name="file_migration_dialog_title">Oppdaterer sti for lagring</string>
-    <string name="file_migration_preparing">Forebereder migrering&#8230;</string>
-    <string name="file_migration_checking_destination">Sjekker mål&#8230;</string>
-    <string name="file_migration_saving_accounts_configuration">Lagrer kontokonfigurasjon&#8230;</string>
-    <string name="file_migration_waiting_for_unfinished_sync">Venter på uferdig synkronisering&#8230;</string>
-    <string name="file_migration_migrating">Flytter data&#8230;</string>
-    <string name="file_migration_updating_index">Oppdaterer index&#8230;</string>
-    <string name="file_migration_cleaning">Rydder&#8230;</string>
-    <string name="file_migration_restoring_accounts_configuration">Gjenoppretter kontokonfigurasjon&#8230;</string>
     <string name="file_migration_ok_finished">Fullført</string>
     <string name="file_migration_failed_not_enough_space">Feil: Mangler plass</string>
     <string name="file_migration_failed_not_writable">Feil: Målfil ikke skrivbar</string>
@@ -459,8 +446,6 @@
     <string name="set_picture_as">Bruk bilde som</string>
     <string name="set_as">Bruk som</string>
 
-    <string name="prefs_instant_behaviour_dialogTitle">Opprinnelig fil vil bli&#8230;</string>
-    <string name="prefs_instant_behaviour_title">Opprinnelig fil vil bli&#8230;</string>
     <string name="select_all">Velg alle</string>
     <string name="deselect_all">Fjern all markering</string>
 
@@ -545,11 +530,6 @@
     <string name="participate_rc_fdroid">Hent lanseringskandidaten via F-Droid -programmet</string>
     <string name="participate_dev_fdroid">Hent utviklingsversjonen via F-Droid -programmet</string>
     <string name="participate_dev_direct_download">Last ned utviklingsversjonen direkte</string>
-    <string name="move_to">Flytt til&#8230;</string>
-    <string name="copy_to">Kopier til&#8230;</string>
-    <string name="choose_remote_folder">Velg fjernmappe&#8230;</string>
-    <string name="choose_local_folder">Velg lokal mappe&#8230;</string>
-    <string name="synced_folders_loading_folders">Laster mapper&#8230;</string>
     <string name="synced_folders_no_results">Ingen mediamapper funnet.</string>
     <string name="synced_folders_preferences">Alternativer for auto-opplasting</string>
     <string name="synced_folders_new_info">Umiddelbar opplasting er fullstendig omarbeidet. Du må sette opp auto-opplasting på nytt fra hovedmenyen.\n\nKos deg med den nye og utvidede auto-opplastingen.</string>
@@ -559,7 +539,6 @@
         <item quantity="other">%d valgte</item>
     </plurals>
 
-    <string name="notifications_loading_activity">Laster inn varsler&#8230;</string>
     <string name="notifications_no_results_headline">Ingen varsler</string>
     <string name="notifications_no_results_message">Kom innom senere og ta en titt.</string>
 
@@ -650,9 +629,6 @@
     <string name="whats_new_fingerprint_content">Bruk fingeravtrykk for å låse opp appen</string>
     <string name="fallback_weblogin_back">Tilbake</string>
     <string name="fallback_weblogin_text">Gå tilbake til gammel innloggingsmetode</string>
-
-    <string name="foreground_service_upload">Laster opp filer&#8230;</string>
-    <string name="foreground_service_download">Laster ned filer&#8230;</string>
 
     <string name="prefs_sourcecode">Hent kildekode</string>
     <string name="prefs_license">Lisens</string>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="about_android">%1$s Android 应用</string>
+    <string name="about_android">%1$s Android应用</string>
     <string name="about_version">版本 %1$s</string>
     <string name="actionbar_sync">刷新帐户</string>
     <string name="actionbar_upload">上传</string>
@@ -76,7 +76,7 @@
     <string name="uploader_wrn_no_account_quit_btn_text">退出</string>
     <string name="uploader_error_title_no_file_to_upload">没有要上传的文件</string>
     <string name="uploader_error_message_no_file_to_upload">接收到的数据不包含有效的文件。</string>
-    <string name="uploader_error_title_file_cannot_be_uploaded">此文件无法被上传</string>
+    <string name="uploader_error_title_file_cannot_be_uploaded">此文件无法上传</string>
     <string name="uploader_error_message_read_permission_not_granted">%1$s 不允许读取一个接收到的文件</string>
     <string name="uploader_error_message_source_file_not_found">没找到要上传的文件。请检查文件是否存在。</string>
     <string name="uploader_error_message_source_file_not_copied">无法拷贝文件到临时文件夹。请尝试重新发送。</string>
@@ -90,7 +90,6 @@
     <string name="file_list_empty">上传一些内容或与您的设备同步。</string>
     <string name="file_list_empty_favorites_filter_list">你收藏的文件和文件夹将显示在这里</string>
     <string name="file_list_empty_favorites_filter">搜索结果中没有你收藏的文件。</string>
-    <string name="file_list_loading">加载中&#8230;</string>
     <string name="file_list_no_app_for_file_type">此文件类型未设置默认打开程序</string>
     <string name="local_file_list_empty">此文件夹中没有文件。</string>
     <string name="local_folder_list_empty">没有其他文件夹。</string>
@@ -252,8 +251,7 @@
 	<string name="auth_expired_oauth_token_toast">你的授权已经过期。请重新授权</string>
 	<string name="auth_expired_basic_auth_toast">请输入当前的密码</string>
 	<string name="auth_expired_saml_sso_token_toast">您的会话超时了，请重新连接</string>
-	<string name="auth_connecting_auth_server">连接到身份验证服务器 &#8230;</string>
-	<string name="auth_unsupported_multiaccount">%1$s不支持多个账户</string>
+    <string name="auth_unsupported_multiaccount">%1$s不支持多个账户</string>
 	<string name="auth_fail_get_user_name">您的服务器没有返回正确的用户ID，请与管理员联系</string>
 	<string name="auth_can_not_auth_against_server">无法连接认证服务器</string>
     <string name="auth_account_does_not_exist">设备上不存在帐户</string>
@@ -279,15 +277,12 @@
     <string name="filename_forbidden_characters">禁用字符: / \\ &lt; &gt; : \" | ? *</string>
     <string name="filename_forbidden_charaters_from_server">文件名中存在至少一个非法字符</string>
     <string name="filename_empty">文件名不能为空</string>
-    <string name="wait_a_moment">稍等&#8230;</string>
     <string name="wait_checking_credentials">检查保存的证书</string>
     <string name="filedisplay_no_file_selected">没有选择文件</string>
     <string name="activity_chooser_title">发送链接给 &#8230;</string>
     <string name="wait_for_tmp_copy_from_private_storage">从私有存储中拷贝文件</string>
     
-    <string name="oauth_check_onoff">使用OAuth 2.0登录</string> 
-    <string name="oauth_login_connection">连接到OAuth 2.0服务器&#8230;</string>
-        
+    <string name="oauth_check_onoff">使用OAuth 2.0登录</string>
     <string name="ssl_validator_header">服务器身份无法验证</string>
     <string name="ssl_validator_reason_cert_not_trusted">- 不受信任的服务器证书</string>
     <string name="ssl_validator_reason_cert_expired">- 服务器证书过期</string>
@@ -379,14 +374,6 @@
     <string name="downloader_download_file_not_found">该文件在服务器上不可用</string>
 
     <string name="file_migration_dialog_title">更新存储路径</string>
-    <string name="file_migration_preparing">准备迁移&#8230;</string>
-    <string name="file_migration_checking_destination">检查目的地&#8230;</string>
-    <string name="file_migration_saving_accounts_configuration">保存帐户配置&#8230;</string>
-    <string name="file_migration_waiting_for_unfinished_sync">等待所有同步完成&#8230;</string>
-    <string name="file_migration_migrating">正在转移数据&#8230;</string>
-    <string name="file_migration_updating_index">更新目录&#8230;</string>
-    <string name="file_migration_cleaning">清除&#8230;</string>
-    <string name="file_migration_restoring_accounts_configuration">恢复帐户配置&#8230;</string>
     <string name="file_migration_ok_finished">完成</string>
     <string name="file_migration_failed_not_enough_space">错误：空间不足</string>
     <string name="file_migration_failed_not_writable">错误：目标文件不可写入</string>
@@ -454,8 +441,6 @@
     <string name="set_picture_as">将图片用作</string>
     <string name="set_as">设置</string>
 
-    <string name="prefs_instant_behaviour_dialogTitle">原始文件将会&#8230;</string>
-    <string name="prefs_instant_behaviour_title">原始文件将会&#8230;</string>
     <string name="select_all">选择全部</string>
     <string name="deselect_all">全部取消选择</string>
 
@@ -540,11 +525,6 @@
     <string name="participate_rc_fdroid">从F-Droid应用商店获取候选版本</string>
     <string name="participate_dev_fdroid">从F-Droid应用商店获取开发版本</string>
     <string name="participate_dev_direct_download">直接下载开发版本</string>
-    <string name="move_to">转移到&#8230;</string>
-    <string name="copy_to">复制到&#8230;</string>
-    <string name="choose_remote_folder">选择远端文件夹&#8230;</string>
-    <string name="choose_local_folder">选择本地文件夹&#8230;</string>
-    <string name="synced_folders_loading_folders">正在载入文件夹&#8230;</string>
     <string name="synced_folders_no_results">没有发现媒体文件夹</string>
     <string name="synced_folders_preferences">自动上传的首选项</string>
     <string name="synced_folders_new_info">即时上传已经完全改版。 从主菜单中重新配置自动上传。\ n \ n享受新的扩展自动上传。</string>
@@ -553,7 +533,6 @@
         <item quantity="other">%d被选择</item>
     </plurals>
 
-    <string name="notifications_loading_activity">加载提示&#8230;</string>
     <string name="notifications_no_results_headline">没有提示</string>
     <string name="notifications_no_results_message">请稍后核对</string>
 
@@ -645,9 +624,6 @@
     <string name="fallback_weblogin_back">返回</string>
     <string name="fallback_weblogin_text">采用旧的登录方式</string>
 
-    <string name="foreground_service_upload">上传文件&#8230;</string>
-    <string name="foreground_service_download">下载文件&#8230;</string>
-
     <string name="prefs_sourcecode">获取源代码</string>
     <string name="prefs_license">许可证</string>
     <string name="prefs_gpl_v2">GNU 通用公共许可证，版本2</string>
@@ -692,6 +668,8 @@
     <string name="dev_version_no_information_available">没有可用的信息</string>
     <string name="dev_version_no_new_version_available">没有可用的新版本</string>
     <string name="folder_icon">目录图标</string>
+    <string name="version_dev_download">下载</string>
+
     <string name="send">发送</string>
     <string name="share">共享</string>
     <string name="link">链接</string>
@@ -710,4 +688,5 @@
     <string name="screenshot_04_accounts">连接到不同的账户</string>
     <string name="screenshot_05_autoUpload">自动上传照片&amp;/视频 </string>
     <string name="screenshot_06_davdroid">通过DAVdroid 同步日历 &amp; 联系人</string>
-</resources>
+    
+    </resources>

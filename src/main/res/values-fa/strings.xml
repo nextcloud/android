@@ -86,7 +86,6 @@
     <string name="file_list_empty">بعضی از محتویات را آپلود کنید یا با دستگاه های خود همگام سازی کنید.</string>
     <string name="file_list_empty_favorites_filter_list">فایل ها و پوشه هایی که به عنوان مورد علاقه شما علامت گذاری می شوند، نشان داده می شوند.</string>
     <string name="file_list_empty_favorites_filter">جستجوی شما هیچ فایل برگزیده ای نیافت</string>
-    <string name="file_list_loading">بارگیری&#8230;</string>
     <string name="file_list_no_app_for_file_type">هیچ برنامه ای برای استفاده این نوع فایل تنظیم نشده است.</string>
     <string name="local_file_list_empty">هیچ فایلی در این پوشه نیست.</string>
     <string name="local_folder_list_empty">هیچ پوشه ای وجود ندارد</string>
@@ -220,8 +219,7 @@
 	<string name="auth_expired_oauth_token_toast">احراز هویت شما منقضی شده است. لطفا، مجددا احراز هویت فرمایید.</string>
 	<string name="auth_expired_basic_auth_toast">لطفا گذرواژه فعلی را وارد کنید</string>
 	<string name="auth_expired_saml_sso_token_toast">نشست شما منقضی شد, دوباره اتصال شوید.</string>
-	<string name="auth_connecting_auth_server">اتصال به سرور احراز هویت &#8230;</string>
-	<string name="auth_unsupported_multiaccount">%1$s چند اکانته بودن را پشتیبانی نمی‌کند</string>
+    <string name="auth_unsupported_multiaccount">%1$s چند اکانته بودن را پشتیبانی نمی‌کند</string>
 	<string name="auth_fail_get_user_name">سرور شما یک شناسه کاربری معتبر را نشان نمی دهد، لطفا با یک ادمین تماس بگیرید</string>
 	<string name="auth_can_not_auth_against_server">نمی توان به این سرور تأیید کرد</string>
     <string name="auth_account_does_not_exist">حساب کاربری هنوز روی دستگاه وجود ندارد</string>
@@ -242,7 +240,7 @@
     <string name="activity_chooser_title"> ارسال لینک به &#8230;</string>
     <string name="wait_for_tmp_copy_from_private_storage">کپی کردن فایل از حافظه خصوصی</string>
     
-    <string name="oauth_check_onoff">ورود به برنامه با OAuth 2.0</string> 
+    <string name="oauth_check_onoff">ورود به برنامه با OAuth 2.0</string>
     <string name="ssl_validator_reason_cert_not_trusted">- گواهی سرور نامعتبر است</string>
     <string name="ssl_validator_reason_cert_expired">- گواهی سرور انقضا یافته</string>
     <string name="ssl_validator_reason_cert_not_yet_valid">- زمان اعتبار گواهی نامه سرویس دهنده فرانرسیده است</string>

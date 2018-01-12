@@ -91,7 +91,6 @@ Kies er eentje van een provider.</string>
     <string name="file_list_empty">Upload je inhoud of synchroniseer met je apparaten.</string>
     <string name="file_list_empty_favorites_filter_list">Bestanden en mappen gemarkeerd als favoriet worden hier getoond</string>
     <string name="file_list_empty_favorites_filter">Geen favoriete bestanden gevonden voor je zoekopdracht!</string>
-    <string name="file_list_loading">Laden&#8230;</string>
     <string name="file_list_no_app_for_file_type">Er is geen app ingesteld om dit bestandsformaat te behandelen.</string>
     <string name="local_file_list_empty">Er staan geen bestanden in deze map.</string>
     <string name="local_folder_list_empty">Er zijn niet meer mappen.</string>
@@ -256,8 +255,7 @@ Kies er eentje van een provider.</string>
 	<string name="auth_expired_oauth_token_toast">Je autorisatie is verstreken. Autoriseer opnieuw</string>
 	<string name="auth_expired_basic_auth_toast">Voer het huidige wachtwoord in</string>
 	<string name="auth_expired_saml_sso_token_toast">Je sessie is verstreken. Verbind opnieuw</string>
-	<string name="auth_connecting_auth_server">Verbinden met authenticatie server&#8230;</string>
-	<string name="auth_unsupported_multiaccount">%1$s ondersteunt het gebruik van meerdere accounts niet</string>
+    <string name="auth_unsupported_multiaccount">%1$s ondersteunt het gebruik van meerdere accounts niet</string>
 	<string name="auth_fail_get_user_name">Je server geeft geen goede userID terug, neem contact op met je beheerder</string>
 	<string name="auth_can_not_auth_against_server">Kan niet authenticeren tegen deze server</string>
     <string name="auth_account_does_not_exist">Account bestaat nog niet op dit apparaat</string>
@@ -283,15 +281,12 @@ Kies er eentje van een provider.</string>
     <string name="filename_forbidden_characters">Verboden tekens: / \\ &lt; &gt; : " | ? *</string>
     <string name="filename_forbidden_charaters_from_server">De bestandsnaam bevat ten minste één ongeldig teken</string>
     <string name="filename_empty">Bestandsnaam mag niet leeg zijn</string>
-    <string name="wait_a_moment">Even geduld&#8230;</string>
     <string name="wait_checking_credentials">Opgeslagen inloggegevens nakijken</string>
     <string name="filedisplay_no_file_selected">Geen bestand geselecteerd</string>
     <string name="activity_chooser_title">Verstuur link naar &#8230;</string>
     <string name="wait_for_tmp_copy_from_private_storage">Bestand vanaf privéopslag kopiëren</string>
     
-    <string name="oauth_check_onoff">Inloggen met OAuth 2.0</string> 
-    <string name="oauth_login_connection">Verbinden met OAuth 2.0 server&#8230;</string>
-        
+    <string name="oauth_check_onoff">Inloggen met OAuth 2.0</string>
     <string name="ssl_validator_header">De identiteit van de server kon niet geverifieerd worden</string>
     <string name="ssl_validator_reason_cert_not_trusted">- Het servercertificaat wordt niet vertrouwd</string>
     <string name="ssl_validator_reason_cert_expired">- Het servercertificaat is verlopen</string>
@@ -383,14 +378,6 @@ Kies er eentje van een provider.</string>
     <string name="downloader_download_file_not_found">Dit bestand is niet langer beschikbaar op de server</string>
 
     <string name="file_migration_dialog_title">Opslagpad bijwerken</string>
-    <string name="file_migration_preparing">Voorbereiden van migratie&#8230;</string>
-    <string name="file_migration_checking_destination">Doelmap controleren&#160;&#8230;</string>
-    <string name="file_migration_saving_accounts_configuration">Accountconfiguratie opslaan&#8230;</string>
-    <string name="file_migration_waiting_for_unfinished_sync">Wachten op onvoltooide synchronisaties&#8230;</string>
-    <string name="file_migration_migrating">Gegevens verplaatsen&#160;&#8230;</string>
-    <string name="file_migration_updating_index">Index bijwerken&#160;&#8230;</string>
-    <string name="file_migration_cleaning">Opruimen&#160;&#8230;</string>
-    <string name="file_migration_restoring_accounts_configuration">Accountconfiguratie herstellen&#8230;</string>
     <string name="file_migration_ok_finished">Afgerond</string>
     <string name="file_migration_failed_not_enough_space">Fout: Onvoldoende ruimte</string>
     <string name="file_migration_failed_not_writable">Fout: Niet schrijfbaar bronbestand</string>
@@ -460,8 +447,6 @@ Kies er eentje van een provider.</string>
     <string name="set_picture_as">Gebruik afbeelding als</string>
     <string name="set_as">Stel in als</string>
 
-    <string name="prefs_instant_behaviour_dialogTitle">Origineel bestand zal&#160;&#8230;</string>
-    <string name="prefs_instant_behaviour_title">Origineel bestand zal&#160;&#8230;</string>
     <string name="select_all">Alles selecteren</string>
     <string name="deselect_all">Deselecteer alles</string>
 
@@ -546,11 +531,6 @@ Kies er eentje van een provider.</string>
     <string name="participate_rc_fdroid">Download de release candidate in F-Droid</string>
     <string name="participate_dev_fdroid">Download de development release in F-Droid</string>
     <string name="participate_dev_direct_download">Haal de development release binnen via directe download</string>
-    <string name="move_to">Verplaats naar&#160;&#8230;</string>
-    <string name="copy_to">Kopieer naar&#160;&#8230;</string>
-    <string name="choose_remote_folder">Kies externe map&#8230;</string>
-    <string name="choose_local_folder">Kies lokale map&#8230;</string>
-    <string name="synced_folders_loading_folders">Mappen laden&#8230;</string>
     <string name="synced_folders_no_results">Geen mediamappen gevonden.</string>
     <string name="synced_folders_preferences">Voorkeuren voor automatisch uploaden</string>
     <string name="synced_folders_new_info">Automatisch uploaden is helemaal herzien. Herconfigureer je auto-uploadfunctie in het hoofdmenu.\n\nVeel plezier met de nieuwe en meer uitgebreide auto-upload.</string>
@@ -560,7 +540,6 @@ Kies er eentje van een provider.</string>
         <item quantity="other">%d geselecteerd</item>
     </plurals>
 
-    <string name="notifications_loading_activity">Laden meldingen&#8230;</string>
     <string name="notifications_no_results_headline">Geen meldingen</string>
     <string name="notifications_no_results_message">Controleer later opnieuw.</string>
 
@@ -652,9 +631,6 @@ Kies er eentje van een provider.</string>
     <string name="fallback_weblogin_back">Terug</string>
     <string name="fallback_weblogin_text">Terug naar vorige login-methode</string>
 
-    <string name="foreground_service_upload">Bezig met uploaden bestanden&#8230;</string>
-    <string name="foreground_service_download">Bezig met downloaden bestanden&#8230;</string>
-
     <string name="prefs_sourcecode">Krijg broncode</string>
     <string name="prefs_license">Licentie</string>
     <string name="prefs_gpl_v2">GNU General Public Licence, versie 2</string>
@@ -721,4 +697,5 @@ Kies er eentje van een provider.</string>
     <string name="screenshot_04_accounts">Verbinden met verschillend accounts</string>
     <string name="screenshot_05_autoUpload">Automatisch je foto\'s &amp;video\'s uploaden</string>
     <string name="screenshot_06_davdroid">Sync agenda&amp; contactpersonen met DAVdroid</string>
-</resources>
+    
+    </resources>

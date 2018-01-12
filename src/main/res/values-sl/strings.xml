@@ -85,7 +85,6 @@
     <string name="file_list_empty">Naloži vsebino ali sinhroniziraj s svojo napravo.</string>
     <string name="file_list_empty_favorites_filter_list">Datoteke ali mape, ki so označene kot priljubljene, bodo zbrane na tem mestu.</string>
     <string name="file_list_empty_favorites_filter">Iskanje ni vrnilo nobenih priljubljenih datotek.</string>
-    <string name="file_list_loading">Poteka nalaganje&#8230;</string>
     <string name="file_list_no_app_for_file_type">Nobena datoteka ni nastavljena za odpiranje te vrste datotek.</string>
     <string name="local_file_list_empty">V tej mapi ni datotek.</string>
     <string name="local_folder_list_empty">Ni drugih map.</string>
@@ -224,8 +223,7 @@
 	<string name="auth_expired_oauth_token_toast">Overitev računa je potekla. Pred nadaljevanjem je treba prijavo ponovno overiti.</string>
 	<string name="auth_expired_basic_auth_toast">Vpišite trenutno geslo</string>
 	<string name="auth_expired_saml_sso_token_toast">Seja je potekla. Ponovno je treba vzpostaviti povezavo.</string>
-	<string name="auth_connecting_auth_server">Povezovanje s overitvenim strežnikom&#8230;</string>
-	<string name="auth_unsupported_multiaccount">%1$s ne omogoča podpore več računom</string>
+    <string name="auth_unsupported_multiaccount">%1$s ne omogoča podpore več računom</string>
 	<string name="auth_fail_get_user_name">Strežnik ne vrača ustreznega ID uporabnika. Stopi v stik s skrbnikom sistema.
 	</string>
 	<string name="auth_can_not_auth_against_server">Povezave s strežnikom ni mogoče overiti</string>
@@ -244,15 +242,12 @@
     <string name="filename_forbidden_characters">Nedovoljeni znaki: characters: / \\ &lt; &gt; : \" | ? *</string>
     <string name="filename_forbidden_charaters_from_server">Ime datoteke vsebuje vsaj en neveljaven znak.</string>
     <string name="filename_empty">Ime datoteke ne sme biti prazno</string>
-    <string name="wait_a_moment">Počakaj trenutek&#8230;</string>
     <string name="wait_checking_credentials">Poteka preverjanje shranjenih poveril</string>
     <string name="filedisplay_no_file_selected">Ni izbranih datotek</string>
     <string name="activity_chooser_title">Pošlji povezavo &#8230;</string>
     <string name="wait_for_tmp_copy_from_private_storage">Kopiranje datoteke iz zasebne shrambe</string>
     
-    <string name="oauth_check_onoff">Prijava  z oAuth2</string> 
-    <string name="oauth_login_connection">Poteka povezovanje s strežnikom OAuth 2.0&#8230;</string>
-        
+    <string name="oauth_check_onoff">Prijava  z oAuth2</string>
     <string name="ssl_validator_reason_cert_not_trusted">- potrdilo strežnika ni vredno zaupanja</string>
     <string name="ssl_validator_reason_cert_expired">- potrdilo strežnika je poteklo</string>
     <string name="ssl_validator_reason_cert_not_yet_valid">- potrdilo strežnika je v uporabi</string>
@@ -340,14 +335,6 @@
     <string name="downloader_download_file_not_found">Datoteka na strežniku ni več na voljo.</string>
 
     <string name="file_migration_dialog_title">Posodabljam mesto shrambe</string>
-    <string name="file_migration_preparing">Priprava na migracijo&#8230;</string>
-    <string name="file_migration_checking_destination">Preverjam cilj&#8230;</string>
-    <string name="file_migration_saving_accounts_configuration">Shranjujem nastavitve računov&#8230;</string>
-    <string name="file_migration_waiting_for_unfinished_sync">Čakam, da se vse sinhronizacije zaključijo&#8230;</string>
-    <string name="file_migration_migrating">Premikam podatke&#8230;</string>
-    <string name="file_migration_updating_index">Posodabljam indekse&#8230;</string>
-    <string name="file_migration_cleaning">Čistim&#8230;</string>
-    <string name="file_migration_restoring_accounts_configuration">Obnavljam nastavitve računov&#8230;</string>
     <string name="file_migration_ok_finished">Zaključeno</string>
     <string name="file_migration_failed_not_enough_space">Napaka: premalo prostora</string>
     <string name="file_migration_failed_not_writable">Napaka: Cilj ne dovoljuje zapisovanja</string>
@@ -407,8 +394,6 @@
     <string name="set_picture_as">Uporabi sliko kot</string>
     <string name="set_as">Nastavi kot</string>
 
-    <string name="prefs_instant_behaviour_dialogTitle">Izvorno datoteko&#8230;</string>
-    <string name="prefs_instant_behaviour_title">Izvorno datoteko&#8230;</string>
     <string name="select_all">Izberi vse</string>
     <string name="pref_behaviour_entries_keep_file">ohrani v izvorni mapi</string>
     <string name="pref_behaviour_entries_move">premakni v mapo programa</string>
@@ -477,11 +462,6 @@
     <string name="participate_contribute_forum_forum">forumu</string>
     <string name="participate_contribute_translate_translate">Prevedi</string>
     <string name="participate_contribute_translate_text">aplikacijo</string>
-    <string name="move_to">Premakni v&#8230;</string>
-    <string name="copy_to">Kopiraj v&#8230;</string>
-    <string name="choose_remote_folder">Izberi mapo n astrežniku&#8230;</string>
-    <string name="choose_local_folder">Izberi lokalno mapo&#8230;</string>
-    <string name="synced_folders_loading_folders">Berem mape&#8230;</string>
     <string name="synced_folders_no_results">Ne najdem map z mediji.</string>
     <string name="synced_folders_preferences">Nastavitve za samodejno nalaganje</string>
     <string name="synced_folders_new_info">Hipno nalaganje je bilo v celoti prenovljeno. Ponovno nastavi samodejno nalaganje iz glavnega menuja..\n\nUživaj v ovem in razširjenem samodejnem nalaganju.</string>
@@ -493,7 +473,6 @@
         <item quantity="other">%d izbranih</item>
     </plurals>
 
-    <string name="notifications_loading_activity">Nalagam obvestila&#8230;</string>
     <string name="notifications_no_results_headline">Ni obvestil</string>
     <string name="notifications_no_results_message">Prosim, preveri kasneje</string>
 

@@ -90,7 +90,6 @@
     <string name="file_list_empty">Nahrajte nějaký obsah, nebo synchronizujte s vašimi zařízeními!</string>
     <string name="file_list_empty_favorites_filter_list">Zde budou zobrazeny soubory a adresáře označené jako oblíbené</string>
     <string name="file_list_empty_favorites_filter">Vaše vyhledávání nenalezlo žádné oblíbené soubory</string>
-    <string name="file_list_loading">Načítání&#8230;</string>
     <string name="file_list_no_app_for_file_type">Pro tento typ souboru nebyla nalezena aplikace!</string>
     <string name="local_file_list_empty">V tomto adresáři nejsou žádné soubory.</string>
     <string name="local_folder_list_empty">Nejsou zde další složky.</string>
@@ -250,8 +249,7 @@
 	<string name="auth_expired_oauth_token_toast">Vaše přihlášení vypršelo. Přihlaste se prosím znovu</string>
 	<string name="auth_expired_basic_auth_toast">Zadejte prosím aktuální heslo</string>
 	<string name="auth_expired_saml_sso_token_toast">Vaše přihlášení vypršelo. Přihlaste se prosím znovu</string>
-	<string name="auth_connecting_auth_server">Připojování k ověřovacímu serveru&#8230;</string>
-	<string name="auth_unsupported_multiaccount">%1$s nepodporuje více účtů</string>
+    <string name="auth_unsupported_multiaccount">%1$s nepodporuje více účtů</string>
 	<string name="auth_fail_get_user_name">Váš server nevrací správné přihlašovací ID, kontaktujte prosím svého správce systému</string>
 	<string name="auth_can_not_auth_against_server">Na tomto serveru nelze ověřit</string>
     <string name="auth_account_does_not_exist">V zařízení není zatím nastaven účet</string>
@@ -277,15 +275,12 @@
     <string name="filename_forbidden_characters">Zakázané znaky: / \\ &lt; &gt; : \" | ? *</string>
     <string name="filename_forbidden_charaters_from_server">Jméno souboru obsahuje aelspoň jeden neplatný znak</string>
     <string name="filename_empty">Název nemůže být prázdný</string>
-    <string name="wait_a_moment">Počkejte chvíli&#8230;</string>
     <string name="wait_checking_credentials">Ověřování uložených přihlašovacích údajů</string>
     <string name="filedisplay_no_file_selected">Žádný soubor nebyl vybrán</string>
     <string name="activity_chooser_title">Odeslat odkaz &#8230;</string>
     <string name="wait_for_tmp_copy_from_private_storage">Kopírování souboru z privátního úložiště</string>
     
-    <string name="oauth_check_onoff">Přihlásit se s OAuth 2.0</string> 
-    <string name="oauth_login_connection">Připojuji se k OAuth 2.0 serveru&#8230;</string>
-        
+    <string name="oauth_check_onoff">Přihlásit se s OAuth 2.0</string>
     <string name="ssl_validator_header">Identitu serveru se nepodařilo ověřit</string>
     <string name="ssl_validator_reason_cert_not_trusted">- Certifikát serveru je nedůvěryhodný</string>
     <string name="ssl_validator_reason_cert_expired">- Certifikátu serveru vypršela platnost</string>
@@ -377,14 +372,6 @@
     <string name="downloader_download_file_not_found">Tento soubor již není dostupný na serveru</string>
 
     <string name="file_migration_dialog_title">Aktualizace cesty k úložišti</string>
-    <string name="file_migration_preparing">Příprava na migraci&#8230;</string>
-    <string name="file_migration_checking_destination">Prověřování cílového umístění&#8230;</string>
-    <string name="file_migration_saving_accounts_configuration">Ukládání konfigurace účtů&#8230;</string>
-    <string name="file_migration_waiting_for_unfinished_sync">Čekání na nedokončené synchronizace&#8230;</string>
-    <string name="file_migration_migrating">Přesun dat&#8230;</string>
-    <string name="file_migration_updating_index">Aktualizace indexu&#8230;</string>
-    <string name="file_migration_cleaning">Čištění&#8230;</string>
-    <string name="file_migration_restoring_accounts_configuration">Obnovování konfigurace účtů&#8230;</string>
     <string name="file_migration_ok_finished">Dokončeno</string>
     <string name="file_migration_failed_not_enough_space">Chyba: Nedostatek volného místa</string>
     <string name="file_migration_failed_not_writable">Chyba: Do cíle nelze zapisovat</string>
@@ -456,8 +443,6 @@
     <string name="set_picture_as">Použít obrázek jako</string>
     <string name="set_as">Nastavit jako</string>
 
-    <string name="prefs_instant_behaviour_dialogTitle">Originální soubor bude&#8230;</string>
-    <string name="prefs_instant_behaviour_title">Originální soubor bude&#8230;</string>
     <string name="select_all">Vybrat vše</string>
     <string name="deselect_all">Odznačit vše</string>
 
@@ -541,11 +526,6 @@
     <string name="participate_rc_fdroid">Získat kandidáta na vydání z aplikace F-Droid</string>
     <string name="participate_dev_fdroid">Získat vývojové vydání z aplikace F-Droid</string>
     <string name="participate_dev_direct_download">Stáhnout vývojové vydání přímo</string>
-    <string name="move_to">Přesunout do&#8230;</string>
-    <string name="copy_to">Kopírovat do&#8230;</string>
-    <string name="choose_remote_folder">Zvolit vzdálenou složku&#8230;</string>
-    <string name="choose_local_folder">Zvolit místní složku&#8230;</string>
-    <string name="synced_folders_loading_folders">Načítání adresářů&#8230;</string>
     <string name="synced_folders_no_results">Nebyly nalezeny žádné adresáře médií.</string>
     <string name="synced_folders_preferences">Nastavení automatického nahrávání</string>
     <string name="synced_folders_new_info">Okamžité nahrání bylo kompletně upraveno. Znovu nakonfigurujte automatické nahrávání z hlavní nabídky.\n\nUžijte si nové a rozšířené automatické nahrávání.</string>
@@ -556,7 +536,6 @@
         <item quantity="other">vybráno %d</item>
     </plurals>
 
-    <string name="notifications_loading_activity">Načítání upozornění&#8230;</string>
     <string name="notifications_no_results_headline">Žádné oznámení</string>
     <string name="notifications_no_results_message">Prosíme, vraťte se později.</string>
 
@@ -645,9 +624,6 @@
     <string name="whats_new_fingerprint_content">Použijte Váš prst pro odemknutí aplikace</string>
     <string name="fallback_weblogin_back">Zpět</string>
     <string name="fallback_weblogin_text">Vrátit se ke starému způsobu přihlašování</string>
-
-    <string name="foreground_service_upload">Nahrávání souborů&#8230;</string>
-    <string name="foreground_service_download">Stažení souborů&#8230;</string>
 
     <string name="prefs_sourcecode">Získat zdrojový kód</string>
     <string name="prefs_license">Licence</string>
