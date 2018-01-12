@@ -242,7 +242,8 @@ public class MainApp extends MultiDexApplication {
         Context context = getAppContext();
 
         if (!PreferenceManager.getKeysMigration(context)) {
-            String oldKeyPath = getStoragePath() + File.separator + MainApp.getDataFolder() + File.separator + "nc-keypair";
+            String oldKeyPath = getStoragePath() + File.separator + MainApp.getDataFolder() +
+                    File.separator + "nc-keypair";
             File oldPrivateKey = new File(oldKeyPath,  "push_key.priv");
             File oldPublicKey = new File(oldKeyPath, "push_key.pub");
 

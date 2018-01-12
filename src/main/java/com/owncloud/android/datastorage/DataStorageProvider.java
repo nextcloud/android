@@ -68,7 +68,8 @@ public class DataStorageProvider {
 
         // Add external storage directory if available.
         if (isExternalStorageWritable()) {
-            mCachedStoragePoints.add(new StoragePoint(MainApp.getAppContext().getExternalFilesDir(null).getAbsolutePath(),
+            mCachedStoragePoints.add(new StoragePoint(
+                    MainApp.getAppContext().getExternalFilesDir(null).getAbsolutePath(),
                     MainApp.getAppContext().getExternalFilesDir(null).getAbsolutePath()));
         }
 
