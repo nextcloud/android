@@ -122,7 +122,6 @@
     <string name="common_yes">Yes</string>
     <string name="common_no">No</string>
     <string name="common_ok">OK</string>
-    <string name="common_next">Next</string>
     <string name="common_cancel_sync">Cancel sync</string>
     <string name="common_cancel">Cancel</string>
     <string name="common_back">Back</string>
@@ -773,5 +772,4 @@
     <string name="end_to_end_encryption_unsuccessful">Storing keys was unsuccessful, please try it again!</string>
     <string name="end_to_end_encryption_dialog_close">Close</string>
     <string name="end_to_end_encryption_storing_keys">Storing keys</string>
-    <string name="end_to_end_encryption_storing_keys_on_server">Storing keys on server</string>
 </resources>
