@@ -218,6 +218,11 @@ public class PreviewImagePagerAdapter extends FragmentStatePagerAdapter {
        super.destroyItem(container, position, object);
     }
 
+
+    public boolean pendingErrorAt(int position) {
+        return mDownloadErrors.contains(position);
+    }
+
     /**
      * Reset the image zoom to default value for each CachedFragments
      */
