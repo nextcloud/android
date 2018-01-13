@@ -565,7 +565,6 @@
     <string name="picture_set_as_no_app">Nerasta programėlė nustatyti paveikslą</string>
     <string name="privacy">Privatumas</string>
     <string name="file_not_found">Failas nerastas</string>
-
     <!-- Auto upload -->
     <string name="autoupload_custom_folder">Pritaikyti aplanką</string>
     <string name="autoupload_create_new_custom_folder">Naujas aplanko nustatymas</string>

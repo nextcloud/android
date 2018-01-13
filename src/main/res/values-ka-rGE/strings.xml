@@ -90,6 +90,7 @@
     <string name="file_list_empty">ატვირთეთ რამე ან გაუწიეთ თქვნს მოწყობილობას სინქრონიზაცია.</string>
     <string name="file_list_empty_favorites_filter_list">აქ გამოჩნდება ფაილები და დირექტორიები რომელთაც მონიშნავთ რჩეულებად</string>
     <string name="file_list_empty_favorites_filter">ვერც ერთი რჩეული ფაილი ვერ იქნა ნაპოვნი.</string>
+    <string name="file_list_loading">იტვირთება &#8230;</string>
     <string name="file_list_no_app_for_file_type">ამ ფაილთან სამუშაოდ არც ერთი აპლიკაცია არაა დაყანებული.</string>
     <string name="local_file_list_empty">ამ დირექტორიაში ფაილები არაა.</string>
     <string name="local_folder_list_empty">მომდევნო დირექტორიები არაა.</string>
@@ -252,7 +253,8 @@
 	<string name="auth_expired_oauth_token_toast">თქვენს ავტორიზაციას გაუვიდა ვადა. გთხოვთ ახლიდან გაიაროთ ავტორიზაცია</string>
 	<string name="auth_expired_basic_auth_toast">გთხოვთ შეიყვანოთ ამჟამინდელი პაროლი</string>
 	<string name="auth_expired_saml_sso_token_toast">თქვენს სესიას ვადა გაუვიდა. გთხოვთ დაკავშირდდეთ ახლიდან</string>
-    <string name="auth_unsupported_multiaccount">%1$s არ უჭერს მხარს მრავალი ანგარიშის არსებობას</string>
+    <string name="auth_connecting_auth_server">ხდება დაკავშირება აუტენტიფიკაციის სერვერთან &#8230;</string>
+	<string name="auth_unsupported_multiaccount">%1$s არ უჭერს მხარს მრავალი ანგარიშის არსებობას</string>
 	<string name="auth_fail_get_user_name">სერვერი არ აბრუნებს სწორ მომხმარებლის ID-ს, გთხოვთ დაუკავშირდეთ ადმინისტრატორს</string>
 	<string name="auth_can_not_auth_against_server">ამ სერვერთან აუტენტიფიკაცია ვერ ხერხდება</string>
     <string name="auth_account_does_not_exist">ანგარიში მოწყობილობაზე ჯერ არ არსებობს</string>
@@ -278,12 +280,15 @@
     <string name="filename_forbidden_characters">აკრძალული ნიშნები: / \\ &lt; &gt; : \" | ? *</string>
     <string name="filename_forbidden_charaters_from_server">ფაილის სახელი შეიცავს დაუშვებელ ნიშნებს</string>
     <string name="filename_empty">ფაილის სახელი ვერ იქნება ცარიელი</string>
+    <string name="wait_a_moment">გთხოვთ მოითმინოთ &#8230;</string>
     <string name="wait_checking_credentials">მოწმდება შენახული უფლებამოსილებანი</string>
     <string name="filedisplay_no_file_selected">ფაილი არაა არჩეული</string>
     <string name="activity_chooser_title">გაუგზავნეთ ბმული &#8230;-ს</string>
     <string name="wait_for_tmp_copy_from_private_storage">ფაილის კოპირება პირადი საცავიდან</string>
     
     <string name="oauth_check_onoff">გაიარეთ ავტორიზაცია OAuth 2.0-ით</string>
+    <string name="oauth_login_connection">ხდება დაკავშირება OAuth 2.0 სერვერთან &#8230;</string>
+        
     <string name="ssl_validator_header">სერვერის იდენტურობა ვერ დამოწმდა</string>
     <string name="ssl_validator_reason_cert_not_trusted">- სერვერის სერტიფიკატი არ არის სანდო</string>
     <string name="ssl_validator_reason_cert_expired">- სერვერის სერტიფიკატი ვადაგასულია</string>
@@ -375,6 +380,14 @@
     <string name="downloader_download_file_not_found">ფაილი სერვერზე ხელმისაწვდომი აღარაა</string>
 
     <string name="file_migration_dialog_title">საცავის მისამართის განახლება</string>
+    <string name="file_migration_preparing">მზადდება მიგრაცია &#8230;</string>
+    <string name="file_migration_checking_destination">მოწმდება დანიშნულება &#8230;</string>
+    <string name="file_migration_saving_accounts_configuration">ხდება ანგარიშების კონფიგურაციების შენახვა &#8230;</string>
+    <string name="file_migration_waiting_for_unfinished_sync">ველოდებით სინქრონიზაციების დასრულებას &#8230;</string>
+    <string name="file_migration_migrating">ხდება მონაცემების გადატანა &#8230;</string>
+    <string name="file_migration_updating_index">ნახლდება ინდექსი &#8230;</string>
+    <string name="file_migration_cleaning">სუფთავდება &#8230;</string>
+    <string name="file_migration_restoring_accounts_configuration">ხდება ანგარიშების კონფიგურაციების აღდგენა &#8230;</string>
     <string name="file_migration_ok_finished">დასრულებულია</string>
     <string name="file_migration_failed_not_enough_space">შეცდომა: არასაკმარისი ადგილი</string>
     <string name="file_migration_failed_not_writable">შეცდომა: დანიშნულების ფაილი არაა წერადი</string>
@@ -442,6 +455,8 @@
     <string name="set_picture_as">გამოიყენეთ სურათი როგორც</string>
     <string name="set_as">დააყენეთ როგორც</string>
 
+    <string name="prefs_instant_behaviour_dialogTitle">ორიგინალი ფაილი იქნება &#8230;</string>
+    <string name="prefs_instant_behaviour_title">ორიგინალი ფაილი იქნება &#8230;</string>
     <string name="select_all">ყველას მონიშვნა</string>
     <string name="deselect_all">ყველას წაშლა</string>
 
@@ -526,6 +541,11 @@
     <string name="participate_rc_fdroid">მიიღეთ რელიზ კანდიდატი F-Droid აპლიკაციიდან</string>
     <string name="participate_dev_fdroid">მიიღეთ დეველოპმენტ რელიზი F-Droid აპლიკაციიდან</string>
     <string name="participate_dev_direct_download">დეველოპმენტ რელიზის პირდაპირი ჩამოტვირთვა</string>
+    <string name="move_to">გადაიტანეთ &#8230;</string>
+    <string name="copy_to">დააკოპირეთ &#8230;</string>
+    <string name="choose_remote_folder">აირჩიეთ დისტანციური დირექტორია &#8230;</string>
+    <string name="choose_local_folder">აირჩიეთ ლოკალური დირექტორია &#8230;</string>
+    <string name="synced_folders_loading_folders">დირექტორიები იტვირთება &#8230;</string>
     <string name="synced_folders_no_results">მედია დირექტორიები ვერ იქნა ნაპოვნი.</string>
     <string name="synced_folders_preferences">პრეფერენციები ავტო-ატვირთვაზე</string>
     <string name="synced_folders_new_info">მყისიერი ატვირთვა სრულიად გამოსწორდა. ავტო-ატვირთვას რეკონფიგურაცია გაუწიეთ მთავარი მენიუდან.\n\nისიამოვნეთ ახალი და გაუმჯობესებული ავტო-ატვირთვით.</string>
@@ -534,6 +554,7 @@
         <item quantity="other">%d არჩეული</item>
     </plurals>
 
+    <string name="notifications_loading_activity">შეტყობინებები იტვირთება &#8230;</string>
     <string name="notifications_no_results_headline">შეტყობინებები არაა</string>
     <string name="notifications_no_results_message">გთხოვთ დაბრუნდეთ მოგვინაებით.</string>
 
@@ -612,7 +633,6 @@
     <string name="picture_set_as_no_app">სურათის დასაყენებლად ვერც ერთი აპლიკაცია ვერ იქნა ნაპოვნი!</string>
     <string name="privacy">კონფიდენციალურობა</string>
     <string name="file_not_found">ფაილი ვერ იქნა ნაპოვნი!</string>
-
     <!-- Auto upload -->
     <string name="autoupload_custom_folder">დააყენეთ სპეციფიური დირექტორია</string>
     <string name="autoupload_create_new_custom_folder">შექმენით ახალი სპეციფიური დირექტორია</string>
@@ -624,6 +644,9 @@
     <string name="whats_new_fingerprint_content">აპლიკაციის გასახსნელად გამოიყენეთ თქვენი თითის ანაბეჭდი</string>
     <string name="fallback_weblogin_back">უკან</string>
     <string name="fallback_weblogin_text">უკან ძველი ავტორიზაციის მეთოდისკენ</string>
+
+    <string name="foreground_service_upload">ფაილები ნახლდება &#8230;</string>
+    <string name="foreground_service_download">ხდება ფაილების ჩამოტვირთვა &#8230;</string>
 
     <string name="prefs_sourcecode">მიიღეთ კოდი</string>
     <string name="prefs_license">ლიცენზია</string>
@@ -704,4 +727,8 @@
     <string name="screenshot_05_autoUpload">ავტომატურად ატვირთეთ თქვენი ფოტოები და ვიდეოები</string>
     <string name="screenshot_06_davdroid">კალენდრისა და კონტაქტების სინქ. DAVdroid-თან</string>
     
-    </resources>
+    <string name="userinfo_no_info_headline">პირადი ინფორმაციის კომპლექტი არაა</string>
+    <string name="userinfo_no_info_text">დაამატეთ სახელი, ფოტო და საკონტაქტო დეტალები თქვენს პროფილის გვერდზე.</string>
+    <string name="drawer_header_background">მხაზველი დასათაურების ფონური სურათი</string>
+    <string name="account_icon">ანგარიშის პიქტოგრამა</string>
+</resources>

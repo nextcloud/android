@@ -617,7 +617,6 @@
     <string name="picture_set_as_no_app">Keine App gefunden, mit der ein Bid gesetzt werden könnte!</string>
     <string name="privacy">Datenschutz</string>
     <string name="file_not_found">Datei nicht gefunden!</string>
-
     <!-- Auto upload -->
     <string name="autoupload_custom_folder">Erstellen Sie einen eigenen Ordner</string>
     <string name="autoupload_create_new_custom_folder">Erstellen Sie ein Setup für den eigenen Ordner</string>

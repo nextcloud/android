@@ -524,7 +524,6 @@
     <string name="contacts_preferences_no_file_found">Ne najdem datoteke</string>
     <string name="privacy">Zasebnost</string>
     <string name="file_not_found">Datoteke ne najdem!</string>
-
     <string name="synced_folders_configure_folders">Nastavi mape</string>
 
     <string name="test_server_button">Preizkusi povezavo s strežnikom</string>

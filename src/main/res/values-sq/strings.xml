@@ -581,7 +581,6 @@
     <string name="picture_set_as_no_app">Nuk u gjet aplikacioni me të cilin vendoset foto!</string>
     <string name="privacy">Privatësi</string>
     <string name="file_not_found">Skedari nuk u gjet!</string>
-
     <!-- Auto upload -->
     <string name="autoupload_custom_folder">Ndërtoni një dosje me porosi</string>
     <string name="autoupload_create_new_custom_folder">Krijoni një dosje të re me porosi</string>

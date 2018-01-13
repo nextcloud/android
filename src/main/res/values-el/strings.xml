@@ -556,7 +556,6 @@
     <string name="picture_set_as_no_app">Δεν εντοπίστηκε εφαρμογή για συσχετισμό εικόνας!</string>
     <string name="privacy">Ιδιωτικότητα</string>
     <string name="file_not_found">Δεν βρέθηκε το αρχείο!</string>
-
     <!-- Auto upload -->
     <string name="autoupload_custom_folder">Διαμορφώστε έναν προσαρμοσμένο φάκελο</string>
     <string name="autoupload_create_new_custom_folder">Δημιουργήστε νέα διαμόρφωση προσαρμοσμένου φακέλου</string>

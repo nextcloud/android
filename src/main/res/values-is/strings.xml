@@ -602,7 +602,6 @@ Smelltu hér til að fá þér einn frá þjónustuaðila.</string>
     <string name="picture_set_as_no_app">Engin forrit fundust til að setja mynd!</string>
     <string name="privacy">Gagnaleynd</string>
     <string name="file_not_found">Skrá finnst ekki!</string>
-
     <!-- Auto upload -->
     <string name="autoupload_custom_folder">Settu upp sérsniðna möppu</string>
     <string name="autoupload_create_new_custom_folder">Búa til nýja nýja sérsniðna uppsetningu á möppum</string>

@@ -436,7 +436,6 @@
     <string name="activities_no_results_headline">Zatiaľ žiadna aktivita</string>
     <string name="contacts_preference_backup_never">nikdy</string>
     <string name="file_not_found">Súbor nenájdený!</string>
-
     <string name="fallback_weblogin_back">Späť</string>
     <string name="prefs_license">Licencia</string>
     <string name="send">Odoslať</string>

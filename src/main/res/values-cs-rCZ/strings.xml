@@ -612,7 +612,6 @@
     <string name="picture_set_as_no_app">Pro tento typ souboru nebyla nalezena aplikace!</string>
     <string name="privacy">Soukromí</string>
     <string name="file_not_found">Soubor nenalezen!</string>
-
     <!-- Auto upload -->
     <string name="autoupload_custom_folder">Vytvořte vlastní složku</string>
     <string name="autoupload_create_new_custom_folder">Vytvořte nové nastavení vlastní složky</string>

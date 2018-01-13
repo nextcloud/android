@@ -611,7 +611,6 @@
     <string name="picture_set_as_no_app">没有应用程序发现设置图片！</string>
     <string name="privacy">隐私</string>
     <string name="file_not_found">文件未找到</string>
-
     <!-- Auto upload -->
     <string name="autoupload_custom_folder">设置一个自定义文件夹</string>
     <string name="autoupload_create_new_custom_folder">创建新的自定义文件夹设定</string>
