@@ -612,7 +612,6 @@
     <string name="picture_set_as_no_app">사진을 설정할 앱을 찾을 수 없습니다!</string>
     <string name="privacy">개인 정보</string>
     <string name="file_not_found">파일을 찾을 수 없습니다!</string>
-
     <!-- Auto upload -->
     <string name="autoupload_custom_folder">사용자 정의 폴더 설정</string>
     <string name="autoupload_create_new_custom_folder">새 사용자 정의 폴더 설정 만들기</string>

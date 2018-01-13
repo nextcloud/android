@@ -622,7 +622,6 @@
     <string name="picture_set_as_no_app">Ниједна апликација није нађена за постављање слике!</string>
     <string name="privacy">Приватност</string>
     <string name="file_not_found">Фајл није пронађен!</string>
-
     <!-- Auto upload -->
     <string name="autoupload_custom_folder">Подесите произвољну фасциклу</string>
     <string name="autoupload_create_new_custom_folder">Додај фасциклу која није на листи</string>

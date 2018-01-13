@@ -548,7 +548,6 @@
     <string name="picture_set_as_no_app">Aplikasi tidak ditemukan untuk men-set gambar.</string>
     <string name="privacy">Privasi</string>
     <string name="file_not_found">Berkas tidak ditemukan!</string>
-
     <!-- Auto upload -->
     <string name="autoupload_custom_folder">Pasang folder kostum.</string>
     <string name="autoupload_create_new_custom_folder">Buat kostum folder baru.</string>

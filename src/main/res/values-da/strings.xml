@@ -418,7 +418,6 @@
     <string name="contacts_preference_backup_never">aldrig</string>
     <string name="contacts_preferences_no_file_found">Ingen fil fundet</string>
     <string name="file_not_found">Fil ikke fundet!</string>
-
     <string name="fallback_weblogin_back">Tilbage</string>
     <string name="prefs_license">Licens</string>
     <string name="date_unknown">Ukendt</string>

@@ -462,7 +462,6 @@
     <string name="contacts_preferences_backup_scheduled">Varmuuskopiointi on ajastettu ja se alkaa pian</string>
     <string name="privacy">Yksityisyys</string>
     <string name="file_not_found">Tiedostoa ei löytynyt!</string>
-
     <string name="test_server_button">Testaa palvelinyhteys</string>
     <string name="resharing_is_not_allowed">Uudelleenjakaminen ei ole sallittu</string>
     <string name="whats_new_fingerprint_title">Avaa lukitus sormenjäljellä</string>

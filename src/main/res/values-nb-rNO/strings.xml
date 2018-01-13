@@ -617,7 +617,6 @@
     <string name="picture_set_as_no_app">Fant ikke noe program å sette bilder med.</string>
     <string name="privacy">Personvern</string>
     <string name="file_not_found">Finner ikke filen!</string>
-
     <!-- Auto upload -->
     <string name="autoupload_custom_folder">Sett opp en tilpasset mappe</string>
     <string name="autoupload_create_new_custom_folder">Lag nytt tilpasset mappe-oppsett</string>

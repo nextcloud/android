@@ -558,7 +558,6 @@
     <string name="contacts_preferences_something_strange_happened">找不到您最新的備份</string>
     <string name="privacy">隱私權</string>
     <string name="file_not_found">找不到檔案！</string>
-
     <!-- Auto upload -->
     <string name="autoupload_custom_folder">設定自訂資料夾</string>
     <string name="autoupload_create_new_custom_folder">新增自訂資料夾</string>

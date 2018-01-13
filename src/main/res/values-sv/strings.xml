@@ -609,7 +609,6 @@
     <string name="picture_set_as_no_app">Ingen app hittad att sätta bilden i!</string>
     <string name="privacy">Privat</string>
     <string name="file_not_found">Fil ej funnen!</string>
-
     <!-- Auto upload -->
     <string name="autoupload_custom_folder">Skapa en anpassad mapp</string>
     <string name="autoupload_create_new_custom_folder">Skapa en ny anpassad mappkonfiguration </string>

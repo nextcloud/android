@@ -618,7 +618,6 @@ Kies er eentje van een provider.</string>
     <string name="picture_set_as_no_app">Geen app gevonden om afbeelding in te stellen</string>
     <string name="privacy">Privacy</string>
     <string name="file_not_found">Bestand niet gevonden!</string>
-
     <!-- Auto upload -->
     <string name="autoupload_custom_folder">Instellen aangepaste map</string>
     <string name="autoupload_create_new_custom_folder">Maak aangepaste nieuwe map aan</string>

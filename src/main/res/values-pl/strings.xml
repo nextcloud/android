@@ -597,7 +597,6 @@
     <string name="picture_set_as_no_app">Nie znaleziono aplikacji do ustawienia obrazu!</string>
     <string name="privacy">Prywatność</string>
     <string name="file_not_found">Nie odnaleziono pliku</string>
-
     <!-- Auto upload -->
     <string name="autoupload_custom_folder">Ustaw własny katalog</string>
     <string name="autoupload_create_new_custom_folder">Stwórz nowy własny katalog</string>
