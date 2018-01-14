@@ -633,6 +633,8 @@
     <string name="picture_set_as_no_app">სურათის დასაყენებლად ვერც ერთი აპლიკაცია ვერ იქნა ნაპოვნი!</string>
     <string name="privacy">კონფიდენციალურობა</string>
     <string name="file_not_found">ფაილი ვერ იქნა ნაპოვნი!</string>
+    <string name="file_not_synced">სასურველი ფაილის სინქ. ვერ მოხერხდა. ნაჩვენებია ბოლო ხელმისაწვდომი ვერსია.</string>
+
     <!-- Auto upload -->
     <string name="autoupload_custom_folder">დააყენეთ სპეციფიური დირექტორია</string>
     <string name="autoupload_create_new_custom_folder">შექმენით ახალი სპეციფიური დირექტორია</string>
