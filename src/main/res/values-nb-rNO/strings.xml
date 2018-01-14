@@ -530,6 +530,11 @@
     <string name="participate_rc_fdroid">Hent lanseringskandidaten via F-Droid -programmet</string>
     <string name="participate_dev_fdroid">Hent utviklingsversjonen via F-Droid -programmet</string>
     <string name="participate_dev_direct_download">Last ned utviklingsversjonen direkte</string>
+    <string name="move_to">Flytt til &#8230;</string>
+    <string name="copy_to">Kopier til &#8230;</string>
+    <string name="choose_remote_folder">Velg mappe annensteds hen &#8230;</string>
+    <string name="choose_local_folder">Velg lokal mappe &#8230;</string>
+    <string name="synced_folders_loading_folders">Laster inn mapper &#8230;</string>
     <string name="synced_folders_no_results">Ingen mediamapper funnet.</string>
     <string name="synced_folders_preferences">Alternativer for auto-opplasting</string>
     <string name="synced_folders_new_info">Umiddelbar opplasting er fullstendig omarbeidet. Du må sette opp auto-opplasting på nytt fra hovedmenyen.\n\nKos deg med den nye og utvidede auto-opplastingen.</string>
@@ -539,6 +544,7 @@
         <item quantity="other">%d valgte</item>
     </plurals>
 
+    <string name="notifications_loading_activity">Laster inn merknader &#8230;</string>
     <string name="notifications_no_results_headline">Ingen varsler</string>
     <string name="notifications_no_results_message">Kom innom senere og ta en titt.</string>
 
@@ -629,6 +635,9 @@
     <string name="fallback_weblogin_back">Tilbake</string>
     <string name="fallback_weblogin_text">Gå tilbake til gammel innloggingsmetode</string>
 
+    <string name="foreground_service_upload">Laster opp filer &#8230;</string>
+    <string name="foreground_service_download">Laster ned filer &#8230;</string>
+
     <string name="prefs_sourcecode">Hent kildekode</string>
     <string name="prefs_license">Lisens</string>
     <string name="prefs_gpl_v2">GNU General Public Lisens, versjon 2</string>
@@ -694,6 +703,21 @@ Sjekk ut Nextcloud på https://nextcloud.com</string>
     <string name="dev_version_no_information_available">Ingen informasjon tilgjengelig.</string>
     <string name="dev_version_no_new_version_available">Ingen ny versjon tilgjengelig.</string>
     <string name="folder_icon">Mappeikon</string>
+    <string name="dev_version_new_version_available">Ny versjon tilgjengelig</string>
+    <string name="version_dev_download">Last ned</string>
+
     <string name="send">Send</string>
     <string name="share">Del</string>
-    </resources>
+    <string name="link">Lenke</string>
+
+    <string name="notification_channel_media_name">Mediaavspiller</string>
+    <string name="notification_channel_media_description">Musikkspillerframdrift</string>
+    <string name="notification_channel_file_sync_name">Filsynkronisering</string>
+    <string name="notification_channel_file_sync_description">Viser filsynkroniseringsframdrift og resultater</string>
+  
+    <string name="account_not_found">Konto ble ikke funnet!</string>
+
+    <string name="screenshot_01_gridView">Et trygt hjem for alle dine data</string>
+    <string name="screenshot_04_accounts">Koble til forskjellige kontoer</string>
+    <string name="account_icon">Kontoikon</string>
+</resources>

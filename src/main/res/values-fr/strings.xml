@@ -387,6 +387,7 @@ Attention la suppression est irréversible.</string>
     <string name="file_migration_preparing">Préparation pour la migration &#8230;</string>
     <string name="file_migration_checking_destination">Vérification de la destination &#8230;</string>
     <string name="file_migration_saving_accounts_configuration">Enregistrement de la configuration des comptes &#8230;</string>
+    <string name="file_migration_waiting_for_unfinished_sync">En attente des synchronisations non terminées &#8230;</string>
     <string name="file_migration_migrating">Déplacement des données &#8230;</string>
     <string name="file_migration_updating_index">Mise à jour de l\'index &#8230;</string>
     <string name="file_migration_cleaning">Nettoyage &#8230;</string>
@@ -639,6 +640,8 @@ Attention la suppression est irréversible.</string>
     <string name="picture_set_as_no_app">Aucune application trouvée pour utiliser cette image !</string>
     <string name="privacy">Vie privée</string>
     <string name="file_not_found">Fichier non trouvé !</string>
+    <string name="file_not_synced">Impossible de synchroniser le fichier souhaité. Affichage de la dernière version disponible.</string>
+
     <!-- Auto upload -->
     <string name="autoupload_custom_folder">Configurer un dossier personnalisé</string>
     <string name="autoupload_create_new_custom_folder">Créer une nouvelle configuration de dossier personnalisé</string>
@@ -735,5 +738,6 @@ Attention la suppression est irréversible.</string>
     
     <string name="userinfo_no_info_headline">Aucunes informations personnelles renseignées</string>
     <string name="userinfo_no_info_text">Ajouter le nom, la photo et les coordonnées sur votre page de profil.</string>
+    <string name="drawer_header_background">Image d\'arrière-plan de l\'en-tête du menu-tiroir</string>
     <string name="account_icon">Icône du compte</string>
 </resources>

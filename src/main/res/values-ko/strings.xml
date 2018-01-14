@@ -90,6 +90,7 @@
     <string name="file_list_empty">콘텐츠를 업로드하거나 기기와 동기화 하십시오.</string>
     <string name="file_list_empty_favorites_filter_list">즐겨찾기 표시한 파일과 폴더가 여기에 나타납니다</string>
     <string name="file_list_empty_favorites_filter">검색 결과에 즐겨찾기 항목이 없습니다.</string>
+    <string name="file_list_loading">불러오는 중&#8230;</string>
     <string name="file_list_no_app_for_file_type">이 파일을 위한 앱이 존재하지 않습니다.</string>
     <string name="local_file_list_empty">이 폴더에 파일이 없습니다.</string>
     <string name="local_folder_list_empty">더 이상의 폴더가 없습니다.</string>
@@ -252,7 +253,8 @@
 	<string name="auth_expired_oauth_token_toast">인증이 만료되었습니다. 다시 인증하십시오</string>
 	<string name="auth_expired_basic_auth_toast">현재 암호를 입력하십시오</string>
 	<string name="auth_expired_saml_sso_token_toast">세션이 만료되었습니다. 다시 접속하십시오</string>
-    <string name="auth_unsupported_multiaccount">%1$s에서 다중 계정을 지원하지 않습니다</string>
+    <string name="auth_connecting_auth_server">인증 서버에 연결 중&#8230;</string>
+	<string name="auth_unsupported_multiaccount">%1$s에서 다중 계정을 지원하지 않습니다</string>
 	<string name="auth_fail_get_user_name">서버에서 올바른 사용자 ID를 반환하지 않습니다. 시스템 관리자에게 연락하십시오</string>
 	<string name="auth_can_not_auth_against_server">이 서버에 인증할 수 없음</string>
     <string name="auth_account_does_not_exist">아직 장치에 계정이 없음</string>
@@ -278,12 +280,15 @@
     <string name="filename_forbidden_characters">사용할 수 없는 문자: / \\ &lt; &gt; : \" | ? *</string>
     <string name="filename_forbidden_charaters_from_server">파일 이름에 하나 이상의 사용할 수 없는 문자가 포함되어 있음</string>
     <string name="filename_empty">파일 이름이 비어 있을 수 없음</string>
+    <string name="wait_a_moment">잠시 기다려 주십시오&#8230;</string>
     <string name="wait_checking_credentials">저장된 인증 정보 확인 중</string>
     <string name="filedisplay_no_file_selected">선택한 파일 없음</string>
     <string name="activity_chooser_title">다음으로 링크 보내기&#8230;</string>
     <string name="wait_for_tmp_copy_from_private_storage">개인 저장소에서 파일 복사</string>
     
     <string name="oauth_check_onoff">OAuth 2.0으로 로그인</string>
+    <string name="oauth_login_connection">OAuth 2.0 서버에 연결 중&#8230;</string>
+        
     <string name="ssl_validator_header">서버를 검증할 수 없습니다</string>
     <string name="ssl_validator_reason_cert_not_trusted">- 서버 인증서를 신뢰할 수 없습니다</string>
     <string name="ssl_validator_reason_cert_expired">- 서버 인증서가 만료되었습니다</string>
@@ -375,6 +380,14 @@
     <string name="downloader_download_file_not_found">이 파일을 서버에서 더 이상 사용할 수 없음</string>
 
     <string name="file_migration_dialog_title">저장소 경로 업데이트 중</string>
+    <string name="file_migration_preparing">이전 준비 중&#8230;</string>
+    <string name="file_migration_checking_destination">대상 점검 중&#8230;</string>
+    <string name="file_migration_saving_accounts_configuration">계정 설정 저장 중&#8230;</string>
+    <string name="file_migration_waiting_for_unfinished_sync">모든 동기화가 완료되기를 기다리는 중&#8230;</string>
+    <string name="file_migration_migrating">데이터 이동 중&#8230;</string>
+    <string name="file_migration_updating_index">색인 업데이트 중&#8230;</string>
+    <string name="file_migration_cleaning">비우는 중&#8230;</string>
+    <string name="file_migration_restoring_accounts_configuration">계정 설정 복원 중&#8230;</string>
     <string name="file_migration_ok_finished">완료됨</string>
     <string name="file_migration_failed_not_enough_space">오류: 공간 부족</string>
     <string name="file_migration_failed_not_writable">오류: 대상 파일에 기록할 수 없음</string>
@@ -442,6 +455,8 @@
     <string name="set_picture_as">다음으로 사진 사용</string>
     <string name="set_as">다음으로 설정</string>
 
+    <string name="prefs_instant_behaviour_dialogTitle">원래 파일은&#8230;</string>
+    <string name="prefs_instant_behaviour_title">원래 파일은&#8230;</string>
     <string name="select_all">모두 선택</string>
     <string name="deselect_all">모두 선택 해제</string>
 
@@ -526,6 +541,11 @@
     <string name="participate_rc_fdroid">F-Droid 앱에서 릴리스 후보 버전 받기</string>
     <string name="participate_dev_fdroid">F-Droid 앱에서 개발 릴리스 받기</string>
     <string name="participate_dev_direct_download">직접 개발 릴리스 다운로드</string>
+    <string name="move_to">다음으로 이동&#8230;</string>
+    <string name="copy_to">다음으로 복사&#8230;</string>
+    <string name="choose_remote_folder">원격 폴더 선택&#8230;</string>
+    <string name="choose_local_folder">로컬 폴더 선택&#8230;</string>
+    <string name="synced_folders_loading_folders">폴더 불러오는 중&#8230;</string>
     <string name="synced_folders_no_results">미디어 폴더를 찾을 수 없습니다.</string>
     <string name="synced_folders_preferences">자동 업로드 설정</string>
     <string name="synced_folders_new_info">즉석 업로드가 완전히 변경되었습니다. 주 메뉴에서 자동 업로드를 다시 설정해 주십시오.\n\n새롭게 강화된 자동 업로드 기능을 활용하십시오.</string>
@@ -534,6 +554,7 @@
         <item quantity="other">%d개 선택됨</item>
     </plurals>
 
+    <string name="notifications_loading_activity">알림 불러오는 중&#8230;</string>
     <string name="notifications_no_results_headline">알림 없음</string>
     <string name="notifications_no_results_message">나중에 다시 확인하십시오.</string>
 
@@ -612,6 +633,8 @@
     <string name="picture_set_as_no_app">사진을 설정할 앱을 찾을 수 없습니다!</string>
     <string name="privacy">개인 정보</string>
     <string name="file_not_found">파일을 찾을 수 없습니다!</string>
+    <string name="file_not_synced">대상 파일을 동기화할 수 없습니다. 마지막으로 불러온 버전을 표시합니다.</string>
+
     <!-- Auto upload -->
     <string name="autoupload_custom_folder">사용자 정의 폴더 설정</string>
     <string name="autoupload_create_new_custom_folder">새 사용자 정의 폴더 설정 만들기</string>
@@ -623,6 +646,9 @@
     <string name="whats_new_fingerprint_content">지문으로 앱 잠금 해제하기</string>
     <string name="fallback_weblogin_back">뒤로</string>
     <string name="fallback_weblogin_text">이전 로그인 방식으로 변경</string>
+
+    <string name="foreground_service_upload">파일 업로드 중&#8230;</string>
+    <string name="foreground_service_download">파일 다운로드 중&#8230;</string>
 
     <string name="prefs_sourcecode">소스 코드 보기</string>
     <string name="prefs_license">라이선스</string>
@@ -678,10 +704,22 @@
     <string name="dev_version_no_information_available">정보가 없습니다.</string>
     <string name="dev_version_no_new_version_available">새로운 버전이 없습니다.</string>
     <string name="folder_icon">폴더 아이콘</string>
+    <string name="dev_version_new_version_available">새 버전을 사용할 수 있음</string>
+    <string name="version_dev_download">다운로드</string>
+
     <string name="send">보내기</string>
     <string name="share">공유</string>
     <string name="link">링크</string>
 
+    <string name="notification_channel_upload_name">업로드 알림 채널</string>
+    <string name="notification_channel_download_name">다운로드 알림 채널</string>
+    <string name="notification_channel_download_description">다운로드 진행 표시</string>
+    <string name="notification_channel_upload_description">업로드 진행 표시</string>
+    <string name="notification_channel_media_name">미디어 재생기</string>
+    <string name="notification_channel_media_description">미디어 재생기 진행</string>
+    <string name="notification_channel_file_sync_name">파일 동기화</string>
+    <string name="notification_channel_file_sync_description">파일 동기화 진행 및 결과 표시</string>
+  
     <string name="account_not_found">계정을 찾을 수 없습니다!</string>
 
     <string name="screenshot_01_gridView">내 모든 데이터를 위한 안전한 저장소</string>
@@ -691,4 +729,8 @@
     <string name="screenshot_05_autoUpload">내 사진과 동영상 자동 업로드</string>
     <string name="screenshot_06_davdroid">DAVdroid를 통한 달력 및 연락처 동기화</string>
     
-    </resources>
+    <string name="userinfo_no_info_headline">개인 정보 설정되지 않음</string>
+    <string name="userinfo_no_info_text">프로필 페이지에 이름, 사진, 연락처를 추가하십시오.</string>
+    <string name="drawer_header_background">배경 그림 및 서랍 헤더</string>
+    <string name="account_icon">계정 아이콘</string>
+</resources>

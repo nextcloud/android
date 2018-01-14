@@ -638,6 +638,8 @@
     <string name="picture_set_as_no_app">Nessuna applicazione trovata per impostare un\'immagine!</string>
     <string name="privacy">Riservatezza</string>
     <string name="file_not_found">File non trovato!</string>
+    <string name="file_not_synced">Sincronizzazione del file desiderato non riuscita. L\'ultima versione disponibile è mostrata.</string>
+
     <!-- Auto upload -->
     <string name="autoupload_custom_folder">Configura una cartella personalizzata</string>
     <string name="autoupload_create_new_custom_folder">Crea nuova configurazione di cartella personalizzata</string>
