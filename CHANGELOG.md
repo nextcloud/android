@@ -1,3 +1,20 @@
+## 3.0.0 (Jan, xx, 2018)
+
+- End to end encryption
+- Screen adapted images instead of downloading
+- direct access to operations for single files
+- Android 8 support 
+- folder based sort order
+- right to left language support
+- detect walled garden
+- load more activities when reaching end of stream
+- quicker access to share 
+- automatically update avatars
+- auto upload improvements
+- fix push notifications
+- UI enhancements
+- bug fixes
+
 ## 2.0.0 (Oct, 17, 2017)
 
 - Account-wide search (Nc 12+)
