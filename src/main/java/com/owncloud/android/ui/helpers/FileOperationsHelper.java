@@ -72,6 +72,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -197,6 +198,20 @@ public class FileOperationsHelper {
         if (file != null) {
             String storagePath = file.getStoragePath();
 
+            String[] officeExtensions = MainApp.getAppContext().getResources().getStringArray(R.array
+                    .ms_office_extensions);
+
+            Uri fileUri;
+
+            if (file.getFileName().contains(".") &&
+                    Arrays.asList(officeExtensions).contains(file.getFileName().substring(file.getFileName().
+                            lastIndexOf(".") + 1, file.getFileName().length())) &&
+                    !file.getStoragePath().startsWith(MainApp.getAppContext().getFilesDir().getAbsolutePath())) {
+                fileUri = file.getLegacyExposedFileUri(mFileActivity);
+            } else {
+                fileUri = file.getExposedFileUri(mFileActivity);
+            }
+
             Intent openFileWithIntent = null;
             int lastIndexOfDot = storagePath.lastIndexOf('.');
             if (lastIndexOfDot >= 0) {
@@ -204,8 +219,9 @@ public class FileOperationsHelper {
                 String guessedMimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension(fileExt);
                 if (guessedMimeType != null) {
                     openFileWithIntent = new Intent(Intent.ACTION_VIEW);
+                    openFileWithIntent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
                     openFileWithIntent.setDataAndType(
-                            file.getExposedFileUri(mFileActivity),
+                            fileUri,
                             guessedMimeType
                     );
                 }
@@ -218,7 +234,7 @@ public class FileOperationsHelper {
             if (openFileWithIntent == null) {
                 openFileWithIntent = new Intent(Intent.ACTION_VIEW);
                 openFileWithIntent.setDataAndType(
-                        file.getExposedFileUri(mFileActivity),
+                        fileUri,
                         file.getMimetype()
                 );
             }
