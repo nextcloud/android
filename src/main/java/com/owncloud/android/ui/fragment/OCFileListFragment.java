@@ -79,6 +79,7 @@ import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.activity.FolderPickerActivity;
 import com.owncloud.android.ui.activity.OnEnforceableRefreshListener;
+import com.owncloud.android.ui.activity.ToolbarActivity;
 import com.owncloud.android.ui.activity.UploadFilesActivity;
 import com.owncloud.android.ui.adapter.FileListListAdapter;
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment;
@@ -131,6 +132,7 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
     public final static String ARG_ALLOW_CONTEXTUAL_ACTIONS = MY_PACKAGE + ".ALLOW_CONTEXTUAL";
     public final static String ARG_HIDE_FAB = MY_PACKAGE + ".HIDE_FAB";
     public final static String ARG_HIDE_ITEM_OPTIONS = MY_PACKAGE + ".HIDE_ITEM_OPTIONS";
+    public final static String ARG_SEARCH_ONLY_FOLDER = MY_PACKAGE + ".SEARCH_ONLY_FOLDER";
 
     public static final String DOWNLOAD_BEHAVIOUR = "DOWNLOAD_BEHAVIOUR";
     public static final String DOWNLOAD_SEND = "DOWNLOAD_SEND";
@@ -1074,14 +1076,14 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
             case R.id.action_move: {
                 Intent action = new Intent(getActivity(), FolderPickerActivity.class);
                 action.putParcelableArrayListExtra(FolderPickerActivity.EXTRA_FILES, checkedFiles);
-                action.putExtra(FolderPickerActivity.EXTRA_ACTION, getResources().getText(R.string.move_to));
+                action.putExtra(FolderPickerActivity.EXTRA_ACTION, FolderPickerActivity.MOVE);
                 getActivity().startActivityForResult(action, FileDisplayActivity.REQUEST_CODE__MOVE_FILES);
                 return true;
             }
             case R.id.action_copy: {
                 Intent action = new Intent(getActivity(), FolderPickerActivity.class);
                 action.putParcelableArrayListExtra(FolderPickerActivity.EXTRA_FILES, checkedFiles);
-                action.putExtra(FolderPickerActivity.EXTRA_ACTION, getResources().getText(R.string.copy_to));
+                action.putExtra(FolderPickerActivity.EXTRA_ACTION, FolderPickerActivity.COPY);
                 getActivity().startActivityForResult(action, FileDisplayActivity.REQUEST_CODE__COPY_FILES);
                 return true;
             }
@@ -1516,7 +1518,12 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
 
         final RemoteOperation remoteOperation;
         if (!currentSearchType.equals(SearchType.SHARED_FILTER)) {
-            remoteOperation = new SearchOperation(event.getSearchQuery(), event.getSearchType());
+            boolean searchOnlyFolders = false;
+            if (getArguments() != null && getArguments().getBoolean(ARG_SEARCH_ONLY_FOLDER, false)) {
+                searchOnlyFolders = true;
+            }
+
+            remoteOperation = new SearchOperation(event.getSearchQuery(), event.getSearchType(), searchOnlyFolders);
         } else {
             remoteOperation = new GetRemoteSharesOperation();
         }
@@ -1542,7 +1549,7 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
                             mAdapter.setData(remoteOperationResult.getData(), currentSearchType, storageManager, mFile);
                         }
 
-                        final FileDisplayActivity fileDisplayActivity = (FileDisplayActivity) getActivity();
+                        final ToolbarActivity fileDisplayActivity = (ToolbarActivity) getActivity();
                         if (fileDisplayActivity != null) {
                             fileDisplayActivity.runOnUiThread(new Runnable() {
                                 @Override
