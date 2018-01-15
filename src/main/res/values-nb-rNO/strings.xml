@@ -90,6 +90,7 @@
     <string name="file_list_empty">Last opp innhold eller synkroniser med enhetene dine.</string>
     <string name="file_list_empty_favorites_filter_list">Filer og mapper du markerer som favoritter vil vises her</string>
     <string name="file_list_empty_favorites_filter">Din spørring returnerte ingen filer markert som favoritter.</string>
+    <string name="file_list_loading">Laster &#8230;</string>
     <string name="file_list_no_app_for_file_type">Inget program funnet for filtypen.</string>
     <string name="local_file_list_empty">Det er ingen filer i denne mappen.</string>
     <string name="local_folder_list_empty">Det er ingen flere mapper.</string>
@@ -280,6 +281,7 @@
     <string name="filename_forbidden_characters">Forbudte tegn: / \\ &lt; &gt; : \" | ? *</string>
     <string name="filename_forbidden_charaters_from_server">Filnavnet inneholder minst ett ulovlig tegn</string>
     <string name="filename_empty">Filnavn kan ikke være tomt</string>
+    <string name="wait_a_moment">Vent et øyeblikk &#8230;</string>
     <string name="wait_checking_credentials">Sjekker lagrede påloggingsdetaljer</string>
     <string name="filedisplay_no_file_selected">Ingen fil ble valgt</string>
     <string name="activity_chooser_title">Send lenke til &#8230;</string>
@@ -377,6 +379,11 @@
     <string name="downloader_download_file_not_found">Filen finnes ikke på tjeneren lenger</string>
 
     <string name="file_migration_dialog_title">Oppdaterer sti for lagring</string>
+    <string name="file_migration_checking_destination">Sjekker mål &#8230;</string>
+    <string name="file_migration_migrating">Flytter data &#8230;</string>
+    <string name="file_migration_updating_index">Oppdaterer indeks &#8230;</string>
+    <string name="file_migration_cleaning">Tømmer &#8230;</string>
+    <string name="file_migration_restoring_accounts_configuration">Gjenoppretter kontooppsett &#8230;</string>
     <string name="file_migration_ok_finished">Fullført</string>
     <string name="file_migration_failed_not_enough_space">Feil: Mangler plass</string>
     <string name="file_migration_failed_not_writable">Feil: Målfil ikke skrivbar</string>
@@ -710,6 +717,8 @@ Sjekk ut Nextcloud på https://nextcloud.com</string>
     <string name="share">Del</string>
     <string name="link">Lenke</string>
 
+    <string name="notification_channel_download_description">Viser nedlastingsfremgang</string>
+    <string name="notification_channel_upload_description">Viser opplastingsfremgang</string>
     <string name="notification_channel_media_name">Mediaavspiller</string>
     <string name="notification_channel_media_description">Musikkspillerframdrift</string>
     <string name="notification_channel_file_sync_name">Filsynkronisering</string>
@@ -718,6 +727,11 @@ Sjekk ut Nextcloud på https://nextcloud.com</string>
     <string name="account_not_found">Konto ble ikke funnet!</string>
 
     <string name="screenshot_01_gridView">Et trygt hjem for alle dine data</string>
+    <string name="screenshot_02_listView">Utforsk og del filene dine enkelt</string>
+    <string name="screenshot_03_drawer">Rask tilgang til aktivitet, delinger, frakoblede filer og mer</string>
     <string name="screenshot_04_accounts">Koble til forskjellige kontoer</string>
+    <string name="screenshot_05_autoUpload">Last opp dine bilder og videoer automatisk</string>
+    <string name="userinfo_no_info_headline">Ingen personlig info satt</string>
+    <string name="userinfo_no_info_text">Legg til navn, bilde og kontaktdetaljer på din profilside.</string>
     <string name="account_icon">Kontoikon</string>
 </resources>
