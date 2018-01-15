@@ -213,9 +213,8 @@ dependencies {
     implementation 'org.greenrobot:eventbus:3.0.0'
     implementation 'com.googlecode.ez-vcard:ez-vcard:0.10.2'
     implementation 'org.lukhnos:nnio:0.2'
-
-    compile 'com.madgag.spongycastle:pkix:1.54.0.0'
-    compile 'com.google.code.gson:gson:2.8.2'
+    implementation 'com.madgag.spongycastle:pkix:1.54.0.0'
+    implementation 'com.google.code.gson:gson:2.8.2'
 
     // uncomment for gplay, modified
     // implementation "com.google.firebase:firebase-messaging:${googleLibraryVersion}"
