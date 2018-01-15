@@ -112,7 +112,12 @@ public class OCUpload implements Parcelable {
      */
     private boolean mIsWhileChargingOnly;
 
-     /**
+    /**
+     * Token to unlock E2E folder
+     */
+    private String mFolderUnlockToken;
+
+    /**
      * Main constructor.
      *
      * @param localPath         Absolute path in the local file system to the file to be uploaded.
@@ -162,6 +167,7 @@ public class OCUpload implements Parcelable {
         mCreatedBy = UploadFileOperation.CREATED_BY_USER;
         mIsUseWifiOnly = true;
         mIsWhileChargingOnly = false;
+        mFolderUnlockToken = "";
     }
 
     // Getters & Setters
@@ -372,6 +378,14 @@ public class OCUpload implements Parcelable {
         return mIsWhileChargingOnly;
     }
 
+    public void setFolderUnlockToken(String token) {
+        mFolderUnlockToken = token;
+    }
+
+    public String getFolderUnlockToken() {
+        return mFolderUnlockToken;
+    }
+
     /**
      * Reconstruct from parcel
      *
@@ -403,6 +417,7 @@ public class OCUpload implements Parcelable {
         mCreatedBy = source.readInt();
         mIsUseWifiOnly = (source.readInt() == 1);
         mIsWhileChargingOnly = (source.readInt() == 1);
+        mFolderUnlockToken = source.readString();
     }
 
     @Override
@@ -425,6 +440,7 @@ public class OCUpload implements Parcelable {
         dest.writeInt(mCreatedBy);
         dest.writeInt(mIsUseWifiOnly ? 1 : 0);
         dest.writeInt(mIsWhileChargingOnly ? 1 : 0);
+        dest.writeString(mFolderUnlockToken);
     }
 
     enum CanUploadFileNowStatus {NOW, LATER, FILE_GONE, ERROR}

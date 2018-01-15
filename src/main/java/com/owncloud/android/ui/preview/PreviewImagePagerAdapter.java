@@ -151,7 +151,11 @@ public class PreviewImagePagerAdapter extends FragmentStatePagerAdapter {
                 ((FileDownloadFragment) fragment).setError(true);
                 mDownloadErrors.remove(i);
             } else {
-                fragment = PreviewImageFragment.newInstance(file, mObsoletePositions.contains(i), true);
+                if (file.isEncrypted()) {
+                    fragment = FileDownloadFragment.newInstance(file, mAccount, mObsoletePositions.contains(i));
+                } else {
+                    fragment = PreviewImageFragment.newInstance(file, mObsoletePositions.contains(i), true);
+                }
             }
         }
 
@@ -212,6 +216,11 @@ public class PreviewImagePagerAdapter extends FragmentStatePagerAdapter {
     public void destroyItem(ViewGroup container, int position, Object object) {
         mCachedFragments.remove(position);
        super.destroyItem(container, position, object);
+    }
+
+
+    public boolean pendingErrorAt(int position) {
+        return mDownloadErrors.contains(position);
     }
 
     /**

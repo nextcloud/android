@@ -40,6 +40,7 @@ import com.owncloud.android.datamodel.SyncedFolderProvider;
 import com.owncloud.android.datamodel.UploadsStorageManager;
 import com.owncloud.android.ui.activity.ContactsPreferenceActivity;
 import com.owncloud.android.ui.events.AccountRemovedEvent;
+import com.owncloud.android.utils.EncryptionUtils;
 import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.FilesSyncHelper;
 
@@ -72,7 +73,10 @@ public class AccountRemovalJob extends Job implements AccountManagerCallback<Boo
             // disable contact backup job
             ContactsPreferenceActivity.cancelContactBackupJobForAccount(context, account);
 
-            am.removeAccount(account, this, null);
+
+            if (am != null) {
+                am.removeAccount(account, this, null);
+            }
 
             FileDataStorageManager storageManager = new FileDataStorageManager(account, context.getContentResolver());
 
@@ -114,6 +118,10 @@ public class AccountRemovalJob extends Job implements AccountManagerCallback<Boo
             for (long syncedFolderId : syncedFolderIds) {
                 filesystemDataProvider.deleteAllEntriesForSyncedFolder(Long.toString(syncedFolderId));
             }
+
+            // delete stored E2E keys 
+            arbitraryDataProvider.deleteKeyForAccount(account.name, EncryptionUtils.PRIVATE_KEY);
+            arbitraryDataProvider.deleteKeyForAccount(account.name, EncryptionUtils.PUBLIC_KEY);
 
             return Result.SUCCESS;
         } else {

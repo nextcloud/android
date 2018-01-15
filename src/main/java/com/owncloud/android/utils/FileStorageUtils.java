@@ -79,7 +79,7 @@ public class FileStorageUtils {
      * file.
      */
     public static String getDefaultSavePathFor(String accountName, OCFile file) {
-        return getSavePath(accountName) + file.getRemotePath();
+        return getSavePath(accountName) + file.getDecryptedRemotePath();
     }
 
     /**
@@ -217,6 +217,7 @@ public class FileStorageUtils {
         file.setPermissions(remote.getPermissions());
         file.setRemoteId(remote.getRemoteId());
         file.setFavorite(remote.getIsFavorite());
+        file.setEncrypted(remote.getIsEncrypted());
         return file;
     }
 
@@ -380,5 +381,15 @@ public class FileStorageUtils {
         }
 
         return true;
+    }
+
+    public static boolean checkIfInEncryptedFolder(OCFile file, FileDataStorageManager storageManager) {
+        while (!OCFile.ROOT_PATH.equals(file.getRemotePath())) {
+            if (file.isEncrypted()) {
+                return true;
+            }
+            file = storageManager.getFileById(file.getParentId());
+        }
+        return false;
     }
 }

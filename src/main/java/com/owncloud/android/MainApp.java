@@ -35,6 +35,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.StrictMode;
+import android.support.annotation.StringRes;
 import android.support.multidex.MultiDexApplication;
 import android.support.v4.util.Pair;
 import android.support.v7.app.AlertDialog;
@@ -120,6 +121,7 @@ public class MainApp extends MultiDexApplication {
         boolean isSamlAuth = AUTH_ON.equals(getString(R.string.auth_method_saml_web_sso));
 
         OwnCloudClientManagerFactory.setUserAgent(getUserAgent());
+        OwnCloudClientManagerFactory.setNextcloudUserAgent(getNextcloudUserAgent());
         if (isSamlAuth) {
             OwnCloudClientManagerFactory.setDefaultPolicy(Policy.SINGLE_SESSION_PER_ACCOUNT);
         } else {
@@ -328,7 +330,7 @@ public class MainApp extends MultiDexApplication {
         }
     }
 
-    //  From AccountAuthenticator 
+    //  From AccountAuthenticator
     //  public static final String AUTHORITY = "org.owncloud";
     public static String getAuthority() {
         return getAppContext().getResources().getString(R.string.authority);
@@ -372,9 +374,19 @@ public class MainApp extends MultiDexApplication {
         return mOnlyOnDevice;
     }
 
-    // user agent
     public static String getUserAgent() {
-        String appString = getAppContext().getResources().getString(R.string.user_agent);
+        // Mozilla/5.0 (Android) ownCloud-android/1.7.0
+        return getUserAgent(R.string.user_agent);
+    }
+
+    public static String getNextcloudUserAgent() {
+        // Mozilla/5.0 (Android) Nextcloud-android/2.1.0
+        return getUserAgent(R.string.nextcloud_user_agent);
+    }
+
+    // user agent
+    private static String getUserAgent(@StringRes int agent) {
+        String appString = getAppContext().getResources().getString(agent);
         String packageName = getAppContext().getPackageName();
         String version = "";
 
@@ -388,10 +400,7 @@ public class MainApp extends MultiDexApplication {
             Log_OC.e(TAG, "Trying to get packageName", e.getCause());
         }
 
-        // Mozilla/5.0 (Android) ownCloud-android/1.7.0
-        String userAgent = String.format(appString, version);
-
-        return userAgent;
+        return String.format(appString, version);
     }
 
     private static void updateToAutoUpload() {

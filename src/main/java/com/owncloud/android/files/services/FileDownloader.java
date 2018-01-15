@@ -188,7 +188,7 @@ public class FileDownloader extends Service
             AbstractList<String> requestedDownloads = new Vector<String>();
             try {
                 DownloadFileOperation newDownload = new DownloadFileOperation(account, file, behaviour, activityName,
-                        packageName);
+                        packageName, getBaseContext());
                 newDownload.addDatatransferProgressListener(this);
                 newDownload.addDatatransferProgressListener((FileDownloaderBinder) mBinder);
                 Pair<String, String> putResult = mPendingDownloads.putIfAbsent(
@@ -450,7 +450,7 @@ public class FileDownloader extends Service
 
 
                     /// perform the download
-                    downloadResult = mCurrentDownload.execute(mDownloadClient);
+                    downloadResult = mCurrentDownload.execute(mDownloadClient, mCurrentDownload.getFile().isEncrypted());
                     if (downloadResult.isSuccess()) {
                         saveDownloadedFile();
                     }

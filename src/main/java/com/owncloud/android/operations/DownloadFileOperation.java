@@ -22,8 +22,11 @@
 package com.owncloud.android.operations;
 
 import android.accounts.Account;
+import android.content.Context;
 import android.webkit.MimeTypeMap;
 
+import com.owncloud.android.datamodel.DecryptedFolderMetadata;
+import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.network.OnDatatransferProgressListener;
@@ -32,9 +35,11 @@ import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.files.DownloadRemoteFileOperation;
+import com.owncloud.android.utils.EncryptionUtils;
 import com.owncloud.android.utils.FileStorageUtils;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
@@ -46,10 +51,11 @@ import java.util.concurrent.atomic.AtomicBoolean;
 public class DownloadFileOperation extends RemoteOperation {
     
     private static final String TAG = DownloadFileOperation.class.getSimpleName();
-
     private Account mAccount;
+
     private OCFile mFile;
     private String mBehaviour;
+    private Context mContext;
     private Set<OnDatatransferProgressListener> mDataTransferListeners = new HashSet<OnDatatransferProgressListener>();
     private long mModificationTimestamp = 0;
     private String mEtag = "";
@@ -60,8 +66,8 @@ public class DownloadFileOperation extends RemoteOperation {
     private String mPackageName;
 
 
-    public DownloadFileOperation(Account account, OCFile file, String behaviour, String activityName,
-                                 String packageName) {
+    public DownloadFileOperation(Account account, OCFile file, String behaviour, String activityName, 
+                                 String packageName, Context context) {
         if (account == null) {
             throw new IllegalArgumentException("Illegal null account in DownloadFileOperation " +
                     "creation");
@@ -76,6 +82,7 @@ public class DownloadFileOperation extends RemoteOperation {
         mBehaviour = behaviour;
         mActivityName = activityName;
         mPackageName = packageName;
+        mContext = context;
     }
 
 
@@ -175,10 +182,38 @@ public class DownloadFileOperation extends RemoteOperation {
             mEtag = mDownloadOperation.getEtag();
             newFile = new File(getSavePath());
             newFile.getParentFile().mkdirs();
+
+            // decrypt file
+            if (mFile.isEncrypted() && android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT) {
+                FileDataStorageManager fileDataStorageManager = new FileDataStorageManager(mAccount, mContext.getContentResolver());
+
+                OCFile parent = fileDataStorageManager.getFileByPath(mFile.getParentRemotePath());
+
+                DecryptedFolderMetadata metadata = EncryptionUtils.downloadFolderMetadata(parent, client, mContext, mAccount);
+
+                if (metadata == null) {
+                    return new RemoteOperationResult(RemoteOperationResult.ResultCode.METADATA_NOT_FOUND);
+                }
+                byte[] key = EncryptionUtils.decodeStringToBase64Bytes(metadata.getFiles()
+                        .get(mFile.getEncryptedFileName()).getEncrypted().getKey());
+                byte[] iv = EncryptionUtils.decodeStringToBase64Bytes(metadata.getFiles()
+                        .get(mFile.getEncryptedFileName()).getInitializationVector());
+                byte[] authenticationTag = EncryptionUtils.decodeStringToBase64Bytes(metadata.getFiles()
+                        .get(mFile.getEncryptedFileName()).getAuthenticationTag());
+
+                try {
+                    byte[] decryptedBytes = EncryptionUtils.decryptFile(tmpFile, key, iv, authenticationTag);
+
+                    FileOutputStream fileOutputStream = new FileOutputStream(tmpFile);
+                    fileOutputStream.write(decryptedBytes);
+                    fileOutputStream.close();
+                } catch (Exception e) {
+                    return new RemoteOperationResult(e);
+                }
+            }
             moved = tmpFile.renameTo(newFile);
             if (!moved) {
-                result = new RemoteOperationResult(
-                        RemoteOperationResult.ResultCode.LOCAL_STORAGE_NOT_MOVED);
+                result = new RemoteOperationResult(RemoteOperationResult.ResultCode.LOCAL_STORAGE_NOT_MOVED);
             }
         }
         Log_OC.i(TAG, "Download of " + mFile.getRemotePath() + " to " + getSavePath() + ": " +

@@ -83,6 +83,7 @@ public class FileContentProvider extends ContentProvider {
     private static final String TEXT = " TEXT, ";
     private static final String ALTER_TABLE = "ALTER TABLE ";
     private static final String ADD_COLUMN = " ADD COLUMN ";
+    private static final String REMOVE_COLUMN = " REMOVE COLUMN ";
     private static final String UPGRADE_VERSION_MSG = "OUT of the ADD in onUpgrade; oldVersion == %d, newVersion == %d";
     private DataBaseHelper mDbHelper;
     private Context mContext;
@@ -716,6 +717,7 @@ public class FileContentProvider extends ContentProvider {
         db.execSQL("CREATE TABLE " + ProviderTableMeta.FILE_TABLE_NAME + "("
                 + ProviderTableMeta._ID + " INTEGER PRIMARY KEY, "
                 + ProviderTableMeta.FILE_NAME + TEXT
+                + ProviderTableMeta.FILE_ENCRYPTED_NAME + TEXT
                 + ProviderTableMeta.FILE_PATH + TEXT
                 + ProviderTableMeta.FILE_PARENT + INTEGER
                 + ProviderTableMeta.FILE_CREATION + INTEGER
@@ -736,6 +738,7 @@ public class FileContentProvider extends ContentProvider {
                 + ProviderTableMeta.FILE_UPDATE_THUMBNAIL + INTEGER //boolean
                 + ProviderTableMeta.FILE_IS_DOWNLOADING + INTEGER //boolean
                 + ProviderTableMeta.FILE_FAVORITE + INTEGER // boolean
+                + ProviderTableMeta.FILE_IS_ENCRYPTED + INTEGER // boolean
                 + ProviderTableMeta.FILE_ETAG_IN_CONFLICT + TEXT
                 + ProviderTableMeta.FILE_SHARED_WITH_SHAREE + " INTEGER);"
         );
@@ -794,7 +797,8 @@ public class FileContentProvider extends ContentProvider {
                 + ProviderTableMeta.CAPABILITIES_SERVER_TEXT_COLOR + TEXT
                 + ProviderTableMeta.CAPABILITIES_SERVER_ELEMENT_COLOR + TEXT
                 + ProviderTableMeta.CAPABILITIES_SERVER_SLOGAN + TEXT
-                + ProviderTableMeta.CAPABILITIES_SERVER_BACKGROUND_URL + " TEXT );");
+                + ProviderTableMeta.CAPABILITIES_SERVER_BACKGROUND_URL + TEXT
+                + ProviderTableMeta.CAPABILITIES_END_TO_END_ENCRYPTION + " INTEGER );");
     }
 
     private void createUploadsTable(SQLiteDatabase db) {
@@ -814,8 +818,8 @@ public class FileContentProvider extends ContentProvider {
                 + ProviderTableMeta.UPLOADS_LAST_RESULT + INTEGER     // Upload LastResult
                 + ProviderTableMeta.UPLOADS_IS_WHILE_CHARGING_ONLY + INTEGER  // boolean
                 + ProviderTableMeta.UPLOADS_IS_WIFI_ONLY + INTEGER // boolean
-                + ProviderTableMeta.UPLOADS_CREATED_BY + " INTEGER );"    // Upload createdBy
-        );
+                + ProviderTableMeta.UPLOADS_CREATED_BY + INTEGER    // Upload createdBy
+                + ProviderTableMeta.UPLOADS_FOLDER_UNLOCK_TOKEN + " TEXT );");
 
 
         /* before:
@@ -1504,7 +1508,28 @@ public class FileContentProvider extends ContentProvider {
             }
 
             if (oldVersion < 25 && newVersion >= 25) {
-                Log_OC.i(SQL, "Entering in the #25 Adding text and element color to capabilities");
+                    Log_OC.i(SQL, "Entering in the #25 Adding encryption flag to file");
+                    db.beginTransaction();
+                    try {
+                        db.execSQL(ALTER_TABLE + ProviderTableMeta.FILE_TABLE_NAME +
+                                ADD_COLUMN + ProviderTableMeta.FILE_IS_ENCRYPTED + " INTEGER ");
+                        db.execSQL(ALTER_TABLE + ProviderTableMeta.FILE_TABLE_NAME +
+                                ADD_COLUMN + ProviderTableMeta.FILE_ENCRYPTED_NAME + " TEXT ");
+                        db.execSQL(ALTER_TABLE + ProviderTableMeta.CAPABILITIES_TABLE_NAME +
+                                ADD_COLUMN + ProviderTableMeta.CAPABILITIES_END_TO_END_ENCRYPTION + " INTEGER ");
+                        upgraded = true;
+                        db.setTransactionSuccessful();
+                    } finally {
+                        db.endTransaction();
+                    }
+            }
+
+            if (!upgraded) {
+                Log_OC.i(SQL, String.format(Locale.ENGLISH, UPGRADE_VERSION_MSG, oldVersion, newVersion));
+            }
+
+            if (oldVersion < 26 && newVersion >= 26) {
+                Log_OC.i(SQL, "Entering in the #26 Adding text and element color to capabilities");
                 db.beginTransaction();
                 try {
                     db.execSQL(ALTER_TABLE + ProviderTableMeta.CAPABILITIES_TABLE_NAME +
@@ -1520,8 +1545,29 @@ public class FileContentProvider extends ContentProvider {
                 }
             }
 
-            if (oldVersion < 26 && newVersion >= 26) {
-                Log_OC.i(SQL, "Entering in the #26 Adding CRC32 column to filesystem table");
+            if (!upgraded) {
+                Log_OC.i(SQL, String.format(Locale.ENGLISH, UPGRADE_VERSION_MSG, oldVersion, newVersion));
+            }
+
+            if (oldVersion < 27 && newVersion >= 27) {
+                Log_OC.i(SQL, "Entering in the #27 Adding token to ocUpload");
+                db.beginTransaction();
+                try {
+                    db.execSQL(ALTER_TABLE + ProviderTableMeta.UPLOADS_TABLE_NAME +
+                            ADD_COLUMN + ProviderTableMeta.UPLOADS_FOLDER_UNLOCK_TOKEN + " TEXT ");
+                    upgraded = true;
+                    db.setTransactionSuccessful();
+                } finally {
+                    db.endTransaction();
+                }
+            }
+
+            if (!upgraded) {
+                Log_OC.i(SQL, String.format(Locale.ENGLISH, UPGRADE_VERSION_MSG, oldVersion, newVersion));
+            }
+
+            if (oldVersion < 28 && newVersion >= 28) {
+                Log_OC.i(SQL, "Entering in the #28 Adding CRC32 column to filesystem table");
                 db.beginTransaction();
                 try {
                     db.execSQL(ALTER_TABLE + ProviderTableMeta.FILESYSTEM_TABLE_NAME +
@@ -1534,17 +1580,21 @@ public class FileContentProvider extends ContentProvider {
                 }
             }
 
-
             if (!upgraded) {
                 Log_OC.i(SQL, String.format(Locale.ENGLISH, UPGRADE_VERSION_MSG, oldVersion, newVersion));
             }
+
         }
 
         @Override
         public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion) {
             if (oldVersion == 25 && newVersion == 24) {
-                // nothing needs to be done as the upgrade was adding columns only if they did not exist
-                Log_OC.i(TAG, "Downgrading v" + oldVersion + " to " + newVersion);
+                db.execSQL(ALTER_TABLE + ProviderTableMeta.FILE_TABLE_NAME +
+                        REMOVE_COLUMN + ProviderTableMeta.FILE_IS_ENCRYPTED);
+                db.execSQL(ALTER_TABLE + ProviderTableMeta.FILE_TABLE_NAME +
+                        REMOVE_COLUMN + ProviderTableMeta.FILE_ENCRYPTED_NAME);
+                db.execSQL(ALTER_TABLE + ProviderTableMeta.CAPABILITIES_TABLE_NAME +
+                        REMOVE_COLUMN + ProviderTableMeta.CAPABILITIES_END_TO_END_ENCRYPTION);
             }
         }
     }

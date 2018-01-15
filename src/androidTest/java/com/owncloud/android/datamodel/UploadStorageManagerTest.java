@@ -38,7 +38,7 @@ public class UploadStorageManagerTest {
 
     @Test
     public void testDeleteAllUploads() {
-        //Clean
+        // Clean
         for (Account account : Accounts) {
             uploadsStorageManager.removeAccountUploads(account);
         }

@@ -3,6 +3,7 @@
     <issue id="InvalidPackage">
         <ignore path="**/freemarker-2.3.23.jar"/>
         <ignore path="**/nnio-0.2.jar"/>
+        <ignore path="**/pkix-1.54.0.0.jar"/>
     </issue>
     
     <issue id="UnusedResources">

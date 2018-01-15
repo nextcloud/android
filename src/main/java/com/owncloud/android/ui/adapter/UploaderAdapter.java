@@ -93,7 +93,7 @@ public class UploaderAdapter extends SimpleAdapter {
 
         if (file.isFolder()) {
             fileIcon.setImageDrawable(MimeTypeUtil.getFolderTypeIcon(file.isSharedWithMe() ||
-                    file.isSharedWithSharee(), file.isSharedViaLink(), mAccount));
+                    file.isSharedWithSharee(), file.isSharedViaLink(), file.isEncrypted(), mAccount));
         } else {
             // get Thumbnail if file is image
             if (MimeTypeUtil.isImage(file) && file.getRemoteId() != null) {
