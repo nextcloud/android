@@ -337,7 +337,7 @@ public class PushUtils {
         return -1;
     }
 
-    public static void migratePushKeys() {
+    private static void migratePushKeys() {
         Context context = MainApp.getAppContext();
 
         if (!PreferenceManager.getKeysMigration(context)) {

@@ -99,7 +99,7 @@ public class PushUtils {
     }
 
     private static int generateRsa2048KeyPair() {
-        MainApp.migratePushKeys();
+        migratePushKeys();
         String keyPath = MainApp.getAppContext().getFilesDir().getAbsolutePath() + File.separator + 
                 MainApp.getDataFolder() + File.separator + KEYPAIR_FOLDER;
 
@@ -330,5 +330,9 @@ public class PushUtils {
         }
 
         return -1;
+    }
+
+    private static void migratePushKeys() {
+    
     }
 }
