@@ -601,18 +601,6 @@
     <string name="welcome_feature_3_title">Auto upload</string>
     <string name="welcome_feature_3_text">Keep your photos safe</string>
 
-    <string name="whats_new_auto_upload_title">Enhanced auto upload</string>
-    <string name="whats_new_auto_upload_content">\u2022 for all Android versions\n\u2022 less battery consumption\n\u2022 more reliable, but not instant\n\u2022 separation of images &amp; videos</string>
-
-    <string name="whats_new_search_title">Full server search</string>
-    <string name="whats_new_search_content">\u2022 Not only in current folder\n\u2022 Returns results from complete server\n\u2022 Directly open files/folders\n\u2022 Supported in NC12 and above</string>
-
-    <string name="whats_new_theming_title">Theming support</string>
-    <string name="whats_new_theming_content">If enabled on server, app will show\n\u2022 background image\n\u2022 server name\n\u2022 use color to distinguish accounts</string>
-
-    <string name="whats_new_notification_title">Notification support</string>
-    <string name="whats_new_notification_content">Get notifications like\n\u2022 new remote share\n\u2022 comment mentions\n\u2022 admin announcements</string>
-
     <string name="whats_new_skip">Skip</string>
 
     <string name="fingerprint_scan_finger">Please scan your finger</string>
@@ -665,8 +653,6 @@
     <string name="test_server_button">Test server connection</string>
     <string name="info_separator" translatable="false">,</string>
     <string name="resharing_is_not_allowed">Resharing is not allowed</string>
-    <string name="whats_new_fingerprint_title">Unlock with fingerprint</string>
-    <string name="whats_new_fingerprint_content">Use your fingerprint to unlock the app</string>
     <string name="fallback_weblogin_back">Back</string>
     <string name="fallback_weblogin_text">Revert to old login method</string>
 
