@@ -60,6 +60,7 @@ import com.caverock.androidsvg.SVG;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
+import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
@@ -426,40 +427,42 @@ public class DisplayUtils {
      * @param resources      reference for density information
      * @param storageManager reference for caching purposes
      */
-    public static void setAvatar(Account account, AvatarGenerationListener listener, float avatarRadius, Resources resources,
-                                 FileDataStorageManager storageManager, Object callContext) {
+    public static void setAvatar(Account account, AvatarGenerationListener listener, float avatarRadius,
+                                 Resources resources, FileDataStorageManager storageManager, Object callContext) {
         if (account != null) {
             if (callContext instanceof View) {
                 ((View) callContext).setContentDescription(account.name);
             }
 
-            // Thumbnail in Cache?
-            Bitmap thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache("a_" + account.name);
+            ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProvider(
+                    MainApp.getAppContext().getContentResolver());
 
-            if (thumbnail != null) {
-                listener.avatarGenerated(
-                        BitmapUtils.bitmapToCircularBitmapDrawable(MainApp.getAppContext().getResources(), thumbnail),
-                        callContext);
-            } else {
-                // generate new avatar
-                if (ThumbnailsCacheManager.cancelPotentialAvatarWork(account.name, callContext)) {
-                    final ThumbnailsCacheManager.AvatarGenerationTask task =
-                            new ThumbnailsCacheManager.AvatarGenerationTask(listener, callContext, storageManager, account);
-                    if (thumbnail == null) {
-                        try {
-                            listener.avatarGenerated(TextDrawable.createAvatar(account.name, avatarRadius), callContext);
-                        } catch (Exception e) {
-                            Log_OC.e(TAG, "Error calculating RGB value for active account icon.", e);
-                            listener.avatarGenerated(resources.getDrawable(R.drawable.ic_account_circle), callContext);
-                        }
-                    } else {
-                        final ThumbnailsCacheManager.AsyncAvatarDrawable asyncDrawable =
-                                new ThumbnailsCacheManager.AsyncAvatarDrawable(resources, thumbnail, task);
-                        listener.avatarGenerated(BitmapUtils.bitmapToCircularBitmapDrawable(
-                                resources, asyncDrawable.getBitmap()), callContext);
-                    }
-                    task.execute(account.name);
+            String eTag = arbitraryDataProvider.getValue(account, ThumbnailsCacheManager.AVATAR);
+
+            // first show old one
+            Drawable avatar = BitmapUtils.bitmapToCircularBitmapDrawable(resources,
+                    ThumbnailsCacheManager.getBitmapFromDiskCache("a_" + account.name + "_" + eTag));
+
+            // if no one exists, show colored icon with initial char
+            if (avatar == null) {
+                try {
+                    avatar = TextDrawable.createAvatar(account.name, avatarRadius);
+                } catch (Exception e) {
+                    Log_OC.e(TAG, "Error calculating RGB value for active account icon.", e);
+                    avatar = resources.getDrawable(R.drawable.ic_account_circle);
                 }
+            }
+
+            // check for new avatar, eTag is compared, so only new one is downloaded
+            if (ThumbnailsCacheManager.cancelPotentialAvatarWork(account.name, callContext)) {
+                final ThumbnailsCacheManager.AvatarGenerationTask task =
+                        new ThumbnailsCacheManager.AvatarGenerationTask(listener, callContext, storageManager,
+                                account, resources, avatarRadius);
+
+                final ThumbnailsCacheManager.AsyncAvatarDrawable asyncDrawable =
+                        new ThumbnailsCacheManager.AsyncAvatarDrawable(resources, avatar, task);
+                listener.avatarGenerated(asyncDrawable, callContext);
+                task.execute(account.name);
             }
         }
     }
