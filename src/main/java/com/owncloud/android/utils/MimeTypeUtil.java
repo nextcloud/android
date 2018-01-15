@@ -128,8 +128,8 @@ public class MimeTypeUtil {
      * @param isSharedViaLink  flag if the folder is publicly shared via link
      * @return Identifier of an image resource.
      */
-    public static Drawable getFolderTypeIcon(boolean isSharedViaUsers, boolean isSharedViaLink) {
-        return getFolderTypeIcon(isSharedViaUsers, isSharedViaLink, null);
+    public static Drawable getFolderTypeIcon(boolean isSharedViaUsers, boolean isSharedViaLink, boolean isEncrypted) {
+        return getFolderTypeIcon(isSharedViaUsers, isSharedViaLink, isEncrypted, null);
     }
 
     /**
@@ -137,16 +137,20 @@ public class MimeTypeUtil {
      *
      * @param isSharedViaUsers flag if the folder is shared via the users system
      * @param isSharedViaLink flag if the folder is publicly shared via link
+     * @param isEncrypted flag if the folder is encrypted
      * @param account account which color should be used
      * @return Identifier of an image resource.
      */
-    public static Drawable getFolderTypeIcon(boolean isSharedViaUsers, boolean isSharedViaLink, Account account) {
+    public static Drawable getFolderTypeIcon(boolean isSharedViaUsers, boolean isSharedViaLink,
+                                             boolean isEncrypted, Account account) {
         int drawableId;
 
         if (isSharedViaLink) {
             drawableId = R.drawable.folder_public;
         } else if (isSharedViaUsers) {
             drawableId = R.drawable.shared_with_me_folder;
+        } else if (isEncrypted) {
+            drawableId = R.drawable.ic_list_encrypted_folder;
         } else {
             drawableId = R.drawable.folder;
         }
@@ -155,7 +159,7 @@ public class MimeTypeUtil {
     }
 
     public static Drawable getDefaultFolderIcon() {
-        return getFolderTypeIcon(false, false);
+        return getFolderTypeIcon(false, false, false);
     }
 
 

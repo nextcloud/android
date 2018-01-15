@@ -58,6 +58,7 @@ import android.widget.TextView;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
+import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.VirtualFolderType;
@@ -70,6 +71,7 @@ import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.files.SearchOperation;
+import com.owncloud.android.lib.resources.files.ToggleEncryptionOperation;
 import com.owncloud.android.lib.resources.files.ToggleFavoriteOperation;
 import com.owncloud.android.lib.resources.shares.GetRemoteSharesOperation;
 import com.owncloud.android.lib.resources.status.OwnCloudVersion;
@@ -83,8 +85,10 @@ import com.owncloud.android.ui.dialog.ConfirmationDialogFragment;
 import com.owncloud.android.ui.dialog.CreateFolderDialogFragment;
 import com.owncloud.android.ui.dialog.RemoveFilesDialogFragment;
 import com.owncloud.android.ui.dialog.RenameFileDialogFragment;
+import com.owncloud.android.ui.dialog.SetupEncryptionDialogFragment;
 import com.owncloud.android.ui.events.ChangeMenuEvent;
 import com.owncloud.android.ui.events.DummyDrawerEvent;
+import com.owncloud.android.ui.events.EncryptionEvent;
 import com.owncloud.android.ui.events.FavoriteEvent;
 import com.owncloud.android.ui.events.SearchEvent;
 import com.owncloud.android.ui.helpers.SparseBooleanArrayParcelable;
@@ -94,10 +98,12 @@ import com.owncloud.android.ui.preview.PreviewMediaFragment;
 import com.owncloud.android.ui.preview.PreviewTextFragment;
 import com.owncloud.android.utils.AnalyticsUtils;
 import com.owncloud.android.utils.DisplayUtils;
+import com.owncloud.android.utils.EncryptionUtils;
 import com.owncloud.android.utils.FileSortOrder;
 import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.ThemeUtils;
 
+import org.apache.commons.httpclient.HttpStatus;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -873,13 +879,47 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
 
         if (file != null) {
             if (file.isFolder()) {
-                // update state and view of this fragment
-                searchFragment = false;
-                listDirectory(file, MainApp.isOnlyOnDevice(), false);
-                // then, notify parent activity to let it update its state and view
-                mContainerActivity.onBrowsedDownTo(file);
-                // save index and top position
-                saveIndexAndTopPosition(position);
+                if (file.isEncrypted()) {
+                    // check if API >= 19
+                    if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.KITKAT) {
+                        Snackbar.make(mCurrentListView, R.string.end_to_end_encryption_not_supported,
+                                Snackbar.LENGTH_LONG).show();
+                        return;
+                    }
+
+                    // check if keys are stored
+                    ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProvider(
+                            getContext().getContentResolver());
+
+                    Account account = ((FileActivity) mContainerActivity).getAccount();
+                    String publicKey = arbitraryDataProvider.getValue(account, EncryptionUtils.PUBLIC_KEY);
+                    String privateKey = arbitraryDataProvider.getValue(account, EncryptionUtils.PRIVATE_KEY);
+
+                    if (publicKey.isEmpty() || privateKey.isEmpty()) {
+                        Log_OC.d(TAG, "no public key for " + account.name);
+
+                        SetupEncryptionDialogFragment dialog = SetupEncryptionDialogFragment.newInstance(account,
+                                position);
+                        dialog.setTargetFragment(this, SetupEncryptionDialogFragment.SETUP_ENCRYPTION_REQUEST_CODE);
+                        dialog.show(getFragmentManager(), SetupEncryptionDialogFragment.SETUP_ENCRYPTION_DIALOG_TAG);
+                    } else {
+                        // update state and view of this fragment
+                        searchFragment = false;
+                        listDirectory(file, MainApp.isOnlyOnDevice(), false);
+                        // then, notify parent activity to let it update its state and view
+                        mContainerActivity.onBrowsedDownTo(file);
+                        // save index and top position
+                        saveIndexAndTopPosition(position);
+                    }
+                } else {
+                    // update state and view of this fragment
+                    searchFragment = false;
+                    listDirectory(file, MainApp.isOnlyOnDevice(), false);
+                    // then, notify parent activity to let it update its state and view
+                    mContainerActivity.onBrowsedDownTo(file);
+                    // save index and top position
+                    saveIndexAndTopPosition(position);
+                }
 
             } else { /// Click on a file
                 if (PreviewImageFragment.canBePreviewed(file)) {
@@ -927,6 +967,27 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
 
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == SetupEncryptionDialogFragment.SETUP_ENCRYPTION_REQUEST_CODE &&
+                resultCode == SetupEncryptionDialogFragment.SETUP_ENCRYPTION_RESULT_CODE &&
+                data.getBooleanExtra(SetupEncryptionDialogFragment.SUCCESS, false)) {
+
+            int position = data.getIntExtra(SetupEncryptionDialogFragment.ARG_POSITION, -1);
+            OCFile file = (OCFile) mAdapter.getItem(position);
+
+            // update state and view of this fragment
+            searchFragment = false;
+            listDirectory(file, MainApp.isOnlyOnDevice(), false);
+            // then, notify parent activity to let it update its state and view
+            mContainerActivity.onBrowsedDownTo(file);
+            // save index and top position
+            saveIndexAndTopPosition(position);
+        } else {
+            super.onActivityResult(requestCode, resultCode, data);
+        }
+    }
+
     /**
      * Start the appropriate action(s) on the currently selected files given menu selected by the user.
      *
@@ -965,6 +1026,14 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
                 }
                 case R.id.action_set_as_wallpaper: {
                     mContainerActivity.getFileOperationsHelper().setPictureAs(singleFile, getView());
+                    return true;
+                }
+                case R.id. action_encrypted: {
+                    mContainerActivity.getFileOperationsHelper().toggleEncryption(singleFile, true);
+                    return true;
+                }
+                case R.id. action_unset_encrypted: {
+                    mContainerActivity.getFileOperationsHelper().toggleEncryption(singleFile, false);
                     return true;
                 }
             }
@@ -1112,7 +1181,6 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
                 mFile = directory;
 
                 updateLayout();
-
             }
         }
     }
@@ -1502,6 +1570,40 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
         };
 
         remoteOperationAsyncTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, true);
+    }
+
+    @Subscribe(threadMode = ThreadMode.BACKGROUND)
+    public void onMessageEvent(EncryptionEvent event) {
+        Account currentAccount = AccountUtils.getCurrentOwnCloudAccount(MainApp.getAppContext());
+
+        OwnCloudAccount ocAccount = null;
+        try {
+            ocAccount = new OwnCloudAccount(currentAccount, MainApp.getAppContext());
+
+            OwnCloudClient mClient = OwnCloudClientManagerFactory.getDefaultSingleton().
+                    getClientFor(ocAccount, MainApp.getAppContext());
+
+            ToggleEncryptionOperation toggleEncryptionOperation = new ToggleEncryptionOperation(event.localId,
+                    event.remotePath, event.shouldBeEncrypted);
+            RemoteOperationResult remoteOperationResult = toggleEncryptionOperation.execute(mClient, true);
+
+            if (remoteOperationResult.isSuccess()) {
+                mAdapter.setEncryptionAttributeForItemID(event.remoteId, event.shouldBeEncrypted);
+            } else if (remoteOperationResult.getHttpCode() == HttpStatus.SC_FORBIDDEN) {
+                Snackbar.make(mCurrentListView, R.string.end_to_end_encryption_folder_not_empty, Snackbar.LENGTH_LONG).show();
+            } else {
+                Snackbar.make(mCurrentListView, R.string.common_error_unknown, Snackbar.LENGTH_LONG).show();
+            }
+
+        } catch (com.owncloud.android.lib.common.accounts.AccountUtils.AccountNotFoundException e) {
+            Log_OC.e(TAG, "Account not found", e);
+        } catch (AuthenticatorException e) {
+            Log_OC.e(TAG, "Authentication failed", e);
+        } catch (IOException e) {
+            Log_OC.e(TAG, "IO error", e);
+        } catch (OperationCanceledException e) {
+            Log_OC.e(TAG, "Operation has been canceled", e);
+        }
     }
 
     private void setTitle(@StringRes final int title) {

@@ -644,25 +644,21 @@ public class OperationsService extends Service {
                 } else if (action.equals(ACTION_REMOVE)) {
                     // Remove file or folder
                     String remotePath = operationIntent.getStringExtra(EXTRA_REMOTE_PATH);
-                    boolean onlyLocalCopy = operationIntent.getBooleanExtra(EXTRA_REMOVE_ONLY_LOCAL,
-                            false);
-                    operation = new RemoveFileOperation(remotePath, onlyLocalCopy);
+                    boolean onlyLocalCopy = operationIntent.getBooleanExtra(EXTRA_REMOVE_ONLY_LOCAL, false);
+                    operation = new RemoveFileOperation(remotePath, onlyLocalCopy, account, getApplicationContext());
                     
                 } else if (action.equals(ACTION_CREATE_FOLDER)) {
                     // Create Folder
                     String remotePath = operationIntent.getStringExtra(EXTRA_REMOTE_PATH);
-                    boolean createFullPath = operationIntent.getBooleanExtra(EXTRA_CREATE_FULL_PATH,
-                            true);
+                    boolean createFullPath = operationIntent.getBooleanExtra(EXTRA_CREATE_FULL_PATH, true);
                     operation = new CreateFolderOperation(remotePath, createFullPath);
 
                 } else if (action.equals(ACTION_SYNC_FILE)) {
                     // Sync file
                     String remotePath = operationIntent.getStringExtra(EXTRA_REMOTE_PATH);
-                    boolean syncFileContents =
-                            operationIntent.getBooleanExtra(EXTRA_SYNC_FILE_CONTENTS, true);
-                    operation = new SynchronizeFileOperation(
-                            remotePath, account, syncFileContents, getApplicationContext()
-                    );
+                    boolean syncFileContents = operationIntent.getBooleanExtra(EXTRA_SYNC_FILE_CONTENTS, true);
+                    operation = new SynchronizeFileOperation(remotePath, account, syncFileContents,
+                            getApplicationContext());
                     
                 } else if (action.equals(ACTION_SYNC_FOLDER)) {
                     // Sync folder (all its descendant files are sync'ed)

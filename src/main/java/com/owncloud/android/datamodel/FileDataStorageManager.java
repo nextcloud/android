@@ -187,6 +187,7 @@ public class FileDataStorageManager {
         cv.put(ProviderTableMeta.FILE_CONTENT_LENGTH, file.getFileLength());
         cv.put(ProviderTableMeta.FILE_CONTENT_TYPE, file.getMimetype());
         cv.put(ProviderTableMeta.FILE_NAME, file.getFileName());
+        cv.put(ProviderTableMeta.FILE_ENCRYPTED_NAME, file.getEncryptedFileName());
         cv.put(ProviderTableMeta.FILE_PARENT, file.getParentId());
         cv.put(ProviderTableMeta.FILE_PATH, file.getRemotePath());
         if (!file.isFolder()) {
@@ -451,6 +452,7 @@ public class FileDataStorageManager {
         cv.put(ProviderTableMeta.FILE_PERMISSIONS, folder.getPermissions());
         cv.put(ProviderTableMeta.FILE_REMOTE_ID, folder.getRemoteId());
         cv.put(ProviderTableMeta.FILE_FAVORITE, folder.getIsFavorite());
+        cv.put(ProviderTableMeta.FILE_IS_ENCRYPTED, folder.isEncrypted());
         return cv;
     }
 
@@ -465,6 +467,7 @@ public class FileDataStorageManager {
         cv.put(ProviderTableMeta.FILE_CONTENT_LENGTH, file.getFileLength());
         cv.put(ProviderTableMeta.FILE_CONTENT_TYPE, file.getMimetype());
         cv.put(ProviderTableMeta.FILE_NAME, file.getFileName());
+        cv.put(ProviderTableMeta.FILE_ENCRYPTED_NAME, file.getEncryptedFileName());
         //cv.put(ProviderTableMeta.FILE_PARENT, file.getParentId());
         cv.put(ProviderTableMeta.FILE_PARENT, folder.getFileId());
         cv.put(ProviderTableMeta.FILE_PATH, file.getRemotePath());
@@ -485,6 +488,7 @@ public class FileDataStorageManager {
         cv.put(ProviderTableMeta.FILE_IS_DOWNLOADING, file.isDownloading());
         cv.put(ProviderTableMeta.FILE_ETAG_IN_CONFLICT, file.getEtagInConflict());
         cv.put(ProviderTableMeta.FILE_FAVORITE, file.getIsFavorite());
+        cv.put(ProviderTableMeta.FILE_IS_ENCRYPTED, file.isEncrypted());
         return cv;
     }
 
@@ -937,8 +941,10 @@ public class FileDataStorageManager {
         OCFile file = null;
         if (c != null) {
             file = new OCFile(c.getString(c.getColumnIndex(ProviderTableMeta.FILE_PATH)));
+            file.setFileName(c.getString(c.getColumnIndex(ProviderTableMeta.FILE_NAME)));
             file.setFileId(c.getLong(c.getColumnIndex(ProviderTableMeta._ID)));
             file.setParentId(c.getLong(c.getColumnIndex(ProviderTableMeta.FILE_PARENT)));
+            file.setEncryptedFileName(c.getString(c.getColumnIndex(ProviderTableMeta.FILE_ENCRYPTED_NAME)));
             file.setMimetype(c.getString(c.getColumnIndex(ProviderTableMeta.FILE_CONTENT_TYPE)));
             file.setStoragePath(c.getString(c.getColumnIndex(ProviderTableMeta.FILE_STORAGE_PATH)));
             if (file.getStoragePath() == null) {
@@ -974,7 +980,7 @@ public class FileDataStorageManager {
                     c.getColumnIndex(ProviderTableMeta.FILE_IS_DOWNLOADING)) == 1);
             file.setEtagInConflict(c.getString(c.getColumnIndex(ProviderTableMeta.FILE_ETAG_IN_CONFLICT)));
             file.setFavorite(c.getInt(c.getColumnIndex(ProviderTableMeta.FILE_FAVORITE)) == 1);
-
+            file.setEncrypted(c.getInt(c.getColumnIndex(ProviderTableMeta.FILE_IS_ENCRYPTED)) == 1);
         }
         return file;
     }
@@ -1930,6 +1936,7 @@ public class FileDataStorageManager {
         cv.put(ProviderTableMeta.CAPABILITIES_SERVER_ELEMENT_COLOR, capability.getServerElementColor());
         cv.put(ProviderTableMeta.CAPABILITIES_SERVER_BACKGROUND_URL, capability.getServerBackground());
         cv.put(ProviderTableMeta.CAPABILITIES_SERVER_SLOGAN, capability.getServerSlogan());
+        cv.put(ProviderTableMeta.CAPABILITIES_END_TO_END_ENCRYPTION, capability.getEndToEndEncryption().getValue());
 
         if (capabilityExists(mAccount.name)) {
             if (getContentResolver() != null) {
@@ -2078,6 +2085,8 @@ public class FileDataStorageManager {
             capability.setServerBackground(c.getString(c.getColumnIndex(
                     ProviderTableMeta.CAPABILITIES_SERVER_BACKGROUND_URL)));
             capability.setServerSlogan(c.getString(c.getColumnIndex(ProviderTableMeta.CAPABILITIES_SERVER_SLOGAN)));
+            capability.setEndToEndEncryption(CapabilityBooleanType.fromValue(c.getInt(c
+                    .getColumnIndex(ProviderTableMeta.CAPABILITIES_END_TO_END_ENCRYPTION))));
         }
         return capability;
     }

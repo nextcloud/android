@@ -32,7 +32,7 @@ import com.owncloud.android.MainApp;
 public class ProviderMeta {
 
     public static final String DB_NAME = "filelist";
-    public static final int DB_VERSION = 26;
+    public static final int DB_VERSION = 27;
 
     private ProviderMeta() {
     }
@@ -79,6 +79,7 @@ public class ProviderMeta {
         // Columns of filelist table
         public static final String FILE_PARENT = "parent";
         public static final String FILE_NAME = "filename";
+        public static final String FILE_ENCRYPTED_NAME = "encrypted_filename";
         public static final String FILE_CREATION = "created";
         public static final String FILE_MODIFIED = "modified";
         public static final String FILE_MODIFIED_AT_LAST_SYNC_FOR_DATA = "modified_at_last_sync_for_data";
@@ -100,8 +101,10 @@ public class ProviderMeta {
         public static final String FILE_IS_DOWNLOADING = "is_downloading";
         public static final String FILE_ETAG_IN_CONFLICT = "etag_in_conflict";
         public static final String FILE_FAVORITE = "favorite";
+        public static final String FILE_IS_ENCRYPTED = "is_encrypted";
 
-        public static final String[] FILE_ALL_COLUMNS = {_ID, FILE_PARENT, FILE_NAME, FILE_CREATION, FILE_MODIFIED,
+        public static final String [] FILE_ALL_COLUMNS = {_ID, FILE_PARENT, FILE_NAME
+               , FILE_CREATION, FILE_MODIFIED,
                 FILE_MODIFIED_AT_LAST_SYNC_FOR_DATA, FILE_CONTENT_LENGTH, FILE_CONTENT_TYPE, FILE_STORAGE_PATH,
                 FILE_PATH, FILE_ACCOUNT_OWNER, FILE_LAST_SYNC_DATE, FILE_LAST_SYNC_DATE_FOR_DATA, FILE_KEEP_IN_SYNC,
                 FILE_ETAG, FILE_SHARED_VIA_LINK, FILE_SHARED_WITH_SHAREE, FILE_PUBLIC_LINK, FILE_PERMISSIONS,
@@ -162,6 +165,7 @@ public class ProviderMeta {
         public static final String CAPABILITIES_SERVER_ELEMENT_COLOR = "server_element_color";
         public static final String CAPABILITIES_SERVER_BACKGROUND_URL = "background_url";
         public static final String CAPABILITIES_SERVER_SLOGAN = "server_slogan";
+        public static final String CAPABILITIES_END_TO_END_ENCRYPTION = "end_to_end_encryption";
 
         public static final String CAPABILITIES_DEFAULT_SORT_ORDER = CAPABILITIES_ACCOUNT_NAME
                 + " collate nocase asc";
@@ -182,6 +186,7 @@ public class ProviderMeta {
         public static final String UPLOADS_DEFAULT_SORT_ORDER = ProviderTableMeta._ID + " collate nocase desc";
         public static final String UPLOADS_IS_WHILE_CHARGING_ONLY = "is_while_charging_only";
         public static final String UPLOADS_IS_WIFI_ONLY = "is_wifi_only";
+        public static final String UPLOADS_FOLDER_UNLOCK_TOKEN = "folder_unlock_token";
 
         // Columns of synced folder table
         public static final String SYNCED_FOLDER_LOCAL_PATH = "local_path";

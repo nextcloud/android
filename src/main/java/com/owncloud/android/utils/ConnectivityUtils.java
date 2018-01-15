@@ -91,9 +91,9 @@ public class ConnectivityUtils {
             } catch (com.owncloud.android.lib.common.accounts.AccountUtils.AccountNotFoundException e) {
                 Log_OC.e(TAG, "Account not found", e);
             } catch (OperationCanceledException e) {
-                e.printStackTrace();
+                Log_OC.e(TAG, e.getMessage());
             } catch (AuthenticatorException e) {
-                e.printStackTrace();
+                Log_OC.e(TAG, e.getMessage());
             }
         }
 
