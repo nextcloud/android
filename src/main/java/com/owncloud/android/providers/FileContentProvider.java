@@ -798,7 +798,9 @@ public class FileContentProvider extends ContentProvider {
                 + ProviderTableMeta.CAPABILITIES_SERVER_ELEMENT_COLOR + TEXT
                 + ProviderTableMeta.CAPABILITIES_SERVER_SLOGAN + TEXT
                 + ProviderTableMeta.CAPABILITIES_SERVER_BACKGROUND_URL + TEXT
-                + ProviderTableMeta.CAPABILITIES_END_TO_END_ENCRYPTION + " INTEGER );");
+                + ProviderTableMeta.CAPABILITIES_END_TO_END_ENCRYPTION + INTEGER
+                + ProviderTableMeta.CAPABILITIES_SERVER_BACKGROUND_DEFAULT + INTEGER
+                + ProviderTableMeta.CAPABILITIES_SERVER_BACKGROUND_PLAIN + " INTEGER );");
     }
 
     private void createUploadsTable(SQLiteDatabase db) {
@@ -1549,6 +1551,10 @@ public class FileContentProvider extends ContentProvider {
                 Log_OC.i(SQL, String.format(Locale.ENGLISH, UPGRADE_VERSION_MSG, oldVersion, newVersion));
             }
 
+            if (!upgraded) {
+                Log_OC.i(SQL, String.format(Locale.ENGLISH, UPGRADE_VERSION_MSG, oldVersion, newVersion));
+            }
+
             if (oldVersion < 27 && newVersion >= 27) {
                 Log_OC.i(SQL, "Entering in the #27 Adding token to ocUpload");
                 db.beginTransaction();
@@ -1572,6 +1578,27 @@ public class FileContentProvider extends ContentProvider {
                 try {
                     db.execSQL(ALTER_TABLE + ProviderTableMeta.FILESYSTEM_TABLE_NAME +
                             ADD_COLUMN + ProviderTableMeta.FILESYSTEM_CRC32 + " TEXT ");
+
+                    upgraded = true;
+                    db.setTransactionSuccessful();
+                } finally {
+                    db.endTransaction();
+                }
+            }
+
+            if (!upgraded) {
+                Log_OC.i(SQL, String.format(Locale.ENGLISH, UPGRADE_VERSION_MSG, oldVersion, newVersion));
+            }
+
+            if (oldVersion < 29 && newVersion >= 29) {
+                Log_OC.i(SQL, "Entering in the #29 Adding background default/plain to capabilities");
+                db.beginTransaction();
+                try {
+                    db.execSQL(ALTER_TABLE + ProviderTableMeta.CAPABILITIES_TABLE_NAME +
+                            ADD_COLUMN + ProviderTableMeta.CAPABILITIES_SERVER_BACKGROUND_DEFAULT + " INTEGER ");
+
+                    db.execSQL(ALTER_TABLE + ProviderTableMeta.CAPABILITIES_TABLE_NAME +
+                            ADD_COLUMN + ProviderTableMeta.CAPABILITIES_SERVER_BACKGROUND_PLAIN + " INTEGER ");
 
                     upgraded = true;
                     db.setTransactionSuccessful();
