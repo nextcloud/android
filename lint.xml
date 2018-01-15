@@ -17,6 +17,12 @@
     </issue>
 
     <issue id="ExtraTranslation">
+        <ignore path="**/strings.xml"/>
+        <ignore path="**/values-b+en+001/strings.xml"/>
+    </issue>
+
+    <issue id="UnusedResources">
+        <ignore path="**/values-b+en+001/strings.xml"/>
         <ignore path="**/values-pt-rPT/strings.xml"/>
         <ignore path="**/values-ro/strings.xml"/>
         <ignore path="**/values-zh-rCN/strings.xml"/>

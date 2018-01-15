@@ -80,8 +80,8 @@ public class WhatsNewActivity extends FragmentActivity implements ViewPager.OnPa
 
         int fontColor = ThemeUtils.fontColor();
 
-        mProgress = (ProgressIndicator) findViewById(R.id.progressIndicator);
-        mPager = (ViewPager) findViewById(R.id.contentPanel);
+        mProgress = findViewById(R.id.progressIndicator);
+        mPager = findViewById(R.id.contentPanel);
         final boolean isBeta = getResources().getBoolean(R.bool.is_beta);
         String[] urls = getResources().getStringArray(R.array.whatsnew_urls);
 
@@ -110,7 +110,7 @@ public class WhatsNewActivity extends FragmentActivity implements ViewPager.OnPa
         mPager.addOnPageChangeListener(this);
 
 
-        mForwardFinishButton = (ImageButton) findViewById(R.id.forward);
+        mForwardFinishButton = findViewById(R.id.forward);
         ThemeUtils.colorImageButton(mForwardFinishButton, fontColor);
         
         mForwardFinishButton.setOnClickListener(new View.OnClickListener() {
@@ -133,7 +133,7 @@ public class WhatsNewActivity extends FragmentActivity implements ViewPager.OnPa
             mForwardFinishButton.setBackgroundDrawable(null);
         }
 
-        mSkipButton = (Button) findViewById(R.id.skip);
+        mSkipButton = findViewById(R.id.skip);
         mSkipButton.setTextColor(fontColor);
         mSkipButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -143,7 +143,7 @@ public class WhatsNewActivity extends FragmentActivity implements ViewPager.OnPa
             }
         });
 
-        TextView tv = (TextView) findViewById(R.id.welcomeText);
+        TextView tv = findViewById(R.id.welcomeText);
 
         if (showWebView) {
             tv.setText(R.string.app_name);
@@ -278,7 +278,7 @@ public class WhatsNewActivity extends FragmentActivity implements ViewPager.OnPa
                                  @Nullable Bundle savedInstanceState) {
             View v = inflater.inflate(R.layout.whats_new_webview_element, container, false);
 
-            WebView webView = (WebView) v.findViewById(R.id.whatsNewWebView);
+            WebView webView = v.findViewById(R.id.whatsNewWebView);
             webView.getSettings().setJavaScriptEnabled(true);
             webView.getSettings().setDomStorageEnabled(true);
             webView.getSettings().setAllowFileAccess(false);
@@ -334,18 +334,18 @@ public class WhatsNewActivity extends FragmentActivity implements ViewPager.OnPa
             View v = inflater.inflate(R.layout.whats_new_element, container, false);
             int fontColor = ThemeUtils.fontColor();
 
-            ImageView iv = (ImageView) v.findViewById(R.id.whatsNewImage);
+            ImageView iv = v.findViewById(R.id.whatsNewImage);
             if (mItem.shouldShowImage()) {
                 iv.setImageResource(mItem.getImage());
             }
 
-            TextView tv2 = (TextView) v.findViewById(R.id.whatsNewTitle);
+            TextView tv2 = v.findViewById(R.id.whatsNewTitle);
             if (mItem.shouldShowTitleText()) {
                 tv2.setText(mItem.getTitleText());
                 tv2.setTextColor(fontColor);
             }
 
-            tv2 = (TextView) v.findViewById(R.id.whatsNewText);
+            tv2 = v.findViewById(R.id.whatsNewText);
             if (mItem.shouldShowContentText()) {
                 tv2.setText(mItem.getContentText());
                 tv2.setTextColor(fontColor);
