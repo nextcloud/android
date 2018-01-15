@@ -108,6 +108,7 @@ public class ThemeUtils {
         return elementColor(null);
     }
 
+    @NextcloudServer(max = 12)
     public static int elementColor(Account account) {
         OCCapability capability = getCapability(account);
 
