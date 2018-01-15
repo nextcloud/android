@@ -383,7 +383,18 @@ public class FileStorageUtils {
         return true;
     }
 
-    public static boolean checkIfInEncryptedFolder(OCFile file, FileDataStorageManager storageManager) {
+    /**
+     * Checks and returns true if file itself or ancestor is encrypted
+     *
+     * @param file           file to check
+     * @param storageManager up to date reference to storage manager
+     * @return true if file itself or ancestor is encrypted
+     */
+    public static boolean checkEncryptionStatus(OCFile file, FileDataStorageManager storageManager) {
+        if (file.isEncrypted()) {
+            return true;
+        }
+        
         while (!OCFile.ROOT_PATH.equals(file.getRemotePath())) {
             if (file.isEncrypted()) {
                 return true;
