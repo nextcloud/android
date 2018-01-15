@@ -195,7 +195,7 @@ dependencies {
     // dependencies for app building
     implementation 'com.android.support:multidex:1.0.2'
 //    implementation project('nextcloud-android-library')
-    implementation 'com.github.nextcloud:android-library:1.0.34'
+    implementation 'com.github.nextcloud:android-library:1.0.35'
     versionDevImplementation 'com.github.nextcloud:android-library:master-SNAPSHOT' // use always latest master
     implementation "com.android.support:support-v4:${supportLibraryVersion}"
     implementation "com.android.support:design:${supportLibraryVersion}"
@@ -227,6 +227,7 @@ dependencies {
     implementation 'com.github.bumptech.glide:glide:3.7.0'
     implementation 'com.caverock:androidsvg:1.2.1'
     implementation "com.android.support:support-annotations:${supportLibraryVersion}"
+    implementation 'com.google.code.gson:gson:2.8.2'
 
     // dependencies for local unit tests
     testImplementation 'junit:junit:4.12'

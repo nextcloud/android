@@ -64,12 +64,11 @@ import java.util.ArrayList;
 public class FolderPickerActivity extends FileActivity implements FileFragment.ContainerActivity,
     OnClickListener, OnEnforceableRefreshListener {
 
-    public static final String EXTRA_FOLDER = FolderPickerActivity.class.getCanonicalName()
-                                                            + ".EXTRA_FOLDER";
-    public static final String EXTRA_FILES = FolderPickerActivity.class.getCanonicalName()
-            + ".EXTRA_FILES";
-    public static final String EXTRA_ACTION = FolderPickerActivity.class.getCanonicalName()
-            + ".EXTRA_ACTION";
+    public static final String EXTRA_FOLDER = FolderPickerActivity.class.getCanonicalName() + ".EXTRA_FOLDER";
+    public static final String EXTRA_FILES = FolderPickerActivity.class.getCanonicalName() + ".EXTRA_FILES";
+    public static final String EXTRA_ACTION = FolderPickerActivity.class.getCanonicalName() + ".EXTRA_ACTION";
+    public static final String MOVE = "MOVE";
+    public static final String COPY = "COPY";
 
     private SyncBroadcastReceiver mSyncBroadcastReceiver;
 
@@ -80,6 +79,8 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
     private static final String TAG_LIST_OF_FOLDERS = "LIST_OF_FOLDERS";
        
     private boolean mSyncInProgress = false;
+
+    private boolean mSearchOnlyFolders = false;
 
     protected Button mCancelBtn;
     protected Button mChooseBtn;
@@ -92,10 +93,7 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.files_folder_picker);
-        
-        if (savedInstanceState == null) {
-            createFragments();
-        }
+
 
         // sets callback listeners for UI elements
         initControls();
@@ -104,9 +102,25 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
         setupToolbar();
         
         if (getIntent().getStringExtra(EXTRA_ACTION) != null) {
-            caption = getIntent().getStringExtra(EXTRA_ACTION);
+            switch (getIntent().getStringExtra(EXTRA_ACTION)) {
+                case MOVE:
+                    caption = getResources().getText(R.string.move_to).toString();
+                    mSearchOnlyFolders = true;
+                    break;
+                case COPY:
+                    caption = getResources().getText(R.string.copy_to).toString();
+                    mSearchOnlyFolders = true;
+                    break;
+                default:
+                    caption = ThemeUtils.getDefaultDisplayNameForRootFolder();
+                    break;
+            }
         } else {
             caption = ThemeUtils.getDefaultDisplayNameForRootFolder();
+        }
+
+        if (savedInstanceState == null) {
+            createFragments();
         }
 
         if (getSupportActionBar() != null) {
@@ -166,6 +180,7 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
         args.putBoolean(OCFileListFragment.ARG_JUST_FOLDERS, true);
         args.putBoolean(OCFileListFragment.ARG_HIDE_FAB, true);
         args.putBoolean(OCFileListFragment.ARG_HIDE_ITEM_OPTIONS, true);
+        args.putBoolean(OCFileListFragment.ARG_SEARCH_ONLY_FOLDER, mSearchOnlyFolders);
         listOfFiles.setArguments(args);
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.add(R.id.fragment_container, listOfFiles, TAG_LIST_OF_FOLDERS);
@@ -371,9 +386,9 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
      * Set per-view controllers
      */
     private void initControls(){
-        mCancelBtn = (Button) findViewById(R.id.folder_picker_btn_cancel);
+        mCancelBtn = findViewById(R.id.folder_picker_btn_cancel);
         mCancelBtn.setOnClickListener(this);
-        mChooseBtn = (Button) findViewById(R.id.folder_picker_btn_choose);
+        mChooseBtn = findViewById(R.id.folder_picker_btn_choose);
         mChooseBtn.getBackground().setColorFilter(ThemeUtils.primaryColor(), PorterDuff.Mode.SRC_ATOP);
         mChooseBtn.setOnClickListener(this);
     }
