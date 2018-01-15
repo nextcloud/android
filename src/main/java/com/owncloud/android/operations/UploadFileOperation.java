@@ -381,7 +381,7 @@ public class UploadFileOperation extends SyncOperation {
         mFile.setParentId(parent.getFileId());
 
         // check if any parent is encrypted
-        encryptedAncestor = FileStorageUtils.checkIfInEncryptedFolder(parent, getStorageManager());
+        encryptedAncestor = FileStorageUtils.checkEncryptionStatus(parent, getStorageManager());
         mFile.setEncrypted(encryptedAncestor);
 
         // try to unlock folder with stored token, e.g. when upload needs to be resumed or app crashed

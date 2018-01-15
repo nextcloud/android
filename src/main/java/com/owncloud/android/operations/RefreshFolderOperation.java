@@ -371,7 +371,7 @@ public class RefreshFolderOperation extends RemoteOperation {
 
         // if local folder is encrypted, download fresh metadata
         DecryptedFolderMetadata metadata;
-        boolean encryptedAncestor = FileStorageUtils.checkIfInEncryptedFolder(mLocalFolder, mStorageManager);
+        boolean encryptedAncestor = FileStorageUtils.checkEncryptionStatus(mLocalFolder, mStorageManager);
         if (encryptedAncestor && android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT) {
             metadata = EncryptionUtils.downloadFolderMetadata(mLocalFolder, getClient(), mContext, mAccount);
         } else {
@@ -470,7 +470,8 @@ public class RefreshFolderOperation extends RemoteOperation {
                 }
             }
 
-            updatedFile.setEncrypted(encryptedAncestor);
+            boolean encrypted = FileStorageUtils.checkEncryptionStatus(updatedFile, mStorageManager);
+            updatedFile.setEncrypted(encrypted);
             
             updatedFiles.add(updatedFile);
         }
