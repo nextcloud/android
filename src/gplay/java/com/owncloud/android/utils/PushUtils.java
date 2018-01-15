@@ -1,4 +1,4 @@
-/**
+/*
  * Nextcloud Android client application
  *
  * @author Mario Danic
@@ -26,6 +26,7 @@ import android.accounts.OperationCanceledException;
 import android.content.Context;
 import android.text.TextUtils;
 import android.util.Base64;
+import android.util.Log;
 
 import com.google.gson.Gson;
 import com.owncloud.android.MainApp;
@@ -99,8 +100,9 @@ public class PushUtils {
     }
     
     private static int generateRsa2048KeyPair() {
-        String keyPath = MainApp.getStoragePath() + File.separator + MainApp.getDataFolder() + File.separator
-                + KEYPAIR_FOLDER;
+        migratePushKeys();
+        String keyPath = MainApp.getAppContext().getFilesDir().getAbsolutePath() + File.separator + 
+                MainApp.getDataFolder() + File.separator + KEYPAIR_FOLDER;
 
         String privateKeyPath = keyPath + File.separator + KEYPAIR_FILE_NAME + KEYPAIR_PRIV_EXTENSION;
         String publicKeyPath = keyPath + File.separator + KEYPAIR_FILE_NAME + KEYPAIR_PUB_EXTENSION;
@@ -227,8 +229,8 @@ public class PushUtils {
                                             publicKey,
                                             context.getResources().getString(R.string.push_server_url));
 
-                            RemoteOperationResult remoteOperationResult = registerAccountDeviceForNotificationsOperation.
-                                    execute(mClient);
+                            RemoteOperationResult remoteOperationResult = 
+                                    registerAccountDeviceForNotificationsOperation.execute(mClient);
 
                             if (remoteOperationResult.isSuccess()) {
                                 PushResponse pushResponse = remoteOperationResult.getPushResponseData();
@@ -271,8 +273,8 @@ public class PushUtils {
     }
 
     public static Key readKeyFromFile(boolean readPublicKey) {
-        String keyPath = MainApp.getStoragePath() + File.separator + MainApp.getDataFolder() + File.separator
-                + KEYPAIR_FOLDER;
+        String keyPath = MainApp.getAppContext().getFilesDir().getAbsolutePath() + File.separator + 
+                MainApp.getDataFolder() + File.separator + KEYPAIR_FOLDER;
 
         String privateKeyPath = keyPath + File.separator + KEYPAIR_FILE_NAME + KEYPAIR_PRIV_EXTENSION;
         String publicKeyPath = keyPath + File.separator + KEYPAIR_FILE_NAME + KEYPAIR_PUB_EXTENSION;
@@ -333,5 +335,45 @@ public class PushUtils {
         }
 
         return -1;
+    }
+
+    private static void migratePushKeys() {
+        Context context = MainApp.getAppContext();
+
+        if (!PreferenceManager.getKeysMigration(context)) {
+            String oldKeyPath = MainApp.getStoragePath() + File.separator + MainApp.getDataFolder()
+                    + File.separator + "nc-keypair";
+            File oldPrivateKeyFile = new File(oldKeyPath, "push_key.priv");
+            File oldPublicKeyFile = new File(oldKeyPath, "push_key.pub");
+
+            String keyPath = context.getDir("nc-keypair", Context.MODE_PRIVATE).getAbsolutePath();
+            File privateKeyFile = new File(keyPath, "push_key.priv");
+            File publicKeyFile = new File(keyPath, "push_key.pub");
+
+            if ((privateKeyFile.exists() && publicKeyFile.exists()) ||
+                    (!oldPrivateKeyFile.exists() && !oldPublicKeyFile.exists())) {
+                PreferenceManager.setKeysMigration(context, true);
+            } else {
+                if (oldPrivateKeyFile.exists()) {
+                    try {
+                        FileStorageUtils.moveFile(oldPrivateKeyFile, privateKeyFile);
+                    } catch (IOException e) {
+                        Log.e(TAG, "Failed to move old private key to new location");
+                    }
+                }
+
+                if (oldPublicKeyFile.exists()) {
+                    try {
+                        FileStorageUtils.moveFile(oldPublicKeyFile, publicKeyFile);
+                    } catch (IOException e) {
+                        Log.e(TAG, "Failed to move old public key to new location");
+                    }
+                }
+
+                if (privateKeyFile.exists() && publicKeyFile.exists()) {
+                    PreferenceManager.setKeysMigration(context, true);
+                }
+            }
+        }
     }
 }

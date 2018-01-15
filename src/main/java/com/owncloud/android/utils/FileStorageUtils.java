@@ -355,6 +355,14 @@ public class FileStorageUtils {
         return ret;
     }
 
+    public static boolean moveFile(File sourceFile, File targetFile) throws IOException {
+        if (copyFile(sourceFile, targetFile)) {
+            return sourceFile.delete();
+        } else {
+            return false;
+        }
+    }
+
     public static void deleteRecursively(File file, FileDataStorageManager storageManager) {
         if (file.isDirectory()) {
             for (File child : file.listFiles()) {
