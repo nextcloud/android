@@ -1549,24 +1549,6 @@ public class FileContentProvider extends ContentProvider {
                 Log_OC.i(SQL, String.format(Locale.ENGLISH, UPGRADE_VERSION_MSG, oldVersion, newVersion));
             }
 
-            if (oldVersion < 26 && newVersion >= 26) {
-                Log_OC.i(SQL, "Entering in the #26 Adding CRC32 column to filesystem table");
-                db.beginTransaction();
-                try {
-                    db.execSQL(ALTER_TABLE + ProviderTableMeta.FILESYSTEM_TABLE_NAME +
-                            ADD_COLUMN + ProviderTableMeta.FILESYSTEM_CRC32 + " TEXT ");
-
-                    upgraded = true;
-                    db.setTransactionSuccessful();
-                } finally {
-                    db.endTransaction();
-                }
-            }
-
-            if (!upgraded) {
-                Log_OC.i(SQL, String.format(Locale.ENGLISH, UPGRADE_VERSION_MSG, oldVersion, newVersion));
-            }
-
             if (oldVersion < 27 && newVersion >= 27) {
                 Log_OC.i(SQL, "Entering in the #27 Adding token to ocUpload");
                 db.beginTransaction();
@@ -1583,6 +1565,25 @@ public class FileContentProvider extends ContentProvider {
             if (!upgraded) {
                 Log_OC.i(SQL, String.format(Locale.ENGLISH, UPGRADE_VERSION_MSG, oldVersion, newVersion));
             }
+
+            if (oldVersion < 28 && newVersion >= 28) {
+                Log_OC.i(SQL, "Entering in the #28 Adding CRC32 column to filesystem table");
+                db.beginTransaction();
+                try {
+                    db.execSQL(ALTER_TABLE + ProviderTableMeta.FILESYSTEM_TABLE_NAME +
+                            ADD_COLUMN + ProviderTableMeta.FILESYSTEM_CRC32 + " TEXT ");
+
+                    upgraded = true;
+                    db.setTransactionSuccessful();
+                } finally {
+                    db.endTransaction();
+                }
+            }
+
+            if (!upgraded) {
+                Log_OC.i(SQL, String.format(Locale.ENGLISH, UPGRADE_VERSION_MSG, oldVersion, newVersion));
+            }
+
         }
 
         @Override
