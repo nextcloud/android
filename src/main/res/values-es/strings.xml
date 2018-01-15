@@ -90,6 +90,7 @@
     <string name="file_list_empty">Sube algún contenido o sincroniza con tus dispositivos.</string>
     <string name="file_list_empty_favorites_filter_list">Los archivos y carpetas que marques como favoritos aparecerán aquí</string>
     <string name="file_list_empty_favorites_filter">Tu búsqueda no encontró ningún archivo favorito.</string>
+    <string name="file_list_loading">Cargando&#8230;</string>
     <string name="file_list_no_app_for_file_type">No hay una app configurada para manejar este tipo de archivos.</string>
     <string name="local_file_list_empty">No hay archivos en esta carpeta.</string>
     <string name="local_folder_list_empty">No hay mas carpetas</string>
@@ -254,7 +255,8 @@
 	<string name="auth_expired_oauth_token_toast">Tu autorización ha expirado. Por favor, autoriza de nuevo</string>
 	<string name="auth_expired_basic_auth_toast">Por favor, introduce tu contraseña actual</string>
 	<string name="auth_expired_saml_sso_token_toast">Tu sesión ha expirado. Por favor, conéctate de nuevo</string>
-    <string name="auth_unsupported_multiaccount">%1$s no soporta cuentas múltiples</string>
+    <string name="auth_connecting_auth_server">Conectando al servidor de autentificación&#8230;</string>
+	<string name="auth_unsupported_multiaccount">%1$s no soporta cuentas múltiples</string>
 	<string name="auth_fail_get_user_name">Su servidor no está retornando una identificación de usuario correcta; contacte a un administrador </string>
 	<string name="auth_can_not_auth_against_server">No puede autenticarse a este servidor</string>
     <string name="auth_account_does_not_exist">La cuenta no existe todavía en el dispositivo</string>
@@ -280,12 +282,15 @@
     <string name="filename_forbidden_characters">Caracteres prohibidos: / \\ &lt; &gt; : \" | ? *</string>
     <string name="filename_forbidden_charaters_from_server">El nombre de archivo contiene al menos un carácter no válido</string>
     <string name="filename_empty">El nombre de archivo no puede estar vacío</string>
+    <string name="wait_a_moment">Espera un momento&#8230;</string>
     <string name="wait_checking_credentials">Comprobando las credenciales guardadas</string>
     <string name="filedisplay_no_file_selected">No hay archivos seleccionados</string>
     <string name="activity_chooser_title">Enviar enlace a &#8230;</string>
     <string name="wait_for_tmp_copy_from_private_storage">Copiando el archivo desde el almacenamiento privado.</string>
     
     <string name="oauth_check_onoff">Ingresar con OAuth 2.0</string>
+    <string name="oauth_login_connection">Conectando al servidor OAuth 2.0&#8230;</string>
+        
     <string name="ssl_validator_header">No se ha podido verificar la identidad del servidor </string>
     <string name="ssl_validator_reason_cert_not_trusted">- El certificado del servidor no es de confianza</string>
     <string name="ssl_validator_reason_cert_expired">- El certificado del servidor ha expirado</string>
@@ -377,6 +382,14 @@
     <string name="downloader_download_file_not_found">Este archivo ya no se encuentra en el servidor</string>
 
     <string name="file_migration_dialog_title">Actualizando ruta de almacenamiento</string>
+    <string name="file_migration_preparing">Preparando la migración&#8230;</string>
+    <string name="file_migration_checking_destination">Comprobando destino&#8230;</string>
+    <string name="file_migration_saving_accounts_configuration">Guardando configuración de cuentas&#8230;</string>
+    <string name="file_migration_waiting_for_unfinished_sync">Esperando que todas las sincronizaciones terminen&#8230;</string>
+    <string name="file_migration_migrating">Moviendo datos&#8230;</string>
+    <string name="file_migration_updating_index">Actualizando índice&#8230;</string>
+    <string name="file_migration_cleaning">Limpiando&#8230;</string>
+    <string name="file_migration_restoring_accounts_configuration">Restaurando configuración de cuentas&#8230;</string>
     <string name="file_migration_ok_finished">Finalizado</string>
     <string name="file_migration_failed_not_enough_space">Error: Espacio insuficiente</string>
     <string name="file_migration_failed_not_writable">Error: No se puede escribir el archivo de destino</string>
@@ -446,6 +459,8 @@
     <string name="set_picture_as">Usar imagen como</string>
     <string name="set_as">Establecer como</string>
 
+    <string name="prefs_instant_behaviour_dialogTitle">El archivo original será&#8230;</string>
+    <string name="prefs_instant_behaviour_title">El archivo original será&#8230;</string>
     <string name="select_all">Seleccionar todo</string>
     <string name="deselect_all">Desmarcar todos</string>
 
@@ -530,6 +545,11 @@
     <string name="participate_rc_fdroid">Obtener candidato a liberar desde la tienda de apps F-Droid</string>
     <string name="participate_dev_fdroid">Obtener versión de desarrollo vía la tienda de apps F-Droid</string>
     <string name="participate_dev_direct_download">Desgargar versión de desarrollo directamente</string>
+    <string name="move_to">Mover a&#8230;</string>
+    <string name="copy_to">Copiar a&#8230;</string>
+    <string name="choose_remote_folder">Selecciona carpeta remota&#8230;</string>
+    <string name="choose_local_folder">Seleccione carpeta local&#8230;</string>
+    <string name="synced_folders_loading_folders">Cargando carpetas&#8230;</string>
     <string name="synced_folders_no_results">Ningún archivo multimedia encontrado.</string>
     <string name="synced_folders_preferences">Preferencias de subida automática</string>
     <string name="synced_folders_new_info">Carga instantánea ha sido modificado por completo. Re-configura tu carga automática desde el menú principal. \n\nDisfruta la nueva y extendida carga automática.</string>
@@ -539,6 +559,7 @@
         <item quantity="other">%d seleccionados</item>
     </plurals>
 
+    <string name="notifications_loading_activity">Cargando notificaciones&#8230;</string>
     <string name="notifications_no_results_headline">No hay notificaciones</string>
     <string name="notifications_no_results_message">Por favor, comprúebalo más tarde.</string>
 
@@ -617,6 +638,8 @@
     <string name="picture_set_as_no_app">¡No se ha encontrado ninguna aplicación para establecer una imagen!</string>
     <string name="privacy">Privacidad</string>
     <string name="file_not_found">¡Archivo no encontrado!</string>
+    <string name="file_not_synced">Fallo al sincronizar el archivo deseado. Se muestra la última versión disponible.</string>
+
     <!-- Auto upload -->
     <string name="autoupload_custom_folder">Configure una carpeta especifica </string>
     <string name="autoupload_create_new_custom_folder">Crear nueva configuración de una carpeta especifica </string>
@@ -628,6 +651,9 @@
     <string name="whats_new_fingerprint_content">Usa tu lector de huellas para desbloquear la app</string>
     <string name="fallback_weblogin_back">Volver</string>
     <string name="fallback_weblogin_text">Volver al método de registro antiguo</string>
+
+    <string name="foreground_service_upload">Subiendo archivos&#8230;</string>
+    <string name="foreground_service_download">Bajando archivos&#8230;</string>
 
     <string name="prefs_sourcecode">Obtener el código fuente</string>
     <string name="prefs_license">Licencia</string>
@@ -683,6 +709,9 @@
     <string name="dev_version_no_information_available">No hay información disponible</string>
     <string name="dev_version_no_new_version_available">No hay disponible ninguna versión nueva</string>
     <string name="folder_icon">Icono de carpeta</string>
+    <string name="dev_version_new_version_available">Nueva versión disponible</string>
+    <string name="version_dev_download">Descargar</string>
+
     <string name="send">Mandar</string>
     <string name="share">Compartir</string>
     <string name="link">Enlace</string>
@@ -694,6 +723,8 @@
     <string name="notification_channel_media_name">Reproductor de medios</string>
     <string name="notification_channel_media_description">Progreso del reproductor de música</string>
     <string name="notification_channel_file_sync_name">Sincronización de archivos</string>
+    <string name="notification_channel_file_sync_description">Muestra progreso y resultados de la sincronización de archivos</string>
+  
     <string name="account_not_found">¡Cuenta no encontrada!</string>
 
     <string name="screenshot_01_gridView">Un lugar seguro para tus datos</string>
@@ -703,4 +734,8 @@
     <string name="screenshot_05_autoUpload">Sube automáticamente tus fotos y vídeos</string>
     <string name="screenshot_06_davdroid">Sincroniza tu calendario y tus contactos con DAVdroid</string>
     
-    </resources>
+    <string name="userinfo_no_info_headline">No se ha configurado la información personal</string>
+    <string name="userinfo_no_info_text">Añade tu nombre, imagen y detalles de contacto en tu página de perfil.</string>
+    <string name="drawer_header_background">Imagen de fondo de la cabecera del cajón</string>
+    <string name="account_icon">Icono de la cuenta</string>
+</resources>
