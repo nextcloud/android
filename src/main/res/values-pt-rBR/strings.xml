@@ -738,4 +738,5 @@
     <string name="userinfo_no_info_text">Adicionar nome, imagem e detalhes de contato na sua página de perfil.</string>
     <string name="drawer_header_background">Imagem do plano de fundo do cabeçalho</string>
     <string name="account_icon">Ícone da conta</string>
-</resources>
+    
+    </resources>

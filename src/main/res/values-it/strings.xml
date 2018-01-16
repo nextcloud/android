@@ -738,4 +738,5 @@
     <string name="userinfo_no_info_text">Aggiungi nome, immagine e dettagli di contatto sulla tua pagina di profilo.</string>
     <string name="drawer_header_background">Immagine di sgondo sull\'intestazione del pacchetto</string>
     <string name="account_icon">Icona dell\'account</string>
-</resources>
+    
+    </resources>
