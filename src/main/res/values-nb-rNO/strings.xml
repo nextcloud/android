@@ -734,4 +734,5 @@ Sjekk ut Nextcloud på https://nextcloud.com</string>
     <string name="userinfo_no_info_headline">Ingen personlig info satt</string>
     <string name="userinfo_no_info_text">Legg til navn, bilde og kontaktdetaljer på din profilside.</string>
     <string name="account_icon">Kontoikon</string>
-</resources>
+    
+    </resources>

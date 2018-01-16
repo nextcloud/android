@@ -733,4 +733,5 @@
     <string name="userinfo_no_info_text">დაამატეთ სახელი, ფოტო და საკონტაქტო დეტალები თქვენს პროფილის გვერდზე.</string>
     <string name="drawer_header_background">მხაზველი დასათაურების ფონური სურათი</string>
     <string name="account_icon">ანგარიშის პიქტოგრამა</string>
-</resources>
+    
+    </resources>

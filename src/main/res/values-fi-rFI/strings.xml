@@ -554,4 +554,5 @@
     <string name="userinfo_no_info_headline">Henkilökohtaisia tietoja ei ole asetettu</string>
     <string name="userinfo_no_info_text">Lisää nimi, kuva ja yhteystiedot profiilisivullasi.</string>
     <string name="account_icon">Tilikuvake</string>
-</resources>
+    
+    </resources>

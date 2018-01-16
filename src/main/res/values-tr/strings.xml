@@ -738,4 +738,5 @@
     <string name="userinfo_no_info_text">Profil sayfanızdan ad, görsel ve iletişim bilgilerinizi ekleyin.</string>
     <string name="drawer_header_background">Çekmece üst bilgisinin art alan görseli</string>
     <string name="account_icon">Hesap simgesi</string>
-</resources>
+    
+    </resources>

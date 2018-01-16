@@ -733,4 +733,5 @@
     <string name="userinfo_no_info_text">프로필 페이지에 이름, 사진, 연락처를 추가하십시오.</string>
     <string name="drawer_header_background">배경 그림 및 서랍 헤더</string>
     <string name="account_icon">계정 아이콘</string>
-</resources>
+    
+    </resources>

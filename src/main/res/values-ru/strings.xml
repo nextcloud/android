@@ -748,4 +748,5 @@
     <string name="userinfo_no_info_text">На странице профиля укажите своё имя, добавьте изображение и подробные сведения</string>
     <string name="drawer_header_background">Фоновое изображение заголовка</string>
     <string name="account_icon">Значок учётной записи</string>
-</resources>
+    
+    </resources>

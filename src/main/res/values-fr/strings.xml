@@ -740,4 +740,5 @@ Attention la suppression est irréversible.</string>
     <string name="userinfo_no_info_text">Ajouter le nom, la photo et les coordonnées sur votre page de profil.</string>
     <string name="drawer_header_background">Image d\'arrière-plan de l\'en-tête du menu-tiroir</string>
     <string name="account_icon">Icône du compte</string>
-</resources>
+    
+    </resources>

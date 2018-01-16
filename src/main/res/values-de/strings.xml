@@ -91,6 +91,7 @@
     <string name="file_list_empty">Lade Inhalt hoch oder synchronisiere mit Deinen Geräten.</string>
     <string name="file_list_empty_favorites_filter_list">Dateien und Ordner, die als Favoriten markiert werden, erscheinen hier</string>
     <string name="file_list_empty_favorites_filter">Keine favorisierten Dateien in deinem Verlauf gefunden.</string>
+    <string name="file_list_loading">Lade &#8230;</string>
     <string name="file_list_no_app_for_file_type">Es wurde keine App für diesen Dateityp gefunden!</string>
     <string name="local_file_list_empty">Es befinden sich keine Dateien in diesem Ordner.</string>
     <string name="local_folder_list_empty">Hier gibt es keine weiteren Ordner.</string>
@@ -255,7 +256,8 @@
 	<string name="auth_expired_oauth_token_toast">Die Autorisierung ist abgelaufen. Bitte Autorisierung nochmals durchführen</string>
 	<string name="auth_expired_basic_auth_toast">Bitte gib das aktuelle Passwort ein</string>
 	<string name="auth_expired_saml_sso_token_toast">Deine Sitzung ist abgelaufen. Bitte erneut verbinden</string>
-    <string name="auth_unsupported_multiaccount">%1$s unterstützt nicht mehrere Benutzerkonten</string>
+    <string name="auth_connecting_auth_server">Verbinde zum Authentifizierungs-Server &#8230;</string>
+	<string name="auth_unsupported_multiaccount">%1$s unterstützt nicht mehrere Benutzerkonten</string>
 	<string name="auth_fail_get_user_name">Dein Server gibt keine korrekte Benutzer-ID zurück, bitte kontaktiere einen Administrator</string>
 	<string name="auth_can_not_auth_against_server">Kann sich nicht auf diesem Server authentifizieren</string>
     <string name="auth_account_does_not_exist">Das Benutzerkonto ist bis jetzt noch nicht auf dem Gerät vorhanden</string>
@@ -281,12 +283,15 @@
     <string name="filename_forbidden_characters">Verbotene Zeichen: / \\ &lt; &gt; : \" | ? *</string>
     <string name="filename_forbidden_charaters_from_server">Der Dateiname enthält mindestens ein ungültiges Zeichen</string>
     <string name="filename_empty">Dateiname darf nicht leer sein</string>
+    <string name="wait_a_moment">Bitte warten &#8230;</string>
     <string name="wait_checking_credentials">Überprüfe gespeicherte Anmeldeinformationen</string>
     <string name="filedisplay_no_file_selected">Keine Datei gewählt</string>
     <string name="activity_chooser_title">Link senden an &#8230;</string>
     <string name="wait_for_tmp_copy_from_private_storage">Kopiere Datei vom privatem Speicher</string>
     
     <string name="oauth_check_onoff">Anmelden mit OAuth 2.0</string>
+    <string name="oauth_login_connection">Verbinde mit dem OAuth 2.0-Server&#8230;</string>
+        
     <string name="ssl_validator_header">Die Identität des Servers konnte nicht verifiziert werden</string>
     <string name="ssl_validator_reason_cert_not_trusted">- Das Zertifikat des Servers ist nicht vertrauenswürdig</string>
     <string name="ssl_validator_reason_cert_expired">- Das Zertifikat des Servers ist abgelaufen</string>
@@ -378,6 +383,14 @@
     <string name="downloader_download_file_not_found">Diese Datei steht auf dem Server nicht mehr zur Verfügung</string>
 
     <string name="file_migration_dialog_title">Aktualisiere Speicherort</string>
+    <string name="file_migration_preparing">Bereite Migration vor &#8230;</string>
+    <string name="file_migration_checking_destination">Prüfe Zielort &#8230;</string>
+    <string name="file_migration_saving_accounts_configuration">Sichere Konfiguration der Konten &#8230;</string>
+    <string name="file_migration_waiting_for_unfinished_sync">Warte auf die Fertigstellung aller Synchronisationen &#8230;</string>
+    <string name="file_migration_migrating">Verschiebe Daten &#8230;</string>
+    <string name="file_migration_updating_index">Aktualisiere Index &#8230;</string>
+    <string name="file_migration_cleaning">Aufräumen &#8230;</string>
+    <string name="file_migration_restoring_accounts_configuration">Konfiguration der Konten wiederherstellen &#8230;</string>
     <string name="file_migration_ok_finished">Abgeschlossen</string>
     <string name="file_migration_failed_not_enough_space">Fehler: Nicht ausreichender Speicherplatz</string>
     <string name="file_migration_failed_not_writable">Fehler: Für das Ziel existieren keine Schreibrechte</string>
@@ -447,6 +460,8 @@
     <string name="set_picture_as">Bild verwenden als</string>
     <string name="set_as">Setze als</string>
 
+    <string name="prefs_instant_behaviour_dialogTitle">Originaldatei wird &#8230;</string>
+    <string name="prefs_instant_behaviour_title">Originaldatei wird &#8230;</string>
     <string name="select_all">Alle auswählen</string>
     <string name="deselect_all">Auswahl aufheben</string>
 
@@ -532,6 +547,11 @@
     <string name="participate_rc_fdroid">Release-Kandidat über die F-Droid-App beziehen</string>
     <string name="participate_dev_fdroid">Entwicklungs-Version über die F-Droid-App beziehen</string>
     <string name="participate_dev_direct_download">Entwicklungs-Version direkt herunterladen</string>
+    <string name="move_to">Verschieben nach &#8230;</string>
+    <string name="copy_to">Kopieren nach &#8230;</string>
+    <string name="choose_remote_folder">Wähle einen Remote-Ordner &#8230;</string>
+    <string name="choose_local_folder">Wähle einen lokalen Ordner &#8230;</string>
+    <string name="synced_folders_loading_folders">Lade Ordner &#8230;</string>
     <string name="synced_folders_no_results">Keine Medien-Ordner gefunden.</string>
     <string name="synced_folders_preferences">Einstellungen für automatisches Hochladen</string>
     <string name="synced_folders_new_info">Die Sofort-Uploads wurden vollständig überarbeitet. Konfiguriere deinen automatischen Uploader im Hauptmenü.\n\nGenieße den verbesserten Auto-Upload.</string>
@@ -541,6 +561,7 @@
         <item quantity="other">%d ausgewählt</item>
     </plurals>
 
+    <string name="notifications_loading_activity">Lade Benachrichtigungen &#8230;</string>
     <string name="notifications_no_results_headline">Keine Benachrichtigungen</string>
     <string name="notifications_no_results_message">Bitte später noch einmal nachsehen.</string>
 
@@ -619,6 +640,8 @@
     <string name="picture_set_as_no_app">Keine App gefunden, mit der ein Bid gesetzt werden könnte!</string>
     <string name="privacy">Datenschutz</string>
     <string name="file_not_found">Datei nicht gefunden!</string>
+    <string name="file_not_synced">Die gewünschte Datei konnte nicht synchronisiert werden. Die letzte verfügbare Version wird angezeigt. </string>
+
     <!-- Auto upload -->
     <string name="autoupload_custom_folder">Erstelle einen eigenen Ordner</string>
     <string name="autoupload_create_new_custom_folder">Erstelle ein Setup für den eigenen Ordner</string>
@@ -630,6 +653,9 @@
     <string name="whats_new_fingerprint_content">Entsperre die App mit Deinem Fingerabdruck</string>
     <string name="fallback_weblogin_back">Zurück</string>
     <string name="fallback_weblogin_text">Zur alten Anmeldungsmethode zurückkehren</string>
+
+    <string name="foreground_service_upload">Dateien hochladen &#8230;</string>
+    <string name="foreground_service_download">Dateien herunterladen &#8230;</string>
 
     <string name="prefs_sourcecode">Zum Programmcode</string>
     <string name="prefs_license">Lizenz</string>
@@ -685,27 +711,34 @@
     <string name="dev_version_no_information_available">Keine Information verfügbar.</string>
     <string name="dev_version_no_new_version_available">Keine neue Version verfügbar.</string>
     <string name="folder_icon">Ordnersymbol</string>
+    <string name="dev_version_new_version_available">Neue Version verfügbar</string>
+    <string name="version_dev_download">Herunterladen</string>
+
     <string name="send">Senden</string>
     <string name="share">Teilen</string>
     <string name="link">Link</string>
 
+    <string name="notification_channel_upload_name">Hochlade-Benachrichtigungskanal</string>
+    <string name="notification_channel_download_name">Herunterlade-Benachrichtigungskanal</string>
+    <string name="notification_channel_download_description">Zeigt den Herunterlade-Fortschritt an</string>
+    <string name="notification_channel_upload_description">Zeigt den Hochlade-Fortschritt an</string>
+    <string name="notification_channel_media_name">Media-Player</string>
+    <string name="notification_channel_media_description">Musik-Player Fortschritt</string>
+    <string name="notification_channel_file_sync_name">Dateisynchronisierung</string>
+    <string name="notification_channel_file_sync_description">Zeigt den Fortschritt der Dateisynchronisierung und die Ergebnisse an</string>
+  
     <string name="account_not_found">Kein Konto gefunden</string>
 
     <string name="screenshot_01_gridView">Ein sicheres Zuhause für all Deine Daten</string>
+    <string name="screenshot_02_listView">Durchsuchen und teilen Sie Ihre Daten leicht</string>
+    <string name="screenshot_03_drawer">Schnell auf Aktivitäten, Freigaben, Offline-Dateien und mehr zugreifen</string>
     <string name="screenshot_04_accounts">Mit verschiedenen Kontos verbinden</string>
     <string name="screenshot_05_autoUpload">Automatisches Hochladen von Bildern &amp; Videos</string>
     <string name="screenshot_06_davdroid">Kalender &amp; Kontakte mit DAVdroid synchronisieren</string>
-
-    <string name="end_to_end_encryption_folder_not_empty">Verzeichnis nicht leer!</string>
-    <string name="end_to_end_encryption_wrong_password">Fehler beim entschlüsseln. Falsches Passwort??</string>
-    <string name="end_to_end_encryption_decrypting">Entschlüsseln…</string>
-    <string name="end_to_end_encryption_retrieving_keys">Hole Schlüssel…</string>
-    <string name="end_to_end_encryption_enter_password">Zum entschlüsseln des privaten Schlüssels bitte Passwort eingeben!</string>
-    <string name="end_to_end_encryption_generating_keys">Erstelle neue Schlüssel…</string>
-    <string name="end_to_end_encryption_keywords_description">Dieser 12 Worte Satz ist wie ein starkes Passwort: Es emöglicht Zugang zu den verschlüsselten Dateien. Bitte notieren Sie sich den Satz und bewahren ihn sicher auf.</string>
-    <string name="end_to_end_encryption_title">Verschlüsselung einrichten</string>
-    <string name="end_to_end_encryption_passphrase_title">Notieren Sie sich den Verschlüsselungssatz.</string>
-    <string name="end_to_end_encryption_not_supported">Verschlüsselung erst ab KitKat unterstützt.</string>
-    <string name="end_to_end_encryption_confirm_button">Verschlüsselung einrichten</string>
-    <string name="end_to_end_encryption_password">Passwort…</string>
-</resources>
+    
+    <string name="userinfo_no_info_headline">Keine persönlichen Infos eingestellt</string>
+    <string name="userinfo_no_info_text">Füge Name, Bild und Kontaktdaten auf deiner Profilseite hinzu.</string>
+    <string name="drawer_header_background">Hintergrundbild des Kopfbereiches</string>
+    <string name="account_icon">Konto-Symbol</string>
+    
+    </resources>
