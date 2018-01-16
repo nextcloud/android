@@ -602,11 +602,11 @@
     <string name="welcome_feature_3_text">Keep your photos safe</string>
 
     <string name="whats_new_end_to_end_encryption_title">End to end encryption</string>
-    <string name="whats_new_end_to_end_encryption_content">Easily add new devices using a 12 words passphrase\nSetup directly from any client\nAny number of folders can be end-to-end encrypted</string>
+    <string name="whats_new_end_to_end_encryption_content">Choose which folders to encrypt, set up from any client. Easily add new devices using a 12 word passphrase.</string>
     <string name="whats_new_resized_images_title">Screen adapted images</string>
-    <string name="whats_new_resized_images_content">on preview show only screen adapted image\nvery  small, but still usable for sending/sharing\ndownload whole file on zooming possible</string>
+    <string name="whats_new_resized_images_content">Smaller version is shown by default, as it saves data and works nicely for sending &amp; sharing. You can download the whole file on zooming.</string>
     <string name="whats_new_ipv6_title">IPv6 support</string>
-    <string name="whats_new_ipv6_content">support for IPv6\nsupports IPv6/v4 at the same time</string>
+    <string name="whats_new_ipv6_content">Now works nicely with servers supporting IPv6, while supporting IPv4 at the same time.</string>
 
     <string name="whats_new_skip">Skip</string>
 

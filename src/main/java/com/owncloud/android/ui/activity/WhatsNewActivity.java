@@ -352,30 +352,19 @@ public class WhatsNewActivity extends FragmentActivity implements ViewPager.OnPa
             if (mItem.shouldShowContentText()) {
                 LinearLayout linearLayout = v.findViewById(R.id.whatsNewTextLayout);
 
-                int standardMargin = getResources().getDimensionPixelSize(R.dimen.standard_margin);
-                int doubleMargin = getResources().getDimensionPixelSize(R.dimen.standard_double_margin);
-                int zeroMargin = getResources().getDimensionPixelSize(R.dimen.zero);
 
-                String[] texts = getText(mItem.getContentText()).toString().split("\n");
+                if (mItem.shouldShowBulletPointList()) {
+                    String[] texts = getText(mItem.getContentText()).toString().split("\n");
 
-                for (String text : texts) {
-                    TextView textView = new TextView(getContext());
-                    LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
-                            ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-                    layoutParams.setMargins(doubleMargin, standardMargin, doubleMargin, zeroMargin);
-                    textView.setTextAppearance(getContext(), R.style.NextcloudTextAppearanceMedium);
-                    textView.setLayoutParams(layoutParams);
-                    BulletSpan bulletSpan = new BulletSpan(standardMargin, fontColor);
-                    SpannableString spannableString = new SpannableString(text);
-                    spannableString.setSpan(bulletSpan, 0, spannableString.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-                    textView.setText(spannableString);
-                    textView.setTextColor(fontColor);
+                    for (String text : texts) {
+                        TextView textView = generateTextView(text, getContext(),
+                                mItem.shouldContentCentered(), fontColor, true);
 
-                    if (!mItem.shouldContentCentered()) {
-                        textView.setGravity(Gravity.START);
-                    } else {
-                        textView.setGravity(Gravity.CENTER_HORIZONTAL);
+                        linearLayout.addView(textView);
                     }
+                } else {
+                    TextView textView = generateTextView(getText(mItem.getContentText()).toString(),
+                            getContext(), mItem.shouldContentCentered(), fontColor, false);
 
                     linearLayout.addView(textView);
                 }
@@ -383,5 +372,40 @@ public class WhatsNewActivity extends FragmentActivity implements ViewPager.OnPa
 
             return v;
         }
+    }
+
+    private static TextView generateTextView(String text, Context context,
+                                             boolean shouldContentCentered, int fontColor,
+                                             boolean showBulletPoints) {
+        int standardMargin = context.getResources().getDimensionPixelSize(R.dimen.standard_margin);
+        int doubleMargin = context.getResources()
+                .getDimensionPixelSize(R.dimen.standard_double_margin);
+        int zeroMargin = context.getResources().getDimensionPixelSize(R.dimen.zero);
+
+        TextView textView = new TextView(context);
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        layoutParams.setMargins(doubleMargin, standardMargin, doubleMargin, zeroMargin);
+        textView.setTextAppearance(context, R.style.NextcloudTextAppearanceMedium);
+        textView.setLayoutParams(layoutParams);
+
+        if (showBulletPoints) {
+            BulletSpan bulletSpan = new BulletSpan(standardMargin, fontColor);
+            SpannableString spannableString = new SpannableString(text);
+            spannableString.setSpan(bulletSpan, 0, spannableString.length(),
+                    Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            textView.setText(spannableString);
+        } else {
+            textView.setText(text);
+        }
+        textView.setTextColor(fontColor);
+
+        if (!shouldContentCentered) {
+            textView.setGravity(Gravity.START);
+        } else {
+            textView.setGravity(Gravity.CENTER_HORIZONTAL);
+        }
+
+        return textView;
     }
 }
