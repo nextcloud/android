@@ -47,17 +47,10 @@
         android:layout_gravity="center_horizontal"
         android:gravity="center"/>
 
-    <TextView
-        android:id="@+id/whatsNewText"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/whatsNewTextLayout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="@dimen/standard_margin"
-        android:layout_marginLeft="@dimen/standard_double_margin"
-        android:layout_marginRight="@dimen/standard_double_margin"
-        android:layout_marginTop="@dimen/standard_margin"
-        android:gravity="center"
-        android:text="@string/welcome_feature_1_text"
-        android:textAppearance="@style/NextcloudTextAppearanceMedium"
-        android:textColor="@color/login_text_hint_color" />
+        android:orientation="vertical">
+        </LinearLayout>
 </LinearLayout>

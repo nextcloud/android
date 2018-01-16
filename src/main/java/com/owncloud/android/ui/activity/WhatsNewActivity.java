@@ -36,6 +36,9 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.style.BulletSpan;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -45,6 +48,7 @@ import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.owncloud.android.MainApp;
@@ -339,19 +343,41 @@ public class WhatsNewActivity extends FragmentActivity implements ViewPager.OnPa
                 iv.setImageResource(mItem.getImage());
             }
 
-            TextView tv2 = v.findViewById(R.id.whatsNewTitle);
+            TextView titleTextView = v.findViewById(R.id.whatsNewTitle);
             if (mItem.shouldShowTitleText()) {
-                tv2.setText(mItem.getTitleText());
-                tv2.setTextColor(fontColor);
+                titleTextView.setText(mItem.getTitleText());
+                titleTextView.setTextColor(fontColor);
             }
 
-            tv2 = v.findViewById(R.id.whatsNewText);
             if (mItem.shouldShowContentText()) {
-                tv2.setText(mItem.getContentText());
-                tv2.setTextColor(fontColor);
+                LinearLayout linearLayout = v.findViewById(R.id.whatsNewTextLayout);
 
-                if (!mItem.shouldContentCentered()) {
-                    tv2.setGravity(Gravity.START);
+                int standardMargin = getResources().getDimensionPixelSize(R.dimen.standard_margin);
+                int doubleMargin = getResources().getDimensionPixelSize(R.dimen.standard_double_margin);
+                int zeroMargin = getResources().getDimensionPixelSize(R.dimen.zero);
+
+                String[] texts = getText(mItem.getContentText()).toString().split("\n");
+
+                for (String text : texts) {
+                    TextView textView = new TextView(getContext());
+                    LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
+                            ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                    layoutParams.setMargins(doubleMargin, standardMargin, doubleMargin, zeroMargin);
+                    textView.setTextAppearance(getContext(), R.style.NextcloudTextAppearanceMedium);
+                    textView.setLayoutParams(layoutParams);
+                    BulletSpan bulletSpan = new BulletSpan(standardMargin, fontColor);
+                    SpannableString spannableString = new SpannableString(text);
+                    spannableString.setSpan(bulletSpan, 0, spannableString.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    textView.setText(spannableString);
+                    textView.setTextColor(fontColor);
+
+                    if (!mItem.shouldContentCentered()) {
+                        textView.setGravity(Gravity.START);
+                    } else {
+                        textView.setGravity(Gravity.CENTER_HORIZONTAL);
+                    }
+
+                    linearLayout.addView(textView);
                 }
             }
 

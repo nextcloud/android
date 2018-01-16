@@ -39,6 +39,7 @@ public class FeatureList {
     private static final boolean SHOW_ON_UPGRADE = false;
 
     private static final int VERSION_1_0_0 = 10000099;
+    private static final int VERSION_3_0_0 = 30000099;
     private static final int BETA_VERSION_0 = 0;
 
     static final private FeatureItem featuresList[] = {
@@ -52,6 +53,14 @@ public class FeatureList {
             new FeatureItem(R.drawable.whats_new_auto_upload,
                     R.string.welcome_feature_3_title, R.string.welcome_feature_3_text,
                     VERSION_1_0_0, BETA_VERSION_0, SHOW_ON_FIRST_RUN),
+            // 3.0.0
+            new FeatureItem(R.drawable.whats_new_files, R.string.whats_new_end_to_end_encryption_title,
+                    R.string.whats_new_end_to_end_encryption_content, VERSION_3_0_0, BETA_VERSION_0,
+                    SHOW_ON_UPGRADE, false),
+            new FeatureItem(R.drawable.whats_new_resized_images, R.string.whats_new_resized_images_title,
+                    R.string.whats_new_resized_images_content, VERSION_3_0_0, BETA_VERSION_0, SHOW_ON_UPGRADE, false),
+            new FeatureItem(R.drawable.whats_new_ipv6, R.string.whats_new_ipv6_title,
+                    R.string.whats_new_ipv6_content, VERSION_3_0_0, BETA_VERSION_0, SHOW_ON_UPGRADE, false),
     };
 
     static public FeatureItem[] get() {
