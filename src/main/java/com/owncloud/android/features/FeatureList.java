@@ -39,7 +39,6 @@ public class FeatureList {
     private static final boolean SHOW_ON_UPGRADE = false;
 
     private static final int VERSION_1_0_0 = 10000099;
-    private static final int VERSION_2_0_0 = 20000099;
     private static final int BETA_VERSION_0 = 0;
 
     static final private FeatureItem featuresList[] = {
@@ -53,17 +52,6 @@ public class FeatureList {
             new FeatureItem(R.drawable.whats_new_auto_upload,
                     R.string.welcome_feature_3_title, R.string.welcome_feature_3_text,
                     VERSION_1_0_0, BETA_VERSION_0, SHOW_ON_FIRST_RUN),
-            // 2.0.0
-            new FeatureItem(R.drawable.whats_new_auto_upload, R.string.whats_new_auto_upload_title,
-                    R.string.whats_new_auto_upload_content, VERSION_2_0_0, BETA_VERSION_0, SHOW_ON_UPGRADE, false),
-            new FeatureItem(R.drawable.whats_new_search, R.string.whats_new_search_title,
-                    R.string.whats_new_search_content, VERSION_2_0_0, BETA_VERSION_0, SHOW_ON_UPGRADE, false),
-            new FeatureItem(R.drawable.whats_new_theming, R.string.whats_new_theming_title,
-                    R.string.whats_new_theming_content, VERSION_2_0_0, BETA_VERSION_0, SHOW_ON_UPGRADE, false),
-            new FeatureItem(R.drawable.whats_new_notification, R.string.whats_new_notification_title,
-                    R.string.whats_new_notification_content, VERSION_2_0_0, BETA_VERSION_0, SHOW_ON_UPGRADE, false),
-            new FeatureItem(R.drawable.whats_new_fingerprint, R.string.whats_new_fingerprint_title,
-                    R.string.whats_new_fingerprint_content, VERSION_2_0_0, BETA_VERSION_0, SHOW_ON_UPGRADE, false)
     };
 
     static public FeatureItem[] get() {
