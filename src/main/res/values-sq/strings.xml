@@ -48,7 +48,7 @@
     <string name="prefs_calendar_contacts">Sinkronizoni kalendarin &amp; kontaktet</string>
     <string name="prefs_calendar_contacts_summary">Vendos DAVdroid (v1.3.0+)  për llogarinë aktuale</string>
     <string name="prefs_calendar_contacts_address_resolve_error">Adresa e serverit për llogari nuk mund të zgjidhet për DAVdroid</string>
-    <string name="prefs_calendar_contacts_no_store_error">As Google Play Store apo F-Droid nuk janë instaluar</string>
+    <string name="prefs_calendar_contacts_no_store_error">Nuk janë instaluar as Google Play Store as F-Droid</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Sinkronizimi i kalendarit &amp; kontakteve u vendos me sukses</string>
     <string name="prefs_daily_contacts_sync_summary">Backup i përditshëm i kontakteve</string>
     <string name="prefs_help">Ndihmë</string>
@@ -56,6 +56,7 @@
     <string name="prefs_feedback">Përshtypje</string>
     <string name="prefs_imprint">Imprint</string>
 
+	<string name="recommend_subject">Provojeni %1$s në pajisjen tuaj!</string>
 	<string name="recommend_urls">%1$s ose %2$s</string>
 
     <string name="auth_check_server">Kontrollo serverin</string>
@@ -115,6 +116,7 @@
     <string name="filedetails_sync_file">Sinkronizo</string>
     <string name="filedetails_renamed_in_upload_msg">Skedari u riemërtua %1$s gjatë ngarkimit</string>
     <string name="list_layout">Strukturë e listuar</string>
+    <string name="action_send_share">Dërgoje/Shpërndaje</string>
     <string name="common_yes">Po</string>
     <string name="common_no">Jo</string>
     <string name="common_ok">OK</string>
@@ -142,6 +144,7 @@
     <string name="uploader_upload_failed_ticker">Ngarkimi dështoi</string>
     <string name="uploader_upload_failed_content_single">Ngarkimi i %1$s s’u plotësua dot</string>
     <string name="uploader_upload_failed_credentials_error">Ngarkimi dështoi, lypset të bëni hyrjen sërish</string>
+    <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">Çertifikata e serverit nuk është e besuar</string>
     <string name="uploads_view_title">Ngarkime</string>
     <string name="uploads_view_group_current_uploads">Të tanishëm</string>
     <string name="uploads_view_group_failed_uploads">Dështoi / Rindezja në pritje</string>
@@ -168,6 +171,7 @@
     <string name="downloader_not_downloaded_yet">Ende e pashkarkuar</string>
     <string name="downloader_download_failed_credentials_error">Shkarkimi dështoi, lypset të bëni hyrjen sërish</string>
     <string name="common_choose_account">Zgjidhni llogari</string>
+    <string name="common_switch_account">Ndrysho Llogarinë</string>
     <string name="sync_fail_ticker">Sinkronizimi dështoi</string>
     <string name="sync_fail_ticker_unauthorized">Sinkronizimi dështoi, kerkohet të ribëhet identifikimi sërish</string>
     <string name="sync_fail_content">Sinkronizimi i %1$s s’u plotësua dot</string>
@@ -239,7 +243,8 @@
 	<string name="auth_expired_oauth_token_toast">Autorizimi juaj skadoi. Ju lutemi, autorizohuni sërisht</string>
 	<string name="auth_expired_basic_auth_toast">Ju lutem, jepni fjalëkalimin e tanishëm</string>
 	<string name="auth_expired_saml_sso_token_toast">Sesioni juaj skadoi. Ju lutemi, rilidhuni</string>
-    <string name="auth_unsupported_multiaccount">%1$s s\’mbulon llogari të shumëfishta</string>
+    <string name="auth_connecting_auth_server">Duke u lidhur me serverin e autentifikimit&#8230;</string>
+	<string name="auth_unsupported_multiaccount">%1$s s\’mbulon llogari të shumëfishta</string>
 	<string name="auth_fail_get_user_name">Serveri juaj nuk është duke kthyer një  id përdoruesi të saktë, ju lutem kontaktoni një administrator</string>
 	<string name="auth_can_not_auth_against_server">S’kryhet dot identifikimi me këtë server</string>
     <string name="auth_account_does_not_exist">Llogaria s\’ekziston ende te pajisja</string>
@@ -250,11 +255,14 @@
     <string name="favorite_real">Vendose si të preferuar</string>
     <string name="unset_favorite_real">Hiqe si të preferuar</string>
     <string name="favorite_switch">I disponueshëm jo në linjë</string>
+    <string name="encrypted">Vendose si të enkriptuar</string>
+    <string name="unset_encrypted">Hiq enkriptimin</string>
     <string name="common_rename">Riemërtojeni</string>
     <string name="common_remove">Hiqe</string>
     <string name="confirmation_remove_file_alert">Doni vërtet të hiqni %1$s?</string>
     <string name="confirmation_remove_folder_alert">Doni vërtet të hiqet %1$s dhe përmbajtja e tij?</string>
     <string name="confirmation_remove_local">Vetëm vendorja</string>
+    <string name="remove_success_msg">E fshirë</string>
     <string name="remove_fail_msg">Heqja dështoi</string>
     <string name="rename_dialog_title">Jepni një emër të ri</string>
     <string name="rename_local_fail_msg">Kopja vendore s\’u riemërtua dot; provoni një emër tjetër</string>
@@ -264,12 +272,14 @@
     <string name="filename_forbidden_characters">Shenja të ndaluara: / \\ &lt; &gt; : \" | ? *</string>
     <string name="filename_forbidden_charaters_from_server">Emri i skedarit përmban të paktën një shenjë të pavlefshme</string>
     <string name="filename_empty">Emri i skedarit s’mund të jetë i zbrazët</string>
+    <string name="wait_a_moment">Prisni një moment&#8230;</string>
     <string name="wait_checking_credentials">Po kontrollohen kredenciale të depozituara</string>
     <string name="filedisplay_no_file_selected">S’u përzgjodh skedar</string>
     <string name="activity_chooser_title">Dërgoni lidhje te &#8230;</string>
     <string name="wait_for_tmp_copy_from_private_storage">Po kopjohet skedar nga depo private</string>
     
     <string name="oauth_check_onoff">Hyrje me OAuth 2.0</string>
+    <string name="ssl_validator_header">Identiteti i serverit nuk mund të verifikohet</string>
     <string name="ssl_validator_reason_cert_not_trusted">- Dëshmia e serverit s\’është e besuar</string>
     <string name="ssl_validator_reason_cert_expired">- Dëshmia e serverit skadoi</string>
     <string name="ssl_validator_reason_cert_not_yet_valid">- Datat e vlefshmërisë së dëshmisë së serverit i përkasin të ardhmes</string>
@@ -359,6 +369,9 @@
     <string name="downloader_download_file_not_found">Skedari s’gjendet më te serveri</string>
 
     <string name="file_migration_dialog_title">Duke përditësuar rrugen e hapsirës ruajtëse</string>
+    <string name="file_migration_preparing">Duke përgaditur migrimin&#8230;</string>
+    <string name="file_migration_checking_destination">Duke kontrolluar destinacionin &#8230;</string>
+    <string name="file_migration_saving_accounts_configuration">Duke ruajtur konfigurimin e llogarive &#8230;</string>
     <string name="file_migration_ok_finished">Përfundoi</string>
     <string name="file_migration_failed_not_enough_space">Gabim: Hapësirë e pamjaftueshme</string>
     <string name="file_migration_failed_not_writable">Gabim: Skadari destinacion jo i shkruajtshëm</string>
@@ -532,18 +545,6 @@
     <string name="welcome_feature_3_title">Ngarkim i menjëhershëm</string>
     <string name="welcome_feature_3_text">Mbajini fotot të sigurta</string>
 
-    <string name="whats_new_auto_upload_title">Ngarkimi automatik i rritur</string>
-    <string name="whats_new_auto_upload_content">\u2022 për të gjitha versionet Android \n\u2022 më pak konsumim i baterisë \ n \ u2022 më i besueshëm, por jo i çastit \n\u2022 ndarja e imazheve 1&amp; të videove</string>
-
-    <string name="whats_new_search_title">Kërkimi i plotë i serverit</string>
-    <string name="whats_new_search_content">\u2022 Jo vetëm në dosjen e tanishme\n\u2022 Kthen rezultatet nga serveri i plotë \ n \ u2022 Hap direkt skedarë /dosje\n\u2022Mbështetur në NC12 dhe më lart</string>
-
-    <string name="whats_new_theming_title">Asistencë për temën grafike</string>
-    <string name="whats_new_theming_content">Nëse aktivizohet në server, aplikacioni do të shfaqë\n\u2022 imazhin e sfondit\n\u2022 emri i serverit\n\u2022 përdor ngjyra për të dalluar llogaritë</string>
-
-    <string name="whats_new_notification_title">Asitenca e njoftimit</string>
-    <string name="whats_new_notification_content">Merr njoftime si\n\u2022 ndarje e re në distancë\n\u2022 komente përmend\n\u2022 njoftimet e administratorit</string>
-
     <string name="whats_new_skip">Kalo</string>
 
     <string name="fingerprint_scan_finger">Ju lutemi skanoni gishtin tuaj</string>
@@ -571,6 +572,7 @@
     <string name="contacts_read_permission">Kërkohet e drejta për të lexuar listën e kontakteve</string>
     <string name="contaclist_restore_selected">Rikthe kontaktet e zgjedhura</string>
     <string name="contactlist_account_chooser_title">Zgjidh llogarinë që do të importohet</string>
+    <string name="contactlist_no_permission">Asnjë leje e dhënë, nuk u importua asgjë.</string>
     <string name="contacts_preference_choose_date">Zgjidh datën</string>
     <string name="contacts_preference_backup_never">kurrë</string>
     <string name="contacts_preferences_no_file_found">Asnjë skedarë i gjetur</string>
@@ -588,8 +590,10 @@
 
     <string name="test_server_button">Testo lidhjen e serverit</string>
     <string name="resharing_is_not_allowed">Ri-shpërndarja nuk lejohet</string>
-    <string name="whats_new_fingerprint_title">Zhbllokoje me gjurmët e gishtave</string>
-    <string name="whats_new_fingerprint_content">Përdorni gjurmët e gishtave tuaj për të zhbllokuar aplikacionin</string>
     <string name="prefs_sourcecode">Merr kodin burimor</string>
     <string name="prefs_license">Liçensë</string>
+    <string name="resized_images_download_full_image">Shkarko imazhin e plotë?</string>
+
+    <string name="drawer_current_account">Llogaria e tanishme</string>
+    <string name="drawer_end_account">Llogaria e fundit</string>
     </resources>

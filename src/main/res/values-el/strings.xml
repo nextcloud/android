@@ -508,18 +508,6 @@
     <string name="welcome_feature_3_title">Αυτόματη μεταφόρτωση</string>
     <string name="welcome_feature_3_text">Διατήρηση των φωτογραφιών σας με ασφάλεια</string>
 
-    <string name="whats_new_auto_upload_title">Ενισχυμένη αυτόματη μεταφόρτωση</string>
-    <string name="whats_new_auto_upload_content">\ u2022 για όλες τις εκδόσεις Android \ n \ u2022 λιγότερη κατανάλωση μπαταρίας \ n \ u2022 πιο αξιόπιστη, αλλά όχι στιγμιαία \ n \ u2022 διαχωρισμός εικόνων &amp;Βίντεο</string>
-
-    <string name="whats_new_search_title">Πλήρης αναζήτηση διακομιστή</string>
-    <string name="whats_new_search_content">\ n \ u2022 Επιστρέφει τα αποτελέσματα από τον πλήρη διακομιστή \ n \ u2022 Ανοίξτε άμεσα αρχεία / φακέλους \ n \ u2022 Υποστηρίζεται σε NC12 και άνω</string>
-
-    <string name="whats_new_theming_title">Υποστήριξη εμφανισιακών αλλαγών</string>
-    <string name="whats_new_theming_content">Εάν είναι ενεργοποιημένη στο διακομιστή, η εφαρμογή θα εμφανίσει \ n \ u2022 εικόνα φόντου \ n \ u2022 όνομα διακομιστή \ n \ u2022 χρήση χρώματος για να ξεχωρίζουν οι λογαριασμούς </string>
-
-    <string name="whats_new_notification_title">Υποστήριξη ειδοποιήσεων</string>
-    <string name="whats_new_notification_content">Λήψη ειδοποιήσεων όπως \ n \ u2022 νέα απομακρυσμένη κοινή χρήση \ n \ u2022 σχόλια αναφέρει \ n \ u2022 διαχειριστικές ανακοινώσεις</string>
-
     <string name="whats_new_skip">Παράλειψη</string>
 
     <string name="fingerprint_scan_finger">Παρακαλώ σαρρώστε το αποτύπωμά σας</string>
@@ -563,8 +551,6 @@
 
     <string name="test_server_button">Δοκιμή σύνδεσης με διακομιστή</string>
     <string name="resharing_is_not_allowed">Δεν επιτρέπεται ο διαμοιρασμός</string>
-    <string name="whats_new_fingerprint_title">Ξεκλειδώστε με δακτυλικό αποτύπωμα</string>
-    <string name="whats_new_fingerprint_content">Χρησιμοποιήστε το δακτυλικό αποτύπωμα για να ξεκλειδώσετε την εφαρμογή</string>
     <string name="prefs_sourcecode">Λήψη πηγαίου κώδικα</string>
     <string name="prefs_license">Άδεια χρήσης</string>
     <string name="push_notifications_not_implemented">Οι ειδοποιήσεις απενεργοποιήθηκαν λόγω εξαρτήσεων στις ιδιόκτητες υπηρεσίες Google Play.</string>

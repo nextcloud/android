@@ -363,8 +363,6 @@
     <string name="synced_folders_configure_folders">إعداد المجلدات</string>
 
     <string name="test_server_button">أفحص أتصال الخادم</string>
-    <string name="whats_new_fingerprint_title">افتحه ببصمتك</string>
-    <string name="whats_new_fingerprint_content">إستخدم بصمتك لفتح التطبيق</string>
     <string name="prefs_sourcecode">الحصول على الشفرة المصدرية</string>
     <string name="prefs_license">الرخصة</string>
     <string name="date_unknown">مجهول</string>

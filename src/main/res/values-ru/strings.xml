@@ -595,18 +595,6 @@
     <string name="welcome_feature_3_title">Автоматическая загрузка</string>
     <string name="welcome_feature_3_text">Держите ваши фотографии в безопасности</string>
 
-    <string name="whats_new_auto_upload_title">Улучшенная автоматическая загрузка</string>
-    <string name="whats_new_auto_upload_content">\u2022 для всех версий платформы Android\n\u2022 уменьшенный расход батареи\n\u2022 более гибкое, но не мгновенное\n\u2022 разделение изображений &amp; и видеофайлов</string>
-
-    <string name="whats_new_search_title">Поиск по всему серверу</string>
-    <string name="whats_new_search_content">\u2022 а не только в текущем каталоге\n\u2022 Показываются результаты поиска по всему серверу\n\u2022 Непосредственный переход к файлам или каталогам\n\u2022 Поддерживается начиная с версии Nextcloud Server 12</string>
-
-    <string name="whats_new_theming_title">Поддержка тем оформления</string>
-    <string name="whats_new_theming_content">При включении тем оформления на сервере будут использованы указанные\n\u2022 фоновое изображение\n\u2022 имя сервера\n\u2022 разные аккаунты отображаются разными цветами</string>
-
-    <string name="whats_new_notification_title">Поддержка уведомлений</string>
-    <string name="whats_new_notification_content">Получение уведомлений, таких как\n\u2022 получение общего доступа\n\u2022 упоминание в комментариях\n\u2022 системные уведомления</string>
-
     <string name="whats_new_skip">Пропустить</string>
 
     <string name="fingerprint_scan_finger">Приложите палец</string>
@@ -657,8 +645,6 @@
 
     <string name="test_server_button">Проверить соединение с сервером</string>
     <string name="resharing_is_not_allowed">Повторное открытие доступа запрещено</string>
-    <string name="whats_new_fingerprint_title">Разблокирование отпечатком пальца</string>
-    <string name="whats_new_fingerprint_content">Используйте отпечаток пальца для разблокирования приложения</string>
     <string name="fallback_weblogin_back">Назад</string>
     <string name="fallback_weblogin_text">Использовать прежний метод авторизации</string>
 

@@ -565,18 +565,6 @@ Kies er eentje van een provider.</string>
     <string name="welcome_feature_3_title">Automatisch uploaden</string>
     <string name="welcome_feature_3_text">Hou je foto\'s veilig</string>
 
-    <string name="whats_new_auto_upload_title">Geavanceerde auto-upload</string>
-    <string name="whats_new_auto_upload_content">\u2022 voor alle Android versies\n\u2022 minder batterij verbruik\n\u2022 betrouwbaarder, maar niet onmiddelijk\n\u2022 splitsen van fotos &amp; videos</string>
-
-    <string name="whats_new_search_title">Doorzoek alles op server</string>
-    <string name="whats_new_search_content">\u2022 Niet alleen in huidige map\n\u2022 Geeft resultaten van gehele server\n\u2022 Open bestanden/mappen rechtstreeks\n\u2022 Werkt in NC12 en daarboven</string>
-
-    <string name="whats_new_theming_title">Ondersteuning thema\'s</string>
-    <string name="whats_new_theming_content">Indien aangezet op de server, de app zal xxx achtergrond geven, de server zal naam kleur xxx geven voor verschillende accounts</string>
-
-    <string name="whats_new_notification_title">Notificatie ondersteuning</string>
-    <string name="whats_new_notification_content">Krijg notificaties als\n\u2022 nieuwe op afstand gedeelde folders\n\u2022 commentaar, vermeldingen\n\u2022 beheerder aankondigingen.</string>
-
     <string name="whats_new_skip">Overslaan</string>
 
     <string name="fingerprint_scan_finger">Scan je vinger</string>
@@ -625,8 +613,6 @@ Kies er eentje van een provider.</string>
 
     <string name="test_server_button">Test server verbinding</string>
     <string name="resharing_is_not_allowed">Verder delen is niet toegestaan</string>
-    <string name="whats_new_fingerprint_title">Deblokkeren met vingerafdruk</string>
-    <string name="whats_new_fingerprint_content">Gebruik je vingerafdruk om de app te deblokkeren</string>
     <string name="fallback_weblogin_back">Terug</string>
     <string name="fallback_weblogin_text">Terug naar vorige login-methode</string>
 

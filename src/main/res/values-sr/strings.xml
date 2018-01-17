@@ -569,18 +569,6 @@
     <string name="welcome_feature_3_title">Аутоматска отпремања</string>
     <string name="welcome_feature_3_text">Држите Ваше слике на сигурном</string>
 
-    <string name="whats_new_auto_upload_title">Унапређено аутоматско отпремање</string>
-    <string name="whats_new_auto_upload_content">\u2022 за све Андроид верзије\n\u2022 мања потрошња батерије\n\u2022 поузданије, али ипак не брзо отпремање\n\u2022 одвајање слика &amp; видео записа</string>
-
-    <string name="whats_new_search_title">Потпуна претрага на серверу</string>
-    <string name="whats_new_search_content">\u2022 Не само у тренутној фасцикли\n\u2022 Враћање резултата са сервера\n\u2022 Директно отварање фајлова/фасцикли\n\u2022 Подржано од Некстклауд верзије 12 и изнад</string>
-
-    <string name="whats_new_theming_title">Подршка за теме</string>
-    <string name="whats_new_theming_content">Ако је омогућена на серверу, апликација ће приказивати\n\u2022 позадинску слику\n\u2022 име сервера\n\u2022 боје да разликујете налоге</string>
-
-    <string name="whats_new_notification_title">Подршка за обавештења</string>
-    <string name="whats_new_notification_content">Добијајте обавештења као што су\n\u2022 нова дељена фасцикла\n\u2022 помињање у коментарима\n\u2022 најаве од стране администратора</string>
-
     <string name="whats_new_skip">Прескочи</string>
 
     <string name="fingerprint_scan_finger">Молимо скенирајте Ваш прст</string>
@@ -629,8 +617,6 @@
 
     <string name="test_server_button">Испробај везу са сервером</string>
     <string name="resharing_is_not_allowed">Поновно дељење није дозвољено</string>
-    <string name="whats_new_fingerprint_title">Откључајте отиском прста</string>
-    <string name="whats_new_fingerprint_content">Користите Ваш отисак прста да откључате апликацију</string>
     <string name="fallback_weblogin_back">Назад</string>
     <string name="fallback_weblogin_text">Врати се на стари начин пријаве</string>
 

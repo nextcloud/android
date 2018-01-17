@@ -521,10 +521,6 @@
     <string name="welcome_feature_3_title">自動上傳</string>
     <string name="welcome_feature_3_text">安全保存您的相片</string>
 
-    <string name="whats_new_auto_upload_title">加強版的自動上傳</string>
-    <string name="whats_new_search_title">全伺服器搜尋</string>
-    <string name="whats_new_theming_title">佈景主題支援</string>
-    <string name="whats_new_notification_title">通知支援</string>
     <string name="whats_new_skip">略過</string>
 
     <string name="fingerprint_scan_finger">請掃描您的指紋</string>
@@ -565,8 +561,6 @@
 
     <string name="test_server_button">測試伺服器連線</string>
     <string name="resharing_is_not_allowed">不允許重新分享</string>
-    <string name="whats_new_fingerprint_title">指紋解鎖</string>
-    <string name="whats_new_fingerprint_content">使用您的指紋來解鎖app</string>
     <string name="prefs_sourcecode">取得原始碼</string>
     <string name="prefs_license">授權</string>
     <string name="date_unknown">未知</string>

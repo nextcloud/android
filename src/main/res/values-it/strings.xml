@@ -126,6 +126,7 @@
     <string name="common_cancel">Annulla</string>
     <string name="common_back">Indietro</string>
     <string name="common_save">Salva</string>
+    <string name="common_error">Errore</string>
     <string name="common_loading">Caricamento in corso &#8230;</string>
     <string name="common_unknown">sconosciuto</string>
     <string name="common_error_unknown">Errore sconosciuto</string>
@@ -267,6 +268,8 @@
     <string name="favorite_real">Imposta come preferito</string>
     <string name="unset_favorite_real">Rimuovi preferito</string>
     <string name="favorite_switch">Disponibile non in linea</string>
+    <string name="encrypted">Imposta come cifrato</string>
+    <string name="unset_encrypted">Rimuovi cifratura</string>
     <string name="common_rename">Rinomina</string>
     <string name="common_remove">Elimina</string>
     <string name="confirmation_remove_file_alert">Vuoi davvero eliminare %1$s?</string>
@@ -585,18 +588,6 @@
     <string name="welcome_feature_3_title">Caricamento automatico</string>
     <string name="welcome_feature_3_text">Tieni al sicuro le tue foto</string>
 
-    <string name="whats_new_auto_upload_title">Caricamento automatico migliorato</string>
-    <string name="whats_new_auto_upload_content">\u2022 per tutte le versioni di Android\n\u2022 minor consumo della batteria\n\u2022 maggiore affidabilità\n\u2022 separazione di immagini e video</string>
-
-    <string name="whats_new_search_title">Ricerca completa sul server</string>
-    <string name="whats_new_search_content">\u2022 Non solo nella cartella attuale\n\u2022 Restituisce i risultati dall\'intero server\n\u2022 Apre direttamente file/cartellle\n\u2022 Supportate in NC12 e superiori</string>
-
-    <string name="whats_new_theming_title">Supporto dei temi</string>
-    <string name="whats_new_theming_content">Se abilitata sul server, mostrerà\n\u2022 l\'immagine di sfondo\n\u2022 il nome del server\n\u2022 utilizzo dei colori per distinguere gli account</string>
-
-    <string name="whats_new_notification_title">Supporto delle notifiche</string>
-    <string name="whats_new_notification_content">Ottieni notifiche come\n\u2022 nuova condivisione remota\n\u2022 menzioni dei commenti\n\u2022 annunci amministrativi</string>
-
     <string name="whats_new_skip">Salta</string>
 
     <string name="fingerprint_scan_finger">Esegui la scansione del tuo dito</string>
@@ -647,8 +638,6 @@
 
     <string name="test_server_button">Prova di connessione al server</string>
     <string name="resharing_is_not_allowed">La ri-condivisione non è consentita</string>
-    <string name="whats_new_fingerprint_title">Sblocco con impronta digitale</string>
-    <string name="whats_new_fingerprint_content">Usa la tua impronta digitale per sbloccare l\'applicazione</string>
     <string name="fallback_weblogin_back">Indietro</string>
     <string name="fallback_weblogin_text">Torna al vecchio metodo di accesso</string>
 
@@ -739,4 +728,19 @@
     <string name="drawer_header_background">Immagine di sgondo sull\'intestazione del pacchetto</string>
     <string name="account_icon">Icona dell\'account</string>
     
-    </resources>
+    <string name="end_to_end_encryption_folder_not_empty">Cartella non vuota!</string>
+    <string name="end_to_end_encryption_wrong_password">Errore durante la decifratura. Password errata?</string>
+    <string name="end_to_end_encryption_decrypting">Decifratura...</string>
+    <string name="end_to_end_encryption_retrieving_keys">Recupero delle chiavi...</string>
+    <string name="end_to_end_encryption_enter_password">Digita la password per decifrare la chiave privata!</string>
+    <string name="end_to_end_encryption_generating_keys">Generazione nuove chiavi...</string>
+    <string name="end_to_end_encryption_keywords_description">Questa frase di 12 parole è una password molto potente che fornisce l\'accesso completo per visualizzare e utilizzare i tuoi file cifrati. Annotala e conservala in un posto sicuro.</string>
+    <string name="end_to_end_encryption_title">Configura la cifratura</string>
+    <string name="end_to_end_encryption_passphrase_title">Annota la tua frase segreta di cifratura</string>
+    <string name="end_to_end_encryption_not_supported">Cifratura non supportata prima di KitKat.</string>
+    <string name="end_to_end_encryption_confirm_button">Configura la cifratura</string>
+    <string name="end_to_end_encryption_password">Password…</string>
+    <string name="end_to_end_encryption_unsuccessful">L\'archiviazione delle chiavi non è avvenuta correttamente, prova ancora!</string>
+    <string name="end_to_end_encryption_dialog_close">Chiudi</string>
+    <string name="end_to_end_encryption_storing_keys">Archiviazione chiavi</string>
+</resources>

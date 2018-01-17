@@ -580,18 +580,6 @@
     <string name="welcome_feature_3_title">자동 업로드</string>
     <string name="welcome_feature_3_text">내 사진을 안전하게 보관</string>
 
-    <string name="whats_new_auto_upload_title">개선된 자동 업로드</string>
-    <string name="whats_new_auto_upload_content">\u2022 모든 Android 버전에서 사용 가능\n\u2022 배터리 소모 감소\n\u2022 신뢰성 강화\n\u2022 사진 및 동영상 분리</string>
-
-    <string name="whats_new_search_title">전체 서버 검색</string>
-    <string name="whats_new_search_content">\u2022 현재 폴더에서만 검색하지 않음\n\u2022 전체 서버 검색 결과 표시\n\u2022 파일/폴더 직접 열기\n\u2022 NC12 이상에서 지원함</string>
-
-    <string name="whats_new_theming_title">테마 지원</string>
-    <string name="whats_new_theming_content">서버에서 활성화된 경우 앱에서 표시할 항목:\n\u2022 배경 그림\n\u2022 서버 이름\n\u2022 색으로 계정 구분</string>
-
-    <string name="whats_new_notification_title">알림 지원</string>
-    <string name="whats_new_notification_content">다음 상황에서 알림:\n\u2022 새 원격 공유\n\u2022 댓글, 멘션\n\u2022 관리자 공지</string>
-
     <string name="whats_new_skip">건너뛰기</string>
 
     <string name="fingerprint_scan_finger">지문을 스캔하십시오</string>
@@ -642,8 +630,6 @@
 
     <string name="test_server_button">서버 연결 테스트</string>
     <string name="resharing_is_not_allowed">다시 공유할 수 없습니다</string>
-    <string name="whats_new_fingerprint_title">지문으로 잠금 해제</string>
-    <string name="whats_new_fingerprint_content">지문으로 앱 잠금 해제하기</string>
     <string name="fallback_weblogin_back">뒤로</string>
     <string name="fallback_weblogin_text">이전 로그인 방식으로 변경</string>
 

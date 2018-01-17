@@ -556,18 +556,6 @@
     <string name="welcome_feature_3_title">Automatisk uppladdning</string>
     <string name="welcome_feature_3_text">Lagra dina foton på ett säkert ställe</string>
 
-    <string name="whats_new_auto_upload_title">Utökad automatisk uppladdning</string>
-    <string name="whats_new_auto_upload_content">\u2022 för alla androidversioner\n\u2022 mindre batterikonsumtion\n\u2022 mer tillförlitlig men inte direkt\n\u2022 separation av bilder &amp; videos</string>
-
-    <string name="whats_new_search_title">Fullständig serversökning</string>
-    <string name="whats_new_search_content">\u2022 Inte enbart i nuvarande mapp\n\u2022 Returnerar resultat från komplett server\n\u2022 Öppna filer/mappar direkt \n\u2022 Fungerar i NC12 och senare.</string>
-
-    <string name="whats_new_theming_title">Stöd för teman</string>
-    <string name="whats_new_theming_content">Om aktiverat på servern kommer applikationen att visa\n\u2022 bakgrundsbild\n\u2022 serverns namn\n\u2022 använda färger för att skilja på konton</string>
-
-    <string name="whats_new_notification_title">Stöd för notifieringar</string>
-    <string name="whats_new_notification_content">Få notifikationer som\n\u2022 nya externa delningar\n\u2022 kommentera omnämnanden\n\u2022 administrativa meddelanden.</string>
-
     <string name="whats_new_skip">Hoppa över</string>
 
     <string name="fingerprint_scan_finger">Vänligen skanna ditt finger</string>
@@ -616,8 +604,6 @@
 
     <string name="test_server_button">Testa serveranslutning</string>
     <string name="resharing_is_not_allowed">Att dela på nytt är inte tillåtet</string>
-    <string name="whats_new_fingerprint_title">Lås upp med fingeravtryck</string>
-    <string name="whats_new_fingerprint_content">Använd ditt fingeravtryck för att låsa upp appen</string>
     <string name="fallback_weblogin_back">Tillbaka</string>
     <string name="fallback_weblogin_text">Gå tillbaka till gammal inloggningsmetod</string>
 

@@ -517,18 +517,6 @@
     <string name="welcome_feature_3_title">Automatinis įkėlimas</string>
     <string name="welcome_feature_3_text">Saugokite nuotraukas</string>
 
-    <string name="whats_new_auto_upload_title">Automatinis įkėlimas</string>
-    <string name="whats_new_auto_upload_content">\u2022 visoms Android versijoms\n\u2022 mažiau baterijos sunaudojimo\n\u2022 daugiau patikimumo, bet ne iškart\n\u2022 paveikslėlių atskyrimas &amp; filmukai</string>
-
-    <string name="whats_new_search_title">Išsami serverio paieška</string>
-    <string name="whats_new_search_content">\u2022 Nėra šiame aplanke\n\u2022 Grąžina rezultatą iš serverio\n\u2022 Tiesiogiai atidaryti failus/aplankus\n\u2022 Palaikoma NC12 ir aukščiau</string>
-
-    <string name="whats_new_theming_title">Temos palaikymas</string>
-    <string name="whats_new_theming_content">Jei aktyvuota serveryje, programėlė parodys\n\u2022 fono paveikslą\n\u2022 serverio vardas\n\u2022 naudokite spalvas atskirti paskyras</string>
-
-    <string name="whats_new_notification_title">Įspėjimų palaikymas</string>
-    <string name="whats_new_notification_content">Gaukite įspėjimus kaip\n\u2022 naujas nuotolinis dalinimasis\n\u2022 komentuoti paminėjimus\n\u2022 administratoriaus pranešimai</string>
-
     <string name="whats_new_skip">Praleisti</string>
 
     <string name="fingerprint_scan_finger">Prašome nuskenuoti piršto atspaudą</string>
@@ -572,8 +560,6 @@
 
     <string name="test_server_button">Prisijunkite prie serverio</string>
     <string name="resharing_is_not_allowed">Dalijimasis iš naujo negalimas</string>
-    <string name="whats_new_fingerprint_title">Atrakinti piršto antspaudu</string>
-    <string name="whats_new_fingerprint_content">Naudokite pirštų antspaudus atrakinti programėlę</string>
     <string name="prefs_sourcecode">Gauti išeities kodą</string>
     <string name="prefs_license">Licencija</string>
     <string name="push_notifications_not_implemented">Stumti pranešimus, kurie išjungti dėl ryšių su Google Play servisais</string>

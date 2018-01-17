@@ -561,18 +561,6 @@
     <string name="welcome_feature_3_title">Automatické nahrávání</string>
     <string name="welcome_feature_3_text">Již se neobávjte o své fotografie</string>
 
-    <string name="whats_new_auto_upload_title">Zlepšené automatické nahrávání</string>
-    <string name="whats_new_auto_upload_content">\u2022 pro všechny verze systému Android\n\u2022 méně spotřeby baterie\n\u2022 spolehlivější, ale ne okamžitá\n\u2022 separace obrázků &amp; videa</string>
-
-    <string name="whats_new_search_title">Vyhledávání na straně serveru</string>
-    <string name="whats_new_search_content">\u2022 Neplatí pouze v aktuální složce\n\u2022 Vrátí výsledky z úplného serveru\n\u2022 Přímo otevřít soubory/složky\n\u2022 Podporováno v NC12 a výše</string>
-
-    <string name="whats_new_theming_title">Podpora motivů</string>
-    <string name="whats_new_theming_content">Je-li povoleno na serveru, aplikace zobrazí\n\u2022 pozadí obrázku\n\u2022 název serveru\n\u2022 použije barvu k odlišení účtů</string>
-
-    <string name="whats_new_notification_title">Podpora oznámení </string>
-    <string name="whats_new_notification_content">Získání oznámení, jako \n\u2022 nové vzdálené sdílení \n\u2022 uvedeno v komentáři \n\u2022 oznámení admina</string>
-
     <string name="whats_new_skip">Přeskočit</string>
 
     <string name="fingerprint_scan_finger">Prosím, naskenujte svůj otisk prstu</string>
@@ -619,8 +607,6 @@
 
     <string name="test_server_button">Otestovat připojení k serveru</string>
     <string name="resharing_is_not_allowed">Opětovné sdílení není povoleno</string>
-    <string name="whats_new_fingerprint_title">Odemknout pomocí prstu</string>
-    <string name="whats_new_fingerprint_content">Použijte Váš prst pro odemknutí aplikace</string>
     <string name="fallback_weblogin_back">Zpět</string>
     <string name="fallback_weblogin_text">Vrátit se ke starému způsobu přihlašování</string>
 

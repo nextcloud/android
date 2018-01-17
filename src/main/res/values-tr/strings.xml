@@ -126,6 +126,7 @@
     <string name="common_cancel">İptal</string>
     <string name="common_back">Geri</string>
     <string name="common_save">Kaydet</string>
+    <string name="common_error">Hata</string>
     <string name="common_loading">Yükleniyor&#8230;</string>
     <string name="common_unknown">bilinmiyor</string>
     <string name="common_error_unknown">Bilinmeyen sorun</string>
@@ -267,6 +268,8 @@
     <string name="favorite_real">Sık Kullanılanlara Ekle</string>
     <string name="unset_favorite_real">Sık Kullanılanlardan Çıkar</string>
     <string name="favorite_switch">Çevrimdışı kullanılabilir</string>
+    <string name="encrypted">Şifrelensin</string>
+    <string name="unset_encrypted">Şifrelemeyi kaldır</string>
     <string name="common_rename">Yeniden adlandır</string>
     <string name="common_remove">Sil</string>
     <string name="confirmation_remove_file_alert">%1$s dosyasını gerçekten silmek istiyor musunuz?</string>
@@ -585,18 +588,6 @@
     <string name="welcome_feature_3_title">Otomatik yükleme</string>
     <string name="welcome_feature_3_text">Fotoğraflarınızı koruyun</string>
 
-    <string name="whats_new_auto_upload_title">Genişletilmiş otomatik yükleme</string>
-    <string name="whats_new_auto_upload_content">\u2022 tüm Android sürümleri için\n\u2022 daha az pil harcaması\n\u2022 daha güvenli, ancak görseller\n\u2022 &amp; görüntüler anında ayrılmıyor</string>
-
-    <string name="whats_new_search_title">Tam sunucu araması</string>
-    <string name="whats_new_search_content">\u2022 Yalnız geçerli klasörde değil\n\u2022 Tüm sunucudaki sonuçları verir\n\u2022 Doğrudan dosya/klasör açma\n\u2022 NC12 ve üzerindeki sürümlerde desteklenir</string>
-
-    <string name="whats_new_theming_title">Tema desteği</string>
-    <string name="whats_new_theming_content">Sunucu uygulamasında etkinleştirilmiş ise\n\u2022 art alan görseli\n\u2022 sunucu adı\n\u2022 hesapları ayırt etmek için farklı renk kullanımı</string>
-
-    <string name="whats_new_notification_title">Bildirim desteği</string>
-    <string name="whats_new_notification_content">Yeni bildirimler\n\u2022 yeni uzak paylaşım\n\u2022 yorumda anma\n\u2022 yönetici duyuruları</string>
-
     <string name="whats_new_skip">Atla</string>
 
     <string name="fingerprint_scan_finger">Lütfen parmağınızı tarayın</string>
@@ -647,8 +638,6 @@
 
     <string name="test_server_button">Sunucu bağlantısını sına</string>
     <string name="resharing_is_not_allowed">Yeniden paylaşıma izin verilmiyor</string>
-    <string name="whats_new_fingerprint_title">Parmak izi ile kilit açma</string>
-    <string name="whats_new_fingerprint_content">Uygulama kilidini açmak için parmak izi kullanımı</string>
     <string name="fallback_weblogin_back">Geri</string>
     <string name="fallback_weblogin_text">Eski oturum açma yöntemine dön</string>
 
@@ -739,4 +728,19 @@
     <string name="drawer_header_background">Çekmece üst bilgisinin art alan görseli</string>
     <string name="account_icon">Hesap simgesi</string>
     
-    </resources>
+    <string name="end_to_end_encryption_folder_not_empty">Klasör boş değil!</string>
+    <string name="end_to_end_encryption_wrong_password">Şifre çözülürken bir sorun çıktı. Parola yanlış olabilir mi?</string>
+    <string name="end_to_end_encryption_decrypting">Şifre çözülüyor…</string>
+    <string name="end_to_end_encryption_retrieving_keys">Anahtarlar alınıyor…</string>
+    <string name="end_to_end_encryption_enter_password">Özel anahtarın şifresinin çözülmesi için parolayı yazın!</string>
+    <string name="end_to_end_encryption_generating_keys">Yeni anahtarlar üretiliyor…</string>
+    <string name="end_to_end_encryption_keywords_description">12 sözcüklü ifade çok güçlü bir paroladır: Şifrelenmiş dosyalarınızın görüntülenmesi ve kullanılması için tam erişim sağlar. Lütfen bir yere yazarak güvenli bir yerde saklayın.</string>
+    <string name="end_to_end_encryption_title">Şifreleme kurulumu</string>
+    <string name="end_to_end_encryption_passphrase_title">Şifreleme parolanızı not edin</string>
+    <string name="end_to_end_encryption_not_supported">KitKat üzerinde şifreleme desteği yok.</string>
+    <string name="end_to_end_encryption_confirm_button">Şifreleme kurulumu</string>
+    <string name="end_to_end_encryption_password">Parola…</string>
+    <string name="end_to_end_encryption_unsuccessful">Anahtarlar kaydedilemedi, lütfen yeniden deneyin!</string>
+    <string name="end_to_end_encryption_dialog_close">Kapat</string>
+    <string name="end_to_end_encryption_storing_keys">Anahtarlar kaydediliyor</string>
+</resources>

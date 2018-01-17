@@ -126,6 +126,7 @@
     <string name="common_cancel">Cancelar</string>
     <string name="common_back">Volver</string>
     <string name="common_save">Guardar</string>
+    <string name="common_error">Error</string>
     <string name="common_loading">Cargando &#8230;</string>
     <string name="common_unknown">desconocido</string>
     <string name="common_error_unknown">Error desconocido</string>
@@ -267,6 +268,7 @@
     <string name="favorite_real">Marcar como favorito</string>
     <string name="unset_favorite_real">Desmarcar como favorito</string>
     <string name="favorite_switch">Disponible sin conexión</string>
+    <string name="encrypted">Establecer como encriptado</string>
     <string name="common_rename">Renombrar</string>
     <string name="common_remove">Borrar</string>
     <string name="confirmation_remove_file_alert">¿Estás seguro de que quieres eliminar %1$s?</string>
@@ -585,18 +587,6 @@
     <string name="welcome_feature_3_title">Subida automática</string>
     <string name="welcome_feature_3_text">Mantén seguras tus fotos</string>
 
-    <string name="whats_new_auto_upload_title">Subida automática mejorada</string>
-    <string name="whats_new_auto_upload_content">\u2022 para todas las versiones de Android\n\u2022 menor consumo de batería\n\u2022 más fiable, pero no instantánea\n\u2022 &amp;separación de imágenes y vídeos</string>
-
-    <string name="whats_new_search_title">Búsqueda en todo el servidor</string>
-    <string name="whats_new_search_content">\u2022 No solo en la carpeta acdtal\n\u2022 Devuelve resultados de todo el servidor\n\u2022 Abre directamente archivos/carpetas\n\u2022 Soportado en NC 12 y superior</string>
-
-    <string name="whats_new_theming_title">Suporte de temas</string>
-    <string name="whats_new_theming_content">Si se ha activado en el servidor, la app mostrará\n\u2022 la imagen de fondo\n\u2022 el nombre del servidor\n\u2022 usará colores para distinguir las cuentas</string>
-
-    <string name="whats_new_notification_title">Soporte de notificaciones</string>
-    <string name="whats_new_notification_content">Obtén notificaciones como\n\u2022 nuevos compartidos remotos\n\u2022menciones en comentarios\n\u2022 anuncios de los administradores</string>
-
     <string name="whats_new_skip">Omitir</string>
 
     <string name="fingerprint_scan_finger">Por favor, escanea tu dedo</string>
@@ -647,8 +637,6 @@
 
     <string name="test_server_button">Probar conexión con servidor</string>
     <string name="resharing_is_not_allowed">No se permite compartir de nuevo</string>
-    <string name="whats_new_fingerprint_title">Desbloqueo con lector de huellas</string>
-    <string name="whats_new_fingerprint_content">Usa tu lector de huellas para desbloquear la app</string>
     <string name="fallback_weblogin_back">Volver</string>
     <string name="fallback_weblogin_text">Volver al método de registro antiguo</string>
 
@@ -739,4 +727,12 @@
     <string name="drawer_header_background">Imagen de fondo de la cabecera del cajón</string>
     <string name="account_icon">Icono de la cuenta</string>
     
+    <string name="end_to_end_encryption_folder_not_empty">¡La carpeta no está vacía!</string>
+    <string name="end_to_end_encryption_wrong_password">Error al desencriptar. ¿Contraseña incorrecta?</string>
+    <string name="end_to_end_encryption_decrypting">Desencriptando...</string>
+    <string name="end_to_end_encryption_enter_password">¡Por favor introduce una contraseña para desencriptar la clave privada!</string>
+    <string name="end_to_end_encryption_generating_keys">Generando claves nuevas...</string>
+    <string name="end_to_end_encryption_keywords_description">Esta frase de 12 palabras es como una contraseña muy fuerte: Da acceso para ver y usar tus archivos encriptados. Por favor escríbela y mantenla en algún lugar seguro.</string>
+    <string name="end_to_end_encryption_password">Contraseña...</string>
+    <string name="end_to_end_encryption_dialog_close">Cerrar</string>
     </resources>
