@@ -729,10 +729,7 @@
     
     <string name="end_to_end_encryption_folder_not_empty">¡La carpeta no está vacía!</string>
     <string name="end_to_end_encryption_wrong_password">Error al desencriptar. ¿Contraseña incorrecta?</string>
-    <string name="end_to_end_encryption_decrypting">Desencriptando...</string>
     <string name="end_to_end_encryption_enter_password">¡Por favor introduce una contraseña para desencriptar la clave privada!</string>
-    <string name="end_to_end_encryption_generating_keys">Generando claves nuevas...</string>
     <string name="end_to_end_encryption_keywords_description">Esta frase de 12 palabras es como una contraseña muy fuerte: Da acceso para ver y usar tus archivos encriptados. Por favor escríbela y mantenla en algún lugar seguro.</string>
-    <string name="end_to_end_encryption_password">Contraseña...</string>
     <string name="end_to_end_encryption_dialog_close">Cerrar</string>
     </resources>

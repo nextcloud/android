@@ -729,10 +729,6 @@ Attention la suppression est irréversible.</string>
     <string name="account_icon">Icône du compte</string>
     
     <string name="end_to_end_encryption_folder_not_empty">Dossier non vide !</string>
-    <string name="end_to_end_encryption_decrypting">Décryptage...</string>
-    <string name="end_to_end_encryption_retrieving_keys">Récupération des clés...</string>
-    <string name="end_to_end_encryption_generating_keys">Générer des nouvelles clés...</string>
     <string name="end_to_end_encryption_keywords_description">Cette phrase de 12 mots est comme un mot de passe très fort : elle fournit un accès à la lecture et à l\'utilisation de vos fichiers chiffrés. Merci de l\'écrire et de la garder quelque-part en sécurité.</string>
-    <string name="end_to_end_encryption_password">Mot de passe...</string>
     <string name="end_to_end_encryption_dialog_close">Fermer</string>
     </resources>

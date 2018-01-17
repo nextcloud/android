@@ -730,16 +730,12 @@
     
     <string name="end_to_end_encryption_folder_not_empty">Klasör boş değil!</string>
     <string name="end_to_end_encryption_wrong_password">Şifre çözülürken bir sorun çıktı. Parola yanlış olabilir mi?</string>
-    <string name="end_to_end_encryption_decrypting">Şifre çözülüyor…</string>
-    <string name="end_to_end_encryption_retrieving_keys">Anahtarlar alınıyor…</string>
     <string name="end_to_end_encryption_enter_password">Özel anahtarın şifresinin çözülmesi için parolayı yazın!</string>
-    <string name="end_to_end_encryption_generating_keys">Yeni anahtarlar üretiliyor…</string>
     <string name="end_to_end_encryption_keywords_description">12 sözcüklü ifade çok güçlü bir paroladır: Şifrelenmiş dosyalarınızın görüntülenmesi ve kullanılması için tam erişim sağlar. Lütfen bir yere yazarak güvenli bir yerde saklayın.</string>
     <string name="end_to_end_encryption_title">Şifreleme kurulumu</string>
     <string name="end_to_end_encryption_passphrase_title">Şifreleme parolanızı not edin</string>
     <string name="end_to_end_encryption_not_supported">KitKat üzerinde şifreleme desteği yok.</string>
     <string name="end_to_end_encryption_confirm_button">Şifreleme kurulumu</string>
-    <string name="end_to_end_encryption_password">Parola…</string>
     <string name="end_to_end_encryption_unsuccessful">Anahtarlar kaydedilemedi, lütfen yeniden deneyin!</string>
     <string name="end_to_end_encryption_dialog_close">Kapat</string>
     <string name="end_to_end_encryption_storing_keys">Anahtarlar kaydediliyor</string>

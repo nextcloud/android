@@ -739,10 +739,7 @@ A Nextcloud itt érhető el: https://nextcloud.com</string>
     <string name="account_icon">Fiók ikon</string>
     
     <string name="end_to_end_encryption_folder_not_empty">A mappa nem üres!</string>
-    <string name="end_to_end_encryption_retrieving_keys">Kulcsok begyűjtése...</string>
-    <string name="end_to_end_encryption_generating_keys">Új kulcsok generálása...</string>
     <string name="end_to_end_encryption_not_supported">A titkosítás KitKat előtt nem támogatott.</string>
     <string name="end_to_end_encryption_confirm_button">Titkosítás beállítása</string>
-    <string name="end_to_end_encryption_password">Jelszó...</string>
     <string name="end_to_end_encryption_dialog_close">Bezár</string>
     </resources>

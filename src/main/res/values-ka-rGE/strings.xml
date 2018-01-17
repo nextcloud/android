@@ -725,16 +725,12 @@
     
     <string name="end_to_end_encryption_folder_not_empty">დირექტორია არაა ცარიელი!</string>
     <string name="end_to_end_encryption_wrong_password">შეცდომა დეშიფრაციისას. არასწორი პაროლი?</string>
-    <string name="end_to_end_encryption_decrypting">დეშიფრაცია…</string>
-    <string name="end_to_end_encryption_retrieving_keys">გასაღებების მიღება…</string>
     <string name="end_to_end_encryption_enter_password">პირადი გასაღების დეშიფრაციისთვის გთხოვთ შეიყვანოთ პაროლი!</string>
-    <string name="end_to_end_encryption_generating_keys">ახალი გასაღებების გენერირება…</string>
     <string name="end_to_end_encryption_keywords_description">ეს 12 სიტყვიანი ფრაზა წააგავს ძალიან ძლიერ პაროლს: ის იძლევა თქვენი დაშიფრული ფაილების სრული წვდომისა და მოხმარების უფლებას. გთხოვთ ჩაიწეროთ და შეინახოთ დაცულ ადგილას.</string>
     <string name="end_to_end_encryption_title">შიფრაციის დაყენება</string>
     <string name="end_to_end_encryption_passphrase_title">შენიშნეთ თქვენი შიფრაციის პასფრაზა</string>
     <string name="end_to_end_encryption_not_supported">KitKat-ამდე შიფრაცია არაა მხარდაჭერილი.</string>
     <string name="end_to_end_encryption_confirm_button">შიფრაციის დაყენება</string>
-    <string name="end_to_end_encryption_password">პაროლი…</string>
     <string name="end_to_end_encryption_unsuccessful">გასაღებების შენახვა ვერ მოხერხდა, გთხოვთ სცადოთ ახლიდან!</string>
     <string name="end_to_end_encryption_dialog_close">დახურვა</string>
     <string name="end_to_end_encryption_storing_keys">გასაღებების შენახვა</string>
