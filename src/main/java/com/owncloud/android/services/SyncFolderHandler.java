@@ -1,4 +1,4 @@
-/**
+/*
  *   ownCloud Android client application
  *
  *   Copyright (C) 2016 ownCloud Inc.
@@ -56,7 +56,6 @@ class SyncFolderHandler extends Handler {
 
     private IndexedForest<SynchronizeFolderOperation> mPendingOperations = new IndexedForest<>();
 
-    private OwnCloudClient mOwnCloudClient = null;
     private Account mCurrentAccount = null;
     private FileDataStorageManager mStorageManager;
     private SynchronizeFolderOperation mCurrentSyncOperation;
@@ -103,7 +102,7 @@ class SyncFolderHandler extends Handler {
         mCurrentSyncOperation = mPendingOperations.get(account.name, remotePath);
 
         if (mCurrentSyncOperation != null) {
-            RemoteOperationResult result = null;
+            RemoteOperationResult result;
 
             try {
 
@@ -117,27 +116,27 @@ class SyncFolderHandler extends Handler {
 
                 // always get client from client manager, to get fresh credentials in case of update
                 OwnCloudAccount ocAccount = new OwnCloudAccount(account, mService);
-                mOwnCloudClient = OwnCloudClientManagerFactory.getDefaultSingleton().
+                OwnCloudClient mOwnCloudClient = OwnCloudClientManagerFactory.getDefaultSingleton().
                         getClientFor(ocAccount, mService);
 
                 result = mCurrentSyncOperation.execute(mOwnCloudClient, mStorageManager);
+                sendBroadcastFinishedSyncFolder(account, remotePath, result.isSuccess());
+                mService.dispatchResultToOperationListeners(mCurrentSyncOperation, result);
 
             } catch (AccountsException | IOException e) {
+                sendBroadcastFinishedSyncFolder(account, remotePath, false);
+                mService.dispatchResultToOperationListeners(mCurrentSyncOperation, new RemoteOperationResult(e));
+                
                 Log_OC.e(TAG, "Error while trying to get authorization", e);
             } finally {
                 mPendingOperations.removePayload(account.name, remotePath);
-
-                mService.dispatchResultToOperationListeners(mCurrentSyncOperation, result);
-
-                sendBroadcastFinishedSyncFolder(account, remotePath, result.isSuccess());
             }
         }
     }
 
     public void add(Account account, String remotePath,
                     SynchronizeFolderOperation syncFolderOperation){
-        Pair<String, String> putResult =
-                mPendingOperations.putIfAbsent(account.name, remotePath, syncFolderOperation);
+        Pair<String, String> putResult = mPendingOperations.putIfAbsent(account.name, remotePath, syncFolderOperation);
         if (putResult != null) {
             sendBroadcastNewSyncFolder(account, remotePath);    // TODO upgrade!
         }
@@ -155,8 +154,8 @@ class SyncFolderHandler extends Handler {
             Log_OC.e(TAG, "Cannot cancel with NULL parameters");
             return;
         }
-        Pair<SynchronizeFolderOperation, String> removeResult =
-                mPendingOperations.remove(account.name, file.getRemotePath());
+        Pair<SynchronizeFolderOperation, String> removeResult = mPendingOperations.remove(account.name,
+                file.getRemotePath());
         SynchronizeFolderOperation synchronization = removeResult.first;
         if (synchronization != null) {
             synchronization.cancel();
