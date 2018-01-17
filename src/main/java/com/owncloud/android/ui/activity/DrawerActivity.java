@@ -1034,10 +1034,16 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
                     @Override
                     public void onLoadFailed(Exception e, Drawable errorDrawable) {
                         super.onLoadFailed(e, errorDrawable);
-                        mNavigationView.getMenu().findItem(getIdMenuItem()).setIcon(errorDrawable.getCurrent());
+                        MenuItem menuItem = mNavigationView.getMenu().findItem(getIdMenuItem());
+
+                        if (menuItem != null) {
+                            if (errorDrawable != null) {
+                                menuItem.setIcon(errorDrawable.getCurrent());
+                            } else {
+                                menuItem.setIcon(R.drawable.ic_link_grey);
+                            }
+                        }
                     }
-
-
                 };
 
                 DisplayUtils.downloadIcon(this, link.iconUrl, target, R.drawable.ic_link_grey, size, size);
