@@ -167,7 +167,7 @@ public class ContactsBackupFragment extends FileFragment implements DatePickerDi
         view.findViewById(R.id.contacts_backup_now).getBackground()
                 .setColorFilter(accentColor, PorterDuff.Mode.SRC_ATOP);
 
-        AppCompatButton chooseDate = (AppCompatButton) view.findViewById(R.id.contacts_datepicker);
+        AppCompatButton chooseDate = view.findViewById(R.id.contacts_datepicker);
         chooseDate.getBackground().setColorFilter(accentColor, PorterDuff.Mode.SRC_ATOP);
         chooseDate.setTextColor(ThemeUtils.fontColor());
 
@@ -203,7 +203,7 @@ public class ContactsBackupFragment extends FileFragment implements DatePickerDi
             @Override
             protected Boolean doInBackground(String... path) {
                 FileDataStorageManager storageManager = new FileDataStorageManager(account,
-                        getActivity().getContentResolver());
+                        contactsPreferenceActivity.getContentResolver());
 
                 OCFile folder = storageManager.getFileByPath(path[0]);
 
