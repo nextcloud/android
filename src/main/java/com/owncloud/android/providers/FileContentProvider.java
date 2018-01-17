@@ -1576,9 +1576,11 @@ public class FileContentProvider extends ContentProvider {
                 Log_OC.i(SQL, "Entering in the #28 Adding CRC32 column to filesystem table");
                 db.beginTransaction();
                 try {
-                    db.execSQL(ALTER_TABLE + ProviderTableMeta.FILESYSTEM_TABLE_NAME +
-                            ADD_COLUMN + ProviderTableMeta.FILESYSTEM_CRC32 + " TEXT ");
-
+                    if (!checkIfColumnExists(db, ProviderTableMeta.FILESYSTEM_TABLE_NAME,
+                            ProviderTableMeta.FILESYSTEM_CRC32)) {
+                        db.execSQL(ALTER_TABLE + ProviderTableMeta.FILESYSTEM_TABLE_NAME +
+                                ADD_COLUMN + ProviderTableMeta.FILESYSTEM_CRC32 + " TEXT ");
+                    }
                     upgraded = true;
                     db.setTransactionSuccessful();
                 } finally {
@@ -1599,6 +1601,52 @@ public class FileContentProvider extends ContentProvider {
 
                     db.execSQL(ALTER_TABLE + ProviderTableMeta.CAPABILITIES_TABLE_NAME +
                             ADD_COLUMN + ProviderTableMeta.CAPABILITIES_SERVER_BACKGROUND_PLAIN + " INTEGER ");
+
+                    upgraded = true;
+                    db.setTransactionSuccessful();
+                } finally {
+                    db.endTransaction();
+                }
+            }
+
+            if (!upgraded) {
+                Log_OC.i(SQL, String.format(Locale.ENGLISH, UPGRADE_VERSION_MSG, oldVersion, newVersion));
+            }
+
+            if (oldVersion < 30 && newVersion >= 30) {
+                Log_OC.i(SQL, "Entering in the #30 Re-add 25, 26 if needed");
+                db.beginTransaction();
+                try {
+                    if (!checkIfColumnExists(db, ProviderTableMeta.FILE_TABLE_NAME,
+                            ProviderTableMeta.FILE_IS_ENCRYPTED)) {
+                        db.execSQL(ALTER_TABLE + ProviderTableMeta.FILE_TABLE_NAME +
+                                ADD_COLUMN + ProviderTableMeta.FILE_IS_ENCRYPTED + " INTEGER ");
+                    }
+                    if (!checkIfColumnExists(db, ProviderTableMeta.FILE_TABLE_NAME,
+                            ProviderTableMeta.FILE_ENCRYPTED_NAME)) {
+                        db.execSQL(ALTER_TABLE + ProviderTableMeta.FILE_TABLE_NAME +
+                                ADD_COLUMN + ProviderTableMeta.FILE_ENCRYPTED_NAME + " TEXT ");
+                    }
+                    if (!checkIfColumnExists(db, ProviderTableMeta.CAPABILITIES_TABLE_NAME,
+                            ProviderTableMeta.CAPABILITIES_END_TO_END_ENCRYPTION)) {
+                        db.execSQL(ALTER_TABLE + ProviderTableMeta.CAPABILITIES_TABLE_NAME +
+                                ADD_COLUMN + ProviderTableMeta.CAPABILITIES_END_TO_END_ENCRYPTION + " INTEGER ");
+                    }
+                    if (!checkIfColumnExists(db, ProviderTableMeta.CAPABILITIES_TABLE_NAME,
+                            ProviderTableMeta.CAPABILITIES_SERVER_TEXT_COLOR)) {
+                        db.execSQL(ALTER_TABLE + ProviderTableMeta.CAPABILITIES_TABLE_NAME +
+                                ADD_COLUMN + ProviderTableMeta.CAPABILITIES_SERVER_TEXT_COLOR + " TEXT ");
+                    }
+                    if (!checkIfColumnExists(db, ProviderTableMeta.CAPABILITIES_TABLE_NAME,
+                            ProviderTableMeta.CAPABILITIES_SERVER_ELEMENT_COLOR)) {
+                        db.execSQL(ALTER_TABLE + ProviderTableMeta.CAPABILITIES_TABLE_NAME +
+                                ADD_COLUMN + ProviderTableMeta.CAPABILITIES_SERVER_ELEMENT_COLOR + " TEXT ");
+                    }
+                    if (!checkIfColumnExists(db, ProviderTableMeta.FILESYSTEM_TABLE_NAME,
+                            ProviderTableMeta.FILESYSTEM_CRC32)) {
+                        db.execSQL(ALTER_TABLE + ProviderTableMeta.FILESYSTEM_TABLE_NAME +
+                                ADD_COLUMN + ProviderTableMeta.FILESYSTEM_CRC32 + " TEXT ");
+                    }
 
                     upgraded = true;
                     db.setTransactionSuccessful();
