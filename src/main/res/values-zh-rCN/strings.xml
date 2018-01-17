@@ -558,18 +558,6 @@
     <string name="welcome_feature_3_title">自动上传</string>
     <string name="welcome_feature_3_text">保护你的照片安全</string>
 
-    <string name="whats_new_auto_upload_title">加强自动上传功能。</string>
-    <string name="whats_new_auto_upload_content">\u2022适合所有Android版本\n\u2022更少的电池消耗\n\u2022更加可靠，但不是实时的\\n\u2022分离图像&amp;视频。</string>
-
-    <string name="whats_new_search_title">全服务器搜索</string>
-    <string name="whats_new_search_content">\u2022不只在当前文件夹\n\u2022从完整的服务器返回结果\n\u2022直接打开文件/文件夹\n\u2022 NC12及以上版本支持</string>
-
-    <string name="whats_new_theming_title">主题支持</string>
-    <string name="whats_new_theming_content">如果在服务器上启用，应用程序将显示\n\u2022背景图片\n\u2022服务器名称\n\u2022使用颜色来区分帐户</string>
-
-    <string name="whats_new_notification_title">通知支持</string>
-    <string name="whats_new_notification_content">获取通知，比如\n\u2022新的远程共享\n\u2022注释提示\n\u2022管理员通知</string>
-
     <string name="whats_new_skip">跳过</string>
 
     <string name="fingerprint_scan_finger">请扫描你的手指</string>
@@ -618,8 +606,6 @@
 
     <string name="test_server_button">测试服务连接</string>
     <string name="resharing_is_not_allowed">不允许二次共享</string>
-    <string name="whats_new_fingerprint_title">指纹解锁</string>
-    <string name="whats_new_fingerprint_content">请用指纹解锁</string>
     <string name="fallback_weblogin_back">返回</string>
     <string name="fallback_weblogin_text">采用旧的登录方式</string>
 

@@ -495,10 +495,6 @@
     <string name="welcome_feature_3_title">Samodejno nalaganje</string>
     <string name="welcome_feature_3_text">Hrani svoje slike na varnem</string>
 
-    <string name="whats_new_auto_upload_title">Napredno samodejno nalaganje</string>
-    <string name="whats_new_search_title">Iskanje po celotnem strežniku</string>
-    <string name="whats_new_theming_title">Podpora temam</string>
-    <string name="whats_new_notification_title">Podpora obveščanju</string>
     <string name="whats_new_skip">Preskoči</string>
 
     <!-- User information -->

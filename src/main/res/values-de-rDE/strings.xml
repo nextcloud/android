@@ -126,6 +126,7 @@
     <string name="common_cancel">Abbrechen</string>
     <string name="common_back">Zurück</string>
     <string name="common_save">Speichern</string>
+    <string name="common_error">Fehler</string>
     <string name="common_loading">Lade &#8230;</string>
     <string name="common_unknown">unbekannt</string>
     <string name="common_error_unknown">Unbekannter Fehler</string>
@@ -267,6 +268,8 @@
     <string name="favorite_real">Als Favorit markieren</string>
     <string name="unset_favorite_real">Markierung als Favorit entfernen</string>
     <string name="favorite_switch">Offline verfügbar</string>
+    <string name="encrypted">Als verschlüsselt festlegen</string>
+    <string name="unset_encrypted">Verschlüsselung aufheben</string>
     <string name="common_rename">Umbenennen</string>
     <string name="common_remove">Löschen</string>
     <string name="confirmation_remove_file_alert">Wollen Sie %1$s wirklich löschen?</string>
@@ -585,18 +588,6 @@
     <string name="welcome_feature_3_title">Automatisches Hochladen</string>
     <string name="welcome_feature_3_text">Schützen Sie Ihre Fotos</string>
 
-    <string name="whats_new_auto_upload_title">Erweitertes automatisches Hochladen</string>
-    <string name="whats_new_auto_upload_content">\u2022 für alle Android-Versionen\n\u2022 Weniger Batterieverbrauch\n\u2022 zuverlässiger, aber nicht sofort\n\u2022 Trennung von Bildern &amp; Videos</string>
-
-    <string name="whats_new_search_title">Vollständige Server-Suche</string>
-    <string name="whats_new_search_content">\u2022 Nicht nur im aktuellen Ordner\n\u2022 Suchergebnisse des gesamten Servers\n\u2022 Ordner/Dateien direkt öffnen\n\u2022 Unterstützt ab NC12</string>
-
-    <string name="whats_new_theming_title">Themen verwenden</string>
-    <string name="whats_new_theming_content">Wenn in der Server-App aktiviert, werden \n\u2022 das Hintergrund Bild\n\u2022 der Server-Name\n\u2022 und die eingestellten Farben angezeigt</string>
-
-    <string name="whats_new_notification_title">Benachrichtigungen</string>
-    <string name="whats_new_notification_content">Erhalte Benachrichtigungen wie z.B.\n\u2022 Neue Freigaben\n\u2022 Kommentar-Erwähnungen\n\u2022 Administratoren-Ankündigungen</string>
-
     <string name="whats_new_skip">Überspringen</string>
 
     <string name="fingerprint_scan_finger">Bitte scannen Sie Ihren Finger</string>
@@ -647,8 +638,6 @@
 
     <string name="test_server_button">Prüfe Server-Verbindung</string>
     <string name="resharing_is_not_allowed">Resharing/Wiederteilen ist nicht erlaubt.</string>
-    <string name="whats_new_fingerprint_title">Entsperren mit Fingerabdruck</string>
-    <string name="whats_new_fingerprint_content">Entsperren Sie die App mit Ihrem Fingerabdruck</string>
     <string name="fallback_weblogin_back">Zurück</string>
     <string name="fallback_weblogin_text">Zur alten Anmeldungsmethode zurückkehren</string>
 
@@ -739,4 +728,19 @@
     <string name="drawer_header_background">Hintergrundbild des Kopfbereiches</string>
     <string name="account_icon">Konto-Icon</string>
     
-    </resources>
+    <string name="end_to_end_encryption_folder_not_empty">Ordner nicht leer!</string>
+    <string name="end_to_end_encryption_wrong_password">Fehler beim Entschlüsseln. Falsches Passwort?</string>
+    <string name="end_to_end_encryption_decrypting">Entschlüsseln...</string>
+    <string name="end_to_end_encryption_retrieving_keys">Schlüssel abrufen...</string>
+    <string name="end_to_end_encryption_enter_password">Geben Sie bitte das Passwort ein, um den privaten Schlüssel zu entschlüsseln!</string>
+    <string name="end_to_end_encryption_generating_keys">Neue Schlüssel generieren...</string>
+    <string name="end_to_end_encryption_keywords_description">Diese 12 Wörter-Phrase ist wie ein sehr starkes Passwort: Sie bietet vollen Zugriff um Ihre verschlüsselten Dateien anzusehen und zu verwenden. Bitte schreiben Sie sie auf und verwahren sie an einem sicheren Ort.</string>
+    <string name="end_to_end_encryption_title">Verschlüsselung einrichten</string>
+    <string name="end_to_end_encryption_passphrase_title">Notieren Sie Ihre Verschlüsselungs-Passphrase</string>
+    <string name="end_to_end_encryption_not_supported">Verschlüsselung wird vor KitKat nicht unterstützt</string>
+    <string name="end_to_end_encryption_confirm_button">Verschlüsselung einrichten</string>
+    <string name="end_to_end_encryption_password">Passwort...</string>
+    <string name="end_to_end_encryption_unsuccessful">Das Speichern der Schlüssel ist fehlgeschlagen, bitte versuchen Sie es erneut!</string>
+    <string name="end_to_end_encryption_dialog_close">Schließen</string>
+    <string name="end_to_end_encryption_storing_keys">Schlüssel speichern</string>
+</resources>

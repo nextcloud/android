@@ -502,18 +502,6 @@
     <string name="welcome_feature_3_title">Unggah otomatis.</string>
     <string name="welcome_feature_3_text">Jaga foto anda tetap aman</string>
 
-    <string name="whats_new_auto_upload_title">Meningkatkan unggah otomatis.</string>
-    <string name="whats_new_auto_upload_content">\u2022 untuk semua versi Android\n\u2022 lebih sedikit menggunakan batterai \n\u2022 lebih stabil tetapi kurang cepat \n\u2022 membagi gambar &amp; video</string>
-
-    <string name="whats_new_search_title">Pencarian lengkap di server.</string>
-    <string name="whats_new_search_content">\u2022 Bukan hanya di folder\n\u2022 Memberikan hasil dari pencarian server lengkap\n\u2022 Buka langsung berkas/folder\n\u2022 Didukung NC12 atau diatasnya.</string>
-
-    <string name="whats_new_theming_title">Dukungan tema.</string>
-    <string name="whats_new_theming_content">Bila diaktifkan di server, aplikasi akan menampilkan\n\u2022 gambar latar \n\u2022 nama server\n\u2022 gunakan warna untuk membedakan akun.</string>
-
-    <string name="whats_new_notification_title">Notifikasi bantuan.</string>
-    <string name="whats_new_notification_content">Dapatkan notifikasi seperti\n\u2022 server remote yang baru dibagi\n\u2022 komentar \n\u2022 pengumuman admin.</string>
-
     <string name="whats_new_skip">Lewat</string>
 
     <string name="fingerprint_scan_finger">Pindai jari anda.</string>
@@ -555,6 +543,4 @@
 
     <string name="test_server_button">Tes koneksi server.</string>
     <string name="resharing_is_not_allowed">Berbagi ulang tidak diijinkan.</string>
-    <string name="whats_new_fingerprint_title">Buka dengan sidik jari.</string>
-    <string name="whats_new_fingerprint_content">Gunakan sidik jadi untuk membuka aplikasi.</string>
     </resources>

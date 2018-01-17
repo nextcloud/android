@@ -126,6 +126,7 @@
     <string name="common_cancel">Annuler</string>
     <string name="common_back">Retour</string>
     <string name="common_save">Enregistrer</string>
+    <string name="common_error">Erreur</string>
     <string name="common_loading">Chargement&#8230;</string>
     <string name="common_unknown">Inconnu</string>
     <string name="common_error_unknown">Erreur inconnue </string>
@@ -587,18 +588,6 @@ Attention la suppression est irréversible.</string>
     <string name="welcome_feature_3_title">Téléversement automatique</string>
     <string name="welcome_feature_3_text">Conservez vos photos en toute sécurité</string>
 
-    <string name="whats_new_auto_upload_title">Un téléversement automatique amélioré</string>
-    <string name="whats_new_auto_upload_content">\u2022 pour toutes les version Android \n\u2022 une consommation d\'énergie plus faible \n\u2022 plus fiable, mais pas immédiat \n\u2022 séparation des images &amp; vidéos</string>
-
-    <string name="whats_new_search_title">Recherche sur tout le serveur</string>
-    <string name="whats_new_search_content">\u2022 Pas seulement dans le dossier actuel \n\u2022 Retourne les résultats de tout le serveur \n\u2022 Ouvre directement les fichiers/dossiers \n\u2022 Compatible avec NC12 et plus </string>
-
-    <string name="whats_new_theming_title">Support de thèmes</string>
-    <string name="whats_new_theming_content">Si activé sur l\'application du serveur, montrera \n\u2022 l\'image d\'arrière-plan \n\u2022 le nom du serveur \n\u2022 utiliser de la couleur pour distinguer les comptes</string>
-
-    <string name="whats_new_notification_title">Assistance notification</string>
-    <string name="whats_new_notification_content">Recevoir des notifications, par exemple \n\u2022 nouveau partage distant \n\u2022 nouveaux commentaires \n\u2022 annonces de l\'administrateur</string>
-
     <string name="whats_new_skip">Ignorer</string>
 
     <string name="fingerprint_scan_finger">Veuillez scanner votre doigt</string>
@@ -649,8 +638,6 @@ Attention la suppression est irréversible.</string>
 
     <string name="test_server_button">Tester la connexion du serveur</string>
     <string name="resharing_is_not_allowed">Le repartage n\'est pas autorisé</string>
-    <string name="whats_new_fingerprint_title">Déverrouillage par empreinte digitale</string>
-    <string name="whats_new_fingerprint_content">Utilisez votre empreinte digitale pour déverrouiller l’application</string>
     <string name="fallback_weblogin_back">Retour</string>
     <string name="fallback_weblogin_text">Revenir à l\'ancienne méthode de connexion</string>
 
@@ -741,4 +728,11 @@ Attention la suppression est irréversible.</string>
     <string name="drawer_header_background">Image d\'arrière-plan de l\'en-tête du menu-tiroir</string>
     <string name="account_icon">Icône du compte</string>
     
+    <string name="end_to_end_encryption_folder_not_empty">Dossier non vide !</string>
+    <string name="end_to_end_encryption_decrypting">Décryptage...</string>
+    <string name="end_to_end_encryption_retrieving_keys">Récupération des clés...</string>
+    <string name="end_to_end_encryption_generating_keys">Générer des nouvelles clés...</string>
+    <string name="end_to_end_encryption_keywords_description">Cette phrase de 12 mots est comme un mot de passe très fort : elle fournit un accès à la lecture et à l\'utilisation de vos fichiers chiffrés. Merci de l\'écrire et de la garder quelque-part en sécurité.</string>
+    <string name="end_to_end_encryption_password">Mot de passe...</string>
+    <string name="end_to_end_encryption_dialog_close">Fermer</string>
     </resources>

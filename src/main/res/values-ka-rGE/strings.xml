@@ -126,6 +126,7 @@
     <string name="common_cancel">გაუქმება</string>
     <string name="common_back">უკან</string>
     <string name="common_save">შენახვა</string>
+    <string name="common_error">შეცდომა</string>
     <string name="common_loading">იტვირთება &#8230;</string>
     <string name="common_unknown">უცნობი</string>
     <string name="common_error_unknown">უცნობი შეცდომა</string>
@@ -265,6 +266,8 @@
     <string name="favorite_real">გახადეთ რჩეული</string>
     <string name="unset_favorite_real">ჩამოაშორეთ რჩეულებს</string>
     <string name="favorite_switch">კავშირს გარეთ ხელმისაწვდომი</string>
+    <string name="encrypted">დააყენეთ როგორც დაშიფრული</string>
+    <string name="unset_encrypted">შიფრაციის გაუქმება</string>
     <string name="common_rename">გადარქმევა</string>
     <string name="common_remove">გაუქმება</string>
     <string name="confirmation_remove_file_alert">ნამდვილად გსურთ %1$s-ის გაუქმება?</string>
@@ -580,18 +583,6 @@
     <string name="welcome_feature_3_title">ავტო-ატვირთვა</string>
     <string name="welcome_feature_3_text">იქონიეთ თქვენი სურათები დაცულად</string>
 
-    <string name="whats_new_auto_upload_title">გაუმჯობესებული ავტო-ატვირთვა</string>
-    <string name="whats_new_auto_upload_content">\u2022 ყველა Android-ის ვერსიითვის\n\u2002 ბატარეის ნაკლები მოხმარება\n\u2022 მეტად სანდო, მაგრამ არა-მყისიერი\n\u2022 ვიდეოებისა და სურათების განცაკლევება.</string>
-
-    <string name="whats_new_search_title">სრული სერვერული ძიება</string>
-    <string name="whats_new_search_content">\u2022 არა მხოლოდ აქტიურ დირექტორიაში\n\u2022 შედეგებს აბრუნებს მთელი სერვერიდან\n\u2022 გახსენით ფაილები/დირექტორიები პირდაპირ\n\u2022 მხარდაჭერილია NC12-იდან</string>
-
-    <string name="whats_new_theming_title">ვიზუალური თემების მხარდაჭერა</string>
-    <string name="whats_new_theming_content">სერვერზე ამოქმედების შემთხვევაში, აპლიკაცია აჩვენებს\n\u2022 ფონურ სურათს\n\u2022 სერვერის სახელს\n\u2022 ანგარიშების განსასხვავებლად მოიხმარეთ ფერები</string>
-
-    <string name="whats_new_notification_title">შეტყობინებების მხარდაჭერა</string>
-    <string name="whats_new_notification_content">მიიღეთ ისეთი შეტყობინებები როგორებიცაა\n\u2022 ახალი დისტანციური გაზიარება\n\u2022 კომენტარების მოხსენიებები\n\u2022 ადმინისტრაციული განცხადებები</string>
-
     <string name="whats_new_skip">გამოტოვება</string>
 
     <string name="fingerprint_scan_finger">გთხოვთ დაასკანიროთ თქვენი თითი</string>
@@ -642,8 +633,6 @@
 
     <string name="test_server_button">სერვერთან კავშირის შემოწმება</string>
     <string name="resharing_is_not_allowed">ხელახალი გაზიარება არაა ნებადართული</string>
-    <string name="whats_new_fingerprint_title">თითის ანაბეჭდის მეშვეობით გახსნა</string>
-    <string name="whats_new_fingerprint_content">აპლიკაციის გასახსნელად გამოიყენეთ თქვენი თითის ანაბეჭდი</string>
     <string name="fallback_weblogin_back">უკან</string>
     <string name="fallback_weblogin_text">უკან ძველი ავტორიზაციის მეთოდისკენ</string>
 
@@ -734,4 +723,19 @@
     <string name="drawer_header_background">მხაზველი დასათაურების ფონური სურათი</string>
     <string name="account_icon">ანგარიშის პიქტოგრამა</string>
     
-    </resources>
+    <string name="end_to_end_encryption_folder_not_empty">დირექტორია არაა ცარიელი!</string>
+    <string name="end_to_end_encryption_wrong_password">შეცდომა დეშიფრაციისას. არასწორი პაროლი?</string>
+    <string name="end_to_end_encryption_decrypting">დეშიფრაცია…</string>
+    <string name="end_to_end_encryption_retrieving_keys">გასაღებების მიღება…</string>
+    <string name="end_to_end_encryption_enter_password">პირადი გასაღების დეშიფრაციისთვის გთხოვთ შეიყვანოთ პაროლი!</string>
+    <string name="end_to_end_encryption_generating_keys">ახალი გასაღებების გენერირება…</string>
+    <string name="end_to_end_encryption_keywords_description">ეს 12 სიტყვიანი ფრაზა წააგავს ძალიან ძლიერ პაროლს: ის იძლევა თქვენი დაშიფრული ფაილების სრული წვდომისა და მოხმარების უფლებას. გთხოვთ ჩაიწეროთ და შეინახოთ დაცულ ადგილას.</string>
+    <string name="end_to_end_encryption_title">შიფრაციის დაყენება</string>
+    <string name="end_to_end_encryption_passphrase_title">შენიშნეთ თქვენი შიფრაციის პასფრაზა</string>
+    <string name="end_to_end_encryption_not_supported">KitKat-ამდე შიფრაცია არაა მხარდაჭერილი.</string>
+    <string name="end_to_end_encryption_confirm_button">შიფრაციის დაყენება</string>
+    <string name="end_to_end_encryption_password">პაროლი…</string>
+    <string name="end_to_end_encryption_unsuccessful">გასაღებების შენახვა ვერ მოხერხდა, გთხოვთ სცადოთ ახლიდან!</string>
+    <string name="end_to_end_encryption_dialog_close">დახურვა</string>
+    <string name="end_to_end_encryption_storing_keys">გასაღებების შენახვა</string>
+</resources>
