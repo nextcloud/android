@@ -2222,7 +2222,13 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         Fragment frag = getSupportFragmentManager().findFragmentByTag(dialogTag);
         if (frag instanceof DialogFragment) {
             DialogFragment dialog = (DialogFragment) frag;
-            dialog.dismiss();
+
+            try {
+                dialog.dismiss();
+            } catch (IllegalStateException e) {
+                Log_OC.e(TAG, e.getMessage());
+                dialog.dismissAllowingStateLoss();
+            }
         }
     }
 
