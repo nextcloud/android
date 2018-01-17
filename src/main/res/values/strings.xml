@@ -184,8 +184,8 @@
     <string name="sync_conflicts_in_favourites_ticker">Conflicts found</string>
     <string name="sync_fail_in_favourites_ticker">Kept-in-sync files failed</string>
     <plurals name="sync_fail_in_favourites_content">
-        <item quantity="one">Contents of %1$d file could not be sync\'ed (conflicts: %2$d)</item>
-        <item quantity="other">Contents of %1$d files could not be sync\'ed (conflicts: %2$d)</item>
+        <item quantity="one">Contents of %1$d file could not be synced (conflicts: %2$d)</item>
+        <item quantity="other">Contents of %1$d files could not be synced (conflicts: %2$d)</item>
     </plurals>
     <string name="sync_foreign_files_forgotten_ticker">Some local files were forgotten</string>
     <plurals name="sync_foreign_files_forgotten_content">
@@ -388,19 +388,19 @@
     <string name="file_migration_dialog_title">Updating storage path</string>
     <string name="file_migration_preparing">Preparing migration &#8230;</string>
     <string name="file_migration_checking_destination">Checking destination &#8230;</string>
-    <string name="file_migration_saving_accounts_configuration">Saving configuration of accounts &#8230;</string>
-    <string name="file_migration_waiting_for_unfinished_sync">Waiting for all synchronizations to finish &#8230;</string>
+    <string name="file_migration_saving_accounts_configuration">Saving account config &#8230;</string>
+    <string name="file_migration_waiting_for_unfinished_sync">Awaiting full sync &#8230;</string>
     <string name="file_migration_migrating">Moving data &#8230;</string>
     <string name="file_migration_updating_index">Updating index &#8230;</string>
     <string name="file_migration_cleaning">Cleaning &#8230;</string>
-    <string name="file_migration_restoring_accounts_configuration">Restoring configuration of accounts &#8230;</string>
+    <string name="file_migration_restoring_accounts_configuration">Restoring account config &#8230;</string>
     <string name="file_migration_ok_finished">Finished</string>
-    <string name="file_migration_failed_not_enough_space">Error: Insufficient space</string>
-    <string name="file_migration_failed_not_writable">Error: Destination file not writable</string>
-    <string name="file_migration_failed_not_readable">Error: Source file not readable</string>
-    <string name="file_migration_failed_dir_already_exists">Error: Nextcloud directory already exists</string>
-    <string name="file_migration_failed_while_coping">Error: Failed during migration</string>
-    <string name="file_migration_failed_while_updating_index">Error: Failed to update index</string>
+    <string name="file_migration_failed_not_enough_space">More space needed</string>
+    <string name="file_migration_failed_not_writable">Could not write to destination file</string>
+    <string name="file_migration_failed_not_readable">Could not read source file</string>
+    <string name="file_migration_failed_dir_already_exists">Nextcloud directory exists already</string>
+    <string name="file_migration_failed_while_coping">Failed during migration</string>
+    <string name="file_migration_failed_while_updating_index">Failed to update index</string>
 
     <string name="file_migration_directory_already_exists">Data folder exists already. Choose one of the following:</string>
     <string name="file_migration_override_data_folder">Replace</string>
@@ -674,7 +674,7 @@
     <string name="resized_images_download_full_image">Download full image?</string>
 
     <string name="store_short_desc">The Nextcloud Android app allows access to all files on your Nextcloud instance.</string>
-    <string name="store_full_desc">The copyleft libre software Nextcloud Android app, gives you access to all the files in your Nextcloud.\n\nFeatures:\n* Easy, modern interface, suited to the theme of your server\n* Upload files to your Nextcloud server\n* Share them with others\n* Keep your favorite files and folders synced\n* Search across all folders on your server\n* Auto Upload for photos and videos taken by your device\n* Keep up to date with notifications\n* Multi-account support\n* Secure access to your data with fingerprint or PIN\n* Integration with DAVdroid for easy setup of calendar &amp; Contacts synchronization\n\nPlease report all issues at https://github.com/nextcloud/android/issues and discuss this app at https://help.nextcloud.com/c/clients/android\n\nNew to Nextcloud? Nextcloud is a private file sync &amp; share and communication server. It is libre software, and you can host it yourself or pay a company to do it for you. That way, you are in control of your photos, your calendar and contact data, your documents and everything else.\n\nCheck out Nextcloud at https://nextcloud.com</string>
+    <string name="store_full_desc">The copylefted libre software Nextcloud Android app, gives you access to all the files in your Nextcloud.\n\nFeatures:\n* Easy, modern interface, suited to the theme of your server\n* Upload files to your Nextcloud server\n* Share them with others\n* Keep your favorite files and folders synced\n* Search across all folders on your server\n* Auto Upload for photos and videos taken by your device\n* Keep up to date with notifications\n* Multi-account support\n* Secure access to your data with fingerprint or PIN\n* Integration with DAVdroid for easy setup of calendar &amp; Contacts synchronization\n\nPlease report all issues at https://github.com/nextcloud/android/issues and discuss this app at https://help.nextcloud.com/c/clients/android\n\nNew to Nextcloud? Nextcloud is a private file sync &amp; share and communication server. It is libre software, and you can host it yourself or pay a company to do it for you. That way, you are in control of your photos, your calendar and contact data, your documents and everything else.\n\nCheck out Nextcloud at https://nextcloud.com</string>
 
     <string name="drawer_current_account">Current account</string>
     <string name="drawer_middle_account">Middle account</string>
@@ -708,7 +708,7 @@
     <string name="what_s_new_image">What\'s new image</string>
 
     <string name="store_short_dev_desc">The Nextcloud Dev app is a development snapshot and can be installed parallel.</string>
-    <string name="store_full_dev_desc">The copyleft libre software Nextcloud Android app, gives you access to all the files in your Nextcloud.\nThis is the official development version, featuring a daily sample of any new untested functionality, which may cause instability and data loss. The app is for users willing to test, and report bugs should they occur. Do not use it for your productive work!\n\nBoth the official dev and regular version are available on F-droid, and can be installed at the same time.</string>
+    <string name="store_full_dev_desc">The copylefted libre software Nextcloud Android app, gives you access to all the files in your Nextcloud.\nThis is the official development version, featuring a daily sample of any new untested functionality, which may cause instability and data loss. The app is for users willing to test, and report bugs should they occur. Do not use it for your productive work!\n\nBoth the official dev and regular version are available on F-droid, and can be installed at the same time.</string>
 
     <string name="prefs_category_dev">Dev</string>
     <string name="dev_version_no_information_available">No information available.</string>
@@ -737,26 +737,26 @@
     <string name="screenshot_03_drawer">Quickly access activity, shares, offline files and more</string>
     <string name="screenshot_04_accounts">Connect to different accounts</string>
     <string name="screenshot_05_autoUpload">Automatically upload your photos &amp; videos</string>
-    <string name="screenshot_06_davdroid">Sync Calendar &amp; Contacts with DAVdroid</string>
+    <string name="screenshot_06_davdroid">Sync calendar &amp; contacts with DAVdroid</string>
     
     <string name="userinfo_no_info_headline">No personal info set</string>
     <string name="userinfo_no_info_text">Add name, picture and contact details on your profile page.</string>
     <string name="drawer_header_background">Background image of drawer header</string>
     <string name="account_icon">Account icon</string>
     
-    <string name="end_to_end_encryption_folder_not_empty">Folder not empty!</string>
+    <string name="end_to_end_encryption_folder_not_empty">This folder is not empty.</string>
     <string name="end_to_end_encryption_wrong_password">Error while decrypting. Wrong password?</string>
     <string name="end_to_end_encryption_decrypting">Decrypting&#8230;</string>
     <string name="end_to_end_encryption_retrieving_keys">Retrieving keys&#8230;</string>
-    <string name="end_to_end_encryption_enter_password">Please enter password to decrypt private key!</string>
+    <string name="end_to_end_encryption_enter_password">Please enter password to decrypt private key.</string>
     <string name="end_to_end_encryption_generating_keys">Generating new keys&#8230;</string>
-    <string name="end_to_end_encryption_keywords_description">This 12 word phrase is like a very strong password: It provides full access to view and use your encrypted files. Please write it down and keep it somewhere safe.</string>
+    <string name="end_to_end_encryption_keywords_description">These 12 words is like a very strong password: It lets you view and use your encrypted files. Please write it down and keep it somewhere safe.</string>
     <string name="end_to_end_encryption_title">Set up encryption</string>
-    <string name="end_to_end_encryption_passphrase_title">Note your encryption passphrase</string>
-    <string name="end_to_end_encryption_not_supported">Encryption not supported before KitKat.</string>
+    <string name="end_to_end_encryption_passphrase_title">Take note of your 12 word encryption password</string>
+    <string name="end_to_end_encryption_not_supported">Encryption only works on KitKat(4.4) and beyond.</string>
     <string name="end_to_end_encryption_confirm_button">Set up encryption</string>
     <string name="end_to_end_encryption_password">Password&#8230;</string>
-    <string name="end_to_end_encryption_unsuccessful">Storing keys was unsuccessful, please try it again!</string>
+    <string name="end_to_end_encryption_unsuccessful">Could not store keys, please try again.</string>
     <string name="end_to_end_encryption_dialog_close">Close</string>
     <string name="end_to_end_encryption_storing_keys">Storing keys</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Copy/move into encrypted folder currently not supported.</string>
