@@ -566,6 +566,10 @@ public class FileDownloader extends Service
             String text = String.format(getString(R.string.downloader_download_in_progress_content), percent, fileName);
             mNotificationBuilder.setContentText(text);
 
+            if (mNotificationManager == null) {
+                mNotificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+            }
+            
             if (mNotificationManager != null) {
                 mNotificationManager.notify(R.string.downloader_download_in_progress_ticker,
                         mNotificationBuilder.build());
@@ -623,9 +627,8 @@ public class FileDownloader extends Service
             } else {
                 // TODO put something smart in showDetailsIntent
                 Intent showDetailsIntent = new Intent();
-                mNotificationBuilder
-                        .setContentIntent(PendingIntent.getActivity(
-                                this, (int) System.currentTimeMillis(), showDetailsIntent, 0));
+                mNotificationBuilder.setContentIntent(PendingIntent.getActivity(this, (int) System.currentTimeMillis(),
+                        showDetailsIntent, 0));
             }
 
             mNotificationBuilder.setContentText(ErrorMessageAdapter.getErrorCauseMessage(downloadResult,
