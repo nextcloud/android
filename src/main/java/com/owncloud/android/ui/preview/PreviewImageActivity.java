@@ -145,8 +145,7 @@ public class PreviewImageActivity extends FileActivity implements
                 filename = getFile().getFileName();
             }
             // get parent from path
-            String parentPath = getFile().getRemotePath().substring(0, getFile().getRemotePath().lastIndexOf(filename));
-            OCFile parentFolder = getStorageManager().getFileByPath(parentPath);
+            OCFile parentFolder = getStorageManager().getFileById(getFile().getParentId());
 
             if (parentFolder == null) {
                 // should not be necessary
