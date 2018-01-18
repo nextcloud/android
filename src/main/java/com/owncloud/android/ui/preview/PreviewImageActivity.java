@@ -352,18 +352,20 @@ public class PreviewImageActivity extends FileActivity implements
         } else {
             OCFile currentFile = mPreviewImagePagerAdapter.getFileAt(position);
 
-            if (getSupportActionBar() != null && currentFile != null) {
-                getSupportActionBar().setTitle(currentFile.getFileName());
-            }
-            setDrawerIndicatorEnabled(false);
+            if (currentFile != null) {
+                if (getSupportActionBar() != null) {
+                    getSupportActionBar().setTitle(currentFile.getFileName());
+                }
+                setDrawerIndicatorEnabled(false);
 
-            if (currentFile.isEncrypted() && !currentFile.isDown() &&
-                    !mPreviewImagePagerAdapter.pendingErrorAt(position)) {
-                requestForDownload(currentFile);
-            }
+                if (currentFile.isEncrypted() && !currentFile.isDown() &&
+                        !mPreviewImagePagerAdapter.pendingErrorAt(position)) {
+                    requestForDownload(currentFile);
+                }
 
-            // Call to reset image zoom to initial state
-            ((PreviewImagePagerAdapter) mViewPager.getAdapter()).resetZoom();
+                // Call to reset image zoom to initial state
+                ((PreviewImagePagerAdapter) mViewPager.getAdapter()).resetZoom();
+            }
         }
 
     }
