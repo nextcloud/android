@@ -113,7 +113,7 @@ public class UploadListActivity extends FileActivity implements UploadListFragme
 
         getSupportActionBar().setTitle(getString(R.string.uploads_view_title));
 
-        BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation_view);
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation_view);
 
         if (getResources().getBoolean(R.bool.bottom_toolbar_enabled)) {
             bottomNavigationView.setVisibility(View.VISIBLE);
@@ -210,7 +210,11 @@ public class UploadListActivity extends FileActivity implements UploadListFragme
 
             case R.id.action_retry_uploads:
                 FileUploader.UploadRequester requester = new FileUploader.UploadRequester();
-                requester.retryFailedUploads(this, null, null);
+
+                new Thread(() -> {
+                    requester.retryFailedUploads(this, null, null);
+                }).start();
+                
                 if (mMenu != null) {
                     mMenu.removeItem(R.id.action_retry_uploads);
                 }
