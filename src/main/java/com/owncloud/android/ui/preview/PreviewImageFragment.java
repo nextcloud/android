@@ -741,12 +741,24 @@ public class PreviewImageFragment extends FileFragment {
     }
 
     public void setErrorPreviewMessage() {
-        Snackbar.make(mMultiView, R.string.resized_image_not_possible, Snackbar.LENGTH_INDEFINITE)
-                .setAction(R.string.common_yes, v -> downloadFile()).show();
+        try {
+            if (getActivity() != null) {
+                Snackbar.make(mMultiView, R.string.resized_image_not_possible_download, Snackbar.LENGTH_INDEFINITE)
+                        .setAction(R.string.common_yes, v -> downloadFile()).show();
+            } else {
+                Snackbar.make(mMultiView, R.string.resized_image_not_possible, Snackbar.LENGTH_INDEFINITE).show();
+            }
+        } catch (IllegalArgumentException e) {
+            Log_OC.d(TAG, e.getMessage());
+        }
     }
 
     public void setNoConnectionErrorMessage() {
+        try {
             Snackbar.make(mMultiView, R.string.auth_no_net_conn_title, Snackbar.LENGTH_LONG).show();
+        } catch (IllegalArgumentException e) {
+            Log_OC.d(TAG, e.getMessage());
+        }
     }
 
     /**
