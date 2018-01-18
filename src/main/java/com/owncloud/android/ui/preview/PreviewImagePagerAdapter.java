@@ -140,10 +140,13 @@ public class PreviewImagePagerAdapter extends FragmentStatePagerAdapter {
 
     
     public Fragment getItem(int i) {
-        OCFile file = mImageFiles.get(i);
+        OCFile file = getFileAt(i);
         Fragment fragment;
 
-        if (file.isDown()) {
+        if (file == null) {
+            fragment = PreviewImageErrorFragment.newInstance();
+
+        } else if (file.isDown()) {
             fragment = PreviewImageFragment.newInstance(file, mObsoletePositions.contains(i), false);
         } else {
             if (mDownloadErrors.contains(i)) {
@@ -174,7 +177,13 @@ public class PreviewImagePagerAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public CharSequence getPageTitle(int position) {
-        return mImageFiles.get(position).getFileName();
+        OCFile file = getFileAt(position);
+
+        if (file != null) {
+            return file.getFileName();
+        } else {
+            return "";
+        }
     }
 
     
