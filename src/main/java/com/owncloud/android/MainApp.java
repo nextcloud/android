@@ -33,11 +33,13 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.StrictMode;
 import android.support.annotation.StringRes;
 import android.support.multidex.MultiDexApplication;
 import android.support.v4.util.Pair;
 import android.support.v7.app.AlertDialog;
+import android.text.TextUtils;
 import android.view.WindowManager;
 
 import com.evernote.android.job.JobManager;
@@ -99,6 +101,7 @@ public class MainApp extends MultiDexApplication {
 
     private static boolean mOnlyOnDevice = false;
 
+    private SharedPreferences appPrefs;
     @SuppressWarnings("unused")
     private boolean mBound;
 
@@ -112,8 +115,10 @@ public class MainApp extends MultiDexApplication {
             AnalyticsUtils.disableAnalytics();
         }
 
-        SharedPreferences appPrefs =
-                PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        appPrefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+
+        fixStoragePath();
+
         MainApp.storagePath = appPrefs.getString(Preferences.PreferenceKeys.STORAGE_PATH,
                 getApplicationContext().getFilesDir().getAbsolutePath());
 
@@ -206,6 +211,18 @@ public class MainApp extends MultiDexApplication {
             }
         }
 
+    }
+
+    private void fixStoragePath() {
+        if (!PreferenceManager.getStoragePathFix(this)) {
+            String storagePath = appPrefs.getString(Preferences.PreferenceKeys.STORAGE_PATH, "");
+            if (TextUtils.isEmpty(storagePath)) {
+                storagePath = Environment.getExternalStorageDirectory().getAbsolutePath();
+                appPrefs.edit().putString(Preferences.PreferenceKeys.STORAGE_PATH, storagePath).commit();
+                appPrefs.edit().remove(PreferenceManager.PREF__KEYS_MIGRATION).commit();
+            }
+            PreferenceManager.setStoragePathFix(this, true);
+        }
     }
 
     public static void initAutoUpload() {
