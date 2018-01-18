@@ -38,7 +38,6 @@ import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.status.OwnCloudVersion;
 
 import org.apache.commons.httpclient.methods.GetMethod;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
@@ -78,7 +77,7 @@ public class ConnectivityUtils {
 
                                 String json = get.getResponseBodyAsString();
                                 return new JSONObject(json).getBoolean("maintenance");
-                            } catch (JSONException e) {
+                            } catch (Exception e) {
                                 return true;
                             }
                         } else {
