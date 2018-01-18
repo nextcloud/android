@@ -126,6 +126,7 @@
     <string name="common_cancel">취소</string>
     <string name="common_back">뒤로</string>
     <string name="common_save">저장</string>
+    <string name="common_error">오류</string>
     <string name="common_loading">불러오는 중&#8230;</string>
     <string name="common_unknown">알 수 없음</string>
     <string name="common_error_unknown">알 수 없는 오류</string>
@@ -720,4 +721,5 @@
     <string name="drawer_header_background">배경 그림 및 서랍 헤더</string>
     <string name="account_icon">계정 아이콘</string>
     
+    <string name="end_to_end_encryption_dialog_close">닫기</string>
     </resources>

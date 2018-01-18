@@ -730,12 +730,16 @@
     
     <string name="end_to_end_encryption_folder_not_empty">Pasta não vazia!</string>
     <string name="end_to_end_encryption_wrong_password">Erro descriptografando. Senha errada?</string>
+    <string name="end_to_end_encryption_decrypting">Descriptografando&#8230;</string>
+    <string name="end_to_end_encryption_retrieving_keys">Retornando chaves&#8230;</string>
     <string name="end_to_end_encryption_enter_password">Entre a senha para descriptografar a chave privada!</string>
+    <string name="end_to_end_encryption_generating_keys">Gerando novas chaves&#8230;</string>
     <string name="end_to_end_encryption_keywords_description">Esta frase de 12 palavras é como uma senha muito forte: fornece acesso total para visualizar e usar seus arquivos criptografados. Por favor escreva e mantenha-a em algum lugar seguro.</string>
     <string name="end_to_end_encryption_title">Definir criptografia</string>
     <string name="end_to_end_encryption_passphrase_title">Anote sua senha criptografada</string>
     <string name="end_to_end_encryption_not_supported">Criptografia não suportada antes do KitKat.</string>
     <string name="end_to_end_encryption_confirm_button">Definir criptografia</string>
+    <string name="end_to_end_encryption_password">Senha&#8230;</string>
     <string name="end_to_end_encryption_unsuccessful">Erro ao armazenar chaves, tente novamente!</string>
     <string name="end_to_end_encryption_dialog_close">Fechar</string>
     <string name="end_to_end_encryption_storing_keys">Armazenando chaves</string>

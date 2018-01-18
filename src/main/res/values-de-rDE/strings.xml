@@ -730,12 +730,16 @@
     
     <string name="end_to_end_encryption_folder_not_empty">Ordner nicht leer!</string>
     <string name="end_to_end_encryption_wrong_password">Fehler beim Entschlüsseln. Falsches Passwort?</string>
+    <string name="end_to_end_encryption_decrypting">Entschlüsseln&#8230;</string>
+    <string name="end_to_end_encryption_retrieving_keys">Schlüssel abrufen&#8230;</string>
     <string name="end_to_end_encryption_enter_password">Geben Sie bitte das Passwort ein, um den privaten Schlüssel zu entschlüsseln!</string>
+    <string name="end_to_end_encryption_generating_keys">Neue Schlüssel generieren&#8230;</string>
     <string name="end_to_end_encryption_keywords_description">Diese 12 Wörter-Phrase ist wie ein sehr starkes Passwort: Sie bietet vollen Zugriff um Ihre verschlüsselten Dateien anzusehen und zu verwenden. Bitte schreiben Sie sie auf und verwahren sie an einem sicheren Ort.</string>
     <string name="end_to_end_encryption_title">Verschlüsselung einrichten</string>
     <string name="end_to_end_encryption_passphrase_title">Notieren Sie Ihre Verschlüsselungs-Passphrase</string>
     <string name="end_to_end_encryption_not_supported">Verschlüsselung wird vor KitKat nicht unterstützt</string>
     <string name="end_to_end_encryption_confirm_button">Verschlüsselung einrichten</string>
+    <string name="end_to_end_encryption_password">Passwort&#8230;</string>
     <string name="end_to_end_encryption_unsuccessful">Das Speichern der Schlüssel ist fehlgeschlagen, bitte versuchen Sie es erneut!</string>
     <string name="end_to_end_encryption_dialog_close">Schließen</string>
     <string name="end_to_end_encryption_storing_keys">Schlüssel speichern</string>

@@ -126,6 +126,7 @@
     <string name="common_cancel">Avbryt</string>
     <string name="common_back">Tilbake</string>
     <string name="common_save">Lagre</string>
+    <string name="common_error">Feil</string>
     <string name="common_loading">Laster &#8230;</string>
     <string name="common_unknown">ukjent</string>
     <string name="common_error_unknown">Ukjent feil</string>
@@ -721,4 +722,13 @@ Sjekk ut Nextcloud på https://nextcloud.com</string>
     <string name="userinfo_no_info_text">Legg til navn, bilde og kontaktdetaljer på din profilside.</string>
     <string name="account_icon">Kontoikon</string>
     
-    </resources>
+    <string name="end_to_end_encryption_wrong_password">Feil under dekryptering. Feil passord?</string>
+    <string name="end_to_end_encryption_decrypting">Dekrypterer&#8230;</string>
+    <string name="end_to_end_encryption_retrieving_keys">Henter nøkler&#8230;</string>
+    <string name="end_to_end_encryption_generating_keys">Genererer nye nøkler&#8230;</string>
+    <string name="end_to_end_encryption_title">Sett opp kryptering</string>
+    <string name="end_to_end_encryption_confirm_button">Sett opp kryptering</string>
+    <string name="end_to_end_encryption_password">Passord&#8230;</string>
+    <string name="end_to_end_encryption_dialog_close">Lukk</string>
+    <string name="end_to_end_encryption_storing_keys">Lagrer nøkler</string>
+</resources>
