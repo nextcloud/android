@@ -121,8 +121,7 @@ public class FileDownloader extends Service
         super.onCreate();
         Log_OC.d(TAG, "Creating service");
         mNotificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-        HandlerThread thread = new HandlerThread("FileDownloaderThread",
-                Process.THREAD_PRIORITY_BACKGROUND);
+        HandlerThread thread = new HandlerThread("FileDownloaderThread", Process.THREAD_PRIORITY_BACKGROUND);
         thread.start();
         mServiceLooper = thread.getLooper();
         mServiceHandler = new ServiceHandler(mServiceLooper, this);
@@ -541,11 +540,16 @@ public class FileDownloader extends Service
         showDetailsIntent.putExtra(FileActivity.EXTRA_ACCOUNT, download.getAccount());
         showDetailsIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
-        mNotificationBuilder.setContentIntent(PendingIntent.getActivity(
-                this, (int) System.currentTimeMillis(), showDetailsIntent, 0
-        ));
+        mNotificationBuilder.setContentIntent(PendingIntent.getActivity(this, (int) System.currentTimeMillis(),
+                showDetailsIntent, 0));
 
-        mNotificationManager.notify(R.string.downloader_download_in_progress_ticker, mNotificationBuilder.build());
+
+        if (mNotificationManager == null) {
+            mNotificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        }
+        if (mNotificationManager != null) {
+            mNotificationManager.notify(R.string.downloader_download_in_progress_ticker, mNotificationBuilder.build());
+        }
     }
 
 
@@ -561,7 +565,15 @@ public class FileDownloader extends Service
             String fileName = filePath.substring(filePath.lastIndexOf(FileUtils.PATH_SEPARATOR) + 1);
             String text = String.format(getString(R.string.downloader_download_in_progress_content), percent, fileName);
             mNotificationBuilder.setContentText(text);
-            mNotificationManager.notify(R.string.downloader_download_in_progress_ticker, mNotificationBuilder.build());
+
+            if (mNotificationManager == null) {
+                mNotificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+            }
+            
+            if (mNotificationManager != null) {
+                mNotificationManager.notify(R.string.downloader_download_in_progress_ticker,
+                        mNotificationBuilder.build());
+            }
         }
         mLastPercent = percent;
     }
@@ -575,7 +587,13 @@ public class FileDownloader extends Service
      */
     private void notifyDownloadResult(DownloadFileOperation download,
                                       RemoteOperationResult downloadResult) {
-        mNotificationManager.cancel(R.string.downloader_download_in_progress_ticker);
+        if (mNotificationManager == null) {
+            mNotificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        }
+
+        if (mNotificationManager != null) {
+            mNotificationManager.cancel(R.string.downloader_download_in_progress_ticker);
+        }
         if (!downloadResult.isCancelled()) {
             int tickerId = (downloadResult.isSuccess()) ? R.string.downloader_download_succeeded_ticker :
                     R.string.downloader_download_failed_ticker;
@@ -604,34 +622,28 @@ public class FileDownloader extends Service
                 updateAccountCredentials.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 updateAccountCredentials.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
                 updateAccountCredentials.addFlags(Intent.FLAG_FROM_BACKGROUND);
-                mNotificationBuilder
-                        .setContentIntent(PendingIntent.getActivity(
-                                this, (int) System.currentTimeMillis(), updateAccountCredentials,
-                                PendingIntent.FLAG_ONE_SHOT));
-
+                mNotificationBuilder.setContentIntent(PendingIntent.getActivity(this, (int) System.currentTimeMillis(),
+                        updateAccountCredentials, PendingIntent.FLAG_ONE_SHOT));
             } else {
                 // TODO put something smart in showDetailsIntent
                 Intent showDetailsIntent = new Intent();
-                mNotificationBuilder
-                        .setContentIntent(PendingIntent.getActivity(
-                                this, (int) System.currentTimeMillis(), showDetailsIntent, 0));
+                mNotificationBuilder.setContentIntent(PendingIntent.getActivity(this, (int) System.currentTimeMillis(),
+                        showDetailsIntent, 0));
             }
 
-            mNotificationBuilder.setContentText(
-                    ErrorMessageAdapter.getErrorCauseMessage(downloadResult, download,
-                            getResources())
-            );
-            mNotificationManager.notify(tickerId, mNotificationBuilder.build());
+            mNotificationBuilder.setContentText(ErrorMessageAdapter.getErrorCauseMessage(downloadResult,
+                    download, getResources()));
 
-            // Remove success notification
-            if (downloadResult.isSuccess()) {
-                // Sleep 2 seconds, so show the notification before remove it
-                NotificationUtils.cancelWithDelay(
-                        mNotificationManager,
-                        R.string.downloader_download_succeeded_ticker,
-                        2000);
+            if (mNotificationManager != null) {
+                mNotificationManager.notify(tickerId, mNotificationBuilder.build());
+
+                // Remove success notification
+                if (downloadResult.isSuccess()) {
+                    // Sleep 2 seconds, so show the notification before remove it
+                    NotificationUtils.cancelWithDelay(mNotificationManager,
+                            R.string.downloader_download_succeeded_ticker, 2000);
+                }
             }
-
         }
     }
 
