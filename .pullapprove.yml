@@ -4,8 +4,7 @@ version: 2
 always_pending:
   title_regex: '(WIP|wip)'
   labels:
-    - 1. to develop
-    - 2. developing
+    - 1. developing
   # custom message that will be used for the GitHub status
   explanation: 'This PR is a work in progress...'
 
