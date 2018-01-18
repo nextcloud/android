@@ -45,7 +45,7 @@
     <string name="prefs_expert_mode">Modo expert</string>
     <string name="prefs_show_hidden_files">Mostrar ficheiros escondidos</string>
     <string name="prefs_log_delete_history_button">Eliminar histórico</string>
-    <string name="prefs_calendar_contacts">Sincronizar calendário e contacots</string>
+    <string name="prefs_calendar_contacts">Sincronizar calendário e contactos</string>
     <string name="prefs_calendar_contacts_summary">Preparar DAVdroid (v1.3.0+) para a conta actual</string>
     <string name="prefs_calendar_contacts_address_resolve_error">O endereço do servidor para a conta não pôde ser resolvido para o DAVdroid</string>
     <string name="prefs_calendar_contacts_no_store_error">As aplicações F-Droid e Google Play não se encontram instaladas</string>
@@ -90,6 +90,7 @@
     <string name="file_list_empty">Faz upload de conteúdo ou sincroniza com os teus dispositivos</string>
     <string name="file_list_empty_favorites_filter_list">Os teus ficheiros e pastas favoritos irão ser mostrados aqui</string>
     <string name="file_list_empty_favorites_filter">A tua pesquisa retornou a inexistência de ficheiros favoritos</string>
+    <string name="file_list_loading">A carregar &#8230;</string>
     <string name="file_list_no_app_for_file_type">Nenhuma app foi escolhida para abrir este tipo de ficheiro.</string>
     <string name="local_file_list_empty">Não existem ficheiros nesta pasta.</string>
     <string name="local_folder_list_empty">Não existem mais pastas</string>
@@ -105,6 +106,7 @@
     <string name="filedetails_select_file">Toque num ficheiro para visualizar a informação adicional.</string>
     <string name="filedetails_download">Descarregar</string>
     <string name="filedetails_sync_file">Sincronizar</string>
+    <string name="action_send_share">Enviar/Partilhar</string>
     <string name="common_yes">Sim</string>
     <string name="common_no">Não</string>
     <string name="common_ok">OK</string>
@@ -112,6 +114,7 @@
     <string name="common_cancel">Cancelar</string>
     <string name="common_back">Voltar</string>
     <string name="common_save">Guardar</string>
+    <string name="common_error">Erro</string>
     <string name="common_loading">A carregar&#8230;</string>
     <string name="common_unknown">desconhecido</string>
     <string name="common_error_unknown">Erro desconhecido</string>

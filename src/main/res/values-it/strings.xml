@@ -730,12 +730,16 @@
     
     <string name="end_to_end_encryption_folder_not_empty">Cartella non vuota!</string>
     <string name="end_to_end_encryption_wrong_password">Errore durante la decifratura. Password errata?</string>
+    <string name="end_to_end_encryption_decrypting">Decriptando&#8230;</string>
+    <string name="end_to_end_encryption_retrieving_keys">Recuperando le chiavi&#8230;</string>
     <string name="end_to_end_encryption_enter_password">Digita la password per decifrare la chiave privata!</string>
+    <string name="end_to_end_encryption_generating_keys">Generando le nuove chiavi&#8230;</string>
     <string name="end_to_end_encryption_keywords_description">Questa frase di 12 parole è una password molto potente che fornisce l\'accesso completo per visualizzare e utilizzare i tuoi file cifrati. Annotala e conservala in un posto sicuro.</string>
     <string name="end_to_end_encryption_title">Configura la cifratura</string>
     <string name="end_to_end_encryption_passphrase_title">Annota la tua frase segreta di cifratura</string>
     <string name="end_to_end_encryption_not_supported">Cifratura non supportata prima di KitKat.</string>
     <string name="end_to_end_encryption_confirm_button">Configura la cifratura</string>
+    <string name="end_to_end_encryption_password">Password&#8230;</string>
     <string name="end_to_end_encryption_unsuccessful">L\'archiviazione delle chiavi non è avvenuta correttamente, prova ancora!</string>
     <string name="end_to_end_encryption_dialog_close">Chiudi</string>
     <string name="end_to_end_encryption_storing_keys">Archiviazione chiavi</string>
