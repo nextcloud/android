@@ -52,6 +52,8 @@ import com.owncloud.android.datamodel.MediaProvider;
 import com.owncloud.android.datamodel.SyncedFolder;
 import com.owncloud.android.datamodel.SyncedFolderProvider;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
+import com.owncloud.android.datastorage.DataStorageProvider;
+import com.owncloud.android.datastorage.StoragePoint;
 import com.owncloud.android.db.PreferenceManager;
 import com.owncloud.android.jobs.NCJobCreator;
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
@@ -100,6 +102,8 @@ public class MainApp extends MultiDexApplication {
     private static String storagePath;
 
     private static boolean mOnlyOnDevice = false;
+
+    private static final String KEY_LAST_SEEN_VERSION_CODE = "lastSeenVersionCode";
 
     private SharedPreferences appPrefs;
     @SuppressWarnings("unused")
@@ -214,13 +218,23 @@ public class MainApp extends MultiDexApplication {
     }
 
     private void fixStoragePath() {
-        if (!PreferenceManager.getStoragePathFix(this)) {
+        if (!PreferenceManager.getStoragePathFix(this) &&
+                appPrefs.getInt(KEY_LAST_SEEN_VERSION_CODE, 0) != 0) {
             String storagePath = appPrefs.getString(Preferences.PreferenceKeys.STORAGE_PATH, "");
             if (TextUtils.isEmpty(storagePath)) {
                 storagePath = Environment.getExternalStorageDirectory().getAbsolutePath();
+                StoragePoint[] storagePoints = DataStorageProvider.getInstance().getAvailableStoragePoints();
+                for(StoragePoint storagePoint : storagePoints) {
+                    if (storagePoint.getPath().startsWith(storagePath)) {
+                        storagePath = storagePoint.getPath();
+                        break;
+                    }
+                }
                 appPrefs.edit().putString(Preferences.PreferenceKeys.STORAGE_PATH, storagePath).commit();
                 appPrefs.edit().remove(PreferenceManager.PREF__KEYS_MIGRATION).commit();
             }
+            PreferenceManager.setStoragePathFix(this, true);
+        } else {
             PreferenceManager.setStoragePathFix(this, true);
         }
     }
