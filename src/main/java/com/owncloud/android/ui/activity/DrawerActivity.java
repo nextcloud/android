@@ -1027,26 +1027,29 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
                 MenuSimpleTarget target = new MenuSimpleTarget<Drawable>(id) {
                     @Override
                     public void onResourceReady(Drawable resource, GlideAnimation glideAnimation) {
-                        mNavigationView.getMenu().findItem(getIdMenuItem()).setIcon(
-                                ThemeUtils.tintDrawable(resource, greyColor));
+                        setExternalLinkIcon(getIdMenuItem(), resource, greyColor);
                     }
 
                     @Override
                     public void onLoadFailed(Exception e, Drawable errorDrawable) {
                         super.onLoadFailed(e, errorDrawable);
-                        MenuItem menuItem = mNavigationView.getMenu().findItem(getIdMenuItem());
-
-                        if (menuItem != null) {
-                            if (errorDrawable != null) {
-                                menuItem.setIcon(errorDrawable.getCurrent());
-                            } else {
-                                menuItem.setIcon(R.drawable.ic_link_grey);
-                            }
-                        }
+                        setExternalLinkIcon(getIdMenuItem(), errorDrawable, greyColor);
                     }
                 };
 
                 DisplayUtils.downloadIcon(this, link.iconUrl, target, R.drawable.ic_link_grey, size, size);
+            }
+        }
+    }
+
+    private void setExternalLinkIcon(int id, Drawable drawable, int greyColor) {
+        MenuItem menuItem = mNavigationView.getMenu().findItem(id);
+
+        if (menuItem != null) {
+            if (drawable != null) {
+                menuItem.setIcon(ThemeUtils.tintDrawable(drawable, greyColor));
+            } else {
+                menuItem.setIcon(R.drawable.ic_link_grey);
             }
         }
     }
@@ -1372,8 +1375,6 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
 
                 Account account = AccountUtils.getCurrentOwnCloudAccount(DrawerActivity.this);
 
-                externalLinksProvider.deleteAllExternalLinks();
-
                 if (account != null && getStorageManager() != null &&
                         getStorageManager().getCapability(account.name) != null &&
                         getStorageManager().getCapability(account.name).getExternalLinks().isTrue()) {
@@ -1407,6 +1408,7 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
                                 FileActivity.APP_OPENED_COUNT, String.valueOf(count + 1));
                     }
                 } else {
+                    externalLinksProvider.deleteAllExternalLinks();
                     Log_OC.d("ExternalLinks", "links disabled");
                 }
                 runOnUiThread(() -> updateExternalLinksInDrawer());
