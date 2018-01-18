@@ -499,6 +499,11 @@ public class FileUploader extends Service
         Log_OC.d(TAG, "Starting command with id " + startId);
 
         startForeground(FOREGROUND_SERVICE_ID, mNotification);
+        
+        if (intent == null) {
+            Log_OC.e(TAG, "Intent is null");
+            return Service.START_NOT_STICKY;
+        }
 
         boolean retry = intent.getBooleanExtra(KEY_RETRY, false);
         AbstractList<String> requestedUploads = new Vector<String>();
