@@ -387,6 +387,13 @@ Kies er eentje van een provider.</string>
 
     <string name="file_migration_dialog_title">Opslagpad bijwerken</string>
     <string name="file_migration_preparing">Migratie voorbereiden &#8230;</string>
+    <string name="file_migration_checking_destination">Doelmap controleren &#8230;</string>
+    <string name="file_migration_saving_accounts_configuration">Accountconfiguratie opslaan &#8230;</string>
+    <string name="file_migration_waiting_for_unfinished_sync">Wachten op onvoltooide synchronisaties &#8230;</string>
+    <string name="file_migration_migrating">Gegevens verplaatsen &#8230;</string>
+    <string name="file_migration_updating_index">Index bijwerken &#8230;</string>
+    <string name="file_migration_cleaning">Opruimen &#8230;</string>
+    <string name="file_migration_restoring_accounts_configuration">Accountconfiguratie herstellen &#8230;</string>
     <string name="file_migration_ok_finished">Afgerond</string>
     <string name="file_migration_failed_not_enough_space">Fout: Onvoldoende ruimte</string>
     <string name="file_migration_failed_not_writable">Fout: Niet schrijfbaar bronbestand</string>
@@ -544,6 +551,7 @@ Kies er eentje van een provider.</string>
     <string name="participate_dev_direct_download">Haal de development release binnen via directe download</string>
     <string name="move_to">Verplaats naar &#8230;</string>
     <string name="copy_to">Kopieer naar &#8230;</string>
+    <string name="choose_remote_folder">Kies externe map &#8230;</string>
     <string name="choose_local_folder">Kies lokale map &#8230;</string>
     <string name="synced_folders_loading_folders">Mappen laden &#8230;</string>
     <string name="synced_folders_no_results">Geen mediamappen gevonden.</string>
@@ -645,6 +653,8 @@ Kies er eentje van een provider.</string>
     <string name="sync_in_progress">Meest recente versie van het bestand wordt opgehaald.</string>
     <string name="date_unknown">Onbekend</string>
 
+    <string name="resized_image_not_possible">Geen verkleinde afbeelding beschikbaar.</string>
+    <string name="resized_image_not_possible_download">Geen verkleinde afbeelding beschikbaar. Volledige afbeelding downloaden?</string>
     <string name="resized_images_download_full_image">Volledige afbeelding downloaden?</string>
 
     <string name="store_short_desc">De Nextcloud Android app geeft je toegang tot al je Nextcloud bestanden.</string>
