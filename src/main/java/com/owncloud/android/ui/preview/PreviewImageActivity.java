@@ -138,12 +138,6 @@ public class PreviewImageActivity extends FileActivity implements
             mPreviewImagePagerAdapter = new PreviewImagePagerAdapter(getSupportFragmentManager(),
                     type, getAccount(), getStorageManager());
         } else {
-            String filename;
-            if (getFile().isEncrypted()) {
-                filename = getFile().getEncryptedFileName();
-            } else {
-                filename = getFile().getFileName();
-            }
             // get parent from path
             OCFile parentFolder = getStorageManager().getFileById(getFile().getParentId());
 
@@ -153,7 +147,7 @@ public class PreviewImageActivity extends FileActivity implements
             }
 
             mPreviewImagePagerAdapter = new PreviewImagePagerAdapter(getSupportFragmentManager(),
-                    parentFolder, getAccount(), getStorageManager(), MainApp.isOnlyOnDevice());
+                    parentFolder, getAccount(), getStorageManager(), MainApp.isOnlyOnDevice(), this);
         }
 
         mViewPager = findViewById(R.id.fragmentPager);
