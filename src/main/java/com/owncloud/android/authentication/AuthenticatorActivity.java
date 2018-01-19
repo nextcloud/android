@@ -1704,14 +1704,19 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             // Reset webView
             webViewPassword = null;
             webViewUser = null;
+            forceOldLoginMethod = false;
             deleteCookies();
 
             if (success) {
                 finish();
             } else {
                 // init webView again
-                mLoginWebView.setVisibility(View.GONE);
+                if (mLoginWebView != null) {
+                    mLoginWebView.setVisibility(View.GONE);
+                }
                 setContentView(R.layout.account_setup);
+
+                initOverallUi();
 
                 CustomEditText serverAddressField = findViewById(R.id.hostUrlInput);
                 serverAddressField.setText(mServerInfo.mBaseUrl);
