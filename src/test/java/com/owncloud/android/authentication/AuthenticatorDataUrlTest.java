@@ -166,6 +166,7 @@ public class AuthenticatorDataUrlTest {
                 Assert.fail("Illegal Argument Exception expected!");
             } catch (IllegalArgumentException e) {
                 // all well
+                System.out.println("Expected Illegal Argument Exception caught.");
             }
         }
     }
