@@ -103,8 +103,6 @@ public class MainApp extends MultiDexApplication {
 
     private static boolean mOnlyOnDevice = false;
 
-    private static final String KEY_LAST_SEEN_VERSION_CODE = "lastSeenVersionCode";
-
     private SharedPreferences appPrefs;
     @SuppressWarnings("unused")
     private boolean mBound;
@@ -219,11 +217,11 @@ public class MainApp extends MultiDexApplication {
 
     private void fixStoragePath() {
         if (!PreferenceManager.getStoragePathFix(this) &&
-                appPrefs.getInt(KEY_LAST_SEEN_VERSION_CODE, 0) != 0) {
+                appPrefs.getInt(WhatsNewActivity.KEY_LAST_SEEN_VERSION_CODE, 0) != 0) {
             String storagePath = appPrefs.getString(Preferences.PreferenceKeys.STORAGE_PATH, "");
             if (TextUtils.isEmpty(storagePath)) {
                 storagePath = Environment.getExternalStorageDirectory().getAbsolutePath();
-                StoragePoint[] storagePoints = DataStorageProvider.getInstance().getAvailableStoragePoints();
+                StoragePoint[] storagePoints = DataStorageProvider.getInstance().getLegacyAvailableStoragePoints();
                 for(StoragePoint storagePoint : storagePoints) {
                     if (storagePoint.getPath().startsWith(storagePath)) {
                         storagePath = storagePoint.getPath();
