@@ -52,8 +52,6 @@ import com.owncloud.android.datamodel.MediaProvider;
 import com.owncloud.android.datamodel.SyncedFolder;
 import com.owncloud.android.datamodel.SyncedFolderProvider;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
-import com.owncloud.android.datastorage.DataStorageProvider;
-import com.owncloud.android.datastorage.StoragePoint;
 import com.owncloud.android.db.PreferenceManager;
 import com.owncloud.android.jobs.NCJobCreator;
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
@@ -220,15 +218,8 @@ public class MainApp extends MultiDexApplication {
                 appPrefs.getInt(WhatsNewActivity.KEY_LAST_SEEN_VERSION_CODE, 0) != 0) {
             String storagePath = appPrefs.getString(Preferences.PreferenceKeys.STORAGE_PATH, "");
             if (TextUtils.isEmpty(storagePath)) {
-                storagePath = Environment.getExternalStorageDirectory().getAbsolutePath();
-                StoragePoint[] storagePoints = DataStorageProvider.getInstance().getLegacyAvailableStoragePoints();
-                for(StoragePoint storagePoint : storagePoints) {
-                    if (storagePoint.getPath().startsWith(storagePath)) {
-                        storagePath = storagePoint.getPath();
-                        break;
-                    }
-                }
-                appPrefs.edit().putString(Preferences.PreferenceKeys.STORAGE_PATH, storagePath).commit();
+                appPrefs.edit().putString(Preferences.PreferenceKeys.STORAGE_PATH,
+                        Environment.getExternalStorageDirectory().getAbsolutePath()).commit();
                 appPrefs.edit().remove(PreferenceManager.PREF__KEYS_MIGRATION).commit();
             }
             PreferenceManager.setStoragePathFix(this, true);
