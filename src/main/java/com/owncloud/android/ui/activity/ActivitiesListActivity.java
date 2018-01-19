@@ -307,8 +307,12 @@ public class ActivitiesListActivity extends FileActivity implements ActivityList
 
     private void hideRefreshLayoutLoader() {
         runOnUiThread(() -> {
-            swipeListRefreshLayout.setRefreshing(false);
-            swipeEmptyListRefreshLayout.setRefreshing(false);
+            if (swipeListRefreshLayout != null) {
+                swipeListRefreshLayout.setRefreshing(false);
+            }
+            if (swipeEmptyListRefreshLayout != null) {
+                swipeEmptyListRefreshLayout.setRefreshing(false);
+            }
             isLoadingActivities = false;
             setIndeterminate(isLoadingActivities);
         });
