@@ -40,10 +40,12 @@ import android.widget.TextView;
 
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
+import com.owncloud.android.lib.common.UserInfo;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.users.GetPrivateKeyOperation;
 import com.owncloud.android.lib.resources.users.GetPublicKeyOperation;
+import com.owncloud.android.lib.resources.users.GetRemoteUserInfoOperation;
 import com.owncloud.android.lib.resources.users.SendCSROperation;
 import com.owncloud.android.lib.resources.users.StorePrivateKeyOperation;
 import com.owncloud.android.utils.CsrHelper;
@@ -333,8 +335,23 @@ public class SetupEncryptionDialogFragment extends DialogFragment {
                 KeyPair keyPair = EncryptionUtils.generateKeyPair();
                 PrivateKey privateKey = keyPair.getPrivate();
 
+                // get user id
+                String userID;
+                GetRemoteUserInfoOperation remoteUserNameOperation =
+                        new GetRemoteUserInfoOperation();
+                RemoteOperationResult remoteUserNameOperationResult = remoteUserNameOperation
+                        .execute(account, getContext(), true);
+
+                if (remoteUserNameOperationResult.isSuccess() &&
+                        remoteUserNameOperationResult.getData() != null) {
+                    UserInfo userInfo = (UserInfo) remoteUserNameOperationResult.getData().get(0);
+                    userID = userInfo.getId();
+                } else {
+                    userID = account.name;
+                }
+
                 // create CSR
-                String urlEncoded = CsrHelper.generateCsrPemEncodedString(keyPair, account.name);
+                String urlEncoded = CsrHelper.generateCsrPemEncodedString(keyPair, userID);
 
                 SendCSROperation operation = new SendCSROperation(urlEncoded);
                 RemoteOperationResult result = operation.execute(account, getContext(), true);
