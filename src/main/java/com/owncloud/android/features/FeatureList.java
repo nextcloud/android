@@ -36,7 +36,6 @@ import java.util.List;
  */
 public class FeatureList {
     private static final boolean SHOW_ON_FIRST_RUN = true;
-    private static final boolean SHOW_ON_UPGRADE = false;
 
     private static final int VERSION_1_0_0 = 10000099;
     private static final int VERSION_3_0_0 = 30000099;
