@@ -115,7 +115,7 @@
     <string name="file_list_folder">folder</string>
     <string name="filedetails_select_file">Tap on a file to display additional information.</string>
     <string name="filedetails_download">Download</string>
-    <string name="filedetails_sync_file">Synchronize</string>
+    <string name="filedetails_sync_file">Sync</string>
     <string name="filedetails_renamed_in_upload_msg">File renamed to %1$s during upload</string>
     <string name="list_layout">Listed layout</string>
     <string name="action_send_share">Send/Share</string>
@@ -184,13 +184,13 @@
     <string name="sync_conflicts_in_favourites_ticker">Conflicts found</string>
     <string name="sync_fail_in_favourites_ticker">Kept-in-sync files failed</string>
     <plurals name="sync_fail_in_favourites_content">
-        <item quantity="one">Could not sync contents of %1$d file (conflicts: %2$d)</item>
-        <item quantity="other">Could not sync contents of %1$d files (conflicts: %2$d)</item>
+        <item quantity="one">Could not sync %1$d file (conflicts: %2$d)</item>
+        <item quantity="other">Could not sync %1$d files (conflicts: %2$d)</item>
     </plurals>
     <string name="sync_foreign_files_forgotten_ticker">Some local files were forgotten</string>
     <plurals name="sync_foreign_files_forgotten_content">
-        <item quantity="one">Failed to copy %1$d file in the %2$s folder into</item>
-        <item quantity="other">Failed to copy %1$d files in the %2$s folder into</item>
+        <item quantity="one">Failed to copy %1$d file from the %2$s folder into</item>
+        <item quantity="other">Failed to copy %1$d files from the %2$s folder into</item>
     </plurals>
     <string name="sync_foreign_files_forgotten_explanation">As of version 1.3.16, files uploaded from this device are copied into the local %1$s folder to prevent data loss when a single file is synced with multiple accounts.\n\nDue to this change, all files uploaded with earlier versions of this app were copied into the %2$s folder. However, an error prevented the completion of this operation during account synchronization. You may either leave the file(s) as is and delete the link to %3$s, or move the file(s) into the %1$s folder and retain the link to %4$s.\n\nListed below are the local file(s), and the remote file(s) in %5$s they were linked to.</string>
     <string name="sync_current_folder_was_removed">The folder %1$s does not exist anymore</string>
@@ -398,15 +398,15 @@
     <string name="file_migration_failed_not_enough_space">More space needed</string>
     <string name="file_migration_failed_not_writable">Could not write to destination file</string>
     <string name="file_migration_failed_not_readable">Could not read source file</string>
-    <string name="file_migration_failed_dir_already_exists">Nextcloud directory exists already</string>
+    <string name="file_migration_failed_dir_already_exists">Nextcloud folder already exists</string>
     <string name="file_migration_failed_while_coping">Failed during migration</string>
     <string name="file_migration_failed_while_updating_index">Failed to update index</string>
 
-    <string name="file_migration_directory_already_exists">Data folder exists already. Choose one of the following:</string>
+    <string name="file_migration_directory_already_exists">Data folder already exists. Choose one of the following:</string>
     <string name="file_migration_override_data_folder">Replace</string>
     <string name="file_migration_use_data_folder">Use</string>
 
-    <string name="file_migration_source_not_readable_title">Source directory not readable!</string>
+    <string name="file_migration_source_not_readable_title">Source folder not readable!</string>
     <string name="file_migration_source_not_readable">Do you still want to change the storage path to %1$s?\n\nNote: All data will have to be downloaded again.</string>
 
     <string name="prefs_add_account">Add account</string>
@@ -419,7 +419,7 @@
 	<string name="log_send_mail_subject">%1$s Android app logs</string>
 	<string name="log_progress_dialog_text">Loading data &#8230;</string>
 
-	<string name="saml_authentication_required_text">Authentication required</string>
+	<string name="saml_authentication_required_text">Password required</string>
 	<string name="saml_authentication_wrong_pass">Wrong password</string>
 	<string name="actionbar_move">Move</string>
     <string name="actionbar_copy">Copy</string>
@@ -642,7 +642,7 @@
     <string name="picture_set_as_no_app">No app found to set a picture with</string>
     <string name="privacy">Privacy</string>
     <string name="file_not_found">File not found</string>
-    <string name="file_not_synced">Failed to sync the desired file. Last version available is shown</string>
+    <string name="file_not_synced">File could not be synced. Showing latest available version.</string>
 
     <!-- Auto upload -->
     <string name="autoupload_custom_folder">Set up a custom folder</string>
@@ -674,7 +674,7 @@
     <string name="resized_images_download_full_image">Download full image?</string>
 
     <string name="store_short_desc">The Nextcloud Android app gives mobile access to all files on your Nextcloud.</string>
-    <string name="store_full_desc">The copylefted libre software Nextcloud Android app, giving you access to all the files in your Nextcloud.\n\nFeatures:\n* Easy, modern interface, suited to the theme of your server\n* Upload files to your Nextcloud server\n* Share them with others\n* Keep your favorite files and folders synced\n* Search across all folders on your server\n* Auto Upload for photos and videos taken by your device\n* Keep up to date with notifications\n* Multi-account support\n* Secure access to your data with fingerprint or PIN\n* Integration with DAVdroid for easy setup of calendar &amp; Contacts synchronization\n\nPlease report all issues at https://github.com/nextcloud/android/issues and discuss this app at https://help.nextcloud.com/c/clients/android\n\nNew to Nextcloud? Nextcloud is a private file sync &amp; share and communication server. It is libre software, and you can host it yourself or pay a company to do it for you. That way, you are in control of your photos, your calendar and contact data, your documents and everything else.\n\nCheck out Nextcloud at https://nextcloud.com</string>
+    <string name="store_full_desc">The copylefted libre Nextcloud Android app, giving you mobile freedom.\n\nFeatures:\n* Easy, modern interface, suited to the theme of your server\n* Upload files to your Nextcloud server\n* Share them with others\n* Keep your favorite files and folders synced\n* Search across all folders on your server\n* Auto Upload for photos and videos taken by your device\n* Keep up to date with notifications\n* Multi-account support\n* Secure access to your data with fingerprint or PIN\n* Integration with DAVdroid for easy setup of calendar &amp; Contacts synchronization\n\nPlease report all issues at https://github.com/nextcloud/android/issues and discuss this app at https://help.nextcloud.com/c/clients/android\n\nNew to Nextcloud? Nextcloud is a private file sync &amp; share and communication server. It is libre software, and you can host it yourself or pay a company to do it for you. That way, you are in control of your photos, your calendar and contact data, your documents and everything else.\n\nCheck out Nextcloud at https://nextcloud.com</string>
 
     <string name="drawer_current_account">Current account</string>
     <string name="drawer_middle_account">Middle account</string>
@@ -693,12 +693,12 @@
     <string name="shared_icon">Shared icon</string>
     <string name="overflow_menu">Overflow menu</string>
     <string name="share_file_icon">Share file icon</string>
-    <string name="sort_by_name_ascending">Name, ascending</string>
-    <string name="sort_by_modification_date_ascending">Modification date, ascending</string>
-    <string name="sort_by_size_descending">Size, descending</string>
-    <string name="sort_by_size_ascending">Size, ascending</string>
-    <string name="sort_by_name_descending">Name, descending</string>
-    <string name="sort_by_modification_date_descending">Modification date, descending</string>
+    <string name="sort_by_name_ascending">A - Z</string>
+    <string name="sort_by_modification_date_ascending">Newest first</string>
+    <string name="sort_by_size_descending">Biggest first</string>
+    <string name="sort_by_size_ascending">Smallest first</string>
+    <string name="sort_by_name_descending">Z - A</string>
+    <string name="sort_by_modification_date_descending">Oldest first</string>
     <string name="synced_folders_type">Type</string>
     <string name="sync_status_button">Sync status button</string>
     <string name="synced_folder_settings_button">Settings button</string>
@@ -708,7 +708,7 @@
     <string name="what_s_new_image">What\'s new image</string>
 
     <string name="store_short_dev_desc">The Nextcloud Dev app is a development snapshot and can be installed parallel.</string>
-    <string name="store_full_dev_desc">The copylefted libre software Nextcloud Android app, gives you access to all the files in your Nextcloud.\nThis is the official development version, featuring a daily sample of any new untested functionality, which may cause instability and data loss. The app is for users willing to test, and report bugs should they occur. Do not use it for your productive work!\n\nBoth the official dev and regular version are available on F-droid, and can be installed at the same time.</string>
+    <string name="store_full_dev_desc">The copylefted libre Nextcloud Android app, gives you mobile freedom.\nThis is the official development version, featuring a daily sample of any new untested functionality, which may cause instability and data loss. The app is for users willing to test, and report bugs should they occur. Do not use it for your productive work!\n\nBoth the official dev and regular version are available on F-droid, and can be installed at the same time.</string>
 
     <string name="prefs_category_dev">Dev</string>
     <string name="dev_version_no_information_available">No information available.</string>
@@ -750,13 +750,13 @@
     <string name="end_to_end_encryption_retrieving_keys">Retrieving keys&#8230;</string>
     <string name="end_to_end_encryption_enter_password">Please enter password to decrypt private key.</string>
     <string name="end_to_end_encryption_generating_keys">Generating new keys&#8230;</string>
-    <string name="end_to_end_encryption_keywords_description">These 12 words amounts to a very strong password, letting only you view and make use of your encrypted files. Please write it down and keep it somewhere safe.</string>
+    <string name="end_to_end_encryption_keywords_description">All 12 words together make a very strong password, letting only you view and make use of your encrypted files. Please write it down and keep it somewhere safe.</string>
     <string name="end_to_end_encryption_title">Set up encryption</string>
     <string name="end_to_end_encryption_passphrase_title">Make note of your 12 word encryption password</string>
     <string name="end_to_end_encryption_not_supported">Encryption only works on KitKat(4.4) and beyond.</string>
     <string name="end_to_end_encryption_confirm_button">Set up encryption</string>
     <string name="end_to_end_encryption_password">Password&#8230;</string>
-    <string name="end_to_end_encryption_unsuccessful">Could not store keys, please try again.</string>
+    <string name="end_to_end_encryption_unsuccessful">Keys could not be stored, please try again.</string>
     <string name="end_to_end_encryption_dialog_close">Close</string>
     <string name="end_to_end_encryption_storing_keys">Storing keys</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Copy/move into encrypted folder currently not supported.</string>
