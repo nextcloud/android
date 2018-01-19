@@ -96,7 +96,7 @@ public class AuthenticatorActivityTest {
     }
 
     @Test
-    public void check_login()
+    public void checkLogin()
         throws InterruptedException, NoSuchFieldException, IllegalArgumentException, IllegalAccessException {
         Bundle arguments = InstrumentationRegistry.getArguments();
 
