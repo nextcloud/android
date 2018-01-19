@@ -619,7 +619,6 @@
     <string name="sync_in_progress">获取文件的最新版本</string>
     <string name="date_unknown">未知</string>
 
-    <string name="resized_image_not_possible">重整大小的图片不可用。下载完整图片？</string>
     <string name="resized_images_download_full_image">下载完整图片？</string>
 
     <string name="store_short_desc">Nextcloud 安卓应用 可以访问你在Nextcloud上存储的所有文件实例</string>

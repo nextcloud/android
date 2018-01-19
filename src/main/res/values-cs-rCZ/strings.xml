@@ -619,7 +619,6 @@
 
     <string name="date_unknown">Neznámé</string>
 
-    <string name="resized_image_not_possible">Zmenšený obrázek není k dispozici. Stáhnout obrázek v plné velikosti?</string>
     <string name="resized_images_download_full_image">Stáhnout obrázek v plné velikosti?</string>
 
     <string name="drawer_current_account">Aktuální účet</string>

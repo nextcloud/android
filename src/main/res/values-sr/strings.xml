@@ -630,7 +630,6 @@
     <string name="sync_in_progress">Дохватам најскорију верзију фајла.</string>
     <string name="date_unknown">Непознато</string>
 
-    <string name="resized_image_not_possible">Нема доступне умањене сличице. Скини оригиналну слику?</string>
     <string name="resized_images_download_full_image">Скидање оригиналне слике?</string>
 
     <string name="store_short_desc">Некстклауд Андроид апликација омогућава приступ свим фајловима на Вашем Некстклауд серверу.</string>

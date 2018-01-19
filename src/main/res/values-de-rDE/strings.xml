@@ -654,7 +654,6 @@
     <string name="sync_in_progress">Neueste Version der Datei wird geladen.</string>
     <string name="date_unknown">Unbekannt</string>
 
-    <string name="resized_image_not_possible">Kein verkleinertes Bild verfügbar. Vollbild herunterladen?</string>
     <string name="resized_images_download_full_image">Originalbild herunterladen?</string>
 
     <string name="store_short_desc">Die Nextcloud Android App erlaubt Ihnen den Zugriff auf alle Dateien in Ihrer Nextcloud.</string>

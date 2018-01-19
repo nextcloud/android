@@ -653,7 +653,6 @@
     <string name="sync_in_progress">Recuperando la versión más reciente del archivo</string>
     <string name="date_unknown">Desconocido</string>
 
-    <string name="resized_image_not_possible">No se dispone de la imagen en otros tamaños. ¿Descargar en tamaño completo?</string>
     <string name="resized_images_download_full_image">¿Descargar la imagen completa?</string>
 
     <string name="store_short_desc">La app de Nextcloud te permite acceder a todos tus archivos en tu Nextcloud</string>

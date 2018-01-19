@@ -649,7 +649,6 @@
     <string name="sync_in_progress">ამოღებულია ფაილის უახლესი ვერსია.</string>
     <string name="date_unknown">ამოუცნობი</string>
 
-    <string name="resized_image_not_possible">ზომა-შეცვლილი სურათი არაა ხელმისაწვდომი. გადმოვწეროთ მთლიანი სურათი?</string>
     <string name="resized_images_download_full_image">გადმოვწეროთ მთელი სურათი?</string>
 
     <string name="store_short_desc">Nextcloud Android აპლიკაცია თქვენს Nextcloud ინსტანციაზე იძლევა ყველა ფაილთან წვდომის უფლებას</string>
