@@ -20,6 +20,7 @@
 package com.owncloud.android.ui.preview;
 
 import android.accounts.Account;
+import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
@@ -29,8 +30,9 @@ import android.view.ViewGroup;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.VirtualFolderType;
+import com.owncloud.android.db.PreferenceManager;
 import com.owncloud.android.ui.fragment.FileFragment;
-import com.owncloud.android.utils.FileSortOrderByName;
+import com.owncloud.android.utils.FileSortOrder;
 import com.owncloud.android.utils.FileStorageUtils;
 
 import java.util.HashSet;
@@ -63,7 +65,7 @@ public class PreviewImagePagerAdapter extends FragmentStatePagerAdapter {
      */
     public PreviewImagePagerAdapter(FragmentManager fragmentManager, OCFile parentFolder,
                                     Account account, FileDataStorageManager storageManager,
-                                    boolean onlyOnDevice) {
+                                    boolean onlyOnDevice, Context context) {
         super(fragmentManager);
         
         if (fragmentManager == null) {
@@ -79,8 +81,9 @@ public class PreviewImagePagerAdapter extends FragmentStatePagerAdapter {
         mAccount = account;
         mStorageManager = storageManager;
         mImageFiles = mStorageManager.getFolderImages(parentFolder, onlyOnDevice);
-        
-        mImageFiles = FileSortOrderByName.sort_a_to_z.sortCloudFiles(mImageFiles);
+
+        FileSortOrder sortOrder = PreferenceManager.getSortOrder(context, parentFolder);
+        mImageFiles = sortOrder.sortCloudFiles(mImageFiles);
         
         mObsoleteFragments = new HashSet<>();
         mObsoletePositions = new HashSet<>();
