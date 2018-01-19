@@ -90,7 +90,7 @@
     <string name="file_list_empty">Загрузите что-нибудь или синхронизируйте со своими устройствами!</string>
     <string name="file_list_empty_favorites_filter_list">Здесь появятся избранные файлы и каталоги</string>
     <string name="file_list_empty_favorites_filter">По запросу избранных файлов не найдено.</string>
-    <string name="file_list_loading">«&#8230;» загружается</string>
+    <string name="file_list_loading">Получение данных&#8230;</string>
     <string name="file_list_no_app_for_file_type">Не найдено приложение для открытия этого типа файлов.</string>
     <string name="local_file_list_empty">В этом каталоге нет файлов.</string>
     <string name="local_folder_list_empty">Нет других каталогов.</string>
@@ -446,7 +446,7 @@
 
     <string name="sync_folder_failed_content">Синхронизация каталога %1$s не может быть завершена</string>
 
-	<string name="subject_user_shared_with_you">%1$s предоставил вам доступ к «%2$s»</string>
+	<string name="subject_user_shared_with_you">%1$s предоставил(а) вам доступ к «%2$s»</string>
     <string name="subject_shared_with_you">Вам предоставлен доступ к «%1$s»</string>
 
     <string name="auth_refresh_button">Обновить соединение</string>
@@ -664,6 +664,8 @@
     <string name="sync_in_progress">Дождитесь получения новой версии файла.</string>
     <string name="date_unknown">Неизвестно</string>
 
+    <string name="resized_image_not_possible">Отсутствует оптимизированное изображение.</string>
+    <string name="resized_image_not_possible_download">Оптимизированное изображение отсутствует. Скачать изображение исходного размера?</string>
     <string name="resized_images_download_full_image">Скачать полноразмерное изображение?</string>
 
     <string name="store_short_desc">Приложение Nextcloud для Android позволяет получать доступ к содержимому своего сервера Nextcloud.</string>

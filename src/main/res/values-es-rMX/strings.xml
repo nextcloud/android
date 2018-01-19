@@ -651,6 +651,8 @@
     <string name="sync_in_progress">Obteniendo la versión más reciente del archivo.</string>
     <string name="date_unknown">Desconocido</string>
 
+    <string name="resized_image_not_possible">No hay una imagen a escala disponible.</string>
+    <string name="resized_image_not_possible_download">No hay una imagen a escala disponible. ¿Descargar la imagen completa? </string>
     <string name="resized_images_download_full_image">¿Descargar imagen completa?</string>
 
     <string name="store_short_desc">La aplicacion de Andorid para Nextcloud te permite acceder a todos los archivos en tu instancia de Nextcloud.</string>

@@ -623,6 +623,7 @@
     <string name="contacts_preferences_backup_scheduled">Backup-i u skedulua dhe do të filloj së shpejti</string>
     <string name="contacts_preferences_import_scheduled">Importimi u skedulua dhe do të filloj së shpejti</string>
 
+    <string name="drawer_logout">Dilni</string>
     <string name="picture_set_as_no_app">Nuk u gjet aplikacioni me të cilin vendoset foto!</string>
     <string name="privacy">Privatësi</string>
     <string name="file_not_found">Skedari nuk u gjet!</string>
@@ -633,6 +634,10 @@
 
     <string name="test_server_button">Testo lidhjen e serverit</string>
     <string name="resharing_is_not_allowed">Ri-shpërndarja nuk lejohet</string>
+    <string name="fallback_weblogin_back">Prapa</string>
+    <string name="foreground_service_upload">Ngarkimi i skedarëve &#8230;</string>
+    <string name="foreground_service_download">Shkarkimi i skedarëve &#8230;</string>
+
     <string name="prefs_sourcecode">Merr kodin burimor</string>
     <string name="prefs_license">Liçensë</string>
     <string name="resized_images_download_full_image">Shkarko imazhin e plotë?</string>

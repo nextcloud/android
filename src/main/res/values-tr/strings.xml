@@ -654,6 +654,8 @@
     <string name="sync_in_progress">Lütfen dosyanın en son sürümü alınırken bekleyin.</string>
     <string name="date_unknown">Bilinmiyor</string>
 
+    <string name="resized_image_not_possible">Boyutu değiştirilmiş bir görsel yok.</string>
+    <string name="resized_image_not_possible_download">Boyutu değiştirilmiş bir görsel yok. Tam görsel indirilsin mi?</string>
     <string name="resized_images_download_full_image">Tam görsel indirilsin mi?</string>
 
     <string name="store_short_desc">Nextcloud Android uygulaması Nextcloud kopyanızdaki tüm dosyalarınıza erişmenizi sağlar.</string>
