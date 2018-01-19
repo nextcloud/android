@@ -35,6 +35,7 @@ import android.content.UriMatcher;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
@@ -1644,8 +1645,12 @@ public class FileContentProvider extends ContentProvider {
                     }
                     if (!checkIfColumnExists(db, ProviderTableMeta.FILESYSTEM_TABLE_NAME,
                             ProviderTableMeta.FILESYSTEM_CRC32)) {
-                        db.execSQL(ALTER_TABLE + ProviderTableMeta.FILESYSTEM_TABLE_NAME +
-                                ADD_COLUMN + ProviderTableMeta.FILESYSTEM_CRC32 + " TEXT ");
+                        try {
+                            db.execSQL(ALTER_TABLE + ProviderTableMeta.FILESYSTEM_TABLE_NAME +
+                                    ADD_COLUMN + ProviderTableMeta.FILESYSTEM_CRC32 + " TEXT ");
+                        } catch (SQLiteException e) {
+                            Log_OC.d(TAG, "Known problem on adding same column twice when upgrading from 24->30");
+                        }
                     }
 
                     upgraded = true;
