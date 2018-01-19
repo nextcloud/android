@@ -647,7 +647,6 @@ hozzáadások, változások és megosztások</string>
     <string name="sync_in_progress">Kérjük várj a fájl legfrissebb verziójának lekéréséig.</string>
     <string name="date_unknown">Ismeretlen</string>
 
-    <string name="resized_image_not_possible">Átméretezett kép nem elérhető. Letöltsem a teljes képet?</string>
     <string name="resized_images_download_full_image">Teljes kép letöltése?</string>
 
     <string name="store_short_desc">A Nextcloud Android alkalmazás segítségével hozzáférhetsz a saját Nextcloud-on tárolt fájlaidhoz.</string>

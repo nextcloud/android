@@ -617,7 +617,6 @@
     <string name="sync_in_progress">Hämtar den nyaste versionen av filen.</string>
     <string name="date_unknown">Okänd</string>
 
-    <string name="resized_image_not_possible">Ingen förminskad bild tillgänglig. Vill du ladda ner fullständig bild?</string>
     <string name="resized_images_download_full_image">Vill du ladda ner fullständig bild?</string>
 
     <string name="drawer_current_account">Nuvarande konto</string>

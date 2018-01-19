@@ -664,7 +664,6 @@
     <string name="sync_in_progress">Дождитесь получения новой версии файла.</string>
     <string name="date_unknown">Неизвестно</string>
 
-    <string name="resized_image_not_possible">Масштабированное изображение недоступно.  Скачать полноразмерное изображение?</string>
     <string name="resized_images_download_full_image">Скачать полноразмерное изображение?</string>
 
     <string name="store_short_desc">Приложение Nextcloud для Android позволяет получать доступ к содержимому своего сервера Nextcloud.</string>

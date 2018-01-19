@@ -654,7 +654,6 @@
     <string name="sync_in_progress">Attendi mentre recuperiamo la versione più recente del file.</string>
     <string name="date_unknown">Sconosciuta</string>
 
-    <string name="resized_image_not_possible">Immagine ridimensionata non disponibile. Scaricare l\'immagine completa?</string>
     <string name="resized_images_download_full_image">Vuoi scaricare l\'immagine completa?</string>
 
     <string name="store_short_desc">L\'applicazione per Android di Nextcloud ti consente di accedere ai file sulla tua istanza di Nextcloud. </string>

@@ -642,7 +642,6 @@
     <string name="sync_in_progress">Henter nyligste versjon av fila.</string>
     <string name="date_unknown">Ukjent</string>
 
-    <string name="resized_image_not_possible">Inget mindre bilde tilgjengelig. Last ned fullversjon?</string>
     <string name="resized_images_download_full_image">Last ned hele bildet?</string>
 
     <string name="store_full_desc">Nextcloud-programmet for Android er copyleft fri programvare, og gir deg tilgang til alle dine filer i din Nextcloud.

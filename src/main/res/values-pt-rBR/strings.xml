@@ -654,7 +654,6 @@
     <string name="sync_in_progress">Obtendo a versão mais recente do arquivo.</string>
     <string name="date_unknown">Desconhecido</string>
 
-    <string name="resized_image_not_possible">Nenhuma image reduzida disponível. Baixar a completa?</string>
     <string name="resized_images_download_full_image">Baixar imagem completa?</string>
 
     <string name="store_short_desc">O aplicativo Nextcloud para Android permite acessar seus arquivos num servidor Nextcloud.</string>

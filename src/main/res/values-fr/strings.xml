@@ -270,6 +270,7 @@ Attention la suppression est irréversible.</string>
     <string name="favorite_real">Ajouter aux favoris</string>
     <string name="unset_favorite_real">Supprimer des favoris</string>
     <string name="favorite_switch">Disponible hors-ligne</string>
+    <string name="encrypted">Définir comme chiffré</string>
     <string name="common_rename">Renommer</string>
     <string name="common_remove">Supprimer</string>
     <string name="confirmation_remove_file_alert">Souhaitez-vous vraiment supprimer %1$s ?</string>
@@ -654,7 +655,6 @@ Attention la suppression est irréversible.</string>
     <string name="sync_in_progress">Récupération de la version la plus récente du fichier.</string>
     <string name="date_unknown">Inconnu</string>
 
-    <string name="resized_image_not_possible">Aucune image réduite disponible. Télécharger l\'image originale ?</string>
     <string name="resized_images_download_full_image">Télécharger l\'image originale ?</string>
 
     <string name="store_short_desc">L\'application Android Nextcloud permet d\'accéder à tous les fichiers stockés sur votre instance Nextcloud.</string>
@@ -729,10 +729,16 @@ Attention la suppression est irréversible.</string>
     <string name="account_icon">Icône du compte</string>
     
     <string name="end_to_end_encryption_folder_not_empty">Dossier non vide !</string>
+    <string name="end_to_end_encryption_wrong_password">Erreur lors du décryptage. Mauvais mot de passe ?</string>
     <string name="end_to_end_encryption_decrypting">Décryptage&#8230;</string>
     <string name="end_to_end_encryption_retrieving_keys">Récupération des clés&#8230;</string>
+    <string name="end_to_end_encryption_enter_password">Veuillez entrer le mot de passe pour décrypter la clé privée !</string>
     <string name="end_to_end_encryption_generating_keys">Générer des nouvelles clés&#8230;</string>
     <string name="end_to_end_encryption_keywords_description">Cette phrase de 12 mots est comme un mot de passe très fort : elle fournit un accès à la lecture et à l\'utilisation de vos fichiers chiffrés. Merci de l\'écrire et de la garder quelque-part en sécurité.</string>
+    <string name="end_to_end_encryption_passphrase_title">Noter votre phrase secrète de chiffrement</string>
+    <string name="end_to_end_encryption_not_supported">Le chiffrement n\'est pas supporté avant KitKat.</string>
     <string name="end_to_end_encryption_password">Mot de passe&#8230;</string>
+    <string name="end_to_end_encryption_unsuccessful">Enregistrement des clés impossible, veuillez réessayer !</string>
     <string name="end_to_end_encryption_dialog_close">Fermer</string>
-    </resources>
+    <string name="end_to_end_encryption_storing_keys">Enregistrement des clés</string>
+</resources>
