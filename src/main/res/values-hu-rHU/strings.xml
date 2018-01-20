@@ -268,6 +268,8 @@
     <string name="favorite_real">Beállítás kedvenként</string>
     <string name="unset_favorite_real">Eltávolítás a kedvence közül</string>
     <string name="favorite_switch">Elérhető offline</string>
+    <string name="encrypted">Titkosítottra állítás</string>
+    <string name="unset_encrypted">Titkosítás kikapcsolása</string>
     <string name="common_rename">Átnevezés</string>
     <string name="common_remove">Törlés</string>
     <string name="confirmation_remove_file_alert">Biztosan törlöd ezt: %1$s?</string>
@@ -647,6 +649,8 @@ hozzáadások, változások és megosztások</string>
     <string name="sync_in_progress">Kérjük várj a fájl legfrissebb verziójának lekéréséig.</string>
     <string name="date_unknown">Ismeretlen</string>
 
+    <string name="resized_image_not_possible">Nincs elérhető átméretezett kép.</string>
+    <string name="resized_image_not_possible_download">Átméretezett kép nem elérhető. Letöltsem a teljes képet?</string>
     <string name="resized_images_download_full_image">Teljes kép letöltése?</string>
 
     <string name="store_short_desc">A Nextcloud Android alkalmazás segítségével hozzáférhetsz a saját Nextcloud-on tárolt fájlaidhoz.</string>
@@ -738,7 +742,11 @@ A Nextcloud itt érhető el: https://nextcloud.com</string>
     <string name="account_icon">Fiók ikon</string>
     
     <string name="end_to_end_encryption_folder_not_empty">A mappa nem üres!</string>
+    <string name="end_to_end_encryption_wrong_password">Hiba történt a visszafejtés közben. Rossz jelszó?</string>
+    <string name="end_to_end_encryption_title">Titkosítás beállítása</string>
     <string name="end_to_end_encryption_not_supported">A titkosítás KitKat előtt nem támogatott.</string>
     <string name="end_to_end_encryption_confirm_button">Titkosítás beállítása</string>
+    <string name="end_to_end_encryption_unsuccessful">Nem sikerült a kulcsok tárolása, próbáld meg újra!</string>
     <string name="end_to_end_encryption_dialog_close">Bezár</string>
-    </resources>
+    <string name="end_to_end_encryption_storing_keys">Kulcsok eltárolása</string>
+</resources>

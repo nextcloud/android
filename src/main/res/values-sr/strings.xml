@@ -126,6 +126,7 @@
     <string name="common_cancel">Откажи</string>
     <string name="common_back">Назад</string>
     <string name="common_save">Сачувај</string>
+    <string name="common_error">Грешка</string>
     <string name="common_loading">Учитавам &#8230;</string>
     <string name="common_unknown">непознато</string>
     <string name="common_error_unknown">Непозната грешка</string>
@@ -269,6 +270,8 @@
     <string name="favorite_real">Постави као омиљено</string>
     <string name="unset_favorite_real">Склони као омиљено</string>
     <string name="favorite_switch">Досступно ван мреже</string>
+    <string name="encrypted">Постави као шифровано</string>
+    <string name="unset_encrypted">Искључи шифровање</string>
     <string name="common_rename">Преименуј</string>
     <string name="common_remove">Обриши</string>
     <string name="confirmation_remove_file_alert">Да ли стварно желите да обришете %1$s?</string>
@@ -631,6 +634,8 @@
     <string name="picture_set_as_no_app">Ниједна апликација није нађена за постављање слике!</string>
     <string name="privacy">Приватност</string>
     <string name="file_not_found">Фајл није пронађен!</string>
+    <string name="file_not_synced">Неуспела синхронизација жељеног фајла. Приказана је последња доступна верзија.</string>
+
     <!-- Auto upload -->
     <string name="autoupload_custom_folder">Подесите произвољну фасциклу</string>
     <string name="autoupload_create_new_custom_folder">Додај фасциклу која није на листи</string>
@@ -699,10 +704,22 @@
     <string name="dev_version_no_information_available">Информације недоступне.</string>
     <string name="dev_version_no_new_version_available">Нема нових верзија доступних.</string>
     <string name="folder_icon">Икона фасцикле</string>
+    <string name="dev_version_new_version_available">Доступна нова верзија</string>
+    <string name="version_dev_download">Преузми</string>
+
     <string name="send">Пошаљи</string>
     <string name="share">Подели</string>
     <string name="link">Веза</string>
 
+    <string name="notification_channel_upload_name">Канал обавештења о отпремањима</string>
+    <string name="notification_channel_download_name">Канал обавештења о скидањима</string>
+    <string name="notification_channel_download_description">Прикажи напредак преузимања</string>
+    <string name="notification_channel_upload_description">Прикажи напредак отпремања</string>
+    <string name="notification_channel_media_name">Мултимедијални плејер</string>
+    <string name="notification_channel_media_description">Напредак музичког плејера</string>
+    <string name="notification_channel_file_sync_name">Синхронизација фајла</string>
+    <string name="notification_channel_file_sync_description">Прикажи напредак синхронизације фајла и резултате</string>
+  
     <string name="account_not_found">Налог није нађен!</string>
 
     <string name="screenshot_01_gridView">Сигурно место за све Ваше податке</string>
@@ -712,4 +729,24 @@
     <string name="screenshot_05_autoUpload">Аутоматски отпремајте Ваше слике &amp; видео записе</string>
     <string name="screenshot_06_davdroid">Синхронизујте календар &amp; контакте</string>
     
-    </resources>
+    <string name="userinfo_no_info_headline">Нису постављени лични подаци</string>
+    <string name="userinfo_no_info_text">Додајте име, слику и детаље контакта на Вашу профилну страну.</string>
+    <string name="drawer_header_background">Позадинска слика заглавља фиоке</string>
+    <string name="account_icon">Икона налога</string>
+    
+    <string name="end_to_end_encryption_folder_not_empty">Фасцикла није празна!</string>
+    <string name="end_to_end_encryption_wrong_password">Грешка приликом дешифровања. Погрешна лозинка?</string>
+    <string name="end_to_end_encryption_decrypting">Дешифрујем&#8230;</string>
+    <string name="end_to_end_encryption_retrieving_keys">Дохватам кључеве&#8230;</string>
+    <string name="end_to_end_encryption_enter_password">Унесите лозинку за дешифровање приватног кључа!</string>
+    <string name="end_to_end_encryption_generating_keys">Генеришем нове кључеве&#8230;</string>
+    <string name="end_to_end_encryption_keywords_description">Фраза од 12 речи је веома јака лозинка: она омогућава пун приступ гледању и коришћењу шифрованих фајлова. Запишите је и држите је негде на сигурном.</string>
+    <string name="end_to_end_encryption_title">Подесите шифровање</string>
+    <string name="end_to_end_encryption_passphrase_title">Запамтите вишеделну лозинку за шифровање</string>
+    <string name="end_to_end_encryption_not_supported">Шифровање пре KitKat верзије Андроида није подржано.</string>
+    <string name="end_to_end_encryption_confirm_button">Подесите шифровање</string>
+    <string name="end_to_end_encryption_password">Лозинка&#8230;</string>
+    <string name="end_to_end_encryption_unsuccessful">Складиштење кључева није било успешно, покушајте поново!</string>
+    <string name="end_to_end_encryption_dialog_close">Затвори</string>
+    <string name="end_to_end_encryption_storing_keys">Складиштење кључева</string>
+</resources>

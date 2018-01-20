@@ -90,6 +90,7 @@
     <string name="file_list_empty">Puja continguts o sincronitza els teus dispositius.</string>
     <string name="file_list_empty_favorites_filter_list">Aquí apareixeran els fitxers i carpetes que marquis com favorits</string>
     <string name="file_list_empty_favorites_filter">La cerca no ha retornat cap fitxer </string>
+    <string name="file_list_loading">Carregant&#8230;</string>
     <string name="file_list_no_app_for_file_type">No hi ha cap aplicació configurada per gestionar aquest tipus de fitxer.</string>
     <string name="local_file_list_empty">No hi ha fitxers en aquesta carpeta</string>
     <string name="local_folder_list_empty">No hi ha més carpetes.</string>
@@ -125,6 +126,7 @@
     <string name="common_cancel">Cancel·la</string>
     <string name="common_back">Enrere</string>
     <string name="common_save">Guarda</string>
+    <string name="common_error">Error</string>
     <string name="common_loading">Carregant&#8230;</string>
     <string name="common_unknown">desconegut</string>
     <string name="common_error_unknown">Error desconegut</string>
@@ -197,8 +199,10 @@
     <string name="pass_code_configure_your_pass_code">Escriu el teu codi d\'accés</string>
     <string name="pass_code_configure_your_pass_code_explanation">Es requerirà el codi d\'accés cada vegada que s\'iniciï l\'aplicació</string>
     <string name="pass_code_reenter_your_pass_code">Torneu a escriure el codi d\'accés</string>
+    <string name="pass_code_remove_your_pass_code">Elimina el teu codi d\'accés</string>
     <string name="pass_code_mismatch">Els codis d\'accés no coincideixen</string>
     <string name="pass_code_wrong">Codi d\'accés incorrecte</string>
+    <string name="pass_code_removed">S\'ha eliminat el codi d\'accés</string>
     <string name="pass_code_stored">Codi d\'accés desat</string>
     
     <string name="media_notif_ticker">%1$s reproductor de música</string>
@@ -247,7 +251,8 @@
 	<string name="auth_expired_oauth_token_toast">La vostra autorització ha vençut. Acrediteu-vos de nou</string>
 	<string name="auth_expired_basic_auth_toast">Escriviu la contrasenya actual</string>
 	<string name="auth_expired_saml_sso_token_toast">La sessió ha vençut. Connecteu-vos de nou</string>
-    <string name="auth_unsupported_multiaccount">%1$s no permet comptes múltiples</string>
+    <string name="auth_connecting_auth_server">Connectant amb el servidor d\'autenticació &#8230;</string>
+	<string name="auth_unsupported_multiaccount">%1$s no permet comptes múltiples</string>
 	<string name="auth_fail_get_user_name">El vostre servidor no torna un identificador d\'usuari correcte, contacteu amb un administrador</string>
 	<string name="auth_can_not_auth_against_server">No es pot autenticar en aquest servidor</string>
     <string name="auth_account_does_not_exist">El compte encara no existeix al dispositiu</string>
@@ -273,6 +278,7 @@
     <string name="filename_forbidden_characters">Caràcters no permesos: / \\ &lt; &gt; : \" | ? *</string>
     <string name="filename_forbidden_charaters_from_server">El nom del fitxer conté al menys un caràcter invàlid</string>
     <string name="filename_empty">El nom del fitxer no pot estar buit</string>
+    <string name="wait_a_moment">Espera un moment &#8230;</string>
     <string name="wait_checking_credentials">Comprovant les credencials emmagatzemades</string>
     <string name="filedisplay_no_file_selected">Cap fitxer escollit</string>
     <string name="activity_chooser_title">Envia l\'enllaç a&#8230;</string>
