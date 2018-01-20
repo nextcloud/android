@@ -679,7 +679,7 @@
     <string name="drawer_current_account">Current account</string>
     <string name="drawer_middle_account">Middle account</string>
     <string name="drawer_end_account">Last account</string>
-    <string name="contactlist_item_icon">Contactlist user icon</string>
+    <string name="contactlist_item_icon">User icon for contact list</string>
     <string name="activity_icon">Activity icon</string>
     <string name="file_icon">File icon</string>
     <string name="user_icon">User icon</string>
