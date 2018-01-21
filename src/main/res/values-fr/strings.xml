@@ -271,6 +271,7 @@ Attention la suppression est irréversible.</string>
     <string name="unset_favorite_real">Supprimer des favoris</string>
     <string name="favorite_switch">Disponible hors-ligne</string>
     <string name="encrypted">Définir comme chiffré</string>
+    <string name="unset_encrypted">Désactiver le chiffrement</string>
     <string name="common_rename">Renommer</string>
     <string name="common_remove">Supprimer</string>
     <string name="confirmation_remove_file_alert">Souhaitez-vous vraiment supprimer %1$s ?</string>
@@ -737,8 +738,10 @@ Attention la suppression est irréversible.</string>
     <string name="end_to_end_encryption_enter_password">Veuillez entrer le mot de passe pour décrypter la clé privée !</string>
     <string name="end_to_end_encryption_generating_keys">Générer des nouvelles clés&#8230;</string>
     <string name="end_to_end_encryption_keywords_description">Cette phrase de 12 mots est comme un mot de passe très fort : elle fournit un accès à la lecture et à l\'utilisation de vos fichiers chiffrés. Merci de l\'écrire et de la garder quelque-part en sécurité.</string>
+    <string name="end_to_end_encryption_title">Configurer le chiffrement</string>
     <string name="end_to_end_encryption_passphrase_title">Noter votre phrase secrète de chiffrement</string>
     <string name="end_to_end_encryption_not_supported">Le chiffrement n\'est pas supporté avant KitKat.</string>
+    <string name="end_to_end_encryption_confirm_button">Configurer le chiffrement</string>
     <string name="end_to_end_encryption_password">Mot de passe&#8230;</string>
     <string name="end_to_end_encryption_unsuccessful">Enregistrement des clés impossible, veuillez réessayer !</string>
     <string name="end_to_end_encryption_dialog_close">Fermer</string>
