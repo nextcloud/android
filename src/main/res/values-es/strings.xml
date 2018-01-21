@@ -269,6 +269,7 @@
     <string name="unset_favorite_real">Desmarcar como favorito</string>
     <string name="favorite_switch">Disponible sin conexión</string>
     <string name="encrypted">Establecer como encriptado</string>
+    <string name="unset_encrypted">Desconfigurar cifrado</string>
     <string name="common_rename">Renombrar</string>
     <string name="common_remove">Borrar</string>
     <string name="confirmation_remove_file_alert">¿Estás seguro de que quieres eliminar %1$s?</string>
@@ -731,9 +732,16 @@
     <string name="end_to_end_encryption_folder_not_empty">¡La carpeta no está vacía!</string>
     <string name="end_to_end_encryption_wrong_password">Error al desencriptar. ¿Contraseña incorrecta?</string>
     <string name="end_to_end_encryption_decrypting">Desencriptando&#8230;</string>
+    <string name="end_to_end_encryption_retrieving_keys">Recuperando claves&#8230;</string>
     <string name="end_to_end_encryption_enter_password">¡Por favor introduce una contraseña para desencriptar la clave privada!</string>
     <string name="end_to_end_encryption_generating_keys">Generando claves nuevas&#8230;</string>
     <string name="end_to_end_encryption_keywords_description">Esta frase de 12 palabras es como una contraseña muy fuerte: Da acceso para ver y usar tus archivos encriptados. Por favor escríbela y mantenla en algún lugar seguro.</string>
+    <string name="end_to_end_encryption_title">Configurar cifrado</string>
+    <string name="end_to_end_encryption_passphrase_title">Anota tu frase de paso de cifrado</string>
+    <string name="end_to_end_encryption_not_supported">Cifrado no soportado en versiones anteriores a KitKat.</string>
+    <string name="end_to_end_encryption_confirm_button">Configurar cifrado</string>
     <string name="end_to_end_encryption_password">Contraseña&#8230;</string>
+    <string name="end_to_end_encryption_unsuccessful">Fallo al almacenar las claves. Por favor, vuelve a intentarlo.</string>
     <string name="end_to_end_encryption_dialog_close">Cerrar</string>
-    </resources>
+    <string name="end_to_end_encryption_storing_keys">Almacenando claves</string>
+</resources>

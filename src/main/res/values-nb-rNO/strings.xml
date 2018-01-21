@@ -678,6 +678,7 @@ Sjekk ut Nextcloud på https://nextcloud.com</string>
     <string name="drawer_current_account">Nåværende konto</string>
     <string name="drawer_middle_account">Mellomkonto</string>
     <string name="drawer_end_account">Siste konto</string>
+    <string name="contactlist_item_icon">Kontaktlistebrukerikon</string>
     <string name="activity_icon">Aktivitetsikon</string>
     <string name="file_icon">Filikon</string>
     <string name="user_icon">Brukerikon</string>
@@ -729,17 +730,23 @@ Sjekk ut Nextcloud på https://nextcloud.com</string>
     <string name="screenshot_03_drawer">Rask tilgang til aktivitet, delinger, frakoblede filer og mer</string>
     <string name="screenshot_04_accounts">Koble til forskjellige kontoer</string>
     <string name="screenshot_05_autoUpload">Last opp dine bilder og videoer automatisk</string>
+    <string name="screenshot_06_davdroid">Synkroniser kalender og kontakter med DAVdroid</string>
+    
     <string name="userinfo_no_info_headline">Ingen personlig info satt</string>
     <string name="userinfo_no_info_text">Legg til navn, bilde og kontaktdetaljer på din profilside.</string>
     <string name="account_icon">Kontoikon</string>
     
+    <string name="end_to_end_encryption_folder_not_empty">Mappen er ikke tom!</string>
     <string name="end_to_end_encryption_wrong_password">Feil under dekryptering. Feil passord?</string>
     <string name="end_to_end_encryption_decrypting">Dekrypterer&#8230;</string>
     <string name="end_to_end_encryption_retrieving_keys">Henter nøkler&#8230;</string>
+    <string name="end_to_end_encryption_enter_password">Skriv inn passord for å dekryptere privat nøkkel.</string>
     <string name="end_to_end_encryption_generating_keys">Genererer nye nøkler&#8230;</string>
     <string name="end_to_end_encryption_title">Sett opp kryptering</string>
+    <string name="end_to_end_encryption_not_supported">Kryptering støttes ikke før Android KitKat (4.4).</string>
     <string name="end_to_end_encryption_confirm_button">Sett opp kryptering</string>
     <string name="end_to_end_encryption_password">Passord&#8230;</string>
+    <string name="end_to_end_encryption_unsuccessful">Klarte ikke å lagre nøkler, prøv igjen.</string>
     <string name="end_to_end_encryption_dialog_close">Lukk</string>
     <string name="end_to_end_encryption_storing_keys">Lagrer nøkler</string>
 </resources>
