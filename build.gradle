@@ -98,25 +98,12 @@ android {
                 dimension "default"
             }
 
-            modified {
-                // structure is:
-                // domain tld
-                // domain name
-                // .client
-                applicationId 'com.custom.client'
-                dimension "default"
-            }
-
             versionDev {
                 applicationId "com.nextcloud.android.beta"
                 dimension "default"
                 versionCode 20180121
                 versionName "20180121"
             }
-        }
-
-        configurations {
-            modifiedCompile
         }
     }
 
@@ -216,7 +203,7 @@ dependencies {
     implementation 'com.madgag.spongycastle:pkix:1.54.0.0'
     implementation 'com.google.code.gson:gson:2.8.2'
 
-    // uncomment for gplay, modified
+    // uncomment for gplay
     // implementation "com.google.firebase:firebase-messaging:${googleLibraryVersion}"
     // implementation "com.google.android.gms:play-services-base:${googleLibraryVersion}"
     // implementation "com.google.android.gms:play-services-gcm:${googleLibraryVersion}"
@@ -260,5 +247,5 @@ tasks.withType(Test) {
     }
 }
 
-// uncomment for gplay, modified (must be at the bottom)
+// uncomment for gplay (must be at the bottom)
 //apply plugin: 'com.google.gms.google-services'

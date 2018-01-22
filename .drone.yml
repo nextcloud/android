@@ -59,7 +59,6 @@ matrix:
   FLAVOUR:
     - Generic
     - Gplay
-    - Modified
     - Lint
 
 branches: master
