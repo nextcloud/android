@@ -221,9 +221,7 @@ public class MainApp extends MultiDexApplication {
             String storagePath = appPrefs.getString(Preferences.PreferenceKeys.STORAGE_PATH, "");
             if (TextUtils.isEmpty(storagePath)) {
                 if (appPrefs.getInt(WhatsNewActivity.KEY_LAST_SEEN_VERSION_CODE, 0) != 0) {
-                /*
-                    We already used the app, but no storage is set - fix that! :)
-                 */
+                    // We already used the app, but no storage is set - fix that!
                     appPrefs.edit().putString(Preferences.PreferenceKeys.STORAGE_PATH,
                             Environment.getExternalStorageDirectory().getAbsolutePath()).commit();
                     appPrefs.edit().remove(PreferenceManager.PREF__KEYS_MIGRATION).commit();
@@ -271,7 +269,8 @@ public class MainApp extends MultiDexApplication {
         updateAutoUploadEntries();
 
         if (getAppContext() != null) {
-            if (PermissionUtil.checkSelfPermission(getAppContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+            if (PermissionUtil.checkSelfPermission(getAppContext(),
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
                 splitOutAutoUploadEntries();
             } else {
                 PreferenceManager.setAutoUploadSplitEntries(getAppContext(), true);
