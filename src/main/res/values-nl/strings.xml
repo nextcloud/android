@@ -730,6 +730,12 @@ Kies er eentje van een provider.</string>
     <string name="end_to_end_encryption_folder_not_empty">Map niet leeg!</string>
     <string name="end_to_end_encryption_wrong_password">Fout tijdens ontsleutelen. Verkeerd wachtwoord?</string>
     <string name="end_to_end_encryption_decrypting">Ontcijferen &#8230;</string>
+    <string name="end_to_end_encryption_retrieving_keys">Ophalen sleutels &#8230;</string>
+    <string name="end_to_end_encryption_generating_keys">Genereren nieuwe sleutels &#8230;</string>
+    <string name="end_to_end_encryption_title">Instellen versleuteling</string>
+    <string name="end_to_end_encryption_confirm_button">Instellen versleuteling</string>
     <string name="end_to_end_encryption_password">Wachtwoord &#8230;</string>
+    <string name="end_to_end_encryption_unsuccessful">Opslaan sleutels mislukt, probeer het opnieuw!</string>
     <string name="end_to_end_encryption_dialog_close">Sluiten</string>
-    </resources>
+    <string name="end_to_end_encryption_storing_keys">Opslaan sleutels</string>
+</resources>
