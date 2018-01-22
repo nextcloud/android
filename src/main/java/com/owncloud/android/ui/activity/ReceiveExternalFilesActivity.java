@@ -856,7 +856,8 @@ public class ReceiveExternalFilesActivity extends FileActivity
             mStreamsToUpload = intent.getParcelableArrayListExtra(Intent.EXTRA_STREAM);
         }
 
-        if (mStreamsToUpload == null || mStreamsToUpload.get(0) == null) {
+        if (mStreamsToUpload == null || mStreamsToUpload.size() == 0 ||
+                mStreamsToUpload.get(0) == null) {
             mStreamsToUpload = null;
             saveTextsFromIntent(intent);
         }
