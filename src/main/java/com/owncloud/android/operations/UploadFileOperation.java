@@ -371,11 +371,11 @@ public class UploadFileOperation extends SyncOperation {
         remoteParentPath = remoteParentPath.endsWith(OCFile.PATH_SEPARATOR) ?
                 remoteParentPath : remoteParentPath + OCFile.PATH_SEPARATOR;
 
-        /*RemoteOperationResult result = grantFolderExistence(remoteParentPath, client);
+        RemoteOperationResult result = grantFolderExistence(remoteParentPath, client);
 
         if (!result.isSuccess()) {
             return result;
-        }*/
+        }
 
         OCFile parent = getStorageManager().getFileByPath(remoteParentPath);
         mFile.setParentId(parent.getFileId());
