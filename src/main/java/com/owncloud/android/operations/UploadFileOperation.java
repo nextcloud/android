@@ -752,7 +752,6 @@ public class UploadFileOperation extends SyncOperation {
             return remoteOperationResult;
         }
 
-        JobRequest.NetworkType type = Device.getNetworkType(mContext);
         // check that connectivity conditions are met and delays the upload otherwise
         if (mOnWifiOnly && !Device.getNetworkType(mContext).equals(JobRequest.NetworkType.UNMETERED)) {
             Log_OC.d(TAG, "Upload delayed until WiFi is available: " + getRemotePath());
