@@ -749,14 +749,12 @@ public class UploadFileOperation extends SyncOperation {
         if (Device.getNetworkType(mContext).equals(JobRequest.NetworkType.ANY) ||
                 ConnectivityUtils.isInternetWalled(mContext)) {
             remoteOperationResult =  new RemoteOperationResult(ResultCode.NO_NETWORK_CONNECTION);
-            return remoteOperationResult;
         }
 
         // check that connectivity conditions are met and delays the upload otherwise
         if (mOnWifiOnly && !Device.getNetworkType(mContext).equals(JobRequest.NetworkType.UNMETERED)) {
             Log_OC.d(TAG, "Upload delayed until WiFi is available: " + getRemotePath());
             remoteOperationResult = new RemoteOperationResult(ResultCode.DELAYED_FOR_WIFI);
-            return remoteOperationResult;
         }
 
         // check if charging conditions are met and delays the upload otherwise
@@ -764,21 +762,18 @@ public class UploadFileOperation extends SyncOperation {
                 .getBatteryPercent() < 1)) {
             Log_OC.d(TAG, "Upload delayed until the device is charging: " + getRemotePath());
             remoteOperationResult =  new RemoteOperationResult(ResultCode.DELAYED_FOR_CHARGING);
-            return remoteOperationResult;
         }
 
         // check that device is not in power save mode
         if (!mIgnoringPowerSaveMode && PowerUtils.isPowerSaveMode(mContext)) {
             Log_OC.d(TAG, "Upload delayed because device is in power save mode: " + getRemotePath());
             remoteOperationResult =  new RemoteOperationResult(ResultCode.DELAYED_IN_POWER_SAVE_MODE);
-            return remoteOperationResult;
         }
 
         // check if the file continues existing before schedule the operation
         if (!originalFile.exists()) {
             Log_OC.d(TAG, mOriginalStoragePath + " not exists anymore");
             remoteOperationResult =  new RemoteOperationResult(ResultCode.LOCAL_FILE_NOT_FOUND);
-            return remoteOperationResult;
         }
 
         return remoteOperationResult;
