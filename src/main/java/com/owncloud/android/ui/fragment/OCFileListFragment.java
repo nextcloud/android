@@ -907,11 +907,20 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
                     } else {
                         // update state and view of this fragment
                         searchFragment = false;
-                        listDirectory(file, MainApp.isOnlyOnDevice(), false);
-                        // then, notify parent activity to let it update its state and view
-                        mContainerActivity.onBrowsedDownTo(file);
-                        // save index and top position
-                        saveIndexAndTopPosition(position);
+
+                        if (mContainerActivity instanceof FolderPickerActivity &&
+                                ((FolderPickerActivity) mContainerActivity)
+                                        .isDoNotEnterEncryptedFolder()) {
+                            Snackbar.make(getListView(),
+                                    R.string.copy_move_to_encrypted_folder_not_supported,
+                                    Snackbar.LENGTH_LONG).show();
+                        } else {
+                            listDirectory(file, MainApp.isOnlyOnDevice(), false);
+                            // then, notify parent activity to let it update its state and view
+                            mContainerActivity.onBrowsedDownTo(file);
+                            // save index and top position
+                            saveIndexAndTopPosition(position);
+                        }
                     }
                 } else {
                     // update state and view of this fragment
