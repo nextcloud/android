@@ -52,6 +52,8 @@ import com.owncloud.android.datamodel.MediaProvider;
 import com.owncloud.android.datamodel.SyncedFolder;
 import com.owncloud.android.datamodel.SyncedFolderProvider;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
+import com.owncloud.android.datastorage.DataStorageProvider;
+import com.owncloud.android.datastorage.StoragePoint;
 import com.owncloud.android.db.PreferenceManager;
 import com.owncloud.android.jobs.NCJobCreator;
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
@@ -214,16 +216,51 @@ public class MainApp extends MultiDexApplication {
     }
 
     private void fixStoragePath() {
-        if (!PreferenceManager.getStoragePathFix(this) &&
-                appPrefs.getInt(WhatsNewActivity.KEY_LAST_SEEN_VERSION_CODE, 0) != 0) {
+        if (!PreferenceManager.getStoragePathFix(this)) {
+            StoragePoint[] storagePoints = DataStorageProvider.getInstance().getAvailableStoragePoints();
             String storagePath = appPrefs.getString(Preferences.PreferenceKeys.STORAGE_PATH, "");
             if (TextUtils.isEmpty(storagePath)) {
-                appPrefs.edit().putString(Preferences.PreferenceKeys.STORAGE_PATH,
-                        Environment.getExternalStorageDirectory().getAbsolutePath()).commit();
+                if (appPrefs.getInt(WhatsNewActivity.KEY_LAST_SEEN_VERSION_CODE, 0) != 0) {
+                /*
+                    We already used the app, but no storage is set - fix that! :)
+                 */
+                    appPrefs.edit().putString(Preferences.PreferenceKeys.STORAGE_PATH,
+                            Environment.getExternalStorageDirectory().getAbsolutePath()).commit();
+                    appPrefs.edit().remove(PreferenceManager.PREF__KEYS_MIGRATION).commit();
+                } else {
+                    // find internal storage path that's indexable
+                    boolean set = false;
+                    for (StoragePoint storagePoint : storagePoints) {
+                        if (storagePoint.getStorageType().equals(StoragePoint.StorageType.INTERNAL) &&
+                                storagePoint.getPrivacyType().equals(StoragePoint.PrivacyType.PUBLIC)) {
+                            appPrefs.edit().putString(Preferences.PreferenceKeys.STORAGE_PATH,
+                                    storagePoint.getPath()).commit();
+                            appPrefs.edit().remove(PreferenceManager.PREF__KEYS_MIGRATION).commit();
+                            set = true;
+                            break;
+                        }
+                    }
+
+                    if (!set) {
+                        for (StoragePoint storagePoint : storagePoints) {
+                            if (storagePoint.getPrivacyType().equals(StoragePoint.PrivacyType.PUBLIC)) {
+                                appPrefs.edit().putString(Preferences.PreferenceKeys.STORAGE_PATH,
+                                        Environment.getExternalStorageDirectory().getAbsolutePath()).commit();
+                                appPrefs.edit().remove(PreferenceManager.PREF__KEYS_MIGRATION).commit();
+                                set = true;
+                                break;
+                            }
+                        }
+
+                    }
+                }
+                PreferenceManager.setStoragePathFix(this, true);
+            } else {
                 appPrefs.edit().remove(PreferenceManager.PREF__KEYS_MIGRATION).commit();
+                PreferenceManager.setStoragePathFix(this, true);
             }
-            PreferenceManager.setStoragePathFix(this, true);
         } else {
+            appPrefs.edit().remove(PreferenceManager.PREF__KEYS_MIGRATION).commit();
             PreferenceManager.setStoragePathFix(this, true);
         }
     }

@@ -49,7 +49,7 @@ public class HardcodedStoragePointProvider extends AbstractStoragePointProvider 
 
         for (String s : PATHS) {
             if (canBeAddedToAvailableList(result, s)) {
-                result.add(new StoragePoint(s, s));
+                result.add(new StoragePoint(s, s, StoragePoint.StorageType.EXTERNAL, StoragePoint.PrivacyType.PUBLIC));
             }
         }
 
