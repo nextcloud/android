@@ -430,6 +430,9 @@ public class UploadFileOperation extends SyncOperation {
             // check conditions 
             result = checkConditions(originalFile);
 
+            if (result != null) {
+                return result;
+            }
             /***** E2E *****/
 
             // Lock folder
@@ -744,7 +747,7 @@ public class UploadFileOperation extends SyncOperation {
 
     private RemoteOperationResult checkConditions(File originalFile) {
         RemoteOperationResult remoteOperationResult = null;
-        
+
         // check that internet is not behind walled garden
         if (Device.getNetworkType(mContext).equals(JobRequest.NetworkType.ANY) ||
                 ConnectivityUtils.isInternetWalled(mContext)) {
@@ -790,6 +793,10 @@ public class UploadFileOperation extends SyncOperation {
         try {
             // check conditions
             result = checkConditions(originalFile);
+
+            if (result != null) {
+                return result;
+            }
 
             // check name collision
             checkNameCollision(client, null, false);
