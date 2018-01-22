@@ -94,6 +94,7 @@
     <string name="filedetails_select_file">اضغظ على الملف ليتم عرض خيارات أكثر</string>
     <string name="filedetails_download">تحميل</string>
     <string name="filedetails_sync_file">زامِن</string>
+    <string name="action_send_share">إرسال/مشاركة </string>
     <string name="common_yes">نعم</string>
     <string name="common_no">لا</string>
     <string name="common_ok">تم</string>
@@ -101,6 +102,7 @@
     <string name="common_cancel">إلغاء</string>
     <string name="common_back">رجوع</string>
     <string name="common_save">حفظ</string>
+    <string name="common_error">خطأ</string>
     <string name="common_loading">تحميل &#8230;</string>
     <string name="common_unknown">غير معروف</string>
     <string name="common_error_unknown">خطأ غير معروف. </string>
@@ -114,9 +116,12 @@
     <string name="uploader_info_dirname">اسم المجلد</string>
     <string name="uploader_upload_in_progress_ticker">يتم الرفع &#8230;</string>
     <string name="uploader_upload_in_progress_content">%1$d%% رفع %2$s</string>
+    <string name="uploader_upload_succeeded_ticker">تم رفعه</string>
     <string name="uploader_upload_succeeded_content_single">تم رفع %1$s</string>
     <string name="uploader_upload_failed_ticker">فشل الرفع</string>
+    <string name="uploader_upload_failed_content_single">فشل الرفع %1$s</string>
     <string name="uploader_upload_failed_credentials_error">فشل التحميل ، تحتاج للدخول مرة أخرى</string>
+    <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">شهادة الخادم غير موثوقة </string>
     <string name="uploads_view_title">التحميلات</string>
     <string name="uploads_view_group_current_uploads">الحالي</string>
     <string name="uploads_view_group_finished_uploads">تم رفعه</string>
@@ -367,4 +372,21 @@
     <string name="prefs_license">الرخصة</string>
     <string name="date_unknown">مجهول</string>
 
+    <string name="forward">إعادة توجيه </string>
+    <string name="version_dev_download">تنزيل</string>
+
+    <string name="send">ارسال</string>
+    <string name="share">مشاركة </string>
+    <string name="account_not_found">الحساب غير موجود </string>
+
+    <string name="screenshot_04_accounts">الاتصال بحسابات آخرى</string>
+    <string name="end_to_end_encryption_folder_not_empty">المجلد غير فارغ! </string>
+    <string name="end_to_end_encryption_decrypting">فك التشفير &#8230;</string>
+    <string name="end_to_end_encryption_retrieving_keys">يتم استرجاع المفاتيح </string>
+    <string name="end_to_end_encryption_enter_password">الرجاء أدخل كلمة المرور ليتم فك تشفير المفتاح الخاص! </string>
+    <string name="end_to_end_encryption_generating_keys">توليد مفاتيح جديدة &#8230;</string>
+    <string name="end_to_end_encryption_title">تنصيب التشفير</string>
+    <string name="end_to_end_encryption_confirm_button">تنصيب التشفير</string>
+    <string name="end_to_end_encryption_password"> كلمة المرور &#8230;</string>
+    <string name="end_to_end_encryption_dialog_close">إغلاق</string>
     </resources>
