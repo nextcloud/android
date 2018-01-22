@@ -371,11 +371,11 @@ public class UploadFileOperation extends SyncOperation {
         remoteParentPath = remoteParentPath.endsWith(OCFile.PATH_SEPARATOR) ?
                 remoteParentPath : remoteParentPath + OCFile.PATH_SEPARATOR;
 
-        RemoteOperationResult result = grantFolderExistence(remoteParentPath, client);
+        /*RemoteOperationResult result = grantFolderExistence(remoteParentPath, client);
 
         if (!result.isSuccess()) {
             return result;
-        }
+        }*/
 
         OCFile parent = getStorageManager().getFileByPath(remoteParentPath);
         mFile.setParentId(parent.getFileId());
@@ -743,37 +743,45 @@ public class UploadFileOperation extends SyncOperation {
     }
 
     private RemoteOperationResult checkConditions(File originalFile) {
+        RemoteOperationResult remoteOperationResult = null;
+        
         // check that internet is not behind walled garden
         if (Device.getNetworkType(mContext).equals(JobRequest.NetworkType.ANY) ||
                 ConnectivityUtils.isInternetWalled(mContext)) {
-            return new RemoteOperationResult(ResultCode.NO_NETWORK_CONNECTION);
+            remoteOperationResult =  new RemoteOperationResult(ResultCode.NO_NETWORK_CONNECTION);
+            return remoteOperationResult;
         }
 
+        JobRequest.NetworkType type = Device.getNetworkType(mContext);
         // check that connectivity conditions are met and delays the upload otherwise
         if (mOnWifiOnly && !Device.getNetworkType(mContext).equals(JobRequest.NetworkType.UNMETERED)) {
             Log_OC.d(TAG, "Upload delayed until WiFi is available: " + getRemotePath());
-            return new RemoteOperationResult(ResultCode.DELAYED_FOR_WIFI);
+            remoteOperationResult = new RemoteOperationResult(ResultCode.DELAYED_FOR_WIFI);
+            return remoteOperationResult;
         }
 
         // check if charging conditions are met and delays the upload otherwise
         if (mWhileChargingOnly && !Device.getBatteryStatus(mContext).isCharging()) {
             Log_OC.d(TAG, "Upload delayed until the device is charging: " + getRemotePath());
-            return new RemoteOperationResult(ResultCode.DELAYED_FOR_CHARGING);
+            remoteOperationResult =  new RemoteOperationResult(ResultCode.DELAYED_FOR_CHARGING);
+            return remoteOperationResult;
         }
 
         // check that device is not in power save mode
         if (!mIgnoringPowerSaveMode && PowerUtils.isPowerSaveMode(mContext)) {
             Log_OC.d(TAG, "Upload delayed because device is in power save mode: " + getRemotePath());
-            return new RemoteOperationResult(ResultCode.DELAYED_IN_POWER_SAVE_MODE);
+            remoteOperationResult =  new RemoteOperationResult(ResultCode.DELAYED_IN_POWER_SAVE_MODE);
+            return remoteOperationResult;
         }
 
         // check if the file continues existing before schedule the operation
         if (!originalFile.exists()) {
             Log_OC.d(TAG, mOriginalStoragePath + " not exists anymore");
-            return new RemoteOperationResult(ResultCode.LOCAL_FILE_NOT_FOUND);
+            remoteOperationResult =  new RemoteOperationResult(ResultCode.LOCAL_FILE_NOT_FOUND);
+            return remoteOperationResult;
         }
 
-        return null;
+        return remoteOperationResult;
     }
 
     private RemoteOperationResult normalUpload(OwnCloudClient client) {
