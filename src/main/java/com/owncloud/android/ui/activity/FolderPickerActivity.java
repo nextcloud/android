@@ -81,6 +81,7 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
     private boolean mSyncInProgress = false;
 
     private boolean mSearchOnlyFolders = false;
+    private boolean mDoNotEnterEncryptedFolder = false;
 
     protected Button mCancelBtn;
     protected Button mChooseBtn;
@@ -106,10 +107,12 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
                 case MOVE:
                     caption = getResources().getText(R.string.move_to).toString();
                     mSearchOnlyFolders = true;
+                    mDoNotEnterEncryptedFolder = true;
                     break;
                 case COPY:
                     caption = getResources().getText(R.string.copy_to).toString();
                     mSearchOnlyFolders = true;
+                    mDoNotEnterEncryptedFolder = true;
                     break;
                 default:
                     caption = ThemeUtils.getDefaultDisplayNameForRootFolder();
@@ -565,5 +568,9 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
                 startSyncFolderOperation(folder, ignoreETag);
             }
         }
+    }
+
+    public boolean isDoNotEnterEncryptedFolder() {
+        return mDoNotEnterEncryptedFolder;
     }
 }
