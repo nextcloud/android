@@ -47,7 +47,6 @@
     <string name="prefs_log_delete_history_button">Előzmények törlése</string>
     <string name="prefs_calendar_contacts">Naptár és Névjegyek szinkronizálása</string>
     <string name="prefs_calendar_contacts_summary">DAVdroid (v1.3.0+) beállítása a fiókhoz</string>
-    <string name="prefs_calendar_contacts_address_resolve_error">A fiók szerver címe nem feloldható a DAVdroid számára</string>
     <string name="prefs_calendar_contacts_no_store_error">Se az F-Droid se a Google Play nincs telepítve</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Szinkronizálás beállítva a &amp; naptárhoz</string>
     <string name="prefs_daily_contacts_sync_summary">Névjegyek napi mentése</string>
@@ -64,7 +63,6 @@
     <string name="auth_host_url">Kiszolgáló cím https://&#8230;</string>
     <string name="auth_username">Felhasználónév</string>
     <string name="auth_password">Jelszó</string>
-    <string name="auth_register">Nincs még saját szervere?\nKattintson ide a beszerzéshez az egyik szolgáltatótól</string>
     <string name="sync_string_files">Fájlok</string>
     <string name="setup_btn_connect">Kapcsolódás</string>
     <string name="uploader_btn_upload_text">Feltöltés</string>
@@ -102,20 +100,14 @@
     <string name="file_list_empty_headline_server_search_videos">Nincsenek videók</string>
     <string name="file_list_empty_headline_server_search_photos">Nincsenek képek</string>
     <string name="file_list_empty_search">Lehetséges, hogy másik mappában találhato?</string>
-    <string name="file_list_empty_recently_modified">Nem található 7 napon belül módosított fájl.</string>
-    <string name="file_list_empty_recently_modified_filter">A keresés nem talált 7 napon belül módosított fájlt.</string>
     <string name="file_list_empty_recently_added">Nem talált mostanában hozzáadott fájlt.</string>
-    <string name="file_list_empty_recently_added_filter">A keresés nem hozott mostanában hozzáadott fájlokat.</string>
     <string name="file_list_empty_text_photos">Az automatikus feltöltés aktiválásához tölts fel néhány képet.</string>
-    <string name="file_list_empty_text_photos_filter">A keresés nem talált fényképeket.</string>
     <string name="file_list_empty_text_videos">Az automatikus feltöltés aktiválásához tölts fel néhány videót.</string>
-    <string name="file_list_empty_text_videos_filter">A keresés nem talált videókat.</string>
     <string name="upload_list_empty_headline">Nincsenek feltöltések</string>
     <string name="upload_list_empty_text_auto_upload">Az automatikus feltöltés aktiválásához tölts fel valami tartalmat.</string>
     <string name="file_list_folder">mappa</string>
     <string name="filedetails_select_file">Érintsen meg egy fájlt a további információkért.</string>
     <string name="filedetails_download">Letöltés</string>
-    <string name="filedetails_sync_file">Szinkronizálás</string>
     <string name="filedetails_renamed_in_upload_msg">A fájl feltöltés közben átnevezve erre: %1$s</string>
     <string name="list_layout">Listás elrendezés</string>
     <string name="action_send_share">Küldés/Megosztás</string>
@@ -146,11 +138,8 @@
     <string name="uploader_upload_succeeded_content_single">%1$s feltöltve</string>
     <string name="uploader_upload_failed_ticker">A feltöltés nem sikerült</string>
     <string name="uploader_upload_failed_content_single">%1$s feltöltése sikertelen.</string>
-    <string name="uploader_upload_failed_credentials_error">Feltöltés sikertelen, újra be kell jelentkeznie.</string>
-    <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">A szerver tanúsítványa nem megbízható</string>
     <string name="uploads_view_title">Feltöltések</string>
     <string name="uploads_view_group_current_uploads">Jelenlegi</string>
-    <string name="uploads_view_group_failed_uploads">Sikertelen / Függő újraindítás</string>
     <string name="uploads_view_group_finished_uploads">Feltöltve</string>
     <string name="uploads_view_upload_status_succeeded">Befejezve</string>
     <string name="uploads_view_upload_status_cancelled">Megszakítva</string>
@@ -163,7 +152,6 @@
     <string name="uploads_view_upload_status_conflict">Ütközés</string>
     <string name="uploads_view_upload_status_service_interrupted">App megszakítva</string>
     <string name="uploads_view_upload_status_unknown_fail">Ismeretlen hiba</string>
-    <string name="uploads_view_upload_status_waiting_for_wifi">Wi-Fi kapcsolatra várakozik</string>
     <string name="uploads_view_upload_status_waiting_exit_power_save_mode">Energiatakarékos üzemmód elhagyására várunk</string>
     <string name="uploads_view_later_waiting_to_upload">Feltöltésre várakozás</string>
     <string name="downloader_download_in_progress_ticker">Letöltés &#8230;</string>
@@ -173,24 +161,13 @@
     <string name="downloader_download_failed_ticker">A letöltés sikertelen</string>
     <string name="downloader_download_failed_content">%1$s letöltése sikertelen</string>
     <string name="downloader_not_downloaded_yet">Még nem töltötte le</string>
-    <string name="downloader_download_failed_credentials_error">Letöltés hiba, újra be kell jelentkeznie</string>
     <string name="common_choose_account">Válasszon azonosítót</string>
     <string name="common_switch_account">Fiókváltás</string>
     <string name="sync_fail_ticker">Sziknronizálás hiba</string>
-    <string name="sync_fail_ticker_unauthorized">Szinkronizálás sikertelen, újra be kell jelentkezned!</string>
-    <string name="sync_fail_content">Nem sikerült befejezni a(z) %1$s szinkronizálását</string>
     <string name="sync_fail_content_unauthorized">Hibás jelszó ehhez: %1$s</string>
     <string name="sync_conflicts_in_favourites_ticker">Ütközések vannak</string>
     <string name="sync_fail_in_favourites_ticker">A szinkronizálandó fájlokat nem sikerült szinkronizálni</string>
-    <plurals name="sync_fail_in_favourites_content">
-        <item quantity="one">%1$d fájl szinkronizálása nem sikerült (%2$d ütközés)</item>
-        <item quantity="other">%1$d fájl szinkronizálása nem sikerült (%2$d ütközés)</item>
-    </plurals>
     <string name="sync_foreign_files_forgotten_ticker">Néhány helyi fájlt figyelmen kívül hagytunk</string>
-    <plurals name="sync_foreign_files_forgotten_content">
-        <item quantity="one">%1$d fájl a(z) %2$s mappába nem másolható be</item>
-        <item quantity="other">%1$d fájl a(z) %2$s mappába nem másolható be</item>
-    </plurals>
     <string name="sync_foreign_files_forgotten_explanation">A 1.3.16 verziótól kezdve, az erről az eszközről feltöltött fájlok ebbe a mappába kerülnek: %1$s az adatvesztés elkerülésére arra az esetre ha egy fájl szinkronizálása több fiókkal is kezelt.\n\nEmiatt a változás miatt, minden a korábbi verzió által feltöltött verziók ebbe a mappába kerültek: %2$s. Ugyanakkor ezen folyamat során hiba lépett fel. Vagy hagyhatod így ahogy van és törölheted a linket: %3$s, vagy átmozgathatod a fájl(oka)t  ebbe a mappába:%1$s és meghagyhatod a linket itt: %4$s.\n\nLent láthatod a helyi fájlok és mappák listáját ebben: %5$s ahova linkelve voltak.</string>
     <string name="sync_current_folder_was_removed">A(z) %1$s mappa már nem létezik</string>
     <string name="foreign_files_move">Mind mozgatása</string>
@@ -222,7 +199,6 @@
     <string name="media_err_malformed">A médiafájl hibásan kódolt</string>
     <string name="media_err_timeout">Lejátszási kísérlet időtúllépés</string>
     <string name="media_err_invalid_progressive_playback">A média fájl nem streamelhető</string>
-    <string name="media_err_unknown">A beépített médialejátszó nem tudja lejátszani a fájlt</string>
     <string name="media_err_security_ex">Biztonsági hiba a %1$s lejátszásakor</string>
     <string name="media_err_io_ex">Bemeneti hiba %1$s lejátszásakor</string>
     <string name="media_err_unexpected">Váratlan hiba %1$s lejátszásakor</string>
@@ -258,9 +234,7 @@
 	<string name="auth_expired_saml_sso_token_toast">Lejárt a munkamenetének érvényessége. Kérjük jelentkezzen be ismét!</string>
     <string name="auth_connecting_auth_server">Csatlakozás a hitelesítő szerverhez &#8230;</string>
 	<string name="auth_unsupported_multiaccount">%1$s nem támogat több bejelenkezési jogosultságot</string>
-	<string name="auth_fail_get_user_name">A szervered nem megfelelő felhasználó azonosítót ad vissza, lépj kapcsolatba egy rendszergazdával</string>
 	<string name="auth_can_not_auth_against_server">Nem lehet hitelesíteni a szerverhez</string>
-    <string name="auth_account_does_not_exist">Az eszközön még nem létezik fiók</string>
     <string name="auth_access_failed">Hozzáférés sikertelen</string>
 
     <string name="favorite">Állítsa be kapcsolat nélkül is elérhetőnek</string>
@@ -283,8 +257,6 @@
     <string name="sync_file_nothing_to_do_msg">Az fájlok már szinkronizálva vannak</string>
     <string name="create_dir_fail_msg">A mappa nem jött létre</string>
     <string name="filename_forbidden_characters">Nem megendedett karakterek: / \\ &lt; &gt; : \" | ? *</string>
-    <string name="filename_forbidden_charaters_from_server">A fájlnév legalább egy érvénytelen karaktert tartalmaz!</string>
-    <string name="filename_empty">A fájl név nem lehet üres</string>
     <string name="wait_a_moment">Egy pillanat &#8230;</string>
     <string name="wait_checking_credentials">Tárolt azonosítók ellenőrzése</string>
     <string name="filedisplay_no_file_selected">Egy fájl sincs kiválasztva.</string>
@@ -350,7 +322,6 @@
     <string name="prefs_instant_upload_path_use_subfolders_title">Almappák használata</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Tárolás év és hónap szerinti almappákban</string>
 
-	<string name="share_link_no_support_share_api">A megosztás nem engedélyezett a szerveren, lépj kapcsolatban a rendszergazdával</string>
 	<string name="share_link_file_no_exist">Nem lehet megosztani. Kérem ellenőrizze, hogy a fájl létezik-e?</string>
 	<string name="share_link_file_error">Hiba lépett fel a mappa megosztásakor</string>
 	<string name="unshare_link_file_no_exist">Nem lehet a megosztást kikapcsolni. Kérem ellenőrizze, hogy a fájl létezik-e?</string>
@@ -370,9 +341,6 @@
 
     <string name="error_cant_bind_to_operations_service">Kritikus hiba: művelet nem végrehajtható</string>
 
-    <string name="network_error_socket_exception">Hiba lépett fel a szerverhez való csatlakozás közben.</string>
-    <string name="network_error_socket_timeout_exception">Hiba lépett fel a szerverre várakozás közben. Művelet teljesíthetetlen.</string>
-    <string name="network_error_connect_timeout_exception">Hiba lépett fel a szerverre várakozás közben. Művelet teljesíthetetlen.</string>
     <string name="network_host_not_available">Művelet nem elvégezhető. A szerver elérhetetlen</string>
 
     <string name="forbidden_permissions">Nem engedélyezett %s</string>
@@ -386,22 +354,12 @@
     <string name="downloader_download_file_not_found">A fájl már nem érhető el a szerveren</string>
 
     <string name="file_migration_dialog_title">Tároló útvonal frissítés</string>
-    <string name="file_migration_waiting_for_unfinished_sync">Várakozás a szinkronizációk befejezésére &#8230;</string>
     <string name="file_migration_migrating">Adatok mozgatása &#8230;</string>
     <string name="file_migration_cleaning">Tisztítás &#8230;</string>
     <string name="file_migration_ok_finished">Kész</string>
-    <string name="file_migration_failed_not_enough_space">Hiba: kevés a hely</string>
-    <string name="file_migration_failed_not_writable">Hiba: célfájl nem írható</string>
-    <string name="file_migration_failed_not_readable">Hiba: forrásfájl nem olvasható</string>
-    <string name="file_migration_failed_dir_already_exists">Hiba: Nextcloud mappa már létezik</string>
-    <string name="file_migration_failed_while_coping">Hiba: sikertelen összevonás</string>
-    <string name="file_migration_failed_while_updating_index">Hiba: index nem frissíthető</string>
-
-    <string name="file_migration_directory_already_exists">Adatmappa már létezik. Válassz egyet a következőkből:</string>
     <string name="file_migration_override_data_folder">Csere</string>
     <string name="file_migration_use_data_folder">Használat</string>
 
-    <string name="file_migration_source_not_readable_title">Forrásmappa nem olvasható!</string>
     <string name="file_migration_source_not_readable">Biztosan erre változtatod a tárolási útvonalat: %1$s?\n\nMegjegyzés: minden adatot újra le kell tölteni.</string>
 
     <string name="prefs_add_account">Fiók hozzáadása</string>
@@ -414,7 +372,6 @@
 	<string name="log_send_mail_subject">%1$s Android alkalmazás naplók</string>
 	<string name="log_progress_dialog_text">Adatok betöltése &#8230;</string>
 
-	<string name="saml_authentication_required_text">Felhasználóazonosítás szükséges</string>
 	<string name="saml_authentication_wrong_pass">Hibás jelszó</string>
 	<string name="actionbar_move">Áthelyezés</string>
     <string name="actionbar_copy">Másol</string>
@@ -436,9 +393,7 @@
 
     <string name="prefs_category_details">Részletek</string>
 
-    <string name="sync_folder_failed_content">%1$s mappa szinkronizációját nem lehet végrehajtani</string>
-
-	<string name="subject_user_shared_with_you">%1$s megosztotta veled: \"%2$s\"</string>
+    <string name="subject_user_shared_with_you">%1$s megosztotta veled: \"%2$s\"</string>
     <string name="subject_shared_with_you">\"%1$s\" meg lett osztva veled</string>
 
     <string name="auth_refresh_button">Kapcsolat frissítése</string>
@@ -490,8 +445,6 @@
     <string name="share_email_clarification">%1$s (e-mail)</string>
     <string name="share_known_remote_clarification">%1$s ( itt: %2$s )</string>
 
-    <string name="share_sharee_unavailable">Frissítsd a szerveredet, a felhasználók egymás-közti megosztásának engedélyezéséhez.
-Lépj kapcsolatba a rendszergazdával</string>
     <string name="filedetails_share_link_enable">Linkben megosztás engedélyezése</string>
     <string name="filedetails_share_link_disable">Nincs linkkel megosztva</string>
     <string name="filedetails_share_users_with_access">Hozzáféréssel rendelkező felhasználók és csoportok</string>
@@ -521,7 +474,6 @@ Lépj kapcsolatba a rendszergazdával</string>
 
     <string name="uploads_view_upload_status_waiting_for_charging">Töltésre vár</string>
     <string name="actionbar_search">Keresés</string>
-    <string name="files_drop_not_supported">Ez egy Nextcloud funkció, kérlek frissíts.</string>
     <string name="learn_more">Tudj meg többet</string>
     <string name="drawer_synced_folders">Automatikus feltöltés</string>
     <string name="drawer_participate">Részvétel</string>
@@ -623,9 +575,7 @@ hozzáadások, változások és megosztások</string>
     <!-- Notifications -->
     <string name="new_notification_received">Új értesítés</string>
     <string name="drawer_logout">Kijelentkezés</string>
-    <string name="picture_set_as_no_app">Nincs alkalmazás a képbeállításhoz</string>
     <string name="privacy">Titoktartás</string>
-    <string name="file_not_found">Fájl nincs meg!</string>
     <!-- Auto upload -->
     <string name="autoupload_custom_folder">Saját mappa beállítása</string>
     <string name="autoupload_create_new_custom_folder">Új saját mappa beállítások létrehozása</string>
@@ -653,31 +603,9 @@ hozzáadások, változások és megosztások</string>
     <string name="resized_image_not_possible_download">Átméretezett kép nem elérhető. Letöltsem a teljes képet?</string>
     <string name="resized_images_download_full_image">Teljes kép letöltése?</string>
 
-    <string name="store_short_desc">A Nextcloud Android alkalmazás segítségével hozzáférhetsz a saját Nextcloud-on tárolt fájlaidhoz.</string>
-    <string name="store_full_desc">A nyílt forrású Nextcloud android app segítségével hozzáférhetsz a saját Nextcloudod fájljaihoz.
-
-Szolgáltatások:
-* Egyszerű, modern felület, mely teljesen személyre szabott, igazodik a szerveredhez
-* Fájl feltöltés  a saját Nextcloud szerveredre
-* Fájl megosztás másokkal
-* Kedvenc mappád fájljaid szinkronizálása
-* Keresés a szerver mappái között
-* Az eszközöddel készített videók és képek automatikus feltöltése
-* Értesítések fogadása
-* Több hozzáférés támogatása
-* Biztonságosa adatelérés PIN vagy ujjlenyomat segítségével
-* Kapcsolódás a DAVdroiddal a naptár és névjegy szinkronizálás megkönnyítésére
-
-Kérjük jelents minden hibát a https://github.com/nextcloud/android/issues címen és beszélgess az appról itt: https://help.nextcloud.com/c/clients/android
-
-Új neked a Nextcloud? A Nextcloud egy privát fájl szinkronizáló, megosztó és kommunikációs szerver. Teljesen nyílt forrású, melyet magad is futtathatsz, vagy fizethetsz más cégeknek, hogy megtegyék neked. Segítségével teljesen ura lehetsz saját képeidnek, naptáradnak, kapcsolataidnak, fájljaidnak és minden egyebednek.
-
-A Nextcloud itt érhető el: https://nextcloud.com</string>
-
     <string name="drawer_current_account">Jelenlegi fiók</string>
     <string name="drawer_middle_account">Középső fiók</string>
     <string name="drawer_end_account">Utolsó fiók</string>
-    <string name="contactlist_item_icon">Kapcsolati lista felhasználó ikon</string>
     <string name="activity_icon">Aktivitás ikon</string>
     <string name="file_icon">Fájl ikon</string>
     <string name="user_icon">Felhasználó ikon</string>
@@ -691,12 +619,6 @@ A Nextcloud itt érhető el: https://nextcloud.com</string>
     <string name="shared_icon">Megosztva ikon</string>
     <string name="overflow_menu">Túlfutó menü</string>
     <string name="share_file_icon">Fájl megosztás ikon</string>
-    <string name="sort_by_name_ascending">Név szerint növekvő sorrend</string>
-    <string name="sort_by_modification_date_ascending">Módosítási dátum szerint növekvő sorrend</string>
-    <string name="sort_by_size_descending">Méret szerint csökkenő sorrend</string>
-    <string name="sort_by_size_ascending">Méret szerint növekvő sorrend</string>
-    <string name="sort_by_name_descending">Név szerint csökkenő sorrend</string>
-    <string name="sort_by_modification_date_descending">Módosítási dátum szerint csökkenőq sorrend</string>
     <string name="synced_folders_type">Típus</string>
     <string name="sync_status_button">Szinkronizálás állapota gomb</string>
     <string name="synced_folder_settings_button">Beállítások gomb</string>
@@ -706,8 +628,6 @@ A Nextcloud itt érhető el: https://nextcloud.com</string>
     <string name="what_s_new_image">Mi újság gomb</string>
 
     <string name="store_short_dev_desc">A Nextcloud Dev app egy fejlesztői pillanatkép és párhuzamosan telepíthető.</string>
-    <string name="store_full_dev_desc">A nyílt forráskódú Nextcloud Android app lehetővé teszi a fáljaid elérését a Nextcloud-odban.\nEz a hivatalos Nextcloud app fejlesztői változata és új, esetleg instabil megoldásokat tartalmazhat, melyek hibákhoz, adatvesztéshez vezethetnek. Az appot olyanoknak szánjuk, akik hajlandóak tesztelni azt és jelenteni az esetleges hibákat. Ne használd éles környezetben.\n\nA fejlesztői verzió párhuzamosan telepíthető és az F-Droidból is elérhető.. Naponta egyszer kerül ellenőrzésre a forráskód változása, így lehetséges nagyobb kihagyás két kiadás között.</string>
-
     <string name="prefs_category_dev">Dev</string>
     <string name="dev_version_no_information_available">Nincs információ.</string>
     <string name="dev_version_no_new_version_available">Nincs új verzió.</string>
@@ -735,18 +655,13 @@ A Nextcloud itt érhető el: https://nextcloud.com</string>
     <string name="screenshot_03_drawer">Férj hozzá gyorsan az aktivitáshoz, megosztáshoz, offline fájlokhoz és még máshoz</string>
     <string name="screenshot_04_accounts">Kapcsolódás más fiókokhoz</string>
     <string name="screenshot_05_autoUpload">Automatikus Fotó &amp; videó feltöltés</string>
-    <string name="screenshot_06_davdroid">Naptár &amp; Kapcsolatok szinkronizálása DAVdroid segítségével</string>
-    
     <string name="userinfo_no_info_headline">Nincs személyes információ beállítva</string>
     <string name="userinfo_no_info_text">Név, kép és kapcsolat adatok hozzáadása a profil oldaladhoz.</string>
     <string name="account_icon">Fiók ikon</string>
     
-    <string name="end_to_end_encryption_folder_not_empty">A mappa nem üres!</string>
     <string name="end_to_end_encryption_wrong_password">Hiba történt a visszafejtés közben. Rossz jelszó?</string>
     <string name="end_to_end_encryption_title">Titkosítás beállítása</string>
-    <string name="end_to_end_encryption_not_supported">A titkosítás KitKat előtt nem támogatott.</string>
     <string name="end_to_end_encryption_confirm_button">Titkosítás beállítása</string>
-    <string name="end_to_end_encryption_unsuccessful">Nem sikerült a kulcsok tárolása, próbáld meg újra!</string>
     <string name="end_to_end_encryption_dialog_close">Bezár</string>
     <string name="end_to_end_encryption_storing_keys">Kulcsok eltárolása</string>
-</resources>
+    </resources>

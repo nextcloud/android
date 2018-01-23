@@ -47,7 +47,6 @@
     <string name="prefs_log_delete_history_button">履歴の削除</string>
     <string name="prefs_calendar_contacts">コンタクト &amp; カレンダーを同期</string>
     <string name="prefs_calendar_contacts_summary">DAVdroid (v1.3.0以上) を現在のアカウントで使う</string>
-    <string name="prefs_calendar_contacts_address_resolve_error">DAVdroid でアカウントのサーバーアドレスが解決できませんでした。</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">カレンダー &amp; 連絡先の同期設定しました</string>
     <string name="prefs_help">ヘルプ</string>
     <string name="prefs_recommend">友達に推奨</string>
@@ -57,7 +56,6 @@
 	<string name="auth_check_server">サーバーのチェック</string>
     <string name="auth_username">ユーザー名</string>
     <string name="auth_password">パスワード</string>
-    <string name="auth_register">まだサーバーがありませんか？\nここをクリックして、プロバイダーから取得してください</string>
     <string name="sync_string_files">ファイル</string>
     <string name="setup_btn_connect">接続</string>
     <string name="uploader_btn_upload_text">アップロード</string>
@@ -94,19 +92,14 @@
     <string name="file_list_empty_headline_server_search_videos">ビデオなし</string>
     <string name="file_list_empty_headline_server_search_photos">写真なし</string>
     <string name="file_list_empty_search">別のフォルダーにありませんか？</string>
-    <string name="file_list_empty_recently_modified">過去 7 日間に更新されたファイルは見つかりません</string>
     <string name="file_list_empty_recently_added">最近追加されたファイルはありません</string>
-    <string name="file_list_empty_recently_added_filter">検索条件に該当する、最近追加されたファイルが見つかりませんでした。</string>
     <string name="file_list_empty_text_photos">写真をアップロードするか、自動アップロードを有効にしてください。</string>
-    <string name="file_list_empty_text_photos_filter">検索条件に該当する写真が見つかりませんでした。</string>
     <string name="file_list_empty_text_videos">動画をアップロードするか、自動アップロードを有効にしてください。</string>
-    <string name="file_list_empty_text_videos_filter">検索条件に該当する動画が見つかりませんでした。</string>
     <string name="upload_list_empty_headline">アップロードは利用できません</string>
     <string name="upload_list_empty_text_auto_upload">何かコンテンツをアップロードするか、自動アップロードを有効にしてください。</string>
     <string name="file_list_folder">フォルダー</string>
     <string name="filedetails_select_file">ファイルをタップすると追加情報が表示されます。</string>
     <string name="filedetails_download">ダウンロード</string>
-    <string name="filedetails_sync_file">ファイルを同期</string>
     <string name="list_layout">リスト表示</string>
     <string name="common_yes">はい</string>
     <string name="common_no">いいえ</string>
@@ -133,7 +126,6 @@
     <string name="uploader_upload_succeeded_content_single">%1$s は正常にアップロードされました</string>
     <string name="uploader_upload_failed_ticker">アップロードに失敗</string>
     <string name="uploader_upload_failed_content_single">%1$sをアップロードできませんでした</string>
-    <string name="uploader_upload_failed_credentials_error">アップロードに失敗しました,ログインし直す必要があります</string>
     <string name="uploads_view_title">アップロード</string>
     <string name="uploads_view_group_current_uploads">現在</string>
     <string name="uploads_view_group_finished_uploads">アップロード済み</string>
@@ -147,7 +139,6 @@
     <string name="uploads_view_upload_status_failed_permission_error">権限エラー</string>
     <string name="uploads_view_upload_status_conflict">競合</string>
     <string name="uploads_view_upload_status_unknown_fail">不明なエラー</string>
-    <string name="uploads_view_upload_status_waiting_for_wifi">Wi-Fiが接続状態になるのを待っています</string>
     <string name="uploads_view_later_waiting_to_upload">アップロード待ち</string>
     <string name="downloader_download_in_progress_ticker">ダウンロード中 &#8230;</string>
     <string name="downloader_download_in_progress_content">%1$d%% ダウンロード中 %2$s</string>
@@ -156,11 +147,8 @@
     <string name="downloader_download_failed_ticker">ダウンロードに失敗</string>
     <string name="downloader_download_failed_content">%1$sをダウンロードできませんでした</string>
     <string name="downloader_not_downloaded_yet">未ダウンロード</string>
-    <string name="downloader_download_failed_credentials_error">ダウンロードに失敗しました,ログインし直す必要があります</string>
     <string name="common_choose_account">アカウントを選択</string>
     <string name="sync_fail_ticker">同期の失敗</string>
-    <string name="sync_fail_ticker_unauthorized">同期に失敗しました。再度ログインし直す必要があります。</string>
-    <string name="sync_fail_content">%1$sの同期が完了できませんでした</string>
     <string name="sync_fail_content_unauthorized">%1$sのパスワードが間違っています</string>
     <string name="sync_conflicts_in_favourites_ticker">競合が見つかりました</string>
     <string name="sync_fail_in_favourites_ticker">ファイルの同期に失敗しました</string>
@@ -213,8 +201,6 @@
     <string name="rename_dialog_title">新しい名前を入力</string>
     <string name="sync_file_nothing_to_do_msg">ファイルコンテンツはすでに同期されています</string>
     <string name="filename_forbidden_characters">使用できない文字: / \\ &lt; &gt; : \" | ? *</string>
-    <string name="filename_forbidden_charaters_from_server">ファイル名に1文字以上の無効な文字が含まれています</string>
-    <string name="filename_empty">ファイル名を空にすることはできません。</string>
     <string name="wait_checking_credentials">保存された資格情報をチェック</string>
     <string name="activity_chooser_title">リンクを送信&#8230;</string>
     <string name="wait_for_tmp_copy_from_private_storage">プライベートストレージからファイルをコピー中</string>
@@ -293,7 +279,6 @@
 	<string name="log_send_mail_subject">%1$s アンドロイドアプリログ</string>
 	<string name="log_progress_dialog_text">データの読込中 &#8230;</string>
 
-	<string name="saml_authentication_required_text">認証を必要とする</string>
 	<string name="saml_authentication_wrong_pass">パスワードが間違っています</string>
 	<string name="actionbar_move">移動</string>
     <string name="actionbar_copy">コピー</string>
@@ -309,9 +294,7 @@
 
     <string name="prefs_category_details">詳細</string>
 
-    <string name="sync_folder_failed_content">%1$s フォルダーの同期が完了しませんでした。</string>
-
-	<string name="subject_user_shared_with_you">%1$s は \"%2$s\" をあなたと共有しました</string>
+    <string name="subject_user_shared_with_you">%1$s は \"%2$s\" をあなたと共有しました</string>
     <string name="subject_shared_with_you">\"%1$s\" があなたと共有しました</string>
 
     <string name="auth_refresh_button">再接続中</string>
@@ -360,7 +343,6 @@
     <string name="manage_space_clear_data">データのクリア</string>
 
     <string name="actionbar_search">検索</string>
-    <string name="files_drop_not_supported">これはNextCloudの機能です。更新してください。</string>
     <string name="learn_more">もっと見る</string>
     <string name="drawer_participate">参加する</string>
     <string name="participate_beta_headline">開発バージョンをテスト</string>

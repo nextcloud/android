@@ -47,7 +47,6 @@
     <string name="prefs_log_delete_history_button">Hapus riwayat</string>
     <string name="prefs_calendar_contacts">Sinkronkan kalender &amp; kontak</string>
     <string name="prefs_calendar_contacts_summary">Atur DAVdroid (v1.3.0+) untuk akun saat ini</string>
-    <string name="prefs_calendar_contacts_address_resolve_error">Alamat server untuk akun tidak dapat diselesaikan untuk DAVdroid</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Pemasangan kalender &amp; kontak</string>
     <string name="prefs_daily_contacts_sync_summary">Cadangkan kontak harian</string>
     <string name="prefs_help">Bantuan</string>
@@ -59,7 +58,6 @@
     <string name="auth_host_url">Alamat server https://&#8230;</string>
     <string name="auth_username">Nama Pengguna</string>
     <string name="auth_password">Sandi</string>
-    <string name="auth_register">Belum memiliki server?\nKlik disini untuk untuk mendapatkannya dari salah satu penyedia jasa</string>
     <string name="sync_string_files">Berkas</string>
     <string name="setup_btn_connect">Sambungkan</string>
     <string name="uploader_btn_upload_text">Unggah</string>
@@ -96,20 +94,14 @@
     <string name="file_list_empty_headline_server_search_videos">Tidak ada Video</string>
     <string name="file_list_empty_headline_server_search_photos">Tidak ada Foto</string>
     <string name="file_list_empty_search">Mungkin ada di folder yang berbeda?</string>
-    <string name="file_list_empty_recently_modified">Tidak ditemukan berkas yang diubah 7 hari terakhir</string>
-    <string name="file_list_empty_recently_modified_filter">Pencarian tidak menemukan berkas yang diubah 7 hari terakhir.</string>
     <string name="file_list_empty_recently_added">Tidak ditemukan berkas yang baru ditambah</string>
-    <string name="file_list_empty_recently_added_filter">Pencarian tidak menemukan berkas yang baru ditambah</string>
     <string name="file_list_empty_text_photos">Unggah beberapa foto atau aktifkan unggah otomatis.</string>
-    <string name="file_list_empty_text_photos_filter">Pencarian tidak menemukan foto</string>
     <string name="file_list_empty_text_videos">Unggah video atau aktifkan unggah otomatis.</string>
-    <string name="file_list_empty_text_videos_filter">Pencarian tidak menemukan video</string>
     <string name="upload_list_empty_headline">Tidak ada unggahan yang tersedia</string>
     <string name="upload_list_empty_text_auto_upload">Unggah beberapa foto atau aktifkan unggah otomatis.</string>
     <string name="file_list_folder">folder</string>
     <string name="filedetails_select_file">Sentuh pada berkas untuk menampilkan informasi tambahan</string>
     <string name="filedetails_download">Unduh</string>
-    <string name="filedetails_sync_file">Sinkronisasi</string>
     <string name="filedetails_renamed_in_upload_msg">Nama berkas diubah menjadi  %1$s waktu diunggah</string>
     <string name="list_layout">Daftar tampilan</string>
     <string name="common_yes">Ya</string>
@@ -137,10 +129,8 @@
     <string name="uploader_upload_succeeded_content_single">%1$s terunggah</string>
     <string name="uploader_upload_failed_ticker">Gagal mengunggah</string>
     <string name="uploader_upload_failed_content_single">Tidak bisa mengunggah %1$s</string>
-    <string name="uploader_upload_failed_credentials_error">Mungunggah gagal, kamu harus masuk log lagi</string>
     <string name="uploads_view_title">Unggah</string>
     <string name="uploads_view_group_current_uploads">Saat ini</string>
-    <string name="uploads_view_group_failed_uploads">Ulangi proses yang gagal/tertunda</string>
     <string name="uploads_view_group_finished_uploads">Terunggah</string>
     <string name="uploads_view_upload_status_succeeded">Selesai</string>
     <string name="uploads_view_upload_status_cancelled">Dibatalkan</string>
@@ -153,7 +143,6 @@
     <string name="uploads_view_upload_status_conflict">Konflik</string>
     <string name="uploads_view_upload_status_service_interrupted">Aplikasi ditutup</string>
     <string name="uploads_view_upload_status_unknown_fail">Kesalahan tidak diketahui</string>
-    <string name="uploads_view_upload_status_waiting_for_wifi">Menunggu koneksi Wi-Fi</string>
     <string name="uploads_view_later_waiting_to_upload">Menunggu unggahan</string>
     <string name="downloader_download_in_progress_ticker">Mengunduh &#8230;</string>
     <string name="downloader_download_in_progress_content">%1$d%% Mengunduh %2$s</string>
@@ -162,11 +151,8 @@
     <string name="downloader_download_failed_ticker">Gagal Mengunduh</string>
     <string name="downloader_download_failed_content">Tidak bisa mengunduh %1$s</string>
     <string name="downloader_not_downloaded_yet">Belum diunduh</string>
-    <string name="downloader_download_failed_credentials_error">Pengunduhan gagal, mohon log masuk lagi</string>
     <string name="common_choose_account">Pilih akun</string>
     <string name="sync_fail_ticker">Sinkron gagal</string>
-    <string name="sync_fail_ticker_unauthorized">Sinkronisasi gagal, anda harus masuk ulang.</string>
-    <string name="sync_fail_content">Tidak dapat menyelesaikan proses sinkronisasi %1$s</string>
     <string name="sync_fail_content_unauthorized">Sandi salah untuk %1$s</string>
     <string name="sync_conflicts_in_favourites_ticker">Konflik ditemukan</string>
     <string name="sync_fail_in_favourites_ticker">Berkas kept-in-sync gagal</string>
@@ -190,7 +176,6 @@
     <string name="media_err_malformed">Berkas media tidak di encoding dengan benar</string>
     <string name="media_err_timeout">Waktu habis saat mencoba untuk main</string>
     <string name="media_err_invalid_progressive_playback">Berkas media tidak bisa di streaming</string>
-    <string name="media_err_unknown">Berkas media tidak dapat diputar dengan pemutar media yang ada</string>
     <string name="media_err_security_ex">Kesalahan keamanan saat mencoba memutar %1$s</string>
     <string name="media_err_io_ex">Kesalahan masukan saat mencoba memutar %1$s</string>
     <string name="media_err_unexpected">Kesalahan tak terduga saat mencoba memutar %1$s</string>
@@ -225,9 +210,7 @@
 	<string name="auth_expired_basic_auth_toast">Masukkan kata sandi</string>
 	<string name="auth_expired_saml_sso_token_toast">Sesi Anda telah berakhir. Silakan masuk kembali</string>
     <string name="auth_unsupported_multiaccount">%1$s tidak mendukung banyak akun </string>
-	<string name="auth_fail_get_user_name">Server tidak memberikan id pengguna dengan benar, hubungi Administrator </string>
 	<string name="auth_can_not_auth_against_server">Tidak terotentikasi ke server ini</string>
-    <string name="auth_account_does_not_exist">Akun belum ada di perangkat ini</string>
     <string name="auth_access_failed">Akses gagal.</string>
 
     <string name="favorite">Atur untuk tersedia luring</string>
@@ -240,8 +223,6 @@
     <string name="sync_file_nothing_to_do_msg">Isi berkas sudah diselaraskan</string>
     <string name="create_dir_fail_msg">Folder tidak dapat dibuat</string>
     <string name="filename_forbidden_characters">Karakter yang dilarang: / \\ &lt; &gt; : \" | ? *</string>
-    <string name="filename_forbidden_charaters_from_server">Nama berkas berisi setidaknya satu karakter yang tidak sah</string>
-    <string name="filename_empty">Nama berkas tidak boleh kosong</string>
     <string name="wait_checking_credentials">Mengecek kredensial yang tersimpan</string>
     <string name="filedisplay_no_file_selected">Tidak ada berkas yang dipilih</string>
     <string name="activity_chooser_title">Kirim taukan ke &#8230;</string>
@@ -298,7 +279,6 @@
     <string name="prefs_instant_upload_path_use_subfolders_title">Gunakan subfolder</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Simpan dalam subfolder berdasarkan tahun dan bulan</string>
 
-	<string name="share_link_no_support_share_api">Fasilitas berbagi tidak diaktifkan di server anda. Hubungi administrator</string>
 	<string name="share_link_file_no_exist">Tidak dapat berbagi. Mohon periksa apakah berkas ada</string>
 	<string name="share_link_file_error">Terjadi kesalahan saat mencoba membagikan berkas atau folder ini</string>
 	<string name="unshare_link_file_no_exist">Tidak dapat menghapus berbagi. Mohon periksa apakah berkas ada</string>
@@ -318,9 +298,6 @@
 
     <string name="error_cant_bind_to_operations_service">Kesalahan fatal: tidak dapat melakukan operasi</string>
 
-    <string name="network_error_socket_exception">Terjadi kesalahan saat menghubungi server.</string>
-    <string name="network_error_socket_timeout_exception">Terjadi kesalahan saat menunggu balasan server, operasi tidak dapat diselesaikan</string>
-    <string name="network_error_connect_timeout_exception">Terjadi kesalahan saat menunggu balasan server, operasi tidak dapat diselesaikan</string>
     <string name="network_host_not_available">Operasi tidak dapat diselesaikan, server tidak tersedia</string>
 
     <string name="forbidden_permissions">Anda tidak memiliki izin %s</string>
@@ -335,16 +312,9 @@
 
     <string name="file_migration_dialog_title">Memperbarui jalur penyimpanan</string>
     <string name="file_migration_ok_finished">Selesai</string>
-    <string name="file_migration_failed_not_enough_space">GALAT: Penyimpanan tidak cukup</string>
-    <string name="file_migration_failed_not_writable">GALAT: Berkas tidak dapat ditulis</string>
-    <string name="file_migration_failed_not_readable">GALAT: Berkas sumber tidak dapat dibaca</string>
-    <string name="file_migration_failed_dir_already_exists">GALAT: Direktori Nextcloud sudah ada</string>
-    <string name="file_migration_failed_while_coping">GALAT: Ketika migrasi</string>
-    <string name="file_migration_directory_already_exists">Data folder sudah ada, pilih salah satu?</string>
     <string name="file_migration_override_data_folder">Timpa</string>
     <string name="file_migration_use_data_folder">Gunakan</string>
 
-    <string name="file_migration_source_not_readable_title">Folder sumber tidak bisa dibaca</string>
     <string name="file_migration_source_not_readable">Apakah anda masih ingin merubah lokasi penyimpanan ke %1$s?\n\nCatatan: Semua data akan diunduh ulang.</string>
 
     <string name="prefs_add_account">Tambah akun</string>
@@ -357,7 +327,6 @@
 	<string name="log_send_mail_subject">%1$s Android apl log</string>
 	<string name="log_progress_dialog_text">Memuat data &#8230;</string>
 
-	<string name="saml_authentication_required_text">Diperlukan otentikasi</string>
 	<string name="saml_authentication_wrong_pass">Sandi salah</string>
 	<string name="actionbar_move">Pindah</string>
     <string name="actionbar_copy">Salin</string>
@@ -379,9 +348,7 @@
 
     <string name="prefs_category_details">Rincian</string>
 
-    <string name="sync_folder_failed_content">Sinkronisasi folder %1$s tidak dapat diselesaikan</string>
-
-	<string name="subject_user_shared_with_you">%1$s dibagikan \"%2$s\" kepada Anda</string>
+    <string name="subject_user_shared_with_you">%1$s dibagikan \"%2$s\" kepada Anda</string>
     <string name="subject_shared_with_you">\"%1$s\" telah membagikan dengan Anda</string>
 
     <string name="auth_refresh_button">Menyegarkan sambungan</string>
@@ -423,7 +390,6 @@
     <string name="share_email_clarification">%1$s (surel)</string>
     <string name="share_known_remote_clarification">%1$s ( di %2$s )</string>
 
-    <string name="share_sharee_unavailable">Perbaharui versi server untuk mengijikan berbagi data antar pengguna dari aplikasi client mereka. \nSilahkan kontak admin.</string>
     <string name="filedetails_share_link_enable">Berbagi dengan link diaktifkan</string>
     <string name="filedetails_share_link_disable">Tidak dibagikan dengan tautan.</string>
     <string name="filedetails_share_users_with_access">Pengguna dan Grup dengan hak akses.</string>
@@ -451,7 +417,6 @@
 
     <string name="uploads_view_upload_status_waiting_for_charging">Menunggu dicas.</string>
     <string name="actionbar_search">Cari</string>
-    <string name="files_drop_not_supported">Ini adalah fitur Nextcloud, harap perbarui.</string>
     <string name="learn_more">Pelajari lebih lanjut</string>
     <string name="drawer_synced_folders">Unggah otomatis.</string>
     <string name="drawer_participate">Berpartisipasi</string>
@@ -533,9 +498,7 @@
     <string name="contacts_preferences_backup_scheduled">Jadwalkan pencadangan dan jalankan sebentar lagi.</string>
     <string name="contacts_preferences_import_scheduled">Impor jadwal dan jalankan sebentar lagi.</string>
 
-    <string name="picture_set_as_no_app">Aplikasi tidak ditemukan untuk men-set gambar.</string>
     <string name="privacy">Privasi</string>
-    <string name="file_not_found">Berkas tidak ditemukan!</string>
     <!-- Auto upload -->
     <string name="autoupload_custom_folder">Pasang folder kostum.</string>
     <string name="autoupload_create_new_custom_folder">Buat kostum folder baru.</string>

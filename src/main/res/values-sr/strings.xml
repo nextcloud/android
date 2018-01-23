@@ -47,7 +47,6 @@
     <string name="prefs_log_delete_history_button">Обриши историјат</string>
     <string name="prefs_calendar_contacts">Синхронизуј календар и контакте</string>
     <string name="prefs_calendar_contacts_summary">Подеси ДАВдроид (в1.3.0+) за тренутни налог</string>
-    <string name="prefs_calendar_contacts_address_resolve_error">Адреса сервера за налог не може бити пронађена за ДАВдроид</string>
     <string name="prefs_calendar_contacts_no_store_error">Ни Ф-дроид ни Гугл плеј продавница нису инсталиране</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Календар и синхронизација контаката подешени</string>
     <string name="prefs_daily_contacts_sync_summary">Дневно архивирање ваших контаката</string>
@@ -64,7 +63,6 @@
     <string name="auth_host_url">Адреса сервера https://&#8230;</string>
     <string name="auth_username">Корисничко име</string>
     <string name="auth_password">Лозинка</string>
-    <string name="auth_register">Немате сервер?\nПритисините овде да нађете неког од провајдера</string>
     <string name="sync_string_files">Фајлови</string>
     <string name="setup_btn_connect">Повежи се</string>
     <string name="uploader_btn_upload_text">Отпреми</string>
@@ -102,20 +100,14 @@
     <string name="file_list_empty_headline_server_search_videos">Нема видео снимака</string>
     <string name="file_list_empty_headline_server_search_photos">Нема слика</string>
     <string name="file_list_empty_search">Можда су у некој другој фасцикли?</string>
-    <string name="file_list_empty_recently_modified">Није пронађен ниједан фајл промењен у последњих 7 дана</string>
-    <string name="file_list_empty_recently_modified_filter">Претрага није вратила ниједан фајл промењен у последњих 7 дана.</string>
     <string name="file_list_empty_recently_added">Нема скоро додатих фајлова</string>
-    <string name="file_list_empty_recently_added_filter">Ваша претрага није пронашла ниједан скоро додати фајл.</string>
     <string name="file_list_empty_text_photos">Отпремите неке слике или укључите аутоматско отпремање.</string>
-    <string name="file_list_empty_text_photos_filter">Ваша претрага није пронашла ниједну слику.</string>
     <string name="file_list_empty_text_videos">Отпремите неке видео записе или укључите аутоматско отпремање.</string>
-    <string name="file_list_empty_text_videos_filter">Ваша претрага није пронашла ниједан видео.</string>
     <string name="upload_list_empty_headline">Нема доступних отпремања</string>
     <string name="upload_list_empty_text_auto_upload">Отпремите неки садржај или укључите аутоматско отпремање.</string>
     <string name="file_list_folder">фасцикла</string>
     <string name="filedetails_select_file">Кликните на фајл ради приказа додатних информација.</string>
     <string name="filedetails_download">Преузми</string>
-    <string name="filedetails_sync_file">Синхронизуј</string>
     <string name="filedetails_renamed_in_upload_msg">Фајл преименован у %1$sза време отпремања</string>
     <string name="list_layout">Излистани распоред</string>
     <string name="action_send_share">Слање/Дељење</string>
@@ -146,11 +138,8 @@
     <string name="uploader_upload_succeeded_content_single">%1$s отпремљено</string>
     <string name="uploader_upload_failed_ticker">Отпремање неуспешно</string>
     <string name="uploader_upload_failed_content_single">Не могу да отпремим %1$s</string>
-    <string name="uploader_upload_failed_credentials_error">Отпремање није успело, морате поново да се пријавите</string>
-    <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">Сертификат сервера није од поверења</string>
     <string name="uploads_view_title">Отпремања</string>
     <string name="uploads_view_group_current_uploads">Текуће</string>
-    <string name="uploads_view_group_failed_uploads">Неуспешно / Чекам поновно покретање</string>
     <string name="uploads_view_group_finished_uploads">Отпремљено</string>
     <string name="uploads_view_upload_status_succeeded">Завршено</string>
     <string name="uploads_view_upload_status_cancelled">Отказано</string>
@@ -163,7 +152,6 @@
     <string name="uploads_view_upload_status_conflict">Конфликт</string>
     <string name="uploads_view_upload_status_service_interrupted">Апликација прекинута</string>
     <string name="uploads_view_upload_status_unknown_fail">Непозната грешка</string>
-    <string name="uploads_view_upload_status_waiting_for_wifi">Чекам на бежичну везу</string>
     <string name="uploads_view_upload_status_waiting_exit_power_save_mode">Чекам да телефон изађе из мода очувања енергије</string>
     <string name="uploads_view_later_waiting_to_upload">Чекам отпремање</string>
     <string name="downloader_download_in_progress_ticker">Преузимам &#8230;</string>
@@ -173,26 +161,13 @@
     <string name="downloader_download_failed_ticker">Преузимање није успело</string>
     <string name="downloader_download_failed_content">Не могу да преузмем %1$s</string>
     <string name="downloader_not_downloaded_yet">Још увек није преузето</string>
-    <string name="downloader_download_failed_credentials_error">Преузимање није успело, морате поново да се пријавите</string>
     <string name="common_choose_account">Изаберите налог</string>
     <string name="common_switch_account">Промени налог</string>
     <string name="sync_fail_ticker">Синхронизација није успела</string>
-    <string name="sync_fail_ticker_unauthorized">Синхронизација није успела, морате поново да се пријавите</string>
-    <string name="sync_fail_content">Не могу да завршим синхронизацију %1$s</string>
     <string name="sync_fail_content_unauthorized">Погрешна лозинка за %1$s</string>
     <string name="sync_conflicts_in_favourites_ticker">Пронађени конфликти</string>
     <string name="sync_fail_in_favourites_ticker">Синхронизација није успела</string>
-    <plurals name="sync_fail_in_favourites_content">
-        <item quantity="one">Садржај %1$d фајла није могао бити синхронизован (конфликти: %2$d)</item>
-        <item quantity="few">Садржај %1$d фајла није могао бити синхронизован (конфликти: %2$d)</item>
-        <item quantity="other">Садржај %1$d фајлова није могао бити синхронизован (конфликти: %2$d)</item>
-    </plurals>
     <string name="sync_foreign_files_forgotten_ticker">Неки локални фајлови су заборављени</string>
-    <plurals name="sync_foreign_files_forgotten_content">
-        <item quantity="one">%1$d фајл у фасцикли %2$s није могао бити ископиран</item>
-        <item quantity="few">%1$d фајла у фасцикли %2$s није могло бити ископирано</item>
-        <item quantity="other">%1$d фајлова у фасцикли %2$s није могло бити ископирано</item>
-    </plurals>
     <string name="sync_foreign_files_forgotten_explanation">Од верзије 1.3.16, фајлови отпремљени са овог уређаја се копираки у локалну фасциклу %1$s да би се спречио губитак података када се исти фајл синхронизује са више налога.\n\nЗбог ове измене, сви фајлови који су отпремљени са старијим верзијама ове апликације су копирани у фасциклу %2$s. Ипак, грешка је онемогућила завршетак ове операције док се радила синхронизација налога. Можете или оставити фајл(ове) ту где јесу и избрисати везу ка %3$s, или померити фајл(ове) у %1$s и задржати везу ка %4$s.\n\nИспод су излистани локални фајл(ови), и удаљени фајл(ови) у %5$s на које су везани.</string>
     <string name="sync_current_folder_was_removed">Фасцикла %1$s више не постоји</string>
     <string name="foreign_files_move">Премести све</string>
@@ -224,7 +199,6 @@
     <string name="media_err_malformed">Мултимедијални фајл има неисправно кодирање знакова</string>
     <string name="media_err_timeout">Истекло време покушавајући да пустим фајл</string>
     <string name="media_err_invalid_progressive_playback">Мултимедијални фајл не може да се пусти</string>
-    <string name="media_err_unknown">Уграђени мултимедијални плејер не може да пусти мултимедијални фајл</string>
     <string name="media_err_security_ex">Грешка у вези безбедности при покушају да пустим %1$s</string>
     <string name="media_err_io_ex">Улазна грешка при покушају да пустим %1$s</string>
     <string name="media_err_unexpected">Неочекивана грешка при покушају да пустим %1$s</string>
@@ -260,9 +234,7 @@
 	<string name="auth_expired_saml_sso_token_toast">Сесија је истекла. Повежите се поново</string>
     <string name="auth_connecting_auth_server">Повезивање на идентификациони сервер &#8230;</string>
 	<string name="auth_unsupported_multiaccount">%1$s не подржава вишеструке налоге</string>
-	<string name="auth_fail_get_user_name">Ваш сервер не враћа исправну идентификацију корисника, контактирајте администратора</string>
 	<string name="auth_can_not_auth_against_server">Не могу да аутентификујем са овим сервером</string>
-    <string name="auth_account_does_not_exist">Налог још не постоји на овом уређају</string>
     <string name="auth_access_failed">Неуспео приступ</string>
 
     <string name="favorite">Постави као доступно и ван мреже</string>
@@ -285,8 +257,6 @@
     <string name="sync_file_nothing_to_do_msg">Садржај је већ синхронизован</string>
     <string name="create_dir_fail_msg">Не могу да направим фасциклу</string>
     <string name="filename_forbidden_characters">Забрањени знакови: / \\ &lt; &gt; : \" | ? *</string>
-    <string name="filename_forbidden_charaters_from_server">Назив садржи бар један недозвољен карактер</string>
-    <string name="filename_empty">Назив фајла не може бити празан</string>
     <string name="wait_a_moment">Сачекајте мало &#8230;</string>
     <string name="wait_checking_credentials">Проверавам сачуване акредитиве</string>
     <string name="filedisplay_no_file_selected">Није изабран ниједан фајл</string>
@@ -351,7 +321,6 @@
     <string name="prefs_instant_upload_path_use_subfolders_title">Користи подфасцикле</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Сачувај у подфасциклама према години и месецу</string>
 
-	<string name="share_link_no_support_share_api">Дељење није омогућено на овом серверу. Контактирајте администратора.</string>
 	<string name="share_link_file_no_exist">Не могу да делим. Проверите да ли фајл постоји</string>
 	<string name="share_link_file_error">Дошло је до грешке приликом покушаја дељења овог фајла или фасцикле</string>
 	<string name="unshare_link_file_no_exist">Не могу да прекинем дељење. Проверите да ли фајл постоји</string>
@@ -371,9 +340,6 @@
 
     <string name="error_cant_bind_to_operations_service">Критична грешка: не могу да обавим операцију</string>
 
-    <string name="network_error_socket_exception">Дошло је до грешке приликом повезивања са сервером.</string>
-    <string name="network_error_socket_timeout_exception">Дошло је до грешке при чекању на сервер. Радња није могла бити урађена.</string>
-    <string name="network_error_connect_timeout_exception">Дошло је до грешке при чекању на сервер. Радња није могла бити урађена.</string>
     <string name="network_host_not_available">Радња није могла бити урађена. Сервер није доступан</string>
 
     <string name="forbidden_permissions">Није вам дозвољено да %s</string>
@@ -389,25 +355,13 @@
     <string name="file_migration_dialog_title">Ажурирам путању до складишта</string>
     <string name="file_migration_preparing">Припремам пребацивање &#8230;</string>
     <string name="file_migration_checking_destination">Проверавам одредиште &#8230;</string>
-    <string name="file_migration_saving_accounts_configuration">Чувам подешавања налога &#8230;</string>
-    <string name="file_migration_waiting_for_unfinished_sync">Чекам да се синхронизација заврши &#8230;</string>
     <string name="file_migration_migrating">Премештам податке &#8230;</string>
     <string name="file_migration_updating_index">Ажурирам индекс &#8230;</string>
     <string name="file_migration_cleaning">Чистим &#8230;</string>
-    <string name="file_migration_restoring_accounts_configuration">Враћам подешавања налога &#8230;</string>
     <string name="file_migration_ok_finished">Завршено</string>
-    <string name="file_migration_failed_not_enough_space">Грешка: недовољно места</string>
-    <string name="file_migration_failed_not_writable">Грешка: не могу да пишем у одредишни фајл</string>
-    <string name="file_migration_failed_not_readable">Грешка: не могу да читам из изворног фајла</string>
-    <string name="file_migration_failed_dir_already_exists">Грешка: Некстклауд фасцикла већ постоји</string>
-    <string name="file_migration_failed_while_coping">Грешка: неуспешно пребацивање</string>
-    <string name="file_migration_failed_while_updating_index">Грешка: Не могу да ажурирам индекс</string>
-
-    <string name="file_migration_directory_already_exists">Фасцикла са подацима већ постоји. Одаберите шта да радим:</string>
     <string name="file_migration_override_data_folder">Замени постојећу</string>
     <string name="file_migration_use_data_folder">Искористи ову</string>
 
-    <string name="file_migration_source_not_readable_title">Не могу да читам из изворне фасцикле!</string>
     <string name="file_migration_source_not_readable">Да ли и даље желите да промените путању до складишта на %1$s?\n\nПажња: сви подаци ће морати да буду скинути изнова.</string>
 
     <string name="prefs_add_account">Додај налог</string>
@@ -420,7 +374,6 @@
 	<string name="log_send_mail_subject">Записници %1$s Андроид апликације</string>
 	<string name="log_progress_dialog_text">Учитавам податке…</string>
 
-	<string name="saml_authentication_required_text">Неопходна аутентификација</string>
 	<string name="saml_authentication_wrong_pass">Погрешна лозинка</string>
 	<string name="actionbar_move">Премести</string>
     <string name="actionbar_copy">Копирај</string>
@@ -442,9 +395,7 @@
 
     <string name="prefs_category_details">Подаци</string>
 
-    <string name="sync_folder_failed_content">Не могу да довршим синхронизацију фасцикле %1$s</string>
-
-	<string name="subject_user_shared_with_you">%1$s подели „%2$s“ са вама</string>
+    <string name="subject_user_shared_with_you">%1$s подели „%2$s“ са вама</string>
     <string name="subject_shared_with_you">„%1$s“ је подељен са вама</string>
 
     <string name="auth_refresh_button">Освежи везу</string>
@@ -499,7 +450,6 @@
     <string name="share_email_clarification">%1$s (е-пошта)</string>
     <string name="share_known_remote_clarification">%1$s (на %2$s)</string>
 
-    <string name="share_sharee_unavailable">Ажурирајте верзију сервера да дозволите дељење између корисника кроз њихове клијенте.\nКонтактирајте Вашег администратора</string>
     <string name="filedetails_share_link_enable">Дељење преко везе омогућено</string>
     <string name="filedetails_share_link_disable">Није дељено</string>
     <string name="filedetails_share_users_with_access">Корисници и групе са приступом</string>
@@ -529,7 +479,6 @@
 
     <string name="uploads_view_upload_status_waiting_for_charging">Чекам пуњење</string>
     <string name="actionbar_search">Претрага</string>
-    <string name="files_drop_not_supported">Ово је Некстклауд функционалност, ажурирајте апликацију.</string>
     <string name="learn_more">Сазнајте више</string>
     <string name="drawer_synced_folders">Аутоматска отпремања</string>
     <string name="drawer_participate">Придружи се</string>
@@ -631,11 +580,7 @@
     <!-- Notifications -->
     <string name="new_notification_received">Примљено ново обавештење</string>
     <string name="drawer_logout">Одјава</string>
-    <string name="picture_set_as_no_app">Ниједна апликација није нађена за постављање слике!</string>
     <string name="privacy">Приватност</string>
-    <string name="file_not_found">Фајл није пронађен!</string>
-    <string name="file_not_synced">Неуспела синхронизација жељеног фајла. Приказана је последња доступна верзија.</string>
-
     <!-- Auto upload -->
     <string name="autoupload_custom_folder">Подесите произвољну фасциклу</string>
     <string name="autoupload_create_new_custom_folder">Додај фасциклу која није на листи</string>
@@ -663,13 +608,9 @@
     <string name="resized_image_not_possible_download">Нема доступне умањене сличице. Скини оригиналну слику?</string>
     <string name="resized_images_download_full_image">Скидање оригиналне слике?</string>
 
-    <string name="store_short_desc">Некстклауд Андроид апликација омогућава приступ свим фајловима на Вашем Некстклауд серверу.</string>
-    <string name="store_full_desc">Некстклауд андроид апликација отвореног кода омогућава приступ свим фајловима на вашем Некстклауд серверу.\n\nОсобине:\n* Лако и модерно сучеље, потпуно усклађено са темом са сервера\n* Отпремање фајлова на Некстклауд сервер\n* Дељење фајлова са другима\n* Синхронизација омиљених фајлова и фасцикли\n* Претрага кроз све фасцикле на серверу\n* Аутоматско отпремање слика и видео записа са уређаја\n* Обавештења са сервера\n* Подршка за више налога\n* Безбедан приступ свим подацима преко отиска прста или пина\n* Интеграција са ДАВдроидом за брзо подешавање синхронизације календара &amp; контаката\n\nСве проблеме можете да пријавите на https://github.com/nextcloud/android/issues а о апликацији дискутујте на https://help.nextcloud.com/c/clients/android\nНови сте на Некстклауду? Некстклауд је лични сервер за синхронизацију, дељење фајлова &amp; комуникацију. Потпуно је отвореног кода и можете да га сами хостовати или платити компанији да која то већ ради. На овај начин, сами контролишете своје слике, календаре, контакате, документа и све остало.\n\nПогледајте Некстклауд на https://nextcloud.com</string>
-
     <string name="drawer_current_account">Тренутни налог</string>
     <string name="drawer_middle_account">Средишњи налог</string>
     <string name="drawer_end_account">Последњи налог</string>
-    <string name="contactlist_item_icon">Икона листе контакта</string>
     <string name="activity_icon">Икона активности</string>
     <string name="file_icon">Икона фајла</string>
     <string name="user_icon">Икона корисника</string>
@@ -683,12 +624,6 @@
     <string name="shared_icon">Икона дељења</string>
     <string name="overflow_menu">Overflow мени</string>
     <string name="share_file_icon">Икона дељења фајла</string>
-    <string name="sort_by_name_ascending">Сортирај растуће по имену</string>
-    <string name="sort_by_modification_date_ascending">Сортирај растуће по времену измене</string>
-    <string name="sort_by_size_descending">Сортирај опадајуће по величини</string>
-    <string name="sort_by_size_ascending">Сортирај растуће по величини</string>
-    <string name="sort_by_name_descending">Сортирај опадајуће по имену</string>
-    <string name="sort_by_modification_date_descending">Сортирај опадајуће по времену измене</string>
     <string name="synced_folders_type">Тип</string>
     <string name="sync_status_button">Дугме статус синхронизације</string>
     <string name="synced_folder_settings_button">Дугме поставки</string>
@@ -698,8 +633,6 @@
     <string name="what_s_new_image">Слика шта је ново</string>
 
     <string name="store_short_dev_desc">Развојна верзија се тренутно развија и може се ставити заједно са постојећом.</string>
-    <string name="store_full_dev_desc">Некстклауд Андроид апликација слободног и отвореног кода Вам омогућава да приступате свим фајловима на Некстклауду.\nОво је званична развојна верзија Некстклауд апликације и укључује најновије, али и неистестиране функционалности на дневном нивоу, које могу довести до нестабилности у раду апликације, па чак и губитка података. Апликација је намењена корисницима који желе да тестирају нове функционалности и пријаве грешке, ако се оне десе. Не користити је за продукцију!\n\nИ развојна и званична верзија су доступне на Ф-Дроид продавници, и обе се могу инсталирати у паралели.</string>
-
     <string name="prefs_category_dev">Развојно</string>
     <string name="dev_version_no_information_available">Информације недоступне.</string>
     <string name="dev_version_no_new_version_available">Нема нових верзија доступних.</string>
@@ -727,26 +660,18 @@
     <string name="screenshot_03_drawer">Брзо приступајте активностима, дељеним фајловима, фајловима ван мреже и још више</string>
     <string name="screenshot_04_accounts">Повежите се на различите налоге</string>
     <string name="screenshot_05_autoUpload">Аутоматски отпремајте Ваше слике &amp; видео записе</string>
-    <string name="screenshot_06_davdroid">Синхронизујте календар &amp; контакте</string>
-    
     <string name="userinfo_no_info_headline">Нису постављени лични подаци</string>
     <string name="userinfo_no_info_text">Додајте име, слику и детаље контакта на Вашу профилну страну.</string>
     <string name="drawer_header_background">Позадинска слика заглавља фиоке</string>
     <string name="account_icon">Икона налога</string>
     
-    <string name="end_to_end_encryption_folder_not_empty">Фасцикла није празна!</string>
     <string name="end_to_end_encryption_wrong_password">Грешка приликом дешифровања. Погрешна лозинка?</string>
     <string name="end_to_end_encryption_decrypting">Дешифрујем&#8230;</string>
     <string name="end_to_end_encryption_retrieving_keys">Дохватам кључеве&#8230;</string>
-    <string name="end_to_end_encryption_enter_password">Унесите лозинку за дешифровање приватног кључа!</string>
     <string name="end_to_end_encryption_generating_keys">Генеришем нове кључеве&#8230;</string>
-    <string name="end_to_end_encryption_keywords_description">Фраза од 12 речи је веома јака лозинка: она омогућава пун приступ гледању и коришћењу шифрованих фајлова. Запишите је и држите је негде на сигурном.</string>
     <string name="end_to_end_encryption_title">Подесите шифровање</string>
-    <string name="end_to_end_encryption_passphrase_title">Запамтите вишеделну лозинку за шифровање</string>
-    <string name="end_to_end_encryption_not_supported">Шифровање пре KitKat верзије Андроида није подржано.</string>
     <string name="end_to_end_encryption_confirm_button">Подесите шифровање</string>
     <string name="end_to_end_encryption_password">Лозинка&#8230;</string>
-    <string name="end_to_end_encryption_unsuccessful">Складиштење кључева није било успешно, покушајте поново!</string>
     <string name="end_to_end_encryption_dialog_close">Затвори</string>
     <string name="end_to_end_encryption_storing_keys">Складиштење кључева</string>
-</resources>
+    </resources>

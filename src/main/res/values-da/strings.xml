@@ -47,7 +47,6 @@
     <string name="prefs_log_delete_history_button">Slet historik</string>
     <string name="prefs_calendar_contacts">Synkroniser kalender &amp; kontakter</string>
     <string name="prefs_calendar_contacts_summary">Indstil DAVdroid (v1.3.0+) for aktiv konto</string>
-    <string name="prefs_calendar_contacts_address_resolve_error">Serveradresse for konto kunne ikke afgøres for DAVdroid</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Synkroniser kalender &amp;\'s kontakter</string>
     <string name="prefs_daily_contacts_sync_summary">Daglig backup af dine kontakter</string>
     <string name="prefs_help">Hjælp</string>
@@ -95,7 +94,6 @@
     <string name="file_list_folder">mappe</string>
     <string name="filedetails_select_file">Tryk på en fil for at vise yderligere information.</string>
     <string name="filedetails_download">Hent</string>
-    <string name="filedetails_sync_file">Synkronisér</string>
     <string name="common_yes">Ja</string>
     <string name="common_no">Nej</string>
     <string name="common_ok">OK</string>
@@ -121,7 +119,6 @@
     <string name="uploader_upload_succeeded_content_single">%1$s uploaded</string>
     <string name="uploader_upload_failed_ticker">Upload fejlede</string>
     <string name="uploader_upload_failed_content_single">Kunne ikke uploade %1$s</string>
-    <string name="uploader_upload_failed_credentials_error">Upload fejlet, du skal logge på igen</string>
     <string name="uploads_view_title">Uploade filer</string>
     <string name="uploads_view_group_current_uploads">Nuværende</string>
     <string name="uploads_view_group_finished_uploads">Sendt</string>
@@ -142,7 +139,6 @@
     <string name="downloader_download_succeeded_content">%1$s downloaded</string>
     <string name="downloader_download_failed_ticker">Download fejlede</string>
     <string name="downloader_not_downloaded_yet">Endnu ikke downloadet</string>
-    <string name="downloader_download_failed_credentials_error">Download mislykkedes, du skal logge ind igen</string>
     <string name="common_choose_account">Vælg konto</string>
     <string name="common_switch_account">Skift konto</string>
     <string name="sync_fail_ticker">Sync fejlede</string>
@@ -217,8 +213,6 @@
     <string name="sync_file_nothing_to_do_msg">Filindholdet allerede synkroniseret</string>
     <string name="create_dir_fail_msg">Kunne ikke oprette mappe</string>
     <string name="filename_forbidden_characters">Ugyldige tegn: / \\ &lt; &gt; : \" | ? *</string>
-    <string name="filename_forbidden_charaters_from_server">Filnavnet indeholder mindst ét ugyldigt tegn</string>
-    <string name="filename_empty">Filnavnet kan ikke stå tomt.</string>
     <string name="wait_checking_credentials">Undersøger lagrede certificeringer</string>
     <string name="filedisplay_no_file_selected">Ingen fil valgt</string>
     <string name="activity_chooser_title">Send link til &#8230;</string>
@@ -309,7 +303,6 @@
 	<string name="log_send_mail_subject">%1$s Android-app - logge</string>
 	<string name="log_progress_dialog_text">Indlæser data &#8230;</string>
 
-	<string name="saml_authentication_required_text">Godkendelse påkrævet</string>
 	<string name="saml_authentication_wrong_pass">Forkert kodeord</string>
 	<string name="actionbar_move">Flyt</string>
     <string name="actionbar_copy">Kopiér</string>
@@ -368,7 +361,6 @@
     <string name="manage_space_clear_data">Fjern data</string>
 
     <string name="actionbar_search">Søg</string>
-    <string name="files_drop_not_supported">Dette er en Nextcloud feature, opdater venligst</string>
     <string name="learn_more">Lær mere</string>
     <string name="drawer_synced_folders">Auto upload</string>
     <string name="drawer_participate">Deltag</string>
@@ -416,7 +408,6 @@
     <string name="contacts_preference_choose_date">Vælg dato</string>
     <string name="contacts_preference_backup_never">aldrig</string>
     <string name="contacts_preferences_no_file_found">Ingen fil fundet</string>
-    <string name="file_not_found">Fil ikke fundet!</string>
     <string name="fallback_weblogin_back">Tilbage</string>
     <string name="prefs_license">Licens</string>
     <string name="date_unknown">Ukendt</string>

@@ -1,4 +1,4 @@
-The copyleft libre software Nextcloud Android app, gives you access to all the files in your Nextcloud.
+The copylefted libre Nextcloud Android app, giving you mobile freedom.
 
 Features:
 * Easy, modern interface, suited to the theme of your server
