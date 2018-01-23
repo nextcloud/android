@@ -1569,6 +1569,9 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             case MAINTENANCE_MODE:
                 mServerStatusText = getResources().getString(R.string.maintenance_mode);
                 break;
+            case UNTRUSTED_DOMAIN:
+                mServerStatusText = getResources().getString(R.string.untrusted_domain);
+                break;
             default:
                 mServerStatusText = "";
                 mServerStatusIcon = 0;
