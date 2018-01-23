@@ -49,7 +49,6 @@ public class NContentObserverJob extends JobService {
                 persistableBundleCompat.putBoolean(FilesSyncJob.SKIP_CUSTOM, true);
 
                 new JobRequest.Builder(FilesSyncJob.TAG)
-                        .addExtras(persistableBundleCompat)
                         .startNow()
                         .setExtras(persistableBundleCompat)
                         .setUpdateCurrent(false)
