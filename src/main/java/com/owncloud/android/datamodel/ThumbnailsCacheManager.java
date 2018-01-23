@@ -833,15 +833,7 @@ public class ThumbnailsCacheManager {
                     MainApp.getAppContext().getContentResolver());
 
             String eTag = arbitraryDataProvider.getValue(mAccount, AVATAR);
-
             final String imageKey = "a_" + username + "_" + eTag;
-
-            try {
-                Thread.sleep(3000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-
             int px = getAvatarDimension();
 
             // Download avatar from server
