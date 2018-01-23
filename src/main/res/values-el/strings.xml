@@ -47,7 +47,6 @@
     <string name="prefs_log_delete_history_button">Διαγραφή ιστορικού</string>
     <string name="prefs_calendar_contacts">Συγχρονισμός ημερολογίου &amp; επαφών</string>
     <string name="prefs_calendar_contacts_summary">Ρυθμίστε το DAVdroid (v1.3.0+) για τον τρέχον λογαριασμό</string>
-    <string name="prefs_calendar_contacts_address_resolve_error">Η διεύθυνση του διακομιστή για τον λογαριασμό δεν μπορεί να καθοριστεί για το DAVdroid</string>
     <string name="prefs_calendar_contacts_no_store_error">Δεν είναι εγκατεστημένα το Google Play ή το F-Droid</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Επιτυχής ρύθμιση συγχρονισμού ημερολογίου &amp; επαφών</string>
     <string name="prefs_daily_contacts_sync_summary">Ημερήσιο αντίγραφο ασφαλείας των επαφών σας </string>
@@ -60,7 +59,6 @@
     <string name="auth_host_url">Διεύθυνση διακομιστή https://&#8230;</string>
     <string name="auth_username">Όνομα χρήστη</string>
     <string name="auth_password">Συνθηματικό</string>
-    <string name="auth_register">Δεν έχετε ακόμα διακομιστή;\nΚάντε κλικ εδώ για να πάρετε έναν από ένα πάροχο</string>
     <string name="sync_string_files">Αρχεία</string>
     <string name="setup_btn_connect">Σύνδεση</string>
     <string name="uploader_btn_upload_text">Μεταφόρτωση</string>
@@ -97,20 +95,14 @@
     <string name="file_list_empty_headline_server_search_videos">Κανένα βίντεο</string>
     <string name="file_list_empty_headline_server_search_photos">Καμιά φωτογραφία</string>
     <string name="file_list_empty_search">Θα δοκιμάστε αναζήτηση και σε άλλο φάκελο;</string>
-    <string name="file_list_empty_recently_modified">Δεν βρέθηκαν αρχεία που να έχουν τροποποιηθεί τις τελευταίες 7 ημέρες</string>
-    <string name="file_list_empty_recently_modified_filter">Η αναζήτηση δεν βρήκε κάποιο τροποποιημένο αρχείο στην περίοδο των τελευταίων 7 ημερών.</string>
     <string name="file_list_empty_recently_added">Δεν βρέθηκαν πρόσφατα προστεθημένα αρχεία</string>
-    <string name="file_list_empty_recently_added_filter">Δεν βρέθηκαν πρόσφατα προστεθημένα αρχεία για το αίτημά σας.</string>
     <string name="file_list_empty_text_photos">Μεταφόρτωση μερικών φωτογραφιών ή ενεργοποιήστε την αυτόματη μεταφόρτωση.</string>
-    <string name="file_list_empty_text_photos_filter">Δεν βρέθηκαν φωτογραφίες για το αίτημά σας.</string>
     <string name="file_list_empty_text_videos">Μεταφορτώστε μερικά βίντεο ή ενεργοποιήστε την αυτόματη μεταφόρτωση.</string>
-    <string name="file_list_empty_text_videos_filter">Δεν βρέθηκε βίντεο για το αίτημά σας.</string>
     <string name="upload_list_empty_headline">Μη διαθέσιμες μεταφορτώσεις</string>
     <string name="upload_list_empty_text_auto_upload">Μεταφορτώστε περιεχόμενο ή ενεργοποιήστε την αυτόματη μεταφόρτωση.</string>
     <string name="file_list_folder">φάκελος</string>
     <string name="filedetails_select_file">Αγγίξτε κάποιο αρχείο για να προβάλετε περισσότερες πληροφορίες.</string>
     <string name="filedetails_download">Λήψη</string>
-    <string name="filedetails_sync_file">Συγχρονισμός</string>
     <string name="filedetails_renamed_in_upload_msg">Το αρχείο μετονομάστηκε σε %1$s κατά τη μεταφόρτωση</string>
     <string name="list_layout">Διάταξη λίστας</string>
     <string name="common_yes">Ναι</string>
@@ -138,10 +130,8 @@
     <string name="uploader_upload_succeeded_content_single">Το %1$s μεταφορτώθηκε</string>
     <string name="uploader_upload_failed_ticker">Η μεταφόρτωση απέτυχε</string>
     <string name="uploader_upload_failed_content_single">Η μεταφόρτωση του %1$s δεν ήταν δυνατόν να ολοκληρωθεί</string>
-    <string name="uploader_upload_failed_credentials_error">Η μεταφόρτωση απέτυχε, πρέπει να επανασυνδεθείτε</string>
     <string name="uploads_view_title">Μεταφορτώσεις</string>
     <string name="uploads_view_group_current_uploads">Τρέχουσα</string>
-    <string name="uploads_view_group_failed_uploads">Αποτυχία / Αναμονή επανεκκίνησης</string>
     <string name="uploads_view_group_finished_uploads">Μεταφορτώθηκε</string>
     <string name="uploads_view_upload_status_succeeded">Ολοκληρωμένες</string>
     <string name="uploads_view_upload_status_cancelled">Ακυρώθηκαν</string>
@@ -154,7 +144,6 @@
     <string name="uploads_view_upload_status_conflict">Διένεξη</string>
     <string name="uploads_view_upload_status_service_interrupted">Η εφαρμογή τερματίστηκε</string>
     <string name="uploads_view_upload_status_unknown_fail">Άγνωστο σφάλμα</string>
-    <string name="uploads_view_upload_status_waiting_for_wifi">Αναμονή σύνδεσης Wi-Fi</string>
     <string name="uploads_view_later_waiting_to_upload">Αναμονή για μεταφόρτωση</string>
     <string name="downloader_download_in_progress_ticker">Λαμβάνονται &#8230;</string>
     <string name="downloader_download_in_progress_content">%1$d%% Λαμβάνονται %2$s</string>
@@ -163,11 +152,8 @@
     <string name="downloader_download_failed_ticker">Αποτυχημένη λήψη</string>
     <string name="downloader_download_failed_content">Η λήψη του %1$s δεν μπόρεσε να ολοκληρωθεί</string>
     <string name="downloader_not_downloaded_yet">Δεν έχει ληφθεί ακόμα</string>
-    <string name="downloader_download_failed_credentials_error">Αποτυχία λήψης, πρέπει να εισέλθετε ξανά</string>
     <string name="common_choose_account">Επιλογή λογαριασμού</string>
     <string name="sync_fail_ticker">Αποτυχία συγχρονισμού</string>
-    <string name="sync_fail_ticker_unauthorized">Αποτυχία συγχρονισμού, χρειάζεται να εισέλθετε ξανά</string>
-    <string name="sync_fail_content">Ο συγχρονισμός του %1$s δεν μπόρεσε να ολοκληρωθεί</string>
     <string name="sync_fail_content_unauthorized">Εσφαλμένο συνθηματικό για τον %1$s</string>
     <string name="sync_conflicts_in_favourites_ticker">Βρέθηκαν διενέξεις</string>
     <string name="sync_fail_in_favourites_ticker">Τα αρχεία σε αναμονή προς συγχρονισμού απέτυχαν</string>
@@ -191,7 +177,6 @@
     <string name="media_err_malformed">Εσφαλμένη κωδικοποίηση αρχείου πολυμέσων</string>
     <string name="media_err_timeout">Λήξη χρόνου κατά την προσπάθεια αναπαραγωγής</string>
     <string name="media_err_invalid_progressive_playback">Το αρχείο πολυμέσων δεν μπορεί να μεταδοθεί</string>
-    <string name="media_err_unknown">Το αρχείο πολυμέσων δεν μπορεί να αναπαραχθεί με την παρεχόμενη εφαρμογή αναπαραγωγής πολυμέσων</string>
     <string name="media_err_security_ex">Σφάλμα ασφαλείας κατά την προσπάθεια αναπαραγωγής του %1$s</string>
     <string name="media_err_io_ex">Σφάλμα εισόδου κατά την προσπάθεια αναπαραγωγής του %1$s</string>
     <string name="media_err_unexpected">Απροσδόκητο σφάλμα κατά την προσπάθεια αναπαραγωγής του %1$s</string>
@@ -226,9 +211,7 @@
 	<string name="auth_expired_basic_auth_toast">Παρακαλούμε εισάγετε το τρέχον συνθηματικό</string>
 	<string name="auth_expired_saml_sso_token_toast">Η συνεδρία σας έληξε. Παρακαλούμε συνδεθείτε ξανά</string>
     <string name="auth_unsupported_multiaccount">Ο %1$s  δεν υποστηρίζει πολλαπλούς λογαριασμούς</string>
-	<string name="auth_fail_get_user_name">Ο διακομιστής σας δεν επιστρέφει το σωστό αναγνωριστικό χρήστη, παρακαλούμε επικοινωνήστε τον διαχειριστή</string>
 	<string name="auth_can_not_auth_against_server">Αδυαμία πιστοποίησης με αυτόν το διακομιστή</string>
-    <string name="auth_account_does_not_exist">Ο λογαριασμός δεν υπάρχει ακόμα στη συσκευή</string>
     <string name="auth_access_failed">Η πρόσβαση απέτυχε</string>
 
     <string name="favorite">Ορισμός ως διαθέσιμο εκτός σύνδεσης</string>
@@ -242,8 +225,6 @@
     <string name="sync_file_nothing_to_do_msg">Τα περιεχόμενα του αρχείου έχουν ήδη συγχρονιστεί</string>
     <string name="create_dir_fail_msg">Αδυναμία δημιουργίας φακέλου</string>
     <string name="filename_forbidden_characters">Απαγορευμένοι χαρακτήρες: / \\ &lt; &gt; : \" | ? *</string>
-    <string name="filename_forbidden_charaters_from_server">Το όνομα αρχείου περιέχει έναν τουλάχιστον μη έγκυρο χαρακτήρα</string>
-    <string name="filename_empty">Το όνομα αρχείου δεν μπορεί να είναι κενό</string>
     <string name="wait_checking_credentials">Γίνεται έλεγχος αποθηκευμένων διαπιστευτηρίων</string>
     <string name="filedisplay_no_file_selected">Δεν επιλέχθηκε αρχείο</string>
     <string name="activity_chooser_title">Αποστολή συνδέσμου σε &#8230;</string>
@@ -303,7 +284,6 @@
     <string name="prefs_instant_upload_path_use_subfolders_title">Χρήση υποφακέλων</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Αποθήκευση σε υποφακέλους με βάση το χρόνο και μήνα</string>
 
-	<string name="share_link_no_support_share_api">Λυπούμαστε, ο διαμοιρασμός δεν είναι διαθέσιμος στο διακομιστή σας. Παρακαλούμε επικοινωνήστε με τον διαχειριστή.</string>
 	<string name="share_link_file_no_exist">Αδυναμία διαμοιρασμού. Παρακαλούμε ελέγξτε αν υπάρχει ο φάκελος</string>
 	<string name="share_link_file_error">Παρουσιάστηκε σφάλμα κατά την προσπάθεια διαμοιρασμού αυτού του αρχείου ή φακέλου</string>
 	<string name="unshare_link_file_no_exist">Αδυναμία αναίρεσης κοινής χρήσης.  Παρακαλώ ελέγξτε αν το αρχείο υπάρχει</string>
@@ -323,9 +303,6 @@
 
     <string name="error_cant_bind_to_operations_service">Κρίσιμο σφάλμα: αδύνατη η εκτέλεση λειτουργιών</string>
 
-    <string name="network_error_socket_exception">Παρουσιάστηκε σφάλμα κατά τη σύνδεση με το διακομιστή.</string>
-    <string name="network_error_socket_timeout_exception">Παρουσιάστηκε σφάλμα κατά την αναμονή για τον διακομιστή. Η λειτουργία δεν μπορεί να ολοκληρωθεί</string>
-    <string name="network_error_connect_timeout_exception">Παρουσιάστηκε σφάλμα κατά την αναμονή για τον διακομιστή. Η λειτουργία δεν μπορεί να ολοκληρωθεί</string>
     <string name="network_host_not_available">Η λειτουργία δεν μπορεί να ολοκληρωθεί. Ο διακομιστής δεν είναι διαθέσιμος</string>
 
     <string name="forbidden_permissions">Δεν έχετε δικαιώματα %s</string>
@@ -340,16 +317,9 @@
 
     <string name="file_migration_dialog_title">Ενημέρωση διαδρομής αποθηκευτικού χώρου</string>
     <string name="file_migration_ok_finished">Ολοκληρώθηκε</string>
-    <string name="file_migration_failed_not_enough_space">Σφάλμα: Μη επαρκής χώρος</string>
-    <string name="file_migration_failed_not_writable">Λάθος: Αρχείο προορισμού μη εγγράψιμο</string>
-    <string name="file_migration_failed_not_readable">Λάθος: Αδυναμία ανάγνωσης πηγαίου αρχείου </string>
-    <string name="file_migration_failed_dir_already_exists">Λάθος: Ο φάκελος Nextcloud υπάρχει ήδη</string>
-    <string name="file_migration_failed_while_coping">Λάθος: Αποτυχία κατά την μετάβαση</string>
-    <string name="file_migration_directory_already_exists">Ο φάκελος δεδομένων υπάρχει ήδη. Επιλέξτε ένα από τα παρακάτω:</string>
     <string name="file_migration_override_data_folder">Αντικατάσταση</string>
     <string name="file_migration_use_data_folder">Χρήση</string>
 
-    <string name="file_migration_source_not_readable_title">Ο πηγαίος φάκελος δεν ειναι αναγνώσιμος!</string>
     <string name="file_migration_source_not_readable">Θέλετε ακόμη να αλλάξετε το μονοπάτι αποθήκευσης σε %1$s;\n\nΣημείωση: όλα τα δεδομένα θα πρέπει να κατεβαστούν ξανά. </string>
 
     <string name="prefs_add_account">Προσθήκη λογαριασμού</string>
@@ -362,7 +332,6 @@
 	<string name="log_send_mail_subject">%1$s ιστορικό της εφαρμογής Android</string>
 	<string name="log_progress_dialog_text">Φόρτωση δεδομένων &#8230;</string>
 
-	<string name="saml_authentication_required_text">Απαιτείται πιστοποίηση</string>
 	<string name="saml_authentication_wrong_pass">Εσφαλμένο συνθηματικό</string>
 	<string name="actionbar_move">Μετακίνηση</string>
     <string name="actionbar_copy">Αντιγραφή</string>
@@ -384,9 +353,7 @@
 
     <string name="prefs_category_details">Λεπτομέρειες</string>
 
-    <string name="sync_folder_failed_content">Ο συγχρονισμός του φακέλου %1$s δεν μπόρεσε να ολοκληρωθεί</string>
-
-	<string name="subject_user_shared_with_you">Ο %1$s διαμοιράστηκε το \"%2$s\" με εσάς</string>
+    <string name="subject_user_shared_with_you">Ο %1$s διαμοιράστηκε το \"%2$s\" με εσάς</string>
     <string name="subject_shared_with_you">Ο \"%1$s\" διαμοιράστηκε μαζί σας</string>
 
     <string name="auth_refresh_button">Ανανέωση σύνδεσης</string>
@@ -428,7 +395,6 @@
     <string name="share_email_clarification">%1$s (ηλ. ταχυδρομείο)</string>
     <string name="share_known_remote_clarification">%1$s ( στο %2$s )</string>
 
-    <string name="share_sharee_unavailable">Δεν επιτρέπεται ο διαμοιρασμός μεταξύ χρηστών μέσω πελατών, σε αυτή την έκδοση διακομιστή. \nΕπικοινωνήστε με το διαχειριστή</string>
     <string name="filedetails_share_link_enable">Ο διαμοιρασμός με link ενεργοποιήθηκε</string>
     <string name="filedetails_share_link_disable">Μη διαμοιρασμένο με link</string>
     <string name="filedetails_share_users_with_access">Χρήστες και ομάδες με δικαιώματα πρόσβασης</string>
@@ -456,7 +422,6 @@
 
     <string name="uploads_view_upload_status_waiting_for_charging">Αναμονή για φόρτιση συσκευής</string>
     <string name="actionbar_search">Αναζήτηση</string>
-    <string name="files_drop_not_supported">Αυτό είναι χαρακτηριστικό του Nextcloud, παρακαλούμε ενημερώστε.</string>
     <string name="learn_more">Μάθετε περισσότερα</string>
     <string name="drawer_synced_folders">Αυτόματη μεταφόρτωση</string>
     <string name="drawer_participate">Συμμετοχή</string>
@@ -541,9 +506,7 @@
     <string name="contacts_preferences_backup_scheduled">Η λήψη αντιγράφου αφαλείας έχει προγραμματιστεί και θα ξεκινήσει σύντομα</string>
     <string name="contacts_preferences_import_scheduled">Η εισαγωγή έχει προγραμματιστεί και θα ξεκινήσει σύντομα</string>
 
-    <string name="picture_set_as_no_app">Δεν εντοπίστηκε εφαρμογή για συσχετισμό εικόνας!</string>
     <string name="privacy">Ιδιωτικότητα</string>
-    <string name="file_not_found">Δεν βρέθηκε το αρχείο!</string>
     <!-- Auto upload -->
     <string name="autoupload_custom_folder">Διαμορφώστε έναν προσαρμοσμένο φάκελο</string>
     <string name="autoupload_create_new_custom_folder">Δημιουργήστε νέα διαμόρφωση προσαρμοσμένου φακέλου</string>

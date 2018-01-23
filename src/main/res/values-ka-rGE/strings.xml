@@ -47,7 +47,6 @@
     <string name="prefs_log_delete_history_button">ისტორიის წაშლა</string>
     <string name="prefs_calendar_contacts">კანენდრისა და კონტაქტების სინქრონიზაცია</string>
     <string name="prefs_calendar_contacts_summary">მიმდნარე ანგარიშზე DAVdroid (v1.3.0+)-ის დაყენება</string>
-    <string name="prefs_calendar_contacts_address_resolve_error">ანგარიშისთვის DAVdroid სერვერის მისამართი ვერ დადგინდა</string>
     <string name="prefs_calendar_contacts_no_store_error">არც Google Play-ა დაყენებული, არც F-Droid-ი</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">კალენდრისა და კონტაქტების სინქრონიზაცია დაყენებულია</string>
     <string name="prefs_daily_contacts_sync_summary">კონტაქტების ყოველდღიური ბექაფი</string>
@@ -64,7 +63,6 @@
     <string name="auth_host_url">სერვერის მისამართი https://&#8230;</string>
     <string name="auth_username">მომხმარებლის სახელი</string>
     <string name="auth_password">პაროლი</string>
-    <string name="auth_register">უკვე გააქვთ სერვერი?\nმომწოდებლისგან მისი მიღებისთვის დააწკაპუნეთ აქ</string>
     <string name="sync_string_files">ფაილები</string>
     <string name="setup_btn_connect">დაკავშირება</string>
     <string name="uploader_btn_upload_text">ატვირთვა</string>
@@ -102,20 +100,14 @@
     <string name="file_list_empty_headline_server_search_videos">ვიდეოები არაა</string>
     <string name="file_list_empty_headline_server_search_photos">სურთები არაა</string>
     <string name="file_list_empty_search">იქნებ სხვა დირექტორიაშია?</string>
-    <string name="file_list_empty_recently_modified">გასული 7 დღის განმავლობაში შეცვლილი ფაილები არაა ნაპოვნი</string>
-    <string name="file_list_empty_recently_modified_filter">გასული 7 დღის განმავლობაში შეცვლილი ფაილები ვერ იქნა ნაპოვნი.</string>
     <string name="file_list_empty_recently_added">ახლად დამატებული ფაილები არაა ნაპოვნი</string>
-    <string name="file_list_empty_recently_added_filter">ახლად დამატებული ფაილები ვერ იქნა ნაპოვნი.</string>
     <string name="file_list_empty_text_photos">ატვირთეთ რამდენიმე სურათი, ან გაააქტიურეთ ავტო-ატვირთვა.</string>
-    <string name="file_list_empty_text_photos_filter">ვერც ერთი სურათი ვერ იქნა ნაპოვნი.</string>
     <string name="file_list_empty_text_videos">ატვირთეთ რამდენიმე ვიდეო რგოლი ან გაააქტიურეთ ავტო-ატვირთვა.</string>
-    <string name="file_list_empty_text_videos_filter">ვერც ერთი ვიდეო რგოლი ვერ იქნა ნაპოვნი.</string>
     <string name="upload_list_empty_headline">არც ერთი ატვირთვა არაა ხელმისაწვდომი.</string>
     <string name="upload_list_empty_text_auto_upload">ატვირთეთ რაიმე ან გაააქტიურეთ ავტო-ატვირთვა.</string>
     <string name="file_list_folder">დირექტორია</string>
     <string name="filedetails_select_file">დააჭირეთ ფაილს დამატებითი ინფორმაციის გამოსაჩენად.</string>
     <string name="filedetails_download">ჩამოტვირთვა</string>
-    <string name="filedetails_sync_file">სინქრონიზაცია</string>
     <string name="filedetails_renamed_in_upload_msg">ატვირთვისას ფაილს სახელი შეეცვალა %1$s-ზე</string>
     <string name="list_layout">ჩამოწერილი მაკეტი</string>
     <string name="action_send_share">გაგზავნა/გაზიარება</string>
@@ -146,11 +138,8 @@
     <string name="uploader_upload_succeeded_content_single">ატვირთულია %1$s</string>
     <string name="uploader_upload_failed_ticker">ატვირთვა ვერ განხორციელდა</string>
     <string name="uploader_upload_failed_content_single">%1$s ვერ აიტვირთა</string>
-    <string name="uploader_upload_failed_credentials_error">ატვირთვა ვერ მოხერხდა, საჭიროა ავტორიზაციის ახლიდან გავლა</string>
-    <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">სერვერის სერტიფიკატი არაა სანდო</string>
     <string name="uploads_view_title">ატვირთვები</string>
     <string name="uploads_view_group_current_uploads">მიმდინარე</string>
-    <string name="uploads_view_group_failed_uploads">წარუმატებელია / მოლოდინშია რესტარტი</string>
     <string name="uploads_view_group_finished_uploads">ატვირთულია</string>
     <string name="uploads_view_upload_status_succeeded">დასრულებულია</string>
     <string name="uploads_view_upload_status_cancelled">უარყოფილია</string>
@@ -163,7 +152,6 @@
     <string name="uploads_view_upload_status_conflict">კონფლიქტი</string>
     <string name="uploads_view_upload_status_service_interrupted">აპლიკაცია შეჩერდა</string>
     <string name="uploads_view_upload_status_unknown_fail">უცნობი შეცდომა</string>
-    <string name="uploads_view_upload_status_waiting_for_wifi">ველოდებით Wi-Fi კავშირს</string>
     <string name="uploads_view_upload_status_waiting_exit_power_save_mode">ველოდებით ეკონომიური რეჟიმიდან გამოსვლას</string>
     <string name="uploads_view_later_waiting_to_upload">ველოდებით ატვირთვას</string>
     <string name="downloader_download_in_progress_ticker">ჩამოტვირთვა &#8230;</string>
@@ -173,22 +161,13 @@
     <string name="downloader_download_failed_ticker">ჩამოტვირთვა ვერ განხორციელდა</string>
     <string name="downloader_download_failed_content">ვერ ჩამოიტვირთა %1$s</string>
     <string name="downloader_not_downloaded_yet">ჯერ ვერ ჩამოიტვირთა</string>
-    <string name="downloader_download_failed_credentials_error">ჩამოტვირთვა წარუმატებლად დასრულდა, საჭიროა ავტორიზაციის ახლიდან გავლა</string>
     <string name="common_choose_account">აირჩიეთ ანგარიში</string>
     <string name="common_switch_account">ანგარიშის შეცვლა</string>
     <string name="sync_fail_ticker">სინქრონიზაცია დასრუდლა წარუმატებლად</string>
-    <string name="sync_fail_ticker_unauthorized">სინქრონიზაცია დასრულდა წარუმატებლად, საჭიროა ავტორიზაციის ახლიდან გავლა</string>
-    <string name="sync_fail_content">%1$s-ის სინქრონიზაცია ვერ დასრულდა</string>
     <string name="sync_fail_content_unauthorized">%1$s რესურსის არასწორი პაროლი</string>
     <string name="sync_conflicts_in_favourites_ticker">წარმოიშვა კონფლიქტი </string>
     <string name="sync_fail_in_favourites_ticker">Kept-in-sync ფაილების შეცდომა</string>
-    <plurals name="sync_fail_in_favourites_content">
-        <item quantity="other">%1$d ფაილების შემცველობის სინქრონიზაცია ვერ მოხერხდა  (%2$d კონფლიქტი)</item>
-    </plurals>
     <string name="sync_foreign_files_forgotten_ticker">რამოდენიმე ლოკალური ფაილი გამორჩენილია</string>
-    <plurals name="sync_foreign_files_forgotten_content">
-        <item quantity="other">%1$d ფაილები %2$s დირექტორიაში ვერ დაკოპირდა</item>
-    </plurals>
     <string name="sync_foreign_files_forgotten_explanation">როდესაც ერთი ფაილი სინქრონიზირებულია რამოდენიმე ანგარიშთან, 1.3.16 ვერსიაში მონაცემების დაკარგვისგან თავის ასარიდებლად, ამ მოწყობილობით ატვირთული ფაილ(ებ)ი კოპირდება %1$s დირექტორიაში.\n\nამ ცვლილების გამო, აპლიკაციის ძველი ვერსიით ატვირთული ყველა ფაილი დაკოპირდა %2$s დირექტორიაში. თუმცა, შეცდომის გამო სინქრონიზაციისას მოხდა ამ ოპერაციის შეჩერება. შეგიძლიათ ფაილ(ებ)ი დატოვოთ ისე როგორც  არის და წაშალოთ ბმული %3$s-სთან, ან გადაიტანოთ ფაილ(ებ)ი %1$s დირექტორიაში და შეინარჩუნოთ ბმული %4$s-ისთვის.\n\nქვემოთ ჩამოწერილია ლოკალური და %5$s-ში არსებული დისტანციური ფაილ(ებ)ი.</string>
     <string name="sync_current_folder_was_removed">დირექტორია %1$s აღარ არსებობს</string>
     <string name="foreign_files_move">ყველას გადატანა</string>
@@ -220,7 +199,6 @@
     <string name="media_err_malformed">მედია ფაილს გააჩნია არასწორი კოდირება</string>
     <string name="media_err_timeout">ფაილის დაკვრის მცდელობის დრო ამოიწურა</string>
     <string name="media_err_invalid_progressive_playback">მედია ფაილის სტრიმი ვერ ხორციელდება</string>
-    <string name="media_err_unknown">მედიის დამკვრელი ფაილს ვერ უშვებს</string>
     <string name="media_err_security_ex">%1$s-ის დაკვრის მცდელობისას წარმოიშვა უსაფრთხებასთან დაკავშირებული შეცდომა</string>
     <string name="media_err_io_ex">%1$s-ის დაკვრის მცდელობისას წარმოიშვა შენატანთან დაკავშირებული შეცდომა</string>
     <string name="media_err_unexpected">%1$s-ის დაკვრის მცდელობისას წარმოიშვა მოულოდნელი შეცდომა</string>
@@ -256,9 +234,7 @@
 	<string name="auth_expired_saml_sso_token_toast">თქვენს სესიას ვადა გაუვიდა. გთხოვთ დაკავშირდდეთ ახლიდან</string>
     <string name="auth_connecting_auth_server">ხდება დაკავშირება აუტენტიფიკაციის სერვერთან &#8230;</string>
 	<string name="auth_unsupported_multiaccount">%1$s არ უჭერს მხარს მრავალი ანგარიშის არსებობას</string>
-	<string name="auth_fail_get_user_name">სერვერი არ აბრუნებს სწორ მომხმარებლის ID-ს, გთხოვთ დაუკავშირდეთ ადმინისტრატორს</string>
 	<string name="auth_can_not_auth_against_server">ამ სერვერთან აუტენტიფიკაცია ვერ ხერხდება</string>
-    <string name="auth_account_does_not_exist">ანგარიში მოწყობილობაზე ჯერ არ არსებობს</string>
     <string name="auth_access_failed">წვდომა ვერ მოხერხდა</string>
 
     <string name="favorite">გახადეთ კავშირს გარეთ ხელმისაწვდომი</string>
@@ -281,8 +257,6 @@
     <string name="sync_file_nothing_to_do_msg">ფაილების შემცველობა სინქრონიზირებულია</string>
     <string name="create_dir_fail_msg">დირექტორია ვერ შეიქმნა</string>
     <string name="filename_forbidden_characters">აკრძალული ნიშნები: / \\ &lt; &gt; : \" | ? *</string>
-    <string name="filename_forbidden_charaters_from_server">ფაილის სახელი შეიცავს დაუშვებელ ნიშნებს</string>
-    <string name="filename_empty">ფაილის სახელი ვერ იქნება ცარიელი</string>
     <string name="wait_a_moment">გთხოვთ მოითმინოთ &#8230;</string>
     <string name="wait_checking_credentials">მოწმდება შენახული უფლებამოსილებანი</string>
     <string name="filedisplay_no_file_selected">ფაილი არაა არჩეული</string>
@@ -347,7 +321,6 @@
     <string name="prefs_instant_upload_path_use_subfolders_title">ქვე-დირექტორიების მოხმარება</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">ქვე-დირექტორიებში თვისა და წელიწადის მიხედვით შევნახვა</string>
 
-	<string name="share_link_no_support_share_api">გაზიარება თქვნეს სერვერზე ჯერ ნებადართული არაა. გთხოვთ დაუკავშირდეთ თქვენს ადმინისტრატორს.</string>
 	<string name="share_link_file_no_exist">გაზიარება ვერ ხერხდება. გთხოვთ დაამოწმოთ ფაილის არსებობა</string>
 	<string name="share_link_file_error">ამ ფაილის თუ დირექტორიის გაზიარებისას წარმოიშვა შეცდომა</string>
 	<string name="unshare_link_file_no_exist">გაზიარების შეწყვეტა ვერ ხერხდება. დაამოწმეთ ფაილის არსებობა</string>
@@ -367,9 +340,6 @@
 
     <string name="error_cant_bind_to_operations_service">კრიტიკული შეცდომა: ოპერაციების განხორციელება შეუძლებელია</string>
 
-    <string name="network_error_socket_exception">სერვერთან კავშირისას წარმოიშვა შეცდომა.</string>
-    <string name="network_error_socket_timeout_exception">სერვერის ლოდინისას წარმოიშვა შეცდომა. ოპერაცია ვერ დასრულდა.</string>
-    <string name="network_error_connect_timeout_exception">სერვერის ლოდინისას წარმოიშვა შეცდომა. ოპერაცია ვერ დასრულდა.</string>
     <string name="network_host_not_available">ოპერაცია ვერ დასრულდა. სერვერი ხელმიუწვდომელია</string>
 
     <string name="forbidden_permissions">თქვენ არ გაქვთ უფლება, %s</string>
@@ -385,25 +355,13 @@
     <string name="file_migration_dialog_title">საცავის მისამართის განახლება</string>
     <string name="file_migration_preparing">მზადდება მიგრაცია &#8230;</string>
     <string name="file_migration_checking_destination">მოწმდება დანიშნულება &#8230;</string>
-    <string name="file_migration_saving_accounts_configuration">ხდება ანგარიშების კონფიგურაციების შენახვა &#8230;</string>
-    <string name="file_migration_waiting_for_unfinished_sync">ველოდებით სინქრონიზაციების დასრულებას &#8230;</string>
     <string name="file_migration_migrating">ხდება მონაცემების გადატანა &#8230;</string>
     <string name="file_migration_updating_index">ნახლდება ინდექსი &#8230;</string>
     <string name="file_migration_cleaning">სუფთავდება &#8230;</string>
-    <string name="file_migration_restoring_accounts_configuration">ხდება ანგარიშების კონფიგურაციების აღდგენა &#8230;</string>
     <string name="file_migration_ok_finished">დასრულებულია</string>
-    <string name="file_migration_failed_not_enough_space">შეცდომა: არასაკმარისი ადგილი</string>
-    <string name="file_migration_failed_not_writable">შეცდომა: დანიშნულების ფაილი არაა წერადი</string>
-    <string name="file_migration_failed_not_readable">შეცდომა: წყაროს ფაილი არაა კითხვადი</string>
-    <string name="file_migration_failed_dir_already_exists">შეცდომა: Nextcloud დირექტორია უკვე არსებობს</string>
-    <string name="file_migration_failed_while_coping">შეცდომა: მიგრაცია ვერ მოხერხდა</string>
-    <string name="file_migration_failed_while_updating_index">შეცდომა: ინდექსის განახლება ვერ მოხერხდა</string>
-
-    <string name="file_migration_directory_already_exists">მონაცემების დირექტორია უკვე არსებობს. აირჩიეთ შემდეგიდან ერთ-ერთი:</string>
     <string name="file_migration_override_data_folder">ჩანაცვლება</string>
     <string name="file_migration_use_data_folder">მოხმარება</string>
 
-    <string name="file_migration_source_not_readable_title">წყაროს დირქტორია არ იკითხება!</string>
     <string name="file_migration_source_not_readable">მაინც გსურთ დირექტორიის მისამართის შეცვლა %1$s-ზე?\n\nშენიშვნა: ყველა მონაცემი ჩამოიტვირთება ახლიდან.</string>
 
     <string name="prefs_add_account">ანგარიშის დამატება</string>
@@ -416,7 +374,6 @@
 	<string name="log_send_mail_subject">%1$s Android აპლიკაციის ლოგები.</string>
 	<string name="log_progress_dialog_text">მონაცემები იტვირთება &#8230;</string>
 
-	<string name="saml_authentication_required_text">აცუილებელია აუტენტიფიკაცია</string>
 	<string name="saml_authentication_wrong_pass">არასწორი პაროლი</string>
 	<string name="actionbar_move">გადატანა</string>
     <string name="actionbar_copy">კოპირება</string>
@@ -438,9 +395,7 @@
 
     <string name="prefs_category_details">დეტალები</string>
 
-    <string name="sync_folder_failed_content">%1$s-ის სინქრონიზაცია ვერ დასრულდა</string>
-
-	<string name="subject_user_shared_with_you">%1$s-სგან გაგიზიარდათ \"%2$s\"</string>
+    <string name="subject_user_shared_with_you">%1$s-სგან გაგიზიარდათ \"%2$s\"</string>
     <string name="subject_shared_with_you">გაგიზიარდათ \"%1$s\"</string>
 
     <string name="auth_refresh_button">კავშირის განახლება</string>
@@ -491,7 +446,6 @@
     <string name="share_email_clarification">%1$s (ელ-ფოსტა)</string>
     <string name="share_known_remote_clarification">%1$s ( %2$s-ზე )</string>
 
-    <string name="share_sharee_unavailable">იმისათვის რომ მომხმარებლებმა შეძნოთ თავიანთ კლიენტებთან გაზიარება, განაახლეთ სერვერის ვერსია.\nგთხოვთ დაუკავშირდეთ თქვენს ადმინისტრატორს</string>
     <string name="filedetails_share_link_enable">ბმულით გაზიარება ნებადართულია</string>
     <string name="filedetails_share_link_disable">ბმულით გაზიარებული არაა </string>
     <string name="filedetails_share_users_with_access">მომხმარებლები და ჯგუფები წვდომის უფლებით</string>
@@ -521,7 +475,6 @@
 
     <string name="uploads_view_upload_status_waiting_for_charging">გადახდის მოლოდინშია</string>
     <string name="actionbar_search">ძიება</string>
-    <string name="files_drop_not_supported">ეს Nextcloud-ის ფუნქციაა, გთოხთ განაახლოთ.</string>
     <string name="learn_more">შეიტყვეთ მეტი</string>
     <string name="drawer_synced_folders">ავტო-ატვირთვა</string>
     <string name="drawer_participate">მონაწილეობის მიღება</string>
@@ -621,11 +574,7 @@
     <!-- Notifications -->
     <string name="new_notification_received">მიღებულია ახალი შეტყობინება</string>
     <string name="drawer_logout">გასვლა</string>
-    <string name="picture_set_as_no_app">სურათის დასაყენებლად ვერც ერთი აპლიკაცია ვერ იქნა ნაპოვნი!</string>
     <string name="privacy">კონფიდენციალურობა</string>
-    <string name="file_not_found">ფაილი ვერ იქნა ნაპოვნი!</string>
-    <string name="file_not_synced">სასურველი ფაილის სინქ. ვერ მოხერხდა. ნაჩვენებია ბოლო ხელმისაწვდომი ვერსია.</string>
-
     <!-- Auto upload -->
     <string name="autoupload_custom_folder">დააყენეთ სპეციფიური დირექტორია</string>
     <string name="autoupload_create_new_custom_folder">შექმენით ახალი სპეციფიური დირექტორია</string>
@@ -653,13 +602,9 @@
     <string name="resized_image_not_possible_download">ზომა-შეცვლილი სურათი არაა ხელმისაწვდომი. გადმოვწეროთ მთლიანი სურათი?</string>
     <string name="resized_images_download_full_image">გადმოვწეროთ მთელი სურათი?</string>
 
-    <string name="store_short_desc">Nextcloud Android აპლიკაცია თქვენს Nextcloud ინსტანციაზე იძლევა ყველა ფაილთან წვდომის უფლებას</string>
-    <string name="store_full_desc">Nextcloud-ის ღია Android აპლიკაცია საშუალებას გაძლევთ, თქვენს Nextcloud-ში არსებულ ყველა ფაილთან იქონიოთ წვდომა.\n\nფუნქციები:\n* ადვილი, თანამედროვე ინტერფეისი, თქვენი სერვერის გრაფიკულ თემასთან შეთანხმებით გაფორმებული\n* ატვირთეთ თქვენი ფაილები თქვენს Nexcloud სერვერზე\n* გააზიარეთ ფაილები სხვებთან\n* სინქრონიზირებულად იქონიეთ რჩეული ფაილები და დირექტორიები\n* მოიძიეთ სასურველი ფაილი თუ დირექტორია\n* ავტომატურად ატვირთეთ თქვენი მოწყობილობით გადაღებული ფოტოები და ვიდეოები\n* არ ჩამოუვარდეთ შეტყობინებებს\n* მულტი-ანგარიშების მხარდაჭერა\n* დაცული წვდომა თქვენს მონაცემებთან თითის ანაბეჭდით ან პინით\n* ინტეგრაცია DAVdroid-თან კალენდარისა და კონტაქტების სინქრონიზაციის მარტივი მოწყობითვის.\n\nგთხოვთ გვამცნობოთ ნებისმიერი პრობლემის შესახებ https://github.com/nextcloud/android/issues მისამართზე და განვიხილოთ ეს აპლიკაცია https://help.nextcloud.com/c/clients/android ბმულზე.\n\nახალია თქვენთვის Nextcloud-ი? Nextcloud-ი პირადი ფილების სინქრონიზაციის, გაზიარებისა და კომუნიკაციის სერვერია. ის სრულად ღიაა, შეგიძლიათ თავად დააყენოთ ან სერვერზე გასამართად გადაუხადოთ კომპანიას. ამ გზით თქვენი ფოტოები, კალენდარი, საკონტაქტო ინფორმაცია, დოკუმენტები და ყველაფერი სხვა თქვენს კონტროლს ქვეშაა.\n\nიხილეთ Nextcloud https://nextcloud.com მისამართზე.</string>
-
     <string name="drawer_current_account">მიმდინარე ანგარიში</string>
     <string name="drawer_middle_account">შუა ანგარიში</string>
     <string name="drawer_end_account">ბოლო ანგარიში</string>
-    <string name="contactlist_item_icon">კონტაქტ-სიის მომხმარებლის პიქტოგრამა</string>
     <string name="activity_icon">აქტივობის პიქტოგრამა</string>
     <string name="file_icon">ფაილის პიქტოგრამა</string>
     <string name="user_icon">მომხმარებლის პიქტოგრამა</string>
@@ -673,12 +618,6 @@
     <string name="shared_icon">გაზიარებული პიქტოგრამა</string>
     <string name="overflow_menu">ნამეტი მენიუ</string>
     <string name="share_file_icon">ფაილის პიქტოგრამის გაზიარება</string>
-    <string name="sort_by_name_ascending">დალაგება სახელის ზრდის მიხედვით</string>
-    <string name="sort_by_modification_date_ascending">დალაგება ცვლილების თარიღის ზრდის მიხედვით</string>
-    <string name="sort_by_size_descending">დალაგება ზომის შემცირების მიხედვით</string>
-    <string name="sort_by_size_ascending">დალაგება ზომის მატების მიხედვით</string>
-    <string name="sort_by_name_descending">დალაგება სახელის შემცირების მიხედვით</string>
-    <string name="sort_by_modification_date_descending">დალაგება ცვლილების თარიღის შემცირების მიხედვით</string>
     <string name="synced_folders_type">სახეობა</string>
     <string name="sync_status_button">სინქ. სტატუსის ღილაკი</string>
     <string name="synced_folder_settings_button">პარამეტრების ღილაკი</string>
@@ -688,8 +627,6 @@
     <string name="what_s_new_image">რა არის ახალი სურათი</string>
 
     <string name="store_short_dev_desc">Nextcloud დევ. აპლიკაცია დევ. კადრია და შესაძლებელია მისი პარალელური დაყენება.</string>
-    <string name="store_full_dev_desc">ღია Nextcloud Android აპლიკაცია ხელმისაწვდომს ხდის ყველა თქვენს ფაილს Nextcloud-ში.\nეს ოფიციალური Nextcloud აპლიკაციის დეველოპმენტ ვერსიაა და მოიცავს უახლეს, შეუმოწმებელ ფუნქციებს, რამაც შეიძლება გამოიწვიოს არასტაბილურობა და მონაცემების დაკარგვა. აპლიკაცია დამზადებულია მომხმარებლებისთვის, რომლებსაც სურთ ახალი ფუნქციების შემოწმება და გამოჩენილ შეცდომებზე განაცხადის გაკეთება. არ გამოიყენოთ საწარმოო სამუშაოსთვის!\n\nდევ. ვერსია შეიძლება დაყენდეს ოფიციალური Nextcloud აპლიკაციასთან ერთად, რომელიც ხელმისაწვდომია F-Droid-ზეც. ის დღეში ერთხელ მოწმდება კოდის განახლებაზე, ასე რომ შესაძლოა კონსტრუქციებს შორის იარსებონ გრძელმა პაუზებმა.</string>
-
     <string name="prefs_category_dev">დევ.</string>
     <string name="dev_version_no_information_available">ინფორმაცია ხელმიუწვდომელია</string>
     <string name="dev_version_no_new_version_available">ახალი ვერსია არაა ხელმისაწვდომი.</string>
@@ -717,26 +654,18 @@
     <string name="screenshot_03_drawer">იქონიეთ სწრაფი წვდომა აქტივობებზე, გაზიარებებზე, ოფლაინ ფაილებზე და ა.შ.</string>
     <string name="screenshot_04_accounts">დაუკავშირდით სხვა ანგარიშებს</string>
     <string name="screenshot_05_autoUpload">ავტომატურად ატვირთეთ თქვენი ფოტოები და ვიდეოები</string>
-    <string name="screenshot_06_davdroid">კალენდრისა და კონტაქტების სინქ. DAVdroid-თან</string>
-    
     <string name="userinfo_no_info_headline">პირადი ინფორმაციის კომპლექტი არაა</string>
     <string name="userinfo_no_info_text">დაამატეთ სახელი, ფოტო და საკონტაქტო დეტალები თქვენს პროფილის გვერდზე.</string>
     <string name="drawer_header_background">მხაზველი დასათაურების ფონური სურათი</string>
     <string name="account_icon">ანგარიშის პიქტოგრამა</string>
     
-    <string name="end_to_end_encryption_folder_not_empty">დირექტორია არაა ცარიელი!</string>
     <string name="end_to_end_encryption_wrong_password">შეცდომა დეშიფრაციისას. არასწორი პაროლი?</string>
     <string name="end_to_end_encryption_decrypting">ხდება დეშიფრაცია &#8230;</string>
     <string name="end_to_end_encryption_retrieving_keys">ხდება გასაღებების მიღება &#8230;</string>
-    <string name="end_to_end_encryption_enter_password">პირადი გასაღების დეშიფრაციისთვის გთხოვთ შეიყვანოთ პაროლი!</string>
     <string name="end_to_end_encryption_generating_keys">ხდება ახალი გასაღებების გენერირება &#8230;</string>
-    <string name="end_to_end_encryption_keywords_description">ეს 12 სიტყვიანი ფრაზა წააგავს ძალიან ძლიერ პაროლს: ის იძლევა თქვენი დაშიფრული ფაილების სრული წვდომისა და მოხმარების უფლებას. გთხოვთ ჩაიწეროთ და შეინახოთ დაცულ ადგილას.</string>
     <string name="end_to_end_encryption_title">შიფრაციის დაყენება</string>
-    <string name="end_to_end_encryption_passphrase_title">შენიშნეთ თქვენი შიფრაციის პასფრაზა</string>
-    <string name="end_to_end_encryption_not_supported">KitKat-ამდე შიფრაცია არაა მხარდაჭერილი.</string>
     <string name="end_to_end_encryption_confirm_button">შიფრაციის დაყენება</string>
     <string name="end_to_end_encryption_password">პაროლი &#8230;</string>
-    <string name="end_to_end_encryption_unsuccessful">გასაღებების შენახვა ვერ მოხერხდა, გთხოვთ სცადოთ ახლიდან!</string>
     <string name="end_to_end_encryption_dialog_close">დახურვა</string>
     <string name="end_to_end_encryption_storing_keys">გასაღებების შენახვა</string>
-</resources>
+    </resources>

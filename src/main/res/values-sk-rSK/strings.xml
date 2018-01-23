@@ -47,7 +47,6 @@
     <string name="prefs_log_delete_history_button">Vymazať históriu</string>
     <string name="prefs_calendar_contacts">Synchronizovať kalendár &amp; kontakty</string>
     <string name="prefs_calendar_contacts_summary">Nastaviť DAVdroid (v1.3.0+) pre tento účet</string>
-    <string name="prefs_calendar_contacts_address_resolve_error">Adresu servera pre účet sa nepodarilo zistiť pre DAVdroid</string>
     <string name="prefs_calendar_contacts_no_store_error">F-Droid ani Google Play nie sú nainštalované</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Synchronizácia kalendára &amp; kontaktov úspešne dokončená</string>
     <string name="prefs_daily_contacts_sync_summary">Denná záloha vašich kontaktov</string>
@@ -99,12 +98,10 @@
     <string name="file_list_empty_headline_server_search_videos">Žiadne videá</string>
     <string name="file_list_empty_headline_server_search_photos">Žiadne fogografie</string>
     <string name="file_list_empty_search">Možno to je v inom priečinku?</string>
-    <string name="file_list_empty_recently_modified">V posledných 7 dňoch sa nenašli žiadne zmeny</string>
     <string name="upload_list_empty_headline">Žiadne súbory na nahratie nie sú dostupné</string>
     <string name="file_list_folder">priečinok</string>
     <string name="filedetails_select_file">Viac informácií získate kliknutím na súbor.</string>
     <string name="filedetails_download">Stiahnuť</string>
-    <string name="filedetails_sync_file">Synchronizovať</string>
     <string name="list_layout">Náhľad zoznamu</string>
     <string name="action_send_share">Odoslať/Zdieľať</string>
     <string name="common_yes">Áno</string>
@@ -132,11 +129,8 @@
     <string name="uploader_upload_succeeded_content_single">%1$s odoslané</string>
     <string name="uploader_upload_failed_ticker">Odoslanie bolo neúspešné</string>
     <string name="uploader_upload_failed_content_single">Nepodarilo sa nahrať %1$s</string>
-    <string name="uploader_upload_failed_credentials_error">Odoslanie neúspešné, je potrebné sa znovu prihlásiť</string>
-    <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">Certifikát servera je nedôveryhodný</string>
     <string name="uploads_view_title">Nahranie</string>
     <string name="uploads_view_group_current_uploads">Aktuálne</string>
-    <string name="uploads_view_group_failed_uploads">Zlyhaný / Čakajúci reštart</string>
     <string name="uploads_view_group_finished_uploads">Odoslané</string>
     <string name="uploads_view_upload_status_succeeded">Dokončené</string>
     <string name="uploads_view_upload_status_cancelled">Zrušené</string>
@@ -149,7 +143,6 @@
     <string name="uploads_view_upload_status_conflict">Konflikt</string>
     <string name="uploads_view_upload_status_service_interrupted">Aplikácia ukončená</string>
     <string name="uploads_view_upload_status_unknown_fail">Neznáma chyba</string>
-    <string name="uploads_view_upload_status_waiting_for_wifi">Čaká sa na Wi-Fi pripojenie</string>
     <string name="uploads_view_upload_status_waiting_exit_power_save_mode">Čaká sa na ukončenie úsporného režimu</string>
     <string name="uploads_view_later_waiting_to_upload">Čaká sa na nahratie</string>
     <string name="downloader_download_in_progress_ticker">Sťahujem &#8230;</string>
@@ -159,12 +152,9 @@
     <string name="downloader_download_failed_ticker">Stiahnutie zlyhalo</string>
     <string name="downloader_download_failed_content">Nepodarilo sa stiahnuť %1$s</string>
     <string name="downloader_not_downloaded_yet">Ešte nie je stiahnuté</string>
-    <string name="downloader_download_failed_credentials_error">Sťahovanie neúspešné, je potrebné sa znovu prihlásiť</string>
     <string name="common_choose_account">Zvoliť účet</string>
     <string name="common_switch_account">Prepnúť účet</string>
     <string name="sync_fail_ticker">Synchronizácia neúspešná</string>
-    <string name="sync_fail_ticker_unauthorized">Synchronizácia neúspešná, musíte sa znovu prihlásiť</string>
-    <string name="sync_fail_content">Synchronizácia %1$s nemohla byť dokončená</string>
     <string name="sync_fail_content_unauthorized">Chybné heslo pre %1$s</string>
     <string name="sync_conflicts_in_favourites_ticker">Objavené konflikty</string>
     <string name="sync_fail_in_favourites_ticker">Automatická synchronizácia súborov zlyhala</string>
@@ -233,8 +223,6 @@
     <string name="rename_dialog_title">Zadajte nové meno</string>
     <string name="sync_file_nothing_to_do_msg">Obsah súboru je zosynchronizovaný</string>
     <string name="filename_forbidden_characters">Zakázané znaky: / \\ &lt; &gt; : \" | ? *</string>
-    <string name="filename_forbidden_charaters_from_server">Názov súboru obsahuje nevhodný znak</string>
-    <string name="filename_empty">Názov súboru nemôže byť prázdny</string>
     <string name="wait_checking_credentials">Overujem uložené prihlasovacie údaje</string>
     <string name="activity_chooser_title">Odošli link do &#8230;</string>
     <string name="wait_for_tmp_copy_from_private_storage">Kopírovanie súboru z privátneho úložiska</string>
@@ -306,7 +294,6 @@
 
     <string name="file_migration_dialog_title">Aktualizujem cestu k úložisku</string>
     <string name="file_migration_ok_finished">Hotovo</string>
-    <string name="file_migration_failed_not_enough_space">Chyba: Nedostatok miesta</string>
     <string name="file_migration_override_data_folder">Nahradiť</string>
     <string name="prefs_add_account">Pridať účet</string>
     <string name="drawer_manage_accounts">Správa účtov</string>
@@ -315,7 +302,6 @@
 	<string name="log_send_mail_subject">%1$s Android app logs</string>
 	<string name="log_progress_dialog_text">Načítavam dáta &#8230;</string>
 
-	<string name="saml_authentication_required_text">Vyžaduje sa overenie</string>
 	<string name="saml_authentication_wrong_pass">Nesprávne heslo</string>
 	<string name="actionbar_move">Presunúť</string>
     <string name="actionbar_copy">Kopírovať</string>
@@ -332,9 +318,7 @@
 
     <string name="prefs_category_details">Podrobnosti</string>
 
-    <string name="sync_folder_failed_content">Synchronizáciu priečinka %1$s nebolo možné dokončiť</string>
-
-	<string name="subject_user_shared_with_you">%1$s vám sprístupnil \"%2$s\"</string>
+    <string name="subject_user_shared_with_you">%1$s vám sprístupnil \"%2$s\"</string>
     <string name="subject_shared_with_you">\"%1$s\" vám bol sprístupnený</string>
 
     <string name="auth_refresh_button">Obnoviť pripojenie</string>
@@ -395,7 +379,6 @@
     <string name="manage_space_clear_data">Vyčistiť dáta</string>
 
     <string name="actionbar_search">Hľadať</string>
-    <string name="files_drop_not_supported">Toto je funkcia Nextcloudu, aktualizujte prosím.</string>
     <string name="learn_more">Dozvedieť sa viac</string>
     <string name="drawer_participate">Zúčastniť sa</string>
     <string name="participate_release_candidate_headline">Release candidate</string>
@@ -435,7 +418,6 @@
     <!-- Activities -->
     <string name="activities_no_results_headline">Zatiaľ žiadna aktivita</string>
     <string name="contacts_preference_backup_never">nikdy</string>
-    <string name="file_not_found">Súbor nenájdený!</string>
     <string name="fallback_weblogin_back">Späť</string>
     <string name="prefs_license">Licencia</string>
     <string name="send">Odoslať</string>

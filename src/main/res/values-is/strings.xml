@@ -47,7 +47,6 @@
     <string name="prefs_log_delete_history_button">Eyða ferli</string>
     <string name="prefs_calendar_contacts">Samstilla dagatal &amp; tengiliði</string>
     <string name="prefs_calendar_contacts_summary">Setja upp DAVdroid (v1.3.0+) fyrir þennan aðgang</string>
-    <string name="prefs_calendar_contacts_address_resolve_error">Ekki var hægt að leysa vistfang þjóns fyrir aðganginn í DAVdroid</string>
     <string name="prefs_calendar_contacts_no_store_error">Hvorki F-Droid né Google Play eru uppsett</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Samstillingar dagatals 1&amp; tengiliða eru uppsettar</string>
     <string name="prefs_daily_contacts_sync_summary">Daglegt öryggisafrit af tengiliðum</string>
@@ -62,8 +61,6 @@
     <string name="auth_host_url">Vistfang þjóns https://&#8230;</string>
     <string name="auth_username">Notandanafn</string>
     <string name="auth_password">Lykilorð</string>
-    <string name="auth_register">Ertu ekki enn með skýjaþjón?
-Smelltu hér til að fá þér einn frá þjónustuaðila.</string>
     <string name="sync_string_files">Skrár</string>
     <string name="setup_btn_connect">Tengjast</string>
     <string name="uploader_btn_upload_text">Senda inn</string>
@@ -100,20 +97,14 @@ Smelltu hér til að fá þér einn frá þjónustuaðila.</string>
     <string name="file_list_empty_headline_server_search_videos">Engin myndskeið</string>
     <string name="file_list_empty_headline_server_search_photos">Engar ljósmyndir</string>
     <string name="file_list_empty_search">Er þetta kannski í einhverri annarri möppu?</string>
-    <string name="file_list_empty_recently_modified">Fann engar skrár sem breytt hefur verið síðustu 7 daga</string>
-    <string name="file_list_empty_recently_modified_filter">Fann engar skrár sem breytt hefur verið síðustu 7 daga.</string>
     <string name="file_list_empty_recently_added">Fann engar nýlega viðbættar skrár</string>
-    <string name="file_list_empty_recently_added_filter">Leitin skilaði engum nýlega viðbættum skrám</string>
     <string name="file_list_empty_text_photos">Sendu inn einhverjar myndir eða virkjaðu sjálfvirka innsendingu.</string>
-    <string name="file_list_empty_text_photos_filter">Leitin skilaði engum myndum.</string>
     <string name="file_list_empty_text_videos">Sendu inn einhver myndskeið eða virkjaðu sjálfvirka innsendingu.</string>
-    <string name="file_list_empty_text_videos_filter">Leitin skilaði engum myndskeiðum.</string>
     <string name="upload_list_empty_headline">Engar innsendingar tiltækar</string>
     <string name="upload_list_empty_text_auto_upload">Sendu inn einhverjar myndir eða virkjaðu sjálfvirka innsendingu.</string>
     <string name="file_list_folder">mappa</string>
     <string name="filedetails_select_file">Bankaðu á skrá til að sjá ítarlegri upplýsingar.</string>
     <string name="filedetails_download">Niðurhal</string>
-    <string name="filedetails_sync_file">Samstilla</string>
     <string name="filedetails_renamed_in_upload_msg">Skrá endurnefnd sem %1$s við innsendingu</string>
     <string name="list_layout">Framsetning sem listi</string>
     <string name="common_yes">Já</string>
@@ -142,11 +133,8 @@ Smelltu hér til að fá þér einn frá þjónustuaðila.</string>
     <string name="uploader_upload_succeeded_content_single">%1$s sent inn</string>
     <string name="uploader_upload_failed_ticker">Innsending mistókst</string>
     <string name="uploader_upload_failed_content_single">Gat ekki sent inn %1$s</string>
-    <string name="uploader_upload_failed_credentials_error">Innsending mistókst, þú verður að skrá þig inn aftur</string>
-    <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">Skilríki þjónsins er ekki treyst</string>
     <string name="uploads_view_title">Innsendingar</string>
     <string name="uploads_view_group_current_uploads">Núverandi</string>
-    <string name="uploads_view_group_failed_uploads">Mistókst / Bíður endurræsingar</string>
     <string name="uploads_view_group_finished_uploads">Hlaðið inn</string>
     <string name="uploads_view_upload_status_succeeded">Lokið</string>
     <string name="uploads_view_upload_status_cancelled">Hætt við</string>
@@ -159,7 +147,6 @@ Smelltu hér til að fá þér einn frá þjónustuaðila.</string>
     <string name="uploads_view_upload_status_conflict">Árekstur</string>
     <string name="uploads_view_upload_status_service_interrupted">Forrit hætti</string>
     <string name="uploads_view_upload_status_unknown_fail">Óþekkt villa</string>
-    <string name="uploads_view_upload_status_waiting_for_wifi">Bíð eftir Wi-Fi tengingu</string>
     <string name="uploads_view_upload_status_waiting_exit_power_save_mode">Bíð eftir að hætt sé í orkusparnaðarham</string>
     <string name="uploads_view_later_waiting_to_upload">Bíð eftir að senda inn</string>
     <string name="downloader_download_in_progress_ticker">Sæki &#8230;</string>
@@ -169,19 +156,12 @@ Smelltu hér til að fá þér einn frá þjónustuaðila.</string>
     <string name="downloader_download_failed_ticker">Niðurhal mistókst</string>
     <string name="downloader_download_failed_content">Gat ekki sótt %1$s</string>
     <string name="downloader_not_downloaded_yet">Ekki ennþá búið að sækja</string>
-    <string name="downloader_download_failed_credentials_error">Niðurhal mistókst, þú verður að skrá þig inn aftur</string>
     <string name="common_choose_account">Veldu aðgang</string>
     <string name="common_switch_account">Skipta um aðgang</string>
     <string name="sync_fail_ticker">Samstilling mistókst</string>
-    <string name="sync_fail_ticker_unauthorized">Samstilling mistókst, þú verður að skrá þig inn aftur</string>
-    <string name="sync_fail_content">Gat ekki lokið samstillingu á %1$s</string>
     <string name="sync_fail_content_unauthorized">Rangt lykilorð fyrir %1$s</string>
     <string name="sync_conflicts_in_favourites_ticker">Árekstrar fundust</string>
     <string name="sync_fail_in_favourites_ticker">Skrár merktar fyrir samstillingu mistókust</string>
-    <plurals name="sync_fail_in_favourites_content">
-        <item quantity="one">Ekki var hægt að samstilla innihald %1$d skrárinnar (árekstrar: %2$d)</item>
-        <item quantity="other">Ekki var hægt að samstilla innihald %1$d skránna (árekstrar: %2$d)</item>
-    </plurals>
     <string name="sync_foreign_files_forgotten_ticker">Sumar staðværar skrár gleymdust</string>
     <string name="sync_foreign_files_forgotten_explanation">Frá og með útgáfu 1.3.16, eru skrár sem sendar eru inn frá þessu tæki afritaðar inn í staðværu %1$s möppuna, til að koma í veg fyrir gagnatap þegar stök skrá er samstillt við marga notendaaðganga.\n\nVegna þessarar breytingar, hafa allar skrár sem innsendar voru með eldri útgáfum þessa forrits nú verið afritaðar inn í %2$s möppuna. Hinsvegar kom villa í veg fyrir að hægt væri að ljúka aðgerðinni á meðan samstilling fór fram á notandaaðgangnum. Þú getur annað hvort látið skrána/skrárnar vera eins og þær eru nú og fjarlægt tengilinn í %3$s, eða fært skrána/skrárnar inn í %1$s möppuna og haldið tenglinum í %4$s.\n\nHér fyrir neðan eru staðværu skrárnar taldar upp, ásamt þeim fjartengdu skrám í %5$s sem þær voru tengdar.</string>
     <string name="sync_current_folder_was_removed">Mappan %1$ser ekki lengur til</string>
@@ -214,7 +194,6 @@ Smelltu hér til að fá þér einn frá þjónustuaðila.</string>
     <string name="media_err_malformed">Margmiðlunarskráin er með ranga kóðun</string>
     <string name="media_err_timeout">Tilraun til að spila skrá rann út á tíma</string>
     <string name="media_err_invalid_progressive_playback">Ekki tókst að streyma margmiðlunarskrá</string>
-    <string name="media_err_unknown">Upprunalegi margmiðlunarspilarinn ræður ekki við að spila þessa margmiðlunarskrá  </string>
     <string name="media_err_security_ex">Öryggissvilla kom upp við að reyna að spila  %1$s</string>
     <string name="media_err_io_ex">Óvænt villa kom upp við að reyna að spila  %1$s</string>
     <string name="media_err_unexpected">Óvænt villa kom upp við að reyna að spila  %1$s</string>
@@ -249,9 +228,7 @@ Smelltu hér til að fá þér einn frá þjónustuaðila.</string>
 	<string name="auth_expired_basic_auth_toast">Settu inn núgildandi lykilorð</string>
 	<string name="auth_expired_saml_sso_token_toast">Setan þín er útrunnin. Skráðu þig aftur inn.</string>
     <string name="auth_unsupported_multiaccount">%1$s styður ekki fjölaðganga</string>
-	<string name="auth_fail_get_user_name">Vefþjónninn þinn er ekki að svara með réttu notandaauðkenni, hafðu samband við kerfisstjóra.</string>
 	<string name="auth_can_not_auth_against_server">Get ekki auðkennt á þessum þjóni</string>
-    <string name="auth_account_does_not_exist">Aðgangur er ekki ennþá til á tækinu</string>
     <string name="auth_access_failed">Aðgangur mistókst</string>
 
     <string name="favorite">Stilla sem tiltækt án nettengingar</string>
@@ -272,8 +249,6 @@ Smelltu hér til að fá þér einn frá þjónustuaðila.</string>
     <string name="sync_file_nothing_to_do_msg">Efni skrár er þegar samstillt</string>
     <string name="create_dir_fail_msg">Gat ekki búið til möppu</string>
     <string name="filename_forbidden_characters">Óleyfilegir stafir: / \\ &lt; &gt; : \" | ? *</string>
-    <string name="filename_forbidden_charaters_from_server">Skráarheitið inniheldur að minnsta kosti einn ógildan staf</string>
-    <string name="filename_empty">Skráarheiti má ekki vera tómt</string>
     <string name="wait_checking_credentials">Athuga geymd auðkenni</string>
     <string name="filedisplay_no_file_selected">Engin skrá valin</string>
     <string name="activity_chooser_title">Senda tengil til &#8230;</string>
@@ -335,7 +310,6 @@ Smelltu hér til að fá þér einn frá þjónustuaðila.</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Nota undirmöppur</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Geyma í undirmöppum byggðum á ári og mánuðum</string>
 
-	<string name="share_link_no_support_share_api">Deiling er ekki virk á þjóninum þínum. Hafðu samband við kerfisstjóra.</string>
 	<string name="share_link_file_no_exist">Get ekki deilt. Athugaðu hvort skráin sé til</string>
 	<string name="share_link_file_error">Villa kom upp við að reyna að deila þessari skrá eða möppu</string>
 	<string name="unshare_link_file_no_exist">Get ekki hætt deilingu. Athugaðu hvort skráin sé til</string>
@@ -355,9 +329,6 @@ Smelltu hér til að fá þér einn frá þjónustuaðila.</string>
 
     <string name="error_cant_bind_to_operations_service">Alvarleg villa: Ekki hægt að framkvæma aðgerðir</string>
 
-    <string name="network_error_socket_exception">Villa kom upp við að tengjast þjóninum.</string>
-    <string name="network_error_socket_timeout_exception">Villa kom upp á meðan beðið var eftir þjóninum. Ekki var hægt að ljúka aðgerðinni</string>
-    <string name="network_error_connect_timeout_exception">Villa kom upp á meðan beðið var eftir þjóninum. Ekki var hægt að ljúka aðgerðinni</string>
     <string name="network_host_not_available">Gat ekki lokið aðgerð. Þjónn ekki tiltækur</string>
 
     <string name="forbidden_permissions">Þú hefur ekki heimild %s</string>
@@ -372,18 +343,9 @@ Smelltu hér til að fá þér einn frá þjónustuaðila.</string>
 
     <string name="file_migration_dialog_title">Uppfæri slóð á gagnageymslu</string>
     <string name="file_migration_ok_finished">Lokið</string>
-    <string name="file_migration_failed_not_enough_space">Villa: ekki nægilegt pláss</string>
-    <string name="file_migration_failed_not_writable">Villa: úttaksskrá ekki skrifanleg</string>
-    <string name="file_migration_failed_not_readable">Villa: upprunaskrá ekki lesanleg</string>
-    <string name="file_migration_failed_dir_already_exists">Villa: Nextcloud-mappan er þegar til</string>
-    <string name="file_migration_failed_while_coping">Villa: mistök við yfirfærslu</string>
-    <string name="file_migration_failed_while_updating_index">Villa: mistókst að uppfæra atriðavísi</string>
-
-    <string name="file_migration_directory_already_exists">Gagnamappa er þegar til. Veldu eitt af eftirfarandi:</string>
     <string name="file_migration_override_data_folder">Skipta út</string>
     <string name="file_migration_use_data_folder">Nota</string>
 
-    <string name="file_migration_source_not_readable_title">Upprunamappa er ekki lesanleg!</string>
     <string name="file_migration_source_not_readable">Viltu breyta slóð á geymslurými yfir í %1$s?\n\nAthugaðu: Sækja þarf öll gögn aftur.</string>
 
     <string name="prefs_add_account">Bæta við notandaaðgangi</string>
@@ -396,7 +358,6 @@ Smelltu hér til að fá þér einn frá þjónustuaðila.</string>
 	<string name="log_send_mail_subject">%1$s atvikaskrár Android-forrita</string>
 	<string name="log_progress_dialog_text">Hleð inn gögnum &#8230;</string>
 
-	<string name="saml_authentication_required_text">Auðkenningar krafist</string>
 	<string name="saml_authentication_wrong_pass">Rangt lykilorð</string>
 	<string name="actionbar_move">Færa</string>
     <string name="actionbar_copy">Afrita</string>
@@ -418,9 +379,7 @@ Smelltu hér til að fá þér einn frá þjónustuaðila.</string>
 
     <string name="prefs_category_details">Nánar</string>
 
-    <string name="sync_folder_failed_content">Ekki var hægt að ljúka samstillingu á %1$s möppunni</string>
-
-	<string name="subject_user_shared_with_you">%1$s deilt \"%2$s\" með þér</string>
+    <string name="subject_user_shared_with_you">%1$s deilt \"%2$s\" með þér</string>
     <string name="subject_shared_with_you">\"%1$s\" hefur verið deilt með þér</string>
 
     <string name="auth_refresh_button">Endurlesa tengingu</string>
@@ -471,7 +430,6 @@ Smelltu hér til að fá þér einn frá þjónustuaðila.</string>
     <string name="share_email_clarification">%1$s (tölvupóstur)</string>
     <string name="share_known_remote_clarification">%1$s ( á %2$s )</string>
 
-    <string name="share_sharee_unavailable">Uppfærðu vefþjóninn til að leyfa deilingu milli notenda innan úr biðlaraforritum þeirra.\nHafðu samband við kerfisstjórann þinn</string>
     <string name="filedetails_share_link_enable">Deiling með tengli er virk</string>
     <string name="filedetails_share_link_disable">Ekki deilt með tengli</string>
     <string name="filedetails_share_users_with_access">Notendur og hópar með aðgang</string>
@@ -501,7 +459,6 @@ Smelltu hér til að fá þér einn frá þjónustuaðila.</string>
 
     <string name="uploads_view_upload_status_waiting_for_charging">Bíð eftir hleðslu</string>
     <string name="actionbar_search">Leita</string>
-    <string name="files_drop_not_supported">Þetta er Nextcloud-eiginleiki, endilega uppfærðu.</string>
     <string name="learn_more">Læra meira</string>
     <string name="drawer_synced_folders">Sjálfvirk innsending</string>
     <string name="drawer_participate">Taka þátt</string>
@@ -587,9 +544,7 @@ Smelltu hér til að fá þér einn frá þjónustuaðila.</string>
     <string name="contacts_preferences_backup_scheduled">Öryggisafritun er á áætlun og mun hefjast fljótlega</string>
     <string name="contacts_preferences_import_scheduled">Innflutningur er á áætlun og mun hefjast fljótlega</string>
 
-    <string name="picture_set_as_no_app">Engin forrit fundust til að setja mynd!</string>
     <string name="privacy">Gagnaleynd</string>
-    <string name="file_not_found">Skrá finnst ekki!</string>
     <!-- Auto upload -->
     <string name="autoupload_custom_folder">Settu upp sérsniðna möppu</string>
     <string name="autoupload_create_new_custom_folder">Búa til nýja nýja sérsniðna uppsetningu á möppum</string>
