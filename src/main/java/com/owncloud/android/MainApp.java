@@ -21,6 +21,7 @@ package com.owncloud.android;
 
 import android.Manifest;
 import android.accounts.Account;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -215,6 +216,7 @@ public class MainApp extends MultiDexApplication {
 
     }
 
+    @SuppressLint("ApplySharedPref") // commit is done on purpose to write immediately
     private void fixStoragePath() {
         if (!PreferenceManager.getStoragePathFix(this)) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
