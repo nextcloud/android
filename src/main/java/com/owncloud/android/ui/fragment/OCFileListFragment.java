@@ -39,6 +39,7 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.ActionBar;
 import android.text.TextUtils;
 import android.util.SparseBooleanArray;
 import android.view.ActionMode;
@@ -1638,8 +1639,16 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                if (getActivity() != null && ((FileDisplayActivity) getActivity()).getSupportActionBar() != null) {
-                    ThemeUtils.setColoredTitle(((FileDisplayActivity) getActivity()).getSupportActionBar(), title);
+                if (getActivity() != null) {
+                    ActionBar actionBar = ((FileDisplayActivity) getActivity()).getSupportActionBar();
+
+                    if (actionBar != null) {
+                        if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.KITKAT) {
+                            actionBar.setTitle(title);
+                        } else {
+                            ThemeUtils.setColoredTitle(actionBar, title);
+                        }
+                    }
                 }
             }
         });
