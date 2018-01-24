@@ -513,7 +513,7 @@
     <string name="manage_space_clear_data">清除数据</string>
 
     <string name="permission_storage_access">上传和下载文件所需的其他权限。</string>
-    <string name="local_file_not_found_toast">在本地文件系统中找不到文件</string>
+    <string name="local_file_not_found_message">在本地文件系统中找不到文件</string>
     <string name="confirmation_remove_files_alert">确定删除选中项？</string>
     <string name="confirmation_remove_folders_alert">确定删除选中项及其内容？</string>
     <string name="maintenance_mode">服务器处于维护模式</string>

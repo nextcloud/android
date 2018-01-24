@@ -1,63 +1,55 @@
 /**
- *   ownCloud Android client application
+ * ownCloud Android client application
  *
- *   @author David A. Velasco
- *   Copyright (C) 2011  Bartek Przybylski
- *   Copyright (C) 2015 ownCloud Inc.
- *
- *   This program is free software: you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License version 2,
- *   as published by the Free Software Foundation.
- *
- *   This program is distributed in the hope that it will be useful,
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *   GNU General Public License for more details.
- *
- *   You should have received a copy of the GNU General Public License
- *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
+ * @author David A. Velasco
+ * Copyright (C) 2011  Bartek Przybylski
+ * Copyright (C) 2015 ownCloud Inc.
+ * <p>
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 2,
+ * as published by the Free Software Foundation.
+ * <p>
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * <p>
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package com.owncloud.android.ui.fragment;
 
 import android.app.Activity;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Environment;
-import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AbsListView;
-import android.widget.AdapterView;
-import android.widget.ImageView;
-import android.widget.ListView;
 
 import com.owncloud.android.R;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.adapter.LocalFileListAdapter;
+import com.owncloud.android.ui.interfaces.LocalFileListFragmentInterface;
 import com.owncloud.android.utils.AnalyticsUtils;
 import com.owncloud.android.utils.FileSortOrder;
-import com.owncloud.android.utils.ThemeUtils;
 
 import java.io.File;
-import java.util.ArrayList;
 
 
 /**
  * A Fragment that lists all files and folders in a given LOCAL path.
  */
-public class LocalFileListFragment extends ExtendedListFragment {
+public class LocalFileListFragment extends ExtendedListFragment implements LocalFileListFragmentInterface {
     private static final String TAG = LocalFileListFragment.class.getSimpleName();
-    
+
     /** Reference to the Activity which this fragment is attached to. For callbacks */
     private LocalFileListFragment.ContainerActivity mContainerActivity;
-    
+
     /** Directory to show */
     private File mDirectory = null;
-    
+
     /** Adapter to connect the data from the directory with the View object */
     private LocalFileListAdapter mAdapter = null;
 
@@ -90,7 +82,7 @@ public class LocalFileListFragment extends ExtendedListFragment {
                     LocalFileListFragment.ContainerActivity.class.getSimpleName());
         }
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -99,8 +91,7 @@ public class LocalFileListFragment extends ExtendedListFragment {
         Log_OC.i(TAG, "onCreateView() start");
         View v = super.onCreateView(inflater, container, savedInstanceState);
 
-        if(!mContainerActivity.isFolderPickerMode()) {
-            setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
+        if (!mContainerActivity.isFolderPickerMode()) {
             setMessageForEmptyList(R.string.file_list_empty_headline, R.string.local_file_list_empty,
                     R.drawable.ic_list_empty_folder, true);
         } else {
@@ -122,16 +113,13 @@ public class LocalFileListFragment extends ExtendedListFragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         Log_OC.i(TAG, "onActivityCreated() start");
-        
+
         super.onActivityCreated(savedInstanceState);
 
-        mAdapter = new LocalFileListAdapter(
-                mContainerActivity.isFolderPickerMode(),
-                mContainerActivity.getInitialDirectory(),
-                getActivity()
-        );
-        setListAdapter(mAdapter);
-        
+        mAdapter = new LocalFileListAdapter(mContainerActivity.isFolderPickerMode(),
+                mContainerActivity.getInitialDirectory(), this, getActivity());
+        setRecyclerViewAdapter(mAdapter);
+
         Log_OC.i(TAG, "onActivityCreated() stop");
     }
 
@@ -147,14 +135,14 @@ public class LocalFileListFragment extends ExtendedListFragment {
             super.onCreateOptionsMenu(menu, inflater);
         }
     }
-    
+
+
     /**
      * Checks the file clicked over. Browses inside if it is a directory.
      * Notifies the container activity in any case.
      */
     @Override
-    public void onItemClick(AdapterView<?> l, View v, int position, long id) {
-        File file = (File) mAdapter.getItem(position); 
+    public void onItemClicked(File file) {
         if (file != null) {
             /// Click on a directory
             if (file.isDirectory()) {
@@ -164,37 +152,35 @@ public class LocalFileListFragment extends ExtendedListFragment {
                 mContainerActivity.onDirectoryClick(file);
 
                 // save index and top position
-                saveIndexAndTopPosition(position);
-            
-            } else {    /// Click on a file
-                ImageView checkBoxV = (ImageView) v.findViewById(R.id.custom_checkbox);
-                if (checkBoxV != null) {
-                    if (getListView().isItemChecked(position)) {
-                        v.setBackgroundColor(getContext().getResources().getColor(R.color.selected_item_background));
-                        checkBoxV.setImageDrawable(ThemeUtils.tintDrawable(R.drawable.ic_checkbox_marked,
-                                ThemeUtils.primaryColor()));
+                saveIndexAndTopPosition(mAdapter.getItemPosition(file));
 
-                    } else {
-                        v.setBackgroundColor(Color.WHITE);
-                        checkBoxV.setImageResource(R.drawable.ic_checkbox_blank_outline);
-                    }
+            } else {    /// Click on a file
+                if (mAdapter.isCheckedFile(file)) {
+                    // uncheck
+                    mAdapter.removeCheckedFile(file);
+                } else {
+                    // check
+                    mAdapter.addCheckedFile(file);
                 }
+
+                mAdapter.notifyItemChanged(mAdapter.getItemPosition(file));
+
                 // notify the change to the container Activity
                 mContainerActivity.onFileClick(file);
             }
-            
+
         } else {
             Log_OC.w(TAG, "Null object in ListAdapter!!");
         }
     }
 
-    
+
     /**
      * Call this, when the user presses the up button
      */
     public void onNavigateUp() {
         File parentDir = null;
-        if(mDirectory != null) {
+        if (mDirectory != null) {
             parentDir = mDirectory.getParentFile();  // can be null
         }
         listDirectory(parentDir);
@@ -203,39 +189,39 @@ public class LocalFileListFragment extends ExtendedListFragment {
         restoreIndexAndTopPosition();
     }
 
-    
+
     /**
      * Use this to query the {@link File} object for the directory
      * that is currently being displayed by this fragment
-     * 
+     *
      * @return File     The currently displayed directory
      */
-    public File getCurrentDirectory(){
+    public File getCurrentDirectory() {
         return mDirectory;
     }
-    
-    
+
+
     /**
      * Calls {@link LocalFileListFragment#listDirectory(File)} with a null parameter
      * to refresh the current directory.
      */
-    public void listDirectory(){
+    public void listDirectory() {
         listDirectory(null);
     }
-    
-    
+
+
     /**
      * Lists the given directory on the view. When the input parameter is null,
      * it will either refresh the last known directory. list the root
      * if there never was a directory.
-     * 
+     *
      * @param directory     Directory to be listed
      */
     public void listDirectory(File directory) {
-        
+
         // Check input parameters for null
-        if(directory == null) {
-            if(mDirectory != null){
+        if (directory == null) {
+            if (mDirectory != null) {
                 directory = mDirectory;
             } else {
                 directory = Environment.getExternalStorageDirectory();
@@ -245,43 +231,29 @@ public class LocalFileListFragment extends ExtendedListFragment {
                 }
             }
         }
-        
-        
+
+
         // if that's not a directory -> List its parent
-        if(!directory.isDirectory()){
+        if (!directory.isDirectory()) {
             Log_OC.w(TAG, "You see, that is not a directory -> " + directory.toString());
             directory = directory.getParentFile();
         }
 
         // by now, only files in the same directory will be kept as selected
-        mCurrentListView.clearChoices();
+        mAdapter.removeAllFilesFromCheckedFiles();
         mAdapter.swapDirectory(directory);
-        if (mDirectory == null || !mDirectory.equals(directory)) {
-            mCurrentListView.setSelection(0);
-        }
+
         mDirectory = directory;
     }
-    
+
 
     /**
-     * Returns the fule paths to the files checked by the user
-     * 
-     * @return      File paths to the files checked by the user.
+     * Returns the full paths to the files checked by the user
+     *
+     * @return File paths to the files checked by the user.
      */
     public String[] getCheckedFilePaths() {
-        ArrayList<String> result = new ArrayList<>();
-        SparseBooleanArray positions = mCurrentListView.getCheckedItemPositions();
-        if (positions.size() > 0) {
-            for (int i = 0; i < positions.size(); i++) {
-                if (positions.get(positions.keyAt(i))) {
-                    result.add(((File) mCurrentListView.getItemAtPosition(
-                            positions.keyAt(i))).getAbsolutePath());
-                }
-            }
-
-            Log_OC.d(TAG, "Returning " + result.size() + " selected files");
-        }
-        return result.toArray(new String[result.size()]);
+        return mAdapter.getCheckedFilesPath();
     }
 
     public void sortFiles(FileSortOrder sortOrder) {
@@ -294,15 +266,19 @@ public class LocalFileListFragment extends ExtendedListFragment {
      * @param select <code>true</code> to select all, <code>false</code> to deselect all
      */
     public void selectAllFiles(boolean select) {
-        AbsListView listView = getListView();
-        for (int position = 0; position < listView.getCount(); position++) {
-            File file = (File) mAdapter.getItem(position);
-            if (file.isFile()) {
-                listView.setItemChecked(position, select);
-            }
+        LocalFileListAdapter localFileListAdapter = (LocalFileListAdapter) getRecyclerView().getAdapter();
+
+        if (select) {
+            localFileListAdapter.addAllFilesToCheckedFiles();
+        } else {
+            localFileListAdapter.removeAllFilesFromCheckedFiles();
+        }
+
+        for (int i = 0; i < mAdapter.getItemCount(); i++) {
+            mAdapter.notifyItemChanged(i);
         }
     }
-    
+
     /**
      * Interface to implement by any Activity that includes some instance of LocalFileListFragment
      */
@@ -310,15 +286,15 @@ public class LocalFileListFragment extends ExtendedListFragment {
 
         /**
          * Callback method invoked when a directory is clicked by the user on the files list
-         *  
+         *
          * @param directory
          */
         void onDirectoryClick(File directory);
-        
+
         /**
          * Callback method invoked when a file (non directory)
          * is clicked by the user on the files list
-         *  
+         *
          * @param file
          */
         void onFileClick(File file);
@@ -326,8 +302,8 @@ public class LocalFileListFragment extends ExtendedListFragment {
         /**
          * Callback method invoked when the parent activity
          * is fully created to get the directory to list firstly.
-         * 
-         * @return  Directory to list firstly. Can be NULL.
+         *
+         * @return Directory to list firstly. Can be NULL.
          */
         File getInitialDirectory();
 

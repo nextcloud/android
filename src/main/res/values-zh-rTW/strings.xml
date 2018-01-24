@@ -477,7 +477,7 @@
     <string name="manage_space_clear_data">清除資料</string>
 
     <string name="permission_storage_access">上傳與下載檔案需要額外的權限。</string>
-    <string name="local_file_not_found_toast">本地檔案系統中找不到檔案。</string>
+    <string name="local_file_not_found_message">本地檔案系統中找不到檔案。</string>
     <string name="confirmation_remove_files_alert">您真的想要刪除所選的項目嗎？</string>
     <string name="confirmation_remove_folders_alert">您真的想要刪除所選項目和裡面的內容嗎？</string>
     <string name="maintenance_mode">伺服器正處於維護模式</string>

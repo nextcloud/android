@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:id="@+id/ListItemLayout"
+              android:layout_width="match_parent"
+              android:orientation="horizontal"
+              android:layout_height="wrap_content"
+              android:paddingTop="@dimen/standard_half_padding"
+              android:paddingBottom="@dimen/standard_half_padding"
+    >
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/upload_list_title"/>
+
+</LinearLayout>

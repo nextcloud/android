@@ -23,11 +23,10 @@ package com.owncloud.android.utils;
 import com.owncloud.android.datamodel.OCFile;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Vector;
 
 /**
  * Sort order 
@@ -60,11 +59,11 @@ public class FileSortOrder {
         mAscending = ascending;
     }
 
-    public Vector<OCFile> sortCloudFiles(Vector<OCFile> files) {
+    public ArrayList<OCFile> sortCloudFiles(ArrayList<OCFile> files) {
         return sortCloudFilesByFavourite(files);
     }
 
-    public File[] sortLocalFiles(File[] files) {
+    public ArrayList<File> sortLocalFiles(ArrayList<File> files) {
         return files;
     }
 
@@ -73,18 +72,16 @@ public class FileSortOrder {
      *
      * @param files files to sort
      */
-    public static Vector<OCFile> sortCloudFilesByFavourite(Vector<OCFile> files) {
-        Collections.sort(files, new Comparator<OCFile>() {
-            public int compare(OCFile o1, OCFile o2) {
-                if (o1.getIsFavorite() && o2.getIsFavorite()) {
-                    return 0;
-                } else if (o1.getIsFavorite()) {
-                    return -1;
-                } else if (o2.getIsFavorite()) {
-                    return 1;
-                }
+    public static ArrayList<OCFile> sortCloudFilesByFavourite(ArrayList<OCFile> files) {
+        Collections.sort(files, (o1, o2) -> {
+            if (o1.getIsFavorite() && o2.getIsFavorite()) {
                 return 0;
+            } else if (o1.getIsFavorite()) {
+                return -1;
+            } else if (o2.getIsFavorite()) {
+                return 1;
             }
+            return 0;
         });
 
         return files;

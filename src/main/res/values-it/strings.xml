@@ -518,7 +518,7 @@
     <string name="manage_space_clear_data">Cancella i dati</string>
 
     <string name="permission_storage_access">Permessi aggiuntivi richiesti per caricare e scaricare i file.</string>
-    <string name="local_file_not_found_toast">File non trovato nel file system locale</string>
+    <string name="local_file_not_found_message">File non trovato nel file system locale</string>
     <string name="confirmation_remove_files_alert">Vuoi davvero eliminare gli elementi selezionati?</string>
     <string name="confirmation_remove_folders_alert">Vuoi davvero eliminare gli elementi selezionati e il loro contenuto?</string>
     <string name="maintenance_mode">Server in manutenzione</string>

@@ -517,7 +517,7 @@
     <string name="manage_space_clear_data">Nullstill data</string>
 
     <string name="permission_storage_access">Flere tillatelser trengs for å laste opp og ned filer.</string>
-    <string name="local_file_not_found_toast">Filen ble ikke funnet i lokalt filsystem</string>
+    <string name="local_file_not_found_message">Filen ble ikke funnet i lokalt filsystem</string>
     <string name="confirmation_remove_files_alert">Vil du virkelig fjerne de valgte elementene?</string>
     <string name="confirmation_remove_folders_alert">Vil du virkelig fjerne de valgte elementene og dets innhold?</string>
     <string name="maintenance_mode">Tjener i vedlikeholdsmodus</string>

@@ -457,7 +457,7 @@
     <string name="manage_space_clear_data">Rensa data</string>
 
     <string name="permission_storage_access">Ytterligare rättigheter krävs för att ladda upp eller ned filer</string>
-    <string name="local_file_not_found_toast">Fil kunde inte hittas i lokalt filsystem</string>
+    <string name="local_file_not_found_message">Fil kunde inte hittas i lokalt filsystem</string>
     <string name="confirmation_remove_files_alert">Vill du verkligen radera de valda objekten?</string>
     <string name="confirmation_remove_folders_alert">Vill du verkligen radera de valda objekten och dess innehåll?</string>
     <string name="maintenance_mode">Server i underhållsläge</string>

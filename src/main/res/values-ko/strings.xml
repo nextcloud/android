@@ -510,7 +510,7 @@
     <string name="manage_space_clear_data">데이터 지우기</string>
 
     <string name="permission_storage_access">파일을 업로드 및 다운로드하려면 추가 권한이 필요합니다.</string>
-    <string name="local_file_not_found_toast">로컬 파일 시스템에서 파일을 찾을 수 없음</string>
+    <string name="local_file_not_found_message">로컬 파일 시스템에서 파일을 찾을 수 없음</string>
     <string name="confirmation_remove_files_alert">선택한 항목을 삭제하시겠습니까?</string>
     <string name="confirmation_remove_folders_alert">선택한 항목과 포함된 내용을 삭제하시겠습니까?</string>
     <string name="maintenance_mode">서버가 유지 관리 모드임</string>

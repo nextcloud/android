@@ -59,11 +59,11 @@ import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.PermissionUtil;
 import com.owncloud.android.utils.ThemeUtils;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
-import java.util.Vector;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -223,7 +223,7 @@ public class ContactsBackupFragment extends FileFragment implements DatePickerDi
                 if (result) {
                     OCFile backupFolder = contactsPreferenceActivity.getStorageManager().getFileByPath(backupFolderPath);
 
-                    Vector<OCFile> backupFiles = contactsPreferenceActivity.getStorageManager()
+                    ArrayList<OCFile> backupFiles = contactsPreferenceActivity.getStorageManager()
                             .getFolderContent(backupFolder, false);
 
                     if (backupFiles == null || backupFiles.size() == 0) {
@@ -387,7 +387,7 @@ public class ContactsBackupFragment extends FileFragment implements DatePickerDi
         String backupFolderString = getResources().getString(R.string.contacts_backup_folder) + OCFile.PATH_SEPARATOR;
         OCFile backupFolder = contactsPreferenceActivity.getStorageManager().getFileByPath(backupFolderString);
 
-        Vector<OCFile> backupFiles = contactsPreferenceActivity.getStorageManager().getFolderContent(backupFolder,
+        ArrayList<OCFile> backupFiles = contactsPreferenceActivity.getStorageManager().getFolderContent(backupFolder,
                 false);
 
         Collections.sort(backupFiles, new Comparator<OCFile>() {
@@ -420,10 +420,11 @@ public class ContactsBackupFragment extends FileFragment implements DatePickerDi
             day = savedDate.getDay();
         }
 
-        if (backupFiles.size() > 0 && backupFiles.lastElement() != null) {
+        if (backupFiles.size() > 0 && backupFiles.get(backupFiles.size() - 1) != null) {
             datePickerDialog = new DatePickerDialog(contactsPreferenceActivity, this, year, month, day);
-            datePickerDialog.getDatePicker().setMaxDate(backupFiles.lastElement().getModificationTimestamp());
-            datePickerDialog.getDatePicker().setMinDate(backupFiles.firstElement().getModificationTimestamp());
+            datePickerDialog.getDatePicker().setMaxDate(backupFiles.get(backupFiles.size() - 1)
+                    .getModificationTimestamp());
+            datePickerDialog.getDatePicker().setMinDate(backupFiles.get(0).getModificationTimestamp());
 
             datePickerDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
                 @Override
@@ -468,7 +469,7 @@ public class ContactsBackupFragment extends FileFragment implements DatePickerDi
 
         String backupFolderString = getResources().getString(R.string.contacts_backup_folder) + OCFile.PATH_SEPARATOR;
         OCFile backupFolder = contactsPreferenceActivity.getStorageManager().getFileByPath(backupFolderString);
-        Vector<OCFile> backupFiles = contactsPreferenceActivity.getStorageManager().getFolderContent(
+        ArrayList<OCFile> backupFiles = contactsPreferenceActivity.getStorageManager().getFolderContent(
                 backupFolder, false);
 
         // find file with modification with date and time between 00:00 and 23:59

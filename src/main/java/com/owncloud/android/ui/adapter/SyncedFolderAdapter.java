@@ -1,4 +1,4 @@
-/**
+/*
  *   Nextcloud Android client application
  *
  * @author Andy Scherzinger
@@ -23,7 +23,6 @@ package com.owncloud.android.ui.adapter;
 
 import android.content.Context;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,6 +33,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.afollestad.sectionedrecyclerview.SectionedRecyclerViewAdapter;
+import com.afollestad.sectionedrecyclerview.SectionedViewHolder;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.MediaFolderType;
 import com.owncloud.android.datamodel.SyncedFolderDisplayItem;
@@ -109,7 +109,7 @@ public class SyncedFolderAdapter extends SectionedRecyclerViewAdapter<SyncedFold
     }
 
     @Override
-    public void onBindHeaderViewHolder(final MainViewHolder holder, final int section) {
+    public void onBindHeaderViewHolder(final MainViewHolder holder, final int section, boolean expanded) {
         holder.mainHeaderContainer.setVisibility(View.VISIBLE);
 
         holder.title.setText(mSyncFolderItems.get(section).getFolderName());
@@ -148,6 +148,11 @@ public class SyncedFolderAdapter extends SectionedRecyclerViewAdapter<SyncedFold
             holder.menuButton.setOnClickListener(v -> mListener.onSyncFolderSettingsClick(section,
                     mSyncFolderItems.get(section)));
         }
+    }
+
+    @Override
+    public void onBindFooterViewHolder(MainViewHolder holder, int section) {
+
     }
 
 
@@ -198,7 +203,7 @@ public class SyncedFolderAdapter extends SectionedRecyclerViewAdapter<SyncedFold
         void onSyncFolderSettingsClick(int section, SyncedFolderDisplayItem syncedFolderDisplayItem);
     }
 
-    static class MainViewHolder extends RecyclerView.ViewHolder {
+    static class MainViewHolder extends SectionedViewHolder {
         @Nullable
         @BindView(R.id.thumbnail)
         public ImageView image;

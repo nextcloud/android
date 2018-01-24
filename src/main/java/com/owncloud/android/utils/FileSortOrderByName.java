@@ -28,7 +28,6 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Vector;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import third_parties.daveKoeller.AlphanumComparator;
@@ -49,7 +48,7 @@ public class FileSortOrderByName extends FileSortOrder {
      * @param files files to sort
      */
     @SuppressFBWarnings(value = "Bx")
-    public Vector<OCFile> sortCloudFiles(Vector<OCFile> files) {
+    public ArrayList<OCFile> sortCloudFiles(ArrayList<OCFile> files) {
         final int multiplier = mAscending ? 1 : -1;
 
         Collections.sort(files, new Comparator<OCFile>() {

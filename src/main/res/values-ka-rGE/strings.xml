@@ -514,7 +514,7 @@
     <string name="manage_space_clear_data">მონაცემების გასუფთავება</string>
 
     <string name="permission_storage_access">ფაილების ატვირთვისა და გადმოწერისათვის საჭიროა დამატებითი უფლებები.</string>
-    <string name="local_file_not_found_toast">ლოკალურ ფაილ-სისტემაში ფაილი ვერ მოიძებნა</string>
+    <string name="local_file_not_found_message">ლოკალურ ფაილ-სისტემაში ფაილი ვერ მოიძებნა</string>
     <string name="confirmation_remove_files_alert">დარწმუნებული ხართ, რომ გსურთ არჩეული ჩანაწერების გაუქმება?</string>
     <string name="confirmation_remove_folders_alert">დარწმუნებული ხართ, რომ გსურთ არჩეული ჩანაწერებისა და მათი შემცველობის გაუქმება?</string>
     <string name="maintenance_mode">სერვერი სარემონტო რეჟიმშია</string>

@@ -518,7 +518,7 @@
     <string name="manage_space_clear_data">Gegevens verwijderen</string>
 
     <string name="permission_storage_access">Aanvullende permessies vereist voor het uploaden en downloaden van bestanden.</string>
-    <string name="local_file_not_found_toast">Het bestand is niet te vinden binnen het lokale bestandssysteem.</string>
+    <string name="local_file_not_found_message">Het bestand is niet te vinden binnen het lokale bestandssysteem.</string>
     <string name="confirmation_remove_files_alert">Wil je de geselecteerde objecten echt verwijderen?</string>
     <string name="confirmation_remove_folders_alert">Wil je de geselecteerde objecten en hun inhoud echt verwijderen?</string>
     <string name="maintenance_mode">Server in onderhoudsmodus</string>

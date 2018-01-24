@@ -22,119 +22,82 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:id="@+id/list_fragment_layout">
 
-    <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/swipe_containing_list"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:footerDividersEnabled="false"
-        android:visibility="visible" >
+    <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                                     android:id="@+id/list_fragment_layout"
+                                                     android:layout_width="match_parent"
+                                                     android:layout_height="match_parent">
 
-        <com.owncloud.android.ui.ExtendedListView
-            android:id="@+id/list_root"
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/swipe_containing_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:divider="@color/list_divider_background"
-            android:dividerHeight="1px"
-            android:visibility="visible"
-            android:descendantFocusability="blocksDescendants"/>
+            android:footerDividersEnabled="false"
+            android:visibility="visible">
 
-    </android.support.v4.widget.SwipeRefreshLayout>
-
-    <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/swipe_containing_grid"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:footerDividersEnabled="false"
-        android:visibility="gone" >
-
-        <third_parties.in.srain.cube.GridViewWithHeaderAndFooter
-            android:id="@+id/grid_root"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:columnWidth="@dimen/list_fragment_column_width"
-            android:gravity="center"
-            android:horizontalSpacing="@dimen/list_fragment_spacing"
-            android:stretchMode="columnWidth"
-            android:verticalSpacing="@dimen/list_fragment_spacing"
-            android:visibility="visible"/>
-
-    </android.support.v4.widget.SwipeRefreshLayout>
-
-    <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/swipe_containing_empty"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="gone" >
-            <ScrollView
+            <com.owncloud.android.ui.EmptyRecyclerView
+                android:id="@+id/list_root"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" >
+                android:layout_height="match_parent"
+                />
+        </android.support.v4.widget.SwipeRefreshLayout>
 
-                <include layout="@layout/empty_list" />
+        <include layout="@layout/empty_list"/>
 
-            </ScrollView>
-    </android.support.v4.widget.SwipeRefreshLayout>
-
-
-</android.support.design.widget.CoordinatorLayout>
+    </android.support.design.widget.CoordinatorLayout>
 
     <com.getbase.floatingactionbutton.FloatingActionsMenu
         android:id="@+id/fab_main"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        app:fab_labelStyle="@style/menu_labels_style"
-        android:layout_marginBottom="@dimen/standard_margin"
-        android:layout_marginRight="@dimen/standard_margin"
-        android:layout_marginEnd="@dimen/standard_margin"
         android:layout_above="@+id/bottom_navigation_view"
-        android:visibility="gone">
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="@dimen/standard_margin"
+        android:layout_marginEnd="@dimen/standard_margin"
+        android:layout_marginRight="@dimen/standard_margin"
+        android:visibility="gone"
+        app:fab_labelStyle="@style/menu_labels_style">
 
         <com.getbase.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab_upload"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:fab_size="mini"
-            app:fab_icon="@drawable/ic_action_upload"
             app:fab_colorNormal="@color/primary_button_background_color"
             app:fab_colorPressed="@color/primary"
+            app:fab_icon="@drawable/ic_action_upload"
+            app:fab_size="mini"
             app:fab_title=""/>
 
         <com.getbase.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab_upload_from_app"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:fab_size="mini"
-            app:fab_icon="@drawable/ic_import"
             app:fab_colorNormal="@color/primary_button_background_color"
             app:fab_colorPressed="@color/primary"
+            app:fab_icon="@drawable/ic_import"
+            app:fab_size="mini"
             app:fab_title=""/>
 
         <com.getbase.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab_mkdir"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:fab_size="mini"
-            app:fab_icon="@drawable/ic_action_create_dir"
             app:fab_colorNormal="@color/primary_button_background_color"
             app:fab_colorPressed="@color/primary"
+            app:fab_icon="@drawable/ic_action_create_dir"
+            app:fab_size="mini"
             app:fab_title=""/>
 
     </com.getbase.floatingactionbutton.FloatingActionsMenu>
 
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/bottom_navigation_view"
-        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
         android:layout_alignParentBottom="true"
+        android:layout_gravity="bottom"
+        android:visibility="gone"
         app:itemBackground="@color/primary_button_background_color"
         app:itemIconTint="@color/primary_button_text_color"
         app:itemTextColor="@color/primary_button_text_color"
