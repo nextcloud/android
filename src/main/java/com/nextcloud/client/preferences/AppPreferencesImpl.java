@@ -72,6 +72,7 @@ public final class AppPreferencesImpl implements AppPreferences {
     private static final String PREF__LOCK = SettingsActivity.PREFERENCE_LOCK;
     private static final String PREF__SELECTED_ACCOUNT_NAME = "select_oc_account";
     private static final String PREF__MIGRATED_USER_ID = "migrated_user_id";
+    private static final String PREF__PHOTO_SEARCH_TIMESTAMP = "photo_search_timestamp";
 
     private final Context context;
     private final SharedPreferences preferences;
@@ -463,6 +464,16 @@ public final class AppPreferencesImpl implements AppPreferences {
     @Override
     public void setMigratedUserId(boolean value) {
         preferences.edit().putBoolean(PREF__MIGRATED_USER_ID, value).apply();
+    }
+
+    @Override
+    public void setPhotoSearchTimestamp(long timestamp) {
+        preferences.edit().putLong(PREF__PHOTO_SEARCH_TIMESTAMP, timestamp).apply();
+    }
+
+    @Override
+    public long getPhotoSearchTimestamp() {
+        return preferences.getLong(PREF__PHOTO_SEARCH_TIMESTAMP, 0);
     }
 
     /**

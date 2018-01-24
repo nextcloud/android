@@ -69,6 +69,7 @@ import com.owncloud.android.ui.fragment.FileDetailFragment;
 import com.owncloud.android.ui.fragment.FileDetailSharingFragment;
 import com.owncloud.android.ui.fragment.LocalFileListFragment;
 import com.owncloud.android.ui.fragment.OCFileListFragment;
+import com.owncloud.android.ui.fragment.PhotoFragment;
 import com.owncloud.android.ui.fragment.contactsbackup.ContactListFragment;
 import com.owncloud.android.ui.preview.PreviewImageActivity;
 import com.owncloud.android.ui.preview.PreviewImageFragment;
@@ -135,6 +136,9 @@ abstract class ComponentsModule {
     @ContributesAndroidInjector abstract ContactListFragment chooseContactListFragment();
     @ContributesAndroidInjector abstract PreviewMediaFragment previewMediaFragment();
     @ContributesAndroidInjector abstract PreviewTextFragment previewTextFragment();
+
+    @ContributesAndroidInjector
+    abstract PhotoFragment photoFragment();
 
     @ContributesAndroidInjector abstract ReceiveExternalFilesActivity.DialogMultipleAccount dialogMultipleAccount();
     @ContributesAndroidInjector abstract ReceiveExternalFilesActivity.DialogInputUploadFilename dialogInputUploadFilename();

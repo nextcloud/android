@@ -31,6 +31,7 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.os.Looper;
@@ -41,6 +42,7 @@ import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -109,6 +111,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private List<OCFile> mFiles = new ArrayList<>();
     private List<OCFile> mFilesAll = new ArrayList<>();
     private boolean mHideItemOptions;
+    private long lastTimestamp;
     private boolean gridView;
     private boolean multiSelect;
     private Set<OCFile> checkedFiles;
@@ -305,7 +308,12 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof OCFileListFooterViewHolder) {
-            ((OCFileListFooterViewHolder) holder).footerText.setText(getFooterText());
+            OCFileListFooterViewHolder footerViewHolder = (OCFileListFooterViewHolder) holder;
+            footerViewHolder.footerText.setText(getFooterText());
+            footerViewHolder.progressBar.getIndeterminateDrawable().setColorFilter(ThemeUtils.primaryColor(mContext),
+                                                                                   PorterDuff.Mode.SRC_IN);
+            footerViewHolder.progressBar.setVisibility(
+                ocFileListFragmentInterface.isLoading() ? View.VISIBLE : View.GONE);
         } else {
             OCFileListGridImageViewHolder gridViewHolder = (OCFileListGridImageViewHolder) holder;
 
@@ -581,8 +589,10 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                     thumbnailView.setBackgroundColor(mContext.getResources().getColor(R.color.background_color));
                 }
             } else {
-                thumbnailView.setImageDrawable(MimeTypeUtil.getFileTypeIcon(file.getMimeType(), file.getFileName(),
-                                                                            account, mContext));
+                thumbnailView.setImageDrawable(MimeTypeUtil.getFileTypeIcon(file.getMimeType(),
+                                                                            file.getFileName(),
+                                                                            account,
+                                                                            mContext));
             }
         }
     }
@@ -719,11 +729,31 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
 
     public void setData(List<Object> objects, ExtendedListFragment.SearchType searchType,
-                        FileDataStorageManager storageManager, OCFile folder) {
+                        FileDataStorageManager storageManager, OCFile folder, boolean clear) {
         if (storageManager != null && mStorageManager == null) {
             mStorageManager = storageManager;
         }
-        mFiles.clear();
+
+        if (clear) {
+            mFiles.clear();
+            resetLastTimestamp();
+            preferences.setPhotoSearchTimestamp(0);
+
+            VirtualFolderType type;
+            switch (searchType) {
+                case FAVORITE_SEARCH:
+                    type = VirtualFolderType.FAVORITE;
+                    break;
+                case PHOTO_SEARCH:
+                    type = VirtualFolderType.PHOTOS;
+                    break;
+                default:
+                    type = VirtualFolderType.NONE;
+                    break;
+            }
+
+            mStorageManager.deleteVirtuals(type);
+        }
 
         // early exit
         if (objects.size() > 0 && mStorageManager != null) {
@@ -741,7 +771,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             FileSortOrder sortOrder = preferences.getSortOrderByFolder(folder);
             mFiles = sortOrder.sortCloudFiles(mFiles);
         } else {
-            mFiles = FileStorageUtils.sortOcFolderDescDateModified(mFiles);
+            mFiles = FileStorageUtils.sortOcFolderDescDateModifiedWithoutFavoritesFirst(mFiles);
         }
 
         mFilesAll.clear();
@@ -793,6 +823,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private void parseVirtuals(List<Object> objects, ExtendedListFragment.SearchType searchType) {
         VirtualFolderType type;
         boolean onlyImages = false;
+
         switch (searchType) {
             case FAVORITE_SEARCH:
                 type = VirtualFolderType.FAVORITE;
@@ -800,13 +831,21 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             case PHOTO_SEARCH:
                 type = VirtualFolderType.PHOTOS;
                 onlyImages = true;
+
+                int lastPosition = objects.size() - 1;
+
+                if (lastPosition < 0) {
+                    lastTimestamp = -1;
+                    break;
+                }
+
+                RemoteFile lastFile = (RemoteFile) objects.get(lastPosition);
+                lastTimestamp = lastFile.getModifiedTimestamp() / 1000;
                 break;
             default:
                 type = VirtualFolderType.NONE;
                 break;
         }
-
-        mStorageManager.deleteVirtuals(type);
 
         List<ContentValues> contentValues = new ArrayList<>();
 
@@ -815,14 +854,24 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             FileStorageUtils.searchForLocalFileInDefaultPath(ocFile, account);
 
             try {
-                ocFile = mStorageManager.saveFileWithParent(ocFile, mContext);
+                if (ExtendedListFragment.SearchType.PHOTO_SEARCH == searchType) {
+                    mStorageManager.saveFile(ocFile);
+                } else {
 
-                // also sync folder content
-                if (ocFile.isFolder()) {
-                    long currentSyncTime = System.currentTimeMillis();
-                    RemoteOperation refreshFolderOperation = new RefreshFolderOperation(ocFile, currentSyncTime, false,
-                                                                                        false, mStorageManager, account, mContext);
-                    refreshFolderOperation.execute(account, mContext);
+                    ocFile = mStorageManager.saveFileWithParent(ocFile, mContext);
+
+                    // also sync folder content
+                    if (ocFile.isFolder()) {
+                        long currentSyncTime = System.currentTimeMillis();
+                        RemoteOperation refreshFolderOperation = new RefreshFolderOperation(ocFile,
+                                                                                            currentSyncTime,
+                                                                                            false,
+                                                                                            false,
+                                                                                            mStorageManager,
+                                                                                            account,
+                                                                                            mContext);
+                        refreshFolderOperation.execute(account, mContext);
+                    }
                 }
 
                 if (!onlyImages || MimeTypeUtil.isImage(ocFile)) {
@@ -839,7 +888,21 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             }
         }
 
+        preferences.setPhotoSearchTimestamp(System.currentTimeMillis());
         mStorageManager.saveVirtuals(type, contentValues);
+    }
+
+    public void showVirtuals(VirtualFolderType type, boolean onlyImages, FileDataStorageManager storageManager) {
+        mFiles = storageManager.getVirtualFolderContent(type, onlyImages);
+
+        if (VirtualFolderType.PHOTOS == type) {
+            mFiles = FileStorageUtils.sortOcFolderDescDateModifiedWithoutFavoritesFirst(mFiles);
+        }
+
+        mFilesAll.clear();
+        mFilesAll.addAll(mFiles);
+
+        new Handler(Looper.getMainLooper()).post(this::notifyDataSetChanged);
     }
 
 
@@ -871,6 +934,14 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             mFilesFilter = new FilesFilter();
         }
         return mFilesFilter;
+    }
+
+    public void resetLastTimestamp() {
+        lastTimestamp = -1;
+    }
+
+    public long getLastTimestamp() {
+        return lastTimestamp;
     }
 
     @Override
@@ -1033,6 +1104,9 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     static class OCFileListFooterViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.footerText)
         public TextView footerText;
+
+        @BindView(R.id.loadingProgressBar)
+        public ProgressBar progressBar;
 
         private OCFileListFooterViewHolder(View itemView) {
             super(itemView);
