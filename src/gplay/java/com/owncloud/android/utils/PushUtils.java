@@ -322,7 +322,9 @@ public class PushUtils {
         FileOutputStream keyFileOutputStream = null;
         try {
             if (!new File(path).exists()) {
-                new File(path).createNewFile();
+                File newFile = new File(path);
+                newFile.getParentFile().mkdirs();
+                newFile.createNewFile();
             }
             keyFileOutputStream = new FileOutputStream(path);
             keyFileOutputStream.write(encoded);

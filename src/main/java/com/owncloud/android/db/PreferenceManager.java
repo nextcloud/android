@@ -53,7 +53,8 @@ public abstract class PreferenceManager {
     private static final String PREF__INSTANT_VIDEO_UPLOAD_PATH_USE_SUBFOLDERS
             = "instant_video_upload_path_use_subfolders";
     private static final String PREF__LEGACY_CLEAN = "legacyClean";
-    private static final String PREF__KEYS_MIGRATION = "keysMigration";
+    public static final String PREF__KEYS_MIGRATION = "keysMigration";
+    private static final String PREF__FIX_STORAGE_PATH = "storagePathFix";
     private static final String PREF__AUTO_UPLOAD_UPDATE_PATH = "autoUploadPathUpdate";
     private static final String PREF__PUSH_TOKEN = "pushToken";
     private static final String PREF__AUTO_UPLOAD_SPLIT_OUT = "autoUploadEntriesSplitOut";
@@ -291,6 +292,10 @@ public abstract class PreferenceManager {
         return getDefaultSharedPreferences(context).getBoolean(PREF__KEYS_MIGRATION, false);
     }
 
+    public static boolean getStoragePathFix(Context context) {
+        return getDefaultSharedPreferences(context).getBoolean(PREF__FIX_STORAGE_PATH, false);
+    }
+
 
     /**
      * Gets the auto upload paths flag last set.
@@ -324,6 +329,10 @@ public abstract class PreferenceManager {
 
     public static void setKeysMigration(Context context, boolean keysMigration) {
         saveBooleanPreference(context, PREF__KEYS_MIGRATION, keysMigration);
+    }
+
+    public static void setStoragePathFix(Context context, boolean storagePathFix) {
+        saveBooleanPreference(context, PREF__FIX_STORAGE_PATH, storagePathFix);
     }
 
     public static void setAutoUploadInit(Context context, boolean autoUploadInit) {
