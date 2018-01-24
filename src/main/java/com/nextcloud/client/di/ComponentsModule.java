@@ -105,9 +105,7 @@ abstract class ComponentsModule {
     @ContributesAndroidInjector abstract ManageAccountsActivity manageAccountsActivity();
     @ContributesAndroidInjector abstract ManageSpaceActivity manageSpaceActivity();
     @ContributesAndroidInjector abstract NotificationsActivity notificationsActivity();
-
-    @ContributesAndroidInjector
-    abstract CommunityActivity participateActivity();
+    @ContributesAndroidInjector abstract CommunityActivity participateActivity();
     @ContributesAndroidInjector abstract PassCodeActivity passCodeActivity();
     @ContributesAndroidInjector abstract PreviewImageActivity previewImageActivity();
     @ContributesAndroidInjector abstract PreviewVideoActivity previewVideoActivity();
