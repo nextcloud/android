@@ -381,7 +381,7 @@ Mesedez, baimendu berriz</string>
     <string name="manage_space_clear_data">Datuak garbitu</string>
 
     <string name="permission_storage_access">Fitxategiak igo eta jaisteko baimen gehigarriak behar dira</string>
-    <string name="local_file_not_found_toast">Ez da fitxategia topatu fitxategi-sistema lokalean</string>
+    <string name="local_file_not_found_message">Ez da fitxategia topatu fitxategi-sistema lokalean</string>
     <string name="confirmation_remove_files_alert">Hautatutako elementuak benetan borratu nahi dituzu?</string>
     <string name="confirmation_remove_folders_alert">Hautatutako elementuak eta bere edukiak benetan borratu nahi dituzu?</string>
     <string name="maintenance_mode">Zerbitzaria mantentze moduan dago</string>

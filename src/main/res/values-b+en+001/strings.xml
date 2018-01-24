@@ -518,7 +518,7 @@
     <string name="manage_space_clear_data">Clear data</string>
 
     <string name="permission_storage_access">Additional permissions required to upload and download files.</string>
-    <string name="local_file_not_found_toast">File not found in local file system</string>
+    <string name="local_file_not_found_message">File not found in local file system</string>
     <string name="confirmation_remove_files_alert">Do you really want to delete the selected items?</string>
     <string name="confirmation_remove_folders_alert">Do you really want to delete the selected items and their contents?</string>
     <string name="maintenance_mode">Server in maintenance mode</string>

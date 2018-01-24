@@ -353,7 +353,7 @@
     <string name="manage_space_title">Alministrar espaciu</string>
     <string name="manage_space_clear_data">Llimpiar datos</string>
 
-    <string name="local_file_not_found_toast">Nun s\'alcontró\'l ficheru nel sistema llocal de ficheros</string>
+    <string name="local_file_not_found_message">Nun s\'alcontró\'l ficheru nel sistema llocal de ficheros</string>
     <string name="actionbar_search">Guetar</string>
     <string name="learn_more">Deprendi más</string>
     <string name="participate_release_candidate_headline">Llanzamientu candidatu</string>

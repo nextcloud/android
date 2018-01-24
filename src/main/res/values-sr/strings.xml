@@ -522,7 +522,7 @@
     <string name="manage_space_clear_data">Очисти податке</string>
 
     <string name="permission_storage_access">Додатне дозволе потребне да се отпремају и скидају фајлови.</string>
-    <string name="local_file_not_found_toast">Фајл није нађен у локалном систему фајлова</string>
+    <string name="local_file_not_found_message">Фајл није нађен у локалном систему фајлова</string>
     <string name="confirmation_remove_files_alert">Да ли стварно желите да обришете означене ставке?</string>
     <string name="confirmation_remove_folders_alert">Да ли стварно желите да обришете означене ставке и сав њихов садржај?</string>
     <string name="maintenance_mode">Сервер у режиму одржавања</string>

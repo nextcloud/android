@@ -518,7 +518,7 @@
     <string name="manage_space_clear_data">Limpiar datos</string>
 
     <string name="permission_storage_access">Se necesitan permisos adicionales para subir y descargar archivos.</string>
-    <string name="local_file_not_found_toast">El archivo no se encuentra en el sistema de archivos local.</string>
+    <string name="local_file_not_found_message">El archivo no se encuentra en el sistema de archivos local.</string>
     <string name="confirmation_remove_files_alert">¿Estás seguro de que quieres eliminar los elementos seleccionados?</string>
     <string name="confirmation_remove_folders_alert">¿Estás seguro de que quieres eliminar los elementos seleccionados y sus contenidos?</string>
     <string name="maintenance_mode">Servidor en modo mantenimiento</string>

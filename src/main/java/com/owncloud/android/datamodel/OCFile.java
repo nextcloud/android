@@ -463,7 +463,7 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
      * directory
      */
     public void setFileName(String name) {
-        Log_OC.d(TAG, "OCFile name changin from " + mRemotePath);
+        Log_OC.d(TAG, "OCFile name changing from " + mRemotePath);
         if (name != null && name.length() > 0 && !name.contains(PATH_SEPARATOR) &&
                 !mRemotePath.equals(ROOT_PATH)) {
             String parent = (new File(getRemotePath())).getParent();

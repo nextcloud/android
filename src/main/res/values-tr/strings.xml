@@ -518,7 +518,7 @@
     <string name="manage_space_clear_data">Verileri temizle</string>
 
     <string name="permission_storage_access">Dosya yüklemek ve indirmek için ek izinler gerekli.</string>
-    <string name="local_file_not_found_toast">Dosya yerel dosya sisteminde bulunamadı</string>
+    <string name="local_file_not_found_message">Dosya yerel dosya sisteminde bulunamadı</string>
     <string name="confirmation_remove_files_alert">Seçilmiş ögeleri gerçekten silmek istiyor musunuz?</string>
     <string name="confirmation_remove_folders_alert">Seçilmiş ögeleri ve içindekileri gerçekten silmek istiyor musunuz?</string>
     <string name="maintenance_mode">Sunucu bakım kipinde</string>

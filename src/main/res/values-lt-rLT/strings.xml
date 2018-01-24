@@ -424,7 +424,7 @@
     <string name="manage_space_clear_data">Išvalyti duomenis</string>
 
     <string name="permission_storage_access">Papildomos teisės reikalingos įkelti šiuos atsisiųstus failus.</string>
-    <string name="local_file_not_found_toast">Failas nerastas vietinėje failų sistemoje </string>
+    <string name="local_file_not_found_message">Failas nerastas vietinėje failų sistemoje </string>
     <string name="maintenance_mode">Serveris yra techninės priežiūros veiksenoje</string>
 
     <string name="uploads_view_upload_status_waiting_for_charging">Laukiama mokėjimo </string>

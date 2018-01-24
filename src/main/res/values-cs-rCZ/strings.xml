@@ -456,7 +456,7 @@
     <string name="manage_space_clear_data">Vyčistit data</string>
 
     <string name="permission_storage_access">Vyžadována dodatečná oprávnění pro nahrávání &amp; stahování souborů.</string>
-    <string name="local_file_not_found_toast">Soubor nebyl nalezen v místním souborovém systému</string>
+    <string name="local_file_not_found_message">Soubor nebyl nalezen v místním souborovém systému</string>
     <string name="confirmation_remove_files_alert">Opravdu chcete odstranit vybrané položky?</string>
     <string name="confirmation_remove_folders_alert">Opravdu chcete odstranit vybrané položky a jejich obsah?</string>
     <string name="maintenance_mode">Server je v režimu údržby</string>
