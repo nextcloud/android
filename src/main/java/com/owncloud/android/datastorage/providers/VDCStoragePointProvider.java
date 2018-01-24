@@ -65,7 +65,8 @@ public class VDCStoragePointProvider extends AbstractCommandLineStoragePoint {
                 final String path = vdcLine[2];
 
                 if (canBeAddedToAvailableList(result, path)) {
-                    result.add(new StoragePoint(description, path));
+                    result.add(new StoragePoint(description, path, StoragePoint.StorageType.EXTERNAL,
+                            StoragePoint.PrivacyType.PRIVATE));
                 }
 
             } catch (NumberFormatException e) {

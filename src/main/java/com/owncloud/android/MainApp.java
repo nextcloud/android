@@ -21,6 +21,7 @@ package com.owncloud.android;
 
 import android.Manifest;
 import android.accounts.Account;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -33,11 +34,13 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.StrictMode;
 import android.support.annotation.StringRes;
 import android.support.multidex.MultiDexApplication;
 import android.support.v4.util.Pair;
 import android.support.v7.app.AlertDialog;
+import android.text.TextUtils;
 import android.view.WindowManager;
 
 import com.evernote.android.job.JobManager;
@@ -50,6 +53,8 @@ import com.owncloud.android.datamodel.MediaProvider;
 import com.owncloud.android.datamodel.SyncedFolder;
 import com.owncloud.android.datamodel.SyncedFolderProvider;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
+import com.owncloud.android.datastorage.DataStorageProvider;
+import com.owncloud.android.datastorage.StoragePoint;
 import com.owncloud.android.db.PreferenceManager;
 import com.owncloud.android.jobs.NCJobCreator;
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
@@ -99,6 +104,7 @@ public class MainApp extends MultiDexApplication {
 
     private static boolean mOnlyOnDevice = false;
 
+    private SharedPreferences appPrefs;
     @SuppressWarnings("unused")
     private boolean mBound;
 
@@ -112,8 +118,10 @@ public class MainApp extends MultiDexApplication {
             AnalyticsUtils.disableAnalytics();
         }
 
-        SharedPreferences appPrefs =
-                PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        appPrefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+
+        fixStoragePath();
+
         MainApp.storagePath = appPrefs.getString(Preferences.PreferenceKeys.STORAGE_PATH,
                 getApplicationContext().getFilesDir().getAbsolutePath());
 
@@ -208,13 +216,69 @@ public class MainApp extends MultiDexApplication {
 
     }
 
+    @SuppressLint("ApplySharedPref") // commit is done on purpose to write immediately
+    private void fixStoragePath() {
+        if (!PreferenceManager.getStoragePathFix(this)) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                StoragePoint[] storagePoints = DataStorageProvider.getInstance().getAvailableStoragePoints();
+                String storagePath = appPrefs.getString(Preferences.PreferenceKeys.STORAGE_PATH, "");
+                if (TextUtils.isEmpty(storagePath)) {
+                    if (appPrefs.getInt(WhatsNewActivity.KEY_LAST_SEEN_VERSION_CODE, 0) != 0) {
+                        // We already used the app, but no storage is set - fix that!
+                        appPrefs.edit().putString(Preferences.PreferenceKeys.STORAGE_PATH,
+                                Environment.getExternalStorageDirectory().getAbsolutePath()).commit();
+                        appPrefs.edit().remove(PreferenceManager.PREF__KEYS_MIGRATION).commit();
+                    } else {
+                        // find internal storage path that's indexable
+                        boolean set = false;
+                        for (StoragePoint storagePoint : storagePoints) {
+                            if (storagePoint.getStorageType().equals(StoragePoint.StorageType.INTERNAL) &&
+                                    storagePoint.getPrivacyType().equals(StoragePoint.PrivacyType.PUBLIC)) {
+                                appPrefs.edit().putString(Preferences.PreferenceKeys.STORAGE_PATH,
+                                        storagePoint.getPath()).commit();
+                                appPrefs.edit().remove(PreferenceManager.PREF__KEYS_MIGRATION).commit();
+                                set = true;
+                                break;
+                            }
+                        }
+
+                        if (!set) {
+                            for (StoragePoint storagePoint : storagePoints) {
+                                if (storagePoint.getPrivacyType().equals(StoragePoint.PrivacyType.PUBLIC)) {
+                                    appPrefs.edit().putString(Preferences.PreferenceKeys.STORAGE_PATH,
+                                            storagePoint.getPath()).commit();
+                                    appPrefs.edit().remove(PreferenceManager.PREF__KEYS_MIGRATION).commit();
+                                    set = true;
+                                    break;
+                                }
+                            }
+
+                        }
+                    }
+                    PreferenceManager.setStoragePathFix(this, true);
+                } else {
+                    appPrefs.edit().remove(PreferenceManager.PREF__KEYS_MIGRATION).commit();
+                    PreferenceManager.setStoragePathFix(this, true);
+                }
+            } else {
+                if (TextUtils.isEmpty(storagePath)) {
+                    appPrefs.edit().putString(Preferences.PreferenceKeys.STORAGE_PATH,
+                            Environment.getExternalStorageDirectory().getAbsolutePath()).commit();
+                }
+                appPrefs.edit().remove(PreferenceManager.PREF__KEYS_MIGRATION).commit();
+                PreferenceManager.setStoragePathFix(this, true);
+            }
+        }
+    }
+
     public static void initAutoUpload() {
         updateToAutoUpload();
         cleanOldEntries();
         updateAutoUploadEntries();
 
         if (getAppContext() != null) {
-            if (PermissionUtil.checkSelfPermission(getAppContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+            if (PermissionUtil.checkSelfPermission(getAppContext(),
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
                 splitOutAutoUploadEntries();
             } else {
                 PreferenceManager.setAutoUploadSplitEntries(getAppContext(), true);

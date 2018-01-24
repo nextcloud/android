@@ -25,19 +25,59 @@ package com.owncloud.android.datastorage;
  * @author Bartosz Przybylski
  */
 public class StoragePoint implements Comparable<StoragePoint> {
-    private String mDescription;
-    private String mPath;
-
-    public StoragePoint(String description, String path) {
-        mDescription = description;
-        mPath = path;
+    public enum StorageType {
+        INTERNAL, EXTERNAL
     }
 
+    public enum PrivacyType {
+        PRIVATE, PUBLIC
+    }
+
+    private String mDescription;
+    private String mPath;
+    private StorageType mStorageType;
+    private PrivacyType mPrivacyType;
+
+    public StoragePoint() {
+    }
+
+    public StoragePoint(String mDescription, String mPath, StorageType mStorageType, PrivacyType privacyType) {
+        this.mDescription = mDescription;
+        this.mPath = mPath;
+        this.mStorageType = mStorageType;
+        this.mPrivacyType = privacyType;
+    }
+
+    public StorageType getStorageType() {
+        return mStorageType;
+    }
+
+    public PrivacyType getPrivacyType() {
+        return mPrivacyType;
+    }
     public String getPath() { return mPath; }
     public String getDescription() { return mDescription; }
+
+    public void setDescription(String description) {
+        this.mDescription = description;
+    }
+
+    public void setPath(String path) {
+        this.mPath = path;
+    }
+
+    public void setStorageType(StorageType storageType) {
+        this.mStorageType = storageType;
+    }
+
+    public void setPrivacyType(PrivacyType privacyType) {
+        this.mPrivacyType = privacyType;
+    }
 
     @Override
     public int compareTo(StoragePoint another) {
         return mPath.compareTo(another.getPath());
     }
+
+
 }

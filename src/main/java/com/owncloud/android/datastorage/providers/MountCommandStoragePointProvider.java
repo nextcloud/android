@@ -47,7 +47,7 @@ public class MountCommandStoragePointProvider extends AbstractCommandLineStorage
 
         for (String p : getPotentialPaths(getCommandLineResult())) {
             if (canBeAddedToAvailableList(result, p)) {
-                result.add(new StoragePoint(p, p));
+                result.add(new StoragePoint(p, p, StoragePoint.StorageType.EXTERNAL, StoragePoint.PrivacyType.PUBLIC));
             }
         }
 

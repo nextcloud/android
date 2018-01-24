@@ -21,6 +21,7 @@
 
 package com.owncloud.android.datastorage;
 
+import android.os.Build;
 import android.os.Environment;
 
 import com.owncloud.android.MainApp;
@@ -31,6 +32,9 @@ import com.owncloud.android.datastorage.providers.MountCommandStoragePointProvid
 import com.owncloud.android.datastorage.providers.SystemDefaultStoragePointProvider;
 import com.owncloud.android.datastorage.providers.VDCStoragePointProvider;
 
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Vector;
 
 /**
@@ -62,15 +66,59 @@ public class DataStorageProvider {
             return mCachedStoragePoints.toArray(new StoragePoint[mCachedStoragePoints.size()]);
         }
 
+        List<String> paths = new ArrayList<>();
+        StoragePoint storagePoint;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            for (File f : MainApp.getAppContext().getExternalMediaDirs()) {
+                if (f != null && !paths.contains(f.getAbsolutePath())) {
+                    storagePoint = new StoragePoint();
+                    storagePoint.setPath(f.getAbsolutePath());
+                    storagePoint.setDescription(f.getAbsolutePath());
+                    storagePoint.setPrivacyType(StoragePoint.PrivacyType.PUBLIC);
+                    if (f.getAbsolutePath().startsWith("/storage/emulated/0")) {
+                        storagePoint.setStorageType(StoragePoint.StorageType.INTERNAL);
+                        mCachedStoragePoints.add(storagePoint);
+                    } else {
+                        storagePoint.setStorageType(StoragePoint.StorageType.EXTERNAL);
+                        if (isExternalStorageWritable()) {
+                            mCachedStoragePoints.add(storagePoint);
+                        }
+                    }
+                }
+            }
+        } else {
+            for (IStoragePointProvider p : mStorageProviders) {
+                if (p.canProvideStoragePoints()) {
+                    mCachedStoragePoints.addAll(p.getAvailableStoragePoint());
+                }
+            }
+
+            for (int i = 0; i < mCachedStoragePoints.size(); i++) {
+                paths.add(mCachedStoragePoints.get(i).getPath());
+            }
+        }
+
+        // Now we go add private ones
         // Add internal storage directory
-        mCachedStoragePoints.add(new StoragePoint(MainApp.getAppContext().getFilesDir().getAbsolutePath(),
-                MainApp.getAppContext().getFilesDir().getAbsolutePath()));
+        storagePoint = new StoragePoint();
+        storagePoint.setDescription(MainApp.getAppContext().getFilesDir().getAbsolutePath());
+        storagePoint.setPath(MainApp.getAppContext().getFilesDir().getAbsolutePath());
+        storagePoint.setPrivacyType(StoragePoint.PrivacyType.PRIVATE);
+        storagePoint.setStorageType(StoragePoint.StorageType.INTERNAL);
+        if (!paths.contains(MainApp.getAppContext().getFilesDir().getAbsolutePath())) {
+            mCachedStoragePoints.add(storagePoint);
+        }
 
         // Add external storage directory if available.
         if (isExternalStorageWritable()) {
-            mCachedStoragePoints.add(new StoragePoint(
-                    MainApp.getAppContext().getExternalFilesDir(null).getAbsolutePath(),
-                    MainApp.getAppContext().getExternalFilesDir(null).getAbsolutePath()));
+            storagePoint = new StoragePoint();
+            storagePoint.setPath(MainApp.getAppContext().getExternalFilesDir(null).getAbsolutePath());
+            storagePoint.setDescription(MainApp.getAppContext().getExternalFilesDir(null).getAbsolutePath());
+            storagePoint.setPrivacyType(StoragePoint.PrivacyType.PRIVATE);
+            storagePoint.setStorageType(StoragePoint.StorageType.EXTERNAL);
+            if (!paths.contains(MainApp.getAppContext().getExternalFilesDir(null).getAbsolutePath())) {
+                mCachedStoragePoints.add(storagePoint);
+            }
         }
 
         return mCachedStoragePoints.toArray(new StoragePoint[mCachedStoragePoints.size()]);
