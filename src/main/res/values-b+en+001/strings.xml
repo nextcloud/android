@@ -47,6 +47,7 @@
     <string name="prefs_log_delete_history_button">Delete history</string>
     <string name="prefs_calendar_contacts">Sync calendar &amp; contacts</string>
     <string name="prefs_calendar_contacts_summary">Set up DAVdroid (v1.3.0+) for current account</string>
+    <string name="prefs_calendar_contacts_address_resolve_error">Server address for the account could not be resolved for DAVdroid</string>
     <string name="prefs_calendar_contacts_no_store_error">Neither F-Droid nor Google Play is installed</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Calendar &amp; contacts sync set up</string>
     <string name="prefs_daily_contacts_sync_summary">Daily backup of your contacts</string>
@@ -63,6 +64,7 @@
     <string name="auth_host_url">Server address https://&#8230;</string>
     <string name="auth_username">Username</string>
     <string name="auth_password">Password</string>
+    <string name="auth_register">No Nextcloud yet?\nClick here to get one from a provider</string>
     <string name="sync_string_files">Files</string>
     <string name="setup_btn_connect">Connect</string>
     <string name="uploader_btn_upload_text">Upload</string>
@@ -100,14 +102,20 @@
     <string name="file_list_empty_headline_server_search_videos">No videos</string>
     <string name="file_list_empty_headline_server_search_photos">No photos</string>
     <string name="file_list_empty_search">Maybe it is in a different folder?</string>
+    <string name="file_list_empty_recently_modified">Found no files modified within the last 7 days</string>
+    <string name="file_list_empty_recently_modified_filter">No files modified the last 7 days.</string>
     <string name="file_list_empty_recently_added">Found no recently added files</string>
+    <string name="file_list_empty_recently_added_filter">No recently added files.</string>
     <string name="file_list_empty_text_photos">Upload some photos or activate auto upload.</string>
+    <string name="file_list_empty_text_photos_filter">No photos.</string>
     <string name="file_list_empty_text_videos">Upload some videos or activate auto upload.</string>
+    <string name="file_list_empty_text_videos_filter">No videos.</string>
     <string name="upload_list_empty_headline">No uploads available</string>
     <string name="upload_list_empty_text_auto_upload">Upload some content or activate auto upload.</string>
     <string name="file_list_folder">folder</string>
     <string name="filedetails_select_file">Tap on a file to display additional information.</string>
     <string name="filedetails_download">Download</string>
+    <string name="filedetails_sync_file">Sync</string>
     <string name="filedetails_renamed_in_upload_msg">File renamed to %1$s during upload</string>
     <string name="list_layout">Listed layout</string>
     <string name="action_send_share">Send/Share</string>
@@ -138,8 +146,11 @@
     <string name="uploader_upload_succeeded_content_single">%1$s uploaded</string>
     <string name="uploader_upload_failed_ticker">Upload failed</string>
     <string name="uploader_upload_failed_content_single">Could not upload %1$s</string>
+    <string name="uploader_upload_failed_credentials_error">Upload failed, log in again</string>
+    <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">Untrusted server certificate</string>
     <string name="uploads_view_title">Uploads</string>
     <string name="uploads_view_group_current_uploads">Current</string>
+    <string name="uploads_view_group_failed_uploads">Failed/pending restart</string>
     <string name="uploads_view_group_finished_uploads">Uploaded</string>
     <string name="uploads_view_upload_status_succeeded">Completed</string>
     <string name="uploads_view_upload_status_cancelled">Cancelled</string>
@@ -152,6 +163,7 @@
     <string name="uploads_view_upload_status_conflict">Conflict</string>
     <string name="uploads_view_upload_status_service_interrupted">App terminated</string>
     <string name="uploads_view_upload_status_unknown_fail">Unknown error</string>
+    <string name="uploads_view_upload_status_waiting_for_wifi">Waiting for Wi-Fi</string>
     <string name="uploads_view_upload_status_waiting_exit_power_save_mode">Waiting to exit power save mode</string>
     <string name="uploads_view_later_waiting_to_upload">Waiting to upload</string>
     <string name="downloader_download_in_progress_ticker">Downloading &#8230;</string>
@@ -161,13 +173,24 @@
     <string name="downloader_download_failed_ticker">Download failed</string>
     <string name="downloader_download_failed_content">Could not download %1$s</string>
     <string name="downloader_not_downloaded_yet">Not downloaded yet</string>
+    <string name="downloader_download_failed_credentials_error">Download failed, log in again</string>
     <string name="common_choose_account">Choose account</string>
     <string name="common_switch_account">Switch Account</string>
     <string name="sync_fail_ticker">Sync failed</string>
+    <string name="sync_fail_ticker_unauthorized">Sync failed, log in again</string>
+    <string name="sync_fail_content">Could not sync %1$s</string>
     <string name="sync_fail_content_unauthorized">Wrong password for %1$s</string>
     <string name="sync_conflicts_in_favourites_ticker">Conflicts found</string>
     <string name="sync_fail_in_favourites_ticker">Kept-in-sync files failed</string>
+    <plurals name="sync_fail_in_favourites_content">
+        <item quantity="one">Could not sync %1$d file (conflicts: %2$d)</item>
+        <item quantity="other">Could not sync %1$d files (conflicts: %2$d)</item>
+    </plurals>
     <string name="sync_foreign_files_forgotten_ticker">Some local files were forgotten</string>
+    <plurals name="sync_foreign_files_forgotten_content">
+        <item quantity="one">Failed to copy %1$d file from the %2$s folder into</item>
+        <item quantity="other">Failed to copy %1$d files from the %2$s folder into</item>
+    </plurals>
     <string name="sync_foreign_files_forgotten_explanation">As of version 1.3.16, files uploaded from this device are copied into the local %1$s folder to prevent data loss when a single file is synced with multiple accounts.\n\nDue to this change, all files uploaded with earlier versions of this app were copied into the %2$s folder. However, an error prevented the completion of this operation during account synchronization. You may either leave the file(s) as is and delete the link to %3$s, or move the file(s) into the %1$s folder and retain the link to %4$s.\n\nListed below are the local file(s), and the remote file(s) in %5$s they were linked to.</string>
     <string name="sync_current_folder_was_removed">The folder %1$s does not exist anymore</string>
     <string name="foreign_files_move">Move all</string>
@@ -199,6 +222,7 @@
     <string name="media_err_malformed">The media file has incorrect encoding</string>
     <string name="media_err_timeout">Attempt to play file timed out</string>
     <string name="media_err_invalid_progressive_playback">The media file can not be streamed</string>
+    <string name="media_err_unknown">The built-in media player is unable to play the media file</string>
     <string name="media_err_security_ex">A security error was encountered trying to play %1$s</string>
     <string name="media_err_io_ex">Input error while trying to play %1$s</string>
     <string name="media_err_unexpected">Unexpected error while trying to play %1$s</string>
@@ -234,7 +258,9 @@
 	<string name="auth_expired_saml_sso_token_toast">Your session expired. Please connect again</string>
     <string name="auth_connecting_auth_server">Connecting to authentication server &#8230;</string>
 	<string name="auth_unsupported_multiaccount">%1$s does not support multiple accounts</string>
+	<string name="auth_fail_get_user_name">Your server is not returning a correct user ID, please contact an admin</string>
 	<string name="auth_can_not_auth_against_server">Cannot authenticate to this server</string>
+    <string name="auth_account_does_not_exist">The account is not added on this device yet</string>
     <string name="auth_access_failed">Access failed</string>
 
     <string name="favorite">Set as available offline</string>
@@ -257,6 +283,8 @@
     <string name="sync_file_nothing_to_do_msg">File contents already synchronised</string>
     <string name="create_dir_fail_msg">Could not create folder</string>
     <string name="filename_forbidden_characters">Forbidden characters: / \\ &lt; &gt; : \" | ? *</string>
+    <string name="filename_forbidden_charaters_from_server">Filename contains at least one invalid character</string>
+    <string name="filename_empty">Filename cannot be empty</string>
     <string name="wait_a_moment">Wait a moment &#8230;</string>
     <string name="wait_checking_credentials">Checking stored credentials</string>
     <string name="filedisplay_no_file_selected">No file selected</string>
@@ -321,6 +349,7 @@
     <string name="prefs_instant_upload_path_use_subfolders_title">Use subfolders</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Store in subfolders based on year and month</string>
 
+	<string name="share_link_no_support_share_api">Sharing is not enabled on your server. Please contact your admin</string>
 	<string name="share_link_file_no_exist">Unable to share. Please check whether the file exists</string>
 	<string name="share_link_file_error">An error occurred while trying to share this file or folder</string>
 	<string name="unshare_link_file_no_exist">Unable to unshare. Please check whether the file exists</string>
@@ -340,6 +369,9 @@
 
     <string name="error_cant_bind_to_operations_service">Critical error: Unable to perform operations</string>
 
+    <string name="network_error_socket_exception">An error occurred during connection to the server</string>
+    <string name="network_error_socket_timeout_exception">An error occurred while waiting for the server. Could not complete operation</string>
+    <string name="network_error_connect_timeout_exception">An error occurred while waiting for the server. Could not complete operation</string>
     <string name="network_host_not_available">Could not complete operation. Server unavailable</string>
 
     <string name="forbidden_permissions">You are not permitted %s</string>
@@ -355,13 +387,25 @@
     <string name="file_migration_dialog_title">Updating storage path</string>
     <string name="file_migration_preparing">Preparing migration &#8230;</string>
     <string name="file_migration_checking_destination">Checking destination &#8230;</string>
+    <string name="file_migration_saving_accounts_configuration">Saving account config &#8230;</string>
+    <string name="file_migration_waiting_for_unfinished_sync">Awaiting full sync &#8230;</string>
     <string name="file_migration_migrating">Moving data &#8230;</string>
     <string name="file_migration_updating_index">Updating index &#8230;</string>
     <string name="file_migration_cleaning">Cleaning &#8230;</string>
+    <string name="file_migration_restoring_accounts_configuration">Restoring account config &#8230;</string>
     <string name="file_migration_ok_finished">Finished</string>
+    <string name="file_migration_failed_not_enough_space">More space needed</string>
+    <string name="file_migration_failed_not_writable">Could not write to destination file</string>
+    <string name="file_migration_failed_not_readable">Could not read source file</string>
+    <string name="file_migration_failed_dir_already_exists">Nextcloud folder already exists</string>
+    <string name="file_migration_failed_while_coping">Failed during migration</string>
+    <string name="file_migration_failed_while_updating_index">Failed to update index</string>
+
+    <string name="file_migration_directory_already_exists">Data folder already exists. Choose one of the following:</string>
     <string name="file_migration_override_data_folder">Replace</string>
     <string name="file_migration_use_data_folder">Use</string>
 
+    <string name="file_migration_source_not_readable_title">Source folder not readable!</string>
     <string name="file_migration_source_not_readable">Do you still want to change the storage path to %1$s?\n\nNote: All data will have to be downloaded again.</string>
 
     <string name="prefs_add_account">Add account</string>
@@ -374,6 +418,7 @@
 	<string name="log_send_mail_subject">%1$s Android app logs</string>
 	<string name="log_progress_dialog_text">Loading data &#8230;</string>
 
+	<string name="saml_authentication_required_text">Password required</string>
 	<string name="saml_authentication_wrong_pass">Incorrect password</string>
 	<string name="actionbar_move">Move</string>
     <string name="actionbar_copy">Copy</string>
@@ -395,7 +440,9 @@
 
     <string name="prefs_category_details">Details</string>
 
-    <string name="subject_user_shared_with_you">%1$s shared \"%2$s\" with you</string>
+    <string name="sync_folder_failed_content">Sync of %1$s folder could not be completed</string>
+
+	<string name="subject_user_shared_with_you">%1$s shared \"%2$s\" with you</string>
     <string name="subject_shared_with_you">\"%1$s\" has been shared with you</string>
 
     <string name="auth_refresh_button">Refresh connection</string>
@@ -448,6 +495,7 @@
     <string name="share_email_clarification">%1$s (email)</string>
     <string name="share_known_remote_clarification">%1$s ( at %2$s )</string>
 
+    <string name="share_sharee_unavailable">Upgrade the server version to allow sharing between users from within their clients.\nPlease contact your admin</string>
     <string name="filedetails_share_link_enable">Share by link enabled</string>
     <string name="filedetails_share_link_disable">Not shared by link</string>
     <string name="filedetails_share_users_with_access">Users and groups with access</string>
@@ -477,6 +525,7 @@
 
     <string name="uploads_view_upload_status_waiting_for_charging">Awaiting charge</string>
     <string name="actionbar_search">Search</string>
+    <string name="files_drop_not_supported">This is a Nextcloud feature, please upgrade.</string>
     <string name="learn_more">Learn more</string>
     <string name="drawer_synced_folders">Auto upload</string>
     <string name="drawer_participate">Participate</string>
@@ -577,7 +626,11 @@
     <!-- Notifications -->
     <string name="new_notification_received">New notification received</string>
     <string name="drawer_logout">Log out</string>
+    <string name="picture_set_as_no_app">No app found to set a picture with</string>
     <string name="privacy">Privacy</string>
+    <string name="file_not_found">File not found</string>
+    <string name="file_not_synced">File could not be synced. Showing latest available version.</string>
+
     <!-- Auto upload -->
     <string name="autoupload_custom_folder">Set up a custom folder</string>
     <string name="autoupload_create_new_custom_folder">Create new custom folder setup</string>
@@ -605,9 +658,13 @@
     <string name="resized_image_not_possible_download">No resized image available. Download full image?</string>
     <string name="resized_images_download_full_image">Download full image?</string>
 
+    <string name="store_short_desc">The Nextcloud Android app gives mobile access to all files on your Nextcloud.</string>
+    <string name="store_full_desc">The copylefted libre Nextcloud Android app, giving you mobile freedom.\n\nFeatures:\n* Easy, modern interface, suited to the theme of your server\n* Upload files to your Nextcloud server\n* Share them with others\n* Keep your favourite files and folders synced\n* Search across all folders on your server\n* Auto Upload for photos and videos taken by your device\n* Keep up to date with notifications\n* Multi-account support\n* Secure access to your data with fingerprint or PIN\n* Integration with DAVdroid for easy setup of calendar &amp; Contacts synchronisation\n\nPlease report all issues at https://github.com/nextcloud/android/issues and discuss this app at https://help.nextcloud.com/c/clients/android\n\nNew to Nextcloud? Nextcloud is a private file sync &amp; share and communication server. It is libre software, and you can host it yourself or pay a company to do it for you. That way, you are in control of your photos, your calendar and contact data, your documents and everything else.\n\nCheck out Nextcloud at https://nextcloud.com</string>
+
     <string name="drawer_current_account">Current account</string>
     <string name="drawer_middle_account">Middle account</string>
     <string name="drawer_end_account">Last account</string>
+    <string name="contactlist_item_icon">User icon for contact list</string>
     <string name="activity_icon">Activity icon</string>
     <string name="file_icon">File icon</string>
     <string name="user_icon">User icon</string>
@@ -621,6 +678,12 @@
     <string name="shared_icon">Shared icon</string>
     <string name="overflow_menu">Overflow menu</string>
     <string name="share_file_icon">Share file icon</string>
+    <string name="sort_by_name_ascending">A - Z</string>
+    <string name="sort_by_modification_date_ascending">Newest first</string>
+    <string name="sort_by_size_descending">Biggest first</string>
+    <string name="sort_by_size_ascending">Smallest first</string>
+    <string name="sort_by_name_descending">Z - A</string>
+    <string name="sort_by_modification_date_descending">Oldest first</string>
     <string name="synced_folders_type">Type</string>
     <string name="sync_status_button">Sync status button</string>
     <string name="synced_folder_settings_button">Settings button</string>
@@ -630,6 +693,8 @@
     <string name="what_s_new_image">What\'s new image</string>
 
     <string name="store_short_dev_desc">The Nextcloud Dev app is a development snapshot and can be installed parallel.</string>
+    <string name="store_full_dev_desc">The copylefted libre Nextcloud Android app, gives you mobile freedom.\nThis is the official development version, featuring a daily sample of any new untested functionality, which may cause instability and data loss. The app is for users willing to test, and report bugs should they occur. Do not use it for your productive work!\n\nBoth the official dev and regular version are available on F-droid, and can be installed at the same time.</string>
+
     <string name="prefs_category_dev">Dev</string>
     <string name="dev_version_no_information_available">No information available.</string>
     <string name="dev_version_no_new_version_available">No new version available.</string>
@@ -657,18 +722,27 @@
     <string name="screenshot_03_drawer">Quickly access activity, shares, offline files and more</string>
     <string name="screenshot_04_accounts">Connect to different accounts</string>
     <string name="screenshot_05_autoUpload">Automatically upload your photos &amp; videos</string>
+    <string name="screenshot_06_davdroid">Sync calendar &amp; contacts with DAVdroid</string>
+    
     <string name="userinfo_no_info_headline">No personal info set</string>
     <string name="userinfo_no_info_text">Add name, picture and contact details on your profile page.</string>
     <string name="drawer_header_background">Background image of drawer header</string>
     <string name="account_icon">Account icon</string>
     
+    <string name="end_to_end_encryption_folder_not_empty">This folder is not empty.</string>
     <string name="end_to_end_encryption_wrong_password">Error while decrypting. Wrong password?</string>
     <string name="end_to_end_encryption_decrypting">Decrypting&#8230;</string>
     <string name="end_to_end_encryption_retrieving_keys">Retrieving keys&#8230;</string>
+    <string name="end_to_end_encryption_enter_password">Please enter password to decrypt private key.</string>
     <string name="end_to_end_encryption_generating_keys">Generating new keys&#8230;</string>
+    <string name="end_to_end_encryption_keywords_description">All 12 words together make a very strong password, letting only you view and make use of your encrypted files. Please write it down and keep it somewhere safe.</string>
     <string name="end_to_end_encryption_title">Set up encryption</string>
+    <string name="end_to_end_encryption_passphrase_title">Make note of your 12 word encryption password</string>
+    <string name="end_to_end_encryption_not_supported">Encryption only works on KitKat(4.4) and beyond.</string>
     <string name="end_to_end_encryption_confirm_button">Set up encryption</string>
     <string name="end_to_end_encryption_password">Password&#8230;</string>
+    <string name="end_to_end_encryption_unsuccessful">Keys could not be stored, please try again.</string>
     <string name="end_to_end_encryption_dialog_close">Close</string>
     <string name="end_to_end_encryption_storing_keys">Storing keys</string>
+    <string name="copy_move_to_encrypted_folder_not_supported">Copy/move into encrypted folder currently not supported.</string>
     </resources>

@@ -47,6 +47,7 @@
     <string name="prefs_log_delete_history_button">과거 기록 삭제</string>
     <string name="prefs_calendar_contacts">달력 및 연락처 동기화</string>
     <string name="prefs_calendar_contacts_summary">현재 계정을 위해 DAVdroid(버전 1.3.0 이상)를 설정하십시오</string>
+    <string name="prefs_calendar_contacts_address_resolve_error">DAVdroid에서 사용할 서버 주소나 계정을 알 수 없음</string>
     <string name="prefs_calendar_contacts_no_store_error">F-Droid 및 Google Play를 사용할 수 없음</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">달력 및 연락처 동기화 설정</string>
     <string name="prefs_daily_contacts_sync_summary">연락처 일간 백업</string>
@@ -63,6 +64,7 @@
     <string name="auth_host_url">서버 주소 https://&#8230;</string>
     <string name="auth_username">사용자 이름</string>
     <string name="auth_password">암호</string>
+    <string name="auth_register">Nextcloud가 없으신가요?\n공급자를 알아보려면 누르십시오</string>
     <string name="sync_string_files">파일</string>
     <string name="setup_btn_connect">연결</string>
     <string name="uploader_btn_upload_text">업로드</string>
@@ -100,14 +102,20 @@
     <string name="file_list_empty_headline_server_search_videos">비디오 없음</string>
     <string name="file_list_empty_headline_server_search_photos">사진 없음</string>
     <string name="file_list_empty_search">다른 폴더에 있을 수도 있습니다.</string>
+    <string name="file_list_empty_recently_modified">검색 결과 지난 7일간 수정한 파일 없음</string>
+    <string name="file_list_empty_recently_modified_filter">지난 7일간 수정한 파일이 없습니다.</string>
     <string name="file_list_empty_recently_added">최근 추가된 파일 없음</string>
+    <string name="file_list_empty_recently_added_filter">최근에 추가된 파일이 없습니다.</string>
     <string name="file_list_empty_text_photos">사진을 업로드하거나 자동 업로드를 활성화하십시오.</string>
+    <string name="file_list_empty_text_photos_filter">사진이 없습니다.</string>
     <string name="file_list_empty_text_videos">비디오를 업로드하거나 자동 업로드를 활성화하십시오.</string>
+    <string name="file_list_empty_text_videos_filter">동영상이 없습니다.</string>
     <string name="upload_list_empty_headline">업로드 없음</string>
     <string name="upload_list_empty_text_auto_upload">콘텐츠를 업로드하거나 자동 업로드를 활성화하십시오.</string>
     <string name="file_list_folder">폴더</string>
     <string name="filedetails_select_file">파일을 누르면 추가 정보가 표시됩니다.</string>
     <string name="filedetails_download">다운로드</string>
+    <string name="filedetails_sync_file">동기화</string>
     <string name="filedetails_renamed_in_upload_msg">업로드 중 파일 이름이 %1$s(으)로 변경됨</string>
     <string name="list_layout">목록 보기</string>
     <string name="action_send_share">보내기/공유</string>
@@ -138,8 +146,11 @@
     <string name="uploader_upload_succeeded_content_single">%1$s 업로드 완료</string>
     <string name="uploader_upload_failed_ticker">업로드 실패</string>
     <string name="uploader_upload_failed_content_single">%1$s을(를) 업로드할 수 없음</string>
+    <string name="uploader_upload_failed_credentials_error">업로드 실패, 다시 로그인하십시오</string>
+    <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">신뢰할 수 없는 서버 인증서</string>
     <string name="uploads_view_title">업로드</string>
     <string name="uploads_view_group_current_uploads">현재</string>
+    <string name="uploads_view_group_failed_uploads">다시 시작 실패/대기 중</string>
     <string name="uploads_view_group_finished_uploads">업로드됨</string>
     <string name="uploads_view_upload_status_succeeded">완료됨</string>
     <string name="uploads_view_upload_status_cancelled">취소됨</string>
@@ -152,6 +163,7 @@
     <string name="uploads_view_upload_status_conflict">충돌</string>
     <string name="uploads_view_upload_status_service_interrupted">앱 종료됨</string>
     <string name="uploads_view_upload_status_unknown_fail">알 수 없는 오류</string>
+    <string name="uploads_view_upload_status_waiting_for_wifi">Wi-Fi 대기 중</string>
     <string name="uploads_view_upload_status_waiting_exit_power_save_mode">배터리 절약 모드 종료를 기다리는 중</string>
     <string name="uploads_view_later_waiting_to_upload">업로드 대기 중</string>
     <string name="downloader_download_in_progress_ticker">다운로드 중&#8230;</string>
@@ -161,13 +173,22 @@
     <string name="downloader_download_failed_ticker">다운로드 실패</string>
     <string name="downloader_download_failed_content">%1$s을(를) 다운로드할 수 없습니다</string>
     <string name="downloader_not_downloaded_yet">아직 다운로드되지 않았음</string>
+    <string name="downloader_download_failed_credentials_error">다운로드 실패, 다시 로그인하십시오</string>
     <string name="common_choose_account">계정 선택</string>
     <string name="common_switch_account">계정 전환</string>
     <string name="sync_fail_ticker">동기화 실패</string>
+    <string name="sync_fail_ticker_unauthorized">동기화 실패, 다시 로그인하십시오</string>
+    <string name="sync_fail_content">%1$s을(를) 동기화할 수 없음</string>
     <string name="sync_fail_content_unauthorized">%1$s의 암호 잘못됨</string>
     <string name="sync_conflicts_in_favourites_ticker">충돌하는 항목 발견됨</string>
     <string name="sync_fail_in_favourites_ticker">파일을 동기화할 수 없었습니다</string>
+    <plurals name="sync_fail_in_favourites_content">
+        <item quantity="other">파일 %1$d개의 내용을 동기화할 수 없음(충돌 %2$d개)</item>
+    </plurals>
     <string name="sync_foreign_files_forgotten_ticker">일부 로컬 파일이 사라짐</string>
+    <plurals name="sync_foreign_files_forgotten_content">
+        <item quantity="other">폴더 %2$s의 파일 중 %1$d개를 복사할 수 없음</item>
+    </plurals>
     <string name="sync_foreign_files_forgotten_explanation">버전 1.3.16부터 단일 파일을 여러 계정과 동기화 시 자료 손실을 방지하기 위하여 이 장치에서 업로드된 파일은 로컬 %1$s 폴더에 일단 복사됩니다.\n\n이 변경 사항으로 인하여 이전 버전 앱에서 업로드한 모든 파일을 %2$s 폴더로 복사했습니다. 하지만 계정 동기화 중 오류가 발생하여 이 작업이 중단되었습니다. 파일을 그대로 두고 %3$s 연결을 삭제하거나, 파일을 %1$s 폴더로 이동하고 %4$s 연결을 그대로 유지할 수 있습니다.\n\n아래의 목록은 로컬 파일과 연결된 %5$s에 있는 원격 파일 목록입니다.</string>
     <string name="sync_current_folder_was_removed">폴더 %1$s이(가) 더 이상 존재하지 않음</string>
     <string name="foreign_files_move">모두 이동</string>
@@ -199,6 +220,7 @@
     <string name="media_err_malformed">미디어 파일의 인코딩이 잘못됨</string>
     <string name="media_err_timeout">재생 시도 중 시간이 초과됨</string>
     <string name="media_err_invalid_progressive_playback">미디어 파일을 스트리밍할 수 없음</string>
+    <string name="media_err_unknown">내장 미디어 재생기로 파일을 재생할 수 없음</string>
     <string name="media_err_security_ex">%1$s을(를) 재생하는 중 보안 오류가 발생함</string>
     <string name="media_err_io_ex">%1$s을(를) 재생하는 중 읽기 오류가 발생함</string>
     <string name="media_err_unexpected">%1$s을(를) 재생하는 중 알 수 없는 오류가 발생함</string>
@@ -234,7 +256,9 @@
 	<string name="auth_expired_saml_sso_token_toast">세션이 만료되었습니다. 다시 접속하십시오</string>
     <string name="auth_connecting_auth_server">인증 서버에 연결 중&#8230;</string>
 	<string name="auth_unsupported_multiaccount">%1$s에서 다중 계정을 지원하지 않습니다</string>
+	<string name="auth_fail_get_user_name">서버에서 올바른 사용자 ID를 반환하지 않습니다. 시스템 관리자에게 연락하십시오</string>
 	<string name="auth_can_not_auth_against_server">이 서버에 인증할 수 없음</string>
+    <string name="auth_account_does_not_exist">이 장치에 아직 계정이 추가되지 않았음</string>
     <string name="auth_access_failed">접근 실패</string>
 
     <string name="favorite">오프라인 사용 가능으로 설정</string>
@@ -242,6 +266,8 @@
     <string name="favorite_real">즐겨찾기 등록</string>
     <string name="unset_favorite_real">즐겨찾기 해제</string>
     <string name="favorite_switch">오프라인 사용 가능</string>
+    <string name="encrypted">암호화하도록 설정</string>
+    <string name="unset_encrypted">암호화 해제</string>
     <string name="common_rename">이름 바꾸기</string>
     <string name="common_remove">삭제</string>
     <string name="confirmation_remove_file_alert">%1$s을(를) 삭제하시겠습니까?</string>
@@ -255,6 +281,8 @@
     <string name="sync_file_nothing_to_do_msg">파일 내용이 이미 동기화됨</string>
     <string name="create_dir_fail_msg">폴더를 만들 수 없음</string>
     <string name="filename_forbidden_characters">사용할 수 없는 문자: / \\ &lt; &gt; : \" | ? *</string>
+    <string name="filename_forbidden_charaters_from_server">파일 이름에 잘못된 글자가 한 자 이상 있음</string>
+    <string name="filename_empty">파일 이름이 비어 있을 수 없음</string>
     <string name="wait_a_moment">잠시 기다려 주십시오&#8230;</string>
     <string name="wait_checking_credentials">저장된 인증 정보 확인 중</string>
     <string name="filedisplay_no_file_selected">선택한 파일 없음</string>
@@ -319,6 +347,7 @@
     <string name="prefs_instant_upload_path_use_subfolders_title">하위 폴더 사용</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">연도와 월을 기준으로 하위 폴더에 보관</string>
 
+	<string name="share_link_no_support_share_api">서버에서 공유가 활성화되지 않았습니다. 시스템 관리자에게 연락하십시오.</string>
 	<string name="share_link_file_no_exist">공유할 수 없습니다. 파일이 있는지 확인하십시오</string>
 	<string name="share_link_file_error">이 파일이나 폴더를 공유하는 중 오류 발생</string>
 	<string name="unshare_link_file_no_exist">공유를 해제할 수 없습니다. 파일이 있는지 확인하십시오</string>
@@ -338,6 +367,9 @@
 
     <string name="error_cant_bind_to_operations_service">치명적 오류: 작업을 수행할 수 없음</string>
 
+    <string name="network_error_socket_exception">서버에 연결하는 중 오류가 발생했습니다.</string>
+    <string name="network_error_socket_timeout_exception">서버를 대기하는 중 오류가 발생했습니다. 작업을 완료할 수 없습니다.</string>
+    <string name="network_error_connect_timeout_exception">서버를 대기하는 중 오류가 발생했습니다. 작업을 완료할 수 없습니다.</string>
     <string name="network_host_not_available">작업을 완료할 수 없습니다. 서버를 사용할 수 없음</string>
 
     <string name="forbidden_permissions">%s 권한이 없음</string>
@@ -353,13 +385,25 @@
     <string name="file_migration_dialog_title">저장소 경로 업데이트 중</string>
     <string name="file_migration_preparing">이전 준비 중&#8230;</string>
     <string name="file_migration_checking_destination">대상 점검 중&#8230;</string>
+    <string name="file_migration_saving_accounts_configuration">계정 설정 저장 중&#8230;</string>
+    <string name="file_migration_waiting_for_unfinished_sync">모든 동기화가 완료되기를 기다리는 중&#8230;</string>
     <string name="file_migration_migrating">데이터 이동 중&#8230;</string>
     <string name="file_migration_updating_index">색인 업데이트 중&#8230;</string>
     <string name="file_migration_cleaning">비우는 중&#8230;</string>
+    <string name="file_migration_restoring_accounts_configuration">계정 설정 복원 중&#8230;</string>
     <string name="file_migration_ok_finished">완료됨</string>
+    <string name="file_migration_failed_not_enough_space">공간 부족</string>
+    <string name="file_migration_failed_not_writable">대상 파일에 기록할 수 없음</string>
+    <string name="file_migration_failed_not_readable">원본 파일에서 읽을 수 없음</string>
+    <string name="file_migration_failed_dir_already_exists">Nextcloud 폴더가 이미 존재함</string>
+    <string name="file_migration_failed_while_coping">마이그레이션 실패</string>
+    <string name="file_migration_failed_while_updating_index">색인을 업데이트할 수 없음</string>
+
+    <string name="file_migration_directory_already_exists">데이터 폴더가 이미 존재합니다. 다음 중 하나를 선택하십시오:</string>
     <string name="file_migration_override_data_folder">변경</string>
     <string name="file_migration_use_data_folder">사용</string>
 
+    <string name="file_migration_source_not_readable_title">원본 폴더에서 읽을 수 없음!</string>
     <string name="file_migration_source_not_readable">저장소 경로를 그래도 %1$s(으)로 변경하시겠습니까?\n\n메모: 모든 데이터를 다시 다운로드해야 합니다.</string>
 
     <string name="prefs_add_account">계정 추가</string>
@@ -372,6 +416,7 @@
 	<string name="log_send_mail_subject">%1$s Android 앱 로그</string>
 	<string name="log_progress_dialog_text">데이터 불러오는 중&#8230;</string>
 
+	<string name="saml_authentication_required_text">암호가 필요함</string>
 	<string name="saml_authentication_wrong_pass">잘못된 암호</string>
 	<string name="actionbar_move">이동</string>
     <string name="actionbar_copy">복사</string>
@@ -393,7 +438,9 @@
 
     <string name="prefs_category_details">자세한 정보</string>
 
-    <string name="subject_user_shared_with_you">%1$s 님이 \"%2$s\" 항목을 여러분과 공유했습니다</string>
+    <string name="sync_folder_failed_content">%1$s 폴더의 동기화를 완료할 수 없음</string>
+
+	<string name="subject_user_shared_with_you">%1$s 님이 \"%2$s\" 항목을 여러분과 공유했습니다</string>
     <string name="subject_shared_with_you">\"%1$s\"을(를) 여러분과 공유했습니다</string>
 
     <string name="auth_refresh_button">연결 새로 고침</string>
@@ -444,6 +491,7 @@
     <string name="share_email_clarification">%1$s(이메일)</string>
     <string name="share_known_remote_clarification">%1$s(%2$s에서)</string>
 
+    <string name="share_sharee_unavailable">클라이언트에서 사용자간 공유를 사용하려면 서버를 업그레이드해야 합니다.\n시스템 관리자에게 문의하십시오</string>
     <string name="filedetails_share_link_enable">링크로 공유 활성화됨</string>
     <string name="filedetails_share_link_disable">링크로 공유하지 않음</string>
     <string name="filedetails_share_users_with_access">접근 가능한 사용자와 그룹</string>
@@ -473,6 +521,7 @@
 
     <string name="uploads_view_upload_status_waiting_for_charging">충전 대기 중</string>
     <string name="actionbar_search">검색</string>
+    <string name="files_drop_not_supported">이것은 Nextcloud 기능입니다. 업데이트하십시오.</string>
     <string name="learn_more">자세히 알아보기</string>
     <string name="drawer_synced_folders">자동 업로드</string>
     <string name="drawer_participate">참여</string>
@@ -572,7 +621,11 @@
     <!-- Notifications -->
     <string name="new_notification_received">새 알림 받음</string>
     <string name="drawer_logout">로그아웃</string>
+    <string name="picture_set_as_no_app">사진을 설정할 앱을 찾을 수 없음</string>
     <string name="privacy">개인 정보</string>
+    <string name="file_not_found">파일을 찾을 수 없음</string>
+    <string name="file_not_synced">파일을 동기화할 수 없습니다. 마지막으로 불러온 버전을 표시합니다.</string>
+
     <!-- Auto upload -->
     <string name="autoupload_custom_folder">사용자 정의 폴더 설정</string>
     <string name="autoupload_create_new_custom_folder">새 사용자 정의 폴더 설정 만들기</string>
@@ -600,9 +653,13 @@
     <string name="resized_image_not_possible_download">크기 조정된 사진을 사용할 수 없습니다. 원본 크기로 다운로드하시겠습니까?</string>
     <string name="resized_images_download_full_image">원본 크기 다운로드?</string>
 
+    <string name="store_short_desc">Nextcloud Android 앱으로 내 Nextcloud에 있는 모든 파일을 사용하십시오.</string>
+    <string name="store_full_desc">자유 소프트웨어 Nextcloud Android 앱으로 내 Nextcloud에 있는 파일에 접근할 수 있습니다.\n\n기능:\n* 쉽고 간결한 인터페이스, 서버의 테마를 따라가는 테마\n* 내 Nextcloud 서버에 파일 업로드\n* 다른 사람과 파일 공유하기\n* 즐겨찾는 파일과 폴더 동기화\n* 서버에 있는 모든 폴더 검색\n* 내 장치로 찍은 사진과 동영상 자동 업로드\n* 최신 알림 유지\n* 다중 계정 지원\n* 지문이나 PIN으로 데이터 접근 보호\n* DAVDroid 통합을 통한 간편한 캘린더 및 연락처 동기화\n\nhttps://github.com/nextcloud/android/issues 사이트에 버그를 보고해 주십시오. https://help.nextcloud.com/c/clients/android 사이트에서 앱에 대해 토론할 수 있습니다.\n\nNextcloud를 처음 들어 보셨나요? Nextcloud는 개인 파일 동기화 및 공유 서버입니다. 직접 서버에 설치하거나 호스팅 업체에 설치할 수 있는 자유 오픈 소스 프로젝트입니다. 내 사진, 캘린더, 연락처, 문서 및 모든 것의 통제권을 가질 수 있습니다.\n\nNextcloud에 대해 더 알아보려면 https://nextcloud.com 사이트를 방문하십시오</string>
+
     <string name="drawer_current_account">현재 계정</string>
     <string name="drawer_middle_account">중간 계정</string>
     <string name="drawer_end_account">마지막 계정</string>
+    <string name="contactlist_item_icon">연락처 목록 사용자 아이콘</string>
     <string name="activity_icon">활동 아이콘</string>
     <string name="file_icon">파일 아이콘</string>
     <string name="user_icon">사용자 아이콘</string>
@@ -616,6 +673,12 @@
     <string name="shared_icon">공유 아이콘</string>
     <string name="overflow_menu">오버플로 메뉴</string>
     <string name="share_file_icon">파일 공유 아이콘</string>
+    <string name="sort_by_name_ascending">가나다순</string>
+    <string name="sort_by_modification_date_ascending">새 항목 먼저</string>
+    <string name="sort_by_size_descending">큰 것 먼저</string>
+    <string name="sort_by_size_ascending">작은 것 먼저</string>
+    <string name="sort_by_name_descending">가나다 역순</string>
+    <string name="sort_by_modification_date_descending">오래된 항목 먼저</string>
     <string name="synced_folders_type">종류</string>
     <string name="sync_status_button">동기화 상태 단추</string>
     <string name="synced_folder_settings_button">설정 단추</string>
@@ -625,6 +688,8 @@
     <string name="what_s_new_image">새로운 기능 사진</string>
 
     <string name="store_short_dev_desc">Nextcloud Dev 앱은 개발 스냅샷이고 같이 설치될 수 있습니다.</string>
+    <string name="store_full_dev_desc">자유 소프트웨어 Nextcloud Android 앱으로 내 Nextcloud에 있는 파일에 접근할 수 있습니다.\n이 앱은 공식 개발 버전이며, 새로운 기능이 매일 업데이트되기 때문에 불안정할 수도 있으며 데이터가 손실될 수도 있습니다. 이 앱은 사용 중에 발생하는 버그를 테스트하고 보고할 사용자를 대상으로 합니다. 중요한 업무에 사용하지 마십시오!\n\n공식 개발 버전과 일반 버전이 모두 F-Droid에 등록되어 있으며 동시에 설치할 수 있습니다.</string>
+
     <string name="prefs_category_dev">개발</string>
     <string name="dev_version_no_information_available">정보가 없습니다.</string>
     <string name="dev_version_no_new_version_available">새로운 버전이 없습니다.</string>
@@ -652,10 +717,27 @@
     <string name="screenshot_03_drawer">활동, 공유, 오프라인 파일 및 기타 콘텐츠에 빠르게 접근</string>
     <string name="screenshot_04_accounts">다른 계정에 연결하기</string>
     <string name="screenshot_05_autoUpload">내 사진과 동영상 자동 업로드</string>
+    <string name="screenshot_06_davdroid">DAVdroid를 통한 달력 및 연락처 동기화</string>
+    
     <string name="userinfo_no_info_headline">개인 정보 설정되지 않음</string>
     <string name="userinfo_no_info_text">프로필 페이지에 이름, 사진, 연락처를 추가하십시오.</string>
     <string name="drawer_header_background">배경 그림 및 서랍 헤더</string>
     <string name="account_icon">계정 아이콘</string>
     
+    <string name="end_to_end_encryption_folder_not_empty">이 폴더가 비어 있지 않습니다.</string>
+    <string name="end_to_end_encryption_wrong_password">복호화 중 오류가 발생했습니다. 암호가 올바릅니까?</string>
+    <string name="end_to_end_encryption_decrypting">복호화 중&#8230;</string>
+    <string name="end_to_end_encryption_retrieving_keys">키 가져오는 중&#8230;</string>
+    <string name="end_to_end_encryption_enter_password">비밀 키를 복호화하려면 암호를 입력하십시오.</string>
+    <string name="end_to_end_encryption_generating_keys">새 키 생성 중&#8230;</string>
+    <string name="end_to_end_encryption_keywords_description">이 12단어 암구호는 암호화된 파일을 보고 사용하는 매우 강력한 암호입니다. 안전한 곳에 적어서 보관해 두십시오.</string>
+    <string name="end_to_end_encryption_title">암호화 설정</string>
+    <string name="end_to_end_encryption_passphrase_title">12단어 암구호를 기록해 두십시오</string>
+    <string name="end_to_end_encryption_not_supported">암호화 기능은 KitKat(4.4) 이상에서만 지원합니다.</string>
+    <string name="end_to_end_encryption_confirm_button">암호화 설정</string>
+    <string name="end_to_end_encryption_password">암호&#8230;</string>
+    <string name="end_to_end_encryption_unsuccessful">키를 저장할 수 없습니다. 다시 시도하십시오.</string>
     <string name="end_to_end_encryption_dialog_close">닫기</string>
+    <string name="end_to_end_encryption_storing_keys">키 저장 중</string>
+    <string name="copy_move_to_encrypted_folder_not_supported">암호화된 폴더로 복사/이동은 아직 지원하지 않습니다.</string>
     </resources>
