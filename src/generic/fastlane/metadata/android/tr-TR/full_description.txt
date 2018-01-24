@@ -1,13 +1,18 @@
 Copyleft Nextcloud Android uygulaması, Nextcloud üzerindeki tüm dosyalarınıza erişmenizi sağlar.
 
-Özellikleri:\* Kolay kullanılan modern arayüz
-* Dosyalarınızı Nextcloud sunucunuza kolayca yükleyebilme
-* Dosyalarınızı başkalarıyla paylaşabilme
+Özellikleri:\* Sunucunuzun temasına uygun, kolay kullanılan modern arayüz
+* Dosyalarınızı Nextcloud sunucunuza yükleme
+* Dosyalarınızı başkalarıyla paylaşma
 * Sık kullandığınız dosya ve klasörleri eşitleme
-* Çektiğiniz fotoğraf ve görüntüleri anında yükleme
+* Sunucunuzdaki tüm klasörlerde arama yapma
+* Çektiğiniz fotoğraf ve görüntüleri otomatik yükleme
+* Bildirimler ile güncel kalma
 * Birden çok hesap desteği
-Kullanımda karşılaşabileceğiniz hataları https://github.com/nextcloud/android/issues adresinden bildirebilir, uygulama hakkındaki konuları https://help.nextcloud.com adresinde tartışabilirsiniz ;-)
+*Parmak izi ya da PIN kodu ile verilerinize güvenli erişme
+* Davdroid bütünleştirmesi ile takvim ve kişileri eşitleme
+
+Kullanımda karşılaşabileceğiniz hataları https://github.com/nextcloud/android/issues adresinden bildirebilir, uygulama hakkındaki konuları https://help.nextcloud.com/c/clients/android adresinde tartışabilirsiniz
 
 Nextcloud ile yeni mi tanıştınız? Nextcloud özel bir veri depolama ve paylaşma ağıdır. Tamamen açık kaynak kodludur. Dosyalarınızı kendi sunucunuzda saklayabileceğiniz gibi ücretli hizmet olarak da satın alabilirsiniz. Böylece fotoğraflarınız, dosyalarınız, takviminiz, belgeleriniz, kişileriniz ve diğer tüm özel bilgileriniz sizin kontrolünüzde olur. 
 
-Ayrıntılı bilgi almak için sitemize bakabilirsiniz: https://nextcloud.com
+Ayrıntılı bilgi almak için web sitemize bakabilirsiniz: https://nextcloud.com

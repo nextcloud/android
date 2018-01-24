@@ -47,6 +47,7 @@
     <string name="prefs_log_delete_history_button">Geçmişi sil</string>
     <string name="prefs_calendar_contacts">Takvim ve kişiler eşitlensin</string>
     <string name="prefs_calendar_contacts_summary">Geçerli hesap için DAVdroid (v1.3.0+) kurulumu</string>
+    <string name="prefs_calendar_contacts_address_resolve_error">DAVdroid sunucu adı ya da adresi çözümlenemedi.</string>
     <string name="prefs_calendar_contacts_no_store_error">F-Droid ya da Google Play kurulmamış</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Takvim ve kişi eşitlemesi ayarları</string>
     <string name="prefs_daily_contacts_sync_summary">Kişilerinizin günlük yedeği</string>
@@ -63,6 +64,7 @@
     <string name="auth_host_url">Sunucu adresi https://&#8230;</string>
     <string name="auth_username">Kullanıcı Adı</string>
     <string name="auth_password">Parola</string>
+    <string name="auth_register">Henüz Nextcloud kullanmıyor musunuz?\Hizmet sağlayıcılardan yararlanabilirsiniz</string>
     <string name="sync_string_files">Dosyalar</string>
     <string name="setup_btn_connect">Bağlan</string>
     <string name="uploader_btn_upload_text">Yükle</string>
@@ -100,14 +102,20 @@
     <string name="file_list_empty_headline_server_search_videos">Herhangi bir görüntü bulunamadı</string>
     <string name="file_list_empty_headline_server_search_photos">Herhangi bir fotoğraf bulunamadı</string>
     <string name="file_list_empty_search">Başka bir klasöre bakılmasını ister misiniz?</string>
+    <string name="file_list_empty_recently_modified">Son 7 gün içinde düzenlenmiş bir dosya bulunamadı</string>
+    <string name="file_list_empty_recently_modified_filter">Son 7 içinde düzenlenmiş bir dosya yok</string>
     <string name="file_list_empty_recently_added">Geçenlerde eklenmiş herhangi bir dosya bulunamadı</string>
+    <string name="file_list_empty_recently_added_filter">Yakınlarda eklenmiş bir dosya yok</string>
     <string name="file_list_empty_text_photos">Bazı fotoğraflar yükleyin ya da otomatik yüklemeyi etkinleştirin.</string>
+    <string name="file_list_empty_text_photos_filter">Herhangi bir fotoğraf bulunamadı.</string>
     <string name="file_list_empty_text_videos">Bazı görüntüler yükleyin ya da otomatik yüklemeyi etkinleştirin.</string>
+    <string name="file_list_empty_text_videos_filter">Herhangi bir görüntü bulunamadı.</string>
     <string name="upload_list_empty_headline">Herhangi bir yükleme yok</string>
     <string name="upload_list_empty_text_auto_upload">Bazı içerikler yükleyin ya da otomatik yüklemeyi etkinleştirin.</string>
     <string name="file_list_folder">klasör</string>
     <string name="filedetails_select_file">Ek bilgileri görmek için dosyaya dokunun.</string>
     <string name="filedetails_download">İndir</string>
+    <string name="filedetails_sync_file">Eşitle</string>
     <string name="filedetails_renamed_in_upload_msg">Dosya adı, yükleme sırasında %1$s olarak değiştirildi</string>
     <string name="list_layout">Liste düzeni</string>
     <string name="action_send_share">Gönder/Paylaş</string>
@@ -138,8 +146,11 @@
     <string name="uploader_upload_succeeded_content_single">%1$s yüklendi</string>
     <string name="uploader_upload_failed_ticker">Yüklenemedi</string>
     <string name="uploader_upload_failed_content_single">%1$s yüklemesi tamamlanamadı</string>
+    <string name="uploader_upload_failed_credentials_error">Yüklenemedi, yeniden oturum açmalısınız</string>
+    <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">Sunucu sertifikasına güvenilmiyor</string>
     <string name="uploads_view_title">Yüklemeler</string>
     <string name="uploads_view_group_current_uploads">Geçerli</string>
+    <string name="uploads_view_group_failed_uploads">Tamamlanamadı / Yeniden Başlatma Bekleniyor</string>
     <string name="uploads_view_group_finished_uploads">Yüklendi</string>
     <string name="uploads_view_upload_status_succeeded">Tamamlandı</string>
     <string name="uploads_view_upload_status_cancelled">İptal Edildi</string>
@@ -152,6 +163,7 @@
     <string name="uploads_view_upload_status_conflict">Çakışma</string>
     <string name="uploads_view_upload_status_service_interrupted">Uygulama sonlandırıldı</string>
     <string name="uploads_view_upload_status_unknown_fail">Bilinmeyen sorun</string>
+    <string name="uploads_view_upload_status_waiting_for_wifi">Wi-Fi bağlantısı bekleniyor</string>
     <string name="uploads_view_upload_status_waiting_exit_power_save_mode">Güç tasarrufu kipinden çıkılması bekleniyor</string>
     <string name="uploads_view_later_waiting_to_upload">Yüklenmeyi bekliyor</string>
     <string name="downloader_download_in_progress_ticker">İndiriliyor&#8230;</string>
@@ -161,13 +173,24 @@
     <string name="downloader_download_failed_ticker">İndirilemedi</string>
     <string name="downloader_download_failed_content">%1$s indirmesi tamamlanamadı</string>
     <string name="downloader_not_downloaded_yet">Henüz indirilmemiş</string>
+    <string name="downloader_download_failed_credentials_error">İndirilemedi, yeniden oturum açmalısınız</string>
     <string name="common_choose_account">Hesap seçin</string>
     <string name="common_switch_account">Hesabı Değiştir</string>
     <string name="sync_fail_ticker">Eşitlenemedi</string>
+    <string name="sync_fail_ticker_unauthorized">Eşitlenemedi, yeniden oturum açmalısınız</string>
+    <string name="sync_fail_content">%1$s eşitlemesi tamamlanamadı</string>
     <string name="sync_fail_content_unauthorized">%1$s için parola geçersiz</string>
     <string name="sync_conflicts_in_favourites_ticker">Çakışmalar bulundu</string>
     <string name="sync_fail_in_favourites_ticker">Dosyaları eşit tutma işlemi tamamlanamadı</string>
+    <plurals name="sync_fail_in_favourites_content">
+        <item quantity="one">%1$d dosyanın içeriği eşitlenemedi (çakışma: %2$d)</item>
+        <item quantity="other">%1$d dosyanın içeriği eşitlenemedi (çakışma: %2$d)</item>
+    </plurals>
     <string name="sync_foreign_files_forgotten_ticker">Bazı yerel dosyalar unutulmuş</string>
+    <plurals name="sync_foreign_files_forgotten_content">
+        <item quantity="one">%1$d dosya %2$s klasöründen şuraya kopyalanamadı</item>
+        <item quantity="other">%1$d dosya %2$s klasöründen şuraya kopyalanamadı</item>
+    </plurals>
     <string name="sync_foreign_files_forgotten_explanation">1.3.16 sürümünden sonra, veri kaybının önlenebilmesi için bu aygıttan yüklenen dosyalar, bir dosya birden fazla hesapla eşitlendiğinde %1$s yerel klasörüne kopyalanır.\n\nBu değişiklikten dolayı, bu uygulamanın yüklenmiş tüm önceki sürümündeki dosyalar %2$s klasörüne kopyalandı. Ancak hesap eşitlemesi sırasında bu işlemin tamamlanmasını engelleyen bir sorun çıktı. Dosyaları olduğu gibi bırakabilir ve %3$s bağlantısını kaldırabilir ya da dosyaları %1$s klasörüne taşıyıp %4$s bağlantısını koruyabilirsiniz.\n\nYerel dosyaları ve bağlı oldukları %5$s içindeki uzak dosyaların listesini aşağıda görebilirsiniz.</string>
     <string name="sync_current_folder_was_removed">%1$s klasörü artık yok</string>
     <string name="foreign_files_move">Tümünü taşı</string>
@@ -199,6 +222,7 @@
     <string name="media_err_malformed">Ortam dosyası doğru şekilde kodlanmamış</string>
     <string name="media_err_timeout">Oynatmaya çalışılırken zaman aşımına uğradı</string>
     <string name="media_err_invalid_progressive_playback">Ortam dosyası akışı sağlanamadı</string>
+    <string name="media_err_unknown">Ortam dosyası iç ortam oynatıcı ile oynatılamıyor</string>
     <string name="media_err_security_ex">%1$s oynatılmaya çalışılırken bir güvenlik sorunu çıktı</string>
     <string name="media_err_io_ex">%1$s oynatılmaya çalışılırken bir giriş sorunu çıktı</string>
     <string name="media_err_unexpected">%1$s oynatılmaya çalışılırken beklenmeyen bir sorun çıktı</string>
@@ -234,7 +258,9 @@
 	<string name="auth_expired_saml_sso_token_toast">Oturumuzun süresi dolmuş. Lütfen yeniden bağlanın</string>
     <string name="auth_connecting_auth_server">Kimlik doğrulama sunucusuna bağlanılıyor&#8230;</string>
 	<string name="auth_unsupported_multiaccount">%1$s birden çok hesabı desteklemiyor</string>
+	<string name="auth_fail_get_user_name">Sunucunuz doğru bir kullanıcı kodu döndürmüyor, lütfen bir yönetici ile görüşün</string>
 	<string name="auth_can_not_auth_against_server">Bu sunucuda kimlik doğrulanamadı</string>
+    <string name="auth_account_does_not_exist">Aygıt üzerinde henüz bu hesap açılmamış</string>
     <string name="auth_access_failed">Erişilemedi</string>
 
     <string name="favorite">Çevrimdışı kullanılabilir olarak işaretle</string>
@@ -257,6 +283,8 @@
     <string name="sync_file_nothing_to_do_msg">Dosya içerikleri zaten eşitlenmiş</string>
     <string name="create_dir_fail_msg">Klasör oluşturulamadı</string>
     <string name="filename_forbidden_characters">İzin verilmeyen karakterler: / \\ &lt; &gt; : \" | ? *</string>
+    <string name="filename_forbidden_charaters_from_server">Dosya adında en az bir geçersiz karakter var</string>
+    <string name="filename_empty">Dosya adı boş olamaz</string>
     <string name="wait_a_moment">Lütfen bekleyin &#8230;</string>
     <string name="wait_checking_credentials">Kayıtlı kimlik bilgileri denetleniyor</string>
     <string name="filedisplay_no_file_selected">Herhangi bir dosya seçilmemiş</string>
@@ -321,6 +349,7 @@
     <string name="prefs_instant_upload_path_use_subfolders_title">Alt klasörler kullanılsın</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Yıla ve aya göre alt klasörlere kaydedilsin</string>
 
+	<string name="share_link_no_support_share_api">Sunucunuzda paylaşım etkin değil. Lütfen yöneticinizle görüşün.</string>
 	<string name="share_link_file_no_exist">Paylaşılamadı. Lütfen dosyanın var olup olmadığını denetleyin</string>
 	<string name="share_link_file_error">Bu dosya ya da klasör paylaşılmaya çalışılırken bir sorun çıktı</string>
 	<string name="unshare_link_file_no_exist">Paylaşımı kaldırılamadı. Lütfen dosyanın var olup olmadığını denetleyin</string>
@@ -340,6 +369,9 @@
 
     <string name="error_cant_bind_to_operations_service">Ciddi sorun: İşlemler gerçekleştirilemiyor</string>
 
+    <string name="network_error_socket_exception">Sunucu bağlantısı kurulurken bir sorun çıktı</string>
+    <string name="network_error_socket_timeout_exception">Sunucu beklenirken bir sorun çıktı, işlem tamamlanamadı</string>
+    <string name="network_error_connect_timeout_exception">Sunucu beklenirken bir sorun çıktı, işlem tamamlanamadı</string>
     <string name="network_host_not_available">İşlem tamamlanamadı, sunucu kullanılamıyor</string>
 
     <string name="forbidden_permissions">%s izniniz yok</string>
@@ -355,13 +387,25 @@
     <string name="file_migration_dialog_title">Depolama yolu güncelleniyor</string>
     <string name="file_migration_preparing">Aktarıma hazırlanılıyor &#8230;</string>
     <string name="file_migration_checking_destination">Hedef denetleniyor &#8230;</string>
+    <string name="file_migration_saving_accounts_configuration">Hesap ayarları kaydediliyor&#8230;</string>
+    <string name="file_migration_waiting_for_unfinished_sync">Eşitleme işleminin tamamlanması bekleniyor &#8230;</string>
     <string name="file_migration_migrating">Veriler taşınıyor&#8230;</string>
     <string name="file_migration_updating_index">Dizin güncelleniyor&#8230;</string>
     <string name="file_migration_cleaning">Temizleniyor&#8230;</string>
+    <string name="file_migration_restoring_accounts_configuration">Hesap ayarları geri yükleniyor&#8230;</string>
     <string name="file_migration_ok_finished">Tamamlandı</string>
+    <string name="file_migration_failed_not_enough_space">Disk alanı yetersiz</string>
+    <string name="file_migration_failed_not_writable">Hedef dosyaya yazılamadı</string>
+    <string name="file_migration_failed_not_readable">Kaynak dosya okunamadı</string>
+    <string name="file_migration_failed_dir_already_exists">Nextcloud klasörü zaten var</string>
+    <string name="file_migration_failed_while_coping">Aktarım sırasında sorun çıktı</string>
+    <string name="file_migration_failed_while_updating_index">Dizin güncellenirken sorun çıktı</string>
+
+    <string name="file_migration_directory_already_exists">Veri klasörü zaten var. Şunlardan birini seçin:</string>
     <string name="file_migration_override_data_folder">Değiştirilsin</string>
     <string name="file_migration_use_data_folder">Kullanılsın</string>
 
+    <string name="file_migration_source_not_readable_title">Kaynak klasör okunabilir değil!</string>
     <string name="file_migration_source_not_readable">Depolama yolunu gene de %1$s olarak değiştirmek istediğinizden emin misiniz?\n\nNot: Tüm verilerin yeniden indirilmesi gerekecek.</string>
 
     <string name="prefs_add_account">Hesap ekle</string>
@@ -374,6 +418,7 @@
 	<string name="log_send_mail_subject">%1$s Android uygulaması günlükleri</string>
 	<string name="log_progress_dialog_text">Veri yükleniyor&#8230;</string>
 
+	<string name="saml_authentication_required_text">Parola gerekli</string>
 	<string name="saml_authentication_wrong_pass">Parola yanlış</string>
 	<string name="actionbar_move">Taşı</string>
     <string name="actionbar_copy">Kopyala</string>
@@ -395,7 +440,9 @@
 
     <string name="prefs_category_details">Ayrıntılar</string>
 
-    <string name="subject_user_shared_with_you">%1$s, sizinle \"%2$s\" ögesini paylaştı</string>
+    <string name="sync_folder_failed_content">%1$s klasörünün eşitlemesi tamamlanamadı</string>
+
+	<string name="subject_user_shared_with_you">%1$s, sizinle \"%2$s\" ögesini paylaştı</string>
     <string name="subject_shared_with_you">\"%1$s\" sizinle paylaşıldı</string>
 
     <string name="auth_refresh_button">Bağlantıyı yenile</string>
@@ -448,6 +495,7 @@
     <string name="share_email_clarification">%1$s (E-posta)</string>
     <string name="share_known_remote_clarification">%1$s (%2$s üzerinde)</string>
 
+    <string name="share_sharee_unavailable">Kullanıcıların istemcileri içinden paylaşım yapabilmesini sağlamak için sunucu sürümünüzü yükseltin.\nLütfen yöneticinizle görüşün</string>
     <string name="filedetails_share_link_enable">Bağlantı ile paylaşım etkin</string>
     <string name="filedetails_share_link_disable">Bağlantı ile paylaşılmamış</string>
     <string name="filedetails_share_users_with_access">Erişim izni olan kullanıcı ve gruplar</string>
@@ -477,6 +525,7 @@
 
     <string name="uploads_view_upload_status_waiting_for_charging">Aygıtın şarj olması bekleniyor</string>
     <string name="actionbar_search">Arama</string>
+    <string name="files_drop_not_supported">Bu bir Nextcloud özelliğidir, lütfen güncelleyin.</string>
     <string name="learn_more">Ayrıntılı bilgi alın</string>
     <string name="drawer_synced_folders">Otomatik yükleme</string>
     <string name="drawer_participate">Katkıda bulunun</string>
@@ -577,7 +626,11 @@
     <!-- Notifications -->
     <string name="new_notification_received">Yeni bir bildirim var</string>
     <string name="drawer_logout">Oturumu Kapat</string>
+    <string name="picture_set_as_no_app">Görselin ayarlanabileceği bir uygulama bulunamadı</string>
     <string name="privacy">Gizlilik</string>
+    <string name="file_not_found">Dosya bulunamadı</string>
+    <string name="file_not_synced">Dosya eşitlenemedi. Kullanılabilen son sürüm görüntüleniyor.</string>
+
     <!-- Auto upload -->
     <string name="autoupload_custom_folder">Bir özel klasör kurun</string>
     <string name="autoupload_create_new_custom_folder">Yeni özel klasör kurulumu ekleyin</string>
@@ -605,9 +658,13 @@
     <string name="resized_image_not_possible_download">Boyutu değiştirilmiş bir görsel yok. Tam görsel indirilsin mi?</string>
     <string name="resized_images_download_full_image">Tam görsel indirilsin mi?</string>
 
+    <string name="store_short_desc">Nextcloud Android uygulaması Nextcloud üzerindeki tüm dosyalarınıza erişmenizi sağlar.</string>
+    <string name="store_full_desc">Copyleft Nextcloud Android uygulaması, Nextcloud üzerindeki tüm dosyalarınıza erişmenizi sağlar.\n\nÖzellikleri:\* Sunucunuzun temasına uygun, kolay kullanılan modern arayüz\n* Dosyalarınızı Nextcloud sunucunuza yükleme\n* Dosyalarınızı başkalarıyla paylaşma\n* Sık kullandığınız dosya ve klasörleri eşitleme\n* Sunucunuzdaki tüm klasörlerde arama yapma\n* Çektiğiniz fotoğraf ve görüntüleri otomatik yükleme\n* Bildirimler ile güncel kalma\n* Birden çok hesap desteği\n*Parmak izi ya da PIN kodu ile verilerinize güvenli erişme\n* Davdroid bütünleştirmesi ile takvim ve kişileri eşitleme\n\nKullanımda karşılaşabileceğiniz hataları https://github.com/nextcloud/android/issues adresinden bildirebilir, uygulama hakkındaki konuları https://help.nextcloud.com/c/clients/android adresinde tartışabilirsiniz\n\nNextcloud ile yeni mi tanıştınız? Nextcloud özel bir veri depolama ve paylaşma ağıdır. Tamamen açık kaynak kodludur. Dosyalarınızı kendi sunucunuzda saklayabileceğiniz gibi ücretli hizmet olarak da satın alabilirsiniz. Böylece fotoğraflarınız, dosyalarınız, takviminiz, belgeleriniz, kişileriniz ve diğer tüm özel bilgileriniz sizin kontrolünüzde olur. \n\nAyrıntılı bilgi almak için web sitemize bakabilirsiniz: https://nextcloud.com</string>
+
     <string name="drawer_current_account">Geçerli hesap</string>
     <string name="drawer_middle_account">Orta hesap</string>
     <string name="drawer_end_account">Son hesap</string>
+    <string name="contactlist_item_icon">Kişi listesi kullanıcı simgesi</string>
     <string name="activity_icon">İşlem simgesi</string>
     <string name="file_icon">Dosya simgesi</string>
     <string name="user_icon">Kullanıcı simgesi</string>
@@ -621,6 +678,12 @@
     <string name="shared_icon">Paylaşılmış simgesi</string>
     <string name="overflow_menu">Taşma menüsü</string>
     <string name="share_file_icon">Dosya paylaşımı simgesi</string>
+    <string name="sort_by_name_ascending">A - Z</string>
+    <string name="sort_by_modification_date_ascending">Yeniden Eskiye</string>
+    <string name="sort_by_size_descending">Büyükten Küçüğe</string>
+    <string name="sort_by_size_ascending">Küçükten Büyüğe</string>
+    <string name="sort_by_name_descending">Z - A</string>
+    <string name="sort_by_modification_date_descending">Eskiden Yeniye</string>
     <string name="synced_folders_type">Tür</string>
     <string name="sync_status_button">Eşitleme durumu düğmesi</string>
     <string name="synced_folder_settings_button">Ayarlar düğmesi</string>
@@ -630,6 +693,8 @@
     <string name="what_s_new_image">Yenilikler görseli</string>
 
     <string name="store_short_dev_desc">Nextcloud Dev uygulaması paralel olarak kurulabilen geliştirme sürümü örneğidir.</string>
+    <string name="store_full_dev_desc">Açık Kaynaklı Nextcloud Android uygulaması size mobil özgürlük sağlar.\nBu sürüm resmi Nextcloud uygulamasının geliştirici sürümü olduğundan, kararsız çalışabilir ve veri kaybına yol açabilecek yeterince sınanmamış yeni özellikler bulundurur. Bu sürüm yeni özellikleri sınamak ve hataları bildirmek isteyen kullanıcılar için tasarlanmıştır. Bu sürümü günlük işleriniz için kullanmayın!\n\nNormal ve Geliştirici sürümleri F-Droid üzerinde bulunur ve aynı anda kurulup kullanılabilir.</string>
+
     <string name="prefs_category_dev">Geliştirici</string>
     <string name="dev_version_no_information_available">Herhangi bir bilgi yok.</string>
     <string name="dev_version_no_new_version_available">Yeni bir sürüm yok.</string>
@@ -657,18 +722,27 @@
     <string name="screenshot_03_drawer">İşlem, paylaşım, çevrimdışı dosyalar ve diğer özelliklere kolayca erişin</string>
     <string name="screenshot_04_accounts">Farklı hesaplara bağlanın</string>
     <string name="screenshot_05_autoUpload">Fotoğraf ve görüntülerinizi otomatik olarak yükleyin</string>
+    <string name="screenshot_06_davdroid">DAVdroid ile Takvim ve Kişileri eşitleme</string>
+    
     <string name="userinfo_no_info_headline">Herhangi bir kişisel bilgi ayarlanmamış</string>
     <string name="userinfo_no_info_text">Profil sayfanızdan ad, görsel ve iletişim bilgilerinizi ekleyin.</string>
     <string name="drawer_header_background">Çekmece üst bilgisinin art alan görseli</string>
     <string name="account_icon">Hesap simgesi</string>
     
+    <string name="end_to_end_encryption_folder_not_empty">Bu klasör boş değil.</string>
     <string name="end_to_end_encryption_wrong_password">Şifre çözülürken bir sorun çıktı. Parola yanlış olabilir mi?</string>
     <string name="end_to_end_encryption_decrypting">Şifre çözülüyor&#8230;</string>
     <string name="end_to_end_encryption_retrieving_keys">Anahtarlar alınıyor&#8230;</string>
+    <string name="end_to_end_encryption_enter_password">Özel anahtarın şifresinin çözülmesi için parolayı yazın.</string>
     <string name="end_to_end_encryption_generating_keys">Yeni anahtarlar üretiliyor&#8230;</string>
+    <string name="end_to_end_encryption_keywords_description">12 sözcüklü parola çok güçlüdür ve şifrelenmiş dosyalarınızı yalnız sizin görüntüleyip kullanabilmenizi sağlar. Lütfen bir yere yazarak güvenli bir yerde saklayın.</string>
     <string name="end_to_end_encryption_title">Şifreleme kurulumu</string>
+    <string name="end_to_end_encryption_passphrase_title">12 sözcüklü şifreleme parolanızı not edin</string>
+    <string name="end_to_end_encryption_not_supported">Şifreleme yalnız KitKat(4.4) ve üzerindeki sürümlerde kullanılabilir</string>
     <string name="end_to_end_encryption_confirm_button">Şifreleme kurulumu</string>
     <string name="end_to_end_encryption_password">Parola&#8230;</string>
+    <string name="end_to_end_encryption_unsuccessful">Anahtarlar kaydedilemedi, lütfen yeniden deneyin.</string>
     <string name="end_to_end_encryption_dialog_close">Kapat</string>
     <string name="end_to_end_encryption_storing_keys">Anahtarlar kaydediliyor</string>
+    <string name="copy_move_to_encrypted_folder_not_supported">Şifrelenmiş bir klasöre kopyalama ve taşıma işlemleri henüz desteklenmiyor.</string>
     </resources>

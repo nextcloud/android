@@ -47,6 +47,7 @@
     <string name="prefs_log_delete_history_button">Verlauf löschen</string>
     <string name="prefs_calendar_contacts">Kalender &amp; Kontakte synchronisieren</string>
     <string name="prefs_calendar_contacts_summary">DAVdroid (v1.3.0+) für aktuelles Konto einrichten</string>
+    <string name="prefs_calendar_contacts_address_resolve_error">Serveradresse des Kontos für die DAVdroid-Nutzung konnte nicht ermittelt werden</string>
     <string name="prefs_calendar_contacts_no_store_error">Weder F-Droid noch Google-Play sind installiert</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Kalender- &amp; Adress-Synchronisation konfigurieren</string>
     <string name="prefs_daily_contacts_sync_summary">Tägliche Sicherung Ihrer Kontakte</string>
@@ -63,6 +64,7 @@
     <string name="auth_host_url">Server-Adresse https://&#8230;</string>
     <string name="auth_username">Benutzername</string>
     <string name="auth_password">Passwort</string>
+    <string name="auth_register">Sie haben noch keinen Server?\nKlicken Sie hier um Server-Anbieter zu finden</string>
     <string name="sync_string_files">Dateien</string>
     <string name="setup_btn_connect">Verbinden</string>
     <string name="uploader_btn_upload_text">Hochladen</string>
@@ -100,14 +102,20 @@
     <string name="file_list_empty_headline_server_search_videos">Keine Videos</string>
     <string name="file_list_empty_headline_server_search_photos">Keine Fotos</string>
     <string name="file_list_empty_search">Vielleicht befindet es sich in einem anderen Ordner?</string>
+    <string name="file_list_empty_recently_modified">Keine, innerhalb der letzten 7 Tage, geänderten Dateien gefunden</string>
+    <string name="file_list_empty_recently_modified_filter">Keine Dateien in den letzten 7 Tagen geändert.</string>
     <string name="file_list_empty_recently_added">Keine kürzlich hinzugefügten Dateien gefunden</string>
+    <string name="file_list_empty_recently_added_filter">Keine kürzlich hinzugefügten Dateien.</string>
     <string name="file_list_empty_text_photos">Laden Sie Fotos hoch oder aktivieren Sie den Sofortupload!</string>
+    <string name="file_list_empty_text_photos_filter">Keine Fotos.</string>
     <string name="file_list_empty_text_videos">Laden Sie einige Videos hoch oder aktivieren Sie den Sofortupload.</string>
+    <string name="file_list_empty_text_videos_filter">Keine Videos.</string>
     <string name="upload_list_empty_headline">Keine Uploads verfügbar</string>
     <string name="upload_list_empty_text_auto_upload">Laden Sie Inhalte hoch oder aktivieren Sie den Auto Upload!</string>
     <string name="file_list_folder">Ordner</string>
     <string name="filedetails_select_file">Klicken Sie auf eine Datei für weitere Informationen.</string>
     <string name="filedetails_download">Herunterladen</string>
+    <string name="filedetails_sync_file">Synchronisieren</string>
     <string name="filedetails_renamed_in_upload_msg">Datei während des Hochladens in %1$s umbenannt</string>
     <string name="list_layout">Layout der Liste</string>
     <string name="action_send_share">Senden/Teilen</string>
@@ -138,6 +146,8 @@
     <string name="uploader_upload_succeeded_content_single">%1$s hochgeladen</string>
     <string name="uploader_upload_failed_ticker">Hochladen fehlgeschlagen</string>
     <string name="uploader_upload_failed_content_single">Konnte %1$s nicht hochladen</string>
+    <string name="uploader_upload_failed_credentials_error">Hochladen fehlgeschlagen, erneut anmeldung</string>
+    <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">Serverzertifikat ist nicht vertrauenswürdig</string>
     <string name="uploads_view_title">Uploads</string>
     <string name="uploads_view_group_current_uploads">Aktuell</string>
     <string name="uploads_view_group_finished_uploads">Hochgeladen</string>
@@ -152,6 +162,7 @@
     <string name="uploads_view_upload_status_conflict">Konflikt</string>
     <string name="uploads_view_upload_status_service_interrupted">App beendet</string>
     <string name="uploads_view_upload_status_unknown_fail">Unbekannter Fehler</string>
+    <string name="uploads_view_upload_status_waiting_for_wifi">Warte auf W-Lan-Verbindung</string>
     <string name="uploads_view_upload_status_waiting_exit_power_save_mode">Warte auf Verlassen des Energiesparmodus</string>
     <string name="uploads_view_later_waiting_to_upload">Warte auf Hochladen</string>
     <string name="downloader_download_in_progress_ticker">Herunterladen &#8230;</string>
@@ -161,9 +172,12 @@
     <string name="downloader_download_failed_ticker">Herunterladen fehlgeschlagen</string>
     <string name="downloader_download_failed_content">Konnte %1$s nicht herunterladen</string>
     <string name="downloader_not_downloaded_yet">Noch nicht Heruntergeladen</string>
+    <string name="downloader_download_failed_credentials_error">Herunterladen fehlgeschlagen, erneute Anmeldung erforderlich</string>
     <string name="common_choose_account">Konto auswählen</string>
     <string name="common_switch_account">Konto wechseln</string>
     <string name="sync_fail_ticker">Synchronisation fehlgeschlagen</string>
+    <string name="sync_fail_ticker_unauthorized">Synchronisation fehlgeschlagen. Sie müssen sich erneut anmelden</string>
+    <string name="sync_fail_content">Synchronisation von %1$s konnte nicht abgeschlossen werden</string>
     <string name="sync_fail_content_unauthorized">Falsches Passwort für %1$s</string>
     <string name="sync_conflicts_in_favourites_ticker">Konflikte gefunden</string>
     <string name="sync_fail_in_favourites_ticker">Synchronhalten schlug fehl.</string>
@@ -199,6 +213,7 @@
     <string name="media_err_malformed">Mediendatei ist nicht korrekt encodiert</string>
     <string name="media_err_timeout">Wartezeit beim Abspielversuch abgelaufen</string>
     <string name="media_err_invalid_progressive_playback">Die Mediendatei kann nicht gestreamt werden</string>
+    <string name="media_err_unknown">Der interne Player kann die Mediendatei nicht abspielen</string>
     <string name="media_err_security_ex">Sicherheitsfehler beim Versuch %1$s wiederzugeben</string>
     <string name="media_err_io_ex">Eingabefehler beim Versuch %1$s wiederzugeben</string>
     <string name="media_err_unexpected">Ein unerwarteter Fehler ist aufgetreten beim Versuch %1$s wiederzugeben</string>

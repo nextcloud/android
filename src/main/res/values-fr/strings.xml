@@ -100,14 +100,19 @@
     <string name="file_list_empty_headline_server_search_videos">Aucune vidéo</string>
     <string name="file_list_empty_headline_server_search_photos">Aucune photo</string>
     <string name="file_list_empty_search">Il se trouve peut-être dans un autre dossier ?</string>
+    <string name="file_list_empty_recently_modified_filter">Aucun fichier modifié au cours des 7 derniers jours.</string>
     <string name="file_list_empty_recently_added">Aucun fichier ajouté récemment</string>
+    <string name="file_list_empty_recently_added_filter">Aucun fichier ajouté récemment.</string>
     <string name="file_list_empty_text_photos">Envoyez des photos ou activez le téléversement automatique.</string>
+    <string name="file_list_empty_text_photos_filter">Aucune photo.</string>
     <string name="file_list_empty_text_videos">Envoyez des vidéos ou activez le téléversement automatique.</string>
+    <string name="file_list_empty_text_videos_filter">Aucune vidéo.</string>
     <string name="upload_list_empty_headline">Aucun historique de téléversement</string>
     <string name="upload_list_empty_text_auto_upload">Téléversez du contenu ou activez le téléversement automatique.</string>
     <string name="file_list_folder">dossier</string>
     <string name="filedetails_select_file">Appuyez sur un fichier pour afficher des informations supplémentaires.</string>
     <string name="filedetails_download">Télécharger</string>
+    <string name="filedetails_sync_file">Synchroniser</string>
     <string name="filedetails_renamed_in_upload_msg">Le fichier a été renommé en %1$s pendant l\'envoi</string>
     <string name="list_layout">Affichage en liste</string>
     <string name="action_send_share">Envoyer / Partager</string>
@@ -376,6 +381,7 @@ Attention la suppression est irréversible.</string>
 	<string name="log_send_mail_subject">Journaux de l\'application Android %1$s</string>
 	<string name="log_progress_dialog_text">Chargement des données &#8230;</string>
 
+	<string name="saml_authentication_required_text">Mot de passe requis</string>
 	<string name="saml_authentication_wrong_pass">Mot de passe incorrect</string>
 	<string name="actionbar_move">Déplacer</string>
     <string name="actionbar_copy">Copier</string>
@@ -580,6 +586,7 @@ Attention la suppression est irréversible.</string>
     <string name="new_notification_received">Vous avez reçu une nouvelle notification</string>
     <string name="drawer_logout">Déconnexion</string>
     <string name="privacy">Vie privée</string>
+    <string name="file_not_found">Fichier non trouvé</string>
     <!-- Auto upload -->
     <string name="autoupload_custom_folder">Configurer un dossier personnalisé</string>
     <string name="autoupload_create_new_custom_folder">Créer une nouvelle configuration de dossier personnalisé</string>
@@ -664,13 +671,16 @@ Attention la suppression est irréversible.</string>
     <string name="drawer_header_background">Image d\'arrière-plan de l\'en-tête du menu-tiroir</string>
     <string name="account_icon">Icône du compte</string>
     
+    <string name="end_to_end_encryption_folder_not_empty">Ce dossier n\'est pas vide.</string>
     <string name="end_to_end_encryption_wrong_password">Erreur lors du décryptage. Mauvais mot de passe ?</string>
     <string name="end_to_end_encryption_decrypting">Décryptage&#8230;</string>
     <string name="end_to_end_encryption_retrieving_keys">Récupération des clés&#8230;</string>
+    <string name="end_to_end_encryption_enter_password">Veuillez entrer le mot de passe pour décrypter la clé privée.</string>
     <string name="end_to_end_encryption_generating_keys">Générer des nouvelles clés&#8230;</string>
     <string name="end_to_end_encryption_title">Configurer le chiffrement</string>
     <string name="end_to_end_encryption_confirm_button">Configurer le chiffrement</string>
     <string name="end_to_end_encryption_password">Mot de passe&#8230;</string>
+    <string name="end_to_end_encryption_unsuccessful">Enregistrement des clés impossible, veuillez réessayer.</string>
     <string name="end_to_end_encryption_dialog_close">Fermer</string>
     <string name="end_to_end_encryption_storing_keys">Enregistrement des clés</string>
     </resources>
