@@ -1676,7 +1676,7 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
             mRefreshGridLayout.setRefreshing(false);
             mRefreshEmptyLayout.setRefreshing(false);
         } else {
-            super.onRefresh();
+            super.onRefresh(false);
         }
     }
 
