@@ -39,6 +39,7 @@ public class FeatureList {
     private static final boolean SHOW_ON_UPGRADE = false;
 
     private static final int VERSION_1_0_0 = 10000099;
+    private static final int VERSION_3_0_0 = 30000099;
     private static final int BETA_VERSION_0 = 0;
 
     static final private FeatureItem featuresList[] = {
@@ -52,6 +53,16 @@ public class FeatureList {
             new FeatureItem(R.drawable.whats_new_auto_upload,
                     R.string.welcome_feature_3_title, R.string.welcome_feature_3_text,
                     VERSION_1_0_0, BETA_VERSION_0, SHOW_ON_FIRST_RUN),
+            // 3.0.0
+            new FeatureItem(R.drawable.whats_new_end_to_end_encryption, R.string.whats_new_end_to_end_encryption_title,
+                    R.string.whats_new_end_to_end_encryption_content, VERSION_3_0_0, BETA_VERSION_0,
+                    SHOW_ON_UPGRADE, false, false),
+            new FeatureItem(R.drawable.whats_new_resized_images, R.string.whats_new_resized_images_title,
+                    R.string.whats_new_resized_images_content, VERSION_3_0_0, BETA_VERSION_0, SHOW_ON_UPGRADE,
+                    false, false),
+            new FeatureItem(R.drawable.whats_new_ipv6, R.string.whats_new_ipv6_title,
+                    R.string.whats_new_ipv6_content, VERSION_3_0_0,
+                    BETA_VERSION_0, SHOW_ON_UPGRADE, false, false),
     };
 
     static public FeatureItem[] get() {
@@ -83,18 +94,19 @@ public class FeatureList {
         private int betaVersion;
         private boolean showOnInitialRun;
         private boolean contentCentered;
+        private boolean bulletList;
 
         public FeatureItem(int image, int titleText, int contentText, int version, int betaVersion) {
-            this(image, titleText, contentText, version, betaVersion, false, true);
+            this(image, titleText, contentText, version, betaVersion, false, true, true);
         }
 
         public FeatureItem(int image, int titleText, int contentText, int version, int betaVersion,
                            boolean showOnInitialRun) {
-            this(image, titleText, contentText, version, betaVersion, showOnInitialRun, true);
+            this(image, titleText, contentText, version, betaVersion, showOnInitialRun, true, true);
         }
 
         public FeatureItem(int image, int titleText, int contentText, int versionCode, int betaVersion,
-                           boolean showOnInitialRun, boolean contentCentered) {
+                           boolean showOnInitialRun, boolean contentCentered, boolean bulletList) {
             this.image = image;
             this.titleText = titleText;
             this.contentText = contentText;
@@ -102,6 +114,7 @@ public class FeatureList {
             this.betaVersion = betaVersion;
             this.showOnInitialRun = showOnInitialRun;
             this.contentCentered = contentCentered;
+            this.bulletList = bulletList;
         }
 
         public boolean shouldShowImage() { return image != DO_NOT_SHOW; }
@@ -123,6 +136,10 @@ public class FeatureList {
             return contentCentered;
         }
 
+        public boolean shouldShowBulletPointList() {
+            return bulletList;
+        }
+
         @Override
         public int describeContents() {
             return 0;
@@ -137,6 +154,7 @@ public class FeatureList {
             dest.writeInt(betaVersion);
             dest.writeByte((byte) (showOnInitialRun ? 1 : 0));
             dest.writeByte((byte) (contentCentered ? 1 : 0));
+            dest.writeByte((byte) (bulletList ? 1 : 0));
         }
 
         private FeatureItem(Parcel p) {
@@ -147,6 +165,7 @@ public class FeatureList {
             betaVersion = p.readInt();
             showOnInitialRun = p.readByte() == 1;
             contentCentered = p.readByte() == 1;
+            bulletList = p.readByte() == 1;
         }
         public static final Parcelable.Creator CREATOR =
                 new Parcelable.Creator() {
