@@ -144,6 +144,7 @@
     <string name="pass_code_wrong">Contraseña incorrecta</string>
     <string name="pass_code_stored">Contraseña almacenada</string>
     
+    <string name="media_state_loading">%1$s (cargando)</string>
     <string name="media_err_nothing_to_play">Nun s\'atopó nengún ficheru multimedia</string>
     <string name="media_err_no_account">Nun s\'especificó nenguna cuenta.</string>
     <string name="media_err_not_in_owncloud">El ficheru nun ye una cuenta válida</string>

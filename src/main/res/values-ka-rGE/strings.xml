@@ -740,4 +740,5 @@
     <string name="end_to_end_encryption_dialog_close">დახურვა</string>
     <string name="end_to_end_encryption_storing_keys">გასაღებების შენახვა</string>
     <string name="copy_move_to_encrypted_folder_not_supported">ამჟამად კოპირება/გადატანა დაშიფრულ დირექტორიაში არაა მხარდაჭერილი.</string>
-    </resources>
+    <string name="untrusted_domain">წვდომა არასანდო დომენით. დამატებითი ინფორმაციებისთვის გთხოვთ იხილოთ დოკუმენტაცია.</string>
+</resources>
