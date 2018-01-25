@@ -745,4 +745,5 @@
     <string name="end_to_end_encryption_dialog_close">Fechar</string>
     <string name="end_to_end_encryption_storing_keys">Armazenando chaves</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Copia e movimentação para a pasta criptografada atualmente não são suportadas.</string>
-    </resources>
+    <string name="untrusted_domain">Acesso através de domínio não confiável. Consulte a documentação para mais informações.</string>
+</resources>

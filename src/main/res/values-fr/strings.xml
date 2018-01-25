@@ -47,6 +47,7 @@
     <string name="prefs_log_delete_history_button">Effacer le journal</string>
     <string name="prefs_calendar_contacts">Configurer la synchronisation de l\'agenda et des contacts</string>
     <string name="prefs_calendar_contacts_summary">Configurer DAVdroid (v1.3.0+) pour le compte actuel</string>
+    <string name="prefs_calendar_contacts_address_resolve_error">L\'adresse du serveur pour le compte n\'a pas pu être résolu pour DAVdroid</string>
     <string name="prefs_calendar_contacts_no_store_error">Aucune application Google Play store ou F-Droid installée</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Synchronisation de l\'agenda &amp; des contacts configurée</string>
     <string name="prefs_daily_contacts_sync_summary">Sauvegarde quotidienne de vos contacts</string>
@@ -63,6 +64,7 @@
     <string name="auth_host_url">Adresse du serveur https://&#8230;</string>
     <string name="auth_username">Nom d\'utilisateur</string>
     <string name="auth_password">Mot de passe</string>
+    <string name="auth_register">Pas encore de Nextcloud ?\nCliquez ici pour l\'obtenir avec un fournisseur</string>
     <string name="sync_string_files">Fichiers</string>
     <string name="setup_btn_connect">Se connecter</string>
     <string name="uploader_btn_upload_text">Envoyer</string>
@@ -100,6 +102,7 @@
     <string name="file_list_empty_headline_server_search_videos">Aucune vidéo</string>
     <string name="file_list_empty_headline_server_search_photos">Aucune photo</string>
     <string name="file_list_empty_search">Il se trouve peut-être dans un autre dossier ?</string>
+    <string name="file_list_empty_recently_modified">Aucun fichier modifié n\'a été trouvé dans les 7 derniers jours</string>
     <string name="file_list_empty_recently_modified_filter">Aucun fichier modifié au cours des 7 derniers jours.</string>
     <string name="file_list_empty_recently_added">Aucun fichier ajouté récemment</string>
     <string name="file_list_empty_recently_added_filter">Aucun fichier ajouté récemment.</string>
@@ -145,8 +148,11 @@ Attention la suppression est irréversible.</string>
     <string name="uploader_upload_succeeded_content_single">%1$s envoyé</string>
     <string name="uploader_upload_failed_ticker">Échec de l\'envoi</string>
     <string name="uploader_upload_failed_content_single">Impossible d\'envoyer %1$s</string>
+    <string name="uploader_upload_failed_credentials_error">Téléversement échoué, connectez vous de nouveau</string>
+    <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">Certificat du serveur non approuvé</string>
     <string name="uploads_view_title">Historique des envois</string>
     <string name="uploads_view_group_current_uploads">En cours</string>
+    <string name="uploads_view_group_failed_uploads">Redémarrerage échoué/en attente</string>
     <string name="uploads_view_group_finished_uploads">Envoyé</string>
     <string name="uploads_view_upload_status_succeeded">Terminé</string>
     <string name="uploads_view_upload_status_cancelled">Annulé</string>
@@ -159,6 +165,7 @@ Attention la suppression est irréversible.</string>
     <string name="uploads_view_upload_status_conflict">Conflit</string>
     <string name="uploads_view_upload_status_service_interrupted">L\'application s\'est arrêtée</string>
     <string name="uploads_view_upload_status_unknown_fail">Erreur inconnue </string>
+    <string name="uploads_view_upload_status_waiting_for_wifi">En attente du Wi-Fi</string>
     <string name="uploads_view_upload_status_waiting_exit_power_save_mode">En attente de sortie du mode d’économie d’énergie</string>
     <string name="uploads_view_later_waiting_to_upload">En attente d\'envoi</string>
     <string name="downloader_download_in_progress_ticker">Réception en cours&#8230;</string>
@@ -168,12 +175,19 @@ Attention la suppression est irréversible.</string>
     <string name="downloader_download_failed_ticker">Le téléchargement a échoué</string>
     <string name="downloader_download_failed_content">Impossible de télécharger %1$s</string>
     <string name="downloader_not_downloaded_yet">Pas encore téléchargé</string>
+    <string name="downloader_download_failed_credentials_error">Téléchargement échoué, connectez vous de nouveau</string>
     <string name="common_choose_account">Sélectionnez un compte</string>
     <string name="common_switch_account">Basculer de compte</string>
     <string name="sync_fail_ticker">La synchronisation a échoué</string>
+    <string name="sync_fail_ticker_unauthorized">Synchronisation échouée, connectez vous de nouveau</string>
+    <string name="sync_fail_content">Impossible de synchroniser %1$s</string>
     <string name="sync_fail_content_unauthorized">Mauvais mot de passe pour %1$s</string>
     <string name="sync_conflicts_in_favourites_ticker">Des conflits ont été trouvés</string>
     <string name="sync_fail_in_favourites_ticker">La synchronisation des fichiers a échoué</string>
+    <plurals name="sync_fail_in_favourites_content">
+        <item quantity="one">Impossible de synchroniser %1$d fichier ( conflits : %2$d)</item>
+        <item quantity="other">Impossible de synchroniser %1$d fichiers ( conflits : %2$d)</item>
+    </plurals>
     <string name="sync_foreign_files_forgotten_ticker">Certains fichiers locaux ont été ignorés</string>
     <string name="sync_foreign_files_forgotten_explanation">Depuis la version 1.3.16, les fichiers envoyés depuis cet appareil sont copiés dans le dossier local %1$s pour éviter une perte de données lorsqu\'un même fichier est synchronisé avec plusieurs comptes.\n\nEn raison de cette modification, tous les fichiers envoyés avec des versions antérieures de cette application ont été copiés dans le dossier %2$s. Cependant, une erreur a empêché l\'achèvement de cette opération pendant la synchronisation du compte. Vous pouvez soit laisser les fichiers tels quels et supprimer le lien vers %3$s, soit déplacer les fichiers dans le dossier %1$s et garder le lien vers %4$s.\n\nCi-dessous la liste des fichiers locaux, et les fichiers distants dans %5$s auxquels ils étaient liés.</string>
     <string name="sync_current_folder_was_removed">Le dossier %1$s n\'existe plus</string>
