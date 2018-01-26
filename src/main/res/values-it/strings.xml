@@ -102,7 +102,8 @@
     <string name="file_list_empty_headline_server_search_videos">Nessun video</string>
     <string name="file_list_empty_headline_server_search_photos">Nessuna foto</string>
     <string name="file_list_empty_search">Forse è in una cartella diversa?</string>
-    <string name="file_list_empty_recently_modified_filter">Nessun file modificato durante gli ultimo 7 giorni.</string>
+    <string name="file_list_empty_recently_modified">Non è stato trovato alcun file modificato negli ultimi 7 giorni</string>
+    <string name="file_list_empty_recently_modified_filter">Nessun file modificato durante gli ultimi 7 giorni.</string>
     <string name="file_list_empty_recently_added">Non sono stati trovati file aggiunti di recente</string>
     <string name="file_list_empty_recently_added_filter">Nessun file aggiunto di recente.</string>
     <string name="file_list_empty_text_photos">Carica alcune foto o attiva il caricamento automatico.</string>
@@ -181,7 +182,15 @@
     <string name="sync_fail_content_unauthorized">Password errata per %1$s</string>
     <string name="sync_conflicts_in_favourites_ticker">Conflitti rilevati</string>
     <string name="sync_fail_in_favourites_ticker">Sincronizzazione dei file non riuscita</string>
+    <plurals name="sync_fail_in_favourites_content">
+        <item quantity="one">Impossibile sincronizzare %1$d file (conflitti: %2$d)</item>
+        <item quantity="other">Impossibile sincronizzare %1$d file (conflitti: %2$d)</item>
+    </plurals>
     <string name="sync_foreign_files_forgotten_ticker">Alcuni file locali sono stati trascurati</string>
+    <plurals name="sync_foreign_files_forgotten_content">
+        <item quantity="one">Copia di %1$d file dalla cartella %2$s in</item>
+        <item quantity="other">Copia di %1$d file dalla cartella %2$s in</item>
+    </plurals>
     <string name="sync_foreign_files_forgotten_explanation">Dalla versone 1.3.16, i file caricati da questo dispositivo sono copiati nella cartella locale %1$s per evitare perdite di dati quando un singolo file è sincronizzato con più account.\n\nA causa di questa modifica, tutti i file caricati con versioni precedenti di questa applicazione sono stati copiati nella cartella %2$s. Tuttavia, un errore ha impedito il completamento di questa operazione durante la sincronizzazione dell\'account. Puoi sia lasciare i file come sono ed eliminare il collegamento a %3$s, o spostare i file nella cartella %1$s e mantenere il collegamento a %4$s.\n\nSotto sono elencati i file locali e i file remoti in %5$sai quali erano collegati.</string>
     <string name="sync_current_folder_was_removed">La cartella %1$s non esiste più</string>
     <string name="foreign_files_move">Sposta tutto</string>
@@ -249,7 +258,9 @@
 	<string name="auth_expired_saml_sso_token_toast">Sessione scaduta. Riconnettiti</string>
     <string name="auth_connecting_auth_server">Connessione al server di autenticazione &#8230;</string>
 	<string name="auth_unsupported_multiaccount">%1$s non supporta account multipli</string>
+	<string name="auth_fail_get_user_name">Il server non restituisce un ID utente corretto, contatta un amministratore</string>
 	<string name="auth_can_not_auth_against_server">Impossibile autenticarsi a questo server</string>
+    <string name="auth_account_does_not_exist">L\'account non è ancora aggiunto su questo dispositivo</string>
     <string name="auth_access_failed">Accesso non riuscito</string>
 
     <string name="favorite">Imposta come disponibile non in linea</string>
@@ -272,6 +283,7 @@
     <string name="sync_file_nothing_to_do_msg">Contenuti del file già sincronizzati</string>
     <string name="create_dir_fail_msg">Impossibile creare la cartella</string>
     <string name="filename_forbidden_characters">Caratteri proibiti: / \\ &lt; &gt; : \" | ? *</string>
+    <string name="filename_forbidden_charaters_from_server">Il nome del file contiene almeno un carattere non valido</string>
     <string name="filename_empty">Il nome del file non può essere vuoto</string>
     <string name="wait_a_moment">Attendi &#8230;</string>
     <string name="wait_checking_credentials">Controllo delle credenziali memorizzate</string>
@@ -337,6 +349,7 @@
     <string name="prefs_instant_upload_path_use_subfolders_title">Usa sottocartelle</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Archivia in sottocartelle in base a anno e mese</string>
 
+	<string name="share_link_no_support_share_api">La condivisione non è abilitata sul tuo server.. Contatta il tuo amministratore.</string>
 	<string name="share_link_file_no_exist">Impossibile condividere. Assicurati che il file esista</string>
 	<string name="share_link_file_error">Si è verificato un errore durante il tentativo di condivisione del file o della cartella</string>
 	<string name="unshare_link_file_no_exist">Impossibile rimuovere dalla condivisione. Assicurati che il file esista</string>
@@ -356,6 +369,9 @@
 
     <string name="error_cant_bind_to_operations_service">Errore grave: impossibile eseguire operazioni</string>
 
+    <string name="network_error_socket_exception">Si è verificato un errore durante la connessione al server</string>
+    <string name="network_error_socket_timeout_exception">Si è verificato un errore in attesa del server. Impossibile completare l\'operazione.</string>
+    <string name="network_error_connect_timeout_exception">Si è verificato un errore in attesa del server. Impossibile completare l\\'operazione.</string>
     <string name="network_host_not_available">Impossibile completare l\'operazione. Server non disponibile</string>
 
     <string name="forbidden_permissions">Non ti è consentito %s</string>
@@ -372,6 +388,7 @@
     <string name="file_migration_preparing">Preparazione della migrazione &#8230;</string>
     <string name="file_migration_checking_destination">Controllo della destinazione &#8230;</string>
     <string name="file_migration_saving_accounts_configuration">Salvataggio della configurazione dell\'account &#8230;</string>
+    <string name="file_migration_waiting_for_unfinished_sync">In attesa della sincronizzazione completa &#8230;</string>
     <string name="file_migration_migrating">Spostamento dati &#8230;</string>
     <string name="file_migration_updating_index">Aggiornamento indice &#8230;</string>
     <string name="file_migration_cleaning">Cancellazione &#8230;</string>
@@ -478,6 +495,7 @@
     <string name="share_email_clarification">%1$s (email)</string>
     <string name="share_known_remote_clarification">%1$s ( su %2$s )</string>
 
+    <string name="share_sharee_unavailable">Aggiorna la versione del server per consentire la condivisione tra utenti dai loro client.\nContatta il tuo amministratore</string>
     <string name="filedetails_share_link_enable">Condivisi tramite collegamento abilitata</string>
     <string name="filedetails_share_link_disable">Non condivisi tramite collegamento</string>
     <string name="filedetails_share_users_with_access">Utenti e gruppi con accesso</string>
@@ -608,6 +626,7 @@
     <!-- Notifications -->
     <string name="new_notification_received">Nuova notifica ricevuta</string>
     <string name="drawer_logout">Esci</string>
+    <string name="picture_set_as_no_app">Nessuna applicazione trovata per impostare un\'immagine</string>
     <string name="privacy">Riservatezza</string>
     <string name="file_not_found">File non trovato</string>
     <string name="file_not_synced">Il file non può essere sincronizzato. Viene mostrata l\'ultima versione disponibile.</string>
@@ -640,9 +659,12 @@
     <string name="resized_images_download_full_image">Vuoi scaricare l\'immagine completa?</string>
 
     <string name="store_short_desc">L\'applicazione per Android di Nextcloud ti consente di accedere in mobilità a tutti i file sul tuo Nextcloud. </string>
+    <string name="store_full_desc">L\'applicazione libera e priva di copyright per Android di Nextcloud ti offre libertà in mobilità.\n* Interfaccia semplice e moderna, allineata al tema del tuo server\n* Carica i file sul tuo server Nextcloud\n* Condividi i tuoi file con altri\n* Mantieni i tuoi file e le cartelle preferite sincronizzate\n* Ricerca attraverso tutte le cartelle sul tuo server\n* Caricamento automatico per le foto e i video acquisiti con il tuo dispositivo\n* Tieniti aggiornato con le notifiche\n* Supporto di più account\n* Proteggi l\'accesso ai tuoi dati con impronta digitale o PIN\n* Integrazione con DAVdroid per una facile configurazione della sincronizzazione di calendari e contatti\n\nSegnala tutti i problemi su https://github.com/nextcloud/android/issues e discuti questa applicazione su https://help.nextcloud.com/c/clients/android\n\nNuovo di Nextcloud? Nextcloud è un server privato di sincronizzazione e condivisione dei file e un server di comunicazione. È software libero e puoi ospitarlo a casa tua o pagare una società che lo faccia per conto tuo. In questo modo, avrai il controllo delle tue foto, del tuo calendario e dei tuoi contatti, dei tuoi documenti e di qualsiasi altra cosa.\n\nDai un\'occhiata a Nextcloud su https://nextcloud.com</string>
+
     <string name="drawer_current_account">Account attuale</string>
     <string name="drawer_middle_account">Account centrale</string>
     <string name="drawer_end_account">Ultimo account</string>
+    <string name="contactlist_item_icon">Icona utente della lista contatti</string>
     <string name="activity_icon">Icona attività</string>
     <string name="file_icon">Icona file</string>
     <string name="user_icon">Icona utente</string>
@@ -671,6 +693,8 @@
     <string name="what_s_new_image">Immagine Cosa c\'è di nuovo</string>
 
     <string name="store_short_dev_desc">Nextcloud Dev è un\'istantanea di sviluppo, installabile parallelamente.</string>
+    <string name="store_full_dev_desc">L\'applicazione libera senza copyright per Android di Nextcloud, ti offre libertà in movimento.\nQuesta è la versione di sviluppo ufficiale e include funzionalità nuove, non testate che potrebbero provocare instabilità e perdite di dati. Questa applicazione è pensata per gli utenti che desiderano provare le nuove funzionalità e segnalare bug, se si verificano. Non utilizzarla in ambienti di produzione!\n\nSia la versione di sviluppo che quella normale sono disponibili su F-droid, e possono essere installate contemporaneamente.</string>
+
     <string name="prefs_category_dev">Sviluppo</string>
     <string name="dev_version_no_information_available">Nessuna informazione disponibile</string>
     <string name="dev_version_no_new_version_available">Nessuna nuova versione disponibilie</string>
@@ -711,12 +735,15 @@
     <string name="end_to_end_encryption_retrieving_keys">Recuperando le chiavi&#8230;</string>
     <string name="end_to_end_encryption_enter_password">Digita la password per decifrare la chiave privata.</string>
     <string name="end_to_end_encryption_generating_keys">Generando le nuove chiavi&#8230;</string>
+    <string name="end_to_end_encryption_keywords_description">Le 12 parole insieme compongono una password molto robusta, consentendo solo a te di visualizzare e utilizzare i tuoi file cifrati. Annotala e conservala in un posto sicuro.</string>
     <string name="end_to_end_encryption_title">Configura la cifratura</string>
     <string name="end_to_end_encryption_passphrase_title">Annota la tua password di cifratura di 12 parole</string>
     <string name="end_to_end_encryption_not_supported">La cifratura funziona solo con KitKat (4.4) e successivi.</string>
     <string name="end_to_end_encryption_confirm_button">Configura la cifratura</string>
     <string name="end_to_end_encryption_password">Password&#8230;</string>
+    <string name="end_to_end_encryption_unsuccessful">Le chiavi non possono essere archiviate, prova ancora.</string>
     <string name="end_to_end_encryption_dialog_close">Chiudi</string>
     <string name="end_to_end_encryption_storing_keys">Archiviazione chiavi</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Copia/Spostamento in una cartella cifrata attualmente non supportati.</string>
-    </resources>
+    <string name="untrusted_domain">Accesso tramite un dominio non fidato. Vedi la documentazione per ulteriori informazioni.</string>
+</resources>

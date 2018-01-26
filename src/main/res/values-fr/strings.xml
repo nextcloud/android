@@ -278,6 +278,8 @@ Attention la suppression est irréversible.</string>
     <string name="sync_file_nothing_to_do_msg">Ce fichier est déjà synchronisé</string>
     <string name="create_dir_fail_msg">Le dossier n\'a pas pu être créé</string>
     <string name="filename_forbidden_characters">Caractères interdits : / \\ &lt; &gt; : \" | ? *</string>
+    <string name="filename_forbidden_charaters_from_server">Le nom du fichier contient au moins un caractère invalide</string>
+    <string name="filename_empty">Le nom du fichier ne peut pas être vide</string>
     <string name="wait_a_moment">Veuillez patienter &#8230;</string>
     <string name="wait_checking_credentials">Vérification des identifiants enregistrés</string>
     <string name="filedisplay_no_file_selected">Aucun fichier sélectionné</string>
@@ -376,10 +378,18 @@ Attention la suppression est irréversible.</string>
     <string name="file_migration_dialog_title">Mise à jour du chemin de stockage</string>
     <string name="file_migration_preparing">Préparation pour la migration &#8230;</string>
     <string name="file_migration_checking_destination">Vérification de la destination &#8230;</string>
+    <string name="file_migration_saving_accounts_configuration">Enregistrement de la configuration des comptes &#8230;</string>
     <string name="file_migration_migrating">Déplacement des données &#8230;</string>
     <string name="file_migration_updating_index">Mise à jour de l\'index &#8230;</string>
     <string name="file_migration_cleaning">Nettoyage &#8230;</string>
+    <string name="file_migration_restoring_accounts_configuration">Restauration de la configuration des comptes &#8230;</string>
     <string name="file_migration_ok_finished">Terminé</string>
+    <string name="file_migration_failed_not_readable">Impossible de lire le fichier source</string>
+    <string name="file_migration_failed_dir_already_exists">Le dossier Nextcloud existe déjà</string>
+    <string name="file_migration_failed_while_coping">Échec lors de la migration</string>
+    <string name="file_migration_failed_while_updating_index">Échec lors de la mise à jour de l\'index</string>
+
+    <string name="file_migration_directory_already_exists">Le dossier de données existe déjà. Choisissez une des options suivantes :</string>
     <string name="file_migration_override_data_folder">Remplacer</string>
     <string name="file_migration_use_data_folder">Conserver le dossier actuel</string>
 
@@ -499,6 +509,7 @@ Attention la suppression est irréversible.</string>
 
     <string name="uploads_view_upload_status_waiting_for_charging">En attente de recharge de l\'appareil</string>
     <string name="actionbar_search">Rechercher</string>
+    <string name="files_drop_not_supported">Il s\'agit d\'une fonctionnalité de Nextcloud, merci de mettre à jour.</string>
     <string name="learn_more">En savoir plus</string>
     <string name="drawer_synced_folders">Téléversement automatique</string>
     <string name="drawer_participate">Participer</string>

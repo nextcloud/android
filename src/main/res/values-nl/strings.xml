@@ -100,14 +100,19 @@
     <string name="file_list_empty_headline_server_search_videos">Geen video\'s</string>
     <string name="file_list_empty_headline_server_search_photos">Geen foto\'s</string>
     <string name="file_list_empty_search">Misschien staat het in een andere map?</string>
+    <string name="file_list_empty_recently_modified_filter">Geen files die de laatste 7 dagen gewijzigd zijn.</string>
     <string name="file_list_empty_recently_added">Geen recent toegevoegde bestanden gevonden</string>
+    <string name="file_list_empty_recently_added_filter">Geen files die recent zijn toegevoegd,</string>
     <string name="file_list_empty_text_photos">Upload enkele foto\'s of activeer auto-upload.</string>
+    <string name="file_list_empty_text_photos_filter">Geen foto\'s.</string>
     <string name="file_list_empty_text_videos">Upload enkele video\'s of activeer auto-upload.</string>
+    <string name="file_list_empty_text_videos_filter">Geen video\'s.</string>
     <string name="upload_list_empty_headline">Geen uploads beschikbaar</string>
     <string name="upload_list_empty_text_auto_upload">Upload enkele gegevens of activeer auto-upload.</string>
     <string name="file_list_folder">map</string>
     <string name="filedetails_select_file">Druk op een bestand om extra informatie weer te geven</string>
     <string name="filedetails_download">Downloaden</string>
+    <string name="filedetails_sync_file">Synchroniseren</string>
     <string name="filedetails_renamed_in_upload_msg">Bestand hernoemd naar %1$s tijdens de upload</string>
     <string name="list_layout">Lijstoverzicht</string>
     <string name="action_send_share">Versturen/Delen</string>
@@ -138,6 +143,8 @@
     <string name="uploader_upload_succeeded_content_single">%1$s geüpload</string>
     <string name="uploader_upload_failed_ticker">Uploaden mislukt</string>
     <string name="uploader_upload_failed_content_single">Kon %1$s niet uploaden</string>
+    <string name="uploader_upload_failed_credentials_error">Uploaden mislukt, je moet opnieuw inloggen</string>
+    <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">Niet vertrouwd servercertificaat</string>
     <string name="uploads_view_title">Uploads</string>
     <string name="uploads_view_group_current_uploads">Huidige</string>
     <string name="uploads_view_group_finished_uploads">Geüpload</string>
@@ -164,6 +171,7 @@
     <string name="common_choose_account">Account kiezen</string>
     <string name="common_switch_account">Account wisselen</string>
     <string name="sync_fail_ticker">Synchronisatie mislukt</string>
+    <string name="sync_fail_ticker_unauthorized">Synchronisatie mislukt, log opnieuw in</string>
     <string name="sync_fail_content_unauthorized">Onjuist wachtwoord voor %1$s</string>
     <string name="sync_conflicts_in_favourites_ticker">Conflicten gevonden</string>
     <string name="sync_fail_in_favourites_ticker">Gesynchroniseerd te houden bestanden mislukt</string>
@@ -374,6 +382,7 @@
 	<string name="log_send_mail_subject">%1$s-Android-app-logs</string>
 	<string name="log_progress_dialog_text">Gegevens laden&#160;&#8230;</string>
 
+	<string name="saml_authentication_required_text">Wachtwoord vereist</string>
 	<string name="saml_authentication_wrong_pass">Onjuist wachtwoord</string>
 	<string name="actionbar_move">Verplaatsen</string>
     <string name="actionbar_copy">Kopiëren</string>
@@ -578,6 +587,7 @@
     <string name="new_notification_received">Nieuwe melding ontvangen</string>
     <string name="drawer_logout">Uitloggen</string>
     <string name="privacy">Privacy</string>
+    <string name="file_not_found">Bestand niet gevonden</string>
     <!-- Auto upload -->
     <string name="autoupload_custom_folder">Instellen aangepaste map</string>
     <string name="autoupload_create_new_custom_folder">Maak aangepaste nieuwe map aan</string>
@@ -621,6 +631,12 @@
     <string name="shared_icon">Gedeeld icoon</string>
     <string name="overflow_menu">Overloopmenu</string>
     <string name="share_file_icon">Deel bestand icoon</string>
+    <string name="sort_by_name_ascending">A - Z</string>
+    <string name="sort_by_modification_date_ascending">Nieuwste eerst</string>
+    <string name="sort_by_size_descending">Grootste eerst</string>
+    <string name="sort_by_size_ascending">Kleinste eerst</string>
+    <string name="sort_by_name_descending">Z - A</string>
+    <string name="sort_by_modification_date_descending">Oudste eerst</string>
     <string name="synced_folders_type">Type</string>
     <string name="sync_status_button">Sync status knop</string>
     <string name="synced_folder_settings_button">Instellingen knop</string>
@@ -662,6 +678,7 @@
     <string name="drawer_header_background">Achtergrondafbeelding van drawer header</string>
     <string name="account_icon">Account icoon</string>
     
+    <string name="end_to_end_encryption_folder_not_empty">Deze map is niet leeg.</string>
     <string name="end_to_end_encryption_wrong_password">Fout tijdens ontsleutelen. Verkeerd wachtwoord?</string>
     <string name="end_to_end_encryption_decrypting">Ontcijferen &#8230;</string>
     <string name="end_to_end_encryption_retrieving_keys">Ophalen sleutels &#8230;</string>
@@ -669,6 +686,7 @@
     <string name="end_to_end_encryption_title">Instellen versleuteling</string>
     <string name="end_to_end_encryption_confirm_button">Instellen versleuteling</string>
     <string name="end_to_end_encryption_password">Wachtwoord &#8230;</string>
+    <string name="end_to_end_encryption_unsuccessful">Opslaan sleutels mislukt, probeer het opnieuw!</string>
     <string name="end_to_end_encryption_dialog_close">Sluiten</string>
     <string name="end_to_end_encryption_storing_keys">Opslaan sleutels</string>
     </resources>
