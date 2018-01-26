@@ -588,6 +588,13 @@
     <string name="welcome_feature_3_title">Auto envio</string>
     <string name="welcome_feature_3_text">Mantenha seguras as suas fotos</string>
 
+    <string name="whats_new_end_to_end_encryption_title">Criptografia de ponta-a-ponta</string>
+    <string name="whats_new_end_to_end_encryption_content">Escolha quais pastas criptografar, configure a partir de qualquer cliente. Adicione facilmente novos dispositivos usando uma senha de 12 palavras.</string>
+    <string name="whats_new_resized_images_title">Imagens adaptadas à tela</string>
+    <string name="whats_new_resized_images_content">A versão menor é mostrada por padrão, pois salva dados e funciona bem para enviar &amp; compartilhar. Você pode baixar o arquivo completo durante o zoom.</string>
+    <string name="whats_new_ipv6_title"> Support IPv6</string>
+    <string name="whats_new_ipv6_content">Atualmente funciona bem com servidores que suportam o IPv6, bem como com IPv4.</string>
+
     <string name="whats_new_skip">Saltar</string>
 
     <string name="fingerprint_scan_finger">Por favor escaneie sua impressão digital</string>
