@@ -941,7 +941,6 @@ public class FileDataStorageManager {
         OCFile file = null;
         if (c != null) {
             file = new OCFile(c.getString(c.getColumnIndex(ProviderTableMeta.FILE_PATH)));
-            file.setFileName(c.getString(c.getColumnIndex(ProviderTableMeta.FILE_NAME)));
             file.setFileId(c.getLong(c.getColumnIndex(ProviderTableMeta._ID)));
             file.setParentId(c.getLong(c.getColumnIndex(ProviderTableMeta.FILE_PARENT)));
             file.setEncryptedFileName(c.getString(c.getColumnIndex(ProviderTableMeta.FILE_ENCRYPTED_NAME)));
@@ -957,8 +956,7 @@ public class FileDataStorageManager {
                     file.setLastSyncDateForData(f.lastModified());
                 }
             }
-            file.setFileLength(c.getLong(c
-                    .getColumnIndex(ProviderTableMeta.FILE_CONTENT_LENGTH)));
+            file.setFileLength(c.getLong(c.getColumnIndex(ProviderTableMeta.FILE_CONTENT_LENGTH)));
             file.setCreationTimestamp(c.getLong(c.getColumnIndex(ProviderTableMeta.FILE_CREATION)));
             file.setModificationTimestamp(c.getLong(c.getColumnIndex(ProviderTableMeta.FILE_MODIFIED)));
             file.setModificationTimestampAtLastSyncForData(c.getLong(
@@ -967,20 +965,19 @@ public class FileDataStorageManager {
             file.setLastSyncDateForData(c.getLong(c.getColumnIndex(ProviderTableMeta.FILE_LAST_SYNC_DATE_FOR_DATA)));
             file.setAvailableOffline(c.getInt(c.getColumnIndex(ProviderTableMeta.FILE_KEEP_IN_SYNC)) == 1);
             file.setEtag(c.getString(c.getColumnIndex(ProviderTableMeta.FILE_ETAG)));
-            file.setShareViaLink(c.getInt(
-                    c.getColumnIndex(ProviderTableMeta.FILE_SHARED_VIA_LINK)) == 1);
-            file.setShareWithSharee(c.getInt(
-                    c.getColumnIndex(ProviderTableMeta.FILE_SHARED_WITH_SHAREE)) == 1);
+            file.setShareViaLink(c.getInt(c.getColumnIndex(ProviderTableMeta.FILE_SHARED_VIA_LINK)) == 1);
+            file.setShareWithSharee(c.getInt(c.getColumnIndex(ProviderTableMeta.FILE_SHARED_WITH_SHAREE)) == 1);
             file.setPublicLink(c.getString(c.getColumnIndex(ProviderTableMeta.FILE_PUBLIC_LINK)));
             file.setPermissions(c.getString(c.getColumnIndex(ProviderTableMeta.FILE_PERMISSIONS)));
             file.setRemoteId(c.getString(c.getColumnIndex(ProviderTableMeta.FILE_REMOTE_ID)));
-            file.setNeedsUpdateThumbnail(c.getInt(
-                    c.getColumnIndex(ProviderTableMeta.FILE_UPDATE_THUMBNAIL)) == 1);
-            file.setDownloading(c.getInt(
-                    c.getColumnIndex(ProviderTableMeta.FILE_IS_DOWNLOADING)) == 1);
+            file.setNeedsUpdateThumbnail(c.getInt(c.getColumnIndex(ProviderTableMeta.FILE_UPDATE_THUMBNAIL)) == 1);
+            file.setDownloading(c.getInt(c.getColumnIndex(ProviderTableMeta.FILE_IS_DOWNLOADING)) == 1);
             file.setEtagInConflict(c.getString(c.getColumnIndex(ProviderTableMeta.FILE_ETAG_IN_CONFLICT)));
             file.setFavorite(c.getInt(c.getColumnIndex(ProviderTableMeta.FILE_FAVORITE)) == 1);
             file.setEncrypted(c.getInt(c.getColumnIndex(ProviderTableMeta.FILE_IS_ENCRYPTED)) == 1);
+            if (file.isEncrypted()) {
+                file.setFileName(c.getString(c.getColumnIndex(ProviderTableMeta.FILE_NAME)));
+            }
         }
         return file;
     }
