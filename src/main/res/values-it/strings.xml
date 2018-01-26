@@ -371,7 +371,7 @@
 
     <string name="network_error_socket_exception">Si è verificato un errore durante la connessione al server</string>
     <string name="network_error_socket_timeout_exception">Si è verificato un errore in attesa del server. Impossibile completare l\'operazione.</string>
-    <string name="network_error_connect_timeout_exception">Si è verificato un errore in attesa del server. Impossibile completare l\\'operazione.</string>
+    <string name="network_error_connect_timeout_exception">Si è verificato un errore in attesa del server. Impossibile completare l\'operazione.</string>
     <string name="network_host_not_available">Impossibile completare l\'operazione. Server non disponibile</string>
 
     <string name="forbidden_permissions">Non ti è consentito %s</string>
@@ -587,6 +587,11 @@
 
     <string name="welcome_feature_3_title">Caricamento automatico</string>
     <string name="welcome_feature_3_text">Tieni al sicuro le tue foto</string>
+
+    <string name="whats_new_end_to_end_encryption_title">Cifratura End to End</string>
+    <string name="whats_new_resized_images_title">Immagini adattate allo schermo</string>
+    <string name="whats_new_ipv6_title">Supporto IPv6</string>
+    <string name="whats_new_ipv6_content">Ora funziona bene con i server che supportano IPv6, e, contemporaneamente, supporta IPv4.</string>
 
     <string name="whats_new_skip">Salta</string>
 
