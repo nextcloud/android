@@ -589,7 +589,9 @@
     <string name="welcome_feature_3_text">Tieni al sicuro le tue foto</string>
 
     <string name="whats_new_end_to_end_encryption_title">Cifratura End to End</string>
+    <string name="whats_new_end_to_end_encryption_content">Scegli quali cartelle cifrare, configurazione da qualsiasi client. Aggiungi facilmente nuovi dispositivi utilizzando un frase segreta di 12 parole.</string>
     <string name="whats_new_resized_images_title">Immagini adattate allo schermo</string>
+    <string name="whats_new_resized_images_content">La versione più piccola è mostrata in modo predefinito, poiché salva i dati e funziona bene per inviare e condividere. Puoi scaricare il file completo ingrandendo.</string>
     <string name="whats_new_ipv6_title">Supporto IPv6</string>
     <string name="whats_new_ipv6_content">Ora funziona bene con i server che supportano IPv6, e, contemporaneamente, supporta IPv4.</string>
 

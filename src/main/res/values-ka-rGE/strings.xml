@@ -583,6 +583,13 @@
     <string name="welcome_feature_3_title">ავტო-ატვირთვა</string>
     <string name="welcome_feature_3_text">იქონიეთ თქვენი სურათები დაცულად</string>
 
+    <string name="whats_new_end_to_end_encryption_title">End to end შიფრაცია</string>
+    <string name="whats_new_end_to_end_encryption_content">აირჩიეთ დასაშიფრი დირექტორიები, მოაწყვეთ ნებისმიერი კლიენტით. მარტივად დაამატეთ ახალი მოწყობილობები 12 სიტყვიანი პას-ფრაზით.</string>
+    <string name="whats_new_resized_images_title">ეკრანზე მორგებული სურათები</string>
+    <string name="whats_new_resized_images_content">საწყისი მოწყობით ნაჩვენებია პატარა ვერსიები, ეს ეკონომიას უწევს მონაცემებს და კარგად მუშაობს გაგზავნისა და გაზიარებისთვის. შეგიძლიათ ჩამოტვირთოთ მთელი ფაილიც.</string>
+    <string name="whats_new_ipv6_title">IPv6 მხარდაჭერა</string>
+    <string name="whats_new_ipv6_content">ახლა მუშაობს კარგად სერვერებთან, რომლებიც მხარს უჭერენ IPv6-ს და ამავე დროს მოიხმარენ IPv4-საც.</string>
+
     <string name="whats_new_skip">გამოტოვება</string>
 
     <string name="fingerprint_scan_finger">გთხოვთ დაასკანიროთ თქვენი თითი</string>

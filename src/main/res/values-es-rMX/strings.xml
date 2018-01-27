@@ -187,6 +187,10 @@
         <item quantity="other">No fue posible sincronizar %1$d archivos (conflictos: %2$d)</item>
     </plurals>
     <string name="sync_foreign_files_forgotten_ticker">Algunos archivos locales se han perdido</string>
+    <plurals name="sync_foreign_files_forgotten_content">
+        <item quantity="one">Se presentó una falla al copiar %1$d archivo de la carpeta %2$s a</item>
+        <item quantity="other">Se presentó una falla al copiar %1$d archivos de la carpeta %2$s a</item>
+    </plurals>
     <string name="sync_foreign_files_forgotten_explanation">A partir de la versión 1.3.16, los archivos cargados desde este dispositivo serán copiados a la carpeta local %1$spara prevenir perdidas de datos cuando un archivo se sincroniza entre múltiples cuentas. \n\nDerivado de este cambio, todos los archivos cargados con versiones anteriores de la aplicación fueron copiados a la carpeta %2$s. Sin embargo, un error evitó que se completara esta operación durante la sincronizacion de la cuenta. Puedes dejar el(los) archivo(s) como está(n) y eliminar la liga a %3$s, o bien, mover el(los) archivo(s) a la carpeta%1$s y mantener la liga a %4$s.\n\nSe enlistan a continuación los archivos locales así como los archivos remotos en %5$s a donde estaban ligados</string>
     <string name="sync_current_folder_was_removed">La carpeta %1$s ya no existe</string>
     <string name="foreign_files_move">Mover todos</string>
@@ -218,6 +222,7 @@
     <string name="media_err_malformed">El archivo de medios tiene una codificación incorrecta</string>
     <string name="media_err_timeout">El intento de reproducir el archivo sobrepasó el tiempo de espera</string>
     <string name="media_err_invalid_progressive_playback">Archivo de medio no puede ser transformado a un flujo</string>
+    <string name="media_err_unknown">El reproductor de medios integrado es incapaz de reproducir el archivo de medios</string>
     <string name="media_err_security_ex">Se presentó un error de seguridad al intentar reproducir %1$s</string>
     <string name="media_err_io_ex">Se presentó un error de entrada al intentar reproducir %1$s </string>
     <string name="media_err_unexpected">Se presentó un error inesperado al intentar reproducir %1$s</string>
@@ -264,6 +269,7 @@
     <string name="unset_favorite_real">Quitar de los favoritos</string>
     <string name="favorite_switch">Disponible sin conexión</string>
     <string name="encrypted">Establecer como encriptado</string>
+    <string name="unset_encrypted">Desestablecer encripción</string>
     <string name="common_rename">Renombrar</string>
     <string name="common_remove">Eliminar</string>
     <string name="confirmation_remove_file_alert">¿Realmente deseas elminiar %1$s?</string>
@@ -343,6 +349,7 @@
     <string name="prefs_instant_upload_path_use_subfolders_title">Usar sub carpetas</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Almacenar en sub carpetas con base en el año y mes</string>
 
+	<string name="share_link_no_support_share_api">El compartir no está habilitado en tu servidor. Por favor contacta a tu administrador</string>
 	<string name="share_link_file_no_exist">No fue posible compartir. Por favor revisa si el archivo existe</string>
 	<string name="share_link_file_error">Se presentó un error al tratar de compartir este archivo o carpeta</string>
 	<string name="unshare_link_file_no_exist">Falla al dejar de compartir. Por favor revisa si existe el archivo</string>
@@ -362,6 +369,9 @@
 
     <string name="error_cant_bind_to_operations_service">Error crítico: No se pueden realizar operaciones</string>
 
+    <string name="network_error_socket_exception">Se presentó un error durante la conexión al servidor</string>
+    <string name="network_error_socket_timeout_exception">Se presentó un error al esperar la respuesta del servidor. No fue posible completar la operación</string>
+    <string name="network_error_connect_timeout_exception">Se presentó un error al esperar respuesta del servidor. No se pudo completar la operación</string>
     <string name="network_host_not_available">La operación no pudo ser completada. El servidor no está disponible</string>
 
     <string name="forbidden_permissions">No se te permite %s</string>
@@ -377,9 +387,12 @@
     <string name="file_migration_dialog_title">Actualizando la ruta de almacenamiento</string>
     <string name="file_migration_preparing">Preparando la migración &#8230;</string>
     <string name="file_migration_checking_destination">Verificando el destino &#8230;</string>
+    <string name="file_migration_saving_accounts_configuration">Guardando la configuración de la cuenta &#8230;</string>
+    <string name="file_migration_waiting_for_unfinished_sync">Esperando la sincronización compelta &#8230;</string>
     <string name="file_migration_migrating">Moviendo la información &#8230;</string>
     <string name="file_migration_updating_index">Actualizando índice &#8230;</string>
     <string name="file_migration_cleaning">Limpiando &#8230;</string>
+    <string name="file_migration_restoring_accounts_configuration">Restaurando la configuración de la cuenta  &#8230;</string>
     <string name="file_migration_ok_finished">Terminado</string>
     <string name="file_migration_failed_not_enough_space">Se necesita más espacio</string>
     <string name="file_migration_failed_not_writable">No fue posible escribir al archivo destino</string>
@@ -388,6 +401,7 @@
     <string name="file_migration_failed_while_coping">Se presentó una falla durante la migración</string>
     <string name="file_migration_failed_while_updating_index">Se presentó una falla al actualizar el índice</string>
 
+    <string name="file_migration_directory_already_exists">La carpeta de datos ya existe. Selecciona una de las siguientes:</string>
     <string name="file_migration_override_data_folder">Reemplazar</string>
     <string name="file_migration_use_data_folder">Usar</string>
 
@@ -426,7 +440,9 @@
 
     <string name="prefs_category_details">Detalles</string>
 
-    <string name="subject_user_shared_with_you">%1$s ha compartido \"%2$s\" contigo</string>
+    <string name="sync_folder_failed_content">La sincronización de la carpeta %1$s no pudo ser completada</string>
+
+	<string name="subject_user_shared_with_you">%1$s ha compartido \"%2$s\" contigo</string>
     <string name="subject_shared_with_you">\"%1$s\" ha sido compartido contigo</string>
 
     <string name="auth_refresh_button">Actualizar conexión</string>
@@ -479,6 +495,7 @@
     <string name="share_email_clarification">%1$s (correo electrónico)</string>
     <string name="share_known_remote_clarification">%1$s ( a las %2$s )</string>
 
+    <string name="share_sharee_unavailable">Actualiza la versión del servidor para permitir compartir entre usuarios desde sus clientes.\nPor favor contacta a tu administrador</string>
     <string name="filedetails_share_link_enable">Compartir por liga habilitado</string>
     <string name="filedetails_share_link_disable">No compartido por liga</string>
     <string name="filedetails_share_users_with_access">Usuarios y grupos con accesos</string>
@@ -508,6 +525,7 @@
 
     <string name="uploads_view_upload_status_waiting_for_charging">Aguardando la regarga del dispositivo </string>
     <string name="actionbar_search">Buscar</string>
+    <string name="files_drop_not_supported">Esta es una característica de Nextcloud, por favor actualiza. </string>
     <string name="learn_more">Conoce más</string>
     <string name="drawer_synced_folders">Carga automática</string>
     <string name="drawer_participate">Participa</string>
@@ -570,6 +588,13 @@
     <string name="welcome_feature_3_title">Carga automática</string>
     <string name="welcome_feature_3_text">Manten tus fotos seguras</string>
 
+    <string name="whats_new_end_to_end_encryption_title">Encripción punto-a-punto</string>
+    <string name="whats_new_end_to_end_encryption_content">Selecciona qué archivos encriptar, establecelo desde cualquier cliente. Agrega facilmente nuevos dispositivos usando una frase de seguridad de 12 palabras. </string>
+    <string name="whats_new_resized_images_title">Imágenes adaptadas a la pantalla</string>
+    <string name="whats_new_resized_images_content">La versión más pequeña se muestra por omisión, ya que ahorra datos y funciona bien para enviar &amp; compartir. Puedes descargar el archivo completo al hacer zoom. </string>
+    <string name="whats_new_ipv6_title">Soporte IPv6</string>
+    <string name="whats_new_ipv6_content">Ahora funciona bien con servidores que soporten IPV6, mientras que soportan IPV4 al mismo tiempo. </string>
+
     <string name="whats_new_skip">Saltar</string>
 
     <string name="fingerprint_scan_finger">Por favor escanea tu dedo</string>
@@ -608,8 +633,11 @@
     <!-- Notifications -->
     <string name="new_notification_received">Nueva notificación recibida</string>
     <string name="drawer_logout">Cerrar sesión</string>
+    <string name="picture_set_as_no_app">No se encontró una aplicación con la cual establecer la imágen</string>
     <string name="privacy">Privacidad</string>
     <string name="file_not_found">Archivo no encontrado</string>
+    <string name="file_not_synced">El archivo no pudo ser sincronizado. Mostrando la última versión disponible.</string>
+
     <!-- Auto upload -->
     <string name="autoupload_custom_folder">Configurar una carpeta personalizada</string>
     <string name="autoupload_create_new_custom_folder">Crear nueva configuración de carpeta personalizada</string>
@@ -636,6 +664,10 @@
     <string name="resized_image_not_possible">No hay una imagen a escala disponible.</string>
     <string name="resized_image_not_possible_download">No hay una imagen a escala disponible. ¿Descargar la imagen completa? </string>
     <string name="resized_images_download_full_image">¿Descargar imagen completa?</string>
+
+    <string name="store_short_desc">La aplicación de Nextcloud para Android te da acceso móvil a todos los archivos en tu Nextcloud</string>
+    <string name="store_full_desc">La aplicación Nextcloud para Android con copyleft libre, dándote libertad móvil.\n\nCaracterísticas:\n* Interfaz sencilla y moderna, adecuada para el tema de tu servidor\n* Carga archivos a tu servidor Nextcloud\n* Compártelos con los demás\n* Manten tus archivos y carpetas favoritos sincronizados\n* Busca en todas tus carpetas en tu servidor\n* Carga automática para las fotos y videos tomados con tu dispositivo\n* Mantente al dia con las notificaciones\b* Soporte multi-cuenta\n* Accesa de forma segura tus datos con tu huella digital o PIN\n* Integración con DAVdroid para una configuración sencilla de la sincronización del calendario &amp; contactos\n\nPor favor reporta todos los problemas en https://github.com/nextcloud/android/issues y comenta acerca de esta aplicación en https://help.nextcloud.com/c/clients/android\n\n ¿No conoces Nexcloud? Nextcloud es un servidor privado de comunicación para compartir &amp;sincronizar archivos. Es software libre y puedes hospedarlo directamente o bien pagar por el servicio a un tercero. De esta manera tienes el control de tus fotos, tu calendario y datos de contactos, tus documentos y todo lo demás.\n\nVisítanos en https://nextcloud.com 
+</string>
 
     <string name="drawer_current_account">Cuenta actual</string>
     <string name="drawer_middle_account">Cuenta intermedia</string>
@@ -669,6 +701,8 @@
     <string name="what_s_new_image">Imagen de qué es nuevo</string>
 
     <string name="store_short_dev_desc">La app de Nextcloud Dev es una foto de desarrollo y puede instalarse en paralelo</string>
+    <string name="store_full_dev_desc">La aplicación de Nextcloud de copyleft libre para Android te da libertad móvil.\nEsta es la versión oficial de desarrollo que incluye una muestra diaria de funcionalidades nuevas aún no probadas que pueden generar inestabilidad y pérdidad de datos. Esta aplicación está diseñada para usuarios que están dispuestos a realizar pruebas y reportar fallas en caso de que ocurran. ¡No uses esta versión para tu trabajo productivo!\n\nTanto la versión oficial de desarrollo como la versión normal están disponibles en F-Droid y pueden ser instaladas simultáneamente. </string>
+
     <string name="prefs_category_dev">Desarrollo</string>
     <string name="dev_version_no_information_available">No hay información disponible.</string>
     <string name="dev_version_no_new_version_available">No hay una nueva versión disponible.</string>
@@ -696,6 +730,8 @@
     <string name="screenshot_03_drawer">Accede rápidamente las actividades, elementos compartidos, archivos disponibles sin conexión y más</string>
     <string name="screenshot_04_accounts">Conectarse a diferentes cuentas</string>
     <string name="screenshot_05_autoUpload">Carga automáticamente tus fotos &amp; videos</string>
+    <string name="screenshot_06_davdroid">Sincronizar calendario &amp; contactos con DAVdroid</string>
+    
     <string name="userinfo_no_info_headline">No se ha establecido la información personal </string>
     <string name="userinfo_no_info_text">Agrega tu nombre, una imagen y detalles de contacto en tu página de perfil. </string>
     <string name="drawer_header_background">Imagen de fondo para el encabezado de la barra de navegación</string>
@@ -707,11 +743,15 @@
     <string name="end_to_end_encryption_retrieving_keys">Recuperando llaves &#8230;</string>
     <string name="end_to_end_encryption_enter_password">Por favor ingresa la contraseña para decrpitar la llave privada. </string>
     <string name="end_to_end_encryption_generating_keys">Generando nuevas llaves &#8230;</string>
+    <string name="end_to_end_encryption_keywords_description">Las 12 palabras juntas hacer una contraseña muy fuerte, permitiendote solo a ti ver y hacer uso de tus archivos encriptados. Por favor escríbelo y mantenlo en un lugar seguro.</string>
     <string name="end_to_end_encryption_title">Configurar encripción</string>
+    <string name="end_to_end_encryption_passphrase_title">Anota tu contraseña de encripción de 12 palabras</string>
+    <string name="end_to_end_encryption_not_supported">La encripción solo funciona en KitKat (4.4) o superior.</string>
     <string name="end_to_end_encryption_confirm_button">Configurar la encripción</string>
     <string name="end_to_end_encryption_password">Contraseña &#8230;</string>
     <string name="end_to_end_encryption_unsuccessful">No se pudieron almacenar las llaves, por favor inténtalo de nuevo.</string>
     <string name="end_to_end_encryption_dialog_close">Cerrar</string>
     <string name="end_to_end_encryption_storing_keys">Almacenando llaves</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Copiar/ mover a la carpeta encriptada no se encuentra soportado por el momento.</string>
-    </resources>
+    <string name="untrusted_domain">Accede a través de un dominio no de confianza. Por favor ve la documentación para más información</string>
+</resources>
