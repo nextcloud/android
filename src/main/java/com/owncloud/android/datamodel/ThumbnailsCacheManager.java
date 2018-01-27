@@ -274,7 +274,7 @@ public class ThumbnailsCacheManager {
                     if (bitmap != null) {
                         // Handle PNG
                         if (file.getMimetype().equalsIgnoreCase(PNG_MIMETYPE)) {
-                            bitmap = handlePNG(bitmap, pxW);
+                            bitmap = handlePNG(bitmap, pxW, pxH);
                         }
 
                         thumbnail = addThumbnailToCache(imageKey, bitmap, file.getStoragePath(), pxW, pxH);
@@ -305,7 +305,7 @@ public class ThumbnailsCacheManager {
 
                                 // Handle PNG
                                 if (file.getMimetype().equalsIgnoreCase(PNG_MIMETYPE)) {
-                                    thumbnail = handlePNG(thumbnail, pxW);
+                                    thumbnail = handlePNG(thumbnail, pxW, pxH);
                                 }
 
                                 // Add thumbnail to cache
@@ -518,7 +518,7 @@ public class ThumbnailsCacheManager {
                     if (bitmap != null) {
                         // Handle PNG
                         if (file.getMimetype().equalsIgnoreCase(PNG_MIMETYPE)) {
-                            bitmap = handlePNG(bitmap, pxW);
+                            bitmap = handlePNG(bitmap, pxW, pxH);
                         }
 
                         thumbnail = addThumbnailToCache(imageKey, bitmap, file.getStoragePath(), pxW, pxH);
@@ -557,7 +557,7 @@ public class ThumbnailsCacheManager {
 
                                 // Handle PNG
                                 if (file.getMimetype().equalsIgnoreCase(PNG_MIMETYPE)) {
-                                    thumbnail = handlePNG(thumbnail, pxW);
+                                    thumbnail = handlePNG(thumbnail, pxW, pxH);
                                 }
 
                                 // Add thumbnail to cache
@@ -875,7 +875,7 @@ public class ThumbnailsCacheManager {
 
                                 // Add avatar to cache
                                 if (avatar != null) {
-                                    avatar = handlePNG(avatar, px);
+                                    avatar = handlePNG(avatar, px, px);
                                     String newImageKey = "a_" + username + "_" + eTag;
                                     addBitmapToCache(newImageKey, avatar);
                                 } else {
@@ -1114,14 +1114,11 @@ public class ThumbnailsCacheManager {
         }
     }
 
-    private static Bitmap handlePNG(Bitmap bitmap, int px){
-        Bitmap resultBitmap = Bitmap.createBitmap(px,
-                px,
-                Bitmap.Config.ARGB_8888);
+    private static Bitmap handlePNG(Bitmap bitmap, int pxW, int pxH) {
+        Bitmap resultBitmap = Bitmap.createBitmap(pxW, pxH, Bitmap.Config.ARGB_8888);
         Canvas c = new Canvas(resultBitmap);
 
-        c.drawColor(MainApp.getAppContext().getResources().
-                getColor(R.color.background_color));
+        c.drawColor(MainApp.getAppContext().getResources().getColor(R.color.background_color));
         c.drawBitmap(bitmap, 0, 0, null);
 
         return resultBitmap;
@@ -1138,7 +1135,7 @@ public class ThumbnailsCacheManager {
         if (bitmap != null) {
             // Handle PNG
             if (file.getMimetype().equalsIgnoreCase(PNG_MIMETYPE)) {
-                bitmap = handlePNG(bitmap, pxW);
+                bitmap = handlePNG(bitmap, pxW, pxH);
             }
 
             addThumbnailToCache(imageKey, bitmap, file.getStoragePath(), pxW, pxH);
