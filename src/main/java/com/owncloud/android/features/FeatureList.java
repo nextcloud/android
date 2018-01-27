@@ -46,13 +46,13 @@ public class FeatureList {
             // Basic features showed on first install
             new FeatureItem(R.drawable.whats_new_files,
                     R.string.welcome_feature_1_title, R.string.welcome_feature_1_text,
-                    VERSION_1_0_0, BETA_VERSION_0, SHOW_ON_FIRST_RUN),
+                    VERSION_1_0_0, BETA_VERSION_0, SHOW_ON_FIRST_RUN, true, false),
             new FeatureItem(R.drawable.whats_new_accounts,
                     R.string.welcome_feature_2_title, R.string.welcome_feature_2_text,
-                    VERSION_1_0_0, BETA_VERSION_0, SHOW_ON_FIRST_RUN),
+                    VERSION_1_0_0, BETA_VERSION_0, SHOW_ON_FIRST_RUN, true, false),
             new FeatureItem(R.drawable.whats_new_auto_upload,
                     R.string.welcome_feature_3_title, R.string.welcome_feature_3_text,
-                    VERSION_1_0_0, BETA_VERSION_0, SHOW_ON_FIRST_RUN),
+                    VERSION_1_0_0, BETA_VERSION_0, SHOW_ON_FIRST_RUN, true, false),
             // 3.0.0
             new FeatureItem(R.drawable.whats_new_end_to_end_encryption, R.string.whats_new_end_to_end_encryption_title,
                     R.string.whats_new_end_to_end_encryption_content, VERSION_3_0_0, BETA_VERSION_0,
