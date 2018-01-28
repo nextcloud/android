@@ -22,22 +22,28 @@
 package com.owncloud.android.services.observer;
 
 import android.accounts.Account;
+import android.app.Notification;
 import android.app.Service;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.database.Cursor;
+import android.graphics.BitmapFactory;
 import android.os.IBinder;
+import android.support.v4.app.NotificationCompat;
 
 import com.owncloud.android.MainApp;
+import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.db.ProviderMeta.ProviderTableMeta;
 import com.owncloud.android.files.services.FileDownloader;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.operations.SynchronizeFileOperation;
+import com.owncloud.android.ui.notifications.NotificationUtils;
 import com.owncloud.android.utils.FileStorageUtils;
+import com.owncloud.android.utils.ThemeUtils;
 
 import java.io.File;
 import java.util.HashMap;
@@ -67,6 +73,8 @@ public class FileObserverService extends Service {
 
     private final static String ARG_FILE = "ARG_FILE";
     private final static String ARG_ACCOUNT = "ARG_ACCOUNT";
+
+    private static final int FOREGROUND_SERVICE_ID = 333;
 
     private static final String TAG = FileObserverService.class.getSimpleName();
 
@@ -114,6 +122,19 @@ public class FileObserverService extends Service {
     public void onCreate() {
         Log_OC.d(TAG, "onCreate");
         super.onCreate();
+
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            Notification notification = new NotificationCompat.Builder(this,
+                    NotificationUtils.NOTIFICATION_CHANNEL_FILE_OBSERVER)
+                    .setContentTitle(getResources().getString(R.string.notification_channel_file_observer_name))
+                    .setContentText(getResources().getString(R.string.notification_channel_file_observer_description))
+                    .setSmallIcon(R.drawable.notification_icon)
+                    .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.notification_icon))
+                    .setColor(ThemeUtils.primaryColor())
+                    .build();
+
+            startForeground(FOREGROUND_SERVICE_ID, notification);
+        }
 
         mDownloadReceiver = new DownloadCompletedReceiver();
         IntentFilter filter = new IntentFilter();
