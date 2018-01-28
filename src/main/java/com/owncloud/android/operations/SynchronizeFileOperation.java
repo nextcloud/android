@@ -300,7 +300,12 @@ public class SynchronizeFileOperation extends SyncOperation {
         Intent i = new Intent(mContext, FileDownloader.class);
         i.putExtra(FileDownloader.EXTRA_ACCOUNT, mAccount);
         i.putExtra(FileDownloader.EXTRA_FILE, file);
-        mContext.startService(i);
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            mContext.startForegroundService(i);
+        } else {
+            mContext.startService(i);
+        }
+
         mTransferWasRequested = true;
     }
 
