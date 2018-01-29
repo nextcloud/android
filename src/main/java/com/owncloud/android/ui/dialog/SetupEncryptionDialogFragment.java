@@ -241,7 +241,20 @@ public class SetupEncryptionDialogFragment extends DialogFragment {
             //  - store public key
             //  - decrypt private key, store unencrypted private key in database
 
-            GetPublicKeyOperation publicKeyOperation = new GetPublicKeyOperation();
+            // get user id
+            String userID;
+            GetRemoteUserInfoOperation remoteUserNameOperation = new GetRemoteUserInfoOperation();
+            RemoteOperationResult remoteUserNameOperationResult = remoteUserNameOperation.execute(account,
+                    getContext(), true);
+
+            if (remoteUserNameOperationResult.isSuccess() && remoteUserNameOperationResult.getData() != null) {
+                UserInfo userInfo = (UserInfo) remoteUserNameOperationResult.getData().get(0);
+                userID = userInfo.getId();
+            } else {
+                userID = account.name;
+            }
+
+            GetPublicKeyOperation publicKeyOperation = new GetPublicKeyOperation(userID);
             RemoteOperationResult publicKeyResult = publicKeyOperation.execute(account, getContext(), true);
 
             if (publicKeyResult.isSuccess()) {
