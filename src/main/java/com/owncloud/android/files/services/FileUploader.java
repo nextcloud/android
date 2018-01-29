@@ -240,7 +240,11 @@ public class FileUploader extends Service
             intent.putExtra(FileUploader.KEY_WHILE_ON_WIFI_ONLY, requiresWifi);
             intent.putExtra(FileUploader.KEY_WHILE_CHARGING_ONLY, requiresCharging);
 
-            context.startService(intent);
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+                context.startForegroundService(intent);
+            } else {
+                context.startService(intent);
+            }
         }
 
         public void uploadFileWithOverwrite(
@@ -269,7 +273,11 @@ public class FileUploader extends Service
             intent.putExtra(FileUploader.KEY_WHILE_CHARGING_ONLY, requiresCharging);
             intent.putExtra(FileUploader.KEY_FORCE_OVERWRITE, overwrite);
 
-            context.startService(intent);
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+                context.startForegroundService(intent);
+            } else {
+                context.startService(intent);
+            }
         }
 
         /**
@@ -327,7 +335,11 @@ public class FileUploader extends Service
             intent.putExtra(FileUploader.KEY_LOCAL_BEHAVIOUR, behaviour);
             intent.putExtra(FileUploader.KEY_FORCE_OVERWRITE, forceOverwrite);
 
-            context.startService(intent);
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+                context.startForegroundService(intent);
+            } else {
+                context.startService(intent);
+            }
         }
 
         /**
@@ -418,7 +430,11 @@ public class FileUploader extends Service
                 i.putExtra(FileUploader.KEY_ACCOUNT, account);
                 i.putExtra(FileUploader.KEY_RETRY_UPLOAD, upload);
 
-                context.startService(i);
+                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+                    context.startForegroundService(i);
+                } else {
+                    context.startService(i);
+                }
             }
         }
     }
