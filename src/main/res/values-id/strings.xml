@@ -57,7 +57,7 @@
 	<string name="auth_check_server">Periksa peladen</string>
     <string name="auth_host_url">Alamat server https://&#8230;</string>
     <string name="auth_username">Nama Pengguna</string>
-    <string name="auth_password">Sandi</string>
+    <string name="auth_password">Kata sandi</string>
     <string name="sync_string_files">Berkas</string>
     <string name="setup_btn_connect">Sambungkan</string>
     <string name="uploader_btn_upload_text">Unggah</string>
@@ -117,7 +117,7 @@
     <string name="common_pending">Tunggu</string>
     <string name="common_delete">Hapus</string>
     <string name="about_title">Tentang</string>
-    <string name="change_password">Ubah sandi</string>
+    <string name="change_password">Ubah kata sandi</string>
     <string name="delete_account">Hapus akun</string>
     <string name="avatar">Avatar</string>
     <string name="active_user">Pengguna aktif</string>
@@ -153,7 +153,7 @@
     <string name="downloader_not_downloaded_yet">Belum diunduh</string>
     <string name="common_choose_account">Pilih akun</string>
     <string name="sync_fail_ticker">Sinkron gagal</string>
-    <string name="sync_fail_content_unauthorized">Sandi salah untuk %1$s</string>
+    <string name="sync_fail_content_unauthorized">Kata sandi salah untuk %1$s</string>
     <string name="sync_conflicts_in_favourites_ticker">Konflik ditemukan</string>
     <string name="sync_fail_in_favourites_ticker">Berkas kept-in-sync gagal</string>
     <string name="sync_foreign_files_forgotten_ticker">Beberapa berkas lokal terlupakan</string>
@@ -202,12 +202,12 @@
 	<string name="auth_bad_oc_version_title">Versi server tidak dikenal</string>
 	<string name="auth_wrong_connection_title">Tidak dapat memulai koneksi</string>
 	<string name="auth_secure_connection">Sambungan aman dibuat</string>
-	<string name="auth_unauthorized">Nama pengguna dan sandi salah</string>
+	<string name="auth_unauthorized">Nama pengguna dan kata sandi salah</string>
 	<string name="auth_oauth_error">Otorisasi tidak berhasil</string>
 	<string name="auth_oauth_error_access_denied">Akses ditolak oleh server otorisasi</string>
 	<string name="auth_wtf_reenter_URL">Masalah tidak terduga; masukkan ulang alamat server</string>
 	<string name="auth_expired_oauth_token_toast">Otorisasi Anda telah berakhir. Silakan mengotorisasi lagi</string>
-	<string name="auth_expired_basic_auth_toast">Masukkan kata sandi</string>
+	<string name="auth_expired_basic_auth_toast">Masukkan kata sandi saat ini</string>
 	<string name="auth_expired_saml_sso_token_toast">Sesi Anda telah berakhir. Silakan masuk kembali</string>
     <string name="auth_unsupported_multiaccount">%1$s tidak mendukung banyak akun </string>
 	<string name="auth_can_not_auth_against_server">Tidak terotentikasi ke server ini</string>
@@ -285,8 +285,8 @@
 	<string name="unshare_link_file_error">Terjadi kesalahan saat mencoba menghapus berbagi berkas dan folder ini</string>
     <string name="update_link_file_no_exist">Tidak dapat memperbarui. Cek apabila berkas ada</string>
     <string name="update_link_file_error">Terjadi kesalahan saat mencoba untuk memperbarui pembagian</string>
-    <string name="share_link_password_title">Masukkan sandi</string>
-    <string name="share_link_empty_password">Anda harus memasukkan sandi</string>
+    <string name="share_link_password_title">Masukkan kata sandi</string>
+    <string name="share_link_empty_password">Anda harus memasukkan kata sandi</string>
 
     <string name="activity_chooser_send_file_title">Kirim</string>
 
@@ -327,7 +327,7 @@
 	<string name="log_send_mail_subject">%1$s Android apl log</string>
 	<string name="log_progress_dialog_text">Memuat data &#8230;</string>
 
-	<string name="saml_authentication_wrong_pass">Sandi salah</string>
+	<string name="saml_authentication_wrong_pass">Kata sandi salah</string>
 	<string name="actionbar_move">Pindah</string>
     <string name="actionbar_copy">Salin</string>
 	<string name="file_list_empty_moving">Kosong. Anda dapat menambahkan folder</string>

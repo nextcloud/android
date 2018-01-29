@@ -1,4 +1,4 @@
-La Aplicación Android de Código Abierto se deja accede todo su archivos en su Nextcloud.
-Eso es una versión de desarollo y incluye características completamente nuevas que pueden conducir a instabilidades y el pérdida de datos. El aplicación es diseñado para usuarios dispuesto a probar los características nuevas y reportar errores si occuren. ¡No lo use para su trabajo productivo!
+La app Android de Nextcloud es copyleft y software libre y te da liberta móvl.
+Esta es la versión oficial de desarrollo, que presenta una muestra diaria de cualquier nueva funcionalidad aún no probada, lo que puede causar inestabilidad y pérdida de datos. Esta app es para usuarios deseosos de probar e informar de errores si ocurren. ¡No la uses para tu trabajo de producción!
 
-El versión de desarollo se puede instalar junto al applicación oficial que esta disponible en F-Droid, también. Uno vez al día, es comprobada para ver si se cambia el código fuente, así que puede haber pausas más largas entre vérsiones. 
+Tanto la versión de desarrollo oficial como la normal están disponibles en F-Droid y pueden instalarse juntas.
