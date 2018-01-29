@@ -136,7 +136,11 @@ public class DocumentsStorageProvider extends DocumentsProvider {
             Intent i = new Intent(getContext(), FileDownloader.class);
             i.putExtra(FileDownloader.EXTRA_ACCOUNT, account);
             i.putExtra(FileDownloader.EXTRA_FILE, file);
-            context.startService(i);
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+                context.startForegroundService(i);
+            } else {
+                context.startService(i);
+            }
 
             do {
                 if (!waitOrGetCancelled(cancellationSignal)) {
