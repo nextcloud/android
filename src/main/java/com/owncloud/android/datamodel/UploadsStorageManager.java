@@ -412,8 +412,8 @@ public class UploadsStorageManager extends Observable {
      * Get all failed uploads.
      */
     public OCUpload[] getFailedUploads() {
-        return getUploads(ProviderTableMeta.UPLOADS_STATUS + "== ?", new String[]{String.valueOf(UploadStatus.UPLOAD_FAILED
-                .value)});
+        return getUploads(ProviderTableMeta.UPLOADS_STATUS + "== ?", new String[]
+                          {String.valueOf(UploadStatus.UPLOAD_FAILED.value)});
     }
 
     public OCUpload[] getFinishedUploadsForCurrentAccount() {
