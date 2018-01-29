@@ -323,6 +323,10 @@ public class MainApp extends MultiDexApplication {
                 createChannel(notificationManager, NotificationUtils.NOTIFICATION_CHANNEL_FILE_SYNC,
                         R.string.notification_channel_file_sync_name,
                         R.string.notification_channel_file_sync_description, context);
+
+                createChannel(notificationManager, NotificationUtils.NOTIFICATION_CHANNEL_FILE_OBSERVER,
+                        R.string.notification_channel_file_observer_name, R.string
+                                .notification_channel_file_observer_description, context);
             } else {
                 Log_OC.e(TAG, "Notification manager is null");
             }
