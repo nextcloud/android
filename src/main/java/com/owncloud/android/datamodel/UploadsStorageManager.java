@@ -26,6 +26,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
+import android.support.annotation.Nullable;
 
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.db.OCUpload;
@@ -322,7 +323,7 @@ public class UploadsStorageManager extends Observable {
     }
 
 
-    private OCUpload[] getUploads(String selection, String[] selectionArgs) {
+    private OCUpload[] getUploads(@Nullable String selection, @Nullable String[] selectionArgs) {
         OCUpload[] list;
 
         Cursor c = getDB().query(
@@ -411,9 +412,8 @@ public class UploadsStorageManager extends Observable {
      * Get all failed uploads.
      */
     public OCUpload[] getFailedUploads() {
-
-        return getUploads(
-                ProviderTableMeta.UPLOADS_STATUS + "==" + UploadStatus.UPLOAD_FAILED.value, null);
+        return getUploads(ProviderTableMeta.UPLOADS_STATUS + "== ?", new String[]
+                          {String.valueOf(UploadStatus.UPLOAD_FAILED.value)});
     }
 
     public OCUpload[] getFinishedUploadsForCurrentAccount() {

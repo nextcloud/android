@@ -428,7 +428,11 @@ public class SynchronizeFolderOperation extends SyncOperation {
                 Intent i = new Intent(mContext, FileDownloader.class);
                 i.putExtra(FileDownloader.EXTRA_ACCOUNT, mAccount);
                 i.putExtra(FileDownloader.EXTRA_FILE, file);
-                mContext.startService(i);
+                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+                    mContext.startForegroundService(i);
+                } else {
+                    mContext.startService(i);
+                }
             }
         }
     }
@@ -507,7 +511,11 @@ public class SynchronizeFolderOperation extends SyncOperation {
         intent.setAction(OperationsService.ACTION_SYNC_FOLDER);
         intent.putExtra(OperationsService.EXTRA_ACCOUNT, mAccount);
         intent.putExtra(OperationsService.EXTRA_REMOTE_PATH, path);
-        mContext.startService(intent);
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            mContext.startForegroundService(intent);
+        } else {
+            mContext.startService(intent);
+        }
     }
 
     public String getRemotePath() {
