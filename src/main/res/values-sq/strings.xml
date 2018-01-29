@@ -590,8 +590,16 @@
 
     <string name="prefs_sourcecode">Merr kodin burimor</string>
     <string name="prefs_license">Liçensë</string>
+    <string name="date_unknown">I panjohur</string>
+
     <string name="resized_images_download_full_image">Shkarko imazhin e plotë?</string>
 
     <string name="drawer_current_account">Llogaria e tanishme</string>
     <string name="drawer_end_account">Llogaria e fundit</string>
+    <string name="folder_icon">Ikona e dosjes</string>
+    <string name="version_dev_download">Shkarko</string>
+
+    <string name="send">Dërgo</string>
+    <string name="link">Link</string>
+
     </resources>
