@@ -111,13 +111,19 @@ public class DataStorageProvider {
 
         // Add external storage directory if available.
         if (isExternalStorageWritable()) {
-            storagePoint = new StoragePoint();
-            storagePoint.setPath(MainApp.getAppContext().getExternalFilesDir(null).getAbsolutePath());
-            storagePoint.setDescription(MainApp.getAppContext().getExternalFilesDir(null).getAbsolutePath());
-            storagePoint.setPrivacyType(StoragePoint.PrivacyType.PRIVATE);
-            storagePoint.setStorageType(StoragePoint.StorageType.EXTERNAL);
-            if (!paths.contains(MainApp.getAppContext().getExternalFilesDir(null).getAbsolutePath())) {
-                mCachedStoragePoints.add(storagePoint);
+            File externalFilesDir = MainApp.getAppContext().getExternalFilesDir(null);
+
+            if (externalFilesDir != null) {
+                String externalFilesDirPath = externalFilesDir.getAbsolutePath();
+
+                storagePoint = new StoragePoint();
+                storagePoint.setPath(externalFilesDirPath);
+                storagePoint.setDescription(externalFilesDirPath);
+                storagePoint.setPrivacyType(StoragePoint.PrivacyType.PRIVATE);
+                storagePoint.setStorageType(StoragePoint.StorageType.EXTERNAL);
+                if (!paths.contains(externalFilesDirPath)) {
+                    mCachedStoragePoints.add(storagePoint);
+                }
             }
         }
 
