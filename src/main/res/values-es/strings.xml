@@ -721,7 +721,6 @@
     <string name="notification_channel_media_description">Progreso del reproductor de música</string>
     <string name="notification_channel_file_sync_name">Sincronización de archivos</string>
     <string name="notification_channel_file_sync_description">Muestra progreso y resultados de la sincronización de archivos</string>
-  
     <string name="account_not_found">¡Cuenta no encontrada!</string>
 
     <string name="screenshot_01_gridView">Un lugar seguro para tus datos</string>

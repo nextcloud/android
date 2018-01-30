@@ -503,6 +503,8 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
         mEtagInConflict = null;
         mShareWithSharee = false;
         mIsFavorite = false;
+        mIsEncrypted = false;
+        mEncryptedFileName = null;
     }
 
     /**

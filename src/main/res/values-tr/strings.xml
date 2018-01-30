@@ -721,7 +721,6 @@
     <string name="notification_channel_media_description">Müzik çalar ilerlemesi</string>
     <string name="notification_channel_file_sync_name">Dosya eşitleme</string>
     <string name="notification_channel_file_sync_description">Dosya eşitleme ilerlemesi ve sonuçlarını görüntüler</string>
-  
     <string name="account_not_found">Hesap bulunamadı!</string>
 
     <string name="screenshot_01_gridView">Verileriniz için güvenli bir yer!</string>
