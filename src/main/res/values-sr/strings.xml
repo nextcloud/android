@@ -726,7 +726,6 @@
     <string name="notification_channel_media_description">Напредак музичког плејера</string>
     <string name="notification_channel_file_sync_name">Синхронизација фајла</string>
     <string name="notification_channel_file_sync_description">Прикажи напредак синхронизације фајла и резултате</string>
-  
     <string name="account_not_found">Налог није нађен!</string>
 
     <string name="screenshot_01_gridView">Сигурно место за све Ваше податке</string>

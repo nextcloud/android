@@ -255,6 +255,7 @@ Attention la suppression est irréversible.</string>
 	<string name="auth_expired_saml_sso_token_toast">Votre session a expiré. Merci de vous reconnecter</string>
     <string name="auth_connecting_auth_server">Connexion au serveur d\'authentification &#8230;</string>
 	<string name="auth_unsupported_multiaccount">%1$s ne prend pas en charge les comptes multiples</string>
+	<string name="auth_fail_get_user_name">Votre serveur a retourné un identifiant d\'utilisateur incorrect. Veuillez contacter un administrateur</string>
 	<string name="auth_can_not_auth_against_server">Impossible de s\'authentifier sur ce serveur</string>
     <string name="auth_access_failed">L\'accès a échoué</string>
 
@@ -572,6 +573,7 @@ Attention la suppression est irréversible.</string>
     <string name="welcome_feature_3_title">Téléversement automatique</string>
     <string name="welcome_feature_3_text">Conservez vos photos en toute sécurité</string>
 
+    <string name="whats_new_end_to_end_encryption_title">Chiffrement de bout en bout</string>
     <string name="whats_new_skip">Ignorer</string>
 
     <string name="fingerprint_scan_finger">Veuillez scanner votre doigt</string>
@@ -683,7 +685,6 @@ Attention la suppression est irréversible.</string>
     <string name="notification_channel_media_description">Progression du lecteur de musique</string>
     <string name="notification_channel_file_sync_name">Synchronisation de fichier</string>
     <string name="notification_channel_file_sync_description">Afficher les résultats et la progression de synchronisation du fichier</string>
-  
     <string name="account_not_found">Compte introuvable !</string>
 
     <string name="screenshot_01_gridView">Un lieu sûr pour toutes vos données</string>

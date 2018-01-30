@@ -721,7 +721,6 @@
     <string name="notification_channel_media_description">Avanzamento del lettore musicale</string>
     <string name="notification_channel_file_sync_name">Sincronizzazione file</string>
     <string name="notification_channel_file_sync_description">Mostra l\'avanzamento e i risultati della sincronizzazione file</string>
-  
     <string name="account_not_found">Account non trovato</string>
 
     <string name="screenshot_01_gridView">Un posto sicuro per tutti i tuoi dati</string>

@@ -709,7 +709,6 @@
     <string name="notification_channel_media_description">미디어 재생기 진행</string>
     <string name="notification_channel_file_sync_name">파일 동기화</string>
     <string name="notification_channel_file_sync_description">파일 동기화 진행 및 결과 표시</string>
-  
     <string name="account_not_found">계정을 찾을 수 없습니다!</string>
 
     <string name="screenshot_01_gridView">내 모든 데이터를 위한 안전한 저장소</string>

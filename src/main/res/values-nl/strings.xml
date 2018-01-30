@@ -665,7 +665,6 @@
     <string name="notification_channel_media_description">Mediaspeler voortgang</string>
     <string name="notification_channel_file_sync_name">Bestand sync</string>
     <string name="notification_channel_file_sync_description">Geeft bestand sync voortgang en resultaten weer</string>
-  
     <string name="account_not_found">Account niet gevonden!</string>
 
     <string name="screenshot_01_gridView">Een veilige plek voor al je data</string>
