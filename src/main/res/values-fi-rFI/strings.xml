@@ -512,7 +512,6 @@
     <string name="notification_channel_upload_description">Näyttää lähetyksen edistymisen</string>
     <string name="notification_channel_media_name">Mediasoitin</string>
     <string name="notification_channel_file_sync_description">Näyttää tiedostojen synkronoinnin edistymisen ja tulokset</string>
-  
     <string name="account_not_found">Tiliä ei löydy!</string>
 
     <string name="screenshot_01_gridView">Turvallinen koti kaikille tiedoillesi</string>

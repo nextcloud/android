@@ -735,7 +735,6 @@ A Nextcloud itt érhető el: https://nextcloud.com</string>
     <string name="notification_channel_media_description">Zene lejátszó folyamatai</string>
     <string name="notification_channel_file_sync_name">Fájl szinkronizálás</string>
     <string name="notification_channel_file_sync_description">Mutassa a fájl szinkronizációt és eredményeit</string>
-  
     <string name="account_not_found">Fiók nem található!</string>
 
     <string name="screenshot_01_gridView">Egy biztonságos hely az adataidnak</string>

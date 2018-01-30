@@ -716,7 +716,6 @@
     <string name="notification_channel_media_description">მუსიკის დამკვრელის პროგრესი</string>
     <string name="notification_channel_file_sync_name">ფაილების სინქ.</string>
     <string name="notification_channel_file_sync_description">აჩვენებს ფაილების სინქ. პროგრესს და შედეგებს</string>
-  
     <string name="account_not_found">ანგარიში ვერ იქნა ნაპოვნი!</string>
 
     <string name="screenshot_01_gridView">უსაფრთხო სახლი მთელი თქვენი მონაცემებისათვის</string>
