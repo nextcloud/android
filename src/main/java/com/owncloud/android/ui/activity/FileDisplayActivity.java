@@ -595,16 +595,6 @@ public class FileDisplayActivity extends HookActivity
         OCFileListFragment fileListFragment = getListOfFilesFragment();
         if (fileListFragment != null) {
             fileListFragment.listDirectory(MainApp.isOnlyOnDevice(), fromSearch);
-
-            AddFloatingActionButton addButton = fileListFragment.getFabMain().getAddButton();
-            addButton.setColorNormal(ThemeUtils.primaryColor());
-            addButton.setColorPressed(ThemeUtils.primaryDarkColor());
-            addButton.setPlusColor(ThemeUtils.fontColor());
-
-            ThemeUtils.tintFloatingActionButton(fileListFragment.getFabUpload(), R.drawable.ic_action_upload);
-            ThemeUtils.tintFloatingActionButton(fileListFragment.getFabMkdir(), R.drawable.ic_action_create_dir);
-            ThemeUtils.tintFloatingActionButton(fileListFragment.getFabUploadFromApp(), R.drawable.ic_import);
-
             setupToolbar();
         }
     }

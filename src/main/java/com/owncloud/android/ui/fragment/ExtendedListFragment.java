@@ -58,6 +58,7 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.getbase.floatingactionbutton.AddFloatingActionButton;
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.owncloud.android.MainApp;
@@ -441,6 +442,8 @@ public class ExtendedListFragment extends Fragment
         mFabMkdir = v.findViewById(R.id.fab_mkdir);
         mFabUploadFromApp = v.findViewById(R.id.fab_upload_from_app);
 
+        applyFABTheming();
+
         boolean searchSupported = AccountUtils.hasSearchSupport(AccountUtils.
                 getCurrentOwnCloudAccount(MainApp.getAppContext()));
 
@@ -706,6 +709,21 @@ public class ExtendedListFragment extends Fragment
                 }
             });
         }
+    }
+
+
+    /**
+     * Set tinting of FAB's from server data
+     */
+    private void applyFABTheming() {
+        AddFloatingActionButton addButton = getFabMain().getAddButton();
+        addButton.setColorNormal(ThemeUtils.primaryColor());
+        addButton.setColorPressed(ThemeUtils.primaryDarkColor());
+        addButton.setPlusColor(ThemeUtils.fontColor());
+
+        ThemeUtils.tintFloatingActionButton(getFabUpload(), R.drawable.ic_action_upload);
+        ThemeUtils.tintFloatingActionButton(getFabMkdir(), R.drawable.ic_action_create_dir);
+        ThemeUtils.tintFloatingActionButton(getFabUploadFromApp(), R.drawable.ic_import);
     }
 
     /**
