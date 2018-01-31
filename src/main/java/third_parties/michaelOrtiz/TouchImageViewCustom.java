@@ -37,6 +37,7 @@ import android.widget.OverScroller;
 import android.widget.Scroller;
 
 import com.owncloud.android.R;
+import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.preview.ImageViewCustom;
 
 /**
@@ -44,8 +45,9 @@ import com.owncloud.android.ui.preview.ImageViewCustom;
  */
 public class TouchImageViewCustom extends ImageViewCustom {
     private static final String DEBUG = "DEBUG";
-	
-	//
+    private static final String TAG = TouchImageViewCustom.class.getSimpleName();
+
+    //
 	// SuperMin and SuperMax multipliers. Determine how much the image can be
 	// zoomed below or above the zoom boundaries, before animating back to the
 	// min/max zoom boundary.
@@ -66,7 +68,7 @@ public class TouchImageViewCustom extends ImageViewCustom {
     //
 	private Matrix matrix, prevMatrix;
 
-    private static enum State { NONE, DRAG, ZOOM, FLING, ANIMATE_ZOOM }
+    private enum State {NONE, DRAG, ZOOM, FLING, ANIMATE_ZOOM}
     private State state;
 
     private float minScale;
@@ -810,7 +812,7 @@ public class TouchImageViewCustom extends ImageViewCustom {
     }
     
     public interface OnTouchImageViewListener {
-    	public void onMove();
+        void onMove();
     }
     
     /**
@@ -918,17 +920,22 @@ public class TouchImageViewCustom extends ImageViewCustom {
         }
         
         private void showDownloadSnackbar() {
-            snackShown = true;
-
-            Snackbar.make(getRootView(), R.string.resized_images_download_full_image, Snackbar.LENGTH_LONG)
-                    .setCallback(new Snackbar.Callback() {
-                        @Override
-                        public void onDismissed(Snackbar snackbar, int event) {
-                            super.onDismissed(snackbar, event);
-                            snackShown = false;
-                        }
-                    })
-                    .setAction(R.string.common_yes, v -> previewImageFragment.downloadFile()).show();
+            try {
+                if (previewImageFragment != null) {
+                    snackShown = true;
+                    Snackbar.make(getRootView(), R.string.resized_images_download_full_image, Snackbar.LENGTH_LONG)
+                            .setCallback(new Snackbar.Callback() {
+                                @Override
+                                public void onDismissed(Snackbar snackbar, int event) {
+                                    super.onDismissed(snackbar, event);
+                                    snackShown = false;
+                                }
+                            })
+                            .setAction(R.string.common_yes, v -> previewImageFragment.downloadFile()).show();
+                }
+            } catch (IllegalArgumentException e) {
+                Log_OC.d(TAG, e.getMessage());
+            }
         }
 
         @Override
@@ -1160,8 +1167,8 @@ public class TouchImageViewCustom extends ImageViewCustom {
     		} else {
     			minY = maxY = startY;
     		}
-    		
-    		scroller.fling(startX, startY, (int) velocityX, (int) velocityY, minX,
+
+            scroller.fling(startX, startY, velocityX, velocityY, minX,
                     maxX, minY, maxY);
     		currX = startX;
     		currY = startY;
