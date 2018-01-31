@@ -1629,22 +1629,22 @@ public class FileContentProvider extends ContentProvider {
                                 ADD_COLUMN + ProviderTableMeta.FILE_ENCRYPTED_NAME + " TEXT ");
                     }
                     if (!checkIfColumnExists(db, ProviderTableMeta.CAPABILITIES_TABLE_NAME,
-                            ProviderTableMeta.CAPABILITIES_END_TO_END_ENCRYPTION)) {
+                            ProviderTableMeta.CAPABILITIES_END_TO_END_ENCRYPTION) && oldVersion > 20) {
                         db.execSQL(ALTER_TABLE + ProviderTableMeta.CAPABILITIES_TABLE_NAME +
                                 ADD_COLUMN + ProviderTableMeta.CAPABILITIES_END_TO_END_ENCRYPTION + " INTEGER ");
                     }
                     if (!checkIfColumnExists(db, ProviderTableMeta.CAPABILITIES_TABLE_NAME,
-                            ProviderTableMeta.CAPABILITIES_SERVER_TEXT_COLOR)) {
+                            ProviderTableMeta.CAPABILITIES_SERVER_TEXT_COLOR) && oldVersion > 20) {
                         db.execSQL(ALTER_TABLE + ProviderTableMeta.CAPABILITIES_TABLE_NAME +
                                 ADD_COLUMN + ProviderTableMeta.CAPABILITIES_SERVER_TEXT_COLOR + " TEXT ");
                     }
                     if (!checkIfColumnExists(db, ProviderTableMeta.CAPABILITIES_TABLE_NAME,
-                            ProviderTableMeta.CAPABILITIES_SERVER_ELEMENT_COLOR)) {
+                            ProviderTableMeta.CAPABILITIES_SERVER_ELEMENT_COLOR) && oldVersion > 20) {
                         db.execSQL(ALTER_TABLE + ProviderTableMeta.CAPABILITIES_TABLE_NAME +
                                 ADD_COLUMN + ProviderTableMeta.CAPABILITIES_SERVER_ELEMENT_COLOR + " TEXT ");
                     }
                     if (!checkIfColumnExists(db, ProviderTableMeta.FILESYSTEM_TABLE_NAME,
-                            ProviderTableMeta.FILESYSTEM_CRC32)) {
+                            ProviderTableMeta.FILESYSTEM_CRC32) && oldVersion > 20) {
                         try {
                             db.execSQL(ALTER_TABLE + ProviderTableMeta.FILESYSTEM_TABLE_NAME +
                                     ADD_COLUMN + ProviderTableMeta.FILESYSTEM_CRC32 + " TEXT ");
