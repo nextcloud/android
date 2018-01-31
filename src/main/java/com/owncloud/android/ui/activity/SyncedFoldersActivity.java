@@ -87,7 +87,7 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
         SyncedFolderPreferencesDialogFragment.OnSyncedFolderPreferenceListener {
 
     private static final String SYNCED_FOLDER_PREFERENCES_DIALOG_TAG = "SYNCED_FOLDER_PREFERENCES_DIALOG";
-    public static final String PRIORITIZED_FOLDER = "Camera";
+    public static final String[] PRIORITIZED_FOLDERS = new String[] { "Camera", "Screenshots" };
     public static final String EXTRA_SHOW_SIDEBAR = "SHOW_SIDEBAR";
 
     private static final String SCREEN_NAME = "Auto upload";
@@ -293,17 +293,19 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
                     return -1;
                 } else if (f2.getFolderName() == null) {
                     return 1;
-                } else if (PRIORITIZED_FOLDER.equals(f1.getFolderName()) &&
-                        PRIORITIZED_FOLDER.equals(f2.getFolderName())) {
-                    return 0;
-                } else if (PRIORITIZED_FOLDER.equals(f1.getFolderName())) {
-                    return -1;
-                } else if (PRIORITIZED_FOLDER.equals(f2.getFolderName())) {
-                    return 1;
-                } else {
-                    return f1.getFolderName().toLowerCase(Locale.getDefault()).compareTo(
-                            f2.getFolderName().toLowerCase(Locale.getDefault()));
                 }
+                for (String folder : PRIORITIZED_FOLDERS) {
+                    if (folder.equals(f1.getFolderName()) &&
+                            folder.equals(f2.getFolderName())) {
+                        return 0;
+                    } else if (folder.equals(f1.getFolderName())) {
+                        return -1;
+                    } else if (folder.equals(f2.getFolderName())) {
+                        return 1;
+                    }
+                }
+                return f1.getFolderName().toLowerCase(Locale.getDefault()).compareTo(
+                            f2.getFolderName().toLowerCase(Locale.getDefault()));
             }
         });
 
