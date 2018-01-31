@@ -1628,28 +1628,30 @@ public class FileContentProvider extends ContentProvider {
                         db.execSQL(ALTER_TABLE + ProviderTableMeta.FILE_TABLE_NAME +
                                 ADD_COLUMN + ProviderTableMeta.FILE_ENCRYPTED_NAME + " TEXT ");
                     }
-                    if (!checkIfColumnExists(db, ProviderTableMeta.CAPABILITIES_TABLE_NAME,
-                            ProviderTableMeta.CAPABILITIES_END_TO_END_ENCRYPTION)) {
-                        db.execSQL(ALTER_TABLE + ProviderTableMeta.CAPABILITIES_TABLE_NAME +
-                                ADD_COLUMN + ProviderTableMeta.CAPABILITIES_END_TO_END_ENCRYPTION + " INTEGER ");
-                    }
-                    if (!checkIfColumnExists(db, ProviderTableMeta.CAPABILITIES_TABLE_NAME,
-                            ProviderTableMeta.CAPABILITIES_SERVER_TEXT_COLOR)) {
-                        db.execSQL(ALTER_TABLE + ProviderTableMeta.CAPABILITIES_TABLE_NAME +
-                                ADD_COLUMN + ProviderTableMeta.CAPABILITIES_SERVER_TEXT_COLOR + " TEXT ");
-                    }
-                    if (!checkIfColumnExists(db, ProviderTableMeta.CAPABILITIES_TABLE_NAME,
-                            ProviderTableMeta.CAPABILITIES_SERVER_ELEMENT_COLOR)) {
-                        db.execSQL(ALTER_TABLE + ProviderTableMeta.CAPABILITIES_TABLE_NAME +
-                                ADD_COLUMN + ProviderTableMeta.CAPABILITIES_SERVER_ELEMENT_COLOR + " TEXT ");
-                    }
-                    if (!checkIfColumnExists(db, ProviderTableMeta.FILESYSTEM_TABLE_NAME,
-                            ProviderTableMeta.FILESYSTEM_CRC32)) {
-                        try {
-                            db.execSQL(ALTER_TABLE + ProviderTableMeta.FILESYSTEM_TABLE_NAME +
-                                    ADD_COLUMN + ProviderTableMeta.FILESYSTEM_CRC32 + " TEXT ");
-                        } catch (SQLiteException e) {
-                            Log_OC.d(TAG, "Known problem on adding same column twice when upgrading from 24->30");
+                    if (oldVersion > 20) {
+                        if (!checkIfColumnExists(db, ProviderTableMeta.CAPABILITIES_TABLE_NAME,
+                                ProviderTableMeta.CAPABILITIES_END_TO_END_ENCRYPTION)) {
+                            db.execSQL(ALTER_TABLE + ProviderTableMeta.CAPABILITIES_TABLE_NAME +
+                                    ADD_COLUMN + ProviderTableMeta.CAPABILITIES_END_TO_END_ENCRYPTION + " INTEGER ");
+                        }
+                        if (!checkIfColumnExists(db, ProviderTableMeta.CAPABILITIES_TABLE_NAME,
+                                ProviderTableMeta.CAPABILITIES_SERVER_TEXT_COLOR)) {
+                            db.execSQL(ALTER_TABLE + ProviderTableMeta.CAPABILITIES_TABLE_NAME +
+                                    ADD_COLUMN + ProviderTableMeta.CAPABILITIES_SERVER_TEXT_COLOR + " TEXT ");
+                        }
+                        if (!checkIfColumnExists(db, ProviderTableMeta.CAPABILITIES_TABLE_NAME,
+                                ProviderTableMeta.CAPABILITIES_SERVER_ELEMENT_COLOR)) {
+                            db.execSQL(ALTER_TABLE + ProviderTableMeta.CAPABILITIES_TABLE_NAME +
+                                    ADD_COLUMN + ProviderTableMeta.CAPABILITIES_SERVER_ELEMENT_COLOR + " TEXT ");
+                        }
+                        if (!checkIfColumnExists(db, ProviderTableMeta.FILESYSTEM_TABLE_NAME,
+                                ProviderTableMeta.FILESYSTEM_CRC32)) {
+                            try {
+                                db.execSQL(ALTER_TABLE + ProviderTableMeta.FILESYSTEM_TABLE_NAME +
+                                        ADD_COLUMN + ProviderTableMeta.FILESYSTEM_CRC32 + " TEXT ");
+                            } catch (SQLiteException e) {
+                                Log_OC.d(TAG, "Known problem on adding same column twice when upgrading from 24->30");
+                            }
                         }
                     }
 
