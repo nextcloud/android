@@ -191,6 +191,7 @@ public class FileDataStorageManager {
         cv.put(ProviderTableMeta.FILE_PARENT, file.getParentId());
         cv.put(ProviderTableMeta.FILE_PATH, file.getRemotePath());
         if (!file.isFolder()) {
+            cv.put(ProviderTableMeta.FILE_IS_ENCRYPTED, file.isEncrypted());
             cv.put(ProviderTableMeta.FILE_STORAGE_PATH, file.getStoragePath());
         }
         cv.put(ProviderTableMeta.FILE_ACCOUNT_OWNER, mAccount.name);
