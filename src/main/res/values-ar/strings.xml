@@ -47,6 +47,7 @@
     <string name="prefs_log_delete_history_button">حذف البيانات التاريخية</string>
     <string name="prefs_calendar_contacts">مزامنة التقويم &amp; جهات الاتصال</string>
     <string name="prefs_calendar_contacts_summary">اعداد دافرويد (+v1.3.0) للحساب الحالى </string>
+    <string name="prefs_calendar_contacts_address_resolve_error">لم يمكن التعرف على عنوان الخداوم الخاص بالحساب لـDAVdroid</string>
     <string name="prefs_calendar_contacts_no_store_error">كلا من تطبيقي أف-دويد و متجر غوغل عير منصبين</string>
     <string name="prefs_daily_contacts_sync_summary">نسخ أحتياطي يومي لجهات الإتصال</string>
     <string name="prefs_help">المساعدة</string>
@@ -86,6 +87,7 @@
     <string name="file_list_seconds_ago">منذ ثواني</string>
     <string name="file_list_empty_headline">لا يوجد ملفات هنا </string>
     <string name="folder_list_empty_headline">لا توجد مجلدات</string>
+    <string name="file_list_empty">قم برفع بعض المحتوى أو زامن مع أجهزتك</string>
     <string name="file_list_loading">Lعملية التحميل جارية &#8230;</string>
     <string name="local_file_list_empty">لا توجد ملفات في هذا المجلد</string>
     <string name="file_list_empty_headline_search">لم يتم العثور على أية بيانات في هذا المجلد</string>
