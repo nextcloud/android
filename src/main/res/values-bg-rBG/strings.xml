@@ -50,7 +50,7 @@
     <string name="prefs_calendar_contacts_address_resolve_error">Сървърния адрес за акаунта не може да бъде намерен.</string>
     <string name="prefs_calendar_contacts_no_store_error">Нито F-Droid, нито Google play са инсталирани</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Синхронизиране на календар и контакти</string>
-    <string name="prefs_daily_contacts_sync_summary">Зареждане на вашите контакти ...</string>
+    <string name="prefs_daily_contacts_sync_summary">Зареждане на вашите контакти&#8230;</string>
     <string name="prefs_help">Помощ</string>
     <string name="prefs_recommend">Препоръчай на приятел</string>
     <string name="prefs_feedback">Обратна връзка</string>
