@@ -555,6 +555,7 @@
     <string name="welcome_feature_3_title">Auto-opplasting</string>
     <string name="welcome_feature_3_text">Hold bildene dine trygge</string>
 
+    <string name="whats_new_ipv6_title">IPv6-støtte</string>
     <string name="whats_new_skip">Hopp over</string>
 
     <string name="fingerprint_scan_finger">Skann fingeren din</string>
