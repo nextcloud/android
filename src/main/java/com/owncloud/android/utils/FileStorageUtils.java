@@ -217,7 +217,7 @@ public class FileStorageUtils {
      * @return Size in bytes
      */
     public static long getFolderSize(File dir) {
-        if (dir.exists()) {
+        if (dir.exists() && dir.isDirectory() && dir.listFiles() != null) {
             long result = 0;
             for (File f : dir.listFiles()) {
                 if (f.isDirectory()) {
