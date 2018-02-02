@@ -598,6 +598,8 @@
     <string name="welcome_feature_3_title">Автоматическая загрузка</string>
     <string name="welcome_feature_3_text">Держите ваши фотографии в безопасности</string>
 
+    <string name="whats_new_end_to_end_encryption_title">Оконечное шифрование</string>
+    <string name="whats_new_ipv6_title">Поддержка протокола IPv6</string>
     <string name="whats_new_skip">Пропустить</string>
 
     <string name="fingerprint_scan_finger">Приложите палец</string>
@@ -724,6 +726,8 @@
     <string name="notification_channel_media_description">Состояние воспроизведения музыки</string>
     <string name="notification_channel_file_sync_name">Синхронизация файлов</string>
     <string name="notification_channel_file_sync_description">Показывает состояние и результаты синхронизации файлов </string>
+    <string name="notification_channel_file_observer_description">Отслеживание изменений файлов</string>
+  
     <string name="account_not_found">Учётная запись не найдена!</string>
 
     <string name="screenshot_01_gridView">Надёжный дом для всех ваших данных</string>
