@@ -190,7 +190,14 @@ public class FileDisplayActivity extends HookActivity
         /// grant that FileObserverService is watching favorite files
         if (savedInstanceState == null) {
             Intent initObserversIntent = FileObserverService.makeInitIntent(this);
-            startService(initObserversIntent);
+
+            if (FileObserverService.shouldStart()) {
+                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+                    this.startForegroundService(initObserversIntent);
+                } else {
+                    this.startService(initObserversIntent);
+                }
+            }
         }
 
         /// Load of saved instance state
