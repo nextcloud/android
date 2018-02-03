@@ -52,10 +52,12 @@ public class BootupBroadcastReceiver extends BroadcastReceiver {
             Log_OC.d(TAG, "Starting file observer service...");
             Intent initObservers = FileObserverService.makeInitIntent(context);
 
-            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-                context.startForegroundService(initObservers);
-            } else {
-                context.startService(initObservers);
+            if (FileObserverService.shouldStart()) {
+                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+                    context.startForegroundService(initObservers);
+                } else {
+                    context.startService(initObservers);
+                }
             }
 
             MainApp.initAutoUpload();
