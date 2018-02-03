@@ -73,6 +73,7 @@
         android:theme="@style/Theme.ownCloud.Toolbar"
         android:networkSecurityConfig="@xml/network_security_config"
         android:supportsRtl="true"
+        android:installLocation="internalOnly"
         android:manageSpaceActivity="com.owncloud.android.ui.activity.ManageSpaceActivity">
         <activity
             android:name=".ui.activity.FileDisplayActivity"
