@@ -94,6 +94,29 @@ public class FileObserverService extends Service {
         return i;
     }
 
+    public static boolean shouldStart() {
+
+        // query for any favorite file in any OC account
+        Cursor cursorOnKeptInSync = MainApp.getAppContext().getContentResolver().query(
+                ProviderTableMeta.CONTENT_URI,
+                null,
+                ProviderTableMeta.FILE_KEEP_IN_SYNC + " = ?",
+                new String[]{String.valueOf(1)},
+                null
+        );
+
+        boolean returnValue = false;
+        if (cursorOnKeptInSync != null && cursorOnKeptInSync.moveToFirst()) {
+            returnValue = true;
+        }
+
+        if (cursorOnKeptInSync != null) {
+            cursorOnKeptInSync.close();
+        }
+
+        return returnValue;
+    }
+
     /**
      * Factory method to create intents that allow to start or stop the
      * observance of a file.
