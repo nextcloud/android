@@ -729,7 +729,12 @@ public class FileOperationsHelper {
                     file,
                     mFileActivity.getAccount(),
                     isAvailableOffline);
-            mFileActivity.startService(observedFileIntent);
+
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+                mFileActivity.startForegroundService(observedFileIntent);
+            } else {
+                mFileActivity.startService(observedFileIntent);
+            }
 
             /// immediate content synchronization
             if (file.isAvailableOffline()) {
