@@ -294,6 +294,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
         }
 
         item = menu.findItem(R.id.action_send_share_file);
+        ThemeUtils.tintDrawable(item.getIcon(), ThemeUtils.fontColor());
         item.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
 
         if(getFile().isSharedWithMe() && !getFile().canReshare()){
