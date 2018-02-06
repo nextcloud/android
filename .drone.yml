@@ -53,7 +53,7 @@ pipeline:
       when:
         event: push
         status: failure
-        branch: master
+        branch: stable-3.0.x
 
 matrix:
   FLAVOUR:
@@ -61,4 +61,4 @@ matrix:
     - Gplay
     - Lint
 
-branches: master
+branches: stable-3.0.x
