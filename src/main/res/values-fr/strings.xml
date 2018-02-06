@@ -493,6 +493,8 @@ Attention la suppression est irréversible.</string>
     <string name="share_email_clarification">%1$s (courriel)</string>
     <string name="share_known_remote_clarification">%1$s (sur %2$s)</string>
 
+    <string name="share_sharee_unavailable">Désolé, la version du serveur n\'autorise pas le partage entre utilisateurs depuis leur client.
+Veuillez contacter votre administrateur</string>
     <string name="filedetails_share_link_enable">Partage par lien activé</string>
     <string name="filedetails_share_link_disable">Aucun partage par lien</string>
     <string name="filedetails_share_users_with_access">Utilisateurs et groupes ayant accès</string>
@@ -586,6 +588,7 @@ Attention la suppression est irréversible.</string>
     <string name="welcome_feature_3_text">Conservez vos photos en toute sécurité</string>
 
     <string name="whats_new_end_to_end_encryption_title">Chiffrement de bout en bout</string>
+    <string name="whats_new_end_to_end_encryption_content">Choisissez quels dossiers à chiffrer depuis n\'importe quel client. Ajoutez facilement de nouveaux appareils en utilisant votre phrase secrète à 12 mots</string>
     <string name="whats_new_resized_images_title">Image adaptée à l\'écran</string>
     <string name="whats_new_ipv6_title">Prise en charge de l\'IPV6</string>
     <string name="whats_new_ipv6_content">Fonctionne maintenant correctement avec les serveurs supportant l\'IPV6, tout en prenant en charge également l\'IPV4</string>
@@ -713,6 +716,8 @@ Attention la suppression est irréversible.</string>
     <string name="notification_channel_file_sync_name">Synchronisation de fichier</string>
     <string name="notification_channel_file_sync_description">Afficher les résultats et la progression de synchronisation du fichier</string>
     <string name="notification_channel_file_observer_name">Explorateur de fichier</string>
+    <string name="notification_channel_file_observer_description">Recherche des changements de fichiers</string>
+  
     <string name="account_not_found">Compte introuvable !</string>
 
     <string name="screenshot_01_gridView">Un lieu sûr pour toutes vos données</string>
@@ -733,10 +738,14 @@ Attention la suppression est irréversible.</string>
     <string name="end_to_end_encryption_retrieving_keys">Récupération des clés&#8230;</string>
     <string name="end_to_end_encryption_enter_password">Veuillez entrer le mot de passe pour décrypter la clé privée.</string>
     <string name="end_to_end_encryption_generating_keys">Générer des nouvelles clés&#8230;</string>
+    <string name="end_to_end_encryption_keywords_description">Cette phrase de 12 mots est un mot de passe très fort permettant un accès à la lecture et à l\'utilisation de vos fichiers chiffrés. Veuillez l\'écrire et gardez la quelque-part en sécurité.</string>
     <string name="end_to_end_encryption_title">Configurer le chiffrement</string>
+    <string name="end_to_end_encryption_passphrase_title">Veuillez noter votre phrase secrète de chiffrement de 12 mots</string>
+    <string name="end_to_end_encryption_not_supported">Le chiffrement ne marche uniquement sur les versions KitKat (4.4) et plus</string>
     <string name="end_to_end_encryption_confirm_button">Configurer le chiffrement</string>
     <string name="end_to_end_encryption_password">Mot de passe&#8230;</string>
     <string name="end_to_end_encryption_unsuccessful">Enregistrement des clés impossible, veuillez réessayer.</string>
     <string name="end_to_end_encryption_dialog_close">Fermer</string>
     <string name="end_to_end_encryption_storing_keys">Enregistrement des clés</string>
+    <string name="copy_move_to_encrypted_folder_not_supported">Copier/déplacer dans ce dossier chiffré n\'est pas actuellement supporté</string>
     </resources>

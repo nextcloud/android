@@ -590,6 +590,13 @@ Lépj kapcsolatba a rendszergazdával</string>
     <string name="welcome_feature_3_title">Autofeltöltés</string>
     <string name="welcome_feature_3_text">Tartsd biztonságban a fotóidat</string>
 
+    <string name="whats_new_end_to_end_encryption_title">Vég-vég titkosítás</string>
+    <string name="whats_new_end_to_end_encryption_content">Válaszd ki mely mappák legyenek titkosítva, bármely kliensről. Könnyedén hozzáadhatsz eszközöket a 12 szavas jelszó segítségével.</string>
+    <string name="whats_new_resized_images_title">Képernyőre optimalizált képek</string>
+    <string name="whats_new_resized_images_content">Kisebb méret mutatása alapértelmezetten, mivel kevesebb adatot fogyaszt és jól működik a küldés  &amp;megosztás során. A teles változatot is letöltheted nagyításkor.</string>
+    <string name="whats_new_ipv6_title">IPv6 támogatás</string>
+    <string name="whats_new_ipv6_content">Mostantól jól működik IPv6-ot támogató szerverekkel, az IPv4 támogatás megtartása mellett.</string>
+
     <string name="whats_new_skip">Kihagy</string>
 
     <string name="fingerprint_scan_finger">Kérlek húzd le az ujjad</string>
@@ -735,6 +742,9 @@ A Nextcloud itt érhető el: https://nextcloud.com</string>
     <string name="notification_channel_media_description">Zene lejátszó folyamatai</string>
     <string name="notification_channel_file_sync_name">Fájl szinkronizálás</string>
     <string name="notification_channel_file_sync_description">Mutassa a fájl szinkronizációt és eredményeit</string>
+    <string name="notification_channel_file_observer_name">Fájlmegfigyelő</string>
+    <string name="notification_channel_file_observer_description">Fájlok változásait figyeli</string>
+  
     <string name="account_not_found">Fiók nem található!</string>
 
     <string name="screenshot_01_gridView">Egy biztonságos hely az adataidnak</string>
@@ -765,4 +775,5 @@ A Nextcloud itt érhető el: https://nextcloud.com</string>
     <string name="end_to_end_encryption_dialog_close">Bezár</string>
     <string name="end_to_end_encryption_storing_keys">Kulcsok eltárolása</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Másolás/mozgatás titkosított mappába jelenleg nem támogatott.</string>
-    </resources>
+    <string name="untrusted_domain">Megbízhatatlan domainen keresztüli hozzáférés. Tekintsd meg a dokumentációt további információkért.</string>
+</resources>
