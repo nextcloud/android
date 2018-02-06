@@ -38,11 +38,13 @@ import android.graphics.drawable.PictureDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.Snackbar;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
+import android.text.TextUtils;
 import android.text.format.DateUtils;
 import android.text.style.StyleSpan;
 import android.view.Menu;
@@ -188,8 +190,8 @@ public class DisplayUtils {
      * @param url to be beautified url
      * @return beautified url
      */
-    public static String beautifyURL(String url) {
-        if (url == null) {
+    public static String beautifyURL(@Nullable String url) {
+        if (TextUtils.isEmpty(url)) {
             return "";
         }
 
@@ -210,8 +212,8 @@ public class DisplayUtils {
      * @param handle to be beautified twitter handle
      * @return beautified twitter handle
      */
-    public static String beautifyTwitterHandle(String handle) {
-        if (handle == null) {
+    public static String beautifyTwitterHandle(@Nullable String handle) {
+        if (TextUtils.isEmpty(handle)) {
             return "";
         }
 
