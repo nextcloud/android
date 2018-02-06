@@ -199,7 +199,8 @@ public class AccountUtils {
      * @return              Version of the OC server corresponding to account, according to the data saved
      *                      in the system AccountManager
      */
-    public static OwnCloudVersion getServerVersion(Account account) {
+    public static @Nullable
+    OwnCloudVersion getServerVersion(Account account) {
         OwnCloudVersion serverVersion = null;
         if (account != null) {
             AccountManager accountMgr = AccountManager.get(MainApp.getAppContext());
