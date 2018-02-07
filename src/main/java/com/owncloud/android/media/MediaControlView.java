@@ -1,4 +1,4 @@
-/**
+/*
  * ownCloud Android client application
  *
  * @author David A. Velasco
@@ -55,12 +55,10 @@ import java.util.Locale;
  * It synchronizes itself with the state of the 
  * {@link MediaPlayer}.
  */
-
 public class MediaControlView extends FrameLayout /* implements OnLayoutChangeListener, OnTouchListener */ implements OnClickListener, OnSeekBarChangeListener {
     private static final String TAG = MediaControlView.class.getSimpleName();
 
     private MediaPlayerControl mPlayer;
-    private Context mContext;
     private View mRoot;
     private ProgressBar mProgress;
     private TextView mEndTime, mCurrentTime;
@@ -72,13 +70,12 @@ public class MediaControlView extends FrameLayout /* implements OnLayoutChangeLi
 
     public MediaControlView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        mContext = context;
 
         FrameLayout.LayoutParams frameParams = new FrameLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.MATCH_PARENT
         );
-        LayoutInflater inflate = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        LayoutInflater inflate = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         mRoot = inflate.inflate(R.layout.media_control, null);
         initControllerView(mRoot);
         addView(mRoot, frameParams);
@@ -205,23 +202,23 @@ public class MediaControlView extends FrameLayout /* implements OnLayoutChangeLi
 
 
     private void initControllerView(View v) {
-        mPauseButton = (ImageButton) v.findViewById(R.id.playBtn);
+        mPauseButton = v.findViewById(R.id.playBtn);
         if (mPauseButton != null) {
             mPauseButton.requestFocus();
             mPauseButton.setOnClickListener(this);
         }
 
-        mFfwdButton = (ImageButton) v.findViewById(R.id.forwardBtn);
+        mFfwdButton = v.findViewById(R.id.forwardBtn);
         if (mFfwdButton != null) {
             mFfwdButton.setOnClickListener(this);
         }
 
-        mRewButton = (ImageButton) v.findViewById(R.id.rewindBtn);
+        mRewButton = v.findViewById(R.id.rewindBtn);
         if (mRewButton != null) {
             mRewButton.setOnClickListener(this);
         }
 
-        mProgress = (ProgressBar) v.findViewById(R.id.progressBar);
+        mProgress = v.findViewById(R.id.progressBar);
         if (mProgress != null) {
             if (mProgress instanceof SeekBar) {
                 SeekBar seeker = (SeekBar) mProgress;
@@ -233,10 +230,9 @@ public class MediaControlView extends FrameLayout /* implements OnLayoutChangeLi
             mProgress.setMax(1000);
         }
 
-        mEndTime = (TextView) v.findViewById(R.id.totalTimeText);
-        mCurrentTime = (TextView) v.findViewById(R.id.currentTimeText);
+        mEndTime = v.findViewById(R.id.totalTimeText);
+        mCurrentTime = v.findViewById(R.id.currentTimeText);
     }
-
 
     /**
      * Disable pause or seek buttons if the stream cannot be paused or seeked.

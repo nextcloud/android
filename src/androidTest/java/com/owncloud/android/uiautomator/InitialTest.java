@@ -132,18 +132,6 @@ public class InitialTest {
     }
 
     /**
-     * Helper to click on objects that match the content-description text.
-     *
-     * @param description the description
-     * @throws UiObjectNotFoundException
-     */
-    private void clickByDescription(String description) throws UiObjectNotFoundException {
-        UiDevice device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
-        UiObject obj = device.findObject(new UiSelector().description(description));
-        obj.clickAndWaitForNewWindow();
-    }
-
-    /**
      * Helper to click on object that match the text value.
      *
      * @param text the text

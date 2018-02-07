@@ -1,4 +1,4 @@
-/**
+/*
  *   ownCloud Android client application
  *
  *   @author Bartek Przybylski
@@ -294,18 +294,17 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
         }
 
         item = menu.findItem(R.id.action_send_share_file);
-        ThemeUtils.tintDrawable(item.getIcon(), ThemeUtils.fontColor());
-        item.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+        if (item != null) {
+            ThemeUtils.tintDrawable(item.getIcon(), ThemeUtils.fontColor());
+            item.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+            if (getFile().isSharedWithMe() && !getFile().canReshare()) {
+                // additional restriction for this fragment
 
-        if(getFile().isSharedWithMe() && !getFile().canReshare()){
-            // additional restriction for this fragment
-            if(item != null){
                 item.setVisible(false);
                 item.setEnabled(false);
             }
         }
     }
-
 
     /**
      * {@inheritDoc}

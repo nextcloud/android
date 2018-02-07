@@ -87,7 +87,6 @@ public class PreviewMediaFragment extends FileFragment implements
     private static final String EXTRA_PLAY_POSITION = "PLAY_POSITION";
     private static final String EXTRA_PLAYING = "PLAYING";
 
-    private View mView;
     private Account mAccount;
     private ImageView mImagePreview;
     private VideoView mVideoPreview;
@@ -105,7 +104,6 @@ public class PreviewMediaFragment extends FileFragment implements
     private MediaServiceBinder mMediaServiceBinder = null;
     private MediaControlView mMediaController = null;
     private MediaServiceConnection mMediaServiceConnection = null;
-    private VideoHelper mVideoHelper;
     private boolean mAutoplay;
     private static boolean mOnResume = false;
     public boolean mPrepared;
@@ -186,19 +184,19 @@ public class PreviewMediaFragment extends FileFragment implements
         Log_OC.v(TAG, "onCreateView");
 
 
-        mView = inflater.inflate(R.layout.file_preview, container, false);
+        View view = inflater.inflate(R.layout.file_preview, container, false);
 
-        mPreviewContainer = mView.findViewById(R.id.file_preview_container);
-        mImagePreview = mView.findViewById(R.id.image_preview);
-        mVideoPreview = mView.findViewById(R.id.video_preview);
+        mPreviewContainer = view.findViewById(R.id.file_preview_container);
+        mImagePreview = view.findViewById(R.id.image_preview);
+        mVideoPreview = view.findViewById(R.id.video_preview);
         mVideoPreview.setOnTouchListener(this);
 
-        mMediaController = mView.findViewById(R.id.media_controller);
-        mMultiView = mView.findViewById(R.id.multi_view);
+        mMediaController = view.findViewById(R.id.media_controller);
+        mMultiView = view.findViewById(R.id.multi_view);
 
-        setupMultiView(mView);
+        setupMultiView(view);
         setMultiListLoadingMessage();
-        return mView;
+        return view;
     }
 
 
@@ -491,10 +489,10 @@ public class PreviewMediaFragment extends FileFragment implements
 
     private void prepareVideo() {
         // create helper to get more control on the playback
-        mVideoHelper = new VideoHelper();
-        mVideoPreview.setOnPreparedListener(mVideoHelper);
-        mVideoPreview.setOnCompletionListener(mVideoHelper);
-        mVideoPreview.setOnErrorListener(mVideoHelper);
+        VideoHelper videoHelper = new VideoHelper();
+        mVideoPreview.setOnPreparedListener(videoHelper);
+        mVideoPreview.setOnCompletionListener(videoHelper);
+        mVideoPreview.setOnErrorListener(videoHelper);
     }
 
     @SuppressWarnings("static-access")
