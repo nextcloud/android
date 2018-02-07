@@ -209,7 +209,7 @@ public class FilesystemDataProvider {
         return dataSet;
     }
 
-    private static long getFileChecksum(String filepath) {
+    private long getFileChecksum(String filepath) {
 
         InputStream inputStream = null;
         try {
