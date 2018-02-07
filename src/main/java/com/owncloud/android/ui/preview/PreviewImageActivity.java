@@ -68,8 +68,7 @@ public class PreviewImageActivity extends FileActivity implements
         ViewPager.OnPageChangeListener, OnRemoteOperationListener {
 
     public static final String TAG = PreviewImageActivity.class.getSimpleName();
-    
-    public static final String KEY_WAITING_TO_PREVIEW = "WAITING_TO_PREVIEW";
+
     private static final String KEY_WAITING_FOR_BINDER = "WAITING_FOR_BINDER";
     private static final String KEY_SYSTEM_VISIBLE = "TRUE";
 

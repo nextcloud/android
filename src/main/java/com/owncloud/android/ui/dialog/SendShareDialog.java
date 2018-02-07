@@ -51,7 +51,6 @@ import java.util.List;
  * You should have received a copy of the GNU Affero General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-
 public class SendShareDialog extends BottomSheetDialogFragment {
 
     private static final String KEY_OCFILE = "KEY_OCFILE";
@@ -62,7 +61,6 @@ public class SendShareDialog extends BottomSheetDialogFragment {
     private View view;
     private OCFile file;
     private FileOperationsHelper fileOperationsHelper;
-    private FileDisplayActivity fileDisplayActivity;
 
     public static SendShareDialog newInstance(OCFile file) {
 

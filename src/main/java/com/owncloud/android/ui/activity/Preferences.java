@@ -109,7 +109,6 @@ public class Preferences extends PreferenceActivity
     private SwitchPreference fPrint;
     private SwitchPreference mShowHiddenFiles;
     private SwitchPreference mExpertMode;
-    private Preference pAboutApp;
     private AppCompatDelegate mDelegate;
 
     private ListPreference mPrefStoragePath;
@@ -208,7 +207,7 @@ public class Preferences extends PreferenceActivity
                 accentColor));
 
         /* About App */
-        pAboutApp = findPreference("about_app");
+        Preference pAboutApp = findPreference("about_app");
         if (pAboutApp != null) {
             pAboutApp.setTitle(String.format(getString(R.string.about_android), getString(R.string.app_name)));
             pAboutApp.setSummary(String.format(getString(R.string.about_version), appVersion));
