@@ -280,7 +280,7 @@
     <string name="remove_fail_msg">Deletion failed</string>
     <string name="rename_dialog_title">Enter a new name</string>
     <string name="rename_local_fail_msg">Local copy could not be renamed, try a different name</string>
-    <string name="rename_server_fail_msg">Could not give server new name</string>
+    <string name="rename_server_fail_msg">Renaming not possible, name already taken</string>
     <string name="sync_file_nothing_to_do_msg">File contents already synchronized</string>
     <string name="create_dir_fail_msg">Could not create folder</string>
     <string name="filename_forbidden_characters">Forbidden characters: / \\ &lt; &gt; : " | ? *</string>
