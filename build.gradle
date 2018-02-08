@@ -78,8 +78,8 @@ android {
 
         multiDexEnabled true
 
-        versionCode = 30000003
-        versionName = "3.0.0 RC3"
+        versionCode = 30000099
+        versionName = "3.0.0"
 
         // adapt structure from Eclipse to Gradle/Android Studio expectations;
         // see http://tools.android.com/tech-docs/new-build-system/user-guide#TOC-Configuring-the-Structure
