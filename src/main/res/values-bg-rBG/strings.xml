@@ -241,33 +241,62 @@
 	<string name="auth_timeout_title">Сървърът се забави прекалено много с отговора</string>
 	<string name="auth_incorrect_address_title">Грешен формат на адреса на сървъра</string>
 	<string name="auth_ssl_general_error_title">Неуспешна инициализация на SSL</string>
+	<string name="auth_ssl_unverified_server_title">Не може да потвърди самоличността на сървъра</string>
 	<string name="auth_bad_oc_version_title">Неизвестна версия на сървъра</string>
 	<string name="auth_wrong_connection_title">Не може да се осъществи връзка</string>
 	<string name="auth_secure_connection">Осъществена е сигурна връзка.</string>
 	<string name="auth_unauthorized">Грешно потребителско име или парола</string>
 	<string name="auth_oauth_error">Неуспешна оторизация</string>
 	<string name="auth_oauth_error_access_denied">Достъпът е отказан от оторизиращия сървър</string>
+	<string name="auth_wtf_reenter_URL">Неочаквано състояние. Моля, въведете адреса на сървъра отново</string>
 	<string name="auth_expired_oauth_token_toast">Оторизацията изтече. Моля, оторизирайте се отново.</string>
 	<string name="auth_expired_basic_auth_toast">Моля въведете текущата парола</string>
 	<string name="auth_expired_saml_sso_token_toast">Сесията изтече. Моля, свържете се отново</string>
-    <string name="auth_unsupported_multiaccount">%1$s не поддържа множество профили</string>
+    <string name="auth_connecting_auth_server">Свързване към сървър за идентификация &#8230;</string>
+	<string name="auth_unsupported_multiaccount">%1$s не поддържа множество профили</string>
+	<string name="auth_fail_get_user_name">Вашият сървър не връща правилен потребителски индентификатор. Моля, свържете се с администратора</string>
 	<string name="auth_can_not_auth_against_server">Неуспешно идентифициране към сървъра</string>
+    <string name="auth_account_does_not_exist">Профилът все още не съществува на устройството</string>
+    <string name="auth_access_failed">Влизането беше неуспешно</string>
+
     <string name="favorite">Задай като достъпна офлайн</string>
     <string name="unfavorite">Отмяна като достъпна офлайн</string>
+    <string name="favorite_real">Сложи като любим</string>
+    <string name="unset_favorite_real">Премахни от любими</string>
+    <string name="favorite_switch">Достъпно онлайн</string>
+    <string name="encrypted">Включване на криптиране</string>
+    <string name="unset_encrypted">Премахни криптиране</string>
     <string name="common_rename">Преименуване</string>
+    <string name="common_remove">Изтриване</string>
+    <string name="confirmation_remove_file_alert">Наистина ли искате да изтриете %1$s ?</string>
+    <string name="confirmation_remove_folder_alert">Наистина ли желаете %1$s и съдържанието им да бъдат изтрити?</string>
     <string name="confirmation_remove_local">Само локално</string>
+    <string name="remove_success_msg">Изтрито</string>
+    <string name="remove_fail_msg">Изтриването неуспешно</string>
     <string name="rename_dialog_title">Въведете ново име</string>
+    <string name="rename_local_fail_msg">Локално копие не може да бъде преименувано; опитайте с друго име</string>
+    <string name="rename_server_fail_msg">Сървърът не може да бъде преименуван</string>
     <string name="sync_file_nothing_to_do_msg">Съдържанието на файла е вече синхронизирано</string>
+    <string name="create_dir_fail_msg">Не може да се създаде папка</string>
     <string name="filename_forbidden_characters">Забранени символи: / \\ &lt; &gt; : \" | ? *</string>
+    <string name="filename_forbidden_charaters_from_server">Името на файла съдържа поне един невалиден символ</string>
+    <string name="filename_empty">Името на файла не може да бъде празно</string>
+    <string name="wait_a_moment">Зареждане на данни &#8230;</string>
     <string name="wait_checking_credentials">Проверка на съхранените пълномощия</string>
+    <string name="filedisplay_no_file_selected">Не сте избрали файл</string>
     <string name="activity_chooser_title">Изпращане на връзката чрез &#8230;</string>
     <string name="wait_for_tmp_copy_from_private_storage">Копиране на файла от личното хранилище</string>
     
+    <string name="oauth_check_onoff">Влизане с OAuto 2.0</string>
+    <string name="oauth_login_connection">Свързване към OAuth 2.0 server &#8230;</string>
+        
+    <string name="ssl_validator_header">Самоличността на сървъра не може да бъде потвърдена</string>
     <string name="ssl_validator_reason_cert_not_trusted">- Сертификатът на сървъра не е надежден</string>
     <string name="ssl_validator_reason_cert_expired">- Сертификатът на сървъра е изтекъл</string>
     <string name="ssl_validator_reason_cert_not_yet_valid">- Датите на валидност на сървърния сертификат са в бъдещето</string>
     <string name="ssl_validator_reason_hostname_not_verified">- URL адресът не съвпада с името на сървъра от сертификата</string>
     <string name="ssl_validator_question">Желаете ли да се доверите на сертификата, въпреки това?</string>
+    <string name="ssl_validator_not_saved">Неуспешно запазване на сертификат</string>
     <string name="ssl_validator_btn_details_see">Детайли</string>
     <string name="ssl_validator_btn_details_hide">Скриване</string>
     <string name="ssl_validator_label_subject">Издаден на:</string>
@@ -291,24 +320,38 @@
 
     <string name="placeholder_sentence">Това е за запазено място</string>
     <string name="placeholder_filename">placeholder.txt</string>
+    <string name="placeholder_fileSize">389 KB</string>
     <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
     <string name="placeholder_media_time">12:23:45</string>
 
+    <string name="auto_upload_on_wifi">Качване само при Wi-Fi връзка</string>
+    <string name="instant_upload_on_charging">Качвай само при зареждане</string>
     <string name="instant_upload_path">/InstantUpload</string>
+    <string name="auto_upload_path">/AutoUpload</string>
     <string name="conflict_title">Файлов конфликт</string>
+    <string name="conflict_message">Кои файлове желаете да запазите? Ако изберете и двете версии, към името на локалния файл ще бъде добавено число.</string>
     <string name="conflict_keep_both">Запазване и на двата</string>
     <string name="conflict_use_local_version">локалната версия</string>
     <string name="conflict_use_server_version">версията на сървъра</string>
 
+    <string name="preview_sorry">Извиняваме се </string>
     <string name="preview_image_description">Преглед на изображението</string>
+    <string name="preview_image_error_unknown_format">Съобщението не може да бъде показано</string>
+    <string name="preview_image_error_no_local_file">Няма локален файл за преглед</string>
+
     <string name="error__upload__local_file_not_copied">%1$s не може да бъде копиран в локалната папка %2$s</string>
+    <string name="prefs_synced_folders_local_path_title">Локална папка</string>
+    <string name="prefs_synced_folders_remote_path_title">Отдалечена папка</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Ползване на подпапки</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Съхраняване в подпапки, разделени по година и месец</string>
 
+	<string name="share_link_no_support_share_api">За съжаление споделянето не е включено на сървъра ви. 
+Моля, свържете се с администратора.</string>
 	<string name="share_link_file_no_exist">Неуспешен опит за споделяне. Моля, проверете съществува ли файла</string>
 	<string name="share_link_file_error">Възникна грешка при опита за споделяне на файл или папка</string>
 	<string name="unshare_link_file_no_exist">Неуспешен опит за прекратяване на споделянето. Проверете съществува ли файла</string>
 	<string name="unshare_link_file_error">Възникна грешка при опита за прекратяване на споделянето на файл или папка</string>
+    <string name="update_link_file_no_exist">Обновяването беше неуспешно. Моля, проверете дали файлът съществува</string>
     <string name="update_link_file_error">Възникна грешка при опита за обновяване на споделянето</string>
     <string name="share_link_password_title">Въведете парола</string>
     <string name="share_link_empty_password">Трябва да въведете парола</string>
