@@ -1,19 +1,18 @@
-L'application Open Source Nextcloud Android vous permet d'accéder à tous vos fichiers stockés sur Nextcloud.
+L'application, libre de copie, Nextcloud pour Android, vous donne accès à tous les fichiers dans votre Nextcloud.
+Fonctionnalitées :
+* Interface moderne et simple d'utilisation, adapté au thème de votre serveur
+* Envoyer des fichiers sur votre serveur Nextcloud
+* Partage de fichiers avec d'autres personnes
+* Conserver vos fichiers et dossiers favoris synchronisés
+* Rechercher parmis tout vos dossiers sur votre serveur
+* Envoi automatisé de vos photos et vidéos prises sur vos appareils
+* Rester à jour avec vos notifications
+* Utilisation de plusieurs comptes
+* Accès sécurisé à vos données avec votre empreinte digitale ou code PIN
+* Intégration avec DAVdroid pour une synchronisation facile des contacts & agenda
 
-Fonctionnalités :
-* Interface facile d'utilisation et moderne, personnalisée avec le même thème que celui du serveur
-* Envoyez vos fichiers sur votre serveur Nextcloud
-* Partagez vos fichiers avec d'autres personnes
-* Synchronisez vos fichiers et dossiers favoris
-* Recherchez parmi tous vos dossiers situés sur votre serveur
-* Téléversez automatiquement les photos et vidéos prises avec votre appareil
-* Restez à jour grâce aux notifications
-* Gestion du multi comptes
-* Accès sécurisé à vos données avec votre empreinte digitale ou un code pin
-* Intégration avec DAVdroid pour faciliter l'installation de la synchronisation du Calendrier & des Contacts
+S'il vous plait, rapporter les bogues à l'adresse suivante : https://github.com/nextcloud/android/issues et parler de cette application à l'adresse suivante : https://help.nextcloud.com/c/clients/android
 
-Merci de signaler tout problème sur https://github.com/nextcloud/android/issues et venez discuter de cette application sur https://help.nextcloud.com/c/clients/android
+Nouveau sur Nextcloud? Nextcloud est un serveur privé de synchronisation & partage de fichier, et de communication. C'est un logiciel libre, et vous pouvez héberger vous même ou payez une companie pour le faire pour vous. Vous êtes en total contrôle de vos photos, votre calendrier, vos contacts, vos documents et tout le reste.
 
-Vous découvrez Nextcloud ? Nextcloud est un système de synchronisation de fichiers personnels & un serveur de partage. Ce système est entièrement Open Source. Vous pouvez l'héberger vous-même ou payer une entreprise pour ce service. Vous aurez ainsi le contrôle de vos photos, votre calendrier, vos données de contacts, vos documents et de tout le reste.
-
-Pour en savoir plus, consultez le site Nextcloud sur https://nextcloud.com
+Allez voir Nextcloud à l'adresse suivante https://nextcloud.com

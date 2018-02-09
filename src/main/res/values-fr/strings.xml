@@ -189,6 +189,10 @@ Attention la suppression est irréversible.</string>
         <item quantity="other">Impossible de synchroniser %1$d fichiers ( conflits : %2$d)</item>
     </plurals>
     <string name="sync_foreign_files_forgotten_ticker">Certains fichiers locaux ont été ignorés</string>
+    <plurals name="sync_foreign_files_forgotten_content">
+        <item quantity="one">Copie échoué du fichier %1$d depuis le dossier %2$s dans</item>
+        <item quantity="other">Copie échoué des fichiers %1$d depuis le dossier %2$s dans</item>
+    </plurals>
     <string name="sync_foreign_files_forgotten_explanation">Depuis la version 1.3.16, les fichiers envoyés depuis cet appareil sont copiés dans le dossier local %1$s pour éviter une perte de données lorsqu\'un même fichier est synchronisé avec plusieurs comptes.\n\nEn raison de cette modification, tous les fichiers envoyés avec des versions antérieures de cette application ont été copiés dans le dossier %2$s. Cependant, une erreur a empêché l\'achèvement de cette opération pendant la synchronisation du compte. Vous pouvez soit laisser les fichiers tels quels et supprimer le lien vers %3$s, soit déplacer les fichiers dans le dossier %1$s et garder le lien vers %4$s.\n\nCi-dessous la liste des fichiers locaux, et les fichiers distants dans %5$s auxquels ils étaient liés.</string>
     <string name="sync_current_folder_was_removed">Le dossier %1$s n\'existe plus</string>
     <string name="foreign_files_move">Tout déplacer</string>
@@ -590,6 +594,7 @@ Veuillez contacter votre administrateur</string>
     <string name="whats_new_end_to_end_encryption_title">Chiffrement de bout en bout</string>
     <string name="whats_new_end_to_end_encryption_content">Choisissez quels dossiers à chiffrer depuis n\'importe quel client. Ajoutez facilement de nouveaux appareils en utilisant votre phrase secrète à 12 mots</string>
     <string name="whats_new_resized_images_title">Image adaptée à l\'écran</string>
+    <string name="whats_new_resized_images_content">Version plus petite montré par défaut, comme elle sauvegarde les données et fonctionne bien pour l\'envoi &amp; partage. Vous pouvez télécharger le fichier complet sur zooming</string>
     <string name="whats_new_ipv6_title">Prise en charge de l\'IPV6</string>
     <string name="whats_new_ipv6_content">Fonctionne maintenant correctement avec les serveurs supportant l\'IPV6, tout en prenant en charge également l\'IPV4</string>
 
@@ -664,6 +669,8 @@ Veuillez contacter votre administrateur</string>
     <string name="resized_images_download_full_image">Télécharger l\'image originale ?</string>
 
     <string name="store_short_desc">L\'application Android Nextcloud donne un accès mobile à tous les fichiers sur votre Nextcloud</string>
+    <string name="store_full_desc">L\'application, libre de copie, Nextcloud pour Android, vous donne accès à tous les fichiers dans votre Nextcloud.\nFonctionnalitées :\n* Interface moderne et simple d\'utilisation, adapté au thème de votre serveur\n* Envoyer des fichiers sur votre serveur Nextcloud\n* Partage de fichiers avec d\'autres personnes\n* Conserver vos fichiers et dossiers favoris synchronisés\n* Rechercher parmis tout vos dossiers sur votre serveur\n* Envoi automatisé de vos photos et vidéos prises sur vos appareils\n* Rester à jour avec vos notifications\n* Utilisation de plusieurs comptes\n* Accès sécurisé à vos données avec votre empreinte digitale ou code PIN\n* Intégration avec DAVdroid pour une synchronisation facile des contacts &amp; agenda\n\nS\'il vous plait, rapporter les bogues à l\'adresse suivante : https://github.com/nextcloud/android/issues et parler de cette application à l\'adresse suivante : https://help.nextcloud.com/c/clients/android\n\nNouveau sur Nextcloud? Nextcloud est un serveur privé de synchronisation &amp; partage de fichier, et de communication. C\'est un logiciel libre, et vous pouvez héberger vous même ou payez une companie pour le faire pour vous. Vous êtes en total contrôle de vos photos, votre calendrier, vos contacts, vos documents et tout le reste.\n\nAllez voir Nextcloud à l\'adresse suivante https://nextcloud.com</string>
+
     <string name="drawer_current_account">Compte Courrant</string>
     <string name="drawer_middle_account">Compte du milieu</string>
     <string name="drawer_end_account">Dernier compte</string>
@@ -696,6 +703,8 @@ Veuillez contacter votre administrateur</string>
     <string name="what_s_new_image">Image quoi de neuf</string>
 
     <string name="store_short_dev_desc">Nextcloud Dev est une version de travail qui peut être installée en parallèle.</string>
+    <string name="store_full_dev_desc">L\'application, libre de copie, Nextcloud pour Android, vous donne accès à tous les fichiers dans votre Nextcloud.\nC\'est la version officielle de développement, comportant un échantillon quotidien de toutes les nouvelles fonctionnalités non testées, qui peut causer l\'instabilité et la perte de données. L\'application est destinée aux utilisateurs qui souhaitent tester et signaler les bogues s\'ils surviennent. Ne l\'utilisez pas pour votre travail productif ! \n\nLa version officielle de développement et la version régulière sont disponibles sur F-droid, et peuvent être installées en même temps. </string>
+
     <string name="prefs_category_dev">Dév</string>
     <string name="dev_version_no_information_available">Aucune information disponible.</string>
     <string name="dev_version_no_new_version_available">Aucune nouvelle version disponible.</string>
@@ -748,4 +757,5 @@ Veuillez contacter votre administrateur</string>
     <string name="end_to_end_encryption_dialog_close">Fermer</string>
     <string name="end_to_end_encryption_storing_keys">Enregistrement des clés</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Copier/déplacer dans ce dossier chiffré n\'est pas actuellement supporté</string>
-    </resources>
+    <string name="untrusted_domain">Accès depuis un domaine non fiable. S\'il vous plaît consultez la documentation pour plus d\'informations</string>
+</resources>
