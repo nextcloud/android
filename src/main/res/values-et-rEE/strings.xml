@@ -368,8 +368,8 @@
     <string name="share_privilege_can_edit_change">muuda</string>
     <string name="share_privilege_can_edit_delete">kustuta</string>
 
-    <string name="action_switch_grid_view">Võrgustikuvaade</string>
-    <string name="action_switch_list_view">kirjavaade</string>
+    <string name="action_switch_grid_view">Ruudustikvaade</string>
+    <string name="action_switch_list_view">Nimekirjavaade</string>
 
     <string name="manage_space_title">Ruumi haldamine</string>
     <string name="manage_space_clear_data">Tühjenda andmed</string>
