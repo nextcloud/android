@@ -109,7 +109,7 @@
                 android:layout_weight="1"
                 android:paddingStart="@dimen/standard_half_padding"
                 android:paddingLeft="@dimen/standard_half_padding"
-                android:paddingEnd="@dimen/zero"
+                android:paddingEnd="@dimen/standard_half_padding"
                 android:paddingRight="@dimen/zero"
                 android:scrollbars="vertical"
                 android:visibility="gone"/>
