@@ -107,7 +107,6 @@
     <string name="file_list_folder">adresář</string>
     <string name="filedetails_select_file">Více informací získáte klepnutím na soubor.</string>
     <string name="filedetails_download">Stáhnout</string>
-    <string name="filedetails_renamed_in_upload_msg">Soubor byl během nahrávání přejmenován na %1$s</string>
     <string name="list_layout">Náhled seznamu</string>
     <string name="common_yes">Ano</string>
     <string name="common_no">Ne</string>
@@ -245,8 +244,6 @@
     <string name="remove_success_msg">Odstraněno</string>
     <string name="remove_fail_msg">Odstranění se nezdařilo</string>
     <string name="rename_dialog_title">Zadejte nový název</string>
-    <string name="rename_local_fail_msg">Místní kopii nelze přejmenovat, zkuste jiný nový název</string>
-    <string name="rename_server_fail_msg">Přejmenování serveru se nezdařilo</string>
     <string name="sync_file_nothing_to_do_msg">Obsah souboru je již synchronizován</string>
     <string name="create_dir_fail_msg">Nepodařilo se vytvořit složku</string>
     <string name="filename_forbidden_characters">Zakázané znaky: / \\ &lt; &gt; : \" | ? *</string>
@@ -504,9 +501,6 @@
     <string name="upload_file_dialog_filetype_googlemap_shortcut">Soubor zkratky pro Google mapy(%s)</string>
 
     <string name="storage_description_default">Výchozí</string>
-
-    <!-- What's new feature and texts to show -->
-    <string name="whats_new_title">Co je v %1$s nového</string>
 
     <!-- Welcome to Nc intro features -->
     <string name="welcome_feature_1_title">Bezpečné místo pro všechna vaše data</string>

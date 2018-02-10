@@ -112,7 +112,6 @@
     <string name="filedetails_select_file">Trykk på en fil for å vise ekstra informasjon.</string>
     <string name="filedetails_download">Last ned</string>
     <string name="filedetails_sync_file">Synkroniser</string>
-    <string name="filedetails_renamed_in_upload_msg">Filnavnet ble endret til  %1$s under opplasting</string>
     <string name="list_layout">Listevisning</string>
     <string name="action_send_share">Send/del</string>
     <string name="common_yes">Ja</string>
@@ -142,6 +141,8 @@
     <string name="uploader_upload_succeeded_content_single">%1$s lastet opp</string>
     <string name="uploader_upload_failed_ticker">Opplasting mislyktes</string>
     <string name="uploader_upload_failed_content_single">Kunne ikke laste opp %1$s</string>
+    <string name="uploader_upload_failed_credentials_error">Opplasting mislyktes, logg inn igjen</string>
+    <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">Ubetrodd tjenersertifikat</string>
     <string name="uploads_view_title">Opplastinger</string>
     <string name="uploads_view_group_current_uploads">Nåværende</string>
     <string name="uploads_view_group_finished_uploads">Opplastet</string>
@@ -259,8 +260,6 @@
     <string name="remove_success_msg">Slettet</string>
     <string name="remove_fail_msg">Sletting mislyktes</string>
     <string name="rename_dialog_title">Skriv inn et nytt navn</string>
-    <string name="rename_local_fail_msg">Kunne ikke endre navn på lokal kopi, prøv et annet navn</string>
-    <string name="rename_server_fail_msg">Klarte ikke å gi tjeneren nytt navn</string>
     <string name="sync_file_nothing_to_do_msg">filinnhold er allerede synkronisert</string>
     <string name="create_dir_fail_msg">Mappe kunne ikke opprettes</string>
     <string name="filename_forbidden_characters">Forbudte tegn: / \\ &lt; &gt; : \" | ? *</string>
@@ -542,9 +541,6 @@
 
     <string name="storage_description_default">Standard</string>
 
-    <!-- What's new feature and texts to show -->
-    <string name="whats_new_title">Hva er nytt i %1$s</string>
-
     <!-- Welcome to Nc intro features -->
     <string name="welcome_feature_1_title">Et trygt hjem for alle dine data</string>
     <string name="welcome_feature_1_text">Benytt, del og beskytt filene dine hjemme og i din bedrift</string>
@@ -695,7 +691,6 @@
     <string name="end_to_end_encryption_not_supported">Kryptering støttes ikke før Android KitKat (4.4).</string>
     <string name="end_to_end_encryption_confirm_button">Sett opp kryptering</string>
     <string name="end_to_end_encryption_password">Passord&#8230;</string>
-    <string name="end_to_end_encryption_unsuccessful">Nøkler kunne ikke lagres, prøv igjen.</string>
     <string name="end_to_end_encryption_dialog_close">Lukk</string>
     <string name="end_to_end_encryption_storing_keys">Lagrer nøkler</string>
     </resources>

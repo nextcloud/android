@@ -116,7 +116,6 @@
     <string name="filedetails_select_file">Нажмите на файл для отображения дополнительной информации.</string>
     <string name="filedetails_download">Скачать</string>
     <string name="filedetails_sync_file">Синхронизировать</string>
-    <string name="filedetails_renamed_in_upload_msg">Во время передачи на сервер файл был переименован в «%1$s»</string>
     <string name="list_layout">Вид списком</string>
     <string name="action_send_share">Отправить/Открыть доступ</string>
     <string name="common_yes">Да</string>
@@ -282,8 +281,6 @@
     <string name="remove_success_msg">Удалено</string>
     <string name="remove_fail_msg">Ошибка при удалении</string>
     <string name="rename_dialog_title">Введите новое имя</string>
-    <string name="rename_local_fail_msg">Ваша копия не может быть переименована, попробуйте выбрать другое имя</string>
-    <string name="rename_server_fail_msg">Не удалось задать новое серверное имя</string>
     <string name="sync_file_nothing_to_do_msg">Содержимое файла уже синхронизировано</string>
     <string name="create_dir_fail_msg">Не удалось создать каталог</string>
     <string name="filename_forbidden_characters">Недопустимые символы: / \\ &lt; &gt; : \" | ? *</string>
@@ -585,9 +582,6 @@
 
     <string name="storage_description_default">По умолчанию</string>
 
-    <!-- What's new feature and texts to show -->
-    <string name="whats_new_title">Что нового в %1$s</string>
-
     <!-- Welcome to Nc intro features -->
     <string name="welcome_feature_1_title">Надежный дом для всех ваших данных</string>
     <string name="welcome_feature_1_text">Доступ, общий доступ и защита ваших файлов для дома и предприятия</string>
@@ -598,7 +592,6 @@
     <string name="welcome_feature_3_title">Автоматическая загрузка</string>
     <string name="welcome_feature_3_text">Держите ваши фотографии в безопасности</string>
 
-    <string name="whats_new_end_to_end_encryption_title">Оконечное шифрование</string>
     <string name="whats_new_ipv6_title">Поддержка протокола IPv6</string>
     <string name="whats_new_skip">Пропустить</string>
 
@@ -754,9 +747,7 @@
     <string name="end_to_end_encryption_not_supported">Шифрование не поддерживается для версий Android, более ранних чем KitKat (4.4).</string>
     <string name="end_to_end_encryption_confirm_button">Параметры шифрования</string>
     <string name="end_to_end_encryption_password">Пароль&#8230;</string>
-    <string name="end_to_end_encryption_unsuccessful">Не удалось сохранить ключи шифрования, попробуйте ещё раз.</string>
     <string name="end_to_end_encryption_dialog_close">Закрыть</string>
     <string name="end_to_end_encryption_storing_keys">Сохранение ключей</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Копирование и перемещение в зашифрованные папки пока не поддерживается.</string>
-    <string name="untrusted_domain">Доступ через недоверенный домен. За дополнительной информацией обратитесь к документации.</string>
-</resources>
+    </resources>

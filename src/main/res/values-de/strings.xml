@@ -117,7 +117,6 @@
     <string name="filedetails_select_file">Klicke auf eine Datei für weitere Informationen.</string>
     <string name="filedetails_download">Herunterladen</string>
     <string name="filedetails_sync_file">Synchronisation</string>
-    <string name="filedetails_renamed_in_upload_msg">Datei während des Hochladens in %1$s umbenannt</string>
     <string name="list_layout">Layout der Liste</string>
     <string name="action_send_share">Senden/Teilen</string>
     <string name="common_yes">Ja</string>
@@ -279,8 +278,6 @@
     <string name="remove_success_msg">Gelöscht</string>
     <string name="remove_fail_msg">Löschen fehlgeschlagen</string>
     <string name="rename_dialog_title">Gib einen neuen Namen ein</string>
-    <string name="rename_local_fail_msg">Die lokale Kopie konnte nicht umbenannt werden. Versuche es mit einem anderen Namen.</string>
-    <string name="rename_server_fail_msg">Server konnte nicht umbenannt werden</string>
     <string name="sync_file_nothing_to_do_msg">Dateiinhalte bereits synchronisiert</string>
     <string name="create_dir_fail_msg">Verzeichnis konnte nicht erstellt werden</string>
     <string name="filename_forbidden_characters">Verbotene Zeichen: / \\ &lt; &gt; : \" | ? *</string>
@@ -577,9 +574,6 @@
 
     <string name="storage_description_default">Standard</string>
 
-    <!-- What's new feature and texts to show -->
-    <string name="whats_new_title">Neues in %1$s</string>
-
     <!-- Welcome to Nc intro features -->
     <string name="welcome_feature_1_title">Ein sicheres Zuhause für all Deine Daten</string>
     <string name="welcome_feature_1_text">Zugriff, Freigabe &amp; Schutz deiner Dateien zu Hause und in deinem Unternehmen.</string>
@@ -590,13 +584,7 @@
     <string name="welcome_feature_3_title">Automatisches Hochladen</string>
     <string name="welcome_feature_3_text">Schütze deine Fotos</string>
 
-    <string name="whats_new_end_to_end_encryption_title">Ende-zu-Ende Verschlüsselung</string>
-    <string name="whats_new_end_to_end_encryption_content">Wähle aus, welche Ordner verschlüsselt werden sollen, egal von welchem Client aus. Füge einfach unter Verwendung der 12 Worte Phrase neue Geräte hinzu.</string>
-    <string name="whats_new_resized_images_title">Auf Gerät optimierte Bildanzeige</string>
-    <string name="whats_new_resized_images_content">Eine verkleinerte Version wird standardmäßig angezeigt. Dies spart Bandbreite und unterstützt beim Senden &amp; Teilen. Du kannst das Originalbild beim Zoomen herunterladen.</string>
     <string name="whats_new_ipv6_title">IPv6 Unterstützung</string>
-    <string name="whats_new_ipv6_content">Arbeitet nun mit Servern, die IPv6 unterstützen, unterstützt auch gleichzeitig IPv4.</string>
-
     <string name="whats_new_skip">Überspringen</string>
 
     <string name="fingerprint_scan_finger">Bitte scanne Deinen Finger</string>
@@ -729,7 +717,7 @@
     <string name="account_not_found">Kein Konto gefunden</string>
 
     <string name="screenshot_01_gridView">Ein sicheres Zuhause für all Deine Daten</string>
-    <string name="screenshot_02_listView">Durchsuchen und teilen Sie Ihre Daten leicht</string>
+    <string name="screenshot_02_listView">Durchsuchen und teile Deine Daten</string>
     <string name="screenshot_03_drawer">Schnell auf Aktivitäten, Freigaben, Offline-Dateien und mehr zugreifen</string>
     <string name="screenshot_04_accounts">Mit verschiedenen Kontos verbinden</string>
     <string name="screenshot_05_autoUpload">Automatisches Hochladen von Bildern &amp; Videos</string>
@@ -752,9 +740,7 @@
     <string name="end_to_end_encryption_not_supported">Verschlüsselung wird vor KitKat (4.4) nicht unterstützt</string>
     <string name="end_to_end_encryption_confirm_button">Verschlüsselung einrichten</string>
     <string name="end_to_end_encryption_password">Passwort&#8230;</string>
-    <string name="end_to_end_encryption_unsuccessful">Das Speichern der Schlüssel ist fehlgeschlagen, bitte versuche es erneut.</string>
     <string name="end_to_end_encryption_dialog_close">Schließen</string>
     <string name="end_to_end_encryption_storing_keys">Schlüssel speichern</string>
     <string name="copy_move_to_encrypted_folder_not_supported">In verschlüsselten Ordner kopieren/verschieben wird aktuell nicht unterstützt.</string>
-    <string name="untrusted_domain">Zugriff über nicht vertrauenswürdige Domain. Weitere Informationen siehe Dokumentation.</string>
-</resources>
+    </resources>
