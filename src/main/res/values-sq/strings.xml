@@ -116,7 +116,6 @@
     <string name="filedetails_select_file">Prekni mbi një kartelë që të shfaqen të dhëna shtesë.</string>
     <string name="filedetails_download">Shkarkoje</string>
     <string name="filedetails_sync_file">Sinkronizo</string>
-    <string name="filedetails_renamed_in_upload_msg">Skedari u riemërtua %1$s gjatë ngarkimit</string>
     <string name="list_layout">Strukturë e listuar</string>
     <string name="action_send_share">Dërgoje/Shpërndaje</string>
     <string name="common_yes">Po</string>
@@ -278,8 +277,6 @@
     <string name="remove_success_msg">E fshirë</string>
     <string name="remove_fail_msg">Heqja dështoi</string>
     <string name="rename_dialog_title">Jepni një emër të ri</string>
-    <string name="rename_local_fail_msg">Kopja vendore s\’u riemërtua dot; provoni një emër tjetër</string>
-    <string name="rename_server_fail_msg">Serverit nuk mund ti jepej emër i ri</string>
     <string name="sync_file_nothing_to_do_msg">Përmbajtja e skedarit tashmë e sinkronizuar</string>
     <string name="create_dir_fail_msg">S’u krijua dot dosja</string>
     <string name="filename_forbidden_characters">Shenja të ndaluara: / \\ &lt; &gt; : \" | ? *</string>
@@ -575,9 +572,6 @@
 
     <string name="storage_description_default">Paraprake</string>
 
-    <!-- What's new feature and texts to show -->
-    <string name="whats_new_title">Çfarë është e re në %1$s</string>
-
     <!-- Welcome to Nc intro features -->
     <string name="welcome_feature_1_title">Një shtëpi e sigurt për të gjitha të dhënat tuaja</string>
     <string name="welcome_feature_1_text">Akseso, ndaj dhe mbro skedarët e tuaja në shtëpinë dhe organizatën tuaj.</string>
@@ -588,12 +582,7 @@
     <string name="welcome_feature_3_title">Ngarkim i menjëhershëm</string>
     <string name="welcome_feature_3_text">Mbajini fotot të sigurta</string>
 
-    <string name="whats_new_end_to_end_encryption_content">Zgjidhni dosjet për të enkriptuar, të vendosur nga çdo klient. Lehtësisht shtoni pajisje të reja duke përdorur një fjalëkalim me 12 fjalë.</string>
-    <string name="whats_new_resized_images_title">Imazhet e përshtatura me ekranin</string>
-    <string name="whats_new_resized_images_content">Versioni më i vogël është treguar si parazgjedhje, pasi ruan të dhënat dhe punon mire për dërgimin  &amp; ndarjen. Ju mund të shkarkoni të gjithë skedarin në zmadhim.</string>
     <string name="whats_new_ipv6_title">Mbështet IPv6</string>
-    <string name="whats_new_ipv6_content">Tani punon mirë me serverat që mbështesin IPv6, duke përkrahur IPv4 në të njëjtën kohë.</string>
-
     <string name="whats_new_skip">Kalo</string>
 
     <string name="fingerprint_scan_finger">Ju lutemi skanoni gishtin tuaj</string>

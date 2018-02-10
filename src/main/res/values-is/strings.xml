@@ -105,7 +105,6 @@
     <string name="file_list_folder">mappa</string>
     <string name="filedetails_select_file">Bankaðu á skrá til að sjá ítarlegri upplýsingar.</string>
     <string name="filedetails_download">Niðurhal</string>
-    <string name="filedetails_renamed_in_upload_msg">Skrá endurnefnd sem %1$s við innsendingu</string>
     <string name="list_layout">Framsetning sem listi</string>
     <string name="common_yes">Já</string>
     <string name="common_no">Nei</string>
@@ -244,8 +243,6 @@
     <string name="remove_success_msg">Eytt</string>
     <string name="remove_fail_msg">Eyðing mistókst</string>
     <string name="rename_dialog_title">Settu inn nýtt nafn</string>
-    <string name="rename_local_fail_msg">Ekki var hægt að endurnefna staðvært afrit, prófaðu annað heiti</string>
-    <string name="rename_server_fail_msg">Gat ekki gefið þjóni nýtt nafn</string>
     <string name="sync_file_nothing_to_do_msg">Efni skrár er þegar samstillt</string>
     <string name="create_dir_fail_msg">Gat ekki búið til möppu</string>
     <string name="filename_forbidden_characters">Óleyfilegir stafir: / \\ &lt; &gt; : \" | ? *</string>
@@ -496,9 +493,6 @@
     <string name="upload_file_dialog_filetype_googlemap_shortcut">Google Maps flýtileiðarskrá(%s)</string>
 
     <string name="storage_description_default">Sjálfgefið</string>
-
-    <!-- What's new feature and texts to show -->
-    <string name="whats_new_title">Hvað er nýtt í %1$s</string>
 
     <!-- Welcome to Nc intro features -->
     <string name="welcome_feature_1_title">Öruggur staður fyrir öll gögnin þín</string>

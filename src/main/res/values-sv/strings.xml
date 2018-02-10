@@ -107,7 +107,6 @@
     <string name="file_list_folder">mapp</string>
     <string name="filedetails_select_file">Peka på en fil för att visa mer information.</string>
     <string name="filedetails_download">Ladda ned</string>
-    <string name="filedetails_renamed_in_upload_msg">Fil döptes om till %1$s under uppladdning</string>
     <string name="list_layout">Listad layout</string>
     <string name="action_send_share">Skicka/Dela</string>
     <string name="common_yes">Ja</string>
@@ -247,8 +246,6 @@
     <string name="remove_success_msg">Borttagen</string>
     <string name="remove_fail_msg">Radering misslyckades</string>
     <string name="rename_dialog_title">Ange ett nytt namn</string>
-    <string name="rename_local_fail_msg">Den lokala kopian kunde inte döpas om, prova med ett annat namn</string>
-    <string name="rename_server_fail_msg">Kunde inte ge servern ett nytt namn</string>
     <string name="sync_file_nothing_to_do_msg">Filinnehåll redan synkroniserat</string>
     <string name="create_dir_fail_msg">Kunde inte skapa mapp</string>
     <string name="filename_forbidden_characters">Förbjudna tecken är: / \\ &lt; &gt; : \" | ? *</string>
@@ -504,9 +501,6 @@
     <string name="upload_file_dialog_filetype_googlemap_shortcut">Google Kartor-genväg(%s)</string>
 
     <string name="storage_description_default">Standard</string>
-
-    <!-- What's new feature and texts to show -->
-    <string name="whats_new_title">Vad är nytt i %1$s</string>
 
     <!-- Welcome to Nc intro features -->
     <string name="welcome_feature_1_title">En säker lagringsplats för all din data</string>

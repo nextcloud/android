@@ -107,7 +107,6 @@
     <string name="file_list_folder">carpeta</string>
     <string name="filedetails_select_file">Pulsa un archivo para mostrar información adicional.</string>
     <string name="filedetails_download">Descargar</string>
-    <string name="filedetails_renamed_in_upload_msg">El archivo se renombró como %1$s durante la carga</string>
     <string name="list_layout">Vista de lista</string>
     <string name="common_yes">Sí</string>
     <string name="common_no">No</string>
@@ -246,8 +245,6 @@
     <string name="remove_success_msg">Eliminado</string>
     <string name="remove_fail_msg">Falla al eliminar</string>
     <string name="rename_dialog_title">Ingresa un nombre nuevo</string>
-    <string name="rename_local_fail_msg">La copia local no pudo ser renombrada, intanta con un nombre diferente</string>
-    <string name="rename_server_fail_msg">No fue posible dar un nuevo nombre al servidor  </string>
     <string name="sync_file_nothing_to_do_msg">Los contenidos del archivo ya han sido sincronizados</string>
     <string name="create_dir_fail_msg">No fue posible crear la carpeta</string>
     <string name="filename_forbidden_characters">Caracteres inválidos: / \\ &lt; &gt; : \" | ? *</string>
@@ -503,9 +500,6 @@
     <string name="upload_file_dialog_filetype_googlemap_shortcut">Archivo de acceso directo a Google Maps(%s)</string>
 
     <string name="storage_description_default">Predeterminado</string>
-
-    <!-- What's new feature and texts to show -->
-    <string name="whats_new_title">Qué hay de nuevo en %1$s</string>
 
     <!-- Welcome to Nc intro features -->
     <string name="welcome_feature_1_title">Un lugar seguro para todos tus datos</string>

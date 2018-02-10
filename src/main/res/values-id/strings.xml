@@ -102,7 +102,6 @@
     <string name="file_list_folder">folder</string>
     <string name="filedetails_select_file">Sentuh pada berkas untuk menampilkan informasi tambahan</string>
     <string name="filedetails_download">Unduh</string>
-    <string name="filedetails_renamed_in_upload_msg">Nama berkas diubah menjadi  %1$s waktu diunggah</string>
     <string name="list_layout">Daftar tampilan</string>
     <string name="common_yes">Ya</string>
     <string name="common_no">Tidak</string>
@@ -453,9 +452,6 @@
     <string name="upload_file_dialog_filetype_googlemap_shortcut">Berkas pintasan Google Maps(%s)</string>
 
     <string name="storage_description_default">Bawaan</string>
-
-    <!-- What's new feature and texts to show -->
-    <string name="whats_new_title">Apa yang baru di %1$s</string>
 
     <!-- Welcome to Nc intro features -->
     <string name="welcome_feature_1_title">Tempat yang aman untuk semua data anda</string>

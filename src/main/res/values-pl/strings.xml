@@ -107,7 +107,6 @@
     <string name="file_list_folder">folder</string>
     <string name="filedetails_select_file">Dotknij plik aby wyświetlić dodatkowe informacje</string>
     <string name="filedetails_download">Pobierz</string>
-    <string name="filedetails_renamed_in_upload_msg">Podczas wysyłania zmieniono nazwę pliku na %1$s</string>
     <string name="list_layout">Wygląd listy</string>
     <string name="common_yes">Tak</string>
     <string name="common_no">Nie</string>
@@ -246,8 +245,6 @@
     <string name="remove_success_msg">Usunięto</string>
     <string name="remove_fail_msg">Usuwanie nie powiodło się</string>
     <string name="rename_dialog_title">Wprowadź nową nazwę</string>
-    <string name="rename_local_fail_msg">Nie można zmienić nazwy kopii lokalnej, użyj innej nazwy</string>
-    <string name="rename_server_fail_msg">Nie udało się nadać serwerowi nowej nazwy</string>
     <string name="sync_file_nothing_to_do_msg">Zawartość pliku została już synchronizowana</string>
     <string name="create_dir_fail_msg">Nie udało się utworzyć folderu</string>
     <string name="filename_forbidden_characters">Znaki zabronione: / \\ &lt; &gt; : \" | ? *</string>
@@ -496,9 +493,6 @@
     <string name="upload_file_dialog_filetype_googlemap_shortcut">Skrót Google Maps file(%s)</string>
 
     <string name="storage_description_default">Domyślny</string>
-
-    <!-- What's new feature and texts to show -->
-    <string name="whats_new_title">Co nowego w %1$s</string>
 
     <!-- Welcome to Nc intro features -->
     <string name="welcome_feature_1_title">Bezpieczny dom dla wszystkich danych</string>

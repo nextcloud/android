@@ -116,7 +116,6 @@
     <string name="filedetails_select_file">Ek bilgileri görmek için dosyaya dokunun.</string>
     <string name="filedetails_download">İndir</string>
     <string name="filedetails_sync_file">Eşitle</string>
-    <string name="filedetails_renamed_in_upload_msg">Dosya adı, yükleme sırasında %1$s olarak değiştirildi</string>
     <string name="list_layout">Liste düzeni</string>
     <string name="action_send_share">Gönder/Paylaş</string>
     <string name="common_yes">Evet</string>
@@ -278,8 +277,6 @@
     <string name="remove_success_msg">Silindi</string>
     <string name="remove_fail_msg">Silinemedi</string>
     <string name="rename_dialog_title">Yeni bir ad yazın</string>
-    <string name="rename_local_fail_msg">Yerel kopyanın adı değiştirilemedi. Lütfen başka bir ad deneyin</string>
-    <string name="rename_server_fail_msg">Sunucu adı değiştirilemedi</string>
     <string name="sync_file_nothing_to_do_msg">Dosya içerikleri zaten eşitlenmiş</string>
     <string name="create_dir_fail_msg">Klasör oluşturulamadı</string>
     <string name="filename_forbidden_characters">İzin verilmeyen karakterler: / \\ &lt; &gt; : \" | ? *</string>
@@ -575,9 +572,6 @@
 
     <string name="storage_description_default">Varsayılan</string>
 
-    <!-- What's new feature and texts to show -->
-    <string name="whats_new_title">%1$s yenilikleri</string>
-
     <!-- Welcome to Nc intro features -->
     <string name="welcome_feature_1_title">Verileriniz için güvenli bir yer!</string>
     <string name="welcome_feature_1_text">Ev ya da iş yerinizdeki dosyalarınıza erişin, paylaşın ve koruyun</string>
@@ -588,13 +582,7 @@
     <string name="welcome_feature_3_title">Otomatik yükleme</string>
     <string name="welcome_feature_3_text">Fotoğraflarınızı koruyun</string>
 
-    <string name="whats_new_end_to_end_encryption_title">Uçtan uca şifreleme</string>
-    <string name="whats_new_end_to_end_encryption_content">Şifrelenecek klasörleri seçin ve istediğiniz istemci için kurun. 12 sözcüklü bir parola kullanarak kolayca yeni aygıtlar ekleyin.</string>
-    <string name="whats_new_resized_images_title">Ekrana uyumlu görseller</string>
-    <string name="whats_new_resized_images_content">Veri tasarrufu sağladığından ve gönderme ile paylaşma için daha uygun olduğundan, varsayılan olarak daha küçük sürüm görüntülenir.  Yakınlaştırma sırasında tüm dosyayı indirebilirsiniz.</string>
     <string name="whats_new_ipv6_title">IPv6 desteği</string>
-    <string name="whats_new_ipv6_content">IPv4 kullanırken IPv6 kullanan sunucular ile de artık sorunsuz çalışıyor.</string>
-
     <string name="whats_new_skip">Atla</string>
 
     <string name="fingerprint_scan_finger">Lütfen parmağınızı tarayın</string>
@@ -750,9 +738,7 @@
     <string name="end_to_end_encryption_not_supported">Şifreleme yalnız KitKat(4.4) ve üzerindeki sürümlerde kullanılabilir</string>
     <string name="end_to_end_encryption_confirm_button">Şifreleme kurulumu</string>
     <string name="end_to_end_encryption_password">Parola&#8230;</string>
-    <string name="end_to_end_encryption_unsuccessful">Anahtarlar kaydedilemedi, lütfen yeniden deneyin.</string>
     <string name="end_to_end_encryption_dialog_close">Kapat</string>
     <string name="end_to_end_encryption_storing_keys">Anahtarlar kaydediliyor</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Şifrelenmiş bir klasöre kopyalama ve taşıma işlemleri henüz desteklenmiyor.</string>
-    <string name="untrusted_domain">Güvenilmeyen bir etki alanı üzerinden erişiliyor. Lütfen ayrıntılı bilgi almak için belgelere bakın.</string>
-</resources>
+    </resources>

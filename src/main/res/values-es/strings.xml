@@ -116,7 +116,6 @@
     <string name="filedetails_select_file">Pulsa sobre un archivo para mostrar información adicional.</string>
     <string name="filedetails_download">Descargar</string>
     <string name="filedetails_sync_file">Sincronizar</string>
-    <string name="filedetails_renamed_in_upload_msg">Archivo renombrado a %1$s durante la subida</string>
     <string name="list_layout">Formato de lista</string>
     <string name="action_send_share">Mandar/Compartir</string>
     <string name="common_yes">Sí</string>
@@ -278,8 +277,6 @@
     <string name="remove_success_msg">Eliminado</string>
     <string name="remove_fail_msg">Ha fallado el borrado</string>
     <string name="rename_dialog_title">Introduce un nombre nuevo</string>
-    <string name="rename_local_fail_msg">No se ha podido cambiar el nombre de la copia local, prueba un nombre diferente</string>
-    <string name="rename_server_fail_msg">No se ha podido dar un nombre nuevo al servidor</string>
     <string name="sync_file_nothing_to_do_msg">El archivo ya está sincronizado</string>
     <string name="create_dir_fail_msg">No se ha podido crear la carpeta</string>
     <string name="filename_forbidden_characters">Caracteres prohibidos: / \\ &lt; &gt; : \" | ? *</string>
@@ -575,9 +572,6 @@
 
     <string name="storage_description_default">Por defecto</string>
 
-    <!-- What's new feature and texts to show -->
-    <string name="whats_new_title">Qué hay de nuevo en %1$s</string>
-
     <!-- Welcome to Nc intro features -->
     <string name="welcome_feature_1_title">Un lugar seguro para tus datos</string>
     <string name="welcome_feature_1_text">Accede, comparte y protege tus archivos en casa y en el trabajo</string>
@@ -588,13 +582,7 @@
     <string name="welcome_feature_3_title">Subida automática</string>
     <string name="welcome_feature_3_text">Mantén seguras tus fotos</string>
 
-    <string name="whats_new_end_to_end_encryption_title">Cifrado punto a punto</string>
-    <string name="whats_new_end_to_end_encryption_content">Escoge qué carpetas cifrar, configúralo desde cualquier cliente. Añade fácilmente nuevos dispositivos utilizando una frase de paso de 12 palabras.</string>
-    <string name="whats_new_resized_images_title">Imágenes adaptadas a la pantalla</string>
-    <string name="whats_new_resized_images_content">Se muestra por defecto la versión más pequeña. Esto reduce el consumu de datos y trabaja bien para enviarlas y compartirlas. Puedes descargar el archivo completo al hacer zoom.</string>
     <string name="whats_new_ipv6_title">Soporte de IPv6</string>
-    <string name="whats_new_ipv6_content">Ahora trabaja perfectamente con servidores que utilicen IPv6, mientras soporta IPv4 al mismo tiempo.</string>
-
     <string name="whats_new_skip">Omitir</string>
 
     <string name="fingerprint_scan_finger">Por favor, escanea tu dedo</string>
@@ -747,9 +735,7 @@
     <string name="end_to_end_encryption_not_supported">El cifrado solo funciona en KitKat (4.4) y posteriores.</string>
     <string name="end_to_end_encryption_confirm_button">Configurar cifrado</string>
     <string name="end_to_end_encryption_password">Contraseña&#8230;</string>
-    <string name="end_to_end_encryption_unsuccessful">No se han podido almacenar las claves. Por favor, vuelve a intentarlo.</string>
     <string name="end_to_end_encryption_dialog_close">Cerrar</string>
     <string name="end_to_end_encryption_storing_keys">Almacenando claves</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Copiar/mover en la carpeta cifrada no está actualmente soportado.</string>
-    <string name="untrusted_domain">Acceder a través de un domino no confiado. Por favor, mira la documentación para más información.</string>
-</resources>
+    </resources>

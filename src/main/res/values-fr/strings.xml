@@ -42,13 +42,13 @@
     <string name="prefs_passcode">Code de sécurité</string>
     <string name="prefs_fingerprint">Verrouillage par empreinte digitale</string>
     <string name="prefs_fingerprint_notsetup">Aucune empreinte digitale n\'a été installée.</string>
-    <string name="prefs_expert_mode">Mode Expert</string>
+    <string name="prefs_expert_mode">Mode expert</string>
     <string name="prefs_show_hidden_files">Afficher les fichiers masqués</string>
     <string name="prefs_log_delete_history_button">Effacer le journal</string>
-    <string name="prefs_calendar_contacts">Configurer la synchronisation de l\'agenda et des contacts</string>
+    <string name="prefs_calendar_contacts">Synchroniser l\'agenda &amp; les contacts</string>
     <string name="prefs_calendar_contacts_summary">Configurer DAVdroid (v1.3.0+) pour le compte actuel</string>
     <string name="prefs_calendar_contacts_address_resolve_error">L\'adresse du serveur pour le compte n\'a pas pu être résolu pour DAVdroid</string>
-    <string name="prefs_calendar_contacts_no_store_error">Aucune application Google Play store ou F-Droid installée</string>
+    <string name="prefs_calendar_contacts_no_store_error">Aucune application Google Play Store ou F-Droid installée</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Synchronisation de l\'agenda &amp; des contacts configurée</string>
     <string name="prefs_daily_contacts_sync_summary">Sauvegarde quotidienne de vos contacts</string>
     <string name="prefs_help">Aide</string>
@@ -57,7 +57,7 @@
     <string name="prefs_imprint">Mentions</string>
 
 	<string name="recommend_subject">Essayez %1$s sur votre appareil !</string>
-	<string name="recommend_text">J\'aimerais vous inviter à utiliser %1$s sur votre smartphone.\nTéléchargez-la ici : %2$s</string>
+	<string name="recommend_text">J\'aimerais vous inviter à utiliser %1$s sur votre appareil.\nTéléchargez-la ici : %2$s</string>
     <string name="recommend_urls">%1$s ou %2$s</string>
 
     <string name="auth_check_server">Vérifier le serveur</string>
@@ -75,7 +75,7 @@
     <string name="uploader_wrn_no_account_setup_btn_text">Configuration</string>
     <string name="uploader_wrn_no_account_quit_btn_text">Quitter</string>
     <string name="uploader_error_title_no_file_to_upload">Aucun fichier à téléverser</string>
-    <string name="uploader_error_message_no_file_to_upload">Les données reçues n\'incluent aucun fichier valide</string>
+    <string name="uploader_error_message_no_file_to_upload">Les données reçues n\'incluent aucun fichier valide.</string>
     <string name="uploader_error_title_file_cannot_be_uploaded">Le fichier ne peut pas être téléversé</string>
     <string name="uploader_error_message_read_permission_not_granted">%1$s n\'est pas autorisé à lire un fichier reçu</string>
     <string name="uploader_error_message_source_file_not_found">Le fichier à téléverser n\'a pas été trouvé. Merci de vérifier si ce fichier existe.</string>
@@ -116,7 +116,6 @@
     <string name="filedetails_select_file">Appuyez sur un fichier pour afficher des informations supplémentaires.</string>
     <string name="filedetails_download">Télécharger</string>
     <string name="filedetails_sync_file">Synchroniser</string>
-    <string name="filedetails_renamed_in_upload_msg">Le fichier a été renommé en %1$s pendant l\'envoi</string>
     <string name="list_layout">Affichage en liste</string>
     <string name="action_send_share">Envoyer / Partager</string>
     <string name="common_yes">Oui</string>
@@ -280,8 +279,6 @@ Attention la suppression est irréversible.</string>
     <string name="remove_success_msg">Supprimé</string>
     <string name="remove_fail_msg">Échec de la suppression</string>
     <string name="rename_dialog_title">Entrez un nouveau nom</string>
-    <string name="rename_local_fail_msg">La version locale ne peut être renommée ; veuillez réessayer avec un nom différent</string>
-    <string name="rename_server_fail_msg">Impossible de renommer le serveur</string>
     <string name="sync_file_nothing_to_do_msg">Ce fichier est déjà synchronisé</string>
     <string name="create_dir_fail_msg">Le dossier n\'a pas pu être créé</string>
     <string name="filename_forbidden_characters">Caractères interdits : / \\ &lt; &gt; : \" | ? *</string>
@@ -578,9 +575,6 @@ Veuillez contacter votre administrateur</string>
 
     <string name="storage_description_default">Défaut</string>
 
-    <!-- What's new feature and texts to show -->
-    <string name="whats_new_title">Nouveautés %1$s</string>
-
     <!-- Welcome to Nc intro features -->
     <string name="welcome_feature_1_title">Un endroit sûr pour toutes vos données</string>
     <string name="welcome_feature_1_text">Accédez, partagez et protégez vos fichiers personnels et professionnels</string>
@@ -591,13 +585,7 @@ Veuillez contacter votre administrateur</string>
     <string name="welcome_feature_3_title">Téléversement automatique</string>
     <string name="welcome_feature_3_text">Conservez vos photos en toute sécurité</string>
 
-    <string name="whats_new_end_to_end_encryption_title">Chiffrement de bout en bout</string>
-    <string name="whats_new_end_to_end_encryption_content">Choisissez quels dossiers à chiffrer depuis n\'importe quel client. Ajoutez facilement de nouveaux appareils en utilisant votre phrase secrète à 12 mots</string>
-    <string name="whats_new_resized_images_title">Image adaptée à l\'écran</string>
-    <string name="whats_new_resized_images_content">Version plus petite montré par défaut, comme elle sauvegarde les données et fonctionne bien pour l\'envoi &amp; partage. Vous pouvez télécharger le fichier complet sur zooming</string>
     <string name="whats_new_ipv6_title">Prise en charge de l\'IPV6</string>
-    <string name="whats_new_ipv6_content">Fonctionne maintenant correctement avec les serveurs supportant l\'IPV6, tout en prenant en charge également l\'IPV4</string>
-
     <string name="whats_new_skip">Ignorer</string>
 
     <string name="fingerprint_scan_finger">Veuillez scanner votre doigt</string>
@@ -627,7 +615,7 @@ Veuillez contacter votre administrateur</string>
     <string name="contactlist_account_chooser_title">Choisissez un compte pour importer</string>
     <string name="contactlist_no_permission">Pas de permission donnée, rien n\'a été importé.</string>
     <string name="contacts_preference_choose_date">Sélectionner la date</string>
-    <string name="contacts_preference_backup_never">jamais</string>
+    <string name="contacts_preference_backup_never">aucune</string>
     <string name="contacts_preferences_no_file_found">Aucun fichier trouvé</string>
     <string name="contacts_preferences_something_strange_happened">Impossible de trouver la dernière sauvegarde !</string>
     <string name="contacts_preferences_backup_scheduled">La sauvegarde est planifiée et va bientôt démarrer</string>
@@ -671,7 +659,7 @@ Veuillez contacter votre administrateur</string>
     <string name="store_short_desc">L\'application Android Nextcloud donne un accès mobile à tous les fichiers sur votre Nextcloud</string>
     <string name="store_full_desc">L\'application, libre de copie, Nextcloud pour Android, vous donne accès à tous les fichiers dans votre Nextcloud.\nFonctionnalitées :\n* Interface moderne et simple d\'utilisation, adapté au thème de votre serveur\n* Envoyer des fichiers sur votre serveur Nextcloud\n* Partage de fichiers avec d\'autres personnes\n* Conserver vos fichiers et dossiers favoris synchronisés\n* Rechercher parmis tout vos dossiers sur votre serveur\n* Envoi automatisé de vos photos et vidéos prises sur vos appareils\n* Rester à jour avec vos notifications\n* Utilisation de plusieurs comptes\n* Accès sécurisé à vos données avec votre empreinte digitale ou code PIN\n* Intégration avec DAVdroid pour une synchronisation facile des contacts &amp; agenda\n\nS\'il vous plait, rapporter les bogues à l\'adresse suivante : https://github.com/nextcloud/android/issues et parler de cette application à l\'adresse suivante : https://help.nextcloud.com/c/clients/android\n\nNouveau sur Nextcloud? Nextcloud est un serveur privé de synchronisation &amp; partage de fichier, et de communication. C\'est un logiciel libre, et vous pouvez héberger vous même ou payez une companie pour le faire pour vous. Vous êtes en total contrôle de vos photos, votre calendrier, vos contacts, vos documents et tout le reste.\n\nAllez voir Nextcloud à l\'adresse suivante https://nextcloud.com</string>
 
-    <string name="drawer_current_account">Compte Courrant</string>
+    <string name="drawer_current_account">Compte actuel</string>
     <string name="drawer_middle_account">Compte du milieu</string>
     <string name="drawer_end_account">Dernier compte</string>
     <string name="contactlist_item_icon">L\'icône de l\'utilisateur pour la liste des contacts</string>
@@ -753,9 +741,7 @@ Veuillez contacter votre administrateur</string>
     <string name="end_to_end_encryption_not_supported">Le chiffrement ne marche uniquement sur les versions KitKat (4.4) et plus</string>
     <string name="end_to_end_encryption_confirm_button">Configurer le chiffrement</string>
     <string name="end_to_end_encryption_password">Mot de passe&#8230;</string>
-    <string name="end_to_end_encryption_unsuccessful">Enregistrement des clés impossible, veuillez réessayer.</string>
     <string name="end_to_end_encryption_dialog_close">Fermer</string>
     <string name="end_to_end_encryption_storing_keys">Enregistrement des clés</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Copier/déplacer dans ce dossier chiffré n\'est pas actuellement supporté</string>
-    <string name="untrusted_domain">Accès depuis un domaine non fiable. S\'il vous plaît consultez la documentation pour plus d\'informations</string>
-</resources>
+    </resources>
