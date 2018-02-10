@@ -378,9 +378,6 @@
     <string name="upload_file_dialog_filetype">Filtype</string>
     <string name="storage_description_default">Standard</string>
 
-    <!-- What's new feature and texts to show -->
-    <string name="whats_new_title">Hvad er i %1$s</string>
-
     <!-- Welcome to Nc intro features -->
     <string name="welcome_feature_1_title">Et sikket hjem til alt dit data</string>
     <string name="welcome_feature_2_title">Flere kontoer</string>

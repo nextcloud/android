@@ -116,7 +116,6 @@
     <string name="filedetails_select_file">在檔案上輕觸來顯示更多資訊</string>
     <string name="filedetails_download">下載</string>
     <string name="filedetails_sync_file">同步</string>
-    <string name="filedetails_renamed_in_upload_msg">上傳過程中檔案%1$s被重新命名</string>
     <string name="list_layout">清單顯示</string>
     <string name="action_send_share">傳送/分享</string>
     <string name="common_yes">是</string>
@@ -259,7 +258,6 @@
     <string name="remove_success_msg">已刪除</string>
     <string name="remove_fail_msg">刪除失敗</string>
     <string name="rename_dialog_title">輸入新名稱</string>
-    <string name="rename_server_fail_msg">無法重新命名伺服器</string>
     <string name="sync_file_nothing_to_do_msg">檔案已同步</string>
     <string name="create_dir_fail_msg">無法新增資料夾</string>
     <string name="filename_forbidden_characters">禁止使用的字元： / \\ &lt; &gt; : \" | ? *</string>

@@ -103,7 +103,6 @@
     <string name="file_list_folder">φάκελος</string>
     <string name="filedetails_select_file">Αγγίξτε κάποιο αρχείο για να προβάλετε περισσότερες πληροφορίες.</string>
     <string name="filedetails_download">Λήψη</string>
-    <string name="filedetails_renamed_in_upload_msg">Το αρχείο μετονομάστηκε σε %1$s κατά τη μεταφόρτωση</string>
     <string name="list_layout">Διάταξη λίστας</string>
     <string name="common_yes">Ναι</string>
     <string name="common_no">Όχι</string>
@@ -459,9 +458,6 @@
     <string name="upload_file_dialog_filetype_googlemap_shortcut">Αρχείο συντόμευσης Google Maps(%s)</string>
 
     <string name="storage_description_default">Προεπιλογή</string>
-
-    <!-- What's new feature and texts to show -->
-    <string name="whats_new_title">Τι νέο υπάρχει στο %1$s</string>
 
     <!-- Welcome to Nc intro features -->
     <string name="welcome_feature_1_title">Μια ασφαλής τοποθεσία για όλα σας τα δεδομένα</string>

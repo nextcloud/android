@@ -116,7 +116,6 @@
     <string name="filedetails_select_file">Toque em um arquivo para mostrar informações adicionais.</string>
     <string name="filedetails_download">Baixar</string>
     <string name="filedetails_sync_file">Sincronizar</string>
-    <string name="filedetails_renamed_in_upload_msg">Arquivo renomeado para %1$s durante o envio</string>
     <string name="list_layout">Layout listado</string>
     <string name="action_send_share">Envia/Compartilhar</string>
     <string name="common_yes">Sim</string>
@@ -278,8 +277,6 @@
     <string name="remove_success_msg">Excluído</string>
     <string name="remove_fail_msg">Falha na exclusão</string>
     <string name="rename_dialog_title">Digite um novo nome</string>
-    <string name="rename_local_fail_msg">A cópia local não pôde ser renomeada, tente um nome diferente</string>
-    <string name="rename_server_fail_msg">Não foi possível renomear o servidor</string>
     <string name="sync_file_nothing_to_do_msg">Conteúdo do arquivo já foi sincronizado</string>
     <string name="create_dir_fail_msg">Não foi possível criar a pasta</string>
     <string name="filename_forbidden_characters">Caracteres proibidos: / \\ &lt; &gt; : \" | ? *</string>
@@ -575,9 +572,6 @@
 
     <string name="storage_description_default">Padrão</string>
 
-    <!-- What's new feature and texts to show -->
-    <string name="whats_new_title">O que é novo em %1$s</string>
-
     <!-- Welcome to Nc intro features -->
     <string name="welcome_feature_1_title">Um local seguro para seus dados</string>
     <string name="welcome_feature_1_text">Acesse, compartilhe e proteja seus arquivos, em casa e no trabalho</string>
@@ -588,13 +582,7 @@
     <string name="welcome_feature_3_title">Auto envio</string>
     <string name="welcome_feature_3_text">Mantenha seguras as suas fotos</string>
 
-    <string name="whats_new_end_to_end_encryption_title">Criptografia de ponta-a-ponta</string>
-    <string name="whats_new_end_to_end_encryption_content">Escolha quais pastas criptografar, configure a partir de qualquer cliente. Adicione facilmente novos dispositivos usando uma senha de 12 palavras.</string>
-    <string name="whats_new_resized_images_title">Imagens adaptadas à tela</string>
-    <string name="whats_new_resized_images_content">A versão menor é mostrada por padrão, pois salva dados e funciona bem para enviar &amp; compartilhar. Você pode baixar o arquivo completo durante o zoom.</string>
     <string name="whats_new_ipv6_title"> Support IPv6</string>
-    <string name="whats_new_ipv6_content">Atualmente funciona bem com servidores que suportam o IPv6, bem como com IPv4.</string>
-
     <string name="whats_new_skip">Saltar</string>
 
     <string name="fingerprint_scan_finger">Por favor escaneie sua impressão digital</string>
@@ -750,9 +738,7 @@
     <string name="end_to_end_encryption_not_supported">A criptografia só funciona no KitKat (4.4) e acima.</string>
     <string name="end_to_end_encryption_confirm_button">Definir criptografia</string>
     <string name="end_to_end_encryption_password">Senha&#8230;</string>
-    <string name="end_to_end_encryption_unsuccessful">As chaves não puderam ser armazenadas, tente novamente.</string>
     <string name="end_to_end_encryption_dialog_close">Fechar</string>
     <string name="end_to_end_encryption_storing_keys">Armazenando chaves</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Copia e movimentação para a pasta criptografada atualmente não são suportadas.</string>
-    <string name="untrusted_domain">Acesso através de domínio não confiável. Consulte a documentação para mais informações.</string>
-</resources>
+    </resources>

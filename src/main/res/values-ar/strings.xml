@@ -357,9 +357,6 @@
     <string name="upload_file_dialog_filetype">نوع الملف</string>
     <string name="storage_description_default">افتراضي</string>
 
-    <!-- What's new feature and texts to show -->
-    <string name="whats_new_title">ما الجديد في %1$s</string>
-
     <!-- Welcome to Nc intro features -->
     <string name="welcome_feature_1_title">المكان الآمن لجميع بياناتك</string>
     <string name="welcome_feature_1_text">توصّل إلى ملفاتك و شاركها و قم بتأمينها سواء في المنزل أو في مكان العمل</string>
@@ -370,7 +367,6 @@
     <string name="welcome_feature_3_title">رفع تلقائي</string>
     <string name="welcome_feature_3_text">إحرص على أمان صورك</string>
 
-    <string name="whats_new_end_to_end_encryption_title">تشفير من طرف إلى آخر الطرف</string>
     <string name="whats_new_ipv6_title">دعم IPv6</string>
     <string name="whats_new_skip">تخطى</string>
 
@@ -451,7 +447,6 @@
     <string name="end_to_end_encryption_title">تنصيب التشفير</string>
     <string name="end_to_end_encryption_confirm_button">تنصيب التشفير</string>
     <string name="end_to_end_encryption_password"> كلمة المرور &#8230;</string>
-    <string name="end_to_end_encryption_unsuccessful">تعذر تخزين المفتاح، يرجى إعادة المحاولة.</string>
     <string name="end_to_end_encryption_dialog_close">إغلاق</string>
     <string name="end_to_end_encryption_storing_keys">تخزين المفاتيح </string>
     </resources>
