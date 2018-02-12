@@ -514,7 +514,7 @@ public class EncryptionUtils {
         byte[] bytes = encodeStringToBase64Bytes(privateKey);
         byte[] encrypted = cipher.doFinal(bytes);
 
-        byte[] iv = cipher.getParameters().getParameterSpec(IvParameterSpec.class).getIV();
+        byte[] iv = cipher.getIV();
         String encodedIV = encodeBytesToBase64String(iv);
         String encodedSalt = encodeBytesToBase64String(salt);
         String encodedEncryptedBytes = encodeBytesToBase64String(encrypted);
