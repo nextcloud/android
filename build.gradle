@@ -55,7 +55,7 @@ def versionMajor = 3
 def versionMinor = 1
 def versionPatch = 0
 def versionBuild = 1 // alphas, betas, release candidates (<99=non-stable, 99=stable)
-def versionNameSuffix = " Alpha" // empty for stable releases
+def versionNameSuffix = "Alpha" // ignored for stable releases
 
 android {
     lintOptions {
@@ -86,7 +86,12 @@ android {
         multiDexEnabled true
 
         versionCode versionMajor * 10000000 + versionMinor * 100000 + versionPatch * 100 + versionBuild
-        versionName "${versionMajor}.${versionMinor}.${versionPatch}${versionNameSuffix}"
+
+        if (versionBuild > 98) {
+            versionName "${versionMajor}.${versionMinor}.${versionPatch}"
+        } else {
+            versionName "${versionMajor}.${versionMinor}.${versionPatch} ${versionNameSuffix}"
+        }
 
         // adapt structure from Eclipse to Gradle/Android Studio expectations;
         // see http://tools.android.com/tech-docs/new-build-system/user-guide#TOC-Configuring-the-Structure
