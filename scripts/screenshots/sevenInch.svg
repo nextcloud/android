@@ -14,7 +14,7 @@
     viewBox="0 0 939.9 519.00002"
     version="1.1"
     id="svg4553"
-    inkscape:version="0.92.1 r"
+    inkscape:version="0.92.2 5c3e80d, 2017-08-06"
     sodipodi:docname="sevenInch.svg">
     <defs
         id="defs4547">
@@ -62,9 +62,9 @@
         borderopacity="1.0"
         inkscape:pageopacity="1"
         inkscape:pageshadow="2"
-        inkscape:zoom="0.22627418"
-        inkscape:cx="1294.096"
-        inkscape:cy="109.62556"
+        inkscape:zoom="0.45254836"
+        inkscape:cx="1796.9275"
+        inkscape:cy="1936.0988"
         inkscape:document-units="mm"
         inkscape:current-layer="layer1"
         showgrid="false"
@@ -78,7 +78,25 @@
         inkscape:window-y="0"
         inkscape:window-maximized="1"
         inkscape:measure-start="0,0"
-        inkscape:measure-end="0,0"/>
+        inkscape:measure-end="0,0"
+        showguides="true"
+        inkscape:guide-bbox="true">
+        <sodipodi:guide
+            position="131.46484,422.5065"
+            orientation="1,0"
+            id="guide838"
+            inkscape:locked="false"/>
+        <sodipodi:guide
+            position="806.15231,377.03124"
+            orientation="1,0"
+            id="guide840"
+            inkscape:locked="false"/>
+        <sodipodi:guide
+            position="259.62239,482.86457"
+            orientation="0,1"
+            id="guide842"
+            inkscape:locked="false"/>
+    </sodipodi:namedview>
     <metadata
         id="metadata4550">
         <rdf:RDF>
@@ -97,7 +115,7 @@
         id="layer1"
         transform="translate(-205.9464,1011.8911)">
         <image
-            sodipodi:absref="/home/tobi/Daten/arbeit/nextcloud/SourceCode/android4/scripts/screenshots/{image}"
+            sodipodi:absref="/home/tobi/Daten/projekt/nextcloud/android4/scripts/screenshots/{image}"
             xlink:href="{image}"
             y="-829.59448"
             x="335.71039"
@@ -106,17 +124,17 @@
             height="425.23251"
             width="680.37207"/>
         <flowRoot
-       transform="matrix(0.26458333,0,0,0.26458333,-2.5683677,-2878.1763)"
+       transform="matrix(0.26458333,0,0,0.26458333,-0.98086763,-2877.1179)"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:96px;line-height:125%;font-family:Helvetica;-inkscape-font-specification:Helvetica;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;opacity:0.5;fill:#000000;fill-opacity:1;stroke:none;stroke-width:3.77952766;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;filter:url(#filter888)"
        id="flowRoot846"
        xml:space="preserve"><flowRegion
          style="text-align:center;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:3.77952766;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
          id="flowRegion840"><rect
            style="text-align:center;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:3.77952766;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-           y="7244.0518"
-           x="1654.2856"
-           height="298.32639"
-           width="1820.0288"
+           y="7190.2515"
+           x="1284.9623"
+           height="298.2995"
+           width="2544"
            id="rect838" /></flowRegion><flowPara
          style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-family:'Open Sans';-inkscape-font-specification:'Open Sans Light';text-align:center;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:3.77952766;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
          id="flowPara842">{text}</flowPara><flowPara
@@ -129,15 +147,16 @@
          id="flowRegion5147"
          style="text-align:center;text-anchor:middle;fill:#ffffff;stroke:none;stroke-width:3.77952766;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"><rect
            id="rect5149"
-           width="1820.0288"
-           height="298.32639"
-           x="1654.2856"
-           y="7244.0518"
-           style="text-align:center;text-anchor:middle;fill:#ffffff;stroke:none;stroke-width:3.77952766;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" /></flowRegion><flowPara
-         id="flowPara5151"
-         style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-family:'Open Sans';-inkscape-font-specification:'Open Sans Light';text-align:center;text-anchor:middle;fill:#ffffff;stroke:none;stroke-width:3.77952766;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">{text}</flowPara><flowPara
+           width="2550"
+           height="261.64096"
+           x="1284.9623"
+           y="7191.5547"
+           style="text-align:center;text-anchor:middle;fill:#ffffff;stroke:none;stroke-width:3.77952766;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+           ry="0" /></flowRegion><flowPara
          id="flowPara5153"
-         style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-family:'Open Sans';-inkscape-font-specification:'Open Sans Light';text-align:center;text-anchor:middle;fill:#ffffff;stroke:none;stroke-width:3.77952766;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" /></flowRoot>    <flowRoot
+         style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-family:'Open Sans';-inkscape-font-specification:'Open Sans Light';text-align:center;text-anchor:middle;fill:#ffffff;stroke:none;stroke-width:3.77952766;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">{text}</flowPara><flowPara
+         style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-family:'Open Sans';-inkscape-font-specification:'Open Sans Light';text-align:center;text-anchor:middle;fill:#ffffff;stroke:none;stroke-width:3.77952766;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         id="flowPara849" /></flowRoot>    <flowRoot
        xml:space="preserve"
        id="flowRoot5174"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:20px;line-height:125%;font-family:Helvetica;-inkscape-font-specification:Helvetica;text-align:start;letter-spacing:0px;word-spacing:0px;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"><flowRegion
@@ -149,7 +168,7 @@
            y="480.14975" /></flowRegion><flowPara
          id="flowPara5180" /></flowRoot>
         <image
-            sodipodi:absref="/home/tobi/Daten/arbeit/nextcloud/SourceCode/android4/scripts/screenshots/tablet.png"
+            sodipodi:absref="/home/tobi/Daten/projekt/nextcloud/android4/scripts/screenshots/tablet.png"
             xlink:href="tablet.png"
             width="977.90002"
             height="521.75836"
