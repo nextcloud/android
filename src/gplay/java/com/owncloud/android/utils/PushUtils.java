@@ -48,6 +48,7 @@ import com.owncloud.android.lib.resources.notifications.UnregisterAccountDeviceF
 import com.owncloud.android.lib.resources.notifications.models.PushResponse;
 
 import org.apache.commons.httpclient.HttpStatus;
+import org.apache.commons.io.FileUtils;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -337,6 +338,24 @@ public class PushUtils {
         }
 
         return -1;
+    }
+
+    public static void reinitKeys() {
+        Context context = MainApp.getAppContext();
+        Account[] accounts = AccountUtils.getAccounts(context);
+        for (Account account : accounts) {
+            deleteRegistrationForAccount(account);
+        }
+
+        String keyPath = context.getDir("nc-keypair", Context.MODE_PRIVATE).getAbsolutePath();
+        File privateKeyFile = new File(keyPath, "push_key.priv");
+        File publicKeyFile = new File(keyPath, "push_key.pub");
+
+        FileUtils.deleteQuietly(privateKeyFile);
+        FileUtils.deleteQuietly(publicKeyFile);
+
+        pushRegistrationToServer();
+        PreferenceManager.setKeysReInit(context);
     }
 
     private static void migratePushKeys() {
