@@ -20,6 +20,11 @@
 
 package com.owncloud.android.utils;
 
+import android.content.Context;
+
+import com.owncloud.android.MainApp;
+import com.owncloud.android.db.PreferenceManager;
+
 public class PushUtils {
     public static final String KEY_PUSH = "push";
 
