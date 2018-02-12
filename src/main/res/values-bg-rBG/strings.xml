@@ -116,6 +116,7 @@
     <string name="filedetails_select_file">Натиснете върху файл, за да видите допълнителна информация.</string>
     <string name="filedetails_download">Изтегляне</string>
     <string name="filedetails_sync_file">Синхронизиране</string>
+    <string name="filedetails_renamed_in_upload_msg">Файлът е преименуван на %1$s по време на качването</string>
     <string name="list_layout">Оформление на списъка с потоци</string>
     <string name="action_send_share">Изпрати/Сподели</string>
     <string name="common_yes">Да</string>
@@ -277,6 +278,8 @@
     <string name="remove_success_msg">Изтрито</string>
     <string name="remove_fail_msg">Изтриването неуспешно</string>
     <string name="rename_dialog_title">Въведете ново име</string>
+    <string name="rename_local_fail_msg">Локално копие не може да бъде преименувано; опитайте с друго име</string>
+    <string name="rename_server_fail_msg">Сървърът не може да бъде преименуван</string>
     <string name="sync_file_nothing_to_do_msg">Съдържанието на файла е вече синхронизирано</string>
     <string name="create_dir_fail_msg">Не може да се създаде папка</string>
     <string name="filename_forbidden_characters">Забранени символи: / \\ &lt; &gt; : \" | ? *</string>
@@ -431,12 +434,16 @@
 
 
     <string name="copy_file_not_found">Невъзможно копиране. Проверете съществува ли файла</string>
+    <string name="copy_file_invalid_into_descendent">Не може да копирате папка в нейна подпапка</string>
+    <string name="copy_file_invalid_overwrite">Файлът вече съществува в зададената папка</string>
     <string name="copy_file_error">Възникна грешка при опита за копиране на файла или папката</string>
     <string name="forbidden_permissions_copy">да копира този файл</string>
 
     <string name="prefs_category_details">Детайли</string>
 
-    <string name="subject_user_shared_with_you">%1$s сподели с вас \"%2$s\"</string>
+    <string name="sync_folder_failed_content">Синхронизация на папка %1$s не може да бъде завършена</string>
+
+	<string name="subject_user_shared_with_you">%1$s сподели с вас \"%2$s\"</string>
     <string name="subject_shared_with_you">\"%1$s\" бе споделено с вас</string>
 
     <string name="auth_refresh_button">Обнови връзката</string>
@@ -445,7 +452,22 @@
 
     <string name="username">Потребител</string>
 
+    <plurals name="file_list__footer__folder">
+        <item quantity="one">%1$d папки</item>
+        <item quantity="other">%1$d папки</item>
+    </plurals>
+    <plurals name="file_list__footer__file">
+        <item quantity="one">%1$d файлове</item>
+        <item quantity="other">%1$d файлове</item>
+    </plurals>
+    <string name="set_picture_as">Използвай снимка като</string>
+    <string name="set_as">Задай като</string>
+
+    <string name="prefs_instant_behaviour_dialogTitle">Оригиналният файл ще бъде &#8230;</string>
+    <string name="prefs_instant_behaviour_title">Оригиналният файл ще бъде &#8230;</string>
     <string name="select_all">Избере всички</string>
+    <string name="deselect_all">Отмяна на всички избори</string>
+
     <string name="pref_behaviour_entries_keep_file">запазвани в оригиналната папка</string>
     <string name="pref_behaviour_entries_move">премествани в папката на приложението</string>
     <string name="pref_behaviour_entries_delete_file">изтривани</string>
@@ -458,7 +480,9 @@
     <string name="share_add_user_or_group">Добавете потребител или група</string>
     <string name="share_via_link_section_title">Връзка за споделяне</string>
     <string name="share_via_link_expiration_date_label">Задаване на дата на изтичане</string>
+    <string name="share_via_link_password_label">Защитете с парола</string>
     <string name="share_via_link_password_title">Подсигурен</string>
+    <string name="share_via_link_edit_permission_label">Позволяване на редактиране</string>
     <string name="share_via_link_hide_file_listing_permission_label">Скрий показването на файлове</string>
     <string name="share_get_public_link_button">Вземи връзка</string>
     <string name="share_with_title">Споделете чрез &#8230;</string>
@@ -472,18 +496,32 @@
     <string name="share_email_clarification">%1$s (имейл)</string>
     <string name="share_known_remote_clarification">%1$s ( в %2$s )</string>
 
+    <string name="share_sharee_unavailable">За съжаление версията на сървъра не позволява споделяне от клиента. \nМоля, уведомете системния админинстратор</string>
+    <string name="filedetails_share_link_enable">Споделена връзка активирана</string>
+    <string name="filedetails_share_link_disable">Няма споделена връзка</string>
+    <string name="filedetails_share_users_with_access">Потребители и групи с достъп</string>
     <string name="share_privilege_can_share">може да споделя</string>
     <string name="share_privilege_can_edit">може да променя</string>
     <string name="share_privilege_can_edit_create">създаване</string>
     <string name="share_privilege_can_edit_change">промяна</string>
     <string name="share_privilege_can_edit_delete">изтриване</string>
 
+    <string name="action_retry_uploads">Новият опит се провали</string>
+    <string name="action_clear_failed_uploads">Изчисти провалените качвания</string>
+    <string name="action_clear_successful_uploads">Изчисти успешните качвания</string>
+    <string name="action_force_rescan">Принудено повторно сканиране</string>
+
     <string name="action_switch_grid_view">Решетъчен изглед</string>
     <string name="action_switch_list_view">Списъчен изглед</string>
 
     <string name="manage_space_title">Управление на място</string>
+    <string name="manage_space_description">Настройките, базата от данни и сървърните сертификати от %1$sя ще бъдат изтрити перманентно. \\n\\nИзтеглените файлове ще бъдат запазени непокътнати.\\n\\nТози процес може да отнеме известно време.</string>
     <string name="manage_space_clear_data">Изчисти данни</string>
 
+    <string name="permission_storage_access">Изискват се допълнителни права за изтегляне и сваляне на файлове.</string>
+    <string name="local_file_not_found_toast">Файлът не е намерен в локалната система за файлове</string>
+    <string name="confirmation_remove_files_alert">Наистина ли желаете избраните елементи да бъдат премахнати?</string>
+    <string name="confirmation_remove_folders_alert">Наистина ли желаете избраните елементи и съдържанието им да бъдат премахнати?</string>
     <string name="actionbar_search">Търсене</string>
     <string name="learn_more">Научете повече</string>
     <string name="drawer_participate">Участвайте</string>
