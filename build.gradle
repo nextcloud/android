@@ -50,6 +50,13 @@ repositories {
     }
 }
 
+// semantic versioning for version code
+def versionMajor = 3
+def versionMinor = 1
+def versionPatch = 0
+def versionBuild = 1 // alphas, betas, release candidates (<99=non-stable, 99=stable)
+def versionNameSuffix = " Alpha" // empty for stable releases
+
 android {
     lintOptions {
         abortOnError false
@@ -78,8 +85,8 @@ android {
 
         multiDexEnabled true
 
-        versionCode = 30010000
-        versionName = "3.1.0 Alpha"
+        versionCode versionMajor * 10000000 + versionMinor * 100000 + versionPatch * 100 + versionBuild
+        versionName "${versionMajor}.${versionMinor}.${versionPatch}${versionNameSuffix}"
 
         // adapt structure from Eclipse to Gradle/Android Studio expectations;
         // see http://tools.android.com/tech-docs/new-build-system/user-guide#TOC-Configuring-the-Structure
