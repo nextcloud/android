@@ -26,4 +26,10 @@ public class PushUtils {
     public static void pushRegistrationToServer() {
         // do nothing
     }
+
+    public static void reinitKeys() {
+        Context context = MainApp.getAppContext();
+        PreferenceManager.setKeysReInit(context);
+    }
+
 }
