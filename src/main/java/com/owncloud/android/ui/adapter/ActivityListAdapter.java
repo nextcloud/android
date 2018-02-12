@@ -147,7 +147,7 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             Activity activity = (Activity) mValues.get(position);
             if (activity.getDatetime() != null) {
                 activityViewHolder.dateTime.setVisibility(View.VISIBLE);
-                activityViewHolder.dateTime.setText(DateFormat.format("HH:MM", activity.getDatetime().getTime()));
+                activityViewHolder.dateTime.setText(DateFormat.format("HH:mm", activity.getDatetime().getTime()));
             } else {
                 activityViewHolder.dateTime.setVisibility(View.GONE);
             }
