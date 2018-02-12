@@ -196,14 +196,14 @@ public class DisplayUtils {
         }
 
         if (url.length() >= 7 && url.substring(0, 7).equalsIgnoreCase(HTTP_PROTOCOLL)) {
-            return url.substring(HTTP_PROTOCOLL.length());
+            return url.substring(HTTP_PROTOCOLL.length()).trim();
         }
 
         if (url.length() >= 8 && url.substring(0, 8).equalsIgnoreCase(HTTPS_PROTOCOLL)) {
-            return url.substring(HTTPS_PROTOCOLL.length());
+            return url.substring(HTTPS_PROTOCOLL.length()).trim();
         }
 
-        return url;
+        return url.trim();
     }
 
     /**
@@ -218,9 +218,9 @@ public class DisplayUtils {
         }
 
         if (handle.startsWith(TWITTER_HANDLE_PREFIX)) {
-            return handle;
+            return handle.trim();
         } else {
-            return TWITTER_HANDLE_PREFIX + handle;
+            return TWITTER_HANDLE_PREFIX + handle.trim();
         }
     }
 
