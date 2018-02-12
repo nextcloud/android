@@ -570,6 +570,9 @@
 
     <string name="storage_description_default">Standaard</string>
 
+    <!-- What's new feature and texts to show -->
+    <string name="whats_new_title">Nieuw in %1$s</string>
+
     <!-- Welcome to Nc intro features -->
     <string name="welcome_feature_1_title">Een veilige plek voor al je gegevens</string>
     <string name="welcome_feature_1_text">Benader, deel &amp; beveilig je gegevens thuis en binnen je organisatie</string>
@@ -652,6 +655,8 @@
     <string name="resized_images_download_full_image">Volledige afbeelding downloaden?</string>
 
     <string name="store_short_desc">De Nextcloud Android app geeft je toegang tot al je Nextcloud bestanden.</string>
+    <string name="store_full_desc">De Open Source Nextcloud Android app geeft je mobiele vrijheid.\n\nFuncties:\n* Simpel &amp; modern uiterlijk, helemaal in dezelfde stijl als jouw server\n* Upload bestanden naar je Nextcloud server\n* Deel bestanden met anderen\n* Hou je favoriete bestanden en mappen gesynchroniseerd\n* Zoek in al je bestanden op de server\n* Automatisch uploaden voor al je foto\\'s en video\\'s\n* Blijf op de hoogte met notificaties\n* Ondersteuning voor meerdere accounts en servers\n* Beveilig toegang tot je gegevens met vingerafdruk of pincode\n* Integratie met DAVdroid voor makkelijk synchroniseren van je kalender &amp; contacten\n\nMeld alsjeblieft alle bugs en problemen op https://github.com/nextcloud/android/issues en doe je zegje over deze app in ons forum https://help.nextcloud.com/c/clients/android\n\nNieuw bij Nextcloud? Nextcloud is je persoonlijke bestanden- en communicatieserver. Het is volledig open source en je kunt het zelf hosten of een bedrijf betalen om dat voor je te doen. Zo heb je volledige controle over je foto\\'s, kalender, adresboek, document en al het andere.\n\nCheck Nextcloud op https://nextcloud.com</string>
+
     <string name="drawer_current_account">Huidige account</string>
     <string name="drawer_middle_account">Gemiddelde account</string>
     <string name="drawer_end_account">Laatste account</string>
@@ -684,6 +689,8 @@
     <string name="what_s_new_image">Wat is nieuw afbeelding</string>
 
     <string name="store_short_dev_desc">De Nextcloud Dev app is een ontwikkelversie. Kan parallel worden geïnstalleerd.</string>
+    <string name="store_full_dev_desc">De Open Source Nextcloud Android app geeft je mobiele vrijheid.\nDit is de officiële ontwikkelversie die gloednieuwe, ongeteste mogelijkheden heeft, die tot instabiliteit en gegevensverlies zouden kunnen leiden. De app is voor gebruikers die de nieuwe functies willen testen en eventuele bugs willen melden. Gebruik de app niet voor productiewerkzaamheden!\n\nZowel de ontwikkelversie als de reguliere versie zijn beschikbaar is in F-Droid en ze kunnen naast elkaar gebruikt worden.</string>
+
     <string name="prefs_category_dev">Dev</string>
     <string name="dev_version_no_information_available">Geen informatie beschikbaar.</string>
     <string name="dev_version_no_new_version_available">Geen nieuwe versie beschikbaar.</string>
@@ -713,7 +720,7 @@
     <string name="screenshot_03_drawer">Benader snel je activiteiten, gedeelde bestanden, off-line bestanden en meer</string>
     <string name="screenshot_04_accounts">Verbinden met verschillend accounts</string>
     <string name="screenshot_05_autoUpload">Automatisch je foto\'s &amp;video\'s uploaden</string>
-    <string name="screenshot_06_davdroid">Synchroniseer agenda&amp; contactpersonen met DAVdroid</string>
+    <string name="screenshot_06_davdroid">Synchroniseer agenda &amp; contactpersonen met DAVdroid</string>
     
     <string name="userinfo_no_info_headline">Geen persoonlijke informatie ingesteld</string>
     <string name="userinfo_no_info_text">Voeg naam, foto en contact details op je profielpagina toe.</string>
@@ -735,4 +742,5 @@
     <string name="end_to_end_encryption_dialog_close">Sluiten</string>
     <string name="end_to_end_encryption_storing_keys">Opslaan sleutels</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Kopieren/verplaatsen naar een versleutelde map is momenteel niet mogelijk.</string>
-    </resources>
+    <string name="untrusted_domain">Toegang van een niet vertrouwd domein. Bekijk de documentatie voor meer informatie.</string>
+</resources>

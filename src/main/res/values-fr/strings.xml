@@ -116,6 +116,7 @@
     <string name="filedetails_select_file">Appuyez sur un fichier pour afficher des informations supplémentaires.</string>
     <string name="filedetails_download">Télécharger</string>
     <string name="filedetails_sync_file">Synchroniser</string>
+    <string name="filedetails_renamed_in_upload_msg">Le fichier a été renommé en %1$s pendant le téléversement</string>
     <string name="list_layout">Affichage en liste</string>
     <string name="action_send_share">Envoyer / Partager</string>
     <string name="common_yes">Oui</string>
@@ -279,6 +280,8 @@ Attention la suppression est irréversible.</string>
     <string name="remove_success_msg">Supprimé</string>
     <string name="remove_fail_msg">Échec de la suppression</string>
     <string name="rename_dialog_title">Entrez un nouveau nom</string>
+    <string name="rename_local_fail_msg">Impossible de renommer la version locale; veuillez réessayer avec un nom différent</string>
+    <string name="rename_server_fail_msg">Impossible de renommer, le nom est déjà utilisé</string>
     <string name="sync_file_nothing_to_do_msg">Ce fichier est déjà synchronisé</string>
     <string name="create_dir_fail_msg">Le dossier n\'a pas pu être créé</string>
     <string name="filename_forbidden_characters">Caractères interdits : / \\ &lt; &gt; : \" | ? *</string>
@@ -575,6 +578,9 @@ Veuillez contacter votre administrateur</string>
 
     <string name="storage_description_default">Défaut</string>
 
+    <!-- What's new feature and texts to show -->
+    <string name="whats_new_title">Nouveautés dans %1$s</string>
+
     <!-- Welcome to Nc intro features -->
     <string name="welcome_feature_1_title">Un endroit sûr pour toutes vos données</string>
     <string name="welcome_feature_1_text">Accédez, partagez et protégez vos fichiers personnels et professionnels</string>
@@ -585,7 +591,13 @@ Veuillez contacter votre administrateur</string>
     <string name="welcome_feature_3_title">Téléversement automatique</string>
     <string name="welcome_feature_3_text">Conservez vos photos en toute sécurité</string>
 
+    <string name="whats_new_end_to_end_encryption_title">Chiffrement de bout en bout</string>
+    <string name="whats_new_end_to_end_encryption_content">Appuyer pour chiffrer, depuis n\'importe quel client. Ajoutez-en des nouveaux en utilisant votre phrase secrète à 12 mots.</string>
+    <string name="whats_new_resized_images_title">Images adaptatives</string>
+    <string name="whats_new_resized_images_content">Les petites images sont rapides et adaptées pour le partage. Zoomez-les pour télécharger la version complète.</string>
     <string name="whats_new_ipv6_title">Prise en charge de l\'IPV6</string>
+    <string name="whats_new_ipv6_content">En IPv6 si le serveur le supporte, IPv4 sinon.</string>
+
     <string name="whats_new_skip">Ignorer</string>
 
     <string name="fingerprint_scan_finger">Veuillez scanner votre doigt</string>
@@ -741,7 +753,9 @@ Veuillez contacter votre administrateur</string>
     <string name="end_to_end_encryption_not_supported">Le chiffrement ne marche uniquement sur les versions KitKat (4.4) et plus</string>
     <string name="end_to_end_encryption_confirm_button">Configurer le chiffrement</string>
     <string name="end_to_end_encryption_password">Mot de passe&#8230;</string>
+    <string name="end_to_end_encryption_unsuccessful">Impossible d\'enregistrer les clés, veuillez réessayer.</string>
     <string name="end_to_end_encryption_dialog_close">Fermer</string>
     <string name="end_to_end_encryption_storing_keys">Enregistrement des clés</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Copier/déplacer dans ce dossier chiffré n\'est pas actuellement supporté</string>
-    </resources>
+    <string name="untrusted_domain">Accès depuis un domaine non fiable. Veuillez consulter la documentation pour plus d\'informations.</string>
+</resources>
