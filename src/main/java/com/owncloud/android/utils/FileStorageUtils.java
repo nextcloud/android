@@ -20,15 +20,11 @@
 package com.owncloud.android.utils;
 
 import android.accounts.Account;
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.net.Uri;
-import android.preference.PreferenceManager;
 import android.util.Log;
 import android.webkit.MimeTypeMap;
 
 import com.owncloud.android.MainApp;
-import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.utils.Log_OC;
@@ -160,36 +156,6 @@ public class FileStorageUtils {
         return remotePath + OCFile.PATH_SEPARATOR + subPath + (fileName == null ? "" : fileName);
     }
 
-    public static String getInstantUploadFilePath(String remotePath,
-                                                  String fileName,
-                                                  long dateTaken,
-                                                  Boolean subfolderByDate) {
-        String subPath = "";
-        if (subfolderByDate) {
-            subPath = getSubpathFromDate(dateTaken);
-        }
-
-        return remotePath + OCFile.PATH_SEPARATOR + subPath + (fileName == null ? "" : fileName);
-    }
-
-
-    /**
-     * Gets the composed path when video is or must be stored.
-     *
-     * @param context app context
-     * @param fileName: video file name
-     * @return String: video file path composed
-     */
-    public static String getInstantVideoUploadFilePath(Context context, String fileName, long dateTaken) {
-        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(context);
-        String uploadVideoPathdef = context.getString(R.string.instant_upload_path);
-        String uploadVideoPath = pref.getString("instant_video_upload_path", uploadVideoPathdef);
-        String subPath = "";
-        if (com.owncloud.android.db.PreferenceManager.instantVideoUploadPathUseSubfolders(context)) {
-            subPath = getSubpathFromDate(dateTaken);
-        }
-        return uploadVideoPath + OCFile.PATH_SEPARATOR + subPath + (fileName == null ? "" : fileName);
-    }
 
     public static String getParentPath(String remotePath) {
         String parentPath = new File(remotePath).getParent();
