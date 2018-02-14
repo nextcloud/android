@@ -41,6 +41,7 @@ import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.lib.common.UserInfo;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.lib.resources.users.DeletePublicKeyOperation;
 import com.owncloud.android.lib.resources.users.GetPrivateKeyOperation;
 import com.owncloud.android.lib.resources.users.GetPublicKeyOperation;
 import com.owncloud.android.lib.resources.users.GetRemoteUserInfoOperation;
@@ -346,8 +347,7 @@ public class SetupEncryptionDialogFragment extends DialogFragment {
 
                 // get user id
                 String userID;
-                GetRemoteUserInfoOperation remoteUserNameOperation =
-                        new GetRemoteUserInfoOperation();
+                GetRemoteUserInfoOperation remoteUserNameOperation = new GetRemoteUserInfoOperation();
                 RemoteOperationResult remoteUserNameOperationResult = remoteUserNameOperation
                         .execute(account, getContext(), true);
 
@@ -398,8 +398,10 @@ public class SetupEncryptionDialogFragment extends DialogFragment {
 
                     keyResult = KEY_CREATED;
                     return (String) storePrivateKeyResult.getData().get(0);
+                } else {
+                    DeletePublicKeyOperation deletePublicKeyOperation = new DeletePublicKeyOperation();
+                    deletePublicKeyOperation.execute(account, getContext(), true);
                 }
-
             } catch (Exception e) {
                 Log_OC.e(TAG, e.getMessage());
             }
