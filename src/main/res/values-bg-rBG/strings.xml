@@ -522,24 +522,65 @@
     <string name="local_file_not_found_toast">Файлът не е намерен в локалната система за файлове</string>
     <string name="confirmation_remove_files_alert">Наистина ли желаете избраните елементи да бъдат премахнати?</string>
     <string name="confirmation_remove_folders_alert">Наистина ли желаете избраните елементи и съдържанието им да бъдат премахнати?</string>
+    <string name="maintenance_mode">Режимът за поддръжка е включен</string>
+
+    <string name="uploads_view_upload_status_waiting_for_charging">Изчакване за зареждане на устройството</string>
     <string name="actionbar_search">Търсене</string>
+    <string name="files_drop_not_supported">Това е функционалност на Nextcloud, моля актуализирайте.</string>
     <string name="learn_more">Научете повече</string>
+    <string name="drawer_synced_folders">Автоматично качване</string>
     <string name="drawer_participate">Участвайте</string>
     <string name="participate_testing_headline">Помогни с тестването</string>
+    <string name="participate_testing_bug_text">Открили сте грешка? Нещо е странно?</string>
+    <string name="participate_testing_report_text">Докладвайте за проблем чрез Github</string>
+    <string name="participate_testing_version_text">Интересувате ли се да ни помогнете с тестването на следващата версия?</string>
+    <string name="participate_beta_headline">Тестване на бета версия</string>
+    <string name="participate_beta_text">Това включва всички предстоящи свойства и е на ръба. Бъгове и проблеми могат да възникнат, ако и когато възникнат, моля докладвайте вашите открития.</string>
+    <string name="participate_release_candidate_headline">Release candidate</string>
+    <string name="participate_release_candidate_text">Release candidate (RC) е отделна версия на предстоящ release и се очаква да е стабилна. Тестването на вашите индивидуални устройства може да гарантира стабилността. Запишете се за тестване от Play магазина или ръчно проверете в секция \"Версия\" на F-Droid.</string>
+    <string name="participate_contribute_headline">Активен принос</string>
+    <string name="participate_contribute_irc_text">Присъединете се към IRC чата:</string>
+    <string name="participate_contribute_forum_forum">Форум</string>
+    <string name="participate_contribute_translate_translate">Преведи</string>
+    <string name="participate_contribute_github_text">Прегледай, промени и пиши код, погледни %1$s за повече информация</string>
+    <string name="participate_rc_play_store">Намери кандидат за пускане от магазина на Google play</string>
+    <string name="participate_rc_fdroid">Намери кандидат за пускане от апликацията F-Droid</string>
+    <string name="participate_dev_fdroid">Намери кандидат за пускане от апликацията F-Droid</string>
+    <string name="move_to">Преместване в&#8230;</string>
+    <string name="copy_to">Копиране в&#8230;</string>
+    <string name="choose_remote_folder">Избери папка&#8230;</string>
+    <string name="choose_local_folder">Изберете локална папка &#8230;</string>
+    <string name="synced_folders_loading_folders">Зареждане на папки&#8230;</string>
+    <string name="synced_folders_no_results">Не са открити медийни папки.</string>
+    <string name="synced_folders_preferences">Предпочитания за автоматично качване</string>
+    <string name="synced_folders_new_info">Моментално качване е преправено изцяло. Конфигурирайте автоматичното качване от главното меню.\n\n Насладете се на новото и продължено автоматично качване.</string>
+    <string name="synced_folders_preferences_folder_path">За %1$s</string>
     <plurals name="items_selected_count">
         <item quantity="one">%d избран</item>
         <item quantity="other">%d избрани</item>
     </plurals>
 
+    <string name="notifications_loading_activity">Зареждане на нотификации &#8230;</string>
     <string name="notifications_no_results_headline">Няма известия</string>
     <string name="notifications_no_results_message">Моля, опитайте отново по-късно</string>
 
+    <string name="upload_file_dialog_title">Въведете име на файл и тип на файл за качване</string>
     <string name="upload_file_dialog_filename">Име на файла</string>
     <string name="upload_file_dialog_filetype">Тип на файла</string>
+    <string name="upload_file_dialog_filetype_snippet_text">Отрязък от текстов файл (.txt)</string>
+    <string name="upload_file_dialog_filetype_internet_shortcut">Файл за пряк път към интернет(%s)</string>
+    <string name="upload_file_dialog_filetype_googlemap_shortcut">Файл за пряк път към Google Maps(%s)</string>
+
     <string name="storage_description_default">По подразбиране</string>
+
+    <!-- What's new feature and texts to show -->
+    <string name="whats_new_title">Ново в %1$s</string>
 
     <!-- Welcome to Nc intro features -->
     <string name="welcome_feature_1_title">Безопасен дом за всички ваши данни</string>
+    <string name="welcome_feature_1_text">Разглеждайте, споделяйте и защитавайте вашите файлове в дома и в работата</string>
+
+    <string name="welcome_feature_2_title">Multi акаунт</string>
     <string name="welcome_feature_2_text">Свържи се към облаците си</string>
 
     <string name="welcome_feature_3_text">Съхранявайте вашите снимки безопасно</string>
