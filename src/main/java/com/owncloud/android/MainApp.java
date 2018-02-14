@@ -69,6 +69,7 @@ import com.owncloud.android.utils.AnalyticsUtils;
 import com.owncloud.android.utils.FilesSyncHelper;
 import com.owncloud.android.utils.PermissionUtil;
 import com.owncloud.android.utils.ReceiversHelper;
+import com.owncloud.android.utils.SecurityUtils;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -113,6 +114,8 @@ public class MainApp extends MultiDexApplication {
         super.onCreate();
         JobManager.create(this).addJobCreator(new NCJobCreator());
         MainApp.mContext = getApplicationContext();
+
+        new SecurityUtils();
 
         if (!getResources().getBoolean(R.bool.analytics_enabled)) {
             AnalyticsUtils.disableAnalytics();
