@@ -116,6 +116,7 @@
     <string name="filedetails_select_file">Druk op een bestand om extra informatie weer te geven</string>
     <string name="filedetails_download">Downloaden</string>
     <string name="filedetails_sync_file">Synchroniseren</string>
+    <string name="filedetails_renamed_in_upload_msg">Bestand hernoemd %1$s tijdens upload</string>
     <string name="list_layout">Lijstoverzicht</string>
     <string name="action_send_share">Versturen/Delen</string>
     <string name="common_yes">Ja</string>
@@ -277,6 +278,8 @@
     <string name="remove_success_msg">Verwijderd</string>
     <string name="remove_fail_msg">Verwijderen mislukt</string>
     <string name="rename_dialog_title">Voer een nieuwe naam in</string>
+    <string name="rename_local_fail_msg">Kon lokale kopie niet hernoemen, probeer een andere naam</string>
+    <string name="rename_server_fail_msg">Hernoemen niet mogelijk, naam is al in gebruik</string>
     <string name="sync_file_nothing_to_do_msg">Bestandsinhoud is al gesynchroniseerd</string>
     <string name="create_dir_fail_msg">Kan map niet aanmaken</string>
     <string name="filename_forbidden_characters">Verboden tekens: / \\ &lt; &gt; : " | ? *</string>
@@ -437,7 +440,9 @@
 
     <string name="prefs_category_details">Details</string>
 
-    <string name="subject_user_shared_with_you">%1$s deelde \"%2$s\" met jou</string>
+    <string name="sync_folder_failed_content">Synchroniseren van %1$s folder kon niet worden afgerond</string>
+
+	<string name="subject_user_shared_with_you">%1$s deelde \"%2$s\" met jou</string>
     <string name="subject_shared_with_you">\"%1$s\" is met je gedeeld</string>
 
     <string name="auth_refresh_button">Verbinding verversen</string>
@@ -583,6 +588,7 @@
     <string name="welcome_feature_3_title">Automatisch uploaden</string>
     <string name="welcome_feature_3_text">Hou je foto\'s veilig</string>
 
+    <string name="whats_new_end_to_end_encryption_title">Eindpunt-tot-eindpunt versleuteling</string>
     <string name="whats_new_ipv6_title">IPv6 ondersteuning</string>
     <string name="whats_new_skip">Overslaan</string>
 
@@ -739,6 +745,7 @@
     <string name="end_to_end_encryption_not_supported">Versleutelen wordt niet ondersteund in versies eerder dan KitKat (4.4)</string>
     <string name="end_to_end_encryption_confirm_button">Instellen versleuteling</string>
     <string name="end_to_end_encryption_password">Wachtwoord &#8230;</string>
+    <string name="end_to_end_encryption_unsuccessful">Kon de sleutels niet opslaan, probeer opnieuw a.u.b.</string>
     <string name="end_to_end_encryption_dialog_close">Sluiten</string>
     <string name="end_to_end_encryption_storing_keys">Opslaan sleutels</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Kopieren/verplaatsen naar een versleutelde map is momenteel niet mogelijk.</string>
