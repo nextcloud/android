@@ -196,6 +196,7 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
         if (savedInstanceState != null) {
             currentSearchType = Parcels.unwrap(savedInstanceState.getParcelable(KEY_CURRENT_SEARCH_TYPE));
             searchEvent = Parcels.unwrap(savedInstanceState.getParcelable(OCFileListFragment.SEARCH_EVENT));
+            mFile = savedInstanceState.getParcelable(KEY_FILE);
         }
 
         searchFragment = currentSearchType != null;
@@ -233,13 +234,13 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
         View v = super.onCreateView(inflater, container, savedInstanceState);
         bottomNavigationView = v.findViewById(R.id.bottom_navigation_view);
 
-        if (savedInstanceState != null) {
+        if (savedInstanceState != null
+                && Parcels.unwrap(savedInstanceState.getParcelable(KEY_CURRENT_SEARCH_TYPE)) != null) {
             currentSearchType = Parcels.unwrap(savedInstanceState.getParcelable(KEY_CURRENT_SEARCH_TYPE));
+            searchFragment = true;
         } else {
             currentSearchType = SearchType.NO_SEARCH;
         }
-
-        searchFragment = savedInstanceState != null;
 
         if (getResources().getBoolean(R.bool.bottom_toolbar_enabled)) {
             bottomNavigationView.setVisibility(View.VISIBLE);
@@ -755,13 +756,14 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
      */
     @Override
     public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
         outState.putParcelable(KEY_FILE, mFile);
         if (searchFragment) {
             outState.putParcelable(KEY_CURRENT_SEARCH_TYPE, Parcels.wrap(currentSearchType));
             outState.putParcelable(OCFileListFragment.SEARCH_EVENT, Parcels.wrap(searchEvent));
         }
         mMultiChoiceModeListener.storeStateIn(outState);
+
+        super.onSaveInstanceState(outState);
     }
 
     @Override
