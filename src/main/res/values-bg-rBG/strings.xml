@@ -546,6 +546,7 @@
     <string name="participate_rc_play_store">Намери кандидат за пускане от магазина на Google play</string>
     <string name="participate_rc_fdroid">Намери кандидат за пускане от апликацията F-Droid</string>
     <string name="participate_dev_fdroid">Намери кандидат за пускане от апликацията F-Droid</string>
+    <string name="participate_dev_direct_download">Изтегляне на разработващата версия</string>
     <string name="move_to">Преместване в&#8230;</string>
     <string name="copy_to">Копиране в&#8230;</string>
     <string name="choose_remote_folder">Избери папка&#8230;</string>
@@ -583,7 +584,15 @@
     <string name="welcome_feature_2_title">Multi акаунт</string>
     <string name="welcome_feature_2_text">Свържи се към облаците си</string>
 
+    <string name="welcome_feature_3_title">Автоматично качване</string>
     <string name="welcome_feature_3_text">Съхранявайте вашите снимки безопасно</string>
+
+    <string name="whats_new_end_to_end_encryption_title">Криптиране</string>
+    <string name="whats_new_end_to_end_encryption_content">Натиснете за да криптирате, от всеки клиент. Добавете нови като копирате 12-те думи тук.</string>
+    <string name="whats_new_resized_images_title">Адаптиращи се изображения</string>
+    <string name="whats_new_resized_images_content">Малки изображения са бързи и работят добре за споделяне. Увеличете за да изтеглите пълната версия.</string>
+    <string name="whats_new_ipv6_title">IPv6 поддръжка</string>
+    <string name="whats_new_ipv6_content">IPv6 когато сървъра го поддържа, IPv4 ако не.</string>
 
     <string name="whats_new_skip">Пропусни</string>
 
@@ -597,6 +606,11 @@
     <string name="user_info_website">Интернет страница</string>
     <string name="user_info_twitter">Twitter</string>
 
+    <string name="user_information_retrieval_error">Грешка при изтеглянето на потребителска информация</string>
+
+    <!-- Activities -->
+    <string name="activities_no_results_headline">Няма дейност все още</string>
+    <string name="activities_no_results_message">Този поток ще покаже събития като\n допълнения, промени и споделяния.</string>
     <string name="prefs_category_about">Относно</string>
 
     <string name="actionbar_contacts_restore">Възстанови контакт</string>
