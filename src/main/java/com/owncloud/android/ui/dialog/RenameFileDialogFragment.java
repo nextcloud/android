@@ -142,23 +142,13 @@ public class RenameFileDialogFragment
                 return;
             }
 
-            boolean serverWithForbiddenChars = ((ComponentsGetter)getActivity()).
-                    getFileOperationsHelper().isVersionWithForbiddenCharacters();
-
-            if (!FileUtils.isValidName(newFileName, serverWithForbiddenChars)) {
-
-                if (serverWithForbiddenChars) {
-                    DisplayUtils.showSnackMessage(getActivity(), R.string.filename_forbidden_charaters_from_server);
-                } else {
-                    DisplayUtils.showSnackMessage(getActivity(), R.string.filename_forbidden_characters);
-                }
-
+            if (!FileUtils.isValidName(newFileName)) {
+                DisplayUtils.showSnackMessage(getActivity(), R.string.filename_forbidden_charaters_from_server);
+                    
                 return;
             }
 
-            ((ComponentsGetter)getActivity()).getFileOperationsHelper().
-                    renameFile(mTargetFile, newFileName);
-
+            ((ComponentsGetter) getActivity()).getFileOperationsHelper().renameFile(mTargetFile, newFileName);
         }
     }
 }

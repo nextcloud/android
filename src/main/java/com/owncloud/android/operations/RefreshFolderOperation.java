@@ -237,14 +237,10 @@ public class RefreshFolderOperation extends RemoteOperation {
         UpdateOCVersionOperation update = new UpdateOCVersionOperation(mAccount, mContext);
         RemoteOperationResult result = update.execute(client);
         if (result.isSuccess()) {
-            mIsShareSupported = update.getOCVersion().isSharedSupported();
+            mIsShareSupported = true;
 
             // Update Capabilities for this account
-            if (update.getOCVersion().isVersionWithCapabilitiesAPI()) {
-                updateCapabilities();
-            } else {
-                Log_OC.d(TAG, "Capabilities API disabled");
-            }
+            updateCapabilities();
         }
     }
 

@@ -22,6 +22,7 @@
 package com.owncloud.android.datamodel;
 
 import android.accounts.Account;
+import android.accounts.AccountManager;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -286,45 +287,39 @@ public class ThumbnailsCacheManager {
 
                 } else {
                     // Download thumbnail from server
-                    OwnCloudVersion serverOCVersion = AccountUtils.getServerVersion(account);
-
                     if (mClient != null) {
-                        if (serverOCVersion.supportsRemoteThumbnails()) {
-                            GetMethod getMethod = null;
-                            try {
-                                String uri = mClient.getBaseUri() + "/index.php/core/preview.png?file="
-                                        + URLEncoder.encode(file.getRemotePath())
-                                        + "&x=" + pxW + "&y=" + pxH + "&a=1&mode=cover&forceIcon=0";
-                                getMethod = new GetMethod(uri);
+                        GetMethod getMethod = null;
+                        try {
+                            String uri = mClient.getBaseUri() + "/index.php/core/preview.png?file="
+                                    + URLEncoder.encode(file.getRemotePath())
+                                    + "&x=" + pxW + "&y=" + pxH + "&a=1&mode=cover&forceIcon=0";
+                            getMethod = new GetMethod(uri);
 
-                                int status = mClient.executeMethod(getMethod);
-                                if (status == HttpStatus.SC_OK) {
-                                    InputStream inputStream = getMethod.getResponseBodyAsStream();
-                                    thumbnail = BitmapFactory.decodeStream(inputStream);
-                                } else {
-                                    mClient.exhaustResponse(getMethod.getResponseBodyAsStream());
-                                }
+                            int status = mClient.executeMethod(getMethod);
+                            if (status == HttpStatus.SC_OK) {
+                                InputStream inputStream = getMethod.getResponseBodyAsStream();
+                                thumbnail = BitmapFactory.decodeStream(inputStream);
+                            } else {
+                                mClient.exhaustResponse(getMethod.getResponseBodyAsStream());
+                            }
 
                                 // Handle PNG
                                 if (thumbnail != null && file.getMimeType().equalsIgnoreCase(PNG_MIMETYPE)) {
                                     thumbnail = handlePNG(thumbnail, thumbnail.getWidth(), thumbnail.getHeight());
                                 }
 
-                                // Add thumbnail to cache
-                                if (thumbnail != null) {
-                                    Log_OC.d(TAG, "add thumbnail to cache: " + file.getFileName());
-                                    addBitmapToCache(imageKey, thumbnail);
-                                }
-
-                            } catch (Exception e) {
-                                Log_OC.d(TAG, e.getMessage(), e);
-                            } finally {
-                                if (getMethod != null) {
-                                    getMethod.releaseConnection();
-                                }
+                            // Add thumbnail to cache
+                            if (thumbnail != null) {
+                                Log_OC.d(TAG, "add thumbnail to cache: " + file.getFileName());
+                                addBitmapToCache(imageKey, thumbnail);
                             }
-                        } else {
-                            Log_OC.d(TAG, "Server too old");
+
+                        } catch (Exception e) {
+                            Log_OC.d(TAG, e.getMessage(), e);
+                        } finally {
+                            if (getMethod != null) {
+                                getMethod.releaseConnection();
+                            }
                         }
                     }
                 }
@@ -548,7 +543,7 @@ public class ThumbnailsCacheManager {
                         thumbnail = ThumbnailUtils.extractThumbnail(resizedImage, pxW, pxH);
                     } else {
                         // Download thumbnail from server
-                        if (mClient != null && AccountUtils.getServerVersion(mAccount).supportsRemoteThumbnails()) {
+                        if (mClient != null) {
                             getMethod = null;
                             try {
                                 // thumbnail
@@ -565,10 +560,10 @@ public class ThumbnailsCacheManager {
                                 getMethod = new GetMethod(uri);
                                 getMethod.setRequestHeader("Cookie",
                                         "nc_sameSiteCookielax=true;nc_sameSiteCookiestrict=true");
-
+    
                                 getMethod.setRequestHeader(RemoteOperation.OCS_API_HEADER,
                                         RemoteOperation.OCS_API_HEADER_VALUE);
-
+    
                                 int status = mClient.executeMethod(getMethod);
                                 if (status == HttpStatus.SC_OK) {
                                     InputStream inputStream = getMethod.getResponseBodyAsStream();
@@ -577,7 +572,7 @@ public class ThumbnailsCacheManager {
                                 } else {
                                     mClient.exhaustResponse(getMethod.getResponseBodyAsStream());
                                 }
-
+    
                                 // Handle PNG
                                 if (file.getMimeType().equalsIgnoreCase(PNG_MIMETYPE)) {
                                     thumbnail = handlePNG(thumbnail, pxW, pxH);
@@ -588,9 +583,6 @@ public class ThumbnailsCacheManager {
                                 if (getMethod != null) {
                                     getMethod.releaseConnection();
                                 }
-                            }
-                        } else {
-                            Log_OC.d(TAG, "Server too old");
                         }
                     }
 
@@ -865,58 +857,56 @@ public class ThumbnailsCacheManager {
             int px = getAvatarDimension();
 
             // Download avatar from server
-            OwnCloudVersion serverOCVersion = AccountUtils.getServerVersion(mAccount);
             if (mClient != null) {
-                if (serverOCVersion.supportsRemoteThumbnails()) {
-                    GetMethod get = null;
-                    try {
-                        String uri = mClient.getBaseUri() + "/index.php/avatar/" + Uri.encode(mUserId) + "/" + px;
-                        Log_OC.d("Avatar", "URI: " + uri);
-                        get = new GetMethod(uri);
+                GetMethod get = null;
+                try {
+                    String uri = mClient.getBaseUri() + "/index.php/avatar/" + Uri.encode(mUserId) + "/" + px;
+                    Log_OC.d("Avatar", "URI: " + uri);
+                    get = new GetMethod(uri);
 
-                        // only use eTag if available and corresponding avatar is still there 
-                        // (might be deleted from cache)
+                    // only use eTag if available and corresponding avatar is still there 
+                    // (might be deleted from cache)
                         if (!eTag.isEmpty() && getBitmapFromDiskCache(avatarKey) != null) {
                             get.setRequestHeader("If-None-Match", eTag);
                         }
 
-                        int status = mClient.executeMethod(get);
+                    int status = mClient.executeMethod(get);
 
-                        // we are using eTag to download a new avatar only if it changed
-                        switch (status) {
-                            case HttpStatus.SC_OK:
-                                // new avatar
-                                InputStream inputStream = get.getResponseBodyAsStream();
+                    // we are using eTag to download a new avatar only if it changed
+                    switch (status) {
+                        case HttpStatus.SC_OK:
+                            // new avatar
+                            InputStream inputStream = get.getResponseBodyAsStream();
 
-                                String newETag = null;
-                                if (get.getResponseHeader(ETAG) != null) {
-                                    newETag = get.getResponseHeader(ETAG).getValue().replace("\"", "");
-                                    arbitraryDataProvider.storeOrUpdateKeyValue(accountName, AVATAR, newETag);
-                                }
+                            String newETag = null;
+                            if (get.getResponseHeader(ETAG) != null) {
+                                newETag = get.getResponseHeader(ETAG).getValue().replace("\"", "");
+                                arbitraryDataProvider.storeOrUpdateKeyValue(accountName, AVATAR, newETag);
+                            }
 
-                                Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
-                                avatar = ThumbnailUtils.extractThumbnail(bitmap, px, px);
+                            Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
+                            avatar = ThumbnailUtils.extractThumbnail(bitmap, px, px);
 
-                                // Add avatar to cache
-                                if (avatar != null && !TextUtils.isEmpty(newETag)) {
-                                    avatar = handlePNG(avatar, px, px);
-                                    String newImageKey = "a_" + mUserId + "_" + mServerName + "_" + newETag;
-                                    addBitmapToCache(newImageKey, avatar);
-                                } else {
-                                    return TextDrawable.createAvatar(mAccount.name, mAvatarRadius);
-                                }
-                                break;
+                            // Add avatar to cache
+                            if (avatar != null && !TextUtils.isEmpty(newETag)) {
+                                avatar = handlePNG(avatar, px, px);
+                                String newImageKey = "a_" + mUserId + "_" + mServerName + "_" + newETag;
+                                addBitmapToCache(newImageKey, avatar);
+                            } else {
+                                return TextDrawable.createAvatar(mAccount.name, mAvatarRadius);
+                            }
+                            break;
 
-                            case HttpStatus.SC_NOT_MODIFIED:
-                                // old avatar
-                                avatar = getBitmapFromDiskCache(avatarKey);
-                                mClient.exhaustResponse(get.getResponseBodyAsStream());
-                                break;
+                        case HttpStatus.SC_NOT_MODIFIED:
+                            // old avatar
+                            avatar = getBitmapFromDiskCache(avatarKey);
+                            mClient.exhaustResponse(get.getResponseBodyAsStream());
+                            break;
 
-                            default:
-                                // everything else
-                                mClient.exhaustResponse(get.getResponseBodyAsStream());
-                                break;
+                        default:
+                            // everything else
+                            mClient.exhaustResponse(get.getResponseBodyAsStream());
+                            break;
 
                         }
                     } catch (Exception e) {
