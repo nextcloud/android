@@ -54,8 +54,7 @@ repositories {
 def versionMajor = 3
 def versionMinor = 1
 def versionPatch = 0
-def versionBuild = 1 // alphas, betas, release candidates (<99=non-stable, 99=stable)
-def versionNameSuffix = "Alpha" // ignored for stable releases
+def versionBuild = 0 // 0-49=Alpha / 50-98=RC / 99=stable
 
 android {
     lintOptions {
@@ -89,8 +88,10 @@ android {
 
         if (versionBuild > 98) {
             versionName "${versionMajor}.${versionMinor}.${versionPatch}"
+        } else if (versionBuild > 49) {
+            versionName "${versionMajor}.${versionMinor}.${versionPatch} RC"+(versionBuild-49)
         } else {
-            versionName "${versionMajor}.${versionMinor}.${versionPatch} ${versionNameSuffix}"
+            versionName "${versionMajor}.${versionMinor}.${versionPatch} Alpha"+(versionBuild+1)
         }
 
         // adapt structure from Eclipse to Gradle/Android Studio expectations;
