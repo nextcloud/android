@@ -732,6 +732,8 @@ Sjekk ut Nextcloud på https://nextcloud.com</string>
     <string name="notification_channel_media_description">Musikkspillerframdrift</string>
     <string name="notification_channel_file_sync_name">Filsynkronisering</string>
     <string name="notification_channel_file_sync_description">Viser filsynkroniseringsframdrift og resultater</string>
+    <string name="notification_channel_file_observer_description">Sjekker filer for endringer</string>
+  
     <string name="account_not_found">Konto ble ikke funnet!</string>
 
     <string name="screenshot_01_gridView">Et trygt hjem for alle dine data</string>
