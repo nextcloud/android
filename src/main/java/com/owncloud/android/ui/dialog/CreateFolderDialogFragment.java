@@ -127,24 +127,15 @@ public class CreateFolderDialogFragment
                 DisplayUtils.showSnackMessage(getActivity(), R.string.filename_empty);
                 return;
             }
-            boolean serverWithForbiddenChars = ((ComponentsGetter)getActivity()).
-                    getFileOperationsHelper().isVersionWithForbiddenCharacters();
 
-            if (!FileUtils.isValidName(newFolderName, serverWithForbiddenChars)) {
-
-                if (serverWithForbiddenChars) {
-                    DisplayUtils.showSnackMessage(getActivity(), R.string.filename_forbidden_charaters_from_server);
-                } else {
-                    DisplayUtils.showSnackMessage(getActivity(), R.string.filename_forbidden_characters);
-                }
+            if (!FileUtils.isValidName(newFolderName)) {
+                DisplayUtils.showSnackMessage(getActivity(), R.string.filename_forbidden_charaters_from_server);
 
                 return;
             }
-            
-            String path = mParentFolder.getRemotePath();
-            path += newFolderName + OCFile.PATH_SEPARATOR;
-            ((ComponentsGetter)getActivity()).
-                getFileOperationsHelper().createFolder(path, false);
+
+            String path = mParentFolder.getRemotePath() + newFolderName + OCFile.PATH_SEPARATOR;
+            ((ComponentsGetter) getActivity()).getFileOperationsHelper().createFolder(path, false);
         }
     }
 }

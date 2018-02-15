@@ -59,23 +59,19 @@ public class HttpStreamFetcher implements DataFetcher<InputStream> {
                 getClientFor(ocAccount, MainApp.getAppContext());
 
         if (mClient != null) {
-            if (AccountUtils.getServerVersion(mAccount).supportsRemoteThumbnails()) {
-                GetMethod get = null;
-                try {
-                    get = new GetMethod(mURL);
-                    get.setRequestHeader("Cookie", "nc_sameSiteCookielax=true;nc_sameSiteCookiestrict=true");
-                    get.setRequestHeader(RemoteOperation.OCS_API_HEADER, RemoteOperation.OCS_API_HEADER_VALUE);
-                    int status = mClient.executeMethod(get);
-                    if (status == HttpStatus.SC_OK) {
-                        return get.getResponseBodyAsStream();
-                    } else {
-                        mClient.exhaustResponse(get.getResponseBodyAsStream());
-                    }
-                } catch (Exception e) {
-                    Log_OC.d(TAG, e.getMessage(), e);
+            GetMethod get;
+            try {
+                get = new GetMethod(mURL);
+                get.setRequestHeader("Cookie", "nc_sameSiteCookielax=true;nc_sameSiteCookiestrict=true");
+                get.setRequestHeader(RemoteOperation.OCS_API_HEADER, RemoteOperation.OCS_API_HEADER_VALUE);
+                int status = mClient.executeMethod(get);
+                if (status == HttpStatus.SC_OK) {
+                    return get.getResponseBodyAsStream();
+                } else {
+                    mClient.exhaustResponse(get.getResponseBodyAsStream());
                 }
-            } else {
-                Log_OC.d(TAG, "Server too old");
+            } catch (Exception e) {
+                Log_OC.d(TAG, e.getMessage(), e);
             }
         }
         return null;

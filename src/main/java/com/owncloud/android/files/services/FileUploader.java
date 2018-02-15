@@ -545,7 +545,6 @@ public class FileUploader extends Service
         boolean retry = intent.getBooleanExtra(KEY_RETRY, false);
         AbstractList<String> requestedUploads = new Vector<>();
 
-        boolean chunked = AccountUtils.getServerVersion(account).isChunkedUploadSupported();
         boolean onWifiOnly = intent.getBooleanExtra(KEY_WHILE_ON_WIFI_ONLY, false);
         boolean whileChargingOnly = intent.getBooleanExtra(KEY_WHILE_CHARGING_ONLY, false);
 
@@ -633,7 +632,7 @@ public class FileUploader extends Service
                             account,
                             files[i],
                             ocUpload,
-                            chunked,
+                            true,
                             forceOverwrite,
                             localAction,
                             this,
@@ -692,7 +691,7 @@ public class FileUploader extends Service
                     account,
                     null,
                     upload,
-                    chunked,
+                    true,
                     upload.isForceOverwrite(),  // TODO should be read from DB?
                     upload.getLocalAction(),    // TODO should be read from DB?
                     this,

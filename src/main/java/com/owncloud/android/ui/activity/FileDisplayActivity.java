@@ -2201,7 +2201,7 @@ public class FileDisplayActivity extends HookActivity
                                 RemoteOperation synchFolderOp = new RefreshFolderOperation(folder,
                                         currentSyncTime,
                                         false,
-                                        getFileOperationsHelper().isSharedSupported(),
+                                        true,
                                         ignoreETag,
                                         getStorageManager(),
                                         getAccount(),

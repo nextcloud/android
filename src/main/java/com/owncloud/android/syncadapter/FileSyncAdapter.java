@@ -239,7 +239,7 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
         if (!result.isSuccess()) {
             mLastFailedResult = result; 
         } else {
-            mIsShareSupported = update.getOCVersion().isSharedSupported();
+            mIsShareSupported = true;
         }
     }
     
