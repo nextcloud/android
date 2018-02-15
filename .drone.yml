@@ -1,6 +1,6 @@
 pipeline:
   test:
-    image: nextcloudci/android:android-31
+    image: nextcloudci/android:android-32
     commands:
       # uncomment gplay for Gplay, Modified only
       - sh -c "if [ '$FLAVOUR' != 'Generic' ]; then sed -i '/.*com.google.*/s/^.*\\/\\///g' build.gradle; fi"
@@ -24,12 +24,12 @@ pipeline:
       #- adb shell am instrument -w -e debug false -e class com.owncloud.android.datamodel.OCFileUnitTest com.owncloud.android.test/android.support.test.runner.AndroidJUnitRunner
 
     environment:
-      - ANDROID_TARGET=android-31
+      - ANDROID_TARGET=android-32
       - ANDROID_ABI=armeabi-v7a
       - LD_LIBRARY_PATH=/usr/lib/x86_64-linux-gnu/:/opt/android-sdk-linux/tools/lib64/gles_mesa/
 
   lint:
-    image: nextcloudci/android:android-31
+    image: nextcloudci/android:android-32
     commands:
       # needs gplay
       - sed -i '/.*com.google.*/s/^.*\\/\\///g' build.gradle
