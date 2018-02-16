@@ -34,7 +34,7 @@
 # Guidelines
 
 ## Issue reporting
-* [Report the issue](https://github.com/nextcloud/android/issues/new) using our [template][template], it includes all the information we need to track down the issue.
+* [Report the issue](https://github.com/nextcloud/android/issues/new) using our [template](https://github.com/nextcloud/android/blob/master/issue_template.md), it includes all the information we need to track down the issue.
 * This repository is *only* for issues within the Nextcloud Android app code. Issues in other components should be reported in their own repositories, e.g. [Nextcloud core](https://github.com/nextcloud/core/issues)
 * Search the [existing issues](https://github.com/nextcloud/android/issues) first, it's likely that your issue was already reported.
 If your issue appears to be a bug, and hasn't been reported, open a new issue.
