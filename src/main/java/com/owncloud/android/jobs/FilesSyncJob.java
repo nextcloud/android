@@ -162,6 +162,13 @@ public class FilesSyncJob extends Job {
                         remotePath = syncedFolder.getRemotePath();
                     }
 
+                    if (!subfolderByDate) {
+                        String adaptedPath = file.getAbsolutePath()
+                                .replace(syncedFolder.getLocalPath(), "")
+                                .replace("/" + file.getName(), "");
+                        remotePath += adaptedPath;
+                    }
+
                     requester.uploadFileWithOverwrite(
                             context,
                             account,
