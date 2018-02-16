@@ -47,6 +47,7 @@
     <string name="prefs_log_delete_history_button">Slett historikk</string>
     <string name="prefs_calendar_contacts">Synkroniser kalender &amp; kontakter</string>
     <string name="prefs_calendar_contacts_summary">Sett opp DAVdroid (v1.3.0+) for nåværende konto</string>
+    <string name="prefs_calendar_contacts_address_resolve_error">Tjeneradressen for konto ble ikke funnet for DAVdroid</string>
     <string name="prefs_calendar_contacts_no_store_error">Hverken F-Droid eller Google Play er installert</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Kalender &amp; kontaktsynkronisering ble satt opp</string>
     <string name="prefs_daily_contacts_sync_summary">Daglig sikkerhetskopiering av dine kontakter</string>
@@ -397,6 +398,7 @@
     <string name="file_migration_failed_not_writable">Kunne ikke skrive til målfil</string>
     <string name="file_migration_failed_not_readable">Kunne ikke lese kildefil</string>
     <string name="file_migration_failed_dir_already_exists">Nextcloud-mappen finnes allerede</string>
+    <string name="file_migration_failed_while_coping">Feil under migrering</string>
     <string name="file_migration_failed_while_updating_index">Klarte ikke å oppdatere indeks</string>
 
     <string name="file_migration_directory_already_exists">Datamappe eksisterer allerede. Velg en av følgende:</string>
@@ -710,7 +712,7 @@ Sjekk ut Nextcloud på https://nextcloud.com</string>
     <string name="synced_folder_settings_button">Innstillingsknapp</string>
     <string name="synced_folder_custom_folder_image">Tilpasset mappe-knapp</string>
     <string name="forward">Fremover</string>
-    <string name="what_s_new_image">Hva er nytt bilde</string>
+    <string name="what_s_new_image">Hva er nytt-bilde</string>
 
     <string name="store_short_dev_desc">Nextcloud Dev er et øyblikksbygg som kan installeres parallelt </string>
     <string name="store_full_dev_desc">Det frie copyleft Nextcloud Android programmet, gir deg tilgang til filene i din Nextcloud.\nDette er den offisielle utviklingsversjonen, som gir deg et daglig innblikk i ny utestet funksjonalitet, som kan forårsake ustabilitet og datatap. Programmet er myntet på brukere som er villige til å teste, og rapportere feil om de inntreffer. Ikke bruk det til produktivt arbeid!\n\n\Både offisiell vanlig- og dev-versjon er tilgjengelig på F-droid, og kan installeres samtidig.</string>
@@ -761,5 +763,5 @@ Sjekk ut Nextcloud på https://nextcloud.com</string>
     <string name="end_to_end_encryption_dialog_close">Lukk</string>
     <string name="end_to_end_encryption_storing_keys">Lagrer nøkler</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Kopiering/flytting til kryptert mappe støttes ikke enda.</string>
-    <string name="untrusted_domain">Tilgang gjennom ubetrodd domene. Se dokumentasjonen for mer informasjon.</string>
+    <string name="untrusted_domain">Tilgang gjennom ubetrodd domene. Sjekk dokumentasjonen for mer informasjon.</string>
 </resources>

@@ -613,6 +613,7 @@
     <string name="activities_no_results_message">Този поток ще покаже събития като\n допълнения, промени и споделяния.</string>
     <string name="prefs_category_about">Относно</string>
 
+    <string name="actionbar_contacts">Подсигурете контактите си</string>
     <string name="actionbar_contacts_restore">Възстанови контакт</string>
     <string name="contacts_preference_backup_never">никога</string>
     <string name="contacts_preferences_no_file_found">Няма намерен файл</string>
