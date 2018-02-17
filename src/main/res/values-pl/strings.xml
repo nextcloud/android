@@ -88,6 +88,7 @@
     <string name="file_list_empty">Wyślij zawartość lub synchronizuj ją ze swoimi urządzeniami</string>
     <string name="file_list_empty_favorites_filter_list">Tutaj znajdziesz pliki i foldery oznaczone jako ulubione</string>
     <string name="file_list_empty_favorites_filter">Twoje wyszukiwanie nie zwróciło żadnych ulubionych plików</string>
+    <string name="file_list_loading">Wczytywanie &#8230;</string>
     <string name="file_list_no_app_for_file_type">Brak aplikacji dla tego typu plików.</string>
     <string name="local_file_list_empty">Nie ma plików w tym folderze.</string>
     <string name="local_folder_list_empty">Nie ma plików w tym folderze.</string>
@@ -101,13 +102,17 @@
     <string name="file_list_empty_search">Spróbować szukać w innym folderze?</string>
     <string name="file_list_empty_recently_added">NIe znaleziono żadnych ostatnio dodanych plików</string>
     <string name="file_list_empty_text_photos">Wyślij zdjęcia lub włącz automatyczne wysyłanie</string>
+    <string name="file_list_empty_text_photos_filter">Brak zdjęć</string>
     <string name="file_list_empty_text_videos">Wyślij pliki wideo lub włącz automatyczne wysyłanie</string>
+    <string name="file_list_empty_text_videos_filter">Brak plików wideo</string>
     <string name="upload_list_empty_headline">Brak dostępnych danych do wysłania</string>
     <string name="upload_list_empty_text_auto_upload">Wyślij zawartość lub włącz wysyłanie automatyczne.</string>
     <string name="file_list_folder">folder</string>
     <string name="filedetails_select_file">Dotknij plik aby wyświetlić dodatkowe informacje</string>
     <string name="filedetails_download">Pobierz</string>
+    <string name="filedetails_sync_file">Synchronizuj</string>
     <string name="list_layout">Wygląd listy</string>
+    <string name="action_send_share">Udostępnij</string>
     <string name="common_yes">Tak</string>
     <string name="common_no">Nie</string>
     <string name="common_ok">OK</string>
@@ -115,6 +120,7 @@
     <string name="common_cancel">Anuluj</string>
     <string name="common_back">Wróć</string>
     <string name="common_save">Zapisz</string>
+    <string name="common_error">Błąd</string>
     <string name="common_loading">Wczytuję &#8230;</string>
     <string name="common_unknown">nieznane</string>
     <string name="common_error_unknown">Nieznany błąd</string>
@@ -148,6 +154,7 @@
     <string name="uploads_view_upload_status_conflict">Konflikt</string>
     <string name="uploads_view_upload_status_service_interrupted">Aplikacja została zatrzymana</string>
     <string name="uploads_view_upload_status_unknown_fail">Nieznany błąd</string>
+    <string name="uploads_view_upload_status_waiting_for_wifi">Oczekiwanie na połączenie Wi-Fi</string>
     <string name="uploads_view_upload_status_waiting_exit_power_save_mode">Oczekiwanie na wyjście z trybu oszczędzania energii</string>
     <string name="uploads_view_later_waiting_to_upload">Oczekuję na przesyłanie</string>
     <string name="downloader_download_in_progress_ticker">Pobieranie &#8230;</string>
@@ -237,6 +244,8 @@
     <string name="favorite_real">Ustaw jako ulubione</string>
     <string name="unset_favorite_real">Usuń ustawienie jako ulubione</string>
     <string name="favorite_switch">Dostępne offline</string>
+    <string name="encrypted">Ustaw jako zaszyfrowane</string>
+    <string name="unset_encrypted">Wyłącz szyfrowanie</string>
     <string name="common_rename">Zmień nazwę</string>
     <string name="common_remove">Usuń</string>
     <string name="confirmation_remove_file_alert">Czy naprawdę chcesz usunąć %1$s?</string>
@@ -248,6 +257,7 @@
     <string name="sync_file_nothing_to_do_msg">Zawartość pliku została już synchronizowana</string>
     <string name="create_dir_fail_msg">Nie udało się utworzyć folderu</string>
     <string name="filename_forbidden_characters">Znaki zabronione: / \\ &lt; &gt; : \" | ? *</string>
+    <string name="filename_empty">Nazwa pliku nie może być pusta.</string>
     <string name="wait_checking_credentials">Sprawdzanie danych</string>
     <string name="filedisplay_no_file_selected">Nie wybrano żadnego pliku</string>
     <string name="activity_chooser_title">Wyślij link do &#8230;</string>
@@ -504,6 +514,8 @@
     <string name="welcome_feature_3_title">Automatyczne wysyłanie</string>
     <string name="welcome_feature_3_text">Twoje zdjęcia będą bezpieczne</string>
 
+    <string name="whats_new_end_to_end_encryption_title">Szyfrowanie end-to-end</string>
+    <string name="whats_new_ipv6_title">Wsparcie IPv6</string>
     <string name="whats_new_skip">Pomiń</string>
 
     <string name="fingerprint_scan_finger">Umieść palec na czytniku odcisku palca</string>
@@ -538,6 +550,7 @@
     <string name="contacts_preferences_backup_scheduled">Kopia zapasowa została zaplanowana i wkrótce zostanie uruchomiona</string>
     <string name="contacts_preferences_import_scheduled">Importowanie zostało zaplanowane i wkrótce zostanie uruchomione</string>
 
+    <string name="drawer_logout">Wyloguj</string>
     <string name="privacy">Prywatność</string>
     <!-- Auto upload -->
     <string name="autoupload_custom_folder">Ustaw własny katalog</string>
@@ -588,4 +601,14 @@ Przycisk wysyłania elementu</string>
     <string name="store_short_dev_desc">
 Wersja Nextcloud Dev jest wersją rozwojową, można ją zainstalować równolegle.</string>
     <string name="prefs_category_dev">Rozwojowa</string>
+    <string name="dev_version_no_new_version_available">Brak nowej wersji</string>
+    <string name="version_dev_download">Pobierz</string>
+
+    <string name="account_not_found">Nie znaleziono konta</string>
+
+    <string name="end_to_end_encryption_folder_not_empty">Ten folder nie jest pusty</string>
+    <string name="end_to_end_encryption_title">Włącz szyfrowanie</string>
+    <string name="end_to_end_encryption_not_supported">Szyfrowanie działa tylko na androidzie KitKat(4.4) lub nowszym</string>
+    <string name="end_to_end_encryption_confirm_button">Włącz szyfrowanie</string>
+    <string name="end_to_end_encryption_dialog_close">Zamknij</string>
     </resources>
