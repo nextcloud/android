@@ -589,7 +589,12 @@
     <string name="welcome_feature_3_text">Hou je foto\'s veilig</string>
 
     <string name="whats_new_end_to_end_encryption_title">Eindpunt-tot-eindpunt versleuteling</string>
+    <string name="whats_new_end_to_end_encryption_content">Versleutel je data met één druk op de knop. Voeg nieuwe locaties toe met een sleutel van 12 woorden.</string>
+    <string name="whats_new_resized_images_title">Slimme afbeeldingsgrootte</string>
+    <string name="whats_new_resized_images_content">In eerste instantie downloaden we kleine afbeeldingen; ideaal om snel te werken en te delen. Zoom in om de volledige resolutie te downloaden.</string>
     <string name="whats_new_ipv6_title">IPv6 ondersteuning</string>
+    <string name="whats_new_ipv6_content">IPv6 als de server dit ondersteunt, en anders IPv4.</string>
+
     <string name="whats_new_skip">Overslaan</string>
 
     <string name="fingerprint_scan_finger">Scan je vinger</string>
@@ -730,7 +735,7 @@
     
     <string name="userinfo_no_info_headline">Geen persoonlijke informatie ingesteld</string>
     <string name="userinfo_no_info_text">Voeg naam, foto en contact details op je profielpagina toe.</string>
-    <string name="drawer_header_background">Achtergrondafbeelding van drawer header</string>
+    <string name="drawer_header_background">Achtergrondafbeelding in het menu</string>
     <string name="account_icon">Account icoon</string>
     
     <string name="end_to_end_encryption_folder_not_empty">Deze map is niet leeg.</string>
