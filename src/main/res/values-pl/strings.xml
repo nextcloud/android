@@ -481,6 +481,7 @@
     <string name="participate_rc_fdroid">Pobierz wersję \"kandydującą\" z F-Droid</string>
     <string name="participate_dev_fdroid">Pobierz wersję \"rozwojową\" z F-Droid</string>
     <string name="participate_dev_direct_download">Pobierz wersję \"kandydującą\" bezpośrednio</string>
+    <string name="synced_folders_loading_folders">Ładowanie folderów &#8230;</string>
     <string name="synced_folders_no_results">Nie znaleziono folderów multimedialnych</string>
     <string name="synced_folders_preferences">Preferencje automatycznego przesyłania</string>
     <string name="synced_folders_new_info">Natychmiastowe przesłanie zostało udoskonalone. Ponownie skonfiguruj automatyczne przesyłanie z menu głównego.\n\nKorzystaj z nowego i rozszerzonego automatycznego przesyłania.</string>
@@ -561,6 +562,9 @@
     <string name="resharing_is_not_allowed">Udostępnianie dalej nie jest dozwolone</string>
     <string name="fallback_weblogin_back">Wróć</string>
     <string name="fallback_weblogin_text">Przywróć starą metodę logowania</string>
+
+    <string name="foreground_service_upload">Wysyłanie plików &#8230;</string>
+    <string name="foreground_service_download">Pobieranie plików &#8230;</string>
 
     <string name="prefs_sourcecode">Pobierz kod źródłowy</string>
     <string name="prefs_license">Licencja</string>
