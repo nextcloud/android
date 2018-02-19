@@ -366,26 +366,37 @@ public class UploadFileOperation extends SyncOperation {
             }
         }
 
-        // check the existence of the parent folder for the file to upload
         String remoteParentPath = new File(getRemotePath()).getParent();
         remoteParentPath = remoteParentPath.endsWith(OCFile.PATH_SEPARATOR) ?
                 remoteParentPath : remoteParentPath + OCFile.PATH_SEPARATOR;
 
-        RemoteOperationResult result = grantFolderExistence(remoteParentPath, client);
+        OCFile parent = getStorageManager().getFileByPath(remoteParentPath);
 
-        if (!result.isSuccess()) {
-            return result;
+        // in case of a fresh upload with subfolder, where parent does not exist yet
+        if (parent == null && mFolderUnlockToken.isEmpty()) {
+            // try to create folder
+            RemoteOperationResult result = grantFolderExistence(remoteParentPath, client);
+
+            if (!result.isSuccess()) {
+                return result;
+            }
+
+            parent = getStorageManager().getFileByPath(remoteParentPath);
+
+            if (parent == null) {
+                return new RemoteOperationResult(false, "Parent folder not found", HttpStatus.SC_NOT_FOUND);
+            }
         }
 
-        OCFile parent = getStorageManager().getFileByPath(remoteParentPath);
+        // parent file is not null anymore:
+        // - it was created on fresh upload or
+        // - resume of encrypted upload, then parent file exists already as unlock is only for direct parent
+        
         mFile.setParentId(parent.getFileId());
 
-        // check if any parent is encrypted
-        encryptedAncestor = FileStorageUtils.checkEncryptionStatus(parent, getStorageManager());
-        mFile.setEncrypted(encryptedAncestor);
-
         // try to unlock folder with stored token, e.g. when upload needs to be resumed or app crashed
-        if (encryptedAncestor && !mFolderUnlockToken.isEmpty()) {
+        // the parent folder should exist as it is a resume of a broken upload
+        if (!mFolderUnlockToken.isEmpty()) {
             UnlockFileOperation unlockFileOperation = new UnlockFileOperation(parent.getLocalId(), mFolderUnlockToken);
             RemoteOperationResult unlockFileOperationResult = unlockFileOperation.execute(client, true);
 
@@ -393,6 +404,10 @@ public class UploadFileOperation extends SyncOperation {
                 return unlockFileOperationResult;
             }
         }
+
+        // check if any parent is encrypted
+        encryptedAncestor = FileStorageUtils.checkEncryptionStatus(parent, getStorageManager());
+        mFile.setEncrypted(encryptedAncestor);
 
         if (encryptedAncestor) {
             Log_OC.d(TAG, "encrypted upload");
@@ -583,60 +598,13 @@ public class UploadFileOperation extends SyncOperation {
                 throw new OperationCancelledException();
             }
 
-//            FileChannel channel = null;
-//            try {
-//                channel = new RandomAccessFile(ocFile.getStoragePath(), "rw").getChannel();
-//                fileLock = channel.tryLock();
-//            } catch (FileNotFoundException e) {
-//                if (temporalFile == null) {
-//                    String temporalPath = FileStorageUtils.getTemporalPath(account.name) + ocFile.getRemotePath();
-//                    ocFile.setStoragePath(temporalPath);
-//                    temporalFile = new File(temporalPath);
-//
-//                    result = copy(originalFile, temporalFile);
-//
-//                    if (result != null) {
-//                        return result;
-//                    } else {
-//                        if (temporalFile.length() == originalFile.length()) {
-//                            channel = new RandomAccessFile(temporalFile.getAbsolutePath(), "rw").getChannel();
-//                            fileLock = channel.tryLock();
-//                        } else {
-//                            while (temporalFile.length() != originalFile.length()) {
-//                                Files.deleteIfExists(Paths.get(temporalPath));
-//                                result = copy(originalFile, temporalFile);
-//
-//                                if (result != null) {
-//                                    return result;
-//                                } else {
-//                                    channel = new RandomAccessFile(temporalFile.getAbsolutePath(), "rw").
-//                                            getChannel();
-//                                    fileLock = channel.tryLock();
-//                                }
-//                            }
-//                        }
-//                    }
-//                } else {
-//                    channel = new RandomAccessFile(temporalFile.getAbsolutePath(), "rw").getChannel();
-//                    fileLock = channel.tryLock();
-//                }
-//            }
-
-//            boolean test = true;
-//            if (test) {
-//                throw new Exception("test");
-//            }
-
-            result = mUploadOperation.execute(client);
-//            if (result == null || result.isSuccess() && mUploadOperation != null) {
-//                result = mUploadOperation.execute(client);
+            result = mUploadOperation.execute(client, true);
 
             /// move local temporal file or original file to its corresponding
             // location in the Nextcloud local folder
             if (!result.isSuccess() && result.getHttpCode() == HttpStatus.SC_PRECONDITION_FAILED) {
                 result = new RemoteOperationResult(ResultCode.SYNC_CONFLICT);
             }
-//            }
 
             if (result.isSuccess()) {
                 // upload metadata
@@ -1038,7 +1006,7 @@ public class UploadFileOperation extends SyncOperation {
      */
     private RemoteOperationResult grantFolderExistence(String pathToGrant, OwnCloudClient client) {
         RemoteOperation operation = new ExistenceCheckRemoteOperation(pathToGrant, mContext, false);
-        RemoteOperationResult result = operation.execute(client, mFile.isEncrypted());
+        RemoteOperationResult result = operation.execute(client, true);
         if (!result.isSuccess() && result.getCode() == ResultCode.FILE_NOT_FOUND && mRemoteFolderToBeCreated) {
             SyncOperation syncOp = new CreateFolderOperation(pathToGrant, true);
             result = syncOp.execute(client, getStorageManager());
