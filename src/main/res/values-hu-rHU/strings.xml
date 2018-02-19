@@ -116,6 +116,7 @@
     <string name="filedetails_select_file">Érintsen meg egy fájlt a további információkért.</string>
     <string name="filedetails_download">Letöltés</string>
     <string name="filedetails_sync_file">Szinkronizálás</string>
+    <string name="filedetails_renamed_in_upload_msg">A fájl feltöltés közben átnevezve erre: %1$s</string>
     <string name="list_layout">Listás elrendezés</string>
     <string name="action_send_share">Küldés/Megosztás</string>
     <string name="common_yes">Igen</string>
@@ -277,6 +278,8 @@
     <string name="remove_success_msg">Törölve</string>
     <string name="remove_fail_msg">Törlés sikertelen</string>
     <string name="rename_dialog_title">Adj meg egy új nevet</string>
+    <string name="rename_local_fail_msg">Helyi másolat nem átnevezhető, próbálj meg egy másik nevet</string>
+    <string name="rename_server_fail_msg">Nem átnevezhető, ez a név már foglalt</string>
     <string name="sync_file_nothing_to_do_msg">Az fájlok már szinkronizálva vannak</string>
     <string name="create_dir_fail_msg">A mappa nem jött létre</string>
     <string name="filename_forbidden_characters">Nem megendedett karakterek: / \\ &lt; &gt; : \" | ? *</string>
@@ -574,6 +577,9 @@ Lépj kapcsolatba a rendszergazdával</string>
 
     <string name="storage_description_default">Alapértelmezett</string>
 
+    <!-- What's new feature and texts to show -->
+    <string name="whats_new_title">Új itt: %1$s</string>
+
     <!-- Welcome to Nc intro features -->
     <string name="welcome_feature_1_title">Egy biztonságos hely az adataidnak</string>
     <string name="welcome_feature_1_text">Érd el, oszd meg és védd a fájljaidat otthon és a munkában</string>
@@ -584,7 +590,13 @@ Lépj kapcsolatba a rendszergazdával</string>
     <string name="welcome_feature_3_title">Autofeltöltés</string>
     <string name="welcome_feature_3_text">Tartsd biztonságban a fotóidat</string>
 
+    <string name="whats_new_end_to_end_encryption_title">Vég-vég titkosítás</string>
+    <string name="whats_new_end_to_end_encryption_content">Érintsd meg a titkosításhoz, bármely kliensről. Adj hozzá újakat a 12 szavas kód megadásával.</string>
+    <string name="whats_new_resized_images_title">Alkalmazkodó képek.</string>
+    <string name="whats_new_resized_images_content">A kisebb képek jobban működnek és jobbak a megosztáshoz. Nagyíts a teljes kép letöltéséhez.</string>
     <string name="whats_new_ipv6_title">IPv6 támogatás</string>
+    <string name="whats_new_ipv6_content">IPv6 ha a szerver támogatja,IPv4 ha nem.</string>
+
     <string name="whats_new_skip">Kihagy</string>
 
     <string name="fingerprint_scan_finger">Kérlek húzd le az ujjad</string>
@@ -759,7 +771,9 @@ A Nextcloud itt érhető el: https://nextcloud.com</string>
     <string name="end_to_end_encryption_not_supported">A titkosítás csak KitKat(4.4)-en és felette megy.</string>
     <string name="end_to_end_encryption_confirm_button">Titkosítás beállítása</string>
     <string name="end_to_end_encryption_password">Jelszó&#8230;</string>
+    <string name="end_to_end_encryption_unsuccessful">Kulcsok nem menthetők, kérjük próbáld meg ismét.</string>
     <string name="end_to_end_encryption_dialog_close">Bezár</string>
     <string name="end_to_end_encryption_storing_keys">Kulcsok eltárolása</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Másolás/mozgatás titkosított mappába jelenleg nem támogatott.</string>
-    </resources>
+    <string name="untrusted_domain">Nem megbízható domainen keresztüli elérés. Kérlek nézd meg a dokumentációt a részletekért.</string>
+</resources>
