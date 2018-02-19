@@ -124,18 +124,6 @@ public class FileStorageUtils {
         return df.format(d);
     }
 
-    private static String getSubpathFromDate(long date) {
-        if (date == 0) {
-            return "";
-        }
-
-        Date d = new Date(date);
-
-        DateFormat df = new SimpleDateFormat(PATTERN_YYYY_MM);
-
-        return df.format(d);
-    }
-
     /**
      * Returns the InstantUploadFilePath on the nextcloud instance
      *
