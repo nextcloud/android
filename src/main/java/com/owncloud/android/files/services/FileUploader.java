@@ -535,7 +535,7 @@ public class FileUploader extends Service
         }
         OwnCloudVersion ocv = AccountUtils.getServerVersion(account);
 
-        boolean chunked = ocv.isChunkedUploadSupported();
+        boolean chunked = ocv != null && ocv.isChunkedUploadSupported();
 
         boolean onWifiOnly = intent.getBooleanExtra(KEY_WHILE_ON_WIFI_ONLY, false);
         boolean whileChargingOnly = intent.getBooleanExtra(KEY_WHILE_CHARGING_ONLY, false);
