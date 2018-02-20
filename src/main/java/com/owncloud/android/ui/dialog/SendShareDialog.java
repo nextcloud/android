@@ -21,7 +21,6 @@ import android.widget.TextView;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.adapter.SendButtonAdapter;
 import com.owncloud.android.ui.components.SendButtonData;
 import com.owncloud.android.ui.helpers.FileOperationsHelper;
