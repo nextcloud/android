@@ -172,8 +172,12 @@ public class ThemeUtils {
      */
     public static void setColoredTitle(ActionBar actionBar, String title) {
         if (actionBar != null) {
-            String colorHex = colorToHexString(fontColor());
-            actionBar.setTitle(Html.fromHtml("<font color='" + colorHex + "'>" + title + "</font>"));
+            if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.KITKAT) {
+                actionBar.setTitle(title);
+            } else {
+                String colorHex = colorToHexString(fontColor());
+                actionBar.setTitle(Html.fromHtml("<font color='" + colorHex + "'>" + title + "</font>"));
+            }
         }
     }
 
@@ -189,9 +193,13 @@ public class ThemeUtils {
      * @param titleId   title to be shown
      */
     public static void setColoredTitle(ActionBar actionBar, int titleId, Context context) {
-        String colorHex = colorToHexString(fontColor());
-        String title = context.getString(titleId);
-        actionBar.setTitle(Html.fromHtml("<font color='" + colorHex + "'>" + title + "</font>"));
+        if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.KITKAT) {
+            actionBar.setTitle(titleId);
+        } else {
+            String colorHex = colorToHexString(fontColor());
+            String title = context.getString(titleId);
+            actionBar.setTitle(Html.fromHtml("<font color='" + colorHex + "'>" + title + "</font>"));
+        }
     }
 
     public static String getDefaultDisplayNameForRootFolder() {
