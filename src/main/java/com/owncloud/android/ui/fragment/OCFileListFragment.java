@@ -1643,11 +1643,7 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
                     ActionBar actionBar = ((FileDisplayActivity) getActivity()).getSupportActionBar();
 
                     if (actionBar != null) {
-                        if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.KITKAT) {
-                            actionBar.setTitle(title);
-                        } else {
                             ThemeUtils.setColoredTitle(actionBar, title);
-                        }
                     }
                 }
             }
