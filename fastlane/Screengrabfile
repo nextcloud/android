@@ -1,11 +1,12 @@
 app_package_name 'com.nextcloud.client'
 use_tests_in_packages ['com.owncloud.android.screenshots']
 
-app_apk_path 'build/outputs/apk/generic/debug/android2-generic-debug.apk'
-tests_apk_path 'build/outputs/apk/androidTest/generic/debug/android2-generic-debug-androidTest.apk'
+app_apk_path 'build/outputs/apk/generic/debug/android4-generic-debug.apk'
+tests_apk_path 'build/outputs/apk/androidTest/generic/debug/android4-generic-debug-androidTest.apk'
 
 # locales ['en-US']
-locales ['en-US', 'de-DE', 'en-GB', 'fr-FR', 'it-IT', 'pt-BR', 'pt-PT', 'sv-SE', 'sq-AL', 'sq-MK', 'iw-IL', 'ar-AR', 'bg-BG', 'da-DK', 'fi-FI', 'gl-ES', 'hu-HU', 'tr-TR', 'uk-UK', 'vi-VI', 'ro-RO', 'ru-RU', 'sr-SR', 'pl-PL', 'el-GR', 'ko-KR', 'nl-NL', 'ja-JP', 'no-NO', 'eu-ES', 'lt-LT', 'es-ES', 'es-419', 'zh-HK', 'zk-CN', 'is-IS', 'sr-SR', 'id-ID', 'cs-CZ', 'sl-SL', 'fa-FA' ]
+# locales ['pt-PT', 'sv-SE', 'sq-AL', 'sq-MK', 'iw-IL', 'ar-AR', 'bg-BG', 'da-DK', 'fi-FI', 'gl-ES', 'uk-UK', 'vi-VI', 'ro-RO', 'pl-PL', 'el-GR', ja-JP', 'eu-ES', 'lt-LT', 'es-419', 'zh-HK', 'zk-CN', 'is-IS', 'sr-SR', 'id-ID', 'cs-CZ', 'sl-SL', 'fa-FA' ]
+locales ['en-GB', 'de-DE', 'es-MX', 'es-ES', 'fr-FR', 'hu-HU', 'it-IT', 'ka-GE', 'ko-KR', 'no-NO', 'nl-NL', 'pt-BR', 'ru-RU', 'sr-SR', 'tr-TR', 'en-US']
 
 # clear all previously generated screenshots in your local output directory before creating new ones
 clear_previous_screenshots true

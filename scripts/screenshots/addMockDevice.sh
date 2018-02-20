@@ -1,7 +1,7 @@
 #!/bin/bash
 
 cd scripts/screenshots/
-for i in $(find ../../fastlane | grep png) ; do 
+for i in $(find ../../fastlane | grep png | grep Screenshots) ; do 
     device=$(echo $i | cut -d"/" -f8 | sed s'#Screenshots##')
     textID=$(echo $i | cut -d"/" -f9 | cut -d"_" -f1,2)
     locale=$(echo $i | cut -d"/" -f6)
@@ -12,10 +12,25 @@ for i in $(find ../../fastlane | grep png) ; do
             locale=""
             ;;
         "de-DE")
-            locale="-de"
+            locale="-de-rDE"
+            ;;
+        "es-MX")
+            locale="-es-rMX"
+            ;;
+        "hu-HU")
+            locale="-hu-rHU"
+            ;;
+        "ka-GE")
+            locale="-ka-rGE"
+            ;;
+        "no-NO")
+            locale="-nb-rNO"
+            ;;
+        "pt-BR")
+            locale="-pt-rBR"
             ;;
         *)
-            locale="-"$locale
+            locale="-"$(echo $locale | cut -d"-" -f1)
     esac
     
     if [ -e ../../src/main/res/values$locale/strings.xml ] ; then
@@ -25,7 +40,7 @@ for i in $(find ../../fastlane | grep png) ; do
     fi
     
     # fallback to english if there is not translation
-    if [ -n $text ]; then
+    if [ -z "$text" ]; then
         text=$(grep $textID ../../src/main/res/values/strings.xml | cut -d">" -f2 | cut -d"<" -f1 | sed s'#\&amp;#\\&#')
     fi
     
@@ -36,5 +51,5 @@ for i in $(find ../../fastlane | grep png) ; do
         sed "s#display:none#display:visible#" -i temp.svg
     fi
     
-    inkscape temp.svg -e $i
+    inkscape temp.svg -h 576 -e $i 2>/dev/null
 done
