@@ -55,13 +55,12 @@ public class HttpStreamFetcher implements DataFetcher<InputStream> {
     public InputStream loadData(Priority priority) throws Exception {
 
         Account mAccount = AccountUtils.getCurrentOwnCloudAccount(MainApp.getAppContext());
-        OwnCloudAccount ocAccount = new OwnCloudAccount(mAccount,
-                MainApp.getAppContext());
+        OwnCloudAccount ocAccount = new OwnCloudAccount(mAccount, MainApp.getAppContext());
         OwnCloudClient mClient = OwnCloudClientManagerFactory.getDefaultSingleton().
                 getClientFor(ocAccount, MainApp.getAppContext());
 
         OwnCloudVersion serverOCVersion = AccountUtils.getServerVersion(mAccount);
-        if (mClient != null && serverOCVersion != null) {
+        if (mClient != null) {
             if (serverOCVersion.supportsRemoteThumbnails()) {
                 GetMethod get = null;
                 try {
