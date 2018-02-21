@@ -70,17 +70,17 @@ public class UploaderAdapter extends SimpleAdapter {
         HashMap<String, OCFile> data = (HashMap<String, OCFile>) getItem(position);
         OCFile file = data.get("dirname");
 
-        TextView filename = (TextView) vi.findViewById(R.id.filename);
+        TextView filename = vi.findViewById(R.id.filename);
         filename.setText(file.getFileName());
-        
-        ImageView fileIcon = (ImageView) vi.findViewById(R.id.thumbnail);
+
+        ImageView fileIcon = vi.findViewById(R.id.thumbnail);
         fileIcon.setTag(file.getFileId());
 
-        TextView lastModV = (TextView) vi.findViewById(R.id.last_mod);
+        TextView lastModV = vi.findViewById(R.id.last_mod);
         lastModV.setText(DisplayUtils.getRelativeTimestamp(mContext, file.getModificationTimestamp()));
 
-        TextView fileSizeV = (TextView) vi.findViewById(R.id.file_size);
-        TextView fileSizeSeparatorV = (TextView) vi.findViewById(R.id.file_separator);
+        TextView fileSizeV = vi.findViewById(R.id.file_size);
+        TextView fileSizeSeparatorV = vi.findViewById(R.id.file_separator);
 
         if(!file.isFolder()) {
             fileSizeV.setVisibility(View.VISIBLE);
@@ -93,7 +93,8 @@ public class UploaderAdapter extends SimpleAdapter {
 
         if (file.isFolder()) {
             fileIcon.setImageDrawable(MimeTypeUtil.getFolderTypeIcon(file.isSharedWithMe() ||
-                    file.isSharedWithSharee(), file.isSharedViaLink(), file.isEncrypted(), mAccount));
+                            file.isSharedWithSharee(), file.isSharedViaLink(), file.isEncrypted(), mAccount,
+                    file.getMountType()));
         } else {
             // get Thumbnail if file is image
             if (MimeTypeUtil.isImage(file) && file.getRemoteId() != null) {
