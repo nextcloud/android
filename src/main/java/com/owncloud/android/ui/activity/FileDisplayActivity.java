@@ -42,6 +42,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.os.Parcelable;
+import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
@@ -342,8 +343,8 @@ public class FileDisplayActivity extends HookActivity
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode,
-                                           String permissions[], int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[],
+                                           @NonNull int[] grantResults) {
         switch (requestCode) {
             case PermissionUtil.PERMISSIONS_WRITE_EXTERNAL_STORAGE: {
                 // If request is cancelled, result arrays are empty.
@@ -1002,8 +1003,12 @@ public class FileDisplayActivity extends HookActivity
     }
 
     private boolean isSearchOpen() {
-        final View mSearchEditFrame = searchView.findViewById(android.support.v7.appcompat.R.id.search_edit_frame);
-        return (mSearchEditFrame != null && mSearchEditFrame.getVisibility() == View.VISIBLE);
+        if (searchView == null) {
+            return false;
+        } else {
+            View mSearchEditFrame = searchView.findViewById(android.support.v7.appcompat.R.id.search_edit_frame);
+            return (mSearchEditFrame != null && mSearchEditFrame.getVisibility() == View.VISIBLE);
+        }
     }
 
     private void revertBottomNavigationBarToAllFiles() {
