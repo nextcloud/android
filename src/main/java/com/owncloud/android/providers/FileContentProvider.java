@@ -741,7 +741,8 @@ public class FileContentProvider extends ContentProvider {
                 + ProviderTableMeta.FILE_FAVORITE + INTEGER // boolean
                 + ProviderTableMeta.FILE_IS_ENCRYPTED + INTEGER // boolean
                 + ProviderTableMeta.FILE_ETAG_IN_CONFLICT + TEXT
-                + ProviderTableMeta.FILE_SHARED_WITH_SHAREE + " INTEGER);"
+                + ProviderTableMeta.FILE_SHARED_WITH_SHAREE + INTEGER
+                + ProviderTableMeta.FILE_MOUNT_TYPE + "INTEGER);"
         );
     }
 
@@ -1654,6 +1655,24 @@ public class FileContentProvider extends ContentProvider {
                             }
                         }
                     }
+
+                    upgraded = true;
+                    db.setTransactionSuccessful();
+                } finally {
+                    db.endTransaction();
+                }
+            }
+
+            if (!upgraded) {
+                Log_OC.i(SQL, String.format(Locale.ENGLISH, UPGRADE_VERSION_MSG, oldVersion, newVersion));
+            }
+
+            if (oldVersion < 31 && newVersion >= 31) {
+                Log_OC.i(SQL, "Entering in the #31 add mount type");
+                db.beginTransaction();
+                try {
+                    db.execSQL(ALTER_TABLE + ProviderTableMeta.FILE_TABLE_NAME +
+                            ADD_COLUMN + ProviderTableMeta.FILE_MOUNT_TYPE + " INTEGER ");
 
                     upgraded = true;
                     db.setTransactionSuccessful();

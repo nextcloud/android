@@ -32,6 +32,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.content.FileProvider;
 
 import com.owncloud.android.R;
+import com.owncloud.android.lib.common.network.WebdavEntry;
 import com.owncloud.android.lib.common.network.WebdavUtils;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.utils.MimeType;
@@ -97,6 +98,8 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
 
     private boolean mIsEncrypted;
 
+    private WebdavEntry.MountType mMountType;
+
     /**
      * URI to the local path of the file contents, if stored in the device; cached after first call
      * to {@link #getStorageUri()}
@@ -160,6 +163,7 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
         mIsFavorite = source.readInt() == 1;
         mIsEncrypted = source.readInt() == 1;
         mEncryptedFileName = source.readString();
+        mMountType = (WebdavEntry.MountType) source.readSerializable();
     }
 
     @Override
@@ -189,6 +193,7 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
         dest.writeInt(mIsFavorite ? 1 : 0);
         dest.writeInt(mIsEncrypted ? 1 : 0);
         dest.writeString(mEncryptedFileName);
+        dest.writeSerializable(mMountType);
     }
 
     public boolean getIsFavorite() {
@@ -517,6 +522,7 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
         mIsFavorite = false;
         mIsEncrypted = false;
         mEncryptedFileName = null;
+        mMountType = WebdavEntry.MountType.INTERNAL;
     }
 
     /**
@@ -780,4 +786,11 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
         return permissions != null && permissions.contains(PERMISSION_CAN_RESHARE);
     }
 
+    public WebdavEntry.MountType getMountType() {
+        return mMountType;
+    }
+
+    public void setMountType(WebdavEntry.MountType mountType) {
+        mMountType = mountType;
+    }
 }
