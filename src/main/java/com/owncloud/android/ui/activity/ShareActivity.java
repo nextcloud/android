@@ -149,9 +149,9 @@ public class ShareActivity extends FileActivity implements ShareFragmentListener
             return OCShare.READ_PERMISSION_FLAG;    // minimum permissions
 
         } else if (isFederated) {
-            OwnCloudVersion serverVersion = com.owncloud.android.authentication.AccountUtils.
-                    getServerVersion(getAccount());
-            if (serverVersion != null && serverVersion.isNotReshareableFederatedSupported()) {
+            OwnCloudVersion serverVersion = com.owncloud.android.authentication.AccountUtils
+                    .getServerVersion(getAccount());
+            if (serverVersion.isNotReshareableFederatedSupported()) {
                 return (getFile().isFolder() ? OCShare.FEDERATED_PERMISSIONS_FOR_FOLDER_AFTER_OC9 :
                         OCShare.FEDERATED_PERMISSIONS_FOR_FILE_AFTER_OC9);
             } else {
