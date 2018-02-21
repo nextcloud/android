@@ -39,7 +39,7 @@
     <string name="prefs_category_general">General</string>
     <string name="prefs_category_more">Más</string>
     <string name="prefs_manage_accounts">Gestionar cuentas</string>
-    <string name="prefs_passcode">Bloqueo con contraseña</string>
+    <string name="prefs_passcode">Bloqueo con código de acceso</string>
     <string name="prefs_fingerprint">Bloqueo con huella dactilar</string>
     <string name="prefs_fingerprint_notsetup">No se han configurado huellas dactilares</string>
     <string name="prefs_expert_mode">Modo experto</string>

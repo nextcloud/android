@@ -116,6 +116,7 @@
     <string name="filedetails_select_file">Prekni mbi një kartelë që të shfaqen të dhëna shtesë.</string>
     <string name="filedetails_download">Shkarkoje</string>
     <string name="filedetails_sync_file">Sinkronizo</string>
+    <string name="filedetails_renamed_in_upload_msg">Skedari u riemërtua %1$s gjatë ngarkimit</string>
     <string name="list_layout">Strukturë e listuar</string>
     <string name="action_send_share">Dërgoje/Shpërndaje</string>
     <string name="common_yes">Po</string>
@@ -277,6 +278,8 @@
     <string name="remove_success_msg">E fshirë</string>
     <string name="remove_fail_msg">Heqja dështoi</string>
     <string name="rename_dialog_title">Jepni një emër të ri</string>
+    <string name="rename_local_fail_msg">Nuk mund të riemërtohet kopja lokale, provoni një emër ndryshe</string>
+    <string name="rename_server_fail_msg">Riemërtimi nuk është i mundur, emri është i zënë</string>
     <string name="sync_file_nothing_to_do_msg">Përmbajtja e skedarit tashmë e sinkronizuar</string>
     <string name="create_dir_fail_msg">S’u krijua dot dosja</string>
     <string name="filename_forbidden_characters">Shenja të ndaluara: / \\ &lt; &gt; : \" | ? *</string>
@@ -572,6 +575,9 @@
 
     <string name="storage_description_default">Paraprake</string>
 
+    <!-- What's new feature and texts to show -->
+    <string name="whats_new_title">I ri në %1$s</string>
+
     <!-- Welcome to Nc intro features -->
     <string name="welcome_feature_1_title">Një shtëpi e sigurt për të gjitha të dhënat tuaja</string>
     <string name="welcome_feature_1_text">Akseso, ndaj dhe mbro skedarët e tuaja në shtëpinë dhe organizatën tuaj.</string>
@@ -582,7 +588,13 @@
     <string name="welcome_feature_3_title">Ngarkim i menjëhershëm</string>
     <string name="welcome_feature_3_text">Mbajini fotot të sigurta</string>
 
+    <string name="whats_new_end_to_end_encryption_title">Enkriptim end-to-end </string>
+    <string name="whats_new_end_to_end_encryption_content">Shtyp për të enkriptuar, nga cdo klient. Shto të rinj duke kopjuar 12 fjalë ose më shumë.</string>
+    <string name="whats_new_resized_images_title">Imazhe adaptive</string>
+    <string name="whats_new_resized_images_content">Imazhet e vogla janë të shpejta dhe funksionojnë shumë mirë për ti shpërndarë. Zmadhoni për të shkarkuar një version të plotë.</string>
     <string name="whats_new_ipv6_title">Mbështet IPv6</string>
+    <string name="whats_new_ipv6_content">IPv6 kur serveri e suporton atë, IPv4 kur nuk e suporton.</string>
+
     <string name="whats_new_skip">Kalo</string>
 
     <string name="fingerprint_scan_finger">Ju lutemi skanoni gishtin tuaj</string>
@@ -618,8 +630,14 @@
     <string name="contacts_preferences_backup_scheduled">Backup-i u skedulua dhe do të filloj së shpejti</string>
     <string name="contacts_preferences_import_scheduled">Importimi u skedulua dhe do të filloj së shpejti</string>
 
+    <!-- Notifications -->
+    <string name="new_notification_received">Morët njoftime të reja</string>
     <string name="drawer_logout">Dilni</string>
+    <string name="picture_set_as_no_app">Nuk u gjet asnjë aplikacion për të vendosur foton</string>
     <string name="privacy">Privatësi</string>
+    <string name="file_not_found">Skedari nuk u gjet</string>
+    <string name="file_not_synced">Skedari nuk mund të sinkronizohet. Duke shfaqur versionin më të fundit në dispozicion.</string>
+
     <!-- Auto upload -->
     <string name="autoupload_custom_folder">Ndërtoni një dosje me porosi</string>
     <string name="autoupload_create_new_custom_folder">Krijoni një dosje të re me porosi</string>
@@ -628,21 +646,113 @@
     <string name="test_server_button">Testo lidhjen e serverit</string>
     <string name="resharing_is_not_allowed">Ri-shpërndarja nuk lejohet</string>
     <string name="fallback_weblogin_back">Prapa</string>
+    <string name="fallback_weblogin_text">Rikthehu në metodën e vjetër te identifikimit</string>
+
     <string name="foreground_service_upload">Ngarkimi i skedarëve &#8230;</string>
     <string name="foreground_service_download">Shkarkimi i skedarëve &#8230;</string>
 
     <string name="prefs_sourcecode">Merr kodin burimor</string>
     <string name="prefs_license">Liçensë</string>
+    <string name="prefs_gpl_v2">GNU General Public License, versioni 2</string>
+    <string name="push_notifications_not_implemented">Njoftimet push janë të çaktivizuara për shkak të varësive nga shërbimet e patentuara të Google Play. </string>
+    <string name="push_notifications_old_login">Nuk ka asnjë njoftim për shkak se sesioni i identifikimit nuk ishte i përditësuar. Ju lutem konsideroni të shtoni përsëri llogarinë tuaj. </string>
+    <string name="push_notifications_temp_error">Njoftimet push nuk ofrohen për momentin.</string>
+
+    <string name="sync_in_progress">Duke ngarkuar versionin më të fundit të skedarit.</string>
     <string name="date_unknown">I panjohur</string>
 
+    <string name="resized_image_not_possible">Nuk ka në gjëndje asnjë imazh me përmasa të reja.</string>
+    <string name="resized_image_not_possible_download">Nuk ka në gjëndje asnjë imazh me përmasa të reja. Doni të shkarkoni imazhin e plotë?</string>
     <string name="resized_images_download_full_image">Shkarko imazhin e plotë?</string>
 
+    <string name="store_short_desc">Aplikacioni Android i Nextcloud jep akses te të gjithë skedarët në Nextcloud-in tuaj.</string>
+    <string name="store_full_desc">Aplikacioni copyleft për Android Nextcloud, që ju ofron liri në celularin tuaj.\n\nKarakteristika:\n* Ndërfaqe e thjeshtë, moderne, e përshtatshme për strukturën e serverit tuaj\n* Ngarko skedarët në serverin tuaj Nextcloud\n* Ndajini ato me të tjerët\n* Mbani skedarët dhe dosjet e tua të preferuara të sinkronizuara\n* Kërkoni në të gjitha dosjet në serverin tuaj\n* Ngarkoni automatikisht fotot dhe videot e marra nga pajisja juaj\n* Qëndroni të përditësuar me njoftimet\n* Mbështetje me shumë llogari\n* Qasje e sigurt në të dhënat tuaja me gjurmët e gishtave ose PIN-in\n* Integrimi me DAVdroid për konfigurim të lehtë të kalendarit &amp; \nSinkronizimi i kontakteve\nJu lutem raportoni problematikat në https://github.com/nextcloud/android/issues dhe bisedoni rreth aplikacionit në https://help.nextcloud.com/c/clients/android\n\nI ri në Nextcloud? Nextcloud është sinkronizim privat &amp; shpërndarje dhe komunikim në server. Është software pa pagesë, dhe mund ta strehosh vetë ose të paguash një kompani për ta bërë atë për ju. Në këtë mënyrë, ju jeni në kontroll të fotove tuaja, kalendarin tuaj dhe të dhënat e kontaktit, dokumentet tuaja dhe gjithçka tjetër.\n\nVizito https://nextcloud.com</string>
+
     <string name="drawer_current_account">Llogaria e tanishme</string>
+    <string name="drawer_middle_account">Llogari e mesit</string>
     <string name="drawer_end_account">Llogaria e fundit</string>
+    <string name="contactlist_item_icon">Ikona e përdoruesit për listën e kontakteve</string>
+    <string name="activity_icon">Ikona e aktiviteteve</string>
+    <string name="file_icon">Ikona e skedarit</string>
+    <string name="user_icon">Ikona e përdoruesit</string>
+    <string name="fingerprint_icon">Ikona e shenjës së gishtit</string>
+    <string name="favorite_icon">Ikona e preferuar</string>
+    <string name="shared_via_link_icon">U nda nëpërmjet lidhjes së ikonës.</string>
+    <string name="synced_icon">Ikona e sinkronizimit</string>
+    <string name="available_offline_icon">Ikona në gjëndje offline.</string>
+    <string name="checkbox">Checkbox</string>
+    <string name="thumbnail">Thumbnail</string>
+    <string name="shared_icon">Ikona e ndarë</string>
+    <string name="overflow_menu">Menu-ja overflow</string>
+    <string name="share_file_icon">Ikona për të ndarë një skedar</string>
+    <string name="sort_by_name_ascending">A - Z</string>
+    <string name="sort_by_modification_date_ascending">Më i riu i pari</string>
+    <string name="sort_by_size_descending">Më i madhi i pari</string>
+    <string name="sort_by_size_ascending">Më e vogla në fillim</string>
+    <string name="sort_by_name_descending">Z - A</string>
+    <string name="sort_by_modification_date_descending">Më i vjetri i pari</string>
+    <string name="synced_folders_type">Tipi</string>
+    <string name="sync_status_button">Butoni i statusit të sinkronizimit</string>
+    <string name="synced_folder_settings_button">Butoni i konfigurimeve</string>
+    <string name="synced_folder_custom_folder_image">Imazhi i skedarëve të zakonshëm</string>
+    <string name="upload_item_action_button">Butoni i veprimit të ngarkimit të një artikulli</string>
+    <string name="forward">Përpara</string>
+    <string name="what_s_new_image">Imazhi me çfarë është e re</string>
+
+    <string name="store_short_dev_desc">Aplikacioni Dev është një snapshot zhvillimi dhe mund të instalohet paralelisht.</string>
+    <string name="store_full_dev_desc">Aplikacioni copyleft Android Nextcloud, ju ofron liri të lëvizshme.\nKy është versioni zyrtar i zhvillimit, duke shfaqur një shembull të përditshëm të çdo funksionaliteti të ri të paprovuar, që mund të shkaktojë paqëndrueshmëri dhe humbje të të dhënave. Aplikacioni është për përdoruesit që dëshirojnë të testojnë dhe raportojnë gabime nëse ato ndodhin. Mos e përdorni atë për punën tuaj produktive!\n\nPërveç kësaj, versioni dev dhe versioni i rregullt janë në dispozicion në F-droid dhe mund të instalohen në të njëjtën kohë.</string>
+
+    <string name="prefs_category_dev">Dev</string>
+    <string name="dev_version_no_information_available">Nuk ka informacion në gjëndje.</string>
+    <string name="dev_version_no_new_version_available">Nuk ka asnjë version në gjëndje.</string>
     <string name="folder_icon">Ikona e dosjes</string>
+    <string name="dev_version_new_version_available">Version i ri i disponueshëm</string>
     <string name="version_dev_download">Shkarko</string>
 
     <string name="send">Dërgo</string>
+    <string name="share">Ndaje</string>
     <string name="link">Link</string>
 
-    </resources>
+    <string name="notification_channel_upload_name">Ngarko kanalin e njoftimeve</string>
+    <string name="notification_channel_download_name">Shkarko kanalin e njoftimeve</string>
+    <string name="notification_channel_download_description">Tregon progresin e shkarkimit</string>
+    <string name="notification_channel_upload_description">Tregon progresin e ngarkimit</string>
+    <string name="notification_channel_media_name">Lexuesi media</string>
+    <string name="notification_channel_media_description">Progresi i lexuesit të muzikës</string>
+    <string name="notification_channel_file_sync_name">Sinkronizimi i skedarëve</string>
+    <string name="notification_channel_file_sync_description">Tregon progresin e sinkronizimit të skedarëve dhe rezultatin</string>
+    <string name="notification_channel_file_observer_name">Vëzhguesi i skedarëve</string>
+    <string name="notification_channel_file_observer_description">Monitoron skedarët për ndryshime</string>
+  
+    <string name="account_not_found">Llogaria nuk u gjet!</string>
+
+    <string name="screenshot_01_gridView">Një shtëpi e sigurt për të dhënat e tua</string>
+    <string name="screenshot_02_listView">Shfleto dhe nda skedarët e tu lehtësisht</string>
+    <string name="screenshot_03_drawer">Akseso shpejtë aktivitetin, ndarjet, skedarët offlie dhe shumë të tjera</string>
+    <string name="screenshot_04_accounts">Lidhuni me llogari të ndryshme</string>
+    <string name="screenshot_05_autoUpload">Ngarko automatikisht fotot &amp;videot</string>
+    <string name="screenshot_06_davdroid">Sinkronizo kalendarin &amp;kontaktet me DAVdroid</string>
+    
+    <string name="userinfo_no_info_headline">Nuk është vendosur asnjë info personale</string>
+    <string name="userinfo_no_info_text">Shto emër, foto dhe detajet e kontaktit në faqen tuaj të profilit.</string>
+    <string name="drawer_header_background">Imazhi në background i drawer header</string>
+    <string name="account_icon">Ikona e llogarisë</string>
+    
+    <string name="end_to_end_encryption_folder_not_empty">Ky skedar nuk është bosh.</string>
+    <string name="end_to_end_encryption_wrong_password">Ndoshi një gabim gjatë dekriptimit. Fjalëkalimi i gabuar?</string>
+    <string name="end_to_end_encryption_decrypting">Duke dekriptuar &#8230;</string>
+    <string name="end_to_end_encryption_retrieving_keys">Rikthimi i çelsave &#8230;</string>
+    <string name="end_to_end_encryption_enter_password">Ju lutem fusni fjalëkalimin për të dekriptuar çelësin privat.</string>
+    <string name="end_to_end_encryption_generating_keys">Duke gjeneruar çelsa të rinj &#8230;</string>
+    <string name="end_to_end_encryption_keywords_description">Të gjitha 12 fjalët së bashku bëjnë një fjalëkalim shumë të fortë, duke lënë vetëm ju të shikoni dhe të përdorni skedarët tuaj të koduar. Ju lutemi shkruani dhe mbajeni diku të sigurt.</string>
+    <string name="end_to_end_encryption_title">Ndërto enkriptimin</string>
+    <string name="end_to_end_encryption_passphrase_title">Mbaj shënim për fjalëkalimin tuaj të enkriptimit me 12 fjalë</string>
+    <string name="end_to_end_encryption_not_supported">Enkriptimi funksionon vetëm në KitKat(4.4) dhe më pas.</string>
+    <string name="end_to_end_encryption_confirm_button">Ndërto enkriptimin</string>
+    <string name="end_to_end_encryption_password">Fjalëkalimi &#8230;</string>
+    <string name="end_to_end_encryption_unsuccessful">Nuk mund të ruheshin celësat, ju lutem provojeni përsëri.</string>
+    <string name="end_to_end_encryption_dialog_close">Mbylleni</string>
+    <string name="end_to_end_encryption_storing_keys">Ruaj çelësat</string>
+    <string name="copy_move_to_encrypted_folder_not_supported">Kopjimi/lëvizja në direktorinë e enkriptuar për momentin nuk suportohet.</string>
+    <string name="untrusted_domain">Aksesi nëpërmjet një domaini jo të besuar. Ju lutem shikoni dokumentimin për info të mëtejshme. </string>
+</resources>
