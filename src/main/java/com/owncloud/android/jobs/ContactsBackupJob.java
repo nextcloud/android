@@ -70,7 +70,7 @@ public class ContactsBackupJob extends Job {
 
     @NonNull
     @Override
-    protected Result onRunJob(Params params) {
+    protected Result onRunJob(@NonNull Params params) {
         final Context context = MainApp.getAppContext();
         PersistableBundleCompat bundle = params.getExtras();
 
@@ -139,6 +139,10 @@ public class ContactsBackupJob extends Job {
             } catch (IOException e) {
                 Log_OC.d(TAG, "Error ", e);
             } finally {
+                if (cursor != null) {
+                    cursor.close();
+                }
+                
                 if (fw != null) {
                     try {
                         fw.close();
