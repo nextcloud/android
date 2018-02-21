@@ -131,7 +131,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
     public static final String DESKTOP_FILE_SUFFIX = ".desktop";
 
     private AccountManager mAccountManager;
-    private Stack<String> mParents;
+    private Stack<String> mParents = new Stack<>();
     private ArrayList<Parcelable> mStreamsToUpload;
     private String mUploadPath;
     private OCFile mFile;
@@ -160,10 +160,13 @@ public class ReceiveExternalFilesActivity extends FileActivity
     protected void onCreate(Bundle savedInstanceState) {
         prepareStreamsToUpload();
 
-        if (savedInstanceState == null) {
-            mParents = new Stack<>();
-        } else {
-            mParents = (Stack<String>) savedInstanceState.getSerializable(KEY_PARENTS);
+        if (savedInstanceState != null) {
+            String parentPath = savedInstanceState.getString(KEY_PARENTS);
+
+            if (parentPath != null) {
+                mParents.addAll(Arrays.asList(parentPath.split("/")));
+            }
+            
             mFile = savedInstanceState.getParcelable(KEY_FILE);
         }
 
@@ -231,7 +234,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
     protected void onSaveInstanceState(Bundle outState) {
         Log_OC.d(TAG, "onSaveInstanceState() start");
         super.onSaveInstanceState(outState);
-        outState.putSerializable(KEY_PARENTS, mParents);
+        outState.putString(KEY_PARENTS, generatePath(mParents));
         outState.putParcelable(KEY_FILE, mFile);
         outState.putParcelable(FileActivity.EXTRA_ACCOUNT, getAccount());
 
@@ -986,20 +989,22 @@ public class ReceiveExternalFilesActivity extends FileActivity
      */
     private void initTargetFolder() {
         if (getStorageManager() == null) {
-            throw new IllegalStateException("Do not call this method before " +
-                    "initializing mStorageManager");
+            throw new IllegalStateException("Do not call this method before initializing mStorageManager");
         }
 
-        String lastPath = PreferenceManager.getLastUploadPath(this);
-        // "/" equals root-directory
-        if ("/".equals(lastPath)) {
-            mParents.add("");
-        } else {
-            String[] dir_names = lastPath.split("/");
-            mParents.clear();
-            mParents.addAll(Arrays.asList(dir_names));
+        if (mParents.empty()) {
+            String lastPath = PreferenceManager.getLastUploadPath(this);
+            // "/" equals root-directory
+            if ("/".equals(lastPath)) {
+                mParents.add("");
+            } else {
+                String[] dir_names = lastPath.split("/");
+                mParents.clear();
+                mParents.addAll(Arrays.asList(dir_names));
+            }
         }
-        //Make sure that path still exists, if it doesn't pop the stack and try the previous path
+
+        // make sure that path still exists, if it doesn't pop the stack and try the previous path
         while (!getStorageManager().fileExists(generatePath(mParents)) && mParents.size() > 1) {
             mParents.pop();
         }
