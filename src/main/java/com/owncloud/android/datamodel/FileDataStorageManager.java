@@ -849,13 +849,16 @@ public class FileDataStorageManager {
             );
         }
 
-        if (c != null && c.moveToFirst()) {
-            do {
-                OCFile child = createFileInstance(c);
-                if (!onlyOnDevice || child.existsOnDevice()) {
-                    ret.add(child);
-                }
-            } while (c.moveToNext());
+        if (c != null) {
+            if (c.moveToFirst()) {
+                do {
+                    OCFile child = createFileInstance(c);
+                    if (!onlyOnDevice || child.existsOnDevice()) {
+                        ret.add(child);
+                    }
+                } while (c.moveToNext());
+            }
+            
             c.close();
         }
 
@@ -2009,7 +2012,6 @@ public class FileDataStorageManager {
         }
 
         return c;
-
     }
 
     public OCCapability getCapability(String accountName) {
