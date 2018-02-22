@@ -28,6 +28,7 @@ import android.os.Parcelable;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -42,37 +43,40 @@ public class FeatureList {
     private static final int VERSION_3_0_0 = 30000099;
     private static final int BETA_VERSION_0 = 0;
 
-    static final private FeatureItem featuresList[] = {
-            // Basic features showed on first install
-            new FeatureItem(R.drawable.whats_new_files,
-                    R.string.welcome_feature_1_title, R.string.welcome_feature_1_text,
-                    VERSION_1_0_0, BETA_VERSION_0, SHOW_ON_FIRST_RUN, true, false),
-            new FeatureItem(R.drawable.whats_new_accounts,
+    static public ArrayList<FeatureItem> get(boolean isMultiAccount) {
+        ArrayList<FeatureItem> featuresList = new ArrayList<>();
+        // Basic features showed on first install
+        featuresList.add(new FeatureItem(R.drawable.whats_new_files,
+                R.string.welcome_feature_1_title, R.string.welcome_feature_1_text,
+                VERSION_1_0_0, BETA_VERSION_0, SHOW_ON_FIRST_RUN, true, false));
+        if (isMultiAccount) {
+            featuresList.add(new FeatureItem(R.drawable.whats_new_accounts,
                     R.string.welcome_feature_2_title, R.string.welcome_feature_2_text,
-                    VERSION_1_0_0, BETA_VERSION_0, SHOW_ON_FIRST_RUN, true, false),
-            new FeatureItem(R.drawable.whats_new_auto_upload,
-                    R.string.welcome_feature_3_title, R.string.welcome_feature_3_text,
-                    VERSION_1_0_0, BETA_VERSION_0, SHOW_ON_FIRST_RUN, true, false),
-            // 3.0.0
-            new FeatureItem(R.drawable.whats_new_end_to_end_encryption, R.string.whats_new_end_to_end_encryption_title,
-                    R.string.whats_new_end_to_end_encryption_content, VERSION_3_0_0, BETA_VERSION_0,
-                    SHOW_ON_UPGRADE, false, false),
-            new FeatureItem(R.drawable.whats_new_resized_images, R.string.whats_new_resized_images_title,
-                    R.string.whats_new_resized_images_content, VERSION_3_0_0, BETA_VERSION_0, SHOW_ON_UPGRADE,
-                    false, false),
-            new FeatureItem(R.drawable.whats_new_ipv6, R.string.whats_new_ipv6_title,
-                    R.string.whats_new_ipv6_content, VERSION_3_0_0,
-                    BETA_VERSION_0, SHOW_ON_UPGRADE, false, false),
-    };
+                    VERSION_1_0_0, BETA_VERSION_0, SHOW_ON_FIRST_RUN, true, false));
+        }
+        featuresList.add(new FeatureItem(R.drawable.whats_new_auto_upload,
+                R.string.welcome_feature_3_title, R.string.welcome_feature_3_text,
+                VERSION_1_0_0, BETA_VERSION_0, SHOW_ON_FIRST_RUN, true, false));
 
-    static public FeatureItem[] get() {
+        // 3.0.0
+        featuresList.add(new FeatureItem(R.drawable.whats_new_end_to_end_encryption,
+                R.string.whats_new_end_to_end_encryption_title, R.string.whats_new_end_to_end_encryption_content,
+                VERSION_3_0_0, BETA_VERSION_0, SHOW_ON_UPGRADE, false, false));
+        featuresList.add(new FeatureItem(R.drawable.whats_new_resized_images, R.string.whats_new_resized_images_title,
+                R.string.whats_new_resized_images_content, VERSION_3_0_0, BETA_VERSION_0, SHOW_ON_UPGRADE,
+                false, false));
+        featuresList.add(new FeatureItem(R.drawable.whats_new_ipv6, R.string.whats_new_ipv6_title,
+                R.string.whats_new_ipv6_content, VERSION_3_0_0,
+                BETA_VERSION_0, SHOW_ON_UPGRADE, false, false));
+
         return featuresList;
     }
 
-    static public FeatureItem[] getFiltered(final int lastSeenVersionCode, final boolean isFirstRun, boolean isBeta) {
+    static public FeatureItem[] getFiltered(int lastSeenVersionCode, boolean isFirstRun, boolean isBeta,
+                                            boolean isMultiAccount) {
         List<FeatureItem> features = new LinkedList<>();
 
-        for (FeatureItem item : get()) {
+        for (FeatureItem item : get(isMultiAccount)) {
             final int itemVersionCode = isBeta ? item.getBetaVersionNumber() : item.getVersionCode();
             if (isFirstRun && item.shouldShowOnFirstRun()) {
                 features.add(item);
