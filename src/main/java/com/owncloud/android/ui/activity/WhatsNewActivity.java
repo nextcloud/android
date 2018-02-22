@@ -87,6 +87,7 @@ public class WhatsNewActivity extends FragmentActivity implements ViewPager.OnPa
         mProgress = findViewById(R.id.progressIndicator);
         mPager = findViewById(R.id.contentPanel);
         final boolean isBeta = getResources().getBoolean(R.bool.is_beta);
+        final boolean isMultiAccount = getResources().getBoolean(R.bool.multiaccount_support);
         String[] urls = getResources().getStringArray(R.array.whatsnew_urls);
 
         // Sometimes, accounts are not deleted when you uninstall the application so we'll do it now
@@ -106,7 +107,7 @@ public class WhatsNewActivity extends FragmentActivity implements ViewPager.OnPa
             mPager.setAdapter(featuresWebViewAdapter);
         } else {
             FeaturesViewAdapter featuresViewAdapter = new FeaturesViewAdapter(getSupportFragmentManager(),
-                    FeatureList.getFiltered(getLastSeenVersionCode(), isFirstRun(), isBeta));
+                    FeatureList.getFiltered(getLastSeenVersionCode(), isFirstRun(), isBeta, isMultiAccount));
             mProgress.setNumberOfSteps(featuresViewAdapter.getCount());
             mPager.setAdapter(featuresViewAdapter);
         }
@@ -215,12 +216,11 @@ public class WhatsNewActivity extends FragmentActivity implements ViewPager.OnPa
 
     static private boolean shouldShow(Context context) {
         final boolean isBeta = context.getResources().getBoolean(R.bool.is_beta);
-        return (isFirstRun() && context instanceof AccountAuthenticatorActivity) ||
-                (
-                        !(isFirstRun() && (context instanceof FileDisplayActivity)) &&
-                                !(context instanceof PassCodeActivity) &&
-                                (FeatureList.getFiltered(getLastSeenVersionCode(), isFirstRun(), isBeta).length > 0)
-                );
+        final boolean isMultiAccount = context.getResources().getBoolean(R.bool.multiaccount_support);
+
+        return (isFirstRun() && context instanceof AccountAuthenticatorActivity) || (!(isFirstRun() &&
+                (context instanceof FileDisplayActivity)) && !(context instanceof PassCodeActivity) &&
+                (FeatureList.getFiltered(getLastSeenVersionCode(), isFirstRun(), isBeta, isMultiAccount).length > 0));
     }
 
     @Override
