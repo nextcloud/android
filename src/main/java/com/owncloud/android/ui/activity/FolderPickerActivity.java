@@ -67,6 +67,8 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
     public static final String EXTRA_FOLDER = FolderPickerActivity.class.getCanonicalName() + ".EXTRA_FOLDER";
     public static final String EXTRA_FILES = FolderPickerActivity.class.getCanonicalName() + ".EXTRA_FILES";
     public static final String EXTRA_ACTION = FolderPickerActivity.class.getCanonicalName() + ".EXTRA_ACTION";
+    public static final String EXTRA_CURRENT_FOLDER = FolderPickerActivity.class.getCanonicalName() +
+            ".EXTRA_CURRENT_FOLDER";
     public static final String MOVE = "MOVE";
     public static final String COPY = "COPY";
 
@@ -120,6 +122,10 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
             }
         } else {
             caption = ThemeUtils.getDefaultDisplayNameForRootFolder();
+        }
+
+        if (getIntent().getParcelableExtra(EXTRA_CURRENT_FOLDER) != null) {
+            setFile(getIntent().getParcelableExtra(EXTRA_CURRENT_FOLDER));
         }
 
         if (savedInstanceState == null) {
