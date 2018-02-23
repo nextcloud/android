@@ -100,9 +100,14 @@
     <string name="file_list_empty_headline_server_search_videos">Inga videor</string>
     <string name="file_list_empty_headline_server_search_photos">Inga bilder</string>
     <string name="file_list_empty_search">Kanske finns den i en annan mapp?</string>
+    <string name="file_list_empty_recently_modified">Hittade inga ändrade filer de senaste 7 dagarna</string>
+    <string name="file_list_empty_recently_modified_filter">Inga filer ändrade de senaste 7 dagarna.</string>
     <string name="file_list_empty_recently_added">Hittade inga nyligen tillagda filer</string>
+    <string name="file_list_empty_recently_added_filter">Inga nyligen tillagda filer.</string>
     <string name="file_list_empty_text_photos">Ladda upp några bilder eller aktivera automatisk uppladdning.</string>
+    <string name="file_list_empty_text_photos_filter">Inga foton.</string>
     <string name="file_list_empty_text_videos">Ladda upp några videor eller aktivera automatisk uppladdning.</string>
+    <string name="file_list_empty_text_videos_filter">Inga videor.</string>
     <string name="upload_list_empty_headline">Inga nerladdningar tillgängliga</string>
     <string name="upload_list_empty_text_auto_upload">Ladda upp något innehåll eller aktivera automatisk uppladdning.</string>
     <string name="file_list_folder">mapp</string>
