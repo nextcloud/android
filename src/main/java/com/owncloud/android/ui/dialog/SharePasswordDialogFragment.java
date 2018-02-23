@@ -118,7 +118,11 @@ public class SharePasswordDialogFragment extends DialogFragment implements Dialo
                 .setNeutralButton(R.string.common_delete, this)
                 .setTitle(R.string.share_link_password_title);
         Dialog d = builder.create();
-        d.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+
+        if (d.getWindow() != null) {
+            d.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+        }
+        
         return d;
     }
 

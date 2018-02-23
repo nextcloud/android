@@ -67,10 +67,12 @@ public class PassCodeManager {
     private PassCodeManager() {}
 
     public void onActivityCreated(Activity activity) {
-        if (passCodeIsEnabled() || deviceCredentialsAreEnabled(activity)) {
-            activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
-        } else {
-            activity.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_SECURE);
+        if (activity.getWindow() != null) {
+            if (passCodeIsEnabled() || deviceCredentialsAreEnabled(activity)) {
+                activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
+            } else {
+                activity.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_SECURE);
+            }
         }
     }
 

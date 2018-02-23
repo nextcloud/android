@@ -113,6 +113,10 @@ public class PassCodeActivity extends AppCompatActivity {
         mPassCodeEditTexts[3].setTextColor(elementColor);
         mPassCodeEditTexts[3].getBackground().setColorFilter(elementColor, PorterDuff.Mode.SRC_ATOP);
 
+        if (getWindow() != null) {
+            getWindow().setSoftInputMode(android.view.WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+        }
+        
         if (ACTION_CHECK.equals(getIntent().getAction())) {
             /// this is a pass code request; the user has to input the right value
             mPassCodeHdr.setText(R.string.pass_code_enter_pass_code);
