@@ -239,7 +239,7 @@
 	<string name="auth_not_configured_title">Configuración de servidor en formato incorrecto</string>
 	<string name="auth_account_not_new">Ya existe una cuenta en este dispositivo con los mismos datos de usuario y servidor</string>
 	<string name="auth_account_not_the_same">El usuario introducido no concuerda con el usuario de esta cuenta</string>
-	<string name="auth_unknown_error_title">Ocurrió un error desconocido</string>
+	<string name="auth_unknown_error_title">Ha ocurrido un error desconocido.</string>
 	<string name="auth_unknown_host_title">No se ha podido encontrar el host</string>
 	<string name="auth_incorrect_path_title">Servidor no encontrado</string>
 	<string name="auth_timeout_title">El servidor ha tardado demasiado en responder</string>
@@ -291,7 +291,7 @@
     <string name="activity_chooser_title">Enviar enlace a &#8230;</string>
     <string name="wait_for_tmp_copy_from_private_storage">Copiando el archivo desde el almacenamiento privado.</string>
     
-    <string name="oauth_check_onoff">Ingresar con OAuth 2.0</string>
+    <string name="oauth_check_onoff">Iniciar sesión con OAuth 2.0</string>
     <string name="oauth_login_connection">Conectando al servidor OAuth 2.0&#8230;</string>
         
     <string name="ssl_validator_header">No se ha podido verificar la identidad del servidor </string>
@@ -351,9 +351,9 @@
 
 	<string name="share_link_no_support_share_api">La función Compartir no está activada en su servidor. Contacta con tu administrador.</string>
 	<string name="share_link_file_no_exist">No se puede compartir. Revisa si el archivo existe</string>
-	<string name="share_link_file_error">Ocurrió un error al tratar de compartir este archivo o carpeta</string>
+	<string name="share_link_file_error">Ha ocurrido un error al tratar de compartir este archivo o carpeta</string>
 	<string name="unshare_link_file_no_exist">No se puede dejar de compartir. Revise si el archivo existe</string>
-	<string name="unshare_link_file_error">Ocurrió un error al tratar de descompartir este archivo o carpeta</string>
+	<string name="unshare_link_file_error">Ha ocurrido  un error al tratar de dejar de compartir este archivo o carpeta</string>
     <string name="update_link_file_no_exist">No se puede actualizar. Revisa si el archivo existe</string>
     <string name="update_link_file_error">Un error ha ocurrido mientras se intentaba actualizar el archivo compartido</string>
     <string name="share_link_password_title">Introduce una contraseña</string>
@@ -369,7 +369,7 @@
 
     <string name="error_cant_bind_to_operations_service">Error crítico: no se pueden realizar operaciones</string>
 
-    <string name="network_error_socket_exception">Ha ocurrido un erro al conectarse con el servidor</string>
+    <string name="network_error_socket_exception">Ha ocurrido un error al conectarse con el servidor</string>
     <string name="network_error_socket_timeout_exception">Ha ocurrido un error al esperar al servidor. La operación no se ha podido completar.</string>
     <string name="network_error_connect_timeout_exception">Ha ocurrido un error al esperar al servidor. La operación no se ha podido completar.</string>
     <string name="network_host_not_available">La operación no se ha podido completar. El servidor no está disponible</string>
