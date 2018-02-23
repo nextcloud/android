@@ -69,7 +69,9 @@ public class ExternalSiteWebView extends FileActivity {
         showSidebar = extras.getBoolean(EXTRA_SHOW_SIDEBAR);
 
         // show progress
-        getWindow().requestFeature(Window.FEATURE_PROGRESS);
+        if (getWindow() != null) {
+            getWindow().requestFeature(Window.FEATURE_PROGRESS);
+        }
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.externalsite_webview);

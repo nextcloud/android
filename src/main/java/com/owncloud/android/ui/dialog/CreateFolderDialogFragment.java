@@ -105,7 +105,11 @@ public class CreateFolderDialogFragment
                 .setTitle(ThemeUtils.getColoredTitle(getResources().getString(R.string.uploader_info_dirname),
                         accentColor));
         Dialog d = builder.create();
-        d.getWindow().setSoftInputMode(LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+
+        if (d.getWindow() != null) {
+            d.getWindow().setSoftInputMode(LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+        }
+        
         return d;
     }    
     

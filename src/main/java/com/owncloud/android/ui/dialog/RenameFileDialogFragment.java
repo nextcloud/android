@@ -119,7 +119,11 @@ public class RenameFileDialogFragment
                 .setTitle(ThemeUtils.getColoredTitle(getResources().getString(R.string.rename_dialog_title),
                         accentColor));
         Dialog d = builder.create();
-        d.getWindow().setSoftInputMode(LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+
+        if (d.getWindow() != null) {
+            d.getWindow().setSoftInputMode(LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+        }
+        
         return d;
     }    
 
