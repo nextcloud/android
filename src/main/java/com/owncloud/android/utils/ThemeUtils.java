@@ -314,10 +314,8 @@ public class ThemeUtils {
      * @param color            the color
      */
     public static void colorStatusBar(FragmentActivity fragmentActivity, @ColorInt int color) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            if (fragmentActivity.getWindow() != null) {
-                fragmentActivity.getWindow().setStatusBarColor(color);
-            }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && fragmentActivity.getWindow() != null) {
+                fragmentActivity.getWindow().setStatusBarColor(color);    
         }
     }
 
