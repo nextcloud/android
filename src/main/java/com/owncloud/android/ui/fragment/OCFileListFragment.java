@@ -129,7 +129,7 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
     private static final String MY_PACKAGE = OCFileListFragment.class.getPackage() != null ?
             OCFileListFragment.class.getPackage().getName() : "com.owncloud.android.ui.fragment";
 
-    public final static String ARG_JUST_FOLDERS = MY_PACKAGE + ".JUST_FOLDERS";
+    public final static String ARG_ONLY_FOLDERS_CLICKABLE = MY_PACKAGE + ".ONLY_FOLDERS_CLICKABLE";
     public final static String ARG_ALLOW_CONTEXTUAL_ACTIONS = MY_PACKAGE + ".ALLOW_CONTEXTUAL";
     public final static String ARG_HIDE_FAB = MY_PACKAGE + ".HIDE_FAB";
     public final static String ARG_HIDE_ITEM_OPTIONS = MY_PACKAGE + ".HIDE_ITEM_OPTIONS";
@@ -155,7 +155,7 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
 
     private OCFile mFile = null;
     private FileListListAdapter mAdapter;
-    private boolean mJustFolders;
+    private boolean mOnlyFoldersClickable;
 
     private int mSystemBarActionModeColor;
     private int mSystemBarColor;
@@ -313,17 +313,13 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
             mFile = savedInstanceState.getParcelable(KEY_FILE);
         }
 
-        if (mJustFolders) {
-            setFooterEnabled(false);
-        } else {
-            setFooterEnabled(true);
-        }
+        setFooterEnabled(true);
 
         Bundle args = getArguments();
-        mJustFolders = (args != null) && args.getBoolean(ARG_JUST_FOLDERS, false);
+        mOnlyFoldersClickable = (args != null) && args.getBoolean(ARG_ONLY_FOLDERS_CLICKABLE, false);
         boolean hideItemOptions = (args != null) && args.getBoolean(ARG_HIDE_ITEM_OPTIONS, false);
 
-        mAdapter = new FileListListAdapter(mJustFolders, getActivity(), mContainerActivity, this, hideItemOptions);
+        mAdapter = new FileListListAdapter(getActivity(), mContainerActivity, this, hideItemOptions);
         setListAdapter(mAdapter);
 
         mHideFab = (args != null) && args.getBoolean(ARG_HIDE_FAB, false);
@@ -934,8 +930,7 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
                     // save index and top position
                     saveIndexAndTopPosition(position);
                 }
-
-            } else { /// Click on a file
+            } else if (!mOnlyFoldersClickable) { // Click on a file
                 if (PreviewImageFragment.canBePreviewed(file)) {
                     // preview image - it handles the download, if needed
                     if (searchFragment) {
@@ -967,18 +962,14 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
                     } else {
                         mContainerActivity.getFileOperationsHelper().openFile(file);
                     }
-
                 } else {
                     // automatic download, preview on finish
                     ((FileDisplayActivity) mContainerActivity).startDownloadForPreview(file);
                 }
-
             }
-
         } else {
             Log_OC.d(TAG, "Null object in ListAdapter!!");
         }
-
     }
 
     @Override
@@ -1200,39 +1191,36 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
     }
 
     private void updateFooter() {
-        if (!mJustFolders) {
-            int filesCount = 0;
-            int foldersCount = 0;
-            int count = mAdapter.getCount();
-            OCFile file;
-            for (int i = 0; i < count; i++) {
-                file = (OCFile) mAdapter.getItem(i);
-                if (file.isFolder()) {
-                    foldersCount++;
-                } else {
-                    if (!file.isHidden()) {
-                        filesCount++;
-                    }
+        int filesCount = 0;
+        int foldersCount = 0;
+        int count = mAdapter.getCount();
+        OCFile file;
+        for (int i = 0; i < count; i++) {
+            file = (OCFile) mAdapter.getItem(i);
+            if (file.isFolder()) {
+                foldersCount++;
+            } else {
+                if (!file.isHidden()) {
+                    filesCount++;
                 }
             }
-            // set footer text
-            setFooterText(generateFooterText(filesCount, foldersCount));
         }
+        // set footer text
+        setFooterText(generateFooterText(filesCount, foldersCount));
     }
 
     private void updateLayout() {
-        if (!mJustFolders) {
-            updateFooter();
-            // decide grid vs list view
-            OwnCloudVersion version = AccountUtils.getServerVersion(
-                    ((FileActivity) mContainerActivity).getAccount());
-            if (version != null && version.supportsRemoteThumbnails() &&
-                    isGridViewPreferred(mFile)) {
-                switchToGridView();
-            } else {
-                switchToListView();
-            }
+        updateFooter();
+        // decide grid vs list view
+        OwnCloudVersion version = AccountUtils.getServerVersion(
+                ((FileActivity) mContainerActivity).getAccount());
+        if (version != null && version.supportsRemoteThumbnails() &&
+                isGridViewPreferred(mFile)) {
+            switchToGridView();
+        } else {
+            switchToListView();
         }
+
         invalidateActionMode();
     }
 
