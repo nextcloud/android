@@ -279,7 +279,7 @@
     <string name="remove_fail_msg">Silinemedi</string>
     <string name="rename_dialog_title">Yeni bir ad yazın</string>
     <string name="rename_local_fail_msg">Yerel kopyanın adı değiştirilemedi. Lütfen başka bir ad deneyin</string>
-    <string name="rename_server_fail_msg">Sunucu adı değiştirilemedi</string>
+    <string name="rename_server_fail_msg">Ad zaten kullanıldığından yeniden adlandırılamadı</string>
     <string name="sync_file_nothing_to_do_msg">Dosya içerikleri zaten eşitlenmiş</string>
     <string name="create_dir_fail_msg">Klasör oluşturulamadı</string>
     <string name="filename_forbidden_characters">İzin verilmeyen karakterler: / \\ &lt; &gt; : \" | ? *</string>
@@ -589,11 +589,11 @@
     <string name="welcome_feature_3_text">Fotoğraflarınızı koruyun</string>
 
     <string name="whats_new_end_to_end_encryption_title">Uçtan uca şifreleme</string>
-    <string name="whats_new_end_to_end_encryption_content">Şifrelenecek klasörleri seçin ve istediğiniz istemci için kurun. 12 sözcüklü bir parola kullanarak kolayca yeni aygıtlar ekleyin.</string>
-    <string name="whats_new_resized_images_title">Ekrana uyumlu görseller</string>
-    <string name="whats_new_resized_images_content">Veri tasarrufu sağladığından ve gönderme ile paylaşma için daha uygun olduğundan, varsayılan olarak daha küçük sürüm görüntülenir.  Yakınlaştırma sırasında tüm dosyayı indirebilirsiniz.</string>
+    <string name="whats_new_end_to_end_encryption_content">Şifrelenmesini istediğiniz istemciye dokunun. 12 sözcüğü kopyalayarak yenilerini ekleyinç</string>
+    <string name="whats_new_resized_images_title">Uyumlu görseller</string>
+    <string name="whats_new_resized_images_content">Küçük görseller çalışmak ve paylaşmak için uygundur. Tam sürümü indirmek için yakınlaştırın.</string>
     <string name="whats_new_ipv6_title">IPv6 desteği</string>
-    <string name="whats_new_ipv6_content">IPv4 kullanırken IPv6 kullanan sunucular ile de artık sorunsuz çalışıyor.</string>
+    <string name="whats_new_ipv6_content">Sunucu destekliyorsa IPv6, desteklemiyorsa IPv4.</string>
 
     <string name="whats_new_skip">Atla</string>
 

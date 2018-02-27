@@ -281,7 +281,7 @@
     <string name="remove_fail_msg">Брисање није успело</string>
     <string name="rename_dialog_title">Унесите нов назив</string>
     <string name="rename_local_fail_msg">Локална копија не може да се преименује, пробајте друго име</string>
-    <string name="rename_server_fail_msg">Не могу да дам серверу ново име</string>
+    <string name="rename_server_fail_msg">Преименовање није могуће, име је већ заузето</string>
     <string name="sync_file_nothing_to_do_msg">Садржај је већ синхронизован</string>
     <string name="create_dir_fail_msg">Не могу да направим фасциклу</string>
     <string name="filename_forbidden_characters">Забрањени знакови: / \\ &lt; &gt; : \" | ? *</string>
@@ -581,7 +581,7 @@
     <string name="storage_description_default">Подразумевано</string>
 
     <!-- What's new feature and texts to show -->
-    <string name="whats_new_title">Шта је ново у %1$s</string>
+    <string name="whats_new_title">Ново у %1$s</string>
 
     <!-- Welcome to Nc intro features -->
     <string name="welcome_feature_1_title">Сигурно место за све Ваше податке</string>
@@ -594,11 +594,11 @@
     <string name="welcome_feature_3_text">Држите Ваше слике на сигурном</string>
 
     <string name="whats_new_end_to_end_encryption_title">Шифровање са краја на крај</string>
-    <string name="whats_new_end_to_end_encryption_content">Одаберите коју фасциклу да шифрујете, подесиво са било ког клијента. Лако додајте нове уређаје користећи 12-оделну лозинку.</string>
-    <string name="whats_new_resized_images_title">Слике прилагођене екрану</string>
-    <string name="whats_new_resized_images_content">Подразумевано се приказује мала верзије, пошто то смањује пренете податке и ради лепо за слање &amp; дељење. Ако зумирате слику, скинућете цео фајл.</string>
+    <string name="whats_new_end_to_end_encryption_content">Кликните за шифровање, са било ког клијента. Додајте нове копирајући 12 речи.</string>
+    <string name="whats_new_resized_images_title">Прилагођавајуће слике</string>
+    <string name="whats_new_resized_images_content">Мале слике су брзе и супер су за дељење. Зумирајте слику да је скините целу.</string>
     <string name="whats_new_ipv6_title">Подршка за IPv6</string>
-    <string name="whats_new_ipv6_content">Сада ради лепо са серверима који подржавају IPv6, док и даље ради нормално подршка за IPv4.</string>
+    <string name="whats_new_ipv6_content">IPv6 уколико га сервер подржава, у супротном IPv4.</string>
 
     <string name="whats_new_skip">Прескочи</string>
 
@@ -755,7 +755,7 @@
     <string name="end_to_end_encryption_not_supported">Шифровање ради само на верзијама Андроида KitKat (4.4) и новијим.</string>
     <string name="end_to_end_encryption_confirm_button">Подесите шифровање</string>
     <string name="end_to_end_encryption_password">Лозинка&#8230;</string>
-    <string name="end_to_end_encryption_unsuccessful">Кључеви не могу да се ускладиште, покушајте поново.</string>
+    <string name="end_to_end_encryption_unsuccessful">Не могу да сачувам кључеве, покушајте поново.</string>
     <string name="end_to_end_encryption_dialog_close">Затвори</string>
     <string name="end_to_end_encryption_storing_keys">Складиштење кључева</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Копирање/премештање у шифровану фасциклу није подржано.</string>

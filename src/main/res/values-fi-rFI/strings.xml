@@ -218,7 +218,6 @@
     <string name="remove_success_msg">Poistettu</string>
     <string name="remove_fail_msg">Poistaminen epäonnistui</string>
     <string name="rename_dialog_title">Anna uusi nimi</string>
-    <string name="rename_server_fail_msg">Ei voitu antaa uutta nimeä palvelimelle</string>
     <string name="sync_file_nothing_to_do_msg">Tiedoston sisältö on jo synkronoitu</string>
     <string name="create_dir_fail_msg">Kansion luominen ei onnistunut</string>
     <string name="filename_forbidden_characters">Kielletyt merkit: / \\ &lt; &gt; : \" | ? *</string>
@@ -430,9 +429,6 @@
     <string name="upload_file_dialog_filetype_googlemap_shortcut">Google Maps -pikakuvaketiedosto(%s)</string>
 
     <string name="storage_description_default">Oletus</string>
-
-    <!-- What's new feature and texts to show -->
-    <string name="whats_new_title">Mitä uutta %1$s sisältää</string>
 
     <!-- Welcome to Nc intro features -->
     <string name="welcome_feature_1_title">Turvallinen koti kaikille tiedostoillesi</string>

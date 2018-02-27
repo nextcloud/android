@@ -45,7 +45,7 @@
     <string name="prefs_expert_mode">Modo avançado</string>
     <string name="prefs_show_hidden_files">Mostrar arquivos ocultos</string>
     <string name="prefs_log_delete_history_button">Eliminar histórico</string>
-    <string name="prefs_calendar_contacts">sincronizar calendário &amp; contatos</string>
+    <string name="prefs_calendar_contacts">Sincronizar calendário &amp; contatos</string>
     <string name="prefs_calendar_contacts_summary">Configurar o DAVdroid (v1.3.0+) para a conta em uso</string>
     <string name="prefs_calendar_contacts_address_resolve_error">O endereço do servidor da conta não pôde ser resolvido pelo DAVdroid</string>
     <string name="prefs_calendar_contacts_no_store_error">Nem o F-Droid nem o Google Play estão instalados</string>
@@ -87,10 +87,10 @@
     <string name="file_list_seconds_ago">segundos atrás</string>
     <string name="file_list_empty_headline">Nenhum arquivo aqui</string>
     <string name="folder_list_empty_headline">Sem pastas aqui</string>
-    <string name="file_list_empty">Enviar um conteúdo ou sincronizar com seus dispositivos.</string>
+    <string name="file_list_empty">Envie um conteúdo ou sincronize seus dispositivos.</string>
     <string name="file_list_empty_favorites_filter_list">Arquivos e pastas favoritas serão mostradas aqui</string>
     <string name="file_list_empty_favorites_filter">Sua pesquisa não retornou nenhum arquivo favorito.</string>
-    <string name="file_list_loading">Carregando &#8230;</string>
+    <string name="file_list_loading">Carregando&#8230;</string>
     <string name="file_list_no_app_for_file_type">Nenhuma aplicação definida para manipular este tipo de arquivo.</string>
     <string name="local_file_list_empty">Não existe nenhum arquivo nesta pasta.</string>
     <string name="local_folder_list_empty">Não há outras pastas.</string>
@@ -111,14 +111,14 @@
     <string name="file_list_empty_text_videos">Enviar alguns vídeos ou ativar o envio automático.</string>
     <string name="file_list_empty_text_videos_filter">Nenhum vídeo.</string>
     <string name="upload_list_empty_headline">Nenhum envio disponível</string>
-    <string name="upload_list_empty_text_auto_upload">Enviar algum conteúdo ou ativar o envio automático.</string>
+    <string name="upload_list_empty_text_auto_upload">Envie algum conteúdo ou ative o envio automático.</string>
     <string name="file_list_folder">pasta</string>
     <string name="filedetails_select_file">Toque em um arquivo para mostrar informações adicionais.</string>
     <string name="filedetails_download">Baixar</string>
     <string name="filedetails_sync_file">Sincronizar</string>
-    <string name="filedetails_renamed_in_upload_msg">Arquivo renomeado para %1$s durante o envio</string>
+    <string name="filedetails_renamed_in_upload_msg">Arquivo %1$s renomeado durante o envio</string>
     <string name="list_layout">Layout listado</string>
-    <string name="action_send_share">Envia/Compartilhar</string>
+    <string name="action_send_share">Enviar/Compartilhar</string>
     <string name="common_yes">Sim</string>
     <string name="common_no">Não</string>
     <string name="common_ok">OK</string>
@@ -127,7 +127,7 @@
     <string name="common_back">Voltar</string>
     <string name="common_save">Salvar</string>
     <string name="common_error">Erro</string>
-    <string name="common_loading">Carregando &#8230;</string>
+    <string name="common_loading">Carregando&#8230;</string>
     <string name="common_unknown">desconhecido</string>
     <string name="common_error_unknown">Erro desconhecido</string>
     <string name="common_pending">Pendente</string>
@@ -138,9 +138,9 @@
     <string name="delete_account_warning">Excluir a conta %s e remover todos os arquivos locais?\n\nEsta exclusão não pode ser desfeita.</string>
     <string name="avatar">Avatar</string>
     <string name="active_user">Ativar usuário</string>
-    <string name="upload_chooser_title">Enviar de &#8230;</string>
+    <string name="upload_chooser_title">Enviar de&#8230;</string>
     <string name="uploader_info_dirname">Nome da pasta</string>
-    <string name="uploader_upload_in_progress_ticker">Enviando &#8230;</string>
+    <string name="uploader_upload_in_progress_ticker">Enviando&#8230;</string>
     <string name="uploader_upload_in_progress_content">%1$d%% enviando %2$s</string>
     <string name="uploader_upload_succeeded_ticker">Enviado</string>
     <string name="uploader_upload_succeeded_content_single">%1$s enviado</string>
@@ -166,7 +166,7 @@
     <string name="uploads_view_upload_status_waiting_for_wifi">Esperando pelo Wi-Fi</string>
     <string name="uploads_view_upload_status_waiting_exit_power_save_mode">Esperando sair do modo de economia de energia</string>
     <string name="uploads_view_later_waiting_to_upload">Aguardando para enviar</string>
-    <string name="downloader_download_in_progress_ticker">Baixando &#8230;</string>
+    <string name="downloader_download_in_progress_ticker">Baixando&#8230;</string>
     <string name="downloader_download_in_progress_content">%1$d%% Baixando %2$s</string>
     <string name="downloader_download_succeeded_ticker">Baixado</string>
     <string name="downloader_download_succeeded_content">%1$s baixado</string>
@@ -230,8 +230,8 @@
     <string name="media_play_pause_description">Botão reproduzir ou pausar</string>
     <string name="media_forward_description">Botão de avanço rápido</string>
 
-	<string name="auth_getting_authorization">Obtendo autorização &#8230;</string>
-	<string name="auth_trying_to_login">Tentando iniciar sessão &#8230;</string>
+	<string name="auth_getting_authorization">Obtendo autorização&#8230;</string>
+	<string name="auth_trying_to_login">Tentando iniciar sessão&#8230;</string>
 	<string name="auth_no_net_conn_title">Sem conexão de rede</string>
 	<string name="auth_nossl_plain_ok_title">Conexão segura indisponível.</string>
 	<string name="auth_connection_established">Conexão estabelecida</string>
@@ -256,7 +256,7 @@
 	<string name="auth_expired_oauth_token_toast">Sua autorização expirou. Por favor, autorize novamente</string>
 	<string name="auth_expired_basic_auth_toast">Por favor, digite a senha atual</string>
 	<string name="auth_expired_saml_sso_token_toast">Sua sessão expirou. Por favor, conecte-se novamente</string>
-    <string name="auth_connecting_auth_server">Conectando ao servidor de autenticação &#8230;</string>
+    <string name="auth_connecting_auth_server">Conectando ao servidor de autenticação&#8230;</string>
 	<string name="auth_unsupported_multiaccount">%1$s não suporta múltiplas contas</string>
 	<string name="auth_fail_get_user_name">Seu servidor não está retornando uma ID correta de usuário, contacte o administrador</string>
 	<string name="auth_can_not_auth_against_server">Não foi possível obter autenticação neste servidor</string>
@@ -265,8 +265,8 @@
 
     <string name="favorite">Definir como disponível offline</string>
     <string name="unfavorite">Definir como não disponível offline</string>
-    <string name="favorite_real">Marque como favorito</string>
-    <string name="unset_favorite_real">Desmarque como favorito</string>
+    <string name="favorite_real">Favoritar</string>
+    <string name="unset_favorite_real">Desfavoritar</string>
     <string name="favorite_switch">Disponível offline</string>
     <string name="encrypted">Definir como criptografado</string>
     <string name="unset_encrypted">Definir como não criptografado</string>
@@ -278,21 +278,21 @@
     <string name="remove_success_msg">Excluído</string>
     <string name="remove_fail_msg">Falha na exclusão</string>
     <string name="rename_dialog_title">Digite um novo nome</string>
-    <string name="rename_local_fail_msg">A cópia local não pôde ser renomeada, tente um nome diferente</string>
-    <string name="rename_server_fail_msg">Não foi possível renomear o servidor</string>
+    <string name="rename_local_fail_msg">Não foi possível renomear a cópia local, tente um nome diferente</string>
+    <string name="rename_server_fail_msg">Não foi possível renomear pois o nome já existe</string>
     <string name="sync_file_nothing_to_do_msg">Conteúdo do arquivo já foi sincronizado</string>
     <string name="create_dir_fail_msg">Não foi possível criar a pasta</string>
     <string name="filename_forbidden_characters">Caracteres proibidos: / \\ &lt; &gt; : \" | ? *</string>
     <string name="filename_forbidden_charaters_from_server">O nome de arquivo contém um caractere inválido pelo menos</string>
     <string name="filename_empty">O nome de arquivo não pode ser vazio</string>
-    <string name="wait_a_moment">Aguarde um momento &#8230;</string>
+    <string name="wait_a_moment">Aguarde um momento&#8230;</string>
     <string name="wait_checking_credentials">Verificando credenciais salvas</string>
     <string name="filedisplay_no_file_selected">Nenhum arquivo selecionado</string>
-    <string name="activity_chooser_title">Enviar o link para &#8230;</string>
+    <string name="activity_chooser_title">Enviar o link para&#8230;</string>
     <string name="wait_for_tmp_copy_from_private_storage">Copiando o arquivo da armazenagem privada</string>
     
     <string name="oauth_check_onoff">Entrar com OAuth 2.0</string>
-    <string name="oauth_login_connection">Conectando ao servidor OAuth 2.0 &#8230;</string>
+    <string name="oauth_login_connection">Conectando ao servidor OAuth 2.0&#8230;</string>
         
     <string name="ssl_validator_header">A identidade do servidor não pôde ser verificada</string>
     <string name="ssl_validator_reason_cert_not_trusted">- O certificado do servidor não é confiável</string>
@@ -328,8 +328,8 @@
     <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
     <string name="placeholder_media_time">12:23:45</string>
 
-    <string name="auto_upload_on_wifi">Somente enviar por Wi-Fi</string>
-    <string name="instant_upload_on_charging">Somente enviar quando carregando</string>
+    <string name="auto_upload_on_wifi">Só enviar por Wi-Fi</string>
+    <string name="instant_upload_on_charging">Só enviar quando carregando</string>
     <string name="instant_upload_path">/EnvioAutomático</string>
     <string name="auto_upload_path">/AutoEnvio</string>
     <string name="conflict_title">Conflito de arquivo</string>
@@ -385,14 +385,14 @@
     <string name="downloader_download_file_not_found">Este arquivo não mais está disponível neste servidor</string>
 
     <string name="file_migration_dialog_title">Atualizando caminho do armazenamento</string>
-    <string name="file_migration_preparing">Preparando migração &#8230;</string>
-    <string name="file_migration_checking_destination">Verificando destino &#8230;</string>
-    <string name="file_migration_saving_accounts_configuration">Salvando configuração da conta &#8230;</string>
-    <string name="file_migration_waiting_for_unfinished_sync">Aguardando sincronização completa &#8230;</string>
-    <string name="file_migration_migrating">Movendo dados &#8230;</string>
-    <string name="file_migration_updating_index">Atualizando índice &#8230;</string>
-    <string name="file_migration_cleaning">Limpando &#8230;</string>
-    <string name="file_migration_restoring_accounts_configuration">Restaurando configuração da conta &#8230;</string>
+    <string name="file_migration_preparing">Preparando migração&#8230;</string>
+    <string name="file_migration_checking_destination">Verificando destino&#8230;</string>
+    <string name="file_migration_saving_accounts_configuration">Salvando configuração da conta&#8230;</string>
+    <string name="file_migration_waiting_for_unfinished_sync">Aguardando sincronização completa&#8230;</string>
+    <string name="file_migration_migrating">Movendo dados&#8230;</string>
+    <string name="file_migration_updating_index">Atualizando índice&#8230;</string>
+    <string name="file_migration_cleaning">Limpando&#8230;</string>
+    <string name="file_migration_restoring_accounts_configuration">Restaurando configuração da conta&#8230;</string>
     <string name="file_migration_ok_finished">Finalizado</string>
     <string name="file_migration_failed_not_enough_space">Mais espaço é necessário</string>
     <string name="file_migration_failed_not_writable">Não foi possível gravar o arquivo de destino</string>
@@ -416,7 +416,7 @@
 	<string name="log_send_history_button">Enviar histórico</string>
 	<string name="log_send_no_mail_app">Nenhum aplicativo para enviar registros foi encontrado. Por favor instale um cliente de e-mail.</string>
 	<string name="log_send_mail_subject">%1$s logs do aplicativo Android</string>
-	<string name="log_progress_dialog_text">Carregando dados &#8230;</string>
+	<string name="log_progress_dialog_text">Carregando dados&#8230;</string>
 
 	<string name="saml_authentication_required_text">Senha requerida</string>
 	<string name="saml_authentication_wrong_pass">Senha incorreta</string>
@@ -462,8 +462,8 @@
     <string name="set_picture_as">Usar imagem como</string>
     <string name="set_as">Definir Como</string>
 
-    <string name="prefs_instant_behaviour_dialogTitle">Arquivo original será &#8230;</string>
-    <string name="prefs_instant_behaviour_title">Arquivo original será &#8230;</string>
+    <string name="prefs_instant_behaviour_dialogTitle">Arquivo original será&#8230;</string>
+    <string name="prefs_instant_behaviour_title">Arquivo original será&#8230;</string>
     <string name="select_all">Selecionar tudo</string>
     <string name="deselect_all">Desmarcar todos</string>
 
@@ -484,7 +484,7 @@
     <string name="share_via_link_edit_permission_label">Permitir edições</string>
     <string name="share_via_link_hide_file_listing_permission_label">Ocultar a listagem de arquivos</string>
     <string name="share_get_public_link_button">Obter link</string>
-    <string name="share_with_title">Compartilhar com &#8230;</string>
+    <string name="share_with_title">Compartilhar com&#8230;</string>
     <string name="share_with_edit_title">Compartilhar com %1$s</string>
 
     <string name="share_search">Pesquisar</string>
@@ -510,7 +510,7 @@
     <string name="action_clear_successful_uploads">Limpar envios concluídos</string>
     <string name="action_force_rescan">Forçar verificação</string>
 
-    <string name="action_switch_grid_view">Vista da grade</string>
+    <string name="action_switch_grid_view">Vista em grade</string>
     <string name="action_switch_list_view">Lista de visualização</string>
 
     <string name="manage_space_title">Gerenciar o espaço</string>
@@ -536,7 +536,7 @@
     <string name="participate_beta_headline">Teste a versão dev</string>
     <string name="participate_beta_text">Isso inclui todos os recursos futuros e está num limite perigoso. Erros podem ocorrer e acontecendo, por favor reporte-os à nós.</string>
     <string name="participate_release_candidate_headline">Candidato a versão</string>
-    <string name="participate_release_candidate_text">O release candidate (RC) é uma cópia de uma nova versão e espera-se que seja estável. Testar sua própria configuração pode garantir isso. Assine para testes na Play Store ou manualmente procure no seção \"Versão\" do F-Droid,</string>
+    <string name="participate_release_candidate_text">O release candidate (RC) é uma cópia de uma nova versão e espera-se que seja estável. Testar sua própria configuração pode garantir isso. Assine para testes na Play Store ou manualmente procure no seção \"Version\" do F-Droid,</string>
     <string name="participate_contribute_headline">Contribuir ativamente</string>
     <string name="participate_contribute_irc_text">Junte-se ao chat no IRC:</string>
     <string name="participate_contribute_forum_text">Ajude outros no</string>
@@ -548,11 +548,11 @@
     <string name="participate_rc_fdroid">Obtenha a versão de teste do F-Droid</string>
     <string name="participate_dev_fdroid">Obtenha a versão de desenvolvimento do F-Droid</string>
     <string name="participate_dev_direct_download">Baixe a versão de desenvolvimento diretamente</string>
-    <string name="move_to">Mover para &#8230;</string>
-    <string name="copy_to">Copiar para &#8230;</string>
-    <string name="choose_remote_folder">Escolher pasta remota &#8230;</string>
-    <string name="choose_local_folder">Escolher pasta local &#8230;</string>
-    <string name="synced_folders_loading_folders">Carregando pastas &#8230;</string>
+    <string name="move_to">Mover para&#8230;</string>
+    <string name="copy_to">Copiar para&#8230;</string>
+    <string name="choose_remote_folder">Escolher pasta remota&#8230;</string>
+    <string name="choose_local_folder">Escolher pasta local&#8230;</string>
+    <string name="synced_folders_loading_folders">Carregando pastas&#8230;</string>
     <string name="synced_folders_no_results">Nenhuma pasta de mídia encontrada.</string>
     <string name="synced_folders_preferences">Preferências do auto envio</string>
     <string name="synced_folders_new_info">O envio instantâneo foi completamente renovado. Reconfigure seu auto envio no menu principal.\n\nDesfrute do novo envio automático e estendido.</string>
@@ -562,7 +562,7 @@
         <item quantity="other">%d selecionados</item>
     </plurals>
 
-    <string name="notifications_loading_activity">Carregando notificações &#8230;</string>
+    <string name="notifications_loading_activity">Carregando notificações&#8230;</string>
     <string name="notifications_no_results_headline">Não há notificações</string>
     <string name="notifications_no_results_message">Por favor verifique mais tarde.</string>
 
@@ -576,7 +576,7 @@
     <string name="storage_description_default">Padrão</string>
 
     <!-- What's new feature and texts to show -->
-    <string name="whats_new_title">O que é novo em %1$s</string>
+    <string name="whats_new_title">Novo em %1$s</string>
 
     <!-- Welcome to Nc intro features -->
     <string name="welcome_feature_1_title">Um local seguro para seus dados</string>
@@ -589,11 +589,11 @@
     <string name="welcome_feature_3_text">Mantenha seguras as suas fotos</string>
 
     <string name="whats_new_end_to_end_encryption_title">Criptografia de ponta-a-ponta</string>
-    <string name="whats_new_end_to_end_encryption_content">Escolha quais pastas criptografar, configure a partir de qualquer cliente. Adicione facilmente novos dispositivos usando uma senha de 12 palavras.</string>
-    <string name="whats_new_resized_images_title">Imagens adaptadas à tela</string>
-    <string name="whats_new_resized_images_content">A versão menor é mostrada por padrão, pois salva dados e funciona bem para enviar &amp; compartilhar. Você pode baixar o arquivo completo durante o zoom.</string>
+    <string name="whats_new_end_to_end_encryption_content">Toque para criptografar, de qualquer cliente. Adicione novos copiando as 12 palavras.</string>
+    <string name="whats_new_resized_images_title">Imagens adaptáveis</string>
+    <string name="whats_new_resized_images_content">Imagens pequenas são rápidas e funcionam bem ao compartilhar. Amplie para baixar uma versão completa.</string>
     <string name="whats_new_ipv6_title"> Support IPv6</string>
-    <string name="whats_new_ipv6_content">Atualmente funciona bem com servidores que suportam o IPv6, bem como com IPv4.</string>
+    <string name="whats_new_ipv6_content">IPv6 quando o servidor suportar, IPv4 quando não.</string>
 
     <string name="whats_new_skip">Saltar</string>
 
@@ -646,10 +646,10 @@
     <string name="test_server_button">Teste de conexão ao servidor</string>
     <string name="resharing_is_not_allowed">Recompartilhamento não é permitido</string>
     <string name="fallback_weblogin_back">Voltar</string>
-    <string name="fallback_weblogin_text">Volte ao antigo método de login</string>
+    <string name="fallback_weblogin_text">Voltar ao antigo método de login</string>
 
-    <string name="foreground_service_upload">Enviando arquivos &#8230;</string>
-    <string name="foreground_service_download">Baixando arquivos &#8230;</string>
+    <string name="foreground_service_upload">Enviando arquivos&#8230;</string>
+    <string name="foreground_service_download">Baixando arquivos&#8230;</string>
 
     <string name="prefs_sourcecode">Obter código fonte</string>
     <string name="prefs_license">Licença</string>
@@ -750,9 +750,9 @@
     <string name="end_to_end_encryption_not_supported">A criptografia só funciona no KitKat (4.4) e acima.</string>
     <string name="end_to_end_encryption_confirm_button">Definir criptografia</string>
     <string name="end_to_end_encryption_password">Senha&#8230;</string>
-    <string name="end_to_end_encryption_unsuccessful">As chaves não puderam ser armazenadas, tente novamente.</string>
+    <string name="end_to_end_encryption_unsuccessful">Não foi possível salvar as chaves, tente novamente.</string>
     <string name="end_to_end_encryption_dialog_close">Fechar</string>
     <string name="end_to_end_encryption_storing_keys">Armazenando chaves</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Copia e movimentação para a pasta criptografada atualmente não são suportadas.</string>
-    <string name="untrusted_domain">Acesso através de domínio não confiável. Consulte a documentação para mais informações.</string>
+    <string name="untrusted_domain">Acesso através de domínio não confiável. Veja a documentação para mais informações.</string>
 </resources>

@@ -39,7 +39,7 @@
     <string name="prefs_category_general">General</string>
     <string name="prefs_category_more">Más</string>
     <string name="prefs_manage_accounts">Gestionar cuentas</string>
-    <string name="prefs_passcode">Bloqueo con contraseña</string>
+    <string name="prefs_passcode">Bloqueo con código de acceso</string>
     <string name="prefs_fingerprint">Bloqueo con huella dactilar</string>
     <string name="prefs_fingerprint_notsetup">No se han configurado huellas dactilares</string>
     <string name="prefs_expert_mode">Modo experto</string>
@@ -239,7 +239,7 @@
 	<string name="auth_not_configured_title">Configuración de servidor en formato incorrecto</string>
 	<string name="auth_account_not_new">Ya existe una cuenta en este dispositivo con los mismos datos de usuario y servidor</string>
 	<string name="auth_account_not_the_same">El usuario introducido no concuerda con el usuario de esta cuenta</string>
-	<string name="auth_unknown_error_title">Ocurrió un error desconocido</string>
+	<string name="auth_unknown_error_title">Ha ocurrido un error desconocido.</string>
 	<string name="auth_unknown_host_title">No se ha podido encontrar el host</string>
 	<string name="auth_incorrect_path_title">Servidor no encontrado</string>
 	<string name="auth_timeout_title">El servidor ha tardado demasiado en responder</string>
@@ -279,7 +279,7 @@
     <string name="remove_fail_msg">Ha fallado el borrado</string>
     <string name="rename_dialog_title">Introduce un nombre nuevo</string>
     <string name="rename_local_fail_msg">No se ha podido cambiar el nombre de la copia local, prueba un nombre diferente</string>
-    <string name="rename_server_fail_msg">No se ha podido dar un nombre nuevo al servidor</string>
+    <string name="rename_server_fail_msg">No se ha podido dar un nombre nuevo, el nombre ya está tomado</string>
     <string name="sync_file_nothing_to_do_msg">El archivo ya está sincronizado</string>
     <string name="create_dir_fail_msg">No se ha podido crear la carpeta</string>
     <string name="filename_forbidden_characters">Caracteres prohibidos: / \\ &lt; &gt; : \" | ? *</string>
@@ -291,7 +291,7 @@
     <string name="activity_chooser_title">Enviar enlace a &#8230;</string>
     <string name="wait_for_tmp_copy_from_private_storage">Copiando el archivo desde el almacenamiento privado.</string>
     
-    <string name="oauth_check_onoff">Ingresar con OAuth 2.0</string>
+    <string name="oauth_check_onoff">Iniciar sesión con OAuth 2.0</string>
     <string name="oauth_login_connection">Conectando al servidor OAuth 2.0&#8230;</string>
         
     <string name="ssl_validator_header">No se ha podido verificar la identidad del servidor </string>
@@ -351,9 +351,9 @@
 
 	<string name="share_link_no_support_share_api">La función Compartir no está activada en su servidor. Contacta con tu administrador.</string>
 	<string name="share_link_file_no_exist">No se puede compartir. Revisa si el archivo existe</string>
-	<string name="share_link_file_error">Ocurrió un error al tratar de compartir este archivo o carpeta</string>
+	<string name="share_link_file_error">Ha ocurrido un error al tratar de compartir este archivo o carpeta</string>
 	<string name="unshare_link_file_no_exist">No se puede dejar de compartir. Revise si el archivo existe</string>
-	<string name="unshare_link_file_error">Ocurrió un error al tratar de descompartir este archivo o carpeta</string>
+	<string name="unshare_link_file_error">Ha ocurrido  un error al tratar de dejar de compartir este archivo o carpeta</string>
     <string name="update_link_file_no_exist">No se puede actualizar. Revisa si el archivo existe</string>
     <string name="update_link_file_error">Un error ha ocurrido mientras se intentaba actualizar el archivo compartido</string>
     <string name="share_link_password_title">Introduce una contraseña</string>
@@ -369,7 +369,7 @@
 
     <string name="error_cant_bind_to_operations_service">Error crítico: no se pueden realizar operaciones</string>
 
-    <string name="network_error_socket_exception">Ha ocurrido un erro al conectarse con el servidor</string>
+    <string name="network_error_socket_exception">Ha ocurrido un error al conectarse con el servidor</string>
     <string name="network_error_socket_timeout_exception">Ha ocurrido un error al esperar al servidor. La operación no se ha podido completar.</string>
     <string name="network_error_connect_timeout_exception">Ha ocurrido un error al esperar al servidor. La operación no se ha podido completar.</string>
     <string name="network_host_not_available">La operación no se ha podido completar. El servidor no está disponible</string>
@@ -576,7 +576,7 @@
     <string name="storage_description_default">Por defecto</string>
 
     <!-- What's new feature and texts to show -->
-    <string name="whats_new_title">Qué hay de nuevo en %1$s</string>
+    <string name="whats_new_title">Nuevo en %1$s</string>
 
     <!-- Welcome to Nc intro features -->
     <string name="welcome_feature_1_title">Un lugar seguro para tus datos</string>
@@ -589,11 +589,11 @@
     <string name="welcome_feature_3_text">Mantén seguras tus fotos</string>
 
     <string name="whats_new_end_to_end_encryption_title">Cifrado punto a punto</string>
-    <string name="whats_new_end_to_end_encryption_content">Escoge qué carpetas cifrar, configúralo desde cualquier cliente. Añade fácilmente nuevos dispositivos utilizando una frase de paso de 12 palabras.</string>
+    <string name="whats_new_end_to_end_encryption_content">Pulsa para cifrar, desde cualquier cliente. Añade nuevos copiando las 12 palabras.</string>
     <string name="whats_new_resized_images_title">Imágenes adaptadas a la pantalla</string>
-    <string name="whats_new_resized_images_content">Se muestra por defecto la versión más pequeña. Esto reduce el consumu de datos y trabaja bien para enviarlas y compartirlas. Puedes descargar el archivo completo al hacer zoom.</string>
+    <string name="whats_new_resized_images_content">Las imágenes pequeñas son rápidas y funcionan bien para compartir. Haz zoom para descargar una versión completa.</string>
     <string name="whats_new_ipv6_title">Soporte de IPv6</string>
-    <string name="whats_new_ipv6_content">Ahora trabaja perfectamente con servidores que utilicen IPv6, mientras soporta IPv4 al mismo tiempo.</string>
+    <string name="whats_new_ipv6_content">IPv6 cuando el servidor lo soporta, IPv4 si no.</string>
 
     <string name="whats_new_skip">Omitir</string>
 
@@ -721,6 +721,9 @@
     <string name="notification_channel_media_description">Progreso del reproductor de música</string>
     <string name="notification_channel_file_sync_name">Sincronización de archivos</string>
     <string name="notification_channel_file_sync_description">Muestra progreso y resultados de la sincronización de archivos</string>
+    <string name="notification_channel_file_observer_name">Observador de archivos</string>
+    <string name="notification_channel_file_observer_description">Montoriza los cambios en archivos</string>
+  
     <string name="account_not_found">¡Cuenta no encontrada!</string>
 
     <string name="screenshot_01_gridView">Un lugar seguro para tus datos</string>

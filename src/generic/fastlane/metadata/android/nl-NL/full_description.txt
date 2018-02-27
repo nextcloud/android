@@ -1,4 +1,4 @@
-De Open Source Nextcloud Android app geeft je toegang tot al je bestanden op Nextcloud servers.
+De Open Source Nextcloud Android app geeft je mobiele vrijheid.
 
 Functies:
 * Simpel & modern uiterlijk, helemaal in dezelfde stijl als jouw server

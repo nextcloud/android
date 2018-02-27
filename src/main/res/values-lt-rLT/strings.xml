@@ -102,7 +102,6 @@
     <string name="file_list_folder">aplankas</string>
     <string name="filedetails_select_file">Palieskite failą, kad parodyti papildomą informaciją.</string>
     <string name="filedetails_download">Atsisiųsti</string>
-    <string name="filedetails_renamed_in_upload_msg">Įkėlimo metu failas buvo pervadintas į %1$s</string>
     <string name="list_layout">Išdėstymas sąraše</string>
     <string name="common_yes">Taip</string>
     <string name="common_no">Ne</string>
@@ -470,12 +469,9 @@
 
     <string name="storage_description_default">Numatytasis</string>
 
-    <!-- What's new feature and texts to show -->
-    <string name="whats_new_title">Kas naujo %1$s</string>
-
     <!-- Welcome to Nc intro features -->
     <string name="welcome_feature_1_title">Saugūs namai visiems jūsų duomenims</string>
-    <string name="welcome_feature_1_text">Prisijunkite, bendrinkite ir saugokite savo failus namuose ir darbe</string>
+    <string name="welcome_feature_1_text">Prisijunkite, bendrinkite ir apsaugokite savo failus namuose ir darbe</string>
 
     <string name="welcome_feature_2_title">Daugialypė paskyra</string>
     <string name="welcome_feature_2_text">Prijsijunkite prie visų savo debesų</string>
@@ -530,4 +526,5 @@
     <string name="push_notifications_old_login">Nėra pranešimų dėl pasenusios prisijungimo sesijos. Pasvarstykite galimybę iš naujo pridėti prisijungimo duomenis.</string>
     <string name="push_notifications_temp_error">Stumti pranešimus funkcija šiuo metu negalima</string>
 
+    <string name="screenshot_01_gridView">Saugūs namai visiems jūsų duomenims</string>
     </resources>

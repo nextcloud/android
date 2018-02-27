@@ -102,7 +102,6 @@
     <string name="file_list_folder">mapa</string>
     <string name="filedetails_select_file">Pritisnite na datoteko za prikaz dodatnih podrobnosti.</string>
     <string name="filedetails_download">Prejmi</string>
-    <string name="filedetails_renamed_in_upload_msg">Datoteka je bila preimenovana v %1$s med nalaganjem</string>
     <string name="common_yes">Da</string>
     <string name="common_no">Ne</string>
     <string name="common_ok">V redu</string>
@@ -448,9 +447,6 @@
     <string name="upload_file_dialog_filetype_googlemap_shortcut">Google Maps bližnjica(%s)</string>
 
     <string name="storage_description_default">Privzeto</string>
-
-    <!-- What's new feature and texts to show -->
-    <string name="whats_new_title">Kaj je novega v %1$s</string>
 
     <!-- Welcome to Nc intro features -->
     <string name="welcome_feature_1_title">Varen dom za vaše podatke</string>
