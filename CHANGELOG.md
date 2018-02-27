@@ -1,5 +1,15 @@
-## 3.0.0 (Jan, xx, 2018)
+## 3.0.2 (Feb, 27, 2018)
+- Fix crash on old android versions
+- Fix E2E
+- Fix crash on old server
 
+## 3.0.1 (Feb, 14, 2018)
+- Bugfix E2E
+- Fix SSL via PlayStore updater
+- Fix push notification
+- New android lib, fixing wrong user agent
+
+## 3.0.0 (Feb, 08, 2018)
 - End to end encryption
 - Screen adapted images instead of downloading
 - direct access to operations for single files
