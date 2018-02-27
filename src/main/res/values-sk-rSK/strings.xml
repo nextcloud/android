@@ -406,9 +406,6 @@
 
     <string name="storage_description_default">Predvolené</string>
 
-    <!-- What's new feature and texts to show -->
-    <string name="whats_new_title">Čo je nové v %1$s</string>
-
     <!-- Welcome to Nc intro features -->
     <string name="welcome_feature_1_title">Bezpečný domov pre všetky vaše dáta</string>
     <string name="welcome_feature_2_title">Viac účtov</string>

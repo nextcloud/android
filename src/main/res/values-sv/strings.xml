@@ -63,6 +63,7 @@
     <string name="auth_host_url">Serveradress https://&#8230;</string>
     <string name="auth_username">Användarnamn</string>
     <string name="auth_password">Lösenord</string>
+    <string name="auth_register"> Har du inte Nextcloud än?\nKlicka här för att hämta från leverantör</string>
     <string name="sync_string_files">Filer</string>
     <string name="setup_btn_connect">Anslut</string>
     <string name="uploader_btn_upload_text">Ladda upp</string>
@@ -99,15 +100,19 @@
     <string name="file_list_empty_headline_server_search_videos">Inga videor</string>
     <string name="file_list_empty_headline_server_search_photos">Inga bilder</string>
     <string name="file_list_empty_search">Kanske finns den i en annan mapp?</string>
+    <string name="file_list_empty_recently_modified">Hittade inga ändrade filer de senaste 7 dagarna</string>
+    <string name="file_list_empty_recently_modified_filter">Inga filer ändrade de senaste 7 dagarna.</string>
     <string name="file_list_empty_recently_added">Hittade inga nyligen tillagda filer</string>
+    <string name="file_list_empty_recently_added_filter">Inga nyligen tillagda filer.</string>
     <string name="file_list_empty_text_photos">Ladda upp några bilder eller aktivera automatisk uppladdning.</string>
+    <string name="file_list_empty_text_photos_filter">Inga foton.</string>
     <string name="file_list_empty_text_videos">Ladda upp några videor eller aktivera automatisk uppladdning.</string>
+    <string name="file_list_empty_text_videos_filter">Inga videor.</string>
     <string name="upload_list_empty_headline">Inga nerladdningar tillgängliga</string>
     <string name="upload_list_empty_text_auto_upload">Ladda upp något innehåll eller aktivera automatisk uppladdning.</string>
     <string name="file_list_folder">mapp</string>
     <string name="filedetails_select_file">Peka på en fil för att visa mer information.</string>
     <string name="filedetails_download">Ladda ned</string>
-    <string name="filedetails_renamed_in_upload_msg">Fil döptes om till %1$s under uppladdning</string>
     <string name="list_layout">Listad layout</string>
     <string name="action_send_share">Skicka/Dela</string>
     <string name="common_yes">Ja</string>
@@ -247,8 +252,6 @@
     <string name="remove_success_msg">Borttagen</string>
     <string name="remove_fail_msg">Radering misslyckades</string>
     <string name="rename_dialog_title">Ange ett nytt namn</string>
-    <string name="rename_local_fail_msg">Den lokala kopian kunde inte döpas om, prova med ett annat namn</string>
-    <string name="rename_server_fail_msg">Kunde inte ge servern ett nytt namn</string>
     <string name="sync_file_nothing_to_do_msg">Filinnehåll redan synkroniserat</string>
     <string name="create_dir_fail_msg">Kunde inte skapa mapp</string>
     <string name="filename_forbidden_characters">Förbjudna tecken är: / \\ &lt; &gt; : \" | ? *</string>
@@ -504,9 +507,6 @@
     <string name="upload_file_dialog_filetype_googlemap_shortcut">Google Kartor-genväg(%s)</string>
 
     <string name="storage_description_default">Standard</string>
-
-    <!-- What's new feature and texts to show -->
-    <string name="whats_new_title">Vad är nytt i %1$s</string>
 
     <!-- Welcome to Nc intro features -->
     <string name="welcome_feature_1_title">En säker lagringsplats för all din data</string>

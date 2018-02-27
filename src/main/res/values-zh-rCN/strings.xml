@@ -47,6 +47,7 @@
     <string name="prefs_log_delete_history_button">删除历史</string>
     <string name="prefs_calendar_contacts">同步日历 &amp; 联系人</string>
     <string name="prefs_calendar_contacts_summary">为当前账户设置 DAVdroid (v1.3.0+)</string>
+    <string name="prefs_calendar_contacts_address_resolve_error">DAVdroid无法解析该账户的服务器地址</string>
     <string name="prefs_calendar_contacts_no_store_error">F-droid 和 Google Play 都没有安装</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">日历 &amp; 联系人同步设置</string>
     <string name="prefs_daily_contacts_sync_summary">联系人每日备份</string>
@@ -63,6 +64,7 @@
     <string name="auth_host_url">服务器地址 https://&#8230;</string>
     <string name="auth_username">用户名</string>
     <string name="auth_password">密码</string>
+    <string name="auth_register">还没有使用过 Nextcloud ？\n点击这里查看供应商</string>
     <string name="sync_string_files">文件</string>
     <string name="setup_btn_connect">连接</string>
     <string name="uploader_btn_upload_text">上传</string>
@@ -103,6 +105,7 @@
     <string name="file_list_empty_recently_modified">在过去的7天内没有被修改过的文件</string>
     <string name="file_list_empty_recently_modified_filter">过去7天内没有修改过文件.</string>
     <string name="file_list_empty_recently_added">没找到最近添加的文件</string>
+    <string name="file_list_empty_recently_added_filter">没有最近添加的文件。</string>
     <string name="file_list_empty_text_photos">上传一些照片或启用自动上传。</string>
     <string name="file_list_empty_text_photos_filter">没有照片。</string>
     <string name="file_list_empty_text_videos">上传一些视频或启动自动上传</string>
@@ -147,6 +150,7 @@
     <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">不受信任的服务器证书</string>
     <string name="uploads_view_title">上传</string>
     <string name="uploads_view_group_current_uploads">当前</string>
+    <string name="uploads_view_group_failed_uploads">加载失败，等待重启</string>
     <string name="uploads_view_group_finished_uploads">已上传</string>
     <string name="uploads_view_upload_status_succeeded">已完成</string>
     <string name="uploads_view_upload_status_cancelled">已取消</string>
@@ -178,6 +182,9 @@
     <string name="sync_fail_content_unauthorized">%1$s 的密码错误</string>
     <string name="sync_conflicts_in_favourites_ticker">发现冲突</string>
     <string name="sync_fail_in_favourites_ticker">文件同步失败</string>
+    <plurals name="sync_fail_in_favourites_content">
+        <item quantity="other">%1$d 个文件无法被同步(与%2$d冲突 )</item>
+    </plurals>
     <string name="sync_foreign_files_forgotten_ticker">某些本地文件已被遗忘</string>
     <string name="sync_current_folder_was_removed">文件夹%1$s不再存在</string>
     <string name="foreign_files_move">移动全部</string>
@@ -209,6 +216,7 @@
     <string name="media_err_malformed">媒体文件的编码不正确</string>
     <string name="media_err_timeout">尝试播放文件超时</string>
     <string name="media_err_invalid_progressive_playback">该媒体文件无法被转换成流</string>
+    <string name="media_err_unknown">默认的媒体播放器无法播放该媒体文件</string>
     <string name="media_err_security_ex">尝试播放 %1$s 时遇到安全错误</string>
     <string name="media_err_io_ex">尝试播放 %1$s 时发生输入错误</string>
     <string name="media_err_unexpected">尝试播放 %1$s 时发生意外错误</string>
@@ -244,7 +252,9 @@
 	<string name="auth_expired_saml_sso_token_toast">您的会话超时了，请重新连接</string>
     <string name="auth_connecting_auth_server">连接到身份验证服务器 &#8230;</string>
 	<string name="auth_unsupported_multiaccount">%1$s不支持多个账户</string>
+	<string name="auth_fail_get_user_name">您的服务器没有返回正确的用户ID，请与管理员联系</string>
 	<string name="auth_can_not_auth_against_server">无法连接认证服务器</string>
+    <string name="auth_account_does_not_exist">设备上不存在本帐户</string>
     <string name="auth_access_failed">访问失败</string>
 
     <string name="favorite">可以设置离线</string>
@@ -262,7 +272,7 @@
     <string name="remove_fail_msg">删除失败</string>
     <string name="rename_dialog_title">请输出新的名字</string>
     <string name="rename_local_fail_msg">本地副本无法重命名，尝试其他名称</string>
-    <string name="rename_server_fail_msg">无法重命名服务器</string>
+    <string name="rename_server_fail_msg">无法重命名，名字已经被占用</string>
     <string name="sync_file_nothing_to_do_msg">文件内容已同步</string>
     <string name="create_dir_fail_msg">无法创建文件夹</string>
     <string name="filename_forbidden_characters">禁用字符: / \\ &lt; &gt; : \" | ? *</string>
@@ -332,6 +342,7 @@
     <string name="prefs_instant_upload_path_use_subfolders_title">使用子文件夹</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">基于年和月存于子文件夹</string>
 
+	<string name="share_link_no_support_share_api">您的服务器上未启用共享。 请联系您的管理员。</string>
 	<string name="share_link_file_no_exist">无法共享。请检查文件是否存在</string>
 	<string name="share_link_file_error">共享文件或目录出错</string>
 	<string name="unshare_link_file_no_exist">无法取消共享。请检查文件是否存在</string>
@@ -351,6 +362,9 @@
 
     <string name="error_cant_bind_to_operations_service">严重错误：无法执行操作</string>
 
+    <string name="network_error_socket_exception">连接到服务器时发生错误。</string>
+    <string name="network_error_socket_timeout_exception">等待服务器时发生错误。 无法完成操作。</string>
+    <string name="network_error_connect_timeout_exception">等待服务器时发生错误。 无法完成操作。</string>
     <string name="network_host_not_available">无法完成操作。 服务器无法使用</string>
 
     <string name="forbidden_permissions">您不允许%s</string>
@@ -367,14 +381,24 @@
     <string name="file_migration_preparing">准备迁移 &#8230;</string>
     <string name="file_migration_checking_destination">检查目的地 &#8230;</string>
     <string name="file_migration_saving_accounts_configuration">保存帐户配置 &#8230;</string>
+    <string name="file_migration_waiting_for_unfinished_sync">等待完整同步&#8230;</string>
     <string name="file_migration_migrating">正在转移数据 &#8230;</string>
     <string name="file_migration_updating_index">更新目录 &#8230;</string>
     <string name="file_migration_cleaning">清除 &#8230;</string>
+    <string name="file_migration_restoring_accounts_configuration">正在恢复账户设置&#8230;</string>
     <string name="file_migration_ok_finished">完成</string>
+    <string name="file_migration_failed_not_enough_space">需要更多空间</string>
+    <string name="file_migration_failed_not_writable">无法写入目标文件</string>
     <string name="file_migration_failed_not_readable">无法读取源文件</string>
+    <string name="file_migration_failed_dir_already_exists">Nextcloud 目录已存在</string>
+    <string name="file_migration_failed_while_coping">迁移失败</string>
+    <string name="file_migration_failed_while_updating_index">更新索引失败</string>
+
+    <string name="file_migration_directory_already_exists">数据文件夹已经存在。请选择以下选项：</string>
     <string name="file_migration_override_data_folder">代替</string>
     <string name="file_migration_use_data_folder">使用</string>
 
+    <string name="file_migration_source_not_readable_title">源目录不可读！</string>
     <string name="file_migration_source_not_readable">您确认更改存储目录到%1$s吗？注意：此操作后一切数据均需重新下载</string>
 
     <string name="prefs_add_account">添加账号</string>
@@ -387,6 +411,7 @@
 	<string name="log_send_mail_subject">%1$s Android 程序日志</string>
 	<string name="log_progress_dialog_text">加载数据 &#8230;</string>
 
+	<string name="saml_authentication_required_text">需要密码</string>
 	<string name="saml_authentication_wrong_pass">错误密码</string>
 	<string name="actionbar_move">移动</string>
     <string name="actionbar_copy">复制</string>
@@ -488,6 +513,7 @@
 
     <string name="uploads_view_upload_status_waiting_for_charging">等待收费</string>
     <string name="actionbar_search">搜索</string>
+    <string name="files_drop_not_supported">这是一个Nextcloud的特征，请更新</string>
     <string name="learn_more">学习更多</string>
     <string name="drawer_synced_folders">自动上传</string>
     <string name="drawer_participate">参加</string>
@@ -536,9 +562,6 @@
 
     <string name="storage_description_default">默认</string>
 
-    <!-- What's new feature and texts to show -->
-    <string name="whats_new_title">有什么新东西在%1$s里</string>
-
     <!-- Welcome to Nc intro features -->
     <string name="welcome_feature_1_title">给你所有的数据一个安全的家</string>
     <string name="welcome_feature_1_text">访问，共享和保护您的文件在家里和工作</string>
@@ -549,6 +572,8 @@
     <string name="welcome_feature_3_title">自动上传</string>
     <string name="welcome_feature_3_text">保护你的照片安全</string>
 
+    <string name="whats_new_end_to_end_encryption_title">端到端加密</string>
+    <string name="whats_new_ipv6_title">IPv6 支持</string>
     <string name="whats_new_skip">跳过</string>
 
     <string name="fingerprint_scan_finger">请扫描你的手指</string>
@@ -618,6 +643,7 @@
 
     <string name="drawer_current_account">当前账户</string>
     <string name="drawer_middle_account">移动端账户</string>
+    <string name="drawer_end_account">最后一个账户</string>
     <string name="activity_icon">动态图标</string>
     <string name="file_icon">文件图标</string>
     <string name="user_icon">用户图标</string>
@@ -631,7 +657,11 @@
     <string name="shared_icon">已共享图标</string>
     <string name="share_file_icon">共享文件图标</string>
     <string name="sort_by_name_ascending">按名字升序排序</string>
+    <string name="sort_by_modification_date_ascending">按时间顺序</string>
+    <string name="sort_by_size_descending">文件从大到小排序</string>
+    <string name="sort_by_size_ascending">文件从小到大排序</string>
     <string name="sort_by_name_descending">按名字降序排序</string>
+    <string name="sort_by_modification_date_descending">按时间倒序</string>
     <string name="synced_folders_type">类型</string>
     <string name="sync_status_button">同步状态按钮</string>
     <string name="synced_folder_settings_button">设置按钮</string>
@@ -643,18 +673,23 @@
     <string name="dev_version_no_information_available">没有可用的信息</string>
     <string name="dev_version_no_new_version_available">没有可用的新版本</string>
     <string name="folder_icon">目录图标</string>
+    <string name="dev_version_new_version_available">新版本可用</string>
     <string name="version_dev_download">下载</string>
 
     <string name="send">发送</string>
     <string name="share">共享</string>
     <string name="link">链接</string>
 
+    <string name="notification_channel_upload_name">上传提醒频道</string>
+    <string name="notification_channel_download_name">下载提醒频道</string>
     <string name="notification_channel_download_description">显示下载进度</string>
     <string name="notification_channel_upload_description">显示上传进度 </string>
     <string name="notification_channel_media_name">多媒体播放器</string>
     <string name="notification_channel_media_description">音乐播放器进度</string>
     <string name="notification_channel_file_sync_name">文件同步</string>
     <string name="notification_channel_file_sync_description">显示文件同步进度和结果</string>
+    <string name="notification_channel_file_observer_description">监视文件修改</string>
+  
     <string name="account_not_found">账户未找到</string>
 
     <string name="screenshot_01_gridView">为你的数据找一个安全的家</string>
@@ -663,4 +698,15 @@
     <string name="screenshot_05_autoUpload">自动上传照片&amp;/视频 </string>
     <string name="account_icon">账户图标</string>
     
+    <string name="end_to_end_encryption_folder_not_empty">此文件夹不是空的。</string>
+    <string name="end_to_end_encryption_decrypting">解密中&#8230;</string>
+    <string name="end_to_end_encryption_retrieving_keys">正在获取密匙 &#8230;</string>
+    <string name="end_to_end_encryption_enter_password">请输入密码解锁私有密钥</string>
+    <string name="end_to_end_encryption_generating_keys">正在生成新的密匙 &#8230;</string>
+    <string name="end_to_end_encryption_title">设置加密</string>
+    <string name="end_to_end_encryption_confirm_button">设置加密</string>
+    <string name="end_to_end_encryption_password">密码&#8230;</string>
+    <string name="end_to_end_encryption_unsuccessful">无法保存密钥. 请再次尝试</string>
+    <string name="end_to_end_encryption_dialog_close">关闭</string>
+    <string name="end_to_end_encryption_storing_keys">正在保存密匙</string>
     </resources>

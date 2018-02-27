@@ -47,6 +47,7 @@
     <string name="prefs_log_delete_history_button">Verwijder geschiedenis</string>
     <string name="prefs_calendar_contacts">Synchroniseren agenda &amp; contactpersonen</string>
     <string name="prefs_calendar_contacts_summary">DAVdroid (v1.3.0+) voor huidige account instellen</string>
+    <string name="prefs_calendar_contacts_address_resolve_error">Serveradres voor deze account kon niet worden gevonden voor DAVdroid</string>
     <string name="prefs_calendar_contacts_no_store_error">Noch F-Droid, noch Google Play is geïnstalleerd</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Agenda &amp; contactpersonen sync instellingen</string>
     <string name="prefs_daily_contacts_sync_summary">Dagelijkse back-up van je contactpersonen</string>
@@ -63,6 +64,7 @@
     <string name="auth_host_url">Serveradres https://&#8230;</string>
     <string name="auth_username">Gebruikersnaam</string>
     <string name="auth_password">Wachtwoord</string>
+    <string name="auth_register">Heb je nog geen server?\n Klik hier om je bij een provider aan te melden</string>
     <string name="sync_string_files">Bestanden</string>
     <string name="setup_btn_connect">Verbinden</string>
     <string name="uploader_btn_upload_text">Uploaden</string>
@@ -100,6 +102,7 @@
     <string name="file_list_empty_headline_server_search_videos">Geen video\'s</string>
     <string name="file_list_empty_headline_server_search_photos">Geen foto\'s</string>
     <string name="file_list_empty_search">Misschien staat het in een andere map?</string>
+    <string name="file_list_empty_recently_modified">Geen bestanden gevonden die de afgelopen 7 dagen zijn gewijzigd</string>
     <string name="file_list_empty_recently_modified_filter">Geen files die de laatste 7 dagen gewijzigd zijn.</string>
     <string name="file_list_empty_recently_added">Geen recent toegevoegde bestanden gevonden</string>
     <string name="file_list_empty_recently_added_filter">Geen files die recent zijn toegevoegd,</string>
@@ -113,7 +116,7 @@
     <string name="filedetails_select_file">Druk op een bestand om extra informatie weer te geven</string>
     <string name="filedetails_download">Downloaden</string>
     <string name="filedetails_sync_file">Synchroniseren</string>
-    <string name="filedetails_renamed_in_upload_msg">Bestand hernoemd naar %1$s tijdens de upload</string>
+    <string name="filedetails_renamed_in_upload_msg">Bestand hernoemd %1$s tijdens upload</string>
     <string name="list_layout">Lijstoverzicht</string>
     <string name="action_send_share">Versturen/Delen</string>
     <string name="common_yes">Ja</string>
@@ -147,6 +150,7 @@
     <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">Niet vertrouwd servercertificaat</string>
     <string name="uploads_view_title">Uploads</string>
     <string name="uploads_view_group_current_uploads">Huidige</string>
+    <string name="uploads_view_group_failed_uploads">Mislukt/Wacht op herstart</string>
     <string name="uploads_view_group_finished_uploads">Geüpload</string>
     <string name="uploads_view_upload_status_succeeded">Voltooid</string>
     <string name="uploads_view_upload_status_cancelled">Geannuleerd</string>
@@ -159,6 +163,7 @@
     <string name="uploads_view_upload_status_conflict">Conflict</string>
     <string name="uploads_view_upload_status_service_interrupted">App afgesloten</string>
     <string name="uploads_view_upload_status_unknown_fail">Onbekende fout</string>
+    <string name="uploads_view_upload_status_waiting_for_wifi">Wachten op een wifi-verbinding</string>
     <string name="uploads_view_upload_status_waiting_exit_power_save_mode">Wachten om de energiemodus te verlaten</string>
     <string name="uploads_view_later_waiting_to_upload">Wachten om te uploaden</string>
     <string name="downloader_download_in_progress_ticker">Downloaden&#160;&#8230;</string>
@@ -168,14 +173,24 @@
     <string name="downloader_download_failed_ticker">Downloaden mislukt</string>
     <string name="downloader_download_failed_content">Kon %1$s niet downloaden</string>
     <string name="downloader_not_downloaded_yet">Nog niet gedownload</string>
+    <string name="downloader_download_failed_credentials_error">Downloaden mislukt, je moet opnieuw inloggen</string>
     <string name="common_choose_account">Account kiezen</string>
     <string name="common_switch_account">Account wisselen</string>
     <string name="sync_fail_ticker">Synchronisatie mislukt</string>
     <string name="sync_fail_ticker_unauthorized">Synchronisatie mislukt, log opnieuw in</string>
+    <string name="sync_fail_content">Synchronisatie van %1$s kon niet worden voltooid</string>
     <string name="sync_fail_content_unauthorized">Onjuist wachtwoord voor %1$s</string>
     <string name="sync_conflicts_in_favourites_ticker">Conflicten gevonden</string>
     <string name="sync_fail_in_favourites_ticker">Gesynchroniseerd te houden bestanden mislukt</string>
+    <plurals name="sync_fail_in_favourites_content">
+        <item quantity="one">%1$d bestand kon niet worden gesynchroniseerd (conflict: %2$d)</item>
+        <item quantity="other">%1$d bestanden kon niet worden gesynchroniseerd (conflicten: %2$d)</item>
+    </plurals>
     <string name="sync_foreign_files_forgotten_ticker">Een paar lokale bestanden werden vergeten</string>
+    <plurals name="sync_foreign_files_forgotten_content">
+        <item quantity="one">%1$d bestand uit de map %2$s kon niet worden gekopieerd</item>
+        <item quantity="other">%1$d bestanden uit de map %2$s konden niet worden gekopieerd</item>
+    </plurals>
     <string name="sync_foreign_files_forgotten_explanation">Sinds versie 1.3.16: bestanden geüpload vanaf dit apparaat zijn gekopieerd in de lokale %1$s directory om zoekraken van bestanden te voorkomen indien een enkel bestand wordt gesynchroniseerd met meerdere accounts. \n\n Door deze verandering zijn alle bestanden geüpload met een eerdere versie van deze app gekopieerd  naar de %2$s directory.  Let wel: door een fout is deze actie niet uitgevoerd tijdens account synchronisatie. Je kunt deze bestanden laten waar ze zijn en verwijder de verwijzingen naar %3$s, of verplaats de bestanden naar de %1$s directory en behoud de verwijzing naar %4$s. \n\n Hieronder zijn de lokale bestanden weergegeven en de remote bestanden in %5$s waar ze naar verwijzen.</string>
     <string name="sync_current_folder_was_removed">Map %1$s bestaat niet meer</string>
     <string name="foreign_files_move">Alles verplaatsen</string>
@@ -207,6 +222,7 @@
     <string name="media_err_malformed">Mediabestand niet goed gecodeerd</string>
     <string name="media_err_timeout">Time-out tijdens het afspelen</string>
     <string name="media_err_invalid_progressive_playback">Mediabestand kan niet worden gestreamd</string>
+    <string name="media_err_unknown">Mediabestand kan niet worden afgespeeld met de standaard mediaplayer</string>
     <string name="media_err_security_ex">Beveiligingsfout bij afspelen %1$s</string>
     <string name="media_err_io_ex">Invoerfout bij afspelen %1$s</string>
     <string name="media_err_unexpected">Onverwachte fout bij afspelen %1$s</string>
@@ -242,7 +258,9 @@
 	<string name="auth_expired_saml_sso_token_toast">Je sessie is verstreken. Verbind opnieuw</string>
     <string name="auth_connecting_auth_server">Verbinden met authenticatie server &#8230;</string>
 	<string name="auth_unsupported_multiaccount">%1$s ondersteunt het gebruik van meerdere accounts niet</string>
+	<string name="auth_fail_get_user_name">Je server geeft geen geldige userID terug, neem contact op met je server beheerder</string>
 	<string name="auth_can_not_auth_against_server">Kan niet authenticeren tegen deze server</string>
+    <string name="auth_account_does_not_exist">Account bestaat nog niet op dit apparaat</string>
     <string name="auth_access_failed">Toegang mislukt</string>
 
     <string name="favorite">Offline beschikbaar maken</string>
@@ -260,11 +278,13 @@
     <string name="remove_success_msg">Verwijderd</string>
     <string name="remove_fail_msg">Verwijderen mislukt</string>
     <string name="rename_dialog_title">Voer een nieuwe naam in</string>
-    <string name="rename_local_fail_msg">Lokale kopie kon niet worden hernoemd; probeer een andere naam</string>
-    <string name="rename_server_fail_msg">Kon de server geen nieuwe naam geven</string>
+    <string name="rename_local_fail_msg">Kon lokale kopie niet hernoemen, probeer een andere naam</string>
+    <string name="rename_server_fail_msg">Hernoemen niet mogelijk, naam is al in gebruik</string>
     <string name="sync_file_nothing_to_do_msg">Bestandsinhoud is al gesynchroniseerd</string>
     <string name="create_dir_fail_msg">Kan map niet aanmaken</string>
     <string name="filename_forbidden_characters">Verboden tekens: / \\ &lt; &gt; : " | ? *</string>
+    <string name="filename_forbidden_charaters_from_server">De bestandsnaam bevat ten minste één ongeldig teken</string>
+    <string name="filename_empty">Bestandsnaam mag niet leeg zijn</string>
     <string name="wait_a_moment">Wacht even &#8230;</string>
     <string name="wait_checking_credentials">Opgeslagen inloggegevens nakijken</string>
     <string name="filedisplay_no_file_selected">Geen bestand geselecteerd</string>
@@ -329,6 +349,7 @@
     <string name="prefs_instant_upload_path_use_subfolders_title">Gebruik submappen</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Opslaan in submappen, gebaseerd op jaar en maand</string>
 
+	<string name="share_link_no_support_share_api">Sorry, delen is niet ingeschakeld op jouw server. Neem contact op met je server beheerder</string>
 	<string name="share_link_file_no_exist">Kan dit niet delen. Controleer of dit bestand wel bestaat</string>
 	<string name="share_link_file_error">Er trad een fout op bij je poging dit bestand of deze map te delen</string>
 	<string name="unshare_link_file_no_exist">Kan delen niet beëindigen. Ga na of het bestand bestaat</string>
@@ -348,6 +369,9 @@
 
     <string name="error_cant_bind_to_operations_service">Kritieke fout: kan de acties niet uitvoeren</string>
 
+    <string name="network_error_socket_exception">Er trad een fout op bij het verbinden met de server.</string>
+    <string name="network_error_socket_timeout_exception">Er trad een fout op bij het wachten op de server, de verwerking kon niet plaatsvinden</string>
+    <string name="network_error_connect_timeout_exception">Er trad een fout op bij het wachten op de server, de verwerking kon niet plaatsvinden</string>
     <string name="network_host_not_available">De verwerking kon niet plaatsvinden, de server is niet beschikbaar</string>
 
     <string name="forbidden_permissions">Je mist autorisatie %s</string>
@@ -363,13 +387,25 @@
     <string name="file_migration_dialog_title">Opslagpad bijwerken</string>
     <string name="file_migration_preparing">Migratie voorbereiden &#8230;</string>
     <string name="file_migration_checking_destination">Doelmap controleren &#8230;</string>
+    <string name="file_migration_saving_accounts_configuration">Accountconfiguratie opslaan &#8230;</string>
+    <string name="file_migration_waiting_for_unfinished_sync">Wachten op volledige synchronisaties &#8230;</string>
     <string name="file_migration_migrating">Gegevens verplaatsen &#8230;</string>
     <string name="file_migration_updating_index">Index bijwerken &#8230;</string>
     <string name="file_migration_cleaning">Opruimen &#8230;</string>
+    <string name="file_migration_restoring_accounts_configuration">Accountconfiguratie herstellen &#8230;</string>
     <string name="file_migration_ok_finished">Afgerond</string>
+    <string name="file_migration_failed_not_enough_space">Meer ruimte nodig</string>
+    <string name="file_migration_failed_not_writable">Kon niet schrijven naar bestand</string>
+    <string name="file_migration_failed_not_readable">Kan bestand niet lezen</string>
+    <string name="file_migration_failed_dir_already_exists">Nextcloud map bestaat al</string>
+    <string name="file_migration_failed_while_coping">Fout tijdens migratie</string>
+    <string name="file_migration_failed_while_updating_index">Index bijwerken mislukt</string>
+
+    <string name="file_migration_directory_already_exists">Datamap bestaat al. Kies een van de volgende:</string>
     <string name="file_migration_override_data_folder">Vervangen</string>
     <string name="file_migration_use_data_folder">Gebruiken</string>
 
+    <string name="file_migration_source_not_readable_title">Bronmap niet leesbaar!</string>
     <string name="file_migration_source_not_readable">Wil je echt het opslagpad wijzigen naar  %1$s?\n\nLet op: alle gegevens moeten opnieuw worden gedownloaded.</string>
 
     <string name="prefs_add_account">Account toevoegen</string>
@@ -404,7 +440,9 @@
 
     <string name="prefs_category_details">Details</string>
 
-    <string name="subject_user_shared_with_you">%1$s deelde \"%2$s\" met jou</string>
+    <string name="sync_folder_failed_content">Synchroniseren van %1$s folder kon niet worden afgerond</string>
+
+	<string name="subject_user_shared_with_you">%1$s deelde \"%2$s\" met jou</string>
     <string name="subject_shared_with_you">\"%1$s\" is met je gedeeld</string>
 
     <string name="auth_refresh_button">Verbinding verversen</string>
@@ -457,6 +495,7 @@
     <string name="share_email_clarification">%1$s (email)</string>
     <string name="share_known_remote_clarification">%1$s ( op %2$s )</string>
 
+    <string name="share_sharee_unavailable">Helaas, je serverversie staat niet toe om binnen clients te delen met andere gebruikers.\nNeem contact op met je server beheerder</string>
     <string name="filedetails_share_link_enable">Delen via een link ingeschakeld</string>
     <string name="filedetails_share_link_disable">Niet gedeeld met een link</string>
     <string name="filedetails_share_users_with_access">Gebruikers en groepen met toegang</string>
@@ -486,6 +525,7 @@
 
     <string name="uploads_view_upload_status_waiting_for_charging">Wachten to apparaat wordt opgeladen</string>
     <string name="actionbar_search">Zoeken</string>
+    <string name="files_drop_not_supported">Dit is een Nextcloud optie, graag bijwerken.</string>
     <string name="learn_more">Meer weten</string>
     <string name="drawer_synced_folders">Automatisch uploaden</string>
     <string name="drawer_participate">Meedoen</string>
@@ -548,6 +588,13 @@
     <string name="welcome_feature_3_title">Automatisch uploaden</string>
     <string name="welcome_feature_3_text">Hou je foto\'s veilig</string>
 
+    <string name="whats_new_end_to_end_encryption_title">Eindpunt-tot-eindpunt versleuteling</string>
+    <string name="whats_new_end_to_end_encryption_content">Versleutel je data met één druk op de knop. Voeg nieuwe locaties toe met een sleutel van 12 woorden.</string>
+    <string name="whats_new_resized_images_title">Slimme afbeeldingsgrootte</string>
+    <string name="whats_new_resized_images_content">In eerste instantie downloaden we kleine afbeeldingen; ideaal om snel te werken en te delen. Zoom in om de volledige resolutie te downloaden.</string>
+    <string name="whats_new_ipv6_title">IPv6 ondersteuning</string>
+    <string name="whats_new_ipv6_content">IPv6 als de server dit ondersteunt, en anders IPv4.</string>
+
     <string name="whats_new_skip">Overslaan</string>
 
     <string name="fingerprint_scan_finger">Scan je vinger</string>
@@ -586,8 +633,11 @@
     <!-- Notifications -->
     <string name="new_notification_received">Nieuwe melding ontvangen</string>
     <string name="drawer_logout">Uitloggen</string>
+    <string name="picture_set_as_no_app">Geen app gevonden om afbeelding in te stellen</string>
     <string name="privacy">Privacy</string>
     <string name="file_not_found">Bestand niet gevonden</string>
+    <string name="file_not_synced">Synchroniseren van het gewenste bestand mislukt. Laatst beschikbare versie wordt weergegeven.</string>
+
     <!-- Auto upload -->
     <string name="autoupload_custom_folder">Instellen aangepaste map</string>
     <string name="autoupload_create_new_custom_folder">Maak aangepaste nieuwe map aan</string>
@@ -615,9 +665,13 @@
     <string name="resized_image_not_possible_download">Geen verkleinde afbeelding beschikbaar. Volledige afbeelding downloaden?</string>
     <string name="resized_images_download_full_image">Volledige afbeelding downloaden?</string>
 
+    <string name="store_short_desc">De Nextcloud Android app geeft je toegang tot al je Nextcloud bestanden.</string>
+    <string name="store_full_desc">De Open Source Nextcloud Android app geeft je mobiele vrijheid.\n\nFuncties:\n* Simpel &amp; modern uiterlijk, helemaal in dezelfde stijl als jouw server\n* Upload bestanden naar je Nextcloud server\n* Deel bestanden met anderen\n* Hou je favoriete bestanden en mappen gesynchroniseerd\n* Zoek in al je bestanden op de server\n* Automatisch uploaden voor al je foto\'s en video\'s\n* Blijf op de hoogte met notificaties\n* Ondersteuning voor meerdere accounts en servers\n* Beveilig toegang tot je gegevens met vingerafdruk of pincode\n* Integratie met DAVdroid voor makkelijk synchroniseren van je kalender &amp; contacten\n\nMeld alsjeblieft alle bugs en problemen op https://github.com/nextcloud/android/issues en doe je zegje over deze app in ons forum https://help.nextcloud.com/c/clients/android\n\nNieuw bij Nextcloud? Nextcloud is je persoonlijke bestanden- en communicatieserver. Het is volledig open source en je kunt het zelf hosten of een bedrijf betalen om dat voor je te doen. Zo heb je volledige controle over je foto\'s, kalender, adresboek, document en al het andere.\n\nCheck Nextcloud op https://nextcloud.com</string>
+
     <string name="drawer_current_account">Huidige account</string>
     <string name="drawer_middle_account">Gemiddelde account</string>
     <string name="drawer_end_account">Laatste account</string>
+    <string name="contactlist_item_icon">Contactpersonen pictogram</string>
     <string name="activity_icon">Activiteitspictogram</string>
     <string name="file_icon">Bestandpictogram</string>
     <string name="user_icon">Gebruikerspictogram</string>
@@ -646,6 +700,8 @@
     <string name="what_s_new_image">Wat is nieuw afbeelding</string>
 
     <string name="store_short_dev_desc">De Nextcloud Dev app is een ontwikkelversie. Kan parallel worden geïnstalleerd.</string>
+    <string name="store_full_dev_desc">De Open Source Nextcloud Android app geeft je mobiele vrijheid.\nDit is de officiële ontwikkelversie die gloednieuwe, ongeteste mogelijkheden heeft, die tot instabiliteit en gegevensverlies zouden kunnen leiden. De app is voor gebruikers die de nieuwe functies willen testen en eventuele bugs willen melden. Gebruik de app niet voor productiewerkzaamheden!\n\nZowel de ontwikkelversie als de reguliere versie zijn beschikbaar is in F-Droid en ze kunnen naast elkaar gebruikt worden.</string>
+
     <string name="prefs_category_dev">Dev</string>
     <string name="dev_version_no_information_available">Geen informatie beschikbaar.</string>
     <string name="dev_version_no_new_version_available">Geen nieuwe versie beschikbaar.</string>
@@ -665,27 +721,38 @@
     <string name="notification_channel_media_description">Mediaspeler voortgang</string>
     <string name="notification_channel_file_sync_name">Bestand sync</string>
     <string name="notification_channel_file_sync_description">Geeft bestand sync voortgang en resultaten weer</string>
+    <string name="notification_channel_file_observer_name">Bestand waarnemer</string>
+    <string name="notification_channel_file_observer_description">Hou bestands veranderingen bij</string>
+  
     <string name="account_not_found">Account niet gevonden!</string>
 
     <string name="screenshot_01_gridView">Een veilige plek voor al je data</string>
     <string name="screenshot_02_listView">Doorzoek en deel je bestanden makkelijk</string>
     <string name="screenshot_03_drawer">Benader snel je activiteiten, gedeelde bestanden, off-line bestanden en meer</string>
     <string name="screenshot_04_accounts">Verbinden met verschillend accounts</string>
-    <string name="screenshot_05_autoUpload">Automatisch je foto\'s &amp;video\'s uploaden</string>
+    <string name="screenshot_05_autoUpload">Automatisch je foto\'s &amp; video\'s uploaden</string>
+    <string name="screenshot_06_davdroid">Synchroniseer agenda &amp; contactpersonen met DAVdroid</string>
+    
     <string name="userinfo_no_info_headline">Geen persoonlijke informatie ingesteld</string>
     <string name="userinfo_no_info_text">Voeg naam, foto en contact details op je profielpagina toe.</string>
-    <string name="drawer_header_background">Achtergrondafbeelding van drawer header</string>
+    <string name="drawer_header_background">Achtergrondafbeelding in het menu</string>
     <string name="account_icon">Account icoon</string>
     
     <string name="end_to_end_encryption_folder_not_empty">Deze map is niet leeg.</string>
     <string name="end_to_end_encryption_wrong_password">Fout tijdens ontsleutelen. Verkeerd wachtwoord?</string>
     <string name="end_to_end_encryption_decrypting">Ontcijferen &#8230;</string>
     <string name="end_to_end_encryption_retrieving_keys">Ophalen sleutels &#8230;</string>
+    <string name="end_to_end_encryption_enter_password">Voer wachtwoord in om privésleutel te ontgrendelen.</string>
     <string name="end_to_end_encryption_generating_keys">Genereren nieuwe sleutels &#8230;</string>
+    <string name="end_to_end_encryption_keywords_description">Deze zin van 12 woorden is als een heel sterk wachtwoord: het verleent volledige toegang tot je versleutelde bestanden. Schrijf het alsjeblieft op en bewaar het op een veilige plek.</string>
     <string name="end_to_end_encryption_title">Instellen versleuteling</string>
+    <string name="end_to_end_encryption_passphrase_title">Schrijf uw encryptie wachtwoord van 12 woorden op</string>
+    <string name="end_to_end_encryption_not_supported">Versleutelen wordt niet ondersteund in versies eerder dan KitKat (4.4)</string>
     <string name="end_to_end_encryption_confirm_button">Instellen versleuteling</string>
     <string name="end_to_end_encryption_password">Wachtwoord &#8230;</string>
-    <string name="end_to_end_encryption_unsuccessful">Opslaan sleutels mislukt, probeer het opnieuw!</string>
+    <string name="end_to_end_encryption_unsuccessful">Kon de sleutels niet opslaan, probeer opnieuw a.u.b.</string>
     <string name="end_to_end_encryption_dialog_close">Sluiten</string>
     <string name="end_to_end_encryption_storing_keys">Opslaan sleutels</string>
-    </resources>
+    <string name="copy_move_to_encrypted_folder_not_supported">Kopieren/verplaatsen naar een versleutelde map is momenteel niet mogelijk.</string>
+    <string name="untrusted_domain">Toegang van een niet vertrouwd domein. Bekijk de documentatie voor meer informatie.</string>
+</resources>

@@ -116,7 +116,7 @@
     <string name="filedetails_select_file">Tap on a file to display additional information.</string>
     <string name="filedetails_download">Download</string>
     <string name="filedetails_sync_file">Sync</string>
-    <string name="filedetails_renamed_in_upload_msg">File renamed to %1$s during upload</string>
+    <string name="filedetails_renamed_in_upload_msg">File renamed %1$s during upload</string>
     <string name="list_layout">Listed layout</string>
     <string name="action_send_share">Send/Share</string>
     <string name="common_yes">Yes</string>
@@ -273,13 +273,13 @@
     <string name="common_rename">Rename</string>
     <string name="common_remove">Delete</string>
     <string name="confirmation_remove_file_alert">Do you really want to delete %1$s?</string>
-    <string name="confirmation_remove_folder_alert">Do you really want to delete %1$s and the contents thereof?</string>
+    <string name="confirmation_remove_folder_alert">Do you really want to delete %1$s and it\'s content?</string>
     <string name="confirmation_remove_local">Local only</string>
     <string name="remove_success_msg">Deleted</string>
     <string name="remove_fail_msg">Deletion failed</string>
     <string name="rename_dialog_title">Enter a new name</string>
-    <string name="rename_local_fail_msg">Local copy could not be renamed, try a different name</string>
-    <string name="rename_server_fail_msg">Could not give server new name</string>
+    <string name="rename_local_fail_msg">Could not rename local copy, try a different name</string>
+    <string name="rename_server_fail_msg">Renaming not possible, name already taken</string>
     <string name="sync_file_nothing_to_do_msg">File contents already synchronised</string>
     <string name="create_dir_fail_msg">Could not create folder</string>
     <string name="filename_forbidden_characters">Forbidden characters: / \\ &lt; &gt; : \" | ? *</string>
@@ -576,7 +576,7 @@
     <string name="storage_description_default">Default</string>
 
     <!-- What's new feature and texts to show -->
-    <string name="whats_new_title">What\'s new in %1$s</string>
+    <string name="whats_new_title">New in %1$s</string>
 
     <!-- Welcome to Nc intro features -->
     <string name="welcome_feature_1_title">A safe home for all your data</string>
@@ -588,12 +588,12 @@
     <string name="welcome_feature_3_title">Auto upload</string>
     <string name="welcome_feature_3_text">Keep your photos safe</string>
 
-    <string name="whats_new_end_to_end_encryption_title">End to end encryption</string>
-    <string name="whats_new_end_to_end_encryption_content">Choose which folders to encrypt, set up from any client. Easily add new devices using a 12 word passphrase.</string>
-    <string name="whats_new_resized_images_title">Screen adapted images</string>
-    <string name="whats_new_resized_images_content">Smaller version is shown by default, as it saves data and works nicely for sending &amp; sharing. You can download the whole file on zooming.</string>
+    <string name="whats_new_end_to_end_encryption_title">End-to-end encryption</string>
+    <string name="whats_new_end_to_end_encryption_content">Tap to encrypt, from any client. Add new ones by copying 12 words over.</string>
+    <string name="whats_new_resized_images_title">Adaptive images</string>
+    <string name="whats_new_resized_images_content">Small images are fast and work great for sharing. Zoom in to download a full version.</string>
     <string name="whats_new_ipv6_title">IPv6 support</string>
-    <string name="whats_new_ipv6_content">Now works nicely with servers supporting IPv6, while supporting IPv4 at the same time.</string>
+    <string name="whats_new_ipv6_content">IPv6 when the server supports it, IPv4 if not.</string>
 
     <string name="whats_new_skip">Skip</string>
 
@@ -750,9 +750,9 @@
     <string name="end_to_end_encryption_not_supported">Encryption only works on KitKat(4.4) and beyond.</string>
     <string name="end_to_end_encryption_confirm_button">Set up encryption</string>
     <string name="end_to_end_encryption_password">Password&#8230;</string>
-    <string name="end_to_end_encryption_unsuccessful">Keys could not be stored, please try again.</string>
+    <string name="end_to_end_encryption_unsuccessful">Could not save keys, please try again.</string>
     <string name="end_to_end_encryption_dialog_close">Close</string>
     <string name="end_to_end_encryption_storing_keys">Storing keys</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Copy/move into encrypted folder currently not supported.</string>
-    <string name="untrusted_domain">Access through untrusted domain. Please see documentation for further infos.</string>
+    <string name="untrusted_domain">Access through untrusted domain. Please see documentation for further info.</string>
 </resources>

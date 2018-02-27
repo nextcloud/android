@@ -475,10 +475,11 @@ public class EncryptionUtils {
 
         Cipher cipher = Cipher.getInstance(AES_CIPHER);
 
-        String[] strings = string.split(ivDelimiter);
-        String cipherString = strings[0];
+        int delimiterPosition = string.lastIndexOf(ivDelimiter);
+        String cipherString = string.substring(0, delimiterPosition);
+        String ivString = string.substring(delimiterPosition + ivDelimiter.length(), string.length());
 
-        byte[] iv = new IvParameterSpec(decodeStringToBase64Bytes(strings[1])).getIV();
+        byte[] iv = new IvParameterSpec(decodeStringToBase64Bytes(ivString)).getIV();
 
         Key key = new SecretKeySpec(encryptionKeyBytes, AES);
 
@@ -514,7 +515,7 @@ public class EncryptionUtils {
         byte[] bytes = encodeStringToBase64Bytes(privateKey);
         byte[] encrypted = cipher.doFinal(bytes);
 
-        byte[] iv = cipher.getParameters().getParameterSpec(IvParameterSpec.class).getIV();
+        byte[] iv = cipher.getIV();
         String encodedIV = encodeBytesToBase64String(iv);
         String encodedSalt = encodeBytesToBase64String(salt);
         String encodedEncryptedBytes = encodeBytesToBase64String(encrypted);

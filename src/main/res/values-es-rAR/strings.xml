@@ -102,7 +102,6 @@
     <string name="file_list_folder">carpeta</string>
     <string name="filedetails_select_file">Pulse un archivo para mostrar información adicional.</string>
     <string name="filedetails_download">Descargar</string>
-    <string name="filedetails_renamed_in_upload_msg">El archivo se renombró como %1$s durante la carga</string>
     <string name="list_layout">Vista enlistada</string>
     <string name="common_yes">Sí</string>
     <string name="common_no">No</string>
@@ -453,9 +452,6 @@
     <string name="upload_file_dialog_filetype_googlemap_shortcut">Archivo de acceso directo a Google Maps(%s)</string>
 
     <string name="storage_description_default">Predeterminado</string>
-
-    <!-- What's new feature and texts to show -->
-    <string name="whats_new_title">Qué hay de nuevo en %1$s</string>
 
     <!-- Welcome to Nc intro features -->
     <string name="welcome_feature_1_title">Un lugar seguro para todos sus datos</string>
