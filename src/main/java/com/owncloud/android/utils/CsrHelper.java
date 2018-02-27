@@ -58,7 +58,7 @@ public class CsrHelper {
      */
     private static PKCS10CertificationRequest generateCSR(KeyPair keyPair, String userId) throws IOException,
     OperatorCreationException {
-        String principal = "CN=" + userId.split("@")[0];
+        String principal = "CN=" + userId;
         AsymmetricKeyParameter privateKey = PrivateKeyFactory.createKey(keyPair.getPrivate().getEncoded());
         AlgorithmIdentifier signatureAlgorithm = new DefaultSignatureAlgorithmIdentifierFinder().find("SHA1WITHRSA");
         AlgorithmIdentifier digestAlgorithm = new DefaultDigestAlgorithmIdentifierFinder().find("SHA-1");
