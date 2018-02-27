@@ -277,6 +277,7 @@
     <string name="remove_success_msg">Eliminado</string>
     <string name="remove_fail_msg">Falla al eliminar</string>
     <string name="rename_dialog_title">Ingresa un nombre nuevo</string>
+    <string name="rename_local_fail_msg">No se pudo renombrar la copia local, intenta con un nombre diferente </string>
     <string name="sync_file_nothing_to_do_msg">Los contenidos del archivo ya han sido sincronizados</string>
     <string name="create_dir_fail_msg">No fue posible crear la carpeta</string>
     <string name="filename_forbidden_characters">Caracteres inválidos: / \\ &lt; &gt; : \" | ? *</string>
@@ -572,6 +573,9 @@
 
     <string name="storage_description_default">Predeterminado</string>
 
+    <!-- What's new feature and texts to show -->
+    <string name="whats_new_title">Nuevo en %1$s</string>
+
     <!-- Welcome to Nc intro features -->
     <string name="welcome_feature_1_title">Un lugar seguro para todos tus datos</string>
     <string name="welcome_feature_1_text">Accede, comparte y proteje tus archivos en casa y la oficina</string>
@@ -582,6 +586,7 @@
     <string name="welcome_feature_3_title">Carga automática</string>
     <string name="welcome_feature_3_text">Manten tus fotos seguras</string>
 
+    <string name="whats_new_end_to_end_encryption_title">Encripción de punta-a-punta</string>
     <string name="whats_new_ipv6_title">Soporte IPv6</string>
     <string name="whats_new_skip">Saltar</string>
 
