@@ -152,7 +152,7 @@ public class SyncedFolderAdapter extends SectionedRecyclerViewAdapter<SyncedFold
 
     @Override
     public void onBindFooterViewHolder(MainViewHolder holder, int section) {
-
+        // not needed
     }
 
 

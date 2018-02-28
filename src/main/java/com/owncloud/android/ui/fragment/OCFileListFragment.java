@@ -544,11 +544,9 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
      * Also listens to changes in navigation drawer to hide and recover multiple selection when it's opened
      * and closed.
      */
-    private class MultiChoiceModeListener
-            implements AbsListView.MultiChoiceModeListener, DrawerLayout.DrawerListener {
+    private class MultiChoiceModeListener implements AbsListView.MultiChoiceModeListener, DrawerLayout.DrawerListener {
 
         private static final String KEY_ACTION_MODE_CLOSED_BY_DRAWER = "KILLED_ACTION_MODE";
-        private static final String KEY_SELECTION_WHEN_CLOSED_BY_DRAWER = "CHECKED_ITEMS";
 
         /**
          * True when action mode is finished because the drawer was opened
