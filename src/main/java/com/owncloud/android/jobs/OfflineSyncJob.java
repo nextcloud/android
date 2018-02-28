@@ -122,7 +122,7 @@ public class OfflineSyncJob extends Job {
     }
 
 
-    class OfflineFile {
+    private class OfflineFile {
         String localPath;
         Account account;
 
