@@ -129,7 +129,7 @@ public class FileDataStorageManager {
         c.close();
         return file;
     }
-
+    
     public OCFile getFileByLocalPath(String path) {
         Cursor c = getFileCursorForValue(ProviderTableMeta.FILE_STORAGE_PATH, path);
         OCFile file = null;

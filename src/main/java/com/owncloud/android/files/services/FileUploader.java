@@ -408,10 +408,17 @@ public class FileUploader extends Service
                         currentAccount = failedUpload.getAccount(context);
                     }
 
-                    charging = charging || Device.getBatteryStatus(context).getBatteryPercent() == 1;
-                    if (!isPowerSaving && gotNetwork && checkIfUploadCanBeRetried(failedUpload, gotWifi, charging)) {
+                    if (!new File(failedUpload.getLocalPath()).exists()) {
+                        if (!failedUpload.getLastResult().equals(UploadResult.FILE_NOT_FOUND)) {
+                            failedUpload.setLastResult(UploadResult.FILE_NOT_FOUND);
+                            uploadsStorageManager.updateUpload(failedUpload);
+                        }
+                    } else {
+                        charging = charging || Device.getBatteryStatus(context).getBatteryPercent() == 1;
+                        if (!isPowerSaving && gotNetwork && checkIfUploadCanBeRetried(failedUpload, gotWifi, charging)) {
                             retry(context, currentAccount, failedUpload);
                         }
+                    }
                 }
             }
         }
