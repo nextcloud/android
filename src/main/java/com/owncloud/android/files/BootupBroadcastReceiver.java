@@ -27,6 +27,7 @@ import android.content.Intent;
 
 import com.owncloud.android.MainApp;
 import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.utils.FilesSyncHelper;
 
 
 /**
@@ -48,6 +49,8 @@ public class BootupBroadcastReceiver extends BroadcastReceiver {
         if (Intent.ACTION_BOOT_COMPLETED.equals(intent.getAction())) {
             MainApp.initAutoUpload();
             MainApp.initContactsBackup();
+            FilesSyncHelper.scheduleOfflineSyncIfNeeded();
+            FilesSyncHelper.scheduleFilesSyncIfNeeded(context);
         } else {
             Log_OC.d(TAG, "Getting wrong intent: " + intent.getAction());
         }
