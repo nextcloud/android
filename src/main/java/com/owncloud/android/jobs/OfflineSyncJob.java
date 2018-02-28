@@ -101,16 +101,16 @@ public class OfflineSyncJob extends Job {
 
             FileDataStorageManager storageManager;
             for (OfflineFile offlineFile : offlineFileList) {
-                storageManager = new FileDataStorageManager(offlineFile.account, context.getContentResolver());
-                OCFile file = storageManager.getFileByLocalPath(offlineFile.localPath);
+                storageManager = new FileDataStorageManager(offlineFile.getAccount(), context.getContentResolver());
+                OCFile file = storageManager.getFileByLocalPath(offlineFile.getLocalPath());
                 SynchronizeFileOperation sfo =
-                        new SynchronizeFileOperation(file, null, offlineFile.account, true, context);
+                        new SynchronizeFileOperation(file, null, offlineFile.getAccount(), true, context);
                 RemoteOperationResult result = sfo.execute(storageManager, context);
                 if (result.getCode() == RemoteOperationResult.ResultCode.SYNC_CONFLICT) {
                     Intent i = new Intent(context, ConflictsResolveActivity.class);
                     i.setFlags(i.getFlags() | Intent.FLAG_ACTIVITY_NEW_TASK);
                     i.putExtra(ConflictsResolveActivity.EXTRA_FILE, file);
-                    i.putExtra(ConflictsResolveActivity.EXTRA_ACCOUNT, offlineFile.account);
+                    i.putExtra(ConflictsResolveActivity.EXTRA_ACCOUNT, offlineFile.getAccount());
                     context.startActivity(i);
                 }
             }
@@ -123,11 +123,27 @@ public class OfflineSyncJob extends Job {
 
 
     private class OfflineFile {
-        String localPath;
-        Account account;
+        private String localPath;
+        private Account account;
 
         private OfflineFile(String localPath, Account account) {
             this.localPath = localPath;
+            this.account = account;
+        }
+
+        public String getLocalPath() {
+            return localPath;
+        }
+
+        public void setLocalPath(String localPath) {
+            this.localPath = localPath;
+        }
+
+        public Account getAccount() {
+            return account;
+        }
+
+        public void setAccount(Account account) {
             this.account = account;
         }
     }
