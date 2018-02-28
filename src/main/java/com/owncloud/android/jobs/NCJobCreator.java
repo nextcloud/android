@@ -39,6 +39,8 @@ public class NCJobCreator implements JobCreator {
                 return new AccountRemovalJob();
             case FilesSyncJob.TAG:
                 return new FilesSyncJob();
+            case OfflineSyncJob.TAG:
+                return new OfflineSyncJob();
             default:
                 return null;
         }

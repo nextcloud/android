@@ -27,7 +27,6 @@ import android.content.Intent;
 
 import com.owncloud.android.MainApp;
 import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.services.observer.FileObserverService;
 
 
 /**
@@ -40,26 +39,13 @@ public class BootupBroadcastReceiver extends BroadcastReceiver {
 
     /**
      * Receives broadcast intent reporting that the system was just boot up.
-     *
-     * Starts {@link FileObserverService} to enable observation of favourite files.
-     *
+     **
      * @param   context     The context where the receiver is running.
      * @param   intent      The intent received.
      */
     @Override
     public void onReceive(Context context, Intent intent) {
         if (Intent.ACTION_BOOT_COMPLETED.equals(intent.getAction())) {
-            Log_OC.d(TAG, "Starting file observer service...");
-            Intent initObservers = FileObserverService.makeInitIntent(context);
-
-            if (FileObserverService.shouldStart()) {
-                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-                    context.startForegroundService(initObservers);
-                } else {
-                    context.startService(initObservers);
-                }
-            }
-
             MainApp.initAutoUpload();
             MainApp.initContactsBackup();
         } else {

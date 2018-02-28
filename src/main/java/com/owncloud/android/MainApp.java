@@ -292,6 +292,7 @@ public class MainApp extends MultiDexApplication {
 
         FilesSyncHelper.scheduleFilesSyncIfNeeded(mContext);
         FilesSyncHelper.restartJobsIfNeeded();
+        FilesSyncHelper.scheduleOfflineSyncIfNeeded();
 
         ReceiversHelper.registerNetworkChangeReceiver();
 

@@ -90,6 +90,7 @@ public class FilesSyncJob extends Job {
 
         // If we are in power save mode, better to postpone upload
         if (PowerUtils.isPowerSaveMode(context) && !overridePowerSaving) {
+            wakeLock.release();
             return Result.SUCCESS;
         }
 
