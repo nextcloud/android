@@ -36,6 +36,7 @@ import com.owncloud.android.db.ProviderMeta;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.operations.SynchronizeFileOperation;
 import com.owncloud.android.ui.activity.ConflictsResolveActivity;
+import com.owncloud.android.utils.ConnectivityUtils;
 import com.owncloud.android.utils.PowerUtils;
 
 import java.util.ArrayList;
@@ -52,7 +53,7 @@ public class OfflineSyncJob extends Job {
     protected Result onRunJob(@NonNull Params params) {
         final Context context = MainApp.getAppContext();
 
-        if (!PowerUtils.isPowerSaveMode(context)) {
+        if (!PowerUtils.isPowerSaveMode(context) && !ConnectivityUtils.isInternetWalled(context)) {
             Set<Job> jobs = JobManager.instance().getAllJobsForTag(TAG);
             for (Job job : jobs) {
                 if (!job.isFinished()) {
