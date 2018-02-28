@@ -61,8 +61,7 @@ import java.util.Comparator;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
- * This Adapter populates a ListView with following types of uploads: pending,
- * active, completed. Filtering possible.
+ * This Adapter populates a ListView with following types of uploads: pending,active, completed. Filtering possible.
  */
 public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedViewHolder> {
 
@@ -84,7 +83,6 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
     @Override
     public int getItemCount(int section) {
         return mUploadGroups[section].getItems().length;
-
     }
 
     @Override

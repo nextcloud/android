@@ -1,21 +1,22 @@
 /*
- * ownCloud Android client application
+ * Nextcloud Android client application
  *
- * @author David A. Velasco
- * Copyright (C) 2011  Bartek Przybylski
- * Copyright (C) 2015 ownCloud Inc.
- * <p>
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License version 2,
- * as published by the Free Software Foundation.
- * <p>
+ * @author Tobias Kaminsky
+ * Copyright (C) 2018 Tobias Kaminsky
+ * Copyright (C) 2018 Nextcloud
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or any later version.
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- * <p>
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * GNU AFFERO GENERAL PUBLIC LICENSE for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public
+ * License along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package com.owncloud.android.ui.adapter;
 
@@ -364,7 +365,8 @@ public class LocalFileListAdapter extends RecyclerView.Adapter<RecyclerView.View
 
     /**
      * Change the adapted directory for a new one
-     * @param directory     New file to adapt. Can be NULL, meaning "no content to adapt".
+     *
+     * @param directory New file to adapt. Can be NULL, meaning "no content to adapt".
      */
     public void swapDirectory(final File directory) {
         if (mLocalFolderPicker) {
@@ -429,7 +431,7 @@ public class LocalFileListAdapter extends RecyclerView.Adapter<RecyclerView.View
         }
     }
 
-    private ArrayList<File> getFiles(final File directory) {
+    private ArrayList<File> getFiles(File directory) {
         File[] files = directory.listFiles();
 
         if (files != null && files.length > 0) {
@@ -458,12 +460,12 @@ public class LocalFileListAdapter extends RecyclerView.Adapter<RecyclerView.View
     /**
      * Filter for hidden files
      *
-     * @param files             ArrayList of files to filter
+     * @param files ArrayList of files to filter
      * @return Non-hidden files
      */
     public ArrayList<File> filterHiddenFiles(ArrayList<File> files) {
         ArrayList<File> ret = new ArrayList<>();
-        
+
         for (File file : files) {
             if (!file.isHidden()) {
                 ret.add(file);
