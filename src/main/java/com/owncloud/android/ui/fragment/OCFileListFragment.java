@@ -120,7 +120,6 @@ import java.util.Set;
 
 /**
  * A Fragment that lists all files and folders in a given path.
- * <p>
  * TODO refactor to get rid of direct dependency on FileDisplayActivity
  */
 public class OCFileListFragment extends ExtendedListFragment implements OCFileListFragmentInterface {
@@ -1663,7 +1662,6 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
             onMessageEvent(searchEvent);
 
             mRefreshListLayout.setRefreshing(false);
-//            mRefreshEmptyLayout.setRefreshing(false);
         } else {
             super.onRefresh();
         }

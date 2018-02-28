@@ -1,25 +1,24 @@
 /*
- * ownCloud Android client application
+ * Nextcloud Android client application
  *
- * @author Bartek Przybylski
  * @author Tobias Kaminsky
- * @author David A. Velasco
- * @author masensio
- * Copyright (C) 2011  Bartek Przybylski
- * Copyright (C) 2016 ownCloud Inc.
+ * Copyright (C) 2018 Tobias Kaminsky
+ * Copyright (C) 2018 Nextcloud
  *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License version 2,
- * as published by the Free Software Foundation.
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or any later version.
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * GNU AFFERO GENERAL PUBLIC LICENSE for more details.
  *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * You should have received a copy of the GNU Affero General Public
+ * License along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
 package com.owncloud.android.ui.adapter;
 
 
@@ -73,7 +72,6 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Locale;
 import java.util.Vector;
-
 
 /**
  * This Adapter populates a RecyclerView with all files and folders in a Nextcloud instance.
@@ -239,11 +237,8 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        // TODO handle if file is null: if (mFiles != null && mFiles.size() > position)
-
         if (holder instanceof OCFileListFooterViewHolder) {
             ((OCFileListFooterViewHolder) holder).footerText.setText(getFooterText());
-
         } else {
             OCFileListGridViewHolder gridViewHolder = (OCFileListGridViewHolder) holder;
 
@@ -477,8 +472,8 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
      * @param updatedStorageManager Optional updated storage manager; used to replace
      *                              mStorageManager if is different (and not NULL)
      */
-    public void swapDirectory(OCFile directory, FileDataStorageManager updatedStorageManager
-            , boolean onlyOnDevice) {
+    public void swapDirectory(OCFile directory, FileDataStorageManager updatedStorageManager,
+                              boolean onlyOnDevice) {
         if (updatedStorageManager != null && !updatedStorageManager.equals(mStorageManager)) {
             mStorageManager = updatedStorageManager;
             mAccount = AccountUtils.getCurrentOwnCloudAccount(mContext);
