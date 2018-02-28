@@ -98,7 +98,7 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
 
     @Override
     public void onBindFooterViewHolder(SectionedViewHolder holder, int section) {
-
+        // not needed
     }
 
     public UploadListAdapter(FileActivity parentActivity) {
@@ -226,11 +226,7 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
                 itemViewHolder.progressBar.invalidate();
                 break;
 
-            case UPLOAD_FAILED:
-                itemViewHolder.date.setVisibility(View.GONE);
-                break;
-
-            case UPLOAD_SUCCEEDED:
+            default:
                 itemViewHolder.status.setVisibility(View.GONE);
                 break;
         }
@@ -604,7 +600,7 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
             items = new OCUpload[0];
         }
 
-        String getGroupName() {
+        private String getGroupName() {
             return name;
         }
 
@@ -620,11 +616,11 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
             this.items = items;
         }
 
-        int getGroupItemCount() {
+        private int getGroupItemCount() {
             return items == null ? 0 : items.length;
         }
 
-        Comparator<OCUpload> comparator = new Comparator<OCUpload>() {
+        public Comparator<OCUpload> comparator = new Comparator<OCUpload>() {
             @Override
             public int compare(OCUpload upload1, OCUpload upload2) {
                 if (upload1 == null) {
