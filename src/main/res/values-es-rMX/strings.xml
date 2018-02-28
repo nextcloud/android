@@ -116,6 +116,7 @@
     <string name="filedetails_select_file">Pulsa un archivo para mostrar información adicional.</string>
     <string name="filedetails_download">Descargar</string>
     <string name="filedetails_sync_file">Syncronizar</string>
+    <string name="filedetails_renamed_in_upload_msg">El archivo se renombró com %1$s durante la carga</string>
     <string name="list_layout">Vista de lista</string>
     <string name="action_send_share">Enviar/Compartir</string>
     <string name="common_yes">Sí</string>
@@ -588,6 +589,8 @@
 
     <string name="whats_new_end_to_end_encryption_title">Encripción de punta-a-punta</string>
     <string name="whats_new_ipv6_title">Soporte IPv6</string>
+    <string name="whats_new_ipv6_content">IPv6 cuando el servidor lo soporte, IPv4 si no. </string>
+
     <string name="whats_new_skip">Saltar</string>
 
     <string name="fingerprint_scan_finger">Por favor escanea tu dedo</string>
