@@ -333,6 +333,11 @@ public class UploadsStorageManager extends Observable {
             upload.setWhileChargingOnly(c.getInt(c.getColumnIndex(ProviderTableMeta.UPLOADS_IS_WHILE_CHARGING_ONLY))
                     == 1);
             upload.setFolderUnlockToken(c.getString(c.getColumnIndex(ProviderTableMeta.UPLOADS_FOLDER_UNLOCK_TOKEN)));
+            try {
+                upload.setSyncedFolderId(c.getLong(c.getColumnIndex(ProviderTableMeta.UPLOADS_SYNCED_FOLDER_ID)));
+            } catch (Exception exception) {
+                upload.setSyncedFolderId(-1);
+            }
         }
         return upload;
     }

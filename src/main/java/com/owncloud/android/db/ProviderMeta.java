@@ -191,6 +191,7 @@ public class ProviderMeta {
         public static final String UPLOADS_IS_WHILE_CHARGING_ONLY = "is_while_charging_only";
         public static final String UPLOADS_IS_WIFI_ONLY = "is_wifi_only";
         public static final String UPLOADS_FOLDER_UNLOCK_TOKEN = "folder_unlock_token";
+        public static final String UPLOADS_SYNCED_FOLDER_ID = "synced_folder_id";
 
         // Columns of synced folder table
         public static final String SYNCED_FOLDER_LOCAL_PATH = "local_path";

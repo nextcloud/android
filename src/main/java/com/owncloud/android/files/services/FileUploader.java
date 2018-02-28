@@ -1,25 +1,25 @@
 /**
- *  ownCloud Android client application
+ * ownCloud Android client application
  *
- *  @author Bartek Przybylski
- *  @author masensio
- *  @author LukeOwnCloud
- *  @author David A. Velasco
+ * @author Bartek Przybylski
+ * @author masensio
+ * @author LukeOwnCloud
+ * @author David A. Velasco
  *
- *  Copyright (C) 2012 Bartek Przybylski
- *  Copyright (C) 2012-2016 ownCloud Inc.
+ * Copyright (C) 2012 Bartek Przybylski
+ * Copyright (C) 2012-2016 ownCloud Inc.
  *
- *  This program is free software: you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License version 2,
- *  as published by the Free Software Foundation.
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 2,
+ * as published by the Free Software Foundation.
  *
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
  *
- *  You should have received a copy of the GNU General Public License
- *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 package com.owncloud.android.files.services;
@@ -31,6 +31,7 @@ import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
@@ -53,6 +54,8 @@ import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.authentication.AuthenticatorActivity;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.datamodel.SyncedFolder;
+import com.owncloud.android.datamodel.SyncedFolderProvider;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.datamodel.UploadsStorageManager;
 import com.owncloud.android.datamodel.UploadsStorageManager.UploadStatus;
@@ -100,46 +103,20 @@ import javax.annotation.Nullable;
 public class FileUploader extends Service
         implements OnDatatransferProgressListener, OnAccountsUpdateListener, UploadFileOperation.OnRenameListener {
 
-    private static final String TAG = FileUploader.class.getSimpleName();
-
-    private static final String UPLOADS_ADDED_MESSAGE = "UPLOADS_ADDED";
-    private static final String UPLOAD_START_MESSAGE = "UPLOAD_START";
-    private static final String UPLOAD_FINISH_MESSAGE = "UPLOAD_FINISH";
     public static final String EXTRA_UPLOAD_RESULT = "RESULT";
     public static final String EXTRA_REMOTE_PATH = "REMOTE_PATH";
     public static final String EXTRA_OLD_REMOTE_PATH = "OLD_REMOTE_PATH";
     public static final String EXTRA_OLD_FILE_PATH = "OLD_FILE_PATH";
     public static final String EXTRA_LINKED_TO_PATH = "LINKED_TO";
     public static final String ACCOUNT_NAME = "ACCOUNT_NAME";
-
-    private static final int FOREGROUND_SERVICE_ID = 411;
-
     public static final String KEY_FILE = "FILE";
     public static final String KEY_LOCAL_FILE = "LOCAL_FILE";
     public static final String KEY_REMOTE_FILE = "REMOTE_FILE";
     public static final String KEY_MIME_TYPE = "MIME_TYPE";
-
-    private Notification mNotification;
-
-    /**
-     * Call this Service with only this Intent key if all pending uploads are to be retried.
-     */
-    private static final String KEY_RETRY = "KEY_RETRY";
-//    /**
-//     * Call this Service with KEY_RETRY and KEY_RETRY_REMOTE_PATH to retry
-//     * upload of file identified by KEY_RETRY_REMOTE_PATH.
-//     */
-//    private static final String KEY_RETRY_REMOTE_PATH = "KEY_RETRY_REMOTE_PATH";
-    /**
-     * Call this Service with KEY_RETRY and KEY_RETRY_UPLOAD to retry
-     * upload of file identified by KEY_RETRY_UPLOAD.
-     */
-    private static final String KEY_RETRY_UPLOAD = "KEY_RETRY_UPLOAD";
     /**
      * {@link Account} to which file is to be uploaded.
      */
     public static final String KEY_ACCOUNT = "ACCOUNT";
-
     /**
      * Set to true if remote file is to be overwritten. Default action is to upload with different name.
      */
@@ -152,21 +129,37 @@ public class FileUploader extends Service
      * Key to signal what is the origin of the upload request
      */
     public static final String KEY_CREATED_BY = "CREATED_BY";
-
     public static final String KEY_WHILE_ON_WIFI_ONLY = "KEY_ON_WIFI_ONLY";
-
     /**
      * Set to true if upload is to performed only when phone is being charged.
      */
     public static final String KEY_WHILE_CHARGING_ONLY = "KEY_WHILE_CHARGING_ONLY";
-
     public static final String KEY_LOCAL_BEHAVIOUR = "BEHAVIOUR";
-
+    //    /**
+//     * Call this Service with KEY_RETRY and KEY_RETRY_REMOTE_PATH to retry
+//     * upload of file identified by KEY_RETRY_REMOTE_PATH.
+//     */
+//    private static final String KEY_RETRY_REMOTE_PATH = "KEY_RETRY_REMOTE_PATH";
     public static final int LOCAL_BEHAVIOUR_COPY = 0;
     public static final int LOCAL_BEHAVIOUR_MOVE = 1;
     public static final int LOCAL_BEHAVIOUR_FORGET = 2;
     public static final int LOCAL_BEHAVIOUR_DELETE = 3;
-
+    public static final String KEY_SYNCED_FOLDER = "KEY_SYNCED_FOLDER";
+    private static final String TAG = FileUploader.class.getSimpleName();
+    private static final String UPLOADS_ADDED_MESSAGE = "UPLOADS_ADDED";
+    private static final String UPLOAD_START_MESSAGE = "UPLOAD_START";
+    private static final String UPLOAD_FINISH_MESSAGE = "UPLOAD_FINISH";
+    private static final int FOREGROUND_SERVICE_ID = 411;
+    /**
+     * Call this Service with only this Intent key if all pending uploads are to be retried.
+     */
+    private static final String KEY_RETRY = "KEY_RETRY";
+    /**
+     * Call this Service with KEY_RETRY and KEY_RETRY_UPLOAD to retry
+     * upload of file identified by KEY_RETRY_UPLOAD.
+     */
+    private static final String KEY_RETRY_UPLOAD = "KEY_RETRY_UPLOAD";
+    private Notification mNotification;
     private Looper mServiceLooper;
     private ServiceHandler mServiceHandler;
     private IBinder mBinder;
@@ -206,247 +199,6 @@ public class FileUploader extends Service
     }
 
     /**
-     * Helper class providing methods to ease requesting commands to {@link FileUploader} .
-     *
-     * Avoids the need of checking once and again what extras are needed or optional
-     * in the {@link Intent} to pass to {@link Context#startService(Intent)}.
-     */
-    public static class UploadRequester {
-
-        /**
-         * Call to upload several new files
-         */
-        public void uploadNewFile(
-                Context context,
-                Account account,
-                String[] localPaths,
-                String[] remotePaths,
-                String[] mimeTypes,
-                Integer behaviour,
-                Boolean createRemoteFolder,
-                int createdBy,
-                boolean requiresWifi,
-                boolean requiresCharging
-        ) {
-            Intent intent = new Intent(context, FileUploader.class);
-
-            intent.putExtra(FileUploader.KEY_ACCOUNT, account);
-            intent.putExtra(FileUploader.KEY_LOCAL_FILE, localPaths);
-            intent.putExtra(FileUploader.KEY_REMOTE_FILE, remotePaths);
-            intent.putExtra(FileUploader.KEY_MIME_TYPE, mimeTypes);
-            intent.putExtra(FileUploader.KEY_LOCAL_BEHAVIOUR, behaviour);
-            intent.putExtra(FileUploader.KEY_CREATE_REMOTE_FOLDER, createRemoteFolder);
-            intent.putExtra(FileUploader.KEY_CREATED_BY, createdBy);
-            intent.putExtra(FileUploader.KEY_WHILE_ON_WIFI_ONLY, requiresWifi);
-            intent.putExtra(FileUploader.KEY_WHILE_CHARGING_ONLY, requiresCharging);
-
-            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-                context.startForegroundService(intent);
-            } else {
-                context.startService(intent);
-            }
-        }
-
-        public void uploadFileWithOverwrite(
-                Context context,
-                Account account,
-                String[] localPaths,
-                String[] remotePaths,
-                String[] mimeTypes,
-                Integer behaviour,
-                Boolean createRemoteFolder,
-                int createdBy,
-                boolean requiresWifi,
-                boolean requiresCharging,
-                boolean overwrite
-        ) {
-            Intent intent = new Intent(context, FileUploader.class);
-
-            intent.putExtra(FileUploader.KEY_ACCOUNT, account);
-            intent.putExtra(FileUploader.KEY_LOCAL_FILE, localPaths);
-            intent.putExtra(FileUploader.KEY_REMOTE_FILE, remotePaths);
-            intent.putExtra(FileUploader.KEY_MIME_TYPE, mimeTypes);
-            intent.putExtra(FileUploader.KEY_LOCAL_BEHAVIOUR, behaviour);
-            intent.putExtra(FileUploader.KEY_CREATE_REMOTE_FOLDER, createRemoteFolder);
-            intent.putExtra(FileUploader.KEY_CREATED_BY, createdBy);
-            intent.putExtra(FileUploader.KEY_WHILE_ON_WIFI_ONLY, requiresWifi);
-            intent.putExtra(FileUploader.KEY_WHILE_CHARGING_ONLY, requiresCharging);
-            intent.putExtra(FileUploader.KEY_FORCE_OVERWRITE, overwrite);
-
-            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-                context.startForegroundService(intent);
-            } else {
-                context.startService(intent);
-            }
-        }
-
-        /**
-         * Call to upload a file
-         */
-        public void uploadFileWithOverwrite(Context context, Account account, String localPath, String remotePath, int
-                behaviour, String mimeType, boolean createRemoteFile, int createdBy, boolean requiresWifi,
-                                  boolean requiresCharging, boolean overwrite) {
-
-            uploadFileWithOverwrite(
-                    context,
-                    account,
-                    new String[]{localPath},
-                    new String[]{remotePath},
-                    new String[]{mimeType},
-                    behaviour,
-                    createRemoteFile,
-                    createdBy,
-                    requiresWifi,
-                    requiresCharging,
-                    overwrite
-            );
-        }
-
-        /**
-         * Call to upload a new single file
-         */
-        public void uploadNewFile(Context context, Account account, String localPath, String remotePath, int
-                behaviour, String mimeType, boolean createRemoteFile, int createdBy, boolean requiresWifi,
-                                  boolean requiresCharging) {
-
-            uploadNewFile(
-                context,
-                account,
-                new String[]{localPath},
-                new String[]{remotePath},
-                new String[]{mimeType},
-                behaviour,
-                createRemoteFile,
-                createdBy,
-                requiresWifi,
-                requiresCharging
-            );
-        }
-
-        /**
-         * Call to update multiple files already uploaded
-         */
-        public void uploadUpdate(Context context, Account account, OCFile[] existingFiles, Integer behaviour,
-                                        Boolean forceOverwrite) {
-            Intent intent = new Intent(context, FileUploader.class);
-
-            intent.putExtra(FileUploader.KEY_ACCOUNT, account);
-            intent.putExtra(FileUploader.KEY_FILE, existingFiles);
-            intent.putExtra(FileUploader.KEY_LOCAL_BEHAVIOUR, behaviour);
-            intent.putExtra(FileUploader.KEY_FORCE_OVERWRITE, forceOverwrite);
-
-            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-                context.startForegroundService(intent);
-            } else {
-                context.startService(intent);
-            }
-        }
-
-        /**
-         * Call to update a dingle file already uploaded
-         */
-        public void uploadUpdate(Context context, Account account, OCFile existingFile, Integer behaviour,
-                                        Boolean forceOverwrite) {
-
-            uploadUpdate(context, account, new OCFile[]{existingFile}, behaviour, forceOverwrite);
-        }
-
-
-        /**
-         * Call to retry upload identified by remotePath
-         */
-        public void retry (Context context, OCUpload upload) {
-            if (upload != null && context != null) {
-                Account account = AccountUtils.getOwnCloudAccountByName(
-                    context,
-                    upload.getAccountName()
-                );
-                retry(context, account, upload);
-
-            } else {
-                throw new IllegalArgumentException("Null parameter!");
-            }
-        }
-
-        private boolean checkIfUploadCanBeRetried(OCUpload ocUpload, boolean gotWifi, boolean isCharging) {
-            boolean needsWifi = ocUpload.isUseWifiOnly();
-            boolean needsCharging = ocUpload.isWhileChargingOnly();
-
-            return new File(ocUpload.getLocalPath()).exists() && !(needsCharging && !isCharging) &&
-                    !(needsWifi && !gotWifi);
-
-        }
-
-        /**
-         * Retry a subset of all the stored failed uploads.
-         *
-         * @param context           Caller {@link Context}
-         * @param account           If not null, only failed uploads to this OC account will be retried; otherwise,
-         *                          uploads of all accounts will be retried.
-         * @param uploadResult      If not null, only failed uploads with the result specified will be retried;
-         *                          otherwise, failed uploads due to any result will be retried.
-         */
-        public void retryFailedUploads(Context context, Account account, UploadResult uploadResult) {
-            UploadsStorageManager uploadsStorageManager = new UploadsStorageManager(context.getContentResolver(), context);
-            OCUpload[] failedUploads = uploadsStorageManager.getFailedUploads();
-            Account currentAccount = null;
-            boolean resultMatch;
-            boolean accountMatch;
-
-            boolean gotNetwork = !Device.getNetworkType(context).equals(JobRequest.NetworkType.ANY) &&
-                    !ConnectivityUtils.isInternetWalled(context);
-            boolean gotWifi = gotNetwork && Device.getNetworkType(context).equals(JobRequest.NetworkType.UNMETERED);
-            boolean charging = Device.getBatteryStatus(context).isCharging();
-            boolean isPowerSaving = PowerUtils.isPowerSaveMode(context);
-
-            for ( OCUpload failedUpload: failedUploads) {
-                accountMatch = (account == null || account.name.equals(failedUpload.getAccountName()));
-                resultMatch = ((uploadResult == null || uploadResult.equals(failedUpload.getLastResult())));
-                if (accountMatch && resultMatch) {
-                    if (currentAccount == null ||
-                            !currentAccount.name.equals(failedUpload.getAccountName())) {
-                        currentAccount = failedUpload.getAccount(context);
-                    }
-
-                    if (!new File(failedUpload.getLocalPath()).exists()) {
-                        if (!failedUpload.getLastResult().equals(UploadResult.FILE_NOT_FOUND)) {
-                            failedUpload.setLastResult(UploadResult.FILE_NOT_FOUND);
-                            uploadsStorageManager.updateUpload(failedUpload);
-                        }
-                    } else {
-                        charging = charging || Device.getBatteryStatus(context).getBatteryPercent() == 1;
-                        if (!isPowerSaving && gotNetwork && checkIfUploadCanBeRetried(failedUpload, gotWifi, charging)) {
-                            retry(context, currentAccount, failedUpload);
-                        }
-                    }
-                }
-            }
-        }
-
-        /**
-         * Private implementation of retry.
-         *
-         * @param context
-         * @param account
-         * @param upload
-         */
-        private void retry(Context context, Account account, OCUpload upload) {
-            if (upload != null) {
-                Intent i = new Intent(context, FileUploader.class);
-                i.putExtra(FileUploader.KEY_RETRY, true);
-                i.putExtra(FileUploader.KEY_ACCOUNT, account);
-                i.putExtra(FileUploader.KEY_RETRY_UPLOAD, upload);
-
-                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-                    context.startForegroundService(i);
-                } else {
-                    context.startService(i);
-                }
-            }
-        }
-    }
-
-    /**
      * Service initialization
      */
     @Override
@@ -477,7 +229,7 @@ public class FileUploader extends Service
         mNotification = builder.build();
 
         int failedCounter = mUploadsStorageManager.failInProgressUploads(
-            UploadResult.SERVICE_INTERRUPTED    // Add UploadResult.KILLED?
+                UploadResult.SERVICE_INTERRUPTED    // Add UploadResult.KILLED?
         );
         if (failedCounter > 0) {
             resurrection();
@@ -527,7 +279,7 @@ public class FileUploader extends Service
         Log_OC.d(TAG, "Starting command with id " + startId);
 
         startForeground(FOREGROUND_SERVICE_ID, mNotification);
-        
+
         if (intent == null) {
             Log_OC.e(TAG, "Intent is null");
             return Service.START_NOT_STICKY;
@@ -549,8 +301,23 @@ public class FileUploader extends Service
 
         boolean chunked = ocv.isChunkedUploadSupported();
 
-        boolean onWifiOnly = intent.getBooleanExtra(KEY_WHILE_ON_WIFI_ONLY, false);
-        boolean whileChargingOnly = intent.getBooleanExtra(KEY_WHILE_CHARGING_ONLY, false);
+        long syncedFolderId;
+        boolean onWifiOnly = true;
+        boolean whileChargingOnly = false;
+
+        if ((syncedFolderId = intent.getLongExtra(KEY_SYNCED_FOLDER, -1)) != -1) {
+            SyncedFolderProvider syncedFolderProvider = new SyncedFolderProvider(getContentResolver());
+            for (SyncedFolder syncedFolder : syncedFolderProvider.getSyncedFolders()) {
+                if (syncedFolder.getId() == syncedFolderId) {
+                    onWifiOnly = syncedFolder.getWifiOnly();
+                    whileChargingOnly = syncedFolder.getChargingOnly();
+                    break;
+                }
+            }
+        } else {
+            onWifiOnly = intent.getBooleanExtra(KEY_WHILE_ON_WIFI_ONLY, true);
+            whileChargingOnly = intent.getBooleanExtra(KEY_WHILE_CHARGING_ONLY, false);
+        }
 
         if (!retry) {
 
@@ -629,6 +396,7 @@ public class FileUploader extends Service
                     ocUpload.setLocalAction(localAction);
                     ocUpload.setUseWifiOnly(onWifiOnly);
                     ocUpload.setWhileChargingOnly(whileChargingOnly);
+                    ocUpload.setSyncedFolderId(syncedFolderId);
 
                     ocUpload.setUploadStatus(UploadStatus.UPLOAD_IN_PROGRESS);
 
@@ -692,6 +460,17 @@ public class FileUploader extends Service
             onWifiOnly = upload.isUseWifiOnly();
             whileChargingOnly = upload.isWhileChargingOnly();
 
+            if (upload.getSyncedFolderId() != -1) {
+                SyncedFolderProvider syncedFolderProvider = new SyncedFolderProvider(getContentResolver());
+                for (SyncedFolder syncedFolder : syncedFolderProvider.getSyncedFolders()) {
+                    if (syncedFolder.getId() == syncedFolderId) {
+                        onWifiOnly = syncedFolder.getWifiOnly();
+                        whileChargingOnly = syncedFolder.getChargingOnly();
+                        break;
+                    }
+                }
+            }
+
             UploadFileOperation newUpload = new UploadFileOperation(
                     account,
                     null,
@@ -713,7 +492,7 @@ public class FileUploader extends Service
                     account.name,
                     upload.getRemotePath(),
                     newUpload
-                    );
+            );
             if (putResult != null) {
                 String uploadKey = putResult.first;
                 requestedUploads.add(uploadKey);
@@ -767,6 +546,620 @@ public class FileUploader extends Service
     }
 
     /**
+     * Core upload method: sends the file(s) to upload
+     *
+     * @param uploadKey Key to access the upload to perform, contained in mPendingUploads
+     */
+    public void uploadFile(String uploadKey) {
+
+        mCurrentUpload = mPendingUploads.get(uploadKey);
+
+        if (mCurrentUpload != null) {
+
+            /// Check account existence
+            if (!AccountUtils.exists(mCurrentUpload.getAccount(), this)) {
+                Log_OC.w(TAG, "Account " + mCurrentUpload.getAccount().name +
+                        " does not exist anymore -> cancelling all its uploads");
+                cancelUploadsForAccount(mCurrentUpload.getAccount());
+                return;
+            }
+
+            /// OK, let's upload
+            mUploadsStorageManager.updateDatabaseUploadStart(mCurrentUpload);
+
+            notifyUploadStart(mCurrentUpload);
+
+            sendBroadcastUploadStarted(mCurrentUpload);
+
+            RemoteOperationResult uploadResult = null;
+
+            try {
+                /// prepare client object to send the request to the ownCloud server
+                if (mCurrentAccount == null || !mCurrentAccount.equals(mCurrentUpload.getAccount())) {
+                    mCurrentAccount = mCurrentUpload.getAccount();
+                    mStorageManager = new FileDataStorageManager(
+                            mCurrentAccount,
+                            getContentResolver()
+                    );
+                }   // else, reuse storage manager from previous operation
+
+                // always get client from client manager, to get fresh credentials in case of update
+                OwnCloudAccount ocAccount = new OwnCloudAccount(
+                        mCurrentAccount,
+                        this
+                );
+                mUploadClient = OwnCloudClientManagerFactory.getDefaultSingleton().
+                        getClientFor(ocAccount, this);
+
+
+//                // If parent folder is encrypted, upload file encrypted
+//                OCFile parent = mStorageManager.getFileByPath(mCurrentUpload.getFile().getParentRemotePath());
+
+//                if (parent.isEncrypted()) {
+//                    UploadEncryptedFileOperation uploadEncryptedFileOperation =
+//                            new UploadEncryptedFileOperation(parent, mCurrentUpload);
+//
+//                    uploadResult = uploadEncryptedFileOperation.execute(mUploadClient, mStorageManager);
+//                } else {
+                /// perform the regular upload
+                uploadResult = mCurrentUpload.execute(mUploadClient, mStorageManager);
+//                }
+
+
+            } catch (Exception e) {
+                Log_OC.e(TAG, "Error uploading", e);
+                uploadResult = new RemoteOperationResult(e);
+
+            } finally {
+                Pair<UploadFileOperation, String> removeResult;
+                if (mCurrentUpload.wasRenamed()) {
+                    removeResult = mPendingUploads.removePayload(
+                            mCurrentAccount.name,
+                            mCurrentUpload.getOldFile().getRemotePath()
+                    );
+                    // TODO: grant that name is also updated for mCurrentUpload.getOCUploadId
+
+                } else {
+                    removeResult = mPendingUploads.removePayload(mCurrentAccount.name,
+                            mCurrentUpload.getDecryptedRemotePath());
+                }
+
+                mUploadsStorageManager.updateDatabaseUploadResult(uploadResult, mCurrentUpload);
+
+                /// notify result
+                notifyUploadResult(mCurrentUpload, uploadResult);
+
+                sendBroadcastUploadFinished(mCurrentUpload, uploadResult, removeResult.second);
+            }
+
+            // generate new Thumbnail
+            final ThumbnailsCacheManager.ThumbnailGenerationTask task =
+                    new ThumbnailsCacheManager.ThumbnailGenerationTask(mStorageManager, mCurrentAccount);
+
+            File file = new File(mCurrentUpload.getOriginalStoragePath());
+            String remoteId = mCurrentUpload.getFile().getRemoteId();
+
+            task.execute(new ThumbnailsCacheManager.ThumbnailGenerationTaskObject(file, remoteId));
+        }
+    }
+
+    /**
+     * Creates a status notification to show the upload progress
+     *
+     * @param upload Upload operation starting.
+     */
+    private void notifyUploadStart(UploadFileOperation upload) {
+        // / create status notification with a progress bar
+        mLastPercent = 0;
+        mNotificationBuilder = NotificationUtils.newNotificationBuilder(this);
+        mNotificationBuilder
+                .setOngoing(true)
+                .setSmallIcon(R.drawable.notification_icon)
+                .setTicker(getString(R.string.uploader_upload_in_progress_ticker))
+                .setContentTitle(getString(R.string.uploader_upload_in_progress_ticker))
+                .setProgress(100, 0, false)
+                .setContentText(
+                        String.format(getString(R.string.uploader_upload_in_progress_content), 0, upload.getFileName())
+                );
+
+        if ((android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O)) {
+            mNotificationBuilder.setChannelId(NotificationUtils.NOTIFICATION_CHANNEL_UPLOAD);
+        }
+
+        /// includes a pending intent in the notification showing the details
+        Intent showUploadListIntent = new Intent(this, UploadListActivity.class);
+        showUploadListIntent.putExtra(FileActivity.EXTRA_FILE, upload.getFile());
+        showUploadListIntent.putExtra(FileActivity.EXTRA_ACCOUNT, upload.getAccount());
+        showUploadListIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        mNotificationBuilder.setContentIntent(PendingIntent.getActivity(this, (int) System.currentTimeMillis(),
+                showUploadListIntent, 0));
+
+        if (!upload.isInstantPicture() && !upload.isInstantVideo()) {
+            if (mNotificationManager == null) {
+                mNotificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+            }
+            
+            mNotificationManager.notify(R.string.uploader_upload_in_progress_ticker, mNotificationBuilder.build());
+        }   // else wait until the upload really start (onTransferProgress is called), so that if it's discarded
+        // due to lack of Wifi, no notification is shown
+        // TODO generalize for automated uploads
+    }
+
+    /**
+     * Callback method to update the progress bar in the status notification
+     */
+    @Override
+    public void onTransferProgress(long progressRate, long totalTransferredSoFar,
+                                   long totalToTransfer, String filePath) {
+        int percent = (int) (100.0 * ((double) totalTransferredSoFar) / ((double) totalToTransfer));
+        if (percent != mLastPercent) {
+            mNotificationBuilder.setProgress(100, percent, false);
+            String fileName = filePath.substring(filePath.lastIndexOf(FileUtils.PATH_SEPARATOR) + 1);
+            String text = String.format(getString(R.string.uploader_upload_in_progress_content), percent, fileName);
+            mNotificationBuilder.setContentText(text);
+            mNotificationManager.notify(R.string.uploader_upload_in_progress_ticker, mNotificationBuilder.build());
+        }
+        mLastPercent = percent;
+    }
+
+    /**
+     * Updates the status notification with the result of an upload operation.
+     *
+     * @param uploadResult Result of the upload operation.
+     * @param upload       Finished upload operation
+     */
+    private void notifyUploadResult(UploadFileOperation upload,
+                                    RemoteOperationResult uploadResult) {
+        Log_OC.d(TAG, "NotifyUploadResult with resultCode: " + uploadResult.getCode());
+        // cancelled operation or success -> silent removal of progress notification
+        if (mNotificationManager == null) {
+            mNotificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        }
+
+        mNotificationManager.cancel(R.string.uploader_upload_in_progress_ticker);
+
+        // Show the result: success or fail notification
+        if (!uploadResult.isCancelled() &&
+                !ResultCode.LOCAL_FILE_NOT_FOUND.equals(uploadResult.getCode()) &&
+                !uploadResult.getCode().equals(ResultCode.DELAYED_FOR_WIFI) &&
+                !uploadResult.getCode().equals(ResultCode.DELAYED_FOR_CHARGING) &&
+                !uploadResult.getCode().equals(ResultCode.DELAYED_IN_POWER_SAVE_MODE) &&
+                !uploadResult.getCode().equals(ResultCode.LOCK_FAILED)) {
+
+            int tickerId = (uploadResult.isSuccess()) ? R.string.uploader_upload_succeeded_ticker :
+                    R.string.uploader_upload_failed_ticker;
+
+            String content;
+
+            // check credentials error
+            boolean needsToUpdateCredentials = (ResultCode.UNAUTHORIZED.equals(uploadResult.getCode()));
+            tickerId = (needsToUpdateCredentials) ?
+                    R.string.uploader_upload_failed_credentials_error : tickerId;
+
+            mNotificationBuilder
+                    .setTicker(getString(tickerId))
+                    .setContentTitle(getString(tickerId))
+                    .setAutoCancel(true)
+                    .setOngoing(false)
+                    .setProgress(0, 0, false);
+
+            content = ErrorMessageAdapter.getErrorCauseMessage(uploadResult, upload, getResources());
+
+            if (needsToUpdateCredentials) {
+                // let the user update credentials with one click
+                Intent updateAccountCredentials = new Intent(this, AuthenticatorActivity.class);
+                updateAccountCredentials.putExtra(
+                        AuthenticatorActivity.EXTRA_ACCOUNT, upload.getAccount()
+                );
+                updateAccountCredentials.putExtra(
+                        AuthenticatorActivity.EXTRA_ACTION,
+                        AuthenticatorActivity.ACTION_UPDATE_EXPIRED_TOKEN
+                );
+
+                updateAccountCredentials.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                updateAccountCredentials.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
+                updateAccountCredentials.addFlags(Intent.FLAG_FROM_BACKGROUND);
+                mNotificationBuilder.setContentIntent(PendingIntent.getActivity(
+                        this,
+                        (int) System.currentTimeMillis(),
+                        updateAccountCredentials,
+                        PendingIntent.FLAG_ONE_SHOT
+                ));
+
+            } else {
+                mNotificationBuilder.setContentText(content);
+            }
+
+            if (!uploadResult.isSuccess() && !needsToUpdateCredentials) {
+                //in case of failure, do not show details file view (because there is no file!)
+                Intent showUploadListIntent = new Intent(this, UploadListActivity.class);
+                showUploadListIntent.putExtra(FileActivity.EXTRA_FILE, upload.getFile());
+                showUploadListIntent.putExtra(FileActivity.EXTRA_ACCOUNT, upload.getAccount());
+                showUploadListIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                mNotificationBuilder.setContentIntent(PendingIntent.getActivity(this, (int) System.currentTimeMillis(),
+                        showUploadListIntent, 0));
+            }
+
+            mNotificationBuilder.setContentText(content);
+            mNotificationManager.notify(tickerId, mNotificationBuilder.build());
+
+            if (uploadResult.isSuccess()) {
+                mPendingUploads.remove(upload.getAccount().name, upload.getFile().getRemotePath());
+                // remove success notification, with a delay of 2 seconds
+                NotificationUtils.cancelWithDelay(
+                        mNotificationManager,
+                        R.string.uploader_upload_succeeded_ticker,
+                        2000);
+            }
+        }
+    }
+
+    /**
+     * Sends a broadcast in order to the interested activities can update their
+     * view
+     *
+     * TODO - no more broadcasts, replace with a callback to subscribed listeners
+     */
+    private void sendBroadcastUploadsAdded() {
+        Intent start = new Intent(getUploadsAddedMessage());
+        // nothing else needed right now
+        start.setPackage(getPackageName());
+        sendStickyBroadcast(start);
+    }
+
+    /**
+     * Sends a broadcast in order to the interested activities can update their
+     * view
+     *
+     * TODO - no more broadcasts, replace with a callback to subscribed listeners
+     *
+     * @param upload Finished upload operation
+     */
+    private void sendBroadcastUploadStarted(
+            UploadFileOperation upload) {
+
+        Intent start = new Intent(getUploadStartMessage());
+        start.putExtra(EXTRA_REMOTE_PATH, upload.getRemotePath()); // real remote
+        start.putExtra(EXTRA_OLD_FILE_PATH, upload.getOriginalStoragePath());
+        start.putExtra(ACCOUNT_NAME, upload.getAccount().name);
+
+        start.setPackage(getPackageName());
+        sendStickyBroadcast(start);
+    }
+
+    /**
+     * Sends a broadcast in order to the interested activities can update their
+     * view
+     *
+     * TODO - no more broadcasts, replace with a callback to subscribed listeners
+     *
+     * @param upload                 Finished upload operation
+     * @param uploadResult           Result of the upload operation
+     * @param unlinkedFromRemotePath Path in the uploads tree where the upload was unlinked from
+     */
+    private void sendBroadcastUploadFinished(
+            UploadFileOperation upload,
+            RemoteOperationResult uploadResult,
+            String unlinkedFromRemotePath) {
+
+        Intent end = new Intent(getUploadFinishMessage());
+        end.putExtra(EXTRA_REMOTE_PATH, upload.getRemotePath()); // real remote
+        // path, after
+        // possible
+        // automatic
+        // renaming
+        if (upload.wasRenamed()) {
+            end.putExtra(EXTRA_OLD_REMOTE_PATH, upload.getOldFile().getRemotePath());
+        }
+        end.putExtra(EXTRA_OLD_FILE_PATH, upload.getOriginalStoragePath());
+        end.putExtra(ACCOUNT_NAME, upload.getAccount().name);
+        end.putExtra(EXTRA_UPLOAD_RESULT, uploadResult.isSuccess());
+        if (unlinkedFromRemotePath != null) {
+            end.putExtra(EXTRA_LINKED_TO_PATH, unlinkedFromRemotePath);
+        }
+        end.setPackage(getPackageName());
+        sendStickyBroadcast(end);
+    }
+
+    /**
+     * Remove and 'forgets' pending uploads of an account.
+     *
+     * @param account Account which uploads will be cancelled
+     */
+    private void cancelUploadsForAccount(Account account) {
+        mPendingUploads.remove(account.name);
+        mUploadsStorageManager.removeUploads(account.name);
+    }
+
+    /**
+     * Helper class providing methods to ease requesting commands to {@link FileUploader} .
+     *
+     * Avoids the need of checking once and again what extras are needed or optional
+     * in the {@link Intent} to pass to {@link Context#startService(Intent)}.
+     */
+    public static class UploadRequester {
+
+        /**
+         * Call to upload several new files
+         */
+        public void uploadNewFile(
+                Context context,
+                Account account,
+                String[] localPaths,
+                String[] remotePaths,
+                String[] mimeTypes,
+                Integer behaviour,
+                Boolean createRemoteFolder,
+                int createdBy,
+                boolean requiresWifi,
+                boolean requiresCharging
+        ) {
+            Intent intent = new Intent(context, FileUploader.class);
+
+            intent.putExtra(FileUploader.KEY_ACCOUNT, account);
+            intent.putExtra(FileUploader.KEY_LOCAL_FILE, localPaths);
+            intent.putExtra(FileUploader.KEY_REMOTE_FILE, remotePaths);
+            intent.putExtra(FileUploader.KEY_MIME_TYPE, mimeTypes);
+            intent.putExtra(FileUploader.KEY_LOCAL_BEHAVIOUR, behaviour);
+            intent.putExtra(FileUploader.KEY_CREATE_REMOTE_FOLDER, createRemoteFolder);
+            intent.putExtra(FileUploader.KEY_CREATED_BY, createdBy);
+            intent.putExtra(FileUploader.KEY_WHILE_ON_WIFI_ONLY, requiresWifi);
+            intent.putExtra(FileUploader.KEY_WHILE_CHARGING_ONLY, requiresCharging);
+
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+                context.startForegroundService(intent);
+            } else {
+                context.startService(intent);
+            }
+        }
+
+        public void uploadFileWithOverwrite(
+                Context context,
+                Account account,
+                String[] localPaths,
+                String[] remotePaths,
+                String[] mimeTypes,
+                Integer behaviour,
+                Boolean createRemoteFolder,
+                int createdBy,
+                boolean requiresWifi,
+                boolean requiresCharging,
+                boolean overwrite,
+                long syncedFolderId
+        ) {
+            Intent intent = new Intent(context, FileUploader.class);
+
+            intent.putExtra(FileUploader.KEY_ACCOUNT, account);
+            intent.putExtra(FileUploader.KEY_LOCAL_FILE, localPaths);
+            intent.putExtra(FileUploader.KEY_REMOTE_FILE, remotePaths);
+            intent.putExtra(FileUploader.KEY_MIME_TYPE, mimeTypes);
+            intent.putExtra(FileUploader.KEY_LOCAL_BEHAVIOUR, behaviour);
+            intent.putExtra(FileUploader.KEY_CREATE_REMOTE_FOLDER, createRemoteFolder);
+            intent.putExtra(FileUploader.KEY_CREATED_BY, createdBy);
+            intent.putExtra(FileUploader.KEY_WHILE_ON_WIFI_ONLY, requiresWifi);
+            intent.putExtra(FileUploader.KEY_WHILE_CHARGING_ONLY, requiresCharging);
+            intent.putExtra(FileUploader.KEY_FORCE_OVERWRITE, overwrite);
+            intent.putExtra(FileUploader.KEY_SYNCED_FOLDER, syncedFolderId);
+
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+                context.startForegroundService(intent);
+            } else {
+                context.startService(intent);
+            }
+        }
+
+        /**
+         * Call to upload a file
+         */
+        public void uploadFileWithOverwrite(Context context, Account account, String localPath, String remotePath, int
+                behaviour, String mimeType, boolean createRemoteFile, int createdBy, boolean requiresWifi,
+                                            boolean requiresCharging, boolean overwrite, long syncedFolderId) {
+
+            uploadFileWithOverwrite(
+                    context,
+                    account,
+                    new String[]{localPath},
+                    new String[]{remotePath},
+                    new String[]{mimeType},
+                    behaviour,
+                    createRemoteFile,
+                    createdBy,
+                    requiresWifi,
+                    requiresCharging,
+                    overwrite,
+                    syncedFolderId);
+        }
+
+        /**
+         * Call to upload a new single file
+         */
+        public void uploadNewFile(Context context, Account account, String localPath, String remotePath, int
+                behaviour, String mimeType, boolean createRemoteFile, int createdBy, boolean requiresWifi,
+                                  boolean requiresCharging) {
+
+            uploadNewFile(
+                    context,
+                    account,
+                    new String[]{localPath},
+                    new String[]{remotePath},
+                    new String[]{mimeType},
+                    behaviour,
+                    createRemoteFile,
+                    createdBy,
+                    requiresWifi,
+                    requiresCharging
+            );
+        }
+
+        /**
+         * Call to update multiple files already uploaded
+         */
+        public void uploadUpdate(Context context, Account account, OCFile[] existingFiles, Integer behaviour,
+                                 Boolean forceOverwrite) {
+            Intent intent = new Intent(context, FileUploader.class);
+
+            intent.putExtra(FileUploader.KEY_ACCOUNT, account);
+            intent.putExtra(FileUploader.KEY_FILE, existingFiles);
+            intent.putExtra(FileUploader.KEY_LOCAL_BEHAVIOUR, behaviour);
+            intent.putExtra(FileUploader.KEY_FORCE_OVERWRITE, forceOverwrite);
+
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+                context.startForegroundService(intent);
+            } else {
+                context.startService(intent);
+            }
+        }
+
+        /**
+         * Call to update a dingle file already uploaded
+         */
+        public void uploadUpdate(Context context, Account account, OCFile existingFile, Integer behaviour,
+                                 Boolean forceOverwrite) {
+
+            uploadUpdate(context, account, new OCFile[]{existingFile}, behaviour, forceOverwrite);
+        }
+
+
+        /**
+         * Call to retry upload identified by remotePath
+         */
+        public void retry(Context context, OCUpload upload) {
+            if (upload != null && context != null) {
+                Account account = AccountUtils.getOwnCloudAccountByName(
+                        context,
+                        upload.getAccountName()
+                );
+                retry(context, account, upload);
+
+            } else {
+                throw new IllegalArgumentException("Null parameter!");
+            }
+        }
+
+        private boolean checkIfUploadCanBeRetried(OCUpload ocUpload, boolean gotWifi, boolean isCharging,
+                                                  ContentResolver contentResolver) {
+
+            boolean needsWifi = ocUpload.isUseWifiOnly();
+            boolean needsCharging = ocUpload.isWhileChargingOnly();
+
+            if (ocUpload.getSyncedFolderId() != -1) {
+                SyncedFolderProvider syncedFolderProvider = new SyncedFolderProvider(contentResolver);
+                for (SyncedFolder syncedFolder : syncedFolderProvider.getSyncedFolders()) {
+                    if (syncedFolder.getId() == ocUpload.getSyncedFolderId()) {
+                        needsWifi = syncedFolder.getWifiOnly();
+                        needsCharging = syncedFolder.getChargingOnly();
+                        break;
+                    }
+                }
+
+            }
+
+            return new File(ocUpload.getLocalPath()).exists() && !(needsCharging && !isCharging) &&
+                    !(needsWifi && !gotWifi);
+
+        }
+
+        /**
+         * Retry a subset of all the stored failed uploads.
+         *
+         * @param context      Caller {@link Context}
+         * @param account      If not null, only failed uploads to this OC account will be retried; otherwise,
+         *                     uploads of all accounts will be retried.
+         * @param uploadResult If not null, only failed uploads with the result specified will be retried;
+         *                     otherwise, failed uploads due to any result will be retried.
+         */
+        public void retryFailedUploads(Context context, Account account, UploadResult uploadResult) {
+            UploadsStorageManager uploadsStorageManager = new UploadsStorageManager(context.getContentResolver(), context);
+            OCUpload[] failedUploads = uploadsStorageManager.getFailedUploads();
+            Account currentAccount = null;
+            boolean resultMatch;
+            boolean accountMatch;
+
+            boolean gotNetwork = !Device.getNetworkType(context).equals(JobRequest.NetworkType.ANY) &&
+                    !ConnectivityUtils.isInternetWalled(context);
+            boolean gotWifi = gotNetwork && Device.getNetworkType(context).equals(JobRequest.NetworkType.UNMETERED);
+            boolean charging = Device.getBatteryStatus(context).isCharging();
+            boolean isPowerSaving = PowerUtils.isPowerSaveMode(context);
+
+            for (OCUpload failedUpload : failedUploads) {
+                accountMatch = (account == null || account.name.equals(failedUpload.getAccountName()));
+                resultMatch = ((uploadResult == null || uploadResult.equals(failedUpload.getLastResult())));
+                if (accountMatch && resultMatch) {
+                    if (currentAccount == null ||
+                            !currentAccount.name.equals(failedUpload.getAccountName())) {
+                        currentAccount = failedUpload.getAccount(context);
+                    }
+
+                    charging = charging || Device.getBatteryStatus(context).getBatteryPercent() == 1;
+                    if (!isPowerSaving && gotNetwork && checkIfUploadCanBeRetried(failedUpload, gotWifi, charging,
+                            context.getContentResolver())) {
+                        retry(context, currentAccount, failedUpload);
+                    }
+                }
+            }
+        }
+
+        /**
+         * Private implementation of retry.
+         *
+         * @param context
+         * @param account
+         * @param upload
+         */
+        private void retry(Context context, Account account, OCUpload upload) {
+            if (upload != null) {
+                Intent i = new Intent(context, FileUploader.class);
+                i.putExtra(FileUploader.KEY_RETRY, true);
+                i.putExtra(FileUploader.KEY_ACCOUNT, account);
+                i.putExtra(FileUploader.KEY_RETRY_UPLOAD, upload);
+
+                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+                    context.startForegroundService(i);
+                } else {
+                    context.startService(i);
+                }
+            }
+        }
+    }
+
+    /**
+     * Upload worker. Performs the pending uploads in the order they were
+     * requested.
+     *
+     * Created with the Looper of a new thread, started in
+     * {@link FileUploader#onCreate()}.
+     */
+    private static class ServiceHandler extends Handler {
+        // don't make it a final class, and don't remove the static ; lint will
+        // warn about a possible memory leak
+        FileUploader mService;
+
+        public ServiceHandler(Looper looper, FileUploader service) {
+            super(looper);
+            if (service == null) {
+                throw new IllegalArgumentException("Received invalid NULL in parameter 'service'");
+            }
+            mService = service;
+        }
+
+        @Override
+        public void handleMessage(Message msg) {
+            @SuppressWarnings("unchecked")
+            AbstractList<String> requestedUploads = (AbstractList<String>) msg.obj;
+            if (msg.obj != null) {
+                Iterator<String> it = requestedUploads.iterator();
+                while (it.hasNext()) {
+                    mService.uploadFile(it.next());
+                }
+            }
+            Log_OC.d(TAG, "Stopping command after id " + msg.arg1);
+            mService.stopForeground(true);
+            mService.stopSelf(msg.arg1);
+
+        }
+    }
+
+    /**
      * Binder to let client components to perform operations on the queue of uploads.
      *
      * It provides by itself the available operations.
@@ -805,9 +1198,9 @@ public class FileUploader extends Service
          * @param accountName Local name of an ownCloud account where the remote file will be stored.
          * @param remotePath  Remote target of the upload
          *
-         * Setting result code will pause rather than cancel the job
+         *                    Setting result code will pause rather than cancel the job
          */
-        private void cancel(String accountName, String remotePath, @Nullable ResultCode resultCode ) {
+        private void cancel(String accountName, String remotePath, @Nullable ResultCode resultCode) {
             Pair<UploadFileOperation, String> removeResult =
                     mPendingUploads.remove(accountName, remotePath);
             UploadFileOperation upload = removeResult.first;
@@ -877,11 +1270,11 @@ public class FileUploader extends Service
 
         public boolean isUploadingNow(OCUpload upload) {
             return (
-                upload != null  &&
-                mCurrentAccount != null &&
-                mCurrentUpload != null &&
-                upload.getAccountName().equals(mCurrentAccount.name) &&
-                upload.getRemotePath().equals(mCurrentUpload.getRemotePath())
+                    upload != null &&
+                            mCurrentAccount != null &&
+                            mCurrentUpload != null &&
+                            upload.getAccountName().equals(mCurrentAccount.name) &&
+                            upload.getRemotePath().equals(mCurrentUpload.getRemotePath())
             );
         }
 
@@ -1002,370 +1395,5 @@ public class FileUploader extends Service
             return accountName + remotePath;
         }
 
-    }
-
-
-    /**
-     * Upload worker. Performs the pending uploads in the order they were
-     * requested.
-     *
-     * Created with the Looper of a new thread, started in
-     * {@link FileUploader#onCreate()}.
-     */
-    private static class ServiceHandler extends Handler {
-        // don't make it a final class, and don't remove the static ; lint will
-        // warn about a possible memory leak
-        FileUploader mService;
-
-        public ServiceHandler(Looper looper, FileUploader service) {
-            super(looper);
-            if (service == null) {
-                throw new IllegalArgumentException("Received invalid NULL in parameter 'service'");
-            }
-            mService = service;
-        }
-
-        @Override
-        public void handleMessage(Message msg) {
-            @SuppressWarnings("unchecked")
-            AbstractList<String> requestedUploads = (AbstractList<String>) msg.obj;
-            if (msg.obj != null) {
-                Iterator<String> it = requestedUploads.iterator();
-                while (it.hasNext()) {
-                    mService.uploadFile(it.next());
-                }
-            }
-            Log_OC.d(TAG, "Stopping command after id " + msg.arg1);
-            mService.stopForeground(true);
-            mService.stopSelf(msg.arg1);
-
-        }
-    }
-
-    /**
-     * Core upload method: sends the file(s) to upload
-     *
-     * @param uploadKey Key to access the upload to perform, contained in mPendingUploads
-     */
-    public void uploadFile(String uploadKey) {
-
-        mCurrentUpload = mPendingUploads.get(uploadKey);
-
-        if (mCurrentUpload != null) {
-
-            /// Check account existence
-            if (!AccountUtils.exists(mCurrentUpload.getAccount(), this)) {
-                Log_OC.w(TAG, "Account " + mCurrentUpload.getAccount().name +
-                        " does not exist anymore -> cancelling all its uploads");
-                cancelUploadsForAccount(mCurrentUpload.getAccount());
-                return;
-            }
-
-            /// OK, let's upload
-            mUploadsStorageManager.updateDatabaseUploadStart(mCurrentUpload);
-
-            notifyUploadStart(mCurrentUpload);
-
-            sendBroadcastUploadStarted(mCurrentUpload);
-
-            RemoteOperationResult uploadResult = null;
-
-            try {
-                /// prepare client object to send the request to the ownCloud server
-                if (mCurrentAccount == null || !mCurrentAccount.equals(mCurrentUpload.getAccount())) {
-                    mCurrentAccount = mCurrentUpload.getAccount();
-                    mStorageManager = new FileDataStorageManager(
-                            mCurrentAccount,
-                            getContentResolver()
-                    );
-                }   // else, reuse storage manager from previous operation
-
-                // always get client from client manager, to get fresh credentials in case of update
-                OwnCloudAccount ocAccount = new OwnCloudAccount(
-                        mCurrentAccount,
-                        this
-                );
-                mUploadClient = OwnCloudClientManagerFactory.getDefaultSingleton().
-                        getClientFor(ocAccount, this);
-
-
-//                // If parent folder is encrypted, upload file encrypted
-//                OCFile parent = mStorageManager.getFileByPath(mCurrentUpload.getFile().getParentRemotePath());
-
-//                if (parent.isEncrypted()) {
-//                    UploadEncryptedFileOperation uploadEncryptedFileOperation =
-//                            new UploadEncryptedFileOperation(parent, mCurrentUpload);
-//
-//                    uploadResult = uploadEncryptedFileOperation.execute(mUploadClient, mStorageManager);
-//                } else {
-                    /// perform the regular upload
-                    uploadResult = mCurrentUpload.execute(mUploadClient, mStorageManager);
-//                }
-
-
-            } catch (Exception e) {
-                Log_OC.e(TAG, "Error uploading", e);
-                uploadResult = new RemoteOperationResult(e);
-
-            } finally {
-                Pair<UploadFileOperation, String> removeResult;
-                if (mCurrentUpload.wasRenamed()) {
-                    removeResult = mPendingUploads.removePayload(
-                            mCurrentAccount.name,
-                            mCurrentUpload.getOldFile().getRemotePath()
-                    );
-                    // TODO: grant that name is also updated for mCurrentUpload.getOCUploadId
-
-                } else {
-                    removeResult = mPendingUploads.removePayload(mCurrentAccount.name,
-                            mCurrentUpload.getDecryptedRemotePath());
-                }
-
-                mUploadsStorageManager.updateDatabaseUploadResult(uploadResult, mCurrentUpload);
-
-                /// notify result
-                notifyUploadResult(mCurrentUpload, uploadResult);
-
-                sendBroadcastUploadFinished(mCurrentUpload, uploadResult, removeResult.second);
-            }
-
-            // generate new Thumbnail
-            final ThumbnailsCacheManager.ThumbnailGenerationTask task =
-                    new ThumbnailsCacheManager.ThumbnailGenerationTask(mStorageManager, mCurrentAccount);
-
-            File file = new File(mCurrentUpload.getOriginalStoragePath());
-            String remoteId = mCurrentUpload.getFile().getRemoteId();
-
-            task.execute(new ThumbnailsCacheManager.ThumbnailGenerationTaskObject(file, remoteId));
-        }
-    }
-
-
-    /**
-     * Creates a status notification to show the upload progress
-     *
-     * @param upload Upload operation starting.
-     */
-    private void notifyUploadStart(UploadFileOperation upload) {
-        // / create status notification with a progress bar
-        mLastPercent = 0;
-        mNotificationBuilder = NotificationUtils.newNotificationBuilder(this);
-        mNotificationBuilder
-                .setOngoing(true)
-                .setSmallIcon(R.drawable.notification_icon)
-                .setTicker(getString(R.string.uploader_upload_in_progress_ticker))
-                .setContentTitle(getString(R.string.uploader_upload_in_progress_ticker))
-                .setProgress(100, 0, false)
-                .setContentText(
-                        String.format(getString(R.string.uploader_upload_in_progress_content), 0, upload.getFileName())
-                );
-
-        if ((android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O)) {
-            mNotificationBuilder.setChannelId(NotificationUtils.NOTIFICATION_CHANNEL_UPLOAD);
-        }
-
-        /// includes a pending intent in the notification showing the details
-        Intent showUploadListIntent = new Intent(this, UploadListActivity.class);
-        showUploadListIntent.putExtra(FileActivity.EXTRA_FILE, upload.getFile());
-        showUploadListIntent.putExtra(FileActivity.EXTRA_ACCOUNT, upload.getAccount());
-        showUploadListIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        mNotificationBuilder.setContentIntent(PendingIntent.getActivity(this, (int) System.currentTimeMillis(),
-            showUploadListIntent, 0));
-
-        if (!upload.isInstantPicture() && !upload.isInstantVideo()) {
-            if (mNotificationManager == null) {
-                mNotificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-            }
-            
-            mNotificationManager.notify(R.string.uploader_upload_in_progress_ticker, mNotificationBuilder.build());
-        }   // else wait until the upload really start (onTransferProgress is called), so that if it's discarded
-        // due to lack of Wifi, no notification is shown
-        // TODO generalize for automated uploads
-    }
-
-    /**
-     * Callback method to update the progress bar in the status notification
-     */
-    @Override
-    public void onTransferProgress(long progressRate, long totalTransferredSoFar,
-                                   long totalToTransfer, String filePath) {
-        int percent = (int) (100.0 * ((double) totalTransferredSoFar) / ((double) totalToTransfer));
-        if (percent != mLastPercent) {
-            mNotificationBuilder.setProgress(100, percent, false);
-            String fileName = filePath.substring(filePath.lastIndexOf(FileUtils.PATH_SEPARATOR) + 1);
-            String text = String.format(getString(R.string.uploader_upload_in_progress_content), percent, fileName);
-            mNotificationBuilder.setContentText(text);
-            mNotificationManager.notify(R.string.uploader_upload_in_progress_ticker, mNotificationBuilder.build());
-        }
-        mLastPercent = percent;
-    }
-
-    /**
-     * Updates the status notification with the result of an upload operation.
-     *
-     * @param uploadResult Result of the upload operation.
-     * @param upload       Finished upload operation
-     */
-    private void notifyUploadResult(UploadFileOperation upload,
-                                    RemoteOperationResult uploadResult) {
-        Log_OC.d(TAG, "NotifyUploadResult with resultCode: " + uploadResult.getCode());
-        // cancelled operation or success -> silent removal of progress notification
-        if (mNotificationManager == null) {
-            mNotificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-        }
-
-        mNotificationManager.cancel(R.string.uploader_upload_in_progress_ticker);
-
-        // Show the result: success or fail notification
-        if (!uploadResult.isCancelled() &&
-            !ResultCode.LOCAL_FILE_NOT_FOUND.equals(uploadResult.getCode()) &&
-            !uploadResult.getCode().equals(ResultCode.DELAYED_FOR_WIFI) &&
-            !uploadResult.getCode().equals(ResultCode.DELAYED_FOR_CHARGING) &&
-            !uploadResult.getCode().equals(ResultCode.DELAYED_IN_POWER_SAVE_MODE) &&
-            !uploadResult.getCode().equals(ResultCode.LOCK_FAILED)    ) {
-
-            int tickerId = (uploadResult.isSuccess()) ? R.string.uploader_upload_succeeded_ticker :
-                    R.string.uploader_upload_failed_ticker;
-
-            String content;
-
-            // check credentials error
-            boolean needsToUpdateCredentials = (ResultCode.UNAUTHORIZED.equals(uploadResult.getCode()));
-            tickerId = (needsToUpdateCredentials) ?
-                    R.string.uploader_upload_failed_credentials_error : tickerId;
-
-            mNotificationBuilder
-                    .setTicker(getString(tickerId))
-                    .setContentTitle(getString(tickerId))
-                    .setAutoCancel(true)
-                    .setOngoing(false)
-                    .setProgress(0, 0, false);
-
-            content = ErrorMessageAdapter.getErrorCauseMessage(uploadResult, upload, getResources());
-
-            if (needsToUpdateCredentials) {
-                // let the user update credentials with one click
-                Intent updateAccountCredentials = new Intent(this, AuthenticatorActivity.class);
-                updateAccountCredentials.putExtra(
-                        AuthenticatorActivity.EXTRA_ACCOUNT, upload.getAccount()
-                );
-                updateAccountCredentials.putExtra(
-                        AuthenticatorActivity.EXTRA_ACTION,
-                        AuthenticatorActivity.ACTION_UPDATE_EXPIRED_TOKEN
-                );
-
-                updateAccountCredentials.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                updateAccountCredentials.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
-                updateAccountCredentials.addFlags(Intent.FLAG_FROM_BACKGROUND);
-                mNotificationBuilder.setContentIntent(PendingIntent.getActivity(
-                        this,
-                        (int) System.currentTimeMillis(),
-                        updateAccountCredentials,
-                        PendingIntent.FLAG_ONE_SHOT
-                ));
-
-            } else {
-                mNotificationBuilder.setContentText(content);
-            }
-
-            if (!uploadResult.isSuccess() && !needsToUpdateCredentials ) {
-                //in case of failure, do not show details file view (because there is no file!)
-                Intent showUploadListIntent = new Intent(this, UploadListActivity.class);
-                showUploadListIntent.putExtra(FileActivity.EXTRA_FILE, upload.getFile());
-                showUploadListIntent.putExtra(FileActivity.EXTRA_ACCOUNT, upload.getAccount());
-                showUploadListIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                mNotificationBuilder.setContentIntent(PendingIntent.getActivity(this, (int) System.currentTimeMillis(),
-                        showUploadListIntent, 0));
-            }
-
-            mNotificationBuilder.setContentText(content);
-            mNotificationManager.notify(tickerId, mNotificationBuilder.build());
-
-            if (uploadResult.isSuccess()) {
-                mPendingUploads.remove(upload.getAccount().name, upload.getFile().getRemotePath());
-                // remove success notification, with a delay of 2 seconds
-                NotificationUtils.cancelWithDelay(
-                        mNotificationManager,
-                        R.string.uploader_upload_succeeded_ticker,
-                        2000);
-            }
-        }
-    }
-
-    /**
-     * Sends a broadcast in order to the interested activities can update their
-     * view
-     *
-     * TODO - no more broadcasts, replace with a callback to subscribed listeners
-     */
-    private void sendBroadcastUploadsAdded() {
-        Intent start = new Intent(getUploadsAddedMessage());
-        // nothing else needed right now
-        start.setPackage(getPackageName());
-        sendStickyBroadcast(start);
-    }
-
-    /**
-     * Sends a broadcast in order to the interested activities can update their
-     * view
-     *
-     * TODO - no more broadcasts, replace with a callback to subscribed listeners
-     *
-     * @param upload Finished upload operation
-     */
-    private void sendBroadcastUploadStarted(
-            UploadFileOperation upload) {
-
-        Intent start = new Intent(getUploadStartMessage());
-        start.putExtra(EXTRA_REMOTE_PATH, upload.getRemotePath()); // real remote
-        start.putExtra(EXTRA_OLD_FILE_PATH, upload.getOriginalStoragePath());
-        start.putExtra(ACCOUNT_NAME, upload.getAccount().name);
-
-        start.setPackage(getPackageName());
-        sendStickyBroadcast(start);
-    }
-
-    /**
-     * Sends a broadcast in order to the interested activities can update their
-     * view
-     *
-     * TODO - no more broadcasts, replace with a callback to subscribed listeners
-     *
-     * @param upload                 Finished upload operation
-     * @param uploadResult           Result of the upload operation
-     * @param unlinkedFromRemotePath Path in the uploads tree where the upload was unlinked from
-     */
-    private void sendBroadcastUploadFinished(
-            UploadFileOperation upload,
-            RemoteOperationResult uploadResult,
-            String unlinkedFromRemotePath) {
-
-        Intent end = new Intent(getUploadFinishMessage());
-        end.putExtra(EXTRA_REMOTE_PATH, upload.getRemotePath()); // real remote
-        // path, after
-        // possible
-        // automatic
-        // renaming
-        if (upload.wasRenamed()) {
-            end.putExtra(EXTRA_OLD_REMOTE_PATH, upload.getOldFile().getRemotePath());
-        }
-        end.putExtra(EXTRA_OLD_FILE_PATH, upload.getOriginalStoragePath());
-        end.putExtra(ACCOUNT_NAME, upload.getAccount().name);
-        end.putExtra(EXTRA_UPLOAD_RESULT, uploadResult.isSuccess());
-        if (unlinkedFromRemotePath != null) {
-            end.putExtra(EXTRA_LINKED_TO_PATH, unlinkedFromRemotePath);
-        }
-        end.setPackage(getPackageName());
-        sendStickyBroadcast(end);
-    }
-
-    /**
-     * Remove and 'forgets' pending uploads of an account.
-     *
-     * @param account   Account which uploads will be cancelled
-     */
-    private void cancelUploadsForAccount(Account account) {
-        mPendingUploads.remove(account.name);
-        mUploadsStorageManager.removeUploads(account.name);
     }
 }

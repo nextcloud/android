@@ -187,7 +187,8 @@ public class FilesSyncJob extends Job {
                             UploadFileOperation.CREATED_AS_INSTANT_PICTURE,
                             needsWifi,
                             needsCharging,
-                            true
+                            true,
+                            syncedFolder.getId()
                     );
 
                     filesystemDataProvider.updateFilesystemFileAsSentForUpload(path,
