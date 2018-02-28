@@ -186,6 +186,9 @@
         <item quantity="other">%1$d 个文件无法被同步(与%2$d冲突 )</item>
     </plurals>
     <string name="sync_foreign_files_forgotten_ticker">某些本地文件已被遗忘</string>
+    <plurals name="sync_foreign_files_forgotten_content">
+        <item quantity="other">未能从%2$s文件夹复制%1$d个文件到</item>
+    </plurals>
     <string name="sync_current_folder_was_removed">文件夹%1$s不再存在</string>
     <string name="foreign_files_move">移动全部</string>
     <string name="foreign_files_success">所有文件已被移动</string>
@@ -263,6 +266,7 @@
     <string name="unset_favorite_real">取消收藏</string>
     <string name="favorite_switch">离线可用</string>
     <string name="encrypted">设置为加密</string>
+    <string name="unset_encrypted">不设置加密</string>
     <string name="common_rename">重命名</string>
     <string name="common_remove">删除</string>
     <string name="confirmation_remove_file_alert">确定删除%1$s？</string>
@@ -433,7 +437,9 @@
 
     <string name="prefs_category_details">详细信息</string>
 
-    <string name="subject_user_shared_with_you">%1$s和你分享了“%2$s”</string>
+    <string name="sync_folder_failed_content">无法完成 %1$s 文件夹的同步</string>
+
+	<string name="subject_user_shared_with_you">%1$s和你分享了“%2$s”</string>
     <string name="subject_shared_with_you">已与你分享“%1$s”</string>
 
     <string name="auth_refresh_button">刷新连接</string>
@@ -484,6 +490,7 @@
     <string name="share_email_clarification">%1$s (邮件)</string>
     <string name="share_known_remote_clarification">%1$s ( 在 %2$s )</string>
 
+    <string name="share_sharee_unavailable">升级服务器版本以允许用户之间的共享。\n请与您的管理员联系</string>
     <string name="filedetails_share_link_enable">共享链接已启用</string>
     <string name="filedetails_share_link_disable">链接不共享</string>
     <string name="filedetails_share_users_with_access">有权访问的用户和组</string>
@@ -573,7 +580,11 @@
     <string name="welcome_feature_3_text">保护你的照片安全</string>
 
     <string name="whats_new_end_to_end_encryption_title">端到端加密</string>
+    <string name="whats_new_resized_images_title">Adaptive images</string>
+    <string name="whats_new_resized_images_content">小尺寸图像速度快，适合分享。 放大以下载完整版本。</string>
     <string name="whats_new_ipv6_title">IPv6 支持</string>
+    <string name="whats_new_ipv6_content">当服务器支持时为IPv6，否则为IPv4。</string>
+
     <string name="whats_new_skip">跳过</string>
 
     <string name="fingerprint_scan_finger">请扫描你的手指</string>
@@ -612,8 +623,11 @@
     <!-- Notifications -->
     <string name="new_notification_received">收到新的消息</string>
     <string name="drawer_logout">退出</string>
+    <string name="picture_set_as_no_app">找不到可以设置图片的应用程序</string>
     <string name="privacy">隐私</string>
     <string name="file_not_found">无法找到文件</string>
+    <string name="file_not_synced">文件无法同步。显示最新的可用版本。</string>
+
     <!-- Auto upload -->
     <string name="autoupload_custom_folder">设置一个自定义文件夹</string>
     <string name="autoupload_create_new_custom_folder">创建新的自定义文件夹设定</string>
@@ -641,9 +655,11 @@
     <string name="resized_image_not_possible_download">重整大小的图片不可用。下载完整图片？</string>
     <string name="resized_images_download_full_image">下载完整图片？</string>
 
+    <string name="store_short_desc">Nextcloud 安卓应用程序可让您访问Nextcloud上的所有文件。</string>
     <string name="drawer_current_account">当前账户</string>
     <string name="drawer_middle_account">移动端账户</string>
     <string name="drawer_end_account">最后一个账户</string>
+    <string name="contactlist_item_icon">联系人列表的用户图标</string>
     <string name="activity_icon">动态图标</string>
     <string name="file_icon">文件图标</string>
     <string name="user_icon">用户图标</string>
@@ -655,6 +671,7 @@
     <string name="checkbox">复选框</string>
     <string name="thumbnail">缩略图</string>
     <string name="shared_icon">已共享图标</string>
+    <string name="overflow_menu">溢出菜单</string>
     <string name="share_file_icon">共享文件图标</string>
     <string name="sort_by_name_ascending">按名字升序排序</string>
     <string name="sort_by_modification_date_ascending">按时间顺序</string>
@@ -668,6 +685,8 @@
     <string name="synced_folder_custom_folder_image">自定义图片文件夹</string>
     <string name="upload_item_action_button">上传项操作按钮</string>
     <string name="forward">向前</string>
+    <string name="what_s_new_image">有什么新图片</string>
+
     <string name="store_short_dev_desc">Nextcloud Dev 应用是一个开发快照, 并且可以并行安装。</string>
     <string name="prefs_category_dev">开发</string>
     <string name="dev_version_no_information_available">没有可用的信息</string>
@@ -694,19 +713,29 @@
 
     <string name="screenshot_01_gridView">为你的数据找一个安全的家</string>
     <string name="screenshot_02_listView">方便的浏览和共享你的文件</string>
+    <string name="screenshot_03_drawer">快速访问活动，分享，离线文件及更多</string>
     <string name="screenshot_04_accounts">连接到不同的账户</string>
     <string name="screenshot_05_autoUpload">自动上传照片&amp;/视频 </string>
+    <string name="screenshot_06_davdroid">通过DAVdroid 同步日历与 &amp; 个联系人</string>
+    
+    <string name="userinfo_no_info_headline">没有设置个人信息</string>
+    <string name="userinfo_no_info_text">在你的个人资料页上添加姓名，图片和联系方式。</string>
+    <string name="drawer_header_background">抽屉标题的背景图片</string>
     <string name="account_icon">账户图标</string>
     
     <string name="end_to_end_encryption_folder_not_empty">此文件夹不是空的。</string>
+    <string name="end_to_end_encryption_wrong_password">解密时出错。密码错误？ </string>
     <string name="end_to_end_encryption_decrypting">解密中&#8230;</string>
     <string name="end_to_end_encryption_retrieving_keys">正在获取密匙 &#8230;</string>
     <string name="end_to_end_encryption_enter_password">请输入密码解锁私有密钥</string>
     <string name="end_to_end_encryption_generating_keys">正在生成新的密匙 &#8230;</string>
     <string name="end_to_end_encryption_title">设置加密</string>
+    <string name="end_to_end_encryption_not_supported">加密仅适用于KitKat(4.4)及更高版本。</string>
     <string name="end_to_end_encryption_confirm_button">设置加密</string>
     <string name="end_to_end_encryption_password">密码&#8230;</string>
     <string name="end_to_end_encryption_unsuccessful">无法保存密钥. 请再次尝试</string>
     <string name="end_to_end_encryption_dialog_close">关闭</string>
     <string name="end_to_end_encryption_storing_keys">正在保存密匙</string>
-    </resources>
+    <string name="copy_move_to_encrypted_folder_not_supported">复制/移动到加密的文件夹目前不支持。</string>
+    <string name="untrusted_domain">通过不受信任的域名访问。有关进一步的信息，请参阅文档。</string>
+</resources>
