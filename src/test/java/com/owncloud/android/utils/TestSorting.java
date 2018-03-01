@@ -61,9 +61,17 @@ public class TestSorting {
     }
 
     @Test
-    public void testTrailingZeros() {
+    public void testLeadingZeros() {
         String[] unsortedArray = {"T 3 abc", "T 2 abc", "T 03 abc", "T 01 abc", "T 0 abc", "T 02 abc", "T 1 abc", "T 001 abc", "T 000 abc", "T 00 abc"};
         String[] sortedArray = {"T 0 abc", "T 00 abc", "T 000 abc", "T 1 abc", "T 01 abc", "T 001 abc", "T 2 abc", "T 02 abc", "T 3 abc", "T 03 abc"};
+
+        assertTrue(sortAndTest(unsortedArray, sortedArray));
+    }
+
+    @Test
+    public void testTrailingDigits() {
+        String[] unsortedArray = {"Zeros 2", "Zeros", "T 2", "T", "T 01", "T 003", "A"};
+        String[] sortedArray = {"A", "T", "T 01", "T 2", "T 003", "Zeros", "Zeros 2"};
 
         assertTrue(sortAndTest(unsortedArray, sortedArray));
     }

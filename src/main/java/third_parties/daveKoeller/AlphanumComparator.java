@@ -88,8 +88,8 @@ public class AlphanumComparator<T> implements Comparator<T>, Serializable {
     }
 
     public int compare(OCFile o1, OCFile o2) {
-        String s1 = o1.getRemotePath().toLowerCase(Locale.ROOT);
-        String s2 = o2.getRemotePath().toLowerCase(Locale.ROOT);
+        String s1 = o1.getFileName().toLowerCase(Locale.ROOT);
+        String s2 = o2.getFileName().toLowerCase(Locale.ROOT);
 
         return compare(s1, s2);
     }
