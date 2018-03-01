@@ -27,6 +27,7 @@ package third_parties.daveKoeller;
 import com.owncloud.android.datamodel.OCFile;
 
 import java.io.File;
+import java.io.Serializable;
 import java.text.Collator;
 import java.util.Comparator;
 import java.util.Locale;
@@ -47,7 +48,7 @@ import java.util.Locale;
  * https://github.com/nextcloud/server/blob/9a4253ef7c34f9dc71a6a9f7828a10df769f0c32/tests/lib/NaturalSortTest.php
  * by Tobias Kaminsky
  */
-public class AlphanumComparator<T> implements Comparator<T> {
+public class AlphanumComparator<T> implements Comparator<T>, Serializable {
     private boolean isDigit(char ch) {
         return ch >= 48 && ch <= 57;
     }
@@ -120,17 +121,48 @@ public class AlphanumComparator<T> implements Comparator<T> {
             // If both chunks contain numeric characters, sort them numerically
             int result = 0;
             if (isDigit(thisChunk.charAt(0)) && isDigit(thatChunk.charAt(0))) {
-                // Simple chunk comparison by length.
-                int thisChunkLength = thisChunk.length();
-                result = thisChunkLength - thatChunk.length();
-                // If equal, the first different number counts
-                if (result == 0) {
-                    for (int i = 0; i < thisChunkLength; i++) {
-                        result = thisChunk.charAt(i) - thatChunk.charAt(i);
-                        if (result != 0) {
-                            return result;
+                // extract digits
+                int thisChunkZeroCount = 0;
+                boolean zero = true;
+                int c = 0;
+                while (c < (thisChunk.length()) && isDigit(thisChunk.charAt(c))) {
+                    if (zero) {
+                        if (Character.getNumericValue(thisChunk.charAt(c)) == 0) {
+                            thisChunkZeroCount++;
+                        } else {
+                            zero = false;
                         }
                     }
+                    c++;
+                }
+                int thisChunkValue = Integer.parseInt(thisChunk.substring(0, c));
+
+                int thatChunkZeroCount = 0;
+                c = 0;
+                zero = true;
+                while (c < (thatChunk.length()) && isDigit(thatChunk.charAt(c))) {
+                    if (zero) {
+                        if (Character.getNumericValue(thatChunk.charAt(c)) == 0) {
+                            thatChunkZeroCount++;
+                        } else {
+                            zero = false;
+                        }
+                    }
+                    c++;
+                }
+                int thatChunkValue = Integer.parseInt(thatChunk.substring(0, c));
+
+                result = Integer.compare(thisChunkValue, thatChunkValue);
+                
+                if (result == 0) {
+                    // value is equal, compare leading zeros
+                    result = Integer.compare(thisChunkZeroCount, thatChunkZeroCount);
+
+                    if (result != 0) {
+                        return result;
+                    }
+                } else {
+                    return result;
                 }
             } else if (isSpecialChar(thisChunk.charAt(0)) && isSpecialChar(thatChunk.charAt(0))) {
                 for (int i = 0; i < thisChunk.length(); i++) {

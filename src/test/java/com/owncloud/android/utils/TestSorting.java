@@ -43,10 +43,10 @@ public class TestSorting {
     @Test
     public void testSpecialChars() {
 
-        String[] unsortedArray = {"11 - November", "Test 04", "Test 01", "Ôle", "Üüü", "01 - Januar", "[Test] Folder",
+        String[] unsortedArray = {"Test 1", "11 - November", "Test 04", "Test 01", "Ôle", "Üüü", "01 - January", "[Test] Folder",
                 "z.[Test]", "z. Test"};
 
-        String[] sortedArray = {"[Test] Folder", "01 - Januar", "11 - November", "Ôle", "Test 01", "Test 04", "Üüü",
+        String[] sortedArray = {"[Test] Folder", "01 - January", "11 - November", "Ôle", "Test 1", "Test 01", "Test 04", "Üüü",
                 "z. Test", "z.[Test]"};
 
         assertTrue(sortAndTest(unsortedArray, sortedArray));
@@ -56,6 +56,14 @@ public class TestSorting {
     public void testDifferentCasing() {
         String[] unsortedArray = {"aaa", "bbb", "BBB", "AAA"};
         String[] sortedArray = {"aaa", "AAA", "bbb", "BBB"};
+
+        assertTrue(sortAndTest(unsortedArray, sortedArray));
+    }
+
+    @Test
+    public void testTrailingZeros() {
+        String[] unsortedArray = {"T 3 abc", "T 2 abc", "T 03 abc", "T 01 abc", "T 0 abc", "T 02 abc", "T 1 abc", "T 001 abc", "T 000 abc", "T 00 abc"};
+        String[] sortedArray = {"T 0 abc", "T 00 abc", "T 000 abc", "T 1 abc", "T 01 abc", "T 001 abc", "T 2 abc", "T 02 abc", "T 3 abc", "T 03 abc"};
 
         assertTrue(sortAndTest(unsortedArray, sortedArray));
     }
@@ -99,14 +107,13 @@ public class TestSorting {
         List<String> sortedList = Arrays.asList(sortedArray);
 
 
-        Collections.sort(unsortedList, new AlphanumComparator());
+        Collections.sort(unsortedList, new AlphanumComparator<>());
 
         for (int i = 0; i < sortedList.size(); i++) {
             if (sortedList.get(i).compareTo(unsortedList.get(i)) != 0) {
 
                 System.out.println(" target: " + sortedList.toString());
                 System.out.println(" actual: " + unsortedList.toString());
-
 
                 return false;
             }
