@@ -678,6 +678,8 @@ public class FileDisplayActivity extends HookActivity
         inflater.inflate(R.menu.main_menu, menu);
         menu.findItem(R.id.action_create_dir).setVisible(false);
 
+        MenuItem selectAll = menu.findItem(R.id.action_select_all);
+        selectAll.setVisible(false);
         final MenuItem item = menu.findItem(R.id.action_search);
         searchView = (SearchView) MenuItemCompat.getActionView(item);
 
