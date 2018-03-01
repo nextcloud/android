@@ -589,7 +589,9 @@
     <string name="welcome_feature_3_text">Haltu ljósmyndunum þínum öruggum</string>
 
     <string name="whats_new_end_to_end_encryption_title">Enda-í-enda dulritun</string>
+    <string name="whats_new_end_to_end_encryption_content">Bankaðu til að dulrita, úr einhverju forritanna. Bættu nýjum við með því að afrita 12 orð yfir.</string>
     <string name="whats_new_resized_images_title">Aðlaganlegar myndir</string>
+    <string name="whats_new_resized_images_content">Litlar myndir eru hraðvirkar og henta vel til að deila. Auktu aðdráttinn til að sækja fulla útgáfu.</string>
     <string name="whats_new_ipv6_title">Stuðningur við IPv6</string>
     <string name="whats_new_ipv6_content">IPv6 þegar vefþjónninn styður það, annars IPv4.</string>
 
@@ -634,6 +636,8 @@
     <string name="picture_set_as_no_app">Engin forrit fundust til að setja mynd</string>
     <string name="privacy">Gagnaleynd</string>
     <string name="file_not_found">Skrá fannst ekki</string>
+    <string name="file_not_synced">Ekki tókst að samstilla skrána. Birti nýjustu tiltæku útgáfuna.</string>
+
     <!-- Auto upload -->
     <string name="autoupload_custom_folder">Settu upp sérsniðna möppu</string>
     <string name="autoupload_create_new_custom_folder">Búa til nýja nýja sérsniðna uppsetningu á möppum</string>
@@ -679,6 +683,7 @@
     <string name="checkbox">Hakreitur</string>
     <string name="thumbnail">Smámynd</string>
     <string name="shared_icon">Táknmynd fyrir deilingu</string>
+    <string name="overflow_menu">Yfirflæðisvalmynd</string>
     <string name="share_file_icon">Táknmynd fyrir deilda skrá</string>
     <string name="sort_by_name_ascending">A - Ö</string>
     <string name="sort_by_modification_date_ascending">Nýjasta fyrst</string>
@@ -690,9 +695,14 @@
     <string name="sync_status_button">Hnappur fyrir stöðu samstillingar</string>
     <string name="synced_folder_settings_button">Stillingahnappur</string>
     <string name="synced_folder_custom_folder_image">Sérsniðin mynd möppu</string>
+    <string name="upload_item_action_button">Aðgerðarhnappur til að senda inn atriði</string>
     <string name="forward">Áfram</string>
     <string name="what_s_new_image">Mynd fyrir \'Hvað er nýtt\'</string>
 
+    <string name="store_short_dev_desc">Nextcloud Dev forritið er skyndiþróunarútgáfa (development snapshot) og er hægt að setja upp samhliða þeirri venjulegu.</string>
+    <string name="store_full_dev_desc">Frjálsa Nextcloud Android-forritið með opna notkunarleyfinu, gefur þér frelsi á ferðinni.\nÞetta er opinbera þróunarútgáfan, sem kemur með daglegan skammt af óprófuðum nýjum eiginleikum, sem aftur gætu mögulega valdið truflunum og gagnatapi. Forritið er fyrir þá notendur sem vilja taka þátt í að prófa og tilkynna um villur, ef þær eiga sér stað. Ekki nota þetta í alvöru vinnuumhverfi!\n\nBæði opinbera þróunarútgáfan og venjulega útgáfan eru tiltækar á F-droid, og er hægt að setja þær upp samhliða hvorri annarri.</string>
+
+    <string name="prefs_category_dev">Dev</string>
     <string name="dev_version_no_information_available">Engar upplýsingar tiltækar</string>
     <string name="dev_version_no_new_version_available">Engin ný útgáfa tiltæk.</string>
     <string name="folder_icon">Táknmynd fyrir möppu</string>
@@ -703,6 +713,8 @@
     <string name="share">Deila</string>
     <string name="link">Tengill</string>
 
+    <string name="notification_channel_upload_name">Senda inn tilkynningarás</string>
+    <string name="notification_channel_download_name">Sækja tilkynningarás</string>
     <string name="notification_channel_download_description">Sýnir framvindu niðurhals</string>
     <string name="notification_channel_upload_description">Sýnir framvindu innsendingar</string>
     <string name="notification_channel_media_name">Margmiðlunarspilari</string>
@@ -732,12 +744,15 @@
     <string name="end_to_end_encryption_retrieving_keys">Sæki dulritunarlykla &#8230;</string>
     <string name="end_to_end_encryption_enter_password">Settu inn lykilorðið til að afkóða einkalykil.</string>
     <string name="end_to_end_encryption_generating_keys">Útbý nýja dulritunarlykla &#8230;</string>
+    <string name="end_to_end_encryption_keywords_description">Öll 12 orðin saman gera mjög sterkt lykilorð, þannig að einungis þú getur skoðað og notað dulrituðu skrárnar þínar. Endilega skrifaðu þau niður og geymdu á öruggum stað.</string>
     <string name="end_to_end_encryption_title">Setja upp dulritun</string>
+    <string name="end_to_end_encryption_passphrase_title">Skrifaðu niður 12 orða dulritunarlykilorðið þitt</string>
     <string name="end_to_end_encryption_not_supported">Dulritun virkar aðeins á KitKat(4.4) og nýrra.</string>
     <string name="end_to_end_encryption_confirm_button">Setja upp dulritun</string>
     <string name="end_to_end_encryption_password">Lykilorð&#8230;</string>
     <string name="end_to_end_encryption_unsuccessful">Gat ekki vistað dulritunarlykla, reyndu aftur.</string>
     <string name="end_to_end_encryption_dialog_close">Loka</string>
     <string name="end_to_end_encryption_storing_keys">Geymi dulritunarlykla</string>
+    <string name="copy_move_to_encrypted_folder_not_supported">Ekki er stuðningur ennþá við afritun/færslu inn í dulritaða möppu.</string>
     <string name="untrusted_domain">Aðgangur í gegnum vantreyst lén. Endilega kíktu á hjálparskjölin til að sjá ítarlegri upplýsingar.</string>
 </resources>
