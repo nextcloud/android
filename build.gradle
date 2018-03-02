@@ -16,6 +16,10 @@ buildscript {
     dependencies {
         classpath 'com.android.tools.build:gradle:3.1.2'
         classpath 'com.google.gms:google-services:3.0.0'
+        classpath 'org.codehaus.groovy:groovy-all:2.4.12' 
+        classpath('com.dicedmelon.gradle:jacoco-android:0.1.2') { 
+            exclude group: 'org.codehaus.groovy', module: 'groovy-all' 
+        }
     }
 }
 
@@ -23,6 +27,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'checkstyle'
 apply plugin: 'pmd'
 apply plugin: 'findbugs'
+apply plugin: 'jacoco-android'
 
 configurations.all {
     // check for updates every build
@@ -33,6 +38,7 @@ ext {
     supportLibraryVersion = '27.1.1'
     googleLibraryVersion = '12.0.1'
     androidLibraryVersion = '1.0.40'
+    jacocoVersion = "0.7.4.201502262128"
 
     travisBuild = System.getenv("TRAVIS") == "true"
 
@@ -98,6 +104,12 @@ android {
         // see http://tools.android.com/tech-docs/new-build-system/user-guide#TOC-Configuring-the-Structure
 
         flavorDimensions "default"
+
+        buildTypes {
+            debug {
+                testCoverageEnabled true
+            }
+        }
 
         productFlavors {
             // used for f-droid
@@ -251,6 +263,14 @@ dependencies {
     implementation 'org.jetbrains:annotations:15.0'
 
     androidTestImplementation 'tools.fastlane:screengrab:1.0.0'
+    
+//    jacocoAnt "org.jacoco:org.jacoco.ant:${jacocoVersion}"
+//    jacocoAgent "org.jacoco:org.jacoco.agent:${jacocoVersion}"
+//    androidJacocoAgent "org.jacoco:org.jacoco.agent:${jacocoVersion}"
+//    androidJacocoAnt "org.jacoco:org.jacoco.ant:${jacocoVersion}"
+//    androidJacocoAnt "org.jacoco:org.jacoco.core:${jacocoVersion}"
+//    androidJacocoAnt "org.jacoco:org.jacoco.report:${jacocoVersion}"
+//    androidJacocoAnt "org.jacoco:org.jacoco.agent:${jacocoVersion}"
 }
 
 configurations.all {
@@ -268,6 +288,24 @@ android.applicationVariants.all { variant ->
     variant.outputs.all { output ->
         outputFileName = "${output.baseName}-${variant.versionCode}.apk"
     }
+}
+
+task combinedTestReport(type: JacocoReport) {
+
+    reports {
+        xml.enabled = true
+        html.enabled = true
+    }
+
+    def fileFilter = ['**/R.class', '**/R$*.class', '**/BuildConfig.*', '**/Manifest*.*', '**/*Test*.*', 'android/**/*.*']
+    def debugTree = fileTree(dir: "$project.buildDir/intermediates/classes/gplay/debug", excludes: fileFilter)
+    def mainSrc = "$project.projectDir/src/main/java"
+
+    sourceDirectories = files([mainSrc])
+    classDirectories = files([debugTree])
+    executionData = fileTree(dir: project.buildDir, includes: [
+            'jacoco/testGplayDebugUnitTest.exec', 'outputs/code-coverage/connected/flavors/GPLAY/*coverage.ec'
+    ])
 }
 
 // uncomment for gplay (must be at the bottom)
