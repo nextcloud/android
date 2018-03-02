@@ -116,6 +116,7 @@
     <string name="filedetails_select_file">დააჭირეთ ფაილს დამატებითი ინფორმაციის გამოსაჩენად.</string>
     <string name="filedetails_download">ჩამოტვირთვა</string>
     <string name="filedetails_sync_file">სინქ</string>
+    <string name="filedetails_renamed_in_upload_msg">ატვირთვისას ფაილს სახელი შეეცვალა %1$s-ზე</string>
     <string name="list_layout">ჩამოწერილი მაკეტი</string>
     <string name="action_send_share">გაგზავნა/გაზიარება</string>
     <string name="common_yes">კი</string>
@@ -275,6 +276,8 @@
     <string name="remove_success_msg">გაუქმდა</string>
     <string name="remove_fail_msg">გაუქმება ვერ მოხერხდა</string>
     <string name="rename_dialog_title">შეიყვანეთ ახალი სახელი</string>
+    <string name="rename_local_fail_msg">ლოკალური ასლის სახელის გადარქმევა ვერ მოხერხდა, სცადეთ სხვა სახელი</string>
+    <string name="rename_server_fail_msg">გადარქმევა შეუძლებელია, სახელი უკვე დაკავებულია</string>
     <string name="sync_file_nothing_to_do_msg">ფაილების შემცველობა სინქრონიზირებულია</string>
     <string name="create_dir_fail_msg">დირექტორია ვერ შეიქმნა</string>
     <string name="filename_forbidden_characters">აკრძალული ნიშნები: / \\ &lt; &gt; : \" | ? *</string>
@@ -323,7 +326,6 @@
     <string name="placeholder_timestamp">18/05/2012 12:23</string>
     <string name="placeholder_media_time">12:23:45</string>
 
-    <string name="auto_upload_on_wifi">ატვირთვა მხოლოდ Wi-Fi-ზე</string>
     <string name="instant_upload_on_charging">ატვირთვა მხოლოდ დატენვისას</string>
     <string name="instant_upload_path">/მყისიერი_ატვირთვა</string>
     <string name="auto_upload_path">/ავტომატური_ატვირთვა</string>
@@ -567,6 +569,9 @@
 
     <string name="storage_description_default">საწყისი</string>
 
+    <!-- What's new feature and texts to show -->
+    <string name="whats_new_title">ახალი %1$s-ში</string>
+
     <!-- Welcome to Nc intro features -->
     <string name="welcome_feature_1_title">უსაფრთხო სახლი მთელი თქვენი მონაცემებისათვის</string>
     <string name="welcome_feature_1_text">იქნოიეთ წვდომა, გააზიარეთ და დაიცავით თქვენი ფაილები სახლსა და სამსახურში</string>
@@ -577,7 +582,13 @@
     <string name="welcome_feature_3_title">ავტო-ატვირთვა</string>
     <string name="welcome_feature_3_text">იქონიეთ თქვენი სურათები დაცულად</string>
 
+    <string name="whats_new_end_to_end_encryption_title">End-to-end შიფრაცია</string>
+    <string name="whats_new_end_to_end_encryption_content">დასაშიფრად ნებისმიერი კლიენტიდან შეეხეთ ეკრანს. დაამატეთ ახლები 12 სიტყვის კოპირებით.</string>
+    <string name="whats_new_resized_images_title">ადაპტირებადი სურათები</string>
+    <string name="whats_new_resized_images_content">პატარა სურათები სწრაფია და კარგად მოქმედებს გაზიარებისთვის. მიაახლოვეთ სრული ვერსიის ჩამოსატვირთად.</string>
     <string name="whats_new_ipv6_title">IPv6 მხარდაჭერა</string>
+    <string name="whats_new_ipv6_content">IPv6 როდესაც სერვერი მხარს უჭერს მას, IPv4 თუ არა.</string>
+
     <string name="whats_new_skip">გამოტოვება</string>
 
     <string name="fingerprint_scan_finger">გთხოვთ დაასკანიროთ თქვენი თითი</string>
@@ -733,7 +744,9 @@
     <string name="end_to_end_encryption_not_supported">შიფრაცია მოქმედებს მხოლოდ KitKat(4.4)-ზე და შემდეგზე.</string>
     <string name="end_to_end_encryption_confirm_button">შიფრაციის დაყენება</string>
     <string name="end_to_end_encryption_password">პაროლი &#8230;</string>
+    <string name="end_to_end_encryption_unsuccessful">გასაღებების შენახვა ვერ მოხერხდა, გთხოვთ სცადოთ ახლიდან.</string>
     <string name="end_to_end_encryption_dialog_close">დახურვა</string>
     <string name="end_to_end_encryption_storing_keys">გასაღებების შენახვა</string>
     <string name="copy_move_to_encrypted_folder_not_supported">ამჟამად კოპირება/გადატანა დაშიფრულ დირექტორიაში არაა მხარდაჭერილი.</string>
-    </resources>
+    <string name="untrusted_domain">წვდომა არასანდო დომენით. დამატებითი ინფორმაციისთვის გთხოვთ იხილოთ დოკუმენტაცია.</string>
+</resources>

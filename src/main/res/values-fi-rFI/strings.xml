@@ -258,7 +258,6 @@
 
     <string name="placeholder_media_time">12:23:45</string>
 
-    <string name="auto_upload_on_wifi">Lähetä vain Wi-Fi-yhteydellä</string>
     <string name="instant_upload_on_charging">Lähetä vain ladattaessa virtaa</string>
     <string name="instant_upload_path">/InstantUpload</string>
     <string name="conflict_title">Tiedoston ristiriita</string>

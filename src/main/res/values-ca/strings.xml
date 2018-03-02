@@ -292,7 +292,6 @@
     <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
     <string name="placeholder_media_time">12:23:45</string>
 
-    <string name="auto_upload_on_wifi">conexio només a Wi-Fi</string>
     <string name="instant_upload_on_charging">Només es carrega quan es carrega</string>
     <string name="instant_upload_path">/PujadaInstantània</string>
     <string name="auto_upload_path">/ Carrega automàtica</string>

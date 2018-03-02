@@ -327,7 +327,6 @@
     <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
     <string name="placeholder_media_time">12:23:45</string>
 
-    <string name="auto_upload_on_wifi">Cargar sólo mediante Wi-Fi</string>
     <string name="instant_upload_on_charging">Cargar archivos sólo con el dispositivo conectado a la toma de corriente</string>
     <string name="instant_upload_path">/Cargas Automáticas</string>
     <string name="auto_upload_path">/CargaAutomática</string>
@@ -747,4 +746,5 @@
     <string name="end_to_end_encryption_dialog_close">Cerrar</string>
     <string name="end_to_end_encryption_storing_keys">Almacenando llaves</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Copiar/ mover a la carpeta encriptada no se encuentra soportado por el momento.</string>
-    </resources>
+    <string name="untrusted_domain">Accede a través de un dominio no de confianza. Por favor consulta la documentación para más información.</string>
+</resources>
