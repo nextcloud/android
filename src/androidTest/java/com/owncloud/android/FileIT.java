@@ -6,11 +6,14 @@ import android.accounts.OperationCanceledException;
 import android.test.ApplicationTestCase;
 
 import com.owncloud.android.datamodel.FileDataStorageManager;
+import com.owncloud.android.db.OCUpload;
+import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.OwnCloudClientFactory;
 import com.owncloud.android.lib.common.accounts.AccountUtils;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.operations.CreateFolderOperation;
+import com.owncloud.android.operations.UploadFileOperation;
 import com.owncloud.android.operations.common.SyncOperation;
 
 import org.junit.BeforeClass;
@@ -55,10 +58,13 @@ public class FileIT extends ApplicationTestCase<MainApp> {
         RemoteOperationResult result = syncOp.execute(client, getStorageManager());
 
         assertTrue(result.isSuccess());
+
+        // file exists
+        assertTrue(getStorageManager().getFileByPath("/testIT/").isFolder());
     }
 
     @Test
-    public void testCreateSubSubFolder() {
+    public void testCreateNonExistingSubFolder() {
         beforeAll();
 
         SyncOperation syncOp = new CreateFolderOperation("/testIT/1/2", true);
@@ -71,7 +77,29 @@ public class FileIT extends ApplicationTestCase<MainApp> {
 
     @Test
     public void testUpload() {
+        beforeAll();
 
+        OCUpload ocUpload = new OCUpload("/sdcard/1.txt", "/testIT/1.txt", account.name);
+        UploadFileOperation newUpload = new UploadFileOperation(
+                account,
+                null,
+                ocUpload,
+                false,
+                false,
+                FileUploader.LOCAL_BEHAVIOUR_COPY,
+                getContext(),
+                false,
+                false
+        );
+        newUpload.addRenameUploadListener(new UploadFileOperation.OnRenameListener() {
+            @Override
+            public void onRenameUpload() {
+                // dummy
+            }
+        });
+
+        RemoteOperationResult result = newUpload.execute(client, getStorageManager());
+        assertTrue(result.isSuccess());
     }
 
 

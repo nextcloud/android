@@ -16,6 +16,7 @@ buildscript {
     dependencies {
         classpath 'com.android.tools.build:gradle:3.0.1'
         classpath 'com.google.gms:google-services:3.0.0'
+        classpath 'com.dicedmelon.gradle:jacoco-android:0.1.2'
     }
 }
 
@@ -23,6 +24,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'checkstyle'
 apply plugin: 'pmd'
 apply plugin: 'findbugs'
+apply plugin: 'jacoco-android'
 
 configurations.all {
     // check for updates every build
@@ -98,6 +100,12 @@ android {
         // see http://tools.android.com/tech-docs/new-build-system/user-guide#TOC-Configuring-the-Structure
 
         flavorDimensions "default"
+
+        buildTypes {
+            debug {
+                testCoverageEnabled true
+            }
+        }
 
         productFlavors {
             // used for f-droid
@@ -217,10 +225,10 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.2'
 
     // uncomment for gplay
-    // implementation "com.google.firebase:firebase-messaging:${googleLibraryVersion}"
-    // implementation "com.google.android.gms:play-services-base:${googleLibraryVersion}"
-    // implementation "com.google.android.gms:play-services-gcm:${googleLibraryVersion}"
-    // implementation "com.google.firebase:firebase-core:${googleLibraryVersion}"
+ implementation "com.google.firebase:firebase-messaging:${googleLibraryVersion}"
+ implementation "com.google.android.gms:play-services-base:${googleLibraryVersion}"
+ implementation "com.google.android.gms:play-services-gcm:${googleLibraryVersion}"
+ implementation "com.google.firebase:firebase-core:${googleLibraryVersion}"
     implementation 'org.parceler:parceler-api:1.1.9'
     annotationProcessor 'org.parceler:parceler:1.1.9'
     implementation 'com.github.bumptech.glide:glide:3.7.0'
@@ -261,4 +269,4 @@ tasks.withType(Test) {
 }
 
 // uncomment for gplay (must be at the bottom)
-//apply plugin: 'com.google.gms.google-services'
+apply plugin: 'com.google.gms.google-services'
