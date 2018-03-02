@@ -371,9 +371,31 @@ public class UploadFileOperation extends SyncOperation {
                 remoteParentPath : remoteParentPath + OCFile.PATH_SEPARATOR;
 
         OCFile parent = getStorageManager().getFileByPath(remoteParentPath);
+
+        // in case of a fresh upload with subfolder, where parent does not exist yet
+        if (parent == null && mFolderUnlockToken.isEmpty()) {
+            // try to create folder
+            RemoteOperationResult result = grantFolderExistence(remoteParentPath, client);
+
+            if (!result.isSuccess()) {
+                return result;
+            }
+
+            parent = getStorageManager().getFileByPath(remoteParentPath);
+
+            if (parent == null) {
+                return new RemoteOperationResult(false, "Parent folder not found", HttpStatus.SC_NOT_FOUND);
+            }
+        }
+
+        // parent file is not null anymore:
+        // - it was created on fresh upload or
+        // - resume of encrypted upload, then parent file exists already as unlock is only for direct parent
+        
         mFile.setParentId(parent.getFileId());
 
         // try to unlock folder with stored token, e.g. when upload needs to be resumed or app crashed
+        // the parent folder should exist as it is a resume of a broken upload
         if (!mFolderUnlockToken.isEmpty()) {
             UnlockFileOperation unlockFileOperation = new UnlockFileOperation(parent.getLocalId(), mFolderUnlockToken);
             RemoteOperationResult unlockFileOperationResult = unlockFileOperation.execute(client, true);
@@ -381,13 +403,6 @@ public class UploadFileOperation extends SyncOperation {
             if (!unlockFileOperationResult.isSuccess()) {
                 return unlockFileOperationResult;
             }
-        }
-
-        // check the existence of the parent folder for the file to upload
-        RemoteOperationResult result = grantFolderExistence(remoteParentPath, client);
-
-        if (!result.isSuccess()) {
-            return result;
         }
 
         // check if any parent is encrypted
@@ -590,7 +605,6 @@ public class UploadFileOperation extends SyncOperation {
             if (!result.isSuccess() && result.getHttpCode() == HttpStatus.SC_PRECONDITION_FAILED) {
                 result = new RemoteOperationResult(ResultCode.SYNC_CONFLICT);
             }
-//            }
 
             if (result.isSuccess()) {
                 // upload metadata
