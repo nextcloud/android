@@ -62,11 +62,11 @@ public class CreateFolderOperation extends SyncOperation implements OnRemoteOper
     @Override
     protected RemoteOperationResult run(OwnCloudClient client) {
         CreateRemoteFolderOperation operation = new CreateRemoteFolderOperation(mRemotePath, mCreateFullPath);
-        RemoteOperationResult result =  operation.execute(client);
+        RemoteOperationResult result = operation.execute(client, true);
         
         if (result.isSuccess()) {
             ReadRemoteFolderOperation remoteFolderOperation = new ReadRemoteFolderOperation(mRemotePath);
-            RemoteOperationResult remoteFolderOperationResult = remoteFolderOperation.execute(client);
+            RemoteOperationResult remoteFolderOperationResult = remoteFolderOperation.execute(client, true);
 
             createdRemoteFolder = (RemoteFile) remoteFolderOperationResult.getData().get(0);
             saveFolderInDB();
@@ -118,6 +118,7 @@ public class CreateFolderOperation extends SyncOperation implements OnRemoteOper
             newDir.setParentId(parentId);
             newDir.setRemoteId(createdRemoteFolder.getRemoteId());
             newDir.setModificationTimestamp(System.currentTimeMillis());
+            newDir.setEncrypted(FileStorageUtils.checkEncryptionStatus(newDir, getStorageManager()));
             getStorageManager().saveFile(newDir);
 
             Log_OC.d(TAG, "Create directory " + mRemotePath + " in Database");
