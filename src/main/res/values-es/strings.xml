@@ -328,7 +328,6 @@
     <string name="placeholder_timestamp">18/05/2012 12:23 PM</string>
     <string name="placeholder_media_time">12:23:45</string>
 
-    <string name="auto_upload_on_wifi">Subir solamente por Wi-Fi</string>
     <string name="instant_upload_on_charging">Subir solamente al cargar</string>
     <string name="instant_upload_path">/SubidaInstantánea</string>
     <string name="auto_upload_path">/CargaAutomática</string>

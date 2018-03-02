@@ -330,7 +330,6 @@
     <string name="placeholder_timestamp">2012/05/18 12:23 ПоП</string>
     <string name="placeholder_media_time">12:23:45</string>
 
-    <string name="auto_upload_on_wifi">Отпремај само на бежичној мрежи</string>
     <string name="instant_upload_on_charging">Отпремај само на пуњењу</string>
     <string name="instant_upload_path">/InstantUpload</string>
     <string name="auto_upload_path">/Аутоматска отпремања</string>

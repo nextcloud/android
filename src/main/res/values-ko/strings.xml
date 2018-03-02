@@ -323,7 +323,6 @@
     <string name="placeholder_timestamp">2012년 05월 18일 오후 12:23</string>
     <string name="placeholder_media_time">12:23:45</string>
 
-    <string name="auto_upload_on_wifi">Wi-Fi에서만 업로드</string>
     <string name="instant_upload_on_charging">충전 중에만 업로드</string>
     <string name="instant_upload_path">/InstantUpload</string>
     <string name="auto_upload_path">/자동 업로드</string>

@@ -47,6 +47,7 @@
     <string name="prefs_log_delete_history_button">刪除記錄</string>
     <string name="prefs_calendar_contacts">設定日曆與聯絡人同步</string>
     <string name="prefs_calendar_contacts_summary">設定目前帳戶所使用的 DAVdroid (V1.3.0+)</string>
+    <string name="prefs_calendar_contacts_address_resolve_error">此帳戶的伺服器位址無法被 DAVdroid 解析</string>
     <string name="prefs_calendar_contacts_no_store_error">尚未安裝 F-Droid 或 Google Play</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">日曆 &amp; 聯絡人同步設定</string>
     <string name="prefs_daily_contacts_sync_summary">每日備份通訊錄</string>
@@ -116,6 +117,7 @@
     <string name="filedetails_select_file">在檔案上輕觸來顯示更多資訊</string>
     <string name="filedetails_download">下載</string>
     <string name="filedetails_sync_file">同步</string>
+    <string name="filedetails_renamed_in_upload_msg">檔案%1$s在上傳過程中被重新命名</string>
     <string name="list_layout">清單顯示</string>
     <string name="action_send_share">傳送/分享</string>
     <string name="common_yes">是</string>
@@ -176,9 +178,14 @@
     <string name="common_choose_account">選擇帳戶</string>
     <string name="common_switch_account">使用其他帳號</string>
     <string name="sync_fail_ticker">同步失敗</string>
+    <string name="sync_fail_ticker_unauthorized">同步失敗，需重新登入。</string>
+    <string name="sync_fail_content">無法同步%1$s</string>
     <string name="sync_fail_content_unauthorized">無效的密碼 %1$s</string>
     <string name="sync_conflicts_in_favourites_ticker">出現衝突</string>
     <string name="sync_fail_in_favourites_ticker">同步檔案失敗</string>
+    <plurals name="sync_fail_in_favourites_content">
+        <item quantity="other">無法同步檔案%1$d(衝突:%2$d)</item>
+    </plurals>
     <string name="sync_foreign_files_forgotten_ticker">有些本地端的檔案已遺失</string>
     <string name="sync_current_folder_was_removed">資料夾 %1$s 已不存在</string>
     <string name="foreign_files_move">移動全部</string>
@@ -299,7 +306,6 @@
     <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
     <string name="placeholder_media_time">12:23:45</string>
 
-    <string name="auto_upload_on_wifi">只透過 WiFi 上傳</string>
     <string name="instant_upload_on_charging">只在充電時上傳</string>
     <string name="instant_upload_path">/InstantUpload</string>
     <string name="auto_upload_path">自動上傳</string>

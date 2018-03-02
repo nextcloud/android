@@ -332,7 +332,6 @@
     <string name="placeholder_timestamp">2012/05/18 12:23</string>
     <string name="placeholder_media_time">12:23:45</string>
 
-    <string name="auto_upload_on_wifi">Загружать только через Wi-Fi</string>
     <string name="instant_upload_on_charging">Загружать только при зарядке</string>
     <string name="instant_upload_path">/Автозагрузка</string>
     <string name="auto_upload_path">/Автозагрузка</string>

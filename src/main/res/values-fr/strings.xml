@@ -330,7 +330,6 @@ Attention la suppression est irréversible.</string>
     <string name="placeholder_timestamp">18/05/2012 12:23 PM</string>
     <string name="placeholder_media_time">12:23:45</string>
 
-    <string name="auto_upload_on_wifi">Téléverser par Wifi uniquement</string>
     <string name="instant_upload_on_charging">Envoyer uniquement si le chargeur est branché</string>
     <string name="instant_upload_path">/InstantUpload</string>
     <string name="auto_upload_path">/TéléversementAutomatique</string>

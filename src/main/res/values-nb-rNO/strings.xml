@@ -328,7 +328,6 @@
     <string name="placeholder_timestamp">18.05.2012 12:23</string>
     <string name="placeholder_media_time">12:23:45</string>
 
-    <string name="auto_upload_on_wifi">Last kun opp på Wi-Fi</string>
     <string name="instant_upload_on_charging">Last kun opp under lading</string>
     <string name="instant_upload_path">/Direkteopplasting</string>
     <string name="auto_upload_path">/Auto-opplasting</string>

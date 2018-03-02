@@ -104,6 +104,7 @@
     <string name="file_list_folder">priečinok</string>
     <string name="filedetails_select_file">Viac informácií získate kliknutím na súbor.</string>
     <string name="filedetails_download">Stiahnuť</string>
+    <string name="filedetails_sync_file">Synchronizovať</string>
     <string name="list_layout">Náhľad zoznamu</string>
     <string name="action_send_share">Odoslať/Zdieľať</string>
     <string name="common_yes">Áno</string>
@@ -222,6 +223,7 @@
     <string name="favorite">Dostupné v režime offline</string>
     <string name="unfavorite">Nedostupné v režime offline</string>
     <string name="favorite_real">Nastaviť ako obľúbené</string>
+    <string name="favorite_switch">Dostupné offline</string>
     <string name="common_rename">Premenovať</string>
     <string name="common_remove">Zmazať</string>
     <string name="confirmation_remove_file_alert">Naozaj chcete odstrániť %1$s?</string>
@@ -393,6 +395,10 @@
     <string name="drawer_participate">Zúčastniť sa</string>
     <string name="participate_release_candidate_headline">Release candidate</string>
     <string name="participate_contribute_headline">Aktívne prispievať</string>
+    <string name="move_to">Presunúť do &#8230;</string>
+    <string name="copy_to">Kopírovať do &#8230;</string>
+    <string name="choose_remote_folder">Vyberte vzdialený priečinok &#8230;</string>
+    <string name="choose_local_folder">Vyberte miestny priečinok &#8230;</string>
     <plurals name="items_selected_count">
         <item quantity="one">%d vybraný</item>
         <item quantity="few">%d vybraných</item>
@@ -424,9 +430,16 @@
 
     <!-- Activities -->
     <string name="activities_no_results_headline">Zatiaľ žiadna aktivita</string>
+    <string name="actionbar_contacts">Zálohovanie kontaktov</string>
+    <string name="contacts_backup_button">Zálohuj teraz</string>
+    <string name="contacts_automatic_backup">Automatické zálohovanie</string>
     <string name="contacts_preference_backup_never">nikdy</string>
+    <string name="contacts_preferences_backup_scheduled">Zálohovanie je naplánované a čoskoro sa začne</string>
+    <string name="privacy">Súkromie</string>
     <string name="fallback_weblogin_back">Späť</string>
+    <string name="prefs_sourcecode">Získajte zdrojový kód</string>
     <string name="prefs_license">Licencia</string>
+    <string name="synced_folders_type">Typ</string>
     <string name="send">Odoslať</string>
     <string name="share">Zdieľať</string>
     <string name="screenshot_01_gridView">Bezpečný domov pre všetky vaše dáta</string>
