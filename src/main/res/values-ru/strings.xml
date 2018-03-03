@@ -332,7 +332,8 @@
     <string name="placeholder_timestamp">2012/05/18 12:23</string>
     <string name="placeholder_media_time">12:23:45</string>
 
-    <string name="instant_upload_on_charging">Загружать только при зарядке</string>
+    <string name="auto_upload_on_wifi">Необходимо безлимитное подключение Wi-Fi </string>
+    <string name="instant_upload_on_charging">Необходимо подключение внешнего питания</string>
     <string name="instant_upload_path">/Автозагрузка</string>
     <string name="auto_upload_path">/Автозагрузка</string>
     <string name="conflict_title">Конфликт файлов</string>
@@ -350,7 +351,7 @@
     <string name="prefs_synced_folders_local_path_title">Папка на устройстве</string>
     <string name="prefs_synced_folders_remote_path_title">Папка на сервере</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Создавать вложенные папки</string>
-    <string name="prefs_instant_upload_path_use_subfolders_summary">Сохранять в них на основании года и месяца</string>
+    <string name="prefs_instant_upload_path_use_subfolders_summary">Будут созданы папки года и вложенные в них папки номеров месяцев</string>
 
 	<string name="share_link_no_support_share_api">Возможность предоставления общего доступа не включена на сервере. Свяжитесь со своим администратором.</string>
 	<string name="share_link_file_no_exist">Невозможно поделиться. Убедитесь, что файл существует</string>

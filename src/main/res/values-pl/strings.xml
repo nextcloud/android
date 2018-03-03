@@ -47,7 +47,8 @@
     <string name="prefs_log_delete_history_button">Wyczyść historię</string>
     <string name="prefs_calendar_contacts">Synchronizuj kalendarz i kontakty</string>
     <string name="prefs_calendar_contacts_summary">Skonfiguruj DAVdroid (v1.3.0+) dla obecnego konta</string>
-    <string name="prefs_calendar_contacts_no_store_error">Brak w systemie F-Droid lub Google Play</string>
+    <string name="prefs_calendar_contacts_address_resolve_error">Adres serwera przypisany do tego konta nie został rozpoznany dla DAVdroid</string>
+    <string name="prefs_calendar_contacts_no_store_error">Brak w systemie F-Droid i Google Play</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Synchronizacja kontaktów &amp; kalendarza została skonfigurowana pomyślnie</string>
     <string name="prefs_daily_contacts_sync_summary">Codzienna kopia zapasowa Twoich kontaktów</string>
     <string name="prefs_help">Pomoc</string>
@@ -63,6 +64,7 @@
     <string name="auth_host_url">Adres serwera https://&#8230;</string>
     <string name="auth_username">Nazwa użytkownika</string>
     <string name="auth_password">Hasło</string>
+    <string name="auth_register">Nie masz jeszcze Nextcloud?\nKliknij tutaj, aby znaleźć dostawcę</string>
     <string name="sync_string_files">Pliki</string>
     <string name="setup_btn_connect">Połącz</string>
     <string name="uploader_btn_upload_text">Wyślij</string>
@@ -100,17 +102,21 @@
     <string name="file_list_empty_headline_server_search_videos">Brak plików wideo</string>
     <string name="file_list_empty_headline_server_search_photos">Brak zdjęć</string>
     <string name="file_list_empty_search">Spróbować szukać w innym folderze?</string>
-    <string name="file_list_empty_recently_added">NIe znaleziono żadnych ostatnio dodanych plików</string>
+    <string name="file_list_empty_recently_modified">Nie znaleziono żadnych plików modyfikowanych w ciągu ostatnich 7 dni</string>
+    <string name="file_list_empty_recently_modified_filter">Brak plików modyfikowanych w ciągu ostatnich 7 dni</string>
+    <string name="file_list_empty_recently_added">Nie znaleziono żadnych ostatnio dodanych plików</string>
+    <string name="file_list_empty_recently_added_filter">Brak ostatnio dodanych plików.</string>
     <string name="file_list_empty_text_photos">Wyślij zdjęcia lub włącz automatyczne wysyłanie</string>
-    <string name="file_list_empty_text_photos_filter">Brak zdjęć</string>
-    <string name="file_list_empty_text_videos">Wyślij pliki wideo lub włącz automatyczne wysyłanie</string>
-    <string name="file_list_empty_text_videos_filter">Brak plików wideo</string>
+    <string name="file_list_empty_text_photos_filter">Brak zdjęć.</string>
+    <string name="file_list_empty_text_videos">Wyślij pliki wideo lub włącz automatyczne wysyłanie.</string>
+    <string name="file_list_empty_text_videos_filter">Brak plików wideo.</string>
     <string name="upload_list_empty_headline">Brak dostępnych danych do wysłania</string>
     <string name="upload_list_empty_text_auto_upload">Wyślij zawartość lub włącz wysyłanie automatyczne.</string>
     <string name="file_list_folder">folder</string>
     <string name="filedetails_select_file">Dotknij plik aby wyświetlić dodatkowe informacje</string>
     <string name="filedetails_download">Pobierz</string>
     <string name="filedetails_sync_file">Synchronizuj</string>
+    <string name="filedetails_renamed_in_upload_msg">Zmieniono nazwę pliku %1$s podczas wysyłania</string>
     <string name="list_layout">Wygląd listy</string>
     <string name="action_send_share">Udostępnij</string>
     <string name="common_yes">Tak</string>
@@ -130,7 +136,7 @@
     <string name="change_password">Zmień hasło</string>
     <string name="delete_account">Usuń konto</string>
     <string name="delete_account_warning">Usunąć konto %s wraz ze wszystkimi lokalnymi plikami?\n\nUsunięcie nie może być cofnięte.</string>
-    <string name="avatar">Avatar</string>
+    <string name="avatar">Awatar</string>
     <string name="active_user">Aktywny użytkownik</string>
     <string name="upload_chooser_title">Wyślij plik z &#8230;</string>
     <string name="uploader_info_dirname">Nazwa folderu</string>
@@ -140,8 +146,11 @@
     <string name="uploader_upload_succeeded_content_single">Wysłano %1$s</string>
     <string name="uploader_upload_failed_ticker">Wysyłanie nie powiodło się</string>
     <string name="uploader_upload_failed_content_single">Nie udało się wysłać %1$s</string>
+    <string name="uploader_upload_failed_credentials_error">Wysyłanie nie powiodło się, zaloguj się ponownie</string>
+    <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">Certyfikat serwera nie jest zaufany</string>
     <string name="uploads_view_title">Wysłane</string>
     <string name="uploads_view_group_current_uploads">Bieżące</string>
+    <string name="uploads_view_group_failed_uploads">Nieudane / czekają na restart</string>
     <string name="uploads_view_group_finished_uploads">Wysłane</string>
     <string name="uploads_view_upload_status_succeeded">Ukończono</string>
     <string name="uploads_view_upload_status_cancelled">Przerwano</string>
@@ -164,14 +173,29 @@
     <string name="downloader_download_failed_ticker">Pobieranie nieudane</string>
     <string name="downloader_download_failed_content">Nie udało się pobrać %1$s</string>
     <string name="downloader_not_downloaded_yet">Jeszcze nie pobrane</string>
+    <string name="downloader_download_failed_credentials_error">Pobieranie nieudane, zaloguj się ponownie</string>
     <string name="common_choose_account">Wybierz konto</string>
     <string name="common_switch_account">Przełącz konto</string>
     <string name="sync_fail_ticker">Nieudana synchronizacja </string>
+    <string name="sync_fail_ticker_unauthorized">Nieudana synchronizacja, zaloguj się ponownie</string>
+    <string name="sync_fail_content">Nie udała się synchronizacja %1$s</string>
     <string name="sync_fail_content_unauthorized">Błędne hasło dla %1$s</string>
     <string name="sync_conflicts_in_favourites_ticker">Znaleziono konflikty</string>
     <string name="sync_fail_in_favourites_ticker">Synchronizacja plików nie powiodła się</string>
+    <plurals name="sync_fail_in_favourites_content">
+        <item quantity="one">Nie udała się synchronizacja %1$d pliku (konflikty: %2$d)</item>
+        <item quantity="few">Nie udała się synchronizacja %1$d plików (konflikty: %2$d)</item>
+        <item quantity="many">Nie udała się synchronizacja %1$d plików (konflikty: %2$d)</item>
+        <item quantity="other">Nie udała się synchronizacja %1$d plików (konflikty: %2$d)</item>
+    </plurals>
     <string name="sync_foreign_files_forgotten_ticker">Niektóre lokalne pliki zostały zgubione.</string>
-    <string name="sync_foreign_files_forgotten_explanation">Od wersji 1.3.16, pliki wysyłane z tego urządzenia są kopiowane do lokalnego folderu %1$s aby zapobiec utracie danych gdy pojedynczy plik jest synchronizowany z wieloma kontami.\n\nZ powodu tej zmiany, wszystkie pliki wysłane za pomocą poprzedniej wersji tej aplikacji były kopiowane do folderu %2$s. Jednakże błąd uniemożliwiał dokończenie tej operacji podczas synchronizacji konta. Możesz albo pozostawić plik(i) tak jak jest i usunąć link do %3$s lub przenieść plik(i) do folderu %1$s i pozostawić link do %4$s.\n\nPoniżej plik(i) lokalny i plik(i) zdalny w %5$s, do którego zostały zlinkowane.</string>
+    <plurals name="sync_foreign_files_forgotten_content">
+        <item quantity="one">Nie udało się skopiować %1$d pliku z folderu %2$s do</item>
+        <item quantity="few">Nie udało się skopiować %1$d plików z folderu %2$s do</item>
+        <item quantity="many">Nie udało się skopiować %1$d plików z folderu %2$s do</item>
+        <item quantity="other">Nie udało się skopiować %1$d plików z folderu %2$s do</item>
+    </plurals>
+    <string name="sync_foreign_files_forgotten_explanation">Od wersji 1.3.16, pliki wysyłane z tego urządzenia są kopiowane do lokalnego folderu %1$s, aby zapobiec utracie danych gdy pojedynczy plik jest synchronizowany z wieloma kontami.\n\nZ powodu tej zmiany, wszystkie pliki wysłane za pomocą poprzedniej wersji tej aplikacji zostały przeniesione do folderu %2$s. Jednakże błąd uniemożliwiał dokończenie tej operacji podczas synchronizacji konta. Możesz albo pozostawić plik(i) tak jak jest i usunąć link do %3$s lub przenieść plik(i) do folderu %1$s i pozostawić link do %4$s.\n\nPoniżej plik(i) lokalny i plik(i) zdalny w %5$s, do którego zostały zlinkowane.</string>
     <string name="sync_current_folder_was_removed">Folder %1$s nie istnieje</string>
     <string name="foreign_files_move">Przenieś wszystko</string>
     <string name="foreign_files_success">Wszystkie pliki zostały przeniesione</string>
@@ -202,6 +226,7 @@
     <string name="media_err_malformed">Nieprawidłowe kodowanie pliku multimedialnego</string>
     <string name="media_err_timeout">Upłynął limit czasu podczas próby odtwarzania pliku</string>
     <string name="media_err_invalid_progressive_playback">Plik multimedialny nie może być przesyłany strumieniowo</string>
+    <string name="media_err_unknown">Wbudowany odtwarzacz multimedialny nie może odtworzyć pliku</string>
     <string name="media_err_security_ex">Napotkano błąd zabezpieczeń podczas próby odtwarzania %1$s</string>
     <string name="media_err_io_ex">Błąd danych wejściowych podczas próby odtwarzania %1$s</string>
     <string name="media_err_unexpected">Nieoczekiwany błąd podczas próby odtworzenia %1$s</string>
@@ -235,7 +260,8 @@
 	<string name="auth_expired_oauth_token_toast">Twoja autoryzacja wygasła. Proszę zaloguj się ponownie</string>
 	<string name="auth_expired_basic_auth_toast">Podaj aktualne hasło</string>
 	<string name="auth_expired_saml_sso_token_toast">Twoja sesja wygasła. Proszę zaloguj się ponownie</string>
-    <string name="auth_unsupported_multiaccount">%1$s nie wspiera wielu kont</string>
+    <string name="auth_connecting_auth_server">Łączenie z serwerem uwierzytelniania &#8230;</string>
+	<string name="auth_unsupported_multiaccount">%1$s nie wspiera wielu kont</string>
 	<string name="auth_can_not_auth_against_server">Błąd autoryzacji na tym serwerze</string>
     <string name="auth_access_failed">Dostęp nieudany</string>
 
@@ -603,6 +629,8 @@ Przycisk wysyłania elementu</string>
 
     <string name="store_short_dev_desc">
 Wersja Nextcloud Dev jest wersją rozwojową, można ją zainstalować równolegle.</string>
+    <string name="store_full_dev_desc">Aplikacja Nextcloud na Android jest wolnym oprogramowaniem na licencji copyleft, co zapewnia pełną mobilną wolność.\nTo jest oficjalna wersja rozwojowa (development version), w której można zapoznać się z codzienną porcją nowych i nieprzetestowanych funkcji, co może powodować niestabilne działanie i utratę danych. Ta aplikacja jest dla osób, które chcą ją testować i zgłaszać ewentualne błędy. Nie używaj tej aplikacji do pracy produkcyjnej!\n\nW serwisie F-droid dostępna jest zarówno wersja deweloperska, jak i zwykła wersja tej aplikacji i można zainstalować obie z nich równocześnie.</string>
+
     <string name="prefs_category_dev">Rozwojowa</string>
     <string name="dev_version_no_new_version_available">Brak nowej wersji</string>
     <string name="version_dev_download">Pobierz</string>

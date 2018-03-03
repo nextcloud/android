@@ -163,7 +163,7 @@
     <string name="uploads_view_upload_status_conflict">Konflikt</string>
     <string name="uploads_view_upload_status_service_interrupted">App beendet</string>
     <string name="uploads_view_upload_status_unknown_fail">Unbekannter Fehler</string>
-    <string name="uploads_view_upload_status_waiting_for_wifi">Warte auf W-Lan-Verbindung</string>
+    <string name="uploads_view_upload_status_waiting_for_wifi">Warte auf WLAN-Verbindung</string>
     <string name="uploads_view_upload_status_waiting_exit_power_save_mode">Warte auf Verlassen des Energiesparmodus</string>
     <string name="uploads_view_later_waiting_to_upload">Warte auf Hochladen</string>
     <string name="downloader_download_in_progress_ticker">Herunterladen &#8230;</string>
@@ -328,6 +328,7 @@
     <string name="placeholder_timestamp">18.5.2012 12:23</string>
     <string name="placeholder_media_time">12:23:45</string>
 
+    <string name="auto_upload_on_wifi">Nur über gebührenfreies WLAN hochladen</string>
     <string name="instant_upload_on_charging">Nur während des Ladens hochladen</string>
     <string name="instant_upload_path">/SofortUpload</string>
     <string name="auto_upload_path">/AutoUpload</string>
