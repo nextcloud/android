@@ -326,6 +326,7 @@
     <string name="placeholder_timestamp">18/05/2012 12:23</string>
     <string name="placeholder_media_time">12:23:45</string>
 
+    <string name="auto_upload_on_wifi">ატვირთვა მხოლოდ შეუზღუდავ Wi-Fi-ზე</string>
     <string name="instant_upload_on_charging">ატვირთვა მხოლოდ დატენვისას</string>
     <string name="instant_upload_path">/მყისიერი_ატვირთვა</string>
     <string name="auto_upload_path">/ავტომატური_ატვირთვა</string>
