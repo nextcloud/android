@@ -1,3 +1,6 @@
+## 3.0.3 (Mar, 05, 2018)
+- Fix creating folders in auto upload
+
 ## 3.0.2 (Feb, 27, 2018)
 - Fix crash on old android versions
 - Fix E2E
