@@ -212,7 +212,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     private TextView mServerStatusView;
 
     private TextWatcher mHostUrlInputWatcher;
-    private String mServerStatusText;
+    private String mServerStatusText = "";
     private int mServerStatusIcon = 0;
 
     private boolean mServerIsChecked = false;
@@ -233,7 +233,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
     private WebView mLoginWebView;
 
-    private String mAuthStatusText;
+    private String mAuthStatusText = "";
     private int mAuthStatusIcon = 0;
 
     private String mAuthToken = "";
@@ -1977,7 +1977,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
      * to the last check on the ownCloud server.
      */
     private void showServerStatus() {
-        if (mServerStatusIcon == 0 && "".equals(mServerStatusText) || forceOldLoginMethod) {
+        if (mServerStatusIcon == 0 && "".equals(mServerStatusText)) {
             mServerStatusView.setVisibility(View.INVISIBLE);
         } else {
             mServerStatusView.setText(mServerStatusText);
