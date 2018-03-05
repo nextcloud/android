@@ -36,7 +36,7 @@ public abstract class AbstractIT extends ApplicationTestCase<MainApp> {
 
     private static final String username = "tobi";
     private static final String password = "tobi";
-    private static final String baseUrl = "10.0.2.2/nc";
+    private static final String baseUrl = "server/nc";
 
     public AbstractIT() {
         super(MainApp.class);
