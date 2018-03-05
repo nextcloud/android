@@ -435,7 +435,7 @@
     <string name="copy_file_not_found">No se puede copiar. Revisa si existe el archivo</string>
     <string name="copy_file_invalid_into_descendent">No se puede copiar una carpeta dentro de una de sus propias subcarpetas.</string>
     <string name="copy_file_invalid_overwrite">El fichero ya existe en el directorio de destino</string>
-    <string name="copy_file_error">Hubo un error al tratar de copiar este archivo o carpeta</string>
+    <string name="copy_file_error">Se ha producido un error al tratar de copiar este archivo o carpeta</string>
     <string name="forbidden_permissions_copy">copiar este archivo</string>
 
     <string name="prefs_category_details">Detalles</string>
