@@ -5,7 +5,7 @@ pipeline:
       # uncomment gplay for Gplay
       - sh -c "if [ '${FLAVOUR}' = 'Gplay' ]; then sed -i '/.*com.google.*/s/^.*\\/\\///g' build.gradle; fi"
       # build app and assemble APK
-      - ./gradlew assemble${FLAVOUR}
+      - sh -c "if [ '${FLAVOUR}' != 'Lint' ]; then ./gradlew assemble${FLAVOUR}; fi"
     when:
       matrix:
         FLAVOUR: [Generic, Gplay]
