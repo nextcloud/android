@@ -1,6 +1,6 @@
 pipeline:
   compile:
-    image: test:1 # nextcloudci/android:android-31
+    image: nextcloudci/android:android-33
     commands:
       # uncomment gplay for Gplay
       - sh -c "env"
@@ -13,7 +13,7 @@ pipeline:
         FLAVOUR: [Generic, Gplay]
 
   integrationTest:
-    image: test:1 # nextcloudci/android:android-31
+    image: nextcloudci/android:android-33
     privileged: true
     commands:
       - emulator -avd android-27 -no-window -no-audio &
@@ -24,7 +24,7 @@ pipeline:
         FLAVOUR: Gplay
 
   lint:
-    image: test:1 # nextcloudci/android:android-31
+    image: nextcloudci/android:android-33
     commands:
       # needs gplay
       - sed -i '/.*com.google.*/s/^.*\\/\\///g' build.gradle

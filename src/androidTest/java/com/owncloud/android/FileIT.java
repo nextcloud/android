@@ -18,21 +18,23 @@ public class FileIT extends AbstractIT {
 
     @Test
     public void testCreateFolder() {
-        // folder does not exist yet
-        assertNull(getStorageManager().getFileByPath("/testFolder/"));
+        String path = "/testFolder/";
         
-        SyncOperation syncOp = new CreateFolderOperation("/testFolder/", true);
+        // folder does not exist yet
+        assertNull(getStorageManager().getFileByPath(path));
+
+        SyncOperation syncOp = new CreateFolderOperation(path, true);
         RemoteOperationResult result = syncOp.execute(client, getStorageManager());
 
         assertTrue(result.isSuccess());
 
         // folder exists
-        assertTrue(getStorageManager().getFileByPath("/testFolder/").isFolder());
+        assertTrue(getStorageManager().getFileByPath(path).isFolder());
     }
 
     @Test
     public void testCreateNonExistingSubFolder() {
-        String path = "/testFolder/1/2/3/4/5";
+        String path = "/testFolder/1/2/3/4/5/";
         // folder does not exist yet
         assertNull(getStorageManager().getFileByPath(path));
 

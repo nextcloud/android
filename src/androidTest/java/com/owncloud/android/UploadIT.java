@@ -37,6 +37,8 @@ public class UploadIT extends AbstractIT {
             // dummy
         });
 
+        newUpload.setRemoteFolderToBeCreated();
+
         RemoteOperationResult result = newUpload.execute(client, getStorageManager());
         assertTrue(result.isSuccess());
     }
