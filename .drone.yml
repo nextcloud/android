@@ -18,7 +18,7 @@ pipeline:
     commands:
       - emulator -avd android-27 -no-window -no-audio &
       - ./wait_for_emulator.sh
-      - ./gradlew connectedCheck
+      - ./gradlew installGplayDebugAndroidTest connectedGplayDebugAndroidTest
     when:
       matrix:
         FLAVOUR: Gplay      

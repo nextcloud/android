@@ -4,6 +4,7 @@ import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.accounts.AuthenticatorException;
 import android.accounts.OperationCanceledException;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.support.test.runner.AndroidJUnit4;
 import android.test.ApplicationTestCase;
@@ -21,7 +22,7 @@ import java.io.File;
 import java.io.IOException;
 
 /**
- * Created by tobi on 3/2/18.
+ * Common base for all integration tests
  */
 
 @RunWith(AndroidJUnit4.class)
@@ -55,7 +56,13 @@ public abstract class AbstractIT extends ApplicationTestCase<MainApp> {
                 accountManager.setUserData(temp, AccountUtils.Constants.KEY_OC_BASE_URL, "http://" + baseUrl);
             }
 
-            account = com.owncloud.android.authentication.AccountUtils.getOwnCloudAccountByName(context, username + "@" + baseUrl);
+            account = com.owncloud.android.authentication.AccountUtils.getOwnCloudAccountByName(context,
+                    username + "@" + baseUrl);
+
+            if (account == null) {
+                throw new ActivityNotFoundException();
+            }
+            
             client = OwnCloudClientFactory.createOwnCloudClient(account, context);
 
             createDummyFiles();
