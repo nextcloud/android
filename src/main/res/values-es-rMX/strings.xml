@@ -279,6 +279,7 @@
     <string name="remove_fail_msg">Falla al eliminar</string>
     <string name="rename_dialog_title">Ingresa un nombre nuevo</string>
     <string name="rename_local_fail_msg">No se pudo renombrar la copia local, intenta con un nombre diferente </string>
+    <string name="rename_server_fail_msg">No fue posible renombrar, el nombre ya esta ocupado</string>
     <string name="sync_file_nothing_to_do_msg">Los contenidos del archivo ya han sido sincronizados</string>
     <string name="create_dir_fail_msg">No fue posible crear la carpeta</string>
     <string name="filename_forbidden_characters">Caracteres inválidos: / \\ &lt; &gt; : \" | ? *</string>
@@ -327,6 +328,7 @@
     <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
     <string name="placeholder_media_time">12:23:45</string>
 
+    <string name="auto_upload_on_wifi">Solo cargar sobre una Wi-Fi no tarificada</string>
     <string name="instant_upload_on_charging">Cargar archivos sólo con el dispositivo conectado a la toma de corriente</string>
     <string name="instant_upload_path">/Cargas Automáticas</string>
     <string name="auto_upload_path">/CargaAutomática</string>
@@ -587,6 +589,9 @@
     <string name="welcome_feature_3_text">Manten tus fotos seguras</string>
 
     <string name="whats_new_end_to_end_encryption_title">Encripción de punta-a-punta</string>
+    <string name="whats_new_end_to_end_encryption_content">Pulsa para encriptar, desde cualquier cliente. Agrega nuevos copiando las 12 palabras.</string>
+    <string name="whats_new_resized_images_title">Imágenes adaptativas</string>
+    <string name="whats_new_resized_images_content">Las imagenes miniatura son rápidas y geniales para compartir. Haz zoom para descargar la versión completa. </string>
     <string name="whats_new_ipv6_title">Soporte IPv6</string>
     <string name="whats_new_ipv6_content">IPv6 cuando el servidor lo soporte, IPv4 si no. </string>
 
@@ -717,6 +722,9 @@
     <string name="notification_channel_media_description">Progreso del reproductor de música</string>
     <string name="notification_channel_file_sync_name">Sincronizar archivo</string>
     <string name="notification_channel_file_sync_description">Muestra el progreso de la sincronización de archivos y los resultados</string>
+    <string name="notification_channel_file_observer_name">Observador de archivos</string>
+    <string name="notification_channel_file_observer_description">Monitorear cambios en los archivos</string>
+  
     <string name="account_not_found">¡No se encontró la cuenta!</string>
 
     <string name="screenshot_01_gridView">Un lugar seguro para todos tus datos</string>
@@ -743,8 +751,10 @@
     <string name="end_to_end_encryption_not_supported">La encripción solo funciona en KitKat (4.4) o superior.</string>
     <string name="end_to_end_encryption_confirm_button">Configurar la encripción</string>
     <string name="end_to_end_encryption_password">Contraseña &#8230;</string>
+    <string name="end_to_end_encryption_unsuccessful">No se pudieron guardar las llaves, por favor vuelve a intentarlo.</string>
     <string name="end_to_end_encryption_dialog_close">Cerrar</string>
     <string name="end_to_end_encryption_storing_keys">Almacenando llaves</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Copiar/ mover a la carpeta encriptada no se encuentra soportado por el momento.</string>
     <string name="untrusted_domain">Accede a través de un dominio no de confianza. Por favor consulta la documentación para más información.</string>
-</resources>
+
+    </resources>
