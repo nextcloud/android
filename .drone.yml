@@ -21,7 +21,9 @@ pipeline:
       - ./gradlew createGplayDebugCoverageReport || echo "There were failing tests"
       - ./gradlew combinedTestReport
       - curl -o codecov.sh https://codecov.io/bash
-      - bash ./codecov.sh -t fc506ba4-33c3-43e4-a760-aada38c24fd5
+      - sh -c "if [ '$DRONE_BUILD_EVENT' = 'pull_request' ];  then bash codecov.sh -B $DRONE_BRANCH -C $DRONE_COMMIT -P $DRONE_PULL_REQUEST -t fc506ba4-33c3-43e4-a760-aada38c24fd5 -f ; fi"
+      - sh -c "if [ '$DRONE_BUILD_EVENT' != 'pull_request' ]; then bash codecov.sh -B $DRONE_BRANCH -C $DRONE_COMMIT -t fc506ba4-33c3-43e4-a760-aada38c24fd5 -f ; fi"
+      # - bash ./codecov.sh -t fc506ba4-33c3-43e4-a760-aada38c24fd5
     when:
       matrix:
         FLAVOR: Gplay
