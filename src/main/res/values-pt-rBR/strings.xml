@@ -87,8 +87,8 @@
     <string name="file_list_seconds_ago">segundos atrás</string>
     <string name="file_list_empty_headline">Nenhum arquivo aqui</string>
     <string name="folder_list_empty_headline">Sem pastas aqui</string>
-    <string name="file_list_empty">Envie um conteúdo ou sincronize seus dispositivos.</string>
-    <string name="file_list_empty_favorites_filter_list">Arquivos e pastas favoritas serão mostradas aqui</string>
+    <string name="file_list_empty">Envie um arquivo ou sincronize com seus dispositivos.</string>
+    <string name="file_list_empty_favorites_filter_list">Suas pastas e arquivos favoritos serão exibidos aqui.</string>
     <string name="file_list_empty_favorites_filter">Sua pesquisa não retornou nenhum arquivo favorito.</string>
     <string name="file_list_loading">Carregando&#8230;</string>
     <string name="file_list_no_app_for_file_type">Nenhuma aplicação definida para manipular este tipo de arquivo.</string>
@@ -97,8 +97,8 @@
     <string name="file_list_empty_headline_search">Nenhum resultado nesta pasta</string>
     <string name="file_list_empty_headline_server_search">Sem resultados</string>
     <string name="file_list_empty_favorite_headline">Nenhum favorito ainda</string>
-    <string name="file_list_empty_shared_headline">Nada compartilhado ainda</string>
-    <string name="file_list_empty_shared">Arquivos e pastas que você compartilhar serão mostrados aqui</string>
+    <string name="file_list_empty_shared_headline">Você ainda não compartilhou nada!</string>
+    <string name="file_list_empty_shared">Arquivos e pastas que você compartilhar serão exibidos aqui.</string>
     <string name="file_list_empty_headline_server_search_videos"> Sem vídeos</string>
     <string name="file_list_empty_headline_server_search_photos">Sem fotos</string>
     <string name="file_list_empty_search">Talvez seja uma pasta diferente?</string>
@@ -328,6 +328,7 @@
     <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
     <string name="placeholder_media_time">12:23:45</string>
 
+    <string name="auto_upload_on_wifi">Somente enviar por WiFi não medida</string>
     <string name="instant_upload_on_charging">Só enviar quando carregando</string>
     <string name="instant_upload_path">/EnvioAutomático</string>
     <string name="auto_upload_path">/AutoEnvio</string>
@@ -754,4 +755,5 @@
     <string name="end_to_end_encryption_storing_keys">Armazenando chaves</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Copia e movimentação para a pasta criptografada atualmente não são suportadas.</string>
     <string name="untrusted_domain">Acesso através de domínio não confiável. Veja a documentação para mais informações.</string>
-</resources>
+
+    </resources>

@@ -328,6 +328,7 @@
     <string name="placeholder_timestamp">2012/05/18 12:23</string>
     <string name="placeholder_media_time">12:23:45</string>
 
+    <string name="auto_upload_on_wifi">Upload alleen met Wi-Fi</string>
     <string name="instant_upload_on_charging">Alleen uploaden bij opladen</string>
     <string name="instant_upload_path">/InstantUpload</string>
     <string name="auto_upload_path">/AutomatischUploaden</string>
@@ -754,4 +755,5 @@
     <string name="end_to_end_encryption_storing_keys">Opslaan sleutels</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Kopieren/verplaatsen naar een versleutelde map is momenteel niet mogelijk.</string>
     <string name="untrusted_domain">Toegang van een niet vertrouwd domein. Bekijk de documentatie voor meer informatie.</string>
-</resources>
+
+    </resources>
