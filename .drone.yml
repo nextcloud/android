@@ -1,11 +1,4 @@
 pipeline:
-  test:
-    image: test:1 # nextcloudci/android:android-31
-    commands:
-      - sleep 60 
-      - echo "server" && curl http://server/nc/status.php
-      - echo "172.17.0.2" && curl http://172.17.0.2/nc/status.php
-      - echo "172.17.0.3" && curl http://172.17.0.3/nc/status.php
   compile:
     image: test:1 # nextcloudci/android:android-31
     commands:
@@ -65,7 +58,7 @@ matrix:
 
 services:
   server:
-    image: server:1
+    image: server:3
     when:
       matrix:
         FLAVOUR: Gplay

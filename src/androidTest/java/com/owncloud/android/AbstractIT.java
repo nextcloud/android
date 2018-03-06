@@ -1,12 +1,10 @@
 package com.owncloud.android;
 
-import android.Manifest;
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.accounts.AuthenticatorException;
 import android.accounts.OperationCanceledException;
 import android.content.Context;
-import android.support.test.rule.GrantPermissionRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.test.ApplicationTestCase;
 
@@ -17,7 +15,6 @@ import com.owncloud.android.lib.common.accounts.AccountUtils;
 import com.owncloud.android.utils.FileStorageUtils;
 
 import org.junit.BeforeClass;
-import org.junit.Rule;
 import org.junit.runner.RunWith;
 
 import java.io.File;
@@ -34,16 +31,13 @@ public abstract class AbstractIT extends ApplicationTestCase<MainApp> {
     protected static Account account;
     protected static Context context;
 
-    private static final String username = "tobi";
-    private static final String password = "tobi";
-    private static final String baseUrl = "server/nc";
+    private static final String username = "test";
+    private static final String password = "test";
+    private static final String baseUrl = "172.17.0.2/nc";
 
     public AbstractIT() {
         super(MainApp.class);
     }
-
-    @Rule // todo only working with rules 1.0.2-alpha2
-    public GrantPermissionRule mRuntimePermissionRule = GrantPermissionRule.grant(Manifest.permission.WRITE_EXTERNAL_STORAGE);
 
     @BeforeClass
     public static void beforeAll() {
