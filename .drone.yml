@@ -6,7 +6,9 @@ pipeline:
       - emulator -avd android-27 -no-window -no-audio &
       - ./wait_for_emulator.sh
       - ./gradlew jacocoTestGplayDebugUnitTestReport
-      - ./gradlew assembleGplayDebug installGplayDebugAndroidTest connectedGplayDebugAndroidTest
+      - ./gradlew assembleGplayDebug installGplayDebugAndroidTest
+      - ./gradlew createGplayDebugCoverageReport || echo "There were failing tests"
+      - ./gradlew combinedTestReport
       - curl -o codecov.sh https://codecov.io/bash
       - bash ./codecov.sh -t fc506ba4-33c3-43e4-a760-aada38c24fd5
     when:
