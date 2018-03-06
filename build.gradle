@@ -126,6 +126,15 @@ android {
                 versionName "20180306"
             }
         }
+
+//        testOptions {
+//            execution 'ANDROID_TEST_ORCHESTRATOR'
+//            animationsDisabled true
+//
+//            unitTests {
+//                includeAndroidResources = true
+//            }
+//        }
     }
 
 
@@ -267,6 +276,28 @@ tasks.withType(Test) {
         events "passed", "skipped", "failed"
     }
 }
+
+//tasks.withType(Test) {
+//    jacoco.includeNoLocationClasses = true
+//}
+//
+//task combinedTestReport(type: JacocoReport, dependsOn: ['testGplayDebugUnitTest', 'createGplayDebugCoverageReport']) {
+//
+//    reports {
+//        xml.enabled = true
+//        html.enabled = true
+//    }
+//
+//    def fileFilter = ['**/R.class', '**/R$*.class', '**/BuildConfig.*', '**/Manifest*.*', '**/*Test*.*', 'android/**/*.*']
+//    def debugTree = fileTree(dir: "$project.buildDir/intermediates/classes/debug", excludes: fileFilter)
+//    def mainSrc = "$project.projectDir/src/main/java"
+//
+//    sourceDirectories = files([mainSrc])
+//    classDirectories = files([debugTree])
+//    executionData = fileTree(dir: project.buildDir, includes: [
+//            'jacoco/testGPlayDebugUnitTest.exec', 'outputs/code-coverage/connected/flavors/GPLAY/*coverage.ec'
+//    ])
+//}
 
 // uncomment for gplay (must be at the bottom)
 apply plugin: 'com.google.gms.google-services'

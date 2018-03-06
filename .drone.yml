@@ -1,24 +1,14 @@
 pipeline:
-  compile:
-    image: nextcloudci/android:android-33
-    commands:
-      # uncomment gplay for Gplay
-      - sh -c "env"
-      - sh -c "if [ '${FLAVOUR}' = 'Gplay' ]; then sed -i '/.*com.google.*/s/^.*\\/\\///g' build.gradle; fi"
-
-      # build app and assemble APK, in debug mode
-      - ./gradlew assemble${FLAVOUR}
-    when:
-      matrix:
-        FLAVOUR: [Generic, Gplay]
-
   integrationTest:
     image: nextcloudci/android:android-33
     privileged: true
     commands:
       - emulator -avd android-27 -no-window -no-audio &
       - ./wait_for_emulator.sh
-      - ./gradlew installGplayDebugAndroidTest connectedGplayDebugAndroidTest
+      - ./gradlew jacocoTestGplayDebugUnitTestReport
+      - ./gradlew assembleGplayDebug installGplayDebugAndroidTest connectedGplayDebugAndroidTest
+      - curl -o codecov.sh https://codecov.io/bash
+      - bash ./codecov.sh -t fc506ba4-33c3-43e4-a760-aada38c24fd5
     when:
       matrix:
         FLAVOUR: Gplay
@@ -58,7 +48,7 @@ matrix:
 
 services:
   server:
-    image: server:3
+    image: nextcloudci/server:server-1
     when:
       matrix:
         FLAVOUR: Gplay
