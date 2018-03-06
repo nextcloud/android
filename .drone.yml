@@ -21,7 +21,7 @@ pipeline:
       - ./gradlew installGplayDebugAndroidTest connectedGplayDebugAndroidTest
     when:
       matrix:
-        FLAVOUR: Gplay      
+        FLAVOUR: Gplay
 
   lint:
     image: test:1 # nextcloudci/android:android-31
