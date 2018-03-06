@@ -1,4 +1,16 @@
 pipeline:
+ compile:
+    image: nextcloudci/android:android-33
+    commands:
+      # uncomment gplay for Gplay
+      - sh -c "if [ '${FLAVOUR}' = 'Gplay' ]; then sed -i '/.*com.google.*/s/^.*\\/\\///g' build.gradle; fi"
+
+      # build app and assemble APK, in debug mode
+      - ./gradlew assemble${FLAVOUR}
+    when:
+      matrix:
+        FLAVOUR: [Generic, Gplay]
+        
   integrationTest:
     image: nextcloudci/android:android-33
     privileged: true
