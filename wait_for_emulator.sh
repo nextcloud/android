@@ -17,7 +17,7 @@ until [[ "$bootanim" =~ "stopped" ]]; do
       fi
    fi
    let "checkcounter += 1"
-   sleep 10
+   sleep 5
 done
 echo "($checkcounter) Done"
 adb -e shell input keyevent 82

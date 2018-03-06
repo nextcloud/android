@@ -1,21 +1,20 @@
 /**
- *   ownCloud Android client application
+ * ownCloud Android client application
  *
- *   @author David A. Velasco
- *   Copyright (C) 2016 ownCloud Inc.
- *
- *   This program is free software: you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License version 2,
- *   as published by the Free Software Foundation.
- *
- *   This program is distributed in the hope that it will be useful,
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *   GNU General Public License for more details.
- *
- *   You should have received a copy of the GNU General Public License
- *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
+ * @author David A. Velasco
+ * Copyright (C) 2016 ownCloud Inc.
+ * <p>
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 2,
+ * as published by the Free Software Foundation.
+ * <p>
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * <p>
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 
@@ -115,8 +114,8 @@ public class OCFileUnitTest {
         assertThat(fileReadFromParcel.getCreationTimestamp(), is(CREATION_TIMESTAMP));
         assertThat(fileReadFromParcel.getModificationTimestamp(), is(MODIFICATION_TIMESTAMP));
         assertThat(
-            fileReadFromParcel.getModificationTimestampAtLastSyncForData(),
-            is(MODIFICATION_TIMESTAMP_AT_LAST_SYNC_FOR_DATA)
+                fileReadFromParcel.getModificationTimestampAtLastSyncForData(),
+                is(MODIFICATION_TIMESTAMP_AT_LAST_SYNC_FOR_DATA)
         );
         assertThat(fileReadFromParcel.getLastSyncDateForProperties(), is(LAST_SYNC_DATE_FOR_PROPERTIES));
         assertThat(fileReadFromParcel.getLastSyncDateForData(), is(LAST_SYNC_DATE_FOR_DATA));

@@ -16,6 +16,7 @@ buildscript {
     dependencies {
         classpath 'com.android.tools.build:gradle:3.0.1'
         classpath 'com.google.gms:google-services:3.0.0'
+        classpath 'com.dicedmelon.gradle:jacoco-android:0.1.2'
     }
 }
 
@@ -23,6 +24,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'checkstyle'
 apply plugin: 'pmd'
 apply plugin: 'findbugs'
+apply plugin: 'jacoco-android'
 
 configurations.all {
     // check for updates every build
@@ -32,6 +34,7 @@ configurations.all {
 ext {
     supportLibraryVersion = '26.1.0'
     googleLibraryVersion = '11.2.2'
+    jacocoVersion = "0.7.4.201502262128"
 
     travisBuild = System.getenv("TRAVIS") == "true"
 
@@ -99,6 +102,12 @@ android {
 
         flavorDimensions "default"
 
+        buildTypes {
+            debug {
+                testCoverageEnabled true
+            }
+        }
+
         productFlavors {
             // used for f-droid
             generic {
@@ -118,6 +127,15 @@ android {
                 versionName "20180306"
             }
         }
+
+//        testOptions {
+//            execution 'ANDROID_TEST_ORCHESTRATOR'
+//            animationsDisabled true
+//
+//            unitTests {
+//                includeAndroidResources = true
+//            }
+//        }
     }
 
 
@@ -217,10 +235,10 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.2'
 
     // uncomment for gplay
-    // implementation "com.google.firebase:firebase-messaging:${googleLibraryVersion}"
-    // implementation "com.google.android.gms:play-services-base:${googleLibraryVersion}"
-    // implementation "com.google.android.gms:play-services-gcm:${googleLibraryVersion}"
-    // implementation "com.google.firebase:firebase-core:${googleLibraryVersion}"
+ implementation "com.google.firebase:firebase-messaging:${googleLibraryVersion}"
+ implementation "com.google.android.gms:play-services-base:${googleLibraryVersion}"
+ implementation "com.google.android.gms:play-services-gcm:${googleLibraryVersion}"
+ implementation "com.google.firebase:firebase-core:${googleLibraryVersion}"
     implementation 'org.parceler:parceler-api:1.1.9'
     annotationProcessor 'org.parceler:parceler:1.1.9'
     implementation 'com.github.bumptech.glide:glide:3.7.0'
@@ -247,6 +265,14 @@ dependencies {
     implementation 'org.jetbrains:annotations:15.0'
 
     androidTestCompile 'tools.fastlane:screengrab:1.0.0'
+    
+    jacocoAnt "org.jacoco:org.jacoco.ant:${project.jacocoVersion}"
+    jacocoAgent "org.jacoco:org.jacoco.agent:${project.jacocoVersion}"
+    androidJacocoAgent "org.jacoco:org.jacoco.agent:${project.jacocoVersion}"
+    androidJacocoAnt "org.jacoco:org.jacoco.ant:${project.jacocoVersion}"
+    androidJacocoAnt "org.jacoco:org.jacoco.core:${project.jacocoVersion}"
+    androidJacocoAnt "org.jacoco:org.jacoco.report:${project.jacocoVersion}"
+    androidJacocoAnt "org.jacoco:org.jacoco.agent:${project.jacocoVersion}"
 }
 
 configurations.all {
@@ -260,5 +286,23 @@ tasks.withType(Test) {
     }
 }
 
+task combinedTestReport(type: JacocoReport) {
+
+    reports {
+        xml.enabled = true
+        html.enabled = true
+    }
+
+    def fileFilter = ['**/R.class', '**/R$*.class', '**/BuildConfig.*', '**/Manifest*.*', '**/*Test*.*', 'android/**/*.*']
+    def debugTree = fileTree(dir: "$project.buildDir/intermediates/classes/gplay/debug", excludes: fileFilter)
+    def mainSrc = "$project.projectDir/src/main/java"
+
+    sourceDirectories = files([mainSrc])
+    classDirectories = files([debugTree])
+    executionData = fileTree(dir: project.buildDir, includes: [
+            'jacoco/testGplayDebugUnitTest.exec', 'outputs/code-coverage/connected/flavors/GPLAY/*coverage.ec'
+    ])
+}
+
 // uncomment for gplay (must be at the bottom)
-//apply plugin: 'com.google.gms.google-services'
+apply plugin: 'com.google.gms.google-services'
