@@ -40,7 +40,6 @@ import android.content.pm.PackageManager;
 import android.content.res.Resources.NotFoundException;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
 import android.os.IBinder;
 import android.os.Parcelable;
 import android.support.design.widget.BottomNavigationView;
@@ -60,7 +59,6 @@ import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
@@ -133,7 +131,7 @@ public class FileDisplayActivity extends HookActivity
         implements FileFragment.ContainerActivity,
         OnEnforceableRefreshListener, SortingOrderDialogFragment.OnSortingOrderListener,
         SendShareDialog.SendShareDialogDownloader {
-
+ 
     private SyncBroadcastReceiver mSyncBroadcastReceiver;
     private UploadFinishReceiver mUploadFinishReceiver;
     private DownloadFinishReceiver mDownloadFinishReceiver;
@@ -168,14 +166,13 @@ public class FileDisplayActivity extends HookActivity
 
     private OCFile mWaitingToPreview;
 
-    private boolean mBackToExitPressedOnce = false;
     private boolean mSyncInProgress = false;
 
     private OCFile mWaitingToSend;
 
     private Collection<MenuItem> mDrawerMenuItemstoShowHideList;
 
-    private MediaServiceBinder mMediaServiceBinder = null;
+    private MediaServiceBinder mMediaServiceBinder =  null;
     private MediaServiceConnection mMediaServiceConnection = null;
 
     private String searchQuery;
@@ -1018,9 +1015,6 @@ public class FileDisplayActivity extends HookActivity
         }
     }
 
-    /**
-     * Prompt the user to press the back button twice in order to exit from the app
-     */
     @Override
     public void onBackPressed() {
         boolean isFabOpen = isFabOpen();
@@ -1035,59 +1029,45 @@ public class FileDisplayActivity extends HookActivity
          *    4. navigate up (only if drawer and FAB aren't open)
          */
 
-        if (mBackToExitPressedOnce) {
+        if (isSearchOpen && searchView != null) {
+            searchView.setQuery("", true);
+            searchView.onActionViewCollapsed();
+            setDrawerIndicatorEnabled(isDrawerIndicatorAvailable());
+        } else if (isDrawerOpen && isFabOpen) {
+            // close drawer first
             super.onBackPressed();
-            if (isSearchOpen && searchView != null) {
-                searchView.setQuery("", true);
-                searchView.onActionViewCollapsed();
-                setDrawerIndicatorEnabled(isDrawerIndicatorAvailable());
-            } else if (isDrawerOpen && isFabOpen) {
-                // close drawer first
-                super.onBackPressed();
-            } else if (isDrawerOpen && !isFabOpen) {
-                // close drawer
-                super.onBackPressed();
-            } else if (!isDrawerOpen && isFabOpen) {
-                // close fab
-                getListOfFilesFragment().getFabMain().collapse();
-            } else {
-                // all closed
+        } else if (isDrawerOpen && !isFabOpen) {
+            // close drawer
+            super.onBackPressed();
+        } else if (!isDrawerOpen && isFabOpen) {
+            // close fab
+            getListOfFilesFragment().getFabMain().collapse();
+        } else {
+            // all closed
 
-                //if PreviewImageActivity called this activity and mDualPane==false  then calls PreviewImageActivity again
-                if ((getIntent().getAction() != null && getIntent().getAction().equalsIgnoreCase(ACTION_DETAILS)) && !mDualPane) {
-                    getIntent().setAction(null);
-                    getIntent().putExtra(EXTRA_FILE, (OCFile) null);
-                    startImagePreview(getFile(), false);
-                }
+            //if PreviewImageActivity called this activity and mDualPane==false  then calls PreviewImageActivity again
+            if ((getIntent().getAction() != null && getIntent().getAction().equalsIgnoreCase(ACTION_DETAILS)) && !mDualPane) {
+                getIntent().setAction(null);
+                getIntent().putExtra(EXTRA_FILE, (OCFile) null);
+                startImagePreview(getFile(), false);
+            }
 
-                OCFileListFragment listOfFiles = getListOfFilesFragment();
-                if (mDualPane || getSecondFragment() == null) {
-                    OCFile currentDir = getCurrentDir();
-                    if (currentDir == null || currentDir.getParentId() == FileDataStorageManager.ROOT_PARENT_ID) {
-                        finish();
-                        return;
-                    }
-                    if (listOfFiles != null) {  // should never be null, indeed
-                        listOfFiles.onBrowseUp();
-                    }
+            OCFileListFragment listOfFiles = getListOfFilesFragment();
+            if (mDualPane || getSecondFragment() == null) {
+                OCFile currentDir = getCurrentDir();
+                if (currentDir == null || currentDir.getParentId() == FileDataStorageManager.ROOT_PARENT_ID) {
+                    finish();
+                    return;
                 }
                 if (listOfFiles != null) {  // should never be null, indeed
-                    setFile(listOfFiles.getCurrentFile());
+                    listOfFiles.onBrowseUp();
                 }
-                cleanSecondFragment();
             }
-            return;
+            if (listOfFiles != null) {  // should never be null, indeed
+                setFile(listOfFiles.getCurrentFile());
+            }
+            cleanSecondFragment();
         }
-        this.mBackToExitPressedOnce = true;
-        Toast.makeText(this, getString(R.string.toast_exit), Toast.LENGTH_SHORT)
-                .show();
-        new Handler().postDelayed(new Runnable() {
-
-            @Override
-            public void run() {
-                mBackToExitPressedOnce = false;
-            }
-        }, 2000);
     }
 
     @Override
@@ -1333,7 +1313,7 @@ public class FileDisplayActivity extends HookActivity
     private class UploadFinishReceiver extends BroadcastReceiver {
         /**
          * Once the file upload has finished -> update view
-         * <p>
+         *
          * {@link BroadcastReceiver} to enable upload feedback in UI
          */
         @Override
@@ -1611,13 +1591,11 @@ public class FileDisplayActivity extends HookActivity
         }
     }
 
-    private MediaServiceConnection newMediaConnection() {
+    private MediaServiceConnection newMediaConnection(){
         return new MediaServiceConnection();
     }
 
-    /**
-     * Defines callbacks for service binding, passed to bindService()
-     */
+    /** Defines callbacks for service binding, passed to bindService() */
     private class MediaServiceConnection implements ServiceConnection {
 
         @Override
@@ -1627,7 +1605,7 @@ public class FileDisplayActivity extends HookActivity
                 Log_OC.d(TAG, "Media service connected");
                 mMediaServiceBinder = (MediaServiceBinder) service;
 
-            } else {
+            }else {
                 return;
             }
 
@@ -2000,7 +1978,7 @@ public class FileDisplayActivity extends HookActivity
         } else {
             Log_OC.e(TAG, "Trying to send a NULL OCFile");
         }
-
+        
         mWaitingToSend = null;
     }
 
@@ -2009,7 +1987,7 @@ public class FileDisplayActivity extends HookActivity
      * to monitor the download progress and prepares the activity to send the file
      * when the download finishes.
      *
-     * @param file         {@link OCFile} to download and preview.
+     * @param file {@link OCFile} to download and preview.
      * @param packageName
      * @param activityName
      */
@@ -2204,15 +2182,15 @@ public class FileDisplayActivity extends HookActivity
         if (event.getIntent().getBooleanExtra(TEXT_PREVIEW, false)) {
             startTextPreview((OCFile) bundle.get(EXTRA_FILE), true);
         } else if (bundle.containsKey(PreviewVideoActivity.EXTRA_START_POSITION)) {
-            startMediaPreview((OCFile) bundle.get(EXTRA_FILE),
-                    (int) bundle.get(PreviewVideoActivity.EXTRA_START_POSITION),
-                    (boolean) bundle.get(PreviewVideoActivity.EXTRA_AUTOPLAY), true);
+            startMediaPreview((OCFile)bundle.get(EXTRA_FILE),
+                    (int)bundle.get(PreviewVideoActivity.EXTRA_START_POSITION),
+                    (boolean)bundle.get(PreviewVideoActivity.EXTRA_AUTOPLAY), true);
         } else if (bundle.containsKey(PreviewImageActivity.EXTRA_VIRTUAL_TYPE)) {
-            startImagePreview((OCFile) bundle.get(EXTRA_FILE),
-                    (VirtualFolderType) bundle.get(PreviewImageActivity.EXTRA_VIRTUAL_TYPE),
+            startImagePreview((OCFile)bundle.get(EXTRA_FILE),
+                    (VirtualFolderType)bundle.get(PreviewImageActivity.EXTRA_VIRTUAL_TYPE),
                     true);
         } else {
-            startImagePreview((OCFile) bundle.get(EXTRA_FILE), true);
+            startImagePreview((OCFile)bundle.get(EXTRA_FILE),true);
         }
     }
 
