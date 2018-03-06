@@ -22,29 +22,29 @@ public class FileIT extends AbstractIT {
 
     @Test
     public void testCreateFolder() {
-        SyncOperation syncOp = new CreateFolderOperation("/testIT/", true);
+        SyncOperation syncOp = new CreateFolderOperation("/testFolder/", true);
         RemoteOperationResult result = syncOp.execute(client, getStorageManager());
 
         assertTrue(result.isSuccess());
 
         // file exists
-        assertTrue(getStorageManager().getFileByPath("/testIT/").isFolder());
+        assertTrue(getStorageManager().getFileByPath("/testFolder/").isFolder());
     }
 
     @Test
     public void testCreateNonExistingSubFolder() {
-        SyncOperation syncOp = new CreateFolderOperation("/testIT/1/2", true);
+        SyncOperation syncOp = new CreateFolderOperation("/testFolder/1/2", true);
         RemoteOperationResult result = syncOp.execute(client, getStorageManager());
         assertTrue(result.isSuccess());
 
         // file exists
-        assertTrue(getStorageManager().getFileByPath("/testIT/1/2/").isFolder());
+        assertTrue(getStorageManager().getFileByPath("/testFolder/1/2/").isFolder());
     }
 
     @Test
     public void testUpload() {
         OCUpload ocUpload = new OCUpload(FileStorageUtils.getSavePath(account.name) + "/123.txt",
-                "/testIT/1.txt", account.name);
+                "/testUpload/1.txt", account.name);
         UploadFileOperation newUpload = new UploadFileOperation(
                 account,
                 null,
@@ -67,7 +67,7 @@ public class FileIT extends AbstractIT {
     @Test
     public void testUploadInNonExistingFolder() {
         OCUpload ocUpload = new OCUpload(FileStorageUtils.getSavePath(account.name) + "/123.txt",
-                "/testIT/2/3/4/1.txt", account.name);
+                "/testUpload/2/3/4/1.txt", account.name);
         UploadFileOperation newUpload = new UploadFileOperation(
                 account,
                 null,
