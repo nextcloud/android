@@ -758,4 +758,5 @@
     <string name="copy_move_to_encrypted_folder_not_supported">In verschlüsselten Ordner kopieren/verschieben wird aktuell nicht unterstützt.</string>
     <string name="untrusted_domain">Zugriff über nicht vertrauenswürdige Domain. Weitere Informationen finden sich in der Dokumentation.</string>
 
-    </resources>
+    <string name="toast_exit">Zum Beenden nochmals drücken</string>
+</resources>

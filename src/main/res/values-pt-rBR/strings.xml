@@ -78,7 +78,7 @@
     <string name="uploader_error_message_no_file_to_upload">Os dados recebidos não incluem um arquivo válido.</string>
     <string name="uploader_error_title_file_cannot_be_uploaded">Este arquivo não pôde ser enviado</string>
     <string name="uploader_error_message_read_permission_not_granted">%1$s não tem permissão para ler um arquivo recebido</string>
-    <string name="uploader_error_message_source_file_not_found">O arquivo selectionado para envio não foi encontrado. Verifique se ele existe.</string>
+    <string name="uploader_error_message_source_file_not_found">O arquivo selecionado para envio não foi encontrado. Verifique se ele existe.</string>
     <string name="uploader_error_message_source_file_not_copied">Não foi possível copiar o arquivo para uma pasta temporária. Tente reenviá-lo.</string>
     <string name="uploader_upload_files_behaviour">Opção de envio:</string>
     <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">Mover o arquivo para a pasta do Nextcoud</string>
@@ -90,7 +90,7 @@
     <string name="file_list_empty">Envie um arquivo ou sincronize com seus dispositivos.</string>
     <string name="file_list_empty_favorites_filter_list">Suas pastas e arquivos favoritos serão exibidos aqui.</string>
     <string name="file_list_empty_favorites_filter">Sua pesquisa não retornou nenhum arquivo favorito.</string>
-    <string name="file_list_loading">Carregando&#8230;</string>
+    <string name="file_list_loading">Carregando &#8230;</string>
     <string name="file_list_no_app_for_file_type">Nenhuma aplicação definida para manipular este tipo de arquivo.</string>
     <string name="local_file_list_empty">Não existe nenhum arquivo nesta pasta.</string>
     <string name="local_folder_list_empty">Não há outras pastas.</string>
@@ -99,7 +99,7 @@
     <string name="file_list_empty_favorite_headline">Nenhum favorito ainda</string>
     <string name="file_list_empty_shared_headline">Você ainda não compartilhou nada!</string>
     <string name="file_list_empty_shared">Arquivos e pastas que você compartilhar serão exibidos aqui.</string>
-    <string name="file_list_empty_headline_server_search_videos"> Sem vídeos</string>
+    <string name="file_list_empty_headline_server_search_videos">Sem vídeos</string>
     <string name="file_list_empty_headline_server_search_photos">Sem fotos</string>
     <string name="file_list_empty_search">Talvez seja uma pasta diferente?</string>
     <string name="file_list_empty_recently_modified">Não foi encontrado nenhum arquivo modificado nos últimos 7 dias</string>
@@ -127,7 +127,7 @@
     <string name="common_back">Voltar</string>
     <string name="common_save">Salvar</string>
     <string name="common_error">Erro</string>
-    <string name="common_loading">Carregando&#8230;</string>
+    <string name="common_loading">Carregando &#8230;</string>
     <string name="common_unknown">desconhecido</string>
     <string name="common_error_unknown">Erro desconhecido</string>
     <string name="common_pending">Pendente</string>
@@ -138,9 +138,9 @@
     <string name="delete_account_warning">Excluir a conta %s e remover todos os arquivos locais?\n\nEsta exclusão não pode ser desfeita.</string>
     <string name="avatar">Avatar</string>
     <string name="active_user">Ativar usuário</string>
-    <string name="upload_chooser_title">Enviar de&#8230;</string>
+    <string name="upload_chooser_title">Enviar de &#8230;</string>
     <string name="uploader_info_dirname">Nome da pasta</string>
-    <string name="uploader_upload_in_progress_ticker">Enviando&#8230;</string>
+    <string name="uploader_upload_in_progress_ticker">Enviando &#8230;</string>
     <string name="uploader_upload_in_progress_content">%1$d%% enviando %2$s</string>
     <string name="uploader_upload_succeeded_ticker">Enviado</string>
     <string name="uploader_upload_succeeded_content_single">%1$s enviado</string>
@@ -166,7 +166,7 @@
     <string name="uploads_view_upload_status_waiting_for_wifi">Esperando pelo Wi-Fi</string>
     <string name="uploads_view_upload_status_waiting_exit_power_save_mode">Esperando sair do modo de economia de energia</string>
     <string name="uploads_view_later_waiting_to_upload">Aguardando para enviar</string>
-    <string name="downloader_download_in_progress_ticker">Baixando&#8230;</string>
+    <string name="downloader_download_in_progress_ticker">Baixando &#8230;</string>
     <string name="downloader_download_in_progress_content">%1$d%% Baixando %2$s</string>
     <string name="downloader_download_succeeded_ticker">Baixado</string>
     <string name="downloader_download_succeeded_content">%1$s baixado</string>
@@ -223,9 +223,9 @@
     <string name="media_err_timeout">Tempo esgotado tentando reproduzir o arquivo</string>
     <string name="media_err_invalid_progressive_playback">O arquivo de mídia não pode ser enviado via streaming</string>
     <string name="media_err_unknown">O media player embutido não consegue tocar esta mídia</string>
-    <string name="media_err_security_ex">Errro de segurança enquanto se tentava reproduzir %1$s</string>
+    <string name="media_err_security_ex">Erro de segurança encontrado ao tentar reproduzir %1$s</string>
     <string name="media_err_io_ex">Erro de entrada tentando reproduzir %1$s</string>
-    <string name="media_err_unexpected">Erro inesperado euquanto se tentava reproduzir %1$s</string>
+    <string name="media_err_unexpected">Erro inesperado ao tentar reproduzir %1$s</string>
     <string name="media_rewind_description">Botão rebobinar</string>
     <string name="media_play_pause_description">Botão reproduzir ou pausar</string>
     <string name="media_forward_description">Botão de avanço rápido</string>
@@ -379,10 +379,10 @@
     <string name="forbidden_permissions_delete">para excluir este arquivo</string>
     <string name="share_link_forbidden_permissions">para compartilhar este arquivo</string>
     <string name="unshare_link_forbidden_permissions">para descompartilhar este arquivo</string>
-    <string name="update_link_forbidden_permissions">atualizar este compartilhamento</string>
+    <string name="update_link_forbidden_permissions">para atualizar este compartilhamento</string>
     <string name="forbidden_permissions_create">para criar este arquivo</string>
     <string name="uploader_upload_forbidden_permissions">para enviar a esta pasta</string>
-    <string name="downloader_download_file_not_found">Este arquivo não mais está disponível neste servidor</string>
+    <string name="downloader_download_file_not_found">Este arquivo não está mais disponível neste servidor</string>
 
     <string name="file_migration_dialog_title">Atualizando caminho do armazenamento</string>
     <string name="file_migration_preparing">Preparando migração&#8230;</string>
@@ -397,7 +397,7 @@
     <string name="file_migration_failed_not_enough_space">Mais espaço é necessário</string>
     <string name="file_migration_failed_not_writable">Não foi possível gravar o arquivo de destino</string>
     <string name="file_migration_failed_not_readable">Não foi possível ler o arquivo fonte</string>
-    <string name="file_migration_failed_dir_already_exists">Pasta Nexcloud já existe</string>
+    <string name="file_migration_failed_dir_already_exists">Pasta Nextcloud já existe</string>
     <string name="file_migration_failed_while_coping">Falha durante a migração</string>
     <string name="file_migration_failed_while_updating_index">Falha ao atualizar índice</string>
 
@@ -460,7 +460,7 @@
         <item quantity="other">%1$d arquivos</item>
     </plurals>
     <string name="set_picture_as">Usar imagem como</string>
-    <string name="set_as">Definir Como</string>
+    <string name="set_as">Definir como</string>
 
     <string name="prefs_instant_behaviour_dialogTitle">Arquivo original será&#8230;</string>
     <string name="prefs_instant_behaviour_title">Arquivo original será&#8230;</string>
@@ -536,7 +536,7 @@
     <string name="participate_beta_headline">Teste a versão dev</string>
     <string name="participate_beta_text">Isso inclui todos os recursos futuros e está num limite perigoso. Erros podem ocorrer e acontecendo, por favor reporte-os à nós.</string>
     <string name="participate_release_candidate_headline">Candidato a versão</string>
-    <string name="participate_release_candidate_text">O release candidate (RC) é uma cópia de uma nova versão e espera-se que seja estável. Testar sua própria configuração pode garantir isso. Assine para testes na Play Store ou manualmente procure no seção \"Version\" do F-Droid,</string>
+    <string name="participate_release_candidate_text">O release candidate (RC) é uma cópia de uma nova versão e espera-se que seja estável. Testar sua própria configuração pode garantir isso. Assine para testes na Play Store ou manualmente procure na seção \"Version\" do F-Droid,</string>
     <string name="participate_contribute_headline">Contribuir ativamente</string>
     <string name="participate_contribute_irc_text">Junte-se ao chat no IRC:</string>
     <string name="participate_contribute_forum_text">Ajude outros no</string>
@@ -628,7 +628,7 @@
     <string name="contacts_preferences_no_file_found">Nenhum arquivo encontrado</string>
     <string name="contacts_preferences_something_strange_happened">Não foi possível encontrar seu último backup!</string>
     <string name="contacts_preferences_backup_scheduled">Backup agendado, irá iniciar em breve</string>
-    <string name="contacts_preferences_import_scheduled">Backup importado, irá iniciar em breve</string>
+    <string name="contacts_preferences_import_scheduled">Importação agendada, irá iniciar em breve</string>
 
     <!-- Notifications -->
     <string name="new_notification_received">Nova notificação recebida</string>
@@ -756,4 +756,5 @@
     <string name="copy_move_to_encrypted_folder_not_supported">Copia e movimentação para a pasta criptografada atualmente não são suportadas.</string>
     <string name="untrusted_domain">Acesso através de domínio não confiável. Veja a documentação para mais informações.</string>
 
-    </resources>
+    <string name="toast_exit">Toque novamente para sair</string>
+</resources>
