@@ -283,7 +283,7 @@
     <string name="sync_file_nothing_to_do_msg">Los contenidos del archivo ya han sido sincronizados</string>
     <string name="create_dir_fail_msg">No fue posible crear la carpeta</string>
     <string name="filename_forbidden_characters">Caracteres inválidos: / \\ &lt; &gt; : \" | ? *</string>
-    <string name="filename_forbidden_charaters_from_server">El nombre del archivo contiene al menos un caracter inválido</string>
+    <string name="filename_forbidden_charaters_from_server">El nombre del archivo contiene al menos un carácter inválido</string>
     <string name="filename_empty">El nombre del archivo no puede estar en blanco. </string>
     <string name="wait_a_moment">Espera un momento &#8230;</string>
     <string name="wait_checking_credentials">Verificando credenciales almacenadas</string>
@@ -591,7 +591,7 @@
     <string name="whats_new_end_to_end_encryption_title">Encripción de punta-a-punta</string>
     <string name="whats_new_end_to_end_encryption_content">Pulsa para encriptar, desde cualquier cliente. Agrega nuevos copiando las 12 palabras.</string>
     <string name="whats_new_resized_images_title">Imágenes adaptativas</string>
-    <string name="whats_new_resized_images_content">Las imagenes miniatura son rápidas y geniales para compartir. Haz zoom para descargar la versión completa. </string>
+    <string name="whats_new_resized_images_content">Las imágenes miniatura son rápidas y geniales para compartir. Haz zoom para descargar la versión completa. </string>
     <string name="whats_new_ipv6_title">Soporte IPv6</string>
     <string name="whats_new_ipv6_content">IPv6 cuando el servidor lo soporte, IPv4 si no. </string>
 
@@ -633,7 +633,7 @@
     <!-- Notifications -->
     <string name="new_notification_received">Nueva notificación recibida</string>
     <string name="drawer_logout">Cerrar sesión</string>
-    <string name="picture_set_as_no_app">No se encontró una aplicación con la cual establecer la imágen</string>
+    <string name="picture_set_as_no_app">No se encontró una aplicación con la cual establecer la imagen</string>
     <string name="privacy">Privacidad</string>
     <string name="file_not_found">Archivo no encontrado</string>
     <string name="file_not_synced">El archivo no pudo ser sincronizado. Mostrando la última versión disponible.</string>
@@ -666,8 +666,7 @@
     <string name="resized_images_download_full_image">¿Descargar imagen completa?</string>
 
     <string name="store_short_desc">La aplicación de Nextcloud para Android te da acceso móvil a todos los archivos en tu Nextcloud</string>
-    <string name="store_full_desc">La aplicación Nextcloud para Android con copyleft libre, dándote libertad móvil.\n\nCaracterísticas:\n* Interfaz sencilla y moderna, adecuada para el tema de tu servidor\n* Carga archivos a tu servidor Nextcloud\n* Compártelos con los demás\n* Manten tus archivos y carpetas favoritos sincronizados\n* Busca en todas tus carpetas en tu servidor\n* Carga automática para las fotos y videos tomados con tu dispositivo\n* Mantente al dia con las notificaciones\b* Soporte multi-cuenta\n* Accesa de forma segura tus datos con tu huella digital o PIN\n* Integración con DAVdroid para una configuración sencilla de la sincronización del calendario &amp; contactos\n\nPor favor reporta todos los problemas en https://github.com/nextcloud/android/issues y comenta acerca de esta aplicación en https://help.nextcloud.com/c/clients/android\n\n ¿No conoces Nexcloud? Nextcloud es un servidor privado de comunicación para compartir &amp;sincronizar archivos. Es software libre y puedes hospedarlo directamente o bien pagar por el servicio a un tercero. De esta manera tienes el control de tus fotos, tu calendario y datos de contactos, tus documentos y todo lo demás.\n\nVisítanos en https://nextcloud.com 
-</string>
+    <string name="store_full_desc">La aplicación Nextcloud para Android con copyleft libre, dándote libertad móvil.\n\nCaracterísticas:\n* Interfaz sencilla y moderna, adecuada para el tema de tu servidor\n* Carga archivos a tu servidor Nextcloud\n* Compártelos con los demás\n* Manten tus archivos y carpetas favoritos sincronizados\n* Busca en todas tus carpetas en tu servidor\n* Carga automática para las fotos y videos tomados con tu dispositivo\n* Mantente al diá con las notificaciones\b* Soporte multi-cuenta\n* Accesa de forma segura tus datos con tu huella digital o PIN\n* Integración con DAVdroid para una configuración sencilla de la sincronización del calendario &amp; contactos\n\nPor favor reporta todos los problemas en https://github.com/nextcloud/android/issues y comenta acerca de esta aplicación en https://help.nextcloud.com/c/clients/android\n\n ¿No conoces Nexcloud? Nextcloud es un servidor privado de comunicación para compartir &amp;sincronizar archivos. Es software libre y puedes hospedarlo directamente o bien pagar por el servicio a un tercero. De esta manera tienes el control de tus fotos, tu calendario y datos de contactos, tus documentos y todo lo demás.\n\nVisítanos en https://nextcloud.com</string>
 
     <string name="drawer_current_account">Cuenta actual</string>
     <string name="drawer_middle_account">Cuenta intermedia</string>

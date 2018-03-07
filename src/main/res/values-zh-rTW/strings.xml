@@ -187,6 +187,9 @@
         <item quantity="other">無法同步檔案%1$d(衝突:%2$d)</item>
     </plurals>
     <string name="sync_foreign_files_forgotten_ticker">有些本地端的檔案已遺失</string>
+    <plurals name="sync_foreign_files_forgotten_content">
+        <item quantity="other">%2$s 資料夾中的 %1$d 個檔案無法被複製進去</item>
+    </plurals>
     <string name="sync_current_folder_was_removed">資料夾 %1$s 已不存在</string>
     <string name="foreign_files_move">移動全部</string>
     <string name="foreign_files_success">已經移動所有檔案</string>
@@ -217,6 +220,7 @@
     <string name="media_err_malformed">媒體檔案未被正確的編碼</string>
     <string name="media_err_timeout">欲撥放的檔案已逾時</string>
     <string name="media_err_invalid_progressive_playback">此媒體檔案無法被串流播放</string>
+    <string name="media_err_unknown">內建播放器無法播放此媒體檔案</string>
     <string name="media_err_security_ex">嘗試播放%1$s時出現安全性錯誤</string>
     <string name="media_err_io_ex">嘗試播放%1$s時輸入錯誤</string>
     <string name="media_err_unexpected">嘗試播放%1$s時出現未知錯誤</string>
@@ -250,8 +254,11 @@
 	<string name="auth_expired_oauth_token_toast">你的登入授權已過期，請再次登入</string>
 	<string name="auth_expired_basic_auth_toast">請輸入目前的密碼</string>
 	<string name="auth_expired_saml_sso_token_toast">您的工作階段已失效，請重新連線</string>
-    <string name="auth_unsupported_multiaccount">%1$s 不支援多個賬戶</string>
+    <string name="auth_connecting_auth_server">正在連線到認證伺服器中 &#8230;</string>
+	<string name="auth_unsupported_multiaccount">%1$s 不支援多個賬戶</string>
+	<string name="auth_fail_get_user_name">你的伺服器並未回應正確的使用者 ID，請聯繫管理人員</string>
 	<string name="auth_can_not_auth_against_server">無法與伺服器認證</string>
+    <string name="auth_account_does_not_exist">此帳號尚未加入到這個裝置</string>
     <string name="auth_access_failed">存取失敗</string>
 
     <string name="favorite">設定為離線可用</string>
@@ -259,8 +266,12 @@
     <string name="favorite_real">設置為收藏</string>
     <string name="unset_favorite_real">解除設置收藏</string>
     <string name="favorite_switch">離線可用</string>
+    <string name="encrypted">設為已加密的</string>
+    <string name="unset_encrypted">取消加密</string>
     <string name="common_rename">重新命名</string>
     <string name="common_remove">刪除</string>
+    <string name="confirmation_remove_file_alert">你真的想要刪除 %1$s？</string>
+    <string name="confirmation_remove_folder_alert">你真的想要刪除 %1$s 與裡面的檔案？</string>
     <string name="confirmation_remove_local">只有本地</string>
     <string name="remove_success_msg">已刪除</string>
     <string name="remove_fail_msg">刪除失敗</string>

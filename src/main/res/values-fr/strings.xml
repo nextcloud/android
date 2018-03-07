@@ -759,4 +759,5 @@ Veuillez contacter votre administrateur</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Copier/déplacer dans ce dossier chiffré n\'est pas actuellement supporté</string>
     <string name="untrusted_domain">Accès depuis un domaine non fiable. Veuillez consulter la documentation pour plus d\'informations.</string>
 
-    </resources>
+    <string name="toast_exit">Appuyer encore pour quitter</string>
+</resources>
