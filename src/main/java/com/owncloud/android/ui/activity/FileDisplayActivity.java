@@ -53,6 +53,7 @@ import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.SearchView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -1026,7 +1027,6 @@ public class FileDisplayActivity extends HookActivity
         boolean isFabOpen = isFabOpen();
         boolean isDrawerOpen = isDrawerOpen();
         boolean isSearchOpen = isSearchOpen();
-
         /*
          * BackPressed priority/hierarchy:
          *    1. close search view if opened
@@ -1036,7 +1036,9 @@ public class FileDisplayActivity extends HookActivity
          */
 
         if (mBackToExitPressedOnce) {
-            super.onBackPressed();
+            //super.onBackPressed(); //removed, led to closing of activity
+            // when double clicking the back button
+
             if (isSearchOpen && searchView != null) {
                 searchView.setQuery("", true);
                 searchView.onActionViewCollapsed();
