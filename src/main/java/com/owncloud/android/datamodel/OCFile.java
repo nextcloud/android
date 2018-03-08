@@ -269,6 +269,18 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
         return mMimeType != null && mMimeType.equals(MimeType.DIRECTORY);
     }
 
+
+    /**
+     * Sets mimetype to folder and returns this file
+     * Only for testing
+     *
+     * @return OCFile this file
+     */
+    public OCFile setFolder() {
+        setMimetype(MimeType.DIRECTORY);
+        return this;
+    }
+
     /**
      * Use this to check if this file is available locally
      *
@@ -619,7 +631,9 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
 
     @Override
     public int compareTo(@NonNull OCFile another) {
-        if (isFolder()) {
+        if (isFolder() && another.isFolder()) {
+            return new AlphanumComparator().compare(this, another);
+        } else if (isFolder()) {
             return -1;
         } else if (another.isFolder()) {
             return 1;

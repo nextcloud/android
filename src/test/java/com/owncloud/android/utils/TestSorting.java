@@ -1,9 +1,13 @@
 package com.owncloud.android.utils;
 
+import com.owncloud.android.datamodel.OCFile;
+
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import third_parties.daveKoeller.AlphanumComparator;
@@ -42,30 +46,26 @@ public class TestSorting {
 
     @Test
     public void testSpecialChars() {
+        String[] sortedArray = {"[Test] Folder", "01 - January", "11 - November", "Ôle",
+                "Test 1", "Test 01", "Test 04", "Üüü",
+                "z.[Test], z. Test"};
 
-        String[] unsortedArray = {"Test 1", "11 - November", "Test 04", "Test 01", "Ôle", "Üüü", "01 - January", "[Test] Folder",
-                "z.[Test]", "z. Test"};
-
-        String[] sortedArray = {"[Test] Folder", "01 - January", "11 - November", "Ôle", "Test 1", "Test 01", "Test 04", "Üüü",
-                "z. Test", "z.[Test]"};
-
-        assertTrue(sortAndTest(unsortedArray, sortedArray));
+        assertTrue(sortAndTest(Arrays.asList(sortedArray)));
     }
 
     @Test
     public void testDifferentCasing() {
-        String[] unsortedArray = {"aaa", "bbb", "BBB", "AAA"};
         String[] sortedArray = {"aaa", "AAA", "bbb", "BBB"};
 
-        assertTrue(sortAndTest(unsortedArray, sortedArray));
+        assertTrue(sortAndTest(Arrays.asList(sortedArray)));
     }
 
     @Test
     public void testLeadingZeros() {
-        String[] unsortedArray = {"T 3 abc", "T 2 abc", "T 03 abc", "T 01 abc", "T 0 abc", "T 02 abc", "T 1 abc", "T 001 abc", "T 000 abc", "T 00 abc"};
-        String[] sortedArray = {"T 0 abc", "T 00 abc", "T 000 abc", "T 1 abc", "T 01 abc", "T 001 abc", "T 2 abc", "T 02 abc", "T 3 abc", "T 03 abc"};
+        String[] sortedArray = {"T 0 abc", "T 00 abc", "T 000 abc", "T 1 abc", "T 01 abc",
+                "T 001 abc", "T 2 abc", "T 02 abc", "T 3 abc", "T 03 abc"};
 
-        assertTrue(sortAndTest(unsortedArray, sortedArray));
+        assertTrue(sortAndTest(Arrays.asList(sortedArray)));
     }
 
     @Test
@@ -73,55 +73,100 @@ public class TestSorting {
         String[] unsortedArray = {"Zeros 2", "Zeros", "T 2", "T", "T 01", "T 003", "A"};
         String[] sortedArray = {"A", "T", "T 01", "T 2", "T 003", "Zeros", "Zeros 2"};
 
-        assertTrue(sortAndTest(unsortedArray, sortedArray));
+        assertTrue(sortAndTest(Arrays.asList(sortedArray)));
     }
 
     @Test
-    public void testNumbers() {
-        String[] unsortedArray = {"124.txt", "abc1", "123.txt", "abc", "abc2", "def (2).txt", "ghi 10.txt", "abc12",
-                "def.txt", "def (1).txt", "ghi 2.txt", "def (10).txt", "abc10", "def (12).txt", "z", "ghi.txt", "za",
-                "ghi 1.txt", "ghi 12.txt", "zz", "15.txt", "15b.txt"};
+    public void testOCFilesWithFolderFirst() {
+        List<OCFile> sortedArray = new ArrayList<>();
+        sortedArray.add(new OCFile("/ah.txt").setFolder());
+        sortedArray.add(new OCFile("/Äh.txt").setFolder());
+        sortedArray.add(new OCFile("/oh.txt").setFolder());
+        sortedArray.add(new OCFile("/öh.txt").setFolder());
+        sortedArray.add(new OCFile("/üh.txt").setFolder());
+        sortedArray.add(new OCFile("/Üh.txt").setFolder());
+        sortedArray.add(new OCFile("/äh.txt"));
+        sortedArray.add(new OCFile("/Öh.txt"));
+        sortedArray.add(new OCFile("/uh.txt"));
+        sortedArray.add(new OCFile("/Üh 2.txt"));
 
-        String[] sortedArray = {"15.txt", "15b.txt", "123.txt", "124.txt", "abc", "abc1", "abc2", "abc10", "abc12",
-                "def.txt", "def (1).txt", "def (2).txt", "def (10).txt", "def (12).txt", "ghi.txt", "ghi 1.txt",
-                "ghi 2.txt", "ghi 10.txt", "ghi 12.txt", "z", "za", "zz"};
-
-        assertTrue(sortAndTest(unsortedArray, sortedArray));
+        assertTrue(sortAndTest(sortedArray));
     }
 
+    /**
+     * uses OCFile.compareTo() instead of custom comparator
+     */
     @Test
-    public void testChineseCharacters() {
-        String[] unsortedArray = {"十.txt", "一.txt", "二.txt", "十 2.txt", "三.txt", "四.txt", "abc.txt", "五.txt",
-                "七.txt", "八.txt", "九.txt", "六.txt", "十一.txt", "波.txt", "破.txt", "莫.txt", "啊.txt", "123.txt"};
+    public void testOCFiles() {
+        List<OCFile> sortedArray = new ArrayList<>();
+        sortedArray.add(new OCFile("/ah.txt").setFolder());
+        sortedArray.add(new OCFile("/Äh.txt").setFolder());
+        sortedArray.add(new OCFile("/oh.txt").setFolder());
+        sortedArray.add(new OCFile("/öh.txt").setFolder());
+        sortedArray.add(new OCFile("/üh.txt").setFolder());
+        sortedArray.add(new OCFile("/Üh.txt").setFolder());
+        sortedArray.add(new OCFile("/äh.txt"));
+        sortedArray.add(new OCFile("/Öh.txt"));
+        sortedArray.add(new OCFile("/uh.txt"));
+        sortedArray.add(new OCFile("/Üh 2.txt"));
 
-        String[] sortedArray = {"123.txt", "abc.txt", "一.txt", "七.txt", "三.txt", "九.txt", "二.txt", "五.txt",
-                "八.txt", "六.txt", "十.txt", "十 2.txt", "十一.txt", "啊.txt", "四.txt", "波.txt", "破.txt", "莫.txt"};
+        List unsortedList = shuffle(sortedArray);
+        Collections.sort(unsortedList);
 
-        assertTrue(sortAndTest(unsortedArray, sortedArray));
+        assertTrue(test(sortedArray, unsortedList));
     }
 
-    @Test
-    public void testWithUmlauts() {
-        String[] unsortedArray = {"öh.txt", "Äh.txt", "oh.txt", "Üh 2.txt", "Üh.txt", "ah.txt", "Öh.txt", "uh.txt",
-                "üh.txt", "äh.txt"};
-        String[] sortedArray = {"ah.txt", "äh.txt", "Äh.txt", "oh.txt", "öh.txt", "Öh.txt", "uh.txt", "üh.txt",
-                "Üh.txt", "Üh 2.txt"};
+    private List<Comparable> shuffle(List<? extends Comparable> files) {
+        List<Comparable> shuffled = new ArrayList<>();
+        shuffled.addAll(files);
 
-        assertTrue(sortAndTest(unsortedArray, sortedArray));
+        Collections.shuffle(shuffled);
+
+        return shuffled;
     }
 
-    private boolean sortAndTest(String[] unsortedArray, String[] sortedArray) {
-        List<String> unsortedList = Arrays.asList(unsortedArray);
-        List<String> sortedList = Arrays.asList(sortedArray);
+    private boolean sortAndTest(List<? extends Comparable> sortedList) {
+        return test(sortedList, sort(sortedList));
+    }
 
+    private List<Comparable> sort(List<? extends Comparable> sortedList) {
+        List unsortedList = shuffle(sortedList);
 
-        Collections.sort(unsortedList, new AlphanumComparator<>());
+        if (sortedList.get(0) instanceof OCFile) {
+            Collections.sort(unsortedList, (Comparator<OCFile>) (o1, o2) -> {
+                if (o1.isFolder() && o2.isFolder()) {
+                    return new AlphanumComparator().compare(o1, o2);
+                } else if (o1.isFolder()) {
+                    return -1;
+                } else if (o2.isFolder()) {
+                    return 1;
+                }
+                return new AlphanumComparator().compare(o1, o2);
+            });
+        } else {
+            Collections.sort(unsortedList, new AlphanumComparator<>());
+        }
 
-        for (int i = 0; i < sortedList.size(); i++) {
-            if (sortedList.get(i).compareTo(unsortedList.get(i)) != 0) {
+        return unsortedList;
+    }
 
-                System.out.println(" target: " + sortedList.toString());
-                System.out.println(" actual: " + unsortedList.toString());
+    private boolean test(List<? extends Comparable> target, List<? extends Comparable> actual) {
+
+        for (int i = 0; i < target.size(); i++) {
+            int compare;
+
+            if (target.get(i) instanceof OCFile) {
+                String sortedName = ((OCFile) target.get(i)).getFileName();
+                String unsortedName = ((OCFile) actual.get(i)).getFileName();
+                compare = sortedName.compareTo(unsortedName);
+            } else {
+                compare = target.get(i).compareTo(actual.get(i));
+            }
+
+            if (compare != 0) {
+
+                System.out.println(" target: \n" + target.toString());
+                System.out.println(" actual: \n" + actual.toString());
 
                 return false;
             }

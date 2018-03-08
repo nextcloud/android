@@ -30,7 +30,6 @@ import java.io.File;
 import java.io.Serializable;
 import java.text.Collator;
 import java.util.Comparator;
-import java.util.Locale;
 
 /*
  * This is an updated version with enhancements made by Daniel Migowski, Andre Bogus, and David Koelle
@@ -88,15 +87,15 @@ public class AlphanumComparator<T> implements Comparator<T>, Serializable {
     }
 
     public int compare(OCFile o1, OCFile o2) {
-        String s1 = o1.getFileName().toLowerCase(Locale.ROOT);
-        String s2 = o2.getFileName().toLowerCase(Locale.ROOT);
+        String s1 = o1.getFileName();
+        String s2 = o2.getFileName();
 
         return compare(s1, s2);
     }
 
     public int compare(File f1, File f2) {
-        String s1 = f1.getPath().toLowerCase(Locale.ROOT);
-        String s2 = f2.getPath().toLowerCase(Locale.ROOT);
+        String s1 = f1.getPath();
+        String s2 = f2.getPath();
 
         return compare(s1, s2);
     }
