@@ -754,5 +754,4 @@
     <string name="end_to_end_encryption_storing_keys">Anahtarlar kaydediliyor</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Şifrelenmiş bir klasöre kopyalama ve taşıma işlemleri henüz desteklenmiyor.</string>
     <string name="untrusted_domain">Güvenilmeyen bir etki alanı üzerinden erişiliyor. Lütfen ayrıntılı bilgi almak için belgelere bakın.</string>
-
-    </resources>
+</resources>

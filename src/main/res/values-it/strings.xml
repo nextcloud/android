@@ -755,5 +755,4 @@
     <string name="end_to_end_encryption_storing_keys">Archiviazione chiavi</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Copia/Spostamento in una cartella cifrata attualmente non supportati.</string>
     <string name="untrusted_domain">Accesso tramite un dominio non fidato. Vedi la documentazione per ulteriori informazioni.</string>
-
-    </resources>
+</resources>

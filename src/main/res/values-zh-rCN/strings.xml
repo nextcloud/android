@@ -737,5 +737,4 @@
     <string name="end_to_end_encryption_storing_keys">正在保存密匙</string>
     <string name="copy_move_to_encrypted_folder_not_supported">复制/移动到加密的文件夹目前不支持。</string>
     <string name="untrusted_domain">通过不受信任的域名访问。有关进一步的信息，请参阅文档。</string>
-
-    </resources>
+</resources>

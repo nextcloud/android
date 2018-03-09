@@ -759,5 +759,4 @@
     <string name="end_to_end_encryption_storing_keys">Складиштење кључева</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Копирање/премештање у шифровану фасциклу није подржано.</string>
     <string name="untrusted_domain">Приступ кроз домен који није од поверења. Погледајте документацију за још информација.</string>
-
-    </resources>
+</resources>

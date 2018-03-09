@@ -755,6 +755,4 @@
     <string name="end_to_end_encryption_storing_keys">Almacenando claves</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Copiar/mover en la carpeta cifrada no está actualmente soportado.</string>
     <string name="untrusted_domain">Acceder a través de un domino no confiado. Por favor, mira la documentación para más información.</string>
-
-    <string name="toast_exit">Pulsa otra vez para salir</string>
 </resources>
