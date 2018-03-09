@@ -40,7 +40,7 @@
     <string name="prefs_category_more">Více</string>
     <string name="prefs_manage_accounts">Spravovat účty</string>
     <string name="prefs_passcode">Zámek bezpečnostního kódu</string>
-    <string name="prefs_fingerprint">Zámek otiskemprstu</string>
+    <string name="prefs_fingerprint">Zámek otiskem prstu</string>
     <string name="prefs_fingerprint_notsetup">Nebyly nastaveny žádné otisky prstů.</string>
     <string name="prefs_expert_mode">Režim pro experty</string>
     <string name="prefs_show_hidden_files">Zobrazit skryté soubory</string>
@@ -88,6 +88,7 @@
     <string name="file_list_empty">Nahrajte nějaký obsah, nebo synchronizujte s vašimi zařízeními!</string>
     <string name="file_list_empty_favorites_filter_list">Zde budou zobrazeny soubory a adresáře označené jako oblíbené</string>
     <string name="file_list_empty_favorites_filter">Vaše vyhledávání nenalezlo žádné oblíbené soubory</string>
+    <string name="file_list_loading">Načítá se &#8230;</string>
     <string name="file_list_no_app_for_file_type">Pro tento typ souboru nebyla nalezena aplikace!</string>
     <string name="local_file_list_empty">V tomto adresáři nejsou žádné soubory.</string>
     <string name="local_folder_list_empty">Nejsou zde další složky.</string>
@@ -102,12 +103,14 @@
     <string name="file_list_empty_recently_added">Nenalezeny žádné nedávno přidané soubory</string>
     <string name="file_list_empty_text_photos">Nahrajte nějaké fotky nebo aktivujte automatické nahrávání.</string>
     <string name="file_list_empty_text_videos">Nahrajte nějaká videa nebo aktivujte automatické nahrávání.</string>
+    <string name="file_list_empty_text_videos_filter">Žádná videa.</string>
     <string name="upload_list_empty_headline">Nic k nahrání</string>
     <string name="upload_list_empty_text_auto_upload">Nahrajte nějaký obsah nebo aktivujte automatické nahrávání.</string>
     <string name="file_list_folder">adresář</string>
     <string name="filedetails_select_file">Více informací získáte klepnutím na soubor.</string>
     <string name="filedetails_download">Stáhnout</string>
     <string name="list_layout">Náhled seznamu</string>
+    <string name="action_send_share">Poslat/sdílet</string>
     <string name="common_yes">Ano</string>
     <string name="common_no">Ne</string>
     <string name="common_ok">OK</string>
@@ -115,6 +118,7 @@
     <string name="common_cancel">Zrušit</string>
     <string name="common_back">Zpět</string>
     <string name="common_save">Uložit</string>
+    <string name="common_error">Error</string>
     <string name="common_loading">Načítání &#8230;</string>
     <string name="common_unknown">neznámý</string>
     <string name="common_error_unknown">Neznámá chyba</string>
@@ -398,6 +402,7 @@
     <string name="set_picture_as">Použít obrázek jako</string>
     <string name="set_as">Nastavit jako</string>
 
+    <string name="prefs_instant_behaviour_title">Původní soubor bude &#8230;</string>
     <string name="select_all">Vybrat vše</string>
     <string name="deselect_all">Odznačit vše</string>
 
@@ -479,6 +484,7 @@
     <string name="participate_rc_fdroid">Získat kandidáta na vydání z aplikace F-Droid</string>
     <string name="participate_dev_fdroid">Získat vývojové vydání z aplikace F-Droid</string>
     <string name="participate_dev_direct_download">Stáhnout vývojové vydání přímo</string>
+    <string name="move_to">Přesunout do &#8230;</string>
     <string name="synced_folders_no_results">Nebyly nalezeny žádné adresáře médií.</string>
     <string name="synced_folders_preferences">Nastavení automatického nahrávání</string>
     <string name="synced_folders_new_info">Okamžité nahrání bylo kompletně upraveno. Znovu nakonfigurujte automatické nahrávání z hlavní nabídky.\n\nUžijte si nové a rozšířené automatické nahrávání.</string>
@@ -511,6 +517,7 @@
     <string name="welcome_feature_3_title">Automatické nahrávání</string>
     <string name="welcome_feature_3_text">Již se neobávjte o své fotografie</string>
 
+    <string name="whats_new_ipv6_title">Podpora IPv6</string>
     <string name="whats_new_skip">Přeskočit</string>
 
     <string name="fingerprint_scan_finger">Prosím, naskenujte svůj otisk prstu</string>
@@ -547,6 +554,7 @@
 
     <!-- Notifications -->
     <string name="new_notification_received">Přijato nové upozornění</string>
+    <string name="drawer_logout">Odhlásit se</string>
     <string name="privacy">Soukromí</string>
     <!-- Auto upload -->
     <string name="autoupload_custom_folder">Vytvořte vlastní složku</string>
@@ -596,4 +604,14 @@
     <string name="store_short_dev_desc">Aplikace Nextcloud Dev je vývojovým snímkem a může být nainstalována paralelně.</string>
     <string name="prefs_category_dev">Dev</string>
     <string name="folder_icon">Ikona adresáře</string>
+    <string name="version_dev_download">Stáhnout</string>
+
+    <string name="send">Odeslat</string>
+    <string name="share">Sdílet</string>
+    <string name="link">Odkaz</string>
+
+    <string name="end_to_end_encryption_folder_not_empty">Tato složka není prázdná.</string>
+    <string name="end_to_end_encryption_wrong_password">Chyba při rozšifrovávání. Chybné heslo?</string>
+    <string name="end_to_end_encryption_dialog_close">Zavřít</string>
+    <string name="end_to_end_encryption_storing_keys">Ukládání klíčů</string>
     </resources>

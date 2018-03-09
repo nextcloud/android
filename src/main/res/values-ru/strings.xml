@@ -765,5 +765,4 @@
     <string name="end_to_end_encryption_storing_keys">Сохранение ключей</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Копирование и перемещение в зашифрованные папки пока не поддерживается.</string>
     <string name="untrusted_domain">Доступ через недоверенный домен. За дополнительной информацией обратитесь к документации.</string>
-
-    </resources>
+</resources>
