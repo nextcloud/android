@@ -39,6 +39,7 @@ public class NotificationUtils {
     public static final String NOTIFICATION_CHANNEL_MEDIA = "NOTIFICATION_CHANNEL_MEDIA";
     public static final String NOTIFICATION_CHANNEL_FILE_SYNC = "NOTIFICATION_CHANNEL_FILE_SYNC";
     public static final String NOTIFICATION_CHANNEL_FILE_OBSERVER = "NOTIFICATION_CHANNEL_FILE_OBSERVER";
+    public static final String NOTIFICATION_CHANNEL_PUSH = "NOTIFICATION_CHANNEL_PUSH";
 
     /**
      * Factory method for {@link android.support.v4.app.NotificationCompat.Builder} instances.

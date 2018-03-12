@@ -330,6 +330,10 @@ public class MainApp extends MultiDexApplication {
                 createChannel(notificationManager, NotificationUtils.NOTIFICATION_CHANNEL_FILE_OBSERVER,
                         R.string.notification_channel_file_observer_name, R.string
                                 .notification_channel_file_observer_description, context);
+
+                createChannel(notificationManager, NotificationUtils.NOTIFICATION_CHANNEL_PUSH,
+                        R.string.notification_channel_push_name, R.string
+                                .notification_channel_push_description, context, NotificationManager.IMPORTANCE_DEFAULT);
             } else {
                 Log_OC.e(TAG, "Notification manager is null");
             }
@@ -339,13 +343,19 @@ public class MainApp extends MultiDexApplication {
     private static void createChannel(NotificationManager notificationManager,
                                       String channelId, int channelName,
                                       int channelDescription, Context context) {
+        createChannel(notificationManager, channelId, channelName, channelDescription, context,
+                NotificationManager.IMPORTANCE_LOW);
+    }
+
+    private static void createChannel(NotificationManager notificationManager,
+                                      String channelId, int channelName,
+                                      int channelDescription, Context context, int importance) {
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O
                 && getAppContext() != null
                 && notificationManager.getNotificationChannel(channelId) == null) {
             CharSequence name = context.getString(channelName);
             String description = context.getString(channelDescription);
-            NotificationChannel channel = new NotificationChannel(channelId, name,
-                    NotificationManager.IMPORTANCE_LOW);
+            NotificationChannel channel = new NotificationChannel(channelId, name, importance);
 
             channel.setDescription(description);
             channel.enableLights(false);
