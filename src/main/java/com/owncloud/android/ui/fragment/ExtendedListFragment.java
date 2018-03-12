@@ -124,7 +124,7 @@ public class ExtendedListFragment extends Fragment
     private ArrayList<Integer> mTops;
     private int mHeightCell = 0;
 
-    private OnEnforceableRefreshListener mOnRefreshListener = null;
+    private SwipeRefreshLayout.OnRefreshListener mOnRefreshListener = null;
 
     protected AbsListView mCurrentListView;
     private ExtendedListView mListView;
@@ -880,7 +880,7 @@ public class ExtendedListFragment extends Fragment
         mRefreshEmptyLayout.setRefreshing(false);
 
         if (mOnRefreshListener != null) {
-            mOnRefreshListener.onRefresh(ignoreETag);
+            mOnRefreshListener.onRefresh();
         }
     }
 
