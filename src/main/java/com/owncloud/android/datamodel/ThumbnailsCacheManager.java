@@ -896,7 +896,11 @@ public class ThumbnailsCacheManager {
 
                         }
                     } catch (Exception e) {
-                        Log_OC.e(TAG, "Error downloading avatar", e);
+                        try {
+                            return TextDrawable.createAvatar(mAccount.name, mAvatarRadius);
+                        } catch (Exception e1) {
+                            Log_OC.e(TAG, "Error generating fallback avatar");
+                        }
                     } finally {
                         if (get != null) {
                             get.releaseConnection();
@@ -904,6 +908,12 @@ public class ThumbnailsCacheManager {
                     }
                 } else {
                     Log_OC.d(TAG, "Server too old");
+
+                    try {
+                        return TextDrawable.createAvatar(mAccount.name, mAvatarRadius);
+                    } catch (Exception e) {
+                        Log_OC.e(TAG, "Error generating fallback avatar");
+                    }
                 }
             }
             return BitmapUtils.bitmapToCircularBitmapDrawable(mResources, avatar);
