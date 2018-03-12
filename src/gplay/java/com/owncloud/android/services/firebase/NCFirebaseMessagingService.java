@@ -32,6 +32,7 @@ import com.google.firebase.messaging.RemoteMessage;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.ui.activity.NotificationsActivity;
+import com.owncloud.android.ui.notifications.NotificationUtils;
 import com.owncloud.android.utils.ThemeUtils;
 
 public class NCFirebaseMessagingService extends FirebaseMessagingService {
@@ -57,8 +58,11 @@ public class NCFirebaseMessagingService extends FirebaseMessagingService {
                 .setAutoCancel(true)
                 .setContentIntent(pendingIntent);
 
-        NotificationManager notificationManager =
-                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        if ((android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O)) {
+            notificationBuilder.setChannelId(NotificationUtils.NOTIFICATION_CHANNEL_PUSH);
+        }
+
+        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
         notificationManager.notify(0, notificationBuilder.build());
     }
