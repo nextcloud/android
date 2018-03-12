@@ -192,6 +192,17 @@ public class FileUploader extends Service
         return FileUploader.class.getName() + UPLOAD_FINISH_MESSAGE;
     }
 
+    private static SyncedFolder getSyncedFolderById(long id, ContentResolver contentResolver) {
+        SyncedFolderProvider syncedFolderProvider = new SyncedFolderProvider(contentResolver);
+        for (SyncedFolder syncedFolder : syncedFolderProvider.getSyncedFolders()) {
+            if (syncedFolder.getId() == id) {
+                return syncedFolder;
+            }
+        }
+
+        return null;
+    }
+
     @Override
     public void onRenameUpload() {
         mUploadsStorageManager.updateDatabaseUploadStart(mCurrentUpload);
@@ -461,13 +472,10 @@ public class FileUploader extends Service
             whileChargingOnly = upload.isWhileChargingOnly();
 
             if (upload.getSyncedFolderId() != -1) {
-                SyncedFolderProvider syncedFolderProvider = new SyncedFolderProvider(getContentResolver());
-                for (SyncedFolder syncedFolder : syncedFolderProvider.getSyncedFolders()) {
-                    if (syncedFolder.getId() == syncedFolderId) {
-                        onWifiOnly = syncedFolder.getWifiOnly();
-                        whileChargingOnly = syncedFolder.getChargingOnly();
-                        break;
-                    }
+                SyncedFolder syncedFolder = getSyncedFolderById(upload.getSyncedFolderId(), getContentResolver());
+                if (syncedFolder != null) {
+                    onWifiOnly = syncedFolder.getWifiOnly();
+                    whileChargingOnly = syncedFolder.getChargingOnly();
                 }
             }
 
@@ -543,17 +551,6 @@ public class FileUploader extends Service
             mCurrentUpload.cancel();
         }
         // The rest of uploads are cancelled when they try to start
-    }
-
-    private static SyncedFolder getSyncedFolderById(long id, ContentResolver contentResolver) {
-        SyncedFolderProvider syncedFolderProvider = new SyncedFolderProvider(contentResolver);
-        for (SyncedFolder syncedFolder : syncedFolderProvider.getSyncedFolders()) {
-            if (syncedFolder.getId() == id) {
-                return syncedFolder;
-            }
-        }
-
-        return null;
     }
 
     /**
