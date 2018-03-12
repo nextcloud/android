@@ -23,6 +23,7 @@ import android.accounts.Account;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.os.Build;
 import android.os.PowerManager;
 import android.support.annotation.NonNull;
 
@@ -53,6 +54,7 @@ public class OfflineSyncJob extends Job {
     protected Result onRunJob(@NonNull Params params) {
         final Context context = MainApp.getAppContext();
 
+        PowerManager.WakeLock wakeLock = null;
         if (!PowerUtils.isPowerSaveMode(context) && !ConnectivityUtils.isInternetWalled(context)) {
             Set<Job> jobs = JobManager.instance().getAllJobsForTag(TAG);
             for (Job job : jobs) {
@@ -61,10 +63,11 @@ public class OfflineSyncJob extends Job {
                 }
             }
 
-            PowerManager powerManager = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
-            PowerManager.WakeLock wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK,
-                    TAG);
-            wakeLock.acquire();
+            if (android.os.Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+                PowerManager powerManager = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
+                wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, TAG);
+                wakeLock.acquire();
+            }
 
             Cursor cursorOnKeptInSync = context.getContentResolver().query(
                     ProviderMeta.ProviderTableMeta.CONTENT_URI,
@@ -115,7 +118,9 @@ public class OfflineSyncJob extends Job {
                 }
             }
 
-            wakeLock.release();
+            if (wakeLock != null) {
+                wakeLock.release();
+            }
         }
 
         return Result.SUCCESS;
