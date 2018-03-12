@@ -159,7 +159,7 @@ public class MainApp extends MultiDexApplication {
             }
         }
 
-        initAutoUpload();
+        initSyncOperations();
         initContactsBackup();
         notificationChannels();
 
@@ -274,7 +274,7 @@ public class MainApp extends MultiDexApplication {
         }
     }
 
-    public static void initAutoUpload() {
+    public static void initSyncOperations() {
         updateToAutoUpload();
         cleanOldEntries();
         updateAutoUploadEntries();
