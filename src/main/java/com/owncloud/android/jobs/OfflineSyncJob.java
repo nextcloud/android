@@ -58,7 +58,7 @@ public class OfflineSyncJob extends Job {
         if (!PowerUtils.isPowerSaveMode(context) && !ConnectivityUtils.isInternetWalled(context)) {
             Set<Job> jobs = JobManager.instance().getAllJobsForTag(TAG);
             for (Job job : jobs) {
-                if (!job.isFinished()) {
+                if (!job.isFinished() && !job.equals(this)) {
                     return Result.SUCCESS;
                 }
             }
