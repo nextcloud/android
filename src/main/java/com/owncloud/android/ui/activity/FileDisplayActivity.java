@@ -282,7 +282,7 @@ public class FileDisplayActivity extends HookActivity
             }
         } else {
             createMinFragments(savedInstanceState);
-            refreshList(false);
+            refreshList(true);
         }
 
         setIndeterminate(mSyncInProgress);
