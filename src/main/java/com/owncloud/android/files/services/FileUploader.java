@@ -306,14 +306,14 @@ public class FileUploader extends Service
         boolean whileChargingOnly = false;
 
         if ((syncedFolderId = intent.getLongExtra(KEY_SYNCED_FOLDER, -1)) != -1) {
-            SyncedFolderProvider syncedFolderProvider = new SyncedFolderProvider(getContentResolver());
-            for (SyncedFolder syncedFolder : syncedFolderProvider.getSyncedFolders()) {
-                if (syncedFolder.getId() == syncedFolderId) {
-                    onWifiOnly = syncedFolder.getWifiOnly();
-                    whileChargingOnly = syncedFolder.getChargingOnly();
-                    break;
-                }
+
+            SyncedFolder syncedFolder = getSyncedFolderById(syncedFolderId, getContentResolver());
+            if (syncedFolder != null) {
+                onWifiOnly = syncedFolder.getWifiOnly();
+                whileChargingOnly = syncedFolder.getChargingOnly();
+
             }
+
         } else {
             onWifiOnly = intent.getBooleanExtra(KEY_WHILE_ON_WIFI_ONLY, true);
             whileChargingOnly = intent.getBooleanExtra(KEY_WHILE_CHARGING_ONLY, false);
@@ -543,6 +543,17 @@ public class FileUploader extends Service
             mCurrentUpload.cancel();
         }
         // The rest of uploads are cancelled when they try to start
+    }
+
+    private static SyncedFolder getSyncedFolderById(long id, ContentResolver contentResolver) {
+        SyncedFolderProvider syncedFolderProvider = new SyncedFolderProvider(contentResolver);
+        for (SyncedFolder syncedFolder : syncedFolderProvider.getSyncedFolders()) {
+            if (syncedFolder.getId() == id) {
+                return syncedFolder;
+            }
+        }
+
+        return null;
     }
 
     /**
@@ -1043,15 +1054,12 @@ public class FileUploader extends Service
             boolean needsCharging = ocUpload.isWhileChargingOnly();
 
             if (ocUpload.getSyncedFolderId() != -1) {
-                SyncedFolderProvider syncedFolderProvider = new SyncedFolderProvider(contentResolver);
-                for (SyncedFolder syncedFolder : syncedFolderProvider.getSyncedFolders()) {
-                    if (syncedFolder.getId() == ocUpload.getSyncedFolderId()) {
-                        needsWifi = syncedFolder.getWifiOnly();
-                        needsCharging = syncedFolder.getChargingOnly();
-                        break;
-                    }
-                }
+                SyncedFolder syncedFolder = getSyncedFolderById(ocUpload.getSyncedFolderId(), contentResolver);
+                if (syncedFolder != null) {
+                    needsWifi = syncedFolder.getWifiOnly();
+                    needsCharging = syncedFolder.getChargingOnly();
 
+                }
             }
 
             return new File(ocUpload.getLocalPath()).exists() && !(needsCharging && !isCharging) &&
