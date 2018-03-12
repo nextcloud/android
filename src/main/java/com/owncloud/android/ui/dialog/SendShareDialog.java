@@ -169,27 +169,25 @@ public class SendShareDialog extends BottomSheetDialogFragment {
     @NonNull
     private SendButtonAdapter.ClickListener setupSendButtonClickListener(Intent sendIntent) {
         return sendButtonDataData -> {
+            String packageName = sendButtonDataData.getPackageName();
+            String activityName = sendButtonDataData.getActivityName();
 
-                if (MimeTypeUtil.isImage(file) && !file.isDown()) {
-                    fileOperationsHelper.sendCachedImage(file);
-                } else {
-                    String packageName = sendButtonDataData.getPackageName();
-                    String activityName = sendButtonDataData.getActivityName();
-
-                    // Obtain the file
-                    if (file.isDown()) {
-                        sendIntent.setComponent(new ComponentName(packageName, activityName));
-                        getActivity().startActivity(Intent.createChooser(sendIntent, getString(R.string.send)));
-
-                    } else {  // Download the file
-                        Log_OC.d(TAG, file.getRemotePath() + ": File must be downloaded");
-                        ((SendShareDialog.SendShareDialogDownloader) getActivity()).downloadFile(file, packageName,
-                                activityName);
-                    }
+            if (MimeTypeUtil.isImage(file) && !file.isDown()) {
+                fileOperationsHelper.sendCachedImage(file, packageName, activityName);
+            } else {
+                // Obtain the file
+                if (file.isDown()) {
+                    sendIntent.setComponent(new ComponentName(packageName, activityName));
+                    getActivity().startActivity(Intent.createChooser(sendIntent, getString(R.string.send)));
+                } else {  // Download the file
+                    Log_OC.d(TAG, file.getRemotePath() + ": File must be downloaded");
+                    ((SendShareDialog.SendShareDialogDownloader) getActivity()).downloadFile(file, packageName,
+                            activityName);
                 }
+            }
 
-                dismiss();
-            };
+            dismiss();
+        };
     }
 
     @NonNull
