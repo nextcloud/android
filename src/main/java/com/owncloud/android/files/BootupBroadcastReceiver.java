@@ -46,7 +46,7 @@ public class BootupBroadcastReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         if (Intent.ACTION_BOOT_COMPLETED.equals(intent.getAction())) {
-            MainApp.initAutoUpload();
+            MainApp.initSyncOperations();
             MainApp.initContactsBackup();
         } else {
             Log_OC.d(TAG, "Getting wrong intent: " + intent.getAction());
