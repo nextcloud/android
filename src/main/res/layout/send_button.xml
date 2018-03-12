@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
  Nextcloud Android client application
 
  @author Tobias Kaminsky
@@ -20,18 +19,25 @@
  along with this program. If not, see <http://www.gnu.org/licenses/>.
 -->
 
-<FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingTop="@dimen/standard_padding">
+
+    <ImageView
+        android:id="@+id/send_button_icon"
+        android:layout_width="@dimen/share_icon_size"
+        android:layout_height="@dimen/share_icon_size"
+        android:layout_gravity="center_horizontal"
+        android:contentDescription="@string/sendbutton_description" />
 
     <TextView
-        android:id="@+id/send_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/send_button_text"
+        android:layout_width="@dimen/share_icon_size"
+        android:layout_height="@dimen/share_icon_size"
         android:layout_gravity="center"
         android:gravity="center_horizontal"
-        android:drawablePadding="@dimen/standard_half_padding"
-        android:padding="@dimen/standard_padding"
-        android:textColor="@color/black"/>
-</FrameLayout>
+        android:paddingTop="@dimen/standard_half_padding"
+        android:textColor="@color/black" />
+</LinearLayout>
