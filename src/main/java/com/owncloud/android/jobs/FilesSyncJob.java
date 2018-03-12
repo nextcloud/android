@@ -25,6 +25,7 @@ import android.accounts.Account;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.res.Resources;
+import android.os.Build;
 import android.os.PowerManager;
 import android.support.annotation.NonNull;
 import android.support.media.ExifInterface;
@@ -74,12 +75,14 @@ public class FilesSyncJob extends Job {
     protected Result onRunJob(Params params) {
         final Context context = MainApp.getAppContext();
         final ContentResolver contentResolver = context.getContentResolver();
-
-        PowerManager powerManager = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
         FileUploader.UploadRequester requester = new FileUploader.UploadRequester();
-        PowerManager.WakeLock wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK,
-                TAG);
-        wakeLock.acquire();
+        PowerManager.WakeLock wakeLock = null;
+
+        if (android.os.Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+            PowerManager powerManager = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
+            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, TAG);
+            wakeLock.acquire();
+        }
 
         PersistableBundleCompat bundle = params.getExtras();
         final boolean skipCustom = bundle.getBoolean(SKIP_CUSTOM, false);
@@ -192,7 +195,10 @@ public class FilesSyncJob extends Job {
             }
         }
 
-        wakeLock.release();
+        if (wakeLock != null) {
+            wakeLock.release();
+        }
+
         return Result.SUCCESS;
     }
 
