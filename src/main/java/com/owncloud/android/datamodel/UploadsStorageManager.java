@@ -83,6 +83,7 @@ public class UploadsStorageManager extends Observable {
         cv.put(ProviderTableMeta.UPLOADS_IS_WHILE_CHARGING_ONLY, ocUpload.isWhileChargingOnly() ? 1 : 0);
         cv.put(ProviderTableMeta.UPLOADS_IS_WIFI_ONLY, ocUpload.isUseWifiOnly() ? 1 : 0);
         cv.put(ProviderTableMeta.UPLOADS_FOLDER_UNLOCK_TOKEN, ocUpload.getFolderUnlockToken());
+        cv.put(ProviderTableMeta.UPLOADS_SYNCED_FOLDER_ID, ocUpload.getSyncedFolderId());
         Uri result = getDB().insert(ProviderTableMeta.CONTENT_URI_UPLOADS, cv);
 
         Log_OC.d(TAG, "storeUpload returns with: " + result + " for file: " + ocUpload.getLocalPath());
@@ -115,6 +116,7 @@ public class UploadsStorageManager extends Observable {
         cv.put(ProviderTableMeta.UPLOADS_UPLOAD_END_TIMESTAMP, ocUpload.getUploadEndTimestamp());
         cv.put(ProviderTableMeta.UPLOADS_FILE_SIZE, ocUpload.getFileSize());
         cv.put(ProviderTableMeta.UPLOADS_FOLDER_UNLOCK_TOKEN, ocUpload.getFolderUnlockToken());
+        cv.put(ProviderTableMeta.UPLOADS_SYNCED_FOLDER_ID, ocUpload.getSyncedFolderId());
 
         int result = getDB().update(ProviderTableMeta.CONTENT_URI_UPLOADS,
                 cv,
