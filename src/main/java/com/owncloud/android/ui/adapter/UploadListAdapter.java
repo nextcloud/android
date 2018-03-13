@@ -163,7 +163,7 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
             itemViewHolder.fileSize.setText("");
         }
 
-        //* upload date
+        // upload date
         long updateTime = item.getUploadEndTimestamp();
         CharSequence dateString = DisplayUtils.getRelativeDateTimeString(mParentActivity, updateTime,
                 DateUtils.SECOND_IN_MILLIS, DateUtils.WEEK_IN_MILLIS, 0);
@@ -226,7 +226,11 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
                 itemViewHolder.progressBar.invalidate();
                 break;
 
-            default:
+            case UPLOAD_FAILED:
+                itemViewHolder.date.setVisibility(View.GONE);
+                break;
+
+            case UPLOAD_SUCCEEDED:
                 itemViewHolder.status.setVisibility(View.GONE);
                 break;
         }

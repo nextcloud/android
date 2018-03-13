@@ -18,19 +18,18 @@
   -->
 <android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
                                         xmlns:app="http://schemas.android.com/apk/res-auto"
-                                        xmlns:tools="http://schemas.android.com/tools"
                                         android:id="@+id/drawer_layout"
                                         android:layout_width="match_parent"
                                         android:layout_height="match_parent"
                                         android:clickable="true"
                                         android:fitsSystemWindows="true"
-                                        tools:openDrawer="start">
+    android:focusable="true">
 
-    <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                                     xmlns:app="http://schemas.android.com/apk/res-auto"
-                                                     xmlns:tools="http://schemas.android.com/tools"
-                                                     android:layout_width="match_parent"
-                                                     android:layout_height="match_parent">
+    <!-- The main content view -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
         <include
             android:id="@+id/navigation_bar"
@@ -51,15 +50,9 @@
 
                 <com.owncloud.android.ui.EmptyRecyclerView
                     android:id="@android:id/list"
+                    android:padding="@dimen/standard_half_padding"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginBottom="-3dp"
-                    android:layout_marginLeft="-3dp"
-                    android:layout_marginRight="-3dp"
-                    android:clipToPadding="false"
-                    android:scrollbarStyle="outsideOverlay"
-                    android:scrollbars="vertical"
-                    android:visibility="visible"/>
+                    android:layout_height="match_parent" />
 
             </android.support.v4.widget.SwipeRefreshLayout>
 
@@ -78,7 +71,7 @@
             app:itemTextColor="@color/primary_button_text_color"
             app:menu="@menu/navigation_bar_menu"/>
 
-    </android.support.design.widget.CoordinatorLayout>
+    </RelativeLayout>
 
     <include
         layout="@layout/drawer"

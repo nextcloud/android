@@ -1,16 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  Nextcloud Android client application
+
+  Copyright (C) 2018 Tobias Kaminsky
+  Copyright (C) 2018 Nextcloud
+
+  This program is free software; you can redistribute it and/or
+  modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
+  License as published by the Free Software Foundation; either
+  version 3 of the License, or any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU AFFERO GENERAL PUBLIC LICENSE for more details.
+
+  You should have received a copy of the GNU Affero General Public
+  License along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:id="@+id/ListItemLayout"
-              android:layout_width="match_parent"
-              android:orientation="horizontal"
-              android:layout_height="wrap_content"
-              android:paddingTop="@dimen/standard_half_padding"
-              android:paddingBottom="@dimen/standard_half_padding"
-    >
+    android:id="@+id/ListItemLayout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:paddingBottom="@dimen/standard_half_padding"
+    android:paddingTop="@dimen/standard_half_padding">
 
     <TextView
+        android:id="@+id/upload_list_title"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/upload_list_title"/>
+        android:layout_height="wrap_content" />
 
 </LinearLayout>

@@ -1,12 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  Nextcloud Android client application
+
+  Copyright (C) 2018 Tobias Kaminsky
+  Copyright (C) 2018 Nextcloud
+
+  This program is free software; you can redistribute it and/or
+  modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
+  License as published by the Free Software Foundation; either
+  version 3 of the License, or any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU AFFERO GENERAL PUBLIC LICENSE for more details.
+
+  You should have received a copy of the GNU Affero General Public
+  License along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:id="@+id/upload_list_item_layout"
-              android:layout_width="match_parent"
-              android:orientation="horizontal"
-              android:layout_height="wrap_content"
-              android:paddingTop="@dimen/standard_half_padding"
-              android:paddingBottom="@dimen/standard_half_padding"
-    >
+    android:id="@+id/upload_list_item_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:paddingBottom="@dimen/standard_half_padding"
+    android:paddingTop="@dimen/standard_half_padding">
 
     <FrameLayout
         android:layout_width="@dimen/upload_list_item_frame_layout_width"
@@ -19,18 +39,18 @@
             android:layout_width="@dimen/file_icon_size"
             android:layout_height="@dimen/file_icon_size"
             android:layout_gravity="center"
-            android:src="@drawable/folder"
-            android:contentDescription="@string/thumbnail"/>
-  
+            android:contentDescription="@string/thumbnail"
+            android:src="@drawable/folder" />
+
     </FrameLayout>
 
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
         android:layout_weight="1"
         android:gravity="center_vertical"
-        android:layout_gravity="center_vertical"
-        android:orientation="vertical" >
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/upload_name"
@@ -39,40 +59,43 @@
             android:layout_gravity="center_vertical"
             android:ellipsize="middle"
             android:singleLine="true"
-            android:textColor="@color/textColor"
             android:text="@string/placeholder_filename"
+            android:textColor="@color/textColor"
             android:textSize="@dimen/two_line_primary_text_size" />
 
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+
             <TextView
                 android:id="@+id/upload_file_size"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="start"
-                android:textColor="@color/list_item_lastmod_and_filesize_text"
                 android:ellipsize="middle"
+                android:gravity="start"
                 android:singleLine="true"
                 android:text="@string/placeholder_fileSize"
-                android:textSize="@dimen/upload_list_item_text_size"/>
+                android:textColor="@color/list_item_lastmod_and_filesize_text"
+                android:textSize="@dimen/upload_list_item_text_size" />
+
             <TextView
                 android:id="@+id/upload_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/list_item_lastmod_and_filesize_text"
-                android:layout_marginStart="@dimen/standard_quarter_margin"
                 android:layout_marginEnd="@dimen/standard_quarter_margin"
+                android:layout_marginStart="@dimen/standard_quarter_margin"
                 android:text="@string/placeholder_timestamp"
-                android:textSize="@dimen/upload_list_item_text_size"/>
+                android:textColor="@color/list_item_lastmod_and_filesize_text"
+                android:textSize="@dimen/upload_list_item_text_size" />
+
             <TextView
                 android:id="@+id/upload_status"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/list_item_lastmod_and_filesize_text"
                 android:text="@string/uploads_view_upload_status_succeeded"
-                android:textSize="@dimen/upload_list_item_text_size"/>
+                android:textColor="@color/list_item_lastmod_and_filesize_text"
+                android:textSize="@dimen/upload_list_item_text_size" />
 
         </LinearLayout>
 
@@ -81,39 +104,39 @@
             style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:visibility="gone"/>
+            android:visibility="gone" />
 
         <TextView
             android:id="@+id/upload_account"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/list_item_lastmod_and_filesize_text"
             android:maxLines="1"
             android:text="@string/auth_username"
-            android:textSize="@dimen/upload_list_item_text_size"/>
+            android:textColor="@color/list_item_lastmod_and_filesize_text"
+            android:textSize="@dimen/upload_list_item_text_size" />
 
         <TextView
             android:id="@+id/upload_remote_path"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/list_item_lastmod_and_filesize_text"
             android:ellipsize="middle"
             android:singleLine="true"
             android:text="@string/instant_upload_path"
-            android:textSize="@dimen/upload_list_item_text_size"/>
+            android:textColor="@color/list_item_lastmod_and_filesize_text"
+            android:textSize="@dimen/upload_list_item_text_size" />
 
     </LinearLayout>
-    
+
     <FrameLayout
         android:layout_width="@dimen/min_list_item_size"
         android:layout_height="@dimen/standard_list_item_size"
+        android:layout_gravity="center_vertical"
         android:focusable="false"
         android:focusableInTouchMode="false"
-        android:layout_gravity="center_vertical"
+        android:paddingEnd="@dimen/zero"
         android:paddingLeft="@dimen/standard_half_padding"
-        android:paddingStart="@dimen/standard_half_padding"
         android:paddingRight="@dimen/zero"
-        android:paddingEnd="@dimen/zero">
+        android:paddingStart="@dimen/standard_half_padding">
 
         <ImageButton
             android:id="@+id/upload_right_button"
@@ -121,7 +144,7 @@
             android:layout_height="@dimen/upload_list_item_image_size"
             android:layout_gravity="center"
             android:background="@android:color/transparent"
-            android:contentDescription="@string/upload_item_action_button"/>
-	</FrameLayout>
+            android:contentDescription="@string/upload_item_action_button" />
+    </FrameLayout>
 
 </LinearLayout>
