@@ -1,4 +1,4 @@
-/**
+/*
  * Nextcloud Android client application
  *
  * @author Andy Scherzinger
@@ -143,7 +143,6 @@ public class SyncedFolderProvider extends Observable {
                 // update sync folder object in db
                 result = updateSyncFolder(syncedFolder);
 
-                cursor.close();
             }
         } else {
             if (cursor == null) {
@@ -152,6 +151,10 @@ public class SyncedFolderProvider extends Observable {
                 Log_OC.e(TAG, cursor.getCount() + " items for id=" + id + " available in sync folder database. " +
                         "Expected 1. Failed to update sync folder db.");
             }
+        }
+
+        if (cursor != null) {
+            cursor.close();
         }
 
         return result;
@@ -175,7 +178,6 @@ public class SyncedFolderProvider extends Observable {
 
         if (cursor != null && cursor.getCount() == 1) {
             result = createSyncedFolderFromCursor(cursor);
-            cursor.close();
         } else {
             if (cursor == null) {
                 Log_OC.e(TAG, "Sync folder db cursor for local path=" + localPath + " in NULL.");
@@ -183,6 +185,10 @@ public class SyncedFolderProvider extends Observable {
                 Log_OC.e(TAG, cursor.getCount() + " items for local path=" + localPath
                         + " available in sync folder db. Expected 1. Failed to update sync folder db.");
             }
+        }
+
+        if (cursor != null) {
+            cursor.close();
         }
 
         return result;
