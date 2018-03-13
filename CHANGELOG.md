@@ -1,5 +1,18 @@
-## 3.0.0 (Jan, xx, 2018)
+## 3.0.3 (Mar, 05, 2018)
+- Fix creating folders in auto upload
 
+## 3.0.2 (Feb, 27, 2018)
+- Fix crash on old android versions
+- Fix E2E
+- Fix crash on old server
+
+## 3.0.1 (Feb, 14, 2018)
+- Bugfix E2E
+- Fix SSL via PlayStore updater
+- Fix push notification
+- New android lib, fixing wrong user agent
+
+## 3.0.0 (Feb, 08, 2018)
 - End to end encryption
 - Screen adapted images instead of downloading
 - direct access to operations for single files
@@ -16,7 +29,6 @@
 - bug fixes
 
 ## 2.0.0 (Oct, 17, 2017)
-
 - Account-wide search (Nc 12+)
 - Auto upload available on Android 4+
 - Separation between Image & Video for Auto upload
@@ -62,7 +74,6 @@
 - Bug fixes and design improvements
 
 ## 1.4.0 (December 8, 2016)
-
 - External SD card support
 - Auto Upload (Android 7+)
 - What's new start screen
@@ -77,14 +88,12 @@
 - Update library to 1.0.9
 
 ## 1.3.1 (September 20, 2016)
-
 - Move action hard to discover - difference between single/multi selection
 - Show move/copy context in toolbar title
 - Share file with dictadroid to Nextcloud
 - Don't show upload failure notification for already deleted files
 
 ## 1.3.0 (September 17, 2016)
-
 - Files drop permission in share viewe
 - Display quota if configured/available in navigation drawer
 - Resume chunked uploads instead of complete restarts
@@ -99,7 +108,6 @@
 - Bugfixes and design improvements
 
 ## 1.2.0 (July 29, 2016)
-
 - Multi select capabilities
 - Confirmation dialog on account removal
 - Offline available filter in main menu
@@ -113,7 +121,6 @@
 - Minor bugfixes
 
 ## 1.1.0 (July 6, 2016)
-
 - New main menu to switch accounts easily
 - Ability to open Nextcloud hosted files (read-only) from other apps that support the standard file chooser (requires Android 4.4 / KitKat or higher)
 - "Select all files" for upload within a folder
@@ -122,11 +129,9 @@
 - Minor bugfixes
 
 ## 1.0.1 (June 20, 2016)
-
 - Fix thumbnail preview support for new files
 - Add support for animated GIFs
 - Optimized uploader layout
 
 ## 1.0.0 (June 12, 2016)
-
 - Initial release of the Nextcloud Android app
