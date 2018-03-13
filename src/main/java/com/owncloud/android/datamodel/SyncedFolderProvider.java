@@ -128,9 +128,12 @@ public class SyncedFolderProvider extends Observable {
             while (cursor.moveToNext()) {
                 syncedFolder = createSyncedFolderFromCursor(cursor);
             }
-            cursor.close();
         }
 
+        if (cursor != null) {
+            cursor.close();
+        }
+        
         return syncedFolder;
     }
 
