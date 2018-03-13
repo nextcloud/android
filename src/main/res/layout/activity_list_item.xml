@@ -30,11 +30,11 @@
 
     <ImageView
         android:id="@+id/activity_icon"
-        android:layout_width="@dimen/file_icon_size"
-        android:layout_height="@dimen/file_icon_size"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
         android:layout_alignParentTop="true"
-        android:layout_marginRight="@dimen/standard_padding"
-        android:layout_marginEnd="@dimen/standard_padding"
+        android:layout_marginRight="24dp"
+        android:layout_marginEnd="24dp"
         android:alpha="0.5"
         android:src="@drawable/ic_activity"
         android:contentDescription="@string/activity_icon"/>
