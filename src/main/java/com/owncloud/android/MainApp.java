@@ -66,6 +66,7 @@ import com.owncloud.android.ui.activity.SyncedFoldersActivity;
 import com.owncloud.android.ui.activity.WhatsNewActivity;
 import com.owncloud.android.ui.notifications.NotificationUtils;
 import com.owncloud.android.utils.AnalyticsUtils;
+import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.FilesSyncHelper;
 import com.owncloud.android.utils.PermissionUtil;
 import com.owncloud.android.utils.ReceiversHelper;
@@ -116,6 +117,7 @@ public class MainApp extends MultiDexApplication {
         MainApp.mContext = getApplicationContext();
 
         new SecurityUtils();
+        DisplayUtils.useCompatVectorIfNeeded();
 
         if (!getResources().getBoolean(R.bool.analytics_enabled)) {
             AnalyticsUtils.disableAnalytics();
