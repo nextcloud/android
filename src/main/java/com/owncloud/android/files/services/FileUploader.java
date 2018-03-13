@@ -1075,10 +1075,11 @@ public class FileUploader extends Service
 
             boolean gotNetwork = !Device.getNetworkType(context).equals(JobRequest.NetworkType.ANY) &&
                     !ConnectivityUtils.isInternetWalled(context);
-            if (gotNetwork) {
-                boolean gotWifi = gotNetwork && Device.getNetworkType(context).equals(JobRequest.NetworkType.UNMETERED);
+            boolean isPowerSaving = PowerUtils.isPowerSaveMode(context);
+
+            if (gotNetwork && !isPowerSaving) {
+                boolean gotWifi = Device.getNetworkType(context).equals(JobRequest.NetworkType.UNMETERED);
                 boolean charging = Device.getBatteryStatus(context).isCharging();
-                boolean isPowerSaving = PowerUtils.isPowerSaveMode(context);
 
                 for (OCUpload failedUpload : failedUploads) {
                     accountMatch = (account == null || account.name.equals(failedUpload.getAccountName()));
@@ -1090,8 +1091,7 @@ public class FileUploader extends Service
                         }
 
                         charging = charging || Device.getBatteryStatus(context).getBatteryPercent() == 1;
-                        if (!isPowerSaving && checkIfUploadCanBeRetried(failedUpload, gotWifi, charging,
-                                context.getContentResolver())) {
+                        if (checkIfUploadCanBeRetried(failedUpload, gotWifi, charging, context.getContentResolver())) {
                             retry(context, currentAccount, failedUpload);
                         }
                     }
