@@ -755,4 +755,4 @@
     <string name="end_to_end_encryption_storing_keys">Geymi dulritunarlykla</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Ekki er stuðningur ennþá við afritun/færslu inn í dulritaða möppu.</string>
     <string name="untrusted_domain">Aðgangur í gegnum vantreyst lén. Endilega kíktu á hjálparskjölin til að sjá ítarlegri upplýsingar.</string>
-</resources>
+    </resources>

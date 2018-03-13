@@ -755,4 +755,4 @@
     <string name="end_to_end_encryption_storing_keys">Almacenando llaves</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Copiar/ mover a la carpeta encriptada no se encuentra soportado por el momento.</string>
     <string name="untrusted_domain">Accede a través de un dominio no de confianza. Por favor consulta la documentación para más información.</string>
-</resources>
+    </resources>

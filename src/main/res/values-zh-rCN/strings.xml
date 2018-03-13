@@ -325,6 +325,7 @@
     <string name="placeholder_timestamp">2012/05/18 下午12:23 </string>
     <string name="placeholder_media_time">12:23:45</string>
 
+    <string name="auto_upload_on_wifi">仅通过无流量限制的 Wi-Fi 上传</string>
     <string name="instant_upload_on_charging">仅在充电时上传</string>
     <string name="instant_upload_path">/实时上传</string>
     <string name="auto_upload_path">/自动上传</string>
@@ -729,6 +730,7 @@
     <string name="end_to_end_encryption_enter_password">请输入密码解锁私有密钥</string>
     <string name="end_to_end_encryption_generating_keys">正在生成新的密匙 &#8230;</string>
     <string name="end_to_end_encryption_title">设置加密</string>
+    <string name="end_to_end_encryption_passphrase_title">请记录你的 12 字的加密密码</string>
     <string name="end_to_end_encryption_not_supported">加密仅适用于KitKat(4.4)及更高版本。</string>
     <string name="end_to_end_encryption_confirm_button">设置加密</string>
     <string name="end_to_end_encryption_password">密码&#8230;</string>
@@ -737,4 +739,4 @@
     <string name="end_to_end_encryption_storing_keys">正在保存密匙</string>
     <string name="copy_move_to_encrypted_folder_not_supported">复制/移动到加密的文件夹目前不支持。</string>
     <string name="untrusted_domain">通过不受信任的域名访问。有关进一步的信息，请参阅文档。</string>
-</resources>
+    </resources>

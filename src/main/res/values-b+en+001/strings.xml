@@ -755,4 +755,4 @@
     <string name="end_to_end_encryption_storing_keys">Storing keys</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Copy/move into encrypted folder currently not supported.</string>
     <string name="untrusted_domain">Access through untrusted domain. Please see documentation for further info.</string>
-</resources>
+    </resources>

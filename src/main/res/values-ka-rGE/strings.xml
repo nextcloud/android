@@ -750,4 +750,4 @@
     <string name="end_to_end_encryption_storing_keys">გასაღებების შენახვა</string>
     <string name="copy_move_to_encrypted_folder_not_supported">ამჟამად კოპირება/გადატანა დაშიფრულ დირექტორიაში არაა მხარდაჭერილი.</string>
     <string name="untrusted_domain">წვდომა არასანდო დომენით. დამატებითი ინფორმაციისთვის გთხოვთ იხილოთ დოკუმენტაცია.</string>
-</resources>
+    </resources>

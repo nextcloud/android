@@ -763,4 +763,4 @@ Sjekk ut Nextcloud på https://nextcloud.com</string>
     <string name="end_to_end_encryption_storing_keys">Lagrer nøkler</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Kopiering/flytting til kryptert mappe støttes ikke enda.</string>
     <string name="untrusted_domain">Tilgang gjennom ubetrodd domene. Sjekk dokumentasjonen for mer informasjon.</string>
-</resources>
+    </resources>
