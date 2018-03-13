@@ -1,20 +1,20 @@
-/**
+/*
  * Nextcloud Android client application
  *
  * @author Tobias Kaminsky
  * Copyright (C) 2017 Tobias Kaminsky
  * Copyright (C) 2017 Nextcloud GmbH.
- * <p>
+ * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * at your option) any later version.
- * <p>
+ * 
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * <p>
+ * 
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -56,7 +56,7 @@ public class ContactsImportJob extends Job {
 
     @NonNull
     @Override
-    protected Result onRunJob(Params params) {
+    protected Result onRunJob(@NonNull Params params) {
         PersistableBundleCompat bundle = params.getExtras();
 
         String vCardFilePath = bundle.getString(VCARD_FILE_PATH, "");
@@ -67,11 +67,12 @@ public class ContactsImportJob extends Job {
         File file = new File(vCardFilePath);
         ArrayList<VCard> vCards = new ArrayList<>();
 
+        Cursor cursor = null;
         try {
             ContactOperations operations = new ContactOperations(getContext(), accountName, accountType);
             vCards.addAll(Ezvcard.parse(file).all());
             Collections.sort(vCards, new ContactListFragment.VCardComparator());
-            Cursor cursor = getContext().getContentResolver().query(ContactsContract.Contacts.CONTENT_URI, null,
+            cursor = getContext().getContentResolver().query(ContactsContract.Contacts.CONTENT_URI, null,
                     null, null, null);
 
             TreeMap<VCard, Long> ownContactList = new TreeMap<>(new ContactListFragment.VCardComparator());
@@ -101,6 +102,10 @@ public class ContactsImportJob extends Job {
             }
         } catch (Exception e) {
             Log_OC.e(TAG, e.getMessage());
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
         }
 
         return Result.SUCCESS;

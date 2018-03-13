@@ -1,4 +1,4 @@
-/**
+/*
  * Nextcloud Android client application
  *
  * Copyright (C) 2017 Mario Danic
@@ -88,17 +88,19 @@ public class FilesystemDataProvider {
                 new String[]{likeParam, syncedFolderId, "0", "0"},
                 null);
 
-        if (cursor != null && cursor.moveToFirst()) {
-            do {
-                String value = cursor.getString(cursor.getColumnIndex(
-                        ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_LOCAL_PATH));
-                if (value == null) {
-                    Log_OC.e(TAG, "Cannot get local path");
-                } else {
-                    localPathsToUpload.add(value);
-                }
-            } while (cursor.moveToNext());
-
+        if (cursor != null) {
+            if (cursor.moveToFirst()) {
+                do {
+                    String value = cursor.getString(cursor.getColumnIndex(
+                            ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_LOCAL_PATH));
+                    if (value == null) {
+                        Log_OC.e(TAG, "Cannot get local path");
+                    } else {
+                        localPathsToUpload.add(value);
+                    }
+                } while (cursor.moveToNext());
+            }
+            
             cursor.close();
         }
 
@@ -211,7 +213,7 @@ public class FilesystemDataProvider {
 
     private long getFileChecksum(String filepath) {
 
-        InputStream inputStream = null;
+        InputStream inputStream;
         try {
             inputStream = new BufferedInputStream(new FileInputStream(filepath));
             CRC32 crc = new CRC32();
