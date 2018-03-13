@@ -36,7 +36,6 @@ import android.util.Log;
 
 import com.evernote.android.job.JobManager;
 import com.evernote.android.job.JobRequest;
-import com.evernote.android.job.util.Device;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
@@ -233,12 +232,7 @@ public class FilesSyncHelper {
             }
         }
 
-        new Thread(() -> {
-            if (!Device.getNetworkType(context).equals(JobRequest.NetworkType.ANY) &&
-                    !ConnectivityUtils.isInternetWalled(context)) {
-                uploadRequester.retryFailedUploads(context, null, null);
-            }
-        }).start();
+        new Thread(() -> uploadRequester.retryFailedUploads(context, null, null)).start();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)

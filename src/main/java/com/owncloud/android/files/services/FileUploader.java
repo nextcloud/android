@@ -1075,23 +1075,25 @@ public class FileUploader extends Service
 
             boolean gotNetwork = !Device.getNetworkType(context).equals(JobRequest.NetworkType.ANY) &&
                     !ConnectivityUtils.isInternetWalled(context);
-            boolean gotWifi = gotNetwork && Device.getNetworkType(context).equals(JobRequest.NetworkType.UNMETERED);
-            boolean charging = Device.getBatteryStatus(context).isCharging();
-            boolean isPowerSaving = PowerUtils.isPowerSaveMode(context);
+            if (gotNetwork) {
+                boolean gotWifi = gotNetwork && Device.getNetworkType(context).equals(JobRequest.NetworkType.UNMETERED);
+                boolean charging = Device.getBatteryStatus(context).isCharging();
+                boolean isPowerSaving = PowerUtils.isPowerSaveMode(context);
 
-            for (OCUpload failedUpload : failedUploads) {
-                accountMatch = (account == null || account.name.equals(failedUpload.getAccountName()));
-                resultMatch = ((uploadResult == null || uploadResult.equals(failedUpload.getLastResult())));
-                if (accountMatch && resultMatch) {
-                    if (currentAccount == null ||
-                            !currentAccount.name.equals(failedUpload.getAccountName())) {
-                        currentAccount = failedUpload.getAccount(context);
-                    }
+                for (OCUpload failedUpload : failedUploads) {
+                    accountMatch = (account == null || account.name.equals(failedUpload.getAccountName()));
+                    resultMatch = ((uploadResult == null || uploadResult.equals(failedUpload.getLastResult())));
+                    if (accountMatch && resultMatch) {
+                        if (currentAccount == null ||
+                                !currentAccount.name.equals(failedUpload.getAccountName())) {
+                            currentAccount = failedUpload.getAccount(context);
+                        }
 
-                    charging = charging || Device.getBatteryStatus(context).getBatteryPercent() == 1;
-                    if (!isPowerSaving && gotNetwork && checkIfUploadCanBeRetried(failedUpload, gotWifi, charging,
-                            context.getContentResolver())) {
-                        retry(context, currentAccount, failedUpload);
+                        charging = charging || Device.getBatteryStatus(context).getBatteryPercent() == 1;
+                        if (!isPowerSaving && checkIfUploadCanBeRetried(failedUpload, gotWifi, charging,
+                                context.getContentResolver())) {
+                            retry(context, currentAccount, failedUpload);
+                        }
                     }
                 }
             }
