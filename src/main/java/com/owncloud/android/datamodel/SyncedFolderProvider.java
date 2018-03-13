@@ -114,6 +114,26 @@ public class SyncedFolderProvider extends Observable {
         return new ArrayList<>(0);
     }
 
+    public SyncedFolder getSyncedFolderWithId(long id) {
+        Cursor cursor = mContentResolver.query(
+                ProviderMeta.ProviderTableMeta.CONTENT_URI_SYNCED_FOLDERS,
+                null,
+                ProviderMeta.ProviderTableMeta._ID + "=?",
+                new String[]{String.valueOf(id)},
+                null
+        );
+
+        SyncedFolder syncedFolder = null;
+        if (cursor != null && cursor.getCount() == 1) {
+            while (cursor.moveToNext()) {
+                syncedFolder = createSyncedFolderFromCursor(cursor);
+            }
+            cursor.close();
+        }
+
+        return syncedFolder;
+    }
+
     /**
      * Update upload status of file uniquely referenced by id.
      *

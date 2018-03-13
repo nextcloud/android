@@ -193,14 +193,7 @@ public class FileUploader extends Service
     }
 
     private static SyncedFolder getSyncedFolderById(long id, ContentResolver contentResolver) {
-        SyncedFolderProvider syncedFolderProvider = new SyncedFolderProvider(contentResolver);
-        for (SyncedFolder syncedFolder : syncedFolderProvider.getSyncedFolders()) {
-            if (syncedFolder.getId() == id) {
-                return syncedFolder;
-            }
-        }
-
-        return null;
+        return new SyncedFolderProvider(contentResolver).getSyncedFolderWithId(id);
     }
 
     @Override
