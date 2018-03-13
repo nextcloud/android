@@ -23,6 +23,7 @@ package com.owncloud.android.ui.helpers;
 
 import android.accounts.Account;
 import android.content.ActivityNotFoundException;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -594,12 +595,13 @@ public class FileOperationsHelper {
         }
     }
 
-    public void sendCachedImage(OCFile file) {
+    public void sendCachedImage(OCFile file, String packageName, String activityName) {
         if (file != null) {
             Context context = MainApp.getAppContext();
             Intent sendIntent = new Intent(Intent.ACTION_SEND);
             // set MimeType
             sendIntent.setType(file.getMimetype());
+            sendIntent.setComponent(new ComponentName(packageName, activityName));
             sendIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse("content://" +
                     context.getResources().getString(R.string.image_cache_provider_authority) +
                     file.getRemotePath()));

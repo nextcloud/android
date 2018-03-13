@@ -25,6 +25,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.owncloud.android.R;
@@ -59,13 +60,15 @@ public class SendButtonAdapter extends RecyclerView.Adapter<SendButtonAdapter.Vi
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        private TextView sendButton;
+        private TextView text;
+        private ImageView icon;
         private SendButtonData sendButtonDataData;
 
         public ViewHolder(View itemView) {
             super(itemView);
             itemView.setOnClickListener(this);
-            sendButton = (TextView) itemView.findViewById(R.id.send_button);
+            text = itemView.findViewById(R.id.send_button_text);
+            icon = itemView.findViewById(R.id.send_button_icon);
         }
 
         @Override
@@ -77,8 +80,8 @@ public class SendButtonAdapter extends RecyclerView.Adapter<SendButtonAdapter.Vi
 
         public void setData(SendButtonData item) {
             sendButtonDataData = item;
-            sendButton.setCompoundDrawablesWithIntrinsicBounds(null, item.getDrawable(), null, null);
-            sendButton.setText(item.getTitle());
+            icon.setImageDrawable(item.getDrawable());
+            text.setText(item.getTitle());
         }
     }
 
