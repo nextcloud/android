@@ -776,4 +776,4 @@ A Nextcloud itt érhető el: https://nextcloud.com</string>
     <string name="end_to_end_encryption_storing_keys">Kulcsok eltárolása</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Másolás/mozgatás titkosított mappába jelenleg nem támogatott.</string>
     <string name="untrusted_domain">Nem megbízható domainen keresztüli elérés. Kérlek nézd meg a dokumentációt a részletekért.</string>
-</resources>
+    </resources>

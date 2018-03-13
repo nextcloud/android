@@ -328,6 +328,7 @@
     <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
     <string name="placeholder_media_time">12:23:45</string>
 
+    <string name="auto_upload_on_wifi">Качване само при Wi-Fi връзка</string>
     <string name="instant_upload_on_charging">Качвай само при зареждане</string>
     <string name="instant_upload_path">/InstantUpload</string>
     <string name="auto_upload_path">/AutoUpload</string>
@@ -539,6 +540,7 @@
     <string name="participate_release_candidate_text">Release candidate (RC) е отделна версия на предстоящ release и се очаква да е стабилна. Тестването на вашите индивидуални устройства може да гарантира стабилността. Запишете се за тестване от Play магазина или ръчно проверете в секция \"Версия\" на F-Droid.</string>
     <string name="participate_contribute_headline">Активен принос</string>
     <string name="participate_contribute_irc_text">Присъединете се към IRC чата:</string>
+    <string name="participate_contribute_forum_text">Помогнете на други във форума</string>
     <string name="participate_contribute_forum_forum">Форум</string>
     <string name="participate_contribute_translate_translate">Преведи</string>
     <string name="participate_contribute_github_text">Прегледай, промени и пиши код, погледни %1$s за повече информация</string>
@@ -614,6 +616,10 @@
 
     <string name="actionbar_contacts">Подсигурете контактите си</string>
     <string name="actionbar_contacts_restore">Възстанови контакт</string>
+    <string name="contacts_backup_button">Подсигурете контактите си</string>
+    <string name="contacts_automatic_backup">Автоматично подсигуряване на контакти</string>
+    <string name="contacts_last_backup">Последно извършено подсигуряване на контакти</string>
+    <string name="contacts_read_permission">Нужно е разрешение за да прочетете листът с контакти</string>
     <string name="contacts_preference_backup_never">никога</string>
     <string name="contacts_preferences_no_file_found">Няма намерен файл</string>
     </resources>

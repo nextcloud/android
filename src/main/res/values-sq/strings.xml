@@ -754,4 +754,4 @@
     <string name="end_to_end_encryption_storing_keys">Ruaj çelësat</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Kopjimi/lëvizja në direktorinë e enkriptuar për momentin nuk suportohet.</string>
     <string name="untrusted_domain">Aksesi nëpërmjet një domaini jo të besuar. Ju lutem shikoni dokumentimin për info të mëtejshme. </string>
-</resources>
+    </resources>
