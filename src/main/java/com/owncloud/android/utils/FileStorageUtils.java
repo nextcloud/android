@@ -334,13 +334,16 @@ public class FileStorageUtils {
         long lastModified = 0;
         long lastSize = 0;
         File realFile = new File(file.getStoragePath());
-        while ((realFile.lastModified() != lastModified) && (realFile.length() != lastSize)) {
-            lastModified = realFile.lastModified();
-            lastSize = realFile.length();
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                Log.d(TAG, "Failed to sleep for a bit");
+
+        if (realFile.lastModified() != file.getModificationTimestamp() && realFile.length() != file.getFileLength()) {
+            while ((realFile.lastModified() != lastModified) && (realFile.length() != lastSize)) {
+                lastModified = realFile.lastModified();
+                lastSize = realFile.length();
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    Log.d(TAG, "Failed to sleep for a bit");
+                }
             }
         }
 
