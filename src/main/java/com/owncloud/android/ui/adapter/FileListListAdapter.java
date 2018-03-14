@@ -99,11 +99,10 @@ public class FileListListAdapter extends BaseAdapter {
 
     private ArrayList<ThumbnailsCacheManager.ThumbnailGenerationTask> asyncTasks = new ArrayList<>();
 
-    public FileListListAdapter(boolean justFolders, Context context, ComponentsGetter transferServiceGetter,
+    public FileListListAdapter(Context context, ComponentsGetter transferServiceGetter,
                                OCFileListFragmentInterface OCFileListFragmentInterface, boolean argHideItemOptions) {
 
         this.OCFileListFragmentInterface = OCFileListFragmentInterface;
-        mJustFolders = justFolders;
         mContext = context;
         mAccount = AccountUtils.getCurrentOwnCloudAccount(mContext);
         mHideItemOptions = argHideItemOptions;
