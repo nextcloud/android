@@ -757,4 +757,6 @@
     <string name="end_to_end_encryption_storing_keys">Schlüssel speichern</string>
     <string name="copy_move_to_encrypted_folder_not_supported">In verschlüsselten Ordner kopieren/verschieben wird aktuell nicht unterstützt.</string>
     <string name="untrusted_domain">Zugriff über nicht vertrauenswürdige Domain. Weitere Informationen finden sich in der Dokumentation.</string>
+    <string name="notification_channel_push_name">Push-Benachrichtigungen</string>
+    <string name="notification_channel_push_description">Vom Server gesendete Push-Benachrichtigungen anzeigen, z.B. wenn Sie in einem Kommentar erwähnt werden, Zugriff auf eine weitere Freigabe erhalten oder wenn ein Admin eine Ankündigung versendet.</string>
     </resources>
