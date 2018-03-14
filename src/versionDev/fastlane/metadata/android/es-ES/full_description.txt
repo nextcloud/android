@@ -1,4 +1,4 @@
-La app Android de Nextcloud es copyleft y software libre y te da liberta móvl.
-Esta es la versión oficial de desarrollo, que presenta una muestra diaria de cualquier nueva funcionalidad aún no probada, lo que puede causar inestabilidad y pérdida de datos. Esta app es para usuarios deseosos de probar e informar de errores si ocurren. ¡No la uses para tu trabajo de producción!
+La app de Android de Nextcloud es copyleft y software libre y te da libertad móvil.
+Esta es la versión oficial de desarrollo, que presenta una muestra diaria de cualquier nueva funcionalidad aún no probada, lo que puede causar inestabilidad y pérdida de datos. Esta app es para usuarios que quieran probar e informar de fallos (en caso de producirse). ¡No la uses para tu día a día!
 
 Tanto la versión de desarrollo oficial como la normal están disponibles en F-Droid y pueden instalarse juntas.

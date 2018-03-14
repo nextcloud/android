@@ -700,7 +700,7 @@
     <string name="what_s_new_image">Imagen de Qué hay de nuevo</string>
 
     <string name="store_short_dev_desc">Nextcloud Dev es una instantánea de desarrollo y se puede instalar en paralelo</string>
-    <string name="store_full_dev_desc">La app Android de Nextcloud es copyleft y software libre y te da liberta móvl.\nEsta es la versión oficial de desarrollo, que presenta una muestra diaria de cualquier nueva funcionalidad aún no probada, lo que puede causar inestabilidad y pérdida de datos. Esta app es para usuarios deseosos de probar e informar de errores si ocurren. ¡No la uses para tu trabajo de producción!\n\nTanto la versión de desarrollo oficial como la normal están disponibles en F-Droid y pueden instalarse juntas.</string>
+    <string name="store_full_dev_desc">La app de Android de Nextcloud es copyleft y software libre y te da libertad móvil.\nEsta es la versión oficial de desarrollo, que presenta una muestra diaria de cualquier nueva funcionalidad aún no probada, lo que puede causar inestabilidad y pérdida de datos. Esta app es para usuarios que quieran probar e informar de fallos (en caso de producirse). ¡No la uses para tu día a día!\n\nTanto la versión de desarrollo oficial como la normal están disponibles en F-Droid y pueden instalarse juntas.</string>
 
     <string name="prefs_category_dev">Dev</string>
     <string name="dev_version_no_information_available">No hay información disponible</string>
@@ -755,4 +755,6 @@
     <string name="end_to_end_encryption_storing_keys">Almacenando claves</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Copiar/mover en la carpeta cifrada no está actualmente soportado.</string>
     <string name="untrusted_domain">Acceder a través de un domino no confiado. Por favor, mira la documentación para más información.</string>
+    <string name="notification_channel_push_name">Notificaciones de tipo push</string>
+    <string name="notification_channel_push_description">Mostrar notificaciones de tipo push enviadas por el servidor, por ejemplo, cuando te mencionen en comentarios, compartan contigo una carpeta remota o cuando el administrador publique un anuncio.</string>
     </resources>
