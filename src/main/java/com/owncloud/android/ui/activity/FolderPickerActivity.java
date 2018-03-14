@@ -180,7 +180,7 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
     private void createFragments() {
         OCFileListFragment listOfFiles = new OCFileListFragment();
         Bundle args = new Bundle();
-        args.putBoolean(OCFileListFragment.ARG_JUST_FOLDERS, true);
+        args.putBoolean(OCFileListFragment.ARG_ONLY_FOLDERS_CLICKABLE, true);
         args.putBoolean(OCFileListFragment.ARG_HIDE_FAB, true);
         args.putBoolean(OCFileListFragment.ARG_HIDE_ITEM_OPTIONS, true);
         args.putBoolean(OCFileListFragment.ARG_SEARCH_ONLY_FOLDER, mSearchOnlyFolders);
