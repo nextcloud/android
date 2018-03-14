@@ -192,22 +192,21 @@ public class ReceiveExternalFilesActivity extends FileActivity
 
     @Override
     protected void setAccount(Account account, boolean savedAccount) {
-        if (somethingToUpload()) {
-            mAccountManager = (AccountManager) getSystemService(Context.ACCOUNT_SERVICE);
-            Account[] accounts = mAccountManager.getAccountsByType(MainApp.getAccountType());
-            if (accounts.length == 0) {
-                Log_OC.i(TAG, "No ownCloud account is available");
-                DialogNoAccount dialog = new DialogNoAccount();
-                dialog.show(getSupportFragmentManager(), null);
-            } else {
-                if (!savedAccount) {
-                    setAccount(accounts[0]);
-                }
-            }
-        } else {
+        mAccountManager = (AccountManager) getSystemService(Context.ACCOUNT_SERVICE);
+
+        Account[] accounts = mAccountManager.getAccountsByType(MainApp.getAccountType());
+        if (accounts.length == 0) {
+            Log_OC.i(TAG, "No ownCloud account is available");
+            DialogNoAccount dialog = new DialogNoAccount();
+            dialog.show(getSupportFragmentManager(), null);
+        } else if (!savedAccount) {
+            setAccount(accounts[0]);
+        }
+
+        if (!somethingToUpload()) {
             showErrorDialog(
-                R.string.uploader_error_message_no_file_to_upload,
-                R.string.uploader_error_title_no_file_to_upload
+                    R.string.uploader_error_message_no_file_to_upload,
+                    R.string.uploader_error_title_no_file_to_upload
             );
         }
 
