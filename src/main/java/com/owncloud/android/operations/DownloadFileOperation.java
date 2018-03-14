@@ -212,6 +212,7 @@ public class DownloadFileOperation extends RemoteOperation {
                 }
             }
             moved = tmpFile.renameTo(newFile);
+            newFile.setLastModified(mFile.getModificationTimestamp());
             if (!moved) {
                 result = new RemoteOperationResult(RemoteOperationResult.ResultCode.LOCAL_STORAGE_NOT_MOVED);
             }
