@@ -1140,7 +1140,7 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
         mMenuAccountAvatarRadiusDimension = getResources()
                 .getDimension(R.dimen.nav_drawer_menu_avatar_radius);
 
-        externalLinksProvider = new ExternalLinksProvider(MainApp.getAppContext().getContentResolver());
+        externalLinksProvider = new ExternalLinksProvider(getContentResolver());
         arbitraryDataProvider = new ArbitraryDataProvider(getContentResolver());
     }
 
