@@ -213,14 +213,20 @@ public class DisplayUtils {
      * @return beautified twitter handle
      */
     public static String beautifyTwitterHandle(@Nullable String handle) {
-        if (TextUtils.isEmpty(handle)) {
-            return "";
-        }
+        if (handle != null) {
+            String trimmedHandle = handle.trim();
 
-        if (handle.startsWith(TWITTER_HANDLE_PREFIX)) {
-            return handle.trim();
+            if (TextUtils.isEmpty(trimmedHandle)) {
+                return "";
+            }
+
+            if (trimmedHandle.startsWith(TWITTER_HANDLE_PREFIX)) {
+                return trimmedHandle;
+            } else {
+                return TWITTER_HANDLE_PREFIX + trimmedHandle;
+            }
         } else {
-            return TWITTER_HANDLE_PREFIX + handle.trim();
+            return "";
         }
     }
 
