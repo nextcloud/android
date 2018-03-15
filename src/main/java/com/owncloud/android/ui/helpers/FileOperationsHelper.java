@@ -386,8 +386,7 @@ public class FileOperationsHelper {
      */
     public boolean isSharedSupported() {
         if (mFileActivity.getAccount() != null) {
-            OwnCloudVersion serverVersion = AccountUtils.getServerVersion(mFileActivity.getAccount());
-            return (serverVersion != null && serverVersion.isSharedSupported());
+            return AccountUtils.getServerVersion(mFileActivity.getAccount()).isSharedSupported();
         }
         return false;
     }
@@ -552,9 +551,7 @@ public class FileOperationsHelper {
         if (hideFileListing) {
             updateShareIntent.putExtra(OperationsService.EXTRA_SHARE_PERMISSIONS, OCShare.CREATE_PERMISSION_FLAG);
         } else {
-            OwnCloudVersion serverVersion = AccountUtils.getServerVersion(mFileActivity.getAccount());
-
-            if (serverVersion != null && serverVersion.isNotReshareableFederatedSupported()) {
+            if (AccountUtils.getServerVersion(mFileActivity.getAccount()).isNotReshareableFederatedSupported()) {
                 updateShareIntent.putExtra(OperationsService.EXTRA_SHARE_PERMISSIONS,
                         OCShare.FEDERATED_PERMISSIONS_FOR_FOLDER_AFTER_OC9);
             } else {
@@ -572,7 +569,7 @@ public class FileOperationsHelper {
     public boolean isSearchUserSupportedSupported() {
         if (mFileActivity.getAccount() != null) {
             OwnCloudVersion serverVersion = AccountUtils.getServerVersion(mFileActivity.getAccount());
-            return (serverVersion != null && serverVersion.isSearchUsersSupported());
+            return serverVersion.isSearchUsersSupported();
         }
         return false;
     }
@@ -854,9 +851,7 @@ public class FileOperationsHelper {
      */
     public boolean isVersionWithForbiddenCharacters() {
         if (mFileActivity.getAccount() != null) {
-            OwnCloudVersion serverVersion =
-                    AccountUtils.getServerVersion(mFileActivity.getAccount());
-            return (serverVersion != null && serverVersion.isVersionWithForbiddenCharacters());
+            return AccountUtils.getServerVersion(mFileActivity.getAccount()).isVersionWithForbiddenCharacters();
         }
         return false;
     }

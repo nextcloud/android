@@ -442,8 +442,7 @@ public class OperationsService extends Service {
                                     getClientFor(ocAccount, mService);
 
                             OwnCloudVersion version = com.owncloud.android.authentication.AccountUtils.getServerVersion(
-                                    mLastTarget.mAccount
-                            );
+                                    mLastTarget.mAccount);
                             mOwnCloudClient.setOwnCloudVersion(version);
 
                             mStorageManager = new FileDataStorageManager(

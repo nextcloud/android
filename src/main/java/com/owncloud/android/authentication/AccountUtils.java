@@ -25,6 +25,7 @@ import android.accounts.AccountManager;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import com.owncloud.android.MainApp;
@@ -199,8 +200,9 @@ public class AccountUtils {
      * @return              Version of the OC server corresponding to account, according to the data saved
      *                      in the system AccountManager
      */
-    public static OwnCloudVersion getServerVersion(Account account) {
-        OwnCloudVersion serverVersion = null;
+    public static @NonNull
+    OwnCloudVersion getServerVersion(Account account) {
+        OwnCloudVersion serverVersion = OwnCloudVersion.nextcloud_10;
         if (account != null) {
             AccountManager accountMgr = AccountManager.get(MainApp.getAppContext());
             String serverVersionStr = accountMgr.getUserData(account, Constants.KEY_OC_VERSION);
@@ -211,13 +213,11 @@ public class AccountUtils {
         return serverVersion;
     }
 
-    public static boolean hasSearchUsersSupport(Account account){
-        OwnCloudVersion serverVersion = getServerVersion(account);
-        return (serverVersion != null && serverVersion.isSearchUsersSupported());
+    public static boolean hasSearchUsersSupport(Account account) {
+        return getServerVersion(account).isSearchUsersSupported();
     }
 
     public static boolean hasSearchSupport(Account account) {
-        OwnCloudVersion serverVersion = getServerVersion(account);
-        return (serverVersion != null && serverVersion.isSearchSupported());
+        return getServerVersion(account).isSearchSupported();
     }
 }
