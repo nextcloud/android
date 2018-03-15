@@ -39,7 +39,6 @@ import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.lib.resources.shares.ShareType;
-import com.owncloud.android.lib.resources.status.OwnCloudVersion;
 import com.owncloud.android.operations.CreateShareViaLinkOperation;
 import com.owncloud.android.operations.GetSharesForFileOperation;
 import com.owncloud.android.operations.UnshareOperation;
@@ -149,9 +148,8 @@ public class ShareActivity extends FileActivity implements ShareFragmentListener
             return OCShare.READ_PERMISSION_FLAG;    // minimum permissions
 
         } else if (isFederated) {
-            OwnCloudVersion serverVersion = com.owncloud.android.authentication.AccountUtils.
-                    getServerVersion(getAccount());
-            if (serverVersion != null && serverVersion.isNotReshareableFederatedSupported()) {
+            if (com.owncloud.android.authentication.AccountUtils
+                    .getServerVersion(getAccount()).isNotReshareableFederatedSupported()) {
                 return (getFile().isFolder() ? OCShare.FEDERATED_PERMISSIONS_FOR_FOLDER_AFTER_OC9 :
                         OCShare.FEDERATED_PERMISSIONS_FOR_FILE_AFTER_OC9);
             } else {

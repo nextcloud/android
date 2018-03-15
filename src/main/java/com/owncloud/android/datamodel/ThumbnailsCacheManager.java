@@ -286,7 +286,8 @@ public class ThumbnailsCacheManager {
                 } else {
                     // Download thumbnail from server
                     OwnCloudVersion serverOCVersion = AccountUtils.getServerVersion(account);
-                    if (mClient != null && serverOCVersion != null) {
+
+                    if (mClient != null) {
                         if (serverOCVersion.supportsRemoteThumbnails()) {
                             GetMethod getMethod = null;
                             try {
@@ -530,7 +531,8 @@ public class ThumbnailsCacheManager {
                 } else {
                     // Download thumbnail from server
                     OwnCloudVersion serverOCVersion = AccountUtils.getServerVersion(mAccount);
-                    if (mClient != null && serverOCVersion != null) {
+
+                    if (mClient != null) {
                         if (serverOCVersion.supportsRemoteThumbnails()) {
                             getMethod = null;
                             try {
@@ -838,7 +840,7 @@ public class ThumbnailsCacheManager {
 
             // Download avatar from server
             OwnCloudVersion serverOCVersion = AccountUtils.getServerVersion(mAccount);
-            if (mClient != null && serverOCVersion != null) {
+            if (mClient != null) {
                 if (serverOCVersion.supportsRemoteThumbnails()) {
                     GetMethod get = null;
                     try {

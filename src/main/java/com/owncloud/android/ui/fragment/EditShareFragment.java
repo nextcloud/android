@@ -179,12 +179,11 @@ public class EditShareFragment extends Fragment {
             int sharePermissions = mShare.getPermissions();
             boolean isFederated = ShareType.FEDERATED.equals(mShare.getShareType());
             OwnCloudVersion serverVersion = AccountUtils.getServerVersion(mAccount);
-            boolean isNotReshareableFederatedSupported = (serverVersion != null &&
-                    serverVersion.isNotReshareableFederatedSupported());
+            boolean isNotReshareableFederatedSupported = serverVersion.isNotReshareableFederatedSupported();
 
             int accentColor = ThemeUtils.primaryAccentColor();
 
-            SwitchCompat shareSwitch = (SwitchCompat) editShareView.findViewById(R.id.canShareSwitch);
+            SwitchCompat shareSwitch = editShareView.findViewById(R.id.canShareSwitch);
             ThemeUtils.tintSwitch(shareSwitch, accentColor, true);
 
             if (isFederated) {
@@ -195,7 +194,7 @@ public class EditShareFragment extends Fragment {
 
             shareSwitch.setChecked((sharePermissions & OCShare.SHARE_PERMISSION_FLAG) > 0);
 
-            SwitchCompat switchCompat = (SwitchCompat) editShareView.findViewById(R.id.canEditSwitch);
+            SwitchCompat switchCompat = editShareView.findViewById(R.id.canEditSwitch);
             ThemeUtils.tintSwitch(switchCompat, accentColor, true);
             int anyUpdatePermission = OCShare.CREATE_PERMISSION_FLAG | OCShare.UPDATE_PERMISSION_FLAG |
                     OCShare.DELETE_PERMISSION_FLAG;
@@ -207,17 +206,17 @@ public class EditShareFragment extends Fragment {
             if (mFile.isFolder() && areEditOptionsAvailable) {
                 /// TODO change areEditOptionsAvailable in order to delete !isFederated
                 // from checking when iOS is ready
-                AppCompatCheckBox checkBox = (AppCompatCheckBox) editShareView.findViewById(R.id.canEditCreateCheckBox);
+                AppCompatCheckBox checkBox = editShareView.findViewById(R.id.canEditCreateCheckBox);
                 checkBox.setChecked((sharePermissions & OCShare.CREATE_PERMISSION_FLAG) > 0);
                 checkBox.setVisibility((canEdit) ? View.VISIBLE : View.GONE);
                 ThemeUtils.tintCheckbox(checkBox, accentColor);
 
-                checkBox = (AppCompatCheckBox) editShareView.findViewById(R.id.canEditChangeCheckBox);
+                checkBox = editShareView.findViewById(R.id.canEditChangeCheckBox);
                 checkBox.setChecked((sharePermissions & OCShare.UPDATE_PERMISSION_FLAG) > 0);
                 checkBox.setVisibility((canEdit) ? View.VISIBLE : View.GONE);
                 ThemeUtils.tintCheckbox(checkBox, accentColor);
 
-                checkBox = (AppCompatCheckBox) editShareView.findViewById(R.id.canEditDeleteCheckBox);
+                checkBox = editShareView.findViewById(R.id.canEditDeleteCheckBox);
                 checkBox.setChecked((sharePermissions & OCShare.DELETE_PERMISSION_FLAG) > 0);
                 checkBox.setVisibility((canEdit) ? View.VISIBLE : View.GONE);
                 ThemeUtils.tintCheckbox(checkBox, accentColor);
@@ -243,20 +242,20 @@ public class EditShareFragment extends Fragment {
         CompoundButton.OnCheckedChangeListener changeListener = enable ? mOnPrivilegeChangeListener : null;
         CompoundButton compound;
 
-        compound = (CompoundButton) editShareView.findViewById(R.id.canShareSwitch);
+        compound = editShareView.findViewById(R.id.canShareSwitch);
         compound.setOnCheckedChangeListener(changeListener);
 
-        compound = (CompoundButton) editShareView.findViewById(R.id.canEditSwitch);
+        compound = editShareView.findViewById(R.id.canEditSwitch);
         compound.setOnCheckedChangeListener(changeListener);
 
         if (mFile.isFolder()) {
-            compound = (CompoundButton) editShareView.findViewById(R.id.canEditCreateCheckBox);
+            compound = editShareView.findViewById(R.id.canEditCreateCheckBox);
             compound.setOnCheckedChangeListener(changeListener);
 
-            compound = (CompoundButton) editShareView.findViewById(R.id.canEditChangeCheckBox);
+            compound = editShareView.findViewById(R.id.canEditChangeCheckBox);
             compound.setOnCheckedChangeListener(changeListener);
 
-            compound = (CompoundButton) editShareView.findViewById(R.id.canEditDeleteCheckBox);
+            compound = editShareView.findViewById(R.id.canEditDeleteCheckBox);
             compound.setOnCheckedChangeListener(changeListener);
         }
 
@@ -301,7 +300,7 @@ public class EditShareFragment extends Fragment {
                                 /// not federated shares -> enable all the subpermisions
                                 for (int i = 0; i < sSubordinateCheckBoxIds.length; i++) {
                                     //noinspection ConstantConditions, prevented in the method beginning
-                                    subordinate = (CompoundButton) getView().findViewById(sSubordinateCheckBoxIds[i]);
+                                    subordinate = getView().findViewById(sSubordinateCheckBoxIds[i]);
                                     subordinate.setVisibility(View.VISIBLE);
                                     if (!subordinate.isChecked() &&
                                             !mFile.isSharedWithMe()) {          // see (1)
@@ -311,7 +310,7 @@ public class EditShareFragment extends Fragment {
                             } else {
                                 /// federated share -> enable delete subpermission, as server side; TODO why?
                                 //noinspection ConstantConditions, prevented in the method beginning
-                                subordinate = (CompoundButton) getView().findViewById(R.id.canEditDeleteCheckBox);
+                                subordinate = getView().findViewById(R.id.canEditDeleteCheckBox);
                                 if (!subordinate.isChecked()) {
                                     toggleDisablingListener(subordinate);
                                 }
@@ -320,7 +319,7 @@ public class EditShareFragment extends Fragment {
                         } else {
                             for (int i = 0; i < sSubordinateCheckBoxIds.length; i++) {
                                 //noinspection ConstantConditions, prevented in the method beginning
-                                subordinate = (CompoundButton) getView().findViewById(sSubordinateCheckBoxIds[i]);
+                                subordinate = getView().findViewById(sSubordinateCheckBoxIds[i]);
                                 subordinate.setVisibility(View.GONE);
                                 if (subordinate.isChecked()) {
                                     toggleDisablingListener(subordinate);
@@ -374,7 +373,7 @@ public class EditShareFragment extends Fragment {
          * @param isChecked                 'true' iif subordinateCheckBoxView was checked.
          */
         private void syncCanEditSwitch(View subordinateCheckBoxView, boolean isChecked) {
-            CompoundButton canEditCompound = (CompoundButton) getView().findViewById(R.id.canEditSwitch);
+            CompoundButton canEditCompound = getView().findViewById(R.id.canEditSwitch);
             if (isChecked) {
                 if (!canEditCompound.isChecked()) {
                     toggleDisablingListener(canEditCompound);
