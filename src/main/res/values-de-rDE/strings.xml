@@ -135,7 +135,7 @@
     <string name="about_title">Über</string>
     <string name="change_password">Passwort ändern</string>
     <string name="delete_account">Benutzerkonto löschen</string>
-    <string name="delete_account_warning">Konto %sund alle lokalen Dateien löschen?\n\nLöschung kann nicht rückgängig gemacht werden.</string>
+    <string name="delete_account_warning">Konto %s und alle lokalen Dateien löschen?\n\nLöschung kann nicht rückgängig gemacht werden.</string>
     <string name="avatar">Avatar</string>
     <string name="active_user">Aktiver Nutzer</string>
     <string name="upload_chooser_title">Dateien hochladen von &#8230;</string>

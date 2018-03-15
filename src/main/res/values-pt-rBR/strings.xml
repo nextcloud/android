@@ -757,4 +757,5 @@
     <string name="untrusted_domain">Acesso através de domínio não confiável. Veja a documentação para mais informações.</string>
     <string name="notification_channel_push_name">Notificações push</string>
     <string name="notification_channel_push_description">Mostra as notificações push enviadas pelo servidor, p. ex. quando mencionado nos comentário, você recebe uma novo compartilhamento remoto ou um anúncio foi postado por um administrador.</string>
-    </resources>
+    <string name="sendbutton_description">Ícone do botão Enviar</string>
+</resources>

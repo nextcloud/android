@@ -757,4 +757,5 @@
     <string name="untrusted_domain">Acceder a través de un domino no confiado. Por favor, mira la documentación para más información.</string>
     <string name="notification_channel_push_name">Notificaciones de tipo push</string>
     <string name="notification_channel_push_description">Mostrar notificaciones de tipo push enviadas por el servidor, por ejemplo, cuando te mencionen en comentarios, compartan contigo una carpeta remota o cuando el administrador publique un anuncio.</string>
-    </resources>
+    <string name="sendbutton_description">Icono del botón de enviar</string>
+</resources>
