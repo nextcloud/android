@@ -28,6 +28,7 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.support.annotation.NonNull;
 import android.support.v4.content.FileProvider;
 
 import com.owncloud.android.R;
@@ -36,7 +37,6 @@ import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.utils.MimeType;
 
 import java.io.File;
-import java.util.Locale;
 
 import third_parties.daveKoeller.AlphanumComparator;
 
@@ -267,6 +267,18 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
      */
     public boolean isFolder() {
         return mMimeType != null && mMimeType.equals(MimeType.DIRECTORY);
+    }
+
+
+    /**
+     * Sets mimetype to folder and returns this file
+     * Only for testing
+     *
+     * @return OCFile this file
+     */
+    public OCFile setFolder() {
+        setMimetype(MimeType.DIRECTORY);
+        return this;
     }
 
     /**
@@ -618,9 +630,9 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
     }
 
     @Override
-    public int compareTo(OCFile another) {
+    public int compareTo(@NonNull OCFile another) {
         if (isFolder() && another.isFolder()) {
-            return getRemotePath().toLowerCase(Locale.ROOT).compareTo(another.getRemotePath().toLowerCase(Locale.ROOT));
+            return new AlphanumComparator().compare(this, another);
         } else if (isFolder()) {
             return -1;
         } else if (another.isFolder()) {
