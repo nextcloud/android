@@ -47,6 +47,7 @@
     <string name="prefs_log_delete_history_button">Poista historia</string>
     <string name="prefs_calendar_contacts">Synkronoi kalenteri &amp; kontaktit</string>
     <string name="prefs_calendar_contacts_summary">Aseta DAVdroid (v1.3.0+) nykyiselle käyttäjälle</string>
+    <string name="prefs_calendar_contacts_address_resolve_error">Käyttäjän palvelin osoitetta ei voitu selvittää DAVdroidille</string>
     <string name="prefs_calendar_contacts_no_store_error">F-Droid tai Google Play ei ole asennettu</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Kalenterin &amp; yhteystieto synkronointi asetettu</string>
     <string name="prefs_daily_contacts_sync_summary">Päivittäinen varmuuskopio yhteystiedoistasi</string>
@@ -78,6 +79,7 @@
     <string name="uploader_error_title_file_cannot_be_uploaded">Tätä tiedostoa ei voida lähettää</string>
     <string name="uploader_error_message_read_permission_not_granted">%1$s ei saa lukea vastaanotettua tiedostoa</string>
     <string name="uploader_error_message_source_file_not_found">Lähetykseen valittua tiedostoa ei löytynyt. Varmista, että tiedosto on olemassa.</string>
+    <string name="uploader_error_message_source_file_not_copied">Virhe kopioitaessa tiedostoa väliaikaiseen kansioon. Yritä lähettää se uudelleen.</string>
     <string name="uploader_upload_files_behaviour">Lähetys asetus:</string>
     <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">Siirrä tiedosto Nextcloud kansioon</string>
     <string name="uploader_upload_files_behaviour_only_upload">Pidä tiedosto lähdekansiossa</string>
@@ -89,6 +91,7 @@
     <string name="file_list_empty_favorites_filter_list">Tiedostot ja kansiot, jotka merkitset suosikeiksesi, ilmestyvät tänne</string>
     <string name="file_list_empty_favorites_filter">Hakusi ei palauttanut suosikkitiedostoja.</string>
     <string name="file_list_loading">Ladataan &#8230;</string>
+    <string name="file_list_no_app_for_file_type">Tälle tiedostotyypille ei löytynyt sovellusta.</string>
     <string name="local_file_list_empty">Tässä kansiossa ei ole tiedostoja</string>
     <string name="file_list_empty_headline_search">Ei kohteita tässä kansiossa</string>
     <string name="file_list_empty_headline_server_search">Ei tuloksia</string>
@@ -111,6 +114,9 @@
     <string name="file_list_folder">kansio</string>
     <string name="filedetails_select_file">Napauta tiedostoa nähdäksesi lisätietoja.</string>
     <string name="filedetails_download">Lataa</string>
+    <string name="filedetails_sync_file">Synkronoi</string>
+    <string name="filedetails_renamed_in_upload_msg">Tiedoston nimeksi muutettiin %1$s lähetyksen aikana</string>
+    <string name="list_layout">Luettelonäkymä</string>
     <string name="action_send_share">Lähetä/jaa</string>
     <string name="common_yes">Kyllä</string>
     <string name="common_no">Ei</string>
@@ -128,6 +134,9 @@
     <string name="about_title">Tietoja</string>
     <string name="change_password">Vaihda salasana</string>
     <string name="delete_account">Poista tili</string>
+    <string name="delete_account_warning">Poistetaanko tili %s ja kaikki sen paikalliset tiedostot?\n\nPoistamista ei voi perua.</string>
+    <string name="avatar">Profiilikuva</string>
+    <string name="active_user">Aktiivinen käyttäjä</string>
     <string name="upload_chooser_title">Lataus täältä:</string>
     <string name="uploader_info_dirname">Kansion nimi</string>
     <string name="uploader_upload_in_progress_ticker">Lähetetään &#8230;</string>
@@ -140,6 +149,7 @@
     <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">Ei-luotettu palvelinvarmenne</string>
     <string name="uploads_view_title">Lataukset</string>
     <string name="uploads_view_group_current_uploads">Nykyiset</string>
+    <string name="uploads_view_group_failed_uploads">Epäonnistuneet/odottaa uudelleenlähetystä</string>
     <string name="uploads_view_group_finished_uploads">Lähetetty</string>
     <string name="uploads_view_upload_status_succeeded">Valmiina</string>
     <string name="uploads_view_upload_status_cancelled">Peruttu</string>
@@ -150,6 +160,7 @@
     <string name="uploads_view_upload_status_failed_localfile_error">Paikallista tiedostoa ei löydy</string>
     <string name="uploads_view_upload_status_failed_permission_error">Oikeusvirhe</string>
     <string name="uploads_view_upload_status_conflict">Ristiriita</string>
+    <string name="uploads_view_upload_status_service_interrupted">Sovellus suljettiin</string>
     <string name="uploads_view_upload_status_unknown_fail">Tuntematon virhe</string>
     <string name="uploads_view_upload_status_waiting_for_wifi">Odotetaan wifiä</string>
     <string name="uploads_view_upload_status_waiting_exit_power_save_mode">Odotetaan virransäästötilasta poistumista</string>
@@ -167,8 +178,13 @@
     <string name="sync_fail_ticker">Synkronointi epäonnistui</string>
     <string name="sync_fail_ticker_unauthorized">Synkronointi epäonnistui, kirjaudu sisään uudelleen</string>
     <string name="sync_fail_content">Ei voitu synkronoida %1$s</string>
+    <string name="sync_fail_content_unauthorized">Väärä salasana tilille %1$s</string>
     <string name="sync_conflicts_in_favourites_ticker">Ristiriitoja löytynyt</string>
     <string name="sync_fail_in_favourites_ticker">\"Pidä synkronoituna\" epäonnistui</string>
+    <plurals name="sync_fail_in_favourites_content">
+        <item quantity="one">Hakemiston %1$d tiedostoja ei voitu synkronoida (%2$d konfliktia)</item>
+        <item quantity="other">Hakemiston %1$d tiedostoja ei voitu synkronoida (%2$d konfliktia)</item>
+    </plurals>
     <string name="sync_foreign_files_forgotten_ticker">Jotkin paikalliset tiedostot unohtuivat</string>
     <string name="sync_current_folder_was_removed">Kansiota %1$s ei ole enää olemassa</string>
     <string name="foreign_files_move">Siirrä kaikki</string>
@@ -176,6 +192,7 @@
     <string name="foreign_files_fail">Joitain tiedostoja ei voitu siirtää</string>
     <string name="foreign_files_local_text">Paikallinen: %1$s</string>
     <string name="foreign_files_remote_text">Etä: %1$s</string>
+    <string name="upload_query_move_foreign_files">Riittämätön tila estää tiedostojen kopioinnin %1$s kansioon. Haluatko sen sijaan siirtää ne sinne?</string>
     <string name="pass_code_enter_pass_code">Anna suojakoodi</string>
     
     <string name="pass_code_configure_your_pass_code">Anna suojakoodisi</string>
@@ -187,13 +204,20 @@
     <string name="pass_code_removed">Suojakoodi poistettu</string>
     <string name="pass_code_stored">Suojakoodi tallennettu</string>
     
+    <string name="media_notif_ticker">%1$s-musiikkisoitin</string>
     <string name="media_state_playing">%1$s (toistetaan)</string>
     <string name="media_state_loading">%1$s (ladataan)</string>
+    <string name="media_event_done">%1$s toistaminen on valmis</string>
     <string name="media_err_nothing_to_play">Mediatiedostoa ei löytynyt</string>
     <string name="media_err_no_account">Tiliä ei määritetty</string>
     <string name="media_err_not_in_owncloud">Tiedosto ei ole kelvollinen tili</string>
     <string name="media_err_unsupported">Mediakoodekki ei ole tuettu</string>
     <string name="media_err_io">Mediatiedostoa ei voitu lukea</string>
+    <string name="media_err_malformed">Mediatiedostoa ei ole koodattu kelvollisesti</string>
+    <string name="media_err_timeout">Tiedoston toisto aikakatkaistiin.</string>
+    <string name="media_err_invalid_progressive_playback">Mediatiedostoa ei voi suoratoistaa</string>
+    <string name="media_err_unknown">Sisäänrakennettu mediasoitin ei voi toistaa mediatiedostoa</string>
+    <string name="media_err_security_ex">Turvallisuusvirhe yrittäessä toistaa kohdetta %1$s</string>
     <string name="media_rewind_description">Taaksepäin kelaus -painike</string>
     <string name="media_play_pause_description">Toisto tai keskeytys -painike</string>
     <string name="media_forward_description">Eteenpäin kelaus -painike</string>
@@ -211,6 +235,7 @@
 	<string name="auth_unknown_host_title">Palvelinta ei löytynyt</string>
 	<string name="auth_incorrect_path_title">Palvelinta ei löytynyt</string>
 	<string name="auth_timeout_title">Palvelimen vastaus viipyy liian kauan</string>
+	<string name="auth_incorrect_address_title">Palvelimen osoitteen muoto on virheellinen</string>
 	<string name="auth_ssl_general_error_title">SSL:n alustus epäonnistui</string>
 	<string name="auth_ssl_unverified_server_title">SSL-palvelimen identiteettiä ei voitu vahvistaa</string>
 	<string name="auth_bad_oc_version_title">Tuntematon palvelimen versio</string>
@@ -229,16 +254,24 @@
     <string name="favorite">Aseta saatavaksi offline tilassa</string>
     <string name="favorite_real">Aseta suosikiksi</string>
     <string name="unset_favorite_real">Poista suosikeista</string>
+    <string name="favorite_switch">Aseta saatavaksi offline tilassa</string>
+    <string name="encrypted">Salaa</string>
+    <string name="unset_encrypted">Poista salaus</string>
     <string name="common_rename">Nimeä uudelleen</string>
     <string name="common_remove">Poista</string>
     <string name="confirmation_remove_file_alert">Haluatko varmasti poistaa kohteen %1$s?</string>
-    <string name="confirmation_remove_local">Vain paikallinen</string>
+    <string name="confirmation_remove_folder_alert">Haluatko varmasti poistaa kohteen %1$s ja sen sisällön?</string>
+    <string name="confirmation_remove_local">Vain paikallisen</string>
     <string name="remove_success_msg">Poistettu</string>
     <string name="remove_fail_msg">Poistaminen epäonnistui</string>
     <string name="rename_dialog_title">Anna uusi nimi</string>
+    <string name="rename_local_fail_msg">Paikallisen kopion nimeä ei voitu muuttaa, yritä eri nimeä</string>
+    <string name="rename_server_fail_msg">Nimen muutos epäonnistui, nimi on jo käytössä</string>
     <string name="sync_file_nothing_to_do_msg">Tiedoston sisältö on jo synkronoitu</string>
     <string name="create_dir_fail_msg">Kansion luominen ei onnistunut</string>
     <string name="filename_forbidden_characters">Kielletyt merkit: / \\ &lt; &gt; : \" | ? *</string>
+    <string name="filename_forbidden_charaters_from_server">Tiedoston nimi sisältää ainakin yhden virheellisen merkin</string>
+    <string name="filename_empty">Tiedoston nimi ei voi olla tyhjä</string>
     <string name="wait_a_moment">Odota hetki &#8230;</string>
     <string name="wait_checking_credentials">Tarkistetaan tallennettuja tilitietoja</string>
     <string name="filedisplay_no_file_selected">Tiedostoa ei ole valittu</string>
@@ -280,6 +313,7 @@
     <string name="instant_upload_on_charging">Lähetä vain ladattaessa virtaa</string>
     <string name="instant_upload_path">/InstantUpload</string>
     <string name="conflict_title">Tiedoston ristiriita</string>
+    <string name="conflict_message">Mitkä tiedostot haluat säilyttää? Jos valitset kummatkin versiot, paikallisen version tiedoston nimeen lisätään numero.</string>
     <string name="conflict_keep_both">Säilytä molemmat</string>
     <string name="conflict_use_local_version">paikallinen versio</string>
     <string name="conflict_use_server_version">palvelimen versio</string>
@@ -287,11 +321,14 @@
     <string name="preview_sorry">Anteeksi</string>
     <string name="preview_image_description">Kuvan esikatselu</string>
     <string name="preview_image_error_unknown_format">Kuvan näyttäminen ei onnistunut</string>
+    <string name="preview_image_error_no_local_file">Paikallista tiedostoa ei ole esikatselua varten</string>
+
     <string name="prefs_synced_folders_local_path_title">Paikallinen kansio</string>
     <string name="prefs_synced_folders_remote_path_title">Etäkansio</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Käytä alikansioita</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Tallenna alikansioihin vuoden ja kuukauden mukaisesti.</string>
 
+	<string name="share_link_no_support_share_api">Jakaminen ei ole käytössä palvelimellasi. Ota yhteys ylläpitäjään.</string>
 	<string name="share_link_file_no_exist">Jakaminen epäonnistui. Varmista, että tiedosto on olemassa</string>
 	<string name="share_link_file_error">Virhe tiedoston tai kansion jakamista yrittäessä</string>
 	<string name="unshare_link_file_no_exist">Jakamisen lopettaminen epäonnistui. Tarkista onko tiedosto olemassa</string>
@@ -310,6 +347,7 @@
 
     <string name="error_cant_bind_to_operations_service">Kriittinen virhe: toimenpiteiden suorittaminen ei onnistu</string>
 
+    <string name="network_error_socket_exception">Palvelimeen yhdistäessä tapahtui virhe.</string>
     <string name="network_error_socket_timeout_exception">Palvelinta odottaessa tapahtui virhe. Toimenpidettä ei voitu suorittaa loppuun</string>
     <string name="network_error_connect_timeout_exception">Palvelinta odottaessa tapahtui virhe. Toimenpidettä ei voitu suorittaa loppuun</string>
     <string name="network_host_not_available">Toimintoa ei voitu suorittaa loppuun. Palvelin ei ole käytettävissä</string>
@@ -325,17 +363,24 @@
     <string name="downloader_download_file_not_found">Tämä tiedosto ei ole enää palvelimella käytettävissä</string>
 
     <string name="file_migration_dialog_title">Päivitetään tallennus polkua</string>
+    <string name="file_migration_checking_destination">Tarkistetaan kohde&#8230;</string>
+    <string name="file_migration_saving_accounts_configuration">Tallentaan käyttäjän asetuksia&#8230;</string>
     <string name="file_migration_migrating">Siirretään tietoja &#8230;</string>
     <string name="file_migration_updating_index">Päivitetään indeksiä &#8230;</string>
     <string name="file_migration_cleaning">Siivotaan &#8230;</string>
+    <string name="file_migration_restoring_accounts_configuration">Palautetaan käyttäjän asetukset&#8230;</string>
     <string name="file_migration_ok_finished">Valmistunut</string>
     <string name="file_migration_failed_not_enough_space">Tarvitaan enemmän tilaa</string>
+    <string name="file_migration_failed_dir_already_exists">Nextcloud-kansio on jo olemassa</string>
+    <string name="file_migration_directory_already_exists">Data-kansio on jo olemassa, Valitse yksi seuraavista:</string>
     <string name="file_migration_override_data_folder">Korvaa</string>
     <string name="file_migration_use_data_folder">Käytä</string>
 
     <string name="prefs_add_account">Lisää tili</string>
     <string name="drawer_manage_accounts">Tilien hallinta</string>
-    <string name="actionbar_logger">Lokit</string>
+    <string name="auth_redirect_non_secure_connection_title">Salattu yhteys on ohjattu salaamatonta reittiä pitkin.</string>
+
+	<string name="actionbar_logger">Lokit</string>
 	<string name="log_send_history_button">Lähetä historia</string>
 	<string name="log_send_no_mail_app">Lokien lähettämiseen soveltuvaa sovellusta ei löytynyt. Asenna sähköpostisovellus.</string>
 	<string name="log_send_mail_subject">%1$sin Android-sovelluksen lokit</string>
@@ -349,19 +394,23 @@
 	<string name="folder_picker_choose_button_text">Valitse</string>
 
     <string name="move_file_not_found">Tiedoston siirtäminen ei onnistu. Varmista että tiedosto on olemassa</string>
+    <string name="move_file_invalid_into_descendent">Ei ole mahdollista siirtää kansiota yhteen sen alikansiosta.</string>
     <string name="move_file_invalid_overwrite">Tiedosto on jo olemassa kohdekansiossa</string>
     <string name="move_file_error">Tämän tiedoston tai kansion siirtoa yrittäessä tapahtui virhe</string>
     <string name="forbidden_permissions_move">siirtää tämä tiedosto</string>
 
 
     <string name="copy_file_not_found">Kopiointi epäonnistui. Tarkista onko tiedostoa olemassa</string>
+    <string name="copy_file_invalid_into_descendent">Ei ole mahdollista kopioida kansiota yhteen sen alikansiosta.</string>
     <string name="copy_file_invalid_overwrite">Tiedosto on jo olemassa kohdekansiossa</string>
     <string name="copy_file_error">Tätä tiedostoa tai kansiota kopioitaessa tapahtui virhe</string>
     <string name="forbidden_permissions_copy">kopioida tämä tiedosto</string>
 
     <string name="prefs_category_details">Tiedot</string>
 
-    <string name="subject_user_shared_with_you">%1$s jakoi kohteen \"%2$s\" kanssasi</string>
+    <string name="sync_folder_failed_content">Kansion %1$s synkronointia ei voitu suorittaa loppuun</string>
+
+	<string name="subject_user_shared_with_you">%1$s jakoi kohteen \"%2$s\" kanssasi</string>
     <string name="subject_shared_with_you">\"%1$s\" on jaettu kanssasi</string>
 
     <string name="auth_refresh_button">Päivitä yhteys</string>
@@ -378,10 +427,13 @@
         <item quantity="one">%1$d tiedosto</item>
         <item quantity="other">%1$d tiedostoa</item>
     </plurals>
+    <string name="set_picture_as">Käytä kuvaa...</string>
+    <string name="prefs_instant_behaviour_dialogTitle">Alkuperäinen tiedosto&#8230;</string>
+    <string name="prefs_instant_behaviour_title">Alkuperäinen tiedosto&#8230;</string>
     <string name="select_all">Valitse kaikki</string>
-    <string name="pref_behaviour_entries_keep_file">pidetään alkuperäisessä kansiossa</string>
-    <string name="pref_behaviour_entries_move">siirretään sovelluskansioon</string>
-    <string name="pref_behaviour_entries_delete_file">poistettu</string>
+    <string name="pref_behaviour_entries_keep_file">Pidetään alkuperäisessä kansiossa</string>
+    <string name="pref_behaviour_entries_move">Siirretään sovelluskansioon</string>
+    <string name="pref_behaviour_entries_delete_file">Poistetaan</string>
     <string name="prefs_storage_path">Tallennustilan polku</string>
 
     <string name="share_dialog_title">Jakaminen</string>
@@ -405,12 +457,15 @@
     <string name="share_group_clarification">%1$s (ryhmä)</string>
     <string name="share_remote_clarification">%1$s (etä)</string>
     <string name="share_email_clarification">%1$s (sähköposti)</string>
+    <string name="filedetails_share_link_disable">Ei jaettu linkillä</string>
+    <string name="filedetails_share_users_with_access">Käyttäjät ja ryhmät, joilla on pääsy</string>
     <string name="share_privilege_can_share">voi jakaa</string>
     <string name="share_privilege_can_edit">voi muokata</string>
     <string name="share_privilege_can_edit_create">luo</string>
     <string name="share_privilege_can_edit_change">muuta</string>
     <string name="share_privilege_can_edit_delete">poista</string>
 
+    <string name="action_retry_uploads">Yritä lähetystä uudelleen</string>
     <string name="action_clear_failed_uploads">Tyhjennä epäonnistuneet lähetykset</string>
     <string name="action_clear_successful_uploads">Tyhjennä onnistuneet lähetykset</string>
     <string name="action_switch_grid_view">Ruudukkonäkymä</string>
@@ -419,6 +474,7 @@
     <string name="manage_space_title">Hallitse tilaa</string>
     <string name="manage_space_clear_data">Tyhjennä tiedot</string>
 
+    <string name="permission_storage_access">Tiedostojen lähetys ja lataaminen vaatii lisäoikeuksia.</string>
     <string name="local_file_not_found_toast">Tiedostoa ei löytynyt paikallisesta tiedostojärjestelmästä</string>
     <string name="confirmation_remove_files_alert">Haluatko varmasti poistaa valitut kohteet?</string>
     <string name="confirmation_remove_folders_alert">Haluatko varmasti poistaa valitut kohteet ja niiden sisällön?</string>
@@ -427,19 +483,26 @@
     <string name="uploads_view_upload_status_waiting_for_charging">Odoteatan latausta</string>
     <string name="actionbar_search">Etsi</string>
     <string name="learn_more">Opi lisää</string>
+    <string name="drawer_synced_folders">Automaattinen lähetys</string>
     <string name="drawer_participate">Osallitu</string>
     <string name="participate_testing_headline">Auta testaamalla</string>
+    <string name="participate_testing_bug_text">Löysitkö bugin tai jotain muuta outoa?</string>
     <string name="participate_testing_report_text">Ilmoita ongelmasta GitHubissa</string>
+    <string name="participate_testing_version_text">Oletko kiinnostunut auttamaan testaamalla seuraavaa versiota?</string>
     <string name="participate_beta_headline">Testaa kehitysversiota</string>
     <string name="participate_release_candidate_headline">Julkaisu ehdokas</string>
     <string name="participate_contribute_irc_text">Liity keskusteluun IRC:ssä:</string>
     <string name="participate_contribute_translate_translate">Käännä</string>
     <string name="participate_contribute_translate_text">sovellus</string>
     <string name="participate_dev_direct_download">Lataa kehitysjulkaisu suoraan</string>
+    <string name="move_to">Siirrä kohteeseen&#8230;</string>
+    <string name="copy_to">Kopio kohteeseen&#8230;</string>
     <string name="choose_remote_folder">Valitse etäkansio &#8230;</string>
     <string name="choose_local_folder">Valitse paikallinen kansio &#8230;</string>
     <string name="synced_folders_loading_folders">Ladataan kansioita &#8230;</string>
     <string name="synced_folders_no_results">Mediakansioita ei löytynyt.</string>
+    <string name="synced_folders_preferences">Automaattisen lähetyksen asetukset</string>
+    <string name="synced_folders_preferences_folder_path">%1$s varten</string>
     <plurals name="items_selected_count">
         <item quantity="one">%d valittu</item>
         <item quantity="other">%d valittu</item>
@@ -459,6 +522,8 @@
 
     <!-- Welcome to Nc intro features -->
     <string name="welcome_feature_1_title">Turvallinen koti kaikille tiedostoillesi</string>
+    <string name="welcome_feature_1_text">Käytä, jaa ja suojaa tiedostojasi kotona ja töissä</string>
+
     <string name="welcome_feature_2_title">Useita käyttäjätilejä</string>
     <string name="welcome_feature_2_text">Yhdistä kaikkiin pilviisi</string>
 
@@ -472,6 +537,7 @@
 
     <string name="whats_new_skip">Ohita</string>
 
+    <string name="fingerprint_scan_finger">Skannaa sormesi.</string>
     <string name="fingerprint_unknown">Sormea ei tunnistettu</string>
 
     <!-- User information -->
@@ -483,6 +549,7 @@
 
     <!-- Activities -->
     <string name="activities_no_results_headline">Ei vielä toimia</string>
+    <string name="activities_no_results_message">Tähän luetteloon ilmestyy tapahtumia, kuten\nlisäyksiä, muutoksia ja jakamisia</string>
     <string name="prefs_category_about">Tietoja</string>
 
     <string name="actionbar_contacts">Varmuuskopioi yhteystietosi</string>
@@ -490,8 +557,10 @@
     <string name="contacts_backup_button">Varmuuskopioi nyt</string>
     <string name="contacts_automatic_backup">Automaattinen varmuuskopio</string>
     <string name="contacts_last_backup">Edellinen varmuuskopio</string>
+    <string name="contacts_read_permission">Tarvitaan oikeus lukea yhteystiedot.</string>
     <string name="contaclist_restore_selected">Palauta valitut yhteystiedot</string>
     <string name="contactlist_account_chooser_title">Valitse tuotava tili</string>
+    <string name="contactlist_no_permission">Oikeutta ei myönnetty, mitään ei tuotu.</string>
     <string name="contacts_preference_choose_date">Valitse päiväys</string>
     <string name="contacts_preference_backup_never">ei koskaan</string>
     <string name="contacts_preferences_no_file_found">Tiedostoa ei löytynyt</string>
@@ -521,6 +590,7 @@
 
     <string name="resized_images_download_full_image">Ladataanko koko kuva?</string>
 
+    <string name="store_short_desc">Nextcloudin Android-sovelluksen avulla hallitset Nextcloud-palvelimellasi olevia tiedostoja.</string>
     <string name="drawer_current_account">Nykyinen tili</string>
     <string name="activity_icon">Toimikuvake</string>
     <string name="file_icon">Tiedostokuvake</string>
@@ -542,6 +612,7 @@
     <string name="synced_folder_settings_button">Asetukset-painike</string>
     <string name="what_s_new_image">Mitä uutta -kuva</string>
 
+    <string name="dev_version_no_information_available">Ei tietoja saatavilla.</string>
     <string name="dev_version_no_new_version_available">Ei uutta versiota saatavilla.</string>
     <string name="folder_icon">Kansiokuvake</string>
     <string name="dev_version_new_version_available">Uusi versio saatavilla</string>
@@ -551,17 +622,23 @@
     <string name="share">Jaa</string>
     <string name="link">Linkki</string>
 
+    <string name="notification_channel_upload_name">Lähetystysten ilmoituskanava</string>
+    <string name="notification_channel_download_name">Latausten ilmoituskanava</string>
     <string name="notification_channel_download_description">Näyttää latauksen edistymisen</string>
     <string name="notification_channel_upload_description">Näyttää lähetyksen edistymisen</string>
     <string name="notification_channel_media_name">Mediasoitin</string>
+    <string name="notification_channel_file_sync_name">Tiedostojen synkronointi</string>
     <string name="notification_channel_file_sync_description">Näyttää tiedostojen synkronoinnin edistymisen ja tulokset</string>
+    <string name="notification_channel_file_observer_name">Tiedostojen tarkkailija</string>
+    <string name="notification_channel_file_observer_description">Valvoo tiedostoja muutoksien varalta</string>
+  
     <string name="account_not_found">Tiliä ei löydy!</string>
 
     <string name="screenshot_01_gridView">Turvallinen koti kaikille tiedoillesi</string>
     <string name="screenshot_02_listView">Selaa ja jaa tiedostojasi vaivatta</string>
     <string name="screenshot_03_drawer">Pääsy nopeasti toimiin, jakoihin, yhteydettömän tilan tiedostoihin ja paljon muuhun</string>
     <string name="screenshot_04_accounts">Yhdistä eri tileihin</string>
-    <string name="screenshot_05_autoUpload">Lähetä automaattisesti kuvat ja videot</string>
+    <string name="screenshot_05_autoUpload">Lähetä kuvat &amp; videot automaattisesti</string>
     <string name="screenshot_06_davdroid">Synkronoi kalenteri &amp; yhteystiedot DAVdroidilla</string>
     
     <string name="userinfo_no_info_headline">Henkilökohtaisia tietoja ei ole asetettu</string>
@@ -572,6 +649,7 @@
     <string name="end_to_end_encryption_wrong_password">Virhe salausta purkaessa. Oliko salasana väärä?</string>
     <string name="end_to_end_encryption_decrypting">Puretaan salausta&#8230;</string>
     <string name="end_to_end_encryption_retrieving_keys">Noudetaan avaimia&#8230;</string>
+    <string name="end_to_end_encryption_enter_password">Anna salasana yksityisen avaimen salauksen purkuun.</string>
     <string name="end_to_end_encryption_generating_keys">Luodaan uusia vaimia&#8230;</string>
     <string name="end_to_end_encryption_title">Aseta salaus</string>
     <string name="end_to_end_encryption_confirm_button">Aseta salaus</string>
