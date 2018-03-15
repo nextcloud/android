@@ -85,7 +85,6 @@ import com.owncloud.android.operations.RemoveFileOperation;
 import com.owncloud.android.operations.RenameFileOperation;
 import com.owncloud.android.operations.SynchronizeFileOperation;
 import com.owncloud.android.operations.UploadFileOperation;
-import com.owncloud.android.services.observer.FileObserverService;
 import com.owncloud.android.syncadapter.FileSyncAdapter;
 import com.owncloud.android.ui.dialog.SendShareDialog;
 import com.owncloud.android.ui.dialog.SortingOrderDialogFragment;
@@ -186,19 +185,6 @@ public class FileDisplayActivity extends HookActivity
 
         super.onCreate(savedInstanceState); // this calls onAccountChanged() when ownCloud Account
         // is valid
-
-        /// grant that FileObserverService is watching favorite files
-        if (savedInstanceState == null) {
-            Intent initObserversIntent = FileObserverService.makeInitIntent(this);
-
-            if (FileObserverService.shouldStart()) {
-                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-                    this.startForegroundService(initObserversIntent);
-                } else {
-                    this.startService(initObserversIntent);
-                }
-            }
-        }
 
         /// Load of saved instance state
         if (savedInstanceState != null) {

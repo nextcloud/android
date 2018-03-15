@@ -34,6 +34,7 @@ import android.support.annotation.RequiresApi;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.evernote.android.job.JobManager;
 import com.evernote.android.job.JobRequest;
 import com.evernote.android.job.util.Device;
 import com.owncloud.android.MainApp;
@@ -48,6 +49,7 @@ import com.owncloud.android.db.OCUpload;
 import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.jobs.FilesSyncJob;
 import com.owncloud.android.jobs.NContentObserverJob;
+import com.owncloud.android.jobs.OfflineSyncJob;
 
 import org.lukhnos.nnio.file.FileVisitResult;
 import org.lukhnos.nnio.file.Files;
@@ -59,6 +61,8 @@ import org.lukhnos.nnio.file.attribute.BasicFileAttributes;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import java.util.Set;
+import java.util.concurrent.TimeUnit;
 
 /*
     Various utilities that make auto upload tick
@@ -295,6 +299,18 @@ public class FilesSyncHelper {
             scheduleNJobs(false, context);
         }
     }
+
+    public static void scheduleOfflineSyncIfNeeded() {
+        Set<JobRequest> jobRequests = JobManager.instance().getAllJobRequestsForTag(OfflineSyncJob.TAG);
+        if (jobRequests.size() == 0) {
+            new JobRequest.Builder(OfflineSyncJob.TAG)
+                    .setPeriodic(TimeUnit.MINUTES.toMillis(15), TimeUnit.MINUTES.toMillis(5))
+                    .setUpdateCurrent(false)
+                    .build()
+                    .schedule();
+        }
+    }
+
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     private static void cancelJobOnN() {

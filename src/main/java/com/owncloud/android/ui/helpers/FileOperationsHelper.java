@@ -53,7 +53,6 @@ import com.owncloud.android.lib.resources.shares.ShareType;
 import com.owncloud.android.lib.resources.status.OwnCloudVersion;
 import com.owncloud.android.operations.SynchronizeFileOperation;
 import com.owncloud.android.services.OperationsService;
-import com.owncloud.android.services.observer.FileObserverService;
 import com.owncloud.android.ui.activity.ConflictsResolveActivity;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.ShareActivity;
@@ -724,19 +723,6 @@ public class FileOperationsHelper {
         if (file.isAvailableOffline() != isAvailableOffline) {
             file.setAvailableOffline(isAvailableOffline);
             mFileActivity.getStorageManager().saveFile(file);
-
-            /// register the OCFile instance in the observer service to monitor local updates
-            Intent observedFileIntent = FileObserverService.makeObservedFileIntent(
-                    mFileActivity,
-                    file,
-                    mFileActivity.getAccount(),
-                    isAvailableOffline);
-
-            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-                mFileActivity.startForegroundService(observedFileIntent);
-            } else {
-                mFileActivity.startService(observedFileIntent);
-            }
 
             /// immediate content synchronization
             if (file.isAvailableOffline()) {

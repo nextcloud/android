@@ -255,8 +255,6 @@
         </receiver>
 
 
-        <service android:name=".services.observer.FileObserverService" />
-
         <activity
             android:name=".ui.activity.CopyToClipboardActivity"
             android:icon="@drawable/copy_link"
