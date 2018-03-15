@@ -101,7 +101,7 @@ public class ConnectivityUtils {
         return true;
     }
 
-    public static boolean isOffline(Context context) {
+    private static boolean isOffline(Context context) {
         try {
             ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
             return !cm.getActiveNetworkInfo().isConnectedOrConnecting();
@@ -110,11 +110,32 @@ public class ConnectivityUtils {
         }
     }
 
-    public static boolean isOnlineWithWifi(Context context) {
+    private static boolean isOnlineWithWifi(Context context) {
         try {
             ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
             NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
-            return activeNetwork.isConnectedOrConnecting() && activeNetwork.getType() == ConnectivityManager.TYPE_WIFI;
+
+            if (activeNetwork.isConnectedOrConnecting()) {
+                switch (activeNetwork.getType()) {
+                    case ConnectivityManager.TYPE_VPN:
+                        // check if any other network is wifi
+                        for (NetworkInfo networkInfo : cm.getAllNetworkInfo()) {
+                            if (networkInfo.isConnectedOrConnecting() &&
+                                    networkInfo.getType() == ConnectivityManager.TYPE_WIFI) {
+                                return true;
+                            }
+                        }
+                        return false;
+
+                    case ConnectivityManager.TYPE_WIFI:
+                        return true;
+
+                    default:
+                        return false;
+                }
+            } else {
+                return false;
+            }
         } catch (NullPointerException exception) {
             return false;
         }
