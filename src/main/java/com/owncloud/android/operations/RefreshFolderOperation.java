@@ -363,8 +363,7 @@ public class RefreshFolderOperation extends RemoteOperation {
         remoteFolder.setParentId(mLocalFolder.getParentId());
         remoteFolder.setFileId(mLocalFolder.getFileId());
 
-        Log_OC.d(TAG, "Remote folder " + mLocalFolder.getRemotePath()
-                + " changed - starting update of local data ");
+        Log_OC.d(TAG, "Remote folder " + mLocalFolder.getRemotePath() + " changed - starting update of local data ");
 
         List<OCFile> updatedFiles = new Vector<OCFile>(folderAndFiles.size() - 1);
         mFilesToSyncContents.clear();
@@ -372,6 +371,8 @@ public class RefreshFolderOperation extends RemoteOperation {
         // if local folder is encrypted, download fresh metadata
         DecryptedFolderMetadata metadata;
         boolean encryptedAncestor = FileStorageUtils.checkEncryptionStatus(mLocalFolder, mStorageManager);
+        mLocalFolder.setEncrypted(encryptedAncestor);
+        
         if (encryptedAncestor && android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT) {
             metadata = EncryptionUtils.downloadFolderMetadata(mLocalFolder, getClient(), mContext, mAccount);
         } else {
@@ -381,6 +382,7 @@ public class RefreshFolderOperation extends RemoteOperation {
         // get current data about local contents of the folder to synchronize
         List<OCFile> localFiles = mStorageManager.getFolderContent(mLocalFolder, false);
         Map<String, OCFile> localFilesMap = new HashMap<String, OCFile>(localFiles.size());
+
         for (OCFile file : localFiles) {
             String remotePath = file.getRemotePath();
 
@@ -391,25 +393,26 @@ public class RefreshFolderOperation extends RemoteOperation {
         }
 
         // loop to update every child
-        OCFile remoteFile = null;
-        OCFile localFile = null;
-        OCFile updatedFile = null;
+        OCFile remoteFile;
+        OCFile localFile;
+        OCFile updatedFile;
         RemoteFile r;
+
         for (int i = 1; i < folderAndFiles.size(); i++) {
             /// new OCFile instance with the data from the server
             r = (RemoteFile) folderAndFiles.get(i);
             remoteFile = FileStorageUtils.fillOCFile(r);
 
-            /// new OCFile instance to merge fresh data from server with local state
+            // new OCFile instance to merge fresh data from server with local state
             updatedFile = FileStorageUtils.fillOCFile(r);
             updatedFile.setParentId(mLocalFolder.getFileId());
 
-            /// retrieve local data for the read file 
-            //  localFile = mStorageManager.getFileByPath(remoteFile.getRemotePath());
+            // retrieve local data for the read file 
             localFile = localFilesMap.remove(remoteFile.getRemotePath());
 
-            /// add to updatedFile data about LOCAL STATE (not existing in server)
+            // add to updatedFile data about LOCAL STATE (not existing in server)
             updatedFile.setLastSyncDateForProperties(mCurrentSyncTime);
+
             if (localFile != null) {
                 updatedFile.setFileId(localFile.getFileId());
                 updatedFile.setAvailableOffline(localFile.isAvailableOffline());
@@ -437,17 +440,13 @@ public class RefreshFolderOperation extends RemoteOperation {
                 updatedFile.setEtag("");
             }
 
-            /// check and fix, if needed, local storage path
+            // check and fix, if needed, local storage path
             FileStorageUtils.searchForLocalFileInDefaultPath(updatedFile, mAccount);
 
-            /// prepare content synchronization for kept-in-sync files
+            // prepare content synchronization for kept-in-sync files
             if (updatedFile.isAvailableOffline()) {
-                SynchronizeFileOperation operation = new SynchronizeFileOperation(localFile,
-                        remoteFile,
-                        mAccount,
-                        true,
-                        mContext
-                );
+                SynchronizeFileOperation operation = new SynchronizeFileOperation(localFile, remoteFile, mAccount, true,
+                        mContext);
 
                 mFilesToSyncContents.add(operation);
             }
@@ -460,6 +459,7 @@ public class RefreshFolderOperation extends RemoteOperation {
                             .getFilename();
                     String mimetype = metadata.getFiles().get(updatedFile.getFileName()).getEncrypted().getMimetype();
                     updatedFile.setFileName(decryptedFileName);
+
                     if (mimetype == null || mimetype.isEmpty()) {
                         updatedFile.setMimetype("application/octet-stream");
                     } else {
@@ -470,7 +470,8 @@ public class RefreshFolderOperation extends RemoteOperation {
                 }
             }
 
-            boolean encrypted = FileStorageUtils.checkEncryptionStatus(updatedFile, mStorageManager);
+            // we parse content, so either the folder itself or its direct parent (which we check) must be encrypted
+            boolean encrypted = updatedFile.isEncrypted() || mLocalFolder.isEncrypted();
             updatedFile.setEncrypted(encrypted);
             
             updatedFiles.add(updatedFile);
