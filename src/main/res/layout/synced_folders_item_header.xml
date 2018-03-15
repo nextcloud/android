@@ -46,14 +46,12 @@
 
             <ImageView
                 android:id="@+id/type"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
                 android:layout_gravity="start|center_vertical"
-                android:paddingRight="@dimen/standard_half_padding"
-                android:paddingEnd="@dimen/standard_half_padding"
-                android:paddingStart="@dimen/zero"
-                android:paddingLeft="@dimen/zero"
-                android:src="@drawable/ic_image_18dp"
+                android:layout_marginRight="32dp"
+                android:layout_marginEnd="32dp"
+                android:src="@drawable/image_32dp"
                 android:contentDescription="@string/synced_folders_type"/>
 
             <TextView

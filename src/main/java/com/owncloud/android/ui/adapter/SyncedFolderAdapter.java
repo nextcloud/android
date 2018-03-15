@@ -111,11 +111,11 @@ public class SyncedFolderAdapter extends SectionedRecyclerViewAdapter<SyncedFold
         holder.title.setText(mSyncFolderItems.get(section).getFolderName());
 
         if (MediaFolderType.VIDEO == mSyncFolderItems.get(section).getType()) {
-            holder.type.setImageResource(R.drawable.ic_video_18dp);
+            holder.type.setImageResource(R.drawable.video_32dp);
         } else if (MediaFolderType.IMAGE == mSyncFolderItems.get(section).getType()) {
-            holder.type.setImageResource(R.drawable.ic_image_18dp);
+            holder.type.setImageResource(R.drawable.image_32dp);
         } else {
-            holder.type.setImageResource(R.drawable.ic_folder_star_18dp);
+            holder.type.setImageResource(R.drawable.folder_star_32dp);
         }
 
         holder.syncStatusButton.setVisibility(View.VISIBLE);
@@ -208,15 +208,15 @@ public class SyncedFolderAdapter extends SectionedRecyclerViewAdapter<SyncedFold
 
         private MainViewHolder(View itemView) {
             super(itemView);
-            mainHeaderContainer = (RelativeLayout) itemView.findViewById(R.id.header_container);
-            image = (ImageView) itemView.findViewById(R.id.thumbnail);
-            title = (TextView) itemView.findViewById(R.id.title);
-            type = (ImageView) itemView.findViewById(R.id.type);
-            menuButton = (ImageButton) itemView.findViewById(R.id.settingsButton);
-            syncStatusButton = (ImageButton) itemView.findViewById(R.id.syncStatusButton);
-            counterBar = (LinearLayout) itemView.findViewById(R.id.counterLayout);
-            counterValue = (TextView) itemView.findViewById(R.id.counter);
-            thumbnailDarkener = (ImageView) itemView.findViewById(R.id.thumbnailDarkener);
+            mainHeaderContainer = itemView.findViewById(R.id.header_container);
+            image = itemView.findViewById(R.id.thumbnail);
+            title = itemView.findViewById(R.id.title);
+            type = itemView.findViewById(R.id.type);
+            menuButton = itemView.findViewById(R.id.settingsButton);
+            syncStatusButton = itemView.findViewById(R.id.syncStatusButton);
+            counterBar = itemView.findViewById(R.id.counterLayout);
+            counterValue = itemView.findViewById(R.id.counter);
+            thumbnailDarkener = itemView.findViewById(R.id.thumbnailDarkener);
         }
     }
 
