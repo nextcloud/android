@@ -427,7 +427,7 @@
         <item quantity="one">%1$d tiedosto</item>
         <item quantity="other">%1$d tiedostoa</item>
     </plurals>
-    <string name="set_picture_as">Käytä kuvaa...</string>
+    <string name="set_picture_as">Käytä kuvaa</string>
     <string name="prefs_instant_behaviour_dialogTitle">Alkuperäinen tiedosto&#8230;</string>
     <string name="prefs_instant_behaviour_title">Alkuperäinen tiedosto&#8230;</string>
     <string name="select_all">Valitse kaikki</string>
