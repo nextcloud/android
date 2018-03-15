@@ -30,7 +30,6 @@ import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.lib.resources.status.OwnCloudVersion;
 
 import org.apache.commons.httpclient.HttpStatus;
 import org.apache.commons.httpclient.methods.GetMethod;
@@ -59,9 +58,8 @@ public class HttpStreamFetcher implements DataFetcher<InputStream> {
         OwnCloudClient mClient = OwnCloudClientManagerFactory.getDefaultSingleton().
                 getClientFor(ocAccount, MainApp.getAppContext());
 
-        OwnCloudVersion serverOCVersion = AccountUtils.getServerVersion(mAccount);
         if (mClient != null) {
-            if (serverOCVersion.supportsRemoteThumbnails()) {
+            if (AccountUtils.getServerVersion(mAccount).supportsRemoteThumbnails()) {
                 GetMethod get = null;
                 try {
                     get = new GetMethod(mURL);
