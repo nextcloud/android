@@ -30,6 +30,8 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
+import com.evernote.android.job.JobRequest;
+import com.evernote.android.job.util.Device;
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.OwnCloudClient;
@@ -94,20 +96,11 @@ public class ConnectivityUtils {
             } catch (AuthenticatorException e) {
                 Log_OC.e(TAG, e.getMessage());
             }
-        } else if (!isOffline(context)) {
+        } else if (!Device.getNetworkType(context).equals(JobRequest.NetworkType.ANY)) {
             return false;
         }
 
         return true;
-    }
-
-    private static boolean isOffline(Context context) {
-        try {
-            ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-            return !cm.getActiveNetworkInfo().isConnectedOrConnecting();
-        } catch (NullPointerException exception) {
-            return false;
-        }
     }
 
     private static boolean isOnlineWithWifi(Context context) {
