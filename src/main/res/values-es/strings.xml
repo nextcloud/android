@@ -328,7 +328,7 @@
     <string name="placeholder_timestamp">18/05/2012 12:23 PM</string>
     <string name="placeholder_media_time">12:23:45</string>
 
-    <string name="auto_upload_on_wifi">Subir solo con conexión Wi-Fi sin uso medido</string>
+    <string name="auto_upload_on_wifi">Subir sólo con conexión Wi-Fi sin límite de datos</string>
     <string name="instant_upload_on_charging">Subir solamente al cargar</string>
     <string name="instant_upload_path">/SubidaInstantánea</string>
     <string name="auto_upload_path">/CargaAutomática</string>
@@ -369,7 +369,7 @@
 
     <string name="error_cant_bind_to_operations_service">Error crítico: no se pueden realizar operaciones</string>
 
-    <string name="network_error_socket_exception">Ha ocurrido un error al conectarse con el servidor</string>
+    <string name="network_error_socket_exception">Se ha producido un error al conectarse con el servidor</string>
     <string name="network_error_socket_timeout_exception">Ha ocurrido un error al esperar al servidor. La operación no se ha podido completar.</string>
     <string name="network_error_connect_timeout_exception">Ha ocurrido un error al esperar al servidor. La operación no se ha podido completar.</string>
     <string name="network_host_not_available">La operación no se ha podido completar. El servidor no está disponible</string>
@@ -729,7 +729,7 @@
     <string name="screenshot_01_gridView">Un lugar seguro para tus datos</string>
     <string name="screenshot_02_listView">Explora y comparte tus archivos fácilmente</string>
     <string name="screenshot_03_drawer">Accede rápidamente a tu actividad, recursos compartidos, archivos sin conexión y más</string>
-    <string name="screenshot_04_accounts">Conectar a cuentas diferentes</string>
+    <string name="screenshot_04_accounts">Conectarse a cuentas diferentes</string>
     <string name="screenshot_05_autoUpload">Sube automáticamente tus fotos y vídeos</string>
     <string name="screenshot_06_davdroid">Sincroniza tu calendario y tus contactos con DAVdroid</string>
     
