@@ -1,1 +1,1 @@
-Die Nextcloud Dev App ist ein Entwicklungsstand und wird parallel installiert.
+Nextcloud Dev App ist ein Entwicklungsstand und kann parallel installiert werden

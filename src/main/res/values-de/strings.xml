@@ -701,7 +701,7 @@
     <string name="forward">Vorwärts</string>
     <string name="what_s_new_image">Was ist neu Bild</string>
 
-    <string name="store_short_dev_desc">Die Nextcloud Dev App ist ein Entwicklungsstand und wird parallel installiert.</string>
+    <string name="store_short_dev_desc">Nextcloud Dev App ist ein Entwicklungsstand und kann parallel installiert werden</string>
     <string name="store_full_dev_desc">Die Open Source Nextcloud Android App ermöglicht es dir auf all deine Dateien in deiner Nextcloud zuzugreifen.\nDies ist die offizielle Entwicklungsversion und beinhaltet brandaktuelle, ungetestete Funktionalität, welche zu Instabilität oder Datenverlust führen kann. Die App richtet sich an Nutzende, die bereit sind neue Funktionalität auszutesten und Fehler zurückzumelden, sollten sie auftreten. Verwende diese Version nicht für den produktiven Einsatz!\n\nDie Entwicklungsversion kann neben der offiziellen Nextcloud App installiert werden, welche auch bei F-Droid verfügbar ist.</string>
 
     <string name="prefs_category_dev">Entwicklung</string>
