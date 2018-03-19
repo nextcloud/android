@@ -29,6 +29,8 @@ import android.support.annotation.NonNull;
 
 import com.evernote.android.job.Job;
 import com.evernote.android.job.JobManager;
+import com.evernote.android.job.JobRequest;
+import com.evernote.android.job.util.Device;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.FileDataStorageManager;
@@ -55,7 +57,9 @@ public class OfflineSyncJob extends Job {
         final Context context = MainApp.getAppContext();
 
         PowerManager.WakeLock wakeLock = null;
-        if (!PowerUtils.isPowerSaveMode(context) && !ConnectivityUtils.isInternetWalled(context)) {
+        if (!PowerUtils.isPowerSaveMode(context) &&
+                Device.getNetworkType(context).equals(JobRequest.NetworkType.UNMETERED) &&
+                !ConnectivityUtils.isInternetWalled(context)) {
             Set<Job> jobs = JobManager.instance().getAllJobsForTag(TAG);
             for (Job job : jobs) {
                 if (!job.isFinished() && !job.equals(this)) {
