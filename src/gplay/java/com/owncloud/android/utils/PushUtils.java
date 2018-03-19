@@ -442,9 +442,6 @@ public class PushUtils {
     }
 
     private Key readKeyFromString(boolean readPublicKey, String keyString) {
-        keyString = keyString.replace("-----BEGIN PUBLIC KEY-----", "");
-        keyString = keyString.replace("-----END PUBLIC KEY-----", "");
-
         if (readPublicKey) {
             keyString = keyString.replaceAll("\\n", "").replace("-----BEGIN PUBLIC KEY-----",
                     "").replace("-----END PUBLIC KEY-----", "");
