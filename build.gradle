@@ -32,7 +32,7 @@ configurations.all {
 ext {
     supportLibraryVersion = '26.1.0'
     googleLibraryVersion = '11.2.2'
-    androidLibraryVersion = '1.0.39'
+    androidLibraryVersion = 'etag-SNAPSHOT'
 
     travisBuild = System.getenv("TRAVIS") == "true"
 
