@@ -39,4 +39,3 @@ public class NCFirebaseInstanceIDService extends FirebaseInstanceIdService {
         }
     }
 }
-
