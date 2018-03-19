@@ -536,10 +536,8 @@ public class ThumbnailsCacheManager {
                     if (resizedImage != null) {
                         thumbnail = ThumbnailUtils.extractThumbnail(resizedImage, pxW, pxH);
                     } else {
-                        //Download thumbnail from server
-                    OwnCloudVersion serverOCVersion = AccountUtils.getServerVersion(mAccount);
-                    if (mClient !=  null) {
-                        if (serverOCVersion.supportsRemoteThumbnails()) {
+                        // Download thumbnail from server
+                        if (mClient != null && AccountUtils.getServerVersion(mAccount).supportsRemoteThumbnails()) {
                             getMethod = null;
                             try {
                                 // thumbnail
@@ -551,32 +549,31 @@ public class ThumbnailsCacheManager {
                                 getMethod.setRequestHeader("Cookie",
                                         "nc_sameSiteCookielax=true;nc_sameSiteCookiestrict=true");
 
-                                    getMethod.setRequestHeader(RemoteOperation.OCS_API_HEADER,
-                                            RemoteOperation.OCS_API_HEADER_VALUE);
+                                getMethod.setRequestHeader(RemoteOperation.OCS_API_HEADER,
+                                        RemoteOperation.OCS_API_HEADER_VALUE);
 
-                                    int status = mClient.executeMethod(getMethod);
-                                    if (status == HttpStatus.SC_OK) {
-                                        InputStream inputStream = getMethod.getResponseBodyAsStream();
-                                        Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
-                                        thumbnail = ThumbnailUtils.extractThumbnail(bitmap, pxW, pxH);
-                                    } else {
-                                        mClient.exhaustResponse(getMethod.getResponseBodyAsStream());
-                                    }
-
-                                    // Handle PNG
-                                    if (file.getMimetype().equalsIgnoreCase(PNG_MIMETYPE)) {
-                                        thumbnail = handlePNG(thumbnail, pxW, pxH);
-                                    }
-                                } catch (Exception e) {
-                                    Log_OC.d(TAG, e.getMessage(), e);
-                                } finally {
-                                    if (getMethod != null) {
-                                        getMethod.releaseConnection();
-                                    }
+                                int status = mClient.executeMethod(getMethod);
+                                if (status == HttpStatus.SC_OK) {
+                                    InputStream inputStream = getMethod.getResponseBodyAsStream();
+                                    Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
+                                    thumbnail = ThumbnailUtils.extractThumbnail(bitmap, pxW, pxH);
+                                } else {
+                                    mClient.exhaustResponse(getMethod.getResponseBodyAsStream());
                                 }
-                            } else {
-                                Log_OC.d(TAG, "Server too old");
+
+                                // Handle PNG
+                                if (file.getMimetype().equalsIgnoreCase(PNG_MIMETYPE)) {
+                                    thumbnail = handlePNG(thumbnail, pxW, pxH);
+                                }
+                            } catch (Exception e) {
+                                Log_OC.d(TAG, e.getMessage(), e);
+                            } finally {
+                                if (getMethod != null) {
+                                    getMethod.releaseConnection();
+                                }
                             }
+                        } else {
+                            Log_OC.d(TAG, "Server too old");
                         }
                     }
 
