@@ -131,12 +131,10 @@ public class NotificationsActivity extends FileActivity {
         String account;
         Account currentAccount;
         if (getIntent() != null && getIntent().getExtras() != null &&
-                (account = getIntent().getExtras().getString(NotificationJob.KEY_NOTIFICATION_ACCOUNT)) != null) {
-            if ((currentAccount = AccountUtils.getCurrentOwnCloudAccount(getApplicationContext())) != null) {
-                if (!account.equalsIgnoreCase(currentAccount.name)) {
-                    AccountUtils.setCurrentOwnCloudAccount(getApplicationContext(), account);
-                }
-            }
+                (account = getIntent().getExtras().getString(NotificationJob.KEY_NOTIFICATION_ACCOUNT)) != null &&
+                (currentAccount = AccountUtils.getCurrentOwnCloudAccount(getApplicationContext())) != null &&
+                !account.equalsIgnoreCase(currentAccount.name)) {
+            AccountUtils.setCurrentOwnCloudAccount(getApplicationContext(), account);
         }
 
         swipeListRefreshLayout.setOnRefreshListener(() -> {
