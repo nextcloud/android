@@ -45,7 +45,7 @@
     <string name="prefs_expert_mode">Mode expert</string>
     <string name="prefs_show_hidden_files">Afficher les fichiers masqués</string>
     <string name="prefs_log_delete_history_button">Effacer le journal</string>
-    <string name="prefs_calendar_contacts">Synchroniser l\'agenda &amp; les contacts</string>
+    <string name="prefs_calendar_contacts">Synchroniser les contacts du calendrier&amp;</string>
     <string name="prefs_calendar_contacts_summary">Configurer DAVdroid (v1.3.0+) pour le compte actuel</string>
     <string name="prefs_calendar_contacts_address_resolve_error">L\'adresse du serveur pour le compte n\'a pas pu être résolu pour DAVdroid</string>
     <string name="prefs_calendar_contacts_no_store_error">Aucune application Google Play Store ou F-Droid installée</string>
@@ -89,7 +89,7 @@
     <string name="folder_list_empty_headline">Aucun dossier</string>
     <string name="file_list_empty">Déposez du contenu ou synchronisez vos appareils.</string>
     <string name="file_list_empty_favorites_filter_list">Les fichiers et dossiers ajoutés à vos favoris apparaîtront ici</string>
-    <string name="file_list_empty_favorites_filter">Aucun favori trouvé pour votre recherche.</string>
+    <string name="file_list_empty_favorites_filter">Aucun fichier favori trouvé pour votre recherche.</string>
     <string name="file_list_loading">Chargement &#8230;</string>
     <string name="file_list_no_app_for_file_type">Aucune application trouvée pour ce type de fichier.</string>
     <string name="local_file_list_empty">Aucun fichier n\'est présent dans ce dossier.</string>
@@ -106,9 +106,9 @@
     <string name="file_list_empty_recently_modified_filter">Aucun fichier modifié au cours des 7 derniers jours.</string>
     <string name="file_list_empty_recently_added">Aucun fichier ajouté récemment</string>
     <string name="file_list_empty_recently_added_filter">Aucun fichier ajouté récemment.</string>
-    <string name="file_list_empty_text_photos">Envoyez des photos ou activez le téléversement automatique.</string>
+    <string name="file_list_empty_text_photos">Charger des photos ou activez le téléversement automatique.</string>
     <string name="file_list_empty_text_photos_filter">Aucune photo.</string>
-    <string name="file_list_empty_text_videos">Envoyez des vidéos ou activez le téléversement automatique.</string>
+    <string name="file_list_empty_text_videos">Charger des vidéos ou activez le téléversement automatique.</string>
     <string name="file_list_empty_text_videos_filter">Aucune vidéo.</string>
     <string name="upload_list_empty_headline">Aucun historique de téléversement</string>
     <string name="upload_list_empty_text_auto_upload">Téléversez du contenu ou activez le téléversement automatique.</string>
@@ -758,4 +758,7 @@ Veuillez contacter votre administrateur</string>
     <string name="end_to_end_encryption_storing_keys">Enregistrement des clés</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Copier/déplacer dans ce dossier chiffré n\'est pas actuellement supporté</string>
     <string name="untrusted_domain">Accès depuis un domaine non fiable. Veuillez consulter la documentation pour plus d\'informations.</string>
-    </resources>
+    <string name="notification_channel_push_name">Notifications push</string>
+    <string name="notification_channel_push_description">Afficher les notifications push envoyées par le serveur. Ex: quand vous êtes mentionné dans les commentaires, quand vous avez un nouveau partage distant ou quand une annonce est postée par un administrateur.</string>
+    <string name="sendbutton_description">Icône du bouton d\'envoi</string>
+</resources>

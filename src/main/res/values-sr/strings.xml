@@ -762,4 +762,5 @@
     <string name="untrusted_domain">Приступ кроз домен који није од поверења. Погледајте документацију за још информација.</string>
     <string name="notification_channel_push_name">Брза обавештења</string>
     <string name="notification_channel_push_description">Приказуј брза обавештења која пошаље сервер, нпр. када сте поменути у коментарима, када добијете ново удаљено дељење или када администратор постави неко обавештење.</string>
-    </resources>
+    <string name="sendbutton_description">Икона дугма за слање</string>
+</resources>
