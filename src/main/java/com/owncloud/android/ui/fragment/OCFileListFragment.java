@@ -76,7 +76,6 @@ import com.owncloud.android.lib.resources.files.ToggleEncryptionOperation;
 import com.owncloud.android.lib.resources.files.ToggleFavoriteOperation;
 import com.owncloud.android.lib.resources.shares.GetRemoteSharesOperation;
 import com.owncloud.android.lib.resources.status.OCCapability;
-import com.owncloud.android.lib.resources.status.OwnCloudVersion;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.activity.FolderPickerActivity;
