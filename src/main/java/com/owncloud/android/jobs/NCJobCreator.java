@@ -41,6 +41,8 @@ public class NCJobCreator implements JobCreator {
                 return new FilesSyncJob();
             case OfflineSyncJob.TAG:
                 return new OfflineSyncJob();
+            case NotificationJob.TAG:
+                return new NotificationJob();
             default:
                 return null;
         }

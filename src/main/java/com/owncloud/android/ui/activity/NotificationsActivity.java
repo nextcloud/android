@@ -46,6 +46,7 @@ import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
+import com.owncloud.android.jobs.NotificationJob;
 import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
@@ -126,6 +127,17 @@ public class NotificationsActivity extends FileActivity {
         // setup drawer
         setupDrawer(R.id.nav_notifications);
         ThemeUtils.setColoredTitle(getSupportActionBar(), getString(R.string.drawer_item_notifications));
+
+        String account;
+        Account currentAccount;
+        if (getIntent() != null && getIntent().getExtras() != null &&
+                (account = getIntent().getExtras().getString(NotificationJob.KEY_NOTIFICATION_ACCOUNT)) != null) {
+            if ((currentAccount = AccountUtils.getCurrentOwnCloudAccount(getApplicationContext())) != null) {
+                if (!account.equalsIgnoreCase(currentAccount.name)) {
+                    AccountUtils.setCurrentOwnCloudAccount(getApplicationContext(), account);
+                }
+            }
+        }
 
         swipeListRefreshLayout.setOnRefreshListener(() -> {
             setLoadingMessage();
