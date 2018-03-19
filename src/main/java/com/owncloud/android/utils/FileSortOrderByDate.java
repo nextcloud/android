@@ -46,7 +46,7 @@ public class FileSortOrderByDate extends FileSortOrder {
      *
      * @param files list of files to sort
      */
-    public ArrayList<OCFile> sortCloudFiles(ArrayList<OCFile> files) {
+    public List<OCFile> sortCloudFiles(List<OCFile> files) {
         final int multiplier = mAscending ? 1 : -1;
 
         Collections.sort(files, new Comparator<OCFile>() {

@@ -38,9 +38,9 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
 
@@ -196,7 +196,7 @@ public class FileStorageUtils {
         return file;
     }
 
-    public static ArrayList<OCFile> sortOcFolderDescDateModified(ArrayList<OCFile> files) {
+    public static List<OCFile> sortOcFolderDescDateModified(List<OCFile> files) {
         final int multiplier = -1;
         Collections.sort(files, (o1, o2) -> {
             @SuppressFBWarnings(value = "Bx", justification = "Would require stepping up API level")

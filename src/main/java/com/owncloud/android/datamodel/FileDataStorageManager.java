@@ -150,7 +150,7 @@ public class FileDataStorageManager {
     }
 
 
-    public ArrayList<OCFile> getFolderContent(OCFile f, boolean onlyOnDevice) {
+    public List<OCFile> getFolderContent(OCFile f, boolean onlyOnDevice) {
         if (f != null && f.isFolder() && f.getFileId() != -1) {
             return getFolderContent(f.getFileId(), onlyOnDevice);
         } else {
@@ -159,12 +159,12 @@ public class FileDataStorageManager {
     }
 
 
-    public ArrayList<OCFile> getFolderImages(OCFile folder, boolean onlyOnDevice) {
-        ArrayList<OCFile> ret = new ArrayList<>();
+    public List<OCFile> getFolderImages(OCFile folder, boolean onlyOnDevice) {
+        List<OCFile> ret = new ArrayList<>();
         
         if (folder != null) {
             // TODO better implementation, filtering in the access to database instead of here
-            ArrayList<OCFile> tmp = getFolderContent(folder, onlyOnDevice);
+            List<OCFile> tmp = getFolderContent(folder, onlyOnDevice);
 
             for (OCFile file : tmp) {
                 if (MimeTypeUtil.isImage(file)) {
@@ -569,7 +569,7 @@ public class FileDataStorageManager {
         File localFolder = new File(localFolderPath);
         if (localFolder.exists()) {
             // stage 1: remove the local files already registered in the files database
-            ArrayList<OCFile> files = getFolderContent(folder.getFileId(), false);
+            List<OCFile> files = getFolderContent(folder.getFileId(), false);
             if (files != null) {
                 for (OCFile file : files) {
                     if (file.isFolder()) {
@@ -808,9 +808,9 @@ public class FileDataStorageManager {
         }
     }
 
-    private ArrayList<OCFile> getFolderContent(long parentId, boolean onlyOnDevice) {
+    private List<OCFile> getFolderContent(long parentId, boolean onlyOnDevice) {
 
-        ArrayList<OCFile> ret = new ArrayList<>();
+        List<OCFile> ret = new ArrayList<>();
 
         Uri req_uri = Uri.withAppendedPath(ProviderTableMeta.CONTENT_URI_DIR, String.valueOf(parentId));
         Cursor c;
@@ -1608,7 +1608,7 @@ public class FileDataStorageManager {
                     + ProviderTableMeta.OCSHARES_ACCOUNT_OWNER + "=?";
             String[] whereArgs = new String[]{"", mAccount.name};
 
-            ArrayList<OCFile> files = getFolderContent(folder, false);
+            List<OCFile> files = getFolderContent(folder, false);
 
             for (OCFile file : files) {
                 whereArgs[0] = file.getRemotePath();
@@ -2133,8 +2133,8 @@ public class FileDataStorageManager {
         }
     }
 
-    public ArrayList<OCFile> getVirtualFolderContent(VirtualFolderType type, boolean onlyImages) {
-        ArrayList<OCFile> ocFiles = new ArrayList<>();
+    public List<OCFile> getVirtualFolderContent(VirtualFolderType type, boolean onlyImages) {
+        List<OCFile> ocFiles = new ArrayList<>();
         Uri req_uri = ProviderTableMeta.CONTENT_URI_VIRTUAL;
         Cursor c;
 
@@ -2173,7 +2173,7 @@ public class FileDataStorageManager {
         }
 
         if (onlyImages) {
-            ArrayList<OCFile> temp = new ArrayList<>();
+            List<OCFile> temp = new ArrayList<>();
 
             for (OCFile file : temp) {
                 if (MimeTypeUtil.isImage(file)) {

@@ -59,11 +59,11 @@ import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.PermissionUtil;
 import com.owncloud.android.utils.ThemeUtils;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -223,7 +223,7 @@ public class ContactsBackupFragment extends FileFragment implements DatePickerDi
                 if (result) {
                     OCFile backupFolder = contactsPreferenceActivity.getStorageManager().getFileByPath(backupFolderPath);
 
-                    ArrayList<OCFile> backupFiles = contactsPreferenceActivity.getStorageManager()
+                    List<OCFile> backupFiles = contactsPreferenceActivity.getStorageManager()
                             .getFolderContent(backupFolder, false);
 
                     if (backupFiles == null || backupFiles.size() == 0) {
@@ -387,7 +387,7 @@ public class ContactsBackupFragment extends FileFragment implements DatePickerDi
         String backupFolderString = getResources().getString(R.string.contacts_backup_folder) + OCFile.PATH_SEPARATOR;
         OCFile backupFolder = contactsPreferenceActivity.getStorageManager().getFileByPath(backupFolderString);
 
-        ArrayList<OCFile> backupFiles = contactsPreferenceActivity.getStorageManager().getFolderContent(backupFolder,
+        List<OCFile> backupFiles = contactsPreferenceActivity.getStorageManager().getFolderContent(backupFolder,
                 false);
 
         Collections.sort(backupFiles, new Comparator<OCFile>() {
@@ -469,7 +469,7 @@ public class ContactsBackupFragment extends FileFragment implements DatePickerDi
 
         String backupFolderString = getResources().getString(R.string.contacts_backup_folder) + OCFile.PATH_SEPARATOR;
         OCFile backupFolder = contactsPreferenceActivity.getStorageManager().getFileByPath(backupFolderString);
-        ArrayList<OCFile> backupFiles = contactsPreferenceActivity.getStorageManager().getFolderContent(
+        List<OCFile> backupFiles = contactsPreferenceActivity.getStorageManager().getFolderContent(
                 backupFolder, false);
 
         // find file with modification with date and time between 00:00 and 23:59

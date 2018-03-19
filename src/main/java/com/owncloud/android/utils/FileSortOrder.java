@@ -23,9 +23,9 @@ package com.owncloud.android.utils;
 import com.owncloud.android.datamodel.OCFile;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -59,11 +59,11 @@ public class FileSortOrder {
         mAscending = ascending;
     }
 
-    public ArrayList<OCFile> sortCloudFiles(ArrayList<OCFile> files) {
+    public List<OCFile> sortCloudFiles(List<OCFile> files) {
         return sortCloudFilesByFavourite(files);
     }
 
-    public ArrayList<File> sortLocalFiles(ArrayList<File> files) {
+    public List<File> sortLocalFiles(List<File> files) {
         return files;
     }
 
@@ -72,7 +72,7 @@ public class FileSortOrder {
      *
      * @param files files to sort
      */
-    public static ArrayList<OCFile> sortCloudFilesByFavourite(ArrayList<OCFile> files) {
+    public static List<OCFile> sortCloudFilesByFavourite(List<OCFile> files) {
         Collections.sort(files, (o1, o2) -> {
             if (o1.getIsFavorite() && o2.getIsFavorite()) {
                 return 0;
