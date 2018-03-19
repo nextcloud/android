@@ -627,6 +627,9 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
         public Comparator<OCUpload> comparator = new Comparator<OCUpload>() {
             @Override
             public int compare(OCUpload upload1, OCUpload upload2) {
+                if (upload1 == null && upload2 == null) {
+                    return 0;
+                }
                 if (upload1 == null) {
                     return -1;
                 }

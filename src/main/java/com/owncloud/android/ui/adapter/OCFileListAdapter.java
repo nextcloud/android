@@ -85,7 +85,6 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private Context mContext;
     private ArrayList<OCFile> mFiles = new ArrayList<>();
     private ArrayList<OCFile> mFilesAll = new ArrayList<>();
-    private boolean mJustFolders;
     private boolean mHideItemOptions;
     private boolean gridView = false;
     private boolean multiSelect = false;
@@ -104,12 +103,11 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     private ArrayList<ThumbnailsCacheManager.ThumbnailGenerationTask> asyncTasks = new ArrayList<>();
 
-    public OCFileListAdapter(boolean justFolders, Context context, ComponentsGetter transferServiceGetter,
+    public OCFileListAdapter(Context context, ComponentsGetter transferServiceGetter,
                              OCFileListFragmentInterface ocFileListFragmentInterface, boolean argHideItemOptions,
                              boolean gridView) {
 
         this.ocFileListFragmentInterface = ocFileListFragmentInterface;
-        mJustFolders = justFolders;
         mContext = context;
         mAccount = AccountUtils.getCurrentOwnCloudAccount(mContext);
         mHideItemOptions = argHideItemOptions;
@@ -392,26 +390,22 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     }
 
     private String getFooterText() {
-        if (!mJustFolders) {
-            int filesCount = 0;
-            int foldersCount = 0;
-            int count = mFiles.size();
-            OCFile file;
-            for (int i = 0; i < count; i++) {
-                file = getItem(i);
-                if (file.isFolder()) {
-                    foldersCount++;
-                } else {
-                    if (!file.isHidden()) {
-                        filesCount++;
-                    }
+        int filesCount = 0;
+        int foldersCount = 0;
+        int count = mFiles.size();
+        OCFile file;
+        for (int i = 0; i < count; i++) {
+            file = getItem(i);
+            if (file.isFolder()) {
+                foldersCount++;
+            } else {
+                if (!file.isHidden()) {
+                    filesCount++;
                 }
             }
-
-            return generateFooterText(filesCount, foldersCount);
-        } else {
-            return "";
         }
+
+        return generateFooterText(filesCount, foldersCount);
     }
 
     private String generateFooterText(int filesCount, int foldersCount) {
@@ -481,9 +475,6 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         if (mStorageManager != null) {
             mFiles = mStorageManager.getFolderContent(directory, onlyOnDevice);
 
-            if (mJustFolders) {
-                mFiles = getFolders(mFiles);
-            }
             if (!PreferenceManager.showHiddenFilesEnabled(mContext)) {
                 mFiles = filterHiddenFiles(mFiles);
             }
