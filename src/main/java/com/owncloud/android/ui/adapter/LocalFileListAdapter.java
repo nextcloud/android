@@ -51,6 +51,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 
@@ -63,8 +64,8 @@ public class LocalFileListAdapter extends RecyclerView.Adapter<RecyclerView.View
 
     private static final int showFilenameColumnThreshold = 4;
     private Context mContext;
-    private ArrayList<File> mFiles = new ArrayList<>();
-    private ArrayList<File> mFilesAll = new ArrayList<>();
+    private List<File> mFiles = new ArrayList<>();
+    private List<File> mFilesAll = new ArrayList<>();
     private boolean mLocalFolderPicker;
     private boolean gridView = false;
     private LocalFileListFragmentInterface localFileListFragmentInterface;
@@ -142,7 +143,7 @@ public class LocalFileListAdapter extends RecyclerView.Adapter<RecyclerView.View
     }
 
     public String[] getCheckedFilesPath() {
-        ArrayList<String> result = new ArrayList<>();
+        List<String> result = new ArrayList<>();
 
         for (File file : checkedFiles) {
             result.add(file.getAbsolutePath());
@@ -421,7 +422,7 @@ public class LocalFileListAdapter extends RecyclerView.Adapter<RecyclerView.View
         notifyDataSetChanged();
     }
 
-    private ArrayList<File> getFolders(final File directory) {
+    private List<File> getFolders(final File directory) {
         File[] folders = directory.listFiles(File::isFile);
 
         if (folders != null && folders.length > 0) {
@@ -431,7 +432,7 @@ public class LocalFileListAdapter extends RecyclerView.Adapter<RecyclerView.View
         }
     }
 
-    private ArrayList<File> getFiles(File directory) {
+    private List<File> getFiles(File directory) {
         File[] files = directory.listFiles();
 
         if (files != null && files.length > 0) {
@@ -445,7 +446,7 @@ public class LocalFileListAdapter extends RecyclerView.Adapter<RecyclerView.View
         if (text.isEmpty()) {
             mFiles = mFilesAll;
         } else {
-            ArrayList<File> result = new ArrayList<>();
+            List<File> result = new ArrayList<>();
             text = text.toLowerCase(Locale.getDefault());
             for (File file : mFilesAll) {
                 if (file.getName().toLowerCase(Locale.getDefault()).contains(text)) {
@@ -463,8 +464,8 @@ public class LocalFileListAdapter extends RecyclerView.Adapter<RecyclerView.View
      * @param files ArrayList of files to filter
      * @return Non-hidden files
      */
-    public ArrayList<File> filterHiddenFiles(ArrayList<File> files) {
-        ArrayList<File> ret = new ArrayList<>();
+    public List<File> filterHiddenFiles(List<File> files) {
+        List<File> ret = new ArrayList<>();
 
         for (File file : files) {
             if (!file.isHidden()) {

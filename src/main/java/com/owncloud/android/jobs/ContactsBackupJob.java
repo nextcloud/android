@@ -54,6 +54,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 /**
  * Job that backup contacts to /Contacts-Backup and deletes files older than x days
@@ -183,7 +184,7 @@ public class ContactsBackupJob extends Job {
                 Log_OC.d(TAG, "expire: " + daysToExpire + " " + backupFolder.getFileName());
             }
 
-            ArrayList<OCFile> backups = storageManager.getFolderContent(backupFolder, false);
+            List<OCFile> backups = storageManager.getFolderContent(backupFolder, false);
 
             for (OCFile backup : backups) {
                 if (timestampToExpire > backup.getModificationTimestamp()) {

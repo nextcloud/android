@@ -70,6 +70,7 @@ import com.owncloud.android.utils.ThemeUtils;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Locale;
 import java.util.Vector;
 
@@ -83,8 +84,8 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private final FileUploader.FileUploaderBinder uploaderBinder;
     private final OperationsService.OperationsServiceBinder operationsServiceBinder;
     private Context mContext;
-    private ArrayList<OCFile> mFiles = new ArrayList<>();
-    private ArrayList<OCFile> mFilesAll = new ArrayList<>();
+    private List<OCFile> mFiles = new ArrayList<>();
+    private List<OCFile> mFilesAll = new ArrayList<>();
     private boolean mHideItemOptions;
     private boolean gridView = false;
     private boolean multiSelect = false;
@@ -540,7 +541,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     }
 
     private void parseShares(ArrayList<Object> objects) {
-        ArrayList<OCShare> shares = new ArrayList<>();
+        List<OCShare> shares = new ArrayList<>();
         for (int i = 0; i < objects.size(); i++) {
             // check type before cast as of long running data fetch it is possible that old result is filled
             if (objects.get(i) instanceof OCShare) {
@@ -595,7 +596,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
         mStorageManager.deleteVirtuals(type);
 
-        ArrayList<ContentValues> contentValues = new ArrayList<>();
+        List<ContentValues> contentValues = new ArrayList<>();
 
         for (int i = 0; i < objects.size(); i++) {
             OCFile ocFile = FileStorageUtils.fillOCFile((RemoteFile) objects.get(i));
@@ -627,8 +628,8 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
      * @param files Collection of files to filter
      * @return Folders in the input
      */
-    public ArrayList<OCFile> getFolders(ArrayList<OCFile> files) {
-        ArrayList<OCFile> ret = new ArrayList<>();
+    public List<OCFile> getFolders(ArrayList<OCFile> files) {
+        List<OCFile> ret = new ArrayList<>();
 
         for (OCFile file : files) {
             if (file.isFolder()) {
@@ -659,7 +660,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         checkedFiles.clear();
     }
 
-    public ArrayList<OCFile> getFiles() {
+    public List<OCFile> getFiles() {
         return mFiles;
     }
 
@@ -719,8 +720,8 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
      * @param files Collection of files to filter
      * @return Non-hidden files
      */
-    public ArrayList<OCFile> filterHiddenFiles(ArrayList<OCFile> files) {
-        ArrayList<OCFile> ret = new ArrayList<>();
+    public List<OCFile> filterHiddenFiles(List<OCFile> files) {
+        List<OCFile> ret = new ArrayList<>();
 
         for (OCFile file : files) {
             if (!file.isHidden() && !ret.contains(file)) {

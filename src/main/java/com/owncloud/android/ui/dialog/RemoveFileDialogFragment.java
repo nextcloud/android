@@ -36,6 +36,7 @@ import com.owncloud.android.ui.activity.ComponentsGetter;
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment.ConfirmationDialogFragmentListener;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class RemoveFileDialogFragment extends ConfirmationDialogFragment 
 implements ConfirmationDialogFragmentListener {
@@ -112,7 +113,7 @@ implements ConfirmationDialogFragmentListener {
         
         boolean containsFavorite = false;
         if (mTargetFile.isFolder()) {
-            ArrayList<OCFile> files = storageManager.getFolderContent(mTargetFile, false);
+            List<OCFile> files = storageManager.getFolderContent(mTargetFile, false);
             
             for(OCFile file: files) {
                 containsFavorite = file.isAvailableOffline() || containsFavorite;

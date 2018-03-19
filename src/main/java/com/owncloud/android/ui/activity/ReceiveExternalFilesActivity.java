@@ -628,7 +628,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         // click on folder in the list
         Log_OC.d(TAG, "on item click");
-        ArrayList<OCFile> tmpFiles = getStorageManager().getFolderContent(mFile, false);
+        List<OCFile> tmpFiles = getStorageManager().getFolderContent(mFile, false);
         tmpFiles = sortFileList(tmpFiles);
 
         if (tmpFiles.size() <= 0) {
@@ -738,7 +738,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
 
         mFile = getStorageManager().getFileByPath(full_path);
         if (mFile != null) {
-            ArrayList<OCFile> files = getStorageManager().getFolderContent(mFile, false);
+            List<OCFile> files = getStorageManager().getFolderContent(mFile, false);
 
             if (files.size() == 0) {
                 setMessageForEmptyList(R.string.file_list_empty_headline, R.string.empty,
@@ -834,7 +834,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
         syncFolderOp.execute(getAccount(), this, null, null);
     }
 
-    private ArrayList<OCFile> sortFileList(ArrayList<OCFile> files) {
+    private List<OCFile> sortFileList(List<OCFile> files) {
         FileSortOrder sortOrder = getSortOrder(this, mFile);
         return sortOrder.sortCloudFiles(files);
     }
