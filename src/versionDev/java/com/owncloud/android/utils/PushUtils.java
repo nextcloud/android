@@ -49,5 +49,8 @@ public final class PushUtils {
 
     public static SignatureVerification verifySignature(Context context, byte[] signatureBytes, byte[] subjectBytes) {
         return null;
+
+    public static void deleteRegistrationForAccount() {
+        // do nothing
     }
 }

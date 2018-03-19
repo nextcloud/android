@@ -43,6 +43,7 @@ import com.owncloud.android.ui.events.AccountRemovedEvent;
 import com.owncloud.android.utils.EncryptionUtils;
 import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.FilesSyncHelper;
+import com.owncloud.android.utils.PushUtils;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -73,10 +74,8 @@ public class AccountRemovalJob extends Job implements AccountManagerCallback<Boo
             // disable contact backup job
             ContactsPreferenceActivity.cancelContactBackupJobForAccount(context, account);
 
-
-            if (am != null) {
-                am.removeAccount(account, this, null);
-            }
+            // remove push notification
+            PushUtils.deleteRegistrationForAccount(account);
 
             FileDataStorageManager storageManager = new FileDataStorageManager(account, context.getContentResolver());
 
@@ -122,6 +121,9 @@ public class AccountRemovalJob extends Job implements AccountManagerCallback<Boo
             // delete stored E2E keys 
             arbitraryDataProvider.deleteKeyForAccount(account.name, EncryptionUtils.PRIVATE_KEY);
             arbitraryDataProvider.deleteKeyForAccount(account.name, EncryptionUtils.PUBLIC_KEY);
+
+            // finally remove account from account manager
+            am.removeAccount(account, this, null);
 
             return Result.SUCCESS;
         } else {

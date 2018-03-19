@@ -144,7 +144,7 @@ public final class PushUtils {
         return -2;
     }
 
-    private static void deleteRegistrationForAccount(Account account) {
+    public static void deleteRegistrationForAccount(Account account) {
         Context context = MainApp.getAppContext();
         OwnCloudAccount ocAccount = null;
         arbitraryDataProvider = new ArbitraryDataProvider(MainApp.getAppContext().getContentResolver());
@@ -160,7 +160,7 @@ public final class PushUtils {
             RemoteOperationResult remoteOperationResult = unregisterAccountDeviceForNotificationsOperation.
                     execute(mClient);
 
-            if (remoteOperationResult.getHttpCode() == HttpStatus.SC_ACCEPTED) {
+            if (remoteOperationResult.isSuccess()) {
                 String arbitraryValue;
                 if (!TextUtils.isEmpty(arbitraryValue = arbitraryDataProvider.getValue(account, KEY_PUSH))) {
                     Gson gson = new Gson();
@@ -180,8 +180,6 @@ public final class PushUtils {
                     }
                 }
             }
-
-
         } catch (com.owncloud.android.lib.common.accounts.AccountUtils.AccountNotFoundException e) {
             Log_OC.d(TAG, "Failed to find an account");
         } catch (AuthenticatorException e) {
