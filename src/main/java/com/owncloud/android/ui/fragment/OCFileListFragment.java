@@ -75,6 +75,8 @@ import com.owncloud.android.lib.resources.files.SearchOperation;
 import com.owncloud.android.lib.resources.files.ToggleEncryptionOperation;
 import com.owncloud.android.lib.resources.files.ToggleFavoriteOperation;
 import com.owncloud.android.lib.resources.shares.GetRemoteSharesOperation;
+import com.owncloud.android.lib.resources.status.OCCapability;
+import com.owncloud.android.lib.resources.status.OwnCloudVersion;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.activity.FolderPickerActivity;
@@ -887,11 +889,22 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
                         return;
                     }
 
+                    Account account = ((FileActivity) mContainerActivity).getAccount();
+
+                    // check if e2e app is enabled
+                    OCCapability ocCapability = mContainerActivity.getStorageManager().getCapability(account.name);
+
+                    if (ocCapability.getEndToEndEncryption().isFalse() ||
+                            ocCapability.getEndToEndEncryption().isUnknown()) {
+                        Snackbar.make(mCurrentListView, R.string.end_to_end_encryption_not_enabled,
+                                Snackbar.LENGTH_LONG).show();
+                        return;
+                    }
+                    
                     // check if keys are stored
                     ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProvider(
                             getContext().getContentResolver());
 
-                    Account account = ((FileActivity) mContainerActivity).getAccount();
                     String publicKey = arbitraryDataProvider.getValue(account, EncryptionUtils.PUBLIC_KEY);
                     String privateKey = arbitraryDataProvider.getValue(account, EncryptionUtils.PRIVATE_KEY);
 

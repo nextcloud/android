@@ -763,6 +763,7 @@
     <string name="end_to_end_encryption_title">Set up encryption</string>
     <string name="end_to_end_encryption_passphrase_title">Make note of your 12 word encryption password</string>
     <string name="end_to_end_encryption_not_supported">Encryption only works on KitKat(4.4) and beyond.</string>
+    <string name="end_to_end_encryption_not_enabled">End to end encryption not enabled on server.</string>
     <string name="end_to_end_encryption_confirm_button">Set up encryption</string>
     <string name="end_to_end_encryption_password">Password&#8230;</string>
     <string name="end_to_end_encryption_unsuccessful">Could not save keys, please try again.</string>
