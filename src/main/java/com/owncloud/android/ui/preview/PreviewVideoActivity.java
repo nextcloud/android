@@ -105,7 +105,7 @@ public class PreviewVideoActivity extends FileActivity implements OnCompletionLi
         // keep the screen on while the playback is performed (prevents screen off by battery save)
         mVideoPlayer.setKeepScreenOn(true);
 
-        if(getSupportActionBar() != null) {
+        if (getSupportActionBar() != null) {
             getSupportActionBar().hide();
         }
     }
