@@ -62,7 +62,9 @@ public class TestSorting {
 
     @Test
     public void testLeadingZeros() {
-        String[] sortedArray = {"T 0 abc", "T 00 abc", "T 000 abc", "T 1 abc", "T 01 abc",
+        String[] sortedArray = {"2012-09-15 22.50.37.jpg", "2012-Card.jpg", "1584164_460s_v1.jpg", "08082008.jpg",
+                "02122011150.jpg", "03122011151.jpg", "9999999999999999999999999999991.jpg",
+                "9999999999999999999999999999992.jpg", "T 0 abc", "T 00 abc", "T 000 abc", "T 1 abc", "T 01 abc",
                 "T 001 abc", "T 2 abc", "T 02 abc", "T 3 abc", "T 03 abc"};
 
         assertTrue(sortAndTest(Arrays.asList(sortedArray)));
@@ -70,7 +72,6 @@ public class TestSorting {
 
     @Test
     public void testTrailingDigits() {
-        String[] unsortedArray = {"Zeros 2", "Zeros", "T 2", "T", "T 01", "T 003", "A"};
         String[] sortedArray = {"A", "T", "T 01", "T 2", "T 003", "Zeros", "Zeros 2"};
 
         assertTrue(sortAndTest(Arrays.asList(sortedArray)));
