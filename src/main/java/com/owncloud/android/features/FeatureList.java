@@ -71,7 +71,7 @@ public class FeatureList {
                 BETA_VERSION_0, SHOW_ON_UPGRADE, false, false));
 
         // 3.1.0
-        featuresList.add(new FeatureItem(R.drawable.whats_new_end_to_end_encryption,
+        featuresList.add(new FeatureItem(R.drawable.whats_new_device_credentials,
                 R.string.whats_new_device_credentials_title, R.string.whats_new_device_credentials_content,
                 VERSION_3_1_0, BETA_VERSION_0, SHOW_ON_UPGRADE, false, false));
 
