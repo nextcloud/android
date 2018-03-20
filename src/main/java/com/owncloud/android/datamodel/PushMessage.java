@@ -23,8 +23,8 @@ import org.parceler.Parcel;
 
 @Parcel
 public class PushMessage {
-    private String subject;
-    private String signature;
+    public String subject;
+    public String signature;
 
     public PushMessage() {
     }

@@ -25,8 +25,8 @@ import org.parceler.Parcel;
 
 @Parcel
 public class SignatureVerification {
-    private boolean signatureValid;
-    private Account account;
+    public boolean signatureValid;
+    public Account account;
 
     public SignatureVerification() {
     }

@@ -23,13 +23,13 @@ package com.owncloud.android.datamodel;
 import org.parceler.Parcel;
 
 @Parcel public class DecryptedPushMessage {
-    private String app;
+    public String app;
 
-    private String type;
+    public String type;
 
-    private String subject;
+    public String subject;
 
-    private String id;
+    public String id;
 
     public DecryptedPushMessage(String app, String type, String subject, String id) {
         this.app = app;
