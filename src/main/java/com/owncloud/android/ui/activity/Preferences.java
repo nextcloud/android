@@ -376,7 +376,6 @@ public class Preferences extends PreferenceActivity
         if (pFeedback != null) {
             if (feedbackEnabled) {
                 pFeedback.setOnPreferenceClickListener(new OnPreferenceClickListener() {
-
                     @Override
                     public boolean onPreferenceClick(Preference preference) {
                         String feedbackMail = getString(R.string.mail_feedback);
@@ -883,7 +882,7 @@ public class Preferences extends PreferenceActivity
         } else if (requestCode == ACTION_CONFIRM_DEVICE_CREDENTIALS && resultCode == RESULT_OK &&
             Build.VERSION.SDK_INT >= Build.VERSION_CODES.M &&
                 data.getIntExtra(RequestCredentialsActivity.KEY_CHECK_RESULT,
-                        RequestCredentialsActivity.KEY_CHECK_RESULT_FALSE) ==
+                        RequestCredentialsActivity.KEY_CHECK_RESULT_FALSE) == 
                         RequestCredentialsActivity.KEY_CHECK_RESULT_TRUE) {
             mLock.setValue(LOCK_NONE);
             mLock.setSummary(mLock.getEntry());

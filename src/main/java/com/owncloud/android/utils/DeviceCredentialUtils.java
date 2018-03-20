@@ -62,8 +62,8 @@ public class DeviceCredentialUtils {
     private static final String ANDROID_KEY_STORE = "AndroidKeyStore";
 
     public static boolean areCredentialsAvailable(Context context) {
-        KeyguardManager keyguardManager = (KeyguardManager) context.getSystemService(
-                Context.KEYGUARD_SERVICE);
+        KeyguardManager keyguardManager = (KeyguardManager) context.getSystemService(Context.KEYGUARD_SERVICE);
+        
         if (keyguardManager != null) {
             return keyguardManager.isKeyguardSecure();
         } else {
@@ -82,13 +82,12 @@ public class DeviceCredentialUtils {
         try {
             KeyStore keyStore = KeyStore.getInstance(ANDROID_KEY_STORE);
             keyStore.load(null);
-            KeyGenerator keyGenerator = KeyGenerator.getInstance(
-                    KeyProperties.KEY_ALGORITHM_AES, ANDROID_KEY_STORE);
+            KeyGenerator keyGenerator = KeyGenerator.getInstance(KeyProperties.KEY_ALGORITHM_AES, ANDROID_KEY_STORE);
 
             // Set the alias of the entry in Android KeyStore where the key will appear
             // and the constrains (purposes) in the constructor of the Builder
-            keyGenerator.init(new KeyGenParameterSpec.Builder(keyName,
-                    KeyProperties.PURPOSE_ENCRYPT | KeyProperties.PURPOSE_DECRYPT)
+            keyGenerator.init(new KeyGenParameterSpec.Builder(keyName, KeyProperties.PURPOSE_ENCRYPT |
+                    KeyProperties.PURPOSE_DECRYPT)
                     .setBlockModes(KeyProperties.BLOCK_MODE_CBC)
                     .setUserAuthenticationRequired(true)
                     // Require that the user has unlocked in the last 30 seconds
@@ -118,9 +117,8 @@ public class DeviceCredentialUtils {
             KeyStore keyStore = KeyStore.getInstance(ANDROID_KEY_STORE);
             keyStore.load(null);
             SecretKey secretKey = (SecretKey) keyStore.getKey(keyName, null);
-            Cipher cipher = Cipher.getInstance(
-                    KeyProperties.KEY_ALGORITHM_AES + "/" + KeyProperties.BLOCK_MODE_CBC + "/"
-                            + KeyProperties.ENCRYPTION_PADDING_PKCS7);
+            Cipher cipher = Cipher.getInstance(KeyProperties.KEY_ALGORITHM_AES + "/" +
+                    KeyProperties.BLOCK_MODE_CBC + "/" + KeyProperties.ENCRYPTION_PADDING_PKCS7);
 
             // Try encrypting something, it will only work if the user authenticated within
             // the last AUTHENTICATION_DURATION_SECONDS seconds.
