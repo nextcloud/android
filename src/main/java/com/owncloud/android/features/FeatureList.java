@@ -41,6 +41,7 @@ public class FeatureList {
 
     private static final int VERSION_1_0_0 = 10000099;
     private static final int VERSION_3_0_0 = 30000099;
+    private static final int VERSION_3_1_0 = 30010000;
     private static final int BETA_VERSION_0 = 0;
 
     static public ArrayList<FeatureItem> get(boolean isMultiAccount) {
@@ -68,6 +69,11 @@ public class FeatureList {
         featuresList.add(new FeatureItem(R.drawable.whats_new_ipv6, R.string.whats_new_ipv6_title,
                 R.string.whats_new_ipv6_content, VERSION_3_0_0,
                 BETA_VERSION_0, SHOW_ON_UPGRADE, false, false));
+
+        // 3.1.0
+        featuresList.add(new FeatureItem(R.drawable.whats_new_end_to_end_encryption,
+                R.string.whats_new_device_credentials_title, R.string.whats_new_device_credentials_content,
+                VERSION_3_1_0, BETA_VERSION_0, SHOW_ON_UPGRADE, false, false));
 
         return featuresList;
     }

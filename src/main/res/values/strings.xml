@@ -794,4 +794,6 @@
     <string name="sharee_add_failed">Adding sharee failed</string>
     <string name="unsharing_failed">Unsharing failed</string>
     <string name="updating_share_failed">Updating share failed</string>
+    <string name="whats_new_device_credentials_title">Use Android device protection</string>
+    <string name="whats_new_device_credentials_content">Use android internal device protection, e.g. pattern, password, fingerprint</string>
 </resources>
