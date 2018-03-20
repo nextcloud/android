@@ -84,9 +84,8 @@ public class PassCodeManager {
             activity.startActivityForResult(i, PASSCODE_ACTIVITY);
         }
 
-
-        if (!sExemptOfPasscodeActivites.contains(activity.getClass()) && Build.VERSION.SDK_INT >=
-                Build.VERSION_CODES.M && deviceCredentialsShouldBeRequested(activity) &&
+        if (!sExemptOfPasscodeActivites.contains(activity.getClass()) &&
+                Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && deviceCredentialsShouldBeRequested(activity) &&
                 !DeviceCredentialUtils.tryEncrypt(activity)) {
             Intent i = new Intent(MainApp.getAppContext(), RequestCredentialsActivity.class);
             i.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
@@ -102,7 +101,8 @@ public class PassCodeManager {
         }
         setUnlockTimestamp();
         PowerManager powerMgr = (PowerManager) activity.getSystemService(Context.POWER_SERVICE);
-        if ((passCodeIsEnabled() || deviceCredentialsAreEnabled(activity)) && powerMgr != null && !powerMgr.isScreenOn()) {
+        if ((passCodeIsEnabled() || deviceCredentialsAreEnabled(activity)) && powerMgr != null
+                && !powerMgr.isScreenOn()) {
             activity.moveTaskToBack(true);
         }
     }

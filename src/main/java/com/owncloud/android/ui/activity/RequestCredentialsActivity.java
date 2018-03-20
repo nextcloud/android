@@ -52,8 +52,7 @@ public class RequestCredentialsActivity extends Activity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_CODE_CONFIRM_DEVICE_CREDENTIALS) {
-            if (resultCode == Activity.RESULT_OK && DeviceCredentialUtils
-                    .tryEncrypt(getApplicationContext())) {
+            if (resultCode == Activity.RESULT_OK && DeviceCredentialUtils.tryEncrypt(getApplicationContext())) {
                 finishWithResult(KEY_CHECK_RESULT_TRUE);
             } else if (resultCode == Activity.RESULT_CANCELED) {
                 finishWithResult(KEY_CHECK_RESULT_CANCEL);
