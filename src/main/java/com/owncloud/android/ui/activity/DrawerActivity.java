@@ -34,6 +34,7 @@ import android.graphics.PorterDuff;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.NavigationView;
@@ -59,6 +60,7 @@ import com.bumptech.glide.request.target.SimpleTarget;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
+import com.owncloud.android.authentication.PassCodeManager;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.ExternalLinksProvider;
 import com.owncloud.android.datamodel.OCFile;
@@ -1227,6 +1229,15 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
                 restart();
             } else {
                 updateAccountList();
+            }
+        } else if (requestCode == PassCodeManager.PASSCODE_ACTIVITY &&
+                Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && data != null) {
+            int result = data.getIntExtra(RequestCredentialsActivity.KEY_CHECK_RESULT,
+                    RequestCredentialsActivity.KEY_CHECK_RESULT_FALSE);
+
+            if (result == RequestCredentialsActivity.KEY_CHECK_RESULT_CANCEL) {
+                Log_OC.d(TAG, "PassCodeManager cancelled");
+                super.onBackPressed();
             }
         }
     }

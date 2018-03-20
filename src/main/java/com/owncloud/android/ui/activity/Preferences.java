@@ -596,8 +596,8 @@ public class Preferences extends PreferenceActivity
             if (!passCodeEnabled) {
                 lockEntries.remove(1);
                 lockValues.remove(1);
-            } else if (!deviceCredentialsEnabled || Build.VERSION.SDK_INT <
-                    Build.VERSION_CODES.M) {
+            } else if (!deviceCredentialsEnabled || Build.VERSION.SDK_INT < Build.VERSION_CODES.M ||
+                    !DeviceCredentialUtils.areCredentialsAvailable(getApplicationContext())) {
                 lockEntries.remove(2);
                 lockValues.remove(2);
             }
@@ -881,7 +881,9 @@ public class Preferences extends PreferenceActivity
             DisplayUtils.showSnackMessage(this, R.string.prefs_calendar_contacts_sync_setup_successful);
         } else if (requestCode == ACTION_CONFIRM_DEVICE_CREDENTIALS && resultCode == RESULT_OK &&
             Build.VERSION.SDK_INT >= Build.VERSION_CODES.M &&
-            data.getBooleanExtra(RequestCredentialsActivity.KEY_CHECK_RESULT, false)) {
+                data.getIntExtra(RequestCredentialsActivity.KEY_CHECK_RESULT,
+                        RequestCredentialsActivity.KEY_CHECK_RESULT_FALSE) ==
+                        RequestCredentialsActivity.KEY_CHECK_RESULT_TRUE) {
             mLock.setValue(LOCK_NONE);
             mLock.setSummary(mLock.getEntry());
             DisplayUtils.showSnackMessage(this, R.string.credentials_disabled);
