@@ -44,6 +44,9 @@ public class RequestCredentialsActivity extends Activity {
     private static final String SCREEN_NAME = "Device credentials";
 
     public final static String KEY_CHECK_RESULT = "KEY_CHECK_RESULT";
+    public final static int KEY_CHECK_RESULT_TRUE = 1;
+    public final static int KEY_CHECK_RESULT_FALSE = 0;
+    public final static int KEY_CHECK_RESULT_CANCEL = -1;
     private static final int REQUEST_CODE_CONFIRM_DEVICE_CREDENTIALS = 1;
 
     @Override
@@ -51,7 +54,9 @@ public class RequestCredentialsActivity extends Activity {
         if (requestCode == REQUEST_CODE_CONFIRM_DEVICE_CREDENTIALS) {
             if (resultCode == Activity.RESULT_OK && DeviceCredentialUtils
                     .tryEncrypt(getApplicationContext())) {
-                finishWithResult(true);
+                finishWithResult(KEY_CHECK_RESULT_TRUE);
+            } else if (resultCode == Activity.RESULT_CANCELED) {
+                finishWithResult(KEY_CHECK_RESULT_CANCEL);
             } else {
                 Toast.makeText(this, R.string.default_credentials_wrong, Toast.LENGTH_SHORT).show();
                 requestCredentials();
@@ -69,7 +74,7 @@ public class RequestCredentialsActivity extends Activity {
             requestCredentials();
         } else {
             DisplayUtils.showSnackMessage(this, R.string.prefs_lock_device_credentials_not_setup);
-            finishWithResult(true);
+            finishWithResult(KEY_CHECK_RESULT_TRUE);
         }
     }
 
@@ -80,11 +85,11 @@ public class RequestCredentialsActivity extends Activity {
             startActivityForResult(i, REQUEST_CODE_CONFIRM_DEVICE_CREDENTIALS);
         } else {
             Log_OC.e(TAG, "Keyguard manager is null");
-            finishWithResult(false);
+            finishWithResult(KEY_CHECK_RESULT_FALSE);
         }
     }
 
-    private void finishWithResult(boolean success) {
+    private void finishWithResult(int success) {
         Intent resultIntent = new Intent();
         resultIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
         resultIntent.putExtra(KEY_CHECK_RESULT, success);
