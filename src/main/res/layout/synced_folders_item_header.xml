@@ -46,11 +46,11 @@
 
             <ImageView
                 android:id="@+id/type"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
                 android:layout_gravity="start|center_vertical"
-                android:layout_marginRight="32dp"
-                android:layout_marginEnd="32dp"
+                android:layout_marginRight="24dp"
+                android:layout_marginEnd="24dp"
                 android:src="@drawable/image_32dp"
                 android:contentDescription="@string/synced_folders_type"/>
 
