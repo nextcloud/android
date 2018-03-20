@@ -209,7 +209,7 @@ dependencies {
     implementation 'com.github.albfernandez:juniversalchardet:v2.0.0'
     implementation 'com.google.code.findbugs:annotations:2.0.1'
     implementation 'commons-io:commons-io:2.5'
-    implementation 'com.github.evernote:android-job:v1.2.2'
+    implementation 'com.github.evernote:android-job:v1.2.5'
     implementation 'com.jakewharton:butterknife:8.8.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
     implementation 'org.greenrobot:eventbus:3.0.0'
