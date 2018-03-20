@@ -123,35 +123,41 @@ public class AlphanumComparator<T> implements Comparator<T>, Serializable {
                 // extract digits
                 int thisChunkZeroCount = 0;
                 boolean zero = true;
-                int c = 0;
-                while (c < (thisChunk.length()) && isDigit(thisChunk.charAt(c))) {
+                int countThis = 0;
+                while (countThis < (thisChunk.length()) && isDigit(thisChunk.charAt(countThis))) {
                     if (zero) {
-                        if (Character.getNumericValue(thisChunk.charAt(c)) == 0) {
+                        if (Character.getNumericValue(thisChunk.charAt(countThis)) == 0) {
                             thisChunkZeroCount++;
                         } else {
                             zero = false;
                         }
                     }
-                    c++;
+                    countThis++;
                 }
-                int thisChunkValue = Integer.parseInt(thisChunk.substring(0, c));
+
 
                 int thatChunkZeroCount = 0;
-                c = 0;
+                int countThat = 0;
                 zero = true;
-                while (c < (thatChunk.length()) && isDigit(thatChunk.charAt(c))) {
+                while (countThat < (thatChunk.length()) && isDigit(thatChunk.charAt(countThat))) {
                     if (zero) {
-                        if (Character.getNumericValue(thatChunk.charAt(c)) == 0) {
+                        if (Character.getNumericValue(thatChunk.charAt(countThat)) == 0) {
                             thatChunkZeroCount++;
                         } else {
                             zero = false;
                         }
                     }
-                    c++;
+                    countThat++;
                 }
-                int thatChunkValue = Integer.parseInt(thatChunk.substring(0, c));
 
-                result = Integer.compare(thisChunkValue, thatChunkValue);
+                try {
+                    long thisChunkValue = Long.parseLong(thisChunk.substring(0, countThis));
+                    long thatChunkValue = Long.parseLong(thatChunk.substring(0, countThat));
+
+                    result = Long.compare(thisChunkValue, thatChunkValue);
+                } catch (NumberFormatException exception) {
+                    result = thisChunk.substring(0, countThis).compareTo(thatChunk.substring(0, countThat));
+                }
                 
                 if (result == 0) {
                     // value is equal, compare leading zeros
