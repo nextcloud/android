@@ -116,10 +116,8 @@ public class PassCodeManager {
     }
 
     private boolean passCodeIsEnabled() {
-        SharedPreferences appPrefs = PreferenceManager
-                .getDefaultSharedPreferences(MainApp.getAppContext());
-        return (appPrefs.getString(Preferences.PREFERENCE_LOCK, "")
-                .equals(Preferences.LOCK_PASSCODE));
+        SharedPreferences appPrefs = PreferenceManager.getDefaultSharedPreferences(MainApp.getAppContext());
+        return appPrefs.getString(Preferences.PREFERENCE_LOCK, "").equals(Preferences.LOCK_PASSCODE);
     }
 
     private boolean deviceCredentialsShouldBeRequested(Activity activity) {
@@ -141,6 +139,9 @@ public class PassCodeManager {
 
     private boolean deviceCredentialsAreEnabled(Activity activity) {
         SharedPreferences appPrefs = PreferenceManager.getDefaultSharedPreferences(activity);
-        return appPrefs.getString(Preferences.PREFERENCE_LOCK, "").equals(Preferences.LOCK_DEVICE_CREDENTIALS);
+        return appPrefs.getString(Preferences.PREFERENCE_LOCK, "").equals(Preferences.LOCK_DEVICE_CREDENTIALS) ||
+                Build.VERSION.SDK_INT >= Build.VERSION_CODES.M &&
+                        (appPrefs.getBoolean(Preferences.PREFERENCE_USE_FINGERPRINT, false)
+                                && DeviceCredentialUtils.areCredentialsAvailable(activity));
     }
 }
