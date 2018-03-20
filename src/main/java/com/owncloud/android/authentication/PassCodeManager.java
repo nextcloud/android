@@ -43,6 +43,8 @@ public class PassCodeManager {
 
     public static final int PASSCODE_ACTIVITY = 9999;
 
+    public static final int PASSCODE_ACTIVITY = 9999;
+
     static {
         exemptOfPasscodeActivities = new HashSet<>();
         exemptOfPasscodeActivities.add(PassCodeActivity.class);
