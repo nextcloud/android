@@ -198,7 +198,7 @@ dependencies {
 //    implementation project('nextcloud-android-library')
     genericImplementation "com.github.nextcloud:android-library:${androidLibraryVersion}"
     gplayImplementation "com.github.nextcloud:android-library:${androidLibraryVersion}"
-    versionDevImplementation 'com.github.nextcloud:android-library:master-SNAPSHOT' // use always latest master
+    versionDevImplementation 'com.github.nextcloud:android-library:etag-SNAPSHOT' // use always latest master
     implementation "com.android.support:support-v4:${supportLibraryVersion}"
     implementation "com.android.support:design:${supportLibraryVersion}"
     implementation 'com.jakewharton:disklrucache:2.0.2'
