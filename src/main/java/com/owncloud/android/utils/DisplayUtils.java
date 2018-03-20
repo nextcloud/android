@@ -25,6 +25,7 @@
 package com.owncloud.android.utils;
 
 import android.accounts.Account;
+import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
@@ -42,11 +43,13 @@ import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.Snackbar;
+import android.support.v7.widget.AppCompatDrawableManager;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.TextUtils;
 import android.text.format.DateUtils;
 import android.text.style.StyleSpan;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -84,6 +87,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Method;
 import java.math.BigDecimal;
 import java.net.IDN;
 import java.text.DateFormat;
@@ -672,4 +677,29 @@ public class DisplayUtils {
     public static void showSnackMessage(Activity activity, String message) {
         Snackbar.make(activity.findViewById(android.R.id.content), message, Snackbar.LENGTH_LONG).show();
     }
+
+    // Solution inspired by https://stackoverflow.com/questions/34936590/why-isnt-my-vector-drawable-scaling-as-expected
+    // Copied from https://raw.githubusercontent.com/nextcloud/talk-android/8ec8606bc61878e87e3ac8ad32c8b72d4680013c/app/src/main/java/com/nextcloud/talk/utils/DisplayUtils.java
+    // under GPL3
+    public static void useCompatVectorIfNeeded() {
+        if (Build.VERSION.SDK_INT < 23) {
+            try {
+                @SuppressLint("RestrictedApi") AppCompatDrawableManager drawableManager = AppCompatDrawableManager.get();
+                Class<?> inflateDelegateClass = Class.forName("android.support.v7.widget.AppCompatDrawableManager$InflateDelegate");
+                Class<?> vdcInflateDelegateClass = Class.forName("android.support.v7.widget.AppCompatDrawableManager$VdcInflateDelegate");
+
+                Constructor<?> constructor = vdcInflateDelegateClass.getDeclaredConstructor();
+                constructor.setAccessible(true);
+                Object vdcInflateDelegate = constructor.newInstance();
+
+                Class<?> args[] = {String.class, inflateDelegateClass};
+                Method addDelegate = AppCompatDrawableManager.class.getDeclaredMethod("addDelegate", args);
+                addDelegate.setAccessible(true);
+                addDelegate.invoke(drawableManager, "vector", vdcInflateDelegate);
+            } catch (Exception e) {
+                Log.e(TAG, "Failed to use reflection to enable proper vector scaling");
+            }
+        }
+    }
+
 }
