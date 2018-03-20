@@ -32,9 +32,9 @@ public class NCFirebaseMessagingService extends FirebaseMessagingService {
         if (remoteMessage.getData() != null) {
             PersistableBundleCompat persistableBundleCompat = new PersistableBundleCompat();
             persistableBundleCompat.putString(NotificationJob.KEY_NOTIFICATION_SUBJECT, remoteMessage.getData().get
-                    ("subject"));
+                    (NotificationJob.KEY_NOTIFICATION_SUBJECT));
             persistableBundleCompat.putString(NotificationJob.KEY_NOTIFICATION_SIGNATURE, remoteMessage.getData().get
-                    ("signature"));
+                    (NotificationJob.KEY_NOTIFICATION_SIGNATURE));
             new JobRequest.Builder(NotificationJob.TAG)
                     .addExtras(persistableBundleCompat)
                     .setUpdateCurrent(false)
