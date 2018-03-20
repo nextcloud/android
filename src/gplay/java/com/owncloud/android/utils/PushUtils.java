@@ -407,6 +407,7 @@ public class PushUtils {
         signatureVerification.setSignatureValid(false);
 
         Account[] userEntities = AccountUtils.getAccounts(context);
+
         ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProvider(context.getContentResolver());
         String arbitraryValue;
         Gson gson = new Gson();
@@ -419,13 +420,15 @@ public class PushUtils {
                 for (Account userEntity : userEntities) {
                     if (!TextUtils.isEmpty(arbitraryValue = arbitraryDataProvider.getValue(userEntity, KEY_PUSH))) {
                         pushArbitraryData = gson.fromJson(arbitraryValue, PushConfigurationState.class);
-                        publicKey = (PublicKey) readKeyFromString(true, pushArbitraryData.getUserPublicKey());
-                        signature.initVerify(publicKey);
-                        signature.update(subjectBytes);
-                        if (signature.verify(signatureBytes)) {
-                            signatureVerification.setSignatureValid(true);
-                            signatureVerification.setAccount(userEntity);
-                            return signatureVerification;
+                        if (!pushArbitraryData.isShouldBeDeleted()) {
+                            publicKey = (PublicKey) readKeyFromString(true, pushArbitraryData.getUserPublicKey());
+                            signature.initVerify(publicKey);
+                            signature.update(subjectBytes);
+                            if (signature.verify(signatureBytes)) {
+                                signatureVerification.setSignatureValid(true);
+                                signatureVerification.setAccount(userEntity);
+                                return signatureVerification;
+                            }
                         }
                     }
                 }
