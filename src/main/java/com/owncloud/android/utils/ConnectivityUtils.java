@@ -27,6 +27,8 @@ import android.accounts.Account;
 import android.accounts.AuthenticatorException;
 import android.accounts.OperationCanceledException;
 import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 
 import com.evernote.android.job.JobRequest;
 import com.evernote.android.job.util.Device;
@@ -47,7 +49,7 @@ public class ConnectivityUtils {
     private final static String TAG = ConnectivityUtils.class.getName();
 
     public static boolean isInternetWalled(Context context) {
-        if (!Device.getNetworkType(context).equals(JobRequest.NetworkType.ANY)) {
+        if (isOnlineWithWifi(context)) {
             try {
                 Account account = AccountUtils.getCurrentOwnCloudAccount(context);
                 if (account != null) {
@@ -65,7 +67,7 @@ public class ConnectivityUtils {
                     OwnCloudClient client = OwnCloudClientFactory.createOwnCloudClient(account, context);
 
                     int status = client.executeMethod(get);
-                    
+
                     if (serverVersion.compareTo(OwnCloudVersion.nextcloud_13) > 0) {
                         return !(status == 204 &&
                                 (get.getResponseContentLength() == -1 || get.getResponseContentLength() == 0));
@@ -94,9 +96,41 @@ public class ConnectivityUtils {
             } catch (AuthenticatorException e) {
                 Log_OC.e(TAG, e.getMessage());
             }
+        } else if (!Device.getNetworkType(context).equals(JobRequest.NetworkType.ANY)) {
+            return false;
         }
 
         return true;
+    }
 
+    private static boolean isOnlineWithWifi(Context context) {
+        try {
+            ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+            NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+
+            if (activeNetwork.isConnectedOrConnecting()) {
+                switch (activeNetwork.getType()) {
+                    case ConnectivityManager.TYPE_VPN:
+                        // check if any other network is wifi
+                        for (NetworkInfo networkInfo : cm.getAllNetworkInfo()) {
+                            if (networkInfo.isConnectedOrConnecting() &&
+                                    networkInfo.getType() == ConnectivityManager.TYPE_WIFI) {
+                                return true;
+                            }
+                        }
+                        return false;
+
+                    case ConnectivityManager.TYPE_WIFI:
+                        return true;
+
+                    default:
+                        return false;
+                }
+            } else {
+                return false;
+            }
+        } catch (NullPointerException exception) {
+            return false;
+        }
     }
 }
