@@ -23,7 +23,10 @@ package com.owncloud.android.utils;
 import android.content.Context;
 
 import com.owncloud.android.MainApp;
+import com.owncloud.android.datamodel.SignatureVerification;
 import com.owncloud.android.db.PreferenceManager;
+
+import java.security.Key;
 
 public class PushUtils {
     public static final String KEY_PUSH = "push";
@@ -35,5 +38,13 @@ public class PushUtils {
     public static void reinitKeys() {
         Context context = MainApp.getAppContext();
         PreferenceManager.setKeysReInit(context);
+    }
+
+    public static Key readKeyFromFile(boolean readPublicKey) {
+        return null;
+    }
+
+    public SignatureVerification verifySignature(Context context, byte[] signatureBytes, byte[] subjectBytes) {
+        return null;
     }
 }
