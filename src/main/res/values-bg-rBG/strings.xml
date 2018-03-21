@@ -620,6 +620,9 @@
     <string name="contacts_automatic_backup">Автоматично подсигуряване на контакти</string>
     <string name="contacts_last_backup">Последно извършено подсигуряване на контакти</string>
     <string name="contacts_read_permission">Нужно е разрешение за да прочетете листът с контакти</string>
+    <string name="contaclist_restore_selected">Възстанови избраните контакти</string>
+    <string name="contactlist_account_chooser_title">Изберете профил за вкарване в системата</string>
+    <string name="contactlist_no_permission">Няма предоставен достъп, нищо не е вкарано.</string>
     <string name="contacts_preference_backup_never">никога</string>
     <string name="contacts_preferences_no_file_found">Няма намерен файл</string>
     </resources>
