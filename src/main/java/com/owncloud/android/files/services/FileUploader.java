@@ -587,7 +587,11 @@ public class FileUploader extends Service
                     }
                 }
 
-                sendBroadcastUploadFinished(mCurrentUpload, checkRemoteOperationResult, removeResult.second);
+                if (removeResult != null) {
+                    sendBroadcastUploadFinished(mCurrentUpload, checkRemoteOperationResult, removeResult.second);
+                } else {
+                    sendBroadcastUploadFinished(mCurrentUpload, checkRemoteOperationResult, null);
+                }
 
                 return;
             }
