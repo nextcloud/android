@@ -125,7 +125,7 @@ public class ThumbnailsCacheManager {
                         } else {
                             throw new FileNotFoundException("Thumbnail cache could not be opened");
                         }
-                    } catch (java.io.IOException e) {
+                    } catch (Exception e) {
                         Log_OC.d(TAG, e.getMessage());
                         mThumbnailCache = null;
                     }
