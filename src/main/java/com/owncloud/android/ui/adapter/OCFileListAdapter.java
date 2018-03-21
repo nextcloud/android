@@ -260,8 +260,11 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
             gridViewHolder.itemLayout.setOnClickListener(v -> ocFileListFragmentInterface.onItemClicked(file));
 
-            gridViewHolder.itemLayout.setLongClickable(true);
-            gridViewHolder.itemLayout.setOnLongClickListener(v -> ocFileListFragmentInterface.onLongItemClicked(file));
+            if (!mHideItemOptions) {
+                gridViewHolder.itemLayout.setLongClickable(true);
+                gridViewHolder.itemLayout.setOnLongClickListener(v ->
+                        ocFileListFragmentInterface.onLongItemClicked(file));
+            }
 
             gridViewHolder.fileName.setText(file.getFileName());
 
