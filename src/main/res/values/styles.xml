@@ -45,6 +45,15 @@
 		<item name="colorAccent">#757575</item>
 	</style>
 
+	<style name="FallbackTheming.Dialog" parent="style/Theme.AppCompat.Light.Dialog.Alert">
+		<item name="colorPrimary">#424242</item>
+		<item name="colorPrimaryDark">#212121</item>
+		<item name="colorAccent">#757575</item>
+		<item name="windowNoTitle">false</item>
+		<item name="buttonBarButtonStyle">@style/Theme.ownCloud.Dialog.ButtonBar.Button</item>
+		<item name="buttonBarStyle">@style/Theme.ownCloud.Dialog.ButtonBar</item>
+	</style>
+
 	<!-- seperate action bar style for activities without an action bar -->
 	<style name="Theme.ownCloud.Toolbar" parent="Theme.AppCompat.Light.NoActionBar">
 		<item name="windowNoTitle">true</item>
