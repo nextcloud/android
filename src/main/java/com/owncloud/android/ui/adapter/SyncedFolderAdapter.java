@@ -22,6 +22,7 @@
 package com.owncloud.android.ui.adapter;
 
 import android.content.Context;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -42,6 +43,9 @@ import com.owncloud.android.utils.ThemeUtils;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * Adapter to display all auto-synced folders and/or instant upload media folders.
@@ -111,11 +115,11 @@ public class SyncedFolderAdapter extends SectionedRecyclerViewAdapter<SyncedFold
         holder.title.setText(mSyncFolderItems.get(section).getFolderName());
 
         if (MediaFolderType.VIDEO == mSyncFolderItems.get(section).getType()) {
-            holder.type.setImageResource(R.drawable.ic_video_18dp);
+            holder.type.setImageResource(R.drawable.video_32dp);
         } else if (MediaFolderType.IMAGE == mSyncFolderItems.get(section).getType()) {
-            holder.type.setImageResource(R.drawable.ic_image_18dp);
+            holder.type.setImageResource(R.drawable.image_32dp);
         } else {
-            holder.type.setImageResource(R.drawable.ic_folder_star_18dp);
+            holder.type.setImageResource(R.drawable.folder_star_32dp);
         }
 
         holder.syncStatusButton.setVisibility(View.VISIBLE);
@@ -195,28 +199,45 @@ public class SyncedFolderAdapter extends SectionedRecyclerViewAdapter<SyncedFold
     }
 
     static class MainViewHolder extends RecyclerView.ViewHolder {
-        private final ImageView image;
-        private final TextView title;
-        private final ImageView type;
-        private final ImageButton menuButton;
-        private final ImageButton syncStatusButton;
-        private final LinearLayout counterBar;
-        private final TextView counterValue;
-        private final ImageView thumbnailDarkener;
+        @Nullable
+        @BindView(R.id.thumbnail)
+        public ImageView image;
 
-        private final RelativeLayout mainHeaderContainer;
+        @Nullable
+        @BindView(R.id.title)
+        public TextView title;
+
+        @Nullable
+        @BindView(R.id.type)
+        public ImageView type;
+
+        @Nullable
+        @BindView(R.id.settingsButton)
+        public ImageButton menuButton;
+
+        @Nullable
+        @BindView(R.id.syncStatusButton)
+        public ImageButton syncStatusButton;
+
+        @Nullable
+        @BindView(R.id.counterLayout)
+        public LinearLayout counterBar;
+
+        @Nullable
+        @BindView(R.id.counter)
+        public TextView counterValue;
+
+        @Nullable
+        @BindView(R.id.thumbnailDarkener)
+        public ImageView thumbnailDarkener;
+
+        @Nullable
+        @BindView(R.id.header_container)
+        public RelativeLayout mainHeaderContainer;
 
         private MainViewHolder(View itemView) {
             super(itemView);
-            mainHeaderContainer = (RelativeLayout) itemView.findViewById(R.id.header_container);
-            image = (ImageView) itemView.findViewById(R.id.thumbnail);
-            title = (TextView) itemView.findViewById(R.id.title);
-            type = (ImageView) itemView.findViewById(R.id.type);
-            menuButton = (ImageButton) itemView.findViewById(R.id.settingsButton);
-            syncStatusButton = (ImageButton) itemView.findViewById(R.id.syncStatusButton);
-            counterBar = (LinearLayout) itemView.findViewById(R.id.counterLayout);
-            counterValue = (TextView) itemView.findViewById(R.id.counter);
-            thumbnailDarkener = (ImageView) itemView.findViewById(R.id.thumbnailDarkener);
+            ButterKnife.bind(this, itemView);
         }
     }
 
