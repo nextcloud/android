@@ -39,7 +39,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
@@ -268,8 +267,7 @@ public class ErrorsWhileCopyingHandlerActivity  extends AppCompatActivity implem
             
             if (result) {
                 // nothing else to do in this activity
-                Toast.makeText(ErrorsWhileCopyingHandlerActivity.this,
-                        getString(R.string.foreign_files_success), Toast.LENGTH_LONG)
+                Snackbar.make(findViewById(android.R.id.content),R.string.foreign_files_success,Snackbar.LENGTH_LONG)
                         .show();
                 finish();
                 

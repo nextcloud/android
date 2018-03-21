@@ -43,7 +43,6 @@ import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.evernote.android.job.JobRequest;
 import com.evernote.android.job.util.support.PersistableBundleCompat;
@@ -454,8 +453,9 @@ public class ContactsBackupFragment extends FileFragment implements DatePickerDi
 
             datePickerDialog.show();
         } else {
-            Toast.makeText(contactsPreferenceActivity, R.string.contacts_preferences_something_strange_happened,
-                    Toast.LENGTH_SHORT).show();
+            Snackbar.make(getView().findViewById(R.id.contacts_linear_layout),
+                    R.string.contacts_preferences_something_strange_happened,
+                    Snackbar.LENGTH_SHORT).show();
         }
     }
 
@@ -532,8 +532,8 @@ public class ContactsBackupFragment extends FileFragment implements DatePickerDi
                     .addToBackStack(ContactsPreferenceActivity.BACKUP_TO_LIST)
                     .commit();
         } else {
-            Toast.makeText(contactsPreferenceActivity, R.string.contacts_preferences_no_file_found,
-                    Toast.LENGTH_SHORT).show();
+            Snackbar.make(getView().findViewById(R.id.contacts_linear_layout), R.string.contacts_preferences_no_file_found,
+                    Snackbar.LENGTH_SHORT).show();
         }
     }
 }

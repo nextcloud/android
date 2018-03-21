@@ -251,7 +251,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
     /**
      * {@inheritDoc}
-     *
+     * <p>
      * IMPORTANT ENTRY POINT 1: activity is shown to the user
      */
     @Override
@@ -849,11 +849,11 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
     /**
      * Saves relevant state before {@link #onPause()}
-     *
+     * <p>
      * Do NOT save {@link #mNewCapturedUriFromOAuth2Redirection}; it keeps a temporal flag,
      * intended to defer the processing of the redirection caught in
      * {@link #onNewIntent(Intent)} until {@link #onResume()}
-     *
+     * <p>
      * See {@link super#onSaveInstanceState(Bundle)}
      */
     @Override
@@ -933,7 +933,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     /**
      * The redirection triggered by the OAuth authentication server as response to the
      * GET AUTHORIZATION request is caught here.
-     *
+     * <p>
      * To make this possible, this activity needs to be qualified with android:launchMode =
      * "singleTask" in the AndroidManifest.xml file.
      */
@@ -969,7 +969,8 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
                 try {
                     populateLoginFields(dataString);
                 } catch (IllegalArgumentException e) {
-                    Toast.makeText(this, "Illegal login data URL used", Toast.LENGTH_SHORT).show();
+                    Snackbar.make(findViewById(R.id.scroll), "Illegal login data URL used",
+                            Snackbar.LENGTH_SHORT).show();
                     Log_OC.e(TAG, "Illegal login data URL used, no Login pre-fill!", e);
                 }
             }
@@ -980,9 +981,8 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         if (!bindService(new Intent(this, OperationsService.class),
                 mOperationsServiceConnection,
                 Context.BIND_AUTO_CREATE)) {
-            Toast.makeText(this,
-                    R.string.error_cant_bind_to_operations_service,
-                    Toast.LENGTH_LONG)
+            Snackbar.make(findViewById(R.id.scroll), R.string.error_cant_bind_to_operations_service,
+                    Snackbar.LENGTH_LONG)
                     .show();
             finish();
         }
@@ -1076,11 +1076,11 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
     /**
      * Handles changes in focus on the text input for the server URL.
-     *
+     * <p>
      * IMPORTANT ENTRY POINT 2: When (!hasFocus), user wrote the server URL and changed to
      * other field. The operation to check the existence of the server in the entered URL is
      * started.
-     *
+     * <p>
      * When hasFocus:    user 'comes back' to write again the server URL.
      */
     private void onUrlInputFocusLost() {
@@ -1152,9 +1152,9 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
     /**
      * Handles changes in focus on the text input for the password (basic authorization).
-     *
+     * <p>
      * When (hasFocus), the button to toggle password visibility is shown.
-     *
+     * <p>
      * When (!hasFocus), the button is made invisible and the password is hidden.
      *
      * @param hasFocus 'True' if focus is received, 'false' if is lost
@@ -1208,13 +1208,13 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     /**
      * Checks the credentials of the user in the root of the ownCloud server
      * before creating a new local account.
-     *
+     * <p>
      * For basic authorization, a check of existence of the root folder is
      * performed.
-     *
+     * <p>
      * For OAuth, starts the flow to get an access token; the credentials test
      * is postponed until it is available.
-     *
+     * <p>
      * IMPORTANT ENTRY POINT 4
      */
     public void onOkClick() {
@@ -1325,7 +1325,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
     /**
      * Callback method invoked when a RemoteOperation executed by this Activity finishes.
-     *
+     * <p>
      * Dispatches the operation flow to the right method.
      */
     @Override
@@ -1378,8 +1378,8 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
                     } catch (AccountNotFoundException e) {
                         Log_OC.e(TAG, "Account " + mAccount + " was removed!", e);
-                        Toast.makeText(this, R.string.auth_account_does_not_exist,
-                                Toast.LENGTH_SHORT).show();
+                        Snackbar.make(findViewById(R.id.scroll), R.string.auth_account_does_not_exist,
+                                Snackbar.LENGTH_SHORT).show();
                         finish();
                     }
                 }
@@ -1633,7 +1633,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         }
     }
 
-    private void updateStatusIconFailUserName(int failedStatusText){
+    private void updateStatusIconFailUserName(int failedStatusText) {
         mAuthStatusIcon = R.drawable.ic_alert;
         mAuthStatusText = getResources().getString(failedStatusText);
     }
@@ -1680,7 +1680,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
     /**
      * Processes the result of the access check performed to try the user credentials.
-     *
+     * <p>
      * Creates a new account through the AccountManager.
      *
      * @param result Result of the operation.
@@ -1706,8 +1706,8 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
                 } catch (AccountNotFoundException e) {
                     Log_OC.e(TAG, "Account " + mAccount + " was removed!", e);
-                    Toast.makeText(this, R.string.auth_account_does_not_exist,
-                            Toast.LENGTH_SHORT).show();
+                    Snackbar.make(findViewById(R.id.scroll), R.string.auth_account_does_not_exist,
+                            Snackbar.LENGTH_SHORT).show();
                     finish();
                 }
             }
@@ -1787,10 +1787,10 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
     /**
      * Updates the authentication token.
-     *
+     * <p>
      * Sets the proper response so that the AccountAuthenticator that started this activity
      * saves a new authorization token for mAccount.
-     *
+     * <p>
      * Kills the session kept by OwnCloudClientManager so that a new one will created with
      * the new credentials when needed.
      */
@@ -1837,9 +1837,9 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
     /**
      * Creates a new account through the Account Authenticator that started this activity.
-     *
+     * <p>
      * This makes the account permanent.
-     *
+     * <p>
      * TODO Decide how to name the OAuth accounts
      */
     @SuppressFBWarnings("DMI")
@@ -2001,7 +2001,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
     /**
      * Called when the eye icon in the password field is clicked.
-     *
+     * <p>
      * Toggles the visibility of the password in the field.
      */
     public void onViewPasswordClick() {
@@ -2018,7 +2018,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
     /**
      * Called when the checkbox for OAuth authorization is clicked.
-     *
+     * <p>
      * Hides or shows the input fields for user & password.
      *
      * @param view 'View password' 'button'
@@ -2036,7 +2036,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
     /**
      * Called when the 'action' button in an IME is pressed ('enter' in software keyboard).
-     *
+     * <p>
      * Used to trigger the authentication check when the user presses 'enter' after writing the
      * password, or to throw the server test when the only field on screen is the URL input field.
      */
