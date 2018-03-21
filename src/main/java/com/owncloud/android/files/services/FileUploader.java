@@ -48,7 +48,6 @@ import android.util.Pair;
 
 import com.evernote.android.job.JobRequest;
 import com.evernote.android.job.util.Device;
-import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.authentication.AuthenticatorActivity;
@@ -565,6 +564,34 @@ public class FileUploader extends Service
                 return;
             }
 
+            RemoteOperationResult checkRemoteOperationResult;
+            if ((checkRemoteOperationResult = mCurrentUpload.checkConditions(new File(mCurrentUpload.getFile()
+                    .getStoragePath()))) != null) {
+                mUploadsStorageManager.updateDatabaseUploadResult(checkRemoteOperationResult, mCurrentUpload);
+
+                /// notify result
+                notifyUploadResult(mCurrentUpload, checkRemoteOperationResult);
+
+                Pair<UploadFileOperation, String> removeResult = null;
+                if (mCurrentAccount != null) {
+                    if (mCurrentUpload.wasRenamed()) {
+                        removeResult = mPendingUploads.removePayload(
+                                mCurrentAccount.name,
+                                mCurrentUpload.getOldFile().getRemotePath()
+                        );
+                        // TODO: grant that name is also updated for mCurrentUpload.getOCUploadId
+
+                    } else {
+                        removeResult = mPendingUploads.removePayload(mCurrentAccount.name,
+                                mCurrentUpload.getDecryptedRemotePath());
+                    }
+                }
+
+                sendBroadcastUploadFinished(mCurrentUpload, checkRemoteOperationResult, removeResult.second);
+
+                return;
+            }
+
             /// OK, let's upload
             mUploadsStorageManager.updateDatabaseUploadStart(mCurrentUpload);
 
@@ -604,7 +631,7 @@ public class FileUploader extends Service
 //                } else {
                 /// perform the regular upload
                 uploadResult = mCurrentUpload.execute(mUploadClient, mStorageManager);
-//                }
+//             }
 
 
             } catch (Exception e) {
@@ -1155,7 +1182,6 @@ public class FileUploader extends Service
             Log_OC.d(TAG, "Stopping command after id " + msg.arg1);
             mService.stopForeground(true);
             mService.stopSelf(msg.arg1);
-
         }
     }
 
@@ -1362,22 +1388,6 @@ public class FileUploader extends Service
             if (boundListener != null) {
                 boundListener.onTransferProgress(progressRate, totalTransferredSoFar,
                         totalToTransfer, fileName);
-
-                if (MainApp.getAppContext() != null) {
-                    if (mCurrentUpload.getIsWifiRequired() && !Device.getNetworkType(MainApp.getAppContext()).
-                            equals(JobRequest.NetworkType.UNMETERED)) {
-                        cancel(mCurrentUpload.getAccount().name, mCurrentUpload.getFile().getRemotePath()
-                                , ResultCode.DELAYED_FOR_WIFI);
-                    } else if (mCurrentUpload.getIsChargingRequired() &&
-                            !Device.getBatteryStatus(MainApp.getAppContext()).isCharging()) {
-                        cancel(mCurrentUpload.getAccount().name, mCurrentUpload.getFile().getRemotePath()
-                                , ResultCode.DELAYED_FOR_CHARGING);
-                    } else if (!mCurrentUpload.getIsIgnoringPowerSaveMode() &&
-                            PowerUtils.isPowerSaveMode(MainApp.getAppContext())) {
-                        cancel(mCurrentUpload.getAccount().name, mCurrentUpload.getFile().getRemotePath()
-                                , ResultCode.DELAYED_IN_POWER_SAVE_MODE);
-                    }
-                }
             }
         }
 

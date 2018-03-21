@@ -713,7 +713,7 @@ public class UploadFileOperation extends SyncOperation {
             return new RemoteOperationResult(new Exception("No token available"));
     }
 
-    private RemoteOperationResult checkConditions(File originalFile) {
+    public RemoteOperationResult checkConditions(File originalFile) {
         RemoteOperationResult remoteOperationResult = null;
 
         // check that internet is not behind walled garden
