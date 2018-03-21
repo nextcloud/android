@@ -47,6 +47,7 @@ import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatDelegate;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -60,6 +61,7 @@ import com.owncloud.android.BuildConfig;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
+import com.owncloud.android.authentication.PassCodeManager;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.ExternalLinksProvider;
 import com.owncloud.android.datastorage.DataStorageProvider;
@@ -71,6 +73,7 @@ import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.utils.DeviceCredentialUtils;
 import com.owncloud.android.utils.DisplayUtils;
+import com.owncloud.android.utils.EncryptionUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.ThemeUtils;
 
@@ -120,7 +123,10 @@ public class Preferences extends PreferenceActivity
 
     private ListPreference mPrefStoragePath;
     private String mStoragePath;
-    private String pendingLock;
+    private String mPendingLock;
+
+    private Account mAccount;
+    private ArbitraryDataProvider mArbitraryDataProvider;
 
     public static class PreferenceKeys {
         public static final String STORAGE_PATH = "storage_path";
@@ -152,6 +158,9 @@ public class Preferences extends PreferenceActivity
         int accentColor = ThemeUtils.primaryAccentColor(this);
         String appVersion = getAppVersion();
         PreferenceScreen preferenceScreen = (PreferenceScreen) findPreference("preference_screen");
+
+        mAccount = AccountUtils.getCurrentOwnCloudAccount(getApplicationContext());
+        mArbitraryDataProvider = new ArbitraryDataProvider(getContentResolver());
 
         // General
         setupGeneralCategory(accentColor);
@@ -310,6 +319,8 @@ public class Preferences extends PreferenceActivity
 
         setupContactsBackupPreference(preferenceCategoryMore);
 
+        setupE2EMnemonicPreference(preferenceCategoryMore);
+
         setupHelpPreference(preferenceCategoryMore);
 
         setupRecommendPreference(preferenceCategoryMore);
@@ -436,6 +447,34 @@ public class Preferences extends PreferenceActivity
                 });
             } else {
                 preferenceCategoryMore.removePreference(pRecommend);
+            }
+        }
+    }
+
+    private void setupE2EMnemonicPreference(PreferenceCategory preferenceCategoryMore) {
+        String mnemonic = mArbitraryDataProvider.getValue(mAccount.name, EncryptionUtils.MNEMONIC);
+
+        Preference pMnemonic = findPreference("mnemonic");
+        if (pMnemonic != null) {
+            if (!mnemonic.isEmpty() && Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                if (DeviceCredentialUtils.areCredentialsAvailable(Preferences.this)) {
+                    pMnemonic.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+                        @Override
+                        public boolean onPreferenceClick(Preference preference) {
+
+                            Intent i = new Intent(MainApp.getAppContext(), RequestCredentialsActivity.class);
+                            i.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                            Preferences.this.startActivityForResult(i, PassCodeManager.PASSCODE_ACTIVITY);
+
+                            return true;
+                        }
+                    });
+                } else {
+                    pMnemonic.setEnabled(false);
+                    pMnemonic.setSummary(R.string.prefs_e2e_no_device_credentials);
+                }
+            } else {
+                preferenceCategoryMore.removePreference(pMnemonic);
             }
         }
     }
@@ -620,14 +659,14 @@ public class Preferences extends PreferenceActivity
             mLock.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
                 @Override
                 public boolean onPreferenceChange(Preference preference, Object o) {
-                    pendingLock = LOCK_NONE;
+                    mPendingLock = LOCK_NONE;
                     String oldValue = ((ListPreference) preference).getValue();
                     String newValue = (String) o;
                     if (!oldValue.equals(newValue)) {
                         if (oldValue.equals(LOCK_NONE)) {
                             enableLock(newValue);
                         } else {
-                            pendingLock = newValue;
+                            mPendingLock = newValue;
                             disableLock(oldValue);
                         }
                     }
@@ -650,16 +689,15 @@ public class Preferences extends PreferenceActivity
         } else {
             // Upload on WiFi
             final ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProvider(getContentResolver());
-            final Account account = AccountUtils.getCurrentOwnCloudAccount(getApplicationContext());
 
             final SwitchPreference pUploadOnWifiCheckbox = (SwitchPreference) findPreference("synced_folder_on_wifi");
             pUploadOnWifiCheckbox.setChecked(
-                    arbitraryDataProvider.getBooleanValue(account, SYNCED_FOLDER_LIGHT_UPLOAD_ON_WIFI));
+                    arbitraryDataProvider.getBooleanValue(mAccount, SYNCED_FOLDER_LIGHT_UPLOAD_ON_WIFI));
 
             pUploadOnWifiCheckbox.setOnPreferenceClickListener(new OnPreferenceClickListener() {
                 @Override
                 public boolean onPreferenceClick(Preference preference) {
-                    arbitraryDataProvider.storeOrUpdateKeyValue(account.name, SYNCED_FOLDER_LIGHT_UPLOAD_ON_WIFI,
+                    arbitraryDataProvider.storeOrUpdateKeyValue(mAccount.name, SYNCED_FOLDER_LIGHT_UPLOAD_ON_WIFI,
                             String.valueOf(pUploadOnWifiCheckbox.isChecked()));
 
                     return true;
@@ -688,7 +726,7 @@ public class Preferences extends PreferenceActivity
     }
 
     private void enableLock(String lock) {
-        pendingLock = LOCK_NONE;
+        mPendingLock = LOCK_NONE;
         if (lock.equals(LOCK_PASSCODE)) {
             Intent i = new Intent(getApplicationContext(), PassCodeActivity.class);
             i.setAction(PassCodeActivity.ACTION_REQUEST_WITH_RESULT);
@@ -814,7 +852,7 @@ public class Preferences extends PreferenceActivity
             if (mUri != null) {
                 davDroidLoginIntent.putExtra("url", mUri.toString() + DAV_PATH);
             }
-            davDroidLoginIntent.putExtra("username", AccountUtils.getAccountUsername(account.name));
+            davDroidLoginIntent.putExtra("username", AccountUtils.getAccountUsername(mAccount.name));
             //loginIntent.putExtra("password", "...");
             startActivityForResult(davDroidLoginIntent, ACTION_REQUEST_CODE_DAVDROID_SETUP);
         } else {
@@ -840,8 +878,7 @@ public class Preferences extends PreferenceActivity
         Thread t = new Thread(new Runnable() {
             public void run() {
                 try {
-                    Account account = AccountUtils.getCurrentOwnCloudAccount(getApplicationContext());
-                    OwnCloudAccount ocAccount = new OwnCloudAccount(account, MainApp.getAppContext());
+                    OwnCloudAccount ocAccount = new OwnCloudAccount(mAccount, MainApp.getAppContext());
                     mUri = OwnCloudClientManagerFactory.getDefaultSingleton().
                             getClientFor(ocAccount, getApplicationContext()).getBaseUri();
                 } catch (Throwable t) {
@@ -884,8 +921,8 @@ public class Preferences extends PreferenceActivity
                 mLock.setSummary(mLock.getEntry());
 
                 DisplayUtils.showSnackMessage(this, R.string.pass_code_removed);
-                if (!pendingLock.equals(LOCK_NONE)) {
-                    enableLock(pendingLock);
+                if (!mPendingLock.equals(LOCK_NONE)) {
+                    enableLock(mPendingLock);
                 }
             }
         } else if (requestCode == ACTION_REQUEST_CODE_DAVDROID_SETUP && resultCode == RESULT_OK) {
@@ -893,14 +930,32 @@ public class Preferences extends PreferenceActivity
         } else if (requestCode == ACTION_CONFIRM_DEVICE_CREDENTIALS && resultCode == RESULT_OK &&
             Build.VERSION.SDK_INT >= Build.VERSION_CODES.M &&
                 data.getIntExtra(RequestCredentialsActivity.KEY_CHECK_RESULT,
-                        RequestCredentialsActivity.KEY_CHECK_RESULT_FALSE) == 
+                        RequestCredentialsActivity.KEY_CHECK_RESULT_FALSE) ==
                         RequestCredentialsActivity.KEY_CHECK_RESULT_TRUE) {
             mLock.setValue(LOCK_NONE);
             mLock.setSummary(mLock.getEntry());
             DisplayUtils.showSnackMessage(this, R.string.credentials_disabled);
-            if (!pendingLock.equals(LOCK_NONE)) {
-                enableLock(pendingLock);
+            if (!mPendingLock.equals(LOCK_NONE)) {
+                enableLock(mPendingLock);
             }
+        } else if (requestCode == PassCodeManager.PASSCODE_ACTIVITY && Build.VERSION.SDK_INT >= Build.VERSION_CODES.M &&
+                data.getIntExtra(RequestCredentialsActivity.KEY_CHECK_RESULT,
+                        RequestCredentialsActivity.KEY_CHECK_RESULT_FALSE) ==
+                        RequestCredentialsActivity.KEY_CHECK_RESULT_TRUE) {
+
+            ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProvider(getContentResolver());
+            String mnemonic = arbitraryDataProvider.getValue(mAccount.name, EncryptionUtils.MNEMONIC);
+
+            int accentColor = ThemeUtils.primaryAccentColor();
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(Preferences.this,
+                    R.style.FallbackTheming_Dialog);
+            builder.setTitle(ThemeUtils.getColoredTitle(getString(R.string.prefs_e2e_mnemonic),
+                    accentColor));
+            builder.setMessage(mnemonic);
+            builder.setPositiveButton(ThemeUtils.getColoredTitle(getString(R.string.common_ok),
+                    accentColor), (dialog, which) -> dialog.dismiss());
+            builder.show();
         }
     }
     
