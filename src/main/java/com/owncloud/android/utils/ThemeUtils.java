@@ -380,16 +380,19 @@ public class ThemeUtils {
 
     private static OCCapability getCapability(Account acc) {
         Account account;
+        Context context = MainApp.getAppContext();
+
+        if (context == null) {
+            return new OCCapability();
+        }
 
         if (acc != null) {
             account = acc;
         } else {
-            account = AccountUtils.getCurrentOwnCloudAccount(MainApp.getAppContext());
+            account = AccountUtils.getCurrentOwnCloudAccount(context);
         }
 
         if (account != null) {
-            Context context = MainApp.getAppContext();
-
             FileDataStorageManager storageManager = new FileDataStorageManager(account, context.getContentResolver());
             return storageManager.getCapability(account.name);
         } else {
