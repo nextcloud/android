@@ -93,6 +93,7 @@
     <string name="file_list_loading">Ladataan &#8230;</string>
     <string name="file_list_no_app_for_file_type">Tälle tiedostotyypille ei löytynyt sovellusta.</string>
     <string name="local_file_list_empty">Tässä kansiossa ei ole tiedostoja</string>
+    <string name="local_folder_list_empty">Kansioita ei ole enempää.</string>
     <string name="file_list_empty_headline_search">Ei kohteita tässä kansiossa</string>
     <string name="file_list_empty_headline_server_search">Ei tuloksia</string>
     <string name="file_list_empty_favorite_headline">Ei vielä suosikkeja</string>
@@ -218,6 +219,7 @@
     <string name="media_err_invalid_progressive_playback">Mediatiedostoa ei voi suoratoistaa</string>
     <string name="media_err_unknown">Sisäänrakennettu mediasoitin ei voi toistaa mediatiedostoa</string>
     <string name="media_err_security_ex">Turvallisuusvirhe yrittäessä toistaa kohdetta %1$s</string>
+    <string name="media_err_unexpected">Odottamaton virhe yrittäessä toistaa kohdetta %1$s</string>
     <string name="media_rewind_description">Taaksepäin kelaus -painike</string>
     <string name="media_play_pause_description">Toisto tai keskeytys -painike</string>
     <string name="media_forward_description">Eteenpäin kelaus -painike</string>
@@ -250,7 +252,11 @@
 	<string name="auth_expired_saml_sso_token_toast">Istunto vanhentui. Yhdistä uudelleen</string>
     <string name="auth_connecting_auth_server">Yhdistetään tunnistautumispalvelimeen &#8230;</string>
 	<string name="auth_unsupported_multiaccount">%1$s ei tue useita tilejä</string>
+	<string name="auth_fail_get_user_name">Palvelin ei palauta oikeaa käyttäjätunnusta, ota yhteys ylläpitoon.</string>
 	<string name="auth_can_not_auth_against_server">Tälle palvelimelle ei voi tunnistautua</string>
+    <string name="auth_account_does_not_exist">Tälle laitteelle ei ole vielä asennettu tiliä.</string>
+    <string name="auth_access_failed">Pääsy epäonnistui</string>
+
     <string name="favorite">Aseta saatavaksi offline tilassa</string>
     <string name="favorite_real">Aseta suosikiksi</string>
     <string name="unset_favorite_real">Poista suosikeista</string>
@@ -308,6 +314,7 @@
     <string name="ssl_validator_null_cert">Varmennetta ei voi näyttää.</string>
     <string name="ssl_validator_no_info_about_error">- Ei lisätietoja virheestä</string>
 
+    <string name="placeholder_fileSize">389 kt</string>
     <string name="placeholder_media_time">12:23:45</string>
 
     <string name="instant_upload_on_charging">Lähetä vain ladattaessa virtaa</string>
@@ -371,11 +378,14 @@
     <string name="file_migration_restoring_accounts_configuration">Palautetaan käyttäjän asetukset&#8230;</string>
     <string name="file_migration_ok_finished">Valmistunut</string>
     <string name="file_migration_failed_not_enough_space">Tarvitaan enemmän tilaa</string>
+    <string name="file_migration_failed_not_writable">Kohdetiedostoon ei voinut kirjoittaa</string>
+    <string name="file_migration_failed_not_readable">Lähdetiedostosta ei voinut lukea</string>
     <string name="file_migration_failed_dir_already_exists">Nextcloud-kansio on jo olemassa</string>
     <string name="file_migration_directory_already_exists">Data-kansio on jo olemassa, Valitse yksi seuraavista:</string>
     <string name="file_migration_override_data_folder">Korvaa</string>
     <string name="file_migration_use_data_folder">Käytä</string>
 
+    <string name="file_migration_source_not_readable_title">Lähdekansio ei ole luettavissa</string>
     <string name="prefs_add_account">Lisää tili</string>
     <string name="drawer_manage_accounts">Tilien hallinta</string>
     <string name="auth_redirect_non_secure_connection_title">Salattu yhteys on ohjattu salaamatonta reittiä pitkin.</string>
@@ -431,6 +441,8 @@
     <string name="prefs_instant_behaviour_dialogTitle">Alkuperäinen tiedosto&#8230;</string>
     <string name="prefs_instant_behaviour_title">Alkuperäinen tiedosto&#8230;</string>
     <string name="select_all">Valitse kaikki</string>
+    <string name="deselect_all">Poista valinnat</string>
+
     <string name="pref_behaviour_entries_keep_file">Pidetään alkuperäisessä kansiossa</string>
     <string name="pref_behaviour_entries_move">Siirretään sovelluskansioon</string>
     <string name="pref_behaviour_entries_delete_file">Poistetaan</string>
@@ -468,6 +480,8 @@
     <string name="action_retry_uploads">Yritä lähetystä uudelleen</string>
     <string name="action_clear_failed_uploads">Tyhjennä epäonnistuneet lähetykset</string>
     <string name="action_clear_successful_uploads">Tyhjennä onnistuneet lähetykset</string>
+    <string name="action_force_rescan">Pakota uudelleenskannaus</string>
+
     <string name="action_switch_grid_view">Ruudukkonäkymä</string>
     <string name="action_switch_list_view">Luettelonäkymä</string>
 
@@ -482,6 +496,7 @@
 
     <string name="uploads_view_upload_status_waiting_for_charging">Odoteatan latausta</string>
     <string name="actionbar_search">Etsi</string>
+    <string name="files_drop_not_supported">Tämä on Nextcloud-ominaisuus, ole hyvä ja päivitä.</string>
     <string name="learn_more">Opi lisää</string>
     <string name="drawer_synced_folders">Automaattinen lähetys</string>
     <string name="drawer_participate">Osallitu</string>
@@ -490,10 +505,15 @@
     <string name="participate_testing_report_text">Ilmoita ongelmasta GitHubissa</string>
     <string name="participate_testing_version_text">Oletko kiinnostunut auttamaan testaamalla seuraavaa versiota?</string>
     <string name="participate_beta_headline">Testaa kehitysversiota</string>
-    <string name="participate_release_candidate_headline">Julkaisu ehdokas</string>
+    <string name="participate_release_candidate_headline">Julkaisuehdokas</string>
+    <string name="participate_release_candidate_text">Julkaisuehdokas on lähes valmis versio virallisesti julkaistavasta versiosta ja on oletettavasti täysin toimiva. Testaamalla omia asetuksia saattaa pystyä varmistamaan sen Kirjaudu siis testaajaksi Play storessa tai katso \"Version\" osasta F-Droid äpissä.</string>
     <string name="participate_contribute_irc_text">Liity keskusteluun IRC:ssä:</string>
+    <string name="participate_contribute_forum_forum">Keskustelupalsta</string>
     <string name="participate_contribute_translate_translate">Käännä</string>
     <string name="participate_contribute_translate_text">sovellus</string>
+    <string name="participate_rc_play_store">Lataa julkaisuehdokas Googlen Play storesta.</string>
+    <string name="participate_rc_fdroid">Lataa julkaisuehdokas F-Droidin äpillä.</string>
+    <string name="participate_dev_fdroid">Lataa kehitysjulkaisu F-Droidin äpillä.</string>
     <string name="participate_dev_direct_download">Lataa kehitysjulkaisu suoraan</string>
     <string name="move_to">Siirrä kohteeseen&#8230;</string>
     <string name="copy_to">Kopio kohteeseen&#8230;</string>
@@ -510,6 +530,8 @@
 
     <string name="notifications_loading_activity">Ladataan ilmoituksia &#8230;</string>
     <string name="notifications_no_results_headline">Ei ilmoituksia</string>
+    <string name="notifications_no_results_message">Katso myöhemmin uudestaan.</string>
+
     <string name="upload_file_dialog_filename">Tiedostonimi</string>
     <string name="upload_file_dialog_filetype">Tiedostotyyppi</string>
     <string name="upload_file_dialog_filetype_internet_shortcut">Internet-pikakuvaketiedosto(%s)</string>
@@ -547,6 +569,8 @@
     <string name="user_info_website">Verkkosivusto</string>
     <string name="user_info_twitter">Twitter</string>
 
+    <string name="user_information_retrieval_error">Virhe käyttäjän tietoja haettaessa</string>
+
     <!-- Activities -->
     <string name="activities_no_results_headline">Ei vielä toimia</string>
     <string name="activities_no_results_message">Tähän luetteloon ilmestyy tapahtumia, kuten\nlisäyksiä, muutoksia ja jakamisia</string>
@@ -566,12 +590,16 @@
     <string name="contacts_preferences_no_file_found">Tiedostoa ei löytynyt</string>
     <string name="contacts_preferences_something_strange_happened">Viimeisintä varmuuskopiota ei löytynyt!</string>
     <string name="contacts_preferences_backup_scheduled">Varmuuskopiointi on ajastettu ja se alkaa pian</string>
+    <string name="contacts_preferences_import_scheduled">Tuonti on ajastettu ja se alkaa pian</string>
+
     <!-- Notifications -->
     <string name="new_notification_received">Uusi ilmoitus vastaanotettu</string>
     <string name="drawer_logout">Kirjaudu ulos</string>
     <string name="privacy">Yksityisyys</string>
     <string name="file_not_found">Tiedostoa ei löytynyt</string>
     <string name="file_not_synced">Tiedostoa ei voitu synkronoida. Näytetään viimeisin saatavilla oleva versio.</string>
+
+    <string name="synced_folders_configure_folders">Määritä kansiot</string>
 
     <string name="test_server_button">Testaa palvelinyhteys</string>
     <string name="resharing_is_not_allowed">Uudelleenjakaminen ei ole sallittu</string>
@@ -583,6 +611,8 @@
 
     <string name="prefs_sourcecode">Hanki lähdekoodi</string>
     <string name="prefs_license">Lisenssi</string>
+    <string name="prefs_gpl_v2">
+GNU yleinen lisenssi, versio 2</string>
     <string name="push_notifications_temp_error">Push-ilmoitukset eivät ole nyt käytettävissä.</string>
 
     <string name="sync_in_progress">Noudetaan tiedoston viimeisin versio.</string>
@@ -599,6 +629,7 @@
     <string name="favorite_icon">Suosikkikuvake</string>
     <string name="shared_via_link_icon">Jaettu linkin kautta -kuvake</string>
     <string name="synced_icon">Synkronoitu-kuvake</string>
+    <string name="thumbnail">Esikatselukuva</string>
     <string name="shared_icon">Jaettu-kuvake</string>
     <string name="share_file_icon">Jaa tiedosto -kuvake</string>
     <string name="sort_by_name_ascending">A - Ö</string>
@@ -612,6 +643,7 @@
     <string name="synced_folder_settings_button">Asetukset-painike</string>
     <string name="what_s_new_image">Mitä uutta -kuva</string>
 
+    <string name="prefs_category_dev">Kehittäjä</string>
     <string name="dev_version_no_information_available">Ei tietoja saatavilla.</string>
     <string name="dev_version_no_new_version_available">Ei uutta versiota saatavilla.</string>
     <string name="folder_icon">Kansiokuvake</string>
@@ -651,9 +683,13 @@
     <string name="end_to_end_encryption_retrieving_keys">Noudetaan avaimia&#8230;</string>
     <string name="end_to_end_encryption_enter_password">Anna salasana yksityisen avaimen salauksen purkuun.</string>
     <string name="end_to_end_encryption_generating_keys">Luodaan uusia vaimia&#8230;</string>
+    <string name="end_to_end_encryption_keywords_description">Kaikki 12 sanaa yhdessä on hyvin vahva salasana, jonka avulla pystyy katselemaan ja käyttämään salattuja tiedostoja. Ota ne talteen ja säilytä turvallisessa paikassa. Älä jätä pöydälle!</string>
     <string name="end_to_end_encryption_title">Aseta salaus</string>
     <string name="end_to_end_encryption_confirm_button">Aseta salaus</string>
     <string name="end_to_end_encryption_password">Salasana&#8230;</string>
     <string name="end_to_end_encryption_unsuccessful">Avaimia ei voitu tallentaa, yritä uudelleen.</string>
     <string name="end_to_end_encryption_dialog_close">Sulje</string>
+    <string name="copy_move_to_encrypted_folder_not_supported">Kopiointi/siirto salattuun kansioon ei ole mahdollista.</string>
+    <string name="notification_channel_push_name">Push-ilmoitukset</string>
+    <string name="notification_channel_push_description">Näytä palvelimen lähettämät push-ilmoitukset. Esimerkiksi kun sinut mainitaan kommenteissa, sinulle jaetaan etänä tai kun ylläpito julkaisee tiedotteen.</string>
     </resources>
