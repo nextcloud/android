@@ -623,6 +623,17 @@
     <string name="contaclist_restore_selected">Възстанови избраните контакти</string>
     <string name="contactlist_account_chooser_title">Изберете профил за вкарване в системата</string>
     <string name="contactlist_no_permission">Няма предоставен достъп, нищо не е вкарано.</string>
+    <string name="contacts_preference_choose_date">Изберете дата</string>
     <string name="contacts_preference_backup_never">никога</string>
     <string name="contacts_preferences_no_file_found">Няма намерен файл</string>
+    <string name="contacts_preferences_something_strange_happened">Последната предпазна процедура не може да бъде намерена!</string>
+    <string name="contacts_preferences_backup_scheduled">Предпазната процедура е планирана и ще започне скоро</string>
+    <string name="contacts_preferences_import_scheduled">Импорт е планиран и ще започне скоро</string>
+
+    <!-- Notifications -->
+    <string name="new_notification_received">Получено е ново известие</string>
+    <string name="drawer_logout">Отписване</string>
+    <string name="picture_set_as_no_app">Няма намерени приложения за слагане на снимка</string>
+    <string name="privacy">Защита на лични данни</string>
+    <string name="file_not_found">Файлът не е открит</string>
     </resources>
