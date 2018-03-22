@@ -38,7 +38,6 @@ import com.evernote.android.job.util.support.PersistableBundleCompat;
 import com.google.gson.Gson;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.DecryptedPushMessage;
-import com.owncloud.android.datamodel.PushMessage;
 import com.owncloud.android.datamodel.SignatureVerification;
 import com.owncloud.android.ui.activity.NotificationsActivity;
 import com.owncloud.android.ui.notifications.NotificationUtils;
@@ -71,12 +70,8 @@ public class NotificationJob extends Job {
         if (!TextUtils.isEmpty(subject) && !TextUtils.isEmpty(signature)) {
 
             try {
-                PushMessage pushMessage = new PushMessage();
-                pushMessage.setSubject(subject);
-                pushMessage.setSignature(signature);
-
-                byte[] base64DecodedSubject = Base64.decode(pushMessage.getSubject(), Base64.DEFAULT);
-                byte[] base64DecodedSignature = Base64.decode(pushMessage.getSignature(), Base64.DEFAULT);
+                byte[] base64DecodedSubject = Base64.decode(subject, Base64.DEFAULT);
+                byte[] base64DecodedSignature = Base64.decode(signature, Base64.DEFAULT);
                 PushUtils pushUtils = new PushUtils();
                 PrivateKey privateKey = (PrivateKey) PushUtils.readKeyFromFile(false);
 
