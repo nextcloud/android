@@ -406,7 +406,7 @@ public class PushUtils {
         SignatureVerification signatureVerification = new SignatureVerification();
         signatureVerification.setSignatureValid(false);
 
-        Account[] userEntities = AccountUtils.getAccounts(context);
+        Account[] accounts = AccountUtils.getAccounts(context);
 
         ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProvider(context.getContentResolver());
         String arbitraryValue;
@@ -416,9 +416,9 @@ public class PushUtils {
 
         try {
             signature = Signature.getInstance("SHA512withRSA");
-            if (userEntities.length > 0) {
-                for (Account userEntity : userEntities) {
-                    if (!TextUtils.isEmpty(arbitraryValue = arbitraryDataProvider.getValue(userEntity, KEY_PUSH))) {
+            if (accounts.length > 0) {
+                for (Account account : accounts) {
+                    if (!TextUtils.isEmpty(arbitraryValue = arbitraryDataProvider.getValue(account, KEY_PUSH))) {
                         pushArbitraryData = gson.fromJson(arbitraryValue, PushConfigurationState.class);
                         if (!pushArbitraryData.isShouldBeDeleted()) {
                             publicKey = (PublicKey) readKeyFromString(true, pushArbitraryData.getUserPublicKey());
@@ -426,7 +426,7 @@ public class PushUtils {
                             signature.update(subjectBytes);
                             if (signature.verify(signatureBytes)) {
                                 signatureVerification.setSignatureValid(true);
-                                signatureVerification.setAccount(userEntity);
+                                signatureVerification.setAccount(account);
                                 return signatureVerification;
                             }
                         }
@@ -445,11 +445,12 @@ public class PushUtils {
     }
 
     private Key readKeyFromString(boolean readPublicKey, String keyString) {
+        String modifiedKey;
         if (readPublicKey) {
-            keyString = keyString.replaceAll("\\n", "").replace("-----BEGIN PUBLIC KEY-----",
+            modifiedKey = keyString.replaceAll("\\n", "").replace("-----BEGIN PUBLIC KEY-----",
                     "").replace("-----END PUBLIC KEY-----", "");
         } else {
-            keyString = keyString.replaceAll("\\n", "").replace("-----BEGIN PRIVATE KEY-----",
+            modifiedKey = keyString.replaceAll("\\n", "").replace("-----BEGIN PRIVATE KEY-----",
                     "").replace("-----END PRIVATE KEY-----", "");
         }
 
@@ -457,10 +458,10 @@ public class PushUtils {
         try {
             keyFactory = KeyFactory.getInstance("RSA");
             if (readPublicKey) {
-                X509EncodedKeySpec keySpec = new X509EncodedKeySpec(Base64.decode(keyString, Base64.DEFAULT));
+                X509EncodedKeySpec keySpec = new X509EncodedKeySpec(Base64.decode(modifiedKey, Base64.DEFAULT));
                 return keyFactory.generatePublic(keySpec);
             } else {
-                PKCS8EncodedKeySpec keySpec = new PKCS8EncodedKeySpec(Base64.decode(keyString, Base64.DEFAULT));
+                PKCS8EncodedKeySpec keySpec = new PKCS8EncodedKeySpec(Base64.decode(modifiedKey, Base64.DEFAULT));
                 return keyFactory.generatePrivate(keySpec);
             }
 
