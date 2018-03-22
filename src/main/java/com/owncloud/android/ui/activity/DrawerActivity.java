@@ -27,6 +27,7 @@ package com.owncloud.android.ui.activity;
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.accounts.AccountManagerFuture;
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.drawable.ColorDrawable;
@@ -946,9 +947,15 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
         // set user space information
         Thread t = new Thread(new Runnable() {
             public void run() {
-                AccountManager mAccountMgr = AccountManager.get(MainApp.getAppContext());
+                Context context = MainApp.getAppContext();
+                AccountManager mAccountMgr = AccountManager.get(context);
+                Account account = AccountUtils.getCurrentOwnCloudAccount(context);
 
-                String userId = mAccountMgr.getUserData(AccountUtils.getCurrentOwnCloudAccount(DrawerActivity.this),
+                if (account == null) {
+                    return;
+                }
+
+                String userId = mAccountMgr.getUserData(account,
                         com.owncloud.android.lib.common.accounts.AccountUtils.Constants.KEY_USER_ID);
 
                 RemoteOperation getQuotaInfoOperation;
@@ -958,8 +965,7 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
                     getQuotaInfoOperation = new GetRemoteUserInfoOperation(userId);
                 }
 
-                RemoteOperationResult result = getQuotaInfoOperation.execute(
-                        AccountUtils.getCurrentOwnCloudAccount(DrawerActivity.this), DrawerActivity.this);
+                RemoteOperationResult result = getQuotaInfoOperation.execute(account, context);
 
                 if (result.isSuccess() && result.getData() != null) {
                     final UserInfo userInfo = (UserInfo) result.getData().get(0);
@@ -967,11 +973,9 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
 
                     // Since we always call this method, might as well put it here
                     if (userInfo.getId() != null) {
-                        mAccountMgr.setUserData(
-                                AccountUtils.getCurrentOwnCloudAccount(DrawerActivity.this),
+                        mAccountMgr.setUserData(account,
                                 com.owncloud.android.lib.common.accounts.AccountUtils.Constants.KEY_USER_ID,
-                                userInfo.getId()
-                        );
+                                userInfo.getId());
                     }
 
                     if (quota != null) {
