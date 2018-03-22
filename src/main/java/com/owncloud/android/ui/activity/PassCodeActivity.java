@@ -92,31 +92,32 @@ public class PassCodeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.passcodelock);
-        
-        mBCancel = (Button) findViewById(R.id.cancel);
-        mBCancel.getBackground().setColorFilter(ThemeUtils.primaryColor(), PorterDuff.Mode.SRC_ATOP);
 
-        mPassCodeHdr = (TextView) findViewById(R.id.header);
-        mPassCodeHdrExplanation = (TextView) findViewById(R.id.explanation);
+        int primaryColor = ThemeUtils.primaryColor(this);
 
-        mPassCodeEditTexts[0] = (EditText) findViewById(R.id.txt0);
-        mPassCodeEditTexts[0].setTextColor(ThemeUtils.primaryColor());
-        mPassCodeEditTexts[0].getBackground().setColorFilter(ThemeUtils.primaryColor(), PorterDuff.Mode.SRC_ATOP);
+        mBCancel = findViewById(R.id.cancel);
+        mBCancel.getBackground().setColorFilter(primaryColor, PorterDuff.Mode.SRC_ATOP);
+
+        mPassCodeHdr = findViewById(R.id.header);
+        mPassCodeHdrExplanation = findViewById(R.id.explanation);
+
+        mPassCodeEditTexts[0] = findViewById(R.id.txt0);
+        mPassCodeEditTexts[0].setTextColor(primaryColor);
+        mPassCodeEditTexts[0].getBackground().setColorFilter(primaryColor, PorterDuff.Mode.SRC_ATOP);
         mPassCodeEditTexts[0].requestFocus();
-        getWindow().setSoftInputMode(
-                android.view.WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+        getWindow().setSoftInputMode(android.view.WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
 
-        mPassCodeEditTexts[1] = (EditText) findViewById(R.id.txt1);
-        mPassCodeEditTexts[1].setTextColor(ThemeUtils.primaryColor());
-        mPassCodeEditTexts[1].getBackground().setColorFilter(ThemeUtils.primaryColor(), PorterDuff.Mode.SRC_ATOP);
+        mPassCodeEditTexts[1] = findViewById(R.id.txt1);
+        mPassCodeEditTexts[1].setTextColor(primaryColor);
+        mPassCodeEditTexts[1].getBackground().setColorFilter(primaryColor, PorterDuff.Mode.SRC_ATOP);
 
-        mPassCodeEditTexts[2] = (EditText) findViewById(R.id.txt2);
-        mPassCodeEditTexts[2].setTextColor(ThemeUtils.primaryColor());
-        mPassCodeEditTexts[2].getBackground().setColorFilter(ThemeUtils.primaryColor(), PorterDuff.Mode.SRC_ATOP);
+        mPassCodeEditTexts[2] = findViewById(R.id.txt2);
+        mPassCodeEditTexts[2].setTextColor(primaryColor);
+        mPassCodeEditTexts[2].getBackground().setColorFilter(primaryColor, PorterDuff.Mode.SRC_ATOP);
 
-        mPassCodeEditTexts[3] = (EditText) findViewById(R.id.txt3);
-        mPassCodeEditTexts[3].setTextColor(ThemeUtils.primaryColor());
-        mPassCodeEditTexts[3].getBackground().setColorFilter(ThemeUtils.primaryColor(), PorterDuff.Mode.SRC_ATOP);
+        mPassCodeEditTexts[3] = findViewById(R.id.txt3);
+        mPassCodeEditTexts[3].setTextColor(primaryColor);
+        mPassCodeEditTexts[3].getBackground().setColorFilter(primaryColor, PorterDuff.Mode.SRC_ATOP);
 
         if (ACTION_CHECK.equals(getIntent().getAction())) {
             /// this is a pass code request; the user has to input the right value
