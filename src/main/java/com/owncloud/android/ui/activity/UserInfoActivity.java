@@ -147,7 +147,7 @@ public class UserInfoActivity extends FileActivity {
         setupToolbar(useBackgroundImage);
         updateActionBarTitleAndHomeButtonByString("");
 
-        mUserInfoList.setAdapter(new UserInfoAdapter(null, ThemeUtils.primaryColor(getAccount())));
+        mUserInfoList.setAdapter(new UserInfoAdapter(null, ThemeUtils.primaryColor(getAccount(), this)));
         mUserInfoList.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
 
         if (userInfo != null) {
@@ -197,7 +197,7 @@ public class UserInfoActivity extends FileActivity {
 
             emptyContentIcon.setVisibility(View.GONE);
             emptyContentMessage.setVisibility(View.GONE);
-            multiListProgressBar.getIndeterminateDrawable().setColorFilter(ThemeUtils.primaryColor(),
+            multiListProgressBar.getIndeterminateDrawable().setColorFilter(ThemeUtils.primaryColor(this),
                     PorterDuff.Mode.SRC_IN);
             multiListProgressBar.setVisibility(View.VISIBLE);
         }
@@ -223,7 +223,7 @@ public class UserInfoActivity extends FileActivity {
                 ImageView backgroundImageView = appBar.findViewById(R.id.drawer_header_background);
 
                 String background = getStorageManager().getCapability(account.name).getServerBackground();
-                int primaryColor = ThemeUtils.primaryColor(getAccount());
+                int primaryColor = ThemeUtils.primaryColor(getAccount(), this);
 
                 if (URLUtil.isValidUrl(background)) {
                     // background image
@@ -265,7 +265,7 @@ public class UserInfoActivity extends FileActivity {
         DisplayUtils.setAvatar(account, UserInfoActivity.this, mCurrentAccountAvatarRadiusDimension, getResources(),
                 getStorageManager(), avatar);
 
-        int tint = ThemeUtils.primaryColor(account);
+        int tint = ThemeUtils.primaryColor(account, this);
 
         if (!TextUtils.isEmpty(userInfo.getDisplayName())) {
             fullName.setText(userInfo.getDisplayName());
@@ -342,7 +342,7 @@ public class UserInfoActivity extends FileActivity {
         public void onStart() {
             super.onStart();
 
-            int color = ThemeUtils.primaryAccentColor();
+            int color = ThemeUtils.primaryAccentColor(getContext());
 
             AlertDialog alertDialog = (AlertDialog) getDialog();
 

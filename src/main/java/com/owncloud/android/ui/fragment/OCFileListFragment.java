@@ -187,9 +187,9 @@ public class OCFileListFragment extends ExtendedListFragment implements
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
         mSystemBarActionModeColor = getResources().getColor(R.color.action_mode_status_bar_background);
-        mSystemBarColor = ThemeUtils.primaryDarkColor();
+        mSystemBarColor = ThemeUtils.primaryDarkColor(getContext());
         mProgressBarActionModeColor = getResources().getColor(R.color.action_mode_background);
-        mProgressBarColor = ThemeUtils.primaryColor();
+        mProgressBarColor = ThemeUtils.primaryColor(getContext());
         mMultiChoiceModeListener = new MultiChoiceModeListener();
 
         if (savedInstanceState != null) {
@@ -1236,7 +1236,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
                     setTitle(R.string.drawer_item_shared);
                     break;
                 default:
-                    setTitle(ThemeUtils.getDefaultDisplayNameForRootFolder());
+                    setTitle(ThemeUtils.getDefaultDisplayNameForRootFolder(getContext()));
                     break;
             }
         }
@@ -1298,7 +1298,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
         menuItemAddRemoveValue = MenuItemAddRemove.ADD_GRID_AND_SORT_WITH_SEARCH;
         if (getActivity() != null) {
             getActivity().invalidateOptionsMenu();
-            setTitle(ThemeUtils.getDefaultDisplayNameForRootFolder());
+            setTitle(ThemeUtils.getDefaultDisplayNameForRootFolder(getContext()));
         }
 
         getActivity().getIntent().removeExtra(OCFileListFragment.SEARCH_EVENT);
@@ -1521,7 +1521,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
                     ActionBar actionBar = ((FileDisplayActivity) getActivity()).getSupportActionBar();
 
                     if (actionBar != null) {
-                            ThemeUtils.setColoredTitle(actionBar, title);
+                        ThemeUtils.setColoredTitle(actionBar, title, getContext());
                     }
                 }
             }

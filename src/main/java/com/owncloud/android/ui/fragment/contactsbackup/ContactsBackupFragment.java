@@ -109,7 +109,7 @@ public class ContactsBackupFragment extends FileFragment implements DatePickerDi
     public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         // use grey as fallback for elements where custom theming is not available
-        if (ThemeUtils.themingEnabled()) {
+        if (ThemeUtils.themingEnabled(getContext())) {
             getContext().getTheme().applyStyle(R.style.FallbackThemingTheme, true);
         }
         View view = inflater.inflate(R.layout.contacts_backup_fragment, null);
@@ -137,7 +137,7 @@ public class ContactsBackupFragment extends FileFragment implements DatePickerDi
 
         arbitraryDataProvider = new ArbitraryDataProvider(getContext().getContentResolver());
 
-        ThemeUtils.tintSwitch(backupSwitch, ThemeUtils.primaryAccentColor());
+        ThemeUtils.tintSwitch(backupSwitch, ThemeUtils.primaryAccentColor(getContext()));
         backupSwitch.setChecked(arbitraryDataProvider.getBooleanValue(account, PREFERENCE_CONTACTS_AUTOMATIC_BACKUP));
 
         onCheckedChangeListener = new CompoundButton.OnCheckedChangeListener() {
@@ -174,7 +174,7 @@ public class ContactsBackupFragment extends FileFragment implements DatePickerDi
             calendarPickerOpen = true;
         }
 
-        int accentColor = ThemeUtils.primaryAccentColor();
+        int accentColor = ThemeUtils.primaryAccentColor(getContext());
         int fontColor = ThemeUtils.fontColor();
 
         backupNow.getBackground().setColorFilter(accentColor, PorterDuff.Mode.SRC_ATOP);
@@ -182,6 +182,10 @@ public class ContactsBackupFragment extends FileFragment implements DatePickerDi
 
         contactsDatePickerBtn.getBackground().setColorFilter(accentColor, PorterDuff.Mode.SRC_ATOP);
         contactsDatePickerBtn.setTextColor(fontColor);
+
+        AppCompatButton chooseDate = view.findViewById(R.id.contacts_datepicker);
+        chooseDate.getBackground().setColorFilter(accentColor, PorterDuff.Mode.SRC_ATOP);
+        chooseDate.setTextColor(ThemeUtils.fontColor(getContext()));
 
         return view;
     }

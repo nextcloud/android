@@ -258,7 +258,7 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
         // Set the drawer toggle as the DrawerListener
         mDrawerLayout.addDrawerListener(mDrawerToggle);
         mDrawerToggle.setDrawerIndicatorEnabled(true);
-        mDrawerToggle.getDrawerArrowDrawable().setColor(ThemeUtils.fontColor());
+        mDrawerToggle.getDrawerArrowDrawable().setColor(ThemeUtils.fontColor(this));
     }
 
     /**
@@ -270,7 +270,7 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
         mAccountEndAccountAvatar = (ImageView) findNavigationViewChildById(R.id.drawer_account_end);
 
         mAccountChooserToggle = (ImageView) findNavigationViewChildById(R.id.drawer_account_chooser_toggle);
-        mAccountChooserToggle.setColorFilter(ThemeUtils.fontColor());
+        mAccountChooserToggle.setColorFilter(ThemeUtils.fontColor(this));
 
         if (getResources().getBoolean(R.bool.allow_profile_click)) {
             mAccountChooserToggle.setImageResource(R.drawable.ic_down);
@@ -295,7 +295,7 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
         mQuotaProgressBar = (ProgressBar) findQuotaViewById(R.id.drawer_quota_ProgressBar);
         mQuotaTextPercentage = (TextView) findQuotaViewById(R.id.drawer_quota_percentage);
         mQuotaTextLink = (TextView) findQuotaViewById(R.id.drawer_quota_link);
-        ThemeUtils.colorHorizontalProgressBar(mQuotaProgressBar, ThemeUtils.primaryAccentColor());
+        ThemeUtils.colorHorizontalProgressBar(mQuotaProgressBar, ThemeUtils.primaryAccentColor(this));
     }
 
     /**
@@ -330,7 +330,7 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
             navigationView.getMenu().setGroupVisible(R.id.drawer_menu_accounts, false);
         }
 
-        Account account = AccountUtils.getCurrentOwnCloudAccount(MainApp.getAppContext());
+        Account account = AccountUtils.getCurrentOwnCloudAccount(this);
         boolean searchSupported = AccountUtils.hasSearchSupport(account);
 
         if (getResources().getBoolean(R.bool.bottom_toolbar_enabled) && account != null) {
@@ -746,11 +746,11 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
             TextView username = (TextView) findNavigationViewChildById(R.id.drawer_username);
             TextView usernameFull = (TextView) findNavigationViewChildById(R.id.drawer_username_full);
             usernameFull.setText(account.name);
-            usernameFull.setTextColor(ThemeUtils.fontColor());
+            usernameFull.setTextColor(ThemeUtils.fontColor(this));
             try {
                 OwnCloudAccount oca = new OwnCloudAccount(account, this);
                 username.setText(oca.getDisplayName());
-                username.setTextColor(ThemeUtils.fontColor());
+                username.setTextColor(ThemeUtils.fontColor(this));
             } catch (com.owncloud.android.lib.common.accounts.AccountUtils.AccountNotFoundException e) {
                 Log_OC.w(TAG, "Couldn't read display name of account fallback to account name");
                 username.setText(AccountUtils.getAccountUsername(account.name));
@@ -928,7 +928,7 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
                 }
             }
 
-            int elementColor = ThemeUtils.elementColor();
+            int elementColor = ThemeUtils.elementColor(this);
             ThemeUtils.tintDrawable(item.getIcon(), elementColor);
 
             String colorHex = ThemeUtils.colorToHexString(elementColor);
@@ -1068,7 +1068,7 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
                 String background = capability.getServerBackground();
                 CapabilityBooleanType backgroundDefault = capability.getServerBackgroundDefault();
                 CapabilityBooleanType backgroundPlain = capability.getServerBackgroundPlain();
-                int primaryColor = ThemeUtils.primaryColor(getAccount());
+                int primaryColor = ThemeUtils.primaryColor(getAccount(), this);
 
                 if (backgroundDefault.isTrue() && backgroundPlain.isTrue()) {
                     // use only solid color

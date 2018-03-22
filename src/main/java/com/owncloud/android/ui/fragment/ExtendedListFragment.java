@@ -250,7 +250,7 @@ public class ExtendedListFragment extends Fragment
             }
         });
 
-        int fontColor = ThemeUtils.fontColor();
+        int fontColor = ThemeUtils.fontColor(getContext());
 
         LinearLayout searchBar = searchView.findViewById(R.id.search_bar);
         TextView searchBadge = searchView.findViewById(R.id.search_badge);
@@ -423,7 +423,8 @@ public class ExtendedListFragment extends Fragment
         mEmptyListHeadline = view.findViewById(R.id.empty_list_view_headline);
         mEmptyListIcon = view.findViewById(R.id.empty_list_icon);
         mEmptyListProgress = view.findViewById(R.id.empty_list_progress);
-        mEmptyListProgress.getIndeterminateDrawable().setColorFilter(ThemeUtils.primaryColor(), PorterDuff.Mode.SRC_IN);
+        mEmptyListProgress.getIndeterminateDrawable().setColorFilter(ThemeUtils.primaryColor(getContext()),
+                PorterDuff.Mode.SRC_IN);
     }
 
     /**
@@ -596,6 +597,7 @@ public class ExtendedListFragment extends Fragment
     }
 
     /**
+    /**
      * Set message for empty list view.
      */
     public void setMessageForEmptyList(String message) {
@@ -635,7 +637,8 @@ public class ExtendedListFragment extends Fragment
                     mEmptyListMessage.setText(message);
 
                     if (tintIcon) {
-                        mEmptyListIcon.setImageDrawable(ThemeUtils.tintDrawable(icon, ThemeUtils.primaryColor()));
+                        mEmptyListIcon.setImageDrawable(ThemeUtils.tintDrawable(icon,
+                                ThemeUtils.primaryColor(getContext())));
                     } else {
                         mEmptyListIcon.setImageResource(icon);
                     }
@@ -732,9 +735,9 @@ public class ExtendedListFragment extends Fragment
     }
 
     protected void onCreateSwipeToRefresh(SwipeRefreshLayout refreshLayout) {
-        int primaryColor = ThemeUtils.primaryColor();
-        int darkColor = ThemeUtils.primaryDarkColor();
-        int accentColor = ThemeUtils.primaryAccentColor();
+        int primaryColor = ThemeUtils.primaryColor(getContext());
+        int darkColor = ThemeUtils.primaryDarkColor(getContext());
+        int accentColor = ThemeUtils.primaryAccentColor(getContext());
 
         // Colors in animations
         // TODO change this to use darker and lighter color, again.

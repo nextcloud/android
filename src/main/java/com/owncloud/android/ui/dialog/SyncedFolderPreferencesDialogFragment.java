@@ -136,7 +136,7 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment {
      * @param view the parent view
      */
     private void setupDialogElements(View view) {
-        int accentColor = ThemeUtils.primaryAccentColor();
+        int accentColor = ThemeUtils.primaryAccentColor(getContext());
 
         if (mSyncedFolder.getType().getId() > MediaFolderType.CUSTOM.getId()) {
             // hide local folder chooser and delete for non-custom folders
@@ -164,12 +164,12 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment {
         mEnabledSwitch = view.findViewById(R.id.sync_enabled);
         ThemeUtils.tintSwitch(mEnabledSwitch, accentColor);
 
-        mLocalFolderPath = (TextView) view.findViewById(R.id.synced_folders_settings_local_folder_path);
+        mLocalFolderPath = view.findViewById(R.id.synced_folders_settings_local_folder_path);
 
-        mLocalFolderSummary = (TextView) view.findViewById(R.id.local_folder_summary);
-        mRemoteFolderSummary = (TextView) view.findViewById(R.id.remote_folder_summary);
+        mLocalFolderSummary = view.findViewById(R.id.local_folder_summary);
+        mRemoteFolderSummary = view.findViewById(R.id.remote_folder_summary);
 
-        mUploadOnWifiCheckbox = (AppCompatCheckBox) view.findViewById(R.id.setting_instant_upload_on_wifi_checkbox);
+        mUploadOnWifiCheckbox = view.findViewById(R.id.setting_instant_upload_on_wifi_checkbox);
         ThemeUtils.tintCheckbox(mUploadOnWifiCheckbox, accentColor);
 
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR1) {
@@ -177,21 +177,21 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment {
         } else {
             view.findViewById(R.id.setting_instant_upload_on_charging_container).setVisibility(View.VISIBLE);
 
-            mUploadOnChargingCheckbox = (AppCompatCheckBox) view.findViewById(
+            mUploadOnChargingCheckbox = view.findViewById(
                     R.id.setting_instant_upload_on_charging_checkbox);
             ThemeUtils.tintCheckbox(mUploadOnChargingCheckbox, accentColor);
         }
 
-        mUploadUseSubfoldersCheckbox = (AppCompatCheckBox) view.findViewById(
+        mUploadUseSubfoldersCheckbox = view.findViewById(
                 R.id.setting_instant_upload_path_use_subfolders_checkbox);
         ThemeUtils.tintCheckbox(mUploadUseSubfoldersCheckbox, accentColor);
 
-        mUploadBehaviorSummary = (TextView) view.findViewById(R.id.setting_instant_behaviour_summary);
+        mUploadBehaviorSummary = view.findViewById(R.id.setting_instant_behaviour_summary);
 
-        mCancel = (AppCompatButton) view.findViewById(R.id.cancel);
+        mCancel = view.findViewById(R.id.cancel);
         mCancel.setTextColor(accentColor);
 
-        mSave = (AppCompatButton) view.findViewById(R.id.save);
+        mSave = view.findViewById(R.id.save);
         mSave.setTextColor(accentColor);
 
         // Set values
@@ -393,7 +393,7 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle(ThemeUtils.getColoredTitle(
                 getResources().getString(R.string.prefs_instant_behaviour_dialogTitle),
-                ThemeUtils.primaryAccentColor()))
+                ThemeUtils.primaryAccentColor(getContext())))
                 .setSingleChoiceItems(getResources().getTextArray(R.array.pref_behaviour_entries),
                         mSyncedFolder.getUploadActionInteger(),
                         new

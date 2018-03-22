@@ -70,7 +70,7 @@ public class ThemeableSwitchPreference extends SwitchPreference {
             if (child instanceof Switch) {
                 Switch switchView = (Switch) child;
 
-                int color = ThemeUtils.primaryAccentColor();
+                int color = ThemeUtils.primaryAccentColor(getContext());
                 int trackColor = Color.argb(77, Color.red(color), Color.green(color), Color.blue(color));
 
                 // setting the thumb color
