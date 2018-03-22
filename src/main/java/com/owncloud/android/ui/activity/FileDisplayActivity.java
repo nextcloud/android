@@ -1545,7 +1545,7 @@ public class FileDisplayActivity extends HookActivity
                 if (mWaitingToPreview != null && getStorageManager() != null) {
                     // update the file
                     mWaitingToPreview = getStorageManager().getFileById(mWaitingToPreview.getFileId());
-                    if (!mWaitingToPreview.isDown()) {
+                    if (mWaitingToPreview != null && !mWaitingToPreview.isDown()) {
                         requestForDownload();
                     }
                 }
