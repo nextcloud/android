@@ -39,6 +39,8 @@ import android.util.Log;
 import android.view.View;
 import android.webkit.MimeTypeMap;
 
+import com.evernote.android.job.JobRequest;
+import com.evernote.android.job.util.Device;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
@@ -48,6 +50,7 @@ import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.lib.resources.files.CheckEtagOperation;
 import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.lib.resources.shares.ShareType;
 import com.owncloud.android.lib.resources.status.OwnCloudVersion;
@@ -60,6 +63,7 @@ import com.owncloud.android.ui.dialog.SendShareDialog;
 import com.owncloud.android.ui.events.EncryptionEvent;
 import com.owncloud.android.ui.events.FavoriteEvent;
 import com.owncloud.android.ui.events.SyncEventFinished;
+import com.owncloud.android.utils.ConnectivityUtils;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.UriUtils;
@@ -157,43 +161,80 @@ public class FileOperationsHelper {
 
 
     public void startSyncForFileAndIntent(OCFile file, Intent intent) {
-        mFileActivity.showLoadingDialog(mFileActivity.getResources().getString(R.string.sync_in_progress));
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                Account account = AccountUtils.getCurrentOwnCloudAccount(mFileActivity);
-                FileDataStorageManager storageManager =
-                        new FileDataStorageManager(account, mFileActivity.getContentResolver());
-                SynchronizeFileOperation sfo =
-                        new SynchronizeFileOperation(file, null, account, true, mFileActivity);
-                RemoteOperationResult result = sfo.execute(storageManager, mFileActivity);
-                if (result.getCode() == RemoteOperationResult.ResultCode.SYNC_CONFLICT) {
-                    // ISSUE 5: if the user is not running the app (this is a service!),
-                    // this can be very intrusive; a notification should be preferred
-                    Intent i = new Intent(mFileActivity, ConflictsResolveActivity.class);
-                    i.setFlags(i.getFlags() | Intent.FLAG_ACTIVITY_NEW_TASK);
-                    i.putExtra(ConflictsResolveActivity.EXTRA_FILE, file);
-                    i.putExtra(ConflictsResolveActivity.EXTRA_ACCOUNT, account);
-                    mFileActivity.startActivity(i);
-                } else {
-                    if (file.isDown()) {
-                        FileStorageUtils.checkIfFileFinishedSaving(file);
-                        if (!result.isSuccess()) {
-                            DisplayUtils.showSnackMessage(mFileActivity, R.string.file_not_synced);
-                            try {
-                                Thread.sleep(3000);
-                            } catch (InterruptedException e) {
-                                Log.e(TAG, "Failed to sleep for a bit");
-                            }
-                        }
-                        EventBus.getDefault().post(new SyncEventFinished(intent));
+        new Thread(() -> {
+            Account account = mFileActivity.getAccount();
+            FileDataStorageManager storageManager = new FileDataStorageManager(mFileActivity.getAccount(),
+                    mFileActivity.getContentResolver());
+
+            // check if file is in conflict (this is known due to latest folder refresh)
+            if (file.isInConflict()) {
+                syncFile(file, account, storageManager);
+                EventBus.getDefault().post(new SyncEventFinished(intent));
+
+                return;
+            }
+
+            // check if latest sync is >30s ago
+            OCFile parent = storageManager.getFileById(file.getParentId());
+            if (parent.getLastSyncDateForData() + 30 * 1000 > System.currentTimeMillis()) {
+                EventBus.getDefault().post(new SyncEventFinished(intent));
+
+                return;
+            }
+
+            // if offline or walled garden, show old version with warning
+            if (Device.getNetworkType(mFileActivity).equals(JobRequest.NetworkType.ANY) ||
+                    ConnectivityUtils.isInternetWalled(mFileActivity)) {
+                DisplayUtils.showSnackMessage(mFileActivity, R.string.file_not_synced);
+                EventBus.getDefault().post(new SyncEventFinished(intent));
+
+                return;
+            }
+
+            // check for changed eTag
+            CheckEtagOperation checkEtagOperation = new CheckEtagOperation(file.getRemotePath(), file.getEtag());
+            RemoteOperationResult result = checkEtagOperation.execute(account, mFileActivity);
+
+            // eTag changed, sync file
+            if (result.getCode() == RemoteOperationResult.ResultCode.ETAG_CHANGED) {
+                syncFile(file, account, storageManager);
+            }
+
+            EventBus.getDefault().post(new SyncEventFinished(intent));
+        }).start();
+    }
+
+    private void syncFile(OCFile file, Account account, FileDataStorageManager storageManager) {
+        mFileActivity.runOnUiThread(() -> mFileActivity.showLoadingDialog(mFileActivity.getResources()
+                .getString(R.string.sync_in_progress)));
+
+        SynchronizeFileOperation sfo = new SynchronizeFileOperation(file, null, account, true, mFileActivity);
+        RemoteOperationResult result = sfo.execute(storageManager, mFileActivity);
+
+        if (result.getCode() == RemoteOperationResult.ResultCode.SYNC_CONFLICT) {
+            // ISSUE 5: if the user is not running the app (this is a service!),
+            // this can be very intrusive; a notification should be preferred
+            Intent i = new Intent(mFileActivity, ConflictsResolveActivity.class);
+            i.setFlags(i.getFlags() | Intent.FLAG_ACTIVITY_NEW_TASK);
+            i.putExtra(ConflictsResolveActivity.EXTRA_FILE, file);
+            i.putExtra(ConflictsResolveActivity.EXTRA_ACCOUNT, account);
+            mFileActivity.startActivity(i);
+        } else {
+            if (file.isDown()) {
+                FileStorageUtils.checkIfFileFinishedSaving(file);
+                if (!result.isSuccess()) {
+                    DisplayUtils.showSnackMessage(mFileActivity, R.string.file_not_synced);
+                    try {
+                        Thread.sleep(3000);
+                    } catch (InterruptedException e) {
+                        Log.e(TAG, "Failed to sleep for a bit");
                     }
                 }
-                mFileActivity.dismissLoadingDialog();
             }
-        }).start();
-
+        }
+        mFileActivity.dismissLoadingDialog();
     }
+
     public void openFile(OCFile file) {
         if (file != null) {
             String storagePath = file.getStoragePath();
