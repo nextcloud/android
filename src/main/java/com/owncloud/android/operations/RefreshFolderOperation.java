@@ -432,6 +432,7 @@ public class RefreshFolderOperation extends RemoteOperation {
                 updatedFile.setEtag(localFile.getEtag());
                 if (updatedFile.isFolder()) {
                     updatedFile.setFileLength(remoteFile.getFileLength());
+                    updatedFile.setMountType(remoteFile.getMountType());
                 } else if (mRemoteFolderChanged && MimeTypeUtil.isImage(remoteFile) &&
                         remoteFile.getModificationTimestamp() !=
                                 localFile.getModificationTimestamp()) {
