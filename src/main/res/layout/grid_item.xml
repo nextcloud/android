@@ -18,7 +18,7 @@
 <com.owncloud.android.ui.SquareLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/ListItemLayout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:layout_gravity="center_horizontal"
     android:background="@drawable/list_selector"
     android:gravity="center"

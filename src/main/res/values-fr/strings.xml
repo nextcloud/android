@@ -521,7 +521,7 @@ Veuillez contacter votre administrateur</string>
     <string name="manage_space_clear_data">Effacer les données</string>
 
     <string name="permission_storage_access">Des permissions supplémentaires sont exigées pour téléverser et télécharger des fichiers.</string>
-    <string name="local_file_not_found_toast">Le fichier n\'a pas été trouvé sur le système de fichier local</string>
+    <string name="local_file_not_found_message">Le fichier n\'a pas été trouvé sur le système de fichier local</string>
     <string name="confirmation_remove_files_alert">Souhaitez-vous vraiment supprimer les éléments sélectionnés ?</string>
     <string name="confirmation_remove_folders_alert">Souhaitez-vous vraiment supprimer les éléments sélectionnés ainsi que leurs contenus ?</string>
     <string name="maintenance_mode">Serveur en maintenance</string>

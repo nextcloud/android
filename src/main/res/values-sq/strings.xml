@@ -517,7 +517,7 @@
     <string name="manage_space_clear_data">Pastroji të dhënat</string>
 
     <string name="permission_storage_access">Që të ngarkoni dhe shkarkoni skedar kërkohen leje shtesë.</string>
-    <string name="local_file_not_found_toast">Skedari s’u gjet te sistemi vendor i skedarëve</string>
+    <string name="local_file_not_found_message">Skedari s’u gjet te sistemi vendor i skedarëve</string>
     <string name="confirmation_remove_files_alert">Doni vërtetë të hiqni artikujt e zgjedhur?</string>
     <string name="confirmation_remove_folders_alert">Doni vërtet të hiqni artikujt e zgjedhur dhe përmbajtjen e tyre?</string>
     <string name="maintenance_mode">Shërbyesi në gjëndje mirëmbajtjeje</string>

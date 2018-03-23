@@ -520,7 +520,7 @@ Lépj kapcsolatba a rendszergazdával</string>
     <string name="manage_space_clear_data">Adatok törlése</string>
 
     <string name="permission_storage_access">További jogokra van szükség a fel és letöltéshez</string>
-    <string name="local_file_not_found_toast">Fájl nem található a helyi fájlrendszeren</string>
+    <string name="local_file_not_found_message">Fájl nem található a helyi fájlrendszeren</string>
     <string name="confirmation_remove_files_alert">Valóban törölni akarod a kijelölt elemeket?</string>
     <string name="confirmation_remove_folders_alert">Valóban törölni akarod a kijelölt elemeket és tartalmukat?</string>
     <string name="maintenance_mode">Szerver karbantartási üzemmódban</string>

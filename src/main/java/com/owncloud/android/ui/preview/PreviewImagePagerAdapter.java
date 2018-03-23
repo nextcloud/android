@@ -36,8 +36,8 @@ import com.owncloud.android.utils.FileSortOrder;
 import com.owncloud.android.utils.FileStorageUtils;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
-import java.util.Vector;
 
 import javax.annotation.Nullable;
 
@@ -45,8 +45,8 @@ import javax.annotation.Nullable;
  * Adapter class that provides Fragment instances
  */
 public class PreviewImagePagerAdapter extends FragmentStatePagerAdapter {
-    
-    private Vector<OCFile> mImageFiles;
+
+    private List<OCFile> mImageFiles;
     private Account mAccount;
     private Set<Object> mObsoleteFragments;
     private Set<Integer> mObsoletePositions;

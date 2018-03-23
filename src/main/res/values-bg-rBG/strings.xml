@@ -519,7 +519,7 @@
     <string name="manage_space_clear_data">Изчисти данни</string>
 
     <string name="permission_storage_access">Изискват се допълнителни права за изтегляне и сваляне на файлове.</string>
-    <string name="local_file_not_found_toast">Файлът не е намерен в локалната система за файлове</string>
+    <string name="local_file_not_found_message">Файлът не е намерен в локалната система за файлове</string>
     <string name="confirmation_remove_files_alert">Наистина ли желаете избраните елементи да бъдат премахнати?</string>
     <string name="confirmation_remove_folders_alert">Наистина ли желаете избраните елементи и съдържанието им да бъдат премахнати?</string>
     <string name="maintenance_mode">Режимът за поддръжка е включен</string>

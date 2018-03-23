@@ -60,7 +60,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Set;
-import java.util.Vector;
 
 public class FileDataStorageManager {
 
@@ -151,26 +150,25 @@ public class FileDataStorageManager {
     }
 
 
-    public Vector<OCFile> getFolderContent(OCFile f, boolean onlyOnDevice) {
+    public List<OCFile> getFolderContent(OCFile f, boolean onlyOnDevice) {
         if (f != null && f.isFolder() && f.getFileId() != -1) {
             return getFolderContent(f.getFileId(), onlyOnDevice);
-
         } else {
-            return new Vector<OCFile>();
+            return new ArrayList<>();
         }
     }
 
 
-    public Vector<OCFile> getFolderImages(OCFile folder, boolean onlyOnDevice) {
-        Vector<OCFile> ret = new Vector<OCFile>();
+    public List<OCFile> getFolderImages(OCFile folder, boolean onlyOnDevice) {
+        List<OCFile> ret = new ArrayList<>();
+        
         if (folder != null) {
             // TODO better implementation, filtering in the access to database instead of here
-            Vector<OCFile> tmp = getFolderContent(folder, onlyOnDevice);
-            OCFile current = null;
-            for (int i = 0; i < tmp.size(); i++) {
-                current = tmp.get(i);
-                if (MimeTypeUtil.isImage(current)) {
-                    ret.add(current);
+            List<OCFile> tmp = getFolderContent(folder, onlyOnDevice);
+
+            for (OCFile file : tmp) {
+                if (MimeTypeUtil.isImage(file)) {
+                    ret.add(file);
                 }
             }
         }
@@ -178,7 +176,7 @@ public class FileDataStorageManager {
     }
 
     public boolean saveFile(OCFile file) {
-        boolean overriden = false;
+        boolean overridden = false;
         ContentValues cv = new ContentValues();
         cv.put(ProviderTableMeta.FILE_MODIFIED, file.getModificationTimestamp());
         cv.put(
@@ -222,7 +220,7 @@ public class FileDataStorageManager {
                 oldFile = getFileById(file.getFileId());
             }
 
-            overriden = true;
+            overridden = true;
             if (getContentResolver() != null) {
                 getContentResolver().update(ProviderTableMeta.CONTENT_URI, cv,
                         ProviderTableMeta._ID + "=?",
@@ -253,7 +251,7 @@ public class FileDataStorageManager {
             }
         }
 
-        return overriden;
+        return overridden;
     }
 
     /**
@@ -571,7 +569,7 @@ public class FileDataStorageManager {
         File localFolder = new File(localFolderPath);
         if (localFolder.exists()) {
             // stage 1: remove the local files already registered in the files database
-            Vector<OCFile> files = getFolderContent(folder.getFileId(), false);
+            List<OCFile> files = getFolderContent(folder.getFileId(), false);
             if (files != null) {
                 for (OCFile file : files) {
                     if (file.isFolder()) {
@@ -810,12 +808,12 @@ public class FileDataStorageManager {
         }
     }
 
-    private Vector<OCFile> getFolderContent(long parentId, boolean onlyOnDevice) {
+    private List<OCFile> getFolderContent(long parentId, boolean onlyOnDevice) {
 
-        Vector<OCFile> ret = new Vector<>();
+        List<OCFile> ret = new ArrayList<>();
 
         Uri req_uri = Uri.withAppendedPath(ProviderTableMeta.CONTENT_URI_DIR, String.valueOf(parentId));
-        Cursor c = null;
+        Cursor c;
 
         if (getContentProviderClient() != null) {
             try {
@@ -1610,7 +1608,7 @@ public class FileDataStorageManager {
                     + ProviderTableMeta.OCSHARES_ACCOUNT_OWNER + "=?";
             String[] whereArgs = new String[]{"", mAccount.name};
 
-            Vector<OCFile> files = getFolderContent(folder, false);
+            List<OCFile> files = getFolderContent(folder, false);
 
             for (OCFile file : files) {
                 whereArgs[0] = file.getRemotePath();
@@ -2135,8 +2133,8 @@ public class FileDataStorageManager {
         }
     }
 
-    public Vector<OCFile> getVirtualFolderContent(VirtualFolderType type, boolean onlyImages) {
-        Vector<OCFile> ocFiles = new Vector<>();
+    public List<OCFile> getVirtualFolderContent(VirtualFolderType type, boolean onlyImages) {
+        List<OCFile> ocFiles = new ArrayList<>();
         Uri req_uri = ProviderTableMeta.CONTENT_URI_VIRTUAL;
         Cursor c;
 
@@ -2175,12 +2173,11 @@ public class FileDataStorageManager {
         }
 
         if (onlyImages) {
-            OCFile current;
-            Vector<OCFile> temp = new Vector<>();
-            for (int i=0; i < ocFiles.size(); i++) {
-                current = ocFiles.get(i);
-                if (MimeTypeUtil.isImage(current)) {
-                    temp.add(current);
+            List<OCFile> temp = new ArrayList<>();
+
+            for (OCFile file : temp) {
+                if (MimeTypeUtil.isImage(file)) {
+                    temp.add(file);
                 }
             }
             ocFiles = temp;

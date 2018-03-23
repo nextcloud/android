@@ -526,7 +526,7 @@
     <string name="manage_space_clear_data">Очистить данные</string>
 
     <string name="permission_storage_access">Для загрузки и скачивания файлов требуются дополнительные права доступа.</string>
-    <string name="local_file_not_found_toast">Файл не был найден в локальной файловой системе</string>
+    <string name="local_file_not_found_message">Файл не был найден в локальной файловой системе</string>
     <string name="confirmation_remove_files_alert">Действительно удалить выбранные объекты?</string>
     <string name="confirmation_remove_folders_alert">Действительно удалить выбранные объекты и их содержимое?</string>
     <string name="maintenance_mode">Сервер находится в режиме обслуживания</string>

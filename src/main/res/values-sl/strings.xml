@@ -407,7 +407,7 @@
     <string name="manage_space_clear_data">Počisti podatke</string>
 
     <string name="permission_storage_access">Za prejemanje oziroma pošiljanje datotek v oblak so zahtevana dodatna dovoljenja.</string>
-    <string name="local_file_not_found_toast">Datoteke ni mogoče najti na krajevnem sistemu</string>
+    <string name="local_file_not_found_message">Datoteke ni mogoče najti na krajevnem sistemu</string>
     <string name="maintenance_mode">Strežnik je v načinu vzdrževanja</string>
 
     <string name="uploads_view_upload_status_waiting_for_charging">Čakam polnjenje</string>
