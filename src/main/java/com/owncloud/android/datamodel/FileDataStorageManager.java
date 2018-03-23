@@ -37,6 +37,7 @@ import android.support.annotation.Nullable;
 
 import com.owncloud.android.MainApp;
 import com.owncloud.android.db.ProviderMeta.ProviderTableMeta;
+import com.owncloud.android.lib.common.network.WebdavEntry;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.files.ReadRemoteFileOperation;
@@ -479,6 +480,7 @@ public class FileDataStorageManager {
         cv.put(ProviderTableMeta.FILE_ETAG_IN_CONFLICT, file.getEtagInConflict());
         cv.put(ProviderTableMeta.FILE_FAVORITE, file.getIsFavorite());
         cv.put(ProviderTableMeta.FILE_IS_ENCRYPTED, file.isEncrypted());
+        cv.put(ProviderTableMeta.FILE_MOUNT_TYPE, file.getMountType().ordinal());
         return cv;
     }
 
@@ -971,6 +973,8 @@ public class FileDataStorageManager {
             if (file.isEncrypted()) {
                 file.setFileName(c.getString(c.getColumnIndex(ProviderTableMeta.FILE_NAME)));
             }
+            file.setMountType(WebdavEntry.MountType.values()[c.getInt(
+                    c.getColumnIndex(ProviderTableMeta.FILE_MOUNT_TYPE))]);
         }
         return file;
     }

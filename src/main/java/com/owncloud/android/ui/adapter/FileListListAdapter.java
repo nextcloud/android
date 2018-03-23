@@ -416,7 +416,7 @@ public class FileListListAdapter extends BaseAdapter {
             } else {
                 // Folder
                 fileIcon.setImageDrawable(MimeTypeUtil.getFolderTypeIcon(file.isSharedWithMe() ||
-                        file.isSharedWithSharee(), file.isSharedViaLink(), file.isEncrypted()));
+                        file.isSharedWithSharee(), file.isSharedViaLink(), file.isEncrypted(), file.getMountType()));
             }
         }
         return view;

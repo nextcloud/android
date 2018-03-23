@@ -26,6 +26,7 @@ import android.webkit.MimeTypeMap;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.lib.common.network.WebdavEntry;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -128,8 +129,9 @@ public class MimeTypeUtil {
      * @param isSharedViaLink  flag if the folder is publicly shared via link
      * @return Identifier of an image resource.
      */
-    public static Drawable getFolderTypeIcon(boolean isSharedViaUsers, boolean isSharedViaLink, boolean isEncrypted) {
-        return getFolderTypeIcon(isSharedViaUsers, isSharedViaLink, isEncrypted, null);
+    public static Drawable getFolderTypeIcon(boolean isSharedViaUsers, boolean isSharedViaLink, boolean isEncrypted,
+                                             WebdavEntry.MountType mountType) {
+        return getFolderTypeIcon(isSharedViaUsers, isSharedViaLink, isEncrypted, null, mountType);
     }
 
     /**
@@ -142,7 +144,7 @@ public class MimeTypeUtil {
      * @return Identifier of an image resource.
      */
     public static Drawable getFolderTypeIcon(boolean isSharedViaUsers, boolean isSharedViaLink,
-                                             boolean isEncrypted, Account account) {
+                                             boolean isEncrypted, Account account, WebdavEntry.MountType mountType) {
         int drawableId;
 
         if (isSharedViaLink) {
@@ -151,6 +153,8 @@ public class MimeTypeUtil {
             drawableId = R.drawable.shared_with_me_folder;
         } else if (isEncrypted) {
             drawableId = R.drawable.ic_list_encrypted_folder;
+        } else if (WebdavEntry.MountType.EXTERNAL.equals(mountType)) {
+            drawableId = R.drawable.folder_external;
         } else {
             drawableId = R.drawable.folder;
         }
@@ -159,7 +163,7 @@ public class MimeTypeUtil {
     }
 
     public static Drawable getDefaultFolderIcon() {
-        return getFolderTypeIcon(false, false, false);
+        return getFolderTypeIcon(false, false, false, WebdavEntry.MountType.INTERNAL);
     }
 
 
