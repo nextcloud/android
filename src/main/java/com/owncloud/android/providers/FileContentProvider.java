@@ -742,7 +742,7 @@ public class FileContentProvider extends ContentProvider {
                 + ProviderTableMeta.FILE_IS_ENCRYPTED + INTEGER // boolean
                 + ProviderTableMeta.FILE_ETAG_IN_CONFLICT + TEXT
                 + ProviderTableMeta.FILE_SHARED_WITH_SHAREE + INTEGER
-                + ProviderTableMeta.FILE_MOUNT_TYPE + "INTEGER);"
+                + ProviderTableMeta.FILE_MOUNT_TYPE + " INTEGER);"
         );
     }
 
