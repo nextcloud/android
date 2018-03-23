@@ -884,7 +884,7 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
 
                     if (ocCapability.getEndToEndEncryption().isFalse() ||
                             ocCapability.getEndToEndEncryption().isUnknown()) {
-                        Snackbar.make(mCurrentListView, R.string.end_to_end_encryption_not_enabled,
+                        Snackbar.make(getRecyclerView(), R.string.end_to_end_encryption_not_enabled,
                                 Snackbar.LENGTH_LONG).show();
                         return;
                     }// check if keys are stored
