@@ -19,51 +19,28 @@
  */
 package com.owncloud.android.services.firebase;
 
-import android.app.NotificationManager;
-import android.app.PendingIntent;
-import android.content.Context;
-import android.content.Intent;
-import android.graphics.BitmapFactory;
-import android.media.RingtoneManager;
-import android.support.v4.app.NotificationCompat;
-
+import com.evernote.android.job.JobRequest;
+import com.evernote.android.job.util.support.PersistableBundleCompat;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
-import com.owncloud.android.MainApp;
-import com.owncloud.android.R;
-import com.owncloud.android.ui.activity.NotificationsActivity;
-import com.owncloud.android.ui.notifications.NotificationUtils;
-import com.owncloud.android.utils.ThemeUtils;
+import com.owncloud.android.jobs.NotificationJob;
 
 public class NCFirebaseMessagingService extends FirebaseMessagingService {
 
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
-        super.onMessageReceived(remoteMessage);
-
-        sendNotification(MainApp.getAppContext().getString(R.string.new_notification_received));
-    }
-
-    private void sendNotification(String contentTitle) {
-        Intent intent = new Intent(this, NotificationsActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT);
-
-        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
-                .setSmallIcon(R.drawable.notification_icon)
-                .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.notification_icon))
-                .setColor(ThemeUtils.primaryColor())
-                .setContentTitle(contentTitle)
-                .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
-                .setAutoCancel(true)
-                .setContentIntent(pendingIntent);
-
-        if ((android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O)) {
-            notificationBuilder.setChannelId(NotificationUtils.NOTIFICATION_CHANNEL_PUSH);
+        if (remoteMessage.getData() != null) {
+            PersistableBundleCompat persistableBundleCompat = new PersistableBundleCompat();
+            persistableBundleCompat.putString(NotificationJob.KEY_NOTIFICATION_SUBJECT, remoteMessage.getData().get
+                    (NotificationJob.KEY_NOTIFICATION_SUBJECT));
+            persistableBundleCompat.putString(NotificationJob.KEY_NOTIFICATION_SIGNATURE, remoteMessage.getData().get
+                    (NotificationJob.KEY_NOTIFICATION_SIGNATURE));
+            new JobRequest.Builder(NotificationJob.TAG)
+                    .addExtras(persistableBundleCompat)
+                    .setUpdateCurrent(false)
+                    .startNow()
+                    .build()
+                    .schedule();
         }
-
-        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-
-        notificationManager.notify(0, notificationBuilder.build());
     }
 }

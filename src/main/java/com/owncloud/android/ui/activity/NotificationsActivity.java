@@ -46,6 +46,7 @@ import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
+import com.owncloud.android.jobs.NotificationJob;
 import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
@@ -116,6 +117,16 @@ public class NotificationsActivity extends FileActivity {
 
         setContentView(R.layout.notifications_layout);
         unbinder = ButterKnife.bind(this);
+
+        String account;
+        Account currentAccount;
+        if (getIntent() != null && getIntent().getExtras() != null &&
+                (account = getIntent().getExtras().getString(NotificationJob.KEY_NOTIFICATION_ACCOUNT)) != null &&
+                (currentAccount = AccountUtils.getCurrentOwnCloudAccount(getApplicationContext())) != null &&
+                !account.equalsIgnoreCase(currentAccount.name)) {
+            AccountUtils.setCurrentOwnCloudAccount(getApplicationContext(), account);
+            setAccount(AccountUtils.getCurrentOwnCloudAccount(this));
+        }
 
         // setup toolbar
         setupToolbar();
