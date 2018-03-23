@@ -564,7 +564,16 @@ public class FileUploader extends Service
                 return;
             }
 
+            if (mCurrentAccount == null || !mCurrentAccount.equals(mCurrentUpload.getAccount())) {
+                mCurrentAccount = mCurrentUpload.getAccount();
+                mStorageManager = new FileDataStorageManager(
+                        mCurrentAccount,
+                        getContentResolver()
+                );
+            }   // else, reuse storage manager from previous operation
+
             RemoteOperationResult checkRemoteOperationResult;
+
             if ((checkRemoteOperationResult = mCurrentUpload.checkConditions(new File(mCurrentUpload.getFile()
                     .getStoragePath()))) != null) {
                 mUploadsStorageManager.updateDatabaseUploadResult(checkRemoteOperationResult, mCurrentUpload);
@@ -573,25 +582,18 @@ public class FileUploader extends Service
                 notifyUploadResult(mCurrentUpload, checkRemoteOperationResult);
 
                 Pair<UploadFileOperation, String> removeResult = null;
-                if (mCurrentAccount != null) {
-                    if (mCurrentUpload.wasRenamed()) {
-                        removeResult = mPendingUploads.removePayload(
-                                mCurrentAccount.name,
-                                mCurrentUpload.getOldFile().getRemotePath()
-                        );
-                        // TODO: grant that name is also updated for mCurrentUpload.getOCUploadId
+                if (mCurrentUpload.wasRenamed()) {
+                    removeResult = mPendingUploads.removePayload(
+                            mCurrentAccount.name,
+                            mCurrentUpload.getOldFile().getRemotePath()
+                    );
+                    // TODO: grant that name is also updated for mCurrentUpload.getOCUploadId
 
-                    } else {
-                        removeResult = mPendingUploads.removePayload(mCurrentAccount.name,
-                                mCurrentUpload.getDecryptedRemotePath());
-                    }
-                }
-
-                if (removeResult != null) {
-                    sendBroadcastUploadFinished(mCurrentUpload, checkRemoteOperationResult, removeResult.second);
                 } else {
-                    sendBroadcastUploadFinished(mCurrentUpload, checkRemoteOperationResult, null);
+                    removeResult = mPendingUploads.removePayload(mCurrentAccount.name,
+                            mCurrentUpload.getDecryptedRemotePath());
                 }
+                sendBroadcastUploadFinished(mCurrentUpload, checkRemoteOperationResult, removeResult.second);
 
                 return;
             }
@@ -606,14 +608,6 @@ public class FileUploader extends Service
             RemoteOperationResult uploadResult = null;
 
             try {
-                /// prepare client object to send the request to the ownCloud server
-                if (mCurrentAccount == null || !mCurrentAccount.equals(mCurrentUpload.getAccount())) {
-                    mCurrentAccount = mCurrentUpload.getAccount();
-                    mStorageManager = new FileDataStorageManager(
-                            mCurrentAccount,
-                            getContentResolver()
-                    );
-                }   // else, reuse storage manager from previous operation
 
                 // always get client from client manager, to get fresh credentials in case of update
                 OwnCloudAccount ocAccount = new OwnCloudAccount(
@@ -710,7 +704,7 @@ public class FileUploader extends Service
             if (mNotificationManager == null) {
                 mNotificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
             }
-            
+
             mNotificationManager.notify(R.string.uploader_upload_in_progress_ticker, mNotificationBuilder.build());
         }   // else wait until the upload really start (onTransferProgress is called), so that if it's discarded
         // due to lack of Wifi, no notification is shown
