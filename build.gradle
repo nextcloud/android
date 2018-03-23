@@ -55,7 +55,7 @@ repositories {
 def versionMajor = 3
 def versionMinor = 1
 def versionPatch = 0
-def versionBuild = 0 // 0-49=Alpha / 50-98=RC / 99=stable
+def versionBuild = 50 // 0-49=Alpha / 50-98=RC / 99=stable
 
 android {
     lintOptions {
