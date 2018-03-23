@@ -99,8 +99,9 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private OCFile currentDirectory;
     private static final String TAG = OCFileListAdapter.class.getSimpleName();
 
-    private static final int VIEWTYPE_ITEM = 0;
-    private static final int VIEWTYPE_FOOTER = 1;
+    private static final int VIEWTYPE_FOOTER = 0;
+    private static final int VIEWTYPE_ITEM = 1;
+    private static final int VIEWTYPE_IMAGE = 2;
 
     private ArrayList<ThumbnailsCacheManager.ThumbnailGenerationTask> asyncTasks = new ArrayList<>();
 
@@ -222,7 +223,16 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             case VIEWTYPE_ITEM:
                 if (gridView) {
                     View itemView = LayoutInflater.from(mContext).inflate(R.layout.grid_item, parent, false);
-                    return new OCFileListGridViewHolder(itemView);
+                    return new OCFileListGridItemViewHolder(itemView);
+                } else {
+                    View itemView = LayoutInflater.from(mContext).inflate(R.layout.list_item, parent, false);
+                    return new OCFileListItemViewHolder(itemView);
+                }
+
+            case VIEWTYPE_IMAGE:
+                if (gridView) {
+                    View itemView = LayoutInflater.from(mContext).inflate(R.layout.grid_image, parent, false);
+                    return new OCFileListGridImageViewHolder(itemView);
                 } else {
                     View itemView = LayoutInflater.from(mContext).inflate(R.layout.list_item, parent, false);
                     return new OCFileListItemViewHolder(itemView);
@@ -239,7 +249,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         if (holder instanceof OCFileListFooterViewHolder) {
             ((OCFileListFooterViewHolder) holder).footerText.setText(getFooterText());
         } else {
-            OCFileListGridViewHolder gridViewHolder = (OCFileListGridViewHolder) holder;
+            OCFileListGridImageViewHolder gridViewHolder = (OCFileListGridImageViewHolder) holder;
 
             OCFile file = mFiles.get(position);
 
@@ -265,8 +275,6 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 gridViewHolder.itemLayout.setOnLongClickListener(v ->
                         ocFileListFragmentInterface.onLongItemClicked(file));
             }
-
-            gridViewHolder.fileName.setText(file.getFileName());
 
             if (holder instanceof OCFileListItemViewHolder) {
                 OCFileListItemViewHolder itemViewHolder = (OCFileListItemViewHolder) holder;
@@ -319,13 +327,19 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 gridViewHolder.checkbox.setVisibility(View.GONE);
             }
 
-            if (gridView && gridImage) {
-                gridViewHolder.fileName.setVisibility(View.GONE);
-            } else {
-                if (gridView && ocFileListFragmentInterface.getColumnSize() > showFilenameColumnThreshold) {
-                    gridViewHolder.fileName.setVisibility(View.GONE);
+            if (holder instanceof OCFileListGridItemViewHolder) {
+                OCFileListGridItemViewHolder gridItemViewHolder = (OCFileListGridItemViewHolder) holder;
+
+                gridItemViewHolder.fileName.setText(file.getFileName());
+
+                if (gridView && gridImage) {
+                    gridItemViewHolder.fileName.setVisibility(View.GONE);
                 } else {
-                    gridViewHolder.fileName.setVisibility(View.VISIBLE);
+                    if (gridView && ocFileListFragmentInterface.getColumnSize() > showFilenameColumnThreshold) {
+                        gridItemViewHolder.fileName.setVisibility(View.GONE);
+                    } else {
+                        gridItemViewHolder.fileName.setVisibility(View.VISIBLE);
+                    }
                 }
             }
 
@@ -439,11 +453,15 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         if (position == mFiles.size()) {
             return VIEWTYPE_FOOTER;
         } else {
-            return VIEWTYPE_ITEM;
+            if (MimeTypeUtil.isImage(getItem(position))) {
+                return VIEWTYPE_IMAGE;
+            } else {
+                return VIEWTYPE_ITEM;
+            }
         }
     }
 
-    private void showShareIcon(OCFileListGridViewHolder gridViewHolder, OCFile file) {
+    private void showShareIcon(OCFileListGridImageViewHolder gridViewHolder, OCFile file) {
         ImageView sharedIconView = gridViewHolder.shared;
         sharedIconView.setVisibility(View.VISIBLE);
         
@@ -753,7 +771,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         gridView = bool;
     }
 
-    static class OCFileListItemViewHolder extends OCFileListGridViewHolder {
+    static class OCFileListItemViewHolder extends OCFileListGridItemViewHolder {
         private final TextView fileSize;
         private final TextView lastModification;
         private final ImageView overflowMenu;
@@ -767,24 +785,32 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         }
     }
 
-    static class OCFileListGridViewHolder extends RecyclerView.ViewHolder {
+    static class OCFileListGridItemViewHolder extends OCFileListGridImageViewHolder {
+        private final TextView fileName;
+
+        private OCFileListGridItemViewHolder(View itemView) {
+            super(itemView);
+
+            fileName = itemView.findViewById(R.id.Filename);
+        }
+    }
+
+    static class OCFileListGridImageViewHolder extends RecyclerView.ViewHolder {
         private final ImageView thumbnail;
         private final ImageView favorite;
         private final ImageView offlineIcon;
         private final ImageView localFileIndicator;
-        private final TextView fileName;
         private final ImageView shared;
         private final ImageView checkbox;
         private final LinearLayout itemLayout;
 
-        private OCFileListGridViewHolder(View itemView) {
+        private OCFileListGridImageViewHolder(View itemView) {
             super(itemView);
 
             thumbnail = itemView.findViewById(R.id.thumbnail);
             favorite = itemView.findViewById(R.id.favorite_action);
             offlineIcon = itemView.findViewById(R.id.keptOfflineIcon);
             localFileIndicator = itemView.findViewById(R.id.localFileIndicator);
-            fileName = itemView.findViewById(R.id.Filename);
             shared = itemView.findViewById(R.id.sharedIcon);
             checkbox = itemView.findViewById(R.id.custom_checkbox);
             itemLayout = itemView.findViewById(R.id.ListItemLayout);
