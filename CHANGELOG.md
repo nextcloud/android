@@ -1,3 +1,9 @@
+## 3.1.0 
+- enhance support for 8.x
+- speed improvements
+- minor UI/UX improvements
+- many bug fixes
+
 ## 3.0.3 (Mar, 05, 2018)
 - Fix creating folders in auto upload
 
