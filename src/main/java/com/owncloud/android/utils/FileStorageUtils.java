@@ -39,11 +39,10 @@ import java.io.OutputStream;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
-import java.util.Vector;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -197,14 +196,12 @@ public class FileStorageUtils {
         return file;
     }
 
-    public static Vector<OCFile> sortOcFolderDescDateModified(Vector<OCFile> files) {
+    public static List<OCFile> sortOcFolderDescDateModified(List<OCFile> files) {
         final int multiplier = -1;
-        Collections.sort(files, new Comparator<OCFile>() {
+        Collections.sort(files, (o1, o2) -> {
             @SuppressFBWarnings(value = "Bx", justification = "Would require stepping up API level")
-            public int compare(OCFile o1, OCFile o2) {
-                Long obj1 = o1.getModificationTimestamp();
-                return multiplier * obj1.compareTo(o2.getModificationTimestamp());
-            }
+            Long obj1 = o1.getModificationTimestamp();
+            return multiplier * obj1.compareTo(o2.getModificationTimestamp());
         });
 
         return FileSortOrder.sortCloudFilesByFavourite(files);

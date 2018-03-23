@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!--
+<?xml version="1.0" encoding="UTF-8"?><!--
   ownCloud Android client application
   Copyright (C) 2015 ownCloud Inc.
 
@@ -19,7 +18,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/ListItemLayout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:layout_gravity="center_horizontal"
     android:background="@drawable/list_selector"
     android:gravity="center_horizontal"
@@ -27,16 +26,15 @@
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content">
 
         <com.owncloud.android.ui.SquareImageView
             android:id="@+id/thumbnail"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingLeft="@dimen/alternate_padding"
-            android:paddingRight="@dimen/alternate_padding"
+            android:padding="2dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/folder"/>
+            android:src="@drawable/folder" />
 
 
         <ImageView
@@ -46,7 +44,7 @@
             android:layout_gravity="top|end"
             android:layout_margin="@dimen/standard_quarter_margin"
             android:src="@drawable/ic_favorite"
-            android:contentDescription="@string/favorite_icon"/>
+            android:contentDescription="@string/favorite_icon" />
 
         <ImageView
             android:id="@+id/sharedIcon"
@@ -57,7 +55,7 @@
             android:layout_marginRight="4dp"
             android:layout_marginEnd="4dp"
             android:src="@drawable/shared_via_link"
-            android:contentDescription="@string/shared_via_link_icon"/>
+            android:contentDescription="@string/shared_via_link_icon" />
 
         <ImageView
             android:id="@+id/localFileIndicator"
@@ -69,7 +67,7 @@
             android:layout_marginEnd="@dimen/standard_quarter_margin"
             android:layout_marginTop="@dimen/standard_quarter_margin"
             android:src="@drawable/ic_synced"
-            android:contentDescription="@string/synced_icon"/>
+            android:contentDescription="@string/synced_icon" />
 
         <ImageView
             android:id="@+id/keptOfflineIcon"
@@ -80,7 +78,7 @@
             android:layout_marginRight="24dp"
             android:layout_marginEnd="24dp"
             android:src="@drawable/ic_available_offline"
-            android:contentDescription="@string/available_offline_icon"/>
+            android:contentDescription="@string/available_offline_icon" />
 
         <ImageView
             android:id="@+id/custom_checkbox"
@@ -90,7 +88,7 @@
             android:layout_marginRight="@dimen/standard_quarter_margin"
             android:layout_gravity="center_vertical|top"
             android:src="@android:drawable/checkbox_off_background"
-            android:contentDescription="@string/checkbox"/>
+            android:contentDescription="@string/checkbox" />
     </FrameLayout>
 
 </LinearLayout>

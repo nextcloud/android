@@ -450,7 +450,7 @@
     <string name="manage_space_clear_data">Borrar datos</string>
 
     <string name="permission_storage_access">Se requieren permisos adicionales para cargar y descargar archivos. </string>
-    <string name="local_file_not_found_toast">No se encontró el archivo en sistema de archivos local</string>
+    <string name="local_file_not_found_message">No se encontró el archivo en sistema de archivos local</string>
     <string name="confirmation_remove_files_alert">¿Realmente deseas borrar los elementos seleccionados?</string>
     <string name="confirmation_remove_folders_alert">¿Reamente deseas eliminar los elementos seleccionados y sus contenidos?</string>
     <string name="maintenance_mode">El servidor está en modo mantenimiento</string>

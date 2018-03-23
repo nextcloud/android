@@ -519,7 +519,7 @@
     <string name="manage_space_clear_data">Daten löschen</string>
 
     <string name="permission_storage_access">Du hast nicht die erforderlichen Rechte, um Dateien hoch- oder herunterzuladen.</string>
-    <string name="local_file_not_found_toast">Die Datei wurde im lokalen Dateisystem nicht gefunden</string>
+    <string name="local_file_not_found_message">Die Datei wurde im lokalen Dateisystem nicht gefunden</string>
     <string name="confirmation_remove_files_alert">Möchtest du die ausgewählten Elemente wirklich löschen?</string>
     <string name="confirmation_remove_folders_alert">Möchtest du die ausgewählten Elemente und deren Inhalt wirklich löschen?</string>
     <string name="maintenance_mode">Der Server ist im Wartungsmodus

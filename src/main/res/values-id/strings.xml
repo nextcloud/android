@@ -410,7 +410,7 @@
     <string name="manage_space_clear_data">Bersihkan data</string>
 
     <string name="permission_storage_access">Diperlukan ijin tambahan untuk mengunggah dan mengunduh berkas.</string>
-    <string name="local_file_not_found_toast">Berkas tidak ditemukan di sistem berkas lokal</string>
+    <string name="local_file_not_found_message">Berkas tidak ditemukan di sistem berkas lokal</string>
     <string name="maintenance_mode">Server dalam proses perawatan.</string>
 
     <string name="uploads_view_upload_status_waiting_for_charging">Menunggu dicas.</string>

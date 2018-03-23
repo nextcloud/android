@@ -217,6 +217,7 @@ dependencies {
     implementation 'org.lukhnos:nnio:0.2'
     implementation 'com.madgag.spongycastle:pkix:1.54.0.0'
     implementation 'com.google.code.gson:gson:2.8.2'
+    implementation 'com.afollestad:sectioned-recyclerview:0.5.0'
 
     // uncomment for gplay
     // implementation "com.google.firebase:firebase-messaging:${googleLibraryVersion}"

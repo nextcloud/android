@@ -283,7 +283,7 @@ public class DisplayUtils {
             fallbackString) {
         try {
             return new OwnCloudAccount(savedAccount, context).getDisplayName()
-                    + " @ "
+                    + "@"
                     + convertIdn(accountName.substring(accountName.lastIndexOf('@') + 1), false);
         } catch (Exception e) {
             Log_OC.w(TAG, "Couldn't get display name for account, using old style");

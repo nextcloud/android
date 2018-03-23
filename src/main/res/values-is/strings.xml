@@ -518,7 +518,7 @@
     <string name="manage_space_clear_data">Hreinsa gögn</string>
 
     <string name="permission_storage_access">Krafist er viðbótarheimilda til að senda inn og sækja skrár.</string>
-    <string name="local_file_not_found_toast">Skrá fannst ekki á staðværu skráakerfi</string>
+    <string name="local_file_not_found_message">Skrá fannst ekki á staðværu skráakerfi</string>
     <string name="confirmation_remove_files_alert">Ertu viss um að þú viljir eyða völdum atriðum?</string>
     <string name="confirmation_remove_folders_alert">Ertu viss um að þú viljir eyða völdum atriðum og innihaldi þeirra?</string>
     <string name="maintenance_mode">Þjónn í viðhaldsham</string>

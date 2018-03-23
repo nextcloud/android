@@ -72,8 +72,6 @@
     <dimen name="file_download_fragment_display_text_margin">40dp</dimen>
     <dimen name="drawer_width">240dp</dimen>
     <dimen name="grid_item_text_size">16sp</dimen>
-    <dimen name="list_fragment_column_width">100dp</dimen>
-    <dimen name="list_fragment_spacing">2dp</dimen>
     <dimen name="seek_bar_height">32dp</dimen>
     <dimen name="search_users_groups_layout_width">200dp</dimen>
     <dimen name="search_users_groups_layout_list_view_margin">20dp</dimen>
