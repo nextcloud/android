@@ -47,6 +47,7 @@
     <string name="prefs_log_delete_history_button">Διαγραφή ιστορικού</string>
     <string name="prefs_calendar_contacts">Συγχρονισμός ημερολογίου &amp; επαφών</string>
     <string name="prefs_calendar_contacts_summary">Ρυθμίστε το DAVdroid (v1.3.0+) για τον τρέχον λογαριασμό</string>
+    <string name="prefs_calendar_contacts_address_resolve_error">Δεν ήταν δυνατή η επίλυση της διεύθυνσης διακομιστή του λογαριασμού για το DAVdroid</string>
     <string name="prefs_calendar_contacts_no_store_error">Δεν είναι εγκατεστημένα το Google Play ή το F-Droid</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Επιτυχής ρύθμιση συγχρονισμού ημερολογίου &amp; επαφών</string>
     <string name="prefs_daily_contacts_sync_summary">Ημερήσιο αντίγραφο ασφαλείας των επαφών σας </string>
@@ -55,10 +56,15 @@
     <string name="prefs_feedback">Aνάδραση</string>
     <string name="prefs_imprint">Αποτύπωμα</string>
 
-	<string name="auth_check_server">Έλεγχος διακομιστή</string>
+	<string name="recommend_subject">Δοκιμάστε %1$s στη συσκευή σας!</string>
+	<string name="recommend_text">Θέλω να σας προσκαλέσω να χρησιμοποιήσετε %1$s στη συσκευή σας. \nΚατεβάστε εδώ:%2$s</string>
+    <string name="recommend_urls">%1$sή%2$s</string>
+
+    <string name="auth_check_server">Έλεγχος διακομιστή</string>
     <string name="auth_host_url">Διεύθυνση διακομιστή https://&#8230;</string>
     <string name="auth_username">Όνομα χρήστη</string>
     <string name="auth_password">Συνθηματικό</string>
+    <string name="auth_register">Όχι  Nextcloud ακόμα; \ nΚάντε κλικ εδώ για να πάρετε ένα από έναν πάροχο</string>
     <string name="sync_string_files">Αρχεία</string>
     <string name="setup_btn_connect">Σύνδεση</string>
     <string name="uploader_btn_upload_text">Μεταφόρτωση</string>
@@ -84,6 +90,7 @@
     <string name="file_list_empty">Μεταφόρτωση περιεχομένου ή συγχρονισμός με τις συσκευές σας.</string>
     <string name="file_list_empty_favorites_filter_list">Τα αρχεία ή οι φάκελοι που σημειώσατε ως αγαπημένα θα εμφανιστούν εδώ</string>
     <string name="file_list_empty_favorites_filter">Δεν βρέθηκαν αρχεία σημειωμένα ως αγαπημένα για το ερώτημά σας.</string>
+    <string name="file_list_loading">Φόρτωση&#8230;</string>
     <string name="file_list_no_app_for_file_type">Δεν βρέθηκε εφαρμογή για τον τύπο αρχείου.</string>
     <string name="local_file_list_empty">Δεν υπάρχουν αρχεία σε αυτό τον φάκελο.</string>
     <string name="local_folder_list_empty">Δεν υπάρχουν άλλοι φάκελοι.</string>
@@ -95,15 +102,23 @@
     <string name="file_list_empty_headline_server_search_videos">Κανένα βίντεο</string>
     <string name="file_list_empty_headline_server_search_photos">Καμιά φωτογραφία</string>
     <string name="file_list_empty_search">Θα δοκιμάστε αναζήτηση και σε άλλο φάκελο;</string>
+    <string name="file_list_empty_recently_modified">Δεν βρέθηκαν τροποποιημένα αρχεία εντός των τελευταίων 7 ημερών</string>
+    <string name="file_list_empty_recently_modified_filter">Κανένα αρχείο δεν τροποποιήθηκε τις τελευταίες 7 ημέρες.</string>
     <string name="file_list_empty_recently_added">Δεν βρέθηκαν πρόσφατα προστεθημένα αρχεία</string>
+    <string name="file_list_empty_recently_added_filter">Δεν προστέθηκαν πρόσφατα αρχεία.</string>
     <string name="file_list_empty_text_photos">Μεταφόρτωση μερικών φωτογραφιών ή ενεργοποιήστε την αυτόματη μεταφόρτωση.</string>
+    <string name="file_list_empty_text_photos_filter">Δεν υπάρχουν φωτογραφίες.</string>
     <string name="file_list_empty_text_videos">Μεταφορτώστε μερικά βίντεο ή ενεργοποιήστε την αυτόματη μεταφόρτωση.</string>
+    <string name="file_list_empty_text_videos_filter">Δεν υπάρχουν βίντεο.</string>
     <string name="upload_list_empty_headline">Μη διαθέσιμες μεταφορτώσεις</string>
     <string name="upload_list_empty_text_auto_upload">Μεταφορτώστε περιεχόμενο ή ενεργοποιήστε την αυτόματη μεταφόρτωση.</string>
     <string name="file_list_folder">φάκελος</string>
     <string name="filedetails_select_file">Αγγίξτε κάποιο αρχείο για να προβάλετε περισσότερες πληροφορίες.</string>
     <string name="filedetails_download">Λήψη</string>
+    <string name="filedetails_sync_file">Συγχρονισμός</string>
+    <string name="filedetails_renamed_in_upload_msg">Το αρχείο μετονομάστηκε %1$s κατά τη μεταφόρτωση</string>
     <string name="list_layout">Διάταξη λίστας</string>
+    <string name="action_send_share">Αποστολή / κοινή χρήση</string>
     <string name="common_yes">Ναι</string>
     <string name="common_no">Όχι</string>
     <string name="common_ok">Εντάξει</string>
@@ -111,6 +126,7 @@
     <string name="common_cancel">Ακύρωση</string>
     <string name="common_back">Επιστροφή</string>
     <string name="common_save">Αποθήκευση</string>
+    <string name="common_error">Σφάλμα</string>
     <string name="common_loading">Φόρτωση &#8230;</string>
     <string name="common_unknown">άγνωστο</string>
     <string name="common_error_unknown">Άγνωστο σφάλμα</string>
@@ -119,6 +135,7 @@
     <string name="about_title">Περί</string>
     <string name="change_password">Αλλαγή συνθημτικού</string>
     <string name="delete_account">Αφαίρεση λογαριασμού</string>
+    <string name="delete_account_warning">Κατάργηση λογαριασμού %s και διαγραφή όλων των τοπικών αρχείων; \ n \ nΗ διαγραφή δεν μπορεί να ανακληθεί.</string>
     <string name="avatar">Εικόνα προφίλ</string>
     <string name="active_user">Ενεργός χρήστης</string>
     <string name="upload_chooser_title">Μεταφόρτωση από &#8230;</string>
@@ -129,8 +146,11 @@
     <string name="uploader_upload_succeeded_content_single">Το %1$s μεταφορτώθηκε</string>
     <string name="uploader_upload_failed_ticker">Η μεταφόρτωση απέτυχε</string>
     <string name="uploader_upload_failed_content_single">Η μεταφόρτωση του %1$s δεν ήταν δυνατόν να ολοκληρωθεί</string>
+    <string name="uploader_upload_failed_credentials_error">Η μεταφόρτωση απέτυχε, συνδεθείτε ξανά</string>
+    <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted"> Μη αξιόπιστο πιστοποιητικό διακομιστή</string>
     <string name="uploads_view_title">Μεταφορτώσεις</string>
     <string name="uploads_view_group_current_uploads">Τρέχουσα</string>
+    <string name="uploads_view_group_failed_uploads">Αποτυχία / αναμονή επανεκκίνησης</string>
     <string name="uploads_view_group_finished_uploads">Μεταφορτώθηκε</string>
     <string name="uploads_view_upload_status_succeeded">Ολοκληρωμένες</string>
     <string name="uploads_view_upload_status_cancelled">Ακυρώθηκαν</string>
@@ -143,6 +163,8 @@
     <string name="uploads_view_upload_status_conflict">Διένεξη</string>
     <string name="uploads_view_upload_status_service_interrupted">Η εφαρμογή τερματίστηκε</string>
     <string name="uploads_view_upload_status_unknown_fail">Άγνωστο σφάλμα</string>
+    <string name="uploads_view_upload_status_waiting_for_wifi">Αναμονή για Wi-Fi</string>
+    <string name="uploads_view_upload_status_waiting_exit_power_save_mode">Αναμονή για έξοδο από τη λειτουργία εξοικονόμησης ενέργειας</string>
     <string name="uploads_view_later_waiting_to_upload">Αναμονή για μεταφόρτωση</string>
     <string name="downloader_download_in_progress_ticker">Λαμβάνονται &#8230;</string>
     <string name="downloader_download_in_progress_content">%1$d%% Λαμβάνονται %2$s</string>
@@ -151,8 +173,12 @@
     <string name="downloader_download_failed_ticker">Αποτυχημένη λήψη</string>
     <string name="downloader_download_failed_content">Η λήψη του %1$s δεν μπόρεσε να ολοκληρωθεί</string>
     <string name="downloader_not_downloaded_yet">Δεν έχει ληφθεί ακόμα</string>
+    <string name="downloader_download_failed_credentials_error">Η λήψη απέτυχε, συνδεθείτε ξανά</string>
     <string name="common_choose_account">Επιλογή λογαριασμού</string>
+    <string name="common_switch_account">Αλλαγή Λογαριασμού</string>
     <string name="sync_fail_ticker">Αποτυχία συγχρονισμού</string>
+    <string name="sync_fail_ticker_unauthorized">Ο συγχρονισμός απέτυχε, συνδεθείτε ξανά</string>
+    <string name="sync_fail_content">Αποτυχία συγχρονισμού %1$s</string>
     <string name="sync_fail_content_unauthorized">Εσφαλμένο συνθηματικό για τον %1$s</string>
     <string name="sync_conflicts_in_favourites_ticker">Βρέθηκαν διενέξεις</string>
     <string name="sync_fail_in_favourites_ticker">Τα αρχεία σε αναμονή προς συγχρονισμού απέτυχαν</string>
