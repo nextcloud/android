@@ -354,7 +354,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private void setThumbnail(OCFile file, ImageView thumbnailView) {
         if (file.isFolder()) {
             thumbnailView.setImageDrawable(MimeTypeUtil.getFolderTypeIcon(file.isSharedWithMe() ||
-                    file.isSharedWithSharee(), file.isSharedViaLink(), file.isEncrypted()));
+                    file.isSharedWithSharee(), file.isSharedViaLink(), file.isEncrypted(), file.getMountType()));
         } else {
             if ((MimeTypeUtil.isImage(file) || MimeTypeUtil.isVideo(file)) && file.getRemoteId() != null) {
                 // Thumbnail in cache?
