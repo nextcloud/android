@@ -14,7 +14,7 @@ group_defaults:
     ignored: true
   approve_by_comment:
     enabled: true
-    approve_regex: '^(Approved|:shipit:|:\+1:|LGTM)'
+    approve_regex: '^(Approved|:shipit:|:\+1:|LGTM|Merge)'
     reject_regex: '^(Rejected|:-1:)'
   reset_on_push:
     enabled: false
