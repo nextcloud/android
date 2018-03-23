@@ -118,6 +118,16 @@ public class NotificationsActivity extends FileActivity {
         setContentView(R.layout.notifications_layout);
         unbinder = ButterKnife.bind(this);
 
+        String account;
+        Account currentAccount;
+        if (getIntent() != null && getIntent().getExtras() != null &&
+                (account = getIntent().getExtras().getString(NotificationJob.KEY_NOTIFICATION_ACCOUNT)) != null &&
+                (currentAccount = AccountUtils.getCurrentOwnCloudAccount(getApplicationContext())) != null &&
+                !account.equalsIgnoreCase(currentAccount.name)) {
+            AccountUtils.setCurrentOwnCloudAccount(getApplicationContext(), account);
+            setAccount(AccountUtils.getCurrentOwnCloudAccount(this));
+        }
+
         // setup toolbar
         setupToolbar();
 
@@ -127,15 +137,6 @@ public class NotificationsActivity extends FileActivity {
         // setup drawer
         setupDrawer(R.id.nav_notifications);
         ThemeUtils.setColoredTitle(getSupportActionBar(), getString(R.string.drawer_item_notifications));
-
-        String account;
-        Account currentAccount;
-        if (getIntent() != null && getIntent().getExtras() != null &&
-                (account = getIntent().getExtras().getString(NotificationJob.KEY_NOTIFICATION_ACCOUNT)) != null &&
-                (currentAccount = AccountUtils.getCurrentOwnCloudAccount(getApplicationContext())) != null &&
-                !account.equalsIgnoreCase(currentAccount.name)) {
-            AccountUtils.setCurrentOwnCloudAccount(getApplicationContext(), account);
-        }
 
         swipeListRefreshLayout.setOnRefreshListener(() -> {
             setLoadingMessage();
