@@ -326,6 +326,11 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment {
             }
         });
 
+        mRemoteFolderSummary.setOnClickListener(textView -> {
+            mRemoteFolderSummary.setEllipsize(null);
+            mRemoteFolderSummary.setMaxLines(Integer.MAX_VALUE);
+        });
+
         view.findViewById(R.id.local_folder_container).setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -333,6 +338,11 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment {
                 action.putExtra(UploadFilesActivity.KEY_LOCAL_FOLDER_PICKER_MODE, true);
                 getActivity().startActivityForResult(action, REQUEST_CODE__SELECT_LOCAL_FOLDER);
             }
+        });
+
+        mLocalFolderSummary.setOnClickListener(textView -> {
+            mLocalFolderSummary.setEllipsize(null);
+            mLocalFolderSummary.setMaxLines(Integer.MAX_VALUE);
         });
 
         view.findViewById(R.id.sync_enabled).setOnClickListener(new OnClickListener() {
