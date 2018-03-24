@@ -71,7 +71,7 @@ New contributions are added under AGPL version 3.
 We are all about quality while not sacrificing speed so we use a very pragmatic workflow.
 
 * create an issue with feature request
-    * discuss it with other developers 
+    * discuss it with other developers
     * create mockup if necessary
     * must be approved --> label approved
     * after that no conceptual changes!
@@ -143,17 +143,17 @@ We do differentiate between three different kinds of releases:
 
 ### Stable
 Play store and f-droid releases for the masses.
-Pull Requests that have been tested and reviewed can go to master. After the last release candidate is out in the wild for ~2 weeks and no errors get reported (by users or in the developer console) the master branch is ready for the stable release. 
+Pull Requests that have been tested and reviewed can go to master. After the last release candidate is out in the wild for ~2 weeks and no errors get reported (by users or in the developer console) the master branch is ready for the stable release.
 So when we decide to go for a new release we freeze the master feature wise.
 
 ### Release Candidate
 _stable beta_ releases done via the Beta program of the Google Play store and f-droid.
 Whenever a PR is reviewed/approved we put it on master.
-Before releasing a new stable version there is at least one release candidate. It is based on the current master and during this phase the master is feature freezed. After ~2 weeks with no error a stable version will be releaded, which is identically to the latest release candidate. 
+Before releasing a new stable version there is at least one release candidate. It is based on the current master and during this phase the master is feature freezed. After ~2 weeks with no error a stable version will be released, which is identical to the latest release candidate. 
 
 ### Dev
 Done as a standalone app that can be installed in parallel to the stable app.
-Any PR which is labelled "ready for dev" will be automatically included in the dev app. This label should only set by the main developers. 
+Any PR which is labelled "ready for dev" will be automatically included in the dev app. This label should only set by the main developers.
 Same applies for the android-library. This repository also has a branch called dev which includes all upcoming features. The dev branch on this repository must always use the android-library dev branch.
 
 ## Version Name and number
