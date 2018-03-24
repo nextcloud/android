@@ -441,7 +441,6 @@
     <string name="manage_space_clear_data">Εκκαθάριση δεδομένων</string>
 
     <string name="permission_storage_access">Επιπλέον διακαιώματα απαιτούνται για μεταφόρτωση και λήψη αρχείων.</string>
-    <string name="local_file_not_found_message">Το αρχείο δεν βρέθηκε στο τοπικό σύστημα αρχείων</string>
     <string name="maintenance_mode">Ο διακομιστής είναι σε κατάσταση συντήρησης</string>
 
     <string name="uploads_view_upload_status_waiting_for_charging">Αναμονή για φόρτιση συσκευής</string>
