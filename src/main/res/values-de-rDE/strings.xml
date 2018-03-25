@@ -518,6 +518,7 @@
     <string name="manage_space_clear_data">Daten löschen</string>
 
     <string name="permission_storage_access">Sie haben nicht die erforderlichen Rechte, um Dateien hoch- oder herunterzuladen.</string>
+    <string name="local_file_not_found_message">Die Datei wurde im lokalen Dateisystem nicht gefunden</string>
     <string name="confirmation_remove_files_alert">Möchten Sie die ausgewählten Elemente wirklich löschen?</string>
     <string name="confirmation_remove_folders_alert">Möchten Sie die ausgewählten Elemente und deren inhalt wirklich löschen?</string>
     <string name="maintenance_mode">Server befindet sich im Wartungsmodus</string>
@@ -747,6 +748,7 @@
     <string name="end_to_end_encryption_title">Verschlüsselung einrichten</string>
     <string name="end_to_end_encryption_passphrase_title">Notieren Sie Ihre Verschlüsselungs-Passphrase</string>
     <string name="end_to_end_encryption_not_supported">Verschlüsselung wird vor KitKat (4.4) nicht unterstützt</string>
+    <string name="end_to_end_encryption_not_enabled">Ende-zu-Ende Verschlüsselung ist auf diesem Server deaktiviert.</string>
     <string name="end_to_end_encryption_confirm_button">Verschlüsselung einrichten</string>
     <string name="end_to_end_encryption_password">Passwort&#8230;</string>
     <string name="end_to_end_encryption_unsuccessful">Die Schlüssel konnten nicht gespeichert werden. Bitte erneut versuchen.</string>
@@ -754,6 +756,7 @@
     <string name="end_to_end_encryption_storing_keys">Schlüssel speichern</string>
     <string name="copy_move_to_encrypted_folder_not_supported">In verschlüsselten Ordner kopieren/verschieben wird aktuell nicht unterstützt.</string>
     <string name="untrusted_domain">Zugriff über nicht vertrauenswürdige Domain. Weitere Informationen finden sich in der Dokumentation.</string>
+    <string name="upload_list_loading">Hochgeladenes wird geladen....</string>
     <string name="notification_channel_push_name">Push-Benachrichtigungen</string>
     <string name="notification_channel_push_description">Vom Server gesendete Push-Benachrichtigungen anzeigen, z.B. wenn Sie in einem Kommentar erwähnt werden, Zugriff auf eine weitere Freigabe erhalten oder wenn ein Admin eine Ankündigung versendet.</string>
     <string name="sendbutton_description">Icon für den Senden-Button</string>

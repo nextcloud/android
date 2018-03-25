@@ -518,6 +518,7 @@
     <string name="manage_space_clear_data">Cancella i dati</string>
 
     <string name="permission_storage_access">Permessi aggiuntivi richiesti per caricare e scaricare i file.</string>
+    <string name="local_file_not_found_message">File non trovato nel file system locale</string>
     <string name="confirmation_remove_files_alert">Vuoi davvero eliminare gli elementi selezionati?</string>
     <string name="confirmation_remove_folders_alert">Vuoi davvero eliminare gli elementi selezionati e il loro contenuto?</string>
     <string name="maintenance_mode">Server in manutenzione</string>
@@ -747,6 +748,7 @@
     <string name="end_to_end_encryption_title">Configura la cifratura</string>
     <string name="end_to_end_encryption_passphrase_title">Annota la tua password di cifratura di 12 parole</string>
     <string name="end_to_end_encryption_not_supported">La cifratura funziona solo con KitKat (4.4) e successivi.</string>
+    <string name="end_to_end_encryption_not_enabled">Cifratura end to end disabilitata sul server.</string>
     <string name="end_to_end_encryption_confirm_button">Configura la cifratura</string>
     <string name="end_to_end_encryption_password">Password&#8230;</string>
     <string name="end_to_end_encryption_unsuccessful">Impossibile salvare le chiavi, prova ancora.</string>
@@ -754,6 +756,7 @@
     <string name="end_to_end_encryption_storing_keys">Archiviazione chiavi</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Copia/Spostamento in una cartella cifrata attualmente non supportati.</string>
     <string name="untrusted_domain">Accesso tramite un dominio non fidato. Vedi la documentazione per ulteriori informazioni.</string>
+    <string name="upload_list_loading">Caricamenti in corso...</string>
     <string name="notification_channel_push_name">Notifiche push</string>
     <string name="notification_channel_push_description">Monstra le notifiche push inviate dal server, ad es. quando vieni menzionato nei commenti, ricevi una nuova condivisione remota o quando un amministratore pubblica un annuncio.</string>
     <string name="sendbutton_description">Icona pulsante di invio</string>
