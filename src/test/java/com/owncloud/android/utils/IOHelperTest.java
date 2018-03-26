@@ -6,7 +6,6 @@ import org.junit.Test;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.StringWriter;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
@@ -24,11 +23,9 @@ public class IOHelperTest {
     public void testInputStreamIsClosed() throws Exception {
         // Define FileOutputStream for testing.
         FileOutputStream mOutputStream = null;
-        StringWriter test = null;
         try {
             // init object
             mOutputStream = new FileOutputStream(outputFileName);
-            test = new StringWriter();
 
         } catch (Exception ex) {
             ex.printStackTrace();
