@@ -26,6 +26,7 @@ import android.net.Uri;
 
 import com.owncloud.android.db.ProviderMeta;
 import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.utils.IOHelper;
 
 import java.io.BufferedInputStream;
 import java.io.FileInputStream;
@@ -213,7 +214,7 @@ public class FilesystemDataProvider {
 
     private long getFileChecksum(String filepath) {
 
-        InputStream inputStream;
+        InputStream inputStream = null;
         try {
             inputStream = new BufferedInputStream(new FileInputStream(filepath));
             CRC32 crc = new CRC32();
@@ -228,6 +229,8 @@ public class FilesystemDataProvider {
             return -1;
         } catch (IOException e) {
             return -1;
+        } finally {
+            IOHelper.close(inputStream);
         }
     }
 }

@@ -30,6 +30,7 @@ import com.evernote.android.job.Job;
 import com.evernote.android.job.util.support.PersistableBundleCompat;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.fragment.contactsbackup.ContactListFragment;
+import com.owncloud.android.utils.IOHelper;
 
 import java.io.File;
 import java.io.IOException;
@@ -115,8 +116,9 @@ public class ContactsImportJob extends Job {
         String lookupKey = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts.LOOKUP_KEY));
         Uri uri = Uri.withAppendedPath(ContactsContract.Contacts.CONTENT_VCARD_URI, lookupKey);
         VCard vCard = null;
+        InputStream inputStream = null;
         try {
-            InputStream inputStream = getContext().getContentResolver().openInputStream(uri);
+            inputStream = getContext().getContentResolver().openInputStream(uri);
             ArrayList<VCard> vCardList = new ArrayList<>();
             vCardList.addAll(Ezvcard.parse(inputStream).all());
             if (vCardList.size() > 0) {
@@ -125,6 +127,8 @@ public class ContactsImportJob extends Job {
 
         } catch (IOException e) {
             Log_OC.d(TAG, e.getMessage());
+        } finally {
+            IOHelper.close(inputStream);
         }
         return vCard;
     }
