@@ -521,6 +521,7 @@ Veuillez contacter votre administrateur</string>
     <string name="manage_space_clear_data">Effacer les données</string>
 
     <string name="permission_storage_access">Des permissions supplémentaires sont exigées pour téléverser et télécharger des fichiers.</string>
+    <string name="local_file_not_found_message">Le fichier n\'a pas été trouvé sur le système de fichier local</string>
     <string name="confirmation_remove_files_alert">Souhaitez-vous vraiment supprimer les éléments sélectionnés ?</string>
     <string name="confirmation_remove_folders_alert">Souhaitez-vous vraiment supprimer les éléments sélectionnés ainsi que leurs contenus ?</string>
     <string name="maintenance_mode">Serveur en maintenance</string>
@@ -750,6 +751,7 @@ Veuillez contacter votre administrateur</string>
     <string name="end_to_end_encryption_title">Configurer le chiffrement</string>
     <string name="end_to_end_encryption_passphrase_title">Veuillez noter votre phrase secrète de chiffrement de 12 mots</string>
     <string name="end_to_end_encryption_not_supported">Le chiffrement ne marche uniquement sur les versions KitKat (4.4) et plus</string>
+    <string name="end_to_end_encryption_not_enabled">Chiffrement de bout en bout désactivé sur le serveur.</string>
     <string name="end_to_end_encryption_confirm_button">Configurer le chiffrement</string>
     <string name="end_to_end_encryption_password">Mot de passe&#8230;</string>
     <string name="end_to_end_encryption_unsuccessful">Impossible d\'enregistrer les clés, veuillez réessayer.</string>
@@ -757,6 +759,7 @@ Veuillez contacter votre administrateur</string>
     <string name="end_to_end_encryption_storing_keys">Enregistrement des clés</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Copier/déplacer dans ce dossier chiffré n\'est pas actuellement supporté</string>
     <string name="untrusted_domain">Accès depuis un domaine non fiable. Veuillez consulter la documentation pour plus d\'informations.</string>
+    <string name="upload_list_loading">Chargement des téléversements...</string>
     <string name="notification_channel_push_name">Notifications push</string>
     <string name="notification_channel_push_description">Afficher les notifications push envoyées par le serveur. Ex: quand vous êtes mentionné dans les commentaires, quand vous avez un nouveau partage distant ou quand une annonce est postée par un administrateur.</string>
     <string name="sendbutton_description">Icône du bouton d\'envoi</string>

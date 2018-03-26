@@ -518,6 +518,7 @@
     <string name="manage_space_clear_data">Verileri temizle</string>
 
     <string name="permission_storage_access">Dosya yüklemek ve indirmek için ek izinler gerekli.</string>
+    <string name="local_file_not_found_message">Dosya yerel dosya sisteminde bulunamadı</string>
     <string name="confirmation_remove_files_alert">Seçilmiş ögeleri gerçekten silmek istiyor musunuz?</string>
     <string name="confirmation_remove_folders_alert">Seçilmiş ögeleri ve içindekileri gerçekten silmek istiyor musunuz?</string>
     <string name="maintenance_mode">Sunucu bakım kipinde</string>
@@ -747,6 +748,7 @@
     <string name="end_to_end_encryption_title">Şifreleme kurulumu</string>
     <string name="end_to_end_encryption_passphrase_title">12 sözcüklü şifreleme parolanızı not edin</string>
     <string name="end_to_end_encryption_not_supported">Şifreleme yalnız KitKat(4.4) ve üzerindeki sürümlerde kullanılabilir</string>
+    <string name="end_to_end_encryption_not_enabled">Sunucu üzerinde uçtan uca şifreleme devre dışı bırakıldı.</string>
     <string name="end_to_end_encryption_confirm_button">Şifreleme kurulumu</string>
     <string name="end_to_end_encryption_password">Parola&#8230;</string>
     <string name="end_to_end_encryption_unsuccessful">Anahtarlar kaydedilemedi, lütfen yeniden deneyin.</string>
@@ -754,6 +756,7 @@
     <string name="end_to_end_encryption_storing_keys">Anahtarlar kaydediliyor</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Şifrelenmiş bir klasöre kopyalama ve taşıma işlemleri henüz desteklenmiyor.</string>
     <string name="untrusted_domain">Güvenilmeyen bir etki alanı üzerinden erişiliyor. Lütfen ayrıntılı bilgi almak için belgelere bakın.</string>
+    <string name="upload_list_loading">Dosyalar yükleniyor…</string>
     <string name="notification_channel_push_name">Anında bildirimler</string>
     <string name="notification_channel_push_description">Yorumlarda anıldığınızda, yeni bir uzak paylaşım gönderildiğinde ya da bir yönetici tarafından bir duyuru yapıldığında, sunucu tarafından gönderilen anında bildirimler görüntülenir.</string>
     <string name="sendbutton_description">Gönderme düğmesi simgesi</string>

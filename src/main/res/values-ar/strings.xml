@@ -329,6 +329,7 @@
     <string name="share_add_user_or_group">إضافة مستخدم أو فريق</string>
     <string name="share_via_link_section_title">شارك الرابط</string>
     <string name="share_via_link_expiration_date_label">تعيين تاريخ إنتهاء الصلاحية</string>
+    <string name="share_via_link_password_label">التأمين بكلمة سرية</string>
     <string name="share_via_link_password_title">مؤَمَّن</string>
     <string name="share_via_link_edit_permission_label">السماح بإدخال تعديلات</string>
     <string name="share_get_public_link_button">تحصل على رابط</string>
@@ -374,6 +375,9 @@
     <string name="upload_file_dialog_filetype">نوع الملف</string>
     <string name="storage_description_default">افتراضي</string>
 
+    <!-- What's new feature and texts to show -->
+    <string name="whats_new_title">جديد على %1$s</string>
+
     <!-- Welcome to Nc intro features -->
     <string name="welcome_feature_1_title">المكان الآمن لجميع بياناتك</string>
     <string name="welcome_feature_1_text">توصّل إلى ملفاتك و شاركها و قم بتأمينها سواء في المنزل أو في مكان العمل</string>
@@ -384,6 +388,7 @@
     <string name="welcome_feature_3_title">رفع تلقائي</string>
     <string name="welcome_feature_3_text">إحرص على أمان صورك</string>
 
+    <string name="whats_new_end_to_end_encryption_title">التعمية مِن طرف إلى آخر الطرف</string>
     <string name="whats_new_ipv6_title">دعم IPv6</string>
     <string name="whats_new_skip">تخطى</string>
 
@@ -418,6 +423,9 @@
 
     <string name="test_server_button">أفحص أتصال الخادم</string>
     <string name="fallback_weblogin_back">العودة</string>
+    <string name="foreground_service_upload">جارٍ رفع الملفات &#8230;</string>
+    <string name="foreground_service_download">جارٍ تنزيل الملفات &#8230;</string>
+
     <string name="prefs_sourcecode">الحصول على الشفرة المصدرية</string>
     <string name="prefs_license">الرخصة</string>
     <string name="date_unknown">مجهول</string>
@@ -425,19 +433,26 @@
     <string name="resized_images_download_full_image">هل تود تنزيل الصورة بأكملها ؟</string>
 
     <string name="drawer_current_account">الحساب الحالي</string>
+    <string name="drawer_middle_account">الحساب الوسيط</string>
     <string name="drawer_end_account">آخِر حساب</string>
     <string name="contactlist_item_icon">أيقونة المستخدمين المتواجدين في قائمة جهات الإتصال</string>
+    <string name="activity_icon">أيقونة النشاط</string>
     <string name="file_icon">أيقونة الملف</string>
     <string name="user_icon">أيقونة المستخدم</string>
     <string name="fingerprint_icon">أيقونة بصمة الأصبع</string>
     <string name="favorite_icon">أيقونة المفضلة</string>
+    <string name="shared_icon">أيقونة المشاركة</string>
     <string name="sort_by_modification_date_ascending">الأحدث أولا</string>
     <string name="sort_by_size_descending">الأكبر حجما أولا</string>
     <string name="sort_by_size_ascending">الأصغر حجما أولا</string>
+    <string name="sort_by_modification_date_descending">الأقدم أولا</string>
     <string name="synced_folders_type">حسب النوع</string>
     <string name="sync_status_button">زر حالة المزامنة</string>
     <string name="synced_folder_settings_button">زر الإعدادات</string>
     <string name="forward">إعادة توجيه </string>
+    <string name="prefs_category_dev">التطوير</string>
+    <string name="dev_version_no_information_available">المعلومات غير متوفرة</string>
+    <string name="dev_version_no_new_version_available">لا توجد هناك أية نسخة جديدة متوفرة.</string>
     <string name="folder_icon">أيقونة المجلد</string>
     <string name="dev_version_new_version_available">هناك نسخة جديدة متوفرة</string>
     <string name="version_dev_download">تنزيل</string>
@@ -448,6 +463,9 @@
 
     <string name="notification_channel_media_name">مشغل وسائط </string>
     <string name="notification_channel_file_sync_name">مزامنة الملفات</string>
+    <string name="notification_channel_file_observer_name">مراقب الملفات</string>
+    <string name="notification_channel_file_observer_description">مراقبة الملفات التي طرأت عليها تغييرات</string>
+  
     <string name="account_not_found">الحساب غير موجود </string>
 
     <string name="screenshot_01_gridView">المكان الآمن لكافة بياناتك</string>
@@ -457,6 +475,7 @@
     <string name="account_icon">أيقونة الحساب </string>
     
     <string name="end_to_end_encryption_folder_not_empty">هذا المجلد غير فارغ.</string>
+    <string name="end_to_end_encryption_wrong_password">خطأ أثناء فك التعمية. هل كلمة السر صحيحة ؟</string>
     <string name="end_to_end_encryption_decrypting">فك التشفير &#8230;</string>
     <string name="end_to_end_encryption_retrieving_keys">يتم استرجاع المفاتيح </string>
     <string name="end_to_end_encryption_enter_password">الرجاء أدخل كلمة المرور ليتم فك تشفير المفتاح الخاص</string>
@@ -466,4 +485,5 @@
     <string name="end_to_end_encryption_password"> كلمة المرور &#8230;</string>
     <string name="end_to_end_encryption_dialog_close">إغلاق</string>
     <string name="end_to_end_encryption_storing_keys">تخزين المفاتيح </string>
-    </resources>
+    <string name="sendbutton_description">أيقونة زر الإرسال</string>
+</resources>
