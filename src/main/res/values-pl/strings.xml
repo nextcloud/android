@@ -263,6 +263,7 @@
     <string name="auth_connecting_auth_server">Łączenie z serwerem uwierzytelniania &#8230;</string>
 	<string name="auth_unsupported_multiaccount">%1$s nie wspiera wielu kont</string>
 	<string name="auth_can_not_auth_against_server">Błąd autoryzacji na tym serwerze</string>
+    <string name="auth_account_does_not_exist">Konto nie jest jeszcze dodane na tym urządzeniu</string>
     <string name="auth_access_failed">Dostęp nieudany</string>
 
     <string name="favorite">Udostępnij w trybie offline</string>
@@ -280,16 +281,21 @@
     <string name="remove_success_msg">Usunięto</string>
     <string name="remove_fail_msg">Usuwanie nie powiodło się</string>
     <string name="rename_dialog_title">Wprowadź nową nazwę</string>
+    <string name="rename_server_fail_msg">Zmiana nazwy nie jest możliwa, nazwa już jest zajęta</string>
     <string name="sync_file_nothing_to_do_msg">Zawartość pliku została już synchronizowana</string>
     <string name="create_dir_fail_msg">Nie udało się utworzyć folderu</string>
     <string name="filename_forbidden_characters">Znaki zabronione: / \\ &lt; &gt; : \" | ? *</string>
+    <string name="filename_forbidden_charaters_from_server">Nazwa pliku zawiera co najmniej jeden nieprawidłowy znak</string>
     <string name="filename_empty">Nazwa pliku nie może być pusta.</string>
+    <string name="wait_a_moment">Zaczekaj chwilę &#8230;</string>
     <string name="wait_checking_credentials">Sprawdzanie danych</string>
     <string name="filedisplay_no_file_selected">Nie wybrano żadnego pliku</string>
     <string name="activity_chooser_title">Wyślij link do &#8230;</string>
     <string name="wait_for_tmp_copy_from_private_storage">Kopiowanie pliku z prywatnego zasobu</string>
     
     <string name="oauth_check_onoff">Loguj przez OAuth 2.0</string>
+    <string name="oauth_login_connection">Łączenie z serwerem OAuth 2.0 &#8230;</string>
+        
     <string name="ssl_validator_header">Nie można zweryfikować tożsamości serwera</string>
     <string name="ssl_validator_reason_cert_not_trusted">- Certyfikat serwera jest niezaufany</string>
     <string name="ssl_validator_reason_cert_expired">- Certyfikat serwera wygasł</string>
@@ -344,6 +350,7 @@
     <string name="prefs_instant_upload_path_use_subfolders_title">Używaj podfolderów</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Zapisz w podfolderach opartych na roku oraz miesiącu</string>
 
+	<string name="share_link_no_support_share_api">Udostępnianie nie jest włączone na twoim serwerze. Skontaktuj się z administratorem</string>
 	<string name="share_link_file_no_exist">Nie można udostępnić. Proszę sprawdzić, czy plik istnieje</string>
 	<string name="share_link_file_error">Wystąpił błąd podczas udostępniania tego pliku lub folderu.</string>
 	<string name="unshare_link_file_no_exist">Nie można wyłączyć udostępniania. Proszę sprawdzić, czy plik istnieje</string>
@@ -363,6 +370,9 @@
 
     <string name="error_cant_bind_to_operations_service">Błąd krytyczny: Nie można wykonać operacji</string>
 
+    <string name="network_error_socket_exception">Wystąpił błąd podczas połączenia z serwerem</string>
+    <string name="network_error_socket_timeout_exception">Wystąpił błąd podczas oczekiwania na serwer. Nie można ukończyć operacji</string>
+    <string name="network_error_connect_timeout_exception">Wystąpił błąd podczas oczekiwania na serwer.Nie można ukończyć operacji</string>
     <string name="network_host_not_available">Nie można ukończyć operacji. Serwer jest niedostępny.</string>
 
     <string name="forbidden_permissions">%s nie masz uprawnień</string>
@@ -376,10 +386,26 @@
     <string name="downloader_download_file_not_found">Ten plik nie jest już dostępny na serwerze</string>
 
     <string name="file_migration_dialog_title">Aktualizacja ścieżki przechowywania</string>
+    <string name="file_migration_preparing">Przygotowywanie migracji &#8230;</string>
+    <string name="file_migration_checking_destination">Sprawdzanie miejsca docelowego &#8230;</string>
+    <string name="file_migration_saving_accounts_configuration">Zapisywanie konfiguracji konta &#8230;</string>
+    <string name="file_migration_waiting_for_unfinished_sync">Oczekuje na pełną synchronizację &#8230;</string>
+    <string name="file_migration_migrating">Przenoszenie danych &#8230;</string>
+    <string name="file_migration_updating_index">Aktualizowanie indeksu &#8230;</string>
+    <string name="file_migration_cleaning">Czyszczenie &#8230;</string>
+    <string name="file_migration_restoring_accounts_configuration">Przywracanie konfiguracji konta &#8230;</string>
     <string name="file_migration_ok_finished">Skończone</string>
+    <string name="file_migration_failed_not_writable">Nie można zapisać w pliku docelowym</string>
+    <string name="file_migration_failed_not_readable">Nie można odczytać pliku źródłowego</string>
+    <string name="file_migration_failed_dir_already_exists">31/5000Folder Nextcloud już istnieje</string>
+    <string name="file_migration_failed_while_coping">Błąd podczas migracji</string>
+    <string name="file_migration_failed_while_updating_index">Nie udało się zaktualizować indeksu</string>
+
+    <string name="file_migration_directory_already_exists">Folder danych już istnieje. Wybierz jedno z następujących:</string>
     <string name="file_migration_override_data_folder">Zamień</string>
     <string name="file_migration_use_data_folder">Użyj</string>
 
+    <string name="file_migration_source_not_readable_title">Folder źródłowy jest nieodczytywalny </string>
     <string name="file_migration_source_not_readable">Czy nadal chcesz zmienić ścieżkę przechowywania na %1$s?\n\nUwaga: Wszystkie dane będą musiały zostać pobrane ponownie.</string>
 
     <string name="prefs_add_account">Dodaj konto</string>
@@ -392,6 +418,7 @@
 	<string name="log_send_mail_subject">%1$s Logi aplikacji Android</string>
 	<string name="log_progress_dialog_text">Ładowanie danych &#8230;</string>
 
+	<string name="saml_authentication_required_text">Wymagane hasło</string>
 	<string name="saml_authentication_wrong_pass">Złe hasło</string>
 	<string name="actionbar_move">Przenieś</string>
     <string name="actionbar_copy">Skopiuj</string>
@@ -413,7 +440,9 @@
 
     <string name="prefs_category_details">Szczegóły</string>
 
-    <string name="subject_user_shared_with_you">%1$s wspólne \"%2$s\" z tobą</string>
+    <string name="sync_folder_failed_content">Synchronizacja folderu %1$snie może być zakończona</string>
+
+	<string name="subject_user_shared_with_you">%1$s wspólne \"%2$s\" z tobą</string>
     <string name="subject_shared_with_you">Udostępniono Ci \"%1$s\"</string>
 
     <string name="auth_refresh_button">Odśwież połączenie</string>
@@ -478,6 +507,7 @@
     <string name="manage_space_clear_data">Wyczyść dane</string>
 
     <string name="permission_storage_access">Wymagane są dodatkowe uprawnienia do pobierania i wysyłania plików.</string>
+    <string name="local_file_not_found_message">Plik nie został znaleziony w lokalnym systemie plików</string>
     <string name="confirmation_remove_files_alert">Czy naprawdę chcesz usunąć zaznaczone elementy?</string>
     <string name="confirmation_remove_folders_alert">Czy naprawdę chcesz usunąć zaznaczone elementy oraz ich zawartość?</string>
     <string name="maintenance_mode">Serwer w trybie konserwacji</string>
@@ -505,6 +535,8 @@
     <string name="participate_rc_fdroid">Pobierz wersję \"kandydującą\" z F-Droid</string>
     <string name="participate_dev_fdroid">Pobierz wersję \"rozwojową\" z F-Droid</string>
     <string name="participate_dev_direct_download">Pobierz wersję \"kandydującą\" bezpośrednio</string>
+    <string name="move_to">Przenieś do &#8230;</string>
+    <string name="copy_to">Kopiuj do &#8230;</string>
     <string name="synced_folders_loading_folders">Ładowanie folderów &#8230;</string>
     <string name="synced_folders_no_results">Nie znaleziono folderów multimedialnych</string>
     <string name="synced_folders_preferences">Preferencje automatycznego przesyłania</string>
@@ -575,8 +607,11 @@
     <string name="contacts_preferences_backup_scheduled">Kopia zapasowa została zaplanowana i wkrótce zostanie uruchomiona</string>
     <string name="contacts_preferences_import_scheduled">Importowanie zostało zaplanowane i wkrótce zostanie uruchomione</string>
 
+    <!-- Notifications -->
+    <string name="new_notification_received">Otrzymano nowe powiadomienie</string>
     <string name="drawer_logout">Wyloguj</string>
     <string name="privacy">Prywatność</string>
+    <string name="file_not_found">Nie znaleziono pliku</string>
     <!-- Auto upload -->
     <string name="autoupload_custom_folder">Ustaw własny katalog</string>
     <string name="autoupload_create_new_custom_folder">Stwórz nowy własny katalog</string>
@@ -617,6 +652,8 @@
     <string name="shared_icon">Ikona współdzielenia</string>
     <string name="overflow_menu">Ikona przepełnienia</string>
     <string name="share_file_icon">Ikona pliku wspóldzielonego</string>
+    <string name="sort_by_name_ascending">A - Z</string>
+    <string name="sort_by_name_descending">Z - A</string>
     <string name="synced_folders_type">Typ</string>
     <string name="sync_status_button">Przycisk status synchronizacji</string>
     <string name="synced_folder_settings_button">Przycisk ustawień</string>
@@ -632,8 +669,11 @@ Wersja Nextcloud Dev jest wersją rozwojową, można ją zainstalować równoleg
 
     <string name="prefs_category_dev">Rozwojowa</string>
     <string name="dev_version_no_new_version_available">Brak nowej wersji</string>
+    <string name="dev_version_new_version_available">Nowa wersja dostępna</string>
     <string name="version_dev_download">Pobierz</string>
 
+    <string name="send">Wyślij</string>
+    <string name="share">Udostępnij</string>
     <string name="link">Odnośnik</string>
 
     <string name="account_not_found">Nie znaleziono konta</string>
