@@ -529,8 +529,6 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
             String syncedFolderInitiatedKey = "syncedFolderIntitiated_" + syncedFolderDisplayItem.getId();
             arbitraryDataProvider.deleteKeyForAccount("global", syncedFolderInitiatedKey);
         }
-        FilesSyncHelper.scheduleNJobs(false, getApplicationContext());
-
     }
 
     @Override
@@ -582,7 +580,6 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
                     String syncedFolderInitiatedKey = "syncedFolderIntitiated_" + newCustomFolder.getId();
                     arbitraryDataProvider.deleteKeyForAccount("global", syncedFolderInitiatedKey);
                 }
-                FilesSyncHelper.scheduleNJobs(false, getApplicationContext());
             }
             mAdapter.addSyncFolderItem(newCustomFolder);
         } else {
@@ -602,7 +599,6 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
                         String syncedFolderInitiatedKey = "syncedFolderIntitiated_" + item.getId();
                         arbitraryDataProvider.deleteKeyForAccount("global", syncedFolderInitiatedKey);
                     }
-                    FilesSyncHelper.scheduleNJobs(false, getApplicationContext());
                 }
             } else {
                 // existing synced folder setup to be updated
@@ -613,7 +609,6 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
                     String syncedFolderInitiatedKey = "syncedFolderIntitiated_" + item.getId();
                     arbitraryDataProvider.deleteKeyForAccount("global", syncedFolderInitiatedKey);
                 }
-                FilesSyncHelper.scheduleNJobs(false, getApplicationContext());
             }
 
             mAdapter.setSyncFolderItem(syncedFolder.getSection(), item);
