@@ -518,7 +518,7 @@
     <string name="participate_beta_headline">Testaa kehitysversiota</string>
     <string name="participate_beta_text">Tämä käsittää kaikki tulevat ominaisuudet ja sisältää täysin uutta, jopa testaamatonta, koodia. Bugeja ja virheitä voi löytyä. Jos ja kun niin käy, muista raportoida niistä, jotta ne korjattaisiin. </string>
     <string name="participate_release_candidate_headline">Julkaisuehdokas</string>
-    <string name="participate_release_candidate_text">Julkaisuehdokas on lähes valmis versio virallisesti julkaistavasta versiosta ja on yleensä täysin toimiva. Testaa omat asetukset ja varmista niiden toimivuus. Kirjaudu siis testaajaksi Play storessa tai katso \"Version\" valikosta F-Droid äpissä.</string>
+    <string name="participate_release_candidate_text">Julkaisuehdokas (RC) on lähes valmis versio virallisesti julkaistavasta versiosta ja on yleensä täysin toimiva. Testaa omat asetukset ja varmista niiden toimivuus. Kirjaudu siis testaajaksi Play storessa tai katso \"Version\" valikosta F-Droid äpissä.</string>
     <string name="participate_contribute_headline">Osallistu aktiivisesti </string>
     <string name="participate_contribute_irc_text">Liity keskusteluun IRC:ssä:</string>
     <string name="participate_contribute_forum_text">Auta muita. Avaa</string>
