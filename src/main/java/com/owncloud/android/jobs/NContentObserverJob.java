@@ -54,6 +54,13 @@ public class NContentObserverJob extends JobService {
                         .setUpdateCurrent(false)
                         .build()
                         .schedule();
+
+                new JobRequest.Builder(MediaFoldersDetectionJob.TAG)
+                        .startNow()
+                        .setUpdateCurrent(false)
+                        .build()
+                        .schedule();
+
             }
 
             FilesSyncHelper.scheduleNJobs(true, getApplicationContext());
