@@ -41,11 +41,7 @@ public class LoadingVersionNumberTask extends AsyncTask<String, Void, Integer> {
         try {
             URL url = new URL(args[0]);
             try (BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream()))){
-
-                Integer latestVersion = Integer.parseInt(in.readLine());
-                in.close();
-
-                return latestVersion;
+                return Integer.parseInt(in.readLine());
 
             } catch (IOException e) {
                 Log_OC.e(TAG, "Error loading version number", e);
