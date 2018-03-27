@@ -89,15 +89,11 @@ public class DiskLruImageCacheFileProvider extends ContentProvider {
             byte[] bitmapData = bos.toByteArray();
 
             //write the bytes in file
-            FileOutputStream fos = null;
-            try {
-                fos = new FileOutputStream(f);
+            try (FileOutputStream fos = new FileOutputStream(f)){
+                fos.write(bitmapData);
             } catch (FileNotFoundException e) {
                 Log_OC.e(TAG, "File not found: " + e.getMessage());
             }
-            fos.write(bitmapData);
-            fos.flush();
-            fos.close();
 
         } catch (Exception e) {
             Log_OC.e(TAG, "Error opening file: " + e.getMessage());
