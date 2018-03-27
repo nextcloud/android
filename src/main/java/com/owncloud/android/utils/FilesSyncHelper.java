@@ -247,10 +247,8 @@ public class FilesSyncHelper {
                 .build()
                 .schedule();
 
-        if (context != null) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                scheduleJobOnN();
-            }
+        if (context != null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            scheduleJobOnN();
         }
     }
 
