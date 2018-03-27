@@ -47,7 +47,7 @@ public class LoadingVersionNumberTask extends AsyncTask<String, Void, Integer> {
                 Log_OC.e(TAG, "Error loading version number", e);
             }
         } catch (MalformedURLException e) {
-            Log_OC.e(TAG, "Malformed URL", e);
+            Log_OC.e(TAG, "Malformed URL ", e);
         }
         return -1;
     }
