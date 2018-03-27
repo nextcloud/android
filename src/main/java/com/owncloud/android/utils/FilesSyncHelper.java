@@ -239,7 +239,6 @@ public class FilesSyncHelper {
         }).start();
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
     public static void scheduleFilesSyncIfNeeded(Context context) {
         // always run this because it also allows us to perform retries of manual uploads
         new JobRequest.Builder(FilesSyncJob.TAG)
