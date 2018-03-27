@@ -52,6 +52,9 @@ import java.util.List;
 public class MediaFoldersDetectionJob extends Job {
     public static final String TAG = "MediaFoldersDetectionJob";
 
+    public static final String KEY_MEDIA_FOLDER_PATH = "KEY_MEDIA_FOLDER_PATH";
+    public static final String KEY_MEDIA_FOLDER_TYPE = "KEY_MEDIA_FOLDER_TYPE";
+
     @NonNull
     @Override
     protected Result onRunJob(@NonNull Params params) {
@@ -107,9 +110,9 @@ public class MediaFoldersDetectionJob extends Job {
                             String imageMediaFolder = imageMediaFolderPaths.get(i);
                             sendNotification(String.format(context.getString(R.string.new_media_folder_detected),
                                     context.getString(R.string.new_media_folder_photos)),
-                                    imageMediaFolder.substring(imageMediaFolder.lastIndexOf("/"),
+                                    imageMediaFolder.substring(imageMediaFolder.lastIndexOf("/") + 1,
                                             imageMediaFolder.length()),
-                                    account);
+                                    account, imageMediaFolder, 1);
                         }
                     }
 
@@ -121,7 +124,7 @@ public class MediaFoldersDetectionJob extends Job {
                                     context.getString(R.string.new_media_folder_photos)),
                                     videoMediaFolder.substring(videoMediaFolder.lastIndexOf("/") + 1,
                                             videoMediaFolder.length()),
-                                    account);
+                                    account, videoMediaFolder, 2);
                         }
                     }
                 }
@@ -136,11 +139,14 @@ public class MediaFoldersDetectionJob extends Job {
         return Result.SUCCESS;
     }
 
-    private void sendNotification(String contentTitle, String subtitle,  Account account) {
+    private void sendNotification(String contentTitle, String subtitle,  Account account,
+                                  String path, int type) {
         Context context = getContext();
         Intent intent = new Intent(getContext(), SyncedFoldersActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         intent.putExtra(NotificationJob.KEY_NOTIFICATION_ACCOUNT, account.name);
+        intent.putExtra(KEY_MEDIA_FOLDER_PATH, path);
+        intent.putExtra(KEY_MEDIA_FOLDER_TYPE, type);
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_ONE_SHOT);
 
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(context)
