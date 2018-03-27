@@ -78,6 +78,24 @@ public class SyncedFolderProvider extends Observable {
         }
     }
 
+    public int countEnabledSyncedFolders() {
+        int count = 0;
+        Cursor cursor = mContentResolver.query(
+                ProviderMeta.ProviderTableMeta.CONTENT_URI_SYNCED_FOLDERS,
+                new String[]{ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_ENABLED},
+                ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_ENABLED + " == 1",
+                null,
+                null
+        );
+
+        if (cursor != null) {
+             count = cursor.getCount();
+             cursor.close();
+        }
+
+        return count;
+    }
+
     /**
      * get all synced folder entries.
      *

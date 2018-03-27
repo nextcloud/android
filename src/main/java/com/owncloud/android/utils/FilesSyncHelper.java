@@ -60,7 +60,6 @@ import org.lukhnos.nnio.file.attribute.BasicFileAttributes;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.List;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
@@ -241,51 +240,6 @@ public class FilesSyncHelper {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
-    public static boolean isContentObserverJobScheduled() {
-        JobScheduler js = MainApp.getAppContext().getSystemService(JobScheduler.class);
-        List<JobInfo> jobs = js.getAllPendingJobs();
-
-        if (jobs == null || jobs.size() == 0) {
-            return false;
-        }
-
-        for (int i = 0; i < jobs.size(); i++) {
-            if (jobs.get(i).getId() == ContentSyncJobId) {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    public static void scheduleNJobs(boolean force, Context context) {
-        SyncedFolderProvider syncedFolderProvider = new SyncedFolderProvider(context.getContentResolver());
-
-
-        boolean hasVideoFolders = false;
-        boolean hasImageFolders = false;
-
-        if (syncedFolderProvider.getSyncedFolders() != null) {
-            for (SyncedFolder syncedFolder : syncedFolderProvider.getSyncedFolders()) {
-                if (MediaFolderType.VIDEO == syncedFolder.getType()) {
-                    hasVideoFolders = true;
-                } else if (MediaFolderType.IMAGE == syncedFolder.getType()) {
-                    hasImageFolders = true;
-                }
-            }
-        }
-
-        if (hasImageFolders || hasVideoFolders) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                scheduleJobOnN(hasImageFolders, hasVideoFolders, force);
-            }
-        } else {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                cancelJobOnN();
-            }
-        }
-    }
-
     public static void scheduleFilesSyncIfNeeded(Context context) {
         // always run this because it also allows us to perform retries of manual uploads
         new JobRequest.Builder(FilesSyncJob.TAG)
@@ -295,7 +249,9 @@ public class FilesSyncHelper {
                 .schedule();
 
         if (context != null) {
-            scheduleNJobs(false, context);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                scheduleJobOnN();
+            }
         }
     }
 
@@ -310,21 +266,11 @@ public class FilesSyncHelper {
         }
     }
 
-
     @RequiresApi(api = Build.VERSION_CODES.N)
-    private static void cancelJobOnN() {
-        JobScheduler jobScheduler = MainApp.getAppContext().getSystemService(JobScheduler.class);
-        if (isContentObserverJobScheduled()) {
-            jobScheduler.cancel(ContentSyncJobId);
-        }
-    }
-
-    @RequiresApi(api = Build.VERSION_CODES.N)
-    private static void scheduleJobOnN(boolean hasImageFolders, boolean hasVideoFolders,
-                                       boolean force) {
+    public static void scheduleJobOnN() {
         JobScheduler jobScheduler = MainApp.getAppContext().getSystemService(JobScheduler.class);
 
-        if ((hasImageFolders || hasVideoFolders) && (!isContentObserverJobScheduled() || force)) {
+        if (jobScheduler != null) {
             JobInfo.Builder builder = new JobInfo.Builder(ContentSyncJobId, new ComponentName(MainApp.getAppContext(),
                     NContentObserverJob.class.getName()));
             builder.addTriggerContentUri(new JobInfo.TriggerContentUri(android.provider.MediaStore.
