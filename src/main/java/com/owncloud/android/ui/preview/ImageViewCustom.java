@@ -130,8 +130,7 @@ public class ImageViewCustom extends AppCompatImageView {
      * @param storagePath the storage path of the GIF image
      */
     public void setGIFImageFromStoragePath(String storagePath) {
-        try {
-            InputStream gifInputStream = new FileInputStream(storagePath);
+        try (InputStream gifInputStream = new FileInputStream(storagePath)){
             setLayerType(View.LAYER_TYPE_SOFTWARE, null);
             setFocusable(true);
 
