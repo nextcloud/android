@@ -2161,14 +2161,16 @@ public class FileDataStorageManager {
             );
         }
 
-        if (c != null && c.moveToFirst()) {
-            do {
-                OCFile child = createFileInstanceFromVirtual(c);
+        if (c != null) {
+            if (c.moveToFirst()) {
+                do {
+                    OCFile child = createFileInstanceFromVirtual(c);
 
-                if (child != null) {
-                    ocFiles.add(child);
-                }
-            } while (c.moveToNext());
+                    if (child != null) {
+                        ocFiles.add(child);
+                    }
+                } while (c.moveToNext());
+            }
             c.close();
         }
 

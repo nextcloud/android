@@ -152,31 +152,33 @@ public class FileContentProvider extends ContentProvider {
             }
             */
                 Cursor children = query(uri, null, null, null, null);
-                if (children != null && children.moveToFirst()) {
-                    long childId;
-                    boolean isDir;
-                    while (!children.isAfterLast()) {
-                        childId = children.getLong(children.getColumnIndex(ProviderTableMeta._ID));
-                        isDir = MimeType.DIRECTORY.equals(children.getString(
-                                children.getColumnIndex(ProviderTableMeta.FILE_CONTENT_TYPE)
-                        ));
-                        //remotePath = children.getString(children.getColumnIndex(ProviderTableMeta.FILE_PATH));
-                        if (isDir) {
-                            count += delete(
-                                    db,
-                                    ContentUris.withAppendedId(ProviderTableMeta.CONTENT_URI_DIR, childId),
-                                    null,
-                                    null
-                            );
-                        } else {
-                            count += delete(
-                                    db,
-                                    ContentUris.withAppendedId(ProviderTableMeta.CONTENT_URI_FILE, childId),
-                                    null,
-                                    null
-                            );
+                if (children != null) {
+                    if (children.moveToFirst()) {
+                        long childId;
+                        boolean isDir;
+                        while (!children.isAfterLast()) {
+                            childId = children.getLong(children.getColumnIndex(ProviderTableMeta._ID));
+                            isDir = MimeType.DIRECTORY.equals(children.getString(
+                                    children.getColumnIndex(ProviderTableMeta.FILE_CONTENT_TYPE)
+                            ));
+                            //remotePath = children.getString(children.getColumnIndex(ProviderTableMeta.FILE_PATH));
+                            if (isDir) {
+                                count += delete(
+                                        db,
+                                        ContentUris.withAppendedId(ProviderTableMeta.CONTENT_URI_DIR, childId),
+                                        null,
+                                        null
+                                );
+                            } else {
+                                count += delete(
+                                        db,
+                                        ContentUris.withAppendedId(ProviderTableMeta.CONTENT_URI_FILE, childId),
+                                        null,
+                                        null
+                                );
+                            }
+                            children.moveToNext();
                         }
-                        children.moveToNext();
                     }
                     children.close();
                 } /*else {
