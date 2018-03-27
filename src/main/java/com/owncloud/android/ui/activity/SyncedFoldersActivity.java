@@ -56,6 +56,7 @@ import com.owncloud.android.datamodel.SyncedFolder;
 import com.owncloud.android.datamodel.SyncedFolderDisplayItem;
 import com.owncloud.android.datamodel.SyncedFolderProvider;
 import com.owncloud.android.files.services.FileUploader;
+import com.owncloud.android.jobs.NotificationJob;
 import com.owncloud.android.ui.adapter.SyncedFolderAdapter;
 import com.owncloud.android.ui.decoration.MediaGridItemDecoration;
 import com.owncloud.android.ui.dialog.SyncedFolderPreferencesDialogFragment;
@@ -110,6 +111,15 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
 
         setContentView(R.layout.synced_folders_layout);
 
+        String account;
+        Account currentAccount;
+        if (getIntent() != null && getIntent().getExtras() != null &&
+                (account = getIntent().getExtras().getString(NotificationJob.KEY_NOTIFICATION_ACCOUNT)) != null &&
+                (currentAccount = AccountUtils.getCurrentOwnCloudAccount(getApplicationContext())) != null &&
+                !account.equalsIgnoreCase(currentAccount.name)) {
+            AccountUtils.setCurrentOwnCloudAccount(getApplicationContext(), account);
+            setAccount(AccountUtils.getCurrentOwnCloudAccount(this));
+        }
         // setup toolbar
         setupToolbar();
         CollapsingToolbarLayout mCollapsingToolbarLayout = findViewById(R.id.collapsing_toolbar);
@@ -199,9 +209,9 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
         }
         setListShown(false);
         final List<MediaFolder> mediaFolders = MediaProvider.getImageFolders(getContentResolver(),
-                perFolderMediaItemLimit, SyncedFoldersActivity.this);
+                perFolderMediaItemLimit, SyncedFoldersActivity.this, false);
         mediaFolders.addAll(MediaProvider.getVideoFolders(getContentResolver(), perFolderMediaItemLimit,
-                SyncedFoldersActivity.this));
+                SyncedFoldersActivity.this, false));
 
         List<SyncedFolder> syncedFolderArrayList = mSyncedFolderProvider.getSyncedFolders();
         List<SyncedFolder> currentAccountSyncedFoldersList = new ArrayList<>();
