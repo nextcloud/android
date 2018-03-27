@@ -254,6 +254,11 @@ public abstract class PreferenceManager {
         
         ArbitraryDataProvider dataProvider = new ArbitraryDataProvider(context.getContentResolver());
         FileDataStorageManager storageManager = ((ComponentsGetter)context).getStorageManager();
+
+        if (storageManager == null) {
+            storageManager = new FileDataStorageManager(account, context.getContentResolver());
+        }
+        
         String value = dataProvider.getValue(account.name, getKeyFromFolder(preferenceName, folder));
         while (folder != null && value.isEmpty()) {
             folder = storageManager.getFileById(folder.getParentId());
