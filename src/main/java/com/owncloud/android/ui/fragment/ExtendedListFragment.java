@@ -385,16 +385,6 @@ public class ExtendedListFragment extends Fragment
             return false;
         });
 
-        if (savedInstanceState != null) {
-            int referencePosition = savedInstanceState.getInt(KEY_SAVED_LIST_POSITION);
-
-            if (mRecyclerView != null) {
-                Log_OC.v(TAG, "Setting and centering around list position " + referencePosition);
-
-                mRecyclerView.getLayoutManager().scrollToPosition(referencePosition);
-            }
-        }
-
         // Pull-down to refresh layout
         mRefreshListLayout = v.findViewById(R.id.swipe_containing_list);
         onCreateSwipeToRefresh(mRefreshListLayout);
@@ -418,16 +408,6 @@ public class ExtendedListFragment extends Fragment
             // convert the DP into pixel
             int pixel = (int) (32 * scale + 0.5f);
             layoutParams.setMargins(0, 0, pixel / 2, bottomNavigationView.getMeasuredHeight() + pixel * 2);
-        }
-
-        if (savedInstanceState != null) {
-            if (savedInstanceState.getBoolean(KEY_IS_GRID_VISIBLE, false)) {
-                switchToGridView();
-            }
-            int referencePosition = savedInstanceState.getInt(KEY_SAVED_LIST_POSITION);
-
-            Log_OC.v(TAG, "Setting grid position " + referencePosition);
-            scrollToPosition(referencePosition);
         }
 
         return v;
@@ -483,6 +463,14 @@ public class ExtendedListFragment extends Fragment
             mTops = savedInstanceState.getIntegerArrayList(KEY_TOPS);
             mHeightCell = savedInstanceState.getInt(KEY_HEIGHT_CELL);
             setMessageForEmptyList(savedInstanceState.getString(KEY_EMPTY_LIST_MESSAGE));
+
+            if (savedInstanceState.getBoolean(KEY_IS_GRID_VISIBLE, false) && getRecyclerView().getAdapter() != null) {
+                switchToGridView();
+            }
+
+            int referencePosition = savedInstanceState.getInt(KEY_SAVED_LIST_POSITION);
+            Log_OC.v(TAG, "Setting grid position " + referencePosition);
+            scrollToPosition(referencePosition);
         } else {
             mIndexes = new ArrayList<>();
             mFirstPositions = new ArrayList<>();
