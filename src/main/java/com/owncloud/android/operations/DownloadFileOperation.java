@@ -37,7 +37,6 @@ import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.files.DownloadRemoteFileOperation;
 import com.owncloud.android.utils.EncryptionUtils;
 import com.owncloud.android.utils.FileStorageUtils;
-import com.owncloud.android.utils.IOHelper;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -202,16 +201,12 @@ public class DownloadFileOperation extends RemoteOperation {
                 byte[] authenticationTag = EncryptionUtils.decodeStringToBase64Bytes(metadata.getFiles()
                         .get(mFile.getEncryptedFileName()).getAuthenticationTag());
 
-                FileOutputStream fileOutputStream = null;
-                try {
+                try (FileOutputStream fileOutputStream = new FileOutputStream(tmpFile)){
                     byte[] decryptedBytes = EncryptionUtils.decryptFile(tmpFile, key, iv, authenticationTag);
 
-                    fileOutputStream = new FileOutputStream(tmpFile);
                     fileOutputStream.write(decryptedBytes);
                 } catch (Exception e) {
                     return new RemoteOperationResult(e);
-                } finally {
-                    IOHelper.close(fileOutputStream);
                 }
             }
             moved = tmpFile.renameTo(newFile);
