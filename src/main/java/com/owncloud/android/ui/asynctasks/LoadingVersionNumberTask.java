@@ -28,6 +28,7 @@ import com.owncloud.android.lib.common.utils.Log_OC;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.MalformedURLException;
 import java.net.URL;
 
 /**
@@ -39,15 +40,18 @@ public class LoadingVersionNumberTask extends AsyncTask<String, Void, Integer> {
     protected Integer doInBackground(String... args) {
         try {
             URL url = new URL(args[0]);
-            BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream()));
+            try (BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream()))){
 
-            Integer latestVersion = Integer.parseInt(in.readLine());
-            in.close();
+                Integer latestVersion = Integer.parseInt(in.readLine());
+                in.close();
 
-            return latestVersion;
+                return latestVersion;
 
-        } catch (IOException e) {
-            Log_OC.e(TAG, "Error loading version number", e);
+            } catch (IOException e) {
+                Log_OC.e(TAG, "Error loading version number", e);
+            }
+        } catch (MalformedURLException e) {
+            Log_OC.e(TAG, "Malformed URL", e);
         }
         return -1;
     }
