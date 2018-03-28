@@ -200,10 +200,6 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
         }
 
         searchFragment = currentSearchType != null;
-
-        if (isGridViewPreferred(getCurrentFile())) {
-            switchToGridView();
-        }
     }
 
     /**
@@ -352,8 +348,11 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
             onMessageEvent(searchEvent);
         }
 
-        setTitle();
+        if (isGridViewPreferred(getCurrentFile())) {
+            switchToGridView();
+        }
 
+        setTitle();
     }
 
     private void prepareCurrentSearch(SearchEvent event) {
