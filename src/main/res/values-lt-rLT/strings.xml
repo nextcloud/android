@@ -47,6 +47,7 @@
     <string name="prefs_log_delete_history_button">Ištrinti istoriją</string>
     <string name="prefs_calendar_contacts">Sinchronizuoti kalendorių ir kontaktus</string>
     <string name="prefs_calendar_contacts_summary">Nustatykite \"DAVdroid\" versiją (v1.3.0 +) esamame profilyje</string>
+    <string name="prefs_calendar_contacts_no_store_error">Nėra įdiegta nei F-Droid, nei Google Play</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Kalendoriaus &amp; kontaktų sinchronizavimas nustatytas</string>
     <string name="prefs_daily_contacts_sync_summary">Kontaktų atsarginė kopija</string>
     <string name="prefs_help">Pagalba</string>
@@ -83,6 +84,7 @@
     <string name="file_list_empty">Įkelkite tam tikrą turinį (medžiagą) arba sinchronizuokite su savo įrenginiais.</string>
     <string name="file_list_empty_favorites_filter_list">Čia bus rodomi failai ir aplankai, kuriuos pažymėsite kaip mėgstamus</string>
     <string name="file_list_empty_favorites_filter">Pagal Jūsų pateiktą užklausą neradome šių failų.</string>
+    <string name="file_list_loading">Įkeliama &#8230;</string>
     <string name="file_list_no_app_for_file_type">Nėra šios programos failo tipui tvarkyti.</string>
     <string name="local_file_list_empty">Šiame aplanke nėra failų.</string>
     <string name="local_folder_list_empty">Nėra kitų aplankų</string>
@@ -96,7 +98,9 @@
     <string name="file_list_empty_search">Gal tai yra kitame aplanke?</string>
     <string name="file_list_empty_recently_added">Neseniai pridėtų failų nerasta</string>
     <string name="file_list_empty_text_photos">Įkelkite nuotraukas arba įjunkite automatinį įkėlimą.</string>
+    <string name="file_list_empty_text_photos_filter">Nuotraukų nėra.</string>
     <string name="file_list_empty_text_videos">Įkelkite vaizdo įrašus arba įjunkite automatinį įkėlimą</string>
+    <string name="file_list_empty_text_videos_filter">Vaizdo įrašų nėra.</string>
     <string name="upload_list_empty_headline">Atnaujinimų nerasta</string>
     <string name="upload_list_empty_text_auto_upload">Įkelkite failus arba sinchronizuokite su savo įrenginiais</string>
     <string name="file_list_folder">aplankas</string>
@@ -110,6 +114,7 @@
     <string name="common_cancel">Atsisakyti</string>
     <string name="common_back">Atgal</string>
     <string name="common_save">Įrašyti</string>
+    <string name="common_error">Klaida</string>
     <string name="common_loading">Įkeliama&#8230;</string>
     <string name="common_unknown">nežinomas</string>
     <string name="common_error_unknown">Nežinoma klaida</string>
@@ -128,6 +133,7 @@
     <string name="uploader_upload_succeeded_content_single">%1$s įkelta</string>
     <string name="uploader_upload_failed_ticker">Nusiuntimas nepavyko</string>
     <string name="uploader_upload_failed_content_single">Nepavyko įkelti %1$s</string>
+    <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">Nepatikimas serverio liudijimas</string>
     <string name="uploads_view_title">Įkėlimai</string>
     <string name="uploads_view_group_current_uploads">Dabartinis</string>
     <string name="uploads_view_group_finished_uploads">Įkelta</string>
@@ -157,7 +163,7 @@
     <string name="sync_conflicts_in_favourites_ticker">Rastas konfliktas</string>
     <string name="sync_fail_in_favourites_ticker">Sinchronizuojamų failų klaida</string>
     <string name="sync_foreign_files_forgotten_ticker">Keli vietiniai failai buvo užmiršti</string>
-    <string name="sync_current_folder_was_removed">Aplankas %1$s nebeegzistuoja</string>
+    <string name="sync_current_folder_was_removed">Aplanko %1$s nebėra</string>
     <string name="foreign_files_success">Visi failai buvo perkelti</string>
     <string name="foreign_files_fail">Kai kurių failų nepavyko perkelti</string>
     <string name="upload_query_move_foreign_files">Nepakankamas vietos kiekis neleidžia kopijuoti pasirinktų failų į %1$s aplanką. Ar norėtumėte vietoje to juos perkelti?</string>
@@ -170,6 +176,7 @@
     <string name="pass_code_wrong">Neteisingas užraktas</string>
     <string name="pass_code_stored">Užraktas išsaugotas</string>
     
+    <string name="media_state_loading">%1$s (įkeliama)</string>
     <string name="media_err_nothing_to_play">Nerasta medija failų</string>
     <string name="media_err_no_account">Nenurodyta paskyra</string>
     <string name="media_err_not_in_owncloud">Failas nėra galiojančioje paskyroje (profilyje)</string>
@@ -231,6 +238,8 @@
     <string name="sync_file_nothing_to_do_msg">Failo turinys jau sunchronizuotas</string>
     <string name="create_dir_fail_msg">Nepavyko sukurti failo</string>
     <string name="filename_forbidden_characters">Neleistini simboliai: / \\ &lt; &gt; : \" | ? *</string>
+    <string name="filename_empty">Failo pavadinimas negali būti tuščias</string>
+    <string name="wait_a_moment">Truputį palaukite &#8230;</string>
     <string name="wait_checking_credentials">Dekriptuojami prisijungimo duomenys</string>
     <string name="filedisplay_no_file_selected">Neįkeltas joks failas</string>
     <string name="activity_chooser_title">Siųsti nuorodą asmeniui &#8230;</string>
