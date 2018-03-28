@@ -520,6 +520,7 @@ Lépj kapcsolatba a rendszergazdával</string>
     <string name="manage_space_clear_data">Adatok törlése</string>
 
     <string name="permission_storage_access">További jogokra van szükség a fel és letöltéshez</string>
+    <string name="local_file_not_found_message">Fájl nem található a helyi fájlrendszeren</string>
     <string name="confirmation_remove_files_alert">Valóban törölni akarod a kijelölt elemeket?</string>
     <string name="confirmation_remove_folders_alert">Valóban törölni akarod a kijelölt elemeket és tartalmukat?</string>
     <string name="maintenance_mode">Szerver karbantartási üzemmódban</string>
@@ -768,6 +769,7 @@ A Nextcloud itt érhető el: https://nextcloud.com</string>
     <string name="end_to_end_encryption_title">Titkosítás beállítása</string>
     <string name="end_to_end_encryption_passphrase_title">Jegyezd fel a 12 szavas titkosítási kulcsot</string>
     <string name="end_to_end_encryption_not_supported">A titkosítás csak KitKat(4.4)-en és felette megy.</string>
+    <string name="end_to_end_encryption_not_enabled">Végponti titkosítás letiltva a szerveren.</string>
     <string name="end_to_end_encryption_confirm_button">Titkosítás beállítása</string>
     <string name="end_to_end_encryption_password">Jelszó&#8230;</string>
     <string name="end_to_end_encryption_unsuccessful">Kulcsok nem menthetők, kérjük próbáld meg ismét.</string>
@@ -775,4 +777,8 @@ A Nextcloud itt érhető el: https://nextcloud.com</string>
     <string name="end_to_end_encryption_storing_keys">Kulcsok eltárolása</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Másolás/mozgatás titkosított mappába jelenleg nem támogatott.</string>
     <string name="untrusted_domain">Nem megbízható domainen keresztüli elérés. Kérlek nézd meg a dokumentációt a részletekért.</string>
-    </resources>
+    <string name="upload_list_loading">Feltöltések betöltése...</string>
+    <string name="notification_channel_push_name">Azonnali értesítések</string>
+    <string name="notification_channel_push_description">Szerver által küldött azonnali értesítések mutatása. Például: Amikor kommentekben megemlítettek, egy új megosztás érkezett, vagy admininsztrátori bejelentés lett küldve.</string>
+    <string name="sendbutton_description">Küldés gomb ikon</string>
+</resources>
