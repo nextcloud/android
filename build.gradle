@@ -263,5 +263,11 @@ tasks.withType(Test) {
     }
 }
 
+android.applicationVariants.all { variant ->
+    variant.outputs.all { output ->
+        outputFileName = "${output.baseName}-${variant.versionCode}.apk"
+    }
+}
+
 // uncomment for gplay (must be at the bottom)
 //apply plugin: 'com.google.gms.google-services'
