@@ -121,7 +121,7 @@ public class MediaFoldersDetectionJob extends Job {
                                 account) == null) {
                             String videoMediaFolder = videoMediaFolderPaths.get(i);
                             sendNotification(String.format(context.getString(R.string.new_media_folder_detected),
-                                    context.getString(R.string.new_media_folder_photos)),
+                                    context.getString(R.string.new_media_folder_videos)),
                                     videoMediaFolder.substring(videoMediaFolder.lastIndexOf("/") + 1,
                                             videoMediaFolder.length()),
                                     account, videoMediaFolder, 2);

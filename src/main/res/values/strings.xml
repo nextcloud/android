@@ -652,7 +652,6 @@
     <string name="contacts_preferences_backup_scheduled">Backup scheduled and will start shortly</string>
     <string name="contacts_preferences_import_scheduled">Import scheduled and will start shortly</string>
 
-    <!-- Notifications -->
     <string name="drawer_logout">Log out</string>
     <string name="picture_set_as_no_app">No app found to set a picture with</string>
     <string name="privacy">Privacy</string>
