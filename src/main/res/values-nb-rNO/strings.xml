@@ -732,6 +732,7 @@ Sjekk ut Nextcloud på https://nextcloud.com</string>
     <string name="notification_channel_media_description">Musikkspillerframdrift</string>
     <string name="notification_channel_file_sync_name">Filsynkronisering</string>
     <string name="notification_channel_file_sync_description">Viser filsynkroniseringsframdrift og resultater</string>
+    <string name="notification_channel_file_observer_name">Filobservatør</string>
     <string name="notification_channel_file_observer_description">Sjekker filer for endringer</string>
   
     <string name="account_not_found">Konto ble ikke funnet!</string>
@@ -755,6 +756,7 @@ Sjekk ut Nextcloud på https://nextcloud.com</string>
     <string name="end_to_end_encryption_generating_keys">Genererer nye nøkler&#8230;</string>
     <string name="end_to_end_encryption_title">Sett opp kryptering</string>
     <string name="end_to_end_encryption_not_supported">Kryptering støttes ikke før Android KitKat (4.4).</string>
+    <string name="end_to_end_encryption_not_enabled">Ende-til-ende -kryptering avskrudd på tjeneren.</string>
     <string name="end_to_end_encryption_confirm_button">Sett opp kryptering</string>
     <string name="end_to_end_encryption_password">Passord&#8230;</string>
     <string name="end_to_end_encryption_unsuccessful">Kunne ikke lagre nøkler, prøv igjen.</string>
@@ -762,4 +764,7 @@ Sjekk ut Nextcloud på https://nextcloud.com</string>
     <string name="end_to_end_encryption_storing_keys">Lagrer nøkler</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Kopiering/flytting til kryptert mappe støttes ikke enda.</string>
     <string name="untrusted_domain">Tilgang gjennom ubetrodd domene. Sjekk dokumentasjonen for mer informasjon.</string>
+    <string name="upload_list_loading">Laster opplastinger…</string>
+    <string name="notification_channel_push_name">Push-merknader</string>
+    <string name="notification_channel_push_description">Vis push-merknader sendt av tjeneren, f.eks. når du, blir nevnt i kommentarer, mottar en ny fjerndeling, eller en kunngjøring blir postet av en administrator.</string>
     </resources>
