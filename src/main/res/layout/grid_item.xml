@@ -51,16 +51,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="top|end"
-            android:layout_marginTop="24dp"
-            android:layout_marginRight="4dp"
-            android:layout_marginEnd="4dp"
+            android:layout_marginTop="@dimen/grid_item_shared_icon_layout_top_margin"
+            android:layout_marginRight="@dimen/standard_quarter_margin"
+            android:layout_marginEnd="@dimen/standard_quarter_margin"
             android:src="@drawable/shared_via_link"
             android:contentDescription="@string/shared_via_link_icon"/>
 
         <ImageView
             android:id="@+id/localFileIndicator"
-            android:layout_width="16dp"
-            android:layout_height="16dp"
+            android:layout_width="@dimen/grid_item_local_file_indicator_layout_width"
+            android:layout_height="@dimen/grid_item_local_file_indicator_layout_height"
             android:layout_gravity="bottom|end"
             android:layout_marginBottom="@dimen/standard_quarter_margin"
             android:layout_marginRight="@dimen/standard_quarter_margin"
@@ -71,12 +71,12 @@
 
         <ImageView
             android:id="@+id/keptOfflineIcon"
-            android:layout_width="16dp"
-            android:layout_height="16dp"
+            android:layout_width="@dimen/grid_item_kept_offline_icon_layout_width"
+            android:layout_height="@dimen/grid_item_kept_offline_icon_layout_height"
             android:layout_gravity="bottom|end"
             android:layout_marginBottom="@dimen/standard_quarter_margin"
-            android:layout_marginRight="24dp"
-            android:layout_marginEnd="24dp"
+            android:layout_marginRight="@dimen/grid_item_kept_offline_icon_layout_right_end_margin"
+            android:layout_marginEnd="@dimen/grid_item_kept_offline_icon_layout_right_end_margin"
             android:src="@drawable/ic_available_offline"
             android:contentDescription="@string/available_offline_icon"/>
 

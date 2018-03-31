@@ -23,8 +23,8 @@
 
         <ImageView
             android:id="@+id/userIcon"
-            android:layout_width="32sp"
-            android:layout_height="32sp"
+            android:layout_width="@dimen/file_details_user_icon_layout_width"
+            android:layout_height="@dimen/file_details_user_icon_layout_height"
             android:src="@drawable/ic_user"
             android:layout_gravity="center_vertical"
             android:contentDescription="@string/user_icon"/>
@@ -32,10 +32,10 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="16sp"
+            android:textSize="@dimen/file_details_username_text_size"
             android:text="@string/username"
             android:id="@+id/userOrGroupName"
-            android:layout_margin="12dp"
+            android:layout_margin="@dimen/file_details_username_layout_text_margin"
             android:singleLine="true"
             android:ellipsize="middle"
             android:textColor="@color/black"/>
