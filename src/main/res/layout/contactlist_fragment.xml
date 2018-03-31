@@ -45,7 +45,7 @@
 
             <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
+                android:layout_height="@dimen/uploader_list_separator_height"
                 android:src="@drawable/uploader_list_separator"
                 android:contentDescription="@null"/>
 
