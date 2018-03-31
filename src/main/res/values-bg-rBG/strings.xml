@@ -654,4 +654,5 @@
     <string name="prefs_sourcecode">Получаване на изходния код</string>
     <string name="prefs_license">Лиценз</string>
     <string name="prefs_gpl_v2">GNU Генерален Публичен Лиценз, версия 2</string>
+    <string name="push_notifications_not_implemented">Нотификациите са изключени заради зависимости на частни Google Play услуги.</string>
     </resources>

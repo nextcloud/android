@@ -518,6 +518,7 @@
     <string name="manage_space_clear_data">Limpiar datos</string>
 
     <string name="permission_storage_access">Se necesitan permisos adicionales para subir y descargar archivos.</string>
+    <string name="local_file_not_found_message">El archivo no se encuentra en el sistema de archivos local</string>
     <string name="confirmation_remove_files_alert">¿Estás seguro de que quieres eliminar los elementos seleccionados?</string>
     <string name="confirmation_remove_folders_alert">¿Estás seguro de que quieres eliminar los elementos seleccionados y sus contenidos?</string>
     <string name="maintenance_mode">Servidor en modo mantenimiento</string>
@@ -747,6 +748,7 @@
     <string name="end_to_end_encryption_title">Configurar cifrado</string>
     <string name="end_to_end_encryption_passphrase_title">Toma nota de tu contraseña de cifrado de 12 palabras</string>
     <string name="end_to_end_encryption_not_supported">El cifrado solo funciona en KitKat (4.4) y posteriores.</string>
+    <string name="end_to_end_encryption_not_enabled">Cifrado punto a punto deshabilitado en el servidor</string>
     <string name="end_to_end_encryption_confirm_button">Configurar cifrado</string>
     <string name="end_to_end_encryption_password">Contraseña&#8230;</string>
     <string name="end_to_end_encryption_unsuccessful">No se han podido almacenar las claves. Por favor, vuelve a intentarlo.</string>
@@ -754,6 +756,7 @@
     <string name="end_to_end_encryption_storing_keys">Almacenando claves</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Copiar/mover en la carpeta cifrada no está actualmente soportado.</string>
     <string name="untrusted_domain">Acceder a través de un domino no confiado. Por favor, mira la documentación para más información.</string>
+    <string name="upload_list_loading">Cargando subidas...</string>
     <string name="notification_channel_push_name">Notificaciones de tipo push</string>
     <string name="notification_channel_push_description">Mostrar notificaciones de tipo push enviadas por el servidor, por ejemplo, cuando te mencionen en comentarios, compartan contigo una carpeta remota o cuando el administrador publique un anuncio.</string>
     <string name="sendbutton_description">Icono del botón de enviar</string>
