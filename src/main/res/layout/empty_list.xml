@@ -30,16 +30,16 @@
 
     <ImageView
         android:id="@+id/empty_list_icon"
-        android:layout_width="72dp"
-        android:layout_height="72dp"
+        android:layout_width="@dimen/empty_list_icon_layout_width"
+        android:layout_height="@dimen/empty_list_icon_layout_height"
         android:contentDescription="@string/file_list_folder"
         android:src="@drawable/ic_list_empty_folder"
         android:visibility="gone"/>
 
     <ProgressBar
         android:id="@+id/empty_list_progress"
-        android:layout_width="72dp"
-        android:layout_height="72dp"
+        android:layout_width="@dimen/empty_list_progress_layout_width"
+        android:layout_height="@dimen/empty_list_progress_layout_height"
         android:layout_gravity="center_horizontal"/>
 
     <TextView
