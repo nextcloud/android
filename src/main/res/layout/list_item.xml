@@ -32,12 +32,12 @@
         android:baselineAligned="false">
 
         <RelativeLayout
-            android:layout_width="72dp"
+            android:layout_width="@dimen/standard_list_item_size"
             android:layout_height="@dimen/standard_list_item_size"
             android:paddingBottom="@dimen/standard_padding"
             android:paddingTop="@dimen/standard_padding"
-            android:paddingEnd="4dp"
-            android:paddingRight="4dp"
+            android:paddingEnd="@dimen/standard_quarter_padding"
+            android:paddingRight="@dimen/standard_quarter_padding"
             android:paddingStart="@dimen/zero"
             android:paddingLeft="@dimen/zero">
 
@@ -46,47 +46,47 @@
                 android:layout_width="@dimen/file_icon_size"
                 android:layout_height="@dimen/file_icon_size"
                 android:layout_centerInParent="true"
-                android:layout_marginLeft="8dp"
-                android:layout_marginStart="8dp"
+                android:layout_marginLeft="@dimen/standard_half_margin"
+                android:layout_marginStart="@dimen/standard_half_margin"
                 android:src="@drawable/folder"
                 android:contentDescription="@string/thumbnail"/>
 
             <ImageView
                 android:id="@+id/favorite_action"
-                android:layout_width="16dp"
-                android:layout_height="16dp"
+                android:layout_width="@dimen/list_item_favorite_action_layout_width"
+                android:layout_height="@dimen/list_item_favorite_action_layout_height"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentEnd="true"
-                android:layout_marginRight="4dp"
-                android:layout_marginEnd="4dp"
+                android:layout_marginRight="@dimen/standard_quarter_margin"
+                android:layout_marginEnd="@dimen/standard_quarter_margin"
                 android:contentDescription="@string/favorite"
                 android:src="@drawable/ic_favorite" />
 
             <ImageView
                 android:id="@+id/keptOfflineIcon"
-                android:layout_height="12dp"
-                android:layout_width="12dp"
+                android:layout_height="@dimen/list_item_kept_offline_icon_layout_height"
+                android:layout_width="@dimen/list_item_kept_offline_icon_layout_width"
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentEnd="true"
-                android:layout_marginRight="20dp"
-                android:layout_marginEnd="20dp"
+                android:layout_marginRight="@dimen/list_item_kept_offline_icon_layout_right_end_margin"
+                android:layout_marginEnd="@dimen/list_item_kept_offline_icon_layout_right_end_margin"
                 android:src="@drawable/ic_available_offline"
                 android:contentDescription="@string/available_offline_icon"/>
 
             <ImageView
                 android:id="@+id/localFileIndicator"
-                android:layout_width="12dp"
-                android:layout_height="12dp"
+                android:layout_width="@dimen/list_item_local_file_indicator_layout_width"
+                android:layout_height="@dimen/list_item_local_file_indicator_layout_height"
                 android:src="@drawable/ic_synced"
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentEnd="true"
                 android:scaleType="fitCenter"
                 android:contentDescription="@string/downloader_download_succeeded_ticker"
-                android:layout_marginRight="4dp"
-                android:layout_marginEnd="4dp"/>
+                android:layout_marginRight="@dimen/standard_quarter_margin"
+                android:layout_marginEnd="@dimen/standard_quarter_margin"/>
 
         </RelativeLayout>
 

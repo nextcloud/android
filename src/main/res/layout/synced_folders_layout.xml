@@ -41,7 +41,7 @@
             <android.support.design.widget.CollapsingToolbarLayout
                 android:id="@+id/collapsing_toolbar"
                 android:layout_width="match_parent"
-                android:layout_height="110dp"
+                android:layout_height="@dimen/collapsing_toolbar_layout_height"
                 app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
                 app:titleEnabled="false">
 
@@ -103,8 +103,8 @@
 
                 <ProgressBar
                     android:id="@+id/syncedFoldersProgressBar"
-                    android:layout_width="72dp"
-                    android:layout_height="72dp"
+                    android:layout_width="@dimen/synced_folders_progress_bar_layout_width"
+                    android:layout_height="@dimen/synced_folders_progress_bar_layout_height"
                     android:layout_gravity="center_horizontal"/>
 
                 <TextView
@@ -131,9 +131,9 @@
                 android:id="@android:id/list"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginBottom="-3dp"
-                android:layout_marginLeft="-3dp"
-                android:layout_marginRight="-3dp"
+                android:layout_marginBottom="@dimen/synced_folders_recycler_view_layout_margin"
+                android:layout_marginLeft="@dimen/synced_folders_recycler_view_layout_margin"
+                android:layout_marginRight="@dimen/synced_folders_recycler_view_layout_margin"
                 android:clipToPadding="false"
                 android:scrollbarStyle="outsideOverlay"
                 android:scrollbars="vertical"
