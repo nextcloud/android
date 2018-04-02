@@ -449,6 +449,8 @@
     <string name="synced_folders_type">Typ</string>
     <string name="send">Odoslať</string>
     <string name="share">Zdieľať</string>
+    <string name="link">Odkaz</string>
+
     <string name="screenshot_01_gridView">Bezpečný domov pre všetky vaše dáta</string>
     <string name="end_to_end_encryption_folder_not_empty">Tento priečinok nie je prázdny.</string>
     <string name="end_to_end_encryption_dialog_close">Zatvoriť</string>
