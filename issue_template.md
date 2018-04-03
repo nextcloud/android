@@ -1,8 +1,8 @@
 ### Actual behaviour
--Tell us what happens
+- Tell us what happens
 
 ### Expected behaviour
--Tell us what should happen
+- Tell us what should happen
  
 ### Steps to reproduce
 1. 
