@@ -32,13 +32,13 @@
             android:id="@+id/send_share_buttons"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="24dp"
-            android:layout_marginLeft="24dp"
-            android:layout_marginRight="24dp"
-            android:layout_marginStart="24dp"
+            android:layout_marginEnd="@dimen/send_share_fragment_layout_margin"
+            android:layout_marginLeft="@dimen/send_share_fragment_layout_margin"
+            android:layout_marginRight="@dimen/send_share_fragment_layout_margin"
+            android:layout_marginStart="@dimen/send_share_fragment_layout_margin"
             android:orientation="horizontal"
             android:baselineAligned="false"
-            android:padding="24dp">
+            android:padding="@dimen/send_share_fragment_layout_padding">
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -53,12 +53,12 @@
                 android:layout_gravity="center_horizontal"
                 android:contentDescription="@string/share"
                 android:src="@drawable/shared_via_users"
-                android:paddingTop="12dp"
-                android:paddingRight="12dp"
-                android:paddingEnd="12dp"
-                android:paddingBottom="12dp"
-                android:paddingLeft="8dp"
-                android:paddingStart="8dp"
+                android:paddingTop="@dimen/share_people_icon_layout_padding"
+                android:paddingRight="@dimen/share_people_icon_layout_padding"
+                android:paddingEnd="@dimen/share_people_icon_layout_padding"
+                android:paddingBottom="@dimen/share_people_icon_layout_padding"
+                android:paddingLeft="@dimen/standard_half_padding"
+                android:paddingStart="@dimen/standard_half_padding"
                 android:background="@drawable/round_bgnd"/>
 
             <TextView

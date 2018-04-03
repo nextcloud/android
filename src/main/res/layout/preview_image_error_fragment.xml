@@ -31,8 +31,8 @@
 
     <ImageView
         android:id="@+id/preview_error_image"
-        android:layout_width="72dp"
-        android:layout_height="72dp"
+        android:layout_width="@dimen/preview_error_image_layout_width"
+        android:layout_height="@dimen/preview_error_image_layout_height"
         android:layout_gravity="center"
         android:contentDescription="@string/file_icon"
         android:src="@drawable/file_image" />
@@ -43,5 +43,5 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:text="@string/preview_sorry"
-        android:textSize="26sp" />
+        android:textSize="@dimen/preview_error_text_size" />
 </LinearLayout>
