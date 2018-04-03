@@ -56,7 +56,7 @@
             android:layout_height="wrap_content"
             android:text="@string/synced_folders_plus"
             android:textColor="#ffffff"
-            android:textSize="22sp"
+            android:textSize="@dimen/grid_sync_item_layout_next_text_size"
             android:textStyle="bold"/>
 
         <TextView
@@ -66,7 +66,7 @@
             android:src="@android:drawable/checkbox_off_background"
             android:text="@string/placeholder_fileSize"
             android:textColor="#ffffff"
-            android:textSize="22sp"
+            android:textSize="@dimen/grid_sync_item_layout_counter_text_size"
             android:textStyle="bold"/>
     </LinearLayout>
 </FrameLayout>

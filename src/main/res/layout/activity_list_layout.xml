@@ -52,9 +52,9 @@
                     android:id="@android:id/list"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginBottom="-3dp"
-                    android:layout_marginLeft="-3dp"
-                    android:layout_marginRight="-3dp"
+                    android:layout_marginBottom="@dimen/activity_list_layout_recycler_view_margin"
+                    android:layout_marginLeft="@dimen/activity_list_layout_recycler_view_margin"
+                    android:layout_marginRight="@dimen/activity_list_layout_recycler_view_margin"
                     android:clipToPadding="false"
                     android:scrollbarStyle="outsideOverlay"
                     android:scrollbars="vertical"
@@ -90,7 +90,7 @@
 
     <include
         layout="@layout/drawer"
-        android:layout_width="240dp"
+        android:layout_width="@dimen/drawer_width"
         android:layout_height="match_parent"
         android:layout_gravity="start"/>
 

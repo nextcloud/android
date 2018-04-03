@@ -138,7 +138,7 @@
                     android:id="@+id/fdProgressText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="@dimen/standard_half_margin"
                     android:text="@string/downloader_download_in_progress_ticker"/>
 
                 <LinearLayout
@@ -207,8 +207,8 @@
                 <ImageView
                     android:contentDescription="@string/shared_icon"
                     android:id="@+id/fdShareLinkIcon"
-                    android:layout_width="14sp"
-                    android:layout_height="14sp"
+                    android:layout_width="@dimen/shared_list_icon_width"
+                    android:layout_height="@dimen/shared_list_icon_height"
                     android:layout_gravity="center_vertical"
                     android:layout_marginEnd="@dimen/standard_half_margin"
                     android:layout_marginRight="@dimen/standard_half_margin"
@@ -246,7 +246,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/share_no_users"
-                android:textSize="14sp"/>
+                android:textSize="@dimen/share_no_users_text_size"/>
 
         </LinearLayout>
 

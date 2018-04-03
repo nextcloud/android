@@ -24,9 +24,9 @@
 
     <ImageView
         android:id="@+id/contactlist_item_icon"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_margin="16dp"
+        android:layout_width="@dimen/contactlist_item_icon_layout_width"
+        android:layout_height="@dimen/contactlist_item_icon_layout_height"
+        android:layout_margin="@dimen/standard_margin"
         android:scaleType="centerCrop"
         android:src="@drawable/ic_user"
         android:contentDescription="@string/contactlist_item_icon"/>
