@@ -288,7 +288,8 @@ public class FileDisplayActivity extends HookActivity
      */
     private void upgradeNotificationForInstantUpload() {
         // check for Android 6+ if legacy instant upload is activated --> disable + show info
-        if (PreferenceManager.instantPictureUploadEnabled(this)) {
+        if (PreferenceManager.instantPictureUploadEnabled(this) ||
+                PreferenceManager.instantVideoUploadEnabled(this)) {
 
             // remove legacy shared preferences
             SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(this).edit();
