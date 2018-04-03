@@ -718,7 +718,7 @@
     <string name="store_full_dev_desc">The copylefted libre Nextcloud Android app, gives you mobile freedom.\nThis is the official development version, featuring a daily sample of any new untested functionality, which may cause instability and data loss. The app is for users willing to test, and report bugs should they occur. Do not use it for your productive work!\n\nBoth the official dev and regular version are available on F-droid, and can be installed at the same time.</string>
 
     <string name="prefs_category_dev">Dev</string>
-    <string name="dev_version_no_information_available">No information available.</string>
+    <string name="dev_version_no_information_available">No info available.</string>
     <string name="dev_version_no_new_version_available">No new version available.</string>
     <string name="folder_icon">Folder icon</string>
     <string name="dev_version_new_version_available">New version available</string>
@@ -763,7 +763,7 @@
     <string name="end_to_end_encryption_title">Set up encryption</string>
     <string name="end_to_end_encryption_passphrase_title">Make note of your 12 word encryption password</string>
     <string name="end_to_end_encryption_not_supported">Encryption only works on KitKat(4.4) and beyond.</string>
-    <string name="end_to_end_encryption_not_enabled">End to end encryption disabled on server.</string>
+    <string name="end_to_end_encryption_not_enabled">End-to-end encryption disabled on server.</string>
     <string name="end_to_end_encryption_confirm_button">Set up encryption</string>
     <string name="end_to_end_encryption_password">Password&#8230;</string>
     <string name="end_to_end_encryption_unsuccessful">Could not save keys, please try again.</string>
@@ -773,6 +773,6 @@
     <string name="untrusted_domain">Access through untrusted domain. Please see documentation for further info.</string>
     <string name="upload_list_loading">Loading uploads…</string>
     <string name="notification_channel_push_name">Push notifications</string>
-    <string name="notification_channel_push_description">Show push notifications sent by server, e.g. when mentioned in comments, you receive a new remote share or an announcement was posted by an admin.</string>
+    <string name="notification_channel_push_description">Show push notifications sent by the server: Mentions in comments, reception of new remote shares, announcements posted by an admin etc.</string>
     <string name="sendbutton_description">Send button icon</string>
 </resources>
