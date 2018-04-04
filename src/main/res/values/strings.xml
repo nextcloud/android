@@ -133,7 +133,6 @@
     <string name="common_pending">Pending</string>
     <string name="common_delete">Delete</string>
     <string name="about_title">About</string>
-    <string name="change_password">Change password</string>
     <string name="delete_account">Remove account</string>
     <string name="delete_account_warning">Remove account %s and delete all local files?\n\nDeletion cannot be undone.</string>
     <string name="avatar">Avatar</string>
