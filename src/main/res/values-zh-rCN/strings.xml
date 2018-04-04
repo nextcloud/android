@@ -689,7 +689,6 @@
 
     <string name="store_short_dev_desc">Nextcloud Dev 应用是一个开发快照, 并且可以并行安装。</string>
     <string name="prefs_category_dev">开发</string>
-    <string name="dev_version_no_information_available">没有可用的信息</string>
     <string name="dev_version_no_new_version_available">没有可用的新版本</string>
     <string name="folder_icon">目录图标</string>
     <string name="dev_version_new_version_available">新版本可用</string>

@@ -596,7 +596,6 @@
 
     <string name="store_short_dev_desc">La app de Nextcloud Dev es una foto de desarrollo y puede instalarse en paralelo</string>
     <string name="prefs_category_dev">Desarrollo</string>
-    <string name="dev_version_no_information_available">No hay información disponible.</string>
     <string name="dev_version_no_new_version_available">No hay una nueva versión disponible.</string>
     <string name="folder_icon">Ícono de carpeta</string>
     </resources>

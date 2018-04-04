@@ -702,7 +702,6 @@
     <string name="store_full_dev_desc">La aplicación de Nextcloud de copyleft libre para Android te da libertad móvil.\nEsta es la versión oficial de desarrollo que incluye una muestra diaria de funcionalidades nuevas aún no probadas que pueden generar inestabilidad y pérdidad de datos. Esta aplicación está diseñada para usuarios que están dispuestos a realizar pruebas y reportar fallas en caso de que ocurran. ¡No uses esta versión para tu trabajo productivo!\n\nTanto la versión oficial de desarrollo como la versión normal están disponibles en F-Droid y pueden ser instaladas simultáneamente. </string>
 
     <string name="prefs_category_dev">Desarrollo</string>
-    <string name="dev_version_no_information_available">No hay información disponible.</string>
     <string name="dev_version_no_new_version_available">No hay una nueva versión disponible.</string>
     <string name="folder_icon">Ícono de carpeta</string>
     <string name="dev_version_new_version_available">Nueva versión disponible</string>
@@ -755,6 +754,5 @@
     <string name="copy_move_to_encrypted_folder_not_supported">Copiar/ mover a la carpeta encriptada no se encuentra soportado por el momento.</string>
     <string name="untrusted_domain">Accede a través de un dominio no de confianza. Por favor consulta la documentación para más información.</string>
     <string name="notification_channel_push_name">Notificaciones push</string>
-    <string name="notification_channel_push_description">Mostar las notificaciones push enviadas por el servidor, p. ej. al ser mencionado en los comentarios, cuando recibas un nuevo elemento compartido o un anuncio publicado por un administrador.  </string>
     <string name="sendbutton_description">Ícono de botón de envío</string>
 </resources>

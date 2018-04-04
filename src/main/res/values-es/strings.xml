@@ -703,7 +703,6 @@
     <string name="store_full_dev_desc">La app de Android de Nextcloud es copyleft y software libre y te da libertad móvil.\nEsta es la versión oficial de desarrollo, que presenta una muestra diaria de cualquier nueva funcionalidad aún no probada, lo que puede causar inestabilidad y pérdida de datos. Esta app es para usuarios que quieran probar e informar de fallos (en caso de producirse). ¡No la uses para tu día a día!\n\nTanto la versión de desarrollo oficial como la normal están disponibles en F-Droid y pueden instalarse juntas.</string>
 
     <string name="prefs_category_dev">Dev</string>
-    <string name="dev_version_no_information_available">No hay información disponible</string>
     <string name="dev_version_no_new_version_available">No hay disponible ninguna versión nueva</string>
     <string name="folder_icon">Icono de carpeta</string>
     <string name="dev_version_new_version_available">Nueva versión disponible</string>
@@ -748,7 +747,6 @@
     <string name="end_to_end_encryption_title">Configurar cifrado</string>
     <string name="end_to_end_encryption_passphrase_title">Toma nota de tu contraseña de cifrado de 12 palabras</string>
     <string name="end_to_end_encryption_not_supported">El cifrado solo funciona en KitKat (4.4) y posteriores.</string>
-    <string name="end_to_end_encryption_not_enabled">Cifrado punto a punto deshabilitado en el servidor</string>
     <string name="end_to_end_encryption_confirm_button">Configurar cifrado</string>
     <string name="end_to_end_encryption_password">Contraseña&#8230;</string>
     <string name="end_to_end_encryption_unsuccessful">No se han podido almacenar las claves. Por favor, vuelve a intentarlo.</string>
@@ -758,6 +756,5 @@
     <string name="untrusted_domain">Acceder a través de un domino no confiado. Por favor, mira la documentación para más información.</string>
     <string name="upload_list_loading">Cargando subidas…</string>
     <string name="notification_channel_push_name">Notificaciones de tipo push</string>
-    <string name="notification_channel_push_description">Mostrar notificaciones de tipo push enviadas por el servidor, por ejemplo, cuando te mencionen en comentarios, compartan contigo una carpeta remota o cuando el administrador publique un anuncio.</string>
     <string name="sendbutton_description">Icono del botón de enviar</string>
 </resources>

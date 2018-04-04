@@ -703,7 +703,6 @@
     <string name="store_full_dev_desc">O aplicativo de código aberto Nextcloud, lhe dá liberdade móvel.\nEsta é a versão oficial de desenvolvimento, com uma amostra diária de qualquer nova funcionalidade não testada, o que pode causar instabilidade e perda de dados. O aplicativo é para usuários dispostos a testar e informar erros se eles ocorrerem. Não o use em ambiente de produção!\n\nAmbas as versões de desenvolvimento e regular estão disponíveis no F-droid e podem ser instalados ao mesmo tempo.</string>
 
     <string name="prefs_category_dev">Desenvolvimento</string>
-    <string name="dev_version_no_information_available">Nenhuma informação disponível.</string>
     <string name="dev_version_no_new_version_available">Nenhuma versão nova disponível.</string>
     <string name="folder_icon">Ícone de pasta</string>
     <string name="dev_version_new_version_available">Nova versão disponível</string>
@@ -748,7 +747,6 @@
     <string name="end_to_end_encryption_title">Definir criptografia</string>
     <string name="end_to_end_encryption_passphrase_title">Anote sua senha de criptografia de 12 palavras</string>
     <string name="end_to_end_encryption_not_supported">A criptografia só funciona no KitKat (4.4) e acima.</string>
-    <string name="end_to_end_encryption_not_enabled">Criptografia de ponta-a-ponta desativada no servidor.</string>
     <string name="end_to_end_encryption_confirm_button">Definir criptografia</string>
     <string name="end_to_end_encryption_password">Senha&#8230;</string>
     <string name="end_to_end_encryption_unsuccessful">Não foi possível salvar as chaves, tente novamente.</string>
@@ -758,6 +756,5 @@
     <string name="untrusted_domain">Acesso através de domínio não confiável. Veja a documentação para mais informações.</string>
     <string name="upload_list_loading">Carregando envios…</string>
     <string name="notification_channel_push_name">Notificações push</string>
-    <string name="notification_channel_push_description">Mostra as notificações push enviadas pelo servidor, p. ex. quando mencionado nos comentário, você recebe uma novo compartilhamento remoto ou um anúncio foi postado por um administrador.</string>
     <string name="sendbutton_description">Ícone do botão Enviar</string>
 </resources>

@@ -697,7 +697,6 @@
     <string name="store_full_dev_desc">ღია Nextcloud Android აპლიკაცია ხელმისაწვდომს ხდის ყველა თქვენს ფაილს Nextcloud-ში.\nეს ოფიციალური Nextcloud აპლიკაციის დეველოპმენტ ვერსიაა და მოიცავს უახლეს, შეუმოწმებელ ფუნქციებს, რამაც შეიძლება გამოიწვიოს არასტაბილურობა და მონაცემების დაკარგვა. აპლიკაცია დამზადებულია მომხმარებლებისთვის, რომლებსაც სურთ ახალი ფუნქციების შემოწმება და გამოჩენილ შეცდომებზე განაცხადის გაკეთება. არ გამოიყენოთ საწარმოო სამუშაოსთვის!\n\nოფიცლუალური დევ. და რეგულარული ვერსია ხელმისაწვდომია F-droid-ზე და შეიძყება დაყენდეს ნებისმიერ დროს.</string>
 
     <string name="prefs_category_dev">დევ.</string>
-    <string name="dev_version_no_information_available">ინფორმაცია ხელმიუწვდომელია</string>
     <string name="dev_version_no_new_version_available">ახალი ვერსია არაა ხელმისაწვდომი.</string>
     <string name="folder_icon">დირექტორიის პიქტოგრამა</string>
     <string name="dev_version_new_version_available">ხელმისაწვდომია ახალი ვერსია</string>

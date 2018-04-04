@@ -670,7 +670,6 @@ GNU yleinen lisenssi, versio 2</string>
 
     <string name="store_short_dev_desc">Nextcloud kehittäjä-äppi on katsaus kehityksestä ja voidaan asentaa rinnalle</string>
     <string name="prefs_category_dev">Kehittäjä</string>
-    <string name="dev_version_no_information_available">Ei tietoja saatavilla.</string>
     <string name="dev_version_no_new_version_available">Ei uutta versiota saatavilla.</string>
     <string name="folder_icon">Kansiokuvake</string>
     <string name="dev_version_new_version_available">Uusi versio saatavilla</string>
@@ -712,12 +711,10 @@ GNU yleinen lisenssi, versio 2</string>
     <string name="end_to_end_encryption_keywords_description">Kaikki 12 sanaa yhdessä on hyvin vahva salasana, jonka avulla pystyy katselemaan ja käyttämään salattuja tiedostoja. Ota ne talteen ja säilytä turvallisessa paikassa. Älä jätä pöydälle!</string>
     <string name="end_to_end_encryption_title">Aseta salaus</string>
     <string name="end_to_end_encryption_not_supported">Salaus toimii vain KitKatilla (4.4) ja uudemmilla Android-versioilla.</string>
-    <string name="end_to_end_encryption_not_enabled">Päästä päähän -salaus poistettu käytöstä palvelimella.</string>
     <string name="end_to_end_encryption_confirm_button">Aseta salaus</string>
     <string name="end_to_end_encryption_password">Salasana&#8230;</string>
     <string name="end_to_end_encryption_unsuccessful">Avaimia ei voitu tallentaa, yritä uudelleen.</string>
     <string name="end_to_end_encryption_dialog_close">Sulje</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Kopiointi/siirto salattuun kansioon ei ole mahdollista.</string>
     <string name="notification_channel_push_name">Push-ilmoitukset</string>
-    <string name="notification_channel_push_description">Näytä palvelimen lähettämät push-ilmoitukset. Esimerkiksi kun sinut mainitaan kommenteissa, sinulle jaetaan etänä tai kun ylläpito julkaisee tiedotteen.</string>
     </resources>
