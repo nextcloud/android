@@ -612,7 +612,6 @@
     <string name="what_s_new_image">Vad är nytt-bild</string>
 
     <string name="prefs_category_dev">Dev</string>
-    <string name="dev_version_no_information_available">Ingen tillgänglig information.</string>
     <string name="dev_version_no_new_version_available">Ingen ny version tillgänglig.</string>
     <string name="folder_icon">Mapp-ikon</string>
     <string name="send">Skicka</string>

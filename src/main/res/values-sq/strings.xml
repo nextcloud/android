@@ -701,7 +701,6 @@
     <string name="store_full_dev_desc">Aplikacioni copyleft Android Nextcloud, ju ofron liri të lëvizshme.\nKy është versioni zyrtar i zhvillimit, duke shfaqur një shembull të përditshëm të çdo funksionaliteti të ri të paprovuar, që mund të shkaktojë paqëndrueshmëri dhe humbje të të dhënave. Aplikacioni është për përdoruesit që dëshirojnë të testojnë dhe raportojnë gabime nëse ato ndodhin. Mos e përdorni atë për punën tuaj produktive!\n\nPërveç kësaj, versioni dev dhe versioni i rregullt janë në dispozicion në F-droid dhe mund të instalohen në të njëjtën kohë.</string>
 
     <string name="prefs_category_dev">Dev</string>
-    <string name="dev_version_no_information_available">Nuk ka informacion në gjëndje.</string>
     <string name="dev_version_no_new_version_available">Nuk ka asnjë version në gjëndje.</string>
     <string name="folder_icon">Ikona e dosjes</string>
     <string name="dev_version_new_version_available">Version i ri i disponueshëm</string>

@@ -708,7 +708,6 @@
     <string name="store_full_dev_desc">Некстклауд андроид апликација отвореног кода омогућава приступ свим фајловима на Вашем Некстклауд серверу, дајући Вам мобилну слободу.\nОво је званична развојна верзија, са дневном дозом нових нетестираних функционалности које могу да изазову нестабилности у раду апликације и губитак података. Ова апликација је за кориснике који желе да тестирају и пријаве грешке, ако се догоде. Не користити је за продукцију!\n\nИ развојна и званична верзија су доступне на Ф-дроид продавници и могу се инсталирати у паралели.</string>
 
     <string name="prefs_category_dev">Развојно</string>
-    <string name="dev_version_no_information_available">Информације недоступне.</string>
     <string name="dev_version_no_new_version_available">Нема нових верзија доступних.</string>
     <string name="folder_icon">Икона фасцикле</string>
     <string name="dev_version_new_version_available">Доступна нова верзија</string>
@@ -753,7 +752,6 @@
     <string name="end_to_end_encryption_title">Подесите шифровање</string>
     <string name="end_to_end_encryption_passphrase_title">Запишите Вашу 12-оделну лозинку</string>
     <string name="end_to_end_encryption_not_supported">Шифровање ради само на верзијама Андроида KitKat (4.4) и новијим.</string>
-    <string name="end_to_end_encryption_not_enabled">Шифровање с краја на крај је искључено на серверу.</string>
     <string name="end_to_end_encryption_confirm_button">Подесите шифровање</string>
     <string name="end_to_end_encryption_password">Лозинка&#8230;</string>
     <string name="end_to_end_encryption_unsuccessful">Не могу да сачувам кључеве, покушајте поново.</string>
@@ -763,6 +761,5 @@
     <string name="untrusted_domain">Приступ кроз домен који није од поверења. Погледајте документацију за још информација.</string>
     <string name="upload_list_loading">Учитавам отпремања…</string>
     <string name="notification_channel_push_name">Брза обавештења</string>
-    <string name="notification_channel_push_description">Приказуј брза обавештења која пошаље сервер, нпр. када сте поменути у коментарима, када добијете ново удаљено дељење или када администратор постави неко обавештење.</string>
     <string name="sendbutton_description">Икона дугма за слање</string>
 </resources>

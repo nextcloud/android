@@ -724,7 +724,6 @@ A Nextcloud itt érhető el: https://nextcloud.com</string>
     <string name="store_full_dev_desc">A nyílt forráskódú Nextcloud Android app lehetővé teszi a fáljaid elérését a Nextcloud-odban.\nEz a hivatalos Nextcloud app fejlesztői változata és új, esetleg instabil megoldásokat tartalmazhat, melyek hibákhoz, adatvesztéshez vezethetnek. Az appot olyanoknak szánjuk, akik hajlandóak tesztelni azt és jelenteni az esetleges hibákat. Ne használd éles környezetben.\n\nA fejlesztői verzió párhuzamosan telepíthető és az F-Droidból is elérhető.. Naponta egyszer kerül ellenőrzésre a forráskód változása, így lehetséges nagyobb kihagyás két kiadás között.</string>
 
     <string name="prefs_category_dev">Dev</string>
-    <string name="dev_version_no_information_available">Nincs információ.</string>
     <string name="dev_version_no_new_version_available">Nincs új verzió.</string>
     <string name="folder_icon">Mappaikon</string>
     <string name="dev_version_new_version_available">Elérhető új verzió</string>
@@ -769,7 +768,6 @@ A Nextcloud itt érhető el: https://nextcloud.com</string>
     <string name="end_to_end_encryption_title">Titkosítás beállítása</string>
     <string name="end_to_end_encryption_passphrase_title">Jegyezd fel a 12 szavas titkosítási kulcsot</string>
     <string name="end_to_end_encryption_not_supported">A titkosítás csak KitKat(4.4)-en és felette megy.</string>
-    <string name="end_to_end_encryption_not_enabled">Végponti titkosítás letiltva a szerveren.</string>
     <string name="end_to_end_encryption_confirm_button">Titkosítás beállítása</string>
     <string name="end_to_end_encryption_password">Jelszó&#8230;</string>
     <string name="end_to_end_encryption_unsuccessful">Kulcsok nem menthetők, kérjük próbáld meg ismét.</string>
@@ -779,6 +777,5 @@ A Nextcloud itt érhető el: https://nextcloud.com</string>
     <string name="untrusted_domain">Nem megbízható domainen keresztüli elérés. Kérlek nézd meg a dokumentációt a részletekért.</string>
     <string name="upload_list_loading">Feltöltések betöltése…</string>
     <string name="notification_channel_push_name">Azonnali értesítések</string>
-    <string name="notification_channel_push_description">Szerver által küldött azonnali értesítések mutatása. Például: Amikor kommentekben megemlítettek, egy új megosztás érkezett, vagy admininsztrátori bejelentés lett küldve.</string>
     <string name="sendbutton_description">Küldés gomb ikon</string>
 </resources>

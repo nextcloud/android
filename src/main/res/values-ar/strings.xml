@@ -451,7 +451,6 @@
     <string name="synced_folder_settings_button">زر الإعدادات</string>
     <string name="forward">إعادة توجيه </string>
     <string name="prefs_category_dev">التطوير</string>
-    <string name="dev_version_no_information_available">المعلومات غير متوفرة</string>
     <string name="dev_version_no_new_version_available">لا توجد هناك أية نسخة جديدة متوفرة.</string>
     <string name="folder_icon">أيقونة المجلد</string>
     <string name="dev_version_new_version_available">هناك نسخة جديدة متوفرة</string>

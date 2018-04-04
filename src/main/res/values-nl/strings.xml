@@ -702,7 +702,6 @@
     <string name="store_full_dev_desc">De Open Source Nextcloud Android app geeft je mobiele vrijheid.\nDit is de officiële ontwikkelversie die gloednieuwe, ongeteste mogelijkheden heeft, die tot instabiliteit en gegevensverlies zouden kunnen leiden. De app is voor gebruikers die de nieuwe functies willen testen en eventuele bugs willen melden. Gebruik de app niet voor productiewerkzaamheden!\n\nZowel de ontwikkelversie als de reguliere versie zijn beschikbaar is in F-Droid en ze kunnen naast elkaar gebruikt worden.</string>
 
     <string name="prefs_category_dev">Dev</string>
-    <string name="dev_version_no_information_available">Geen informatie beschikbaar.</string>
     <string name="dev_version_no_new_version_available">Geen nieuwe versie beschikbaar.</string>
     <string name="folder_icon">Map pictogram</string>
     <string name="dev_version_new_version_available">Nieuwe versie beschikbaar</string>
@@ -755,6 +754,5 @@
     <string name="copy_move_to_encrypted_folder_not_supported">Kopieren/verplaatsen naar een versleutelde map is momenteel niet mogelijk.</string>
     <string name="untrusted_domain">Toegang van een niet vertrouwd domein. Bekijk de documentatie voor meer informatie.</string>
     <string name="notification_channel_push_name">Push meldingen</string>
-    <string name="notification_channel_push_description">Toon push meldingen verstuurd door de server, bijv. als je wordt vermeld in reacties, of als je een deellink ontvangt of als een beheerder een aankondiging plaatst.</string>
     <string name="sendbutton_description">Verstuur-knop pictogram</string>
 </resources>

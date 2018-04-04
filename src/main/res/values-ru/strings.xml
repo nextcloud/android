@@ -713,7 +713,6 @@
     <string name="store_full_dev_desc">Приложение с открытым исходным кодом Nextcloud для Android позволяет получать доступ ко всем вашим файлам на сервере Nextcloud с мобильных устройств.\n Это разрабатываемая версия официального приложения Nextcloud, содержащая новые возможности, тестирование которых не ещё завершено. Разрабатываемая версия может быть нестабильна и её использование может привести к потере данных. Это приложение предназначено для пользователей, которые хотят познакомиться с новыми возможности и сообщать об обнаруженных ошибках. Не используйте его для работы!\n\nРазрабатываемая версия может быть установлена совместно с официальным приложением Nextcloud, которое также доступно в F-Droid.</string>
 
     <string name="prefs_category_dev">Разрабатываемая версия</string>
-    <string name="dev_version_no_information_available">Информация отсутствует.</string>
     <string name="dev_version_no_new_version_available">Новая версия отсутствует.</string>
     <string name="folder_icon">Значок папки</string>
     <string name="dev_version_new_version_available">Доступна новая версия</string>
@@ -758,7 +757,6 @@
     <string name="end_to_end_encryption_title">Параметры шифрования</string>
     <string name="end_to_end_encryption_passphrase_title">Запишите свою парольную фразу из двенадцати слов</string>
     <string name="end_to_end_encryption_not_supported">Шифрование не поддерживается для версий Android, более ранних чем KitKat (4.4).</string>
-    <string name="end_to_end_encryption_not_enabled">Сквозное шифрование не включено на сервере.</string>
     <string name="end_to_end_encryption_confirm_button">Параметры шифрования</string>
     <string name="end_to_end_encryption_password">Пароль&#8230;</string>
     <string name="end_to_end_encryption_unsuccessful">Не удалось сохранить ключи шифрования, попробуйте ещё раз.</string>
@@ -768,6 +766,5 @@
     <string name="untrusted_domain">Доступ через недоверенный домен. За дополнительной информацией обратитесь к документации.</string>
     <string name="upload_list_loading">Загрузка списка передаваемых файлов…</string>
     <string name="notification_channel_push_name">Push-уведомления</string>
-    <string name="notification_channel_push_description">Выводить push-уведомления сервера: уведомления о получении общего доступа, упоминании в комментариях или уведомления от администратора сервера.</string>
     <string name="sendbutton_description">Значок кнопки «отправить»</string>
 </resources>
