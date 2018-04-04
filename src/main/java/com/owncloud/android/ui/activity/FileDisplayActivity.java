@@ -1010,7 +1010,6 @@ public class FileDisplayActivity extends HookActivity
 
     @Override
     public void onBackPressed() {
-        boolean isFabOpen = isFabOpen();
         boolean isDrawerOpen = isDrawerOpen();
         boolean isSearchOpen = isSearchOpen();
 
@@ -1026,15 +1025,9 @@ public class FileDisplayActivity extends HookActivity
             searchView.setQuery("", true);
             searchView.onActionViewCollapsed();
             setDrawerIndicatorEnabled(isDrawerIndicatorAvailable());
-        } else if (isDrawerOpen && isFabOpen) {
+        } else if (isDrawerOpen) {
             // close drawer first
             super.onBackPressed();
-        } else if (isDrawerOpen && !isFabOpen) {
-            // close drawer
-            super.onBackPressed();
-        } else if (!isDrawerOpen && isFabOpen) {
-            // close fab
-            getListOfFilesFragment().getFabMain().collapse();
         } else {
             // all closed
 
@@ -1153,12 +1146,6 @@ public class FileDisplayActivity extends HookActivity
 
         super.onPause();
         Log_OC.v(TAG, "onPause() end");
-    }
-
-    public boolean isFabOpen() {
-        return (getListOfFilesFragment() != null
-                && getListOfFilesFragment().getFabMain() != null
-                && getListOfFilesFragment().getFabMain().isExpanded());
     }
 
     @Override

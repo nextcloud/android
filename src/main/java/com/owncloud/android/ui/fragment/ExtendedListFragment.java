@@ -23,6 +23,7 @@ package com.owncloud.android.ui.fragment;
 
 import android.animation.LayoutTransition;
 import android.app.Activity;
+import android.content.res.ColorStateList;
 import android.content.res.Configuration;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
@@ -31,6 +32,7 @@ import android.os.Looper;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.StringRes;
 import android.support.design.widget.BottomNavigationView;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -58,9 +60,6 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.getbase.floatingactionbutton.AddFloatingActionButton;
-import com.getbase.floatingactionbutton.FloatingActionButton;
-import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
@@ -109,10 +108,7 @@ public class ExtendedListFragment extends Fragment
     protected ImageView mEmptyListIcon;
     protected ProgressBar mEmptyListProgress;
 
-    private FloatingActionsMenu mFabMain;
-    private FloatingActionButton mFabUpload;
-    private FloatingActionButton mFabMkdir;
-    private FloatingActionButton mFabUploadFromApp;
+    private FloatingActionButton mFabMain;
 
     // Save the state of the scroll in browsing
     private ArrayList<Integer> mIndexes;
@@ -156,19 +152,7 @@ public class ExtendedListFragment extends Fragment
         return mRecyclerView;
     }
 
-    public FloatingActionButton getFabUpload() {
-        return mFabUpload;
-    }
-
-    public FloatingActionButton getFabUploadFromApp() {
-        return mFabUploadFromApp;
-    }
-
-    public FloatingActionButton getFabMkdir() {
-        return mFabMkdir;
-    }
-
-    public FloatingActionsMenu getFabMain() {
+    public FloatingActionButton getFabMain() {
         return mFabMain;
     }
 
@@ -215,9 +199,6 @@ public class ExtendedListFragment extends Fragment
         searchView.setOnQueryTextFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, final boolean hasFocus) {
-                if (hasFocus) {
-                    mFabMain.collapse();
-                }
 
                 handler.postDelayed(new Runnable() {
                     @Override
@@ -390,11 +371,7 @@ public class ExtendedListFragment extends Fragment
         onCreateSwipeToRefresh(mRefreshListLayout);
 
         mFabMain = v.findViewById(R.id.fab_main);
-        mFabUpload = v.findViewById(R.id.fab_upload);
-        mFabMkdir = v.findViewById(R.id.fab_mkdir);
-        mFabUploadFromApp = v.findViewById(R.id.fab_upload_from_app);
-
-        applyFABTheming();
+        ThemeUtils.tintFloatingActionButton(mFabMain, R.drawable.ic_plus);
 
         boolean searchSupported = AccountUtils.hasSearchSupport(AccountUtils.
                 getCurrentOwnCloudAccount(MainApp.getAppContext()));
@@ -617,21 +594,6 @@ public class ExtendedListFragment extends Fragment
                 }
             });
         }
-    }
-
-
-    /**
-     * Set tinting of FAB's from server data
-     */
-    private void applyFABTheming() {
-        AddFloatingActionButton addButton = getFabMain().getAddButton();
-        addButton.setColorNormal(ThemeUtils.primaryColor());
-        addButton.setColorPressed(ThemeUtils.primaryDarkColor());
-        addButton.setPlusColor(ThemeUtils.fontColor());
-
-        ThemeUtils.tintFloatingActionButton(getFabUpload(), R.drawable.ic_action_upload);
-        ThemeUtils.tintFloatingActionButton(getFabMkdir(), R.drawable.ic_action_create_dir);
-        ThemeUtils.tintFloatingActionButton(getFabUploadFromApp(), R.drawable.ic_import);
     }
 
     /**
