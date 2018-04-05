@@ -380,11 +380,6 @@ public class ThemeUtils {
 
     private static OCCapability getCapability(Account acc, Context context) {
         Account account;
-        Context context = MainApp.getAppContext();
-
-        if (context == null) {
-            return new OCCapability();
-        }
 
         if (acc != null) {
             account = acc;

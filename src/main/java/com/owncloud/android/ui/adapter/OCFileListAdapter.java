@@ -262,7 +262,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 gridViewHolder.itemLayout.setBackgroundColor(mContext.getResources()
                         .getColor(R.color.selected_item_background));
                 gridViewHolder.checkbox.setImageDrawable(ThemeUtils.tintDrawable(R.drawable.ic_checkbox_marked,
-                        ThemeUtils.primaryColor()));
+                        ThemeUtils.primaryColor(mContext)));
             } else {
                 gridViewHolder.itemLayout.setBackgroundColor(Color.WHITE);
                 gridViewHolder.checkbox.setImageResource(R.drawable.ic_checkbox_blank_outline);
@@ -354,7 +354,8 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private void setThumbnail(OCFile file, ImageView thumbnailView) {
         if (file.isFolder()) {
             thumbnailView.setImageDrawable(MimeTypeUtil.getFolderTypeIcon(file.isSharedWithMe() ||
-                    file.isSharedWithSharee(), file.isSharedViaLink(), file.isEncrypted(), file.getMountType()));
+                            file.isSharedWithSharee(), file.isSharedViaLink(), file.isEncrypted(), file.getMountType(),
+                    mContext));
         } else {
             if ((MimeTypeUtil.isImage(file) || MimeTypeUtil.isVideo(file)) && file.getRemoteId() != null) {
                 // Thumbnail in cache?
@@ -402,7 +403,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 }
             } else {
                 thumbnailView.setImageDrawable(MimeTypeUtil.getFileTypeIcon(file.getMimetype(), file.getFileName(),
-                        mAccount));
+                        mAccount, mContext));
             }
         }
     }
