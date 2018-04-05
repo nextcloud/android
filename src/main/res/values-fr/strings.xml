@@ -706,6 +706,7 @@ Veuillez contacter votre administrateur</string>
     <string name="store_full_dev_desc">L\'application, libre de copie, Nextcloud pour Android, vous donne accès à tous les fichiers dans votre Nextcloud.\nC\'est la version officielle de développement, comportant un échantillon quotidien de toutes les nouvelles fonctionnalités non testées, qui peut causer l\'instabilité et la perte de données. L\'application est destinée aux utilisateurs qui souhaitent tester et signaler les bogues s\'ils surviennent. Ne l\'utilisez pas pour votre travail productif ! \n\nLa version officielle de développement et la version régulière sont disponibles sur F-droid, et peuvent être installées en même temps. </string>
 
     <string name="prefs_category_dev">Dév</string>
+    <string name="dev_version_no_information_available">Aucune information disponible.</string>
     <string name="dev_version_no_new_version_available">Aucune nouvelle version disponible.</string>
     <string name="folder_icon">Icône de dossier</string>
     <string name="dev_version_new_version_available">Nouvelle version disponible</string>
@@ -750,6 +751,7 @@ Veuillez contacter votre administrateur</string>
     <string name="end_to_end_encryption_title">Configurer le chiffrement</string>
     <string name="end_to_end_encryption_passphrase_title">Veuillez noter votre phrase secrète de chiffrement de 12 mots</string>
     <string name="end_to_end_encryption_not_supported">Le chiffrement ne marche uniquement sur les versions KitKat (4.4) et plus</string>
+    <string name="end_to_end_encryption_not_enabled">Chiffrement de bout en bout désactivé sur le serveur.</string>
     <string name="end_to_end_encryption_confirm_button">Configurer le chiffrement</string>
     <string name="end_to_end_encryption_password">Mot de passe&#8230;</string>
     <string name="end_to_end_encryption_unsuccessful">Impossible d\'enregistrer les clés, veuillez réessayer.</string>
