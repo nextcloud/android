@@ -34,7 +34,6 @@
         android:layout_marginStart="@dimen/alternate_margin"
         android:layout_marginTop="@dimen/alternate_half_margin"
         android:layout_weight="6"
-        android:textStyle="bold"
         android:gravity="center"
         android:text="@string/placeholder_sentence"
         android:textAppearance="?android:attr/textAppearanceLarge"
