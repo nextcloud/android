@@ -703,6 +703,7 @@
     <string name="store_full_dev_desc">L\'applicazione libera senza copyright per Android di Nextcloud, ti offre libertà in movimento.\nQuesta è la versione di sviluppo ufficiale e include funzionalità nuove, non testate che potrebbero provocare instabilità e perdite di dati. Questa applicazione è pensata per gli utenti che desiderano provare le nuove funzionalità e segnalare bug, se si verificano. Non utilizzarla in ambienti di produzione!\n\nSia la versione di sviluppo che quella normale sono disponibili su F-droid, e possono essere installate contemporaneamente.</string>
 
     <string name="prefs_category_dev">Sviluppo</string>
+    <string name="dev_version_no_information_available">Nessuna informazione disponibile.</string>
     <string name="dev_version_no_new_version_available">Nessuna nuova versione disponibile.</string>
     <string name="folder_icon">Icona delle cartelle</string>
     <string name="dev_version_new_version_available">Nuova versione disponibilie</string>
@@ -747,6 +748,7 @@
     <string name="end_to_end_encryption_title">Configura la cifratura</string>
     <string name="end_to_end_encryption_passphrase_title">Annota la tua password di cifratura di 12 parole</string>
     <string name="end_to_end_encryption_not_supported">La cifratura funziona solo con KitKat (4.4) e successivi.</string>
+    <string name="end_to_end_encryption_not_enabled">Cifratura end-to-end disabilitata sul server.</string>
     <string name="end_to_end_encryption_confirm_button">Configura la cifratura</string>
     <string name="end_to_end_encryption_password">Password&#8230;</string>
     <string name="end_to_end_encryption_unsuccessful">Impossibile salvare le chiavi, prova ancora.</string>
@@ -756,5 +758,6 @@
     <string name="untrusted_domain">Accesso tramite un dominio non fidato. Vedi la documentazione per ulteriori informazioni.</string>
     <string name="upload_list_loading">Caricamenti in corso…</string>
     <string name="notification_channel_push_name">Notifiche push</string>
+    <string name="notification_channel_push_description">Mostra le notifiche push inviate dal server: menzioni nei commenti, ricezione di nuove condivisioni remote, annunci pubblicati da un amministratore ecc.</string>
     <string name="sendbutton_description">Icona pulsante di invio</string>
 </resources>

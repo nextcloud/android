@@ -703,6 +703,7 @@
     <string name="store_full_dev_desc">Die Open Source Nextcloud Android App ermöglicht es Ihnen auf all Ihre Dateien in Ihrer Nextcloud zuzugreifen.\nDies ist die offizielle Entwicklungsversion und beinhaltet brandaktuelle, ungetestete Funktionalität, welche zu Instabilität oder Datenverlust führen kann. Die App richtet sich an Nutzende, die bereit sind neue Funktionalität auszutesten und Fehler zurückzumelden, sollten sie auftreten. Verwenden Sie diese Version nicht für den produktiven Einsatz!\n\nDie Entwicklungsversion kann neben der offiziellen Nextcloud App installiert werden, welche auch bei F-Droid verfügbar ist.</string>
 
     <string name="prefs_category_dev">Dev</string>
+    <string name="dev_version_no_information_available">Keine Information verfügbar.</string>
     <string name="dev_version_no_new_version_available">Keine neue Version verfügbar.</string>
     <string name="folder_icon">Ordnersymbol</string>
     <string name="dev_version_new_version_available">Neue Version verfügbar</string>
@@ -747,6 +748,7 @@
     <string name="end_to_end_encryption_title">Verschlüsselung einrichten</string>
     <string name="end_to_end_encryption_passphrase_title">Notieren Sie Ihre Verschlüsselungs-Passphrase</string>
     <string name="end_to_end_encryption_not_supported">Verschlüsselung wird vor KitKat (4.4) nicht unterstützt</string>
+    <string name="end_to_end_encryption_not_enabled">Ende-zu-Ende Verschlüsselung ist auf diesem Server deaktiviert.</string>
     <string name="end_to_end_encryption_confirm_button">Verschlüsselung einrichten</string>
     <string name="end_to_end_encryption_password">Passwort&#8230;</string>
     <string name="end_to_end_encryption_unsuccessful">Die Schlüssel konnten nicht gespeichert werden. Bitte erneut versuchen.</string>
@@ -756,5 +758,6 @@
     <string name="untrusted_domain">Zugriff über nicht vertrauenswürdige Domain. Weitere Informationen finden sich in der Dokumentation.</string>
     <string name="upload_list_loading">Hochgeladenes wird geladen....</string>
     <string name="notification_channel_push_name">Push-Benachrichtigungen</string>
+    <string name="notification_channel_push_description">Vom Server gesendete Push-Benachrichtigungen anzeigen: Erwähnungen in Kommentaren, Zugriff auf weitere Freigaben erhalten, Ankündigungen von Administratoren erhalten, etc.</string>
     <string name="sendbutton_description">Icon für den Senden-Button</string>
 </resources>

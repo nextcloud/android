@@ -703,6 +703,7 @@
     <string name="store_full_dev_desc">Açık Kaynaklı Nextcloud Android uygulaması size mobil özgürlük sağlar.\nBu sürüm resmi Nextcloud uygulamasının geliştirici sürümü olduğundan, kararsız çalışabilir ve veri kaybına yol açabilecek yeterince sınanmamış yeni özellikler bulundurur. Bu sürüm yeni özellikleri sınamak ve hataları bildirmek isteyen kullanıcılar için tasarlanmıştır. Bu sürümü günlük işleriniz için kullanmayın!\n\nNormal ve Geliştirici sürümleri F-Droid üzerinde bulunur ve aynı anda kurulup kullanılabilir.</string>
 
     <string name="prefs_category_dev">Geliştirici</string>
+    <string name="dev_version_no_information_available">Herhangi bir bilgi yok.</string>
     <string name="dev_version_no_new_version_available">Yeni bir sürüm yok.</string>
     <string name="folder_icon">Klasör Simgesi</string>
     <string name="dev_version_new_version_available">Yeni bir sürüm yayınlanmış</string>
@@ -747,6 +748,7 @@
     <string name="end_to_end_encryption_title">Şifreleme kurulumu</string>
     <string name="end_to_end_encryption_passphrase_title">12 sözcüklü şifreleme parolanızı not edin</string>
     <string name="end_to_end_encryption_not_supported">Şifreleme yalnız KitKat(4.4) ve üzerindeki sürümlerde kullanılabilir</string>
+    <string name="end_to_end_encryption_not_enabled">Sunucu üzerinde uçtan uca şifreleme devre dışı bırakıldı.</string>
     <string name="end_to_end_encryption_confirm_button">Şifreleme kurulumu</string>
     <string name="end_to_end_encryption_password">Parola&#8230;</string>
     <string name="end_to_end_encryption_unsuccessful">Anahtarlar kaydedilemedi, lütfen yeniden deneyin.</string>
