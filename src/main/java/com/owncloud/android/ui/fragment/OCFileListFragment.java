@@ -58,6 +58,7 @@ import android.widget.AbsListView;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
@@ -385,6 +386,9 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
                     .getDrawable(),ThemeUtils.primaryColor());
             ThemeUtils.tintDrawable(((ImageView) fileListActionsBottomSheet.findViewById(R.id.menu_icon_mkdir))
                     .getDrawable(),ThemeUtils.primaryColor());
+
+            ((TextView) fileListActionsBottomSheet.findViewById(R.id.add_to_cloud)).setText
+                    (getResources().getString(R.string.add_to_cloud, ThemeUtils.getDefaultDisplayNameForRootFolder()));
 
             fileListActionsBottomSheet.findViewById(R.id.menu_upload_files)
                     .setOnClickListener(view -> uploadFiles(dialog));
