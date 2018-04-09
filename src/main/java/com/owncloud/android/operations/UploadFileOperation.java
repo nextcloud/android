@@ -396,7 +396,7 @@ public class UploadFileOperation extends SyncOperation {
 
         // try to unlock folder with stored token, e.g. when upload needs to be resumed or app crashed
         // the parent folder should exist as it is a resume of a broken upload
-        if (!mFolderUnlockToken.isEmpty()) {
+        if (mFolderUnlockToken != null && !mFolderUnlockToken.isEmpty()) {
             UnlockFileOperation unlockFileOperation = new UnlockFileOperation(parent.getLocalId(), mFolderUnlockToken);
             RemoteOperationResult unlockFileOperationResult = unlockFileOperation.execute(client, true);
 
