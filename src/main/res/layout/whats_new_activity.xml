@@ -30,8 +30,6 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginBottom="@dimen/standard_double_margin"
-        android:layout_marginLeft="@dimen/alternate_margin"
-        android:layout_marginStart="@dimen/alternate_margin"
         android:layout_marginTop="@dimen/standard_double_margin"
         android:layout_weight="10"
         android:gravity="center"
