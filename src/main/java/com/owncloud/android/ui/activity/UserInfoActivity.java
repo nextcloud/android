@@ -63,7 +63,6 @@ import com.bumptech.glide.request.target.SimpleTarget;
 import com.google.gson.Gson;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
-import com.owncloud.android.authentication.AuthenticatorActivity;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.PushConfigurationState;
 import com.owncloud.android.lib.common.UserInfo;
@@ -175,9 +174,6 @@ public class UserInfoActivity extends FileActivity {
         switch (item.getItemId()) {
             case android.R.id.home:
                 onBackPressed();
-                break;
-            case R.id.change_password:
-                changeAccountPassword(account);
                 break;
             case R.id.delete_account:
                 openAccountRemovalConfirmationDialog(account, getFragmentManager(), false);
@@ -312,15 +308,6 @@ public class UserInfoActivity extends FileActivity {
             info.add(new UserInfoDetailsItem(icon, text, getResources().getString(contentDescriptionInt)));
     }
 
-    private void changeAccountPassword(Account account) {
-        // let the user update credentials with one click
-        Intent updateAccountCredentials = new Intent(this, AuthenticatorActivity.class);
-        updateAccountCredentials.putExtra(AuthenticatorActivity.EXTRA_ACCOUNT, account);
-        updateAccountCredentials.putExtra(AuthenticatorActivity.EXTRA_ACTION,
-                AuthenticatorActivity.ACTION_UPDATE_TOKEN);
-        startActivity(updateAccountCredentials);
-    }
-
     public static void openAccountRemovalConfirmationDialog(Account account, FragmentManager fragmentManager,
                                                             boolean removeDirectly) {
         UserInfoActivity.AccountRemovalConfirmationDialog dialog =
@@ -417,7 +404,6 @@ public class UserInfoActivity extends FileActivity {
                                     Intent start = new Intent(getActivity(), FileDisplayActivity.class);
                                     start.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                     startActivity(start);
-
                                 }
 
                             })
