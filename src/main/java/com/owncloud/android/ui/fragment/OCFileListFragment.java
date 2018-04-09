@@ -125,7 +125,8 @@ import java.util.Set;
  * A Fragment that lists all files and folders in a given path.
  * TODO refactor to get rid of direct dependency on FileDisplayActivity
  */
-public class OCFileListFragment extends ExtendedListFragment implements OCFileListFragmentInterface {
+public class OCFileListFragment extends ExtendedListFragment implements
+        OCFileListFragmentInterface, OCFileListBottomSheetActions {
 
     private static final String TAG = OCFileListFragment.class.getSimpleName();
 
@@ -375,43 +376,18 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
      */
     private void registerFabListener() {
         getFabMain().setOnClickListener(v -> {
-            final View fileListActionsBottomSheet = getLayoutInflater()
-                    .inflate(R.layout.file_list_actions_bottom_sheet_fragment, null);
-            final BottomSheetDialog dialog = new BottomSheetDialog(getContext());
-            dialog.setContentView(fileListActionsBottomSheet);
-
-            ThemeUtils.tintDrawable(((ImageView) fileListActionsBottomSheet.findViewById(R.id.menu_icon_upload_files))
-                    .getDrawable(),ThemeUtils.primaryColor());
-            ThemeUtils.tintDrawable(((ImageView) fileListActionsBottomSheet.findViewById(R.id.menu_icon_upload_from_app))
-                    .getDrawable(),ThemeUtils.primaryColor());
-            ThemeUtils.tintDrawable(((ImageView) fileListActionsBottomSheet.findViewById(R.id.menu_icon_mkdir))
-                    .getDrawable(),ThemeUtils.primaryColor());
-
-            ((TextView) fileListActionsBottomSheet.findViewById(R.id.add_to_cloud)).setText
-                    (getResources().getString(R.string.add_to_cloud, ThemeUtils.getDefaultDisplayNameForRootFolder()));
-
-            fileListActionsBottomSheet.findViewById(R.id.menu_upload_files)
-                    .setOnClickListener(view -> uploadFiles(dialog));
-            fileListActionsBottomSheet.findViewById(R.id.menu_upload_from_app)
-                    .setOnClickListener(view -> uploadFromApp(dialog));
-            fileListActionsBottomSheet.findViewById(R.id.menu_mkdir)
-                    .setOnClickListener(view -> createFolder(dialog));
-
-            dialog.setOnShowListener(d ->
-                    BottomSheetBehavior.from((View) fileListActionsBottomSheet.getParent())
-                            .setPeekHeight(fileListActionsBottomSheet.getMeasuredHeight())
-            );
-            dialog.show();
+            new OCFileListBottomSheetDialog(getContext(), this).show();
         });
     }
 
-    private void createFolder(BottomSheetDialog dialog) {
+    @Override
+    public void createFolder() {
         CreateFolderDialogFragment.newInstance(mFile)
                 .show(getActivity().getSupportFragmentManager(), DIALOG_CREATE_FOLDER);
-        dialog.dismiss();
     }
 
-    private void uploadFromApp(BottomSheetDialog dialog) {
+    @Override
+    public void uploadFromApp() {
         Intent action = new Intent(Intent.ACTION_GET_CONTENT);
         action = action.setType("*/*").addCategory(Intent.CATEGORY_OPENABLE);
         //Intent.EXTRA_ALLOW_MULTIPLE is only supported on api level 18+, Jelly Bean
@@ -422,16 +398,15 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
                 Intent.createChooser(action, getString(R.string.upload_chooser_title)),
                 FileDisplayActivity.REQUEST_CODE__SELECT_CONTENT_FROM_APPS
         );
-        dialog.dismiss();
     }
 
-    private void uploadFiles(BottomSheetDialog dialog) {
+    @Override
+    public void uploadFiles() {
         UploadFilesActivity.startUploadActivityForResult(
                 getActivity(),
                 ((FileActivity) getActivity()).getAccount(),
                 FileDisplayActivity.REQUEST_CODE__SELECT_FILES_FROM_FILE_SYSTEM
         );
-        dialog.dismiss();
     }
 
     @Override
