@@ -1010,7 +1010,7 @@ public class FileContentProvider extends ContentProvider {
 
     private boolean isCallerNotAllowed() {
         String callingPackage = mContext.getPackageManager().getNameForUid(Binder.getCallingUid());
-        return callingPackage == null || !callingPackage.contains(mContext.getPackageName());
+        return callingPackage == null || !callingPackage.equals(mContext.getPackageName());
     }
 
     class DataBaseHelper extends SQLiteOpenHelper {
