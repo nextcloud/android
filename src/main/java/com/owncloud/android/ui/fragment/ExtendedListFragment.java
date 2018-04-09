@@ -23,7 +23,6 @@ package com.owncloud.android.ui.fragment;
 
 import android.animation.LayoutTransition;
 import android.app.Activity;
-import android.content.res.ColorStateList;
 import android.content.res.Configuration;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
