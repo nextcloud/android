@@ -518,6 +518,7 @@
     <string name="manage_space_clear_data">Borrar datos</string>
 
     <string name="permission_storage_access">Se requieren permisos adicionales para cargar y descargar archivos. </string>
+    <string name="local_file_not_found_message">No se encontró el archivo en el sistema de archivos local</string>
     <string name="confirmation_remove_files_alert">¿Realmente deseas borrar los elementos seleccionados?</string>
     <string name="confirmation_remove_folders_alert">¿Reamente deseas eliminar los elementos seleccionados y sus contenidos?</string>
     <string name="maintenance_mode">El servidor está en modo mantenimiento</string>
@@ -702,6 +703,7 @@
     <string name="store_full_dev_desc">La aplicación de Nextcloud de copyleft libre para Android te da libertad móvil.\nEsta es la versión oficial de desarrollo que incluye una muestra diaria de funcionalidades nuevas aún no probadas que pueden generar inestabilidad y pérdidad de datos. Esta aplicación está diseñada para usuarios que están dispuestos a realizar pruebas y reportar fallas en caso de que ocurran. ¡No uses esta versión para tu trabajo productivo!\n\nTanto la versión oficial de desarrollo como la versión normal están disponibles en F-Droid y pueden ser instaladas simultáneamente. </string>
 
     <string name="prefs_category_dev">Desarrollo</string>
+    <string name="dev_version_no_information_available">No hay información disponible.</string>
     <string name="dev_version_no_new_version_available">No hay una nueva versión disponible.</string>
     <string name="folder_icon">Ícono de carpeta</string>
     <string name="dev_version_new_version_available">Nueva versión disponible</string>
@@ -746,6 +748,7 @@
     <string name="end_to_end_encryption_title">Configurar encripción</string>
     <string name="end_to_end_encryption_passphrase_title">Anota tu contraseña de encripción de 12 palabras</string>
     <string name="end_to_end_encryption_not_supported">La encripción solo funciona en KitKat (4.4) o superior.</string>
+    <string name="end_to_end_encryption_not_enabled">La encripción de punta-a-punta está dehabilitada en el servidor. </string>
     <string name="end_to_end_encryption_confirm_button">Configurar la encripción</string>
     <string name="end_to_end_encryption_password">Contraseña &#8230;</string>
     <string name="end_to_end_encryption_unsuccessful">No se pudieron guardar las llaves, por favor vuelve a intentarlo.</string>
