@@ -133,7 +133,6 @@
     <string name="common_pending">Väntar</string>
     <string name="common_delete">Ta bort</string>
     <string name="about_title">Om</string>
-    <string name="change_password">Ändra lösenord</string>
     <string name="delete_account">Radera konto</string>
     <string name="delete_account_warning">Ta bort konto %s med alla lokala filer?\n\nBorttagning kan inte ångras.</string>
     <string name="avatar">Avatar</string>

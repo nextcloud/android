@@ -133,7 +133,6 @@
     <string name="common_pending">Pendiente</string>
     <string name="common_delete">Borrar</string>
     <string name="about_title">Acerca de</string>
-    <string name="change_password">Cambiar contraseña</string>
     <string name="delete_account">Cerrar sesión</string>
     <string name="delete_account_warning">¿Borrar la cuenta %s y borrar todos los archivos localeS?\n\nEl borrado no se puede deshacer</string>
     <string name="avatar">Avatar</string>

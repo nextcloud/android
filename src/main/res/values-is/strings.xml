@@ -133,7 +133,6 @@
     <string name="common_pending">Í bið</string>
     <string name="common_delete">Eyða</string>
     <string name="about_title">Um hugbúnaðinn</string>
-    <string name="change_password">Breyta lykilorði</string>
     <string name="delete_account">Fjarlægja notandaaðgang</string>
     <string name="delete_account_warning">Fjarlægja notandaaðgang %s og eyða öllum staðværum skrám?\n\nEkki er hægt að afturkalla aðgerðina.</string>
     <string name="avatar">Persónutákn</string>

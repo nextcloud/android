@@ -133,7 +133,6 @@
     <string name="common_pending">Në pritje</string>
     <string name="common_delete">Fshije</string>
     <string name="about_title">Rreth</string>
-    <string name="change_password">Ndryshoni fjalëkalimin</string>
     <string name="delete_account">Hiqe llogarinë</string>
     <string name="delete_account_warning">Fshij llogarinë %s me të gjithë skedarët lokalë?\n\nFshirja nuk mund të zhbëhet.</string>
     <string name="avatar">Avatari</string>

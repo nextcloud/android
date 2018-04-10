@@ -133,7 +133,6 @@
     <string name="common_pending">Folyamatban</string>
     <string name="common_delete">Törlés</string>
     <string name="about_title">Névjegy</string>
-    <string name="change_password">A jelszó megváltoztatása</string>
     <string name="delete_account">Fiók eltávolítása</string>
     <string name="delete_account_warning">A(z) %s fiók törlése az összes helyi fájlal egyeütt?\n\nA törlés nem visszavonható.</string>
     <string name="avatar">Avatar</string>
@@ -775,7 +774,6 @@ A Nextcloud itt érhető el: https://nextcloud.com</string>
     <string name="end_to_end_encryption_storing_keys">Kulcsok eltárolása</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Másolás/mozgatás titkosított mappába jelenleg nem támogatott.</string>
     <string name="untrusted_domain">Nem megbízható domainen keresztüli elérés. Kérlek nézd meg a dokumentációt a részletekért.</string>
-    <string name="upload_list_loading">Feltöltések betöltése…</string>
     <string name="notification_channel_push_name">Azonnali értesítések</string>
     <string name="sendbutton_description">Küldés gomb ikon</string>
 </resources>

@@ -125,7 +125,6 @@
     <string name="common_pending">Čekající</string>
     <string name="common_delete">Smazat</string>
     <string name="about_title">O aplikaci</string>
-    <string name="change_password">Změnit heslo</string>
     <string name="delete_account">Odebrat účet</string>
     <string name="delete_account_warning">Odebrat účet %s a smazat všechny místní soubory?\n\nTuto akci nelze vzít zpět.</string>
     <string name="avatar">Avatar</string>

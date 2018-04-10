@@ -132,7 +132,6 @@
     <string name="common_pending">대기 중</string>
     <string name="common_delete">삭제</string>
     <string name="about_title">정보</string>
-    <string name="change_password">암호 변경</string>
     <string name="delete_account">계정 삭제</string>
     <string name="delete_account_warning">%s 계정 및 모든 로컬 파일을 삭제하시겠습니까\n\n삭제 작업은 취소할 수 없습니다.</string>
     <string name="avatar">아바타</string>
