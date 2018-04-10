@@ -34,7 +34,7 @@ import android.net.wifi.WifiManager;
 import android.net.wifi.WifiManager.WifiLock;
 import android.os.IBinder;
 import android.os.PowerManager;
-import android.support.v7.app.NotificationCompat;
+import android.support.v4.app.NotificationCompat;
 import android.widget.Toast;
 
 import com.owncloud.android.R;

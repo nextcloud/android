@@ -126,7 +126,7 @@
 	</style>
 
 	<!-- separat translucent action bar style -->
-	<style name="Theme.ownCloud.Overlay" parent="style/Theme.ownCloud">
+	<style name="Theme.ownCloud.Overlay" parent="@style/Theme.ownCloud">
 		<item name="android:actionBarStyle">@style/Theme.ownCloud.Overlay.ActionBar</item>
 		<item name="android:windowActionBarOverlay">true</item>
 		<item name="android:windowFullscreen">true</item>
@@ -145,19 +145,19 @@
 	</style>
 
 	<!-- Progress bar -->
-	<style name="Widget.ownCloud.TopProgressBar" parent="style/Widget.AppCompat.ProgressBar.Horizontal">
+	<style name="Widget.ownCloud.TopProgressBar" parent="@style/Widget.AppCompat.ProgressBar.Horizontal">
 		<item name="android:progressDrawable">@drawable/actionbar_progress_horizontal</item>
 		<item name="android:indeterminateDrawable">@drawable/actionbar_progress_indeterminate_horizontal</item>
 	</style>
 
-	<style name="Theme.ownCloud.Fullscreen" parent="style/Theme.AppCompat">
+	<style name="Theme.ownCloud.Fullscreen" parent="@style/Theme.AppCompat">
         <item name="android:windowFullscreen">true</item>
 		<item name="colorAccent">@color/color_accent</item>
     </style>
 	
 	
 	<style name="Theme.ownCloud.Widget.ActionBar"
-		parent="style/Widget.AppCompat.Light.ActionBar.Solid.Inverse">
+		parent="@style/Widget.AppCompat.Light.ActionBar.Solid.Inverse">
 		<item name="android:background">@color/primary</item>
 		<item name="background">@color/primary</item>
     	<item name="android:textColor">#ffffff</item>
@@ -168,19 +168,19 @@
 	</style>
 
 	<!-- Dialogs -->
-	<style name="Theme.ownCloud.Dialog" parent="style/Theme.AppCompat.Light.Dialog.Alert">
+	<style name="Theme.ownCloud.Dialog" parent="@style/Theme.AppCompat.Light.Dialog.Alert">
 		<item name="windowNoTitle">false</item>
 		<item name="colorAccent">@color/color_accent</item>
 		<item name="buttonBarButtonStyle">@style/Theme.ownCloud.Dialog.ButtonBar.Button</item>
 		<item name="buttonBarStyle">@style/Theme.ownCloud.Dialog.ButtonBar</item>
 	</style>
 
-	<style name="Theme.ownCloud.Dialog.NoTitle" parent="style/Theme.ownCloud.Dialog">
+	<style name="Theme.ownCloud.Dialog.NoTitle" parent="@style/Theme.ownCloud.Dialog">
 		<item name="windowNoTitle">true</item>
 		<item name="colorAccent">@color/color_accent</item>
 	</style>
 
-	<style name="Theme.ownCloud.Dialog.NoButtonBarStyle" parent="style/Theme.AppCompat.Light.Dialog.Alert">
+	<style name="Theme.ownCloud.Dialog.NoButtonBarStyle" parent="@style/Theme.AppCompat.Light.Dialog.Alert">
 		<item name="windowNoTitle">false</item>
 		<item name="colorAccent">@color/color_accent</item>
 	</style>
@@ -200,7 +200,7 @@
 	fix see:
 		http://stackoverflow.com/questions/27187353/dialog-buttons-with-long-text-not-wrapping-squeezed-out-material-theme-on-an
 	 -->
-	<style name="Theme.ownCloud.Dialog.ButtonBar" parent="style/Widget.AppCompat.Button.ButtonBar.AlertDialog">
+	<style name="Theme.ownCloud.Dialog.ButtonBar" parent="@style/Widget.AppCompat.Button.ButtonBar.AlertDialog">
 		<!-- Making sure, the button bar uses parent width and is not restricted in height -->
 		<item name="android:layout_width">match_parent</item>
 		<item name="android:layout_height">wrap_content</item>
@@ -208,7 +208,7 @@
 		<item name="android:minHeight">@null</item>
 	</style>
 
-	<style name="Theme.ownCloud.Dialog.ButtonBar.Button" parent="style/Widget.AppCompat.Button.Borderless.Colored">
+	<style name="Theme.ownCloud.Dialog.ButtonBar.Button" parent="@style/Widget.AppCompat.Button.Borderless.Colored">
 		<!-- Setting the weight as follows should result in equally wide buttons filling the alert dialog width,
             but instead they span further out of the dialog, breaking in multiple lines though -->
 		<item name="android:layout_width">0dp</item>
@@ -237,10 +237,10 @@
     </style>
 
 	<!-- Text styles -->
-	<style name="NextcloudTextAppearanceHeadline" parent="style/TextAppearance.AppCompat.Headline">
+	<style name="NextcloudTextAppearanceHeadline" parent="@style/TextAppearance.AppCompat.Headline">
 		<item name="android:textSize">26sp</item>
 		<item name="android:textColor">#000000</item>
 	</style>
-	<style name="NextcloudTextAppearanceMedium" parent="style/TextAppearance.AppCompat.Medium">
+	<style name="NextcloudTextAppearanceMedium" parent="@style/TextAppearance.AppCompat.Medium">
 	</style>
 </resources>

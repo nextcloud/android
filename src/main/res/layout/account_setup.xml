@@ -173,6 +173,7 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:enabled="false"
+                android:hint="@string/oauth_2_0_auth_end_point_address_hint"
                 android:inputType="textUri"
                 android:maxLines="1"
                 android:text="@string/oauth2_url_endpoint_auth"
@@ -193,12 +194,13 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:enabled="false"
+                android:hint="@string/oauth_2_0_access_end_point_address_hint"
                 android:inputType="textUri"
                 android:maxLines="1"
                 android:text="@string/oauth2_url_endpoint_access"
                 android:textColor="@color/login_text_color"
                 android:textColorHint="@color/login_text_hint_color"
-                android:visibility="gone"/>
+                android:visibility="gone" />
 
         </android.support.design.widget.TextInputLayout>
 

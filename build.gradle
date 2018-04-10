@@ -14,7 +14,7 @@ buildscript {
         google()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.0.1'
+        classpath 'com.android.tools.build:gradle:3.1.1'
         classpath 'com.google.gms:google-services:3.0.0'
     }
 }
@@ -30,8 +30,8 @@ configurations.all {
 }
 
 ext {
-    supportLibraryVersion = '26.1.0'
-    googleLibraryVersion = '11.2.2'
+    supportLibraryVersion = '27.1.1'
+    googleLibraryVersion = '12.0.1'
     androidLibraryVersion = '1.0.40'
 
     travisBuild = System.getenv("TRAVIS") == "true"
@@ -69,12 +69,12 @@ android {
         javaMaxHeapSize "4g"
     }
 
-    compileSdkVersion 26
-    buildToolsVersion '26.0.2'
+    compileSdkVersion 27
+    buildToolsVersion '27.0.3'
 
     defaultConfig {
         minSdkVersion 14
-        targetSdkVersion 26 
+        targetSdkVersion 27
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
@@ -194,7 +194,7 @@ android {
 
 dependencies {
     // dependencies for app building
-    implementation 'com.android.support:multidex:1.0.2'
+    implementation 'com.android.support:multidex:1.0.3'
 //    implementation project('nextcloud-android-library')
     genericImplementation "com.github.nextcloud:android-library:${androidLibraryVersion}"
     gplayImplementation "com.github.nextcloud:android-library:${androidLibraryVersion}"
@@ -226,7 +226,9 @@ dependencies {
     // implementation "com.google.firebase:firebase-core:${googleLibraryVersion}"
     implementation 'org.parceler:parceler-api:1.1.9'
     annotationProcessor 'org.parceler:parceler:1.1.9'
-    implementation 'com.github.bumptech.glide:glide:3.7.0'
+    implementation ('com.github.bumptech.glide:glide:3.7.0') {
+        exclude group: "com.android.support"
+    }
     implementation 'com.caverock:androidsvg:1.2.1'
     implementation "com.android.support:support-annotations:${supportLibraryVersion}"
     implementation 'com.google.code.gson:gson:2.8.2'
@@ -249,7 +251,7 @@ dependencies {
     //androidTestImplementation "com.android.support:support-annotations:${supportLibraryVersion}"
     implementation 'org.jetbrains:annotations:15.0'
 
-    androidTestCompile 'tools.fastlane:screengrab:1.0.0'
+    androidTestImplementation 'tools.fastlane:screengrab:1.0.0'
 }
 
 configurations.all {
