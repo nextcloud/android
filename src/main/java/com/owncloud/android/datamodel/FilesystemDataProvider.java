@@ -213,9 +213,7 @@ public class FilesystemDataProvider {
 
     private long getFileChecksum(String filepath) {
 
-        InputStream inputStream;
-        try {
-            inputStream = new BufferedInputStream(new FileInputStream(filepath));
+        try (InputStream inputStream = new BufferedInputStream(new FileInputStream(filepath))){
             CRC32 crc = new CRC32();
             int cnt;
             while ((cnt = inputStream.read()) != -1) {

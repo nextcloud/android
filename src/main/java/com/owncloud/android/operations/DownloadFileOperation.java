@@ -201,12 +201,10 @@ public class DownloadFileOperation extends RemoteOperation {
                 byte[] authenticationTag = EncryptionUtils.decodeStringToBase64Bytes(metadata.getFiles()
                         .get(mFile.getEncryptedFileName()).getAuthenticationTag());
 
-                try {
+                try (FileOutputStream fileOutputStream = new FileOutputStream(tmpFile)){
                     byte[] decryptedBytes = EncryptionUtils.decryptFile(tmpFile, key, iv, authenticationTag);
 
-                    FileOutputStream fileOutputStream = new FileOutputStream(tmpFile);
                     fileOutputStream.write(decryptedBytes);
-                    fileOutputStream.close();
                 } catch (Exception e) {
                     return new RemoteOperationResult(e);
                 }
