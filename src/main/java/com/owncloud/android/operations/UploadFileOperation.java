@@ -373,7 +373,7 @@ public class UploadFileOperation extends SyncOperation {
         OCFile parent = getStorageManager().getFileByPath(remoteParentPath);
 
         // in case of a fresh upload with subfolder, where parent does not exist yet
-        if (parent == null && mFolderUnlockToken.isEmpty()) {
+        if (parent == null && (mFolderUnlockToken == null || mFolderUnlockToken.isEmpty())) {
             // try to create folder
             RemoteOperationResult result = grantFolderExistence(remoteParentPath, client);
 
