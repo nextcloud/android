@@ -133,7 +133,6 @@
     <string name="common_pending">Venter</string>
     <string name="common_delete">Slett</string>
     <string name="about_title">Om</string>
-    <string name="change_password">Endre passord</string>
     <string name="delete_account">Fjern konto</string>
     <string name="delete_account_warning">Fjern kontoen %s og slett alle lokale filer?\n\nSletting kan ikke angres.</string>
     <string name="avatar">Avatar</string>
@@ -765,7 +764,6 @@ Sjekk ut Nextcloud på https://nextcloud.com</string>
     <string name="end_to_end_encryption_storing_keys">Lagrer nøkler</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Kopiering/flytting til kryptert mappe støttes ikke enda.</string>
     <string name="untrusted_domain">Tilgang gjennom ubetrodd domene. Sjekk dokumentasjonen for mer informasjon.</string>
-    <string name="upload_list_loading">Laster opplastinger…</string>
     <string name="notification_channel_push_name">Push-merknader</string>
     <string name="notification_channel_push_description">Vis push-merknader sendt av tjeneren: Nevnelser i kommentarer, mottak av ny fjerndeling, kunngjøringer postet av en administrator, osv.</string>
     <string name="sendbutton_description">Ikon for forsendelsesknapp</string>

@@ -133,7 +133,6 @@
     <string name="common_pending">მოლოდინშია</string>
     <string name="common_delete">გაუქმება</string>
     <string name="about_title">ჩვენს შესახებ</string>
-    <string name="change_password">პაროლის შეცვლა</string>
     <string name="delete_account">ანგარიშის გაუქმება</string>
     <string name="delete_account_warning">გავაუქმოთ ანგარიში %s და ყველა ლოკალური ფაილი?\n\nგაუქმება ვერ იქნება უკუბრუნებული.</string>
     <string name="avatar">ავატარი</string>

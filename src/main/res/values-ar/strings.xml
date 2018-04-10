@@ -123,7 +123,6 @@
     <string name="common_pending">مُعلَّق</string>
     <string name="common_delete">حذف</string>
     <string name="about_title">حول</string>
-    <string name="change_password">تعديل كلمة المرور</string>
     <string name="delete_account">حذف الحساب</string>
     <string name="avatar">الصورة الرمزية</string>
     <string name="upload_chooser_title">الرفع من &#8230;</string>

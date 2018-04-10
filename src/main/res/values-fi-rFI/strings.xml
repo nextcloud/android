@@ -133,7 +133,6 @@
     <string name="common_pending">Odottaa</string>
     <string name="common_delete">Poista</string>
     <string name="about_title">Tietoja</string>
-    <string name="change_password">Vaihda salasana</string>
     <string name="delete_account">Poista tili</string>
     <string name="delete_account_warning">Poistetaanko tili %s ja kaikki sen paikalliset tiedostot?\n\nPoistamista ei voi perua.</string>
     <string name="avatar">Profiilikuva</string>

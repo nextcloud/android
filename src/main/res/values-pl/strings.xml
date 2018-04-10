@@ -133,7 +133,6 @@
     <string name="common_pending">Oczekujące</string>
     <string name="common_delete">Usuń</string>
     <string name="about_title">O aplikacji</string>
-    <string name="change_password">Zmień hasło</string>
     <string name="delete_account">Usuń konto</string>
     <string name="delete_account_warning">Usunąć konto %s wraz ze wszystkimi lokalnymi plikami?\n\nUsunięcie nie może być cofnięte.</string>
     <string name="avatar">Awatar</string>

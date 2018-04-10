@@ -134,7 +134,6 @@
     <string name="common_pending">等候中</string>
     <string name="common_delete">刪除</string>
     <string name="about_title">關於</string>
-    <string name="change_password">變更密碼</string>
     <string name="delete_account">刪除帳戶</string>
     <string name="delete_account_warning">移除帳號%s並刪除所有本地檔案?\n\n刪除後將無法恢復。</string>
     <string name="avatar">頭像</string>

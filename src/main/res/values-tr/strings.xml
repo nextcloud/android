@@ -133,7 +133,6 @@
     <string name="common_pending">Bekleyen</string>
     <string name="common_delete">Sil</string>
     <string name="about_title">Hakkında</string>
-    <string name="change_password">Parola değiştir</string>
     <string name="delete_account">Hesabı kaldır</string>
     <string name="delete_account_warning">%s hesabı ve tüm yerel dosyalar kaldırılsın mı?\n\nSilme işlemi geri alınamaz.</string>
     <string name="avatar">Avatar</string>
@@ -756,7 +755,6 @@
     <string name="end_to_end_encryption_storing_keys">Anahtarlar kaydediliyor</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Şifrelenmiş bir klasöre kopyalama ve taşıma işlemleri henüz desteklenmiyor.</string>
     <string name="untrusted_domain">Güvenilmeyen bir etki alanı üzerinden erişiliyor. Lütfen ayrıntılı bilgi almak için belgelere bakın.</string>
-    <string name="upload_list_loading">Dosyalar yükleniyor…</string>
     <string name="notification_channel_push_name">Anında bildirimler</string>
     <string name="notification_channel_push_description">Yorumlarda anılmanız, yeni bir uzak paylaşım almanız ya da bir yönetici tarafından bir duyuru yapıması gibi durumlarda sunucu tarafından gönderilen anında bildirimler görüntülenir.</string>
     <string name="sendbutton_description">Gönderme düğmesi simgesi</string>

@@ -133,7 +133,6 @@
     <string name="common_pending">等待</string>
     <string name="common_delete">删除</string>
     <string name="about_title">关于</string>
-    <string name="change_password">修改密码</string>
     <string name="delete_account">删除账号</string>
     <string name="delete_account_warning">是否删除账户 %s 同时删除本地文件？\n\n一经删除无法撤销。</string>
     <string name="avatar">头像</string>

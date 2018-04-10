@@ -133,7 +133,6 @@
     <string name="common_pending">Εκκρεμεί</string>
     <string name="common_delete">Διαγραφή</string>
     <string name="about_title">Περί</string>
-    <string name="change_password">Αλλαγή συνθημτικού</string>
     <string name="delete_account">Αφαίρεση λογαριασμού</string>
     <string name="delete_account_warning">Κατάργηση λογαριασμού %s και διαγραφή όλων των τοπικών αρχείων; \ n \ nΗ διαγραφή δεν μπορεί να ανακληθεί.</string>
     <string name="avatar">Εικόνα προφίλ</string>

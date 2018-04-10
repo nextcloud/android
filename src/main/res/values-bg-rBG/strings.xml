@@ -133,7 +133,6 @@
     <string name="common_pending">В очакване</string>
     <string name="common_delete">Изтриване</string>
     <string name="about_title">Относно</string>
-    <string name="change_password">Промяна на парола</string>
     <string name="delete_account">Изтриване</string>
     <string name="delete_account_warning">Изтриване на профила %s?\n\nИзтриването е необратима операция.</string>
     <string name="avatar">Аватар</string>
