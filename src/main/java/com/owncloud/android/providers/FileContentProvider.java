@@ -1666,21 +1666,6 @@ public class FileContentProvider extends ContentProvider {
 
             }
 
-            if (oldVersion < 31 && newVersion >= 31) {
-                Log_OC.i(SQL, "Entering in the #31 Adding synced folder column to uploads");
-                db.beginTransaction();
-                try {
-                    db.execSQL(ALTER_TABLE + ProviderTableMeta.UPLOADS_TABLE_NAME +
-                            ADD_COLUMN + ProviderTableMeta.UPLOADS_SYNCED_FOLDER_ID + " LONG DEFAULT -1 ");
-
-                    upgraded = true;
-                    db.setTransactionSuccessful();
-                } finally {
-                    db.endTransaction();
-                }
-            }
-
-
             if (!upgraded) {
                 Log_OC.i(SQL, String.format(Locale.ENGLISH, UPGRADE_VERSION_MSG, oldVersion, newVersion));
             }
@@ -1691,6 +1676,24 @@ public class FileContentProvider extends ContentProvider {
                 try {
                     db.execSQL(ALTER_TABLE + ProviderTableMeta.FILE_TABLE_NAME +
                             ADD_COLUMN + ProviderTableMeta.FILE_MOUNT_TYPE + " INTEGER ");
+
+                    upgraded = true;
+                    db.setTransactionSuccessful();
+                } finally {
+                    db.endTransaction();
+                }
+            }
+
+            if (!upgraded) {
+                Log_OC.i(SQL, String.format(Locale.ENGLISH, UPGRADE_VERSION_MSG, oldVersion, newVersion));
+            }
+
+            if (oldVersion < 32 && newVersion >= 32) {
+                Log_OC.i(SQL, "Entering in the #32 Adding synced folder column to uploads");
+                db.beginTransaction();
+                try {
+                    db.execSQL(ALTER_TABLE + ProviderTableMeta.UPLOADS_TABLE_NAME +
+                            ADD_COLUMN + ProviderTableMeta.UPLOADS_SYNCED_FOLDER_ID + " LONG DEFAULT -1 ");
 
                     upgraded = true;
                     db.setTransactionSuccessful();
