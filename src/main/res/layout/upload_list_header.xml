@@ -4,6 +4,7 @@
   Nextcloud Android client application
 
   Copyright (C) 2018 Tobias Kaminsky
+  Copyright (C) 2018 Andy Scherzinger
   Copyright (C) 2018 Nextcloud
 
   This program is free software; you can redistribute it and/or
@@ -21,16 +22,20 @@
 -->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/ListItemLayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:paddingBottom="@dimen/standard_half_padding"
-    android:paddingTop="@dimen/standard_half_padding">
+    android:padding="@dimen/standard_half_padding">
 
     <TextView
         android:id="@+id/upload_list_title"
+        style="@style/TextAppearance.AppCompat.Body2"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:ellipsize="middle"
+        android:textColor="@color/color_accent"
+        tools:text="Current (2)" />
 
 </LinearLayout>
