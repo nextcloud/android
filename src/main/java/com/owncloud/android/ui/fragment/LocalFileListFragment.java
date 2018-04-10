@@ -121,6 +121,8 @@ public class LocalFileListFragment extends ExtendedListFragment implements Local
                 mContainerActivity.getInitialDirectory(), this, getActivity());
         setRecyclerViewAdapter(mAdapter);
 
+        listDirectory(mContainerActivity.getInitialDirectory());
+
         Log_OC.i(TAG, "onActivityCreated() stop");
     }
 

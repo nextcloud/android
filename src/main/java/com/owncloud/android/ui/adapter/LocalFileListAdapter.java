@@ -423,7 +423,7 @@ public class LocalFileListAdapter extends RecyclerView.Adapter<RecyclerView.View
     }
 
     private List<File> getFolders(final File directory) {
-        File[] folders = directory.listFiles(File::isFile);
+        File[] folders = directory.listFiles(File::isDirectory);
 
         if (folders != null && folders.length > 0) {
             return new ArrayList<>(Arrays.asList(folders));
