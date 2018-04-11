@@ -82,9 +82,9 @@ public class SyncedFolderProvider extends Observable {
         int count = 0;
         Cursor cursor = mContentResolver.query(
                 ProviderMeta.ProviderTableMeta.CONTENT_URI_SYNCED_FOLDERS,
-                new String[]{ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_ENABLED},
-                ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_ENABLED + " == 1",
                 null,
+                ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_ENABLED + " = ?",
+                new String[]{"1"},
                 null
         );
 
