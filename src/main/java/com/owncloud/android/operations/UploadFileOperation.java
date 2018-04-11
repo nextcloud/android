@@ -373,7 +373,7 @@ public class UploadFileOperation extends SyncOperation {
         OCFile parent = getStorageManager().getFileByPath(remoteParentPath);
 
         // in case of a fresh upload with subfolder, where parent does not exist yet
-        if (parent == null && mFolderUnlockToken.isEmpty()) {
+        if (parent == null && (mFolderUnlockToken == null || mFolderUnlockToken.isEmpty())) {
             // try to create folder
             RemoteOperationResult result = grantFolderExistence(remoteParentPath, client);
 
@@ -396,7 +396,7 @@ public class UploadFileOperation extends SyncOperation {
 
         // try to unlock folder with stored token, e.g. when upload needs to be resumed or app crashed
         // the parent folder should exist as it is a resume of a broken upload
-        if (!mFolderUnlockToken.isEmpty()) {
+        if (mFolderUnlockToken != null && !mFolderUnlockToken.isEmpty()) {
             UnlockFileOperation unlockFileOperation = new UnlockFileOperation(parent.getLocalId(), mFolderUnlockToken);
             RemoteOperationResult unlockFileOperationResult = unlockFileOperation.execute(client, true);
 
