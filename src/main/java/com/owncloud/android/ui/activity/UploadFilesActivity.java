@@ -128,7 +128,7 @@ public class UploadFilesActivity extends FileActivity implements
         Bundle extras = getIntent().getExtras();
 
         if (extras != null) {
-            rootUploadDir = extras.getString(EXTRA_CURRENT_DIR, "");
+            rootUploadDir = extras.getString(EXTRA_CURRENT_DIR, "/Unknown-Nc-" + System.currentTimeMillis());
             mLocalFolderPickerMode = extras.getBoolean(KEY_LOCAL_FOLDER_PICKER_MODE, false);
         }
 
