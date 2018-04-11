@@ -776,4 +776,4 @@ A Nextcloud itt érhető el: https://nextcloud.com</string>
     <string name="untrusted_domain">Nem megbízható domainen keresztüli elérés. Kérlek nézd meg a dokumentációt a részletekért.</string>
     <string name="notification_channel_push_name">Azonnali értesítések</string>
     <string name="sendbutton_description">Küldés gomb ikon</string>
-</resources>
+    </resources>

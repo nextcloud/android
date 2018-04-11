@@ -456,7 +456,7 @@
     </plurals>
     <plurals name="file_list__footer__file">
         <item quantity="one">%1$d archivo</item>
-        <item quantity="other">%1$darchivos</item>
+        <item quantity="other">%1$d archivos</item>
     </plurals>
     <string name="set_picture_as">Usar imagen como</string>
     <string name="set_as">Establecer como</string>
@@ -753,6 +753,7 @@
     <string name="end_to_end_encryption_storing_keys">Almacenando claves</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Copiar/mover en la carpeta cifrada no está actualmente soportado.</string>
     <string name="untrusted_domain">Acceder a través de un domino no confiado. Por favor, mira la documentación para más información.</string>
+    <string name="upload_list_loading">Cargando subidas&#8230;</string>
     <string name="notification_channel_push_name">Notificaciones de tipo push</string>
     <string name="sendbutton_description">Icono del botón de enviar</string>
-</resources>
+    </resources>

@@ -767,4 +767,4 @@ Sjekk ut Nextcloud på https://nextcloud.com</string>
     <string name="notification_channel_push_name">Push-merknader</string>
     <string name="notification_channel_push_description">Vis push-merknader sendt av tjeneren: Nevnelser i kommentarer, mottak av ny fjerndeling, kunngjøringer postet av en administrator, osv.</string>
     <string name="sendbutton_description">Ikon for forsendelsesknapp</string>
-</resources>
+    </resources>
