@@ -45,6 +45,8 @@ public class NCJobCreator implements JobCreator {
                 return new NotificationJob();
             case MediaFoldersDetectionJob.TAG:
                 return new MediaFoldersDetectionJob();
+            case ProcessManualUploadQueue.TAG:
+                return new ProcessManualUploadQueue();
             default:
                 return null;
         }

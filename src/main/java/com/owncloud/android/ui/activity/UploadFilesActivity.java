@@ -42,8 +42,14 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.evernote.android.job.JobRequest;
+import com.evernote.android.job.util.support.PersistableBundleCompat;
 import com.owncloud.android.R;
+import com.owncloud.android.authentication.AccountUtils;
+import com.owncloud.android.datamodel.ArbitraryDataProvider;
+import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.db.PreferenceManager;
+import com.owncloud.android.jobs.ProcessManualUploadQueue;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment;
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment.ConfirmationDialogFragmentListener;
@@ -58,6 +64,7 @@ import com.owncloud.android.utils.ThemeUtils;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Arrays;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -82,6 +89,7 @@ public class UploadFilesActivity extends FileActivity implements
     private static final String SORT_ORDER_DIALOG_TAG = "SORT_ORDER_DIALOG";
     private static final int SINGLE_DIR = 1;
 
+    private static final String EXTRA_CURRENT_DIR = "KEY_EXTRA_CURRENT_DIR";
     private ArrayAdapter<String> mDirectories;
     private File mCurrentDir;
     private boolean mSelectAll;
@@ -93,6 +101,7 @@ public class UploadFilesActivity extends FileActivity implements
     private DialogFragment mCurrentDialog;
     private Menu mOptionsMenu;
     private SearchView mSearchView;
+    private String rootUploadDir;
 
     public static final String EXTRA_CHOSEN_FILES =
             UploadFilesActivity.class.getCanonicalName() + ".EXTRA_CHOSEN_FILES";
@@ -120,7 +129,9 @@ public class UploadFilesActivity extends FileActivity implements
         super.onCreate(savedInstanceState);
 
         Bundle extras = getIntent().getExtras();
+
         if (extras != null) {
+            rootUploadDir = extras.getString(EXTRA_CURRENT_DIR, "");
             mLocalFolderPickerMode = extras.getBoolean(KEY_LOCAL_FOLDER_PICKER_MODE, false);
         }
 
@@ -225,9 +236,11 @@ public class UploadFilesActivity extends FileActivity implements
      * @param account     the account for which the upload activity is called
      * @param requestCode If >= 0, this code will be returned in onActivityResult()
      */
-    public static void startUploadActivityForResult(Activity activity, Account account, int requestCode) {
+    public static void startUploadActivityForResult(Activity activity, Account account, int requestCode, OCFile
+            currentDir) {
         Intent action = new Intent(activity, UploadFilesActivity.class);
         action.putExtra(EXTRA_ACCOUNT, account);
+        action.putExtra(EXTRA_CURRENT_DIR, currentDir.getRemotePath());
         activity.startActivityForResult(action, requestCode);
     }
 
@@ -506,8 +519,77 @@ public class UploadFilesActivity extends FileActivity implements
 
                 finish();
             } else {
-                new CheckAvailableSpaceTask().execute(mBehaviourSpinner.getSelectedItemPosition() == 0);
+                new StoreUploadTask().execute();
+                //new CheckAvailableSpaceTask().execute(mBehaviourSpinner.getSelectedItemPosition() == 0);
             }
+        }
+    }
+
+    private class StoreUploadTask extends AsyncTask<Void, Void, Void> {
+
+        /**
+         * Updates the UI before trying the movement.
+         */
+        @Override
+        protected void onPreExecute () {
+            /// progress dialog and disable 'Move' button
+            mCurrentDialog = IndeterminateProgressDialog.newInstance(R.string.wait_a_moment, false);
+            mCurrentDialog.show(getSupportFragmentManager(), WAIT_DIALOG_TAG);
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+            if(mCurrentDialog != null) {
+                mCurrentDialog.dismiss();
+                mCurrentDialog = null;
+            }
+
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProvider(getContentResolver());
+            String uploadBehaviour = "upload_queue_";
+
+            switch (mBehaviourSpinner.getSelectedItemPosition()) {
+                case 0: // move to nextcloud folder
+                    uploadBehaviour += "move";
+                    break;
+
+                case 1: // only upload
+                    uploadBehaviour += "nothing";
+                    break;
+
+                case 2: // upload and delete from source
+                    uploadBehaviour += "delete";
+                    break;
+                default:
+                    uploadBehaviour += "nothing";
+                    break;
+            }
+
+            uploadBehaviour += "_" + System.currentTimeMillis();
+            if (getApplicationContext() != null) {
+                String accountName = AccountUtils.getCurrentOwnCloudAccount(getApplicationContext()).name;
+                while (mFileListFragment.getCheckedFilesCount() > 0) {
+                    arbitraryDataProvider.storeOrUpdateKeyValue(accountName, uploadBehaviour +
+                            "_" + System.currentTimeMillis(), Arrays.toString(mFileListFragment.getPartOfCheckedFiles(rootUploadDir)));
+                }
+
+                PersistableBundleCompat bundle = new PersistableBundleCompat();
+                bundle.putString(ProcessManualUploadQueue.KEY_UPLOAD_ACCOUNT, AccountUtils.getCurrentOwnCloudAccount(getApplicationContext()).name);
+
+                new JobRequest.Builder(ProcessManualUploadQueue.TAG)
+                        .startNow()
+                        .setExtras(bundle)
+                        .setUpdateCurrent(false)
+                        .build()
+                        .schedule();
+
+                finish();
+
+            }
+            return null;
         }
     }
 

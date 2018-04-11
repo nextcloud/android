@@ -45,6 +45,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Set;
@@ -114,6 +115,25 @@ public class LocalFileListAdapter extends RecyclerView.Adapter<RecyclerView.View
 
     public int getItemPosition(File file) {
         return mFiles.indexOf(file);
+    }
+
+    public int getCheckedItemCount() {
+        return checkedFiles.size();
+    }
+
+    public String[] getPartOfCheckedFiles(String currentDir) {
+        List<String> result = new ArrayList<>();
+        result.add(currentDir);
+        int n = 0;
+        Iterator<File> iter = checkedFiles.iterator();
+        while (n < 100  && iter.hasNext()) {
+            File file = iter.next();
+            result.add(file.getAbsolutePath());
+            iter.remove();
+            n++;
+        }
+
+        return result.toArray(new String[result.size()]);
     }
 
     public String[] getCheckedFilesPath() {

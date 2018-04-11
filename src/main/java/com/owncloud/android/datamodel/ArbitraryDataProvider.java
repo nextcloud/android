@@ -30,6 +30,11 @@ import com.owncloud.android.db.ProviderMeta;
 import com.owncloud.android.lib.common.utils.Log_OC;
 
 import java.util.List;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 /**
  * Database provider for handling the persistence aspects of arbitrary data table.
@@ -55,6 +60,16 @@ public class ArbitraryDataProvider {
                 new String[]{account, key}
         );
     }
+
+    public int deleteKeyForAccountLike(String account, String key) {
+        return contentResolver.delete(
+                ProviderMeta.ProviderTableMeta.CONTENT_URI_ARBITRARY_DATA,
+                ProviderMeta.ProviderTableMeta.ARBITRARY_DATA_CLOUD_ID + " = ? AND " +
+                        ProviderMeta.ProviderTableMeta.ARBITRARY_DATA_KEY + " LIKE ?",
+                new String[]{account, key}
+        );
+    }
+
 
     public int deleteForKeyWhereAccountNotIn(List<String> accounts, String key) {
         return contentResolver.delete(
@@ -159,6 +174,44 @@ public class ArbitraryDataProvider {
         return getValue(account.name, key);
     }
 
+    public HashMap<String, Set<String>> getValues(String accountName, String key) {
+        HashMap<String, Set<String>> values = new HashMap<>();
+
+        Cursor cursor = contentResolver.query(
+                ProviderMeta.ProviderTableMeta.CONTENT_URI_ARBITRARY_DATA,
+                null,
+                ProviderMeta.ProviderTableMeta.ARBITRARY_DATA_CLOUD_ID + " = ? and " +
+                        ProviderMeta.ProviderTableMeta.ARBITRARY_DATA_KEY + " LIKE ?",
+                new String[]{accountName, key},
+                null
+        );
+
+        if (cursor != null) {
+            for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
+                String value = cursor.getString(cursor.getColumnIndex(ProviderMeta.ProviderTableMeta.ARBITRARY_DATA_VALUE));
+                List<String> valuesList = getListFromString(value);
+                String currentDir = valuesList.get(0);
+                valuesList.remove(currentDir);
+                if (values.containsKey(currentDir)) {
+                    Set<String> setValues = values.get(currentDir);
+                    setValues.addAll(valuesList);
+                    values.put(currentDir, setValues);
+                } else {
+                    values.put(currentDir, new HashSet<>(valuesList));
+                }
+            }
+        } else {
+            Log_OC.e(TAG, "DB error restoring arbitrary values.");
+        }
+
+        return values;
+    }
+
+    private static List<String> getListFromString(String string) {
+        String[] strings = string.replace("[", "").replace("]", "").split(", ");
+        List<String> values = new ArrayList<>(Arrays.asList(strings));
+        return values;
+    }
     public String getValue(String accountName, String key) {
         Cursor cursor = contentResolver.query(
                 ProviderMeta.ProviderTableMeta.CONTENT_URI_ARBITRARY_DATA,

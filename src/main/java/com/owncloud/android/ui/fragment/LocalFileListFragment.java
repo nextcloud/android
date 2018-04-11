@@ -242,6 +242,14 @@ public class LocalFileListFragment extends ExtendedListFragment implements Local
     }
 
 
+    public int getCheckedFilesCount() {
+        return mAdapter.getCheckedItemCount();
+    }
+
+    public String[] getPartOfCheckedFiles(String currentDir) {
+        return mAdapter.getPartOfCheckedFiles(currentDir);
+    }
+
     /**
      * Returns the full paths to the files checked by the user
      *
