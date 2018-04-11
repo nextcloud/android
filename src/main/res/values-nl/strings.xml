@@ -518,6 +518,7 @@
     <string name="manage_space_clear_data">Gegevens verwijderen</string>
 
     <string name="permission_storage_access">Aanvullende permessies vereist voor het uploaden en downloaden van bestanden.</string>
+    <string name="local_file_not_found_message">Het bestand is niet te vinden binnen het lokale bestandssysteem.</string>
     <string name="confirmation_remove_files_alert">Wil je de geselecteerde objecten echt verwijderen?</string>
     <string name="confirmation_remove_folders_alert">Wil je de geselecteerde objecten en hun inhoud echt verwijderen?</string>
     <string name="maintenance_mode">Server in onderhoudsmodus</string>
@@ -747,6 +748,7 @@
     <string name="end_to_end_encryption_title">Instellen versleuteling</string>
     <string name="end_to_end_encryption_passphrase_title">Schrijf uw encryptie wachtwoord van 12 woorden op</string>
     <string name="end_to_end_encryption_not_supported">Versleutelen wordt niet ondersteund in versies eerder dan KitKat (4.4)</string>
+    <string name="end_to_end_encryption_not_enabled">Begin-tot-eind versleuteling uitgeschakeld op de server.</string>
     <string name="end_to_end_encryption_confirm_button">Instellen versleuteling</string>
     <string name="end_to_end_encryption_password">Wachtwoord &#8230;</string>
     <string name="end_to_end_encryption_unsuccessful">Kon de sleutels niet opslaan, probeer opnieuw a.u.b.</string>
@@ -754,7 +756,8 @@
     <string name="end_to_end_encryption_storing_keys">Opslaan sleutels</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Kopieren/verplaatsen naar een versleutelde map is momenteel niet mogelijk.</string>
     <string name="untrusted_domain">Toegang van een niet vertrouwd domein. Bekijk de documentatie voor meer informatie.</string>
+    <string name="upload_list_loading">Uploads laden&#8230;</string>
     <string name="notification_channel_push_name">Push meldingen</string>
-    <string name="notification_channel_push_description">Toon push meldingen verstuurd door de server, bijv. als je wordt vermeld in reacties, of als je een deellink ontvangt of als een beheerder een aankondiging plaatst.</string>
+    <string name="notification_channel_push_description">Toon push meldingen verstuurd door de server: als je wordt vermeld in reacties, of als je een deellink ontvangt of als een beheerder een aankondiging plaatst.</string>
     <string name="sendbutton_description">Verstuur-knop pictogram</string>
-</resources>
+    </resources>

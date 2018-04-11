@@ -501,6 +501,7 @@
     <string name="manage_space_clear_data">Tyhjennä tiedot</string>
 
     <string name="permission_storage_access">Tiedostojen lähetys ja lataaminen vaatii lisäoikeuksia.</string>
+    <string name="local_file_not_found_message">Tiedostoa ei löytynyt paikallisesta tiedostojärjestelmästä</string>
     <string name="confirmation_remove_files_alert">Haluatko varmasti poistaa valitut kohteet?</string>
     <string name="confirmation_remove_folders_alert">Haluatko varmasti poistaa valitut kohteet ja niiden sisällön?</string>
     <string name="maintenance_mode">Palvelin on huoltotilassa</string>
@@ -710,11 +711,11 @@ GNU yleinen lisenssi, versio 2</string>
     <string name="end_to_end_encryption_generating_keys">Luodaan uusia vaimia&#8230;</string>
     <string name="end_to_end_encryption_keywords_description">Kaikki 12 sanaa yhdessä on hyvin vahva salasana, jonka avulla pystyy katselemaan ja käyttämään salattuja tiedostoja. Ota ne talteen ja säilytä turvallisessa paikassa. Älä jätä pöydälle!</string>
     <string name="end_to_end_encryption_title">Aseta salaus</string>
+    <string name="end_to_end_encryption_not_supported">Salaus toimii vain KitKatilla (4.4) ja uudemmilla Android-versioilla.</string>
     <string name="end_to_end_encryption_confirm_button">Aseta salaus</string>
     <string name="end_to_end_encryption_password">Salasana&#8230;</string>
     <string name="end_to_end_encryption_unsuccessful">Avaimia ei voitu tallentaa, yritä uudelleen.</string>
     <string name="end_to_end_encryption_dialog_close">Sulje</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Kopiointi/siirto salattuun kansioon ei ole mahdollista.</string>
     <string name="notification_channel_push_name">Push-ilmoitukset</string>
-    <string name="notification_channel_push_description">Näytä palvelimen lähettämät push-ilmoitukset. Esimerkiksi kun sinut mainitaan kommenteissa, sinulle jaetaan etänä tai kun ylläpito julkaisee tiedotteen.</string>
     </resources>

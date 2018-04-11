@@ -98,6 +98,7 @@
     <string name="file_list_empty_headline_server_search_videos">Žiadne videá</string>
     <string name="file_list_empty_headline_server_search_photos">Žiadne fogografie</string>
     <string name="file_list_empty_search">Možno to je v inom priečinku?</string>
+    <string name="file_list_empty_recently_added_filter">Žiadne nedávno pridané súbory.</string>
     <string name="file_list_empty_text_photos_filter">Žiadne fotky.</string>
     <string name="file_list_empty_text_videos_filter">Žiadne videá.</string>
     <string name="upload_list_empty_headline">Žiadne súbory na nahratie nie sú dostupné</string>
@@ -238,6 +239,7 @@
     <string name="activity_chooser_title">Odošli link do &#8230;</string>
     <string name="wait_for_tmp_copy_from_private_storage">Kopírovanie súboru z privátneho úložiska</string>
     
+    <string name="oauth_check_onoff">Prihlásiť sa pomocou OAuth 2.0</string>
     <string name="ssl_validator_reason_cert_not_trusted">- Certifikát servera nie je overený</string>
     <string name="ssl_validator_reason_cert_expired">- Platnosť certifikátu servera vypršala</string>
     <string name="ssl_validator_reason_cert_not_yet_valid">- Certifikát servera je príliš mladý</string>
@@ -405,6 +407,7 @@
         <item quantity="other">%d vybraných</item>
     </plurals>
 
+    <string name="notifications_no_results_headline">Žiadne upozornenia</string>
     <string name="upload_file_dialog_filename">Názov súboru</string>
     <string name="upload_file_dialog_filetype">Typ súboru</string>
     <string name="upload_file_dialog_filetype_internet_shortcut">Internetový odkaz(%s)</string>
@@ -435,12 +438,20 @@
     <string name="contacts_automatic_backup">Automatické zálohovanie</string>
     <string name="contacts_preference_backup_never">nikdy</string>
     <string name="contacts_preferences_backup_scheduled">Zálohovanie je naplánované a čoskoro sa začne</string>
+    <string name="drawer_logout">Odhlásiť</string>
     <string name="privacy">Súkromie</string>
+    <string name="file_not_found">Súbor nenájdený</string>
     <string name="fallback_weblogin_back">Späť</string>
     <string name="prefs_sourcecode">Získajte zdrojový kód</string>
     <string name="prefs_license">Licencia</string>
+    <string name="sort_by_name_ascending">A - Z</string>
+    <string name="sort_by_name_descending">Z - A</string>
     <string name="synced_folders_type">Typ</string>
     <string name="send">Odoslať</string>
     <string name="share">Zdieľať</string>
+    <string name="link">Odkaz</string>
+
     <string name="screenshot_01_gridView">Bezpečný domov pre všetky vaše dáta</string>
+    <string name="end_to_end_encryption_folder_not_empty">Tento priečinok nie je prázdny.</string>
+    <string name="end_to_end_encryption_dialog_close">Zatvoriť</string>
     </resources>

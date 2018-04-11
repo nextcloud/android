@@ -622,7 +622,7 @@
     <string name="contacts_read_permission">Permesso di lettura dell\'elenco dei contatti richiesto </string>
     <string name="contaclist_restore_selected">Ripristina contatti selezionati</string>
     <string name="contactlist_account_chooser_title">Scegli account da importare</string>
-    <string name="contactlist_no_permission">Nessun permesso specificato, nessun elemento importato!</string>
+    <string name="contactlist_no_permission">Nessun permesso specificato, nessun elemento importato.</string>
     <string name="contacts_preference_choose_date">Scegli data</string>
     <string name="contacts_preference_backup_never">mai</string>
     <string name="contacts_preferences_no_file_found">Nessun file trovato</string>
@@ -658,7 +658,7 @@
     <string name="push_notifications_old_login">Nessuna notifica push a causa della sessione di accesso scaduta. Considera di aggungere nuovamente il tuo account.</string>
     <string name="push_notifications_temp_error">Notifiche push attualmente non disponibili.</string>
 
-    <string name="sync_in_progress">Attendi mentre recuperiamo la versione più recente del file.</string>
+    <string name="sync_in_progress">Recupero della versione più recente del file in corso.</string>
     <string name="date_unknown">Sconosciuta</string>
 
     <string name="resized_image_not_possible">Immagine ridimensionata non disponibile.</string>
@@ -703,8 +703,8 @@
     <string name="store_full_dev_desc">L\'applicazione libera senza copyright per Android di Nextcloud, ti offre libertà in movimento.\nQuesta è la versione di sviluppo ufficiale e include funzionalità nuove, non testate che potrebbero provocare instabilità e perdite di dati. Questa applicazione è pensata per gli utenti che desiderano provare le nuove funzionalità e segnalare bug, se si verificano. Non utilizzarla in ambienti di produzione!\n\nSia la versione di sviluppo che quella normale sono disponibili su F-droid, e possono essere installate contemporaneamente.</string>
 
     <string name="prefs_category_dev">Sviluppo</string>
-    <string name="dev_version_no_information_available">Nessuna informazione disponibile</string>
-    <string name="dev_version_no_new_version_available">Nessuna nuova versione disponibilie</string>
+    <string name="dev_version_no_information_available">Nessuna informazione disponibile.</string>
+    <string name="dev_version_no_new_version_available">Nessuna nuova versione disponibile.</string>
     <string name="folder_icon">Icona delle cartelle</string>
     <string name="dev_version_new_version_available">Nuova versione disponibilie</string>
     <string name="version_dev_download">Scarica</string>
@@ -740,15 +740,15 @@
     
     <string name="end_to_end_encryption_folder_not_empty">Questa cartella non è vuota.</string>
     <string name="end_to_end_encryption_wrong_password">Errore durante la decifratura. Password errata?</string>
-    <string name="end_to_end_encryption_decrypting">Decriptando&#8230;</string>
-    <string name="end_to_end_encryption_retrieving_keys">Recuperando le chiavi&#8230;</string>
+    <string name="end_to_end_encryption_decrypting">Decifratura&#8230;</string>
+    <string name="end_to_end_encryption_retrieving_keys">Recupero delle chiavi&#8230;</string>
     <string name="end_to_end_encryption_enter_password">Digita la password per decifrare la chiave privata.</string>
-    <string name="end_to_end_encryption_generating_keys">Generando le nuove chiavi&#8230;</string>
+    <string name="end_to_end_encryption_generating_keys">Generazione di nuove chiavi&#8230;</string>
     <string name="end_to_end_encryption_keywords_description">Le 12 parole insieme compongono una password molto robusta, consentendo solo a te di visualizzare e utilizzare i tuoi file cifrati. Annotala e conservala in un posto sicuro.</string>
     <string name="end_to_end_encryption_title">Configura la cifratura</string>
     <string name="end_to_end_encryption_passphrase_title">Annota la tua password di cifratura di 12 parole</string>
     <string name="end_to_end_encryption_not_supported">La cifratura funziona solo con KitKat (4.4) e successivi.</string>
-    <string name="end_to_end_encryption_not_enabled">Cifratura end to end disabilitata sul server.</string>
+    <string name="end_to_end_encryption_not_enabled">Cifratura end-to-end disabilitata sul server.</string>
     <string name="end_to_end_encryption_confirm_button">Configura la cifratura</string>
     <string name="end_to_end_encryption_password">Password&#8230;</string>
     <string name="end_to_end_encryption_unsuccessful">Impossibile salvare le chiavi, prova ancora.</string>
@@ -756,8 +756,8 @@
     <string name="end_to_end_encryption_storing_keys">Archiviazione chiavi</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Copia/Spostamento in una cartella cifrata attualmente non supportati.</string>
     <string name="untrusted_domain">Accesso tramite un dominio non fidato. Vedi la documentazione per ulteriori informazioni.</string>
-    <string name="upload_list_loading">Caricamenti in corso…</string>
+    <string name="upload_list_loading">Caricamento file inviati&#8230;</string>
     <string name="notification_channel_push_name">Notifiche push</string>
-    <string name="notification_channel_push_description">Monstra le notifiche push inviate dal server, ad es. quando vieni menzionato nei commenti, ricevi una nuova condivisione remota o quando un amministratore pubblica un annuncio.</string>
+    <string name="notification_channel_push_description">Mostra le notifiche push inviate dal server: menzioni nei commenti, ricezione di nuove condivisioni remote, annunci pubblicati da un amministratore ecc.</string>
     <string name="sendbutton_description">Icona pulsante di invio</string>
-</resources>
+    </resources>
