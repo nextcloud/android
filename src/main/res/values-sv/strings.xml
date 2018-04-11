@@ -47,6 +47,7 @@
     <string name="prefs_log_delete_history_button">Radera historik</string>
     <string name="prefs_calendar_contacts">Synkronisera kalender &amp; kontakter</string>
     <string name="prefs_calendar_contacts_summary">Sätt upp DAVdroid (v1.3.0+) för nuvarande konto</string>
+    <string name="prefs_calendar_contacts_address_resolve_error">Serveradressen för kontot kunde inte hittas för DAVdroid</string>
     <string name="prefs_calendar_contacts_no_store_error">Varken F-Droid eller Google Play är installerad</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Synkronisera kalender &amp; kontakter</string>
     <string name="prefs_daily_contacts_sync_summary">Daglig backup av dina kontakter</string>
@@ -89,6 +90,7 @@
     <string name="file_list_empty">Ladda upp något eller synkronisera med dina enheter</string>
     <string name="file_list_empty_favorites_filter_list">Filer och mappar du väljer som favoriter dyker upp här</string>
     <string name="file_list_empty_favorites_filter">Din sökning gav inga favoriserade filer.</string>
+    <string name="file_list_loading">Laddar &#8230;</string>
     <string name="file_list_no_app_for_file_type">Det finns ingen applikation för att hantera denna filtyp</string>
     <string name="local_file_list_empty">Det finns inga filer i den här mappen.</string>
     <string name="local_folder_list_empty">Det finna inga fler mappar.</string>
@@ -113,6 +115,8 @@
     <string name="file_list_folder">mapp</string>
     <string name="filedetails_select_file">Peka på en fil för att visa mer information.</string>
     <string name="filedetails_download">Ladda ned</string>
+    <string name="filedetails_sync_file">Synk</string>
+    <string name="filedetails_renamed_in_upload_msg">Filen fick nytt namn %1$s under uppladdning</string>
     <string name="list_layout">Listad layout</string>
     <string name="action_send_share">Skicka/Dela</string>
     <string name="common_yes">Ja</string>
@@ -122,6 +126,7 @@
     <string name="common_cancel">Avbryt</string>
     <string name="common_back">Tillbaka</string>
     <string name="common_save">Spara</string>
+    <string name="common_error">Fel</string>
     <string name="common_loading">Laddar &#8230;</string>
     <string name="common_unknown">okänt</string>
     <string name="common_error_unknown">Okänt fel</string>
@@ -141,6 +146,8 @@
     <string name="uploader_upload_succeeded_content_single">%1$s uppladdad</string>
     <string name="uploader_upload_failed_ticker">Misslyckad uppladdning</string>
     <string name="uploader_upload_failed_content_single">Kunde inte ladda upp %1$s</string>
+    <string name="uploader_upload_failed_credentials_error">Uppladdningen misslyckades, logga in igen</string>
+    <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">Otillförlitligt servercertifikat</string>
     <string name="uploads_view_title">Uppladdningar</string>
     <string name="uploads_view_group_current_uploads">Nuvarande</string>
     <string name="uploads_view_group_finished_uploads">Uppladdad</string>
@@ -155,6 +162,7 @@
     <string name="uploads_view_upload_status_conflict">Konflikt</string>
     <string name="uploads_view_upload_status_service_interrupted">App avslutad</string>
     <string name="uploads_view_upload_status_unknown_fail">Okänt fel</string>
+    <string name="uploads_view_upload_status_waiting_for_wifi">Väntar på Wi-Fi</string>
     <string name="uploads_view_upload_status_waiting_exit_power_save_mode">Väntar på att avsluta energisparläge</string>
     <string name="uploads_view_later_waiting_to_upload">Väntar på att ladda upp</string>
     <string name="downloader_download_in_progress_ticker">Laddar ned &#8230;</string>
@@ -164,9 +172,11 @@
     <string name="downloader_download_failed_ticker">Misslyckad nedladdning</string>
     <string name="downloader_download_failed_content">Kunde inte ladda ner %1$s</string>
     <string name="downloader_not_downloaded_yet">Ännu inte nedladdade</string>
+    <string name="downloader_download_failed_credentials_error">Hämtningen misslyckades, logga in igen</string>
     <string name="common_choose_account">Välj konto</string>
     <string name="common_switch_account">Växla Konto</string>
     <string name="sync_fail_ticker">Synkronisering misslyckades</string>
+    <string name="sync_fail_ticker_unauthorized">Synkroniseringen misslyckades, logga in igen</string>
     <string name="sync_fail_content_unauthorized">Fel lösenord för %1$s</string>
     <string name="sync_conflicts_in_favourites_ticker">Konflikter uppstod</string>
     <string name="sync_fail_in_favourites_ticker">Filer flaggade som Håll-filen-uppdaterad misslyckades</string>

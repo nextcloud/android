@@ -330,6 +330,7 @@
     <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
     <string name="placeholder_media_time">12:23:45</string>
 
+    <string name="auto_upload_on_wifi">Przesyłaj tylko w niemierzonym Wi-Fi</string>
     <string name="instant_upload_on_charging">Wysyłaj tylko podczas ładowania</string>
     <string name="instant_upload_path">/InstantUpload</string>
     <string name="auto_upload_path">/AutoUpload</string>
@@ -395,6 +396,7 @@
     <string name="file_migration_cleaning">Czyszczenie &#8230;</string>
     <string name="file_migration_restoring_accounts_configuration">Przywracanie konfiguracji konta &#8230;</string>
     <string name="file_migration_ok_finished">Skończone</string>
+    <string name="file_migration_failed_not_enough_space">Potrzeba więcej miejsca</string>
     <string name="file_migration_failed_not_writable">Nie można zapisać w pliku docelowym</string>
     <string name="file_migration_failed_not_readable">Nie można odczytać pliku źródłowego</string>
     <string name="file_migration_failed_dir_already_exists">31/5000Folder Nextcloud już istnieje</string>
