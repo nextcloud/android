@@ -1,4 +1,4 @@
-## 3.1.0 
+## 3.1.0 (Apr, 11, 2018)
 - enhance support for 8.x
 - speed improvements
 - minor UI/UX improvements
