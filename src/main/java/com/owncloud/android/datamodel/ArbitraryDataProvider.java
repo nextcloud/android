@@ -80,6 +80,13 @@ public class ArbitraryDataProvider {
         );
     }
 
+    public int deleteKeyLike(String key) {
+        return contentResolver.delete(
+                ProviderMeta.ProviderTableMeta.CONTENT_URI_ARBITRARY_DATA,
+                ProviderMeta.ProviderTableMeta.ARBITRARY_DATA_KEY + " LIKE ?",
+                new String[]{key}
+        );
+    }
 
     public void storeOrUpdateKeyValue(String accountName, String key, String newValue) {
         ArbitraryDataSet data = getArbitraryDataSet(accountName, key);
