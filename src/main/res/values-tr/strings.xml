@@ -759,4 +759,8 @@
     <string name="notification_channel_push_name">Anında bildirimler</string>
     <string name="notification_channel_push_description">Yorumlarda anılmanız, yeni bir uzak paylaşım almanız ya da bir yönetici tarafından bir duyuru yapıması gibi durumlarda sunucu tarafından gönderilen anında bildirimler görüntülenir.</string>
     <string name="sendbutton_description">Gönderme düğmesi simgesi</string>
-    </resources>
+    <string name="oauth_2_0_auth_end_point_address_hint">Kimlik doğrulama noktası adresi</string>
+    <string name="oauth_2_0_access_end_point_address_hint">Erişim noktası adresi</string>
+    <string name="hint_name">Ad</string>
+    <string name="hint_password">Parola</string>
+</resources>

@@ -759,4 +759,6 @@
     <string name="notification_channel_push_name">Push-Benachrichtigungen</string>
     <string name="notification_channel_push_description">Vom Server gesendete Push-Benachrichtigungen anzeigen: Erwähnungen in Kommentaren, Zugriff auf weitere Freigaben erhalten, Ankündigungen von Administratoren erhalten, etc.</string>
     <string name="sendbutton_description">Icon für den Senden-Button</string>
-    </resources>
+    <string name="hint_name">Name</string>
+    <string name="hint_password">Passwort</string>
+</resources>

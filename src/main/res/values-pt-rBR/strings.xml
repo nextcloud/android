@@ -759,4 +759,8 @@
     <string name="notification_channel_push_name">Notificações push</string>
     <string name="notification_channel_push_description">Mostrar notificações push enviadas pelo servidor: Menções nos comentários, recepção de novos compartilhamentos remotos, anúncios postados pelo administrador etc.</string>
     <string name="sendbutton_description">Ícone do botão Enviar</string>
-    </resources>
+    <string name="oauth_2_0_auth_end_point_address_hint">Endereço do ponto final da autenticação</string>
+    <string name="oauth_2_0_access_end_point_address_hint">Endereço do ponto final da acesso</string>
+    <string name="hint_name">Nome</string>
+    <string name="hint_password">Senha</string>
+</resources>
