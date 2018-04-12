@@ -191,7 +191,7 @@ public class FileUploader extends Service
         return FileUploader.class.getName() + UPLOAD_FINISH_MESSAGE;
     }
 
-    private static SyncedFolder getSyncedFolderById(long id, ContentResolver contentResolver) {
+    public static SyncedFolder getSyncedFolderById(long id, ContentResolver contentResolver) {
         return new SyncedFolderProvider(contentResolver).getSyncedFolderWithId(id);
     }
 

@@ -34,6 +34,7 @@ import com.owncloud.android.datamodel.DecryptedFolderMetadata;
 import com.owncloud.android.datamodel.EncryptedFolderMetadata;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.datamodel.SyncedFolder;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.datamodel.UploadsStorageManager;
 import com.owncloud.android.db.OCUpload;
@@ -122,6 +123,7 @@ public class UploadFileOperation extends SyncOperation {
     private boolean mWhileChargingOnly = false;
     private boolean mIgnoringPowerSaveMode = false;
 
+    private SyncedFolder syncedFolder;
     private boolean mWasRenamed = false;
     private long mOCUploadId = -1;
     /**
@@ -216,6 +218,11 @@ public class UploadFileOperation extends SyncOperation {
         mOCUploadId = upload.getUploadId();
         mCreatedBy = upload.getCreadtedBy();
         mRemoteFolderToBeCreated = upload.isCreateRemoteFolder();
+
+        if (upload.getSyncedFolderId() != -1) {
+             syncedFolder = FileUploader.getSyncedFolderById(upload.getSyncedFolderId(),
+                     getContext().getContentResolver());
+        }
         // Ignore power save mode only if user explicitly created this upload
         mIgnoringPowerSaveMode = (mCreatedBy == CREATED_BY_USER);
         mFolderUnlockToken = upload.getFolderUnlockToken();
@@ -716,6 +723,13 @@ public class UploadFileOperation extends SyncOperation {
     public RemoteOperationResult checkConditions(File originalFile) {
         RemoteOperationResult remoteOperationResult = null;
 
+        boolean wifiOnly = mOnWifiOnly;
+        boolean chargingOnly = mWhileChargingOnly;
+        if (syncedFolder != null) {
+            wifiOnly = syncedFolder.getWifiOnly();
+            chargingOnly = syncedFolder.getChargingOnly();
+        }
+
         // check that internet is not behind walled garden
         if (Device.getNetworkType(mContext).equals(JobRequest.NetworkType.ANY) ||
                 ConnectivityUtils.isInternetWalled(mContext)) {
@@ -723,13 +737,13 @@ public class UploadFileOperation extends SyncOperation {
         }
 
         // check that connectivity conditions are met and delays the upload otherwise
-        if (mOnWifiOnly && !Device.getNetworkType(mContext).equals(JobRequest.NetworkType.UNMETERED)) {
+        if (wifiOnly && !Device.getNetworkType(mContext).equals(JobRequest.NetworkType.UNMETERED)) {
             Log_OC.d(TAG, "Upload delayed until WiFi is available: " + getRemotePath());
             remoteOperationResult = new RemoteOperationResult(ResultCode.DELAYED_FOR_WIFI);
         }
 
         // check if charging conditions are met and delays the upload otherwise
-        if (mWhileChargingOnly && (!Device.getBatteryStatus(mContext).isCharging() && Device.getBatteryStatus(mContext)
+        if (chargingOnly && (!Device.getBatteryStatus(mContext).isCharging() && Device.getBatteryStatus(mContext)
                 .getBatteryPercent() < 1)) {
             Log_OC.d(TAG, "Upload delayed until the device is charging: " + getRemotePath());
             remoteOperationResult =  new RemoteOperationResult(ResultCode.DELAYED_FOR_CHARGING);
