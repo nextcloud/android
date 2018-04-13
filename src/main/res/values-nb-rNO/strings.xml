@@ -327,6 +327,7 @@
     <string name="placeholder_timestamp">18.05.2012 12:23</string>
     <string name="placeholder_media_time">12:23:45</string>
 
+    <string name="auto_upload_on_wifi">Kun last opp på ubegrenset Wi-Fi</string>
     <string name="instant_upload_on_charging">Last kun opp under lading</string>
     <string name="instant_upload_path">/Direkteopplasting</string>
     <string name="auto_upload_path">/Auto-opplasting</string>
@@ -755,6 +756,7 @@ Sjekk ut Nextcloud på https://nextcloud.com</string>
     <string name="end_to_end_encryption_enter_password">Skriv inn passord for å dekryptere privat nøkkel.</string>
     <string name="end_to_end_encryption_generating_keys">Genererer nye nøkler&#8230;</string>
     <string name="end_to_end_encryption_title">Sett opp kryptering</string>
+    <string name="end_to_end_encryption_passphrase_title">Merk deg dit 12-ords-krypteringspassord</string>
     <string name="end_to_end_encryption_not_supported">Kryptering støttes ikke før Android KitKat (4.4).</string>
     <string name="end_to_end_encryption_not_enabled">Ende-til-ende -kryptering avskrudd på tjeneren.</string>
     <string name="end_to_end_encryption_confirm_button">Sett opp kryptering</string>
@@ -768,4 +770,6 @@ Sjekk ut Nextcloud på https://nextcloud.com</string>
     <string name="notification_channel_push_name">Push-merknader</string>
     <string name="notification_channel_push_description">Vis push-merknader sendt av tjeneren: Nevnelser i kommentarer, mottak av ny fjerndeling, kunngjøringer postet av en administrator, osv.</string>
     <string name="sendbutton_description">Ikon for forsendelsesknapp</string>
-    </resources>
+    <string name="hint_name">Navn</string>
+    <string name="hint_password">Passord</string>
+</resources>
