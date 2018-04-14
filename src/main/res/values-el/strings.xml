@@ -244,7 +244,10 @@
     <string name="unset_favorite_real">Αναίρεση ορισμού ως αγαπημένο</string>
     <string name="favorite_switch">Διαθέσιμα εκτός σύνδεσης</string>
     <string name="common_rename">Μετονομασία</string>
+    <string name="common_remove">Διαγραφή</string>
     <string name="confirmation_remove_local">Μόνο τοπικά</string>
+    <string name="remove_success_msg">Διαγράφηκε</string>
+    <string name="remove_fail_msg">Αποτυχία διαγραφής</string>
     <string name="rename_dialog_title">Εισάγετε νέο όνομα</string>
     <string name="sync_file_nothing_to_do_msg">Τα περιεχόμενα του αρχείου έχουν ήδη συγχρονιστεί</string>
     <string name="create_dir_fail_msg">Αδυναμία δημιουργίας φακέλου</string>

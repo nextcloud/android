@@ -759,6 +759,8 @@
     <string name="notification_channel_push_name">Push-Benachrichtigungen</string>
     <string name="notification_channel_push_description">Vom Server gesendete Push-Benachrichtigungen anzeigen: Erwähnungen in Kommentaren, Zugriff auf weitere Freigaben erhalten, Ankündigungen von Administratoren erhalten, etc.</string>
     <string name="sendbutton_description">Icon für den Senden-Button</string>
+    <string name="oauth_2_0_auth_end_point_address_hint">Adresse Autorisierungsendpunkt</string>
+    <string name="oauth_2_0_access_end_point_address_hint">Adresse  Zugriffsendpunkt</string>
     <string name="hint_name">Name</string>
     <string name="hint_password">Passwort</string>
 </resources>
