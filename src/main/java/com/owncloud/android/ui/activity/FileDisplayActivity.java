@@ -40,6 +40,7 @@ import android.content.pm.PackageManager;
 import android.content.res.Resources.NotFoundException;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.IBinder;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
@@ -178,6 +179,8 @@ public class FileDisplayActivity extends HookActivity
     private String searchQuery;
 
     private SearchView searchView;
+
+    private Handler mHandler = new Handler();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -1641,6 +1644,9 @@ public class FileDisplayActivity extends HookActivity
 
         } else if (operation instanceof CopyFileOperation) {
             onCopyFileOperationFinish((CopyFileOperation) operation, result);
+
+        } else if (operation instanceof RefreshFolderOperation) {
+            onRefreshFolderOperationFinish((RefreshFolderOperation)operation, result);
         }
 
     }
@@ -1756,6 +1762,26 @@ public class FileDisplayActivity extends HookActivity
             }
         }
     }
+
+    /**
+     * Update theming of current activity and fragments, since Folder refresh can also update theming information.
+     *
+     * @param operation Folder refresh operation
+     * @param result    Result of folder refresh
+     */
+    private void onRefreshFolderOperationFinish(RefreshFolderOperation operation, RemoteOperationResult result) {
+        if (MainApp.isOnlyOnDevice()) {
+            setupDrawer(R.id.nav_on_device);
+        } else {
+            setupDrawer(R.id.nav_all_files);
+        }
+        setupToolbar();
+        OCFileListFragment listFragment = getListOfFilesFragment();
+        if (listFragment != null) {
+            listFragment.applyFABTheming();
+        }
+    }
+
 
     /**
      * Updates the view associated to the activity after the finish of an operation trying to rename
@@ -1925,8 +1951,8 @@ public class FileDisplayActivity extends HookActivity
                                         getAccount(),
                                         MainApp.getAppContext(),
                                         FileDisplayActivity.this,
-                                        null,
-                                        null
+                                        FileDisplayActivity.this.mHandler,
+                                        FileDisplayActivity.this
                                 );
 
                                 setIndeterminate(true);

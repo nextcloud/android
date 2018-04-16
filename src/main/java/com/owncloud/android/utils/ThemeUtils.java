@@ -232,7 +232,7 @@ public class ThemeUtils {
         return ColorUtils.HSLToColor(hsl);
     }
 
-    private static float[] colorToHSL(int color) {
+    public static float[] colorToHSL(int color) {
         float[] hsl = new float[3];
         ColorUtils.RGBToHSL(Color.red(color), Color.green(color), Color.blue(color), hsl);
 
@@ -378,7 +378,7 @@ public class ThemeUtils {
         return getCapability(null);
     }
 
-    private static OCCapability getCapability(Account acc) {
+    public static OCCapability getCapability(Account acc) {
         Account account;
         Context context = MainApp.getAppContext();
 

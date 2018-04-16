@@ -623,7 +623,7 @@ public class ExtendedListFragment extends Fragment
     /**
      * Set tinting of FAB's from server data
      */
-    private void applyFABTheming() {
+    public void applyFABTheming() {
         AddFloatingActionButton addButton = getFabMain().getAddButton();
         addButton.setColorNormal(ThemeUtils.primaryColor());
         addButton.setColorPressed(ThemeUtils.primaryDarkColor());
