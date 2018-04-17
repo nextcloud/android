@@ -27,6 +27,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.owncloud.android.R;
+import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
@@ -345,6 +346,16 @@ public class FileMenuFilter {
             toShow.add(R.id.action_download_file);
         }
     }
+    
+    private void filterStream() {
+        // STREAM
+        if (mFiles.isEmpty() || !isSingleFile() || !isSingleMedia() ||
+                !AccountUtils.getServerVersion(mAccount).isMediaStreamingSupported()) {
+            toHide.add(R.id.action_stream_media);
+        } else {
+            toShow.add(R.id.action_stream_media);
+        }
+    }
 
     private boolean anyFileSynchronizing() {
         boolean synchronizing = false;
@@ -428,6 +439,11 @@ public class FileMenuFilter {
 
     private boolean isSingleImage() {
         return isSingleSelection() && MimeTypeUtil.isImage(mFiles.iterator().next());
+    }
+
+    private boolean isSingleMedia() {
+        OCFile file = mFiles.iterator().next();
+        return isSingleSelection() && (MimeTypeUtil.isVideo(file) || MimeTypeUtil.isAudio(file));
     }
 
     private boolean allFiles() {

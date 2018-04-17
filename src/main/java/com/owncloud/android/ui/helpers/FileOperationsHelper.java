@@ -48,6 +48,7 @@ import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.files.StreamMediaFileOperation;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
@@ -346,6 +347,34 @@ public class FileOperationsHelper {
         } else {
             return file.getExposedFileUri(mFileActivity);
         }
+    }
+
+    public void streamMediaFile(OCFile file) {
+        mFileActivity.showLoadingDialog(mFileActivity.getString(R.string.wait_a_moment));
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Account account = AccountUtils.getCurrentOwnCloudAccount(mFileActivity);
+                StreamMediaFileOperation sfo = new StreamMediaFileOperation(file.getLocalId());
+                RemoteOperationResult result = sfo.execute(account, mFileActivity);
+
+                mFileActivity.dismissLoadingDialog();
+
+                if (!result.isSuccess()) {
+                    DisplayUtils.showSnackMessage(mFileActivity, R.string.stream_not_possible_headline);
+                    return;
+                }
+
+                Intent openFileWithIntent = new Intent(Intent.ACTION_VIEW);
+                Uri uri = Uri.parse((String) result.getData().get(0));
+
+                openFileWithIntent.setDataAndType(uri, file.getMimetype());
+
+                mFileActivity.startActivity(Intent.createChooser(openFileWithIntent,
+                        mFileActivity.getString(R.string.stream)));
+            }
+        }).start();
     }
 
     /**
