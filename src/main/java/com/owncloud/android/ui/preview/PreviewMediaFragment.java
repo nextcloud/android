@@ -34,6 +34,8 @@ import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnCompletionListener;
 import android.media.MediaPlayer.OnErrorListener;
 import android.media.MediaPlayer.OnPreparedListener;
+import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.support.annotation.DrawableRes;
@@ -58,6 +60,11 @@ import android.widget.VideoView;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.FileMenuFilter;
+import com.owncloud.android.files.StreamMediaFileOperation;
+import com.owncloud.android.lib.common.OwnCloudAccount;
+import com.owncloud.android.lib.common.OwnCloudClient;
+import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
+import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.media.MediaControlView;
 import com.owncloud.android.media.MediaService;
@@ -68,6 +75,8 @@ import com.owncloud.android.ui.dialog.ConfirmationDialogFragment;
 import com.owncloud.android.ui.dialog.RemoveFilesDialogFragment;
 import com.owncloud.android.ui.fragment.FileFragment;
 import com.owncloud.android.utils.MimeTypeUtil;
+
+import java.lang.ref.WeakReference;
 
 
 /**
@@ -107,6 +116,8 @@ public class PreviewMediaFragment extends FileFragment implements
     private boolean mAutoplay;
     private static boolean mOnResume = false;
     public boolean mPrepared;
+
+    private Uri mVideoUri;
 
     private static final String TAG = PreviewMediaFragment.class.getSimpleName();
 
@@ -221,6 +232,7 @@ public class PreviewMediaFragment extends FileFragment implements
             mMultiListMessage.setText(message);
             mMultiListIcon.setImageResource(icon);
 
+            mMultiListMessage.setVisibility(View.VISIBLE);
             mMultiListIcon.setVisibility(View.VISIBLE);
             mMultiListProgress.setVisibility(View.GONE);
         }
@@ -244,19 +256,15 @@ public class PreviewMediaFragment extends FileFragment implements
             if (mAccount == null) {
                 throw new IllegalStateException("Instanced with a NULL ownCloud Account");
             }
-            if (!file.isDown()) {
-                throw new IllegalStateException("There is no local file to preview");
-            }
         } else {
             file = savedInstanceState.getParcelable(PreviewMediaFragment.EXTRA_FILE);
             setFile(file);
             mAccount = savedInstanceState.getParcelable(PreviewMediaFragment.EXTRA_ACCOUNT);
             mSavedPlaybackPosition = savedInstanceState.getInt(PreviewMediaFragment.EXTRA_PLAY_POSITION);
             mAutoplay = savedInstanceState.getBoolean(PreviewMediaFragment.EXTRA_PLAYING);
-
         }
 
-        if (file != null && file.isDown()) {
+        if (file != null) {
             if (MimeTypeUtil.isVideo(file)) {
                 mVideoPreview.setVisibility(View.VISIBLE);
                 mImagePreview.setVisibility(View.GONE);
@@ -327,16 +335,12 @@ public class PreviewMediaFragment extends FileFragment implements
         Log_OC.v(TAG, "onStart");
 
         OCFile file = getFile();
-        if (file != null && file.isDown()) {
+        if (file != null) {
             if (MimeTypeUtil.isAudio(file)) {
                 bindMediaService();
-
-            }
-            else {
-                if (MimeTypeUtil.isVideo(file)) {
-                    stopAudio();
-                    playVideo();
-                }
+            } else if (MimeTypeUtil.isVideo(file)) {
+                stopAudio();
+                playVideo();
             }
         }
     }
@@ -492,16 +496,68 @@ public class PreviewMediaFragment extends FileFragment implements
         mVideoPreview.setOnErrorListener(videoHelper);
     }
 
-    @SuppressWarnings("static-access")
     private void playVideo() {
         // create and prepare control panel for the user
         mMediaController.setMediaPlayer(mVideoPreview);
 
-        // load the video file in the video player ; 
+        // load the video file in the video player 
         // when done, VideoHelper#onPrepared() will be called
-        mVideoPreview.setVideoURI(getFile().getStorageUri());
+        if (getFile().isDown()) {
+            mVideoPreview.setVideoURI(getFile().getStorageUri());
+        } else {
+            try {
+                OwnCloudAccount ocAccount = new OwnCloudAccount(mAccount, getContext());
+                OwnCloudClient client = OwnCloudClientManagerFactory.getDefaultSingleton().
+                        getClientFor(ocAccount, getContext());
+
+                new LoadStreamUrl(this, client).execute(getFile().getLocalId());
+            } catch (Exception e) {
+                Log_OC.e(TAG, "Loading stream url not possible: " + e.getMessage());
+            }
+        }
     }
 
+    private static class LoadStreamUrl extends AsyncTask<String, Void, Uri> {
+
+        private OwnCloudClient client;
+        private WeakReference<PreviewMediaFragment> previewMediaFragmentWeakReference;
+
+        public LoadStreamUrl(PreviewMediaFragment previewMediaFragment, OwnCloudClient client) {
+            this.client = client;
+            this.previewMediaFragmentWeakReference = new WeakReference<>(previewMediaFragment);
+        }
+
+        @Override
+        protected Uri doInBackground(String... fileId) {
+            StreamMediaFileOperation sfo = new StreamMediaFileOperation(fileId[0]);
+            RemoteOperationResult result = sfo.execute(client);
+
+            if (!result.isSuccess()) {
+                return null;
+            }
+
+            return Uri.parse((String) result.getData().get(0));
+        }
+
+        @Override
+        protected void onPostExecute(Uri uri) {
+            PreviewMediaFragment previewMediaFragment = previewMediaFragmentWeakReference.get();
+
+            if (previewMediaFragment != null) {
+                if (uri != null) {
+                    previewMediaFragment.mVideoUri = uri;
+                    previewMediaFragment.mVideoPreview.setVideoURI(uri);
+                } else {
+                    previewMediaFragment.mMultiView.setVisibility(View.VISIBLE);
+                    previewMediaFragment.setMessageForMultiList(
+                            previewMediaFragment.getString(R.string.stream_not_possible_headline),
+                            R.string.stream_not_possible_message, R.drawable.file_movie);
+                }
+            } else {
+                Log_OC.e(TAG, "Error streaming file: no previewMediaFragment!");
+            }
+        }
+    }
 
     private class VideoHelper implements OnCompletionListener, OnPreparedListener, OnErrorListener {
 
@@ -624,6 +680,7 @@ public class PreviewMediaFragment extends FileFragment implements
         i.putExtra(FileActivity.EXTRA_ACCOUNT, mAccount);
         i.putExtra(FileActivity.EXTRA_FILE, getFile());
         i.putExtra(PreviewVideoActivity.EXTRA_AUTOPLAY, mVideoPreview.isPlaying());
+        i.putExtra(PreviewVideoActivity.EXTRA_STREAM_URL, mVideoUri);
         mVideoPreview.pause();
         i.putExtra(PreviewVideoActivity.EXTRA_START_POSITION, mVideoPreview.getCurrentPosition());
         startActivityForResult(i, FileActivity.REQUEST_CODE__LAST_SHARED + 1);
@@ -652,7 +709,6 @@ public class PreviewMediaFragment extends FileFragment implements
         if (!mMediaServiceBinder.isPlaying(file) && !mOnResume) {
             Log_OC.d(TAG, "starting playback of " + file.getStoragePath());
             mMediaServiceBinder.start(mAccount, file, mAutoplay, mSavedPlaybackPosition);
-
         }
         else {
             if (!mMediaServiceBinder.isPlaying() && mAutoplay) {
