@@ -127,13 +127,18 @@ public class FileDownloader extends Service
         mServiceHandler = new ServiceHandler(mServiceLooper, this);
         mBinder = new FileDownloaderBinder();
 
-        mNotification = new NotificationCompat.Builder(this).setContentTitle(getApplicationContext().
-                getResources().getString(R.string.app_name))
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this).setContentTitle(
+                getApplicationContext().getResources().getString(R.string.app_name))
                 .setContentText(getApplicationContext().getResources().getString(R.string.foreground_service_download))
                 .setSmallIcon(R.drawable.notification_icon)
                 .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.notification_icon))
-                .setColor(ThemeUtils.primaryColor())
-                .build();
+                .setColor(ThemeUtils.primaryColor());
+
+        if ((android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O)) {
+            builder.setChannelId(NotificationUtils.NOTIFICATION_CHANNEL_DOWNLOAD);
+        }
+
+        mNotification = builder.build();
 
         // add AccountsUpdatedListener
         AccountManager am = AccountManager.get(getApplicationContext());
@@ -173,9 +178,7 @@ public class FileDownloader extends Service
 
         startForeground(FOREGROUND_SERVICE_ID, mNotification);
 
-        if (!intent.hasExtra(EXTRA_ACCOUNT) ||
-                !intent.hasExtra(EXTRA_FILE)
-                ) {
+        if (!intent.hasExtra(EXTRA_ACCOUNT) || !intent.hasExtra(EXTRA_FILE)) {
             Log_OC.e(TAG, "Not enough information provided in intent");
             return START_NOT_STICKY;
         } else {
