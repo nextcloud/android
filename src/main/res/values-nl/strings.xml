@@ -759,4 +759,6 @@
     <string name="notification_channel_push_name">Push meldingen</string>
     <string name="notification_channel_push_description">Toon push meldingen verstuurd door de server: als je wordt vermeld in reacties, of als je een deellink ontvangt of als een beheerder een aankondiging plaatst.</string>
     <string name="sendbutton_description">Verstuur-knop pictogram</string>
-    </resources>
+    <string name="hint_name">Naam</string>
+    <string name="hint_password">Wachtwoord</string>
+</resources>
