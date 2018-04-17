@@ -102,12 +102,15 @@
     <string name="file_list_empty_search">Potser ets a una carpeta diferent?</string>
     <string name="file_list_empty_recently_added">No s\'han trobat fitxers afegits recentment</string>
     <string name="file_list_empty_text_photos">Carrega algunes fotos o activa la càrrega automàtica.</string>
+    <string name="file_list_empty_text_photos_filter">No hi ha imatges.</string>
     <string name="file_list_empty_text_videos">Carrega vídeos o activa la càrrega automàtica.</string>
+    <string name="file_list_empty_text_videos_filter">No hi ha vídeos.</string>
     <string name="upload_list_empty_headline">No hi ha pujades disponibles</string>
     <string name="upload_list_empty_text_auto_upload">Carrega algun contingut o activa la càrrega automàtica.</string>
     <string name="file_list_folder">carpeta</string>
     <string name="filedetails_select_file">Feu clic en un fitxer per mostrar informació addicional.</string>
     <string name="filedetails_download">Baixa</string>
+    <string name="filedetails_sync_file">Sincronitza</string>
     <string name="list_layout">Disposició llistada</string>
     <string name="action_send_share">Envia/Comparteix</string>
     <string name="common_yes">Sí</string>
@@ -150,6 +153,7 @@
     <string name="uploads_view_upload_status_conflict">Conflicte</string>
     <string name="uploads_view_upload_status_service_interrupted">L\'aplicació s\'ha tancat</string>
     <string name="uploads_view_upload_status_unknown_fail">Error desconegut</string>
+    <string name="uploads_view_upload_status_waiting_for_wifi">S\'està esperant Wi-Fi</string>
     <string name="uploads_view_upload_status_waiting_exit_power_save_mode">S\'està esperant al mode d\'apagada segur</string>
     <string name="uploads_view_later_waiting_to_upload">S\'està esperant per pujar-ho</string>
     <string name="downloader_download_in_progress_ticker">Descarregant &#8230;</string>
@@ -162,6 +166,7 @@
     <string name="common_choose_account">Escull un compte</string>
     <string name="common_switch_account">Canvia el compte</string>
     <string name="sync_fail_ticker">La sincronització ha fallat</string>
+    <string name="sync_fail_content">No s\'ha pogut sincronitzar %1$s</string>
     <string name="sync_fail_content_unauthorized">Contrasenya incorrecta per a%1$s</string>
     <string name="sync_conflicts_in_favourites_ticker">S\'han trobat conflictes</string>
     <string name="sync_fail_in_favourites_ticker">Han fallat fitxers que han d\'estar sincronitzats</string>
@@ -239,6 +244,8 @@
     <string name="favorite_real">Estableix com a favorit</string>
     <string name="unset_favorite_real">Desfés el favorit</string>
     <string name="favorite_switch">fora de línia</string>
+    <string name="encrypted">Activa el xifrat</string>
+    <string name="unset_encrypted">Desactiva el xifrat</string>
     <string name="common_rename">Reanomena</string>
     <string name="common_remove">Esborra</string>
     <string name="confirmation_remove_file_alert">Esteu segur que voleu esborrar%1$s?</string>
@@ -250,6 +257,7 @@
     <string name="sync_file_nothing_to_do_msg">Contingut del fitxer ja sincronitzat</string>
     <string name="create_dir_fail_msg">No s\'ha pogut crear la carpeta</string>
     <string name="filename_forbidden_characters">Caràcters no permesos: / \\ &lt; &gt; : \" | ? *</string>
+    <string name="filename_empty">El nom del fitxer no pot estar buit</string>
     <string name="wait_a_moment">Espera un moment &#8230;</string>
     <string name="wait_checking_credentials">Comprovant les credencials emmagatzemades</string>
     <string name="filedisplay_no_file_selected">Cap fitxer escollit</string>
