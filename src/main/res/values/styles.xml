@@ -144,6 +144,12 @@
 		<item name="windowActionBarOverlay">true</item>
 	</style>
 
+	<!-- Launch screen -->
+	<style name="Theme.ownCloud.Launcher">
+		<item name="android:windowBackground">@drawable/launch_screen</item>
+	</style>
+
+
 	<!-- Progress bar -->
 	<style name="Widget.ownCloud.TopProgressBar" parent="@style/Widget.AppCompat.ProgressBar.Horizontal">
 		<item name="android:progressDrawable">@drawable/actionbar_progress_horizontal</item>
