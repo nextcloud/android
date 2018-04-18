@@ -118,7 +118,7 @@ public class ContactsBackupFragment extends FileFragment implements DatePickerDi
 
         final ContactsPreferenceActivity contactsPreferenceActivity = (ContactsPreferenceActivity) getActivity();
 
-        account = (Account) getArguments().get(ContactListFragment.ACCOUNT);
+        account = contactsPreferenceActivity.getAccount();
 
         contactsPreferenceActivity.getSupportActionBar().setTitle(R.string.actionbar_contacts);
         contactsPreferenceActivity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
