@@ -116,9 +116,7 @@ public class ActivitiesActivity extends FileActivity implements ActivityListInte
             ThemeUtils.setColoredTitle(actionBar, getString(R.string.drawer_item_activities));
         }
 
-        swipeListRefreshLayout.setOnRefreshListener(() -> {
-                    mActionListener.loadActivites(null);
-                }
+        swipeListRefreshLayout.setOnRefreshListener(() -> mActionListener.loadActivites(null)
         );
 
         // Since we use swipe-to-refresh for progress indication we can hide the inherited
