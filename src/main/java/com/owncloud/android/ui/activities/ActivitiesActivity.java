@@ -352,6 +352,7 @@ public class ActivitiesActivity extends FileActivity implements ActivityListInte
 
     @Override
     public void setProgressIndicatorState(boolean isActive) {
+        isLoadingActivities = isActive;
         swipeListRefreshLayout.post(() -> swipeListRefreshLayout.setRefreshing(isActive));
 
     }
