@@ -76,6 +76,7 @@ import com.owncloud.android.lib.resources.status.OwnCloudVersion;
 import com.owncloud.android.lib.resources.users.GetRemoteUserInfoOperation;
 import com.owncloud.android.operations.GetCapabilitiesOperarion;
 import com.owncloud.android.ui.TextDrawable;
+import com.owncloud.android.ui.activities.ActivitiesActivity;
 import com.owncloud.android.ui.events.AccountRemovedEvent;
 import com.owncloud.android.ui.events.ChangeMenuEvent;
 import com.owncloud.android.ui.events.DummyDrawerEvent;
@@ -443,7 +444,7 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
                 startActivity(uploadListIntent);
                 break;
             case R.id.nav_activity:
-                Intent activityIntent = new Intent(getApplicationContext(), ActivitiesListActivity.class);
+                Intent activityIntent = new Intent(getApplicationContext(), ActivitiesActivity.class);
                 activityIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(activityIntent);
                 break;
