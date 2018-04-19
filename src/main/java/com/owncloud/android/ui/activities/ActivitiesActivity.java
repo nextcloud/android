@@ -1,9 +1,5 @@
 package com.owncloud.android.ui.activities;
 
-import android.accounts.Account;
-import android.accounts.AuthenticatorException;
-import android.accounts.OperationCanceledException;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.os.AsyncTask;
@@ -21,27 +17,20 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
-import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.OwnCloudClient;
-import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.lib.resources.activities.GetRemoteActivitiesOperation;
 import com.owncloud.android.lib.resources.activities.models.RichObject;
 import com.owncloud.android.lib.resources.files.FileUtils;
 import com.owncloud.android.lib.resources.files.ReadRemoteFileOperation;
 import com.owncloud.android.lib.resources.files.RemoteFile;
 import com.owncloud.android.operations.RefreshFolderOperation;
-import com.owncloud.android.ui.activities.data.ActivitiesRepository;
 import com.owncloud.android.ui.activities.data.ActivitiesServiceApiImpl;
 import com.owncloud.android.ui.activities.data.ActivityRepositories;
-import com.owncloud.android.ui.activity.ActivitiesListActivity;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.adapter.ActivityListAdapter;
@@ -61,7 +50,7 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
 public class ActivitiesActivity extends FileActivity implements ActivityListInterface, ActivitiesContract.View {
-    private static final String TAG = ActivitiesListActivity.class.getSimpleName();
+    private static final String TAG = ActivitiesActivity.class.getSimpleName();
     private static final String SCREEN_NAME = "Activities";
 
     @BindView(R.id.empty_list_view)
