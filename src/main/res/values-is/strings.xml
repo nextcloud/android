@@ -517,6 +517,7 @@
     <string name="manage_space_clear_data">Hreinsa gögn</string>
 
     <string name="permission_storage_access">Krafist er viðbótarheimilda til að senda inn og sækja skrár.</string>
+    <string name="local_file_not_found_message">Skrá fannst ekki á staðværu skráakerfi</string>
     <string name="confirmation_remove_files_alert">Ertu viss um að þú viljir eyða völdum atriðum?</string>
     <string name="confirmation_remove_folders_alert">Ertu viss um að þú viljir eyða völdum atriðum og innihaldi þeirra?</string>
     <string name="maintenance_mode">Þjónn í viðhaldsham</string>
@@ -701,6 +702,7 @@
     <string name="store_full_dev_desc">Frjálsa Nextcloud Android-forritið með opna notkunarleyfinu, gefur þér frelsi á ferðinni.\nÞetta er opinbera þróunarútgáfan, sem kemur með daglegan skammt af óprófuðum nýjum eiginleikum, sem aftur gætu mögulega valdið truflunum og gagnatapi. Forritið er fyrir þá notendur sem vilja taka þátt í að prófa og tilkynna um villur, ef þær eiga sér stað. Ekki nota þetta í alvöru vinnuumhverfi!\n\nBæði opinbera þróunarútgáfan og venjulega útgáfan eru tiltækar á F-droid, og er hægt að setja þær upp samhliða hvorri annarri.</string>
 
     <string name="prefs_category_dev">Dev</string>
+    <string name="dev_version_no_information_available">Engar upplýsingar tiltækar</string>
     <string name="dev_version_no_new_version_available">Engin ný útgáfa tiltæk.</string>
     <string name="folder_icon">Táknmynd fyrir möppu</string>
     <string name="dev_version_new_version_available">Ný útgáfa er tiltæk</string>
@@ -745,6 +747,7 @@
     <string name="end_to_end_encryption_title">Setja upp dulritun</string>
     <string name="end_to_end_encryption_passphrase_title">Skrifaðu niður 12 orða dulritunarlykilorðið þitt</string>
     <string name="end_to_end_encryption_not_supported">Dulritun virkar aðeins á KitKat(4.4) og nýrra.</string>
+    <string name="end_to_end_encryption_not_enabled">Enda-í-enda dulritun óvirk á þjóni.</string>
     <string name="end_to_end_encryption_confirm_button">Setja upp dulritun</string>
     <string name="end_to_end_encryption_password">Lykilorð&#8230;</string>
     <string name="end_to_end_encryption_unsuccessful">Gat ekki vistað dulritunarlykla, reyndu aftur.</string>
@@ -752,4 +755,10 @@
     <string name="end_to_end_encryption_storing_keys">Geymi dulritunarlykla</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Ekki er stuðningur ennþá við afritun/færslu inn í dulritaða möppu.</string>
     <string name="untrusted_domain">Aðgangur í gegnum vantreyst lén. Endilega kíktu á hjálparskjölin til að sjá ítarlegri upplýsingar.</string>
-    </resources>
+    <string name="upload_list_loading">Hleð innsendum skrám &#8230;</string>
+    <string name="notification_channel_push_name">Ýtitilkynningar</string>
+    <string name="notification_channel_push_description">Birta tilkynningar sem ýtt er út frá þjóninum: Ummæli (mentions) í athugasemdum, móttaka nýrra sameigna, tilkynningar sendar inn af stjórnendum, o.fl.</string>
+    <string name="sendbutton_description">Táknmynd á sendihnappi</string>
+    <string name="hint_name">Nafn</string>
+    <string name="hint_password">Lykilorð</string>
+</resources>
