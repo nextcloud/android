@@ -62,7 +62,6 @@ public abstract class PreferenceManager {
     private static final String PREF__AUTO_UPLOAD_INIT = "autoUploadInit";
     private static final String PREF__FOLDER_SORT_ORDER = "folder_sort_order";
     private static final String PREF__FOLDER_LAYOUT = "folder_layout";
-    private static final String KEY_FAB_EVER_CLICKED = "FAB_EVER_CLICKED";
 
     public static void setKeysReInit(Context context) {
         saveBooleanPreference(context, PREF__KEYS_REINIT, true);
@@ -115,14 +114,6 @@ public abstract class PreferenceManager {
 
     public static boolean showHiddenFilesEnabled(Context context) {
         return PreferenceManager.getDefaultSharedPreferences(context).getBoolean("show_hidden_files_pref", false);
-    }
-
-    public static long getFABClicked(Context context) {
-        return getDefaultSharedPreferences(context).getLong(KEY_FAB_EVER_CLICKED, 0);
-    }
-
-    public static void setFABClicked(Context context) {
-        getDefaultSharedPreferences(context).edit().putLong(KEY_FAB_EVER_CLICKED, 1).apply();
     }
 
     /**
