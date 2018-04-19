@@ -1572,9 +1572,7 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
                     mAdapter.notifyDataSetChanged();
                 }
             }
-        };
-
-        remoteOperationAsyncTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, true);
+        }.execute("");
     }
 
     @Subscribe(threadMode = ThreadMode.BACKGROUND)
