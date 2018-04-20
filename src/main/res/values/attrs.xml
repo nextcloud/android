@@ -20,10 +20,4 @@
 		<item>LOCAL_BEHAVIOUR_MOVE</item>
 		<item>LOCAL_BEHAVIOUR_DELETE</item>
 	</string-array>
-
-	<string-array name="upload_files_behaviour" translatable="false">
-		<item>@string/uploader_upload_files_behaviour_move_to_nextcloud_folder</item>
-		<item>@string/uploader_upload_files_behaviour_only_upload</item>
-		<item>@string/uploader_upload_files_behaviour_upload_and_delete_from_source</item>
-	</string-array>
 </resources>
