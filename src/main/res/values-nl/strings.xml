@@ -745,7 +745,7 @@
     <string name="end_to_end_encryption_generating_keys">Genereren nieuwe sleutels &#8230;</string>
     <string name="end_to_end_encryption_keywords_description">Deze zin van 12 woorden is als een heel sterk wachtwoord: het verleent volledige toegang tot je versleutelde bestanden. Schrijf het alsjeblieft op en bewaar het op een veilige plek.</string>
     <string name="end_to_end_encryption_title">Instellen versleuteling</string>
-    <string name="end_to_end_encryption_passphrase_title">Schrijf uw encryptie wachtwoord van 12 woorden op</string>
+    <string name="end_to_end_encryption_passphrase_title">Schrijf je encryptie wachtwoord van 12 woorden op</string>
     <string name="end_to_end_encryption_not_supported">Versleutelen wordt niet ondersteund in versies eerder dan KitKat (4.4)</string>
     <string name="end_to_end_encryption_not_enabled">Begin-tot-eind versleuteling uitgeschakeld op de server.</string>
     <string name="end_to_end_encryption_confirm_button">Instellen versleuteling</string>
