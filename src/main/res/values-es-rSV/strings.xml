@@ -79,7 +79,7 @@
     <string name="uploader_error_message_source_file_not_found">El archivo seleccionado para cargar no fue encontrado. Por favor verifica si el archivo existe.</string>
     <string name="uploader_error_message_source_file_not_copied">No fue posible copiar el archivo a una carpeta temporal. Por favor intenta enviarlo de nuevo.</string>
     <string name="uploader_upload_files_behaviour">Opción de carga:</string>
-    <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">Mover el archivo a la carpeta de Nextcloud</string>
+    <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">Mover el archivo a la carpeta de %1$s</string>
     <string name="uploader_upload_files_behaviour_only_upload">Mantener el archivo en la carpeta de origen</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Borrar el archivo de la carpeta de origen</string>
     <string name="file_list_seconds_ago">hace algunos segundos</string>

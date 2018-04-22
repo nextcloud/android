@@ -79,7 +79,7 @@
     <string name="uploader_error_message_source_file_not_found">Kargatzeko hautatutako fitxategia ez da aurkitu. Mesedez, egiaztatu fitxategia existitzen dela.</string>
     <string name="uploader_error_message_source_file_not_copied">Fitxategia ezin izan da aldi baterako karpetan kopiatu. Saiatu berriro bidaltzen.</string>
     <string name="uploader_upload_files_behaviour">Kargatze aukera:</string>
-    <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">Mugitu fitxategia Nextcloud karpetara</string>
+    <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">Mugitu fitxategia %1$s karpetara</string>
     <string name="uploader_upload_files_behaviour_only_upload">Mantendu fitxategia jatorrizko karpetan</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Ezabatu fitxategia jatorrizko karpetatik</string>
     <string name="file_list_seconds_ago">duela segundo batzuk</string>
