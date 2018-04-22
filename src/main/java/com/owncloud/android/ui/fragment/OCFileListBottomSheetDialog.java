@@ -73,13 +73,13 @@ public class OCFileListBottomSheetDialog extends BottomSheetDialog {
 
         unbinder = ButterKnife.bind(this, view);
 
-        int primaryColor = ThemeUtils.primaryColor();
+        int primaryColor = ThemeUtils.primaryColor(getContext());
         ThemeUtils.tintDrawable(iconUploadFiles.getDrawable(), primaryColor);
         ThemeUtils.tintDrawable(iconUploadFromApp.getDrawable(), primaryColor);
         ThemeUtils.tintDrawable(iconMakeDir.getDrawable(), primaryColor);
 
         headline.setText(getContext().getResources().getString(R.string.add_to_cloud,
-                ThemeUtils.getDefaultDisplayNameForRootFolder()));
+                ThemeUtils.getDefaultDisplayNameForRootFolder(getContext())));
 
         setOnShowListener(d ->
                 BottomSheetBehavior.from((View) view.getParent()).setPeekHeight(view.getMeasuredHeight())

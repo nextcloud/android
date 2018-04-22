@@ -128,11 +128,11 @@ public class ContactsBackupFragment extends FileFragment implements DatePickerDi
         ActionBar actionBar = contactsPreferenceActivity != null ? contactsPreferenceActivity.getSupportActionBar() : null;
 
         if (actionBar != null) {
-            ThemeUtils.setColoredTitle(actionBar, getString(R.string.actionbar_contacts));
+            ThemeUtils.setColoredTitle(actionBar, getString(R.string.actionbar_contacts), getContext());
             actionBar.setDisplayHomeAsUpEnabled(true);
 
             Drawable backArrow = getResources().getDrawable(R.drawable.ic_arrow_back);
-            actionBar.setHomeAsUpIndicator(ThemeUtils.tintDrawable(backArrow, ThemeUtils.fontColor()));
+            actionBar.setHomeAsUpIndicator(ThemeUtils.tintDrawable(backArrow, ThemeUtils.fontColor(getContext())));
         }
 
         arbitraryDataProvider = new ArbitraryDataProvider(getContext().getContentResolver());
@@ -175,7 +175,7 @@ public class ContactsBackupFragment extends FileFragment implements DatePickerDi
         }
 
         int accentColor = ThemeUtils.primaryAccentColor(getContext());
-        int fontColor = ThemeUtils.fontColor();
+        int fontColor = ThemeUtils.fontColor(getContext());
 
         backupNow.getBackground().setColorFilter(accentColor, PorterDuff.Mode.SRC_ATOP);
         backupNow.setTextColor(fontColor);
