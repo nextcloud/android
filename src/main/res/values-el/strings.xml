@@ -81,7 +81,7 @@
     <string name="uploader_error_message_source_file_not_found">Το αρχείο προς αποστολή δεν βρέθηκε στην τοποθεσία. Παρακαλώ ελέγξτε εάν υπάρχει το αρχείο.</string>
     <string name="uploader_error_message_source_file_not_copied">Παρουσιάστηκε σφάλμα κατά την αντιγραφή του αρχείου στον προσωρινό φάκελο. Παρακαλούμε δοκιμάστε να στείλετε ξανά.</string>
     <string name="uploader_upload_files_behaviour">Επιλογή μεταφόρτωσης:</string>
-    <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">Μετακίνηση αρχείου στον φάκελο Nextcloud</string>
+    <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">Μετακίνηση αρχείου στον φάκελο %1$s</string>
     <string name="uploader_upload_files_behaviour_only_upload">Διατήρηση του αρχείου στον πηγαίο φάκελο</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Διαγραφή αρχείου από τον πηγαίο φάκελο</string>
     <string name="file_list_seconds_ago">δευτερόλεπτα πριν</string>

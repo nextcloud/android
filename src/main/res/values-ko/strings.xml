@@ -81,7 +81,7 @@
     <string name="uploader_error_message_source_file_not_found">업로드하려고 선택한 파일을 찾을 수 없습니다. 파일이 존재하는지 확인하십시오.</string>
     <string name="uploader_error_message_source_file_not_copied">파일을 임시 폴더에 저장할 수 없습니다. 다시 전송을 시도하십시오.</string>
     <string name="uploader_upload_files_behaviour">업로드 설정:</string>
-    <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">Nextcloud 폴더로 파일 이동</string>
+    <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">%1$s 폴더로 파일 이동</string>
     <string name="uploader_upload_files_behaviour_only_upload">원본 폴더에 파일 유지</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">원본 폴더에서 파일 삭제</string>
     <string name="file_list_seconds_ago">초 전</string>

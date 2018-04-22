@@ -75,7 +75,7 @@
     <string name="uploader_error_message_source_file_not_found">Nepavyko įkelti failo. Patikrinkite failą, kurį norite įkelti.</string>
     <string name="uploader_error_message_source_file_not_copied">Nepavyko nukopijuoti failo į laikiną aplanką. Pabandykite dar kartą</string>
     <string name="uploader_upload_files_behaviour">Įkėlimo funkcija</string>
-    <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">Perkelti failą į Nextcloud aplanką</string>
+    <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">Perkelti failą į %1$s aplanką</string>
     <string name="uploader_upload_files_behaviour_only_upload">Laikyti failą pagrindiniame (šaltinio) aplanke</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Ištrinkite failus iš pagrindinio aplanko</string>
     <string name="file_list_seconds_ago">prieš keletą sekundžių</string>
