@@ -55,7 +55,6 @@ import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.PopupMenu;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
@@ -122,7 +121,8 @@ import java.util.Set;
  * A Fragment that lists all files and folders in a given path.
  * TODO refactor to get rid of direct dependency on FileDisplayActivity
  */
-public class OCFileListFragment extends ExtendedListFragment implements OCFileListFragmentInterface {
+public class OCFileListFragment extends ExtendedListFragment implements
+        OCFileListFragmentInterface, OCFileListBottomSheetActions {
 
     private static final String TAG = OCFileListFragment.class.getSimpleName();
 
@@ -163,7 +163,6 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
     private int mProgressBarColor;
 
     private boolean mHideFab = true;
-    private boolean miniFabClicked = false;
     private ActionMode mActiveActionMode;
     private OCFileListFragment.MultiChoiceModeListener mMultiChoiceModeListener;
 
@@ -327,19 +326,7 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
             setFabEnabled(false);
         } else {
             setFabEnabled(true);
-            registerFabListeners();
-
-            // detect if a mini FAB has ever been clicked
-            if (PreferenceManager.getFABClicked(getActivity()) > 0) {
-                miniFabClicked = true;
-            }
-
-            // add labels to the min FABs when none of them has ever been clicked on
-            if (!miniFabClicked) {
-                setFabLabels();
-            } else {
-                removeFabLabels();
-            }
+            registerFabListener();
         }
 
         searchEvent = Parcels.unwrap(getArguments().getParcelable(OCFileListFragment.SEARCH_EVENT));
@@ -381,138 +368,41 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
     }
 
     /**
-     * adds labels to all mini FABs.
+     * register listener on FAB.
      */
-    private void setFabLabels() {
-        getFabUpload().setTitle(getResources().getString(R.string.actionbar_upload));
-        getFabMkdir().setTitle(getResources().getString(R.string.actionbar_mkdir));
-        getFabUploadFromApp().setTitle(getResources().getString(R.string.actionbar_upload_from_apps));
-    }
-
-    /**
-     * registers all listeners on all mini FABs.
-     */
-    private void registerFabListeners() {
-        registerFabUploadListeners(getActivity());
-        registerFabMkDirListeners(getActivity());
-        registerFabUploadFromAppListeners(getActivity());
-    }
-
-    /**
-     * registers {@link android.view.View.OnClickListener} and {@link android.view.View.OnLongClickListener}
-     * on the Upload mini FAB for the linked action and {@link Snackbar} showing the underlying action.
-     *
-     * @param activity the activity on which's content the {@link Snackbar} will be shown.
-     */
-    private void registerFabUploadListeners(final Activity activity) {
-        getFabUpload().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                UploadFilesActivity.startUploadActivityForResult(getActivity(), ((FileActivity) getActivity())
-                        .getAccount(), FileDisplayActivity.REQUEST_CODE__SELECT_FILES_FROM_FILE_SYSTEM);
-                getFabMain().collapse();
-                recordMiniFabClick();
-            }
-        });
-
-        getFabUpload().setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                DisplayUtils.showSnackMessage(activity, R.string.actionbar_upload);
-                return true;
-            }
+    private void registerFabListener() {
+        getFabMain().setOnClickListener(v -> {
+            new OCFileListBottomSheetDialog(getContext(), this).show();
         });
     }
 
-    /**
-     * registers {@link android.view.View.OnClickListener} and {@link android.view.View.OnLongClickListener}
-     * on the 'Create Dir' mini FAB for the linked action and {@link Snackbar} showing the underlying action.
-     *
-     * @param activity the activity on which's content the {@link Snackbar} will be shown.
-     */
-    private void registerFabMkDirListeners(final Activity activity) {
-        getFabMkdir().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                CreateFolderDialogFragment dialog =
-                        CreateFolderDialogFragment.newInstance(mFile);
-                dialog.show(getActivity().getSupportFragmentManager(), DIALOG_CREATE_FOLDER);
-                getFabMain().collapse();
-                recordMiniFabClick();
-            }
-        });
-
-        getFabMkdir().setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                DisplayUtils.showSnackMessage(activity, R.string.actionbar_mkdir);
-                return true;
-            }
-        });
+    @Override
+    public void createFolder() {
+        CreateFolderDialogFragment.newInstance(mFile)
+                .show(getActivity().getSupportFragmentManager(), DIALOG_CREATE_FOLDER);
     }
 
-    /**
-     * registers {@link android.view.View.OnClickListener} and {@link android.view.View.OnLongClickListener}
-     * on the Upload from App mini FAB for the linked action and {@link Snackbar} showing the underlying action.
-     *
-     * @param activity the activity on which's content the {@link Snackbar} will be shown.
-     */
-    private void registerFabUploadFromAppListeners(final Activity activity) {
-        getFabUploadFromApp().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent action = new Intent(Intent.ACTION_GET_CONTENT);
-                action = action.setType("*/*").addCategory(Intent.CATEGORY_OPENABLE);
-                //Intent.EXTRA_ALLOW_MULTIPLE is only supported on api level 18+, Jelly Bean
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
-                    action.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
-                }
-                getActivity().startActivityForResult(
-                        Intent.createChooser(action, getString(R.string.upload_chooser_title)),
-                        FileDisplayActivity.REQUEST_CODE__SELECT_CONTENT_FROM_APPS
-                );
-                getFabMain().collapse();
-                recordMiniFabClick();
-            }
-        });
-
-        getFabUploadFromApp().setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                DisplayUtils.showSnackMessage(activity, R.string.actionbar_upload_from_apps);
-                return true;
-            }
-        });
-    }
-
-    /**
-     * records a click on a mini FAB and thus:
-     * <ol>
-     * <li>persists the click fact</li>
-     * <li>removes the mini FAB labels</li>
-     * </ol>
-     */
-    private void recordMiniFabClick() {
-        // only record if it hasn't been done already at some other time
-        if (!miniFabClicked) {
-            PreferenceManager.setFABClicked(getActivity());
-            miniFabClicked = true;
+    @Override
+    public void uploadFromApp() {
+        Intent action = new Intent(Intent.ACTION_GET_CONTENT);
+        action = action.setType("*/*").addCategory(Intent.CATEGORY_OPENABLE);
+        //Intent.EXTRA_ALLOW_MULTIPLE is only supported on api level 18+, Jelly Bean
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
+            action.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
         }
+        getActivity().startActivityForResult(
+                Intent.createChooser(action, getString(R.string.upload_chooser_title)),
+                FileDisplayActivity.REQUEST_CODE__SELECT_CONTENT_FROM_APPS
+        );
     }
 
-    /**
-     * removes the labels on all known min FABs.
-     */
-    private void removeFabLabels() {
-        getFabUpload().setTitle(null);
-        getFabMkdir().setTitle(null);
-        getFabUploadFromApp().setTitle(null);
-        ((TextView) getFabUpload().getTag(
-                com.getbase.floatingactionbutton.R.id.fab_label)).setVisibility(View.GONE);
-        ((TextView) getFabMkdir().getTag(
-                com.getbase.floatingactionbutton.R.id.fab_label)).setVisibility(View.GONE);
-        ((TextView) getFabUploadFromApp().getTag(
-                com.getbase.floatingactionbutton.R.id.fab_label)).setVisibility(View.GONE);
+    @Override
+    public void uploadFiles() {
+        UploadFilesActivity.startUploadActivityForResult(
+                getActivity(),
+                ((FileActivity) getActivity()).getAccount(),
+                FileDisplayActivity.REQUEST_CODE__SELECT_FILES_FROM_FILE_SYSTEM
+        );
     }
 
     @Override

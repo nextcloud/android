@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  Nextcloud Android client application
+
+  Copyright (C) 2018 Andy Scherzinger
+
+  This program is free software; you can redistribute it and/or
+  modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
+  License as published by the Free Software Foundation; either
+  version 3 of the License, or any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU AFFERO GENERAL PUBLIC LICENSE for more details.
+
+  You should have received a copy of the GNU Affero General Public
+  License along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/add_to_cloud"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/standard_padding"
+        android:text="@string/add_to_cloud"
+        android:textSize="@dimen/bottom_sheet_text_size" />
+
+    <LinearLayout
+        android:id="@+id/menu_upload_files"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="@dimen/standard_half_padding"
+        android:paddingLeft="@dimen/standard_padding"
+        android:paddingRight="@dimen/standard_padding"
+        android:paddingTop="@dimen/standard_half_padding"
+        tools:ignore="UseCompoundDrawables">
+
+        <ImageView
+            android:id="@+id/menu_icon_upload_files"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@null"
+            android:src="@drawable/ic_action_upload"
+            android:tint="@color/primary" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="@dimen/standard_margin"
+            android:layout_marginStart="@dimen/standard_margin"
+            android:text="@string/upload_files"
+            android:textColor="@color/black"
+            android:textSize="@dimen/bottom_sheet_text_size" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/menu_upload_from_app"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="@dimen/standard_half_padding"
+        android:paddingLeft="@dimen/standard_padding"
+        android:paddingRight="@dimen/standard_padding"
+        android:paddingTop="@dimen/standard_half_padding"
+        tools:ignore="UseCompoundDrawables">
+
+        <ImageView
+            android:id="@+id/menu_icon_upload_from_app"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@null"
+            android:src="@drawable/ic_import"
+            android:tint="@color/primary" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="@dimen/standard_margin"
+            android:layout_marginStart="@dimen/standard_margin"
+            android:text="@string/upload_content_from_other_apps"
+            android:textColor="@color/black"
+            android:textSize="@dimen/bottom_sheet_text_size" />
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginBottom="@dimen/standard_half_margin"
+        android:layout_marginLeft="@dimen/standard_margin"
+        android:layout_marginRight="@dimen/standard_margin"
+        android:layout_marginTop="@dimen/standard_half_margin"
+        android:background="@color/list_divider_background" />
+
+    <LinearLayout
+        android:id="@+id/menu_mkdir"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="@dimen/standard_padding"
+        android:paddingLeft="@dimen/standard_padding"
+        android:paddingRight="@dimen/standard_padding"
+        android:paddingTop="@dimen/standard_half_padding"
+        tools:ignore="UseCompoundDrawables">
+
+        <ImageView
+            android:id="@+id/menu_icon_mkdir"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@null"
+            android:src="@drawable/ic_action_create_dir"
+            android:tint="@color/primary" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="@dimen/standard_margin"
+            android:layout_marginStart="@dimen/standard_margin"
+            android:text="@string/create_new_folder"
+            android:textColor="@color/black"
+            android:textSize="@dimen/bottom_sheet_text_size" />
+
+    </LinearLayout>
+
+</LinearLayout>
