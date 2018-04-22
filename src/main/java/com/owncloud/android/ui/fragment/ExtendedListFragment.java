@@ -370,7 +370,7 @@ public class ExtendedListFragment extends Fragment
         onCreateSwipeToRefresh(mRefreshListLayout);
 
         mFabMain = v.findViewById(R.id.fab_main);
-        ThemeUtils.tintFloatingActionButton(mFabMain, R.drawable.ic_plus);
+        ThemeUtils.tintFloatingActionButton(mFabMain, R.drawable.ic_plus, getContext());
 
         boolean searchSupported = AccountUtils.hasSearchSupport(AccountUtils.
                 getCurrentOwnCloudAccount(MainApp.getAppContext()));

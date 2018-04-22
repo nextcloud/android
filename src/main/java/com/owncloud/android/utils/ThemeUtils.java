@@ -368,7 +368,8 @@ public class ThemeUtils {
         return String.format("#%06X", 0xFFFFFF & color);
     }
 
-    public static void tintFloatingActionButton(FloatingActionButton button, @DrawableRes int drawable) {
+    public static void tintFloatingActionButton(FloatingActionButton button, @DrawableRes int
+            drawable, Context context) {
         button.setBackgroundTintList(ColorStateList.valueOf(ThemeUtils.primaryColor(context)));
         button.setRippleColor(ThemeUtils.primaryDarkColor(context));
         button.setImageDrawable(ThemeUtils.tintDrawable(drawable, ThemeUtils.fontColor(context)));
