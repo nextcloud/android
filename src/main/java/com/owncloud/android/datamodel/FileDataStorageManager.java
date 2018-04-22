@@ -140,7 +140,7 @@ public class FileDataStorageManager {
         return file;
     }
 
-    public OCFile getFileById(long id) {
+    public @Nullable OCFile getFileById(long id) {
         Cursor c = getFileCursorForValue(ProviderTableMeta._ID, String.valueOf(id));
         OCFile file = null;
         if (c.moveToFirst()) {
