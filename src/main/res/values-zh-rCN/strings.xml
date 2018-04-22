@@ -81,7 +81,7 @@
     <string name="uploader_error_message_source_file_not_found">没找到要上传的文件。请检查文件是否存在。</string>
     <string name="uploader_error_message_source_file_not_copied">无法拷贝文件到临时文件夹。请尝试重新发送。</string>
     <string name="uploader_upload_files_behaviour">上传选项：</string>
-    <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">移动文件到 Nextcloud 文件夹</string>
+    <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">移动文件到 %1$s 文件夹</string>
     <string name="uploader_upload_files_behaviour_only_upload">在原文件夹中保留文件</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">从原文件夹中删除文件</string>
     <string name="file_list_seconds_ago">几秒前</string>

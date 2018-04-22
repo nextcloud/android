@@ -24,8 +24,6 @@
     <color name="list_item_lastmod_and_filesize_text">@color/secondaryTextColor</color>
     <color name="black">#000000</color>
     <color name="white">#FFFFFF</color>
-    <color name="fab_white">#fafafa</color>
-    <color name="black_semi_transparent">#B2000000</color>
     <color name="textColor">@color/black</color>
     <color name="disabled_text">#ff888888</color>
     <color name="list_divider_background">#eee</color>
