@@ -463,13 +463,18 @@ public class FileUploader extends Service
 
         mUploadsStorageManager = new UploadsStorageManager(getContentResolver(), getApplicationContext());
 
-        mNotification = new NotificationCompat.Builder(this).setContentTitle(getApplicationContext().
-                getResources().getString(R.string.app_name))
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this).setContentTitle(
+                getApplicationContext().getResources().getString(R.string.app_name))
                 .setContentText(getApplicationContext().getResources().getString(R.string.foreground_service_upload))
                 .setSmallIcon(R.drawable.notification_icon)
                 .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.notification_icon))
-                .setColor(ThemeUtils.primaryColor())
-                .build();
+                .setColor(ThemeUtils.primaryColor());
+
+        if ((android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O)) {
+            builder.setChannelId(NotificationUtils.NOTIFICATION_CHANNEL_UPLOAD);
+        }
+
+        mNotification = builder.build();
 
         int failedCounter = mUploadsStorageManager.failInProgressUploads(
             UploadResult.SERVICE_INTERRUPTED    // Add UploadResult.KILLED?
