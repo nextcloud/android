@@ -296,7 +296,7 @@ public class SynchronizeFolderOperation extends SyncOperation {
 
             /// retrieve local data for the read file
             //  localFile = mStorageManager.getFileByPath(remoteFile.getRemotePath());
-            localFile = localFilesMap.remove(remoteFile.getRemotePath());
+            localFile = localFilesMap.remove(remoteFile.getRemoteId());
 
             /// new OCFile instance to merge fresh data from server with local state
             updatedFile = FileStorageUtils.fillOCFile(r);
@@ -327,7 +327,7 @@ public class SynchronizeFolderOperation extends SyncOperation {
             updatedFile.setModificationTimestampAtLastSyncForData(
                     localFile.getModificationTimestampAtLastSyncForData()
             );
-            updatedFile.setFileName(localFile.getFileName());
+            updatedFile.setFileName(remoteFile.getFileName());
             updatedFile.setStoragePath(localFile.getStoragePath());
             // eTag will not be updated unless file CONTENTS are synchronized
             updatedFile.setEtag(localFile.getEtag());

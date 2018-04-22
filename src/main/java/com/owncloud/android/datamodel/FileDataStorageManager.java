@@ -122,7 +122,7 @@ public class FileDataStorageManager {
 
     /**
      * This will return a OCFile by its given FileId here refered as the remoteId.
-     * Its the fileId ownCloud Core uses to identify a file even if its name has changed.
+     * Its the fileId Nextcloud uses to identify a file even if its name has changed.
      *
      *
      * @param remoteID
