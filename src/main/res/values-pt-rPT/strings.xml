@@ -79,7 +79,7 @@
     <string name="uploader_error_message_source_file_not_found">Não foi encontrado o ficheiro selecionado para upload. Verifica se o ficheiro existe.</string>
     <string name="uploader_error_message_source_file_not_copied">Não foi possível efetuar a cópia do ficheiro para uma pasta temporária. Tenta efectuar novamente a operação.</string>
     <string name="uploader_upload_files_behaviour">Opção de envio:</string>
-    <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">Mover ficheiro para a pasta Nextcloud</string>
+    <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">Mover ficheiro para a pasta %1$s</string>
     <string name="uploader_upload_files_behaviour_only_upload">Manter o ficheiro na pasta fonte</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Eliminar ficheiro da pasta fonte</string>
     <string name="file_list_seconds_ago">segundos atrás</string>
