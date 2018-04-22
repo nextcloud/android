@@ -488,6 +488,9 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
                         status = mParentActivity.getString(
                                 R.string.uploads_view_upload_status_waiting_exit_power_save_mode);
                         break;
+                    case VIRUS_DETECTED:
+                        status = mParentActivity.getString(R.string.uploads_view_upload_status_virus_detected);
+                        break;
                     default:
                         status = "New fail result but no description for the user";
                         break;

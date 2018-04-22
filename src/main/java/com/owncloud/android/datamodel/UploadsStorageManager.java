@@ -363,7 +363,7 @@ public class UploadsStorageManager extends Observable {
      * Get all failed uploads.
      */
     public OCUpload[] getFailedUploads() {
-        return getUploads(ProviderTableMeta.UPLOADS_STATUS + "== ?" +
+        return getUploads("(" + ProviderTableMeta.UPLOADS_STATUS + "== ?" +
                 " OR " + ProviderTableMeta.UPLOADS_LAST_RESULT +
                         "==" + UploadResult.DELAYED_FOR_WIFI.getValue() +
                         " OR " + ProviderTableMeta.UPLOADS_LAST_RESULT +
@@ -371,7 +371,9 @@ public class UploadsStorageManager extends Observable {
                         " OR " + ProviderTableMeta.UPLOADS_LAST_RESULT +
                         "==" + UploadResult.DELAYED_FOR_CHARGING.getValue() +
                         " OR " + ProviderTableMeta.UPLOADS_LAST_RESULT +
-                        "==" + UploadResult.DELAYED_IN_POWER_SAVE_MODE.getValue()
+                        "==" + UploadResult.DELAYED_IN_POWER_SAVE_MODE.getValue() +
+                        " ) AND " + ProviderTableMeta.UPLOADS_LAST_RESULT +
+                        "!= " + UploadResult.VIRUS_DETECTED.getValue()
                 , new String[]{String.valueOf(UploadStatus.UPLOAD_FAILED.value)});
     }
 
