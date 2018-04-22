@@ -81,7 +81,7 @@
     <string name="uploader_error_message_source_file_not_found">Skrá sem valin var til sendingar fannst ekki. Athugaðu hvort skráin sé til</string>
     <string name="uploader_error_message_source_file_not_copied">Gat ekki afritað skrá í bráðabirgðamöppu. Prófaðu að endursenda hana.</string>
     <string name="uploader_upload_files_behaviour">Valkostir innsendingar:</string>
-    <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">Flytja skrá í Nextcloud-möppu</string>
+    <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">Flytja skrá í %1$s-möppu</string>
     <string name="uploader_upload_files_behaviour_only_upload">Halda skrá í upprunamöppu</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Eyða skrá úr upprunamöppu</string>
     <string name="file_list_seconds_ago">sek. síðan</string>

@@ -81,7 +81,7 @@
     <string name="uploader_error_message_source_file_not_found">Одабрани фајл није пронађен. Проверите да ли постоји.</string>
     <string name="uploader_error_message_source_file_not_copied">Не могу да копирам фајл на привремену локацију. Покушајте да га поново пошаљете.</string>
     <string name="uploader_upload_files_behaviour">Опције отпремања:</string>
-    <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">Премести у Некстклауд фасциклу</string>
+    <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">%1$s Премести у Некстклауд фасциклу</string>
     <string name="uploader_upload_files_behaviour_only_upload">Остави фајл у изворној фасцикли</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Избриши фајл из изворне фасцикле</string>
     <string name="file_list_seconds_ago">пре пар секунди</string>

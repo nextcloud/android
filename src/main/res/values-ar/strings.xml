@@ -81,7 +81,7 @@
     <string name="uploader_error_message_read_permission_not_granted">%1$s غير مسموح له أن يقرأ ملفاً مستلماً</string>
     <string name="uploader_error_message_source_file_not_found">لم يتم إيجاد الملف المحدد للرفع. الرجاء التأكد من أن الملف موجود.</string>
     <string name="uploader_upload_files_behaviour">خيارات الرفع :</string>
-    <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">نقل الملف إلى مجلد ناكست كلاود</string>
+    <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">نقل الملف إلى مجلد ناكست كلاود %1$s</string>
     <string name="uploader_upload_files_behaviour_only_upload">الإبقاء على الملف في المجلد الأصلي</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">إحذف الملف من المجلد الأصلي</string>
     <string name="file_list_seconds_ago">منذ ثواني</string>
