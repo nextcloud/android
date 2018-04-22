@@ -421,7 +421,8 @@ public class OCFileListFragment extends ExtendedListFragment implements
         UploadFilesActivity.startUploadActivityForResult(
                 getActivity(),
                 ((FileActivity) getActivity()).getAccount(),
-                FileDisplayActivity.REQUEST_CODE__SELECT_FILES_FROM_FILE_SYSTEM
+                FileDisplayActivity.REQUEST_CODE__SELECT_FILES_FROM_FILE_SYSTEM,
+                getCurrentFile()
         );
     }
 
