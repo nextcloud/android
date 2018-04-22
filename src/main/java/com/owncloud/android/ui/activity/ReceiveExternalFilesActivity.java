@@ -801,9 +801,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
             if (mEmptyListContainer != null && mEmptyListMessage != null) {
                 mEmptyListHeadline.setText(headline);
                 mEmptyListMessage.setText(message);
-
-                mEmptyListIcon.setImageDrawable(ThemeUtils.tintDrawable(icon, ThemeUtils.primaryColor()));
-
+                mEmptyListIcon.setImageResource(icon);
                 mEmptyListIcon.setVisibility(View.VISIBLE);
                 mEmptyListProgress.setVisibility(View.GONE);
                 mEmptyListMessage.setVisibility(View.VISIBLE);
