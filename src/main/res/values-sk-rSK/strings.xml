@@ -78,7 +78,7 @@
     <string name="uploader_error_message_source_file_not_found">Súbor, ktorý sa pokúšate nahrať nebol nájdený. Overte prosím či súbor existuje.</string>
     <string name="uploader_error_message_source_file_not_copied">Pri kopírovaní súboru do dočasného priečinka došlo k chybe. Skúste prosím znova.</string>
     <string name="uploader_upload_files_behaviour">Možnosti nahratia</string>
-    <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">Presuň súbor do Nextcloud priečinka</string>
+    <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">Presuň súbor do %1$s priečinka</string>
     <string name="uploader_upload_files_behaviour_only_upload">Ponechaj súbor v pôvodnom priečinku</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Odstráň súbor z pôvodného priečinka</string>
     <string name="file_list_seconds_ago">pred sekundami</string>

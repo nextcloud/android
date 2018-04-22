@@ -74,7 +74,7 @@
     <string name="uploader_error_message_source_file_not_found">Berkas yang diunggah tidak ditemukan. Periksa kembali berkas tersebut</string>
     <string name="uploader_error_message_source_file_not_copied">Tidak dapat menyalin ke folder sementara. Coba untuk ngirim ulang</string>
     <string name="uploader_upload_files_behaviour">Pilihan unggah:</string>
-    <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">Pindahkan berkas ke folder Nextcloud</string>
+    <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">Pindahkan berkas ke folder %1$s</string>
     <string name="uploader_upload_files_behaviour_only_upload">Pertahankan berkas difolder sumber</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Hapus berkas dari folder sumber</string>
     <string name="file_list_seconds_ago">beberapa detik yang lalu</string>
