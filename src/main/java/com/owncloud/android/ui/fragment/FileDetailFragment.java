@@ -405,7 +405,12 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
     public void updateFileDetails(boolean transferring, boolean refresh) {
         if (readyToShow()) {
             FileDataStorageManager storageManager = mContainerActivity.getStorageManager();
-            if (refresh && storageManager != null) {
+            
+            if (storageManager == null) {
+                return;
+            }
+            
+            if (refresh) {
                 setFile(storageManager.getFileByPath(getFile().getRemotePath()));
             }
             OCFile file = getFile();
