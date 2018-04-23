@@ -32,7 +32,7 @@ public class ActivitiesServiceApiImpl implements ActivitiesServiceApi {
         getActivityListTask.execute();
     }
 
-    private class GetActivityListTask extends AsyncTask<Void, Void, Boolean> {
+    private static class GetActivityListTask extends AsyncTask<Void, Void, Boolean> {
 
         private final ActivitiesServiceCallback<List<Object>> mCallback;
         private List<Object> mActivities;
