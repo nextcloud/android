@@ -107,7 +107,7 @@ public class ActivitiesActivity extends FileActivity implements ActivityListInte
         setupDrawer(R.id.nav_activity);
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
-            ThemeUtils.setColoredTitle(actionBar, getString(R.string.drawer_item_activities));
+            ThemeUtils.setColoredTitle(actionBar, getString(R.string.drawer_item_activities), this);
         }
 
         swipeListRefreshLayout.setOnRefreshListener(() -> mActionListener.loadActivites(null)
@@ -122,9 +122,9 @@ public class ActivitiesActivity extends FileActivity implements ActivityListInte
     }
 
     protected void onCreateSwipeToRefresh(SwipeRefreshLayout refreshLayout) {
-        int primaryColor = ThemeUtils.primaryColor();
-        int darkColor = ThemeUtils.primaryDarkColor();
-        int accentColor = ThemeUtils.primaryAccentColor();
+        int primaryColor = ThemeUtils.primaryColor(this);
+        int darkColor = ThemeUtils.primaryDarkColor(this);
+        int accentColor = ThemeUtils.primaryAccentColor(this);
 
         // Colors in animations
         refreshLayout.setColorSchemeColors(accentColor, primaryColor, darkColor);
@@ -148,7 +148,7 @@ public class ActivitiesActivity extends FileActivity implements ActivityListInte
      */
     private void setupContent() {
         emptyContentIcon.setImageResource(R.drawable.ic_activity_light_grey);
-        emptyContentProgressBar.getIndeterminateDrawable().setColorFilter(ThemeUtils.primaryAccentColor(),
+        emptyContentProgressBar.getIndeterminateDrawable().setColorFilter(ThemeUtils.primaryAccentColor(this),
                 PorterDuff.Mode.SRC_IN);
 
         FileDataStorageManager storageManager = new FileDataStorageManager(getAccount(), getContentResolver());
