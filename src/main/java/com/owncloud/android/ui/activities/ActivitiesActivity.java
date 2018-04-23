@@ -2,7 +2,6 @@ package com.owncloud.android.ui.activities;
 
 import android.content.Intent;
 import android.graphics.PorterDuff;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -78,10 +77,8 @@ public class ActivitiesActivity extends FileActivity implements ActivityListInte
 
     private ActivityListAdapter adapter;
     private Unbinder unbinder;
-    private OwnCloudClient ownCloudClient;
-    private AsyncTask<String, Object, OCFile> updateTask;
-
     private String nextPageUrl;
+
     private boolean isLoadingActivities;
 
     private ActivitiesContract.ActionListener mActionListener;
@@ -214,15 +211,6 @@ public class ActivitiesActivity extends FileActivity implements ActivityListInte
         setupContent();
 
         AnalyticsUtils.setCurrentScreenName(this, SCREEN_NAME, TAG);
-    }
-
-    @Override
-    protected void onStop() {
-        if (updateTask != null) {
-            updateTask.cancel(true);
-        }
-
-        super.onStop();
     }
 
     @Override
