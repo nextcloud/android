@@ -69,11 +69,12 @@ public class ActivitiesPresenterTest {
         // Repository starts retrieving activities from server
         verify(mActivitiesRepository).getActivities(eq(null), mLoadActivitiesCallbackCaptor.capture());
         // Repository returns data
-        mLoadActivitiesCallbackCaptor.getValue().onActivitiesLoaded(activitiesList, mOwnCloudClient, false);
+        mLoadActivitiesCallbackCaptor.getValue().onActivitiesLoaded(activitiesList,
+                mOwnCloudClient, null);
         // Progress indicator is hidden
         verify(mView).setProgressIndicatorState(eq(false));
         // List of activities is shown in view.
-        verify(mView).showActivites(eq(activitiesList), eq(mOwnCloudClient), eq(false));
+        verify(mView).showActivites(eq(activitiesList), eq(mOwnCloudClient), eq(null));
     }
 
     @Test
