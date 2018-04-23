@@ -46,7 +46,7 @@
 
     </android.support.design.widget.CoordinatorLayout>
 
-    <com.getbase.floatingactionbutton.FloatingActionsMenu
+    <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab_main"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -56,40 +56,7 @@
         android:layout_marginBottom="@dimen/standard_margin"
         android:layout_marginEnd="@dimen/standard_margin"
         android:layout_marginRight="@dimen/standard_margin"
-        android:visibility="gone"
-        app:fab_labelStyle="@style/menu_labels_style">
-
-        <com.getbase.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fab_upload"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:fab_colorNormal="@color/primary_button_background_color"
-            app:fab_colorPressed="@color/primary"
-            app:fab_icon="@drawable/ic_action_upload"
-            app:fab_size="mini"
-            app:fab_title=""/>
-
-        <com.getbase.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fab_upload_from_app"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:fab_colorNormal="@color/primary_button_background_color"
-            app:fab_colorPressed="@color/primary"
-            app:fab_icon="@drawable/ic_import"
-            app:fab_size="mini"
-            app:fab_title=""/>
-
-        <com.getbase.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fab_mkdir"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:fab_colorNormal="@color/primary_button_background_color"
-            app:fab_colorPressed="@color/primary"
-            app:fab_icon="@drawable/ic_action_create_dir"
-            app:fab_size="mini"
-            app:fab_title=""/>
-
-    </com.getbase.floatingactionbutton.FloatingActionsMenu>
+        android:visibility="gone" />
 
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/bottom_navigation_view"

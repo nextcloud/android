@@ -671,12 +671,12 @@ public class FileDisplayActivity extends HookActivity
         searchView = (SearchView) MenuItemCompat.getActionView(item);
 
         // hacky as no default way is provided
-        int fontColor = ThemeUtils.fontColor();
+        int fontColor = ThemeUtils.fontColor(this);
         EditText editText = searchView.findViewById(android.support.v7.appcompat.R.id.search_src_text);
         editText.setHintTextColor(fontColor);
         editText.setTextColor(fontColor);
         ImageView searchClose = searchView.findViewById(android.support.v7.appcompat.R.id.search_close_btn);
-        searchClose.setColorFilter(ThemeUtils.fontColor());
+        searchClose.setColorFilter(ThemeUtils.fontColor(this));
 
         // populate list of menu items to show/hide when drawer is opened/closed
         mDrawerMenuItemstoShowHideList = new ArrayList<>(4);
@@ -1010,7 +1010,6 @@ public class FileDisplayActivity extends HookActivity
 
     @Override
     public void onBackPressed() {
-        boolean isFabOpen = isFabOpen();
         boolean isDrawerOpen = isDrawerOpen();
         boolean isSearchOpen = isSearchOpen();
 
@@ -1026,15 +1025,9 @@ public class FileDisplayActivity extends HookActivity
             searchView.setQuery("", true);
             searchView.onActionViewCollapsed();
             setDrawerIndicatorEnabled(isDrawerIndicatorAvailable());
-        } else if (isDrawerOpen && isFabOpen) {
+        } else if (isDrawerOpen) {
             // close drawer first
             super.onBackPressed();
-        } else if (isDrawerOpen && !isFabOpen) {
-            // close drawer
-            super.onBackPressed();
-        } else if (!isDrawerOpen && isFabOpen) {
-            // close fab
-            getListOfFilesFragment().getFabMain().collapse();
         } else {
             // all closed
 
@@ -1153,12 +1146,6 @@ public class FileDisplayActivity extends HookActivity
 
         super.onPause();
         Log_OC.v(TAG, "onPause() end");
-    }
-
-    public boolean isFabOpen() {
-        return (getListOfFilesFragment() != null
-                && getListOfFilesFragment().getFabMain() != null
-                && getListOfFilesFragment().getFabMain().isExpanded());
     }
 
     @Override

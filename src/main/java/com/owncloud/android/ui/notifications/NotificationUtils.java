@@ -57,15 +57,12 @@ public class NotificationUtils {
      * @return              An instance of the regular {@link NotificationCompat.Builder}.
      */
     public static NotificationCompat.Builder newNotificationBuilder(Context context) {
-        return new NotificationCompat.Builder(context).
-                setColor(ThemeUtils.primaryColor());
+        return new NotificationCompat.Builder(context).setColor(ThemeUtils.primaryColor(context));
     }
 
     @SuppressFBWarnings("DMI")
-    public static void cancelWithDelay(
-            final NotificationManager notificationManager,
-            final int notificationId,
-            long delayInMillis) {
+    public static void cancelWithDelay(final NotificationManager notificationManager, final int notificationId,
+                                       long delayInMillis) {
     
         HandlerThread thread = new HandlerThread(
                 "NotificationDelayerThread_" + (new Random(System.currentTimeMillis())).nextInt(),

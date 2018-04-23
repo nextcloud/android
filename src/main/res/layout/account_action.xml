@@ -19,12 +19,13 @@
   You should have received a copy of the GNU Affero General Public
   License along with this program. If not, see <http://www.gnu.org/licenses/>.
 -->
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="@dimen/account_action_layout_height"
     android:orientation="horizontal"
-    android:weightSum="1">
+    android:weightSum="1"
+    tools:ignore="UseCompoundDrawables">
 
     <ImageView
         android:id="@+id/user_icon"

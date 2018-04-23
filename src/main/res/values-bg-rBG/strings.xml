@@ -61,7 +61,6 @@
     <string name="recommend_urls">%1$s или %2$s</string>
 
     <string name="auth_check_server">Проверяване на сървъра</string>
-    <string name="auth_host_url">Уеб адрес https://&#8230;</string>
     <string name="auth_username">Потребител</string>
     <string name="auth_password">Парола</string>
     <string name="auth_register">Нямате Nextcloud все още? Натиснете тук за да получите един от доставчик</string>
@@ -81,7 +80,6 @@
     <string name="uploader_error_message_source_file_not_found">Селектирания за качване файл не е намерен. Моля проверете дали файлът съществува.</string>
     <string name="uploader_error_message_source_file_not_copied">Неуспешно копиране на файл във временна папка. Моля опитайте да го изпратите отново</string>
     <string name="uploader_upload_files_behaviour">Опции за качване:</string>
-    <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">Преместване на файла в папката на Nextcloud</string>
     <string name="uploader_upload_files_behaviour_only_upload">Запазване на файла в оригиналната папка</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Изтриване на файла от оригиналната папка</string>
     <string name="file_list_seconds_ago">преди секунди</string>
@@ -90,7 +88,6 @@
     <string name="file_list_empty">Качи съдържание или синхронизирай с твоите устройства.</string>
     <string name="file_list_empty_favorites_filter_list">Файловете и папките които отбелязваш като любими ще се показват тук</string>
     <string name="file_list_empty_favorites_filter">Търсенето ви не откри любими файлове</string>
-    <string name="file_list_loading">Зареждане &#8230;</string>
     <string name="file_list_no_app_for_file_type">Няма апликация, която да се справи с подобен тип файл.</string>
     <string name="local_file_list_empty">В папката няма файлове.</string>
     <string name="local_folder_list_empty">Няма повече папки.</string>
@@ -127,7 +124,6 @@
     <string name="common_back">Назад</string>
     <string name="common_save">Запазване</string>
     <string name="common_error">Грешка</string>
-    <string name="common_loading">Зареждане &#8230;</string>
     <string name="common_unknown">неясна</string>
     <string name="common_error_unknown">Неизвестна грешка</string>
     <string name="common_pending">В очакване</string>
@@ -137,9 +133,7 @@
     <string name="delete_account_warning">Изтриване на профила %s?\n\nИзтриването е необратима операция.</string>
     <string name="avatar">Аватар</string>
     <string name="active_user">Активен потребител</string>
-    <string name="upload_chooser_title">Качване от &#8230;</string>
     <string name="uploader_info_dirname">Име на папката</string>
-    <string name="uploader_upload_in_progress_ticker">Качване &#8230;</string>
     <string name="uploader_upload_in_progress_content">%1$d%% Качване %2$s</string>
     <string name="uploader_upload_succeeded_ticker">Качени</string>
     <string name="uploader_upload_succeeded_content_single">%1$s качено</string>
@@ -165,7 +159,6 @@
     <string name="uploads_view_upload_status_waiting_for_wifi">Изчакване на WiFi връзка</string>
     <string name="uploads_view_upload_status_waiting_exit_power_save_mode">Изчакване да излезете от режима за икономия на енергия</string>
     <string name="uploads_view_later_waiting_to_upload">Изчакване за качване</string>
-    <string name="downloader_download_in_progress_ticker">Изтегляне &#8230;</string>
     <string name="downloader_download_in_progress_content">%1$d%% Изтегляне %2$s</string>
     <string name="downloader_download_succeeded_ticker">Изтеглено</string>
     <string name="downloader_download_succeeded_content">%1$s свалено</string>
@@ -229,9 +222,7 @@
     <string name="media_play_pause_description">Бутон възпроизведи / пауза </string>
     <string name="media_forward_description">Бутон за превъртане напред</string>
 
-	<string name="auth_getting_authorization">Получаване оторизация &#8230;</string>
-	<string name="auth_trying_to_login">Опит за вписване &#8230;</string>
-	<string name="auth_no_net_conn_title">Няма връзка с интернет</string>
+    <string name="auth_no_net_conn_title">Няма връзка с интернет</string>
 	<string name="auth_nossl_plain_ok_title">Няма сигурна връзка.</string>
 	<string name="auth_connection_established">Осъществена е връзка</string>
 	<string name="auth_testing_connection">Проверка на връзката</string>
@@ -255,8 +246,7 @@
 	<string name="auth_expired_oauth_token_toast">Оторизацията изтече. Моля, оторизирайте се отново.</string>
 	<string name="auth_expired_basic_auth_toast">Моля въведете текущата парола</string>
 	<string name="auth_expired_saml_sso_token_toast">Сесията изтече. Моля, свържете се отново</string>
-    <string name="auth_connecting_auth_server">Свързване към сървър за идентификация &#8230;</string>
-	<string name="auth_unsupported_multiaccount">%1$s не поддържа множество профили</string>
+    <string name="auth_unsupported_multiaccount">%1$s не поддържа множество профили</string>
 	<string name="auth_fail_get_user_name">Вашият сървър не връща правилен потребителски индентификатор. Моля, свържете се с администратора</string>
 	<string name="auth_can_not_auth_against_server">Неуспешно идентифициране към сървъра</string>
     <string name="auth_account_does_not_exist">Профилът все още не съществува на устройството</string>
@@ -284,15 +274,11 @@
     <string name="filename_forbidden_characters">Забранени символи: / \\ &lt; &gt; : \" | ? *</string>
     <string name="filename_forbidden_charaters_from_server">Името на файла съдържа поне един невалиден символ</string>
     <string name="filename_empty">Името на файла не може да бъде празно</string>
-    <string name="wait_a_moment">Зареждане на данни &#8230;</string>
     <string name="wait_checking_credentials">Проверка на съхранените пълномощия</string>
     <string name="filedisplay_no_file_selected">Не сте избрали файл</string>
-    <string name="activity_chooser_title">Изпращане на връзката чрез &#8230;</string>
     <string name="wait_for_tmp_copy_from_private_storage">Копиране на файла от личното хранилище</string>
     
     <string name="oauth_check_onoff">Влизане с OAuto 2.0</string>
-    <string name="oauth_login_connection">Свързване към OAuth 2.0 server &#8230;</string>
-        
     <string name="ssl_validator_header">Самоличността на сървъра не може да бъде потвърдена</string>
     <string name="ssl_validator_reason_cert_not_trusted">- Сертификатът на сървъра не е надежден</string>
     <string name="ssl_validator_reason_cert_expired">- Сертификатът на сървъра е изтекъл</string>
@@ -385,14 +371,6 @@
     <string name="downloader_download_file_not_found">Файлът вече не се намира на сървъра</string>
 
     <string name="file_migration_dialog_title">Обновяване на пътя до хранилището</string>
-    <string name="file_migration_preparing">Подготовка за миграция&#8230;</string>
-    <string name="file_migration_checking_destination">Проверка на дестинация&#8230;</string>
-    <string name="file_migration_saving_accounts_configuration">Запазване на настройките на акаунтите&#8230;</string>
-    <string name="file_migration_waiting_for_unfinished_sync">Изчакване на пълна синхронизация &#8230;</string>
-    <string name="file_migration_migrating">Преместване на данни&#8230;</string>
-    <string name="file_migration_updating_index">Обновяване на индекс&#8230;</string>
-    <string name="file_migration_cleaning">Почистване&#8230;</string>
-    <string name="file_migration_restoring_accounts_configuration">Възстановяване на настройките на акаунтите&#8230;</string>
     <string name="file_migration_ok_finished">Завършен</string>
     <string name="file_migration_failed_not_enough_space">Нужно е повече пространство</string>
     <string name="file_migration_failed_not_writable">Писане към медия файла беше неуспешно</string>
@@ -416,9 +394,7 @@
 	<string name="log_send_history_button">Изпрати историята</string>
 	<string name="log_send_no_mail_app">Не е намерено приложение за изпращане на журнал. Моля инсталирайте имейл приложение.</string>
 	<string name="log_send_mail_subject">%1$s журнали от Android приложението</string>
-	<string name="log_progress_dialog_text">Зареждане на данни &#8230;</string>
-
-	<string name="saml_authentication_required_text">Паролата е задължителна</string>
+    <string name="saml_authentication_required_text">Паролата е задължителна</string>
 	<string name="saml_authentication_wrong_pass">Грешна парола</string>
 	<string name="actionbar_move">Преместване</string>
     <string name="actionbar_copy">Копиране</string>
@@ -462,8 +438,6 @@
     <string name="set_picture_as">Използвай снимка като</string>
     <string name="set_as">Задай като</string>
 
-    <string name="prefs_instant_behaviour_dialogTitle">Оригиналният файл ще бъде &#8230;</string>
-    <string name="prefs_instant_behaviour_title">Оригиналният файл ще бъде &#8230;</string>
     <string name="select_all">Избере всички</string>
     <string name="deselect_all">Отмяна на всички избори</string>
 
@@ -484,7 +458,6 @@
     <string name="share_via_link_edit_permission_label">Позволяване на редактиране</string>
     <string name="share_via_link_hide_file_listing_permission_label">Скрий показването на файлове</string>
     <string name="share_get_public_link_button">Вземи връзка</string>
-    <string name="share_with_title">Споделете чрез &#8230;</string>
     <string name="share_with_edit_title">Споделете с %1$s</string>
 
     <string name="share_search">Търсене</string>
@@ -547,11 +520,6 @@
     <string name="participate_rc_fdroid">Намери кандидат за пускане от апликацията F-Droid</string>
     <string name="participate_dev_fdroid">Намери кандидат за пускане от апликацията F-Droid</string>
     <string name="participate_dev_direct_download">Изтегляне на разработващата версия</string>
-    <string name="move_to">Преместване в&#8230;</string>
-    <string name="copy_to">Копиране в&#8230;</string>
-    <string name="choose_remote_folder">Избери папка&#8230;</string>
-    <string name="choose_local_folder">Изберете локална папка &#8230;</string>
-    <string name="synced_folders_loading_folders">Зареждане на папки&#8230;</string>
     <string name="synced_folders_no_results">Не са открити медийни папки.</string>
     <string name="synced_folders_preferences">Предпочитания за автоматично качване</string>
     <string name="synced_folders_new_info">Моментално качване е преправено изцяло. Конфигурирайте автоматичното качване от главното меню.\n\n Насладете се на новото и продължено автоматично качване.</string>
@@ -561,7 +529,6 @@
         <item quantity="other">%d избрани</item>
     </plurals>
 
-    <string name="notifications_loading_activity">Зареждане на нотификации &#8230;</string>
     <string name="notifications_no_results_headline">Няма известия</string>
     <string name="notifications_no_results_message">Моля, опитайте отново по-късно</string>
 
@@ -646,9 +613,6 @@
     <string name="resharing_is_not_allowed">Не се разрешава повторно споделяне</string>
     <string name="fallback_weblogin_back">Назад</string>
     <string name="fallback_weblogin_text">Връщане към стария метод за влизане</string>
-
-    <string name="foreground_service_upload">Качване на файлове &#8230;</string>
-    <string name="foreground_service_download">Теглене на файлове &#8230;</string>
 
     <string name="prefs_sourcecode">Получаване на изходния код</string>
     <string name="prefs_license">Лиценз</string>

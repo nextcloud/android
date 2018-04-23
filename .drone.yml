@@ -1,6 +1,6 @@
 pipeline:
   test:
-    image: nextcloudci/android:android-32
+    image: nextcloudci/android:android-35
     commands:
       # uncomment gplay for Gplay, Modified only
       - sh -c "if [ '$FLAVOUR' != 'Generic' ]; then sed -i '/.*com.google.*/s/^.*\\/\\///g' build.gradle; fi"

@@ -94,7 +94,7 @@ public class UploaderAdapter extends SimpleAdapter {
         if (file.isFolder()) {
             fileIcon.setImageDrawable(MimeTypeUtil.getFolderTypeIcon(file.isSharedWithMe() ||
                             file.isSharedWithSharee(), file.isSharedViaLink(), file.isEncrypted(), mAccount,
-                    file.getMountType()));
+                    file.getMountType(), mContext));
         } else {
             // get Thumbnail if file is image
             if (MimeTypeUtil.isImage(file) && file.getRemoteId() != null) {
@@ -128,7 +128,7 @@ public class UploaderAdapter extends SimpleAdapter {
                 }
             } else {
                 fileIcon.setImageDrawable(
-                        MimeTypeUtil.getFileTypeIcon(file.getMimetype(), file.getFileName(), mAccount)
+                        MimeTypeUtil.getFileTypeIcon(file.getMimetype(), file.getFileName(), mAccount, mContext)
                 );
             }
         }

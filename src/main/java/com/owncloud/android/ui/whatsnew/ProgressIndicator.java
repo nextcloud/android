@@ -65,7 +65,7 @@ public class ProgressIndicator extends FrameLayout {
     }
 
     public void setNumberOfSteps(int steps) {
-        int fontColor = ThemeUtils.fontColor();
+        int fontColor = ThemeUtils.fontColor(getContext());
         mNumberOfSteps = steps;
         mDotsContainer.removeAllViews();
         for (int i = 0; i < steps; ++i) {

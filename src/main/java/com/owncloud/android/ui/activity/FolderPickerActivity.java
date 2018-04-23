@@ -117,11 +117,11 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
                     mDoNotEnterEncryptedFolder = true;
                     break;
                 default:
-                    caption = ThemeUtils.getDefaultDisplayNameForRootFolder();
+                    caption = ThemeUtils.getDefaultDisplayNameForRootFolder(this);
                     break;
             }
         } else {
-            caption = ThemeUtils.getDefaultDisplayNameForRootFolder();
+            caption = ThemeUtils.getDefaultDisplayNameForRootFolder(this);
         }
 
         if (getIntent().getParcelableExtra(EXTRA_CURRENT_FOLDER) != null) {
@@ -398,7 +398,7 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
         mCancelBtn = findViewById(R.id.folder_picker_btn_cancel);
         mCancelBtn.setOnClickListener(this);
         mChooseBtn = findViewById(R.id.folder_picker_btn_choose);
-        mChooseBtn.getBackground().setColorFilter(ThemeUtils.primaryColor(), PorterDuff.Mode.SRC_ATOP);
+        mChooseBtn.getBackground().setColorFilter(ThemeUtils.primaryColor(this), PorterDuff.Mode.SRC_ATOP);
         mChooseBtn.setOnClickListener(this);
     }
     

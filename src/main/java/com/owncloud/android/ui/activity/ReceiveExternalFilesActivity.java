@@ -291,7 +291,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
 
             mTintedCheck = DrawableCompat.wrap(ContextCompat.getDrawable(parent,
                     R.drawable.ic_account_circle_white_18dp));
-            int tint = ThemeUtils.primaryColor();
+            int tint = ThemeUtils.primaryColor(getContext());
             DrawableCompat.setTint(mTintedCheck, tint);
 
             mAccountListAdapter = new AccountListAdapter(parent, getAccountListItems(parent), mTintedCheck);
@@ -766,17 +766,17 @@ public class ReceiveExternalFilesActivity extends FileActivity
             }
             Button btnChooseFolder = findViewById(R.id.uploader_choose_folder);
                 btnChooseFolder.setOnClickListener(this);
-                btnChooseFolder.getBackground().setColorFilter(ThemeUtils.primaryColor(getAccount()),
+            btnChooseFolder.getBackground().setColorFilter(ThemeUtils.primaryColor(getAccount(), this),
                         PorterDuff.Mode.SRC_ATOP);
 
             if (getSupportActionBar() != null) {
                 getSupportActionBar().setBackgroundDrawable(new ColorDrawable(
-                        ThemeUtils.primaryColor(getAccount())));
+                        ThemeUtils.primaryColor(getAccount(), this)));
             }
 
-                ThemeUtils.colorStatusBar(this, ThemeUtils.primaryDarkColor(getAccount()));
+            ThemeUtils.colorStatusBar(this, ThemeUtils.primaryDarkColor(getAccount(), this));
 
-                ThemeUtils.colorToolbarProgressBar(this, ThemeUtils.primaryColor(getAccount()));
+            ThemeUtils.colorToolbarProgressBar(this, ThemeUtils.primaryColor(getAccount(), this));
 
             Button btnNewFolder = findViewById(R.id.uploader_cancel);
                 btnNewFolder.setOnClickListener(this);
@@ -791,7 +791,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
         mEmptyListHeadline = findViewById(R.id.empty_list_view_headline);
         mEmptyListIcon = findViewById(R.id.empty_list_icon);
         mEmptyListProgress = findViewById(R.id.empty_list_progress);
-        mEmptyListProgress.getIndeterminateDrawable().setColorFilter(ThemeUtils.primaryColor(),
+        mEmptyListProgress.getIndeterminateDrawable().setColorFilter(ThemeUtils.primaryColor(this),
                 PorterDuff.Mode.SRC_IN);
     }
 
@@ -802,7 +802,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
                 mEmptyListHeadline.setText(headline);
                 mEmptyListMessage.setText(message);
 
-                mEmptyListIcon.setImageDrawable(ThemeUtils.tintDrawable(icon, ThemeUtils.primaryColor()));
+                mEmptyListIcon.setImageDrawable(ThemeUtils.tintDrawable(icon, ThemeUtils.primaryColor(this)));
 
                 mEmptyListIcon.setVisibility(View.VISIBLE);
                 mEmptyListProgress.setVisibility(View.GONE);

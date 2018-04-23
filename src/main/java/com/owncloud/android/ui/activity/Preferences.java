@@ -124,7 +124,7 @@ public class Preferences extends PreferenceActivity
     @Override
     public void onCreate(Bundle savedInstanceState) {
 
-        if (ThemeUtils.themingEnabled()) {
+        if (ThemeUtils.themingEnabled(this)) {
             setTheme(R.style.FallbackThemingTheme);
         }
 
@@ -141,7 +141,7 @@ public class Preferences extends PreferenceActivity
         // Register context menu for list of preferences.
         registerForContextMenu(getListView());
 
-        int accentColor = ThemeUtils.primaryAccentColor();
+        int accentColor = ThemeUtils.primaryAccentColor(this);
         String appVersion = getAppVersion();
         PreferenceScreen preferenceScreen = (PreferenceScreen) findPreference("preference_screen");
 
@@ -748,17 +748,17 @@ public class Preferences extends PreferenceActivity
     private void setupActionBar() {
         ActionBar actionBar = getDelegate().getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
-        ThemeUtils.setColoredTitle(actionBar, getString(R.string.actionbar_settings));
-        actionBar.setBackgroundDrawable(new ColorDrawable(ThemeUtils.primaryColor()));
+        ThemeUtils.setColoredTitle(actionBar, getString(R.string.actionbar_settings), this);
+        actionBar.setBackgroundDrawable(new ColorDrawable(ThemeUtils.primaryColor(this)));
         getWindow().getDecorView().setBackgroundDrawable(new ColorDrawable(ResourcesCompat
                 .getColor(getResources(), R.color.background_color, null)));
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            getWindow().setStatusBarColor(ThemeUtils.primaryDarkColor());
+            getWindow().setStatusBarColor(ThemeUtils.primaryDarkColor(this));
         }
 
         Drawable backArrow = getResources().getDrawable(R.drawable.ic_arrow_back);
-        actionBar.setHomeAsUpIndicator(ThemeUtils.tintDrawable(backArrow, ThemeUtils.fontColor()));
+        actionBar.setHomeAsUpIndicator(ThemeUtils.tintDrawable(backArrow, ThemeUtils.fontColor(this)));
 
         // For adding content description tag to a title field in the action bar
         int actionBarTitleId = getResources().getIdentifier("action_bar_title", "id", "android");

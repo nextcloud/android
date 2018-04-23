@@ -61,7 +61,6 @@
     <string name="recommend_urls">%1$s eller %2$s</string>
 
     <string name="auth_check_server">Testa servern</string>
-    <string name="auth_host_url">Serveradress https://&#8230;</string>
     <string name="auth_username">Användarnamn</string>
     <string name="auth_password">Lösenord</string>
     <string name="auth_register"> Har du inte Nextcloud än?\nKlicka här för att hämta från leverantör</string>
@@ -81,7 +80,6 @@
     <string name="uploader_error_message_source_file_not_found">Filen som valdes för uppladdning kan inte hittas. Vänligen dubbelkolla att den existerar.</string>
     <string name="uploader_error_message_source_file_not_copied">Kunde inte kopiera filen till en temporär mapp. Prova att skicka den igen.</string>
     <string name="uploader_upload_files_behaviour">Uppladdningsalternativ:</string>
-    <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">Flytta filen till Nextcloud-mappen</string>
     <string name="uploader_upload_files_behaviour_only_upload">Behåll fil i källmappen</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Radera fil från källmappen</string>
     <string name="file_list_seconds_ago">sekunder sedan</string>
@@ -90,7 +88,6 @@
     <string name="file_list_empty">Ladda upp något eller synkronisera med dina enheter</string>
     <string name="file_list_empty_favorites_filter_list">Filer och mappar du väljer som favoriter dyker upp här</string>
     <string name="file_list_empty_favorites_filter">Din sökning gav inga favoriserade filer.</string>
-    <string name="file_list_loading">Laddar &#8230;</string>
     <string name="file_list_no_app_for_file_type">Det finns ingen applikation för att hantera denna filtyp</string>
     <string name="local_file_list_empty">Det finns inga filer i den här mappen.</string>
     <string name="local_folder_list_empty">Det finna inga fler mappar.</string>
@@ -127,7 +124,6 @@
     <string name="common_back">Tillbaka</string>
     <string name="common_save">Spara</string>
     <string name="common_error">Fel</string>
-    <string name="common_loading">Laddar &#8230;</string>
     <string name="common_unknown">okänt</string>
     <string name="common_error_unknown">Okänt fel</string>
     <string name="common_pending">Väntar</string>
@@ -137,9 +133,7 @@
     <string name="delete_account_warning">Ta bort konto %s med alla lokala filer?\n\nBorttagning kan inte ångras.</string>
     <string name="avatar">Avatar</string>
     <string name="active_user">Aktivera användare</string>
-    <string name="upload_chooser_title">Ladda upp från &#8230;</string>
     <string name="uploader_info_dirname">Mappnamn</string>
-    <string name="uploader_upload_in_progress_ticker">Laddar upp &#8230;</string>
     <string name="uploader_upload_in_progress_content">%1$d%% Laddar upp %2$s</string>
     <string name="uploader_upload_succeeded_ticker">Uppladdad</string>
     <string name="uploader_upload_succeeded_content_single">%1$s uppladdad</string>
@@ -164,7 +158,6 @@
     <string name="uploads_view_upload_status_waiting_for_wifi">Väntar på Wi-Fi</string>
     <string name="uploads_view_upload_status_waiting_exit_power_save_mode">Väntar på att avsluta energisparläge</string>
     <string name="uploads_view_later_waiting_to_upload">Väntar på att ladda upp</string>
-    <string name="downloader_download_in_progress_ticker">Laddar ned &#8230;</string>
     <string name="downloader_download_in_progress_content">%1$d%% Laddar ned %2$s</string>
     <string name="downloader_download_succeeded_ticker">Nedladdad</string>
     <string name="downloader_download_succeeded_content">%1$s nedladdad</string>
@@ -218,9 +211,7 @@
     <string name="media_play_pause_description">Spela- / Pausknapp</string>
     <string name="media_forward_description">Snappspolningsknapp</string>
 
-	<string name="auth_getting_authorization">Hämtar auktorisation &#8230;</string>
-	<string name="auth_trying_to_login">Försöker logga in &#8230;</string>
-	<string name="auth_no_net_conn_title">Ingen nätverksanslutning</string>
+    <string name="auth_no_net_conn_title">Ingen nätverksanslutning</string>
 	<string name="auth_nossl_plain_ok_title">Säker anslutning inte tillgänglig.</string>
 	<string name="auth_connection_established">Anslutning etablerad</string>
 	<string name="auth_testing_connection">Testar anslutning</string>
@@ -266,7 +257,6 @@
     <string name="filename_forbidden_characters">Förbjudna tecken är: / \\ &lt; &gt; : \" | ? *</string>
     <string name="wait_checking_credentials">Kontrollerar lagrade inloggningsuppgifter</string>
     <string name="filedisplay_no_file_selected">Ingen fil vald</string>
-    <string name="activity_chooser_title">Sänd länk till &#8230;</string>
     <string name="wait_for_tmp_copy_from_private_storage">Kopierar fil från privat lagring</string>
     
     <string name="oauth_check_onoff">Logga in med OAuth 2.0</string>
@@ -370,9 +360,7 @@
 	<string name="log_send_history_button">Skicka historik</string>
 	<string name="log_send_no_mail_app">Ingen app för att skicka loggar hittades. Vänligen installera en e-postklient.</string>
 	<string name="log_send_mail_subject">%1$s Android apploggar</string>
-	<string name="log_progress_dialog_text">Laddar data &#8230;</string>
-
-	<string name="saml_authentication_wrong_pass">Fel lösenord</string>
+    <string name="saml_authentication_wrong_pass">Fel lösenord</string>
 	<string name="actionbar_move">Flytta</string>
     <string name="actionbar_copy">Kopiera</string>
 	<string name="file_list_empty_moving">Inget här. Du kan lägga till en mapp.</string>
@@ -433,7 +421,6 @@
     <string name="share_via_link_edit_permission_label">Tillåt ändringar</string>
     <string name="share_via_link_hide_file_listing_permission_label">Göm fillistning</string>
     <string name="share_get_public_link_button">Hämta länk</string>
-    <string name="share_with_title">Dela med &#8230;</string>
     <string name="share_with_edit_title">Dela med %1$s</string>
 
     <string name="share_search">Sök</string>

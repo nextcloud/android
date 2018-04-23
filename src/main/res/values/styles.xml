@@ -191,11 +191,6 @@
 		<item name="colorAccent">@color/color_accent</item>
 	</style>
 
-	<style name="menu_labels_style">
-		<item name="android:background">@drawable/fab_label_background</item>
-		<item name="android:textColor">@color/fab_white</item>
-	</style>
-
 	<style name="NavigationView_ItemTextAppearance">
 		<item name="android:ellipsize">end</item>
 		<item name="android:listDivider">@color/transparent</item>

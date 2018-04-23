@@ -51,29 +51,33 @@ public abstract class ToolbarActivity extends BaseActivity {
      * want to use the toolbar.
      */
     protected void setupToolbar(boolean useBackgroundImage) {
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        int primaryColor = ThemeUtils.primaryColor(this);
+        int primaryDarkColor = ThemeUtils.primaryDarkColor(this);
+        int fontColor = ThemeUtils.fontColor(this);
+
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        mProgressBar = (ProgressBar) findViewById(R.id.progressBar);
+        mProgressBar = findViewById(R.id.progressBar);
         if (mProgressBar != null) {
             mProgressBar.setIndeterminateDrawable(
                     ContextCompat.getDrawable(this, R.drawable.actionbar_progress_indeterminate_horizontal));
 
-            ThemeUtils.colorToolbarProgressBar(this, ThemeUtils.primaryColor());
+            ThemeUtils.colorToolbarProgressBar(this, ThemeUtils.primaryColor(this));
         }
 
-        ThemeUtils.colorStatusBar(this, ThemeUtils.primaryDarkColor());
+        ThemeUtils.colorStatusBar(this, primaryDarkColor);
 
         if (toolbar.getOverflowIcon() != null) {
-            ThemeUtils.tintDrawable(toolbar.getOverflowIcon(), ThemeUtils.fontColor());
+            ThemeUtils.tintDrawable(toolbar.getOverflowIcon(), fontColor);
         }
 
         if (toolbar.getNavigationIcon() != null) {
-            ThemeUtils.tintDrawable(toolbar.getNavigationIcon(), ThemeUtils.fontColor());
+            ThemeUtils.tintDrawable(toolbar.getNavigationIcon(), fontColor);
         }
 
         if (!useBackgroundImage) {
-            toolbar.setBackgroundColor(ThemeUtils.primaryColor());
+            toolbar.setBackgroundColor(primaryColor);
         }
     }
 
@@ -85,7 +89,7 @@ public abstract class ToolbarActivity extends BaseActivity {
      * Updates title bar and home buttons (state and icon).
      */
     protected void updateActionBarTitleAndHomeButton(OCFile chosenFile) {
-        String title = ThemeUtils.getDefaultDisplayNameForRootFolder();    // default
+        String title = ThemeUtils.getDefaultDisplayNameForRootFolder(this);    // default
         boolean inRoot;
 
         // choose the appropriate title
@@ -112,7 +116,7 @@ public abstract class ToolbarActivity extends BaseActivity {
 
         // set & color the chosen title
         ActionBar actionBar = getSupportActionBar();
-        ThemeUtils.setColoredTitle(actionBar, titleToSet);
+        ThemeUtils.setColoredTitle(actionBar, titleToSet, this);
 
         // set home button properties
         if (actionBar != null) {
@@ -120,9 +124,9 @@ public abstract class ToolbarActivity extends BaseActivity {
             actionBar.setDisplayShowTitleEnabled(true);
         }
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         if (toolbar != null && toolbar.getNavigationIcon() != null) {
-            ThemeUtils.tintDrawable(toolbar.getNavigationIcon(), ThemeUtils.fontColor());
+            ThemeUtils.tintDrawable(toolbar.getNavigationIcon(), ThemeUtils.fontColor(this));
         }
     }
 
@@ -133,8 +137,7 @@ public abstract class ToolbarActivity extends BaseActivity {
      * @return <code>true</code> if it is <code>null</code> or the root folder, else returns <code>false</code>
      */
     public boolean isRoot(OCFile file) {
-        return file == null ||
-                (file.isFolder() && file.getParentId() == FileDataStorageManager.ROOT_PARENT_ID);
+        return file == null || (file.isFolder() && file.getParentId() == FileDataStorageManager.ROOT_PARENT_ID);
     }
 
     /**
