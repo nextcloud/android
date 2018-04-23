@@ -72,11 +72,11 @@ public class AccountListAdapter extends ArrayAdapter<AccountListItem> implements
             view = inflater.inflate(R.layout.account_item, parent, false);
 
             viewHolder = new AccountViewHolderItem();
-            viewHolder.imageViewItem = (ImageView) view.findViewById(R.id.user_icon);
-            viewHolder.checkViewItem = (ImageView) view.findViewById(R.id.ticker);
+            viewHolder.imageViewItem = view.findViewById(R.id.user_icon);
+            viewHolder.checkViewItem = view.findViewById(R.id.ticker);
             viewHolder.checkViewItem.setImageDrawable(mTintedCheck);
-            viewHolder.usernameViewItem = (TextView) view.findViewById(R.id.user_name);
-            viewHolder.accountViewItem = (TextView) view.findViewById(R.id.account);
+            viewHolder.usernameViewItem = view.findViewById(R.id.user_name);
+            viewHolder.accountViewItem = view.findViewById(R.id.account);
 
             view.setTag(viewHolder);
         } else {
@@ -119,9 +119,9 @@ public class AccountListAdapter extends ArrayAdapter<AccountListItem> implements
         LayoutInflater inflater = mContext.getLayoutInflater();
         View actionView = inflater.inflate(R.layout.account_action, parent, false);
 
-        TextView userName = (TextView) actionView.findViewById(R.id.user_name);
+        TextView userName = actionView.findViewById(R.id.user_name);
         userName.setText(R.string.prefs_add_account);
-        userName.setTextColor(ThemeUtils.primaryColor());
+        userName.setTextColor(ThemeUtils.primaryColor(getContext()));
 
         ((ImageView) actionView.findViewById(R.id.user_icon)).setImageResource(R.drawable.ic_account_plus);
 

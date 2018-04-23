@@ -94,7 +94,7 @@ public class SortingOrderDialogFragment extends DialogFragment {
      */
     private void setupDialogElements(View view) {
         mCancel = view.findViewById(R.id.cancel);
-        mCancel.setTextColor(ThemeUtils.primaryAccentColor());
+        mCancel.setTextColor(ThemeUtils.primaryAccentColor(getContext()));
 
         mTaggedViews = new View[12];
         mTaggedViews[0] = view.findViewById(R.id.sortByNameAscending);
@@ -129,7 +129,7 @@ public class SortingOrderDialogFragment extends DialogFragment {
      * tints the icon reflecting the actual sorting choice in the apps primary color.
      */
     private void setupActiveOrderSelection() {
-        final int color = ThemeUtils.primaryAccentColor();
+        final int color = ThemeUtils.primaryAccentColor(getContext());
         for (View view: mTaggedViews) {
             if (!((FileSortOrder)view.getTag()).mName.equals(mCurrentSortOrderName)) {
                 continue;

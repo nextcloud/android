@@ -144,7 +144,8 @@ public class EditShareFragment extends Fragment {
                 getResources().getString(R.string.share_with_edit_title, mShare.getSharedWithDisplayName()));
 
         View headerDivider = view.findViewById(R.id.share_header_divider);
-        headerDivider.getBackground().setColorFilter(ThemeUtils.primaryAccentColor(), PorterDuff.Mode.SRC_ATOP);
+        headerDivider.getBackground().setColorFilter(ThemeUtils.primaryAccentColor(getContext()),
+                PorterDuff.Mode.SRC_ATOP);
 
         // Setup layout
         refreshUiFromState(view);
@@ -181,7 +182,7 @@ public class EditShareFragment extends Fragment {
             OwnCloudVersion serverVersion = AccountUtils.getServerVersion(mAccount);
             boolean isNotReshareableFederatedSupported = serverVersion.isNotReshareableFederatedSupported();
 
-            int accentColor = ThemeUtils.primaryAccentColor();
+            int accentColor = ThemeUtils.primaryAccentColor(getContext());
 
             SwitchCompat shareSwitch = editShareView.findViewById(R.id.canShareSwitch);
             ThemeUtils.tintSwitch(shareSwitch, accentColor, true);

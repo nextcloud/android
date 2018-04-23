@@ -22,6 +22,7 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
@@ -57,8 +58,8 @@ public class SharePasswordDialogFragment extends DialogFragment
         super.onStart();
 
         AlertDialog alertDialog = (AlertDialog) getDialog();
-        alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(ThemeUtils.primaryAccentColor());
-        alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(ThemeUtils.primaryAccentColor());
+        alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(ThemeUtils.primaryAccentColor(getContext()));
+        alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(ThemeUtils.primaryAccentColor(getContext()));
     }
 
     /**
@@ -79,6 +80,7 @@ public class SharePasswordDialogFragment extends DialogFragment
         return frag;
     }
 
+    @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         mFile = getArguments().getParcelable(ARG_FILE);
@@ -89,8 +91,8 @@ public class SharePasswordDialogFragment extends DialogFragment
         View v = inflater.inflate(R.layout.password_dialog, null);
 
         // Setup layout
-        EditText inputText = ((EditText)v.findViewById(R.id.share_password));
-        inputText.getBackground().setColorFilter(ThemeUtils.primaryAccentColor(), PorterDuff.Mode.SRC_ATOP);
+        EditText inputText = v.findViewById(R.id.share_password);
+        inputText.getBackground().setColorFilter(ThemeUtils.primaryAccentColor(getContext()), PorterDuff.Mode.SRC_ATOP);
         inputText.setText("");
         inputText.requestFocus();
 
@@ -98,9 +100,9 @@ public class SharePasswordDialogFragment extends DialogFragment
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(),
                 R.style.Theme_ownCloud_Dialog_NoButtonBarStyle);
         builder.setView(v)
-               .setPositiveButton(R.string.common_ok, this)
-               .setNegativeButton(R.string.common_cancel, this)
-               .setTitle(R.string.share_link_password_title);
+                .setPositiveButton(R.string.common_ok, this)
+                .setNegativeButton(R.string.common_cancel, this)
+                .setTitle(R.string.share_link_password_title);
         Dialog d = builder.create();
         d.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
         return d;

@@ -155,7 +155,7 @@ public class UploadFilesActivity extends FileActivity implements
         findViewById(R.id.upload_files_btn_cancel).setOnClickListener(this);
 
         mUploadBtn = (AppCompatButton) findViewById(R.id.upload_files_btn_upload);
-        mUploadBtn.getBackground().setColorFilter(ThemeUtils.primaryAccentColor(), PorterDuff.Mode.SRC_ATOP);
+        mUploadBtn.getBackground().setColorFilter(ThemeUtils.primaryAccentColor(this), PorterDuff.Mode.SRC_ATOP);
         mUploadBtn.setOnClickListener(this);
 
         int localBehaviour = PreferenceManager.getUploaderBehaviour(this);
@@ -165,7 +165,7 @@ public class UploadFilesActivity extends FileActivity implements
 
         List<String> behaviours = new ArrayList<>();
         behaviours.add(getString(R.string.uploader_upload_files_behaviour_move_to_nextcloud_folder,
-                ThemeUtils.getDefaultDisplayNameForRootFolder()));
+                ThemeUtils.getDefaultDisplayNameForRootFolder(this)));
         behaviours.add(getString(R.string.uploader_upload_files_behaviour_only_upload));
         behaviours.add(getString(R.string.uploader_upload_files_behaviour_upload_and_delete_from_source));
 
@@ -366,7 +366,7 @@ public class UploadFilesActivity extends FileActivity implements
         if(checked) {
             selectAll.setIcon(R.drawable.ic_select_none);
         } else {
-            selectAll.setIcon(ThemeUtils.tintDrawable(R.drawable.ic_select_all, ThemeUtils.primaryColor()));
+            selectAll.setIcon(ThemeUtils.tintDrawable(R.drawable.ic_select_all, ThemeUtils.primaryColor(this)));
         }
     }
 
