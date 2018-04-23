@@ -14,15 +14,16 @@ if [ $? != 0 ] ; then
 fi
 
 # sign
+mkdir -p ~/apks
+
 source ~/.gradle/devVersionSecrets
 /home/nextcloud/bin/apksigner sign --ks-pass env:VERSION_DEV_STORE_PASSWORD \
                --key-pass env:VERSION_DEV_KEY_PASSWORD \
                --ks $VERSION_DEV_STORE_FILE \
-               --out /home/nextcloud/apks/nextcloud-dev-$date.apk \
-               ./build/outputs/apk/versionDev/release/android-versionDev-release-unsigned.apk
+               --out ~/apks/nextcloud-dev-$date.apk \
+               ./build/outputs/apk/versionDev/release/versionDev-release-$date.apk
 
 # use the current date
-mkdir -p ~/apks
 echo $date > ~/apks/latest
 
 ln -s nextcloud-dev-$date.apk latest.apk
