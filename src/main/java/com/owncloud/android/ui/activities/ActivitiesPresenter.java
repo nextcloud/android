@@ -53,6 +53,7 @@ public class ActivitiesPresenter implements ActivitiesContract.ActionListener {
                 new FilesRepository.ReadRemoteFileCallback() {
                     @Override
                     public void onFileLoaded(@Nullable OCFile ocFile) {
+                        mActivitiesView.setProgressIndicatorState(false);
                         if (ocFile != null) {
                             mActivitiesView.showActivityDetailUI(ocFile);
                         } else {
@@ -62,6 +63,7 @@ public class ActivitiesPresenter implements ActivitiesContract.ActionListener {
 
                     @Override
                     public void onFileLoadError(String error) {
+                        mActivitiesView.setProgressIndicatorState(false);
                         mActivitiesView.showActivityDetailError(error);
                     }
                 });
