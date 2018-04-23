@@ -111,7 +111,7 @@ public class FilesServiceApiImpl implements FilesServiceApi {
             if (success && remoteOcFile != null) {
                 mCallback.onLoaded(remoteOcFile);
                 return;
-            } else if (success && remoteOcFile == null) {
+            } else if (success) {
                 errorMessage = "File not found";
             }
 
