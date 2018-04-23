@@ -1,14 +1,12 @@
-package com.owncloud.android.ui.activities.data;
+package com.owncloud.android.ui.activities.data.activities;
 
 import android.accounts.Account;
 import android.accounts.AuthenticatorException;
 import android.accounts.OperationCanceledException;
 import android.content.Context;
 import android.os.AsyncTask;
-import android.view.View;
 
 import com.owncloud.android.MainApp;
-import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.OwnCloudClient;
@@ -20,8 +18,6 @@ import com.owncloud.android.lib.resources.activities.GetRemoteActivitiesOperatio
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
-import butterknife.BindString;
 
 /**
  * Implementation of the Activities Service API that communicates with the NextCloud remote server
