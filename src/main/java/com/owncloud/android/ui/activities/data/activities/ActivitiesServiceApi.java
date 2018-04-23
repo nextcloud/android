@@ -13,7 +13,7 @@ import java.util.List;
 public interface ActivitiesServiceApi {
 
     interface ActivitiesServiceCallback<T> {
-        void onLoaded (T activities, OwnCloudClient client, boolean clear);
+        void onLoaded (T activities, OwnCloudClient client, String nextPageUrl);
         void onError (String error);
     }
 

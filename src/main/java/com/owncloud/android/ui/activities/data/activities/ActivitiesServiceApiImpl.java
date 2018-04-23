@@ -103,7 +103,7 @@ public class ActivitiesServiceApiImpl implements ActivitiesServiceApi {
         protected void onPostExecute(Boolean success) {
             super.onPostExecute(success);
             if (success) {
-                mCallback.onLoaded(mActivities, ownCloudClient, mPageUrl == null);
+                mCallback.onLoaded(mActivities, ownCloudClient,  mPageUrl);
             } else {
                 mCallback.onError(errorMessage);
             }

@@ -31,9 +31,10 @@ public class ActivitiesPresenter implements ActivitiesContract.ActionListener {
         mActivitiesView.setProgressIndicatorState(true);
         mActivitiesRepository.getActivities(pageUrl, new ActivitiesRepository.LoadActivitiesCallback() {
             @Override
-            public void onActivitiesLoaded(List<Object> activities, OwnCloudClient client, boolean clear) {
+            public void onActivitiesLoaded(List<Object> activities, OwnCloudClient client,
+                                          String nextPageUrl) {
                 mActivitiesView.setProgressIndicatorState(false);
-                mActivitiesView.showActivites(activities, client, clear);
+                mActivitiesView.showActivites(activities, client, nextPageUrl);
             }
 
             @Override

@@ -11,7 +11,8 @@ import java.util.List;
  */
 public interface ActivitiesRepository {
     interface LoadActivitiesCallback {
-        void onActivitiesLoaded(List<Object> activities, OwnCloudClient client, boolean clear);
+        void onActivitiesLoaded(List<Object> activities, OwnCloudClient client,
+                                String nextPageUrl);
         void onActivitiesLoadedError(String error);
     }
 

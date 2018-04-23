@@ -19,8 +19,9 @@ public class RemoteActivitiesRepository implements ActivitiesRepository {
     public void getActivities(String pageUrl, @NonNull LoadActivitiesCallback callback) {
         mActivitiesServiceApi.getAllActivities(pageUrl, new ActivitiesServiceApi.ActivitiesServiceCallback<List<Object>>() {
             @Override
-            public void onLoaded(List<Object> activities, OwnCloudClient client, boolean clear) {
-                callback.onActivitiesLoaded(activities, client, clear);
+            public void onLoaded(List<Object> activities, OwnCloudClient client,
+                                 String nextPageUrl) {
+                callback.onActivitiesLoaded(activities, client, nextPageUrl);
             }
 
             @Override
