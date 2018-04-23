@@ -47,16 +47,6 @@ public class FilesServiceApiImpl implements FilesServiceApi {
         private final boolean mIsSharingSupported;
         private final String mFileUrl;
 
-        @Override
-        protected void onPostExecute(Boolean success) {
-            super.onPostExecute(success);
-            if (success && remoteOcFile != null) {
-                mCallback.onLoaded(remoteOcFile);
-            } else {
-                mCallback.onError(errorMessage);
-            }
-        }
-
         private ReadRemoteFileTask(String fileUrl, BaseActivity baseActivity,
                                    boolean isSharingSupported,
                                    FilesServiceCallback<OCFile> callback) {
@@ -114,5 +104,19 @@ public class FilesServiceApiImpl implements FilesServiceApi {
 
             return false;
         }
+
+        @Override
+        protected void onPostExecute(Boolean success) {
+            super.onPostExecute(success);
+            if (success && remoteOcFile != null) {
+                mCallback.onLoaded(remoteOcFile);
+                return;
+            } else if (success && remoteOcFile == null) {
+                errorMessage = "File not found";
+            }
+
+            mCallback.onError(errorMessage);
+        }
     }
+
 }
