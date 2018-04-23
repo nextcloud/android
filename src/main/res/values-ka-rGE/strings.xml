@@ -61,7 +61,6 @@
     <string name="recommend_urls">%1$s ან %2$s</string>
 
     <string name="auth_check_server">სერვერის შემოწმება</string>
-    <string name="auth_host_url">სერვერის მისამართი https://&#8230;</string>
     <string name="auth_username">მომხმარებლის სახელი</string>
     <string name="auth_password">პაროლი</string>
     <string name="auth_register">ჯერ არ გაქვთ Nextcloud-ი?\nპროვაიდერისგან მიღებისთვის დააწკაპუნეთ აქ</string>
@@ -81,7 +80,6 @@
     <string name="uploader_error_message_source_file_not_found">ატვირთვისთვის არჩეული ფაილი ვერ იქნა ნაპოვნი. გთხოვთ დაამოწმოთ ფაილის არსებობა.</string>
     <string name="uploader_error_message_source_file_not_copied">ფაილის ასლი დროებით დირექტორიაში ვერ შეიქმნა. სცადეთ მისი ახლიდან გაგზავნა.</string>
     <string name="uploader_upload_files_behaviour">ატვირთვის ოპციონი:</string>
-    <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">ფაილის გადატანა %1$s დირექტორიაში</string>
     <string name="uploader_upload_files_behaviour_only_upload">ფაილის საწყის დირექტორიაში დატოვება</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">ფაილის საწყისი დირექტორიიდან გაუქმება</string>
     <string name="file_list_seconds_ago">წამის წინ</string>
@@ -90,7 +88,6 @@
     <string name="file_list_empty">ატვირთეთ რამე ან გაუწიეთ თქვნს მოწყობილობას სინქრონიზაცია.</string>
     <string name="file_list_empty_favorites_filter_list">აქ გამოჩნდება ფაილები და დირექტორიები რომელთაც მონიშნავთ რჩეულებად</string>
     <string name="file_list_empty_favorites_filter">ვერც ერთი რჩეული ფაილი ვერ იქნა ნაპოვნი.</string>
-    <string name="file_list_loading">იტვირთება &#8230;</string>
     <string name="file_list_no_app_for_file_type">ამ ფაილთან სამუშაოდ არც ერთი აპლიკაცია არაა დაყანებული.</string>
     <string name="local_file_list_empty">ამ დირექტორიაში ფაილები არაა.</string>
     <string name="local_folder_list_empty">მომდევნო დირექტორიები არაა.</string>
@@ -127,7 +124,6 @@
     <string name="common_back">უკან</string>
     <string name="common_save">შენახვა</string>
     <string name="common_error">შეცდომა</string>
-    <string name="common_loading">იტვირთება &#8230;</string>
     <string name="common_unknown">უცნობი</string>
     <string name="common_error_unknown">უცნობი შეცდომა</string>
     <string name="common_pending">მოლოდინშია</string>
@@ -137,9 +133,7 @@
     <string name="delete_account_warning">გავაუქმოთ ანგარიში %s და ყველა ლოკალური ფაილი?\n\nგაუქმება ვერ იქნება უკუბრუნებული.</string>
     <string name="avatar">ავატარი</string>
     <string name="active_user">აქტიური მომხმარებელი</string>
-    <string name="upload_chooser_title">ატვირთე აქედან &#8230;</string>
     <string name="uploader_info_dirname">დირექტორიის სახელი</string>
-    <string name="uploader_upload_in_progress_ticker">&#8230;-ის ატვირთვა</string>
     <string name="uploader_upload_in_progress_content">%1$d%% ატვირთვა %2$s</string>
     <string name="uploader_upload_succeeded_ticker">აიტვირთა</string>
     <string name="uploader_upload_succeeded_content_single">ატვირთულია %1$s</string>
@@ -165,7 +159,6 @@
     <string name="uploads_view_upload_status_waiting_for_wifi">ველოდებით Wi-Fi-ს</string>
     <string name="uploads_view_upload_status_waiting_exit_power_save_mode">ველოდებით ეკონომიური რეჟიმიდან გამოსვლას</string>
     <string name="uploads_view_later_waiting_to_upload">ველოდებით ატვირთვას</string>
-    <string name="downloader_download_in_progress_ticker">ჩამოტვირთვა &#8230;</string>
     <string name="downloader_download_in_progress_content">%1$d%% ჩამოტვირთვა %2$s</string>
     <string name="downloader_download_succeeded_ticker">ჩამოტვირთულია</string>
     <string name="downloader_download_succeeded_content">%1$s ჩამოტვირთლია</string>
@@ -227,9 +220,7 @@
     <string name="media_play_pause_description">დაკვრის ან პაუზის ღილაკი</string>
     <string name="media_forward_description">სწრაფი გადახვევის ღილაკი</string>
 
-	<string name="auth_getting_authorization">ხდება ავტორიზაცია &#8230;</string>
-	<string name="auth_trying_to_login">ავტორიზაციის მცდელობა &#8230;</string>
-	<string name="auth_no_net_conn_title">ქსელთან კავშირი არ არის</string>
+    <string name="auth_no_net_conn_title">ქსელთან კავშირი არ არის</string>
 	<string name="auth_nossl_plain_ok_title">დაცული კავშირი არაა ხელმისაწვდომი.</string>
 	<string name="auth_connection_established">კავშირი დამყარდა</string>
 	<string name="auth_testing_connection">კავშირის შემოწმება</string>
@@ -253,8 +244,7 @@
 	<string name="auth_expired_oauth_token_toast">თქვენს ავტორიზაციას გაუვიდა ვადა. გთხოვთ ახლიდან გაიაროთ ავტორიზაცია</string>
 	<string name="auth_expired_basic_auth_toast">გთხოვთ შეიყვანოთ ამჟამინდელი პაროლი</string>
 	<string name="auth_expired_saml_sso_token_toast">თქვენს სესიას ვადა გაუვიდა. გთხოვთ დაკავშირდდეთ ახლიდან</string>
-    <string name="auth_connecting_auth_server">ხდება დაკავშირება აუტენტიფიკაციის სერვერთან &#8230;</string>
-	<string name="auth_unsupported_multiaccount">%1$s არ უჭერს მხარს მრავალი ანგარიშის არსებობას</string>
+    <string name="auth_unsupported_multiaccount">%1$s არ უჭერს მხარს მრავალი ანგარიშის არსებობას</string>
 	<string name="auth_fail_get_user_name">თქვენი სერვერი არ აბრუნებს სწორ მომხმარებლის ID-ს, გთხოვთ დაუკავშირდეთ ადმინისტრატორს</string>
 	<string name="auth_can_not_auth_against_server">ამ სერვერთან აუტენტიფიკაცია ვერ ხერხდება</string>
     <string name="auth_account_does_not_exist">ანგარიში ამ მოწყობილობაზე ჯერ არაა დამატებული</string>
@@ -282,15 +272,11 @@
     <string name="filename_forbidden_characters">აკრძალული ნიშნები: / \\ &lt; &gt; : \" | ? *</string>
     <string name="filename_forbidden_charaters_from_server">ფაილის სახელი შეიცავს მინ. 1 არასწორ ნიშანს</string>
     <string name="filename_empty">ფაილის სახელი ვერ იქნება ცარიელი</string>
-    <string name="wait_a_moment">გთხოვთ მოითმინოთ &#8230;</string>
     <string name="wait_checking_credentials">მოწმდება შენახული უფლებამოსილებანი</string>
     <string name="filedisplay_no_file_selected">ფაილი არაა არჩეული</string>
-    <string name="activity_chooser_title">გაუგზავნეთ ბმული &#8230;-ს</string>
     <string name="wait_for_tmp_copy_from_private_storage">ფაილის კოპირება პირადი საცავიდან</string>
     
     <string name="oauth_check_onoff">გაიარეთ ავტორიზაცია OAuth 2.0-ით</string>
-    <string name="oauth_login_connection">ხდება დაკავშირება OAuth 2.0 სერვერთან &#8230;</string>
-        
     <string name="ssl_validator_header">სერვერის იდენტურობა ვერ დამოწმდა</string>
     <string name="ssl_validator_reason_cert_not_trusted">- სერვერის სერტიფიკატი არ არის სანდო</string>
     <string name="ssl_validator_reason_cert_expired">- სერვერის სერტიფიკატი ვადაგასულია</string>
@@ -382,14 +368,6 @@
     <string name="downloader_download_file_not_found">ფაილი სერვერზე ხელმისაწვდომი აღარაა</string>
 
     <string name="file_migration_dialog_title">საცავის მისამართის განახლება</string>
-    <string name="file_migration_preparing">მზადდება მიგრაცია &#8230;</string>
-    <string name="file_migration_checking_destination">მოწმდება დანიშნულება &#8230;</string>
-    <string name="file_migration_saving_accounts_configuration">ანგარიშის კონფიგურაციის შენახვა &#8230;</string>
-    <string name="file_migration_waiting_for_unfinished_sync">სრული სინქ მოლოდინი &#8230;</string>
-    <string name="file_migration_migrating">ხდება მონაცემების გადატანა &#8230;</string>
-    <string name="file_migration_updating_index">ნახლდება ინდექსი &#8230;</string>
-    <string name="file_migration_cleaning">სუფთავდება &#8230;</string>
-    <string name="file_migration_restoring_accounts_configuration">ანგარიშის კონფიგურაციის აღდგენა &#8230;</string>
     <string name="file_migration_ok_finished">დასრულებულია</string>
     <string name="file_migration_failed_not_enough_space">საჭიროა მეტი სივრცე</string>
     <string name="file_migration_failed_not_writable">სამიზნე ფაილში ჩაწერა ვერ მოხერხდა</string>
@@ -413,9 +391,7 @@
 	<string name="log_send_history_button">გაგზავნის ისტორია</string>
 	<string name="log_send_no_mail_app">აპლიკაცია ლოგების გადასაგზავნად ვერ იქნა ნაპოვნი. გთხოვთ ელ-ფოსტის კლიენტი დააყენოთ ახლიდან.</string>
 	<string name="log_send_mail_subject">%1$s Android აპლიკაციის ლოგები.</string>
-	<string name="log_progress_dialog_text">მონაცემები იტვირთება &#8230;</string>
-
-	<string name="saml_authentication_required_text">საჭიროა პაროლი</string>
+    <string name="saml_authentication_required_text">საჭიროა პაროლი</string>
 	<string name="saml_authentication_wrong_pass">არასწორი პაროლი</string>
 	<string name="actionbar_move">გადატანა</string>
     <string name="actionbar_copy">კოპირება</string>
@@ -457,8 +433,6 @@
     <string name="set_picture_as">გამოიყენეთ სურათი როგორც</string>
     <string name="set_as">დააყენეთ როგორც</string>
 
-    <string name="prefs_instant_behaviour_dialogTitle">ორიგინალი ფაილი იქნება &#8230;</string>
-    <string name="prefs_instant_behaviour_title">ორიგინალი ფაილი იქნება &#8230;</string>
     <string name="select_all">ყველას მონიშვნა</string>
     <string name="deselect_all">ყველას წაშლა</string>
 
@@ -479,7 +453,6 @@
     <string name="share_via_link_edit_permission_label">ცვლილების ნების დართვა</string>
     <string name="share_via_link_hide_file_listing_permission_label">ფაილის ჩამონათვლის დამალვა</string>
     <string name="share_get_public_link_button">ბმულის მიღება</string>
-    <string name="share_with_title">&#8230;-სთან გაზიარება</string>
     <string name="share_with_edit_title">%1$s-სთან გაზიარება</string>
 
     <string name="share_search">ძებნა</string>
@@ -542,11 +515,6 @@
     <string name="participate_rc_fdroid">მიიღეთ რელიზ კანდიდატი F-Droid აპლიკაციიდან</string>
     <string name="participate_dev_fdroid">მიიღეთ დეველოპმენტ რელიზი F-Droid აპლიკაციიდან</string>
     <string name="participate_dev_direct_download">დეველოპმენტ რელიზის პირდაპირი ჩამოტვირთვა</string>
-    <string name="move_to">გადაიტანეთ &#8230;</string>
-    <string name="copy_to">დააკოპირეთ &#8230;</string>
-    <string name="choose_remote_folder">აირჩიეთ დისტანციური დირექტორია &#8230;</string>
-    <string name="choose_local_folder">აირჩიეთ ლოკალური დირექტორია &#8230;</string>
-    <string name="synced_folders_loading_folders">დირექტორიები იტვირთება &#8230;</string>
     <string name="synced_folders_no_results">მედია დირექტორიები ვერ იქნა ნაპოვნი.</string>
     <string name="synced_folders_preferences">პრეფერენციები ავტო-ატვირთვაზე</string>
     <string name="synced_folders_new_info">მყისიერი ატვირთვა სრულიად გამოსწორდა. ავტო-ატვირთვას რეკონფიგურაცია გაუწიეთ მთავარი მენიუდან.\n\nისიამოვნეთ ახალი და გაუმჯობესებული ავტო-ატვირთვით.</string>
@@ -555,7 +523,6 @@
         <item quantity="other">%d არჩეული</item>
     </plurals>
 
-    <string name="notifications_loading_activity">შეტყობინებები იტვირთება &#8230;</string>
     <string name="notifications_no_results_headline">შეტყობინებები არაა</string>
     <string name="notifications_no_results_message">გთხოვთ დაბრუნდეთ მოგვინაებით.</string>
 
@@ -640,9 +607,6 @@
     <string name="resharing_is_not_allowed">ხელახალი გაზიარება არაა ნებადართული</string>
     <string name="fallback_weblogin_back">უკან</string>
     <string name="fallback_weblogin_text">უკან ძველი ავტორიზაციის მეთოდისკენ</string>
-
-    <string name="foreground_service_upload">ფაილები ნახლდება &#8230;</string>
-    <string name="foreground_service_download">ხდება ფაილების ჩამოტვირთვა &#8230;</string>
 
     <string name="prefs_sourcecode">მიიღეთ კოდი</string>
     <string name="prefs_license">ლიცენზია</string>
@@ -732,16 +696,12 @@
     
     <string name="end_to_end_encryption_folder_not_empty">ეს დირექტორია არაა ცარიელი</string>
     <string name="end_to_end_encryption_wrong_password">შეცდომა დეშიფრაციისას. არასწორი პაროლი?</string>
-    <string name="end_to_end_encryption_decrypting">ხდება დეშიფრაცია &#8230;</string>
-    <string name="end_to_end_encryption_retrieving_keys">ხდება გასაღებების მიღება &#8230;</string>
     <string name="end_to_end_encryption_enter_password">პირადი გასაღების დეშიფრაციისთვის გთხოვთ შეიყვანოთ პაროლი.</string>
-    <string name="end_to_end_encryption_generating_keys">ხდება ახალი გასაღებების გენერირება &#8230;</string>
     <string name="end_to_end_encryption_keywords_description">12 სიტყვა ერთად წარმოქმნის ძალიან ძლიერ პაროლს, იძლევა თქვენი დაშიფრული ფაილების ჩვენებისა და მოხმარების უფლებას. გთხოვთ ჩაიწეროთ და შეინახოთ დაცულ ადგილას.</string>
     <string name="end_to_end_encryption_title">შიფრაციის დაყენება</string>
     <string name="end_to_end_encryption_passphrase_title">შენიშნეთ თქვენი 12 სიტყვიანი შიფრაციის პაროლი</string>
     <string name="end_to_end_encryption_not_supported">შიფრაცია მოქმედებს მხოლოდ KitKat(4.4)-ზე და შემდეგზე.</string>
     <string name="end_to_end_encryption_confirm_button">შიფრაციის დაყენება</string>
-    <string name="end_to_end_encryption_password">პაროლი &#8230;</string>
     <string name="end_to_end_encryption_unsuccessful">გასაღებების შენახვა ვერ მოხერხდა, გთხოვთ სცადოთ ახლიდან.</string>
     <string name="end_to_end_encryption_dialog_close">დახურვა</string>
     <string name="end_to_end_encryption_storing_keys">გასაღებების შენახვა</string>

@@ -60,7 +60,6 @@
     <string name="recommend_urls">%1$s edo %2$s</string>
 
     <string name="auth_check_server">Egiaztatu zerbitzaria</string>
-    <string name="auth_host_url">Zerbitzariaren helbidea https://&#8230;</string>
     <string name="auth_username">Erabiltzaile izena</string>
     <string name="auth_password">Pasahitza</string>
     <string name="sync_string_files">Fitxategiak</string>
@@ -79,7 +78,6 @@
     <string name="uploader_error_message_source_file_not_found">Kargatzeko hautatutako fitxategia ez da aurkitu. Mesedez, egiaztatu fitxategia existitzen dela.</string>
     <string name="uploader_error_message_source_file_not_copied">Fitxategia ezin izan da aldi baterako karpetan kopiatu. Saiatu berriro bidaltzen.</string>
     <string name="uploader_upload_files_behaviour">Kargatze aukera:</string>
-    <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">Mugitu fitxategia %1$s karpetara</string>
     <string name="uploader_upload_files_behaviour_only_upload">Mantendu fitxategia jatorrizko karpetan</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Ezabatu fitxategia jatorrizko karpetatik</string>
     <string name="file_list_seconds_ago">duela segundo batzuk</string>
@@ -88,7 +86,6 @@
     <string name="file_list_empty">Kargatu edukiren bat edo sinkronizatu zure gailuekin.</string>
     <string name="file_list_empty_favorites_filter_list">Gogoko bezala markatutako fitxategi zein karpetak hemen agertuko dira</string>
     <string name="file_list_empty_favorites_filter">Zure bilaketak ez du gogoko fitxategirik itzuli.</string>
-    <string name="file_list_loading">&#8230; kargatzen</string>
     <string name="file_list_no_app_for_file_type">Ez dago aplikaziorik konfiguratuta fitxategi mota honetarako.</string>
     <string name="local_file_list_empty">Ez dago fitxategirik karpeta honetan.</string>
     <string name="local_folder_list_empty">Ez dago karpeta gehiagorik.</string>
@@ -118,7 +115,6 @@
     <string name="common_back">Atzera</string>
     <string name="common_save">Gorde</string>
     <string name="common_error">Errorea</string>
-    <string name="common_loading">Kargatzen &#8230;</string>
     <string name="common_unknown">ezezaguna</string>
     <string name="common_error_unknown">Errore ezezaguna</string>
     <string name="common_pending">Itxoiten</string>
@@ -127,9 +123,7 @@
     <string name="delete_account">Ezabatu kontua</string>
     <string name="avatar">avatar</string>
     <string name="active_user">Erabiltzaile aktiboa</string>
-    <string name="upload_chooser_title">Igo fitxategia hemendik &#8230;</string>
     <string name="uploader_info_dirname">Karpetaren izena</string>
-    <string name="uploader_upload_in_progress_ticker">Igotzen &#8230;</string>
     <string name="uploader_upload_in_progress_content">%1$d%% Igotzen %2$s</string>
     <string name="uploader_upload_succeeded_ticker">Igota</string>
     <string name="uploader_upload_succeeded_content_single">%1$s igota</string>
@@ -150,7 +144,6 @@
     <string name="uploads_view_upload_status_service_interrupted">App-ak bukatu du</string>
     <string name="uploads_view_upload_status_unknown_fail">Errore ezezaguna</string>
     <string name="uploads_view_later_waiting_to_upload">Igotzeko itxoiten</string>
-    <string name="downloader_download_in_progress_ticker">Deskargatzen &#8230;</string>
     <string name="downloader_download_in_progress_content">%1$d%% Deskargatzen %2$s</string>
     <string name="downloader_download_succeeded_ticker">Jaitsita</string>
     <string name="downloader_download_succeeded_content">%1$s jaitsita</string>
@@ -189,9 +182,7 @@
     <string name="media_play_pause_description">Erreproduzitu edo pausatu botoia</string>
     <string name="media_forward_description">Azkar aurreratu botoia</string>
 
-	<string name="auth_getting_authorization">Baimena eskuratzen</string>
-	<string name="auth_trying_to_login">Saio hasten saiatzen</string>
-	<string name="auth_no_net_conn_title">Ez dago sare konexiorik</string>
+    <string name="auth_no_net_conn_title">Ez dago sare konexiorik</string>
 	<string name="auth_nossl_plain_ok_title">Konexio segurua ez dago eskuragarri</string>
 	<string name="auth_connection_established">Konexioa ezarri da</string>
 	<string name="auth_testing_connection">Konexioa probatzen</string>
@@ -233,7 +224,6 @@ Mesedez, baimendu berriz</string>
     <string name="filename_forbidden_characters">Debekatutako karaktereak: / \\ &lt; &gt; : \" | ? *</string>
     <string name="wait_checking_credentials">Gordetako nortasun-datuak konprobatzen</string>
     <string name="filedisplay_no_file_selected">Ez da fitxategirik hautatu</string>
-    <string name="activity_chooser_title">Bidali lotura honi &#8230;</string>
     <string name="wait_for_tmp_copy_from_private_storage">Fitxategia biltegiratze pribatutik kopiatzen</string>
     
     <string name="oauth_check_onoff">izena emanda OAuth 2.0 erabiliz</string>
@@ -296,7 +286,7 @@ Mesedez, baimendu berriz</string>
     <string name="drawer_manage_accounts">Kudeatu kontuak</string>
     <string name="actionbar_logger">Egunkariak</string>
 	<string name="log_send_mail_subject">%1$s Android aplikazioaren egunerokoak</string>
-	<string name="saml_authentication_wrong_pass">Pasahitz okerra</string>
+    <string name="saml_authentication_wrong_pass">Pasahitz okerra</string>
 	<string name="actionbar_move">Mugitu</string>
     <string name="actionbar_copy">Kopiatu</string>
 	<string name="folder_picker_choose_button_text">Aukeratu</string>
@@ -347,7 +337,6 @@ Mesedez, baimendu berriz</string>
     <string name="share_via_link_password_title">Segurua</string>
     <string name="share_via_link_hide_file_listing_permission_label">Fitxategi zerrenda ezkutatu</string>
     <string name="share_get_public_link_button">Esteka lortu</string>
-    <string name="share_with_title">&#8230; -rekin partekatu</string>
     <string name="share_with_edit_title">%1$s -rekin partekatu</string>
 
     <string name="share_search">Bilatu</string>

@@ -61,7 +61,6 @@
     <string name="recommend_urls">%1$s أو %2$s</string>
 
     <string name="auth_check_server">فحص الخادم</string>
-    <string name="auth_host_url">عنوان الخادوم https://&#8230;</string>
     <string name="auth_username">إسم المستخدم</string>
     <string name="auth_password">كلمة السر</string>
     <string name="auth_register">ليس لديك ناكست كلاود حتى الآن ؟\nإضغط هنا للحصول على واحد من أحد المزودين</string>
@@ -81,14 +80,12 @@
     <string name="uploader_error_message_read_permission_not_granted">%1$s غير مسموح له أن يقرأ ملفاً مستلماً</string>
     <string name="uploader_error_message_source_file_not_found">لم يتم إيجاد الملف المحدد للرفع. الرجاء التأكد من أن الملف موجود.</string>
     <string name="uploader_upload_files_behaviour">خيارات الرفع :</string>
-    <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">نقل الملف إلى مجلد ناكست كلاود %1$s</string>
     <string name="uploader_upload_files_behaviour_only_upload">الإبقاء على الملف في المجلد الأصلي</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">إحذف الملف من المجلد الأصلي</string>
     <string name="file_list_seconds_ago">منذ ثواني</string>
     <string name="file_list_empty_headline">لا يوجد ملفات هنا </string>
     <string name="folder_list_empty_headline">لا توجد مجلدات</string>
     <string name="file_list_empty">قم برفع بعض المحتوى أو زامن مع أجهزتك</string>
-    <string name="file_list_loading">Lعملية التحميل جارية &#8230;</string>
     <string name="local_file_list_empty">لا توجد ملفات في هذا المجلد</string>
     <string name="file_list_empty_headline_search">لم يتم العثور على أية بيانات في هذا المجلد</string>
     <string name="file_list_empty_headline_server_search">دون أية نتيجة</string>
@@ -117,7 +114,6 @@
     <string name="common_back">رجوع</string>
     <string name="common_save">حفظ</string>
     <string name="common_error">خطأ</string>
-    <string name="common_loading">تحميل &#8230;</string>
     <string name="common_unknown">غير معروف</string>
     <string name="common_error_unknown">خطأ غير معروف. </string>
     <string name="common_pending">مُعلَّق</string>
@@ -125,9 +121,7 @@
     <string name="about_title">حول</string>
     <string name="delete_account">حذف الحساب</string>
     <string name="avatar">الصورة الرمزية</string>
-    <string name="upload_chooser_title">الرفع من &#8230;</string>
     <string name="uploader_info_dirname">اسم المجلد</string>
-    <string name="uploader_upload_in_progress_ticker">يتم الرفع &#8230;</string>
     <string name="uploader_upload_in_progress_content">%1$d%% رفع %2$s</string>
     <string name="uploader_upload_succeeded_ticker">تم رفعه</string>
     <string name="uploader_upload_succeeded_content_single">تم رفع %1$s</string>
@@ -149,7 +143,6 @@
     <string name="uploads_view_upload_status_waiting_for_wifi">في انتظار الربط بالواي فاي</string>
     <string name="uploads_view_upload_status_waiting_exit_power_save_mode">في انتظار الخروج من وضع توفير الطاقة</string>
     <string name="uploads_view_later_waiting_to_upload">بانتظار الرفع</string>
-    <string name="downloader_download_in_progress_ticker">يتم التحميل &#8230;</string>
     <string name="downloader_download_in_progress_content">%1$d%% تحميل  %2$s</string>
     <string name="downloader_download_succeeded_ticker">تم التنزيل</string>
     <string name="downloader_download_succeeded_content">%1$s مُنزَّلَة</string>
@@ -190,8 +183,7 @@
     <string name="media_play_pause_description">زر التشغيل أو الإيقاف</string>
     <string name="media_forward_description">زر التقدم للأمام</string>
 
-	<string name="auth_trying_to_login">محاولة الدخول &#8230;</string>
-	<string name="auth_no_net_conn_title">لا يتوفر اتصال</string>
+    <string name="auth_no_net_conn_title">لا يتوفر اتصال</string>
 	<string name="auth_nossl_plain_ok_title">الاتصال الآمن غير متاح</string>
 	<string name="auth_connection_established">تم الاتصال</string>
 	<string name="auth_testing_connection">تجريب الإتصال</string>
@@ -228,9 +220,7 @@
     <string name="create_dir_fail_msg">تعذر إنشاء المُجلّد</string>
     <string name="filename_forbidden_characters">رموز ممنوعة: / \\ &lt; &gt; : \" | ? *</string>
     <string name="filename_empty">لا يجوز أن يُترك إسم الملف فارغًا</string>
-    <string name="wait_a_moment">إنتظر لحظة &#8230;</string>
     <string name="filedisplay_no_file_selected">لم تقم بتحديد أي ملف</string>
-    <string name="activity_chooser_title">ارسل الرابط الى &#8230;</string>
     <string name="ssl_validator_reason_cert_not_trusted">شهادة الخادم غير موثوقة</string>
     <string name="ssl_validator_reason_cert_expired">شهادة الخادم منتهية الصلاحية</string>
     <string name="ssl_validator_reason_cert_not_yet_valid">وقت صلاحية شهادة الخادم لم يحن بعد</string>
@@ -289,7 +279,6 @@
     <string name="forbidden_permissions_delete">لحذف هذا الملف</string>
     <string name="share_link_forbidden_permissions">لمشاركة هذا الملف</string>
     <string name="forbidden_permissions_create">إنشاء هذا الملف</string>
-    <string name="file_migration_cleaning">تنظيف &#8230;</string>
     <string name="file_migration_ok_finished">مكتملة</string>
     <string name="file_migration_use_data_folder">استعمل</string>
 
@@ -297,8 +286,6 @@
     <string name="drawer_manage_accounts">إدارة الحسابات</string>
     <string name="actionbar_logger">سجل</string>
 	<string name="log_send_history_button">ارسال التاريخ</string>
-	<string name="log_progress_dialog_text">تحميل البيانات &#8230;</string>
-
 	<string name="saml_authentication_required_text">كلمة السر مطلوبة</string>
 	<string name="saml_authentication_wrong_pass">كلمة مرور خاطئة</string>
 	<string name="actionbar_move">أنقل</string>
@@ -332,7 +319,6 @@
     <string name="share_via_link_password_title">مؤَمَّن</string>
     <string name="share_via_link_edit_permission_label">السماح بإدخال تعديلات</string>
     <string name="share_get_public_link_button">تحصل على رابط</string>
-    <string name="share_with_title">شارك مع &#8230;</string>
     <string name="share_with_edit_title">شارك مع %1$s</string>
 
     <string name="share_search">البحث</string>
@@ -367,7 +353,6 @@
     <string name="participate_contribute_forum_forum">المنتدى</string>
     <string name="participate_contribute_translate_translate">ترجمة</string>
     <string name="participate_contribute_translate_text">التطبيق</string>
-    <string name="move_to">أنقل إلى &#8230;</string>
     <string name="synced_folders_preferences">خيارات الرفع التلقائي</string>
     <string name="notifications_no_results_headline">لا توجد هناك إخطارات</string>
     <string name="upload_file_dialog_filename">اسم الملف</string>
@@ -422,9 +407,6 @@
 
     <string name="test_server_button">أفحص أتصال الخادم</string>
     <string name="fallback_weblogin_back">العودة</string>
-    <string name="foreground_service_upload">جارٍ رفع الملفات &#8230;</string>
-    <string name="foreground_service_download">جارٍ تنزيل الملفات &#8230;</string>
-
     <string name="prefs_sourcecode">الحصول على الشفرة المصدرية</string>
     <string name="prefs_license">الرخصة</string>
     <string name="date_unknown">مجهول</string>
@@ -474,13 +456,9 @@
     
     <string name="end_to_end_encryption_folder_not_empty">هذا المجلد غير فارغ.</string>
     <string name="end_to_end_encryption_wrong_password">خطأ أثناء فك التعمية. هل كلمة السر صحيحة ؟</string>
-    <string name="end_to_end_encryption_decrypting">فك التشفير &#8230;</string>
-    <string name="end_to_end_encryption_retrieving_keys">يتم استرجاع المفاتيح </string>
     <string name="end_to_end_encryption_enter_password">الرجاء أدخل كلمة المرور ليتم فك تشفير المفتاح الخاص</string>
-    <string name="end_to_end_encryption_generating_keys">توليد مفاتيح جديدة &#8230;</string>
     <string name="end_to_end_encryption_title">تنصيب التشفير</string>
     <string name="end_to_end_encryption_confirm_button">تنصيب التشفير</string>
-    <string name="end_to_end_encryption_password"> كلمة المرور &#8230;</string>
     <string name="end_to_end_encryption_dialog_close">إغلاق</string>
     <string name="end_to_end_encryption_storing_keys">تخزين المفاتيح </string>
     <string name="sendbutton_description">أيقونة زر الإرسال</string>

@@ -55,7 +55,6 @@
     <string name="prefs_imprint">Jejak</string>
 
 	<string name="auth_check_server">Periksa peladen</string>
-    <string name="auth_host_url">Alamat server https://&#8230;</string>
     <string name="auth_username">Nama Pengguna</string>
     <string name="auth_password">Kata sandi</string>
     <string name="sync_string_files">Berkas</string>
@@ -74,7 +73,6 @@
     <string name="uploader_error_message_source_file_not_found">Berkas yang diunggah tidak ditemukan. Periksa kembali berkas tersebut</string>
     <string name="uploader_error_message_source_file_not_copied">Tidak dapat menyalin ke folder sementara. Coba untuk ngirim ulang</string>
     <string name="uploader_upload_files_behaviour">Pilihan unggah:</string>
-    <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">Pindahkan berkas ke folder %1$s</string>
     <string name="uploader_upload_files_behaviour_only_upload">Pertahankan berkas difolder sumber</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Hapus berkas dari folder sumber</string>
     <string name="file_list_seconds_ago">beberapa detik yang lalu</string>
@@ -110,7 +108,6 @@
     <string name="common_cancel">Batal</string>
     <string name="common_back">Kembali</string>
     <string name="common_save">Simpan</string>
-    <string name="common_loading">Memuat &#8230;</string>
     <string name="common_unknown">tidak diketahui</string>
     <string name="common_error_unknown">Kesalahan tidak diketahui</string>
     <string name="common_pending">Tunggu</string>
@@ -119,9 +116,7 @@
     <string name="delete_account">Hapus akun</string>
     <string name="avatar">Avatar</string>
     <string name="active_user">Pengguna aktif</string>
-    <string name="upload_chooser_title">Unggah dari &#8230;</string>
     <string name="uploader_info_dirname">Nama folder</string>
-    <string name="uploader_upload_in_progress_ticker">Mengungggah &#8230;</string>
     <string name="uploader_upload_in_progress_content">%1$d%% Mengunggah %2$s</string>
     <string name="uploader_upload_succeeded_ticker">Diunggah</string>
     <string name="uploader_upload_succeeded_content_single">%1$s terunggah</string>
@@ -142,7 +137,6 @@
     <string name="uploads_view_upload_status_service_interrupted">Aplikasi ditutup</string>
     <string name="uploads_view_upload_status_unknown_fail">Kesalahan tidak diketahui</string>
     <string name="uploads_view_later_waiting_to_upload">Menunggu unggahan</string>
-    <string name="downloader_download_in_progress_ticker">Mengunduh &#8230;</string>
     <string name="downloader_download_in_progress_content">%1$d%% Mengunduh %2$s</string>
     <string name="downloader_download_succeeded_ticker">Unggahan</string>
     <string name="downloader_download_succeeded_content">%1$s terunduh</string>
@@ -181,9 +175,7 @@
     <string name="media_play_pause_description">Tombol main dan jeda</string>
     <string name="media_forward_description">Tombol maju</string>
 
-	<string name="auth_getting_authorization">Mendapatkan otorisasi &#8230;</string>
-	<string name="auth_trying_to_login">Mencoba log masuk &#8230;</string>
-	<string name="auth_no_net_conn_title">Tidak ada koneksi internet</string>
+    <string name="auth_no_net_conn_title">Tidak ada koneksi internet</string>
 	<string name="auth_nossl_plain_ok_title">Sambungan aman tidak tersedia</string>
 	<string name="auth_connection_established">Sambungan dibuat</string>
 	<string name="auth_testing_connection">Mencoba sambungan</string>
@@ -223,7 +215,6 @@
     <string name="filename_forbidden_characters">Karakter yang dilarang: / \\ &lt; &gt; : \" | ? *</string>
     <string name="wait_checking_credentials">Mengecek kredensial yang tersimpan</string>
     <string name="filedisplay_no_file_selected">Tidak ada berkas yang dipilih</string>
-    <string name="activity_chooser_title">Kirim taukan ke &#8230;</string>
     <string name="wait_for_tmp_copy_from_private_storage">Menyalin berkas dari penyimpanan pribadi</string>
     
     <string name="oauth_check_onoff">Masuk dengan 2.0</string>
@@ -322,9 +313,7 @@
 	<string name="log_send_history_button">Kirim riwayat</string>
 	<string name="log_send_no_mail_app">Tidak ada aplikasi untuk mengirim riwayat. Pasang aplikasi surel.</string>
 	<string name="log_send_mail_subject">%1$s Android apl log</string>
-	<string name="log_progress_dialog_text">Memuat data &#8230;</string>
-
-	<string name="saml_authentication_wrong_pass">Kata sandi salah</string>
+    <string name="saml_authentication_wrong_pass">Kata sandi salah</string>
 	<string name="actionbar_move">Pindah</string>
     <string name="actionbar_copy">Salin</string>
 	<string name="file_list_empty_moving">Kosong. Anda dapat menambahkan folder</string>
@@ -376,7 +365,6 @@
     <string name="share_via_link_password_title">Diamankan</string>
     <string name="share_via_link_hide_file_listing_permission_label">Sembunyikan daftar berkas</string>
     <string name="share_get_public_link_button">Dapatkan tautan</string>
-    <string name="share_with_title">Bagikan kepada &#8230;</string>
     <string name="share_with_edit_title">Bagikan dengan %1$s</string>
 
     <string name="share_search">Cari</string>
