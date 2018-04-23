@@ -37,7 +37,7 @@ public class ActivitiesServiceApiImpl implements ActivitiesServiceApi {
         private final ActivitiesServiceCallback<List<Object>> mCallback;
         private List<Object> mActivities;
         private String mPageUrl;
-        String noResultsMessage = "no results";
+        private String noResultsMessage = "no results";
         private String errorMessage;
         private OwnCloudClient ownCloudClient;
 
@@ -104,8 +104,9 @@ public class ActivitiesServiceApiImpl implements ActivitiesServiceApi {
             super.onPostExecute(success);
             if (success) {
                 mCallback.onLoaded(mActivities, ownCloudClient, mPageUrl == null);
+            } else {
+                mCallback.onError(errorMessage);
             }
-            mCallback.onError(errorMessage);
         }
     }
 }
