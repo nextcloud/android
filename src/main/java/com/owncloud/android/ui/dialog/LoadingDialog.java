@@ -21,6 +21,7 @@ package com.owncloud.android.ui.dialog;
 import android.app.Dialog;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -59,17 +60,18 @@ public class LoadingDialog extends DialogFragment {
         View v = inflater.inflate(R.layout.loading_dialog, container,  false);
         
         // set value
-        TextView tv  = (TextView) v.findViewById(R.id.loadingText);
+        TextView tv = v.findViewById(R.id.loadingText);
         tv.setText(mMessage);
 
         // set progress wheel color
-        ProgressBar progressBar  = (ProgressBar) v.findViewById(R.id.loadingBar);
-        progressBar.getIndeterminateDrawable().setColorFilter(
-                ThemeUtils.primaryAccentColor(), PorterDuff.Mode.SRC_IN);
+        ProgressBar progressBar = v.findViewById(R.id.loadingBar);
+        progressBar.getIndeterminateDrawable().setColorFilter(ThemeUtils.primaryAccentColor(getContext()),
+                PorterDuff.Mode.SRC_IN);
         
         return v;
     }
 
+    @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         Dialog dialog = super.onCreateDialog(savedInstanceState);

@@ -58,7 +58,7 @@ public class ParticipateActivity extends FileActivity {
 
         if (getSupportActionBar() != null) {
             getSupportActionBar().setTitle(ThemeUtils.getColoredTitle(getString(R.string.drawer_participate),
-                    ThemeUtils.fontColor()));
+                    ThemeUtils.fontColor(this)));
         }
 
         setupContent();
@@ -71,43 +71,43 @@ public class ParticipateActivity extends FileActivity {
     }
 
     private void setupContent() {
-        TextView rcView = (TextView) findViewById(R.id.participate_release_candidate_text);
+        TextView rcView = findViewById(R.id.participate_release_candidate_text);
         rcView.setMovementMethod(LinkMovementMethod.getInstance());
 
-        TextView contributeIrcView = (TextView) findViewById(R.id.participate_contribute_irc_text);
+        TextView contributeIrcView = findViewById(R.id.participate_contribute_irc_text);
         contributeIrcView.setMovementMethod(LinkMovementMethod.getInstance());
         contributeIrcView.setText(Html.fromHtml(getString(R.string.participate_contribute_irc_text) + " " +
                 getString(R.string.participate_contribute_irc_text_link,
-                        ThemeUtils.colorToHexString(ThemeUtils.primaryColor()),
+                        ThemeUtils.colorToHexString(ThemeUtils.primaryColor(this)),
                         getString(R.string.irc_weblink))));
 
-        TextView contributeForumView = (TextView) findViewById(R.id.participate_contribute_forum_text);
+        TextView contributeForumView = findViewById(R.id.participate_contribute_forum_text);
         contributeForumView.setMovementMethod(LinkMovementMethod.getInstance());
         contributeForumView.setText(Html.fromHtml(getString(R.string.participate_contribute_forum_text) + " " +
                 getString(R.string.participate_contribute_forum_text_link,
-                        ThemeUtils.colorToHexString(ThemeUtils.primaryColor()),
+                        ThemeUtils.colorToHexString(ThemeUtils.primaryColor(this)),
                         getString(R.string.help_link), getString(R.string.participate_contribute_forum_forum))));
 
-        TextView contributeTranslationView = (TextView) findViewById(R.id.participate_contribute_translate_text);
+        TextView contributeTranslationView = findViewById(R.id.participate_contribute_translate_text);
         contributeTranslationView.setMovementMethod(LinkMovementMethod.getInstance());
         contributeTranslationView.setText(Html.fromHtml(
                 getString(R.string.participate_contribute_translate_link,
-                        ThemeUtils.colorToHexString(ThemeUtils.primaryColor()),
+                        ThemeUtils.colorToHexString(ThemeUtils.primaryColor(this)),
                         getString(R.string.translation_link),
                         getString(R.string.participate_contribute_translate_translate)) + " " +
                         getString(R.string.participate_contribute_translate_text)));
 
-        TextView contributeGithubView = (TextView) findViewById(R.id.participate_contribute_github_text);
+        TextView contributeGithubView = findViewById(R.id.participate_contribute_github_text);
         contributeGithubView.setMovementMethod(LinkMovementMethod.getInstance());
         contributeGithubView.setText(Html.fromHtml(
                 getString(R.string.participate_contribute_github_text,
                         getString(R.string.participate_contribute_github_text_link,
-                                ThemeUtils.colorToHexString(ThemeUtils.primaryColor()),
+                                ThemeUtils.colorToHexString(ThemeUtils.primaryColor(this)),
                                 getString(R.string.contributing_link)))));
 
-        AppCompatButton reportButton = (AppCompatButton) findViewById(R.id.participate_testing_report);
-        reportButton.getBackground().setColorFilter(ThemeUtils.primaryColor(), PorterDuff.Mode.SRC_ATOP);
-        reportButton.setTextColor(ThemeUtils.fontColor());
+        AppCompatButton reportButton = findViewById(R.id.participate_testing_report);
+        reportButton.getBackground().setColorFilter(ThemeUtils.primaryColor(this), PorterDuff.Mode.SRC_ATOP);
+        reportButton.setTextColor(ThemeUtils.fontColor(this));
         reportButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

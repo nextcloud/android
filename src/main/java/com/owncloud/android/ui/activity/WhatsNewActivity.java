@@ -82,7 +82,7 @@ public class WhatsNewActivity extends FragmentActivity implements ViewPager.OnPa
         super.onCreate(savedInstanceState);
         setContentView(R.layout.whats_new_activity);
 
-        int fontColor = ThemeUtils.fontColor();
+        int fontColor = ThemeUtils.fontColor(this);
 
         mProgress = findViewById(R.id.progressIndicator);
         mPager = findViewById(R.id.contentPanel);
@@ -336,7 +336,7 @@ public class WhatsNewActivity extends FragmentActivity implements ViewPager.OnPa
                                  @Nullable ViewGroup container,
                                  @Nullable Bundle savedInstanceState) {
             View v = inflater.inflate(R.layout.whats_new_element, container, false);
-            int fontColor = ThemeUtils.fontColor();
+            int fontColor = ThemeUtils.fontColor(getContext());
 
             ImageView iv = v.findViewById(R.id.whatsNewImage);
             if (mItem.shouldShowImage()) {

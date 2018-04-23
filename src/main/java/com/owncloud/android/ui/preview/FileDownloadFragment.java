@@ -111,7 +111,7 @@ public class FileDownloadFragment extends FileFragment implements OnClickListene
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Bundle args = getArguments();
-        setFile((OCFile)args.getParcelable(ARG_FILE));
+        setFile(args.getParcelable(ARG_FILE));
             // TODO better in super, but needs to check ALL the class extending FileFragment; not right now
 
         mIgnoreFirstSavedState = args.getBoolean(ARG_IGNORE_FIRST);
@@ -136,9 +136,9 @@ public class FileDownloadFragment extends FileFragment implements OnClickListene
         }
 
         mView = inflater.inflate(R.layout.file_download_fragment, container, false);
-        
-        ProgressBar progressBar = (ProgressBar)mView.findViewById(R.id.progressBar);
-        ThemeUtils.colorHorizontalProgressBar(progressBar, ThemeUtils.primaryAccentColor());
+
+        ProgressBar progressBar = mView.findViewById(R.id.progressBar);
+        ThemeUtils.colorHorizontalProgressBar(progressBar, ThemeUtils.primaryAccentColor(getContext()));
         mProgressListener = new ProgressListener(progressBar);
 
         (mView.findViewById(R.id.cancelBtn)).setOnClickListener(this);
@@ -231,7 +231,7 @@ public class FileDownloadFragment extends FileFragment implements OnClickListene
 
         // show the progress bar for the transfer
         getView().findViewById(R.id.progressBar).setVisibility(View.VISIBLE);
-        TextView progressText = (TextView) getView().findViewById(R.id.progressText);
+        TextView progressText = getView().findViewById(R.id.progressText);
         progressText.setText(R.string.downloader_download_in_progress_ticker);
         progressText.setVisibility(View.VISIBLE);
 

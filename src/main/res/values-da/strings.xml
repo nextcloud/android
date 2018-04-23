@@ -56,7 +56,6 @@
 
 	<string name="recommend_subject">Prøv %1$s på din enhed!</string>
 	<string name="auth_check_server">Tjek server</string>
-    <string name="auth_host_url">Serveraddresse https://&#8230;</string>
     <string name="auth_username">Brugernavn</string>
     <string name="auth_password">Kodeord</string>
     <string name="sync_string_files">Filer</string>
@@ -73,7 +72,6 @@
     <string name="uploader_error_title_file_cannot_be_uploaded">Filen kan ikke uploades</string>
     <string name="uploader_error_message_read_permission_not_granted">%1$s har ikke tilladelse til at læse en modtaget fil</string>
     <string name="uploader_upload_files_behaviour">Upload muligheder</string>
-    <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">Flyt fil til Nextcloud mappe</string>
     <string name="uploader_upload_files_behaviour_only_upload">Behold filen i source-mappen</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Slet filen fra source-mappen</string>
     <string name="file_list_seconds_ago">sekunder siden</string>
@@ -101,7 +99,6 @@
     <string name="common_cancel">Annuller</string>
     <string name="common_back">Tilbage</string>
     <string name="common_save">Gem</string>
-    <string name="common_loading">Indlæser &#8230;</string>
     <string name="common_unknown">ukendt</string>
     <string name="common_error_unknown">Ukendt fejl</string>
     <string name="common_pending">afventende</string>
@@ -110,9 +107,7 @@
     <string name="delete_account">Fjern konto</string>
     <string name="avatar">Avatar</string>
     <string name="active_user">Aktiv bruger</string>
-    <string name="upload_chooser_title">Upload fra &#8230;</string>
     <string name="uploader_info_dirname">Mappenavn</string>
-    <string name="uploader_upload_in_progress_ticker">Uploader &#8230;</string>
     <string name="uploader_upload_in_progress_content">%1$d%% Uploader %2$s</string>
     <string name="uploader_upload_succeeded_ticker">Uploadet </string>
     <string name="uploader_upload_succeeded_content_single">%1$s uploaded</string>
@@ -132,7 +127,6 @@
     <string name="uploads_view_upload_status_conflict">Konflikt</string>
     <string name="uploads_view_upload_status_unknown_fail">Ukendt fejl</string>
     <string name="uploads_view_later_waiting_to_upload">Venter med upload</string>
-    <string name="downloader_download_in_progress_ticker">Downloader &#8230;</string>
     <string name="downloader_download_in_progress_content">%1$d%% Downloader %2$s</string>
     <string name="downloader_download_succeeded_ticker">Downloadet</string>
     <string name="downloader_download_succeeded_content">%1$s downloaded</string>
@@ -172,9 +166,7 @@
     <string name="media_play_pause_description">Afspil eller pause knap</string>
     <string name="media_forward_description">Hurtigt fremad-knap</string>
 
-	<string name="auth_getting_authorization">Skaffer autorisering &#8230;</string>
-	<string name="auth_trying_to_login">Prøver at logge ind &#8230;</string>
-	<string name="auth_no_net_conn_title">Ingen netværksforbindelse</string>
+    <string name="auth_no_net_conn_title">Ingen netværksforbindelse</string>
 	<string name="auth_nossl_plain_ok_title">Sikker forbindelse ikke tilgængelig.</string>
 	<string name="auth_connection_established">Forbindelse oprettet</string>
 	<string name="auth_testing_connection">Tester forbindelsen</string>
@@ -214,7 +206,6 @@
     <string name="filename_forbidden_characters">Ugyldige tegn: / \\ &lt; &gt; : \" | ? *</string>
     <string name="wait_checking_credentials">Undersøger lagrede certificeringer</string>
     <string name="filedisplay_no_file_selected">Ingen fil valgt</string>
-    <string name="activity_chooser_title">Send link til &#8230;</string>
     <string name="wait_for_tmp_copy_from_private_storage">Kopierer fil fra privat lager.</string>
     
     <string name="oauth_check_onoff">Log ind med OAuth 2.0</string>
@@ -299,9 +290,7 @@
     <string name="actionbar_logger">Logge</string>
 	<string name="log_send_history_button">Send historik</string>
 	<string name="log_send_mail_subject">%1$s Android-app - logge</string>
-	<string name="log_progress_dialog_text">Indlæser data &#8230;</string>
-
-	<string name="saml_authentication_wrong_pass">Forkert kodeord</string>
+    <string name="saml_authentication_wrong_pass">Forkert kodeord</string>
 	<string name="actionbar_move">Flyt</string>
     <string name="actionbar_copy">Kopiér</string>
 	<string name="folder_picker_choose_button_text">Vælg</string>
@@ -337,7 +326,6 @@
     <string name="share_via_link_password_label">Beskyt med password</string>
     <string name="share_via_link_password_title">Sikret</string>
     <string name="share_get_public_link_button">Få link</string>
-    <string name="share_with_title">Del med &#8230;</string>
     <string name="share_with_edit_title">Del med %1$s</string>
 
     <string name="share_search">Søg</string>

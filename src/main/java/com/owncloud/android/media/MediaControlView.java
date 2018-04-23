@@ -222,10 +222,10 @@ public class MediaControlView extends FrameLayout /* implements OnLayoutChangeLi
         if (mProgress != null) {
             if (mProgress instanceof SeekBar) {
                 SeekBar seeker = (SeekBar) mProgress;
-                ThemeUtils.colorHorizontalSeekBar(seeker);
+                ThemeUtils.colorHorizontalSeekBar(seeker, getContext());
                 seeker.setOnSeekBarChangeListener(this);
             } else {
-                ThemeUtils.colorHorizontalProgressBar(mProgress, ThemeUtils.primaryAccentColor());
+                ThemeUtils.colorHorizontalProgressBar(mProgress, ThemeUtils.primaryAccentColor(getContext()));
             }
             mProgress.setMax(1000);
         }
