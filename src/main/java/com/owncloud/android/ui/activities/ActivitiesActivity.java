@@ -21,16 +21,10 @@ import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.OwnCloudClient;
-import com.owncloud.android.lib.common.operations.RemoteOperation;
-import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.activities.models.RichObject;
 import com.owncloud.android.lib.resources.files.FileUtils;
-import com.owncloud.android.lib.resources.files.ReadRemoteFileOperation;
-import com.owncloud.android.lib.resources.files.RemoteFile;
-import com.owncloud.android.operations.RefreshFolderOperation;
-import com.owncloud.android.ui.activities.data.activities.ActivitiesServiceApiImpl;
-import com.owncloud.android.ui.activities.data.activities.ActivityRepositories;
+import com.owncloud.android.ui.activities.data.Injection;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.adapter.ActivityListAdapter;
@@ -39,7 +33,6 @@ import com.owncloud.android.ui.preview.PreviewImageActivity;
 import com.owncloud.android.ui.preview.PreviewImageFragment;
 import com.owncloud.android.utils.AnalyticsUtils;
 import com.owncloud.android.utils.DisplayUtils;
-import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.ThemeUtils;
 
 import java.util.List;
@@ -98,7 +91,8 @@ public class ActivitiesActivity extends FileActivity implements ActivityListInte
         Log_OC.v(TAG, "onCreate() start");
         super.onCreate(savedInstanceState);
 
-        mActionListener = new ActivitiesPresenter(ActivityRepositories.getRepository(new ActivitiesServiceApiImpl()),
+        mActionListener = new ActivitiesPresenter(Injection.provideActivitiesRepository(),
+                Injection.provideFilesRepository(),
                 this);
 
         setContentView(R.layout.activity_list_layout);
@@ -112,7 +106,7 @@ public class ActivitiesActivity extends FileActivity implements ActivityListInte
         // setup drawer
         setupDrawer(R.id.nav_activity);
         ActionBar actionBar = getSupportActionBar();
-        if(actionBar != null) {
+        if (actionBar != null) {
             ThemeUtils.setColoredTitle(actionBar, getString(R.string.drawer_item_activities));
         }
 
@@ -234,66 +228,7 @@ public class ActivitiesActivity extends FileActivity implements ActivityListInte
     @Override
     public void onActivityClicked(RichObject richObject) {
         String path = FileUtils.PATH_SEPARATOR + richObject.getPath();
-
-        runOnUiThread(() -> {
-            swipeListRefreshLayout.setVisibility(View.GONE);
-        });
-
-        updateTask = new AsyncTask<String, Object, OCFile>() {
-            @Override
-            protected OCFile doInBackground(String... path) {
-                OCFile ocFile = null;
-
-                // always update file as it could be an old state saved in database
-                ReadRemoteFileOperation operation = new ReadRemoteFileOperation(path[0]);
-                RemoteOperationResult resultRemoteFileOp = operation.execute(ownCloudClient);
-                if (resultRemoteFileOp.isSuccess()) {
-                    OCFile temp = FileStorageUtils.fillOCFile((RemoteFile) resultRemoteFileOp.getData().get(0));
-
-                    ocFile = getStorageManager().saveFileWithParent(temp, getBaseContext());
-
-                    if (ocFile.isFolder()) {
-                        // perform folder synchronization
-                        RemoteOperation synchFolderOp = new RefreshFolderOperation(ocFile,
-                                System.currentTimeMillis(),
-                                false,
-                                getFileOperationsHelper().isSharedSupported(),
-                                true,
-                                getStorageManager(),
-                                getAccount(),
-                                getApplicationContext());
-                        synchFolderOp.execute(ownCloudClient);
-                    }
-                }
-
-                return ocFile;
-            }
-
-            @Override
-            protected void onPostExecute(OCFile ocFile) {
-                if (!isCancelled()) {
-                    if (ocFile == null) {
-                        Toast.makeText(getBaseContext(), R.string.file_not_found, Toast.LENGTH_LONG).show();
-
-                        swipeListRefreshLayout.setVisibility(View.VISIBLE);
-                        dismissLoadingDialog();
-
-                    } else {
-                        Intent showDetailsIntent;
-                        if (PreviewImageFragment.canBePreviewed(ocFile)) {
-                            showDetailsIntent = new Intent(getBaseContext(), PreviewImageActivity.class);
-                        } else {
-                            showDetailsIntent = new Intent(getBaseContext(), FileDisplayActivity.class);
-                        }
-                        showDetailsIntent.putExtra(EXTRA_FILE, ocFile);
-                        showDetailsIntent.putExtra(EXTRA_ACCOUNT, getAccount());
-                        startActivity(showDetailsIntent);
-                    }
-                }
-            }
-        };
-
-        updateTask.execute(path);
+        mActionListener.loadActivites(path);
     }
 
     @Override
@@ -317,17 +252,31 @@ public class ActivitiesActivity extends FileActivity implements ActivityListInte
 
     @Override
     public void showActivitiesLoadError(String error) {
-
+        Toast.makeText(getBaseContext(), error, Toast.LENGTH_LONG).show();
     }
 
     @Override
-    public void showActivityDetailUI() {
+    public void showActivityDetailUI(OCFile ocFile) {
+        Intent showDetailsIntent;
+        if (PreviewImageFragment.canBePreviewed(ocFile)) {
+            showDetailsIntent = new Intent(getBaseContext(), PreviewImageActivity.class);
+        } else {
+            showDetailsIntent = new Intent(getBaseContext(), FileDisplayActivity.class);
+        }
+        showDetailsIntent.putExtra(EXTRA_FILE, ocFile);
+        showDetailsIntent.putExtra(EXTRA_ACCOUNT, getAccount());
+        startActivity(showDetailsIntent);
 
     }
 
     @Override
     public void showActivityDetailUIIsNull() {
+        Toast.makeText(getBaseContext(), R.string.file_not_found, Toast.LENGTH_LONG).show();
+    }
 
+    @Override
+    public void showActivityDetailError(String error) {
+        Toast.makeText(getBaseContext(), error, Toast.LENGTH_LONG).show();
     }
 
     @Override

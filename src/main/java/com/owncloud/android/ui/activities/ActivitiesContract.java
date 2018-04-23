@@ -1,6 +1,8 @@
 package com.owncloud.android.ui.activities;
 
+import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.OwnCloudClient;
+import com.owncloud.android.ui.activity.BaseActivity;
 
 import java.util.List;
 
@@ -9,8 +11,9 @@ public interface ActivitiesContract {
     interface View {
         void showActivites(List<Object> activities, OwnCloudClient client, boolean clear);
         void showActivitiesLoadError(String error);
-        void showActivityDetailUI();
+        void showActivityDetailUI(OCFile ocFile);
         void showActivityDetailUIIsNull();
+        void showActivityDetailError(String error);
         void showLoadingMessage();
         void showEmptyContent(String headline, String message);
         void setProgressIndicatorState(boolean isActive);
@@ -18,6 +21,6 @@ public interface ActivitiesContract {
 
     interface ActionListener {
         void loadActivites(String pageUrl);
-        void openActivity();
+        void openActivity(String fileUrl, BaseActivity baseActivity, boolean isSharingSupported);
     }
 }
