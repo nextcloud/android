@@ -9,7 +9,7 @@ import java.util.List;
 public interface ActivitiesContract {
 
     interface View {
-        void showActivites(List<Object> activities, OwnCloudClient client, boolean clear);
+        void showActivites(List<Object> activities, OwnCloudClient client, String nextPageUrl);
         void showActivitiesLoadError(String error);
         void showActivityDetailUI(OCFile ocFile);
         void showActivityDetailUIIsNull();

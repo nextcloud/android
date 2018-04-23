@@ -221,8 +221,13 @@ public class ActivitiesActivity extends FileActivity implements ActivityListInte
     }
 
     @Override
-    public void showActivites(List<Object> activities, OwnCloudClient client, boolean clear) {
+    public void showActivites(List<Object> activities, OwnCloudClient client, String nextPageUrl) {
+        boolean clear = false;
+        if (this.nextPageUrl == null) {
+            clear = true;
+        }
         adapter.setActivityItems(activities, client, clear);
+        this.nextPageUrl = nextPageUrl;
         // Hide the recylerView if list is empty
         if (activities.size() == 0) {
             recyclerView.setVisibility(View.INVISIBLE);
