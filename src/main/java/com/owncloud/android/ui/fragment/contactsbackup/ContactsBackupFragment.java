@@ -109,7 +109,7 @@ public class ContactsBackupFragment extends FileFragment implements DatePickerDi
     public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         // use grey as fallback for elements where custom theming is not available
-        if (ThemeUtils.themingEnabled()) {
+        if (ThemeUtils.themingEnabled(getContext())) {
             getContext().getTheme().applyStyle(R.style.FallbackThemingTheme, true);
         }
         View view = inflater.inflate(R.layout.contacts_backup_fragment, null);
@@ -128,16 +128,16 @@ public class ContactsBackupFragment extends FileFragment implements DatePickerDi
         ActionBar actionBar = contactsPreferenceActivity != null ? contactsPreferenceActivity.getSupportActionBar() : null;
 
         if (actionBar != null) {
-            ThemeUtils.setColoredTitle(actionBar, getString(R.string.actionbar_contacts));
+            ThemeUtils.setColoredTitle(actionBar, getString(R.string.actionbar_contacts), getContext());
             actionBar.setDisplayHomeAsUpEnabled(true);
 
             Drawable backArrow = getResources().getDrawable(R.drawable.ic_arrow_back);
-            actionBar.setHomeAsUpIndicator(ThemeUtils.tintDrawable(backArrow, ThemeUtils.fontColor()));
+            actionBar.setHomeAsUpIndicator(ThemeUtils.tintDrawable(backArrow, ThemeUtils.fontColor(getContext())));
         }
 
         arbitraryDataProvider = new ArbitraryDataProvider(getContext().getContentResolver());
 
-        ThemeUtils.tintSwitch(backupSwitch, ThemeUtils.primaryAccentColor());
+        ThemeUtils.tintSwitch(backupSwitch, ThemeUtils.primaryAccentColor(getContext()));
         backupSwitch.setChecked(arbitraryDataProvider.getBooleanValue(account, PREFERENCE_CONTACTS_AUTOMATIC_BACKUP));
 
         onCheckedChangeListener = new CompoundButton.OnCheckedChangeListener() {
@@ -174,14 +174,18 @@ public class ContactsBackupFragment extends FileFragment implements DatePickerDi
             calendarPickerOpen = true;
         }
 
-        int accentColor = ThemeUtils.primaryAccentColor();
-        int fontColor = ThemeUtils.fontColor();
+        int accentColor = ThemeUtils.primaryAccentColor(getContext());
+        int fontColor = ThemeUtils.fontColor(getContext());
 
         backupNow.getBackground().setColorFilter(accentColor, PorterDuff.Mode.SRC_ATOP);
         backupNow.setTextColor(fontColor);
 
         contactsDatePickerBtn.getBackground().setColorFilter(accentColor, PorterDuff.Mode.SRC_ATOP);
         contactsDatePickerBtn.setTextColor(fontColor);
+
+        AppCompatButton chooseDate = view.findViewById(R.id.contacts_datepicker);
+        chooseDate.getBackground().setColorFilter(accentColor, PorterDuff.Mode.SRC_ATOP);
+        chooseDate.setTextColor(ThemeUtils.fontColor(getContext()));
 
         return view;
     }

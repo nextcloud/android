@@ -328,7 +328,7 @@ public class DisplayUtils {
      */
     public static int getRelativeInfoColor(Context context, int relative) {
         if (relative < RELATIVE_THRESHOLD_WARNING) {
-            if (ThemeUtils.colorToHexString(ThemeUtils.primaryColor()).equalsIgnoreCase(
+            if (ThemeUtils.colorToHexString(ThemeUtils.primaryColor(context)).equalsIgnoreCase(
                     ThemeUtils.colorToHexString(context.getResources().getColor(R.color.primary)))) {
                 return context.getResources().getColor(R.color.infolevel_info);
             } else {

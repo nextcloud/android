@@ -151,11 +151,11 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
 
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
-            ThemeUtils.setColoredTitle(getSupportActionBar(), getString(R.string.drawer_synced_folders));
+            ThemeUtils.setColoredTitle(getSupportActionBar(), getString(R.string.drawer_synced_folders), this);
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
 
-        if (ThemeUtils.themingEnabled()) {
+        if (ThemeUtils.themingEnabled(this)) {
             setTheme(R.style.FallbackThemingTheme);
         }
     }
