@@ -60,7 +60,6 @@
     <string name="recommend_urls">%1$s o %2$s</string>
 
     <string name="auth_check_server">Comprova el servidor</string>
-    <string name="auth_host_url">Adreça del servidor https: //&#8230;</string>
     <string name="auth_username">Nom d\'usuari</string>
     <string name="auth_password">Contrasenya</string>
     <string name="sync_string_files">Fitxers</string>
@@ -79,7 +78,6 @@
     <string name="uploader_error_message_source_file_not_found">No s\'ha trobat el fitxer seleccionat per a la càrrega. Comproveu si el fitxer existeix.</string>
     <string name="uploader_error_message_source_file_not_copied">No s\'ha pogut copiar el fitxer a una carpeta temporal. Intenta tornar-lo a enviar.</string>
     <string name="uploader_upload_files_behaviour">Opció de pujada:</string>
-    <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">Mou el fitxer a la carpeta %1$s</string>
     <string name="uploader_upload_files_behaviour_only_upload">Mantén el fitxer a la carpeta d\'origen</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Elimina el fitxer de la carpeta d\'origen</string>
     <string name="file_list_seconds_ago">segons enrere</string>
@@ -88,7 +86,6 @@
     <string name="file_list_empty">Puja continguts o sincronitza els teus dispositius.</string>
     <string name="file_list_empty_favorites_filter_list">Aquí apareixeran els fitxers i carpetes que marquis com favorits</string>
     <string name="file_list_empty_favorites_filter">La cerca no ha retornat cap fitxer </string>
-    <string name="file_list_loading">Carregant&#8230;</string>
     <string name="file_list_no_app_for_file_type">No hi ha cap aplicació configurada per gestionar aquest tipus de fitxer.</string>
     <string name="local_file_list_empty">No hi ha fitxers en aquesta carpeta</string>
     <string name="local_folder_list_empty">No hi ha més carpetes.</string>
@@ -121,7 +118,6 @@
     <string name="common_back">Enrere</string>
     <string name="common_save">Guarda</string>
     <string name="common_error">Error</string>
-    <string name="common_loading">Carregant&#8230;</string>
     <string name="common_unknown">desconegut</string>
     <string name="common_error_unknown">Error desconegut</string>
     <string name="common_pending">Pendent</string>
@@ -131,9 +127,7 @@
     <string name="delete_account_warning">Esborrar el compte %s i tots els fitxers locals?\n\nAquesta acció no es pot desfer.</string>
     <string name="avatar">Avatar</string>
     <string name="active_user">Usuari actiu</string>
-    <string name="upload_chooser_title">Puja fitxer des de&#8230;</string>
     <string name="uploader_info_dirname">Nom de la carpeta</string>
-    <string name="uploader_upload_in_progress_ticker">S\'està pujant&#8230;</string>
     <string name="uploader_upload_in_progress_content">%1$d%% Pujant %2$s</string>
     <string name="uploader_upload_succeeded_ticker">Penjat</string>
     <string name="uploader_upload_succeeded_content_single">%1$s s\'ha carregat correctament</string>
@@ -156,7 +150,6 @@
     <string name="uploads_view_upload_status_waiting_for_wifi">S\'està esperant Wi-Fi</string>
     <string name="uploads_view_upload_status_waiting_exit_power_save_mode">S\'està esperant al mode d\'apagada segur</string>
     <string name="uploads_view_later_waiting_to_upload">S\'està esperant per pujar-ho</string>
-    <string name="downloader_download_in_progress_ticker">Descarregant &#8230;</string>
     <string name="downloader_download_in_progress_content">%1$d%% Descarregant %2$s</string>
     <string name="downloader_download_succeeded_ticker">Descarregat</string>
     <string name="downloader_download_succeeded_content">%1$s descarregat</string>
@@ -208,9 +201,7 @@
     <string name="media_play_pause_description">Botó de reproducció o pausa</string>
     <string name="media_forward_description">Botó de reproducció ràpida</string>
 
-	<string name="auth_getting_authorization">Recuperant autorització&#8230;</string>
-	<string name="auth_trying_to_login">Intentat accedir&#8230;</string>
-	<string name="auth_no_net_conn_title">Sense connexió de xarxa</string>
+    <string name="auth_no_net_conn_title">Sense connexió de xarxa</string>
 	<string name="auth_nossl_plain_ok_title">La connexió segura no està disponible.</string>
 	<string name="auth_connection_established">S\'ha establert la connexió</string>
 	<string name="auth_testing_connection">S\'està comprovant la connexió</string>
@@ -234,8 +225,7 @@
 	<string name="auth_expired_oauth_token_toast">La vostra autorització ha vençut. Acrediteu-vos de nou</string>
 	<string name="auth_expired_basic_auth_toast">Escriviu la contrasenya actual</string>
 	<string name="auth_expired_saml_sso_token_toast">La sessió ha vençut. Connecteu-vos de nou</string>
-    <string name="auth_connecting_auth_server">Connectant amb el servidor d\'autenticació &#8230;</string>
-	<string name="auth_unsupported_multiaccount">%1$s no permet comptes múltiples</string>
+    <string name="auth_unsupported_multiaccount">%1$s no permet comptes múltiples</string>
 	<string name="auth_can_not_auth_against_server">No es pot autenticar en aquest servidor</string>
     <string name="auth_access_failed">No s\'ha pogut accedir</string>
 
@@ -258,10 +248,8 @@
     <string name="create_dir_fail_msg">No s\'ha pogut crear la carpeta</string>
     <string name="filename_forbidden_characters">Caràcters no permesos: / \\ &lt; &gt; : \" | ? *</string>
     <string name="filename_empty">El nom del fitxer no pot estar buit</string>
-    <string name="wait_a_moment">Espera un moment &#8230;</string>
     <string name="wait_checking_credentials">Comprovant les credencials emmagatzemades</string>
     <string name="filedisplay_no_file_selected">Cap fitxer escollit</string>
-    <string name="activity_chooser_title">Envia l\'enllaç a&#8230;</string>
     <string name="wait_for_tmp_copy_from_private_storage">Copiant fitxer des d\'emmagatzematge privat</string>
     
     <string name="oauth_check_onoff">Inicieu sessió amb OAuth 2.0</string>
@@ -364,9 +352,7 @@
 	<string name="actionbar_logger">Registres</string>
 	<string name="log_send_history_button">Enviar història</string>
 	<string name="log_send_mail_subject">%1$s registres de la aplicació d\'Android.</string>
-	<string name="log_progress_dialog_text">Carregant dades&#8230;</string>
-
-	<string name="saml_authentication_wrong_pass">Contrasenya incorrecta</string>
+    <string name="saml_authentication_wrong_pass">Contrasenya incorrecta</string>
 	<string name="actionbar_move">Moure</string>
     <string name="actionbar_copy">Copia</string>
 	<string name="folder_picker_choose_button_text">Escull</string>
@@ -406,7 +392,6 @@
     <string name="share_via_link_password_title">Assegurat</string>
     <string name="share_via_link_hide_file_listing_permission_label">Amaga la llista de fitxers</string>
     <string name="share_get_public_link_button">Obtén l\'enllaç</string>
-    <string name="share_with_title">Comparteix amb&#8230;</string>
     <string name="share_with_edit_title">Comparteix amb %1$s</string>
 
     <string name="share_search">Cerca</string>
