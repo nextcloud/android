@@ -1,6 +1,4 @@
-package com.owncloud.android.ui.activities.data;
-
-import android.content.Context;
+package com.owncloud.android.ui.activities.data.activities;
 
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.resources.activities.models.Activity;

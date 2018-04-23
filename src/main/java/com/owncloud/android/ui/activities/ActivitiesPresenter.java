@@ -3,7 +3,7 @@ package com.owncloud.android.ui.activities;
 import android.support.annotation.NonNull;
 
 import com.owncloud.android.lib.common.OwnCloudClient;
-import com.owncloud.android.ui.activities.data.ActivitiesRepository;
+import com.owncloud.android.ui.activities.data.activities.ActivitiesRepository;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.owncloud.android.ui.activities.data;
+package com.owncloud.android.ui.activities.data.activities;
 
 import android.support.annotation.NonNull;
 
