@@ -81,7 +81,7 @@
     <string name="uploader_error_message_source_file_not_found">Lähetykseen valittua tiedostoa ei löytynyt. Varmista, että tiedosto on olemassa.</string>
     <string name="uploader_error_message_source_file_not_copied">Virhe kopioitaessa tiedostoa väliaikaiseen kansioon. Yritä lähettää se uudelleen.</string>
     <string name="uploader_upload_files_behaviour">Lähetysasetus:</string>
-    <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">Siirrä tiedosto Nextcloud kansioon</string>
+    <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">Siirrä tiedosto %1$s kansioon</string>
     <string name="uploader_upload_files_behaviour_only_upload">Pidä tiedosto lähdekansiossa</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Poista tiedosto lähdekansiosta</string>
     <string name="file_list_seconds_ago">sekuntia sitten</string>

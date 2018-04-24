@@ -81,7 +81,7 @@
     <string name="uploader_error_message_source_file_not_found">No se encuentra el archivo seleccionado para subir. Por favor, comprueba que el archivo existe.</string>
     <string name="uploader_error_message_source_file_not_copied">No se ha podido copiar el archivo a una carpeta temporal. Intenta volver a enviarlo.</string>
     <string name="uploader_upload_files_behaviour">Opción de subida:</string>
-    <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">Mover el archivo a la carpeta de Nextcloud</string>
+    <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">Mover el archivo a la carpeta de %1$s</string>
     <string name="uploader_upload_files_behaviour_only_upload">Mantener el archivo en la carpeta original</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Borrar archivo de la carpeta original</string>
     <string name="file_list_seconds_ago">hace segundos</string>

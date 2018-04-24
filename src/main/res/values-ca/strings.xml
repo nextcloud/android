@@ -79,7 +79,7 @@
     <string name="uploader_error_message_source_file_not_found">No s\'ha trobat el fitxer seleccionat per a la càrrega. Comproveu si el fitxer existeix.</string>
     <string name="uploader_error_message_source_file_not_copied">No s\'ha pogut copiar el fitxer a una carpeta temporal. Intenta tornar-lo a enviar.</string>
     <string name="uploader_upload_files_behaviour">Opció de pujada:</string>
-    <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">Mou el fitxer a la carpeta Nextcloud</string>
+    <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">Mou el fitxer a la carpeta %1$s</string>
     <string name="uploader_upload_files_behaviour_only_upload">Mantén el fitxer a la carpeta d\'origen</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Elimina el fitxer de la carpeta d\'origen</string>
     <string name="file_list_seconds_ago">segons enrere</string>

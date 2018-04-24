@@ -81,7 +81,7 @@
     <string name="uploader_error_message_source_file_not_found">ატვირთვისთვის არჩეული ფაილი ვერ იქნა ნაპოვნი. გთხოვთ დაამოწმოთ ფაილის არსებობა.</string>
     <string name="uploader_error_message_source_file_not_copied">ფაილის ასლი დროებით დირექტორიაში ვერ შეიქმნა. სცადეთ მისი ახლიდან გაგზავნა.</string>
     <string name="uploader_upload_files_behaviour">ატვირთვის ოპციონი:</string>
-    <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">ფაილის გადატანა Nextcloud დირექტორიაში</string>
+    <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">ფაილის გადატანა %1$s დირექტორიაში</string>
     <string name="uploader_upload_files_behaviour_only_upload">ფაილის საწყის დირექტორიაში დატოვება</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">ფაილის საწყისი დირექტორიიდან გაუქმება</string>
     <string name="file_list_seconds_ago">წამის წინ</string>

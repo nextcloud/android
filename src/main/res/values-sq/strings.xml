@@ -81,7 +81,7 @@
     <string name="uploader_error_message_source_file_not_found">Skedari i përzgjedhur për ngarkim nuk u gjet. Ju lutem kontrolloni nëse skedari ekziston.</string>
     <string name="uploader_error_message_source_file_not_copied">Ndodhi një gabim teksa kopjohej skedari në një dosje e përkohshme. Ju lutem, provo ta ridërgosh.</string>
     <string name="uploader_upload_files_behaviour">Mundësitë e ngarkimit:</string>
-    <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">Lëviz kartelën tek dosja e Nextcloud-it</string>
+    <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">Lëviz kartelën tek dosja e %1$s-it</string>
     <string name="uploader_upload_files_behaviour_only_upload">Mbani kartelën tek dosja burim</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Fshij kartelën nga dosja burim</string>
     <string name="file_list_seconds_ago">sekonda më parë</string>

@@ -72,7 +72,7 @@
     <string name="uploader_error_message_source_file_not_found">選択したアップロードするファイルが見つかりません。ファイルが存在するかどうか確認してください。</string>
     <string name="uploader_error_message_source_file_not_copied">ファイルを一時フォルダーにコピーできませんでした。再送してください。</string>
     <string name="uploader_upload_files_behaviour">アップロードオプション:</string>
-    <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">ファイルをNextcloudのフォルダーに移動</string>
+    <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">ファイルを%1$sのフォルダーに移動</string>
     <string name="uploader_upload_files_behaviour_only_upload">ファイルをソースフォルダに保持する</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">ファイルをソースフォルダから削除する</string>
     <string name="file_list_seconds_ago">数秒前</string>

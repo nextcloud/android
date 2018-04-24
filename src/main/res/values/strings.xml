@@ -81,7 +81,7 @@
     <string name="uploader_error_message_source_file_not_found">File selected for upload not found. Please check whether the file exists.</string>
     <string name="uploader_error_message_source_file_not_copied">Could not copy file to a temporary folder. Try to resend it.</string>
     <string name="uploader_upload_files_behaviour">Upload option:</string>
-    <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">Move file to Nextcloud folder</string>
+    <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">Move file to %1$s folder</string>
     <string name="uploader_upload_files_behaviour_only_upload">Keep file in source folder</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Delete file from source folder</string>
     <string name="file_list_seconds_ago">seconds ago</string>

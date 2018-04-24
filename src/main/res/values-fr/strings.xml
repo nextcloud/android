@@ -81,7 +81,7 @@
     <string name="uploader_error_message_source_file_not_found">Le fichier à téléverser n\'a pas été trouvé. Merci de vérifier si ce fichier existe.</string>
     <string name="uploader_error_message_source_file_not_copied">Impossible de copier le fichier vers un dossier temporaire. Merci de recommencer votre envoi.</string>
     <string name="uploader_upload_files_behaviour">Option de téléversement :</string>
-    <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">Déplacer le fichier dans le dossier Nextcloud</string>
+    <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">Déplacer le fichier dans le dossier %1$s</string>
     <string name="uploader_upload_files_behaviour_only_upload">Conserver le fichier dans le dossier original</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Supprimer le fichier du dossier original</string>
     <string name="file_list_seconds_ago">à l\'instant</string>

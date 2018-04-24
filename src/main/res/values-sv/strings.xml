@@ -81,7 +81,7 @@
     <string name="uploader_error_message_source_file_not_found">Filen som valdes för uppladdning kan inte hittas. Vänligen dubbelkolla att den existerar.</string>
     <string name="uploader_error_message_source_file_not_copied">Kunde inte kopiera filen till en temporär mapp. Prova att skicka den igen.</string>
     <string name="uploader_upload_files_behaviour">Uppladdningsalternativ:</string>
-    <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">Flytta filen till Nextcloud-mappen</string>
+    <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">Flytta filen till %1$s-mappen</string>
     <string name="uploader_upload_files_behaviour_only_upload">Behåll fil i källmappen</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Radera fil från källmappen</string>
     <string name="file_list_seconds_ago">sekunder sedan</string>

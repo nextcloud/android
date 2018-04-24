@@ -82,7 +82,7 @@
     <string name="uploader_error_message_source_file_not_found">該位置無法找到要上傳的檔案，請檢查該檔案是否存在</string>
     <string name="uploader_error_message_source_file_not_copied">複製檔案到暫存資料夾時發生錯誤，請再試一次</string>
     <string name="uploader_upload_files_behaviour">上傳選項：</string>
-    <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">移動檔案到 Nextcloud 資料夾</string>
+    <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">移動檔案到 %1$s 資料夾</string>
     <string name="uploader_upload_files_behaviour_only_upload">在來源資料夾保留檔案</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">刪除來源資料夾中的檔案</string>
     <string name="file_list_seconds_ago">幾秒前</string>

@@ -81,7 +81,7 @@
     <string name="uploader_error_message_source_file_not_found">Не удалось найти файл для загрузки. Убедитесь, что файл существует.</string>
     <string name="uploader_error_message_source_file_not_copied">Произошла ошибка во время копирования этого файла во временный каталог, попробуйте отправить его заново.</string>
     <string name="uploader_upload_files_behaviour">Параметры передачи:</string>
-    <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">Переместить файл в каталог Nextcloud</string>
+    <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">Переместить файл в каталог %1$s</string>
     <string name="uploader_upload_files_behaviour_only_upload">Оставить файл в исходном каталоге</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Удалить файл из исходного каталога</string>
     <string name="file_list_seconds_ago">несколько секунд назад</string>

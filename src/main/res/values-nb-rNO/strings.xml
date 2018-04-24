@@ -81,7 +81,7 @@
     <string name="uploader_error_message_source_file_not_found">Fil valgt for opplasting ble ikke funnet. Sjekk hvorvidt filen eksisterer.</string>
     <string name="uploader_error_message_source_file_not_copied">Kunne ikke kopiere fil til midlertidig mappe. Prøv å sende igjen.</string>
     <string name="uploader_upload_files_behaviour">Alternativer for opplasting:</string>
-    <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">Flytt filen til Nextcloud mappen</string>
+    <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">Flytt filen til %1$s mappen</string>
     <string name="uploader_upload_files_behaviour_only_upload">Behold filen i kildemappe</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Slett filen fra kildemappen</string>
     <string name="file_list_seconds_ago">for få sekunder siden</string>
