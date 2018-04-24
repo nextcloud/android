@@ -152,7 +152,7 @@ public class MediaFoldersDetectionJob extends Job {
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(context)
                 .setSmallIcon(R.drawable.notification_icon)
                 .setLargeIcon(BitmapFactory.decodeResource(context.getResources(), R.drawable.notification_icon))
-                .setColor(ThemeUtils.primaryColor())
+                .setColor(ThemeUtils.primaryColor(getContext()))
                 .setSubText(account.name)
                 .setContentTitle(contentTitle)
                 .setContentText(subtitle)
@@ -167,7 +167,8 @@ public class MediaFoldersDetectionJob extends Job {
         NotificationManager notificationManager = (NotificationManager)
                 context.getSystemService(Context.NOTIFICATION_SERVICE);
 
-        notificationManager.notify(0, notificationBuilder.build());
+        if (notificationManager != null) {
+            notificationManager.notify(0, notificationBuilder.build());
+        }
     }
-
 }
