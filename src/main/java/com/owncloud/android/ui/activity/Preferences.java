@@ -55,6 +55,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.webkit.URLUtil;
 
 import com.owncloud.android.BuildConfig;
@@ -777,19 +778,20 @@ public class Preferences extends PreferenceActivity
             actionBar.setHomeAsUpIndicator(ThemeUtils.tintDrawable(backArrow, ThemeUtils.fontColor(this)));
         }
 
-        if (getWindow() != null) {
-            getWindow().getDecorView().setBackgroundDrawable(new ColorDrawable(ResourcesCompat
+        Window window = getWindow();
+        if (window != null) {
+            window.getDecorView().setBackgroundDrawable(new ColorDrawable(ResourcesCompat
                     .getColor(getResources(), R.color.background_color, null)));
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                getWindow().setStatusBarColor(ThemeUtils.primaryDarkColor(this));
+                window.setStatusBarColor(ThemeUtils.primaryDarkColor(this));
             }
 
             // For adding content description tag to a title field in the action bar
             int actionBarTitleId = getResources().getIdentifier("action_bar_title", "id", "android");
-            View actionBarTitleView = getWindow().getDecorView().findViewById(actionBarTitleId);
+            View actionBarTitleView = window.getDecorView().findViewById(actionBarTitleId);
             if (actionBarTitleView != null) {    // it's null in Android 2.x
-                getWindow().getDecorView().findViewById(actionBarTitleId).
+                window.getDecorView().findViewById(actionBarTitleId).
                         setContentDescription(getString(R.string.actionbar_settings));
             }
         }

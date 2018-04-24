@@ -69,8 +69,9 @@ public class ExternalSiteWebView extends FileActivity {
         showSidebar = extras.getBoolean(EXTRA_SHOW_SIDEBAR);
 
         // show progress
-        if (getWindow() != null) {
-            getWindow().requestFeature(Window.FEATURE_PROGRESS);
+        Window window = getWindow();
+        if (window != null) {
+            window.requestFeature(Window.FEATURE_PROGRESS);
         }
 
         super.onCreate(savedInstanceState);
