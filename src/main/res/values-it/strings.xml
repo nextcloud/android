@@ -386,7 +386,7 @@
     <string name="file_migration_dialog_title">Aggiornamento del percorso di archiviazione</string>
     <string name="file_migration_preparing">Preparazione della migrazione…</string>
     <string name="file_migration_checking_destination">Controllo della destinazione…</string>
-    <string name="file_migration_saving_accounts_configuration">Salvataggio della configurazione dell\\'account…</string>
+    <string name="file_migration_saving_accounts_configuration">Salvataggio della configurazione dell\'account…</string>
     <string name="file_migration_waiting_for_unfinished_sync">In attesa della sincronizzazione completa…</string>
     <string name="file_migration_migrating">Spostamento dei dati…</string>
     <string name="file_migration_updating_index">Aggiornamento dell\'indice…</string>
