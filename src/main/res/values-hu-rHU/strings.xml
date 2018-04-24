@@ -775,7 +775,6 @@ A Nextcloud itt érhető el: https://nextcloud.com</string>
     <string name="end_to_end_encryption_storing_keys">Kulcsok eltárolása</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Másolás/mozgatás titkosított mappába jelenleg nem támogatott.</string>
     <string name="untrusted_domain">Nem megbízható domainen keresztüli elérés. Kérlek nézd meg a dokumentációt a részletekért.</string>
-    <string name="upload_list_loading">Feltöltések betöltése…</string>
     <string name="notification_channel_push_name">Azonnali értesítések</string>
     <string name="notification_channel_push_description">A kiszolgáló által küldött üzenetek megjelenítése: Említések a megjegyzésekben, új távoli megosztások érkezése, adminisztrátori bejelentések, stb.</string>
     <string name="sendbutton_description">Küldés gomb ikon</string>

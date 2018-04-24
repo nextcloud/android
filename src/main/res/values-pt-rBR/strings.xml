@@ -754,7 +754,6 @@
     <string name="end_to_end_encryption_storing_keys">Armazenando chaves</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Copia e movimentação para a pasta criptografada atualmente não são suportadas.</string>
     <string name="untrusted_domain">Acesso através de domínio não confiável. Veja a documentação para mais informações.</string>
-    <string name="upload_list_loading">Carregando envios...</string>
     <string name="notification_channel_push_name">Notificações push</string>
     <string name="notification_channel_push_description">Mostrar notificações push enviadas pelo servidor: Menções nos comentários, recepção de novos compartilhamentos remotos, anúncios postados pelo administrador etc.</string>
     <string name="sendbutton_description">Ícone do botão Enviar</string>

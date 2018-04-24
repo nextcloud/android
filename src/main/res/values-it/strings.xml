@@ -754,7 +754,6 @@
     <string name="end_to_end_encryption_storing_keys">Archiviazione chiavi</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Copia/Spostamento in una cartella cifrata attualmente non supportati.</string>
     <string name="untrusted_domain">Accesso tramite un dominio non fidato. Vedi la documentazione per ulteriori informazioni.</string>
-    <string name="upload_list_loading">Caricamento file inviati…</string>
     <string name="notification_channel_push_name">Notifiche push</string>
     <string name="notification_channel_push_description">Mostra le notifiche push inviate dal server: menzioni nei commenti, ricezione di nuove condivisioni remote, annunci pubblicati da un amministratore ecc.</string>
     <string name="sendbutton_description">Icona pulsante di invio</string>

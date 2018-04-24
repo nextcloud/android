@@ -754,7 +754,6 @@
     <string name="end_to_end_encryption_storing_keys">Almacenando claves</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Copiar/mover en la carpeta cifrada no está actualmente soportado.</string>
     <string name="untrusted_domain">Acceder a través de un domino no confiado. Por favor, mira la documentación para más información.</string>
-    <string name="upload_list_loading">Cargando subidas…</string>
     <string name="notification_channel_push_name">Notificaciones de tipo push</string>
     <string name="notification_channel_push_description">Muestra notificaciones push enviadas por el servidor: menciones en comentarios, recepción de nuevos archivos  compartidos remotos, anuncios publicados por un administrador, etc.</string>
     <string name="sendbutton_description">Icono del botón de enviar</string>
