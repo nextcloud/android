@@ -290,7 +290,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
             AlertDialog.Builder builder = new Builder(parent);
 
             mTintedCheck = DrawableCompat.wrap(ContextCompat.getDrawable(parent,
-                    R.drawable.ic_account_circle_white_18dp));
+                    R.drawable.account_circle_white));
             int tint = ThemeUtils.primaryColor(getContext());
             DrawableCompat.setTint(mTintedCheck, tint);
 
