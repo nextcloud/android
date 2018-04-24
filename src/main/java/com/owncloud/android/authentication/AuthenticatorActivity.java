@@ -1562,7 +1562,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
                 mServerStatusText = getResources().getString(R.string.auth_unknown_error_http_title);
                 break;
             case UNKNOWN_ERROR:
-                if(result.getException() != null) {
+                if (result.getException() != null) {
                     mServerStatusText = getResources().getString(
                             R.string.auth_unknown_error_exception_title,
                             result.getException().getMessage()
