@@ -61,6 +61,7 @@
     <string name="recommend_urls">%1$sή%2$s</string>
 
     <string name="auth_check_server">Έλεγχος διακομιστή</string>
+    <string name="auth_host_url">Διεύθυνση διακομιστή https://…</string>
     <string name="auth_username">Όνομα χρήστη</string>
     <string name="auth_password">Συνθηματικό</string>
     <string name="auth_register">Όχι  Nextcloud ακόμα; \ nΚάντε κλικ εδώ για να πάρετε ένα από έναν πάροχο</string>
@@ -80,6 +81,7 @@
     <string name="uploader_error_message_source_file_not_found">Το αρχείο προς αποστολή δεν βρέθηκε στην τοποθεσία. Παρακαλώ ελέγξτε εάν υπάρχει το αρχείο.</string>
     <string name="uploader_error_message_source_file_not_copied">Παρουσιάστηκε σφάλμα κατά την αντιγραφή του αρχείου στον προσωρινό φάκελο. Παρακαλούμε δοκιμάστε να στείλετε ξανά.</string>
     <string name="uploader_upload_files_behaviour">Επιλογή μεταφόρτωσης:</string>
+    <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">Μετακίνηση αρχείου στον φάκελο %1$s</string>
     <string name="uploader_upload_files_behaviour_only_upload">Διατήρηση του αρχείου στον πηγαίο φάκελο</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Διαγραφή αρχείου από τον πηγαίο φάκελο</string>
     <string name="file_list_seconds_ago">δευτερόλεπτα πριν</string>
@@ -88,6 +90,7 @@
     <string name="file_list_empty">Μεταφόρτωση περιεχομένου ή συγχρονισμός με τις συσκευές σας.</string>
     <string name="file_list_empty_favorites_filter_list">Τα αρχεία ή οι φάκελοι που σημειώσατε ως αγαπημένα θα εμφανιστούν εδώ</string>
     <string name="file_list_empty_favorites_filter">Δεν βρέθηκαν αρχεία σημειωμένα ως αγαπημένα για το ερώτημά σας.</string>
+    <string name="file_list_loading">Φόρτωση…</string>
     <string name="file_list_no_app_for_file_type">Δεν βρέθηκε εφαρμογή για τον τύπο αρχείου.</string>
     <string name="local_file_list_empty">Δεν υπάρχουν αρχεία σε αυτό τον φάκελο.</string>
     <string name="local_folder_list_empty">Δεν υπάρχουν άλλοι φάκελοι.</string>
@@ -124,6 +127,7 @@
     <string name="common_back">Επιστροφή</string>
     <string name="common_save">Αποθήκευση</string>
     <string name="common_error">Σφάλμα</string>
+    <string name="common_loading">Φόρτωση…</string>
     <string name="common_unknown">άγνωστο</string>
     <string name="common_error_unknown">Άγνωστο σφάλμα</string>
     <string name="common_pending">Εκκρεμεί</string>
@@ -133,7 +137,9 @@
     <string name="delete_account_warning">Κατάργηση λογαριασμού %s και διαγραφή όλων των τοπικών αρχείων; \ n \ nΗ διαγραφή δεν μπορεί να ανακληθεί.</string>
     <string name="avatar">Εικόνα προφίλ</string>
     <string name="active_user">Ενεργός χρήστης</string>
+    <string name="upload_chooser_title">Μεταφόρτωση από…</string>
     <string name="uploader_info_dirname">Όνομα φακέλου</string>
+    <string name="uploader_upload_in_progress_ticker">Μεταφόρτωση…</string>
     <string name="uploader_upload_in_progress_content">%1$d%% Μεταφορτώνονται %2$s</string>
     <string name="uploader_upload_succeeded_ticker">Μεταφορτώθηκε</string>
     <string name="uploader_upload_succeeded_content_single">Το %1$s μεταφορτώθηκε</string>
@@ -159,6 +165,7 @@
     <string name="uploads_view_upload_status_waiting_for_wifi">Αναμονή για Wi-Fi</string>
     <string name="uploads_view_upload_status_waiting_exit_power_save_mode">Αναμονή για έξοδο από τη λειτουργία εξοικονόμησης ενέργειας</string>
     <string name="uploads_view_later_waiting_to_upload">Αναμονή για μεταφόρτωση</string>
+    <string name="downloader_download_in_progress_ticker">Λαμβάνονται…</string>
     <string name="downloader_download_in_progress_content">%1$d%% Λαμβάνονται %2$s</string>
     <string name="downloader_download_succeeded_ticker">Ληφθέντα</string>
     <string name="downloader_download_succeeded_content">%1$s ελήφθησαν</string>
@@ -201,7 +208,9 @@
     <string name="media_play_pause_description">Κουμπί αναπαραγωγής ή παύσης</string>
     <string name="media_forward_description">Κουμπί γρήγορης προώθησης</string>
 
-    <string name="auth_no_net_conn_title">Δεν υπάρχει σύνδεση στο δίκτυο</string>
+    <string name="auth_getting_authorization">Λήψη πιστοποίησης…</string>
+    <string name="auth_trying_to_login">Προσπάθεια σύνδεσης…</string>
+	<string name="auth_no_net_conn_title">Δεν υπάρχει σύνδεση στο δίκτυο</string>
 	<string name="auth_nossl_plain_ok_title">Μη διαθέσιμη ασφαλής σύνδεση.</string>
 	<string name="auth_connection_established">Εδραίωση σύνδεσης</string>
 	<string name="auth_testing_connection">Έλεγχος σύνδεσης</string>
@@ -225,7 +234,8 @@
 	<string name="auth_expired_oauth_token_toast">Η πιστοποιίησή σας έληξε. Παρακαλούμε εξουσιοδοτήστε ξανά</string>
 	<string name="auth_expired_basic_auth_toast">Παρακαλούμε εισάγετε το τρέχον συνθηματικό</string>
 	<string name="auth_expired_saml_sso_token_toast">Η συνεδρία σας έληξε. Παρακαλούμε συνδεθείτε ξανά</string>
-    <string name="auth_unsupported_multiaccount">Ο %1$s  δεν υποστηρίζει πολλαπλούς λογαριασμούς</string>
+    <string name="auth_connecting_auth_server">Σύνδεση με το διακομιστή πιστοποίησης…</string>
+	<string name="auth_unsupported_multiaccount">Ο %1$s  δεν υποστηρίζει πολλαπλούς λογαριασμούς</string>
 	<string name="auth_can_not_auth_against_server">Αδυαμία πιστοποίησης με αυτόν το διακομιστή</string>
     <string name="auth_access_failed">Η πρόσβαση απέτυχε</string>
 
@@ -243,11 +253,15 @@
     <string name="sync_file_nothing_to_do_msg">Τα περιεχόμενα του αρχείου έχουν ήδη συγχρονιστεί</string>
     <string name="create_dir_fail_msg">Αδυναμία δημιουργίας φακέλου</string>
     <string name="filename_forbidden_characters">Απαγορευμένοι χαρακτήρες: / \\ &lt; &gt; : \" | ? *</string>
+    <string name="wait_a_moment">Παρακαλούμε περιμένετε…</string>
     <string name="wait_checking_credentials">Γίνεται έλεγχος αποθηκευμένων διαπιστευτηρίων</string>
     <string name="filedisplay_no_file_selected">Δεν επιλέχθηκε αρχείο</string>
+    <string name="activity_chooser_title">Αποστολή συνδέσμου σε…</string>
     <string name="wait_for_tmp_copy_from_private_storage">Γίνεται αντιγραφή αρχείου από ιδιωτικό αποθηκευτικό χώρο</string>
     
     <string name="oauth_check_onoff">Σύνδεση με OAuth 2.0</string>
+    <string name="oauth_login_connection">Σύνδεση στον διακομιστή OAuth 2.0…</string>
+        
     <string name="ssl_validator_reason_cert_not_trusted">- Το πιστοποιητικό του διακομιστή δεν είναι έμπιστο</string>
     <string name="ssl_validator_reason_cert_expired">- Το πιστοποιητικό του διακομιστή έχει λήξει</string>
     <string name="ssl_validator_reason_cert_not_yet_valid">- Οι έγκυρες ημερομηνίες του πιστοποιητικού του διακομιστή είναι στο μέλλον</string>
@@ -333,17 +347,27 @@
     <string name="downloader_download_file_not_found">Αυτό το αρχείο δεν είναι πια διαθέσιμο στον διακομιστή</string>
 
     <string name="file_migration_dialog_title">Ενημέρωση διαδρομής αποθηκευτικού χώρου</string>
+    <string name="file_migration_preparing">Προετοιμασία για μεταφορά…</string>
+    <string name="file_migration_checking_destination">Γίνεται έλεγχος προορισμού…</string>
+    <string name="file_migration_saving_accounts_configuration">Γίνεται αποθήκευση ρυθμίσεων λογαριασμών…</string>
+    <string name="file_migration_waiting_for_unfinished_sync">Αναμονή για τους μη ολοκληρωμένους συγχρονισμούς…</string>
+    <string name="file_migration_migrating">Γίνεται μετακίνηση δεδομένων…</string>
+    <string name="file_migration_updating_index">Γίνεται ενημέρωση ευρετηρίου…</string>
+    <string name="file_migration_cleaning">Γίνεται εκκαθάριση…</string>
+    <string name="file_migration_restoring_accounts_configuration">Γίνεται επαναφορά ρυθμίσεων λογαριασμών…</string>
     <string name="file_migration_ok_finished">Ολοκληρώθηκε</string>
     <string name="file_migration_failed_not_enough_space">Απαιτείται περισσότερος χώρος</string>
     <string name="file_migration_failed_not_writable">Αδυναμία εγγραφής στο αρχείο προορισμού</string>
     <string name="file_migration_failed_not_readable">Αδυναμία ανάγνωσης πηγαίου αρχείου</string>
     <string name="file_migration_failed_dir_already_exists">Υπάρχει ήδη ο φάκελος Nextcloud</string>
+    <string name="file_migration_failed_while_coping">Αποτυχία κατά την μετάβαση</string>
     <string name="file_migration_failed_while_updating_index">Αποτυχία ενημέρωσης ευρετηρίου</string>
 
     <string name="file_migration_directory_already_exists">Ο φάκελος δεδομένων υπάρχει ήδη. Επιλέξτε ένα από τα παρακάτω:</string>
     <string name="file_migration_override_data_folder">Αντικατάσταση</string>
     <string name="file_migration_use_data_folder">Χρήση</string>
 
+    <string name="file_migration_source_not_readable_title">Ο πηγαίος φάκελος δεν ειναι αναγνώσιμος!</string>
     <string name="file_migration_source_not_readable">Θέλετε ακόμη να αλλάξετε το μονοπάτι αποθήκευσης σε %1$s;\n\nΣημείωση: όλα τα δεδομένα θα πρέπει να κατεβαστούν ξανά. </string>
 
     <string name="prefs_add_account">Προσθήκη λογαριασμού</string>
@@ -354,7 +378,9 @@
 	<string name="log_send_history_button">Αποστολή ιστορικού</string>
 	<string name="log_send_no_mail_app">Δεν εντοπίστηκε εφαρμογή αποστολής ιστορικού συστήματος. Παρακαλούμε εγκαταστήστε μια εφαρμογή ηλεκτρονικού ταχυδρομείου.</string>
 	<string name="log_send_mail_subject">%1$s ιστορικό της εφαρμογής Android</string>
-    <string name="saml_authentication_required_text">Απαιτείται συνθηματικό</string>
+    <string name="log_progress_dialog_text">Φόρτωση δεδομένων…</string>
+
+	<string name="saml_authentication_required_text">Απαιτείται συνθηματικό</string>
 	<string name="saml_authentication_wrong_pass">Εσφαλμένο συνθηματικό</string>
 	<string name="actionbar_move">Μετακίνηση</string>
     <string name="actionbar_copy">Αντιγραφή</string>
@@ -396,6 +422,8 @@
     <string name="set_picture_as">Χρησιμοποίησε την εικόνα ως</string>
     <string name="set_as">Ορισμός ως</string>
 
+    <string name="prefs_instant_behaviour_dialogTitle">Το πρωτότυπο αρχείο θα είναι…</string>
+    <string name="prefs_instant_behaviour_title">Το πρωτότυπο αρχείο θα είναι…</string>
     <string name="select_all">Επιλογή όλων</string>
     <string name="deselect_all">Αναίρεση επιλογής όλων</string>
 
@@ -416,6 +444,7 @@
     <string name="share_via_link_edit_permission_label">Επιτρέπεται η επεξεργασία</string>
     <string name="share_via_link_hide_file_listing_permission_label">Απόκρυψη λίστας αρχείου</string>
     <string name="share_get_public_link_button">Λήψη συνδέσμου</string>
+    <string name="share_with_title">Διαμοιρασμός με…</string>
     <string name="share_with_edit_title">Διαμοιρασμός με %1$s</string>
 
     <string name="share_search">Αναζήτηση</string>
@@ -473,6 +502,11 @@
     <string name="participate_contribute_translate_translate">Μετάφραση</string>
     <string name="participate_contribute_translate_text">η εφαρμογή</string>
     <string name="participate_contribute_github_text">Επιθεωρήστε, τροποποιήστε και γράψτε κώδικα, δείτε %1$s για λεπτομέρειες</string>
+    <string name="move_to">Μετακίνηση σε…</string>
+    <string name="copy_to">Αντιγραφή σε…</string>
+    <string name="choose_remote_folder">Επιλέξτε απομακρυσμένο φάκελο…</string>
+    <string name="choose_local_folder">Επιλέξτε τοπικό φάκελο…</string>
+    <string name="synced_folders_loading_folders">Φόρτωση φακέλων…</string>
     <string name="synced_folders_no_results">Δεν βρέθηκαν φάκελοι media .</string>
     <string name="synced_folders_preferences">Προτιμήσεις για αυτόματη μεταφόρτωση</string>
     <string name="synced_folders_new_info">Η άμεση μεταφόρτωση έχει ανανεωθεί πλήρως. Ξανά ρυθμίστε την αυτόματη μεταφόρτωσή σας από το κύριο μενού. \ N \ nΑπολαύστε τη νέα και εκτεταμένη αυτόματη μεταφόρτωση.</string>
@@ -482,6 +516,7 @@
         <item quantity="other">%d επιλέχθηκαν</item>
     </plurals>
 
+    <string name="notifications_loading_activity">Φόρτωση ενημερώσεων…</string>
     <string name="notifications_no_results_headline">Καμία ειδοποίηση</string>
     <string name="notifications_no_results_message">Παρακαλούμε ελέγξτε ξανά αργότερα. </string>
 
@@ -493,6 +528,9 @@
     <string name="upload_file_dialog_filetype_googlemap_shortcut">Αρχείο συντόμευσης Google Maps(%s)</string>
 
     <string name="storage_description_default">Προεπιλογή</string>
+
+    <!-- What's new feature and texts to show -->
+    <string name="whats_new_title">Τι νέο υπάρχει στο %1$s</string>
 
     <!-- Welcome to Nc intro features -->
     <string name="welcome_feature_1_title">Μια ασφαλής τοποθεσία για όλα σας τα δεδομένα</string>
@@ -538,6 +576,7 @@
     <string name="contacts_preferences_backup_scheduled">Η λήψη αντιγράφου αφαλείας έχει προγραμματιστεί και θα ξεκινήσει σύντομα</string>
     <string name="contacts_preferences_import_scheduled">Η εισαγωγή έχει προγραμματιστεί και θα ξεκινήσει σύντομα</string>
 
+    <!-- Notifications -->
     <string name="drawer_logout">Αποσύνδεση</string>
     <string name="privacy">Ιδιωτικότητα</string>
     <string name="file_not_found">Το αρχείο δεν βρέθηκε</string>
@@ -549,6 +588,9 @@
     <string name="test_server_button">Δοκιμή σύνδεσης με διακομιστή</string>
     <string name="resharing_is_not_allowed">Δεν επιτρέπεται ο διαμοιρασμός</string>
     <string name="fallback_weblogin_back">Πίσω</string>
+    <string name="foreground_service_upload">Μεταφόρτωση αρχείων…</string>
+    <string name="foreground_service_download">Λήψη αρχείων…</string>
+
     <string name="prefs_sourcecode">Λήψη πηγαίου κώδικα</string>
     <string name="prefs_license">Άδεια χρήσης</string>
     <string name="push_notifications_not_implemented">Οι ειδοποιήσεις απενεργοποιήθηκαν λόγω εξαρτήσεων στις ιδιόκτητες υπηρεσίες Google Play.</string>
@@ -586,10 +628,14 @@
     <string name="account_not_found">Δεν βρέθηκε λογαριασμός!</string>
 
     <string name="screenshot_01_gridView">Μια ασφαλής τοποθεσία για όλα σας τα δεδομένα</string>
+    <string name="end_to_end_encryption_decrypting">Γίνεται αποκρυπτογράφηση…</string>
+    <string name="end_to_end_encryption_retrieving_keys">Γίνεται λήψη κλειδιών…</string>
     <string name="end_to_end_encryption_enter_password">Παρακαλούμε εισάγετε το συνθηματικό για αποκρυπτογράφηση του ιδιωτικού κλειδιού.</string>
+    <string name="end_to_end_encryption_generating_keys">Γίνεται δημιουργία νέων κλειδιών…</string>
     <string name="end_to_end_encryption_title">Ρύθμιση κρυπτογράφησης</string>
     <string name="end_to_end_encryption_passphrase_title">Σημειώστε το συνθηματικό κρυπτογράφησης 12 λέξεων</string>
     <string name="end_to_end_encryption_confirm_button">Ρύθμιση κρυπτογράφησης</string>
+    <string name="end_to_end_encryption_password">Συνθηματικό…</string>
     <string name="end_to_end_encryption_unsuccessful">Αδυναμία αποθήκευσης κλειδιών, παρακαλούμε δοκιμάστε ξανά.</string>
     <string name="end_to_end_encryption_dialog_close">Κλείσιμο</string>
     <string name="end_to_end_encryption_storing_keys">Αποθήκευση κλειδιών</string>

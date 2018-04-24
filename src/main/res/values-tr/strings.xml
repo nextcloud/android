@@ -61,6 +61,7 @@
     <string name="recommend_urls">%1$s ya da %2$s</string>
 
     <string name="auth_check_server">Sunucuyu denetle</string>
+    <string name="auth_host_url">Sunucu adresi https://…</string>
     <string name="auth_username">Kullanıcı Adı</string>
     <string name="auth_password">Parola</string>
     <string name="auth_register">Henüz Nextcloud kullanmıyor musunuz?\Hizmet sağlayıcılardan yararlanabilirsiniz</string>
@@ -80,6 +81,7 @@
     <string name="uploader_error_message_source_file_not_found">Yüklenmek üzere seçilmiş dosya bulunamadı. Lütfen dosyanın var olup olmadığını denetleyin.</string>
     <string name="uploader_error_message_source_file_not_copied">Dosya geçici bir klasöre kopyalanırken sorun çıktı. Lütfen yeniden göndermeyi deneyin.</string>
     <string name="uploader_upload_files_behaviour">Yükleme seçeneği:</string>
+    <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">Dosya %1$s klasörüne taşınsın</string>
     <string name="uploader_upload_files_behaviour_only_upload">Dosya kaynak klasörde tutulsun</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Dosya kaynak klasörden silinsin</string>
     <string name="file_list_seconds_ago">saniyeler önce</string>
@@ -88,6 +90,7 @@
     <string name="file_list_empty">Bazı içerikler yükleyin ya da aygıtlarınızla eşitleyin.</string>
     <string name="file_list_empty_favorites_filter_list">Sık kullanılanlara eklediğiniz dosya ve klasörler burada görüntülenir</string>
     <string name="file_list_empty_favorites_filter">Arama sonucunda sık kullanılan bir dosya bulunamadı.</string>
+    <string name="file_list_loading">Yükleniyor…</string>
     <string name="file_list_no_app_for_file_type">Bu dosya türü için uygulama bulunamadı.</string>
     <string name="local_file_list_empty">Bu klasörde herhangi bir dosya yok.</string>
     <string name="local_folder_list_empty">Bu klasörde başka bir klasör yok.</string>
@@ -124,6 +127,7 @@
     <string name="common_back">Geri</string>
     <string name="common_save">Kaydet</string>
     <string name="common_error">Hata</string>
+    <string name="common_loading">Yükleniyor…</string>
     <string name="common_unknown">bilinmiyor</string>
     <string name="common_error_unknown">Bilinmeyen sorun</string>
     <string name="common_pending">Bekleyen</string>
@@ -133,7 +137,9 @@
     <string name="delete_account_warning">%s hesabı ve tüm yerel dosyalar kaldırılsın mı?\n\nSilme işlemi geri alınamaz.</string>
     <string name="avatar">Avatar</string>
     <string name="active_user">Etkin kullanıcı</string>
+    <string name="upload_chooser_title">Şuradan yükle…</string>
     <string name="uploader_info_dirname">Klasör adı</string>
+    <string name="uploader_upload_in_progress_ticker">Yükleniyor…</string>
     <string name="uploader_upload_in_progress_content">%%%1$d Yüklenen: %2$s</string>
     <string name="uploader_upload_succeeded_ticker">Yüklendi</string>
     <string name="uploader_upload_succeeded_content_single">%1$s yüklendi</string>
@@ -159,6 +165,7 @@
     <string name="uploads_view_upload_status_waiting_for_wifi">Wi-Fi bağlantısı bekleniyor</string>
     <string name="uploads_view_upload_status_waiting_exit_power_save_mode">Güç tasarrufu kipinden çıkılması bekleniyor</string>
     <string name="uploads_view_later_waiting_to_upload">Yüklenmeyi bekliyor</string>
+    <string name="downloader_download_in_progress_ticker">İndiriliyor…</string>
     <string name="downloader_download_in_progress_content">%%%1$d İndirilen: %2$s</string>
     <string name="downloader_download_succeeded_ticker">İndirildi</string>
     <string name="downloader_download_succeeded_content">%1$s indirildi</string>
@@ -222,7 +229,9 @@
     <string name="media_play_pause_description">Oynatma ya da Duraklatma Düğmesi</string>
     <string name="media_forward_description">İleri Alma Düğmesi</string>
 
-    <string name="auth_no_net_conn_title">Ağ bağlantısı yok</string>
+    <string name="auth_getting_authorization">Kimlik doğrulaması alınıyor…</string>
+    <string name="auth_trying_to_login">Oturum açılmaya çalışılıyor…</string>
+	<string name="auth_no_net_conn_title">Ağ bağlantısı yok</string>
 	<string name="auth_nossl_plain_ok_title">Güvenli bağlantı kullanılamıyor.</string>
 	<string name="auth_connection_established">Bağlantı kuruldu</string>
 	<string name="auth_testing_connection">Bağlantı sınanıyor</string>
@@ -246,7 +255,8 @@
 	<string name="auth_expired_oauth_token_toast">Kimlik doğrulama süresi doldu. Lütfen kimliğinizi yeniden doğrulayın</string>
 	<string name="auth_expired_basic_auth_toast">Lütfen geçerli parolanızı yazın</string>
 	<string name="auth_expired_saml_sso_token_toast">Oturumuzun süresi dolmuş. Lütfen yeniden bağlanın</string>
-    <string name="auth_unsupported_multiaccount">%1$s birden çok hesabı desteklemiyor</string>
+    <string name="auth_connecting_auth_server">Kimlik doğrulama sunucusuna bağlanılıyor…</string>
+	<string name="auth_unsupported_multiaccount">%1$s birden çok hesabı desteklemiyor</string>
 	<string name="auth_fail_get_user_name">Sunucunuz doğru bir kullanıcı kodu döndürmüyor, lütfen bir yönetici ile görüşün</string>
 	<string name="auth_can_not_auth_against_server">Bu sunucuda kimlik doğrulanamadı</string>
     <string name="auth_account_does_not_exist">Aygıt üzerinde henüz bu hesap açılmamış</string>
@@ -274,11 +284,15 @@
     <string name="filename_forbidden_characters">İzin verilmeyen karakterler: / \\ &lt; &gt; : \" | ? *</string>
     <string name="filename_forbidden_charaters_from_server">Dosya adında en az bir geçersiz karakter var</string>
     <string name="filename_empty">Dosya adı boş olamaz</string>
+    <string name="wait_a_moment">Lütfen bekleyin…</string>
     <string name="wait_checking_credentials">Kayıtlı kimlik bilgileri denetleniyor</string>
     <string name="filedisplay_no_file_selected">Herhangi bir dosya seçilmemiş</string>
+    <string name="activity_chooser_title">Bağlantıyı gönder…</string>
     <string name="wait_for_tmp_copy_from_private_storage">Dosya kişisel depolamadan kopyalanıyor</string>
     
     <string name="oauth_check_onoff">OAuth 2.0 ile Oturum Aç</string>
+    <string name="oauth_login_connection">OAuth 2.0 sunucusuna bağlanılıyor…</string>
+        
     <string name="ssl_validator_header">Sunucunun kimliği doğrulanamadı</string>
     <string name="ssl_validator_reason_cert_not_trusted">- Sunucu sertifikasına güvenilmiyor</string>
     <string name="ssl_validator_reason_cert_expired">- Sunucu sertifikasının süresi dolmuş</string>
@@ -370,6 +384,14 @@
     <string name="downloader_download_file_not_found">Bu dosya artık sunucuda yok</string>
 
     <string name="file_migration_dialog_title">Depolama yolu güncelleniyor</string>
+    <string name="file_migration_preparing">Aktarıma hazırlanılıyor…</string>
+    <string name="file_migration_checking_destination">Hedef denetleniyor…</string>
+    <string name="file_migration_saving_accounts_configuration">Hesap ayarları kaydediliyor…</string>
+    <string name="file_migration_waiting_for_unfinished_sync">Eşitleme işleminin tamamlanması bekleniyor…</string>
+    <string name="file_migration_migrating">Veriler taşınıyor…</string>
+    <string name="file_migration_updating_index">Dizin güncelleniyor…</string>
+    <string name="file_migration_cleaning">Temizleniyor…</string>
+    <string name="file_migration_restoring_accounts_configuration">Hesap ayarları geri yükleniyor…</string>
     <string name="file_migration_ok_finished">Tamamlandı</string>
     <string name="file_migration_failed_not_enough_space">Disk alanı yetersiz</string>
     <string name="file_migration_failed_not_writable">Hedef dosyaya yazılamadı</string>
@@ -393,7 +415,9 @@
 	<string name="log_send_history_button">Geçmişi gönder</string>
 	<string name="log_send_no_mail_app">Günlüklerin gönderilebileceği bir uygulama bulunamadı. Lütfen bir e-posta uygulaması kurun.</string>
 	<string name="log_send_mail_subject">%1$s Android uygulaması günlükleri</string>
-    <string name="saml_authentication_required_text">Parola gerekli</string>
+    <string name="log_progress_dialog_text">Veri yükleniyor…</string>
+
+	<string name="saml_authentication_required_text">Parola gerekli</string>
 	<string name="saml_authentication_wrong_pass">Parola yanlış</string>
 	<string name="actionbar_move">Taşı</string>
     <string name="actionbar_copy">Kopyala</string>
@@ -437,6 +461,8 @@
     <string name="set_picture_as">Görseli farklı kullan</string>
     <string name="set_as">Farklı Ayarla</string>
 
+    <string name="prefs_instant_behaviour_dialogTitle">Özgün dosya için</string>
+    <string name="prefs_instant_behaviour_title">Özgün dosya için…</string>
     <string name="select_all">Tümünü seç</string>
     <string name="deselect_all">Tümünü bırak</string>
 
@@ -457,6 +483,7 @@
     <string name="share_via_link_edit_permission_label">Düzenlenebilsin</string>
     <string name="share_via_link_hide_file_listing_permission_label">Dosya listeleme gizlensin</string>
     <string name="share_get_public_link_button">Bağlantıyı al</string>
+    <string name="share_with_title">Şununla paylaş…</string>
     <string name="share_with_edit_title">%1$s ile paylaş</string>
 
     <string name="share_search">Arama</string>
@@ -520,6 +547,11 @@
     <string name="participate_rc_fdroid">F-Droid uygulamasından yayın adayı sürümünü alın</string>
     <string name="participate_dev_fdroid">F-Droid uygulamasından geliştirici sürümünü alın</string>
     <string name="participate_dev_direct_download">Geliştirme sürümünü doğrudan indirin</string>
+    <string name="move_to">Şuraya Taşı…</string>
+    <string name="copy_to">Şuraya Kopyala…</string>
+    <string name="choose_remote_folder">Uzak klasörü seçin…</string>
+    <string name="choose_local_folder">Yerel klasörü seçin…</string>
+    <string name="synced_folders_loading_folders">Klasörler yükleniyor…</string>
     <string name="synced_folders_no_results">Herhangi bir ortam klasörü bulunamadı.</string>
     <string name="synced_folders_preferences">Otomatik yükleme ayarları</string>
     <string name="synced_folders_new_info">Anında yükleme tamamen elden geçirildi. Lütfen ama menüye giderek otomatik yükleme ayarlarınızı yeniden yapın.\n\nYeni ve geliştirilmiş otomatik yükleme özelliklerinin tadını çıkarın.</string>
@@ -529,6 +561,7 @@
         <item quantity="other">%d seçilmiş</item>
     </plurals>
 
+    <string name="notifications_loading_activity">Bildirimler yükleniyor…</string>
     <string name="notifications_no_results_headline">Herhangi bir bildirim yok</string>
     <string name="notifications_no_results_message">Daha sonra yeniden bakın.</string>
 
@@ -597,7 +630,6 @@
     <string name="contacts_preferences_import_scheduled">İçe aktarma işlemi zamanlandı ve kısa süre sonra başlatılacak</string>
 
     <!-- Notifications -->
-    <string name="new_notification_received">Yeni bir bildirim var</string>
     <string name="drawer_logout">Oturumu Kapat</string>
     <string name="picture_set_as_no_app">Görselin ayarlanabileceği bir uygulama bulunamadı</string>
     <string name="privacy">Gizlilik</string>
@@ -613,6 +645,9 @@
     <string name="resharing_is_not_allowed">Yeniden paylaşıma izin verilmiyor</string>
     <string name="fallback_weblogin_back">Geri</string>
     <string name="fallback_weblogin_text">Eski oturum açma yöntemine dön</string>
+
+    <string name="foreground_service_upload">Dosyalar yükleniyor…</string>
+    <string name="foreground_service_download">Dosyalar indiriliyor…</string>
 
     <string name="prefs_sourcecode">Kaynak kodunu alın</string>
     <string name="prefs_license">Lisans</string>
@@ -703,18 +738,23 @@
     
     <string name="end_to_end_encryption_folder_not_empty">Bu klasör boş değil.</string>
     <string name="end_to_end_encryption_wrong_password">Şifre çözülürken bir sorun çıktı. Parola yanlış olabilir mi?</string>
+    <string name="end_to_end_encryption_decrypting">Şifre çözülüyor…</string>
+    <string name="end_to_end_encryption_retrieving_keys">Anahtarlar alınıyor…</string>
     <string name="end_to_end_encryption_enter_password">Özel anahtarın şifresinin çözülmesi için parolayı yazın.</string>
+    <string name="end_to_end_encryption_generating_keys">Yeni anahtarlar üretiliyor…</string>
     <string name="end_to_end_encryption_keywords_description">12 sözcüklü parola çok güçlüdür ve şifrelenmiş dosyalarınızı yalnız sizin görüntüleyip kullanabilmenizi sağlar. Lütfen bir yere yazarak güvenli bir yerde saklayın.</string>
     <string name="end_to_end_encryption_title">Şifreleme kurulumu</string>
     <string name="end_to_end_encryption_passphrase_title">12 sözcüklü şifreleme parolanızı not edin</string>
     <string name="end_to_end_encryption_not_supported">Şifreleme yalnız KitKat(4.4) ve üzerindeki sürümlerde kullanılabilir</string>
     <string name="end_to_end_encryption_not_enabled">Sunucu üzerinde uçtan uca şifreleme devre dışı bırakıldı.</string>
     <string name="end_to_end_encryption_confirm_button">Şifreleme kurulumu</string>
+    <string name="end_to_end_encryption_password">Parola…</string>
     <string name="end_to_end_encryption_unsuccessful">Anahtarlar kaydedilemedi, lütfen yeniden deneyin.</string>
     <string name="end_to_end_encryption_dialog_close">Kapat</string>
     <string name="end_to_end_encryption_storing_keys">Anahtarlar kaydediliyor</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Şifrelenmiş bir klasöre kopyalama ve taşıma işlemleri henüz desteklenmiyor.</string>
     <string name="untrusted_domain">Güvenilmeyen bir etki alanı üzerinden erişiliyor. Lütfen ayrıntılı bilgi almak için belgelere bakın.</string>
+    <string name="upload_list_loading">Yüklemeler yapılıyor…</string>
     <string name="notification_channel_push_name">Anında bildirimler</string>
     <string name="notification_channel_push_description">Yorumlarda anılmanız, yeni bir uzak paylaşım almanız ya da bir yönetici tarafından bir duyuru yapıması gibi durumlarda sunucu tarafından gönderilen anında bildirimler görüntülenir.</string>
     <string name="sendbutton_description">Gönderme düğmesi simgesi</string>

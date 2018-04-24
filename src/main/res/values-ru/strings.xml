@@ -61,6 +61,7 @@
     <string name="recommend_urls">%1$s или %2$s</string>
 
     <string name="auth_check_server">Проверить сервер</string>
+    <string name="auth_host_url">Адрес сервера https://…</string>
     <string name="auth_username">Имя пользователя</string>
     <string name="auth_password">Пароль</string>
     <string name="auth_register">Нет своей учётной записи Nextcloud?\nНажмите здесь для заказа у провайдера</string>
@@ -80,6 +81,7 @@
     <string name="uploader_error_message_source_file_not_found">Не удалось найти файл для загрузки. Убедитесь, что файл существует.</string>
     <string name="uploader_error_message_source_file_not_copied">Произошла ошибка во время копирования этого файла во временный каталог, попробуйте отправить его заново.</string>
     <string name="uploader_upload_files_behaviour">Параметры передачи:</string>
+    <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">Переместить файл в каталог %1$s</string>
     <string name="uploader_upload_files_behaviour_only_upload">Оставить файл в исходном каталоге</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Удалить файл из исходного каталога</string>
     <string name="file_list_seconds_ago">несколько секунд назад</string>
@@ -88,6 +90,7 @@
     <string name="file_list_empty">Загрузите что-нибудь или синхронизируйте со своими устройствами!</string>
     <string name="file_list_empty_favorites_filter_list">Здесь появятся избранные файлы и каталоги</string>
     <string name="file_list_empty_favorites_filter">По запросу избранных файлов не найдено.</string>
+    <string name="file_list_loading">Получение данных…</string>
     <string name="file_list_no_app_for_file_type">Не найдено приложение для открытия этого типа файлов.</string>
     <string name="local_file_list_empty">В этом каталоге нет файлов.</string>
     <string name="local_folder_list_empty">Нет других каталогов.</string>
@@ -124,6 +127,7 @@
     <string name="common_back">Назад</string>
     <string name="common_save">Сохранить</string>
     <string name="common_error">Ошибка</string>
+    <string name="common_loading">Загрузка…</string>
     <string name="common_unknown">неизвестно</string>
     <string name="common_error_unknown">Неизвестная ошибка</string>
     <string name="common_pending">В очереди</string>
@@ -133,7 +137,9 @@
     <string name="delete_account_warning">Удалить аккаунт %s и все связанные с ним файлы?\n\n\Удаление не может быть отменено.</string>
     <string name="avatar">Аватар</string>
     <string name="active_user">Активный пользователь</string>
+    <string name="upload_chooser_title">Выгрузить из…</string>
     <string name="uploader_info_dirname">Имя каталога</string>
+    <string name="uploader_upload_in_progress_ticker">Выгрузка…</string>
     <string name="uploader_upload_in_progress_content">%1$d%% выгружается %2$s</string>
     <string name="uploader_upload_succeeded_ticker">Успешно загруженные</string>
     <string name="uploader_upload_succeeded_content_single">%1$s выгружен</string>
@@ -159,6 +165,7 @@
     <string name="uploads_view_upload_status_waiting_for_wifi">ожидание подключения Wi-Fi</string>
     <string name="uploads_view_upload_status_waiting_exit_power_save_mode">Ожидание выхода из режима энергосбережения</string>
     <string name="uploads_view_later_waiting_to_upload">Ожидание выгрузки</string>
+    <string name="downloader_download_in_progress_ticker">Скачивается…</string>
     <string name="downloader_download_in_progress_content">%1$d%% Скачивается %2$s</string>
     <string name="downloader_download_succeeded_ticker">Скачивание завершено</string>
     <string name="downloader_download_succeeded_content">%1$s скачано</string>
@@ -226,7 +233,9 @@
     <string name="media_play_pause_description">Воспроизведение или пауза</string>
     <string name="media_forward_description">Перемотка вперед</string>
 
-    <string name="auth_no_net_conn_title">Нет подключения к сети</string>
+    <string name="auth_getting_authorization">Авторизация…</string>
+    <string name="auth_trying_to_login">Попытка входа…</string>
+	<string name="auth_no_net_conn_title">Нет подключения к сети</string>
 	<string name="auth_nossl_plain_ok_title">Защищённое соединение недоступно.</string>
 	<string name="auth_connection_established">Соединение установлено</string>
 	<string name="auth_testing_connection">Проверка соединения</string>
@@ -250,7 +259,8 @@
 	<string name="auth_expired_oauth_token_toast">Время авторизации истекло, повторите вход в систему</string>
 	<string name="auth_expired_basic_auth_toast">Введите текущий пароль</string>
 	<string name="auth_expired_saml_sso_token_toast">Время сессии истекло, повторите подключение</string>
-    <string name="auth_unsupported_multiaccount">%1$s не поддерживает множественные аккаунты</string>
+    <string name="auth_connecting_auth_server">Подключение к серверу аутентификации…</string>
+	<string name="auth_unsupported_multiaccount">%1$s не поддерживает множественные аккаунты</string>
 	<string name="auth_fail_get_user_name">Сервер не вернул верный пользовательский идентификатор, свяжитесь с вашим администратором</string>
 	<string name="auth_can_not_auth_against_server">Не удается авторизоваться на этом сервере</string>
     <string name="auth_account_does_not_exist">Учётная запись ещё не создана на этом устройстве</string>
@@ -278,11 +288,15 @@
     <string name="filename_forbidden_characters">Недопустимые символы: / \\ &lt; &gt; : \" | ? *</string>
     <string name="filename_forbidden_charaters_from_server">Имя файла содержит как минимум один недопустимый символ</string>
     <string name="filename_empty">Имя файла не может быть пустым</string>
+    <string name="wait_a_moment">Подождите немного…</string>
     <string name="wait_checking_credentials">Проверка сохранённых реквизитов учётных данных</string>
     <string name="filedisplay_no_file_selected">Файлы не выбраны</string>
+    <string name="activity_chooser_title">Отправить ссылку…</string>
     <string name="wait_for_tmp_copy_from_private_storage">Копирование файла из частного хранилища</string>
     
     <string name="oauth_check_onoff">Войти через OAuth 2.0</string>
+    <string name="oauth_login_connection">Подключение к серверу OAuth 2.0…</string>
+        
     <string name="ssl_validator_header">Не удалось проверить подлинность сервера</string>
     <string name="ssl_validator_reason_cert_not_trusted">- Сертификат сервера не является доверенным</string>
     <string name="ssl_validator_reason_cert_expired">- Срок действия сертификата сервера истёк</string>
@@ -374,6 +388,14 @@
     <string name="downloader_download_file_not_found">Этот файл больше недоступен на сервере</string>
 
     <string name="file_migration_dialog_title">Обновление пути к хранилищу</string>
+    <string name="file_migration_preparing">Подготовка переноса…</string>
+    <string name="file_migration_checking_destination">Проверка назначения…</string>
+    <string name="file_migration_saving_accounts_configuration">Сохранение параметров учётной записи…</string>
+    <string name="file_migration_waiting_for_unfinished_sync">Ожидание завершения синхронизации…</string>
+    <string name="file_migration_migrating">Перемещение данных…</string>
+    <string name="file_migration_updating_index">Обновление индекса…</string>
+    <string name="file_migration_cleaning">Очистка…</string>
+    <string name="file_migration_restoring_accounts_configuration">Восстановление параметров учётной записи…</string>
     <string name="file_migration_ok_finished">Завершено</string>
     <string name="file_migration_failed_not_enough_space">Недостаточно свободного места</string>
     <string name="file_migration_failed_not_writable">Не удалось выполнить запись в файл назначения</string>
@@ -397,7 +419,9 @@
 	<string name="log_send_history_button">Отправить историю</string>
 	<string name="log_send_no_mail_app">Программа для отправки журналов не найдена. Установите приложение для работы с почтой.</string>
 	<string name="log_send_mail_subject">Журналы приложения %1$s для Android</string>
-    <string name="saml_authentication_required_text">Требуется аутентификация</string>
+    <string name="log_progress_dialog_text">Получение данных…</string>
+
+	<string name="saml_authentication_required_text">Требуется аутентификация</string>
 	<string name="saml_authentication_wrong_pass">Неправильный пароль</string>
 	<string name="actionbar_move">Переместить</string>
     <string name="actionbar_copy">Копировать</string>
@@ -445,6 +469,8 @@
     <string name="set_picture_as">Использовать изображение</string>
     <string name="set_as">Установить как</string>
 
+    <string name="prefs_instant_behaviour_dialogTitle">Исходный файл будет…</string>
+    <string name="prefs_instant_behaviour_title">Исходный файл будет…</string>
     <string name="select_all">Выбрать все</string>
     <string name="deselect_all">Снять выбор со всех</string>
 
@@ -465,6 +491,7 @@
     <string name="share_via_link_edit_permission_label">Разрешить редактирование</string>
     <string name="share_via_link_hide_file_listing_permission_label">Скрыть список файлов</string>
     <string name="share_get_public_link_button">Получить ссылку</string>
+    <string name="share_with_title">Поделиться…</string>
     <string name="share_with_edit_title">Настройки доступа для %1$s</string>
 
     <string name="share_search">Поиск</string>
@@ -528,6 +555,11 @@
     <string name="participate_rc_fdroid">Скачать предвыпускную версию из магазина приложений F-Droid</string>
     <string name="participate_dev_fdroid">Скачать разрабатываемую версию из магазина приложений F-Droid</string>
     <string name="participate_dev_direct_download">Скачать предвыпускную версию</string>
+    <string name="move_to">Переместить…</string>
+    <string name="copy_to">Копировать…</string>
+    <string name="choose_remote_folder">Выберите каталог на сервере…</string>
+    <string name="choose_local_folder">Выберите каталог на устройстве…</string>
+    <string name="synced_folders_loading_folders">Получение списка папок…</string>
     <string name="synced_folders_no_results">Не найдены каталоги с медиа(файлами).</string>
     <string name="synced_folders_preferences">Настройки автозагрузки</string>
     <string name="synced_folders_new_info">Моментальная загрузка была полностью переделана. Используйте главное меню для перенастройки автоматической загрузки. Извините за неудобства.\n\nВам понравятся новые расширенные возможности!</string>
@@ -539,6 +571,7 @@
         <item quantity="other">%d выбрано</item>
     </plurals>
 
+    <string name="notifications_loading_activity">Получение уведомлений…</string>
     <string name="notifications_no_results_headline">Уведомлений нет</string>
     <string name="notifications_no_results_message">Проверьте позже.</string>
 
@@ -607,7 +640,6 @@
     <string name="contacts_preferences_import_scheduled">Импорт запланирован и скоро начнётся</string>
 
     <!-- Notifications -->
-    <string name="new_notification_received">Получено новое уведомление</string>
     <string name="drawer_logout">Выйти</string>
     <string name="picture_set_as_no_app">Не найдено приложений для обработки изображений</string>
     <string name="privacy">Конфиденциальность</string>
@@ -623,6 +655,9 @@
     <string name="resharing_is_not_allowed">Повторное открытие доступа запрещено</string>
     <string name="fallback_weblogin_back">Назад</string>
     <string name="fallback_weblogin_text">Использовать прежний метод авторизации</string>
+
+    <string name="foreground_service_upload">Отправка файлов…</string>
+    <string name="foreground_service_download">Получение файлов…</string>
 
     <string name="prefs_sourcecode">Получить исходный код</string>
     <string name="prefs_license">Лицензия</string>
@@ -713,18 +748,23 @@
     
     <string name="end_to_end_encryption_folder_not_empty">Эта папка не пуста.</string>
     <string name="end_to_end_encryption_wrong_password">Ошибка расшифровывания. Неверный пароль?</string>
+    <string name="end_to_end_encryption_decrypting">Расшифровка…</string>
+    <string name="end_to_end_encryption_retrieving_keys">Получение ключей…</string>
     <string name="end_to_end_encryption_enter_password">Введите пароль для расшифровки закрытого ключа.</string>
+    <string name="end_to_end_encryption_generating_keys">Создание новых ключей…</string>
     <string name="end_to_end_encryption_keywords_description">Все двенадцать слов подряд — очень надёжный пароль, который требуется для доступа для просмотра и использования зашифрованных файлов. Запишите его и сохраните в надёжном месте.</string>
     <string name="end_to_end_encryption_title">Параметры шифрования</string>
     <string name="end_to_end_encryption_passphrase_title">Запишите свою парольную фразу из двенадцати слов</string>
     <string name="end_to_end_encryption_not_supported">Шифрование не поддерживается для версий Android, более ранних чем KitKat (4.4).</string>
     <string name="end_to_end_encryption_not_enabled">Конечное шифрование отключено на сервере.</string>
     <string name="end_to_end_encryption_confirm_button">Параметры шифрования</string>
+    <string name="end_to_end_encryption_password">Пароль…</string>
     <string name="end_to_end_encryption_unsuccessful">Не удалось сохранить ключи шифрования, попробуйте ещё раз.</string>
     <string name="end_to_end_encryption_dialog_close">Закрыть</string>
     <string name="end_to_end_encryption_storing_keys">Сохранение ключей</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Копирование и перемещение в зашифрованные папки пока не поддерживается.</string>
     <string name="untrusted_domain">Доступ через недоверенный домен. За дополнительной информацией обратитесь к документации.</string>
+    <string name="upload_list_loading">Загрузка списка передаваемых файлов…</string>
     <string name="notification_channel_push_name">Push-уведомления</string>
     <string name="notification_channel_push_description">Показывать push-уведомления, отправляемые на сервер: упоминания в комментариях, прием новых общих ресурсов, объявления, размещаемые администратором и т.д.</string>
     <string name="sendbutton_description">Значок кнопки «отправить»</string>

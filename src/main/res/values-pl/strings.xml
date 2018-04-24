@@ -581,7 +581,6 @@
     <string name="contacts_preferences_import_scheduled">Importowanie zostało zaplanowane i wkrótce zostanie uruchomione</string>
 
     <!-- Notifications -->
-    <string name="new_notification_received">Otrzymano nowe powiadomienie</string>
     <string name="drawer_logout">Wyloguj</string>
     <string name="privacy">Prywatność</string>
     <string name="file_not_found">Nie znaleziono pliku</string>

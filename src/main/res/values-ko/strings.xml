@@ -578,7 +578,6 @@
     <string name="contacts_preferences_import_scheduled">복원이 예약되었고 곧 시작합니다</string>
 
     <!-- Notifications -->
-    <string name="new_notification_received">새 알림 받음</string>
     <string name="drawer_logout">로그아웃</string>
     <string name="picture_set_as_no_app">사진을 설정할 앱을 찾을 수 없음</string>
     <string name="privacy">개인 정보</string>
