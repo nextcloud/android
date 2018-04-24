@@ -789,11 +789,8 @@ public class Preferences extends PreferenceActivity
 
             // For adding content description tag to a title field in the action bar
             int actionBarTitleId = getResources().getIdentifier("action_bar_title", "id", "android");
-            View actionBarTitleView = window.getDecorView().findViewById(actionBarTitleId);
-            if (actionBarTitleView != null) {    // it's null in Android 2.x
-                window.getDecorView().findViewById(actionBarTitleId).
+            window.getDecorView().findViewById(actionBarTitleId).
                         setContentDescription(getString(R.string.actionbar_settings));
-            }
         }
     }
 
