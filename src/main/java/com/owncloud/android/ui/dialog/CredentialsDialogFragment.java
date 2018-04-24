@@ -26,6 +26,7 @@ import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AlertDialog.Builder;
 import android.text.InputType;
+import android.view.Window;
 import android.view.WindowManager.LayoutParams;
 import android.webkit.HttpAuthHandler;
 import android.webkit.WebView;
@@ -105,8 +106,9 @@ public class CredentialsDialogFragment extends DialogFragment
 
         Dialog d = authDialog.create();
 
-        if (d.getWindow() != null) {
-            d.getWindow().setSoftInputMode(LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+        Window window = d.getWindow();
+        if (window != null) {
+            window.setSoftInputMode(LayoutParams.SOFT_INPUT_STATE_VISIBLE);
         }
         
         return d;

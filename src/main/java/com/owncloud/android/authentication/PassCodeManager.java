@@ -24,6 +24,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.PowerManager;
+import android.view.Window;
 import android.view.WindowManager;
 
 import com.owncloud.android.MainApp;
@@ -67,11 +68,12 @@ public class PassCodeManager {
     private PassCodeManager() {}
 
     public void onActivityCreated(Activity activity) {
-        if (activity.getWindow() != null) {
+        Window window = activity.getWindow();
+        if (window != null) {
             if (passCodeIsEnabled() || deviceCredentialsAreEnabled(activity)) {
-                activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
+                window.addFlags(WindowManager.LayoutParams.FLAG_SECURE);
             } else {
-                activity.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_SECURE);
+                window.clearFlags(WindowManager.LayoutParams.FLAG_SECURE);
             }
         }
     }

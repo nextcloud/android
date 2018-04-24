@@ -35,6 +35,7 @@ import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.Window;
 import android.view.WindowManager.LayoutParams;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -120,8 +121,9 @@ public class RenameFileDialogFragment
                         accentColor));
         Dialog d = builder.create();
 
-        if (d.getWindow() != null) {
-            d.getWindow().setSoftInputMode(LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+        Window window = d.getWindow();
+        if (window != null) {
+            window.setSoftInputMode(LayoutParams.SOFT_INPUT_STATE_VISIBLE);
         }
         
         return d;
