@@ -1559,8 +1559,17 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
                 mServerStatusText = getResources().getString(R.string.auth_oauth_error_access_denied);
                 break;
             case UNHANDLED_HTTP_CODE:
+                mServerStatusText = getResources().getString(R.string.auth_unknown_error_http_title);
+                break;
             case UNKNOWN_ERROR:
-                mServerStatusText = getResources().getString(R.string.auth_unknown_error_title);
+                if(result.getException() != null) {
+                    mServerStatusText = getResources().getString(
+                            R.string.auth_unknown_error_exception_title,
+                            result.getException().getMessage()
+                    );
+                } else {
+                    mServerStatusText = getResources().getString(R.string.auth_unknown_error_title);
+                }
                 break;
             case OK_REDIRECT_TO_NON_SECURE_CONNECTION:
                 mServerStatusIcon = R.drawable.ic_lock_open_white;
