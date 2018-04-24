@@ -597,7 +597,6 @@
     <string name="contacts_preferences_import_scheduled">Innflutningur er á áætlun og mun hefjast fljótlega</string>
 
     <!-- Notifications -->
-    <string name="new_notification_received">Tók á móti nýrri tilkynningu</string>
     <string name="drawer_logout">Skrá út</string>
     <string name="picture_set_as_no_app">Engin forrit fundust til að setja mynd</string>
     <string name="privacy">Gagnaleynd</string>

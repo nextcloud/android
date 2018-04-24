@@ -61,6 +61,7 @@
     <string name="recommend_urls">%1$s o %2$s</string>
 
     <string name="auth_check_server">Verificar servidor</string>
+    <string name="auth_host_url">Dirección del servidor https://…</string>
     <string name="auth_username">Usuario</string>
     <string name="auth_password">Contraseña</string>
     <string name="auth_register">¿Todavía no tienes Nextcloud?\nClic aquí para conseguir uno de un proveedor</string>
@@ -80,6 +81,7 @@
     <string name="uploader_error_message_source_file_not_found">No se encuentra el archivo seleccionado para subir. Por favor, comprueba que el archivo existe.</string>
     <string name="uploader_error_message_source_file_not_copied">No se ha podido copiar el archivo a una carpeta temporal. Intenta volver a enviarlo.</string>
     <string name="uploader_upload_files_behaviour">Opción de subida:</string>
+    <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">Mover el archivo a la carpeta de %1$s</string>
     <string name="uploader_upload_files_behaviour_only_upload">Mantener el archivo en la carpeta original</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Borrar archivo de la carpeta original</string>
     <string name="file_list_seconds_ago">hace segundos</string>
@@ -88,6 +90,7 @@
     <string name="file_list_empty">Sube algún contenido o sincroniza con tus dispositivos.</string>
     <string name="file_list_empty_favorites_filter_list">Los archivos y carpetas que marques como favoritos aparecerán aquí</string>
     <string name="file_list_empty_favorites_filter">Tu búsqueda no encontró ningún archivo favorito.</string>
+    <string name="file_list_loading">Cargando…</string>
     <string name="file_list_no_app_for_file_type">No hay una app configurada para manejar este tipo de archivos.</string>
     <string name="local_file_list_empty">No hay archivos en esta carpeta.</string>
     <string name="local_folder_list_empty">No hay mas carpetas</string>
@@ -124,6 +127,7 @@
     <string name="common_back">Volver</string>
     <string name="common_save">Guardar</string>
     <string name="common_error">Error</string>
+    <string name="common_loading">Cargando…</string>
     <string name="common_unknown">desconocido</string>
     <string name="common_error_unknown">Error desconocido</string>
     <string name="common_pending">Pendiente</string>
@@ -133,7 +137,9 @@
     <string name="delete_account_warning">¿Eliminar cuenta %s y borrar todos los archivos locales?\n\nEl borrado no se puede deshacer.</string>
     <string name="avatar">Avatar</string>
     <string name="active_user">Usuario activo</string>
+    <string name="upload_chooser_title">Subir desde…</string>
     <string name="uploader_info_dirname">Nombre de la carpeta</string>
+    <string name="uploader_upload_in_progress_ticker">Subiendo…</string>
     <string name="uploader_upload_in_progress_content">%1$d%% Subiendo %2$s</string>
     <string name="uploader_upload_succeeded_ticker">Subido</string>
     <string name="uploader_upload_succeeded_content_single">%1$s subido</string>
@@ -159,6 +165,7 @@
     <string name="uploads_view_upload_status_waiting_for_wifi">Esperando la conexión Wi-Fi</string>
     <string name="uploads_view_upload_status_waiting_exit_power_save_mode">Esperando a salir del modo de ahorro de baterái</string>
     <string name="uploads_view_later_waiting_to_upload">Esperando para subir</string>
+    <string name="downloader_download_in_progress_ticker">Descargando…</string>
     <string name="downloader_download_in_progress_content">%1$d%% Descargado de %2$s</string>
     <string name="downloader_download_succeeded_ticker">Descargado</string>
     <string name="downloader_download_succeeded_content">%1$s descargado</string>
@@ -222,7 +229,9 @@
     <string name="media_play_pause_description">Botón de reproducción o pausa </string>
     <string name="media_forward_description">Botón de avance rápido</string>
 
-    <string name="auth_no_net_conn_title">Sin conexión de red</string>
+    <string name="auth_getting_authorization">Obteniendo autorización…</string>
+    <string name="auth_trying_to_login">Intentando iniciar sesión…</string>
+	<string name="auth_no_net_conn_title">Sin conexión de red</string>
 	<string name="auth_nossl_plain_ok_title">Conexión segura no disponible.</string>
 	<string name="auth_connection_established">Conexión establecida</string>
 	<string name="auth_testing_connection">Comprobando la conexión</string>
@@ -246,7 +255,8 @@
 	<string name="auth_expired_oauth_token_toast">Tu autorización ha expirado. Por favor, autoriza de nuevo</string>
 	<string name="auth_expired_basic_auth_toast">Por favor, introduce tu contraseña actual</string>
 	<string name="auth_expired_saml_sso_token_toast">Tu sesión ha expirado. Por favor, conéctate de nuevo</string>
-    <string name="auth_unsupported_multiaccount">%1$s no soporta cuentas múltiples</string>
+    <string name="auth_connecting_auth_server">Conectando al servidor de autentificación…</string>
+	<string name="auth_unsupported_multiaccount">%1$s no soporta cuentas múltiples</string>
 	<string name="auth_fail_get_user_name">Tu servidor no está devolviendo una ID de usuario correcta; por favor, ponte en contacto con un administrador</string>
 	<string name="auth_can_not_auth_against_server">No puede autenticarse a este servidor</string>
     <string name="auth_account_does_not_exist">La cuenta no se ha añadido aún en este dispositivo</string>
@@ -274,11 +284,15 @@
     <string name="filename_forbidden_characters">Caracteres prohibidos: / \\ &lt; &gt; : \" | ? *</string>
     <string name="filename_forbidden_charaters_from_server">El nombre de archivo contiene al menos un carácter no válido</string>
     <string name="filename_empty">El nombre de archivo no puede estar vacío</string>
+    <string name="wait_a_moment">Espera un momento…</string>
     <string name="wait_checking_credentials">Comprobando las credenciales guardadas</string>
     <string name="filedisplay_no_file_selected">No hay archivos seleccionados</string>
+    <string name="activity_chooser_title">Enviar enlace a…</string>
     <string name="wait_for_tmp_copy_from_private_storage">Copiando el archivo desde el almacenamiento privado.</string>
     
     <string name="oauth_check_onoff">Iniciar sesión con OAuth 2.0</string>
+    <string name="oauth_login_connection">Conectando al servidor OAuth 2.0…</string>
+        
     <string name="ssl_validator_header">No se ha podido verificar la identidad del servidor </string>
     <string name="ssl_validator_reason_cert_not_trusted">- El certificado del servidor no es de confianza</string>
     <string name="ssl_validator_reason_cert_expired">- El certificado del servidor ha expirado</string>
@@ -370,6 +384,14 @@
     <string name="downloader_download_file_not_found">Este archivo ya no se encuentra en el servidor</string>
 
     <string name="file_migration_dialog_title">Actualizando ruta de almacenamiento</string>
+    <string name="file_migration_preparing">Preparando la migración…</string>
+    <string name="file_migration_checking_destination">Comprobando destino…</string>
+    <string name="file_migration_saving_accounts_configuration">Guardando configuración de cuenta…</string>
+    <string name="file_migration_waiting_for_unfinished_sync">Esperando que todas las sincronizaciones terminen…</string>
+    <string name="file_migration_migrating">Moviendo datos…</string>
+    <string name="file_migration_updating_index">Actualizando índice…</string>
+    <string name="file_migration_cleaning">Limpiando…</string>
+    <string name="file_migration_restoring_accounts_configuration">Restaurando configuración de cuenta…</string>
     <string name="file_migration_ok_finished">Finalizado</string>
     <string name="file_migration_failed_not_enough_space">Se necesita más espacio</string>
     <string name="file_migration_failed_not_writable">No se ha podido escribir el archivo de destino</string>
@@ -393,7 +415,9 @@
 	<string name="log_send_history_button">Mandar historial</string>
 	<string name="log_send_no_mail_app">No se ha encontrado ninguna app para enviar los registros. Por favor, instala un cliente de correo electrónico.</string>
 	<string name="log_send_mail_subject">Se han encontrado %1$s aplicaciones de registros para Android</string>
-    <string name="saml_authentication_required_text">Se necesita contraseña</string>
+    <string name="log_progress_dialog_text">Cargando datos…</string>
+
+	<string name="saml_authentication_required_text">Se necesita contraseña</string>
 	<string name="saml_authentication_wrong_pass">Contraseña incorrecta</string>
 	<string name="actionbar_move">Mover</string>
     <string name="actionbar_copy">Copiar</string>
@@ -437,6 +461,8 @@
     <string name="set_picture_as">Usar imagen como</string>
     <string name="set_as">Establecer como</string>
 
+    <string name="prefs_instant_behaviour_dialogTitle">El archivo original será…</string>
+    <string name="prefs_instant_behaviour_title">El archivo original será…</string>
     <string name="select_all">Seleccionar todo</string>
     <string name="deselect_all">Desmarcar todos</string>
 
@@ -457,6 +483,7 @@
     <string name="share_via_link_edit_permission_label">Permitir edición</string>
     <string name="share_via_link_hide_file_listing_permission_label">Ocultar la lista de archivos.</string>
     <string name="share_get_public_link_button">Obtener enlace</string>
+    <string name="share_with_title">Compartir con…</string>
     <string name="share_with_edit_title">Compartir con %1$s</string>
 
     <string name="share_search">Buscar</string>
@@ -520,6 +547,11 @@
     <string name="participate_rc_fdroid">Obtener candidato a liberar desde la tienda de apps F-Droid</string>
     <string name="participate_dev_fdroid">Obtener versión de desarrollo vía la tienda de apps F-Droid</string>
     <string name="participate_dev_direct_download">Desgargar versión de desarrollo directamente</string>
+    <string name="move_to">Mover a…</string>
+    <string name="copy_to">Copiar a…</string>
+    <string name="choose_remote_folder">Selecciona carpeta remota…</string>
+    <string name="choose_local_folder">Seleccione carpeta local…</string>
+    <string name="synced_folders_loading_folders">Cargando carpetas…</string>
     <string name="synced_folders_no_results">Ningún archivo multimedia encontrado.</string>
     <string name="synced_folders_preferences">Preferencias de subida automática</string>
     <string name="synced_folders_new_info">Carga instantánea ha sido modificado por completo. Re-configura tu carga automática desde el menú principal. \n\nDisfruta la nueva y extendida carga automática.</string>
@@ -529,6 +561,7 @@
         <item quantity="other">%d seleccionados</item>
     </plurals>
 
+    <string name="notifications_loading_activity">Cargando notificaciones…</string>
     <string name="notifications_no_results_headline">No hay notificaciones</string>
     <string name="notifications_no_results_message">Por favor, comprúebalo más tarde.</string>
 
@@ -597,7 +630,6 @@
     <string name="contacts_preferences_import_scheduled">Importación programada. Comenzará en breve</string>
 
     <!-- Notifications -->
-    <string name="new_notification_received">Nueva notificación recibida</string>
     <string name="drawer_logout">Cerrar sersión</string>
     <string name="picture_set_as_no_app">No se ha encontrado una app para establecer con ella la imagen</string>
     <string name="privacy">Privacidad</string>
@@ -613,6 +645,9 @@
     <string name="resharing_is_not_allowed">No se permite compartir de nuevo</string>
     <string name="fallback_weblogin_back">Volver</string>
     <string name="fallback_weblogin_text">Volver al método de registro antiguo</string>
+
+    <string name="foreground_service_upload">Subiendo archivos…</string>
+    <string name="foreground_service_download">Bajando archivos…</string>
 
     <string name="prefs_sourcecode">Obtener el código fuente</string>
     <string name="prefs_license">Licencia</string>
@@ -703,18 +738,23 @@
     
     <string name="end_to_end_encryption_folder_not_empty">Esta carpeta no está vacía.</string>
     <string name="end_to_end_encryption_wrong_password">Error al desencriptar. ¿Contraseña incorrecta?</string>
+    <string name="end_to_end_encryption_decrypting">Desencriptando…</string>
+    <string name="end_to_end_encryption_retrieving_keys">Recuperando claves…</string>
     <string name="end_to_end_encryption_enter_password">Por favor, introduce la contraseña para descifrar la clave privada.</string>
+    <string name="end_to_end_encryption_generating_keys">Generando claves nuevas…</string>
     <string name="end_to_end_encryption_keywords_description">Las 12 palabras juntas forman una contraseña muy fuerte, permitiéndote solo a ti ver y usar tus archivos cifrados. Por favor, escríbelas y guárdalas en un lugar seguro.</string>
     <string name="end_to_end_encryption_title">Configurar cifrado</string>
     <string name="end_to_end_encryption_passphrase_title">Toma nota de tu contraseña de cifrado de 12 palabras</string>
     <string name="end_to_end_encryption_not_supported">El cifrado solo funciona en KitKat (4.4) y posteriores.</string>
     <string name="end_to_end_encryption_not_enabled">Cifrado de extremo a extremo desactivado en el servidor.</string>
     <string name="end_to_end_encryption_confirm_button">Configurar cifrado</string>
+    <string name="end_to_end_encryption_password">Contraseña…</string>
     <string name="end_to_end_encryption_unsuccessful">No se han podido almacenar las claves. Por favor, vuelve a intentarlo.</string>
     <string name="end_to_end_encryption_dialog_close">Cerrar</string>
     <string name="end_to_end_encryption_storing_keys">Almacenando claves</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Copiar/mover en la carpeta cifrada no está actualmente soportado.</string>
     <string name="untrusted_domain">Acceder a través de un domino no confiado. Por favor, mira la documentación para más información.</string>
+    <string name="upload_list_loading">Cargando subidas…</string>
     <string name="notification_channel_push_name">Notificaciones de tipo push</string>
     <string name="notification_channel_push_description">Muestra notificaciones push enviadas por el servidor: menciones en comentarios, recepción de nuevos archivos  compartidos remotos, anuncios publicados por un administrador, etc.</string>
     <string name="sendbutton_description">Icono del botón de enviar</string>
@@ -722,4 +762,9 @@
     <string name="oauth_2_0_access_end_point_address_hint">Dirección de punto final de acceso</string>
     <string name="hint_name">Nombre</string>
     <string name="hint_password">Contraseña</string>
-    </resources>
+    <string name="add_to_cloud">Añadir a %1$s</string>
+    <string name="upload_files">Subir archivos</string>
+    <string name="upload_content_from_other_apps">Subir contenido desde otras apps</string>
+    <string name="create_new_folder">Crear nueva carpeta</string>
+    <string name="uploads_view_upload_status_virus_detected">Virus detectado. ¡No se ha podido subir!</string>
+</resources>

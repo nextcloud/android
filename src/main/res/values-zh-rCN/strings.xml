@@ -587,7 +587,6 @@
     <string name="contacts_preferences_import_scheduled">导入已经排期，稍后将开始</string>
 
     <!-- Notifications -->
-    <string name="new_notification_received">收到新的消息</string>
     <string name="drawer_logout">退出</string>
     <string name="picture_set_as_no_app">找不到可以设置图片的应用程序</string>
     <string name="privacy">隐私</string>

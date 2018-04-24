@@ -61,6 +61,7 @@
     <string name="recommend_urls">%1$s ou %2$s</string>
 
     <string name="auth_check_server">Vérifier le serveur</string>
+    <string name="auth_host_url">Adresse du serveur https://…</string>
     <string name="auth_username">Nom d\'utilisateur</string>
     <string name="auth_password">Mot de passe</string>
     <string name="auth_register">Pas encore de Nextcloud ?\nCliquez ici pour choisir un fournisseur</string>
@@ -80,6 +81,7 @@
     <string name="uploader_error_message_source_file_not_found">Le fichier à téléverser n\'a pas été trouvé. Merci de vérifier si ce fichier existe.</string>
     <string name="uploader_error_message_source_file_not_copied">Impossible de copier le fichier vers un dossier temporaire. Merci de recommencer votre envoi.</string>
     <string name="uploader_upload_files_behaviour">Option de téléversement :</string>
+    <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">Déplacer le fichier dans le dossier %1$s</string>
     <string name="uploader_upload_files_behaviour_only_upload">Conserver le fichier dans le dossier original</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Supprimer le fichier du dossier original</string>
     <string name="file_list_seconds_ago">à l\'instant</string>
@@ -88,6 +90,7 @@
     <string name="file_list_empty">Déposez du contenu ou synchronisez vos appareils.</string>
     <string name="file_list_empty_favorites_filter_list">Les fichiers et dossiers ajoutés à vos favoris apparaîtront ici</string>
     <string name="file_list_empty_favorites_filter">Aucun fichier favori trouvé pour votre recherche.</string>
+    <string name="file_list_loading">Chargement…</string>
     <string name="file_list_no_app_for_file_type">Aucune application trouvée pour ce type de fichier.</string>
     <string name="local_file_list_empty">Aucun fichier n\'est présent dans ce dossier.</string>
     <string name="local_folder_list_empty">Il n\'y a pas d\'autres dossiers.</string>
@@ -124,6 +127,7 @@
     <string name="common_back">Retour</string>
     <string name="common_save">Enregistrer</string>
     <string name="common_error">Erreur</string>
+    <string name="common_loading">Chargement…</string>
     <string name="common_unknown">Inconnu</string>
     <string name="common_error_unknown">Erreur inconnue </string>
     <string name="common_pending">En attente</string>
@@ -135,7 +139,9 @@
 Attention la suppression est irréversible.</string>
     <string name="avatar">Avatar</string>
     <string name="active_user">Utilisateur actif</string>
+    <string name="upload_chooser_title">Envoyer depuis…</string>
     <string name="uploader_info_dirname">Nom du dossier</string>
+    <string name="uploader_upload_in_progress_ticker">Envoi en cours…</string>
     <string name="uploader_upload_in_progress_content">Envoi de %2$s : %1$d%%</string>
     <string name="uploader_upload_succeeded_ticker">Envoyé</string>
     <string name="uploader_upload_succeeded_content_single">%1$s envoyé</string>
@@ -161,6 +167,7 @@ Attention la suppression est irréversible.</string>
     <string name="uploads_view_upload_status_waiting_for_wifi">En attente du Wi-Fi</string>
     <string name="uploads_view_upload_status_waiting_exit_power_save_mode">En attente de sortie du mode d’économie d’énergie</string>
     <string name="uploads_view_later_waiting_to_upload">En attente d\'envoi</string>
+    <string name="downloader_download_in_progress_ticker">Réception en cours…</string>
     <string name="downloader_download_in_progress_content">Téléchargement de %2$s : %1$d%% effectués</string>
     <string name="downloader_download_succeeded_ticker">Reçu</string>
     <string name="downloader_download_succeeded_content">%1$s reçu</string>
@@ -224,7 +231,9 @@ Attention la suppression est irréversible.</string>
     <string name="media_play_pause_description">Bouton de lecture ou de pause</string>
     <string name="media_forward_description">Bouton d\'avance rapide</string>
 
-    <string name="auth_no_net_conn_title">Aucune connexion réseau</string>
+    <string name="auth_getting_authorization">Contrôle d\'autorisation…</string>
+    <string name="auth_trying_to_login">Tentative de connexion…</string>
+	<string name="auth_no_net_conn_title">Aucune connexion réseau</string>
 	<string name="auth_nossl_plain_ok_title">Connexion sécurisée non disponible</string>
 	<string name="auth_connection_established">Connexion établie</string>
 	<string name="auth_testing_connection">Test de connexion en cours</string>
@@ -248,7 +257,8 @@ Attention la suppression est irréversible.</string>
 	<string name="auth_expired_oauth_token_toast">Votre autorisation a expiré. Merci de vous authentifier à nouveau</string>
 	<string name="auth_expired_basic_auth_toast">Veuillez saisir le mot de passe actuel</string>
 	<string name="auth_expired_saml_sso_token_toast">Votre session a expiré. Merci de vous reconnecter</string>
-    <string name="auth_unsupported_multiaccount">%1$s ne prend pas en charge les comptes multiples</string>
+    <string name="auth_connecting_auth_server">Connexion au serveur d\'authentification…</string>
+	<string name="auth_unsupported_multiaccount">%1$s ne prend pas en charge les comptes multiples</string>
 	<string name="auth_fail_get_user_name">Votre serveur a retourné un identifiant d\'utilisateur incorrect. Veuillez contacter un administrateur</string>
 	<string name="auth_can_not_auth_against_server">Impossible de s\'authentifier sur ce serveur</string>
     <string name="auth_account_does_not_exist">Le compte n\'est pas encore ajouté sur cet appareil</string>
@@ -276,11 +286,15 @@ Attention la suppression est irréversible.</string>
     <string name="filename_forbidden_characters">Caractères interdits : / \\ &lt; &gt; : \" | ? *</string>
     <string name="filename_forbidden_charaters_from_server">Le nom du fichier contient au moins un caractère invalide</string>
     <string name="filename_empty">Le nom du fichier ne peut pas être vide</string>
+    <string name="wait_a_moment">Veuillez patienter…</string>
     <string name="wait_checking_credentials">Vérification des identifiants enregistrés</string>
     <string name="filedisplay_no_file_selected">Aucun fichier sélectionné</string>
+    <string name="activity_chooser_title">Envoyer le lien vers…</string>
     <string name="wait_for_tmp_copy_from_private_storage">Copie du fichier depuis le stockage privé</string>
     
     <string name="oauth_check_onoff">Connexion avec OAuth 2.0</string>
+    <string name="oauth_login_connection">Connexion au serveur OAuth 2.0…</string>
+        
     <string name="ssl_validator_header">L\'identité du serveur n\'a pas pu être vérifiée</string>
     <string name="ssl_validator_reason_cert_not_trusted">- Le certificat du serveur n\'est pas sûr</string>
     <string name="ssl_validator_reason_cert_expired">- Le certificat du serveur a expiré</string>
@@ -372,6 +386,14 @@ Attention la suppression est irréversible.</string>
     <string name="downloader_download_file_not_found">Ce fichier n’est plus disponible sur le serveur</string>
 
     <string name="file_migration_dialog_title">Mise à jour du chemin de stockage</string>
+    <string name="file_migration_preparing">Préparation pour la migration…</string>
+    <string name="file_migration_checking_destination">Vérification de la destination…</string>
+    <string name="file_migration_saving_accounts_configuration">Enregistrement de la configuration des comptes…</string>
+    <string name="file_migration_waiting_for_unfinished_sync">En attente de la synchronisation complète…</string>
+    <string name="file_migration_migrating">Déplacement des données…</string>
+    <string name="file_migration_updating_index">Mise à jour de l\'index…</string>
+    <string name="file_migration_cleaning">Nettoyage…</string>
+    <string name="file_migration_restoring_accounts_configuration">Restauration de la configuration des comptes…</string>
     <string name="file_migration_ok_finished">Terminé</string>
     <string name="file_migration_failed_not_enough_space">De l\'espace suplémentaire est nécessaire</string>
     <string name="file_migration_failed_not_writable">Le fichier de destination n\'est pas modifiable</string>
@@ -395,7 +417,9 @@ Attention la suppression est irréversible.</string>
 	<string name="log_send_history_button">Envoyer le journal</string>
 	<string name="log_send_no_mail_app">Aucune application n\'a été trouvée pour envoyer les journaux. Merci d\'installer une application de messagerie.</string>
 	<string name="log_send_mail_subject">Journaux de l\'application Android %1$s</string>
-    <string name="saml_authentication_required_text">Mot de passe requis</string>
+    <string name="log_progress_dialog_text">Chargement des données…</string>
+
+	<string name="saml_authentication_required_text">Mot de passe requis</string>
 	<string name="saml_authentication_wrong_pass">Mot de passe incorrect</string>
 	<string name="actionbar_move">Déplacer</string>
     <string name="actionbar_copy">Copier</string>
@@ -439,6 +463,8 @@ Attention la suppression est irréversible.</string>
     <string name="set_picture_as">Utiliser l\'image comme</string>
     <string name="set_as">Utiliser comme</string>
 
+    <string name="prefs_instant_behaviour_dialogTitle">Le fichier original sera…</string>
+    <string name="prefs_instant_behaviour_title">Le fichier original sera…</string>
     <string name="select_all">Tout sélectionner</string>
     <string name="deselect_all">Tout désélectionner</string>
 
@@ -459,6 +485,7 @@ Attention la suppression est irréversible.</string>
     <string name="share_via_link_edit_permission_label">Autoriser les modifications</string>
     <string name="share_via_link_hide_file_listing_permission_label">Masquer la liste des fichiers</string>
     <string name="share_get_public_link_button">Partager le lien</string>
+    <string name="share_with_title">Partager avec…</string>
     <string name="share_with_edit_title">Partager avec %1$s</string>
 
     <string name="share_search">Rechercher</string>
@@ -523,6 +550,11 @@ Veuillez contacter votre administrateur</string>
     <string name="participate_rc_fdroid">Obtenez la version Release Candidate depuis le F-Droid</string>
     <string name="participate_dev_fdroid"> Obtenez la version de développement depuis le F-Droid </string>
     <string name="participate_dev_direct_download">Obtenir la version de développement par téléchargement direct</string>
+    <string name="move_to">Déplacer vers…</string>
+    <string name="copy_to">Copier vers…</string>
+    <string name="choose_remote_folder">Sélectionner le dossier distant…</string>
+    <string name="choose_local_folder">Sélectionner le dossier local…</string>
+    <string name="synced_folders_loading_folders">Chargement des dossiers…</string>
     <string name="synced_folders_no_results">Aucun dossier média trouvé.</string>
     <string name="synced_folders_preferences">Préférences pour le téléversement automatique</string>
     <string name="synced_folders_new_info">Le téléversement immédiat a été complètement réorganisé. Merci de bien vouloir accéder au menu principal et de reconfigurer votre téléversement automatique.\n\nProfitez des nouvelles capacités étendues du téléversement automatique.</string>
@@ -532,6 +564,7 @@ Veuillez contacter votre administrateur</string>
         <item quantity="other">%d sélectionnés</item>
     </plurals>
 
+    <string name="notifications_loading_activity">Chargement des notifications…</string>
     <string name="notifications_no_results_headline">Aucune notification</string>
     <string name="notifications_no_results_message">Veuillez revenir plus tard.</string>
 
@@ -600,7 +633,6 @@ Veuillez contacter votre administrateur</string>
     <string name="contacts_preferences_import_scheduled">L\'import est planifié et va démarrer</string>
 
     <!-- Notifications -->
-    <string name="new_notification_received">Vous avez reçu une nouvelle notification</string>
     <string name="drawer_logout">Déconnexion</string>
     <string name="picture_set_as_no_app">Aucune application trouvée pour utiliser cette image</string>
     <string name="privacy">Vie privée</string>
@@ -616,6 +648,9 @@ Veuillez contacter votre administrateur</string>
     <string name="resharing_is_not_allowed">Le repartage n\'est pas autorisé</string>
     <string name="fallback_weblogin_back">Retour</string>
     <string name="fallback_weblogin_text">Revenir à l\'ancienne méthode de connexion</string>
+
+    <string name="foreground_service_upload">Téléversement des fichiers…</string>
+    <string name="foreground_service_download">Téléchargement des fichiers…</string>
 
     <string name="prefs_sourcecode">Obtenir le code source</string>
     <string name="prefs_license">Licence</string>
@@ -706,21 +741,31 @@ Veuillez contacter votre administrateur</string>
     
     <string name="end_to_end_encryption_folder_not_empty">Ce dossier n\'est pas vide.</string>
     <string name="end_to_end_encryption_wrong_password">Erreur lors du décryptage. Mauvais mot de passe ?</string>
+    <string name="end_to_end_encryption_decrypting">Décryptage…</string>
+    <string name="end_to_end_encryption_retrieving_keys">Récupération des clés…</string>
     <string name="end_to_end_encryption_enter_password">Veuillez entrer le mot de passe pour décrypter la clé privée.</string>
+    <string name="end_to_end_encryption_generating_keys">Générer des nouvelles clés…</string>
     <string name="end_to_end_encryption_keywords_description">Cette phrase de 12 mots est un mot de passe très fort permettant un accès à la lecture et à l\'utilisation de vos fichiers chiffrés. Veuillez l\'écrire et gardez la quelque-part en sécurité.</string>
     <string name="end_to_end_encryption_title">Configurer le chiffrement</string>
     <string name="end_to_end_encryption_passphrase_title">Veuillez noter votre phrase secrète de chiffrement de 12 mots</string>
     <string name="end_to_end_encryption_not_supported">Le chiffrement ne marche uniquement sur les versions KitKat (4.4) et plus</string>
     <string name="end_to_end_encryption_not_enabled">Chiffrement de bout en bout désactivé sur le serveur.</string>
     <string name="end_to_end_encryption_confirm_button">Configurer le chiffrement</string>
+    <string name="end_to_end_encryption_password">Mot de passe…</string>
     <string name="end_to_end_encryption_unsuccessful">Impossible d\'enregistrer les clés, veuillez réessayer.</string>
     <string name="end_to_end_encryption_dialog_close">Fermer</string>
     <string name="end_to_end_encryption_storing_keys">Enregistrement des clés</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Copier/déplacer dans ce dossier chiffré n\'est pas actuellement supporté</string>
     <string name="untrusted_domain">Accès depuis un domaine non fiable. Veuillez consulter la documentation pour plus d\'informations.</string>
+    <string name="upload_list_loading">Chargement des téléversements…</string>
     <string name="notification_channel_push_name">Notifications push</string>
     <string name="notification_channel_push_description">Afficher les notifications push envoyées par le serveur : mentions dans les commentaires, réception d\'un nouveau partage distant, une annonce postée par un administrateur, etc.</string>
     <string name="sendbutton_description">Icône du bouton d\'envoi</string>
     <string name="hint_name">Nom</string>
     <string name="hint_password">Mot de passe</string>
-    </resources>
+    <string name="add_to_cloud">Ajouter à %1$s</string>
+    <string name="upload_files">Téléverser des fichiers</string>
+    <string name="upload_content_from_other_apps">Téléverser du contenu à partir d\'autres applications</string>
+    <string name="create_new_folder">Créer un nouveau dossier</string>
+    <string name="uploads_view_upload_status_virus_detected">Un virus à été détecté dans ce fichier. Le téléversement ne peut donc pas se terminer.</string>
+</resources>

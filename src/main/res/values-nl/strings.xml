@@ -61,6 +61,7 @@
     <string name="recommend_urls">%1$s or %2$s</string>
 
     <string name="auth_check_server">Controleer server</string>
+    <string name="auth_host_url">Serveradres https://…</string>
     <string name="auth_username">Gebruikersnaam</string>
     <string name="auth_password">Wachtwoord</string>
     <string name="auth_register">Heb je nog geen server?\n Klik hier om je bij een provider aan te melden</string>
@@ -80,6 +81,7 @@
     <string name="uploader_error_message_source_file_not_found">Voor upload geselecteerde bestand niet gevonden. Controleer of het bestaat.</string>
     <string name="uploader_error_message_source_file_not_copied">Er trad een fout op bij het kopiëren van het bestand naar een tijdelijke map. Probeer het opnieuw te versturen.</string>
     <string name="uploader_upload_files_behaviour">Uploadoptie:</string>
+    <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">Verplaats bestand naar %1$s-map</string>
     <string name="uploader_upload_files_behaviour_only_upload">Bewaar het bestand in de bronmap</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Verwijder bestand uit bronmap</string>
     <string name="file_list_seconds_ago">seconden geleden</string>
@@ -88,6 +90,7 @@
     <string name="file_list_empty">Upload je inhoud of synchroniseer met je apparaten.</string>
     <string name="file_list_empty_favorites_filter_list">Bestanden en mappen gemarkeerd als favoriet worden hier getoond</string>
     <string name="file_list_empty_favorites_filter">Geen favoriete bestanden gevonden voor je zoekopdracht!</string>
+    <string name="file_list_loading">Laden…</string>
     <string name="file_list_no_app_for_file_type">Er is geen app ingesteld om dit bestandsformaat te behandelen.</string>
     <string name="local_file_list_empty">Er staan geen bestanden in deze map.</string>
     <string name="local_folder_list_empty">Er zijn niet meer mappen.</string>
@@ -124,6 +127,7 @@
     <string name="common_back">Terug</string>
     <string name="common_save">Bewaren</string>
     <string name="common_error">Error</string>
+    <string name="common_loading">Laden…</string>
     <string name="common_unknown">onbekend</string>
     <string name="common_error_unknown">Onbekende fout</string>
     <string name="common_pending">In behandeling</string>
@@ -133,7 +137,9 @@
     <string name="delete_account_warning">Verwijder account %s met alle lokale bestanden? Het verwijderen kan niet worden teruggedraaid.</string>
     <string name="avatar">Avatar</string>
     <string name="active_user">Actieve gebruiker</string>
+    <string name="upload_chooser_title">Upload van…</string>
     <string name="uploader_info_dirname">Mapnaam</string>
+    <string name="uploader_upload_in_progress_ticker">Uploaden…</string>
     <string name="uploader_upload_in_progress_content">%1$d%% Uploaden van %2$s</string>
     <string name="uploader_upload_succeeded_ticker">Geüpload</string>
     <string name="uploader_upload_succeeded_content_single">%1$s geüpload</string>
@@ -159,6 +165,7 @@
     <string name="uploads_view_upload_status_waiting_for_wifi">Wachten op een wifi-verbinding</string>
     <string name="uploads_view_upload_status_waiting_exit_power_save_mode">Wachten om de energiemodus te verlaten</string>
     <string name="uploads_view_later_waiting_to_upload">Wachten om te uploaden</string>
+    <string name="downloader_download_in_progress_ticker">Downloaden…</string>
     <string name="downloader_download_in_progress_content">%1$d%% Downloaden van %2$s</string>
     <string name="downloader_download_succeeded_ticker">Gedownload</string>
     <string name="downloader_download_succeeded_content">%1$s gedownload.</string>
@@ -222,7 +229,9 @@
     <string name="media_play_pause_description">Speel- of pauzeknop</string>
     <string name="media_forward_description">Doorspoelknop</string>
 
-    <string name="auth_no_net_conn_title">Geen netwerkverbinding</string>
+    <string name="auth_getting_authorization">Autorisatie verkrijgen…</string>
+    <string name="auth_trying_to_login">Proberen om in the loggen…</string>
+	<string name="auth_no_net_conn_title">Geen netwerkverbinding</string>
 	<string name="auth_nossl_plain_ok_title">Veilige verbinding niet beschikbaar.</string>
 	<string name="auth_connection_established">Verbinding tot stand gebracht</string>
 	<string name="auth_testing_connection">Verbinding testen</string>
@@ -246,7 +255,8 @@
 	<string name="auth_expired_oauth_token_toast">Je autorisatie is verstreken. Autoriseer opnieuw</string>
 	<string name="auth_expired_basic_auth_toast">Voer het huidige wachtwoord in</string>
 	<string name="auth_expired_saml_sso_token_toast">Je sessie is verstreken. Verbind opnieuw</string>
-    <string name="auth_unsupported_multiaccount">%1$s ondersteunt het gebruik van meerdere accounts niet</string>
+    <string name="auth_connecting_auth_server">Verbinden met authenticatie server…</string>
+	<string name="auth_unsupported_multiaccount">%1$s ondersteunt het gebruik van meerdere accounts niet</string>
 	<string name="auth_fail_get_user_name">Je server geeft geen geldige userID terug, neem contact op met je server beheerder</string>
 	<string name="auth_can_not_auth_against_server">Kan niet authenticeren tegen deze server</string>
     <string name="auth_account_does_not_exist">Account bestaat nog niet op dit apparaat</string>
@@ -274,11 +284,15 @@
     <string name="filename_forbidden_characters">Verboden tekens: / \\ &lt; &gt; : " | ? *</string>
     <string name="filename_forbidden_charaters_from_server">De bestandsnaam bevat ten minste één ongeldig teken</string>
     <string name="filename_empty">Bestandsnaam mag niet leeg zijn</string>
+    <string name="wait_a_moment">Wacht even…</string>
     <string name="wait_checking_credentials">Opgeslagen inloggegevens nakijken</string>
     <string name="filedisplay_no_file_selected">Geen bestand geselecteerd</string>
+    <string name="activity_chooser_title">Verstuur link naar…</string>
     <string name="wait_for_tmp_copy_from_private_storage">Bestand vanaf privéopslag kopiëren</string>
     
     <string name="oauth_check_onoff">Inloggen met OAuth 2.0</string>
+    <string name="oauth_login_connection">Verbinden met OAuth 2.0 server…</string>
+        
     <string name="ssl_validator_header">De identiteit van de server kon niet geverifieerd worden</string>
     <string name="ssl_validator_reason_cert_not_trusted">- Het servercertificaat wordt niet vertrouwd</string>
     <string name="ssl_validator_reason_cert_expired">- Het servercertificaat is verlopen</string>
@@ -370,6 +384,14 @@
     <string name="downloader_download_file_not_found">Dit bestand is niet langer beschikbaar op de server</string>
 
     <string name="file_migration_dialog_title">Opslagpad bijwerken</string>
+    <string name="file_migration_preparing">Migratie voorbereiden…</string>
+    <string name="file_migration_checking_destination">Doelmap controleren…</string>
+    <string name="file_migration_saving_accounts_configuration">Accountconfiguratie opslaan…</string>
+    <string name="file_migration_waiting_for_unfinished_sync">Wachten op volledige synchronisaties…</string>
+    <string name="file_migration_migrating">Gegevens verplaatsen…</string>
+    <string name="file_migration_updating_index">Index bijwerken…</string>
+    <string name="file_migration_cleaning">Opruimen…</string>
+    <string name="file_migration_restoring_accounts_configuration">Accountconfiguratie herstellen…</string>
     <string name="file_migration_ok_finished">Afgerond</string>
     <string name="file_migration_failed_not_enough_space">Meer ruimte nodig</string>
     <string name="file_migration_failed_not_writable">Kon niet schrijven naar bestand</string>
@@ -393,7 +415,9 @@
 	<string name="log_send_history_button">Geschiedenis versturen</string>
 	<string name="log_send_no_mail_app">Geen applicatie gevonden voor het versturen van de logs. Installeer een email client.</string>
 	<string name="log_send_mail_subject">%1$s-Android-app-logs</string>
-    <string name="saml_authentication_required_text">Wachtwoord vereist</string>
+    <string name="log_progress_dialog_text">Gegevens laden…</string>
+
+	<string name="saml_authentication_required_text">Wachtwoord vereist</string>
 	<string name="saml_authentication_wrong_pass">Onjuist wachtwoord</string>
 	<string name="actionbar_move">Verplaatsen</string>
     <string name="actionbar_copy">Kopiëren</string>
@@ -437,6 +461,8 @@
     <string name="set_picture_as">Gebruik afbeelding als</string>
     <string name="set_as">Stel in als</string>
 
+    <string name="prefs_instant_behaviour_dialogTitle">Origineel bestand zal…</string>
+    <string name="prefs_instant_behaviour_title">Origineel bestand zal…</string>
     <string name="select_all">Alles selecteren</string>
     <string name="deselect_all">Deselecteer alles</string>
 
@@ -457,6 +483,7 @@
     <string name="share_via_link_edit_permission_label">Bewerken toestaan</string>
     <string name="share_via_link_hide_file_listing_permission_label">Verberg bestandsoverzicht</string>
     <string name="share_get_public_link_button">Link ophalen </string>
+    <string name="share_with_title">Deel met…</string>
     <string name="share_with_edit_title">Deel met %1$s</string>
 
     <string name="share_search">Zoeken</string>
@@ -520,6 +547,11 @@
     <string name="participate_rc_fdroid">Download de release candidate in F-Droid</string>
     <string name="participate_dev_fdroid">Download de development release in F-Droid</string>
     <string name="participate_dev_direct_download">Haal de development release binnen via directe download</string>
+    <string name="move_to">Verplaats naar…</string>
+    <string name="copy_to">Kopieer naar…</string>
+    <string name="choose_remote_folder">Kies externe map…</string>
+    <string name="choose_local_folder">Kies lokale map…</string>
+    <string name="synced_folders_loading_folders">Mappen laden…</string>
     <string name="synced_folders_no_results">Geen mediamappen gevonden.</string>
     <string name="synced_folders_preferences">Voorkeuren voor automatisch uploaden</string>
     <string name="synced_folders_new_info">Automatisch uploaden is helemaal herzien. Herconfigureer je auto-uploadfunctie in het hoofdmenu.\n\nVeel plezier met de nieuwe en meer uitgebreide auto-upload.</string>
@@ -529,6 +561,7 @@
         <item quantity="other">%d geselecteerd</item>
     </plurals>
 
+    <string name="notifications_loading_activity">Notificaties laden…</string>
     <string name="notifications_no_results_headline">Geen meldingen</string>
     <string name="notifications_no_results_message">Controleer later opnieuw.</string>
 
@@ -597,7 +630,6 @@
     <string name="contacts_preferences_import_scheduled">Import ingepland en zal zo starten</string>
 
     <!-- Notifications -->
-    <string name="new_notification_received">Nieuwe melding ontvangen</string>
     <string name="drawer_logout">Uitloggen</string>
     <string name="picture_set_as_no_app">Geen app gevonden om afbeelding in te stellen</string>
     <string name="privacy">Privacy</string>
@@ -613,6 +645,9 @@
     <string name="resharing_is_not_allowed">Verder delen is niet toegestaan</string>
     <string name="fallback_weblogin_back">Terug</string>
     <string name="fallback_weblogin_text">Terug naar vorige login-methode</string>
+
+    <string name="foreground_service_upload">Uploaden bestanden…</string>
+    <string name="foreground_service_download">Downloaden bestanden…</string>
 
     <string name="prefs_sourcecode">Krijg broncode</string>
     <string name="prefs_license">Licentie</string>
@@ -703,18 +738,23 @@
     
     <string name="end_to_end_encryption_folder_not_empty">Deze map is niet leeg.</string>
     <string name="end_to_end_encryption_wrong_password">Fout tijdens ontsleutelen. Verkeerd wachtwoord?</string>
+    <string name="end_to_end_encryption_decrypting">Ontcijferen…</string>
+    <string name="end_to_end_encryption_retrieving_keys">Ophalen sleutels…</string>
     <string name="end_to_end_encryption_enter_password">Voer wachtwoord in om privésleutel te ontgrendelen.</string>
+    <string name="end_to_end_encryption_generating_keys">Genereren nieuwe sleutels…</string>
     <string name="end_to_end_encryption_keywords_description">Deze zin van 12 woorden is als een heel sterk wachtwoord: het verleent volledige toegang tot je versleutelde bestanden. Schrijf het alsjeblieft op en bewaar het op een veilige plek.</string>
     <string name="end_to_end_encryption_title">Instellen versleuteling</string>
     <string name="end_to_end_encryption_passphrase_title">Schrijf je encryptie wachtwoord van 12 woorden op</string>
     <string name="end_to_end_encryption_not_supported">Versleutelen wordt niet ondersteund in versies eerder dan KitKat (4.4)</string>
     <string name="end_to_end_encryption_not_enabled">Begin-tot-eind versleuteling uitgeschakeld op de server.</string>
     <string name="end_to_end_encryption_confirm_button">Instellen versleuteling</string>
+    <string name="end_to_end_encryption_password">Wachtwoord…</string>
     <string name="end_to_end_encryption_unsuccessful">Kon de sleutels niet opslaan, probeer opnieuw a.u.b.</string>
     <string name="end_to_end_encryption_dialog_close">Sluiten</string>
     <string name="end_to_end_encryption_storing_keys">Opslaan sleutels</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Kopieren/verplaatsen naar een versleutelde map is momenteel niet mogelijk.</string>
     <string name="untrusted_domain">Toegang van een niet vertrouwd domein. Bekijk de documentatie voor meer informatie.</string>
+    <string name="upload_list_loading">Uploads laden…</string>
     <string name="notification_channel_push_name">Push meldingen</string>
     <string name="notification_channel_push_description">Toon push meldingen verstuurd door de server: als je wordt vermeld in reacties, of als je een deellink ontvangt of als een beheerder een aankondiging plaatst.</string>
     <string name="sendbutton_description">Verstuur-knop pictogram</string>

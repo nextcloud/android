@@ -61,6 +61,7 @@
     <string name="recommend_urls">%1$s or %2$s</string>
 
     <string name="auth_check_server">Check server</string>
+    <string name="auth_host_url">Server address https://…</string>
     <string name="auth_username">Username</string>
     <string name="auth_password">Password</string>
     <string name="auth_register">No Nextcloud yet?\nClick here to get one from a provider</string>
@@ -80,6 +81,7 @@
     <string name="uploader_error_message_source_file_not_found">File selected for upload not found. Please check whether the file exists.</string>
     <string name="uploader_error_message_source_file_not_copied">Could not copy file to a temporary folder. Try to resend it.</string>
     <string name="uploader_upload_files_behaviour">Upload option:</string>
+    <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">Move file to %1$s folder</string>
     <string name="uploader_upload_files_behaviour_only_upload">Keep file in source folder</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Delete file from source folder</string>
     <string name="file_list_seconds_ago">seconds ago</string>
@@ -88,6 +90,7 @@
     <string name="file_list_empty">Upload some content or sync with your devices.</string>
     <string name="file_list_empty_favorites_filter_list">Files and folders you mark as favorites will show up here</string>
     <string name="file_list_empty_favorites_filter">Your search returned no favorited files.</string>
+    <string name="file_list_loading">Loading…</string>
     <string name="file_list_no_app_for_file_type">No app set up to handle this file type.</string>
     <string name="local_file_list_empty">There are no files in this folder.</string>
     <string name="local_folder_list_empty">There are no further folders.</string>
@@ -124,6 +127,7 @@
     <string name="common_back">Back</string>
     <string name="common_save">Save</string>
     <string name="common_error">Error</string>
+    <string name="common_loading">Loading…</string>
     <string name="common_unknown">unknown</string>
     <string name="common_error_unknown">Unknown error</string>
     <string name="common_pending">Pending</string>
@@ -133,7 +137,9 @@
     <string name="delete_account_warning">Remove account %s and delete all local files?\n\nDeletion cannot be undone.</string>
     <string name="avatar">Avatar</string>
     <string name="active_user">Active user</string>
+    <string name="upload_chooser_title">Upload from…</string>
     <string name="uploader_info_dirname">Folder name</string>
+    <string name="uploader_upload_in_progress_ticker">Uploading…</string>
     <string name="uploader_upload_in_progress_content">%1$d%% Uploading %2$s</string>
     <string name="uploader_upload_succeeded_ticker">Uploaded</string>
     <string name="uploader_upload_succeeded_content_single">%1$s uploaded</string>
@@ -159,6 +165,7 @@
     <string name="uploads_view_upload_status_waiting_for_wifi">Waiting for Wi-Fi</string>
     <string name="uploads_view_upload_status_waiting_exit_power_save_mode">Waiting to exit power save mode</string>
     <string name="uploads_view_later_waiting_to_upload">Waiting to upload</string>
+    <string name="downloader_download_in_progress_ticker">Downloading…</string>
     <string name="downloader_download_in_progress_content">%1$d%% Downloading %2$s</string>
     <string name="downloader_download_succeeded_ticker">Downloaded</string>
     <string name="downloader_download_succeeded_content">%1$s downloaded</string>
@@ -222,7 +229,9 @@
     <string name="media_play_pause_description">Play or pause button</string>
     <string name="media_forward_description">Fast-forward button</string>
 
-    <string name="auth_no_net_conn_title">No network connection</string>
+    <string name="auth_getting_authorization">Getting authorisation…</string>
+    <string name="auth_trying_to_login">Trying to log in…</string>
+	<string name="auth_no_net_conn_title">No network connection</string>
 	<string name="auth_nossl_plain_ok_title">Secure connection unavailable.</string>
 	<string name="auth_connection_established">Connection established</string>
 	<string name="auth_testing_connection">Testing connection</string>
@@ -246,7 +255,8 @@
 	<string name="auth_expired_oauth_token_toast">Your authorisation expired. Please, authorise again</string>
 	<string name="auth_expired_basic_auth_toast">Please enter the current password</string>
 	<string name="auth_expired_saml_sso_token_toast">Your session expired. Please connect again</string>
-    <string name="auth_unsupported_multiaccount">%1$s does not support multiple accounts</string>
+    <string name="auth_connecting_auth_server">Connecting to authentication server…</string>
+	<string name="auth_unsupported_multiaccount">%1$s does not support multiple accounts</string>
 	<string name="auth_fail_get_user_name">Your server is not returning a correct user ID, please contact an admin</string>
 	<string name="auth_can_not_auth_against_server">Cannot authenticate to this server</string>
     <string name="auth_account_does_not_exist">The account is not added on this device yet</string>
@@ -274,11 +284,15 @@
     <string name="filename_forbidden_characters">Forbidden characters: / \\ &lt; &gt; : \" | ? *</string>
     <string name="filename_forbidden_charaters_from_server">Filename contains at least one invalid character</string>
     <string name="filename_empty">Filename cannot be empty</string>
+    <string name="wait_a_moment">Wait a moment…</string>
     <string name="wait_checking_credentials">Checking stored credentials</string>
     <string name="filedisplay_no_file_selected">No file selected</string>
+    <string name="activity_chooser_title">Send link to…</string>
     <string name="wait_for_tmp_copy_from_private_storage">Copying file from private storage</string>
     
     <string name="oauth_check_onoff">Log in with OAuth 2.0</string>
+    <string name="oauth_login_connection">Connecting to OAuth 2.0 server…</string>
+        
     <string name="ssl_validator_header">The identity of the server could not be verified</string>
     <string name="ssl_validator_reason_cert_not_trusted">- The server certificate is not trusted</string>
     <string name="ssl_validator_reason_cert_expired">- The server certificate expired</string>
@@ -370,6 +384,14 @@
     <string name="downloader_download_file_not_found">The file is no longer available on the server</string>
 
     <string name="file_migration_dialog_title">Updating storage path</string>
+    <string name="file_migration_preparing">Preparing migration…</string>
+    <string name="file_migration_checking_destination">Checking destination…</string>
+    <string name="file_migration_saving_accounts_configuration">Saving account config…</string>
+    <string name="file_migration_waiting_for_unfinished_sync">Awaiting full sync…</string>
+    <string name="file_migration_migrating">Moving data…</string>
+    <string name="file_migration_updating_index">Updating index…</string>
+    <string name="file_migration_cleaning">Cleaning…</string>
+    <string name="file_migration_restoring_accounts_configuration">Restoring account config…</string>
     <string name="file_migration_ok_finished">Finished</string>
     <string name="file_migration_failed_not_enough_space">More space needed</string>
     <string name="file_migration_failed_not_writable">Could not write to destination file</string>
@@ -393,7 +415,9 @@
 	<string name="log_send_history_button">Send history</string>
 	<string name="log_send_no_mail_app">No app for sending logs found. Please install an e-mail client.</string>
 	<string name="log_send_mail_subject">%1$s Android app logs</string>
-    <string name="saml_authentication_required_text">Password required</string>
+    <string name="log_progress_dialog_text">Loading data…</string>
+
+	<string name="saml_authentication_required_text">Password required</string>
 	<string name="saml_authentication_wrong_pass">Incorrect password</string>
 	<string name="actionbar_move">Move</string>
     <string name="actionbar_copy">Copy</string>
@@ -437,6 +461,8 @@
     <string name="set_picture_as">Use picture as</string>
     <string name="set_as">Set As</string>
 
+    <string name="prefs_instant_behaviour_dialogTitle">Original file will be…</string>
+    <string name="prefs_instant_behaviour_title">Original file will be…</string>
     <string name="select_all">Select all</string>
     <string name="deselect_all">Deselect all</string>
 
@@ -457,6 +483,7 @@
     <string name="share_via_link_edit_permission_label">Allow edits</string>
     <string name="share_via_link_hide_file_listing_permission_label">Hide file listing</string>
     <string name="share_get_public_link_button">Get link</string>
+    <string name="share_with_title">Share with…</string>
     <string name="share_with_edit_title">Share with %1$s</string>
 
     <string name="share_search">Search</string>
@@ -520,6 +547,11 @@
     <string name="participate_rc_fdroid">Get release candidate from F-Droid app</string>
     <string name="participate_dev_fdroid">Get development release from F-Droid app</string>
     <string name="participate_dev_direct_download">Download development release directly</string>
+    <string name="move_to">Move to…</string>
+    <string name="copy_to">Copy to…</string>
+    <string name="choose_remote_folder">Choose remote folder…</string>
+    <string name="choose_local_folder">Choose local folder…</string>
+    <string name="synced_folders_loading_folders">Loading folders…</string>
     <string name="synced_folders_no_results">No media folders found.</string>
     <string name="synced_folders_preferences">Preferences for auto uploading</string>
     <string name="synced_folders_new_info">Instant uploading has been revamped completely. Re-configure your auto upload from within the main menu.\n\nEnjoy the new and extended auto uploading.</string>
@@ -529,6 +561,7 @@
         <item quantity="other">%d selected</item>
     </plurals>
 
+    <string name="notifications_loading_activity">Loading notifications…</string>
     <string name="notifications_no_results_headline">No notifications</string>
     <string name="notifications_no_results_message">Please check back later.</string>
 
@@ -597,7 +630,6 @@
     <string name="contacts_preferences_import_scheduled">Import scheduled and will start shortly</string>
 
     <!-- Notifications -->
-    <string name="new_notification_received">New notification received</string>
     <string name="drawer_logout">Log out</string>
     <string name="picture_set_as_no_app">No app found to set a picture with</string>
     <string name="privacy">Privacy</string>
@@ -613,6 +645,9 @@
     <string name="resharing_is_not_allowed">Resharing is not allowed</string>
     <string name="fallback_weblogin_back">Back</string>
     <string name="fallback_weblogin_text">Revert to old login method</string>
+
+    <string name="foreground_service_upload">Uploading files…</string>
+    <string name="foreground_service_download">Downloading files…</string>
 
     <string name="prefs_sourcecode">Get source code</string>
     <string name="prefs_license">License</string>
@@ -703,18 +738,23 @@
     
     <string name="end_to_end_encryption_folder_not_empty">This folder is not empty.</string>
     <string name="end_to_end_encryption_wrong_password">Error while decrypting. Wrong password?</string>
+    <string name="end_to_end_encryption_decrypting">Decrypting…</string>
+    <string name="end_to_end_encryption_retrieving_keys">Retrieving keys…</string>
     <string name="end_to_end_encryption_enter_password">Please enter password to decrypt private key.</string>
+    <string name="end_to_end_encryption_generating_keys">Generating new keys…</string>
     <string name="end_to_end_encryption_keywords_description">All 12 words together make a very strong password, letting only you view and make use of your encrypted files. Please write it down and keep it somewhere safe.</string>
     <string name="end_to_end_encryption_title">Set up encryption</string>
     <string name="end_to_end_encryption_passphrase_title">Make note of your 12 word encryption password</string>
     <string name="end_to_end_encryption_not_supported">Encryption only works on KitKat(4.4) and beyond.</string>
     <string name="end_to_end_encryption_not_enabled">End-to-end encryption disabled on server.</string>
     <string name="end_to_end_encryption_confirm_button">Set up encryption</string>
+    <string name="end_to_end_encryption_password">Password…</string>
     <string name="end_to_end_encryption_unsuccessful">Could not save keys, please try again.</string>
     <string name="end_to_end_encryption_dialog_close">Close</string>
     <string name="end_to_end_encryption_storing_keys">Storing keys</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Copy/move into encrypted folder currently not supported.</string>
     <string name="untrusted_domain">Access through untrusted domain. Please see documentation for further info.</string>
+    <string name="upload_list_loading">Loading uploads…</string>
     <string name="notification_channel_push_name">Push notifications</string>
     <string name="notification_channel_push_description">Show push notifications sent by the server: Mentions in comments, reception of new remote shares, announcements posted by an admin etc.</string>
     <string name="sendbutton_description">Send button icon</string>
@@ -722,4 +762,9 @@
     <string name="oauth_2_0_access_end_point_address_hint">Access end point address</string>
     <string name="hint_name">Name</string>
     <string name="hint_password">Password</string>
-    </resources>
+    <string name="add_to_cloud">Add to %1$s</string>
+    <string name="upload_files">Upload files</string>
+    <string name="upload_content_from_other_apps">Upload content from other apps</string>
+    <string name="create_new_folder">Create new folder</string>
+    <string name="uploads_view_upload_status_virus_detected">Virus detected. Upload cannot be completed!</string>
+</resources>

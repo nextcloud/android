@@ -532,7 +532,6 @@
     <string name="contacts_preferences_import_scheduled">La importación está calendarizada y deberá iniciar en breve</string>
 
     <!-- Notifications -->
-    <string name="new_notification_received">Nueva notificación recibida</string>
     <string name="drawer_logout">Cerrar sesión</string>
     <string name="privacy">Privacidad</string>
     <!-- Auto upload -->
