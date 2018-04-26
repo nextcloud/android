@@ -20,7 +20,7 @@ public interface ActivitiesContract {
     }
 
     interface ActionListener {
-        void loadActivites(String pageUrl);
+        void loadActivities(String pageUrl);
         void openActivity(String fileUrl, BaseActivity baseActivity, boolean isSharingSupported);
     }
 }
