@@ -757,7 +757,6 @@ Veuillez contacter votre administrateur</string>
     <string name="end_to_end_encryption_storing_keys">Enregistrement des clés</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Copier/déplacer dans ce dossier chiffré n\'est pas actuellement supporté</string>
     <string name="untrusted_domain">Accès depuis un domaine non fiable. Veuillez consulter la documentation pour plus d\'informations.</string>
-    <string name="upload_list_loading">Chargement des téléversements…</string>
     <string name="notification_channel_push_name">Notifications push</string>
     <string name="notification_channel_push_description">Afficher les notifications push envoyées par le serveur : mentions dans les commentaires, réception d\'un nouveau partage distant, une annonce postée par un administrateur, etc.</string>
     <string name="sendbutton_description">Icône du bouton d\'envoi</string>

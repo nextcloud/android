@@ -759,7 +759,6 @@
     <string name="end_to_end_encryption_storing_keys">Складиштење кључева</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Копирање/премештање у шифровану фасциклу није подржано.</string>
     <string name="untrusted_domain">Приступ кроз домен који није од поверења. Погледајте документацију за још информација.</string>
-    <string name="upload_list_loading">Учитавам отпремања…</string>
     <string name="notification_channel_push_name">Брза обавештења</string>
     <string name="notification_channel_push_description">Приказуј брза обавештења која пошаље сервер: када сте поменути у коментарима, када добијете ново удаљено дељење, када администратор постави неко обавештење итд.</string>
     <string name="sendbutton_description">Икона дугма за слање</string>

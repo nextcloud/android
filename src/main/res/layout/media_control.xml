@@ -17,8 +17,8 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
   
 -->
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
@@ -74,7 +74,8 @@
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="@dimen/seek_bar_height"
-            android:splitTrack="false"/>
+            android:splitTrack="false"
+            tools:ignore="UnusedAttribute" />
 
         <TextView android:id="@+id/totalTimeText"
             android:textSize="@dimen/two_line_secondary_text_size"
