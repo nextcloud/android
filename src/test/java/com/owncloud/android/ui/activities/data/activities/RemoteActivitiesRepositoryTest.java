@@ -41,7 +41,7 @@ public class RemoteActivitiesRepositoryTest {
     }
 
     @Test
-    public void loadActivitesReturnSuccess() {
+    public void loadActivitiesReturnSuccess() {
         mActivitiesRepository.getActivities("null", mockedLoadActivitiesCallback);
         verify(serviceApi).getAllActivities(eq("null"), activitiesServiceCallbackCaptor.capture());
         activitiesServiceCallbackCaptor.getValue().onLoaded(activitiesList, ownCloudClient, "nextPageUrl");
@@ -49,7 +49,7 @@ public class RemoteActivitiesRepositoryTest {
     }
 
     @Test
-    public void loadActivitesReturnError() {
+    public void loadActivitiesReturnError() {
         mActivitiesRepository.getActivities("null", mockedLoadActivitiesCallback);
         verify(serviceApi).getAllActivities(eq("null"), activitiesServiceCallbackCaptor.capture());
         activitiesServiceCallbackCaptor.getValue().onError("error");

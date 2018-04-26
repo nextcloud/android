@@ -63,7 +63,7 @@ public class ActivitiesPresenterTest {
     @Test
     public void loadActivitiesFromRepositoryIntoView() {
         // When loading activities from repository is requested from presenter...
-        mPresenter.loadActivites(null);
+        mPresenter.loadActivities(null);
         // Progress indicator is shown in view
         verify(mView).setProgressIndicatorState(eq(true));
         // Repository starts retrieving activities from server
@@ -74,13 +74,13 @@ public class ActivitiesPresenterTest {
         // Progress indicator is hidden
         verify(mView).setProgressIndicatorState(eq(false));
         // List of activities is shown in view.
-        verify(mView).showActivites(eq(activitiesList), eq(mOwnCloudClient), eq(null));
+        verify(mView).showActivities(eq(activitiesList), eq(mOwnCloudClient), eq(null));
     }
 
     @Test
     public void loadActivitiesFromRepositoryShowError() {
         // When loading activities from repository is requested from presenter...
-        mPresenter.loadActivites(null);
+        mPresenter.loadActivities(null);
         // Progress indicator is shown in view
         verify(mView).setProgressIndicatorState(eq(true));
         // Repository starts retrieving activities from server
