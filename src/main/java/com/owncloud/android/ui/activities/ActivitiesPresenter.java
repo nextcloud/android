@@ -27,7 +27,7 @@ public class ActivitiesPresenter implements ActivitiesContract.ActionListener {
     }
 
     @Override
-    public void loadActivites(String pageUrl) {
+    public void loadActivities(String pageUrl) {
         mActivitiesView.setProgressIndicatorState(true);
         mActivitiesRepository.getActivities(pageUrl, new ActivitiesRepository.LoadActivitiesCallback() {
             @Override
