@@ -107,8 +107,12 @@ public class ActivitiesActivity extends FileActivity implements ActivityListInte
             ThemeUtils.setColoredTitle(actionBar, getString(R.string.drawer_item_activities), this);
         }
 
-        swipeListRefreshLayout.setOnRefreshListener(() -> mActionListener.loadActivities(null)
-        );
+        swipeListRefreshLayout.setOnRefreshListener(() -> {
+            // We set the nextPageUrl variable to null here since when manually refreshing
+            // activities data we want to clear the list and reset the pagination.
+            nextPageUrl = null;
+            mActionListener.loadActivities(nextPageUrl);
+        });
 
         // Since we use swipe-to-refresh for progress indication we can hide the inherited
         // progressBar, message and headline
