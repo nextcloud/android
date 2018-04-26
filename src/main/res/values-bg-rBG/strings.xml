@@ -63,7 +63,7 @@
     <string name="auth_check_server">Проверяване на сървъра</string>
     <string name="auth_username">Потребител</string>
     <string name="auth_password">Парола</string>
-    <string name="auth_register">Нямате Nextcloud все още? Натиснете тук за да получите един от доставчик</string>
+    <string name="auth_register">Все още нямате Nextcloud? Натиснете тук, за да получите един от доставчик</string>
     <string name="sync_string_files">Файлове</string>
     <string name="setup_btn_connect">Свързване</string>
     <string name="uploader_btn_upload_text">Качване</string>
@@ -88,6 +88,7 @@
     <string name="file_list_empty">Качи съдържание или синхронизирай с твоите устройства.</string>
     <string name="file_list_empty_favorites_filter_list">Файловете и папките които отбелязваш като любими ще се показват тук</string>
     <string name="file_list_empty_favorites_filter">Търсенето ви не откри любими файлове</string>
+    <string name="file_list_loading">Зареждане...</string>
     <string name="file_list_no_app_for_file_type">Няма апликация, която да се справи с подобен тип файл.</string>
     <string name="local_file_list_empty">В папката няма файлове.</string>
     <string name="local_folder_list_empty">Няма повече папки.</string>
@@ -124,6 +125,7 @@
     <string name="common_back">Назад</string>
     <string name="common_save">Запазване</string>
     <string name="common_error">Грешка</string>
+    <string name="common_loading">Зареждане...</string>
     <string name="common_unknown">неясна</string>
     <string name="common_error_unknown">Неизвестна грешка</string>
     <string name="common_pending">В очакване</string>
@@ -134,6 +136,7 @@
     <string name="avatar">Аватар</string>
     <string name="active_user">Активен потребител</string>
     <string name="uploader_info_dirname">Име на папката</string>
+    <string name="uploader_upload_in_progress_ticker">Качване...</string>
     <string name="uploader_upload_in_progress_content">%1$d%% Качване %2$s</string>
     <string name="uploader_upload_succeeded_ticker">Качени</string>
     <string name="uploader_upload_succeeded_content_single">%1$s качено</string>
@@ -159,6 +162,7 @@
     <string name="uploads_view_upload_status_waiting_for_wifi">Изчакване на WiFi връзка</string>
     <string name="uploads_view_upload_status_waiting_exit_power_save_mode">Изчакване да излезете от режима за икономия на енергия</string>
     <string name="uploads_view_later_waiting_to_upload">Изчакване за качване</string>
+    <string name="downloader_download_in_progress_ticker">Изтегляне...</string>
     <string name="downloader_download_in_progress_content">%1$d%% Изтегляне %2$s</string>
     <string name="downloader_download_succeeded_ticker">Изтеглено</string>
     <string name="downloader_download_succeeded_content">%1$s свалено</string>
@@ -222,6 +226,7 @@
     <string name="media_play_pause_description">Бутон възпроизведи / пауза </string>
     <string name="media_forward_description">Бутон за превъртане напред</string>
 
+    <string name="auth_getting_authorization">Получаване на оторизация...</string>
     <string name="auth_no_net_conn_title">Няма връзка с интернет</string>
 	<string name="auth_nossl_plain_ok_title">Няма сигурна връзка.</string>
 	<string name="auth_connection_established">Осъществена е връзка</string>
@@ -371,6 +376,8 @@
     <string name="downloader_download_file_not_found">Файлът вече не се намира на сървъра</string>
 
     <string name="file_migration_dialog_title">Обновяване на пътя до хранилището</string>
+    <string name="file_migration_saving_accounts_configuration">Запазване на настройките на профилите...</string>
+    <string name="file_migration_restoring_accounts_configuration">Възстановяване на настройките на профилите...</string>
     <string name="file_migration_ok_finished">Завършен</string>
     <string name="file_migration_failed_not_enough_space">Нужно е повече пространство</string>
     <string name="file_migration_failed_not_writable">Писане към медия файла беше неуспешно</string>
@@ -545,14 +552,14 @@
     <string name="whats_new_title">Ново в %1$s</string>
 
     <!-- Welcome to Nc intro features -->
-    <string name="welcome_feature_1_title">Безопасен дом за всички ваши данни</string>
+    <string name="welcome_feature_1_title">Сигурен дом за всички ваши данни</string>
     <string name="welcome_feature_1_text">Разглеждайте, споделяйте и защитавайте вашите файлове в дома и в работата</string>
 
-    <string name="welcome_feature_2_title">Multi акаунт</string>
-    <string name="welcome_feature_2_text">Свържи се към облаците си</string>
+    <string name="welcome_feature_2_title">Мулти профил</string>
+    <string name="welcome_feature_2_text">Свържете се с всички свои облаци</string>
 
     <string name="welcome_feature_3_title">Автоматично качване</string>
-    <string name="welcome_feature_3_text">Съхранявайте вашите снимки безопасно</string>
+    <string name="welcome_feature_3_text">Съхранявайте своите снимки безопасно</string>
 
     <string name="whats_new_end_to_end_encryption_title">Криптиране</string>
     <string name="whats_new_end_to_end_encryption_content">Натиснете за да криптирате, от всеки клиент. Добавете нови като копирате 12-те думи тук.</string>
@@ -617,4 +624,24 @@
     <string name="prefs_license">Лиценз</string>
     <string name="prefs_gpl_v2">GNU Генерален Публичен Лиценз, версия 2</string>
     <string name="push_notifications_not_implemented">Нотификациите са изключени заради зависимости на частни Google Play услуги.</string>
+    <string name="drawer_current_account">Текущ профил</string>
+    <string name="drawer_middle_account">Среден профил</string>
+    <string name="drawer_end_account">Последен профил</string>
+    <string name="sort_by_name_ascending">А - Я</string>
+    <string name="sort_by_name_descending">Я - А</string>
+    <string name="synced_folders_type">Тип</string>
+    <string name="dev_version_no_information_available">Няма налична информация.</string>
+    <string name="dev_version_no_new_version_available">Няма налична нова версия.</string>
+    <string name="dev_version_new_version_available">Има налична нова версия.</string>
+    <string name="version_dev_download">Изтегли</string>
+
+    <string name="send">Изпрати</string>
+    <string name="share">Сподели</string>
+    <string name="link">Връзка</string>
+
+    <string name="account_not_found">Няма намерен профил!</string>
+
+    <string name="screenshot_01_gridView">Сигурен дом за всички ваши данни</string>
+    <string name="screenshot_04_accounts">Свързване към други профили</string>
+    <string name="end_to_end_encryption_password">Парола...</string>
     </resources>
