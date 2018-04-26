@@ -107,7 +107,7 @@ public class ActivitiesActivity extends FileActivity implements ActivityListInte
             ThemeUtils.setColoredTitle(actionBar, getString(R.string.drawer_item_activities), this);
         }
 
-        swipeListRefreshLayout.setOnRefreshListener(() -> mActionListener.loadActivites(null)
+        swipeListRefreshLayout.setOnRefreshListener(() -> mActionListener.loadActivities(null)
         );
 
         // Since we use swipe-to-refresh for progress indication we can hide the inherited
@@ -169,7 +169,7 @@ public class ActivitiesActivity extends FileActivity implements ActivityListInte
                 if (!isLoadingActivities && (totalItemCount - visibleItemCount) <= (firstVisibleItemIndex + 5)
                         && nextPageUrl != null && !nextPageUrl.isEmpty()) {
                     // Almost reached the end, continue to load new activities
-                    mActionListener.loadActivites(nextPageUrl);
+                    mActionListener.loadActivities(nextPageUrl);
                 }
             }
         });
@@ -179,7 +179,7 @@ public class ActivitiesActivity extends FileActivity implements ActivityListInte
             DisplayUtils.setupBottomBar(bottomNavigationView, getResources(), this, -1);
         }
 
-        mActionListener.loadActivites(null);
+        mActionListener.loadActivities(null);
     }
 
     @Override
