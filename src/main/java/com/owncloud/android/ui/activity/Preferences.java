@@ -839,24 +839,6 @@ public class Preferences extends PreferenceActivity
     }
 
     @Override
-    public boolean onMenuItemSelected(int featureId, MenuItem item) {
-        super.onMenuItemSelected(featureId, item);
-        Intent intent;
-
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                intent = new Intent(getBaseContext(), FileDisplayActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
-                break;
-            default:
-                Log_OC.w(TAG, "Unknown menu item triggered");
-                return false;
-        }
-        return true;
-    }
-
-    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
