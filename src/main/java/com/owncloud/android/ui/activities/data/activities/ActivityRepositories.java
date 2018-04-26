@@ -8,8 +8,6 @@ public class ActivityRepositories {
         // No instance
     }
 
-    private static ActivitiesRepository repository = null;
-
     public static synchronized ActivitiesRepository getRepository(@NonNull ActivitiesServiceApi activitiesServiceApi) {
         return new RemoteActivitiesRepository(activitiesServiceApi);
     }
