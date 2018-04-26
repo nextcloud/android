@@ -851,8 +851,6 @@ public class FileDataStorageManager {
             c.close();
         }
 
-        Collections.sort(ret);
-
         return ret;
     }
 
