@@ -18,12 +18,13 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/ListItemLayout"
-    android:layout_width="match_parent"
-    android:background="@drawable/list_selector"
-    android:orientation="vertical"
-    android:layout_height="@dimen/standard_list_item_size"
-    android:descendantFocusability="blocksDescendants">
+              android:id="@+id/ListItemLayout"
+              android:layout_width="match_parent"
+              android:background="@drawable/list_selector"
+              android:orientation="vertical"
+              android:foreground="?android:attr/selectableItemBackground"
+              android:layout_height="@dimen/standard_list_item_size"
+              android:descendantFocusability="blocksDescendants">
 
     <LinearLayout
         android:layout_width="match_parent"
