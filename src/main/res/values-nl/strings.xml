@@ -754,7 +754,6 @@
     <string name="end_to_end_encryption_storing_keys">Opslaan sleutels</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Kopieren/verplaatsen naar een versleutelde map is momenteel niet mogelijk.</string>
     <string name="untrusted_domain">Toegang van een niet vertrouwd domein. Bekijk de documentatie voor meer informatie.</string>
-    <string name="upload_list_loading">Uploads laden…</string>
     <string name="notification_channel_push_name">Push meldingen</string>
     <string name="notification_channel_push_description">Toon push meldingen verstuurd door de server: als je wordt vermeld in reacties, of als je een deellink ontvangt of als een beheerder een aankondiging plaatst.</string>
     <string name="sendbutton_description">Verstuur-knop pictogram</string>
