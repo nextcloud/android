@@ -67,7 +67,7 @@ public class StreamMediaFileOperation extends RemoteOperation {
 
                 // Parse the response
                 JSONObject respJSON = new JSONObject(response);
-                String url = (String) respJSON.getJSONObject(NODE_OCS).getJSONObject(NODE_DATA).get(NODE_URL);
+                String url = respJSON.getJSONObject(NODE_OCS).getJSONObject(NODE_DATA).getString(NODE_URL);
 
                 result = new RemoteOperationResult(true, postMethod);
                 ArrayList<Object> urlArray = new ArrayList<>();
