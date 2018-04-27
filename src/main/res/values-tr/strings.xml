@@ -761,4 +761,9 @@
     <string name="oauth_2_0_access_end_point_address_hint">Erişim noktası adresi</string>
     <string name="hint_name">Ad</string>
     <string name="hint_password">Parola</string>
-    </resources>
+    <string name="add_to_cloud">%1$s üzerine ekle</string>
+    <string name="upload_files">Dosyaları yükle</string>
+    <string name="upload_content_from_other_apps">Diğer uygulamalardan içerik yükle</string>
+    <string name="create_new_folder">Yeni klasör ekle</string>
+    <string name="uploads_view_upload_status_virus_detected">Virus bulundu. Yükleme tamamlanamadı!</string>
+</resources>
