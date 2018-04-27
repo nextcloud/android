@@ -33,8 +33,8 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.Set;
 
-public class ProcessManualUploadQueue extends Job {
-    public static final String TAG = "ProcessManualUploadQueue";
+public class ProcessManualUploadQueueJob extends Job {
+    public static final String TAG = "ProcessManualUploadQueueJob";
 
     public static final String KEY_UPLOAD_ACCOUNT = "account";
 

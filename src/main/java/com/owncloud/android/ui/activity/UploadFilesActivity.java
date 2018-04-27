@@ -49,7 +49,7 @@ import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.db.PreferenceManager;
-import com.owncloud.android.jobs.ProcessManualUploadQueue;
+import com.owncloud.android.jobs.ProcessManualUploadQueueJob;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.dialog.IndeterminateProgressDialog;
 import com.owncloud.android.ui.dialog.SortingOrderDialogFragment;
@@ -573,9 +573,9 @@ public class UploadFilesActivity extends FileActivity implements
                 }
 
                 PersistableBundleCompat bundle = new PersistableBundleCompat();
-                bundle.putString(ProcessManualUploadQueue.KEY_UPLOAD_ACCOUNT, AccountUtils.getCurrentOwnCloudAccount(getApplicationContext()).name);
+                bundle.putString(ProcessManualUploadQueueJob.KEY_UPLOAD_ACCOUNT, AccountUtils.getCurrentOwnCloudAccount(getApplicationContext()).name);
 
-                new JobRequest.Builder(ProcessManualUploadQueue.TAG)
+                new JobRequest.Builder(ProcessManualUploadQueueJob.TAG)
                         .startNow()
                         .setExtras(bundle)
                         .setUpdateCurrent(false)

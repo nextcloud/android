@@ -55,6 +55,7 @@ import com.owncloud.android.datastorage.StoragePoint;
 import com.owncloud.android.db.PreferenceManager;
 import com.owncloud.android.jobs.MediaFoldersDetectionJob;
 import com.owncloud.android.jobs.NCJobCreator;
+import com.owncloud.android.jobs.ProcessManualUploadQueueJob;
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory.Policy;
 import com.owncloud.android.lib.common.utils.Log_OC;
@@ -395,7 +396,7 @@ public class MainApp extends MultiDexApplication {
     private void cleanManualUploads() {
         ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProvider(getContentResolver());
         boolean jobRunning = false;
-        for (Job job : JobManager.instance().getAllJobs()) {
+        for (Job job : JobManager.instance().getAllJobsForTag(ProcessManualUploadQueueJob.TAG)) {
             if (!job.isFinished()) {
                 jobRunning = true;
                 break;

@@ -195,7 +195,8 @@ public class ArbitraryDataProvider {
 
         if (cursor != null) {
             for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
-                String value = cursor.getString(cursor.getColumnIndex(ProviderMeta.ProviderTableMeta.ARBITRARY_DATA_VALUE));
+                String value = cursor.getString(cursor.getColumnIndex(
+                        ProviderMeta.ProviderTableMeta.ARBITRARY_DATA_VALUE));
                 List<String> valuesList = getListFromString(value);
                 String currentDir = valuesList.get(0);
                 valuesList.remove(currentDir);
