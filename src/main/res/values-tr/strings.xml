@@ -238,7 +238,9 @@
 	<string name="auth_not_configured_title">Sunucu ayarları doğru değil</string>
 	<string name="auth_account_not_new">Aygıt üzerinde aynı kullanıcı adı ve sunucu için bir hesap zaten var</string>
 	<string name="auth_account_not_the_same">Yazdığınız kullanıcı adı bu hesabın kullanıcı adı ile eşleşmiyor</string>
+	<string name="auth_unknown_error_http_title">Bilinmeyen bir HTTP sorunu çıktı!</string>
 	<string name="auth_unknown_error_title">Bilinmeyen bir sorun çıktı!</string>
+	<string name="auth_unknown_error_exception_title">Bilinmeyen sorun: %1$s</string>
 	<string name="auth_unknown_host_title">Sunucu adı bulunamadı</string>
 	<string name="auth_incorrect_path_title">Sunucu bulunamadı</string>
 	<string name="auth_timeout_title">Sunucu çok geç yanıt veriyor</string>
