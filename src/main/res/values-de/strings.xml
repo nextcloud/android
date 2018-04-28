@@ -238,7 +238,9 @@
 	<string name="auth_not_configured_title">Fehlerhafte Serverkonfiguration</string>
 	<string name="auth_account_not_new">Ein Benutzerkonto für den gleichen Benutzer und Server existiert auf diesem Gerät bereits</string>
 	<string name="auth_account_not_the_same">Der eingegebene Benutzer passt nicht zu dem Benutzer dieses Benutzerkontos</string>
+	<string name="auth_unknown_error_http_title">Es ist ein unbekannter HTTP-Fehler aufgetreten!</string>
 	<string name="auth_unknown_error_title">Ein unbekannter Fehler ist aufgetreten!</string>
+	<string name="auth_unknown_error_exception_title">Unbekannter Fehler: %1$s</string>
 	<string name="auth_unknown_host_title">Konnte den Host nicht finden</string>
 	<string name="auth_incorrect_path_title">Server nicht gefunden</string>
 	<string name="auth_timeout_title">Der Server braucht zu lange für eine Antwort.</string>
