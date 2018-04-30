@@ -73,7 +73,6 @@ public class FileDetailActivitiesFragment extends Fragment implements ActivityLi
     private ActivityListAdapter adapter;
     private Unbinder unbinder;
     private OwnCloudClient ownCloudClient;
-    private AsyncTask<String, Object, OCFile> updateTask;
 
     private OCFile file;
     private Account account;
