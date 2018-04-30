@@ -25,6 +25,8 @@ import android.accounts.Account;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
 import android.support.v7.widget.SwitchCompat;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -53,6 +55,7 @@ import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
+import com.owncloud.android.ui.adapter.FileDetailTabAdapter;
 import com.owncloud.android.ui.adapter.UserListAdapter;
 import com.owncloud.android.ui.dialog.RemoveFilesDialogFragment;
 import com.owncloud.android.ui.dialog.RenameFileDialogFragment;
@@ -68,8 +71,7 @@ import java.util.ArrayList;
 /**
  * This Fragment is used to display the details about a file.
  */
-public class FileDetailFragment extends FileFragment implements OnClickListener,
-        CompoundButton.OnCheckedChangeListener {
+public class FileDetailFragment extends FileFragment implements OnClickListener {
 
     private int mLayout;
     private View mView;
@@ -154,19 +156,49 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
         
         if (mLayout == R.layout.file_details_fragment) {
             int accentColor = ThemeUtils.primaryAccentColor(getContext());
-            SwitchCompat favoriteToggle = mView.findViewById(R.id.fdFavorite);
-            favoriteToggle.setOnCheckedChangeListener(this);
-            ThemeUtils.tintSwitch(favoriteToggle, accentColor, false);
             ProgressBar progressBar = mView.findViewById(R.id.fdProgressBar);
             ThemeUtils.colorHorizontalProgressBar(progressBar, ThemeUtils.primaryAccentColor(getContext()));
             mProgressListener = new ProgressListener(progressBar);
             mView.findViewById(R.id.fdCancelBtn).setOnClickListener(this);
+            mView.findViewById(R.id.fdFavorite).setOnClickListener(this);
             ((TextView)mView.findViewById(R.id.fdShareTitle)).setTextColor(accentColor);
             ((TextView)mView.findViewById(R.id.fdShareWithUsersTitle)).setTextColor(accentColor);
         }
 
         updateFileDetails(false, false);
         return mView;
+    }
+
+    private void setupViewPager(View view) {
+        TabLayout tabLayout = view.findViewById(R.id.tab_layout);
+        tabLayout.removeAllTabs();
+
+        tabLayout.addTab(tabLayout.newTab().setText(R.string.drawer_item_activities));
+        tabLayout.addTab(tabLayout.newTab().setText(R.string.share_dialog_title));
+
+        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+
+        final ViewPager viewPager = view.findViewById(R.id.pager);
+        final FileDetailTabAdapter adapter = new FileDetailTabAdapter
+                (getFragmentManager(), getFile(),mAccount);
+        viewPager.setAdapter(adapter);
+        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                viewPager.setCurrentItem(tab.getPosition());
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
     }
 
     @Override
@@ -359,16 +391,24 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
                 ((FileDisplayActivity) mContainerActivity).cancelTransference(getFile());
                 break;
             }
+            case R.id.fdFavorite: {
+                if (getFile().isAvailableOffline()) {
+                    ((ImageView)getView().findViewById(R.id.fdFavorite)).
+                            setImageDrawable(getResources()
+                                    .getDrawable(R.drawable.ic_star_outline));
+                } else {
+                    ((ImageView)getView().findViewById(R.id.fdFavorite))
+                            .setImageDrawable(getResources()
+                                    .getDrawable(R.drawable.ic_star));
+                }
+                mContainerActivity.getFileOperationsHelper()
+                        .toggleOfflineFile(getFile(), !getFile().isAvailableOffline());
+                break;
+            }
             default:
                 Log_OC.e(TAG, "Incorrect view clicked!");
                 break;
         }
-    }
-
-    @Override
-    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-        SwitchCompat favSwitch = getView().findViewById(R.id.fdFavorite);
-        mContainerActivity.getFileOperationsHelper().toggleOfflineFile(getFile(), favSwitch.isChecked());
     }
 
     /**
@@ -419,15 +459,13 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
             setFilename(file.getFileName());
             setFiletype(file);
             setFilesize(file.getFileLength());
-
             setTimeModified(file.getModificationTimestamp());
 
-            SwitchCompat favSwitch = getView().findViewById(R.id.fdFavorite);
-            favSwitch.setChecked(file.isAvailableOffline());
-
-            setShareByLinkInfo(file.isSharedViaLink());
-
-            setShareWithUserInfo();
+            if (file.isAvailableOffline()) {
+                ((ImageView)getView().findViewById(R.id.fdFavorite)).setImageDrawable(getResources().getDrawable(R.drawable.ic_star));
+            } else {
+                ((ImageView)getView().findViewById(R.id.fdFavorite)).setImageDrawable(getResources().getDrawable(R.drawable.ic_star_outline));
+            }
 
             // configure UI for depending upon local state of the file
             FileDownloaderBinder downloaderBinder = mContainerActivity.getFileDownloaderBinder();
@@ -448,6 +486,9 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
                 setButtonsForRemote();
             }
         }
+
+        setupViewPager(getView());
+
         getView().invalidate();
     }
 
@@ -634,9 +675,6 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
      */
     private void setButtonsForTransferring() {
         if (!isEmpty()) {
-            // let's protect the user from himself ;)
-            getView().findViewById(R.id.fdFavorite).setEnabled(false);
-            
             // show the progress bar for the transfer
             getView().findViewById(R.id.fdProgressBlock).setVisibility(View.VISIBLE);
             TextView progressText = getView().findViewById(R.id.fdProgressText);
@@ -660,8 +698,6 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
      */
     private void setButtonsForDown() {
         if (!isEmpty()) {
-            getView().findViewById(R.id.fdFavorite).setEnabled(true);
-            
             // hides the progress bar
             getView().findViewById(R.id.fdProgressBlock).setVisibility(View.GONE);
             TextView progressText = getView().findViewById(R.id.fdProgressText);
@@ -674,8 +710,6 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
      */
     private void setButtonsForRemote() {
         if (!isEmpty()) {
-            getView().findViewById(R.id.fdFavorite).setEnabled(true);
-            
             // hides the progress bar
             getView().findViewById(R.id.fdProgressBlock).setVisibility(View.GONE);
             TextView progressText = getView().findViewById(R.id.fdProgressText);
