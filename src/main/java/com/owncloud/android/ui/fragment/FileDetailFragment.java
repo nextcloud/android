@@ -189,12 +189,12 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
-
+                // unused at the moment
             }
 
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
-
+                // unused at the moment
             }
         });
     }
