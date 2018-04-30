@@ -242,7 +242,9 @@
 	<string name="auth_not_configured_title">Конфигурация сервера задана неверно</string>
 	<string name="auth_account_not_new">Аккаунт такого пользователя и сервера уже существует на устройстве</string>
 	<string name="auth_account_not_the_same">Введённый пользователь не соответствует этому аккаунту</string>
+	<string name="auth_unknown_error_http_title">Произошла неизвестная ошибка протокола HTTP!</string>
 	<string name="auth_unknown_error_title">Произошла неизвестная ошибка!</string>
+	<string name="auth_unknown_error_exception_title">Неизвестная ошибка: %1$s</string>
 	<string name="auth_unknown_host_title">Невозможно найти сервер</string>
 	<string name="auth_incorrect_path_title">Сервер не найден</string>
 	<string name="auth_timeout_title">Сервер слишком долго не отвечает</string>

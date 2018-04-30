@@ -238,7 +238,9 @@
 	<string name="auth_not_configured_title">Configuración de servidor en formato incorrecto</string>
 	<string name="auth_account_not_new">Ya existe una cuenta en este dispositivo con los mismos datos de usuario y servidor</string>
 	<string name="auth_account_not_the_same">El usuario introducido no concuerda con el usuario de esta cuenta</string>
+	<string name="auth_unknown_error_http_title">Ha ocurrido un error HTTP desconocido.</string>
 	<string name="auth_unknown_error_title">Ha ocurrido un error desconocido.</string>
+	<string name="auth_unknown_error_exception_title">Error desconocido: %1$s</string>
 	<string name="auth_unknown_host_title">No se ha podido encontrar el host</string>
 	<string name="auth_incorrect_path_title">Servidor no encontrado</string>
 	<string name="auth_timeout_title">El servidor ha tardado demasiado en responder</string>
