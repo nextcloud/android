@@ -29,110 +29,99 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <RelativeLayout
-            android:id="@+id/fdFileHeaderContainer"
-            android:layout_width="match_parent"
+        <ImageView
+            android:id="@+id/fdIcon"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/standard_margin">
-
-            <ImageView
-                android:id="@+id/fdIcon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:contentDescription="@string/file_icon"
-                android:src="@drawable/file"/>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_toEndOf="@+id/fdIcon"
-                android:layout_toRightOf="@+id/fdIcon"
-                android:paddingLeft="@dimen/standard_padding"
-                android:paddingStart="@dimen/standard_padding"
-                android:paddingEnd="@dimen/zero"
-                android:paddingRight="@dimen/zero"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/fdFilename"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/placeholder_filename"
-                    android:textAppearance="?android:attr/textAppearanceLarge"/>
-
-                <LinearLayout
-                    android:id="@+id/fdFiledetails"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:id="@+id/fdSize"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/placeholder_fileSize"
-                        android:textColor="@color/list_item_lastmod_and_filesize_text"
-                        android:textSize="@dimen/two_line_secondary_text_size"/>
-
-                    <TextView
-                        android:id="@+id/file_separator"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingRight="@dimen/standard_quarter_padding"
-                        android:paddingEnd="@dimen/standard_quarter_padding"
-                        android:paddingStart="@dimen/zero"
-                        android:paddingLeft="@dimen/zero"
-                        android:gravity="end"
-                        android:text="@string/info_separator"
-                        android:textColor="@color/list_item_lastmod_and_filesize_text"
-                        android:textSize="@dimen/two_line_secondary_text_size"/>
-
-                    <TextView
-                        android:id="@+id/fdModified"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="end"
-                        android:text="@string/placeholder_media_time"
-                        android:textColor="@color/list_item_lastmod_and_filesize_text"
-                        android:textSize="@dimen/two_line_secondary_text_size"/>
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-        </RelativeLayout>
+            android:layout_margin="@dimen/standard_margin"
+            android:contentDescription="@string/file_icon"
+            android:src="@drawable/file" />
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/list_divider_background"/>
+            android:background="@color/list_divider_background" />
 
-        <RelativeLayout
-            android:id="@+id/fdProgressAndControl"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/standard_half_margin"
-            android:layout_marginLeft="@dimen/standard_margin"
-            android:layout_marginRight="@dimen/standard_margin"
-            android:layout_marginTop="@dimen/standard_half_margin"
-            android:gravity="center_horizontal">
+            android:layout_margin="@dimen/standard_margin"
+            android:orientation="vertical">
 
-            <android.support.v7.widget.SwitchCompat
-                android:id="@+id/fdFavorite"
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/fdFilename"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:layout_gravity="start"
-                android:text="@string/favorite_switch"
-                android:textSize="16sp"/>
+                android:text="@string/placeholder_filename"
+                android:textSize="16sp"
+                android:textColor="@color/black"/>
+
+            <LinearLayout
+                android:id="@+id/fdFiledetails"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/fdFavorite"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/standard_eighth_margin"
+                    android:layout_marginLeft="@dimen/zero"
+                    android:layout_marginRight="@dimen/standard_eighth_margin"
+                    android:layout_marginStart="@dimen/zero"
+                    android:contentDescription="@null"
+                    android:src="@drawable/ic_star_outline" />
+
+                <TextView
+                    android:id="@+id/fdSize"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/placeholder_fileSize"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/file_separator"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="end"
+                    android:paddingEnd="@dimen/standard_quarter_padding"
+                    android:paddingLeft="@dimen/zero"
+                    android:paddingRight="@dimen/standard_quarter_padding"
+                    android:paddingStart="@dimen/zero"
+                    android:text="@string/info_separator"
+                    android:textColor="@color/list_item_lastmod_and_filesize_text"
+                    android:textSize="@dimen/two_line_secondary_text_size" />
+
+                <TextView
+                    android:id="@+id/fdModified"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="end"
+                    android:text="@string/placeholder_media_time"
+                    android:textSize="16sp" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/standard_eighth_margin"
+                    android:layout_marginLeft="@dimen/standard_margin"
+                    android:layout_marginRight="@dimen/standard_eighth_margin"
+                    android:layout_marginStart="@dimen/standard_margin"
+                    android:contentDescription="@null"
+                    android:src="@drawable/ic_tag" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/tags" />
+
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/fdFavorite"
                 android:orientation="vertical">
 
                 <TextView
@@ -140,7 +129,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/standard_half_margin"
-                    android:text="@string/downloader_download_in_progress_ticker"/>
+                    android:text="@string/downloader_download_in_progress_ticker" />
 
                 <LinearLayout
                     android:id="@+id/fdProgressBlock"
@@ -158,7 +147,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:indeterminate="false"
-                        android:indeterminateOnly="false"/>
+                        android:indeterminateOnly="false" />
 
                     <ImageButton
                         android:id="@+id/fdCancelBtn"
@@ -168,18 +157,29 @@
                         android:layout_marginStart="@dimen/standard_half_margin"
                         android:background="@android:color/transparent"
                         android:contentDescription="@string/common_cancel"
-                        android:src="@drawable/ic_cancel"/>
+                        android:src="@drawable/ic_cancel" />
 
                 </LinearLayout>
 
             </LinearLayout>
 
-        </RelativeLayout>
+        </LinearLayout>
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/list_divider_background"/>
+            android:background="@color/list_divider_background" />
+
+        <android.support.design.widget.TabLayout
+            android:id="@+id/tab_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white" />
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/pager"
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"/>
 
         <LinearLayout
             android:id="@+id/fdShareContainer"
@@ -189,7 +189,8 @@
             android:layout_marginLeft="@dimen/standard_margin"
             android:layout_marginRight="@dimen/standard_margin"
             android:layout_marginTop="@dimen/standard_half_margin"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:visibility="gone">
 
             <TextView
                 android:id="@+id/fdShareTitle"
@@ -198,7 +199,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/standard_half_margin"
                 android:text="@string/action_send_share"
-                android:textColor="@color/color_accent"/>
+                android:textColor="@color/color_accent" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -207,22 +208,22 @@
                 tools:ignore="UseCompoundDrawables">
 
                 <ImageView
-                    android:contentDescription="@string/shared_icon"
                     android:id="@+id/fdShareLinkIcon"
                     android:layout_width="@dimen/shared_list_icon_width"
                     android:layout_height="@dimen/shared_list_icon_height"
                     android:layout_gravity="center_vertical"
                     android:layout_marginEnd="@dimen/standard_half_margin"
                     android:layout_marginRight="@dimen/standard_half_margin"
+                    android:contentDescription="@string/shared_icon"
                     android:src="@drawable/shared_via_link"
-                    android:visibility="gone"/>
+                    android:visibility="gone" />
 
                 <TextView
                     android:id="@+id/fdSharebyLink"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="start"
-                    android:text="@string/filedetails_share_link_disable"/>
+                    android:text="@string/filedetails_share_link_disable" />
             </LinearLayout>
 
             <TextView
@@ -234,21 +235,21 @@
                 android:layout_marginBottom="@dimen/standard_half_margin"
                 android:layout_marginTop="@dimen/standard_half_margin"
                 android:text="@string/filedetails_share_users_with_access"
-                android:textColor="@color/color_accent"/>
+                android:textColor="@color/color_accent" />
 
             <ListView
                 android:id="@+id/fdshareUsersList"
                 android:layout_width="match_parent"
                 android:layout_height="0dip"
                 android:layout_weight="1"
-                android:visibility="gone"/>
+                android:visibility="gone" />
 
             <TextView
                 android:id="@+id/fdShareNoUsers"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/share_no_users"
-                android:textSize="@dimen/share_no_users_text_size"/>
+                android:textSize="@dimen/share_no_users_text_size" />
 
         </LinearLayout>
 
