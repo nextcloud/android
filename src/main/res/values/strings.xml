@@ -797,6 +797,13 @@
     <string name="prefs_e2e_mnemonic">E2E mnemonic</string>
     <string name="prefs_e2e_no_device_credentials">To show mnemonic please enable device credentials.</string>
     <string name="whats_new_device_credentials_title">Use Android\'s device internal protection</string>
+    <string name="login">Log in</string>
+    <string name="signup_with_provider">Sign up with provider</string>
+    <string name="host_your_own_server">Host your own server</string>
+    <string name="first_run_1_text">Keep your data secure and under your control</string>
+    <string name="first_run_2_text">Secure collaboration &amp; file exchange</string>
+    <string name="first_run_3_text">Easy-to-use web mail, calendering &amp; contacts</string>
+    <string name="first_run_4_text">Screensharing, online meetings &amp; web conferences</string>
     <string name="whats_new_device_credentials_content">Use anything like a pattern, password, pin or your fingerprint to keep your data safe.</string>
     <string name="restore_button_description">Restore deleted file</string>
 	<string name="restore">Restore file</string>
@@ -810,7 +817,6 @@
     <string name="new_media_folder_detected">New %1$s media folder detected.</string>
     <string name="new_media_folder_photos">photo</string>
     <string name="new_media_folder_videos">video</string>
-
     <string name="outdated_server">The server has reached end of life, please upgrade!</string>
     <string name="dismiss">Dismiss</string>
     <string name="feedback_no_mail_app">No app available to send mails!</string>
