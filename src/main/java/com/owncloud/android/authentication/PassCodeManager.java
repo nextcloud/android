@@ -52,7 +52,7 @@ public class PassCodeManager {
 
     private static PassCodeManager passCodeManagerInstance = null;
 
-    private Long timestamp = 0l;
+    private Long timestamp = 0L;
     private int visibleActivitiesCounter = 0;
 
     public static PassCodeManager getPassCodeManager() {
