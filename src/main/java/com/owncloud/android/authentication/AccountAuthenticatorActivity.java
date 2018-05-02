@@ -53,6 +53,7 @@ public class AccountAuthenticatorActivity extends AppCompatActivity {
      * icicle is non-zero.
      * @param icicle the save instance data of this Activity, may be null
      */
+    @Override
     protected void onCreate(Bundle icicle) {
         super.onCreate(icicle);
 
@@ -67,6 +68,7 @@ public class AccountAuthenticatorActivity extends AppCompatActivity {
     /**
      * Sends the result or a Constants.ERROR_CODE_CANCELED error if a result isn't present.
      */
+    @Override
     public void finish() {
         if (mAccountAuthenticatorResponse != null) {
             // send the result bundle back if set, otherwise send an error.
