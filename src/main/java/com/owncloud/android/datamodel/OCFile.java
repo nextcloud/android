@@ -35,13 +35,14 @@ import com.owncloud.android.R;
 import com.owncloud.android.lib.common.network.WebdavEntry;
 import com.owncloud.android.lib.common.network.WebdavUtils;
 import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.lib.resources.files.ServerFileInterface;
 import com.owncloud.android.utils.MimeType;
 
 import java.io.File;
 
 import third_parties.daveKoeller.AlphanumComparator;
 
-public class OCFile implements Parcelable, Comparable<OCFile> {
+public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterface {
 
     public static final Parcelable.Creator<OCFile> CREATOR = new Parcelable.Creator<OCFile>() {
 
@@ -466,7 +467,7 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
         Log_OC.d(TAG, "OCFile name changing from " + mRemotePath);
         if (name != null && name.length() > 0 && !name.contains(PATH_SEPARATOR) &&
                 !mRemotePath.equals(ROOT_PATH)) {
-            String parent = (new File(getRemotePath())).getParent();
+            String parent = (new File(this.getRemotePath())).getParent();
             parent = (parent.endsWith(PATH_SEPARATOR)) ? parent : parent + PATH_SEPARATOR;
             mRemotePath = parent + name;
             if (isFolder()) {
@@ -485,11 +486,12 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
     }
 
     /**
-     * Can be used to get the Mimetype
+     * Can be used to get the MimeType
      *
-     * @return the Mimetype as a String
+     * @return the MimeType as a String
      */
-    public String getMimetype() {
+    @Override
+    public String getMimeType() {
         return mMimeType;
     }
 
@@ -585,7 +587,7 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
      * @return remote path
      */
     public String getParentRemotePath() {
-        String parentPath = new File(getRemotePath()).getParent();
+        String parentPath = new File(this.getRemotePath()).getParent();
         return (parentPath.endsWith("/")) ? parentPath : (parentPath + "/");
     }
 

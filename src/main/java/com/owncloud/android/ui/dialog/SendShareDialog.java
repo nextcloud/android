@@ -223,7 +223,7 @@ public class SendShareDialog extends BottomSheetDialogFragment {
     @NonNull
     private Intent createSendIntent() {
         Intent sendIntent = new Intent(Intent.ACTION_SEND);
-        sendIntent.setType(file.getMimetype());
+        sendIntent.setType(file.getMimeType());
         sendIntent.putExtra(Intent.EXTRA_STREAM, file.getExposedFileUri(getActivity()));
         sendIntent.putExtra(Intent.ACTION_SEND, true);
         return sendIntent;

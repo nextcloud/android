@@ -191,7 +191,7 @@ public class ShareFileFragment extends Fragment implements ShareUserListAdapter.
         // Image
         ImageView icon = view.findViewById(R.id.shareFileIcon);
         icon.setImageDrawable(
-                MimeTypeUtil.getFileTypeIcon(mFile.getMimetype(), mFile.getFileName(), mAccount, getContext())
+                MimeTypeUtil.getFileTypeIcon(mFile.getMimeType(), mFile.getFileName(), mAccount, getContext())
         );
         if (MimeTypeUtil.isImage(mFile)) {
             String remoteId = String.valueOf(mFile.getRemoteId());

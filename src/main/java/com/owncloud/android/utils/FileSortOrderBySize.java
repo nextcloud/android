@@ -21,6 +21,7 @@
 package com.owncloud.android.utils;
 
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.lib.resources.files.TrashbinFile;
 
 import java.io.File;
 import java.util.Collections;
@@ -60,6 +61,35 @@ public class FileSortOrderBySize extends FileSortOrder {
         });
 
         return super.sortCloudFiles(files);
+    }
+
+    /**
+     * Sorts list by Size.
+     *
+     * @param files list of files to sort
+     */
+    public List<TrashbinFile> sortTrashbinFiles(List<TrashbinFile> files) {
+        final int multiplier = mAscending ? 1 : -1;
+
+        Collections.sort(files, new Comparator<TrashbinFile>() {
+            @SuppressFBWarnings(value = "Bx")
+            public int compare(TrashbinFile o1, TrashbinFile o2) {
+                if (o1.isFolder() && o2.isFolder()) {
+                    Long obj1 = o1.getFileLength();
+                    return multiplier * obj1.compareTo(o2.getFileLength());
+                } else if (o1.isFolder()) {
+                    return -1;
+
+                } else if (o2.isFolder()) {
+                    return 1;
+                } else {
+                    Long obj1 = o1.getFileLength();
+                    return multiplier * obj1.compareTo(o2.getFileLength());
+                }
+            }
+        });
+
+        return super.sortTrashbinFiles(files);
     }
 
     /**

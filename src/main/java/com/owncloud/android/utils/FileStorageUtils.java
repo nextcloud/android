@@ -187,7 +187,7 @@ public class FileStorageUtils {
         RemoteFile file = new RemoteFile(ocFile.getRemotePath());
         file.setCreationTimestamp(ocFile.getCreationTimestamp());
         file.setLength(ocFile.getFileLength());
-        file.setMimeType(ocFile.getMimetype());
+        file.setMimeType(ocFile.getMimeType());
         file.setModifiedTimestamp(ocFile.getModificationTimestamp());
         file.setEtag(ocFile.getEtag());
         file.setPermissions(ocFile.getPermissions());

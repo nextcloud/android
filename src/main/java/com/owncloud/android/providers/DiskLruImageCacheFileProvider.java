@@ -105,7 +105,7 @@ public class DiskLruImageCacheFileProvider extends ContentProvider {
     @Override
     public String getType(@NonNull Uri uri) {
         OCFile ocFile = getFile(uri);
-        return ocFile.getMimetype();
+        return ocFile.getMimeType();
     }
 
     @Override

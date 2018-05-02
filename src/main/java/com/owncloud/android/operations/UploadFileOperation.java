@@ -268,7 +268,7 @@ public class UploadFileOperation extends SyncOperation {
     }
 
     public String getMimeType() {
-        return mFile.getMimetype();
+        return mFile.getMimeType();
     }
 
     public int getLocalBehaviour() {
@@ -581,11 +581,11 @@ public class UploadFileOperation extends SyncOperation {
             /// perform the upload
             if (mChunked && (size > ChunkedUploadRemoteFileOperation.CHUNK_SIZE)) {
                 mUploadOperation = new ChunkedUploadRemoteFileOperation(mContext, encryptedTempFile.getAbsolutePath(),
-                        mFile.getParentRemotePath() + encryptedFileName, mFile.getMimetype(),
+                        mFile.getParentRemotePath() + encryptedFileName, mFile.getMimeType(),
                         mFile.getEtagInConflict(), timeStamp);
             } else {
                 mUploadOperation = new UploadRemoteFileOperation(encryptedTempFile.getAbsolutePath(),
-                        mFile.getParentRemotePath() + encryptedFileName, mFile.getMimetype(),
+                        mFile.getParentRemotePath() + encryptedFileName, mFile.getMimeType(),
                         mFile.getEtagInConflict(), timeStamp);
             }
 
@@ -611,7 +611,7 @@ public class UploadFileOperation extends SyncOperation {
                 DecryptedFolderMetadata.DecryptedFile decryptedFile = new DecryptedFolderMetadata.DecryptedFile();
                 DecryptedFolderMetadata.Data data = new DecryptedFolderMetadata.Data();
                 data.setFilename(mFile.getFileName());
-                data.setMimetype(mFile.getMimetype());
+                data.setMimetype(mFile.getMimeType());
                 data.setKey(EncryptionUtils.encodeBytesToBase64String(key));
 
                 decryptedFile.setEncrypted(data);
@@ -822,10 +822,10 @@ public class UploadFileOperation extends SyncOperation {
             // perform the upload
             if (mChunked && (size > ChunkedUploadRemoteFileOperation.CHUNK_SIZE)) {
                 mUploadOperation = new ChunkedUploadRemoteFileOperation(mContext, mFile.getStoragePath(),
-                        mFile.getRemotePath(), mFile.getMimetype(), mFile.getEtagInConflict(), timeStamp);
+                        mFile.getRemotePath(), mFile.getMimeType(), mFile.getEtagInConflict(), timeStamp);
             } else {
                 mUploadOperation = new UploadRemoteFileOperation(mFile.getStoragePath(),
-                        mFile.getRemotePath(), mFile.getMimetype(), mFile.getEtagInConflict(), timeStamp);
+                        mFile.getRemotePath(), mFile.getMimeType(), mFile.getEtagInConflict(), timeStamp);
             }
 
             Iterator<OnDatatransferProgressListener> listener = mDataTransferListeners.iterator();
@@ -1055,7 +1055,7 @@ public class UploadFileOperation extends SyncOperation {
         OCFile newFile = new OCFile(newRemotePath);
         newFile.setCreationTimestamp(mFile.getCreationTimestamp());
         newFile.setFileLength(mFile.getFileLength());
-        newFile.setMimetype(mFile.getMimetype());
+        newFile.setMimetype(mFile.getMimeType());
         newFile.setModificationTimestamp(mFile.getModificationTimestamp());
         newFile.setModificationTimestampAtLastSyncForData(
                 mFile.getModificationTimestampAtLastSyncForData()

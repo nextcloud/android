@@ -398,11 +398,11 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                     }
                 }
 
-                if (file.getMimetype().equalsIgnoreCase("image/png")) {
+                if (file.getMimeType().equalsIgnoreCase("image/png")) {
                     thumbnailView.setBackgroundColor(mContext.getResources().getColor(R.color.background_color));
                 }
             } else {
-                thumbnailView.setImageDrawable(MimeTypeUtil.getFileTypeIcon(file.getMimetype(), file.getFileName(),
+                thumbnailView.setImageDrawable(MimeTypeUtil.getFileTypeIcon(file.getMimeType(), file.getFileName(),
                         mAccount, mContext));
             }
         }
