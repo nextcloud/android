@@ -49,12 +49,13 @@ public class AccountAuthenticatorActivity extends AppCompatActivity {
     }
 
     /**
-     * Retreives the AccountAuthenticatorResponse from either the intent of the icicle, if the
+     * Retrieves the AccountAuthenticatorResponse from either the intent of the icicle, if the
      * icicle is non-zero.
-     * @param icicle the save instance data of this Activity, may be null
+     * @param savedInstanceState the save instance data of this Activity, may be null
      */
-    protected void onCreate(Bundle icicle) {
-        super.onCreate(icicle);
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
         mAccountAuthenticatorResponse =
                 getIntent().getParcelableExtra(AccountManager.KEY_ACCOUNT_AUTHENTICATOR_RESPONSE);
@@ -67,6 +68,7 @@ public class AccountAuthenticatorActivity extends AppCompatActivity {
     /**
      * Sends the result or a Constants.ERROR_CODE_CANCELED error if a result isn't present.
      */
+    @Override
     public void finish() {
         if (mAccountAuthenticatorResponse != null) {
             // send the result bundle back if set, otherwise send an error.
