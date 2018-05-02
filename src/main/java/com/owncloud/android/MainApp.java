@@ -636,4 +636,9 @@ public class MainApp extends MultiDexApplication {
             }
         }
     }
+
+    static public int getLastSeenVersionCode(Context context) {
+        SharedPreferences pref = android.preference.PreferenceManager.getDefaultSharedPreferences(context);
+        return pref.getInt(WhatsNewActivity.KEY_LAST_SEEN_VERSION_CODE, 0);
+    }
 }
