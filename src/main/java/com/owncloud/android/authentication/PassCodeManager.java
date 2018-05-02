@@ -110,7 +110,7 @@ public class PassCodeManager {
     }
 
     private boolean passCodeShouldBeRequested() {
-        return (hasAuthenticationTimeoutExpired() && passCodeIsEnabled());
+        return (passCodeIsEnabled() && hasAuthenticationTimeoutExpired());
     }
 
     private boolean passCodeIsEnabled() {
@@ -119,7 +119,7 @@ public class PassCodeManager {
     }
 
     private boolean fingerprintShouldBeRequested() {
-        return (hasAuthenticationTimeoutExpired() && fingerprintIsEnabled());
+        return (fingerprintIsEnabled() && hasAuthenticationTimeoutExpired());
     }
 
     private boolean hasAuthenticationTimeoutExpired() {
