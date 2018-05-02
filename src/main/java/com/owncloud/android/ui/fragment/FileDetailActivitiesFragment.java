@@ -24,7 +24,6 @@ import android.accounts.Account;
 import android.accounts.AuthenticatorException;
 import android.accounts.OperationCanceledException;
 import android.content.Context;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -192,7 +191,9 @@ public class FileDetailActivitiesFragment extends Fragment implements ActivityLi
                 isLoadingActivities = true;
                 //getActivity().runOnUiThread(() -> setIndeterminate(isLoadingActivities));
 
-                GetRemoteActivitiesOperation getRemoteNotificationOperation = new GetRemoteActivitiesOperation();
+                GetRemoteActivitiesOperation getRemoteNotificationOperation = new GetRemoteActivitiesOperation(
+                        file.getLocalId());
+                
                 if (pageUrl != null) {
                     getRemoteNotificationOperation.setNextUrl(pageUrl);
                 }
