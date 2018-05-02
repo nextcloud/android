@@ -60,6 +60,7 @@
     <string name="recommend_urls">%1$s nebo %2$s</string>
 
     <string name="auth_check_server">Ověřit server</string>
+    <string name="auth_host_url">Adresa serveru https://...</string>
     <string name="auth_username">Uživatelské jméno</string>
     <string name="auth_password">Heslo</string>
     <string name="sync_string_files">Soubory</string>
@@ -86,6 +87,7 @@
     <string name="file_list_empty">Nahrajte nějaký obsah, nebo synchronizujte s vašimi zařízeními!</string>
     <string name="file_list_empty_favorites_filter_list">Zde budou zobrazeny soubory a adresáře označené jako oblíbené</string>
     <string name="file_list_empty_favorites_filter">Vaše vyhledávání nenalezlo žádné oblíbené soubory</string>
+    <string name="file_list_loading">Načítání…</string>
     <string name="file_list_no_app_for_file_type">Pro tento typ souboru nebyla nalezena aplikace!</string>
     <string name="local_file_list_empty">V tomto adresáři nejsou žádné soubory.</string>
     <string name="local_folder_list_empty">Nejsou zde další složky.</string>
@@ -116,6 +118,7 @@
     <string name="common_back">Zpět</string>
     <string name="common_save">Uložit</string>
     <string name="common_error">Error</string>
+    <string name="common_loading">Načítání…</string>
     <string name="common_unknown">neznámý</string>
     <string name="common_error_unknown">Neznámá chyba</string>
     <string name="common_pending">Čekající</string>
@@ -145,8 +148,10 @@
     <string name="uploads_view_upload_status_conflict">Konflikt</string>
     <string name="uploads_view_upload_status_service_interrupted">Aplikace ukončena</string>
     <string name="uploads_view_upload_status_unknown_fail">Neznámá chyba</string>
+    <string name="uploads_view_upload_status_waiting_for_wifi">Čekání na Wi-Fi</string>
     <string name="uploads_view_upload_status_waiting_exit_power_save_mode">Čekám na ukončení úsporného režimu</string>
     <string name="uploads_view_later_waiting_to_upload">Čekání na nahrávání</string>
+    <string name="downloader_download_in_progress_ticker">Stahování...</string>
     <string name="downloader_download_in_progress_content">%1$d%% Stahuji %2$s</string>
     <string name="downloader_download_succeeded_ticker">Staženo</string>
     <string name="downloader_download_succeeded_content">%1$s staženo</string>
@@ -241,6 +246,7 @@
     <string name="sync_file_nothing_to_do_msg">Obsah souboru je již synchronizován</string>
     <string name="create_dir_fail_msg">Nepodařilo se vytvořit složku</string>
     <string name="filename_forbidden_characters">Zakázané znaky: / \\ &lt; &gt; : \" | ? *</string>
+    <string name="wait_a_moment">Počkej chvíli…</string>
     <string name="wait_checking_credentials">Ověřování uložených přihlašovacích údajů</string>
     <string name="filedisplay_no_file_selected">Žádný soubor nebyl vybrán</string>
     <string name="wait_for_tmp_copy_from_private_storage">Kopírování souboru z privátního úložiště</string>
@@ -536,7 +542,6 @@
     <string name="contacts_preferences_import_scheduled">Import je naplánován a brzy začne</string>
 
     <!-- Notifications -->
-    <string name="new_notification_received">Přijato nové upozornění</string>
     <string name="drawer_logout">Odhlásit se</string>
     <string name="privacy">Soukromí</string>
     <!-- Auto upload -->

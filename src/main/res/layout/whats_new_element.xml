@@ -43,7 +43,11 @@
         android:textStyle="bold"
         android:text="@string/welcome_feature_1_title"
         android:id="@+id/whatsNewTitle"
-        android:layout_margin="@dimen/standard_margin"
+        android:layout_marginLeft="@dimen/standard_margin"
+        android:layout_marginStart="@dimen/standard_margin"
+        android:layout_marginRight="@dimen/standard_margin"
+        android:layout_marginEnd="@dimen/standard_margin"
+        android:layout_marginBottom="@dimen/standard_half_margin"
         android:layout_gravity="center_horizontal"
         android:gravity="center"/>
 
@@ -53,7 +57,11 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:gravity="center"
-        android:layout_margin="@dimen/standard_margin"
+        android:layout_marginLeft="@dimen/standard_margin"
+        android:layout_marginStart="@dimen/standard_margin"
+        android:layout_marginRight="@dimen/standard_margin"
+        android:layout_marginEnd="@dimen/standard_margin"
+        android:layout_marginBottom="@dimen/standard_half_margin"
         android:orientation="vertical">
     </LinearLayout>
 </LinearLayout>

@@ -61,6 +61,7 @@
     <string name="recommend_urls">%1$s أو %2$s</string>
 
     <string name="auth_check_server">فحص الخادم</string>
+    <string name="auth_host_url">عنوان الخادوم https://…</string>
     <string name="auth_username">إسم المستخدم</string>
     <string name="auth_password">كلمة السر</string>
     <string name="auth_register">ليس لديك ناكست كلاود حتى الآن ؟\nإضغط هنا للحصول على واحد من أحد المزودين</string>
@@ -86,6 +87,7 @@
     <string name="file_list_empty_headline">لا يوجد ملفات هنا </string>
     <string name="folder_list_empty_headline">لا توجد مجلدات</string>
     <string name="file_list_empty">قم برفع بعض المحتوى أو زامن مع أجهزتك</string>
+    <string name="file_list_loading">Lعملية التحميل جارية…</string>
     <string name="local_file_list_empty">لا توجد ملفات في هذا المجلد</string>
     <string name="file_list_empty_headline_search">لم يتم العثور على أية بيانات في هذا المجلد</string>
     <string name="file_list_empty_headline_server_search">دون أية نتيجة</string>
@@ -114,6 +116,7 @@
     <string name="common_back">رجوع</string>
     <string name="common_save">حفظ</string>
     <string name="common_error">خطأ</string>
+    <string name="common_loading">تحميل…</string>
     <string name="common_unknown">غير معروف</string>
     <string name="common_error_unknown">خطأ غير معروف. </string>
     <string name="common_pending">مُعلَّق</string>
@@ -121,7 +124,9 @@
     <string name="about_title">حول</string>
     <string name="delete_account">حذف الحساب</string>
     <string name="avatar">الصورة الرمزية</string>
+    <string name="upload_chooser_title">الرفع من…</string>
     <string name="uploader_info_dirname">اسم المجلد</string>
+    <string name="uploader_upload_in_progress_ticker">يتم الرفع…</string>
     <string name="uploader_upload_in_progress_content">%1$d%% رفع %2$s</string>
     <string name="uploader_upload_succeeded_ticker">تم رفعه</string>
     <string name="uploader_upload_succeeded_content_single">تم رفع %1$s</string>
@@ -183,7 +188,8 @@
     <string name="media_play_pause_description">زر التشغيل أو الإيقاف</string>
     <string name="media_forward_description">زر التقدم للأمام</string>
 
-    <string name="auth_no_net_conn_title">لا يتوفر اتصال</string>
+    <string name="auth_trying_to_login">محاولة الدخول…</string>
+	<string name="auth_no_net_conn_title">لا يتوفر اتصال</string>
 	<string name="auth_nossl_plain_ok_title">الاتصال الآمن غير متاح</string>
 	<string name="auth_connection_established">تم الاتصال</string>
 	<string name="auth_testing_connection">تجريب الإتصال</string>
@@ -220,7 +226,11 @@
     <string name="create_dir_fail_msg">تعذر إنشاء المُجلّد</string>
     <string name="filename_forbidden_characters">رموز ممنوعة: / \\ &lt; &gt; : \" | ? *</string>
     <string name="filename_empty">لا يجوز أن يُترك إسم الملف فارغًا</string>
+    <string name="wait_a_moment">إنتظر لحظة…</string>
     <string name="filedisplay_no_file_selected">لم تقم بتحديد أي ملف</string>
+    <string name="activity_chooser_title">ارسل الرابط الى…</string>
+    <string name="oauth_login_connection">الاتصال مع خادم oAuth2.0…</string>
+        
     <string name="ssl_validator_reason_cert_not_trusted">شهادة الخادم غير موثوقة</string>
     <string name="ssl_validator_reason_cert_expired">شهادة الخادم منتهية الصلاحية</string>
     <string name="ssl_validator_reason_cert_not_yet_valid">وقت صلاحية شهادة الخادم لم يحن بعد</string>
@@ -319,6 +329,7 @@
     <string name="share_via_link_password_title">مؤَمَّن</string>
     <string name="share_via_link_edit_permission_label">السماح بإدخال تعديلات</string>
     <string name="share_get_public_link_button">تحصل على رابط</string>
+    <string name="share_with_title">شارك مع…</string>
     <string name="share_with_edit_title">شارك مع %1$s</string>
 
     <string name="share_search">البحث</string>
@@ -399,7 +410,6 @@
     <string name="contacts_preference_choose_date">أختر التاريخ</string>
     <string name="contacts_preferences_no_file_found">لم يتم ايجاد أي ملف</string>
     <!-- Notifications -->
-    <string name="new_notification_received">لقد تلقيت إخطارا جديدا</string>
     <string name="drawer_logout">الخروج</string>
     <string name="privacy">الخصوصية</string>
     <string name="file_not_found">تعذر العثور على الملف</string>

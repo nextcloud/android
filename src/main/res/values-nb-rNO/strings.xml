@@ -597,7 +597,6 @@
     <string name="contacts_preferences_import_scheduled">Importering planlagt og i snarlig effektuering</string>
 
     <!-- Notifications -->
-    <string name="new_notification_received">Ny melding mottatt</string>
     <string name="drawer_logout">Logg ut</string>
     <string name="picture_set_as_no_app">Fant ikke noe program å sette bilde med.</string>
     <string name="privacy">Personvern</string>
