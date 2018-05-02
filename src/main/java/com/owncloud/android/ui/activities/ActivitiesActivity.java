@@ -149,6 +149,7 @@ public class ActivitiesActivity extends FileActivity implements ActivityListInte
         refreshLayout.setColorSchemeColors(accentColor, primaryColor, darkColor);
     }
 
+    @Override
     public void onDestroy() {
         super.onDestroy();
         unbinder.unbind();
