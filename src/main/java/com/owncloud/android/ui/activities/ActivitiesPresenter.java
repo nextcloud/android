@@ -32,34 +32,34 @@ import java.util.List;
 
 public class ActivitiesPresenter implements ActivitiesContract.ActionListener {
 
-    private final ActivitiesContract.View mActivitiesView;
-    private final ActivitiesRepository mActivitiesRepository;
-    private final FilesRepository mFilesRepository;
+    private final ActivitiesContract.View activitiesView;
+    private final ActivitiesRepository activitiesRepository;
+    private final FilesRepository filesRepository;
 
 
     public ActivitiesPresenter(@NonNull ActivitiesRepository activitiesRepository,
                                @NonNull FilesRepository filesRepository,
                                @NonNull ActivitiesContract.View activitiesView) {
-        mActivitiesRepository = activitiesRepository;
-        mActivitiesView = activitiesView;
-        mFilesRepository = filesRepository;
+        this.activitiesRepository = activitiesRepository;
+        this.activitiesView = activitiesView;
+        this.filesRepository = filesRepository;
     }
 
     @Override
     public void loadActivities(String pageUrl) {
-        mActivitiesView.setProgressIndicatorState(true);
-        mActivitiesRepository.getActivities(pageUrl, new ActivitiesRepository.LoadActivitiesCallback() {
+        activitiesView.setProgressIndicatorState(true);
+        activitiesRepository.getActivities(pageUrl, new ActivitiesRepository.LoadActivitiesCallback() {
             @Override
             public void onActivitiesLoaded(List<Object> activities, OwnCloudClient client,
                                           String nextPageUrl) {
-                mActivitiesView.setProgressIndicatorState(false);
-                mActivitiesView.showActivities(activities, client, nextPageUrl);
+                activitiesView.setProgressIndicatorState(false);
+                activitiesView.showActivities(activities, client, nextPageUrl);
             }
 
             @Override
             public void onActivitiesLoadedError(String error) {
-                mActivitiesView.setProgressIndicatorState(false);
-                mActivitiesView.showActivitiesLoadError(error);
+                activitiesView.setProgressIndicatorState(false);
+                activitiesView.showActivitiesLoadError(error);
             }
         });
 
@@ -68,23 +68,23 @@ public class ActivitiesPresenter implements ActivitiesContract.ActionListener {
 
     @Override
     public void openActivity(String fileUrl, BaseActivity baseActivity, boolean isSharingSupported) {
-        mActivitiesView.setProgressIndicatorState(true);
-        mFilesRepository.readRemoteFile(fileUrl, baseActivity, isSharingSupported,
+        activitiesView.setProgressIndicatorState(true);
+        filesRepository.readRemoteFile(fileUrl, baseActivity, isSharingSupported,
                 new FilesRepository.ReadRemoteFileCallback() {
                     @Override
                     public void onFileLoaded(@Nullable OCFile ocFile) {
-                        mActivitiesView.setProgressIndicatorState(false);
+                        activitiesView.setProgressIndicatorState(false);
                         if (ocFile != null) {
-                            mActivitiesView.showActivityDetailUI(ocFile);
+                            activitiesView.showActivityDetailUI(ocFile);
                         } else {
-                            mActivitiesView.showActivityDetailUIIsNull();
+                            activitiesView.showActivityDetailUIIsNull();
                         }
                     }
 
                     @Override
                     public void onFileLoadError(String error) {
-                        mActivitiesView.setProgressIndicatorState(false);
-                        mActivitiesView.showActivityDetailError(error);
+                        activitiesView.setProgressIndicatorState(false);
+                        activitiesView.showActivityDetailError(error);
                     }
                 });
     }

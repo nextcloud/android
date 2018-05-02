@@ -57,21 +57,21 @@ public class FilesServiceApiImpl implements FilesServiceApi {
     }
 
     private static class ReadRemoteFileTask extends AsyncTask<Void, Object, Boolean> {
-        private final FilesServiceCallback<OCFile> mCallback;
+        private final FilesServiceCallback<OCFile> callback;
         private OCFile remoteOcFile;
         private String errorMessage;
         // TODO: Figure out a better way to do this than passing a BaseActivity reference.
-        private final BaseActivity mBaseActivity;
-        private final boolean mIsSharingSupported;
-        private final String mFileUrl;
+        private final BaseActivity baseActivity;
+        private final boolean isSharingSupported;
+        private final String fileUrl;
 
         private ReadRemoteFileTask(String fileUrl, BaseActivity baseActivity,
                                    boolean isSharingSupported,
                                    FilesServiceCallback<OCFile> callback) {
-            mCallback = callback;
-            mBaseActivity = baseActivity;
-            mIsSharingSupported = isSharingSupported;
-            mFileUrl = fileUrl;
+            this.callback = callback;
+            this.baseActivity = baseActivity;
+            this.isSharingSupported = isSharingSupported;
+            this.fileUrl = fileUrl;
         }
 
         @Override
@@ -86,21 +86,21 @@ public class FilesServiceApiImpl implements FilesServiceApi {
                         getClientFor(ocAccount, MainApp.getAppContext());
                 ownCloudClient.setOwnCloudVersion(AccountUtils.getServerVersion(currentAccount));
                 // always update file as it could be an old state saved in database
-                ReadRemoteFileOperation operation = new ReadRemoteFileOperation(mFileUrl);
+                ReadRemoteFileOperation operation = new ReadRemoteFileOperation(fileUrl);
                 RemoteOperationResult resultRemoteFileOp = operation.execute(ownCloudClient);
                 if (resultRemoteFileOp.isSuccess()) {
                     OCFile temp = FileStorageUtils.fillOCFile((RemoteFile) resultRemoteFileOp.getData().get(0));
-                    remoteOcFile = mBaseActivity.getStorageManager().saveFileWithParent(temp, context);
+                    remoteOcFile = baseActivity.getStorageManager().saveFileWithParent(temp, context);
 
                     if (remoteOcFile.isFolder()) {
                         // perform folder synchronization
                         RemoteOperation synchFolderOp = new RefreshFolderOperation(remoteOcFile,
                                 System.currentTimeMillis(),
                                 false,
-                                mIsSharingSupported,
+                                isSharingSupported,
                                 true,
-                                mBaseActivity.getStorageManager(),
-                                mBaseActivity.getAccount(),
+                                baseActivity.getStorageManager(),
+                                baseActivity.getAccount(),
                                 context);
                         synchFolderOp.execute(ownCloudClient);
                     }
@@ -127,13 +127,13 @@ public class FilesServiceApiImpl implements FilesServiceApi {
         protected void onPostExecute(Boolean success) {
             super.onPostExecute(success);
             if (success && remoteOcFile != null) {
-                mCallback.onLoaded(remoteOcFile);
+                callback.onLoaded(remoteOcFile);
                 return;
             } else if (success) {
                 errorMessage = "File not found";
             }
 
-            mCallback.onError(errorMessage);
+            callback.onError(errorMessage);
         }
     }
 

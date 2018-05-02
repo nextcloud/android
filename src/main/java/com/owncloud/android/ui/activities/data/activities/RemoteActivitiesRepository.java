@@ -26,16 +26,16 @@ import java.util.List;
 
 public class RemoteActivitiesRepository implements ActivitiesRepository {
 
-    private final ActivitiesServiceApi mActivitiesServiceApi;
+    private final ActivitiesServiceApi activitiesServiceApi;
 
     public RemoteActivitiesRepository(@NonNull ActivitiesServiceApi activitiesServiceApi) {
-        mActivitiesServiceApi = activitiesServiceApi;
+        this.activitiesServiceApi = activitiesServiceApi;
     }
 
 
     @Override
     public void getActivities(String pageUrl, @NonNull LoadActivitiesCallback callback) {
-        mActivitiesServiceApi.getAllActivities(pageUrl, new ActivitiesServiceApi.ActivitiesServiceCallback<List<Object>>() {
+        activitiesServiceApi.getAllActivities(pageUrl, new ActivitiesServiceApi.ActivitiesServiceCallback<List<Object>>() {
             @Override
             public void onLoaded(List<Object> activities, OwnCloudClient client,
                                  String nextPageUrl) {
