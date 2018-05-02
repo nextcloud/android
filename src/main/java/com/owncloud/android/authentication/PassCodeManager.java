@@ -110,7 +110,7 @@ public class PassCodeManager {
     }
 
     private boolean passCodeShouldBeRequested() {
-        return (System.currentTimeMillis() - timestamp) > PASS_CODE_TIMEOUT && visibleActivitiesCounter <= 0 && passCodeIsEnabled();
+        return (hasAuthenticationTimeoutExpired() && passCodeIsEnabled());
     }
 
     private boolean passCodeIsEnabled() {
@@ -119,7 +119,11 @@ public class PassCodeManager {
     }
 
     private boolean fingerprintShouldBeRequested() {
-        return (System.currentTimeMillis() - timestamp) > PASS_CODE_TIMEOUT && visibleActivitiesCounter <= 0 && fingerprintIsEnabled();
+        return (hasAuthenticationTimeoutExpired() && fingerprintIsEnabled());
+    }
+
+    private boolean hasAuthenticationTimeoutExpired() {
+        return (System.currentTimeMillis() - timestamp) > PASS_CODE_TIMEOUT && visibleActivitiesCounter <= 0;
     }
 
     private boolean fingerprintIsEnabled() {
