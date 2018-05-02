@@ -27,6 +27,10 @@ import com.owncloud.android.ui.activities.data.files.FilesServiceApiImpl;
 
 public class Injection {
 
+    private Injection () {
+        // Required empty constructor
+    }
+
     public static ActivitiesRepository provideActivitiesRepository() {
         return ActivityRepositories.getRepository(new ActivitiesServiceApiImpl());
     }

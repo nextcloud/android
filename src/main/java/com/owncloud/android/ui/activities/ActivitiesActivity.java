@@ -149,6 +149,7 @@ public class ActivitiesActivity extends FileActivity implements ActivityListInte
         refreshLayout.setColorSchemeColors(accentColor, primaryColor, darkColor);
     }
 
+    @Override
     public void onDestroy() {
         super.onDestroy();
         unbinder.unbind();
@@ -251,7 +252,7 @@ public class ActivitiesActivity extends FileActivity implements ActivityListInte
         adapter.setActivityItems(activities, client, clear);
         this.nextPageUrl = nextPageUrl;
         // Hide the recyclerView if list is empty
-        if (activities.size() == 0) {
+        if (activities.isEmpty()) {
             recyclerView.setVisibility(View.INVISIBLE);
 
             emptyContentMessage.setText(noResultsMessage);
