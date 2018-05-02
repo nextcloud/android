@@ -25,16 +25,16 @@ import com.owncloud.android.ui.activity.BaseActivity;
 
 class RemoteFilesRepository implements FilesRepository {
 
-    private final FilesServiceApi mFilesServiceApi;
+    private final FilesServiceApi filesServiceApi;
 
     public RemoteFilesRepository(@NonNull FilesServiceApi filesServiceApi) {
-        mFilesServiceApi = filesServiceApi;
+        this.filesServiceApi = filesServiceApi;
     }
 
 
     @Override
     public void readRemoteFile(String path, BaseActivity activity, boolean isSharingSupported, @NonNull ReadRemoteFileCallback callback) {
-        mFilesServiceApi.readRemoteFile(path, activity, isSharingSupported,
+        filesServiceApi.readRemoteFile(path, activity, isSharingSupported,
                 new FilesServiceApi.FilesServiceCallback<OCFile>() {
                     @Override
                     public void onLoaded(OCFile ocFile) {

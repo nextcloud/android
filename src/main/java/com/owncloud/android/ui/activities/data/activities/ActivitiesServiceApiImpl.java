@@ -52,17 +52,17 @@ public class ActivitiesServiceApiImpl implements ActivitiesServiceApi {
 
     private static class GetActivityListTask extends AsyncTask<Void, Void, Boolean> {
 
-        private final ActivitiesServiceCallback<List<Object>> mCallback;
-        private List<Object> mActivities;
-        private String mPageUrl;
+        private final ActivitiesServiceCallback<List<Object>> callback;
+        private List<Object> activities;
+        private String pageUrl;
         private String noResultsMessage = "no results";
         private String errorMessage;
         private OwnCloudClient ownCloudClient;
 
         private GetActivityListTask(String pageUrl, ActivitiesServiceCallback<List<Object>> callback) {
-            mPageUrl = pageUrl;
-            mCallback = callback;
-            mActivities = new ArrayList<>();
+            this.pageUrl = pageUrl;
+            this.callback = callback;
+            activities = new ArrayList<>();
         }
 
 
@@ -78,17 +78,17 @@ public class ActivitiesServiceApiImpl implements ActivitiesServiceApi {
                 ownCloudClient.setOwnCloudVersion(AccountUtils.getServerVersion(currentAccount));
 
                 GetRemoteActivitiesOperation getRemoteNotificationOperation = new GetRemoteActivitiesOperation();
-                if (mPageUrl != null) {
-                    getRemoteNotificationOperation.setNextUrl(mPageUrl);
+                if (pageUrl != null) {
+                    getRemoteNotificationOperation.setNextUrl(pageUrl);
                 }
 
                 final RemoteOperationResult result = getRemoteNotificationOperation.execute(ownCloudClient);
 
                 if (result.isSuccess() && result.getData() != null) {
                     final ArrayList<Object> data = result.getData();
-                    mActivities = (ArrayList) data.get(0);
+                    activities = (ArrayList) data.get(0);
 
-                    mPageUrl = (String) data.get(1);
+                    pageUrl = (String) data.get(1);
                     return true;
                 } else {
                     Log_OC.d(TAG, result.getLogMessage());
@@ -121,9 +121,9 @@ public class ActivitiesServiceApiImpl implements ActivitiesServiceApi {
         protected void onPostExecute(Boolean success) {
             super.onPostExecute(success);
             if (success) {
-                mCallback.onLoaded(mActivities, ownCloudClient,  mPageUrl);
+                callback.onLoaded(activities, ownCloudClient, pageUrl);
             } else {
-                mCallback.onError(errorMessage);
+                callback.onError(errorMessage);
             }
         }
     }
