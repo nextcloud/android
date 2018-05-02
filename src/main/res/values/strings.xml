@@ -114,6 +114,8 @@
     <string name="file_list_empty_text_photos_filter">No photos.</string>
     <string name="file_list_empty_text_videos">Upload some videos or activate auto upload.</string>
     <string name="file_list_empty_text_videos_filter">No videos.</string>
+    <string name="trashbin_empty_headline">No deleted files</string>
+    <string name="trashbin_empty_message">You will be able to recover deleted files from here</string>
     <string name="upload_list_empty_headline">No uploads available</string>
     <string name="upload_list_empty_text_auto_upload">Upload some content or activate auto upload.</string>
     <string name="file_list_folder">folder</string>
@@ -807,4 +809,12 @@
     <string name="outdated_server">The server has reached end of life, please upgrade!</string>
     <string name="dismiss">Dismiss</string>
     <string name="feedback_no_mail_app">No app available to send mails!</string>
+    <string name="drawer_item_trashbin">Deleted files</string>
+    <string name="trashbin_activity_title">Deleted files</string>
+    <string name="restore_deleted_file">Restore deleted file</string>
+    <string name="action_empty_trashbin">Empty trashbin</string>
+    <string name="trashbin_loading_failed">Loading trashbin failed!</string>
+    <string name="trashbin_file_not_deleted">File %1$s could not be deleted!</string>
+    <string name="trashbin_file_not_restored">File %1$s could not be restored!</string>
+    <string name="trashbin_not_emptied">Trashbin could not emptied!</string>
 </resources>

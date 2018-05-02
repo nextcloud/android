@@ -21,6 +21,7 @@
 package com.owncloud.android.utils;
 
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.lib.resources.files.TrashbinFile;
 
 import java.io.File;
 import java.util.Collections;
@@ -64,6 +65,10 @@ public class FileSortOrder {
     }
 
     public List<File> sortLocalFiles(List<File> files) {
+        return files;
+    }
+
+    public List<TrashbinFile> sortTrashbinFiles(List<TrashbinFile> files) {
         return files;
     }
 

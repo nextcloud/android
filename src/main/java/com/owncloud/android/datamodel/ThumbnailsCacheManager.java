@@ -52,6 +52,8 @@ import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.lib.resources.files.ServerFileInterface;
+import com.owncloud.android.lib.resources.files.TrashbinFile;
 import com.owncloud.android.lib.resources.status.OwnCloudVersion;
 import com.owncloud.android.ui.TextDrawable;
 import com.owncloud.android.ui.adapter.DiskLruImageCache;
@@ -272,7 +274,7 @@ public class ThumbnailsCacheManager {
 
                     if (bitmap != null) {
                         // Handle PNG
-                        if (file.getMimetype().equalsIgnoreCase(PNG_MIMETYPE)) {
+                        if (file.getMimeType().equalsIgnoreCase(PNG_MIMETYPE)) {
                             bitmap = handlePNG(bitmap, pxW, pxH);
                         }
 
@@ -304,7 +306,7 @@ public class ThumbnailsCacheManager {
                                 }
 
                                 // Handle PNG
-                                if (thumbnail != null && file.getMimetype().equalsIgnoreCase(PNG_MIMETYPE)) {
+                                if (thumbnail != null && file.getMimeType().equalsIgnoreCase(PNG_MIMETYPE)) {
                                     thumbnail = handlePNG(thumbnail, thumbnail.getWidth(), thumbnail.getHeight());
                                 }
 
@@ -446,10 +448,10 @@ public class ThumbnailsCacheManager {
                 mFile = object.getFile();
                 mImageKey = object.getImageKey();
 
-                if (mFile instanceof OCFile) {
+                if (mFile instanceof ServerFileInterface) {
                     thumbnail = doThumbnailFromOCFileInBackground();
 
-                    if (MimeTypeUtil.isVideo((OCFile) mFile) && thumbnail != null) {
+                    if (MimeTypeUtil.isVideo((ServerFileInterface) mFile) && thumbnail != null) {
                         thumbnail = addVideoOverlay(thumbnail);
                     }
                 } else if (mFile instanceof File) {
@@ -484,6 +486,8 @@ public class ThumbnailsCacheManager {
                         tagId = String.valueOf(((OCFile)mFile).getFileId());
                     } else if (mFile instanceof File) {
                         tagId = String.valueOf(mFile.hashCode());
+                    } else if (mFile instanceof TrashbinFile) {
+                        tagId = String.valueOf(((TrashbinFile) mFile).getRemoteId());
                     }
                     if (String.valueOf(imageView.getTag()).equals(tagId)) {
                         imageView.setImageBitmap(bitmap);
@@ -498,40 +502,44 @@ public class ThumbnailsCacheManager {
 
         private Bitmap doThumbnailFromOCFileInBackground() {
             Bitmap thumbnail;
-            OCFile file = (OCFile) mFile;
+            ServerFileInterface file = (ServerFileInterface) mFile;
             String imageKey = PREFIX_THUMBNAIL + String.valueOf(file.getRemoteId());
 
             // Check disk cache in background thread
             thumbnail = getBitmapFromDiskCache(imageKey);
 
             // Not found in disk cache
-            if (thumbnail == null || file.needsUpdateThumbnail()) {
+            if (thumbnail == null || (file instanceof OCFile && ((OCFile) file).needsUpdateThumbnail())) {
                 int pxW;
                 int pxH;
                 pxW = pxH = getThumbnailDimension();
 
-                if (file.isDown()) {
-                    Bitmap bitmap;
-                    if (MimeTypeUtil.isVideo(file)) {
-                        bitmap = ThumbnailUtils.createVideoThumbnail(file.getStoragePath(),
-                                MediaStore.Images.Thumbnails.MINI_KIND);
-                    } else {
-                        bitmap = BitmapUtils.decodeSampledBitmapFromFile(file.getStoragePath(), pxW, pxH);
-                    }
-
-                    if (bitmap != null) {
-                        // Handle PNG
-                        if (file.getMimetype().equalsIgnoreCase(PNG_MIMETYPE)) {
-                            bitmap = handlePNG(bitmap, pxW, pxH);
+                if (file instanceof OCFile) {
+                    OCFile ocFile = (OCFile) file;
+                    if (ocFile.isDown()) {
+                        Bitmap bitmap;
+                        if (MimeTypeUtil.isVideo(ocFile)) {
+                            bitmap = ThumbnailUtils.createVideoThumbnail(ocFile.getStoragePath(),
+                                    MediaStore.Images.Thumbnails.MINI_KIND);
+                        } else {
+                            bitmap = BitmapUtils.decodeSampledBitmapFromFile(ocFile.getStoragePath(), pxW, pxH);
                         }
 
-                        thumbnail = addThumbnailToCache(imageKey, bitmap, file.getStoragePath(), pxW, pxH);
+                        if (bitmap != null) {
+                            // Handle PNG
+                            if (ocFile.getMimeType().equalsIgnoreCase(PNG_MIMETYPE)) {
+                                bitmap = handlePNG(bitmap, pxW, pxH);
+                            }
 
-                        file.setNeedsUpdateThumbnail(false);
-                        mStorageManager.saveFile(file);
+                            thumbnail = addThumbnailToCache(imageKey, bitmap, ocFile.getStoragePath(), pxW, pxH);
+
+                            ocFile.setNeedsUpdateThumbnail(false);
+                            mStorageManager.saveFile(ocFile);
+                        }
                     }
+                }
 
-                } else {
+                if (thumbnail == null) {
                     // check if resized version is available
                     String resizedImageKey = PREFIX_RESIZED_IMAGE + String.valueOf(file.getRemoteId());
                     Bitmap resizedImage = getBitmapFromDiskCache(resizedImageKey);
@@ -544,8 +552,15 @@ public class ThumbnailsCacheManager {
                             getMethod = null;
                             try {
                                 // thumbnail
-                                String uri = mClient.getBaseUri() + "/index.php/apps/files/api/v1/thumbnail/" +
-                                        pxW + "/" + pxH + Uri.encode(file.getRemotePath(), "/");
+                                String uri;
+                                if (file instanceof OCFile) {
+                                    uri = mClient.getBaseUri() + "/index.php/apps/files/api/v1/thumbnail/" +
+                                            pxW + "/" + pxH + Uri.encode(file.getRemotePath(), "/");
+                                } else {
+                                    uri = mClient.getBaseUri() + "/index.php/apps/files_trashbin/ajax/preview.php?x="
+                                            + pxW + "&y=" + pxH + "&file=" + Uri.encode(file.getRemotePath());
+                                }
+                                
                                 Log_OC.d(TAG, "generate thumbnail: " + file.getFileName() +
                                         " URI: " + uri);
                                 getMethod = new GetMethod(uri);
@@ -565,7 +580,7 @@ public class ThumbnailsCacheManager {
                                 }
 
                                 // Handle PNG
-                                if (file.getMimetype().equalsIgnoreCase(PNG_MIMETYPE)) {
+                                if (file.getMimeType().equalsIgnoreCase(PNG_MIMETYPE)) {
                                     thumbnail = handlePNG(thumbnail, pxW, pxH);
                                 }
                             } catch (Exception e) {
@@ -1154,7 +1169,7 @@ public class ThumbnailsCacheManager {
 
         if (bitmap != null) {
             // Handle PNG
-            if (file.getMimetype().equalsIgnoreCase(PNG_MIMETYPE)) {
+            if (file.getMimeType().equalsIgnoreCase(PNG_MIMETYPE)) {
                 bitmap = handlePNG(bitmap, pxW, pxH);
             }
 

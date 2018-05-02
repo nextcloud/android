@@ -253,7 +253,7 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                         .error(placeholder).into(fileIcon); // using custom fetcher
 
             } else {
-                fileIcon.setImageDrawable(MimeTypeUtil.getFileTypeIcon(file.getMimetype(), file.getFileName(), context));
+                fileIcon.setImageDrawable(MimeTypeUtil.getFileTypeIcon(file.getMimeType(), file.getFileName(), context));
             }
         } else {
             // Folder
