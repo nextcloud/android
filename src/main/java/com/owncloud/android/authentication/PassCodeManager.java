@@ -41,7 +41,7 @@ public class PassCodeManager {
     private static final Set<Class> sExemptOfPasscodeActivites;
 
     static {
-        sExemptOfPasscodeActivites = new HashSet<Class>();
+        sExemptOfPasscodeActivites = new HashSet<>();
         sExemptOfPasscodeActivites.add(PassCodeActivity.class);
         sExemptOfPasscodeActivites.add(FingerprintActivity.class);
         // other activities may be exempted, if needed
