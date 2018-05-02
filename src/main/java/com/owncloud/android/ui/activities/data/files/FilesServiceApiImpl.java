@@ -126,15 +126,15 @@ public class FilesServiceApiImpl implements FilesServiceApi {
         @Override
         protected void onPostExecute(Boolean success) {
             super.onPostExecute(success);
-            if (success && remoteOcFile != null) {
-                callback.onLoaded(remoteOcFile);
-                return;
-            } else if (success) {
-                errorMessage = "File not found";
-            }
 
-            callback.onError(errorMessage);
+            if (success) {
+                if (remoteOcFile != null) {
+                    callback.onLoaded(remoteOcFile);
+                } else {
+                    errorMessage = "File not found";
+                    callback.onError(errorMessage);
+                }
+            }
         }
     }
-
 }
