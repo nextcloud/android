@@ -462,7 +462,7 @@ public class DisplayUtils {
                     avatar = TextDrawable.createAvatar(account.name, avatarRadius);
                 } catch (Exception e) {
                     Log_OC.e(TAG, "Error calculating RGB value for active account icon.", e);
-                    avatar = resources.getDrawable(R.drawable.ic_account_circle);
+                    avatar = resources.getDrawable(R.drawable.account_circle_white);
                 }
             }
 

@@ -388,6 +388,7 @@
     <string name="contacts_automatic_backup">Automaatne varundus</string>
     <string name="contacts_last_backup">Viimane varukoopia</string>
     <string name="contacts_preference_choose_date">Vali kuupäev</string>
+    <!-- Notifications -->
     <string name="drawer_logout">Logi välja</string>
     <string name="privacy">Privaatsus</string>
     <string name="file_not_found">Faili ei leitud</string>

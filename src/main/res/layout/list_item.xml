@@ -61,7 +61,7 @@
                 android:layout_marginRight="@dimen/standard_quarter_margin"
                 android:layout_marginEnd="@dimen/standard_quarter_margin"
                 android:contentDescription="@string/favorite"
-                android:src="@drawable/ic_favorite" />
+                android:src="@drawable/badge_favorite" />
 
             <ImageView
                 android:id="@+id/keptOfflineIcon"

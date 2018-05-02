@@ -50,11 +50,11 @@
 
         <ImageView
             android:id="@+id/ticker"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
             android:layout_gravity="bottom|end"
             android:background="@drawable/round_bgnd"
-            android:src="@drawable/ic_account_circle_white_18dp"
+            android:src="@drawable/account_circle_white"
             android:contentDescription="@string/active_user"/>
     </FrameLayout>
 

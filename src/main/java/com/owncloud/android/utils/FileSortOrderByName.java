@@ -28,6 +28,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Locale;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import third_parties.daveKoeller.AlphanumComparator;
@@ -35,7 +36,6 @@ import third_parties.daveKoeller.AlphanumComparator;
 /**
  * Created by srkunze on 28.08.17.
  */
-
 public class FileSortOrderByName extends FileSortOrder {
 
     public FileSortOrderByName(String name, boolean ascending) {
@@ -75,19 +75,21 @@ public class FileSortOrderByName extends FileSortOrder {
     public File[] sortLocalFiles(File[] filesArray) {
         final int multiplier = mAscending ? 1 : -1;
 
-        List<File> files = new ArrayList<File>(Arrays.asList(filesArray));
+        List<File> files = new ArrayList<>(Arrays.asList(filesArray));
 
         Collections.sort(files, new Comparator<File>() {
             public int compare(File o1, File o2) {
                 if (o1.isDirectory() && o2.isDirectory()) {
-                    return multiplier * o1.getPath().toLowerCase().compareTo(o2.getPath().toLowerCase());
+                    return multiplier * o1.getPath().toLowerCase(Locale.getDefault())
+                            .compareTo(o2.getPath().toLowerCase(Locale.getDefault()));
                 } else if (o1.isDirectory()) {
                     return -1;
                 } else if (o2.isDirectory()) {
                     return 1;
                 }
-                return multiplier * new AlphanumComparator().compare(o1.getPath().toLowerCase(),
-                        o2.getPath().toLowerCase());
+                return multiplier * new AlphanumComparator().compare(o1.getPath()
+                                .toLowerCase(Locale.getDefault()),
+                        o2.getPath().toLowerCase(Locale.getDefault()));
             }
         });
 

@@ -239,7 +239,9 @@
 	<string name="auth_not_configured_title">Malformed server configuration</string>
 	<string name="auth_account_not_new">An account for the same user and server already exists on the device</string>
 	<string name="auth_account_not_the_same">The entered user does not match the user of this account</string>
+	<string name="auth_unknown_error_http_title">Unknown HTTP error occurred!</string>
 	<string name="auth_unknown_error_title">Unknown error occurred!</string>
+	<string name="auth_unknown_error_exception_title">Unknown error: %1$s</string>
 	<string name="auth_unknown_host_title">Could not find host</string>
 	<string name="auth_incorrect_path_title">Server not found</string>
 	<string name="auth_timeout_title">The server took too long to respond</string>
@@ -769,7 +771,6 @@
     <string name="end_to_end_encryption_storing_keys">Storing keys</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Copy/move into encrypted folder currently not supported.</string>
     <string name="untrusted_domain">Access through untrusted domain. Please see documentation for further info.</string>
-    <string name="upload_list_loading">Loading uploads…</string>
     <string name="notification_channel_push_name">Push notifications</string>
     <string name="notification_channel_push_description">Show push notifications sent by the server: Mentions in comments, reception of new remote shares, announcements posted by an admin etc.</string>
     <string name="sendbutton_description">Send button icon</string>
