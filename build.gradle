@@ -91,6 +91,7 @@ android {
         testInstrumentationRunnerArgument "TEST_SERVER_URL", "\"$System.env.OCTEST_SERVER_BASE_URL\""
 
         multiDexEnabled true
+        vectorDrawables.useSupportLibrary = true
 
         versionCode versionMajor * 10000000 + versionMinor * 10000 + versionPatch * 100 + versionBuild
 
