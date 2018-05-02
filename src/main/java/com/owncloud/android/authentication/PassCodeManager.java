@@ -38,12 +38,12 @@ import java.util.Set;
 
 public class PassCodeManager {
 
-    private static final Set<Class> sExemptOfPasscodeActivities;
+    private static final Set<Class> exemptOfPasscodeActivities;
 
     static {
-        sExemptOfPasscodeActivities = new HashSet<Class>();
-        sExemptOfPasscodeActivities.add(PassCodeActivity.class);
-        sExemptOfPasscodeActivities.add(FingerprintActivity.class);
+        exemptOfPasscodeActivities = new HashSet<Class>();
+        exemptOfPasscodeActivities.add(PassCodeActivity.class);
+        exemptOfPasscodeActivities.add(FingerprintActivity.class);
         // other activities may be exempted, if needed
     }
 
@@ -73,7 +73,7 @@ public class PassCodeManager {
     }
 
     public void onActivityStarted(Activity activity) {
-        if (!sExemptOfPasscodeActivities.contains(activity.getClass()) && passCodeShouldBeRequested()) {
+        if (!exemptOfPasscodeActivities.contains(activity.getClass()) && passCodeShouldBeRequested()) {
 
             Intent i = new Intent(MainApp.getAppContext(), PassCodeActivity.class);
             i.setAction(PassCodeActivity.ACTION_CHECK);
@@ -81,7 +81,7 @@ public class PassCodeManager {
             activity.startActivity(i);
         }
 
-        if (!sExemptOfPasscodeActivities.contains(activity.getClass()) &&
+        if (!exemptOfPasscodeActivities.contains(activity.getClass()) &&
                 Build.VERSION.SDK_INT >= Build.VERSION_CODES.M &&
                 fingerprintShouldBeRequested() && FingerprintActivity.isFingerprintReady(MainApp.getAppContext())) {
 
