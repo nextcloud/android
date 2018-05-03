@@ -81,6 +81,7 @@
 
             <android.support.design.widget.TextInputLayout
                 android:id="@+id/input_layout_hostUrl"
+                android:theme="@style/EditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
@@ -114,7 +115,7 @@
                 android:padding="@dimen/zero"
                 android:scaleType="fitCenter"
                 android:src="@drawable/arrow_right"
-                android:tint="@color/white"
+                android:tint="@color/login_text_color"
                 android:background="@android:color/transparent"
                 android:onClick="onTestServerConnectionClick"
                 android:contentDescription="@string/test_server_button"
@@ -158,7 +159,7 @@
             android:onClick="onCheckClick"
             android:text="@string/oauth_check_onoff"
             android:textAppearance="?android:attr/textAppearanceSmall"
-            android:textColor="@color/white"
+            android:textColor="@color/login_text_hint_color"
             android:contentDescription="@string/oauth_check_onoff"
             />
 
@@ -206,6 +207,7 @@
 
         <android.support.design.widget.TextInputLayout
             android:id="@+id/input_layout_account_username"
+            android:theme="@style/EditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:visibility="gone">
@@ -226,9 +228,10 @@
             android:id="@+id/input_layout_account_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:theme="@style/EditText"
             android:visibility="gone"
             app:passwordToggleDrawable="@drawable/password_visibility_selector"
-            app:passwordToggleTint="@color/white">
+            app:passwordToggleTint="@color/login_text_hint_color">
 
             <EditText
                 android:id="@+id/account_password"
