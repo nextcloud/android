@@ -29,7 +29,6 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -37,6 +36,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.PopupMenu;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -153,18 +153,27 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
         mView = inflater.inflate(mLayout, null);
         
         if (mLayout == R.layout.file_details_fragment) {
-            int accentColor = ThemeUtils.primaryAccentColor(getContext());
             ProgressBar progressBar = mView.findViewById(R.id.fdProgressBar);
             ThemeUtils.colorHorizontalProgressBar(progressBar, ThemeUtils.primaryAccentColor(getContext()));
             mProgressListener = new ProgressListener(progressBar);
             mView.findViewById(R.id.fdCancelBtn).setOnClickListener(this);
             mView.findViewById(R.id.fdFavorite).setOnClickListener(this);
-            ((TextView)mView.findViewById(R.id.fdShareTitle)).setTextColor(accentColor);
-            ((TextView)mView.findViewById(R.id.fdShareWithUsersTitle)).setTextColor(accentColor);
+            mView.findViewById(R.id.overflow_menu).setOnClickListener(this);
         }
 
         updateFileDetails(false, false);
         return mView;
+    }
+
+    public void onOverflowIconClicked(View view) {
+        PopupMenu popup = new PopupMenu(getActivity(), view);
+        popup.inflate(R.menu.file_actions_menu);
+        prepareOptionsMenu(popup.getMenu());
+
+        popup.setOnMenuItemClickListener(item -> {
+            return optionsItemSelected(item);
+        });
+        popup.show();
     }
 
     private void setupViewPager(View view) {
@@ -224,22 +233,19 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
         return super.getView() == null ? mView : super.getView();
     }
 
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        super.onCreateOptionsMenu(menu, inflater);
-        inflater.inflate(R.menu.file_actions_menu, menu);
-    }
-
-
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void onPrepareOptionsMenu(Menu menu) {
+        super.onPrepareOptionsMenu(menu);
+
+        MenuItem item;
+        for (int i = 0; i < menu.size(); i++) {
+            item = menu.getItem(i);
+            item.setVisible(false);
+            item.setEnabled(false);
+        }
+    }
+
+    private void prepareOptionsMenu(Menu menu) {
         super.onPrepareOptionsMenu(menu);
 
         if (mContainerActivity.getStorageManager() != null) {
@@ -336,11 +342,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
         }
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean optionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_send_share_file: {
                 if(getFile().isSharedWithMe() && !getFile().canReshare()){
@@ -402,6 +404,9 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
                 mContainerActivity.getFileOperationsHelper()
                         .toggleOfflineFile(getFile(), !getFile().isAvailableOffline());
                 break;
+            }
+            case R.id.overflow_menu: {
+                onOverflowIconClicked(v);
             }
             default:
                 Log_OC.e(TAG, "Incorrect view clicked!");
