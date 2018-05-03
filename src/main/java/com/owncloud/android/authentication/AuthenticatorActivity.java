@@ -433,6 +433,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             @Override
             public void run() {
                 Snackbar.make(mLoginWebView, R.string.fallback_weblogin_text, Snackbar.LENGTH_INDEFINITE)
+                        .setActionTextColor(getResources().getColor(R.color.primary_dark))
                         .setAction(R.string.fallback_weblogin_back, new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
