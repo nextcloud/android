@@ -88,6 +88,7 @@
     <string name="file_list_empty">Carga algún contenido o sincroniza con tus dispositivos.</string>
     <string name="file_list_empty_favorites_filter_list">Los archivos y carpetas que marques como favoritos se mostrarán aquí</string>
     <string name="file_list_empty_favorites_filter">Tu búsqueda no regresó archivos marcados como favoritos. </string>
+    <string name="file_list_loading">Cargando...</string>
     <string name="file_list_no_app_for_file_type">No se cuenta con una aplicación que maneje este tipo de achivo. </string>
     <string name="local_file_list_empty">No hay archivos en esta carpeta</string>
     <string name="local_folder_list_empty">No hay más carpetas.</string>
@@ -124,6 +125,7 @@
     <string name="common_back">Atrás</string>
     <string name="common_save">Guardar</string>
     <string name="common_error">Error</string>
+    <string name="common_loading">Cargando</string>
     <string name="common_unknown">desconocido</string>
     <string name="common_error_unknown">Error desconocido</string>
     <string name="common_pending">Pendiente</string>
@@ -133,7 +135,9 @@
     <string name="delete_account_warning">¿Borrar la cuenta %s y borrar todos los archivos localeS?\n\nEl borrado no se puede deshacer</string>
     <string name="avatar">Avatar</string>
     <string name="active_user">Usuario activo</string>
+    <string name="upload_chooser_title">Cargar forma...</string>
     <string name="uploader_info_dirname">Nombre de la carpeta</string>
+    <string name="uploader_upload_in_progress_ticker">Cargando</string>
     <string name="uploader_upload_in_progress_content">%1$d%% Cargando %2$s</string>
     <string name="uploader_upload_succeeded_ticker">Cargado</string>
     <string name="uploader_upload_succeeded_content_single">%1$s cargado</string>
@@ -274,6 +278,7 @@
     <string name="filename_forbidden_characters">Caracteres inválidos: / \\ &lt; &gt; : \" | ? *</string>
     <string name="filename_forbidden_charaters_from_server">El nombre del archivo contiene al menos un carácter inválido</string>
     <string name="filename_empty">El nombre del archivo no puede estar en blanco. </string>
+    <string name="wait_a_moment">Agurarda un momento...</string>
     <string name="wait_checking_credentials">Verificando credenciales almacenadas</string>
     <string name="filedisplay_no_file_selected">No se ha seleccionado algún archivo</string>
     <string name="wait_for_tmp_copy_from_private_storage">Copiando el archivo desde almacenamiento privado</string>
@@ -370,6 +375,8 @@
     <string name="downloader_download_file_not_found">El archivo ya no se encuentra disponible en el servidor</string>
 
     <string name="file_migration_dialog_title">Actualizando la ruta de almacenamiento</string>
+    <string name="file_migration_migrating">Moviendo los datos...</string>
+    <string name="file_migration_cleaning">Limpiando...</string>
     <string name="file_migration_ok_finished">Terminado</string>
     <string name="file_migration_failed_not_enough_space">Se necesita más espacio</string>
     <string name="file_migration_failed_not_writable">No fue posible escribir al archivo destino</string>
@@ -716,4 +723,5 @@
     <string name="untrusted_domain">Accede a través de un dominio no de confianza. Por favor consulta la documentación para más información.</string>
     <string name="notification_channel_push_name">Notificaciones push</string>
     <string name="sendbutton_description">Ícono de botón de envío</string>
+    <string name="create_new_folder">Crear nueva carpeta</string>
     </resources>
