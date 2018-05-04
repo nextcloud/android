@@ -187,15 +187,19 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
             view.findViewById(R.id.fdFavorite).setOnClickListener(this);
             view.findViewById(R.id.overflow_menu).setOnClickListener(this);
             previewImage = getActivity().findViewById(R.id.preview_image);
+            // TODO use whenever we switch to use glide for preview images
+            /*
             if (getFile() != null && account != null && MimeTypeUtil.isImage(getFile())) {
-                //setHeaderImage();
+                setHeaderImage();
             }
+             */
         }
 
         updateFileDetails(false, false);
         return view;
     }
-
+    // TODO use whenever we switch to use glide for preview images
+    /*
     private void setHeaderImage() {
         if (mContainerActivity.getStorageManager().getCapability(account.name)
                 .getServerBackground() != null && previewImage != null) {
@@ -239,7 +243,8 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
                 toolbarProgressBar.setVisibility(View.VISIBLE);
             }
         }
-}
+    }
+    */
 
     public void onOverflowIconClicked(View view) {
         PopupMenu popup = new PopupMenu(getActivity(), view);
