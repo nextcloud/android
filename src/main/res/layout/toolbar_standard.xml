@@ -34,32 +34,26 @@
             android:id="@+id/preview_image"
             android:layout_width="match_parent"
             android:layout_height="@dimen/nav_drawer_header_height"
-            android:visibility="gone"/>
+            android:scaleType="centerCrop"
+            android:visibility="gone" />
 
         <android.support.v7.widget.Toolbar
             android:id="@id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="bottom"
-            android:orientation="vertical">
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
         <ProgressBar
             android:id="@+id/progressBar"
             style="@style/Widget.ownCloud.TopProgressBar"
             android:layout_width="match_parent"
             android:layout_height="@dimen/standard_quarter_margin"
+            android:layout_below="@+id/toolbar"
             android:layout_margin="@dimen/zero"
             android:indeterminate="false"
             android:indeterminateOnly="false"
             android:padding="@dimen/zero"
-            android:visibility="visible"/>
-
-        </LinearLayout>
+            android:visibility="visible" />
     </RelativeLayout>
 
 </android.support.design.widget.AppBarLayout>
