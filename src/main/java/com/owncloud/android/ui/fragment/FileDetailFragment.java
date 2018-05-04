@@ -237,12 +237,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
     public void onPrepareOptionsMenu(Menu menu) {
         super.onPrepareOptionsMenu(menu);
 
-        MenuItem item;
-        for (int i = 0; i < menu.size(); i++) {
-            item = menu.getItem(i);
-            item.setVisible(false);
-            item.setEnabled(false);
-        }
+        FileMenuFilter.hideAll(menu);
     }
 
     private void prepareOptionsMenu(Menu menu) {
@@ -260,31 +255,24 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
         }
 
         // restriction for this fragment
-        hideMenuItem(menu.findItem(R.id.action_see_details));
-        hideMenuItem(menu.findItem(R.id.action_select_all));
-        hideMenuItem(menu.findItem(R.id.action_move));
-        hideMenuItem(menu.findItem(R.id.action_copy));
-        hideMenuItem(menu.findItem(R.id.action_favorite));
-        hideMenuItem(menu.findItem(R.id.action_unset_favorite));
-        hideMenuItem(menu.findItem(R.id.action_search));
+        FileMenuFilter.hideMenuItem(menu.findItem(R.id.action_see_details));
+        FileMenuFilter.hideMenuItem(menu.findItem(R.id.action_select_all));
+        FileMenuFilter.hideMenuItem(menu.findItem(R.id.action_move));
+        FileMenuFilter.hideMenuItem(menu.findItem(R.id.action_copy));
+        FileMenuFilter.hideMenuItem(menu.findItem(R.id.action_favorite));
+        FileMenuFilter.hideMenuItem(menu.findItem(R.id.action_unset_favorite));
+        FileMenuFilter.hideMenuItem(menu.findItem(R.id.action_search));
 
         // dual pane restrictions
         if (!getResources().getBoolean(R.bool.large_land_layout)){
-            hideMenuItem(menu.findItem(R.id.action_switch_view));
-            hideMenuItem(menu.findItem(R.id.action_sync_account));
-            hideMenuItem(menu.findItem(R.id.action_sort));
+            FileMenuFilter.hideMenuItem(menu.findItem(R.id.action_switch_view));
+            FileMenuFilter.hideMenuItem(menu.findItem(R.id.action_sync_account));
+            FileMenuFilter.hideMenuItem(menu.findItem(R.id.action_sort));
         }
 
         // share restrictions
         if (getFile().isSharedWithMe() && !getFile().canReshare()) {
-            hideMenuItem(menu.findItem(R.id.action_send_share_file));
-        }
-    }
-
-    private void hideMenuItem(MenuItem item) {
-        if (item != null) {
-            item.setVisible(false);
-            item.setEnabled(false);
+            FileMenuFilter.hideMenuItem(menu.findItem(R.id.action_send_share_file));
         }
     }
 
@@ -338,7 +326,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
                 break;
             }
             case R.id.fdFavorite: {
-                if (getFile().isAvailableOffline()) {
+                if (getFile().getIsFavorite()) {
                     ((ImageView)getView().findViewById(R.id.fdFavorite)).
                             setImageDrawable(getResources()
                                     .getDrawable(R.drawable.ic_star_outline));
@@ -347,6 +335,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
                             .setImageDrawable(getResources()
                                     .getDrawable(R.drawable.ic_star));
                 }
+
                 mContainerActivity.getFileOperationsHelper()
                         .toggleOfflineFile(getFile(), !getFile().isAvailableOffline());
                 break;
@@ -410,7 +399,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
             setFilesize(file.getFileLength());
             setTimeModified(file.getModificationTimestamp());
 
-            if (file.isAvailableOffline()) {
+            if (file.getIsFavorite()) {
                 ((ImageView)getView().findViewById(R.id.fdFavorite)).setImageDrawable(getResources().getDrawable(R.drawable.ic_star));
             } else {
                 ((ImageView)getView().findViewById(R.id.fdFavorite)).setImageDrawable(getResources().getDrawable(R.drawable.ic_star_outline));
