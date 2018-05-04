@@ -38,6 +38,7 @@ import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.adapter.UserListAdapter;
+import com.owncloud.android.utils.ThemeUtils;
 
 import java.util.ArrayList;
 
@@ -82,7 +83,8 @@ public class FileDetailSharingFragment  extends Fragment {
     }
 
     private void setupView(View view) {
-        // TODO populate sharing UI
+        ((TextView)view.findViewById(R.id.fdShareTitle)).setTextColor(ThemeUtils.primaryAccentColor(getContext()));
+        ((TextView)view.findViewById(R.id.fdShareWithUsersTitle)).setTextColor(ThemeUtils.primaryAccentColor(getContext()));
 
         setShareByLinkInfo(file.isSharedViaLink(), view);
 
