@@ -250,6 +250,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
         tabLayout.addTab(tabLayout.newTab().setText(R.string.share_dialog_title));
 
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+        tabLayout.setSelectedTabIndicatorColor(ThemeUtils.primaryAccentColor(getContext()));
 
         final ViewPager viewPager = view.findViewById(R.id.pager);
         final FileDetailTabAdapter adapter = new FileDetailTabAdapter
