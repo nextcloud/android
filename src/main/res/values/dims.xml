@@ -107,7 +107,6 @@
     <dimen name="file_details_user_icon_layout_width">32dp</dimen>
     <dimen name="file_details_user_icon_layout_height">32dp</dimen>
     <dimen name="file_details_username_text_size">16sp</dimen>
-    <dimen name="file_details_username_layout_text_margin">12dp</dimen>
     <dimen name="grid_image_shared_icon_layout_top_margin">24dp</dimen>
     <dimen name="grid_image_local_file_indicator_layout_width">16dp</dimen>
     <dimen name="grid_image_local_file_indicator_layout_height">16dp</dimen>
