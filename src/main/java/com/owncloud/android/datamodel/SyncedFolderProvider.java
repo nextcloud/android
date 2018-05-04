@@ -237,9 +237,9 @@ public class SyncedFolderProvider extends Observable {
             if (!new File(syncedFolder.getLocalPath()).exists()) {
                 String localPath = syncedFolder.getLocalPath();
                 if (localPath.endsWith("/")) {
-                    localPath = localPath.substring(0, localPath.lastIndexOf("/"));
+                    localPath = localPath.substring(0, localPath.lastIndexOf('/'));
                 }
-                localPath = localPath.substring(0, localPath.lastIndexOf("/"));
+                localPath = localPath.substring(0, localPath.lastIndexOf('/'));
                 if (new File(localPath).exists()) {
                     syncedFolders.get(i).setLocalPath(localPath);
                     updateSyncFolder(syncedFolder);
