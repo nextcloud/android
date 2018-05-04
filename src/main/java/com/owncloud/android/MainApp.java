@@ -513,8 +513,7 @@ public class MainApp extends MultiDexApplication {
                             .setMessage(R.string.synced_folders_new_info)
                             .setPositiveButton(R.string.drawer_open, (dialog, which) -> {
                                 // show Auto Upload
-                                Intent folderSyncIntent = new Intent(context,
-                                        SyncedFoldersActivity.class);
+                                Intent folderSyncIntent = new Intent(context, SyncedFoldersActivity.class);
                                 dialog.dismiss();
                                 context.startActivity(folderSyncIntent);
                             })
