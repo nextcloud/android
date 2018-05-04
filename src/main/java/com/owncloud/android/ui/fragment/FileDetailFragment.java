@@ -325,8 +325,6 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
     }
 
     private void prepareOptionsMenu(Menu menu) {
-        super.onPrepareOptionsMenu(menu);
-
         if (mContainerActivity.getStorageManager() != null) {
             FileMenuFilter mf = new FileMenuFilter(
                 getFile(),
@@ -401,6 +399,14 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
                 mContainerActivity.getFileOperationsHelper().syncFile(getFile());
                 return true;
             }
+            case R.id.action_keep_files_offline: {
+                mContainerActivity.getFileOperationsHelper().toggleOfflineFile(getFile(), true);
+                return true;
+            }
+            case R.id.action_unset_keep_files_offline: {
+                mContainerActivity.getFileOperationsHelper().toggleOfflineFile(getFile(), false);
+                return true;
+            }
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -418,18 +424,18 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
                     ((ImageView)getView().findViewById(R.id.fdFavorite)).
                             setImageDrawable(getResources()
                                     .getDrawable(R.drawable.ic_star_outline));
+                    mContainerActivity.getFileOperationsHelper().toggleFavoriteFile(getFile(), false);
                 } else {
                     ((ImageView)getView().findViewById(R.id.fdFavorite))
                             .setImageDrawable(getResources()
                                     .getDrawable(R.drawable.ic_star));
+                    mContainerActivity.getFileOperationsHelper().toggleFavoriteFile(getFile(), true);
                 }
-
-                mContainerActivity.getFileOperationsHelper()
-                        .toggleOfflineFile(getFile(), !getFile().isAvailableOffline());
                 break;
             }
             case R.id.overflow_menu: {
                 onOverflowIconClicked(v);
+                break;
             }
             default:
                 Log_OC.e(TAG, "Incorrect view clicked!");
