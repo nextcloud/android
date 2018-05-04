@@ -124,10 +124,16 @@ public class FileMenuFilter {
         }
     }
 
-    private void hideAll(Menu menu) {
-        MenuItem item;
-        for (int i = 0; i < menu.size(); i++) {
-            item = menu.getItem(i);
+    public static void hideAll(Menu menu) {
+        if (menu != null) {
+            for (int i = 0; i < menu.size(); i++) {
+                hideMenuItem(menu.getItem(i));
+            }
+        }
+    }
+
+    public static void hideMenuItem(MenuItem item) {
+        if (item != null) {
             item.setVisible(false);
             item.setEnabled(false);
         }
