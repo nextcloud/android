@@ -104,22 +104,13 @@ public class FileMenuFilter {
             List<Integer> toHide = new ArrayList<>();
 
             filter(toShow, toHide, inSingleFileFragment);
-
-            MenuItem item;
+            
             for (int i : toShow) {
-                item = menu.findItem(i);
-                if (item != null) {
-                    item.setVisible(true);
-                    item.setEnabled(true);
-                }
+                showMenuItem(menu.findItem(i));
             }
 
             for (int i : toHide) {
-                item = menu.findItem(i);
-                if (item != null) {
-                    item.setVisible(false);
-                    item.setEnabled(false);
-                }
+                hideMenuItem(menu.findItem(i));
             }
         }
     }
@@ -132,10 +123,25 @@ public class FileMenuFilter {
         }
     }
 
-    public static void hideMenuItem(MenuItem item) {
+    private static void hideMenuItem(MenuItem item) {
         if (item != null) {
             item.setVisible(false);
             item.setEnabled(false);
+        }
+    }
+
+    private static void showMenuItem(MenuItem item) {
+        if (item != null) {
+            item.setVisible(true);
+            item.setEnabled(true);
+        }
+    }
+
+    public static void hideMenuItems(MenuItem... items) {
+        if (items != null) {
+            for (MenuItem item : items) {
+                hideMenuItem(item);
+            }
         }
     }
 

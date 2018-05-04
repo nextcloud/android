@@ -255,24 +255,28 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
         }
 
         // restriction for this fragment
-        FileMenuFilter.hideMenuItem(menu.findItem(R.id.action_see_details));
-        FileMenuFilter.hideMenuItem(menu.findItem(R.id.action_select_all));
-        FileMenuFilter.hideMenuItem(menu.findItem(R.id.action_move));
-        FileMenuFilter.hideMenuItem(menu.findItem(R.id.action_copy));
-        FileMenuFilter.hideMenuItem(menu.findItem(R.id.action_favorite));
-        FileMenuFilter.hideMenuItem(menu.findItem(R.id.action_unset_favorite));
-        FileMenuFilter.hideMenuItem(menu.findItem(R.id.action_search));
+        FileMenuFilter.hideMenuItems(
+                menu.findItem(R.id.action_see_details),
+                menu.findItem(R.id.action_select_all),
+                menu.findItem(R.id.action_move),
+                menu.findItem(R.id.action_copy),
+                menu.findItem(R.id.action_favorite),
+                menu.findItem(R.id.action_unset_favorite),
+                menu.findItem(R.id.action_search)
+        );
 
         // dual pane restrictions
         if (!getResources().getBoolean(R.bool.large_land_layout)){
-            FileMenuFilter.hideMenuItem(menu.findItem(R.id.action_switch_view));
-            FileMenuFilter.hideMenuItem(menu.findItem(R.id.action_sync_account));
-            FileMenuFilter.hideMenuItem(menu.findItem(R.id.action_sort));
+            FileMenuFilter.hideMenuItems(
+                    menu.findItem(R.id.action_switch_view),
+                    menu.findItem(R.id.action_sync_account),
+                    menu.findItem(R.id.action_sort)
+            );
         }
 
         // share restrictions
         if (getFile().isSharedWithMe() && !getFile().canReshare()) {
-            FileMenuFilter.hideMenuItem(menu.findItem(R.id.action_send_share_file));
+            FileMenuFilter.hideMenuItems(menu.findItem(R.id.action_send_share_file));
         }
     }
 
