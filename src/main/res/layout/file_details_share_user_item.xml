@@ -21,6 +21,8 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:weightSum="1"
+    android:paddingTop="@dimen/standard_eigth_padding"
+    android:paddingBottom="@dimen/standard_eigth_padding"
     tools:ignore="UseCompoundDrawables">
 
         <ImageView
@@ -29,16 +31,24 @@
             android:layout_height="@dimen/file_details_user_icon_layout_height"
             android:src="@drawable/ic_user"
             android:layout_gravity="center_vertical"
+            android:layout_marginTop="@dimen/standard_half_margin"
+            android:layout_marginBottom="@dimen/standard_half_margin"
+            android:layout_marginLeft="@dimen/standard_margin"
+            android:layout_marginStart="@dimen/standard_margin"
+            android:layout_marginEnd="@dimen/standard_margin"
+            android:layout_marginRight="@dimen/standard_margin"
             android:contentDescription="@string/user_icon"/>
 
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:textSize="@dimen/file_details_username_text_size"
             android:text="@string/username"
             android:id="@+id/userOrGroupName"
-            android:layout_margin="@dimen/file_details_username_layout_text_margin"
+            android:layout_marginRight="@dimen/standard_margin"
+            android:layout_marginEnd="@dimen/standard_margin"
             android:singleLine="true"
             android:ellipsize="middle"
+            android:gravity="center_vertical"
             android:textColor="@color/black"/>
 </LinearLayout>

@@ -32,7 +32,10 @@ import android.widget.TextView;
 import com.owncloud.android.R;
 import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.lib.resources.shares.ShareType;
+import com.owncloud.android.ui.TextDrawable;
 
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 
 /**
@@ -42,11 +45,14 @@ public class UserListAdapter extends ArrayAdapter {
 
     private Context mContext;
     private ArrayList<OCShare> mShares;
+    private float mAvatarRadiusDimension;
 
     public UserListAdapter(Context context, int resource, ArrayList<OCShare> shares) {
         super(context, resource);
         mContext = context;
         mShares = shares;
+
+        mAvatarRadiusDimension = context.getResources().getDimension(R.dimen.standard_padding);
     }
 
     @Override
@@ -75,15 +81,29 @@ public class UserListAdapter extends ArrayAdapter {
         if (mShares != null && mShares.size() > position) {
             OCShare share = mShares.get(position);
 
-            TextView userName = (TextView) view.findViewById(R.id.userOrGroupName);
-            ImageView icon = (ImageView) view.findViewById(R.id.userIcon);
+            TextView userName = view.findViewById(R.id.userOrGroupName);
+            ImageView icon = view.findViewById(R.id.userIcon);
             String name = share.getSharedWithDisplayName();
             if (share.getShareType() == ShareType.GROUP) {
                 name = getContext().getString(R.string.share_group_clarification, name);
-                icon.setImageResource(R.drawable.ic_group);
+                try {
+                    icon.setImageDrawable(TextDrawable.createNamedAvatar(name, mAvatarRadiusDimension));
+                } catch (UnsupportedEncodingException | NoSuchAlgorithmException e) {
+                    icon.setImageResource(R.drawable.ic_group);
+                }
             } else if (share.getShareType() == ShareType.EMAIL) {
                 name = getContext().getString(R.string.share_email_clarification, name);
-                icon.setImageResource(R.drawable.ic_email);
+                try {
+                    icon.setImageDrawable(TextDrawable.createNamedAvatar(name, mAvatarRadiusDimension));
+                } catch (UnsupportedEncodingException | NoSuchAlgorithmException e) {
+                    icon.setImageResource(R.drawable.ic_email);
+                }
+            } else {
+                try {
+                    icon.setImageDrawable(TextDrawable.createNamedAvatar(name, mAvatarRadiusDimension));
+                } catch (UnsupportedEncodingException | NoSuchAlgorithmException e) {
+                    icon.setImageResource(R.drawable.ic_user);
+                }
             }
             userName.setText(name);
 
