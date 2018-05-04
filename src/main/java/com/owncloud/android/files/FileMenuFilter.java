@@ -104,7 +104,7 @@ public class FileMenuFilter {
             List<Integer> toHide = new ArrayList<>();
 
             filter(toShow, toHide, inSingleFileFragment);
-            
+
             for (int i : toShow) {
                 showMenuItem(menu.findItem(i));
             }
