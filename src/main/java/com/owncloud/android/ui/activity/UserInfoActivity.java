@@ -272,7 +272,7 @@ public class UserInfoActivity extends FileActivity {
         }
         
         if (userInfo.getPhone() == null && userInfo.getEmail() == null && userInfo.getAddress() == null
-                && userInfo.getTwitter() == null & userInfo.getWebsite() == null) {
+                && userInfo.getTwitter() == null && userInfo.getWebsite() == null) {
 
             setErrorMessageForMultiList(getString(R.string.userinfo_no_info_headline),
                     getString(R.string.userinfo_no_info_text), R.drawable.ic_user);
