@@ -56,6 +56,7 @@ import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.status.OwnCloudVersion;
 import com.owncloud.android.ui.TextDrawable;
 import com.owncloud.android.ui.adapter.DiskLruImageCache;
+import com.owncloud.android.ui.fragment.FileFragment;
 import com.owncloud.android.ui.preview.PreviewImageFragment;
 import com.owncloud.android.utils.BitmapUtils;
 import com.owncloud.android.utils.ConnectivityUtils;
@@ -208,17 +209,17 @@ public class ThumbnailsCacheManager {
     }
 
     public static class ResizedImageGenerationTask extends AsyncTask<Object, Void, Bitmap> {
-        private PreviewImageFragment previewImageFragment;
+        private FileFragment fileFragment;
         private FileDataStorageManager storageManager;
         private Account account;
         private WeakReference<ImageView> imageViewReference;
         private OCFile file;
 
 
-        public ResizedImageGenerationTask(PreviewImageFragment previewImageFragment, ImageView imageView,
+        public ResizedImageGenerationTask(FileFragment fileFragment, ImageView imageView,
                                           FileDataStorageManager storageManager, Account account)
                 throws IllegalArgumentException {
-            this.previewImageFragment = previewImageFragment;
+            this.fileFragment = fileFragment;
             imageViewReference = new WeakReference<>(imageView);
             this.storageManager = storageManager;
             this.account = account;
@@ -350,9 +351,13 @@ public class ThumbnailsCacheManager {
                 } else {
                     new Thread(() -> {
                         if (ConnectivityUtils.isInternetWalled(MainApp.getAppContext())) {
-                            previewImageFragment.setNoConnectionErrorMessage();
+                            if (fileFragment instanceof PreviewImageFragment) {
+                                ((PreviewImageFragment) fileFragment).setNoConnectionErrorMessage();
+                            }
                         } else {
-                            previewImageFragment.setErrorPreviewMessage();
+                            if (fileFragment instanceof PreviewImageFragment) {
+                                ((PreviewImageFragment) fileFragment).setErrorPreviewMessage();
+                            }
                         }
                     }).start();
                     

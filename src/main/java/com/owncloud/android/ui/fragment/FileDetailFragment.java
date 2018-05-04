@@ -534,32 +534,44 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
             iv.setImageDrawable(MimeTypeUtil.getFileTypeIcon(file.getMimetype(), file.getFileName(), account,
                     getContext()));
 
-            Bitmap thumbnail;
+            Bitmap resizedImage;
 
             if (MimeTypeUtil.isImage(file)) {
-                String tagId = String.valueOf(file.getRemoteId());
-                thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(tagId);
+                String tagId = String.valueOf(ThumbnailsCacheManager.PREFIX_RESIZED_IMAGE + getFile().getRemoteId());
+                resizedImage = ThumbnailsCacheManager.getBitmapFromDiskCache(tagId);
 
-                if (thumbnail != null && !file.needsUpdateThumbnail()) {
-                    iv.setImageBitmap(thumbnail);
+                if (resizedImage != null && !file.needsUpdateThumbnail()) {
+                    iv.setImageBitmap(resizedImage);
                 } else {
-                    // generate new Thumbnail
-                    if (ThumbnailsCacheManager.cancelPotentialThumbnailWork(file, iv)) {
-                        final ThumbnailsCacheManager.ThumbnailGenerationTask task =
-                                new ThumbnailsCacheManager.ThumbnailGenerationTask(
-                                        iv, mContainerActivity.getStorageManager(), account
-                                );
-                        if (thumbnail == null) {
-                            thumbnail = ThumbnailsCacheManager.mDefaultImg;
+                    // show thumbnail while loading resized image
+                    Bitmap thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(
+                            String.valueOf(ThumbnailsCacheManager.PREFIX_THUMBNAIL + getFile().getRemoteId()));
+
+                    if (thumbnail != null) {
+                        iv.setImageBitmap(thumbnail);
+                    } else {
+                        thumbnail = ThumbnailsCacheManager.mDefaultImg;
+                    }
+
+                    // generate new resized image
+                    if (ThumbnailsCacheManager.cancelPotentialThumbnailWork(getFile(), iv) &&
+                            mContainerActivity.getStorageManager() != null) {
+                        final ThumbnailsCacheManager.ResizedImageGenerationTask task =
+                                new ThumbnailsCacheManager.ResizedImageGenerationTask(FileDetailFragment.this,
+                                        iv,
+                                        mContainerActivity.getStorageManager(),
+                                        mContainerActivity.getStorageManager().getAccount());
+                        if (resizedImage == null) {
+                            resizedImage = thumbnail;
                         }
-                        final ThumbnailsCacheManager.AsyncThumbnailDrawable asyncDrawable =
-                                new ThumbnailsCacheManager.AsyncThumbnailDrawable(
+                        final ThumbnailsCacheManager.AsyncResizedImageDrawable asyncDrawable =
+                                new ThumbnailsCacheManager.AsyncResizedImageDrawable(
                                         MainApp.getAppContext().getResources(),
-                                        thumbnail,
+                                        resizedImage,
                                         task
                                 );
                         iv.setImageDrawable(asyncDrawable);
-                        task.execute(new ThumbnailsCacheManager.ThumbnailGenerationTaskObject(file, file.getRemoteId()));
+                        task.execute(getFile());
                     }
                 }
             } else {
