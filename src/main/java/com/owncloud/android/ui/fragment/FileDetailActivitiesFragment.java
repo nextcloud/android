@@ -24,6 +24,7 @@ import android.accounts.Account;
 import android.accounts.AuthenticatorException;
 import android.accounts.OperationCanceledException;
 import android.content.Context;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -53,6 +54,7 @@ import com.owncloud.android.lib.resources.activities.models.RichObject;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.adapter.ActivityListAdapter;
 import com.owncloud.android.ui.interfaces.ActivityListInterface;
+import com.owncloud.android.utils.ThemeUtils;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -135,9 +137,39 @@ public class FileDetailActivitiesFragment extends Fragment implements ActivityLi
         unbinder = ButterKnife.bind(this, view);
 
         setupView();
+
+        onCreateSwipeToRefresh(swipeEmptyListRefreshLayout);
+        onCreateSwipeToRefresh(swipeListRefreshLayout);
+
         fetchAndSetData(null);
 
+        swipeListRefreshLayout.setOnRefreshListener(() -> {
+                    setLoadingMessage();
+                    if (swipeListRefreshLayout != null && swipeListRefreshLayout.isRefreshing()) {
+                        swipeListRefreshLayout.setRefreshing(false);
+                    }
+                    fetchAndSetData(null);
+                }
+        );
+
+        swipeEmptyListRefreshLayout.setOnRefreshListener(() -> {
+                    setLoadingMessage();
+                    if (swipeEmptyListRefreshLayout != null && swipeEmptyListRefreshLayout.isRefreshing()) {
+                        swipeEmptyListRefreshLayout.setRefreshing(false);
+                    }
+                    fetchAndSetData(null);
+                }
+        );
+
         return view;
+    }
+
+    private void setLoadingMessage() {
+        emptyContentHeadline.setText(R.string.file_list_loading);
+        emptyContentMessage.setText("");
+
+        emptyContentIcon.setVisibility(View.GONE);
+        emptyContentProgressBar.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -148,8 +180,10 @@ public class FileDetailActivitiesFragment extends Fragment implements ActivityLi
 
     private void setupView() {
         FileDataStorageManager storageManager = new FileDataStorageManager(account, getActivity().getContentResolver());
+        emptyContentProgressBar.getIndeterminateDrawable().setColorFilter(ThemeUtils.primaryAccentColor(getContext()),
+                PorterDuff.Mode.SRC_IN);
         emptyContentIcon.setImageDrawable(getResources().getDrawable(R.drawable.ic_activity_light_grey));
-        
+
         adapter = new ActivityListAdapter(getContext(), this, storageManager);
         recyclerView.setAdapter(adapter);
 
@@ -191,7 +225,6 @@ public class FileDetailActivitiesFragment extends Fragment implements ActivityLi
                         getClientFor(ocAccount, MainApp.getAppContext());
                 ownCloudClient.setOwnCloudVersion(AccountUtils.getServerVersion(currentAccount));
                 isLoadingActivities = true;
-                //getActivity().runOnUiThread(() -> setIndeterminate(isLoadingActivities));
 
                 GetRemoteActivitiesOperation getRemoteNotificationOperation = new GetRemoteActivitiesOperation(
                         file.getLocalId());
@@ -219,7 +252,6 @@ public class FileDetailActivitiesFragment extends Fragment implements ActivityLi
                             swipeEmptyListRefreshLayout.setVisibility(View.VISIBLE);
                         }
                         isLoadingActivities = false;
-                        //setIndeterminate(isLoadingActivities);
                     });
                 } else {
                     Log_OC.d(TAG, result.getLogMessage());
@@ -277,6 +309,15 @@ public class FileDetailActivitiesFragment extends Fragment implements ActivityLi
             isLoadingActivities = false;
             //setIndeterminate(isLoadingActivities);
         });
+    }
+
+    protected void onCreateSwipeToRefresh(SwipeRefreshLayout refreshLayout) {
+        int primaryColor = ThemeUtils.primaryColor(getContext());
+        int darkColor = ThemeUtils.primaryDarkColor(getContext());
+        int accentColor = ThemeUtils.primaryAccentColor(getContext());
+
+        // Colors in animations
+        refreshLayout.setColorSchemeColors(accentColor, primaryColor, darkColor);
     }
 
     @Override
