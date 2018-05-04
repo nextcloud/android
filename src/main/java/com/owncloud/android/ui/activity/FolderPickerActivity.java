@@ -28,6 +28,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.Resources.NotFoundException;
 import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.v4.app.Fragment;
@@ -131,7 +132,7 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
 
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayShowTitleEnabled(true);
-            getSupportActionBar().setTitle(caption);
+            ThemeUtils.setColoredTitle(getSupportActionBar(), caption, this);
         }
 
         setIndeterminate(mSyncInProgress);
@@ -382,7 +383,12 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
             boolean atRoot = (currentDir == null || currentDir.getParentId() == 0);
             actionBar.setDisplayHomeAsUpEnabled(!atRoot);
             actionBar.setHomeButtonEnabled(!atRoot);
-            actionBar.setTitle(atRoot ? caption : currentDir.getFileName());
+
+            Drawable backArrow = getResources().getDrawable(R.drawable.ic_arrow_back);
+
+            actionBar.setHomeAsUpIndicator(ThemeUtils.tintDrawable(backArrow, ThemeUtils.fontColor(this)));
+
+            ThemeUtils.setColoredTitle(getSupportActionBar(), atRoot ? caption : currentDir.getFileName(), this);
         }
     }
 
@@ -393,7 +399,7 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
         mCancelBtn = findViewById(R.id.folder_picker_btn_cancel);
         mCancelBtn.setOnClickListener(this);
         mChooseBtn = findViewById(R.id.folder_picker_btn_choose);
-        mChooseBtn.getBackground().setColorFilter(ThemeUtils.primaryColor(this), PorterDuff.Mode.SRC_ATOP);
+        mChooseBtn.getBackground().setColorFilter(ThemeUtils.primaryColor(this, true), PorterDuff.Mode.SRC_ATOP);
         mChooseBtn.setOnClickListener(this);
     }
     

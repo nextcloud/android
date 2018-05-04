@@ -121,7 +121,7 @@ public class AccountListAdapter extends ArrayAdapter<AccountListItem> implements
 
         TextView userName = actionView.findViewById(R.id.user_name);
         userName.setText(R.string.prefs_add_account);
-        userName.setTextColor(ThemeUtils.primaryColor(getContext()));
+        userName.setTextColor(ThemeUtils.primaryColor(getContext(), true));
 
         ((ImageView) actionView.findViewById(R.id.user_icon)).setImageResource(R.drawable.ic_account_plus);
 
