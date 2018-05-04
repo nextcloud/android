@@ -589,7 +589,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
                                 );
                         iv.setVisibility(View.GONE);
                         v.setVisibility(View.GONE);
-                        previewImage.setImageBitmap(resizedImage);
+                        previewImage.setImageDrawable(asyncDrawable);
                         activatePreviewImage();
                         previewLoaded = true;
                         task.execute(getFile());
