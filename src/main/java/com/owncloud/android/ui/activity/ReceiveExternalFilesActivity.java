@@ -48,9 +48,11 @@ import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.graphics.drawable.DrawableCompat;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AlertDialog.Builder;
+import android.support.v7.widget.SearchView;
 import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -723,9 +725,9 @@ public class ReceiveExternalFilesActivity extends FileActivity
 
         if (actionBar != null) {
             if ("".equals(current_dir)) {
-                actionBar.setTitle(getString(R.string.uploader_top_message));
+                ThemeUtils.setColoredTitle(actionBar, R.string.uploader_top_message, this);
             } else {
-                actionBar.setTitle(current_dir);
+                ThemeUtils.setColoredTitle(actionBar, current_dir, this);
             }
 
             actionBar.setDisplayHomeAsUpEnabled(notRoot);
@@ -766,18 +768,25 @@ public class ReceiveExternalFilesActivity extends FileActivity
             }
             Button btnChooseFolder = findViewById(R.id.uploader_choose_folder);
                 btnChooseFolder.setOnClickListener(this);
-            btnChooseFolder.getBackground().setColorFilter(ThemeUtils.primaryColor(getAccount(), this),
+            btnChooseFolder.getBackground().setColorFilter(ThemeUtils.primaryColor(getAccount(), true, this),
                         PorterDuff.Mode.SRC_ATOP);
+            btnChooseFolder.setTextColor(ThemeUtils.fontColor(this));
 
             if (getSupportActionBar() != null) {
                 getSupportActionBar().setBackgroundDrawable(new ColorDrawable(
-                        ThemeUtils.primaryColor(getAccount(), this)));
+                        ThemeUtils.primaryColor(getAccount(), false, this)));
             }
 
             ThemeUtils.colorStatusBar(this, ThemeUtils.primaryDarkColor(getAccount(), this));
 
-            ThemeUtils.colorToolbarProgressBar(this, ThemeUtils.primaryColor(getAccount(), this));
+            ThemeUtils.colorToolbarProgressBar(this, ThemeUtils.primaryColor(getAccount(), false, this));
 
+            Drawable backArrow = getResources().getDrawable(R.drawable.ic_arrow_back);
+
+            if (actionBar != null) {
+                actionBar.setHomeAsUpIndicator(ThemeUtils.tintDrawable(backArrow, ThemeUtils.fontColor(this)));
+            }
+            
             Button btnNewFolder = findViewById(R.id.uploader_cancel);
                 btnNewFolder.setOnClickListener(this);
 
@@ -802,7 +811,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
                 mEmptyListHeadline.setText(headline);
                 mEmptyListMessage.setText(message);
 
-                mEmptyListIcon.setImageDrawable(ThemeUtils.tintDrawable(icon, ThemeUtils.primaryColor(this)));
+                mEmptyListIcon.setImageDrawable(ThemeUtils.tintDrawable(icon, ThemeUtils.primaryColor(this, true)));
 
                 mEmptyListIcon.setVisibility(View.VISIBLE);
                 mEmptyListProgress.setVisibility(View.GONE);
@@ -1022,6 +1031,20 @@ public class ReceiveExternalFilesActivity extends FileActivity
             MenuItem switchAccountMenu = menu.findItem(R.id.action_switch_account);
             switchAccountMenu.setVisible(false);
         }
+
+        // tint search event
+        final MenuItem item = menu.findItem(R.id.action_search);
+        SearchView searchView = (SearchView) MenuItemCompat.getActionView(item);
+
+        // hacky as no default way is provided
+        int fontColor = ThemeUtils.fontColor(this);
+        EditText editText = searchView.findViewById(android.support.v7.appcompat.R.id.search_src_text);
+        editText.setHintTextColor(fontColor);
+        editText.setTextColor(fontColor);
+        ImageView searchClose = searchView.findViewById(android.support.v7.appcompat.R.id.search_close_btn);
+        searchClose.setColorFilter(ThemeUtils.fontColor(this));
+        ImageView searchButton = searchView.findViewById(android.support.v7.appcompat.R.id.search_button);
+        searchButton.setColorFilter(ThemeUtils.fontColor(this));
 
         return true;
     }

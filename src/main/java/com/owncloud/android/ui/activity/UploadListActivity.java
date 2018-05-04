@@ -58,6 +58,7 @@ import com.owncloud.android.ui.adapter.UploadListAdapter;
 import com.owncloud.android.ui.decoration.MediaGridItemDecoration;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.FilesSyncHelper;
+import com.owncloud.android.utils.ThemeUtils;
 
 import butterknife.BindString;
 import butterknife.BindView;
@@ -138,7 +139,7 @@ public class UploadListActivity extends FileActivity {
         setupContent();
 
         if (getSupportActionBar() != null) {
-            getSupportActionBar().setTitle(getString(R.string.uploads_view_title));
+            ThemeUtils.setColoredTitle(getSupportActionBar(), R.string.uploads_view_title, this);
         }
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation_view);
@@ -381,9 +382,7 @@ public class UploadListActivity extends FileActivity {
     protected void onAccountSet(boolean stateWasRecovered) {
         super.onAccountSet(stateWasRecovered);
 
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setTitle(getString(R.string.uploads_view_title));
-        }
+        ThemeUtils.setColoredTitle(getSupportActionBar(), R.string.uploads_view_title, this);
 
         if (mAccountWasSet) {
             setAccountInDrawer(getAccount());

@@ -1059,7 +1059,7 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
                 String background = capability.getServerBackground();
                 CapabilityBooleanType backgroundDefault = capability.getServerBackgroundDefault();
                 CapabilityBooleanType backgroundPlain = capability.getServerBackgroundPlain();
-                int primaryColor = ThemeUtils.primaryColor(getAccount(), this);
+                int primaryColor = ThemeUtils.primaryColor(getAccount(), false, this);
 
                 if (backgroundDefault.isTrue() && backgroundPlain.isTrue()) {
                     // use only solid color
