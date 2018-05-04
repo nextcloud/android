@@ -23,9 +23,6 @@ package com.owncloud.android.ui.fragment;
 
 import android.accounts.Account;
 import android.graphics.Bitmap;
-import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
-import android.graphics.drawable.LayerDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -38,17 +35,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.webkit.URLUtil;
 import android.widget.ImageView;
-import android.widget.ListAdapter;
-import android.widget.ListView;
 import android.widget.PopupMenu;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.animation.GlideAnimation;
-import com.bumptech.glide.request.target.SimpleTarget;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
@@ -59,12 +50,10 @@ import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
 import com.owncloud.android.lib.common.network.OnDatatransferProgressListener;
 import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.activity.ToolbarActivity;
 import com.owncloud.android.ui.adapter.FileDetailTabAdapter;
-import com.owncloud.android.ui.adapter.UserListAdapter;
 import com.owncloud.android.ui.dialog.RemoveFilesDialogFragment;
 import com.owncloud.android.ui.dialog.RenameFileDialogFragment;
 import com.owncloud.android.utils.AnalyticsUtils;
@@ -73,7 +62,6 @@ import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.ThemeUtils;
 
 import java.lang.ref.WeakReference;
-import java.util.ArrayList;
 
 
 /**
@@ -89,9 +77,6 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
     private Account account;
 
     public ProgressListener progressListener;
-
-    // to show share with users/groups info
-    private ArrayList<OCShare> shares;
 
     private static final String TAG = FileDetailFragment.class.getSimpleName();
     public static final String FTAG_CONFIRMATION = "REMOVE_CONFIRMATION_FRAGMENT";
@@ -316,7 +301,6 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
         super.onStop();
     }
 
-
     @Override
     public View getView() {
         return super.getView() == null ? view : super.getView();
@@ -457,7 +441,6 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
         return (layout == R.layout.file_details_empty || getFile() == null || account == null);
     }
 
-
     /**
      * Use this method to signal this Activity that it shall update its view.
      *
@@ -471,7 +454,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
 
     /**
      * Updates the view with all relevant details about that file.
-     * <p/>
+     *
      * TODO Remove parameter when the transferring state of files is kept in database.
      *
      * @param transferring Flag signaling if the file should be considered as downloading or uploading,
@@ -537,7 +520,6 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
     private boolean readyToShow() {
         return (getFile() != null && account != null && layout == R.layout.file_details_fragment);
     }
-
 
     /**
      * Updates the filename in view
@@ -651,90 +633,6 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
     }
 
     /**
-     * Updates Share by link data
-     *
-     * @param isShareByLink flag is share by link is enable
-     */
-    private void setShareByLinkInfo(boolean isShareByLink) {
-        TextView tv = getView().findViewById(R.id.fdSharebyLink);
-        if (tv != null) {
-            tv.setText(isShareByLink ? R.string.filedetails_share_link_enable :
-                    R.string.filedetails_share_link_disable);
-        }
-        ImageView linkIcon = getView().findViewById(R.id.fdShareLinkIcon);
-        if (linkIcon != null) {
-            linkIcon.setVisibility(isShareByLink ? View.VISIBLE : View.GONE);
-        }
-    }
-
-    /**
-     * Update Share With data
-     */
-    private void setShareWithUserInfo(){
-        // Get Users and Groups
-        if (((FileActivity) getActivity()).getStorageManager() != null) {
-            FileDataStorageManager fileDataStorageManager = ((FileActivity) getActivity()).getStorageManager();
-            shares = fileDataStorageManager.getSharesWithForAFile(
-                    getFile().getRemotePath(), account.name
-            );
-
-            // Update list of users/groups
-            updateListOfUserGroups();
-        }
-    }
-
-    private void updateListOfUserGroups() {
-        // Update list of users/groups
-        // TODO Refactoring: create a new {@link ShareUserListAdapter} instance with every call should not be needed
-        UserListAdapter mUserGroupsAdapter = new UserListAdapter(
-                getActivity().getApplicationContext(),
-                R.layout.share_user_item, shares
-        );
-
-        // Show data
-        ListView usersList = getView().findViewById(R.id.fdshareUsersList);
-
-        // No data
-        TextView noList = getView().findViewById(R.id.fdShareNoUsers);
-
-        if (shares.size() > 0) {
-            usersList.setVisibility(View.VISIBLE);
-            usersList.setAdapter(mUserGroupsAdapter);
-            noList.setVisibility(View.GONE);
-            setListViewHeightBasedOnChildren(usersList);
-
-        } else {
-            usersList.setVisibility(View.GONE);
-            noList.setVisibility(View.VISIBLE);
-        }
-    }
-
-    /**
-     * Fix scroll in listview when the parent is a ScrollView
-     */
-    private static void setListViewHeightBasedOnChildren(ListView listView) {
-        ListAdapter listAdapter = listView.getAdapter();
-        if (listAdapter == null) {
-            return;
-        }
-        int desiredWidth = View.MeasureSpec.makeMeasureSpec(listView.getWidth(), View.MeasureSpec.AT_MOST);
-        int totalHeight = 0;
-        View view = null;
-        for (int i = 0; i < listAdapter.getCount(); i++) {
-            view = listAdapter.getView(i, view, listView);
-            if (i == 0) {
-                view.setLayoutParams(new ViewGroup.LayoutParams(desiredWidth, ViewGroup.LayoutParams.WRAP_CONTENT));
-            }
-            view.measure(desiredWidth, View.MeasureSpec.UNSPECIFIED);
-            totalHeight += view.getMeasuredHeight();
-        }
-        ViewGroup.LayoutParams params = listView.getLayoutParams();
-        params.height = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
-        listView.setLayoutParams(params);
-        listView.requestLayout();
-    }
-
-    /**
      * Enables or disables buttons for a file being downloaded
      */
     private void setButtonsForTransferring() {
@@ -781,7 +679,6 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
         }
     }
 
-
     public void listenForTransferProgress() {
         if (progressListener != null) {
             if (mContainerActivity.getFileDownloaderBinder() != null) {
@@ -797,7 +694,6 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
         }
     }
 
-
     public void leaveTransferProgress() {
         if (progressListener != null) {
             if (mContainerActivity.getFileDownloaderBinder() != null) {
@@ -811,14 +707,13 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
         }
     }
 
-
     /**
      * Helper class responsible for updating the progress bar shown for file uploading or
      * downloading
      */
     private class ProgressListener implements OnDatatransferProgressListener {
         int mLastPercent = 0;
-        WeakReference<ProgressBar> mProgressBar = null;
+        WeakReference<ProgressBar> mProgressBar;
 
         ProgressListener(ProgressBar progressBar) {
             mProgressBar = new WeakReference<ProgressBar>(progressBar);
@@ -837,7 +732,5 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
             }
             mLastPercent = percent;
         }
-
     }
-
 }
