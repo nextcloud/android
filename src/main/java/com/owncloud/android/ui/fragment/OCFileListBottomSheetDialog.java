@@ -73,7 +73,7 @@ public class OCFileListBottomSheetDialog extends BottomSheetDialog {
 
         unbinder = ButterKnife.bind(this, view);
 
-        int primaryColor = ThemeUtils.primaryColor(getContext());
+        int primaryColor = ThemeUtils.primaryColor(getContext(), true);
         ThemeUtils.tintDrawable(iconUploadFiles.getDrawable(), primaryColor);
         ThemeUtils.tintDrawable(iconUploadFromApp.getDrawable(), primaryColor);
         ThemeUtils.tintDrawable(iconMakeDir.getDrawable(), primaryColor);

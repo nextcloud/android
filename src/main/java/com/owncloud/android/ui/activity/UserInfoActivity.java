@@ -147,7 +147,7 @@ public class UserInfoActivity extends FileActivity {
         setupToolbar(useBackgroundImage);
         updateActionBarTitleAndHomeButtonByString("");
 
-        mUserInfoList.setAdapter(new UserInfoAdapter(null, ThemeUtils.primaryColor(getAccount(), this)));
+        mUserInfoList.setAdapter(new UserInfoAdapter(null, ThemeUtils.primaryColor(getAccount(), true, this)));
         mUserInfoList.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
 
         if (userInfo != null) {
@@ -223,7 +223,7 @@ public class UserInfoActivity extends FileActivity {
                 ImageView backgroundImageView = appBar.findViewById(R.id.drawer_header_background);
 
                 String background = getStorageManager().getCapability(account.name).getServerBackground();
-                int primaryColor = ThemeUtils.primaryColor(getAccount(), this);
+                int primaryColor = ThemeUtils.primaryColor(getAccount(), false, this);
 
                 if (URLUtil.isValidUrl(background)) {
                     // background image
@@ -265,7 +265,7 @@ public class UserInfoActivity extends FileActivity {
         DisplayUtils.setAvatar(account, UserInfoActivity.this, mCurrentAccountAvatarRadiusDimension, getResources(),
                 getStorageManager(), avatar, this);
 
-        int tint = ThemeUtils.primaryColor(account, this);
+        int tint = ThemeUtils.primaryColor(account, true, this);
 
         if (!TextUtils.isEmpty(userInfo.getDisplayName())) {
             fullName.setText(userInfo.getDisplayName());
@@ -300,9 +300,7 @@ public class UserInfoActivity extends FileActivity {
         return result;
     }
 
-    private void addToListIfNeeded(List<UserInfoDetailsItem> info,
-                                   @DrawableRes int icon,
-                                   String text,
+    private void addToListIfNeeded(List<UserInfoDetailsItem> info, @DrawableRes int icon, String text,
                                    @StringRes int contentDescriptionInt) {
         if (!TextUtils.isEmpty(text))
             info.add(new UserInfoDetailsItem(icon, text, getResources().getString(contentDescriptionInt)));

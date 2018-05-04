@@ -518,7 +518,7 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
     private NotificationCompat.Builder createNotificationBuilder() {
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(getContext());
         notificationBuilder.setSmallIcon(R.drawable.notification_icon).setAutoCancel(true);
-        notificationBuilder.setColor(ThemeUtils.primaryColor(getContext()));
+        notificationBuilder.setColor(ThemeUtils.primaryColor(getContext(), true));
         return notificationBuilder;
     }
     
