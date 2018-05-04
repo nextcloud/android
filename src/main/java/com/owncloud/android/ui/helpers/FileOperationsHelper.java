@@ -728,7 +728,7 @@ public class FileOperationsHelper {
         }
     }
 
-    private void toggleFavoriteFile(OCFile file, boolean shouldBeFavorite) {
+    public void toggleFavoriteFile(OCFile file, boolean shouldBeFavorite) {
         if (file.getIsFavorite() != shouldBeFavorite) {
             EventBus.getDefault().post(new FavoriteEvent(file.getRemotePath(), shouldBeFavorite, file.getRemoteId()));
         }
