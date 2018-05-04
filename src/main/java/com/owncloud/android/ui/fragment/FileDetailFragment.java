@@ -259,86 +259,32 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
             mf.filter(menu, true);
         }
 
-        // additional restriction for this fragment 
-        MenuItem item = menu.findItem(R.id.action_see_details);
+        // restriction for this fragment
+        hideMenuItem(menu.findItem(R.id.action_see_details));
+        hideMenuItem(menu.findItem(R.id.action_select_all));
+        hideMenuItem(menu.findItem(R.id.action_move));
+        hideMenuItem(menu.findItem(R.id.action_copy));
+        hideMenuItem(menu.findItem(R.id.action_favorite));
+        hideMenuItem(menu.findItem(R.id.action_unset_favorite));
+        hideMenuItem(menu.findItem(R.id.action_search));
+
+        // dual pane restrictions
+        if (!getResources().getBoolean(R.bool.large_land_layout)){
+            hideMenuItem(menu.findItem(R.id.action_switch_view));
+            hideMenuItem(menu.findItem(R.id.action_sync_account));
+            hideMenuItem(menu.findItem(R.id.action_sort));
+        }
+
+        // share restrictions
+        if (getFile().isSharedWithMe() && !getFile().canReshare()) {
+            hideMenuItem(menu.findItem(R.id.action_send_share_file));
+        }
+    }
+
+    private void hideMenuItem(MenuItem item) {
         if (item != null) {
             item.setVisible(false);
             item.setEnabled(false);
-        }
-
-        // additional restriction for this fragment
-        item = menu.findItem(R.id.action_select_all);
-        if (item != null) {
-            item.setVisible(false);
-            item.setEnabled(false);
-        }
-
-        // additional restriction for this fragment
-        item = menu.findItem(R.id.action_move);
-        if (item != null) {
-            item.setVisible(false);
-            item.setEnabled(false);
-        }
-
-        // additional restriction for this fragment
-        item = menu.findItem(R.id.action_copy);
-        if (item != null) {
-            item.setVisible(false);
-            item.setEnabled(false);
-        }
-
-        // additional restriction for this fragment
-        item = menu.findItem(R.id.action_favorite);
-        if (item != null) {
-            item.setVisible(false);
-            item.setEnabled(false);
-        }
-
-        // additional restriction for this fragment
-        item = menu.findItem(R.id.action_unset_favorite);
-        if (item != null) {
-            item.setVisible(false);
-            item.setEnabled(false);
-        }
-
-        // additional restriction for this fragment
-        item = menu.findItem(R.id.action_search);
-        if (item != null) {
-            item.setVisible(false);
-            item.setEnabled(false);
-        }
-
-
-        Boolean dualPane = getResources().getBoolean(R.bool.large_land_layout);
-
-        item = menu.findItem(R.id.action_switch_view);
-        if (item != null && !dualPane){
-            item.setVisible(false);
-            item.setEnabled(false);
-        }
-
-        item = menu.findItem(R.id.action_sync_account);
-        if (item != null && !dualPane) {
-            item.setVisible(false);
-            item.setEnabled(false);
-        }
-
-        item = menu.findItem(R.id.action_sort);
-        if (item != null && !dualPane) {
-            item.setVisible(false);
-            item.setEnabled(false);
-        }
-
-        item = menu.findItem(R.id.action_send_share_file);
-        if (item != null) {
-            ThemeUtils.tintDrawable(item.getIcon(), ThemeUtils.fontColor(getContext()));
-            item.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
-            if (getFile().isSharedWithMe() && !getFile().canReshare()) {
-                // additional restriction for this fragment
-
-                item.setVisible(false);
-                item.setEnabled(false);
-            }
         }
     }
 
