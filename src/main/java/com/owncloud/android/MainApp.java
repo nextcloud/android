@@ -511,20 +511,14 @@ public class MainApp extends MultiDexApplication {
                     new AlertDialog.Builder(context, R.style.Theme_ownCloud_Dialog)
                             .setTitle(R.string.drawer_synced_folders)
                             .setMessage(R.string.synced_folders_new_info)
-                            .setPositiveButton(R.string.drawer_open, new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int which) {
-                                    // show Auto Upload
-                                    Intent folderSyncIntent = new Intent(context,
-                                            SyncedFoldersActivity.class);
-                                    dialog.dismiss();
-                                    context.startActivity(folderSyncIntent);
-                                }
+                            .setPositiveButton(R.string.drawer_open, (dialog, which) -> {
+                                // show Auto Upload
+                                Intent folderSyncIntent = new Intent(context,
+                                        SyncedFoldersActivity.class);
+                                dialog.dismiss();
+                                context.startActivity(folderSyncIntent);
                             })
-                            .setNegativeButton(R.string.drawer_close, new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int which) {
-                                    dialog.dismiss();
-                                }
-                            })
+                            .setNegativeButton(R.string.drawer_close, (dialog, which) -> dialog.dismiss())
                             .setIcon(R.drawable.nav_synced_folders)
                             .show();
                 } catch (WindowManager.BadTokenException e) {

@@ -112,13 +112,7 @@ public class AccountAuthenticator extends AbstractAccountAuthenticator {
             final String message = String.format(mContext.getString(R.string.auth_unsupported_multiaccount), mContext.getString(R.string.app_name)); 
             bundle.putString(AccountManager.KEY_ERROR_MESSAGE, message);
            
-            mHandler.post(new Runnable() {
-
-                @Override
-                public void run() {
-                    Toast.makeText(mContext, message, Toast.LENGTH_SHORT).show();
-                }
-            });
+            mHandler.post(() -> Toast.makeText(mContext, message, Toast.LENGTH_SHORT).show());
             
         }
         
