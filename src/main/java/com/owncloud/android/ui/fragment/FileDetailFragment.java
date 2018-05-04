@@ -26,6 +26,7 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
@@ -83,6 +84,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
     private int layout;
     private View view;
     private ImageView previewImage;
+    private ProgressBar toolbarProgressBar;
     private boolean previewLoaded;
     private Account account;
 
@@ -139,8 +141,16 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
         }
 
         if (previewImage != null && MimeTypeUtil.isImage(getFile()) && previewLoaded) {
-            previewImage.setVisibility(View.VISIBLE);
+            activatePreviewImage();
         }
+    }
+
+    private void activatePreviewImage() {
+        previewImage.setVisibility(View.VISIBLE);
+        toolbarProgressBar.setVisibility(View.GONE);
+        ((ToolbarActivity) getActivity()).getSupportActionBar().setTitle(null);
+        ((ToolbarActivity) getActivity()).getSupportActionBar().setBackgroundDrawable(null);
+        makeStatusBarBlack();
     }
 
     @Override
@@ -161,6 +171,8 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
             account = savedInstanceState.getParcelable(FileActivity.EXTRA_ACCOUNT);
         }
 
+        toolbarProgressBar = getActivity().findViewById(R.id.progressBar);
+
         if (getFile() != null && account != null) {
             layout = R.layout.file_details_fragment;
         }
@@ -176,7 +188,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
             view.findViewById(R.id.overflow_menu).setOnClickListener(this);
             previewImage = getActivity().findViewById(R.id.preview_image);
             if (getFile() != null && account != null && MimeTypeUtil.isImage(getFile())) {
-                setHeaderImage();
+                //setHeaderImage();
             }
         }
 
@@ -203,12 +215,14 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
                         previewImage.setVisibility(View.VISIBLE);
                         ((ToolbarActivity) getActivity()).getSupportActionBar().setTitle(null);
                         ((ToolbarActivity) getActivity()).getSupportActionBar().setBackgroundDrawable(null);
+                        toolbarProgressBar.setVisibility(View.GONE);
                         previewLoaded = true;
                     }
 
                     @Override
                     public void onLoadFailed(Exception e, Drawable errorDrawable) {
                         previewImage.setVisibility(View.GONE);
+                        toolbarProgressBar.setVisibility(View.VISIBLE);
                     }
                 };
 
@@ -222,6 +236,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
             } else {
                 // hide image
                 previewImage.setVisibility(View.GONE);
+                toolbarProgressBar.setVisibility(View.VISIBLE);
             }
         }
 }
@@ -287,6 +302,10 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
         leaveTransferProgress();
         if (previewImage != null) {
             previewImage.setVisibility(View.GONE);
+            toolbarProgressBar.setVisibility(View.VISIBLE);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                getActivity().getWindow().setStatusBarColor(ThemeUtils.primaryDarkColor(getContext()));
+            }
         }
 
         super.onStop();
@@ -527,6 +546,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
      */
     private void setFiletype(OCFile file) {
         ImageView iv = getView().findViewById(R.id.fdIcon);
+        View v = getView().findViewById(R.id.fdIcon_divider);
 
         if (iv != null) {
             iv.setTag(file.getFileId());
@@ -541,7 +561,11 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
                 resizedImage = ThumbnailsCacheManager.getBitmapFromDiskCache(tagId);
 
                 if (resizedImage != null && !file.needsUpdateThumbnail()) {
-                    iv.setImageBitmap(resizedImage);
+                    iv.setVisibility(View.GONE);
+                    v.setVisibility(View.GONE);
+                    previewImage.setImageBitmap(resizedImage);
+                    activatePreviewImage();
+                    previewLoaded = true;
                 } else {
                     // show thumbnail while loading resized image
                     Bitmap thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(
@@ -570,7 +594,11 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
                                         resizedImage,
                                         task
                                 );
-                        iv.setImageDrawable(asyncDrawable);
+                        iv.setVisibility(View.GONE);
+                        v.setVisibility(View.GONE);
+                        previewImage.setImageBitmap(resizedImage);
+                        activatePreviewImage();
+                        previewLoaded = true;
                         task.execute(getFile());
                     }
                 }
@@ -578,6 +606,12 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
                 iv.setImageDrawable(MimeTypeUtil.getFileTypeIcon(file.getMimetype(), file.getFileName(), account,
                         getContext()));
             }
+        }
+    }
+
+    private void makeStatusBarBlack() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            getActivity().getWindow().setStatusBarColor(getResources().getColor(R.color.black));
         }
     }
 

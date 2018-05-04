@@ -38,6 +38,7 @@
             android:src="@drawable/file" />
 
         <View
+            android:id="@+id/fdIcon_divider"
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="@color/list_divider_background" />
