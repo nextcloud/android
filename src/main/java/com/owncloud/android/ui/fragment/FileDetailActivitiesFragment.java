@@ -148,6 +148,8 @@ public class FileDetailActivitiesFragment extends Fragment implements ActivityLi
 
     private void setupView() {
         FileDataStorageManager storageManager = new FileDataStorageManager(account, getActivity().getContentResolver());
+        emptyContentIcon.setImageDrawable(getResources().getDrawable(R.drawable.ic_activity_light_grey));
+        
         adapter = new ActivityListAdapter(getContext(), this, storageManager);
         recyclerView.setAdapter(adapter);
 
