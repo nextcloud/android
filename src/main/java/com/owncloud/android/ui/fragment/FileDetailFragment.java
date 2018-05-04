@@ -23,7 +23,11 @@ package com.owncloud.android.ui.fragment;
 
 import android.accounts.Account;
 import android.graphics.Bitmap;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.LayerDrawable;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
@@ -33,6 +37,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.webkit.URLUtil;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
@@ -40,6 +45,9 @@ import android.widget.PopupMenu;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.animation.GlideAnimation;
+import com.bumptech.glide.request.target.SimpleTarget;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
@@ -53,6 +61,7 @@ import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
+import com.owncloud.android.ui.activity.ToolbarActivity;
 import com.owncloud.android.ui.adapter.FileDetailTabAdapter;
 import com.owncloud.android.ui.adapter.UserListAdapter;
 import com.owncloud.android.ui.dialog.RemoveFilesDialogFragment;
@@ -71,14 +80,16 @@ import java.util.ArrayList;
  */
 public class FileDetailFragment extends FileFragment implements OnClickListener {
 
-    private int mLayout;
-    private View mView;
-    private Account mAccount;
+    private int layout;
+    private View view;
+    private ImageView previewImage;
+    private boolean previewLoaded;
+    private Account account;
 
-    public ProgressListener mProgressListener;
+    public ProgressListener progressListener;
 
     // to show share with users/groups info
-    private ArrayList<OCShare> mShares;
+    private ArrayList<OCShare> shares;
 
     private static final String TAG = FileDetailFragment.class.getSimpleName();
     public static final String FTAG_CONFIRMATION = "REMOVE_CONFIRMATION_FRAGMENT";
@@ -115,9 +126,9 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
      */
     public FileDetailFragment() {
         super();
-        mAccount = null;
-        mLayout = R.layout.file_details_empty;
-        mProgressListener = null;
+        account = null;
+        layout = R.layout.file_details_empty;
+        progressListener = null;
     }
 
     @Override
@@ -125,6 +136,10 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
         super.onResume();
         if (getActivity() != null) {
             AnalyticsUtils.setCurrentScreenName(getActivity(), SCREEN_NAME, TAG);
+        }
+
+        if (previewImage != null && MimeTypeUtil.isImage(getFile()) && previewLoaded) {
+            previewImage.setVisibility(View.VISIBLE);
         }
     }
 
@@ -135,34 +150,82 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
 
         setFile(getArguments().getParcelable(ARG_FILE));
-        mAccount = getArguments().getParcelable(ARG_ACCOUNT);
+        account = getArguments().getParcelable(ARG_ACCOUNT);
 
         if (savedInstanceState != null) {
             setFile(savedInstanceState.getParcelable(FileActivity.EXTRA_FILE));
-            mAccount = savedInstanceState.getParcelable(FileActivity.EXTRA_ACCOUNT);
+            account = savedInstanceState.getParcelable(FileActivity.EXTRA_ACCOUNT);
         }
 
-        if (getFile() != null && mAccount != null) {
-            mLayout = R.layout.file_details_fragment;
+        if (getFile() != null && account != null) {
+            layout = R.layout.file_details_fragment;
         }
 
-        mView = inflater.inflate(mLayout, null);
+        view = inflater.inflate(layout, null);
         
-        if (mLayout == R.layout.file_details_fragment) {
-            ProgressBar progressBar = mView.findViewById(R.id.fdProgressBar);
+        if (layout == R.layout.file_details_fragment) {
+            ProgressBar progressBar = view.findViewById(R.id.fdProgressBar);
             ThemeUtils.colorHorizontalProgressBar(progressBar, ThemeUtils.primaryAccentColor(getContext()));
-            mProgressListener = new ProgressListener(progressBar);
-            mView.findViewById(R.id.fdCancelBtn).setOnClickListener(this);
-            mView.findViewById(R.id.fdFavorite).setOnClickListener(this);
-            mView.findViewById(R.id.overflow_menu).setOnClickListener(this);
+            progressListener = new ProgressListener(progressBar);
+            view.findViewById(R.id.fdCancelBtn).setOnClickListener(this);
+            view.findViewById(R.id.fdFavorite).setOnClickListener(this);
+            view.findViewById(R.id.overflow_menu).setOnClickListener(this);
+            previewImage = getActivity().findViewById(R.id.preview_image);
+            if (getFile() != null && account != null && MimeTypeUtil.isImage(getFile())) {
+                setHeaderImage();
+            }
         }
 
         updateFileDetails(false, false);
-        return mView;
+        return view;
+    }
+
+    private void setHeaderImage() {
+        if (mContainerActivity.getStorageManager().getCapability(account.name).getServerBackground() != null) {
+
+            if (previewImage != null) {
+
+                String background = mContainerActivity.getStorageManager().getCapability(account.name).getServerBackground();
+
+                int primaryColor = ThemeUtils.primaryColor(account, getContext());
+
+                if (URLUtil.isValidUrl(background)) {
+                    // background image
+                    SimpleTarget target = new SimpleTarget<Drawable>() {
+                        @Override
+                        public void onResourceReady(Drawable resource, GlideAnimation glideAnimation) {
+                            Drawable[] drawables = {new ColorDrawable(primaryColor), resource};
+                            LayerDrawable layerDrawable = new LayerDrawable(drawables);
+                            previewImage.setImageDrawable(layerDrawable);
+                            previewImage.setVisibility(View.VISIBLE);
+                            ((ToolbarActivity)getActivity()).getSupportActionBar().setTitle(null);
+                            ((ToolbarActivity)getActivity()).getSupportActionBar().setBackgroundDrawable(null);
+                            previewLoaded = true;
+                        }
+
+                        @Override
+                        public void onLoadFailed(Exception e, Drawable errorDrawable) {
+                            previewImage.setVisibility(View.GONE);
+                        }
+                    };
+
+                    Glide.with(this)
+                            .load(background)
+                            .centerCrop()
+                            .placeholder(R.drawable.background)
+                            .error(R.drawable.background)
+                            .crossFade()
+                            .into(target);
+                } else {
+                    // hide image
+                    previewImage.setVisibility(View.GONE);
+                }
+            }
+        }
     }
 
     public void onOverflowIconClicked(View view) {
@@ -187,7 +250,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
 
         final ViewPager viewPager = view.findViewById(R.id.pager);
         final FileDetailTabAdapter adapter = new FileDetailTabAdapter
-                (getFragmentManager(), getFile(),mAccount);
+                (getFragmentManager(), getFile(), account);
         viewPager.setAdapter(adapter);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
@@ -209,10 +272,10 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
     }
 
     @Override
-    public void onSaveInstanceState(Bundle outState) {
+    public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putParcelable(FileActivity.EXTRA_FILE, getFile());
-        outState.putParcelable(FileActivity.EXTRA_ACCOUNT, mAccount);
+        outState.putParcelable(FileActivity.EXTRA_ACCOUNT, account);
     }
 
     @Override
@@ -224,13 +287,17 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
     @Override
     public void onStop() {
         leaveTransferProgress();
+        if (previewImage != null) {
+            previewImage.setVisibility(View.GONE);
+        }
+
         super.onStop();
     }
 
 
     @Override
     public View getView() {
-        return super.getView() == null ? mView : super.getView();
+        return super.getView() == null ? view : super.getView();
     }
 
     @Override
@@ -359,7 +426,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
      * @return True when the fragment was created with the empty layout.
      */
     public boolean isEmpty() {
-        return (mLayout == R.layout.file_details_empty || getFile() == null || mAccount == null);
+        return (layout == R.layout.file_details_empty || getFile() == null || account == null);
     }
 
 
@@ -370,7 +437,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
      */
     public void updateFileDetails(OCFile file, Account ocAccount) {
         setFile(file);
-        mAccount = ocAccount;
+        account = ocAccount;
         updateFileDetails(false, false);
     }
 
@@ -413,8 +480,8 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
             FileDownloaderBinder downloaderBinder = mContainerActivity.getFileDownloaderBinder();
             FileUploaderBinder uploaderBinder = mContainerActivity.getFileUploaderBinder();
             if (transferring ||
-                    (downloaderBinder != null && downloaderBinder.isDownloading(mAccount, file)) ||
-                    (uploaderBinder != null && uploaderBinder.isUploading(mAccount, file))
+                    (downloaderBinder != null && downloaderBinder.isDownloading(account, file)) ||
+                    (uploaderBinder != null && uploaderBinder.isUploading(account, file))
                     ) {
                 setButtonsForTransferring();
 
@@ -440,7 +507,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
      * @return 'True' when the fragment is ready to show details of a file
      */
     private boolean readyToShow() {
-        return (getFile() != null && mAccount != null && mLayout == R.layout.file_details_fragment);
+        return (getFile() != null && account != null && layout == R.layout.file_details_fragment);
     }
 
 
@@ -466,7 +533,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
         if (iv != null) {
             iv.setTag(file.getFileId());
             // Name of the file, to deduce the icon to use in case the MIME type is not precise enough
-            iv.setImageDrawable(MimeTypeUtil.getFileTypeIcon(file.getMimetype(), file.getFileName(), mAccount,
+            iv.setImageDrawable(MimeTypeUtil.getFileTypeIcon(file.getMimetype(), file.getFileName(), account,
                     getContext()));
 
             Bitmap thumbnail;
@@ -482,7 +549,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
                     if (ThumbnailsCacheManager.cancelPotentialThumbnailWork(file, iv)) {
                         final ThumbnailsCacheManager.ThumbnailGenerationTask task =
                                 new ThumbnailsCacheManager.ThumbnailGenerationTask(
-                                        iv, mContainerActivity.getStorageManager(), mAccount
+                                        iv, mContainerActivity.getStorageManager(), account
                                 );
                         if (thumbnail == null) {
                             thumbnail = ThumbnailsCacheManager.mDefaultImg;
@@ -498,7 +565,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
                     }
                 }
             } else {
-                iv.setImageDrawable(MimeTypeUtil.getFileTypeIcon(file.getMimetype(), file.getFileName(), mAccount,
+                iv.setImageDrawable(MimeTypeUtil.getFileTypeIcon(file.getMimetype(), file.getFileName(), account,
                         getContext()));
             }
         }
@@ -552,8 +619,8 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
         // Get Users and Groups
         if (((FileActivity) getActivity()).getStorageManager() != null) {
             FileDataStorageManager fileDataStorageManager = ((FileActivity) getActivity()).getStorageManager();
-            mShares = fileDataStorageManager.getSharesWithForAFile(
-                    getFile().getRemotePath(),mAccount.name
+            shares = fileDataStorageManager.getSharesWithForAFile(
+                    getFile().getRemotePath(), account.name
             );
 
             // Update list of users/groups
@@ -566,7 +633,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
         // TODO Refactoring: create a new {@link ShareUserListAdapter} instance with every call should not be needed
         UserListAdapter mUserGroupsAdapter = new UserListAdapter(
                 getActivity().getApplicationContext(),
-                R.layout.share_user_item, mShares
+                R.layout.share_user_item, shares
         );
 
         // Show data
@@ -575,7 +642,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
         // No data
         TextView noList = getView().findViewById(R.id.fdShareNoUsers);
 
-        if (mShares.size() > 0) {
+        if (shares.size() > 0) {
             usersList.setVisibility(View.VISIBLE);
             usersList.setAdapter(mUserGroupsAdapter);
             noList.setVisibility(View.GONE);
@@ -624,11 +691,11 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
             FileDownloaderBinder downloaderBinder = mContainerActivity.getFileDownloaderBinder();
             FileUploaderBinder uploaderBinder = mContainerActivity.getFileUploaderBinder();
             //if (getFile().isDownloading()) {
-            if (downloaderBinder != null && downloaderBinder.isDownloading(mAccount, getFile())) {
+            if (downloaderBinder != null && downloaderBinder.isDownloading(account, getFile())) {
                 progressText.setText(R.string.downloader_download_in_progress_ticker);
             }
             else {
-                if (uploaderBinder != null && uploaderBinder.isUploading(mAccount, getFile())) {
+                if (uploaderBinder != null && uploaderBinder.isUploading(account, getFile())) {
                     progressText.setText(R.string.uploader_upload_in_progress_ticker);
                 }
             }
@@ -661,30 +728,30 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
 
 
     public void listenForTransferProgress() {
-        if (mProgressListener != null) {
+        if (progressListener != null) {
             if (mContainerActivity.getFileDownloaderBinder() != null) {
                 mContainerActivity.getFileDownloaderBinder().
-                        addDatatransferProgressListener(mProgressListener, mAccount, getFile());
+                        addDatatransferProgressListener(progressListener, account, getFile());
             }
             if (mContainerActivity.getFileUploaderBinder() != null) {
                 mContainerActivity.getFileUploaderBinder().
-                        addDatatransferProgressListener(mProgressListener, mAccount, getFile());
+                        addDatatransferProgressListener(progressListener, account, getFile());
             }
         } else {
-            Log_OC.d(TAG, "mProgressListener == null");
+            Log_OC.d(TAG, "progressListener == null");
         }
     }
 
 
     public void leaveTransferProgress() {
-        if (mProgressListener != null) {
+        if (progressListener != null) {
             if (mContainerActivity.getFileDownloaderBinder() != null) {
                 mContainerActivity.getFileDownloaderBinder().
-                        removeDatatransferProgressListener(mProgressListener, mAccount, getFile());
+                        removeDatatransferProgressListener(progressListener, account, getFile());
             }
             if (mContainerActivity.getFileUploaderBinder() != null) {
                 mContainerActivity.getFileUploaderBinder().
-                        removeDatatransferProgressListener(mProgressListener, mAccount, getFile());
+                        removeDatatransferProgressListener(progressListener, account, getFile());
             }
         }
     }
