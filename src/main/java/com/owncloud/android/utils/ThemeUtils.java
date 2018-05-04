@@ -31,6 +31,8 @@ import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.annotation.ColorInt;
 import android.support.annotation.DrawableRes;
+import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
@@ -90,15 +92,24 @@ public class ThemeUtils {
         }
     }
 
-    public static int primaryColor() {
-        return primaryColor(null);
+    public static int primaryColor(Context context) {
+        return primaryColor(context, false);
     }
 
-    public static int primaryColor(Account account) {
-        OCCapability capability = getCapability(account);
+    public static int primaryColor(Context context, boolean replaceWhite) {
+        return primaryColor(null, replaceWhite, context);
+    }
+
+    public static int primaryColor(Account account, boolean replaceWhite, Context context) {
+        OCCapability capability = getCapability(account, context);
 
         try {
-            return Color.parseColor(capability.getServerColor());
+            int color = Color.parseColor(capability.getServerColor());
+            if (replaceWhite && Color.WHITE == color) {
+                return Color.GRAY;
+            } else {
+                return color;
+            }
         } catch (Exception e) {
             return MainApp.getAppContext().getResources().getColor(R.color.primary);
         }
@@ -170,7 +181,7 @@ public class ThemeUtils {
      * @param actionBar actionBar to be used
      * @param title     title to be shown
      */
-    public static void setColoredTitle(ActionBar actionBar, String title) {
+    public static void setColoredTitle(@Nullable ActionBar actionBar, String title, Context context) {
         if (actionBar != null) {
             if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.KITKAT) {
                 actionBar.setTitle(title);
@@ -192,13 +203,15 @@ public class ThemeUtils {
      * @param actionBar actionBar to be used
      * @param titleId   title to be shown
      */
-    public static void setColoredTitle(ActionBar actionBar, int titleId, Context context) {
-        if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.KITKAT) {
-            actionBar.setTitle(titleId);
-        } else {
-            String colorHex = colorToHexString(fontColor());
-            String title = context.getString(titleId);
-            actionBar.setTitle(Html.fromHtml("<font color='" + colorHex + "'>" + title + "</font>"));
+    public static void setColoredTitle(@Nullable ActionBar actionBar, int titleId, Context context) {
+        if (actionBar != null) {
+            if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.KITKAT) {
+                actionBar.setTitle(titleId);
+            } else {
+                String colorHex = colorToHexString(fontColor(context));
+                String title = context.getString(titleId);
+                actionBar.setTitle(Html.fromHtml("<font color='" + colorHex + "'>" + title + "</font>"));
+            }
         }
     }
 

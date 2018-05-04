@@ -674,7 +674,8 @@ public class ExtendedListFragment extends Fragment
                     mEmptyListMessage.setText(message);
 
                     if (tintIcon) {
-                        mEmptyListIcon.setImageDrawable(ThemeUtils.tintDrawable(icon, ThemeUtils.primaryColor()));
+                        mEmptyListIcon.setImageDrawable(ThemeUtils.tintDrawable(icon,
+                                ThemeUtils.primaryColor(getContext(), true)));
                     } else {
                         mEmptyListIcon.setImageResource(icon);
                     }
