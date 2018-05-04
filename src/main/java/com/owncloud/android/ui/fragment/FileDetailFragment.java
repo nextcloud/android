@@ -185,48 +185,46 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
     }
 
     private void setHeaderImage() {
-        if (mContainerActivity.getStorageManager().getCapability(account.name).getServerBackground() != null) {
+        if (mContainerActivity.getStorageManager().getCapability(account.name)
+                .getServerBackground() != null && previewImage != null) {
 
-            if (previewImage != null) {
+            String background = mContainerActivity.getStorageManager().getCapability(account.name).getServerBackground();
 
-                String background = mContainerActivity.getStorageManager().getCapability(account.name).getServerBackground();
+            int primaryColor = ThemeUtils.primaryColor(account, getContext());
 
-                int primaryColor = ThemeUtils.primaryColor(account, getContext());
+            if (URLUtil.isValidUrl(background)) {
+                // background image
+                SimpleTarget target = new SimpleTarget<Drawable>() {
+                    @Override
+                    public void onResourceReady(Drawable resource, GlideAnimation glideAnimation) {
+                        Drawable[] drawables = {new ColorDrawable(primaryColor), resource};
+                        LayerDrawable layerDrawable = new LayerDrawable(drawables);
+                        previewImage.setImageDrawable(layerDrawable);
+                        previewImage.setVisibility(View.VISIBLE);
+                        ((ToolbarActivity) getActivity()).getSupportActionBar().setTitle(null);
+                        ((ToolbarActivity) getActivity()).getSupportActionBar().setBackgroundDrawable(null);
+                        previewLoaded = true;
+                    }
 
-                if (URLUtil.isValidUrl(background)) {
-                    // background image
-                    SimpleTarget target = new SimpleTarget<Drawable>() {
-                        @Override
-                        public void onResourceReady(Drawable resource, GlideAnimation glideAnimation) {
-                            Drawable[] drawables = {new ColorDrawable(primaryColor), resource};
-                            LayerDrawable layerDrawable = new LayerDrawable(drawables);
-                            previewImage.setImageDrawable(layerDrawable);
-                            previewImage.setVisibility(View.VISIBLE);
-                            ((ToolbarActivity)getActivity()).getSupportActionBar().setTitle(null);
-                            ((ToolbarActivity)getActivity()).getSupportActionBar().setBackgroundDrawable(null);
-                            previewLoaded = true;
-                        }
+                    @Override
+                    public void onLoadFailed(Exception e, Drawable errorDrawable) {
+                        previewImage.setVisibility(View.GONE);
+                    }
+                };
 
-                        @Override
-                        public void onLoadFailed(Exception e, Drawable errorDrawable) {
-                            previewImage.setVisibility(View.GONE);
-                        }
-                    };
-
-                    Glide.with(this)
-                            .load(background)
-                            .centerCrop()
-                            .placeholder(R.drawable.background)
-                            .error(R.drawable.background)
-                            .crossFade()
-                            .into(target);
-                } else {
-                    // hide image
-                    previewImage.setVisibility(View.GONE);
-                }
+                Glide.with(this)
+                        .load(background)
+                        .centerCrop()
+                        .placeholder(R.drawable.background)
+                        .error(R.drawable.background)
+                        .crossFade()
+                        .into(target);
+            } else {
+                // hide image
+                previewImage.setVisibility(View.GONE);
             }
         }
-    }
+}
 
     public void onOverflowIconClicked(View view) {
         PopupMenu popup = new PopupMenu(getActivity(), view);
