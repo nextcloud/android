@@ -125,14 +125,11 @@ public class SsoWebViewClient extends WebViewClient {
             //Log_OC.d(TAG, "Cookies: " + cookies);
             if (mListenerHandler != null && mListenerRef != null) {
                 // this is good idea because onPageFinished is not running in the UI thread
-                mListenerHandler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        SsoWebViewClientListener listener = mListenerRef.get();
-                        if (listener != null) {
-                        	// Send Cookies to the listener
-                            listener.onSsoFinished(cookies);
-                        }
+                mListenerHandler.post(() -> {
+                    SsoWebViewClientListener listener = mListenerRef.get();
+                    if (listener != null) {
+                        // Send Cookies to the listener
+                        listener.onSsoFinished(cookies);
                     }
                 });
             }
