@@ -240,7 +240,9 @@
 	<string name="auth_not_configured_title">Лоше подешавање сервера</string>
 	<string name="auth_account_not_new">Налог са истим корисничким именом и сервером већ постоји на овом уређају</string>
 	<string name="auth_account_not_the_same">Унесени корисник се не поклапа са корисником овог налога</string>
+	<string name="auth_unknown_error_http_title">Дошло је до непознате HTTP грешке!</string>
 	<string name="auth_unknown_error_title">Дошло је до непознате грешке!</string>
+	<string name="auth_unknown_error_exception_title">Непозната грешка: %1$s</string>
 	<string name="auth_unknown_host_title">Не могу да пронађем рачунар</string>
 	<string name="auth_incorrect_path_title">Сервер није нађен</string>
 	<string name="auth_timeout_title">Серверу је требало предуго да се одазове</string>

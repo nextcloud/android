@@ -61,7 +61,7 @@
     <string name="recommend_urls">%1$s ó %2$s</string>
 
     <string name="auth_check_server">Verficar el servidor</string>
-    <string name="auth_host_url">Dirección del servidor https://...</string>
+    <string name="auth_host_url">Dirección del servidor https://…</string>
     <string name="auth_username">Usuario</string>
     <string name="auth_password">Contraseña</string>
     <string name="auth_register">¿Aún no tienes tu Nextcloud?\nHaz click aquí para obtener uno de un proveedor</string>
@@ -90,7 +90,7 @@
     <string name="file_list_empty">Carga algún contenido o sincroniza con tus dispositivos.</string>
     <string name="file_list_empty_favorites_filter_list">Los archivos y carpetas que marques como favoritos se mostrarán aquí</string>
     <string name="file_list_empty_favorites_filter">Tu búsqueda no regresó archivos marcados como favoritos. </string>
-    <string name="file_list_loading">Cargando...</string>
+    <string name="file_list_loading">Cargando…</string>
     <string name="file_list_no_app_for_file_type">No se cuenta con una aplicación que maneje este tipo de achivo. </string>
     <string name="local_file_list_empty">No hay archivos en esta carpeta</string>
     <string name="local_folder_list_empty">No hay más carpetas.</string>
@@ -137,7 +137,7 @@
     <string name="delete_account_warning">¿Borrar la cuenta %s y borrar todos los archivos localeS?\n\nEl borrado no se puede deshacer</string>
     <string name="avatar">Avatar</string>
     <string name="active_user">Usuario activo</string>
-    <string name="upload_chooser_title">Cargar forma...</string>
+    <string name="upload_chooser_title">Cargar forma…</string>
     <string name="uploader_info_dirname">Nombre de la carpeta</string>
     <string name="uploader_upload_in_progress_ticker">Cargando</string>
     <string name="uploader_upload_in_progress_content">%1$d%% Cargando %2$s</string>
@@ -165,7 +165,7 @@
     <string name="uploads_view_upload_status_waiting_for_wifi">Esperando a la red inalámbrica</string>
     <string name="uploads_view_upload_status_waiting_exit_power_save_mode">Esperando a salir de modo de conservación de energía</string>
     <string name="uploads_view_later_waiting_to_upload">Esperando para cargar</string>
-    <string name="downloader_download_in_progress_ticker">Descargando...</string>
+    <string name="downloader_download_in_progress_ticker">Descargando…</string>
     <string name="downloader_download_in_progress_content">%1$d%% Descargando %2$s</string>
     <string name="downloader_download_succeeded_ticker">Descargado</string>
     <string name="downloader_download_succeeded_content">%1$s descargado</string>
@@ -229,8 +229,8 @@
     <string name="media_play_pause_description">Botón de reproducir o pausar</string>
     <string name="media_forward_description">Botón de avanzar rápido</string>
 
-    <string name="auth_getting_authorization">Obteniendo autorización...</string>
-    <string name="auth_trying_to_login">Intentando iniciar sesión...</string>
+    <string name="auth_getting_authorization">Obteniendo autorización…</string>
+    <string name="auth_trying_to_login">Intentando iniciar sesión…</string>
 	<string name="auth_no_net_conn_title">No hay conexión de red</string>
 	<string name="auth_nossl_plain_ok_title">Conexión segura no disponible.</string>
 	<string name="auth_connection_established">Conexión establecida</string>
@@ -285,10 +285,10 @@
     <string name="filename_forbidden_characters">Caracteres inválidos: / \\ &lt; &gt; : \" | ? *</string>
     <string name="filename_forbidden_charaters_from_server">El nombre del archivo contiene al menos un carácter inválido</string>
     <string name="filename_empty">El nombre del archivo no puede estar en blanco. </string>
-    <string name="wait_a_moment">Agurarda un momento...</string>
+    <string name="wait_a_moment">Agurarda un momento…</string>
     <string name="wait_checking_credentials">Verificando credenciales almacenadas</string>
     <string name="filedisplay_no_file_selected">No se ha seleccionado algún archivo</string>
-    <string name="activity_chooser_title">Enviar liga a ...</string>
+    <string name="activity_chooser_title">Enviar liga a…</string>
     <string name="wait_for_tmp_copy_from_private_storage">Copiando el archivo desde almacenamiento privado</string>
     
     <string name="oauth_check_onoff">Iniciar sesión con OAuth 2.0</string>
@@ -383,8 +383,8 @@
     <string name="downloader_download_file_not_found">El archivo ya no se encuentra disponible en el servidor</string>
 
     <string name="file_migration_dialog_title">Actualizando la ruta de almacenamiento</string>
-    <string name="file_migration_migrating">Moviendo los datos...</string>
-    <string name="file_migration_cleaning">Limpiando...</string>
+    <string name="file_migration_migrating">Moviendo los datos…</string>
+    <string name="file_migration_cleaning">Limpiando…</string>
     <string name="file_migration_ok_finished">Terminado</string>
     <string name="file_migration_failed_not_enough_space">Se necesita más espacio</string>
     <string name="file_migration_failed_not_writable">No fue posible escribir al archivo destino</string>
@@ -628,8 +628,8 @@
     <string name="fallback_weblogin_back">Atrás</string>
     <string name="fallback_weblogin_text">Regresar al antiguo método de inicio de sesión</string>
 
-    <string name="foreground_service_upload">Cargando archivos...</string>
-    <string name="foreground_service_download">Descargando archivos...</string>
+    <string name="foreground_service_upload">Cargando archivos…</string>
+    <string name="foreground_service_download">Descargando archivos…</string>
 
     <string name="prefs_sourcecode">Obtener el código fuente</string>
     <string name="prefs_license">Licencia</string>
@@ -720,17 +720,17 @@
     
     <string name="end_to_end_encryption_folder_not_empty">Esta carpeta no está vacía.</string>
     <string name="end_to_end_encryption_wrong_password">Se presentó un error al decriptar. ¿Contraseña equivocada?</string>
-    <string name="end_to_end_encryption_decrypting">Decriptando...</string>
-    <string name="end_to_end_encryption_retrieving_keys">Recuperando llaves...</string>
+    <string name="end_to_end_encryption_decrypting">Decriptando…</string>
+    <string name="end_to_end_encryption_retrieving_keys">Recuperando llaves…</string>
     <string name="end_to_end_encryption_enter_password">Por favor ingresa la contraseña para decrpitar la llave privada. </string>
-    <string name="end_to_end_encryption_generating_keys">Generando nuevas llaves...</string>
+    <string name="end_to_end_encryption_generating_keys">Generando nuevas llaves…</string>
     <string name="end_to_end_encryption_keywords_description">Las 12 palabras juntas hacer una contraseña muy fuerte, permitiendote solo a ti ver y hacer uso de tus archivos encriptados. Por favor escríbelo y mantenlo en un lugar seguro.</string>
     <string name="end_to_end_encryption_title">Configurar encripción</string>
     <string name="end_to_end_encryption_passphrase_title">Anota tu contraseña de encripción de 12 palabras</string>
     <string name="end_to_end_encryption_not_supported">La encripción solo funciona en KitKat (4.4) o superior.</string>
     <string name="end_to_end_encryption_not_enabled">La encripción de punta-a-punta está dehabilitada en el servidor. </string>
     <string name="end_to_end_encryption_confirm_button">Configurar la encripción</string>
-    <string name="end_to_end_encryption_password">Contraseña...</string>
+    <string name="end_to_end_encryption_password">Contraseña…</string>
     <string name="end_to_end_encryption_unsuccessful">No se pudieron guardar las llaves, por favor vuelve a intentarlo.</string>
     <string name="end_to_end_encryption_dialog_close">Cerrar</string>
     <string name="end_to_end_encryption_storing_keys">Almacenando llaves</string>

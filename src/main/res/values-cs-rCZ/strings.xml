@@ -60,7 +60,7 @@
     <string name="recommend_urls">%1$s nebo %2$s</string>
 
     <string name="auth_check_server">Ověřit server</string>
-    <string name="auth_host_url">Adresa serveru https://...</string>
+    <string name="auth_host_url">Adresa serveru https://…</string>
     <string name="auth_username">Uživatelské jméno</string>
     <string name="auth_password">Heslo</string>
     <string name="sync_string_files">Soubory</string>
@@ -151,7 +151,7 @@
     <string name="uploads_view_upload_status_waiting_for_wifi">Čekání na Wi-Fi</string>
     <string name="uploads_view_upload_status_waiting_exit_power_save_mode">Čekám na ukončení úsporného režimu</string>
     <string name="uploads_view_later_waiting_to_upload">Čekání na nahrávání</string>
-    <string name="downloader_download_in_progress_ticker">Stahování...</string>
+    <string name="downloader_download_in_progress_ticker">Stahování…</string>
     <string name="downloader_download_in_progress_content">%1$d%% Stahuji %2$s</string>
     <string name="downloader_download_succeeded_ticker">Staženo</string>
     <string name="downloader_download_succeeded_content">%1$s staženo</string>
