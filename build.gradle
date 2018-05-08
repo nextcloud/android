@@ -15,7 +15,7 @@ buildscript {
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.1.2'
-        classpath 'com.google.gms:google-services:3.0.0'
+        classpath 'com.google.gms:google-services:3.3.0'
         classpath 'org.codehaus.groovy:groovy-all:2.4.12' 
         classpath('com.dicedmelon.gradle:jacoco-android:0.1.2') { 
             exclude group: 'org.codehaus.groovy', module: 'groovy-all' 
@@ -36,7 +36,6 @@ configurations.all {
 
 ext {
     supportLibraryVersion = '27.1.1'
-    googleLibraryVersion = '15.0.0'
     androidLibraryVersion = '1.0.40'
     jacocoVersion = "0.7.4.201502262128"
 
@@ -231,8 +230,8 @@ dependencies {
     implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.12'
 
     // uncomment for gplay
-    // implementation "com.google.firebase:firebase-messaging:${googleLibraryVersion}"
-    // implementation "com.google.android.gms:play-services-gcm:${googleLibraryVersion}"
+    // implementation "com.google.firebase:firebase-messaging:15.0.2"
+    // implementation "com.google.android.gms:play-services-gcm:15.0.1"
     implementation 'org.parceler:parceler-api:1.1.9'
     annotationProcessor 'org.parceler:parceler:1.1.9'
     implementation ('com.github.bumptech.glide:glide:3.7.0') {
@@ -306,5 +305,5 @@ task combinedTestReport(type: JacocoReport) {
     ])
 }
 
-    // uncomment for gplay (must be at the bottom)
-    // apply plugin: 'com.google.gms.google-services'
+// uncomment for gplay (must be at the bottom)
+// apply plugin: 'com.google.gms.google-services'
