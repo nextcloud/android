@@ -25,6 +25,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
@@ -192,6 +193,12 @@ public class UploadFilesActivity extends FileActivity implements
         actionBar.setDisplayShowTitleEnabled(false);
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
         actionBar.setListNavigationCallbacks(mDirectories, this);
+
+        Drawable backArrow = getResources().getDrawable(R.drawable.ic_arrow_back);
+
+        if (actionBar != null) {
+            actionBar.setHomeAsUpIndicator(ThemeUtils.tintDrawable(backArrow, ThemeUtils.fontColor(this)));
+        }
 
         // wait dialog
         if (mCurrentDialog != null) {
