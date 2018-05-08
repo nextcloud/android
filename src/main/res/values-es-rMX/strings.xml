@@ -257,7 +257,8 @@
 	<string name="auth_expired_oauth_token_toast">Tu autorización ha expirado. Por favor vuelve a autorizar</string>
 	<string name="auth_expired_basic_auth_toast">Por favor ingresa tu contraseña actual</string>
 	<string name="auth_expired_saml_sso_token_toast">Tu sesión ha expirado. Por favor conectate de nuevo</string>
-    <string name="auth_unsupported_multiaccount">%1$s no soporta cuentas múltiples</string>
+    <string name="auth_connecting_auth_server">Conectando al servidor de autenticación...</string>
+	<string name="auth_unsupported_multiaccount">%1$s no soporta cuentas múltiples</string>
 	<string name="auth_fail_get_user_name">Tu servidor no esta regresando un user ID correcto, por favor contacta a tu adminsitrador</string>
 	<string name="auth_can_not_auth_against_server">No es posible autenticarse en este servidor</string>
     <string name="auth_account_does_not_exist">La cuenta aún no ha sido agregada a este dispositivo </string>
@@ -292,6 +293,8 @@
     <string name="wait_for_tmp_copy_from_private_storage">Copiando el archivo desde almacenamiento privado</string>
     
     <string name="oauth_check_onoff">Iniciar sesión con OAuth 2.0</string>
+    <string name="oauth_login_connection">Conectando al servidor de OAuth2.0...</string>
+        
     <string name="ssl_validator_header">La identidad del servidor no pudo ser verificada</string>
     <string name="ssl_validator_reason_cert_not_trusted">- El certificado del servidor no es de confianza</string>
     <string name="ssl_validator_reason_cert_expired">- El certificado del servidor expiró</string>
@@ -383,8 +386,14 @@
     <string name="downloader_download_file_not_found">El archivo ya no se encuentra disponible en el servidor</string>
 
     <string name="file_migration_dialog_title">Actualizando la ruta de almacenamiento</string>
+    <string name="file_migration_preparing">Preparando la migración...</string>
+    <string name="file_migration_checking_destination">Verificando el destino...</string>
+    <string name="file_migration_saving_accounts_configuration">Guardando la configuración de la cuenta...</string>
+    <string name="file_migration_waiting_for_unfinished_sync">Agurardando sincronización completa...</string>
     <string name="file_migration_migrating">Moviendo los datos…</string>
+    <string name="file_migration_updating_index">Actualizando índice ...</string>
     <string name="file_migration_cleaning">Limpiando…</string>
+    <string name="file_migration_restoring_accounts_configuration">Restaurando la configuración de la cuenta...</string>
     <string name="file_migration_ok_finished">Terminado</string>
     <string name="file_migration_failed_not_enough_space">Se necesita más espacio</string>
     <string name="file_migration_failed_not_writable">No fue posible escribir al archivo destino</string>
@@ -408,7 +417,9 @@
 	<string name="log_send_history_button">Enviar histórico</string>
 	<string name="log_send_no_mail_app">No se encontró alguna aplicación para el envío de bitácoras. Por favor instala un cliente de correo electrónico. </string>
 	<string name="log_send_mail_subject"> %1$s bitácora de aplicación Android</string>
-    <string name="saml_authentication_required_text">Se requiere contraseña</string>
+    <string name="log_progress_dialog_text">Cargando datos...</string>
+
+	<string name="saml_authentication_required_text">Se requiere contraseña</string>
 	<string name="saml_authentication_wrong_pass">Contraseña incorrecta</string>
 	<string name="actionbar_move">Mover</string>
     <string name="actionbar_copy">Copiar</string>
@@ -452,6 +463,8 @@
     <string name="set_picture_as">Usar imagen como</string>
     <string name="set_as">Establecer Como</string>
 
+    <string name="prefs_instant_behaviour_dialogTitle">El archivo original será...</string>
+    <string name="prefs_instant_behaviour_title">El archivo original será...</string>
     <string name="select_all">Seleccionar todo</string>
     <string name="deselect_all">Deseleccionar todo</string>
 
@@ -472,6 +485,7 @@
     <string name="share_via_link_edit_permission_label">Permitir edición</string>
     <string name="share_via_link_hide_file_listing_permission_label">Ocultar listado de archivos</string>
     <string name="share_get_public_link_button">Obtener liga</string>
+    <string name="share_with_title">Compartir con...</string>
     <string name="share_with_edit_title">Compartir con %1$s</string>
 
     <string name="share_search">Buscar</string>
@@ -535,6 +549,11 @@
     <string name="participate_rc_fdroid">Obten el candidato a liberación de la tienda de aplicaciones F-Droid </string>
     <string name="participate_dev_fdroid">Obten la liberación de desarrollo de la tienda de aplicaciones F-Droid </string>
     <string name="participate_dev_direct_download">Obten la liberación de desarrollo directamente</string>
+    <string name="move_to">Mover a...</string>
+    <string name="copy_to">Copiar a...</string>
+    <string name="choose_remote_folder">Elige la carpeta remota...</string>
+    <string name="choose_local_folder">Elige la carpeta local...</string>
+    <string name="synced_folders_loading_folders">Cargando carpetas...</string>
     <string name="synced_folders_no_results">No se encontraron carpetas de medios. </string>
     <string name="synced_folders_preferences">Preferencias para cargas automáticas</string>
     <string name="synced_folders_new_info">Las cargas instantaneas se han mejorado por completo. Re-configura tu carga automática desde el menú principal.\n\nDisfruta la nueva y mejorada carga automática. </string>
@@ -544,6 +563,7 @@
         <item quantity="other">%d seleccionados</item>
     </plurals>
 
+    <string name="notifications_loading_activity">Cargando notificaciones...</string>
     <string name="notifications_no_results_headline">No hay notificaciones</string>
     <string name="notifications_no_results_message">Por favor verifica más tarde. </string>
 
@@ -737,10 +757,14 @@
     <string name="copy_move_to_encrypted_folder_not_supported">Copiar/ mover a la carpeta encriptada no se encuentra soportado por el momento.</string>
     <string name="untrusted_domain">Accede a través de un dominio no de confianza. Por favor consulta la documentación para más información.</string>
     <string name="notification_channel_push_name">Notificaciones push</string>
+    <string name="notification_channel_push_description">Mostrar las notificaciones push enviadas por el servidor: Menciones en comentarios, recepción de nuevos elementos compartidos remotos, anuncios publicados por el administrador, etc.</string>
     <string name="sendbutton_description">Ícono de botón de envío</string>
+    <string name="oauth_2_0_access_end_point_address_hint">Acceder a la dirección del end point</string>
     <string name="hint_name">Nombre</string>
     <string name="hint_password">Contraseña</string>
     <string name="add_to_cloud">Agregar a %1$s</string>
     <string name="upload_files">Cargar archivos</string>
+    <string name="upload_content_from_other_apps">Cargar contenido de otras aplicaciones</string>
     <string name="create_new_folder">Crear nueva carpeta</string>
-    </resources>
+    <string name="uploads_view_upload_status_virus_detected">Virus detectado. ¡La carga no puede ser completada!</string>
+</resources>
