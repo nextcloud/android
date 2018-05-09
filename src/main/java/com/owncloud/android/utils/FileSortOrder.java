@@ -42,7 +42,7 @@ public class FileSortOrder {
 
     public static final Map<String, FileSortOrder> sortOrders;
     static {
-        sortOrders = new HashMap<String, FileSortOrder>();
+        sortOrders = new HashMap<>();
         sortOrders.put(sort_a_to_z.mName, sort_a_to_z);
         sortOrders.put(sort_z_to_a.mName, sort_z_to_a);
         sortOrders.put(sort_old_to_new.mName, sort_old_to_new);
