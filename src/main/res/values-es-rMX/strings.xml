@@ -596,7 +596,7 @@
     <string name="whats_new_ipv6_title">Soporte IPv6</string>
     <string name="whats_new_ipv6_content">IPv6 cuando el servidor lo soporte, IPv4 si no. </string>
 
-    <string name="whats_new_skip">Saltar</string>
+    <string name="whats_new_skip">Omitir</string>
 
     <string name="fingerprint_scan_finger">Por favor escanea tu dedo</string>
     <string name="fingerprint_unknown">El dedo no ha sido reconocido</string>
@@ -759,6 +759,7 @@
     <string name="notification_channel_push_name">Notificaciones push</string>
     <string name="notification_channel_push_description">Mostrar las notificaciones push enviadas por el servidor: Menciones en comentarios, recepción de nuevos elementos compartidos remotos, anuncios publicados por el administrador, etc.</string>
     <string name="sendbutton_description">Ícono de botón de envío</string>
+    <string name="oauth_2_0_auth_end_point_address_hint">Dirección del end point de autenticación</string>
     <string name="oauth_2_0_access_end_point_address_hint">Acceder a la dirección del end point</string>
     <string name="hint_name">Nombre</string>
     <string name="hint_password">Contraseña</string>
