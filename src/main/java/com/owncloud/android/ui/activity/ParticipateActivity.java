@@ -93,8 +93,7 @@ public class ParticipateActivity extends FileActivity {
                                 getString(R.string.contributing_link)))));
 
         AppCompatButton reportButton = findViewById(R.id.participate_testing_report);
-        reportButton.getBackground().setColorFilter(ThemeUtils.primaryColor(this, true), PorterDuff.Mode.SRC_ATOP);
-        reportButton.setTextColor(ThemeUtils.fontColor(this));
+        reportButton.getBackground().setColorFilter(ThemeUtils.primaryAccentColor(this), PorterDuff.Mode.SRC_ATOP);
         reportButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
