@@ -267,8 +267,7 @@ public class LocalFileListAdapter extends RecyclerView.Adapter<RecyclerView.View
                     } // else, already being generated, don't restart it
                 }
             } else {
-                thumbnailView.setImageDrawable(MimeTypeUtil.getFileTypeIcon(null, file.getName(), null)
-                );
+                thumbnailView.setImageDrawable(MimeTypeUtil.getFileTypeIcon(null, file.getName(), mContext));
             }
         }
     }
