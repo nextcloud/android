@@ -105,9 +105,8 @@ public class ParticipateActivity extends FileActivity {
                                 ThemeUtils.colorToHexString(ThemeUtils.primaryColor()),
                                 getString(R.string.contributing_link)))));
 
-        AppCompatButton reportButton = (AppCompatButton) findViewById(R.id.participate_testing_report);
-        reportButton.getBackground().setColorFilter(ThemeUtils.primaryColor(), PorterDuff.Mode.SRC_ATOP);
-        reportButton.setTextColor(ThemeUtils.fontColor());
+        AppCompatButton reportButton = findViewById(R.id.participate_testing_report);
+        reportButton.getBackground().setColorFilter(ThemeUtils.primaryAccentColor(this), PorterDuff.Mode.SRC_ATOP);
         reportButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
