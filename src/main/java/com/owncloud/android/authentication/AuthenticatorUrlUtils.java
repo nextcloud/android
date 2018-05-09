@@ -78,7 +78,7 @@ public abstract class AuthenticatorUrlUtils {
             normalizedUrl = normalizedUrl.trim();
 
             if (!normalizedUrl.toLowerCase(Locale.ROOT).startsWith(HTTP_PROTOCOL) &&
-                    !normalizedUrl.toLowerCase(Locale.ROOT).startsWith(HTTP_PROTOCOL)) {
+                    !normalizedUrl.toLowerCase(Locale.ROOT).startsWith(HTTPS_PROTOCOL)) {
                 if (sslWhenUnprefixed) {
                     normalizedUrl = HTTPS_PROTOCOL + normalizedUrl;
                 } else {
