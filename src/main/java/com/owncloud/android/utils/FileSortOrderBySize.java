@@ -23,8 +23,6 @@ package com.owncloud.android.utils;
 import com.owncloud.android.datamodel.OCFile;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -73,32 +71,26 @@ public class FileSortOrderBySize extends FileSortOrder {
     /**
      * Sorts list by Size.
      *
-     * @param filesArray list of files to sort
+     * @param files list of files to sort
      */
-    public File[] sortLocalFiles(File[] filesArray) {
+    public List<File> sortLocalFiles(List<File> files) {
         final int multiplier = mAscending ? 1 : -1;
 
-        List<File> files = new ArrayList<>(Arrays.asList(filesArray));
-
-        Collections.sort(files, new Comparator<File>() {
-            @SuppressFBWarnings(value = "Bx")
-            public int compare(File o1, File o2) {
-                if (o1.isDirectory() && o2.isDirectory()) {
-                    Long obj1 = FileStorageUtils.getFolderSize(o1);
-                    return multiplier * obj1.compareTo(FileStorageUtils.getFolderSize(o2));
-                } else if (o1.isDirectory()) {
-                    return -1;
-                } else if (o2.isDirectory()) {
-                    return 1;
-                } else {
-                    Long obj1 = o1.length();
-                    return multiplier * obj1.compareTo(o2.length());
-                }
+        Collections.sort(files, (o1, o2) -> {
+            if (o1.isDirectory() && o2.isDirectory()) {
+                Long obj1 = FileStorageUtils.getFolderSize(o1);
+                return multiplier * obj1.compareTo(FileStorageUtils.getFolderSize(o2));
+            } else if (o1.isDirectory()) {
+                return -1;
+            } else if (o2.isDirectory()) {
+                return 1;
+            } else {
+                Long obj1 = o1.length();
+                return multiplier * obj1.compareTo(o2.length());
             }
         });
 
-        File[] returnArray = new File[files.size()];
-        return files.toArray(returnArray);
+        return files;
     }
 
 }
