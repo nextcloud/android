@@ -489,7 +489,7 @@ public class MainApp extends MultiDexApplication {
     private static void updateToAutoUpload() {
             Context context = getAppContext();
             if (PreferenceManager.instantPictureUploadEnabled(context) ||
-                            PreferenceManager.instantPictureUploadEnabled(context)) {
+                    PreferenceManager.instantVideoUploadEnabled(context)){
 
                 // remove legacy shared preferences
                 SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(context).edit();
