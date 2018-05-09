@@ -29,7 +29,8 @@ groups:
       - AndyScherzinger
       - tobiasKaminsky
       - mario
-      - przybylski 
+      - przybylski
+      - ardevd 
 
   design-review:
     conditions:
