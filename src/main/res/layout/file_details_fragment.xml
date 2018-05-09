@@ -18,7 +18,7 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/fdScrollView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -29,64 +29,81 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <RelativeLayout
-            android:id="@+id/fdFileHeaderContainer"
+        <ImageView
+            android:id="@+id/fdIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/standard_margin"
+            android:contentDescription="@string/file_icon"
+            android:src="@drawable/file" />
+
+        <View
+            android:id="@+id/fdIcon_divider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/list_divider_background" />
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/standard_margin">
-
-            <ImageView
-                android:id="@+id/fdIcon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:contentDescription="@string/file_icon"
-                android:src="@drawable/file"/>
+            android:paddingTop="@dimen/standard_padding"
+            android:paddingLeft="@dimen/standard_padding"
+            android:paddingRight="@dimen/standard_padding"
+            android:paddingBottom="@dimen/standard_half_padding"
+            android:orientation="horizontal">
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_toEndOf="@+id/fdIcon"
-                android:layout_toRightOf="@+id/fdIcon"
-                android:paddingLeft="@dimen/standard_padding"
-                android:paddingStart="@dimen/standard_padding"
-                android:paddingEnd="@dimen/zero"
-                android:paddingRight="@dimen/zero"
+                android:layout_weight="1"
                 android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/fdFilename"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:ellipsize="middle"
                     android:text="@string/placeholder_filename"
-                    android:textAppearance="?android:attr/textAppearanceLarge"/>
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
 
                 <LinearLayout
                     android:id="@+id/fdFiledetails"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:gravity="center"
                     android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/fdFavorite"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/standard_eighth_margin"
+                        android:layout_marginLeft="@dimen/zero"
+                        android:layout_marginRight="@dimen/standard_eighth_margin"
+                        android:layout_marginStart="@dimen/zero"
+                        android:contentDescription="@null"
+                        android:src="@drawable/ic_star_outline" />
 
                     <TextView
                         android:id="@+id/fdSize"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/placeholder_fileSize"
-                        android:textColor="@color/list_item_lastmod_and_filesize_text"
-                        android:textSize="@dimen/two_line_secondary_text_size"/>
+                        android:textSize="16sp" />
 
                     <TextView
                         android:id="@+id/file_separator"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:paddingRight="@dimen/standard_quarter_padding"
-                        android:paddingEnd="@dimen/standard_quarter_padding"
-                        android:paddingStart="@dimen/zero"
-                        android:paddingLeft="@dimen/zero"
                         android:gravity="end"
+                        android:paddingEnd="@dimen/standard_quarter_padding"
+                        android:paddingLeft="@dimen/zero"
+                        android:paddingRight="@dimen/standard_quarter_padding"
+                        android:paddingStart="@dimen/zero"
                         android:text="@string/info_separator"
                         android:textColor="@color/list_item_lastmod_and_filesize_text"
-                        android:textSize="@dimen/two_line_secondary_text_size"/>
+                        android:textSize="@dimen/two_line_secondary_text_size" />
 
                     <TextView
                         android:id="@+id/fdModified"
@@ -94,163 +111,100 @@
                         android:layout_height="wrap_content"
                         android:gravity="end"
                         android:text="@string/placeholder_media_time"
-                        android:textColor="@color/list_item_lastmod_and_filesize_text"
-                        android:textSize="@dimen/two_line_secondary_text_size"/>
+                        android:textSize="16sp" />
 
-                </LinearLayout>
-
-            </LinearLayout>
-
-        </RelativeLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/list_divider_background"/>
-
-        <RelativeLayout
-            android:id="@+id/fdProgressAndControl"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/standard_half_margin"
-            android:layout_marginLeft="@dimen/standard_margin"
-            android:layout_marginRight="@dimen/standard_margin"
-            android:layout_marginTop="@dimen/standard_half_margin"
-            android:gravity="center_horizontal">
-
-            <android.support.v7.widget.SwitchCompat
-                android:id="@+id/fdFavorite"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:layout_gravity="start"
-                android:text="@string/favorite_switch"
-                android:textSize="16sp"/>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/fdFavorite"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/fdProgressText"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/standard_half_margin"
-                    android:text="@string/downloader_download_in_progress_ticker"/>
-
-                <LinearLayout
-                    android:id="@+id/fdProgressBlock"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/standard_quarter_margin"
-                    android:layout_marginTop="@dimen/standard_half_margin"
-                    android:gravity="center"
-                    android:orientation="horizontal">
-
-                    <ProgressBar
-                        android:id="@+id/fdProgressBar"
-                        style="?android:attr/progressBarStyleHorizontal"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:indeterminate="false"
-                        android:indeterminateOnly="false"/>
-
-                    <ImageButton
-                        android:id="@+id/fdCancelBtn"
+                    <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/standard_half_margin"
-                        android:layout_marginStart="@dimen/standard_half_margin"
-                        android:background="@android:color/transparent"
-                        android:contentDescription="@string/common_cancel"
-                        android:src="@drawable/ic_cancel"/>
+                        android:layout_marginEnd="@dimen/standard_eighth_margin"
+                        android:layout_marginLeft="@dimen/standard_margin"
+                        android:layout_marginRight="@dimen/standard_eighth_margin"
+                        android:layout_marginStart="@dimen/standard_margin"
+                        android:contentDescription="@null"
+                        android:src="@drawable/ic_tag"
+                        android:visibility="gone" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/tags"
+                        android:visibility="gone" />
 
                 </LinearLayout>
 
             </LinearLayout>
 
-        </RelativeLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/list_divider_background"/>
+            <ImageView
+                android:id="@+id/overflow_menu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:src="@drawable/ic_dots_vertical"
+                android:contentDescription="@string/overflow_menu"/>
+        </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/fdShareContainer"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="@dimen/standard_half_margin"
-            android:layout_marginLeft="@dimen/standard_margin"
-            android:layout_marginRight="@dimen/standard_margin"
-            android:layout_marginTop="@dimen/standard_half_margin"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/standard_padding"
+            android:paddingRight="@dimen/standard_padding"
+            android:paddingBottom="@dimen/standard_half_padding"
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/fdShareTitle"
-                style="@style/TextAppearance.AppCompat.Body2"
+                android:id="@+id/fdProgressText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/standard_half_margin"
-                android:text="@string/action_send_share"
-                android:textColor="@color/color_accent"/>
+                android:text="@string/downloader_download_in_progress_ticker" />
 
             <LinearLayout
+                android:id="@+id/fdProgressBlock"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                tools:ignore="UseCompoundDrawables">
+                android:layout_marginBottom="@dimen/standard_quarter_margin"
+                android:gravity="center"
+                android:orientation="horizontal">
 
-                <ImageView
-                    android:contentDescription="@string/shared_icon"
-                    android:id="@+id/fdShareLinkIcon"
-                    android:layout_width="@dimen/shared_list_icon_width"
-                    android:layout_height="@dimen/shared_list_icon_height"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginEnd="@dimen/standard_half_margin"
-                    android:layout_marginRight="@dimen/standard_half_margin"
-                    android:src="@drawable/shared_via_link"
-                    android:visibility="gone"/>
-
-                <TextView
-                    android:id="@+id/fdSharebyLink"
-                    android:layout_width="match_parent"
+                <ProgressBar
+                    android:id="@+id/fdProgressBar"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="start"
-                    android:text="@string/filedetails_share_link_disable"/>
+                    android:layout_weight="1"
+                    android:indeterminate="false"
+                    android:indeterminateOnly="false" />
+
+                <ImageButton
+                    android:id="@+id/fdCancelBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/standard_half_margin"
+                    android:layout_marginStart="@dimen/standard_half_margin"
+                    android:background="@android:color/transparent"
+                    android:contentDescription="@string/common_cancel"
+                    android:src="@drawable/ic_cancel" />
+
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/fdShareWithUsersTitle"
-                style="@style/TextAppearance.AppCompat.Body2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="start"
-                android:layout_marginBottom="@dimen/standard_half_margin"
-                android:layout_marginTop="@dimen/standard_half_margin"
-                android:text="@string/filedetails_share_users_with_access"
-                android:textColor="@color/color_accent"/>
-
-            <ListView
-                android:id="@+id/fdshareUsersList"
-                android:layout_width="match_parent"
-                android:layout_height="0dip"
-                android:layout_weight="1"
-                android:visibility="gone"/>
-
-            <TextView
-                android:id="@+id/fdShareNoUsers"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/share_no_users"
-                android:textSize="@dimen/share_no_users_text_size"/>
-
         </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/list_divider_background" />
+
+        <android.support.design.widget.TabLayout
+            android:id="@+id/tab_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:tabGravity="center"
+            app:tabMode="fixed"
+            android:background="@color/white" />
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/pager"
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"/>
 
     </LinearLayout>
 

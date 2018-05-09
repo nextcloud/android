@@ -28,7 +28,7 @@
     <ScrollView
         android:id="@+id/scrollView1"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/zero"
+        android:layout_height="0dp"
         android:layout_marginBottom="@dimen/standard_margin"
         android:layout_weight="1">
 

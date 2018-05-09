@@ -105,31 +105,43 @@ public class FileMenuFilter {
 
             filter(toShow, toHide, inSingleFileFragment);
 
-            MenuItem item;
             for (int i : toShow) {
-                item = menu.findItem(i);
-                if (item != null) {
-                    item.setVisible(true);
-                    item.setEnabled(true);
-                }
+                showMenuItem(menu.findItem(i));
             }
 
             for (int i : toHide) {
-                item = menu.findItem(i);
-                if (item != null) {
-                    item.setVisible(false);
-                    item.setEnabled(false);
-                }
+                hideMenuItem(menu.findItem(i));
             }
         }
     }
 
-    private void hideAll(Menu menu) {
-        MenuItem item;
-        for (int i = 0; i < menu.size(); i++) {
-            item = menu.getItem(i);
+    public static void hideAll(Menu menu) {
+        if (menu != null) {
+            for (int i = 0; i < menu.size(); i++) {
+                hideMenuItem(menu.getItem(i));
+            }
+        }
+    }
+
+    private static void hideMenuItem(MenuItem item) {
+        if (item != null) {
             item.setVisible(false);
             item.setEnabled(false);
+        }
+    }
+
+    private static void showMenuItem(MenuItem item) {
+        if (item != null) {
+            item.setVisible(true);
+            item.setEnabled(true);
+        }
+    }
+
+    public static void hideMenuItems(MenuItem... items) {
+        if (items != null) {
+            for (MenuItem item : items) {
+                hideMenuItem(item);
+            }
         }
     }
 

@@ -269,7 +269,6 @@
     <string name="unfavorite">Unset as available offline</string>
     <string name="favorite_real">Set as favorite</string>
     <string name="unset_favorite_real">Unset favorite</string>
-    <string name="favorite_switch">Available offline</string>
     <string name="encrypted">Set as encrypted</string>
     <string name="unset_encrypted">Unset encryption</string>
     <string name="common_rename">Rename</string>
@@ -784,4 +783,5 @@
     <string name="upload_content_from_other_apps">Upload content from other apps</string>
     <string name="create_new_folder">Create new folder</string>
     <string name="uploads_view_upload_status_virus_detected">Virus detected. Upload cannot be completed!</string>
+    <string name="tags">Tags</string>
 </resources>
