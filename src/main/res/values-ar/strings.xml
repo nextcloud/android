@@ -215,7 +215,6 @@
     <string name="unfavorite">الغ التحدد كمتوفر بدون اتصال الانترنت</string>
     <string name="favorite_real">حدد كمفضلة</string>
     <string name="unset_favorite_real">الغ التحدد كمفضلة</string>
-    <string name="favorite_switch">مُتاح بدون إتصال بالإنترنت</string>
     <string name="common_rename">إعادة التسمية</string>
     <string name="common_remove">حذف</string>
     <string name="confirmation_remove_local">محليا فقط</string>

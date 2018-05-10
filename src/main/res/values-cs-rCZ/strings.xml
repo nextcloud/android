@@ -234,7 +234,6 @@
     <string name="unfavorite">Zrušit nastavení dostupnosti offline</string>
     <string name="favorite_real">Nastavit jako oblíbené</string>
     <string name="unset_favorite_real">Zrušit jako oblíbené</string>
-    <string name="favorite_switch">Dostupné offline</string>
     <string name="common_rename">Přejmenovat</string>
     <string name="common_remove">Odstranit</string>
     <string name="confirmation_remove_file_alert">Opravdu chcete odstranit %1$s?</string>

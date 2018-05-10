@@ -249,7 +249,6 @@
     <string name="favorite">Aseta saatavaksi offline tilassa</string>
     <string name="favorite_real">Aseta suosikiksi</string>
     <string name="unset_favorite_real">Poista suosikeista</string>
-    <string name="favorite_switch">Aseta saatavaksi offline tilassa</string>
     <string name="encrypted">Salaa</string>
     <string name="unset_encrypted">Poista salaus</string>
     <string name="common_rename">Nimeä uudelleen</string>

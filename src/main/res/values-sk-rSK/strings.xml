@@ -221,7 +221,6 @@
     <string name="favorite">Dostupné v režime offline</string>
     <string name="unfavorite">Nedostupné v režime offline</string>
     <string name="favorite_real">Nastaviť ako obľúbené</string>
-    <string name="favorite_switch">Dostupné offline</string>
     <string name="common_rename">Premenovať</string>
     <string name="common_remove">Zmazať</string>
     <string name="confirmation_remove_file_alert">Naozaj chcete odstrániť %1$s?</string>

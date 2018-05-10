@@ -256,7 +256,6 @@
     <string name="unfavorite">Fjern som tilgjengelig frakoblet</string>
     <string name="favorite_real">Sett som favoritt</string>
     <string name="unset_favorite_real">Fjern favorittmarkering</string>
-    <string name="favorite_switch">Tilgjengelig i frakoblet modus</string>
     <string name="encrypted">Sett som kryptert</string>
     <string name="unset_encrypted">Ikke satt kryptering</string>
     <string name="common_rename">Gi nytt navn</string>

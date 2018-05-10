@@ -268,7 +268,6 @@
     <string name="unfavorite">Rimuovi come disponibile non in linea</string>
     <string name="favorite_real">Imposta come preferito</string>
     <string name="unset_favorite_real">Rimuovi preferito</string>
-    <string name="favorite_switch">Disponibile non in linea</string>
     <string name="encrypted">Imposta come cifrato</string>
     <string name="unset_encrypted">Rimuovi cifratura</string>
     <string name="common_rename">Rinomina</string>
@@ -768,4 +767,4 @@
     <string name="upload_content_from_other_apps">Carica contenuti da altre applicazioni</string>
     <string name="create_new_folder">Crea una nuova cartella</string>
     <string name="uploads_view_upload_status_virus_detected">Virus rilevato! Impossibile caricare il file!</string>
-</resources>
+    </resources>
