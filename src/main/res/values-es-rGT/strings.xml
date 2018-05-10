@@ -47,6 +47,7 @@
     <string name="prefs_log_delete_history_button">Borrar historial</string>
     <string name="prefs_calendar_contacts">Sincronizar calendario  &amp; contactos</string>
     <string name="prefs_calendar_contacts_summary">Configurar DAVdroid (v1.3.0+) para la cuenta actual</string>
+    <string name="prefs_calendar_contacts_address_resolve_error">La dirección del servidor no pudo ser resuelta para DAVdroid</string>
     <string name="prefs_calendar_contacts_no_store_error">No ha sido instalado ni F-Droid o Google Play </string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Configuración de la sincronizacion del calendario &amp; contactos </string>
     <string name="prefs_daily_contacts_sync_summary">Respaldo diario de tus contactos</string>
@@ -60,8 +61,10 @@
     <string name="recommend_urls">%1$s ó %2$s</string>
 
     <string name="auth_check_server">Verficar el servidor</string>
+    <string name="auth_host_url">Dirección del servidor https://…</string>
     <string name="auth_username">Usuario</string>
     <string name="auth_password">Contraseña</string>
+    <string name="auth_register">¿Aún no tienes tu Nextcloud?\nHaz click aquí para obtener uno de un proveedor</string>
     <string name="sync_string_files">Archivos</string>
     <string name="setup_btn_connect">Conectar</string>
     <string name="uploader_btn_upload_text">Cargar</string>
@@ -78,6 +81,7 @@
     <string name="uploader_error_message_source_file_not_found">El archivo seleccionado para cargar no fue encontrado. Por favor verifica si el archivo existe.</string>
     <string name="uploader_error_message_source_file_not_copied">No fue posible copiar el archivo a una carpeta temporal. Por favor intenta enviarlo de nuevo.</string>
     <string name="uploader_upload_files_behaviour">Opción de carga:</string>
+    <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">Mover el archivo a la carpeta %1$s</string>
     <string name="uploader_upload_files_behaviour_only_upload">Mantener el archivo en la carpeta de origen</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Borrar el archivo de la carpeta de origen</string>
     <string name="file_list_seconds_ago">hace algunos segundos</string>
@@ -86,6 +90,7 @@
     <string name="file_list_empty">Carga algún contenido o sincroniza con tus dispositivos.</string>
     <string name="file_list_empty_favorites_filter_list">Los archivos y carpetas que marques como favoritos se mostrarán aquí</string>
     <string name="file_list_empty_favorites_filter">Tu búsqueda no regresó archivos marcados como favoritos. </string>
+    <string name="file_list_loading">Cargando…</string>
     <string name="file_list_no_app_for_file_type">No se cuenta con una aplicación que maneje este tipo de achivo. </string>
     <string name="local_file_list_empty">No hay archivos en esta carpeta</string>
     <string name="local_folder_list_empty">No hay más carpetas.</string>
@@ -97,15 +102,23 @@
     <string name="file_list_empty_headline_server_search_videos">No hay videos</string>
     <string name="file_list_empty_headline_server_search_photos">No hay fotos</string>
     <string name="file_list_empty_search">¿Tal vez está dentro de una carpeta diferente?</string>
+    <string name="file_list_empty_recently_modified">No se encontraron archivos modificados dentro de los últimos 7 días</string>
+    <string name="file_list_empty_recently_modified_filter">No se han modificado archivos en los últimos 7 días. </string>
     <string name="file_list_empty_recently_added">No se encontraron archivos agregados recientemente</string>
+    <string name="file_list_empty_recently_added_filter">No se han agregado archivos recientemente. </string>
     <string name="file_list_empty_text_photos">Carga algunas fotos o activa la carga automática.</string>
+    <string name="file_list_empty_text_photos_filter">No hay fotos.</string>
     <string name="file_list_empty_text_videos">Carga algunos videos o activa la carga automática.</string>
+    <string name="file_list_empty_text_videos_filter">No hay videos.</string>
     <string name="upload_list_empty_headline">No hay cargas disponibles</string>
     <string name="upload_list_empty_text_auto_upload">Carga algún contenido o activa la carga automática</string>
     <string name="file_list_folder">carpeta</string>
     <string name="filedetails_select_file">Pulsa un archivo para mostrar información adicional.</string>
     <string name="filedetails_download">Descargar</string>
+    <string name="filedetails_sync_file">Syncronizar</string>
+    <string name="filedetails_renamed_in_upload_msg">El archivo se renombró com %1$s durante la carga</string>
     <string name="list_layout">Vista de lista</string>
+    <string name="action_send_share">Enviar/Compartir</string>
     <string name="common_yes">Sí</string>
     <string name="common_no">No</string>
     <string name="common_ok">OK</string>
@@ -113,6 +126,8 @@
     <string name="common_cancel">Cancelar</string>
     <string name="common_back">Atrás</string>
     <string name="common_save">Guardar</string>
+    <string name="common_error">Error</string>
+    <string name="common_loading">Cargando</string>
     <string name="common_unknown">desconocido</string>
     <string name="common_error_unknown">Error desconocido</string>
     <string name="common_pending">Pendiente</string>
@@ -122,14 +137,19 @@
     <string name="delete_account_warning">¿Borrar la cuenta %s y borrar todos los archivos localeS?\n\nEl borrado no se puede deshacer</string>
     <string name="avatar">Avatar</string>
     <string name="active_user">Usuario activo</string>
+    <string name="upload_chooser_title">Cargar forma…</string>
     <string name="uploader_info_dirname">Nombre de la carpeta</string>
+    <string name="uploader_upload_in_progress_ticker">Cargando</string>
     <string name="uploader_upload_in_progress_content">%1$d%% Cargando %2$s</string>
     <string name="uploader_upload_succeeded_ticker">Cargado</string>
     <string name="uploader_upload_succeeded_content_single">%1$s cargado</string>
     <string name="uploader_upload_failed_ticker">Falla en la carga</string>
     <string name="uploader_upload_failed_content_single">No fue posible cargar %1$s</string>
+    <string name="uploader_upload_failed_credentials_error">La carga falló, inicia sesión de nuevo</string>
+    <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">El certificado del servidor no es de confianza</string>
     <string name="uploads_view_title">Cargas</string>
     <string name="uploads_view_group_current_uploads">Actual</string>
+    <string name="uploads_view_group_failed_uploads">Fallido/pendiente de reinicio</string>
     <string name="uploads_view_group_finished_uploads">Cargado</string>
     <string name="uploads_view_upload_status_succeeded">Completado</string>
     <string name="uploads_view_upload_status_cancelled">Cancelado</string>
@@ -142,21 +162,34 @@
     <string name="uploads_view_upload_status_conflict">Conflicto</string>
     <string name="uploads_view_upload_status_service_interrupted">La aplicación ha sido terminada</string>
     <string name="uploads_view_upload_status_unknown_fail">Error desconocido</string>
+    <string name="uploads_view_upload_status_waiting_for_wifi">Esperando a la red inalámbrica</string>
     <string name="uploads_view_upload_status_waiting_exit_power_save_mode">Esperando a salir de modo de conservación de energía</string>
     <string name="uploads_view_later_waiting_to_upload">Esperando para cargar</string>
+    <string name="downloader_download_in_progress_ticker">Descargando…</string>
     <string name="downloader_download_in_progress_content">%1$d%% Descargando %2$s</string>
     <string name="downloader_download_succeeded_ticker">Descargado</string>
     <string name="downloader_download_succeeded_content">%1$s descargado</string>
     <string name="downloader_download_failed_ticker">Falla en la descarga</string>
     <string name="downloader_download_failed_content">No fue posible descargar %1$s</string>
     <string name="downloader_not_downloaded_yet">Aún no ha descargado</string>
+    <string name="downloader_download_failed_credentials_error">La descarga falló, inicia sesión de nuevo</string>
     <string name="common_choose_account">Selecciona una cuenta</string>
     <string name="common_switch_account">Cambiar de Cuenta</string>
     <string name="sync_fail_ticker">Falla en la sincronización</string>
+    <string name="sync_fail_ticker_unauthorized">La sincronización falló, inicia sesión de nuevo</string>
+    <string name="sync_fail_content">No fue posible sincronizar %1$s</string>
     <string name="sync_fail_content_unauthorized">Contraseña equivocada para %1$s</string>
     <string name="sync_conflicts_in_favourites_ticker">Se encontraron conflictos</string>
     <string name="sync_fail_in_favourites_ticker">Falla en archivos mantenidos-en-sincronización.</string>
+    <plurals name="sync_fail_in_favourites_content">
+        <item quantity="one">No fue posible sincronizar %1$d archivo (conflicto: %2$d )</item>
+        <item quantity="other">No fue posible sincronizar %1$d archivos (conflictos: %2$d)</item>
+    </plurals>
     <string name="sync_foreign_files_forgotten_ticker">Algunos archivos locales se han perdido</string>
+    <plurals name="sync_foreign_files_forgotten_content">
+        <item quantity="one">Se presentó una falla al copiar %1$d archivo de la carpeta %2$s a</item>
+        <item quantity="other">Se presentó una falla al copiar %1$d archivos de la carpeta %2$s a</item>
+    </plurals>
     <string name="sync_foreign_files_forgotten_explanation">A partir de la versión 1.3.16, los archivos cargados desde este dispositivo serán copiados a la carpeta local %1$spara prevenir perdidas de datos cuando un archivo se sincroniza entre múltiples cuentas. \n\nDerivado de este cambio, todos los archivos cargados con versiones anteriores de la aplicación fueron copiados a la carpeta %2$s. Sin embargo, un error evitó que se completara esta operación durante la sincronizacion de la cuenta. Puedes dejar el(los) archivo(s) como está(n) y eliminar la liga a %3$s, o bien, mover el(los) archivo(s) a la carpeta%1$s y mantener la liga a %4$s.\n\nSe enlistan a continuación los archivos locales así como los archivos remotos en %5$s a donde estaban ligados</string>
     <string name="sync_current_folder_was_removed">La carpeta %1$s ya no existe</string>
     <string name="foreign_files_move">Mover todos</string>
@@ -188,6 +221,7 @@
     <string name="media_err_malformed">El archivo de medios tiene una codificación incorrecta</string>
     <string name="media_err_timeout">El intento de reproducir el archivo sobrepasó el tiempo de espera</string>
     <string name="media_err_invalid_progressive_playback">Archivo de medio no puede ser transformado a un flujo</string>
+    <string name="media_err_unknown">El reproductor de medios integrado es incapaz de reproducir el archivo de medios</string>
     <string name="media_err_security_ex">Se presentó un error de seguridad al intentar reproducir %1$s</string>
     <string name="media_err_io_ex">Se presentó un error de entrada al intentar reproducir %1$s </string>
     <string name="media_err_unexpected">Se presentó un error inesperado al intentar reproducir %1$s</string>
@@ -195,14 +229,18 @@
     <string name="media_play_pause_description">Botón de reproducir o pausar</string>
     <string name="media_forward_description">Botón de avanzar rápido</string>
 
-    <string name="auth_no_net_conn_title">No hay conexión de red</string>
+    <string name="auth_getting_authorization">Obteniendo autorización…</string>
+    <string name="auth_trying_to_login">Intentando iniciar sesión…</string>
+	<string name="auth_no_net_conn_title">No hay conexión de red</string>
 	<string name="auth_nossl_plain_ok_title">Conexión segura no disponible.</string>
 	<string name="auth_connection_established">Conexión establecida</string>
 	<string name="auth_testing_connection">Probando conexión</string>
 	<string name="auth_not_configured_title">La configuración del servidor está mal formada. </string>
 	<string name="auth_account_not_new">Ya existe una cuenta en el dispositivo para el mismo usuario y servidor </string>
 	<string name="auth_account_not_the_same">El usuario ingresado no corresponde con el usuario de esta cuenta</string>
+	<string name="auth_unknown_error_http_title">¡Se presentó un error HTTP desconocido!</string>
 	<string name="auth_unknown_error_title">¡Se presentó un error desconocido!</string>
+	<string name="auth_unknown_error_exception_title">Error desconocido: %1$s</string>
 	<string name="auth_unknown_host_title">No fue posible encontrar el servidor</string>
 	<string name="auth_incorrect_path_title">El servidor no se encontró </string>
 	<string name="auth_timeout_title">El servidor tardó demasiado en responder</string>
@@ -219,15 +257,19 @@
 	<string name="auth_expired_oauth_token_toast">Tu autorización ha expirado. Por favor vuelve a autorizar</string>
 	<string name="auth_expired_basic_auth_toast">Por favor ingresa tu contraseña actual</string>
 	<string name="auth_expired_saml_sso_token_toast">Tu sesión ha expirado. Por favor conectate de nuevo</string>
-    <string name="auth_unsupported_multiaccount">%1$s no soporta cuentas múltiples</string>
+    <string name="auth_connecting_auth_server">Conectando al servidor de autenticación...</string>
+	<string name="auth_unsupported_multiaccount">%1$s no soporta cuentas múltiples</string>
+	<string name="auth_fail_get_user_name">Tu servidor no esta regresando un user ID correcto, por favor contacta a tu adminsitrador</string>
 	<string name="auth_can_not_auth_against_server">No es posible autenticarse en este servidor</string>
+    <string name="auth_account_does_not_exist">La cuenta aún no ha sido agregada a este dispositivo </string>
     <string name="auth_access_failed">Falla en el acceso</string>
 
     <string name="favorite">Establer como disponible sin conexión</string>
     <string name="unfavorite">Establecer como disponible con conexión</string>
     <string name="favorite_real">Establecer como favorito</string>
     <string name="unset_favorite_real">Quitar de los favoritos</string>
-    <string name="favorite_switch">Disponible sin conexión</string>
+    <string name="encrypted">Establecer como encriptado</string>
+    <string name="unset_encrypted">Desestablecer encripción</string>
     <string name="common_rename">Renombrar</string>
     <string name="common_remove">Eliminar</string>
     <string name="confirmation_remove_file_alert">¿Realmente deseas elminiar %1$s?</string>
@@ -236,14 +278,22 @@
     <string name="remove_success_msg">Eliminado</string>
     <string name="remove_fail_msg">Falla al eliminar</string>
     <string name="rename_dialog_title">Ingresa un nombre nuevo</string>
+    <string name="rename_local_fail_msg">No se pudo renombrar la copia local, intenta con un nombre diferente </string>
+    <string name="rename_server_fail_msg">No fue posible renombrar, el nombre ya esta ocupado</string>
     <string name="sync_file_nothing_to_do_msg">Los contenidos del archivo ya han sido sincronizados</string>
     <string name="create_dir_fail_msg">No fue posible crear la carpeta</string>
     <string name="filename_forbidden_characters">Caracteres inválidos: / \\ &lt; &gt; : \" | ? *</string>
+    <string name="filename_forbidden_charaters_from_server">El nombre del archivo contiene al menos un carácter inválido</string>
+    <string name="filename_empty">El nombre del archivo no puede estar en blanco. </string>
+    <string name="wait_a_moment">Agurarda un momento…</string>
     <string name="wait_checking_credentials">Verificando credenciales almacenadas</string>
     <string name="filedisplay_no_file_selected">No se ha seleccionado algún archivo</string>
+    <string name="activity_chooser_title">Enviar liga a…</string>
     <string name="wait_for_tmp_copy_from_private_storage">Copiando el archivo desde almacenamiento privado</string>
     
     <string name="oauth_check_onoff">Iniciar sesión con OAuth 2.0</string>
+    <string name="oauth_login_connection">Conectando al servidor de OAuth2.0...</string>
+        
     <string name="ssl_validator_header">La identidad del servidor no pudo ser verificada</string>
     <string name="ssl_validator_reason_cert_not_trusted">- El certificado del servidor no es de confianza</string>
     <string name="ssl_validator_reason_cert_expired">- El certificado del servidor expiró</string>
@@ -278,6 +328,7 @@
     <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
     <string name="placeholder_media_time">12:23:45</string>
 
+    <string name="auto_upload_on_wifi">Solo cargar sobre una Wi-Fi no tarificada</string>
     <string name="instant_upload_on_charging">Cargar archivos sólo con el dispositivo conectado a la toma de corriente</string>
     <string name="instant_upload_path">/Cargas Automáticas</string>
     <string name="auto_upload_path">/CargaAutomática</string>
@@ -298,6 +349,7 @@
     <string name="prefs_instant_upload_path_use_subfolders_title">Usar sub carpetas</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Almacenar en sub carpetas con base en el año y mes</string>
 
+	<string name="share_link_no_support_share_api">El compartir no está habilitado en tu servidor. Por favor contacta a tu administrador</string>
 	<string name="share_link_file_no_exist">No fue posible compartir. Por favor revisa si el archivo existe</string>
 	<string name="share_link_file_error">Se presentó un error al tratar de compartir este archivo o carpeta</string>
 	<string name="unshare_link_file_no_exist">Falla al dejar de compartir. Por favor revisa si existe el archivo</string>
@@ -317,6 +369,9 @@
 
     <string name="error_cant_bind_to_operations_service">Error crítico: No se pueden realizar operaciones</string>
 
+    <string name="network_error_socket_exception">Se presentó un error durante la conexión al servidor</string>
+    <string name="network_error_socket_timeout_exception">Se presentó un error al esperar la respuesta del servidor. No fue posible completar la operación</string>
+    <string name="network_error_connect_timeout_exception">Se presentó un error al esperar respuesta del servidor. No se pudo completar la operación</string>
     <string name="network_host_not_available">La operación no pudo ser completada. El servidor no está disponible</string>
 
     <string name="forbidden_permissions">No se te permite %s</string>
@@ -330,10 +385,27 @@
     <string name="downloader_download_file_not_found">El archivo ya no se encuentra disponible en el servidor</string>
 
     <string name="file_migration_dialog_title">Actualizando la ruta de almacenamiento</string>
+    <string name="file_migration_preparing">Preparando la migración...</string>
+    <string name="file_migration_checking_destination">Verificando el destino...</string>
+    <string name="file_migration_saving_accounts_configuration">Guardando la configuración de la cuenta...</string>
+    <string name="file_migration_waiting_for_unfinished_sync">Agurardando sincronización completa...</string>
+    <string name="file_migration_migrating">Moviendo los datos…</string>
+    <string name="file_migration_updating_index">Actualizando índice ...</string>
+    <string name="file_migration_cleaning">Limpiando…</string>
+    <string name="file_migration_restoring_accounts_configuration">Restaurando la configuración de la cuenta...</string>
     <string name="file_migration_ok_finished">Terminado</string>
+    <string name="file_migration_failed_not_enough_space">Se necesita más espacio</string>
+    <string name="file_migration_failed_not_writable">No fue posible escribir al archivo destino</string>
+    <string name="file_migration_failed_not_readable">No fue posible leer el archivo fuente</string>
+    <string name="file_migration_failed_dir_already_exists">La carpeta Nextcloud ya existe</string>
+    <string name="file_migration_failed_while_coping">Se presentó una falla durante la migración</string>
+    <string name="file_migration_failed_while_updating_index">Se presentó una falla al actualizar el índice</string>
+
+    <string name="file_migration_directory_already_exists">La carpeta de datos ya existe. Selecciona una de las siguientes:</string>
     <string name="file_migration_override_data_folder">Reemplazar</string>
     <string name="file_migration_use_data_folder">Usar</string>
 
+    <string name="file_migration_source_not_readable_title">¡No se puede leer la carpeta fuente!</string>
     <string name="file_migration_source_not_readable">¿Aún deseas cambiar la ruta de almacenamiento a %1$s?\n\nNota: todos los datos tendrán que ser descargados de nuevo. </string>
 
     <string name="prefs_add_account">Agregar cuenta</string>
@@ -344,7 +416,10 @@
 	<string name="log_send_history_button">Enviar histórico</string>
 	<string name="log_send_no_mail_app">No se encontró alguna aplicación para el envío de bitácoras. Por favor instala un cliente de correo electrónico. </string>
 	<string name="log_send_mail_subject"> %1$s bitácora de aplicación Android</string>
-    <string name="saml_authentication_wrong_pass">Contraseña incorrecta</string>
+    <string name="log_progress_dialog_text">Cargando datos...</string>
+
+	<string name="saml_authentication_required_text">Se requiere contraseña</string>
+	<string name="saml_authentication_wrong_pass">Contraseña incorrecta</string>
 	<string name="actionbar_move">Mover</string>
     <string name="actionbar_copy">Copiar</string>
 	<string name="file_list_empty_moving">No hay nada aquí. Puedes agregar una carpeta.</string>
@@ -365,7 +440,9 @@
 
     <string name="prefs_category_details">Detalles</string>
 
-    <string name="subject_user_shared_with_you">%1$s ha compartido \"%2$s\" contigo</string>
+    <string name="sync_folder_failed_content">La sincronización de la carpeta %1$s no pudo ser completada</string>
+
+	<string name="subject_user_shared_with_you">%1$s ha compartido \"%2$s\" contigo</string>
     <string name="subject_shared_with_you">\"%1$s\" ha sido compartido contigo</string>
 
     <string name="auth_refresh_button">Actualizar conexión</string>
@@ -385,6 +462,8 @@
     <string name="set_picture_as">Usar imagen como</string>
     <string name="set_as">Establecer Como</string>
 
+    <string name="prefs_instant_behaviour_dialogTitle">El archivo original será...</string>
+    <string name="prefs_instant_behaviour_title">El archivo original será...</string>
     <string name="select_all">Seleccionar todo</string>
     <string name="deselect_all">Deseleccionar todo</string>
 
@@ -405,6 +484,7 @@
     <string name="share_via_link_edit_permission_label">Permitir edición</string>
     <string name="share_via_link_hide_file_listing_permission_label">Ocultar listado de archivos</string>
     <string name="share_get_public_link_button">Obtener liga</string>
+    <string name="share_with_title">Compartir con...</string>
     <string name="share_with_edit_title">Compartir con %1$s</string>
 
     <string name="share_search">Buscar</string>
@@ -415,6 +495,7 @@
     <string name="share_email_clarification">%1$s (correo electrónico)</string>
     <string name="share_known_remote_clarification">%1$s ( a las %2$s )</string>
 
+    <string name="share_sharee_unavailable">Actualiza la versión del servidor para permitir compartir entre usuarios desde sus clientes.\nPor favor contacta a tu administrador</string>
     <string name="filedetails_share_link_enable">Compartir por liga habilitado</string>
     <string name="filedetails_share_link_disable">No compartido por liga</string>
     <string name="filedetails_share_users_with_access">Usuarios y grupos con accesos</string>
@@ -437,12 +518,14 @@
     <string name="manage_space_clear_data">Borrar datos</string>
 
     <string name="permission_storage_access">Se requieren permisos adicionales para cargar y descargar archivos. </string>
+    <string name="local_file_not_found_message">No se encontró el archivo en el sistema de archivos local</string>
     <string name="confirmation_remove_files_alert">¿Realmente deseas borrar los elementos seleccionados?</string>
     <string name="confirmation_remove_folders_alert">¿Reamente deseas eliminar los elementos seleccionados y sus contenidos?</string>
     <string name="maintenance_mode">El servidor está en modo mantenimiento</string>
 
     <string name="uploads_view_upload_status_waiting_for_charging">Aguardando la regarga del dispositivo </string>
     <string name="actionbar_search">Buscar</string>
+    <string name="files_drop_not_supported">Esta es una característica de Nextcloud, por favor actualiza. </string>
     <string name="learn_more">Conoce más</string>
     <string name="drawer_synced_folders">Carga automática</string>
     <string name="drawer_participate">Participa</string>
@@ -465,6 +548,11 @@
     <string name="participate_rc_fdroid">Obten el candidato a liberación de la tienda de aplicaciones F-Droid </string>
     <string name="participate_dev_fdroid">Obten la liberación de desarrollo de la tienda de aplicaciones F-Droid </string>
     <string name="participate_dev_direct_download">Obten la liberación de desarrollo directamente</string>
+    <string name="move_to">Mover a...</string>
+    <string name="copy_to">Copiar a...</string>
+    <string name="choose_remote_folder">Elige la carpeta remota...</string>
+    <string name="choose_local_folder">Elige la carpeta local...</string>
+    <string name="synced_folders_loading_folders">Cargando carpetas...</string>
     <string name="synced_folders_no_results">No se encontraron carpetas de medios. </string>
     <string name="synced_folders_preferences">Preferencias para cargas automáticas</string>
     <string name="synced_folders_new_info">Las cargas instantaneas se han mejorado por completo. Re-configura tu carga automática desde el menú principal.\n\nDisfruta la nueva y mejorada carga automática. </string>
@@ -474,6 +562,7 @@
         <item quantity="other">%d seleccionados</item>
     </plurals>
 
+    <string name="notifications_loading_activity">Cargando notificaciones...</string>
     <string name="notifications_no_results_headline">No hay notificaciones</string>
     <string name="notifications_no_results_message">Por favor verifica más tarde. </string>
 
@@ -486,6 +575,9 @@
 
     <string name="storage_description_default">Predeterminado</string>
 
+    <!-- What's new feature and texts to show -->
+    <string name="whats_new_title">Nuevo en %1$s</string>
+
     <!-- Welcome to Nc intro features -->
     <string name="welcome_feature_1_title">Un lugar seguro para todos tus datos</string>
     <string name="welcome_feature_1_text">Accede, comparte y proteje tus archivos en casa y la oficina</string>
@@ -496,7 +588,14 @@
     <string name="welcome_feature_3_title">Carga automática</string>
     <string name="welcome_feature_3_text">Manten tus fotos seguras</string>
 
-    <string name="whats_new_skip">Saltar</string>
+    <string name="whats_new_end_to_end_encryption_title">Encripción de punta-a-punta</string>
+    <string name="whats_new_end_to_end_encryption_content">Pulsa para encriptar, desde cualquier cliente. Agrega nuevos copiando las 12 palabras.</string>
+    <string name="whats_new_resized_images_title">Imágenes adaptativas</string>
+    <string name="whats_new_resized_images_content">Las imágenes miniatura son rápidas y geniales para compartir. Haz zoom para descargar la versión completa. </string>
+    <string name="whats_new_ipv6_title">Soporte IPv6</string>
+    <string name="whats_new_ipv6_content">IPv6 cuando el servidor lo soporte, IPv4 si no. </string>
+
+    <string name="whats_new_skip">Omitir</string>
 
     <string name="fingerprint_scan_finger">Por favor escanea tu dedo</string>
     <string name="fingerprint_unknown">El dedo no ha sido reconocido</string>
@@ -533,7 +632,11 @@
 
     <!-- Notifications -->
     <string name="drawer_logout">Cerrar sesión</string>
+    <string name="picture_set_as_no_app">No se encontró una aplicación con la cual establecer la imagen</string>
     <string name="privacy">Privacidad</string>
+    <string name="file_not_found">Archivo no encontrado</string>
+    <string name="file_not_synced">El archivo no pudo ser sincronizado. Mostrando la última versión disponible.</string>
+
     <!-- Auto upload -->
     <string name="autoupload_custom_folder">Configurar una carpeta personalizada</string>
     <string name="autoupload_create_new_custom_folder">Crear nueva configuración de carpeta personalizada</string>
@@ -543,6 +646,9 @@
     <string name="resharing_is_not_allowed">No está permitido recompartir</string>
     <string name="fallback_weblogin_back">Atrás</string>
     <string name="fallback_weblogin_text">Regresar al antiguo método de inicio de sesión</string>
+
+    <string name="foreground_service_upload">Cargando archivos…</string>
+    <string name="foreground_service_download">Descargando archivos…</string>
 
     <string name="prefs_sourcecode">Obtener el código fuente</string>
     <string name="prefs_license">Licencia</string>
@@ -554,11 +660,17 @@
     <string name="sync_in_progress">Obteniendo la versión más reciente del archivo.</string>
     <string name="date_unknown">Desconocido</string>
 
+    <string name="resized_image_not_possible">No hay una imagen a escala disponible.</string>
+    <string name="resized_image_not_possible_download">No hay una imagen a escala disponible. ¿Descargar la imagen completa? </string>
     <string name="resized_images_download_full_image">¿Descargar imagen completa?</string>
+
+    <string name="store_short_desc">La aplicación de Nextcloud para Android te da acceso móvil a todos los archivos en tu Nextcloud</string>
+    <string name="store_full_desc">La aplicación Nextcloud para Android con copyleft libre, dándote libertad móvil.\n\nCaracterísticas:\n* Interfaz sencilla y moderna, adecuada para el tema de tu servidor\n* Carga archivos a tu servidor Nextcloud\n* Compártelos con los demás\n* Manten tus archivos y carpetas favoritos sincronizados\n* Busca en todas tus carpetas en tu servidor\n* Carga automática para las fotos y videos tomados con tu dispositivo\n* Mantente al diá con las notificaciones\b* Soporte multi-cuenta\n* Accesa de forma segura tus datos con tu huella digital o PIN\n* Integración con DAVdroid para una configuración sencilla de la sincronización del calendario &amp; contactos\n\nPor favor reporta todos los problemas en https://github.com/nextcloud/android/issues y comenta acerca de esta aplicación en https://help.nextcloud.com/c/clients/android\n\n ¿No conoces Nexcloud? Nextcloud es un servidor privado de comunicación para compartir &amp;sincronizar archivos. Es software libre y puedes hospedarlo directamente o bien pagar por el servicio a un tercero. De esta manera tienes el control de tus fotos, tu calendario y datos de contactos, tus documentos y todo lo demás.\n\nVisítanos en https://nextcloud.com</string>
 
     <string name="drawer_current_account">Cuenta actual</string>
     <string name="drawer_middle_account">Cuenta intermedia</string>
     <string name="drawer_end_account">Última cuenta</string>
+    <string name="contactlist_item_icon">Ícono de usuario para la lista de contactos</string>
     <string name="activity_icon">Ícono de actividad</string>
     <string name="file_icon">Ícono de archivo</string>
     <string name="user_icon">Ícono de usuario</string>
@@ -572,6 +684,12 @@
     <string name="shared_icon">Ícono de compartido</string>
     <string name="overflow_menu">Menú de desbordamiento</string>
     <string name="share_file_icon">Ícono de compartir archivo</string>
+    <string name="sort_by_name_ascending">A - Z</string>
+    <string name="sort_by_modification_date_ascending">Más reciente primero</string>
+    <string name="sort_by_size_descending">Más grande primero</string>
+    <string name="sort_by_size_ascending">Más pequeño primero</string>
+    <string name="sort_by_name_descending">Z - A</string>
+    <string name="sort_by_modification_date_descending">Más antiguo primero</string>
     <string name="synced_folders_type">Tipo</string>
     <string name="sync_status_button">Botón de status de sincronización</string>
     <string name="synced_folder_settings_button">Botón de configuración</string>
@@ -581,7 +699,72 @@
     <string name="what_s_new_image">Imagen de qué es nuevo</string>
 
     <string name="store_short_dev_desc">La app de Nextcloud Dev es una foto de desarrollo y puede instalarse en paralelo</string>
+    <string name="store_full_dev_desc">La aplicación de Nextcloud de copyleft libre para Android te da libertad móvil.\nEsta es la versión oficial de desarrollo que incluye una muestra diaria de funcionalidades nuevas aún no probadas que pueden generar inestabilidad y pérdidad de datos. Esta aplicación está diseñada para usuarios que están dispuestos a realizar pruebas y reportar fallas en caso de que ocurran. ¡No uses esta versión para tu trabajo productivo!\n\nTanto la versión oficial de desarrollo como la versión normal están disponibles en F-Droid y pueden ser instaladas simultáneamente. </string>
+
     <string name="prefs_category_dev">Desarrollo</string>
+    <string name="dev_version_no_information_available">No hay información disponible.</string>
     <string name="dev_version_no_new_version_available">No hay una nueva versión disponible.</string>
     <string name="folder_icon">Ícono de carpeta</string>
+    <string name="dev_version_new_version_available">Nueva versión disponible</string>
+    <string name="version_dev_download">Descargar</string>
+
+    <string name="send">Enviar</string>
+    <string name="share">Compartir</string>
+    <string name="link">Liga</string>
+
+    <string name="notification_channel_upload_name">Canal de notificaciones de carga</string>
+    <string name="notification_channel_download_name">Canal de notificaciones de descarga</string>
+    <string name="notification_channel_download_description">Muestra el progreso de la descarga</string>
+    <string name="notification_channel_upload_description">Muestra el progreso de la carga</string>
+    <string name="notification_channel_media_name">Reproductor de medios</string>
+    <string name="notification_channel_media_description">Progreso del reproductor de música</string>
+    <string name="notification_channel_file_sync_name">Sincronizar archivo</string>
+    <string name="notification_channel_file_sync_description">Muestra el progreso de la sincronización de archivos y los resultados</string>
+    <string name="notification_channel_file_observer_name">Observador de archivos</string>
+    <string name="notification_channel_file_observer_description">Monitorear cambios en los archivos</string>
+  
+    <string name="account_not_found">¡No se encontró la cuenta!</string>
+
+    <string name="screenshot_01_gridView">Un lugar seguro para todos tus datos</string>
+    <string name="screenshot_02_listView">Navega y comparte tus archivos fácilmente</string>
+    <string name="screenshot_03_drawer">Accede rápidamente las actividades, elementos compartidos, archivos disponibles sin conexión y más</string>
+    <string name="screenshot_04_accounts">Conectarse a diferentes cuentas</string>
+    <string name="screenshot_05_autoUpload">Carga automáticamente tus fotos &amp; videos</string>
+    <string name="screenshot_06_davdroid">Sincronizar calendario &amp; contactos con DAVdroid</string>
+    
+    <string name="userinfo_no_info_headline">No se ha establecido la información personal </string>
+    <string name="userinfo_no_info_text">Agrega tu nombre, una imagen y detalles de contacto en tu página de perfil. </string>
+    <string name="drawer_header_background">Imagen de fondo para el encabezado de la barra de navegación</string>
+    <string name="account_icon">Ícono de la cuenta</string>
+    
+    <string name="end_to_end_encryption_folder_not_empty">Esta carpeta no está vacía.</string>
+    <string name="end_to_end_encryption_wrong_password">Se presentó un error al decriptar. ¿Contraseña equivocada?</string>
+    <string name="end_to_end_encryption_decrypting">Decriptando…</string>
+    <string name="end_to_end_encryption_retrieving_keys">Recuperando llaves…</string>
+    <string name="end_to_end_encryption_enter_password">Por favor ingresa la contraseña para decrpitar la llave privada. </string>
+    <string name="end_to_end_encryption_generating_keys">Generando nuevas llaves…</string>
+    <string name="end_to_end_encryption_keywords_description">Las 12 palabras juntas hacer una contraseña muy fuerte, permitiendote solo a ti ver y hacer uso de tus archivos encriptados. Por favor escríbelo y mantenlo en un lugar seguro.</string>
+    <string name="end_to_end_encryption_title">Configurar encripción</string>
+    <string name="end_to_end_encryption_passphrase_title">Anota tu contraseña de encripción de 12 palabras</string>
+    <string name="end_to_end_encryption_not_supported">La encripción solo funciona en KitKat (4.4) o superior.</string>
+    <string name="end_to_end_encryption_not_enabled">La encripción de punta-a-punta está dehabilitada en el servidor. </string>
+    <string name="end_to_end_encryption_confirm_button">Configurar la encripción</string>
+    <string name="end_to_end_encryption_password">Contraseña…</string>
+    <string name="end_to_end_encryption_unsuccessful">No se pudieron guardar las llaves, por favor vuelve a intentarlo.</string>
+    <string name="end_to_end_encryption_dialog_close">Cerrar</string>
+    <string name="end_to_end_encryption_storing_keys">Almacenando llaves</string>
+    <string name="copy_move_to_encrypted_folder_not_supported">Copiar/ mover a la carpeta encriptada no se encuentra soportado por el momento.</string>
+    <string name="untrusted_domain">Accede a través de un dominio no de confianza. Por favor consulta la documentación para más información.</string>
+    <string name="notification_channel_push_name">Notificaciones push</string>
+    <string name="notification_channel_push_description">Mostrar las notificaciones push enviadas por el servidor: Menciones en comentarios, recepción de nuevos elementos compartidos remotos, anuncios publicados por el administrador, etc.</string>
+    <string name="sendbutton_description">Ícono de botón de envío</string>
+    <string name="oauth_2_0_auth_end_point_address_hint">Dirección del end point de autenticación</string>
+    <string name="oauth_2_0_access_end_point_address_hint">Acceder a la dirección del end point</string>
+    <string name="hint_name">Nombre</string>
+    <string name="hint_password">Contraseña</string>
+    <string name="add_to_cloud">Agregar a %1$s</string>
+    <string name="upload_files">Cargar archivos</string>
+    <string name="upload_content_from_other_apps">Cargar contenido de otras aplicaciones</string>
+    <string name="create_new_folder">Crear nueva carpeta</string>
+    <string name="uploads_view_upload_status_virus_detected">Virus detectado. ¡La carga no puede ser completada!</string>
     </resources>

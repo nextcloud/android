@@ -243,7 +243,6 @@
     <string name="unfavorite">Ta bort som tillgänglig offline</string>
     <string name="favorite_real">Gör till favorit</string>
     <string name="unset_favorite_real">Avfavoritisera</string>
-    <string name="favorite_switch">Tillgänglig offline</string>
     <string name="common_rename">Byt namn</string>
     <string name="common_remove">Radera</string>
     <string name="confirmation_remove_file_alert">Vill du verkligen ta bort %1$s?</string>

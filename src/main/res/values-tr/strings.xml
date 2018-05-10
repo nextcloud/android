@@ -268,7 +268,6 @@
     <string name="unfavorite">Çevrimdışı kullanılabilir işaretini kaldır</string>
     <string name="favorite_real">Sık Kullanılanlara Ekle</string>
     <string name="unset_favorite_real">Sık Kullanılanlardan Çıkar</string>
-    <string name="favorite_switch">Çevrimdışı kullanılabilir</string>
     <string name="encrypted">Şifrelensin</string>
     <string name="unset_encrypted">Şifrelemeyi kaldır</string>
     <string name="common_rename">Yeniden adlandır</string>
@@ -768,4 +767,4 @@
     <string name="upload_content_from_other_apps">Diğer uygulamalardan içerik yükle</string>
     <string name="create_new_folder">Yeni klasör ekle</string>
     <string name="uploads_view_upload_status_virus_detected">Virus bulundu. Yükleme tamamlanamadı!</string>
-</resources>
+    </resources>

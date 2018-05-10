@@ -270,7 +270,6 @@
     <string name="unfavorite">Склони да буде доступно и ван мреже</string>
     <string name="favorite_real">Постави као омиљено</string>
     <string name="unset_favorite_real">Склони као омиљено</string>
-    <string name="favorite_switch">Досступно ван мреже</string>
     <string name="encrypted">Постави као шифровано</string>
     <string name="unset_encrypted">Искључи шифровање</string>
     <string name="common_rename">Преименуј</string>
@@ -773,4 +772,4 @@
     <string name="upload_content_from_other_apps">Отпреми садржај из других апликација</string>
     <string name="create_new_folder">Направи нову фасциклу</string>
     <string name="uploads_view_upload_status_virus_detected">Вирус примећен. Отпремање не може да се заврши!</string>
-</resources>
+    </resources>

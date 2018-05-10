@@ -256,7 +256,6 @@
     <string name="unfavorite">Afstilla sem tiltækt án nettengingar</string>
     <string name="favorite_real">Setja í eftirlæti</string>
     <string name="unset_favorite_real">Taka úr eftirlætum</string>
-    <string name="favorite_switch">Tiltækt án nettengingar</string>
     <string name="encrypted">Setja sem dulritað</string>
     <string name="unset_encrypted">Gera dulritun óvirka</string>
     <string name="common_rename">Endurnefna</string>

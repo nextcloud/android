@@ -111,14 +111,14 @@
     <string name="file_list_empty_text_videos">Загрузите видео или включите автоматическую загрузку!</string>
     <string name="file_list_empty_text_videos_filter">Файлы видео отсутствуют.</string>
     <string name="upload_list_empty_headline">Очередь выгрузки пуста</string>
-    <string name="upload_list_empty_text_auto_upload">Загрузите что-нибудь или включите автоматическую загрузку!</string>
+    <string name="upload_list_empty_text_auto_upload">Сохраните здесь что-нибудь или включите автоматическую передачу файлов!</string>
     <string name="file_list_folder">каталог</string>
     <string name="filedetails_select_file">Нажмите на файл для отображения дополнительной информации.</string>
     <string name="filedetails_download">Скачать</string>
     <string name="filedetails_sync_file">Синхронизировать</string>
     <string name="filedetails_renamed_in_upload_msg">Файл был переименован в %1$s во время загрузки</string>
     <string name="list_layout">Вид списком</string>
-    <string name="action_send_share">Отправить/Открыть доступ</string>
+    <string name="action_send_share">Отправить / Открыть доступ</string>
     <string name="common_yes">Да</string>
     <string name="common_no">Нет</string>
     <string name="common_ok">ОК</string>
@@ -141,10 +141,10 @@
     <string name="uploader_info_dirname">Имя каталога</string>
     <string name="uploader_upload_in_progress_ticker">Выгрузка…</string>
     <string name="uploader_upload_in_progress_content">%1$d%% выгружается %2$s</string>
-    <string name="uploader_upload_succeeded_ticker">Успешно загруженные</string>
+    <string name="uploader_upload_succeeded_ticker">Успешно переданные на сервер</string>
     <string name="uploader_upload_succeeded_content_single">%1$s выгружен</string>
     <string name="uploader_upload_failed_ticker">Ошибка выгрузки</string>
-    <string name="uploader_upload_failed_content_single">Невозможно загрузить %1$s</string>
+    <string name="uploader_upload_failed_content_single">Не удалось отправить на сервер %1$s</string>
     <string name="uploader_upload_failed_credentials_error">Выгрузка не удалась, необходимо авторизоваться</string>
     <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">Сертификат сервера не является доверенным</string>
     <string name="uploads_view_title">Состояние выгрузки</string>
@@ -272,7 +272,6 @@
     <string name="unfavorite">Убрать автономную доступность</string>
     <string name="favorite_real">Добавить в избранное</string>
     <string name="unset_favorite_real">Убрать из избранного</string>
-    <string name="favorite_switch">Доступно автономно</string>
     <string name="encrypted">Зашифровать</string>
     <string name="unset_encrypted">Расшифровать</string>
     <string name="common_rename">Переименовать</string>
@@ -778,4 +777,4 @@
     <string name="upload_content_from_other_apps">Загрузить из других приложений</string>
     <string name="create_new_folder">Создать новую папку</string>
     <string name="uploads_view_upload_status_virus_detected">Обнаружен вирус. Загрузка не может быть завершена!</string>
-</resources>
+    </resources>

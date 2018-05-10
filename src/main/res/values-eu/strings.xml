@@ -215,7 +215,6 @@ Mesedez, baimendu berriz</string>
     <string name="unfavorite">Offline erabilgarri bezala ezeztatu</string>
     <string name="favorite_real">Faborito bezala ezarri</string>
     <string name="unset_favorite_real">Faborito bezala ezeztatu</string>
-    <string name="favorite_switch">Offline erabilgarr</string>
     <string name="common_rename">Berrizendatu</string>
     <string name="confirmation_remove_local">Bertakoa bakarrik</string>
     <string name="rename_dialog_title">Idatzi izen berri bat</string>

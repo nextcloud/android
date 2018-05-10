@@ -270,7 +270,6 @@ Attention la suppression est irréversible.</string>
     <string name="unfavorite">Ne plus rendre disponible hors-ligne</string>
     <string name="favorite_real">Ajouter aux favoris</string>
     <string name="unset_favorite_real">Supprimer des favoris</string>
-    <string name="favorite_switch">Disponible hors-ligne</string>
     <string name="encrypted">Définir comme chiffré</string>
     <string name="unset_encrypted">Désactiver le chiffrement</string>
     <string name="common_rename">Renommer</string>
@@ -769,4 +768,4 @@ Veuillez contacter votre administrateur</string>
     <string name="upload_content_from_other_apps">Téléverser du contenu à partir d\'autres applications</string>
     <string name="create_new_folder">Créer un nouveau dossier</string>
     <string name="uploads_view_upload_status_virus_detected">Un virus à été détecté dans ce fichier. Le téléversement ne peut donc pas se terminer.</string>
-</resources>
+    </resources>

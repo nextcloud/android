@@ -253,7 +253,6 @@
     <string name="unfavorite">不可以设置离线</string>
     <string name="favorite_real">加入收藏</string>
     <string name="unset_favorite_real">取消收藏</string>
-    <string name="favorite_switch">离线可用</string>
     <string name="encrypted">设置为加密</string>
     <string name="unset_encrypted">不设置加密</string>
     <string name="common_rename">重命名</string>
