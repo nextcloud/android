@@ -767,4 +767,5 @@
     <string name="upload_content_from_other_apps">Inhalt anderer Apps hochladen</string>
     <string name="create_new_folder">Neuen Ordner erstellen</string>
     <string name="uploads_view_upload_status_virus_detected">Virus gefunden. Das Hochladen kann nicht abgeschlossen werden!</string>
-    </resources>
+    <string name="tags">Schlagworte</string>
+</resources>

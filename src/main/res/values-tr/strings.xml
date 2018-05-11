@@ -767,4 +767,5 @@
     <string name="upload_content_from_other_apps">Diğer uygulamalardan içerik yükle</string>
     <string name="create_new_folder">Yeni klasör ekle</string>
     <string name="uploads_view_upload_status_virus_detected">Virus bulundu. Yükleme tamamlanamadı!</string>
-    </resources>
+    <string name="tags">Etiketler</string>
+</resources>
