@@ -36,6 +36,7 @@ import android.widget.ProgressBar;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.utils.ThemeUtils;
 
 /**
