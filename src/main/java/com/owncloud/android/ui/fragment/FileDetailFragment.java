@@ -22,10 +22,11 @@
 package com.owncloud.android.ui.fragment;
 
 import android.accounts.Account;
+import android.content.Context;
 import android.graphics.Bitmap;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
@@ -35,7 +36,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -62,27 +65,75 @@ import com.owncloud.android.utils.ThemeUtils;
 
 import java.lang.ref.WeakReference;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.Optional;
+import butterknife.Unbinder;
 
 /**
  * This Fragment is used to display the details about a file.
  */
 public class FileDetailFragment extends FileFragment implements OnClickListener {
-
-    private int layout;
-    private View view;
-    private ImageView previewImage;
-    private ProgressBar toolbarProgressBar;
-    private boolean previewLoaded;
-    private Account account;
-
-    public ProgressListener progressListener;
-
     private static final String TAG = FileDetailFragment.class.getSimpleName();
     public static final String FTAG_CONFIRMATION = "REMOVE_CONFIRMATION_FRAGMENT";
     public static final String FTAG_RENAME_FILE = "RENAME_FILE_FRAGMENT";
 
     private static final String ARG_FILE = "FILE";
     private static final String ARG_ACCOUNT = "ACCOUNT";
+
+    @Nullable @BindView(R.id.fdProgressBlock)
+    View downloadProgressContainer;
+
+    @Nullable @BindView(R.id.fdCancelBtn)
+    ImageButton cancelButton;
+
+    @Nullable @BindView(R.id.fdProgressBar)
+    ProgressBar progressBar;
+
+    @Nullable @BindView(R.id.fdProgressText)
+    TextView progressText;
+
+    @Nullable @BindView(R.id.fdFilename)
+    TextView fileName;
+
+    @Nullable @BindView(R.id.fdSize)
+    TextView fileSize;
+
+    @Nullable @BindView(R.id.fdModified)
+    TextView fileModifiedTimestamp;
+
+    @Nullable @BindView(R.id.fdFavorite)
+    ImageView favoriteIcon;
+
+    @Nullable @BindView(R.id.overflow_menu)
+    ImageView overflowMenu;
+
+    @Nullable @BindView(R.id.tab_layout)
+    TabLayout tabLayout;
+
+    @Nullable @BindView(R.id.pager)
+    ViewPager viewPager;
+
+    @Nullable @BindView(R.id.empty_list_view_text)
+    protected TextView emptyContentMessage;
+
+    @Nullable @BindView(R.id.empty_list_view_headline)
+    protected TextView emptyContentHeadline;
+
+    @Nullable @BindView(R.id.empty_list_icon)
+    protected ImageView emptyContentIcon;
+
+    @Nullable @BindView(R.id.empty_list_progress)
+    protected ProgressBar emptyProgressBar;
+
+    private int layout;
+    private View view;
+    private boolean previewLoaded;
+    private Account account;
+    private Unbinder unbinder;
+
+    public ProgressListener progressListener;
+    private ToolbarActivity activity;
 
     /**
      * Public factory method to create new FileDetailFragment instances.
@@ -111,7 +162,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
     public FileDetailFragment() {
         super();
         account = null;
-        layout = R.layout.file_details_empty;
+        layout = R.layout.empty_list;
         progressListener = null;
     }
 
@@ -119,17 +170,21 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
     public void onResume() {
         super.onResume();
 
-        if (previewImage != null && MimeTypeUtil.isImage(getFile()) && previewLoaded) {
+        if (getFile()!= null && MimeTypeUtil.isImage(getFile()) && previewLoaded) {
             activatePreviewImage();
         }
     }
 
     private void activatePreviewImage() {
-        previewImage.setVisibility(View.VISIBLE);
-        toolbarProgressBar.setVisibility(View.GONE);
-        ((ToolbarActivity) getActivity()).getSupportActionBar().setTitle(null);
-        ((ToolbarActivity) getActivity()).getSupportActionBar().setBackgroundDrawable(null);
-        makeStatusBarBlack();
+        if (activity != null) {
+            activity.setPreviewImageVisibility(View.VISIBLE);
+            activity.setProgressBarVisibility(View.GONE);
+            ThemeUtils.setStatusBarColor(activity, activity.getResources().getColor(R.color.black));
+            if (activity.getSupportActionBar() != null) {
+                activity.getSupportActionBar().setTitle(null);
+                activity.getSupportActionBar().setBackgroundDrawable(null);
+            }
+        }
     }
 
     @Override
@@ -150,32 +205,40 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
             account = savedInstanceState.getParcelable(FileActivity.EXTRA_ACCOUNT);
         }
 
-        toolbarProgressBar = getActivity().findViewById(R.id.progressBar);
-
         if (getFile() != null && account != null) {
             layout = R.layout.file_details_fragment;
         }
 
         view = inflater.inflate(layout, null);
-        
-        if (layout == R.layout.file_details_fragment) {
-            ProgressBar progressBar = view.findViewById(R.id.fdProgressBar);
+        unbinder = ButterKnife.bind(this, view);
+
+        return view;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        if (getFile() != null && account != null) {
             ThemeUtils.colorHorizontalProgressBar(progressBar, ThemeUtils.primaryAccentColor(getContext()));
             progressListener = new ProgressListener(progressBar);
-            view.findViewById(R.id.fdCancelBtn).setOnClickListener(this);
-            view.findViewById(R.id.fdFavorite).setOnClickListener(this);
-            view.findViewById(R.id.overflow_menu).setOnClickListener(this);
-            previewImage = getActivity().findViewById(R.id.preview_image);
+            cancelButton.setOnClickListener(this);
+            favoriteIcon.setOnClickListener(this);
+            overflowMenu.setOnClickListener(this);
             // TODO use whenever we switch to use glide for preview images
             /*
-            if (getFile() != null && account != null && MimeTypeUtil.isImage(getFile())) {
+            if (MimeTypeUtil.isImage(getFile())) {
                 setHeaderImage();
             }
              */
-        }
 
-        updateFileDetails(false, false);
-        return view;
+            updateFileDetails(false, false);
+        } else {
+            emptyContentMessage.setText(R.string.filedetails_select_file);
+            emptyContentMessage.setVisibility(View.VISIBLE);
+            emptyContentHeadline.setText(R.string.common_error);
+            emptyContentIcon.setImageDrawable(getContext().getResources().getDrawable(R.drawable.ic_alert_octagon));
+            emptyContentIcon.setVisibility(View.VISIBLE);
+            emptyProgressBar.setVisibility(View.GONE);
+        }
     }
     // TODO use whenever we switch to use glide for preview images
     /*
@@ -236,8 +299,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
         popup.show();
     }
 
-    private void setupViewPager(View view) {
-        TabLayout tabLayout = view.findViewById(R.id.tab_layout);
+    private void setupViewPager() {
         tabLayout.removeAllTabs();
 
         tabLayout.addTab(tabLayout.newTab().setText(R.string.drawer_item_activities));
@@ -246,7 +308,6 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
         tabLayout.setSelectedTabIndicatorColor(ThemeUtils.primaryAccentColor(getContext()));
 
-        final ViewPager viewPager = view.findViewById(R.id.pager);
         final FileDetailTabAdapter adapter = new FileDetailTabAdapter
                 (getFragmentManager(), getFile(), account);
         viewPager.setAdapter(adapter);
@@ -285,15 +346,30 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
     @Override
     public void onStop() {
         leaveTransferProgress();
-        if (previewImage != null) {
-            previewImage.setVisibility(View.GONE);
-            toolbarProgressBar.setVisibility(View.VISIBLE);
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                getActivity().getWindow().setStatusBarColor(ThemeUtils.primaryDarkColor(getContext()));
-            }
+
+        if(activity != null) {
+            activity.setPreviewImageVisibility(View.GONE);
+            activity.setProgressBarVisibility(View.VISIBLE);
+            ThemeUtils.setStatusBarColor(activity, ThemeUtils.primaryColor(getContext()));
         }
 
         super.onStop();
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof ToolbarActivity) {
+            activity = (ToolbarActivity) context;
+        } else {
+            activity = null;
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        unbinder.unbind();
     }
 
     @Override
@@ -405,16 +481,11 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
             }
             case R.id.fdFavorite: {
                 if (getFile().getIsFavorite()) {
-                    ((ImageView)getView().findViewById(R.id.fdFavorite)).
-                            setImageDrawable(getResources()
-                                    .getDrawable(R.drawable.ic_star_outline));
                     mContainerActivity.getFileOperationsHelper().toggleFavoriteFile(getFile(), false);
                 } else {
-                    ((ImageView)getView().findViewById(R.id.fdFavorite))
-                            .setImageDrawable(getResources()
-                                    .getDrawable(R.drawable.ic_star));
                     mContainerActivity.getFileOperationsHelper().toggleFavoriteFile(getFile(), true);
                 }
+                setFavoriteIconStatus(!getFile().getIsFavorite());
                 break;
             }
             case R.id.overflow_menu: {
@@ -433,7 +504,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
      * @return True when the fragment was created with the empty layout.
      */
     public boolean isEmpty() {
-        return (layout == R.layout.file_details_empty || getFile() == null || account == null);
+        return (layout == R.layout.empty_list || getFile() == null || account == null);
     }
 
     /**
@@ -471,16 +542,15 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
             OCFile file = getFile();
 
             // set file details
-            setFilename(file.getFileName());
-            setFiletype(file);
-            setFilesize(file.getFileLength());
-            setTimeModified(file.getModificationTimestamp());
-
-            if (file.getIsFavorite()) {
-                ((ImageView)getView().findViewById(R.id.fdFavorite)).setImageDrawable(getResources().getDrawable(R.drawable.ic_star));
+            if (MimeTypeUtil.isImage(file)) {
+                fileName.setText(file.getFileName());
             } else {
-                ((ImageView)getView().findViewById(R.id.fdFavorite)).setImageDrawable(getResources().getDrawable(R.drawable.ic_star_outline));
+                fileName.setVisibility(View.GONE);
             }
+            fileSize.setText(DisplayUtils.bytesToHumanReadable(file.getFileLength()));
+            fileModifiedTimestamp.setText(DisplayUtils.unixTimeToHumanReadable(file.getModificationTimestamp()));
+            setFilePreview(file);
+            setFavoriteIconStatus(file.getIsFavorite());
 
             // configure UI for depending upon local state of the file
             FileDownloaderBinder downloaderBinder = mContainerActivity.getFileDownloaderBinder();
@@ -502,9 +572,17 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
             }
         }
 
-        setupViewPager(getView());
+        setupViewPager();
 
         getView().invalidate();
+    }
+
+    private void setFavoriteIconStatus(boolean isFavorite) {
+        if (isFavorite) {
+            favoriteIcon.setImageDrawable(getResources().getDrawable(R.drawable.ic_star));
+        } else {
+            favoriteIcon.setImageDrawable(getResources().getDrawable(R.drawable.ic_star_outline));
+        }
     }
 
     /**
@@ -517,113 +595,58 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
     }
 
     /**
-     * Updates the filename in view
+     * Updates the file preview if possible
      *
-     * @param filename to set
+     * @param file a {@link OCFile} to be previewed
      */
-    private void setFilename(String filename) {
-        TextView tv = getView().findViewById(R.id.fdFilename);
-        if (tv != null) {
-            tv.setText(filename);
-        }
-    }
+    private void setFilePreview(OCFile file) {
+        Bitmap resizedImage;
 
-    /**
-     * Updates the MIME type in view
-     * @param file : An {@link OCFile}
-     */
-    private void setFiletype(OCFile file) {
-        ImageView iv = getView().findViewById(R.id.fdIcon);
-        View v = getView().findViewById(R.id.fdIcon_divider);
+        if (MimeTypeUtil.isImage(file) && activity != null) {
+            String tagId = String.valueOf(ThumbnailsCacheManager.PREFIX_RESIZED_IMAGE + getFile().getRemoteId());
+            resizedImage = ThumbnailsCacheManager.getBitmapFromDiskCache(tagId);
 
-        if (iv != null) {
-            iv.setTag(file.getFileId());
-            // Name of the file, to deduce the icon to use in case the MIME type is not precise enough
-            iv.setImageDrawable(MimeTypeUtil.getFileTypeIcon(file.getMimetype(), file.getFileName(), account,
-                    getContext()));
+            if (resizedImage != null && !file.needsUpdateThumbnail()) {
+                activity.setPreviewImageBitmap(resizedImage);
+                activatePreviewImage();
+                previewLoaded = true;
+            } else {
+                // show thumbnail while loading resized image
+                Bitmap thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(
+                        String.valueOf(ThumbnailsCacheManager.PREFIX_THUMBNAIL + getFile().getRemoteId()));
 
-            Bitmap resizedImage;
+                if (thumbnail != null) {
+                    activity.setPreviewImageBitmap(thumbnail);
+                } else {
+                    thumbnail = ThumbnailsCacheManager.mDefaultImg;
+                }
 
-            if (MimeTypeUtil.isImage(file)) {
-                String tagId = String.valueOf(ThumbnailsCacheManager.PREFIX_RESIZED_IMAGE + getFile().getRemoteId());
-                resizedImage = ThumbnailsCacheManager.getBitmapFromDiskCache(tagId);
+                // generate new resized image
+                if (ThumbnailsCacheManager.cancelPotentialThumbnailWork(getFile(), activity.getPreviewImageView()) &&
+                        mContainerActivity.getStorageManager() != null) {
+                    final ThumbnailsCacheManager.ResizedImageGenerationTask task =
+                            new ThumbnailsCacheManager.ResizedImageGenerationTask(FileDetailFragment.this,
+                                    activity.getPreviewImageView(),
+                                    mContainerActivity.getStorageManager(),
+                                    mContainerActivity.getStorageManager().getAccount());
 
-                if (resizedImage != null && !file.needsUpdateThumbnail()) {
-                    iv.setVisibility(View.GONE);
-                    v.setVisibility(View.GONE);
-                    previewImage.setImageBitmap(resizedImage);
+                    if (resizedImage == null) {
+                        resizedImage = thumbnail;
+                    }
+
+                    final ThumbnailsCacheManager.AsyncResizedImageDrawable asyncDrawable =
+                            new ThumbnailsCacheManager.AsyncResizedImageDrawable(
+                                    MainApp.getAppContext().getResources(),
+                                    resizedImage,
+                                    task
+                            );
+
+                    activity.setPreviewImageDrawable(asyncDrawable);
                     activatePreviewImage();
                     previewLoaded = true;
-                } else {
-                    // show thumbnail while loading resized image
-                    Bitmap thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(
-                            String.valueOf(ThumbnailsCacheManager.PREFIX_THUMBNAIL + getFile().getRemoteId()));
-
-                    if (thumbnail != null) {
-                        iv.setImageBitmap(thumbnail);
-                    } else {
-                        thumbnail = ThumbnailsCacheManager.mDefaultImg;
-                    }
-
-                    // generate new resized image
-                    if (ThumbnailsCacheManager.cancelPotentialThumbnailWork(getFile(), iv) &&
-                            mContainerActivity.getStorageManager() != null) {
-                        final ThumbnailsCacheManager.ResizedImageGenerationTask task =
-                                new ThumbnailsCacheManager.ResizedImageGenerationTask(FileDetailFragment.this,
-                                        iv,
-                                        mContainerActivity.getStorageManager(),
-                                        mContainerActivity.getStorageManager().getAccount());
-                        if (resizedImage == null) {
-                            resizedImage = thumbnail;
-                        }
-                        final ThumbnailsCacheManager.AsyncResizedImageDrawable asyncDrawable =
-                                new ThumbnailsCacheManager.AsyncResizedImageDrawable(
-                                        MainApp.getAppContext().getResources(),
-                                        resizedImage,
-                                        task
-                                );
-                        iv.setVisibility(View.GONE);
-                        v.setVisibility(View.GONE);
-                        previewImage.setImageDrawable(asyncDrawable);
-                        activatePreviewImage();
-                        previewLoaded = true;
-                        task.execute(getFile());
-                    }
+                    task.execute(getFile());
                 }
-            } else {
-                iv.setImageDrawable(MimeTypeUtil.getFileTypeIcon(file.getMimetype(), file.getFileName(), account,
-                        getContext()));
             }
-        }
-    }
-
-    private void makeStatusBarBlack() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            getActivity().getWindow().setStatusBarColor(getResources().getColor(R.color.black));
-        }
-    }
-
-    /**
-     * Updates the file size in view
-     *
-     * @param fileSize in bytes to set
-     */
-    private void setFilesize(long fileSize) {
-        TextView tv = getView().findViewById(R.id.fdSize);
-        if (tv != null) {
-            tv.setText(DisplayUtils.bytesToHumanReadable(fileSize));
-        }
-    }
-
-    /**
-     * Updates the time that the file was last modified
-     *
-     * @param milliseconds Unix time to set
-     */
-    private void setTimeModified(long milliseconds) {
-        TextView tv = getView().findViewById(R.id.fdModified);
-        if (tv != null) {
-            tv.setText(DisplayUtils.unixTimeToHumanReadable(milliseconds));
         }
     }
 
@@ -633,8 +656,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
     private void setButtonsForTransferring() {
         if (!isEmpty()) {
             // show the progress bar for the transfer
-            getView().findViewById(R.id.fdProgressBlock).setVisibility(View.VISIBLE);
-            TextView progressText = getView().findViewById(R.id.fdProgressText);
+            downloadProgressContainer.setVisibility(View.VISIBLE);
             progressText.setVisibility(View.VISIBLE);
             FileDownloaderBinder downloaderBinder = mContainerActivity.getFileDownloaderBinder();
             FileUploaderBinder uploaderBinder = mContainerActivity.getFileUploaderBinder();
@@ -656,9 +678,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
     private void setButtonsForDown() {
         if (!isEmpty()) {
             // hides the progress bar
-            getView().findViewById(R.id.fdProgressBlock).setVisibility(View.GONE);
-            TextView progressText = getView().findViewById(R.id.fdProgressText);
-            progressText.setVisibility(View.GONE);
+            downloadProgressContainer.setVisibility(View.GONE);
         }
     }
 
@@ -668,9 +688,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
     private void setButtonsForRemote() {
         if (!isEmpty()) {
             // hides the progress bar
-            getView().findViewById(R.id.fdProgressBlock).setVisibility(View.GONE);
-            TextView progressText = getView().findViewById(R.id.fdProgressText);
-            progressText.setVisibility(View.GONE);
+            downloadProgressContainer.setVisibility(View.GONE);
         }
     }
 
@@ -706,25 +724,25 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
      * Helper class responsible for updating the progress bar shown for file downloading.
      */
     private class ProgressListener implements OnDatatransferProgressListener {
-        private int mLastPercent = 0;
-        private WeakReference<ProgressBar> mProgressBar;
+        private int lastPercent = 0;
+        private WeakReference<ProgressBar> progressBarReference;
 
         ProgressListener(ProgressBar progressBar) {
-            mProgressBar = new WeakReference<>(progressBar);
+            progressBarReference = new WeakReference<>(progressBar);
         }
 
         @Override
         public void onTransferProgress(long progressRate, long totalTransferredSoFar,
                                        long totalToTransfer, String filename) {
             int percent = (int)(100.0*((double)totalTransferredSoFar)/((double)totalToTransfer));
-            if (percent != mLastPercent) {
-                ProgressBar pb = mProgressBar.get();
+            if (percent != lastPercent) {
+                ProgressBar pb = progressBarReference.get();
                 if (pb != null) {
                     pb.setProgress(percent);
                     pb.postInvalidate();
                 }
             }
-            mLastPercent = percent;
+            lastPercent = percent;
         }
     }
 }
