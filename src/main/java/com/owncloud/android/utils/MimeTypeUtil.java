@@ -94,14 +94,18 @@ public class MimeTypeUtil {
      * @return Drawable of an image resource.
      */
     public static Drawable getFileTypeIcon(String mimetype, String filename, Account account, Context context) {
-        int iconId = MimeTypeUtil.getFileTypeIconId(mimetype, filename);
-        Drawable icon = context.getResources().getDrawable(iconId);
+        if (context != null) {
+            int iconId = MimeTypeUtil.getFileTypeIconId(mimetype, filename);
+            Drawable icon = context.getResources().getDrawable(iconId);
 
-        if(R.drawable.file_zip == iconId) {
-            ThemeUtils.tintDrawable(icon, ThemeUtils.primaryColor(account, context));
+            if (R.drawable.file_zip == iconId) {
+                ThemeUtils.tintDrawable(icon, ThemeUtils.primaryColor(account, context));
+            }
+
+            return icon;
+        } else {
+            return null;
         }
-
-        return icon;
     }
 
     /**
