@@ -42,6 +42,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_weight="1"
             android:textSize="@dimen/file_details_username_text_size"
             android:text="@string/username"
             android:id="@+id/userOrGroupName"
@@ -51,4 +52,15 @@
             android:ellipsize="middle"
             android:gravity="center_vertical"
             android:textColor="@color/black"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/editShareButton"
+            android:src="@drawable/ic_dots_vertical"
+            android:padding="@dimen/standard_half_padding"
+            android:layout_marginEnd="@dimen/standard_half_margin"
+            android:layout_marginRight="@dimen/standard_half_margin"
+            android:layout_gravity="center_vertical"
+            android:contentDescription="@string/overflow_menu"/>
 </LinearLayout>

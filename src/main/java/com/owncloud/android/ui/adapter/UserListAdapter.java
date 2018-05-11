@@ -23,10 +23,13 @@ package com.owncloud.android.ui.adapter;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import com.owncloud.android.R;
@@ -82,6 +85,7 @@ public class UserListAdapter extends ArrayAdapter {
             OCShare share = mShares.get(position);
 
             TextView userName = view.findViewById(R.id.userOrGroupName);
+            final ImageView editShareButton = view.findViewById(R.id.editShareButton);
             ImageView icon = view.findViewById(R.id.userIcon);
             String name = share.getSharedWithDisplayName();
             if (share.getShareType() == ShareType.GROUP) {
@@ -107,7 +111,42 @@ public class UserListAdapter extends ArrayAdapter {
             }
             userName.setText(name);
 
+            /// bind listener to edit privileges
+            editShareButton.setOnClickListener(v -> onOverflowIconClicked(v,mShares.get(position)));
         }
         return view;
+    }
+
+    private void onOverflowIconClicked(View view, OCShare share) {
+        PopupMenu popup = new PopupMenu(mContext, view);
+        popup.inflate(R.menu.file_detail_sharing_menu);
+
+        prepareOptionsMenu(popup.getMenu(), share);
+
+        popup.setOnMenuItemClickListener(this::optionsItemSelected);
+        popup.show();
+    }
+
+    private void prepareOptionsMenu(Menu menu, OCShare share) {
+        // TODO implement menu filtering based on OCShare type
+    }
+
+    private boolean optionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_can_edit: {
+                // TODO implement de/-selecting can edit
+                return true;
+            }
+            case R.id.action_can_reshare: {
+                // TODO implement de/-selecting can share
+                return true;
+            }
+            case R.id.action_unshare: {
+                // TODO implement unshare
+                return true;
+            }
+            default:
+                return true;
+        }
     }
 }
