@@ -167,7 +167,6 @@ public class FileDetailActivitiesFragment extends Fragment implements ActivityLi
     private void setLoadingMessage() {
         emptyContentHeadline.setText(R.string.file_list_loading);
         emptyContentMessage.setText("");
-
         emptyContentIcon.setVisibility(View.GONE);
         emptyContentProgressBar.setVisibility(View.VISIBLE);
     }

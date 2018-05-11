@@ -42,6 +42,10 @@ import com.owncloud.android.utils.ThemeUtils;
 
 import java.util.ArrayList;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
+
 public class FileDetailSharingFragment  extends Fragment {
 
     private static final String ARG_FILE = "FILE";
@@ -52,6 +56,26 @@ public class FileDetailSharingFragment  extends Fragment {
 
     private OCFile file;
     private Account account;
+
+    private Unbinder unbinder;
+
+    @BindView(R.id.fdShareTitle)
+    TextView shareTitle;
+
+    @BindView(R.id.fdShareWithUsersTitle)
+    TextView shareWithUsersTitle;
+
+    @BindView(R.id.fdSharebyLink)
+    TextView sharebyLink;
+
+    @BindView(R.id.fdShareLinkIcon)
+    ImageView linkIcon;
+
+    @BindView(R.id.fdshareUsersList)
+    ListView usersList;
+
+    @BindView(R.id.fdShareNoUsers)
+    TextView noList;
 
     public static FileDetailSharingFragment newInstance(OCFile file, Account account) {
         FileDetailSharingFragment fragment = new FileDetailSharingFragment();
@@ -76,19 +100,25 @@ public class FileDetailSharingFragment  extends Fragment {
         }
 
         View view = inflater.inflate(R.layout.file_details_sharing_fragment, container, false);
+        unbinder = ButterKnife.bind(this, view);
 
-        setupView(view);
+        setupView();
 
         return view;
     }
 
-    private void setupView(View view) {
-        ((TextView)view.findViewById(R.id.fdShareTitle)).setTextColor(ThemeUtils.primaryAccentColor(getContext()));
-        ((TextView)view.findViewById(R.id.fdShareWithUsersTitle)).setTextColor(ThemeUtils.primaryAccentColor(getContext()));
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        unbinder.unbind();
+    }
 
-        setShareByLinkInfo(file.isSharedViaLink(), view);
+    private void setupView() {
+        shareTitle.setTextColor(ThemeUtils.primaryAccentColor(getContext()));
+        shareWithUsersTitle.setTextColor(ThemeUtils.primaryAccentColor(getContext()));
 
-        setShareWithUserInfo(view);
+        setShareByLinkInfo(file.isSharedViaLink());
+        setShareWithUserInfo();
     }
 
     /**
@@ -96,22 +126,17 @@ public class FileDetailSharingFragment  extends Fragment {
      *
      * @param isShareByLink flag is share by link is enable
      */
-    private void setShareByLinkInfo(boolean isShareByLink, View view) {
-        TextView tv = view.findViewById(R.id.fdSharebyLink);
-        if (tv != null) {
-            tv.setText(isShareByLink ? R.string.filedetails_share_link_enable :
+    private void setShareByLinkInfo(boolean isShareByLink) {
+        sharebyLink.setText(isShareByLink ? R.string.filedetails_share_link_enable :
                     R.string.filedetails_share_link_disable);
-        }
-        ImageView linkIcon = view.findViewById(R.id.fdShareLinkIcon);
-        if (linkIcon != null) {
-            linkIcon.setVisibility(isShareByLink ? View.VISIBLE : View.GONE);
-        }
+
+        linkIcon.setVisibility(isShareByLink ? View.VISIBLE : View.GONE);
     }
 
     /**
      * Update Share With data
      */
-    private void setShareWithUserInfo(View view){
+    private void setShareWithUserInfo(){
         // Get Users and Groups
         if (((FileActivity) getActivity()).getStorageManager() != null) {
             FileDataStorageManager fileDataStorageManager = ((FileActivity) getActivity()).getStorageManager();
@@ -120,11 +145,11 @@ public class FileDetailSharingFragment  extends Fragment {
             );
 
             // Update list of users/groups
-            updateListOfUserGroups(view);
+            updateListOfUserGroups();
         }
     }
 
-    private void updateListOfUserGroups(View view) {
+    private void updateListOfUserGroups() {
         // Update list of users/groups
         // TODO Refactoring: create a new {@link ShareUserListAdapter} instance with every call should not be needed
         UserListAdapter mUserGroupsAdapter = new UserListAdapter(
@@ -132,18 +157,11 @@ public class FileDetailSharingFragment  extends Fragment {
                 R.layout.share_user_item, mShares
         );
 
-        // Show data
-        ListView usersList = view.findViewById(R.id.fdshareUsersList);
-
-        // No data
-        TextView noList = view.findViewById(R.id.fdShareNoUsers);
-
         if (mShares.size() > 0) {
             usersList.setVisibility(View.VISIBLE);
             usersList.setAdapter(mUserGroupsAdapter);
             noList.setVisibility(View.GONE);
             setListViewHeightBasedOnChildren(usersList);
-
         } else {
             usersList.setVisibility(View.GONE);
             noList.setVisibility(View.VISIBLE);
