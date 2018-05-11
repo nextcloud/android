@@ -28,6 +28,7 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
@@ -38,6 +39,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -66,6 +68,7 @@ import java.lang.ref.WeakReference;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.Optional;
 import butterknife.Unbinder;
 
 /**
@@ -122,6 +125,60 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
     public ProgressListener progressListener;
     private ToolbarActivity activity;
     private int activeTab;
+
+    @Nullable @BindView(R.id.fdProgressBlock)
+    View downloadProgressContainer;
+
+    @Nullable @BindView(R.id.fdCancelBtn)
+    ImageButton cancelButton;
+
+    @Nullable @BindView(R.id.fdProgressBar)
+    ProgressBar progressBar;
+
+    @Nullable @BindView(R.id.fdProgressText)
+    TextView progressText;
+
+    @Nullable @BindView(R.id.fdFilename)
+    TextView fileName;
+
+    @Nullable @BindView(R.id.fdSize)
+    TextView fileSize;
+
+    @Nullable @BindView(R.id.fdModified)
+    TextView fileModifiedTimestamp;
+
+    @Nullable @BindView(R.id.fdFavorite)
+    ImageView favoriteIcon;
+
+    @Nullable @BindView(R.id.overflow_menu)
+    ImageView overflowMenu;
+
+    @Nullable @BindView(R.id.tab_layout)
+    TabLayout tabLayout;
+
+    @Nullable @BindView(R.id.pager)
+    ViewPager viewPager;
+
+    @Nullable @BindView(R.id.empty_list_view_text)
+    protected TextView emptyContentMessage;
+
+    @Nullable @BindView(R.id.empty_list_view_headline)
+    protected TextView emptyContentHeadline;
+
+    @Nullable @BindView(R.id.empty_list_icon)
+    protected ImageView emptyContentIcon;
+
+    @Nullable @BindView(R.id.empty_list_progress)
+    protected ProgressBar emptyProgressBar;
+
+    private int layout;
+    private View view;
+    private boolean previewLoaded;
+    private Account account;
+    private Unbinder unbinder;
+
+    public ProgressListener progressListener;
+    private ToolbarActivity activity;
 
     /**
      * Public factory method to create new FileDetailFragment instances.
@@ -249,10 +306,72 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
             cancelButton.setOnClickListener(this);
             favoriteIcon.setOnClickListener(this);
             overflowMenu.setOnClickListener(this);
-
+            cancelButton.setOnClickListener(this);
+            favoriteIcon.setOnClickListener(this);
+            overflowMenu.setOnClickListener(this);
+            // TODO use whenever we switch to use glide for preview images
+            /*
+            if (MimeTypeUtil.isImage(getFile())) {
+                setHeaderImage();
+            }
+             */
             updateFileDetails(false, false);
+        } else {
+            emptyContentMessage.setText(R.string.filedetails_select_file);
+            emptyContentMessage.setVisibility(View.VISIBLE);
+            emptyContentHeadline.setText(R.string.common_error);
+            emptyContentIcon.setImageDrawable(getContext().getResources().getDrawable(R.drawable.ic_alert_octagon));
+            emptyContentIcon.setVisibility(View.VISIBLE);
+            emptyProgressBar.setVisibility(View.GONE);
         }
     }
+    // TODO use whenever we switch to use glide for preview images
+    /*
+    private void setHeaderImage() {
+        if (mContainerActivity.getStorageManager().getCapability(account.name)
+                .getServerBackground() != null && previewImage != null) {
+
+            String background = mContainerActivity.getStorageManager().getCapability(account.name).getServerBackground();
+
+            int primaryColor = ThemeUtils.primaryColor(account, getContext());
+
+            if (URLUtil.isValidUrl(background)) {
+                // background image
+                SimpleTarget target = new SimpleTarget<Drawable>() {
+                    @Override
+                    public void onResourceReady(Drawable resource, GlideAnimation glideAnimation) {
+                        Drawable[] drawables = {new ColorDrawable(primaryColor), resource};
+                        LayerDrawable layerDrawable = new LayerDrawable(drawables);
+                        previewImage.setImageDrawable(layerDrawable);
+                        previewImage.setVisibility(View.VISIBLE);
+                        ((ToolbarActivity) getActivity()).getSupportActionBar().setTitle(null);
+                        ((ToolbarActivity) getActivity()).getSupportActionBar().setBackgroundDrawable(null);
+                        toolbarProgressBar.setVisibility(View.GONE);
+                        previewLoaded = true;
+                    }
+
+                    @Override
+                    public void onLoadFailed(Exception e, Drawable errorDrawable) {
+                        previewImage.setVisibility(View.GONE);
+                        toolbarProgressBar.setVisibility(View.VISIBLE);
+                    }
+                };
+
+                Glide.with(this)
+                        .load(background)
+                        .centerCrop()
+                        .placeholder(R.drawable.background)
+                        .error(R.drawable.background)
+                        .crossFade()
+                        .into(target);
+            } else {
+                // hide image
+                previewImage.setVisibility(View.GONE);
+                toolbarProgressBar.setVisibility(View.VISIBLE);
+            }
+        }
+    }
+    */
 
     public void onOverflowIconClicked(View view) {
         PopupMenu popup = new PopupMenu(getActivity(), view);
