@@ -767,4 +767,5 @@
     <string name="upload_content_from_other_apps">Carica contenuti da altre applicazioni</string>
     <string name="create_new_folder">Crea una nuova cartella</string>
     <string name="uploads_view_upload_status_virus_detected">Virus rilevato! Impossibile caricare il file!</string>
-    </resources>
+    <string name="tags">Etichette</string>
+</resources>

@@ -767,4 +767,5 @@
     <string name="upload_content_from_other_apps">Enviar conteúdo de outros aplicativos</string>
     <string name="create_new_folder">Criar nova pasta</string>
     <string name="uploads_view_upload_status_virus_detected">Vírus encontrado. Envio não foi finalizado!</string>
-    </resources>
+    <string name="tags">Rótulos</string>
+</resources>
