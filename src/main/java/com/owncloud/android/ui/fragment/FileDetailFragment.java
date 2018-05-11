@@ -293,9 +293,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
         popup.inflate(R.menu.file_actions_menu);
         prepareOptionsMenu(popup.getMenu());
 
-        popup.setOnMenuItemClickListener(item -> {
-            return optionsItemSelected(item);
-        });
+        popup.setOnMenuItemClickListener(this::optionsItemSelected);
         popup.show();
     }
 
