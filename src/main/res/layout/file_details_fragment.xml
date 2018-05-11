@@ -29,27 +29,13 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <ImageView
-            android:id="@+id/fdIcon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/standard_margin"
-            android:contentDescription="@string/file_icon"
-            android:src="@drawable/file" />
-
-        <View
-            android:id="@+id/fdIcon_divider"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/list_divider_background" />
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="@dimen/standard_padding"
             android:paddingLeft="@dimen/standard_padding"
             android:paddingRight="@dimen/standard_padding"
-            android:paddingBottom="@dimen/standard_half_padding"
+            android:paddingBottom="@dimen/standard_padding"
             android:orientation="horizontal">
 
             <LinearLayout
@@ -144,6 +130,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/fdProgressBlock"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingLeft="@dimen/standard_padding"
@@ -158,7 +145,6 @@
                 android:text="@string/downloader_download_in_progress_ticker" />
 
             <LinearLayout
-                android:id="@+id/fdProgressBlock"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/standard_quarter_margin"
