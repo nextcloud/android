@@ -22,6 +22,7 @@ import android.accounts.Account;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.support.v4.content.ContextCompat;
 import android.webkit.MimeTypeMap;
 
 import com.owncloud.android.R;
@@ -96,7 +97,7 @@ public class MimeTypeUtil {
     public static Drawable getFileTypeIcon(String mimetype, String filename, Account account, Context context) {
         if (context != null) {
             int iconId = MimeTypeUtil.getFileTypeIconId(mimetype, filename);
-            Drawable icon = context.getResources().getDrawable(iconId);
+            Drawable icon = ContextCompat.getDrawable(context, iconId);
 
             if (R.drawable.file_zip == iconId) {
                 ThemeUtils.tintDrawable(icon, ThemeUtils.primaryColor(account, context));
