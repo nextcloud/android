@@ -777,4 +777,5 @@
     <string name="upload_content_from_other_apps">Загрузить из других приложений</string>
     <string name="create_new_folder">Создать новую папку</string>
     <string name="uploads_view_upload_status_virus_detected">Обнаружен вирус. Загрузка не может быть завершена!</string>
-    </resources>
+    <string name="tags">Метки</string>
+</resources>

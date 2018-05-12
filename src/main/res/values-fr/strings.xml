@@ -768,4 +768,5 @@ Veuillez contacter votre administrateur</string>
     <string name="upload_content_from_other_apps">Téléverser du contenu à partir d\'autres applications</string>
     <string name="create_new_folder">Créer un nouveau dossier</string>
     <string name="uploads_view_upload_status_virus_detected">Un virus à été détecté dans ce fichier. Le téléversement ne peut donc pas se terminer.</string>
-    </resources>
+    <string name="tags">Étiquettes</string>
+</resources>

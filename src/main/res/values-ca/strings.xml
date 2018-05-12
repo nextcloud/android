@@ -80,7 +80,7 @@
     <string name="uploader_upload_files_behaviour">Opció de pujada:</string>
     <string name="uploader_upload_files_behaviour_only_upload">Mantén el fitxer a la carpeta d\'origen</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Elimina el fitxer de la carpeta d\'origen</string>
-    <string name="file_list_seconds_ago">segons enrere</string>
+    <string name="file_list_seconds_ago">fa uns segons</string>
     <string name="file_list_empty_headline">No hi ha fitxers</string>
     <string name="folder_list_empty_headline">No hi ha carpetes</string>
     <string name="file_list_empty">Puja continguts o sincronitza els teus dispositius.</string>
@@ -342,7 +342,7 @@
     <string name="file_migration_override_data_folder">Reemplaça</string>
     <string name="file_migration_use_data_folder">Utilitza</string>
 
-    <string name="file_migration_source_not_readable">Esteu segur que voleu canviar el destí d\'emmagatzemament a %1$s?\n\nNote: Totes les dades hauran de ser descarregades novament</string>
+    <string name="file_migration_source_not_readable">Esteu segur que voleu canviar el destí d\'emmagatzematge a %1$s?\n\nNota: Totes les dades s\'hauran de tornar a descarregar.</string>
 
     <string name="prefs_add_account">Afegeix compte</string>
     <string name="drawer_manage_accounts">Gestió de comptes</string>
