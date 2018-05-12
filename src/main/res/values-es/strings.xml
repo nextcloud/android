@@ -767,4 +767,5 @@
     <string name="upload_content_from_other_apps">Subir contenido desde otras apps</string>
     <string name="create_new_folder">Crear nueva carpeta</string>
     <string name="uploads_view_upload_status_virus_detected">Virus detectado. ¡No se ha podido subir!</string>
-    </resources>
+    <string name="tags">Etiquetas</string>
+</resources>
