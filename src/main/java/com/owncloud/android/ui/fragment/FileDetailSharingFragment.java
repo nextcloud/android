@@ -21,13 +21,17 @@
 package com.owncloud.android.ui.fragment;
 
 import android.accounts.Account;
+import android.app.SearchManager;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.SearchView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
@@ -36,6 +40,7 @@ import android.widget.TextView;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.lib.resources.shares.SharePermissionsBuilder;
 import com.owncloud.android.ui.activity.FileActivity;
@@ -49,6 +54,7 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
 public class FileDetailSharingFragment extends Fragment implements UserListAdapter.ShareeListAdapterListener {
+    private static final String TAG = FileDetailSharingFragment.class.getSimpleName();
 
     private static final String ARG_FILE = "FILE";
     private static final String ARG_ACCOUNT = "ACCOUNT";
@@ -72,6 +78,9 @@ public class FileDetailSharingFragment extends Fragment implements UserListAdapt
 
     @BindView(R.id.fdShareLinkIcon)
     ImageView linkIcon;
+
+    @BindView(R.id.searchView)
+    SearchView searchView;
 
     @BindView(R.id.fdshareUsersList)
     ListView usersList;
@@ -129,6 +138,36 @@ public class FileDetailSharingFragment extends Fragment implements UserListAdapt
 
         setShareByLinkInfo(file.isSharedViaLink());
         setShareWithUserInfo();
+        setupSearchView();
+    }
+
+    private void setupSearchView() {
+        SearchManager searchManager = (SearchManager) getActivity().getSystemService(Context.SEARCH_SERVICE);
+        // assumes parent activity is the searchable activity
+        searchView.setSearchableInfo(searchManager
+                .getSearchableInfo(getActivity().getComponentName())
+        );
+
+        // do not iconify the widget; expand it by default
+        searchView.setIconifiedByDefault(false);
+
+        // avoid fullscreen with softkeyboard
+        searchView.setImeOptions(EditorInfo.IME_FLAG_NO_EXTRACT_UI);
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                Log_OC.v(TAG, "onQueryTextSubmit intercepted, query: " + query);
+                // return true to prevent the query is processed to be queried;
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                // leave it for the parent listener in the hierarchy / default behaviour
+                return false;
+            }
+        });
     }
 
     /**

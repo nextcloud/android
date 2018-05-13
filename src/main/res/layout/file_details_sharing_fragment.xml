@@ -81,6 +81,13 @@
             android:text="@string/filedetails_share_users_with_access"
             android:textColor="@color/color_accent" />
 
+        <android.support.v7.widget.SearchView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/searchView"
+            android:hint="@string/share_search"
+            style="@style/ownCloud.SearchView"/>
+
         <ListView
             android:id="@+id/fdshareUsersList"
             android:layout_width="match_parent"

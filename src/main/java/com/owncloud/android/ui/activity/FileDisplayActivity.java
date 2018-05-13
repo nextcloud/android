@@ -26,6 +26,7 @@ import android.accounts.Account;
 import android.accounts.AuthenticatorException;
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.app.SearchManager;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.ContentResolver;
@@ -38,6 +39,7 @@ import android.content.SharedPreferences;
 import android.content.SyncRequest;
 import android.content.pm.PackageManager;
 import android.content.res.Resources.NotFoundException;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
@@ -75,6 +77,8 @@ import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
 import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.lib.resources.shares.OCShare;
+import com.owncloud.android.lib.resources.shares.ShareType;
 import com.owncloud.android.media.MediaService;
 import com.owncloud.android.media.MediaServiceBinder;
 import com.owncloud.android.operations.CopyFileOperation;
@@ -85,6 +89,7 @@ import com.owncloud.android.operations.RemoveFileOperation;
 import com.owncloud.android.operations.RenameFileOperation;
 import com.owncloud.android.operations.SynchronizeFileOperation;
 import com.owncloud.android.operations.UploadFileOperation;
+import com.owncloud.android.providers.UsersAndGroupsSearchProvider;
 import com.owncloud.android.syncadapter.FileSyncAdapter;
 import com.owncloud.android.ui.dialog.SendShareDialog;
 import com.owncloud.android.ui.dialog.SortingOrderDialogFragment;
@@ -484,6 +489,66 @@ public class FileDisplayActivity extends HookActivity
         if (intent.getAction() != null && intent.getAction().equalsIgnoreCase(ACTION_DETAILS)) {
             setIntent(intent);
             setFile(intent.getParcelableExtra(EXTRA_FILE));
+        } else // Verify the action and get the query
+            if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
+                String query = intent.getStringExtra(SearchManager.QUERY);
+                Log_OC.w(TAG, "Ignored Intent requesting to query for " + query);
+
+            } else if (UsersAndGroupsSearchProvider.ACTION_SHARE_WITH.equals(intent.getAction())) {
+                Uri data = intent.getData();
+                String dataString = intent.getDataString();
+                String shareWith = dataString.substring(dataString.lastIndexOf('/') + 1);
+
+                ArrayList<String> shareeNames = new ArrayList<>();
+                for (OCShare share : getStorageManager().getSharesWithForAFile(getFile().getRemotePath(), getAccount().name)) {
+                    shareeNames.add(share.getShareWith());
+                }
+
+                if (!shareeNames.contains(shareWith)) {
+
+                    doShareWith(
+                            shareWith,
+                            data.getAuthority()
+                    );
+                }
+
+            } else {
+                Log_OC.e(TAG, "Unexpected intent " + intent.toString());
+            }
+    }
+
+    private void doShareWith(String shareeName, String dataAuthority) {
+
+        ShareType shareType = UsersAndGroupsSearchProvider.getShareType(dataAuthority);
+
+        getFileOperationsHelper().shareFileWithSharee(
+                getFile(),
+                shareeName,
+                shareType,
+                getAppropiatePermissions(shareType)
+        );
+    }
+
+    private int getAppropiatePermissions(ShareType shareType) {
+
+        // check if the Share is FEDERATED
+        boolean isFederated = ShareType.FEDERATED.equals(shareType);
+
+        if (getFile().isSharedWithMe()) {
+            return OCShare.READ_PERMISSION_FLAG;    // minimum permissions
+
+        } else if (isFederated) {
+            if (com.owncloud.android.authentication.AccountUtils
+                    .getServerVersion(getAccount()).isNotReshareableFederatedSupported()) {
+                return (getFile().isFolder() ? OCShare.FEDERATED_PERMISSIONS_FOR_FOLDER_AFTER_OC9 :
+                        OCShare.FEDERATED_PERMISSIONS_FOR_FILE_AFTER_OC9);
+            } else {
+                return (getFile().isFolder() ? OCShare.FEDERATED_PERMISSIONS_FOR_FOLDER_UP_TO_OC9 :
+                        OCShare.FEDERATED_PERMISSIONS_FOR_FILE_UP_TO_OC9);
+            }
+        } else {
+            return (getFile().isFolder() ? OCShare.MAXIMUM_PERMISSIONS_FOR_FOLDER :
+                    OCShare.MAXIMUM_PERMISSIONS_FOR_FILE);
         }
     }
 
