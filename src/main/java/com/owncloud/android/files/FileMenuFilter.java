@@ -260,7 +260,7 @@ public class FileMenuFilter {
         }
 
         // SEE DETAILS
-        if (!isSingleFile()) {
+        if (!isSingleSelection()) {
             toHide.add(R.id.action_see_details);
         } else {
             toShow.add(R.id.action_see_details);
