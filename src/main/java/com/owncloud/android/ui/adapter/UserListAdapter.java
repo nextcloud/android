@@ -35,7 +35,6 @@ import android.widget.TextView;
 
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
-import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.lib.resources.shares.ShareType;
 import com.owncloud.android.lib.resources.status.OCCapability;
@@ -134,6 +133,7 @@ public class UserListAdapter extends ArrayAdapter {
 
     private void onOverflowIconClicked(View view, OCShare share) {
         PopupMenu popup = new PopupMenu(context, view);
+        // TODO add folder edit detail permissions
         popup.inflate(R.menu.file_detail_sharing_menu);
 
         prepareOptionsMenu(popup.getMenu(), share);
@@ -149,13 +149,16 @@ public class UserListAdapter extends ArrayAdapter {
     private boolean optionsItemSelected(MenuItem item, OCShare share) {
         switch (item.getItemId()) {
             case R.id.action_can_edit: {
-                listener.toggleCanEdit(share);
+                // TODO calculate boolean flags
+                listener.updatePermissionsToShare(share, true, true, true, true, true);
                 return true;
             }
             case R.id.action_can_reshare: {
-                listener.toggleCanReshare(share);
+                // TODO calculate boolean flags
+                listener.updatePermissionsToShare(share, true, true, true, true, true);
                 return true;
             }
+            // TODO add folder edit detail permissions
             case R.id.action_unshare: {
                 listener.unshareWith(share);
                 shares.remove(share);
@@ -174,8 +177,7 @@ public class UserListAdapter extends ArrayAdapter {
      * @param menu  the menu of the sharee/shared file
      */
     private void refresMenuForShare(OCShare share, Menu menu) {
-        // TODO needs a complete rewrite
-        // since it seems permissions on server are now completely different to the client(s)
+        // TODO add folder edit detail permissions
         int sharePermissions = share.getPermissions();
         boolean isFederated = ShareType.FEDERATED.equals(share.getShareType());
 
@@ -194,8 +196,23 @@ public class UserListAdapter extends ArrayAdapter {
     }
 
     public interface ShareeListAdapterListener {
+        /**
+         * unshare with given sharee.
+         *
+         * @param share the share
+         */
         void unshareWith(OCShare share);
-        void toggleCanEdit(OCShare share);
-        void toggleCanReshare(OCShare share);
+
+        /**
+         * Updates the permissions of the {@link OCShare}.
+         *
+         * @param share         the share to be updated
+         * @param canReshare    reshare permission
+         * @param canEdit       edit permission
+         * @param canEditCreate create permission (folders only)
+         * @param canEditChange change permission (folders only)
+         * @param canEditDelete delete permission (folders only)
+         */
+        void updatePermissionsToShare(OCShare share, boolean canReshare, boolean canEdit, boolean canEditCreate, boolean canEditChange, boolean canEditDelete);
     }
 }
