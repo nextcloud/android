@@ -20,6 +20,7 @@
 
 package com.owncloud.android.ui.adapter;
 
+import android.accounts.Account;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
@@ -33,8 +34,11 @@ import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import com.owncloud.android.R;
+import com.owncloud.android.datamodel.FileDataStorageManager;
+import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.lib.resources.shares.ShareType;
+import com.owncloud.android.lib.resources.status.OCCapability;
 import com.owncloud.android.ui.TextDrawable;
 
 import java.io.UnsupportedEncodingException;
@@ -46,26 +50,36 @@ import java.util.ArrayList;
  */
 public class UserListAdapter extends ArrayAdapter {
 
-    private Context mContext;
-    private ArrayList<OCShare> mShares;
-    private float mAvatarRadiusDimension;
 
-    public UserListAdapter(Context context, int resource, ArrayList<OCShare> shares) {
+    private ShareeListAdapterListener listener;
+    private OCCapability capabilities;
+    private Context context;
+    private ArrayList<OCShare> shares;
+    private float avatarRadiusDimension;
+
+    public UserListAdapter(Context context, int resource, ArrayList<OCShare> shares,
+                           Account account, ShareeListAdapterListener listener) {
         super(context, resource);
-        mContext = context;
-        mShares = shares;
+        this.context = context;
+        this.shares = shares;
+        this.listener = listener;
 
-        mAvatarRadiusDimension = context.getResources().getDimension(R.dimen.standard_padding);
+        this.capabilities = new FileDataStorageManager(
+                account,
+                getContext().getContentResolver()
+        ).getCapability(account.name);
+
+        avatarRadiusDimension = context.getResources().getDimension(R.dimen.standard_padding);
     }
 
     @Override
     public int getCount() {
-        return mShares.size();
+        return shares.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return mShares.get(position);
+        return shares.get(position);
     }
 
     @Override
@@ -74,15 +88,16 @@ public class UserListAdapter extends ArrayAdapter {
     }
 
     @Override
-    public @NonNull View getView(final int position, View convertView, @NonNull ViewGroup parent) {
+    public @NonNull
+    View getView(final int position, View convertView, @NonNull ViewGroup parent) {
         View view = convertView;
         if (view == null) {
-            LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             view = inflater.inflate(R.layout.file_details_share_user_item, parent, false);
         }
 
-        if (mShares != null && mShares.size() > position) {
-            OCShare share = mShares.get(position);
+        if (shares != null && shares.size() > position) {
+            OCShare share = shares.get(position);
 
             TextView userName = view.findViewById(R.id.userOrGroupName);
             final ImageView editShareButton = view.findViewById(R.id.editShareButton);
@@ -91,20 +106,20 @@ public class UserListAdapter extends ArrayAdapter {
             if (share.getShareType() == ShareType.GROUP) {
                 name = getContext().getString(R.string.share_group_clarification, name);
                 try {
-                    icon.setImageDrawable(TextDrawable.createNamedAvatar(name, mAvatarRadiusDimension));
+                    icon.setImageDrawable(TextDrawable.createNamedAvatar(name, avatarRadiusDimension));
                 } catch (UnsupportedEncodingException | NoSuchAlgorithmException e) {
                     icon.setImageResource(R.drawable.ic_group);
                 }
             } else if (share.getShareType() == ShareType.EMAIL) {
                 name = getContext().getString(R.string.share_email_clarification, name);
                 try {
-                    icon.setImageDrawable(TextDrawable.createNamedAvatar(name, mAvatarRadiusDimension));
+                    icon.setImageDrawable(TextDrawable.createNamedAvatar(name, avatarRadiusDimension));
                 } catch (UnsupportedEncodingException | NoSuchAlgorithmException e) {
                     icon.setImageResource(R.drawable.ic_email);
                 }
             } else {
                 try {
-                    icon.setImageDrawable(TextDrawable.createNamedAvatar(name, mAvatarRadiusDimension));
+                    icon.setImageDrawable(TextDrawable.createNamedAvatar(name, avatarRadiusDimension));
                 } catch (UnsupportedEncodingException | NoSuchAlgorithmException e) {
                     icon.setImageResource(R.drawable.ic_user);
                 }
@@ -112,41 +127,75 @@ public class UserListAdapter extends ArrayAdapter {
             userName.setText(name);
 
             /// bind listener to edit privileges
-            editShareButton.setOnClickListener(v -> onOverflowIconClicked(v,mShares.get(position)));
+            editShareButton.setOnClickListener(v -> onOverflowIconClicked(v, shares.get(position)));
         }
         return view;
     }
 
     private void onOverflowIconClicked(View view, OCShare share) {
-        PopupMenu popup = new PopupMenu(mContext, view);
+        PopupMenu popup = new PopupMenu(context, view);
         popup.inflate(R.menu.file_detail_sharing_menu);
 
         prepareOptionsMenu(popup.getMenu(), share);
 
-        popup.setOnMenuItemClickListener(this::optionsItemSelected);
+        popup.setOnMenuItemClickListener(item -> optionsItemSelected(item, share));
         popup.show();
     }
 
     private void prepareOptionsMenu(Menu menu, OCShare share) {
-        // TODO implement menu filtering based on OCShare type
+        refresMenuForShare(share, menu);
     }
 
-    private boolean optionsItemSelected(MenuItem item) {
+    private boolean optionsItemSelected(MenuItem item, OCShare share) {
         switch (item.getItemId()) {
             case R.id.action_can_edit: {
-                // TODO implement de/-selecting can edit
+                listener.toggleCanEdit(share);
                 return true;
             }
             case R.id.action_can_reshare: {
-                // TODO implement de/-selecting can share
+                listener.toggleCanReshare(share);
                 return true;
             }
             case R.id.action_unshare: {
-                // TODO implement unshare
+                listener.unshareWith(share);
+                shares.remove(share);
+                notifyDataSetChanged();
                 return true;
             }
             default:
                 return true;
         }
+    }
+
+    /**
+     * Updates the sharee's menu with the current permissions of the {@link OCShare}
+     *
+     * @param share the shared file
+     * @param menu  the menu of the sharee/shared file
+     */
+    private void refresMenuForShare(OCShare share, Menu menu) {
+        // TODO needs a complete rewrite
+        // since it seems permissions on server are now completely different to the client(s)
+        int sharePermissions = share.getPermissions();
+        boolean isFederated = ShareType.FEDERATED.equals(share.getShareType());
+
+        MenuItem reshareItem = menu.findItem(R.id.action_can_reshare);
+        if (isFederated ||
+                (capabilities != null && capabilities.getFilesSharingResharing().isFalse())) {
+            reshareItem.setVisible(false);
+        }
+        reshareItem.setChecked((sharePermissions & OCShare.SHARE_PERMISSION_FLAG) > 0);
+
+        MenuItem editItem = menu.findItem(R.id.action_can_edit);
+        int anyUpdatePermission = OCShare.CREATE_PERMISSION_FLAG | OCShare.UPDATE_PERMISSION_FLAG |
+                OCShare.DELETE_PERMISSION_FLAG;
+        boolean canEdit = (sharePermissions & anyUpdatePermission) > 0;
+        editItem.setChecked(canEdit);
+    }
+
+    public interface ShareeListAdapterListener {
+        void unshareWith(OCShare share);
+        void toggleCanEdit(OCShare share);
+        void toggleCanReshare(OCShare share);
     }
 }
