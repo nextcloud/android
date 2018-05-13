@@ -164,7 +164,7 @@ public class FileDetailSharingFragment extends Fragment implements UserListAdapt
         // TODO Refactoring: create a new {@link ShareUserListAdapter} instance with every call should not be needed
         UserListAdapter mUserGroupsAdapter = new UserListAdapter(
                 getActivity().getApplicationContext(),
-                R.layout.share_user_item, mShares, account, this
+                R.layout.share_user_item, mShares, account, file,this
         );
 
         if (mShares.size() > 0) {
@@ -210,7 +210,7 @@ public class FileDetailSharingFragment extends Fragment implements UserListAdapt
     }
 
     @Override
-    public void updatePermissionsToShare(OCShare share, boolean canReshare, boolean canEdit,
+    public int updatePermissionsToShare(OCShare share, boolean canReshare, boolean canEdit,
                                          boolean canEditCreate, boolean canEditChange,
                                          boolean canEditDelete) {
         SharePermissionsBuilder spb = new SharePermissionsBuilder();
@@ -230,5 +230,7 @@ public class FileDetailSharingFragment extends Fragment implements UserListAdapt
                         permissions
                 )
         ;
+
+        return permissions;
     }
 }

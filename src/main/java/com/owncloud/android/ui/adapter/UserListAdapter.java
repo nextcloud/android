@@ -1,21 +1,21 @@
-/**
- *   ownCloud Android client application
+/*
+ * Nextcloud Android client application
  *
- *   @author masensio
- *   Copyright (C) 2015 ownCloud Inc.
+ * @author Andy Scherzinger
+ * Copyright (C) 2018 Andy Scherzinger
  *
- *   This program is free software: you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License version 2,
- *   as published by the Free Software Foundation.
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or any later version.
  *
- *   This program is distributed in the hope that it will be useful,
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *   GNU General Public License for more details.
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU AFFERO GENERAL PUBLIC LICENSE for more details.
  *
- *   You should have received a copy of the GNU General Public License
- *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
+ * You should have received a copy of the GNU Affero General Public
+ * License along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 package com.owncloud.android.ui.adapter;
@@ -34,10 +34,13 @@ import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import com.owncloud.android.R;
+import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.FileDataStorageManager;
+import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.lib.resources.shares.ShareType;
 import com.owncloud.android.lib.resources.status.OCCapability;
+import com.owncloud.android.lib.resources.status.OwnCloudVersion;
 import com.owncloud.android.ui.TextDrawable;
 
 import java.io.UnsupportedEncodingException;
@@ -45,23 +48,26 @@ import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 
 /**
- * Adapter to show a user/group in Share With List in Details View
+ * Adapter to show a user/group/email/remote in Sharing list in file details view.
  */
 public class UserListAdapter extends ArrayAdapter {
-
 
     private ShareeListAdapterListener listener;
     private OCCapability capabilities;
     private Context context;
     private ArrayList<OCShare> shares;
     private float avatarRadiusDimension;
+    private Account account;
+    private OCFile file;
 
     public UserListAdapter(Context context, int resource, ArrayList<OCShare> shares,
-                           Account account, ShareeListAdapterListener listener) {
+                           Account account, OCFile file, ShareeListAdapterListener listener) {
         super(context, resource);
         this.context = context;
         this.shares = shares;
         this.listener = listener;
+        this.account = account;
+        this.file = file;
 
         this.capabilities = new FileDataStorageManager(
                 account,
@@ -133,51 +139,21 @@ public class UserListAdapter extends ArrayAdapter {
 
     private void onOverflowIconClicked(View view, OCShare share) {
         PopupMenu popup = new PopupMenu(context, view);
-        // TODO add folder edit detail permissions
         popup.inflate(R.menu.file_detail_sharing_menu);
 
         prepareOptionsMenu(popup.getMenu(), share);
 
-        popup.setOnMenuItemClickListener(item -> optionsItemSelected(item, share));
+        popup.setOnMenuItemClickListener(item -> optionsItemSelected(popup.getMenu(), item, share));
         popup.show();
-    }
-
-    private void prepareOptionsMenu(Menu menu, OCShare share) {
-        refresMenuForShare(share, menu);
-    }
-
-    private boolean optionsItemSelected(MenuItem item, OCShare share) {
-        switch (item.getItemId()) {
-            case R.id.action_can_edit: {
-                // TODO calculate boolean flags
-                listener.updatePermissionsToShare(share, true, true, true, true, true);
-                return true;
-            }
-            case R.id.action_can_reshare: {
-                // TODO calculate boolean flags
-                listener.updatePermissionsToShare(share, true, true, true, true, true);
-                return true;
-            }
-            // TODO add folder edit detail permissions
-            case R.id.action_unshare: {
-                listener.unshareWith(share);
-                shares.remove(share);
-                notifyDataSetChanged();
-                return true;
-            }
-            default:
-                return true;
-        }
     }
 
     /**
      * Updates the sharee's menu with the current permissions of the {@link OCShare}
      *
-     * @param share the shared file
      * @param menu  the menu of the sharee/shared file
+     * @param share the shared file
      */
-    private void refresMenuForShare(OCShare share, Menu menu) {
-        // TODO add folder edit detail permissions
+    private void prepareOptionsMenu(Menu menu, OCShare share) {
         int sharePermissions = share.getPermissions();
         boolean isFederated = ShareType.FEDERATED.equals(share.getShareType());
 
@@ -193,11 +169,82 @@ public class UserListAdapter extends ArrayAdapter {
                 OCShare.DELETE_PERMISSION_FLAG;
         boolean canEdit = (sharePermissions & anyUpdatePermission) > 0;
         editItem.setChecked(canEdit);
+
+        OwnCloudVersion serverVersion = AccountUtils.getServerVersion(account);
+        boolean isNotReshareableFederatedSupported = serverVersion.isNotReshareableFederatedSupported();
+        boolean areEditOptionsAvailable = !isFederated || isNotReshareableFederatedSupported;
+        MenuItem editCreateItem = menu.findItem(R.id.action_can_edit_create);
+        MenuItem editChangeItem = menu.findItem(R.id.action_can_edit_change);
+        MenuItem editDeleteItem = menu.findItem(R.id.action_can_edit_delete);
+        if (file.isFolder() && areEditOptionsAvailable) {
+            /// TODO change areEditOptionsAvailable in order to delete !isFederated
+            editCreateItem.setChecked((sharePermissions & OCShare.CREATE_PERMISSION_FLAG) > 0);
+            editCreateItem.setVisible(canEdit);
+
+            editChangeItem.setChecked((sharePermissions & OCShare.UPDATE_PERMISSION_FLAG) > 0);
+            editChangeItem.setVisible(canEdit);
+
+            editDeleteItem.setChecked((sharePermissions & OCShare.DELETE_PERMISSION_FLAG) > 0);
+            editDeleteItem.setVisible(canEdit);
+        } else {
+            editCreateItem.setVisible(false);
+            editChangeItem.setVisible(false);
+            editDeleteItem.setVisible(false);
+        }
+    }
+
+    private boolean optionsItemSelected(Menu menu, MenuItem item, OCShare share) {
+        switch (item.getItemId()) {
+            case R.id.action_can_edit: {
+                item.setChecked(!item.isChecked());
+                if (file.isFolder() && !item.isChecked()) {
+                    menu.findItem(R.id.action_can_edit_create).setChecked(false);
+                    menu.findItem(R.id.action_can_edit_change).setChecked(false);
+                    menu.findItem(R.id.action_can_edit_delete).setChecked(false);
+                }
+                share.setPermissions(updatePermissionsToShare(share, menu));
+                return true;
+            }
+            case R.id.action_can_edit_create:
+            case R.id.action_can_edit_change:
+            case R.id.action_can_edit_delete: {
+                item.setChecked(!item.isChecked());
+                if (item.isChecked() && !menu.findItem(R.id.action_can_edit).isChecked()) {
+                    menu.findItem(R.id.action_can_edit).setChecked(true);
+                }
+                share.setPermissions(updatePermissionsToShare(share, menu));
+                return true;
+            }
+            case R.id.action_can_reshare: {
+                item.setChecked(!item.isChecked());
+                share.setPermissions(updatePermissionsToShare(share, menu));
+                return true;
+            }
+            case R.id.action_unshare: {
+                listener.unshareWith(share);
+                shares.remove(share);
+                notifyDataSetChanged();
+                return true;
+            }
+            default:
+                return true;
+        }
+    }
+
+    private int updatePermissionsToShare(OCShare share, Menu menu) {
+        return listener.updatePermissionsToShare(
+                share,
+                menu.findItem(R.id.action_can_reshare).isChecked(),
+                menu.findItem(R.id.action_can_edit).isChecked(),
+                menu.findItem(R.id.action_can_edit_create).isChecked(),
+                menu.findItem(R.id.action_can_edit_change).isChecked(),
+                menu.findItem(R.id.action_can_edit_delete).isChecked()
+        );
     }
 
     public interface ShareeListAdapterListener {
         /**
-         * unshare with given sharee.
+         * unshare with given sharee {@link OCShare}.
          *
          * @param share the share
          */
@@ -212,7 +259,13 @@ public class UserListAdapter extends ArrayAdapter {
          * @param canEditCreate create permission (folders only)
          * @param canEditChange change permission (folders only)
          * @param canEditDelete delete permission (folders only)
+         * @return permissions value set
          */
-        void updatePermissionsToShare(OCShare share, boolean canReshare, boolean canEdit, boolean canEditCreate, boolean canEditChange, boolean canEditDelete);
+        int updatePermissionsToShare(OCShare share,
+                                     boolean canReshare,
+                                     boolean canEdit,
+                                     boolean canEditCreate,
+                                     boolean canEditChange,
+                                     boolean canEditDelete);
     }
 }

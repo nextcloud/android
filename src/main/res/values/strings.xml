@@ -503,9 +503,9 @@
     <string name="share_privilege_unshare">Unshare</string>
     <string name="share_privilege_can_share">can share</string>
     <string name="share_privilege_can_edit">can edit</string>
-    <string name="share_privilege_can_edit_create">create</string>
-    <string name="share_privilege_can_edit_change">change</string>
-    <string name="share_privilege_can_edit_delete">delete</string>
+    <string name="share_privilege_can_edit_create">can create</string>
+    <string name="share_privilege_can_edit_change">can change</string>
+    <string name="share_privilege_can_edit_delete">can delete</string>
 
     <string name="action_retry_uploads">Retry failed uploads</string>
     <string name="action_clear_failed_uploads">Clear failed uploads</string>
