@@ -37,6 +37,7 @@ import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.resources.shares.OCShare;
+import com.owncloud.android.lib.resources.shares.SharePermissionsBuilder;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.adapter.UserListAdapter;
 import com.owncloud.android.utils.ThemeUtils;
@@ -209,12 +210,25 @@ public class FileDetailSharingFragment extends Fragment implements UserListAdapt
     }
 
     @Override
-    public void toggleCanEdit(OCShare share) {
-        // TODO re-implement
-    }
+    public void updatePermissionsToShare(OCShare share, boolean canReshare, boolean canEdit,
+                                         boolean canEditCreate, boolean canEditChange,
+                                         boolean canEditDelete) {
+        SharePermissionsBuilder spb = new SharePermissionsBuilder();
+        spb.setSharePermission(canReshare);
+        if (file.isFolder()) {
+            spb.setUpdatePermission(canEditChange)
+                    .setCreatePermission(canEditCreate)
+                    .setDeletePermission(canEditDelete);
+        } else {
+            spb.setUpdatePermission(canEdit);
+        }
+        int permissions = spb.build();
 
-    @Override
-    public void toggleCanReshare(OCShare share) {
-        // TODO re-implement
+        ((FileActivity) getActivity()).getFileOperationsHelper().
+                setPermissionsToShare(
+                        share,
+                        permissions
+                )
+        ;
     }
 }
