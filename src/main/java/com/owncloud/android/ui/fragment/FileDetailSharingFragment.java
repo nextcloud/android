@@ -21,6 +21,7 @@
 package com.owncloud.android.ui.fragment;
 
 import android.accounts.Account;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -46,7 +47,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
-public class FileDetailSharingFragment  extends Fragment {
+public class FileDetailSharingFragment extends Fragment implements UserListAdapter.ShareeListAdapterListener {
 
     private static final String ARG_FILE = "FILE";
     private static final String ARG_ACCOUNT = "ACCOUNT";
@@ -113,6 +114,14 @@ public class FileDetailSharingFragment  extends Fragment {
         unbinder.unbind();
     }
 
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (!(getActivity() instanceof FileActivity)) {
+            throw new IllegalArgumentException("Calling activity must be of type FileActivity");
+        }
+    }
+
     private void setupView() {
         shareTitle.setTextColor(ThemeUtils.primaryAccentColor(getContext()));
         shareWithUsersTitle.setTextColor(ThemeUtils.primaryAccentColor(getContext()));
@@ -154,7 +163,7 @@ public class FileDetailSharingFragment  extends Fragment {
         // TODO Refactoring: create a new {@link ShareUserListAdapter} instance with every call should not be needed
         UserListAdapter mUserGroupsAdapter = new UserListAdapter(
                 getActivity().getApplicationContext(),
-                R.layout.share_user_item, mShares
+                R.layout.share_user_item, mShares, account, this
         );
 
         if (mShares.size() > 0) {
@@ -191,5 +200,21 @@ public class FileDetailSharingFragment  extends Fragment {
         params.height = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
         listView.setLayoutParams(params);
         listView.requestLayout();
+    }
+
+    @Override
+    public void unshareWith(OCShare share) {
+        ((FileActivity)getActivity()).getFileOperationsHelper()
+                .unshareFileWithUserOrGroup(file, share.getShareType(), share.getShareWith());
+    }
+
+    @Override
+    public void toggleCanEdit(OCShare share) {
+        // TODO re-implement
+    }
+
+    @Override
+    public void toggleCanReshare(OCShare share) {
+        // TODO re-implement
     }
 }
