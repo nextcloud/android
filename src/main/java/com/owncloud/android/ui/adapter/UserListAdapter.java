@@ -179,13 +179,8 @@ public class UserListAdapter extends ArrayAdapter {
         if (file.isFolder() && areEditOptionsAvailable) {
             /// TODO change areEditOptionsAvailable in order to delete !isFederated
             editCreateItem.setChecked((sharePermissions & OCShare.CREATE_PERMISSION_FLAG) > 0);
-            editCreateItem.setVisible(canEdit);
-
             editChangeItem.setChecked((sharePermissions & OCShare.UPDATE_PERMISSION_FLAG) > 0);
-            editChangeItem.setVisible(canEdit);
-
             editDeleteItem.setChecked((sharePermissions & OCShare.DELETE_PERMISSION_FLAG) > 0);
-            editDeleteItem.setVisible(canEdit);
         } else {
             editCreateItem.setVisible(false);
             editChangeItem.setVisible(false);
