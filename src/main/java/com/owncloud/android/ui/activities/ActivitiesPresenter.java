@@ -37,7 +37,7 @@ public class ActivitiesPresenter implements ActivitiesContract.ActionListener {
     private final FilesRepository filesRepository;
 
 
-    public ActivitiesPresenter(@NonNull ActivitiesRepository activitiesRepository,
+    ActivitiesPresenter(@NonNull ActivitiesRepository activitiesRepository,
                                @NonNull FilesRepository filesRepository,
                                @NonNull ActivitiesContract.View activitiesView) {
         this.activitiesRepository = activitiesRepository;
