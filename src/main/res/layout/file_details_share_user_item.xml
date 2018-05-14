@@ -40,7 +40,7 @@
             android:contentDescription="@string/user_icon"/>
 
         <TextView
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:textSize="@dimen/file_details_username_text_size"
