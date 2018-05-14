@@ -22,6 +22,7 @@ package com.owncloud.android.ui.adapter;
 
 import android.accounts.Account;
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -42,6 +43,7 @@ import com.owncloud.android.lib.resources.shares.ShareType;
 import com.owncloud.android.lib.resources.status.OCCapability;
 import com.owncloud.android.lib.resources.status.OwnCloudVersion;
 import com.owncloud.android.ui.TextDrawable;
+import com.owncloud.android.utils.DisplayUtils;
 
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
@@ -50,7 +52,7 @@ import java.util.ArrayList;
 /**
  * Adapter to show a user/group/email/remote in Sharing list in file details view.
  */
-public class UserListAdapter extends ArrayAdapter {
+public class UserListAdapter extends ArrayAdapter implements DisplayUtils.AvatarGenerationListener {
 
     private ShareeListAdapterListener listener;
     private OCCapability capabilities;
@@ -59,6 +61,7 @@ public class UserListAdapter extends ArrayAdapter {
     private float avatarRadiusDimension;
     private Account account;
     private OCFile file;
+    private FileDataStorageManager storageManager;
 
     public UserListAdapter(Context context, int resource, ArrayList<OCShare> shares,
                            Account account, OCFile file, ShareeListAdapterListener listener) {
@@ -69,10 +72,8 @@ public class UserListAdapter extends ArrayAdapter {
         this.account = account;
         this.file = file;
 
-        this.capabilities = new FileDataStorageManager(
-                account,
-                getContext().getContentResolver()
-        ).getCapability(account.name);
+        storageManager = new FileDataStorageManager(account, getContext().getContentResolver());
+        capabilities = storageManager.getCapability(account.name);
 
         avatarRadiusDimension = context.getResources().getDimension(R.dimen.standard_padding);
     }
@@ -123,11 +124,9 @@ public class UserListAdapter extends ArrayAdapter {
                     icon.setImageResource(R.drawable.ic_email);
                 }
             } else {
-                try {
-                    icon.setImageDrawable(TextDrawable.createNamedAvatar(name, avatarRadiusDimension));
-                } catch (UnsupportedEncodingException | NoSuchAlgorithmException e) {
-                    icon.setImageResource(R.drawable.ic_user);
-                }
+                icon.setTag(share.getShareWith());
+                DisplayUtils.setAvatar(account, share.getShareWith(), this, avatarRadiusDimension,
+                        context.getResources(), storageManager, icon, context);
             }
             userName.setText(name);
 
@@ -235,6 +234,23 @@ public class UserListAdapter extends ArrayAdapter {
                 menu.findItem(R.id.action_can_edit_change).isChecked(),
                 menu.findItem(R.id.action_can_edit_delete).isChecked()
         );
+    }
+
+    @Override
+    public void avatarGenerated(Drawable avatarDrawable, Object callContext) {
+        if (callContext instanceof ImageView) {
+            ImageView iv = (ImageView) callContext;
+            iv.setImageDrawable(avatarDrawable);
+        }
+    }
+
+    @Override
+    public boolean shouldCallGeneratedCallback(String tag, Object callContext) {
+        if (callContext instanceof ImageView) {
+            ImageView iv = (ImageView) callContext;
+            return String.valueOf(iv.getTag()).equals(tag);
+        }
+        return false;
     }
 
     public interface ShareeListAdapterListener {

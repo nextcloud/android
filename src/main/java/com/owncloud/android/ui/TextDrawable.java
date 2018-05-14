@@ -104,6 +104,23 @@ public class TextDrawable extends Drawable {
     }
 
     /**
+     * creates an avatar in form of a TextDrawable with the first letter of the account name in a circle with the
+     * given radius.
+     *
+     * @param userId      userId to use
+     * @param radiusInDp  the circle's radius
+     * @return the avatar as a TextDrawable
+     * @throws UnsupportedEncodingException if the charset is not supported when calculating the color values
+     * @throws NoSuchAlgorithmException     if the specified algorithm is not available when calculating the color values
+     */
+    @NonNull
+    @NextcloudServer(max = 12)
+    public static TextDrawable createAvatarByUserId(String userId, float radiusInDp) throws
+            UnsupportedEncodingException, NoSuchAlgorithmException {
+        return createNamedAvatar(userId, radiusInDp);
+    }
+
+    /**
      * creates an avatar in form of a TextDrawable with the first letter of a name in a circle with the
      * given radius.
      *
@@ -114,8 +131,7 @@ public class TextDrawable extends Drawable {
      * @throws NoSuchAlgorithmException     if the specified algorithm is not available when calculating the color values
      */
     @NonNull
-    public static TextDrawable createNamedAvatar(String name, float radiusInDp) throws
-            UnsupportedEncodingException, NoSuchAlgorithmException {
+    public static TextDrawable createNamedAvatar(String name, float radiusInDp) {
         int[] hsl = BitmapUtils.calculateHSL(name);
         int[] rgb = BitmapUtils.HSLtoRGB(hsl[0], hsl[1], hsl[2], 1);
 
