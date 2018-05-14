@@ -238,7 +238,9 @@
 	<string name="auth_not_configured_title">Foutieve serverconfiguratie</string>
 	<string name="auth_account_not_new">Er bestaat al een account voor deze gebruiker en server op dit apparaat</string>
 	<string name="auth_account_not_the_same">De opgegeven gebruiker komt niet overeen met de gebruiker van dit account</string>
+	<string name="auth_unknown_error_http_title">Onbekende HTTP fout opgetreden!</string>
 	<string name="auth_unknown_error_title">Onbekende fout opgetreden!</string>
+	<string name="auth_unknown_error_exception_title">Onbekende fout: %1$s</string>
 	<string name="auth_unknown_host_title">Kon server niet vinden</string>
 	<string name="auth_incorrect_path_title">Server niet gevonden</string>
 	<string name="auth_timeout_title">De server reageerde niet op tijd</string>
@@ -758,4 +760,6 @@
     <string name="sendbutton_description">Verstuur-knop pictogram</string>
     <string name="hint_name">Naam</string>
     <string name="hint_password">Wachtwoord</string>
+    <string name="upload_files">Bestanden uploaden</string>
+    <string name="create_new_folder">Nieuwe map aanmaken</string>
     </resources>
